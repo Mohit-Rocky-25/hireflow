@@ -19,6 +19,7 @@ import { PublicJobDetail } from './pages/jobs/PublicJobDetail';
 import { CompanyDashboard } from './pages/company/CompanyDashboard';
 import { CompanyJobs } from './pages/company/CompanyJobs';
 import { CreateJob } from './pages/company/CreateJob';
+import { EditJob } from './pages/company/EditJob';
 import { CompanyJobDetail } from './pages/company/CompanyJobDetail';
 import { CompanyCandidates } from './pages/company/CompanyCandidates';
 import { CandidateDetail } from './pages/company/CandidateDetail';
@@ -31,6 +32,7 @@ import { CompanySettings } from './pages/company/CompanySettings';
 import { InterviewerDashboard } from './pages/interviewer/InterviewerDashboard';
 import { InterviewerInterviews } from './pages/interviewer/InterviewerInterviews';
 import { InterviewDetail } from './pages/interviewer/InterviewDetail';
+import { InterviewerProfile } from './pages/interviewer/InterviewerProfile';
 
 // Candidate Pages
 import { CandidateDashboard } from './pages/candidate/CandidateDashboard';
@@ -45,6 +47,11 @@ import { CandidateProfilePage } from './pages/candidate/CandidateProfilePage';
 import { AdminDashboard } from './pages/admin/AdminDashboard';
 import { AdminCompanies } from './pages/admin/AdminCompanies';
 import { AdminUsers } from './pages/admin/AdminUsers';
+import { AdminAuditLog } from './pages/admin/AdminAuditLog';
+import { AdminSettings } from './pages/admin/AdminSettings';
+
+// Shared Pages
+import { NotificationsPage } from './pages/NotificationsPage';
 
 // Guards
 import { ProtectedRoute } from './components/auth/ProtectedRoute';
@@ -76,12 +83,14 @@ export default function App() {
           <Route path="jobs" element={<CompanyJobs />} />
           <Route path="jobs/new" element={<CreateJob />} />
           <Route path="jobs/:id" element={<CompanyJobDetail />} />
+          <Route path="jobs/:id/edit" element={<EditJob />} />
           <Route path="candidates" element={<CompanyCandidates />} />
           <Route path="candidates/:id" element={<CandidateDetail />} />
           <Route path="interviewers" element={<CompanyInterviewers />} />
           <Route path="analytics" element={<CompanyAnalytics />} />
           <Route path="team" element={<CompanyTeam />} />
           <Route path="settings" element={<CompanySettings />} />
+          <Route path="notifications" element={<NotificationsPage />} />
         </Route>
 
         {/* Interviewer Routes */}
@@ -90,6 +99,8 @@ export default function App() {
           <Route path="dashboard" element={<InterviewerDashboard />} />
           <Route path="interviews" element={<InterviewerInterviews />} />
           <Route path="interviews/:id" element={<InterviewDetail />} />
+          <Route path="profile" element={<InterviewerProfile />} />
+          <Route path="notifications" element={<NotificationsPage />} />
         </Route>
 
         {/* Candidate Routes */}
@@ -103,6 +114,7 @@ export default function App() {
           <Route path="interviews" element={<CandidateInterviews />} />
           <Route path="resume" element={<CandidateResume />} />
           <Route path="profile" element={<CandidateProfilePage />} />
+          <Route path="notifications" element={<NotificationsPage />} />
         </Route>
 
         {/* Admin Routes */}
@@ -111,6 +123,9 @@ export default function App() {
           <Route path="dashboard" element={<AdminDashboard />} />
           <Route path="companies" element={<AdminCompanies />} />
           <Route path="users" element={<AdminUsers />} />
+          <Route path="audit" element={<AdminAuditLog />} />
+          <Route path="settings" element={<AdminSettings />} />
+          <Route path="notifications" element={<NotificationsPage />} />
         </Route>
 
         {/* Catch all */}

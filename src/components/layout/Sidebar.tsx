@@ -7,7 +7,7 @@ import type { UserRole } from '../../types';
 import {
   LayoutDashboard, Briefcase, Users, UserCheck, Calendar,
   BarChart3, Settings, FileText, Search, Bell, User,
-  MessageSquare, Star, Building2, Shield, ChevronLeft,
+  Building2, Shield, ChevronLeft,
   ChevronRight, Sparkles, ClipboardList, Home
 } from 'lucide-react';
 
@@ -29,7 +29,8 @@ const NAV_ITEMS: Record<UserRole, NavItem[]> = {
     { label: 'Candidates', path: '/company/candidates', icon: <Users className="w-5 h-5" /> },
     { label: 'Interviewers', path: '/company/interviewers', icon: <UserCheck className="w-5 h-5" /> },
     { label: 'Analytics', path: '/company/analytics', icon: <BarChart3 className="w-5 h-5" /> },
-    { label: 'Company Team', path: '/company/team', icon: <Building2 className="w-5 h-5" /> },
+    { label: 'Team', path: '/company/team', icon: <Building2 className="w-5 h-5" /> },
+    { label: 'Notifications', path: '/company/notifications', icon: <Bell className="w-5 h-5" /> },
     { label: 'Settings', path: '/company/settings', icon: <Settings className="w-5 h-5" /> },
   ],
   HR_RECRUITER: [
@@ -37,12 +38,14 @@ const NAV_ITEMS: Record<UserRole, NavItem[]> = {
     { label: 'My Jobs', path: '/company/jobs', icon: <Briefcase className="w-5 h-5" /> },
     { label: 'Candidates', path: '/company/candidates', icon: <Users className="w-5 h-5" /> },
     { label: 'Analytics', path: '/company/analytics', icon: <BarChart3 className="w-5 h-5" /> },
+    { label: 'Notifications', path: '/company/notifications', icon: <Bell className="w-5 h-5" /> },
     { label: 'Profile', path: '/company/settings', icon: <User className="w-5 h-5" /> },
   ],
   INTERVIEWER: [
     { label: 'Dashboard', path: '/interviewer/dashboard', icon: <LayoutDashboard className="w-5 h-5" /> },
     { label: 'My Interviews', path: '/interviewer/interviews', icon: <Calendar className="w-5 h-5" /> },
-    { label: 'Profile', path: '/interviewer/dashboard', icon: <User className="w-5 h-5" /> },
+    { label: 'Notifications', path: '/interviewer/notifications', icon: <Bell className="w-5 h-5" /> },
+    { label: 'Profile', path: '/interviewer/profile', icon: <User className="w-5 h-5" /> },
   ],
   CANDIDATE: [
     { label: 'Home', path: '/candidate/dashboard', icon: <Home className="w-5 h-5" /> },
@@ -50,14 +53,15 @@ const NAV_ITEMS: Record<UserRole, NavItem[]> = {
     { label: 'My Applications', path: '/candidate/applications', icon: <ClipboardList className="w-5 h-5" /> },
     { label: 'Interviews', path: '/candidate/interviews', icon: <Calendar className="w-5 h-5" /> },
     { label: 'Resume', path: '/candidate/resume', icon: <FileText className="w-5 h-5" /> },
+    { label: 'Notifications', path: '/candidate/notifications', icon: <Bell className="w-5 h-5" /> },
     { label: 'Profile', path: '/candidate/profile', icon: <User className="w-5 h-5" /> },
-    { label: 'Notifications', path: '/candidate/dashboard', icon: <Bell className="w-5 h-5" /> },
   ],
   PLATFORM_ADMIN: [
     { label: 'Dashboard', path: '/admin/dashboard', icon: <LayoutDashboard className="w-5 h-5" /> },
     { label: 'Companies', path: '/admin/companies', icon: <Building2 className="w-5 h-5" /> },
     { label: 'Users', path: '/admin/users', icon: <Users className="w-5 h-5" /> },
-    { label: 'Settings', path: '/admin/dashboard', icon: <Settings className="w-5 h-5" /> },
+    { label: 'Audit Log', path: '/admin/audit', icon: <Shield className="w-5 h-5" /> },
+    { label: 'Settings', path: '/admin/settings', icon: <Settings className="w-5 h-5" /> },
   ],
 };
 

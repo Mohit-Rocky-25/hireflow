@@ -4,7 +4,7 @@
 import { useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useStore } from '../../store/useStore';
-import { ArrowLeft, Users, Brain, Calendar, BarChart3, CheckCircle, XCircle, Clock, Eye, Star } from 'lucide-react';
+import { ArrowLeft, Users, Brain, Calendar, BarChart3, CheckCircle, XCircle, Clock, Eye, Star, Pencil } from 'lucide-react';
 import { toast } from '../../components/ui/Toast';
 
 export function CompanyJobDetail() {
@@ -39,7 +39,15 @@ export function CompanyJobDetail() {
           <h1 className="text-xl font-bold text-foreground">{job.title}</h1>
           <p className="text-sm text-muted">{job.department} • {job.location}</p>
         </div>
-        <span className={`px-3 py-1 text-xs font-medium rounded-full capitalize ${job.status === 'published' ? 'bg-green-50 text-success' : 'bg-gray-100 text-muted'}`}>{job.status}</span>
+        <div className="flex items-center gap-2">
+          <span className={`px-3 py-1 text-xs font-medium rounded-full capitalize ${job.status === 'published' ? 'bg-green-50 text-success' : 'bg-gray-100 text-muted'}`}>{job.status}</span>
+          <button
+            onClick={() => navigate(`/company/jobs/${job.id}/edit`)}
+            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold border border-border rounded-btn hover:bg-gray-50 transition-colors"
+          >
+            <Pencil className="w-3.5 h-3.5" /> Edit
+          </button>
+        </div>
       </div>
 
       {/* Tabs */}
