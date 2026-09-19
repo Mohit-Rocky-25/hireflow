@@ -2,7 +2,7 @@
 // HireFlow — Interview Detail & Feedback (Interviewer View)
 // ============================================================
 import { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useStore } from '../../store/useStore';
 import { ArrowLeft, Calendar, Clock, Video, CheckCircle, Star, User, Briefcase, FileText } from 'lucide-react';
 import { toast } from '../../components/ui/Toast';
@@ -150,18 +150,14 @@ export function InterviewDetail() {
               <p className="flex items-center gap-2">
                 <Clock className="w-4 h-4 text-muted" /> Time: {interview.scheduledTime} ({interview.duration} min)
               </p>
-              {interview.meetingLink && (
-                <div className="pt-2">
-                  <a
-                    href={interview.meetingLink}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-2 px-3 py-1.5 bg-primary text-white text-xs font-medium rounded-btn hover:bg-primary-hover"
-                  >
-                    <Video className="w-3.5 h-3.5" /> Join Video Call
-                  </a>
-                </div>
-              )}
+              <div className="pt-2">
+                <Link
+                  to={`/interview-room/${interview.id}`}
+                  className="inline-flex items-center gap-2 px-3.5 py-2 bg-primary text-white text-xs font-semibold rounded-btn hover:bg-primary-hover shadow-sm transition-all"
+                >
+                  <Video className="w-3.5 h-3.5" /> Launch Live Interview Studio
+                </Link>
+              </div>
             </div>
           </div>
 

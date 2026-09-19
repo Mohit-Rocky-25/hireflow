@@ -26,12 +26,16 @@ export function InterviewerInterviews() {
                     <p className="text-sm text-muted mt-1">{job?.title} • {interview.stage}</p>
                     <p className="text-xs text-muted mt-1">📅 {interview.scheduledDate} at {interview.scheduledTime} ({interview.duration}min)</p>
                   </div>
-                  <div className="flex items-center gap-3">
-                    <span className={`px-2.5 py-1 text-xs font-medium rounded-full ${interview.status === 'completed' ? 'bg-green-50 text-success' : 'bg-primary-light text-primary'}`}>
-                      {interview.status === 'completed' ? <><CheckCircle className="w-3 h-3 inline mr-1" />Completed</> : interview.status}
-                    </span>
-                    <ArrowRight className="w-4 h-4 text-muted opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </div>
+                    <div className="flex items-center gap-2">
+                      <Link
+                        to={`/interview-room/${interview.id}`}
+                        onClick={e => e.stopPropagation()}
+                        className="px-3 py-1.5 bg-primary-light hover:bg-primary text-primary hover:text-white text-xs font-semibold rounded-btn transition-colors"
+                      >
+                        Join Studio
+                      </Link>
+                      <ArrowRight className="w-4 h-4 text-muted opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </div>
                 </div>
               </Link>
             );

@@ -28,7 +28,71 @@ export function CreateJob() {
     aiExplanation: true, minimumThreshold: 70, autoShortlist: false,
   });
 
+  const [isGeneratingWithAi, setIsGeneratingWithAi] = useState(false);
+
   const totalWeight = requirements.reduce((s, r) => s + r.weight, 0);
+
+  const handleAiGenerateRoleSpec = () => {
+    setIsGeneratingWithAi(true);
+    toast('info', 'AI is drafting role specification, responsibilities, and requirements...');
+
+    setTimeout(() => {
+      const roleTitle = form.title.trim() || 'Senior Full Stack Software Engineer';
+      const roleDept = form.department.trim() || 'Engineering & Platform';
+
+      const generatedSummary = `We are seeking an experienced ${roleTitle} to join our high-growth engineering organization. In this role, you will architect resilient distributed systems, build customer-facing web applications, and collaborate with cross-functional product teams to deliver mission-critical software solutions.`;
+
+      const generatedResponsibilities = [
+        `Architect, develop, and maintain performant web services and scalable APIs.`,
+        `Collaborate with designers and product managers to deliver intuitive user workflows.`,
+        `Conduct rigorous code reviews and mentor junior engineering team members.`,
+        `Improve platform reliability, test coverage, and automated CI/CD deployment pipelines.`,
+      ];
+
+      const generatedDayToDay = [
+        `Participate in morning agile standups and sprint planning.`,
+        `Write clean, test-driven TypeScript / Python / Go code.`,
+        `Collaborate on architecture decision records (ADRs) with technical leads.`,
+      ];
+
+      const generatedRequirements: Omit<JobRequirement, 'id' | 'jobId'>[] = [
+        { name: 'Modern TypeScript & React', category: 'skill', priority: 'MANDATORY', weight: 30, description: '3+ years of production experience building complex SPAs' },
+        { name: 'Scalable Backend APIs (Node/Go/Python)', category: 'technology', priority: 'MANDATORY', weight: 30, description: 'Experience designing RESTful or GraphQL services' },
+        { name: 'Relational & NoSQL Databases', category: 'technology', priority: 'MANDATORY', weight: 20, description: 'PostgreSQL schema optimization and query tuning' },
+        { name: 'System Design & Distributed Caching', category: 'domain', priority: 'PREFERRED', weight: 10, description: 'Understanding of Redis, microservices, and concurrency' },
+        { name: 'Cloud Infrastructure & CI/CD', category: 'skill', priority: 'PREFERRED', weight: 10, description: 'Familiarity with Docker, Kubernetes, or AWS cloud services' },
+      ];
+
+      setForm(f => ({
+        ...f,
+        title: roleTitle,
+        department: roleDept,
+        location: f.location || 'Bangalore, India (Hybrid)',
+        salaryMin: f.salaryMin || '1800000',
+        salaryMax: f.salaryMax || '3200000',
+        summary: generatedSummary,
+        responsibilities: generatedResponsibilities,
+        dayToDay: generatedDayToDay,
+        teamDescription: 'High-performing core platform engineering squad driven by ownership and developer excellence.',
+      }));
+
+      setRequirements(generatedRequirements);
+      setScreening({
+        autoResumeExtraction: true,
+        skillMatching: true,
+        experienceMatching: true,
+        educationMatching: true,
+        projectRelevance: true,
+        certificationMatching: true,
+        aiExplanation: true,
+        minimumThreshold: 75,
+        autoShortlist: false,
+      });
+
+      setIsGeneratingWithAi(false);
+      toast('success', `AI drafted complete role spec for "${roleTitle}"!`);
+    }, 1000);
+  };
 
   const addRequirement = () => {
     if (!newReq.name) return;
@@ -131,11 +195,22 @@ export function CreateJob() {
         {/* Step 0: Basic Info */}
         {step === 0 && (
           <div className="space-y-4">
-            <h2 className="text-lg font-semibold text-foreground">Basic Information</h2>
+            <div className="flex items-center justify-between">
+              <h2 className="text-lg font-semibold text-foreground">Basic Information</h2>
+              <button
+                type="button"
+                onClick={handleAiGenerateRoleSpec}
+                disabled={isGeneratingWithAi}
+                className="flex items-center gap-1.5 px-3.5 py-1.5 bg-ai-light hover:bg-ai/20 text-ai text-xs font-semibold rounded-btn border border-ai/30 transition-all shadow-sm"
+              >
+                <Sparkles className="w-3.5 h-3.5" />
+                {isGeneratingWithAi ? 'AI Drafting Spec...' : '✨ AI Auto-Draft Full Spec'}
+              </button>
+            </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="sm:col-span-2">
                 <label className="block text-sm font-medium text-foreground mb-1.5">Job Title *</label>
-                <input value={form.title} onChange={e => setForm(f => ({ ...f, title: e.target.value }))} placeholder="e.g. Backend Developer" className="w-full px-4 py-2.5 border border-border rounded-btn text-sm focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none" />
+                <input value={form.title} onChange={e => setForm(f => ({ ...f, title: e.target.value }))} placeholder="e.g. Senior Backend Engineer" className="w-full px-4 py-2.5 border border-border rounded-btn text-sm focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none" />
               </div>
               <div>
                 <label className="block text-sm font-medium text-foreground mb-1.5">Department *</label>
@@ -187,9 +262,14 @@ export function CreateJob() {
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <h2 className="text-lg font-semibold text-foreground">Job Description</h2>
-              <button className="px-3 py-1.5 text-xs font-medium text-ai bg-ai-light rounded-btn hover:bg-ai/10 transition-colors flex items-center gap-1.5">
+              <button
+                type="button"
+                onClick={handleAiGenerateRoleSpec}
+                disabled={isGeneratingWithAi}
+                className="px-3 py-1.5 text-xs font-semibold text-ai bg-ai-light rounded-btn hover:bg-ai/10 transition-colors flex items-center gap-1.5 border border-ai/30"
+              >
                 <Sparkles className="w-3.5 h-3.5" />
-                AI Improve
+                {isGeneratingWithAi ? 'AI Improving...' : 'AI Enhance & Fill'}
               </button>
             </div>
             <div>

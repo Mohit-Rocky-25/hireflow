@@ -53,6 +53,7 @@ import { AdminSettings } from './pages/admin/AdminSettings';
 
 // Shared Pages
 import { NotificationsPage } from './pages/NotificationsPage';
+import { LiveInterviewRoom } from './pages/shared/LiveInterviewRoom';
 
 // Guards
 import { ProtectedRoute } from './components/auth/ProtectedRoute';
@@ -130,6 +131,16 @@ export default function App() {
           <Route path="settings" element={<AdminSettings />} />
           <Route path="notifications" element={<NotificationsPage />} />
         </Route>
+
+        {/* Live Interview Studio (Shared full-screen experience) */}
+        <Route
+          path="/interview-room/:id"
+          element={
+            <ProtectedRoute roles={['CANDIDATE', 'INTERVIEWER', 'BHR_MANAGER', 'HR_RECRUITER', 'PLATFORM_ADMIN']}>
+              <LiveInterviewRoom />
+            </ProtectedRoute>
+          }
+        />
 
         {/* Catch all */}
         <Route path="*" element={<Navigate to="/" replace />} />

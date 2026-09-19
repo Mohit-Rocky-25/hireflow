@@ -4,7 +4,7 @@
 import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useStore } from '../../store/useStore';
-import { Users, Brain, Search, Filter, ArrowRight, ArrowUpDown, Mail, Calendar, Download } from 'lucide-react';
+import { Users, Brain, Search, Filter, ArrowRight, ArrowUpDown, Mail, Calendar, Download, Sparkles, CheckCircle2, Tag } from 'lucide-react';
 
 const STATUS_COLORS: Record<string, string> = {
   APPLIED: 'bg-gray-100 text-muted',
@@ -20,8 +20,10 @@ const STATUS_COLORS: Record<string, string> = {
 };
 
 export function CompanyCandidates() {
-  const { currentCompanyId, applications, users, candidateMatches, jobs } = useStore();
+  const { currentCompanyId, applications, users, candidateMatches, candidateProfiles, jobs } = useStore();
   const [search, setSearch] = useState('');
+  const [isAiMode, setIsAiMode] = useState(false);
+  const [aiFilterQuery, setAiFilterQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
   const [jobFilter, setJobFilter] = useState('');
   const [sortBy, setSortBy] = useState<'date' | 'score'>('date');
@@ -36,10 +38,32 @@ export function CompanyCandidates() {
       .filter(a => !statusFilter || a.status === statusFilter)
       .filter(a => !jobFilter || a.jobId === jobFilter)
       .filter(a => {
-        if (!search) return true;
         const user = users.find(u => u.id === a.candidateId);
-        return user?.displayName.toLowerCase().includes(search.toLowerCase()) ||
-          user?.email.toLowerCase().includes(search.toLowerCase());
+        const profile = candidateProfiles.find(p => p.userId === a.candidateId);
+        const match = candidateMatches.find(m => m.applicationId === a.id);
+
+        if (isAiMode && aiFilterQuery) {
+          const q = aiFilterQuery.toLowerCase();
+          if (q.includes('80') || q.includes('top') || q.includes('high')) {
+            return (match?.overallScore || 0) >= 80;
+          }
+          if (q.includes('react')) {
+            return profile?.skills.some(s => s.toLowerCase().includes('react')) || match?.strongMatches.some(m => m.requirement.toLowerCase().includes('react'));
+          }
+          if (q.includes('backend') || q.includes('node') || q.includes('java')) {
+            return profile?.skills.some(s => /backend|node|java|python|sql/i.test(s));
+          }
+          if (q.includes('interview') || q.includes('shortlist')) {
+            return a.status === 'SHORTLISTED' || a.status === 'INTERVIEW';
+          }
+          // Generic semantic keyword match
+          const searchSpace = `${user?.displayName} ${user?.email} ${profile?.skills.join(' ')} ${match?.evidenceSummary} ${match?.explanation}`.toLowerCase();
+          return searchSpace.includes(q);
+        }
+
+        if (!search) return true;
+        const searchSpace = `${user?.displayName} ${user?.email} ${profile?.skills.join(' ')}`.toLowerCase();
+        return searchSpace.includes(search.toLowerCase());
       })
       .sort((a, b) => {
         if (sortBy === 'score') {
@@ -49,7 +73,7 @@ export function CompanyCandidates() {
         }
         return new Date(b.appliedAt).getTime() - new Date(a.appliedAt).getTime();
       });
-  }, [applications, currentCompanyId, statusFilter, jobFilter, search, users, sortBy, candidateMatches]);
+  }, [applications, currentCompanyId, statusFilter, jobFilter, search, isAiMode, aiFilterQuery, users, candidateProfiles, sortBy, candidateMatches]);
 
   const totalPages = Math.ceil(companyApps.length / PER_PAGE);
   const paginated = companyApps.slice((page - 1) * PER_PAGE, page * PER_PAGE);
@@ -135,37 +159,95 @@ export function CompanyCandidates() {
       </div>
 
       {/* Search & Filters */}
-      <div className="flex flex-col sm:flex-row gap-3">
-        <div className="flex-1 relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
-          <input
-            value={search}
-            onChange={e => { setSearch(e.target.value); setPage(1); }}
-            placeholder="Search by name or email..."
-            className="w-full pl-10 pr-4 py-2.5 border border-border rounded-btn text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
-          />
+      <div className="space-y-2">
+        <div className="flex flex-col sm:flex-row gap-3">
+          <div className="flex-1 relative">
+            {isAiMode ? (
+              <Sparkles className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-ai animate-pulse" />
+            ) : (
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
+            )}
+            <input
+              value={isAiMode ? aiFilterQuery : search}
+              onChange={e => {
+                if (isAiMode) setAiFilterQuery(e.target.value);
+                else setSearch(e.target.value);
+                setPage(1);
+              }}
+              placeholder={
+                isAiMode
+                  ? "AI Assistant: 'Find candidates with 4+ years of React and API experience'..."
+                  : "Search candidates by name or email..."
+              }
+              className={`w-full pl-10 pr-4 py-2.5 rounded-btn text-sm outline-none transition-all ${
+                isAiMode
+                  ? 'border-2 border-ai/50 bg-ai-light/10 focus:ring-2 focus:ring-ai/20 text-foreground placeholder:text-ai/60'
+                  : 'border border-border focus:border-primary focus:ring-2 focus:ring-primary/20'
+              }`}
+            />
+          </div>
+
+          <div className="flex gap-2">
+            <button
+              onClick={() => {
+                setIsAiMode(!isAiMode);
+                setSearch('');
+                setAiFilterQuery('');
+                setPage(1);
+              }}
+              className={`flex items-center gap-1.5 px-4 py-2.5 rounded-btn text-sm font-semibold transition-all ${
+                isAiMode
+                  ? 'bg-ai text-white shadow-sm'
+                  : 'bg-surface border border-ai/40 text-ai hover:bg-ai-light'
+              }`}
+            >
+              <Sparkles className="w-4 h-4" />
+              {isAiMode ? 'AI Search Active' : 'AI Assistant'}
+            </button>
+
+            <select
+              value={jobFilter}
+              onChange={e => { setJobFilter(e.target.value); setPage(1); }}
+              className="px-3 py-2.5 border border-border rounded-btn text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary bg-surface"
+            >
+              <option value="">All Jobs</option>
+              {companyJobs.map(j => (
+                <option key={j.id} value={j.id}>{j.title}</option>
+              ))}
+            </select>
+
+            <button
+              onClick={() => setSortBy(s => s === 'date' ? 'score' : 'date')}
+              className={`flex items-center gap-1.5 px-3 py-2.5 border border-border rounded-btn text-sm font-medium transition-colors ${
+                sortBy === 'score' ? 'bg-ai-light text-ai border-ai/20' : 'text-secondary hover:bg-gray-50'
+              }`}
+            >
+              <ArrowUpDown className="w-3.5 h-3.5" />
+              {sortBy === 'score' ? 'By Score' : 'By Date'}
+            </button>
+          </div>
         </div>
-        <div className="flex gap-2">
-          <select
-            value={jobFilter}
-            onChange={e => { setJobFilter(e.target.value); setPage(1); }}
-            className="px-3 py-2.5 border border-border rounded-btn text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
-          >
-            <option value="">All Jobs</option>
-            {companyJobs.map(j => (
-              <option key={j.id} value={j.id}>{j.title}</option>
+
+        {/* AI Quick Query Suggestions */}
+        {isAiMode && (
+          <div className="flex items-center gap-2 flex-wrap pt-1 animate-fade-in text-xs">
+            <span className="text-muted flex items-center gap-1 font-medium"><Tag className="w-3 h-3 text-ai" /> Suggested:</span>
+            {[
+              'Top 80%+ matches',
+              'React & TypeScript frontend',
+              'Backend & Node.js engineers',
+              'Shortlisted candidates',
+            ].map(prompt => (
+              <button
+                key={prompt}
+                onClick={() => { setAiFilterQuery(prompt); setPage(1); }}
+                className="px-2.5 py-1 bg-ai-light hover:bg-ai/20 text-ai rounded-full font-medium transition-colors border border-ai/20"
+              >
+                {prompt}
+              </button>
             ))}
-          </select>
-          <button
-            onClick={() => setSortBy(s => s === 'date' ? 'score' : 'date')}
-            className={`flex items-center gap-1.5 px-3 py-2.5 border border-border rounded-btn text-sm font-medium transition-colors ${
-              sortBy === 'score' ? 'bg-ai-light text-ai border-ai/20' : 'text-secondary hover:bg-gray-50'
-            }`}
-          >
-            <ArrowUpDown className="w-3.5 h-3.5" />
-            {sortBy === 'score' ? 'By Score' : 'By Date'}
-          </button>
-        </div>
+          </div>
+        )}
       </div>
 
       {/* Candidates Table */}
