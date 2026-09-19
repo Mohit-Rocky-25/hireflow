@@ -7,7 +7,7 @@ import type { UserRole } from '../../types';
 import {
   LayoutDashboard, Briefcase, Users, UserCheck, Calendar,
   BarChart3, Settings, FileText, Search, Bell, User,
-  Building2, Shield, ChevronLeft,
+  Building2, Shield, ChevronLeft, Award,
   ChevronRight, Sparkles, ClipboardList, Home
 } from 'lucide-react';
 
@@ -29,6 +29,7 @@ const NAV_ITEMS: Record<UserRole, NavItem[]> = {
     { label: 'Candidates', path: '/company/candidates', icon: <Users className="w-5 h-5" /> },
     { label: 'Interviewers', path: '/company/interviewers', icon: <UserCheck className="w-5 h-5" /> },
     { label: 'Analytics', path: '/company/analytics', icon: <BarChart3 className="w-5 h-5" /> },
+    { label: 'Offers', path: '/company/offers', icon: <Award className="w-5 h-5" /> },
     { label: 'Team', path: '/company/team', icon: <Building2 className="w-5 h-5" /> },
     { label: 'Notifications', path: '/company/notifications', icon: <Bell className="w-5 h-5" /> },
     { label: 'Settings', path: '/company/settings', icon: <Settings className="w-5 h-5" /> },

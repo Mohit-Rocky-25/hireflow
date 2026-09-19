@@ -27,6 +27,7 @@ import { CompanyInterviewers } from './pages/company/CompanyInterviewers';
 import { CompanyAnalytics } from './pages/company/CompanyAnalytics';
 import { CompanyTeam } from './pages/company/CompanyTeam';
 import { CompanySettings } from './pages/company/CompanySettings';
+import { CompanyOffers } from './pages/company/CompanyOffers';
 
 // Interviewer Pages
 import { InterviewerDashboard } from './pages/interviewer/InterviewerDashboard';
@@ -89,6 +90,7 @@ export default function App() {
           <Route path="interviewers" element={<CompanyInterviewers />} />
           <Route path="analytics" element={<CompanyAnalytics />} />
           <Route path="team" element={<CompanyTeam />} />
+          <Route path="offers" element={<CompanyOffers />} />
           <Route path="settings" element={<CompanySettings />} />
           <Route path="notifications" element={<NotificationsPage />} />
         </Route>
