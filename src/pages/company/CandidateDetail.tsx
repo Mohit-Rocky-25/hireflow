@@ -166,7 +166,7 @@ export function CandidateDetail() {
         <div className="flex items-center gap-2">
           <button
             onClick={() => setShowScheduleModal(true)}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white text-xs font-semibold rounded-btn hover:bg-primary-hover shadow-sm transition-all"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-black hover:bg-neutral-900 active:bg-black text-white text-xs font-semibold rounded-[10px] border border-black shadow-sm transition-all active:scale-95"
           >
             <Calendar className="w-3.5 h-3.5" /> Schedule Interview
           </button>

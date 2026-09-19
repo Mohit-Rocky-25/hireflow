@@ -4,7 +4,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useStore } from '../../store/useStore';
-import { Menu, Bell, Search, LogOut, User, Settings, ChevronDown, ArrowRight, CheckCheck, Database } from 'lucide-react';
+import { Menu, Bell, Search, LogOut, User, Settings, ChevronDown, ArrowRight, CheckCheck, Database, Plus, Briefcase, Calendar } from 'lucide-react';
 import { toast } from '../ui/Toast';
 
 interface TopHeaderProps {
@@ -120,6 +120,35 @@ export function TopHeader({ onMenuClick }: TopHeaderProps) {
 
       {/* Right */}
       <div className="flex items-center gap-2">
+        {/* Role-Specific Primary Black Header Action (Section 53) */}
+        {(currentUser.role === 'BHR_MANAGER' || currentUser.role === 'HR_RECRUITER') && (
+          <Link
+            to="/company/jobs/new"
+            className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-black hover:bg-neutral-900 active:bg-black text-white text-xs font-semibold rounded-[10px] border border-black shadow-sm transition-all active:scale-95"
+          >
+            <Plus className="w-3.5 h-3.5" />
+            <span>Post Job</span>
+          </Link>
+        )}
+        {currentUser.role === 'CANDIDATE' && (
+          <Link
+            to="/candidate/jobs"
+            className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-black hover:bg-neutral-900 active:bg-black text-white text-xs font-semibold rounded-[10px] border border-black shadow-sm transition-all active:scale-95"
+          >
+            <Briefcase className="w-3.5 h-3.5" />
+            <span>Find Jobs</span>
+          </Link>
+        )}
+        {currentUser.role === 'INTERVIEWER' && (
+          <Link
+            to="/interviewer/interviews"
+            className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-black hover:bg-neutral-900 active:bg-black text-white text-xs font-semibold rounded-[10px] border border-black shadow-sm transition-all active:scale-95"
+          >
+            <Calendar className="w-3.5 h-3.5" />
+            <span>Interviews</span>
+          </Link>
+        )}
+
         {/* Data Mode Switcher (Clean vs Demo Data) */}
         {isDemoMode ? (
           <button
@@ -130,7 +159,7 @@ export function TopHeader({ onMenuClick }: TopHeaderProps) {
                 navigate('/login');
               }
             }}
-            className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-semibold bg-amber-50 text-amber-800 border border-amber-300 rounded-btn hover:bg-amber-100 transition-colors"
+            className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-semibold bg-amber-50 text-amber-800 border border-amber-300 rounded-[10px] hover:bg-black hover:text-white hover:border-black active:bg-black active:text-white transition-all"
             title="Demo data is currently loaded. Click to clear all mock data."
           >
             <Database className="w-3 h-3 text-amber-600" />
@@ -142,7 +171,7 @@ export function TopHeader({ onMenuClick }: TopHeaderProps) {
               loadDemoData();
               toast('success', 'Loaded demo dataset for testing.');
             }}
-            className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-semibold bg-gray-100 text-secondary border border-border rounded-btn hover:bg-gray-200 transition-colors"
+            className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-semibold bg-gray-100 text-secondary border border-border rounded-[10px] hover:bg-black hover:text-white hover:border-black active:bg-black active:text-white transition-all"
             title="Clean database active. Click to populate sample demo data."
           >
             <Database className="w-3 h-3 text-muted" />
@@ -153,18 +182,22 @@ export function TopHeader({ onMenuClick }: TopHeaderProps) {
         {/* Search */}
         <button
           onClick={() => document.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', ctrlKey: true }))}
-          className="flex items-center gap-2 px-3 py-1.5 rounded-btn border border-border hover:bg-gray-100 transition-colors text-muted hover:text-foreground"
+          className="flex items-center gap-2 px-3 py-1.5 rounded-[10px] border border-border hover:border-black hover:bg-black hover:text-white active:bg-black active:text-white transition-all text-muted group"
         >
           <Search className="w-4 h-4" />
           <span className="hidden md:block text-xs">Search…</span>
-          <kbd className="hidden md:inline-flex items-center px-1.5 py-0.5 text-[10px] font-mono text-muted bg-gray-100 rounded border border-gray-200">⌘K</kbd>
+          <kbd className="hidden md:inline-flex items-center px-1.5 py-0.5 text-[10px] font-mono text-muted group-hover:text-black bg-gray-100 rounded border border-gray-200">⌘K</kbd>
         </button>
 
         {/* Notifications Dropdown */}
         <div ref={notifRef} className="relative">
           <button
             onClick={() => setNotifOpen(!notifOpen)}
-            className="p-2 rounded-btn hover:bg-gray-100 transition-colors text-muted hover:text-foreground relative"
+            className={`p-2 rounded-[10px] transition-all relative ${
+              notifOpen
+                ? 'bg-black text-white border border-black shadow-sm'
+                : 'text-muted hover:bg-black hover:text-white active:bg-black active:text-white border border-transparent hover:border-black'
+            }`}
           >
             <Bell className="w-5 h-5" />
             {unreadCount > 0 && (
@@ -243,15 +276,21 @@ export function TopHeader({ onMenuClick }: TopHeaderProps) {
         <div ref={profileRef} className="relative">
           <button
             onClick={() => setProfileOpen(!profileOpen)}
-            className="flex items-center gap-2 pl-3 pr-2 py-1.5 rounded-btn hover:bg-gray-100 transition-colors"
+            className={`flex items-center gap-2 pl-2.5 pr-2 py-1.5 rounded-[10px] transition-all ${
+              profileOpen
+                ? 'bg-black text-white border border-black shadow-sm'
+                : 'text-foreground hover:bg-black hover:text-white active:bg-black active:text-white border border-transparent hover:border-black'
+            }`}
           >
-            <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary text-sm font-semibold">
+            <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition-colors ${
+              profileOpen ? 'bg-neutral-800 text-white' : 'bg-primary/10 text-primary'
+            }`}>
               {initials}
             </div>
-            <span className="hidden md:block text-sm font-medium text-foreground max-w-[120px] truncate">
+            <span className="hidden md:block text-xs font-semibold max-w-[120px] truncate">
               {currentUser.displayName}
             </span>
-            <ChevronDown className={`w-4 h-4 text-muted hidden md:block transition-transform ${profileOpen ? 'rotate-180' : ''}`} />
+            <ChevronDown className={`w-3.5 h-3.5 transition-transform ${profileOpen ? 'rotate-180 text-white' : 'text-muted'}`} />
           </button>
 
           {profileOpen && (

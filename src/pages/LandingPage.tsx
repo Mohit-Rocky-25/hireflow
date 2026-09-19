@@ -124,27 +124,27 @@ export function LandingPage() {
             </div>
             <span className="text-xl font-bold text-foreground tracking-tight">HireFlow</span>
           </div>
-          <div className="hidden md:flex items-center gap-6">
-            <Link to="/jobs" className="text-sm font-medium text-secondary hover:text-foreground transition-colors">Browse Jobs</Link>
-            <a href="#features" className="text-sm font-medium text-secondary hover:text-foreground transition-colors">Features</a>
-            <a href="#testimonials" className="text-sm font-medium text-secondary hover:text-foreground transition-colors">Testimonials</a>
+          <div className="hidden md:flex items-center gap-2">
+            <Link to="/jobs" className="text-sm font-medium text-secondary hover:text-black hover:bg-gray-100 active:bg-black active:text-white px-3 py-1.5 rounded-[10px] transition-all">Browse Jobs</Link>
+            <a href="#features" className="text-sm font-medium text-secondary hover:text-black hover:bg-gray-100 active:bg-black active:text-white px-3 py-1.5 rounded-[10px] transition-all">Features</a>
+            <a href="#testimonials" className="text-sm font-medium text-secondary hover:text-black hover:bg-gray-100 active:bg-black active:text-white px-3 py-1.5 rounded-[10px] transition-all">Testimonials</a>
           </div>
           <div className="flex items-center gap-3">
             {isAuthenticated ? (
               <Link
                 to={getDashboardLink()}
-                className="flex items-center gap-2 px-4 py-2 bg-primary text-white text-sm font-semibold rounded-btn hover:bg-primary-hover transition-all shadow-sm"
+                className="flex items-center gap-2 px-5 py-2 bg-black text-white text-sm font-semibold rounded-[10px] hover:bg-neutral-900 active:bg-black border border-black shadow-sm transition-all active:scale-95"
               >
                 Go to Dashboard <ArrowRight className="w-4 h-4" />
               </Link>
             ) : (
               <>
-                <Link to="/login" className="px-4 py-2 text-sm font-medium text-secondary hover:text-foreground transition-colors">
+                <Link to="/login" className="px-4 py-2 text-sm font-medium text-secondary hover:text-white hover:bg-black active:bg-black active:text-white rounded-[10px] transition-all">
                   Sign In
                 </Link>
                 <Link
                   to="/register"
-                  className="px-5 py-2 bg-black-btn text-white text-sm font-semibold rounded-btn hover:bg-black-hover transition-all shadow-sm"
+                  className="px-5 py-2 bg-black text-white text-sm font-semibold rounded-[10px] hover:bg-neutral-900 active:bg-black border border-black shadow-sm transition-all active:scale-95"
                 >
                   Get Started
                 </Link>
@@ -326,10 +326,10 @@ export function LandingPage() {
               </div>
               <span className="text-white font-bold text-lg">HireFlow</span>
             </div>
-            <div className="flex gap-6 text-sm text-gray-400">
-              <Link to="/jobs" className="hover:text-white transition-colors">Jobs</Link>
-              <Link to="/login" className="hover:text-white transition-colors">Login</Link>
-              <Link to="/register" className="hover:text-white transition-colors">Register</Link>
+            <div className="flex flex-wrap gap-2 text-sm text-gray-400">
+              <Link to="/jobs" className="px-3.5 py-1.5 rounded-[10px] bg-neutral-900 text-gray-300 hover:text-white hover:bg-black active:bg-black active:text-white border border-neutral-800 transition-all font-medium">Browse Jobs</Link>
+              <Link to="/login" className="px-3.5 py-1.5 rounded-[10px] bg-neutral-900 text-gray-300 hover:text-white hover:bg-black active:bg-black active:text-white border border-neutral-800 transition-all font-medium">Sign In</Link>
+              <Link to="/register" className="px-3.5 py-1.5 rounded-[10px] bg-neutral-900 text-gray-300 hover:text-white hover:bg-black active:bg-black active:text-white border border-neutral-800 transition-all font-medium">Create Company</Link>
             </div>
             <p className="text-xs text-gray-500">© 2026 HireFlow. Built for the future of hiring.</p>
           </div>
