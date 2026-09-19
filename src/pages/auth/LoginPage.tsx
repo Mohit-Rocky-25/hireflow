@@ -131,9 +131,35 @@ export function LoginPage() {
             </Link>
           </p>
 
-          {/* Quick Demo Login */}
-          <div className="mt-8 pt-6 border-t border-border">
-            <p className="text-xs font-medium text-muted mb-3 uppercase tracking-wider">Quick Demo Login</p>
+          {/* Quick Demo Login & Data Mode */}
+          <div className="mt-8 pt-6 border-t border-border space-y-3">
+            <div className="flex items-center justify-between">
+              <p className="text-xs font-semibold text-muted uppercase tracking-wider">Demo Access & Database State</p>
+              {useStore.getState().isDemoMode ? (
+                <button
+                  type="button"
+                  onClick={() => {
+                    useStore.getState().resetToCleanSlate();
+                    toast('info', 'Clean database active. All mock records wiped.');
+                  }}
+                  className="text-[11px] text-danger hover:underline font-semibold"
+                >
+                  Wipe Demo Data
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => {
+                    useStore.getState().loadDemoData();
+                    toast('success', 'Demo data loaded.');
+                  }}
+                  className="text-[11px] text-primary hover:underline font-semibold"
+                >
+                  Load Demo Data
+                </button>
+              )}
+            </div>
+
             <div className="grid grid-cols-2 gap-2">
               {[
                 { label: 'BHR Manager', email: 'demo-bhr@example.com' },
@@ -144,7 +170,12 @@ export function LoginPage() {
                 <button
                   key={demo.email}
                   type="button"
-                  onClick={() => quickLogin(demo.email)}
+                  onClick={() => {
+                    if (!useStore.getState().isDemoMode) {
+                      useStore.getState().loadDemoData();
+                    }
+                    quickLogin(demo.email);
+                  }}
                   className="px-3 py-2 text-xs font-medium text-secondary border border-border rounded-btn hover:bg-gray-50 hover:border-primary/30 transition-all text-left"
                 >
                   {demo.label}

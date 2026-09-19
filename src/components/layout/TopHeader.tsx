@@ -4,7 +4,8 @@
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useStore } from '../../store/useStore';
-import { Menu, Bell, Search, LogOut, User, Settings, ChevronDown, ArrowRight, CheckCheck } from 'lucide-react';
+import { Menu, Bell, Search, LogOut, User, Settings, ChevronDown, ArrowRight, CheckCheck, Database } from 'lucide-react';
+import { toast } from '../ui/Toast';
 
 interface TopHeaderProps {
   onMenuClick: () => void;
@@ -12,7 +13,19 @@ interface TopHeaderProps {
 }
 
 export function TopHeader({ onMenuClick }: TopHeaderProps) {
-  const { currentUser, logout, getUnreadCount, getUserNotifications, markNotificationRead, markAllNotificationsRead, companies, currentCompanyId } = useStore();
+  const {
+    currentUser,
+    logout,
+    getUnreadCount,
+    getUserNotifications,
+    markNotificationRead,
+    markAllNotificationsRead,
+    companies,
+    currentCompanyId,
+    isDemoMode,
+    loadDemoData,
+    resetToCleanSlate,
+  } = useStore();
   const navigate = useNavigate();
   const [profileOpen, setProfileOpen] = useState(false);
   const [notifOpen, setNotifOpen] = useState(false);
@@ -107,6 +120,36 @@ export function TopHeader({ onMenuClick }: TopHeaderProps) {
 
       {/* Right */}
       <div className="flex items-center gap-2">
+        {/* Data Mode Switcher (Clean vs Demo Data) */}
+        {isDemoMode ? (
+          <button
+            onClick={() => {
+              if (window.confirm('Clear all demo data and start with a clean database?')) {
+                resetToCleanSlate();
+                toast('info', 'Switched to Clean Slate. All demo records cleared.');
+                navigate('/login');
+              }
+            }}
+            className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-semibold bg-amber-50 text-amber-800 border border-amber-300 rounded-btn hover:bg-amber-100 transition-colors"
+            title="Demo data is currently loaded. Click to clear all mock data."
+          >
+            <Database className="w-3 h-3 text-amber-600" />
+            <span>Demo Data (Reset)</span>
+          </button>
+        ) : (
+          <button
+            onClick={() => {
+              loadDemoData();
+              toast('success', 'Loaded demo dataset for testing.');
+            }}
+            className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-semibold bg-gray-100 text-secondary border border-border rounded-btn hover:bg-gray-200 transition-colors"
+            title="Clean database active. Click to populate sample demo data."
+          >
+            <Database className="w-3 h-3 text-muted" />
+            <span>Clean DB (Load Demo)</span>
+          </button>
+        )}
+
         {/* Search */}
         <button
           onClick={() => document.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', ctrlKey: true }))}

@@ -77,8 +77,11 @@ interface AppState {
   getUserNotifications: (userId: string) => Notification[];
   getUnreadCount: (userId: string) => number;
   
-  // Init
+  // Init & Data Management
+  isDemoMode: boolean;
   initDemoData: () => void;
+  loadDemoData: () => void;
+  resetToCleanSlate: () => void;
   _initialized: boolean;
 }
 
@@ -110,6 +113,7 @@ export const useStore = create<AppState>()(
       notifications: [],
       auditLogs: [],
       currentCompanyId: null,
+      isDemoMode: false,
       _initialized: false,
 
       // ── Auth ──
@@ -390,9 +394,37 @@ export const useStore = create<AppState>()(
       getUserNotifications: (userId) => get().notifications.filter(n => n.userId === userId).sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()),
       getUnreadCount: (userId) => get().notifications.filter(n => n.userId === userId && !n.read).length,
 
-      // ── Init Demo ──
+      // ── Data Management & Clean Slate ──
       initDemoData: () => {
         if (get()._initialized) return;
+        // Default to clean system with basic platform admin
+        const cleanAdmin: User = {
+          id: 'admin-1',
+          email: 'admin@hireflow.io',
+          displayName: 'Platform Admin',
+          role: 'PLATFORM_ADMIN',
+          status: 'active',
+          createdAt: now(),
+          updatedAt: now(),
+        };
+        localStorage.setItem(`pw_${cleanAdmin.id}`, 'admin123');
+        set({
+          users: [cleanAdmin],
+          companies: [],
+          companyMembers: [],
+          jobs: [],
+          applications: [],
+          candidateProfiles: [],
+          candidateMatches: [],
+          interviews: [],
+          notifications: [],
+          auditLogs: [],
+          isDemoMode: false,
+          _initialized: true,
+        });
+      },
+
+      loadDemoData: () => {
         const demo = generateDemoData();
         set({
           users: demo.users,
@@ -404,11 +436,41 @@ export const useStore = create<AppState>()(
           candidateMatches: demo.candidateMatches,
           interviews: demo.interviews,
           notifications: demo.notifications,
+          isDemoMode: true,
           _initialized: true,
         });
-        // Store demo passwords
         demo.users.forEach(u => {
           localStorage.setItem(`pw_${u.id}`, 'demo123');
+        });
+      },
+
+      resetToCleanSlate: () => {
+        const cleanAdmin: User = {
+          id: 'admin-1',
+          email: 'admin@hireflow.io',
+          displayName: 'Platform Admin',
+          role: 'PLATFORM_ADMIN',
+          status: 'active',
+          createdAt: now(),
+          updatedAt: now(),
+        };
+        localStorage.setItem(`pw_${cleanAdmin.id}`, 'admin123');
+        set({
+          users: [cleanAdmin],
+          companies: [],
+          companyMembers: [],
+          jobs: [],
+          applications: [],
+          candidateProfiles: [],
+          candidateMatches: [],
+          interviews: [],
+          notifications: [],
+          auditLogs: [],
+          currentUser: null,
+          isAuthenticated: false,
+          currentCompanyId: null,
+          isDemoMode: false,
+          _initialized: true,
         });
       },
     }),
@@ -428,6 +490,7 @@ export const useStore = create<AppState>()(
         currentUser: state.currentUser,
         isAuthenticated: state.isAuthenticated,
         currentCompanyId: state.currentCompanyId,
+        isDemoMode: state.isDemoMode,
         _initialized: state._initialized,
       }),
     }
