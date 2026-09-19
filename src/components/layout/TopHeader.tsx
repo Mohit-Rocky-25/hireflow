@@ -77,8 +77,15 @@ export function TopHeader({ onMenuClick }: TopHeaderProps) {
       {/* Right */}
       <div className="flex items-center gap-2">
         {/* Search */}
-        <button className="p-2 rounded-btn hover:bg-gray-100 transition-colors text-muted hover:text-foreground">
-          <Search className="w-5 h-5" />
+        <button
+          onClick={() => document.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', ctrlKey: true }))}
+          className="flex items-center gap-2 px-3 py-1.5 rounded-btn border border-border hover:bg-gray-100 transition-colors text-muted hover:text-foreground"
+        >
+          <Search className="w-4 h-4" />
+          <span className="hidden md:block text-xs">Search…</span>
+          <kbd className="hidden md:inline-flex items-center px-1.5 py-0.5 text-[10px] font-mono text-muted bg-gray-100 rounded border border-gray-200">
+            ⌘K
+          </kbd>
         </button>
 
         {/* Notifications */}

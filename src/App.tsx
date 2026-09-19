@@ -57,6 +57,7 @@ import { NotificationsPage } from './pages/NotificationsPage';
 // Guards
 import { ProtectedRoute } from './components/auth/ProtectedRoute';
 import { ToastContainer } from './components/ui/Toast';
+import { GlobalSearch } from './components/ui/GlobalSearch';
 
 export default function App() {
   const { initDemoData, _initialized } = useStore();
@@ -134,6 +135,7 @@ export default function App() {
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       <ToastContainer />
+      <GlobalSearch />
     </BrowserRouter>
   );
 }
