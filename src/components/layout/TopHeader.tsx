@@ -53,7 +53,7 @@ export function TopHeader({ onMenuClick }: TopHeaderProps) {
   if (!currentUser) return null;
 
   return (
-    <header className="h-16 bg-surface border-b border-border flex items-center justify-between px-4 lg:px-6 shrink-0 z-40">
+    <header className="h-20 bg-surface border-b border-border flex items-center justify-between px-6 lg:px-10 shrink-0 z-40">
       {/* Left */}
       <div className="flex items-center gap-4">
         <button
@@ -96,7 +96,7 @@ export function TopHeader({ onMenuClick }: TopHeaderProps) {
           </button>
 
           {notifOpen && (
-            <div className="absolute right-0 top-12 w-80 bg-surface border border-border rounded-card shadow-dropdown animate-scale-in z-50">
+            <div className="absolute right-0 top-14 w-80 bg-surface border border-border rounded-card shadow-dropdown animate-scale-in z-50">
               <div className="flex items-center justify-between px-4 py-3 border-b border-border">
                 <h3 className="text-sm font-semibold text-foreground">Notifications</h3>
                 {unreadCount > 0 && (
@@ -152,7 +152,7 @@ export function TopHeader({ onMenuClick }: TopHeaderProps) {
           </button>
 
           {profileOpen && (
-            <div className="absolute right-0 top-12 w-64 bg-surface border border-border rounded-card shadow-dropdown animate-scale-in z-50">
+            <div className="absolute right-0 top-14 w-64 bg-surface border border-border rounded-card shadow-dropdown animate-scale-in z-50">
               <div className="px-4 py-3 border-b border-border">
                 <p className="text-sm font-semibold text-foreground">{currentUser.displayName}</p>
                 <p className="text-xs text-muted mt-0.5">{currentUser.role.replace('_', ' ')}</p>

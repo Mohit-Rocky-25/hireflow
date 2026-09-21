@@ -36,7 +36,7 @@ export function CompanyDashboard() {
     .slice(0, 5);
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-8 animate-fade-in">
       {/* Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
@@ -53,14 +53,14 @@ export function CompanyDashboard() {
       </div>
 
       {/* KPI Row */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
         {[
           { label: 'Active Jobs', value: activeJobs.length, icon: <Briefcase className="w-5 h-5" />, color: 'text-primary bg-primary-light', link: '/company/jobs' },
           { label: 'Total Applications', value: companyApps.length, icon: <ClipboardList className="w-5 h-5" />, color: 'text-ai bg-ai-light', link: '/company/candidates' },
           { label: 'Needs Review', value: needsReview.length, icon: <Eye className="w-5 h-5" />, color: 'text-warning bg-amber-50', link: '/company/candidates' },
           { label: 'Interviews Today', value: todayInterviews.length, icon: <Calendar className="w-5 h-5" />, color: 'text-success bg-green-50', link: '/company/interviewers' },
         ].map((kpi, i) => (
-          <Link key={i} to={kpi.link} className="bg-surface rounded-card border border-border p-5 hover:shadow-card-hover hover:border-primary/20 transition-all duration-300 group">
+          <Link key={i} to={kpi.link} className="bg-surface rounded-card border border-border p-6 hover:shadow-card-hover hover:border-primary/20 transition-all duration-300 group">
             <div className="flex items-center justify-between mb-3">
               <div className={`w-10 h-10 rounded-btn ${kpi.color} flex items-center justify-center`}>
                 {kpi.icon}
@@ -74,16 +74,16 @@ export function CompanyDashboard() {
       </div>
 
       {/* Two Column Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Recent Applications */}
         <div className="bg-surface rounded-card border border-border">
-          <div className="px-5 py-4 border-b border-border flex items-center justify-between">
+          <div className="px-6 py-5 border-b border-border flex items-center justify-between">
             <h2 className="text-sm font-semibold text-foreground">Recent Applications</h2>
             <Link to="/company/candidates" className="text-xs text-primary font-medium hover:text-primary-hover">View all</Link>
           </div>
           <div className="divide-y divide-border">
             {recentApps.length === 0 ? (
-              <div className="px-5 py-8 text-center">
+              <div className="px-6 py-10 text-center">
                 <ClipboardList className="w-8 h-8 text-muted mx-auto mb-2 opacity-30" />
                 <p className="text-sm text-muted">No applications yet</p>
                 <p className="text-xs text-muted mt-1">Once candidates apply, they will appear here</p>
@@ -92,7 +92,7 @@ export function CompanyDashboard() {
               const job = jobs.find(j => j.id === app.jobId);
               const match = candidateMatches.find(m => m.applicationId === app.id);
               return (
-                <Link key={app.id} to={`/company/candidates/${app.candidateId}`} className="flex items-center justify-between px-5 py-3 hover:bg-gray-50 transition-colors">
+                <Link key={app.id} to={`/company/candidates/${app.candidateId}`} className="flex items-center justify-between px-6 py-4 hover:bg-gray-50 transition-colors">
                   <div className="min-w-0">
                     <p className="text-sm font-medium text-foreground truncate">{app.id}</p>
                     <p className="text-xs text-muted">{job?.title || 'Job'} • {new Date(app.appliedAt).toLocaleDateString()}</p>
@@ -120,13 +120,13 @@ export function CompanyDashboard() {
 
         {/* Upcoming Interviews */}
         <div className="bg-surface rounded-card border border-border">
-          <div className="px-5 py-4 border-b border-border flex items-center justify-between">
+          <div className="px-6 py-5 border-b border-border flex items-center justify-between">
             <h2 className="text-sm font-semibold text-foreground">Upcoming Interviews</h2>
             <Link to="/company/interviewers" className="text-xs text-primary font-medium hover:text-primary-hover">View all</Link>
           </div>
           <div className="divide-y divide-border">
             {upcomingInterviews.length === 0 ? (
-              <div className="px-5 py-8 text-center">
+              <div className="px-6 py-10 text-center">
                 <Calendar className="w-8 h-8 text-muted mx-auto mb-2 opacity-30" />
                 <p className="text-sm text-muted">No interviews scheduled</p>
                 <p className="text-xs text-muted mt-1">Shortlist a candidate to schedule an interview</p>
@@ -134,7 +134,7 @@ export function CompanyDashboard() {
             ) : upcomingInterviews.map(interview => {
               const job = jobs.find(j => j.id === interview.jobId);
               return (
-                <div key={interview.id} className="px-5 py-3 flex items-center justify-between">
+                <div key={interview.id} className="px-6 py-4 flex items-center justify-between">
                   <div>
                     <p className="text-sm font-medium text-foreground">{interview.stage}</p>
                     <p className="text-xs text-muted">{job?.title} • {interview.scheduledDate} at {interview.scheduledTime}</p>
@@ -149,7 +149,7 @@ export function CompanyDashboard() {
 
       {/* AI Insights */}
       {candidateMatches.length > 0 && (
-        <div className="bg-ai-light rounded-card border border-ai/20 p-5">
+        <div className="bg-ai-light rounded-card border border-ai/20 p-6">
           <div className="flex items-center gap-2 mb-3">
             <Brain className="w-5 h-5 text-ai" />
             <h2 className="text-sm font-semibold text-foreground">AI Screening Summary</h2>
