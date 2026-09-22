@@ -79,20 +79,20 @@ export function LandingPage() {
   return (
     <div className="min-h-screen bg-bg font-sans text-text">
       {/* ── Navbar ── */}
-      <nav className="fixed top-0 w-full z-50 bg-bg/80 backdrop-blur-md border-b border-border">
-        <div className="max-w-[1280px] mx-auto px-[24px] h-[64px] flex items-center justify-between">
-          <div className="flex items-center gap-[12px]">
-            <div className="w-[36px] h-[36px] rounded-md bg-primary flex items-center justify-center">
-              <Sparkles className="w-[18px] h-[18px] text-white stroke-[1.5px]" />
+      <nav className="fixed top-0 w-full z-50 bg-bg/80 backdrop-blur-xl border-b border-border">
+        <div className="max-w-[1280px] mx-auto px-[32px] h-[72px] flex items-center justify-between">
+          <div className="flex items-center gap-[14px]">
+            <div className="w-[40px] h-[40px] rounded-md bg-primary flex items-center justify-center shadow-md shadow-primary/15">
+              <Sparkles className="w-[20px] h-[20px] text-white stroke-[1.5px]" />
             </div>
-            <span className="text-[18px] font-semibold text-text tracking-[-0.01em]">HireFlow</span>
+            <span className="text-[20px] font-bold text-text tracking-[-0.02em]">HireFlow</span>
           </div>
 
-          <div className="hidden md:flex items-center gap-[24px]">
-            <Link to="/jobs" className="text-[14px] font-medium text-text-secondary hover:text-text transition-colors duration-[120ms]">
+          <div className="hidden md:flex items-center gap-[32px]">
+            <Link to="/jobs" className="text-[15px] font-medium text-text-secondary hover:text-text transition-colors duration-[120ms]">
               Browse Jobs
             </Link>
-            <a href="#features" className="text-[14px] font-medium text-text-secondary hover:text-text transition-colors duration-[120ms]">
+            <a href="#features" className="text-[15px] font-medium text-text-secondary hover:text-text transition-colors duration-[120ms]">
               Features
             </a>
           </div>
@@ -119,39 +119,39 @@ export function LandingPage() {
       </nav>
 
       {/* ── Hero ── */}
-      <section className="relative pt-[140px] pb-[80px] min-h-[85vh] flex items-center">
-        {/* Subtle ambient glow — NOT gradient-heavy or glassmorphism */}
+      <section className="relative pt-[160px] pb-[120px] min-h-[90vh] flex items-center">
+        {/* Subtle ambient glow */}
         <div className="absolute inset-0 -z-10">
-          <div className="absolute top-[20%] left-[30%] w-[400px] h-[400px] rounded-full bg-primary/6 blur-[100px]" />
-          <div className="absolute bottom-[20%] right-[25%] w-[300px] h-[300px] rounded-full bg-ai/5 blur-[100px]" />
+          <div className="absolute top-[15%] left-[25%] w-[500px] h-[500px] rounded-full bg-primary/8 blur-[120px]" />
+          <div className="absolute bottom-[15%] right-[20%] w-[400px] h-[400px] rounded-full bg-ai/6 blur-[120px]" />
         </div>
 
-        <div className="max-w-[1280px] mx-auto px-[24px] w-full">
-          <div className="max-w-[720px]">
-            <div className="inline-flex items-center gap-[8px] px-[12px] py-[6px] bg-ai-light border border-ai/20 rounded-full text-[12px] font-medium text-ai mb-[24px]">
-              <Brain className="w-[14px] h-[14px] stroke-[1.5px]" />
+        <div className="max-w-[1280px] mx-auto px-[32px] w-full">
+          <div className="max-w-[800px] page-enter">
+            <div className="inline-flex items-center gap-[10px] px-[16px] py-[8px] bg-ai-light border border-ai/20 rounded-full text-[13px] font-semibold text-ai mb-[32px]">
+              <Brain className="w-[16px] h-[16px] stroke-[1.5px]" />
               AI-Powered Hiring Platform
             </div>
 
-            <h1 className="text-[48px] sm:text-[56px] lg:text-[64px] font-bold text-text leading-[1.1] tracking-[-0.02em] mb-[24px]">
+            <h1 className="text-[52px] sm:text-[64px] lg:text-[72px] font-extrabold text-text leading-[1.05] tracking-[-0.03em] mb-[28px]">
               Hire the right people,{' '}
               <span className="text-primary">faster.</span>
             </h1>
 
-            <p className="text-[18px] text-text-secondary leading-[28px] mb-[40px] max-w-[560px]">
+            <p className="text-[20px] text-text-secondary leading-[32px] mb-[48px] max-w-[620px] font-normal">
               AI ranks candidates against your weighted job requirements with evidence-based explanations.
               The AI recommends — a human decides.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-[12px]">
+            <div className="flex flex-col sm:flex-row gap-[16px]">
               <Link to="/register">
-                <Button variant="header" className="h-[48px] px-[24px] text-[16px]">
-                  <Sparkles className="w-[18px] h-[18px] stroke-[1.5px]" /> Start Hiring
+                <Button variant="header" className="h-[56px] px-[32px] text-[17px] font-semibold">
+                  <Sparkles className="w-[20px] h-[20px] stroke-[1.5px]" /> Start Hiring
                 </Button>
               </Link>
               <Link to="/jobs">
-                <Button variant="secondary" className="h-[48px] px-[24px] text-[16px]">
-                  Browse Open Roles <ChevronRight className="w-[18px] h-[18px] stroke-[1.5px]" />
+                <Button variant="secondary" className="h-[56px] px-[32px] text-[17px] font-semibold">
+                  Browse Open Roles <ChevronRight className="w-[20px] h-[20px] stroke-[1.5px]" />
                 </Button>
               </Link>
             </div>
@@ -160,28 +160,32 @@ export function LandingPage() {
       </section>
 
       {/* ── Role Cards ── */}
-      <section className="py-[80px] border-t border-border">
-        <div className="max-w-[1280px] mx-auto px-[24px]">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-[24px]">
+      <section className="py-[120px] border-t border-border">
+        <div className="max-w-[1280px] mx-auto px-[32px]">
+          <div className="text-center mb-[64px]">
+            <h2 className="text-[36px] font-bold text-text tracking-[-0.02em] mb-[16px]">Who is HireFlow for?</h2>
+            <p className="text-[18px] text-text-secondary max-w-[500px] mx-auto">Two sides of the hiring equation, one unified platform.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-[32px] stagger-in">
             {ROLES.map((role, i) => {
               const Icon = role.icon;
               return (
-                <div key={i} className="bg-surface rounded-lg border border-border p-[32px] shadow-xs hover:shadow-sm transition-shadow duration-[120ms]">
-                  <div className="w-[48px] h-[48px] rounded-md bg-surface-2 border border-border flex items-center justify-center mb-[24px]">
-                    <Icon className="w-[24px] h-[24px] text-primary stroke-[1.5px]" />
+                <div key={i} className="bg-surface rounded-xl border border-border p-[40px] shadow-xs hover:shadow-md transition-all duration-200 hover:-translate-y-[2px]">
+                  <div className="w-[56px] h-[56px] rounded-lg bg-surface-2 border border-border-strong flex items-center justify-center mb-[28px]">
+                    <Icon className="w-[28px] h-[28px] text-primary stroke-[1.5px]" />
                   </div>
-                  <h2 className="text-[20px] font-semibold text-text mb-[16px]">{role.title}</h2>
-                  <ul className="space-y-[12px] mb-[24px]">
+                  <h2 className="text-[24px] font-bold text-text mb-[20px] tracking-[-0.01em]">{role.title}</h2>
+                  <ul className="space-y-[16px] mb-[32px]">
                     {role.points.map((p, j) => (
-                      <li key={j} className="flex items-start gap-[12px] text-[14px] text-text-secondary">
-                        <CheckCircle className="w-[16px] h-[16px] text-success mt-[2px] shrink-0 stroke-[1.5px]" />
-                        <span className="leading-[20px]">{p}</span>
+                      <li key={j} className="flex items-start gap-[14px] text-[15px] text-text-secondary">
+                        <CheckCircle className="w-[18px] h-[18px] text-success mt-[2px] shrink-0 stroke-[1.5px]" />
+                        <span className="leading-[22px]">{p}</span>
                       </li>
                     ))}
                   </ul>
                   <Link to={role.link}>
-                    <Button variant="secondary" size="small">
-                      {role.cta} <ArrowRight className="w-4 h-4 stroke-[1.5px]" />
+                    <Button variant="secondary">
+                      {role.cta} <ArrowRight className="w-[16px] h-[16px] stroke-[1.5px]" />
                     </Button>
                   </Link>
                 </div>
@@ -192,24 +196,24 @@ export function LandingPage() {
       </section>
 
       {/* ── Features ── */}
-      <section id="features" className="py-[80px] border-t border-border">
-        <div className="max-w-[1280px] mx-auto px-[24px]">
-          <div className="mb-[48px]">
-            <h2 className="text-[28px] font-bold text-text mb-[12px]">Built for real hiring workflows</h2>
-            <p className="text-[16px] text-text-secondary max-w-[480px]">
+      <section id="features" className="py-[120px] border-t border-border">
+        <div className="max-w-[1280px] mx-auto px-[32px]">
+          <div className="mb-[64px]">
+            <h2 className="text-[36px] font-bold text-text mb-[16px] tracking-[-0.02em]">Built for real hiring workflows</h2>
+            <p className="text-[18px] text-text-secondary max-w-[540px] leading-[28px]">
               Not a mockup. Not a job board. A complete, role-gated hiring platform with explainable AI.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-[24px]">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-[28px] stagger-in">
             {FEATURES.map((f, i) => {
               const Icon = f.icon;
               return (
-                <div key={i} className="bg-surface rounded-lg border border-border p-[24px] shadow-xs hover:shadow-sm transition-shadow duration-[120ms]">
-                  <div className="w-[40px] h-[40px] rounded-md bg-primary-light flex items-center justify-center mb-[16px]">
-                    <Icon className="w-[20px] h-[20px] text-primary stroke-[1.5px]" />
+                <div key={i} className="bg-surface rounded-xl border border-border p-[32px] shadow-xs hover:shadow-md transition-all duration-200 hover:-translate-y-[2px]">
+                  <div className="w-[48px] h-[48px] rounded-lg bg-primary-light flex items-center justify-center mb-[20px]">
+                    <Icon className="w-[24px] h-[24px] text-primary stroke-[1.5px]" />
                   </div>
-                  <h3 className="text-[16px] font-semibold text-text mb-[8px]">{f.title}</h3>
-                  <p className="text-[14px] text-text-secondary leading-[20px]">{f.desc}</p>
+                  <h3 className="text-[18px] font-bold text-text mb-[10px]">{f.title}</h3>
+                  <p className="text-[15px] text-text-secondary leading-[24px]">{f.desc}</p>
                 </div>
               );
             })}
@@ -218,20 +222,23 @@ export function LandingPage() {
       </section>
 
       {/* ── CTA ── */}
-      <section className="py-[80px] border-t border-border">
-        <div className="max-w-[640px] mx-auto px-[24px] text-center">
-          <h2 className="text-[32px] font-bold text-text mb-[16px]">Ready to transform your hiring?</h2>
-          <p className="text-[16px] text-text-secondary mb-[32px] leading-[24px]">
+      <section className="py-[120px] border-t border-border relative overflow-hidden">
+        <div className="absolute inset-0 -z-10">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-primary/6 blur-[150px]" />
+        </div>
+        <div className="max-w-[720px] mx-auto px-[32px] text-center">
+          <h2 className="text-[40px] font-bold text-text mb-[20px] tracking-[-0.02em]">Ready to transform your hiring?</h2>
+          <p className="text-[18px] text-text-secondary mb-[40px] leading-[28px]">
             The AI recommends, a human decides. No irreversible action happens without an authenticated human confirming it.
           </p>
-          <div className="flex flex-col sm:flex-row gap-[12px] justify-center">
+          <div className="flex flex-col sm:flex-row gap-[16px] justify-center">
             <Link to="/register">
-              <Button variant="primary" className="h-[48px] px-[24px] text-[16px]">
-                Get Started Free <ArrowRight className="w-[18px] h-[18px] stroke-[1.5px]" />
+              <Button variant="primary" className="h-[56px] px-[32px] text-[17px] font-semibold">
+                Get Started Free <ArrowRight className="w-[20px] h-[20px] stroke-[1.5px]" />
               </Button>
             </Link>
             <Link to="/jobs">
-              <Button variant="secondary" className="h-[48px] px-[24px] text-[16px]">
+              <Button variant="secondary" className="h-[56px] px-[32px] text-[17px] font-semibold">
                 Browse Open Roles
               </Button>
             </Link>
@@ -240,21 +247,21 @@ export function LandingPage() {
       </section>
 
       {/* ── Footer ── */}
-      <footer className="py-[32px] border-t border-border">
-        <div className="max-w-[1280px] mx-auto px-[24px]">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-[16px]">
-            <div className="flex items-center gap-[12px]">
-              <div className="w-[28px] h-[28px] rounded-sm bg-surface border border-border flex items-center justify-center">
-                <Sparkles className="w-[14px] h-[14px] text-primary stroke-[1.5px]" />
+      <footer className="py-[48px] border-t border-border">
+        <div className="max-w-[1280px] mx-auto px-[32px]">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-[20px]">
+            <div className="flex items-center gap-[14px]">
+              <div className="w-[32px] h-[32px] rounded-md bg-surface border border-border flex items-center justify-center">
+                <Sparkles className="w-[16px] h-[16px] text-primary stroke-[1.5px]" />
               </div>
-              <span className="text-[14px] font-semibold text-text">HireFlow</span>
+              <span className="text-[16px] font-bold text-text">HireFlow</span>
             </div>
-            <div className="flex gap-[24px] text-[13px] font-medium text-text-secondary">
+            <div className="flex gap-[28px] text-[14px] font-medium text-text-secondary">
               <Link to="/jobs" className="hover:text-text transition-colors duration-[120ms]">Jobs</Link>
               <Link to="/login" className="hover:text-text transition-colors duration-[120ms]">Sign In</Link>
               <Link to="/register" className="hover:text-text transition-colors duration-[120ms]">Register</Link>
             </div>
-            <p className="text-[12px] text-text-muted">© 2026 HireFlow. Built for the future of hiring.</p>
+            <p className="text-[13px] text-text-muted">© 2026 HireFlow. Built for the future of hiring.</p>
           </div>
         </div>
       </footer>
