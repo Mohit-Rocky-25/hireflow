@@ -97,8 +97,8 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
         </div>
       </div>
 
-      {/* Navigation */}
-      <nav className="flex-1 py-[16px] px-[12px] space-y-[2px] overflow-y-auto">
+      {/* Navigation — spacious with stable item heights */}
+      <nav className="flex-1 py-[20px] px-[14px] space-y-[4px] overflow-y-auto">
         {navItems.map(item => {
           const isActive = location.pathname === item.path ||
             (item.path !== '/company/dashboard' &&
@@ -111,9 +111,9 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
             <NavLink
               key={item.path + item.label}
               to={item.path}
-              className={`flex items-center gap-[12px] px-[12px] py-[10px] rounded-md text-[14px] font-medium transition-all duration-[120ms] ease-out group
+              className={`flex items-center gap-[12px] px-[12px] py-[11px] rounded-md text-[14px] font-medium transition-all duration-[120ms] ease-out group min-h-[42px]
                 ${isActive
-                  ? 'bg-primary-light text-primary'
+                  ? 'bg-primary-light text-primary shadow-xs'
                   : 'text-text-secondary hover:bg-surface-2 hover:text-text'
                 }
                 ${collapsed ? 'justify-center px-0' : ''}
