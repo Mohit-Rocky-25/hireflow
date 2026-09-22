@@ -1,9 +1,10 @@
 // ============================================================
-// HireFlow — App Entry with Routing
+// HireFlow v2 — App Entry with Routing
 // ============================================================
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useStore } from './store/useStore';
+import { LoadingScreen } from './components/ui/LoadingScreen';
 
 // Layouts
 import { AppShell } from './components/layout/AppShell';
@@ -60,6 +61,7 @@ import { ToastContainer } from './components/ui/Toast';
 
 export default function App() {
   const { initDemoData, _initialized } = useStore();
+  const [appReady, setAppReady] = useState(false);
 
   useEffect(() => {
     if (!_initialized) {
@@ -67,7 +69,13 @@ export default function App() {
     }
   }, [_initialized, initDemoData]);
 
+  const handleLoadingFinish = useCallback(() => {
+    setAppReady(true);
+  }, []);
+
   return (
+    <>
+    {!appReady && <LoadingScreen onFinish={handleLoadingFinish} />}
     <BrowserRouter>
       <Routes>
         {/* Public routes */}
@@ -135,5 +143,6 @@ export default function App() {
       </Routes>
       <ToastContainer />
     </BrowserRouter>
+    </>
   );
 }
