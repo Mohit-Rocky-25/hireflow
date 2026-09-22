@@ -1,7 +1,7 @@
 // ============================================================
 // HireFlow v2 — App Shell Layout (§13)
 // Sidebar: 260px expanded / 72px collapsed
-// Content max-width: 1280px, 24px gutters desktop, 16px mobile
+// Content max-width: 1280px, 32px gutters desktop, 16px mobile
 // ============================================================
 import { Outlet } from 'react-router-dom';
 import { useState } from 'react';
@@ -29,14 +29,14 @@ export function AppShell() {
         </div>
       )}
 
-      {/* Main Content */}
+      {/* Main Content — spacious with generous padding */}
       <div className="flex-1 flex flex-col min-w-0">
         <TopHeader
           onMenuClick={() => setMobileSidebarOpen(true)}
           sidebarCollapsed={!sidebarOpen}
         />
-        <main className="flex-1 overflow-y-auto p-[24px] lg:p-[24px]">
-          <div className="max-w-[1280px] mx-auto animate-fade-in">
+        <main className="flex-1 overflow-y-auto p-[16px] sm:p-[24px] lg:p-[32px]">
+          <div className="max-w-[1280px] mx-auto page-enter">
             <Outlet />
           </div>
         </main>
