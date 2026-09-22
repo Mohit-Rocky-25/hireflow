@@ -56,8 +56,8 @@ export function TopHeader({ onMenuClick }: TopHeaderProps) {
   const initials = currentUser.displayName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
 
   return (
-    <header className="h-[64px] bg-surface border-b border-border flex items-center justify-between px-[24px] shrink-0 z-40">
-      {/* Left */}
+    <header className="h-[72px] bg-surface border-b border-border flex items-center justify-between px-[24px] lg:px-[32px] shrink-0 z-40">
+      {/* Left — greeting */}
       <div className="flex items-center gap-[16px]">
         <button
           onClick={onMenuClick}
@@ -68,19 +68,31 @@ export function TopHeader({ onMenuClick }: TopHeaderProps) {
         </button>
 
         <div className="hidden sm:block">
-          <h2 className="text-[14px] font-medium text-text">
-            {getGreeting()}, <span className="font-semibold">{currentUser.displayName}</span>
+          <h2 className="text-[16px] font-semibold text-text leading-[24px]">
+            {getGreeting()}, <span className="font-bold">{currentUser.displayName}</span>
           </h2>
           {currentCompany && (
-            <p className="text-[12px] text-text-muted">{currentCompany.name}</p>
+            <p className="text-[13px] text-text-muted">{currentCompany.name}</p>
           )}
         </div>
       </div>
 
-      {/* Right */}
-      <div className="flex items-center gap-[4px]">
-        {/* Search */}
-        <button className="p-[8px] rounded-md hover:bg-surface-2 transition-colors duration-[120ms] text-text-muted hover:text-text">
+      {/* Center — Search bar (stable, always visible) */}
+      <div className="hidden md:flex items-center flex-1 max-w-[400px] mx-[32px]">
+        <div className="w-full flex items-center h-[40px] px-[14px] bg-bg border border-border rounded-md text-text-muted hover:border-border-strong focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-all duration-[120ms]">
+          <Search className="w-[16px] h-[16px] stroke-[1.5px] shrink-0" />
+          <input
+            type="text"
+            placeholder="Search jobs, candidates, interviews..."
+            className="flex-1 ml-[10px] bg-transparent text-[14px] text-text placeholder:text-text-muted outline-none"
+          />
+        </div>
+      </div>
+
+      {/* Right — actions */}
+      <div className="flex items-center gap-[8px]">
+        {/* Mobile search icon */}
+        <button className="md:hidden p-[8px] rounded-md hover:bg-surface-2 transition-colors duration-[120ms] text-text-muted hover:text-text">
           <Search className="w-5 h-5 stroke-[1.5px]" />
         </button>
 
