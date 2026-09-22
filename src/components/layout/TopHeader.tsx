@@ -1,8 +1,9 @@
 // ============================================================
-// HireFlow — Top Header
+// HireFlow v2 — Top Header (§7, §13)
+// Height: 64px. Greeting from profiles.display_name.
 // ============================================================
 import { useState, useRef, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useStore } from '../../store/useStore';
 import { Menu, Bell, Search, LogOut, User, Settings, ChevronDown } from 'lucide-react';
 
@@ -23,7 +24,7 @@ export function TopHeader({ onMenuClick }: TopHeaderProps) {
   const notifications = currentUser ? getUserNotifications(currentUser.id).slice(0, 8) : [];
   const currentCompany = companies.find(c => c.id === currentCompanyId);
 
-  // Greeting based on time
+  // Dynamic greeting from §7 — always reads from profiles.display_name
   const getGreeting = () => {
     const hour = new Date().getHours();
     if (hour < 12) return 'Good morning';
@@ -52,67 +53,69 @@ export function TopHeader({ onMenuClick }: TopHeaderProps) {
 
   if (!currentUser) return null;
 
+  const initials = currentUser.displayName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+
   return (
-    <header className="h-20 bg-surface border-b border-border flex items-center justify-between px-6 lg:px-10 shrink-0 z-40">
+    <header className="h-[64px] bg-surface border-b border-border flex items-center justify-between px-[24px] shrink-0 z-40">
       {/* Left */}
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-[16px]">
         <button
           onClick={onMenuClick}
-          className="lg:hidden p-2 rounded-btn hover:bg-gray-100 transition-colors"
+          className="lg:hidden p-[8px] rounded-md hover:bg-surface-2 transition-colors duration-[120ms]"
           aria-label="Toggle menu"
         >
-          <Menu className="w-5 h-5 text-foreground" />
+          <Menu className="w-5 h-5 text-text stroke-[1.5px]" />
         </button>
 
         <div className="hidden sm:block">
-          <h2 className="text-sm font-medium text-foreground">
+          <h2 className="text-[14px] font-medium text-text">
             {getGreeting()}, <span className="font-semibold">{currentUser.displayName}</span>
           </h2>
           {currentCompany && (
-            <p className="text-xs text-muted">{currentCompany.name}</p>
+            <p className="text-[12px] text-text-muted">{currentCompany.name}</p>
           )}
         </div>
       </div>
 
       {/* Right */}
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-[4px]">
         {/* Search */}
-        <button className="p-2 rounded-btn hover:bg-gray-100 transition-colors text-muted hover:text-foreground">
-          <Search className="w-5 h-5" />
+        <button className="p-[8px] rounded-md hover:bg-surface-2 transition-colors duration-[120ms] text-text-muted hover:text-text">
+          <Search className="w-5 h-5 stroke-[1.5px]" />
         </button>
 
         {/* Notifications */}
         <div ref={notifRef} className="relative">
           <button
             onClick={() => setNotifOpen(!notifOpen)}
-            className="p-2 rounded-btn hover:bg-gray-100 transition-colors text-muted hover:text-foreground relative"
+            className="p-[8px] rounded-md hover:bg-surface-2 transition-colors duration-[120ms] text-text-muted hover:text-text relative"
           >
-            <Bell className="w-5 h-5" />
+            <Bell className="w-5 h-5 stroke-[1.5px]" />
             {unreadCount > 0 && (
-              <span className="absolute -top-0.5 -right-0.5 w-5 h-5 bg-danger text-white text-[10px] font-bold rounded-full flex items-center justify-center animate-scale-in">
+              <span className="absolute top-[4px] right-[4px] w-[18px] h-[18px] bg-danger text-white text-[10px] font-bold rounded-full flex items-center justify-center animate-scale-in">
                 {unreadCount > 9 ? '9+' : unreadCount}
               </span>
             )}
           </button>
 
           {notifOpen && (
-            <div className="absolute right-0 top-14 w-80 bg-surface border border-border rounded-card shadow-dropdown animate-scale-in z-50">
-              <div className="flex items-center justify-between px-4 py-3 border-b border-border">
-                <h3 className="text-sm font-semibold text-foreground">Notifications</h3>
+            <div className="absolute right-0 top-[52px] w-[320px] bg-surface border border-border rounded-lg shadow-lg animate-scale-in z-50">
+              <div className="flex items-center justify-between px-[16px] py-[12px] border-b border-border">
+                <h3 className="text-[14px] font-semibold text-text">Notifications</h3>
                 {unreadCount > 0 && (
                   <button
                     onClick={markAllNotificationsRead}
-                    className="text-xs text-primary hover:text-primary-hover font-medium"
+                    className="text-[12px] text-primary hover:text-primary-hover font-medium transition-colors duration-[120ms]"
                   >
                     Mark all read
                   </button>
                 )}
               </div>
-              <div className="max-h-80 overflow-y-auto">
+              <div className="max-h-[320px] overflow-y-auto">
                 {notifications.length === 0 ? (
-                  <div className="px-4 py-8 text-center">
-                    <Bell className="w-8 h-8 text-muted mx-auto mb-2 opacity-40" />
-                    <p className="text-sm text-muted">No notifications yet</p>
+                  <div className="px-[16px] py-[32px] text-center">
+                    <Bell className="w-[32px] h-[32px] text-text-muted mx-auto mb-[8px] opacity-40 stroke-[1.5px]" />
+                    <p className="text-[13px] text-text-muted">No notifications yet</p>
                   </div>
                 ) : (
                   notifications.map(n => (
@@ -123,11 +126,11 @@ export function TopHeader({ onMenuClick }: TopHeaderProps) {
                         if (n.link) navigate(n.link);
                         setNotifOpen(false);
                       }}
-                      className={`w-full text-left px-4 py-3 border-b border-border/50 hover:bg-gray-50 transition-colors ${!n.read ? 'bg-primary-light/30' : ''}`}
+                      className={`w-full text-left px-[16px] py-[12px] border-b border-border/50 hover:bg-surface-2 transition-colors duration-[120ms] ${!n.read ? 'bg-primary-light' : ''}`}
                     >
-                      <p className="text-sm font-medium text-foreground">{n.title}</p>
-                      <p className="text-xs text-muted mt-0.5">{n.message}</p>
-                      <p className="text-[10px] text-muted mt-1">{new Date(n.createdAt).toLocaleDateString()}</p>
+                      <p className="text-[13px] font-medium text-text">{n.title}</p>
+                      <p className="text-[12px] text-text-muted mt-[2px]">{n.message}</p>
+                      <p className="text-[11px] text-text-muted mt-[4px]">{new Date(n.createdAt).toLocaleDateString()}</p>
                     </button>
                   ))
                 )}
@@ -140,53 +143,46 @@ export function TopHeader({ onMenuClick }: TopHeaderProps) {
         <div ref={profileRef} className="relative">
           <button
             onClick={() => setProfileOpen(!profileOpen)}
-            className="flex items-center gap-2 pl-3 pr-2 py-1.5 rounded-btn hover:bg-gray-100 transition-colors"
+            className="flex items-center gap-[8px] pl-[12px] pr-[8px] py-[6px] rounded-md hover:bg-surface-2 transition-colors duration-[120ms]"
           >
-            <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary text-sm font-semibold">
-              {currentUser.displayName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase()}
+            <div className="w-[32px] h-[32px] rounded-full bg-primary-light flex items-center justify-center text-primary text-[12px] font-semibold">
+              {initials}
             </div>
-            <span className="hidden md:block text-sm font-medium text-foreground max-w-[120px] truncate">
+            <span className="hidden md:block text-[13px] font-medium text-text max-w-[120px] truncate">
               {currentUser.displayName}
             </span>
-            <ChevronDown className="w-4 h-4 text-muted hidden md:block" />
+            <ChevronDown className="w-[14px] h-[14px] text-text-muted hidden md:block" />
           </button>
 
           {profileOpen && (
-            <div className="absolute right-0 top-14 w-64 bg-surface border border-border rounded-card shadow-dropdown animate-scale-in z-50">
-              <div className="px-4 py-3 border-b border-border">
-                <p className="text-sm font-semibold text-foreground">{currentUser.displayName}</p>
-                <p className="text-xs text-muted mt-0.5">{currentUser.role.replace('_', ' ')}</p>
-                <p className="text-xs text-muted">{currentUser.email}</p>
+            <div className="absolute right-0 top-[52px] w-[240px] bg-surface border border-border rounded-lg shadow-lg animate-scale-in z-50">
+              <div className="px-[16px] py-[12px] border-b border-border">
+                <p className="text-[14px] font-semibold text-text">{currentUser.displayName}</p>
+                <p className="text-[12px] text-text-muted mt-[2px]">{currentUser.role.replace(/_/g, ' ')}</p>
+                <p className="text-[12px] text-text-muted">{currentUser.email}</p>
               </div>
-              <div className="py-1">
+              <div className="py-[4px]">
                 <button
-                  onClick={() => { setProfileOpen(false); }}
-                  className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-foreground hover:bg-gray-50 transition-colors"
+                  onClick={() => setProfileOpen(false)}
+                  className="w-full flex items-center gap-[12px] px-[16px] py-[10px] text-[13px] text-text hover:bg-surface-2 transition-colors duration-[120ms]"
                 >
-                  <User className="w-4 h-4 text-muted" />
+                  <User className="w-4 h-4 text-text-muted stroke-[1.5px]" />
                   Profile
                 </button>
                 <button
-                  onClick={() => { setProfileOpen(false); }}
-                  className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-foreground hover:bg-gray-50 transition-colors"
+                  onClick={() => setProfileOpen(false)}
+                  className="w-full flex items-center gap-[12px] px-[16px] py-[10px] text-[13px] text-text hover:bg-surface-2 transition-colors duration-[120ms]"
                 >
-                  <Settings className="w-4 h-4 text-muted" />
+                  <Settings className="w-4 h-4 text-text-muted stroke-[1.5px]" />
                   Account Settings
                 </button>
-                <button
-                  onClick={() => { setProfileOpen(false); }}
-                  className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-foreground hover:bg-gray-50 transition-colors"
-                >
-                  <Bell className="w-4 h-4 text-muted" />
-                  Notifications
-                </button>
               </div>
-              <div className="border-t border-border py-1">
+              <div className="border-t border-border py-[4px]">
                 <button
                   onClick={handleLogout}
-                  className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-danger hover:bg-red-50 transition-colors"
+                  className="w-full flex items-center gap-[12px] px-[16px] py-[10px] text-[13px] text-danger hover:bg-danger-bg transition-colors duration-[120ms]"
                 >
-                  <LogOut className="w-4 h-4" />
+                  <LogOut className="w-4 h-4 stroke-[1.5px]" />
                   Sign Out
                 </button>
               </div>
