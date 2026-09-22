@@ -1,12 +1,13 @@
 // ============================================================
-// HireFlow — Company / BHR Dashboard
+// HireFlow v2 — Company / BHR Dashboard
 // ============================================================
 import { Link } from 'react-router-dom';
 import { useStore } from '../../store/useStore';
 import { 
   Briefcase, Users, ClipboardList, Calendar, Plus,
-  TrendingUp, ArrowRight, Eye, Brain, Clock
+  ArrowRight, Eye, Brain
 } from 'lucide-react';
+import { Button, Card, StatCard, Badge, EmptyState } from '../../components/ui/Components';
 
 export function CompanyDashboard() {
   const { currentUser, currentCompanyId, jobs, applications, interviews, candidateMatches, companies } = useStore();
@@ -19,12 +20,6 @@ export function CompanyDashboard() {
   const companyApps = applications.filter(a => a.companyId === currentCompanyId);
   const needsReview = companyApps.filter(a => ['APPLIED', 'SCREENING', 'REVIEW'].includes(a.status));
   const todayInterviews = interviews.filter(i => i.companyId === currentCompanyId && i.scheduledDate === new Date().toISOString().split('T')[0]);
-  const shortlisted = companyApps.filter(a => a.status === 'SHORTLISTED');
-
-  const greeting = () => {
-    const h = new Date().getHours();
-    return h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening';
-  };
 
   const recentApps = companyApps
     .sort((a, b) => new Date(b.appliedAt).getTime() - new Date(a.appliedAt).getTime())
@@ -36,139 +31,150 @@ export function CompanyDashboard() {
     .slice(0, 5);
 
   return (
-    <div className="space-y-8 animate-fade-in">
+    <div className="space-y-[32px] page-enter">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-[16px]">
         <div>
-          <h1 className="text-2xl font-bold text-foreground">{greeting()}, {currentUser.displayName}</h1>
-          <p className="text-sm text-secondary mt-1">Manage your company's hiring pipeline{company ? ` — ${company.name}` : ''}</p>
+          <h1 className="text-[24px] font-bold text-text tracking-[-0.01em]">Overview</h1>
+          <p className="text-[14px] text-text-secondary mt-[4px]">Manage your hiring pipeline{company ? ` — ${company.name}` : ''}</p>
         </div>
-        <Link
-          to="/company/jobs/new"
-          className="px-5 py-2.5 bg-black-btn text-white text-sm font-semibold rounded-btn hover:bg-black-hover transition-all shadow-sm flex items-center gap-2"
-        >
-          <Plus className="w-4 h-4" />
-          Create Job
+        <Link to="/company/jobs/new">
+          <Button variant="primary">
+            <Plus className="w-[16px] h-[16px] stroke-[2px]" /> Create Job
+          </Button>
         </Link>
       </div>
 
-      {/* KPI Row */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-        {[
-          { label: 'Active Jobs', value: activeJobs.length, icon: <Briefcase className="w-5 h-5" />, color: 'text-primary bg-primary-light', link: '/company/jobs' },
-          { label: 'Total Applications', value: companyApps.length, icon: <ClipboardList className="w-5 h-5" />, color: 'text-ai bg-ai-light', link: '/company/candidates' },
-          { label: 'Needs Review', value: needsReview.length, icon: <Eye className="w-5 h-5" />, color: 'text-warning bg-amber-50', link: '/company/candidates' },
-          { label: 'Interviews Today', value: todayInterviews.length, icon: <Calendar className="w-5 h-5" />, color: 'text-success bg-green-50', link: '/company/interviewers' },
-        ].map((kpi, i) => (
-          <Link key={i} to={kpi.link} className="bg-surface rounded-card border border-border p-6 hover:shadow-card-hover hover:border-primary/20 transition-all duration-300 group">
-            <div className="flex items-center justify-between mb-3">
-              <div className={`w-10 h-10 rounded-btn ${kpi.color} flex items-center justify-center`}>
-                {kpi.icon}
-              </div>
-              <ArrowRight className="w-4 h-4 text-muted opacity-0 group-hover:opacity-100 transition-opacity" />
-            </div>
-            <p className="text-2xl font-bold text-foreground">{kpi.value}</p>
-            <p className="text-xs text-muted mt-1">{kpi.label}</p>
-          </Link>
-        ))}
+      {/* KPI Row (§7) */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[24px] stagger-in">
+        <Link to="/company/jobs" className="block outline-none rounded-lg focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg">
+          <StatCard
+            label="Active Jobs"
+            value={activeJobs.length}
+            icon={<Briefcase className="w-[20px] h-[20px]" />}
+          />
+        </Link>
+        <Link to="/company/candidates" className="block outline-none rounded-lg focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg">
+          <StatCard
+            label="Total Applications"
+            value={companyApps.length}
+            icon={<ClipboardList className="w-[20px] h-[20px]" />}
+          />
+        </Link>
+        <Link to="/company/candidates?filter=review" className="block outline-none rounded-lg focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg">
+          <StatCard
+            label="Needs Review"
+            value={needsReview.length}
+            icon={<Eye className="w-[20px] h-[20px]" />}
+            trend={needsReview.length > 0 ? "Requires attention" : "All caught up"}
+            trendUp={needsReview.length === 0}
+          />
+        </Link>
+        <Link to="/company/interviewers" className="block outline-none rounded-lg focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg">
+          <StatCard
+            label="Interviews Today"
+            value={todayInterviews.length}
+            icon={<Calendar className="w-[20px] h-[20px]" />}
+          />
+        </Link>
       </div>
 
       {/* Two Column Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-[24px]">
         {/* Recent Applications */}
-        <div className="bg-surface rounded-card border border-border">
-          <div className="px-6 py-5 border-b border-border flex items-center justify-between">
-            <h2 className="text-sm font-semibold text-foreground">Recent Applications</h2>
-            <Link to="/company/candidates" className="text-xs text-primary font-medium hover:text-primary-hover">View all</Link>
+        <Card className="flex flex-col p-0 overflow-hidden">
+          <div className="px-[20px] py-[16px] border-b border-border flex items-center justify-between bg-surface-2">
+            <h2 className="text-[14px] font-semibold text-text">Recent Applications</h2>
+            <Link to="/company/candidates" className="text-[13px] text-text-secondary font-medium hover:text-text transition-colors duration-[120ms]">View all</Link>
           </div>
-          <div className="divide-y divide-border">
+          <div className="flex-1 divide-y divide-border">
             {recentApps.length === 0 ? (
-              <div className="px-6 py-10 text-center">
-                <ClipboardList className="w-8 h-8 text-muted mx-auto mb-2 opacity-30" />
-                <p className="text-sm text-muted">No applications yet</p>
-                <p className="text-xs text-muted mt-1">Once candidates apply, they will appear here</p>
-              </div>
+              <EmptyState 
+                icon={<Users className="w-[32px] h-[32px]" />}
+                title="No applications yet"
+                description="Once candidates apply, they will appear here"
+              />
             ) : recentApps.map(app => {
               const job = jobs.find(j => j.id === app.jobId);
               const match = candidateMatches.find(m => m.applicationId === app.id);
               return (
-                <Link key={app.id} to={`/company/candidates/${app.candidateId}`} className="flex items-center justify-between px-6 py-4 hover:bg-gray-50 transition-colors">
+                <Link key={app.id} to={`/company/candidates/${app.candidateId}`} className="flex items-center justify-between px-[20px] py-[16px] hover:bg-surface-2 transition-colors duration-[120ms] group outline-none focus-visible:bg-surface-2">
                   <div className="min-w-0">
-                    <p className="text-sm font-medium text-foreground truncate">{app.id}</p>
-                    <p className="text-xs text-muted">{job?.title || 'Job'} • {new Date(app.appliedAt).toLocaleDateString()}</p>
+                    <p className="text-[14px] font-medium text-text truncate group-hover:text-primary transition-colors">{app.id}</p>
+                    <p className="text-[13px] text-text-secondary mt-[2px]">{job?.title || 'Job'} • {new Date(app.appliedAt).toLocaleDateString()}</p>
                   </div>
-                  <div className="flex items-center gap-2 shrink-0">
+                  <div className="flex items-center gap-[12px] shrink-0">
                     {match && (
-                      <span className={`px-2 py-0.5 text-xs font-semibold rounded-full ${match.overallScore >= 80 ? 'bg-green-50 text-success' : match.overallScore >= 60 ? 'bg-amber-50 text-warning' : 'bg-red-50 text-danger'}`}>
-                        {match.overallScore}%
-                      </span>
+                      <Badge variant={match.overallScore >= 80 ? 'success' : match.overallScore >= 60 ? 'warning' : 'danger'}>
+                        {match.overallScore}% Match
+                      </Badge>
                     )}
-                    <span className={`px-2 py-0.5 text-xs font-medium rounded-full ${
-                      app.status === 'SHORTLISTED' ? 'bg-green-50 text-success' :
-                      app.status === 'INTERVIEW' ? 'bg-primary-light text-primary' :
-                      app.status === 'REJECTED' ? 'bg-red-50 text-danger' :
-                      'bg-gray-100 text-muted'
-                    }`}>
+                    <Badge variant={
+                      app.status === 'SHORTLISTED' ? 'success' :
+                      app.status === 'INTERVIEW' ? 'primary' :
+                      app.status === 'REJECTED' ? 'danger' :
+                      'default'
+                    }>
                       {app.status}
-                    </span>
+                    </Badge>
                   </div>
                 </Link>
               );
             })}
           </div>
-        </div>
+        </Card>
 
         {/* Upcoming Interviews */}
-        <div className="bg-surface rounded-card border border-border">
-          <div className="px-6 py-5 border-b border-border flex items-center justify-between">
-            <h2 className="text-sm font-semibold text-foreground">Upcoming Interviews</h2>
-            <Link to="/company/interviewers" className="text-xs text-primary font-medium hover:text-primary-hover">View all</Link>
+        <Card className="flex flex-col p-0 overflow-hidden">
+          <div className="px-[20px] py-[16px] border-b border-border flex items-center justify-between bg-surface-2">
+            <h2 className="text-[14px] font-semibold text-text">Upcoming Interviews</h2>
+            <Link to="/company/interviewers" className="text-[13px] text-text-secondary font-medium hover:text-text transition-colors duration-[120ms]">View all</Link>
           </div>
-          <div className="divide-y divide-border">
+          <div className="flex-1 divide-y divide-border">
             {upcomingInterviews.length === 0 ? (
-              <div className="px-6 py-10 text-center">
-                <Calendar className="w-8 h-8 text-muted mx-auto mb-2 opacity-30" />
-                <p className="text-sm text-muted">No interviews scheduled</p>
-                <p className="text-xs text-muted mt-1">Shortlist a candidate to schedule an interview</p>
-              </div>
+              <EmptyState 
+                icon={<Calendar className="w-[32px] h-[32px]" />}
+                title="No interviews scheduled"
+                description="Shortlist a candidate to schedule an interview"
+              />
             ) : upcomingInterviews.map(interview => {
               const job = jobs.find(j => j.id === interview.jobId);
               return (
-                <div key={interview.id} className="px-6 py-4 flex items-center justify-between">
+                <div key={interview.id} className="px-[20px] py-[16px] flex items-center justify-between hover:bg-surface-2 transition-colors duration-[120ms]">
                   <div>
-                    <p className="text-sm font-medium text-foreground">{interview.stage}</p>
-                    <p className="text-xs text-muted">{job?.title} • {interview.scheduledDate} at {interview.scheduledTime}</p>
+                    <p className="text-[14px] font-medium text-text">{interview.stage}</p>
+                    <p className="text-[13px] text-text-secondary mt-[2px]">{job?.title} • {interview.scheduledDate} at {interview.scheduledTime}</p>
                   </div>
-                  <span className="px-2 py-0.5 bg-primary-light text-primary text-xs font-medium rounded-full">{interview.status}</span>
+                  <Badge variant="primary">{interview.status}</Badge>
                 </div>
               );
             })}
           </div>
-        </div>
+        </Card>
       </div>
 
       {/* AI Insights */}
       {candidateMatches.length > 0 && (
-        <div className="bg-ai-light rounded-card border border-ai/20 p-6">
-          <div className="flex items-center gap-2 mb-3">
-            <Brain className="w-5 h-5 text-ai" />
-            <h2 className="text-sm font-semibold text-foreground">AI Screening Summary</h2>
+        <Card className="bg-ai-light/30 border-ai/20">
+          <div className="flex items-center gap-[8px] mb-[16px]">
+            <Brain className="w-[20px] h-[20px] text-ai stroke-[1.5px]" />
+            <h2 className="text-[14px] font-semibold text-text">AI Screening Summary</h2>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div className="bg-surface rounded-btn p-3 border border-ai/10">
-              <p className="text-2xl font-bold text-foreground">{candidateMatches.length}</p>
-              <p className="text-xs text-muted">Candidates Analyzed</p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-[16px]">
+            <div className="bg-surface rounded-md p-[16px] border border-border">
+              <p className="text-[24px] font-bold text-text leading-none mb-[4px]">{candidateMatches.length}</p>
+              <p className="text-[12px] text-text-secondary">Candidates Analyzed</p>
             </div>
-            <div className="bg-surface rounded-btn p-3 border border-ai/10">
-              <p className="text-2xl font-bold text-success">{candidateMatches.filter(m => m.overallScore >= 80).length}</p>
-              <p className="text-xs text-muted">High Match (80%+)</p>
+            <div className="bg-surface rounded-md p-[16px] border border-border">
+              <p className="text-[24px] font-bold text-success leading-none mb-[4px]">{candidateMatches.filter(m => m.overallScore >= 80).length}</p>
+              <p className="text-[12px] text-text-secondary">High Match (80%+)</p>
             </div>
-            <div className="bg-surface rounded-btn p-3 border border-ai/10">
-              <p className="text-2xl font-bold text-foreground">{Math.round(candidateMatches.reduce((s, m) => s + m.overallScore, 0) / candidateMatches.length)}%</p>
-              <p className="text-xs text-muted">Avg Match Score</p>
+            <div className="bg-surface rounded-md p-[16px] border border-border">
+              <p className="text-[24px] font-bold text-text leading-none mb-[4px]">{Math.round(candidateMatches.reduce((s, m) => s + m.overallScore, 0) / candidateMatches.length)}%</p>
+              <p className="text-[12px] text-text-secondary">Avg Match Score</p>
             </div>
           </div>
-        </div>
+        </Card>
       )}
     </div>
   );

@@ -6,6 +6,7 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useStore } from '../../store/useStore';
 import { Sparkles, ArrowRight, Building2, User, AlertCircle } from 'lucide-react';
 import { toast } from '../../components/ui/Toast';
+import { Button, Input, Select } from '../../components/ui/Components';
 import type { UserRole } from '../../types';
 
 export function RegisterPage() {
@@ -97,15 +98,20 @@ export function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen flex">
+    <div className="min-h-screen flex bg-bg text-text">
       {/* Left - Visual */}
-      <div className="hidden lg:flex flex-1 bg-gradient-to-br from-ai via-primary to-primary-700 items-center justify-center p-12">
-        <div className="text-center text-white max-w-md">
-          <div className="w-20 h-20 mx-auto mb-8 rounded-2xl bg-white/10 backdrop-blur flex items-center justify-center">
-            <Sparkles className="w-10 h-10 text-white" />
+      <div className="hidden lg:flex flex-1 bg-surface-2 items-center justify-center p-[48px] relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-[20%] left-[-10%] w-[600px] h-[600px] rounded-full bg-ai/5 blur-[120px]" />
+          <div className="absolute bottom-[-10%] right-[20%] w-[500px] h-[500px] rounded-full bg-primary/5 blur-[120px]" />
+        </div>
+        
+        <div className="text-center max-w-[480px] z-10">
+          <div className="w-[64px] h-[64px] mx-auto mb-[32px] rounded-2xl bg-surface border border-border flex items-center justify-center shadow-sm">
+            <Sparkles className="w-[32px] h-[32px] text-primary" />
           </div>
-          <h2 className="text-3xl font-bold mb-4">Join HireFlow</h2>
-          <p className="text-lg text-white/80 leading-relaxed">
+          <h2 className="text-[32px] font-bold text-text mb-[16px] tracking-[-0.02em]">Join HireFlow</h2>
+          <p className="text-[16px] text-text-secondary leading-[28px]">
             {formData.role === 'BHR_MANAGER'
               ? 'Create your company profile, publish jobs, and let AI help you find the perfect candidates.'
               : 'Discover relevant opportunities, apply with your profile, and track your application status in real-time.'
@@ -115,163 +121,135 @@ export function RegisterPage() {
       </div>
 
       {/* Right - Form */}
-      <div className="flex-1 flex items-center justify-center p-6 bg-surface overflow-y-auto">
-        <div className="w-full max-w-md animate-slide-up">
-          <Link to="/" className="flex items-center gap-2.5 mb-8">
-            <div className="w-9 h-9 rounded-btn bg-primary flex items-center justify-center">
-              <Sparkles className="w-5 h-5 text-white" />
+      <div className="flex-1 flex items-center justify-center p-[24px] bg-bg overflow-y-auto">
+        <div className="w-full max-w-[420px] page-enter py-[32px]">
+          <Link to="/" className="inline-flex items-center gap-[12px] mb-[40px]">
+            <div className="w-[40px] h-[40px] rounded-md bg-primary flex items-center justify-center shadow-xs">
+              <Sparkles className="w-[20px] h-[20px] text-white stroke-[1.5px]" />
             </div>
-            <span className="text-xl font-bold text-foreground tracking-tight">HireFlow</span>
+            <span className="text-[20px] font-bold text-text tracking-[-0.01em]">HireFlow</span>
           </Link>
 
-          <h1 className="text-2xl font-bold text-foreground mb-2">Create your account</h1>
-          <p className="text-sm text-secondary mb-6">Get started in just a few minutes</p>
+          <h1 className="text-[28px] font-bold text-text mb-[8px] tracking-[-0.02em]">Create your account</h1>
+          <p className="text-[15px] text-text-secondary mb-[32px]">Get started in just a few minutes</p>
 
           {/* Role Selector */}
-          <div className="flex gap-3 mb-6">
+          <div className="flex gap-[12px] mb-[32px]">
             <button
               type="button"
               onClick={() => setFormData(f => ({ ...f, role: 'CANDIDATE' }))}
-              className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-btn border-2 text-sm font-semibold transition-all ${
+              className={`flex-1 flex items-center justify-center gap-[8px] px-[16px] py-[12px] rounded-md border text-[14px] font-medium transition-all duration-[120ms] outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg ${
                 formData.role === 'CANDIDATE'
-                  ? 'border-primary bg-primary-light text-primary'
-                  : 'border-border text-secondary hover:border-primary/30'
+                  ? 'border-primary bg-primary-light text-primary shadow-xs'
+                  : 'border-border bg-surface text-text-secondary hover:border-border-strong hover:bg-surface-2 hover:text-text'
               }`}
             >
-              <User className="w-4 h-4" />
+              <User className="w-[18px] h-[18px]" />
               Candidate
             </button>
             <button
               type="button"
               onClick={() => setFormData(f => ({ ...f, role: 'BHR_MANAGER' }))}
-              className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-btn border-2 text-sm font-semibold transition-all ${
+              className={`flex-1 flex items-center justify-center gap-[8px] px-[16px] py-[12px] rounded-md border text-[14px] font-medium transition-all duration-[120ms] outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg ${
                 formData.role === 'BHR_MANAGER'
-                  ? 'border-primary bg-primary-light text-primary'
-                  : 'border-border text-secondary hover:border-primary/30'
+                  ? 'border-primary bg-primary-light text-primary shadow-xs'
+                  : 'border-border bg-surface text-text-secondary hover:border-border-strong hover:bg-surface-2 hover:text-text'
               }`}
             >
-              <Building2 className="w-4 h-4" />
+              <Building2 className="w-[18px] h-[18px]" />
               Company
             </button>
           </div>
 
           {error && (
-            <div className="flex items-start gap-3 p-3 mb-6 bg-red-50 border border-red-200 rounded-btn text-sm text-danger animate-scale-in">
-              <AlertCircle className="w-5 h-5 shrink-0 mt-0.5" />
+            <div className="flex items-start gap-[12px] p-[16px] mb-[24px] bg-danger-bg border border-danger/20 rounded-md text-[14px] text-danger animate-scale-in">
+              <AlertCircle className="w-[20px] h-[20px] shrink-0" />
               <p>{error}</p>
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="name">Full Name</label>
-              <input
-                id="name"
-                type="text"
-                value={formData.displayName}
-                onChange={e => setFormData(f => ({ ...f, displayName: e.target.value }))}
-                placeholder="Enter your full name"
-                required
-                className="w-full px-4 py-2.5 border border-border rounded-btn text-sm text-foreground placeholder:text-muted focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="reg-email">Email</label>
-              <input
-                id="reg-email"
-                type="email"
-                value={formData.email}
-                onChange={e => setFormData(f => ({ ...f, email: e.target.value }))}
-                placeholder="you@example.com"
-                required
-                className="w-full px-4 py-2.5 border border-border rounded-btn text-sm text-foreground placeholder:text-muted focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="reg-password">Password</label>
-              <input
-                id="reg-password"
-                type="password"
-                value={formData.password}
-                onChange={e => setFormData(f => ({ ...f, password: e.target.value }))}
-                placeholder="Create a password"
-                required
-                minLength={6}
-                className="w-full px-4 py-2.5 border border-border rounded-btn text-sm text-foreground placeholder:text-muted focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
-              />
-            </div>
+          <form onSubmit={handleSubmit} className="space-y-[20px]">
+            <Input
+              label="Full Name"
+              type="text"
+              value={formData.displayName}
+              onChange={e => setFormData(f => ({ ...f, displayName: e.target.value }))}
+              placeholder="Enter your full name"
+              required
+            />
+            <Input
+              label="Email"
+              type="email"
+              value={formData.email}
+              onChange={e => setFormData(f => ({ ...f, email: e.target.value }))}
+              placeholder="you@example.com"
+              required
+            />
+            <Input
+              label="Password"
+              type="password"
+              value={formData.password}
+              onChange={e => setFormData(f => ({ ...f, password: e.target.value }))}
+              placeholder="Create a password"
+              required
+              minLength={6}
+            />
 
             {formData.role === 'BHR_MANAGER' && (
-              <>
-                <div className="pt-2 border-t border-border">
-                  <p className="text-xs font-medium text-muted uppercase tracking-wider mb-3">Company Details</p>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="company-name">Company Name</label>
-                  <input
-                    id="company-name"
-                    type="text"
-                    value={formData.companyName}
-                    onChange={e => setFormData(f => ({ ...f, companyName: e.target.value }))}
-                    placeholder="Your company name"
-                    required
-                    className="w-full px-4 py-2.5 border border-border rounded-btn text-sm text-foreground placeholder:text-muted focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="company-industry">Industry</label>
-                  <select
-                    id="company-industry"
-                    value={formData.companyIndustry}
-                    onChange={e => setFormData(f => ({ ...f, companyIndustry: e.target.value }))}
-                    className="w-full px-4 py-2.5 border border-border rounded-btn text-sm text-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
-                  >
-                    <option value="">Select industry</option>
-                    <option value="Information Technology">Information Technology</option>
-                    <option value="Finance">Finance</option>
-                    <option value="Healthcare">Healthcare</option>
-                    <option value="Education">Education</option>
-                    <option value="E-Commerce">E-Commerce</option>
-                    <option value="Manufacturing">Manufacturing</option>
-                    <option value="Consulting">Consulting</option>
-                    <option value="Other">Other</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="company-location">Location</label>
-                  <input
-                    id="company-location"
-                    type="text"
-                    value={formData.companyLocation}
-                    onChange={e => setFormData(f => ({ ...f, companyLocation: e.target.value }))}
-                    placeholder="e.g. Bangalore, India"
-                    className="w-full px-4 py-2.5 border border-border rounded-btn text-sm text-foreground placeholder:text-muted focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
-                  />
-                </div>
-              </>
+              <div className="pt-[24px] mt-[8px] space-y-[20px] border-t border-border animate-fade-in">
+                <p className="text-[12px] font-semibold text-text-muted uppercase tracking-[0.04em]">Company Details</p>
+                <Input
+                  label="Company Name"
+                  type="text"
+                  value={formData.companyName}
+                  onChange={e => setFormData(f => ({ ...f, companyName: e.target.value }))}
+                  placeholder="Your company name"
+                  required
+                />
+                <Select
+                  label="Industry"
+                  value={formData.companyIndustry}
+                  onChange={e => setFormData(f => ({ ...f, companyIndustry: e.target.value }))}
+                  options={[
+                    { value: '', label: 'Select industry' },
+                    { value: 'Information Technology', label: 'Information Technology' },
+                    { value: 'Finance', label: 'Finance' },
+                    { value: 'Healthcare', label: 'Healthcare' },
+                    { value: 'Education', label: 'Education' },
+                    { value: 'E-Commerce', label: 'E-Commerce' },
+                    { value: 'Manufacturing', label: 'Manufacturing' },
+                    { value: 'Consulting', label: 'Consulting' },
+                    { value: 'Other', label: 'Other' },
+                  ]}
+                />
+                <Input
+                  label="Location"
+                  type="text"
+                  value={formData.companyLocation}
+                  onChange={e => setFormData(f => ({ ...f, companyLocation: e.target.value }))}
+                  placeholder="e.g. Bangalore, India"
+                />
+              </div>
             )}
 
-            <button
+            <Button
               type="submit"
               disabled={loading}
-              className="w-full py-3 bg-primary text-white text-sm font-semibold rounded-btn hover:bg-primary-hover transition-all shadow-sm disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 mt-2"
+              className="w-full h-[48px] mt-[8px]"
             >
               {loading ? (
-                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                <div className="w-[20px] h-[20px] border-2 border-white/30 border-t-white rounded-full animate-spin" />
               ) : (
                 <>
-                  Create Account
-                  <ArrowRight className="w-4 h-4" />
+                  Create Account <ArrowRight className="w-[16px] h-[16px]" />
                 </>
               )}
-            </button>
+            </Button>
           </form>
 
-          <p className="mt-6 text-center text-sm text-secondary">
+          <p className="mt-[24px] text-center text-[14px] text-text-secondary">
             Already have an account?{' '}
-            <Link to="/login" className="text-primary font-semibold hover:text-primary-hover transition-colors">
+            <Link to="/login" className="text-primary font-medium hover:text-primary-hover transition-colors">
               Sign In
             </Link>
           </p>

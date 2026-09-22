@@ -1,10 +1,11 @@
 // ============================================================
-// HireFlow — Public Job Marketplace
+// HireFlow v2 — Public Job Marketplace
 // ============================================================
 import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useStore } from '../../store/useStore';
 import { Search, MapPin, Briefcase, Clock, Building2, Filter, Sparkles, ArrowRight } from 'lucide-react';
+import { Button, Card, Badge, Input, EmptyState } from '../../components/ui/Components';
 
 export function JobMarketplace() {
   const { jobs, companies, isAuthenticated, currentUser } = useStore();
@@ -33,26 +34,25 @@ export function JobMarketplace() {
   }, [jobs, companies, search, locationFilter, workModeFilter, typeFilter]);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-bg">
       {/* Header */}
       <header className="bg-surface border-b border-border sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-btn bg-primary flex items-center justify-center">
-              <Sparkles className="w-4 h-4 text-white" />
+        <div className="max-w-[1200px] mx-auto px-[24px] h-[72px] flex items-center justify-between">
+          <Link to="/" className="flex items-center gap-[12px]">
+            <div className="w-[40px] h-[40px] rounded-md bg-primary flex items-center justify-center shadow-xs">
+              <Sparkles className="w-[20px] h-[20px] text-white stroke-[1.5px]" />
             </div>
-            <span className="text-lg font-bold text-foreground">HireFlow</span>
+            <span className="text-[20px] font-bold text-text tracking-[-0.01em]">HireFlow</span>
           </Link>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-[12px]">
             {isAuthenticated && currentUser ? (
-              <Link to={currentUser.role === 'CANDIDATE' ? '/candidate/dashboard' : '/company/dashboard'}
-                className="px-4 py-2 text-sm font-medium text-primary hover:bg-primary-light rounded-btn transition-colors">
-                Dashboard
+              <Link to={currentUser.role === 'CANDIDATE' ? '/candidate/dashboard' : '/company/dashboard'}>
+                <Button variant="ghost">Dashboard</Button>
               </Link>
             ) : (
               <>
-                <Link to="/login" className="px-4 py-2 text-sm font-medium text-foreground hover:bg-gray-100 rounded-btn transition-colors">Sign In</Link>
-                <Link to="/register" className="px-4 py-2 bg-primary text-white text-sm font-semibold rounded-btn hover:bg-primary-hover transition-all">Get Started</Link>
+                <Link to="/login"><Button variant="ghost">Sign In</Button></Link>
+                <Link to="/register"><Button variant="primary">Get Started</Button></Link>
               </>
             )}
           </div>
@@ -60,58 +60,60 @@ export function JobMarketplace() {
       </header>
 
       {/* Hero Search */}
-      <section className="bg-gradient-to-b from-primary-light to-background py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-3xl sm:text-4xl font-bold text-foreground mb-3">Find your next opportunity</h1>
-          <p className="text-secondary mb-8">Browse open positions from top companies</p>
+      <section className="bg-surface-2 border-b border-border py-[64px] px-[24px] relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-[-50%] left-[20%] w-[800px] h-[800px] rounded-full bg-primary/5 blur-[120px]" />
+        </div>
+        <div className="max-w-[800px] mx-auto text-center relative z-10 page-enter">
+          <h1 className="text-[40px] sm:text-[48px] font-bold text-text mb-[16px] tracking-[-0.02em] leading-[1.1]">Find your next opportunity</h1>
+          <p className="text-[18px] text-text-secondary mb-[40px]">Browse open positions from top companies</p>
 
-          <div className="bg-surface rounded-card-lg shadow-card-hover p-3 flex flex-col sm:flex-row gap-3">
+          <Card className="p-[8px] flex flex-col sm:flex-row gap-[8px] bg-surface shadow-sm">
             <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted" />
+              <Search className="absolute left-[16px] top-1/2 -translate-y-1/2 w-[20px] h-[20px] text-text-muted" />
               <input
                 type="text"
                 placeholder="Job title, skill, or company..."
                 value={search}
                 onChange={e => setSearch(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 rounded-btn border border-border text-sm focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                className="w-full h-[48px] pl-[48px] pr-[16px] bg-bg rounded-md text-[15px] text-text border border-border focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
               />
             </div>
-            <div className="relative">
-              <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted" />
+            <div className="relative sm:w-[240px]">
+              <MapPin className="absolute left-[16px] top-1/2 -translate-y-1/2 w-[20px] h-[20px] text-text-muted" />
               <input
                 type="text"
                 placeholder="Location"
                 value={locationFilter}
                 onChange={e => setLocationFilter(e.target.value)}
-                className="w-full sm:w-48 pl-10 pr-4 py-2.5 rounded-btn border border-border text-sm focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                className="w-full h-[48px] pl-[48px] pr-[16px] bg-bg rounded-md text-[15px] text-text border border-border focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
               />
             </div>
-            <button className="px-6 py-2.5 bg-primary text-white text-sm font-semibold rounded-btn hover:bg-primary-hover transition-all flex items-center gap-2 justify-center">
-              <Search className="w-4 h-4" />
+            <Button variant="primary" className="h-[48px] px-[32px] text-[15px]">
               Search
-            </button>
-          </div>
+            </Button>
+          </Card>
         </div>
       </section>
 
       {/* Filters + Results */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex flex-col lg:flex-row gap-8">
+      <section className="max-w-[1200px] mx-auto px-[24px] py-[48px] page-enter">
+        <div className="flex flex-col lg:flex-row gap-[32px]">
           {/* Sidebar Filters */}
-          <div className="w-full lg:w-64 shrink-0">
-            <div className="bg-surface rounded-card border border-border p-5 sticky top-24">
-              <div className="flex items-center gap-2 mb-4">
-                <Filter className="w-4 h-4 text-muted" />
-                <h3 className="text-sm font-semibold text-foreground">Filters</h3>
+          <div className="w-full lg:w-[280px] shrink-0">
+            <Card className="sticky top-[96px]">
+              <div className="flex items-center gap-[8px] mb-[24px] pb-[16px] border-b border-border">
+                <Filter className="w-[18px] h-[18px] text-text-muted" />
+                <h3 className="text-[15px] font-semibold text-text">Filters</h3>
               </div>
 
-              <div className="space-y-4">
+              <div className="space-y-[32px]">
                 <div>
-                  <label className="text-xs font-medium text-muted uppercase tracking-wider mb-2 block">Work Mode</label>
-                  <div className="space-y-1.5">
+                  <label className="text-[12px] font-semibold text-text-muted uppercase tracking-[0.04em] mb-[12px] block">Work Mode</label>
+                  <div className="space-y-[4px]">
                     {[{ v: '', l: 'All' }, { v: 'remote', l: 'Remote' }, { v: 'hybrid', l: 'Hybrid' }, { v: 'onsite', l: 'On-site' }].map(o => (
                       <button key={o.v} onClick={() => setWorkModeFilter(o.v)}
-                        className={`block w-full text-left px-3 py-1.5 rounded text-sm transition-colors ${workModeFilter === o.v ? 'bg-primary-light text-primary font-medium' : 'text-secondary hover:bg-gray-50'}`}>
+                        className={`block w-full text-left px-[12px] py-[8px] rounded-md text-[14px] transition-colors duration-[120ms] ${workModeFilter === o.v ? 'bg-primary-light text-primary font-medium' : 'text-text-secondary hover:bg-surface-2 hover:text-text'}`}>
                         {o.l}
                       </button>
                     ))}
@@ -119,34 +121,36 @@ export function JobMarketplace() {
                 </div>
 
                 <div>
-                  <label className="text-xs font-medium text-muted uppercase tracking-wider mb-2 block">Employment Type</label>
-                  <div className="space-y-1.5">
+                  <label className="text-[12px] font-semibold text-text-muted uppercase tracking-[0.04em] mb-[12px] block">Employment Type</label>
+                  <div className="space-y-[4px]">
                     {[{ v: '', l: 'All' }, { v: 'full-time', l: 'Full Time' }, { v: 'part-time', l: 'Part Time' }, { v: 'contract', l: 'Contract' }, { v: 'internship', l: 'Internship' }].map(o => (
                       <button key={o.v} onClick={() => setTypeFilter(o.v)}
-                        className={`block w-full text-left px-3 py-1.5 rounded text-sm transition-colors ${typeFilter === o.v ? 'bg-primary-light text-primary font-medium' : 'text-secondary hover:bg-gray-50'}`}>
+                        className={`block w-full text-left px-[12px] py-[8px] rounded-md text-[14px] transition-colors duration-[120ms] ${typeFilter === o.v ? 'bg-primary-light text-primary font-medium' : 'text-text-secondary hover:bg-surface-2 hover:text-text'}`}>
                         {o.l}
                       </button>
                     ))}
                   </div>
                 </div>
               </div>
-            </div>
+            </Card>
           </div>
 
           {/* Job Listings */}
           <div className="flex-1">
-            <div className="flex items-center justify-between mb-4">
-              <p className="text-sm text-muted">{publishedJobs.length} job{publishedJobs.length !== 1 ? 's' : ''} found</p>
+            <div className="flex items-center justify-between mb-[24px]">
+              <p className="text-[15px] font-medium text-text-secondary">{publishedJobs.length} job{publishedJobs.length !== 1 ? 's' : ''} found</p>
             </div>
 
             {publishedJobs.length === 0 ? (
-              <div className="bg-surface rounded-card border border-border p-12 text-center">
-                <Briefcase className="w-12 h-12 text-muted mx-auto mb-4 opacity-30" />
-                <h3 className="text-lg font-semibold text-foreground mb-2">No jobs found</h3>
-                <p className="text-sm text-secondary">Try adjusting your search or filters</p>
-              </div>
+              <Card className="min-h-[300px] flex items-center justify-center">
+                <EmptyState
+                  icon={<Briefcase className="w-[48px] h-[48px]" />}
+                  title="No jobs found"
+                  description="Try adjusting your search or filters to find what you're looking for."
+                />
+              </Card>
             ) : (
-              <div className="space-y-4">
+              <div className="space-y-[16px] stagger-in">
                 {publishedJobs.map(job => {
                   const company = companies.find(c => c.id === job.companyId);
                   const daysAgo = Math.floor((Date.now() - new Date(job.publishedAt || job.createdAt).getTime()) / (1000 * 60 * 60 * 24));
@@ -155,43 +159,45 @@ export function JobMarketplace() {
                     <Link
                       key={job.id}
                       to={`/jobs/${job.id}`}
-                      className="block bg-surface rounded-card border border-border p-5 hover:border-primary/30 hover:shadow-card-hover transition-all duration-300 group"
+                      className="block outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg rounded-lg"
                     >
-                      <div className="flex items-start justify-between gap-4">
-                        <div className="flex-1 min-w-0">
-                          <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">{job.title}</h3>
-                          <p className="text-sm text-secondary mt-1 flex items-center gap-1.5">
-                            <Building2 className="w-4 h-4" />
-                            {company?.name || 'Company'}
-                          </p>
-                          
-                          <div className="flex flex-wrap items-center gap-3 mt-3 text-xs text-muted">
-                            <span className="flex items-center gap-1"><MapPin className="w-3.5 h-3.5" />{job.location}</span>
-                            <span className="flex items-center gap-1"><Briefcase className="w-3.5 h-3.5" />{job.workMode === 'remote' ? 'Remote' : job.workMode === 'hybrid' ? 'Hybrid' : 'On-site'}</span>
-                            <span className="flex items-center gap-1"><Clock className="w-3.5 h-3.5" />{job.employmentType.replace('-', ' ')}</span>
+                      <Card hover className="group p-[24px]">
+                        <div className="flex items-start justify-between gap-[16px]">
+                          <div className="flex-1 min-w-0">
+                            <h3 className="text-[18px] font-semibold text-text group-hover:text-primary transition-colors">{job.title}</h3>
+                            <p className="text-[15px] text-text-secondary mt-[4px] flex items-center gap-[6px]">
+                              <Building2 className="w-[16px] h-[16px] text-text-muted" />
+                              {company?.name || 'Company'}
+                            </p>
+                            
+                            <div className="flex flex-wrap items-center gap-[16px] mt-[16px] text-[13px] text-text-secondary">
+                              <span className="flex items-center gap-[6px]"><MapPin className="w-[14px] h-[14px] text-text-muted" />{job.location}</span>
+                              <span className="flex items-center gap-[6px]"><Briefcase className="w-[14px] h-[14px] text-text-muted" />{job.workMode === 'remote' ? 'Remote' : job.workMode === 'hybrid' ? 'Hybrid' : 'On-site'}</span>
+                              <span className="flex items-center gap-[6px] capitalize"><Clock className="w-[14px] h-[14px] text-text-muted" />{job.employmentType.replace('-', ' ')}</span>
+                            </div>
+
+                            <div className="flex flex-wrap gap-[8px] mt-[16px]">
+                              {job.requirements.filter(r => r.priority === 'MANDATORY').slice(0, 4).map(r => (
+                                <Badge key={r.id} variant="primary">{r.name}</Badge>
+                              ))}
+                              {job.requirements.filter(r => r.priority === 'MANDATORY').length > 4 && (
+                                <Badge variant="default">
+                                  +{job.requirements.filter(r => r.priority === 'MANDATORY').length - 4} more
+                                </Badge>
+                              )}
+                            </div>
                           </div>
 
-                          <div className="flex flex-wrap gap-1.5 mt-3">
-                            {job.requirements.filter(r => r.priority === 'MANDATORY').slice(0, 4).map(r => (
-                              <span key={r.id} className="px-2 py-0.5 bg-primary-light text-primary text-xs font-medium rounded-full">{r.name}</span>
-                            ))}
-                            {job.requirements.filter(r => r.priority === 'MANDATORY').length > 4 && (
-                              <span className="px-2 py-0.5 bg-gray-100 text-muted text-xs rounded-full">
-                                +{job.requirements.filter(r => r.priority === 'MANDATORY').length - 4} more
+                          <div className="text-right shrink-0 flex flex-col items-end">
+                            <p className="text-[13px] text-text-muted">{daysAgo === 0 ? 'Today' : `${daysAgo}d ago`}</p>
+                            <div className="mt-[32px] opacity-0 group-hover:opacity-100 transition-opacity duration-[200ms] -translate-x-2 group-hover:translate-x-0">
+                              <span className="inline-flex items-center gap-[6px] text-[14px] font-medium text-primary">
+                                View Role <ArrowRight className="w-[14px] h-[14px]" />
                               </span>
-                            )}
+                            </div>
                           </div>
                         </div>
-
-                        <div className="text-right shrink-0">
-                          <p className="text-xs text-muted">{daysAgo === 0 ? 'Today' : `${daysAgo}d ago`}</p>
-                          <div className="mt-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <span className="inline-flex items-center gap-1 text-xs font-medium text-primary">
-                              View Role <ArrowRight className="w-3 h-3" />
-                            </span>
-                          </div>
-                        </div>
-                      </div>
+                      </Card>
                     </Link>
                   );
                 })}

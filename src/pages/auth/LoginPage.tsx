@@ -6,6 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useStore } from '../../store/useStore';
 import { Sparkles, Eye, EyeOff, ArrowRight, AlertCircle } from 'lucide-react';
 import { toast } from '../../components/ui/Toast';
+import { Button, Input } from '../../components/ui/Components';
 
 export function LoginPage() {
   const [email, setEmail] = useState('');
@@ -51,90 +52,85 @@ export function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex">
+    <div className="min-h-screen flex bg-bg text-text">
       {/* Left - Form */}
-      <div className="flex-1 flex items-center justify-center p-6 bg-surface">
-        <div className="w-full max-w-md animate-slide-up">
-          <Link to="/" className="flex items-center gap-2.5 mb-10">
-            <div className="w-9 h-9 rounded-btn bg-primary flex items-center justify-center">
-              <Sparkles className="w-5 h-5 text-white" />
+      <div className="flex-1 flex items-center justify-center p-[24px] bg-bg relative">
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-primary/5 blur-[120px]" />
+        </div>
+        
+        <div className="w-full max-w-[420px] z-10 page-enter">
+          <Link to="/" className="inline-flex items-center gap-[12px] mb-[40px]">
+            <div className="w-[40px] h-[40px] rounded-md bg-primary flex items-center justify-center shadow-xs">
+              <Sparkles className="w-[20px] h-[20px] text-white stroke-[1.5px]" />
             </div>
-            <span className="text-xl font-bold text-foreground tracking-tight">HireFlow</span>
+            <span className="text-[20px] font-bold text-text tracking-[-0.01em]">HireFlow</span>
           </Link>
 
-          <h1 className="text-2xl font-bold text-foreground mb-2">Welcome back</h1>
-          <p className="text-sm text-secondary mb-8">Sign in to your account to continue</p>
+          <h1 className="text-[28px] font-bold text-text mb-[8px] tracking-[-0.02em]">Welcome back</h1>
+          <p className="text-[15px] text-text-secondary mb-[32px]">Sign in to your account to continue</p>
 
           {error && (
-            <div className="flex items-start gap-3 p-3 mb-6 bg-red-50 border border-red-200 rounded-btn text-sm text-danger animate-scale-in">
-              <AlertCircle className="w-5 h-5 shrink-0 mt-0.5" />
+            <div className="flex items-start gap-[12px] p-[16px] mb-[24px] bg-danger-bg border border-danger/20 rounded-md text-[14px] text-danger animate-scale-in">
+              <AlertCircle className="w-[20px] h-[20px] shrink-0" />
               <p>{error}</p>
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-5">
-            <div>
-              <label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="email">Email</label>
-              <input
-                id="email"
-                type="email"
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-                placeholder="you@example.com"
+          <form onSubmit={handleSubmit} className="space-y-[20px]">
+            <Input
+              label="Email"
+              type="email"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              placeholder="you@example.com"
+              required
+            />
+
+            <div className="relative">
+              <Input
+                label="Password"
+                type={showPassword ? 'text' : 'password'}
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+                placeholder="Enter password"
                 required
-                className="w-full px-4 py-2.5 border border-border rounded-btn text-sm text-foreground placeholder:text-muted focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
               />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-[12px] top-[34px] text-text-muted hover:text-text transition-colors duration-[120ms]"
+              >
+                {showPassword ? <EyeOff className="w-[16px] h-[16px]" /> : <Eye className="w-[16px] h-[16px]" />}
+              </button>
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-foreground mb-1.5" htmlFor="password">Password</label>
-              <div className="relative">
-                <input
-                  id="password"
-                  type={showPassword ? 'text' : 'password'}
-                  value={password}
-                  onChange={e => setPassword(e.target.value)}
-                  placeholder="Enter password"
-                  required
-                  className="w-full px-4 py-2.5 border border-border rounded-btn text-sm text-foreground placeholder:text-muted focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all pr-12"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-foreground p-1"
-                >
-                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                </button>
-              </div>
-            </div>
-
-            <button
+            <Button
               type="submit"
               disabled={loading}
-              className="w-full py-3 bg-primary text-white text-sm font-semibold rounded-btn hover:bg-primary-hover transition-all shadow-sm disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="w-full h-[48px]"
             >
               {loading ? (
-                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                <div className="w-[20px] h-[20px] border-2 border-white/30 border-t-white rounded-full animate-spin" />
               ) : (
                 <>
-                  Sign In
-                  <ArrowRight className="w-4 h-4" />
+                  Sign In <ArrowRight className="w-[16px] h-[16px]" />
                 </>
               )}
-            </button>
+            </Button>
           </form>
 
-          <p className="mt-6 text-center text-sm text-secondary">
+          <p className="mt-[24px] text-center text-[14px] text-text-secondary">
             Don't have an account?{' '}
-            <Link to="/register" className="text-primary font-semibold hover:text-primary-hover transition-colors">
+            <Link to="/register" className="text-primary font-medium hover:text-primary-hover transition-colors">
               Sign Up
             </Link>
           </p>
 
           {/* Quick Demo Login */}
-          <div className="mt-8 pt-6 border-t border-border">
-            <p className="text-xs font-medium text-muted mb-3 uppercase tracking-wider">Quick Demo Login</p>
-            <div className="grid grid-cols-2 gap-2">
+          <div className="mt-[32px] pt-[24px] border-t border-border">
+            <p className="text-[12px] font-semibold text-text-muted mb-[16px] uppercase tracking-[0.04em]">Quick Demo Login</p>
+            <div className="grid grid-cols-2 gap-[12px]">
               {[
                 { label: 'BHR Manager', email: 'demo-bhr@example.com' },
                 { label: 'HR Recruiter', email: 'demo-hr@example.com' },
@@ -145,7 +141,7 @@ export function LoginPage() {
                   key={demo.email}
                   type="button"
                   onClick={() => quickLogin(demo.email)}
-                  className="px-3 py-2 text-xs font-medium text-secondary border border-border rounded-btn hover:bg-gray-50 hover:border-primary/30 transition-all text-left"
+                  className="px-[12px] py-[10px] text-[13px] font-medium text-text-secondary border border-border rounded-md bg-surface-2 hover:bg-border transition-colors text-left"
                 >
                   {demo.label}
                 </button>
@@ -156,13 +152,18 @@ export function LoginPage() {
       </div>
 
       {/* Right - Visual */}
-      <div className="hidden lg:flex flex-1 bg-gradient-to-br from-primary via-primary-700 to-ai items-center justify-center p-12">
-        <div className="text-center text-white max-w-md">
-          <div className="w-20 h-20 mx-auto mb-8 rounded-2xl bg-white/10 backdrop-blur flex items-center justify-center">
-            <Sparkles className="w-10 h-10 text-white" />
+      <div className="hidden lg:flex flex-1 bg-surface-2 items-center justify-center p-[48px] relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-[20%] right-[-10%] w-[600px] h-[600px] rounded-full bg-ai/5 blur-[120px]" />
+          <div className="absolute bottom-[-10%] left-[20%] w-[500px] h-[500px] rounded-full bg-primary/5 blur-[120px]" />
+        </div>
+        
+        <div className="text-center max-w-[480px] z-10">
+          <div className="w-[64px] h-[64px] mx-auto mb-[32px] rounded-2xl bg-surface border border-border flex items-center justify-center shadow-sm">
+            <Sparkles className="w-[32px] h-[32px] text-primary" />
           </div>
-          <h2 className="text-3xl font-bold mb-4">AI-Powered Hiring Platform</h2>
-          <p className="text-lg text-white/80 leading-relaxed">
+          <h2 className="text-[32px] font-bold text-text mb-[16px] tracking-[-0.02em]">AI-Powered Hiring Platform</h2>
+          <p className="text-[16px] text-text-secondary leading-[28px]">
             Companies define what they need. Candidates provide their qualifications.
             The platform analyzes the relationship between the two.
           </p>
