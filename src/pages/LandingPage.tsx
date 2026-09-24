@@ -88,13 +88,16 @@ export function LandingPage() {
             <span className="text-[20px] font-bold text-text tracking-[-0.02em]">HireFlow</span>
           </div>
 
-          <div className="hidden md:flex items-center gap-[32px]">
-            <Link to="/jobs" className="text-[15px] font-medium text-text-secondary hover:text-text transition-colors duration-[120ms]">
+          <div className="hidden md:flex items-center gap-[40px]">
+            <Link to="/jobs" className="text-[16px] font-medium text-text-secondary hover:text-text transition-colors duration-[120ms]">
               Browse Jobs
             </Link>
-            <a href="#features" className="text-[15px] font-medium text-text-secondary hover:text-text transition-colors duration-[120ms]">
+            <a href="#features" className="text-[16px] font-medium text-text-secondary hover:text-text transition-colors duration-[120ms]">
               Features
             </a>
+            <Link to="/demo" className="text-[16px] font-medium text-text-secondary hover:text-text transition-colors duration-[120ms]">
+              AI Matching Demo
+            </Link>
           </div>
 
           <div className="flex items-center gap-[12px]">
@@ -106,11 +109,11 @@ export function LandingPage() {
               </Link>
             ) : (
               <>
-                <Link to="/login" className="px-[12px] py-[8px] text-[14px] font-medium text-text-secondary hover:text-text transition-colors duration-[120ms]">
+                <Link to="/login" className="px-[20px] py-[10px] rounded-md text-[15px] font-medium text-text hover:bg-surface-2 active:bg-black transition-all duration-[120ms]">
                   Sign In
                 </Link>
                 <Link to="/register">
-                  <Button variant="header">Get Started</Button>
+                  <Button variant="header" className="h-[44px] px-[20px] text-[15px]">Get Started</Button>
                 </Link>
               </>
             )}

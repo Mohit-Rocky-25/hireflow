@@ -44,17 +44,28 @@ export function JobMarketplace() {
             </div>
             <span className="text-[20px] font-bold text-text tracking-[-0.01em]">HireFlow</span>
           </Link>
-          <div className="flex items-center gap-[12px]">
-            {isAuthenticated && currentUser ? (
-              <Link to={currentUser.role === 'CANDIDATE' ? '/candidate/dashboard' : '/company/dashboard'}>
-                <Button variant="ghost">Dashboard</Button>
+          <div className="flex items-center gap-[32px]">
+            <div className="hidden md:flex items-center gap-[24px]">
+              <Link to="/demo" className="text-[15px] font-medium text-text-secondary hover:text-text transition-colors duration-[120ms]">
+                AI Matching Demo
               </Link>
-            ) : (
-              <>
-                <Link to="/login"><Button variant="ghost">Sign In</Button></Link>
-                <Link to="/register"><Button variant="primary">Get Started</Button></Link>
-              </>
-            )}
+            </div>
+            <div className="flex items-center gap-[12px]">
+              {isAuthenticated && currentUser ? (
+                <Link to={currentUser.role === 'CANDIDATE' ? '/candidate/dashboard' : '/company/dashboard'}>
+                  <Button variant="ghost">Dashboard</Button>
+                </Link>
+              ) : (
+                <>
+                  <Link to="/login" className="px-[20px] py-[10px] rounded-md text-[15px] font-medium text-text hover:bg-surface-2 active:bg-black transition-all duration-[120ms]">
+                    Sign In
+                  </Link>
+                  <Link to="/register">
+                    <Button variant="primary" className="h-[44px] px-[20px] text-[15px]">Get Started</Button>
+                  </Link>
+                </>
+              )}
+            </div>
           </div>
         </div>
       </header>
@@ -150,7 +161,7 @@ export function JobMarketplace() {
                 />
               </Card>
             ) : (
-              <div className="space-y-[16px] stagger-in">
+              <div className="space-y-[24px] stagger-in">
                 {publishedJobs.map(job => {
                   const company = companies.find(c => c.id === job.companyId);
                   const daysAgo = Math.floor((Date.now() - new Date(job.publishedAt || job.createdAt).getTime()) / (1000 * 60 * 60 * 24));
@@ -164,16 +175,16 @@ export function JobMarketplace() {
                       <Card hover className="group p-[24px]">
                         <div className="flex items-start justify-between gap-[16px]">
                           <div className="flex-1 min-w-0">
-                            <h3 className="text-[18px] font-semibold text-text group-hover:text-primary transition-colors">{job.title}</h3>
-                            <p className="text-[15px] text-text-secondary mt-[4px] flex items-center gap-[6px]">
-                              <Building2 className="w-[16px] h-[16px] text-text-muted" />
+                            <h3 className="text-[20px] font-bold text-text group-hover:text-primary transition-colors mb-[8px]">{job.title}</h3>
+                            <p className="text-[16px] text-text-secondary flex items-center gap-[8px]">
+                              <Building2 className="w-[18px] h-[18px] text-text-muted" />
                               {company?.name || 'Company'}
                             </p>
                             
-                            <div className="flex flex-wrap items-center gap-[16px] mt-[16px] text-[13px] text-text-secondary">
-                              <span className="flex items-center gap-[6px]"><MapPin className="w-[14px] h-[14px] text-text-muted" />{job.location}</span>
-                              <span className="flex items-center gap-[6px]"><Briefcase className="w-[14px] h-[14px] text-text-muted" />{job.workMode === 'remote' ? 'Remote' : job.workMode === 'hybrid' ? 'Hybrid' : 'On-site'}</span>
-                              <span className="flex items-center gap-[6px] capitalize"><Clock className="w-[14px] h-[14px] text-text-muted" />{job.employmentType.replace('-', ' ')}</span>
+                            <div className="flex flex-wrap items-center gap-[24px] mt-[24px] text-[14px] text-text-secondary">
+                              <span className="flex items-center gap-[8px]"><MapPin className="w-[16px] h-[16px] text-text-muted" />{job.location}</span>
+                              <span className="flex items-center gap-[8px]"><Briefcase className="w-[16px] h-[16px] text-text-muted" />{job.workMode === 'remote' ? 'Remote' : job.workMode === 'hybrid' ? 'Hybrid' : 'On-site'}</span>
+                              <span className="flex items-center gap-[8px] capitalize"><Clock className="w-[16px] h-[16px] text-text-muted" />{job.employmentType.replace('-', ' ')}</span>
                             </div>
 
                             <div className="flex flex-wrap gap-[8px] mt-[16px]">

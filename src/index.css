@@ -8,14 +8,14 @@
 
 @theme {
   /* ── Brand ── */
-  --color-primary:        #8B5CF6;
-  --color-primary-hover:  #7C3AED;
-  --color-primary-active: #6D28D9;
-  --color-primary-light:  rgba(139, 92, 246, 0.12);
+  --color-primary:        #EA580C; /* Dark Orange */
+  --color-primary-hover:  #C2410C;
+  --color-primary-active: #9A3412;
+  --color-primary-light:  rgba(234, 88, 12, 0.12);
 
   /* ── AI accent — reserved ONLY for AI-generated content/actions ── */
-  --color-ai:        #A855F7;
-  --color-ai-light:  rgba(168, 85, 247, 0.10);
+  --color-ai:        #D97706; /* Amber/Orange */
+  --color-ai-light:  rgba(217, 119, 6, 0.10);
 
   /* ── Surfaces (dark theme) ── */
   --color-bg:        #09090B;
@@ -152,7 +152,7 @@ html, body, #root {
 
 /* ── Selection ── */
 ::selection {
-  background: rgba(139, 92, 246, 0.30);
+  background: rgba(234, 88, 12, 0.30);
   color: #FFFFFF;
 }
 
