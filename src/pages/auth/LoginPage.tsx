@@ -151,22 +151,40 @@ export function LoginPage() {
         </div>
       </div>
 
-      {/* Right - Visual */}
-      <div className="hidden lg:flex flex-1 bg-surface-2 items-center justify-center p-[48px] relative overflow-hidden">
+      {/* Right - Visual: Premium Orange Panel */}
+      <div className="hidden lg:flex flex-1 items-center justify-center p-[48px] relative overflow-hidden bg-gradient-to-br from-primary-active via-primary to-[#EA580C]">
+        {/* Animated orbs */}
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-[20%] right-[-10%] w-[600px] h-[600px] rounded-full bg-ai/5 blur-[120px]" />
-          <div className="absolute bottom-[-10%] left-[20%] w-[500px] h-[500px] rounded-full bg-primary/5 blur-[120px]" />
+          <div className="absolute top-[15%] right-[-5%] w-[400px] h-[400px] rounded-full bg-white/10 blur-[80px] animate-float" style={{ animationDelay: '0s' }} />
+          <div className="absolute bottom-[-10%] left-[10%] w-[350px] h-[350px] rounded-full bg-white/8 blur-[100px] animate-float" style={{ animationDelay: '2s' }} />
+          <div className="absolute top-[55%] right-[25%] w-[200px] h-[200px] rounded-full bg-white/12 blur-[60px] animate-float" style={{ animationDelay: '1s' }} />
         </div>
-        
-        <div className="text-center max-w-[480px] z-10">
-          <div className="w-[64px] h-[64px] mx-auto mb-[32px] rounded-2xl bg-surface border border-border flex items-center justify-center shadow-sm">
-            <Sparkles className="w-[32px] h-[32px] text-primary" />
+        {/* Mesh grid overlay */}
+        <div className="absolute inset-0 opacity-[0.06]" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+
+        <div className="text-center max-w-[440px] z-10">
+          <div className="w-[80px] h-[80px] mx-auto mb-[36px] rounded-2xl bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center shadow-2xl">
+            <Sparkles className="w-[40px] h-[40px] text-white stroke-[1.5px]" />
           </div>
-          <h2 className="text-[32px] font-bold text-text mb-[16px] tracking-[-0.02em]">AI-Powered Hiring Platform</h2>
-          <p className="text-[16px] text-text-secondary leading-[28px]">
+          <h2 className="text-[36px] font-extrabold text-white mb-[20px] tracking-[-0.03em] leading-[1.1]">
+            AI-Powered Hiring Platform
+          </h2>
+          <p className="text-[17px] text-white/80 leading-[28px] mb-[40px]">
             Companies define what they need. Candidates provide their qualifications.
             The platform analyzes the relationship between the two.
           </p>
+          <div className="flex flex-col gap-[12px] text-left">
+            {[
+              '⚡ AI match scoring with evidence',
+              '🔒 Multi-tenant security by default',
+              '📊 Real-time hiring analytics',
+              '🎯 5-dimension interview evaluation',
+            ].map((f, i) => (
+              <div key={i} className="flex items-center gap-[12px] bg-white/15 backdrop-blur-sm border border-white/20 rounded-xl px-[16px] py-[12px]">
+                <span className="text-[14px] font-medium text-white">{f}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

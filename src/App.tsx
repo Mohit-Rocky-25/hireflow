@@ -46,6 +46,7 @@ import { CandidateApplicationDetail } from './pages/candidate/CandidateApplicati
 import { CandidateInterviews } from './pages/candidate/CandidateInterviews';
 import { CandidateResume } from './pages/candidate/CandidateResume';
 import { CandidateProfilePage } from './pages/candidate/CandidateProfilePage';
+import { CompanyMatch } from './pages/candidate/CompanyMatch';
 
 // Admin Pages
 import { AdminDashboard } from './pages/admin/AdminDashboard';
@@ -127,6 +128,7 @@ export default function App() {
           <Route path="applications/:id" element={<CandidateApplicationDetail />} />
           <Route path="interviews" element={<CandidateInterviews />} />
           <Route path="resume" element={<CandidateResume />} />
+          <Route path="company-match" element={<CompanyMatch />} />
           <Route path="profile" element={<CandidateProfilePage />} />
           <Route path="notifications" element={<NotificationsPage />} />
         </Route>
