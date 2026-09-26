@@ -91,18 +91,16 @@
   }
 }
 
-/* ── Base reset ── */
+/* ── Base reset (Tailwind preflight handles the rest) ── */
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
 }
 
 html, body, #root {
-  height: 100%;
+  min-height: 100%;
   font-family: var(--font-sans);
   font-size: 14px;
-  line-height: 20px;
+  line-height: 1.5;
   font-weight: 400;
   background-color: var(--color-bg);
   color: var(--color-text);
