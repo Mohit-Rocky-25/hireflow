@@ -1,4 +1,4 @@
-﻿// ============================================================
+// ============================================================
 // HireFlow — Landing Page (Premium v3 — Picasso Edition)
 // ============================================================
 import { Link } from "react-router-dom";
@@ -116,6 +116,7 @@ export function LandingPage() {
             <Link to="/jobs" className="text-[15px] font-medium text-text-secondary hover:text-text transition-colors duration-[120ms]">Browse Jobs</Link>
             <a href="#features" className="text-[15px] font-medium text-text-secondary hover:text-text transition-colors duration-[120ms]">Features</a>
             <Link to="/demo" className="text-[15px] font-medium text-text-secondary hover:text-text transition-colors duration-[120ms]">AI Demo</Link>
+            <Link to="/portal" className="text-[15px] font-medium text-text-secondary hover:text-text transition-colors duration-[120ms]">Candidate Portal</Link>
           </div>
           <div className="flex items-center gap-[10px]">
             {isAuthenticated ? (

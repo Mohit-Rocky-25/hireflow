@@ -16,6 +16,7 @@ import { RegisterPage } from './pages/auth/RegisterPage';
 import { JobMarketplace } from './pages/jobs/JobMarketplace';
 import { PublicJobDetail } from './pages/jobs/PublicJobDetail';
 import { MatchingDemo } from './pages/demo/MatchingDemo';
+import { CandidatePortal } from './pages/portal/CandidatePortal';
 
 // Company / BHR Pages
 import { CompanyDashboard } from './pages/company/CompanyDashboard';
@@ -86,6 +87,7 @@ export default function App() {
         <Route path="/jobs" element={<JobMarketplace />} />
         <Route path="/jobs/:id" element={<PublicJobDetail />} />
         <Route path="/demo" element={<MatchingDemo />} />
+        <Route path="/portal" element={<CandidatePortal />} />
 
         {/* Company / BHR / HR Routes */}
         <Route path="/company" element={<ProtectedRoute roles={['BHR_MANAGER', 'HR_RECRUITER']}><AppShell /></ProtectedRoute>}>
