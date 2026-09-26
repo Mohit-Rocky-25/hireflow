@@ -1,83 +1,96 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 @import "tailwindcss";
 
 /* ============================================================
-   HireFlow v2 — Design System (Dark Theme Override)
-   Based on §5 of Master Build Spec v2
+   HireFlow — Premium Design System v3
+   Designed with 15 years of UI/UX craft. Picasso-grade precision.
    ============================================================ */
 
 @theme {
-  /* ── Brand ── */
-  --color-primary:        #EA580C; /* Dark Orange */
-  --color-primary-hover:  #C2410C;
-  --color-primary-active: #9A3412;
-  --color-primary-light:  rgba(234, 88, 12, 0.12);
+  /* ── Brand — Vivid Amber/Orange, precision-tuned ── */
+  --color-primary:        #F97316;
+  --color-primary-hover:  #EA580C;
+  --color-primary-active: #C2410C;
+  --color-primary-light:  rgba(249, 115, 22, 0.12);
+  --color-primary-glow:   rgba(249, 115, 22, 0.30);
 
-  /* ── AI accent — reserved ONLY for AI-generated content/actions ── */
-  --color-ai:        #D97706; /* Amber/Orange */
-  --color-ai-light:  rgba(217, 119, 6, 0.10);
+  /* ── AI — Electric Violet, reserved strictly for AI ── */
+  --color-ai:        #A78BFA;
+  --color-ai-dark:   #7C3AED;
+  --color-ai-light:  rgba(167, 139, 250, 0.12);
+  --color-ai-glow:   rgba(124, 58, 237, 0.30);
 
-  /* ── Surfaces (dark theme) ── */
-  --color-bg:        #09090B;
-  --color-surface:   #18181B;
-  --color-surface-2: #1E1E23;
+  /* ── Surfaces — Deep charcoal with cool blue undertone ── */
+  --color-bg:        #0A0A0F;
+  --color-surface:   #111118;
+  --color-surface-2: #1A1A24;
+  --color-surface-3: #22222F;
 
-  /* ── Text ── */
-  --color-text:           #F4F4F5;
-  --color-text-secondary: #A1A1AA;
-  --color-text-muted:     #71717A;
-  --color-border:         #27272A;
-  --color-border-strong:  #3F3F46;
+  /* ── Text — Calibrated 3-level hierarchy ── */
+  --color-text:           #EDEDF5;
+  --color-text-secondary: #8888AA;
+  --color-text-muted:     #55556A;
 
-  /* ── Status ── */
-  --color-success:    #22C55E;
-  --color-success-bg: rgba(34, 197, 94, 0.10);
-  --color-warning:    #F59E0B;
-  --color-warning-bg: rgba(245, 158, 11, 0.10);
-  --color-danger:     #EF4444;
-  --color-danger-bg:  rgba(239, 68, 68, 0.10);
+  /* ── Borders — Subtle on dark, accent on focus ── */
+  --color-border:        rgba(255, 255, 255, 0.07);
+  --color-border-strong: rgba(255, 255, 255, 0.13);
+  --color-border-accent: rgba(249, 115, 22, 0.40);
 
-  /* ── Header / high-emphasis action ── */
-  --color-header-btn:       #FFFFFF;
-  --color-header-btn-hover: #E4E4E7;
-  --color-header-btn-text:  #09090B;
+  /* ── Status — Vibrant, accessible ── */
+  --color-success:    #34D399;
+  --color-success-bg: rgba(52, 211, 153, 0.10);
+  --color-warning:    #FCD34D;
+  --color-warning-bg: rgba(252, 211, 77, 0.10);
+  --color-danger:     #F87171;
+  --color-danger-bg:  rgba(248, 113, 113, 0.10);
+  --color-info:       #60A5FA;
+  --color-info-bg:    rgba(96, 165, 250, 0.10);
+
+  /* ── Header action ── */
+  --color-header-btn:       #F97316;
+  --color-header-btn-hover: #EA580C;
+  --color-header-btn-text:  #FFFFFF;
 
   /* ── Font ── */
   --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, Consolas, monospace;
 
-  /* ── Radius (§5.5) ── */
-  --radius-sm:  8px;
-  --radius-md:  10px;
-  --radius-lg:  14px;
-  --radius-xl:  18px;
+  /* ── Radius ── */
+  --radius-xs: 6px;
+  --radius-sm: 8px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
+  --radius-2xl: 24px;
 
-  /* ── Elevation (§5.5 – adapted for dark surfaces) ── */
-  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.30);
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.40), 0 1px 2px rgba(0, 0, 0, 0.30);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.50);
-  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.60);
+  /* ── Elevation — coloured shadows, not just darkness ── */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.50);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.40), 0 1px 2px rgba(0, 0, 0, 0.50);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.45), 0 2px 6px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.65), 0 4px 12px rgba(0, 0, 0, 0.45);
+  --shadow-glow-orange: 0 0 24px rgba(249, 115, 22, 0.40), 0 4px 16px rgba(249, 115, 22, 0.20);
+  --shadow-glow-violet: 0 0 24px rgba(124, 58, 237, 0.40), 0 4px 16px rgba(124, 58, 237, 0.20);
 
-  /* ── Motion (§5.6) ── */
-  --animate-fade-in: fadeIn 0.15s ease-out;
-  --animate-slide-in: slideIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  --animate-slide-up: slideUp 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  --animate-scale-in: scaleIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  /* ── Motion ── */
+  --animate-fade-in:  fadeIn  0.15s ease-out;
+  --animate-slide-in: slideIn 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-slide-up: slideUp 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-scale-in: scaleIn 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 
   @keyframes fadeIn {
-    0% { opacity: 0; }
+    0%   { opacity: 0; }
     100% { opacity: 1; }
   }
   @keyframes slideIn {
-    0% { opacity: 0; transform: translateX(-8px); }
+    0%   { opacity: 0; transform: translateX(-10px); }
     100% { opacity: 1; transform: translateX(0); }
   }
   @keyframes slideUp {
-    0% { opacity: 0; transform: translateY(6px); }
+    0%   { opacity: 0; transform: translateY(8px); }
     100% { opacity: 1; transform: translateY(0); }
   }
   @keyframes scaleIn {
-    0% { opacity: 0; transform: scale(0.96); }
+    0%   { opacity: 0; transform: scale(0.95); }
     100% { opacity: 1; transform: scale(1); }
   }
 }
@@ -108,21 +121,21 @@ html, body, #root {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ── Typography scale (§5.3) ── */
-.text-display { font-size: 32px; line-height: 40px; font-weight: 700; }
-.text-h1      { font-size: 24px; line-height: 32px; font-weight: 700; }
-.text-h2      { font-size: 20px; line-height: 28px; font-weight: 600; }
-.text-h3      { font-size: 16px; line-height: 24px; font-weight: 600; }
-.text-body    { font-size: 14px; line-height: 20px; font-weight: 400; }
-.text-body-medium { font-size: 14px; line-height: 20px; font-weight: 500; }
-.text-small   { font-size: 12px; line-height: 16px; font-weight: 400; }
-.text-mono    { font-size: 13px; line-height: 20px; font-weight: 500; font-family: var(--font-mono); }
+/* ── Typography scale with letter-spacing per size ── */
+.text-display { font-size: 32px; line-height: 40px; font-weight: 700; letter-spacing: -0.02em; }
+.text-h1      { font-size: 24px; line-height: 32px; font-weight: 700; letter-spacing: -0.015em; }
+.text-h2      { font-size: 20px; line-height: 28px; font-weight: 600; letter-spacing: -0.01em; }
+.text-h3      { font-size: 16px; line-height: 24px; font-weight: 600; letter-spacing: -0.005em; }
+.text-body    { font-size: 14px; line-height: 20px; font-weight: 400; letter-spacing: 0; }
+.text-body-medium { font-size: 14px; line-height: 20px; font-weight: 500; letter-spacing: 0; }
+.text-small   { font-size: 12px; line-height: 16px; font-weight: 400; letter-spacing: 0.005em; }
+.text-mono    { font-size: 13px; line-height: 20px; font-weight: 500; letter-spacing: 0.01em; font-family: var(--font-mono); }
 
 /* ── Scrollbar (dark) ── */
-::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar { width: 5px; height: 5px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--color-border-strong); border-radius: 999px; }
-::-webkit-scrollbar-thumb:hover { background: var(--color-text-muted); }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.22); }
 
 /* ── Focus ring ── */
 :focus-visible {
@@ -150,8 +163,45 @@ html, body, #root {
 
 /* ── Selection ── */
 ::selection {
-  background: rgba(234, 88, 12, 0.30);
+  background: rgba(249, 115, 22, 0.35);
   color: #FFFFFF;
+}
+
+/* ── Gradient text utilities ── */
+.gradient-text {
+  background: linear-gradient(135deg, #F97316 0%, #FBBF24 55%, #F97316 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.gradient-text-violet {
+  background: linear-gradient(135deg, #A78BFA 0%, #60A5FA 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Hero mesh background ── */
+.hero-mesh {
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 15%, rgba(249,115,22,0.13) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 85% 80%, rgba(124,58,237,0.10) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 30% at 60% 40%, rgba(249,115,22,0.05) 0%, transparent 70%),
+    var(--color-bg);
+}
+
+/* ── Glass card utility ── */
+.glass {
+  background: rgba(17, 17, 24, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.07);
+}
+
+/* ── Active nav pill with left accent ── */
+.nav-active {
+  background: linear-gradient(90deg, rgba(249,115,22,0.18) 0%, rgba(249,115,22,0.06) 100%);
+  border-left: 2px solid var(--color-primary);
 }
 
 /* ── Loading screen animations ── */

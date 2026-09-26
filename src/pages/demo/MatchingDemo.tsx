@@ -19,26 +19,22 @@ export function MatchingDemo() {
   return (
     <div className="min-h-screen bg-bg">
       {/* Header */}
-      <header className="bg-surface border-b border-border sticky top-0 z-40">
-        <div className="max-w-[1200px] mx-auto px-[24px] h-[72px] flex items-center justify-between">
+      <header className="glass border-b border-border sticky top-0 z-40">
+        <div className="max-w-[1200px] mx-auto px-[24px] h-[68px] flex items-center justify-between">
           <Link to="/" className="flex items-center gap-[12px]">
-            <div className="w-[40px] h-[40px] rounded-md bg-primary flex items-center justify-center shadow-xs">
-              <Sparkles className="w-[20px] h-[20px] text-white stroke-[1.5px]" />
+            <div className="w-[36px] h-[36px] rounded-md bg-gradient-to-br from-primary to-primary-active flex items-center justify-center shadow-glow-orange">
+              <Sparkles className="w-[18px] h-[18px] text-white stroke-[1.5px]" />
             </div>
-            <span className="text-[20px] font-bold text-text tracking-[-0.01em]">HireFlow</span>
+            <span className="text-[18px] font-bold text-text tracking-[-0.02em]">HireFlow</span>
           </Link>
-          <div className="flex items-center gap-[32px]">
+          <div className="flex items-center gap-[28px]">
             <div className="hidden md:flex items-center gap-[24px]">
-              <Link to="/jobs" className="text-[15px] font-medium text-text-secondary hover:text-text transition-colors duration-[120ms]">
-                Browse Jobs
-              </Link>
+              <Link to="/jobs" className="text-[14px] font-medium text-text-secondary hover:text-text transition-colors duration-[120ms]">Browse Jobs</Link>
             </div>
-            <div className="flex items-center gap-[12px]">
-              <Link to="/login" className="px-[20px] py-[10px] rounded-md text-[15px] font-medium text-text hover:bg-surface-2 active:bg-black transition-all duration-[120ms]">
-                Sign In
-              </Link>
+            <div className="flex items-center gap-[10px]">
+              <Link to="/login" className="px-[16px] py-[8px] rounded-md text-[14px] font-medium text-text-secondary hover:text-text hover:bg-surface-2 transition-all duration-[120ms]">Sign In</Link>
               <Link to="/register">
-                <Button variant="primary" className="h-[44px] px-[20px] text-[15px]">Get Started</Button>
+                <Button variant="header" className="h-[40px] px-[18px] text-[14px]">Get Started</Button>
               </Link>
             </div>
           </div>
@@ -46,121 +42,132 @@ export function MatchingDemo() {
       </header>
 
       <div className="max-w-[1200px] mx-auto px-[24px] py-[64px] page-enter">
-        <div className="text-center mb-[64px] max-w-[800px] mx-auto">
-          <div className="inline-flex items-center gap-[10px] px-[16px] py-[8px] bg-ai-light border border-ai/20 rounded-full text-[13px] font-semibold text-ai mb-[24px]">
-            <Brain className="w-[16px] h-[16px] stroke-[1.5px]" />
+        <div className="text-center mb-[72px] max-w-[800px] mx-auto">
+          <div className="inline-flex items-center gap-[10px] px-[16px] py-[8px] bg-ai-light border border-ai/25 rounded-full text-[13px] font-semibold text-ai mb-[28px] shadow-glow-violet">
+            <Brain className="w-[14px] h-[14px] stroke-[2px]" />
             Explainable AI Demo
           </div>
-          <h1 className="text-[40px] md:text-[48px] font-bold text-text mb-[24px] tracking-[-0.02em] leading-[1.1]">
-            See how we match skills to jobs
+          <h1 className="text-[44px] md:text-[56px] font-extrabold text-text mb-[24px] tracking-[-0.04em] leading-[1.05]">
+            See how we{' '}
+            <span className="gradient-text-violet">match skills</span>
+            {' '}to jobs
           </h1>
           <p className="text-[18px] text-text-secondary leading-[28px]">
             Try our interactive demo to see how HireFlow extracts candidate skills and intelligently maps them to company requirements with evidence-based reasoning.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-[48px]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-[32px]">
           {/* Company Side */}
-          <div className="space-y-[24px]">
-            <h2 className="text-[24px] font-bold text-text mb-[16px] flex items-center gap-[12px]">
-              <Target className="w-[24px] h-[24px] text-primary" />
+          <div className="space-y-[20px]">
+            <h2 className="text-[22px] font-bold text-text flex items-center gap-[12px] tracking-[-0.01em]">
+              <div className="w-[36px] h-[36px] rounded-lg bg-primary-light border border-primary/20 flex items-center justify-center">
+                <Target className="w-[18px] h-[18px] text-primary stroke-[1.5px]" />
+              </div>
               Company Requirements
             </h2>
-            <Card className="p-[32px]">
-              <h3 className="text-[18px] font-semibold text-text mb-[16px]">Senior Frontend Engineer</h3>
-              <div className="space-y-[16px]">
-                <div className="p-[16px] bg-surface-2 border border-border rounded-lg">
+            <div className="bg-surface rounded-xl border border-border p-[28px] shadow-xs">
+              <div className="flex items-center gap-[10px] mb-[20px]">
+                <h3 className="text-[17px] font-bold text-text">Senior Frontend Engineer</h3>
+                <Badge variant="primary">3 Requirements</Badge>
+              </div>
+              <div className="space-y-[12px]">
+                <div className="p-[16px] bg-surface-2 border border-border rounded-xl">
                   <div className="flex items-center justify-between mb-[8px]">
-                    <span className="font-semibold text-text">React Performance</span>
+                    <span className="font-bold text-text text-[14px]">React Performance</span>
                     <Badge variant="primary">Must Have</Badge>
                   </div>
-                  <p className="text-[14px] text-text-secondary">Experience optimizing large-scale React applications, reducing re-renders, and using useMemo/useCallback effectively.</p>
+                  <p className="text-[13px] text-text-secondary leading-[20px]">Experience optimizing large-scale React applications, reducing re-renders, and using useMemo/useCallback effectively.</p>
                 </div>
-                <div className="p-[16px] bg-surface-2 border border-border rounded-lg">
+                <div className="p-[16px] bg-surface-2 border border-border rounded-xl">
                   <div className="flex items-center justify-between mb-[8px]">
-                    <span className="font-semibold text-text">Design System</span>
+                    <span className="font-bold text-text text-[14px]">Design System</span>
                     <Badge variant="warning">Nice to Have</Badge>
                   </div>
-                  <p className="text-[14px] text-text-secondary">Experience building and maintaining component libraries using Tailwind CSS or styled-components.</p>
+                  <p className="text-[13px] text-text-secondary leading-[20px]">Experience building and maintaining component libraries using Tailwind CSS or styled-components.</p>
                 </div>
-                <div className="p-[16px] bg-surface-2 border border-border rounded-lg">
+                <div className="p-[16px] bg-surface-2 border border-border rounded-xl">
                   <div className="flex items-center justify-between mb-[8px]">
-                    <span className="font-semibold text-text">TypeScript</span>
+                    <span className="font-bold text-text text-[14px]">TypeScript</span>
                     <Badge variant="primary">Must Have</Badge>
                   </div>
-                  <p className="text-[14px] text-text-secondary">Strong typing skills, generic types, and deep understanding of TS utility types.</p>
+                  <p className="text-[13px] text-text-secondary leading-[20px]">Strong typing skills, generic types, and deep understanding of TS utility types.</p>
                 </div>
               </div>
-            </Card>
+            </div>
           </div>
 
           {/* Candidate Side */}
-          <div className="space-y-[24px]">
-            <h2 className="text-[24px] font-bold text-text mb-[16px] flex items-center gap-[12px]">
-              <Shield className="w-[24px] h-[24px] text-primary" />
+          <div className="space-y-[20px]">
+            <h2 className="text-[22px] font-bold text-text flex items-center gap-[12px] tracking-[-0.01em]">
+              <div className="w-[36px] h-[36px] rounded-lg bg-ai-light border border-ai/20 flex items-center justify-center">
+                <Shield className="w-[18px] h-[18px] text-ai stroke-[1.5px]" />
+              </div>
               Candidate Profile
             </h2>
-            <Card className="p-[32px]">
-              <div className="space-y-[24px]">
+            <div className="bg-surface rounded-xl border border-border p-[28px] shadow-xs">
+              <div className="space-y-[20px]">
                 <Input label="Candidate Name" defaultValue="Alex Developer" readOnly />
                 <Textarea 
-                  label="Candidate Resume/Skills Extract" 
+                  label="Resume / Skills Extract" 
                   defaultValue="Senior UI Engineer with 5 years of experience. Built a custom component library using Tailwind CSS. Specialized in React performance tuning and memoization strategies. Strong advocate for strict TypeScript configurations."
                   rows={5}
                   readOnly
                 />
-                <Button variant="primary" className="w-full h-[56px] text-[16px]" onClick={handleAnalyze} disabled={analyzing}>
+                <button
+                  className="w-full h-[52px] text-[15px] font-bold text-white rounded-lg bg-gradient-to-r from-ai-dark to-ai shadow-glow-violet hover:scale-[1.01] active:scale-[0.99] transition-all duration-[150ms] disabled:opacity-50 disabled:cursor-not-allowed disabled:scale-100 flex items-center justify-center gap-[10px]"
+                  onClick={handleAnalyze}
+                  disabled={analyzing}
+                >
+                  <Brain className="w-[18px] h-[18px] stroke-[1.5px]" />
                   {analyzing ? 'Analyzing with AI...' : 'Run AI Match Analysis'}
-                </Button>
+                </button>
               </div>
-            </Card>
+            </div>
           </div>
         </div>
 
         {/* Results */}
         {result && (
-          <div className="mt-[64px] animate-slide-up">
-            <Card className="border-ai/30 bg-gradient-to-br from-surface to-ai-light p-[40px]">
-              <div className="flex items-center gap-[16px] mb-[32px]">
-                <div className="w-[64px] h-[64px] rounded-2xl bg-ai border border-ai/20 flex items-center justify-center">
-                  <Brain className="w-[32px] h-[32px] text-white" />
+          <div className="mt-[56px] animate-slide-up">
+            <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-ai-dark/20 via-surface to-ai/10 border border-ai/30 shadow-glow-violet p-[40px]">
+              {/* Background decoration */}
+              <div className="absolute top-0 right-0 w-[300px] h-[300px] rounded-full bg-ai/5 blur-[80px] pointer-events-none" />
+              <div className="flex items-center gap-[20px] mb-[36px]">
+                <div className="w-[64px] h-[64px] rounded-2xl bg-gradient-to-br from-ai-dark to-ai flex items-center justify-center shadow-glow-violet shrink-0">
+                  <Brain className="w-[30px] h-[30px] text-white stroke-[1.5px]" />
                 </div>
                 <div>
-                  <h2 className="text-[28px] font-bold text-text">AI Match Analysis</h2>
-                  <p className="text-[16px] text-text-secondary">Match Score: <span className="text-ai font-bold">92%</span> (Strong Fit)</p>
+                  <h2 className="text-[26px] font-bold text-text tracking-[-0.02em]">AI Match Analysis</h2>
+                  <div className="flex items-center gap-[12px] mt-[6px]">
+                    <p className="text-[15px] text-text-secondary">Match Score:</p>
+                    <span className="text-[24px] font-extrabold gradient-text-violet">92%</span>
+                    <Badge variant="ai">Strong Fit</Badge>
+                  </div>
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-[24px]">
-                <div className="bg-surface border border-border rounded-xl p-[24px]">
-                  <div className="flex items-center gap-[12px] mb-[12px]">
-                    <CheckCircle className="w-[20px] h-[20px] text-success" />
-                    <h3 className="text-[16px] font-bold text-text">React Performance</h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-[16px] relative">
+                {[
+                  { title: 'React Performance', evidence: 'Specialized in React performance tuning and memoization strategies.' },
+                  { title: 'Design System', evidence: 'Built a custom component library using Tailwind CSS.' },
+                  { title: 'TypeScript', evidence: 'Strong advocate for strict TypeScript configurations.' },
+                ].map((item, i) => (
+                  <div key={i} className="bg-surface border border-border/60 rounded-xl p-[20px] hover:border-ai/30 transition-colors duration-200">
+                    <div className="flex items-center gap-[10px] mb-[12px]">
+                      <div className="w-[28px] h-[28px] rounded-full bg-success-bg flex items-center justify-center shrink-0">
+                        <CheckCircle className="w-[14px] h-[14px] text-success stroke-[2px]" />
+                      </div>
+                      <h3 className="text-[14px] font-bold text-text">{item.title}</h3>
+                    </div>
+                    <p className="text-[13px] text-text-secondary leading-[20px]">
+                      <span className="font-semibold text-text">Evidence: </span>
+                      &ldquo;{item.evidence}&rdquo;
+                    </p>
                   </div>
-                  <p className="text-[14px] text-text-secondary">
-                    <span className="font-semibold text-text">Evidence:</span> "Specialized in React performance tuning and memoization strategies."
-                  </p>
-                </div>
-                <div className="bg-surface border border-border rounded-xl p-[24px]">
-                  <div className="flex items-center gap-[12px] mb-[12px]">
-                    <CheckCircle className="w-[20px] h-[20px] text-success" />
-                    <h3 className="text-[16px] font-bold text-text">Design System</h3>
-                  </div>
-                  <p className="text-[14px] text-text-secondary">
-                    <span className="font-semibold text-text">Evidence:</span> "Built a custom component library using Tailwind CSS."
-                  </p>
-                </div>
-                <div className="bg-surface border border-border rounded-xl p-[24px]">
-                  <div className="flex items-center gap-[12px] mb-[12px]">
-                    <CheckCircle className="w-[20px] h-[20px] text-success" />
-                    <h3 className="text-[16px] font-bold text-text">TypeScript</h3>
-                  </div>
-                  <p className="text-[14px] text-text-secondary">
-                    <span className="font-semibold text-text">Evidence:</span> "Strong advocate for strict TypeScript configurations."
-                  </p>
-                </div>
+                ))}
               </div>
-            </Card>
+            </div>
           </div>
         )}
       </div>

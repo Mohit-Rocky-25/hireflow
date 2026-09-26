@@ -14,19 +14,19 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export function Button({ variant = 'primary', size = 'default', className = '', children, ...props }: ButtonProps) {
-  const base = 'inline-flex items-center justify-center gap-[8px] font-medium transition-all duration-[120ms] ease-out disabled:opacity-50 disabled:cursor-not-allowed';
+  const base = 'inline-flex items-center justify-center gap-[8px] font-semibold transition-all duration-[150ms] ease-out disabled:opacity-40 disabled:cursor-not-allowed';
 
   const sizes = {
-    default: 'h-[40px] px-[16px] text-[14px] rounded-md',
+    default: 'h-[40px] px-[18px] text-[14px] rounded-md',
     small: 'h-[32px] px-[12px] text-[13px] rounded-sm',
   };
 
   const variants = {
-    primary: 'bg-primary text-white hover:bg-primary-hover active:bg-primary-active shadow-xs hover:shadow-sm',
-    secondary: 'bg-surface-2 text-text border border-border hover:bg-border hover:border-border-strong',
+    primary: 'bg-gradient-to-r from-primary to-primary-hover text-white shadow-glow-orange hover:shadow-glow-orange hover:scale-[1.02] active:scale-[0.99] active:shadow-xs',
+    secondary: 'bg-transparent text-text-secondary border border-border-strong hover:border-border-accent hover:text-text hover:bg-surface-2',
     danger: 'bg-danger text-white hover:brightness-110 shadow-xs',
     ghost: 'bg-transparent text-text-secondary hover:bg-surface-2 hover:text-text',
-    header: 'bg-header-btn text-header-btn-text hover:bg-header-btn-hover shadow-xs font-semibold',
+    header: 'bg-gradient-to-r from-primary to-primary-active text-white shadow-glow-orange hover:scale-[1.02] active:scale-[0.99] font-bold',
   };
 
   return (
@@ -45,15 +45,15 @@ interface BadgeProps {
 }
 
 export function Badge({ variant = 'default', children, className = '' }: BadgeProps) {
-  const base = 'inline-flex items-center h-[22px] px-[8px] rounded-full text-[12px] font-medium leading-none';
+  const base = 'inline-flex items-center h-[22px] px-[8px] rounded-full text-[11px] font-semibold leading-none tracking-[0.01em]';
 
   const variants = {
-    default: 'bg-surface-2 text-text-secondary',
-    primary: 'bg-primary-light text-primary',
-    ai: 'bg-ai-light text-ai',
-    success: 'bg-success-bg text-success',
-    warning: 'bg-warning-bg text-warning',
-    danger: 'bg-danger-bg text-danger',
+    default: 'bg-surface-3 text-text-secondary',
+    primary: 'bg-primary-light text-primary border border-primary/20',
+    ai: 'bg-ai-light text-ai border border-ai/20',
+    success: 'bg-success-bg text-success border border-success/20',
+    warning: 'bg-warning-bg text-warning border border-warning/20',
+    danger: 'bg-danger-bg text-danger border border-danger/20',
   };
 
   return (
@@ -73,7 +73,9 @@ interface CardProps {
 
 export function Card({ children, className = '', hover = false }: CardProps) {
   return (
-    <div className={`bg-surface rounded-xl border border-border p-[32px] sm:p-[40px] shadow-xs ${hover ? 'hover:shadow-sm transition-shadow duration-[120ms]' : ''} ${className}`}>
+    <div className={`bg-surface rounded-xl border border-border p-[24px] sm:p-[32px] shadow-xs ${
+      hover ? 'hover:border-border-strong hover:shadow-md hover:-translate-y-[2px] transition-all duration-200 cursor-pointer' : ''
+    } ${className}`}>
       {children}
     </div>
   );
@@ -91,24 +93,24 @@ interface StatCardProps {
 
 export function StatCard({ label, value, icon, trend, trendUp }: StatCardProps) {
   return (
-    <Card>
+    <div className="bg-surface rounded-xl border border-border p-[20px] shadow-xs hover:shadow-md hover:border-border-strong hover:-translate-y-[2px] transition-all duration-200">
       <div className="flex items-start justify-between">
         <div>
-          <p className="text-[12px] font-medium text-text-muted uppercase tracking-[0.04em]">{label}</p>
-          <p className="text-[24px] font-bold text-text mt-[4px] leading-[32px]">{value}</p>
+          <p className="text-[11px] font-semibold text-text-muted uppercase tracking-[0.06em]">{label}</p>
+          <p className="text-[28px] font-bold text-text mt-[6px] leading-none tracking-[-0.02em]">{value}</p>
           {trend && (
-            <p className={`text-[12px] font-medium mt-[4px] ${trendUp ? 'text-success' : 'text-danger'}`}>
+            <p className={`text-[12px] font-semibold mt-[6px] flex items-center gap-[4px] ${trendUp ? 'text-success' : 'text-danger'}`}>
               {trend}
             </p>
           )}
         </div>
         {icon && (
-          <div className="w-[40px] h-[40px] rounded-md bg-surface-2 flex items-center justify-center text-text-muted">
+          <div className="w-[40px] h-[40px] rounded-lg bg-primary-light flex items-center justify-center text-primary">
             {icon}
           </div>
         )}
       </div>
-    </Card>
+    </div>
   );
 }
 

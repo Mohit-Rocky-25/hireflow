@@ -56,7 +56,7 @@ export function TopHeader({ onMenuClick }: TopHeaderProps) {
   const initials = currentUser.displayName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
 
   return (
-    <header className="h-[72px] bg-surface border-b border-border flex items-center justify-between px-[24px] lg:px-[32px] shrink-0 z-40">
+    <header className="h-[68px] glass border-b border-border flex items-center justify-between px-[24px] lg:px-[32px] shrink-0 z-40">
       {/* Left — greeting */}
       <div className="flex items-center gap-[16px]">
         <button
@@ -68,11 +68,15 @@ export function TopHeader({ onMenuClick }: TopHeaderProps) {
         </button>
 
         <div className="hidden sm:block">
-          <h2 className="text-[16px] font-semibold text-text leading-[24px]">
-            {getGreeting()}, <span className="font-bold">{currentUser.displayName}</span>
+          <h2 className="text-[15px] font-semibold text-text-secondary leading-[22px]">
+            {getGreeting()},{' '}
+            <span className="font-bold text-text">{currentUser.displayName}</span>
           </h2>
           {currentCompany && (
-            <p className="text-[13px] text-text-muted">{currentCompany.name}</p>
+            <p className="text-[12px] text-text-muted flex items-center gap-[6px] mt-[1px]">
+              <span className="w-[5px] h-[5px] rounded-full bg-success inline-block" />
+              {currentCompany.name}
+            </p>
           )}
         </div>
       </div>
@@ -104,7 +108,7 @@ export function TopHeader({ onMenuClick }: TopHeaderProps) {
           >
             <Bell className="w-5 h-5 stroke-[1.5px]" />
             {unreadCount > 0 && (
-              <span className="absolute top-[4px] right-[4px] w-[18px] h-[18px] bg-danger text-white text-[10px] font-bold rounded-full flex items-center justify-center animate-scale-in">
+              <span className="absolute top-[4px] right-[4px] w-[16px] h-[16px] bg-gradient-to-br from-primary to-primary-active text-white text-[9px] font-bold rounded-full flex items-center justify-center animate-scale-in shadow-glow-orange">
                 {unreadCount > 9 ? '9+' : unreadCount}
               </span>
             )}
@@ -155,15 +159,15 @@ export function TopHeader({ onMenuClick }: TopHeaderProps) {
         <div ref={profileRef} className="relative">
           <button
             onClick={() => setProfileOpen(!profileOpen)}
-            className="flex items-center gap-[8px] pl-[12px] pr-[8px] py-[6px] rounded-md hover:bg-surface-2 transition-colors duration-[120ms]"
+            className="flex items-center gap-[8px] pl-[10px] pr-[8px] py-[6px] rounded-md hover:bg-surface-2 transition-colors duration-[120ms] group"
           >
-            <div className="w-[32px] h-[32px] rounded-full bg-primary-light flex items-center justify-center text-primary text-[12px] font-semibold">
+            <div className="w-[32px] h-[32px] rounded-full bg-gradient-to-br from-primary to-primary-active flex items-center justify-center text-white text-[12px] font-bold shadow-glow-orange">
               {initials}
             </div>
             <span className="hidden md:block text-[13px] font-medium text-text max-w-[120px] truncate">
               {currentUser.displayName}
             </span>
-            <ChevronDown className="w-[14px] h-[14px] text-text-muted hidden md:block" />
+            <ChevronDown className="w-[14px] h-[14px] text-text-muted hidden md:block transition-transform group-hover:text-text" />
           </button>
 
           {profileOpen && (

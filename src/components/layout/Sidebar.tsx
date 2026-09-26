@@ -86,19 +86,19 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
       {/* Logo */}
       <div className="h-[64px] flex items-center px-[20px] border-b border-border shrink-0">
         <div className="flex items-center gap-[12px] min-w-0">
-          <div className="w-[36px] h-[36px] rounded-md bg-primary flex items-center justify-center shrink-0">
+          <div className="w-[36px] h-[36px] rounded-md bg-gradient-to-br from-primary to-primary-active flex items-center justify-center shrink-0 shadow-glow-orange">
             <Sparkles className="w-[18px] h-[18px] text-white stroke-[1.5px]" />
           </div>
           {!collapsed && (
-            <span className="text-[16px] font-semibold text-text tracking-[-0.01em] truncate">
+            <span className="text-[16px] font-bold text-text tracking-[-0.02em] truncate">
               HireFlow
             </span>
           )}
         </div>
       </div>
 
-      {/* Navigation — spacious with stable item heights */}
-      <nav className="flex-1 py-[20px] px-[14px] space-y-[4px] overflow-y-auto">
+      {/* Navigation */}
+      <nav className="flex-1 py-[16px] px-[12px] space-y-[2px] overflow-y-auto">
         {navItems.map(item => {
           const isActive = location.pathname === item.path ||
             (item.path !== '/company/dashboard' &&
@@ -111,19 +111,25 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
             <NavLink
               key={item.path + item.label}
               to={item.path}
-              className={`flex items-center gap-[12px] px-[12px] py-[11px] rounded-md text-[14px] font-medium transition-all duration-[120ms] ease-out group min-h-[42px]
-                ${isActive
-                  ? 'bg-primary-light text-primary shadow-xs'
-                  : 'text-text-secondary hover:bg-surface-2 hover:text-text'
+              className={`flex items-center gap-[12px] px-[12px] py-[10px] rounded-md text-[14px] font-medium transition-all duration-[120ms] ease-out group min-h-[40px] relative
+                ${
+                  isActive
+                    ? 'nav-active text-primary shadow-xs'
+                    : 'text-text-secondary hover:bg-surface-2 hover:text-text'
                 }
-                ${collapsed ? 'justify-center px-0' : ''}
+                ${collapsed ? 'justify-center px-0 rounded-md' : ''}
               `}
               title={collapsed ? item.label : undefined}
             >
-              <span className={`shrink-0 transition-colors duration-[120ms] ${isActive ? 'text-primary' : 'text-text-muted group-hover:text-text'}`}>
+              <span className={`shrink-0 transition-colors duration-[120ms] ${
+                isActive ? 'text-primary' : 'text-text-muted group-hover:text-text'
+              }`}>
                 {item.icon}
               </span>
               {!collapsed && <span className="truncate">{item.label}</span>}
+              {isActive && !collapsed && (
+                <span className="ml-auto w-[6px] h-[6px] rounded-full bg-primary shrink-0" />
+              )}
             </NavLink>
           );
         })}
@@ -133,14 +139,14 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
       <div className="px-[12px] py-[12px] border-t border-border shrink-0">
         <button
           onClick={onToggle}
-          className="w-full flex items-center justify-center gap-[8px] px-[12px] py-[8px] rounded-md text-[13px] text-text-muted hover:bg-surface-2 hover:text-text transition-colors duration-[120ms]"
+          className="w-full flex items-center justify-center gap-[8px] px-[12px] py-[8px] rounded-md text-[13px] text-text-muted hover:bg-surface-2 hover:text-text transition-all duration-[120ms] group"
         >
           {collapsed ? (
-            <ChevronRight className="w-4 h-4" />
+            <ChevronRight className="w-4 h-4 group-hover:text-primary transition-colors" />
           ) : (
             <>
-              <ChevronLeft className="w-4 h-4" />
-              <span>Collapse</span>
+              <ChevronLeft className="w-4 h-4 group-hover:text-primary transition-colors" />
+              <span className="text-[13px]">Collapse</span>
             </>
           )}
         </button>
