@@ -33,10 +33,10 @@ export function LoadingScreen({ onFinish, minDuration = 2200 }: LoadingScreenPro
       <div className="relative z-10 flex flex-col items-center max-w-[600px] px-[24px] text-center">
         {/* Logo */}
         <div
-          className={`w-[72px] h-[72px] rounded-2xl bg-surface-2 shadow-lg shadow-black/40 flex items-center justify-center transition-all duration-700 ease-out ${phase === 'logo' ? 'scale-90 opacity-0' : 'scale-100 opacity-100'}`}
+          className={`w-[72px] h-[72px] rounded-2xl bg-gradient-to-br from-primary to-primary-active shadow-glow-orange flex items-center justify-center transition-all duration-700 ease-out ${phase === 'logo' ? 'scale-90 opacity-0' : 'scale-100 opacity-100'}`}
           style={{ transitionDelay: '0ms' }}
         >
-          <Sparkles className="w-[36px] h-[36px] text-primary stroke-[1.5px]" />
+          <Sparkles className="w-[36px] h-[36px] text-white stroke-[1.5px]" />
         </div>
 
         {/* Brand name / Heading */}
