@@ -180,7 +180,7 @@ export function LoginPage() {
               '📊 Real-time hiring analytics',
               '🎯 5-dimension interview evaluation',
             ].map((f, i) => (
-              <div key={i} className="flex items-center gap-[12px] bg-white/15 backdrop-blur-sm border border-white/20 rounded-xl px-[16px] py-[12px]">
+              <div key={i} className="flex items-center gap-[12px] bg-[#0A0A0F] border border-white/10 shadow-lg rounded-xl px-[16px] py-[12px]">
                 <span className="text-[14px] font-medium text-white">{f}</span>
               </div>
             ))}
