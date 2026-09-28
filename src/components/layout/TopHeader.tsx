@@ -3,7 +3,7 @@
 // Height: 64px. Greeting from profiles.display_name.
 // ============================================================
 import { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useStore } from '../../store/useStore';
 import { Menu, Bell, Search, LogOut, User, Settings, ChevronDown } from 'lucide-react';
 
@@ -178,20 +178,22 @@ export function TopHeader({ onMenuClick }: TopHeaderProps) {
                 <p className="text-[12px] text-text-muted">{currentUser.email}</p>
               </div>
               <div className="py-[4px]">
-                <button
+                <Link
+                  to={currentUser.role === 'PLATFORM_ADMIN' ? '/admin/settings' : ['BHR_MANAGER', 'HR_RECRUITER'].includes(currentUser.role) ? '/company/settings' : `/${currentUser.role.toLowerCase()}/profile`}
                   onClick={() => setProfileOpen(false)}
                   className="w-full flex items-center gap-[12px] px-[16px] py-[10px] text-[13px] text-text hover:bg-surface-2 transition-colors duration-[120ms]"
                 >
                   <User className="w-4 h-4 text-text-muted stroke-[1.5px]" />
                   Profile
-                </button>
-                <button
+                </Link>
+                <Link
+                  to={currentUser.role === 'PLATFORM_ADMIN' ? '/admin/settings' : ['BHR_MANAGER', 'HR_RECRUITER'].includes(currentUser.role) ? '/company/settings' : `/${currentUser.role.toLowerCase()}/profile`}
                   onClick={() => setProfileOpen(false)}
                   className="w-full flex items-center gap-[12px] px-[16px] py-[10px] text-[13px] text-text hover:bg-surface-2 transition-colors duration-[120ms]"
                 >
                   <Settings className="w-4 h-4 text-text-muted stroke-[1.5px]" />
                   Account Settings
-                </button>
+                </Link>
               </div>
               <div className="border-t border-border py-[4px]">
                 <button

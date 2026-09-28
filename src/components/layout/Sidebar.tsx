@@ -30,7 +30,6 @@ const NAV_ITEMS: Record<UserRole, NavItem[]> = {
     { label: 'Jobs', path: '/company/jobs', icon: <Briefcase className="w-5 h-5 stroke-[1.5px]" /> },
     { label: 'Candidates', path: '/company/candidates', icon: <Users className="w-5 h-5 stroke-[1.5px]" /> },
     { label: 'Interviewers', path: '/company/interviewers', icon: <UserCheck className="w-5 h-5 stroke-[1.5px]" /> },
-    { label: 'Candidate Ranking', path: '/company/ranking', icon: <ListChecks className="w-5 h-5 stroke-[1.5px]" /> },
     { label: 'Analytics', path: '/company/analytics', icon: <BarChart3 className="w-5 h-5 stroke-[1.5px]" /> },
     { label: 'Company Team', path: '/company/team', icon: <Building2 className="w-5 h-5 stroke-[1.5px]" /> },
     { label: 'Settings', path: '/company/settings', icon: <Settings className="w-5 h-5 stroke-[1.5px]" /> },
