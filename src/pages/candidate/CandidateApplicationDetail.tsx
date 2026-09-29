@@ -44,17 +44,17 @@ export function CandidateApplicationDetail() {
 
   return (
     <div className="space-y-6 animate-fade-in max-w-4xl mx-auto">
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-[16px] mb-[8px]">
         <button
           onClick={() => navigate('/candidate/applications')}
-          className="p-2 rounded-btn hover:bg-gray-100"
+          className="flex items-center gap-[6px] px-[14px] py-[8px] rounded-lg bg-surface-2 border border-border hover:bg-surface-3 transition-colors text-[14px] font-semibold text-text shadow-sm shrink-0"
         >
-          <ArrowLeft className="w-5 h-5 text-muted" />
+          <ArrowLeft className="w-[16px] h-[16px]" /> Back to Applications
         </button>
         <div>
-          <h1 className="text-xl font-bold text-foreground">{job.title}</h1>
-          <p className="text-xs text-muted flex items-center gap-2 mt-0.5">
-            <Building2 className="w-3.5 h-3.5" /> {company.name} • Applied on {new Date(application.appliedAt).toLocaleDateString()}
+          <h1 className="text-[24px] font-bold text-text tracking-[-0.01em]">{job.title}</h1>
+          <p className="text-[14px] text-text-secondary flex items-center gap-[6px] mt-[4px]">
+            <Building2 className="w-[14px] h-[14px]" /> {company.name} • Applied on {new Date(application.appliedAt).toLocaleDateString()}
           </p>
         </div>
       </div>

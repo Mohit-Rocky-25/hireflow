@@ -33,11 +33,16 @@ export function CompanyJobDetail() {
 
   return (
     <div className="space-y-6 animate-fade-in">
-      <div className="flex items-center gap-4">
-        <button onClick={() => navigate(-1)} className="p-2 rounded-btn hover:bg-gray-100"><ArrowLeft className="w-5 h-5 text-muted" /></button>
+      <div className="flex items-center gap-[16px] mb-[8px]">
+        <button 
+          onClick={() => navigate('/company/jobs')} 
+          className="flex items-center gap-[6px] px-[14px] py-[8px] rounded-lg bg-surface-2 border border-border hover:bg-surface-3 transition-colors text-[14px] font-semibold text-text shadow-sm shrink-0"
+        >
+          <ArrowLeft className="w-[16px] h-[16px]" /> Back to Jobs
+        </button>
         <div className="flex-1">
-          <h1 className="text-xl font-bold text-foreground">{job.title}</h1>
-          <p className="text-sm text-muted">{job.department} • {job.location}</p>
+          <h1 className="text-[24px] font-bold text-text tracking-[-0.01em]">{job.title}</h1>
+          <p className="text-[14px] text-text-secondary mt-[2px]">{job.department} • {job.location}</p>
         </div>
         <div className="flex items-center gap-2">
           <span className={`px-3 py-1 text-xs font-medium rounded-full capitalize ${job.status === 'published' ? 'bg-green-50 text-success' : 'bg-gray-100 text-muted'}`}>{job.status}</span>

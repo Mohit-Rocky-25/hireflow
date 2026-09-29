@@ -19,9 +19,14 @@ export function CandidateDetail() {
 
   return (
     <div className="space-y-6 animate-fade-in">
-      <div className="flex items-center gap-4">
-        <button onClick={() => navigate(-1)} className="p-2 rounded-btn hover:bg-gray-100"><ArrowLeft className="w-5 h-5 text-muted" /></button>
-        <h1 className="text-xl font-bold text-foreground">{user.displayName}</h1>
+      <div className="flex items-center gap-[16px] mb-[8px]">
+        <button 
+          onClick={() => navigate(-1)} 
+          className="flex items-center gap-[6px] px-[14px] py-[8px] rounded-lg bg-surface-2 border border-border hover:bg-surface-3 transition-colors text-[14px] font-semibold text-text shadow-sm"
+        >
+          <ArrowLeft className="w-[16px] h-[16px]" /> Back
+        </button>
+        <h1 className="text-[24px] font-bold text-text tracking-[-0.01em]">{user.displayName}</h1>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

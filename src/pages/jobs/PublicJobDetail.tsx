@@ -71,9 +71,12 @@ export function PublicJobDetail() {
       {/* Header */}
       <header className="bg-surface border-b border-border sticky top-0 z-40">
         <div className="max-w-[1000px] mx-auto px-[24px] h-[56px] flex items-center gap-[16px]">
-          <button onClick={() => navigate(-1)} className="flex items-center gap-[6px] text-[14px] text-text-muted hover:text-text transition-colors duration-[120ms]">
+          <button 
+            onClick={() => navigate('/jobs')} 
+            className="flex items-center gap-[6px] px-[14px] py-[6px] rounded-lg bg-surface-2 border border-border hover:bg-surface-3 transition-colors text-[13px] font-semibold text-text shadow-sm"
+          >
             <ArrowLeft className="w-[16px] h-[16px] stroke-[1.5px]" />
-            Back
+            Back to Jobs
           </button>
         </div>
       </header>

@@ -93,13 +93,16 @@ export function InterviewDetail() {
 
   return (
     <div className="space-y-6 animate-fade-in max-w-5xl mx-auto">
-      <div className="flex items-center gap-4">
-        <button onClick={() => navigate('/interviewer/interviews')} className="p-2 rounded-btn hover:bg-gray-100">
-          <ArrowLeft className="w-5 h-5 text-muted" />
+      <div className="flex items-center gap-[16px] mb-[8px]">
+        <button 
+          onClick={() => navigate('/interviewer/interviews')} 
+          className="flex items-center gap-[6px] px-[14px] py-[8px] rounded-lg bg-surface-2 border border-border hover:bg-surface-3 transition-colors text-[14px] font-semibold text-text shadow-sm shrink-0"
+        >
+          <ArrowLeft className="w-[16px] h-[16px]" /> Back to Interviews
         </button>
         <div>
-          <h1 className="text-xl font-bold text-foreground">Interview Evaluation: {candidate.displayName}</h1>
-          <p className="text-sm text-muted">{job.title} • {interview.stage}</p>
+          <h1 className="text-[24px] font-bold text-text tracking-[-0.01em]">Interview Evaluation: {candidate.displayName}</h1>
+          <p className="text-[14px] text-text-secondary mt-[2px]">{job.title} • {interview.stage}</p>
         </div>
       </div>
 
