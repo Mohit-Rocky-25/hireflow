@@ -8,6 +8,7 @@ import {
   Sparkles, Brain, Users, CheckCircle, ArrowRight,
   Shield, Zap, Target, Building2, ChevronRight, Cpu, BarChart3, TrendingUp
 } from "lucide-react";
+import { PublicNavbar } from "../components/layout/PublicNavbar";
 
 const FEATURES = [
   {
@@ -103,39 +104,7 @@ export function LandingPage() {
   return (
     <div className="min-h-screen bg-bg font-sans text-text overflow-x-hidden">
 
-      {/* Navbar */}
-      <nav className="fixed top-0 w-full z-50 glass border-b border-border">
-        <div className="max-w-[1280px] mx-auto px-[32px] h-[68px] flex items-center justify-between">
-          <div className="flex items-center gap-[14px]">
-            <div className="w-[38px] h-[38px] rounded-md bg-gradient-to-br from-primary to-primary-active flex items-center justify-center shadow-glow-orange">
-              <Sparkles className="w-[18px] h-[18px] text-white stroke-[1.5px]" />
-            </div>
-            <span className="text-[20px] font-bold text-text tracking-[-0.03em]">HireFlow</span>
-          </div>
-          <div className="hidden md:flex items-center gap-[36px]">
-            <Link to="/jobs" className="text-[15px] font-medium text-text-secondary hover:text-text transition-colors duration-[120ms]">Browse Jobs</Link>
-            <a href="#features" className="text-[15px] font-medium text-text-secondary hover:text-text transition-colors duration-[120ms]">Features</a>
-            <Link to="/demo" className="text-[15px] font-medium text-text-secondary hover:text-text transition-colors duration-[120ms]">AI Demo</Link>
-            <Link to="/portal" className="text-[15px] font-medium text-text-secondary hover:text-text transition-colors duration-[120ms]">Candidate Portal</Link>
-          </div>
-          <div className="flex items-center gap-[10px]">
-            {isAuthenticated ? (
-              <Link to={getDashboardLink()}>
-                <Button variant="header" className="h-[40px] px-[18px] text-[14px] font-semibold rounded-md">
-                  Go to Dashboard <ArrowRight className="w-4 h-4 stroke-[1.5px]" />
-                </Button>
-              </Link>
-            ) : (
-              <>
-                <Link to="/login" className="px-[18px] py-[9px] rounded-md text-[14px] font-medium text-text-secondary hover:text-text hover:bg-surface-2 transition-all duration-[120ms]">Sign In</Link>
-                <Link to="/register">
-                  <Button variant="header" className="h-[40px] px-[18px] text-[14px] font-semibold rounded-md">Get Started</Button>
-                </Link>
-              </>
-            )}
-          </div>
-        </div>
-      </nav>
+      <PublicNavbar />
 
       {/* Hero */}
       <section className="relative pt-[168px] pb-[128px] hero-mesh min-h-screen flex items-center">

@@ -15,6 +15,7 @@ import {
   Eye, Search, Star, ExternalLink, AlertCircle
 } from "lucide-react";
 import { Button, Badge } from "../../components/ui/Components";
+import { PublicNavbar } from "../../components/layout/PublicNavbar";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 type StatusKey = "APPLIED" | "SCREENING" | "REVIEW" | "SHORTLISTED" | "INTERVIEW" | "OFFER" | "HIRED" | "REJECTED";
@@ -116,26 +117,7 @@ export function CandidatePortal() {
   return (
     <div className="min-h-screen bg-bg">
       {/* ── Navbar ── */}
-      <header className="glass border-b border-border sticky top-0 z-40">
-        <div className="max-w-[1200px] mx-auto px-[24px] h-[68px] flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-[12px]">
-            <div className="w-[36px] h-[36px] rounded-md bg-gradient-to-br from-primary to-primary-active flex items-center justify-center shadow-glow-orange">
-              <Sparkles className="w-[18px] h-[18px] text-white stroke-[1.5px]" />
-            </div>
-            <span className="text-[18px] font-bold text-text tracking-[-0.02em]">HireFlow</span>
-          </Link>
-          <div className="hidden md:flex items-center gap-[24px]">
-            <Link to="/jobs" className="text-[14px] font-medium text-text-secondary hover:text-text transition-colors">Browse Jobs</Link>
-            <Link to="/demo" className="text-[14px] font-medium text-text-secondary hover:text-text transition-colors">AI Demo</Link>
-          </div>
-          <div className="flex items-center gap-[10px]">
-            <Link to="/login" className="px-[16px] py-[8px] rounded-md text-[14px] font-medium text-text-secondary hover:text-text hover:bg-surface-2 transition-all">Sign In</Link>
-            <Link to="/register">
-              <Button variant="header" className="h-[40px] px-[18px] text-[14px]">Get Started</Button>
-            </Link>
-          </div>
-        </div>
-      </header>
+      <PublicNavbar />
 
       {/* ── Hero ── */}
       <section className="hero-mesh border-b border-border py-[64px] px-[24px] relative overflow-hidden">
