@@ -74,10 +74,10 @@ export function TopHeader({ onMenuClick }: TopHeaderProps) {
         </button>
 
         <div className="hidden md:flex items-center gap-[8px] mr-[8px]">
-          <button onClick={() => navigate(-1)} className="w-[32px] h-[32px] rounded-full flex items-center justify-center text-text-secondary hover:text-text hover:bg-surface-2 transition-colors">
+          <button title="Go back" onClick={() => navigate(-1)} className="w-[32px] h-[32px] rounded-full flex items-center justify-center text-text-secondary hover:text-text hover:bg-surface-2 transition-colors">
             <ChevronLeft className="w-[18px] h-[18px]" />
           </button>
-          <button onClick={() => navigate(1)} className="w-[32px] h-[32px] rounded-full flex items-center justify-center text-text-secondary hover:text-text hover:bg-surface-2 transition-colors">
+          <button title="Go forward" onClick={() => navigate(1)} className="w-[32px] h-[32px] rounded-full flex items-center justify-center text-text-secondary hover:text-text hover:bg-surface-2 transition-colors">
             <ChevronRight className="w-[18px] h-[18px]" />
           </button>
         </div>
