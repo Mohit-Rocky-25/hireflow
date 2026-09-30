@@ -132,10 +132,10 @@ html, body, #root {
 .text-mono    { font-size: 13px; line-height: 20px; font-weight: 500; letter-spacing: 0.01em; font-family: var(--font-mono); }
 
 /* ── Scrollbar (light) ── */
-::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 999px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.25); }
+::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 999px; border: 1px solid transparent; background-clip: padding-box; }
+::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.22); border-radius: 999px; border: 1px solid transparent; background-clip: padding-box; }
 
 /* ── Focus ring ── */
 :focus-visible {
