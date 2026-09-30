@@ -507,6 +507,276 @@ const COMPANIES = [
       { title: "Staff Engineer", level: "Senior+", competencies: ["systemdesign", "leadership", "java", "communication"], reqLevel: { systemdesign: "expert", leadership: "expert", java: "expert", communication: "expert" }, desc: "Cross-product technical leadership. Atlassian's next-gen architecture for Forge platform." },
     ]
   },
+  {
+    id: "wipro", name: "Wipro", logo: "W", gradient: "from-blue-700 to-indigo-500",
+    industry: "IT Services", hq: "Bangalore", tier: "IT Services",
+    hiring2023: 20000, hiring2024: 15000, trend: "down",
+    openRoles: 1500, avgPackage: "₹3.5-9 LPA", glassdoor: 3.7,
+    roles: [
+      { title: "Project Engineer", level: "Entry", competencies: ["java", "databases", "communication", "python"], reqLevel: { java: "working", databases: "working", communication: "strong" }, desc: "Wipro Elite National Talent Hunt. Enterprise application development and maintenance." },
+      { title: "Senior Software Engineer", level: "Mid", competencies: ["java", "aws", "databases", "react"], reqLevel: { java: "strong", aws: "working", databases: "strong" }, desc: "BFSI and Healthcare client projects. Spring Boot and REST API development." },
+      { title: "Technical Lead", level: "Senior", competencies: ["systemdesign", "java", "leadership", "aws"], reqLevel: { systemdesign: "strong", java: "expert", leadership: "strong" }, desc: "Lead team of 5-10 engineers for offshore client delivery." },
+      { title: "Cloud Architect", level: "Senior", competencies: ["aws", "kubernetes", "devops", "systemdesign"], reqLevel: { aws: "expert", kubernetes: "strong", systemdesign: "expert" }, desc: "Design cloud-native solutions for Fortune 500 digital transformations." },
+      { title: "Data Engineer", level: "Mid", competencies: ["python", "databases", "aws", "communication"], reqLevel: { python: "strong", databases: "strong" }, desc: "Big Data pipelines, Hadoop to AWS/Azure migrations." },
+      { title: "Full Stack Developer", level: "Mid", competencies: ["react", "nodejs", "databases", "typescript"], reqLevel: { react: "strong", nodejs: "strong" }, desc: "MERN/MEAN stack development for digital banking portals." },
+      { title: "Cybersecurity Analyst", level: "Mid", competencies: ["security", "communication", "python"], reqLevel: { security: "strong" }, desc: "SOC operations, Identity and Access Management (IAM), and compliance." },
+      { title: "QA Automation Engineer", level: "Mid", competencies: ["java", "python", "communication", "databases"], reqLevel: { java: "working" }, desc: "Selenium, Appium, and API automation frameworks." },
+      { title: "SAP Consultant", level: "Mid", competencies: ["databases", "communication", "java"], reqLevel: { databases: "strong", communication: "strong" }, desc: "SAP ABAP, Fiori, and S/4HANA implementations." },
+      { title: "AI/ML Engineer", level: "Senior", competencies: ["ml", "python", "databases", "aws"], reqLevel: { ml: "strong", python: "expert" }, desc: "Enterprise AI solutions — conversational AI, RPA, and predictive analytics." }
+    ]
+  },
+  {
+    id: "hcltech", name: "HCLTech", logo: "HCL", gradient: "from-blue-600 to-blue-400",
+    industry: "IT Services", hq: "Noida", tier: "IT Services",
+    hiring2023: 18000, hiring2024: 12000, trend: "down",
+    openRoles: 1200, avgPackage: "₹3.5-10 LPA", glassdoor: 3.8,
+    roles: [
+      { title: "Software Engineer", level: "Entry", competencies: ["java", "python", "databases", "communication"], reqLevel: { java: "working", communication: "strong" }, desc: "Development and L3 support for telecom and aerospace clients." },
+      { title: "Senior Developer", level: "Mid", competencies: ["java", "aws", "kubernetes", "databases"], reqLevel: { java: "strong", aws: "working" }, desc: "Core modernization projects. Monolith to microservices architecture." },
+      { title: "Lead Engineer", level: "Senior", competencies: ["systemdesign", "java", "devops", "leadership"], reqLevel: { systemdesign: "strong", java: "expert", leadership: "working" }, desc: "Agile squad lead for European banking clients." },
+      { title: "Cloud Infrastructure Specialist", level: "Senior", competencies: ["aws", "devops", "kubernetes", "python"], reqLevel: { aws: "expert", devops: "strong" }, desc: "Hybrid cloud management, Terraform, and CI/CD pipelines." },
+      { title: "Data Scientist", level: "Mid", competencies: ["ml", "python", "databases", "communication"], reqLevel: { ml: "strong", python: "strong" }, desc: "Predictive maintenance models for manufacturing clients." },
+      { title: "Embedded C/C++ Developer", level: "Mid", competencies: ["systemdesign", "communication", "databases"], reqLevel: { systemdesign: "working" }, desc: "Automotive (ADAS) and aero engineering services." },
+      { title: "React Developer", level: "Mid", competencies: ["react", "typescript", "nodejs", "communication"], reqLevel: { react: "strong", typescript: "working" }, desc: "Frontend modernization for legacy enterprise portals." },
+      { title: "Security Consultant", level: "Senior", competencies: ["security", "aws", "communication", "python"], reqLevel: { security: "expert", aws: "working" }, desc: "Cloud security architecture, threat modeling, and VAPT." },
+      { title: "Network Engineer", level: "Mid", competencies: ["devops", "aws", "security", "communication"], reqLevel: { devops: "working", security: "working" }, desc: "SD-WAN, Cisco ACI, and enterprise network architecture." },
+      { title: "ServiceNow Developer", level: "Mid", competencies: ["java", "databases", "communication", "react"], reqLevel: { java: "working" }, desc: "ITSM, ITOM, and custom workflow development on ServiceNow platform." }
+    ]
+  },
+  {
+    id: "techmahindra", name: "Tech Mahindra", logo: "TM", gradient: "from-red-600 to-red-400",
+    industry: "IT Services", hq: "Pune", tier: "IT Services",
+    hiring2023: 15000, hiring2024: 10000, trend: "down",
+    openRoles: 900, avgPackage: "₹3.5-8.5 LPA", glassdoor: 3.6,
+    roles: [
+      { title: "Software Engineer", level: "Entry", competencies: ["java", "databases", "communication", "python"], reqLevel: { java: "working", databases: "working", communication: "strong" }, desc: "Telecom and manufacturing client projects. Development and integration." },
+      { title: "Senior Software Engineer", level: "Mid", competencies: ["java", "aws", "databases", "react"], reqLevel: { java: "strong", aws: "working", databases: "strong" }, desc: "OSS/BSS systems development for global telecom operators." },
+      { title: "Solution Architect", level: "Senior", competencies: ["systemdesign", "aws", "leadership", "communication"], reqLevel: { systemdesign: "expert", aws: "strong", leadership: "strong" }, desc: "5G integration, IoT platforms, and digital transformation architecture." },
+      { title: "Data Engineer", level: "Mid", competencies: ["python", "databases", "aws", "devops"], reqLevel: { python: "strong", databases: "strong" }, desc: "Data pipelines for telecom analytics and customer churn prediction." },
+      { title: "Blockchain Developer", level: "Mid", competencies: ["golang", "nodejs", "databases", "security"], reqLevel: { golang: "working", nodejs: "strong" }, desc: "Supply chain and telecom roaming blockchain solutions." },
+      { title: "Frontend Developer", level: "Mid", competencies: ["react", "typescript", "nodejs", "communication"], reqLevel: { react: "strong", typescript: "working" }, desc: "Self-care portals and CRM UIs for telecom clients." },
+      { title: "Cybersecurity Analyst", level: "Mid", competencies: ["security", "communication", "python", "devops"], reqLevel: { security: "strong", communication: "strong" }, desc: "Managed Security Services (MSSP) operations for enterprise clients." },
+      { title: "Automation Tester", level: "Mid", competencies: ["java", "python", "communication", "databases"], reqLevel: { java: "working", python: "working" }, desc: "Test automation for large-scale telecom billing systems." },
+      { title: "Oracle Apps DBA", level: "Senior", competencies: ["databases", "devops", "aws", "communication"], reqLevel: { databases: "expert" }, desc: "Database administration and cloud migration for Oracle E-Business Suite." },
+      { title: "AI/ML Engineer", level: "Senior", competencies: ["ml", "python", "databases", "aws"], reqLevel: { ml: "strong", python: "expert" }, desc: "Generative AI applications and conversational bots for customer support." }
+    ]
+  },
+  {
+    id: "cognizant", name: "Cognizant", logo: "CTS", gradient: "from-blue-800 to-blue-600",
+    industry: "IT Services", hq: "Teaneck, NJ (India: Chennai)", tier: "IT Services",
+    hiring2023: 25000, hiring2024: 18000, trend: "down",
+    openRoles: 1800, avgPackage: "₹4-10 LPA", glassdoor: 3.8,
+    roles: [
+      { title: "Programmer Analyst Trainee", level: "Entry", competencies: ["java", "databases", "communication", "python"], reqLevel: { java: "working", databases: "working", communication: "strong" }, desc: "GenC hiring. Training and deployment in healthcare and banking domains." },
+      { title: "Associate", level: "Mid", competencies: ["java", "aws", "databases", "react"], reqLevel: { java: "strong", aws: "working", databases: "strong" }, desc: "Core development for top US healthcare and financial institutions." },
+      { title: "Manager - Projects", level: "Senior", competencies: ["leadership", "systemdesign", "communication", "java"], reqLevel: { leadership: "expert", communication: "expert", systemdesign: "strong" }, desc: "Scrum master, project delivery, and stakeholder management." },
+      { title: "Cloud Architect", level: "Senior", competencies: ["aws", "kubernetes", "devops", "systemdesign"], reqLevel: { aws: "expert", kubernetes: "strong", systemdesign: "expert" }, desc: "Multi-cloud strategy and migration architecture for Fortune 500 clients." },
+      { title: "Data Scientist", level: "Senior", competencies: ["ml", "python", "databases", "finance"], reqLevel: { ml: "strong", python: "expert", finance: "working" }, desc: "Fraud detection models, healthcare claims analytics, and predictive modeling." },
+      { title: "React Developer", level: "Mid", competencies: ["react", "typescript", "nodejs", "aws"], reqLevel: { react: "strong", typescript: "strong" }, desc: "Digital engineering projects. High-performance consumer-facing web apps." },
+      { title: "Salesforce Developer", level: "Mid", competencies: ["java", "databases", "communication", "react"], reqLevel: { java: "working" }, desc: "Salesforce Lightning development for enterprise CRM implementations." },
+      { title: "Security Engineer", level: "Mid", competencies: ["security", "aws", "python", "communication"], reqLevel: { security: "strong", aws: "working" }, desc: "Cloud security posture management and DevSecOps integration." },
+      { title: "Performance Test Engineer", level: "Mid", competencies: ["java", "python", "databases", "devops"], reqLevel: { java: "working", devops: "working" }, desc: "LoadRunner, JMeter, and APM tools (Dynatrace, AppDynamics) expertise." },
+      { title: "IoT Engineer", level: "Mid", competencies: ["python", "aws", "java", "systemdesign"], reqLevel: { python: "strong", aws: "strong" }, desc: "Connected devices, smart manufacturing, and IoT data pipelines." }
+    ]
+  },
+  {
+    id: "ltimindtree", name: "LTIMindtree", logo: "LTI", gradient: "from-blue-600 to-indigo-600",
+    industry: "IT Services", hq: "Mumbai", tier: "IT Services",
+    hiring2023: 12000, hiring2024: 9000, trend: "down",
+    openRoles: 800, avgPackage: "₹4-12 LPA", glassdoor: 3.9,
+    roles: [
+      { title: "Software Engineer", level: "Entry", competencies: ["java", "databases", "communication", "python"], reqLevel: { java: "working", databases: "working", communication: "strong" }, desc: "Application development for banking, media, and tech clients." },
+      { title: "Senior Software Engineer", level: "Mid", competencies: ["java", "aws", "kubernetes", "databases"], reqLevel: { java: "strong", aws: "strong", databases: "strong" }, desc: "Microservices development, API gateways, and cloud deployment." },
+      { title: "Technical Architect", level: "Senior", competencies: ["systemdesign", "aws", "java", "leadership"], reqLevel: { systemdesign: "expert", aws: "strong", java: "expert" }, desc: "Design scalable architectures for digital transformation projects." },
+      { title: "Data Engineer (Snowflake)", level: "Mid", competencies: ["python", "databases", "aws", "devops"], reqLevel: { python: "strong", databases: "expert", aws: "strong" }, desc: "Cloud data warehousing, ETL pipelines, and dbt." },
+      { title: "Full Stack Developer", level: "Mid", competencies: ["react", "nodejs", "typescript", "databases"], reqLevel: { react: "strong", typescript: "strong", nodejs: "strong" }, desc: "MEAN/MERN stack for enterprise digital platforms." },
+      { title: "DevOps Engineer", level: "Mid", competencies: ["devops", "kubernetes", "aws", "python"], reqLevel: { devops: "strong", kubernetes: "working", aws: "strong" }, desc: "CI/CD, Infrastructure as Code (Terraform), and monitoring setup." },
+      { title: "QA Automation Lead", level: "Senior", competencies: ["java", "python", "leadership", "communication"], reqLevel: { java: "strong", leadership: "strong" }, desc: "Lead test automation strategy, BDD frameworks, and continuous testing." },
+      { title: "SAP HANA Consultant", level: "Senior", competencies: ["databases", "communication", "leadership"], reqLevel: { databases: "expert", communication: "strong" }, desc: "SAP S/4HANA migration, implementation, and support." },
+      { title: "Security Analyst", level: "Mid", competencies: ["security", "communication", "aws"], reqLevel: { security: "strong" }, desc: "Vulnerability management, threat hunting, and compliance audits." },
+      { title: "ML Engineer", level: "Senior", competencies: ["ml", "python", "databases", "aws"], reqLevel: { ml: "strong", python: "expert" }, desc: "Deploying machine learning models in production for retail/CPG clients." }
+    ]
+  },
+  {
+    id: "reliancejio", name: "Reliance Jio", logo: "JIO", gradient: "from-blue-600 to-red-500",
+    industry: "Telecom / Tech", hq: "Mumbai", tier: "MNC",
+    hiring2023: 5000, hiring2024: 6000, trend: "up",
+    openRoles: 400, avgPackage: "₹6-20 LPA", glassdoor: 3.7,
+    roles: [
+      { title: "Software Engineer", level: "Mid", competencies: ["java", "databases", "systemdesign", "dsa"], reqLevel: { java: "strong", databases: "strong", systemdesign: "working" }, desc: "Jio Apps ecosystem (JioTV, JioCinema, JioSaavn) backend services." },
+      { title: "Senior Developer (5G)", level: "Senior", competencies: ["golang", "kubernetes", "devops", "systemdesign"], reqLevel: { golang: "strong", kubernetes: "expert", systemdesign: "strong" }, desc: "5G Core network functions (AMF, SMF, UPF) development and cloud-native integration." },
+      { title: "Android Developer", level: "Mid", competencies: ["kotlin", "java", "dsa", "systemdesign"], reqLevel: { kotlin: "strong", java: "strong" }, desc: "Jio consumer apps with 400M+ active user base. Video streaming and payments." },
+      { title: "iOS Developer", level: "Mid", competencies: ["swift", "dsa", "systemdesign", "security"], reqLevel: { swift: "strong", dsa: "working" }, desc: "Jio iOS apps. High-performance media playback and secure payments." },
+      { title: "Data Scientist", level: "Senior", competencies: ["ml", "python", "databases", "communication"], reqLevel: { ml: "expert", python: "expert", databases: "strong" }, desc: "Network analytics, churn prediction, and personalized content recommendation." },
+      { title: "React Developer", level: "Mid", competencies: ["react", "typescript", "nodejs", "dsa"], reqLevel: { react: "strong", typescript: "strong" }, desc: "Jio.com, self-care portals, and internal OSS/BSS web dashboards." },
+      { title: "Data Engineer", level: "Senior", competencies: ["python", "databases", "aws", "systemdesign"], reqLevel: { python: "expert", databases: "expert" }, desc: "Petabyte-scale telecom data lake. Spark, Kafka, and real-time analytics." },
+      { title: "DevOps Engineer", level: "Mid", competencies: ["devops", "kubernetes", "aws", "python"], reqLevel: { devops: "strong", kubernetes: "strong" }, desc: "Jio Cloud infrastructure. CI/CD for hundreds of microservices." },
+      { title: "Security Engineer", level: "Senior", competencies: ["security", "python", "devops", "systemdesign"], reqLevel: { security: "expert", python: "strong" }, desc: "Telecom security, 5G security architecture, and threat intelligence." },
+      { title: "Blockchain Developer", level: "Mid", competencies: ["golang", "nodejs", "databases", "systemdesign"], reqLevel: { golang: "working", nodejs: "strong" }, desc: "Jio Blockchain platform for telecom roaming, supply chain, and IoT." }
+    ]
+  },
+  {
+    id: "airtel", name: "Airtel", logo: "AIR", gradient: "from-red-600 to-red-500",
+    industry: "Telecom", hq: "New Delhi", tier: "MNC",
+    hiring2023: 3000, hiring2024: 2500, trend: "stable",
+    openRoles: 250, avgPackage: "₹8-25 LPA", glassdoor: 3.8,
+    roles: [
+      { title: "Backend Engineer", level: "SDE-2", competencies: ["java", "databases", "systemdesign", "dsa"], reqLevel: { java: "expert", databases: "strong", systemdesign: "strong" }, desc: "Airtel Thanks app backend, Wynk Music, and Airtel Xstream API services." },
+      { title: "Frontend Engineer", level: "SDE-2", competencies: ["react", "typescript", "nodejs", "systemdesign"], reqLevel: { react: "expert", typescript: "strong" }, desc: "Airtel digital properties. High-performance, SEO-optimized web applications." },
+      { title: "Android Engineer", level: "SDE-2", competencies: ["kotlin", "java", "dsa", "systemdesign"], reqLevel: { kotlin: "expert", dsa: "strong" }, desc: "Airtel Thanks app serving 350M+ customers. Payments, recharge, and media." },
+      { title: "ML Engineer", level: "Senior", competencies: ["ml", "python", "databases", "systemdesign"], reqLevel: { ml: "expert", python: "expert", databases: "strong" }, desc: "Wynk Music recommendations, network fault prediction, and customer 360 AI." },
+      { title: "Data Engineer", level: "SDE-2", competencies: ["python", "databases", "aws", "systemdesign"], reqLevel: { python: "expert", databases: "expert" }, desc: "Telecom data warehouse. Processing billions of call data records (CDRs) daily." },
+      { title: "Platform Engineer", level: "Senior", competencies: ["kubernetes", "devops", "aws", "golang"], reqLevel: { kubernetes: "expert", devops: "expert", aws: "strong" }, desc: "Airtel Digital's cloud-native platform. EKS, service mesh, and observability." },
+      { title: "Security Engineer", level: "Senior", competencies: ["security", "python", "aws", "systemdesign"], reqLevel: { security: "expert", aws: "strong" }, desc: "Securing telecom infrastructure, customer data privacy, and compliance." },
+      { title: "iOS Engineer", level: "SDE-2", competencies: ["swift", "dsa", "systemdesign", "security"], reqLevel: { swift: "expert", dsa: "strong" }, desc: "Airtel iOS apps. Smooth UI, complex API integrations, and Apple Pay." },
+      { title: "Lead Engineer", level: "SDE-3", competencies: ["systemdesign", "leadership", "java", "communication"], reqLevel: { systemdesign: "expert", leadership: "expert", java: "expert" }, desc: "Architectural ownership of core digital products. Mentoring engineering squads." },
+      { title: "Network Automation Engineer", level: "Senior", competencies: ["python", "devops", "kubernetes", "systemdesign"], reqLevel: { python: "expert", devops: "strong" }, desc: "SDN, NFV, and automated provisioning of 5G network slices." }
+    ]
+  },
+  {
+    id: "tatamotors", name: "Tata Motors", logo: "TM", gradient: "from-blue-800 to-blue-600",
+    industry: "Automotive", hq: "Mumbai", tier: "Enterprise",
+    hiring2023: 2000, hiring2024: 2500, trend: "up",
+    openRoles: 150, avgPackage: "₹6-18 LPA", glassdoor: 3.9,
+    roles: [
+      { title: "Connected Car Engineer", level: "Mid", competencies: ["python", "aws", "java", "systemdesign"], reqLevel: { python: "strong", aws: "strong", systemdesign: "working" }, desc: "ZConnect and iRA connected car platforms. IoT telemetry data ingestion." },
+      { title: "Embedded Software Engineer", level: "Senior", competencies: ["systemdesign", "communication", "databases"], reqLevel: { systemdesign: "strong" }, desc: "ECU programming, CAN bus, AUTOSAR, and ADAS feature development." },
+      { title: "Data Scientist", level: "Senior", competencies: ["ml", "python", "databases", "communication"], reqLevel: { ml: "strong", python: "expert", databases: "strong" }, desc: "Predictive maintenance, battery health algorithms for EVs, and supply chain analytics." },
+      { title: "Backend Engineer", level: "Mid", competencies: ["java", "databases", "aws", "systemdesign"], reqLevel: { java: "strong", databases: "strong", aws: "working" }, desc: "Customer portal, dealer management system, and vehicle diagnostics APIs." },
+      { title: "Frontend Engineer", level: "Mid", competencies: ["react", "typescript", "nodejs", "communication"], reqLevel: { react: "strong", typescript: "working" }, desc: "Web applications for fleet management, EV charging station locator, and e-commerce." },
+      { title: "Data Engineer", level: "Mid", competencies: ["python", "databases", "aws", "devops"], reqLevel: { python: "strong", databases: "strong" }, desc: "IoT data pipelines, streaming vehicle telemetry to AWS data lakes." },
+      { title: "Cloud Architect", level: "Senior", competencies: ["aws", "kubernetes", "devops", "systemdesign"], reqLevel: { aws: "expert", systemdesign: "expert" }, desc: "Cloud infrastructure for global connected vehicle fleets. Scalability and security." },
+      { title: "Mobile App Developer", level: "Mid", competencies: ["kotlin", "swift", "react", "dsa"], reqLevel: { kotlin: "working", swift: "working", react: "strong" }, desc: "Tata Motors consumer apps for remote vehicle control (lock/unlock, AC)." },
+      { title: "Security Engineer", level: "Senior", competencies: ["security", "aws", "python", "communication"], reqLevel: { security: "expert", aws: "strong" }, desc: "Automotive cybersecurity, secure OTA (Over-The-Air) updates, and PKI." },
+      { title: "AI Engineer (Computer Vision)", level: "Senior", competencies: ["ml", "python", "systemdesign", "aws"], reqLevel: { ml: "expert", python: "expert" }, desc: "Driver monitoring systems, lane assist, and autonomous driving R&D." }
+    ]
+  },
+  {
+    id: "mahindra", name: "Mahindra", logo: "M&M", gradient: "from-red-700 to-red-500",
+    industry: "Automotive", hq: "Mumbai", tier: "Enterprise",
+    hiring2023: 1500, hiring2024: 1800, trend: "up",
+    openRoles: 120, avgPackage: "₹6-16 LPA", glassdoor: 3.8,
+    roles: [
+      { title: "IoT Platform Engineer", level: "Mid", competencies: ["java", "python", "aws", "systemdesign"], reqLevel: { java: "strong", aws: "strong", python: "working" }, desc: "AdrenoX connected SUV platform. High-frequency telemetry ingestion." },
+      { title: "Embedded Systems Engineer", level: "Senior", competencies: ["systemdesign", "communication", "databases"], reqLevel: { systemdesign: "strong" }, desc: "Vehicle control units, infotainment systems, and EV battery management systems." },
+      { title: "Data Scientist", level: "Senior", competencies: ["ml", "python", "databases", "communication"], reqLevel: { ml: "strong", python: "expert" }, desc: "Manufacturing quality prediction, demand forecasting, and smart agriculture analytics (Tractors)." },
+      { title: "Full Stack Developer", level: "Mid", competencies: ["react", "java", "databases", "aws"], reqLevel: { react: "strong", java: "strong" }, desc: "Dealer management systems, customer booking portals, and internal enterprise apps." },
+      { title: "Cloud Engineer", level: "Mid", competencies: ["aws", "devops", "kubernetes", "python"], reqLevel: { aws: "strong", devops: "strong" }, desc: "AWS infrastructure for connected vehicle services and enterprise workloads." },
+      { title: "Mobile Developer (Android/iOS)", level: "Mid", competencies: ["kotlin", "swift", "java", "dsa"], reqLevel: { kotlin: "working", swift: "working", java: "strong" }, desc: "Mahindra customer apps for vehicle tracking, remote diagnostics, and service booking." },
+      { title: "Data Engineer", level: "Mid", competencies: ["python", "databases", "aws", "devops"], reqLevel: { python: "strong", databases: "strong" }, desc: "Enterprise data warehouse, ETL processes, and reporting data models." },
+      { title: "Cybersecurity Analyst", level: "Mid", competencies: ["security", "communication", "aws"], reqLevel: { security: "strong" }, desc: "IT and OT (Operational Technology) security, ISO 21434 automotive cybersecurity." },
+      { title: "UI/UX Developer", level: "Mid", competencies: ["react", "communication", "typescript"], reqLevel: { react: "strong", communication: "strong" }, desc: "In-car infotainment UI development using modern web technologies." },
+      { title: "ML Engineer (EV)", level: "Senior", competencies: ["ml", "python", "aws", "systemdesign"], reqLevel: { ml: "expert", python: "expert" }, desc: "Range prediction algorithms, charging optimization, and battery degradation modeling." }
+    ]
+  },
+  {
+    id: "marutisuzuki", name: "Maruti Suzuki", logo: "MS", gradient: "from-blue-700 to-blue-500",
+    industry: "Automotive", hq: "New Delhi", tier: "Enterprise",
+    hiring2023: 1200, hiring2024: 1500, trend: "up",
+    openRoles: 100, avgPackage: "₹7-15 LPA", glassdoor: 3.8,
+    roles: [
+      { title: "Software Engineer (Connected Cars)", level: "Mid", competencies: ["java", "aws", "databases", "systemdesign"], reqLevel: { java: "strong", aws: "strong" }, desc: "Suzuki Connect platform backend. Handling telemetry from millions of vehicles." },
+      { title: "Data Scientist", level: "Senior", competencies: ["ml", "python", "databases", "communication"], reqLevel: { ml: "strong", python: "expert" }, desc: "Sales forecasting, spare parts inventory optimization, and customer churn models." },
+      { title: "Full Stack Developer", level: "Mid", competencies: ["react", "nodejs", "databases", "typescript"], reqLevel: { react: "strong", nodejs: "strong" }, desc: "Nexa and Arena digital showrooms, online booking platforms." },
+      { title: "Embedded Software Engineer", level: "Senior", competencies: ["systemdesign", "communication", "databases"], reqLevel: { systemdesign: "strong" }, desc: "Infotainment systems, instrument clusters, and body control modules." },
+      { title: "Cloud Infrastructure Engineer", level: "Mid", competencies: ["aws", "devops", "kubernetes", "python"], reqLevel: { aws: "strong", devops: "strong" }, desc: "Managing AWS environments for connected car and enterprise applications." },
+      { title: "Mobile App Developer", level: "Mid", competencies: ["react", "kotlin", "swift", "dsa"], reqLevel: { react: "strong", kotlin: "working" }, desc: "Maruti Suzuki Rewards and Suzuki Connect consumer mobile applications." },
+      { title: "Data Engineer", level: "Mid", competencies: ["python", "databases", "aws", "devops"], reqLevel: { python: "strong", databases: "strong" }, desc: "Building data pipelines for manufacturing analytics and quality control." },
+      { title: "Information Security Analyst", level: "Mid", competencies: ["security", "communication", "aws"], reqLevel: { security: "strong" }, desc: "Enterprise IT security, risk management, and compliance." },
+      { title: "AI Engineer (Manufacturing)", level: "Senior", competencies: ["ml", "python", "systemdesign", "aws"], reqLevel: { ml: "strong", python: "expert" }, desc: "Computer vision for defect detection on the assembly line, robotics integration." },
+      { title: "SAP Technical Consultant", level: "Senior", competencies: ["databases", "communication", "java"], reqLevel: { databases: "expert" }, desc: "SAP ERP customization, ABAP development, and system integration." }
+    ]
+  },
+  {
+    id: "hdfcbank", name: "HDFC Bank", logo: "HDFC", gradient: "from-blue-900 to-red-600",
+    industry: "Banking", hq: "Mumbai", tier: "Enterprise",
+    hiring2023: 4000, hiring2024: 4500, trend: "up",
+    openRoles: 300, avgPackage: "₹8-22 LPA", glassdoor: 3.7,
+    roles: [
+      { title: "Java Backend Developer", level: "Mid", competencies: ["java", "databases", "finance", "systemdesign"], reqLevel: { java: "expert", databases: "strong", finance: "working" }, desc: "Core banking modernization, payment gateways, and UPI integration." },
+      { title: "Frontend Developer", level: "Mid", competencies: ["react", "typescript", "nodejs", "security"], reqLevel: { react: "strong", typescript: "working", security: "working" }, desc: "NetBanking portal revamp, customer onboarding journeys." },
+      { title: "Mobile Developer", level: "Senior", competencies: ["kotlin", "swift", "security", "finance"], reqLevel: { kotlin: "strong", swift: "working", security: "strong" }, desc: "HDFC MobileBanking app, PayZapp. Focus on security and performance." },
+      { title: "Data Engineer", level: "Mid", competencies: ["python", "databases", "aws", "finance"], reqLevel: { python: "strong", databases: "expert" }, desc: "Enterprise data warehouse, regulatory reporting (RBI), and transaction data pipelines." },
+      { title: "Data Scientist (Risk)", level: "Senior", competencies: ["ml", "python", "finance", "databases"], reqLevel: { ml: "strong", python: "expert", finance: "strong" }, desc: "Credit scoring models, fraud detection, and anti-money laundering (AML) analytics." },
+      { title: "Cloud Architect", level: "Senior", competencies: ["aws", "kubernetes", "devops", "security"], reqLevel: { aws: "expert", systemdesign: "expert", security: "strong" }, desc: "Cloud migration strategy, hybrid cloud architecture for banking workloads." },
+      { title: "Cybersecurity Engineer", level: "Senior", competencies: ["security", "python", "finance", "aws"], reqLevel: { security: "expert", finance: "working" }, desc: "Threat hunting, SOC operations, and securing digital banking channels." },
+      { title: "DevOps Engineer", level: "Mid", competencies: ["devops", "kubernetes", "aws", "java"], reqLevel: { devops: "strong", kubernetes: "working" }, desc: "CI/CD pipelines for banking applications, infrastructure automation." },
+      { title: "API Integration Engineer", level: "Mid", competencies: ["nodejs", "java", "databases", "security"], reqLevel: { nodejs: "strong", java: "strong" }, desc: "Open banking APIs, partner integrations (fintechs, merchants)." },
+      { title: "Performance Engineer", level: "Mid", competencies: ["java", "databases", "devops", "python"], reqLevel: { java: "working", databases: "strong" }, desc: "Load testing banking applications for peak traffic (salary days, Diwali)." }
+    ]
+  },
+  {
+    id: "icicibank", name: "ICICI Bank", logo: "ICICI", gradient: "from-orange-600 to-red-600",
+    industry: "Banking", hq: "Mumbai", tier: "Enterprise",
+    hiring2023: 3500, hiring2024: 4000, trend: "up",
+    openRoles: 280, avgPackage: "₹7-20 LPA", glassdoor: 3.8,
+    roles: [
+      { title: "Software Engineer (Java)", level: "Mid", competencies: ["java", "databases", "finance", "systemdesign"], reqLevel: { java: "strong", databases: "strong", finance: "working" }, desc: "iMobile Pay backend, internet banking, and wealth management platforms." },
+      { title: "Data Scientist", level: "Senior", competencies: ["ml", "python", "finance", "databases"], reqLevel: { ml: "strong", python: "expert", finance: "strong" }, desc: "Next Best Action (NBA) recommendation engine, credit risk models." },
+      { title: "Frontend Developer", level: "Mid", competencies: ["react", "typescript", "nodejs", "security"], reqLevel: { react: "strong", typescript: "working" }, desc: "Corporate banking portals (InstaBIZ), trade finance UIs." },
+      { title: "Mobile App Developer", level: "Senior", competencies: ["kotlin", "swift", "security", "dsa"], reqLevel: { kotlin: "strong", security: "strong" }, desc: "iMobile Pay app development. Biometrics, UPI, and secure storage." },
+      { title: "Cloud Engineer", level: "Mid", competencies: ["aws", "devops", "kubernetes", "security"], reqLevel: { aws: "strong", devops: "strong" }, desc: "Managing cloud infrastructure for digital banking initiatives." },
+      { title: "Data Engineer", level: "Mid", competencies: ["python", "databases", "aws", "finance"], reqLevel: { python: "strong", databases: "expert" }, desc: "Building scalable data pipelines for customer analytics and reporting." },
+      { title: "Information Security Manager", level: "Senior", competencies: ["security", "finance", "aws", "communication"], reqLevel: { security: "expert", finance: "strong" }, desc: "Information security governance, risk management, and compliance." },
+      { title: "Blockchain Developer", level: "Mid", competencies: ["golang", "nodejs", "databases", "finance"], reqLevel: { golang: "working", nodejs: "strong" }, desc: "Trade finance network consortiums, cross-border remittance solutions." },
+      { title: "API Developer", level: "Mid", competencies: ["nodejs", "java", "security", "databases"], reqLevel: { nodejs: "strong", java: "strong" }, desc: "ICICI API Banking portal. Exposing banking services to fintech partners." },
+      { title: "RPA Developer", level: "Mid", competencies: ["python", "java", "databases", "communication"], reqLevel: { python: "strong" }, desc: "Robotic Process Automation for back-office banking operations." }
+    ]
+  },
+  {
+    id: "kotak", name: "Kotak Mahindra Bank", logo: "KMB", gradient: "from-red-700 to-red-500",
+    industry: "Banking", hq: "Mumbai", tier: "Enterprise",
+    hiring2023: 2500, hiring2024: 3000, trend: "up",
+    openRoles: 200, avgPackage: "₹7-22 LPA", glassdoor: 3.7,
+    roles: [
+      { title: "Backend Developer (Java/Go)", level: "Senior", competencies: ["java", "golang", "databases", "systemdesign"], reqLevel: { java: "strong", golang: "working", databases: "expert" }, desc: "Kotak 811 digital banking platform, core banking integrations." },
+      { title: "Frontend Developer", level: "Mid", competencies: ["react", "typescript", "nodejs", "security"], reqLevel: { react: "strong", typescript: "strong" }, desc: "Net banking, corporate portals, and wealth management UIs." },
+      { title: "Mobile Engineer", level: "Mid", competencies: ["kotlin", "swift", "react", "security"], reqLevel: { kotlin: "strong", react: "working", security: "strong" }, desc: "Kotak Mobile Banking App (Kotak811). Native and React Native development." },
+      { title: "Data Scientist", level: "Senior", competencies: ["ml", "python", "finance", "databases"], reqLevel: { ml: "strong", python: "expert", finance: "working" }, desc: "Propensity models, cross-sell algorithms, and risk analytics." },
+      { title: "Data Engineer", level: "Mid", competencies: ["python", "databases", "aws", "finance"], reqLevel: { python: "strong", databases: "expert" }, desc: "Data lake architecture, streaming analytics for fraud detection." },
+      { title: "Cloud Architect", level: "Senior", competencies: ["aws", "kubernetes", "devops", "security"], reqLevel: { aws: "expert", systemdesign: "expert", security: "strong" }, desc: "Designing secure, highly available cloud architectures for banking." },
+      { title: "Cybersecurity Analyst", level: "Mid", competencies: ["security", "python", "finance", "communication"], reqLevel: { security: "strong", finance: "working" }, desc: "Vulnerability assessment, incident response, and security monitoring." },
+      { title: "DevOps Engineer", level: "Mid", competencies: ["devops", "kubernetes", "aws", "python"], reqLevel: { devops: "strong", kubernetes: "strong" }, desc: "Automating infrastructure provisioning and application deployments." },
+      { title: "Integration Specialist", level: "Senior", competencies: ["java", "databases", "security", "systemdesign"], reqLevel: { java: "expert", security: "strong" }, desc: "Enterprise Service Bus (ESB) and API gateway integrations." },
+      { title: "QA Automation Engineer", level: "Mid", competencies: ["java", "python", "databases", "devops"], reqLevel: { java: "working", python: "working" }, desc: "Automated testing for critical banking workflows and APIs." }
+    ]
+  },
+  {
+    id: "axisbank", name: "Axis Bank", logo: "AXIS", gradient: "from-red-800 to-red-600",
+    industry: "Banking", hq: "Mumbai", tier: "Enterprise",
+    hiring2023: 3000, hiring2024: 3500, trend: "up",
+    openRoles: 220, avgPackage: "₹7-20 LPA", glassdoor: 3.8,
+    roles: [
+      { title: "Full Stack Developer", level: "Senior", competencies: ["react", "java", "nodejs", "databases"], reqLevel: { react: "strong", java: "strong", nodejs: "working" }, desc: "Axis Mobile app backend, internet banking, and corporate portals." },
+      { title: "Data Scientist", level: "Senior", competencies: ["ml", "python", "finance", "databases"], reqLevel: { ml: "strong", python: "expert", finance: "strong" }, desc: "AI-driven customer insights, credit underwriting models." },
+      { title: "Cloud Engineer", level: "Mid", competencies: ["aws", "devops", "kubernetes", "security"], reqLevel: { aws: "strong", devops: "strong" }, desc: "AWS infrastructure management, migrating legacy apps to the cloud." },
+      { title: "Mobile App Developer", level: "Mid", competencies: ["kotlin", "swift", "react", "security"], reqLevel: { kotlin: "strong", security: "strong" }, desc: "Axis Mobile app development. Seamless UX and secure transactions." },
+      { title: "Data Engineer", level: "Mid", competencies: ["python", "databases", "aws", "finance"], reqLevel: { python: "strong", databases: "expert" }, desc: "Building scalable data platforms for business intelligence." },
+      { title: "Security Engineer", level: "Senior", competencies: ["security", "aws", "python", "finance"], reqLevel: { security: "expert", finance: "working" }, desc: "Application security, DevSecOps, and cloud security posture." },
+      { title: "Backend Developer (Node.js)", level: "Mid", competencies: ["nodejs", "databases", "systemdesign", "security"], reqLevel: { nodejs: "strong", databases: "strong" }, desc: "Building scalable APIs for digital lending and payments." },
+      { title: "DevOps Engineer", level: "Mid", competencies: ["devops", "kubernetes", "aws", "python"], reqLevel: { devops: "strong", kubernetes: "working" }, desc: "Implementing CI/CD pipelines and infrastructure as code." },
+      { title: "Database Administrator", level: "Senior", competencies: ["databases", "aws", "devops", "communication"], reqLevel: { databases: "expert" }, desc: "Managing large-scale Oracle/PostgreSQL databases, performance tuning." },
+      { title: "Business Analyst (IT)", level: "Mid", competencies: ["finance", "communication", "databases", "systemdesign"], reqLevel: { finance: "strong", communication: "expert" }, desc: "Bridging the gap between business requirements and technical solutions." }
+    ]
+  },
+  {
+    id: "bajajfinserv", name: "Bajaj Finserv", logo: "BF", gradient: "from-blue-700 to-blue-500",
+    industry: "Financial Services", hq: "Pune", tier: "Enterprise",
+    hiring2023: 2000, hiring2024: 2500, trend: "up",
+    openRoles: 180, avgPackage: "₹6-18 LPA", glassdoor: 3.9,
+    roles: [
+      { title: "Software Engineer (Java)", level: "Mid", competencies: ["java", "databases", "finance", "systemdesign"], reqLevel: { java: "strong", databases: "strong" }, desc: "Loan origination systems, EMI card backend, and payment integrations." },
+      { title: "Data Scientist", level: "Senior", competencies: ["ml", "python", "finance", "databases"], reqLevel: { ml: "strong", python: "expert", finance: "strong" }, desc: "Credit risk modeling, cross-sell propensity, and collection optimization." },
+      { title: "Frontend Developer", level: "Mid", competencies: ["react", "typescript", "nodejs", "communication"], reqLevel: { react: "strong", typescript: "working" }, desc: "Customer portals, EMI store UI, and internal dashboards." },
+      { title: "Mobile Developer", level: "Mid", competencies: ["kotlin", "swift", "react", "security"], reqLevel: { react: "strong", kotlin: "working" }, desc: "Bajaj Finserv mobile app. React Native development for cross-platform." },
+      { title: "Data Engineer", level: "Mid", competencies: ["python", "databases", "aws", "finance"], reqLevel: { python: "strong", databases: "expert" }, desc: "Data pipelines for analytics and regulatory reporting." },
+      { title: "Cloud Architect", level: "Senior", competencies: ["aws", "kubernetes", "devops", "systemdesign"], reqLevel: { aws: "expert", systemdesign: "expert" }, desc: "Cloud-native architecture for scalable financial services applications." },
+      { title: "Security Analyst", level: "Mid", competencies: ["security", "finance", "python", "aws"], reqLevel: { security: "strong" }, desc: "Information security, compliance, and vulnerability management." },
+      { title: "DevOps Engineer", level: "Mid", competencies: ["devops", "aws", "kubernetes", "python"], reqLevel: { devops: "strong", aws: "strong" }, desc: "Automation of infrastructure and deployment pipelines." },
+      { title: "API Developer", level: "Mid", competencies: ["nodejs", "java", "databases", "security"], reqLevel: { nodejs: "strong", databases: "strong" }, desc: "Building partner APIs for merchant integrations and digital lending." },
+      { title: "QA Engineer", level: "Mid", competencies: ["java", "python", "databases", "communication"], reqLevel: { java: "working", python: "working" }, desc: "Automated testing for financial applications and APIs." }
+    ]
+  }
 ];
 
 // ════════════════════════════════════════════════════════════
@@ -524,7 +794,7 @@ function deepAnalyzeCompetency(resumeText: string, competency: string, reqLevel:
 
   // 1. Keyword presence scoring
   const kwMatches = signals.keywords.filter(kw => text.includes(kw));
-  const kwRatio = kwMatches.length / signals.keywords.length;
+  const kwScore = kwMatches.length;
 
   // 2. Context phrase scoring (production depth signals)
   const ctxMatches = signals.contextPhrases.filter(phrase => text.includes(phrase));
@@ -548,21 +818,21 @@ function deepAnalyzeCompetency(resumeText: string, competency: string, reqLevel:
   let detectedLevel: "expert" | "strong" | "working" | "absent";
   let confidence: number;
 
-  if (redFlagCount > 0 && kwRatio < 0.3) {
+  if (redFlagCount > 0 && kwScore < 2) {
     detectedLevel = "absent";
     confidence = 10;
-  } else if (kwRatio >= 0.6 && (hasProductionDepth || impactScore >= 2)) {
+  } else if (kwScore >= 4 && (hasProductionDepth || impactScore >= 2)) {
     detectedLevel = "expert";
     confidence = Math.min(95, 70 + (ctxMatches.length * 8) + (impactScore * 5));
-  } else if (kwRatio >= 0.4 || hasProductionDepth) {
+  } else if (kwScore >= 2 || hasProductionDepth) {
     detectedLevel = "strong";
-    confidence = Math.min(75, 45 + (kwMatches.length * 5) + (impactScore * 3));
-  } else if (kwRatio >= 0.2) {
+    confidence = Math.min(75, 45 + (kwScore * 5) + (impactScore * 3));
+  } else if (kwScore >= 1) {
     detectedLevel = "working";
-    confidence = Math.min(50, 25 + (kwMatches.length * 8));
+    confidence = Math.min(50, 25 + (kwScore * 8));
   } else {
     detectedLevel = "absent";
-    confidence = 5 + (kwRatio * 30);
+    confidence = 5;
   }
 
   // 6. Level hierarchy comparison
