@@ -1,10 +1,11 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { ChevronLeft, ChevronRight, Sparkles, ArrowRight } from 'lucide-react';
 import { useStore } from '../../store/useStore';
 import { Button } from '../ui/Components';
-import { Sparkles, ArrowRight } from 'lucide-react';
 
 export function PublicNavbar() {
   const { isAuthenticated, currentUser } = useStore();
+  const navigate = useNavigate();
 
   const getDashboardLink = () => {
     if (!currentUser) return '/login';
@@ -20,7 +21,15 @@ export function PublicNavbar() {
   return (
     <nav className="fixed top-0 w-full z-50 glass border-b border-border">
       <div className="max-w-[1280px] mx-auto px-[32px] h-[68px] flex items-center justify-between">
-        <div className="flex items-center gap-[14px]">
+        <div className="flex items-center gap-[24px]">
+          <div className="flex items-center gap-[8px] mr-[8px]">
+            <button onClick={() => navigate(-1)} className="w-[32px] h-[32px] rounded-full flex items-center justify-center text-text-secondary hover:text-text hover:bg-surface-2 transition-colors">
+              <ChevronLeft className="w-[18px] h-[18px]" />
+            </button>
+            <button onClick={() => navigate(1)} className="w-[32px] h-[32px] rounded-full flex items-center justify-center text-text-secondary hover:text-text hover:bg-surface-2 transition-colors">
+              <ChevronRight className="w-[18px] h-[18px]" />
+            </button>
+          </div>
           <Link to="/" className="flex items-center gap-[14px]">
             <div className="w-[38px] h-[38px] rounded-md bg-gradient-to-br from-primary to-primary-active flex items-center justify-center shadow-glow-orange">
               <Sparkles className="w-[18px] h-[18px] text-white stroke-[1.5px]" />

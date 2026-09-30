@@ -4,7 +4,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useStore } from '../../store/useStore';
-import { Menu, Bell, Search, LogOut, User, Settings, ChevronDown, Shield } from 'lucide-react';
+import { Menu, Bell, Search, LogOut, User, Settings, ChevronDown, Shield, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface TopHeaderProps {
   onMenuClick: () => void;
@@ -72,6 +72,15 @@ export function TopHeader({ onMenuClick }: TopHeaderProps) {
         >
           <Menu className="w-5 h-5 text-text stroke-[1.5px]" />
         </button>
+
+        <div className="hidden md:flex items-center gap-[8px] mr-[8px]">
+          <button onClick={() => navigate(-1)} className="w-[32px] h-[32px] rounded-full flex items-center justify-center text-text-secondary hover:text-text hover:bg-surface-2 transition-colors">
+            <ChevronLeft className="w-[18px] h-[18px]" />
+          </button>
+          <button onClick={() => navigate(1)} className="w-[32px] h-[32px] rounded-full flex items-center justify-center text-text-secondary hover:text-text hover:bg-surface-2 transition-colors">
+            <ChevronRight className="w-[18px] h-[18px]" />
+          </button>
+        </div>
 
         <div className="hidden sm:block">
           <h2 className="text-[15px] font-semibold text-text-secondary leading-[22px]">
