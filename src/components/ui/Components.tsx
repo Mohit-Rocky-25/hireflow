@@ -93,7 +93,7 @@ interface StatCardProps {
 
 export function StatCard({ label, value, icon, trend, trendUp }: StatCardProps) {
   return (
-    <div className="bg-surface rounded-xl border border-border p-[20px] shadow-xs hover:shadow-md hover:border-border-strong hover:-translate-y-[2px] transition-all duration-200">
+    <div className="bg-surface rounded-xl border border-border p-[20px] shadow-xs hover:shadow-md hover:border-primary/50 hover:-translate-y-[2px] transition-all duration-200 cursor-pointer">
       <div className="flex items-start justify-between">
         <div>
           <p className="text-[11px] font-semibold text-text-muted uppercase tracking-[0.06em]">{label}</p>
