@@ -15,6 +15,7 @@ import { LoginPage } from './pages/auth/LoginPage';
 import { RegisterPage } from './pages/auth/RegisterPage';
 import { JobMarketplace } from './pages/jobs/JobMarketplace';
 import { PublicJobDetail } from './pages/jobs/PublicJobDetail';
+import { PublicCompanyProfile } from './pages/company/PublicCompanyProfile';
 import { MatchingDemo } from './pages/demo/MatchingDemo';
 import { CandidatePortal } from './pages/portal/CandidatePortal';
 
@@ -87,6 +88,7 @@ export default function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/jobs" element={<JobMarketplace />} />
         <Route path="/jobs/:id" element={<PublicJobDetail />} />
+        <Route path="/company/:id" element={<PublicCompanyProfile />} />
         <Route path="/demo" element={<MatchingDemo />} />
         <Route path="/portal" element={<CandidatePortal />} />
 

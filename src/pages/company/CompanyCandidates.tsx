@@ -1,67 +1,125 @@
 // ============================================================
-// HireFlow — Company Candidates List
+// HireFlow — Company ATS (Kanban Board)
+// Premium Applicant Tracking System with drag-and-drop aesthetics
 // ============================================================
-import { Link } from 'react-router-dom';
-import { useStore } from '../../store/useStore';
-import { Users, Brain, Search } from 'lucide-react';
 import { useState } from 'react';
+import { useStore } from '../../store/useStore';
+import { Search, Brain, Clock, MoreHorizontal } from 'lucide-react';
+import { Link } from 'react-router-dom';
+
+const ATS_STAGES = [
+  { id: 'APPLIED', label: 'New Applied' },
+  { id: 'SCREENING', label: 'Screening' },
+  { id: 'INTERVIEW', label: 'Interviewing' },
+  { id: 'OFFER', label: 'Offer Sent' },
+  { id: 'HIRED', label: 'Hired' },
+];
 
 export function CompanyCandidates() {
   const { currentCompanyId, applications, users, candidateMatches, jobs } = useStore();
   const [search, setSearch] = useState('');
-  const [statusFilter, setStatusFilter] = useState('');
   
-  const companyApps = applications
-    .filter(a => a.companyId === currentCompanyId)
-    .filter(a => !statusFilter || a.status === statusFilter)
-    .filter(a => {
-      if (!search) return true;
-      const user = users.find(u => u.id === a.candidateId);
-      return user?.displayName.toLowerCase().includes(search.toLowerCase()) || a.id.toLowerCase().includes(search.toLowerCase());
-    });
+  const companyApps = applications.filter(a => a.companyId === currentCompanyId);
+
+  // Group applications by status
+  const getAppsForStage = (stageId: string) => {
+    return companyApps
+      .filter(a => a.status === stageId)
+      .filter(a => {
+        if (!search) return true;
+        const user = users.find(u => u.id === a.candidateId);
+        return user?.displayName.toLowerCase().includes(search.toLowerCase());
+      });
+  };
 
   return (
-    <div className="space-y-6 animate-fade-in">
-      <h1 className="text-xl font-bold text-foreground">Candidates</h1>
-      <div className="flex flex-col sm:flex-row gap-3">
-        <div className="flex-1 relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
-          <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search candidates..." className="w-full pl-10 pr-4 py-2.5 border border-border rounded-btn text-sm focus:border-primary outline-none" />
+    <div className="space-y-[24px] animate-fade-in flex flex-col h-[calc(100vh-100px)]">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row gap-[16px] items-start sm:items-center justify-between shrink-0">
+        <div>
+          <h1 className="text-[24px] font-bold text-text tracking-tight">Applicant Tracking</h1>
+          <p className="text-[14px] text-text-secondary">Drag and drop candidates across stages (Mock UI)</p>
         </div>
-        <select value={statusFilter} onChange={e => setStatusFilter(e.target.value)} className="px-4 py-2.5 border border-border rounded-btn text-sm focus:border-primary outline-none">
-          <option value="">All Status</option>
-          {['APPLIED','SCREENING','REVIEW','SHORTLISTED','INTERVIEW','FINAL_REVIEW','OFFER','HIRED','REJECTED','ON_HOLD'].map(s => <option key={s} value={s}>{s}</option>)}
-        </select>
+        <div className="relative w-full sm:w-[320px]">
+          <Search className="absolute left-[16px] top-1/2 -translate-y-1/2 w-[16px] h-[16px] text-text-muted stroke-[2px]" />
+          <input 
+            value={search} 
+            onChange={e => setSearch(e.target.value)} 
+            placeholder="Search candidate name..." 
+            className="w-full pl-[40px] pr-[16px] h-[44px] bg-surface-2 border border-border rounded-xl text-[14px] focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all" 
+          />
+        </div>
       </div>
-      <div className="bg-surface rounded-card border border-border">
-        {companyApps.length === 0 ? (
-          <div className="p-12 text-center"><Users className="w-10 h-10 text-muted mx-auto mb-3 opacity-30" /><p className="text-sm text-muted">No candidates found</p></div>
-        ) : (
-          <div className="divide-y divide-border">
-            {companyApps.map(app => {
-              const candidate = users.find(u => u.id === app.candidateId);
-              const match = candidateMatches.find(m => m.applicationId === app.id);
-              const job = jobs.find(j => j.id === app.jobId);
-              return (
-                <Link key={app.id} to={`/company/candidates/${app.candidateId}`} className="flex items-center justify-between px-5 py-4 hover:bg-gray-50 transition-colors">
-                  <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary text-sm font-semibold">
-                      {candidate?.displayName?.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || '??'}
-                    </div>
-                    <div>
-                      <p className="text-sm font-medium text-foreground">{candidate?.displayName || 'Candidate'}</p>
-                      <p className="text-xs text-muted">{job?.title} • {new Date(app.appliedAt).toLocaleDateString()}</p>
-                    </div>
+
+      {/* Kanban Board Container */}
+      <div className="flex-1 overflow-x-auto overflow-y-hidden flex gap-[24px] pb-[16px]">
+        {ATS_STAGES.map(stage => {
+          const stageApps = getAppsForStage(stage.id);
+          return (
+            <div key={stage.id} className="w-[300px] shrink-0 flex flex-col max-h-full">
+              {/* Stage Header */}
+              <div className="flex items-center justify-between mb-[16px]">
+                <h3 className="text-[14px] font-bold text-text flex items-center gap-[8px]">
+                  <span className="w-[8px] h-[8px] rounded-full bg-primary inline-block"></span>
+                  {stage.label}
+                </h3>
+                <span className="px-[8px] py-[2px] bg-surface-3 text-text-muted text-[12px] font-semibold rounded-full">
+                  {stageApps.length}
+                </span>
+              </div>
+
+              {/* Candidates Column */}
+              <div className="flex-1 bg-surface-2/50 border border-border rounded-2xl p-[12px] flex flex-col gap-[12px] overflow-y-auto custom-scrollbar">
+                {stageApps.length === 0 ? (
+                  <div className="h-[100px] border-2 border-dashed border-border rounded-xl flex items-center justify-center text-[13px] text-text-muted">
+                    No candidates here
                   </div>
-                  <div className="flex items-center gap-2">
-                    {match && <span className={`px-2 py-0.5 text-xs font-semibold rounded-full ${match.overallScore >= 80 ? 'bg-green-50 text-success' : 'bg-amber-50 text-warning'}`}><Brain className="w-3 h-3 inline mr-1" />{match.overallScore}%</span>}
-                    <span className={`px-2 py-0.5 text-xs font-medium rounded-full ${app.status === 'SHORTLISTED' ? 'bg-green-50 text-success' : app.status === 'INTERVIEW' ? 'bg-primary-light text-primary' : app.status === 'REJECTED' ? 'bg-red-50 text-danger' : 'bg-gray-100 text-muted'}`}>{app.status}</span>
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
-        )}
+                ) : (
+                  stageApps.map(app => {
+                    const candidate = users.find(u => u.id === app.candidateId);
+                    const match = candidateMatches.find(m => m.applicationId === app.id);
+                    const job = jobs.find(j => j.id === app.jobId);
+                    
+                    return (
+                      <Link 
+                        key={app.id} 
+                        to={`/company/candidates/${app.candidateId}`}
+                        className="block bg-surface border border-border p-[16px] rounded-xl shadow-sm hover:shadow-md hover:border-primary/50 transition-all cursor-pointer group"
+                      >
+                        <div className="flex items-start justify-between mb-[12px]">
+                          <div className="flex items-center gap-[10px]">
+                            <div className="w-[36px] h-[36px] rounded-full bg-gradient-to-br from-primary-light to-primary/20 flex items-center justify-center text-primary text-[14px] font-bold">
+                              {candidate?.displayName?.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase()}
+                            </div>
+                            <div>
+                              <h4 className="text-[14px] font-bold text-text group-hover:text-primary transition-colors">{candidate?.displayName}</h4>
+                              <p className="text-[12px] text-text-secondary truncate w-[140px]">{job?.title}</p>
+                            </div>
+                          </div>
+                          <button className="text-text-muted hover:text-text">
+                            <MoreHorizontal className="w-[16px] h-[16px]" />
+                          </button>
+                        </div>
+                        
+                        <div className="flex items-center justify-between mt-[12px] pt-[12px] border-t border-border/50">
+                          <div className="flex items-center gap-[6px] text-[12px] text-text-muted font-medium">
+                            <Clock className="w-[12px] h-[12px]" /> 
+                            {new Date(app.appliedAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
+                          </div>
+                          {match && (
+                            <span className="px-[8px] py-[2px] bg-ai-light border border-ai/20 text-ai text-[11px] font-bold rounded-full flex items-center gap-[4px]">
+                              <Brain className="w-[10px] h-[10px]" /> {match.overallScore}% AI Match
+                            </span>
+                          )}
+                        </div>
+                      </Link>
+                    );
+                  })
+                )}
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
