@@ -141,7 +141,7 @@ export function CandidateApplicationDetail() {
                 {match.strongMatches.map((m, i) => (
                   <li key={i} className="text-xs text-emerald-700 flex items-center gap-1.5">
                     <CheckCircle2 className="w-3.5 h-3.5 shrink-0 text-emerald-600" />
-                    <span>{m.requirement}</span>
+                    <span>{m.requirementName}</span>
                   </li>
                 ))}
               </ul>
@@ -150,10 +150,10 @@ export function CandidateApplicationDetail() {
             <div className="p-3 rounded-btn bg-amber-50/50 border border-amber-100 space-y-2">
               <p className="text-xs font-bold text-amber-800">Areas for Growth</p>
               <ul className="space-y-1">
-                {match.potentialGaps.map((m, i) => (
+                {(match.partialMatches ?? []).map((m: any, i: number) => (
                   <li key={i} className="text-xs text-amber-700 flex items-center gap-1.5">
                     <Clock className="w-3.5 h-3.5 shrink-0 text-amber-600" />
-                    <span>{m.requirement}</span>
+                    <span>{m.requirementName}</span>
                   </li>
                 ))}
               </ul>

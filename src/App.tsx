@@ -32,6 +32,7 @@ import { CompanyAnalytics } from './pages/company/CompanyAnalytics';
 import { CompanyTeam } from './pages/company/CompanyTeam';
 import { CompanySettings } from './pages/company/CompanySettings';
 import { CompanyOffers } from './pages/company/CompanyOffers';
+import { CandidateIntelligencePage as CandidateIntelligence } from './pages/company/CandidateIntelligence';
 
 // Interviewer Pages
 import { InterviewerDashboard } from './pages/interviewer/InterviewerDashboard';
@@ -101,7 +102,8 @@ export default function App() {
           <Route path="jobs/:id" element={<CompanyJobDetail />} />
           <Route path="jobs/:id/edit" element={<EditJob />} />
           <Route path="candidates" element={<CompanyCandidates />} />
-          <Route path="candidates/:id" element={<CandidateDetail />} />
+          <Route path="candidates/:candidateId" element={<CandidateDetail />} />
+          <Route path="candidates/:candidateId/intelligence" element={<CandidateIntelligence />} />
           <Route path="interviewers" element={<CompanyInterviewers />} />
           <Route path="analytics" element={<CompanyAnalytics />} />
           <Route path="team" element={<CompanyTeam />} />

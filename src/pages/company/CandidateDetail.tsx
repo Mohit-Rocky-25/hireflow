@@ -1,12 +1,12 @@
 // ============================================================
 // HireFlow — Candidate Detail (BHR View)
 // ============================================================
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useStore } from '../../store/useStore';
 import { ArrowLeft, Brain, CheckCircle, Clock, AlertTriangle, Mail, MapPin, Phone } from 'lucide-react';
 
 export function CandidateDetail() {
-  const { id } = useParams();
+  const { candidateId: id } = useParams();
   const navigate = useNavigate();
   const { users, candidateProfiles, applications, candidateMatches, currentCompanyId, jobs } = useStore();
   
@@ -27,6 +27,11 @@ export function CandidateDetail() {
           <ArrowLeft className="w-[16px] h-[16px]" /> Back
         </button>
         <h1 className="text-[24px] font-bold text-text tracking-[-0.01em]">{user.displayName}</h1>
+        <Link to={`/company/candidates/${id}/intelligence`}>
+          <button className="ml-auto h-[36px] px-[16px] bg-primary text-white text-[13px] font-bold rounded-lg hover:bg-primary-hover transition-all flex items-center gap-[6px] shadow-glow-orange">
+            <Brain className="w-[14px] h-[14px]" /> AI Intelligence
+          </button>
+        </Link>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -76,8 +81,8 @@ export function CandidateDetail() {
                       <span className="text-sm font-semibold text-foreground">AI Match: {match.overallScore}%</span>
                     </div>
                     <div className="flex flex-wrap gap-1.5 mb-2">
-                      {match.strongMatches.map((m, i) => <span key={i} className="px-2 py-0.5 bg-green-50 text-success text-xs rounded-full flex items-center gap-1"><CheckCircle className="w-3 h-3" />{m.requirement}</span>)}
-                      {match.potentialGaps.map((m, i) => <span key={i} className="px-2 py-0.5 bg-amber-50 text-amber-700 text-xs rounded-full flex items-center gap-1"><AlertTriangle className="w-3 h-3" />{m.requirement}</span>)}
+                      {match.strongMatches.map((m, i) => <span key={i} className="px-2 py-0.5 bg-green-50 text-success text-xs rounded-full flex items-center gap-1"><CheckCircle className="w-3 h-3" />{m.requirementName}</span>)}
+                      {(match.partialMatches ?? []).map((m: any, i: number) => <span key={i} className="px-2 py-0.5 bg-amber-50 text-amber-700 text-xs rounded-full flex items-center gap-1"><AlertTriangle className="w-3 h-3" />{m.requirementName}</span>)}
                     </div>
                     <p className="text-xs text-secondary">{match.explanation}</p>
                   </div>

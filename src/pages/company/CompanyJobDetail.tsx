@@ -173,10 +173,10 @@ export function CompanyJobDetail() {
                     </div>
                     <div className="mt-3 flex flex-wrap gap-1.5">
                       {match.strongMatches.map((m, i) => (
-                        <span key={i} className="px-2 py-0.5 bg-green-50 text-success text-xs rounded-full flex items-center gap-1"><CheckCircle className="w-3 h-3" />{m.requirement}</span>
+                        <span key={i} className="px-2 py-0.5 bg-green-50 text-success text-xs rounded-full flex items-center gap-1"><CheckCircle className="w-3 h-3" />{m.requirementName}</span>
                       ))}
-                      {match.potentialGaps.map((m, i) => (
-                        <span key={i} className="px-2 py-0.5 bg-amber-50 text-amber-700 text-xs rounded-full flex items-center gap-1"><Clock className="w-3 h-3" />{m.requirement}</span>
+                      {(match.partialMatches ?? []).map((m: any, i: number) => (
+                        <span key={i} className="px-2 py-0.5 bg-amber-50 text-amber-700 text-xs rounded-full flex items-center gap-1"><Clock className="w-3 h-3" />{m.requirementName}</span>
                       ))}
                     </div>
                     <p className="mt-3 text-xs text-secondary">{match.explanation}</p>
