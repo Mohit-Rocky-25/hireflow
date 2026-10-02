@@ -1,4 +1,4 @@
-﻿// ============================================================
+// ============================================================
 // HireFlow — TalentLens™ Candidate Intelligence Platform v7
 // 125+ Companies × 10-15 Real Roles | 6-Layer Anti-Gaming AI Engine
 // Multi-dimensional analysis: Context · Depth · Authenticity · Projects
@@ -8,7 +8,7 @@ import {
   Brain, Target, CheckCircle, XCircle, AlertTriangle, Lightbulb,
   ArrowRight, RefreshCw, Building2, Search, Filter,
   Upload, FileText, Star, BarChart3, TrendingUp,
-  ChevronDown, ChevronUp, Briefcase, Zap, BookOpen, X
+  ChevronDown, ChevronUp, Briefcase, Zap, BookOpen, X, Terminal
 } from "lucide-react";
 import { Badge, Button } from "../../components/ui/Components";
 import { PublicNavbar } from "../../components/layout/PublicNavbar";
@@ -1250,6 +1250,281 @@ function computeScore(roleAnalysis: ReturnType<typeof deepAnalyzeCompetency>[], 
   return Math.min(99, Math.max(1, base + bonus - stuffedCount * 8));
 }
 
+
+// ════════════════════════════════════════════════════════════
+// MARKET INTELLIGENCE & BUILD VERIFICATION ENGINE
+// Researches actual build usage vs current market standards.
+// No tests — purely investigates what was built and how modern it is.
+// ════════════════════════════════════════════════════════════
+
+const MARKET_INTELLIGENCE: Record<string, {
+  currentStandard: string[];
+  outdated: string[];
+  emerging: string[];
+  productionPatterns: string[];
+  architectureSignals: string[];
+  marketAdoption2024: string;
+  redFlags: string[];
+}> = {
+  java: {
+    currentStandard: ["spring boot 3", "virtual threads", "graalvm", "micronaut", "quarkus", "reactive", "webflux", "java 17", "java 21", "loom", "records", "sealed classes"],
+    outdated: ["struts", "ejb", "spring 4", "java 8 only", "xml config", "servlet 2", "log4j 1", "ant build"],
+    emerging: ["project loom", "project valhalla", "jdk 21", "graalvm native image", "spring ai"],
+    productionPatterns: ["connection pooling", "circuit breaker", "resilience4j", "actuator", "jvm tuning", "gc tuning", "heap dump", "thread dump", "profiling"],
+    architectureSignals: ["microservices", "event-driven", "cqrs", "saga pattern", "hexagonal", "domain driven", "api gateway"],
+    marketAdoption2024: "Spring Boot 3 + Java 21 (LTS) is the 2024 production standard. Virtual Threads via Project Loom are now production-ready and heavily adopted.",
+    redFlags: ["jsp", "struts", "hibernate xml", "spring xml config", "java 6", "java 7"]
+  },
+  python: {
+    currentStandard: ["fastapi", "pydantic v2", "asyncio", "uv", "rye", "poetry", "sqlalchemy 2", "alembic", "celery", "redis", "pytest", "mypy"],
+    outdated: ["flask 1", "django 2", "python 2", "pip freeze", "requirements.txt only", "global interpreter lock workarounds"],
+    emerging: ["uv package manager", "ruff linter", "pydantic ai", "langgraph", "instructor", "litellm"],
+    productionPatterns: ["async await", "dependency injection", "lifespan events", "middleware", "background tasks", "connection pooling", "caching layer"],
+    architectureSignals: ["clean architecture", "repository pattern", "service layer", "event sourcing", "worker queues"],
+    marketAdoption2024: "FastAPI + Pydantic v2 + async patterns are the 2024 standard. Django is still used for full-stack but FastAPI dominates new API services.",
+    redFlags: ["python 2", "flask 0", "bottle", "tornado (non-async)", "globals", "mutable defaults"]
+  },
+  react: {
+    currentStandard: ["next.js 14", "app router", "server components", "react 18", "suspense", "tanstack query", "zustand", "shadcn", "radix ui", "vite", "turbopack", "biome"],
+    outdated: ["class components", "redux (thunk only)", "create-react-app", "webpack 4", "moment.js", "enzyme", "react 15", "react 16"],
+    emerging: ["react 19", "react server components", "next.js 15", "remix v2", "tRPC", "effect-ts"],
+    productionPatterns: ["code splitting", "lazy loading", "memoization", "virtual scrolling", "optimistic updates", "streaming ssr", "partial hydration", "edge runtime"],
+    architectureSignals: ["feature-sliced design", "atomic design", "component composition", "render optimization", "bundle analysis"],
+    marketAdoption2024: "Next.js 14 App Router + React 18 concurrent features + Zustand/Tanstack Query is the 2024 production standard. CRA is completely dead.",
+    redFlags: ["create-react-app", "class component only", "enzyme", "redux-form", "react 15", "prop-types only"]
+  },
+  kubernetes: {
+    currentStandard: ["helm 3", "kustomize", "argocd", "flux cd", "keda", "istio", "linkerd", "cert-manager", "external-secrets", "velero", "opentelemetry"],
+    outdated: ["helm 2", "tiller", "pod security policies", "docker swarm comparison", "kubernetes 1.18-"],
+    emerging: ["gateway api", "cilium ebpf", "kwasm", "spin", "knative serving v2", "karpenter"],
+    productionPatterns: ["hpa", "vpa", "pod disruption budgets", "resource limits", "liveness readiness probes", "rollout strategies", "canary", "blue green"],
+    architectureSignals: ["multi-cluster", "gitops", "service mesh", "observability stack", "cost optimization", "namespace isolation", "rbac policies"],
+    marketAdoption2024: "GitOps (ArgoCD/Flux) + Helm 3 + KEDA autoscaling + Istio/Linkerd service mesh is 2024 production standard for Kubernetes.",
+    redFlags: ["helm 2 tiller", "kubectl apply only", "no rbac", "no resource limits", "no health checks", "latest image tag"]
+  },
+  aws: {
+    currentStandard: ["lambda", "ecs fargate", "eks", "cdk", "terraform", "cloudformation", "api gateway v2", "aurora serverless v2", "dynamodb", "s3", "cloudfront", "sqs", "sns", "eventbridge", "step functions"],
+    outdated: ["ec2 only", "classic load balancer", "elastic beanstalk", "s3 static hosting only", "manual console deployments"],
+    emerging: ["bedrock", "lambda powertools", "graviton4", "aws app runner", "verified permissions", "code whisperer"],
+    productionPatterns: ["iac everything", "least privilege iam", "multi-account", "vpc design", "cost tagging", "reserved instances", "savings plans", "cloudwatch alarms", "xray tracing"],
+    architectureSignals: ["well-architected framework", "serverless first", "event-driven", "cell-based architecture", "chaos engineering"],
+    marketAdoption2024: "AWS CDK or Terraform for IaC, Lambda + ECS Fargate + EKS for compute, EventBridge for event-driven — these are 2024 production patterns.",
+    redFlags: ["root account access keys", "hardcoded credentials", "no vpc", "public s3 buckets", "no encryption", "single region only"]
+  },
+  ml: {
+    currentStandard: ["pytorch", "transformers", "langchain", "llamaindex", "mlflow", "weights biases", "hugging face", "fastapi inference", "onnx", "triton", "vllm", "bentoml"],
+    outdated: ["tensorflow 1", "sklearn only", "jupyter notebook as production", "pickle models", "flask for ml serving", "no versioning"],
+    emerging: ["llm fine-tuning", "rag systems", "agents", "dspy", "instructor", "litellm", "modal", "replicate"],
+    productionPatterns: ["model versioning", "a/b testing models", "data validation", "feature stores", "model monitoring", "drift detection", "shadow deployment", "canary releases"],
+    architectureSignals: ["mlops pipeline", "feature engineering at scale", "online offline consistency", "training serving skew elimination", "data lineage"],
+    marketAdoption2024: "PyTorch + HuggingFace + MLflow + FastAPI inference endpoint is the 2024 ML engineering standard. LLM integration via LangChain/LlamaIndex is now expected.",
+    redFlags: ["tensorflow 1", "jupyter in production", "pickle only", "no monitoring", "no data validation", "single model version"]
+  },
+  databases: {
+    currentStandard: ["postgresql 15+", "redis 7", "elasticsearch 8", "mongodb atlas", "prisma", "drizzle orm", "pgvector", "timescaledb", "planetscale", "neon", "clickhouse"],
+    outdated: ["mysql 5", "mongodb 3", "redis 4", "mysql stored procedures only", "orm without migrations", "no indexing strategy"],
+    emerging: ["pgvector", "turso", "neon serverless", "clickhouse cloud", "weaviate", "qdrant"],
+    productionPatterns: ["connection pooling pgbouncer", "read replicas", "query optimization explain analyze", "index strategy", "partitioning", "sharding", "caching layer", "cache invalidation"],
+    architectureSignals: ["polyglot persistence", "cqrs read model", "event sourcing", "database per service", "saga pattern", "eventual consistency"],
+    marketAdoption2024: "PostgreSQL 15+ with pgvector is the 2024 default relational store. Redis 7 for cache. ClickHouse for analytics. pgvector replacing dedicated vector DBs.",
+    redFlags: ["select *", "n+1 queries", "no indexes", "no migrations", "raw sql concatenation", "storing secrets in db"]
+  },
+  golang: {
+    currentStandard: ["go 1.21+", "goroutines", "channels", "context package", "generics", "grpc", "protobuf", "fiber", "gin", "chi", "cobra", "testify"],
+    outdated: ["go 1.13-", "dep (pre-modules)", "no context", "global variables", "init functions abuse", "goroutine leaks"],
+    emerging: ["go 1.22 range over int", "log/slog", "go telemetry", "templ", "pgx v5"],
+    productionPatterns: ["graceful shutdown", "context propagation", "error wrapping", "structured logging slog", "pprof profiling", "race detector", "table driven tests"],
+    architectureSignals: ["concurrency patterns", "worker pools", "pipeline pattern", "fan-in fan-out", "middleware chains", "service mesh integration"],
+    marketAdoption2024: "Go 1.21+ with generics, slog structured logging, pgx v5 for Postgres, and gRPC for services is the 2024 production standard.",
+    redFlags: ["goroutine without wg", "channel without close", "panic recover abuse", "no context", "global state", "dep vendor"]
+  },
+  security: {
+    currentStandard: ["oauth2 pkce", "jwt rotation", "oidc", "zero trust", "owasp top 10 2021", "sast dast", "sbom", "secrets management vault", "mtls", "waf"],
+    outdated: ["md5 passwords", "sha1", "http only", "cors allow all", "basic auth production", "storing passwords plaintext"],
+    emerging: ["sigstore", "in-toto attestation", "slsa framework", "passkeys webauthn", "confidential computing"],
+    productionPatterns: ["defence in depth", "principle of least privilege", "security as code", "threat modelling", "pen testing", "incident response", "audit logging", "data classification"],
+    architectureSignals: ["zero trust architecture", "shift left security", "devsecops", "supply chain security", "runtime security"],
+    marketAdoption2024: "Zero Trust architecture + OIDC + OWASP Top 10 2021 compliance + secrets in Vault/AWS Secrets Manager is 2024 security standard.",
+    redFlags: ["md5", "sha1 passwords", "eval(", "sql concatenation", "cors *", "http prod", "secrets in code", "admin admin"]
+  },
+  systemdesign: {
+    currentStandard: ["microservices", "event-driven", "cqrs", "api gateway", "service mesh", "observability", "slo sla sli", "chaos engineering", "cell-based architecture"],
+    outdated: ["monolith only", "ftp file transfer", "polling instead of events", "synchronous everything", "no caching"],
+    emerging: ["local first architecture", "edge computing", "wasm", "data mesh", "platform engineering"],
+    productionPatterns: ["cap theorem application", "consistent hashing", "rate limiting token bucket", "circuit breaker", "bulkhead", "retry with backoff", "idempotency keys", "distributed tracing"],
+    architectureSignals: ["designed for scale", "failover strategy", "disaster recovery", "capacity planning", "load testing", "runbooks"],
+    marketAdoption2024: "Microservices + Event-driven (Kafka/EventBridge) + Service Mesh + Full Observability (OTel) + GitOps is the 2024 distributed system standard.",
+    redFlags: ["single point of failure", "no caching", "synchronous blocking", "no retry logic", "no circuit breaker", "no observability"]
+  },
+};
+
+interface MarketIntelligenceReport {
+  overallMarketFit: number; // 0-100
+  buildAuthenticity: number; // 0-100
+  techCurrencyScore: number; // 0-100
+  fundamentalDepth: number; // 0-100
+  findings: {
+    category: string;
+    icon: string;
+    status: "cutting-edge" | "current" | "dated" | "critical";
+    finding: string;
+    marketContext: string;
+    evidence: string[];
+  }[];
+  stackCurrency: {
+    modernPractices: string[];
+    outdatedSignals: string[];
+    emergingAdoption: string[];
+    missingForMarket: string[];
+  };
+  buildVerdict: string;
+  marketPosition: "Industry Leader" | "Market Current" | "Needs Modernization" | "Significantly Behind";
+}
+
+function runMarketIntelligenceEngine(
+  resumeText: string,
+  competencies: string[],
+  company: { name: string; tier: string; industry: string },
+  role: { title: string }
+): MarketIntelligenceReport {
+  const text = resumeText.toLowerCase();
+  const sentences = resumeText.split(/[.!\n]/).map(s => s.trim()).filter(s => s.length > 12);
+
+  const findings: MarketIntelligenceReport["findings"] = [];
+  const modernPractices: string[] = [];
+  const outdatedSignals: string[] = [];
+  const emergingAdoption: string[] = [];
+  const missingForMarket: string[] = [];
+
+  let modernScore = 0;
+  let outdatedPenalty = 0;
+  let emergingBonus = 0;
+  let fundamentalScore = 0;
+
+  competencies.forEach(comp => {
+    const intel = MARKET_INTELLIGENCE[comp];
+    if (!intel) return;
+
+    const foundModern = intel.currentStandard.filter(s => text.includes(s));
+    const foundOutdated = intel.outdated.filter(s => text.includes(s));
+    const foundEmerging = intel.emerging.filter(s => text.includes(s));
+    const foundProduction = intel.productionPatterns.filter(s => text.includes(s));
+    const foundArchitecture = intel.architectureSignals.filter(s => text.includes(s));
+    const foundRedFlags = intel.redFlags.filter(s => text.includes(s));
+
+    foundModern.forEach(m => modernPractices.push(`${comp.toUpperCase()}: ${m}`));
+    foundOutdated.forEach(o => outdatedSignals.push(`${comp.toUpperCase()}: ${o}`));
+    foundEmerging.forEach(e => emergingAdoption.push(`${comp.toUpperCase()}: ${e}`));
+
+    const compModernRatio = (foundModern.length + foundEmerging.length * 1.5) /
+      Math.max(1, intel.currentStandard.length * 0.3);
+    const compProductionDepth = foundProduction.length + foundArchitecture.length;
+
+    modernScore += Math.min(100, compModernRatio * 100);
+    outdatedPenalty += foundOutdated.length * 12 + foundRedFlags.length * 20;
+    emergingBonus += foundEmerging.length * 8;
+    fundamentalScore += compProductionDepth * 10;
+
+    // Generate finding per competency
+    const compScore = Math.min(100, Math.max(0,
+      (compModernRatio * 60) + (compProductionDepth * 8) - (foundOutdated.length * 15) - (foundRedFlags.length * 25) + (foundEmerging.length * 10)
+    ));
+
+    let status: "cutting-edge" | "current" | "dated" | "critical";
+    let icon: string;
+    let finding: string;
+
+    if (foundRedFlags.length > 0) {
+      status = "critical";
+      icon = "🚨";
+      const flagList = foundRedFlags.slice(0, 2).join(', ');
+      finding = `CRITICAL: Resume references ${flagList} — these are anti-patterns that signal inexperience to ${company.tier} interviewers. Production systems at ${company.name} use ${foundModern.slice(0,2).join(', ') || intel.currentStandard.slice(0,2).join(', ')}.`;
+    } else if (compScore >= 70 || foundEmerging.length >= 2) {
+      status = "cutting-edge";
+      icon = "⚡";
+      finding = `Demonstrates cutting-edge ${comp.toUpperCase()} usage: ${foundModern.slice(0, 3).join(', ')}${foundEmerging.length ? ` + emerging: ${foundEmerging[0]}` : ''}. Aligns with ${company.name}'s 2024-25 engineering stack.`;
+    } else if (compScore >= 40 || foundModern.length >= 2) {
+      status = "current";
+      icon = "✓";
+      finding = `${comp.toUpperCase()} usage appears current (${foundModern.slice(0,2).join(', ')}) but lacks depth in production patterns. ${company.tier} companies expect: ${intel.productionPatterns.slice(0,3).join(', ')}.`;
+    } else if (foundOutdated.length > 0) {
+      status = "dated";
+      icon = "⚠";
+      const outdatedList = foundOutdated.slice(0,2).join(', ');
+      finding = `${comp.toUpperCase()} stack appears dated (${outdatedList}). ${intel.marketAdoption2024} Add at least 2 modern practices to remain competitive.`;
+    } else {
+      status = "current";
+      icon = "◑";
+      finding = `${comp.toUpperCase()} signals are present but insufficient to assess production depth. Market standard in 2024: ${intel.marketAdoption2024}`;
+    }
+
+    if (intel.currentStandard.every(s => !text.includes(s))) {
+      missingForMarket.push(`${comp.toUpperCase()}: No 2024 standard practices found (need: ${intel.currentStandard.slice(0,3).join(', ')})`);
+    }
+
+    findings.push({
+      category: comp.toUpperCase(),
+      icon,
+      status,
+      finding,
+      marketContext: intel.marketAdoption2024,
+      evidence: [
+        ...foundModern.slice(0, 3).map(m => `Modern: "${m}"`),
+        ...foundEmerging.slice(0, 2).map(e => `Emerging: "${e}"`),
+        ...foundProduction.slice(0, 2).map(p => `Production pattern: "${p}"`),
+        ...foundOutdated.slice(0, 2).map(o => `⚠ Dated: "${o}"`),
+        ...foundRedFlags.slice(0, 2).map(r => `🚨 Red flag: "${r}"`),
+      ].filter(Boolean).slice(0, 5)
+    });
+  });
+
+  // Project scope & scale research
+  const hasMultipleProjects = (text.match(/project|built|developed|created|shipped|launched/gi) || []).length >= 4;
+  const hasTeamContext = /team of \d+|led \d+|managed \d+|collaborated with|cross.functional/i.test(text);
+  const hasOpenSource = /github\.com|open.?source|contributor|stars|fork|pull request|pr merged/i.test(text);
+  const hasDeployment = /deployed|production|live|aws|gcp|azure|vercel|heroku|docker|kubernetes/i.test(text);
+  const hasMonitoring = /monitoring|observability|prometheus|grafana|datadog|sentry|new relic|cloudwatch|logging/i.test(text);
+  const hasTesting = /unit test|integration test|e2e|tdd|jest|pytest|junit|coverage|ci.?cd/i.test(text);
+  const hasDocumentation = /documented|architecture doc|rfc|adr|confluence|wiki|readme|swagger|openapi/i.test(text);
+
+  const buildAuthFactors = [hasMultipleProjects, hasTeamContext, hasOpenSource, hasDeployment, hasMonitoring, hasTesting, hasDocumentation];
+  const buildAuthScore = Math.round((buildAuthFactors.filter(Boolean).length / buildAuthFactors.length) * 100);
+
+  const n = competencies.length || 1;
+  const techCurrency = Math.min(99, Math.max(5,
+    Math.round((modernScore / n) - (outdatedPenalty / n) + emergingBonus)
+  ));
+  const fundamentalDepth = Math.min(99, Math.max(5, Math.round(fundamentalScore / n * 3)));
+  const overallMarketFit = Math.round((techCurrency * 0.40) + (buildAuthScore * 0.35) + (fundamentalDepth * 0.25));
+
+  let marketPosition: MarketIntelligenceReport["marketPosition"];
+  let buildVerdict: string;
+  if (overallMarketFit >= 75) {
+    marketPosition = "Industry Leader";
+    buildVerdict = `Stack and build patterns are at or ahead of what ${company.name} engineers use in production. Strong candidate for immediate contribution.`;
+  } else if (overallMarketFit >= 55) {
+    marketPosition = "Market Current";
+    buildVerdict = `Core stack is current but some production practices are missing. Would need 4-8 weeks of targeted modernization to be fully competitive at ${company.name}.`;
+  } else if (overallMarketFit >= 35) {
+    marketPosition = "Needs Modernization";
+    buildVerdict = `Several key technologies appear outdated relative to ${company.name}'s 2024-25 stack. Systematic modernization of ${outdatedSignals.length} signals needed before applying.`;
+  } else {
+    marketPosition = "Significantly Behind";
+    buildVerdict = `Stack significantly lags the current market. ${company.tier} companies like ${company.name} will screen this out at the ATS or first technical phone screen. Requires 3-6 months of deliberate stack modernization.`;
+  }
+
+  return {
+    overallMarketFit: Math.min(99, Math.max(5, overallMarketFit)),
+    buildAuthenticity: buildAuthScore,
+    techCurrencyScore: Math.min(99, Math.max(5, techCurrency)),
+    fundamentalDepth: Math.min(99, Math.max(5, fundamentalDepth)),
+    findings,
+    stackCurrency: { modernPractices, outdatedSignals, emergingAdoption, missingForMarket },
+    buildVerdict,
+    marketPosition,
+  };
+}
+
 function generateImprovementPlan(
   breakdown: { competency: string; reqLevel: string; analysis: ReturnType<typeof deepAnalyzeCompetency> }[],
   company: { name: string; tier: string; industry: string },
@@ -1351,7 +1626,7 @@ export function MatchingDemo() {
   const [selectedCompany, setSelectedCompany] = useState<typeof COMPANIES[0] | null>(null);
   const [selectedRole, setSelectedRole] = useState<typeof COMPANIES[0]["roles"][0] | null>(null);
   const [analyzing, setAnalyzing] = useState(false);
-  const [result, setResult] = useState<{ score: number; breakdown: { competency: string; reqLevel: string; analysis: ReturnType<typeof deepAnalyzeCompetency> }[]; plans: ReturnType<typeof generateImprovementPlan> } | null>(null);
+  const [result, setResult] = useState<{ score: number; breakdown: { competency: string; reqLevel: string; analysis: ReturnType<typeof deepAnalyzeCompetency> }[]; plans: ReturnType<typeof generateImprovementPlan>; marketIntel: MarketIntelligenceReport } | null>(null);
   const [analysisPhase, setAnalysisPhase] = useState<string>("");
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [uploadMode, setUploadMode] = useState<"paste" | "upload">("paste");
@@ -1411,7 +1686,8 @@ export function MatchingDemo() {
       }));
       const score = computeScore(breakdown.map(b => b.analysis), reqLevelMap, resumeText);
       const plans = generateImprovementPlan(breakdown, selectedCompany!, selectedRole, score);
-      setResult({ score, breakdown, plans });
+      const marketIntel = runMarketIntelligenceEngine(resumeText, selectedRole.competencies, selectedCompany!, selectedRole);
+      setResult({ score, breakdown, plans, marketIntel });
       setAnalysisPhase("");
       setAnalyzing(false); setStep(3);
     }, 4200);
@@ -1721,23 +1997,11 @@ Example:
                           </div>
                         ))}
                       </div>
-                      {/* Evidence */}
-                      {b.analysis.evidence.length > 0 && (
-                        <div className="space-y-[4px] mb-[8px]">
-                          {b.analysis.evidence.map((ev, i) => <p key={i} className="text-[12px] text-text-secondary leading-[18px] flex items-start gap-[6px]"><span className="text-success font-bold mt-[1px] flex-shrink-0">✓</span> {ev}</p>)}
-                        </div>
-                      )}
                       {/* Context sentences */}
                       {b.analysis.contextSentences.length > 0 && (
                         <div className="mb-[8px] p-[10px] bg-surface/60 rounded-lg border border-border/50">
                           <div className="text-[10px] font-bold text-text-muted uppercase tracking-wide mb-[4px]">Verified context sentences:</div>
                           {b.analysis.contextSentences.slice(0, 2).map((s, i) => <p key={i} className="text-[11px] text-text-secondary italic leading-[16px]">"{s.length > 120 ? s.substring(0, 120) + '...' : s}"</p>)}
-                        </div>
-                      )}
-                      {/* Gaps */}
-                      {b.analysis.gaps.length > 0 && (
-                        <div className="space-y-[6px]">
-                          {b.analysis.gaps.map((g, i) => <p key={i} className="text-[12px] text-danger leading-[18px] flex items-start gap-[6px]"><span className="flex-shrink-0 mt-[1px]">⚠</span> {g}</p>)}
                         </div>
                       )}
                     </div>
@@ -1775,6 +2039,112 @@ Example:
                       </div>
                     </div>
                   ))}
+                </div>
+              )}
+            </div>
+
+            {/* Market Intelligence & Build Verification Report */}
+            <div className="bg-surface border border-border rounded-2xl p-[24px] mb-[28px] shadow-sm">
+              <div className="flex items-start justify-between mb-[18px]">
+                <div>
+                  <h3 className="font-bold text-text text-[15px] mb-[4px] flex items-center gap-[8px]">
+                    <Terminal className="w-[15px] h-[15px] text-primary" />
+                    Market Intelligence &amp; Build Verification Report
+                  </h3>
+                  <p className="text-[12px] text-text-secondary">Deep research engine — cross-references your actual build usage against 2024-25 market standards. No test assigned.</p>
+                </div>
+                <div className={`px-[12px] py-[6px] rounded-xl text-[11px] font-black uppercase tracking-wide flex-shrink-0 ml-[12px] ${
+                  result.marketIntel.marketPosition === 'Industry Leader' ? 'bg-success/15 text-success border border-success/25' :
+                  result.marketIntel.marketPosition === 'Market Current' ? 'bg-primary/10 text-primary border border-primary/20' :
+                  result.marketIntel.marketPosition === 'Needs Modernization' ? 'bg-warning/10 text-warning border border-warning/20' :
+                  'bg-danger/10 text-danger border border-danger/20'
+                }`}>{result.marketIntel.marketPosition}</div>
+              </div>
+
+              {/* 4 metric scores */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-[10px] mb-[18px]">
+                {[
+                  { label: "Overall Market Fit", val: result.marketIntel.overallMarketFit, sub: "vs 2024-25 benchmark", color: result.marketIntel.overallMarketFit >= 70 ? 'text-success' : result.marketIntel.overallMarketFit >= 45 ? 'text-warning' : 'text-danger' },
+                  { label: "Tech Currency", val: result.marketIntel.techCurrencyScore, sub: "Modern vs outdated stack", color: result.marketIntel.techCurrencyScore >= 70 ? 'text-success' : result.marketIntel.techCurrencyScore >= 45 ? 'text-warning' : 'text-danger' },
+                  { label: "Build Authenticity", val: result.marketIntel.buildAuthenticity, sub: "Deployment, tests, monitoring", color: result.marketIntel.buildAuthenticity >= 60 ? 'text-success' : result.marketIntel.buildAuthenticity >= 40 ? 'text-warning' : 'text-danger' },
+                  { label: "Fundamental Depth", val: result.marketIntel.fundamentalDepth, sub: "Production patterns used", color: result.marketIntel.fundamentalDepth >= 60 ? 'text-success' : result.marketIntel.fundamentalDepth >= 35 ? 'text-warning' : 'text-danger' },
+                ].map(m => (
+                  <div key={m.label} className="bg-surface-2 rounded-xl p-[12px] text-center">
+                    <div className={`text-[28px] font-extrabold ${m.color}`}>{m.val}<span className="text-[14px] opacity-50">%</span></div>
+                    <div className="text-[11px] font-bold text-text mt-[2px]">{m.label}</div>
+                    <div className="text-[10px] text-text-muted">{m.sub}</div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Verdict */}
+              <div className="p-[14px] bg-surface-2 rounded-xl border border-border mb-[18px]">
+                <div className="text-[10px] font-bold text-text-muted uppercase tracking-wide mb-[4px]">Build Research Verdict</div>
+                <p className="text-[13px] text-text leading-[20px]">{result.marketIntel.buildVerdict}</p>
+              </div>
+
+              {/* Per-competency findings */}
+              <div className="space-y-[10px] mb-[16px]">
+                <div className="text-[11px] font-bold text-text-muted uppercase tracking-wide">Per-Competency Market Research</div>
+                {result.marketIntel.findings.map((f, i) => (
+                  <div key={i} className={`rounded-xl border p-[13px] ${
+                    f.status === 'cutting-edge' ? 'bg-success/5 border-success/20' :
+                    f.status === 'current' ? 'bg-primary/5 border-primary/15' :
+                    f.status === 'dated' ? 'bg-warning/5 border-warning/20' :
+                    'bg-danger/5 border-danger/20'
+                  }`}>
+                    <div className="flex items-center gap-[8px] mb-[6px]">
+                      <span className="text-[14px]">{f.icon}</span>
+                      <span className="text-[12px] font-black uppercase tracking-wide text-text">{f.category}</span>
+                      <span className={`text-[10px] font-bold px-[7px] py-[2px] rounded-full ml-auto ${
+                        f.status === 'cutting-edge' ? 'bg-success/15 text-success' :
+                        f.status === 'current' ? 'bg-primary/10 text-primary' :
+                        f.status === 'dated' ? 'bg-warning/10 text-warning' :
+                        'bg-danger/10 text-danger'
+                      }`}>{f.status.replace('-', ' ')}</span>
+                    </div>
+                    <p className="text-[12px] text-text-secondary leading-[18px] mb-[6px]">{f.finding}</p>
+                    {f.evidence.length > 0 && (
+                      <div className="flex flex-wrap gap-[4px]">
+                        {f.evidence.map((ev, ei) => (
+                          <span key={ei} className="text-[10px] font-medium px-[7px] py-[2px] rounded-full bg-surface border border-border text-text-muted">{ev}</span>
+                        ))}
+                      </div>
+                    )}
+                    <div className="mt-[6px] text-[10px] text-text-muted italic">{f.marketContext}</div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Stack summary chips */}
+              {result.marketIntel.stackCurrency.modernPractices.length > 0 && (
+                <div className="mb-[10px]">
+                  <div className="text-[10px] font-bold text-success uppercase tracking-wide mb-[4px]">Modern practices detected in your resume:</div>
+                  <div className="flex flex-wrap gap-[4px]">
+                    {result.marketIntel.stackCurrency.modernPractices.slice(0, 10).map((p, i) => (
+                      <span key={i} className="text-[10px] font-medium px-[7px] py-[2px] rounded-full bg-success/10 border border-success/20 text-success">{p}</span>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {result.marketIntel.stackCurrency.outdatedSignals.length > 0 && (
+                <div className="mb-[10px]">
+                  <div className="text-[10px] font-bold text-warning uppercase tracking-wide mb-[4px]">Outdated signals found — replace these:</div>
+                  <div className="flex flex-wrap gap-[4px]">
+                    {result.marketIntel.stackCurrency.outdatedSignals.map((p, i) => (
+                      <span key={i} className="text-[10px] font-medium px-[7px] py-[2px] rounded-full bg-warning/10 border border-warning/20 text-warning">{p}</span>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {result.marketIntel.stackCurrency.emergingAdoption.length > 0 && (
+                <div>
+                  <div className="text-[10px] font-bold text-primary uppercase tracking-wide mb-[4px]">Emerging tech adoption — strong differentiator:</div>
+                  <div className="flex flex-wrap gap-[4px]">
+                    {result.marketIntel.stackCurrency.emergingAdoption.map((p, i) => (
+                      <span key={i} className="text-[10px] font-medium px-[7px] py-[2px] rounded-full bg-primary/10 border border-primary/20 text-primary">{p}</span>
+                    ))}
+                  </div>
                 </div>
               )}
             </div>
