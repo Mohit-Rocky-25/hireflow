@@ -413,7 +413,7 @@ export const useStore = create<AppState>()(
       },
     }),
     {
-      name: 'hireflow-storage',
+      name: 'hireflow-storage-v2',
       partialize: (state) => ({
         users: state.users,
         companies: state.companies,

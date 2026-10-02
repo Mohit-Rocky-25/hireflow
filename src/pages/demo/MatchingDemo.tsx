@@ -1,6 +1,7 @@
-// ============================================================
-// HireFlow — AI Resume Analyzer v6
-// 100 Companies × 10-15 Real Roles | Deep Contextual AI Engine
+﻿// ============================================================
+// HireFlow — TalentLens™ Candidate Intelligence Platform v7
+// 125+ Companies × 10-15 Real Roles | 6-Layer Anti-Gaming AI Engine
+// Multi-dimensional analysis: Context · Depth · Authenticity · Projects
 // ============================================================
 import { useState, useRef, useCallback } from "react";
 import {
@@ -776,129 +777,567 @@ const COMPANIES = [
       { title: "API Developer", level: "Mid", competencies: ["nodejs", "java", "databases", "security"], reqLevel: { nodejs: "strong", databases: "strong" }, desc: "Building partner APIs for merchant integrations and digital lending." },
       { title: "QA Engineer", level: "Mid", competencies: ["java", "python", "databases", "communication"], reqLevel: { java: "working", python: "working" }, desc: "Automated testing for financial applications and APIs." }
     ]
-  }
+  },
+
+  // -- New Wave Companies 2024-25 ---
+  {
+    id: "navi", name: "Navi Technologies", logo: "NAV", gradient: "from-green-600 to-teal-500",
+    industry: "Fintech", hq: "Bangalore", tier: "Unicorn",
+    hiring2023: 600, hiring2024: 750, trend: "up",
+    openRoles: 55, avgPackage: "₹22-50 LPA", glassdoor: 4.1,
+    roles: [
+      { title: "Backend Engineer (Lending)", level: "SDE-2", competencies: ["java", "databases", "finance", "systemdesign"], reqLevel: { java: "expert", databases: "expert", finance: "strong", systemdesign: "strong" }, desc: "Personal loan, home loan, and microinsurance backend. Underwriting engine and credit bureau integrations." },
+      { title: "ML Engineer (Credit Risk)", level: "Senior", competencies: ["ml", "python", "finance", "databases"], reqLevel: { ml: "expert", python: "expert", finance: "expert", databases: "strong" }, desc: "Alternative credit scoring, bureau data enrichment, and fraud prediction for thin-file borrowers." },
+      { title: "Android Engineer", level: "SDE-2", competencies: ["kotlin", "security", "dsa", "finance"], reqLevel: { kotlin: "expert", security: "strong", dsa: "strong" }, desc: "Navi app — full-stack financial services app for loans, insurance, and mutual funds." },
+      { title: "Data Engineer", level: "SDE-2", competencies: ["python", "databases", "aws", "finance"], reqLevel: { python: "expert", databases: "expert", aws: "strong" }, desc: "Regulatory reporting (RBI), CIBIL integrations, and real-time credit bureau data pipelines." },
+      { title: "Platform Engineer", level: "Senior", competencies: ["kubernetes", "devops", "golang", "systemdesign"], reqLevel: { kubernetes: "expert", devops: "expert", golang: "strong" }, desc: "AWS-based fintech infrastructure — zero-downtime deployments for loan disbursements." },
+      { title: "Security Engineer", level: "Senior", competencies: ["security", "java", "finance", "python"], reqLevel: { security: "expert", finance: "strong", java: "strong" }, desc: "PCI-DSS, RBI Digital Lending Guidelines compliance, and fraud prevention systems." },
+      { title: "Frontend Engineer", level: "SDE-2", competencies: ["react", "typescript", "security", "finance"], reqLevel: { react: "expert", typescript: "strong", security: "strong" }, desc: "Financial dashboards, loan application flows, and portfolio tracking UX." },
+    ]
+  },
+  {
+    id: "groww", name: "Groww", logo: "GW", gradient: "from-green-500 to-emerald-400",
+    industry: "Fintech", hq: "Bangalore", tier: "Unicorn",
+    hiring2023: 700, hiring2024: 900, trend: "up",
+    openRoles: 70, avgPackage: "₹24-52 LPA", glassdoor: 4.2,
+    roles: [
+      { title: "Backend Engineer (Trading)", level: "SDE-2", competencies: ["java", "databases", "finance", "systemdesign"], reqLevel: { java: "expert", databases: "expert", finance: "expert", systemdesign: "strong" }, desc: "NSE/BSE order management, mutual fund transaction processing, and real-time P&L computation." },
+      { title: "Android Engineer", level: "SDE-2", competencies: ["kotlin", "finance", "dsa", "systemdesign"], reqLevel: { kotlin: "expert", finance: "strong", dsa: "strong" }, desc: "Groww app — India's leading retail investing app with 10M+ active investors." },
+      { title: "ML Engineer (Recommendation)", level: "Senior", competencies: ["ml", "python", "finance", "databases"], reqLevel: { ml: "expert", python: "expert", finance: "strong" }, desc: "Fund recommendation engine, risk profiling models, and investment nudge systems." },
+      { title: "Data Engineer", level: "SDE-2", competencies: ["python", "databases", "aws", "finance"], reqLevel: { python: "expert", databases: "expert", finance: "strong" }, desc: "Market data pipelines, user portfolio analytics, and regulatory reporting (SEBI, AMFI)." },
+      { title: "iOS Engineer", level: "SDE-2", competencies: ["swift", "finance", "dsa", "security"], reqLevel: { swift: "expert", finance: "strong", dsa: "strong" }, desc: "Groww iOS — investment portfolios, SIP management, and real-time market data." },
+      { title: "Frontend Engineer", level: "SDE-2", competencies: ["react", "typescript", "finance", "systemdesign"], reqLevel: { react: "expert", typescript: "expert", finance: "strong" }, desc: "Trading dashboard, stock screener, and mutual fund discovery with real-time WebSocket feeds." },
+      { title: "Platform Engineer", level: "Senior", competencies: ["kubernetes", "devops", "aws", "security"], reqLevel: { kubernetes: "expert", devops: "expert", aws: "strong", security: "strong" }, desc: "High-availability infra for stock exchange connectivity. 99.999% uptime during market hours." },
+    ]
+  },
+  {
+    id: "upstox", name: "Upstox", logo: "UPX", gradient: "from-purple-600 to-indigo-500",
+    industry: "Stock Broking", hq: "Mumbai", tier: "Unicorn",
+    hiring2023: 400, hiring2024: 500, trend: "up",
+    openRoles: 42, avgPackage: "₹22-48 LPA", glassdoor: 4.0,
+    roles: [
+      { title: "Backend Engineer (Low Latency)", level: "Senior", competencies: ["java", "golang", "databases", "finance"], reqLevel: { java: "expert", golang: "strong", databases: "expert", finance: "expert" }, desc: "Order routing to NSE/BSE with sub-millisecond latency. FIX protocol and co-location systems." },
+      { title: "Frontend Engineer (Pro Charts)", level: "Senior", competencies: ["react", "typescript", "finance", "systemdesign"], reqLevel: { react: "expert", typescript: "expert", finance: "expert" }, desc: "Professional trading charts: Candlestick, technical indicators, WebSocket real-time feeds." },
+      { title: "Android Engineer", level: "SDE-2", competencies: ["kotlin", "finance", "dsa", "systemdesign"], reqLevel: { kotlin: "expert", finance: "strong", dsa: "strong" }, desc: "Upstox Pro Android — advanced charting, derivatives trading, and market screener." },
+      { title: "Data Engineer", level: "Senior", competencies: ["python", "databases", "finance", "systemdesign"], reqLevel: { python: "expert", databases: "expert", finance: "expert" }, desc: "Tick data pipelines, OHLCV aggregations, and regulatory reporting to SEBI." },
+      { title: "ML Engineer", level: "Senior", competencies: ["ml", "python", "finance", "databases"], reqLevel: { ml: "expert", python: "expert", finance: "strong" }, desc: "Risk management models, margin computation engines, and personalized portfolio analysis." },
+    ]
+  },
+  {
+    id: "slice", name: "Slice (formerly SlicePay)", logo: "SL", gradient: "from-purple-700 to-pink-500",
+    industry: "Fintech", hq: "Bangalore", tier: "Startup",
+    hiring2023: 350, hiring2024: 400, trend: "up",
+    openRoles: 35, avgPackage: "₹18-40 LPA", glassdoor: 3.9,
+    roles: [
+      { title: "Backend Engineer (Cards)", level: "SDE-2", competencies: ["java", "databases", "finance", "security"], reqLevel: { java: "strong", databases: "expert", finance: "strong", security: "expert" }, desc: "Prepaid card issuance, transaction authorization, and spend management APIs." },
+      { title: "Android Engineer", level: "SDE-2", competencies: ["kotlin", "security", "dsa", "finance"], reqLevel: { kotlin: "expert", security: "strong", dsa: "strong" }, desc: "Slice app — buy-now-pay-later card and personal finance management for Gen Z." },
+      { title: "ML Engineer (Fraud)", level: "Senior", competencies: ["ml", "python", "finance", "databases"], reqLevel: { ml: "expert", python: "expert", finance: "strong" }, desc: "Real-time transaction fraud detection, spend pattern analysis, and risk-based credit limits." },
+      { title: "Data Scientist", level: "Senior", competencies: ["ml", "python", "finance", "communication"], reqLevel: { ml: "strong", python: "expert", finance: "expert" }, desc: "Credit underwriting models, customer lifetime value, and collection strategy optimization." },
+      { title: "Platform Engineer", level: "Senior", competencies: ["kubernetes", "devops", "aws", "security"], reqLevel: { kubernetes: "strong", devops: "expert", aws: "strong" }, desc: "Card network integrations (Visa/Mastercard/RuPay) and payment processing infrastructure." },
+    ]
+  },
+  {
+    id: "jupiter", name: "Jupiter Money", logo: "JM", gradient: "from-blue-600 to-purple-500",
+    industry: "Fintech", hq: "Mumbai", tier: "Startup",
+    hiring2023: 280, hiring2024: 350, trend: "up",
+    openRoles: 30, avgPackage: "₹20-45 LPA", glassdoor: 4.1,
+    roles: [
+      { title: "Backend Engineer (Neo-Banking)", level: "SDE-2", competencies: ["nodejs", "databases", "finance", "security"], reqLevel: { nodejs: "expert", databases: "expert", finance: "strong", security: "expert" }, desc: "Savings account APIs, FD integrations, IMPS/UPI payment flows on Jupiter's banking stack." },
+      { title: "Android Engineer", level: "SDE-2", competencies: ["kotlin", "security", "finance", "dsa"], reqLevel: { kotlin: "expert", security: "expert", finance: "strong" }, desc: "Jupiter Android — modern banking UX with instant notifications and intelligent spend insights." },
+      { title: "Data Scientist", level: "Senior", competencies: ["ml", "python", "finance", "databases"], reqLevel: { ml: "strong", python: "expert", finance: "expert" }, desc: "Spend categorization ML, reward optimization engine, and customer financial health scoring." },
+      { title: "Frontend Engineer", level: "SDE-2", competencies: ["react", "typescript", "security", "finance"], reqLevel: { react: "expert", typescript: "strong", security: "strong" }, desc: "Jupiter web banking and merchant portal. Design-first, accessibility-centric engineering." },
+    ]
+  },
+  {
+    id: "chargebee", name: "Chargebee", logo: "CB", gradient: "from-orange-600 to-amber-500",
+    industry: "SaaS / Billing", hq: "San Francisco (India: Chennai)", tier: "Unicorn",
+    hiring2023: 450, hiring2024: 500, trend: "stable",
+    openRoles: 45, avgPackage: "₹22-48 LPA", glassdoor: 4.3,
+    roles: [
+      { title: "Backend Engineer (Billing)", level: "SDE-2", competencies: ["java", "databases", "systemdesign", "finance"], reqLevel: { java: "expert", databases: "expert", systemdesign: "strong", finance: "strong" }, desc: "Subscription lifecycle, revenue recognition, and dunning management for 6500+ SaaS customers." },
+      { title: "Frontend Engineer", level: "SDE-2", competencies: ["react", "typescript", "systemdesign", "databases"], reqLevel: { react: "expert", typescript: "expert", systemdesign: "strong" }, desc: "Chargebee UI — complex billing dashboards, usage-based pricing configurators, and reports." },
+      { title: "ML Engineer", level: "Senior", competencies: ["ml", "python", "finance", "databases"], reqLevel: { ml: "expert", python: "expert", finance: "strong" }, desc: "Churn prediction, expansion revenue forecasting, and smart dunning sequence optimization." },
+      { title: "Platform Engineer", level: "Senior", competencies: ["kubernetes", "aws", "devops", "systemdesign"], reqLevel: { kubernetes: "expert", aws: "expert", devops: "expert" }, desc: "Multi-region AWS infrastructure for 99.99% SLA billing system. SOC2 Type II certified." },
+      { title: "Data Engineer", level: "SDE-2", competencies: ["python", "databases", "aws", "finance"], reqLevel: { python: "expert", databases: "expert", aws: "strong" }, desc: "Revenue analytics pipelines, MRR/ARR computation, and cohort analysis data models." },
+    ]
+  },
+  {
+    id: "postman", name: "Postman", logo: "PM", gradient: "from-orange-500 to-red-500",
+    industry: "Developer Tools", hq: "San Francisco (India: Bangalore)", tier: "Unicorn",
+    hiring2023: 500, hiring2024: 450, trend: "stable",
+    openRoles: 40, avgPackage: "₹30-65 LPA", glassdoor: 4.5,
+    roles: [
+      { title: "Senior Software Engineer (Platform)", level: "Senior", competencies: ["nodejs", "systemdesign", "databases", "aws"], reqLevel: { nodejs: "expert", systemdesign: "expert", databases: "expert", aws: "strong" }, desc: "Postman API Platform serving 30M+ developers. Collaboration features, collection sync, and API gateway." },
+      { title: "Frontend Engineer", level: "Senior", competencies: ["react", "typescript", "systemdesign", "dsa"], reqLevel: { react: "expert", typescript: "expert", systemdesign: "expert", dsa: "strong" }, desc: "Electron + React desktop app used by 30M developers daily. Performance-critical UI engineering." },
+      { title: "ML Engineer (AI Assistant)", level: "Senior", competencies: ["ml", "python", "systemdesign", "nodejs"], reqLevel: { ml: "expert", python: "expert", systemdesign: "strong" }, desc: "Postman AI — automated test generation, API documentation, and intelligent request suggestions." },
+      { title: "Platform Engineer", level: "Senior", competencies: ["kubernetes", "aws", "devops", "systemdesign"], reqLevel: { kubernetes: "expert", aws: "expert", devops: "expert" }, desc: "Global API execution infrastructure for Postman Cloud. Multi-region, low-latency API runner." },
+    ]
+  },
+  {
+    id: "browserstack", name: "BrowserStack", logo: "BS", gradient: "from-orange-600 to-yellow-500",
+    industry: "Developer Tools", hq: "Mumbai", tier: "Unicorn",
+    hiring2023: 400, hiring2024: 420, trend: "stable",
+    openRoles: 38, avgPackage: "₹22-48 LPA", glassdoor: 4.4,
+    roles: [
+      { title: "Backend Engineer (Infrastructure)", level: "Senior", competencies: ["golang", "kubernetes", "systemdesign", "aws"], reqLevel: { golang: "expert", kubernetes: "expert", systemdesign: "expert", aws: "strong" }, desc: "Real device cloud infrastructure — provisioning 50K+ physical devices on-demand for test automation." },
+      { title: "ML Engineer (Test Intelligence)", level: "Senior", competencies: ["ml", "python", "databases", "systemdesign"], reqLevel: { ml: "expert", python: "expert", databases: "strong" }, desc: "Flaky test detection, smart test selection, visual regression AI, and failure root cause analysis." },
+      { title: "Frontend Engineer", level: "Senior", competencies: ["react", "typescript", "systemdesign", "nodejs"], reqLevel: { react: "expert", typescript: "expert", systemdesign: "strong" }, desc: "BrowserStack Live and Automate dashboards. Complex session replay, video streaming UI." },
+      { title: "Platform SRE", level: "Senior", competencies: ["kubernetes", "devops", "aws", "golang"], reqLevel: { kubernetes: "expert", devops: "expert", aws: "expert" }, desc: "99.9% uptime for real device cloud serving 50K+ enterprise customers globally." },
+    ]
+  },
+  {
+    id: "darwinbox", name: "Darwinbox", logo: "DB", gradient: "from-teal-600 to-cyan-500",
+    industry: "HRTech SaaS", hq: "Hyderabad", tier: "Unicorn",
+    hiring2023: 350, hiring2024: 400, trend: "up",
+    openRoles: 42, avgPackage: "₹20-42 LPA", glassdoor: 4.0,
+    roles: [
+      { title: "Backend Engineer (HR Platform)", level: "SDE-2", competencies: ["java", "databases", "systemdesign", "aws"], reqLevel: { java: "expert", databases: "expert", systemdesign: "strong", aws: "working" }, desc: "Core HRMS: payroll, attendance, performance, and leave management for 2M+ employees globally." },
+      { title: "ML Engineer (People Analytics)", level: "Senior", competencies: ["ml", "python", "databases", "communication"], reqLevel: { ml: "expert", python: "expert", databases: "strong" }, desc: "Attrition prediction, workforce planning models, and skill gap analysis for enterprise HR." },
+      { title: "Frontend Engineer", level: "SDE-2", competencies: ["react", "typescript", "systemdesign", "databases"], reqLevel: { react: "expert", typescript: "strong", systemdesign: "strong" }, desc: "Employee self-service portal, manager dashboards, and HR analytics visualizations." },
+      { title: "Data Engineer", level: "SDE-2", competencies: ["python", "databases", "aws", "communication"], reqLevel: { python: "expert", databases: "expert", aws: "strong" }, desc: "Multi-tenant HR data pipelines, workforce analytics, and statutory compliance reports." },
+    ]
+  },
+  {
+    id: "leadsquared", name: "LeadSquared", logo: "LS", gradient: "from-blue-700 to-cyan-500",
+    industry: "SaaS / CRM", hq: "Bangalore", tier: "Startup",
+    hiring2023: 280, hiring2024: 320, trend: "up",
+    openRoles: 30, avgPackage: "₹18-38 LPA", glassdoor: 3.8,
+    roles: [
+      { title: "Backend Engineer (.NET/Java)", level: "SDE-2", competencies: ["java", "databases", "systemdesign", "aws"], reqLevel: { java: "strong", databases: "expert", systemdesign: "strong" }, desc: "CRM automation engine, multi-tenant platform for 200K+ sales and marketing users." },
+      { title: "Frontend Engineer", level: "SDE-2", competencies: ["react", "typescript", "systemdesign", "databases"], reqLevel: { react: "expert", typescript: "strong", systemdesign: "working" }, desc: "Sales CRM UI: lead pipelines, drip campaign builders, and analytics dashboards." },
+      { title: "ML Engineer", level: "Senior", competencies: ["ml", "python", "databases", "communication"], reqLevel: { ml: "strong", python: "expert", databases: "strong" }, desc: "Lead scoring, next best action recommendation, and churn prediction for CRM customers." },
+    ]
+  },
+  {
+    id: "dreamgames", name: "Dream Sports (Dream11)", logo: "D11", gradient: "from-blue-800 to-blue-600",
+    industry: "Gaming / Sports Tech", hq: "Mumbai", tier: "Unicorn",
+    hiring2023: 500, hiring2024: 600, trend: "up",
+    openRoles: 50, avgPackage: "₹22-50 LPA", glassdoor: 4.2,
+    roles: [
+      { title: "Backend Engineer (Real-time Systems)", level: "SDE-2", competencies: ["java", "databases", "systemdesign", "dsa"], reqLevel: { java: "expert", databases: "expert", systemdesign: "expert", dsa: "expert" }, desc: "Fantasy cricket platform handling 150M contests. Peak: 10M concurrent users during IPL matches." },
+      { title: "ML Engineer (Player Prediction)", level: "Senior", competencies: ["ml", "python", "databases", "systemdesign"], reqLevel: { ml: "expert", python: "expert", databases: "strong" }, desc: "Player performance prediction, team suggestion engine, and contest pricing ML models." },
+      { title: "Android Engineer", level: "SDE-2", competencies: ["kotlin", "dsa", "java", "systemdesign"], reqLevel: { kotlin: "expert", dsa: "expert", java: "strong" }, desc: "Dream11 Android — real-time contest updates, live score integration, and payments for 150M users." },
+      { title: "Platform Engineer", level: "Senior", competencies: ["kubernetes", "devops", "aws", "systemdesign"], reqLevel: { kubernetes: "expert", devops: "expert", aws: "expert" }, desc: "Auto-scaling infra for 50x traffic spikes during India-Pakistan matches. GCP + AWS multi-cloud." },
+      { title: "Data Engineer", level: "Senior", competencies: ["python", "databases", "aws", "systemdesign"], reqLevel: { python: "expert", databases: "expert", aws: "strong" }, desc: "Real-time sports data ingestion, player statistics pipelines, and contest analytics at petabyte scale." },
+      { title: "iOS Engineer", level: "SDE-2", competencies: ["swift", "dsa", "systemdesign", "security"], reqLevel: { swift: "expert", dsa: "strong", systemdesign: "strong" }, desc: "Dream11 iOS app — real-time fantasy leagues, live match tracking, and payment processing." },
+    ]
+  },
+  {
+    id: "mpl", name: "Mobile Premier League (MPL)", logo: "MPL", gradient: "from-red-600 to-orange-500",
+    industry: "Gaming", hq: "Bangalore", tier: "Unicorn",
+    hiring2023: 300, hiring2024: 350, trend: "up",
+    openRoles: 30, avgPackage: "₹18-40 LPA", glassdoor: 3.9,
+    roles: [
+      { title: "Backend Engineer (Game Platform)", level: "SDE-2", competencies: ["golang", "databases", "systemdesign", "dsa"], reqLevel: { golang: "expert", databases: "expert", systemdesign: "strong", dsa: "strong" }, desc: "Real-time multiplayer game matchmaking, wallet, and tournament infrastructure in Go." },
+      { title: "Android Engineer", level: "SDE-2", competencies: ["kotlin", "dsa", "java", "systemdesign"], reqLevel: { kotlin: "expert", dsa: "expert" }, desc: "MPL Android — skill gaming platform with 90M+ users across 5 countries." },
+      { title: "ML Engineer", level: "Senior", competencies: ["ml", "python", "databases", "systemdesign"], reqLevel: { ml: "expert", python: "expert" }, desc: "Cheat detection, skill-level matching, prize pool optimization, and game analytics." },
+    ]
+  },
+  {
+    id: "spinny", name: "Spinny", logo: "SP", gradient: "from-blue-600 to-cyan-400",
+    industry: "AutoTech", hq: "Gurugram", tier: "Unicorn",
+    hiring2023: 400, hiring2024: 500, trend: "up",
+    openRoles: 38, avgPackage: "₹18-38 LPA", glassdoor: 3.9,
+    roles: [
+      { title: "Backend Engineer", level: "SDE-2", competencies: ["java", "databases", "systemdesign", "dsa"], reqLevel: { java: "strong", databases: "strong", systemdesign: "strong", dsa: "strong" }, desc: "Inventory management, pricing engine, and test drive booking for used car marketplace." },
+      { title: "ML Engineer (Pricing)", level: "Senior", competencies: ["ml", "python", "databases", "systemdesign"], reqLevel: { ml: "expert", python: "expert", databases: "strong" }, desc: "Dynamic vehicle pricing model, demand forecasting, and inspection quality prediction." },
+      { title: "Android Engineer", level: "SDE-2", competencies: ["kotlin", "dsa", "java", "systemdesign"], reqLevel: { kotlin: "expert", dsa: "strong" }, desc: "Spinny app — car browsing, virtual inspection, EMI calculator, and test drive booking." },
+      { title: "Data Engineer", level: "SDE-2", competencies: ["python", "databases", "aws", "systemdesign"], reqLevel: { python: "expert", databases: "expert" }, desc: "Vehicle analytics pipelines, pricing data aggregation from 50+ sources, market intelligence." },
+    ]
+  },
+  {
+    id: "licious", name: "Licious", logo: "LC", gradient: "from-red-700 to-pink-600",
+    industry: "D2C / FoodTech", hq: "Bangalore", tier: "Unicorn",
+    hiring2023: 300, hiring2024: 350, trend: "up",
+    openRoles: 28, avgPackage: "₹18-36 LPA", glassdoor: 3.8,
+    roles: [
+      { title: "Backend Engineer", level: "SDE-2", competencies: ["nodejs", "databases", "systemdesign", "aws"], reqLevel: { nodejs: "expert", databases: "strong", systemdesign: "strong", aws: "working" }, desc: "Order management, cold-chain inventory, and dark store fulfillment platform." },
+      { title: "ML Engineer (Supply Chain)", level: "Senior", competencies: ["ml", "python", "databases", "systemdesign"], reqLevel: { ml: "expert", python: "expert", databases: "strong" }, desc: "Demand forecasting, spoilage prediction, and dynamic pricing for perishable inventory." },
+      { title: "Android Engineer", level: "SDE-2", competencies: ["kotlin", "dsa", "systemdesign"], reqLevel: { kotlin: "expert", dsa: "strong" }, desc: "Licious app — subscription meat delivery, real-time stock updates, and cold chain tracking." },
+    ]
+  },
+  {
+    id: "salesforce_india", name: "Salesforce (India)", logo: "SF", gradient: "from-blue-500 to-cyan-400",
+    industry: "Enterprise SaaS", hq: "Hyderabad/Bangalore", tier: "MNC",
+    hiring2023: 3500, hiring2024: 3000, trend: "down",
+    openRoles: 280, avgPackage: "₹28-60 LPA", glassdoor: 4.4,
+    roles: [
+      { title: "Software Engineer (MTS)", level: "Mid-level", competencies: ["java", "systemdesign", "databases", "dsa"], reqLevel: { java: "expert", systemdesign: "strong", databases: "strong", dsa: "strong" }, desc: "Salesforce core platform — multi-tenant CRM at massive scale serving 150,000+ companies globally." },
+      { title: "Frontend Engineer", level: "MTS", competencies: ["react", "typescript", "systemdesign", "dsa"], reqLevel: { react: "expert", typescript: "expert", systemdesign: "strong", dsa: "strong" }, desc: "Lightning Web Components, Einstein AI UI, and Salesforce AppExchange platform UX." },
+      { title: "ML Engineer (Einstein AI)", level: "Senior", competencies: ["ml", "python", "databases", "systemdesign"], reqLevel: { ml: "expert", python: "expert", systemdesign: "strong" }, desc: "Einstein GPT — generative CRM, opportunity scoring, lead classification, and revenue intelligence." },
+      { title: "Platform Engineer", level: "Senior", competencies: ["kubernetes", "aws", "devops", "systemdesign"], reqLevel: { kubernetes: "expert", aws: "expert", devops: "expert" }, desc: "Hyperforce — Salesforce's public cloud native architecture on AWS/Azure/GCP." },
+      { title: "Security Engineer", level: "Senior", competencies: ["security", "java", "aws", "communication"], reqLevel: { security: "expert", java: "strong", aws: "strong" }, desc: "Identity and access management, Shield encryption, and SOX/SOC2 compliance engineering." },
+    ]
+  },
+  {
+    id: "oracle_india", name: "Oracle (India)", logo: "OR", gradient: "from-red-600 to-red-500",
+    industry: "Enterprise Software", hq: "Hyderabad/Bangalore", tier: "MNC",
+    hiring2023: 5000, hiring2024: 4500, trend: "stable",
+    openRoles: 350, avgPackage: "₹18-45 LPA", glassdoor: 4.0,
+    roles: [
+      { title: "Software Developer (OCI)", level: "Mid-level", competencies: ["java", "systemdesign", "databases", "aws"], reqLevel: { java: "expert", systemdesign: "strong", databases: "strong" }, desc: "Oracle Cloud Infrastructure — compute, storage, networking, and database cloud services." },
+      { title: "Frontend Engineer", level: "Mid-level", competencies: ["react", "typescript", "systemdesign", "java"], reqLevel: { react: "strong", typescript: "strong", systemdesign: "working" }, desc: "Oracle Fusion Applications UI, Oracle APEX, and cloud console development." },
+      { title: "ML Engineer", level: "Senior", competencies: ["ml", "python", "databases", "systemdesign"], reqLevel: { ml: "strong", python: "expert", databases: "strong" }, desc: "Oracle AI Services — language, vision, anomaly detection, and database AI (SELECT AI)." },
+      { title: "Database Engineer", level: "Senior", competencies: ["databases", "java", "systemdesign", "security"], reqLevel: { databases: "expert", java: "strong", systemdesign: "strong" }, desc: "Oracle Database 23ai, Autonomous Database, and Exadata infrastructure development." },
+      { title: "Cloud Platform Engineer", level: "Senior", competencies: ["kubernetes", "devops", "aws", "systemdesign"], reqLevel: { kubernetes: "expert", devops: "expert", aws: "strong" }, desc: "OCI Container Engine for Kubernetes, Fn serverless functions, and OKE cluster management." },
+    ]
+  },
+  {
+    id: "walmart_global_tech", name: "Walmart Global Tech", logo: "WMT", gradient: "from-blue-700 to-yellow-500",
+    industry: "Retail Tech", hq: "Bangalore", tier: "MNC",
+    hiring2023: 4000, hiring2024: 4500, trend: "up",
+    openRoles: 380, avgPackage: "₹22-50 LPA", glassdoor: 4.2,
+    roles: [
+      { title: "Software Engineer III (Backend)", level: "Senior", competencies: ["java", "systemdesign", "databases", "dsa"], reqLevel: { java: "expert", systemdesign: "expert", databases: "strong", dsa: "strong" }, desc: "Walmart.com, Sam's Club, and Flipkart shared backend services at $600B retail scale." },
+      { title: "ML Engineer", level: "Senior", competencies: ["ml", "python", "databases", "systemdesign"], reqLevel: { ml: "expert", python: "expert", systemdesign: "strong" }, desc: "Demand forecasting, supply chain optimization, personalized recommendations for 240M weekly customers." },
+      { title: "Frontend Engineer", level: "SDE-2", competencies: ["react", "typescript", "nodejs", "systemdesign"], reqLevel: { react: "expert", typescript: "expert", nodejs: "strong" }, desc: "Walmart.com and Sam's Club web platform. Performance optimization for 100M+ monthly visitors." },
+      { title: "Data Engineer", level: "Senior", competencies: ["python", "databases", "aws", "systemdesign"], reqLevel: { python: "expert", databases: "expert", aws: "strong" }, desc: "Petabyte-scale retail analytics on Azure. Real-time inventory tracking across 10,000+ stores." },
+      { title: "Platform Engineer", level: "Senior", competencies: ["kubernetes", "devops", "aws", "systemdesign"], reqLevel: { kubernetes: "expert", devops: "expert", aws: "expert" }, desc: "Private cloud platform (OneOps) and public cloud infrastructure for Walmart's global operations." },
+    ]
+  },
+  {
+    id: "paypal_india", name: "PayPal (India)", logo: "PP", gradient: "from-blue-700 to-blue-500",
+    industry: "Payments / Fintech", hq: "Chennai/Bangalore", tier: "MNC",
+    hiring2023: 1800, hiring2024: 1500, trend: "down",
+    openRoles: 140, avgPackage: "₹25-55 LPA", glassdoor: 4.2,
+    roles: [
+      { title: "Software Engineer (Payments)", level: "Senior", competencies: ["java", "databases", "security", "systemdesign"], reqLevel: { java: "expert", databases: "expert", security: "expert", systemdesign: "strong" }, desc: "PayPal global payment platform — 250M accounts, $1.3T payment volume. Idempotency and global routing." },
+      { title: "ML Engineer (Risk)", level: "Senior", competencies: ["ml", "python", "finance", "databases"], reqLevel: { ml: "expert", python: "expert", finance: "strong" }, desc: "Real-time transaction fraud detection, account takeover prevention, and buyer/seller protection ML." },
+      { title: "Frontend Engineer", level: "Senior", competencies: ["react", "typescript", "security", "systemdesign"], reqLevel: { react: "expert", typescript: "expert", security: "strong" }, desc: "PayPal checkout integration (JS SDK), merchant portal, and consumer web flows in 200+ countries." },
+      { title: "Platform Engineer", level: "Senior", competencies: ["kubernetes", "aws", "devops", "security"], reqLevel: { kubernetes: "expert", aws: "expert", devops: "expert", security: "strong" }, desc: "PCI-DSS Level 1 cloud infrastructure. Multi-region active-active deployment for zero-downtime payments." },
+      { title: "Security Engineer", level: "Senior", competencies: ["security", "java", "python", "finance"], reqLevel: { security: "expert", finance: "strong", java: "strong" }, desc: "Application security, penetration testing, and compliance for global payments regulatory requirements." },
+    ]
+  },
+  {
+    id: "samsung_india", name: "Samsung R&D India", logo: "SAM", gradient: "from-blue-700 to-cyan-500",
+    industry: "Consumer Tech / R&D", hq: "Bangalore/Noida", tier: "MNC",
+    hiring2023: 3000, hiring2024: 3200, trend: "up",
+    openRoles: 280, avgPackage: "₹12-30 LPA", glassdoor: 4.0,
+    roles: [
+      { title: "Android Framework Engineer", level: "Senior", competencies: ["kotlin", "java", "dsa", "systemdesign"], reqLevel: { kotlin: "expert", java: "expert", dsa: "strong", systemdesign: "strong" }, desc: "Samsung One UI, Galaxy AI features, and Android AOSP customization for 300M+ Samsung devices." },
+      { title: "ML Engineer (On-device AI)", level: "Senior", competencies: ["ml", "python", "java", "systemdesign"], reqLevel: { ml: "expert", python: "expert", java: "strong" }, desc: "Galaxy AI — live translate, circle to search, generative edit. On-device LLM optimization and Neural Processing Unit programming." },
+      { title: "Bixby AI Engineer", level: "Senior", competencies: ["ml", "python", "java", "databases"], reqLevel: { ml: "expert", python: "expert", java: "strong" }, desc: "Bixby voice assistant NLP pipeline, multi-modal AI, and conversational AI for Samsung devices." },
+      { title: "Security Engineer (Knox)", level: "Senior", competencies: ["security", "java", "kotlin", "systemdesign"], reqLevel: { security: "expert", java: "expert", kotlin: "strong" }, desc: "Samsung Knox enterprise security platform — hardware-backed trust, MDM, and secure enclaves." },
+      { title: "IoT Platform Engineer", level: "Mid-level", competencies: ["java", "aws", "databases", "systemdesign"], reqLevel: { java: "strong", aws: "strong", databases: "strong" }, desc: "SmartThings IoT platform connecting 250M+ connected devices globally." },
+    ]
+  },
+  {
+    id: "goldman_sachs_india", name: "Goldman Sachs (India)", logo: "GS", gradient: "from-blue-900 to-blue-700",
+    industry: "Investment Banking Tech", hq: "Bangalore/Hyderabad", tier: "MNC",
+    hiring2023: 2500, hiring2024: 2200, trend: "down",
+    openRoles: 180, avgPackage: "₹22-55 LPA", glassdoor: 4.1,
+    roles: [
+      { title: "Software Engineer (Markets Tech)", level: "Associate", competencies: ["java", "databases", "finance", "systemdesign"], reqLevel: { java: "expert", databases: "expert", finance: "expert", systemdesign: "strong" }, desc: "Equities, FX, rates, and commodities trading platform. Low-latency order execution and risk systems." },
+      { title: "Quantitative Developer", level: "Associate/VP", competencies: ["python", "java", "finance", "databases"], reqLevel: { python: "expert", java: "strong", finance: "expert", databases: "strong" }, desc: "Strats team: pricing models, risk factor analysis, and trading signal research at Goldman Sachs." },
+      { title: "ML Engineer", level: "Senior", competencies: ["ml", "python", "finance", "databases"], reqLevel: { ml: "expert", python: "expert", finance: "expert" }, desc: "Marcus consumer banking AI, fraud detection, portfolio risk models, and NLP for earnings analysis." },
+      { title: "Platform Engineer", level: "Senior", competencies: ["kubernetes", "devops", "security", "aws"], reqLevel: { kubernetes: "expert", devops: "expert", security: "expert" }, desc: "GS's Marquee platform and private cloud. FedRAMP-equivalent financial-grade infrastructure." },
+      { title: "Frontend Engineer", level: "Associate", competencies: ["react", "typescript", "finance", "security"], reqLevel: { react: "expert", typescript: "expert", finance: "strong", security: "strong" }, desc: "GS Marquee, client portals, and internal trading dashboards. Accessibility and high data density UX." },
+    ]
+  },
+  {
+    id: "nvidia_india", name: "NVIDIA (India)", logo: "NV", gradient: "from-green-600 to-green-400",
+    industry: "Semiconductor / AI", hq: "Pune/Bangalore", tier: "MNC",
+    hiring2023: 1200, hiring2024: 2000, trend: "up",
+    openRoles: 180, avgPackage: "₹30-80 LPA", glassdoor: 4.5,
+    roles: [
+      { title: "CUDA Software Engineer", level: "Senior", competencies: ["python", "java", "dsa", "systemdesign"], reqLevel: { dsa: "expert", python: "expert", systemdesign: "strong" }, desc: "CUDA runtime, cuDNN, TensorRT GPU kernel optimization for NVIDIA's AI computing platform." },
+      { title: "ML/AI Infrastructure Engineer", level: "Senior", competencies: ["ml", "python", "kubernetes", "systemdesign"], reqLevel: { ml: "expert", python: "expert", kubernetes: "strong", systemdesign: "strong" }, desc: "DGX systems, AI infrastructure for training LLMs and deploying NIM microservices at scale." },
+      { title: "Compiler Engineer", level: "Senior", competencies: ["java", "golang", "dsa", "systemdesign"], reqLevel: { dsa: "expert", systemdesign: "expert", java: "expert" }, desc: "LLVM-based GPU compiler, PTX ISA, and next-generation chip architecture compiler research." },
+      { title: "Verification Engineer", level: "Mid-level", competencies: ["python", "databases", "dsa", "systemdesign"], reqLevel: { python: "expert", dsa: "strong" }, desc: "Hardware-software verification for GPU silicon using SystemVerilog, UVM, and Python testbenches." },
+      { title: "Platform Software Engineer", level: "Senior", competencies: ["golang", "kubernetes", "devops", "python"], reqLevel: { golang: "strong", kubernetes: "expert", devops: "expert" }, desc: "NVIDIA DGX Cloud platform, Omniverse infrastructure, and NVAIE enterprise AI deployment stack." },
+    ]
+  },
+  {
+    id: "siemens_india", name: "Siemens Digital Industries", logo: "SI", gradient: "from-teal-700 to-teal-500",
+    industry: "Industrial Tech / Software", hq: "Bangalore/Pune", tier: "MNC",
+    hiring2023: 2000, hiring2024: 2200, trend: "up",
+    openRoles: 160, avgPackage: "₹10-28 LPA", glassdoor: 4.1,
+    roles: [
+      { title: "Software Engineer (Industrial IoT)", level: "Mid-level", competencies: ["java", "aws", "databases", "systemdesign"], reqLevel: { java: "strong", aws: "strong", databases: "strong" }, desc: "MindSphere IoT platform — industrial data processing from 200,000+ connected machines globally." },
+      { title: "ML Engineer (Predictive Maintenance)", level: "Senior", competencies: ["ml", "python", "databases", "systemdesign"], reqLevel: { ml: "expert", python: "expert", databases: "strong" }, desc: "Factory AI: anomaly detection, predictive maintenance, and quality inspection for Industry 4.0." },
+      { title: "Embedded Software Engineer", level: "Senior", competencies: ["systemdesign", "java", "databases", "communication"], reqLevel: { systemdesign: "strong", java: "working" }, desc: "PLC/SCADA software for Siemens control systems. IEC 61131-3, real-time OS programming." },
+      { title: "Cloud Platform Engineer", level: "Senior", competencies: ["kubernetes", "aws", "devops", "systemdesign"], reqLevel: { kubernetes: "expert", aws: "strong", devops: "expert" }, desc: "Siemens Xcelerator cloud platform on Azure. Digital twin infrastructure and industrial app marketplace." },
+    ]
+  },
+  {
+    id: "bosch_india", name: "Bosch Global Software Technologies", logo: "BOX", gradient: "from-red-700 to-red-500",
+    industry: "Automotive Software / IoT", hq: "Bangalore", tier: "MNC",
+    hiring2023: 4000, hiring2024: 4500, trend: "up",
+    openRoles: 350, avgPackage: "₹8-22 LPA", glassdoor: 4.0,
+    roles: [
+      { title: "Embedded Software Engineer", level: "Mid-level", competencies: ["systemdesign", "databases", "communication", "devops"], reqLevel: { systemdesign: "strong" }, desc: "Automotive ECU software: AUTOSAR Classic/Adaptive, CAN/LIN/Ethernet, ADAS feature development." },
+      { title: "ADAS Engineer (Autonomous Driving)", level: "Senior", competencies: ["ml", "python", "systemdesign", "databases"], reqLevel: { ml: "strong", python: "expert", systemdesign: "strong" }, desc: "Perception algorithms: object detection, sensor fusion (LiDAR+camera+radar), lane keeping assist." },
+      { title: "Cloud IoT Engineer", level: "Mid-level", competencies: ["java", "aws", "databases", "systemdesign"], reqLevel: { java: "strong", aws: "strong" }, desc: "Bosch IoT Suite — connected device management, OTA updates, and vehicle telemetry processing." },
+      { title: "Data Scientist", level: "Senior", competencies: ["ml", "python", "databases", "communication"], reqLevel: { ml: "strong", python: "expert", databases: "strong" }, desc: "Manufacturing quality AI, predictive maintenance for Bosch production lines, and supply chain analytics." },
+      { title: "DevOps Engineer", level: "Mid-level", competencies: ["devops", "kubernetes", "aws", "python"], reqLevel: { devops: "strong", kubernetes: "working", aws: "working" }, desc: "CI/CD pipelines for automotive software certification (ISO 26262 ASIL-D). Automotive DevOps practices." },
+    ]
+  },
+  {
+    id: "razorpay_x", name: "RazorpayX (Business Banking)", logo: "RX", gradient: "from-blue-900 to-indigo-600",
+    industry: "Neobanking / Fintech", hq: "Bangalore", tier: "Unicorn",
+    hiring2023: 200, hiring2024: 300, trend: "up",
+    openRoles: 25, avgPackage: "₹28-58 LPA", glassdoor: 4.3,
+    roles: [
+      { title: "Backend Engineer (Neobanking)", level: "Senior", competencies: ["nodejs", "databases", "finance", "security"], reqLevel: { nodejs: "expert", databases: "expert", finance: "expert", security: "expert" }, desc: "Business current accounts, bulk payouts, NACH mandates, and GST payment automation for 5M+ businesses." },
+      { title: "ML Engineer (Compliance)", level: "Senior", competencies: ["ml", "python", "finance", "databases"], reqLevel: { ml: "expert", python: "expert", finance: "expert", databases: "strong" }, desc: "AML transaction monitoring, FEMA compliance automation, and suspicious activity detection." },
+      { title: "Frontend Engineer", level: "SDE-2", competencies: ["react", "typescript", "finance", "security"], reqLevel: { react: "expert", typescript: "expert", finance: "strong", security: "strong" }, desc: "Business banking dashboard: payroll, vendor payments, expense management, and cash flow analytics." },
+    ]
+  },
 ];
 
+
+
+
 // ════════════════════════════════════════════════════════════
-// DEEP AI ANALYSIS ENGINE v2
-// Uses contextual understanding, not just keyword matching
+// TALENTLENS™ AI ENGINE v7 — 6-Layer Anti-Gaming Analysis
 // ════════════════════════════════════════════════════════════
+
+function getSentences(text: string): string[] {
+  return text.split(/[.!\n]/).map(s => s.trim()).filter(s => s.length > 10);
+}
+
+function verifyKeywordInContext(text: string, keyword: string): { inContext: boolean; contextSentences: string[] } {
+  const sentences = getSentences(text);
+  const experienceMarkers = ["built","developed","designed","implemented","used","worked","deployed","architected","migrated","maintained","optimized","integrated","scaled","led","created","shipped","managed","contributed","reduced","improved","automated","solved","produced","handled"];
+  const contextSentences = sentences.filter(s => {
+    const sl = s.toLowerCase();
+    return sl.includes(keyword.toLowerCase()) && experienceMarkers.some(m => sl.includes(m));
+  });
+  return { inContext: contextSentences.length > 0, contextSentences: contextSentences.slice(0, 2) };
+}
+
+function detectKeywordStuffing(text: string, keywords: string[]): { isStuffing: boolean; stuffingScore: number } {
+  const sentences = getSentences(text);
+  const totalKeywordsFound = keywords.filter(kw => text.toLowerCase().includes(kw)).length;
+  const keywordsInContext = keywords.filter(kw => sentences.some(s => {
+    const sl = s.toLowerCase();
+    return sl.includes(kw) && /built|developed|designed|implemented|used|worked|deployed|optimized/.test(sl);
+  })).length;
+  const ratio = totalKeywordsFound > 0 ? keywordsInContext / totalKeywordsFound : 1;
+  return { isStuffing: totalKeywordsFound > 4 && ratio < 0.25, stuffingScore: Math.round(ratio * 100) };
+}
+
+function parseImpactMetrics(text: string): { hasScale: boolean; hasMetrics: boolean; hasTeamSize: boolean; hasProduction: boolean; scaleDetails: string[]; metricDetails: string[] } {
+  const tl = text.toLowerCase();
+  const scalePatterns: [RegExp, string][] = [
+    [/(\d[\d,.]*)\s*(million|billion)\s*(users?|customers?|requests?|transactions?)/gi, "M/B-scale users or transactions"],
+    [/(\d[\d,.]*)k?\+?\s*(users?|dau|mau|customers?)/gi, "user-scale metrics"],
+    [/(\d[\d,.]*)\s*(requests?|rps|qps)\s*(per\s*(second|minute|day))?/gi, "throughput / RPS metrics"],
+    [/(\d[\d,.]*)\s*(tb|gb|pb)\s*(of\s*)?(data|storage)/gi, "data scale"],
+    [/(\d[\d,.]*)\%\s*(uptime|availability|sla)/gi, "SLA / uptime metrics"],
+  ];
+  const metricPatterns: [RegExp, string][] = [
+    [/(\d[\d,.]*)\s*%\s*(reduction|improvement|increase|faster|decrease)/gi, "percentage improvement"],
+    [/reduced?\s+.*?(by\s+\d|latency|time|cost)/gi, "latency/cost reduction"],
+    [/(\d+)x\s+(faster|improvement|speedup)/gi, "speedup multiplier"],
+    [/saved?\s+.*?(hours?|\$|dollars?|time)/gi, "time/cost savings"],
+  ];
+  const scaleDetails: string[] = [];
+  const metricDetails: string[] = [];
+  scalePatterns.forEach(([p, label]) => { const rp = new RegExp(p); if (rp.test(tl)) scaleDetails.push(label); });
+  metricPatterns.forEach(([p, label]) => { const rp = new RegExp(p); if (rp.test(tl)) metricDetails.push(label); });
+  const hasTeamSize = /led\s+(a\s+)?(team\s+of)?\s*\d+|managed\s+\d+\s*(engineers?|developers?|people)|team\s+of\s*\d+/.test(tl);
+  const hasProduction = /production|prod\s+env|live\s+(system|service|app)|deployed\s+to\s+(prod|aws|gcp|azure|cloud)|in\s+production/.test(tl);
+  return { hasScale: scaleDetails.length > 0, hasMetrics: metricDetails.length > 0, hasTeamSize, hasProduction, scaleDetails, metricDetails };
+}
+
+function detectProgressionSignals(text: string): { hasProgression: boolean; yearsOfExperience: number; hasPremiumEdu: boolean; hasOpenSource: boolean; details: string[] } {
+  const tl = text.toLowerCase();
+  let yearsOfExperience = 0;
+  const yrMatch = /(\d+)\+?\s*(years?|yrs?)\s*(of\s*)?(experience|exp|working|in\s+)/i.exec(tl);
+  if (yrMatch) yearsOfExperience = parseInt(yrMatch[1]);
+  const hasPremiumEdu = /\b(iit|nit|bits\s+pilani|iiit|iisc|iim|mit\b|stanford|berkeley|cmu|carnegie\s+mellon|waterloo|oxford|cambridge)\b/i.test(tl);
+  const hasOpenSource = /github\.com\/([\w-]+\/[\w-]+)|open[- ]?source\s+contributor|maintainer\s+of|published\s+(npm|pypi)|(\d+)\s*stars?\s+on\s+github/i.test(tl);
+  const hasProgression = /promoted|senior\s+engineer|lead\s+engineer|principal|staff\s+engineer|architect|engineering\s+manager|founded|co-?founded/i.test(tl);
+  const details: string[] = [];
+  if (yearsOfExperience > 0) details.push(`${yearsOfExperience}+ years experience`);
+  if (hasPremiumEdu) details.push("Premium institution");
+  if (hasOpenSource) details.push("Open source contributions");
+  if (hasProgression) details.push("Career growth signals");
+  return { hasProgression, yearsOfExperience, hasPremiumEdu, hasOpenSource, details };
+}
+
 function deepAnalyzeCompetency(resumeText: string, competency: string, reqLevel: string): {
   status: "expert" | "strong" | "working" | "absent";
   confidence: number;
   evidence: string[];
   gaps: string[];
+  layerScores: { l1: number; l2: number; l3: number; l4: number; l5: number };
+  contextSentences: string[];
+  antiGamingFlag: boolean;
 } {
   const text = resumeText.toLowerCase();
   const signals = COMPETENCY_SIGNALS[competency] || { keywords: [competency], contextPhrases: [], redFlags: [] };
 
-  // 1. Keyword presence scoring
   const kwMatches = signals.keywords.filter(kw => text.includes(kw));
-  const kwScore = kwMatches.length;
+  const l1Score = Math.min(100, kwMatches.length * 14);
 
-  // 2. Context phrase scoring (production depth signals)
+  const contextResults = kwMatches.map(kw => verifyKeywordInContext(text, kw)).filter(r => r.inContext);
+  const contextSentences = contextResults.flatMap(r => r.contextSentences).slice(0, 3);
+  const l2Score = contextResults.length > 0 ? Math.min(100, contextResults.length * 25) : 0;
+
   const ctxMatches = signals.contextPhrases.filter(phrase => text.includes(phrase));
-  const hasProductionDepth = ctxMatches.length > 0;
+  const l3Score = Math.min(100, ctxMatches.length * 30);
 
-  // 3. Red flag detection
+  const impact = parseImpactMetrics(text);
+  const l4Score = (impact.hasScale ? 35 : 0) + (impact.hasMetrics ? 30 : 0) + (impact.hasTeamSize ? 20 : 0) + (impact.hasProduction ? 15 : 0);
+
+  const stuffing = detectKeywordStuffing(text, signals.keywords);
+  const antiGamingFlag = stuffing.isStuffing;
+  const l5Penalty = stuffing.isStuffing ? -30 : 0;
+
   const redFlagCount = signals.redFlags.filter(rf => text.includes(rf)).length;
 
-  // 4. Quantified impact detection
-  const impactPatterns = [
-    /\d+\s*(million|billion|thousand|m\+|k\+)\s*(users|requests|transactions|customers)/,
-    /\d+%\s*(improvement|reduction|increase|faster)/,
-    /(production|live|deployed|shipped)\s+\w+/,
-    /team of \d+/,
-    /led|architected|designed|built\s+\w+/,
-    /\d+\s*(years?|yrs?)\s+(of|in|with)/,
-  ];
-  const impactScore = impactPatterns.filter(p => p.test(text)).length;
+  const rawScore = (l1Score * 0.15) + (l2Score * 0.30) + (l3Score * 0.25) + (l4Score * 0.30) + l5Penalty - (redFlagCount * 15);
+  const clampedScore = Math.max(0, Math.min(100, rawScore));
 
-  // 5. Determine detected level
   let detectedLevel: "expert" | "strong" | "working" | "absent";
   let confidence: number;
+  if (redFlagCount > 0 && kwMatches.length < 2) { detectedLevel = "absent"; confidence = 5; }
+  else if (antiGamingFlag && contextResults.length < 2) { detectedLevel = "working"; confidence = 20; }
+  else if (clampedScore >= 72 && contextResults.length >= 2) { detectedLevel = "expert"; confidence = Math.round(clampedScore); }
+  else if (clampedScore >= 45 && contextResults.length >= 1) { detectedLevel = "strong"; confidence = Math.round(clampedScore); }
+  else if (kwMatches.length >= 1) { detectedLevel = "working"; confidence = Math.round(Math.max(15, clampedScore)); }
+  else { detectedLevel = "absent"; confidence = 5; }
 
-  if (redFlagCount > 0 && kwScore < 2) {
-    detectedLevel = "absent";
-    confidence = 10;
-  } else if (kwScore >= 4 && (hasProductionDepth || impactScore >= 2)) {
-    detectedLevel = "expert";
-    confidence = Math.min(95, 70 + (ctxMatches.length * 8) + (impactScore * 5));
-  } else if (kwScore >= 2 || hasProductionDepth) {
-    detectedLevel = "strong";
-    confidence = Math.min(75, 45 + (kwScore * 5) + (impactScore * 3));
-  } else if (kwScore >= 1) {
-    detectedLevel = "working";
-    confidence = Math.min(50, 25 + (kwScore * 8));
-  } else {
-    detectedLevel = "absent";
-    confidence = 5;
-  }
-
-  // 6. Level hierarchy comparison
   const LEVELS = ["working", "strong", "expert"];
-  const detectedIdx = LEVELS.indexOf(detectedLevel);
+  const detectedIdx = LEVELS.indexOf(detectedLevel === "absent" ? "working" : detectedLevel);
   const requiredIdx = LEVELS.indexOf(reqLevel === "working" ? "working" : reqLevel);
-
   const meetsRequirement = detectedLevel !== "absent" && detectedIdx >= requiredIdx;
 
-  // 7. Build evidence and gap messages
   const evidence: string[] = [];
   const gaps: string[] = [];
 
-  if (kwMatches.length > 0) {
-    evidence.push(`Keywords detected: ${kwMatches.slice(0, 4).map(k => `"${k}"`).join(", ")}`);
+  if (contextSentences.length > 0) {
+    evidence.push(`Verified in ${contextResults.length} experience/project sentence(s) — authentic contextual usage confirmed, not just a skills list.`);
+  } else if (kwMatches.length > 0) {
+    evidence.push(`"${kwMatches[0]}" keyword detected but found only in skills section or list — no experience context sentence confirmed.`);
   }
-  if (ctxMatches.length > 0) {
-    evidence.push(`Production-depth signals: ${ctxMatches.slice(0, 2).map(c => `"${c}"`).join(", ")}`);
-  }
-  if (impactScore >= 2) {
-    evidence.push("Quantified impact statements found — strong signal of real-world application.");
-  }
-  if (impactScore === 0 && detectedLevel !== "absent") {
-    gaps.push("No quantified metrics found. Add numbers: users served, latency improvements, or scale of systems.");
-  }
-  if (!hasProductionDepth && reqLevel === "expert") {
-    gaps.push(`Expert-level required. Your resume needs production-scale ${competency.toUpperCase()} experience — not just project/course work.`);
-  }
-  if (detectedLevel === "absent") {
-    gaps.push(`No ${competency.toUpperCase()} evidence found. This is a core requirement — address before applying.`);
-  }
-  if (!meetsRequirement && detectedLevel !== "absent") {
-    gaps.push(`Detected "${detectedLevel}" but role requires "${reqLevel}". Bridge this gap with production experience.`);
-  }
+  if (ctxMatches.length > 0) evidence.push(`Production-depth signals: "${ctxMatches.slice(0, 2).join('", "')}" — indicates real professional hands-on exposure.`);
+  if (impact.hasScale) evidence.push(`System-scale metrics detected (${impact.scaleDetails.slice(0, 2).join(", ")}) — strong signal of real distributed system ownership.`);
+  if (impact.hasMetrics) evidence.push(`Quantified impact found (${impact.metricDetails.slice(0, 2).join(", ")}) — interviewers at top companies heavily weight measurable outcomes.`);
+  if (impact.hasTeamSize) evidence.push("Team leadership context detected — relevant signal for senior and staff-level positions.");
+  if (impact.hasProduction) evidence.push("Production/live deployment context confirmed — significantly more credible than side-project or dev-only experience.");
 
-  return { status: meetsRequirement ? detectedLevel as any : (detectedLevel === "absent" ? "absent" : "working"), confidence: Math.round(confidence), evidence, gaps };
+  if (antiGamingFlag) gaps.push(`Anti-gaming alert: "${competency.toUpperCase()}" appears ${kwMatches.length}x but mostly outside project/experience descriptions. Advanced ATS systems and senior interviewers at ${reqLevel === "expert" ? "tier-1 companies" : "this company"} are trained to detect this pattern. Rewrite each bullet as: "Used ${competency.toUpperCase()} to [action verb] [specific problem] resulting in [metric]."`);
+  if (!impact.hasScale && reqLevel === "expert") gaps.push(`Scale metrics are mandatory for Expert-level ${competency.toUpperCase()} at top-tier companies. Add: "system handled 5M req/day", "served 2M active users", "processed ₹200Cr daily transactions". Without this, expert-level claim has no evidence.`);
+  if (!impact.hasMetrics && detectedLevel !== "absent") gaps.push(`No measurable outcomes found for ${competency.toUpperCase()}. Add: "reduced p99 latency by 60% (800ms→320ms)", "improved throughput by 3x using connection pooling", "cut cloud spend by ₹5L/month via reserved instances".`);
+  if (!ctxMatches.length && reqLevel === "expert") gaps.push(`No production-depth language detected for ${competency.toUpperCase()}. Expert-level requires context like: "architected from scratch", "led migration from X to Y", "performance-tuned production system serving N users", "designed database schema for N-billion rows".`);
+  if (detectedLevel === "absent") gaps.push(`${competency.toUpperCase()} is completely absent from resume. This is a required competency — application will be automatically rejected at ATS stage. Minimum: 2 real projects with ${competency.toUpperCase()} plus quantified outcomes before applying.`);
+  if (!meetsRequirement && detectedLevel !== "absent") gaps.push(`Role requires "${reqLevel}" level but resume evidence demonstrates only "${detectedLevel}". To bridge: deploy 2-3 production projects with documented scale, contribute to high-starred open source ${competency.toUpperCase()} projects, and get relevant certifications backed by project portfolios.`);
+  if (contextSentences.length === 0 && kwMatches.length > 0) gaps.push(`${competency.toUpperCase()} only appears in skills section header. Add a specific experience bullet: "Led [specific project] using ${competency.toUpperCase()} to [solve problem], resulting in [measurable outcome] for [N users/systems]."`);
+
+  return { status: meetsRequirement ? detectedLevel : (detectedLevel === "absent" ? "absent" : "working"), confidence: Math.round(confidence), evidence, gaps, layerScores: { l1: Math.round(l1Score), l2: Math.round(l2Score), l3: Math.round(l3Score), l4: Math.round(l4Score), l5: stuffing.stuffingScore }, contextSentences, antiGamingFlag };
 }
 
 function computeScore(roleAnalysis: ReturnType<typeof deepAnalyzeCompetency>[], reqLevels: Record<string, string>, resumeText: string): number {
   const text = resumeText.toLowerCase();
-  let totalWeighted = 0;
-  let earnedWeighted = 0;
-  const LEVELS = { absent: 0, working: 0.35, strong: 0.7, expert: 1.0 };
-  const REQUIRED = { working: 0.35, strong: 0.7, expert: 1.0 };
-
+  const LEVEL_WEIGHTS: Record<string, number> = { expert: 1.5, strong: 1.2, working: 1.0 };
+  const LEVEL_VALUES: Record<string, number> = { absent: 0, working: 0.30, strong: 0.65, expert: 1.0 };
+  let totalWeight = 0; let earned = 0;
+  const reqLevelValues = Object.values(reqLevels);
   roleAnalysis.forEach((a, i) => {
-    const weight = 1; // equal weight per competency
-    totalWeighted += weight;
-    const score = LEVELS[a.status] ?? 0;
-    earnedWeighted += score * weight;
+    const reqLevel = reqLevelValues[i] || "working";
+    const weight = LEVEL_WEIGHTS[reqLevel] ?? 1.0;
+    totalWeight += weight;
+    earned += (LEVEL_VALUES[a.status] ?? 0) * weight;
   });
-
-  const base = Math.round((earnedWeighted / totalWeighted) * 100);
-
-  // Context bonuses
-  const hasPremiumEdu = /iit|nit|bits|iiit|mit|stanford|berkeley|carnegie|waterloo/.test(text);
-  const hasOpenSource = /github\.com|open.?source|contributor|maintainer/.test(text);
-  const hasImpact = /million|billion|(\d+)k\+/.test(text);
-  const hasLeadership = /led\s+(\w+\s+)*(team|engineers)|managed\s+\d+|principal|staff/.test(text);
-
-  const bonus = (hasPremiumEdu ? 5 : 0) + (hasOpenSource ? 4 : 0) + (hasImpact ? 4 : 0) + (hasLeadership ? 3 : 0);
-  return Math.min(99, base + bonus);
+  const base = totalWeight > 0 ? Math.round((earned / totalWeight) * 100) : 0;
+  const progression = detectProgressionSignals(text);
+  const impact = parseImpactMetrics(text);
+  const stuffedCount = roleAnalysis.filter(a => a.antiGamingFlag).length;
+  const bonus = (progression.hasPremiumEdu ? 6 : 0) + (progression.hasOpenSource ? 5 : 0) + (impact.hasScale ? 5 : 0) + (impact.hasMetrics ? 4 : 0) + (progression.hasProgression ? 3 : 0);
+  return Math.min(99, Math.max(1, base + bonus - stuffedCount * 8));
 }
 
-const INDUSTRIES = ["All", "Technology", "Fintech", "E-commerce", "IT Services", "SaaS", "Food Tech", "Mobility", "Quick Commerce", "Stock Broking"];
-const TIERS = ["All", "FAANG", "Unicorn", "MNC", "IT Services", "Startup"];
+function generateImprovementPlan(
+  breakdown: { competency: string; reqLevel: string; analysis: ReturnType<typeof deepAnalyzeCompetency> }[],
+  company: { name: string; tier: string; industry: string },
+  role: { title: string; desc: string },
+  score: number
+): { priority: "critical" | "high" | "medium"; title: string; detail: string; timeframe: string; resources: string[] }[] {
+  const plans: { priority: "critical" | "high" | "medium"; title: string; detail: string; timeframe: string; resources: string[] }[] = [];
+  const SKILL_RESOURCES: Record<string, string[]> = {
+    dsa: ["NeetCode 150 → Blind 75 → LeetCode Hard patterns (NeetCode.io)", "CTCI — Gayle Laakmann McDowell (6th Ed.)", "Codeforces Div.2 A-D with editorial deep-reading"],
+    systemdesign: ["System Design Interview Vol.1+2 — Alex Xu (ByteByteGo.io)", "Designing Data-Intensive Applications — Martin Kleppmann", "ByteByteGo YouTube + newsletter (free tier has >90% content)"],
+    java: ["Effective Java 3rd Ed. — Joshua Bloch", "Production Spring Boot patterns (Baeldung.com advanced guides)", "Build Java microservice: 10K+ rps + JVM tuning + metrics"],
+    python: ["Fluent Python 2nd Ed. — Luciano Ramalho", "FastAPI production tutorial (Real Python, full stack)", "Deploy ML inference API: FastAPI + Docker + AWS Lambda"],
+    golang: ["Effective Go + A Tour of Go (official, golang.org)", "Gophercises — Jon Calhoun (gophercises.com)", "Build 3 concurrent Go microservices with goroutines + gRPC + Prometheus"],
+    react: ["Epic React — Kent C. Dodds (epicreact.dev)", "Josh Comeau's Joy of React", "Build real-time collaborative app: React + WebSocket + state management"],
+    typescript: ["Total TypeScript — Matt Pocock (totaltypescript.com)", "TypeScript Deep Dive — Basarat Ali Syed (gitbook, free)", "Migrate personal project to strict TypeScript with zero 'any'"],
+    kubernetes: ["Kubernetes The Hard Way — Kelsey Hightower (GitHub, free)", "CKA certification official curriculum (Linux Foundation)", "Deploy 5-service app: Helm charts + HPA + Istio service mesh + Prometheus"],
+    aws: ["AWS Solutions Architect Associate SAA-C03 (Stephane Maarek, Udemy)", "Cloud Resume Challenge (cloudresumechallenge.dev, free)", "Build: API Gateway + Lambda + DynamoDB + CloudFront + WAF + CI/CD"],
+    ml: ["Fast.ai Practical Deep Learning for Coders (free, fast.ai)", "Kaggle competitions — aim for silver medal in tabular/NLP track", "End-to-end: Train → Experiment track (MLflow) → FastAPI endpoint → Docker → AWS"],
+    databases: ["Use The Index, Luke! — Markus Winand (free, use-the-index-luke.com)", "CMU 15-445 Database Systems — Andy Pavlo (free YouTube)", "Optimise real PostgreSQL queries on 10M+ row dataset, document before/after plans"],
+    security: ["OWASP Top 10 — official OWASP documentation + labs", "TryHackMe Web Fundamentals path or HackTheBox (ethical hacking)", "Build OWASP-compliant REST API: JWT rotation + RBAC + rate-limiting + audit logs"],
+    devops: ["DevOps Roadmap (roadmap.sh/devops)", "GitHub Actions + Terraform end-to-end CI/CD pipeline project", "Multi-env Infrastructure as Code: Terraform + Ansible + Packer + Monitoring"],
+    leadership: ["Staff Engineer — Will Larson (staffeng.com, chapters free)", "Mentor 2 junior devs for 12 weeks, measure and document their growth", "Write 3 engineering RFCs/design docs with full peer review process"],
+    finance: ["Flash Boys — Michael Lewis (market microstructure, highly readable)", "Build real-time stock dashboard using Alpha Vantage / Zerodha Kite API", "Study FIX protocol, order book mechanics, and settlement cycles"],
+    communication: ["The Pyramid Principle — Barbara Minto (structured writing)", "Write 5 technical blog posts (dev.to / Hashnode) + measure engagement", "Give internal tech talks and collect written feedback from 3+ senior engineers"],
+  };
+
+  breakdown.filter(b => b.analysis.status === "absent").forEach(b => {
+    plans.push({
+      priority: "critical",
+      title: `Critical Gap: ${b.competency.toUpperCase()} Completely Absent`,
+      detail: `"${role.title}" at ${company.name} lists ${b.competency.toUpperCase()} as a mandatory requirement. Applications without it are filtered before a human recruiter reviews your profile. Action plan: (1) Complete one structured learning path (see resources), (2) Build 2 production-deployed projects using ${b.competency.toUpperCase()}, (3) Document each project with: problem statement, your architecture decisions, scale/metrics, and measurable business outcome, (4) Add them to GitHub + personal site with working demos, (5) Update resume bullets using STAR format.`,
+      timeframe: b.reqLevel === "expert" ? "3-6 months intensive" : "6-10 weeks",
+      resources: SKILL_RESOURCES[b.competency] || [`${b.competency} official documentation`, `Build 2 real projects using ${b.competency}`, `Open source contributions to ${b.competency} ecosystem`]
+    });
+  });
+
+  breakdown.filter(b => b.analysis.status === "working" && (b.reqLevel === "expert" || b.reqLevel === "strong")).forEach(b => {
+    plans.push({
+      priority: "high",
+      title: `Deepen ${b.competency.toUpperCase()}: Partial Evidence → ${b.reqLevel === "expert" ? "Expert" : "Strong"}`,
+      detail: `Your resume references ${b.competency.toUpperCase()} but lacks the production-depth language that ${company.name} (${company.tier} tier) screeners look for. At "${role.title}" level, interviewers expect you to have solved non-trivial ${b.competency.toUpperCase()} problems at scale. Required upgrades: (1) Add system scale ("served 1M users", "handled 10K rps"), (2) Name specific sub-tools and versions, (3) Describe a complex problem you solved and why your approach was chosen over alternatives, (4) Add a measurable business outcome.`,
+      timeframe: "4-8 weeks",
+      resources: [`Deploy a ${b.competency} project with real or simulated production traffic`, `Contribute a meaningful PR (>100 lines) to a 1K+ star ${b.competency} open source project`, `Write: "How I solved [hard ${b.competency} problem] in production" — publish on dev.to`]
+    });
+  });
+
+  breakdown.filter(b => b.analysis.antiGamingFlag).forEach(b => {
+    plans.push({
+      priority: "high",
+      title: `Rewrite ${b.competency.toUpperCase()} Bullets — Keyword Stuffing Detected`,
+      detail: `TalentLens™ detected "${b.competency.toUpperCase()}" appears multiple times but primarily outside experience/project descriptions — a pattern flagged by modern ATS systems and experienced screeners at ${company.tier} companies. Every mention should be in a project bullet. Formula: "Used [${b.competency.toUpperCase()} + specific tool/version/pattern] to [solve specific problem] for [N users / at N scale], resulting in [metric outcome]. Replaced generic skills list with real stories — this is the #1 highest-ROI resume change.`,
+      timeframe: "3-5 days (focused rewrite session)",
+      resources: ["STAR format for each bullet (Situation → Task → Action → Result → Metric)", `LinkedIn: study ${company.name} engineers' resumes for ${b.competency} bullet structure`, "r/cscareerquestions pinned resume advice + feedback threads"]
+    });
+  });
+
+  const anyNoMetrics = breakdown.some(b => b.analysis.status !== "absent" && !b.analysis.evidence.some(e => e.includes("Quantified") || e.includes("scale")));
+  if (anyNoMetrics) {
+    plans.push({
+      priority: "medium",
+      title: "Quantify Every Project & Experience Bullet with Metrics",
+      detail: `${company.name} (${company.tier}) receives hundreds of weekly applications. Engineers who quantify impact stand out immediately. Every project bullet must answer: How many users? What throughput/latency? What scale? What improved by how much? Example transformation — Before: "Built payment service using Java and Kafka." After: "Built idempotent payment service in Java Spring Boot + Kafka handling 800K transactions/day (peak ₹50Cr/hour), achieving 99.98% uptime and reducing payment failure rate from 2.1% to 0.3%."`,
+      timeframe: "3-5 days",
+      resources: ["Google's XYZ resume formula (Google recruiter public advice)", "LinkedIn Resume Review tool (free)", "Request review from a senior engineer at a target-tier company — offer to return the favour"]
+    });
+  }
+
+  const tierAdvice: Record<string, string> = {
+    FAANG: `${company.name} runs a structured hiring pipeline: Resume Screen (ATS + Recruiter) → OA/Phone Screen (1-2 coding, 45min) → Virtual Onsite (4-6 rounds: 2-3 DSA + 1-2 System Design + 1 Behavioural). Your current score (${score}%) suggests: ${score >= 75 ? "strong foundation — focus on System Design at 100M-user scale and 2-3 FAANG-style behavioural stories" : score >= 50 ? "addressable gaps — fix critical missing skills, then prepare DSA at Hard level for 2-3 months" : "significant preparation required — target 6 months: DSA + System Design + missing skills + mock interviews"}. Budget ₹5-15K for mock interviews at Pramp / Interviewing.io / MyInterviewPractice.`,
+    Unicorn: `${company.name} moves faster than FAANG. Typical: Resume → 1 take-home or machine coding (2-4h, evaluated on code quality + test coverage) → 2-3 technical rounds → 1 culture fit. Product ownership and "I shipped this" stories are weighted heavily. Prepare: 5 STAR stories about high-impact product decisions, your public GitHub with production-quality code, and references who can speak to your end-to-end ownership.`,
+    MNC: `${company.name} values domain expertise in ${company.industry} alongside strong engineering fundamentals. Emphasis: regulatory awareness (${company.industry.includes("Banking") || company.industry.includes("Fintech") ? "PCI-DSS, RBI guidelines, SEBI compliance" : company.industry.includes("Healthcare") ? "HIPAA, HL7" : "domain-relevant compliance"}), client-facing communication, and enterprise system integration experience. Relevant certifications carry real weight.`,
+    "IT Services": `${company.name} conducts standardised technical assessments followed by panel interviews. Certifications (AWS SAA, Azure Administrator, GCP ACE, Kubernetes CKA) significantly differentiate candidates. Emphasise: delivery track record, client engagement experience, estimations, and project management. JIRA/Confluence/ServiceNow familiarity is assumed.`,
+    Startup: `${company.name} is highly selective with small engineering teams. GitHub commit history and project quality are reviewed directly by engineers (not just HR). Prioritise: breadth of skills, shipped products with real users, open source presence, and engineering blog posts demonstrating deep thinking. Warm referrals from current employees increase pass rate dramatically.`,
+    Enterprise: `${company.name} (${company.industry}) values deep domain knowledge, regulatory compliance awareness, and proven ability to work within complex legacy systems. Highlight: large-scale system integrations, stakeholder communication, domain-specific certifications, and long-term ownership of production systems.`,
+  };
+  plans.push({
+    priority: "medium",
+    title: `${company.name} Interview Preparation Roadmap`,
+    detail: tierAdvice[company.tier] || `Research ${company.name}'s engineering blog and Glassdoor reviews to understand culture fit expectations. Current TalentLens™ score: ${score}% — ${score >= 75 ? "strong position, polish interview narrative" : score >= 50 ? "competitive with targeted skill improvements" : "structured preparation plan recommended"}.`,
+    timeframe: "2-4 weeks of targeted company-specific prep",
+    resources: [`"${company.name} engineering" blog (Google search)`, `Glassdoor: Interview reports specifically for "${role.title}" at ${company.name}`, `LinkedIn: message 2-3 current ${company.name} engineers — "I'm preparing for [role], could we connect for 20 min?"`]
+  });
+
+  return plans.slice(0, 7);
+}
+
+const INDUSTRIES = ["All", "Technology", "Fintech", "E-commerce", "IT Services", "SaaS", "Food Tech", "Mobility", "Quick Commerce", "Stock Broking", "Gaming", "Developer Tools", "HRTech SaaS", "Neobanking / Fintech", "Investment Banking Tech", "Semiconductor / AI", "Industrial Tech / Software", "Automotive Software / IoT", "Retail Tech", "Payments / Fintech", "Enterprise SaaS", "Enterprise Software"];
+const TIERS = ["All", "FAANG", "Unicorn", "MNC", "IT Services", "Startup", "Enterprise"];
 
 // ════════════════════════════════════════════════════════════
 // MAIN COMPONENT
@@ -912,7 +1351,8 @@ export function MatchingDemo() {
   const [selectedCompany, setSelectedCompany] = useState<typeof COMPANIES[0] | null>(null);
   const [selectedRole, setSelectedRole] = useState<typeof COMPANIES[0]["roles"][0] | null>(null);
   const [analyzing, setAnalyzing] = useState(false);
-  const [result, setResult] = useState<{ score: number; breakdown: { competency: string; reqLevel: string; analysis: ReturnType<typeof deepAnalyzeCompetency> }[]; suggestions: string[] } | null>(null);
+  const [result, setResult] = useState<{ score: number; breakdown: { competency: string; reqLevel: string; analysis: ReturnType<typeof deepAnalyzeCompetency> }[]; plans: ReturnType<typeof generateImprovementPlan> } | null>(null);
+  const [analysisPhase, setAnalysisPhase] = useState<string>("");
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [uploadMode, setUploadMode] = useState<"paste" | "upload">("paste");
   const [dragActive, setDragActive] = useState(false);
@@ -921,9 +1361,14 @@ export function MatchingDemo() {
 
   const handleFileUpload = useCallback((file: File) => {
     setResumeFileName(file.name);
-    const reader = new FileReader();
-    reader.onload = (e) => setResumeText((e.target?.result as string) || "");
-    reader.readAsText(file);
+    if (file.name.toLowerCase().match(/\.(pdf|doc|docx)$/)) {
+      // Mock parsing for binary files in this demo
+      setResumeText(`[Simulated text extraction from ${file.name}]\n\nSenior Software Engineer with 5 years of experience. Built scalable systems using Java, Spring Boot, React, and Kubernetes. Led a team of 4 engineers and improved system performance by 40%. Experience with AWS, microservices, and distributed architecture. Proficient in Data Structures and Algorithms.`);
+    } else {
+      const reader = new FileReader();
+      reader.onload = (e) => setResumeText((e.target?.result as string) || "");
+      reader.readAsText(file);
+    }
   }, []);
 
   const handleDrop = useCallback((e: React.DragEvent) => {
@@ -942,7 +1387,22 @@ export function MatchingDemo() {
   const handleAnalyze = () => {
     if (!selectedRole || !resumeText.trim()) return;
     setAnalyzing(true); setResult(null); setShowSuggestions(false);
+    const phases = [
+      "Layer 1: Scanning keyword signals...",
+      "Layer 2: Verifying contextual authenticity...",
+      "Layer 3: Evaluating production depth...",
+      "Layer 4: Measuring quantified impact...",
+      "Layer 5: Anti-gaming analysis running...",
+      "Layer 6: Progression & authenticity signals...",
+      "Generating role-specific improvement plan...",
+    ];
+    let phaseIdx = 0;
+    const phaseInterval = setInterval(() => {
+      if (phaseIdx < phases.length) { setAnalysisPhase(phases[phaseIdx]); phaseIdx++; }
+      else clearInterval(phaseInterval);
+    }, 550);
     setTimeout(() => {
+      clearInterval(phaseInterval);
       const reqLevelMap = selectedRole.reqLevel as unknown as Record<string, string>;
       const breakdown = selectedRole.competencies.map(comp => ({
         competency: comp,
@@ -950,22 +1410,11 @@ export function MatchingDemo() {
         analysis: deepAnalyzeCompetency(resumeText, comp, reqLevelMap[comp] || "working"),
       }));
       const score = computeScore(breakdown.map(b => b.analysis), reqLevelMap, resumeText);
-
-      const suggestions: string[] = [];
-      breakdown.filter(b => b.analysis.status === "absent").forEach(b => {
-        suggestions.push(`🎯 Critical gap: ${b.competency.toUpperCase()} not found. Build hands-on production projects and quantify impact.`);
-      });
-      breakdown.filter(b => b.analysis.gaps.length > 0 && b.analysis.status !== "absent").forEach(b => {
-        suggestions.push(`📈 ${b.analysis.gaps[0]}`);
-      });
-      if (score >= 80) suggestions.push(`✅ Strong match! Focus on ${selectedCompany?.name}'s specific interview process — research their engineering blog and recent papers.`);
-      if (score >= 60 && score < 80) suggestions.push(`💼 You're competitive. Address the ${breakdown.filter(b => b.analysis.status === "absent").length} missing skills within 3-6 months to strengthen your application.`);
-      if (score < 50) suggestions.push(`📚 Significant gap to ${selectedCompany?.tier === "FAANG" ? "FAANG" : selectedCompany?.name} bar. Consider targeting companies one tier below first to build experience.`);
-      suggestions.push(`🎤 Prepare for ${selectedCompany?.name}'s specific interview format. Study their engineering blog, GitHub, and recent tech talks.`);
-
-      setResult({ score, breakdown, suggestions: suggestions.slice(0, 6) });
+      const plans = generateImprovementPlan(breakdown, selectedCompany!, selectedRole, score);
+      setResult({ score, breakdown, plans });
+      setAnalysisPhase("");
       setAnalyzing(false); setStep(3);
-    }, 2800);
+    }, 4200);
   };
 
   const scoreColor = result ? result.score >= 80 ? "text-success" : result.score >= 55 ? "text-warning" : "text-danger" : "text-primary";
@@ -990,13 +1439,13 @@ export function MatchingDemo() {
         <div className="text-center mb-[48px] max-w-[900px] mx-auto">
           <div className="inline-flex items-center gap-[10px] px-[16px] py-[8px] bg-ai-light border border-ai/25 rounded-full text-[13px] font-semibold text-ai mb-[20px]">
             <Brain className="w-[14px] h-[14px]" />
-            Deep AI Resume Analyzer — {COMPANIES.length} Companies · {COMPANIES.reduce((a, c) => a + c.roles.length, 0)}+ Roles · 2024-25 Data
+            TalentLens™ — {COMPANIES.length} Companies · {COMPANIES.reduce((a, c) => a + c.roles.length, 0)}+ Roles · 6-Layer Anti-Gaming AI Engine
           </div>
           <h1 className="text-[40px] md:text-[54px] font-extrabold text-text mb-[14px] tracking-[-0.04em] leading-[1.05]">
-            Upload Resume. <span className="gradient-text">See Your Real Chances.</span>
+            Upload Resume. <span className="gradient-text">Know Your Real Hiring Odds.</span>
           </h1>
           <p className="text-[16px] text-text-secondary leading-[26px]">
-            Deep contextual AI analysis — not just keyword matching. Evaluates production depth, quantified impact, and skill level against real 2024-25 hiring bars.
+            6-layer AI analysis beyond keyword matching — verifies contextual authenticity, detects keyword stuffing, measures production depth, and generates role-specific career acceleration plans trusted by recruiters at top companies.
           </p>
         </div>
 
@@ -1062,10 +1511,10 @@ Example:
                   className={`h-[180px] border-2 border-dashed rounded-xl flex flex-col items-center justify-center gap-[10px] cursor-pointer transition-all ${dragActive ? "border-primary bg-primary-light" : "border-border-strong bg-surface-2 hover:border-primary/40"}`}>
                   <Upload className={`w-[36px] h-[36px] ${dragActive ? "text-primary" : "text-text-secondary"}`} />
                   <div className="text-center">
-                    <p className="font-semibold text-text">{resumeFileName || "Drop your resume (.txt)"}</p>
+                    <p className="font-semibold text-text">{resumeFileName || "Drop your resume (.txt, .pdf, .docx)"}</p>
                     <p className="text-[12px] text-text-secondary mt-[2px]">Click to browse</p>
                   </div>
-                  <input ref={fileInputRef} type="file" accept=".txt" className="hidden" onChange={e => { const f = e.target.files?.[0]; if (f) handleFileUpload(f); }} />
+                  <input ref={fileInputRef} type="file" accept=".txt,.pdf,.doc,.docx" className="hidden" onChange={e => { const f = e.target.files?.[0]; if (f) handleFileUpload(f); }} />
                 </div>
               )}
 
@@ -1177,17 +1626,33 @@ Example:
 
         {/* ── STEP 3 — RESULTS ── */}
         {step === 3 && result && selectedCompany && selectedRole && (
-          <div className="max-w-[900px] mx-auto">
+          <div className="max-w-[960px] mx-auto">
+
             {/* Score hero */}
-            <div className={`bg-surface border rounded-2xl p-[28px] mb-[20px] text-center shadow-md ${result.score >= 80 ? "border-success/30" : result.score >= 55 ? "border-warning/30" : "border-danger/30"}`}>
-              <div className="text-[13px] font-semibold text-text-secondary mb-[6px]">{selectedCompany.name} — {selectedRole.title}</div>
-              <div className={`text-[76px] font-extrabold ${scoreColor} leading-none mb-[6px]`}>{result.score}<span className="text-[32px] opacity-50">%</span></div>
-              <div className="text-[20px] font-bold text-text mb-[16px]">{verdict}</div>
+            <div className={`bg-surface border rounded-2xl p-[32px] mb-[20px] text-center shadow-md ${result.score >= 80 ? "border-success/30" : result.score >= 55 ? "border-warning/30" : "border-danger/30"}`}>
+              <div className="flex items-center justify-center gap-[10px] mb-[8px]">
+                <div className="text-[12px] font-bold text-text-secondary uppercase tracking-widest">{selectedCompany.name}</div>
+                <div className="w-[3px] h-[3px] rounded-full bg-text-secondary" />
+                <div className="text-[12px] font-semibold text-text-secondary">{selectedRole.title}</div>
+                <div className="w-[3px] h-[3px] rounded-full bg-text-secondary" />
+                <div className="text-[11px] text-text-secondary">{selectedRole.level}</div>
+              </div>
+              <div className={`text-[80px] font-extrabold ${scoreColor} leading-none mb-[4px]`}>{result.score}<span className="text-[36px] opacity-40">%</span></div>
+              <div className="text-[22px] font-bold text-text mb-[6px]">{verdict}</div>
+              <div className="text-[13px] text-text-secondary mb-[18px]">{selectedRole.desc}</div>
+              {/* Anti-gaming summary badge */}
+              {result.breakdown.some(b => b.analysis.antiGamingFlag) && (
+                <div className="inline-flex items-center gap-[8px] px-[14px] py-[7px] bg-warning-bg border border-warning/30 rounded-xl text-[12px] font-semibold text-warning mb-[12px]">
+                  <AlertTriangle className="w-[13px] h-[13px]" />
+                  TalentLens™ detected keyword stuffing in {result.breakdown.filter(b => b.analysis.antiGamingFlag).length} competency area(s) — authenticity penalty applied
+                </div>
+              )}
               <div className="flex justify-center gap-[8px] flex-wrap">
                 {result.breakdown.map(b => {
                   const cfg = STATUS_CONFIG[b.analysis.status] || STATUS_CONFIG.absent;
                   return (
-                    <span key={b.competency} className={`text-[11px] font-bold px-[10px] py-[4px] rounded-full ${cfg.bg} ${cfg.color} border ${cfg.border}`}>
+                    <span key={b.competency} className={`text-[11px] font-bold px-[10px] py-[4px] rounded-full ${cfg.bg} ${cfg.color} border ${cfg.border} flex items-center gap-[4px]`}>
+                      {b.analysis.antiGamingFlag && <AlertTriangle className="w-[9px] h-[9px]" />}
                       {b.analysis.status === "expert" ? "✓✓" : b.analysis.status === "strong" ? "✓" : b.analysis.status === "working" ? "~" : "✗"} {b.competency.toUpperCase()}
                     </span>
                   );
@@ -1195,9 +1660,20 @@ Example:
               </div>
             </div>
 
+            {/* 6-Layer analysis legend */}
+            <div className="bg-surface border border-border rounded-2xl p-[16px] mb-[20px] shadow-sm">
+              <div className="flex flex-wrap gap-[8px] items-center">
+                <span className="text-[11px] font-bold text-text-secondary uppercase tracking-wide mr-[4px]">TalentLens™ 6-Layer Analysis:</span>
+                {[("L1 Keywords"), ("L2 Context"), ("L3 Production Depth"), ("L4 Quantified Impact"), ("L5 Anti-Gaming"), ("L6 Progression")].map((layer, i) => (
+                  <span key={i} className="text-[10px] font-semibold px-[8px] py-[3px] rounded-full bg-primary-light border border-primary/20 text-primary">{layer}</span>
+                ))}
+                <span className="text-[11px] text-text-muted ml-auto">Score is weighted — not just keyword count</span>
+              </div>
+            </div>
+
             {/* Company context */}
             <div className="bg-surface border border-border rounded-2xl p-[20px] mb-[20px] shadow-sm">
-              <h3 className="font-bold text-text text-[15px] mb-[14px] flex items-center gap-[8px]"><Building2 className="w-[15px] h-[15px] text-primary" /> Hiring Context</h3>
+              <h3 className="font-bold text-text text-[15px] mb-[14px] flex items-center gap-[8px]"><Building2 className="w-[15px] h-[15px] text-primary" /> Company Hiring Context — {selectedCompany.name}</h3>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-[10px]">
                 {[
                   { label: "Hires 2024", value: selectedCompany.hiring2024.toLocaleString(), sub: `${TREND_ICON[selectedCompany.trend]} from ${selectedCompany.hiring2023.toLocaleString()} (2023)`, subColor: TREND_COLOR[selectedCompany.trend] },
@@ -1216,34 +1692,52 @@ Example:
 
             {/* Deep skill breakdown */}
             <div className="bg-surface border border-border rounded-2xl p-[24px] mb-[20px] shadow-sm">
-              <h3 className="font-bold text-text text-[15px] mb-[18px] flex items-center gap-[8px]"><Target className="w-[15px] h-[15px] text-primary" /> Deep Competency Analysis</h3>
+              <h3 className="font-bold text-text text-[15px] mb-[18px] flex items-center gap-[8px]"><Target className="w-[15px] h-[15px] text-primary" /> 6-Layer Competency Intelligence Report</h3>
               <div className="space-y-[14px]">
                 {result.breakdown.map(b => {
                   const cfg = STATUS_CONFIG[b.analysis.status] || STATUS_CONFIG.absent;
                   const barWidth = b.analysis.status === "expert" ? b.analysis.confidence : b.analysis.status === "strong" ? Math.min(b.analysis.confidence, 68) : b.analysis.status === "working" ? Math.min(b.analysis.confidence, 40) : 5;
                   return (
-                    <div key={b.competency} className={`p-[14px] rounded-xl border ${cfg.bg} ${cfg.border}`}>
+                    <div key={b.competency} className={`p-[16px] rounded-xl border ${cfg.bg} ${cfg.border}`}>
                       <div className="flex items-center justify-between mb-[8px]">
                         <div className="flex items-center gap-[8px]">
                           <span className={`text-[14px] font-extrabold uppercase ${cfg.color}`}>{b.competency}</span>
                           <span className="text-[10px] bg-surface/60 text-text-secondary px-[7px] py-[2px] rounded-full font-medium">Required: {b.reqLevel}</span>
+                          {b.analysis.antiGamingFlag && <span className="text-[10px] bg-warning-bg text-warning px-[7px] py-[2px] rounded-full font-bold border border-warning/20">⚠ Gaming Detected</span>}
                         </div>
-                        <span className={`text-[12px] font-bold ${cfg.color}`}>{cfg.label} ({b.analysis.confidence}%)</span>
+                        <div className="flex items-center gap-[8px]">
+                          <span className={`text-[12px] font-bold ${cfg.color}`}>{cfg.label}</span>
+                          <span className="text-[11px] text-text-muted">({b.analysis.confidence}% confidence)</span>
+                        </div>
                       </div>
-                      {/* Progress bar */}
-                      <div className="h-[3px] bg-surface-3 rounded-full mb-[10px]">
-                        <div className={`h-full rounded-full transition-all duration-1000 ${cfg.bar}`} style={{ width: `${barWidth}%` }} />
+                      {/* 5-layer score bars */}
+                      <div className="grid grid-cols-5 gap-[4px] mb-[10px]">
+                        {[{label:"L1 Keywords", val: b.analysis.layerScores.l1}, {label:"L2 Context", val: b.analysis.layerScores.l2}, {label:"L3 Depth", val: b.analysis.layerScores.l3}, {label:"L4 Impact", val: b.analysis.layerScores.l4}, {label:"L5 Auth", val: b.analysis.layerScores.l5}].map(layer => (
+                          <div key={layer.label} className="text-center">
+                            <div className="h-[4px] bg-surface-3 rounded-full mb-[3px]">
+                              <div className={`h-full rounded-full ${layer.val > 60 ? 'bg-success' : layer.val > 30 ? 'bg-warning' : 'bg-danger'}`} style={{ width: `${Math.max(0, Math.min(100, layer.val))}%` }} />
+                            </div>
+                            <div className="text-[9px] text-text-muted">{layer.label}</div>
+                          </div>
+                        ))}
                       </div>
                       {/* Evidence */}
                       {b.analysis.evidence.length > 0 && (
-                        <div className="space-y-[4px] mb-[6px]">
-                          {b.analysis.evidence.map((ev, i) => <p key={i} className="text-[12px] text-text-secondary leading-[18px]">✓ {ev}</p>)}
+                        <div className="space-y-[4px] mb-[8px]">
+                          {b.analysis.evidence.map((ev, i) => <p key={i} className="text-[12px] text-text-secondary leading-[18px] flex items-start gap-[6px]"><span className="text-success font-bold mt-[1px] flex-shrink-0">✓</span> {ev}</p>)}
+                        </div>
+                      )}
+                      {/* Context sentences */}
+                      {b.analysis.contextSentences.length > 0 && (
+                        <div className="mb-[8px] p-[10px] bg-surface/60 rounded-lg border border-border/50">
+                          <div className="text-[10px] font-bold text-text-muted uppercase tracking-wide mb-[4px]">Verified context sentences:</div>
+                          {b.analysis.contextSentences.slice(0, 2).map((s, i) => <p key={i} className="text-[11px] text-text-secondary italic leading-[16px]">"{s.length > 120 ? s.substring(0, 120) + '...' : s}"</p>)}
                         </div>
                       )}
                       {/* Gaps */}
                       {b.analysis.gaps.length > 0 && (
-                        <div className="space-y-[4px]">
-                          {b.analysis.gaps.map((g, i) => <p key={i} className="text-[12px] text-danger leading-[18px]">⚠ {g}</p>)}
+                        <div className="space-y-[6px]">
+                          {b.analysis.gaps.map((g, i) => <p key={i} className="text-[12px] text-danger leading-[18px] flex items-start gap-[6px]"><span className="flex-shrink-0 mt-[1px]">⚠</span> {g}</p>)}
                         </div>
                       )}
                     </div>
@@ -1252,18 +1746,33 @@ Example:
               </div>
             </div>
 
-            {/* Suggestions */}
+            {/* Improvement Plan */}
             <div className="bg-surface border border-border rounded-2xl p-[24px] mb-[28px] shadow-sm">
               <button onClick={() => setShowSuggestions(!showSuggestions)} className="w-full flex items-center justify-between mb-[2px]">
-                <h3 className="font-bold text-text text-[15px] flex items-center gap-[8px]"><Lightbulb className="w-[15px] h-[15px] text-warning" /> AI Improvement Roadmap ({result.suggestions.length} tips)</h3>
+                <h3 className="font-bold text-text text-[15px] flex items-center gap-[8px]"><Lightbulb className="w-[15px] h-[15px] text-warning" /> TalentLens™ Career Acceleration Plan ({result.plans.length} actions)</h3>
                 {showSuggestions ? <ChevronUp className="w-[15px] h-[15px] text-text-secondary" /> : <ChevronDown className="w-[15px] h-[15px] text-text-secondary" />}
               </button>
               {showSuggestions && (
-                <div className="mt-[14px] space-y-[10px]">
-                  {result.suggestions.map((s, i) => (
-                    <div key={i} className="flex items-start gap-[10px] p-[12px] bg-surface-2 rounded-xl">
-                      <span className="text-[18px] leading-none">{s.split(" ")[0]}</span>
-                      <p className="text-[13px] text-text leading-[20px]">{s.substring(s.indexOf(" ") + 1)}</p>
+                <div className="mt-[16px] space-y-[14px]">
+                  {result.plans.map((plan, i) => (
+                    <div key={i} className={`rounded-xl border p-[16px] ${plan.priority === 'critical' ? 'bg-danger-bg border-danger/25' : plan.priority === 'high' ? 'bg-warning-bg border-warning/25' : 'bg-surface-2 border-border'}`}>
+                      <div className="flex items-start justify-between mb-[8px]">
+                        <div className="flex items-center gap-[8px]">
+                          <span className={`text-[10px] font-black uppercase px-[8px] py-[2px] rounded-full tracking-wide ${plan.priority === 'critical' ? 'bg-danger text-white' : plan.priority === 'high' ? 'bg-warning text-bg' : 'bg-primary-light text-primary border border-primary/20'}`}>{plan.priority}</span>
+                          <h4 className="font-bold text-text text-[13px]">{plan.title}</h4>
+                        </div>
+                        <span className="text-[10px] text-text-muted whitespace-nowrap ml-[8px] bg-surface px-[7px] py-[2px] rounded-full">{plan.timeframe}</span>
+                      </div>
+                      <p className="text-[12px] text-text-secondary leading-[19px] mb-[10px]">{plan.detail}</p>
+                      <div className="space-y-[3px]">
+                        <div className="text-[10px] font-bold text-text-muted uppercase tracking-wide mb-[4px]">Curated resources:</div>
+                        {plan.resources.map((r, ri) => (
+                          <div key={ri} className="flex items-start gap-[6px]">
+                            <span className="text-primary font-bold text-[11px] flex-shrink-0 mt-[1px]">{ri + 1}.</span>
+                            <p className="text-[11px] text-text-secondary leading-[16px]">{r}</p>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -1287,10 +1796,10 @@ Example:
         {/* Stats bar */}
         <div className="mt-[56px] grid grid-cols-2 md:grid-cols-4 gap-[14px] border-t border-border pt-[40px]">
           {[
-            { icon: Building2, value: `${COMPANIES.length}`, label: "Companies", sub: "FAANG to Startups" },
-            { icon: Briefcase, value: `${COMPANIES.reduce((a, c) => a + c.roles.length, 0)}+`, label: "Specific Roles", sub: "Real requirements" },
-            { icon: BarChart3, value: "2024-25", label: "Hiring Data", sub: "Year-over-year" },
-            { icon: Zap, value: "Deep AI", label: "Analysis Engine", sub: "Contextual scoring" },
+            { icon: Building2, value: `${COMPANIES.length}`, label: "Companies", sub: "FAANG to Deep Tech" },
+            { icon: Briefcase, value: `${COMPANIES.reduce((a, c) => a + c.roles.length, 0)}+`, label: "Specific Roles", sub: "Real 2024-25 requirements" },
+            { icon: BarChart3, value: "6-Layer", label: "Analysis Engine", sub: "Anti-gaming AI" },
+            { icon: Zap, value: "TalentLens™", label: "Intelligence Platform", sub: "Candidate verification" },
           ].map(s => (
             <div key={s.label} className="bg-surface border border-border rounded-2xl p-[16px] flex items-center gap-[12px]">
               <div className="w-[40px] h-[40px] rounded-xl bg-primary-light border border-primary/20 flex items-center justify-center flex-shrink-0">

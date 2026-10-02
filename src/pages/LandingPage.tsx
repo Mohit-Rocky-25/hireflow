@@ -1,413 +1,352 @@
 // ============================================================
-// HireFlow — Premium Landing Page v4
-// "Hire with evidence, not keywords."
-// Enterprise-quality design: strong typography, evidence panels,
-// clear information hierarchy, professional charts
+// HireFlow — Landing Page (Aesthetic & Context-Driven)
 // ============================================================
 import { Link } from "react-router-dom";
 import { useStore } from "../store/useStore";
 import {
-  ArrowRight, CheckCircle2, Brain, Shield, BarChart3, Users,
-  Briefcase, Search, FileText, Target, TrendingUp, AlertTriangle,
-  ChevronRight, Zap, Building2, Award
+  Sparkles, Brain, Users, CheckCircle, ArrowRight,
+  Shield, Zap, Target, Building2, ChevronRight, Cpu, BarChart3, TrendingUp,
+  MessageSquare
 } from "lucide-react";
 import { PublicNavbar } from "../components/layout/PublicNavbar";
 
-// ── Mock Evidence Panel (illustrates the product concept) ──
-const MOCK_ANALYSIS = {
-  candidateName: "Arjun Sharma",
-  role: "Senior Backend Engineer",
-  company: "Acme Corp",
-  eligibility: "ELIGIBLE",
-  dimensions: [
-    { label: "Mandatory Skill Alignment", status: "STRONG", score: 4, total: 5 },
-    { label: "Experience Relevance", status: "STRONG", value: "6 yrs" },
-    { label: "Project Evidence", status: "MODERATE", value: "3 projects" },
-    { label: "Evidence Confidence", status: "HIGH" },
-  ],
-  requirements: [
-    {
-      name: "Java",
-      priority: "MANDATORY",
-      status: "STRONG",
-      evidence: '"Built distributed backend microservices in Java 17 with Spring Boot..."',
-      source: "experience",
-    },
-    {
-      name: "Spring Boot",
-      priority: "MANDATORY",
-      status: "STRONG",
-      evidence: '"Spring Boot microservices handling 2M requests/day at TechCorp..."',
-      source: "experience",
-    },
-    {
-      name: "Kafka",
-      priority: "MANDATORY",
-      status: "PARTIAL",
-      evidence: null,
-      relatedEvidence: "Candidate has RabbitMQ experience (closely related message broker)",
-      semanticNote: "Message-broker experience detected via semantic analysis",
-      recruiterAction: "Ask about event-driven architecture and compare Kafka vs RabbitMQ",
-    },
-    {
-      name: "Kubernetes",
-      priority: "PREFERRED",
-      status: "MISSING",
-      evidence: null,
-      missingNote: "No evidence found. This is absence of evidence — not confirmed absence of skill.",
-      recruiterAction: "Inquire during interview: 'Have you deployed to Kubernetes in production?'",
-    },
-  ],
-};
-
-// ── How It Works Steps ──
-const HOW_IT_WORKS = [
-  {
-    step: "01",
-    title: "Company creates a job",
-    desc: "AI structures mandatory vs preferred requirements, detects ambiguity, and generates a quality analysis.",
-  },
-  {
-    step: "02",
-    title: "Candidate uploads resume",
-    desc: "System extracts structured evidence — not just a list of keywords, but source, context, and confidence per skill.",
-  },
-  {
-    step: "03",
-    title: "Evidence-based matching",
-    desc: "Each requirement is assessed individually: direct evidence, related skill evidence, or clearly stated as missing.",
-  },
-  {
-    step: "04",
-    title: "Recruiter reviews intelligence",
-    desc: "Recruiters see what matches, what's uncertain, and what to investigate — with suggested interview questions.",
-  },
-];
-
-// ── Module Cards ──
-const PLATFORM_MODULES = [
+const FEATURES = [
   {
     icon: Brain,
-    label: "AI",
-    title: "Explainable Intelligence",
-    desc: "Every match decision exposes its evidence, methodology, and uncertainty. No black-box scoring.",
-    color: "bg-violet-50 text-violet-700 border-violet-200",
+    title: "Explainable AI Matching",
+    desc: "Candidates are ranked against weighted job requirements with clear, logical reasoning — never a bare percentage without context.",
+    accent: "from-violet-500/20 to-violet-500/5",
+    iconColor: "text-ai",
+    iconBg: "bg-ai-light border-ai/20",
   },
   {
-    icon: FileText,
-    label: "Resume",
-    title: "Structured Resume Parsing",
-    desc: "Extract skills with evidence sources, not just a flat list. Know where each claim comes from.",
-    color: "bg-sky-50 text-sky-700 border-sky-200",
+    icon: Shield,
+    title: "Multi-Tenant Security",
+    desc: "Row-level security ensures Company A can never access Company B's data. Authorization at the database layer, not just hidden in the UI.",
+    accent: "from-emerald-500/15 to-emerald-500/5",
+    iconColor: "text-success",
+    iconBg: "bg-success-bg border-success/20",
   },
   {
-    icon: BarChart3,
-    label: "Analytics",
-    title: "Hiring Funnel Analytics",
-    desc: "Real funnel metrics: Applications → Screened → Assessed → Interviewed → Hired. Time-to-hire per role.",
-    color: "bg-emerald-50 text-emerald-700 border-emerald-200",
-  },
-  {
-    icon: Award,
-    label: "Assessment",
-    title: "Role-Specific Assessments",
-    desc: "AI-generated questions mapped to actual job requirements and candidate skill gaps.",
-    color: "bg-amber-50 text-amber-700 border-amber-200",
+    icon: Zap,
+    title: "Structured Hiring Pipeline",
+    desc: "From job creation through screening, shortlisting, interviews, and offers — every step is tracked, auditable, and role-gated.",
+    accent: "from-primary/20 to-primary/5",
+    iconColor: "text-primary",
+    iconBg: "bg-primary-light border-primary/20",
   },
   {
     icon: Target,
-    label: "Gaps",
-    title: "Skill Gap Intelligence",
-    desc: "For each missing skill: why it matters, what evidence is missing, what to ask in the interview, and how to learn it.",
-    color: "bg-red-50 text-red-700 border-red-200",
-  },
-  {
-    icon: TrendingUp,
-    label: "Market",
-    title: "Market Intelligence",
-    desc: "Skill demand trends from real job data. Always shows source, date, and sample size.",
-    color: "bg-indigo-50 text-indigo-700 border-indigo-200",
+    title: "Five-Dimension Interviewing",
+    desc: "Interviewers evaluate candidates on standardized dimensions. BHR Managers get consolidated feedback with clear hire/no-hire recommendations.",
+    accent: "from-blue-500/15 to-blue-500/5",
+    iconColor: "text-info",
+    iconBg: "bg-info-bg border-info/20",
   },
 ];
 
-function StatusPill({ status }: { status: string }) {
-  const colors: Record<string, string> = {
-    STRONG: "bg-emerald-50 text-emerald-700 border border-emerald-200",
-    PARTIAL: "bg-amber-50 text-amber-700 border border-amber-200",
-    MISSING: "bg-red-50 text-red-700 border border-red-200",
-    UNCERTAIN: "bg-slate-50 text-slate-600 border border-slate-200",
-  };
-  return (
-    <span className={`inline-block px-[10px] py-[2px] rounded-full text-[11px] font-bold uppercase tracking-wide ${colors[status] ?? colors.UNCERTAIN}`}>
-      {status}
-    </span>
-  );
-}
+const STATS = [
+  { value: "10x", label: "Faster screening", icon: TrendingUp },
+  { value: "95%", label: "Match accuracy", icon: Cpu },
+  { value: "5", label: "Roles, one platform", icon: Users },
+  { value: "∞", label: "Audit trail depth", icon: BarChart3 },
+];
+
+const ROLES = [
+  {
+    icon: Building2,
+    title: "For Companies",
+    color: "from-primary/15 to-primary/5",
+    borderColor: "border-primary/20",
+    iconColor: "text-primary",
+    iconBg: "bg-primary-light",
+    points: [
+      "Create jobs with weighted requirements",
+      "AI-powered candidate ranking with reasoning",
+      "Structured interview pipeline",
+      "Real-time hiring analytics",
+    ],
+    cta: "Register Your Company",
+    link: "/register",
+  },
+  {
+    icon: Users,
+    title: "For Candidates",
+    color: "from-ai/15 to-ai/5",
+    borderColor: "border-ai/20",
+    iconColor: "text-ai",
+    iconBg: "bg-ai-light",
+    points: [
+      "AI-parsed resume with editable extraction",
+      "See your match score and reasoning per job",
+      "Track application status in real-time",
+      "Receive interview invitations directly",
+    ],
+    cta: "Find Your Next Role",
+    link: "/jobs",
+  },
+];
 
 export function LandingPage() {
   const { isAuthenticated, currentUser } = useStore();
 
-  const dashboardLink = () => {
+  const getDashboardLink = () => {
     if (!currentUser) return "/login";
-    const map: Record<string, string> = {
-      PLATFORM_ADMIN: "/admin/dashboard",
-      BHR_MANAGER: "/company/dashboard",
-      HR_RECRUITER: "/company/dashboard",
-      INTERVIEWER: "/interviewer/dashboard",
-      CANDIDATE: "/candidate/dashboard",
-    };
-    return map[currentUser.role] ?? "/login";
+    switch (currentUser.role) {
+      case "BHR_MANAGER": case "HR_RECRUITER": return "/company/dashboard";
+      case "INTERVIEWER": return "/interviewer/dashboard";
+      case "CANDIDATE": return "/candidate/dashboard";
+      case "PLATFORM_ADMIN": return "/admin/dashboard";
+      default: return "/login";
+    }
   };
 
   return (
-    <div className="min-h-screen bg-bg text-text">
+    <div className="min-h-screen bg-bg font-sans text-text overflow-x-hidden">
       <PublicNavbar />
 
-      {/* ── HERO ── */}
-      <section className="pt-[120px] pb-[80px] px-[32px] max-w-[1280px] mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-[64px] items-center">
-          <div>
-            {/* Label */}
-            <div className="inline-flex items-center gap-[8px] px-[12px] py-[6px] bg-primary-light border border-primary/20 rounded-full text-[13px] font-semibold text-primary mb-[32px]">
-              <Brain className="w-[14px] h-[14px]" />
-              AI-Powered Recruitment Intelligence
+      {/* Hero */}
+      <section className="relative pt-[168px] pb-[128px] hero-mesh min-h-screen flex items-center">
+        <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
+          <div className="absolute top-[20%] right-[8%] w-[380px] h-[380px] rounded-full bg-primary/8 blur-[100px] animate-float" style={{ animationDelay: "0s" }} />
+          <div className="absolute bottom-[25%] left-[5%] w-[300px] h-[300px] rounded-full bg-ai-dark/8 blur-[100px] animate-float" style={{ animationDelay: "3s" }} />
+          <div className="absolute top-[60%] right-[30%] w-[200px] h-[200px] rounded-full bg-primary/6 blur-[80px] animate-float" style={{ animationDelay: "1.5s" }} />
+        </div>
+        <div className="max-w-[1280px] mx-auto px-[32px] w-full text-center">
+          <div className="max-w-[820px] mx-auto page-enter flex flex-col items-center">
+            <div className="inline-flex items-center gap-[10px] px-[16px] py-[8px] rounded-full bg-ai-light border border-ai/25 text-[13px] font-semibold text-ai mb-[36px] shadow-glow-violet">
+              <Brain className="w-[14px] h-[14px] stroke-[2px]" />
+              The facts on work are changing now.
             </div>
-
-            <h1 className="text-[52px] font-extrabold text-text tracking-[-0.03em] leading-[1.1] mb-[24px]">
-              Hire with evidence,<br />
-              <span className="text-primary">not keywords.</span>
+            <h1 className="text-[58px] sm:text-[72px] lg:text-[84px] font-extrabold text-text leading-[1.02] tracking-[-0.04em] mb-[32px]">
+              Hire the right people,{" "}
+              <span className="gradient-text">faster.</span>
             </h1>
-
-            <p className="text-[18px] text-text-secondary leading-[1.7] mb-[40px] max-w-[520px]">
-              AI-powered talent intelligence that helps hiring teams understand candidates, 
-              identify skill gaps, automate assessment, and make faster evidence-based hiring decisions.
+            <p className="text-[20px] text-text-secondary leading-[32px] mb-[52px] max-w-[600px] mx-auto">
+              AI evaluates candidates against your job requirements and explains exactly why they match.
+              <strong className="text-text font-semibold"> The AI recommends — a human decides.</strong>
             </p>
-
-            <div className="flex flex-wrap gap-[16px]">
+            <div className="flex flex-col sm:flex-row gap-[14px] justify-center w-full">
               {isAuthenticated ? (
-                <Link to={dashboardLink()}>
-                  <button className="h-[48px] px-[28px] bg-primary text-white text-[15px] font-bold rounded-xl hover:bg-primary-hover transition-all flex items-center gap-[8px] shadow-glow-orange">
-                    Go to Dashboard <ArrowRight className="w-[18px] h-[18px]" />
+                <Link to={getDashboardLink()}>
+                  <button className="inline-flex items-center gap-[10px] h-[56px] px-[32px] text-[17px] font-bold text-white rounded-lg bg-gradient-to-r from-primary to-primary-hover shadow-glow-orange hover:scale-[1.02] active:scale-[0.99] transition-all duration-[150ms]">
+                    Go to Dashboard <ArrowRight className="w-[20px] h-[20px] stroke-[1.5px]" />
                   </button>
                 </Link>
               ) : (
                 <>
                   <Link to="/register">
-                    <button className="h-[48px] px-[28px] bg-primary text-white text-[15px] font-bold rounded-xl hover:bg-primary-hover transition-all flex items-center gap-[8px] shadow-glow-orange">
-                      Build Your Hiring Pipeline <ArrowRight className="w-[18px] h-[18px]" />
+                    <button className="inline-flex items-center gap-[10px] h-[56px] px-[32px] text-[17px] font-bold text-white rounded-lg bg-gradient-to-r from-primary to-primary-hover shadow-glow-orange hover:scale-[1.02] active:scale-[0.99] transition-all duration-[150ms]">
+                      <Sparkles className="w-[20px] h-[20px] stroke-[1.5px]" />
+                      Start Hiring Free
                     </button>
                   </Link>
-                  <Link to="/demo">
-                    <button className="h-[48px] px-[28px] border border-border text-text text-[15px] font-bold rounded-xl hover:bg-surface-2 transition-all flex items-center gap-[8px]">
-                      <Search className="w-[16px] h-[16px]" /> Analyze Your Profile
+                  <Link to="/jobs">
+                    <button className="inline-flex items-center gap-[10px] h-[56px] px-[32px] text-[16px] font-semibold text-text-secondary rounded-lg border border-border-strong hover:border-border-accent hover:text-text hover:bg-surface-2 transition-all duration-[150ms]">
+                      Browse Open Roles <ChevronRight className="w-[18px] h-[18px] stroke-[1.5px]" />
                     </button>
                   </Link>
                 </>
               )}
             </div>
-
-            <div className="flex items-center gap-[24px] mt-[40px] pt-[32px] border-t border-border">
-              {[
-                "Evidence-backed decisions",
-                "Explainable AI",
-                "No black-box scores",
-              ].map(item => (
-                <div key={item} className="flex items-center gap-[8px] text-[13px] text-text-muted font-medium">
-                  <CheckCircle2 className="w-[14px] h-[14px] text-success flex-shrink-0" />
-                  {item}
-                </div>
-              ))}
-            </div>
           </div>
+          
+          <div className="mt-[80px] grid grid-cols-2 md:grid-cols-4 gap-[1px] bg-border rounded-xl overflow-hidden shadow-md page-enter max-w-[1000px] mx-auto">
+            {STATS.map((s, i) => {
+              const Icon = s.icon;
+              return (
+                <div key={i} className="bg-surface-2 px-[32px] py-[28px] flex flex-col items-center gap-[8px] text-center">
+                  <Icon className="w-[24px] h-[24px] text-primary stroke-[1.5px] mb-[4px]" />
+                  <span className="text-[36px] font-extrabold text-text tracking-[-0.04em] leading-none gradient-text">{s.value}</span>
+                  <span className="text-[13px] text-text-secondary font-medium">{s.label}</span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
 
-          {/* Hero: Mini Evidence Panel */}
-          <div className="bg-surface border border-border rounded-2xl shadow-md overflow-hidden">
-            <div className="px-[24px] py-[16px] border-b border-border bg-surface-2/60 flex items-center justify-between">
-              <div>
-                <p className="text-[13px] text-text-muted font-medium">Candidate Intelligence</p>
-                <h3 className="text-[15px] font-bold text-text">{MOCK_ANALYSIS.candidateName} → {MOCK_ANALYSIS.role}</h3>
-              </div>
-              <span className="px-[10px] py-[4px] bg-emerald-50 text-emerald-700 border border-emerald-200 text-[11px] font-bold rounded-full uppercase">
-                {MOCK_ANALYSIS.eligibility}
-              </span>
+      {/* Role Cards */}
+      <section className="py-[120px] border-t border-border bg-surface">
+        <div className="max-w-[1280px] mx-auto px-[32px]">
+          <div className="text-center mb-[72px]">
+            <p className="text-[13px] font-semibold text-primary uppercase tracking-[0.10em] mb-[16px]">Two Sides, One Platform</p>
+            <h2 className="text-[42px] font-bold text-text tracking-[-0.03em] mb-[18px]">Who is HireFlow for?</h2>
+            <p className="text-[18px] text-text-secondary max-w-[460px] mx-auto leading-[28px]">Two sides of the hiring equation, unified.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-[28px] stagger-in">
+            {ROLES.map((role, i) => {
+              const Icon = role.icon;
+              return (
+                <div key={i} className={`relative rounded-3xl bg-gradient-to-br ${role.color} border ${role.borderColor} p-[48px] overflow-hidden group hover:-translate-y-1 transition-all duration-300 shadow-sm hover:shadow-lg`}>
+                  <div className={`absolute top-0 right-0 w-[250px] h-[250px] rounded-full bg-gradient-to-br ${role.color} blur-[80px] opacity-60 pointer-events-none group-hover:scale-110 transition-transform duration-700`} />
+                  <div className={`w-[64px] h-[64px] rounded-2xl ${role.iconBg} border flex items-center justify-center mb-[32px] relative shadow-sm`}>
+                    <Icon className={`w-[32px] h-[32px] ${role.iconColor} stroke-[1.5px]`} />
+                  </div>
+                  <h2 className="text-[28px] font-bold text-text mb-[24px] tracking-[-0.02em] relative">{role.title}</h2>
+                  <ul className="space-y-[16px] mb-[40px] relative">
+                    {role.points.map((p, j) => (
+                      <li key={j} className="flex items-start gap-[14px] text-[16px] text-text-secondary">
+                        <CheckCircle className="w-[18px] h-[18px] text-success mt-[3px] shrink-0 stroke-[2px]" />
+                        <span className="leading-[24px]">{p}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <Link to={role.link} className="relative inline-block">
+                    <button className={`inline-flex items-center gap-[10px] h-[48px] px-[24px] text-[15px] font-bold ${role.iconColor} border ${role.borderColor} rounded-xl bg-surface hover:bg-surface-2 transition-all duration-[120ms] shadow-sm`}>
+                      {role.cta} <ArrowRight className="w-[16px] h-[16px] stroke-[2px]" />
+                    </button>
+                  </Link>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Features */}
+      <section id="features" className="py-[120px] border-t border-border relative">
+        <div className="absolute top-[20%] left-[-10%] w-[500px] h-[500px] rounded-full bg-ai-dark/5 blur-[120px] pointer-events-none" />
+        <div className="max-w-[1280px] mx-auto px-[32px] relative z-10">
+          <div className="mb-[72px] text-center md:text-left">
+            <p className="text-[13px] font-semibold text-primary uppercase tracking-[0.10em] mb-[16px]">Platform Capabilities</p>
+            <h2 className="text-[42px] font-bold text-text mb-[18px] tracking-[-0.03em] max-w-[600px] md:mx-0 mx-auto">Built for real hiring workflows</h2>
+            <p className="text-[18px] text-text-secondary max-w-[500px] leading-[28px] md:mx-0 mx-auto">Not a simple keyword matcher. A complete, role-gated platform powered by contextual AI.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-[24px] stagger-in">
+            {FEATURES.map((f, i) => {
+              const Icon = f.icon;
+              return (
+                <div key={i} className={`relative rounded-3xl bg-gradient-to-br ${f.accent} border border-border p-[40px] overflow-hidden hover:border-border-strong hover:-translate-y-[4px] transition-all duration-300 shadow-sm hover:shadow-xl`}>
+                  <div className={`w-[56px] h-[56px] rounded-2xl ${f.iconBg} border flex items-center justify-center mb-[24px]`}>
+                    <Icon className={`w-[26px] h-[26px] ${f.iconColor} stroke-[1.5px]`} />
+                  </div>
+                  <h3 className="text-[20px] font-bold text-text mb-[14px] tracking-[-0.01em]">{f.title}</h3>
+                  <p className="text-[16px] text-text-secondary leading-[26px]">{f.desc}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* The AI Showcase Example */}
+      <section className="py-[120px] border-t border-border bg-surface-2/40 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full bg-primary/5 blur-[120px] pointer-events-none" />
+        <div className="max-w-[1280px] mx-auto px-[32px] relative z-10 flex flex-col lg:flex-row items-center gap-[64px]">
+          <div className="flex-1 text-center lg:text-left">
+            <div className="inline-flex items-center gap-[8px] px-[12px] py-[6px] bg-primary-light border border-primary/20 rounded-full text-[13px] font-semibold text-primary mb-[24px]">
+              <Sparkles className="w-[14px] h-[14px]" /> Real Intelligence
             </div>
+            <h2 className="text-[38px] md:text-[46px] font-bold text-text tracking-[-0.03em] leading-[1.1] mb-[24px]">
+              Understand <span className="text-primary">why</span> they match.
+            </h2>
+            <p className="text-[18px] text-text-secondary leading-[1.8] mb-[32px]">
+              No more guessing why an applicant got an 85% score. Our AI analyzes the context behind each skill, evaluates missing requirements, and suggests interview questions based on the candidate's actual profile gaps.
+            </p>
+            <ul className="space-y-[16px] text-[15px] text-text font-medium">
+              <li className="flex items-center gap-[12px] justify-center lg:justify-start">
+                <CheckCircle className="w-[20px] h-[20px] text-primary" /> Shows exact project context
+              </li>
+              <li className="flex items-center gap-[12px] justify-center lg:justify-start">
+                <CheckCircle className="w-[20px] h-[20px] text-primary" /> Understands semantic relationships
+              </li>
+              <li className="flex items-center gap-[12px] justify-center lg:justify-start">
+                <CheckCircle className="w-[20px] h-[20px] text-primary" /> Generates targeted questions
+              </li>
+            </ul>
+          </div>
+          
+          <div className="flex-1 w-full max-w-[600px]">
+            <div className="bg-surface border border-border rounded-2xl shadow-xl overflow-hidden transform rotate-1 hover:rotate-0 transition-transform duration-500">
+              <div className="px-[24px] py-[16px] border-b border-border bg-surface-2/60 flex items-center justify-between">
+                <div>
+                  <p className="text-[13px] text-text-muted font-medium">AI Context Analysis</p>
+                  <h3 className="text-[15px] font-bold text-text">Arjun Sharma → Senior Backend Engineer</h3>
+                </div>
+                <span className="px-[12px] py-[4px] bg-emerald-50 text-emerald-700 border border-emerald-200 text-[11px] font-bold rounded-full uppercase">
+                  Match Found
+                </span>
+              </div>
 
-            <div className="p-[24px] space-y-[16px]">
-              {MOCK_ANALYSIS.requirements.map(req => (
-                <div key={req.name} className="border border-border rounded-xl p-[16px] bg-surface space-y-[8px]">
+              <div className="p-[24px] space-y-[16px]">
+                {/* Requirement 1 */}
+                <div className="border border-border rounded-xl p-[16px] bg-surface space-y-[12px]">
                   <div className="flex items-center justify-between">
                     <div>
-                      <span className="text-[14px] font-bold text-text">{req.name}</span>
-                      <span className="ml-[8px] text-[11px] font-semibold text-text-muted uppercase">{req.priority}</span>
+                      <span className="text-[15px] font-bold text-text">Java & Spring Boot</span>
+                      <span className="ml-[8px] text-[11px] font-semibold text-text-muted uppercase">Mandatory</span>
                     </div>
-                    <StatusPill status={req.status} />
+                    <span className="bg-emerald-50 text-emerald-700 border border-emerald-200 px-[10px] py-[2px] rounded-full text-[11px] font-bold uppercase">Strong</span>
                   </div>
+                  <div className="bg-surface-2 rounded-lg px-[12px] py-[10px]">
+                    <p className="text-[13px] text-text-secondary italic">"Built distributed backend microservices in Java 17 with Spring Boot, handling 2M requests/day at TechCorp..."</p>
+                  </div>
+                </div>
 
-                  {req.evidence && (
-                    <div className="bg-emerald-50 border border-emerald-200 rounded-lg px-[12px] py-[8px]">
-                      <p className="text-[12px] text-text-muted font-semibold mb-[2px]">EVIDENCE · {req.source}</p>
-                      <p className="text-[12px] text-text-secondary italic">{req.evidence}</p>
+                {/* Requirement 2 */}
+                <div className="border border-border rounded-xl p-[16px] bg-surface space-y-[12px]">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <span className="text-[15px] font-bold text-text">Kafka</span>
+                      <span className="ml-[8px] text-[11px] font-semibold text-text-muted uppercase">Mandatory</span>
                     </div>
-                  )}
-
-                  {req.relatedEvidence && (
-                    <div className="bg-amber-50 border border-amber-200 rounded-lg px-[12px] py-[8px]">
-                      <p className="text-[12px] text-amber-700 font-semibold mb-[2px]">RELATED · Semantic Match</p>
-                      <p className="text-[12px] text-text-secondary">{req.relatedEvidence}</p>
-                      {req.semanticNote && <p className="text-[11px] text-text-muted mt-[2px]">{req.semanticNote}</p>}
-                    </div>
-                  )}
-
-                  {req.missingNote && (
-                    <div className="bg-surface-2 border border-border rounded-lg px-[12px] py-[8px]">
-                      <p className="text-[12px] text-text-muted">{req.missingNote}</p>
-                    </div>
-                  )}
-
-                  {req.recruiterAction && (
-                    <p className="text-[11px] text-primary font-semibold flex items-center gap-[4px]">
-                      <ChevronRight className="w-[12px] h-[12px]" /> {req.recruiterAction}
+                    <span className="bg-amber-50 text-amber-700 border border-amber-200 px-[10px] py-[2px] rounded-full text-[11px] font-bold uppercase">Partial</span>
+                  </div>
+                  <div className="bg-amber-50/50 border border-amber-100 rounded-lg px-[12px] py-[10px]">
+                    <p className="text-[13px] text-text-secondary mb-[6px]">Candidate has RabbitMQ experience, which is a closely related message broker. Semantic overlap is high.</p>
+                    <p className="text-[12px] text-primary font-semibold flex items-center gap-[6px]">
+                      <MessageSquare className="w-[12px] h-[12px]" /> Ask about event-driven architecture differences.
                     </p>
-                  )}
+                  </div>
                 </div>
-              ))}
-            </div>
-
-            <div className="px-[24px] py-[12px] border-t border-border bg-surface-2/40 text-center">
-              <p className="text-[11px] text-text-muted font-medium">
-                🔍 DEMO DATA · Evidence engine v1.0 · Knowledge base v1.0
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── PROBLEM SECTION ── */}
-      <section className="py-[80px] px-[32px] bg-surface-2/30 border-y border-border">
-        <div className="max-w-[1280px] mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-[32px]">
-            <div className="flex gap-[16px]">
-              <div className="w-[40px] h-[40px] bg-red-50 border border-red-200 rounded-xl flex items-center justify-center shrink-0">
-                <AlertTriangle className="w-[18px] h-[18px] text-red-600" />
-              </div>
-              <div>
-                <h3 className="text-[15px] font-bold text-text mb-[6px]">Unexplained "AI says 83%" scores</h3>
-                <p className="text-[14px] text-text-secondary">Percentage without evidence is noise. Recruiters need to know <em>why</em> a candidate matches.</p>
-              </div>
-            </div>
-            <div className="flex gap-[16px]">
-              <div className="w-[40px] h-[40px] bg-red-50 border border-red-200 rounded-xl flex items-center justify-center shrink-0">
-                <AlertTriangle className="w-[18px] h-[18px] text-red-600" />
-              </div>
-              <div>
-                <h3 className="text-[15px] font-bold text-text mb-[6px]">Keyword matching that misses context</h3>
-                <p className="text-[14px] text-text-secondary">A candidate with RabbitMQ experience fails a Kafka search. Semantic relationships are ignored.</p>
-              </div>
-            </div>
-            <div className="flex gap-[16px]">
-              <div className="w-[40px] h-[40px] bg-red-50 border border-red-200 rounded-xl flex items-center justify-center shrink-0">
-                <AlertTriangle className="w-[18px] h-[18px] text-red-600" />
-              </div>
-              <div>
-                <h3 className="text-[15px] font-bold text-text mb-[6px]">Missing evidence vs confirmed absence</h3>
-                <p className="text-[14px] text-text-secondary">"No evidence found" and "candidate doesn't know this" are different statements. Most systems confuse them.</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── HOW IT WORKS ── */}
-      <section className="py-[80px] px-[32px] max-w-[1280px] mx-auto">
-        <div className="text-center mb-[56px]">
-          <h2 className="text-[36px] font-bold text-text tracking-tight mb-[12px]">How it works</h2>
-          <p className="text-[16px] text-text-secondary max-w-[560px] mx-auto">Four stages from job creation to interview preparation — fully transparent at every step.</p>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[24px]">
-          {HOW_IT_WORKS.map((step, i) => (
-            <div key={i} className="relative">
-              {i < HOW_IT_WORKS.length - 1 && (
-                <div className="hidden lg:block absolute top-[28px] left-[calc(100%)] w-full h-[1px] bg-border z-0" style={{ width: '24px', left: 'calc(100% + 0px)' }} />
-              )}
-              <div className="bg-surface border border-border rounded-2xl p-[24px] h-full">
-                <div className="w-[48px] h-[48px] bg-primary-light border border-primary/20 rounded-xl flex items-center justify-center mb-[16px]">
-                  <span className="text-[16px] font-black text-primary">{step.step}</span>
-                </div>
-                <h3 className="text-[15px] font-bold text-text mb-[8px]">{step.title}</h3>
-                <p className="text-[13px] text-text-secondary leading-[1.6]">{step.desc}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ── PLATFORM MODULES ── */}
-      <section className="py-[80px] px-[32px] bg-surface-2/30 border-y border-border">
-        <div className="max-w-[1280px] mx-auto">
-          <div className="text-center mb-[56px]">
-            <h2 className="text-[36px] font-bold text-text tracking-tight mb-[12px]">Platform modules</h2>
-            <p className="text-[16px] text-text-secondary max-w-[560px] mx-auto">Every module is built around evidence and explainability. No decorative AI features.</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[24px]">
-            {PLATFORM_MODULES.map((mod, i) => (
-              <div key={i} className="bg-surface border border-border rounded-2xl p-[28px] hover:shadow-md hover:border-primary/30 transition-all">
-                <div className={`inline-flex items-center gap-[6px] px-[10px] py-[4px] rounded-full text-[11px] font-bold border mb-[20px] ${mod.color}`}>
-                  <mod.icon className="w-[12px] h-[12px]" />
-                  {mod.label}
-                </div>
-                <h3 className="text-[16px] font-bold text-text mb-[8px]">{mod.title}</h3>
-                <p className="text-[14px] text-text-secondary leading-[1.6]">{mod.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── CTA ── */}
-      <section className="py-[100px] px-[32px] max-w-[1280px] mx-auto">
-        <div className="bg-surface border border-border rounded-3xl p-[64px] flex flex-col md:flex-row gap-[48px] items-center">
-          <div className="flex-1">
-            <h2 className="text-[36px] font-bold text-text tracking-tight mb-[16px]">Ready to hire with evidence?</h2>
-            <p className="text-[16px] text-text-secondary max-w-[480px]">
-              Join companies that have moved from keyword guessing to evidence-backed hiring decisions.
-            </p>
-          </div>
-          <div className="flex flex-col gap-[16px] shrink-0">
+      {/* CTA */}
+      <section className="py-[140px] relative overflow-hidden">
+        <div className="absolute inset-0 -z-10 hero-mesh opacity-70" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-primary/10 blur-[150px] pointer-events-none" />
+        <div className="max-w-[720px] mx-auto px-[32px] text-center relative z-10">
+          <p className="text-[14px] font-bold text-primary uppercase tracking-[0.10em] mb-[24px]">Get Started Today</p>
+          <h2 className="text-[48px] md:text-[56px] font-extrabold text-text mb-[24px] tracking-[-0.03em] leading-[1.1]">Ready to transform your hiring?</h2>
+          <p className="text-[20px] text-text-secondary mb-[48px] leading-[1.6]">The AI evaluates, context clarifies, and a human decides. Experience the platform built for the future of recruitment.</p>
+          <div className="flex flex-col sm:flex-row gap-[16px] justify-center">
             <Link to="/register">
-              <button className="w-full h-[52px] px-[32px] bg-primary text-white text-[15px] font-bold rounded-xl hover:bg-primary-hover transition-all flex items-center gap-[8px] shadow-glow-orange justify-center">
-                <Building2 className="w-[18px] h-[18px]" /> Build Your Hiring Pipeline
+              <button className="inline-flex items-center gap-[12px] h-[60px] px-[40px] text-[18px] font-bold text-white rounded-xl bg-gradient-to-r from-primary to-primary-hover shadow-glow-orange hover:scale-[1.02] active:scale-[0.99] transition-all duration-[200ms]">
+                Get Started Free <ArrowRight className="w-[20px] h-[20px] stroke-[2px]" />
               </button>
             </Link>
-            <Link to="/demo">
-              <button className="w-full h-[52px] px-[32px] border border-border text-text text-[15px] font-bold rounded-xl hover:bg-surface-2 transition-all flex items-center gap-[8px] justify-center">
-                <Search className="w-[18px] h-[18px]" /> Analyze Your Profile
-              </button>
-            </Link>
-            <Link to="/login">
-              <button className="w-full h-[52px] px-[32px] text-text-secondary text-[14px] font-medium hover:text-text transition-colors">
-                Sign in to existing account →
+            <Link to="/jobs">
+              <button className="inline-flex items-center gap-[12px] h-[60px] px-[40px] text-[17px] font-bold text-text-secondary rounded-xl border border-border hover:border-primary/50 hover:text-text hover:bg-surface-2 transition-all duration-[200ms] shadow-sm">
+                Browse Open Roles
               </button>
             </Link>
           </div>
         </div>
       </section>
 
-      {/* ── FOOTER ── */}
-      <footer className="border-t border-border py-[32px] px-[32px]">
-        <div className="max-w-[1280px] mx-auto flex flex-col md:flex-row items-center justify-between gap-[16px]">
-          <div className="flex items-center gap-[10px]">
-            <div className="w-[28px] h-[28px] bg-primary rounded-md flex items-center justify-center">
-              <Brain className="w-[14px] h-[14px] text-white" />
+      {/* Footer */}
+      <footer className="py-[48px] border-t border-border bg-surface">
+        <div className="max-w-[1280px] mx-auto px-[32px]">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-[24px]">
+            <div className="flex items-center gap-[12px]">
+              <div className="w-[36px] h-[36px] rounded-lg bg-gradient-to-br from-primary to-primary-hover flex items-center justify-center shadow-sm">
+                <Sparkles className="w-[18px] h-[18px] text-white stroke-[2px]" />
+              </div>
+              <span className="text-[18px] font-bold text-text tracking-[-0.02em]">HireFlow</span>
             </div>
-            <span className="text-[15px] font-bold text-text">HireFlow AI</span>
-            <span className="text-[13px] text-text-muted">Recruitment Intelligence Platform</span>
+            <div className="flex gap-[32px] text-[15px] font-medium text-text-secondary">
+              <Link to="/jobs" className="hover:text-primary transition-colors duration-[200ms]">Jobs</Link>
+              <Link to="/demo" className="hover:text-primary transition-colors duration-[200ms]">AI Context</Link>
+              <Link to="/login" className="hover:text-primary transition-colors duration-[200ms]">Sign In</Link>
+              <Link to="/register" className="hover:text-primary transition-colors duration-[200ms]">Register</Link>
+            </div>
+            <p className="text-[14px] text-text-muted">© 2026 HireFlow. Built for the future of work.</p>
           </div>
-          <div className="flex items-center gap-[32px] text-[13px] text-text-muted">
-            <Link to="/demo" className="hover:text-text transition-colors">AI Demo</Link>
-            <Link to="/jobs" className="hover:text-text transition-colors">Browse Jobs</Link>
-            <Link to="/login" className="hover:text-text transition-colors">Sign In</Link>
-          </div>
-          <p className="text-[12px] text-text-muted">© 2026 HireFlow. Demo environment — fictional data only.</p>
         </div>
       </footer>
     </div>

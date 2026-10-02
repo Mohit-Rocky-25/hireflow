@@ -39,7 +39,7 @@ export function PublicNavbar() {
         </div>
         <div className="hidden md:flex items-center gap-[36px]">
           <Link to="/jobs" className="text-[15px] font-medium text-text-secondary hover:text-text transition-colors duration-[120ms]">Browse Jobs</Link>
-          <Link to="/demo" className="text-[15px] font-medium text-text-secondary hover:text-text transition-colors duration-[120ms]">AI Demo</Link>
+          <Link to="/demo" className="text-[15px] font-medium text-text-secondary hover:text-text transition-colors duration-[120ms]">TalentLens™</Link>
           <Link to="/portal" className="text-[15px] font-medium text-text-secondary hover:text-text transition-colors duration-[120ms]">Candidate Portal</Link>
         </div>
         <div className="flex items-center gap-[10px]">
