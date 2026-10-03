@@ -1715,7 +1715,7 @@ export function MatchingDemo() {
         <div className="text-center mb-[48px] max-w-[900px] mx-auto">
           <div className="inline-flex items-center gap-[10px] px-[16px] py-[8px] bg-ai-light border border-ai/25 rounded-full text-[13px] font-semibold text-ai mb-[20px]">
             <Brain className="w-[14px] h-[14px]" />
-            TalentLens™ — {COMPANIES.length} Companies · {COMPANIES.reduce((a, c) => a + c.roles.length, 0)}+ Roles · 6-Layer Anti-Gaming AI Engine
+            TalentLens™ — {COMPANIES.length} Companies · {COMPANIES.reduce((a, c) => a + c.roles.length, 0)}+ Roles · 6-Layer Cognitive Screening Engine
           </div>
           <h1 className="text-[40px] md:text-[54px] font-extrabold text-text mb-[14px] tracking-[-0.04em] leading-[1.05]">
             Upload Resume. <span className="gradient-text">Know Your Real Hiring Odds.</span>
@@ -1940,7 +1940,7 @@ Example:
             <div className="bg-surface border border-border rounded-2xl p-[16px] mb-[20px] shadow-sm">
               <div className="flex flex-wrap gap-[8px] items-center">
                 <span className="text-[11px] font-bold text-text-secondary uppercase tracking-wide mr-[4px]">TalentLens™ 6-Layer Analysis:</span>
-                {[("L1 Keywords"), ("L2 Context"), ("L3 Production Depth"), ("L4 Quantified Impact"), ("L5 Anti-Gaming"), ("L6 Progression")].map((layer, i) => (
+                {["L1 Keywords", "L2 Context", "L3 Production Depth", "L4 Quantified Impact", "L5 Cognitive Screening", "L6 Progression"].map((layer, i) => (
                   <span key={i} className="text-[10px] font-semibold px-[8px] py-[3px] rounded-full bg-primary-light border border-primary/20 text-primary">{layer}</span>
                 ))}
                 <span className="text-[11px] text-text-muted ml-auto">Score is weighted — not just keyword count</span>

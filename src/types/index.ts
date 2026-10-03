@@ -483,6 +483,7 @@ export interface Interview {
   duration: number;
   meetingLink?: string;
   location?: string;
+  notes?: string;
   status: 'scheduled' | 'in_progress' | 'completed' | 'cancelled' | 'rescheduled';
   suggestedQuestions?: InterviewQuestion[];
   feedback?: InterviewFeedback;
