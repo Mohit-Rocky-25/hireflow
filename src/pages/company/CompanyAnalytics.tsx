@@ -4,7 +4,8 @@ import {
   BarChart, Bar, LineChart, Line, PieChart, Pie, Cell,
   XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Area, AreaChart
 } from 'recharts';
-import { BarChart3, Briefcase, Users, Calendar, TrendingUp, Target, Clock, Award } from 'lucide-react';
+import { BarChart3, Briefcase, Users, Calendar, TrendingUp, Target, Clock, Award, Map, AlertTriangle, Sparkles, Building2 } from 'lucide-react';
+import { ScatterChart, Scatter, ZAxis } from 'recharts';
 
 const COLORS = ['#2563EB', '#7C3AED', '#16A34A', '#F59E0B', '#DC2626', '#0891B2', '#EC4899', '#64748B', '#10B981'];
 
@@ -93,6 +94,22 @@ export function CompanyAnalytics() {
   const avgScore = companyMatches.length > 0 ? Math.round(companyMatches.reduce((s, m) => s + m.overallScore, 0) / companyMatches.length) : 0;
   const convRate = companyApps.length > 0 ? Math.round((hired / companyApps.length) * 100) : 0;
   const completedInterviews = companyInterviews.filter(i => i.status === 'completed').length;
+
+  // ── NEW: Poaching Heatmap / Market Intelligence Mock Data ──
+  const poachingData = [
+    { competitor: 'Google', winRate: 65, offers: 15, size: 400 },
+    { competitor: 'Amazon', winRate: 82, offers: 28, size: 600 },
+    { competitor: 'Microsoft', winRate: 55, offers: 12, size: 300 },
+    { competitor: 'Stripe', winRate: 30, offers: 8, size: 200 },
+    { competitor: 'Uber', winRate: 70, offers: 18, size: 450 },
+  ];
+
+  // ── NEW: Flight Risk AI Predictor Mock Data ──
+  const flightRiskCandidates = [
+    { name: 'Alex Johnson', role: 'Senior SDE', risk: 85, reason: 'Market offer is 15% higher; took 4 days to reply to last email.', status: 'CRITICAL' },
+    { name: 'Sarah Miller', role: 'Staff Engineer', risk: 62, reason: 'Competing offer from Stripe; engagement is high but compensation is a blocker.', status: 'HIGH' },
+    { name: 'David Chen', role: 'Product Manager', risk: 28, reason: 'Replied within 2 hours; no active competing offers detected.', status: 'LOW' },
+  ];
 
   const metrics = [
     { label: 'Active Jobs', value: companyJobs.filter(j => j.status === 'published').length, sub: `of ${companyJobs.length} total`, icon: Briefcase, color: 'text-primary', bg: 'bg-primary-light' },
@@ -272,6 +289,91 @@ export function CompanyAnalytics() {
               </BarChart>
             </ResponsiveContainer>
           )}
+        </div>
+      </div>
+
+      {/* ── NEW: Charts Row 3 (Cinematic Market Intelligence) ── */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 pb-12">
+        {/* Talent Poaching Heatmap */}
+        <div className="bg-surface rounded-card border border-border p-6 relative overflow-hidden group">
+          <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-transparent pointer-events-none" />
+          <div className="flex items-start justify-between mb-2">
+            <div>
+              <h3 className="text-sm font-bold text-foreground flex items-center gap-2">
+                <Map className="w-4 h-4 text-indigo-600" /> Talent Poaching Heatmap
+              </h3>
+              <p className="text-[11px] text-muted mt-1">Win/Loss ratio against top competitors</p>
+            </div>
+            <span className="px-2 py-1 bg-indigo-100 text-indigo-700 text-[10px] font-bold rounded-full">MARKET INTEL</span>
+          </div>
+          
+          <div className="h-[220px] -mx-4 mt-4">
+            <ResponsiveContainer width="100%" height="100%">
+              <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: -20 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" />
+                <XAxis type="number" dataKey="winRate" name="Win Rate %" domain={[0, 100]} tick={{ fontSize: 11, fill: '#64748B' }} axisLine={false} tickLine={false} />
+                <YAxis type="number" dataKey="offers" name="Total Offers" tick={{ fontSize: 11, fill: '#64748B' }} axisLine={false} tickLine={false} />
+                <ZAxis type="number" dataKey="size" range={[100, 800]} name="Volume" />
+                <Tooltip cursor={{ strokeDasharray: '3 3' }} content={({ active, payload }) => {
+                  if (active && payload && payload.length) {
+                    const data = payload[0].payload;
+                    return (
+                      <div className="bg-surface border border-border rounded-btn p-3 shadow-dropdown text-xs min-w-[150px]">
+                        <p className="font-bold text-foreground mb-2 flex items-center gap-2"><Building2 className="w-3 h-3 text-indigo-600"/> {data.competitor}</p>
+                        <p className="text-muted flex justify-between">Win Rate: <span className="font-bold text-foreground ml-4">{data.winRate}%</span></p>
+                        <p className="text-muted flex justify-between mt-1">Head-to-head: <span className="font-bold text-foreground ml-4">{data.offers} offers</span></p>
+                      </div>
+                    )
+                  }
+                  return null;
+                }} />
+                <Scatter name="Competitors" data={poachingData} fill="#6366F1" fillOpacity={0.7} />
+              </ScatterChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+
+        {/* Flight Risk AI Predictor */}
+        <div className="bg-surface rounded-card border border-border p-6 relative overflow-hidden">
+          <div className="absolute top-0 right-0 p-4 opacity-5">
+            <AlertTriangle className="w-24 h-24 text-danger" />
+          </div>
+          <div className="flex items-start justify-between mb-4">
+            <div>
+              <h3 className="text-sm font-bold text-foreground flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-ai" /> Offer Acceptance Predictor
+              </h3>
+              <p className="text-[11px] text-muted mt-1">AI analyzing candidate engagement & market compensation</p>
+            </div>
+            <div className="w-2 h-2 rounded-full bg-danger animate-pulse" title="Live Analysis Active" />
+          </div>
+
+          <div className="space-y-3 relative z-10">
+            {flightRiskCandidates.map((c, i) => (
+              <div key={i} className="p-3 border border-border rounded-lg bg-surface/50 hover:bg-gray-50 transition-colors">
+                <div className="flex items-center justify-between mb-2">
+                  <div>
+                    <h4 className="text-xs font-bold text-foreground">{c.name}</h4>
+                    <p className="text-[10px] text-muted">{c.role}</p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] font-bold text-muted">Flight Risk:</span>
+                    <span className={`px-2 py-0.5 text-[10px] font-bold rounded-md ${
+                      c.risk > 70 ? 'bg-danger-bg text-danger' : 
+                      c.risk > 50 ? 'bg-warning-bg text-warning' : 
+                      'bg-success-bg text-success'
+                    }`}>
+                      {c.risk}%
+                    </span>
+                  </div>
+                </div>
+                <p className="text-[11px] text-secondary leading-relaxed bg-white border border-gray-100 p-2 rounded flex gap-2 items-start shadow-sm">
+                  <AlertTriangle className={`w-3.5 h-3.5 shrink-0 mt-0.5 ${c.risk > 70 ? 'text-danger' : c.risk > 50 ? 'text-warning' : 'text-success'}`} />
+                  {c.reason}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
