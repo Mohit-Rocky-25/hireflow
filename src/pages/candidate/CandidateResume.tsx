@@ -1,9 +1,6 @@
-// ============================================================
-// HireFlow — Candidate Resume Management & AI Parser
-// ============================================================
 import { useState } from 'react';
 import { useStore } from '../../store/useStore';
-import { Upload, FileText, CheckCircle2, Sparkles, AlertCircle, Trash2 } from 'lucide-react';
+import { Upload, FileText, CheckCircle2, Sparkles, AlertCircle, Trash2, Award, Briefcase, GraduationCap, ArrowRight } from 'lucide-react';
 import { toast } from '../../components/ui/Toast';
 
 export function CandidateResume() {
@@ -35,7 +32,7 @@ export function CandidateResume() {
       updateCandidateProfile(profile.id, {
         resumeFileName: fileName,
         resumeParsed: true,
-        skills: Array.from(new Set([...profile.skills, ...extractedSkills])),
+        skills: Array.from(new Set([...(profile.skills || []), ...extractedSkills])),
         headline: profile.headline || 'Full Stack Engineer | React & TypeScript',
         profileCompletion: 95,
       });
@@ -67,98 +64,204 @@ export function CandidateResume() {
     toast('info', 'Resume removed.');
   };
 
+  const groupedSkills = {
+    Languages: ['TypeScript', 'JavaScript', 'Python', 'Java'],
+    Frameworks: ['React', 'Node.js', 'Express', 'Tailwind CSS'],
+    Databases: ['PostgreSQL', 'MongoDB', 'Redis'],
+    Tools: ['Git', 'Docker', 'AWS', 'REST APIs', 'GraphQL']
+  };
+
+  // Keep only those that exist in the user's actual profile (mock filtering)
+  const userSkillsStr = profile.skills?.join(' ').toLowerCase() || '';
+  const filterSkills = (arr: string[]) => arr.filter(s => userSkillsStr.includes(s.toLowerCase()));
+
+  const finalGroups = {
+    Languages: filterSkills(groupedSkills.Languages).length ? filterSkills(groupedSkills.Languages) : ['TypeScript', 'JavaScript'],
+    Frameworks: filterSkills(groupedSkills.Frameworks).length ? filterSkills(groupedSkills.Frameworks) : ['React', 'Node.js'],
+    Databases: filterSkills(groupedSkills.Databases).length ? filterSkills(groupedSkills.Databases) : ['PostgreSQL'],
+    Tools: filterSkills(groupedSkills.Tools).length ? filterSkills(groupedSkills.Tools) : ['Git', 'REST APIs'],
+  };
+
+  const strengthScore = profile.resumeParsed ? 82 : 45;
+
   return (
     <div className="space-y-6 animate-fade-in max-w-4xl mx-auto">
       <div>
-        <h1 className="text-xl font-bold text-foreground">Resume & AI Parsing</h1>
-        <p className="text-sm text-muted">Upload your CV to automatically populate skills, experience, and boost match accuracy.</p>
+        <h1 className="text-xl font-bold text-foreground">Resume & AI Profile</h1>
+        <p className="text-sm text-muted">Upload your CV to automatically extract skills, experience, and boost match accuracy.</p>
       </div>
 
-      {/* Upload Box */}
-      <div
-        onDragOver={e => {
-          e.preventDefault();
-          setDragActive(true);
-        }}
-        onDragLeave={() => setDragActive(false)}
-        onDrop={handleDrop}
-        className={`bg-surface rounded-card border-2 border-dashed p-8 text-center transition-all ${
-          dragActive ? 'border-primary bg-primary-light/20' : 'border-border hover:border-gray-400'
-        }`}
-      >
-        <div className="max-w-md mx-auto space-y-3">
-          <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary mx-auto">
-            <Upload className="w-6 h-6" />
-          </div>
-          <div>
-            <h3 className="text-sm font-bold text-foreground">Upload your latest Resume / CV</h3>
-            <p className="text-xs text-muted mt-1">Supports PDF, DOCX, or TXT (Max 10MB)</p>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <div className="lg:col-span-2 space-y-6">
+          {/* Upload Box */}
+          <div
+            onDragOver={e => { e.preventDefault(); setDragActive(true); }}
+            onDragLeave={() => setDragActive(false)}
+            onDrop={handleDrop}
+            className={`bg-surface rounded-card border-2 border-dashed p-8 text-center transition-all ${
+              dragActive ? 'border-primary bg-primary-light/20' : 'border-border hover:border-gray-400'
+            }`}
+          >
+            <div className="max-w-md mx-auto space-y-3">
+              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary mx-auto">
+                <Upload className="w-6 h-6" />
+              </div>
+              <div>
+                <h3 className="text-sm font-bold text-foreground">Upload your latest Resume / CV</h3>
+                <p className="text-xs text-muted mt-1">Supports PDF, DOCX, or TXT (Max 10MB)</p>
+              </div>
+
+              <div className="pt-2">
+                <label className="cursor-pointer inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-white text-xs font-semibold rounded-btn hover:bg-primary-hover shadow-sm transition-all">
+                  <Sparkles className="w-3.5 h-3.5" /> Select File to Parse
+                  <input type="file" accept=".pdf,.docx,.txt" onChange={handleInputChange} className="hidden" disabled={isParsing} />
+                </label>
+              </div>
+
+              {isParsing && (
+                <div className="flex items-center justify-center gap-2 pt-3 text-xs text-ai font-semibold animate-pulse">
+                  <Sparkles className="w-4 h-4" /> AI is extracting structured qualifications...
+                </div>
+              )}
+            </div>
           </div>
 
-          <div className="pt-2">
-            <label className="cursor-pointer inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-white text-xs font-semibold rounded-btn hover:bg-primary-hover shadow-sm transition-all">
-              <Sparkles className="w-3.5 h-3.5" /> Select File to Parse
-              <input
-                type="file"
-                accept=".pdf,.docx,.txt"
-                onChange={handleInputChange}
-                className="hidden"
-                disabled={isParsing}
-              />
-            </label>
-          </div>
-
-          {isParsing && (
-            <div className="flex items-center justify-center gap-2 pt-3 text-xs text-ai font-semibold animate-pulse">
-              <Sparkles className="w-4 h-4" /> AI is extracting structured qualifications...
+          {/* Uploaded Resume Status */}
+          {profile.resumeFileName && (
+            <div className="bg-surface rounded-card border border-border p-5 flex items-center justify-between shadow-sm">
+              <div className="flex items-center gap-3">
+                <div className="p-2.5 rounded-btn bg-emerald-50 text-success">
+                  <FileText className="w-5 h-5" />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-foreground">{profile.resumeFileName}</p>
+                  <p className="text-xs text-muted flex items-center gap-1 mt-0.5">
+                    <CheckCircle2 className="w-3 h-3 text-success" /> AI Parsed • Ready for job matching
+                  </p>
+                </div>
+              </div>
+              <button onClick={handleRemoveResume} className="p-2 text-muted hover:text-danger rounded-btn hover:bg-gray-100 transition-colors" title="Delete resume">
+                <Trash2 className="w-4 h-4" />
+              </button>
             </div>
           )}
-        </div>
-      </div>
 
-      {/* Uploaded Resume Status */}
-      {profile.resumeFileName && (
-        <div className="bg-surface rounded-card border border-border p-5 flex items-center justify-between shadow-sm">
-          <div className="flex items-center gap-3">
-            <div className="p-2.5 rounded-btn bg-emerald-50 text-success">
-              <FileText className="w-5 h-5" />
+          {profile.resumeParsed && (
+            <>
+              {/* Extracted Skills Grouped */}
+              <div className="bg-surface rounded-card border border-border p-6 space-y-4">
+                <h3 className="text-sm font-bold text-foreground flex items-center gap-2">
+                  <Sparkles className="w-4 h-4 text-ai" /> Extracted Skills
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {Object.entries(finalGroups).map(([group, sks]) => (
+                    <div key={group}>
+                      <h4 className="text-xs font-semibold text-muted uppercase mb-2">{group}</h4>
+                      <div className="flex flex-wrap gap-1.5">
+                        {sks.map(s => (
+                          <span key={s} className="px-2.5 py-0.5 bg-ai-light/50 border border-ai/20 text-ai text-[11px] font-bold rounded-md">
+                            {s}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Experience & Education */}
+              <div className="bg-surface rounded-card border border-border p-6 space-y-6">
+                <div>
+                  <h3 className="text-sm font-bold text-foreground flex items-center gap-2 mb-3">
+                    <Briefcase className="w-4 h-4 text-primary" /> Experience History
+                  </h3>
+                  <div className="pl-6 border-l-2 border-border space-y-4">
+                    <div className="relative">
+                      <div className="absolute -left-[31px] top-1 w-3 h-3 bg-primary rounded-full border-2 border-surface" />
+                      <h4 className="text-sm font-semibold text-foreground">{profile.headline || 'Software Engineer'}</h4>
+                      <p className="text-xs text-muted">Tech Corp Inc. • 2021 - Present</p>
+                      <p className="text-xs text-secondary mt-1 line-clamp-2">Developed full-stack web applications using React and Node.js. Improved API performance by 40% and mentored junior developers.</p>
+                    </div>
+                    <div className="relative">
+                      <div className="absolute -left-[31px] top-1 w-3 h-3 bg-gray-300 rounded-full border-2 border-surface" />
+                      <h4 className="text-sm font-semibold text-foreground">Frontend Developer</h4>
+                      <p className="text-xs text-muted">Web Solutions • 2018 - 2021</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="text-sm font-bold text-foreground flex items-center gap-2 mb-3">
+                    <GraduationCap className="w-4 h-4 text-primary" /> Education
+                  </h3>
+                  <div className="pl-6 border-l-2 border-border space-y-4">
+                    <div className="relative">
+                      <div className="absolute -left-[31px] top-1 w-3 h-3 bg-gray-300 rounded-full border-2 border-surface" />
+                      <h4 className="text-sm font-semibold text-foreground">B.Tech in Computer Science</h4>
+                      <p className="text-xs text-muted">National Institute of Technology • 2014 - 2018</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
+        </div>
+
+        {/* Right Sidebar: AI Strength & Suggestions */}
+        <div className="space-y-6">
+          <div className="bg-surface rounded-card border border-border p-6 text-center">
+            <h3 className="text-sm font-bold text-foreground mb-4">Resume Strength</h3>
+            
+            <div className="relative w-32 h-32 mx-auto mb-4">
+              <svg viewBox="0 0 100 100" className="w-full h-full -rotate-90">
+                <circle cx="50" cy="50" r="42" fill="none" stroke="#F1F5F9" strokeWidth="8" />
+                <circle cx="50" cy="50" r="42" fill="none" stroke="#2563EB" strokeWidth="8"
+                  strokeDasharray="264"
+                  strokeDashoffset={264 - (264 * strengthScore) / 100}
+                  strokeLinecap="round"
+                  className="transition-all duration-1000 ease-out"
+                />
+              </svg>
+              <div className="absolute inset-0 flex flex-col items-center justify-center">
+                <span className="text-3xl font-extrabold text-primary leading-none">{strengthScore}</span>
+                <span className="text-[10px] text-muted font-bold uppercase tracking-wide">/ 100</span>
+              </div>
             </div>
-            <div>
-              <p className="text-sm font-semibold text-foreground">{profile.resumeFileName}</p>
-              <p className="text-xs text-muted flex items-center gap-1 mt-0.5">
-                <CheckCircle2 className="w-3 h-3 text-success" /> AI Parsed • Ready for job matching
-              </p>
+
+            <p className="text-xs text-secondary mb-4">
+              {strengthScore > 80 
+                ? "Excellent! Your profile is highly competitive and ready for applications." 
+                : "Upload your resume to unlock AI profile insights and job matching."}
+            </p>
+
+            <div className="pt-4 border-t border-border space-y-2 text-left">
+              <p className="text-xs font-bold text-foreground mb-2">AI Suggestions</p>
+              {profile.resumeParsed ? (
+                <>
+                  <div className="flex items-start gap-2 text-xs">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-success shrink-0 mt-0.5" />
+                    <span className="text-secondary">Strong technical keyword coverage</span>
+                  </div>
+                  <div className="flex items-start gap-2 text-xs">
+                    <AlertCircle className="w-3.5 h-3.5 text-warning shrink-0 mt-0.5" />
+                    <span className="text-secondary">Add metrics to your experience bullets (e.g. "improved by 40%")</span>
+                  </div>
+                  <div className="flex items-start gap-2 text-xs">
+                    <AlertCircle className="w-3.5 h-3.5 text-warning shrink-0 mt-0.5" />
+                    <span className="text-secondary">Include a portfolio or GitHub link</span>
+                  </div>
+                </>
+              ) : (
+                <div className="flex items-start gap-2 text-xs opacity-50">
+                  <AlertCircle className="w-3.5 h-3.5 text-muted shrink-0 mt-0.5" />
+                  <span className="text-secondary">Waiting for resume upload...</span>
+                </div>
+              )}
             </div>
           </div>
-          <button
-            onClick={handleRemoveResume}
-            className="p-2 text-muted hover:text-danger rounded-btn hover:bg-gray-100 transition-colors"
-            title="Delete resume"
-          >
-            <Trash2 className="w-4 h-4" />
-          </button>
         </div>
-      )}
 
-      {/* Extracted Skills Preview */}
-      <div className="bg-surface rounded-card border border-border p-6 space-y-4">
-        <h3 className="text-sm font-bold text-foreground flex items-center gap-2">
-          <Sparkles className="w-4 h-4 text-ai" /> Extracted Profile Competencies
-        </h3>
-        {profile.skills.length === 0 ? (
-          <p className="text-xs text-muted">No skills detected yet. Upload a resume to automatically detect skills.</p>
-        ) : (
-          <div className="flex flex-wrap gap-2">
-            {profile.skills.map((skill, index) => (
-              <span
-                key={index}
-                className="px-3 py-1 bg-primary-light text-primary text-xs font-semibold rounded-full border border-blue-200"
-              >
-                {skill}
-              </span>
-            ))}
-          </div>
-        )}
       </div>
     </div>
   );
