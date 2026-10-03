@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useStore } from '../../store/useStore';
-import { Users, Plus, Building2, ShieldAlert } from 'lucide-react';
+import { Users, Plus, Building2, ShieldAlert, GripHorizontal, DollarSign, Activity, GitCommit } from 'lucide-react';
 import { toast } from '../../components/ui/Toast';
 
 export function CompanyTeam() {
@@ -46,6 +46,105 @@ export function CompanyTeam() {
     { dept: 'Sales', planned: 30, filled: 12 },
   ];
 
+  // ── NEW: Org Chart Sandbox State ──
+  const [sandboxMode, setSandboxMode] = useState(false);
+  const [orgNodes, setOrgNodes] = useState([
+    { id: 'ceo', role: 'CEO', dept: 'Executive', salary: 300000, type: 'filled', parent: null },
+    { id: 'cto', role: 'CTO', dept: 'Engineering', salary: 250000, type: 'filled', parent: 'ceo' },
+    { id: 'vp_prod', role: 'VP Product', dept: 'Product', salary: 220000, type: 'filled', parent: 'ceo' },
+    { id: 'em_1', role: 'Engineering Manager', dept: 'Engineering', salary: 180000, type: 'filled', parent: 'cto' },
+    { id: 'sde_1', role: 'Senior SDE', dept: 'Engineering', salary: 150000, type: 'filled', parent: 'em_1' },
+    { id: 'sde_2', role: 'SDE II', dept: 'Engineering', salary: 120000, type: 'filled', parent: 'em_1' },
+    { id: 'open_1', role: 'Staff Engineer (Req)', dept: 'Engineering', salary: 200000, type: 'open', parent: 'cto' },
+  ]);
+  
+  const [draggedNode, setDraggedNode] = useState<string | null>(null);
+
+  const handleDragStart = (e: React.DragEvent, id: string) => {
+    e.dataTransfer.setData('nodeId', id);
+    setDraggedNode(id);
+  };
+
+  const handleDropNode = (e: React.DragEvent, targetParentId: string) => {
+    e.preventDefault();
+    const nodeId = e.dataTransfer.getData('nodeId');
+    if (nodeId && nodeId !== targetParentId) {
+      // Prevent cyclical references (simplified check)
+      const targetNode = orgNodes.find(n => n.id === targetParentId);
+      if (targetNode?.parent !== nodeId) {
+        setOrgNodes(nodes => nodes.map(n => n.id === nodeId ? { ...n, parent: targetParentId } : n));
+        toast('success', 'Org chart restructured successfully.');
+      } else {
+        toast('error', 'Cannot drop a manager under their direct report.');
+      }
+    }
+    setDraggedNode(null);
+  };
+
+  const addVirtualSeat = (parentId: string) => {
+    const newId = `virtual_${Date.now()}`;
+    setOrgNodes([...orgNodes, { id: newId, role: 'New Hire (Virtual)', dept: 'TBD', salary: 100000, type: 'virtual', parent: parentId }]);
+    toast('info', 'Virtual seat added to Sandbox.');
+  };
+
+  const currentBurn = orgNodes.filter(n => n.type === 'filled').reduce((a, b) => a + b.salary, 0);
+  const projectedBurn = orgNodes.reduce((a, b) => a + b.salary, 0);
+  
+  const renderOrgNode = (nodeId: string, level = 0) => {
+    const node = orgNodes.find(n => n.id === nodeId);
+    if (!node) return null;
+    const children = orgNodes.filter(n => n.parent === nodeId);
+    
+    return (
+      <div key={node.id} className={`flex flex-col ${level === 0 ? 'items-center' : 'items-start'} relative`}>
+        <div 
+          draggable={sandboxMode}
+          onDragStart={(e) => handleDragStart(e, node.id)}
+          onDragOver={(e) => e.preventDefault()}
+          onDrop={(e) => sandboxMode && handleDropNode(e, node.id)}
+          className={`relative z-10 w-[220px] p-3 rounded-card border ${
+            node.type === 'filled' ? 'bg-surface border-border' : 
+            node.type === 'open' ? 'bg-blue-50 border-blue-200 border-dashed' : 
+            'bg-purple-50 border-purple-300 border-dashed animate-pulse-slow'
+          } shadow-sm transition-all ${sandboxMode ? 'cursor-grab hover:shadow-md hover:border-primary' : ''} ${
+            draggedNode === node.id ? 'opacity-50' : ''
+          }`}
+        >
+          {sandboxMode && (
+            <div className="absolute -left-3 top-1/2 -translate-y-1/2 text-muted cursor-grab opacity-0 group-hover:opacity-100 transition-opacity">
+              <GripHorizontal className="w-4 h-4" />
+            </div>
+          )}
+          <div className="flex justify-between items-start mb-1">
+            <span className="text-[12px] font-bold text-foreground truncate pr-2">{node.role}</span>
+            {sandboxMode && (
+              <button onClick={() => addVirtualSeat(node.id)} className="shrink-0 p-1 bg-gray-100 hover:bg-primary hover:text-white rounded text-muted transition-colors" title="Add Direct Report">
+                <Plus className="w-3 h-3" />
+              </button>
+            )}
+          </div>
+          <div className="flex justify-between items-end">
+            <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-sm ${node.type === 'filled' ? 'bg-gray-100 text-secondary' : node.type === 'open' ? 'bg-blue-100 text-blue-700' : 'bg-purple-100 text-purple-700'}`}>
+              {node.type === 'filled' ? node.dept : node.type === 'open' ? 'Open Req' : 'Sandbox Draft'}
+            </span>
+            <span className="text-[11px] font-mono text-muted">${(node.salary / 1000).toFixed(0)}k</span>
+          </div>
+        </div>
+        
+        {children.length > 0 && (
+          <div className="flex gap-4 mt-6 relative pt-4 before:absolute before:top-0 before:left-1/2 before:w-px before:h-4 before:bg-border before:-translate-x-1/2">
+            <div className="absolute top-4 left-[20%] right-[20%] h-px bg-border z-0" />
+            {children.map(child => (
+              <div key={child.id} className="relative pt-4 before:absolute before:top-0 before:left-1/2 before:w-px before:h-4 before:bg-border before:-translate-x-1/2">
+                {renderOrgNode(child.id, level + 1)}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  };
+
   return (
     <div className="space-y-6 animate-fade-in max-w-5xl mx-auto">
       <div className="flex items-center justify-between">
@@ -78,6 +177,46 @@ export function CompanyTeam() {
               </div>
             );
           })}
+        </div>
+      </div>
+
+      {/* ── NEW: Dynamic Org Chart Sandbox ── */}
+      <div className="bg-surface rounded-card border border-border shadow-sm overflow-hidden">
+        <div className="px-6 py-4 border-b border-border flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-gray-50/50">
+          <div>
+            <h2 className="text-sm font-bold text-foreground flex items-center gap-2">
+              <GitCommit className="w-4 h-4 text-primary" /> Dynamic Org Chart & Budget Modeler
+            </h2>
+            <p className="text-[11px] text-muted mt-1">Drag-and-drop to restructure. Add virtual seats to forecast budget.</p>
+          </div>
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3 mr-4">
+              <div className="text-right">
+                <p className="text-[10px] font-bold text-muted uppercase">Current Burn</p>
+                <p className="text-xs font-mono font-bold text-foreground">${(currentBurn / 1000).toFixed(0)}k <span className="text-[10px] text-muted font-sans font-normal">/yr</span></p>
+              </div>
+              <div className="w-px h-8 bg-border" />
+              <div className="text-right">
+                <p className="text-[10px] font-bold text-purple-600 uppercase">Projected (Sandbox)</p>
+                <p className="text-xs font-mono font-bold text-purple-700">${(projectedBurn / 1000).toFixed(0)}k <span className="text-[10px] text-purple-400 font-sans font-normal">/yr</span></p>
+              </div>
+            </div>
+            <button 
+              onClick={() => setSandboxMode(!sandboxMode)} 
+              className={`px-4 py-2 text-xs font-semibold rounded-btn transition-all flex items-center gap-2 ${
+                sandboxMode ? 'bg-purple-100 text-purple-700 border border-purple-200' : 'bg-white border border-border text-foreground hover:bg-gray-50'
+              }`}
+            >
+              <Activity className="w-3.5 h-3.5" />
+              {sandboxMode ? 'Exit Sandbox' : 'Sandbox Mode'}
+            </button>
+          </div>
+        </div>
+        
+        <div className="p-8 overflow-x-auto min-h-[400px] flex justify-center bg-gray-50/30">
+          <div className="inline-block min-w-max">
+            {renderOrgNode('ceo')}
+          </div>
         </div>
       </div>
 
