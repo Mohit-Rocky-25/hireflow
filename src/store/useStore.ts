@@ -9,7 +9,7 @@ import type {
 } from '../types';
 import { generateDemoData } from './demoData';
 
-interface AppState {
+export interface AppState {
   // Auth
   currentUser: User | null;
   isAuthenticated: boolean;
@@ -407,13 +407,13 @@ export const useStore = create<AppState>()(
           _initialized: true,
         });
         // Store demo passwords
-        demo.users.forEach(u => {
+        demo.users?.forEach((u: any) => {
           localStorage.setItem(`pw_${u.id}`, 'demo123');
         });
       },
     }),
     {
-      name: 'hireflow-storage-v2',
+      name: 'hireflow-storage-v4',
       partialize: (state) => ({
         users: state.users,
         companies: state.companies,
