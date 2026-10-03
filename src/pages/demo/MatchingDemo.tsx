@@ -1082,7 +1082,308 @@ const COMPANIES = [
       { title: "ML Engineer (Compliance)", level: "Senior", competencies: ["ml", "python", "finance", "databases"], reqLevel: { ml: "expert", python: "expert", finance: "expert", databases: "strong" }, desc: "AML transaction monitoring, FEMA compliance automation, and suspicious activity detection." },
       { title: "Frontend Engineer", level: "SDE-2", competencies: ["react", "typescript", "finance", "security"], reqLevel: { react: "expert", typescript: "expert", finance: "strong", security: "strong" }, desc: "Business banking dashboard: payroll, vendor payments, expense management, and cash flow analytics." },
     ]
-  },
+  },{
+    id: "stripe", name: "Stripe", logo: "S", gradient: "from-blue-500 to-indigo-500",
+    industry: "Technology", hq: "San Francisco, CA", tier: "Tech Giant",
+    hiring2023: 1071, hiring2024: 366, trend: "stable",
+    openRoles: 22, avgPackage: "₹30-60 LPA", glassdoor: 3.8,
+    roles: [
+      { title: "DevOps Engineer - 1", level: "Senior", competencies: ["kubernetes","devops","aws","golang"], reqLevel: { kubernetes: "expert", devops: "expert", aws: "strong", golang: "working" }, desc: "Scale and secure our cloud infrastructure and deployment pipelines." },
+      { title: "Engineering Manager - 2", level: "Manager", competencies: ["leadership","systemdesign","communication","java"], reqLevel: { leadership: "expert", systemdesign: "expert", communication: "expert", java: "strong" }, desc: "Lead and grow high-performing engineering teams while guiding architecture." },
+      { title: "DevOps Engineer - 3", level: "Senior", competencies: ["kubernetes","devops","aws","golang"], reqLevel: { kubernetes: "expert", devops: "expert", aws: "strong", golang: "working" }, desc: "Scale and secure our cloud infrastructure and deployment pipelines." },
+      { title: "Mobile Engineer (iOS) - 4", level: "Mid-level", competencies: ["swift","dsa","systemdesign","communication"], reqLevel: { swift: "expert", dsa: "strong", systemdesign: "strong", communication: "working" }, desc: "Build seamless native iOS experiences for our flagship app." },
+      { title: "Engineering Manager - 5", level: "Manager", competencies: ["leadership","systemdesign","communication","java"], reqLevel: { leadership: "expert", systemdesign: "expert", communication: "expert", java: "strong" }, desc: "Lead and grow high-performing engineering teams while guiding architecture." },
+      { title: "DevOps Engineer - 6", level: "Senior", competencies: ["kubernetes","devops","aws","golang"], reqLevel: { kubernetes: "expert", devops: "expert", aws: "strong", golang: "working" }, desc: "Scale and secure our cloud infrastructure and deployment pipelines." },
+      { title: "Mobile Engineer (iOS) - 7", level: "Mid-level", competencies: ["swift","dsa","systemdesign","communication"], reqLevel: { swift: "expert", dsa: "strong", systemdesign: "strong", communication: "working" }, desc: "Build seamless native iOS experiences for our flagship app." },
+      { title: "Site Reliability Engineer - 8", level: "Senior", competencies: ["devops","kubernetes","systemdesign","golang"], reqLevel: { devops: "expert", kubernetes: "expert", systemdesign: "expert", golang: "strong" }, desc: "Ensure maximum uptime and system reliability for critical services." },
+      { title: "Backend Developer - 9", level: "Mid-level", competencies: ["java","systemdesign","databases","dsa"], reqLevel: { java: "expert", systemdesign: "strong", databases: "strong", dsa: "expert" }, desc: "Design robust APIs and backend systems handling millions of requests." },
+      { title: "Mobile Engineer (iOS) - 10", level: "Mid-level", competencies: ["swift","dsa","systemdesign","communication"], reqLevel: { swift: "expert", dsa: "strong", systemdesign: "strong", communication: "working" }, desc: "Build seamless native iOS experiences for our flagship app." },
+      { title: "Site Reliability Engineer - 11", level: "Senior", competencies: ["devops","kubernetes","systemdesign","golang"], reqLevel: { devops: "expert", kubernetes: "expert", systemdesign: "expert", golang: "strong" }, desc: "Ensure maximum uptime and system reliability for critical services." }
+    ]
+  }
+  ,{
+    id: "airbnb", name: "Airbnb", logo: "A", gradient: "from-blue-500 to-indigo-500",
+    industry: "Technology", hq: "San Francisco, CA", tier: "Tech Giant",
+    hiring2023: 2444, hiring2024: 886, trend: "stable",
+    openRoles: 34, avgPackage: "₹30-60 LPA", glassdoor: 4.4,
+    roles: [
+      { title: "Site Reliability Engineer - 1", level: "Senior", competencies: ["devops","kubernetes","systemdesign","golang"], reqLevel: { devops: "expert", kubernetes: "expert", systemdesign: "expert", golang: "strong" }, desc: "Ensure maximum uptime and system reliability for critical services." },
+      { title: "Machine Learning Engineer - 2", level: "Senior", competencies: ["ml","python","dsa","databases"], reqLevel: { ml: "expert", python: "expert", dsa: "strong", databases: "strong" }, desc: "Develop and deploy large scale AI models for personalization." },
+      { title: "Mobile Engineer (Android) - 3", level: "Mid-level", competencies: ["kotlin","java","dsa","systemdesign"], reqLevel: { kotlin: "expert", java: "strong", dsa: "strong", systemdesign: "strong" }, desc: "Develop feature-rich Android applications with offline-first capabilities." },
+      { title: "Data Scientist - 4", level: "Senior", competencies: ["ml","python","communication","databases"], reqLevel: { ml: "strong", python: "expert", communication: "expert", databases: "strong" }, desc: "Analyze complex datasets to drive product decisions and user growth." },
+      { title: "Mobile Engineer (Android) - 5", level: "Mid-level", competencies: ["kotlin","java","dsa","systemdesign"], reqLevel: { kotlin: "expert", java: "strong", dsa: "strong", systemdesign: "strong" }, desc: "Develop feature-rich Android applications with offline-first capabilities." },
+      { title: "DevOps Engineer - 6", level: "Senior", competencies: ["kubernetes","devops","aws","golang"], reqLevel: { kubernetes: "expert", devops: "expert", aws: "strong", golang: "working" }, desc: "Scale and secure our cloud infrastructure and deployment pipelines." },
+      { title: "Engineering Manager - 7", level: "Manager", competencies: ["leadership","systemdesign","communication","java"], reqLevel: { leadership: "expert", systemdesign: "expert", communication: "expert", java: "strong" }, desc: "Lead and grow high-performing engineering teams while guiding architecture." },
+      { title: "DevOps Engineer - 8", level: "Senior", competencies: ["kubernetes","devops","aws","golang"], reqLevel: { kubernetes: "expert", devops: "expert", aws: "strong", golang: "working" }, desc: "Scale and secure our cloud infrastructure and deployment pipelines." },
+      { title: "Mobile Engineer (iOS) - 9", level: "Mid-level", competencies: ["swift","dsa","systemdesign","communication"], reqLevel: { swift: "expert", dsa: "strong", systemdesign: "strong", communication: "working" }, desc: "Build seamless native iOS experiences for our flagship app." },
+      { title: "Machine Learning Engineer - 10", level: "Senior", competencies: ["ml","python","dsa","databases"], reqLevel: { ml: "expert", python: "expert", dsa: "strong", databases: "strong" }, desc: "Develop and deploy large scale AI models for personalization." },
+      { title: "Engineering Manager - 11", level: "Manager", competencies: ["leadership","systemdesign","communication","java"], reqLevel: { leadership: "expert", systemdesign: "expert", communication: "expert", java: "strong" }, desc: "Lead and grow high-performing engineering teams while guiding architecture." },
+      { title: "Mobile Engineer (iOS) - 12", level: "Mid-level", competencies: ["swift","dsa","systemdesign","communication"], reqLevel: { swift: "expert", dsa: "strong", systemdesign: "strong", communication: "working" }, desc: "Build seamless native iOS experiences for our flagship app." },
+      { title: "Backend Developer - 13", level: "Mid-level", competencies: ["java","systemdesign","databases","dsa"], reqLevel: { java: "expert", systemdesign: "strong", databases: "strong", dsa: "expert" }, desc: "Design robust APIs and backend systems handling millions of requests." },
+      { title: "Data Scientist - 14", level: "Senior", competencies: ["ml","python","communication","databases"], reqLevel: { ml: "strong", python: "expert", communication: "expert", databases: "strong" }, desc: "Analyze complex datasets to drive product decisions and user growth." }
+    ]
+  }
+  ,{
+    id: "uber", name: "Uber", logo: "U", gradient: "from-blue-500 to-indigo-500",
+    industry: "Technology", hq: "San Francisco, CA", tier: "Tech Giant",
+    hiring2023: 1423, hiring2024: 1133, trend: "stable",
+    openRoles: 36, avgPackage: "₹30-60 LPA", glassdoor: 4.0,
+    roles: [
+      { title: "Engineering Manager - 1", level: "Manager", competencies: ["leadership","systemdesign","communication","java"], reqLevel: { leadership: "expert", systemdesign: "expert", communication: "expert", java: "strong" }, desc: "Lead and grow high-performing engineering teams while guiding architecture." },
+      { title: "Mobile Engineer (iOS) - 2", level: "Mid-level", competencies: ["swift","dsa","systemdesign","communication"], reqLevel: { swift: "expert", dsa: "strong", systemdesign: "strong", communication: "working" }, desc: "Build seamless native iOS experiences for our flagship app." },
+      { title: "Senior Frontend Engineer - 3", level: "Senior", competencies: ["react","typescript","systemdesign","communication"], reqLevel: { react: "expert", typescript: "expert", systemdesign: "strong", communication: "strong" }, desc: "Build scalable web applications and intuitive UIs for our core product." },
+      { title: "Data Scientist - 4", level: "Senior", competencies: ["ml","python","communication","databases"], reqLevel: { ml: "strong", python: "expert", communication: "expert", databases: "strong" }, desc: "Analyze complex datasets to drive product decisions and user growth." },
+      { title: "Data Scientist - 5", level: "Senior", competencies: ["ml","python","communication","databases"], reqLevel: { ml: "strong", python: "expert", communication: "expert", databases: "strong" }, desc: "Analyze complex datasets to drive product decisions and user growth." },
+      { title: "Site Reliability Engineer - 6", level: "Senior", competencies: ["devops","kubernetes","systemdesign","golang"], reqLevel: { devops: "expert", kubernetes: "expert", systemdesign: "expert", golang: "strong" }, desc: "Ensure maximum uptime and system reliability for critical services." },
+      { title: "Machine Learning Engineer - 7", level: "Senior", competencies: ["ml","python","dsa","databases"], reqLevel: { ml: "expert", python: "expert", dsa: "strong", databases: "strong" }, desc: "Develop and deploy large scale AI models for personalization." },
+      { title: "Senior Frontend Engineer - 8", level: "Senior", competencies: ["react","typescript","systemdesign","communication"], reqLevel: { react: "expert", typescript: "expert", systemdesign: "strong", communication: "strong" }, desc: "Build scalable web applications and intuitive UIs for our core product." },
+      { title: "Machine Learning Engineer - 9", level: "Senior", competencies: ["ml","python","dsa","databases"], reqLevel: { ml: "expert", python: "expert", dsa: "strong", databases: "strong" }, desc: "Develop and deploy large scale AI models for personalization." },
+      { title: "Engineering Manager - 10", level: "Manager", competencies: ["leadership","systemdesign","communication","java"], reqLevel: { leadership: "expert", systemdesign: "expert", communication: "expert", java: "strong" }, desc: "Lead and grow high-performing engineering teams while guiding architecture." }
+    ]
+  }
+  ,{
+    id: "lyft", name: "Lyft", logo: "L", gradient: "from-blue-500 to-indigo-500",
+    industry: "Technology", hq: "San Francisco, CA", tier: "Tech Giant",
+    hiring2023: 2203, hiring2024: 1600, trend: "stable",
+    openRoles: 39, avgPackage: "₹30-60 LPA", glassdoor: 4.2,
+    roles: [
+      { title: "Machine Learning Engineer - 1", level: "Senior", competencies: ["ml","python","dsa","databases"], reqLevel: { ml: "expert", python: "expert", dsa: "strong", databases: "strong" }, desc: "Develop and deploy large scale AI models for personalization." },
+      { title: "Mobile Engineer (iOS) - 2", level: "Mid-level", competencies: ["swift","dsa","systemdesign","communication"], reqLevel: { swift: "expert", dsa: "strong", systemdesign: "strong", communication: "working" }, desc: "Build seamless native iOS experiences for our flagship app." },
+      { title: "Machine Learning Engineer - 3", level: "Senior", competencies: ["ml","python","dsa","databases"], reqLevel: { ml: "expert", python: "expert", dsa: "strong", databases: "strong" }, desc: "Develop and deploy large scale AI models for personalization." },
+      { title: "Engineering Manager - 4", level: "Manager", competencies: ["leadership","systemdesign","communication","java"], reqLevel: { leadership: "expert", systemdesign: "expert", communication: "expert", java: "strong" }, desc: "Lead and grow high-performing engineering teams while guiding architecture." },
+      { title: "Mobile Engineer (Android) - 5", level: "Mid-level", competencies: ["kotlin","java","dsa","systemdesign"], reqLevel: { kotlin: "expert", java: "strong", dsa: "strong", systemdesign: "strong" }, desc: "Develop feature-rich Android applications with offline-first capabilities." },
+      { title: "Machine Learning Engineer - 6", level: "Senior", competencies: ["ml","python","dsa","databases"], reqLevel: { ml: "expert", python: "expert", dsa: "strong", databases: "strong" }, desc: "Develop and deploy large scale AI models for personalization." },
+      { title: "Mobile Engineer (iOS) - 7", level: "Mid-level", competencies: ["swift","dsa","systemdesign","communication"], reqLevel: { swift: "expert", dsa: "strong", systemdesign: "strong", communication: "working" }, desc: "Build seamless native iOS experiences for our flagship app." },
+      { title: "Backend Developer - 8", level: "Mid-level", competencies: ["java","systemdesign","databases","dsa"], reqLevel: { java: "expert", systemdesign: "strong", databases: "strong", dsa: "expert" }, desc: "Design robust APIs and backend systems handling millions of requests." },
+      { title: "Data Scientist - 9", level: "Senior", competencies: ["ml","python","communication","databases"], reqLevel: { ml: "strong", python: "expert", communication: "expert", databases: "strong" }, desc: "Analyze complex datasets to drive product decisions and user growth." },
+      { title: "Senior Frontend Engineer - 10", level: "Senior", competencies: ["react","typescript","systemdesign","communication"], reqLevel: { react: "expert", typescript: "expert", systemdesign: "strong", communication: "strong" }, desc: "Build scalable web applications and intuitive UIs for our core product." }
+    ]
+  }
+  ,{
+    id: "pinterest", name: "Pinterest", logo: "P", gradient: "from-blue-500 to-indigo-500",
+    industry: "Technology", hq: "San Francisco, CA", tier: "Tech Giant",
+    hiring2023: 1207, hiring2024: 484, trend: "stable",
+    openRoles: 109, avgPackage: "₹30-60 LPA", glassdoor: 4.1,
+    roles: [
+      { title: "Site Reliability Engineer - 1", level: "Senior", competencies: ["devops","kubernetes","systemdesign","golang"], reqLevel: { devops: "expert", kubernetes: "expert", systemdesign: "expert", golang: "strong" }, desc: "Ensure maximum uptime and system reliability for critical services." },
+      { title: "Security Engineer - 2", level: "Senior", competencies: ["security","python","systemdesign","dsa"], reqLevel: { security: "expert", python: "strong", systemdesign: "strong", dsa: "working" }, desc: "Secure our platform against vulnerabilities and conduct red team exercises." },
+      { title: "Mobile Engineer (Android) - 3", level: "Mid-level", competencies: ["kotlin","java","dsa","systemdesign"], reqLevel: { kotlin: "expert", java: "strong", dsa: "strong", systemdesign: "strong" }, desc: "Develop feature-rich Android applications with offline-first capabilities." },
+      { title: "Senior Frontend Engineer - 4", level: "Senior", competencies: ["react","typescript","systemdesign","communication"], reqLevel: { react: "expert", typescript: "expert", systemdesign: "strong", communication: "strong" }, desc: "Build scalable web applications and intuitive UIs for our core product." },
+      { title: "Engineering Manager - 5", level: "Manager", competencies: ["leadership","systemdesign","communication","java"], reqLevel: { leadership: "expert", systemdesign: "expert", communication: "expert", java: "strong" }, desc: "Lead and grow high-performing engineering teams while guiding architecture." },
+      { title: "Senior Frontend Engineer - 6", level: "Senior", competencies: ["react","typescript","systemdesign","communication"], reqLevel: { react: "expert", typescript: "expert", systemdesign: "strong", communication: "strong" }, desc: "Build scalable web applications and intuitive UIs for our core product." },
+      { title: "Data Scientist - 7", level: "Senior", competencies: ["ml","python","communication","databases"], reqLevel: { ml: "strong", python: "expert", communication: "expert", databases: "strong" }, desc: "Analyze complex datasets to drive product decisions and user growth." },
+      { title: "Security Engineer - 8", level: "Senior", competencies: ["security","python","systemdesign","dsa"], reqLevel: { security: "expert", python: "strong", systemdesign: "strong", dsa: "working" }, desc: "Secure our platform against vulnerabilities and conduct red team exercises." },
+      { title: "Machine Learning Engineer - 9", level: "Senior", competencies: ["ml","python","dsa","databases"], reqLevel: { ml: "expert", python: "expert", dsa: "strong", databases: "strong" }, desc: "Develop and deploy large scale AI models for personalization." },
+      { title: "Machine Learning Engineer - 10", level: "Senior", competencies: ["ml","python","dsa","databases"], reqLevel: { ml: "expert", python: "expert", dsa: "strong", databases: "strong" }, desc: "Develop and deploy large scale AI models for personalization." },
+      { title: "Backend Developer - 11", level: "Mid-level", competencies: ["java","systemdesign","databases","dsa"], reqLevel: { java: "expert", systemdesign: "strong", databases: "strong", dsa: "expert" }, desc: "Design robust APIs and backend systems handling millions of requests." },
+      { title: "Mobile Engineer (Android) - 12", level: "Mid-level", competencies: ["kotlin","java","dsa","systemdesign"], reqLevel: { kotlin: "expert", java: "strong", dsa: "strong", systemdesign: "strong" }, desc: "Develop feature-rich Android applications with offline-first capabilities." },
+      { title: "Security Engineer - 13", level: "Senior", competencies: ["security","python","systemdesign","dsa"], reqLevel: { security: "expert", python: "strong", systemdesign: "strong", dsa: "working" }, desc: "Secure our platform against vulnerabilities and conduct red team exercises." },
+      { title: "Senior Frontend Engineer - 14", level: "Senior", competencies: ["react","typescript","systemdesign","communication"], reqLevel: { react: "expert", typescript: "expert", systemdesign: "strong", communication: "strong" }, desc: "Build scalable web applications and intuitive UIs for our core product." },
+      { title: "Site Reliability Engineer - 15", level: "Senior", competencies: ["devops","kubernetes","systemdesign","golang"], reqLevel: { devops: "expert", kubernetes: "expert", systemdesign: "expert", golang: "strong" }, desc: "Ensure maximum uptime and system reliability for critical services." }
+    ]
+  }
+  ,{
+    id: "snap", name: "Snap", logo: "S", gradient: "from-blue-500 to-indigo-500",
+    industry: "Technology", hq: "San Francisco, CA", tier: "Tech Giant",
+    hiring2023: 2633, hiring2024: 1784, trend: "stable",
+    openRoles: 107, avgPackage: "₹30-60 LPA", glassdoor: 4.1,
+    roles: [
+      { title: "Senior Frontend Engineer - 1", level: "Senior", competencies: ["react","typescript","systemdesign","communication"], reqLevel: { react: "expert", typescript: "expert", systemdesign: "strong", communication: "strong" }, desc: "Build scalable web applications and intuitive UIs for our core product." },
+      { title: "Mobile Engineer (Android) - 2", level: "Mid-level", competencies: ["kotlin","java","dsa","systemdesign"], reqLevel: { kotlin: "expert", java: "strong", dsa: "strong", systemdesign: "strong" }, desc: "Develop feature-rich Android applications with offline-first capabilities." },
+      { title: "Security Engineer - 3", level: "Senior", competencies: ["security","python","systemdesign","dsa"], reqLevel: { security: "expert", python: "strong", systemdesign: "strong", dsa: "working" }, desc: "Secure our platform against vulnerabilities and conduct red team exercises." },
+      { title: "Security Engineer - 4", level: "Senior", competencies: ["security","python","systemdesign","dsa"], reqLevel: { security: "expert", python: "strong", systemdesign: "strong", dsa: "working" }, desc: "Secure our platform against vulnerabilities and conduct red team exercises." },
+      { title: "Machine Learning Engineer - 5", level: "Senior", competencies: ["ml","python","dsa","databases"], reqLevel: { ml: "expert", python: "expert", dsa: "strong", databases: "strong" }, desc: "Develop and deploy large scale AI models for personalization." },
+      { title: "Security Engineer - 6", level: "Senior", competencies: ["security","python","systemdesign","dsa"], reqLevel: { security: "expert", python: "strong", systemdesign: "strong", dsa: "working" }, desc: "Secure our platform against vulnerabilities and conduct red team exercises." },
+      { title: "Senior Frontend Engineer - 7", level: "Senior", competencies: ["react","typescript","systemdesign","communication"], reqLevel: { react: "expert", typescript: "expert", systemdesign: "strong", communication: "strong" }, desc: "Build scalable web applications and intuitive UIs for our core product." },
+      { title: "Site Reliability Engineer - 8", level: "Senior", competencies: ["devops","kubernetes","systemdesign","golang"], reqLevel: { devops: "expert", kubernetes: "expert", systemdesign: "expert", golang: "strong" }, desc: "Ensure maximum uptime and system reliability for critical services." },
+      { title: "Backend Developer - 9", level: "Mid-level", competencies: ["java","systemdesign","databases","dsa"], reqLevel: { java: "expert", systemdesign: "strong", databases: "strong", dsa: "expert" }, desc: "Design robust APIs and backend systems handling millions of requests." },
+      { title: "Security Engineer - 10", level: "Senior", competencies: ["security","python","systemdesign","dsa"], reqLevel: { security: "expert", python: "strong", systemdesign: "strong", dsa: "working" }, desc: "Secure our platform against vulnerabilities and conduct red team exercises." },
+      { title: "Senior Frontend Engineer - 11", level: "Senior", competencies: ["react","typescript","systemdesign","communication"], reqLevel: { react: "expert", typescript: "expert", systemdesign: "strong", communication: "strong" }, desc: "Build scalable web applications and intuitive UIs for our core product." },
+      { title: "Security Engineer - 12", level: "Senior", competencies: ["security","python","systemdesign","dsa"], reqLevel: { security: "expert", python: "strong", systemdesign: "strong", dsa: "working" }, desc: "Secure our platform against vulnerabilities and conduct red team exercises." }
+    ]
+  }
+  ,{
+    id: "spotify", name: "Spotify", logo: "S", gradient: "from-blue-500 to-indigo-500",
+    industry: "Technology", hq: "San Francisco, CA", tier: "Tech Giant",
+    hiring2023: 2553, hiring2024: 1591, trend: "stable",
+    openRoles: 131, avgPackage: "₹30-60 LPA", glassdoor: 4.2,
+    roles: [
+      { title: "Site Reliability Engineer - 1", level: "Senior", competencies: ["devops","kubernetes","systemdesign","golang"], reqLevel: { devops: "expert", kubernetes: "expert", systemdesign: "expert", golang: "strong" }, desc: "Ensure maximum uptime and system reliability for critical services." },
+      { title: "Security Engineer - 2", level: "Senior", competencies: ["security","python","systemdesign","dsa"], reqLevel: { security: "expert", python: "strong", systemdesign: "strong", dsa: "working" }, desc: "Secure our platform against vulnerabilities and conduct red team exercises." },
+      { title: "Security Engineer - 3", level: "Senior", competencies: ["security","python","systemdesign","dsa"], reqLevel: { security: "expert", python: "strong", systemdesign: "strong", dsa: "working" }, desc: "Secure our platform against vulnerabilities and conduct red team exercises." },
+      { title: "Senior Frontend Engineer - 4", level: "Senior", competencies: ["react","typescript","systemdesign","communication"], reqLevel: { react: "expert", typescript: "expert", systemdesign: "strong", communication: "strong" }, desc: "Build scalable web applications and intuitive UIs for our core product." },
+      { title: "Security Engineer - 5", level: "Senior", competencies: ["security","python","systemdesign","dsa"], reqLevel: { security: "expert", python: "strong", systemdesign: "strong", dsa: "working" }, desc: "Secure our platform against vulnerabilities and conduct red team exercises." },
+      { title: "Backend Developer - 6", level: "Mid-level", competencies: ["java","systemdesign","databases","dsa"], reqLevel: { java: "expert", systemdesign: "strong", databases: "strong", dsa: "expert" }, desc: "Design robust APIs and backend systems handling millions of requests." },
+      { title: "Senior Frontend Engineer - 7", level: "Senior", competencies: ["react","typescript","systemdesign","communication"], reqLevel: { react: "expert", typescript: "expert", systemdesign: "strong", communication: "strong" }, desc: "Build scalable web applications and intuitive UIs for our core product." },
+      { title: "Security Engineer - 8", level: "Senior", competencies: ["security","python","systemdesign","dsa"], reqLevel: { security: "expert", python: "strong", systemdesign: "strong", dsa: "working" }, desc: "Secure our platform against vulnerabilities and conduct red team exercises." },
+      { title: "Backend Developer - 9", level: "Mid-level", competencies: ["java","systemdesign","databases","dsa"], reqLevel: { java: "expert", systemdesign: "strong", databases: "strong", dsa: "expert" }, desc: "Design robust APIs and backend systems handling millions of requests." },
+      { title: "Mobile Engineer (Android) - 10", level: "Mid-level", competencies: ["kotlin","java","dsa","systemdesign"], reqLevel: { kotlin: "expert", java: "strong", dsa: "strong", systemdesign: "strong" }, desc: "Develop feature-rich Android applications with offline-first capabilities." },
+      { title: "Machine Learning Engineer - 11", level: "Senior", competencies: ["ml","python","dsa","databases"], reqLevel: { ml: "expert", python: "expert", dsa: "strong", databases: "strong" }, desc: "Develop and deploy large scale AI models for personalization." }
+    ]
+  }
+  ,{
+    id: "shopify", name: "Shopify", logo: "S", gradient: "from-blue-500 to-indigo-500",
+    industry: "Technology", hq: "San Francisco, CA", tier: "Tech Giant",
+    hiring2023: 2877, hiring2024: 1079, trend: "stable",
+    openRoles: 105, avgPackage: "₹30-60 LPA", glassdoor: 4.0,
+    roles: [
+      { title: "Machine Learning Engineer - 1", level: "Senior", competencies: ["ml","python","dsa","databases"], reqLevel: { ml: "expert", python: "expert", dsa: "strong", databases: "strong" }, desc: "Develop and deploy large scale AI models for personalization." },
+      { title: "Engineering Manager - 2", level: "Manager", competencies: ["leadership","systemdesign","communication","java"], reqLevel: { leadership: "expert", systemdesign: "expert", communication: "expert", java: "strong" }, desc: "Lead and grow high-performing engineering teams while guiding architecture." },
+      { title: "DevOps Engineer - 3", level: "Senior", competencies: ["kubernetes","devops","aws","golang"], reqLevel: { kubernetes: "expert", devops: "expert", aws: "strong", golang: "working" }, desc: "Scale and secure our cloud infrastructure and deployment pipelines." },
+      { title: "Machine Learning Engineer - 4", level: "Senior", competencies: ["ml","python","dsa","databases"], reqLevel: { ml: "expert", python: "expert", dsa: "strong", databases: "strong" }, desc: "Develop and deploy large scale AI models for personalization." },
+      { title: "Security Engineer - 5", level: "Senior", competencies: ["security","python","systemdesign","dsa"], reqLevel: { security: "expert", python: "strong", systemdesign: "strong", dsa: "working" }, desc: "Secure our platform against vulnerabilities and conduct red team exercises." },
+      { title: "Backend Developer - 6", level: "Mid-level", competencies: ["java","systemdesign","databases","dsa"], reqLevel: { java: "expert", systemdesign: "strong", databases: "strong", dsa: "expert" }, desc: "Design robust APIs and backend systems handling millions of requests." },
+      { title: "Mobile Engineer (iOS) - 7", level: "Mid-level", competencies: ["swift","dsa","systemdesign","communication"], reqLevel: { swift: "expert", dsa: "strong", systemdesign: "strong", communication: "working" }, desc: "Build seamless native iOS experiences for our flagship app." },
+      { title: "Machine Learning Engineer - 8", level: "Senior", competencies: ["ml","python","dsa","databases"], reqLevel: { ml: "expert", python: "expert", dsa: "strong", databases: "strong" }, desc: "Develop and deploy large scale AI models for personalization." },
+      { title: "Data Scientist - 9", level: "Senior", competencies: ["ml","python","communication","databases"], reqLevel: { ml: "strong", python: "expert", communication: "expert", databases: "strong" }, desc: "Analyze complex datasets to drive product decisions and user growth." },
+      { title: "Security Engineer - 10", level: "Senior", competencies: ["security","python","systemdesign","dsa"], reqLevel: { security: "expert", python: "strong", systemdesign: "strong", dsa: "working" }, desc: "Secure our platform against vulnerabilities and conduct red team exercises." },
+      { title: "Mobile Engineer (iOS) - 11", level: "Mid-level", competencies: ["swift","dsa","systemdesign","communication"], reqLevel: { swift: "expert", dsa: "strong", systemdesign: "strong", communication: "working" }, desc: "Build seamless native iOS experiences for our flagship app." },
+      { title: "Senior Frontend Engineer - 12", level: "Senior", competencies: ["react","typescript","systemdesign","communication"], reqLevel: { react: "expert", typescript: "expert", systemdesign: "strong", communication: "strong" }, desc: "Build scalable web applications and intuitive UIs for our core product." }
+    ]
+  }
+  ,{
+    id: "atlassian", name: "Atlassian", logo: "A", gradient: "from-blue-500 to-indigo-500",
+    industry: "Technology", hq: "San Francisco, CA", tier: "Tech Giant",
+    hiring2023: 551, hiring2024: 1735, trend: "stable",
+    openRoles: 108, avgPackage: "₹30-60 LPA", glassdoor: 3.8,
+    roles: [
+      { title: "Engineering Manager - 1", level: "Manager", competencies: ["leadership","systemdesign","communication","java"], reqLevel: { leadership: "expert", systemdesign: "expert", communication: "expert", java: "strong" }, desc: "Lead and grow high-performing engineering teams while guiding architecture." },
+      { title: "Mobile Engineer (iOS) - 2", level: "Mid-level", competencies: ["swift","dsa","systemdesign","communication"], reqLevel: { swift: "expert", dsa: "strong", systemdesign: "strong", communication: "working" }, desc: "Build seamless native iOS experiences for our flagship app." },
+      { title: "DevOps Engineer - 3", level: "Senior", competencies: ["kubernetes","devops","aws","golang"], reqLevel: { kubernetes: "expert", devops: "expert", aws: "strong", golang: "working" }, desc: "Scale and secure our cloud infrastructure and deployment pipelines." },
+      { title: "Data Scientist - 4", level: "Senior", competencies: ["ml","python","communication","databases"], reqLevel: { ml: "strong", python: "expert", communication: "expert", databases: "strong" }, desc: "Analyze complex datasets to drive product decisions and user growth." },
+      { title: "Site Reliability Engineer - 5", level: "Senior", competencies: ["devops","kubernetes","systemdesign","golang"], reqLevel: { devops: "expert", kubernetes: "expert", systemdesign: "expert", golang: "strong" }, desc: "Ensure maximum uptime and system reliability for critical services." },
+      { title: "Backend Developer - 6", level: "Mid-level", competencies: ["java","systemdesign","databases","dsa"], reqLevel: { java: "expert", systemdesign: "strong", databases: "strong", dsa: "expert" }, desc: "Design robust APIs and backend systems handling millions of requests." },
+      { title: "Engineering Manager - 7", level: "Manager", competencies: ["leadership","systemdesign","communication","java"], reqLevel: { leadership: "expert", systemdesign: "expert", communication: "expert", java: "strong" }, desc: "Lead and grow high-performing engineering teams while guiding architecture." },
+      { title: "DevOps Engineer - 8", level: "Senior", competencies: ["kubernetes","devops","aws","golang"], reqLevel: { kubernetes: "expert", devops: "expert", aws: "strong", golang: "working" }, desc: "Scale and secure our cloud infrastructure and deployment pipelines." },
+      { title: "Site Reliability Engineer - 9", level: "Senior", competencies: ["devops","kubernetes","systemdesign","golang"], reqLevel: { devops: "expert", kubernetes: "expert", systemdesign: "expert", golang: "strong" }, desc: "Ensure maximum uptime and system reliability for critical services." },
+      { title: "Senior Frontend Engineer - 10", level: "Senior", competencies: ["react","typescript","systemdesign","communication"], reqLevel: { react: "expert", typescript: "expert", systemdesign: "strong", communication: "strong" }, desc: "Build scalable web applications and intuitive UIs for our core product." }
+    ]
+  }
+  ,{
+    id: "slack", name: "Slack", logo: "S", gradient: "from-blue-500 to-indigo-500",
+    industry: "Technology", hq: "San Francisco, CA", tier: "Tech Giant",
+    hiring2023: 1099, hiring2024: 1131, trend: "stable",
+    openRoles: 83, avgPackage: "₹30-60 LPA", glassdoor: 4.5,
+    roles: [
+      { title: "Security Engineer - 1", level: "Senior", competencies: ["security","python","systemdesign","dsa"], reqLevel: { security: "expert", python: "strong", systemdesign: "strong", dsa: "working" }, desc: "Secure our platform against vulnerabilities and conduct red team exercises." },
+      { title: "Machine Learning Engineer - 2", level: "Senior", competencies: ["ml","python","dsa","databases"], reqLevel: { ml: "expert", python: "expert", dsa: "strong", databases: "strong" }, desc: "Develop and deploy large scale AI models for personalization." },
+      { title: "Security Engineer - 3", level: "Senior", competencies: ["security","python","systemdesign","dsa"], reqLevel: { security: "expert", python: "strong", systemdesign: "strong", dsa: "working" }, desc: "Secure our platform against vulnerabilities and conduct red team exercises." },
+      { title: "Backend Developer - 4", level: "Mid-level", competencies: ["java","systemdesign","databases","dsa"], reqLevel: { java: "expert", systemdesign: "strong", databases: "strong", dsa: "expert" }, desc: "Design robust APIs and backend systems handling millions of requests." },
+      { title: "Data Scientist - 5", level: "Senior", competencies: ["ml","python","communication","databases"], reqLevel: { ml: "strong", python: "expert", communication: "expert", databases: "strong" }, desc: "Analyze complex datasets to drive product decisions and user growth." },
+      { title: "Machine Learning Engineer - 6", level: "Senior", competencies: ["ml","python","dsa","databases"], reqLevel: { ml: "expert", python: "expert", dsa: "strong", databases: "strong" }, desc: "Develop and deploy large scale AI models for personalization." },
+      { title: "Backend Developer - 7", level: "Mid-level", competencies: ["java","systemdesign","databases","dsa"], reqLevel: { java: "expert", systemdesign: "strong", databases: "strong", dsa: "expert" }, desc: "Design robust APIs and backend systems handling millions of requests." },
+      { title: "Mobile Engineer (iOS) - 8", level: "Mid-level", competencies: ["swift","dsa","systemdesign","communication"], reqLevel: { swift: "expert", dsa: "strong", systemdesign: "strong", communication: "working" }, desc: "Build seamless native iOS experiences for our flagship app." },
+      { title: "DevOps Engineer - 9", level: "Senior", competencies: ["kubernetes","devops","aws","golang"], reqLevel: { kubernetes: "expert", devops: "expert", aws: "strong", golang: "working" }, desc: "Scale and secure our cloud infrastructure and deployment pipelines." },
+      { title: "Engineering Manager - 10", level: "Manager", competencies: ["leadership","systemdesign","communication","java"], reqLevel: { leadership: "expert", systemdesign: "expert", communication: "expert", java: "strong" }, desc: "Lead and grow high-performing engineering teams while guiding architecture." },
+      { title: "Machine Learning Engineer - 11", level: "Senior", competencies: ["ml","python","dsa","databases"], reqLevel: { ml: "expert", python: "expert", dsa: "strong", databases: "strong" }, desc: "Develop and deploy large scale AI models for personalization." },
+      { title: "Mobile Engineer (Android) - 12", level: "Mid-level", competencies: ["kotlin","java","dsa","systemdesign"], reqLevel: { kotlin: "expert", java: "strong", dsa: "strong", systemdesign: "strong" }, desc: "Develop feature-rich Android applications with offline-first capabilities." },
+      { title: "Data Scientist - 13", level: "Senior", competencies: ["ml","python","communication","databases"], reqLevel: { ml: "strong", python: "expert", communication: "expert", databases: "strong" }, desc: "Analyze complex datasets to drive product decisions and user growth." }
+    ]
+  }
+  ,{
+    id: "discord", name: "Discord", logo: "D", gradient: "from-blue-500 to-indigo-500",
+    industry: "Technology", hq: "San Francisco, CA", tier: "Tech Giant",
+    hiring2023: 1548, hiring2024: 1209, trend: "stable",
+    openRoles: 26, avgPackage: "₹30-60 LPA", glassdoor: 4.5,
+    roles: [
+      { title: "Mobile Engineer (iOS) - 1", level: "Mid-level", competencies: ["swift","dsa","systemdesign","communication"], reqLevel: { swift: "expert", dsa: "strong", systemdesign: "strong", communication: "working" }, desc: "Build seamless native iOS experiences for our flagship app." },
+      { title: "Machine Learning Engineer - 2", level: "Senior", competencies: ["ml","python","dsa","databases"], reqLevel: { ml: "expert", python: "expert", dsa: "strong", databases: "strong" }, desc: "Develop and deploy large scale AI models for personalization." },
+      { title: "Data Scientist - 3", level: "Senior", competencies: ["ml","python","communication","databases"], reqLevel: { ml: "strong", python: "expert", communication: "expert", databases: "strong" }, desc: "Analyze complex datasets to drive product decisions and user growth." },
+      { title: "Security Engineer - 4", level: "Senior", competencies: ["security","python","systemdesign","dsa"], reqLevel: { security: "expert", python: "strong", systemdesign: "strong", dsa: "working" }, desc: "Secure our platform against vulnerabilities and conduct red team exercises." },
+      { title: "Site Reliability Engineer - 5", level: "Senior", competencies: ["devops","kubernetes","systemdesign","golang"], reqLevel: { devops: "expert", kubernetes: "expert", systemdesign: "expert", golang: "strong" }, desc: "Ensure maximum uptime and system reliability for critical services." },
+      { title: "DevOps Engineer - 6", level: "Senior", competencies: ["kubernetes","devops","aws","golang"], reqLevel: { kubernetes: "expert", devops: "expert", aws: "strong", golang: "working" }, desc: "Scale and secure our cloud infrastructure and deployment pipelines." },
+      { title: "Data Scientist - 7", level: "Senior", competencies: ["ml","python","communication","databases"], reqLevel: { ml: "strong", python: "expert", communication: "expert", databases: "strong" }, desc: "Analyze complex datasets to drive product decisions and user growth." },
+      { title: "Security Engineer - 8", level: "Senior", competencies: ["security","python","systemdesign","dsa"], reqLevel: { security: "expert", python: "strong", systemdesign: "strong", dsa: "working" }, desc: "Secure our platform against vulnerabilities and conduct red team exercises." },
+      { title: "Data Scientist - 9", level: "Senior", competencies: ["ml","python","communication","databases"], reqLevel: { ml: "strong", python: "expert", communication: "expert", databases: "strong" }, desc: "Analyze complex datasets to drive product decisions and user growth." },
+      { title: "Senior Frontend Engineer - 10", level: "Senior", competencies: ["react","typescript","systemdesign","communication"], reqLevel: { react: "expert", typescript: "expert", systemdesign: "strong", communication: "strong" }, desc: "Build scalable web applications and intuitive UIs for our core product." },
+      { title: "Data Scientist - 11", level: "Senior", competencies: ["ml","python","communication","databases"], reqLevel: { ml: "strong", python: "expert", communication: "expert", databases: "strong" }, desc: "Analyze complex datasets to drive product decisions and user growth." },
+      { title: "Data Scientist - 12", level: "Senior", competencies: ["ml","python","communication","databases"], reqLevel: { ml: "strong", python: "expert", communication: "expert", databases: "strong" }, desc: "Analyze complex datasets to drive product decisions and user growth." },
+      { title: "Data Scientist - 13", level: "Senior", competencies: ["ml","python","communication","databases"], reqLevel: { ml: "strong", python: "expert", communication: "expert", databases: "strong" }, desc: "Analyze complex datasets to drive product decisions and user growth." },
+      { title: "DevOps Engineer - 14", level: "Senior", competencies: ["kubernetes","devops","aws","golang"], reqLevel: { kubernetes: "expert", devops: "expert", aws: "strong", golang: "working" }, desc: "Scale and secure our cloud infrastructure and deployment pipelines." },
+      { title: "Mobile Engineer (Android) - 15", level: "Mid-level", competencies: ["kotlin","java","dsa","systemdesign"], reqLevel: { kotlin: "expert", java: "strong", dsa: "strong", systemdesign: "strong" }, desc: "Develop feature-rich Android applications with offline-first capabilities." }
+    ]
+  }
+  ,{
+    id: "twitch", name: "Twitch", logo: "T", gradient: "from-blue-500 to-indigo-500",
+    industry: "Technology", hq: "San Francisco, CA", tier: "Tech Giant",
+    hiring2023: 2776, hiring2024: 1176, trend: "stable",
+    openRoles: 116, avgPackage: "₹30-60 LPA", glassdoor: 4.1,
+    roles: [
+      { title: "DevOps Engineer - 1", level: "Senior", competencies: ["kubernetes","devops","aws","golang"], reqLevel: { kubernetes: "expert", devops: "expert", aws: "strong", golang: "working" }, desc: "Scale and secure our cloud infrastructure and deployment pipelines." },
+      { title: "Machine Learning Engineer - 2", level: "Senior", competencies: ["ml","python","dsa","databases"], reqLevel: { ml: "expert", python: "expert", dsa: "strong", databases: "strong" }, desc: "Develop and deploy large scale AI models for personalization." },
+      { title: "Backend Developer - 3", level: "Mid-level", competencies: ["java","systemdesign","databases","dsa"], reqLevel: { java: "expert", systemdesign: "strong", databases: "strong", dsa: "expert" }, desc: "Design robust APIs and backend systems handling millions of requests." },
+      { title: "Site Reliability Engineer - 4", level: "Senior", competencies: ["devops","kubernetes","systemdesign","golang"], reqLevel: { devops: "expert", kubernetes: "expert", systemdesign: "expert", golang: "strong" }, desc: "Ensure maximum uptime and system reliability for critical services." },
+      { title: "Data Scientist - 5", level: "Senior", competencies: ["ml","python","communication","databases"], reqLevel: { ml: "strong", python: "expert", communication: "expert", databases: "strong" }, desc: "Analyze complex datasets to drive product decisions and user growth." },
+      { title: "Mobile Engineer (iOS) - 6", level: "Mid-level", competencies: ["swift","dsa","systemdesign","communication"], reqLevel: { swift: "expert", dsa: "strong", systemdesign: "strong", communication: "working" }, desc: "Build seamless native iOS experiences for our flagship app." },
+      { title: "Senior Frontend Engineer - 7", level: "Senior", competencies: ["react","typescript","systemdesign","communication"], reqLevel: { react: "expert", typescript: "expert", systemdesign: "strong", communication: "strong" }, desc: "Build scalable web applications and intuitive UIs for our core product." },
+      { title: "Backend Developer - 8", level: "Mid-level", competencies: ["java","systemdesign","databases","dsa"], reqLevel: { java: "expert", systemdesign: "strong", databases: "strong", dsa: "expert" }, desc: "Design robust APIs and backend systems handling millions of requests." },
+      { title: "Senior Frontend Engineer - 9", level: "Senior", competencies: ["react","typescript","systemdesign","communication"], reqLevel: { react: "expert", typescript: "expert", systemdesign: "strong", communication: "strong" }, desc: "Build scalable web applications and intuitive UIs for our core product." },
+      { title: "Backend Developer - 10", level: "Mid-level", competencies: ["java","systemdesign","databases","dsa"], reqLevel: { java: "expert", systemdesign: "strong", databases: "strong", dsa: "expert" }, desc: "Design robust APIs and backend systems handling millions of requests." },
+      { title: "Machine Learning Engineer - 11", level: "Senior", competencies: ["ml","python","dsa","databases"], reqLevel: { ml: "expert", python: "expert", dsa: "strong", databases: "strong" }, desc: "Develop and deploy large scale AI models for personalization." },
+      { title: "Security Engineer - 12", level: "Senior", competencies: ["security","python","systemdesign","dsa"], reqLevel: { security: "expert", python: "strong", systemdesign: "strong", dsa: "working" }, desc: "Secure our platform against vulnerabilities and conduct red team exercises." },
+      { title: "Data Scientist - 13", level: "Senior", competencies: ["ml","python","communication","databases"], reqLevel: { ml: "strong", python: "expert", communication: "expert", databases: "strong" }, desc: "Analyze complex datasets to drive product decisions and user growth." },
+      { title: "Engineering Manager - 14", level: "Manager", competencies: ["leadership","systemdesign","communication","java"], reqLevel: { leadership: "expert", systemdesign: "expert", communication: "expert", java: "strong" }, desc: "Lead and grow high-performing engineering teams while guiding architecture." },
+      { title: "Machine Learning Engineer - 15", level: "Senior", competencies: ["ml","python","dsa","databases"], reqLevel: { ml: "expert", python: "expert", dsa: "strong", databases: "strong" }, desc: "Develop and deploy large scale AI models for personalization." }
+    ]
+  }
+  ,{
+    id: "reddit", name: "Reddit", logo: "R", gradient: "from-blue-500 to-indigo-500",
+    industry: "Technology", hq: "San Francisco, CA", tier: "Tech Giant",
+    hiring2023: 2967, hiring2024: 1440, trend: "stable",
+    openRoles: 59, avgPackage: "₹30-60 LPA", glassdoor: 4.8,
+    roles: [
+      { title: "Mobile Engineer (Android) - 1", level: "Mid-level", competencies: ["kotlin","java","dsa","systemdesign"], reqLevel: { kotlin: "expert", java: "strong", dsa: "strong", systemdesign: "strong" }, desc: "Develop feature-rich Android applications with offline-first capabilities." },
+      { title: "Site Reliability Engineer - 2", level: "Senior", competencies: ["devops","kubernetes","systemdesign","golang"], reqLevel: { devops: "expert", kubernetes: "expert", systemdesign: "expert", golang: "strong" }, desc: "Ensure maximum uptime and system reliability for critical services." },
+      { title: "Machine Learning Engineer - 3", level: "Senior", competencies: ["ml","python","dsa","databases"], reqLevel: { ml: "expert", python: "expert", dsa: "strong", databases: "strong" }, desc: "Develop and deploy large scale AI models for personalization." },
+      { title: "Data Scientist - 4", level: "Senior", competencies: ["ml","python","communication","databases"], reqLevel: { ml: "strong", python: "expert", communication: "expert", databases: "strong" }, desc: "Analyze complex datasets to drive product decisions and user growth." },
+      { title: "Mobile Engineer (iOS) - 5", level: "Mid-level", competencies: ["swift","dsa","systemdesign","communication"], reqLevel: { swift: "expert", dsa: "strong", systemdesign: "strong", communication: "working" }, desc: "Build seamless native iOS experiences for our flagship app." },
+      { title: "Backend Developer - 6", level: "Mid-level", competencies: ["java","systemdesign","databases","dsa"], reqLevel: { java: "expert", systemdesign: "strong", databases: "strong", dsa: "expert" }, desc: "Design robust APIs and backend systems handling millions of requests." },
+      { title: "Mobile Engineer (iOS) - 7", level: "Mid-level", competencies: ["swift","dsa","systemdesign","communication"], reqLevel: { swift: "expert", dsa: "strong", systemdesign: "strong", communication: "working" }, desc: "Build seamless native iOS experiences for our flagship app." },
+      { title: "Mobile Engineer (iOS) - 8", level: "Mid-level", competencies: ["swift","dsa","systemdesign","communication"], reqLevel: { swift: "expert", dsa: "strong", systemdesign: "strong", communication: "working" }, desc: "Build seamless native iOS experiences for our flagship app." },
+      { title: "Backend Developer - 9", level: "Mid-level", competencies: ["java","systemdesign","databases","dsa"], reqLevel: { java: "expert", systemdesign: "strong", databases: "strong", dsa: "expert" }, desc: "Design robust APIs and backend systems handling millions of requests." },
+      { title: "Site Reliability Engineer - 10", level: "Senior", competencies: ["devops","kubernetes","systemdesign","golang"], reqLevel: { devops: "expert", kubernetes: "expert", systemdesign: "expert", golang: "strong" }, desc: "Ensure maximum uptime and system reliability for critical services." },
+      { title: "Security Engineer - 11", level: "Senior", competencies: ["security","python","systemdesign","dsa"], reqLevel: { security: "expert", python: "strong", systemdesign: "strong", dsa: "working" }, desc: "Secure our platform against vulnerabilities and conduct red team exercises." },
+      { title: "Machine Learning Engineer - 12", level: "Senior", competencies: ["ml","python","dsa","databases"], reqLevel: { ml: "expert", python: "expert", dsa: "strong", databases: "strong" }, desc: "Develop and deploy large scale AI models for personalization." },
+      { title: "Mobile Engineer (iOS) - 13", level: "Mid-level", competencies: ["swift","dsa","systemdesign","communication"], reqLevel: { swift: "expert", dsa: "strong", systemdesign: "strong", communication: "working" }, desc: "Build seamless native iOS experiences for our flagship app." }
+    ]
+  }
+  ,{
+    id: "linkedin", name: "LinkedIn", logo: "L", gradient: "from-blue-500 to-indigo-500",
+    industry: "Technology", hq: "San Francisco, CA", tier: "Tech Giant",
+    hiring2023: 2958, hiring2024: 1085, trend: "stable",
+    openRoles: 71, avgPackage: "₹30-60 LPA", glassdoor: 4.3,
+    roles: [
+      { title: "Data Scientist - 1", level: "Senior", competencies: ["ml","python","communication","databases"], reqLevel: { ml: "strong", python: "expert", communication: "expert", databases: "strong" }, desc: "Analyze complex datasets to drive product decisions and user growth." },
+      { title: "Engineering Manager - 2", level: "Manager", competencies: ["leadership","systemdesign","communication","java"], reqLevel: { leadership: "expert", systemdesign: "expert", communication: "expert", java: "strong" }, desc: "Lead and grow high-performing engineering teams while guiding architecture." },
+      { title: "Machine Learning Engineer - 3", level: "Senior", competencies: ["ml","python","dsa","databases"], reqLevel: { ml: "expert", python: "expert", dsa: "strong", databases: "strong" }, desc: "Develop and deploy large scale AI models for personalization." },
+      { title: "Site Reliability Engineer - 4", level: "Senior", competencies: ["devops","kubernetes","systemdesign","golang"], reqLevel: { devops: "expert", kubernetes: "expert", systemdesign: "expert", golang: "strong" }, desc: "Ensure maximum uptime and system reliability for critical services." },
+      { title: "Machine Learning Engineer - 5", level: "Senior", competencies: ["ml","python","dsa","databases"], reqLevel: { ml: "expert", python: "expert", dsa: "strong", databases: "strong" }, desc: "Develop and deploy large scale AI models for personalization." },
+      { title: "Mobile Engineer (iOS) - 6", level: "Mid-level", competencies: ["swift","dsa","systemdesign","communication"], reqLevel: { swift: "expert", dsa: "strong", systemdesign: "strong", communication: "working" }, desc: "Build seamless native iOS experiences for our flagship app." },
+      { title: "Data Scientist - 7", level: "Senior", competencies: ["ml","python","communication","databases"], reqLevel: { ml: "strong", python: "expert", communication: "expert", databases: "strong" }, desc: "Analyze complex datasets to drive product decisions and user growth." },
+      { title: "Machine Learning Engineer - 8", level: "Senior", competencies: ["ml","python","dsa","databases"], reqLevel: { ml: "expert", python: "expert", dsa: "strong", databases: "strong" }, desc: "Develop and deploy large scale AI models for personalization." },
+      { title: "Mobile Engineer (iOS) - 9", level: "Mid-level", competencies: ["swift","dsa","systemdesign","communication"], reqLevel: { swift: "expert", dsa: "strong", systemdesign: "strong", communication: "working" }, desc: "Build seamless native iOS experiences for our flagship app." },
+      { title: "Backend Developer - 10", level: "Mid-level", competencies: ["java","systemdesign","databases","dsa"], reqLevel: { java: "expert", systemdesign: "strong", databases: "strong", dsa: "expert" }, desc: "Design robust APIs and backend systems handling millions of requests." }
+    ]
+  }
+  ,{
+    id: "twitter", name: "Twitter", logo: "T", gradient: "from-blue-500 to-indigo-500",
+    industry: "Technology", hq: "San Francisco, CA", tier: "Tech Giant",
+    hiring2023: 1119, hiring2024: 429, trend: "stable",
+    openRoles: 125, avgPackage: "₹30-60 LPA", glassdoor: 4.0,
+    roles: [
+      { title: "Security Engineer - 1", level: "Senior", competencies: ["security","python","systemdesign","dsa"], reqLevel: { security: "expert", python: "strong", systemdesign: "strong", dsa: "working" }, desc: "Secure our platform against vulnerabilities and conduct red team exercises." },
+      { title: "Site Reliability Engineer - 2", level: "Senior", competencies: ["devops","kubernetes","systemdesign","golang"], reqLevel: { devops: "expert", kubernetes: "expert", systemdesign: "expert", golang: "strong" }, desc: "Ensure maximum uptime and system reliability for critical services." },
+      { title: "Machine Learning Engineer - 3", level: "Senior", competencies: ["ml","python","dsa","databases"], reqLevel: { ml: "expert", python: "expert", dsa: "strong", databases: "strong" }, desc: "Develop and deploy large scale AI models for personalization." },
+      { title: "Senior Frontend Engineer - 4", level: "Senior", competencies: ["react","typescript","systemdesign","communication"], reqLevel: { react: "expert", typescript: "expert", systemdesign: "strong", communication: "strong" }, desc: "Build scalable web applications and intuitive UIs for our core product." },
+      { title: "Mobile Engineer (iOS) - 5", level: "Mid-level", competencies: ["swift","dsa","systemdesign","communication"], reqLevel: { swift: "expert", dsa: "strong", systemdesign: "strong", communication: "working" }, desc: "Build seamless native iOS experiences for our flagship app." },
+      { title: "Engineering Manager - 6", level: "Manager", competencies: ["leadership","systemdesign","communication","java"], reqLevel: { leadership: "expert", systemdesign: "expert", communication: "expert", java: "strong" }, desc: "Lead and grow high-performing engineering teams while guiding architecture." },
+      { title: "Mobile Engineer (iOS) - 7", level: "Mid-level", competencies: ["swift","dsa","systemdesign","communication"], reqLevel: { swift: "expert", dsa: "strong", systemdesign: "strong", communication: "working" }, desc: "Build seamless native iOS experiences for our flagship app." },
+      { title: "Machine Learning Engineer - 8", level: "Senior", competencies: ["ml","python","dsa","databases"], reqLevel: { ml: "expert", python: "expert", dsa: "strong", databases: "strong" }, desc: "Develop and deploy large scale AI models for personalization." },
+      { title: "Mobile Engineer (iOS) - 9", level: "Mid-level", competencies: ["swift","dsa","systemdesign","communication"], reqLevel: { swift: "expert", dsa: "strong", systemdesign: "strong", communication: "working" }, desc: "Build seamless native iOS experiences for our flagship app." },
+      { title: "Machine Learning Engineer - 10", level: "Senior", competencies: ["ml","python","dsa","databases"], reqLevel: { ml: "expert", python: "expert", dsa: "strong", databases: "strong" }, desc: "Develop and deploy large scale AI models for personalization." }
+    ]
+  }
+
 ];
 
 
