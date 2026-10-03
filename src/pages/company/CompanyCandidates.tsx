@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useStore } from '../../store/useStore';
-import { Search, Brain, Clock, MoreHorizontal, LayoutGrid, List, Filter } from 'lucide-react';
+import { Search, Brain, Clock, MoreHorizontal, LayoutGrid, List, Filter, XCircle, CheckCircle, CalendarPlus, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Badge } from '../../components/ui/Components';
+import { toast } from '../../components/ui/Toast';
 
 const ATS_STAGES = [
   { id: 'APPLIED', label: 'New Applied' },
@@ -14,7 +15,7 @@ const ATS_STAGES = [
 ];
 
 export function CompanyCandidates() {
-  const { currentCompanyId, applications, users, candidateMatches, jobs } = useStore();
+  const { currentCompanyId, applications, users, candidateMatches, jobs, updateApplicationStatus } = useStore();
   const [search, setSearch] = useState('');
   const [viewMode, setViewMode] = useState<'board' | 'table'>('board');
   const [jobFilter, setJobFilter] = useState('all');
@@ -40,6 +41,30 @@ export function CompanyCandidates() {
   const getCandidateName = (id: string) => {
     const u = users.find(u => u.id === id);
     return u?.displayName || 'Unknown';
+  };
+
+  const [draggedAppId, setDraggedAppId] = useState<string | null>(null);
+
+  const handleDragStart = (e: React.DragEvent, appId: string) => {
+    e.dataTransfer.setData('appId', appId);
+    setDraggedAppId(appId);
+  };
+
+  const handleDrop = (e: React.DragEvent, stageId: string) => {
+    e.preventDefault();
+    const appId = e.dataTransfer.getData('appId');
+    if (appId) {
+      updateApplicationStatus(appId, stageId as any, `Moved to ${stageId} via Kanban`);
+      toast('success', `Candidate moved to ${stageId}`);
+    }
+    setDraggedAppId(null);
+  };
+
+  const quickAction = (e: React.MouseEvent, appId: string, stageId: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+    updateApplicationStatus(appId, stageId as any, `Quick action: ${stageId}`);
+    toast('success', `Candidate moved to ${stageId}`);
   };
 
   return (
@@ -104,26 +129,35 @@ export function CompanyCandidates() {
       {viewMode === 'board' ? (
         /* Kanban Board Container */
         <div className="flex-1 overflow-x-auto overflow-y-hidden flex gap-[24px] pb-[16px]">
-          {ATS_STAGES.filter(s => s.id !== 'REJECTED').map(stage => {
+          {ATS_STAGES.map(stage => {
             const stageApps = getAppsForStage(stage.id);
             return (
-              <div key={stage.id} className="w-[300px] shrink-0 flex flex-col max-h-full">
+              <div key={stage.id} className="w-[320px] shrink-0 flex flex-col max-h-full">
                 {/* Stage Header */}
-                <div className="flex items-center justify-between mb-[16px]">
+                <div className="flex items-center justify-between mb-[16px] px-2 border-b border-border pb-2">
                   <h3 className="text-[14px] font-bold text-text flex items-center gap-[8px]">
-                    <span className="w-[8px] h-[8px] rounded-full bg-primary inline-block"></span>
+                    <span className={`w-[8px] h-[8px] rounded-full inline-block ${
+                      stage.id === 'REJECTED' ? 'bg-danger' : 
+                      stage.id === 'HIRED' ? 'bg-success' : 'bg-primary'
+                    }`}></span>
                     {stage.label}
                   </h3>
-                  <span className="px-[8px] py-[2px] bg-surface-3 text-text-muted text-[12px] font-semibold rounded-full">
+                  <span className="px-[8px] py-[2px] bg-surface-3 text-text-muted text-[12px] font-bold rounded-full">
                     {stageApps.length}
                   </span>
                 </div>
 
-                {/* Candidates Column */}
-                <div className="flex-1 bg-surface-2/50 border border-border rounded-2xl p-[12px] flex flex-col gap-[12px] overflow-y-auto custom-scrollbar">
+                {/* Candidates Column (Drop Zone) */}
+                <div 
+                  onDragOver={(e) => e.preventDefault()}
+                  onDrop={(e) => handleDrop(e, stage.id)}
+                  className={`flex-1 rounded-xl p-[12px] flex flex-col gap-[12px] overflow-y-auto custom-scrollbar transition-colors border-2 ${
+                    draggedAppId ? 'border-primary/20 bg-primary/5' : 'border-transparent bg-surface-2/50'
+                  }`}
+                >
                   {stageApps.length === 0 ? (
                     <div className="h-[100px] border-2 border-dashed border-border rounded-xl flex items-center justify-center text-[13px] text-text-muted">
-                      No candidates here
+                      Drop here
                     </div>
                   ) : (
                     stageApps.map(app => {
@@ -132,38 +166,67 @@ export function CompanyCandidates() {
                       const job = jobs.find(j => j.id === app.jobId);
                       
                       return (
-                        <Link 
-                          key={app.id} 
-                          to={`/company/candidates/${app.candidateId}`}
-                          className="block bg-surface border border-border p-[16px] rounded-xl shadow-sm hover:shadow-md hover:border-primary/50 transition-all cursor-pointer group"
+                        <div
+                          key={app.id}
+                          draggable
+                          onDragStart={(e) => handleDragStart(e, app.id)}
+                          onDragEnd={() => setDraggedAppId(null)}
+                          className={`relative block bg-surface border border-border p-[16px] rounded-xl shadow-sm hover:shadow-md hover:border-primary/50 transition-all cursor-grab active:cursor-grabbing group ${draggedAppId === app.id ? 'opacity-50 scale-95' : ''}`}
                         >
-                          <div className="flex items-start justify-between mb-[12px]">
-                            <div className="flex items-center gap-[10px]">
-                              <div className="w-[36px] h-[36px] rounded-full bg-gradient-to-br from-primary-light to-primary/20 flex items-center justify-center text-primary text-[14px] font-bold">
-                                {name.split(' ').map((n: string) => n[0]).join('').substring(0, 2).toUpperCase()}
-                              </div>
-                              <div>
-                                <h4 className="text-[14px] font-bold text-text group-hover:text-primary transition-colors">{name}</h4>
-                                <p className="text-[12px] text-text-secondary truncate w-[140px]">{job?.title}</p>
+                          <Link to={`/company/candidates/${app.candidateId}`} className="block">
+                            <div className="flex items-start justify-between mb-[12px]">
+                              <div className="flex items-center gap-[10px]">
+                                <div className="w-[40px] h-[40px] rounded-full bg-gradient-to-br from-primary-light to-primary/20 flex items-center justify-center text-primary text-[14px] font-bold">
+                                  {name.split(' ').map((n: string) => n[0]).join('').substring(0, 2).toUpperCase()}
+                                </div>
+                                <div>
+                                  <h4 className="text-[14px] font-bold text-text group-hover:text-primary transition-colors">{name}</h4>
+                                  <p className="text-[11px] text-text-secondary truncate w-[140px] mt-0.5 font-medium">{job?.title}</p>
+                                </div>
                               </div>
                             </div>
-                            <button className="text-text-muted hover:text-text">
-                              <MoreHorizontal className="w-[16px] h-[16px]" />
-                            </button>
-                          </div>
-                          
-                          <div className="flex items-center justify-between mt-[12px] pt-[12px] border-t border-border/50">
-                            <div className="flex items-center gap-[6px] text-[12px] text-text-muted font-medium">
-                              <Clock className="w-[12px] h-[12px]" /> 
-                              {new Date(app.appliedAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
-                            </div>
+                            
+                            {/* AI Insights Chip */}
                             {match && (
-                              <span className={`px-[8px] py-[2px] border text-[11px] font-bold rounded-full flex items-center gap-[4px] ${match.overallScore >= 80 ? 'bg-ai-light border-ai/20 text-ai' : match.overallScore >= 60 ? 'bg-orange-50 border-orange-200 text-orange-600' : 'bg-red-50 border-red-200 text-red-600'}`}>
-                                <Brain className="w-[10px] h-[10px]" /> {match.overallScore}% AI Match
-                              </span>
+                              <div className="mb-[12px] bg-ai-light/30 border border-ai/10 rounded-lg p-2 flex gap-2 items-start">
+                                <Brain className="w-[12px] h-[12px] text-ai shrink-0 mt-0.5" />
+                                <div className="text-[11px] text-text-secondary leading-tight">
+                                  <span className="font-bold text-ai">{match.overallScore}% Match</span> — {
+                                    match.overallScore > 80 ? 'Strong backend architecture skills.' :
+                                    match.overallScore > 60 ? 'Good fit, needs system design check.' :
+                                    'Lacks required cloud experience.'
+                                  }
+                                </div>
+                              </div>
+                            )}
+
+                            <div className="flex items-center justify-between mt-[12px] pt-[12px] border-t border-border/50">
+                              <div className="flex items-center gap-[6px] text-[11px] text-text-muted font-medium">
+                                <Clock className="w-[12px] h-[12px]" /> 
+                                {new Date(app.appliedAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
+                              </div>
+                            </div>
+                          </Link>
+                          
+                          {/* Quick Actions Hover Menu */}
+                          <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col gap-1 bg-surface/90 p-1 rounded-lg shadow-sm border border-border backdrop-blur-sm z-10">
+                            {stage.id !== 'INTERVIEW' && stage.id !== 'REJECTED' && stage.id !== 'HIRED' && (
+                              <button onClick={(e) => quickAction(e, app.id, 'INTERVIEW')} className="p-1.5 text-primary hover:bg-primary-light rounded-md" title="Move to Interview">
+                                <CalendarPlus className="w-3.5 h-3.5" />
+                              </button>
+                            )}
+                            {stage.id !== 'REJECTED' && stage.id !== 'HIRED' && (
+                              <button onClick={(e) => quickAction(e, app.id, 'REJECTED')} className="p-1.5 text-danger hover:bg-danger-bg rounded-md" title="Reject Candidate">
+                                <XCircle className="w-3.5 h-3.5" />
+                              </button>
+                            )}
+                            {stage.id === 'OFFER' && (
+                              <button onClick={(e) => quickAction(e, app.id, 'HIRED')} className="p-1.5 text-success hover:bg-success-bg rounded-md" title="Mark as Hired">
+                                <CheckCircle className="w-3.5 h-3.5" />
+                              </button>
                             )}
                           </div>
-                        </Link>
+                        </div>
                       );
                     })
                   )}
