@@ -453,14 +453,35 @@ export function CompanyJobDetail() {
                         </span>
                       ))}
                     </div>
-                    <p className="mt-3 text-[12px] text-text-secondary leading-relaxed">{match.explanation}</p>
-                    <div className="mt-3 pt-3 border-t border-border flex gap-2 justify-end">
-                      <Link
-                        to={`/company/candidates/${match.candidateId}`}
-                        className="px-3 py-1.5 text-[12px] font-semibold border border-border rounded-[8px] text-text-muted hover:bg-surface-2 transition-colors flex items-center gap-1.5"
-                      >
-                        <Eye className="w-3.5 h-3.5" /> View Profile
-                      </Link>
+                    <p className="mt-3 text-[12px] text-text-secondary leading-relaxed bg-surface-2/50 p-2 rounded">{match.explanation}</p>
+                    <div className="mt-4 pt-3 border-t border-border flex flex-col sm:flex-row gap-3 justify-between items-center">
+                      <div className="text-[11px] text-text-muted font-medium flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-ai animate-pulse" /> AI recommendation ready for action
+                      </div>
+                      <div className="flex flex-wrap gap-2 justify-end">
+                        <Link
+                          to={`/company/candidates/${match.candidateId}`}
+                          className="px-4 py-2 text-[12px] font-bold border border-border rounded-[8px] text-text-secondary hover:bg-surface-2 hover:text-text transition-colors flex items-center gap-1.5 shadow-sm"
+                        >
+                          <Eye className="w-3.5 h-3.5" /> View Full Profile
+                        </Link>
+                        <button
+                          onClick={() => {
+                            updateApplicationStatus(match.applicationId, 'REJECTED');
+                            toast('info', 'Candidate Rejected.');
+                          }}
+                          className="px-4 py-2 text-[12px] font-bold bg-white border border-danger/30 text-danger rounded-[8px] hover:bg-danger-bg hover:border-danger/50 transition-colors flex items-center gap-1.5 shadow-sm"
+                        >
+                          <XCircle className="w-3.5 h-3.5" /> Fast Reject
+                        </button>
+                        <button
+                          onClick={() => setScheduleModal({ applicationId: match.applicationId, candidateId: match.candidateId })}
+                          className="px-5 py-2 text-[12px] font-bold bg-primary text-white rounded-[8px] hover:bg-primary-hover shadow-sm transition-all flex items-center gap-1.5"
+                        >
+                          <Calendar className="w-3.5 h-3.5" /> Select for Interview
+                        </button>
+                      </div>
+                    </div>
                     </div>
                   </div>
                 );
