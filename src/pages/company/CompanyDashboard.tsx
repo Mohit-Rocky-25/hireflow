@@ -10,7 +10,7 @@ import {
 import { Button, Card, StatCard, Badge, EmptyState } from '../../components/ui/Components';
 
 export function CompanyDashboard() {
-  const { currentUser, currentCompanyId, jobs, applications, interviews, candidateMatches, companies } = useStore();
+  const { currentUser, currentCompanyId, jobs, applications, interviews, candidateMatches, companies, users } = useStore();
   
   if (!currentUser || !currentCompanyId) return null;
   
@@ -30,6 +30,21 @@ export function CompanyDashboard() {
     .sort((a, b) => a.scheduledDate.localeCompare(b.scheduledDate))
     .slice(0, 5);
 
+  const offersPending = companyApps.filter(a => a.status === 'OFFER').length;
+  // Avg time to hire (mock calculation based on hired apps)
+  const hiredApps = companyApps.filter(a => a.status === 'HIRED');
+  const avgTimeToHire = hiredApps.length > 0 
+    ? Math.round(hiredApps.reduce((acc, app) => acc + (new Date(app.updatedAt).getTime() - new Date(app.appliedAt).getTime()) / (1000 * 3600 * 24), 0) / hiredApps.length) 
+    : 14;
+
+  const funnelStages = {
+    Applied: companyApps.length,
+    Screened: companyApps.filter(a => !['APPLIED', 'REJECTED'].includes(a.status)).length,
+    Interview: companyApps.filter(a => ['INTERVIEW', 'OFFER', 'HIRED'].includes(a.status)).length,
+    Offer: companyApps.filter(a => ['OFFER', 'HIRED'].includes(a.status)).length,
+    Hired: hiredApps.length
+  };
+
   return (
     <div className="space-y-[32px] page-enter">
       {/* Header */}
@@ -46,26 +61,26 @@ export function CompanyDashboard() {
       </div>
 
       {/* KPI Row (§7) */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[24px] stagger-in">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-[16px] stagger-in">
         <Link to="/company/jobs" className="block outline-none rounded-lg focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg">
           <StatCard
             label="Active Jobs"
             value={activeJobs.length}
-            icon={<Briefcase className="w-[20px] h-[20px]" />}
+            icon={<Briefcase className="w-[18px] h-[18px]" />}
           />
         </Link>
         <Link to="/company/candidates" className="block outline-none rounded-lg focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg">
           <StatCard
             label="Total Applications"
             value={companyApps.length}
-            icon={<ClipboardList className="w-[20px] h-[20px]" />}
+            icon={<ClipboardList className="w-[18px] h-[18px]" />}
           />
         </Link>
         <Link to="/company/candidates?filter=review" className="block outline-none rounded-lg focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg">
           <StatCard
             label="Needs Review"
             value={needsReview.length}
-            icon={<Eye className="w-[20px] h-[20px]" />}
+            icon={<Eye className="w-[18px] h-[18px]" />}
             trend={needsReview.length > 0 ? "Requires attention" : "All caught up"}
             trendUp={needsReview.length === 0}
           />
@@ -74,10 +89,42 @@ export function CompanyDashboard() {
           <StatCard
             label="Interviews Today"
             value={todayInterviews.length}
-            icon={<Calendar className="w-[20px] h-[20px]" />}
+            icon={<Calendar className="w-[18px] h-[18px]" />}
           />
         </Link>
+        <Card className="flex flex-col justify-center">
+          <div className="flex items-center gap-[8px] text-text-secondary mb-[8px]">
+            <span className="text-[13px] font-medium">Offers Pending</span>
+          </div>
+          <div className="text-[24px] font-bold text-text">{offersPending}</div>
+        </Card>
+        <Card className="flex flex-col justify-center">
+          <div className="flex items-center gap-[8px] text-text-secondary mb-[8px]">
+            <span className="text-[13px] font-medium">Avg Time-to-Hire</span>
+          </div>
+          <div className="text-[24px] font-bold text-text">{avgTimeToHire} <span className="text-[14px] text-text-secondary font-medium">days</span></div>
+        </Card>
       </div>
+
+      {/* Pipeline Funnel */}
+      <Card>
+        <h2 className="text-[14px] font-semibold text-text mb-[20px]">Pipeline Funnel</h2>
+        <div className="flex flex-col sm:flex-row items-center gap-[8px] w-full">
+          {Object.entries(funnelStages).map(([stage, count], i, arr) => (
+            <div key={stage} className="flex-1 w-full flex flex-col relative group">
+              <div className="h-[40px] bg-primary/10 border border-primary/20 rounded-lg flex items-center justify-center mb-[8px] transition-colors group-hover:bg-primary/20">
+                <span className="font-bold text-primary">{count}</span>
+              </div>
+              <div className="text-center text-[12px] font-semibold text-text-secondary group-hover:text-text">{stage}</div>
+              {i < arr.length - 1 && (
+                <div className="hidden sm:block absolute right-[-12px] top-[10px] text-border">
+                  <ArrowRight className="w-[16px] h-[16px]" />
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </Card>
 
       {/* Two Column Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-[24px]">
@@ -97,10 +144,11 @@ export function CompanyDashboard() {
             ) : recentApps.map(app => {
               const job = jobs.find(j => j.id === app.jobId);
               const match = candidateMatches.find(m => m.applicationId === app.id);
+              const candidate = users.find(u => u.id === app.candidateId);
               return (
                 <Link key={app.id} to={`/company/candidates/${app.candidateId}`} className="flex items-center justify-between px-[20px] py-[16px] hover:bg-surface-2 transition-colors duration-[120ms] group outline-none focus-visible:bg-surface-2">
                   <div className="min-w-0">
-                    <p className="text-[14px] font-medium text-text truncate group-hover:text-primary transition-colors">{app.id}</p>
+                    <p className="text-[14px] font-medium text-text truncate group-hover:text-primary transition-colors">{candidate?.displayName || 'Unknown Candidate'} <span className="text-[11px] text-text-muted font-normal ml-2">#{app.id.substring(0, 8)}</span></p>
                     <p className="text-[13px] text-text-secondary mt-[2px]">{job?.title || 'Job'} • {new Date(app.appliedAt).toLocaleDateString()}</p>
                   </div>
                   <div className="flex items-center gap-[12px] shrink-0">
