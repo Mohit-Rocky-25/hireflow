@@ -1953,8 +1953,9 @@ export function MatchingDemo() {
   }, [handleFileUpload]);
 
   const filteredCompanies = COMPANIES.filter(c => {
-    const q = companySearch.toLowerCase();
-    const matchSearch = !q || c.name.toLowerCase().includes(q) || c.industry.toLowerCase().includes(q) || c.roles.some(r => r.title.toLowerCase().includes(q));
+    const fuzzyMatch = (s: string, q: string) => { s=s.toLowerCase(); q=q.toLowerCase().replace(/\s+/g,''); if(!q) return true; let i=0,j=0; while(i<s.length && j<q.length) { if(s[i]===q[j]) j++; i++; } return j===q.length; };
+    const q = companySearch.toLowerCase().trim();
+    const matchSearch = !q || c.name.toLowerCase().includes(q) || fuzzyMatch(c.name, q) || c.industry.toLowerCase().includes(q) || fuzzyMatch(c.industry, q) || c.roles.some(r => r.title.toLowerCase().includes(q) || fuzzyMatch(r.title, q));
     const matchIndustry = industryFilter === "All" || c.industry.includes(industryFilter);
     const matchTier = tierFilter === "All" || c.tier === tierFilter;
     return matchSearch && matchIndustry && matchTier;
