@@ -8,14 +8,7 @@ export function PublicNavbar() {
   const navigate = useNavigate();
 
   const getDashboardLink = () => {
-    if (!currentUser) return '/login';
-    switch (currentUser.role) {
-      case 'BHR_MANAGER': case 'HR_RECRUITER': return '/company/dashboard';
-      case 'INTERVIEWER': return '/interviewer/dashboard';
-      case 'CANDIDATE': return '/candidate/dashboard';
-      case 'PLATFORM_ADMIN': return '/admin/dashboard';
-      default: return '/login';
-    }
+    return '/'; // Dashboards removed, fallback to home or a user profile if we build one
   };
 
   return (
@@ -38,9 +31,9 @@ export function PublicNavbar() {
           </Link>
         </div>
         <div className="hidden md:flex items-center gap-[36px]">
-          <Link to="/jobs" className="text-[15px] font-medium text-text-secondary hover:text-text transition-colors duration-[120ms]">Browse Jobs</Link>
-          <Link to="/demo" className="text-[15px] font-medium text-text-secondary hover:text-text transition-colors duration-[120ms]">TalentLens™</Link>
-          <Link to="/portal" className="text-[15px] font-medium text-text-secondary hover:text-text transition-colors duration-[120ms]">Candidate Portal</Link>
+          <Link to="/jobs" className="text-[15px] font-medium text-text-secondary hover:text-text transition-colors duration-[120ms]">Job Board</Link>
+          <Link to="/tools/resume-checker" className="text-[15px] font-medium text-text-secondary hover:text-text transition-colors duration-[120ms]">ATS Roaster</Link>
+          <Link to="/tools/career-path" className="text-[15px] font-medium text-text-secondary hover:text-text transition-colors duration-[120ms]">Career Trajectory</Link>
         </div>
         <div className="flex items-center gap-[10px]">
           {isAuthenticated ? (

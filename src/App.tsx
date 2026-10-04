@@ -13,9 +13,12 @@ import { JobMarketplace } from './pages/jobs/JobMarketplace';
 import { PublicJobDetail } from './pages/jobs/PublicJobDetail';
 
 // New Public Utility Tools
-// (Placeholders for components we will build next)
 import { ResumeChecker } from './pages/tools/ResumeChecker';
 import { CareerPathSimulator } from './pages/tools/CareerPathSimulator';
+
+// Auth Pages
+import { LoginPage } from './pages/auth/LoginPage';
+import { RegisterPage } from './pages/auth/RegisterPage';
 
 export default function App() {
   const { initDemoData, _initialized } = useStore();
@@ -40,6 +43,10 @@ export default function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/jobs" element={<JobMarketplace />} />
         <Route path="/jobs/:id" element={<PublicJobDetail />} />
+
+        {/* Auth Routes */}
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
 
         {/* Free ATS Candidate Tools */}
         <Route path="/tools/resume-checker" element={<ResumeChecker />} />
