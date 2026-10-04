@@ -482,7 +482,6 @@ export function CompanyJobDetail() {
                         </button>
                       </div>
                     </div>
-                    </div>
                   </div>
                 );
               })}
