@@ -6,7 +6,7 @@ import { useStore } from "../store/useStore";
 import {
   Sparkles, Brain, Users, CheckCircle, ArrowRight,
   Shield, Zap, Target, Building2, ChevronRight, Cpu, BarChart3, TrendingUp,
-  MessageSquare
+  MessageSquare, FileText
 } from "lucide-react";
 import { PublicNavbar } from "../components/layout/PublicNavbar";
 
@@ -52,37 +52,50 @@ const STATS = [
   { value: "∞", label: "Audit trail depth", icon: BarChart3 },
 ];
 
-const ROLES = [
+const TOOLS = [
   {
-    icon: Building2,
-    title: "For Companies",
+    icon: FileText,
+    title: "ATS Resume Roaster",
     color: "from-primary/15 to-primary/5",
     borderColor: "border-primary/20",
     iconColor: "text-primary",
     iconBg: "bg-primary-light",
     points: [
-      "Create jobs with weighted requirements",
-      "AI-powered candidate ranking with reasoning",
-      "Structured interview pipeline",
-      "Real-time hiring analytics",
+      "Simulate exactly what ATS filters see",
+      "Get a harsh match score for any Job Description",
+      "Identify missing hard skills and red flags instantly"
     ],
-    cta: "Register Your Company",
-    link: "/register",
+    cta: "Roast My Resume",
+    link: "/tools/resume-checker",
   },
   {
-    icon: Users,
-    title: "For Candidates",
+    icon: Target,
+    title: "Career Path Simulator",
     color: "from-ai/15 to-ai/5",
     borderColor: "border-ai/20",
     iconColor: "text-ai",
     iconBg: "bg-ai-light",
     points: [
-      "AI-parsed resume with editable extraction",
-      "See your match score and reasoning per job",
-      "Track application status in real-time",
-      "Receive interview invitations directly",
+      "Input your current role and dream job",
+      "See the exact steps and timeline to get there",
+      "Visualize your estimated salary trajectory"
     ],
-    cta: "Find Your Next Role",
+    cta: "Simulate My Trajectory",
+    link: "/tools/career-path",
+  },
+  {
+    icon: Users,
+    title: "HireFlow Job Board",
+    color: "from-success/15 to-success/5",
+    borderColor: "border-success/20",
+    iconColor: "text-success",
+    iconBg: "bg-success-bg",
+    points: [
+      "Browse actively recruiting companies",
+      "One-click apply with your HireFlow profile",
+      "Track your application status in real-time"
+    ],
+    cta: "Browse Open Roles",
     link: "/jobs",
   },
 ];
@@ -116,38 +129,27 @@ export function LandingPage() {
           <div className="max-w-[820px] mx-auto page-enter flex flex-col items-center">
             <div className="inline-flex items-center gap-[10px] px-[16px] py-[8px] rounded-full bg-ai-light border border-ai/25 text-[13px] font-semibold text-ai mb-[36px] shadow-glow-violet">
               <Brain className="w-[14px] h-[14px] stroke-[2px]" />
-              The facts on work are changing now.
+              The ultimate career utility suite.
             </div>
             <h1 className="text-[58px] sm:text-[72px] lg:text-[84px] font-extrabold text-text leading-[1.02] tracking-[-0.04em] mb-[32px]">
-              Hire the right people,{" "}
-              <span className="gradient-text">faster.</span>
+              Take control of your{" "}
+              <span className="gradient-text">Career.</span>
             </h1>
             <p className="text-[20px] text-text-secondary leading-[32px] mb-[52px] max-w-[600px] mx-auto">
-              AI evaluates candidates against your job requirements and explains exactly why they match.
-              <strong className="text-text font-semibold"> The AI recommends — a human decides.</strong>
+              Simulate ATS resume filters, map out your career trajectory, and browse top jobs—all completely free.
             </p>
             <div className="flex flex-col sm:flex-row gap-[14px] justify-center w-full">
-              {isAuthenticated ? (
-                <Link to={getDashboardLink()}>
-                  <button className="inline-flex items-center gap-[10px] h-[56px] px-[32px] text-[17px] font-bold text-white rounded-lg bg-gradient-to-r from-primary to-primary-hover shadow-glow-orange hover:scale-[1.02] active:scale-[0.99] transition-all duration-[150ms]">
-                    Go to Dashboard <ArrowRight className="w-[20px] h-[20px] stroke-[1.5px]" />
-                  </button>
-                </Link>
-              ) : (
-                <>
-                  <Link to="/register">
-                    <button className="inline-flex items-center gap-[10px] h-[56px] px-[32px] text-[17px] font-bold text-white rounded-lg bg-gradient-to-r from-primary to-primary-hover shadow-glow-orange hover:scale-[1.02] active:scale-[0.99] transition-all duration-[150ms]">
-                      <Sparkles className="w-[20px] h-[20px] stroke-[1.5px]" />
-                      Start Hiring Free
-                    </button>
-                  </Link>
-                  <Link to="/jobs">
-                    <button className="inline-flex items-center gap-[10px] h-[56px] px-[32px] text-[16px] font-semibold text-text-secondary rounded-lg border border-border-strong hover:border-border-accent hover:text-text hover:bg-surface-2 transition-all duration-[150ms]">
-                      Browse Open Roles <ChevronRight className="w-[18px] h-[18px] stroke-[1.5px]" />
-                    </button>
-                  </Link>
-                </>
-              )}
+              <Link to="/tools/resume-checker">
+                <button className="inline-flex items-center gap-[10px] h-[56px] px-[32px] text-[17px] font-bold text-white rounded-lg bg-gradient-to-r from-primary to-primary-hover shadow-glow-orange hover:scale-[1.02] active:scale-[0.99] transition-all duration-[150ms]">
+                  <Sparkles className="w-[20px] h-[20px] stroke-[1.5px]" />
+                  Roast My Resume
+                </button>
+              </Link>
+              <Link to="/tools/career-path">
+                <button className="inline-flex items-center gap-[10px] h-[56px] px-[32px] text-[16px] font-semibold text-text-secondary rounded-lg border border-border-strong hover:border-border-accent hover:text-text hover:bg-surface-2 transition-all duration-[150ms]">
+                  Simulate Trajectory <ChevronRight className="w-[18px] h-[18px] stroke-[1.5px]" />
+                </button>
+              </Link>
             </div>
           </div>
           
@@ -170,12 +172,12 @@ export function LandingPage() {
       <section className="py-[120px] border-t border-border bg-surface">
         <div className="max-w-[1280px] mx-auto px-[32px]">
           <div className="text-center mb-[72px]">
-            <p className="text-[13px] font-semibold text-primary uppercase tracking-[0.10em] mb-[16px]">Two Sides, One Platform</p>
-            <h2 className="text-[42px] font-bold text-text tracking-[-0.03em] mb-[18px]">Who is HireFlow for?</h2>
-            <p className="text-[18px] text-text-secondary max-w-[460px] mx-auto leading-[28px]">Two sides of the hiring equation, unified.</p>
+            <p className="text-[13px] font-semibold text-primary uppercase tracking-[0.10em] mb-[16px]">Free Tools</p>
+            <h2 className="text-[42px] font-bold text-text tracking-[-0.03em] mb-[18px]">Accelerate your career.</h2>
+            <p className="text-[18px] text-text-secondary max-w-[460px] mx-auto leading-[28px]">Everything you need to land your next big role.</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-[28px] stagger-in">
-            {ROLES.map((role, i) => {
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-[28px] stagger-in">
+            {TOOLS.map((role, i) => {
               const Icon = role.icon;
               return (
                 <div key={i} className={`relative rounded-3xl bg-gradient-to-br ${role.color} border ${role.borderColor} p-[48px] overflow-hidden group hover:-translate-y-1 transition-all duration-300 shadow-sm hover:shadow-lg`}>
