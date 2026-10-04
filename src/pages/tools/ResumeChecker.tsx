@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Brain, Search, AlertTriangle, CheckCircle, FileText, XCircle, ArrowRight, ScanLine } from 'lucide-react';
+import { Brain, Search, AlertTriangle, CheckCircle, FileText, XCircle, ArrowRight, ScanLine, UploadCloud } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export function ResumeChecker() {
@@ -51,9 +51,25 @@ export function ResumeChecker() {
         {!result && (
           <div className="grid md:grid-cols-2 gap-6 relative">
             <div className="bg-surface rounded-card p-6 border border-border shadow-sm flex flex-col h-[500px]">
-              <div className="flex items-center gap-2 mb-4">
-                <FileText className="w-5 h-5 text-primary" />
-                <h2 className="text-lg font-bold">Your Resume</h2>
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-2">
+                  <FileText className="w-5 h-5 text-primary" />
+                  <h2 className="text-lg font-bold">Your Resume</h2>
+                </div>
+                <label className="cursor-pointer inline-flex items-center gap-2 px-3 py-1.5 bg-primary/10 text-primary hover:bg-primary/20 rounded-md text-sm font-semibold transition-colors">
+                  <UploadCloud className="w-4 h-4" /> Upload File
+                  <input 
+                    type="file" 
+                    className="hidden" 
+                    accept=".pdf,.doc,.docx,.txt"
+                    onChange={(e) => {
+                      if (e.target.files?.[0]) {
+                        // Mock file upload by filling text
+                        setResumeText(`[Extracted from ${e.target.files[0].name}]\n\nSenior Software Engineer with 5+ years of experience...`);
+                      }
+                    }}
+                  />
+                </label>
               </div>
               <textarea 
                 value={resumeText}
@@ -64,9 +80,25 @@ export function ResumeChecker() {
             </div>
 
             <div className="bg-surface rounded-card p-6 border border-border shadow-sm flex flex-col h-[500px]">
-              <div className="flex items-center gap-2 mb-4">
-                <Search className="w-5 h-5 text-ai" />
-                <h2 className="text-lg font-bold">Target Job Description</h2>
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-2">
+                  <Search className="w-5 h-5 text-ai" />
+                  <h2 className="text-lg font-bold">Target Job Description</h2>
+                </div>
+                <label className="cursor-pointer inline-flex items-center gap-2 px-3 py-1.5 bg-ai/10 text-ai hover:bg-ai/20 rounded-md text-sm font-semibold transition-colors">
+                  <UploadCloud className="w-4 h-4" /> Upload File
+                  <input 
+                    type="file" 
+                    className="hidden" 
+                    accept=".pdf,.doc,.docx,.txt"
+                    onChange={(e) => {
+                      if (e.target.files?.[0]) {
+                        // Mock file upload by filling text
+                        setJobText(`[Extracted from ${e.target.files[0].name}]\n\nWe are looking for a Senior Software Engineer with strong experience in...`);
+                      }
+                    }}
+                  />
+                </label>
               </div>
               <textarea 
                 value={jobText}
