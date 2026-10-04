@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Sparkles, Mail, Lock, User, ArrowRight, Code } from 'lucide-react';
+import { Sparkles, Mail, Lock, User, ArrowRight, Code, Terminal, CheckCircle2, AlertCircle } from 'lucide-react';
 import { useStore } from '../../store/useStore';
 
 export function RegisterPage() {
@@ -36,23 +36,44 @@ export function RegisterPage() {
 
         <div className="max-w-[460px] relative z-10">
           <div className="inline-flex items-center gap-[8px] px-[12px] py-[6px] rounded-full bg-primary-light border border-primary/20 text-[12px] font-semibold text-primary mb-[24px]">
-            Join 50,000+ Candidates
+            <Terminal className="w-[14px] h-[14px]" /> Interactive Preview
           </div>
           <h1 className="text-[42px] font-extrabold text-text leading-[1.1] tracking-[-0.03em] mb-[24px]">
-            Stop guessing. <br /> Start landing.
+            Beat the ATS. <br /> Land the interview.
           </h1>
           <p className="text-[18px] text-text-secondary leading-[1.6]">
             Create a free account to instantly scan your resume against any job description, map your career trajectory, and apply to jobs.
           </p>
           
-          <div className="mt-[64px] grid grid-cols-2 gap-[16px]">
-            <div className="p-[20px] rounded-xl bg-surface/50 border border-border backdrop-blur-sm">
-              <div className="text-[32px] font-black text-ai mb-[4px]">250k+</div>
-              <div className="text-[13px] text-text-secondary font-medium">Resumes Scanned</div>
-            </div>
-            <div className="p-[20px] rounded-xl bg-surface/50 border border-border backdrop-blur-sm">
-              <div className="text-[32px] font-black text-primary mb-[4px]">45%</div>
-              <div className="text-[13px] text-text-secondary font-medium">Higher Callback Rate</div>
+          {/* Interactive Micro-component */}
+          <div className="mt-[48px] p-[20px] rounded-2xl bg-surface border border-border shadow-lg relative group overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-ai/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            
+            <p className="text-[12px] font-bold text-text-muted uppercase tracking-wider mb-[16px] flex items-center gap-[8px]">
+              <Sparkles className="w-[14px] h-[14px] text-ai" /> Live ATS Parser Simulator
+            </p>
+            
+            <div className="space-y-[12px]">
+              <div className="flex items-center justify-between p-[12px] rounded-lg bg-surface-2 border border-border hover:border-success/50 transition-colors group/item cursor-default">
+                <div className="flex items-center gap-[12px]">
+                  <CheckCircle2 className="w-[18px] h-[18px] text-success" />
+                  <span className="text-[14px] font-bold text-text">React.js Experience</span>
+                </div>
+                <span className="text-[12px] font-semibold text-success bg-success/10 px-[8px] py-[2px] rounded-md opacity-50 group-hover/item:opacity-100 transition-opacity">Matched</span>
+              </div>
+              
+              <div className="flex items-center justify-between p-[12px] rounded-lg bg-surface-2 border border-border hover:border-danger/50 transition-colors group/item cursor-default relative">
+                <div className="flex items-center gap-[12px]">
+                  <AlertCircle className="w-[18px] h-[18px] text-danger" />
+                  <span className="text-[14px] font-bold text-text">System Design</span>
+                </div>
+                <span className="text-[12px] font-semibold text-danger bg-danger/10 px-[8px] py-[2px] rounded-md opacity-50 group-hover/item:opacity-100 transition-opacity">Missing</span>
+                
+                {/* Hover Tooltip */}
+                <div className="absolute top-[110%] right-0 w-[240px] p-[12px] rounded-lg bg-text text-bg text-[12px] font-medium opacity-0 group-hover/item:opacity-100 group-hover/item:translate-y-[4px] pointer-events-none transition-all duration-200 z-20 shadow-xl">
+                  The Job Description mentions "System Design" 3 times. Your resume mentions it 0 times. Auto-reject highly probable.
+                </div>
+              </div>
             </div>
           </div>
         </div>
