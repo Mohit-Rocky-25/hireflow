@@ -64,7 +64,7 @@ export const ScoreBreakdownCard: React.FC<Props> = ({ breakdown }) => {
         <div>
           <h3 className="text-base font-black text-text tracking-tight">ATS Scoring Algorithm Breakdown</h3>
           <p className="text-xs text-text-secondary mt-0.5">
-            Deterministic evaluation calibrated against Tier S, A, and Indian tech screening algorithms.
+            Heuristic benchmarks calibrated against modern engineering hiring standards.
           </p>
         </div>
         <span className="px-3 py-1 bg-surface-2 border border-border text-xs font-mono font-bold rounded-full">

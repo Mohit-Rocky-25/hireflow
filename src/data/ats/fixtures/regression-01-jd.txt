@@ -1,0 +1,18 @@
+Senior Full Stack Software Engineer
+Location: San Francisco, CA / Remote
+Experience Required: 4+ years
+
+About the Role
+We are seeking an experienced Full Stack Software Engineer to build resilient distributed services and user-facing applications. You will write high-performance code across frontend and backend systems.
+
+Mandatory Requirements
+- Strong proficiency in TypeScript, Java, and C++ for backend microservice development.
+- Extensive frontend expertise using React and modern CSS3.
+- Proven hands-on experience building backend APIs with Node.js.
+- Rigorous practice in automated Unit Testing and test-driven development (TDD).
+- Mastery of Git version control and team code collaboration workflows.
+- Professional experience writing clean code in Go (Golang) and C# (.NET).
+- Bachelor's degree in Computer Science or equivalent practical experience.
+
+Nice to Have
+- Experience with Docker, Kubernetes, and PostgreSQL.

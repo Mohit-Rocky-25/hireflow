@@ -10,6 +10,7 @@ import { formatAuditor } from '../formatAuditor';
 import { seniorityFit } from '../seniorityFit';
 import { marketPositioning } from '../marketPositioning';
 import { analyzeDeterministic } from '../index';
+import { runHybridAnalysis } from '../pipeline';
 
 const FIXTURES_DIR = path.resolve(__dirname, '../../../data/ats/fixtures');
 
@@ -173,6 +174,15 @@ describe('HireFlow ATS Engine — Fixtures Verification', () => {
           expect.arrayContaining(['Docker', 'Kubernetes', 'CI/CD Pipelines', 'System Design'])
         );
         expect(result.harshTruthsDeterministic.length).toBeGreaterThanOrEqual(2);
+
+        // Requirement 5: Docker, Kubernetes, CI/CD, System Design flagged learn_needed
+        const devOpsSkills = ['Docker', 'Kubernetes', 'CI/CD Pipelines', 'System Design'];
+        for (const s of devOpsSkills) {
+          const match = result.skillMatches.find((m) => m.skill === s);
+          if (match) {
+            expect(match.gapType).toBe('learn_needed');
+          }
+        }
       }
 
       // Specific Fixture 05 verification: keyword stuffing penalized
@@ -182,4 +192,139 @@ describe('HireFlow ATS Engine — Fixtures Verification', () => {
       }
     });
   }
+
+  it('regression-01: reproduces and verifies fix for false token matches & 80% coverage bug', () => {
+    const resumeText = fs.readFileSync(
+      path.join(FIXTURES_DIR, 'regression-01-resume.txt'),
+      'utf-8'
+    );
+    const jdText = fs.readFileSync(
+      path.join(FIXTURES_DIR, 'regression-01-jd.txt'),
+      'utf-8'
+    );
+
+    const result = analyzeDeterministic(resumeText, jdText);
+
+    // a) Must-Have skills match must NOT be 80% (candidate lacks core stack)
+    expect(result.scoreBreakdown.mustHaveCoverageScore).toBeLessThan(35);
+
+    // b) Special tokens must NOT produce false positive matches
+    expect(result.matchedKeywords).not.toContain('Go');
+    expect(result.matchedKeywords).not.toContain('C');
+    expect(result.matchedKeywords).not.toContain('C#');
+    expect(result.matchedKeywords).not.toContain('C++');
+
+    // Missing keywords must contain the missing stack
+    expect(result.missingKeywords).toEqual(
+      expect.arrayContaining(['TypeScript', 'Java', 'C++', 'CSS3', 'React', 'Node.js', 'Git'])
+    );
+
+    // c) Unbulleted experience must be parsed into sentences, not 0 bullets falling back to defaults
+    expect(result.resume.bullets.length).toBeGreaterThan(0);
+
+    // Invariants check:
+    // 1. mustHaveCoverage must equal (exact + alias + implied) / total must-haves
+    const mustHaves = result.skillMatches.filter((s) => s.importance === 'must_have');
+    const matchedMustHaves = mustHaves.filter(
+      (s) => s.status === 'exact' || s.status === 'alias' || s.status === 'implied'
+    );
+    const expectedCoverage = Math.round((matchedMustHaves.length / mustHaves.length) * 100);
+    expect(result.scoreBreakdown.mustHaveCoverageScore).toBe(expectedCoverage);
+
+    // 2. Count of missing keywords must match across tabs
+    expect(result.missingKeywords.length).toBe(
+      result.skillMatches.filter((s) => s.status === 'missing' || s.status === 'related').length
+    );
+
+    // 4. All citations must exist verbatim
+    for (const match of result.skillMatches) {
+      if (match.evidenceSnippet && match.evidenceSnippet.includes('"...')) {
+        const clean = match.evidenceSnippet.replace(/^\.{3}|"\.{3}|\.{3}"|"\s*$/g, '').trim();
+        if (clean.length > 5) {
+          expect(resumeText.toLowerCase()).toContain(clean.toLowerCase());
+        }
+      }
+    }
+  });
+
+  it('Phase 2 Pipeline & Cache: same input twice produces identical output', () => {
+    const resumeText = fs.readFileSync(
+      path.join(FIXTURES_DIR, '01-strong-fresher-resume.txt'),
+      'utf-8'
+    );
+    const jdText = fs.readFileSync(
+      path.join(FIXTURES_DIR, '01-entry-fullstack-jd.txt'),
+      'utf-8'
+    );
+
+    const first = runHybridAnalysis(resumeText, jdText);
+    const second = runHybridAnalysis(resumeText, jdText);
+
+    expect(first.facts.scoreBreakdown.finalScore).toBe(second.facts.scoreBreakdown.finalScore);
+    expect(first.facts.scoreBreakdown.mustHaveCoverageScore).toBe(second.facts.scoreBreakdown.mustHaveCoverageScore);
+    expect(first.passA?.resume.totalExperienceMonths).toBe(second.passA?.resume.totalExperienceMonths);
+    expect(first.narrative?.verdict.label).toBe(second.narrative?.verdict.label);
+  });
+
+  it('Zero-bullet resume: marks evidence N/A, re-normalizes weights, and sets Low confidence', () => {
+    const textNoBullets = `
+    Naveen Rao
+    Email: naveen@example.com | Phone: +91-9876543210
+    Location: Hyderabad, India
+    
+    SUMMARY
+    Self-taught programmer interested in web development.
+    
+    TECHNICAL SKILLS
+    JavaScript, Python, React, HTML5, CSS3
+    `;
+
+    const jdText = fs.readFileSync(
+      path.join(FIXTURES_DIR, '01-entry-fullstack-jd.txt'),
+      'utf-8'
+    );
+
+    const result = analyzeDeterministic(textNoBullets, jdText);
+
+    expect(result.scoreBreakdown.isEvidenceNA).toBe(true);
+    expect(result.scoreBreakdown.evidenceQualityScore).toBe(0);
+    expect(result.scoreBreakdown.confidence).toBe('Low');
+    expect(result.scoreBreakdown.confidenceReason).toBeDefined();
+    // Evidence weight must be 0 in effective weights
+    expect(result.scoreBreakdown.effectiveWeights?.evidence).toBe(0);
+  });
+
+  it('Student/Fresher vs Senior JD: Seniority score is low (< 40%) and dealbreaker caps at 55', () => {
+    const resumeText = fs.readFileSync(
+      path.join(FIXTURES_DIR, '01-strong-fresher-resume.txt'),
+      'utf-8'
+    );
+    const seniorJdText = fs.readFileSync(
+      path.join(FIXTURES_DIR, '03-senior-backend-jd.txt'),
+      'utf-8'
+    );
+
+    const result = analyzeDeterministic(resumeText, seniorJdText);
+
+    expect(result.scoreBreakdown.seniorityFitScore).toBeLessThanOrEqual(40);
+    expect(result.scoreBreakdown.finalScore).toBeLessThanOrEqual(55);
+    expect(result.scoreBreakdown.dealbreakerTriggered).toBeDefined();
+  });
+
+  it('No UI text contains auto-reject below 75% or calibrated against Tier S', () => {
+    const resumeCheckerPath = path.resolve(__dirname, '../../../pages/tools/ResumeChecker.tsx');
+    const overviewTabPath = path.resolve(__dirname, '../../../components/ats/OverviewTab.tsx');
+    const verdictCardPath = path.resolve(__dirname, '../../../components/ats/VerdictCard.tsx');
+
+    const files = [resumeCheckerPath, overviewTabPath, verdictCardPath];
+    for (const f of files) {
+      if (fs.existsSync(f)) {
+        const content = fs.readFileSync(f, 'utf-8');
+        expect(content).not.toMatch(/auto-reject.*75%/i);
+        expect(content).not.toMatch(/calibrated against tier s/i);
+      }
+    }
+  });
 });
+
+

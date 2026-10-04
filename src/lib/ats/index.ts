@@ -23,6 +23,8 @@ export * from './marketPositioning';
 export * from './scoreAggregator';
 export * from './fileExtractor';
 export * from './prompts';
+export * from './invariants';
+export * from './pipeline';
 
 import {
   SYSTEM_PROMPT,
@@ -30,7 +32,9 @@ import {
   validateAndSanitizeAICommentary,
   generateDeterministicFallbackAI,
 } from './prompts';
+import { enforceInvariants } from './invariants';
 import { AnalysisResponse } from './types';
+import { runHybridAnalysis } from './pipeline';
 
 export function analyzeDeterministic(
   resumeText: string,
@@ -146,7 +150,7 @@ export function analyzeDeterministic(
     }
   }
 
-  return {
+  const rawFacts: DeterministicFacts = {
     resume: parsedResume,
     jd: parsedJD,
     skillMatches,
@@ -161,6 +165,9 @@ export function analyzeDeterministic(
     scoreBreakdown,
     harshTruthsDeterministic: harshTruths.slice(0, 5),
   };
+
+  const { facts: validatedFacts } = enforceInvariants(rawFacts, resumeText);
+  return validatedFacts;
 }
 
 export interface AnalyzeOptions {
@@ -179,9 +186,11 @@ export async function analyzeResume(
   const facts = analyzeDeterministic(resumeText, jdText, options);
 
   if (options?.skipAi) {
+    const fallbackAI = generateDeterministicFallbackAI(facts);
+    const { facts: f, ai: a } = enforceInvariants(facts, resumeText, fallbackAI);
     return {
-      facts,
-      ai: generateDeterministicFallbackAI(facts),
+      facts: f,
+      ai: a,
       isAiAvailable: false,
     };
   }
@@ -201,12 +210,18 @@ export async function analyzeResume(
 
     if (res.ok) {
       const data = await res.json();
-      if (data.ai) {
+      if (data.facts || data.ai) {
+        const factsToUse = data.facts || facts;
+        const { facts: f, ai: a } = enforceInvariants(factsToUse, resumeText, data.ai);
         return {
-          facts,
-          ai: data.ai,
+          facts: f,
+          ai: a,
           isAiAvailable: data.isAiAvailable ?? true,
           aiErrorNotice: data.aiErrorNotice,
+          passA: data.passA,
+          passB: data.passB,
+          narrative: data.narrative,
+          debugMath: data.debugMath,
         };
       }
     }
@@ -238,9 +253,10 @@ export async function analyzeResume(
         if (rawText) {
           const parsed = JSON.parse(rawText);
           const sanitized = validateAndSanitizeAICommentary(parsed, resumeText, facts);
+          const { facts: f, ai: a } = enforceInvariants(facts, resumeText, sanitized);
           return {
-            facts,
-            ai: sanitized,
+            facts: f,
+            ai: a,
             isAiAvailable: true,
           };
         }
@@ -251,11 +267,14 @@ export async function analyzeResume(
   }
 
   // 4. Default high-grade deterministic fallback commentary
+  const hybrid = runHybridAnalysis(resumeText, jdText, { apiKey: options?.geminiApiKey });
+  const { facts: f, ai: a } = enforceInvariants(hybrid.facts, resumeText, hybrid.ai);
   return {
-    facts,
-    ai: generateDeterministicFallbackAI(facts),
+    ...hybrid,
+    facts: f,
+    ai: a,
     isAiAvailable: false,
-    aiErrorNotice: 'Running in grounded deterministic mode. To enable live Gemini reasoning, add GEMINI_API_KEY in .env or settings.',
+    aiErrorNotice: 'Simulated screening score based on grounded deterministic parser. Real ATS behavior varies by company.',
   };
 }
 

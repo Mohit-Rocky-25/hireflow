@@ -1,6 +1,6 @@
 // ============================================================
 // HireFlow ATS Engine — scoreAggregator
-// Pure TypeScript module to compute final weighted ATS score
+// Deterministic scoring strictly satisfying Invariant 1 to 5
 // ============================================================
 
 import {
@@ -21,9 +21,20 @@ export function scoreAggregator(
   seniority: SeniorityFitResult,
   formatRisks: FormatRiskItem[]
 ): ScoreBreakdown {
-  // 1. Precalculate evidence checks and stuffing flags
-  const bulletTextJoined = (resume.bullets || []).map((b) => b.rawText.toLowerCase()).join(' ');
-  const skillsSectionRaw = (resume.sections.skills || []).join(' ').toLowerCase();
+  const scoreExplanation: Record<string, string[]> = {
+    mustHave: [],
+    evidence: [],
+    niceToHave: [],
+    seniority: [],
+    project: [],
+    format: [],
+  };
+
+  // 1. Keyword Stuffing Detection
+  const bulletTextJoined = (bulletAnalyses || []).map((b) => b.rawText.toLowerCase()).join(' ');
+  const skillsWordCount = (resume.sections.skills || []).join(' ').split(/\s+/).filter(Boolean).length;
+  const isSkillsDominated = resume.wordCount > 0 && skillsWordCount / resume.wordCount > 0.40;
+  const isExtremeCount = resume.skillsExtracted.length >= 40;
 
   let unsupportedSkillsCount = 0;
   for (const skill of resume.skillsExtracted) {
@@ -34,131 +45,229 @@ export function scoreAggregator(
   }
 
   const isStuffingFlagged =
-    resume.skillsExtracted.length >= 25 &&
-    unsupportedSkillsCount / resume.skillsExtracted.length > 0.65;
+    (isExtremeCount || isSkillsDominated) &&
+    unsupportedSkillsCount / Math.max(1, resume.skillsExtracted.length) > 0.65;
 
-  // 1. Must-Have Coverage (35%)
+  const keywordStuffingPenalty = isStuffingFlagged ? -15 : 0;
+  if (isStuffingFlagged) {
+    scoreExplanation.format.push(
+      `Keyword stuffing detected: ${unsupportedSkillsCount} of ${resume.skillsExtracted.length} listed skills lack any project or bullet evidence.`
+    );
+  }
+
+  // 2. Must-Have Coverage (35%)
+  // Invariant 1: mustHaveCoverage must equal (must-haves with status exact|alias|implied) / (total must-haves)
   const mustHaves = skillMatches.filter((s) => s.importance === 'must_have');
-  let mustHaveScore = 80; // default if JD had no explicit must haves
+  const matchedMustHaves = mustHaves.filter(
+    (s) => s.status === 'exact' || s.status === 'alias' || s.status === 'implied'
+  );
 
+  let mustHaveCoverageScore = 100;
   if (mustHaves.length > 0) {
-    let earnedWeight = 0;
-    let totalWeight = 0;
-
-    for (const item of mustHaves) {
-      const w = item.weight || 4;
-      totalWeight += w;
-
-      const isClaimedInSkillsOnly =
-        skillsSectionRaw.length > 0 &&
-        skillsSectionRaw.includes(item.skill.toLowerCase()) &&
-        !bulletTextJoined.includes(item.skill.toLowerCase()) &&
-        !(resume.sections.experience || []).join(' ').toLowerCase().includes(item.skill.toLowerCase()) &&
-        !(resume.sections.projects || []).join(' ').toLowerCase().includes(item.skill.toLowerCase());
-
-      let matchMultiplier = 0;
-      if (item.status === 'exact' || item.status === 'alias') {
-        // Only discount unbacked skills if the resume was flagged for keyword stuffing
-        matchMultiplier = isClaimedInSkillsOnly && isStuffingFlagged ? 0.50 : 1.0;
-      } else if (item.status === 'implied') {
-        matchMultiplier = 0.90;
-      } else if (item.status === 'related') {
-        matchMultiplier = 0.50;
-      }
-
-      earnedWeight += w * matchMultiplier;
+    mustHaveCoverageScore = Math.round((matchedMustHaves.length / mustHaves.length) * 100);
+    const missingMustList = mustHaves.filter((s) => s.status === 'missing' || s.status === 'related');
+    for (const m of missingMustList.slice(0, 2)) {
+      scoreExplanation.mustHave.push(`Missing mandatory requirement: ${m.skill}`);
     }
-
-    mustHaveScore = totalWeight > 0 ? (earnedWeight / totalWeight) * 100 : 70;
+  } else if (skillMatches.length > 0) {
+    const allMatched = skillMatches.filter(
+      (s) => s.status === 'exact' || s.status === 'alias' || s.status === 'implied'
+    );
+    mustHaveCoverageScore = Math.round((allMatched.length / skillMatches.length) * 100);
   }
 
-  // 2. Evidence & Impact Quality (20%)
-  let evidenceQualityScore = 50;
-  if (bulletAnalyses.length > 0) {
-    const avgScore =
-      bulletAnalyses.reduce((acc, b) => acc + b.score, 0) / bulletAnalyses.length;
-    evidenceQualityScore = Math.round(avgScore);
-  }
-  evidenceQualityScore = Math.max(10, Math.min(100, evidenceQualityScore));
+  // 3. Evidence & Impact Quality (20%)
+  // Rule: If 0 bullets parsed, do NOT assign default 50%. Mark as N/A, exclude from total, and re-normalize.
+  const isEvidenceNA = bulletAnalyses.length === 0;
+  let evidenceQualityScore = 0;
 
-  // 3. Nice-to-Have Coverage (10%)
+  if (isEvidenceNA) {
+    scoreExplanation.evidence.push('Not enough data: No structured experience bullet points found in resume.');
+  } else {
+    const sumScores = bulletAnalyses.reduce((acc, b) => acc + b.score, 0);
+    evidenceQualityScore = Math.round(sumScores / bulletAnalyses.length);
+
+    const weakBullets = bulletAnalyses.filter((b) => b.score < 50);
+    if (weakBullets.length > 0) {
+      scoreExplanation.evidence.push(
+        `${weakBullets.length} bullet point(s) lack quantifiable metrics or decisive engineering action verbs.`
+      );
+    }
+    const jdStyle = bulletAnalyses.filter((b) => b.isJobDescriptionStyle);
+    if (jdStyle.length > 0) {
+      scoreExplanation.evidence.push(
+        'Bullet points read like job duties rather than personal engineering accomplishments.'
+      );
+    }
+  }
+
+  // 4. Nice-to-Have Coverage (10%)
   const niceToHaves = skillMatches.filter((s) => s.importance === 'nice_to_have');
-  let niceToHaveScore = 75;
-
+  let niceToHaveCoverageScore = 100;
   if (niceToHaves.length > 0) {
-    let earnedWeight = 0;
-    let totalWeight = 0;
-
-    for (const item of niceToHaves) {
-      const w = item.weight || 3;
-      totalWeight += w;
-
-      if (item.status === 'exact' || item.status === 'alias') {
-        earnedWeight += w * 1.0;
-      } else if (item.status === 'implied') {
-        earnedWeight += w * 0.85;
-      } else if (item.status === 'related') {
-        earnedWeight += w * 0.45;
+    let earned = 0;
+    for (const n of niceToHaves) {
+      if (n.status === 'exact' || n.status === 'alias' || n.status === 'implied') {
+        earned += 1.0;
+      } else if (n.status === 'related') {
+        earned += 0.5;
       }
     }
-    niceToHaveScore = totalWeight > 0 ? (earnedWeight / totalWeight) * 100 : 70;
+    niceToHaveCoverageScore = Math.round((earned / niceToHaves.length) * 100);
+    const missingNice = niceToHaves.filter((s) => s.status === 'missing');
+    for (const n of missingNice.slice(0, 2)) {
+      scoreExplanation.niceToHave.push(`Missing preferred skill: ${n.skill}`);
+    }
   }
-  niceToHaveScore = Math.max(0, Math.min(100, Math.round(niceToHaveScore)));
 
-  // 4. Seniority / Experience Fit (10%)
+  // 5. Seniority & Experience Fit (15%)
   const seniorityFitScore = seniority.score;
-
-  // 5. Project / Role Relevance (10%)
-  let projectRelevanceScore = 60;
-  const resumeTextLower = resume.rawText.toLowerCase();
-  const jdRoleTitleWords = jd.roleTitle.toLowerCase().split(/\s+/).filter((w) => w.length > 3);
-  const titleMatches = jdRoleTitleWords.filter((w) => resumeTextLower.includes(w)).length;
-
-  if (titleMatches >= 2) projectRelevanceScore += 25;
-  else if (titleMatches === 1) projectRelevanceScore += 15;
-
-  if (resume.sections.projects && resume.sections.projects.length > 0) {
-    projectRelevanceScore += 15;
+  if (seniority.status === 'underqualified') {
+    scoreExplanation.seniority.push(seniority.reasoning);
+  } else if (seniority.status === 'overqualified') {
+    scoreExplanation.seniority.push(seniority.reasoning);
   }
-  projectRelevanceScore = Math.max(20, Math.min(100, projectRelevanceScore));
 
-  // 6. ATS Format Safety (10%)
+  // 6. Project & Role Relevance (10%)
+  let projectRelevanceScore = 80;
+  const projectBullets = (resume.sections.projects || []).join(' ').toLowerCase();
+  const expBullets = (resume.sections.experience || []).join(' ').toLowerCase();
+  const allWorkText = `${projectBullets} ${expBullets}`;
+
+  if (allWorkText.length < 50) {
+    projectRelevanceScore = 45;
+    scoreExplanation.project.push('Sparse project and work experience descriptions.');
+  } else {
+    const matchedInWork = skillMatches.filter(
+      (s) => (s.status === 'exact' || s.status === 'alias') && allWorkText.includes(s.skill.toLowerCase())
+    ).length;
+    if (matchedInWork >= 4) {
+      projectRelevanceScore = 95;
+    } else if (matchedInWork >= 2) {
+      projectRelevanceScore = 80;
+    } else if (matchedInWork >= 1) {
+      projectRelevanceScore = 70;
+      scoreExplanation.project.push('Few core job technologies demonstrated inside actual project or work experience.');
+    } else {
+      projectRelevanceScore = 45;
+      scoreExplanation.project.push('No direct evidence of target role technologies inside projects or work history.');
+    }
+  }
+
+  // Adjust for career switcher / underqualified seniority gap
+  if (seniority.status === 'underqualified' && projectRelevanceScore > 65) {
+    projectRelevanceScore = 65;
+    scoreExplanation.project.push('Project scope is introductory/academic compared to senior requirements.');
+  }
+
+  // Adjust for keyword stuffing with no project depth
+  if (isStuffingFlagged) {
+    projectRelevanceScore = Math.min(projectRelevanceScore, 30);
+  }
+
+  // 7. ATS Format & Parsing Safety (10%)
   let formatSafetyScore = 100;
-  for (const risk of formatRisks) {
-    if (risk.severity === 'critical') formatSafetyScore -= 30;
-    else if (risk.severity === 'high') formatSafetyScore -= 18;
-    else if (risk.severity === 'medium') formatSafetyScore -= 10;
-    else if (risk.severity === 'low') formatSafetyScore -= 5;
+  for (const r of formatRisks) {
+    if (r.severity === 'critical') formatSafetyScore -= 30;
+    else if (r.severity === 'high') formatSafetyScore -= 15;
+    else if (r.severity === 'medium') formatSafetyScore -= 8;
+    else if (r.severity === 'low') formatSafetyScore -= 4;
   }
   formatSafetyScore = Math.max(10, Math.min(100, formatSafetyScore));
-
-  // 7. Keyword Stuffing Penalty (up to -15)
-  let keywordStuffingPenalty = 0;
-  if (isStuffingFlagged) {
-    const penaltyRatio = unsupportedSkillsCount / resume.skillsExtracted.length;
-    keywordStuffingPenalty = -Math.min(15, Math.max(10, Math.round(penaltyRatio * 15)));
+  for (const r of formatRisks.slice(0, 2)) {
+    scoreExplanation.format.push(`[${r.severity.toUpperCase()}] ${r.name}`);
   }
 
-  // Final Weighted Calculation
-  const rawFinalScore =
-    mustHaveScore * 0.35 +
-    evidenceQualityScore * 0.20 +
-    niceToHaveScore * 0.10 +
-    seniorityFitScore * 0.10 +
-    projectRelevanceScore * 0.10 +
-    formatSafetyScore * 0.10 +
-    keywordStuffingPenalty;
+  // 8. Re-normalization of weights if any component is N/A
+  // Base weights: mustHave=0.35, evidence=0.20, niceToHave=0.10, seniority=0.15, project=0.10, format=0.10
+  const baseWeights = {
+    mustHave: 0.35,
+    evidence: isEvidenceNA ? 0 : 0.20,
+    niceToHave: niceToHaves.length > 0 ? 0.10 : 0,
+    seniority: 0.15,
+    project: 0.10,
+    format: 0.10,
+  };
 
-  const finalScore = Math.max(5, Math.min(99, Math.round(rawFinalScore)));
+  const totalActiveWeight =
+    baseWeights.mustHave +
+    baseWeights.evidence +
+    baseWeights.niceToHave +
+    baseWeights.seniority +
+    baseWeights.project +
+    baseWeights.format;
+
+  const normWeights = {
+    mustHave: baseWeights.mustHave / totalActiveWeight,
+    evidence: baseWeights.evidence / totalActiveWeight,
+    niceToHave: baseWeights.niceToHave / totalActiveWeight,
+    seniority: baseWeights.seniority / totalActiveWeight,
+    project: baseWeights.project / totalActiveWeight,
+    format: baseWeights.format / totalActiveWeight,
+  };
+
+  const effectiveWeights = {
+    mustHave: Math.round(normWeights.mustHave * 100),
+    evidence: Math.round(normWeights.evidence * 100),
+    niceToHave: Math.round(normWeights.niceToHave * 100),
+    seniority: Math.round(normWeights.seniority * 100),
+    projects: Math.round(normWeights.project * 100),
+    format: Math.round(normWeights.format * 100),
+  };
+
+  const weightedSum =
+    mustHaveCoverageScore * normWeights.mustHave +
+    (isEvidenceNA ? 0 : evidenceQualityScore * normWeights.evidence) +
+    niceToHaveCoverageScore * normWeights.niceToHave +
+    seniorityFitScore * normWeights.seniority +
+    projectRelevanceScore * normWeights.project +
+    formatSafetyScore * normWeights.format;
+
+  let finalScore = Math.round(weightedSum + keywordStuffingPenalty);
+  finalScore = Math.max(0, Math.min(100, finalScore));
+
+  // 9. Dealbreaker Checks
+  let dealbreakerTriggered: { rule: string; reason: string } | undefined;
+  if (
+    seniority.status === 'underqualified' &&
+    seniority.requiredYears >= 4 &&
+    seniority.candidateYears <= 1
+  ) {
+    dealbreakerTriggered = {
+      rule: `Mandatory Seniority: Role demands ${seniority.requiredYears}+ years of production engineering experience.`,
+      reason: `Candidate has ~${seniority.candidateYears} yrs experience (student/fresher level), falling critically short of senior role mandate.`,
+    };
+    finalScore = Math.min(finalScore, 55);
+  }
+
+  // 10. Confidence Evaluation
+  let confidence: 'High' | 'Medium' | 'Low' = 'High';
+  let confidenceReason: string | undefined;
+
+  if (isEvidenceNA || resume.parseStatus === 'warning' || resume.parseStatus === 'failed') {
+    confidence = 'Low';
+    confidenceReason = isEvidenceNA
+      ? 'No structured bullet points found; evidence & metric impact cannot be evaluated reliably.'
+      : 'Resume text lacks standard sections or clear work history.';
+  } else if (bulletAnalyses.length < 3 || skillMatches.length < 4) {
+    confidence = 'Medium';
+    confidenceReason = 'Limited number of bullets or keywords extracted for comprehensive assessment.';
+  }
 
   return {
-    mustHaveCoverageScore: Math.round(mustHaveScore),
-    evidenceQualityScore: Math.round(evidenceQualityScore),
-    niceToHaveCoverageScore: Math.round(niceToHaveScore),
-    seniorityFitScore: Math.round(seniorityFitScore),
-    projectRelevanceScore: Math.round(projectRelevanceScore),
-    formatSafetyScore: Math.round(formatSafetyScore),
+    mustHaveCoverageScore,
+    evidenceQualityScore: isEvidenceNA ? 0 : evidenceQualityScore,
+    niceToHaveCoverageScore,
+    seniorityFitScore,
+    projectRelevanceScore,
+    formatSafetyScore,
     keywordStuffingPenalty,
     finalScore,
+    confidence,
+    confidenceReason,
+    isEvidenceNA,
+    scoreExplanation,
+    dealbreakerTriggered,
+    effectiveWeights,
   };
 }

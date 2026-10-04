@@ -1,0 +1,24 @@
+Alex Mercer
+Email: alex.mercer@gmail.com | Phone: +1-555-0199
+San Francisco, CA | LinkedIn: linkedin.com/in/alexmercer
+
+Professional Summary
+Experienced technology generalist who spent years going through system architectures and collaborating with Google Cloud partners. Passionate about software reliability and modern cloud infrastructure.
+
+Education
+University of California, Berkeley
+B.S. in Computer Science | 2018 - 2022
+
+Experience
+Cloud Operations Specialist | CloudScale Solutions
+June 2022 - Present | San Francisco, CA
+Managed daily cloud monitoring and infrastructure alerts across multi-region environments.
+Coordinated with cross-functional teams to diagnose network performance bottlenecks and optimize server utilization.
+Documented operational runbooks and conducted technical training sessions for junior system administrators.
+Assisted in database backup routines and monitored incident resolution workflows.
+
+Technical Skills
+Cloud Platforms: Google Cloud Platform (GCP), AWS
+Databases: SQL, MongoDB
+Tools: Jira, Slack, Linux CLI, Bash
+Concepts: Cloud Architecture, Disaster Recovery, Incident Response
