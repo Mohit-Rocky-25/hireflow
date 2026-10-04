@@ -33,10 +33,13 @@ export function ResumeChecker() {
     <div className="min-h-screen bg-bg text-text pt-24 pb-12 px-6">
       <div className="max-w-5xl mx-auto space-y-8 animate-fade-in">
         
-        <div className="text-center max-w-2xl mx-auto mb-12">
-          <Link to="/" className="inline-flex items-center gap-2 text-sm font-bold text-primary mb-6 hover:underline">
-            <ArrowRight className="w-4 h-4 rotate-180" /> Back to Home
+        <div className="mb-8">
+          <Link to="/" className="inline-flex items-center gap-2 text-lg font-black text-text hover:text-primary transition-colors">
+            <ArrowRight className="w-5 h-5 rotate-180" /> Back to Home
           </Link>
+        </div>
+
+        <div className="text-center max-w-2xl mx-auto mb-12">
           <h1 className="text-4xl md:text-5xl font-black tracking-tighter mb-4">
             ATS Resume <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-ai">Roaster</span>
           </h1>
