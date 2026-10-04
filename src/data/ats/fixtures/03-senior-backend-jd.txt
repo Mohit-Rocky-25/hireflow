@@ -1,0 +1,20 @@
+Job Title: Senior Backend Distributed Systems Engineer
+Company: GlobalFintech Tier-1
+Experience Required: 5+ Years
+Location: Bangalore / Hybrid
+
+Role Summary:
+We are seeking an exceptional Senior Backend Engineer to design and scale core banking and transaction infrastructure capable of handling tens of thousands of requests per second.
+
+Required Qualifications & Must-Haves:
+- 5+ years of software engineering experience in Java, Go, or C++.
+- Extensive production experience with Spring Boot or modern microservice frameworks.
+- Deep expertise in relational databases (PostgreSQL or MySQL) including query tuning, sharding, and index optimization.
+- Proven experience with distributed event streaming platforms like Apache Kafka or RabbitMQ.
+- Strong hands-on background in System Design, Distributed Systems, caching strategies (Redis), and high availability.
+- Production experience containerizing with Docker and deploying to Kubernetes on AWS.
+
+Nice-to-Have Skills:
+- Experience with Infrastructure as Code (Terraform).
+- Observability and distributed tracing with Prometheus and Grafana.
+- Background in fintech, payment gateways, or low-latency systems.

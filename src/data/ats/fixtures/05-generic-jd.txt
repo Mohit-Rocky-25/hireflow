@@ -1,0 +1,16 @@
+Job Title: Full-Stack Software Engineer
+Company: AlphaScale Technologies
+Experience: 2-4 Years
+
+Job Overview:
+We are looking for a reliable Full-Stack Software Engineer to build scalable web applications.
+
+Requirements:
+- Strong experience with JavaScript, TypeScript, React, and Node.js.
+- Proficiency with PostgreSQL and REST APIs.
+- Experience with Docker and CI/CD pipelines.
+- Good understanding of automated testing and clean code principles.
+
+Responsibilities:
+- Build and maintain user-facing features and backend services.
+- Deliver well-tested, documented code.

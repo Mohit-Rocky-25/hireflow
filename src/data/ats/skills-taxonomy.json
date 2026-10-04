@@ -1,0 +1,1108 @@
+[
+  {
+    "canonical": "JavaScript",
+    "category": "Languages",
+    "aliases": ["Vanilla JS", "ES6", "ES2015+", "ECMAScript", "Modern JavaScript"],
+    "related": ["TypeScript", "Node.js", "HTML5", "CSS3"],
+    "weight": 5
+  },
+  {
+    "canonical": "TypeScript",
+    "category": "Languages",
+    "aliases": ["TS"],
+    "related": ["JavaScript", "Node.js", "React", "Next.js"],
+    "weight": 5,
+    "implies": ["JavaScript"]
+  },
+  {
+    "canonical": "Python",
+    "category": "Languages",
+    "aliases": ["Python3", "Py"],
+    "related": ["Django", "FastAPI", "Flask", "Pandas", "NumPy"],
+    "weight": 5
+  },
+  {
+    "canonical": "Java",
+    "category": "Languages",
+    "aliases": ["Core Java", "J2EE", "Java 8", "Java 11", "Java 17", "Java 21"],
+    "related": ["Spring Boot", "Hibernate", "JVM", "Maven", "Gradle"],
+    "weight": 5
+  },
+  {
+    "canonical": "C++",
+    "category": "Languages",
+    "aliases": ["CPP", "C/C++", "Modern C++", "C++14", "C++17", "C++20"],
+    "related": ["C", "Data Structures", "Algorithms", "STL"],
+    "weight": 5
+  },
+  {
+    "canonical": "C",
+    "category": "Languages",
+    "aliases": ["C Programming", "ANSI C"],
+    "related": ["C++", "Embedded Systems", "Linux"],
+    "weight": 4
+  },
+  {
+    "canonical": "C#",
+    "category": "Languages",
+    "aliases": ["CSharp", "C#.NET"],
+    "related": [".NET", ".NET Core", "ASP.NET Core", "Entity Framework"],
+    "weight": 5
+  },
+  {
+    "canonical": "Go",
+    "category": "Languages",
+    "aliases": ["Golang"],
+    "related": ["Goroutines", "Docker", "Kubernetes", "gRPC", "Microservices"],
+    "weight": 5
+  },
+  {
+    "canonical": "Rust",
+    "category": "Languages",
+    "aliases": ["Rustlang"],
+    "related": ["Memory Safety", "Cargo", "WebAssembly", "Tokio"],
+    "weight": 5
+  },
+  {
+    "canonical": "PHP",
+    "category": "Languages",
+    "aliases": ["PHP7", "PHP8"],
+    "related": ["Laravel", "Symfony", "WordPress", "MySQL"],
+    "weight": 3
+  },
+  {
+    "canonical": "Ruby",
+    "category": "Languages",
+    "aliases": ["Ruby on Rails", "RoR"],
+    "related": ["Rails", "RSpec", "PostgreSQL"],
+    "weight": 4
+  },
+  {
+    "canonical": "Kotlin",
+    "category": "Languages",
+    "aliases": ["Kotlin Multiplatform", "KMP"],
+    "related": ["Android", "Java", "Jetpack Compose"],
+    "weight": 5,
+    "implies": ["Java"]
+  },
+  {
+    "canonical": "Swift",
+    "category": "Languages",
+    "aliases": ["SwiftUI", "Swift 5"],
+    "related": ["iOS", "Xcode", "CocoaPods", "Objective-C"],
+    "weight": 5
+  },
+  {
+    "canonical": "SQL",
+    "category": "Languages",
+    "aliases": ["Structured Query Language", "ANSI SQL", "T-SQL", "PL/SQL"],
+    "related": ["PostgreSQL", "MySQL", "Database Design", "Indexing"],
+    "weight": 5
+  },
+  {
+    "canonical": "Shell Scripting",
+    "category": "Languages",
+    "aliases": ["Bash", "Zsh", "Shell Script", "Linux CLI", "Sh"],
+    "related": ["Linux", "DevOps", "Automation"],
+    "weight": 4
+  },
+  {
+    "canonical": "HTML5",
+    "category": "Frontend",
+    "aliases": ["HTML", "Semantic HTML", "Web Markup"],
+    "related": ["CSS3", "JavaScript", "DOM", "Accessibility"],
+    "weight": 4
+  },
+  {
+    "canonical": "CSS3",
+    "category": "Frontend",
+    "aliases": ["CSS", "SCSS", "SASS", "Responsive Web Design"],
+    "related": ["Tailwind CSS", "Flexbox", "Grid", "Animations"],
+    "weight": 4
+  },
+  {
+    "canonical": "React",
+    "category": "Frontend",
+    "aliases": ["React.js", "ReactJS", "React Hooks", "Create React App"],
+    "related": ["Next.js", "Redux", "TypeScript", "Vite", "Tailwind CSS"],
+    "weight": 5
+  },
+  {
+    "canonical": "Next.js",
+    "category": "Frontend",
+    "aliases": ["NextJS", "Next 13", "Next 14", "Next 15", "App Router"],
+    "related": ["React", "SSR", "SSG", "Vercel", "Server Components"],
+    "weight": 5,
+    "implies": ["React", "JavaScript"]
+  },
+  {
+    "canonical": "Vue.js",
+    "category": "Frontend",
+    "aliases": ["Vue", "VueJS", "Vue 3", "Composition API", "Nuxt.js"],
+    "related": ["Vuex", "Pinia", "JavaScript", "Vite"],
+    "weight": 4
+  },
+  {
+    "canonical": "Angular",
+    "category": "Frontend",
+    "aliases": ["Angular 2+", "Angular 14+", "AngularJS"],
+    "related": ["TypeScript", "RxJS", "NgRx"],
+    "weight": 4,
+    "implies": ["TypeScript", "JavaScript"]
+  },
+  {
+    "canonical": "Svelte",
+    "category": "Frontend",
+    "aliases": ["SvelteKit", "Svelte 5"],
+    "related": ["Vite", "JavaScript", "Web Components"],
+    "weight": 4
+  },
+  {
+    "canonical": "Tailwind CSS",
+    "category": "Frontend",
+    "aliases": ["Tailwind", "TailwindCSS"],
+    "related": ["CSS3", "PostCSS", "Responsive Design"],
+    "weight": 4,
+    "implies": ["CSS3"]
+  },
+  {
+    "canonical": "Redux",
+    "category": "Frontend",
+    "aliases": ["Redux Toolkit", "RTK", "Redux Thunk", "Redux Saga"],
+    "related": ["React", "Zustand", "State Management"],
+    "weight": 4,
+    "implies": ["React"]
+  },
+  {
+    "canonical": "Zustand",
+    "category": "Frontend",
+    "aliases": ["Zustand Store"],
+    "related": ["React", "Redux", "State Management"],
+    "weight": 3,
+    "implies": ["React"]
+  },
+  {
+    "canonical": "Web Performance Optimization",
+    "category": "Frontend",
+    "aliases": ["Core Web Vitals", "Lighthouse", "Code Splitting", "Lazy Loading", "Asset Bundling"],
+    "related": ["Vite", "Webpack", "Frontend Architecture"],
+    "weight": 5
+  },
+  {
+    "canonical": "Web Accessibility",
+    "category": "Frontend",
+    "aliases": ["a11y", "WCAG", "ARIA", "Screen Readers"],
+    "related": ["HTML5", "Frontend"],
+    "weight": 3
+  },
+  {
+    "canonical": "Node.js",
+    "category": "Backend",
+    "aliases": ["Node", "NodeJS", "Server-side JavaScript"],
+    "related": ["Express.js", "NestJS", "Fastify", "TypeScript", "REST APIs"],
+    "weight": 5,
+    "implies": ["JavaScript"]
+  },
+  {
+    "canonical": "Express.js",
+    "category": "Backend",
+    "aliases": ["Express", "ExpressJS"],
+    "related": ["Node.js", "REST APIs", "Middleware"],
+    "weight": 4,
+    "implies": ["Node.js", "JavaScript"]
+  },
+  {
+    "canonical": "NestJS",
+    "category": "Backend",
+    "aliases": ["Nest.js", "Nest"],
+    "related": ["Node.js", "TypeScript", "Dependency Injection", "Microservices"],
+    "weight": 5,
+    "implies": ["Node.js", "TypeScript"]
+  },
+  {
+    "canonical": "Spring Boot",
+    "category": "Backend",
+    "aliases": ["SpringBoot", "Spring Framework", "Spring Cloud", "Spring MVC"],
+    "related": ["Java", "Hibernate", "JPA", "Microservices", "REST APIs"],
+    "weight": 5,
+    "implies": ["Java"]
+  },
+  {
+    "canonical": "Django",
+    "category": "Backend",
+    "aliases": ["Django REST Framework", "DRF"],
+    "related": ["Python", "PostgreSQL", "ORM"],
+    "weight": 4,
+    "implies": ["Python"]
+  },
+  {
+    "canonical": "FastAPI",
+    "category": "Backend",
+    "aliases": ["Fast API", "Pydantic Async"],
+    "related": ["Python", "AsyncIO", "Swagger", "REST APIs"],
+    "weight": 4,
+    "implies": ["Python"]
+  },
+  {
+    "canonical": "Flask",
+    "category": "Backend",
+    "aliases": ["Flask API", "Flask Python"],
+    "related": ["Python", "Jinja", "Werkzeug"],
+    "weight": 3,
+    "implies": ["Python"]
+  },
+  {
+    "canonical": ".NET Core",
+    "category": "Backend",
+    "aliases": ["ASP.NET Core", "C# .NET", ".NET 6", ".NET 8"],
+    "related": ["C#", "Entity Framework", "Microservices"],
+    "weight": 4,
+    "implies": ["C#"]
+  },
+  {
+    "canonical": "REST APIs",
+    "category": "Backend",
+    "aliases": ["RESTful API", "RESTful Web Services", "API Design", "HTTP Endpoints", "JSON API"],
+    "related": ["Postman", "OpenAPI", "Swagger", "Backend"],
+    "weight": 5
+  },
+  {
+    "canonical": "GraphQL",
+    "category": "Backend",
+    "aliases": ["GraphQL Schema", "Apollo GraphQL", "Relay"],
+    "related": ["Node.js", "REST APIs", "API Design"],
+    "weight": 4
+  },
+  {
+    "canonical": "gRPC",
+    "category": "Backend",
+    "aliases": ["Protobuf", "Protocol Buffers", "RPC"],
+    "related": ["Microservices", "Go", "Distributed Systems"],
+    "weight": 4
+  },
+  {
+    "canonical": "WebSockets",
+    "category": "Backend",
+    "aliases": ["Socket.io", "Real-time Communication", "WSS"],
+    "related": ["Node.js", "Redis Pub/Sub", "Event-Driven Architecture"],
+    "weight": 4
+  },
+  {
+    "canonical": "Microservices",
+    "category": "Backend",
+    "aliases": ["Microservices Architecture", "Service-Oriented Architecture", "SOA", "Domain-Driven Design"],
+    "related": ["Docker", "Kubernetes", "Kafka", "API Gateway"],
+    "weight": 5
+  },
+  {
+    "canonical": "PostgreSQL",
+    "category": "Databases",
+    "aliases": ["Postgres", "PgSQL", "PostgresDB"],
+    "related": ["SQL", "Relational Databases", "ACID", "Database Indexing"],
+    "weight": 5,
+    "implies": ["SQL"]
+  },
+  {
+    "canonical": "MySQL",
+    "category": "Databases",
+    "aliases": ["My SQL", "MariaDB", "InnoDB"],
+    "related": ["SQL", "Relational Databases", "Database Indexing"],
+    "weight": 5,
+    "implies": ["SQL"]
+  },
+  {
+    "canonical": "MongoDB",
+    "category": "Databases",
+    "aliases": ["Mongo", "NoSQL MongoDB", "Mongoose"],
+    "related": ["NoSQL", "Document Databases", "Node.js"],
+    "weight": 4
+  },
+  {
+    "canonical": "Redis",
+    "category": "Databases",
+    "aliases": ["Redis Cache", "In-memory Store", "Redis Sentinel", "Redis Cluster"],
+    "related": ["Caching", "Pub/Sub", "Distributed Caching"],
+    "weight": 5
+  },
+  {
+    "canonical": "Elasticsearch",
+    "category": "Databases",
+    "aliases": ["Elastic Search", "ELK", "OpenSearch"],
+    "related": ["Full-text Search", "Logstash", "Kibana"],
+    "weight": 4
+  },
+  {
+    "canonical": "Cassandra",
+    "category": "Databases",
+    "aliases": ["Apache Cassandra", "CQL", "ScyllaDB"],
+    "related": ["NoSQL", "Distributed Storage", "High Availability"],
+    "weight": 4
+  },
+  {
+    "canonical": "DynamoDB",
+    "category": "Databases",
+    "aliases": ["AWS DynamoDB", "Amazon DynamoDB"],
+    "related": ["AWS", "NoSQL", "Serverless"],
+    "weight": 4
+  },
+  {
+    "canonical": "Database Indexing & Query Tuning",
+    "category": "Databases",
+    "aliases": ["B-Trees", "Query Optimization", "EXPLAIN ANALYZE", "Database Performance", "Slow Queries"],
+    "related": ["PostgreSQL", "MySQL", "SQL"],
+    "weight": 5
+  },
+  {
+    "canonical": "Database Migrations",
+    "category": "Databases",
+    "aliases": ["Liquibase", "Flyway", "Prisma Migrate", "Alembic"],
+    "related": ["PostgreSQL", "Backend"],
+    "weight": 4
+  },
+  {
+    "canonical": "Prisma",
+    "category": "Databases",
+    "aliases": ["Prisma ORM", "TypeORM", "Drizzle ORM"],
+    "related": ["TypeScript", "PostgreSQL", "Node.js"],
+    "weight": 4
+  },
+  {
+    "canonical": "Kafka",
+    "category": "Backend",
+    "aliases": ["Apache Kafka", "Event Streaming", "Kafka Streams", "Confluent"],
+    "related": ["Distributed Systems", "RabbitMQ", "Message Queues", "Event-Driven"],
+    "weight": 5
+  },
+  {
+    "canonical": "RabbitMQ",
+    "category": "Backend",
+    "aliases": ["AMQP", "Message Broker", "Message Queuing"],
+    "related": ["Kafka", "Celery", "Asynchronous Processing"],
+    "weight": 4
+  },
+  {
+    "canonical": "Docker",
+    "category": "DevOps/CI-CD",
+    "aliases": ["Containerization", "Docker Compose", "Dockerfile", "Containers"],
+    "related": ["Kubernetes", "Linux", "DevOps", "CI/CD Pipelines"],
+    "weight": 5
+  },
+  {
+    "canonical": "Kubernetes",
+    "category": "DevOps/CI-CD",
+    "aliases": ["k8s", "kube", "container orchestration", "k8s cluster"],
+    "related": ["Docker", "Helm", "EKS", "GKE", "DevOps"],
+    "weight": 5,
+    "implies": ["Docker"]
+  },
+  {
+    "canonical": "CI/CD Pipelines",
+    "category": "DevOps/CI-CD",
+    "aliases": ["CI/CD", "GitHub Actions", "Jenkins", "GitLab CI", "continuous integration", "continuous deployment", "CircleCI", "ArgoCD"],
+    "related": ["Docker", "Automated Testing", "DevOps", "Git"],
+    "weight": 5
+  },
+  {
+    "canonical": "Terraform",
+    "category": "DevOps/CI-CD",
+    "aliases": ["Infrastructure as Code", "IaC", "HCL"],
+    "related": ["AWS", "Cloud", "Ansible"],
+    "weight": 4
+  },
+  {
+    "canonical": "Ansible",
+    "category": "DevOps/CI-CD",
+    "aliases": ["Configuration Management", "Playbooks"],
+    "related": ["Linux", "DevOps", "Terraform"],
+    "weight": 3
+  },
+  {
+    "canonical": "Helm",
+    "category": "DevOps/CI-CD",
+    "aliases": ["Helm Charts"],
+    "related": ["Kubernetes", "DevOps"],
+    "weight": 4,
+    "implies": ["Kubernetes"]
+  },
+  {
+    "canonical": "Prometheus",
+    "category": "DevOps/CI-CD",
+    "aliases": ["Prometheus Monitoring", "Grafana", "Observability", "Metrics Collection"],
+    "related": ["DevOps", "Kubernetes", "Monitoring"],
+    "weight": 4
+  },
+  {
+    "canonical": "Grafana",
+    "category": "DevOps/CI-CD",
+    "aliases": ["Dashboards", "Telemetry", "Alerting"],
+    "related": ["Prometheus", "Datadog", "Monitoring"],
+    "weight": 4
+  },
+  {
+    "canonical": "Linux",
+    "category": "DevOps/CI-CD",
+    "aliases": ["Ubuntu", "CentOS", "Debian", "Linux Administration", "POSIX"],
+    "related": ["Shell Scripting", "Docker", "DevOps"],
+    "weight": 5
+  },
+  {
+    "canonical": "Nginx",
+    "category": "DevOps/CI-CD",
+    "aliases": ["Reverse Proxy", "Load Balancing", "API Gateway", "Web Server"],
+    "related": ["Linux", "DevOps", "Docker"],
+    "weight": 4
+  },
+  {
+    "canonical": "AWS",
+    "category": "Cloud",
+    "aliases": ["Amazon Web Services", "EC2", "S3", "AWS Lambda", "IAM", "CloudFront"],
+    "related": ["Cloud Computing", "Docker", "Terraform"],
+    "weight": 5
+  },
+  {
+    "canonical": "Azure",
+    "category": "Cloud",
+    "aliases": ["Microsoft Azure", "Azure DevOps", "Azure Functions", "AKS"],
+    "related": ["Cloud Computing", "C#", "Docker"],
+    "weight": 4
+  },
+  {
+    "canonical": "GCP",
+    "category": "Cloud",
+    "aliases": ["Google Cloud Platform", "BigQuery", "Cloud Run", "GKE"],
+    "related": ["Cloud Computing", "Kubernetes", "Data Engineering"],
+    "weight": 4
+  },
+  {
+    "canonical": "EKS",
+    "category": "Cloud",
+    "aliases": ["Amazon Elastic Kubernetes Service", "AWS EKS"],
+    "related": ["Kubernetes", "AWS", "Docker"],
+    "weight": 4,
+    "implies": ["Kubernetes", "AWS"]
+  },
+  {
+    "canonical": "Serverless",
+    "category": "Cloud",
+    "aliases": ["AWS Lambda", "Cloud Functions", "Serverless Framework"],
+    "related": ["AWS", "Node.js", "Python"],
+    "weight": 4
+  },
+  {
+    "canonical": "System Design",
+    "category": "Architecture/System Design",
+    "aliases": ["HLD", "LLD", "distributed systems", "scalability", "low level design", "high level design", "software architecture"],
+    "related": ["Microservices", "Caching", "Load Balancing", "Data Modeling", "REST APIs"],
+    "weight": 5
+  },
+  {
+    "canonical": "Distributed Systems",
+    "category": "Architecture/System Design",
+    "aliases": ["CAP Theorem", "Consensus", "Raft", "Paxos", "Eventual Consistency", "Partitioning"],
+    "related": ["System Design", "Kafka", "Microservices"],
+    "weight": 5
+  },
+  {
+    "canonical": "Data Structures & Algorithms",
+    "category": "Architecture/System Design",
+    "aliases": ["DSA", "Algorithms", "Data Structures", "Competitive Programming", "LeetCode", "Dynamic Programming", "Graph Algorithms"],
+    "related": ["C++", "Java", "Python", "Problem Solving"],
+    "weight": 5
+  },
+  {
+    "canonical": "Object-Oriented Design",
+    "category": "Architecture/System Design",
+    "aliases": ["OOD", "OOP", "SOLID Principles", "Design Patterns", "Clean Code"],
+    "related": ["Java", "C++", "Architecture"],
+    "weight": 4
+  },
+  {
+    "canonical": "Unit Testing",
+    "category": "Testing",
+    "aliases": ["Jest", "Mocha", "JUnit", "PyTest", "Vitest", "TDD", "Test-Driven Development"],
+    "related": ["Automated Testing", "Code Quality"],
+    "weight": 4
+  },
+  {
+    "canonical": "End-to-End Testing",
+    "category": "Testing",
+    "aliases": ["E2E Testing", "Cypress", "Playwright", "Selenium"],
+    "related": ["Automated Testing", "Frontend"],
+    "weight": 4
+  },
+  {
+    "canonical": "Integration Testing",
+    "category": "Testing",
+    "aliases": ["API Testing", "Testcontainers", "Supertest"],
+    "related": ["Unit Testing", "REST APIs"],
+    "weight": 4
+  },
+  {
+    "canonical": "Performance & Load Testing",
+    "category": "Testing",
+    "aliases": ["JMeter", "k6", "Locust", "Stress Testing", "Benchmarking"],
+    "related": ["Testing", "Scalability"],
+    "weight": 4
+  },
+  {
+    "canonical": "Machine Learning",
+    "category": "Data/ML",
+    "aliases": ["ML", "Supervised Learning", "Unsupervised Learning", "Scikit-Learn"],
+    "related": ["Python", "Deep Learning", "Data Science"],
+    "weight": 5
+  },
+  {
+    "canonical": "Deep Learning",
+    "category": "Data/ML",
+    "aliases": ["Neural Networks", "PyTorch", "TensorFlow", "Keras"],
+    "related": ["Machine Learning", "Computer Vision", "NLP"],
+    "weight": 5,
+    "implies": ["Machine Learning", "Python"]
+  },
+  {
+    "canonical": "Natural Language Processing",
+    "category": "Data/ML",
+    "aliases": ["NLP", "Hugging Face", "Transformers", "BERT", "LLMs", "Large Language Models"],
+    "related": ["Deep Learning", "Python"],
+    "weight": 5,
+    "implies": ["Machine Learning", "Python"]
+  },
+  {
+    "canonical": "Computer Vision",
+    "category": "Data/ML",
+    "aliases": ["CV", "OpenCV", "Object Detection", "YOLO"],
+    "related": ["Deep Learning", "Python"],
+    "weight": 4,
+    "implies": ["Machine Learning", "Python"]
+  },
+  {
+    "canonical": "Generative AI",
+    "category": "Data/ML",
+    "aliases": ["GenAI", "Prompt Engineering", "RAG", "Retrieval Augmented Generation", "LangChain", "LlamaIndex", "Vector Databases"],
+    "related": ["LLMs", "Python", "OpenAI"],
+    "weight": 5
+  },
+  {
+    "canonical": "Pandas",
+    "category": "Data/ML",
+    "aliases": ["Data Manipulation", "DataFrames"],
+    "related": ["Python", "NumPy", "Data Analysis"],
+    "weight": 4,
+    "implies": ["Python"]
+  },
+  {
+    "canonical": "Apache Spark",
+    "category": "Data/ML",
+    "aliases": ["Spark", "PySpark", "Spark Streaming"],
+    "related": ["Data Engineering", "Hadoop", "Distributed Computing"],
+    "weight": 5
+  },
+  {
+    "canonical": "Airflow",
+    "category": "Data/ML",
+    "aliases": ["Apache Airflow", "DAGs", "ETL Pipelines", "Data Orchestration"],
+    "related": ["Data Engineering", "Python"],
+    "weight": 4
+  },
+  {
+    "canonical": "Data Warehousing",
+    "category": "Data/ML",
+    "aliases": ["Snowflake", "BigQuery", "Redshift", "dbt", "Dimensional Modeling"],
+    "related": ["SQL", "ETL", "Analytics"],
+    "weight": 4,
+    "implies": ["SQL"]
+  },
+  {
+    "canonical": "Android Development",
+    "category": "Mobile",
+    "aliases": ["Android SDK", "Android Studio", "Jetpack Compose"],
+    "related": ["Kotlin", "Java", "Mobile Apps"],
+    "weight": 4
+  },
+  {
+    "canonical": "iOS Development",
+    "category": "Mobile",
+    "aliases": ["iOS SDK", "SwiftUI", "UIKit", "Xcode"],
+    "related": ["Swift", "Mobile Apps"],
+    "weight": 4
+  },
+  {
+    "canonical": "React Native",
+    "category": "Mobile",
+    "aliases": ["Cross-platform Mobile", "Expo"],
+    "related": ["React", "JavaScript", "TypeScript"],
+    "weight": 4,
+    "implies": ["React", "JavaScript"]
+  },
+  {
+    "canonical": "Flutter",
+    "category": "Mobile",
+    "aliases": ["Dart", "Cross-platform Flutter"],
+    "related": ["Mobile Apps", "UI Widgets"],
+    "weight": 4
+  },
+  {
+    "canonical": "OAuth2 & JWT",
+    "category": "Security",
+    "aliases": ["Authentication", "Authorization", "RBAC", "SSO", "Identity Management", "JWT Tokens"],
+    "related": ["Backend", "REST APIs", "Security"],
+    "weight": 5
+  },
+  {
+    "canonical": "Web Security & OWASP",
+    "category": "Security",
+    "aliases": ["OWASP Top 10", "XSS", "CSRF", "SQL Injection", "CORS", "Penetration Testing", "Security Auditing"],
+    "related": ["Backend", "Frontend", "Security"],
+    "weight": 5
+  },
+  {
+    "canonical": "Data Encryption & SSL/TLS",
+    "category": "Security",
+    "aliases": ["Cryptography", "AES", "RSA", "HTTPS", "Certificates", "TLS"],
+    "related": ["Security", "Networking"],
+    "weight": 4
+  },
+  {
+    "canonical": "Git",
+    "category": "Tools",
+    "aliases": ["Git VCS", "Git Branching", "Version Control", "Git CLI"],
+    "related": ["CI/CD", "Collaboration"],
+    "weight": 5
+  },
+  {
+    "canonical": "Postman",
+    "category": "Tools",
+    "aliases": ["API Testing Tool", "Insomnia", "Swagger UI"],
+    "related": ["REST APIs", "Testing"],
+    "weight": 3
+  },
+  {
+    "canonical": "Webpack & Vite",
+    "category": "Tools",
+    "aliases": ["Build Tools", "Rollup", "Turbopack", "Module Bundler"],
+    "related": ["JavaScript", "Frontend"],
+    "weight": 4
+  },
+  {
+    "canonical": "Jira & Agile",
+    "category": "Soft/Leadership",
+    "aliases": ["Scrum", "Kanban", "Sprint Planning", "Jira", "Confluence", "Agile Methodologies"],
+    "related": ["Project Management", "Team Collaboration"],
+    "weight": 3
+  },
+  {
+    "canonical": "Technical Leadership & Mentorship",
+    "category": "Soft/Leadership",
+    "aliases": ["Code Reviews", "Tech Lead", "Team Mentorship", "Sprint Lead", "Engineering Best Practices"],
+    "related": ["System Design", "Agile"],
+    "weight": 4
+  },
+  {
+    "canonical": "Cross-Functional Collaboration",
+    "category": "Soft/Leadership",
+    "aliases": ["Stakeholder Management", "Product Roadmapping", "Engineering Communication"],
+    "related": ["Agile", "Soft Skills"],
+    "weight": 4
+  },
+  {
+    "canonical": "Root Cause Analysis & Debugging",
+    "category": "Soft/Leadership",
+    "aliases": ["Incident Management", "Post-mortem", "Production Support", "Troubleshooting"],
+    "related": ["DevOps", "Observability"],
+    "weight": 4
+  },
+  {
+    "canonical": "Elastic Container Service",
+    "category": "Cloud",
+    "aliases": ["ECS", "AWS Fargate"],
+    "related": ["AWS", "Docker"],
+    "weight": 4,
+    "implies": ["AWS", "Docker"]
+  },
+  {
+    "canonical": "Cloud Architecture",
+    "category": "Cloud",
+    "aliases": ["AWS Well-Architected", "Multi-region", "Disaster Recovery", "Cloud Native"],
+    "related": ["AWS", "System Design"],
+    "weight": 5
+  },
+  {
+    "canonical": "Cybersecurity",
+    "category": "Security",
+    "aliases": ["Infosec", "Threat Modeling", "Vulnerability Assessment", "SIEM"],
+    "related": ["Web Security & OWASP"],
+    "weight": 4
+  },
+  {
+    "canonical": "ETL Pipelines",
+    "category": "Data/ML",
+    "aliases": ["Data Pipelines", "Extract Transform Load", "Data Ingestion", "Batch Processing"],
+    "related": ["Airflow", "Python", "SQL"],
+    "weight": 4
+  },
+  {
+    "canonical": "Computer Science Fundamentals",
+    "category": "Architecture/System Design",
+    "aliases": ["Operating Systems", "Computer Networks", "Database Management Systems", "DBMS", "Memory Management", "Computer Science", "CS Fundamentals"],
+    "related": ["Data Structures & Algorithms", "C++", "Java"],
+    "weight": 5
+  },
+  {
+    "canonical": "Vector Search & Embeddings",
+    "category": "Data/ML",
+    "aliases": ["Pinecone", "Milvus", "ChromaDB", "Weaviate", "Semantic Search", "pgvector"],
+    "related": ["Generative AI", "Python"],
+    "weight": 4
+  },
+  {
+    "canonical": "API Gateway",
+    "category": "Backend",
+    "aliases": ["Kong", "KrakenD", "AWS API Gateway", "Envoy"],
+    "related": ["Microservices", "Nginx"],
+    "weight": 4
+  },
+  {
+    "canonical": "Concurrency & Multithreading",
+    "category": "Backend",
+    "aliases": ["Thread Pools", "Async/Await", "Goroutines", "Event Loop", "Race Conditions", "Deadlocks"],
+    "related": ["Java", "Go", "Node.js", "C++"],
+    "weight": 5
+  },
+  {
+    "canonical": "Code Review & Quality Standards",
+    "category": "Soft/Leadership",
+    "aliases": ["PR Review", "Static Code Analysis", "SonarQube", "ESLint", "Prettier"],
+    "related": ["Git", "Unit Testing"],
+    "weight": 4
+  },
+  {
+    "canonical": "Database Sharding & Replication",
+    "category": "Databases",
+    "aliases": ["Read Replicas", "Write Sharding", "Master-Slave Replication", "High Availability DB"],
+    "related": ["PostgreSQL", "MySQL", "Distributed Systems"],
+    "weight": 5
+  },
+  {
+    "canonical": "Caching Strategies",
+    "category": "Architecture/System Design",
+    "aliases": ["Cache-Aside", "Write-Through", "Cache Invalidation", "TTL", "LRU Cache"],
+    "related": ["Redis", "System Design"],
+    "weight": 5,
+    "implies": ["Redis"]
+  },
+  {
+    "canonical": "Distributed Tracing",
+    "category": "DevOps/CI-CD",
+    "aliases": ["OpenTelemetry", "Jaeger", "Zipkin", "APM"],
+    "related": ["Observability", "Microservices"],
+    "weight": 4
+  },
+  {
+    "canonical": "Continuous Delivery",
+    "category": "DevOps/CI-CD",
+    "aliases": ["Blue-Green Deployment", "Canary Deployment", "GitOps", "Feature Flags"],
+    "related": ["CI/CD Pipelines", "Kubernetes"],
+    "weight": 5
+  },
+  {
+    "canonical": "Networking Protocols",
+    "category": "Architecture/System Design",
+    "aliases": ["TCP/IP", "HTTP/2", "HTTP/3", "DNS", "WebSockets", "SSL/TLS Handshake"],
+    "related": ["Computer Science Fundamentals"],
+    "weight": 4
+  },
+  {
+    "canonical": "State Management",
+    "category": "Frontend",
+    "aliases": ["Global State", "Client State", "Server State", "TanStack Query", "React Query"],
+    "related": ["React", "Redux", "Zustand"],
+    "weight": 4
+  },
+  {
+    "canonical": "Microfrontends",
+    "category": "Frontend",
+    "aliases": ["Module Federation", "Micro Frontends", "Single SPA"],
+    "related": ["React", "Webpack & Vite"],
+    "weight": 4
+  },
+  {
+    "canonical": "GraphQL Clients",
+    "category": "Frontend",
+    "aliases": ["Apollo Client", "urql", "GraphQL Code Generator"],
+    "related": ["GraphQL", "React"],
+    "weight": 4
+  },
+  {
+    "canonical": "Mobile App Deployment",
+    "category": "Mobile",
+    "aliases": ["Google Play Console", "App Store Connect", "TestFlight", "Fastlane"],
+    "related": ["Android Development", "iOS Development"],
+    "weight": 3
+  },
+  {
+    "canonical": "Server-Side Rendering",
+    "category": "Frontend",
+    "aliases": ["SSR", "Static Site Generation", "SSG", "ISR", "Hydration"],
+    "related": ["Next.js", "React"],
+    "weight": 4
+  },
+  {
+    "canonical": "Security Compliance",
+    "category": "Security",
+    "aliases": ["SOC2", "GDPR", "HIPAA", "Data Privacy"],
+    "related": ["Cybersecurity"],
+    "weight": 3
+  },
+  {
+    "canonical": "DevSecOps",
+    "category": "Security",
+    "aliases": ["Snyk", "Trivy", "Container Scanning", "Secret Detection"],
+    "related": ["CI/CD Pipelines", "Docker", "Security"],
+    "weight": 4
+  },
+  {
+    "canonical": "Data Modeling",
+    "category": "Databases",
+    "aliases": ["Entity Relationship Diagrams", "ERD", "Normalization", "Denormalization", "Schema Design"],
+    "related": ["SQL", "PostgreSQL", "System Design"],
+    "weight": 5
+  },
+  {
+    "canonical": "Message Queuing Patterns",
+    "category": "Backend",
+    "aliases": ["Dead Letter Queue", "DLQ", "Idempotency", "At-least-once Delivery", "Backpressure"],
+    "related": ["Kafka", "RabbitMQ", "Microservices"],
+    "weight": 5
+  },
+  {
+    "canonical": "Big Data Technologies",
+    "category": "Data/ML",
+    "aliases": ["Hadoop", "HDFS", "Hive", "Flink", "Presto", "Trino"],
+    "related": ["Apache Spark", "Data Engineering"],
+    "weight": 4
+  },
+  {
+    "canonical": "MLOps",
+    "category": "Data/ML",
+    "aliases": ["MLflow", "Kubeflow", "Model Registry", "Model Monitoring", "Feature Store"],
+    "related": ["Machine Learning", "DevOps/CI-CD"],
+    "weight": 4
+  },
+  {
+    "canonical": "Scalable Logging & Monitoring",
+    "category": "DevOps/CI-CD",
+    "aliases": ["ELK Stack", "Loki", "Datadog", "Splunk", "CloudWatch"],
+    "related": ["Observability", "Prometheus"],
+    "weight": 4
+  },
+  {
+    "canonical": "Load Balancing",
+    "category": "Architecture/System Design",
+    "aliases": ["ALB", "NLB", "Round Robin", "Consistent Hashing", "HAProxy"],
+    "related": ["System Design", "Nginx"],
+    "weight": 4
+  },
+  {
+    "canonical": "Rate Limiting & Throttling",
+    "category": "Architecture/System Design",
+    "aliases": ["Token Bucket", "Leaky Bucket", "Sliding Window", "DDoS Protection"],
+    "related": ["Redis", "API Gateway", "System Design"],
+    "weight": 4
+  },
+  {
+    "canonical": "Asynchronous Programming",
+    "category": "Backend",
+    "aliases": ["Promises", "Async/Await", "Event Loop", "Non-blocking I/O", "Reactive Streams"],
+    "related": ["Node.js", "JavaScript", "Python"],
+    "weight": 4
+  },
+  {
+    "canonical": "Database Transactions",
+    "category": "Databases",
+    "aliases": ["ACID Transactions", "Isolation Levels", "Pessimistic Locking", "Optimistic Locking", "2PC", "Distributed Transactions"],
+    "related": ["PostgreSQL", "SQL", "System Design"],
+    "weight": 5
+  },
+  {
+    "canonical": "Search Engine Optimization",
+    "category": "Frontend",
+    "aliases": ["Technical SEO", "Meta Tags", "Schema.org", "Sitemaps"],
+    "related": ["Server-Side Rendering", "Next.js"],
+    "weight": 3
+  },
+  {
+    "canonical": "Design Systems",
+    "category": "Frontend",
+    "aliases": ["Storybook", "Component Library", "Figma to Code", "UI Tokens"],
+    "related": ["CSS3", "React"],
+    "weight": 4
+  },
+  {
+    "canonical": "Clean Architecture",
+    "category": "Architecture/System Design",
+    "aliases": ["Hexagonal Architecture", "Ports and Adapters", "Onion Architecture", "Repository Pattern"],
+    "related": ["Object-Oriented Design", "Backend"],
+    "weight": 4
+  },
+  {
+    "canonical": "Serverless Databases",
+    "category": "Databases",
+    "aliases": ["Neon", "Supabase", "PlanetScale", "Firestore"],
+    "related": ["PostgreSQL", "Serverless"],
+    "weight": 3
+  },
+  {
+    "canonical": "Mobile Performance Optimization",
+    "category": "Mobile",
+    "aliases": ["Battery Optimization", "Frame Rate", "App Size Reduction", "Memory Leaks Mobile"],
+    "related": ["Android Development", "iOS Development"],
+    "weight": 4
+  },
+  {
+    "canonical": "Linux Kernel & Systems Programming",
+    "category": "Languages",
+    "aliases": ["IPC", "POSIX Threads", "Epoll", "Sockets", "System Calls"],
+    "related": ["C", "C++", "Linux"],
+    "weight": 5
+  },
+  {
+    "canonical": "Cross-Browser Compatibility",
+    "category": "Frontend",
+    "aliases": ["Polyfills", "Safari Compatibility", "CSS Vendor Prefixes"],
+    "related": ["Frontend", "CSS3"],
+    "weight": 3
+  },
+  {
+    "canonical": "Data Governance & Quality",
+    "category": "Data/ML",
+    "aliases": ["Great Expectations", "Data Lineage", "Data Catalog", "Metadata Management"],
+    "related": ["Data Warehousing"],
+    "weight": 3
+  },
+  {
+    "canonical": "Feature Engineering",
+    "category": "Data/ML",
+    "aliases": ["One-Hot Encoding", "Scaling", "PCA", "Missing Value Imputation"],
+    "related": ["Machine Learning", "Pandas"],
+    "weight": 4
+  },
+  {
+    "canonical": "Distributed Cache Invalidation",
+    "category": "Architecture/System Design",
+    "aliases": ["Cache Thundering Herd", "Cache Stampede", "Memcached"],
+    "related": ["Redis", "Caching Strategies"],
+    "weight": 5
+  },
+  {
+    "canonical": "Cloud Cost Optimization",
+    "category": "Cloud",
+    "aliases": ["FinOps", "AWS Cost Explorer", "Spot Instances", "Resource Right-Sizing"],
+    "related": ["AWS", "Cloud"],
+    "weight": 3
+  },
+  {
+    "canonical": "Vulnerability Scanning",
+    "category": "Security",
+    "aliases": ["DAST", "SAST", "SonarQube Security", "Burp Suite"],
+    "related": ["DevSecOps", "Web Security & OWASP"],
+    "weight": 4
+  },
+  {
+    "canonical": "Release Management",
+    "category": "DevOps/CI-CD",
+    "aliases": ["Semantic Versioning", "SemVer", "Changelog Automation", "Rollback Strategy"],
+    "related": ["Git", "CI/CD Pipelines"],
+    "weight": 3
+  },
+  {
+    "canonical": "NoSQL Architecture",
+    "category": "Databases",
+    "aliases": ["Key-Value Stores", "Wide-Column", "Graph Databases", "Neo4j"],
+    "related": ["MongoDB", "Cassandra", "Redis"],
+    "weight": 4
+  },
+  {
+    "canonical": "Client-Side Caching",
+    "category": "Frontend",
+    "aliases": ["Service Workers", "PWA", "IndexedDB", "LocalStorage Cache"],
+    "related": ["Frontend", "Web Performance Optimization"],
+    "weight": 4
+  },
+  {
+    "canonical": "Enterprise Integration Patterns",
+    "category": "Backend",
+    "aliases": ["Saga Pattern", "Event Sourcing", "CQRS", "Outbox Pattern"],
+    "related": ["Microservices", "System Design"],
+    "weight": 5
+  },
+  {
+    "canonical": "High Availability & Fault Tolerance",
+    "category": "Architecture/System Design",
+    "aliases": ["Circuit Breaker", "Bulkhead Pattern", "Disaster Recovery", "Failover", "SLA 99.99%"],
+    "related": ["System Design", "Distributed Systems"],
+    "weight": 5
+  },
+  {
+    "canonical": "Contract Testing",
+    "category": "Testing",
+    "aliases": ["Pact", "Consumer-Driven Contracts", "API Spec Testing"],
+    "related": ["Integration Testing", "REST APIs"],
+    "weight": 4
+  },
+  {
+    "canonical": "Data Lake Architecture",
+    "category": "Data/ML",
+    "aliases": ["Delta Lake", "Apache Iceberg", "Parquet", "AWS S3 Lakehouse"],
+    "related": ["Data Engineering", "Apache Spark"],
+    "weight": 4
+  },
+  {
+    "canonical": "Statistical Analysis & A/B Testing",
+    "category": "Data/ML",
+    "aliases": ["Hypothesis Testing", "p-value", "Experimentation", "Feature Flag Experiment"],
+    "related": ["Data/ML", "Analytics"],
+    "weight": 4
+  },
+  {
+    "canonical": "Memory Profiling & Optimization",
+    "category": "Backend",
+    "aliases": ["Heap Dumps", "Garbage Collection Tuning", "GC", "Memory Leaks", "CPU Profiling"],
+    "related": ["Java", "Go", "Node.js", "C++"],
+    "weight": 5
+  },
+  {
+    "canonical": "Zero Trust Security",
+    "category": "Security",
+    "aliases": ["mTLS", "Mutual TLS", "Service Mesh Security", "Istio"],
+    "related": ["Security", "Kubernetes"],
+    "weight": 4
+  },
+  {
+    "canonical": "Site Reliability Engineering",
+    "category": "DevOps/CI-CD",
+    "aliases": ["SRE", "SLO", "SLI", "SLA", "Error Budgets", "Incident Command"],
+    "related": ["Prometheus", "DevOps/CI-CD"],
+    "weight": 5
+  },
+  {
+    "canonical": "Monorepo Tooling",
+    "category": "Tools",
+    "aliases": ["Nx", "Turborepo", "Lerna", "Bazel"],
+    "related": ["Git", "Frontend"],
+    "weight": 3
+  },
+  {
+    "canonical": "Real-Time Analytics",
+    "category": "Data/ML",
+    "aliases": ["ClickHouse", "Druid", "Pinot", "Stream Processing"],
+    "related": ["Kafka", "Apache Spark"],
+    "weight": 4
+  },
+  {
+    "canonical": "Continuous Documentation",
+    "category": "Soft/Leadership",
+    "aliases": ["Tech Specs", "RFCs", "Architecture Decision Records", "ADR", "API Docs"],
+    "related": ["System Design", "Agile"],
+    "weight": 4
+  }
+]

@@ -1,0 +1,335 @@
+[
+  {
+    "role": "Frontend",
+    "displayName": "Frontend Engineer",
+    "aliases": ["Frontend Developer", "UI Engineer", "React Developer", "Web Developer"],
+    "mustHaveSkills": [
+      "JavaScript",
+      "TypeScript",
+      "React",
+      "HTML5",
+      "CSS3",
+      "REST APIs",
+      "Git"
+    ],
+    "niceToHaveSkills": [
+      "Next.js",
+      "Tailwind CSS",
+      "Redux",
+      "Web Performance Optimization",
+      "Unit Testing",
+      "End-to-End Testing",
+      "Web Accessibility",
+      "GraphQL"
+    ],
+    "typicalProjectSignals": [
+      "Live deployed web apps with interactive state management",
+      "Core Web Vitals or performance optimization metrics (e.g. reduced bundle size by 40%, improved LCP)",
+      "Design system or reusable UI component library creation",
+      "Integration with complex backend REST/GraphQL APIs with error handling and optimistic UI"
+    ],
+    "interviewTopics": [
+      "JavaScript event loop, closures, prototypes, and async execution",
+      "React render lifecycle, reconciliation, hooks (useMemo, useCallback, useEffect), and custom hooks",
+      "CSS layout algorithms (Flexbox, Grid), specificity, and responsive patterns",
+      "Frontend performance: lazy loading, code-splitting, CDN caching, hydration",
+      "Browser security (CORS, CSP, XSS, CSRF)"
+    ]
+  },
+  {
+    "role": "Backend",
+    "displayName": "Backend Engineer",
+    "aliases": ["Backend Developer", "Server Engineer", "API Developer", "Java Developer", "Node Developer"],
+    "mustHaveSkills": [
+      "Node.js",
+      "Python",
+      "Java",
+      "Go",
+      "SQL",
+      "PostgreSQL",
+      "REST APIs",
+      "Database Indexing & Query Tuning",
+      "Git"
+    ],
+    "niceToHaveSkills": [
+      "Microservices",
+      "Docker",
+      "Kubernetes",
+      "Redis",
+      "Kafka",
+      "System Design",
+      "CI/CD Pipelines",
+      "OAuth2 & JWT",
+      "Unit Testing"
+    ],
+    "typicalProjectSignals": [
+      "High-concurrency API service handling thousands of requests per second (RPS)",
+      "Database optimization: query execution plan tuning, indexing, connection pooling, sharding",
+      "Asynchronous event-driven architecture using message queues (Kafka, RabbitMQ, SQS)",
+      "Robust authentication, rate limiting, and role-based access control (RBAC)"
+    ],
+    "interviewTopics": [
+      "Database internals: B-Trees, transaction isolation levels (ACID), locking, replication",
+      "Concurrency, multithreading, thread safety, race conditions, deadlocks",
+      "System design: distributed caching strategies, load balancing, sharding, CAP theorem",
+      "RESTful API design best practices, idempotency, rate limiting, error handling",
+      "Message queue semantics: exactly-once vs at-least-once, consumer groups, dead letter queues"
+    ]
+  },
+  {
+    "role": "Full-Stack",
+    "displayName": "Full-Stack Engineer",
+    "aliases": ["Full Stack Developer", "Software Engineer - Full Stack", "Web Application Developer"],
+    "mustHaveSkills": [
+      "JavaScript",
+      "TypeScript",
+      "React",
+      "Node.js",
+      "SQL",
+      "PostgreSQL",
+      "REST APIs",
+      "Git"
+    ],
+    "niceToHaveSkills": [
+      "Next.js",
+      "Docker",
+      "Kubernetes",
+      "CI/CD Pipelines",
+      "Redis",
+      "System Design",
+      "AWS",
+      "Tailwind CSS",
+      "Unit Testing"
+    ],
+    "typicalProjectSignals": [
+      "End-to-end production web application built, deployed, and maintained independently",
+      "Seamless integration between frontend UI state and backend database transactions",
+      "Automated CI/CD pipeline building, testing, and deploying Docker containers",
+      "User authentication, payments integration (Stripe, Razorpay), and email/webhook notifications"
+    ],
+    "interviewTopics": [
+      "Full lifecycle of a web request: DNS lookup, TCP handshake, TLS negotiation, HTTP, DOM render",
+      "State synchronization between client and server (cache invalidation, WebSockets, optimistic UI)",
+      "End-to-end security architecture: JWT, cookies (HttpOnly, SameSite), CSRF tokens",
+      "Database schema modeling, migrations, and relationship integrity",
+      "Practical deployment, containerization, and environment configuration"
+    ]
+  },
+  {
+    "role": "DevOps/SRE",
+    "displayName": "DevOps / Site Reliability Engineer",
+    "aliases": ["Cloud Engineer", "Infrastructure Engineer", "Platform Engineer", "SRE"],
+    "mustHaveSkills": [
+      "Linux",
+      "Docker",
+      "Kubernetes",
+      "CI/CD Pipelines",
+      "AWS",
+      "Terraform",
+      "Shell Scripting",
+      "Git"
+    ],
+    "niceToHaveSkills": [
+      "Prometheus",
+      "Grafana",
+      "Site Reliability Engineering",
+      "Helm",
+      "Ansible",
+      "Nginx",
+      "Python",
+      "Go",
+      "DevSecOps"
+    ],
+    "typicalProjectSignals": [
+      "Multi-environment Kubernetes cluster orchestration with automated zero-downtime rollouts",
+      "Infrastructure as Code (IaC) managing complete cloud topologies with Terraform",
+      "Comprehensive telemetry stack setup (Prometheus, Grafana, Alertmanager) with SLO/SLA tracking",
+      "Automated disaster recovery, multi-region failover, or cloud cost reduction initiatives"
+    ],
+    "interviewTopics": [
+      "Linux internals: processes, memory management, file systems, namespaces, cgroups",
+      "Kubernetes architecture: kube-apiserver, etcd, scheduler, ingress controllers, networking (CNI)",
+      "Terraform state locking, drift detection, and module design",
+      "Incident response: MTTR, post-mortem methodology, alert fatigue mitigation",
+      "CI/CD pipeline security, secrets management (Vault, AWS Secrets Manager)"
+    ]
+  },
+  {
+    "role": "Data Engineer",
+    "displayName": "Data Engineer",
+    "aliases": ["Big Data Engineer", "ETL Developer", "Data Platform Engineer"],
+    "mustHaveSkills": [
+      "Python",
+      "SQL",
+      "Apache Spark",
+      "Data Warehousing",
+      "ETL Pipelines",
+      "Git"
+    ],
+    "niceToHaveSkills": [
+      "Airflow",
+      "Kafka",
+      "AWS",
+      "GCP",
+      "PostgreSQL",
+      "Data Modeling",
+      "Big Data Technologies",
+      "Docker"
+    ],
+    "typicalProjectSignals": [
+      "Large-scale batch or streaming data pipeline processing millions of daily records",
+      "Data lakehouse implementation with Parquet, Delta Lake, or Snowflake",
+      "Orchestration of complex multi-stage DAGs using Apache Airflow",
+      "Data quality checks, anomaly detection, and schema evolution handling"
+    ],
+    "interviewTopics": [
+      "SQL window functions, CTEs, query performance tuning on partitioned tables",
+      "Distributed data computing with Spark: partitions, shuffles, lazy evaluation, memory spill",
+      "Data modeling: Star schema, Snowflake schema, Slowly Changing Dimensions (SCD)",
+      "Batch vs streaming processing paradigms and exactly-once processing guarantees",
+      "Data governance, lineage, and privacy considerations"
+    ]
+  },
+  {
+    "role": "ML Engineer",
+    "displayName": "Machine Learning Engineer",
+    "aliases": ["AI Engineer", "Deep Learning Engineer", "Applied Scientist", "NLP Engineer"],
+    "mustHaveSkills": [
+      "Python",
+      "Machine Learning",
+      "Deep Learning",
+      "Pandas",
+      "Git"
+    ],
+    "niceToHaveSkills": [
+      "Natural Language Processing",
+      "Generative AI",
+      "Vector Search & Embeddings",
+      "MLOps",
+      "Docker",
+      "AWS",
+      "Computer Vision",
+      "FastAPI"
+    ],
+    "typicalProjectSignals": [
+      "Production deployment of transformer-based LLMs or fine-tuned deep learning models",
+      "Retrieval-Augmented Generation (RAG) system with semantic chunking and vector search",
+      "Feature store and automated training/evaluation pipeline with MLflow",
+      "Model inference optimization (quantization, TensorRT, batching) reducing latency"
+    ],
+    "interviewTopics": [
+      "Core ML algorithms, bias-variance tradeoff, regularization (L1/L2), loss functions",
+      "Deep learning architectures: Transformers, attention mechanism, CNNs, RNNs",
+      "Evaluation metrics: Precision, Recall, F1, ROC-AUC, BLEU, ROUGE, perplexity",
+      "Production model deployment, serving latency, drift detection, and retraining",
+      "Vector database indexing (HNSW, IVF) and embedding similarity search"
+    ]
+  },
+  {
+    "role": "Mobile",
+    "displayName": "Mobile Engineer",
+    "aliases": ["Mobile App Developer", "iOS Developer", "Android Developer", "React Native Developer"],
+    "mustHaveSkills": [
+      "Kotlin",
+      "Swift",
+      "React Native",
+      "REST APIs",
+      "Git"
+    ],
+    "niceToHaveSkills": [
+      "Flutter",
+      "Android Development",
+      "iOS Development",
+      "Mobile Performance Optimization",
+      "Mobile App Deployment",
+      "TypeScript",
+      "OAuth2 & JWT"
+    ],
+    "typicalProjectSignals": [
+      "Published apps on Google Play Store or Apple App Store with positive user ratings",
+      "Offline-first architecture with local SQLite/Room/CoreData sync and caching",
+      "Smooth 60fps rendering, memory leak prevention, and background service handling",
+      "Push notification integration (FCM, APNS) and deep linking workflows"
+    ],
+    "interviewTopics": [
+      "Mobile operating system lifecycles: Activity/Fragment or ViewController state changes",
+      "Memory management, ARC in Swift, garbage collection in Kotlin/Java",
+      "Offline data synchronization and network state monitoring",
+      "Mobile security: keystore/keychain, SSL pinning, obfuscation (ProGuard)",
+      "Cross-platform bridging vs native rendering performance tradeoffs"
+    ]
+  },
+  {
+    "role": "QA/SDET",
+    "displayName": "Quality Assurance / SDET",
+    "aliases": ["Software Development Engineer in Test", "Automation Engineer", "Test Engineer"],
+    "mustHaveSkills": [
+      "Unit Testing",
+      "Integration Testing",
+      "End-to-End Testing",
+      "Python",
+      "JavaScript",
+      "Java",
+      "Git"
+    ],
+    "niceToHaveSkills": [
+      "Performance & Load Testing",
+      "CI/CD Pipelines",
+      "Docker",
+      "REST APIs",
+      "Contract Testing",
+      "Postman"
+    ],
+    "typicalProjectSignals": [
+      "End-to-end automation test suite running in CI/CD pipeline catching regressions",
+      "Performance and load testing simulation simulating 10k+ concurrent users with JMeter or k6",
+      "API contract testing verifying microservice communication specifications",
+      "Custom test automation framework development and detailed test coverage metrics"
+    ],
+    "interviewTopics": [
+      "Test pyramid strategy: unit, integration, contract, UI/E2E proportions",
+      "Automation frameworks: Playwright, Cypress, Selenium design patterns (Page Object Model)",
+      "Performance testing metrics: latency percentiles (p50, p95, p99), throughput, error rates",
+      "Mocking strategies, test data isolation, and flakey test mitigation",
+      "CI/CD test parallelization and reporting integration"
+    ]
+  },
+  {
+    "role": "Software Engineer (Fresher)",
+    "displayName": "Software Engineer (Fresher / Entry-Level)",
+    "aliases": ["Associate Software Engineer", "Graduate Software Engineer", "Junior Developer", "SDE-1"],
+    "mustHaveSkills": [
+      "Data Structures & Algorithms",
+      "Computer Science Fundamentals",
+      "SQL",
+      "Git",
+      "Java",
+      "Python",
+      "C++",
+      "JavaScript"
+    ],
+    "niceToHaveSkills": [
+      "React",
+      "Node.js",
+      "PostgreSQL",
+      "Docker",
+      "HTML5",
+      "CSS3",
+      "Object-Oriented Design",
+      "REST APIs"
+    ],
+    "typicalProjectSignals": [
+      "2-3 non-trivial personal or academic projects with clear documentation and live demos",
+      "Good problem solving track record (LeetCode 200+ solved, contest participation)",
+      "Demonstrated understanding of core CS: OS processes/threads, DB ACID, networking layers",
+      "Clean, readable Git commit history and well-structured codebases"
+    ],
+    "interviewTopics": [
+      "Data structures: Arrays, Linked Lists, Stacks, Queues, Binary Trees, Hash Tables, Graphs",
+      "Sorting & searching algorithms, time and space complexity analysis (Big-O)",
+      "OOP principles: Encapsulation, Inheritance, Polymorphism, Abstraction with code examples",
+      "Basic SQL queries: JOINs, GROUP BY, aggregations, primary/foreign keys",
+      "Walkthrough of candidate's own project architecture, challenges, and implementation"
+    ]
+  }
+]

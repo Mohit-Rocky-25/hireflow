@@ -1,0 +1,116 @@
+{
+  "standardSections": [
+    {
+      "name": "Contact Information",
+      "aliases": ["contact", "personal info", "details", "contact details"],
+      "required": true,
+      "severity": "critical"
+    },
+    {
+      "name": "Skills",
+      "aliases": ["technical skills", "skills & tools", "technologies", "core competencies", "tech stack", "skills summary"],
+      "required": true,
+      "severity": "critical"
+    },
+    {
+      "name": "Experience",
+      "aliases": ["work experience", "employment history", "professional experience", "internships", "experience"],
+      "required": true,
+      "severity": "critical"
+    },
+    {
+      "name": "Projects",
+      "aliases": ["technical projects", "academic projects", "key projects", "personal projects", "open source projects"],
+      "required": true,
+      "severity": "warning"
+    },
+    {
+      "name": "Education",
+      "aliases": ["academic background", "educational qualifications", "academics", "education & credentials"],
+      "required": true,
+      "severity": "critical"
+    },
+    {
+      "name": "Summary",
+      "aliases": ["professional summary", "about me", "profile", "executive summary", "career objective"],
+      "required": false,
+      "severity": "info"
+    }
+  ],
+  "unusualSectionNames": [
+    "hobbies",
+    "interests",
+    "declarations",
+    "personal dossiers",
+    "father's name",
+    "marital status",
+    "passport details",
+    "strengths & weaknesses",
+    "what i bring to the table"
+  ],
+  "formattingRiskPatterns": [
+    {
+      "id": "two_column_tables",
+      "name": "Multi-Column / Complex Table Layout",
+      "severity": "high",
+      "description": "Multi-column tables cause older ATS parsers (Taleo, iCIMS, Workday) to read text horizontally across columns, scrambling experience and dates.",
+      "heuristic": "detect_table_artifacts"
+    },
+    {
+      "id": "icon_only_contact",
+      "name": "Icon-Only Contact Information",
+      "severity": "high",
+      "description": "Using phone/email icons without plain text labels causes ATS to miss contact information entirely.",
+      "heuristic": "missing_contact_labels"
+    },
+    {
+      "id": "header_footer_contact",
+      "name": "Contact Info in Headers/Footers",
+      "severity": "medium",
+      "description": "Many ATS parser pipelines strip headers and footers to reduce noise, deleting your email or phone.",
+      "heuristic": "check_header_placement"
+    },
+    {
+      "id": "inconsistent_date_format",
+      "name": "Inconsistent Date Formats",
+      "severity": "medium",
+      "description": "Mixing date styles (e.g. '06/2021' vs 'June 2022' vs '2023 - Present') confuses automated timeline parsing.",
+      "heuristic": "mixed_date_patterns"
+    },
+    {
+      "id": "scanned_image_pdf",
+      "name": "Scanned or Image-Only PDF",
+      "severity": "critical",
+      "description": "Document contains less than 50 parseable words, indicating an image/rasterized scan unreadable by text-based ATS parsers.",
+      "heuristic": "low_text_density"
+    }
+  ],
+  "lengthRules": {
+    "fresher": {
+      "maxPages": 1,
+      "maxWords": 600,
+      "advice": "Fresher and early-career candidates (<2 years) should strictly keep to a high-density single page resume."
+    },
+    "midSenior": {
+      "maxPages": 2,
+      "maxWords": 1200,
+      "advice": "Candidates with 2-8 years of experience should target 1-2 pages maximum. Cut generic descriptions."
+    },
+    "executive": {
+      "maxPages": 3,
+      "maxWords": 1800,
+      "advice": "Senior leaders (8+ years) may span up to 2-3 pages, prioritizing strategic outcomes and leadership."
+    }
+  },
+  "recommendedFonts": [
+    "Calibri",
+    "Arial",
+    "Helvetica",
+    "Georgia",
+    "Garamond",
+    "Trebuchet MS",
+    "Verdana",
+    "Inter",
+    "Roboto"
+  ]
+}

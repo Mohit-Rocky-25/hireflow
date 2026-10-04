@@ -1,0 +1,25 @@
+Role: Full-Stack Platform Engineer
+Company: InfraCloud Innovations
+Experience: 1-3 Years
+Location: Remote / Bangalore
+
+About the Role:
+We are looking for a Full-Stack Engineer who can build robust modern web applications while taking ownership of deployment, containerization, and production reliability.
+
+Key Requirements & Must-Haves:
+- Strong hands-on development skills in React, TypeScript, and Node.js.
+- Strong background in designing and consuming REST APIs.
+- Must have practical knowledge of containerization with Docker and container orchestration with Kubernetes (k8s).
+- Hands-on experience creating and maintaining CI/CD Pipelines (e.g. GitHub Actions, GitLab CI, or Jenkins).
+- Foundational understanding of System Design and distributed architecture concepts.
+
+Nice-to-Have Skills:
+- Familiarity with Tailwind CSS or Next.js.
+- Understanding of PostgreSQL and caching with Redis.
+- Automated testing experience with unit or integration test suites.
+
+Responsibilities:
+- Build performant user interfaces with React and TypeScript.
+- Architect backend services and REST APIs with Node.js.
+- Maintain Docker containers and deploy microservices onto Kubernetes clusters.
+- Manage automated CI/CD deployment pipelines for continuous delivery.

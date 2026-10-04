@@ -1,0 +1,34 @@
+Aman Gupta
+Email: aman.gupta@example.com | Phone: +91-9876543210
+GitHub: github.com/amangupta | LinkedIn: linkedin.com/in/amangupta
+
+SUMMARY
+High-agency Computer Science graduate from NIT Kurukshetra with strong fundamentals in Data Structures, Algorithms, and Full-Stack Development. Solved 450+ problems on LeetCode (Rating: 1890). Built and deployed 3 production web apps serving over 2,500 active users.
+
+EDUCATION
+National Institute of Technology, Kurukshetra
+B.Tech in Computer Science and Engineering (2020 - 2024) | CGPA: 8.7/10
+
+TECHNICAL SKILLS
+- Languages: JavaScript, TypeScript, Python, C++, SQL, HTML5, CSS3
+- Frontend: React, Next.js, Tailwind CSS, Redux Toolkit
+- Backend: Node.js, Express.js, PostgreSQL, MongoDB, REST APIs
+- Tools & DevOps: Git, Docker, GitHub Actions, Postman, Linux
+
+EXPERIENCE
+Software Engineering Intern | DevScale Technologies
+May 2023 - August 2023 | Bangalore, India
+- Architected and deployed a real-time analytics dashboard using React, TypeScript, and Node.js, reducing query response times by 35%.
+- Implemented automated REST API tests using Jest and Supertest, achieving 88% code coverage across 14 core endpoints.
+- Integrated PostgreSQL indexing on heavy reporting tables, decreasing database load from 82% to 45% during peak traffic.
+- Collaborated in a 6-person Agile sprint team using Jira, participating in daily standups and weekly PR code reviews.
+
+PROJECTS
+1. CollabSpace — Real-Time Document Collaboration Engine
+- Built a concurrent markdown collaboration editor supporting up to 100 simultaneous users using WebSockets and React.
+- Designed database schema in PostgreSQL with Prisma ORM, implementing optimistic concurrency control to prevent edit conflicts.
+- Dockerized the frontend and backend services and configured a GitHub Actions CI/CD pipeline for automated testing and deployment on AWS EC2.
+
+2. Algomate — Interactive Data Structures Visualizer
+- Developed an interactive visualization tool for graph and tree algorithms using React and Canvas API with 15k+ monthly page views.
+- Accelerated state updates by 40% using memoized React hooks and Web Workers for complex graph pathfinding calculations.

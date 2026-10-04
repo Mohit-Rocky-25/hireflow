@@ -1,0 +1,31 @@
+Vikramaditya Rao
+Email: vikram.rao@example.com | Phone: +91-9845098765
+LinkedIn: linkedin.com/in/vikram-rao | Location: Hyderabad, India
+
+PROFESSIONAL SUMMARY
+Senior Backend Engineer with 6+ years of experience architecting distributed, fault-tolerant microservices handling 25,000+ RPS. Deep expertise in Java, Spring Boot, Go, PostgreSQL, Kafka, and Kubernetes. Proven track record of reducing latency, leading architecture refactors, and mentoring engineering teams.
+
+WORK EXPERIENCE
+Senior Backend Engineer | PayFin Solutions
+July 2021 - Present | Bangalore, India
+- Architected and scaled a distributed transaction processing gateway in Go and Java (Spring Boot) processing 18M daily payments with 99.99% uptime.
+- Optimized PostgreSQL database sharding and index strategy, reducing p99 query latency from 320ms to 42ms under peak load.
+- Designed an asynchronous event-driven pipeline using Apache Kafka to decouple order fulfillment, increasing system throughput by 300%.
+- Migrated 14 bare-metal services to Kubernetes (EKS) using Helm and Terraform, cutting annual cloud infrastructure spend by $140k.
+- Mentored a pod of 5 engineers, conducted 100+ code reviews, and established automated CI/CD gating with SonarQube and JUnit tests.
+
+Backend Software Engineer | Enterprise Cloud Services
+June 2018 - June 2021 | Hyderabad, India
+- Engineered RESTful microservices in Java and Spring Boot for an enterprise customer portal serving 450k monthly active users.
+- Implemented multi-layer caching with Redis and Cache-Aside pattern, reducing primary database load by 60%.
+- Built automated OAuth2 / JWT authentication service with role-based access control (RBAC).
+
+SKILLS & EXPERTISE
+- Languages & Core: Java, Go, Python, SQL, C++
+- Frameworks: Spring Boot, Hibernate, Gin, Express.js
+- Databases & Caching: PostgreSQL, MySQL, Redis, Cassandra
+- Architecture: System Design, Distributed Systems, Microservices, Event-Driven Architecture, Kafka, RabbitMQ
+- DevOps & Cloud: Kubernetes, Docker, AWS, Terraform, CI/CD Pipelines, Prometheus, Grafana
+
+EDUCATION
+B.Tech in Computer Science & Engineering | Osmania University | 2014 - 2018 | First Class with Distinction

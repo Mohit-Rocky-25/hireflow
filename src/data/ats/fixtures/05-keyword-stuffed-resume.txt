@@ -1,0 +1,23 @@
+NAME: Suresh K
+CONTACT: [Icons used for phone and email] Phone: 9988776655, Email: suresh_ninja@mail.com
+Hobbies: Cricket, Chess, Watching movies
+Personal Dossier: Father's Name: R. Kumar | Marital Status: Single
+
+SUMMARY
+Dynamic self-starter and rockstar ninja developer who is a team player and hard working with out of the box game changer thinking.
+
+MASSIVE SKILLS DUMP
+Java, Python, C++, Go, Rust, Ruby, PHP, JavaScript, TypeScript, React, Angular, Vue, Svelte, Next.js, Redux, Node.js, Express, Spring Boot, Django, FastAPI, Flask, PostgreSQL, MySQL, MongoDB, Redis, Cassandra, DynamoDB, Elasticsearch, Kafka, RabbitMQ, Docker, Kubernetes, Terraform, Ansible, AWS, Azure, GCP, CI/CD Pipelines, Prometheus, Grafana, Apache Spark, Hadoop, Airflow, PyTorch, TensorFlow, Machine Learning, Deep Learning, System Design, Distributed Systems, Microservices, GraphQL, gRPC.
+
+WORK HISTORY
+Company: Tech Solutions Inc.
+Role: Developer
+- Responsible for doing software programming and worked on website bugs.
+- Helped with duties included in the team meetings.
+- Was part of development and assisted with code.
+- Handled tasks assigned by team lead and tried to do coding.
+
+PROJECT
+My Website Project
+- Built a web page using HTML and CSS for display.
+- Worked on simple form submission.

@@ -1,0 +1,35 @@
+Ananya Sen
+Email: ananya.sen@example.com | Phone: +91-9711223344 | Kolkata, India
+LinkedIn: linkedin.com/in/ananyasen-data
+
+SUMMARY
+Former Financial Research Analyst with 4 years analyzing equity markets, transitioning into Data Engineering and Data Analytics. Completed an intensive 9-month Applied Data Science certification. Hands-on experience with Python, SQL, Pandas, Tableau, and basic ETL pipelines.
+
+EDUCATION
+Bachelor of Commerce (Honours) | St. Xavier's College, Kolkata | 2016 - 2019
+Executive PG Diploma in Data Analytics | IIIT Bangalore | 2023 - 2024
+
+TECHNICAL SKILLS
+- Languages: Python, SQL, Excel VBA
+- Data Analysis & ML: Pandas, NumPy, Matplotlib, Scikit-Learn
+- Business Intelligence: Tableau, Power BI, Advanced Excel
+- Databases: PostgreSQL, MySQL
+- Tools: Git, Jupyter Notebooks
+
+PROJECTS
+1. Customer Churn Prediction & Retention Analytics
+- Built a predictive customer churn model using Python and Pandas on a telecom dataset of 70,000 customers.
+- Performed exploratory data analysis (EDA), feature engineering, and trained Random Forest classifiers achieving 84% ROC-AUC.
+- Designed interactive executive dashboard in Tableau visualizing churn drivers across customer demographics.
+
+2. Automated Financial Data Ingestion Pipeline
+- Developed a Python script to fetch daily stock market closing prices from Yahoo Finance API.
+- Loaded cleaned financial data into a PostgreSQL database table with automated daily cron schedules.
+- Wrote SQL aggregations to calculate 50-day and 200-day exponential moving averages.
+
+PROFESSIONAL EXPERIENCE
+Senior Financial Analyst | Global Capital Research
+July 2019 - August 2023 | Kolkata, India
+- Analyzed quarterly financial statements and balance sheets for 25+ public companies.
+- Created valuation models in Excel and presented weekly investment recommendations to senior partners.
+- Streamlined monthly portfolio reporting processes, saving 15 analyst hours each cycle.

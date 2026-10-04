@@ -1,0 +1,58 @@
+{
+  "fixtures": [
+    {
+      "id": "01",
+      "description": "Strong fresher with metrics and deployed projects vs entry-level full-stack JD",
+      "resumeFile": "01-strong-fresher-resume.txt",
+      "jdFile": "01-entry-fullstack-jd.txt",
+      "minScore": 80,
+      "maxScore": 95,
+      "expectedMatchedKeywords": ["JavaScript", "TypeScript", "React", "Node.js", "PostgreSQL", "Git"],
+      "expectedTierFit": "Tier A",
+      "penaltyExpected": false
+    },
+    {
+      "id": "02",
+      "description": "Fresher with React/TS/Node and no DevOps vs Docker/K8s/CI-CD/System Design JD (reproduces 68% result)",
+      "resumeFile": "02-fresher-react-resume.txt",
+      "jdFile": "02-devops-fullstack-jd.txt",
+      "minScore": 65,
+      "maxScore": 72,
+      "targetScoreApprox": 68,
+      "expectedMatchedKeywords": ["React", "TypeScript", "Node.js", "REST APIs"],
+      "expectedMissingKeywords": ["Docker", "Kubernetes", "CI/CD Pipelines", "System Design"],
+      "penaltyExpected": false
+    },
+    {
+      "id": "03",
+      "description": "Experienced backend dev with scale metrics vs senior backend JD",
+      "resumeFile": "03-senior-backend-resume.txt",
+      "jdFile": "03-senior-backend-jd.txt",
+      "minScore": 88,
+      "maxScore": 98,
+      "expectedMatchedKeywords": ["Java", "Spring Boot", "PostgreSQL", "Kafka", "Kubernetes", "System Design"],
+      "expectedTierFit": "Tier S",
+      "penaltyExpected": false
+    },
+    {
+      "id": "04",
+      "description": "Career switcher vs senior data engineer JD",
+      "resumeFile": "04-career-switcher-resume.txt",
+      "jdFile": "04-data-analyst-jd.txt",
+      "minScore": 30,
+      "maxScore": 55,
+      "expectedMissingKeywords": ["Apache Spark", "Data Warehousing", "Airflow", "Kafka"],
+      "seniorityGap": true
+    },
+    {
+      "id": "05",
+      "description": "Badly formatted keyword-stuffed resume vs generic fullstack JD",
+      "resumeFile": "05-keyword-stuffed-resume.txt",
+      "jdFile": "05-generic-jd.txt",
+      "minScore": 15,
+      "maxScore": 45,
+      "mustHaveStuffingPenalty": true,
+      "mustHaveFormatRisks": true
+    }
+  ]
+}

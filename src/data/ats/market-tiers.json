@@ -1,0 +1,182 @@
+[
+  {
+    "tier": "Tier S",
+    "displayName": "Tier S — Elite Product & Quant (FAANG, Uber, Stripe, Tower)",
+    "description": "Top 1% global product organizations, high-frequency trading firms, and foundational infra teams. Zero tolerance for shallow buzzwords; ruthless focus on algorithmic depth, distributed systems, scale, and high-agency engineering.",
+    "minimumSignals": [
+      "Deep algorithmic competence (LeetCode/Codeforces/ACM-ICPC or strong DSA track record)",
+      "Concrete scale metrics (e.g. QPS, latency p99, GB/TB data, concurrent connections)",
+      "High ownership of core subsystems rather than peripheral plumbing",
+      "Rigorous understanding of operating systems, networking, concurrency, and memory"
+    ],
+    "strongSignals": [
+      "Recognized open-source contributions or authoring libraries",
+      "Candidate in top 5% on competitive programming platforms (Codeforces Candidate Master+, LeetCode 2100+)",
+      "Experience optimizing high-throughput distributed systems (Kafka, Cassandra, Raft, Paxos)",
+      "Clear metrics showing latency reduction (e.g. reduced p99 from 450ms to 85ms) or infrastructure cost savings at scale",
+      "Tier-1 education (IIT/NIT/BITS/Top Global) or equivalent proven exceptional engineering track record"
+    ],
+    "redFlags": [
+      "Listing 20+ technologies without depth or metrics in any project",
+      "Zero evidence of scale, performance testing, or quantitative outcomes",
+      "Purely tutorial-based projects (Netflix clone, Todo app) on experienced or senior resumes",
+      "Lack of low-level systems awareness or superficial copy-paste architectures"
+    ],
+    "typicalScreeningCriteria": [
+      "Rigorous coding/DSA screen (medium-hard DP, graphs, trees) in 45 minutes",
+      "Comprehensive System Design interview covering distributed caching, sharding, consensus, and fault tolerance",
+      "Deep behavioral probe into failure post-mortems and architecture trade-offs"
+    ],
+    "experienceBandsByYears": {
+      "fresher": {
+        "expectations": "Top tier DSA rating, CS fundamentals (OS, DBMS, CN), 2+ high-complexity projects or tier-1 internships",
+        "minimumMustHaves": ["Data Structures & Algorithms", "C++", "Java", "Python", "Computer Science Fundamentals"]
+      },
+      "1-3": {
+        "expectations": "Production service ownership, automated CI/CD, measurable performance optimizations, clean API design",
+        "minimumMustHaves": ["Distributed Systems", "PostgreSQL", "Docker", "REST APIs", "Unit Testing"]
+      },
+      "3-5": {
+        "expectations": "System design leadership, cross-service architecture, distributed databases, incident command, mentoring",
+        "minimumMustHaves": ["System Design", "Microservices", "Kafka", "Redis", "Cloud Architecture"]
+      },
+      "5+": {
+        "expectations": "Multi-team technical direction, architecture decisions, reliability SLAs (99.99%), engineering organizational impact",
+        "minimumMustHaves": ["System Design", "Distributed Systems", "Technical Leadership & Mentorship", "High Availability & Fault Tolerance"]
+      }
+    }
+  },
+  {
+    "tier": "Tier A",
+    "displayName": "Tier A — Well-Funded Product Scale-Ups & Unicorns (Swiggy, Razorpay, CRED, Stripe-scale)",
+    "description": "Fast-paced, product-first scale-ups where shipping fast, high feature ownership, resilience under load, and product intuition dominate.",
+    "minimumSignals": [
+      "Demonstrated end-to-end feature shipping from concept to production",
+      "Clear business or operational impact metrics (revenue, conversion, latency, user adoption)",
+      "Modern full-stack or backend stack proficiency (Go, Node.js, Python, React, PostgreSQL)",
+      "Proactive automated testing and CI/CD deployment experience"
+    ],
+    "strongSignals": [
+      "Zero-to-one product development or critical refactoring of legacy bottlenecks",
+      "Cross-functional collaboration with PMs, Designers, and Data Science",
+      "Hands-on containerization and cloud orchestration (Docker, K8s, AWS/GCP)",
+      "Experience handling traffic surges, flash sales, or async message queues"
+    ],
+    "redFlags": [
+      "Passive role descriptions ('worked on tickets', 'assisted in testing')",
+      "No understanding of deployment, containers, or production observability",
+      "Inability to explain why a particular tech stack or database was chosen over alternatives"
+    ],
+    "typicalScreeningCriteria": [
+      "Machine coding or practical take-home/pair-programming round building a production feature",
+      "Practical system architecture focusing on practical tradeoffs (Redis caching, queue worker idempotency)",
+      "Product sense and ownership evaluation"
+    ],
+    "experienceBandsByYears": {
+      "fresher": {
+        "expectations": "Polished production-deployed full-stack projects, internship in a product startup, strong React/Node or Python skills",
+        "minimumMustHaves": ["JavaScript", "TypeScript", "React", "Node.js", "SQL", "Git"]
+      },
+      "1-3": {
+        "expectations": "Independent delivery of major features, handling DB migrations, monitoring logs with Sentry/Datadog",
+        "minimumMustHaves": ["PostgreSQL", "Docker", "REST APIs", "Redis", "CI/CD Pipelines"]
+      },
+      "3-5": {
+        "expectations": "Tech spec authoring, architecture refactoring, mentoring junior devs, capacity planning",
+        "minimumMustHaves": ["System Design", "Microservices", "AWS", "Kafka", "Database Indexing & Query Tuning"]
+      },
+      "5+": {
+        "expectations": "Domain architecture ownership, hiring interviewer, reliability driving, driving tech roadmaps",
+        "minimumMustHaves": ["System Design", "Technical Leadership & Mentorship", "Cloud Architecture", "Clean Architecture"]
+      }
+    }
+  },
+  {
+    "tier": "Tier B",
+    "displayName": "Tier B — Mid-Size Product & Established MNCs (Adobe, Cisco, SAP, Oracle, Amex)",
+    "description": "Stable enterprise and mid-market product environments valuing solid engineering fundamentals, disciplined development lifecycles, and standard technology patterns.",
+    "minimumSignals": [
+      "Consistent software development lifecycle experience (Agile/Scrum, Jira, PR reviews)",
+      "Solid core programming fundamentals in enterprise languages (Java, C#, Python, JavaScript)",
+      "Experience interacting with relational or document databases and writing clean queries",
+      "Relevant degree in Computer Science, IT, or proven software internships"
+    ],
+    "strongSignals": [
+      "Industry certifications (AWS Certified Solutions Architect, Oracle Java, etc.)",
+      "Experience with enterprise testing frameworks and code coverage (SonarQube, JUnit)",
+      "Multi-year tenure with demonstrated internal promotions or commendations"
+    ],
+    "redFlags": [
+      "Spelling errors in core frameworks or messy resume formatting",
+      "Gaps in work history without contextual explanation",
+      "Lack of version control (Git) workflow awareness"
+    ],
+    "typicalScreeningCriteria": [
+      "Standard technical screening (data structures, language quirks, OOP concepts)",
+      "Architecture discussion on design patterns (Singleton, Factory, Observer) and basic DB design",
+      "Managerial round on team fit and process adherence"
+    ],
+    "experienceBandsByYears": {
+      "fresher": {
+        "expectations": "Good academic record (7.0+ CGPA), strong OOP concepts, academic capstone projects, basic Git and SQL",
+        "minimumMustHaves": ["Java", "SQL", "Object-Oriented Design", "HTML5", "CSS3", "Git"]
+      },
+      "1-3": {
+        "expectations": "Bug fixing, feature enhancements within existing architecture, unit test writing, sprint participation",
+        "minimumMustHaves": ["Spring Boot", "PostgreSQL", "Unit Testing", "REST APIs", "Jira & Agile"]
+      },
+      "3-5": {
+        "expectations": "Module ownership, code reviewing, technical documentation, third-party API integration",
+        "minimumMustHaves": ["Microservices", "Docker", "AWS", "Database Indexing & Query Tuning", "CI/CD Pipelines"]
+      },
+      "5+": {
+        "expectations": "Module lead, client or stakeholder communication, legacy modernization, technical onboarding",
+        "minimumMustHaves": ["System Design", "Technical Leadership & Mentorship", "Enterprise Integration Patterns"]
+      }
+    }
+  },
+  {
+    "tier": "Tier C",
+    "displayName": "Tier C — Global IT Services & Mass Recruiters (TCS, Infosys, Wipro, Cognizant, Accenture)",
+    "description": "Large-scale consulting and IT services handling enterprise client contracts, support, and outsourced application maintenance. Strict screening criteria based on qualification cutoffs, certifications, and project counts.",
+    "minimumSignals": [
+      "Bachelor's degree in engineering/computer applications with standard cutoff (60%+ / 6.5+ CGPA)",
+      "Clear, professional communication and grammar",
+      "Familiarity with fundamental software development concepts (SDLC, SQL, Core Java or .NET)",
+      "Flexibility with tech stack and project deployment"
+    ],
+    "strongSignals": [
+      "Recognized cloud or vendor certifications (Azure Fundamentals, AWS Cloud Practitioner)",
+      "Diverse project portfolio showing willingness to learn new stacks",
+      "Experience with client communications or ITIL support workflows"
+    ],
+    "redFlags": [
+      "Inconsistent dates or suspicious academic histories",
+      "Complete inability to articulate personal project code or logic",
+      "Unformatted resume that breaks ATS resume scanners"
+    ],
+    "typicalScreeningCriteria": [
+      "Aptitude, logical reasoning, and verbal assessment",
+      "Fundamental coding test (basic loops, strings, array manipulation)",
+      "HR and communication interview"
+    ],
+    "experienceBandsByYears": {
+      "fresher": {
+        "expectations": "Passed academic cutoffs, basic programming syntax, completed training courses or final year project",
+        "minimumMustHaves": ["C", "Java", "SQL", "HTML5", "Computer Science Fundamentals"]
+      },
+      "1-3": {
+        "expectations": "Ticket resolution, basic code changes, bug fixing, test case execution, daily standups",
+        "minimumMustHaves": ["Java", "SQL", "Git", "Jira & Agile", "Unit Testing"]
+      },
+      "3-5": {
+        "expectations": "Team lead for module, direct client interactions, SLA compliance, code reviews",
+        "minimumMustHaves": ["Spring Boot", "REST APIs", "MySQL", "CI/CD Pipelines"]
+      },
+      "5+": {
+        "expectations": "Delivery lead, project management, customer escalations, vendor certifications",
+        "minimumMustHaves": ["Technical Leadership & Mentorship", "Cloud", "Clean Architecture"]
+      }
+    }
+  }
+]

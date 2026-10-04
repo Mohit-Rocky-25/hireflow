@@ -1,0 +1,24 @@
+Role: Associate Full-Stack Software Engineer
+Company: CloudScale Systems
+Experience: 0-1 Years (Freshers welcome)
+Location: Remote / Bangalore
+
+About the Role:
+We are looking for a motivated Associate Full-Stack Engineer with strong fundamentals in modern web technologies and computer science. You will work alongside senior engineers to design and implement user-facing features and scalable backend services.
+
+Must-Have Requirements:
+- Strong proficiency in JavaScript, TypeScript, and React.
+- Solid understanding of Node.js and building REST APIs.
+- Hands-on experience with SQL databases such as PostgreSQL or MySQL.
+- Good knowledge of Data Structures & Algorithms and Computer Science Fundamentals.
+- Familiarity with version control using Git and basic Linux environments.
+
+Nice-to-Have / Bonus Skills:
+- Experience with Docker and containerization.
+- Familiarity with Next.js or Tailwind CSS.
+- Basic knowledge of automated testing (Jest) or CI/CD pipelines (GitHub Actions).
+
+Responsibilities:
+- Build reusable UI components in React and TypeScript.
+- Design and integrate RESTful APIs with PostgreSQL database backends.
+- Write unit tests and participate in code reviews to maintain high quality standards.

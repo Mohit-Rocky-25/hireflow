@@ -1,0 +1,18 @@
+Job Title: Senior Data Engineer / Data Platform Specialist
+Company: DataVanguard Analytics
+Experience: 3-5 Years
+Location: Mumbai / Hybrid
+
+About the Job:
+We are seeking an experienced Data Engineer to build high-throughput data pipelines and manage enterprise data warehouses.
+
+Must-Have Qualifications:
+- 3+ years experience in distributed data engineering using Apache Spark (PySpark) and Scala/Python.
+- Deep expertise in Data Warehousing (Snowflake, BigQuery, or Amazon Redshift).
+- Advanced data pipeline orchestration using Apache Airflow (DAGs, task dependencies, retries).
+- Production experience with real-time event streaming via Apache Kafka.
+- Strong SQL proficiency for analytical queries and performance optimization.
+
+Nice-to-Have:
+- Experience with Docker, Kubernetes, and AWS EMR.
+- Familiarity with dbt (data build tool) and data modeling (dimensional modeling, Star schema).

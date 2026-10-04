@@ -1,0 +1,50 @@
+[
+  {
+    "id": "tier1_fresher",
+    "name": "Arjun Sharma (Tier-1 CS Fresher / CP Specialist)",
+    "archetype": "Tier-1 College Fresher (IIT/BITS) with High Algorithmic Rating",
+    "background": "Final year CS student from top-tier university with 2000+ LeetCode rating and 2 production internships.",
+    "skills": ["Data Structures & Algorithms", "C++", "Python", "Java", "Computer Science Fundamentals", "React", "Node.js", "Docker", "Git"],
+    "metricsPresence": "High (quantifiable algorithmic percentiles, query latency cuts in internship)",
+    "bulletsStyle": "Impactful (Engineered, Architected, Accelerated)",
+    "estimatedYears": 0.5,
+    "advantages": "Flawless DSA screen, top algorithmic problem solving, clean CS fundamentals, recognized brand college.",
+    "typicalGaps": "Lacks 2+ years of enterprise production firefighting, on-call incident experience, or legacy refactoring."
+  },
+  {
+    "id": "strong_referral",
+    "name": "Priya Nair (Senior Product Referral Candidate)",
+    "archetype": "Internal Referral / Proven Product Scale-Up Engineer",
+    "background": "Ex-Unicorn SWE-2 with 3.5 years experience shipping high-concurrency microservices and end-to-end features.",
+    "skills": ["TypeScript", "React", "Node.js", "PostgreSQL", "Docker", "Kubernetes", "Kafka", "Redis", "System Design", "CI/CD Pipelines", "AWS"],
+    "metricsPresence": "Very High (scaled RPS from 2k to 14k, cut p99 latency by 65%, $120k cloud cost reduction)",
+    "bulletsStyle": "Executive & Metric-heavy (Spearheaded, Scaled, Overhauled)",
+    "estimatedYears": 3.5,
+    "advantages": "Proven production track record at scale, direct domain alignment, full-stack + DevOps versatility.",
+    "typicalGaps": "High salary expectations, potential counter-offer risk."
+  },
+  {
+    "id": "experienced_switcher",
+    "name": "Rajesh Kulkarni (Enterprise MNC Switcher)",
+    "archetype": "Experienced Enterprise MNC Engineer Modernizing Stack",
+    "background": "5 years in top IT service/enterprise MNC, transitioning from legacy enterprise Java to modern cloud microservices.",
+    "skills": ["Java", "Spring Boot", "SQL", "PostgreSQL", "REST APIs", "Microservices", "Docker", "Git", "Jira & Agile", "Unit Testing"],
+    "metricsPresence": "Moderate (handled enterprise client SLA 99.9%, delivered 4 major releases on schedule)",
+    "bulletsStyle": "Process-oriented with mixed action verbs (Developed, Implemented, Maintained)",
+    "estimatedYears": 5.0,
+    "advantages": "Extreme dependability, disciplined enterprise SDLC adherence, deep relational database and backend experience.",
+    "typicalGaps": "Slower on rapid zero-to-one prototyping, fewer public open-source contributions."
+  },
+  {
+    "id": "bootcamp_builder",
+    "name": "Neha Verma (Intensive Bootcamp Full-Stack Builder)",
+    "archetype": "High-Output Full-Stack Builder with 5 Live Apps",
+    "background": "Career transition graduate with 5 deployed full-stack web applications, clean GitHub portfolio, and active blog.",
+    "skills": ["JavaScript", "TypeScript", "React", "Next.js", "Node.js", "Express.js", "Tailwind CSS", "PostgreSQL", "REST APIs", "Git"],
+    "metricsPresence": "Low to Moderate (1,200 active users on side-project, 100% test coverage on critical paths)",
+    "bulletsStyle": "Action-oriented (Built, Designed, Integrated)",
+    "estimatedYears": 1.0,
+    "advantages": "Immediate start, hunger to learn, modern frontend tooling mastery (React/Next/Tailwind).",
+    "typicalGaps": "Lacks experience with high-scale distributed systems, database sharding, or complex Kubernetes networking."
+  }
+]

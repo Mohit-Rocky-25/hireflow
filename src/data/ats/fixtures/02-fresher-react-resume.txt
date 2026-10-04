@@ -1,0 +1,34 @@
+Rahul Sharma
+Email: rahul.sharma@email.com | Phone: +91-9123456789
+Location: Delhi, India | LinkedIn: linkedin.com/in/rahulsharma
+
+PROFESSIONAL SUMMARY
+Passionate and dedicated Software Developer with hands-on experience in building web applications using React, TypeScript, and Node.js. Looking for an opportunity to contribute to a growth-oriented engineering team.
+
+EDUCATION
+Delhi Technological University
+B.Tech in Information Technology | 2020 - 2024 | CGPA: 7.8/10
+
+TECHNICAL SKILLS
+Languages: JavaScript, TypeScript, HTML5, CSS3, SQL
+Frameworks & Libraries: React, Node.js, Express.js, Tailwind CSS
+APIs & Tools: REST APIs, Git, Postman, VS Code
+
+EXPERIENCE
+Frontend Developer Intern | WebMatrix Studios
+January 2024 - April 2024 | Delhi, India
+- Responsible for developing reusable UI components using React and TypeScript.
+- Worked on integrating REST APIs with backend services provided by senior developers.
+- Duties included fixing UI bugs, handling form validations, and improving styling.
+- Helped with team meetings, code reviews, and sprint planning sessions.
+
+PROJECTS
+E-Commerce Web Portal
+- Built a multi-page web application using React and TypeScript for product browsing.
+- Implemented state management and connected with Node.js and Express backend.
+- Designed product listing, shopping cart, and user profile views.
+
+Task Management Dashboard
+- Developed a dashboard using React and Tailwind CSS for creating and tracking tasks.
+- Integrated RESTful endpoints for CRUD operations and user login authentication.
+- Used Git for version control and uploaded source code to GitHub repository.
