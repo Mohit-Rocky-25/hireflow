@@ -11,7 +11,7 @@ import {
   Brain, CheckCircle2, XCircle, AlertTriangle, HelpCircle,
   ChevronDown, ChevronUp, ArrowLeft, RefreshCw, Users,
   MessageSquare, Target, Shield, TrendingUp, Eye, Clock,
-  Briefcase, Award, Star, ChevronRight, Sparkles
+  Briefcase, Award, Star, ChevronRight
 } from 'lucide-react';
 import { analyzeCandidate } from '../../ai/matching';
 import type { CandidateMatch, RequirementAssessment } from '../../types';
@@ -183,11 +183,10 @@ function RequirementCard({ assessment }: { assessment: RequirementAssessment }) 
 }
 
 // ── Main Component ──
-export function TalentLens() {
+export function CandidateIntelligencePage() {
+  const { candidateId } = useParams<{ candidateId: string }>();
   const navigate = useNavigate();
-  const { users, candidateProfiles, applications, jobs, createMatch, candidateMatches } = useStore();
-  const candidateId = "user-cand-1"; // Standalone demo
-  const currentCompanyId = "comp-alpha-tech"; // Standalone demo
+  const { users, candidateProfiles, applications, jobs, currentCompanyId, createMatch, candidateMatches } = useStore();
 
   const [match, setMatch] = useState<CandidateMatch | null>(null);
   const [selectedJobId, setSelectedJobId] = useState<string>('');
@@ -243,7 +242,7 @@ export function TalentLens() {
     return (
       <div className="p-[32px] text-center">
         <p className="text-text-secondary">Candidate not found.</p>
-        <Link to="/" className="mt-[16px] text-primary hover:underline">← Go back to Home</Link>
+        <button onClick={() => navigate(-1)} className="mt-[16px] text-primary hover:underline">← Go back</button>
       </div>
     );
   }
@@ -251,40 +250,21 @@ export function TalentLens() {
   const selectedJob = jobs.find(j => j.id === selectedJobId);
 
   return (
-    <div className="min-h-screen bg-bg text-text pt-24 pb-12 px-8 relative">
-      
-      {/* Absolute Top-Left Back Button */}
-      <div className="absolute top-8 left-8">
-        <Link to="/" className="inline-flex items-center gap-2 text-xl font-black text-text hover:text-primary transition-colors">
-          <ArrowLeft className="w-6 h-6" /> Back to Home
-        </Link>
-      </div>
-
-      <div className="max-w-7xl mx-auto space-y-8 animate-fade-in">
-        
-        <div className="text-center max-w-3xl mx-auto mb-12 mt-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-ai/10 text-ai font-bold text-sm rounded-full mb-6">
-            <Sparkles className="w-4 h-4" /> B2B Engine Demo
+    <div className="space-y-[32px] animate-fade-in">
+      {/* Header */}
+      <div className="flex items-start justify-between gap-[16px]">
+        <div className="flex items-center gap-[16px]">
+          <button onClick={() => navigate(-1)} className="w-[36px] h-[36px] border border-border rounded-lg flex items-center justify-center hover:bg-surface-2 transition-colors">
+            <ArrowLeft className="w-[16px] h-[16px]" />
+          </button>
+          <div className="w-[56px] h-[56px] rounded-full bg-gradient-to-br from-primary-light to-primary/20 flex items-center justify-center text-primary text-[20px] font-black">
+            {candidate.displayName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase()}
           </div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter mb-4">
-            Talent<span className="text-transparent bg-clip-text bg-gradient-to-r from-ai to-primary">Lens</span> Simulator
-          </h1>
-          <p className="text-secondary text-lg">
-            Experience our proprietary B2B matching engine. See how it deeply analyzes semantic context instead of just keyword matching.
-          </p>
+          <div>
+            <h1 className="text-[24px] font-bold text-text tracking-tight">{candidate.displayName}</h1>
+            <p className="text-[14px] text-text-secondary">{profile?.headline ?? 'Candidate'}</p>
+          </div>
         </div>
-
-        {/* Header */}
-        <div className="flex items-start justify-between gap-[16px]">
-          <div className="flex items-center gap-[16px]">
-            <div className="w-[56px] h-[56px] rounded-full bg-gradient-to-br from-primary-light to-primary/20 flex items-center justify-center text-primary text-[20px] font-black">
-              {candidate.displayName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase()}
-            </div>
-            <div className="text-left">
-              <h1 className="text-[24px] font-bold text-text tracking-tight">{candidate.displayName}</h1>
-              <p className="text-[14px] text-text-secondary">{profile?.headline ?? 'Candidate'}</p>
-            </div>
-          </div>
 
         <div className="flex items-center gap-[12px]">
           {/* Job selector */}
@@ -569,7 +549,6 @@ export function TalentLens() {
           </div>
         </>
       )}
-      </div>
     </div>
   );
 }
