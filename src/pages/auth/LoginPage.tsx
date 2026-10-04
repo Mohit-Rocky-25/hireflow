@@ -6,8 +6,8 @@ import { useStore } from '../../store/useStore';
 export function LoginPage() {
   const navigate = useNavigate();
   const { login } = useStore();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('demo-candidate@example.com');
+  const [password, setPassword] = useState('password123');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,6 +43,19 @@ export function LoginPage() {
           <p className="text-[18px] text-text-secondary leading-[1.6]">
             Sign in to access your saved resume roasts, career roadmaps, and one-click job applications.
           </p>
+          
+          <div className="mt-[64px] p-[24px] rounded-2xl bg-surface/50 border border-border backdrop-blur-sm">
+            <p className="text-[15px] text-text italic mb-[16px]">
+              "HireFlow's ATS Roaster literally tore my resume apart. I fixed the keyword gaps it suggested, and got 3 interviews the very next week."
+            </p>
+            <div className="flex items-center gap-[12px]">
+              <div className="w-[40px] h-[40px] rounded-full bg-primary/20 flex items-center justify-center font-bold text-primary">JD</div>
+              <div>
+                <p className="text-[14px] font-bold text-text">Jordan D.</p>
+                <p className="text-[12px] text-text-secondary">Software Engineer @ TechCorp</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -100,8 +113,8 @@ export function LoginPage() {
             <div className="flex-1 border-t border-border" />
           </div>
 
-          <button type="button" className="w-full h-[48px] bg-surface border border-border text-text font-bold rounded-lg hover:bg-surface-2 active:scale-[0.99] transition-all flex items-center justify-center gap-[10px] shadow-sm">
-            <Code className="w-[18px] h-[18px]" /> GitHub
+          <button type="button" onClick={handleSubmit} className="w-full h-[48px] bg-surface border border-border text-text font-bold rounded-lg hover:bg-surface-2 active:scale-[0.99] transition-all flex items-center justify-center gap-[10px] shadow-sm">
+            <Code className="w-[18px] h-[18px]" /> Continue with GitHub
           </button>
 
           <p className="text-center text-[14px] text-text-secondary">

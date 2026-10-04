@@ -6,9 +6,9 @@ import { useStore } from '../../store/useStore';
 export function RegisterPage() {
   const navigate = useNavigate();
   const { login } = useStore();
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [name, setName] = useState('Arjun Mehta');
+  const [email, setEmail] = useState('demo-candidate@example.com');
+  const [password, setPassword] = useState('password123');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -44,6 +44,17 @@ export function RegisterPage() {
           <p className="text-[18px] text-text-secondary leading-[1.6]">
             Create a free account to instantly scan your resume against any job description, map your career trajectory, and apply to jobs.
           </p>
+          
+          <div className="mt-[64px] grid grid-cols-2 gap-[16px]">
+            <div className="p-[20px] rounded-xl bg-surface/50 border border-border backdrop-blur-sm">
+              <div className="text-[32px] font-black text-ai mb-[4px]">250k+</div>
+              <div className="text-[13px] text-text-secondary font-medium">Resumes Scanned</div>
+            </div>
+            <div className="p-[20px] rounded-xl bg-surface/50 border border-border backdrop-blur-sm">
+              <div className="text-[32px] font-black text-primary mb-[4px]">45%</div>
+              <div className="text-[13px] text-text-secondary font-medium">Higher Callback Rate</div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -114,7 +125,7 @@ export function RegisterPage() {
             <div className="flex-1 border-t border-border" />
           </div>
 
-          <button type="button" className="w-full h-[48px] bg-surface border border-border text-text font-bold rounded-lg hover:bg-surface-2 active:scale-[0.99] transition-all flex items-center justify-center gap-[10px] shadow-sm">
+          <button type="button" onClick={handleSubmit} className="w-full h-[48px] bg-surface border border-border text-text font-bold rounded-lg hover:bg-surface-2 active:scale-[0.99] transition-all flex items-center justify-center gap-[10px] shadow-sm">
             <Code className="w-[18px] h-[18px]" /> Continue with GitHub
           </button>
 
