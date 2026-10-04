@@ -49,17 +49,19 @@ export function CareerPathSimulator() {
   };
 
   return (
-    <div className="min-h-screen bg-bg text-text pt-24 pb-12 px-6">
-      <div className="max-w-5xl mx-auto space-y-8 animate-fade-in">
-        
-        <div className="mb-8">
-          <Link to="/" className="inline-flex items-center gap-2 text-lg font-black text-text hover:text-primary transition-colors">
-            <ArrowRight className="w-5 h-5 rotate-180" /> Back to Home
-          </Link>
-        </div>
+    <div className="min-h-screen bg-bg text-text pt-24 pb-12 px-8 relative">
+      
+      {/* Absolute Top-Left Back Button */}
+      <div className="absolute top-8 left-8">
+        <Link to="/" className="inline-flex items-center gap-2 text-xl font-black text-text hover:text-primary transition-colors">
+          <ArrowRight className="w-6 h-6 rotate-180" /> Back to Home
+        </Link>
+      </div>
 
-        <div className="text-center max-w-2xl mx-auto mb-12">
-          <h1 className="text-4xl md:text-5xl font-black tracking-tighter mb-4">
+      <div className="max-w-7xl mx-auto space-y-8 animate-fade-in">
+        
+        <div className="text-center max-w-3xl mx-auto mb-12 mt-4">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter mb-4">
             Career Path <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-400">Simulator</span>
           </h1>
           <p className="text-secondary text-lg">
