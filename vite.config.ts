@@ -2,6 +2,7 @@ import { defineConfig, loadEnv, Plugin } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import path from 'path'
+import { runHybridAnalysis } from './src/lib/ats/pipeline'
 
 function atsApiPlugin(): Plugin {
   return {
@@ -15,7 +16,6 @@ function atsApiPlugin(): Plugin {
           });
           req.on('end', async () => {
             try {
-              const { runHybridAnalysis } = await import('./src/lib/ats/pipeline');
               const { resumeText, jdText, facts: clientFacts, apiKey: clientApiKey } = JSON.parse(body || '{}');
               
               const env = loadEnv('development', process.cwd(), '');
@@ -117,9 +117,14 @@ ${(jdText || '').slice(0, 2000)}`;
                 }));
               }
             } catch (err: any) {
-              const analysis = runHybridAnalysis('', '');
-              res.writeHead(200, { 'Content-Type': 'application/json' });
-              res.end(JSON.stringify({ ...analysis, isAiAvailable: false, aiErrorNotice: err.message }));
+              try {
+                const analysis = runHybridAnalysis('', '');
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ ...analysis, isAiAvailable: false, aiErrorNotice: err?.message || 'Server error' }));
+              } catch {
+                res.writeHead(500, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ isAiAvailable: false, aiErrorNotice: String(err) }));
+              }
             }
           });
           return;
