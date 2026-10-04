@@ -46,10 +46,10 @@ const FEATURES = [
 ];
 
 const STATS = [
-  { value: "75", label: "Real companies", icon: Building2 },
-  { value: "900+", label: "Real job roles", icon: Briefcase },
+  { value: "75", label: "Enterprise Companies", icon: Building2 },
+  { value: "Real-time", label: "ATS Simulation", icon: Zap },
   { value: "100%", label: "Free forever", icon: CheckCircle },
-  { value: "6-Layer", label: "Anti-gaming AI", icon: Brain },
+  { value: "Contextual", label: "AI Matching Engine", icon: Brain },
 ];
 
 const TOOLS = [
