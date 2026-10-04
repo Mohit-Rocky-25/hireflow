@@ -6,7 +6,7 @@ import { useStore } from "../store/useStore";
 import {
   Sparkles, Brain, Users, CheckCircle, ArrowRight,
   Shield, Zap, Target, Building2, ChevronRight, Cpu, BarChart3, TrendingUp,
-  MessageSquare, FileText
+  MessageSquare, FileText, Briefcase
 } from "lucide-react";
 import { PublicNavbar } from "../components/layout/PublicNavbar";
 
@@ -46,10 +46,10 @@ const FEATURES = [
 ];
 
 const STATS = [
-  { value: "250k+", label: "Resumes scanned", icon: FileText },
-  { value: "45%", label: "Higher callback rate", icon: TrendingUp },
+  { value: "75", label: "Real companies", icon: Building2 },
+  { value: "900+", label: "Real job roles", icon: Briefcase },
   { value: "100%", label: "Free forever", icon: CheckCircle },
-  { value: "∞", label: "Career paths mapped", icon: Brain },
+  { value: "6-Layer", label: "Anti-gaming AI", icon: Brain },
 ];
 
 const TOOLS = [
@@ -144,25 +144,30 @@ export function LandingPage() {
           <div className="max-w-[820px] mx-auto page-enter flex flex-col items-center">
             <div className="inline-flex items-center gap-[10px] px-[16px] py-[8px] rounded-full bg-ai-light border border-ai/25 text-[13px] font-semibold text-ai mb-[36px] shadow-glow-violet">
               <Brain className="w-[14px] h-[14px] stroke-[2px]" />
-              The ultimate career utility suite.
+              Deep AI Resume Analysis — 75 Companies · 900+ Real 2024/25 Hiring Roles
             </div>
             <h1 className="text-[58px] sm:text-[72px] lg:text-[84px] font-extrabold text-text leading-[1.02] tracking-[-0.04em] mb-[32px]">
-              Take control of your{" "}
-              <span className="gradient-text">Career.</span>
+              Upload Resume.{" "}
+              <span className="gradient-text">See Your Real Chances.</span>
             </h1>
-            <p className="text-[20px] text-text-secondary leading-[32px] mb-[52px] max-w-[600px] mx-auto">
-              Simulate ATS resume filters, map out your career trajectory, and browse top jobs—all completely free.
+            <p className="text-[20px] text-text-secondary leading-[32px] mb-[52px] max-w-[640px] mx-auto">
+              Deep contextual AI analysis — not just keyword matching. Evaluates production depth, quantified impact, and skill level against real 2024/25 hiring bars.
             </p>
             <div className="flex flex-col sm:flex-row gap-[14px] justify-center w-full">
-              <Link to="/tools/resume-checker">
-                <button className="inline-flex items-center gap-[10px] h-[56px] px-[32px] text-[17px] font-bold text-white rounded-lg bg-gradient-to-r from-primary to-primary-hover shadow-glow-orange hover:scale-[1.02] active:scale-[0.99] transition-all duration-[150ms]">
+              <Link to="/demo">
+                <button className="inline-flex items-center gap-[10px] h-[56px] px-[32px] text-[17px] font-bold text-white rounded-lg bg-gradient-to-r from-primary to-ai shadow-glow-orange hover:scale-[1.02] active:scale-[0.99] transition-all duration-[150ms]">
                   <Sparkles className="w-[20px] h-[20px] stroke-[1.5px]" />
-                  Roast My Resume
+                  Your Resume
                 </button>
               </Link>
-              <Link to="/tools/career-path">
+              <Link to="/demo">
+                <button className="inline-flex items-center gap-[10px] h-[56px] px-[32px] text-[16px] font-bold text-text rounded-lg border-2 border-primary/40 hover:border-primary hover:bg-primary/5 transition-all duration-[150ms]">
+                  <Building2 className="w-[18px] h-[18px] stroke-[1.5px]" /> Company &amp; Role
+                </button>
+              </Link>
+              <Link to="/demo">
                 <button className="inline-flex items-center gap-[10px] h-[56px] px-[32px] text-[16px] font-semibold text-text-secondary rounded-lg border border-border-strong hover:border-border-accent hover:text-text hover:bg-surface-2 transition-all duration-[150ms]">
-                  Simulate Trajectory <ChevronRight className="w-[18px] h-[18px] stroke-[1.5px]" />
+                  AI Analysis <ChevronRight className="w-[18px] h-[18px] stroke-[1.5px]" />
                 </button>
               </Link>
             </div>
