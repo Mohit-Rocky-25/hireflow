@@ -142,9 +142,14 @@ export function LandingPage() {
         </div>
         <div className="max-w-[1280px] mx-auto px-[32px] w-full text-center">
           <div className="max-w-[820px] mx-auto page-enter flex flex-col items-center">
-            <div className="inline-flex items-center gap-[10px] px-[16px] py-[8px] rounded-full bg-ai-light border border-ai/25 text-[13px] font-semibold text-ai mb-[36px] shadow-glow-violet">
-              <Brain className="w-[14px] h-[14px] stroke-[2px]" />
-              The ultimate career utility suite — now with TalentLens™
+            <div className="inline-flex items-center gap-[12px] px-[6px] py-[6px] pr-[18px] rounded-full bg-white border border-border shadow-sm mb-[40px] hover:shadow-md hover:-translate-y-[1px] transition-all duration-300 group cursor-default">
+              <div className="flex items-center justify-center px-[12px] py-[4px] rounded-full bg-gradient-to-r from-primary to-ai shadow-glow-violet">
+                <span className="text-[11px] font-black text-white uppercase tracking-wider">New</span>
+              </div>
+              <span className="text-[14px] font-semibold text-text-secondary group-hover:text-text transition-colors flex items-center gap-[6px]">
+                Meet <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-ai font-extrabold tracking-tight">TalentLens™ v7</span> 
+                <span className="text-[13px] font-medium text-text-muted ml-[4px]">The ultimate candidate intelligence engine</span>
+              </span>
             </div>
             <h1 className="text-[58px] sm:text-[72px] lg:text-[84px] font-extrabold text-text leading-[1.02] tracking-[-0.04em] mb-[32px]">
               Take control of your{" "}
