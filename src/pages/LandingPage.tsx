@@ -144,30 +144,25 @@ export function LandingPage() {
           <div className="max-w-[820px] mx-auto page-enter flex flex-col items-center">
             <div className="inline-flex items-center gap-[10px] px-[16px] py-[8px] rounded-full bg-ai-light border border-ai/25 text-[13px] font-semibold text-ai mb-[36px] shadow-glow-violet">
               <Brain className="w-[14px] h-[14px] stroke-[2px]" />
-              Deep AI Resume Analysis — 75 Companies · 900+ Real 2024/25 Hiring Roles
+              The ultimate career utility suite — now with TalentLens™
             </div>
             <h1 className="text-[58px] sm:text-[72px] lg:text-[84px] font-extrabold text-text leading-[1.02] tracking-[-0.04em] mb-[32px]">
-              Upload Resume.{" "}
-              <span className="gradient-text">See Your Real Chances.</span>
+              Take control of your{" "}
+              <span className="gradient-text">Career.</span>
             </h1>
-            <p className="text-[20px] text-text-secondary leading-[32px] mb-[52px] max-w-[640px] mx-auto">
-              Deep contextual AI analysis — not just keyword matching. Evaluates production depth, quantified impact, and skill level against real 2024/25 hiring bars.
+            <p className="text-[20px] text-text-secondary leading-[32px] mb-[52px] max-w-[600px] mx-auto">
+              Simulate ATS resume filters, map your career trajectory, and test your resume against 75 real companies and 900+ roles — all completely free.
             </p>
             <div className="flex flex-col sm:flex-row gap-[14px] justify-center w-full">
               <Link to="/demo">
                 <button className="inline-flex items-center gap-[10px] h-[56px] px-[32px] text-[17px] font-bold text-white rounded-lg bg-gradient-to-r from-primary to-ai shadow-glow-orange hover:scale-[1.02] active:scale-[0.99] transition-all duration-[150ms]">
                   <Sparkles className="w-[20px] h-[20px] stroke-[1.5px]" />
-                  Your Resume
+                  Try TalentLens™
                 </button>
               </Link>
-              <Link to="/demo">
-                <button className="inline-flex items-center gap-[10px] h-[56px] px-[32px] text-[16px] font-bold text-text rounded-lg border-2 border-primary/40 hover:border-primary hover:bg-primary/5 transition-all duration-[150ms]">
-                  <Building2 className="w-[18px] h-[18px] stroke-[1.5px]" /> Company &amp; Role
-                </button>
-              </Link>
-              <Link to="/demo">
+              <Link to="/tools/resume-checker">
                 <button className="inline-flex items-center gap-[10px] h-[56px] px-[32px] text-[16px] font-semibold text-text-secondary rounded-lg border border-border-strong hover:border-border-accent hover:text-text hover:bg-surface-2 transition-all duration-[150ms]">
-                  AI Analysis <ChevronRight className="w-[18px] h-[18px] stroke-[1.5px]" />
+                  ATS Roaster <ChevronRight className="w-[18px] h-[18px] stroke-[1.5px]" />
                 </button>
               </Link>
             </div>
