@@ -13,7 +13,7 @@ export function RegisterPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Simulate successful registration for demo
-    login('usr-cand-mohit', 'CANDIDATE'); 
+    login('user-cand-1', 'CANDIDATE'); 
     navigate('/tools/resume-checker');
   };
 

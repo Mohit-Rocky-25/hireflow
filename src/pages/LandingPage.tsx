@@ -13,32 +13,32 @@ import { PublicNavbar } from "../components/layout/PublicNavbar";
 const FEATURES = [
   {
     icon: Brain,
-    title: "Explainable AI Matching",
-    desc: "Candidates are ranked against weighted job requirements with clear, logical reasoning — never a bare percentage without context.",
+    title: "Harsh Truth AI",
+    desc: "We don't sugarcoat. Our AI acts like a ruthless recruiter, tearing apart your resume to tell you exactly why you'd be rejected.",
     accent: "from-violet-500/20 to-violet-500/5",
     iconColor: "text-ai",
     iconBg: "bg-ai-light border-ai/20",
   },
   {
-    icon: Shield,
-    title: "Multi-Tenant Security",
-    desc: "Row-level security ensures Company A can never access Company B's data. Authorization at the database layer, not just hidden in the UI.",
+    icon: Target,
+    title: "Trajectory Mapping",
+    desc: "Stop guessing your next move. Input your dream job and we generate a year-by-year syllabus of skills you need to learn.",
     accent: "from-emerald-500/15 to-emerald-500/5",
     iconColor: "text-success",
     iconBg: "bg-success-bg border-success/20",
   },
   {
     icon: Zap,
-    title: "Structured Hiring Pipeline",
-    desc: "From job creation through screening, shortlisting, interviews, and offers — every step is tracked, auditable, and role-gated.",
+    title: "Instant ATS Simulation",
+    desc: "Drop in any Job Description and your Resume. We instantly simulate an enterprise ATS scan to give you a match score.",
     accent: "from-primary/20 to-primary/5",
     iconColor: "text-primary",
     iconBg: "bg-primary-light border-primary/20",
   },
   {
-    icon: Target,
-    title: "Five-Dimension Interviewing",
-    desc: "Interviewers evaluate candidates on standardized dimensions. BHR Managers get consolidated feedback with clear hire/no-hire recommendations.",
+    icon: Building2,
+    title: "Direct Job Applications",
+    desc: "Once your resume scores above 85%, use our 1-click apply feature to send your profile directly to top tech companies.",
     accent: "from-blue-500/15 to-blue-500/5",
     iconColor: "text-info",
     iconBg: "bg-info-bg border-info/20",
@@ -46,10 +46,10 @@ const FEATURES = [
 ];
 
 const STATS = [
-  { value: "10x", label: "Faster screening", icon: TrendingUp },
-  { value: "95%", label: "Match accuracy", icon: Cpu },
-  { value: "5", label: "Roles, one platform", icon: Users },
-  { value: "∞", label: "Audit trail depth", icon: BarChart3 },
+  { value: "250k+", label: "Resumes scanned", icon: FileText },
+  { value: "45%", label: "Higher callback rate", icon: TrendingUp },
+  { value: "100%", label: "Free forever", icon: CheckCircle },
+  { value: "∞", label: "Career paths mapped", icon: Brain },
 ];
 
 const TOOLS = [
@@ -211,9 +211,9 @@ export function LandingPage() {
         <div className="absolute top-[20%] left-[-10%] w-[500px] h-[500px] rounded-full bg-ai-dark/5 blur-[120px] pointer-events-none" />
         <div className="max-w-[1280px] mx-auto px-[32px] relative z-10">
           <div className="mb-[72px] text-center md:text-left">
-            <p className="text-[13px] font-semibold text-primary uppercase tracking-[0.10em] mb-[16px]">Platform Capabilities</p>
-            <h2 className="text-[42px] font-bold text-text mb-[18px] tracking-[-0.03em] max-w-[600px] md:mx-0 mx-auto">Built for real hiring workflows</h2>
-            <p className="text-[18px] text-text-secondary max-w-[500px] leading-[28px] md:mx-0 mx-auto">Not a simple keyword matcher. A complete, role-gated platform powered by contextual AI.</p>
+            <p className="text-[13px] font-semibold text-primary uppercase tracking-[0.10em] mb-[16px]">Core Features</p>
+            <h2 className="text-[42px] font-bold text-text mb-[18px] tracking-[-0.03em] max-w-[600px] md:mx-0 mx-auto">Built for the modern candidate</h2>
+            <p className="text-[18px] text-text-secondary max-w-[500px] leading-[28px] md:mx-0 mx-auto">We reverse-engineered enterprise ATS systems so you can finally beat them.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-[24px] stagger-in">
             {FEATURES.map((f, i) => {
@@ -234,72 +234,70 @@ export function LandingPage() {
 
       {/* The AI Showcase Example */}
       <section className="py-[120px] border-t border-border bg-surface-2/40 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full bg-primary/5 blur-[120px] pointer-events-none" />
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full bg-ai/5 blur-[120px] pointer-events-none" />
         <div className="max-w-[1280px] mx-auto px-[32px] relative z-10 flex flex-col lg:flex-row items-center gap-[64px]">
           <div className="flex-1 text-center lg:text-left">
-            <div className="inline-flex items-center gap-[8px] px-[12px] py-[6px] bg-primary-light border border-primary/20 rounded-full text-[13px] font-semibold text-primary mb-[24px]">
-              <Sparkles className="w-[14px] h-[14px]" /> Real Intelligence
+            <div className="inline-flex items-center gap-[8px] px-[12px] py-[6px] bg-ai-light border border-ai/20 rounded-full text-[13px] font-semibold text-ai mb-[24px]">
+              <Sparkles className="w-[14px] h-[14px]" /> Harsh Truth AI
             </div>
             <h2 className="text-[38px] md:text-[46px] font-bold text-text tracking-[-0.03em] leading-[1.1] mb-[24px]">
-              Understand <span className="text-primary">why</span> they match.
+              Know exactly <span className="text-ai">why</span> you're getting rejected.
             </h2>
             <p className="text-[18px] text-text-secondary leading-[1.8] mb-[32px]">
-              No more guessing why an applicant got an 85% score. Our AI analyzes the context behind each skill, evaluates missing requirements, and suggests interview questions based on the candidate's actual profile gaps.
+              Stop firing your resume into the void. Our scanner reads exactly like Workday or Greenhouse, instantly flagging missing hard skills, overused buzzwords, and formatting errors before you apply.
             </p>
             <ul className="space-y-[16px] text-[15px] text-text font-medium">
               <li className="flex items-center gap-[12px] justify-center lg:justify-start">
-                <CheckCircle className="w-[20px] h-[20px] text-primary" /> Shows exact project context
+                <CheckCircle className="w-[20px] h-[20px] text-ai" /> Enterprise ATS simulation
               </li>
               <li className="flex items-center gap-[12px] justify-center lg:justify-start">
-                <CheckCircle className="w-[20px] h-[20px] text-primary" /> Understands semantic relationships
+                <CheckCircle className="w-[20px] h-[20px] text-ai" /> Identifies semantic keyword gaps
               </li>
               <li className="flex items-center gap-[12px] justify-center lg:justify-start">
-                <CheckCircle className="w-[20px] h-[20px] text-primary" /> Generates targeted questions
+                <CheckCircle className="w-[20px] h-[20px] text-ai" /> No-BS actionable feedback
               </li>
             </ul>
           </div>
           
           <div className="flex-1 w-full max-w-[600px]">
-            <div className="bg-surface border border-border rounded-2xl shadow-xl overflow-hidden transform rotate-1 hover:rotate-0 transition-transform duration-500">
+            <div className="bg-surface border border-border rounded-2xl shadow-xl overflow-hidden transform -rotate-1 hover:rotate-0 transition-transform duration-500">
               <div className="px-[24px] py-[16px] border-b border-border bg-surface-2/60 flex items-center justify-between">
                 <div>
-                  <p className="text-[13px] text-text-muted font-medium">AI Context Analysis</p>
-                  <h3 className="text-[15px] font-bold text-text">Arjun Sharma → Senior Backend Engineer</h3>
+                  <p className="text-[13px] text-text-muted font-medium">ATS Match Report</p>
+                  <h3 className="text-[15px] font-bold text-text">Target: Senior Frontend Engineer</h3>
                 </div>
-                <span className="px-[12px] py-[4px] bg-emerald-50 text-emerald-700 border border-emerald-200 text-[11px] font-bold rounded-full uppercase">
-                  Match Found
+                <span className="px-[12px] py-[4px] bg-red-50 text-red-700 border border-red-200 text-[11px] font-bold rounded-full uppercase">
+                  Score: 42%
                 </span>
               </div>
 
               <div className="p-[24px] space-y-[16px]">
-                {/* Requirement 1 */}
+                {/* Error 1 */}
                 <div className="border border-border rounded-xl p-[16px] bg-surface space-y-[12px]">
                   <div className="flex items-center justify-between">
                     <div>
-                      <span className="text-[15px] font-bold text-text">Java & Spring Boot</span>
-                      <span className="ml-[8px] text-[11px] font-semibold text-text-muted uppercase">Mandatory</span>
+                      <span className="text-[15px] font-bold text-text">Missing Skill: Webpack/Vite</span>
+                      <span className="ml-[8px] text-[11px] font-semibold text-text-muted uppercase">Critical</span>
                     </div>
-                    <span className="bg-emerald-50 text-emerald-700 border border-emerald-200 px-[10px] py-[2px] rounded-full text-[11px] font-bold uppercase">Strong</span>
+                    <span className="bg-red-50 text-red-700 border border-red-200 px-[10px] py-[2px] rounded-full text-[11px] font-bold uppercase">Missing</span>
                   </div>
-                  <div className="bg-surface-2 rounded-lg px-[12px] py-[10px]">
-                    <p className="text-[13px] text-text-secondary italic">"Built distributed backend microservices in Java 17 with Spring Boot, handling 2M requests/day at TechCorp..."</p>
+                  <div className="bg-red-50/50 border border-red-100 rounded-lg px-[12px] py-[10px]">
+                    <p className="text-[13px] text-red-800 mb-[6px] font-medium">Auto-Reject Triggered</p>
+                    <p className="text-[13px] text-text-secondary">The job description mentions Webpack 5 times. You have exactly zero mentions of bundlers in your resume. ATS systems will auto-filter you immediately.</p>
                   </div>
                 </div>
 
-                {/* Requirement 2 */}
+                {/* Error 2 */}
                 <div className="border border-border rounded-xl p-[16px] bg-surface space-y-[12px]">
                   <div className="flex items-center justify-between">
                     <div>
-                      <span className="text-[15px] font-bold text-text">Kafka</span>
-                      <span className="ml-[8px] text-[11px] font-semibold text-text-muted uppercase">Mandatory</span>
+                      <span className="text-[15px] font-bold text-text">Impact Metrics</span>
+                      <span className="ml-[8px] text-[11px] font-semibold text-text-muted uppercase">Warning</span>
                     </div>
-                    <span className="bg-amber-50 text-amber-700 border border-amber-200 px-[10px] py-[2px] rounded-full text-[11px] font-bold uppercase">Partial</span>
+                    <span className="bg-amber-50 text-amber-700 border border-amber-200 px-[10px] py-[2px] rounded-full text-[11px] font-bold uppercase">Needs Work</span>
                   </div>
-                  <div className="bg-amber-50/50 border border-amber-100 rounded-lg px-[12px] py-[10px]">
-                    <p className="text-[13px] text-text-secondary mb-[6px]">Candidate has RabbitMQ experience, which is a closely related message broker. Semantic overlap is high.</p>
-                    <p className="text-[12px] text-primary font-semibold flex items-center gap-[6px]">
-                      <MessageSquare className="w-[12px] h-[12px]" /> Ask about event-driven architecture differences.
-                    </p>
+                  <div className="bg-surface-2 rounded-lg px-[12px] py-[10px]">
+                    <p className="text-[13px] text-text-secondary">"Responsible for building components" is a weak bullet point. Change this to "Built 15+ reusable components, reducing development time by 30%". Give us the data.</p>
                   </div>
                 </div>
               </div>
@@ -314,8 +312,8 @@ export function LandingPage() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-primary/10 blur-[150px] pointer-events-none" />
         <div className="max-w-[720px] mx-auto px-[32px] text-center relative z-10">
           <p className="text-[14px] font-bold text-primary uppercase tracking-[0.10em] mb-[24px]">Get Started Today</p>
-          <h2 className="text-[48px] md:text-[56px] font-extrabold text-text mb-[24px] tracking-[-0.03em] leading-[1.1]">Ready to transform your hiring?</h2>
-          <p className="text-[20px] text-text-secondary mb-[48px] leading-[1.6]">The AI evaluates, context clarifies, and a human decides. Experience the platform built for the future of recruitment.</p>
+          <h2 className="text-[48px] md:text-[56px] font-extrabold text-text mb-[24px] tracking-[-0.03em] leading-[1.1]">Ready to decode your career?</h2>
+          <p className="text-[20px] text-text-secondary mb-[48px] leading-[1.6]">Simulate ATS filters, map your trajectory, and apply to top companies.</p>
           <div className="flex flex-col sm:flex-row gap-[16px] justify-center">
             <Link to="/register">
               <button className="inline-flex items-center gap-[12px] h-[60px] px-[40px] text-[18px] font-bold text-white rounded-xl bg-gradient-to-r from-primary to-primary-hover shadow-glow-orange hover:scale-[1.02] active:scale-[0.99] transition-all duration-[200ms]">

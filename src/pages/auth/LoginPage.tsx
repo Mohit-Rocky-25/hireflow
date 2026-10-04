@@ -12,7 +12,7 @@ export function LoginPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Simulate login for the demo
-    login('usr-cand-mohit', 'CANDIDATE'); 
+    login('user-cand-1', 'CANDIDATE'); 
     navigate('/tools/resume-checker');
   };
 
