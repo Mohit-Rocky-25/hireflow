@@ -98,6 +98,21 @@ const TOOLS = [
     cta: "Browse Open Roles",
     link: "/jobs",
   },
+  {
+    icon: Brain,
+    title: "TalentLens Simulator",
+    color: "from-violet-500/15 to-violet-500/5",
+    borderColor: "border-violet-500/20",
+    iconColor: "text-violet-500",
+    iconBg: "bg-violet-50",
+    points: [
+      "Experience our proprietary B2B AI matching engine",
+      "See how recruiters evaluate your profile behind the scenes",
+      "Understand semantic gap analysis and evidence extraction"
+    ],
+    cta: "Launch Simulator",
+    link: "/tools/talent-lens",
+  },
 ];
 
 export function LandingPage() {
@@ -176,7 +191,7 @@ export function LandingPage() {
             <h2 className="text-[42px] font-bold text-text tracking-[-0.03em] mb-[18px]">Accelerate your career.</h2>
             <p className="text-[18px] text-text-secondary max-w-[460px] mx-auto leading-[28px]">Everything you need to land your next big role.</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-[28px] stagger-in">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-[28px] stagger-in">
             {TOOLS.map((role, i) => {
               const Icon = role.icon;
               return (

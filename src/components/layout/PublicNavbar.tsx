@@ -34,6 +34,7 @@ export function PublicNavbar() {
           <Link to="/jobs" className="text-[15px] font-medium text-text-secondary hover:text-text transition-colors duration-[120ms]">Job Board</Link>
           <Link to="/tools/resume-checker" className="text-[15px] font-medium text-text-secondary hover:text-text transition-colors duration-[120ms]">ATS Roaster</Link>
           <Link to="/tools/career-path" className="text-[15px] font-medium text-text-secondary hover:text-text transition-colors duration-[120ms]">Career Trajectory</Link>
+          <Link to="/tools/talent-lens" className="text-[15px] font-medium text-text-secondary hover:text-text transition-colors duration-[120ms]">TalentLens Simulator</Link>
         </div>
         <div className="flex items-center gap-[10px]">
           {isAuthenticated ? (

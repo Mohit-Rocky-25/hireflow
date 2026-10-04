@@ -15,6 +15,7 @@ import { PublicJobDetail } from './pages/jobs/PublicJobDetail';
 // New Public Utility Tools
 import { ResumeChecker } from './pages/tools/ResumeChecker';
 import { CareerPathSimulator } from './pages/tools/CareerPathSimulator';
+import { TalentLens } from './pages/tools/TalentLens';
 
 // Auth Pages
 import { LoginPage } from './pages/auth/LoginPage';
@@ -51,6 +52,7 @@ export default function App() {
         {/* Free ATS Candidate Tools */}
         <Route path="/tools/resume-checker" element={<ResumeChecker />} />
         <Route path="/tools/career-path" element={<CareerPathSimulator />} />
+        <Route path="/tools/talent-lens" element={<TalentLens />} />
 
         {/* Catch all */}
         <Route path="*" element={<Navigate to="/" replace />} />
