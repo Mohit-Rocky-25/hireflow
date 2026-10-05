@@ -1,0 +1,135 @@
+// ============================================================
+// HireFlow — TalentLens™ Shared State Store
+// Persists resume, company, role selection and analysis
+// in sessionStorage across navigation and browser history
+// ============================================================
+import { create } from 'zustand';
+import { persist, createJSONStorage } from 'zustand/middleware';
+import {
+  COMPANIES,
+  Company,
+  Role,
+  AnalysisResult,
+} from './talentLensData';
+
+export interface TalentLensState {
+  resumeText: string;
+  resumeFileName: string;
+  uploadMode: 'paste' | 'upload';
+  companySearch: string;
+  industryFilter: string;
+  tierFilter: string;
+  selectedCompanyId: string | null;
+  selectedRoleTitle: string | null;
+  result: AnalysisResult | null;
+  step: 1 | 2 | 3;
+
+  // Actions
+  setResume: (text: string, fileName?: string) => void;
+  setUploadMode: (mode: 'paste' | 'upload') => void;
+  setCompanySearch: (search: string) => void;
+  setIndustryFilter: (industry: string) => void;
+  setTierFilter: (tier: string) => void;
+  selectCompany: (company: Company | null) => void;
+  selectRole: (role: Role | null) => void;
+  setResult: (result: AnalysisResult | null) => void;
+  setStep: (step: 1 | 2 | 3) => void;
+  resetToNewResume: () => void;
+  resetToCompanies: () => void;
+  resetToRoles: () => void;
+
+  // Getters / Resolvers
+  getSelectedCompany: () => Company | null;
+  getSelectedRole: () => Role | null;
+}
+
+export const useTalentLensStore = create<TalentLensState>()(
+  persist(
+    (set, get) => ({
+      resumeText: '',
+      resumeFileName: '',
+      uploadMode: 'paste',
+      companySearch: '',
+      industryFilter: 'All',
+      tierFilter: 'All',
+      selectedCompanyId: null,
+      selectedRoleTitle: null,
+      result: null,
+      step: 1,
+
+      setResume: (text: string, fileName = '') =>
+        set({ resumeText: text, resumeFileName: fileName }),
+
+      setUploadMode: (mode: 'paste' | 'upload') =>
+        set({ uploadMode: mode }),
+
+      setCompanySearch: (search: string) =>
+        set({ companySearch: search }),
+
+      setIndustryFilter: (industry: string) =>
+        set({ industryFilter: industry }),
+
+      setTierFilter: (tier: string) =>
+        set({ tierFilter: tier }),
+
+      selectCompany: (company: Company | null) =>
+        set((state) => ({
+          selectedCompanyId: company ? company.id : null,
+          selectedRoleTitle:
+            company && state.selectedCompanyId === company.id
+              ? state.selectedRoleTitle
+              : null,
+        })),
+
+      selectRole: (role: Role | null) =>
+        set({ selectedRoleTitle: role ? role.title : null }),
+
+      setResult: (result: AnalysisResult | null) =>
+        set({ result }),
+
+      setStep: (step: 1 | 2 | 3) =>
+        set({ step }),
+
+      resetToNewResume: () =>
+        set({
+          resumeText: '',
+          resumeFileName: '',
+          selectedCompanyId: null,
+          selectedRoleTitle: null,
+          result: null,
+          step: 1,
+        }),
+
+      resetToCompanies: () =>
+        set({
+          selectedRoleTitle: null,
+          result: null,
+          step: 2,
+        }),
+
+      resetToRoles: () =>
+        set({
+          result: null,
+          step: 2,
+        }),
+
+      getSelectedCompany: () => {
+        const { selectedCompanyId } = get();
+        if (!selectedCompanyId) return null;
+        return COMPANIES.find((c) => c.id === selectedCompanyId) || null;
+      },
+
+      getSelectedRole: () => {
+        const { selectedCompanyId, selectedRoleTitle } = get();
+        if (!selectedCompanyId || !selectedRoleTitle) return null;
+        const company = COMPANIES.find((c) => c.id === selectedCompanyId);
+        if (!company) return null;
+        return company.roles.find((r) => r.title === selectedRoleTitle) || null;
+      },
+    }),
+    {
+      name: 'hireflow_talentlens_session_v1',
+      storage: createJSONStorage(() => sessionStorage),
+    }
+  )
+);

@@ -17,6 +17,7 @@ import { JobMarketplace } from './pages/jobs/JobMarketplace';
 import { PublicJobDetail } from './pages/jobs/PublicJobDetail';
 import { PublicCompanyProfile } from './pages/company/PublicCompanyProfile';
 import { MatchingDemo } from './pages/demo/MatchingDemo';
+import { CompanyRolesPage } from './pages/demo/CompanyRolesPage';
 import { CandidatePortal } from './pages/portal/CandidatePortal';
 
 // Tools
@@ -96,6 +97,7 @@ export default function App() {
         <Route path="/jobs/:id" element={<PublicJobDetail />} />
         <Route path="/company/:id" element={<PublicCompanyProfile />} />
         <Route path="/demo" element={<MatchingDemo />} />
+        <Route path="/demo/company/:companySlug" element={<CompanyRolesPage />} />
         <Route path="/portal" element={<CandidatePortal />} />
         
         {/* Free ATS Candidate Tools */}
