@@ -105,14 +105,9 @@ export function BranchCombobox({ value, onChange, className = '' }: BranchCombob
 
   return (
     <div className={`relative ${className}`} ref={containerRef}>
-      <label className="text-xs font-black text-foreground block mb-1.5 flex items-center justify-between">
-        <span>Degree & Branch</span>
-        {selectedOption && (
-          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
-            {selectedOption.familyLabel}
-          </span>
-        )}
-      </label>
+      <div className="h-5 flex items-center mb-1.5">
+        <label className="text-xs font-black text-foreground">Degree &amp; Branch</label>
+      </div>
 
       {/* Trigger Button */}
       <button
@@ -123,13 +118,26 @@ export function BranchCombobox({ value, onChange, className = '' }: BranchCombob
         }}
         aria-expanded={isOpen}
         aria-controls={listboxId}
-        className="w-full min-h-[44px] bg-surface-2 border border-border rounded-xl px-3.5 py-2.5 text-left text-xs font-bold text-foreground focus:ring-2 focus:ring-primary outline-none flex items-center justify-between gap-2 cursor-pointer transition-all hover:border-primary/40"
+        className="w-full min-h-[44px] h-[44px] bg-surface-2 border border-border rounded-xl px-3 py-1.5 text-left text-xs font-bold text-foreground focus:ring-2 focus:ring-primary outline-none flex items-center justify-between gap-2 cursor-pointer transition-all hover:border-primary/40"
       >
-        <span className="truncate">
+        <span
+          className="line-clamp-2 leading-tight text-xs font-bold text-foreground flex-1"
+          title={selectedOption ? selectedOption.label : value || 'Select Degree & Branch'}
+        >
           {selectedOption ? selectedOption.label : value || 'Select Degree & Branch'}
         </span>
         <ChevronDown className={`w-4 h-4 text-muted shrink-0 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
       </button>
+
+      {/* Helper chip below field */}
+      <div className="h-6 flex items-center gap-1.5 mt-1.5">
+        {selectedOption && (
+          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-primary/15 text-primary border border-primary/30 truncate max-w-[150px]">
+            {selectedOption.familyLabel}
+          </span>
+        )}
+        <span className="text-[11px] text-muted truncate">Specialization</span>
+      </div>
 
       {/* Dropdown Popover */}
       {isOpen && (
