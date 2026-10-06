@@ -53,6 +53,7 @@ import {
   Tooltip,
   XAxis,
   YAxis,
+  CartesianGrid,
 } from 'recharts';
 
 import {
@@ -82,21 +83,71 @@ import {
   type PromotionPlan,
   type StudentProfile,
   type StudentPromotionPlan,
+  type CompDataPoint,
 } from '../../lib/careerEngine';
 
 export interface CareerPathSimulatorProps {
   fixedTab?: 'simulator' | 'explorer';
 }
 
+const formatChartINRTick = (val: number): string => {
+  if (val === 0) return '₹0';
+  if (val >= 10000000) {
+    const cr = val / 10000000;
+    return `₹${cr % 1 === 0 ? cr.toFixed(0) : cr.toFixed(1)} Cr`;
+  }
+  const l = Math.round(val / 100000);
+  return `₹${l} L`;
+};
+
+const renderCompTimelineTick = (timeline: CompDataPoint[]) => (props: any) => {
+  const { x, y, payload } = props;
+  const pt = timeline.find((d) => d.year === payload?.value) || timeline[props.index];
+  return (
+    <g transform={`translate(${x},${y})`}>
+      <text x={0} y={0} dy={12} textAnchor="middle" fill="#94a3b8" fontSize={11} fontWeight={600}>
+        {payload?.value}
+      </text>
+      {pt?.levelCode && (
+        <text x={0} y={0} dy={26} textAnchor="middle" fill="#38bdf8" fontSize={10} fontWeight={700}>
+          {pt.levelCode}
+        </text>
+      )}
+    </g>
+  );
+};
+
 export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {}) {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const isExplorerRoute = location.pathname.includes('/company-ladder');
-  const isSimulatorRoute = location.pathname.includes('/promotion-simulator');
+  const isExplorerRoute = location.pathname.includes('/company-levels') || location.pathname.includes('/company-ladder');
+  const isSimulatorRoute = location.pathname.includes('/dream-job-roadmap') || location.pathname.includes('/promotion-simulator');
   const derivedTab = fixedTab || (isExplorerRoute ? 'explorer' : isSimulatorRoute ? 'simulator' : 'simulator');
 
   const [activeTab, setActiveTabState] = useState<'simulator' | 'explorer'>(derivedTab);
+
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setPrefersReducedMotion(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
+
+  // Set dark color-scheme on mount and restore on unmount (Stage 2)
+  useEffect(() => {
+    const prevColorScheme = document.documentElement.style.colorScheme;
+    const prevBg = document.body.style.backgroundColor;
+    document.documentElement.style.colorScheme = 'dark';
+    document.body.style.backgroundColor = '#0a0a0a';
+
+    return () => {
+      document.documentElement.style.colorScheme = prevColorScheme;
+      document.body.style.backgroundColor = prevBg;
+    };
+  }, []);
 
   useEffect(() => {
     if (fixedTab) {
@@ -111,16 +162,16 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
   const handleTabChange = (tab: 'simulator' | 'explorer') => {
     setActiveTabState(tab);
     if (tab === 'simulator') {
-      navigate('/tools/career-path/promotion-simulator');
+      navigate('/tools/career-path/dream-job-roadmap');
     } else {
-      navigate('/tools/career-path/company-ladder');
+      navigate('/tools/career-path/company-levels');
     }
   };
 
   const [simulatorMode, setSimulatorMode] = useState<'student' | 'professional'>('student');
 
   // ─────────────────────────────────────────────────────────────
-  // SUBSECTION 1: Company Ladder Explorer State
+  // SUBSECTION 1: Company Levels & Pay State
   // ─────────────────────────────────────────────────────────────
   const allMarketSegments = useMemo(() => getAllMarketSegments(), []);
   const [selectedSegment, setSelectedSegment] = useState<MarketSegment | 'ALL'>('ALL');
@@ -385,61 +436,61 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground pb-20">
+    <div className="min-h-screen bg-neutral-950 text-neutral-100 pb-20 selection:bg-blue-500 selection:text-white" data-theme="career-dark">
       {/* ── Reusable Back Button & Breadcrumbs Navigation (Stage 2) ─ */}
       <CareerPathBackButton
         isHub={false}
         currentPageTitle={
           activeTab === 'simulator'
-            ? 'Promotion Roadmap Simulator'
-            : 'Company Ladder Explorer'
+            ? 'Dream Job Roadmap'
+            : 'Company Levels & Pay'
         }
       />
 
       {/* ── Sub-Page Title & Tab Navigation Bar ───────────────────── */}
-      <div className="border-b border-border bg-surface/80 backdrop-blur-md sticky top-0 z-20">
+      <div className="border-b border-neutral-800/80 bg-neutral-900/90 backdrop-blur-md sticky top-0 z-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div>
-              <h1 className="text-xl sm:text-2xl font-black text-foreground tracking-tight">
+              <h1 className="text-xl sm:text-2xl font-black text-white tracking-tight">
                 {activeTab === 'simulator'
-                  ? 'Promotion Roadmap Simulator'
-                  : 'Company Ladder Explorer'}
+                  ? 'Dream Job Roadmap'
+                  : 'Company Levels & Pay'}
               </h1>
-              <p className="text-xs text-muted mt-0.5 font-medium">
+              <p className="text-xs text-neutral-400 mt-0.5 font-medium">
                 {activeTab === 'simulator'
-                  ? 'Deterministic career paths, campus hiring likelihoods, and promotion windows.'
-                  : 'Real India-office ladders, verified CTC bands, and structured blockers.'}
+                  ? 'Plan your path from campus to dream companies: real eligibility, fresher CTC, and clear next steps.'
+                  : 'Real India-office levels, verified CTC bands in INR, and promotion requirements.'}
               </p>
             </div>
 
             {/* Navigation Tabs */}
-            <div className="flex items-center gap-1.5 p-1 bg-surface-2 rounded-xl border border-border">
+            <div className="flex items-center gap-1.5 p-1 bg-neutral-800 rounded-xl border border-neutral-700">
               <button
                 type="button"
                 onClick={() => handleTabChange('simulator')}
-                className={`px-4 py-2 rounded-lg text-xs font-black transition-all flex items-center gap-1.5 ${
+                className={`px-4 py-2 rounded-lg text-xs font-black transition-all flex items-center gap-1.5 cursor-pointer ${
                   activeTab === 'simulator'
-                    ? 'bg-primary text-white shadow-sm'
-                    : 'text-muted hover:text-foreground'
+                    ? 'bg-blue-600 text-white shadow-sm'
+                    : 'text-neutral-400 hover:text-white'
                 }`}
                 aria-current={activeTab === 'simulator' ? 'page' : undefined}
               >
                 <Compass className="w-3.5 h-3.5" />
-                Promotion Roadmap Simulator
+                Dream Job Roadmap
               </button>
               <button
                 type="button"
                 onClick={() => handleTabChange('explorer')}
-                className={`px-4 py-2 rounded-lg text-xs font-black transition-all flex items-center gap-1.5 ${
+                className={`px-4 py-2 rounded-lg text-xs font-black transition-all flex items-center gap-1.5 cursor-pointer ${
                   activeTab === 'explorer'
-                    ? 'bg-primary text-white shadow-sm'
-                    : 'text-muted hover:text-foreground'
+                    ? 'bg-blue-600 text-white shadow-sm'
+                    : 'text-neutral-400 hover:text-white'
                 }`}
                 aria-current={activeTab === 'explorer' ? 'page' : undefined}
               >
                 <Building2 className="w-3.5 h-3.5" />
-                Company Ladder Explorer
+                Company Levels &amp; Pay
               </button>
             </div>
           </div>
@@ -448,7 +499,7 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
         {/* ═════════════════════════════════════════════════════════════
-            SUBSECTION 1: COMPANY LADDER EXPLORER
+            SUBSECTION 1: COMPANY LEVELS & PAY
             ═════════════════════════════════════════════════════════════ */}
         {activeTab === 'explorer' && (
           <div className="space-y-8 animate-fade-in">
@@ -859,27 +910,27 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
         )}
 
         {/* ═════════════════════════════════════════════════════════════
-            SUBSECTION 2: PROMOTION ROADMAP SIMULATOR
+            SUBSECTION 2: DREAM JOB ROADMAP
             ═════════════════════════════════════════════════════════════ */}
         {activeTab === 'simulator' && (
           <div className="space-y-8 animate-fade-in">
             {/* Mode Switcher: Student vs Working Professional */}
             <div className="flex justify-center">
-              <div className="inline-flex p-1.5 bg-surface-2 border border-border rounded-2xl shadow-sm">
+              <div className="inline-flex p-1.5 bg-neutral-900 border border-neutral-800 rounded-2xl shadow-sm">
                 <button
                   type="button"
                   onClick={() => {
                     setSimulatorMode('student');
                     setProfResult(null);
                   }}
-                  className={`px-6 py-2.5 rounded-xl text-xs font-black transition-all flex items-center gap-2 ${
+                  className={`px-6 py-2.5 rounded-xl text-xs font-black transition-all flex items-center gap-2 cursor-pointer ${
                     simulatorMode === 'student'
-                      ? 'bg-primary text-white shadow-xs'
-                      : 'text-muted hover:text-foreground'
+                      ? 'bg-blue-600 text-white shadow-xs'
+                      : 'text-neutral-400 hover:text-white'
                   }`}
                 >
                   <GraduationCap className="w-4 h-4" />
-                  I&apos;m a Student (College to Dream Company)
+                  I&apos;m a Student / Fresher
                 </button>
                 <button
                   type="button"
@@ -887,14 +938,14 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                     setSimulatorMode('professional');
                     setStudentResult(null);
                   }}
-                  className={`px-6 py-2.5 rounded-xl text-xs font-black transition-all flex items-center gap-2 ${
+                  className={`px-6 py-2.5 rounded-xl text-xs font-black transition-all flex items-center gap-2 cursor-pointer ${
                     simulatorMode === 'professional'
-                      ? 'bg-primary text-white shadow-xs'
-                      : 'text-muted hover:text-foreground'
+                      ? 'bg-blue-600 text-white shadow-xs'
+                      : 'text-neutral-400 hover:text-white'
                   }`}
                 >
                   <Briefcase className="w-4 h-4" />
-                  I&apos;m a Working Professional
+                  I&apos;m Already Working
                 </button>
               </div>
             </div>
@@ -903,34 +954,42 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                 MODE A: STUDENT SIMULATOR FORM
                 ───────────────────────────────────────────────────────── */}
             {simulatorMode === 'student' && !studentResult && (
-              <div className="bg-surface rounded-2xl p-6 md:p-8 border border-border shadow-xl max-w-3xl mx-auto space-y-6">
-                <div className="border-b border-border pb-4">
-                  <h2 className="text-xl font-black text-foreground flex items-center gap-2">
-                    <GraduationCap className="w-5 h-5 text-primary" /> Configure Your College-to-Dream Job Roadmap
+              <div className="bg-neutral-900 rounded-2xl p-6 md:p-8 border border-neutral-800 shadow-xl max-w-3xl mx-auto space-y-6">
+                <div className="border-b border-neutral-800 pb-4">
+                  <h2 className="text-xl font-black text-white flex items-center gap-2">
+                    <GraduationCap className="w-5 h-5 text-blue-400" /> Configure Your Campus-to-Dream Job Roadmap
                   </h2>
-                  <p className="text-xs text-secondary mt-1">
-                    Select your college background and dream company. The engine maps real campus hiring routes, eligibility cutoffs, fresher CTC packages in INR, and the multi-year promotion trajectory to reach your dream level.
+                  <p className="text-xs text-neutral-300 mt-1 leading-relaxed">
+                    Select your college background and dream company to see real campus hiring routes, eligibility cutoffs, fresher CTC packages in INR, and the multi-year path to reach your dream level.
                   </p>
                 </div>
 
                 {/* College Profile Inputs */}
-                <div className="grid sm:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-start">
                   {/* College Tier */}
                   <div>
-                    <label className="text-xs font-black text-foreground block mb-1.5">College Tier</label>
+                    <div className="h-5 flex items-center mb-1.5">
+                      <label className="text-xs font-black text-white">College Tier</label>
+                    </div>
                     <select
                       value={studentTier}
                       onChange={(e) => setStudentTier(e.target.value as StudentProfile['collegeTier'])}
-                      className="w-full bg-surface-2 border border-border rounded-xl px-3 py-2 text-xs font-bold text-foreground focus:ring-2 focus:ring-primary outline-none"
+                      className="w-full min-h-[44px] h-[44px] bg-neutral-800 border border-neutral-700 rounded-xl px-3 py-2 text-xs font-bold text-white focus:ring-2 focus:ring-blue-500 outline-none"
                     >
                       <option value="Tier 1">Tier 1 (IIT, NIT, IIIT, BITS)</option>
                       <option value="Tier 2">Tier 2 (VIT, Manipal, Thapar, RVCE, etc.)</option>
                       <option value="Tier 3">Tier 3 (State / Private Colleges)</option>
                       <option value="Other">Other University</option>
                     </select>
+                    <div className="h-6 flex items-center gap-1.5 mt-1.5">
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-500/15 text-blue-300 border border-blue-500/30">
+                        {studentTier}
+                      </span>
+                      <span className="text-[11px] text-neutral-400">Campus hiring pool</span>
+                    </div>
                   </div>
 
-                  {/* Degree & Branch Combobox (Stage 4) */}
+                  {/* Degree & Branch Combobox */}
                   <div>
                     <BranchCombobox
                       value={selectedBranchOption.id}
@@ -938,20 +997,15 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                     />
                   </div>
 
-                  {/* Current Year & Expected Grad Year (Stage 3 Date-Driven) */}
+                  {/* Current Year & Expected Grad Year */}
                   <div>
-                    <label className="text-xs font-black text-foreground block mb-1.5 flex items-center justify-between">
-                      <span>Graduation Year</span>
-                      {selectedGradYearOption && (
-                        <span className="text-[10px] font-bold text-muted">
-                          {selectedGradYearOption.shortLabel}
-                        </span>
-                      )}
-                    </label>
+                    <div className="h-5 flex items-center mb-1.5">
+                      <label className="text-xs font-black text-white">Graduation Year</label>
+                    </div>
                     <select
                       value={studentGradYear}
                       onChange={(e) => setStudentGradYear(parseInt(e.target.value, 10))}
-                      className="w-full bg-surface-2 border border-border rounded-xl px-3 py-2 text-xs font-bold text-foreground focus:ring-2 focus:ring-primary outline-none min-h-[44px]"
+                      className="w-full min-h-[44px] h-[44px] bg-neutral-800 border border-neutral-700 rounded-xl px-3 py-2 text-xs font-bold text-white focus:ring-2 focus:ring-blue-500 outline-none"
                     >
                       {gradYearOptions.map((opt) => (
                         <option key={opt.gradYear} value={opt.gradYear}>
@@ -959,17 +1013,27 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                         </option>
                       ))}
                     </select>
+                    <div className="h-6 flex items-center gap-1.5 mt-1.5">
+                      {selectedGradYearOption && (
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
+                          {selectedGradYearOption.shortLabel}
+                        </span>
+                      )}
+                      <span className="text-[11px] text-neutral-400 truncate">{selectedGradYearOption?.label || 'Target batch'}</span>
+                    </div>
                   </div>
                 </div>
 
-                <div className="grid sm:grid-cols-2 gap-4 pt-1">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
                   {/* CGPA Bracket */}
                   <div>
-                    <label className="text-xs font-black text-foreground block mb-1.5">CGPA Bracket</label>
+                    <div className="h-5 flex items-center justify-between mb-1.5">
+                      <label className="text-xs font-black text-white">CGPA Bracket</label>
+                    </div>
                     <select
                       value={studentCgpa}
                       onChange={(e) => setStudentCgpa(e.target.value as StudentProfile['cgpaBracket'])}
-                      className="w-full bg-surface-2 border border-border rounded-xl px-3 py-2 text-xs font-bold text-foreground focus:ring-2 focus:ring-primary outline-none"
+                      className="w-full min-h-[44px] h-[44px] bg-neutral-800 border border-neutral-700 rounded-xl px-3 py-2 text-xs font-bold text-white focus:ring-2 focus:ring-blue-500 outline-none"
                     >
                       <option value="above_8">Above 8.0 CGPA (Eligible for all drives)</option>
                       <option value="7_to_8">7.0 to 8.0 CGPA (Meets most cutoffs)</option>
@@ -980,11 +1044,13 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
 
                   {/* Internship Status */}
                   <div>
-                    <label className="text-xs font-black text-foreground block mb-1.5">Internship Status</label>
+                    <div className="h-5 flex items-center justify-between mb-1.5">
+                      <label className="text-xs font-black text-white">Internship Status</label>
+                    </div>
                     <select
                       value={studentInternship}
                       onChange={(e) => setStudentInternship(e.target.value as StudentProfile['internshipStatus'])}
-                      className="w-full bg-surface-2 border border-border rounded-xl px-3 py-2 text-xs font-bold text-foreground focus:ring-2 focus:ring-primary outline-none"
+                      className="w-full min-h-[44px] h-[44px] bg-neutral-800 border border-neutral-700 rounded-xl px-3 py-2 text-xs font-bold text-white focus:ring-2 focus:ring-blue-500 outline-none"
                     >
                       <option value="none">No Internship Yet</option>
                       <option value="completed">Completed Summer Internship</option>
@@ -994,13 +1060,13 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                 </div>
 
                 {/* Dream Company & Target Role Selection */}
-                <div className="p-4 rounded-xl bg-surface-2/40 border border-border space-y-3.5 pt-4">
+                <div className="p-4.5 rounded-xl bg-neutral-800/60 border border-neutral-700/80 space-y-3.5 pt-4">
                   <div className="flex items-center justify-between">
-                    <label className="text-xs font-black text-foreground uppercase tracking-wider flex items-center gap-1.5">
-                      <Target className="w-4 h-4 text-primary" /> Target Dream Company & Level
+                    <label className="text-xs font-black text-white uppercase tracking-wider flex items-center gap-1.5">
+                      <Target className="w-4 h-4 text-blue-400" /> Target Dream Company &amp; Level
                     </label>
                     {currentStudentDreamLevel && (
-                      <span className="text-[11px] font-bold px-2 py-0.5 rounded bg-primary/10 text-primary">
+                      <span className="text-[11px] font-bold px-2 py-0.5 rounded bg-blue-500/15 text-blue-300 border border-blue-500/30">
                         {currentStudentDreamLevel.levelCode} • {getEquivalenceHumanLabel(currentStudentDreamLevel.equivalenceGroup)}
                       </span>
                     )}
@@ -1009,7 +1075,7 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                   {/* Single Searchable Autocomplete for Dream Company */}
                   <div className="relative" ref={studentSearchRef}>
                     <div className="relative flex items-center">
-                      <Search className="w-4 h-4 text-muted absolute left-3 pointer-events-none" />
+                      <Search className="w-4 h-4 text-neutral-400 absolute left-3 pointer-events-none" />
                       <input
                         type="text"
                         value={studentSearchQuery}
@@ -1019,7 +1085,7 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                         }}
                         onFocus={() => setIsStudentSearchOpen(true)}
                         placeholder="Search dream role e.g. 'Google L5', 'Flipkart SDE-2', 'Amazon SDE III'..."
-                        className="w-full bg-surface border border-border rounded-xl pl-9 pr-8 py-2 text-xs font-semibold text-foreground placeholder:text-muted focus:ring-2 focus:ring-primary outline-none"
+                        className="w-full bg-neutral-900 border border-neutral-700 rounded-xl pl-9 pr-8 py-2.5 text-xs font-semibold text-white placeholder:text-neutral-500 focus:ring-2 focus:ring-blue-500 outline-none"
                       />
                       {studentSearchQuery && (
                         <button
@@ -1028,7 +1094,7 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                             setStudentSearchQuery('');
                             setIsStudentSearchOpen(false);
                           }}
-                          className="absolute right-2.5 p-0.5 text-muted hover:text-foreground rounded"
+                          className="absolute right-2.5 p-0.5 text-neutral-400 hover:text-white rounded"
                         >
                           <X className="w-3.5 h-3.5" />
                         </button>
@@ -1036,33 +1102,33 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                     </div>
 
                     {isStudentSearchOpen && (
-                      <div className="absolute z-30 left-0 right-0 mt-1.5 bg-surface border border-border rounded-xl shadow-xl max-h-60 overflow-y-auto divide-y divide-border">
+                      <div className="absolute z-30 left-0 right-0 mt-1.5 bg-neutral-900 border border-neutral-700 rounded-xl shadow-2xl max-h-60 overflow-y-auto divide-y divide-neutral-800">
                         {studentMatches.length > 0 ? (
                           studentMatches.map((m) => (
                             <div
                               key={`${m.company.id}-${m.level.levelCode}-${m.level.track}`}
                               onClick={() => handleSelectStudentDream(m.company.id, m.level.levelCode, m.level.track)}
-                              className="p-2.5 hover:bg-primary/5 cursor-pointer flex items-center justify-between text-xs transition-colors"
+                              className="p-2.5 hover:bg-blue-600/10 cursor-pointer flex items-center justify-between text-xs transition-colors"
                             >
                               <div>
-                                <span className="font-black text-foreground">{m.company.name}</span>
-                                <span className="text-secondary ml-1.5 font-medium">{m.level.title}</span>
+                                <span className="font-black text-white">{m.company.name}</span>
+                                <span className="text-neutral-300 ml-1.5 font-medium">{m.level.title}</span>
                               </div>
-                              <span className="px-1.5 py-0.5 rounded bg-surface-2 text-[10px] font-black text-primary border border-border">
+                              <span className="px-1.5 py-0.5 rounded bg-neutral-800 text-[10px] font-black text-blue-400 border border-neutral-700">
                                 {m.level.levelCode}
                               </span>
                             </div>
                           ))
                         ) : (
                           <div className="p-3 text-xs space-y-2">
-                            <p className="text-muted">No exact ladder node matched &ldquo;{studentSearchQuery}&rdquo;.</p>
+                            <p className="text-neutral-400">No exact ladder node matched &ldquo;{studentSearchQuery}&rdquo;.</p>
                             {studentFuzzySuggestion && (
                               <div className="p-2.5 rounded-lg bg-amber-500/10 border border-amber-500/20 text-xs">
-                                <div className="flex items-center gap-1.5 text-amber-600 dark:text-amber-400 font-bold mb-1">
+                                <div className="flex items-center gap-1.5 text-amber-400 font-bold mb-1">
                                   <Sparkles className="w-3.5 h-3.5" /> Did you mean?
                                 </div>
                                 <div className="flex items-center justify-between gap-2">
-                                  <span className="font-semibold text-foreground">{studentFuzzySuggestion.label}</span>
+                                  <span className="font-semibold text-white">{studentFuzzySuggestion.label}</span>
                                   <button
                                     type="button"
                                     onClick={() => handleSelectStudentDream(
@@ -1070,7 +1136,7 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                                       studentFuzzySuggestion.level.levelCode,
                                       studentFuzzySuggestion.level.track
                                     )}
-                                    className="px-2 py-1 rounded bg-amber-500 text-white font-bold text-[11px] hover:bg-amber-600 shrink-0"
+                                    className="px-2 py-1 rounded bg-amber-500 text-white font-bold text-[11px] hover:bg-amber-600 shrink-0 cursor-pointer"
                                   >
                                     Select
                                   </button>
@@ -1084,9 +1150,9 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                   </div>
 
                   {/* Company & Level Selectors */}
-                  <div className="grid grid-cols-2 gap-2 pt-1 border-t border-border/60">
+                  <div className="grid grid-cols-2 gap-3 pt-1 border-t border-neutral-700/60">
                     <div>
-                      <span className="text-[10px] text-muted font-bold block mb-1">Dream Company</span>
+                      <span className="text-[10px] text-neutral-400 font-bold block mb-1">Dream Company</span>
                       <select
                         value={studentDreamCompanyId}
                         onChange={(e) => {
@@ -1094,7 +1160,7 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                           const firstLvl = getLevelsForCompanyAndTrack(e.target.value, studentTrack)[0];
                           if (firstLvl) setStudentDreamLevelCode(firstLvl.levelCode);
                         }}
-                        className="w-full bg-surface border border-border rounded-lg px-2.5 py-1.5 text-xs font-semibold text-foreground focus:ring-2 focus:ring-primary outline-none"
+                        className="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-2.5 py-2 text-xs font-semibold text-white focus:ring-2 focus:ring-blue-500 outline-none"
                       >
                         {getAllCompanies().map((c) => (
                           <option key={c.id} value={c.id}>{c.name}</option>
@@ -1103,11 +1169,11 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                     </div>
 
                     <div>
-                      <span className="text-[10px] text-muted font-bold block mb-1">Dream Target Level</span>
+                      <span className="text-[10px] text-neutral-400 font-bold block mb-1">Dream Target Level</span>
                       <select
                         value={studentDreamLevelCode}
                         onChange={(e) => setStudentDreamLevelCode(e.target.value)}
-                        className="w-full bg-surface border border-border rounded-lg px-2.5 py-1.5 text-xs font-semibold text-foreground focus:ring-2 focus:ring-primary outline-none"
+                        className="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-2.5 py-2 text-xs font-semibold text-white focus:ring-2 focus:ring-blue-500 outline-none"
                       >
                         {studentDreamLevels.map((l) => (
                           <option key={l.levelCode} value={l.levelCode}>{l.levelCode} • {l.title}</option>
@@ -1122,16 +1188,16 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                   type="button"
                   onClick={handleSimulateStudent}
                   disabled={isCalculating}
-                  className="w-full py-3.5 rounded-xl bg-primary hover:bg-primary-hover text-white font-black text-sm transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer min-h-[44px]"
+                  className="w-full py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-black text-sm transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer min-h-[44px]"
                 >
                   {isCalculating ? (
                     <span className="flex items-center gap-2">
                       <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                      Computing Campus-to-Career Pathway...
+                      Computing Campus-to-Career Roadmap...
                     </span>
                   ) : (
                     <>
-                      <Sparkles className="w-4 h-4" /> Generate Student Promotion Roadmap
+                      <Sparkles className="w-4 h-4" /> Build my roadmap
                     </>
                   )}
                 </button>
@@ -1173,35 +1239,49 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                   </div>
                 </div>
 
-                {/* Heading with tabIndex={-1} for keyboard focus */}
+                {/* Primary Heading with tabIndex={-1} for keyboard focus */}
                 <h2
                   ref={studentHeadingRef}
                   tabIndex={-1}
-                  className="text-lg font-black text-foreground outline-none flex items-center gap-2"
+                  className="text-xl sm:text-2xl font-black text-foreground outline-none flex items-center gap-2.5 tracking-tight"
                 >
-                  <Target className="w-5 h-5 text-primary" />
-                  Campus-to-Career Promotion Roadmap
+                  <Target className="w-6 h-6 text-primary" />
+                  Your Campus-to-Offer Roadmap
                 </h2>
 
-                {/* SUMMARY CARD (FIRST IN RESULTS) */}
-                <div className="bg-surface rounded-2xl p-6 border border-border shadow-sm space-y-4">
+                {/* 1. CAN I GET IN? (ELIGIBILITY & CUTOFFS) */}
+                <div className="bg-surface rounded-2xl p-6 border border-border shadow-sm space-y-5">
                   <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border pb-3">
                     <div>
                       <span className="text-[10px] font-black uppercase text-primary tracking-wider">
-                        Trajectory Summary
+                        Question 1 of 5
                       </span>
-                      <h3 className="text-base font-black text-foreground mt-0.5">
-                        Campus Entry to {studentResult.dreamCompany.name} ({studentResult.entryLevel.levelCode}) &rarr; Target Level {studentResult.targetLevel.levelCode} ({studentResult.targetLevel.title})
+                      <h3 className="text-base sm:text-lg font-black text-foreground mt-0.5 flex items-center gap-2">
+                        <ShieldCheck className="w-5 h-5 text-emerald-400" />
+                        Can I get in? (Eligibility &amp; Cutoffs)
                       </h3>
                     </div>
-                    <span className="px-3 py-1 rounded-full text-xs font-black bg-emerald-500/10 text-emerald-600 border border-emerald-500/20">
+                    <span className="px-3 py-1 rounded-full text-xs font-black bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
                       {studentResult.probability.percentage}% Target Success Probability
+                    </span>
+                  </div>
+
+                  {/* Trajectory Scope */}
+                  <div className="p-3.5 rounded-xl bg-surface-2/60 border border-border flex flex-wrap items-center justify-between gap-2">
+                    <div>
+                      <span className="text-[10px] text-muted font-bold uppercase block">Target Pathway</span>
+                      <p className="text-sm font-black text-foreground mt-0.5">
+                        Campus Entry at {studentResult.dreamCompany.name} ({studentResult.entryLevel.levelCode}) &rarr; Target Level {studentResult.targetLevel.levelCode} ({studentResult.targetLevel.title})
+                      </p>
+                    </div>
+                    <span className="text-xs font-bold text-secondary">
+                      {studentResult.studentProfile.collegeTier} • {studentResult.studentProfile.degreeAndBranch}
                     </span>
                   </div>
 
                   {/* Eligibility Windows & Date-Driven Status */}
                   {studentResult.eligibilityWindows && (
-                    <div className="p-4 rounded-xl bg-primary/5 border border-primary/20 space-y-2 text-xs">
+                    <div className="p-4 rounded-xl bg-primary/10 border border-primary/25 space-y-2 text-xs">
                       <div className="flex flex-wrap items-center justify-between gap-2">
                         <span className="font-black text-foreground flex items-center gap-1.5">
                           <GraduationCap className="w-4 h-4 text-primary" />
@@ -1221,54 +1301,55 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                           <span className="font-semibold text-foreground">{studentResult.eligibilityWindows.campusPlacementWindow}</span>
                         </div>
                       </div>
-                      <p className="text-[11px] text-secondary pt-1 border-t border-primary/10">
+                      <p className="text-[11px] text-secondary pt-1 border-t border-primary/15">
                         <strong className="text-foreground">Recommended Focus:</strong> {studentResult.eligibilityWindows.recommendedFocus}
                       </p>
                     </div>
                   )}
 
-                  {/* Top Metrics Cards */}
-                  <div className="grid sm:grid-cols-3 gap-4 pt-1">
-                    <div className="bg-surface-2/40 rounded-xl p-4 border border-border">
-                      <span className="text-xs font-bold text-muted uppercase">Fresher Entry Offer (INR)</span>
-                      <span className="text-2xl font-black text-foreground block mt-1">
-                        {formatINR(studentResult.entryRoutes[0]?.expectedOfferINR || studentResult.entryLevel.comp.total.p50)}
-                      </span>
-                      <span className="text-xs text-secondary mt-1 block">
-                        At {studentResult.dreamCompany.name} ({studentResult.entryLevel.levelCode})
-                      </span>
+                  {/* Academic & Cutoff Summary Grid */}
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs pt-1">
+                    <div className="p-3 bg-surface-2/40 rounded-xl border border-border">
+                      <span className="text-[10px] font-bold text-muted uppercase block">College Tier</span>
+                      <span className="font-black text-foreground mt-0.5 block">{studentResult.studentProfile.collegeTier}</span>
+                      <span className="text-[10px] text-emerald-400 mt-1 block">Campus hiring pool</span>
                     </div>
-
-                    <div className="bg-surface-2/40 rounded-xl p-4 border border-border">
-                      <span className="text-xs font-bold text-muted uppercase">Target Level Compensation</span>
-                      <span className="text-2xl font-black text-emerald-600 dark:text-emerald-400 block mt-1">
-                        {formatINR(studentResult.targetLevel.comp.total.p50)}
+                    <div className="p-3 bg-surface-2/40 rounded-xl border border-border">
+                      <span className="text-[10px] font-bold text-muted uppercase block">Branch Family</span>
+                      <span className="font-black text-foreground mt-0.5 block truncate" title={studentResult.studentProfile.degreeAndBranch}>
+                        {studentResult.studentProfile.branchFamily}
                       </span>
-                      <span className="text-xs text-secondary mt-1 block">
-                        {studentResult.targetLevel.levelCode} • {studentResult.targetLevel.title}
-                      </span>
+                      <span className="text-[10px] text-emerald-400 mt-1 block">Degree eligible</span>
                     </div>
-
-                    <div className="bg-surface-2/40 rounded-xl p-4 border border-border">
-                      <span className="text-xs font-bold text-muted uppercase">Estimated Time from Graduation</span>
-                      <span className="text-2xl font-black text-primary block mt-1">
-                        {studentResult.totalTimeFromGraduation.likely} Years
+                    <div className="p-3 bg-surface-2/40 rounded-xl border border-border">
+                      <span className="text-[10px] font-bold text-muted uppercase block">CGPA Cutoff Status</span>
+                      <span className="font-black text-foreground mt-0.5 block">
+                        {studentResult.studentProfile.cgpaBracket === 'above_8' ? '> 8.0 CGPA' : studentResult.studentProfile.cgpaBracket === '7_to_8' ? '7.0–8.0 CGPA' : studentResult.studentProfile.cgpaBracket === '6_to_7' ? '6.0–7.0 CGPA' : '< 6.0 CGPA'}
                       </span>
-                      <span className="text-xs text-muted mt-1 block">
-                        Range: {studentResult.totalTimeFromGraduation.min}–{studentResult.totalTimeFromGraduation.max} yrs (By ~{studentResult.studentProfile.expectedGraduationYear + Math.round(studentResult.totalTimeFromGraduation.likely)})
+                      <span className="text-[10px] text-secondary mt-1 block">Meets prime cutoffs</span>
+                    </div>
+                    <div className="p-3 bg-surface-2/40 rounded-xl border border-border">
+                      <span className="text-[10px] font-bold text-muted uppercase block">Internship Status</span>
+                      <span className="font-black text-foreground mt-0.5 block capitalize">
+                        {studentResult.studentProfile.internshipStatus === 'ppo' ? 'Have PPO' : studentResult.studentProfile.internshipStatus === 'completed' ? 'Completed' : 'None yet'}
                       </span>
+                      <span className="text-[10px] text-secondary mt-1 block">Pre-placement track</span>
                     </div>
                   </div>
                 </div>
 
-                {/* 1. RANKED ENTRY ROUTES INTO DREAM COMPANY */}
+                {/* 2. HOW DO I GET IN? (RANKED ENTRY ROUTES) */}
                 <div className="bg-surface rounded-2xl p-6 border border-border shadow-sm space-y-4">
                   <div className="border-b border-border pb-3">
-                    <h3 className="text-base font-black text-foreground flex items-center gap-2">
-                      <Award className="w-5 h-5 text-primary" /> Entry Stage: Ranked Hiring Routes into {studentResult.dreamCompany.name}
+                    <span className="text-[10px] font-black uppercase text-primary tracking-wider">
+                      Question 2 of 5
+                    </span>
+                    <h3 className="text-base sm:text-lg font-black text-foreground mt-0.5 flex items-center gap-2">
+                      <Award className="w-5 h-5 text-primary" />
+                      How do I get in? (Ranked Entry Routes)
                     </h3>
                     <p className="text-xs text-secondary mt-0.5">
-                      Real documented hiring pipelines for campus candidates based on your college tier ({studentResult.studentProfile.collegeTier}).
+                      Real documented hiring pipelines for campus candidates into {studentResult.dreamCompany.name} based on your college tier ({studentResult.studentProfile.collegeTier}).
                     </p>
                   </div>
 
@@ -1284,10 +1365,10 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                             <span
                               className={`px-2 py-0.5 rounded text-[10px] font-black uppercase ${
                                 route.adjustedLikelihood === 'High'
-                                  ? 'bg-emerald-500/10 text-emerald-600 border border-emerald-500/20'
+                                  ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
                                   : route.adjustedLikelihood === 'Medium'
-                                  ? 'bg-blue-500/10 text-blue-600 border border-blue-500/20'
-                                  : 'bg-amber-500/10 text-amber-600 border border-amber-500/20'
+                                  ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20'
+                                  : 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
                               }`}
                             >
                               Likelihood: {route.adjustedLikelihood}
@@ -1299,7 +1380,7 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                           <div className="mt-2.5 pt-2.5 border-t border-border/60 text-xs space-y-1.5">
                             <div className="flex items-center justify-between text-[11px]">
                               <span className="text-muted font-bold">Typical CTC Offer:</span>
-                              <span className="font-black text-emerald-600 dark:text-emerald-400">
+                              <span className="font-black text-emerald-400">
                                 {formatINR(route.expectedOfferINR)}
                               </span>
                             </div>
@@ -1331,12 +1412,170 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                   </div>
                 </div>
 
-                {/* 2. PROMOTION ROADMAP TIMELINE */}
+                {/* 3. WHAT WILL I EARN? (FRESHER CTC & GROWTH TRAJECTORY) */}
+                <div className="bg-surface rounded-2xl p-6 border border-border shadow-sm space-y-5">
+                  <div className="border-b border-border pb-3">
+                    <span className="text-[10px] font-black uppercase text-primary tracking-wider">
+                      Question 3 of 5
+                    </span>
+                    <h3 className="text-base sm:text-lg font-black text-foreground mt-0.5 flex items-center gap-2">
+                      <TrendingUp className="w-5 h-5 text-emerald-400" />
+                      What will I earn? (Fresher CTC in INR)
+                    </h3>
+                    <p className="text-xs text-secondary mt-0.5">
+                      Verified fresher entry package at {studentResult.dreamCompany.name} ({studentResult.entryLevel.levelCode}) and multi-year trajectory to target level {studentResult.targetLevel.levelCode}.
+                    </p>
+                  </div>
+
+                  {/* Top Metrics Cards */}
+                  <div className="grid sm:grid-cols-3 gap-4">
+                    <div className="bg-surface-2/40 rounded-xl p-4 border border-border">
+                      <span className="text-xs font-bold text-muted uppercase">Fresher Entry Offer (INR)</span>
+                      <span className="text-2xl font-black text-emerald-400 block mt-1">
+                        {formatINR(studentResult.entryRoutes[0]?.expectedOfferINR || studentResult.entryLevel.comp.total.p50)}
+                      </span>
+                      <span className="text-xs text-secondary mt-1 block">
+                        At {studentResult.dreamCompany.name} ({studentResult.entryLevel.levelCode})
+                      </span>
+                    </div>
+
+                    <div className="bg-surface-2/40 rounded-xl p-4 border border-border">
+                      <span className="text-xs font-bold text-muted uppercase">Target Level Compensation</span>
+                      <span className="text-2xl font-black text-white block mt-1">
+                        {formatINR(studentResult.targetLevel.comp.total.p50)}
+                      </span>
+                      <span className="text-xs text-secondary mt-1 block">
+                        {studentResult.targetLevel.levelCode} • {studentResult.targetLevel.title}
+                      </span>
+                    </div>
+
+                    <div className="bg-surface-2/40 rounded-xl p-4 border border-border">
+                      <span className="text-xs font-bold text-muted uppercase">Estimated Time from Graduation</span>
+                      <span className="text-2xl font-black text-primary block mt-1">
+                        {studentResult.totalTimeFromGraduation.likely} Years
+                      </span>
+                      <span className="text-xs text-muted mt-1 block">
+                        Range: {studentResult.totalTimeFromGraduation.min}–{studentResult.totalTimeFromGraduation.max} yrs (By ~{studentResult.studentProfile.expectedGraduationYear + Math.round(studentResult.totalTimeFromGraduation.likely)})
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Rebuilt Compensation Trajectory Chart */}
+                  <div className="pt-2">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-xs font-bold text-muted uppercase tracking-wider">
+                        Projected Compensation Trajectory (Per Year in INR)
+                      </span>
+                      <span className="text-[11px] text-muted">
+                        Starting Class of {studentResult.studentProfile.expectedGraduationYear}
+                      </span>
+                    </div>
+
+                    <div
+                      role="img"
+                      aria-label={`Projected compensation trajectory from ${formatINR(studentResult.compTimeline[0]?.salary || 0)} at campus entry to ${formatINR(studentResult.compTimeline[studentResult.compTimeline.length - 1]?.salary || 0)} at target level.`}
+                      className="h-72 w-full"
+                    >
+                      <ResponsiveContainer width="100%" height="100%">
+                        <AreaChart data={studentResult.compTimeline} margin={{ top: 12, right: 24, left: 10, bottom: 26 }}>
+                          <defs>
+                            <linearGradient id="emeraldGradient" x1="0" y1="0" x2="0" y2="1">
+                              <stop offset="5%" stopColor="#10b981" stopOpacity={0.35} />
+                              <stop offset="95%" stopColor="#10b981" stopOpacity={0.0} />
+                            </linearGradient>
+                          </defs>
+                          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.08)" vertical={false} />
+                          <XAxis
+                            dataKey="year"
+                            stroke="#94a3b8"
+                            fontSize={11}
+                            tickLine={false}
+                            tick={renderCompTimelineTick(studentResult.compTimeline)}
+                            interval={0}
+                          />
+                          <YAxis
+                            stroke="#94a3b8"
+                            fontSize={11}
+                            tickLine={false}
+                            axisLine={{ stroke: 'rgba(255,255,255,0.08)' }}
+                            tickFormatter={formatChartINRTick}
+                          />
+                          <Tooltip
+                            content={({ active, payload }) => {
+                              if (active && payload && payload.length) {
+                                const data = payload[0].payload;
+                                return (
+                                  <div className="bg-neutral-900 border border-neutral-700/80 rounded-xl p-3 shadow-2xl text-xs space-y-1 backdrop-blur-md">
+                                    <p className="font-black text-white">{data.year} • {data.companyName} ({data.levelCode})</p>
+                                    <p className="text-emerald-400 font-extrabold text-sm">
+                                      Total Annual CTC: {formatINR(data.salary)}
+                                    </p>
+                                    <div className="text-[10px] text-neutral-400 space-y-0.5 pt-1 border-t border-neutral-800">
+                                      <p>Fixed Base: {formatINR(data.base)}</p>
+                                      <p>Annual Stock: {formatINR(data.stock)}</p>
+                                      <p>Yearly Bonus: {formatINR(data.bonus)}</p>
+                                    </div>
+                                  </div>
+                                );
+                              }
+                              return null;
+                            }}
+                          />
+                          <Area
+                            type="monotone"
+                            dataKey="salary"
+                            stroke="#10b981"
+                            strokeWidth={2.5}
+                            fillOpacity={1}
+                            fill="url(#emeraldGradient)"
+                            dot={{ r: 4, fill: '#10b981', stroke: 'rgba(16, 185, 129, 0.4)', strokeWidth: 4 }}
+                            activeDot={{ r: 6, fill: '#10b981', stroke: '#ffffff', strokeWidth: 2 }}
+                            isAnimationActive={!prefersReducedMotion}
+                            animationDuration={800}
+                          />
+                        </AreaChart>
+                      </ResponsiveContainer>
+                    </div>
+
+                    {/* Accessible hidden data table */}
+                    <div className="sr-only">
+                      <table>
+                        <caption>Projected Campus-to-Career Compensation Timeline</caption>
+                        <thead>
+                          <tr>
+                            <th scope="col">Year</th>
+                            <th scope="col">Company</th>
+                            <th scope="col">Level</th>
+                            <th scope="col">Total Annual CTC</th>
+                            <th scope="col">Base Pay</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {studentResult.compTimeline.map((item, idx) => (
+                            <tr key={idx}>
+                              <td>{item.year}</td>
+                              <td>{item.companyName}</td>
+                              <td>{item.levelCode}</td>
+                              <td>{formatINR(item.salary)}</td>
+                              <td>{formatINR(item.base)}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 4. WHEN WILL IT HAPPEN? (CALENDAR TIMELINE) */}
                 {studentResult.steps.length > 0 && (
                   <div className="bg-surface rounded-2xl p-6 border border-border shadow-sm space-y-6">
                     <div className="border-b border-border pb-3">
-                      <h3 className="text-base font-black text-foreground flex items-center gap-2">
-                        <TrendingUp className="w-5 h-5 text-primary" /> Promotion Roadmap (Post-Graduation)
+                      <span className="text-[10px] font-black uppercase text-primary tracking-wider">
+                        Question 4 of 5
+                      </span>
+                      <h3 className="text-base sm:text-lg font-black text-foreground mt-0.5 flex items-center gap-2">
+                        <Clock className="w-5 h-5 text-blue-400" />
+                        When will it happen? (Calendar Timeline)
                       </h3>
                       <p className="text-xs text-secondary mt-0.5">
                         Step-by-step career path from {studentResult.entryLevel.levelCode} to {studentResult.targetLevel.levelCode} anchored to your graduation calendar year.
@@ -1379,14 +1618,14 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                               <p className="text-secondary leading-relaxed">{step.requirements.impact}</p>
                             </div>
                             <div className="bg-surface p-3 rounded-lg border border-border space-y-1">
-                              <span className="font-extrabold text-foreground block">Leadership & Mentorship</span>
+                              <span className="font-extrabold text-foreground block">Leadership &amp; Mentorship</span>
                               <p className="text-secondary leading-relaxed">{step.requirements.influence}</p>
                             </div>
                           </div>
 
-                          {/* Structured Blockers on this step */}
+                          {/* Key Blockers to Overcome */}
                           <div className="bg-amber-500/5 border border-amber-500/20 rounded-xl p-3.5 space-y-2 text-xs">
-                            <span className="font-black text-amber-600 dark:text-amber-400 flex items-center gap-1.5">
+                            <span className="font-black text-amber-400 flex items-center gap-1.5">
                               <AlertTriangle className="w-3.5 h-3.5" /> Key Blockers to Overcome on this Promotion ({step.blockers.length} Documented)
                             </span>
                             <div className="grid sm:grid-cols-2 gap-2 pt-1">
@@ -1404,97 +1643,78 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                   </div>
                 )}
 
-                {/* 3. COMPENSATION TRAJECTORY CHART (GREEN SALARY CHART) */}
-                <div className="bg-surface rounded-2xl p-6 border border-border shadow-sm space-y-4">
-                  <div className="flex items-center justify-between pb-2 border-b border-border">
-                    <div>
-                      <h3 className="text-base font-black text-foreground flex items-center gap-2">
-                        <TrendingUp className="w-5 h-5 text-emerald-500" /> Projected Compensation Trajectory (INR per year)
-                      </h3>
-                      <p className="text-xs text-secondary mt-0.5">
-                        Year 0 (Graduation: {studentResult.studentProfile.expectedGraduationYear}) to Target Level.
-                      </p>
+                {/* 5. WHAT SHOULD I DO NEXT? (ACTION STEPS & STEPPING STONES) */}
+                <div className="bg-surface rounded-2xl p-6 border border-border shadow-sm space-y-6">
+                  <div className="border-b border-border pb-3">
+                    <span className="text-[10px] font-black uppercase text-primary tracking-wider">
+                      Question 5 of 5
+                    </span>
+                    <h3 className="text-base sm:text-lg font-black text-foreground mt-0.5 flex items-center gap-2">
+                      <Compass className="w-5 h-5 text-blue-400" />
+                      What should I do next? (Action Steps &amp; Stepping Stones)
+                    </h3>
+                    <p className="text-xs text-secondary mt-0.5">
+                      Immediate tactical actions for your current college semester plus high-probability stepping stone companies.
+                    </p>
+                  </div>
+
+                  {/* Immediate Semester Action Plan */}
+                  <div className="p-4 rounded-xl bg-blue-500/10 border border-blue-500/25 space-y-2.5 text-xs">
+                    <span className="font-black text-blue-300 flex items-center gap-2 text-sm">
+                      <Sparkles className="w-4 h-4 text-blue-400" />
+                      Your Recommended Tactical Next Steps
+                    </span>
+                    <div className="grid sm:grid-cols-3 gap-3 pt-1">
+                      <div className="bg-surface p-3 rounded-lg border border-border space-y-1">
+                        <span className="font-bold text-foreground block text-xs">1. Immediate Target</span>
+                        <p className="text-secondary text-[11px] leading-relaxed">
+                          {studentResult.eligibilityWindows?.recommendedFocus || 'Strengthen Data Structures and core Computer Science fundamentals for campus placement rounds.'}
+                        </p>
+                      </div>
+                      <div className="bg-surface p-3 rounded-lg border border-border space-y-1">
+                        <span className="font-bold text-foreground block text-xs">2. Drive Preparation</span>
+                        <p className="text-secondary text-[11px] leading-relaxed">
+                          Prepare for {studentResult.entryRoutes[0]?.name || 'campus online assessments'} with target company question patterns and mock coding tests.
+                        </p>
+                      </div>
+                      <div className="bg-surface p-3 rounded-lg border border-border space-y-1">
+                        <span className="font-bold text-foreground block text-xs">3. Resume &amp; Portfolio</span>
+                        <p className="text-secondary text-[11px] leading-relaxed">
+                          Build 2 production-grade full-stack / backend projects showcasing concurrency, clean architecture, and deployment evidence.
+                        </p>
+                      </div>
                     </div>
                   </div>
 
-                  <div className="h-64 w-full pt-4">
-                    <ResponsiveContainer width="100%" height="100%">
-                      <AreaChart data={studentResult.compTimeline} margin={{ top: 10, right: 30, left: 10, bottom: 0 }}>
-                        <defs>
-                          <linearGradient id="emeraldGradient" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="5%" stopColor="#10b981" stopOpacity={0.4} />
-                            <stop offset="95%" stopColor="#10b981" stopOpacity={0.0} />
-                          </linearGradient>
-                        </defs>
-                        <XAxis dataKey="year" stroke="#888888" fontSize={11} tickLine={false} />
-                        <YAxis
-                          stroke="#888888"
-                          fontSize={11}
-                          tickLine={false}
-                          tickFormatter={(val) => formatINR(val)}
-                        />
-                        <Tooltip
-                          content={({ active, payload }) => {
-                            if (active && payload && payload.length) {
-                              const data = payload[0].payload;
-                              return (
-                                <div className="bg-surface border border-border rounded-xl p-3 shadow-xl text-xs space-y-1">
-                                  <p className="font-black text-foreground">{data.year} • {data.companyName}</p>
-                                  <p className="text-emerald-600 dark:text-emerald-400 font-extrabold text-sm">
-                                    Total Annual CTC: {formatINR(data.salary)}
-                                  </p>
-                                  <div className="text-[10px] text-muted space-y-0.5 pt-1 border-t border-border">
-                                    <p>Base Pay: {formatINR(data.base)}</p>
-                                    <p>Annual Stock: {formatINR(data.stock)}</p>
-                                    <p>Bonus: {formatINR(data.bonus)}</p>
-                                  </div>
-                                </div>
-                              );
-                            }
-                            return null;
-                          }}
-                        />
-                        <Area
-                          type="monotone"
-                          dataKey="salary"
-                          stroke="#10b981"
-                          strokeWidth={2.5}
-                          fillOpacity={1}
-                          fill="url#emeraldGradient"
-                        />
-                      </AreaChart>
-                    </ResponsiveContainer>
-                  </div>
-                </div>
+                  {/* Alternate Stepping Stones */}
+                  {studentResult.alternateSteppingStones.length > 0 && (
+                    <div className="space-y-3 pt-2">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-black text-foreground uppercase tracking-wider">
+                          Stepping-Stone Backup Offers ({studentResult.alternateSteppingStones.length})
+                        </span>
+                        <span className="text-[11px] text-muted">
+                          Alternative routes into {studentResult.dreamCompany.name}
+                        </span>
+                      </div>
 
-                {/* 4. ALTERNATE STEPPING STONE ROUTES */}
-                {studentResult.alternateSteppingStones.length > 0 && (
-                  <div className="bg-surface rounded-2xl p-6 border border-border shadow-sm space-y-4">
-                    <div className="border-b border-border pb-3">
-                      <h3 className="text-base font-black text-foreground flex items-center gap-2">
-                        <Compass className="w-5 h-5 text-blue-500" /> Alternate Routes & Stepping Stones
-                      </h3>
-                      <p className="text-xs text-secondary mt-0.5">
-                        High-probability stepping stone companies to build production depth before switching to {studentResult.dreamCompany.name}.
-                      </p>
-                    </div>
-
-                    <div className="grid md:grid-cols-2 gap-4">
-                      {studentResult.alternateSteppingStones.map((stone, sIdx) => (
-                        <div key={sIdx} className="bg-surface-2/40 border border-border rounded-xl p-4 space-y-2 text-xs">
-                          <div className="flex items-center justify-between">
-                            <span className="font-black text-foreground text-sm">{stone.company.name}</span>
-                            <span className="px-2 py-0.5 rounded bg-surface text-[10px] font-bold text-muted border border-border">
-                              {stone.typicalDurationYears} yrs stepping stone
-                            </span>
+                      <div className="grid md:grid-cols-2 gap-4">
+                        {studentResult.alternateSteppingStones.map((stone, sIdx) => (
+                          <div key={sIdx} className="bg-surface-2/40 border border-border rounded-xl p-4 space-y-2 text-xs">
+                            <div className="flex items-center justify-between">
+                              <span className="font-black text-foreground text-sm">{stone.company.name}</span>
+                              <span className="px-2 py-0.5 rounded bg-surface text-[10px] font-bold text-muted border border-border">
+                                {stone.typicalDurationYears} yrs stepping stone
+                              </span>
+                            </div>
+                            <p className="text-primary font-bold">{stone.entryRole} ({formatINR(stone.entryOfferINR)})</p>
+                            <p className="text-secondary leading-relaxed pt-1">{stone.rationale}</p>
                           </div>
-                          <p className="text-primary font-bold">{stone.entryRole} ({formatINR(stone.entryOfferINR)})</p>
-                          <p className="text-secondary leading-relaxed pt-1">{stone.rationale}</p>
-                        </div>
-                      ))}
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                )}
+                  )}
+                </div>
               </div>
             )}
 
@@ -1505,10 +1725,10 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
               <div className="bg-surface rounded-2xl p-6 md:p-8 border border-border shadow-xl max-w-3xl mx-auto space-y-6">
                 <div className="border-b border-border pb-4">
                   <h2 className="text-xl font-black text-foreground flex items-center gap-2">
-                    <Briefcase className="w-5 h-5 text-primary" /> Working Professional Promotion Roadmap
+                    <Briefcase className="w-5 h-5 text-blue-400" /> Configure Your Career Switch &amp; Level-Up Plan
                   </h2>
-                  <p className="text-xs text-secondary mt-1">
-                    Simulate deterministic promotion timelines, cross-company equivalence jumps, and compensation trajectory in INR.
+                  <p className="text-xs text-secondary mt-1 leading-relaxed">
+                    Plan your path to a higher level or cross-company switch: equivalence jumps, target compensation in INR, and promotion requirements.
                   </p>
                 </div>
 
@@ -1761,14 +1981,16 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                   </div>
                 </div>
 
-                {/* Additional Simulator Settings */}
+                {/* Additional Settings */}
                 <div className="grid sm:grid-cols-3 gap-4 pt-2 border-t border-border">
                   <div>
-                    <label className="text-xs font-black text-foreground block mb-1">Performance Rating</label>
+                    <div className="h-5 flex items-center mb-1.5">
+                      <label className="text-xs font-black text-foreground">Performance Rating</label>
+                    </div>
                     <select
                       value={profPerformance}
                       onChange={(e) => setProfPerformance(e.target.value as PerformanceBracket)}
-                      className="w-full bg-surface-2 border border-border rounded-lg px-3 py-2 text-xs font-bold text-foreground focus:ring-2 focus:ring-primary outline-none"
+                      className="w-full min-h-[44px] h-[44px] bg-surface-2 border border-border rounded-xl px-3 py-2 text-xs font-bold text-foreground focus:ring-2 focus:ring-primary outline-none"
                     >
                       <option value="MEETS">Meets Expectations (Median)</option>
                       <option value="EXCEEDS">Exceeds Expectations (~p25)</option>
@@ -1777,9 +1999,11 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                   </div>
 
                   <div>
-                    <label className="text-xs font-black text-foreground block mb-1">
-                      Years in Current Level (0–15)
-                    </label>
+                    <div className="h-5 flex items-center mb-1.5">
+                      <label className="text-xs font-black text-foreground">
+                        Years in Current Level (0–15)
+                      </label>
+                    </div>
                     <input
                       type="number"
                       min={0}
@@ -1787,23 +2011,25 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                       step={0.5}
                       value={profYearsInLevel}
                       onChange={(e) => setProfYearsInLevel(parseFloat(e.target.value) || 0)}
-                      className="w-full bg-surface-2 border border-border rounded-lg px-3 py-2 text-xs font-bold text-foreground focus:ring-2 focus:ring-primary outline-none"
+                      className="w-full min-h-[44px] h-[44px] bg-surface-2 border border-border rounded-xl px-3 py-2 text-xs font-bold text-foreground focus:ring-2 focus:ring-primary outline-none"
                     />
-                    <span className="text-[10px] text-muted mt-0.5 block">Deducted from 1st promo window</span>
+                    <span className="text-[10px] text-muted mt-1 block">Deducted from 1st promo window</span>
                   </div>
 
                   <div>
-                    <label className="text-xs font-black text-foreground block mb-1">
-                      Current Annual CTC (₹ LPA, Optional)
-                    </label>
+                    <div className="h-5 flex items-center mb-1.5">
+                      <label className="text-xs font-black text-foreground">
+                        Current Annual CTC (₹ LPA, Optional)
+                      </label>
+                    </div>
                     <input
                       type="text"
                       placeholder="e.g. 42 (for ₹42 LPA)"
                       value={profCurrentCtcLPA}
                       onChange={(e) => setProfCurrentCtcLPA(e.target.value)}
-                      className="w-full bg-surface-2 border border-border rounded-lg px-3 py-2 text-xs font-bold text-foreground focus:ring-2 focus:ring-primary outline-none"
+                      className="w-full min-h-[44px] h-[44px] bg-surface-2 border border-border rounded-xl px-3 py-2 text-xs font-bold text-foreground focus:ring-2 focus:ring-primary outline-none"
                     />
-                    <span className="text-[10px] text-muted mt-0.5 block">Shows real % jump</span>
+                    <span className="text-[10px] text-muted mt-1 block">Shows real % jump</span>
                   </div>
                 </div>
 
@@ -1811,7 +2037,7 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                   type="button"
                   onClick={handleSimulateProf}
                   disabled={isCalculating}
-                  className="w-full py-3.5 rounded-xl bg-primary hover:bg-primary-hover text-white font-black text-sm transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer min-h-[44px]"
+                  className="w-full py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-black text-sm transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer min-h-[44px]"
                 >
                   {isCalculating ? (
                     <span className="flex items-center gap-2">
@@ -1820,7 +2046,7 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                     </span>
                   ) : (
                     <>
-                      <Sparkles className="w-4 h-4" /> Simulate Promotion Trajectory
+                      <Sparkles className="w-4 h-4" /> Build my switch &amp; level-up plan
                     </>
                   )}
                 </button>
@@ -1865,30 +2091,41 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                 <h2
                   ref={profHeadingRef}
                   tabIndex={-1}
-                  className="text-lg font-black text-foreground outline-none flex items-center gap-2"
+                  className="text-xl sm:text-2xl font-black text-foreground outline-none flex items-center gap-2.5 tracking-tight"
                 >
-                  <TrendingUp className="w-5 h-5 text-primary" />
-                  Professional Promotion Roadmap & Compensation Jump
+                  <TrendingUp className="w-6 h-6 text-primary" />
+                  Your Level-Up &amp; Switch Plan
                 </h2>
 
-                {/* SUMMARY CARD (FIRST IN SECTION) */}
-                <div className="bg-surface rounded-2xl p-6 border border-border shadow-sm space-y-4">
+                {/* 1. WHERE CAN I REACH? */}
+                <div className="bg-surface rounded-2xl p-6 border border-border shadow-sm space-y-5">
                   <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border pb-3">
                     <div>
                       <span className="text-[10px] font-black uppercase text-primary tracking-wider">
-                        Trajectory Summary
+                        Question 1 of 4
                       </span>
-                      <h3 className="text-base font-black text-foreground mt-0.5">
-                        {profResult.sourceLevel.companyId.toUpperCase()} ({profResult.sourceLevel.levelCode}) &rarr; {profResult.targetLevel.companyId.toUpperCase()} ({profResult.targetLevel.levelCode})
+                      <h3 className="text-base sm:text-lg font-black text-foreground mt-0.5 flex items-center gap-2">
+                        <Target className="w-5 h-5 text-primary" />
+                        Where can I reach? (Target Level &amp; Switch Plan)
                       </h3>
                     </div>
                     <span className="px-3 py-1 rounded-full text-xs font-black bg-primary/10 text-primary border border-primary/20">
-                      {profResult.probability.percentage}% Reaching Target Probability
+                      {profResult.probability.percentage}% Success Probability
                     </span>
                   </div>
 
                   {/* Top Metrics Cards */}
                   <div className="grid sm:grid-cols-3 gap-4">
+                    <div className="bg-surface-2/40 rounded-xl p-4 border border-border">
+                      <span className="text-xs font-bold text-muted uppercase">Target Transition</span>
+                      <span className="text-xl font-black text-foreground block mt-1">
+                        {profResult.sourceLevel.levelCode} &rarr; {profResult.targetLevel.levelCode}
+                      </span>
+                      <span className="text-xs text-secondary mt-1 block">
+                        {profResult.sourceLevel.companyId.toUpperCase()} to {profResult.targetLevel.companyId.toUpperCase()}
+                      </span>
+                    </div>
+
                     <div className="bg-surface-2/40 rounded-xl p-4 border border-border">
                       <span className="text-xs font-bold text-muted uppercase">Estimated Total Time</span>
                       <span className="text-2xl font-black text-foreground block mt-1">
@@ -1900,17 +2137,7 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                     </div>
 
                     <div className="bg-surface-2/40 rounded-xl p-4 border border-border">
-                      <span className="text-xs font-bold text-muted uppercase">Projected Annual Comp Jump</span>
-                      <span className="text-2xl font-black text-emerald-600 dark:text-emerald-400 block mt-1">
-                        +{formatINR(profResult.compJump.diff)} ({profResult.compJump.percentage > 0 ? `+${profResult.compJump.percentage}%` : '0%'})
-                      </span>
-                      <span className="text-xs text-muted mt-1 block">
-                        {formatINR(profResult.compJump.from)} &rarr; {formatINR(profResult.compJump.to)}
-                      </span>
-                    </div>
-
-                    <div className="bg-surface-2/40 rounded-xl p-4 border border-border">
-                      <span className="text-xs font-bold text-muted uppercase">Reaching Target Probability</span>
+                      <span className="text-xs font-bold text-muted uppercase">Success Probability</span>
                       <span className="text-2xl font-black text-primary block mt-1">
                         {profResult.probability.percentage}%
                       </span>
@@ -1919,34 +2146,192 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                       </span>
                     </div>
                   </div>
+
+                  {/* Expandable Probability Calculation Formula */}
+                  <div className="pt-1">
+                    <button
+                      type="button"
+                      onClick={() => setShowFormulaDetails(!showFormulaDetails)}
+                      className="text-xs font-bold text-primary hover:underline flex items-center gap-1 cursor-pointer"
+                    >
+                      <Info className="w-3.5 h-3.5" />
+                      {showFormulaDetails ? 'Hide Probability Model Details' : 'View Probability Model & Stall Rates'}
+                    </button>
+
+                    {showFormulaDetails && (
+                      <div className="mt-3 bg-surface-2/40 rounded-xl p-4 border border-border text-xs space-y-2">
+                        <span className="font-black text-foreground block">Mathematical Probability Model</span>
+                        <p className="text-secondary leading-relaxed">
+                          {profResult.probability.formulaExplanation}
+                        </p>
+                        <div className="grid sm:grid-cols-3 gap-2 pt-1">
+                          {profResult.probability.levelStallRates.map((sr, idx) => (
+                            <div key={idx} className="p-2.5 bg-surface rounded-lg border border-border">
+                              <span className="font-bold text-foreground block">{sr.companyId.toUpperCase()} • {sr.levelCode}</span>
+                              <span className="text-muted text-[10px]">Empirical Stall Rate: {sr.stallRate}%</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </div>
 
-                {/* Expandable Probability Calculation Formula */}
-                {showFormulaDetails && (
-                  <div className="bg-surface rounded-2xl p-5 border border-border text-xs space-y-2">
-                    <span className="font-black text-foreground block">Mathematical Probability Model</span>
-                    <p className="text-secondary leading-relaxed">
-                      {profResult.probability.formulaExplanation}
-                    </p>
-                    <div className="grid sm:grid-cols-3 gap-2 pt-1">
-                      {profResult.probability.levelStallRates.map((sr, idx) => (
-                        <div key={idx} className="p-2 bg-surface-2 rounded-lg border border-border">
-                          <span className="font-bold text-foreground block">{sr.companyId.toUpperCase()} • {sr.levelCode}</span>
-                          <span className="text-muted text-[10px]">Empirical Stall Rate: {sr.stallRate}%</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* THE PROMOTION PLAN TIMELINE */}
-                <div className="bg-surface rounded-2xl p-6 border border-border shadow-sm space-y-6">
+                {/* 2. WHAT WILL I EARN? */}
+                <div className="bg-surface rounded-2xl p-6 border border-border shadow-sm space-y-5">
                   <div className="border-b border-border pb-3">
-                    <h3 className="text-base font-black text-foreground flex items-center gap-2">
-                      <TrendingUp className="w-5 h-5 text-primary" /> The Promotion Plan
+                    <span className="text-[10px] font-black uppercase text-primary tracking-wider">
+                      Question 2 of 4
+                    </span>
+                    <h3 className="text-base sm:text-lg font-black text-foreground mt-0.5 flex items-center gap-2">
+                      <TrendingUp className="w-5 h-5 text-emerald-400" />
+                      What will I earn? (Projected Compensation Jump &amp; Trajectory)
                     </h3>
                     <p className="text-xs text-secondary mt-0.5">
-                      Deterministic progression based on verified company ladder data.
+                      Real level compensation bands in INR from current level to target level.
+                    </p>
+                  </div>
+
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    <div className="bg-surface-2/40 rounded-xl p-4 border border-border">
+                      <span className="text-xs font-bold text-muted uppercase">Projected Annual Comp Jump</span>
+                      <span className="text-2xl font-black text-emerald-400 block mt-1">
+                        +{formatINR(profResult.compJump.diff)} ({profResult.compJump.percentage > 0 ? `+${profResult.compJump.percentage}%` : '0%'})
+                      </span>
+                      <span className="text-xs text-muted mt-1 block">
+                        {formatINR(profResult.compJump.from)} &rarr; {formatINR(profResult.compJump.to)}
+                      </span>
+                    </div>
+
+                    <div className="bg-surface-2/40 rounded-xl p-4 border border-border">
+                      <span className="text-xs font-bold text-muted uppercase">Target Level Total Annual CTC</span>
+                      <span className="text-2xl font-black text-white block mt-1">
+                        {formatINR(profResult.targetLevel.comp.total.p50)}
+                      </span>
+                      <span className="text-xs text-secondary mt-1 block">
+                        Median verified compensation for {profResult.targetLevel.companyId.toUpperCase()} {profResult.targetLevel.levelCode}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Rebuilt Compensation Trajectory Chart */}
+                  <div className="pt-2">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-xs font-bold text-muted uppercase tracking-wider">
+                        Projected Compensation Trajectory (Per Year in INR)
+                      </span>
+                      <span className="text-[11px] text-muted">
+                        Year 0 to Target Level
+                      </span>
+                    </div>
+
+                    <div
+                      role="img"
+                      aria-label={`Projected compensation trajectory from ${formatINR(profResult.compTimeline[0]?.salary || 0)} to ${formatINR(profResult.compTimeline[profResult.compTimeline.length - 1]?.salary || 0)} over ${profResult.totalTime.likely} years.`}
+                      className="h-72 w-full"
+                    >
+                      <ResponsiveContainer width="100%" height="100%">
+                        <AreaChart data={profResult.compTimeline} margin={{ top: 12, right: 24, left: 10, bottom: 26 }}>
+                          <defs>
+                            <linearGradient id="emeraldGradientProf" x1="0" y1="0" x2="0" y2="1">
+                              <stop offset="5%" stopColor="#10b981" stopOpacity={0.35} />
+                              <stop offset="95%" stopColor="#10b981" stopOpacity={0.0} />
+                            </linearGradient>
+                          </defs>
+                          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.08)" vertical={false} />
+                          <XAxis
+                            dataKey="year"
+                            stroke="#94a3b8"
+                            fontSize={11}
+                            tickLine={false}
+                            tick={renderCompTimelineTick(profResult.compTimeline)}
+                            interval={0}
+                          />
+                          <YAxis
+                            stroke="#94a3b8"
+                            fontSize={11}
+                            tickLine={false}
+                            axisLine={{ stroke: 'rgba(255,255,255,0.08)' }}
+                            tickFormatter={formatChartINRTick}
+                          />
+                          <Tooltip
+                            content={({ active, payload }) => {
+                              if (active && payload && payload.length) {
+                                const data = payload[0].payload;
+                                return (
+                                  <div className="bg-neutral-900 border border-neutral-700/80 rounded-xl p-3 shadow-2xl text-xs space-y-1 backdrop-blur-md">
+                                    <p className="font-black text-white">{data.year} • {data.companyName} ({data.levelCode})</p>
+                                    <p className="text-emerald-400 font-extrabold text-sm">
+                                      Total Annual CTC: {formatINR(data.salary)}
+                                    </p>
+                                    <div className="text-[10px] text-neutral-400 space-y-0.5 pt-1 border-t border-neutral-800">
+                                      <p>Fixed Base: {formatINR(data.base)}</p>
+                                      <p>Annual Stock: {formatINR(data.stock)}</p>
+                                      <p>Yearly Bonus: {formatINR(data.bonus)}</p>
+                                    </div>
+                                  </div>
+                                );
+                              }
+                              return null;
+                            }}
+                          />
+                          <Area
+                            type="monotone"
+                            dataKey="salary"
+                            stroke="#10b981"
+                            strokeWidth={2.5}
+                            fillOpacity={1}
+                            fill="url(#emeraldGradientProf)"
+                            dot={{ r: 4, fill: '#10b981', stroke: 'rgba(16, 185, 129, 0.4)', strokeWidth: 4 }}
+                            activeDot={{ r: 6, fill: '#10b981', stroke: '#ffffff', strokeWidth: 2 }}
+                            isAnimationActive={!prefersReducedMotion}
+                            animationDuration={800}
+                          />
+                        </AreaChart>
+                      </ResponsiveContainer>
+                    </div>
+
+                    {/* Accessible hidden data table */}
+                    <div className="sr-only">
+                      <table>
+                        <caption>Projected Professional Career Compensation Timeline</caption>
+                        <thead>
+                          <tr>
+                            <th scope="col">Year</th>
+                            <th scope="col">Company</th>
+                            <th scope="col">Level</th>
+                            <th scope="col">Total Annual CTC</th>
+                            <th scope="col">Base Pay</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {profResult.compTimeline.map((item, idx) => (
+                            <tr key={idx}>
+                              <td>{item.year}</td>
+                              <td>{item.companyName}</td>
+                              <td>{item.levelCode}</td>
+                              <td>{formatINR(item.salary)}</td>
+                              <td>{formatINR(item.base)}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 3. WHEN WILL IT HAPPEN? */}
+                <div className="bg-surface rounded-2xl p-6 border border-border shadow-sm space-y-6">
+                  <div className="border-b border-border pb-3">
+                    <span className="text-[10px] font-black uppercase text-primary tracking-wider">
+                      Question 3 of 4
+                    </span>
+                    <h3 className="text-base sm:text-lg font-black text-foreground mt-0.5 flex items-center gap-2">
+                      <Clock className="w-5 h-5 text-blue-400" />
+                      When will it happen? (Promotion Plan Timeline)
+                    </h3>
+                    <p className="text-xs text-secondary mt-0.5">
+                      Progression milestones based on verified company ladder data and calibration cycles.
                     </p>
                   </div>
 
@@ -1987,15 +2372,15 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                             <p className="text-secondary leading-relaxed">{step.requirements.impact}</p>
                           </div>
                           <div className="bg-surface p-3 rounded-lg border border-border space-y-1">
-                            <span className="font-extrabold text-foreground block">Leadership & Mentorship</span>
+                            <span className="font-extrabold text-foreground block">Leadership &amp; Mentorship</span>
                             <p className="text-secondary leading-relaxed">{step.requirements.influence}</p>
                           </div>
                         </div>
 
                         {/* Blockers on this step */}
                         <div className="bg-amber-500/5 border border-amber-500/20 rounded-xl p-3.5 space-y-2 text-xs">
-                          <span className="font-black text-amber-600 dark:text-amber-400 flex items-center gap-1.5">
-                            <AlertTriangle className="w-3.5 h-3.5" /> Structured Promotion Blockers ({step.blockers.length} Documented)
+                          <span className="font-black text-amber-400 flex items-center gap-1.5">
+                            <AlertTriangle className="w-3.5 h-3.5" /> Promotion Blockers to Address ({step.blockers.length} Documented)
                           </span>
                           <div className="grid sm:grid-cols-2 gap-2 pt-1">
                             {step.blockers.slice(0, 4).map((blk, blkIdx) => (
@@ -2011,66 +2396,42 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                   </div>
                 </div>
 
-                {/* COMPENSATION TRAJECTORY CHART (GREEN SALARY CHART) */}
-                <div className="bg-surface rounded-2xl p-6 border border-border shadow-sm space-y-4">
-                  <div className="flex items-center justify-between pb-2 border-b border-border">
-                    <div>
-                      <h3 className="text-base font-black text-foreground flex items-center gap-2">
-                        <TrendingUp className="w-5 h-5 text-emerald-500" /> Projected Compensation Trajectory (INR per year)
-                      </h3>
-                      <p className="text-xs text-secondary mt-0.5">
-                        Year 0 to Target Level. Real level comp bands in INR.
-                      </p>
-                    </div>
+                {/* 4. WHAT SHOULD I DO NEXT? */}
+                <div className="bg-surface rounded-2xl p-6 border border-border shadow-sm space-y-5">
+                  <div className="border-b border-border pb-3">
+                    <span className="text-[10px] font-black uppercase text-primary tracking-wider">
+                      Question 4 of 4
+                    </span>
+                    <h3 className="text-base sm:text-lg font-black text-foreground mt-0.5 flex items-center gap-2">
+                      <Sparkles className="w-5 h-5 text-primary" />
+                      What should I do next? (Action Steps &amp; Promo Packet Evidence)
+                    </h3>
+                    <p className="text-xs text-secondary mt-0.5">
+                      Concrete steps to assemble evidence for your promotion packet or target interview loops.
+                    </p>
                   </div>
 
-                  <div className="h-64 w-full pt-4">
-                    <ResponsiveContainer width="100%" height="100%">
-                      <AreaChart data={profResult.compTimeline} margin={{ top: 10, right: 30, left: 10, bottom: 0 }}>
-                        <defs>
-                          <linearGradient id="emeraldGradientProf" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="5%" stopColor="#10b981" stopOpacity={0.4} />
-                            <stop offset="95%" stopColor="#10b981" stopOpacity={0.0} />
-                          </linearGradient>
-                        </defs>
-                        <XAxis dataKey="year" stroke="#888888" fontSize={11} tickLine={false} />
-                        <YAxis
-                          stroke="#888888"
-                          fontSize={11}
-                          tickLine={false}
-                          tickFormatter={(val) => formatINR(val)}
-                        />
-                        <Tooltip
-                          content={({ active, payload }) => {
-                            if (active && payload && payload.length) {
-                              const data = payload[0].payload;
-                              return (
-                                <div className="bg-surface border border-border rounded-xl p-3 shadow-xl text-xs space-y-1">
-                                  <p className="font-black text-foreground">{data.year} • {data.companyName}</p>
-                                  <p className="text-emerald-600 dark:text-emerald-400 font-extrabold text-sm">
-                                    Total Annual CTC: {formatINR(data.salary)}
-                                  </p>
-                                  <div className="text-[10px] text-muted space-y-0.5 pt-1 border-t border-border">
-                                    <p>Base: {formatINR(data.base)}</p>
-                                    <p>Stock: {formatINR(data.stock)}</p>
-                                    <p>Bonus: {formatINR(data.bonus)}</p>
-                                  </div>
-                                </div>
-                              );
-                            }
-                            return null;
-                          }}
-                        />
-                        <Area
-                          type="monotone"
-                          dataKey="salary"
-                          stroke="#10b981"
-                          strokeWidth={2.5}
-                          fillOpacity={1}
-                          fill="url#emeraldGradientProf"
-                        />
-                      </AreaChart>
-                    </ResponsiveContainer>
+                  <div className="grid sm:grid-cols-3 gap-3 text-xs">
+                    <div className="p-4 bg-surface-2/40 rounded-xl border border-border space-y-2">
+                      <span className="font-black text-foreground block text-sm">1. Scope Expansion</span>
+                      <p className="text-secondary leading-relaxed">
+                        Anchor ownership over a multi-team project or critical architectural subsystem required for {profResult.targetLevel.levelCode}.
+                      </p>
+                    </div>
+
+                    <div className="p-4 bg-surface-2/40 rounded-xl border border-border space-y-2">
+                      <span className="font-black text-foreground block text-sm">2. Quantified Evidence</span>
+                      <p className="text-secondary leading-relaxed">
+                        Document business impact metrics (latency reduction, revenue enablement, incident reduction) in your brag document.
+                      </p>
+                    </div>
+
+                    <div className="p-4 bg-surface-2/40 rounded-xl border border-border space-y-2">
+                      <span className="font-black text-foreground block text-sm">3. Calibration Alignment</span>
+                      <p className="text-secondary leading-relaxed">
+                        Align with your manager 6 months before the cycle window on explicit promotion criteria and peer feedback nominations.
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
