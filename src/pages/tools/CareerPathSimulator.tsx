@@ -4,8 +4,20 @@
 // Rich structured promotion blockers & India-office ladders
 // ============================================================
 
-import React, { useState, useMemo, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useMemo, useRef, useEffect, useLayoutEffect } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { CareerPathBackButton } from '../../components/career-path/CareerPathBackButton';
+import { BranchCombobox } from '../../components/career-path/BranchCombobox';
+import {
+  DEGREE_BRANCH_CATALOG,
+  type DegreeBranchOption,
+  type BranchFamily,
+} from '../../data/careerLadders/degreesAndBranches';
+import {
+  getGraduationYearOptions,
+  snapToNearestGradYear,
+  calculateYearOfStudy,
+} from '../../lib/academicCalendar';
 import {
   ArrowRight,
   TrendingUp,
@@ -72,8 +84,39 @@ import {
   type StudentPromotionPlan,
 } from '../../lib/careerEngine';
 
-export function CareerPathSimulator() {
-  const [activeTab, setActiveTab] = useState<'simulator' | 'explorer'>('simulator');
+export interface CareerPathSimulatorProps {
+  fixedTab?: 'simulator' | 'explorer';
+}
+
+export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {}) {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const isExplorerRoute = location.pathname.includes('/company-ladder');
+  const isSimulatorRoute = location.pathname.includes('/promotion-simulator');
+  const derivedTab = fixedTab || (isExplorerRoute ? 'explorer' : isSimulatorRoute ? 'simulator' : 'simulator');
+
+  const [activeTab, setActiveTabState] = useState<'simulator' | 'explorer'>(derivedTab);
+
+  useEffect(() => {
+    if (fixedTab) {
+      setActiveTabState(fixedTab);
+    } else if (isExplorerRoute) {
+      setActiveTabState('explorer');
+    } else if (isSimulatorRoute) {
+      setActiveTabState('simulator');
+    }
+  }, [fixedTab, isExplorerRoute, isSimulatorRoute]);
+
+  const handleTabChange = (tab: 'simulator' | 'explorer') => {
+    setActiveTabState(tab);
+    if (tab === 'simulator') {
+      navigate('/tools/career-path/promotion-simulator');
+    } else {
+      navigate('/tools/career-path/company-ladder');
+    }
+  };
+
   const [simulatorMode, setSimulatorMode] = useState<'student' | 'professional'>('student');
 
   // ─────────────────────────────────────────────────────────────
@@ -124,10 +167,16 @@ export function CareerPathSimulator() {
   // ─────────────────────────────────────────────────────────────
   // SUBSECTION 2: Student Mode Simulator State
   // ─────────────────────────────────────────────────────────────
-  const [studentDegree, setStudentDegree] = useState<StudentProfile['degreeAndBranch']>('BTech_CSE_IT');
+  const [selectedBranchOption, setSelectedBranchOption] = useState<DegreeBranchOption>(
+    DEGREE_BRANCH_CATALOG[0]
+  );
+  const [studentDegree, setStudentDegree] = useState<string>(DEGREE_BRANCH_CATALOG[0].label);
   const [studentTier, setStudentTier] = useState<StudentProfile['collegeTier']>('Tier 1');
-  const [studentYearOfStudy, setStudentYearOfStudy] = useState<StudentProfile['currentYearOfStudy']>('Final Year');
-  const [studentGradYear, setStudentGradYear] = useState<number>(2026);
+  const [studentGradYear, setStudentGradYear] = useState<number>(() => {
+    const opts = getGraduationYearOptions(DEGREE_BRANCH_CATALOG[0].degreeName);
+    const finalYear = opts.find((o) => o.status === 'final') || opts[0];
+    return finalYear.gradYear;
+  });
   const [studentCgpa, setStudentCgpa] = useState<StudentProfile['cgpaBracket']>('above_8');
   const [studentInternship, setStudentInternship] = useState<StudentProfile['internshipStatus']>('none');
   const [studentDreamCompanyId, setStudentDreamCompanyId] = useState<string>('google');
@@ -139,6 +188,24 @@ export function CareerPathSimulator() {
   const studentSearchRef = useRef<HTMLDivElement>(null);
 
   const [studentResult, setStudentResult] = useState<StudentPromotionPlan | null>(null);
+
+  // Dynamic date-driven graduation year options
+  const gradYearOptions = useMemo(
+    () => getGraduationYearOptions(selectedBranchOption.degreeName),
+    [selectedBranchOption.degreeName]
+  );
+
+  const selectedGradYearOption = useMemo(
+    () => gradYearOptions.find((o) => o.gradYear === studentGradYear),
+    [gradYearOptions, studentGradYear]
+  );
+
+  const handleBranchChange = (opt: DegreeBranchOption) => {
+    setSelectedBranchOption(opt);
+    setStudentDegree(opt.label);
+    const snapped = snapToNearestGradYear(studentGradYear, opt.degreeName);
+    setStudentGradYear(snapped);
+  };
 
   // ─────────────────────────────────────────────────────────────
   // SUBSECTION 2: Working Professional Mode Simulator State
@@ -163,6 +230,42 @@ export function CareerPathSimulator() {
   const [profResult, setProfResult] = useState<PromotionPlan | null>(null);
   const [isCalculating, setIsCalculating] = useState(false);
   const [showFormulaDetails, setShowFormulaDetails] = useState(false);
+
+  // Scroll & Focus Management (Stage 5)
+  const studentResultSectionRef = useRef<HTMLDivElement>(null);
+  const studentHeadingRef = useRef<HTMLHeadingElement>(null);
+  const profResultSectionRef = useRef<HTMLDivElement>(null);
+  const profHeadingRef = useRef<HTMLHeadingElement>(null);
+
+  useLayoutEffect(() => {
+    if (studentResult && studentResultSectionRef.current) {
+      const headerOffset = 90;
+      const elementPosition = studentResultSectionRef.current.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      window.scrollTo({
+        top: Math.max(0, offsetPosition),
+        behavior: 'smooth',
+      });
+      studentHeadingRef.current?.focus();
+    }
+  }, [studentResult]);
+
+  useLayoutEffect(() => {
+    if (profResult && profResultSectionRef.current) {
+      const headerOffset = 90;
+      const elementPosition = profResultSectionRef.current.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      window.scrollTo({
+        top: Math.max(0, offsetPosition),
+        behavior: 'smooth',
+      });
+      profHeadingRef.current?.focus();
+    }
+  }, [profResult]);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
+  }, [location.pathname]);
 
   // Close dropdowns on outside click
   useEffect(() => {
@@ -232,10 +335,13 @@ export function CareerPathSimulator() {
     setIsCalculating(true);
     setTimeout(() => {
       try {
+        const yos = calculateYearOfStudy(studentGradYear, selectedBranchOption.degreeName);
         const plan = resolveStudentPath({
-          degreeAndBranch: studentDegree,
+          degreeAndBranch: selectedBranchOption.label,
           collegeTier: studentTier,
-          currentYearOfStudy: studentYearOfStudy,
+          currentYearOfStudy: yos.label,
+          yearOfStudy: yos.yearOfStudy,
+          branchFamily: selectedBranchOption.family,
           expectedGraduationYear: studentGradYear,
           cgpaBracket: studentCgpa,
           internshipStatus: studentInternship,
@@ -280,46 +386,57 @@ export function CareerPathSimulator() {
 
   return (
     <div className="min-h-screen bg-background text-foreground pb-20">
-      {/* ── Breadcrumb & Top Header ───────────────────────────────── */}
+      {/* ── Reusable Back Button & Breadcrumbs Navigation (Stage 2) ─ */}
+      <CareerPathBackButton
+        isHub={false}
+        currentPageTitle={
+          activeTab === 'simulator'
+            ? 'Promotion Roadmap Simulator'
+            : 'Company Ladder Explorer'
+        }
+      />
+
+      {/* ── Sub-Page Title & Tab Navigation Bar ───────────────────── */}
       <div className="border-b border-border bg-surface/80 backdrop-blur-md sticky top-0 z-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div>
-              <div className="flex items-center gap-2 text-xs text-muted mb-1 font-medium">
-                <Link to="/" className="hover:text-primary transition-colors">HireFlow</Link>
-                <ChevronRight className="w-3.5 h-3.5" />
-                <span className="text-foreground font-semibold">Career Path & Promotion Simulator</span>
-                <span className="px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold text-[10px] ml-1">
-                  India Market • INR
-                </span>
-              </div>
               <h1 className="text-xl sm:text-2xl font-black text-foreground tracking-tight">
-                Engineering Promotion & Level Simulator
+                {activeTab === 'simulator'
+                  ? 'Promotion Roadmap Simulator'
+                  : 'Company Ladder Explorer'}
               </h1>
+              <p className="text-xs text-muted mt-0.5 font-medium">
+                {activeTab === 'simulator'
+                  ? 'Deterministic career paths, campus hiring likelihoods, and promotion windows.'
+                  : 'Real India-office ladders, verified CTC bands, and structured blockers.'}
+              </p>
             </div>
 
             {/* Navigation Tabs */}
             <div className="flex items-center gap-1.5 p-1 bg-surface-2 rounded-xl border border-border">
               <button
                 type="button"
-                onClick={() => setActiveTab('simulator')}
+                onClick={() => handleTabChange('simulator')}
                 className={`px-4 py-2 rounded-lg text-xs font-black transition-all flex items-center gap-1.5 ${
                   activeTab === 'simulator'
                     ? 'bg-primary text-white shadow-sm'
                     : 'text-muted hover:text-foreground'
                 }`}
+                aria-current={activeTab === 'simulator' ? 'page' : undefined}
               >
                 <Compass className="w-3.5 h-3.5" />
                 Promotion Roadmap Simulator
               </button>
               <button
                 type="button"
-                onClick={() => setActiveTab('explorer')}
+                onClick={() => handleTabChange('explorer')}
                 className={`px-4 py-2 rounded-lg text-xs font-black transition-all flex items-center gap-1.5 ${
                   activeTab === 'explorer'
                     ? 'bg-primary text-white shadow-sm'
                     : 'text-muted hover:text-foreground'
                 }`}
+                aria-current={activeTab === 'explorer' ? 'page' : undefined}
               >
                 <Building2 className="w-3.5 h-3.5" />
                 Company Ladder Explorer
@@ -813,35 +930,34 @@ export function CareerPathSimulator() {
                     </select>
                   </div>
 
-                  {/* Degree & Branch */}
+                  {/* Degree & Branch Combobox (Stage 4) */}
                   <div>
-                    <label className="text-xs font-black text-foreground block mb-1.5">Degree & Branch</label>
-                    <select
-                      value={studentDegree}
-                      onChange={(e) => setStudentDegree(e.target.value as StudentProfile['degreeAndBranch'])}
-                      className="w-full bg-surface-2 border border-border rounded-xl px-3 py-2 text-xs font-bold text-foreground focus:ring-2 focus:ring-primary outline-none"
-                    >
-                      <option value="BTech_CSE_IT">B.Tech (CSE / IT)</option>
-                      <option value="BTech_ECE">B.Tech (ECE / EE)</option>
-                      <option value="BTech_Other">B.Tech (Other Branches)</option>
-                      <option value="BCA_MCA">BCA / MCA</option>
-                      <option value="MTech">M.Tech (CSE / IT)</option>
-                      <option value="Other">Other Degree</option>
-                    </select>
+                    <BranchCombobox
+                      value={selectedBranchOption.id}
+                      onChange={handleBranchChange}
+                    />
                   </div>
 
-                  {/* Current Year & Expected Grad Year */}
+                  {/* Current Year & Expected Grad Year (Stage 3 Date-Driven) */}
                   <div>
-                    <label className="text-xs font-black text-foreground block mb-1.5">Graduation Year</label>
+                    <label className="text-xs font-black text-foreground block mb-1.5 flex items-center justify-between">
+                      <span>Graduation Year</span>
+                      {selectedGradYearOption && (
+                        <span className="text-[10px] font-bold text-muted">
+                          {selectedGradYearOption.shortLabel}
+                        </span>
+                      )}
+                    </label>
                     <select
                       value={studentGradYear}
                       onChange={(e) => setStudentGradYear(parseInt(e.target.value, 10))}
-                      className="w-full bg-surface-2 border border-border rounded-xl px-3 py-2 text-xs font-bold text-foreground focus:ring-2 focus:ring-primary outline-none"
+                      className="w-full bg-surface-2 border border-border rounded-xl px-3 py-2 text-xs font-bold text-foreground focus:ring-2 focus:ring-primary outline-none min-h-[44px]"
                     >
-                      <option value={2026}>2026 (Graduating Soon)</option>
-                      <option value={2027}>2027 (Penultimate Year)</option>
-                      <option value={2028}>2028 (2nd Year)</option>
-                      <option value={2029}>2029 (1st Year)</option>
+                      {gradYearOptions.map((opt) => (
+                        <option key={opt.gradYear} value={opt.gradYear}>
+                          {opt.label}
+                        </option>
+                      ))}
                     </select>
                   </div>
                 </div>
@@ -1006,7 +1122,7 @@ export function CareerPathSimulator() {
                   type="button"
                   onClick={handleSimulateStudent}
                   disabled={isCalculating}
-                  className="w-full py-3.5 rounded-xl bg-primary hover:bg-primary-hover text-white font-black text-sm transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
+                  className="w-full py-3.5 rounded-xl bg-primary hover:bg-primary-hover text-white font-black text-sm transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer min-h-[44px]"
                 >
                   {isCalculating ? (
                     <span className="flex items-center gap-2">
@@ -1022,58 +1138,126 @@ export function CareerPathSimulator() {
               </div>
             )}
 
+            {/* Skeleton while calculating (Prevents CLS - Stage 5) */}
+            {isCalculating && simulatorMode === 'student' && (
+              <div className="bg-surface rounded-2xl p-8 border border-border shadow-xl max-w-4xl mx-auto space-y-6 min-h-[380px] animate-pulse">
+                <div className="h-6 bg-surface-2 rounded-lg w-1/3 mb-4" />
+                <div className="grid sm:grid-cols-3 gap-4">
+                  <div className="h-28 bg-surface-2 rounded-2xl" />
+                  <div className="h-28 bg-surface-2 rounded-2xl" />
+                  <div className="h-28 bg-surface-2 rounded-2xl" />
+                </div>
+                <div className="h-44 bg-surface-2 rounded-2xl mt-4" />
+              </div>
+            )}
+
             {/* ─────────────────────────────────────────────────────────
-                STUDENT ROADMAP RESULTS DISPLAY
+                STUDENT ROADMAP RESULTS DISPLAY (Stage 5 Top Opening)
                 ───────────────────────────────────────────────────────── */}
-            {simulatorMode === 'student' && studentResult && (
-              <div className="space-y-8 animate-fade-in">
+            {simulatorMode === 'student' && studentResult && !isCalculating && (
+              <div ref={studentResultSectionRef} className="space-y-8 animate-fade-in">
                 {/* Result Top Action Bar */}
                 <div className="flex items-center justify-between">
                   <button
                     type="button"
                     onClick={() => setStudentResult(null)}
-                    className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-black bg-surface border border-border text-foreground hover:bg-surface-2 transition-all cursor-pointer shadow-xs"
+                    className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-black bg-surface border border-border text-foreground hover:bg-surface-2 transition-all cursor-pointer shadow-xs min-h-[44px]"
                   >
                     <RotateCcw className="w-3.5 h-3.5" /> Start Over / Edit Profile
                   </button>
 
                   <div className="text-right">
                     <span className="text-xs text-muted font-bold">
-                      {studentResult.studentProfile.collegeTier} • Class of {studentResult.studentProfile.expectedGraduationYear}
+                      {studentResult.studentProfile.collegeTier} • {studentResult.studentProfile.currentYearOfStudy} (Class of {studentResult.studentProfile.expectedGraduationYear})
                     </span>
                   </div>
                 </div>
 
-                {/* Top Metrics Cards */}
-                <div className="grid sm:grid-cols-3 gap-4">
-                  <div className="bg-surface rounded-2xl p-5 border border-border shadow-sm">
-                    <span className="text-xs font-bold text-muted uppercase">Fresher Entry Offer (INR)</span>
-                    <span className="text-2xl font-black text-foreground block mt-1">
-                      {formatINR(studentResult.entryRoutes[0]?.expectedOfferINR || studentResult.entryLevel.comp.total.p50)}
-                    </span>
-                    <span className="text-xs text-secondary mt-1 block">
-                      At {studentResult.dreamCompany.name} ({studentResult.entryLevel.levelCode})
+                {/* Heading with tabIndex={-1} for keyboard focus */}
+                <h2
+                  ref={studentHeadingRef}
+                  tabIndex={-1}
+                  className="text-lg font-black text-foreground outline-none flex items-center gap-2"
+                >
+                  <Target className="w-5 h-5 text-primary" />
+                  Campus-to-Career Promotion Roadmap
+                </h2>
+
+                {/* SUMMARY CARD (FIRST IN RESULTS) */}
+                <div className="bg-surface rounded-2xl p-6 border border-border shadow-sm space-y-4">
+                  <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border pb-3">
+                    <div>
+                      <span className="text-[10px] font-black uppercase text-primary tracking-wider">
+                        Trajectory Summary
+                      </span>
+                      <h3 className="text-base font-black text-foreground mt-0.5">
+                        Campus Entry to {studentResult.dreamCompany.name} ({studentResult.entryLevel.levelCode}) &rarr; Target Level {studentResult.targetLevel.levelCode} ({studentResult.targetLevel.title})
+                      </h3>
+                    </div>
+                    <span className="px-3 py-1 rounded-full text-xs font-black bg-emerald-500/10 text-emerald-600 border border-emerald-500/20">
+                      {studentResult.probability.percentage}% Target Success Probability
                     </span>
                   </div>
 
-                  <div className="bg-surface rounded-2xl p-5 border border-border shadow-sm">
-                    <span className="text-xs font-bold text-muted uppercase">Target Level Compensation</span>
-                    <span className="text-2xl font-black text-emerald-600 dark:text-emerald-400 block mt-1">
-                      {formatINR(studentResult.targetLevel.comp.total.p50)}
-                    </span>
-                    <span className="text-xs text-secondary mt-1 block">
-                      {studentResult.targetLevel.levelCode} • {studentResult.targetLevel.title}
-                    </span>
-                  </div>
+                  {/* Eligibility Windows & Date-Driven Status */}
+                  {studentResult.eligibilityWindows && (
+                    <div className="p-4 rounded-xl bg-primary/5 border border-primary/20 space-y-2 text-xs">
+                      <div className="flex flex-wrap items-center justify-between gap-2">
+                        <span className="font-black text-foreground flex items-center gap-1.5">
+                          <GraduationCap className="w-4 h-4 text-primary" />
+                          Academic Status: {studentResult.eligibilityWindows.currentStatus}
+                        </span>
+                        <span className="font-bold text-muted text-[11px]">
+                          {studentResult.eligibilityWindows.remainingSemesters} Semesters Remaining
+                        </span>
+                      </div>
+                      <div className="grid sm:grid-cols-2 gap-3 pt-1 text-[11px]">
+                        <div>
+                          <span className="font-bold text-muted block">Internship Window:</span>
+                          <span className="font-semibold text-foreground">{studentResult.eligibilityWindows.internshipWindow}</span>
+                        </div>
+                        <div>
+                          <span className="font-bold text-muted block">Campus Placement Drive:</span>
+                          <span className="font-semibold text-foreground">{studentResult.eligibilityWindows.campusPlacementWindow}</span>
+                        </div>
+                      </div>
+                      <p className="text-[11px] text-secondary pt-1 border-t border-primary/10">
+                        <strong className="text-foreground">Recommended Focus:</strong> {studentResult.eligibilityWindows.recommendedFocus}
+                      </p>
+                    </div>
+                  )}
 
-                  <div className="bg-surface rounded-2xl p-5 border border-border shadow-sm">
-                    <span className="text-xs font-bold text-muted uppercase">Estimated Time from Graduation</span>
-                    <span className="text-2xl font-black text-primary block mt-1">
-                      {studentResult.totalTimeFromGraduation.likely} Years
-                    </span>
-                    <span className="text-xs text-muted mt-1 block">
-                      Range: {studentResult.totalTimeFromGraduation.min}–{studentResult.totalTimeFromGraduation.max} yrs (By ~{studentResult.studentProfile.expectedGraduationYear + Math.round(studentResult.totalTimeFromGraduation.likely)})
-                    </span>
+                  {/* Top Metrics Cards */}
+                  <div className="grid sm:grid-cols-3 gap-4 pt-1">
+                    <div className="bg-surface-2/40 rounded-xl p-4 border border-border">
+                      <span className="text-xs font-bold text-muted uppercase">Fresher Entry Offer (INR)</span>
+                      <span className="text-2xl font-black text-foreground block mt-1">
+                        {formatINR(studentResult.entryRoutes[0]?.expectedOfferINR || studentResult.entryLevel.comp.total.p50)}
+                      </span>
+                      <span className="text-xs text-secondary mt-1 block">
+                        At {studentResult.dreamCompany.name} ({studentResult.entryLevel.levelCode})
+                      </span>
+                    </div>
+
+                    <div className="bg-surface-2/40 rounded-xl p-4 border border-border">
+                      <span className="text-xs font-bold text-muted uppercase">Target Level Compensation</span>
+                      <span className="text-2xl font-black text-emerald-600 dark:text-emerald-400 block mt-1">
+                        {formatINR(studentResult.targetLevel.comp.total.p50)}
+                      </span>
+                      <span className="text-xs text-secondary mt-1 block">
+                        {studentResult.targetLevel.levelCode} • {studentResult.targetLevel.title}
+                      </span>
+                    </div>
+
+                    <div className="bg-surface-2/40 rounded-xl p-4 border border-border">
+                      <span className="text-xs font-bold text-muted uppercase">Estimated Time from Graduation</span>
+                      <span className="text-2xl font-black text-primary block mt-1">
+                        {studentResult.totalTimeFromGraduation.likely} Years
+                      </span>
+                      <span className="text-xs text-muted mt-1 block">
+                        Range: {studentResult.totalTimeFromGraduation.min}–{studentResult.totalTimeFromGraduation.max} yrs (By ~{studentResult.studentProfile.expectedGraduationYear + Math.round(studentResult.totalTimeFromGraduation.likely)})
+                      </span>
+                    </div>
                   </div>
                 </div>
 
@@ -1627,7 +1811,7 @@ export function CareerPathSimulator() {
                   type="button"
                   onClick={handleSimulateProf}
                   disabled={isCalculating}
-                  className="w-full py-3.5 rounded-xl bg-primary hover:bg-primary-hover text-white font-black text-sm transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
+                  className="w-full py-3.5 rounded-xl bg-primary hover:bg-primary-hover text-white font-black text-sm transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer min-h-[44px]"
                 >
                   {isCalculating ? (
                     <span className="flex items-center gap-2">
@@ -1643,16 +1827,29 @@ export function CareerPathSimulator() {
               </div>
             )}
 
+            {/* Professional Loading Skeleton (Stage 5) */}
+            {isCalculating && simulatorMode === 'professional' && (
+              <div className="bg-surface rounded-2xl p-8 border border-border shadow-xl max-w-4xl mx-auto space-y-6 min-h-[380px] animate-pulse">
+                <div className="h-6 bg-surface-2 rounded-lg w-1/3 mb-4" />
+                <div className="grid sm:grid-cols-3 gap-4">
+                  <div className="h-28 bg-surface-2 rounded-2xl" />
+                  <div className="h-28 bg-surface-2 rounded-2xl" />
+                  <div className="h-28 bg-surface-2 rounded-2xl" />
+                </div>
+                <div className="h-44 bg-surface-2 rounded-2xl mt-4" />
+              </div>
+            )}
+
             {/* ─────────────────────────────────────────────────────────
-                MODE B: WORKING PROFESSIONAL RESULTS DISPLAY
+                MODE B: WORKING PROFESSIONAL RESULTS DISPLAY (Stage 5)
                 ───────────────────────────────────────────────────────── */}
-            {simulatorMode === 'professional' && profResult && (
-              <div className="space-y-8 animate-fade-in">
+            {simulatorMode === 'professional' && profResult && !isCalculating && (
+              <div ref={profResultSectionRef} className="space-y-8 animate-fade-in">
                 <div className="flex items-center justify-between">
                   <button
                     type="button"
                     onClick={() => setProfResult(null)}
-                    className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-black bg-surface border border-border text-foreground hover:bg-surface-2 transition-all cursor-pointer shadow-xs"
+                    className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-black bg-surface border border-border text-foreground hover:bg-surface-2 transition-all cursor-pointer shadow-xs min-h-[44px]"
                   >
                     <RotateCcw className="w-3.5 h-3.5" /> Start Over / Reconfigure
                   </button>
@@ -1664,40 +1861,63 @@ export function CareerPathSimulator() {
                   </div>
                 </div>
 
-                {/* Top Metrics Cards */}
-                <div className="grid sm:grid-cols-3 gap-4">
-                  <div className="bg-surface rounded-2xl p-5 border border-border shadow-sm">
-                    <span className="text-xs font-bold text-muted uppercase">Estimated Total Time</span>
-                    <span className="text-2xl font-black text-foreground block mt-1">
-                      {profResult.totalTime.likely} Years
-                    </span>
-                    <span className="text-xs text-muted mt-1 block">
-                      Range: {profResult.totalTime.min}–{profResult.totalTime.max} yrs
+                {/* Primary Heading with tabIndex={-1} for accessibility focus */}
+                <h2
+                  ref={profHeadingRef}
+                  tabIndex={-1}
+                  className="text-lg font-black text-foreground outline-none flex items-center gap-2"
+                >
+                  <TrendingUp className="w-5 h-5 text-primary" />
+                  Professional Promotion Roadmap & Compensation Jump
+                </h2>
+
+                {/* SUMMARY CARD (FIRST IN SECTION) */}
+                <div className="bg-surface rounded-2xl p-6 border border-border shadow-sm space-y-4">
+                  <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border pb-3">
+                    <div>
+                      <span className="text-[10px] font-black uppercase text-primary tracking-wider">
+                        Trajectory Summary
+                      </span>
+                      <h3 className="text-base font-black text-foreground mt-0.5">
+                        {profResult.sourceLevel.companyId.toUpperCase()} ({profResult.sourceLevel.levelCode}) &rarr; {profResult.targetLevel.companyId.toUpperCase()} ({profResult.targetLevel.levelCode})
+                      </h3>
+                    </div>
+                    <span className="px-3 py-1 rounded-full text-xs font-black bg-primary/10 text-primary border border-primary/20">
+                      {profResult.probability.percentage}% Reaching Target Probability
                     </span>
                   </div>
 
-                  <div className="bg-surface rounded-2xl p-5 border border-border shadow-sm">
-                    <span className="text-xs font-bold text-muted uppercase">Projected Annual Comp Jump</span>
-                    <span className="text-2xl font-black text-emerald-600 dark:text-emerald-400 block mt-1">
-                      +{formatINR(profResult.compJump.diff)} ({profResult.compJump.percentage > 0 ? `+${profResult.compJump.percentage}%` : '0%'})
-                    </span>
-                    <span className="text-xs text-muted mt-1 block">
-                      {formatINR(profResult.compJump.from)} &rarr; {formatINR(profResult.compJump.to)}
-                    </span>
-                  </div>
+                  {/* Top Metrics Cards */}
+                  <div className="grid sm:grid-cols-3 gap-4">
+                    <div className="bg-surface-2/40 rounded-xl p-4 border border-border">
+                      <span className="text-xs font-bold text-muted uppercase">Estimated Total Time</span>
+                      <span className="text-2xl font-black text-foreground block mt-1">
+                        {profResult.totalTime.likely} Years
+                      </span>
+                      <span className="text-xs text-muted mt-1 block">
+                        Range: {profResult.totalTime.min}–{profResult.totalTime.max} yrs
+                      </span>
+                    </div>
 
-                  <div className="bg-surface rounded-2xl p-5 border border-border shadow-sm">
-                    <span className="text-xs font-bold text-muted uppercase">Reaching Target Probability</span>
-                    <span className="text-2xl font-black text-primary block mt-1">
-                      {profResult.probability.percentage}%
-                    </span>
-                    <button
-                      type="button"
-                      onClick={() => setShowFormulaDetails(!showFormulaDetails)}
-                      className="text-xs text-primary font-bold hover:underline mt-1 block cursor-pointer"
-                    >
-                      How this is calculated {showFormulaDetails ? '▲' : '▼'}
-                    </button>
+                    <div className="bg-surface-2/40 rounded-xl p-4 border border-border">
+                      <span className="text-xs font-bold text-muted uppercase">Projected Annual Comp Jump</span>
+                      <span className="text-2xl font-black text-emerald-600 dark:text-emerald-400 block mt-1">
+                        +{formatINR(profResult.compJump.diff)} ({profResult.compJump.percentage > 0 ? `+${profResult.compJump.percentage}%` : '0%'})
+                      </span>
+                      <span className="text-xs text-muted mt-1 block">
+                        {formatINR(profResult.compJump.from)} &rarr; {formatINR(profResult.compJump.to)}
+                      </span>
+                    </div>
+
+                    <div className="bg-surface-2/40 rounded-xl p-4 border border-border">
+                      <span className="text-xs font-bold text-muted uppercase">Reaching Target Probability</span>
+                      <span className="text-2xl font-black text-primary block mt-1">
+                        {profResult.probability.percentage}%
+                      </span>
+                      <span className="text-xs text-muted mt-1 block">
+                        Adjusted for {profPerformance} rating
+                      </span>
+                    </div>
                   </div>
                 </div>
 
