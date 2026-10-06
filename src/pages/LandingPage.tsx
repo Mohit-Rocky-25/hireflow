@@ -111,7 +111,7 @@ const TOOLS = [
       "Understand semantic gap analysis and evidence extraction"
     ],
     cta: "Launch Simulator",
-    link: "/tools/talent-lens",
+    link: "/demo",
   },
 ];
 

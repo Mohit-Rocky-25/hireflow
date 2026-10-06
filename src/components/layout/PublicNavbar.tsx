@@ -8,7 +8,20 @@ export function PublicNavbar() {
   const navigate = useNavigate();
 
   const getDashboardLink = () => {
-    return '/'; // Dashboards removed, fallback to home or a user profile if we build one
+    if (!currentUser) return '/login';
+    switch (currentUser.role) {
+      case 'BHR_MANAGER':
+      case 'HR_RECRUITER':
+        return '/company/dashboard';
+      case 'INTERVIEWER':
+        return '/interviewer/dashboard';
+      case 'CANDIDATE':
+        return '/candidate/dashboard';
+      case 'PLATFORM_ADMIN':
+        return '/admin/dashboard';
+      default:
+        return '/login';
+    }
   };
 
   return (

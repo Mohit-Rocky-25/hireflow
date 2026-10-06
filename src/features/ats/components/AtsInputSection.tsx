@@ -3,7 +3,7 @@
 // Clean segmented selectors, 16px+ typography, parsed badges
 // ============================================================
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { FileText, Search, ScanLine, AlertCircle } from 'lucide-react';
 import { countWords } from '../fileParser';
 import { SegmentedSelectors, TargetTier, ExperienceLevel } from './SegmentedSelectors';
@@ -68,11 +68,12 @@ export const AtsInputSection: React.FC<Props> = ({
   const isJobReady = jobWords >= 60;
   const canAnalyze = isResumeReady && isJobReady && !isFileExtracting && !isScanning;
 
-  // Access resume state from TalentLens if candidate previously used TalentLens
-  const talentLensResume = useTalentLensStore((state) => ({
-    text: state.resumeText,
-    fileName: state.resumeFileName,
-  }));
+  // Access resume state from TalentLens if candidate previously used TalentLens (primitive selectors avoid infinite getSnapshot loops)
+  const tlResumeText = useTalentLensStore((state) => state.resumeText);
+  const tlResumeFileName = useTalentLensStore((state) => state.resumeFileName);
+  const talentLensResume = useMemo(() => {
+    return tlResumeText ? { text: tlResumeText, fileName: tlResumeFileName } : null;
+  }, [tlResumeText, tlResumeFileName]);
 
   const getDisabledReason = () => {
     if (isFileExtracting) return 'Reading and validating uploaded file...';
@@ -125,9 +126,9 @@ export const AtsInputSection: React.FC<Props> = ({
           onFileUpload={(file) => onFileUpload(file, 'resume')}
           onClear={onClearResume}
           onTextChange={onResumeTextChange}
-          talentLensResume={talentLensResume.text ? talentLensResume : null}
+          talentLensResume={talentLensResume}
           onImportTalentLens={() => {
-            if (talentLensResume.text) {
+            if (talentLensResume) {
               if (onImportTalentLensResume) {
                 onImportTalentLensResume(talentLensResume.text, talentLensResume.fileName);
               } else {

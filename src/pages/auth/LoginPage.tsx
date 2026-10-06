@@ -9,11 +9,44 @@ export function LoginPage() {
   const [email, setEmail] = useState('demo-candidate@example.com');
   const [password, setPassword] = useState('password123');
 
+  const navigateRole = (role: string) => {
+    switch (role) {
+      case 'BHR_MANAGER':
+      case 'HR_RECRUITER':
+        navigate('/company/dashboard');
+        break;
+      case 'INTERVIEWER':
+        navigate('/interviewer/dashboard');
+        break;
+      case 'CANDIDATE':
+        navigate('/candidate/dashboard');
+        break;
+      case 'PLATFORM_ADMIN':
+        navigate('/admin/dashboard');
+        break;
+      default:
+        navigate('/');
+    }
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate login for the demo
-    login('user-cand-1', 'CANDIDATE'); 
-    navigate('/tools/resume-checker');
+    const user = login(email, password);
+    if (user) {
+      navigateRole(user.role);
+    } else {
+      // Fallback: log in as demo candidate
+      const cand = login('demo-candidate@example.com', 'password123');
+      navigateRole(cand?.role || 'CANDIDATE');
+    }
+  };
+
+  const handleQuickLogin = (demoEmail: string) => {
+    setEmail(demoEmail);
+    const user = login(demoEmail, 'password123');
+    if (user) {
+      navigateRole(user.role);
+    }
   };
 
   return (
@@ -65,7 +98,37 @@ export function LoginPage() {
           
           <div className="text-center lg:text-left">
             <h2 className="text-[28px] font-bold text-text mb-[8px] tracking-[-0.02em]">Welcome back</h2>
-            <p className="text-[15px] text-text-secondary">Enter your details to sign in to your account.</p>
+            <p className="text-[15px] text-text-secondary">Enter your details to sign in, or click a demo account below:</p>
+            <div className="flex flex-wrap gap-2 mt-3">
+              <button
+                type="button"
+                onClick={() => handleQuickLogin('demo-candidate@example.com')}
+                className="px-2.5 py-1 text-xs font-semibold rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100 transition-colors"
+              >
+                👤 Candidate
+              </button>
+              <button
+                type="button"
+                onClick={() => handleQuickLogin('demo-hr@example.com')}
+                className="px-2.5 py-1 text-xs font-semibold rounded-md bg-sky-50 text-sky-700 border border-sky-200 hover:bg-sky-100 transition-colors"
+              >
+                🏢 Recruiter
+              </button>
+              <button
+                type="button"
+                onClick={() => handleQuickLogin('demo-interviewer@example.com')}
+                className="px-2.5 py-1 text-xs font-semibold rounded-md bg-amber-50 text-amber-700 border border-amber-200 hover:bg-amber-100 transition-colors"
+              >
+                🎯 Interviewer
+              </button>
+              <button
+                type="button"
+                onClick={() => handleQuickLogin('demo-admin@hireflow.com')}
+                className="px-2.5 py-1 text-xs font-semibold rounded-md bg-purple-50 text-purple-700 border border-purple-200 hover:bg-purple-100 transition-colors"
+              >
+                ⚡ Admin
+              </button>
+            </div>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-[20px]">
