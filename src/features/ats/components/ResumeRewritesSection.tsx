@@ -40,14 +40,14 @@ export const ResumeRewritesSection: React.FC<ResumeRewritesSectionProps> = ({ re
           return (
             <div key={idx} className="p-4 sm:p-5 rounded-[12px] bg-surface-alt border border-border/80 space-y-3">
               <div className="space-y-1">
-                <span className="text-[10px] font-bold text-red-600 dark:text-red-400 uppercase tracking-wider">
+                <span className="text-[10px] font-bold text-rose-600 uppercase tracking-wider">
                   Original Bullet (Score: {rw.score}/100)
                 </span>
-                <p className="text-xs text-text-tertiary italic">
+                <p className="text-xs text-slate-500 italic">
                   "{rw.originalBullet}"
                 </p>
-                <p className="text-[11px] text-text-secondary">
-                  <span className="font-semibold text-text">Diagnosis: </span>{rw.weakness}
+                <p className="text-[11px] text-slate-600">
+                  <span className="font-semibold text-slate-900">Diagnosis: </span>{rw.weakness}
                 </p>
               </div>
 
@@ -62,14 +62,14 @@ export const ResumeRewritesSection: React.FC<ResumeRewritesSectionProps> = ({ re
                     className="text-[11px] font-bold text-primary hover:underline flex items-center gap-1 cursor-pointer"
                   >
                     {copiedKey === key ? (
-                      <><Check className="w-3 h-3 text-success" /> Copied</>
+                      <><Check className="w-3 h-3 text-emerald-600" /> Copied</>
                     ) : (
                       <><Copy className="w-3 h-3" /> Copy Template</>
                     )}
                   </button>
                 </div>
 
-                <div className="p-3 rounded-[10px] bg-slate-900 text-slate-100 font-mono text-xs leading-relaxed border border-slate-800">
+                <div className="p-3 rounded-[10px] bg-sky-50/70 text-slate-900 font-mono text-xs leading-relaxed border border-sky-200/90 shadow-2xs">
                   {rw.templateRewrite}
                 </div>
 

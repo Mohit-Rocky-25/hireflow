@@ -41,10 +41,10 @@ export const TabBar: React.FC<Props> = ({
             key={tab.id}
             type="button"
             onClick={() => onTabChange(tab.id)}
-            className={`flex-1 min-w-[150px] inline-flex items-center justify-center gap-2.5 px-4 py-3 rounded-[12px] text-sm font-bold transition-all cursor-pointer select-none ${
+            className={`flex-1 min-w-[150px] inline-flex items-center justify-center gap-2.5 px-4 py-3 rounded-[12px] text-sm transition-all cursor-pointer select-none ${
               isActive
-                ? 'bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 shadow-sm'
-                : 'bg-transparent text-text-secondary hover:text-text hover:bg-surface-hover border border-transparent hover:border-border'
+                ? 'bg-primary text-white shadow-xs font-bold'
+                : 'bg-transparent text-slate-600 hover:text-slate-900 hover:bg-slate-100/60 border border-transparent font-medium'
             }`}
           >
             <Icon className="w-4 h-4 shrink-0" />

@@ -52,9 +52,9 @@ export const SkillsTab: React.FC<Props> = ({ skills }) => {
                 ? proficiency >= 4
                   ? 'bg-emerald-600'
                   : proficiency >= 2
-                  ? 'bg-blue-600'
+                  ? 'bg-sky-600'
                   : 'bg-amber-500'
-                : 'bg-slate-200 dark:bg-slate-700'
+                : 'bg-slate-200'
             }`}
           />
         ))}
@@ -67,27 +67,27 @@ export const SkillsTab: React.FC<Props> = ({ skills }) => {
       {/* 1. Header & Summary Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
         <div className="bg-surface rounded-[16px] p-5 border border-border shadow-xs">
-          <div className="text-xs font-bold text-text-tertiary uppercase">Requirements</div>
-          <div className="text-2xl font-black font-mono text-text mt-1">{skills.length}</div>
-          <div className="text-[11px] text-text-tertiary mt-0.5">Total job skills</div>
+          <div className="text-xs font-bold text-slate-500 uppercase">Requirements</div>
+          <div className="text-2xl font-black font-mono text-slate-900 mt-1">{skills.length}</div>
+          <div className="text-[11px] text-slate-500 mt-0.5">Total job skills</div>
         </div>
 
         <div className="bg-surface rounded-[16px] p-5 border border-border shadow-xs">
-          <div className="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase">Verified Evidence</div>
-          <div className="text-2xl font-black font-mono text-emerald-600 dark:text-emerald-400 mt-1">{verifiedCount}</div>
-          <div className="text-[11px] text-text-tertiary mt-0.5">Backed by bullets</div>
+          <div className="text-xs font-bold text-emerald-700 uppercase">Verified Evidence</div>
+          <div className="text-2xl font-black font-mono text-emerald-700 mt-1">{verifiedCount}</div>
+          <div className="text-[11px] text-slate-500 mt-0.5">Backed by bullets</div>
         </div>
 
         <div className="bg-surface rounded-[16px] p-5 border border-border shadow-xs">
-          <div className="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase">Weak Evidence</div>
-          <div className="text-2xl font-black font-mono text-amber-600 dark:text-amber-400 mt-1">{weakCount}</div>
-          <div className="text-[11px] text-text-tertiary mt-0.5">Skills list only</div>
+          <div className="text-xs font-bold text-amber-700 uppercase">Weak Evidence</div>
+          <div className="text-2xl font-black font-mono text-amber-700 mt-1">{weakCount}</div>
+          <div className="text-[11px] text-slate-500 mt-0.5">Skills list only</div>
         </div>
 
         <div className="bg-surface rounded-[16px] p-5 border border-border shadow-xs">
-          <div className="text-xs font-bold text-rose-600 dark:text-rose-400 uppercase">Missing Skills</div>
-          <div className="text-2xl font-black font-mono text-rose-600 dark:text-rose-400 mt-1">{missingCount}</div>
-          <div className="text-[11px] text-text-tertiary mt-0.5">Not detected in text</div>
+          <div className="text-xs font-bold text-rose-700 uppercase">Missing Skills</div>
+          <div className="text-2xl font-black font-mono text-rose-700 mt-1">{missingCount}</div>
+          <div className="text-[11px] text-slate-500 mt-0.5">Not detected in text</div>
         </div>
       </div>
 
@@ -107,8 +107,8 @@ export const SkillsTab: React.FC<Props> = ({ skills }) => {
             onClick={() => setFilter(chip.id)}
             className={`px-3.5 py-1.5 rounded-[8px] text-xs font-bold transition-all cursor-pointer ${
               filter === chip.id
-                ? 'bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 shadow-xs'
-                : 'bg-surface hover:bg-surface-hover text-text-secondary border border-border'
+                ? 'bg-primary text-white shadow-xs'
+                : 'bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 shadow-2xs'
             }`}
           >
             {chip.label}
@@ -121,7 +121,7 @@ export const SkillsTab: React.FC<Props> = ({ skills }) => {
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse min-w-[650px]">
             <thead>
-              <tr className="border-b border-border bg-slate-50/50 dark:bg-slate-900/50 text-xs font-bold text-text-tertiary uppercase tracking-wider">
+              <tr className="border-b border-slate-200 bg-slate-100/90 text-xs font-bold text-slate-700 uppercase tracking-wider">
                 <th className="py-3.5 px-6">Skill</th>
                 <th className="py-3.5 px-4">Importance</th>
                 <th className="py-3.5 px-4">Status</th>
@@ -134,11 +134,11 @@ export const SkillsTab: React.FC<Props> = ({ skills }) => {
                 const isExpanded = expandedSkillId === skill.skillId;
                 const primaryEvidence = skill.evidence[0];
                 return (
-                  <tr key={skill.skillId} className="hover:bg-slate-50/60 dark:hover:bg-slate-900/40 transition-colors">
+                  <tr key={skill.skillId} className="hover:bg-slate-50/70 transition-colors">
                     {/* Skill Name & Category */}
-                    <td className="py-4 px-6 font-semibold text-text align-top">
+                    <td className="py-4 px-6 font-semibold text-slate-900 align-top">
                       <div>{skill.canonical}</div>
-                      <span className="text-xs text-text-tertiary font-normal capitalize">
+                      <span className="text-xs text-slate-500 font-normal capitalize">
                         {skill.category.replace('_', ' ')}
                       </span>
                     </td>
@@ -148,8 +148,8 @@ export const SkillsTab: React.FC<Props> = ({ skills }) => {
                       <span
                         className={`inline-block px-2 py-0.5 rounded text-xs font-bold uppercase tracking-wider ${
                           skill.required === 'must'
-                            ? 'bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-400 border border-rose-200 dark:border-rose-900'
-                            : 'bg-slate-100 dark:bg-slate-800 text-text-secondary'
+                            ? 'bg-rose-50 text-rose-700 border border-rose-200'
+                            : 'bg-slate-100 text-slate-700 border border-slate-200'
                         }`}
                       >
                         {skill.required === 'must' ? 'Must-Have' : 'Nice-to-Have'}
@@ -159,17 +159,17 @@ export const SkillsTab: React.FC<Props> = ({ skills }) => {
                     {/* Status */}
                     <td className="py-4 px-4 align-top">
                       {skill.status === 'verified' && (
-                        <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 dark:text-emerald-400">
+                        <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700">
                           <CheckCircle2 className="w-4 h-4 text-emerald-600" /> Verified
                         </span>
                       )}
                       {skill.status === 'weak' && (
-                        <span className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-700 dark:text-amber-400">
+                        <span className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-700">
                           <HelpCircle className="w-4 h-4 text-amber-600" /> Weak Proof
                         </span>
                       )}
                       {skill.status === 'missing' && (
-                        <span className="inline-flex items-center gap-1.5 text-xs font-bold text-rose-700 dark:text-rose-400">
+                        <span className="inline-flex items-center gap-1.5 text-xs font-bold text-rose-700">
                           <AlertCircle className="w-4 h-4 text-rose-600" /> Missing
                         </span>
                       )}
@@ -178,7 +178,7 @@ export const SkillsTab: React.FC<Props> = ({ skills }) => {
                     {/* Proficiency Dots */}
                     <td className="py-4 px-4 align-top">
                       {renderProficiencyDots(skill.proficiency)}
-                      <span className="text-[11px] text-text-tertiary font-mono block mt-1">
+                      <span className="text-[11px] text-slate-500 font-mono block mt-1">
                         {skill.proficiency}/5
                       </span>
                     </td>
@@ -186,13 +186,13 @@ export const SkillsTab: React.FC<Props> = ({ skills }) => {
                     {/* Verbatim Evidence Quote */}
                     <td className="py-4 px-6 align-top">
                       {skill.evidence.length === 0 ? (
-                        <span className="text-xs text-text-tertiary italic">
+                        <span className="text-xs text-slate-400 italic">
                           No text evidence found in resume
                         </span>
                       ) : (
                         <div className="space-y-2">
-                          <div className="text-xs text-text-secondary bg-slate-50 dark:bg-slate-900 p-2.5 rounded-[8px] border border-border/80 leading-relaxed font-mono">
-                            <span className="text-text-tertiary font-sans font-semibold mr-1.5">
+                          <div className="text-xs text-slate-800 bg-slate-50 p-2.5 rounded-[8px] border border-slate-200 leading-relaxed font-mono shadow-2xs">
+                            <span className="text-primary font-sans font-bold mr-1.5">
                               [{primaryEvidence.section}]:
                             </span>
                             "{isExpanded || primaryEvidence.quote.length <= 110
@@ -219,7 +219,7 @@ export const SkillsTab: React.FC<Props> = ({ skills }) => {
                           )}
 
                           {skill.evidence.length > 1 && (
-                            <div className="text-[11px] text-text-tertiary font-medium">
+                            <div className="text-[11px] text-slate-500 font-medium">
                               +{skill.evidence.length - 1} additional citation(s) in resume
                             </div>
                           )}

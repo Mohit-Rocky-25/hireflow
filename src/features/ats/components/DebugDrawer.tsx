@@ -32,7 +32,7 @@ export const DebugDrawer: React.FC<Props> = ({ result }) => {
         <button
           type="button"
           onClick={() => setIsOpen(true)}
-          className="ml-auto mb-3 px-3 py-1.5 rounded-[8px] bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 font-mono text-xs font-bold shadow-lg flex items-center gap-2 hover:bg-slate-800 cursor-pointer border border-slate-700"
+          className="ml-auto mb-3 px-3 py-1.5 rounded-[8px] bg-slate-900 text-white font-mono text-xs font-bold shadow-lg flex items-center gap-2 hover:bg-slate-800 cursor-pointer border border-slate-700"
         >
           <Terminal className="w-3.5 h-3.5 text-emerald-400" />
           <span>[DEV] Inspect Engine State</span>

@@ -186,7 +186,7 @@ export function ResumeChecker() {
       <div className="max-w-6xl mx-auto space-y-8 animate-fade-in">
         {/* Hero Title */}
         <div className="text-center max-w-3xl mx-auto mb-6 mt-2 print:mb-4">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-slate-100 dark:bg-slate-800 border border-border text-text rounded-full text-xs font-bold uppercase tracking-wider mb-3">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-primary/10 border border-primary/25 text-primary rounded-full text-xs font-bold uppercase tracking-wider mb-3 shadow-2xs">
             <Sparkles className="w-3.5 h-3.5 text-primary" /> Deterministic ATS Evaluation Engine
           </div>
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight mb-3">
@@ -248,9 +248,9 @@ export function ResumeChecker() {
               <button
                 type="button"
                 onClick={handleTryAnotherJob}
-                className="px-4 py-2 bg-slate-100 dark:bg-slate-800 border border-border/80 text-xs font-bold rounded-[8px] hover:bg-slate-200 dark:hover:bg-slate-700 text-text transition-colors flex items-center gap-1.5 cursor-pointer shadow-2xs"
+                className="px-4 py-2 bg-white hover:bg-slate-50 border border-slate-300 text-xs font-bold rounded-[8px] text-slate-800 transition-colors flex items-center gap-1.5 cursor-pointer shadow-2xs"
               >
-                <RotateCcw className="w-3.5 h-3.5" /> Analyze Another Job Description
+                <RotateCcw className="w-3.5 h-3.5 text-primary" /> Analyze Another Job Description
               </button>
             </div>
 

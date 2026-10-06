@@ -54,10 +54,10 @@ export const SegmentedSelectors: React.FC<Props> = ({
                 key={tier}
                 type="button"
                 onClick={() => onTargetTierChange(tier)}
-                className={`px-3 py-2 text-xs sm:text-sm font-semibold rounded-[8px] transition-all text-center cursor-pointer ${
+                className={`px-3 py-2 text-xs sm:text-sm rounded-[8px] transition-all text-center cursor-pointer ${
                   isSelected
-                    ? 'bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 shadow-xs'
-                    : 'text-text-secondary hover:text-text hover:bg-surface'
+                    ? 'bg-primary text-white shadow-xs font-bold'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-surface font-medium'
                 }`}
               >
                 {tier}
@@ -83,10 +83,10 @@ export const SegmentedSelectors: React.FC<Props> = ({
                 key={lvl}
                 type="button"
                 onClick={() => onExperienceLevelChange(lvl)}
-                className={`px-2.5 py-2 text-xs sm:text-sm font-semibold rounded-[8px] transition-all text-center cursor-pointer ${
+                className={`px-2.5 py-2 text-xs sm:text-sm rounded-[8px] transition-all text-center cursor-pointer ${
                   isSelected
-                    ? 'bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 shadow-xs'
-                    : 'text-text-secondary hover:text-text hover:bg-surface'
+                    ? 'bg-primary text-white shadow-xs font-bold'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-surface font-medium'
                 }`}
               >
                 {lvl}

@@ -81,8 +81,8 @@ export const AtsInputSection: React.FC<Props> = ({
   return (
     <div className="space-y-8">
       {fileError && (
-        <div className="max-w-4xl mx-auto p-4 rounded-[12px] bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 flex items-start gap-3 text-red-800 dark:text-red-300 text-sm">
-          <AlertCircle className="w-5 h-5 shrink-0 text-red-600 dark:text-red-400 mt-0.5" />
+        <div className="max-w-4xl mx-auto p-4 rounded-[12px] bg-red-50 border border-red-200 flex items-start gap-3 text-red-800 text-sm">
+          <AlertCircle className="w-5 h-5 shrink-0 text-red-600 mt-0.5" />
           <div className="flex-1">
             <span className="font-bold">File Extraction Notice: </span>
             {fileError}
@@ -120,8 +120,8 @@ export const AtsInputSection: React.FC<Props> = ({
                   <X className="w-3.5 h-3.5" /> Clear
                 </button>
               )}
-              <label className="cursor-pointer inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-100 dark:bg-slate-800 text-text hover:bg-slate-200 dark:hover:bg-slate-700 rounded-[8px] text-xs font-bold transition-all border border-border/70 shadow-2xs">
-                <UploadCloud className="w-4 h-4" /> Upload File
+              <label className="cursor-pointer inline-flex items-center gap-1.5 px-3 py-1.5 bg-white hover:bg-sky-50 text-primary hover:border-primary rounded-[8px] text-xs font-bold transition-all border border-primary/30 shadow-2xs">
+                <UploadCloud className="w-4 h-4 text-primary" /> Upload File
                 <input
                   type="file"
                   className="hidden"
@@ -137,14 +137,14 @@ export const AtsInputSection: React.FC<Props> = ({
           </div>
 
           {resumeFileName && (
-            <div className="mb-3 px-3 py-1.5 rounded-[8px] bg-slate-100 dark:bg-slate-800 border border-border/80 flex items-center justify-between text-xs">
-              <div className="flex items-center gap-2 truncate text-text font-medium">
+            <div className="mb-3 px-3 py-1.5 rounded-[8px] bg-emerald-50/80 border border-emerald-200 flex items-center justify-between text-xs text-emerald-950">
+              <div className="flex items-center gap-2 truncate font-medium">
                 <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                <span className="font-semibold text-text truncate max-w-[180px] sm:max-w-[240px]">
+                <span className="font-semibold text-emerald-900 truncate max-w-[180px] sm:max-w-[240px]">
                   {resumeFileName}
                 </span>
               </div>
-              <span className="text-text-tertiary font-mono shrink-0 ml-2">
+              <span className="text-emerald-700 font-mono shrink-0 ml-2">
                 Parsed: {resumePageCount || 1} {resumePageCount === 1 ? 'page' : 'pages'} · {resumeWords} words
               </span>
             </div>
@@ -154,14 +154,14 @@ export const AtsInputSection: React.FC<Props> = ({
             value={resumeText}
             onChange={(e) => onResumeTextChange(e.target.value)}
             placeholder="Paste your resume text here, or upload PDF / DOCX above..."
-            className="flex-1 w-full bg-surface-hover/70 border border-border rounded-[10px] p-4 text-[16px] font-sans leading-relaxed focus:ring-1 focus:ring-slate-400 dark:focus:ring-slate-600 outline-none resize-none transition-colors"
+            className="flex-1 w-full bg-surface-hover/70 border border-border rounded-[10px] p-4 text-[16px] font-sans leading-relaxed focus:ring-1 focus:ring-primary/40 focus:border-primary outline-none resize-none transition-colors"
           />
 
           <div className="mt-3 flex items-center justify-between text-xs text-text-tertiary">
-            <span className={`font-mono font-medium ${isResumeReady ? 'text-emerald-600 dark:text-emerald-400' : 'text-text-tertiary'}`}>
+            <span className={`font-mono font-medium ${isResumeReady ? 'text-emerald-600' : 'text-text-tertiary'}`}>
               {resumeWords} words
             </span>
-            <span className={!isResumeReady ? 'text-amber-600 dark:text-amber-400 font-medium' : ''}>
+            <span className={!isResumeReady ? 'text-amber-600 font-medium' : ''}>
               {isResumeReady ? '✓ Ready for parsing' : 'Minimum 80 words required'}
             </span>
           </div>
@@ -187,8 +187,8 @@ export const AtsInputSection: React.FC<Props> = ({
                   <X className="w-3.5 h-3.5" /> Clear
                 </button>
               )}
-              <label className="cursor-pointer inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-100 dark:bg-slate-800 text-text hover:bg-slate-200 dark:hover:bg-slate-700 rounded-[8px] text-xs font-bold transition-all border border-border/70 shadow-2xs">
-                <UploadCloud className="w-4 h-4" /> Upload File
+              <label className="cursor-pointer inline-flex items-center gap-1.5 px-3 py-1.5 bg-white hover:bg-sky-50 text-primary hover:border-primary rounded-[8px] text-xs font-bold transition-all border border-primary/30 shadow-2xs">
+                <UploadCloud className="w-4 h-4 text-primary" /> Upload File
                 <input
                   type="file"
                   className="hidden"
@@ -204,14 +204,14 @@ export const AtsInputSection: React.FC<Props> = ({
           </div>
 
           {jobFileName && (
-            <div className="mb-3 px-3 py-1.5 rounded-[8px] bg-slate-100 dark:bg-slate-800 border border-border/80 flex items-center justify-between text-xs">
-              <div className="flex items-center gap-2 truncate text-text font-medium">
+            <div className="mb-3 px-3 py-1.5 rounded-[8px] bg-emerald-50/80 border border-emerald-200 flex items-center justify-between text-xs text-emerald-950">
+              <div className="flex items-center gap-2 truncate font-medium">
                 <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                <span className="font-semibold text-text truncate max-w-[180px] sm:max-w-[240px]">
+                <span className="font-semibold text-emerald-900 truncate max-w-[180px] sm:max-w-[240px]">
                   {jobFileName}
                 </span>
               </div>
-              <span className="text-text-tertiary font-mono shrink-0 ml-2">
+              <span className="text-emerald-700 font-mono shrink-0 ml-2">
                 Parsed: {jobPageCount || 1} {jobPageCount === 1 ? 'page' : 'pages'} · {jobWords} words
               </span>
             </div>
@@ -221,14 +221,14 @@ export const AtsInputSection: React.FC<Props> = ({
             value={jobText}
             onChange={(e) => onJobTextChange(e.target.value)}
             placeholder="Paste the target job description or requirements here..."
-            className="flex-1 w-full bg-surface-hover/70 border border-border rounded-[10px] p-4 text-[16px] font-sans leading-relaxed focus:ring-1 focus:ring-slate-400 dark:focus:ring-slate-600 outline-none resize-none transition-colors"
+            className="flex-1 w-full bg-surface-hover/70 border border-border rounded-[10px] p-4 text-[16px] font-sans leading-relaxed focus:ring-1 focus:ring-primary/40 focus:border-primary outline-none resize-none transition-colors"
           />
 
           <div className="mt-3 flex items-center justify-between text-xs text-text-tertiary">
-            <span className={`font-mono font-medium ${isJobReady ? 'text-emerald-600 dark:text-emerald-400' : 'text-text-tertiary'}`}>
+            <span className={`font-mono font-medium ${isJobReady ? 'text-emerald-600' : 'text-text-tertiary'}`}>
               {jobWords} words
             </span>
-            <span className={!isJobReady ? 'text-amber-600 dark:text-amber-400 font-medium' : ''}>
+            <span className={!isJobReady ? 'text-amber-600 font-medium' : ''}>
               {isJobReady ? '✓ Requirements detectable' : 'Minimum 60 words required'}
             </span>
           </div>
@@ -240,12 +240,12 @@ export const AtsInputSection: React.FC<Props> = ({
         {isScanning ? (
           <div className="p-6 bg-surface rounded-[16px] border border-border shadow-sm w-full text-center space-y-3">
             <div className="flex items-center justify-center gap-2.5 text-text font-bold text-sm">
-              <ScanLine className="w-5 h-5 animate-spin" />
+              <ScanLine className="w-5 h-5 animate-spin text-primary" />
               <span>Analyzing Match Dynamics</span>
             </div>
-            <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2 overflow-hidden">
+            <div className="w-full bg-slate-100 rounded-full h-2 overflow-hidden border border-slate-200">
               <div
-                className="bg-slate-900 dark:bg-slate-100 h-full transition-all duration-300 rounded-full"
+                className="bg-primary h-full transition-all duration-300 rounded-full"
                 style={{
                   width: `${((stagedStageIndex + 1) / stagedMessages.length) * 100}%`,
                 }}
@@ -263,15 +263,15 @@ export const AtsInputSection: React.FC<Props> = ({
               disabled={!canAnalyze}
               className={`w-full sm:w-auto px-10 py-3.5 rounded-[12px] font-bold text-[16px] transition-all shadow-sm ${
                 !canAnalyze
-                  ? 'bg-slate-200 dark:bg-slate-800 text-slate-400 dark:text-slate-600 cursor-not-allowed shadow-none'
-                  : 'bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 hover:bg-slate-800 dark:hover:bg-white hover:-translate-y-0.5 hover:shadow-md cursor-pointer active:translate-y-0'
+                  ? 'bg-slate-200 text-slate-400 cursor-not-allowed shadow-none'
+                  : 'bg-primary text-white hover:bg-primary-hover hover:-translate-y-0.5 hover:shadow-md cursor-pointer active:translate-y-0'
               }`}
             >
               Analyze Resume
             </button>
 
             {!canAnalyze && (
-              <p className="text-xs text-amber-700 dark:text-amber-400 text-center font-medium bg-amber-50 dark:bg-amber-950/30 px-3 py-1.5 rounded-md border border-amber-200 dark:border-amber-900/40">
+              <p className="text-xs text-amber-800 text-center font-medium bg-amber-50 px-3 py-1.5 rounded-md border border-amber-200">
                 {getDisabledReason()}
               </p>
             )}

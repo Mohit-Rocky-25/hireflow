@@ -86,7 +86,7 @@ export const OverviewTab: React.FC<Props> = ({ result }) => {
       name: 'Tier Competency Fit',
       score: subscores.tierFit,
       max: weights.tierFit,
-      color: 'bg-slate-700 dark:bg-slate-300',
+      color: 'bg-slate-700',
       description: `Alignment against the hiring bar and artifact expectations for ${tierConfig.name}.`,
     },
   ];
@@ -96,10 +96,10 @@ export const OverviewTab: React.FC<Props> = ({ result }) => {
       {/* 1. Category Subscore Breakdown Panel */}
       <div className="bg-surface rounded-[16px] p-6 sm:p-8 border border-border shadow-xs space-y-6">
         <div>
-          <h3 className="text-[24px] sm:text-[26px] font-extrabold text-text tracking-tight flex items-center gap-2.5">
-            <Layers className="w-6 h-6 text-text" /> 7-Factor Weighted ATS Score Breakdown
+          <h3 className="text-[24px] sm:text-[26px] font-extrabold text-slate-900 tracking-tight flex items-center gap-2.5">
+            <Layers className="w-6 h-6 text-primary" /> 7-Factor Weighted ATS Score Breakdown
           </h3>
-          <p className="text-[16px] text-text-secondary mt-1">
+          <p className="text-[16px] text-slate-600 mt-1">
             Every point is deterministically calculated against industry recruiter benchmarks (sum: 100 points).
           </p>
         </div>
@@ -111,25 +111,25 @@ export const OverviewTab: React.FC<Props> = ({ result }) => {
               <div key={cat.id} className="space-y-2">
                 <div className="flex items-center justify-between text-sm">
                   <div>
-                    <span className="font-bold text-text text-[16px]">{cat.name}</span>
-                    <span className="text-text-tertiary ml-2 text-xs font-mono">
+                    <span className="font-bold text-slate-900 text-[16px]">{cat.name}</span>
+                    <span className="text-slate-500 ml-2 text-xs font-mono">
                       (Weight: {cat.max} pts)
                     </span>
                   </div>
-                  <div className="font-mono font-bold text-text text-[15px]">
+                  <div className="font-mono font-bold text-slate-900 text-[15px]">
                     {cat.score} / {cat.max} pts{' '}
-                    <span className="text-text-tertiary text-xs">({pct}%)</span>
+                    <span className="text-slate-500 text-xs">({pct}%)</span>
                   </div>
                 </div>
 
-                <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-3 overflow-hidden">
+                <div className="w-full bg-slate-100 rounded-full h-3 overflow-hidden border border-slate-200">
                   <div
                     className={`${cat.color} h-full transition-all duration-700 rounded-full`}
                     style={{ width: `${pct}%` }}
                   />
                 </div>
 
-                <p className="text-xs text-text-tertiary">{cat.description}</p>
+                <p className="text-xs text-slate-500">{cat.description}</p>
               </div>
             );
           })}
@@ -140,10 +140,10 @@ export const OverviewTab: React.FC<Props> = ({ result }) => {
       {penalties.length > 0 && (
         <div className="bg-surface rounded-[16px] p-6 sm:p-8 border border-border shadow-xs space-y-4">
           <div className="flex items-center justify-between">
-            <h3 className="text-[20px] sm:text-[22px] font-extrabold text-text tracking-tight flex items-center gap-2 text-rose-600 dark:text-rose-400">
+            <h3 className="text-[20px] sm:text-[22px] font-extrabold tracking-tight flex items-center gap-2 text-rose-600">
               <TrendingDown className="w-5 h-5" /> Applied Deductions & Penalties
             </h3>
-            <span className="text-xs font-mono font-bold px-2.5 py-1 rounded bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-900">
+            <span className="text-xs font-mono font-bold px-2.5 py-1 rounded bg-rose-50 text-rose-700 border border-rose-200">
               {penalties.reduce((sum, p) => sum + p.points, 0)} pts total
             </span>
           </div>
@@ -152,17 +152,17 @@ export const OverviewTab: React.FC<Props> = ({ result }) => {
             {penalties.map((penalty, idx) => (
               <div
                 key={idx}
-                className="p-4 rounded-[12px] bg-rose-50/50 dark:bg-rose-950/20 border border-rose-200 dark:border-rose-900/50 flex items-start gap-3.5"
+                className="p-4 rounded-[12px] bg-rose-50/60 border border-rose-200 flex items-start gap-3.5"
               >
-                <ShieldAlert className="w-5 h-5 text-rose-600 dark:text-rose-400 shrink-0 mt-0.5" />
+                <ShieldAlert className="w-5 h-5 text-rose-600 shrink-0 mt-0.5" />
                 <div className="flex-1 space-y-1">
                   <div className="flex items-center justify-between">
-                    <span className="font-bold text-sm text-text">{penalty.label}</span>
-                    <span className="font-mono font-bold text-xs text-rose-700 dark:text-rose-400">
+                    <span className="font-bold text-sm text-slate-900">{penalty.label}</span>
+                    <span className="font-mono font-bold text-xs text-rose-700">
                       {penalty.points} pts
                     </span>
                   </div>
-                  <p className="text-xs text-text-secondary leading-relaxed">
+                  <p className="text-xs text-slate-600 leading-relaxed">
                     {penalty.reason}
                   </p>
                 </div>
@@ -176,10 +176,10 @@ export const OverviewTab: React.FC<Props> = ({ result }) => {
       <div className="bg-surface rounded-[16px] p-6 sm:p-8 border border-border shadow-xs space-y-5">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="text-[20px] sm:text-[22px] font-extrabold text-text tracking-tight flex items-center gap-2">
+            <h3 className="text-[20px] sm:text-[22px] font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
               <Award className="w-5 h-5 text-primary" /> Market Bar: {tierConfig.name}
             </h3>
-            <p className="text-xs text-text-secondary mt-1">
+            <p className="text-xs text-slate-600 mt-1">
               {tierConfig.description}
             </p>
           </div>
@@ -190,11 +190,11 @@ export const OverviewTab: React.FC<Props> = ({ result }) => {
 
         <div className="grid md:grid-cols-2 gap-4 pt-1">
           {/* Key Bonus Signals */}
-          <div className="p-4 rounded-[12px] bg-slate-50 dark:bg-slate-900 border border-border space-y-2.5">
-            <span className="text-xs font-bold text-emerald-700 dark:text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
-              <FileCheck2 className="w-4 h-4" /> Strongest Hiring Signals
+          <div className="p-4 rounded-[12px] bg-slate-50 border border-slate-200/90 space-y-2.5 shadow-2xs">
+            <span className="text-xs font-bold text-emerald-700 uppercase tracking-wider flex items-center gap-1.5">
+              <FileCheck2 className="w-4 h-4 text-emerald-600" /> Strongest Hiring Signals
             </span>
-            <ul className="space-y-1.5 text-xs text-text-secondary">
+            <ul className="space-y-1.5 text-xs text-slate-700">
               {tierConfig.keyBonusSignals.map((sig: string, i: number) => (
                 <li key={i} className="flex items-start gap-2">
                   <span className="text-emerald-600 font-bold">•</span>
@@ -205,11 +205,11 @@ export const OverviewTab: React.FC<Props> = ({ result }) => {
           </div>
 
           {/* Key Screening Risks */}
-          <div className="p-4 rounded-[12px] bg-slate-50 dark:bg-slate-900 border border-border space-y-2.5">
-            <span className="text-xs font-bold text-amber-700 dark:text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
-              <Info className="w-4 h-4" /> Common Rejection Pitfalls
+          <div className="p-4 rounded-[12px] bg-slate-50 border border-slate-200/90 space-y-2.5 shadow-2xs">
+            <span className="text-xs font-bold text-amber-700 uppercase tracking-wider flex items-center gap-1.5">
+              <Info className="w-4 h-4 text-amber-600" /> Common Rejection Pitfalls
             </span>
-            <ul className="space-y-1.5 text-xs text-text-secondary">
+            <ul className="space-y-1.5 text-xs text-slate-700">
               {tierConfig.keyRisks.map((risk: string, i: number) => (
                 <li key={i} className="flex items-start gap-2">
                   <span className="text-amber-600 font-bold">•</span>
