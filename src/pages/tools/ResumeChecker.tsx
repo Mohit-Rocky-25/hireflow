@@ -108,32 +108,33 @@ export function ResumeChecker() {
     }
   };
 
+  const handleImportTalentLensResume = (text: string, fileName: string) => {
+    setResumeText(text);
+    setResumeFileName(fileName || 'TalentLens_Resume.pdf');
+    setResumePageCount(1);
+    setFileError(null);
+  };
+
   const handleAnalyze = () => {
     if (!resumeText.trim() || !jobText.trim()) return;
 
     setIsScanning(true);
-    // Reset active tab to 'overview' on every scan (fixes random tab bug)
     setActiveTab('overview');
 
-    const mappedTier: TargetTierId =
-      targetTier === 'Top Product'
-        ? 'top_product'
-        : targetTier === 'Startup / Unicorn'
-        ? 'startup_unicorn'
-        : targetTier === 'Service / MNC'
-        ? 'service_mnc'
-        : 'auto';
+    const tierMap: Record<string, TargetTierId> = {
+      'Top Product': 'top_product',
+      'Startup / Unicorn': 'startup_unicorn',
+      'Service / MNC': 'service_mnc',
+    };
+    const levelMap: Record<string, ExperienceLevelId> = {
+      Fresher: 'fresher',
+      '1-3 yrs': '1-3',
+      '3-6 yrs': '3-6',
+      '6+ yrs': '6+',
+    };
 
-    const mappedLevel: ExperienceLevelId =
-      experienceLevel === 'Fresher'
-        ? 'fresher'
-        : experienceLevel === '1-3 yrs'
-        ? '1-3'
-        : experienceLevel === '3-6 yrs'
-        ? '3-6'
-        : experienceLevel === '6+ yrs'
-        ? '6+'
-        : 'auto';
+    const mappedTier = tierMap[targetTier] || 'auto';
+    const mappedLevel = levelMap[experienceLevel] || 'auto';
 
     setTimeout(() => {
       try {
@@ -230,6 +231,7 @@ export function ResumeChecker() {
             onClearResume={handleClearResume}
             onClearJob={handleClearJob}
             onAnalyze={handleAnalyze}
+            onImportTalentLensResume={handleImportTalentLensResume}
           />
         )}
 

@@ -4,9 +4,11 @@
 // ============================================================
 
 import React from 'react';
-import { FileText, Search, UploadCloud, X, ScanLine, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { FileText, Search, ScanLine, AlertCircle } from 'lucide-react';
 import { countWords } from '../fileParser';
 import { SegmentedSelectors, TargetTier, ExperienceLevel } from './SegmentedSelectors';
+import { FileDropzone } from './FileDropzone';
+import { useTalentLensStore } from '../../../pages/demo/useTalentLensStore';
 
 export type { TargetTier, ExperienceLevel };
 
@@ -32,6 +34,7 @@ interface Props {
   onClearResume: () => void;
   onClearJob: () => void;
   onAnalyze: () => void;
+  onImportTalentLensResume?: (text: string, fileName: string) => void;
 }
 
 export const AtsInputSection: React.FC<Props> = ({
@@ -56,6 +59,7 @@ export const AtsInputSection: React.FC<Props> = ({
   onClearResume,
   onClearJob,
   onAnalyze,
+  onImportTalentLensResume,
 }) => {
   const resumeWords = countWords(resumeText);
   const jobWords = countWords(jobText);
@@ -63,6 +67,12 @@ export const AtsInputSection: React.FC<Props> = ({
   const isResumeReady = resumeWords >= 80;
   const isJobReady = jobWords >= 60;
   const canAnalyze = isResumeReady && isJobReady && !isFileExtracting && !isScanning;
+
+  // Access resume state from TalentLens if candidate previously used TalentLens
+  const talentLensResume = useTalentLensStore((state) => ({
+    text: state.resumeText,
+    fileName: state.resumeFileName,
+  }));
 
   const getDisabledReason = () => {
     if (isFileExtracting) return 'Reading and validating uploaded file...';
@@ -98,141 +108,51 @@ export const AtsInputSection: React.FC<Props> = ({
         onExperienceLevelChange={onExperienceLevelChange}
       />
 
-      {/* Two Main Input Panels */}
+      {/* Two Main Input Panels: Paste Option + TalentLens-Style File Dropzone Structure */}
       <div className="grid md:grid-cols-2 gap-6 max-w-6xl mx-auto">
-        {/* Resume Input Panel */}
-        <div className="bg-surface rounded-[16px] p-6 border border-border shadow-xs flex flex-col h-[520px]">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2.5 min-w-0">
-              <FileText className="w-5 h-5 text-text shrink-0" />
-              <h2 className="text-[22px] sm:text-[24px] font-extrabold text-text truncate">
-                Your Resume
-              </h2>
-            </div>
-            <div className="flex items-center gap-2">
-              {resumeText && (
-                <button
-                  type="button"
-                  onClick={onClearResume}
-                  className="px-2.5 py-1 text-xs font-semibold text-text-tertiary hover:text-red-500 rounded-md transition-colors flex items-center gap-1 cursor-pointer"
-                  title="Clear resume"
-                >
-                  <X className="w-3.5 h-3.5" /> Clear
-                </button>
-              )}
-              <label className="cursor-pointer inline-flex items-center gap-1.5 px-3 py-1.5 bg-white hover:bg-sky-50 text-primary hover:border-primary rounded-[8px] text-xs font-bold transition-all border border-primary/30 shadow-2xs">
-                <UploadCloud className="w-4 h-4 text-primary" /> Upload File
-                <input
-                  type="file"
-                  className="hidden"
-                  accept=".pdf,.docx,.txt,.md"
-                  onChange={(e) => {
-                    if (e.target.files?.[0]) {
-                      onFileUpload(e.target.files[0], 'resume');
-                    }
-                  }}
-                />
-              </label>
-            </div>
-          </div>
+        {/* Resume Input Dropzone & Text Area */}
+        <FileDropzone
+          type="resume"
+          title="Your Resume"
+          icon={<FileText className="w-5 h-5 text-primary shrink-0" />}
+          text={resumeText}
+          fileName={resumeFileName}
+          pageCount={resumePageCount}
+          wordCount={resumeWords}
+          isReady={isResumeReady}
+          minWords={80}
+          placeholder="Paste your resume text here, or switch to Upload File to drop your PDF / DOCX above..."
+          onFileUpload={(file) => onFileUpload(file, 'resume')}
+          onClear={onClearResume}
+          onTextChange={onResumeTextChange}
+          talentLensResume={talentLensResume.text ? talentLensResume : null}
+          onImportTalentLens={() => {
+            if (talentLensResume.text) {
+              if (onImportTalentLensResume) {
+                onImportTalentLensResume(talentLensResume.text, talentLensResume.fileName);
+              } else {
+                onResumeTextChange(talentLensResume.text);
+              }
+            }
+          }}
+        />
 
-          {resumeFileName && (
-            <div className="mb-3 px-3 py-1.5 rounded-[8px] bg-emerald-50/80 border border-emerald-200 flex items-center justify-between text-xs text-emerald-950">
-              <div className="flex items-center gap-2 truncate font-medium">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                <span className="font-semibold text-emerald-900 truncate max-w-[180px] sm:max-w-[240px]">
-                  {resumeFileName}
-                </span>
-              </div>
-              <span className="text-emerald-700 font-mono shrink-0 ml-2">
-                Parsed: {resumePageCount || 1} {resumePageCount === 1 ? 'page' : 'pages'} · {resumeWords} words
-              </span>
-            </div>
-          )}
-
-          <textarea
-            value={resumeText}
-            onChange={(e) => onResumeTextChange(e.target.value)}
-            placeholder="Paste your resume text here, or upload PDF / DOCX above..."
-            className="flex-1 w-full bg-surface-hover/70 border border-border rounded-[10px] p-4 text-[16px] font-sans leading-relaxed focus:ring-1 focus:ring-primary/40 focus:border-primary outline-none resize-none transition-colors"
-          />
-
-          <div className="mt-3 flex items-center justify-between text-xs text-text-tertiary">
-            <span className={`font-mono font-medium ${isResumeReady ? 'text-emerald-600' : 'text-text-tertiary'}`}>
-              {resumeWords} words
-            </span>
-            <span className={!isResumeReady ? 'text-amber-600 font-medium' : ''}>
-              {isResumeReady ? '✓ Ready for parsing' : 'Minimum 80 words required'}
-            </span>
-          </div>
-        </div>
-
-        {/* Job Description Input Panel */}
-        <div className="bg-surface rounded-[16px] p-6 border border-border shadow-xs flex flex-col h-[520px]">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2.5 min-w-0">
-              <Search className="w-5 h-5 text-text shrink-0" />
-              <h2 className="text-[22px] sm:text-[24px] font-extrabold text-text truncate">
-                Target Job Description
-              </h2>
-            </div>
-            <div className="flex items-center gap-2">
-              {jobText && (
-                <button
-                  type="button"
-                  onClick={onClearJob}
-                  className="px-2.5 py-1 text-xs font-semibold text-text-tertiary hover:text-red-500 rounded-md transition-colors flex items-center gap-1 cursor-pointer"
-                  title="Clear job description"
-                >
-                  <X className="w-3.5 h-3.5" /> Clear
-                </button>
-              )}
-              <label className="cursor-pointer inline-flex items-center gap-1.5 px-3 py-1.5 bg-white hover:bg-sky-50 text-primary hover:border-primary rounded-[8px] text-xs font-bold transition-all border border-primary/30 shadow-2xs">
-                <UploadCloud className="w-4 h-4 text-primary" /> Upload File
-                <input
-                  type="file"
-                  className="hidden"
-                  accept=".pdf,.docx,.txt,.md"
-                  onChange={(e) => {
-                    if (e.target.files?.[0]) {
-                      onFileUpload(e.target.files[0], 'job');
-                    }
-                  }}
-                />
-              </label>
-            </div>
-          </div>
-
-          {jobFileName && (
-            <div className="mb-3 px-3 py-1.5 rounded-[8px] bg-emerald-50/80 border border-emerald-200 flex items-center justify-between text-xs text-emerald-950">
-              <div className="flex items-center gap-2 truncate font-medium">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                <span className="font-semibold text-emerald-900 truncate max-w-[180px] sm:max-w-[240px]">
-                  {jobFileName}
-                </span>
-              </div>
-              <span className="text-emerald-700 font-mono shrink-0 ml-2">
-                Parsed: {jobPageCount || 1} {jobPageCount === 1 ? 'page' : 'pages'} · {jobWords} words
-              </span>
-            </div>
-          )}
-
-          <textarea
-            value={jobText}
-            onChange={(e) => onJobTextChange(e.target.value)}
-            placeholder="Paste the target job description or requirements here..."
-            className="flex-1 w-full bg-surface-hover/70 border border-border rounded-[10px] p-4 text-[16px] font-sans leading-relaxed focus:ring-1 focus:ring-primary/40 focus:border-primary outline-none resize-none transition-colors"
-          />
-
-          <div className="mt-3 flex items-center justify-between text-xs text-text-tertiary">
-            <span className={`font-mono font-medium ${isJobReady ? 'text-emerald-600' : 'text-text-tertiary'}`}>
-              {jobWords} words
-            </span>
-            <span className={!isJobReady ? 'text-amber-600 font-medium' : ''}>
-              {isJobReady ? '✓ Requirements detectable' : 'Minimum 60 words required'}
-            </span>
-          </div>
-        </div>
+        {/* Target Job Description Dropzone & Text Area */}
+        <FileDropzone
+          type="job"
+          title="Target Job Description"
+          icon={<Search className="w-5 h-5 text-primary shrink-0" />}
+          text={jobText}
+          fileName={jobFileName}
+          pageCount={jobPageCount}
+          wordCount={jobWords}
+          isReady={isJobReady}
+          minWords={60}
+          placeholder="Paste the target job description or requirements here, or switch to Upload File..."
+          onFileUpload={(file) => onFileUpload(file, 'job')}
+          onClear={onClearJob}
+          onTextChange={onJobTextChange}
+        />
       </div>
 
       {/* Main Action Button / Loading State */}
