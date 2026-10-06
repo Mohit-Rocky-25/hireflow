@@ -25,6 +25,7 @@ import {
   Award,
   Users,
   Compass,
+  X,
 } from 'lucide-react';
 import {
   Area,
@@ -40,6 +41,8 @@ import {
   getCompanyLadder,
   getLevelsForCompanyAndTrack,
   searchLevels,
+  getFuzzySuggestion,
+  getLevel,
 } from '../../data/careerLadders';
 import type {
   CareerLevel,
@@ -137,6 +140,46 @@ export function CareerPathSimulator() {
   const targetMatches = useMemo(() => {
     return searchLevels(targetSearchQuery);
   }, [targetSearchQuery]);
+
+  const sourceFuzzySuggestion = useMemo(() => {
+    return getFuzzySuggestion(sourceSearchQuery);
+  }, [sourceSearchQuery]);
+
+  const targetFuzzySuggestion = useMemo(() => {
+    return getFuzzySuggestion(targetSearchQuery);
+  }, [targetSearchQuery]);
+
+  const currentSourceCompany = useMemo(() => {
+    return getCompanyLadder(sourceCompanyId);
+  }, [sourceCompanyId]);
+
+  const currentSourceLevel = useMemo(() => {
+    return getLevel(sourceCompanyId, sourceLevelCode, simTrack);
+  }, [sourceCompanyId, sourceLevelCode, simTrack]);
+
+  const currentTargetCompany = useMemo(() => {
+    return getCompanyLadder(targetCompanyId);
+  }, [targetCompanyId]);
+
+  const currentTargetLevel = useMemo(() => {
+    return getLevel(targetCompanyId, targetLevelCode, targetTrack);
+  }, [targetCompanyId, targetLevelCode, targetTrack]);
+
+  const handleSelectSource = (companyId: string, levelCode: string, track: CareerTrack) => {
+    setSourceCompanyId(companyId);
+    setSourceLevelCode(levelCode);
+    setSimTrack(track);
+    setSourceSearchQuery('');
+    setIsSourceDropdownOpen(false);
+  };
+
+  const handleSelectTarget = (companyId: string, levelCode: string, track: CareerTrack) => {
+    setTargetCompanyId(companyId);
+    setTargetLevelCode(levelCode);
+    setTargetTrack(track);
+    setTargetSearchQuery('');
+    setIsTargetDropdownOpen(false);
+  };
 
   const sourceLevelsForSim = useMemo(() => {
     return getLevelsForCompanyAndTrack(sourceCompanyId, simTrack);
@@ -580,89 +623,268 @@ export function CareerPathSimulator() {
                   </p>
                 </div>
 
-                {/* Current Position Row */}
-                <div className="grid md:grid-cols-2 gap-4">
-                  {/* Current Company */}
-                  <div>
-                    <label className="block text-xs font-bold text-foreground mb-1.5 flex items-center gap-1.5">
-                      <Building2 className="w-3.5 h-3.5 text-muted" /> Current Company
-                    </label>
-                    <select
-                      value={sourceCompanyId}
-                      onChange={(e) => {
-                        setSourceCompanyId(e.target.value);
-                        const firstLvl = getLevelsForCompanyAndTrack(e.target.value, simTrack)[0];
-                        if (firstLvl) setSourceLevelCode(firstLvl.levelCode);
-                      }}
-                      className="w-full bg-surface-2 border border-border rounded-lg px-3.5 py-2.5 text-sm font-semibold text-foreground focus:ring-2 focus:ring-primary outline-none"
-                    >
-                      {allCompanies.map((c) => (
-                        <option key={c.id} value={c.id}>
-                          {c.name}
-                        </option>
-                      ))}
-                    </select>
+                {/* Position Selection Cards */}
+                <div className="grid md:grid-cols-2 gap-6">
+                  {/* Current Position Card */}
+                  <div className="bg-surface-2/40 border border-border rounded-xl p-4.5 space-y-3.5">
+                    <div className="flex items-center justify-between">
+                      <label className="text-xs font-black text-foreground uppercase tracking-wider flex items-center gap-1.5">
+                        <Building2 className="w-3.5 h-3.5 text-primary" /> Current Position
+                      </label>
+                      {currentSourceLevel && (
+                        <span className="text-[11px] font-bold px-2 py-0.5 rounded bg-primary/10 text-primary">
+                          {currentSourceLevel.levelCode} • {currentSourceLevel.equivalenceGroup}
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Autocomplete Search Bar */}
+                    <div className="relative" ref={sourceDropdownRef}>
+                      <div className="relative flex items-center">
+                        <Search className="w-4 h-4 text-muted absolute left-3 pointer-events-none" />
+                        <input
+                          type="text"
+                          value={sourceSearchQuery}
+                          onChange={(e) => {
+                            setSourceSearchQuery(e.target.value);
+                            setIsSourceDropdownOpen(true);
+                          }}
+                          onFocus={() => setIsSourceDropdownOpen(true)}
+                          placeholder="Search role e.g. 'Google L4', 'Meta E5'..."
+                          className="w-full bg-surface border border-border rounded-lg pl-9 pr-8 py-2 text-xs font-semibold text-foreground placeholder:text-muted focus:ring-2 focus:ring-primary outline-none transition-all"
+                        />
+                        {sourceSearchQuery && (
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setSourceSearchQuery('');
+                              setIsSourceDropdownOpen(false);
+                            }}
+                            className="absolute right-2.5 p-0.5 text-muted hover:text-foreground rounded"
+                          >
+                            <X className="w-3.5 h-3.5" />
+                          </button>
+                        )}
+                      </div>
+
+                      {/* Autocomplete Dropdown */}
+                      {isSourceDropdownOpen && (
+                        <div className="absolute z-30 left-0 right-0 mt-1.5 bg-surface border border-border rounded-xl shadow-xl max-h-60 overflow-y-auto divide-y divide-border">
+                          {sourceMatches.length > 0 ? (
+                            sourceMatches.map((m) => (
+                              <div
+                                key={`${m.company.id}-${m.level.levelCode}-${m.level.track}`}
+                                onClick={() => handleSelectSource(m.company.id, m.level.levelCode, m.level.track)}
+                                className="p-2.5 hover:bg-primary/5 cursor-pointer flex items-center justify-between text-xs transition-colors"
+                              >
+                                <div>
+                                  <span className="font-extrabold text-foreground">{m.company.name}</span>
+                                  <span className="text-secondary ml-1.5 font-medium">{m.level.title}</span>
+                                </div>
+                                <span className="px-1.5 py-0.5 rounded bg-surface-2 text-[10px] font-black text-primary border border-border">
+                                  {m.level.levelCode}
+                                </span>
+                              </div>
+                            ))
+                          ) : (
+                            <div className="p-3 text-xs space-y-2">
+                              <p className="text-muted">No exact ladder node matched &ldquo;{sourceSearchQuery}&rdquo;.</p>
+                              {sourceFuzzySuggestion && (
+                                <div className="p-2.5 rounded-lg bg-amber-500/10 border border-amber-500/20 text-xs">
+                                  <div className="flex items-center gap-1.5 text-amber-600 dark:text-amber-400 font-bold mb-1">
+                                    <Sparkles className="w-3.5 h-3.5" /> Did you mean?
+                                  </div>
+                                  <div className="flex items-center justify-between gap-2">
+                                    <span className="font-semibold text-foreground">
+                                      {sourceFuzzySuggestion.label}
+                                    </span>
+                                    <button
+                                      type="button"
+                                      onClick={() => handleSelectSource(
+                                        sourceFuzzySuggestion.company.id,
+                                        sourceFuzzySuggestion.level.levelCode,
+                                        sourceFuzzySuggestion.level.track
+                                      )}
+                                      className="px-2 py-1 rounded bg-amber-500 text-white font-bold text-[11px] hover:bg-amber-600 shrink-0"
+                                    >
+                                      Select
+                                    </button>
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Or Manual Dropdown Selectors */}
+                    <div className="grid grid-cols-2 gap-2 pt-1 border-t border-border/60">
+                      <div>
+                        <span className="text-[10px] text-muted font-bold block mb-1">Company</span>
+                        <select
+                          value={sourceCompanyId}
+                          onChange={(e) => {
+                            setSourceCompanyId(e.target.value);
+                            const firstLvl = getLevelsForCompanyAndTrack(e.target.value, simTrack)[0];
+                            if (firstLvl) setSourceLevelCode(firstLvl.levelCode);
+                          }}
+                          className="w-full bg-surface border border-border rounded-lg px-2.5 py-1.5 text-xs font-semibold text-foreground focus:ring-2 focus:ring-primary outline-none"
+                        >
+                          {allCompanies.map((c) => (
+                            <option key={c.id} value={c.id}>
+                              {c.name}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+
+                      <div>
+                        <span className="text-[10px] text-muted font-bold block mb-1">Level</span>
+                        <select
+                          value={sourceLevelCode}
+                          onChange={(e) => setSourceLevelCode(e.target.value)}
+                          className="w-full bg-surface border border-border rounded-lg px-2.5 py-1.5 text-xs font-semibold text-foreground focus:ring-2 focus:ring-primary outline-none"
+                        >
+                          {sourceLevelsForSim.map((l) => (
+                            <option key={l.levelCode} value={l.levelCode}>
+                              {l.levelCode} • {l.title}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
                   </div>
 
-                  {/* Current Level */}
-                  <div>
-                    <label className="block text-xs font-bold text-foreground mb-1.5 flex items-center gap-1.5">
-                      <Layers className="w-3.5 h-3.5 text-primary" /> Current Level
-                    </label>
-                    <select
-                      value={sourceLevelCode}
-                      onChange={(e) => setSourceLevelCode(e.target.value)}
-                      className="w-full bg-surface-2 border border-border rounded-lg px-3.5 py-2.5 text-sm font-semibold text-foreground focus:ring-2 focus:ring-primary outline-none"
-                    >
-                      {sourceLevelsForSim.map((l) => (
-                        <option key={l.levelCode} value={l.levelCode}>
-                          {l.levelCode} • {l.title}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
+                  {/* Target Position Card */}
+                  <div className="bg-surface-2/40 border border-border rounded-xl p-4.5 space-y-3.5">
+                    <div className="flex items-center justify-between">
+                      <label className="text-xs font-black text-foreground uppercase tracking-wider flex items-center gap-1.5">
+                        <Award className="w-3.5 h-3.5 text-blue-500" /> Target Position
+                      </label>
+                      {currentTargetLevel && (
+                        <span className="text-[11px] font-bold px-2 py-0.5 rounded bg-blue-500/10 text-blue-600 dark:text-blue-400">
+                          {currentTargetLevel.levelCode} • {currentTargetLevel.equivalenceGroup}
+                        </span>
+                      )}
+                    </div>
 
-                {/* Target Position Row */}
-                <div className="grid md:grid-cols-2 gap-4">
-                  {/* Target Company */}
-                  <div>
-                    <label className="block text-xs font-bold text-foreground mb-1.5 flex items-center gap-1.5">
-                      <Building2 className="w-3.5 h-3.5 text-primary" /> Target Company
-                    </label>
-                    <select
-                      value={targetCompanyId}
-                      onChange={(e) => {
-                        setTargetCompanyId(e.target.value);
-                        const firstLvl = getLevelsForCompanyAndTrack(e.target.value, targetTrack)[0];
-                        if (firstLvl) setTargetLevelCode(firstLvl.levelCode);
-                      }}
-                      className="w-full bg-surface-2 border border-border rounded-lg px-3.5 py-2.5 text-sm font-semibold text-foreground focus:ring-2 focus:ring-primary outline-none"
-                    >
-                      {allCompanies.map((c) => (
-                        <option key={c.id} value={c.id}>
-                          {c.name}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+                    {/* Autocomplete Search Bar */}
+                    <div className="relative" ref={targetDropdownRef}>
+                      <div className="relative flex items-center">
+                        <Search className="w-4 h-4 text-muted absolute left-3 pointer-events-none" />
+                        <input
+                          type="text"
+                          value={targetSearchQuery}
+                          onChange={(e) => {
+                            setTargetSearchQuery(e.target.value);
+                            setIsTargetDropdownOpen(true);
+                          }}
+                          onFocus={() => setIsTargetDropdownOpen(true)}
+                          placeholder="Search target e.g. 'Meta E6', 'Amazon Principal'..."
+                          className="w-full bg-surface border border-border rounded-lg pl-9 pr-8 py-2 text-xs font-semibold text-foreground placeholder:text-muted focus:ring-2 focus:ring-primary outline-none transition-all"
+                        />
+                        {targetSearchQuery && (
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setTargetSearchQuery('');
+                              setIsTargetDropdownOpen(false);
+                            }}
+                            className="absolute right-2.5 p-0.5 text-muted hover:text-foreground rounded"
+                          >
+                            <X className="w-3.5 h-3.5" />
+                          </button>
+                        )}
+                      </div>
 
-                  {/* Target Level */}
-                  <div>
-                    <label className="block text-xs font-bold text-foreground mb-1.5 flex items-center gap-1.5">
-                      <Award className="w-3.5 h-3.5 text-blue-500" /> Target Level
-                    </label>
-                    <select
-                      value={targetLevelCode}
-                      onChange={(e) => setTargetLevelCode(e.target.value)}
-                      className="w-full bg-surface-2 border border-border rounded-lg px-3.5 py-2.5 text-sm font-semibold text-foreground focus:ring-2 focus:ring-primary outline-none"
-                    >
-                      {targetLevelsForSim.map((l) => (
-                        <option key={l.levelCode} value={l.levelCode}>
-                          {l.levelCode} • {l.title}
-                        </option>
-                      ))}
-                    </select>
+                      {/* Autocomplete Dropdown */}
+                      {isTargetDropdownOpen && (
+                        <div className="absolute z-30 left-0 right-0 mt-1.5 bg-surface border border-border rounded-xl shadow-xl max-h-60 overflow-y-auto divide-y divide-border">
+                          {targetMatches.length > 0 ? (
+                            targetMatches.map((m) => (
+                              <div
+                                key={`${m.company.id}-${m.level.levelCode}-${m.level.track}`}
+                                onClick={() => handleSelectTarget(m.company.id, m.level.levelCode, m.level.track)}
+                                className="p-2.5 hover:bg-blue-500/5 cursor-pointer flex items-center justify-between text-xs transition-colors"
+                              >
+                                <div>
+                                  <span className="font-extrabold text-foreground">{m.company.name}</span>
+                                  <span className="text-secondary ml-1.5 font-medium">{m.level.title}</span>
+                                </div>
+                                <span className="px-1.5 py-0.5 rounded bg-surface-2 text-[10px] font-black text-blue-500 border border-border">
+                                  {m.level.levelCode}
+                                </span>
+                              </div>
+                            ))
+                          ) : (
+                            <div className="p-3 text-xs space-y-2">
+                              <p className="text-muted">No exact ladder node matched &ldquo;{targetSearchQuery}&rdquo;.</p>
+                              {targetFuzzySuggestion && (
+                                <div className="p-2.5 rounded-lg bg-amber-500/10 border border-amber-500/20 text-xs">
+                                  <div className="flex items-center gap-1.5 text-amber-600 dark:text-amber-400 font-bold mb-1">
+                                    <Sparkles className="w-3.5 h-3.5" /> Did you mean?
+                                  </div>
+                                  <div className="flex items-center justify-between gap-2">
+                                    <span className="font-semibold text-foreground">
+                                      {targetFuzzySuggestion.label}
+                                    </span>
+                                    <button
+                                      type="button"
+                                      onClick={() => handleSelectTarget(
+                                        targetFuzzySuggestion.company.id,
+                                        targetFuzzySuggestion.level.levelCode,
+                                        targetFuzzySuggestion.level.track
+                                      )}
+                                      className="px-2 py-1 rounded bg-amber-500 text-white font-bold text-[11px] hover:bg-amber-600 shrink-0"
+                                    >
+                                      Select
+                                    </button>
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Or Manual Dropdown Selectors */}
+                    <div className="grid grid-cols-2 gap-2 pt-1 border-t border-border/60">
+                      <div>
+                        <span className="text-[10px] text-muted font-bold block mb-1">Company</span>
+                        <select
+                          value={targetCompanyId}
+                          onChange={(e) => {
+                            setTargetCompanyId(e.target.value);
+                            const firstLvl = getLevelsForCompanyAndTrack(e.target.value, targetTrack)[0];
+                            if (firstLvl) setTargetLevelCode(firstLvl.levelCode);
+                          }}
+                          className="w-full bg-surface border border-border rounded-lg px-2.5 py-1.5 text-xs font-semibold text-foreground focus:ring-2 focus:ring-primary outline-none"
+                        >
+                          {allCompanies.map((c) => (
+                            <option key={c.id} value={c.id}>
+                              {c.name}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+
+                      <div>
+                        <span className="text-[10px] text-muted font-bold block mb-1">Level</span>
+                        <select
+                          value={targetLevelCode}
+                          onChange={(e) => setTargetLevelCode(e.target.value)}
+                          className="w-full bg-surface border border-border rounded-lg px-2.5 py-1.5 text-xs font-semibold text-foreground focus:ring-2 focus:ring-primary outline-none"
+                        >
+                          {targetLevelsForSim.map((l) => (
+                            <option key={l.levelCode} value={l.levelCode}>
+                              {l.levelCode} • {l.title}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
                   </div>
                 </div>
 

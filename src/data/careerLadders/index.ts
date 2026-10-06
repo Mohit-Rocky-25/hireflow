@@ -58,6 +58,29 @@ export function getLevelsForCompanyAndTrack(
   return ladder.levels.filter((lvl) => lvl.track === track);
 }
 
+function levenshteinDistance(a: string, b: string): number {
+  if (a.length === 0) return b.length;
+  if (b.length === 0) return a.length;
+  const matrix: number[][] = [];
+  for (let i = 0; i <= b.length; i++) matrix[i] = [i];
+  for (let j = 0; j <= a.length; j++) matrix[0][j] = j;
+
+  for (let i = 1; i <= b.length; i++) {
+    for (let j = 1; j <= a.length; j++) {
+      if (b.charAt(i - 1) === a.charAt(j - 1)) {
+        matrix[i][j] = matrix[i - 1][j - 1];
+      } else {
+        matrix[i][j] = Math.min(
+          matrix[i - 1][j - 1] + 1,
+          matrix[i][j - 1] + 1,
+          matrix[i - 1][j] + 1
+        );
+      }
+    }
+  }
+  return matrix[b.length][a.length];
+}
+
 export function searchLevels(query: string): {
   company: CompanyLadder;
   level: CareerLevel;
@@ -65,24 +88,77 @@ export function searchLevels(query: string): {
 }[] {
   if (!query || query.trim().length === 0) return [];
   const q = query.toLowerCase().trim();
-  const results: { company: CompanyLadder; level: CareerLevel; label: string }[] = [];
+  const tokens = q.split(/\s+/).filter(Boolean);
+  const scored: { company: CompanyLadder; level: CareerLevel; label: string; score: number }[] = [];
 
   for (const company of ALL_COMPANY_LADDERS) {
     for (const level of company.levels) {
-      const matchScore =
-        (company.name.toLowerCase().includes(q) ? 3 : 0) +
-        (level.levelCode.toLowerCase().includes(q) ? 4 : 0) +
-        (level.title.toLowerCase().includes(q) ? 2 : 0);
+      const fullText = `${company.name} ${level.levelCode} ${level.title}`.toLowerCase();
+      let score = 0;
 
-      if (matchScore > 0 || `${company.name} ${level.levelCode} ${level.title}`.toLowerCase().includes(q)) {
-        results.push({
+      if (fullText.includes(q)) score += 50;
+      if (company.name.toLowerCase() === q) score += 30;
+      if (level.levelCode.toLowerCase() === q) score += 40;
+      if (level.title.toLowerCase().includes(q)) score += 20;
+
+      // Token coverage
+      const allTokensMatch = tokens.every((tok) => fullText.includes(tok));
+      if (allTokensMatch) score += 25;
+
+      if (score > 0) {
+        scored.push({
           company,
           level,
           label: `${company.name} • ${level.levelCode} (${level.title})`,
+          score,
         });
       }
     }
   }
 
-  return results.slice(0, 15);
+  scored.sort((a, b) => b.score - a.score);
+  return scored.slice(0, 15).map(({ company, level, label }) => ({ company, level, label }));
+}
+
+export function getFuzzySuggestion(query: string): {
+  company: CompanyLadder;
+  level: CareerLevel;
+  label: string;
+} | null {
+  if (!query || query.trim().length < 3) return null;
+  const q = query.toLowerCase().trim();
+
+  // If search already finds direct matches, no fuzzy suggestion needed
+  const directMatches = searchLevels(query);
+  if (directMatches.length > 0) return null;
+
+  let bestScore = Infinity;
+  let bestCandidate: { company: CompanyLadder; level: CareerLevel; label: string } | null = null;
+
+  for (const company of ALL_COMPANY_LADDERS) {
+    const compDist = levenshteinDistance(q, company.name.toLowerCase());
+    if (compDist < bestScore && compDist <= Math.max(3, Math.floor(company.name.length * 0.45))) {
+      bestScore = compDist;
+      const defaultLvl = company.levels[1] || company.levels[0];
+      bestCandidate = {
+        company,
+        level: defaultLvl,
+        label: `${company.name} • ${defaultLvl.levelCode} (${defaultLvl.title})`,
+      };
+    }
+
+    for (const level of company.levels) {
+      const titleDist = levenshteinDistance(q, level.title.toLowerCase());
+      if (titleDist < bestScore && titleDist <= Math.max(3, Math.floor(level.title.length * 0.4))) {
+        bestScore = titleDist;
+        bestCandidate = {
+          company,
+          level,
+          label: `${company.name} • ${level.levelCode} (${level.title})`,
+        };
+      }
+    }
+  }
+
+  return bestCandidate;
 }
