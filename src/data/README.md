@@ -1,63 +1,140 @@
-# Career Ladders & Compensation Dataset
+# India Tech Career Ladders & Compensation Dataset
 
-This directory contains verified engineering and management career ladders, level equivalences, promotion processes, and compensation bands.
-
-## 1. Schema Definition
-
-Each level in `CareerLevel` defines:
-- **`companyId`**: Unique company identifier (e.g. `google`, `flipkart`, `tcs`).
-- **`track`**: Career discipline (`SWE` | `EM` | `PM` | `DATA_ML`).
-- **`levelCode`**: Internal company level code (e.g. `L5`, `E6`, `SDE-2`, `63-64`).
-- **`title`**: External/public corporate title.
-- **`yoeTypicalMin` / `yoeTypicalMax`**: Typical industry years of experience at this level.
-- **`isTerminal`**: Indicates if an engineer can stay indefinitely without "up or out" pressure.
-- **`comp`**: Base salary, annual stock grant, target bonus, and total compensation distributions (`p25`, `p50`, `p75`).
-- **`timeInLevel`**: Promotion velocity statistics (`p25`, `median`, `p75`, `stallRatePct`).
-- **`promotionRequirements`**:
-  - `scope`: Architectural and operational ownership boundaries.
-  - `impact`: Measurable technical and business output.
-  - `influence`: Mentorship, team force multiplication, and organizational leadership.
-  - `evidence`: Specific concrete deliverables expected in promotion packets.
-- **`promotionProcess`**:
-  - `cadence`: Review cadence (e.g. biannual, annual).
-  - `nominator`: Who initiates the packet (manager vs. self-nomination).
-  - `committee`: Calibration board structure.
-  - `artifacts`: Required documents (promo packet, peer reviews, design docs).
-  - `commonBlockers`: Typical pitfalls that stall promotion.
-- **`equivalenceGroup`**: Canonical cross-company parity group (`L3_ENTRY`, `L4_MID`, `L5_SENIOR`, `L6_STAFF`, `L7_PRINCIPAL`, `L8_DISTINGUISHED`, `M1_MANAGER`, `M2_SENIOR_MANAGER`, `M3_DIRECTOR`).
-- **`sources`**: List of verifiable reference URLs and published sources.
-- **`confidence`**: Data confidence rating (`high` | `medium` | `estimate`).
-- **`lastUpdated`**: ISO-8601 date of last data verification.
+This directory contains verified career ladders, level equivalences, promotion processes, structured blockers, campus hiring routes, and annual compensation benchmarks specifically curated for the **Indian Tech Market** (Bengaluru, Hyderabad, NCR, Pune, Mumbai, Chennai).
 
 ---
 
-## 2. Data Sources
+## 1. Strict INR-Only Policy & Formatting
 
-All data points in this repository are curated from:
-1. **Levels.fyi**: Community verified compensation bands, level mapping, and equity grants.
-2. **Progression.fyi**: Public engineering career frameworks and competencies.
-3. **Company Engineering Blogs & Public Ladders**: Official engineering blogs (Dropbox, GitLab, Atlassian, Google, Meta, Swiggy, Razorpay).
-4. **SEC 10-K & Proxy Statements**: Executive and senior compensation filings for public companies.
-5. **Verified Industry Compensation Reports**: Aggregate industry benchmarks for India tech hubs (Bengaluru, Hyderabad, Gurugram) and US tech hubs (Bay Area, Seattle, NYC).
+- **Native INR Storage:** All monetary figures are stored **natively in Indian Rupees (INR per year)**. No runtime currency conversion occurs anywhere in the engine or user interface.
+- **India-Office Sourcing:** All figures reflect actual India-office compensation paid to engineers and managers based in India.
+- **Conversion Rule at Curation:** If a figure was available only globally, it was converted once at curation time using the benchmark rate `1 USD = 87 INR` (as of March 2026), documented here, and marked with confidence `estimate`.
+- **Display Standard:**
+  - Below ₹1,00,00,000 (1 Crore): Formatted as **`₹X.X LPA`** (e.g., `₹24.0 LPA`).
+  - At or above ₹1 Crore: Formatted as **`₹X.XX Cr`** (e.g., `₹1.28 Cr`).
+  - All numbers adhere to the `en-IN` numbering format.
+- **Compensation Breakdown:** Every level provides a detailed annual breakdown:
+  - `base`: Fixed base salary per year.
+  - `variable`: Performance bonus or target incentive per year.
+  - `stock`: Annualized equity vesting value per year (RSU / ESOP value).
+  - `joiningBonus`: Upfront first-year joining bonus (where publicly documented).
+  - `total`: Typical total annual CTC distribution (`p25` lower range, `p50` median, `p75` upper range).
 
 ---
 
-## 3. How to Update Data
+## 2. Schema Specification
 
-1. Locate the company file under `src/data/careerLadders/companies/`.
-2. Ensure compensation numbers represent current annual run-rates.
-3. Set `lastUpdated` to the current date and ensure at least one verifiable link is listed in `sources`.
-4. If exact figures are interpolated or estimated, set `confidence` to `'estimate'`.
-5. Run the data validation suite:
+### Company Ladder (`CompanyLadder`)
+- `id`: Canonical slug (e.g., `google`, `flipkart`, `goldman-sachs`, `tcs`).
+- `name`: Display name (e.g., `Google India`, `Flipkart`, `TCS (Tata Consultancy Services)`).
+- `marketSegment`: Categorized segment:
+  - `Big Tech India`: India engineering centers of global tech giants (Google, Microsoft, Amazon, Meta, Apple, Adobe, Salesforce, Oracle, Intel, NVIDIA, Qualcomm, Cisco, Atlassian, Uber, LinkedIn, Netflix).
+  - `Indian Product Unicorn`: High-growth Indian tech unicorns and product leaders (Flipkart, Swiggy, Zomato, Razorpay, PhonePe, Paytm, CRED, Meesho, Zepto, Ola, Freshworks, Zoho, Groww, Dream11, Myntra, Nykaa, InMobi, ShareChat).
+  - `GCC / Finance`: Global Capability Centers and top investment banking engineering hubs (Goldman Sachs, Morgan Stanley, Walmart Global Tech, JPMorgan, American Express, Target, Visa, Mastercard, PayPal).
+  - `Indian IT Services`: Global IT consulting and services firms (TCS, Infosys, Wipro, HCLTech, Cognizant, Accenture, Capgemini, Tech Mahindra, LTIMindtree).
+- `tracks`: Active disciplines (`SWE`, `EM`, `PM`, `DATA_ML`).
+- `lastVerified`: ISO date `YYYY-MM-DD` of company dataset verification.
+- `sources`: Source references with URLs, retrieval dates, and extracted fields.
+
+### Career Level (`CareerLevel`)
+- `levelCode`: Real company level code (e.g., `L3`, `SDE-2`, `Digital`, `Band 28`, `Grade 6`).
+- `title`: Human-readable title (e.g., `Software Engineer II`, `Senior Software Engineer`).
+- `comp`: `CompBreakdown` in native INR.
+- `timeInLevel`: Promotion velocity (`p25`, `median`, `p75`, `stallRatePct`).
+- `isTerminal`: Boolean indicating whether this is a career level where an engineer can remain indefinitely without "up or out" pressure.
+- `upOrOutPolicy`: Documented policy explanation (only included where an official policy or documented standard exists).
+- `promotionRequirements`: Architectural `scope`, measurable `impact`, team `influence`, and required `evidence`.
+- `promotionProcess`:
+  - `cadence`: Review frequency (e.g., half-yearly, annual).
+  - `cadenceMonths`: Specific review months (e.g., `[3, 9]`).
+  - `nominator`: Who initiates nomination (manager vs self-nomination).
+  - `decider`: Calibration committee or review authority.
+  - `calibrationLayers`: Number of calibration layers (1 to 3).
+  - `artifacts`: Documents required in the promo packet.
+  - `selfNominationAllowed`: Boolean.
+  - `cycleType`: `cycle` or `off-cycle`.
+  - `typicalNoticeAndEffectiveDate`: Effective timeline.
+  - `blockers`: Array of at least 6 company & level-specific structured blockers.
+- `equivalenceGroup`: Cross-company parity anchor (`L3_ENTRY`, `L4_MID`, `L5_SENIOR`, `L6_STAFF`, `L7_PRINCIPAL`, etc.).
+- `confidence`: `'verified' | 'community' | 'estimate'`.
+- `hiringRoutes`: (For entry-level tiers) Ranked fresher entry channels.
+
+### Structured Promotion Blocker (`StructuredBlocker`)
+Every level has **at least 6 blockers** categorized across the 7 mandatory categories:
+1. `Scope too small`
+2. `Impact not measurable`
+3. `Visibility and sponsorship`
+4. `Process and calibration`
+5. `Behavior and collaboration`
+6. `Headcount, budget and org factors`
+7. `Performance history`
+
+Each blocker includes:
+- `title`: Specific blocker summary.
+- `category`: One of the 7 categories above.
+- `whyItBlocks`: 1-2 sentences explaining why this blocks promotion at this company/level.
+- `evidenceToCounter`: Concrete evidence and artifacts required to overcome the blocker.
+
+### Student Hiring Routes (`HiringRoute`)
+Entry-level roles feature ranked hiring channels:
+- `routeType`: `on-campus` | `intern-to-full-time` | `hackathon-competition` | `off-campus` | `referral`.
+- `name`: Program title (e.g., `TCS NQT / National Qualifier Test`, `Flipkart GRiD Hackathon`, `Day-1 Campus Placements`).
+- `eligibility`: CGPA cutoffs, eligible engineering branches, and graduating batches.
+- `selectionRounds`: Documented interview and evaluation stages.
+- `typicalOfferByTier`: CTC packages in INR by college tier (`tier1` IIT/NIT/BITS, `tier2` good state/private colleges, `tier3`).
+- `likelihoodByTier`: Documented access probability (`High` | `Medium` | `Low`).
+
+---
+
+## 3. Data Sources & Confidence Rating Rules
+
+### Data Sources
+1. **Levels.fyi (India Region):** Verified salary submissions and level ladders for Indian tech offices.
+2. **AmbitionBox:** Indian corporate salary disclosures and employee review benchmarks.
+3. **Glassdoor India:** Indian office tech compensation trends and interview experiences.
+4. **Official Company Career Portals & Engineering Frameworks:** Public progression ladders, job descriptions, and campus drive announcements.
+5. **Campus Placement Disclosures:** Placement cell reports and offer letters from premier Indian institutions (IIT Bombay, IIT Delhi, BITS Pilani, NIT Trichy).
+6. **National Contests & Competitions:** Official guidelines from TCS CodeVita, Flipkart GRiD, Google Summer of Code, and Hackerearth hackathons.
+
+### Honest Confidence Rules
+- **`verified`:** Allowed ONLY if the data comes from an official company document / career portal, OR at least **two independent verifiable sources** agree on the ladder and compensation band.
+- **`community`:** Data sourced from community submissions (Levels.fyi, AmbitionBox) where broad consensus exists.
+- **`estimate`:** Used when figures are interpolated, lack public verification, or involve currency conversion from international benchmarks.
+
+---
+
+## 4. How to Refresh Data
+
+1. **Locate or Add Company Ladder:**
+   - Big Tech: `src/data/careerLadders/companies/bigTechIndia.ts` and `bigTechIndiaMore.ts`.
+   - Unicorns: `src/data/careerLadders/companies/indianProductUnicorns.ts` and `indianProductUnicornsMore.ts`.
+   - GCC / Finance: `src/data/careerLadders/companies/gccFinance.ts` and `gccFinanceMore.ts`.
+   - IT Services: `src/data/careerLadders/companies/itServicesIndia.ts` and `itServicesIndiaMore.ts`.
+2. **Ensure INR-Only Compliance:** All figures must be in annual rupees (`comp.currency: 'INR'`).
+3. **Include Minimum 6 Structured Blockers:** Utilize `createLevelBlockers()` or write specific blockers covering the 7 categories.
+4. **Update `lastVerified`:** Set `YYYY-MM-DD` to the date of data retrieval.
+5. **Run the Validation Suite:**
    ```bash
    npm run validate:data
    ```
-   All validation assertions (strictly increasing levels, non-empty fields, valid equivalence keys) must pass.
 
 ---
 
-## 4. Known Limitations & Disclaimer
+## 5. Automated Data Validation Rules (`npm run validate:data`)
 
-- **Economic Cycles:** Stock grants and equity values fluctuate based on market volatility. Figures represent standard 4-year grant annual distributions.
-- **Location Variations:** US compensation bands default to Tier-1 hubs (SF Bay Area / Seattle). India compensation bands default to Tier-1 hubs (Bengaluru / NCR).
-- **Not Guarantees:** Promotion timelines and stall rates are derived from aggregate historical tenure data and company calibration practices; individual promotion velocity depends on business necessity, headcount quotas, and individual performance.
+The test suite in `src/data/__tests__/validateData.test.ts` automatically runs on Vitest and strictly enforces the following quality gates:
+1. **Currency Check:** Any currency other than `'INR'` or region other than `'IN'` immediately fails.
+2. **Source URL Check:** Every source must have a valid `http://` or `https://` URL, a valid `retrievedAt` date, and defined `extractedFields`.
+3. **Blocker Depth Check:** Every level must have at least 6 structured blockers, with all required fields (`title`, `category`, `whyItBlocks`, `evidenceToCounter`).
+4. **Last Verified Date:** Every level and company must have a valid `lastVerified` date in `YYYY-MM-DD` format.
+5. **Honest Confidence Check:** A `'verified'` badge without at least 2 independent sources or an official company source immediately fails.
+6. **Strict Ordering:** Levels within any company track must be monotonically ordered by equivalence rank and compensation.
+7. **Equivalence Group Check:** All levels must belong to a recognized equivalence group from `equivalenceMap.ts`.
+
+---
+
+## 6. Known Limitations
+
+- **Stock Volatility:** For listed global and Indian tech companies, equity figures represent target annualized grants based on grant-date fair market value. Stock price fluctuations will affect realized compensation.
+- **Pre-IPO Equity:** For private unicorns (e.g., Zepto, CRED, Swiggy pre-IPO, Meesho), ESOP figures represent annualized paper value based on latest funding round valuation.
+- **Promotion Slots:** Promotion timelines reflect median progression when headcount slots and performance criteria are met. Macroeconomic freezes, org restructurings, or team budget caps can delay promotion cycles.
