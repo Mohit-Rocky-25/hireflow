@@ -17,6 +17,8 @@ import {
   ALL_COMPANY_LADDERS,
 } from '../data/careerLadders';
 import { getEquivalenceOrder, getEquivalenceHumanLabel } from '../data/careerLadders/equivalenceMap';
+import { calculateYearOfStudy, getProgramLength } from './academicCalendar';
+import { detectBranchFamily, type BranchFamily } from '../data/careerLadders/degreesAndBranches';
 
 export type PerformanceBracket = 'MEETS' | 'EXCEEDS' | 'CONSISTENTLY_EXCEEDS';
 
@@ -112,11 +114,24 @@ export interface PromotionPlan {
 // Student Mode Interfaces
 // ─────────────────────────────────────────────────────────────
 
+export interface EligibilityWindows {
+  currentStatus: string;
+  yearOfStudy: number;
+  programLength: number;
+  remainingSemesters: number;
+  internshipWindow: string;
+  campusPlacementWindow: string;
+  roadmapStartDescription: string;
+  recommendedFocus: string;
+}
+
 export interface StudentProfile {
-  degreeAndBranch: 'BTech_CSE_IT' | 'BTech_ECE' | 'BTech_Other' | 'BCA_MCA' | 'MTech' | 'Other';
+  degreeAndBranch: string;
   collegeTier: 'Tier 1' | 'Tier 2' | 'Tier 3' | 'Other';
-  currentYearOfStudy: '1st Year' | '2nd Year' | '3rd Year' | 'Final Year' | 'MTech';
+  currentYearOfStudy: string;
   expectedGraduationYear: number;
+  yearOfStudy?: number;
+  branchFamily?: BranchFamily;
   cgpaBracket: 'below_6' | '6_to_7' | '7_to_8' | 'above_8';
   internshipStatus: 'none' | 'completed' | 'ppo';
   dreamCompanyId: string;
@@ -162,6 +177,7 @@ export interface StudentPromotionPlan {
     levelStallRates: { levelCode: string; companyId: string; stallRate: number }[];
   };
   strategicAdvice: string[];
+  eligibilityWindows?: EligibilityWindows;
 }
 
 /**
@@ -764,32 +780,111 @@ export function resolveStudentPath(profile: StudentProfile): StudentPromotionPla
 
   // Provide realistic alternate stepping stone routes
   const alternateSteppingStones: SteppingStoneOption[] = [];
+  const branchFamily: BranchFamily = profile.branchFamily || detectBranchFamily(profile.degreeAndBranch);
+
+  // Core mechanical & automotive branch pathway
+  if (branchFamily === 'core-mechanical') {
+    const tataMotors = getCompanyLadder('tata-motors');
+    const bosch = getCompanyLadder('bosch-india');
+    const lnt = getCompanyLadder('lnt');
+    const mahindra = getCompanyLadder('mahindra');
+
+    if (tataMotors && dreamCompany.id !== 'tata-motors') {
+      alternateSteppingStones.push({
+        company: tataMotors,
+        entryRole: 'Graduate Engineer Trainee (GET - Vehicle Systems)',
+        entryOfferINR: 700000,
+        typicalDurationYears: 2,
+        targetLevelAtDreamCompany: targetLevel.levelCode,
+        rationale: `Core route: Join Tata Motors GET program (flagship automotive training), build 2 years of vehicle telematics/powertrain depth, and switch with proven production credentials.`,
+      });
+    }
+
+    if (bosch && dreamCompany.id !== 'bosch-india') {
+      alternateSteppingStones.push({
+        company: bosch,
+        entryRole: 'Associate Systems Engineer (Mobility & Software)',
+        entryOfferINR: 800000,
+        typicalDurationYears: 2,
+        targetLevelAtDreamCompany: targetLevel.levelCode,
+        rationale: `Hybrid route: Join Bosch BGSW for automotive embedded/IoT systems, providing a direct bridge between hardware/mechanical and software engineering.`,
+      });
+    }
+
+    if (lnt && dreamCompany.id !== 'lnt') {
+      alternateSteppingStones.push({
+        company: lnt,
+        entryRole: 'GET / Executive Engineer (Plant & Heavy Engineering)',
+        entryOfferINR: 650000,
+        typicalDurationYears: 2,
+        targetLevelAtDreamCompany: targetLevel.levelCode,
+        rationale: `EPC route: Secure L&T GET placement, execute critical industrial packages, and transition into project engineering leadership.`,
+      });
+    }
+
+    if (mahindra && dreamCompany.id !== 'mahindra') {
+      alternateSteppingStones.push({
+        company: mahindra,
+        entryRole: 'Graduate Engineer Trainee (MRV Chennai R&D)',
+        entryOfferINR: 700000,
+        typicalDurationYears: 2,
+        targetLevelAtDreamCompany: targetLevel.levelCode,
+        rationale: `R&D route: Join Mahindra Research Valley (MRV) for platform R&D, structural CAE, and electric origins architecture.`,
+      });
+    }
+  } else if (branchFamily === 'core-civil') {
+    const lnt = getCompanyLadder('lnt');
+    if (lnt && dreamCompany.id !== 'lnt') {
+      alternateSteppingStones.push({
+        company: lnt,
+        entryRole: 'Graduate Engineer Trainee (Civil & EPC)',
+        entryOfferINR: 650000,
+        typicalDurationYears: 2,
+        targetLevelAtDreamCompany: targetLevel.levelCode,
+        rationale: `Core route: L&T is India's leading civil/infrastructure recruiter. Gain 2 years of project execution depth before targeting specialized project management.`,
+      });
+    }
+  } else if (branchFamily === 'electronics-embedded') {
+    const bosch = getCompanyLadder('bosch-india');
+    if (bosch && dreamCompany.id !== 'bosch-india') {
+      alternateSteppingStones.push({
+        company: bosch,
+        entryRole: 'Associate Software / Systems Engineer (Embedded C)',
+        entryOfferINR: 800000,
+        typicalDurationYears: 2,
+        targetLevelAtDreamCompany: targetLevel.levelCode,
+        rationale: `Embedded route: Master AUTOSAR, microcontrollers, and RTOS at Bosch India, transitioning easily into systems or core software engineering.`,
+      });
+    }
+  }
+
+  // Standard high-tech / unicorn stepping stones for software / tech
   if (dreamCompany.tier === 'Big Tech' || dreamCompany.tier === 'India Product Unicorn') {
     const flipkart = getCompanyLadder('flipkart');
     const tcs = getCompanyLadder('tcs');
     const swiggy = getCompanyLadder('swiggy');
 
-    if (flipkart && dreamCompany.id !== 'flipkart') {
+    if (flipkart && dreamCompany.id !== 'flipkart' && alternateSteppingStones.length < 3) {
       alternateSteppingStones.push({
         company: flipkart,
         entryRole: 'SDE-1 (Supply Chain / Marketplace)',
         entryOfferINR: 2670000,
         typicalDurationYears: 2,
         targetLevelAtDreamCompany: targetLevel.levelCode,
-        rationale: `Start at Flipkart or Swiggy for 2 years as SDE-1 to gain high-concurrency production experience, then switch laterally to ${dreamCompany.name} at ${getEquivalenceHumanLabel(targetLevel.equivalenceGroup)} level.`,
+        rationale: `Start at Flipkart for 2 years as SDE-1 to gain high-concurrency production experience, then switch laterally to ${dreamCompany.name} at ${getEquivalenceHumanLabel(targetLevel.equivalenceGroup)} level.`,
       });
     }
 
-    if (tcs && profile.collegeTier === 'Tier 3') {
+    if (tcs && (profile.collegeTier === 'Tier 3' || branchFamily === 'core-mechanical') && alternateSteppingStones.length < 4) {
       alternateSteppingStones.push({
         company: tcs,
         entryRole: 'Systems Engineer (Digital / Prime)',
         entryOfferINR: 750000,
         typicalDurationYears: 2.5,
         targetLevelAtDreamCompany: targetLevel.levelCode,
-        rationale: `Crack TCS Digital or Prime via NQT/CodeVita, build 2-3 years of cloud microservices experience, and transition into product startups before targeting ${dreamCompany.name}.`,
+        rationale: `Software lateral stepping stone: Crack TCS Digital or Prime via NQT/CodeVita, build 2-3 years of cloud microservices experience, and transition into product startups before targeting ${dreamCompany.name}.`,
       });
-    } else if (swiggy && dreamCompany.id !== 'swiggy') {
+    } else if (swiggy && dreamCompany.id !== 'swiggy' && alternateSteppingStones.length < 3) {
       alternateSteppingStones.push({
         company: swiggy,
         entryRole: 'SDE-1 (Delivery Logistics)',
@@ -801,10 +896,82 @@ export function resolveStudentPath(profile: StudentProfile): StudentPromotionPla
     }
   }
 
-  // Advice
+  // Compute date-driven academic calendar year of study and eligibility windows
+  const yosResult = calculateYearOfStudy(gradYear, profile.degreeAndBranch);
+  const effectiveYearOfStudy = profile.yearOfStudy ?? yosResult.yearOfStudy;
+  const progLength = yosResult.programLength;
+  const remSems = Math.max(0, (progLength - effectiveYearOfStudy) * 2);
+
+  let currentStatusStr = yosResult.label;
+  let internshipWindowStr = '';
+  let campusPlacementWindowStr = '';
+  let roadmapStartStr = '';
+  let recommendedFocusStr = '';
+
+  if (effectiveYearOfStudy > progLength) {
+    currentStatusStr = 'Graduated (Immediate Off-Campus / Fresher Candidate)';
+    internshipWindowStr = 'Concluded (Undergraduate degree complete)';
+    campusPlacementWindowStr = 'Active Now: Off-Campus Drives, Referral Pools & Early-Career Lateral Openings';
+    roadmapStartStr = `Immediate (Today, Post-Graduation)`;
+    recommendedFocusStr = 'Direct referrals, off-campus hiring contests (TCS NQT, Cognizant, eLitmus), and production-grade Github projects.';
+  } else if (effectiveYearOfStudy === progLength) {
+    currentStatusStr = `Final Year (${progLength}th Year — Active Placement Season)`;
+    internshipWindowStr = 'Completed / Final Pre-Placement Offer (PPO) review';
+    campusPlacementWindowStr = `Active Now: On-Campus Day 1/Day 2 Drives (${gradYear} Batch)`;
+    roadmapStartStr = `Graduation Year ${gradYear} (Month 0 of full-time career)`;
+    recommendedFocusStr = 'Aptitude & DSA speed drills, mock technical interviews, and on-campus company shortlists.';
+  } else if (effectiveYearOfStudy === progLength - 1) {
+    currentStatusStr = `Penultimate Year (${effectiveYearOfStudy}${effectiveYearOfStudy === 2 ? 'nd' : 'rd'} Year — Internship Window)`;
+    internshipWindowStr = `ACTIVE NOW: Summer Internship Recruitment Drives (${gradYear - 1} Season)`;
+    campusPlacementWindowStr = `Upcoming in Final Year (${gradYear - 1}–${gradYear})`;
+    roadmapStartStr = `Starts at Graduation in ${gradYear} (following ${effectiveYearOfStudy}${effectiveYearOfStudy === 2 ? 'nd' : 'rd'} year summer internship)`;
+    recommendedFocusStr = 'Summer internships are the single highest probability route to convert into a PPO at top companies. Prioritize core CS (DSA, OS, DBMS).';
+  } else if (effectiveYearOfStudy >= 1) {
+    currentStatusStr = `${yosResult.label} (Foundational Engineering Phase)`;
+    internshipWindowStr = `Targeting Summer Internship in Year ${progLength - 1}`;
+    campusPlacementWindowStr = `Targeting Final Year Placements (${gradYear})`;
+    roadmapStartStr = `Starts at Graduation in ${gradYear} (${remSems} semesters remaining)`;
+    recommendedFocusStr = 'Build algorithmic foundations, participate in hackathons (Flipkart GRiD, Smart India Hackathon), and open-source contributions.';
+  } else {
+    currentStatusStr = 'Incoming / Pre-College';
+    internshipWindowStr = 'Future Years';
+    campusPlacementWindowStr = 'Future Years';
+    roadmapStartStr = `Graduation in ${gradYear}`;
+    recommendedFocusStr = 'Foundational mathematics, basic programming syntax, and exploratory projects.';
+  }
+
+  const eligibilityWindows: EligibilityWindows = {
+    currentStatus: currentStatusStr,
+    yearOfStudy: effectiveYearOfStudy,
+    programLength: progLength,
+    remainingSemesters: remSems,
+    internshipWindow: internshipWindowStr,
+    campusPlacementWindow: campusPlacementWindowStr,
+    roadmapStartDescription: roadmapStartStr,
+    recommendedFocus: recommendedFocusStr,
+  };
+
+  // Advice adapted to student year of study and branch family
   const advice: string[] = [
-    `Your projected timeline starts at graduation in ${gradYear}. Securing a Summer Internship in your 3rd year is the highest-probability route to convert into a full-time offer at ${dreamCompany.name}.`,
+    `Timeline Anchor: Based on your ${currentStatusStr}, your roadmap starts ${roadmapStartStr}.`,
   ];
+
+  if (effectiveYearOfStudy === progLength - 1) {
+    advice.push(
+      `Internship Priority: You are in your prime summer internship recruitment window. Securing a summer internship and converting to PPO has an 80%+ conversion rate at ${dreamCompany.name}.`
+    );
+  }
+
+  if (branchFamily === 'core-mechanical') {
+    advice.push(
+      `Dual Pathway Strategy for Core Engineering: You can target both (1) Core R&D at Tata Motors, L&T, Bosch, and Mahindra (GET ₹6.5–₹8.0 LPA), or (2) Software Lateral Route by preparing DSA, systems design, and open hackathon contests.`
+    );
+  } else if (branchFamily === 'electronics-embedded') {
+    advice.push(
+      `Hardware/Embedded Synergy: Target both embedded software roles (Bosch, Qualcomm, Texas Instruments) and software engineering positions.`
+    );
+  }
+
   if (profile.collegeTier === 'Tier 3') {
     advice.push(
       `For Tier 3 students, national competitive challenges (e.g. Flipkart GRiD, TCS CodeVita, Google Summer of Code) bypass campus gatekeeping and provide direct technical interview calls.`
@@ -833,5 +1000,6 @@ export function resolveStudentPath(profile: StudentProfile): StudentPromotionPla
       levelStallRates: stallRates,
     },
     strategicAdvice: advice,
+    eligibilityWindows,
   };
 }

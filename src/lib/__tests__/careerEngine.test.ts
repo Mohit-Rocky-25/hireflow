@@ -174,4 +174,64 @@ describe('Career Engine Path Resolution & Deterministic Modeling (India Market)'
     expect(plan.compJump.to).toBeGreaterThan(800000);
     expect(plan.compJump.percentage).toBeGreaterThan(100);
   });
+
+  // TEST 9: Mechanical Student Adapts to Core Engineering Routes (Tata Motors, L&T, Bosch, Mahindra)
+  it('adapts student roadmap for Mechanical Engineering with core routes and software lateral route', () => {
+    const plan = resolveStudentPath({
+      degreeAndBranch: 'B.Tech Mechanical Engineering',
+      collegeTier: 'Tier 2',
+      currentYearOfStudy: '3rd Year',
+      expectedGraduationYear: 2028,
+      cgpaBracket: '7_to_8',
+      internshipStatus: 'none',
+      dreamCompanyId: 'tata-motors',
+      dreamLevelCode: 'L2',
+      track: 'SWE',
+      branchFamily: 'core-mechanical',
+    });
+
+    expect(plan.status).toBe('SUCCESS');
+    expect(plan.dreamCompany.id).toBe('tata-motors');
+    expect(plan.entryLevel.levelCode).toBe('GET');
+    expect(plan.targetLevel.levelCode).toBe('L2');
+
+    // Alternate stepping stones must include core engineering companies
+    expect(plan.alternateSteppingStones.length).toBeGreaterThan(0);
+    const hasCoreOrHybrid = plan.alternateSteppingStones.some(
+      (s) => s.company.id === 'bosch-india' || s.company.id === 'lnt' || s.company.id === 'mahindra'
+    );
+    expect(hasCoreOrHybrid).toBe(true);
+
+    // Advice must explain both core R&D and software lateral route
+    expect(
+      plan.strategicAdvice.some(
+        (a) => a.includes('Dual Pathway') || a.includes('Tata Motors') || a.includes('Software Lateral')
+      )
+    ).toBe(true);
+
+    // Eligibility windows must reflect 3rd year / Penultimate status
+    expect(plan.eligibilityWindows).toBeDefined();
+    expect(plan.eligibilityWindows?.remainingSemesters).toBeGreaterThan(0);
+    expect(plan.eligibilityWindows?.internshipWindow).toContain('Summer Internship');
+  });
+
+  // TEST 10: Date-driven Eligibility Windows for Graduated Student
+  it('correctly computes eligibility windows for a graduated student', () => {
+    const plan = resolveStudentPath({
+      degreeAndBranch: 'B.Tech CSE',
+      collegeTier: 'Tier 3',
+      currentYearOfStudy: 'Graduated',
+      expectedGraduationYear: 2026,
+      cgpaBracket: '7_to_8',
+      internshipStatus: 'completed',
+      dreamCompanyId: 'google',
+      dreamLevelCode: 'L4',
+      track: 'SWE',
+    });
+
+    expect(plan.eligibilityWindows).toBeDefined();
+    expect(plan.eligibilityWindows?.remainingSemesters).toBe(0);
+    expect(plan.eligibilityWindows?.currentStatus).toContain('Graduated');
+    expect(plan.eligibilityWindows?.campusPlacementWindow).toContain('Off-Campus');
+  });
 });

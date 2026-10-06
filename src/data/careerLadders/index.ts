@@ -8,6 +8,7 @@ import { BIG_TECH_INDIA_LADDERS } from './companies/bigTechIndia';
 import { INDIAN_PRODUCT_UNICORN_LADDERS } from './companies/indianProductUnicorns';
 import { GCC_FINANCE_LADDERS } from './companies/gccFinance';
 import { IT_SERVICES_INDIA_LADDERS } from './companies/itServicesIndia';
+import { CORE_ENGINEERING_LADDERS } from './companies/coreEngineering';
 
 export * from './types';
 export * from './equivalenceMap';
@@ -19,6 +20,7 @@ export const ALL_COMPANY_LADDERS: CompanyLadder[] = [
   ...INDIAN_PRODUCT_UNICORN_LADDERS,
   ...GCC_FINANCE_LADDERS,
   ...IT_SERVICES_INDIA_LADDERS,
+  ...CORE_ENGINEERING_LADDERS,
 ];
 
 // Map companyId -> CompanyLadder for O(1) lookup
@@ -37,6 +39,7 @@ export function getAllMarketSegments(): MarketSegment[] {
     'Indian Product Unicorn',
     'GCC / Finance',
     'Indian IT Services',
+    'Core Engineering & Automotive',
   ];
 }
 

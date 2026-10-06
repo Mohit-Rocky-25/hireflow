@@ -11,7 +11,8 @@ export type MarketSegment =
   | 'Indian Product Unicorn' 
   | 'Fintech' 
   | 'Indian IT Services' 
-  | 'High-Growth Startup';
+  | 'High-Growth Startup'
+  | 'Core Engineering & Automotive';
 
 export type CompanyTier = 
   | 'Big Tech' 
