@@ -158,6 +158,9 @@ export default function App() {
           <Route path="audit" element={<AdminAuditLog />} />
           <Route path="settings" element={<AdminSettings />} />
           <Route path="notifications" element={<NotificationsPage />} />
+          <Route path="jobs" element={<Navigate to="/jobs" replace />} />
+          <Route path="analytics" element={<Navigate to="/admin/dashboard" replace />} />
+          <Route path="ai" element={<Navigate to="/admin/settings" replace />} />
         </Route>
 
         {/* Catch all */}

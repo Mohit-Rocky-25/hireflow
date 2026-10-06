@@ -61,11 +61,9 @@ const NAV_ITEMS: Record<UserRole, NavItem[]> = {
     { label: 'Dashboard', path: '/admin/dashboard', icon: <LayoutDashboard className="w-5 h-5 stroke-[1.5px]" /> },
     { label: 'Companies', path: '/admin/companies', icon: <Building2 className="w-5 h-5 stroke-[1.5px]" /> },
     { label: 'Users', path: '/admin/users', icon: <Users className="w-5 h-5 stroke-[1.5px]" /> },
-    { label: 'Jobs', path: '/admin/jobs', icon: <Briefcase className="w-5 h-5 stroke-[1.5px]" /> },
-    { label: 'Platform Analytics', path: '/admin/analytics', icon: <BarChart3 className="w-5 h-5 stroke-[1.5px]" /> },
-    { label: 'AI Configuration', path: '/admin/ai', icon: <Cpu className="w-5 h-5 stroke-[1.5px]" /> },
     { label: 'Audit Logs', path: '/admin/audit', icon: <Shield className="w-5 h-5 stroke-[1.5px]" /> },
     { label: 'Settings', path: '/admin/settings', icon: <Settings className="w-5 h-5 stroke-[1.5px]" /> },
+    { label: 'Notifications', path: '/admin/notifications', icon: <Bell className="w-5 h-5 stroke-[1.5px]" /> },
   ],
 };
 

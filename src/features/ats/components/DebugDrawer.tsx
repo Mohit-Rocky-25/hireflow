@@ -26,13 +26,13 @@ export const DebugDrawer: React.FC<Props> = ({ result }) => {
   };
 
   return (
-    <div className="fixed bottom-0 right-4 z-50 max-w-2xl w-full print:hidden">
+    <div className="fixed bottom-0 right-4 z-50 max-w-2xl w-full pointer-events-none flex flex-col items-end print:hidden">
       {/* Toggle Button */}
       {!isOpen && (
         <button
           type="button"
           onClick={() => setIsOpen(true)}
-          className="ml-auto mb-3 px-3 py-1.5 rounded-[8px] bg-slate-900 text-white font-mono text-xs font-bold shadow-lg flex items-center gap-2 hover:bg-slate-800 cursor-pointer border border-slate-700"
+          className="pointer-events-auto ml-auto mb-3 px-3 py-1.5 rounded-[8px] bg-slate-900 text-white font-mono text-xs font-bold shadow-lg flex items-center gap-2 hover:bg-slate-800 cursor-pointer border border-slate-700"
         >
           <Terminal className="w-3.5 h-3.5 text-emerald-400" />
           <span>[DEV] Inspect Engine State</span>
@@ -42,7 +42,7 @@ export const DebugDrawer: React.FC<Props> = ({ result }) => {
 
       {/* Drawer Panel */}
       {isOpen && (
-        <div className="bg-slate-950 text-slate-100 rounded-t-[16px] border border-slate-800 shadow-2xl flex flex-col h-[480px] font-mono text-xs">
+        <div className="pointer-events-auto w-full bg-slate-950 text-slate-100 rounded-t-[16px] border border-slate-800 shadow-2xl flex flex-col h-[480px] font-mono text-xs">
           {/* Header */}
           <div className="flex items-center justify-between p-3.5 border-b border-slate-800 bg-slate-900/80 rounded-t-[16px]">
             <div className="flex items-center gap-2 font-bold text-slate-200">

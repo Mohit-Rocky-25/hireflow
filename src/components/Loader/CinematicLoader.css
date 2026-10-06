@@ -14,7 +14,9 @@
   color: #FFFFFF;
   overflow: hidden;
   user-select: none;
-  transition: opacity 0.4s ease-out;
+  touch-action: none;
+  overscroll-behavior: contain;
+  transition: opacity 0.35s ease-out;
 }
 .hf-film-grain {
   position: absolute;
@@ -236,13 +238,17 @@
   100% { opacity: 0; }
 }
 .hf-iris-exit {
-  animation: hfIrisMaskExit 0.65s cubic-bezier(0.7, 0, 0.3, 1) forwards;
-  pointer-events: none;
+  animation: hfIrisMaskExit 0.5s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+  pointer-events: none !important;
 }
 @keyframes hfIrisMaskExit {
   0% { clip-path: circle(150% at 50% 50%); opacity: 1; transform: scale(1); }
   40% { clip-path: circle(75% at 50% 50%); opacity: 0.95; transform: scale(1.03); }
   100% { clip-path: circle(0% at 50% 50%); opacity: 0; transform: scale(1.08); }
+}
+body.hf-loaded {
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
 }
 body.hf-loaded .page-enter {
   animation: hfHeroReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;

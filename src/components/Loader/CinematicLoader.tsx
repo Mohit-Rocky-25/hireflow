@@ -37,6 +37,25 @@ export const CinematicLoader: React.FC<CinematicLoaderProps> = ({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const startTimeRef = useRef<number>(Date.now());
   const rafIdRef = useRef<number | null>(null);
+  const exitTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const hasFinishedRef = useRef(false);
+  const hasTriggeredExitRef = useRef(false);
+
+  const finish = useCallback(() => {
+    if (hasFinishedRef.current) return;
+    hasFinishedRef.current = true;
+    try {
+      sessionStorage.setItem('hireflow_intro_seen', 'true');
+    } catch {
+      // ignore storage access issues
+    }
+    if (typeof document !== 'undefined') {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      document.body.classList.add('hf-loaded');
+    }
+    onFinish();
+  }, [onFinish]);
 
   const shouldSkip = useCallback(() => {
     if (typeof window === 'undefined') return false;
@@ -44,11 +63,31 @@ export const CinematicLoader: React.FC<CinematicLoaderProps> = ({
     return !!sessionStorage.getItem('hireflow_intro_seen');
   }, []);
 
+  // Guarantee overflow cleanup on unmount
   useEffect(() => {
-    if (shouldSkip()) { onFinish(); return; }
-    document.body.style.overflow = 'hidden';
-    return () => { document.body.style.overflow = ''; };
-  }, [onFinish, shouldSkip]);
+    return () => {
+      if (typeof document !== 'undefined') {
+        document.body.style.overflow = '';
+        document.documentElement.style.overflow = '';
+      }
+      if (exitTimerRef.current) clearTimeout(exitTimerRef.current);
+    };
+  }, []);
+
+  // Skip immediately if previously seen
+  useEffect(() => {
+    if (shouldSkip()) {
+      finish();
+    }
+  }, [finish, shouldSkip]);
+
+  // Hard safety watchdog — ensure loader never traps the viewport
+  useEffect(() => {
+    const watchdog = setTimeout(() => {
+      finish();
+    }, LOADER_MIN_MS + 800);
+    return () => clearTimeout(watchdog);
+  }, [finish]);
 
   // Subtle Mouse Parallax (desktop only)
   useEffect(() => {
@@ -125,46 +164,49 @@ export const CinematicLoader: React.FC<CinematicLoaderProps> = ({
     };
   }, []);
 
-  // Progress Simulation & Status Ticker
+  // Deterministic Progress Simulation & Status Ticker
   useEffect(() => {
     if (shouldSkip()) return;
     const interval = setInterval(() => {
       const elapsed = Date.now() - startTimeRef.current;
       if (elapsed < 700) setStatusText(STATUS_MESSAGES[0]);
       else if (elapsed < 1500) setStatusText(STATUS_MESSAGES[1]);
-      else if (elapsed < 2400) setStatusText(STATUS_MESSAGES[2]);
+      else if (elapsed < 2300) setStatusText(STATUS_MESSAGES[2]);
       else setStatusText(STATUS_MESSAGES[3]);
 
       let target = 0;
       if (elapsed < 600) target = (elapsed / 600) * 35;
-      else if (elapsed < 2200) target = 35 + ((elapsed - 600) / 1600) * 52;
-      else if (elapsed < LOADER_MIN_MS) target = 87 + ((elapsed - 2200) / (LOADER_MIN_MS - 2200)) * 12;
-      else if (isAppReady) target = 100;
+      else if (elapsed < 2000) target = 35 + ((elapsed - 600) / 1400) * 52;
+      else if (elapsed < LOADER_MIN_MS) target = 87 + ((elapsed - 2000) / (LOADER_MIN_MS - 2000)) * 13;
+      else target = 100;
 
       setProgress((prev) => {
         if (prev >= 100) { clearInterval(interval); return 100; }
-        const step = (target - prev) * 0.35;
-        const next = prev + (Math.abs(step) < 0.2 ? (target > prev ? 0.2 : 0) : step);
+        if (elapsed >= LOADER_MIN_MS + 100) { clearInterval(interval); return 100; }
+        const step = (target - prev) * 0.4;
+        const next = prev + (Math.abs(step) < 0.25 ? (target > prev ? 0.25 : 0) : step);
         return Math.min(100, next);
       });
     }, 30);
     return () => clearInterval(interval);
-  }, [isAppReady, shouldSkip]);
+  }, [shouldSkip]);
 
-  // Trigger Exit and Iris Hand-off
+  // Trigger Exit and Iris Hand-off (safe, no cancel race-condition)
   useEffect(() => {
-    if (progress >= 100 && !isExiting) {
+    if (progress >= 100 && !hasTriggeredExitRef.current) {
+      hasTriggeredExitRef.current = true;
       setIsExiting(true);
       setTriggerFlash(true);
-      document.body.classList.add('hf-loaded');
-      const timer = setTimeout(() => {
-        sessionStorage.setItem('hireflow_intro_seen', 'true');
+      if (typeof document !== 'undefined') {
+        document.body.classList.add('hf-loaded');
         document.body.style.overflow = '';
-        onFinish();
-      }, 620);
-      return () => clearTimeout(timer);
+        document.documentElement.style.overflow = '';
+      }
+      exitTimerRef.current = setTimeout(() => {
+        finish();
+      }, 520);
     }
-  }, [progress, isExiting, onFinish]);
+  }, [progress, finish]);
 
   if (shouldSkip()) return null;
   const wordmarkLetters = ['H', 'i', 'r', 'e', 'F', 'l', 'o', 'w'];
