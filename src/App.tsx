@@ -22,7 +22,9 @@ import { CandidatePortal } from './pages/portal/CandidatePortal';
 
 // Tools
 import { ResumeChecker } from './pages/tools/ResumeChecker';
-import { CareerPathSimulator } from './pages/tools/CareerPathSimulator';
+import { CareerPathHub } from './pages/tools/career-path/CareerPathHub';
+import { PromotionSimulatorPage } from './pages/tools/career-path/PromotionSimulatorPage';
+import { CompanyLadderPage } from './pages/tools/career-path/CompanyLadderPage';
 import { TalentLens } from './pages/tools/TalentLens';
 
 // Company / BHR Pages
@@ -102,7 +104,11 @@ export default function App() {
         
         {/* Free ATS Candidate Tools */}
         <Route path="/tools/resume-checker" element={<ResumeChecker />} />
-        <Route path="/tools/career-path" element={<CareerPathSimulator />} />
+        <Route path="/tools/career-path" element={<CareerPathHub />} />
+        <Route path="/tools/career-path/promotion-simulator" element={<PromotionSimulatorPage />} />
+        <Route path="/tools/career-path/company-ladder" element={<CompanyLadderPage />} />
+        <Route path="/tools/career-path/simulator" element={<Navigate to="/tools/career-path/promotion-simulator" replace />} />
+        <Route path="/tools/career-path/explorer" element={<Navigate to="/tools/career-path/company-ladder" replace />} />
         <Route path="/tools/talent-lens" element={<TalentLens />} />
 
         {/* Company / BHR / HR Routes */}
