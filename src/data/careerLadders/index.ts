@@ -1,24 +1,24 @@
 // ============================================================
-// Career Ladders Master Registry
-// Aggregates verified ladders across Big Tech, India Tech & IT Services
+// Career Ladders Master Registry — India Market
+// Comprehensive dataset across Big Tech India, GCCs, Unicorns, & IT Services
 // ============================================================
 
-import type { CompanyLadder, CareerLevel, CareerTrack } from './types';
-import { BIG_TECH_LADDERS } from './companies/bigTechUS';
-import { BIG_TECH_MORE_LADDERS } from './companies/bigTechUSMore';
-import { INDIA_TECH_LADDERS } from './companies/indiaTech';
-import { IT_SERVICES_LADDERS } from './companies/itServices';
-import { IT_SERVICES_MORE_LADDERS } from './companies/itServicesMore';
+import type { CompanyLadder, CareerLevel, CareerTrack, MarketSegment } from './types';
+import { BIG_TECH_INDIA_LADDERS } from './companies/bigTechIndia';
+import { INDIAN_PRODUCT_UNICORN_LADDERS } from './companies/indianProductUnicorns';
+import { GCC_FINANCE_LADDERS } from './companies/gccFinance';
+import { IT_SERVICES_INDIA_LADDERS } from './companies/itServicesIndia';
 
 export * from './types';
 export * from './equivalenceMap';
+export * from './blockerCatalog';
+export * from './hiringRoutesCatalog';
 
 export const ALL_COMPANY_LADDERS: CompanyLadder[] = [
-  ...BIG_TECH_LADDERS,
-  ...BIG_TECH_MORE_LADDERS,
-  ...INDIA_TECH_LADDERS,
-  ...IT_SERVICES_LADDERS,
-  ...IT_SERVICES_MORE_LADDERS,
+  ...BIG_TECH_INDIA_LADDERS,
+  ...INDIAN_PRODUCT_UNICORN_LADDERS,
+  ...GCC_FINANCE_LADDERS,
+  ...IT_SERVICES_INDIA_LADDERS,
 ];
 
 // Map companyId -> CompanyLadder for O(1) lookup
@@ -29,6 +29,20 @@ for (const ladder of ALL_COMPANY_LADDERS) {
 
 export function getAllCompanies(): CompanyLadder[] {
   return ALL_COMPANY_LADDERS;
+}
+
+export function getAllMarketSegments(): MarketSegment[] {
+  return [
+    'Big Tech India',
+    'Indian Product Unicorn',
+    'GCC / Finance',
+    'Indian IT Services',
+  ];
+}
+
+export function filterByMarketSegment(segment?: MarketSegment | 'ALL'): CompanyLadder[] {
+  if (!segment || segment === 'ALL') return ALL_COMPANY_LADDERS;
+  return ALL_COMPANY_LADDERS.filter((c) => c.marketSegment === segment);
 }
 
 export function getCompanyLadder(companyId: string): CompanyLadder | undefined {
