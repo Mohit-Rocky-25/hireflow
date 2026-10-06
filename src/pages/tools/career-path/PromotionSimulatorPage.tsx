@@ -1,10 +1,10 @@
 // ============================================================
-// Promotion Simulator Page Sub-Route Component (/tools/career-path/promotion-simulator)
+// Legacy Redirect Component (/tools/career-path/promotion-simulator -> /tools/career-path/dream-job-roadmap)
 // ============================================================
 
 import React from 'react';
-import { CareerPathSimulator } from '../CareerPathSimulator';
+import { Navigate } from 'react-router-dom';
 
 export function PromotionSimulatorPage() {
-  return <CareerPathSimulator fixedTab="simulator" />;
+  return <Navigate to="/tools/career-path/dream-job-roadmap" replace />;
 }

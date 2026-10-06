@@ -1,10 +1,10 @@
 // ============================================================
-// Company Ladder Explorer Page Sub-Route Component (/tools/career-path/company-ladder)
+// Legacy Redirect Component (/tools/career-path/company-ladder -> /tools/career-path/company-levels)
 // ============================================================
 
 import React from 'react';
-import { CareerPathSimulator } from '../CareerPathSimulator';
+import { Navigate } from 'react-router-dom';
 
 export function CompanyLadderPage() {
-  return <CareerPathSimulator fixedTab="explorer" />;
+  return <Navigate to="/tools/career-path/company-levels" replace />;
 }

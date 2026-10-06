@@ -70,17 +70,18 @@ const TOOLS = [
   },
   {
     icon: Target,
-    title: "Career Path Simulator",
+    title: "Career Trajectory",
+    subtitle: "Dream Job Roadmap · Company Levels & Pay",
     color: "from-ai/15 to-ai/5",
     borderColor: "border-ai/20",
     iconColor: "text-ai",
     iconBg: "bg-ai-light",
     points: [
-      "Input your current role and dream job",
-      "See the exact steps and timeline to get there",
-      "Visualize your estimated salary trajectory"
+      "Plan your path from campus to dream companies",
+      "Real eligibility rules, cutoffs & fresher CTC in INR",
+      "Step-by-step offer routes, timeline & action guide"
     ],
-    cta: "Simulate My Trajectory",
+    cta: "Plan My Trajectory",
     link: "/tools/career-path",
   },
   {
@@ -205,7 +206,12 @@ export function LandingPage() {
                   <div className={`w-[64px] h-[64px] rounded-2xl ${role.iconBg} border flex items-center justify-center mb-[32px] relative shadow-sm`}>
                     <Icon className={`w-[32px] h-[32px] ${role.iconColor} stroke-[1.5px]`} />
                   </div>
-                  <h2 className="text-[28px] font-bold text-text mb-[24px] tracking-[-0.02em] relative">{role.title}</h2>
+                  <h2 className="text-[28px] font-bold text-text mb-[8px] tracking-[-0.02em] relative">{role.title}</h2>
+                  {role.subtitle ? (
+                    <p className="text-[13px] font-semibold text-text-secondary mb-[20px] relative">{role.subtitle}</p>
+                  ) : (
+                    <div className="mb-[16px]" />
+                  )}
                   <ul className="space-y-[16px] mb-[40px] relative">
                     {role.points.map((p, j) => (
                       <li key={j} className="flex items-start gap-[14px] text-[16px] text-text-secondary">

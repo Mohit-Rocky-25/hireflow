@@ -23,6 +23,8 @@ import { CandidatePortal } from './pages/portal/CandidatePortal';
 // Tools
 import { ResumeChecker } from './pages/tools/ResumeChecker';
 import { CareerPathHub } from './pages/tools/career-path/CareerPathHub';
+import { DreamJobRoadmapPage } from './pages/tools/career-path/DreamJobRoadmapPage';
+import { CompanyLevelsPage } from './pages/tools/career-path/CompanyLevelsPage';
 import { PromotionSimulatorPage } from './pages/tools/career-path/PromotionSimulatorPage';
 import { CompanyLadderPage } from './pages/tools/career-path/CompanyLadderPage';
 import { TalentLens } from './pages/tools/TalentLens';
@@ -105,10 +107,12 @@ export default function App() {
         {/* Free ATS Candidate Tools */}
         <Route path="/tools/resume-checker" element={<ResumeChecker />} />
         <Route path="/tools/career-path" element={<CareerPathHub />} />
-        <Route path="/tools/career-path/promotion-simulator" element={<PromotionSimulatorPage />} />
-        <Route path="/tools/career-path/company-ladder" element={<CompanyLadderPage />} />
-        <Route path="/tools/career-path/simulator" element={<Navigate to="/tools/career-path/promotion-simulator" replace />} />
-        <Route path="/tools/career-path/explorer" element={<Navigate to="/tools/career-path/company-ladder" replace />} />
+        <Route path="/tools/career-path/dream-job-roadmap" element={<DreamJobRoadmapPage />} />
+        <Route path="/tools/career-path/company-levels" element={<CompanyLevelsPage />} />
+        <Route path="/tools/career-path/promotion-simulator" element={<Navigate to="/tools/career-path/dream-job-roadmap" replace />} />
+        <Route path="/tools/career-path/company-ladder" element={<Navigate to="/tools/career-path/company-levels" replace />} />
+        <Route path="/tools/career-path/simulator" element={<Navigate to="/tools/career-path/dream-job-roadmap" replace />} />
+        <Route path="/tools/career-path/explorer" element={<Navigate to="/tools/career-path/company-levels" replace />} />
         <Route path="/tools/talent-lens" element={<TalentLens />} />
 
         {/* Company / BHR / HR Routes */}
