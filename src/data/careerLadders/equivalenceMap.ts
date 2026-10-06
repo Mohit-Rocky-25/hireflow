@@ -101,3 +101,7 @@ export const EQUIVALENCE_GROUPS: Record<string, EquivalenceGroupDef> = {
 export function getEquivalenceOrder(groupKey: string): number {
   return EQUIVALENCE_GROUPS[groupKey]?.order ?? 0;
 }
+
+export function getEquivalenceHumanLabel(groupKey: string): string {
+  return EQUIVALENCE_GROUPS[groupKey]?.label ?? groupKey;
+}
