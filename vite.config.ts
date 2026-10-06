@@ -1,17 +1,18 @@
 import { defineConfig, loadEnv, Plugin } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
-import path from 'path'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { runHybridAnalysis } from './src/lib/ats/pipeline'
 
 function atsApiPlugin(): Plugin {
   return {
     name: 'ats-api-server',
     configureServer(server) {
-      server.middlewares.use(async (req, res, next) => {
+      server.middlewares.use(async (req: any, res: any, next: any) => {
         if (req.method === 'POST' && req.url === '/api/ats/analyze') {
           let body = '';
-          req.on('data', chunk => {
+          req.on('data', (chunk: any) => {
             body += chunk;
           });
           req.on('end', async () => {
@@ -139,7 +140,7 @@ export default defineConfig({
   plugins: [react(), tailwindcss(), atsApiPlugin()],
   resolve: {
     alias: {
-      '@': path.resolve(import.meta.dirname, './src'),
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
   server: {
