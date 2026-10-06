@@ -4,7 +4,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useEffect, useState, useCallback } from 'react';
 import { useStore } from './store/useStore';
-import { LoadingScreen } from './components/ui/LoadingScreen';
+import { CinematicLoader } from './components/Loader/CinematicLoader';
 
 // Layouts
 import { AppShell } from './components/layout/AppShell';
@@ -86,7 +86,7 @@ export default function App() {
 
   return (
     <>
-    {!appReady && <LoadingScreen onFinish={handleLoadingFinish} />}
+    {!appReady && <CinematicLoader onFinish={handleLoadingFinish} isAppReady={_initialized} />}
     <BrowserRouter>
       <Routes>
         {/* Public routes */}
