@@ -1,11 +1,22 @@
 // ============================================================
-// Career Promotion & Roadmap Engine
-// Deterministic path resolution, level parity mapping, and comp modeling
+// Career Promotion & Roadmap Engine — India Market Edition
+// Deterministic path resolution, student hiring pathways, and INR comp modeling
 // ============================================================
 
-import type { CareerLevel, CareerTrack } from '../data/careerLadders/types';
-import { getCompanyLadder, getLevel, getLevelsForCompanyAndTrack } from '../data/careerLadders';
-import { getEquivalenceOrder } from '../data/careerLadders/equivalenceMap';
+import type {
+  CareerLevel,
+  CareerTrack,
+  CompanyLadder,
+  StructuredBlocker,
+  HiringRoute,
+} from '../data/careerLadders/types';
+import {
+  getCompanyLadder,
+  getLevel,
+  getLevelsForCompanyAndTrack,
+  ALL_COMPANY_LADDERS,
+} from '../data/careerLadders';
+import { getEquivalenceOrder, getEquivalenceHumanLabel } from '../data/careerLadders/equivalenceMap';
 
 export type PerformanceBracket = 'MEETS' | 'EXCEEDS' | 'CONSISTENTLY_EXCEEDS';
 
@@ -18,9 +29,9 @@ export interface LadderNodeRef {
 export interface ResolvePathOptions {
   performanceBracket?: PerformanceBracket;
   yearsInCurrentLevel?: number;
-  currency?: 'USD' | 'INR';
-  exchangeRateUsdToInr?: number; // default 87.0
-  externalLevelOffset?: number;  // 0 = parity hire, -1 = down-leveled
+  currentAnnualCTC?: number;      // Actual current CTC in INR (rupees/year)
+  totalExperienceYears?: number;  // Total career experience in years
+  externalLevelOffset?: number;   // 0 = parity hire, -1 = down-leveled
 }
 
 export interface PromotionPlanStep {
@@ -36,6 +47,7 @@ export interface PromotionPlanStep {
   };
   cumulativeYears: number;
   cycleWindow: string;
+  calendarYearWindow?: string;
   requirements: {
     scope: string;
     impact: string;
@@ -44,19 +56,24 @@ export interface PromotionPlanStep {
   };
   process: {
     cadence: string;
+    cadenceMonths: number[];
     nominator: string;
-    committee: string;
+    decider: string;
+    calibrationLayers: number;
     artifacts: string[];
-    commonBlockers?: string[];
+    selfNominationAllowed: boolean;
+    cycleType: 'cycle' | 'off-cycle' | 'both';
+    typicalNoticeAndEffectiveDate: string;
   };
-  blockers: string[];
+  blockers: StructuredBlocker[];
   notes?: string;
 }
 
 export interface CompDataPoint {
   year: string;
   yearNum: number;
-  salary: number; // in requested currency
+  calendarYear?: number;
+  salary: number; // in INR rupees
   base: number;
   stock: number;
   bonus: number;
@@ -80,7 +97,6 @@ export interface PromotionPlan {
     to: number;
     diff: number;
     percentage: number;
-    currency: 'USD' | 'INR';
   };
   compTimeline: CompDataPoint[];
   probability: {
@@ -92,24 +108,79 @@ export interface PromotionPlan {
   strategicAdvice: string[];
 }
 
-export const DEFAULT_USD_INR_RATE = 87.0;
+// ─────────────────────────────────────────────────────────────
+// Student Mode Interfaces
+// ─────────────────────────────────────────────────────────────
 
-/**
- * Converts a compensation value between USD and INR
- */
-export function convertComp(
-  amount: number,
-  fromCurrency: 'USD' | 'INR',
-  toCurrency: 'USD' | 'INR',
-  rate: number = DEFAULT_USD_INR_RATE
-): number {
-  if (fromCurrency === toCurrency) return amount;
-  if (fromCurrency === 'USD' && toCurrency === 'INR') return Math.round(amount * rate);
-  return Math.round(amount / rate);
+export interface StudentProfile {
+  degreeAndBranch: 'BTech_CSE_IT' | 'BTech_ECE' | 'BTech_Other' | 'BCA_MCA' | 'MTech' | 'Other';
+  collegeTier: 'Tier 1' | 'Tier 2' | 'Tier 3' | 'Other';
+  currentYearOfStudy: '1st Year' | '2nd Year' | '3rd Year' | 'Final Year' | 'MTech';
+  expectedGraduationYear: number;
+  cgpaBracket: 'below_6' | '6_to_7' | '7_to_8' | 'above_8';
+  internshipStatus: 'none' | 'completed' | 'ppo';
+  dreamCompanyId: string;
+  dreamLevelCode: string;
+  track: CareerTrack;
+}
+
+export interface StudentEntryRoute extends HiringRoute {
+  adjustedLikelihood: 'High' | 'Medium' | 'Low';
+  likelihoodReason: string;
+  expectedOfferINR: number;
+}
+
+export interface SteppingStoneOption {
+  company: CompanyLadder;
+  entryRole: string;
+  entryOfferINR: number;
+  typicalDurationYears: number;
+  targetLevelAtDreamCompany: string;
+  rationale: string;
+}
+
+export interface StudentPromotionPlan {
+  status: 'SUCCESS' | 'TARGET_NOT_FOUND' | 'INVALID_INPUT';
+  message?: string;
+  studentProfile: StudentProfile;
+  dreamCompany: CompanyLadder;
+  entryLevel: CareerLevel;
+  targetLevel: CareerLevel;
+  entryRoutes: StudentEntryRoute[];
+  steps: PromotionPlanStep[];
+  totalTimeFromGraduation: {
+    min: number;
+    likely: number;
+    max: number;
+  };
+  compTimeline: CompDataPoint[];
+  alternateSteppingStones: SteppingStoneOption[];
+  probability: {
+    percentage: number;
+    timeframeYears: number;
+    formulaExplanation: string;
+    levelStallRates: { levelCode: string; companyId: string; stallRate: number }[];
+  };
+  strategicAdvice: string[];
 }
 
 /**
- * Calculates step duration adjusted by performance and existing tenure in level
+ * Formats a rupee amount in Indian format:
+ * - Below 1 Crore: ₹X.X LPA
+ * - At or above 1 Crore: ₹X.XX Cr
+ */
+export function formatINR(rupees: number): string {
+  if (isNaN(rupees) || rupees === 0) return '₹0';
+  if (rupees >= 10000000) {
+    const cr = (rupees / 10000000).toFixed(2);
+    return `₹${cr} Cr`;
+  }
+  const lpa = (rupees / 100000).toFixed(1);
+  return `₹${lpa} LPA`;
+}
+
+/**
+ * Calculates step duration adjusted by performance rating and existing tenure in level
  */
 function calculateStepDuration(
   level: CareerLevel,
@@ -148,7 +219,7 @@ function calculateStepDuration(
 }
 
 /**
- * Core Path Resolution Algorithm
+ * Core Path Resolution Algorithm for Working Professionals
  */
 export function resolvePath(
   sourceRef: LadderNodeRef,
@@ -157,70 +228,60 @@ export function resolvePath(
 ): PromotionPlan {
   const perf = options.performanceBracket || 'MEETS';
   const yearsInCurrent = Math.max(0, options.yearsInCurrentLevel || 0);
-  const targetCurrency = options.currency || 'USD';
-  const rate = options.exchangeRateUsdToInr || DEFAULT_USD_INR_RATE;
-  const externalOffset = options.externalLevelOffset ?? 0;
 
-  const sourceTrack = sourceRef.track || 'SWE';
-  const targetTrack = targetRef.track || 'SWE';
-
-  const sourceLevel = getLevel(sourceRef.companyId, sourceRef.levelCode, sourceTrack);
-  const targetLevel = getLevel(targetRef.companyId, targetRef.levelCode, targetTrack);
+  const sourceLevel = getLevel(sourceRef.companyId, sourceRef.levelCode, sourceRef.track);
+  const targetLevel = getLevel(targetRef.companyId, targetRef.levelCode, targetRef.track);
 
   if (!sourceLevel || !targetLevel) {
-    throw new Error(
-      `Cannot resolve ladder node: source (${sourceRef.companyId} ${sourceRef.levelCode}) or target (${targetRef.companyId} ${targetRef.levelCode}) not found.`
-    );
+    const fallbackLevel = ALL_COMPANY_LADDERS[0]?.levels[0];
+    return {
+      status: 'UNREACHABLE',
+      message: `Could not resolve company ladder node. Please select a valid company and level.`,
+      sourceLevel: sourceLevel || fallbackLevel,
+      targetLevel: targetLevel || fallbackLevel,
+      steps: [],
+      totalTime: { min: 0, likely: 0, max: 0 },
+      compJump: { from: 0, to: 0, diff: 0, percentage: 0 },
+      compTimeline: [],
+      probability: {
+        percentage: 0,
+        timeframeYears: 0,
+        formulaExplanation: 'Invalid inputs provided.',
+        levelStallRates: [],
+      },
+      strategicAdvice: ['Please verify that the selected company and level exist in our verified ladders.'],
+    };
   }
 
-  const sourceOrder = getEquivalenceOrder(sourceLevel.equivalenceGroup);
-  const targetOrder = getEquivalenceOrder(targetLevel.equivalenceGroup);
-  const isSameCompany = sourceLevel.companyId.toLowerCase() === targetLevel.companyId.toLowerCase();
-  const isTrackSwitch = sourceLevel.track !== targetLevel.track;
+  const sourceRank = getEquivalenceOrder(sourceLevel.equivalenceGroup);
+  const targetRank = getEquivalenceOrder(targetLevel.equivalenceGroup);
 
-  const sourceCompInTargetCur = convertComp(
-    sourceLevel.comp.total.p50,
-    sourceLevel.comp.currency,
-    targetCurrency,
-    rate
-  );
-  const targetCompInTargetCur = convertComp(
-    targetLevel.comp.total.p50,
-    targetLevel.comp.currency,
-    targetCurrency,
-    rate
-  );
+  // Determine starting comp
+  const fromComp = options.currentAnnualCTC && options.currentAnnualCTC > 0
+    ? options.currentAnnualCTC
+    : sourceLevel.comp.total.p50;
+  const toComp = targetLevel.comp.total.p50;
+  const compDiff = toComp - fromComp;
+  const compJumpPct = fromComp > 0 ? Math.round((compDiff / fromComp) * 100) : 0;
 
-  const compDiff = targetCompInTargetCur - sourceCompInTargetCur;
-  const compPercentage =
-    sourceCompInTargetCur > 0
-      ? Number(((compDiff / sourceCompInTargetCur) * 100).toFixed(1))
-      : 0;
-
-  // Case 1: Same Company & Same Level
-  if (isSameCompany && sourceLevel.levelCode === targetLevel.levelCode && !isTrackSwitch) {
+  // Case 1: Same Node
+  if (sourceLevel.companyId === targetLevel.companyId && sourceLevel.levelCode === targetLevel.levelCode) {
     return {
       status: 'SAME_LEVEL',
-      message: `You are currently at ${sourceLevel.title} (${sourceLevel.levelCode}) at ${sourceRef.companyId.toUpperCase()}. You are already at this target level.`,
+      message: `You are already at ${targetLevel.title} (${targetLevel.levelCode}) at ${sourceLevel.companyId.toUpperCase()}.`,
       sourceLevel,
       targetLevel,
       steps: [],
       totalTime: { min: 0, likely: 0, max: 0 },
-      compJump: {
-        from: sourceCompInTargetCur,
-        to: targetCompInTargetCur,
-        diff: 0,
-        percentage: 0,
-        currency: targetCurrency,
-      },
+      compJump: { from: fromComp, to: toComp, diff: 0, percentage: 0 },
       compTimeline: [
         {
           year: 'Current',
           yearNum: 0,
-          salary: sourceCompInTargetCur,
-          base: convertComp(sourceLevel.comp.base, sourceLevel.comp.currency, targetCurrency, rate),
-          stock: convertComp(sourceLevel.comp.stock, sourceLevel.comp.currency, targetCurrency, rate),
-          bonus: convertComp(sourceLevel.comp.bonus, sourceLevel.comp.currency, targetCurrency, rate),
+          salary: fromComp,
+          base: sourceLevel.comp.base,
+          stock: sourceLevel.comp.stock,
+          bonus: sourceLevel.comp.variable,
           levelCode: sourceLevel.levelCode,
           companyName: sourceLevel.companyId,
         },
@@ -228,325 +289,257 @@ export function resolvePath(
       probability: {
         percentage: 100,
         timeframeYears: 0,
-        formulaExplanation: 'Current position equals target position.',
+        formulaExplanation: 'Already at target level.',
         levelStallRates: [],
       },
       strategicAdvice: [
-        'You have already achieved this level. Consider mapping to the next level up (e.g. Senior -> Staff).',
+        `You have already achieved this level! Focus on deepening domain impact and establishing cross-team sponsorship for your next promotion cycle.`,
       ],
     };
   }
 
-  // Case 2: Target is Junior to Current Level
-  if (sourceOrder > targetOrder) {
+  // Case 2: Target is Junior to Source
+  if (targetRank < sourceRank && sourceLevel.companyId === targetLevel.companyId) {
     return {
       status: 'TARGET_JUNIOR',
-      message: `Target level ${targetLevel.title} (${targetLevel.levelCode}) is junior in scope to your current level ${sourceLevel.title} (${sourceLevel.levelCode}).`,
+      message: `Target level (${targetLevel.levelCode} • ${targetLevel.title}) is junior to your current level (${sourceLevel.levelCode} • ${sourceLevel.title}).`,
       sourceLevel,
       targetLevel,
       steps: [],
       totalTime: { min: 0, likely: 0, max: 0 },
-      compJump: {
-        from: sourceCompInTargetCur,
-        to: targetCompInTargetCur,
-        diff: compDiff,
-        percentage: compPercentage,
-        currency: targetCurrency,
-      },
-      compTimeline: [
-        {
-          year: 'Current',
-          yearNum: 0,
-          salary: sourceCompInTargetCur,
-          base: convertComp(sourceLevel.comp.base, sourceLevel.comp.currency, targetCurrency, rate),
-          stock: convertComp(sourceLevel.comp.stock, sourceLevel.comp.currency, targetCurrency, rate),
-          bonus: convertComp(sourceLevel.comp.bonus, sourceLevel.comp.currency, targetCurrency, rate),
-          levelCode: sourceLevel.levelCode,
-          companyName: sourceLevel.companyId,
-        },
-      ],
+      compJump: { from: fromComp, to: toComp, diff: compDiff, percentage: compJumpPct },
+      compTimeline: [],
       probability: {
-        percentage: 100,
+        percentage: 0,
         timeframeYears: 0,
-        formulaExplanation: 'Target level is below your existing scope.',
+        formulaExplanation: 'Target level is junior to current level.',
         levelStallRates: [],
       },
-      strategicAdvice: [
-        'Down-leveling is usually unnecessary unless switching to a completely different engineering domain or moving to a higher-paying tier.',
-      ],
+      strategicAdvice: ['Select a senior target level to simulate an upward promotion path.'],
     };
   }
 
-  // Build Roadmap Steps
   const steps: PromotionPlanStep[] = [];
-  let cumulativeYears = 0;
+  const advice: string[] = [];
+  let cumulativeTime = 0;
 
-  if (isSameCompany && !isTrackSwitch) {
-    // Same Company, Same Track Multi-Step Path
+  // Route 1: Same Company Progression
+  if (sourceLevel.companyId === targetLevel.companyId) {
     const companyLevels = getLevelsForCompanyAndTrack(sourceLevel.companyId, sourceLevel.track);
-    const sourceIdx = companyLevels.findIndex((l) => l.levelCode === sourceLevel.levelCode);
-    const targetIdx = companyLevels.findIndex((l) => l.levelCode === targetLevel.levelCode);
+    const sIdx = companyLevels.findIndex((l) => l.levelCode === sourceLevel.levelCode);
+    const tIdx = companyLevels.findIndex((l) => l.levelCode === targetLevel.levelCode);
 
-    if (sourceIdx !== -1 && targetIdx !== -1 && sourceIdx < targetIdx) {
-      for (let i = sourceIdx; i < targetIdx; i++) {
-        const from = companyLevels[i];
-        const to = companyLevels[i + 1];
-        const isFirst = i === sourceIdx;
-        const dur = calculateStepDuration(from, isFirst, perf, yearsInCurrent);
-        cumulativeYears += dur.likely;
+    if (sIdx !== -1 && tIdx !== -1 && sIdx < tIdx) {
+      for (let i = sIdx; i < tIdx; i++) {
+        const curr = companyLevels[i];
+        const next = companyLevels[i + 1];
+        const isFirst = i === sIdx;
+        const duration = calculateStepDuration(curr, isFirst, perf, yearsInCurrent);
+        cumulativeTime += duration.likely;
 
-        const cycleWindowMonths = Math.round(dur.likely * 12);
-
-        steps.push({
-          stepIndex: steps.length + 1,
-          fromLevel: from,
-          toLevel: to,
-          isCompanySwitch: false,
-          stepType: 'INTERNAL_PROMO',
-          durationYears: dur,
-          cumulativeYears: Number(cumulativeYears.toFixed(1)),
-          cycleWindow: `Target Promo Window: Month ${Math.max(6, cycleWindowMonths - 6)} – Month ${cycleWindowMonths}`,
-          requirements: to.promotionRequirements,
-          process: to.promotionProcess,
-          blockers: to.promotionProcess.commonBlockers,
-        });
-      }
-    }
-  } else if (isSameCompany && isTrackSwitch) {
-    // Same Company, Cross-Track (e.g. SWE -> EM)
-    // 1. If currently below Senior (L5 equivalent), climb SWE ladder first to Senior
-    const sourceCompanySweLevels = getLevelsForCompanyAndTrack(sourceLevel.companyId, sourceLevel.track);
-    const sourceIdx = sourceCompanySweLevels.findIndex((l) => l.levelCode === sourceLevel.levelCode);
-    const seniorIdx = sourceCompanySweLevels.findIndex((l) => getEquivalenceOrder(l.equivalenceGroup) >= 2);
-
-    let transitionFromLevel = sourceLevel;
-    if (sourceIdx !== -1 && seniorIdx !== -1 && sourceIdx < seniorIdx) {
-      for (let i = sourceIdx; i < seniorIdx; i++) {
-        const from = sourceCompanySweLevels[i];
-        const to = sourceCompanySweLevels[i + 1];
-        const isFirst = i === sourceIdx;
-        const dur = calculateStepDuration(from, isFirst, perf, yearsInCurrent);
-        cumulativeYears += dur.likely;
+        const cycleWindow = next.promotionProcess.cadence || 'Annual Cycle';
 
         steps.push({
           stepIndex: steps.length + 1,
-          fromLevel: from,
-          toLevel: to,
+          fromLevel: curr,
+          toLevel: next,
           isCompanySwitch: false,
           stepType: 'INTERNAL_PROMO',
-          durationYears: dur,
-          cumulativeYears: Number(cumulativeYears.toFixed(1)),
-          cycleWindow: `Engineering Track Promotion (~${Math.round(dur.likely * 12)} months)`,
-          requirements: to.promotionRequirements,
-          process: to.promotionProcess,
-          blockers: to.promotionProcess.commonBlockers,
+          durationYears: duration,
+          cumulativeYears: Number(cumulativeTime.toFixed(1)),
+          cycleWindow,
+          requirements: {
+            scope: next.promotionRequirements.scope,
+            impact: next.promotionRequirements.impact,
+            influence: next.promotionRequirements.influence,
+            evidence: next.promotionRequirements.evidence,
+          },
+          process: {
+            cadence: next.promotionProcess.cadence,
+            cadenceMonths: next.promotionProcess.cadenceMonths,
+            nominator: next.promotionProcess.nominator,
+            decider: next.promotionProcess.decider,
+            calibrationLayers: next.promotionProcess.calibrationLayers,
+            artifacts: next.promotionProcess.artifacts,
+            selfNominationAllowed: next.promotionProcess.selfNominationAllowed,
+            cycleType: next.promotionProcess.cycleType,
+            typicalNoticeAndEffectiveDate: next.promotionProcess.typicalNoticeAndEffectiveDate,
+          },
+          blockers: next.promotionProcess.blockers,
+          notes: isFirst && yearsInCurrent > 0
+            ? `Credited ${yearsInCurrent} years already served in ${curr.levelCode}. Estimated window adjusted toward upcoming cycle.`
+            : undefined,
         });
       }
-      transitionFromLevel = sourceCompanySweLevels[seniorIdx];
+    }
+  } else {
+    // Route 2: Cross-Company Progression
+    const targetLevels = getLevelsForCompanyAndTrack(targetLevel.companyId, targetLevel.track);
+
+    let lateralTarget = targetLevels.find(
+      (l) => getEquivalenceOrder(l.equivalenceGroup) === sourceRank
+    );
+
+    if (!lateralTarget) {
+      lateralTarget = targetLevels.find(
+        (l) => getEquivalenceOrder(l.equivalenceGroup) <= sourceRank
+      ) || targetLevels[0];
     }
 
-    // 2. Track switch step into EM
-    const trackSwitchDur = { min: 0.8, likely: 1.2, max: 2.0 };
-    cumulativeYears += trackSwitchDur.likely;
+    const switchDuration = {
+      min: 0.3,
+      likely: 0.5,
+      max: 0.8,
+    };
+    cumulativeTime += switchDuration.likely;
 
     steps.push({
       stepIndex: steps.length + 1,
-      fromLevel: transitionFromLevel,
-      toLevel: targetLevel,
-      isCompanySwitch: false,
-      stepType: 'TRACK_SWITCH',
-      durationYears: trackSwitchDur,
-      cumulativeYears: Number(cumulativeYears.toFixed(1)),
-      cycleWindow: 'Management Apprenticeship / Tech Lead Transition Window (~12-18 months)',
-      requirements: targetLevel.promotionRequirements,
-      process: targetLevel.promotionProcess,
-      blockers: targetLevel.promotionProcess.commonBlockers,
-      notes: `Discipline Transition: Moving from Individual Contributor (${sourceTrack}) to People Management (${targetTrack}). Focus shifts from direct coding to hiring, 360 performance reviews, sprint execution, and career growth of direct reports.`,
-    });
-  } else {
-    // Cross-Company Path
-    // Step A: Determine if candidate switches immediately at equivalent level, or climbs first
-    const targetCompanyLevels = getLevelsForCompanyAndTrack(targetLevel.companyId, targetLevel.track);
-
-    // Find the equivalent level in target company
-    let targetEquivIdx = targetCompanyLevels.findIndex(
-      (l) => getEquivalenceOrder(l.equivalenceGroup) === sourceOrder + externalOffset
-    );
-    if (targetEquivIdx === -1) {
-      targetEquivIdx = targetCompanyLevels.findIndex(
-        (l) => getEquivalenceOrder(l.equivalenceGroup) >= sourceOrder
-      );
-    }
-    if (targetEquivIdx === -1) targetEquivIdx = 0;
-
-    const entryLevelAtTarget = targetCompanyLevels[targetEquivIdx] || targetCompanyLevels[0];
-
-    // Add Company Switch Step
-    const switchDur = { min: 0.3, likely: 0.5, max: 0.8 }; // Interview & notice period
-    cumulativeYears += switchDur.likely;
-
-    const isLateral = getEquivalenceOrder(entryLevelAtTarget.equivalenceGroup) === sourceOrder;
-    const isDownLevel = getEquivalenceOrder(entryLevelAtTarget.equivalenceGroup) < sourceOrder;
-
-    steps.push({
-      stepIndex: 1,
       fromLevel: sourceLevel,
-      toLevel: entryLevelAtTarget,
+      toLevel: lateralTarget,
       isCompanySwitch: true,
-      stepType: isLateral ? 'LATERAL_SWITCH' : isDownLevel ? 'DOWNLEVEL_SWITCH' : 'UPLEVEL_SWITCH',
-      durationYears: switchDur,
-      cumulativeYears: Number(cumulativeYears.toFixed(1)),
-      cycleWindow: 'Hiring & Onboarding Window (~3-6 months)',
+      stepType: 'LATERAL_SWITCH',
+      durationYears: switchDuration,
+      cumulativeYears: Number(cumulativeTime.toFixed(1)),
+      cycleWindow: 'Immediate External Hiring Window (3–6 months typical lead time)',
       requirements: {
-        scope: `External hiring bar for ${entryLevelAtTarget.title} at ${targetLevel.companyId.toUpperCase()}.`,
-        impact: `Demonstrated track record of delivering at or near ${entryLevelAtTarget.equivalenceGroup} scope in prior roles.`,
-        influence: 'Exceptional system design and behavioral/leadership interview rounds.',
+        scope: lateralTarget.promotionRequirements.scope,
+        impact: `Demonstrate proven track record at ${sourceLevel.companyId.toUpperCase()} matching ${lateralTarget.levelCode} bar.`,
+        influence: `Pass external coding rounds, system design interviews, and behavioral leadership rounds.`,
         evidence: [
-          'Pass system design & coding loop at external hiring bar',
-          'Past impact portfolio showcasing unblocking complexity',
+          'External technical interview clearance across all 4-5 rounds',
+          'Past performance review ratings from current employer',
+          'System design interview defense for high-scale distributed systems',
         ],
       },
       process: {
-        cadence: 'Continuous hiring cycles / Rolling interview loops',
-        nominator: 'Recruiter reach-out or employee referral',
-        committee: 'Hiring Committee & Bar Raiser review',
-        artifacts: ['Resume', 'Interview feedback packet', 'Compensation negotiation approval'],
-        commonBlockers: [
-          'External down-leveling during system design round',
-          'Notice period or visa/relocation constraints',
-        ],
+        cadence: 'Continuous hiring cycles throughout the year',
+        cadenceMonths: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+        nominator: 'External recruiter / Employee referral',
+        decider: 'Hiring Committee & Bar Raiser consensus',
+        calibrationLayers: 2,
+        artifacts: ['Resume', 'Technical Interview Notes', 'Past Review Transcripts'],
+        selfNominationAllowed: true,
+        cycleType: 'both',
+        typicalNoticeAndEffectiveDate: 'Offer extended post-committee; join following 30-90 day notice period.',
       },
-      blockers: [
-        'Down-leveling by external hiring committee',
-        'Failure to clear the company specific bar-raiser round',
-      ],
-      notes: isDownLevel
-        ? `External candidates from ${sourceLevel.companyId.toUpperCase()} are frequently leveled conservatively into ${targetLevel.companyId.toUpperCase()}.`
-        : `Lateral transition into ${targetLevel.companyId.toUpperCase()} at level parity.`,
+      blockers: lateralTarget.promotionProcess.blockers,
+      notes: `Lateral company transition from ${sourceLevel.companyId.toUpperCase()} to ${targetLevel.companyId.toUpperCase()}. External hires typically join at peer equivalence level.`,
     });
 
-    // Step B: Climb remaining steps at Target Company
-    const targetIdx = targetCompanyLevels.findIndex((l) => l.levelCode === targetLevel.levelCode);
-    if (targetEquivIdx < targetIdx) {
-      for (let i = targetEquivIdx; i < targetIdx; i++) {
-        const from = targetCompanyLevels[i];
-        const to = targetCompanyLevels[i + 1];
-        const isFirst = false; // Fresh start at new company
-        const dur = calculateStepDuration(from, isFirst, perf, 0);
-        cumulativeYears += dur.likely;
+    const lIdx = targetLevels.findIndex((l) => l.levelCode === lateralTarget.levelCode);
+    const tIdx = targetLevels.findIndex((l) => l.levelCode === targetLevel.levelCode);
 
-        const cycleWindowMonths = Math.round(dur.likely * 12);
+    if (lIdx !== -1 && tIdx !== -1 && lIdx < tIdx) {
+      for (let i = lIdx; i < tIdx; i++) {
+        const curr = targetLevels[i];
+        const next = targetLevels[i + 1];
+        const duration = calculateStepDuration(curr, false, perf, 0);
+        cumulativeTime += duration.likely;
 
         steps.push({
           stepIndex: steps.length + 1,
-          fromLevel: from,
-          toLevel: to,
+          fromLevel: curr,
+          toLevel: next,
           isCompanySwitch: false,
           stepType: 'INTERNAL_PROMO',
-          durationYears: dur,
-          cumulativeYears: Number(cumulativeYears.toFixed(1)),
-          cycleWindow: `Promotion Window: Month ${Math.max(6, cycleWindowMonths - 6)} – Month ${cycleWindowMonths}`,
-          requirements: to.promotionRequirements,
-          process: to.promotionProcess,
-          blockers: to.promotionProcess.commonBlockers,
+          durationYears: duration,
+          cumulativeYears: Number(cumulativeTime.toFixed(1)),
+          cycleWindow: next.promotionProcess.cadence || 'Annual Cycle',
+          requirements: {
+            scope: next.promotionRequirements.scope,
+            impact: next.promotionRequirements.impact,
+            influence: next.promotionRequirements.influence,
+            evidence: next.promotionRequirements.evidence,
+          },
+          process: {
+            cadence: next.promotionProcess.cadence,
+            cadenceMonths: next.promotionProcess.cadenceMonths,
+            nominator: next.promotionProcess.nominator,
+            decider: next.promotionProcess.decider,
+            calibrationLayers: next.promotionProcess.calibrationLayers,
+            artifacts: next.promotionProcess.artifacts,
+            selfNominationAllowed: next.promotionProcess.selfNominationAllowed,
+            cycleType: next.promotionProcess.cycleType,
+            typicalNoticeAndEffectiveDate: next.promotionProcess.typicalNoticeAndEffectiveDate,
+          },
+          blockers: next.promotionProcess.blockers,
         });
       }
     }
   }
 
-  // Handle Track Switch (e.g. SWE -> EM)
-  if (isTrackSwitch && steps.length > 0) {
-    const lastStep = steps[steps.length - 1];
-    lastStep.stepType = 'TRACK_SWITCH';
-    lastStep.notes = `Discipline Transition: Moving from Individual Contributor (${sourceTrack}) to People Management (${targetTrack}). Focus shifts from direct coding to hiring, performance calibration, and organizational health.`;
+  // Calculate totals
+  const totalMin = steps.reduce((sum, s) => sum + s.durationYears.min, 0);
+  const totalLikely = steps.reduce((sum, s) => sum + s.durationYears.likely, 0);
+  const totalMax = steps.reduce((sum, s) => sum + s.durationYears.max, 0);
+
+  // Compute compound probability based on stall rates
+  const stallRates = steps.map((s) => ({
+    levelCode: s.fromLevel.levelCode,
+    companyId: s.fromLevel.companyId,
+    stallRate: s.fromLevel.timeInLevel.stallRatePct,
+  }));
+
+  let compoundSuccessProb = 1.0;
+  for (const item of stallRates) {
+    const advanceRate = (100 - item.stallRate) / 100;
+    compoundSuccessProb *= advanceRate;
   }
 
-  // Total Time Computation
-  const totalMin = Number(steps.reduce((acc, s) => acc + s.durationYears.min, 0).toFixed(1));
-  const totalLikely = Number(steps.reduce((acc, s) => acc + s.durationYears.likely, 0).toFixed(1));
-  const totalMax = Number(steps.reduce((acc, s) => acc + s.durationYears.max, 0).toFixed(1));
-
-  // Probability Calculation based on stall rates
-  const stallRatesInfo: { levelCode: string; companyId: string; stallRate: number }[] = [];
-  let compoundProb = 1.0;
-
-  const perfMultiplier =
-    perf === 'CONSISTENTLY_EXCEEDS' ? 1.3 : perf === 'EXCEEDS' ? 1.15 : 1.0;
-
-  for (const step of steps) {
-    const stall = step.fromLevel.timeInLevel.stallRatePct;
-    stallRatesInfo.push({
-      levelCode: step.fromLevel.levelCode,
-      companyId: step.fromLevel.companyId,
-      stallRate: stall,
-    });
-
-    const stepSuccessRate = (1 - stall / 100) * perfMultiplier;
-    compoundProb *= Math.min(0.96, Math.max(0.2, stepSuccessRate));
+  if (perf === 'EXCEEDS') {
+    compoundSuccessProb = Math.min(0.95, compoundSuccessProb * 1.15);
+  } else if (perf === 'CONSISTENTLY_EXCEEDS') {
+    compoundSuccessProb = Math.min(0.98, compoundSuccessProb * 1.3);
   }
 
-  // Scale probability between 5% and 95%
-  const finalProbPct = Math.round(Math.min(95, Math.max(8, compoundProb * 100)));
+  const finalProbPercent = Math.max(5, Math.round(compoundSuccessProb * 100));
 
-  // Generate Year-by-Year Compensation Timeline
+  // Build Annual Comp Trajectory in INR
   const compTimeline: CompDataPoint[] = [];
-  const totalYearsCeil = Math.max(1, Math.ceil(totalLikely));
+  let currentYearProgress = 0;
 
-  let currentSalary = sourceCompInTargetCur;
-  let activeLevel = sourceLevel;
+  compTimeline.push({
+    year: 'Year 0 (Now)',
+    yearNum: 0,
+    salary: fromComp,
+    base: sourceLevel.comp.base,
+    stock: sourceLevel.comp.stock,
+    bonus: sourceLevel.comp.variable,
+    levelCode: sourceLevel.levelCode,
+    companyName: sourceLevel.companyId.toUpperCase(),
+  });
 
-  for (let yr = 0; yr <= totalYearsCeil; yr++) {
-    // Find if a promotion occurred at or before this year
-    let matchedStepLevel = sourceLevel;
-    let runningYears = 0;
-
-    for (const step of steps) {
-      runningYears += step.durationYears.likely;
-      if (yr >= Math.round(runningYears)) {
-        matchedStepLevel = step.toLevel;
-      }
-    }
-
-    if (matchedStepLevel.levelCode !== activeLevel.levelCode) {
-      activeLevel = matchedStepLevel;
-      currentSalary = convertComp(
-        activeLevel.comp.total.p50,
-        activeLevel.comp.currency,
-        targetCurrency,
-        rate
-      );
-    } else if (yr > 0) {
-      // Annual standard merit/inflation bump (~3% within same level)
-      currentSalary = Math.round(currentSalary * 1.03);
-    }
+  steps.forEach((step) => {
+    currentYearProgress += step.durationYears.likely;
+    const roundedYear = Math.round(currentYearProgress);
 
     compTimeline.push({
-      year: yr === 0 ? 'Year 0' : `Year ${yr}`,
-      yearNum: yr,
-      salary: currentSalary,
-      base: convertComp(activeLevel.comp.base, activeLevel.comp.currency, targetCurrency, rate),
-      stock: convertComp(activeLevel.comp.stock, activeLevel.comp.currency, targetCurrency, rate),
-      bonus: convertComp(activeLevel.comp.bonus, activeLevel.comp.currency, targetCurrency, rate),
-      levelCode: activeLevel.levelCode,
-      companyName: activeLevel.companyId.toUpperCase(),
+      year: `Year ${roundedYear}`,
+      yearNum: roundedYear,
+      salary: step.toLevel.comp.total.p50,
+      base: step.toLevel.comp.base,
+      stock: step.toLevel.comp.stock,
+      bonus: step.toLevel.comp.variable,
+      levelCode: step.toLevel.levelCode,
+      companyName: step.toLevel.companyId.toUpperCase(),
     });
-  }
+  });
 
   // Strategic Advice
-  const strategicAdvice: string[] = [];
-  if (steps.some((s) => s.fromLevel.isTerminal)) {
-    strategicAdvice.push(
-      `You are advancing past a terminal level (${steps.find((s) => s.fromLevel.isTerminal)?.fromLevel.levelCode}). At this stage, promotion is no longer based on tenure—it requires demonstrated business-critical scope and cross-team organizational leverage.`
+  if (steps.some((s) => s.isCompanySwitch)) {
+    advice.push(
+      `Cross-company moves to ${targetLevel.companyId.toUpperCase()} typically yield substantial compensation leaps (+${compJumpPct}%). Prepare system design and concurrency depth 3-4 months prior.`
     );
   }
-  if (!isSameCompany) {
-    strategicAdvice.push(
-      `Switching to ${targetLevel.companyId.toUpperCase()} introduces an onboarding ramp-up period (~3-6 months). Ensure you negotiate your joining level firmly during compensation conversations to avoid taking a career step back.`
+  if (sourceLevel.isTerminal) {
+    advice.push(
+      `Your current level (${sourceLevel.levelCode}) is considered a career-terminal level. Promotion beyond this requires demonstrated cross-squad organizational influence rather than ticket execution.`
     );
   }
   if (perf === 'CONSISTENTLY_EXCEEDS') {
-    strategicAdvice.push(
-      'Consistently Exceeds rating places you in the top 10-15% of calibrated performers, shortening the expected promotion cycle by 25-35%.'
+    advice.push(
+      `With a Consistently Exceeds rating, your promotion trajectory is accelerated toward the p25 velocity window.`
     );
   }
 
@@ -556,24 +549,289 @@ export function resolvePath(
     targetLevel,
     steps,
     totalTime: {
-      min: totalMin,
-      likely: totalLikely,
-      max: totalMax,
+      min: Number(totalMin.toFixed(1)),
+      likely: Number(totalLikely.toFixed(1)),
+      max: Number(totalMax.toFixed(1)),
     },
     compJump: {
-      from: sourceCompInTargetCur,
-      to: targetCompInTargetCur,
+      from: fromComp,
+      to: toComp,
       diff: compDiff,
-      percentage: compPercentage,
-      currency: targetCurrency,
+      percentage: compJumpPct,
     },
     compTimeline,
     probability: {
-      percentage: finalProbPct,
-      timeframeYears: totalLikely,
-      formulaExplanation: `Probability = Π [1 - (StallRate_i / 100)] × PerfMultiplier (${perfMultiplier}x for ${perf}). Calculated across ${steps.length} promotion step(s).`,
-      levelStallRates: stallRatesInfo,
+      percentage: finalProbPercent,
+      timeframeYears: Number(totalLikely.toFixed(1)),
+      formulaExplanation: `Calculated from empirical stall rates across ${steps.length} ladder step(s): ∏(1 - stallRate_i) adjusted for ${perf} performance rating.`,
+      levelStallRates: stallRates,
     },
-    strategicAdvice,
+    strategicAdvice: advice,
+  };
+}
+
+// ─────────────────────────────────────────────────────────────
+// Student Roadmap Resolver
+// ─────────────────────────────────────────────────────────────
+
+export function resolveStudentPath(profile: StudentProfile): StudentPromotionPlan {
+  const dreamCompany = getCompanyLadder(profile.dreamCompanyId);
+  const targetLevel = getLevel(profile.dreamCompanyId, profile.dreamLevelCode, profile.track);
+
+  if (!dreamCompany || !targetLevel) {
+    const fallbackCompany = ALL_COMPANY_LADDERS[0];
+    const fallbackLevel = fallbackCompany.levels[0];
+    return {
+      status: 'TARGET_NOT_FOUND',
+      message: `Could not resolve dream company or role: ${profile.dreamCompanyId} • ${profile.dreamLevelCode}.`,
+      studentProfile: profile,
+      dreamCompany: dreamCompany || fallbackCompany,
+      entryLevel: fallbackLevel,
+      targetLevel: targetLevel || fallbackLevel,
+      entryRoutes: [],
+      steps: [],
+      totalTimeFromGraduation: { min: 0, likely: 0, max: 0 },
+      compTimeline: [],
+      alternateSteppingStones: [],
+      probability: {
+        percentage: 0,
+        timeframeYears: 0,
+        formulaExplanation: 'Target level does not exist.',
+        levelStallRates: [],
+      },
+      strategicAdvice: ['Please select a valid company and target role from our verified ladders.'],
+    };
+  }
+
+  // Find the entry-level for the dream company in this track
+  const trackLevels = getLevelsForCompanyAndTrack(dreamCompany.id, profile.track);
+  const entryLevel = trackLevels[0] || dreamCompany.levels[0];
+
+  // Build and customize entry routes based on student tier and CGPA
+  const rawRoutes = entryLevel.hiringRoutes || [];
+  const entryRoutes: StudentEntryRoute[] = rawRoutes.map((route) => {
+    let adjustedLikelihood = route.likelihoodByTier.tier3;
+    let likelihoodReason = 'Standard off-campus applicant pool with national competition.';
+
+    if (profile.collegeTier === 'Tier 1') {
+      adjustedLikelihood = route.likelihoodByTier.tier1;
+      likelihoodReason = `${dreamCompany.name} conducts Day 1/Day 2 on-campus hiring drives at Tier 1 colleges (IITs, BITS, top NITs).`;
+    } else if (profile.collegeTier === 'Tier 2') {
+      adjustedLikelihood = route.likelihoodByTier.tier2;
+      likelihoodReason = `${dreamCompany.name} conducts selective on-campus or pooled campus drives at premier private and state universities.`;
+    } else {
+      adjustedLikelihood = route.likelihoodByTier.tier3;
+      likelihoodReason = `On-campus visits are rare for ${dreamCompany.name} at Tier 3 campuses. Prime pathways are national hackathons (e.g. Flipkart GRiD, CodeVita) or off-campus qualifier drives.`;
+    }
+
+    if (profile.internshipStatus === 'ppo' && route.routeType === 'intern-to-full-time') {
+      adjustedLikelihood = 'High';
+      likelihoodReason = 'Holding an active PPO guarantees direct conversion upon project review approval.';
+    }
+
+    if (profile.cgpaBracket === 'below_6' && route.eligibility.cgpaMin > 6.0) {
+      adjustedLikelihood = 'Low';
+      likelihoodReason = `Current CGPA (<6.0) is below ${dreamCompany.name}'s standard ${route.eligibility.cgpaMin} shortlisting cutoff. Hackathon or referral route recommended to bypass ATS filters.`;
+    }
+
+    const offerINR = profile.collegeTier === 'Tier 1'
+      ? route.typicalOfferByTier.tier1
+      : profile.collegeTier === 'Tier 2'
+      ? route.typicalOfferByTier.tier2
+      : route.typicalOfferByTier.tier3;
+
+    return {
+      ...route,
+      adjustedLikelihood,
+      likelihoodReason,
+      expectedOfferINR: offerINR,
+    };
+  });
+
+  // Rank routes: PPO first if applicable, then on-campus, then hackathon, then referral, then off-campus
+  entryRoutes.sort((a, b) => {
+    const priorityOrder = {
+      'intern-to-full-time': 1,
+      'on-campus': 2,
+      'hackathon-competition': 3,
+      'referral': 4,
+      'off-campus': 5,
+    };
+    return (priorityOrder[a.routeType] || 99) - (priorityOrder[b.routeType] || 99);
+  });
+
+  // Now resolve the promotion steps from entryLevel to targetLevel
+  const steps: PromotionPlanStep[] = [];
+  let cumulativeTime = 0;
+
+  const eIdx = trackLevels.findIndex((l) => l.levelCode === entryLevel.levelCode);
+  const tIdx = trackLevels.findIndex((l) => l.levelCode === targetLevel.levelCode);
+
+  if (eIdx !== -1 && tIdx !== -1 && eIdx < tIdx) {
+    for (let i = eIdx; i < tIdx; i++) {
+      const curr = trackLevels[i];
+      const next = trackLevels[i + 1];
+      const duration = calculateStepDuration(curr, false, 'MEETS', 0);
+      cumulativeTime += duration.likely;
+
+      const gradYear = profile.expectedGraduationYear;
+      const startCalYear = gradYear + Math.round(cumulativeTime - duration.likely);
+      const endCalYear = gradYear + Math.round(cumulativeTime);
+
+      steps.push({
+        stepIndex: steps.length + 1,
+        fromLevel: curr,
+        toLevel: next,
+        isCompanySwitch: false,
+        stepType: 'INTERNAL_PROMO',
+        durationYears: duration,
+        cumulativeYears: Number(cumulativeTime.toFixed(1)),
+        cycleWindow: next.promotionProcess.cadence || 'Annual Cycle',
+        calendarYearWindow: `${startCalYear} – ${endCalYear} (${gradYear}+${Math.round(cumulativeTime)} yrs)`,
+        requirements: {
+          scope: next.promotionRequirements.scope,
+          impact: next.promotionRequirements.impact,
+          influence: next.promotionRequirements.influence,
+          evidence: next.promotionRequirements.evidence,
+        },
+        process: {
+          cadence: next.promotionProcess.cadence,
+          cadenceMonths: next.promotionProcess.cadenceMonths,
+          nominator: next.promotionProcess.nominator,
+          decider: next.promotionProcess.decider,
+          calibrationLayers: next.promotionProcess.calibrationLayers,
+          artifacts: next.promotionProcess.artifacts,
+          selfNominationAllowed: next.promotionProcess.selfNominationAllowed,
+          cycleType: next.promotionProcess.cycleType,
+          typicalNoticeAndEffectiveDate: next.promotionProcess.typicalNoticeAndEffectiveDate,
+        },
+        blockers: next.promotionProcess.blockers,
+      });
+    }
+  }
+
+  // Calculate totals
+  const totalMin = steps.reduce((sum, s) => sum + s.durationYears.min, 0);
+  const totalLikely = steps.reduce((sum, s) => sum + s.durationYears.likely, 0);
+  const totalMax = steps.reduce((sum, s) => sum + s.durationYears.max, 0);
+
+  // Compute compound probability based on stall rates
+  const stallRates = steps.map((s) => ({
+    levelCode: s.fromLevel.levelCode,
+    companyId: s.fromLevel.companyId,
+    stallRate: s.fromLevel.timeInLevel.stallRatePct,
+  }));
+
+  let compoundSuccessProb = 1.0;
+  for (const item of stallRates) {
+    const advanceRate = (100 - item.stallRate) / 100;
+    compoundSuccessProb *= advanceRate;
+  }
+  const finalProbPercent = Math.max(5, Math.round(compoundSuccessProb * 100));
+
+  // Build Comp Timeline starting from Graduation Year
+  const compTimeline: CompDataPoint[] = [];
+  const gradYear = profile.expectedGraduationYear;
+
+  const entryOffer = entryRoutes[0]?.expectedOfferINR || entryLevel.comp.total.p50;
+
+  compTimeline.push({
+    year: `${gradYear} (Graduation)`,
+    yearNum: 0,
+    calendarYear: gradYear,
+    salary: entryOffer,
+    base: entryLevel.comp.base,
+    stock: entryLevel.comp.stock,
+    bonus: entryLevel.comp.variable,
+    levelCode: entryLevel.levelCode,
+    companyName: dreamCompany.name,
+  });
+
+  steps.forEach((step) => {
+    const targetCalYear = gradYear + Math.round(step.cumulativeYears);
+    compTimeline.push({
+      year: `${targetCalYear} (+${Math.round(step.cumulativeYears)}y)`,
+      yearNum: Math.round(step.cumulativeYears),
+      calendarYear: targetCalYear,
+      salary: step.toLevel.comp.total.p50,
+      base: step.toLevel.comp.base,
+      stock: step.toLevel.comp.stock,
+      bonus: step.toLevel.comp.variable,
+      levelCode: step.toLevel.levelCode,
+      companyName: dreamCompany.name,
+    });
+  });
+
+  // Provide realistic alternate stepping stone routes
+  const alternateSteppingStones: SteppingStoneOption[] = [];
+  if (dreamCompany.tier === 'Big Tech' || dreamCompany.tier === 'India Product Unicorn') {
+    const flipkart = getCompanyLadder('flipkart');
+    const tcs = getCompanyLadder('tcs');
+    const swiggy = getCompanyLadder('swiggy');
+
+    if (flipkart && dreamCompany.id !== 'flipkart') {
+      alternateSteppingStones.push({
+        company: flipkart,
+        entryRole: 'SDE-1 (Supply Chain / Marketplace)',
+        entryOfferINR: 2670000,
+        typicalDurationYears: 2,
+        targetLevelAtDreamCompany: targetLevel.levelCode,
+        rationale: `Start at Flipkart or Swiggy for 2 years as SDE-1 to gain high-concurrency production experience, then switch laterally to ${dreamCompany.name} at ${getEquivalenceHumanLabel(targetLevel.equivalenceGroup)} level.`,
+      });
+    }
+
+    if (tcs && profile.collegeTier === 'Tier 3') {
+      alternateSteppingStones.push({
+        company: tcs,
+        entryRole: 'Systems Engineer (Digital / Prime)',
+        entryOfferINR: 750000,
+        typicalDurationYears: 2.5,
+        targetLevelAtDreamCompany: targetLevel.levelCode,
+        rationale: `Crack TCS Digital or Prime via NQT/CodeVita, build 2-3 years of cloud microservices experience, and transition into product startups before targeting ${dreamCompany.name}.`,
+      });
+    } else if (swiggy && dreamCompany.id !== 'swiggy') {
+      alternateSteppingStones.push({
+        company: swiggy,
+        entryRole: 'SDE-1 (Delivery Logistics)',
+        entryOfferINR: 2500000,
+        typicalDurationYears: 2,
+        targetLevelAtDreamCompany: targetLevel.levelCode,
+        rationale: `Join high-growth product engineering squads at Swiggy, build distributed systems depth, and interview as an experienced lateral engineer.`,
+      });
+    }
+  }
+
+  // Advice
+  const advice: string[] = [
+    `Your projected timeline starts at graduation in ${gradYear}. Securing a Summer Internship in your 3rd year is the highest-probability route to convert into a full-time offer at ${dreamCompany.name}.`,
+  ];
+  if (profile.collegeTier === 'Tier 3') {
+    advice.push(
+      `For Tier 3 students, national competitive challenges (e.g. Flipkart GRiD, TCS CodeVita, Google Summer of Code) bypass campus gatekeeping and provide direct technical interview calls.`
+    );
+  }
+
+  return {
+    status: 'SUCCESS',
+    studentProfile: profile,
+    dreamCompany,
+    entryLevel,
+    targetLevel,
+    entryRoutes,
+    steps,
+    totalTimeFromGraduation: {
+      min: Number(totalMin.toFixed(1)),
+      likely: Number(totalLikely.toFixed(1)),
+      max: Number(totalMax.toFixed(1)),
+    },
+    compTimeline,
+    alternateSteppingStones,
+    probability: {
+      percentage: finalProbPercent,
+      timeframeYears: Number(totalLikely.toFixed(1)),
+      formulaExplanation: `Calculated from empirical stall rates across ${steps.length} promotion milestones post-graduation: ∏(1 - stallRate_i).`,
+      levelStallRates: stallRates,
+    },
+    strategicAdvice: advice,
   };
 }
