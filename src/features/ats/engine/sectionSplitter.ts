@@ -31,10 +31,11 @@ export function splitResumeSections(resumeText: string): ParsedSection[] {
 
     if (!trimmed || trimmed.length > 50) continue;
 
-    // Remove markdown headers or bullet tokens: e.g. "## EXPERIENCE", "1. SKILLS"
+    // Remove markdown headers, numbering, bullets, roman numerals: e.g. "## EXPERIENCE", "1. SKILLS", "I. EDUCATION", "=== PROJECTS ==="
     const cleanedHeading = trimmed
-      .replace(/^[#*\-•▪●\d.]+\s*/, '')
-      .replace(/[:|_\-]+$/, '')
+      .replace(/^[#*\-•▪●\d.IVXLCDMivxlcdm]+\s*[.:\-)\]]?\s*/, '')
+      .replace(/[=:|_\-\s]+$/, '')
+      .replace(/^[=:|_\-\s]+/, '')
       .trim()
       .toLowerCase();
 
@@ -45,7 +46,8 @@ export function splitResumeSections(resumeText: string): ParsedSection[] {
         return (
           cleanedHeading === lowerAlias ||
           cleanedHeading.startsWith(lowerAlias + ' ') ||
-          cleanedHeading.endsWith(' ' + lowerAlias)
+          cleanedHeading.endsWith(' ' + lowerAlias) ||
+          cleanedHeading.includes(lowerAlias)
         );
       });
 

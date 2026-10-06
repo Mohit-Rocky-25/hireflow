@@ -45,8 +45,8 @@ export function countWords(text: string): number {
 export function isGarbageOrBinary(text: string): boolean {
   if (!text) return false;
 
-  // Check for raw binary tokens that indicate failed stream/font extraction
-  const binaryTokensRegex = /\b(?:obj|endobj|stream|endstream)\b|\/FontDescriptor|\/Type\s*\/Page/i;
+  // Check for raw PDF structure tokens that indicate failed stream/font extraction
+  const binaryTokensRegex = /\b\d+\s+\d+\s+obj\b|\b(?:endobj|endstream)\b|\/FontDescriptor|\/Type\s*\/Page/i;
   if (binaryTokensRegex.test(text)) {
     return true;
   }
@@ -70,6 +70,7 @@ export function isGarbageOrBinary(text: string): boolean {
 /**
  * Normalizes extracted text:
  * - Strips zero-width characters
+ * - Repairs typographic ligatures (fi, fl, ffi, ffl, etc.)
  * - Converts bullet glyphs to "- "
  * - Fixes hyphenated line breaks (e.g. "engi-\nneer" -> "engineer")
  * - Collapses repeated spaces while preserving intentional newlines
@@ -81,11 +82,19 @@ export function normalizeExtractedText(raw: string): string {
     raw
       // Strip zero-width spaces, joiners, BOM
       .replace(/[\u200B-\u200D\uFEFF]/g, '')
+      // Repair typographic ligatures
+      .replace(/\uFB00/g, 'ff')
+      .replace(/\uFB01/g, 'fi')
+      .replace(/\uFB02/g, 'fl')
+      .replace(/\uFB03/g, 'ffi')
+      .replace(/\uFB04/g, 'ffl')
+      .replace(/\uFB05/g, 'ft')
+      .replace(/\uFB06/g, 'st')
       // Fix hyphenated line breaks (word split across lines)
       .replace(/(\b[A-Za-z]+)-\s*\r?\n\s*([A-Za-z]+\b)/g, '$1$2')
       // Convert standard and exotic bullet glyphs at line start or after space to "- "
-      .replace(/(?:^|[\r\n])\s*[•▪●◦–—*]\s+/gm, '\n- ')
-      .replace(/\s+[•▪●◦]\s+/g, ' - ')
+      .replace(/(?:^|[\r\n])\s*[•▪●◦–—*→►›\u2022\u25E6\u25AA\u25AB\u2043\u2219]\s+/gm, '\n- ')
+      .replace(/\s+[•▪●◦→►›\u2022\u25E6\u25AA\u25AB]\s+/g, ' - ')
       // Normalize line breaks
       .replace(/\r\n|\r/g, '\n')
       // Collapse multiple horizontal spaces/tabs to a single space
@@ -96,8 +105,50 @@ export function normalizeExtractedText(raw: string): string {
   );
 }
 
+interface TextItemWithPos {
+  str: string;
+  x: number;
+  y: number;
+  width?: number;
+}
+
 /**
- * Extracts clean text from PDF using PDF.js grouping items by vertical (Y) coordinate.
+ * Groups positioned text items into sequential lines based on vertical Y coordinates.
+ */
+function assembleLinesFromItems(items: TextItemWithPos[]): string[] {
+  // Sort items by Y descending (top to bottom), then X ascending (left to right)
+  const sorted = [...items].sort((a, b) => {
+    if (Math.abs(b.y - a.y) > 3.5) {
+      return b.y - a.y;
+    }
+    return a.x - b.x;
+  });
+
+  const lines: string[] = [];
+  let currentLine: string[] = [];
+  let currentY: number | null = null;
+
+  for (const item of sorted) {
+    if (currentY === null || Math.abs(item.y - currentY) <= 3.5) {
+      currentLine.push(item.str);
+      currentY = item.y;
+    } else {
+      if (currentLine.length > 0) {
+        lines.push(currentLine.join(' '));
+      }
+      currentLine = [item.str];
+      currentY = item.y;
+    }
+  }
+  if (currentLine.length > 0) {
+    lines.push(currentLine.join(' '));
+  }
+
+  return lines;
+}
+
+/**
+ * Extracts clean text from PDF using PDF.js with two-column detection and header/footer filtering.
  */
 async function extractTextFromPdf(buffer: ArrayBuffer): Promise<{ text: string; pageCount: number }> {
   const loadingTask = pdfjsLib.getDocument({
@@ -111,57 +162,68 @@ async function extractTextFromPdf(buffer: ArrayBuffer): Promise<{ text: string; 
 
   for (let pageNum = 1; pageNum <= pageCount; pageNum++) {
     const page = await pdf.getPage(pageNum);
+    const viewport = page.getViewport({ scale: 1.0 });
     const textContent = await page.getTextContent();
-
-    // Group items by vertical position (Y coordinate in transform)
-    interface TextItemWithPos {
-      str: string;
-      x: number;
-      y: number;
-    }
+    const pageWidth = viewport.width || 612;
+    const pageHeight = viewport.height || 792;
 
     const items: TextItemWithPos[] = [];
     for (const item of textContent.items) {
       if ('str' in item && item.str) {
+        const trimmedStr = item.str.trim();
+        const y = item.transform[5];
+
+        // Strip headers & footers (top 5% or bottom 5% matching page numbers or boilerplate)
+        if (trimmedStr && pageCount > 1) {
+          const isHeaderOrFooterY = y > pageHeight * 0.95 || y < pageHeight * 0.05;
+          const isPageNumberPattern = /^(?:page\s*\d+(?:\s*(?:of|\/)\s*\d+)?|\d+\s*(?:of|\/)\s*\d+|\d+)$/i.test(trimmedStr);
+          if (isHeaderOrFooterY && isPageNumberPattern) {
+            continue;
+          }
+        }
+
         items.push({
           str: item.str,
           x: item.transform[4],
-          y: item.transform[5],
+          y,
+          width: 'width' in item ? (item.width as number) : undefined,
         });
       }
     }
 
-    // Sort items by Y descending (top to bottom), then X ascending (left to right)
-    items.sort((a, b) => {
-      // If within 3.5 units vertically, treat as same line
-      if (Math.abs(b.y - a.y) > 3.5) {
-        return b.y - a.y;
-      }
-      return a.x - b.x;
-    });
-
-    // Assemble lines
-    const lines: string[] = [];
-    let currentLine: string[] = [];
-    let currentY: number | null = null;
-
-    for (const item of items) {
-      if (currentY === null || Math.abs(item.y - currentY) <= 3.5) {
-        currentLine.push(item.str);
-        currentY = item.y;
-      } else {
-        if (currentLine.length > 0) {
-          lines.push(currentLine.join(' '));
-        }
-        currentLine = [item.str];
-        currentY = item.y;
-      }
-    }
-    if (currentLine.length > 0) {
-      lines.push(currentLine.join(' '));
+    if (items.length === 0) {
+      pageTexts.push('');
+      continue;
     }
 
-    pageTexts.push(lines.join('\n'));
+    // Two-column layout detection:
+    // Check if items cluster distinctly on the left and right halves with a clear column gutter
+    const midX = pageWidth * 0.5;
+    const leftMargin = pageWidth * 0.46;
+    const rightMargin = pageWidth * 0.54;
+
+    const leftColItems = items.filter(it => it.x < leftMargin);
+    const rightColItems = items.filter(it => it.x > rightMargin);
+    const bridgingItems = items.filter(it => it.x >= leftMargin && it.x <= rightMargin);
+
+    const isTwoColumn =
+      items.length >= 10 &&
+      leftColItems.length >= items.length * 0.25 &&
+      rightColItems.length >= items.length * 0.25 &&
+      bridgingItems.length <= items.length * 0.15;
+
+    let pageLines: string[];
+    if (isTwoColumn) {
+      // Column 1 top-to-bottom, then Column 2 top-to-bottom
+      const col1Lines = assembleLinesFromItems(items.filter(it => it.x < midX));
+      const col2Lines = assembleLinesFromItems(items.filter(it => it.x >= midX));
+      pageLines = [...col1Lines, '', ...col2Lines];
+    } else {
+      // Standard single-column top-to-bottom reading order
+      pageLines = assembleLinesFromItems(items);
+    }
+
+    pageTexts.push(pageLines.join('\n'));
   }
 
   return {

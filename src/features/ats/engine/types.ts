@@ -13,6 +13,9 @@ export interface EvidenceQuote {
   charEnd: number;
   hasMetric: boolean;
   bulletQuality?: number;
+  evidenceTier?: number;
+  isSubstitute?: boolean;
+  substituteFor?: string;
 }
 
 export interface SkillResult {
@@ -25,6 +28,10 @@ export interface SkillResult {
   evidence: EvidenceQuote[];
   proficiency: number; // 0 (missing), 1 (weak/skills-list only), 2-3 (verified standard), 4-5 (verified with metrics)
   status: 'verified' | 'weak' | 'missing';
+  evidenceScore?: number; // 0.0 to 1.0 tiered score
+  isSubstituteMatch?: boolean;
+  substituteSkillName?: string;
+  bm25Score?: number;
 }
 
 export interface ParsedSection {
@@ -85,6 +92,8 @@ export interface JdRequirement {
   category: string;
   required: 'must' | 'nice';
   weight: number;
+  orGroupId?: string;
+  orAlternatives?: string[];
 }
 
 export interface JdAnalysis {
@@ -93,6 +102,8 @@ export interface JdAnalysis {
   requiredSkills: JdRequirement[];
   detectedYears?: number;
   rawText: string;
+  requiredEducation?: string;
+  requiredCerts?: string[];
 }
 
 export interface Subscores {
@@ -103,6 +114,10 @@ export interface Subscores {
   seniorityFit: number;     // 0-10
   formatAndParse: number;   // 0-10
   tierFit: number;          // 0-5
+  niceToHaveCoverage?: number;
+  titleAlignment?: number;
+  educationAndCerts?: number;
+  parseHealth?: number;
 }
 
 export interface PenaltyItem {

@@ -62,13 +62,19 @@ export function computeAtsScore(input: ScorerInput) {
     : 1.0;
   const mustHaveCoverage = Math.round(mustScoreFactor * weights.mustHaveCoverage * 10) / 10;
 
-  // 2. Evidence Depth (Weight 20)
+  // 2. Evidence Depth (Weight 20) — Strictly Monotonic
   const totalFoundSkills = skillResults.filter(s => s.found);
   const verifiedFoundSkills = skillResults.filter(s => s.status === 'verified');
-  const evidenceDepthRatio = totalFoundSkills.length > 0
-    ? verifiedFoundSkills.length / totalFoundSkills.length
-    : 0;
-  const evidenceDepth = Math.round(evidenceDepthRatio * weights.evidenceDepth * 10) / 10;
+  const weakFoundSkills = skillResults.filter(s => s.status === 'weak');
+  const totalEvidenceTierSum = skillResults.reduce((acc, s) => acc + (s.evidenceScore || (s.status === 'verified' ? 0.85 : s.status === 'weak' ? 0.4 : 0)), 0);
+
+  // Strictly monotonic: adding any verified skill or weak skill adds positive contribution, never reduces
+  const baseTarget = Math.max(1, mustTotalCount * 0.85);
+  const evidenceDepthFactor = Math.min(
+    1.0,
+    (verifiedFoundSkills.length * 1.0 + weakFoundSkills.length * 0.25 + totalEvidenceTierSum * 0.1) / (baseTarget + 0.5)
+  );
+  const evidenceDepth = Math.round(evidenceDepthFactor * weights.evidenceDepth * 10) / 10;
 
   // 3. Impact Metrics (Weight 15)
   const allBullets = [
@@ -116,6 +122,14 @@ export function computeAtsScore(input: ScorerInput) {
   else if (mustMetRatio >= 0.6) tierScoreFactor = 0.7;
   const tierFit = Math.round(tierScoreFactor * weights.tierFit * 10) / 10;
 
+  // Additional explainable metrics
+  const niceSkills = skillResults.filter(s => s.required === 'nice');
+  const niceMetCount = niceSkills.filter(s => s.found).length;
+  const niceToHaveCoverage = niceSkills.length > 0 ? Math.round((niceMetCount / niceSkills.length) * 10 * 10) / 10 : 10;
+  const titleAlignment = Math.min(10, Math.round(seniorityScoreFactor * 10 * 10) / 10);
+  const educationAndCerts = Math.round(Math.min(5, (sections.some(s => s.type === 'education') ? 3 : 0) + (sections.some(s => s.type === 'certifications') ? 2 : 1)) * 10) / 10;
+  const parseHealth = Math.round(formatScoreFactor * 5 * 10) / 10;
+
   const subscores: Subscores = {
     mustHaveCoverage,
     evidenceDepth,
@@ -124,6 +138,10 @@ export function computeAtsScore(input: ScorerInput) {
     seniorityFit: seniorityFitScore,
     formatAndParse,
     tierFit,
+    niceToHaveCoverage,
+    titleAlignment,
+    educationAndCerts,
+    parseHealth,
   };
 
   const rawSubtotal = mustHaveCoverage + evidenceDepth + impactMetrics + projectsAndOss + seniorityFitScore + formatAndParse + tierFit;
