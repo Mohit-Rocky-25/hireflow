@@ -1,0 +1,240 @@
+{
+  "_comment": "Heuristic knowledge base. Not real ATS vendor data. Review and extend.",
+  "roles": [
+    {
+      "id": "frontend_engineer",
+      "titleAliases": ["Frontend Engineer", "Frontend Developer", "UI Engineer", "Web Developer", "React Developer", "Client-Side Engineer"],
+      "must": [
+        {"skillId": "javascript", "weight": 5},
+        {"skillId": "typescript", "weight": 4},
+        {"skillId": "react", "weight": 5},
+        {"skillId": "html", "weight": 5},
+        {"skillId": "css", "weight": 5},
+        {"skillId": "rest_apis", "weight": 4},
+        {"skillId": "git", "weight": 3}
+      ],
+      "nice": [
+        {"skillId": "next_js", "weight": 4},
+        {"skillId": "tailwind_css", "weight": 3},
+        {"skillId": "jest", "weight": 3},
+        {"skillId": "cypress", "weight": 3},
+        {"skillId": "web_vitals", "weight": 4},
+        {"skillId": "accessibility", "weight": 3},
+        {"skillId": "redux", "weight": 3}
+      ],
+      "expectedArtifacts": ["Live web app URL", "Interactive component library or Storybook", "Responsive layouts with Lighthouse 90+ score", "Clean TypeScript types and modular UI architecture"]
+    },
+    {
+      "id": "backend_engineer",
+      "titleAliases": ["Backend Engineer", "Backend Developer", "Server Engineer", "API Engineer", "Distributed Systems Engineer"],
+      "must": [
+        {"skillId": "sql", "weight": 5},
+        {"skillId": "rest_apis", "weight": 5},
+        {"skillId": "postgresql", "weight": 4},
+        {"skillId": "git", "weight": 3},
+        {"skillId": "dsa", "weight": 4},
+        {"skillId": "node_js", "weight": 4},
+        {"skillId": "python", "weight": 4},
+        {"skillId": "java", "weight": 4}
+      ],
+      "nice": [
+        {"skillId": "redis", "weight": 4},
+        {"skillId": "kafka", "weight": 4},
+        {"skillId": "docker", "weight": 4},
+        {"skillId": "aws", "weight": 4},
+        {"skillId": "microservices", "weight": 4},
+        {"skillId": "system_design", "weight": 5},
+        {"skillId": "ci_cd", "weight": 3}
+      ],
+      "expectedArtifacts": ["High-throughput API endpoints with benchmarks", "Database schema models with migration scripts", "Caching layer with measured latency drop", "Dockerized microservices or deployment setup"]
+    },
+    {
+      "id": "full_stack_engineer",
+      "titleAliases": ["Full Stack Engineer", "Full Stack Developer", "Software Engineer Full Stack", "Fullstack Developer"],
+      "must": [
+        {"skillId": "javascript", "weight": 5},
+        {"skillId": "typescript", "weight": 4},
+        {"skillId": "react", "weight": 5},
+        {"skillId": "node_js", "weight": 5},
+        {"skillId": "sql", "weight": 4},
+        {"skillId": "rest_apis", "weight": 5},
+        {"skillId": "git", "weight": 3}
+      ],
+      "nice": [
+        {"skillId": "next_js", "weight": 4},
+        {"skillId": "postgresql", "weight": 4},
+        {"skillId": "redis", "weight": 3},
+        {"skillId": "docker", "weight": 3},
+        {"skillId": "aws", "weight": 3},
+        {"skillId": "tailwind_css", "weight": 3},
+        {"skillId": "ci_cd", "weight": 3}
+      ],
+      "expectedArtifacts": ["End-to-end deployed web application with live demo", "Integrated authentication and database persistence", "REST or GraphQL API consumed by client app", "Automated build pipeline"]
+    },
+    {
+      "id": "software_engineer_generic",
+      "titleAliases": ["Software Engineer", "Software Development Engineer", "SDE", "SDE 1", "SDE 2", "Member of Technical Staff", "MTS"],
+      "must": [
+        {"skillId": "dsa", "weight": 5},
+        {"skillId": "oop", "weight": 4},
+        {"skillId": "git", "weight": 3},
+        {"skillId": "sql", "weight": 4},
+        {"skillId": "java", "weight": 4},
+        {"skillId": "python", "weight": 4},
+        {"skillId": "cpp", "weight": 4}
+      ],
+      "nice": [
+        {"skillId": "system_design", "weight": 4},
+        {"skillId": "docker", "weight": 3},
+        {"skillId": "linux", "weight": 3},
+        {"skillId": "rest_apis", "weight": 4},
+        {"skillId": "ci_cd", "weight": 3}
+      ],
+      "expectedArtifacts": ["Algorithmic problem solving track record", "Modular object-oriented architecture code", "Unit testing suite with solid branch coverage", "Clear technical design documentation"]
+    },
+    {
+      "id": "ml_engineer",
+      "titleAliases": ["Machine Learning Engineer", "ML Engineer", "Applied AI Engineer", "AI Engineer", "Deep Learning Engineer"],
+      "must": [
+        {"skillId": "python", "weight": 5},
+        {"skillId": "pytorch", "weight": 5},
+        {"skillId": "scikit_learn", "weight": 4},
+        {"skillId": "numpy", "weight": 4},
+        {"skillId": "pandas", "weight": 4},
+        {"skillId": "git", "weight": 3}
+      ],
+      "nice": [
+        {"skillId": "tensorflow", "weight": 3},
+        {"skillId": "llms", "weight": 5},
+        {"skillId": "rag", "weight": 4},
+        {"skillId": "mlops", "weight": 4},
+        {"skillId": "docker", "weight": 3},
+        {"skillId": "vector_databases", "weight": 4},
+        {"skillId": "fastapi", "weight": 3}
+      ],
+      "expectedArtifacts": ["Model training and evaluation metrics (F1/loss curve/latency)", "Production inference API or model serving pipeline", "Reproducible experimentation notebook or GitHub repository", "RAG pipeline or vector embedding store implementation"]
+    },
+    {
+      "id": "data_scientist",
+      "titleAliases": ["Data Scientist", "Applied Scientist", "Quantitative Analyst", "Statistician"],
+      "must": [
+        {"skillId": "python", "weight": 5},
+        {"skillId": "sql", "weight": 5},
+        {"skillId": "pandas", "weight": 5},
+        {"skillId": "numpy", "weight": 4},
+        {"skillId": "scikit_learn", "weight": 4},
+        {"skillId": "git", "weight": 3}
+      ],
+      "nice": [
+        {"skillId": "r", "weight": 3},
+        {"skillId": "pytorch", "weight": 3},
+        {"skillId": "data_warehousing", "weight": 4},
+        {"skillId": "nlp", "weight": 3},
+        {"skillId": "apache_spark", "weight": 3}
+      ],
+      "expectedArtifacts": ["Exploratory data analysis report with statistical insights", "Predictive modeling pipeline with business impact metrics", "Dashboard or visualization presenting key indicators", "A/B test design and experimentation statistical analysis"]
+    },
+    {
+      "id": "data_engineer",
+      "titleAliases": ["Data Engineer", "Big Data Engineer", "Analytics Engineer", "ETL Developer", "Data Platform Engineer"],
+      "must": [
+        {"skillId": "python", "weight": 5},
+        {"skillId": "sql", "weight": 5},
+        {"skillId": "apache_spark", "weight": 5},
+        {"skillId": "airflow", "weight": 4},
+        {"skillId": "etl", "weight": 5},
+        {"skillId": "git", "weight": 3}
+      ],
+      "nice": [
+        {"skillId": "kafka", "weight": 4},
+        {"skillId": "postgresql", "weight": 4},
+        {"skillId": "data_warehousing", "weight": 4},
+        {"skillId": "docker", "weight": 3},
+        {"skillId": "aws", "weight": 3},
+        {"skillId": "scala", "weight": 3}
+      ],
+      "expectedArtifacts": ["Automated DAG data pipeline with scheduling", "Data warehouse dimension/fact star schema design", "High-volume stream ingestion with Kafka", "Data validation and automated quality checks"]
+    },
+    {
+      "id": "devops_sre",
+      "titleAliases": ["DevOps Engineer", "Site Reliability Engineer", "SRE", "Cloud Engineer", "Infrastructure Engineer", "Platform Engineer"],
+      "must": [
+        {"skillId": "linux", "weight": 5},
+        {"skillId": "docker", "weight": 5},
+        {"skillId": "kubernetes", "weight": 5},
+        {"skillId": "terraform", "weight": 5},
+        {"skillId": "ci_cd", "weight": 4},
+        {"skillId": "bash", "weight": 4},
+        {"skillId": "git", "weight": 3}
+      ],
+      "nice": [
+        {"skillId": "aws", "weight": 5},
+        {"skillId": "prometheus", "weight": 4},
+        {"skillId": "grafana", "weight": 4},
+        {"skillId": "helm", "weight": 3},
+        {"skillId": "ansible", "weight": 3},
+        {"skillId": "github_actions", "weight": 4},
+        {"skillId": "nginx", "weight": 3}
+      ],
+      "expectedArtifacts": ["Infrastructure-as-code Terraform repository with reusable modules", "Multi-stage CI/CD pipeline definition", "Kubernetes manifests and Helm chart deployments", "Monitoring dashboard with SLO/SLI alerts"]
+    },
+    {
+      "id": "mobile_android",
+      "titleAliases": ["Android Engineer", "Android Developer", "Mobile Engineer Android", "Android Application Developer"],
+      "must": [
+        {"skillId": "kotlin", "weight": 5},
+        {"skillId": "android_sdk", "weight": 5},
+        {"skillId": "jetpack_compose", "weight": 4},
+        {"skillId": "rest_apis", "weight": 4},
+        {"skillId": "git", "weight": 3}
+      ],
+      "nice": [
+        {"skillId": "java", "weight": 3},
+        {"skillId": "mobile_performance", "weight": 4},
+        {"skillId": "junit", "weight": 3},
+        {"skillId": "ci_cd", "weight": 3},
+        {"skillId": "sqlite", "weight": 3}
+      ],
+      "expectedArtifacts": ["Published Google Play Store application link", "Modern declarative UI built with Jetpack Compose", "Offline-first data caching with Room/SQLite", "Multi-threaded async network handling with Coroutines"]
+    },
+    {
+      "id": "mobile_ios",
+      "titleAliases": ["iOS Engineer", "iOS Developer", "Mobile Engineer iOS", "iOS Application Developer"],
+      "must": [
+        {"skillId": "swift", "weight": 5},
+        {"skillId": "ios_dev", "weight": 5},
+        {"skillId": "swiftui", "weight": 4},
+        {"skillId": "rest_apis", "weight": 4},
+        {"skillId": "git", "weight": 3}
+      ],
+      "nice": [
+        {"skillId": "mobile_performance", "weight": 4},
+        {"skillId": "ci_cd", "weight": 3},
+        {"skillId": "sqlite", "weight": 3},
+        {"skillId": "graphql", "weight": 3}
+      ],
+      "expectedArtifacts": ["Published Apple App Store or TestFlight link", "SwiftUI declarative navigation and clean architecture", "CoreData / SwiftData local persistence", "Memory leak profiling and Instruments analysis"]
+    },
+    {
+      "id": "qa_sdet",
+      "titleAliases": ["SDET", "QA Automation Engineer", "Software Development Engineer in Test", "Test Automation Engineer", "Quality Assurance Engineer"],
+      "must": [
+        {"skillId": "selenium", "weight": 5},
+        {"skillId": "cypress", "weight": 4},
+        {"skillId": "playwright", "weight": 4},
+        {"skillId": "python", "weight": 4},
+        {"skillId": "javascript", "weight": 4},
+        {"skillId": "api_testing", "weight": 5},
+        {"skillId": "git", "weight": 3}
+      ],
+      "nice": [
+        {"skillId": "ci_cd", "weight": 4},
+        {"skillId": "postman", "weight": 4},
+        {"skillId": "jest", "weight": 3},
+        {"skillId": "junit", "weight": 3},
+        {"skillId": "docker", "weight": 3}
+      ],
+      "expectedArtifacts": ["Automated E2E regression test framework repository", "API automation test suite with automated assertions", "CI/CD integration running test suites on pull requests", "Test coverage reports and defect metrics documentation"]
+    }
+  ]
+}

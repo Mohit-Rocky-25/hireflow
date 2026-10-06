@@ -1,0 +1,79 @@
+{
+  "_comment": "Heuristic knowledge base. Not real ATS vendor data. Review and extend.",
+  "sections": {
+    "experience": [
+      "experience",
+      "work experience",
+      "professional experience",
+      "employment history",
+      "work history",
+      "internships",
+      "career history",
+      "professional background",
+      "relevant experience"
+    ],
+    "projects": [
+      "projects",
+      "personal projects",
+      "academic projects",
+      "key projects",
+      "technical projects",
+      "open source projects",
+      "notable projects",
+      "selected projects",
+      "software projects"
+    ],
+    "education": [
+      "education",
+      "academic background",
+      "academics",
+      "qualifications",
+      "academic qualifications",
+      "educational background",
+      "degrees",
+      "university education"
+    ],
+    "skills": [
+      "skills",
+      "technical skills",
+      "technologies",
+      "tech stack",
+      "core competencies",
+      "skills & tools",
+      "skills and tools",
+      "programming skills",
+      "tools & technologies",
+      "areas of expertise"
+    ],
+    "summary": [
+      "summary",
+      "professional summary",
+      "career objective",
+      "about me",
+      "profile",
+      "overview",
+      "executive summary",
+      "personal profile"
+    ],
+    "certifications": [
+      "certifications",
+      "licenses & certifications",
+      "credentials",
+      "professional certifications",
+      "licenses",
+      "courses & certifications",
+      "courses"
+    ],
+    "achievements": [
+      "achievements",
+      "honors & awards",
+      "awards",
+      "accomplishments",
+      "publications",
+      "hackathons",
+      "honors",
+      "recognitions",
+      "extracurricular activities"
+    ]
+  }
+}

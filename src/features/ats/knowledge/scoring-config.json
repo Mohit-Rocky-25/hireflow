@@ -1,0 +1,60 @@
+{
+  "_comment": "Heuristic knowledge base. Not real ATS vendor data. Review and extend.",
+  "weights": {
+    "mustHaveCoverage": 30,
+    "evidenceDepth": 20,
+    "impactMetrics": 15,
+    "projectsAndOss": 10,
+    "seniorityFit": 10,
+    "formatAndParse": 10,
+    "tierFit": 5
+  },
+  "penalties": {
+    "keywordStuffingMax": -10,
+    "noContactInfo": -5,
+    "missingStandardSection": -3,
+    "wordCountOutlier": -4
+  },
+  "wordCountLimits": {
+    "minRecommended": 250,
+    "maxRecommended": 1200,
+    "hardMinWords": 80
+  },
+  "caps": {
+    "mustHavesBelow50PercentMaxScore": 64
+  },
+  "bands": [
+    {
+      "id": "strong",
+      "minScore": 85,
+      "maxScore": 100,
+      "label": "Strong",
+      "badge": "High ATS Compatibility",
+      "verdict": "High match for the target role with grounded bullet evidence, solid metrics, and verified must-haves."
+    },
+    {
+      "id": "competitive",
+      "minScore": 70,
+      "maxScore": 84,
+      "label": "Competitive",
+      "badge": "Competitive Candidate",
+      "verdict": "Solid foundation meeting most core criteria; address minor evidence gaps or weak metrics to maximize interview callbacks."
+    },
+    {
+      "id": "needs_work",
+      "minScore": 55,
+      "maxScore": 69,
+      "label": "Needs work",
+      "badge": "Notable Gaps Detected",
+      "verdict": "Notable gaps in must-have technologies, lack of metric depth, or ungrounded skill claims require targeted revision."
+    },
+    {
+      "id": "weak_match",
+      "minScore": 0,
+      "maxScore": 54,
+      "label": "Weak match",
+      "badge": "Substantial Risk Profile",
+      "verdict": "Substantial risk of immediate ATS filter rejection due to missing core requirements, low evidence depth, or formatting bottlenecks."
+    }
+  ]
+}

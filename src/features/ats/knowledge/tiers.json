@@ -1,0 +1,68 @@
+{
+  "_comment": "Heuristic knowledge base. Not real ATS vendor data. Review and extend.",
+  "tiers": {
+    "top_product": {
+      "id": "top_product",
+      "name": "Top Product",
+      "targetCompanies": ["Google", "Microsoft", "Amazon", "Atlassian", "Adobe", "Meta", "Apple"],
+      "description": "Tier 1 product engineering bars requiring deep algorithmic problem solving, high-scale system architecture, and rigorous metrics.",
+      "minMetricBulletRatio": 0.6,
+      "projectExpectation": "2+ substantial production-scale or distributed projects, notable open source contributions, or prestigious engineering internships.",
+      "systemDesignFromYears": 2,
+      "keyBonusSignals": [
+        "Strong DSA fundamentals and competitive programming / LeetCode track record",
+        "Experience handling scale (millions of users, QPS, latency optimizations in ms, TBs of data)",
+        "Deep understanding of distributed systems internals, concurrency, and memory management",
+        "Tier-1 tech internships or contributions to recognized open source repositories"
+      ],
+      "keyRisks": [
+        "Descriptive task lists without measurable business or scale impact metrics",
+        "Missing fundamental CS foundations (OOP, DSA, OS, networking)",
+        "Only trivial CRUD/tutorial tutorial clones without original architectural complexity",
+        "Less than 60% of experience bullets having quantifiable results"
+      ]
+    },
+    "startup_unicorn": {
+      "id": "startup_unicorn",
+      "name": "Startup / Unicorn",
+      "targetCompanies": ["Swiggy", "Razorpay", "CRED", "Zerodha", "Flipkart", "Zomato", "Postman", "Groww"],
+      "description": "High-velocity high-ownership environments valuing shipping velocity, end-to-end full-stack range, and direct product impact.",
+      "minMetricBulletRatio": 0.5,
+      "projectExpectation": "Shipped and live deployed web/mobile products with active users, end-to-end full-stack ownership, and production monitoring.",
+      "systemDesignFromYears": 3,
+      "keyBonusSignals": [
+        "Demonstrated end-to-end product ownership from 0 to 1 and rapid iteration",
+        "Live deployed application links, published packages, or production URLs in resume",
+        "Direct business outcomes (revenue lifted, CAC reduced, conversion improved, cost saved)",
+        "Pragmatic full-stack range across client, server, and cloud deployment"
+      ],
+      "keyRisks": [
+        "Over-specialization in narrow legacy stacks without modern framework agility",
+        "No evidence of shipping independently or working with ambiguity",
+        "Lack of public artifacts or live demo links for major projects",
+        "Bullets framed around theoretical processes rather than shipping actual user-facing features"
+      ]
+    },
+    "service_mnc": {
+      "id": "service_mnc",
+      "name": "Service / MNC",
+      "targetCompanies": ["TCS", "Infosys", "Wipro", "Cognizant", "Accenture", "Capgemini", "HCL Tech", "Tech Mahindra"],
+      "description": "Enterprise consulting and client delivery organizations emphasizing strong fundamentals, disciplined SDLC, and certified competency.",
+      "minMetricBulletRatio": 0.35,
+      "projectExpectation": "Clearly documented enterprise client projects, standard SDLC processes, database schema management, and client deliverables.",
+      "systemDesignFromYears": 5,
+      "keyBonusSignals": [
+        "Solid core language skills (Java, Python, C#, SQL, JavaScript) and DBMS mastery",
+        "Clear academic scores, CGPA/percentage, and recognized degree credentials",
+        "Industry certifications (AWS Certified Solutions Architect, Oracle Java, Microsoft Azure)",
+        "Structured project documentation following Agile/Scrum delivery processes"
+      ],
+      "keyRisks": [
+        "Non-standard unconventional resume layout failing automated enterprise parser scans",
+        "Missing clear dates, educational credentials, or location details",
+        "Unverified skill claims unsupported by designated project work",
+        "Spelling or grammatical errors indicating low attention to detail in client-facing work"
+      ]
+    }
+  }
+}

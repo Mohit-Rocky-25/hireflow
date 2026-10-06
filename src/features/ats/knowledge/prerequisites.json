@@ -1,0 +1,130 @@
+{
+  "_comment": "Heuristic knowledge base. Not real ATS vendor data. Review and extend.",
+  "chains": [
+    {
+      "skillId": "typescript",
+      "prerequisites": ["javascript"],
+      "rationale": "JavaScript fundamentals (event loop, closures, prototypes) are required before TypeScript static typing."
+    },
+    {
+      "skillId": "react",
+      "prerequisites": ["javascript", "html", "css"],
+      "rationale": "DOM manipulation, ES6+ features, and CSS layouts are prerequisites for React component architecture."
+    },
+    {
+      "skillId": "next_js",
+      "prerequisites": ["react", "typescript"],
+      "rationale": "Server-side rendering and hydration patterns in Next.js require solid React component and TypeScript grounding."
+    },
+    {
+      "skillId": "postgresql",
+      "prerequisites": ["sql"],
+      "rationale": "Relational query syntax (joins, aggregations) must precede database engine tuning and ACID management."
+    },
+    {
+      "skillId": "sql_optimization",
+      "prerequisites": ["sql", "postgresql"],
+      "rationale": "Query execution plans and indexing strategies require deep familiarity with SQL schemas."
+    },
+    {
+      "skillId": "kubernetes",
+      "prerequisites": ["docker", "linux"],
+      "rationale": "Container isolation and Linux namespaces must be mastered before multi-node cluster orchestration."
+    },
+    {
+      "skillId": "microservices",
+      "prerequisites": ["rest_apis", "docker"],
+      "rationale": "API boundary design and service contracts are required before distributing monolithic logic."
+    },
+    {
+      "skillId": "system_design",
+      "prerequisites": ["dsa", "rest_apis", "sql"],
+      "rationale": "Algorithmic complexity, API scalability, and storage trade-offs form the bedrock of high-level architecture."
+    },
+    {
+      "skillId": "distributed_systems",
+      "prerequisites": ["system_design", "microservices"],
+      "rationale": "Consensus protocols, CAP theorem, and event sourcing build directly upon system design foundations."
+    },
+    {
+      "skillId": "pytorch",
+      "prerequisites": ["python", "numpy"],
+      "rationale": "N-dimensional tensor operations and vectorization in NumPy are prerequisite to PyTorch computational graphs."
+    },
+    {
+      "skillId": "tensorflow",
+      "prerequisites": ["python", "numpy"],
+      "rationale": "Data preprocessing and matrix algebra are foundational before building TensorFlow models."
+    },
+    {
+      "skillId": "llms",
+      "prerequisites": ["python", "pytorch"],
+      "rationale": "Understanding transformer architectures and embeddings requires Python and deep learning fundamentals."
+    },
+    {
+      "skillId": "rag",
+      "prerequisites": ["llms", "vector_databases"],
+      "rationale": "Embedding retrieval and context window optimization require LLM prompting and vector indexing."
+    },
+    {
+      "skillId": "mlops",
+      "prerequisites": ["python", "docker", "ci_cd"],
+      "rationale": "Model artifact serialization and container deployment build on software engineering and CI/CD foundations."
+    },
+    {
+      "skillId": "spring_boot",
+      "prerequisites": ["java", "oop"],
+      "rationale": "Inversion of control and dependency injection in Spring Boot require robust object-oriented Java foundations."
+    },
+    {
+      "skillId": "fastapi",
+      "prerequisites": ["python", "rest_apis"],
+      "rationale": "Asynchronous event loops and type annotations in Python are prerequisite for FastAPI async routing."
+    },
+    {
+      "skillId": "express",
+      "prerequisites": ["node_js", "javascript"],
+      "rationale": "Node.js asynchronous I/O and callback/promise architecture are required for Express middleware."
+    },
+    {
+      "skillId": "graphql",
+      "prerequisites": ["rest_apis"],
+      "rationale": "Understanding REST trade-offs (over-fetching/under-fetching) motivates GraphQL schema resolution."
+    },
+    {
+      "skillId": "kafka",
+      "prerequisites": ["distributed_systems", "message_queues"],
+      "rationale": "Partitioning, offset commits, and broker semantics require distributed architecture context."
+    },
+    {
+      "skillId": "ci_cd",
+      "prerequisites": ["git", "linux"],
+      "rationale": "Version control workflows and shell scripting are the foundation of automated deployment pipelines."
+    },
+    {
+      "skillId": "terraform",
+      "prerequisites": ["aws", "docker"],
+      "rationale": "Cloud resource primitives must be understood before codifying them in declarative HCL modules."
+    },
+    {
+      "skillId": "cypress",
+      "prerequisites": ["javascript"],
+      "rationale": "DOM selectors, asynchronous promises, and JavaScript testing syntax are required for Cypress specs."
+    },
+    {
+      "skillId": "jest",
+      "prerequisites": ["javascript"],
+      "rationale": "Unit testing assertions and mock functions build on JavaScript language proficiency."
+    },
+    {
+      "skillId": "swiftui",
+      "prerequisites": ["swift", "ios_dev"],
+      "rationale": "Swift syntax and iOS lifecycle are necessary before declarative view composition in SwiftUI."
+    },
+    {
+      "skillId": "jetpack_compose",
+      "prerequisites": ["kotlin", "android_sdk"],
+      "rationale": "Kotlin coroutines and Android lifecycle management are foundational to Jetpack Compose state."
+    }
+  ]
+}

@@ -1,47 +1,33 @@
-import { useState, useRef, useEffect } from 'react';
-import {
-  ArrowRight,
-  Sparkles,
-  History,
-  RotateCcw,
-  AlertTriangle,
-  Brain,
-  Layers,
-  FileCheck,
-  CalendarCheck,
-} from 'lucide-react';
+// ============================================================
+// HireFlow — ATS Resume Roaster (Stage 4 Results Redesign)
+// Deterministic single scroll page with 4 tabs and zero hallucinations
+// ============================================================
+
+import React, { useState, useRef, useEffect } from 'react';
+import { ArrowRight, Sparkles, RotateCcw } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { analyzeResume, AnalysisResponse } from '../../lib/ats';
 import { parseResumeFile } from '../../features/ats/fileParser';
 import {
   AtsInputSection,
   TargetTier,
   ExperienceLevel,
 } from '../../features/ats/components/AtsInputSection';
-import { VerdictCard } from '../../components/ats/VerdictCard';
-import { OverviewTab } from '../../components/ats/OverviewTab';
-import { SkillsTab } from '../../components/ats/SkillsTab';
-import { ResumeTab } from '../../components/ats/ResumeTab';
-import { ActionPlanTab } from '../../components/ats/ActionPlanTab';
-import { ExportActions } from '../../components/ats/ExportActions';
-import { DebugDrawer } from '../../components/ats/DebugDrawer';
-
-export type MainReportTab = 'overview' | 'skills' | 'resume' | 'action';
-
-interface ScanHistoryItem {
-  id: string;
-  role: string;
-  score: number;
-  date: string;
-  response: AnalysisResponse;
-}
+import { runAtsEngine, AtsEngineResult, TargetTierId, ExperienceLevelId } from '../../features/ats/engine';
+import { ScoreHeader } from '../../features/ats/components/ScoreHeader';
+import { FixTheseFirst } from '../../features/ats/components/FixTheseFirst';
+import { TabBar, ReportTabId } from '../../features/ats/components/TabBar';
+import { OverviewTab } from '../../features/ats/components/OverviewTab';
+import { SkillsTab } from '../../features/ats/components/SkillsTab';
+import { AuditTab } from '../../features/ats/components/AuditTab';
+import { LearningPathTab } from '../../features/ats/components/LearningPathTab';
+import { DebugDrawer } from '../../features/ats/components/DebugDrawer';
 
 const STAGED_MESSAGES = [
-  'Reading resume structure & sections...',
-  'Mapping job requirements graph...',
-  'Judging evidence & verbatim citations...',
-  'Scoring competencies & calculating weights...',
-  'Generating tactical recruiter feedback...',
+  'Reading resume tokens & structural sections...',
+  'Extracting job description requirements...',
+  'Validating word boundaries & verifying evidence...',
+  'Calculating 7-category weights & penalty metrics...',
+  'Synthesizing grounded recruiter intelligence...',
 ];
 
 export function ResumeChecker() {
@@ -58,13 +44,12 @@ export function ResumeChecker() {
   const [isScanning, setIsScanning] = useState(false);
   const [stagedStageIndex, setStagedStageIndex] = useState(0);
   const [isFileExtracting, setIsFileExtracting] = useState(false);
-  const [result, setResult] = useState<AnalysisResponse | null>(null);
-  const [activeTab, setActiveTab] = useState<MainReportTab>('overview');
-  const [history, setHistory] = useState<ScanHistoryItem[]>([]);
+  const [engineResult, setEngineResult] = useState<AtsEngineResult | null>(null);
+  const [activeTab, setActiveTab] = useState<ReportTabId>('overview');
 
-  const resultsRef = useRef<HTMLDivElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const tabBarRef = useRef<HTMLDivElement>(null);
 
-  // Staged loading effect
   useEffect(() => {
     if (!isScanning) {
       setStagedStageIndex(0);
@@ -72,13 +57,9 @@ export function ResumeChecker() {
     }
     const timer = setInterval(() => {
       setStagedStageIndex((prev) => (prev + 1) % STAGED_MESSAGES.length);
-    }, 700);
+    }, 600);
     return () => clearInterval(timer);
   }, [isScanning]);
-
-  const handleTabChange = (tab: MainReportTab) => {
-    setActiveTab(tab);
-  };
 
   const handleFileUpload = async (file: File, type: 'resume' | 'job') => {
     setIsFileExtracting(true);
@@ -86,7 +67,7 @@ export function ResumeChecker() {
     try {
       const res = await parseResumeFile(file);
       if (!res.success) {
-        setFileError(res.error || 'Failed to read file.');
+        setFileError(res.error || 'Failed to read document.');
         return;
       }
       if (type === 'resume') {
@@ -119,73 +100,80 @@ export function ResumeChecker() {
     setFileError(null);
   };
 
-  const handleScan = async () => {
-    if (!resumeText.trim() || !jobText.trim()) return;
-    setIsScanning(true);
-    setActiveTab('overview');
-
-    const mappedTier =
-      targetTier === 'Top Product'
-        ? 'Tier S'
-        : targetTier === 'Startup / Unicorn'
-        ? 'Tier A'
-        : targetTier === 'Service / MNC'
-        ? 'Tier C'
-        : 'Auto';
-
-    const mappedLevel =
-      experienceLevel === 'Fresher'
-        ? 'Fresher'
-        : experienceLevel === '1-3 yrs'
-        ? '1-3'
-        : experienceLevel === '3-6 yrs'
-        ? '3-5'
-        : experienceLevel === '6+ yrs'
-        ? '5+'
-        : 'Auto';
-
-    try {
-      const analysis = await analyzeResume(resumeText, jobText, {
-        targetCompanyTier: mappedTier,
-        experienceLevel: mappedLevel,
-      });
-
-      setResult(analysis);
-
-      // Save to session history (last 5 scans)
-      const historyItem: ScanHistoryItem = {
-        id: Date.now().toString(),
-        role: analysis.facts.jd.roleTitle || 'Target Role',
-        score: analysis.facts.scoreBreakdown.finalScore,
-        date: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-        response: analysis,
-      };
-      setHistory((prev) => [historyItem, ...prev.slice(0, 4)]);
-
-      // Scroll to top of results on new scan
-      setTimeout(() => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        resultsRef.current?.focus();
-      }, 100);
-    } catch (err) {
-      console.error('ATS scan error:', err);
-    } finally {
-      setIsScanning(false);
+  const handleTabChange = (tab: ReportTabId) => {
+    setActiveTab(tab);
+    // Keep scroll at tab bar when switching tabs
+    if (tabBarRef.current) {
+      tabBarRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
   };
 
+  const handleAnalyze = () => {
+    if (!resumeText.trim() || !jobText.trim()) return;
+
+    setIsScanning(true);
+    // Reset active tab to 'overview' on every scan (fixes random tab bug)
+    setActiveTab('overview');
+
+    const mappedTier: TargetTierId =
+      targetTier === 'Top Product'
+        ? 'top_product'
+        : targetTier === 'Startup / Unicorn'
+        ? 'startup_unicorn'
+        : targetTier === 'Service / MNC'
+        ? 'service_mnc'
+        : 'auto';
+
+    const mappedLevel: ExperienceLevelId =
+      experienceLevel === 'Fresher'
+        ? 'fresher'
+        : experienceLevel === '1-3 yrs'
+        ? '1-3'
+        : experienceLevel === '3-6 yrs'
+        ? '3-6'
+        : experienceLevel === '6+ yrs'
+        ? '6+'
+        : 'auto';
+
+    setTimeout(() => {
+      try {
+        const response = runAtsEngine(resumeText, jobText, {
+          tier: mappedTier,
+          level: mappedLevel,
+        });
+
+        if (!response.success) {
+          setFileError(response.message);
+          return;
+        }
+
+        setEngineResult(response.result);
+
+        // Always scroll to top of results and focus header on new analysis
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        setTimeout(() => {
+          headerRef.current?.focus();
+        }, 150);
+      } catch (err: any) {
+        setFileError(err?.message || 'Unexpected analysis error occurred.');
+      } finally {
+        setIsScanning(false);
+      }
+    }, 400);
+  };
+
   const handleTryAnotherJob = () => {
-    // Keeps resume, clears JD
     setJobText('');
     setJobFileName(null);
     setJobPageCount(undefined);
-    setResult(null);
+    setEngineResult(null);
+    setActiveTab('overview');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
     <div className="min-h-screen bg-bg text-text pt-24 pb-16 px-4 sm:px-6 md:px-8 relative">
-      {/* Absolute Top-Left Back Button */}
+      {/* Top Navigation */}
       <div className="absolute top-8 left-6 sm:left-8 print:hidden">
         <Link
           to="/"
@@ -196,10 +184,10 @@ export function ResumeChecker() {
       </div>
 
       <div className="max-w-6xl mx-auto space-y-8 animate-fade-in">
-        {/* Header Banner */}
+        {/* Hero Title */}
         <div className="text-center max-w-3xl mx-auto mb-6 mt-2 print:mb-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 border border-primary/20 text-primary rounded-full text-xs font-bold uppercase tracking-wider mb-3">
-            <Sparkles className="w-3.5 h-3.5" /> High-Precision ATS Evaluator & Recruiter Radar
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-slate-100 dark:bg-slate-800 border border-border text-text rounded-full text-xs font-bold uppercase tracking-wider mb-3">
+            <Sparkles className="w-3.5 h-3.5 text-primary" /> Deterministic ATS Evaluation Engine
           </div>
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight mb-3">
             ATS Resume{' '}
@@ -207,13 +195,13 @@ export function ResumeChecker() {
               Roaster
             </span>
           </h1>
-          <p className="text-text-secondary text-sm md:text-base leading-relaxed max-w-2xl mx-auto">
-            Grounded candidate evaluation combining exact token-boundary parsing with deep technical recruiter heuristics.
+          <p className="text-text-secondary text-[16px] leading-relaxed max-w-2xl mx-auto">
+            Zero hallucinations. Verifiable citations. Calibrated against real engineering hiring bars.
           </p>
         </div>
 
-        {/* Input Section (When no active analysis result) */}
-        {!result && (
+        {/* Input Panel Section */}
+        {!engineResult && (
           <AtsInputSection
             resumeText={resumeText}
             jobText={jobText}
@@ -241,124 +229,60 @@ export function ResumeChecker() {
             onFileUpload={handleFileUpload}
             onClearResume={handleClearResume}
             onClearJob={handleClearJob}
-            onAnalyze={handleScan}
+            onAnalyze={handleAnalyze}
           />
         )}
 
-        {/* Analysis Results View */}
-        {result && (
-          <div ref={resultsRef} className="animate-fade-in space-y-6">
-            {/* Top Bar with Re-scan & Export */}
-            <div className="flex flex-wrap items-center justify-between gap-4 p-4 rounded-xl bg-surface border border-border shadow-xs print:hidden">
-              <div className="flex items-center gap-2 min-w-0">
-                <span className="text-xs font-semibold text-text-tertiary">Target Role:</span>
-                <span className="px-2 py-0.5 bg-primary/10 text-primary font-bold text-xs rounded truncate">
-                  {result.facts.jd.roleTitle || 'Software Engineer'}
-                </span>
-                <span className="text-xs text-text-tertiary hidden sm:inline">
-                  (Req: {result.facts.seniorityFit.requiredYears} yrs | Cand: ~
-                  {result.facts.seniorityFit.candidateYears} yrs)
+        {/* Results Screen (Single Scroll Page) */}
+        {engineResult && (
+          <div className="space-y-8 animate-fade-in">
+            {/* Top Re-Scan Action Bar */}
+            <div className="flex flex-wrap items-center justify-between gap-4 p-4 rounded-[16px] bg-surface border border-border shadow-xs print:hidden">
+              <div className="flex items-center gap-2 min-w-0 text-sm">
+                <span className="text-xs font-bold text-text-tertiary uppercase">Target:</span>
+                <span className="font-bold text-text truncate">
+                  {engineResult.bestFitTier} ({engineResult.seniorityFit.level} Level)
                 </span>
               </div>
 
-              <div className="flex items-center gap-3">
-                <ExportActions facts={result.facts} ai={result.ai} />
-                <button
-                  type="button"
-                  onClick={handleTryAnotherJob}
-                  className="px-3 py-1.5 bg-surface-hover border border-border text-xs font-semibold rounded hover:bg-border text-text transition-colors flex items-center gap-1.5 cursor-pointer shadow-2xs"
-                >
-                  <RotateCcw className="w-3.5 h-3.5" /> Try Another Job
-                </button>
-              </div>
+              <button
+                type="button"
+                onClick={handleTryAnotherJob}
+                className="px-4 py-2 bg-slate-100 dark:bg-slate-800 border border-border/80 text-xs font-bold rounded-[8px] hover:bg-slate-200 dark:hover:bg-slate-700 text-text transition-colors flex items-center gap-1.5 cursor-pointer shadow-2xs"
+              >
+                <RotateCcw className="w-3.5 h-3.5" /> Analyze Another Job Description
+              </button>
             </div>
 
-            {/* Notice for AI Unavailable / Fallback (if applicable) */}
-            {!result.isAiAvailable && result.aiErrorNotice && (
-              <div className="p-3 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-900 flex items-center gap-2">
-                <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0" />
-                <span>{result.aiErrorNotice}</span>
-              </div>
-            )}
+            {/* Layout Section A: Score Header */}
+            <ScoreHeader result={engineResult} headerRef={headerRef} />
 
-            {/* TOP VERDICT CARD (Always Visible) */}
-            <VerdictCard data={result} />
+            {/* Layout Section B: Fix These First */}
+            <FixTheseFirst items={engineResult.fixFirst} />
 
-            {/* SINGLE NAVIGABLE REPORT WITH EXACTLY 4 TABS */}
-            <div className="space-y-6 pt-2">
-              {/* Segmented Control Bar */}
-              <div className="bg-surface rounded-xl border border-border p-1.5 flex items-center gap-1 overflow-x-auto scrollbar-none shadow-xs">
-                {(
-                  [
-                    { id: 'overview', label: '1. Overview', icon: Brain },
-                    { id: 'skills', label: `2. Skills (${result.facts.skillMatches.length})`, icon: Layers },
-                    { id: 'resume', label: '3. Resume Audit', icon: FileCheck },
-                    { id: 'action', label: '4. Action Plan', icon: CalendarCheck },
-                  ] as const
-                ).map((tab) => {
-                  const Icon = tab.icon;
-                  const isActive = activeTab === tab.id;
-                  return (
-                    <button
-                      key={tab.id}
-                      type="button"
-                      onClick={() => handleTabChange(tab.id)}
-                      className={`flex-1 min-w-[130px] inline-flex items-center justify-center gap-2 px-3.5 py-2 rounded-lg text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
-                        isActive
-                          ? 'bg-slate-900 text-white shadow-xs'
-                          : 'text-text-secondary hover:text-text hover:bg-surface-hover'
-                      }`}
-                    >
-                      <Icon className="w-3.5 h-3.5" />
-                      <span>{tab.label}</span>
-                    </button>
-                  );
-                })}
-              </div>
+            {/* Layout Section C: Tab Bar with Exactly 4 Tabs */}
+            <div className="space-y-6">
+              <TabBar
+                activeTab={activeTab}
+                skillsCount={engineResult.skillResults.length}
+                onTabChange={handleTabChange}
+                tabBarRef={tabBarRef}
+              />
 
-              {/* 4 Tab Views */}
-              <div className="min-h-[400px]">
-                {activeTab === 'overview' && <OverviewTab data={result} />}
-                {activeTab === 'skills' && <SkillsTab data={result} />}
-                {activeTab === 'resume' && <ResumeTab data={result} />}
-                {activeTab === 'action' && <ActionPlanTab data={result} />}
+              {/* Tab Content Panes */}
+              <div className="min-h-[450px]">
+                {activeTab === 'overview' && <OverviewTab result={engineResult} />}
+                {activeTab === 'skills' && <SkillsTab skills={engineResult.skillResults} />}
+                {activeTab === 'audit' && <AuditTab result={engineResult} />}
+                {activeTab === 'learning_path' && <LearningPathTab result={engineResult} />}
               </div>
             </div>
-
-            {/* Footer Session Scan History (Last 5 Scans) */}
-            {history.length > 1 && (
-              <div className="bg-surface rounded-xl p-5 border border-border shadow-xs space-y-3 print:hidden">
-                <div className="flex items-center gap-2 text-xs font-semibold text-text-tertiary uppercase tracking-wider">
-                  <History className="w-3.5 h-3.5 text-primary" /> Recent Scans in This Session
-                </div>
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-                  {history.map((item) => (
-                    <button
-                      key={item.id}
-                      type="button"
-                      onClick={() => setResult(item.response)}
-                      className={`p-2.5 rounded-lg border text-left transition-all cursor-pointer ${
-                        item.response === result
-                          ? 'bg-primary/5 border-primary ring-1 ring-primary/20'
-                          : 'bg-surface-hover border-border hover:border-slate-400'
-                      }`}
-                    >
-                      <div className="text-xs font-semibold text-text truncate">{item.role}</div>
-                      <div className="flex items-center justify-between mt-1 text-[11px]">
-                        <span className="font-mono font-bold text-primary">{item.score}%</span>
-                        <span className="text-text-tertiary">{item.date}</span>
-                      </div>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
           </div>
         )}
       </div>
 
-      {/* DEV-ONLY DEBUG DRAWER */}
-      <DebugDrawer data={result} />
+      {/* Dev-Only Debug Drawer */}
+      <DebugDrawer result={engineResult} />
     </div>
   );
 }
