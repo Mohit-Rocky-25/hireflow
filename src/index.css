@@ -95,6 +95,95 @@
   }
 }
 
+/* ============================================================
+   Scoped Dark Design System for Career Trajectory Section
+   Matches CareerPathHub palette. Scoped to [data-theme="career-dark"]
+   and portaled UI roots (.career-portal-dark). Never alters :root.
+   ============================================================ */
+[data-theme="career-dark"],
+.career-portal-dark {
+  color-scheme: dark;
+
+  /* Semantic Tailwind v4 color mappings for Career Trajectory Dark */
+  --color-bg: #0a0a0a;
+  --color-surface: #141414;
+  --color-surface-2: #1e1e1e;
+  --color-surface-3: #2a2a2a;
+  --color-text: #ffffff;
+  --color-text-secondary: #cbd5e1;
+  --color-text-muted: #94a3b8;
+  --color-border: rgba(255, 255, 255, 0.10);
+  --color-border-strong: rgba(255, 255, 255, 0.20);
+  --color-border-accent: rgba(59, 130, 246, 0.40);
+  --color-primary: #3b82f6;
+  --color-primary-hover: #2563eb;
+  --color-primary-active: #1d4ed8;
+  --color-primary-light: rgba(59, 130, 246, 0.15);
+  --color-primary-glow: rgba(59, 130, 246, 0.30);
+  --color-success: #10b981;
+  --color-success-bg: rgba(16, 185, 129, 0.15);
+  --color-warning: #f59e0b;
+  --color-warning-bg: rgba(245, 158, 11, 0.15);
+  --color-danger: #ef4444;
+  --color-danger-bg: rgba(239, 68, 68, 0.15);
+
+  /* Career Dark Design System Tokens */
+  --career-bg-base: #0a0a0a;
+  --career-surface-1: #141414;
+  --career-surface-2: #1e1e1e;
+  --career-surface-3: #2a2a2a;
+  --career-border-subtle: rgba(255, 255, 255, 0.10);
+  --career-border-strong: rgba(255, 255, 255, 0.20);
+  --career-text-primary: #ffffff;
+  --career-text-secondary: #cbd5e1;
+  --career-text-muted: #94a3b8;
+  --career-accent: #3b82f6;
+  --career-accent-hover: #2563eb;
+  --career-accent-contrast: #ffffff;
+  --career-success: #10b981;
+  --career-warning: #f59e0b;
+  --career-danger: #ef4444;
+  --career-focus-ring: #3b82f6;
+  --career-chart-line: #10b981;
+  --career-chart-area-start: rgba(16, 185, 129, 0.35);
+  --career-chart-area-end: rgba(16, 185, 129, 0.0);
+  --career-chart-grid: rgba(255, 255, 255, 0.08);
+  --career-chart-axis-text: #94a3b8;
+
+  background-color: #0a0a0a;
+  color: #ffffff;
+}
+
+[data-theme="career-dark"] ::selection,
+.career-portal-dark ::selection {
+  background: rgba(59, 130, 246, 0.35);
+  color: #ffffff;
+}
+
+[data-theme="career-dark"] select,
+[data-theme="career-dark"] option {
+  background-color: #1a1a1a;
+  color: #ffffff;
+}
+
+[data-theme="career-dark"] ::-webkit-scrollbar-thumb,
+.career-portal-dark ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+}
+
+[data-theme="career-dark"] ::-webkit-scrollbar-thumb:hover,
+.career-portal-dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+[data-theme="career-dark"] :focus-visible,
+.career-portal-dark :focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+
 /* ── Reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
