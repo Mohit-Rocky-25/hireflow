@@ -6,7 +6,8 @@
 import { SkillMatchResult, SkillMatchStatus, TaxonomySkill } from './types';
 import skillsTaxonomyData from '../../data/ats/skills-taxonomy.json';
 
-const taxonomyList = skillsTaxonomyData as TaxonomySkill[];
+export const SKILL_TAXONOMY = skillsTaxonomyData as TaxonomySkill[];
+const taxonomyList = SKILL_TAXONOMY;
 const taxonomyMap = new Map<string, TaxonomySkill>();
 for (const item of taxonomyList) {
   taxonomyMap.set(item.canonical.toLowerCase(), item);

@@ -25,6 +25,7 @@ export * from './fileExtractor';
 export * from './prompts';
 export * from './invariants';
 export * from './pipeline';
+export * from './canonicalAnalysis';
 
 import {
   SYSTEM_PROMPT,

@@ -20,6 +20,7 @@ import {
   getCompanySlug,
 } from "./talentLensData";
 import { useTalentLensStore } from "./useTalentLensStore";
+import { parseResumeFile } from "../../features/ats/fileParser";
 
 export function MatchingDemo() {
   const navigate = useNavigate();
@@ -52,14 +53,17 @@ export function MatchingDemo() {
     }
   }, [searchParams, setStep]);
 
-  const handleFileUpload = useCallback((file: File) => {
-    if (file.name.toLowerCase().match(/\.(pdf|doc|docx)$/)) {
-      // Mock parsing for binary files in this demo
-      setResume(
-        `[Simulated text extraction from ${file.name}]\n\nSenior Software Engineer with 5 years of experience. Built scalable systems using Java, Spring Boot, React, and Kubernetes. Led a team of 4 engineers and improved system performance by 40%. Experience with AWS, microservices, and distributed architecture. Proficient in Data Structures and Algorithms.`,
-        file.name
-      );
-    } else {
+  const handleFileUpload = useCallback(async (file: File) => {
+    try {
+      const res = await parseResumeFile(file);
+      if (res.success && res.text) {
+        setResume(res.text, res.fileName || file.name);
+      } else {
+        const reader = new FileReader();
+        reader.onload = (e) => setResume((e.target?.result as string) || "", file.name);
+        reader.readAsText(file);
+      }
+    } catch {
       const reader = new FileReader();
       reader.onload = (e) => setResume((e.target?.result as string) || "", file.name);
       reader.readAsText(file);
@@ -94,13 +98,13 @@ export function MatchingDemo() {
         <div className="text-center mb-[48px] max-w-[900px] mx-auto">
           <div className="inline-flex items-center gap-[10px] px-[16px] py-[8px] bg-ai-light border border-ai/25 rounded-full text-[13px] font-semibold text-ai mb-[20px]">
             <Brain className="w-[14px] h-[14px]" />
-            TalentLens™ — {COMPANIES.length} Companies · {COMPANIES.reduce((a, c) => a + c.roles.length, 0)}+ Roles · 6-Layer Cognitive Screening Engine
+            TalentLens™ · Evidence-First Placement Readiness
           </div>
           <h1 className="text-[40px] md:text-[54px] font-extrabold text-text mb-[14px] tracking-[-0.04em] leading-[1.05]">
-            Upload Resume. <span className="gradient-text">Know Your Real Hiring Odds.</span>
+            Where do I fit, <span className="gradient-text">and what should I prepare for?</span>
           </h1>
           <p className="text-[16px] text-text-secondary leading-[26px]">
-            6-layer AI analysis beyond keyword matching — verifies contextual authenticity, detects keyword stuffing, measures production depth, and generates role-specific career acceleration plans trusted by recruiters at top companies.
+            An evidence-first placement-readiness platform that helps you understand which roles and company paths fit your current profile, identify missing evidence, improve your resume for specific opportunities, and follow a practical preparation plan.
           </p>
         </div>
 

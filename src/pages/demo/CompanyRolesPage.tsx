@@ -227,13 +227,13 @@ export function CompanyRolesPage() {
         <div className="text-center mb-[36px] max-w-[900px] mx-auto">
           <div className="inline-flex items-center gap-[10px] px-[16px] py-[7px] bg-ai-light border border-ai/25 rounded-full text-[13px] font-semibold text-ai mb-[16px]">
             <Brain className="w-[14px] h-[14px]" />
-            TalentLens™ — {company.name} Role Intelligence &amp; AI Screening
+            TalentLens™ · Placement Readiness &amp; Career Fit
           </div>
           <h1 className="text-[36px] md:text-[46px] font-extrabold text-text mb-[10px] tracking-[-0.03em] leading-[1.1]">
-            Targeting <span className="gradient-text">{company.name}</span>
+            Where do I fit at <span className="gradient-text">{company.name}</span>?
           </h1>
           <p className="text-[15px] text-text-secondary leading-[24px]">
-            Select an open role to evaluate your resume against verified 2024-25 engineering competencies and hiring bars.
+            An evidence-first placement-readiness platform that helps students understand which roles and company paths fit their current profile, identify missing evidence, improve their resume, and follow a practical preparation plan.
           </p>
         </div>
 
@@ -707,66 +707,187 @@ export function CompanyRolesPage() {
         {/* ── STEP 3: ANALYSIS RESULTS VIEW ── */}
         {isAnalysisView && result && selectedRole && (
           <div className="max-w-[960px] mx-auto animate-fade-in">
-            {/* Score hero */}
-            <div
-              className={`bg-surface border rounded-2xl p-[32px] mb-[20px] text-center shadow-md ${
-                result.score >= 80
-                  ? 'border-success/30'
-                  : result.score >= 55
-                  ? 'border-warning/30'
-                  : 'border-danger/30'
-              }`}
-            >
-              <div className="flex items-center justify-center gap-[10px] mb-[8px]">
-                <div className="text-[12px] font-bold text-text-secondary uppercase tracking-widest">
-                  {company.name}
-                </div>
-                <div className="w-[3px] h-[3px] rounded-full bg-text-secondary" />
-                <div className="text-[12px] font-semibold text-text-secondary">
-                  {selectedRole.title}
-                </div>
-                <div className="w-[3px] h-[3px] rounded-full bg-text-secondary" />
-                <div className="text-[11px] text-text-secondary">{selectedRole.level}</div>
-              </div>
-              <div className={`text-[80px] font-extrabold ${scoreColor} leading-none mb-[4px]`}>
-                {result.score}
-                <span className="text-[36px] opacity-40">%</span>
-              </div>
-              <div className="text-[22px] font-bold text-text mb-[6px]">{verdict}</div>
-              <div className="text-[13px] text-text-secondary mb-[18px]">{selectedRole.desc}</div>
+            {/* 1. Placement Readiness Quick Summary Card (STAGE 8) */}
+            {(() => {
+              const missingComps = result.breakdown.filter((b) => b.analysis.status === 'absent');
+              const provenComps = result.breakdown.filter((b) => b.analysis.status === 'expert' || b.analysis.status === 'strong');
+              const partialComps = result.breakdown.filter((b) => b.analysis.status === 'working');
 
-              {/* Anti-gaming summary badge */}
-              {result.breakdown.some((b) => b.analysis.antiGamingFlag) && (
-                <div className="inline-flex items-center gap-[8px] px-[14px] py-[7px] bg-warning-bg border border-warning/30 rounded-xl text-[12px] font-semibold text-warning mb-[12px]">
-                  <AlertTriangle className="w-[13px] h-[13px]" />
-                  TalentLens™ detected keyword stuffing in{' '}
-                  {result.breakdown.filter((b) => b.analysis.antiGamingFlag).length} competency
-                  area(s) — authenticity penalty applied
-                </div>
-              )}
+              const roleFitStatus =
+                result.score >= 75 && missingComps.length === 0
+                  ? 'Strong fit'
+                  : result.score >= 55 && missingComps.length <= 1
+                  ? 'Developing fit'
+                  : missingComps.length > 0
+                  ? 'Potential fit with evidence gaps'
+                  : 'Low current fit';
 
-              <div className="flex justify-center gap-[8px] flex-wrap">
-                {result.breakdown.map((b) => {
-                  const cfg = STATUS_CONFIG[b.analysis.status] || STATUS_CONFIG.absent;
-                  return (
-                    <span
-                      key={b.competency}
-                      className={`text-[11px] font-bold px-[10px] py-[4px] rounded-full ${cfg.bg} ${cfg.color} border ${cfg.border} flex items-center gap-[4px]`}
+              const roleFitStyles =
+                roleFitStatus === 'Strong fit'
+                  ? 'bg-emerald-50 text-emerald-800 border-emerald-300'
+                  : roleFitStatus === 'Developing fit'
+                  ? 'bg-sky-50 text-sky-800 border-sky-300'
+                  : roleFitStatus === 'Potential fit with evidence gaps'
+                  ? 'bg-amber-50 text-amber-800 border-amber-300'
+                  : 'bg-rose-50 text-rose-800 border-rose-300';
+
+              return (
+                <div className="bg-surface border border-border rounded-2xl p-[28px] mb-[20px] shadow-sm space-y-6">
+                  {/* Status Banner */}
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-border">
+                    <div>
+                      <div className="flex items-center gap-2 mb-1.5 flex-wrap">
+                        <span className="text-[12px] font-bold text-text-secondary uppercase tracking-wider">
+                          Placement Readiness Assessment
+                        </span>
+                        <span>•</span>
+                        <span className="text-[12px] font-semibold text-text">
+                          {company.name} ({company.tier})
+                        </span>
+                      </div>
+                      <h2 className="text-[20px] font-extrabold text-text">
+                        Targeting: {selectedRole.title} ({selectedRole.level})
+                      </h2>
+                    </div>
+
+                    <div className="flex items-center gap-3">
+                      <span className={`px-4 py-1.5 rounded-full text-xs font-black border uppercase tracking-wider ${roleFitStyles}`}>
+                        {roleFitStatus}
+                      </span>
+                      <div className="text-right">
+                        <span className="text-2xl font-black font-mono text-primary">{result.score}%</span>
+                        <div className="text-[10px] text-text-muted">Grounded Fit</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Grounded Role-Fit Explanation */}
+                  <p className="text-[14px] text-text-secondary leading-relaxed">
+                    Based on verified evidence in your resume, your profile currently demonstrates a{' '}
+                    <strong className="text-text">{roleFitStatus.toLowerCase()}</strong> for{' '}
+                    <strong className="text-text">{selectedRole.title}</strong> at{' '}
+                    <strong className="text-text">{company.name}</strong>. {selectedRole.desc}
+                  </p>
+
+                  {/* Anti-gaming notice if detected */}
+                  {result.breakdown.some((b) => b.analysis.antiGamingFlag) && (
+                    <div className="p-3 bg-warning-bg border border-warning/30 rounded-xl text-[12px] text-warning flex items-center gap-2">
+                      <AlertTriangle className="w-4 h-4 shrink-0" />
+                      <span>
+                        TalentLens™ detected keyword stuffing in{' '}
+                        {result.breakdown.filter((b) => b.analysis.antiGamingFlag).length} competency area(s). Skills must be supported with project bullets.
+                      </span>
+                    </div>
+                  )}
+
+                  {/* 8-Facet Quick Summary Grid */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                    <div className="bg-surface-2 p-3.5 rounded-xl border border-border">
+                      <div className="text-[10px] font-bold uppercase text-text-muted mb-1">Best-Fit Roles</div>
+                      <div className="text-[13px] font-bold text-text">{selectedRole.title}</div>
+                      <div className="text-[11px] text-text-secondary mt-0.5">{roleFitStatus}</div>
+                    </div>
+
+                    <div className="bg-surface-2 p-3.5 rounded-xl border border-border">
+                      <div className="text-[10px] font-bold uppercase text-emerald-700 mb-1">Strongest Evidence</div>
+                      <div className="text-[13px] font-bold text-emerald-800 truncate">
+                        {provenComps.map((p) => p.competency.toUpperCase()).slice(0, 3).join(', ') || 'Foundational'}
+                      </div>
+                      <div className="text-[11px] text-text-secondary mt-0.5">{provenComps.length} verified areas</div>
+                    </div>
+
+                    <div className="bg-surface-2 p-3.5 rounded-xl border border-border">
+                      <div className="text-[10px] font-bold uppercase text-amber-700 mb-1">Partial Competencies</div>
+                      <div className="text-[13px] font-bold text-amber-800 truncate">
+                        {partialComps.map((p) => p.competency.toUpperCase()).slice(0, 3).join(', ') || 'None'}
+                      </div>
+                      <div className="text-[11px] text-text-secondary mt-0.5">{partialComps.length} need deeper metrics</div>
+                    </div>
+
+                    <div className="bg-surface-2 p-3.5 rounded-xl border border-border">
+                      <div className="text-[10px] font-bold uppercase text-rose-700 mb-1">Missing Competencies</div>
+                      <div className="text-[13px] font-bold text-rose-800 truncate">
+                        {missingComps.map((m) => m.competency.toUpperCase()).slice(0, 3).join(', ') || 'Zero missing'}
+                      </div>
+                      <div className="text-[11px] text-text-secondary mt-0.5">{missingComps.length} critical gaps</div>
+                    </div>
+
+                    <div className="bg-surface-2 p-3.5 rounded-xl border border-border">
+                      <div className="text-[10px] font-bold uppercase text-text-muted mb-1">Best-Fit Company Groups</div>
+                      <div className="text-[13px] font-bold text-text">{company.tier} Tier</div>
+                      <div className="text-[11px] text-text-secondary mt-0.5">{company.industry} focus</div>
+                    </div>
+
+                    <div className="bg-surface-2 p-3.5 rounded-xl border border-border">
+                      <div className="text-[10px] font-bold uppercase text-text-muted mb-1">Main Risk Factor</div>
+                      <div className="text-[13px] font-bold text-text truncate">
+                        {missingComps.length > 0 ? `Missing ${missingComps[0].competency.toUpperCase()}` : 'Scale metrics required'}
+                      </div>
+                      <div className="text-[11px] text-text-secondary mt-0.5">Top screening filter</div>
+                    </div>
+
+                    <div className="bg-surface-2 p-3.5 rounded-xl border border-border sm:col-span-2">
+                      <div className="text-[10px] font-bold uppercase text-text-muted mb-1">Three Next Actions</div>
+                      <div className="text-[12px] text-text space-y-1">
+                        <div>1. {result.plans[0]?.title || 'Quantify project impact metrics'}</div>
+                        <div>2. {result.plans[1]?.title || 'Deploy demo project with modern stack'}</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Competency Pill Status Badges */}
+                  <div className="pt-2 flex justify-center gap-2 flex-wrap">
+                    {result.breakdown.map((b) => {
+                      const cfg = STATUS_CONFIG[b.analysis.status] || STATUS_CONFIG.absent;
+                      return (
+                        <span
+                          key={b.competency}
+                          className={`text-[11px] font-bold px-[10px] py-[4px] rounded-full ${cfg.bg} ${cfg.color} border ${cfg.border} flex items-center gap-[4px]`}
+                        >
+                          {b.analysis.antiGamingFlag && <AlertTriangle className="w-[9px] h-[9px]" />}
+                          {b.analysis.status === 'expert'
+                            ? '✓✓'
+                            : b.analysis.status === 'strong'
+                            ? '✓'
+                            : b.analysis.status === 'working'
+                            ? '~'
+                            : '✗'}{' '}
+                          {b.competency.toUpperCase()}
+                        </span>
+                      );
+                    })}
+                  </div>
+
+                  {/* Cross-Section Connection CTA (STAGE 10) */}
+                  <div className="p-4 rounded-xl bg-primary/5 border border-primary/20 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div>
+                      <div className="text-sm font-bold text-text flex items-center gap-1.5">
+                        <Zap className="w-4 h-4 text-primary" /> Evaluate in ATS Resume Roaster
+                      </div>
+                      <div className="text-xs text-text-secondary mt-0.5">
+                        Test job-specific fit with full 7-dimension scoring and safe bullet rewrites for this exact position.
+                      </div>
+                    </div>
+
+                    <Link
+                      to={`/tools/resume-checker?company=${company.id}&role=${encodeURIComponent(selectedRole.title)}`}
+                      className="px-4 py-2 bg-primary text-white text-xs font-bold rounded-xl hover:bg-primary/90 transition-colors inline-flex items-center gap-1.5 whitespace-nowrap shadow-xs"
                     >
-                      {b.analysis.antiGamingFlag && <AlertTriangle className="w-[9px] h-[9px]" />}
-                      {b.analysis.status === 'expert'
-                        ? '✓✓'
-                        : b.analysis.status === 'strong'
-                        ? '✓'
-                        : b.analysis.status === 'working'
-                        ? '~'
-                        : '✗'}{' '}
-                      {b.competency.toUpperCase()}
-                    </span>
-                  );
-                })}
-              </div>
-            </div>
+                      Open ATS Roaster <ArrowRight className="w-3.5 h-3.5" />
+                    </Link>
+                  </div>
+
+                  {/* Stored Company Benchmark Provenance Box */}
+                  <div className="text-[11px] text-text-muted bg-surface-2 p-3 rounded-xl border border-border flex flex-wrap items-center justify-between gap-2">
+                    <div>
+                      <span className="font-bold text-text">Benchmark Source:</span> HireFlow Curated Benchmark Index 2024-2025 •{' '}
+                      <span className="font-bold text-text">Version:</span> v1.2.0 • <span className="font-bold text-text">Confidence:</span> High
+                    </div>
+                    <div>Directional diagnostic benchmark. Not an automated hiring decision.</div>
+                  </div>
+                </div>
+              );
+            })()}
 
             {/* 6-Layer analysis legend */}
             <div className="bg-surface border border-border rounded-2xl p-[16px] mb-[20px] shadow-sm">

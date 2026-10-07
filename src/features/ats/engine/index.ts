@@ -18,6 +18,7 @@ import {
   TargetTierId,
   ExperienceLevelId,
 } from './types';
+import { analyzeCanonical } from '../../../lib/ats/canonicalAnalysis';
 
 export * from './types';
 export { splitResumeSections } from './sectionSplitter';
@@ -150,8 +151,11 @@ export function runAtsEngine(
       stuffedSkills: scoring.stuffedSkills,
     },
     learningPath,
+    canonicalResult: analyzeCanonical(resumeText, jdText, {
+      tier: targetTier,
+      level: selectedLevel,
+    }),
   };
-
 
   return {
     success: true,

@@ -1,11 +1,11 @@
 // ============================================================
-// HireFlow — ATS Resume Roaster (Stage 4 Results Redesign)
-// Deterministic single scroll page with 4 tabs and zero hallucinations
+// HireFlow — ATS Resume Roaster (Job Fit & Resume Improvement)
+// Deterministic single source of truth with Quick Roast & Deep Roaster
 // ============================================================
 
 import React, { useState, useRef, useEffect } from 'react';
-import { ArrowRight, Sparkles, RotateCcw } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { ArrowRight, Sparkles, RotateCcw, Zap, Compass, CheckCircle2, AlertCircle, ArrowUpRight, ShieldCheck } from 'lucide-react';
+import { Link, useSearchParams } from 'react-router-dom';
 import { parseResumeFile } from '../../features/ats/fileParser';
 import {
   AtsInputSection,
@@ -21,6 +21,8 @@ import { SkillsTab } from '../../features/ats/components/SkillsTab';
 import { AuditTab } from '../../features/ats/components/AuditTab';
 import { LearningPathTab } from '../../features/ats/components/LearningPathTab';
 import { DebugDrawer } from '../../features/ats/components/DebugDrawer';
+import { useTalentLensStore } from '../demo/useTalentLensStore';
+import { COMPANIES } from '../demo/talentLensData';
 
 const STAGED_MESSAGES = [
   'Reading resume tokens & structural sections...',
@@ -31,6 +33,7 @@ const STAGED_MESSAGES = [
 ];
 
 export function ResumeChecker() {
+  const [searchParams] = useSearchParams();
   const [resumeText, setResumeText] = useState('');
   const [jobText, setJobText] = useState('');
   const [resumeFileName, setResumeFileName] = useState<string | null>(null);
@@ -46,9 +49,50 @@ export function ResumeChecker() {
   const [isFileExtracting, setIsFileExtracting] = useState(false);
   const [engineResult, setEngineResult] = useState<AtsEngineResult | null>(null);
   const [activeTab, setActiveTab] = useState<ReportTabId>('overview');
+  const [presentationMode, setPresentationMode] = useState<'deep' | 'quick'>('deep');
 
   const headerRef = useRef<HTMLDivElement>(null);
   const tabBarRef = useRef<HTMLDivElement>(null);
+
+  // Sync from TalentLens URL query parameters (STAGE 10)
+  useEffect(() => {
+    const companyId = searchParams.get('company');
+    const roleTitle = searchParams.get('role');
+    if (companyId && roleTitle && !jobText) {
+      const comp = COMPANIES.find((c) => c.id === companyId);
+      const role = comp?.roles.find((r) => r.title === roleTitle);
+      if (comp && role) {
+        const reqMap = (role.reqLevel || {}) as unknown as Record<string, string>;
+        const generatedJD = [
+          `Company: ${comp.name} (${comp.tier} Tier)`,
+          `Target Position: ${role.title} (${role.level})`,
+          ``,
+          `Role Description:`,
+          role.desc,
+          ``,
+          `Core Competency Requirements:`,
+          ...role.competencies.map((c) => `- ${c.toUpperCase()}: Required proficiency level "${reqMap[c] || 'working'}"`),
+          ``,
+          `Industry: ${comp.industry}`,
+          `Headquarters: ${comp.hq}`,
+          `Compensation Benchmark: ${comp.avgPackage}`,
+        ].join('\n');
+
+        setJobText(generatedJD);
+        setJobFileName(`${comp.name}_${role.title.replace(/\s+/g, '_')}_Requirements.txt`);
+      }
+    }
+  }, [searchParams, jobText]);
+
+  // Sync resume from TalentLens store if candidate already loaded it
+  useEffect(() => {
+    const storedResume = useTalentLensStore.getState().resumeText;
+    const storedFileName = useTalentLensStore.getState().resumeFileName;
+    if (!resumeText && storedResume) {
+      setResumeText(storedResume);
+      setResumeFileName(storedFileName || 'TalentLens_Resume.pdf');
+    }
+  }, [resumeText]);
 
   useEffect(() => {
     if (!isScanning) {
@@ -102,7 +146,6 @@ export function ResumeChecker() {
 
   const handleTabChange = (tab: ReportTabId) => {
     setActiveTab(tab);
-    // Keep scroll at tab bar when switching tabs
     if (tabBarRef.current) {
       tabBarRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
@@ -150,7 +193,6 @@ export function ResumeChecker() {
 
         setEngineResult(response.result);
 
-        // Always scroll to top of results and focus header on new analysis
         window.scrollTo({ top: 0, behavior: 'smooth' });
         setTimeout(() => {
           headerRef.current?.focus();
@@ -172,6 +214,8 @@ export function ResumeChecker() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const canonical = engineResult?.canonicalResult;
+
   return (
     <div className="min-h-screen bg-bg text-text pt-24 pb-16 px-4 sm:px-6 md:px-8 relative">
       {/* Top Navigation */}
@@ -185,19 +229,19 @@ export function ResumeChecker() {
       </div>
 
       <div className="max-w-6xl mx-auto space-y-8 animate-fade-in">
-        {/* Hero Title */}
+        {/* Hero Title with Updated Positioning (STAGE 9) */}
         <div className="text-center max-w-3xl mx-auto mb-6 mt-2 print:mb-4">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-primary/10 border border-primary/25 text-primary rounded-full text-xs font-bold uppercase tracking-wider mb-3 shadow-2xs">
-            <Sparkles className="w-3.5 h-3.5 text-primary" /> Deterministic ATS Evaluation Engine
+            <Sparkles className="w-3.5 h-3.5 text-primary" /> ATS Resume Roaster · Job Fit &amp; Resume Improvement
           </div>
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight mb-3">
-            ATS Resume{' '}
+            How well does this resume match,{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-ai">
-              Roaster
+              and what should I improve?
             </span>
           </h1>
           <p className="text-text-secondary text-[16px] leading-relaxed max-w-2xl mx-auto">
-            Zero hallucinations. Verifiable citations. Calibrated against real engineering hiring bars.
+            Zero hallucinations. Verifiable citations. Calibrated against real engineering hiring bars. Directional diagnostic evaluation.
           </p>
         </div>
 
@@ -235,50 +279,198 @@ export function ResumeChecker() {
           />
         )}
 
-        {/* Results Screen (Single Scroll Page) */}
+        {/* Results Screen */}
         {engineResult && (
           <div className="space-y-8 animate-fade-in">
-            {/* Top Re-Scan Action Bar */}
+            {/* Top Re-Scan Action Bar with Mode Switcher (STAGE 9) */}
             <div className="flex flex-wrap items-center justify-between gap-4 p-4 rounded-[16px] bg-surface border border-border shadow-xs print:hidden">
-              <div className="flex items-center gap-2 min-w-0 text-sm">
+              <div className="flex items-center gap-3 min-w-0 text-sm">
                 <span className="text-xs font-bold text-text-tertiary uppercase">Target:</span>
                 <span className="font-bold text-text truncate">
                   {engineResult.bestFitTier} ({engineResult.seniorityFit.level} Level)
                 </span>
+
+                {canonical && (
+                  <span
+                    className={`text-xs font-bold px-2.5 py-0.5 rounded-full border ${
+                      canonical.applicationGuidance === 'Ready to apply'
+                        ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                        : canonical.applicationGuidance === 'Apply after high-priority fixes'
+                        ? 'bg-amber-50 text-amber-700 border-amber-200'
+                        : canonical.applicationGuidance === 'Insufficient evidence to evaluate'
+                        ? 'bg-slate-100 text-slate-700 border-slate-200'
+                        : 'bg-rose-50 text-rose-700 border-rose-200'
+                    }`}
+                  >
+                    {canonical.applicationGuidance}
+                  </span>
+                )}
               </div>
 
-              <button
-                type="button"
-                onClick={handleTryAnotherJob}
-                className="px-4 py-2 bg-white hover:bg-slate-50 border border-slate-300 text-xs font-bold rounded-[8px] text-slate-800 transition-colors flex items-center gap-1.5 cursor-pointer shadow-2xs"
-              >
-                <RotateCcw className="w-3.5 h-3.5 text-primary" /> Analyze Another Job Description
-              </button>
-            </div>
+              <div className="flex items-center gap-2">
+                {/* Mode Switcher Toggle */}
+                <div className="inline-flex rounded-xl bg-surface-2 p-1 border border-border">
+                  <button
+                    type="button"
+                    onClick={() => setPresentationMode('quick')}
+                    className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-all ${
+                      presentationMode === 'quick'
+                        ? 'bg-text text-bg shadow-xs'
+                        : 'text-text-secondary hover:text-text'
+                    }`}
+                  >
+                    <Zap className="w-3.5 h-3.5 inline mr-1" /> Quick Roast
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setPresentationMode('deep')}
+                    className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-all ${
+                      presentationMode === 'deep'
+                        ? 'bg-text text-bg shadow-xs'
+                        : 'text-text-secondary hover:text-text'
+                    }`}
+                  >
+                    <Compass className="w-3.5 h-3.5 inline mr-1" /> Deep Roaster
+                  </button>
+                </div>
 
-            {/* Layout Section A: Score Header */}
-            <ScoreHeader result={engineResult} headerRef={headerRef} />
-
-            {/* Layout Section B: Fix These First */}
-            <FixTheseFirst items={engineResult.fixFirst} />
-
-            {/* Layout Section C: Tab Bar with Exactly 4 Tabs */}
-            <div className="space-y-6">
-              <TabBar
-                activeTab={activeTab}
-                skillsCount={engineResult.skillResults.length}
-                onTabChange={handleTabChange}
-                tabBarRef={tabBarRef}
-              />
-
-              {/* Tab Content Panes */}
-              <div className="min-h-[450px]">
-                {activeTab === 'overview' && <OverviewTab result={engineResult} />}
-                {activeTab === 'skills' && <SkillsTab skills={engineResult.skillResults} />}
-                {activeTab === 'audit' && <AuditTab result={engineResult} />}
-                {activeTab === 'learning_path' && <LearningPathTab result={engineResult} />}
+                <button
+                  type="button"
+                  onClick={handleTryAnotherJob}
+                  className="px-4 py-2 bg-surface hover:bg-surface-2 border border-border text-xs font-bold rounded-xl text-text transition-colors flex items-center gap-1.5 cursor-pointer shadow-2xs"
+                >
+                  <RotateCcw className="w-3.5 h-3.5 text-primary" /> Try Another Job
+                </button>
               </div>
             </div>
+
+            {/* PRESENTATION MODE 1: QUICK ROAST (STAGE 9) */}
+            {presentationMode === 'quick' && canonical && (
+              <div className="space-y-6 animate-fade-in">
+                {/* Score & Verdict Card */}
+                <div className="bg-surface rounded-2xl p-6 sm:p-8 border border-border shadow-xs text-center">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 text-primary border border-primary/20 rounded-full text-xs font-bold uppercase mb-4">
+                    <ShieldCheck className="w-4 h-4" /> Grounded Quick Roast
+                  </div>
+
+                  <div className="flex items-center justify-center gap-3 mb-2">
+                    <div className="text-6xl sm:text-7xl font-black font-mono text-primary">
+                      {canonical.scores.finalScore}
+                      <span className="text-3xl opacity-50">%</span>
+                    </div>
+                  </div>
+
+                  <div className="text-xl sm:text-2xl font-bold text-text mb-2">
+                    {canonical.quickRoast.oneLineVerdict}
+                  </div>
+
+                  <p className="text-sm text-text-secondary max-w-xl mx-auto mb-6">
+                    Confidence: <span className="font-bold capitalize">{canonical.confidence}</span> • Guidance:{' '}
+                    <span className="font-bold">{canonical.applicationGuidance}</span>
+                  </p>
+
+                  <div className="flex justify-center gap-3">
+                    <button
+                      type="button"
+                      onClick={() => setPresentationMode('deep')}
+                      className="px-5 py-2.5 bg-primary text-white text-xs font-bold rounded-xl hover:bg-primary/90 transition-colors inline-flex items-center gap-2"
+                    >
+                      Inspect Full Deep Breakdown <ArrowUpRight className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+
+                {/* 3 Strengths & 3 Gaps Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Strengths */}
+                  <div className="bg-surface rounded-2xl p-6 border border-emerald-200/50 shadow-xs">
+                    <h3 className="text-base font-bold text-emerald-700 mb-4 flex items-center gap-2">
+                      <CheckCircle2 className="w-5 h-5 text-emerald-600" /> Key Verified Strengths (Up to 3)
+                    </h3>
+                    <div className="space-y-3">
+                      {canonical.quickRoast.strengths.length === 0 ? (
+                        <p className="text-xs text-text-secondary">No strong verified strengths detected.</p>
+                      ) : (
+                        canonical.quickRoast.strengths.map((s, i) => (
+                          <div key={i} className="p-3 bg-emerald-50/50 rounded-xl border border-emerald-100 text-xs">
+                            <div className="font-bold text-slate-900">{s.title}</div>
+                            <div className="text-slate-600 mt-1 italic">&ldquo;{s.evidenceQuote}&rdquo;</div>
+                          </div>
+                        ))
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Gaps */}
+                  <div className="bg-surface rounded-2xl p-6 border border-rose-200/50 shadow-xs">
+                    <h3 className="text-base font-bold text-rose-700 mb-4 flex items-center gap-2">
+                      <AlertCircle className="w-5 h-5 text-rose-600" /> Top Priority Gaps (Up to 3)
+                    </h3>
+                    <div className="space-y-3">
+                      {canonical.quickRoast.gaps.length === 0 ? (
+                        <p className="text-xs text-text-secondary">No critical skill gaps found.</p>
+                      ) : (
+                        canonical.quickRoast.gaps.map((g, i) => (
+                          <div key={i} className="p-3 bg-rose-50/50 rounded-xl border border-rose-100 text-xs">
+                            <div className="font-bold text-slate-900">{g.title}</div>
+                            <div className="text-rose-700 mt-0.5 capitalize">Gap type: {g.gapType.replace('_', ' ')}</div>
+                          </div>
+                        ))
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Prioritized Actions */}
+                <div className="bg-surface rounded-2xl p-6 border border-border shadow-xs">
+                  <h3 className="text-base font-bold text-text mb-4 flex items-center gap-2">
+                    <Sparkles className="w-5 h-5 text-primary" /> Top Prioritized Action Items
+                  </h3>
+                  <div className="space-y-3">
+                    {canonical.quickRoast.prioritizedActions.map((act, i) => (
+                      <div key={i} className="p-4 bg-surface-2 rounded-xl border border-border text-xs flex items-start gap-3">
+                        <span className="w-6 h-6 rounded-full bg-primary/10 text-primary font-bold flex items-center justify-center shrink-0">
+                          {i + 1}
+                        </span>
+                        <div>
+                          <div className="font-bold text-text text-sm">{act.title}</div>
+                          <div className="text-text-secondary mt-1">{act.action}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* PRESENTATION MODE 2: DEEP ROASTER (STAGE 9) */}
+            {presentationMode === 'deep' && (
+              <>
+                {/* Layout Section A: Score Header */}
+                <ScoreHeader result={engineResult} headerRef={headerRef} />
+
+                {/* Layout Section B: Fix These First */}
+                <FixTheseFirst items={engineResult.fixFirst} />
+
+                {/* Layout Section C: Tab Bar with Exactly 4 Tabs */}
+                <div className="space-y-6">
+                  <TabBar
+                    activeTab={activeTab}
+                    skillsCount={engineResult.skillResults.length}
+                    onTabChange={handleTabChange}
+                    tabBarRef={tabBarRef}
+                  />
+
+                  {/* Tab Content Panes */}
+                  <div className="min-h-[450px]">
+                    {activeTab === 'overview' && <OverviewTab result={engineResult} />}
+                    {activeTab === 'skills' && <SkillsTab skills={engineResult.skillResults} />}
+                    {activeTab === 'audit' && <AuditTab result={engineResult} />}
+                    {activeTab === 'learning_path' && <LearningPathTab result={engineResult} />}
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         )}
       </div>

@@ -171,6 +171,9 @@ export interface AtsEngineResult {
     stuffedSkills: string[];
   };
   learningPath: LearningPathResult;
+  canonicalResult?: import('../../../lib/ats/canonicalAnalysis').CanonicalAnalysis;
+  quickRoast?: import('../../../lib/ats/canonicalAnalysis').CanonicalAnalysis['quickRoast'];
+  talentLensReadiness?: import('../../../lib/ats/canonicalAnalysis').CanonicalAnalysis['talentLensReadiness'];
 }
 
 export type LearningStage = 'Foundation' | 'Core Role Skills' | 'Differentiators';

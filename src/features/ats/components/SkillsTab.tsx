@@ -158,21 +158,31 @@ export const SkillsTab: React.FC<Props> = ({ skills }) => {
 
                     {/* Status */}
                     <td className="py-4 px-4 align-top">
-                      {skill.status === 'verified' && (
-                        <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700">
-                          <CheckCircle2 className="w-4 h-4 text-emerald-600" /> Verified
-                        </span>
-                      )}
-                      {skill.status === 'weak' && (
-                        <span className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-700">
-                          <HelpCircle className="w-4 h-4 text-amber-600" /> Weak Proof
-                        </span>
-                      )}
-                      {skill.status === 'missing' && (
-                        <span className="inline-flex items-center gap-1.5 text-xs font-bold text-rose-700">
-                          <AlertCircle className="w-4 h-4 text-rose-600" /> Missing
-                        </span>
-                      )}
+                      {(() => {
+                        const evStatus = (skill as any).evidenceStatus || 
+                          (skill.status === 'verified' ? (skill.evidence && skill.evidence.some(e => e.hasMetric) ? 'proven' : 'strongly_supported')
+                            : skill.status === 'weak' ? 'claimed_only'
+                            : (skill as any).isSubstituteMatch ? 'related'
+                            : 'missing');
+
+                        switch (evStatus) {
+                          case 'proven':
+                            return <span className="inline-flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-300"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> Proven</span>;
+                          case 'strongly_supported':
+                            return <span className="inline-flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> Strongly Supported</span>;
+                          case 'partially_supported':
+                            return <span className="inline-flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-full bg-sky-50 text-sky-800 border border-sky-300"><CheckCircle2 className="w-3.5 h-3.5 text-sky-600" /> Partially Supported</span>;
+                          case 'claimed_only':
+                            return <span className="inline-flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-300"><HelpCircle className="w-3.5 h-3.5 text-amber-600" /> Claimed Only</span>;
+                          case 'inferred':
+                            return <span className="inline-flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200"><Layers className="w-3.5 h-3.5 text-indigo-600" /> Inferred</span>;
+                          case 'related':
+                            return <span className="inline-flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-full bg-purple-50 text-purple-700 border border-purple-200">↔ Related</span>;
+                          case 'missing':
+                          default:
+                            return <span className="inline-flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-full bg-rose-50 text-rose-800 border border-rose-300"><AlertCircle className="w-3.5 h-3.5 text-rose-600" /> Missing</span>;
+                        }
+                      })()}
                     </td>
 
                     {/* Proficiency Dots */}
