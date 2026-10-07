@@ -24,6 +24,7 @@ export interface FileDropzoneProps {
   wordCount: number;
   isReady: boolean;
   minWords: number;
+  maxWords?: number;
   placeholder: string;
   onFileUpload: (file: File) => void;
   onClear: () => void;
@@ -45,6 +46,7 @@ export const FileDropzone: React.FC<FileDropzoneProps> = ({
   wordCount,
   isReady,
   minWords,
+  maxWords,
   placeholder,
   onFileUpload,
   onClear,
@@ -274,7 +276,11 @@ export const FileDropzone: React.FC<FileDropzoneProps> = ({
           {wordCount} words
         </span>
         <span className={!isReady ? 'text-amber-600 font-medium' : 'text-emerald-700 font-medium'}>
-          {isReady ? '✓ Ready for parsing' : `Minimum ${minWords} words required`}
+          {maxWords && wordCount > maxWords
+            ? `Maximum ${maxWords} words, please trim`
+            : wordCount < minWords
+            ? `Minimum ${minWords} words required`
+            : `✓ Minimum ${minWords} words required`}
         </span>
       </div>
     </div>

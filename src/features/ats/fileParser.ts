@@ -30,13 +30,8 @@ export interface FileParseResult {
 
 const MAX_FILE_SIZE_BYTES = 5 * 1024 * 1024; // 5 MB
 
-/**
- * Counts words accurately by whitespace segmentation.
- */
-export function countWords(text: string): number {
-  if (!text || !text.trim()) return 0;
-  return text.trim().split(/\s+/).filter(Boolean).length;
-}
+import { countWords } from '../../utils/wordCount';
+export { countWords };
 
 /**
  * Garbage guard: Discards text if > 15% non-printable characters

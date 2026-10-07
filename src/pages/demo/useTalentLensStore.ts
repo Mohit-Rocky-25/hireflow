@@ -12,6 +12,11 @@ import {
   AnalysisResult,
 } from './talentLensData';
 
+export const DEMO_TALENTLENS_RESUME = {
+  fileName: 'resume-final-2.pdf',
+  text: `Senior Software Engineer with 5+ years of experience building high-scale distributed systems in enterprise production environments. Architected and deployed cloud-native microservices using Java, Spring Boot, and Kubernetes on AWS, processing 15M+ requests daily with 99.99% uptime. Led full-stack feature delivery with TypeScript and React, reducing p99 API latency by 42% and accelerating page performance. Designed resilient event-driven data pipelines and solved complex DSA problems for algorithmic optimization and system design bottlenecks across distributed clusters. Mentored 4 engineers and established automated CI/CD deployment pipelines. Collaborated closely with cross-functional product stakeholders to deliver robust enterprise software architectures.`,
+} as const;
+
 export interface TalentLensState {
   resumeText: string;
   resumeFileName: string;

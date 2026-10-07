@@ -22,6 +22,7 @@ import { formatAuditor } from './formatAuditor';
 import { isQuoteVerbatimInResume, normalizeWhitespace } from './invariants';
 import { AtsEngineResult } from '../../features/ats/engine/types';
 import { SKILL_TAXONOMY } from './matchSkills';
+import { WORD_LIMITS } from '../../config/limits';
 
 export const TAXONOMY_VERSION = '1.2.0';
 export const SCORING_VERSION = '2.4.0';
@@ -248,8 +249,8 @@ export function normalizeResumeText(rawText: string): {
 
   // 5. Check minimum word count
   const words = clean.split(/\s+/).filter(Boolean).length;
-  if (words < 80) {
-    warnings.push(`Low word count (${words} words). High-confidence extraction requires >= 80 words.`);
+  if (words < WORD_LIMITS.resume.min) {
+    warnings.push(`Low word count (${words} words). High-confidence extraction requires >= ${WORD_LIMITS.resume.min} words.`);
   }
 
   return {

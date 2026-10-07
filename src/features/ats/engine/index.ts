@@ -19,6 +19,7 @@ import {
   ExperienceLevelId,
 } from './types';
 import { analyzeCanonical } from '../../../lib/ats/canonicalAnalysis';
+import { getMinWords, WordLimitSource } from '../../../config/limits';
 
 export * from './types';
 export { splitResumeSections } from './sectionSplitter';
@@ -35,6 +36,8 @@ export { generateLearningPath } from './learningPath';
 export interface AtsEngineOptions {
   tier?: TargetTierId;
   level?: ExperienceLevelId;
+  resumeSource?: WordLimitSource;
+  jdSource?: WordLimitSource;
 }
 
 export type AtsEngineResponse =
@@ -59,11 +62,12 @@ export function runAtsEngine(
   }
 
   const wordCount = countWords(resumeText);
-  if (wordCount < 80) {
+  const minRequired = getMinWords('resume', options?.resumeSource);
+  if (wordCount < minRequired) {
     return {
       success: false,
       error: 'UNREADABLE_RESUME',
-      message: `Resume text has only ${wordCount} words (minimum 80 words required to evaluate).`,
+      message: `Resume text has only ${wordCount} words (minimum ${minRequired} words required to evaluate).`,
     };
   }
 

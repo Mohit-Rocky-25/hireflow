@@ -21,8 +21,9 @@ import { SkillsTab } from '../../features/ats/components/SkillsTab';
 import { AuditTab } from '../../features/ats/components/AuditTab';
 import { LearningPathTab } from '../../features/ats/components/LearningPathTab';
 import { DebugDrawer } from '../../features/ats/components/DebugDrawer';
-import { useTalentLensStore } from '../demo/useTalentLensStore';
+import { useTalentLensStore, DEMO_TALENTLENS_RESUME } from '../demo/useTalentLensStore';
 import { COMPANIES } from '../demo/talentLensData';
+import { WordLimitSource } from '../../config/limits';
 
 const STAGED_MESSAGES = [
   'Reading resume tokens & structural sections...',
@@ -34,10 +35,72 @@ const STAGED_MESSAGES = [
 
 export function ResumeChecker() {
   const [searchParams] = useSearchParams();
-  const [resumeText, setResumeText] = useState('');
-  const [jobText, setJobText] = useState('');
-  const [resumeFileName, setResumeFileName] = useState<string | null>(null);
-  const [jobFileName, setJobFileName] = useState<string | null>(null);
+
+  const queryCompanyId = searchParams.get('company');
+  const queryRoleTitle = searchParams.get('role');
+  const isFromTalentLens = Boolean(queryCompanyId && queryRoleTitle);
+
+  const initialStoredResume = useTalentLensStore.getState().resumeText;
+  const initialStoredFileName = useTalentLensStore.getState().resumeFileName;
+
+  const [resumeText, setResumeText] = useState<string>(() => {
+    if (initialStoredResume) return initialStoredResume;
+    if (isFromTalentLens) return DEMO_TALENTLENS_RESUME.text;
+    return '';
+  });
+
+  const [jobText, setJobText] = useState<string>(() => {
+    if (queryCompanyId && queryRoleTitle) {
+      const comp = COMPANIES.find((c) => c.id === queryCompanyId);
+      const role = comp?.roles.find((r) => r.title === queryRoleTitle);
+      if (comp && role) {
+        const reqMap = (role.reqLevel || {}) as unknown as Record<string, string>;
+        return [
+          `Company: ${comp.name} (${comp.tier} Tier)`,
+          `Target Position: ${role.title} (${role.level})`,
+          ``,
+          `Role Description:`,
+          role.desc,
+          ``,
+          `Core Competency Requirements:`,
+          ...role.competencies.map((c) => `- ${c.toUpperCase()}: Required proficiency level "${reqMap[c] || 'working'}"`),
+          ``,
+          `Industry: ${comp.industry}`,
+          `Headquarters: ${comp.hq}`,
+          `Compensation Benchmark: ${comp.avgPackage}`,
+        ].join('\n');
+      }
+    }
+    return '';
+  });
+
+  const [resumeFileName, setResumeFileName] = useState<string | null>(() => {
+    if (initialStoredResume) return initialStoredFileName || DEMO_TALENTLENS_RESUME.fileName;
+    if (isFromTalentLens) return DEMO_TALENTLENS_RESUME.fileName;
+    return null;
+  });
+
+  const [jobFileName, setJobFileName] = useState<string | null>(() => {
+    if (queryCompanyId && queryRoleTitle) {
+      const comp = COMPANIES.find((c) => c.id === queryCompanyId);
+      const role = comp?.roles.find((r) => r.title === queryRoleTitle);
+      if (comp && role) {
+        return `${comp.name}_${role.title.replace(/\s+/g, '_')}_Requirements.txt`;
+      }
+    }
+    return null;
+  });
+
+  const [resumeSource, setResumeSource] = useState<WordLimitSource>(() => {
+    if (initialStoredResume || isFromTalentLens) return 'talentlens';
+    return undefined;
+  });
+
+  const [jobSource, setJobSource] = useState<WordLimitSource>(() => {
+    if (isFromTalentLens) return 'prefilled';
+    return undefined;
+  });
+
   const [resumePageCount, setResumePageCount] = useState<number | undefined>();
   const [jobPageCount, setJobPageCount] = useState<number | undefined>();
   const [targetTier, setTargetTier] = useState<TargetTier>('Auto');
@@ -54,45 +117,61 @@ export function ResumeChecker() {
   const headerRef = useRef<HTMLDivElement>(null);
   const tabBarRef = useRef<HTMLDivElement>(null);
 
-  // Sync from TalentLens URL query parameters (STAGE 10)
+  // Sync from TalentLens URL query parameters & ensure store has resume loaded
   useEffect(() => {
-    const companyId = searchParams.get('company');
-    const roleTitle = searchParams.get('role');
-    if (companyId && roleTitle && !jobText) {
-      const comp = COMPANIES.find((c) => c.id === companyId);
-      const role = comp?.roles.find((r) => r.title === roleTitle);
-      if (comp && role) {
-        const reqMap = (role.reqLevel || {}) as unknown as Record<string, string>;
-        const generatedJD = [
-          `Company: ${comp.name} (${comp.tier} Tier)`,
-          `Target Position: ${role.title} (${role.level})`,
-          ``,
-          `Role Description:`,
-          role.desc,
-          ``,
-          `Core Competency Requirements:`,
-          ...role.competencies.map((c) => `- ${c.toUpperCase()}: Required proficiency level "${reqMap[c] || 'working'}"`),
-          ``,
-          `Industry: ${comp.industry}`,
-          `Headquarters: ${comp.hq}`,
-          `Compensation Benchmark: ${comp.avgPackage}`,
-        ].join('\n');
+    const compId = searchParams.get('company');
+    const rTitle = searchParams.get('role');
+    if (compId && rTitle) {
+      const stored = useTalentLensStore.getState().resumeText;
+      const storedFile = useTalentLensStore.getState().resumeFileName;
+      if (!resumeText) {
+        const textToUse = stored || DEMO_TALENTLENS_RESUME.text;
+        const fileToUse = storedFile || DEMO_TALENTLENS_RESUME.fileName;
+        setResumeText(textToUse);
+        setResumeFileName(fileToUse);
+        setResumeSource('talentlens');
+        if (!stored) {
+          useTalentLensStore.getState().setResume(textToUse, fileToUse);
+        }
+      } else if (!resumeSource) {
+        setResumeSource('talentlens');
+      }
 
-        setJobText(generatedJD);
-        setJobFileName(`${comp.name}_${role.title.replace(/\s+/g, '_')}_Requirements.txt`);
+      if (!jobText) {
+        const comp = COMPANIES.find((c) => c.id === compId);
+        const role = comp?.roles.find((r) => r.title === rTitle);
+        if (comp && role) {
+          const reqMap = (role.reqLevel || {}) as unknown as Record<string, string>;
+          const generatedJD = [
+            `Company: ${comp.name} (${comp.tier} Tier)`,
+            `Target Position: ${role.title} (${role.level})`,
+            ``,
+            `Role Description:`,
+            role.desc,
+            ``,
+            `Core Competency Requirements:`,
+            ...role.competencies.map((c) => `- ${c.toUpperCase()}: Required proficiency level "${reqMap[c] || 'working'}"`),
+            ``,
+            `Industry: ${comp.industry}`,
+            `Headquarters: ${comp.hq}`,
+            `Compensation Benchmark: ${comp.avgPackage}`,
+          ].join('\n');
+
+          setJobText(generatedJD);
+          setJobFileName(`${comp.name}_${role.title.replace(/\s+/g, '_')}_Requirements.txt`);
+          setJobSource('prefilled');
+        }
+      }
+    } else {
+      const stored = useTalentLensStore.getState().resumeText;
+      const storedFile = useTalentLensStore.getState().resumeFileName;
+      if (!resumeText && stored) {
+        setResumeText(stored);
+        setResumeFileName(storedFile || DEMO_TALENTLENS_RESUME.fileName);
+        setResumeSource('talentlens');
       }
     }
-  }, [searchParams, jobText]);
-
-  // Sync resume from TalentLens store if candidate already loaded it
-  useEffect(() => {
-    const storedResume = useTalentLensStore.getState().resumeText;
-    const storedFileName = useTalentLensStore.getState().resumeFileName;
-    if (!resumeText && storedResume) {
-      setResumeText(storedResume);
-      setResumeFileName(storedFileName || 'TalentLens_Resume.pdf');
-    }
-  }, [resumeText]);
+  }, [searchParams, resumeText, jobText, resumeSource]);
 
   useEffect(() => {
     if (!isScanning) {
@@ -118,10 +197,12 @@ export function ResumeChecker() {
         setResumeText(res.text);
         setResumeFileName(res.fileName);
         setResumePageCount(res.pageCount);
+        setResumeSource('upload');
       } else {
         setJobText(res.text);
         setJobFileName(res.fileName);
         setJobPageCount(res.pageCount);
+        setJobSource('upload');
       }
     } catch (err: any) {
       setFileError(err?.message || 'Error processing uploaded file.');
@@ -134,6 +215,7 @@ export function ResumeChecker() {
     setResumeText('');
     setResumeFileName(null);
     setResumePageCount(undefined);
+    setResumeSource(undefined);
     setFileError(null);
   };
 
@@ -141,6 +223,7 @@ export function ResumeChecker() {
     setJobText('');
     setJobFileName(null);
     setJobPageCount(undefined);
+    setJobSource(undefined);
     setFileError(null);
   };
 
@@ -153,8 +236,9 @@ export function ResumeChecker() {
 
   const handleImportTalentLensResume = (text: string, fileName: string) => {
     setResumeText(text);
-    setResumeFileName(fileName || 'TalentLens_Resume.pdf');
+    setResumeFileName(fileName || DEMO_TALENTLENS_RESUME.fileName);
     setResumePageCount(1);
+    setResumeSource('talentlens');
     setFileError(null);
   };
 
@@ -184,6 +268,8 @@ export function ResumeChecker() {
         const response = runAtsEngine(resumeText, jobText, {
           tier: mappedTier,
           level: mappedLevel,
+          resumeSource,
+          jdSource: jobSource,
         });
 
         if (!response.success) {
@@ -261,6 +347,8 @@ export function ResumeChecker() {
             stagedStageIndex={stagedStageIndex}
             stagedMessages={STAGED_MESSAGES}
             fileError={fileError}
+            resumeSource={resumeSource}
+            jobSource={jobSource}
             onResumeTextChange={(txt) => {
               setResumeText(txt);
               setFileError(null);

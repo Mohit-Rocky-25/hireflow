@@ -8,7 +8,7 @@
 // ════════════════════════════════════════════════════════════
 export const COMPETENCY_SIGNALS: Record<string, { keywords: string[]; contextPhrases: string[]; redFlags: string[] }> = {
   dsa: {
-    keywords: ["data structure", "algorithm", "leetcode", "competitive", "dynamic programming", "graph", "tree", "binary search", "sorting", "hash", "complexity", "o(n)", "o(log n)", "big o"],
+    keywords: ["dsa", "data structure", "algorithm", "leetcode", "competitive", "dynamic programming", "graph", "tree", "binary search", "sorting", "hash", "complexity", "o(n)", "o(log n)", "big o"],
     contextPhrases: ["solved 300+", "competitive programmer", "icpc", "codeforces", "hackerrank gold", "top", "rating"],
     redFlags: ["basic understanding", "learning data structures", "no coding experience"]
   },

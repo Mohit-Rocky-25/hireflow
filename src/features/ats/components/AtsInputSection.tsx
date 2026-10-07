@@ -5,10 +5,10 @@
 
 import React, { useMemo } from 'react';
 import { FileText, Search, ScanLine, AlertCircle } from 'lucide-react';
-import { countWords } from '../fileParser';
 import { SegmentedSelectors, TargetTier, ExperienceLevel } from './SegmentedSelectors';
 import { FileDropzone } from './FileDropzone';
 import { useTalentLensStore } from '../../../pages/demo/useTalentLensStore';
+import { validateAtsInputs, WordLimitSource } from '../../../config/limits';
 
 export type { TargetTier, ExperienceLevel };
 
@@ -26,6 +26,8 @@ interface Props {
   stagedStageIndex: number;
   stagedMessages: string[];
   fileError: string | null;
+  resumeSource?: WordLimitSource;
+  jobSource?: WordLimitSource;
   onResumeTextChange: (text: string) => void;
   onJobTextChange: (text: string) => void;
   onTargetTierChange: (tier: TargetTier) => void;
@@ -51,6 +53,8 @@ export const AtsInputSection: React.FC<Props> = ({
   stagedStageIndex,
   stagedMessages,
   fileError,
+  resumeSource,
+  jobSource,
   onResumeTextChange,
   onJobTextChange,
   onTargetTierChange,
@@ -61,13 +65,6 @@ export const AtsInputSection: React.FC<Props> = ({
   onAnalyze,
   onImportTalentLensResume,
 }) => {
-  const resumeWords = countWords(resumeText);
-  const jobWords = countWords(jobText);
-
-  const isResumeReady = resumeWords >= 80;
-  const isJobReady = jobWords >= 60;
-  const canAnalyze = isResumeReady && isJobReady && !isFileExtracting && !isScanning;
-
   // Access resume state from TalentLens if candidate previously used TalentLens (primitive selectors avoid infinite getSnapshot loops)
   const tlResumeText = useTalentLensStore((state) => state.resumeText);
   const tlResumeFileName = useTalentLensStore((state) => state.resumeFileName);
@@ -75,19 +72,34 @@ export const AtsInputSection: React.FC<Props> = ({
     return tlResumeText ? { text: tlResumeText, fileName: tlResumeFileName } : null;
   }, [tlResumeText, tlResumeFileName]);
 
-  const getDisabledReason = () => {
-    if (isFileExtracting) return 'Reading and validating uploaded file...';
-    if (!isResumeReady && !isJobReady) {
-      return `Resume needs 80+ words (currently ${resumeWords}) · Job description needs 60+ words (currently ${jobWords})`;
-    }
-    if (!isResumeReady) {
-      return `Resume needs at least 80 words to evaluate (currently ${resumeWords} words)`;
-    }
-    if (!isJobReady) {
-      return `Job description needs at least 60 words to extract requirements (currently ${jobWords} words)`;
-    }
-    return '';
-  };
+  // If resumeFileName matches TalentLens or tlResumeText matches, ensure resumeSource defaults to 'talentlens'
+  const effectiveResumeSource =
+    resumeSource ||
+    (resumeFileName?.toLowerCase().includes('talentlens') ||
+    resumeFileName?.toLowerCase().includes('resume-final')
+      ? 'talentlens'
+      : undefined);
+
+  // Single source of truth validation
+  const validation = validateAtsInputs(resumeText, jobText, {
+    resumeSource: effectiveResumeSource,
+    jobSource,
+    isFileExtracting,
+    isScanning,
+  });
+
+  const {
+    canAnalyze,
+    resumeOk,
+    jdOk,
+    resumeWords,
+    jdWords,
+    resumeMin,
+    jdMin,
+    resumeMax,
+    jdMax,
+    disabledReason,
+  } = validation;
 
   return (
     <div className="space-y-8">
@@ -120,8 +132,9 @@ export const AtsInputSection: React.FC<Props> = ({
           fileName={resumeFileName}
           pageCount={resumePageCount}
           wordCount={resumeWords}
-          isReady={isResumeReady}
-          minWords={80}
+          isReady={resumeOk}
+          minWords={resumeMin}
+          maxWords={resumeMax}
           placeholder="Paste your resume text here, or switch to Upload File to drop your PDF / DOCX above..."
           onFileUpload={(file) => onFileUpload(file, 'resume')}
           onClear={onClearResume}
@@ -146,9 +159,10 @@ export const AtsInputSection: React.FC<Props> = ({
           text={jobText}
           fileName={jobFileName}
           pageCount={jobPageCount}
-          wordCount={jobWords}
-          isReady={isJobReady}
-          minWords={60}
+          wordCount={jdWords}
+          isReady={jdOk}
+          minWords={jdMin}
+          maxWords={jdMax}
           placeholder="Paste the target job description or requirements here, or switch to Upload File..."
           onFileUpload={(file) => onFileUpload(file, 'job')}
           onClear={onClearJob}
@@ -182,6 +196,7 @@ export const AtsInputSection: React.FC<Props> = ({
               type="button"
               onClick={onAnalyze}
               disabled={!canAnalyze}
+              title={!canAnalyze ? disabledReason : undefined}
               className={`w-full sm:w-auto px-10 py-3.5 rounded-[12px] font-bold text-[16px] transition-all shadow-sm ${
                 !canAnalyze
                   ? 'bg-slate-200 text-slate-400 cursor-not-allowed shadow-none'
@@ -191,9 +206,12 @@ export const AtsInputSection: React.FC<Props> = ({
               Analyze Resume
             </button>
 
-            {!canAnalyze && (
-              <p className="text-xs text-amber-800 text-center font-medium bg-amber-50 px-3 py-1.5 rounded-md border border-amber-200">
-                {getDisabledReason()}
+            {!canAnalyze && disabledReason && (
+              <p
+                aria-live="polite"
+                className="text-xs text-amber-800 text-center font-medium bg-amber-50 px-3 py-1.5 rounded-md border border-amber-200"
+              >
+                {disabledReason}
               </p>
             )}
 

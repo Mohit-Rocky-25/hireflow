@@ -716,10 +716,12 @@ export function CompanyRolesPage() {
               const roleFitStatus =
                 result.score >= 75 && missingComps.length === 0
                   ? 'Strong fit'
-                  : result.score >= 55 && missingComps.length <= 1
+                  : (result.score >= 50 && missingComps.length <= 1) || (missingComps.length === 0 && partialComps.length > 0)
                   ? 'Developing fit'
                   : missingComps.length > 0
                   ? 'Potential fit with evidence gaps'
+                  : partialComps.length > 0
+                  ? 'Developing fit'
                   : 'Low current fit';
 
               const roleFitStyles =
@@ -791,9 +793,19 @@ export function CompanyRolesPage() {
                     <div className="bg-surface-2 p-3.5 rounded-xl border border-border">
                       <div className="text-[10px] font-bold uppercase text-emerald-700 mb-1">Strongest Evidence</div>
                       <div className="text-[13px] font-bold text-emerald-800 truncate">
-                        {provenComps.map((p) => p.competency.toUpperCase()).slice(0, 3).join(', ') || 'Foundational'}
+                        {provenComps.length > 0
+                          ? provenComps.map((p) => p.competency.toUpperCase()).slice(0, 3).join(', ')
+                          : partialComps.length > 0
+                          ? partialComps.map((p) => p.competency.toUpperCase()).slice(0, 3).join(', ') + ' (Partial)'
+                          : 'Foundational'}
                       </div>
-                      <div className="text-[11px] text-text-secondary mt-0.5">{provenComps.length} verified areas</div>
+                      <div className="text-[11px] text-text-secondary mt-0.5">
+                        {provenComps.length > 0
+                          ? `${provenComps.length} verified areas`
+                          : partialComps.length > 0
+                          ? `${partialComps.length} partial evidence areas`
+                          : '0 verified areas'}
+                      </div>
                     </div>
 
                     <div className="bg-surface-2 p-3.5 rounded-xl border border-border">
