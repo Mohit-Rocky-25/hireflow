@@ -74,10 +74,10 @@
   - [x] 3.1 Compare Job Descriptions (`/tools/jd-compare`)
   - [x] 3.2 Application Tracker (`/tools/tracker`)
   - [x] 3.3 Company vs Company (`/tools/company-compare`)
-- [ ] Stage 4: Group B - How do I present myself better?
+- [x] Stage 4: Group B - How do I present myself better?
   - [x] 4.1 Tailor My Resume (`/tools/tailor`) with truth check
   - [x] 4.2 Reach Out (`/tools/reach-out`) with slot-filling & placeholders
-  - [ ] 4.3 Profile Check (LinkedIn + GitHub) (`/tools/profile-check`)
+  - [x] 4.3 Profile Check (LinkedIn + GitHub) (`/tools/profile-check`)
 - [ ] Stage 5: Group C - What do I build or fix?
   - [ ] 5.1 Build Briefs (`/tools/build-briefs`) with set-cover bundler
 - [ ] Stage 6: Group D - What offer should I take?
@@ -170,4 +170,13 @@
 - Created `src/features/suite/outreach/ReachOutPage.tsx` with live char counter, LinkedIn 300-char progress bar, placeholder alert pills, 1-click clipboard copy, and direct tracking handoff to Application Tracker.
 - Registered route `/tools/reach-out` in `App.tsx`.
 - All tests passing, tsc clean.
-- Next task: Stage 4.3 (Profile Check - `/tools/profile-check`).
+
+## Stage 4.3 Handoff Note
+- Created `src/features/suite/profile-check/auditProfile.ts` (offline public profile audit for LinkedIn and GitHub; evaluates headline keyword depth, generic title penalties, About section 4-part rubric, experience bullet quantification, keyword density, GitHub README hygiene signals, and commit velocity; outputs unified 0-100 Public Signal Score and actionable screener checklist).
+- Created `src/features/suite/profile-check/__tests__/auditProfile.test.ts` (all 6 tests passing).
+- Created `src/features/suite/profile-check/ProfileCheckPage.tsx` with unified Public Signal Score card, LinkedIn 4-point rubric audit, GitHub repository hygiene breakdown, screener pass-through checklist, and 1-click clipboard export.
+- Registered route `/tools/profile-check` in `App.tsx`.
+- Typecheck clean, all tests passing. Stage 4 ("How do I present myself better?") complete!
+- Next task: Stage 5 (Group C — What do I build or fix? `/tools/build-briefs`).
+
+
