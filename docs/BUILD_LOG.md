@@ -72,7 +72,7 @@
   - [x] 2.5 Tests for simulation, ranking, summary, tokens
 - [ ] Stage 3: Group A - What should I apply to?
   - [x] 3.1 Compare Job Descriptions (`/tools/jd-compare`)
-  - [ ] 3.2 Application Tracker (`/tools/tracker`)
+  - [x] 3.2 Application Tracker (`/tools/tracker`)
   - [ ] 3.3 Company vs Company (`/tools/company-compare`)
 - [ ] Stage 4: Group B - How do I present myself better?
   - [ ] 4.1 Tailor My Resume (`/tools/tailor`) with truth check
@@ -135,5 +135,15 @@
 - Created `docs/engine-diff.md` detailing the accuracy improvements and benchmark results.
 - Created unit tests in `src/features/suite/engine/__tests__/engineUpgrades.test.ts` (all 7 tests pass).
 - Complete test suite: all 160 tests passing, `npx tsc --noEmit` clean.
-- Next task: Stage 3 (Group A: "What should I apply to?" — Compare JDs, Application Tracker, Company vs Company).
+## Stage 3.1 Handoff Note
+- Created `src/features/suite/compare/compareJDs.ts` (ranking by score & must-haves, shared gaps, unique gaps, cross-JD gains, overlap matrix).
+- Created `src/features/suite/compare/__tests__/compareJDs.test.ts` (5 tests passing).
+- Created `src/features/suite/compare/CompareJDsPage.tsx` and registered `/tools/jd-compare` route.
 
+## Stage 3.2 Handoff Note
+- Created `src/features/suite/tracker/insights.ts` (`computeTrackerInsights`, `isGoneQuiet`, `exportTrackerToCSV`, `importTrackerFromCSV` with state machine CSV parser).
+- Created `src/features/suite/tracker/__tests__/insights.test.ts` (all 5 tests passing).
+- Created `src/features/suite/tracker/ApplicationTrackerPage.tsx` (list view, kanban pipeline board, insights metrics, gone-quiet threshold alerts, CSV export & import, quick link to ATS Roaster).
+- Registered `/tools/tracker` route in `App.tsx`.
+- All tests passing, tsc clean.
+- Next task: Stage 3.3 (Company vs Company - `/tools/company-compare`).

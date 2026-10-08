@@ -29,6 +29,7 @@ import { PromotionSimulatorPage } from './pages/tools/career-path/PromotionSimul
 import { CompanyLadderPage } from './pages/tools/career-path/CompanyLadderPage';
 import { TalentLens } from './pages/tools/TalentLens';
 import { CompareJDsPage } from './features/suite/compare/CompareJDsPage';
+import { ApplicationTrackerPage } from './features/suite/tracker/ApplicationTrackerPage';
 
 // Company / BHR Pages
 import { CompanyDashboard } from './pages/company/CompanyDashboard';
@@ -112,6 +113,7 @@ export default function App() {
         {/* Free ATS Candidate Tools */}
         <Route path="/tools/resume-checker" element={<ResumeChecker />} />
         <Route path="/tools/jd-compare" element={<CompareJDsPage />} />
+        <Route path="/tools/tracker" element={<ApplicationTrackerPage />} />
         <Route path="/tools/career-path" element={<CareerPathHub />} />
         <Route path="/tools/career-path/dream-job-roadmap" element={<DreamJobRoadmapPage />} />
         <Route path="/tools/career-path/company-levels" element={<CompanyLevelsPage />} />
