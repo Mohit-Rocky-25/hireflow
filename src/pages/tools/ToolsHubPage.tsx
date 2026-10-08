@@ -11,6 +11,7 @@ import {
   Sparkles,
   Search,
 } from 'lucide-react';
+import { PageNav } from '../../components/common/PageNav';
 
 interface ToolItem {
   id: string;
@@ -168,7 +169,8 @@ export function ToolsHubPage() {
   const totalTools = decisionGroups.reduce((acc, g) => acc + g.tools.length, 0);
 
   return (
-    <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-20 animate-fade-in">
+    <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-20 animate-fade-in relative">
+      <PageNav />
       {/* Hero Header */}
       <div className="text-center max-w-4xl mx-auto space-y-6">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-bold tracking-wide uppercase">
