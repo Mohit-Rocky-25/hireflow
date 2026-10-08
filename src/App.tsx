@@ -34,6 +34,7 @@ import { CompanyComparePage } from './features/suite/companies/CompanyComparePag
 import { TailorResumePage } from './features/suite/tailor/TailorResumePage';
 import { ReachOutPage } from './features/suite/outreach/ReachOutPage';
 import { ProfileCheckPage } from './features/suite/profile-check/ProfileCheckPage';
+import { BuildBriefsPage } from './features/suite/briefs/BuildBriefsPage';
 
 // Company / BHR Pages
 import { CompanyDashboard } from './pages/company/CompanyDashboard';
@@ -122,6 +123,7 @@ export default function App() {
         <Route path="/tools/tailor" element={<TailorResumePage />} />
         <Route path="/tools/reach-out" element={<ReachOutPage />} />
         <Route path="/tools/profile-check" element={<ProfileCheckPage />} />
+        <Route path="/tools/build-briefs" element={<BuildBriefsPage />} />
         <Route path="/tools/career-path" element={<CareerPathHub />} />
         <Route path="/tools/career-path/dream-job-roadmap" element={<DreamJobRoadmapPage />} />
         <Route path="/tools/career-path/company-levels" element={<CompanyLevelsPage />} />

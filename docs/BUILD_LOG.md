@@ -78,8 +78,8 @@
   - [x] 4.1 Tailor My Resume (`/tools/tailor`) with truth check
   - [x] 4.2 Reach Out (`/tools/reach-out`) with slot-filling & placeholders
   - [x] 4.3 Profile Check (LinkedIn + GitHub) (`/tools/profile-check`)
-- [ ] Stage 5: Group C - What do I build or fix?
-  - [ ] 5.1 Build Briefs (`/tools/build-briefs`) with set-cover bundler
+- [x] Stage 5: Group C - What do I build or fix?
+  - [x] 5.1 Build Briefs (`/tools/build-briefs`) with set-cover bundler
 - [ ] Stage 6: Group D - What offer should I take?
   - [ ] 6.1 Offer model & tax configuration (`tax-config.ts`, `professional-tax.ts`)
   - [ ] 6.2 Calculation engine (`offer/calc.ts`) with marginal relief & 3 worked tests
@@ -178,5 +178,15 @@
 - Registered route `/tools/profile-check` in `App.tsx`.
 - Typecheck clean, all tests passing. Stage 4 ("How do I present myself better?") complete!
 - Next task: Stage 5 (Group C — What do I build or fix? `/tools/build-briefs`).
+
+## Stage 5.1 Handoff Note
+- Created `src/data/suite/project-briefs.json` containing 14 production-grade engineering briefs across 5 domains (Distributed Systems, Full-Stack Web, Data Engineering, Platform & DevOps, AI/ML Applications) with real problem statements, architecture flows, scale targets, verification rubrics, and resume bullet formulas.
+- Created `src/features/suite/briefs/bundleBriefs.ts` featuring a deterministic greedy set-cover algorithm with deterministic tie-breaking (fewest estimated hours, highest difficulty weight, lexicographical ID) and manual selection evaluator.
+- Created `src/features/suite/briefs/__tests__/bundleBriefs.test.ts` (all 6 tests passing).
+- Created `src/features/suite/briefs/BuildBriefsPage.tsx` with dynamic gap source switcher (Company target, My Profile gaps, Custom inputs), optimal bundle summary card, filterable complete briefs library, interactive full-brief inspection drawer, 1-click bullet formula copying, and Build Plan persistence.
+- Registered route `/tools/build-briefs` in `App.tsx`.
+- Typecheck clean, all tests passing. Stage 5 complete!
+- Next task: Stage 6 (Group D — What offer should I take? `/tools/offer-decoder`).
+
 
 
