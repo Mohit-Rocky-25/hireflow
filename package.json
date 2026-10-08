@@ -8,7 +8,12 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "vitest run",
-    "validate:data": "vitest run src/data/__tests__/validateData.test.ts"
+    "validate:data": "vitest run src/data/__tests__/validateData.test.ts",
+    "security:secrets": "node scripts/security/scan-secrets.mjs",
+    "security:audit": "node scripts/security/audit-deps.mjs",
+    "security:bundle": "node scripts/security/scan-bundle.mjs",
+    "security:redteam": "vitest run src/__tests__/security/",
+    "security:check": "node scripts/security/run-check.mjs"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.3.3",

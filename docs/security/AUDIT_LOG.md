@@ -13,10 +13,10 @@
   - [x] 0.1 Branch created (`security/hardening-audit`), uncommitted snapshot saved (`62a7b3f`), live checklist initialized.
   - [x] 0.2 Real architecture inventory documented in `THREAT_MODEL.md`.
   - [x] 0.3 Baseline build and test execution recorded.
-- [ ] **Phase 1 — Security Tooling**
-  - [ ] 1.1 Create `scripts/security/` helper tools.
-  - [ ] 1.2 Wire npm scripts (`security:secrets`, `security:audit`, `security:bundle`, `security:redteam`, `security:check`).
-  - [ ] 1.3 Initialize `src/__tests__/security/` test directory.
+- [x] **Phase 1 — Security Tooling**
+  - [x] 1.1 Create `scripts/security/` helper tools (`scan-secrets.mjs`, `audit-deps.mjs`, `scan-bundle.mjs`, `run-check.mjs`).
+  - [x] 1.2 Wire npm scripts (`security:secrets`, `security:audit`, `security:bundle`, `security:redteam`, `security:check`).
+  - [x] 1.3 Initialize `src/__tests__/security/` test directory and test harness.
 - [ ] **Phase 2 — Secrets, Environment Variables and Hard-Coded Confidential Data**
   - [ ] 2.1 Build `scripts/security/scan-secrets.mjs` with masked reporting.
   - [ ] 2.2 Scan working tree and complete git history for committed secrets.
@@ -91,3 +91,14 @@
     - `tailor.test.ts`: `acceptedIds` undefined reference in recent workspace script.
     - All 32 core Golden Resumes passed with 100% precision & 100% recall.
 - Next: Proceed to Phase 1 (Tooling).
+
+### Phase 1 Handoff Note
+- **Tooling Implemented**:
+  - `scripts/security/scan-secrets.mjs`: Node ESM scanner with Shannon entropy and masked reporting.
+  - `scripts/security/audit-deps.mjs`: Dependency auditor generating `docs/security/DEPENDENCIES.md`.
+  - `scripts/security/scan-bundle.mjs`: Bundle analyzer detecting source maps and stray files in `dist/`.
+  - `scripts/security/run-check.mjs`: Unified CI/CD security check runner.
+  - `scripts/security/allowlist.json`: Documented allowlist for false positives.
+  - `src/__tests__/security/smoke.test.ts`: Test harness verified.
+- **NPM Scripts Wired**: `security:secrets`, `security:audit`, `security:bundle`, `security:redteam`, `security:check`.
+- Next: Proceed to Phase 2 (Secrets, Env Data and Hard-Coded Confidential Data).

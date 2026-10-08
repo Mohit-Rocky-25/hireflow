@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "Allowlist for justified false positives in secret scanning. Every entry requires an audited reason.",
+  "entries": [
+    {
+      "pattern": "your_gemini_api_key_here",
+      "reason": "Dummy placeholder in .env.example and mock fallback code."
+    },
+    {
+      "pattern": "demo123",
+      "reason": "Documented mock password for client-side demo accounts."
+    },
+    {
+      "pattern": "AIza[0-9A-Za-z_\\-]{35}",
+      "files": ["scripts/security/scan-secrets.mjs"],
+      "reason": "Regex pattern used inside the security detector itself."
+    }
+  ]
+}
