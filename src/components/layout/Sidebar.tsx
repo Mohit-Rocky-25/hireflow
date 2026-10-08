@@ -49,6 +49,7 @@ const NAV_ITEMS: Record<UserRole, NavItem[]> = {
   ],
   CANDIDATE: [
     { label: 'Home', path: '/candidate/dashboard', icon: <Home className="w-5 h-5 stroke-[1.5px]" /> },
+    { label: 'Decision Suite', path: '/tools', icon: <Sparkles className="w-5 h-5 stroke-[1.5px]" /> },
     { label: 'Find Jobs', path: '/candidate/jobs', icon: <Search className="w-5 h-5 stroke-[1.5px]" /> },
     { label: 'My Applications', path: '/candidate/applications', icon: <ClipboardList className="w-5 h-5 stroke-[1.5px]" /> },
     { label: 'Interviews', path: '/candidate/interviews', icon: <Calendar className="w-5 h-5 stroke-[1.5px]" /> },

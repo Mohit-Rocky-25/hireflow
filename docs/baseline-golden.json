@@ -1,0 +1,1017 @@
+[
+  {
+    "id": "sde_junior_01",
+    "domain": "Software Engineering",
+    "role": "Junior Fullstack Engineer",
+    "score": 74,
+    "subscores": {
+      "mustHaveCoverage": 30,
+      "evidenceDepth": 20,
+      "impactMetrics": 6.3,
+      "projectsAndOss": 5,
+      "seniorityFit": 10,
+      "formatAndParse": 8.5,
+      "tierFit": 3.5,
+      "niceToHaveCoverage": 0,
+      "titleAlignment": 10,
+      "educationAndCerts": 4,
+      "parseHealth": 4.3
+    },
+    "missingKeywordsCount": 2,
+    "matchedSkills": [
+      "typescript",
+      "react",
+      "node_js",
+      "postgresql"
+    ],
+    "missingSkills": [
+      "aws",
+      "kubernetes"
+    ]
+  },
+  {
+    "id": "sde_senior_java_02",
+    "domain": "Software Engineering",
+    "role": "Senior Java Backend Engineer",
+    "score": 78,
+    "subscores": {
+      "mustHaveCoverage": 27.9,
+      "evidenceDepth": 20,
+      "impactMetrics": 12.5,
+      "projectsAndOss": 5,
+      "seniorityFit": 10,
+      "formatAndParse": 8.5,
+      "tierFit": 3.5,
+      "niceToHaveCoverage": 0,
+      "titleAlignment": 10,
+      "educationAndCerts": 4,
+      "parseHealth": 4.3
+    },
+    "missingKeywordsCount": 1,
+    "matchedSkills": [
+      "java",
+      "spring_boot",
+      "postgresql",
+      "redis",
+      "microservices",
+      "docker",
+      "kubernetes"
+    ],
+    "missingSkills": [
+      "go"
+    ]
+  },
+  {
+    "id": "fe_react_next_03",
+    "domain": "Frontend Web",
+    "role": "Lead Frontend Engineer",
+    "score": 72,
+    "subscores": {
+      "mustHaveCoverage": 27.9,
+      "evidenceDepth": 20,
+      "impactMetrics": 6.3,
+      "projectsAndOss": 5,
+      "seniorityFit": 10,
+      "formatAndParse": 8.5,
+      "tierFit": 3.5,
+      "niceToHaveCoverage": 0,
+      "titleAlignment": 10,
+      "educationAndCerts": 4,
+      "parseHealth": 4.3
+    },
+    "missingKeywordsCount": 2,
+    "matchedSkills": [
+      "typescript",
+      "react",
+      "next_js",
+      "web_performance",
+      "web_vitals",
+      "redux",
+      "zustand"
+    ],
+    "missingSkills": [
+      "angular",
+      "graphql"
+    ]
+  },
+  {
+    "id": "fe_vue_nuxt_04",
+    "domain": "Frontend Web",
+    "role": "Vue.js Developer",
+    "score": 65,
+    "subscores": {
+      "mustHaveCoverage": 27,
+      "evidenceDepth": 19.7,
+      "impactMetrics": 0,
+      "projectsAndOss": 5,
+      "seniorityFit": 10,
+      "formatAndParse": 8.5,
+      "tierFit": 3.5,
+      "niceToHaveCoverage": 0,
+      "titleAlignment": 10,
+      "educationAndCerts": 4,
+      "parseHealth": 4.3
+    },
+    "missingKeywordsCount": 2,
+    "matchedSkills": [
+      "vue",
+      "nuxtjs",
+      "html",
+      "css",
+      "tailwind_css"
+    ],
+    "missingSkills": [
+      "react",
+      "svelte"
+    ]
+  },
+  {
+    "id": "be_golang_05",
+    "domain": "Backend Engineering",
+    "role": "Go Platform Engineer",
+    "score": 44,
+    "subscores": {
+      "mustHaveCoverage": 11.7,
+      "evidenceDepth": 8.7,
+      "impactMetrics": 6.3,
+      "projectsAndOss": 5,
+      "seniorityFit": 10,
+      "formatAndParse": 8.5,
+      "tierFit": 2.5,
+      "niceToHaveCoverage": 0,
+      "titleAlignment": 10,
+      "educationAndCerts": 4,
+      "parseHealth": 4.3
+    },
+    "missingKeywordsCount": 6,
+    "matchedSkills": [
+      "go",
+      "grpc",
+      "kafka",
+      "git"
+    ],
+    "missingSkills": [
+      "cpp",
+      "dsa",
+      "oop",
+      "sql",
+      "java",
+      "python"
+    ]
+  },
+  {
+    "id": "be_python_06",
+    "domain": "Backend Engineering",
+    "role": "Python Backend Engineer",
+    "score": 72,
+    "subscores": {
+      "mustHaveCoverage": 27.9,
+      "evidenceDepth": 20,
+      "impactMetrics": 6.3,
+      "projectsAndOss": 5,
+      "seniorityFit": 10,
+      "formatAndParse": 8.5,
+      "tierFit": 3.5,
+      "niceToHaveCoverage": 0,
+      "titleAlignment": 10,
+      "educationAndCerts": 4,
+      "parseHealth": 4.3
+    },
+    "missingKeywordsCount": 2,
+    "matchedSkills": [
+      "python",
+      "django",
+      "fastapi",
+      "message_queues",
+      "redis",
+      "celery",
+      "postgresql"
+    ],
+    "missingSkills": [
+      "ruby",
+      "ruby_on_rails"
+    ]
+  },
+  {
+    "id": "be_dotnet_07",
+    "domain": "Backend Engineering",
+    "role": ".NET Core Engineer",
+    "score": 74,
+    "subscores": {
+      "mustHaveCoverage": 30,
+      "evidenceDepth": 20,
+      "impactMetrics": 6.3,
+      "projectsAndOss": 5,
+      "seniorityFit": 10,
+      "formatAndParse": 8.5,
+      "tierFit": 3.5,
+      "niceToHaveCoverage": 0,
+      "titleAlignment": 10,
+      "educationAndCerts": 4,
+      "parseHealth": 4.3
+    },
+    "missingKeywordsCount": 2,
+    "matchedSkills": [
+      "csharp",
+      "aspnet_core",
+      "sql",
+      "sql_server",
+      "azure"
+    ],
+    "missingSkills": [
+      "java",
+      "php"
+    ]
+  },
+  {
+    "id": "data_analyst_08",
+    "domain": "Data Analytics",
+    "role": "Senior Data Analyst",
+    "score": 61,
+    "subscores": {
+      "mustHaveCoverage": 25,
+      "evidenceDepth": 17.6,
+      "impactMetrics": 0,
+      "projectsAndOss": 5,
+      "seniorityFit": 10,
+      "formatAndParse": 8.5,
+      "tierFit": 3.5,
+      "niceToHaveCoverage": 0,
+      "titleAlignment": 10,
+      "educationAndCerts": 4,
+      "parseHealth": 4.3
+    },
+    "missingKeywordsCount": 1,
+    "matchedSkills": [
+      "sql",
+      "snowflake",
+      "data_warehousing",
+      "python",
+      "pandas_numpy",
+      "pandas"
+    ],
+    "missingSkills": [
+      "apache_spark"
+    ]
+  },
+  {
+    "id": "data_engineer_09",
+    "domain": "Data Engineering",
+    "role": "Lead Data Engineer",
+    "score": 57,
+    "subscores": {
+      "mustHaveCoverage": 22.5,
+      "evidenceDepth": 16.4,
+      "impactMetrics": 0,
+      "projectsAndOss": 5,
+      "seniorityFit": 10,
+      "formatAndParse": 8.5,
+      "tierFit": 3.5,
+      "niceToHaveCoverage": 0,
+      "titleAlignment": 10,
+      "educationAndCerts": 4,
+      "parseHealth": 4.3
+    },
+    "missingKeywordsCount": 3,
+    "matchedSkills": [
+      "apache_spark",
+      "dbt",
+      "apache_airflow",
+      "airflow",
+      "bigquery",
+      "gcp",
+      "data_warehousing",
+      "python",
+      "sql"
+    ],
+    "missingSkills": [
+      "distributed_systems",
+      "databricks",
+      "kafka"
+    ]
+  },
+  {
+    "id": "ml_engineer_10",
+    "domain": "Machine Learning",
+    "role": "Machine Learning Engineer",
+    "score": 58,
+    "subscores": {
+      "mustHaveCoverage": 19.5,
+      "evidenceDepth": 13.9,
+      "impactMetrics": 6.3,
+      "projectsAndOss": 5,
+      "seniorityFit": 10,
+      "formatAndParse": 8.5,
+      "tierFit": 3.5,
+      "niceToHaveCoverage": 0,
+      "titleAlignment": 10,
+      "educationAndCerts": 4,
+      "parseHealth": 4.3
+    },
+    "missingKeywordsCount": 5,
+    "matchedSkills": [
+      "machine_learning",
+      "deep_learning",
+      "pytorch",
+      "tensorflow",
+      "mlops",
+      "scikit_learn",
+      "python",
+      "docker"
+    ],
+    "missingSkills": [
+      "pandas_numpy",
+      "pandas",
+      "transformers_hf",
+      "langchain",
+      "hugging_face"
+    ]
+  },
+  {
+    "id": "ai_rag_11",
+    "domain": "Artificial Intelligence",
+    "role": "Generative AI Engineer",
+    "score": 75,
+    "subscores": {
+      "mustHaveCoverage": 25.7,
+      "evidenceDepth": 18.7,
+      "impactMetrics": 12.5,
+      "projectsAndOss": 5,
+      "seniorityFit": 10,
+      "formatAndParse": 8.5,
+      "tierFit": 3.5,
+      "niceToHaveCoverage": 0,
+      "titleAlignment": 10,
+      "educationAndCerts": 4,
+      "parseHealth": 4.3
+    },
+    "missingKeywordsCount": 1,
+    "matchedSkills": [
+      "llms",
+      "langchain",
+      "rag",
+      "vector_databases",
+      "transformers_hf",
+      "hugging_face",
+      "python"
+    ],
+    "missingSkills": [
+      "cpp"
+    ]
+  },
+  {
+    "id": "devops_k8s_12",
+    "domain": "Cloud / DevOps",
+    "role": "Senior DevOps Engineer",
+    "score": 56,
+    "subscores": {
+      "mustHaveCoverage": 22.5,
+      "evidenceDepth": 15.4,
+      "impactMetrics": 0,
+      "projectsAndOss": 5,
+      "seniorityFit": 10,
+      "formatAndParse": 8.5,
+      "tierFit": 3.5,
+      "niceToHaveCoverage": 0,
+      "titleAlignment": 10,
+      "educationAndCerts": 4,
+      "parseHealth": 4.3
+    },
+    "missingKeywordsCount": 2,
+    "matchedSkills": [
+      "aws",
+      "kubernetes",
+      "terraform",
+      "helm",
+      "ci_cd",
+      "github_actions",
+      "github",
+      "docker",
+      "linux_sysadmin",
+      "linux"
+    ],
+    "missingSkills": [
+      "pulumi",
+      "ansible"
+    ]
+  },
+  {
+    "id": "sre_observability_13",
+    "domain": "Cloud / DevOps",
+    "role": "Site Reliability Engineer",
+    "score": 74,
+    "subscores": {
+      "mustHaveCoverage": 30,
+      "evidenceDepth": 20,
+      "impactMetrics": 6.3,
+      "projectsAndOss": 5,
+      "seniorityFit": 10,
+      "formatAndParse": 8.5,
+      "tierFit": 3.5,
+      "niceToHaveCoverage": 0,
+      "titleAlignment": 10,
+      "educationAndCerts": 4,
+      "parseHealth": 4.3
+    },
+    "missingKeywordsCount": 1,
+    "matchedSkills": [
+      "prometheus",
+      "grafana",
+      "opentelemetry",
+      "distributed_tracing",
+      "site_reliability_engineering"
+    ],
+    "missingSkills": [
+      "datadog"
+    ]
+  },
+  {
+    "id": "mobile_ios_14",
+    "domain": "Mobile Engineering",
+    "role": "Senior iOS Developer",
+    "score": 64,
+    "subscores": {
+      "mustHaveCoverage": 24,
+      "evidenceDepth": 16.1,
+      "impactMetrics": 6.3,
+      "projectsAndOss": 5,
+      "seniorityFit": 10,
+      "formatAndParse": 8.5,
+      "tierFit": 3.5,
+      "niceToHaveCoverage": 0,
+      "titleAlignment": 10,
+      "educationAndCerts": 4,
+      "parseHealth": 4.3
+    },
+    "missingKeywordsCount": 2,
+    "matchedSkills": [
+      "ios_development",
+      "swift",
+      "swiftui",
+      "ios_dev",
+      "mobile_cicd"
+    ],
+    "missingSkills": [
+      "android_development",
+      "flutter"
+    ]
+  },
+  {
+    "id": "mobile_android_15",
+    "domain": "Mobile Engineering",
+    "role": "Android Engineer",
+    "score": 55,
+    "subscores": {
+      "mustHaveCoverage": 22.5,
+      "evidenceDepth": 14.1,
+      "impactMetrics": 0,
+      "projectsAndOss": 5,
+      "seniorityFit": 10,
+      "formatAndParse": 8.5,
+      "tierFit": 3.5,
+      "niceToHaveCoverage": 0,
+      "titleAlignment": 10,
+      "educationAndCerts": 4,
+      "parseHealth": 4.3
+    },
+    "missingKeywordsCount": 2,
+    "matchedSkills": [
+      "android_development",
+      "kotlin",
+      "android_sdk",
+      "jetpack_compose"
+    ],
+    "missingSkills": [
+      "react",
+      "react_native"
+    ]
+  },
+  {
+    "id": "mobile_rn_16",
+    "domain": "Mobile Engineering",
+    "role": "Cross-Platform Mobile Engineer",
+    "score": 53,
+    "subscores": {
+      "mustHaveCoverage": 16.9,
+      "evidenceDepth": 11.3,
+      "impactMetrics": 6.3,
+      "projectsAndOss": 5,
+      "seniorityFit": 10,
+      "formatAndParse": 8.5,
+      "tierFit": 3.5,
+      "niceToHaveCoverage": 0,
+      "titleAlignment": 10,
+      "educationAndCerts": 4,
+      "parseHealth": 4.3
+    },
+    "missingKeywordsCount": 3,
+    "matchedSkills": [
+      "react",
+      "react_native",
+      "typescript",
+      "javascript",
+      "css",
+      "git"
+    ],
+    "missingSkills": [
+      "objective_c",
+      "html",
+      "rest_apis"
+    ]
+  },
+  {
+    "id": "security_pentest_17",
+    "domain": "Cybersecurity",
+    "role": "Security Engineer",
+    "score": 68,
+    "subscores": {
+      "mustHaveCoverage": 30,
+      "evidenceDepth": 20,
+      "impactMetrics": 0,
+      "projectsAndOss": 5,
+      "seniorityFit": 10,
+      "formatAndParse": 8.5,
+      "tierFit": 3.5,
+      "niceToHaveCoverage": 0,
+      "titleAlignment": 10,
+      "educationAndCerts": 4,
+      "parseHealth": 4.3
+    },
+    "missingKeywordsCount": 1,
+    "matchedSkills": [
+      "application_security",
+      "cybersecurity",
+      "penetration_testing",
+      "security_tools"
+    ],
+    "missingSkills": [
+      "cryptography"
+    ]
+  },
+  {
+    "id": "embedded_firmware_18",
+    "domain": "Embedded Systems",
+    "role": "Firmware Engineer",
+    "score": 68,
+    "subscores": {
+      "mustHaveCoverage": 30,
+      "evidenceDepth": 20,
+      "impactMetrics": 0,
+      "projectsAndOss": 5,
+      "seniorityFit": 10,
+      "formatAndParse": 8.5,
+      "tierFit": 3.5,
+      "niceToHaveCoverage": 0,
+      "titleAlignment": 10,
+      "educationAndCerts": 4,
+      "parseHealth": 4.3
+    },
+    "missingKeywordsCount": 1,
+    "matchedSkills": [
+      "embedded_c",
+      "c",
+      "microcontrollers",
+      "rtos",
+      "hardware_protocols"
+    ],
+    "missingSkills": [
+      "robotics_ros"
+    ]
+  },
+  {
+    "id": "mech_cad_19",
+    "domain": "Core Mechanical",
+    "role": "Mechanical Design Engineer",
+    "score": 63,
+    "subscores": {
+      "mustHaveCoverage": 26.3,
+      "evidenceDepth": 18.2,
+      "impactMetrics": 0,
+      "projectsAndOss": 5,
+      "seniorityFit": 10,
+      "formatAndParse": 8.5,
+      "tierFit": 3.5,
+      "niceToHaveCoverage": 0,
+      "titleAlignment": 10,
+      "educationAndCerts": 4,
+      "parseHealth": 4.3
+    },
+    "missingKeywordsCount": 1,
+    "matchedSkills": [
+      "autocad",
+      "solidworks",
+      "gdt_standards",
+      "dfm_dfa"
+    ],
+    "missingSkills": [
+      "ansys"
+    ]
+  },
+  {
+    "id": "mech_fea_20",
+    "domain": "Core Mechanical",
+    "role": "CAE Simulation Engineer",
+    "score": 68,
+    "subscores": {
+      "mustHaveCoverage": 30,
+      "evidenceDepth": 20,
+      "impactMetrics": 0,
+      "projectsAndOss": 5,
+      "seniorityFit": 10,
+      "formatAndParse": 8.5,
+      "tierFit": 3.5,
+      "niceToHaveCoverage": 0,
+      "titleAlignment": 10,
+      "educationAndCerts": 4,
+      "parseHealth": 4.3
+    },
+    "missingKeywordsCount": 1,
+    "matchedSkills": [
+      "ansys",
+      "abaqus",
+      "cfd_fluent",
+      "catia"
+    ],
+    "missingSkills": [
+      "siemens_nx"
+    ]
+  },
+  {
+    "id": "civil_structural_21",
+    "domain": "Core Civil",
+    "role": "Structural Civil Engineer",
+    "score": 63,
+    "subscores": {
+      "mustHaveCoverage": 26.3,
+      "evidenceDepth": 18.2,
+      "impactMetrics": 0,
+      "projectsAndOss": 5,
+      "seniorityFit": 10,
+      "formatAndParse": 8.5,
+      "tierFit": 3.5,
+      "niceToHaveCoverage": 0,
+      "titleAlignment": 10,
+      "educationAndCerts": 4,
+      "parseHealth": 4.3
+    },
+    "missingKeywordsCount": 1,
+    "matchedSkills": [
+      "staad_pro",
+      "autocad",
+      "revit_bim",
+      "project_planning_eng"
+    ],
+    "missingSkills": [
+      "civil_3d"
+    ]
+  },
+  {
+    "id": "automation_plc_22",
+    "domain": "Industrial Automation",
+    "role": "Automation Controls Engineer",
+    "score": 40,
+    "subscores": {
+      "mustHaveCoverage": 9,
+      "evidenceDepth": 7.2,
+      "impactMetrics": 6.3,
+      "projectsAndOss": 5,
+      "seniorityFit": 10,
+      "formatAndParse": 8.5,
+      "tierFit": 2.5,
+      "niceToHaveCoverage": 0,
+      "titleAlignment": 10,
+      "educationAndCerts": 4,
+      "parseHealth": 4.3
+    },
+    "missingKeywordsCount": 8,
+    "matchedSkills": [
+      "plc_programming",
+      "scada_hmi",
+      "hardware_protocols"
+    ],
+    "missingSkills": [
+      "six_sigma_lean",
+      "dsa",
+      "oop",
+      "git",
+      "sql",
+      "java",
+      "python",
+      "cpp"
+    ]
+  },
+  {
+    "id": "ambiguity_c_23",
+    "domain": "Ambiguity Guard",
+    "role": "Systems Programmer",
+    "score": 37,
+    "subscores": {
+      "mustHaveCoverage": 11.7,
+      "evidenceDepth": 8.7,
+      "impactMetrics": 0,
+      "projectsAndOss": 5,
+      "seniorityFit": 10,
+      "formatAndParse": 8.5,
+      "tierFit": 2.5,
+      "niceToHaveCoverage": 0,
+      "titleAlignment": 10,
+      "educationAndCerts": 4,
+      "parseHealth": 4.3
+    },
+    "missingKeywordsCount": 6,
+    "matchedSkills": [
+      "c",
+      "linux_sysadmin",
+      "linux",
+      "git"
+    ],
+    "missingSkills": [
+      "rust",
+      "docker",
+      "kubernetes",
+      "terraform",
+      "ci_cd",
+      "bash"
+    ]
+  },
+  {
+    "id": "ambiguity_false_c_24",
+    "domain": "Ambiguity Guard",
+    "role": "Nutrition Analyst",
+    "score": 17,
+    "subscores": {
+      "mustHaveCoverage": 0,
+      "evidenceDepth": 0,
+      "impactMetrics": 0,
+      "projectsAndOss": 5,
+      "seniorityFit": 10,
+      "formatAndParse": 8.5,
+      "tierFit": 2.5,
+      "niceToHaveCoverage": 10,
+      "titleAlignment": 10,
+      "educationAndCerts": 4,
+      "parseHealth": 4.3
+    },
+    "missingKeywordsCount": 8,
+    "matchedSkills": [],
+    "missingSkills": [
+      "c",
+      "python",
+      "dsa",
+      "oop",
+      "git",
+      "sql",
+      "java",
+      "cpp"
+    ]
+  },
+  {
+    "id": "ambiguity_false_go_25",
+    "domain": "Ambiguity Guard",
+    "role": "Project Coordinator",
+    "score": 17,
+    "subscores": {
+      "mustHaveCoverage": 0,
+      "evidenceDepth": 0,
+      "impactMetrics": 0,
+      "projectsAndOss": 5,
+      "seniorityFit": 10,
+      "formatAndParse": 8.5,
+      "tierFit": 2.5,
+      "niceToHaveCoverage": 10,
+      "titleAlignment": 10,
+      "educationAndCerts": 4,
+      "parseHealth": 4.3
+    },
+    "missingKeywordsCount": 9,
+    "matchedSkills": [],
+    "missingSkills": [
+      "go",
+      "postgresql",
+      "sql",
+      "rest_apis",
+      "git",
+      "dsa",
+      "node_js",
+      "python",
+      "java"
+    ]
+  },
+  {
+    "id": "ambiguity_false_rust_26",
+    "domain": "Ambiguity Guard",
+    "role": "Materials Inspector",
+    "score": 17,
+    "subscores": {
+      "mustHaveCoverage": 0,
+      "evidenceDepth": 0,
+      "impactMetrics": 0,
+      "projectsAndOss": 5,
+      "seniorityFit": 10,
+      "formatAndParse": 8.5,
+      "tierFit": 2.5,
+      "niceToHaveCoverage": 10,
+      "titleAlignment": 10,
+      "educationAndCerts": 4,
+      "parseHealth": 4.3
+    },
+    "missingKeywordsCount": 8,
+    "matchedSkills": [],
+    "missingSkills": [
+      "rust",
+      "docker",
+      "linux",
+      "kubernetes",
+      "terraform",
+      "ci_cd",
+      "bash",
+      "git"
+    ]
+  },
+  {
+    "id": "ambiguity_false_swift_27",
+    "domain": "Ambiguity Guard",
+    "role": "Customer Support Rep",
+    "score": 23,
+    "subscores": {
+      "mustHaveCoverage": 0,
+      "evidenceDepth": 0,
+      "impactMetrics": 6.3,
+      "projectsAndOss": 5,
+      "seniorityFit": 10,
+      "formatAndParse": 8.5,
+      "tierFit": 2.5,
+      "niceToHaveCoverage": 10,
+      "titleAlignment": 10,
+      "educationAndCerts": 4,
+      "parseHealth": 4.3
+    },
+    "missingKeywordsCount": 6,
+    "matchedSkills": [],
+    "missingSkills": [
+      "ios_development",
+      "ios_dev",
+      "swift",
+      "swiftui",
+      "rest_apis",
+      "git"
+    ]
+  },
+  {
+    "id": "negation_aws_28",
+    "domain": "Negation Guard",
+    "role": "Web Developer",
+    "score": 50,
+    "subscores": {
+      "mustHaveCoverage": 18.8,
+      "evidenceDepth": 13.4,
+      "impactMetrics": 0,
+      "projectsAndOss": 5,
+      "seniorityFit": 10,
+      "formatAndParse": 8.5,
+      "tierFit": 3.5,
+      "niceToHaveCoverage": 10,
+      "titleAlignment": 10,
+      "educationAndCerts": 4,
+      "parseHealth": 4.3
+    },
+    "missingKeywordsCount": 2,
+    "matchedSkills": [
+      "typescript",
+      "react",
+      "javascript",
+      "html",
+      "css",
+      "git"
+    ],
+    "missingSkills": [
+      "aws",
+      "rest_apis"
+    ]
+  },
+  {
+    "id": "implication_nextjs_29",
+    "domain": "Implication Graph",
+    "role": "SSR Web Developer",
+    "score": 42,
+    "subscores": {
+      "mustHaveCoverage": 15,
+      "evidenceDepth": 9.3,
+      "impactMetrics": 0,
+      "projectsAndOss": 5,
+      "seniorityFit": 10,
+      "formatAndParse": 8.5,
+      "tierFit": 3.5,
+      "niceToHaveCoverage": 10,
+      "titleAlignment": 10,
+      "educationAndCerts": 4,
+      "parseHealth": 4.3
+    },
+    "missingKeywordsCount": 2,
+    "matchedSkills": [
+      "react",
+      "javascript",
+      "html",
+      "css",
+      "git"
+    ],
+    "missingSkills": [
+      "typescript",
+      "rest_apis"
+    ]
+  },
+  {
+    "id": "substitute_db_30",
+    "domain": "Substitute Graph",
+    "role": "Backend Engineer",
+    "score": 29,
+    "subscores": {
+      "mustHaveCoverage": 7.5,
+      "evidenceDepth": 4.4,
+      "impactMetrics": 0,
+      "projectsAndOss": 5,
+      "seniorityFit": 10,
+      "formatAndParse": 8.5,
+      "tierFit": 2.5,
+      "niceToHaveCoverage": 10,
+      "titleAlignment": 10,
+      "educationAndCerts": 4,
+      "parseHealth": 4.3
+    },
+    "missingKeywordsCount": 6,
+    "matchedSkills": [
+      "sql",
+      "postgresql",
+      "git",
+      "python"
+    ],
+    "missingSkills": [
+      "mysql",
+      "sql_optimization",
+      "rest_apis",
+      "dsa",
+      "node_js",
+      "java"
+    ]
+  },
+  {
+    "id": "or_group_java_kotlin_31",
+    "domain": "OR Group",
+    "role": "Android Engineer",
+    "score": 61,
+    "subscores": {
+      "mustHaveCoverage": 22.5,
+      "evidenceDepth": 13.9,
+      "impactMetrics": 6.3,
+      "projectsAndOss": 5,
+      "seniorityFit": 10,
+      "formatAndParse": 8.5,
+      "tierFit": 3.5,
+      "niceToHaveCoverage": 10,
+      "titleAlignment": 10,
+      "educationAndCerts": 4,
+      "parseHealth": 4.3
+    },
+    "missingKeywordsCount": 0,
+    "matchedSkills": [
+      "java",
+      "kotlin",
+      "android_development",
+      "android_sdk"
+    ],
+    "missingSkills": []
+  },
+  {
+    "id": "lateral_mech_software_32",
+    "domain": "Cross-Discipline",
+    "role": "Mechanical Engineer learning Software",
+    "score": 31,
+    "subscores": {
+      "mustHaveCoverage": 10.7,
+      "evidenceDepth": 11,
+      "impactMetrics": 0,
+      "projectsAndOss": 5,
+      "seniorityFit": 7.5,
+      "formatAndParse": 6.5,
+      "tierFit": 2.5,
+      "niceToHaveCoverage": 5,
+      "titleAlignment": 7.5,
+      "educationAndCerts": 4,
+      "parseHealth": 3.3
+    },
+    "missingKeywordsCount": 5,
+    "matchedSkills": [
+      "python",
+      "react",
+      "solidworks",
+      "git"
+    ],
+    "missingSkills": [
+      "cpp",
+      "dsa",
+      "oop",
+      "sql",
+      "java"
+    ]
+  }
+]

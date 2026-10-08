@@ -11,10 +11,15 @@ import {
   Brain, CheckCircle2, XCircle, AlertTriangle, HelpCircle,
   ChevronDown, ChevronUp, ArrowLeft, RefreshCw, Users,
   MessageSquare, Target, Shield, TrendingUp, Eye, Clock,
-  Briefcase, Award, Star, ChevronRight, Sparkles
+  Briefcase, Award, Star, ChevronRight, Sparkles, Bookmark, Building2
 } from 'lucide-react';
 import { analyzeCandidate } from '../../ai/matching';
 import type { CandidateMatch, RequirementAssessment } from '../../types';
+import { useProfile } from '../../features/suite/profile/ProfileContext';
+import { QuickSummaryCard } from '../../features/suite/components/QuickSummaryCard';
+import { buildQuickSummary } from '../../features/suite/engine/quickSummary';
+import { SimulationFacts } from '../../features/suite/engine/simulateFix';
+import { DEMO_TALENTLENS_RESUME } from '../demo/useTalentLensStore';
 
 // ── Status Components ──
 function EligibilityBadge({ status }: { status: string }) {
@@ -185,6 +190,7 @@ function RequirementCard({ assessment }: { assessment: RequirementAssessment }) 
 // ── Main Component ──
 export function TalentLens() {
   const navigate = useNavigate();
+  const { profile: suiteProfile, saveFromResumeText, openDrawer } = useProfile();
   const { users, candidateProfiles, applications, jobs, createMatch, candidateMatches } = useStore();
   const candidateId = "user-cand-1"; // Standalone demo
   const currentCompanyId = "comp-alpha-tech"; // Standalone demo
@@ -192,6 +198,7 @@ export function TalentLens() {
   const [match, setMatch] = useState<CandidateMatch | null>(null);
   const [selectedJobId, setSelectedJobId] = useState<string>('');
   const [analyzing, setAnalyzing] = useState(false);
+  const [showFullTalentLensReport, setShowFullTalentLensReport] = useState(true);
   const [activeTab, setActiveTab] = useState<'overview' | 'requirements' | 'gaps' | 'interview'>('overview');
   const [error, setError] = useState<string | null>(null);
 
@@ -238,6 +245,35 @@ export function TalentLens() {
       setAnalyzing(false);
     }
   };
+
+  const talentLensSummary = match ? buildQuickSummary({
+    skillResults: match.requirementAssessments.map(ra => {
+      const quote = ra.evidenceText || '';
+      const evidenceQuote = quote ? [{
+        quote,
+        section: ra.evidenceSource || 'experience',
+        charStart: 0,
+        charEnd: quote.length,
+        hasMetric: false,
+        evidenceTier: ra.status === 'STRONG' ? 0.85 : 0.5,
+      }] : [];
+
+      return {
+        skillId: ra.requirementId,
+        canonical: ra.requirementName,
+        category: 'general',
+        required: (ra.requirementPriority === 'MANDATORY' ? 'must' : 'nice') as 'must' | 'nice',
+        weight: ra.requirementPriority === 'MANDATORY' ? 4 : 2,
+        found: ra.status !== 'MISSING',
+        status: ra.status === 'STRONG' ? ('verified' as const) : ra.status === 'PARTIAL' || ra.status === 'INFERRED' ? ('weak' as const) : ('missing' as const),
+        proficiency: ra.status === 'STRONG' ? 3 : ra.status === 'PARTIAL' ? 2 : 0,
+        evidence: evidenceQuote,
+        evidenceQuotes: evidenceQuote,
+      };
+    }),
+    baseScore: match.overallScore,
+    wordCount: 300,
+  }, suiteProfile) : null;
 
   if (!candidate) {
     return (
@@ -307,6 +343,14 @@ export function TalentLens() {
             {analyzing ? <RefreshCw className="w-[16px] h-[16px] animate-spin" /> : <Brain className="w-[16px] h-[16px]" />}
             {analyzing ? 'Analyzing…' : match ? 'Re-Analyze' : 'Analyze'}
           </button>
+
+          <Link
+            to="/tools/company-compare"
+            className="h-[40px] px-[14px] border border-border rounded-lg text-[13px] font-semibold bg-surface hover:bg-surface-2 flex items-center gap-1.5 text-text-secondary hover:text-text transition-colors"
+          >
+            <Building2 className="w-4 h-4 text-primary" />
+            Compare Companies
+          </Link>
         </div>
       </div>
 
@@ -345,14 +389,35 @@ export function TalentLens() {
       )}
 
       {match && (
-        <>
-          {/* Score Overview */}
+        <div className="space-y-6">
+          {talentLensSummary && (
+            <QuickSummaryCard
+              summary={talentLensSummary}
+              score={match.overallScore}
+              isFullReportVisible={showFullTalentLensReport}
+              onToggleFullReport={() => setShowFullTalentLensReport((prev) => !prev)}
+            />
+          )}
+
+          {showFullTalentLensReport && (
+            <>
+              {/* Score Overview */}
           <div className="bg-surface border border-border rounded-2xl p-[24px]">
             <div className="flex items-start justify-between mb-[24px]">
               <div>
                 <div className="flex items-center gap-[12px] mb-[4px]">
                   <h2 className="text-[18px] font-bold text-text">Intelligence Report</h2>
                   <EligibilityBadge status={match.eligibility} />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      saveFromResumeText(profile?.resumeRawText || DEMO_TALENTLENS_RESUME.text);
+                      openDrawer();
+                    }}
+                    className="ml-2 px-3 py-1 bg-primary/10 hover:bg-primary/20 border border-primary/30 text-xs font-bold rounded-lg text-primary transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs"
+                  >
+                    <Bookmark className="w-3.5 h-3.5" /> Save to my profile
+                  </button>
                 </div>
                 <p className="text-[14px] text-text-secondary">{match.explanation}</p>
               </div>
@@ -567,7 +632,9 @@ export function TalentLens() {
               {match.inputHash && ` · Hash: ${match.inputHash}`}
             </p>
           </div>
-        </>
+            </>
+          )}
+        </div>
       )}
       </div>
     </div>

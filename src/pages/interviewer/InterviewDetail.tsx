@@ -6,6 +6,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useStore } from '../../store/useStore';
 import { ArrowLeft, Calendar, Clock, Video, CheckCircle, Star, User, Briefcase, FileText } from 'lucide-react';
 import { toast } from '../../components/ui/Toast';
+import { InterviewEvidenceChecklistPanel } from './components/InterviewEvidenceChecklistPanel';
 
 export function InterviewDetail() {
   const { id } = useParams();
@@ -186,7 +187,16 @@ export function InterviewDetail() {
         </div>
 
         {/* Structured Feedback Form */}
-        <div className="lg:col-span-2">
+        <div className="lg:col-span-2 space-y-6">
+          <InterviewEvidenceChecklistPanel
+            candidateName={candidate.displayName}
+            candidateSkills={profile?.skills || []}
+            jobTitle={job.title}
+            onAppendFeedback={(text) =>
+              setWrittenFeedback((prev) => (prev ? `${prev}\n\n${text}` : text))
+            }
+          />
+
           <div className="bg-surface rounded-card border border-border p-6 shadow-card">
             <div className="flex items-center justify-between mb-6 pb-4 border-b border-border">
               <div>

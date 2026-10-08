@@ -4,6 +4,7 @@
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useStore } from '../../store/useStore';
 import { ArrowLeft, Brain, CheckCircle, Clock, AlertTriangle, Mail, MapPin, Phone } from 'lucide-react';
+import { CandidateEvidenceCardPanel } from './components/CandidateEvidenceCardPanel';
 
 export function CandidateDetail() {
   const { candidateId: id } = useParams();
@@ -61,6 +62,13 @@ export function CandidateDetail() {
 
         {/* Applications + Match */}
         <div className="lg:col-span-2 space-y-4">
+          {/* Verifiable Evidence Card Panel */}
+          <CandidateEvidenceCardPanel
+            candidateName={user.displayName}
+            candidateSkills={profile?.skills || []}
+            companyJobs={jobs.filter(j => j.companyId === currentCompanyId)}
+          />
+
           {candidateApps.map(app => {
             const job = jobs.find(j => j.id === app.jobId);
             const match = matches.find(m => m.applicationId === app.id);

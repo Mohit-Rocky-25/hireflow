@@ -1,0 +1,282 @@
+[
+  {
+    "id": "brief-dist-rate-limiter",
+    "title": "Distributed Rate Limiter & Token Bucket Gateway",
+    "domain": "Distributed Systems",
+    "estimatedHours": 20,
+    "difficulty": "intermediate",
+    "coveredSkills": ["Go", "Redis", "Docker", "gRPC", "Concurrency", "System Design"],
+    "problemStatement": "Multi-tenant APIs frequently experience 'noisy neighbor' spikes and DDoS vectors. Build a low-latency, sliding-window and token-bucket distributed rate limiting proxy that intercepts traffic and coordinates token consumption across a Redis cluster with zero race conditions.",
+    "architecture": "High-throughput reverse proxy written in Go using atomic Redis Lua scripts to execute sliding window counter increments in < 2ms. Supports gRPC streaming and HTTP middleware headers (X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset).",
+    "scaleTargets": "Sustain 25,000 req/sec across 4 worker nodes with p99 latency overhead < 3.5ms and 99.99% enforcement accuracy.",
+    "techStack": ["Go", "Redis", "Docker", "gRPC", "Prometheus"],
+    "verificationRubric": [
+      "Live deployment or Docker Compose 1-line setup (docker compose up -d)",
+      "k6 or Locust benchmark script simulating 25k RPS under concurrent spikes",
+      "Redis Lua script preventing check-then-act race conditions under concurrency",
+      "Prometheus metrics endpoint exporting dropped vs permitted counter metrics",
+      "Comprehensive README with ASCII / Mermaid sequence diagram"
+    ],
+    "portfolioBulletFormula": "Engineered distributed rate limiting proxy in Go & Redis using atomic Lua scripts; protected 4 upstream services while maintaining < 3.5ms p99 overhead under 25k RPS load."
+  },
+  {
+    "id": "brief-realtime-collab",
+    "title": "Real-Time Collaborative Document Canvas",
+    "domain": "Full-Stack Web",
+    "estimatedHours": 25,
+    "difficulty": "advanced",
+    "coveredSkills": ["TypeScript", "React", "WebSockets", "Node.js", "CRDT", "Algorithms"],
+    "problemStatement": "Concurrent document editors suffer from conflict desynchronization and high latency over lossy networks. Build a zero-conflict collaborative whiteboard or markdown editor where remote edits seamlessly converge using Conflict-free Replicated Data Types (CRDTs).",
+    "architecture": "React frontend using Canvas API / Yjs state model connected over WebSocket channels to a Node.js sync server. Implements state-based CRDTs with presence awareness (live cursor coordinates, user avatars) and local-first indexedDB offline persistence.",
+    "scaleTargets": "Seamless synchronization between 10+ concurrent editors per room with < 50ms peer-to-peer broadcast latency and offline-online re-convergence.",
+    "techStack": ["TypeScript", "React", "WebSockets", "Node.js", "Yjs", "IndexedDB"],
+    "verificationRubric": [
+      "Live deployed demo on Vercel/Render with multi-window link sharing",
+      "Offline resilience demo: disconnect Wi-Fi, edit locally, reconnect without data loss",
+      "Cursor broadcast with smooth interpolation and color-coded user badges",
+      "Test suite verifying CRDT convergence across out-of-order packet delivery",
+      "Architecture document explaining operational transformation vs CRDT tradeoffs"
+    ],
+    "portfolioBulletFormula": "Architected real-time collaborative editor in TypeScript, React, and WebSockets using Yjs CRDTs; enabled conflict-free multi-user editing with < 50ms broadcast sync and full offline resilience."
+  },
+  {
+    "id": "brief-event-recon",
+    "title": "Event-Driven Payment Reconciliation Engine",
+    "domain": "Data Engineering",
+    "estimatedHours": 30,
+    "difficulty": "advanced",
+    "coveredSkills": ["Python", "Kafka", "PostgreSQL", "Docker", "Microservices", "SQL"],
+    "problemStatement": "Fintech platforms process millions of transaction events across third-party gateways (Stripe, Razorpay, Bank APIs) that often mismatch due to webhook dropped packets, bank settlements, and timezone drift. Build an automated reconciliation engine with idempotent ledger tracking.",
+    "architecture": "Kafka consumers ingest raw gateway webhooks into an append-only transaction ledger in PostgreSQL. A reconciliation worker runs interval matrix joins detecting pending, settled, and discrepant transactions, emitting webhook alerts on discrepancy anomalies.",
+    "scaleTargets": "Reconcile 500,000 transaction pairs in under 3 minutes with exactly-once idempotency and 100% discrepancy detection precision.",
+    "techStack": ["Python", "Kafka", "PostgreSQL", "SQLAlchemy", "Docker", "FastAPI"],
+    "verificationRubric": [
+      "Dockerized test environment with simulated mock banking settlement feeds",
+      "Idempotency key enforcement preventing double-credit on retried webhooks",
+      "Automated discrepancy reporting generating downloadable CSV/PDF audit trails",
+      "Unit tests with 90%+ branch coverage validating out-of-order webhook ingest",
+      "PostgreSQL schema designed with double-entry bookkeeping constraints"
+    ],
+    "portfolioBulletFormula": "Built event-driven payment reconciliation system in Python & Kafka backed by PostgreSQL; matched 500k daily transaction events with 100% precision and zero-loss idempotency."
+  },
+  {
+    "id": "brief-dist-cache-rust",
+    "title": "Distributed In-Memory Cache with Eviction & Sharding",
+    "domain": "Distributed Systems",
+    "estimatedHours": 35,
+    "difficulty": "advanced",
+    "coveredSkills": ["Rust", "Concurrency", "Networking", "System Design", "Linux"],
+    "problemStatement": "High-throughput applications exhaust traditional database connections without localized caching layers. Build a custom multi-threaded in-memory key-value cache engine in Rust supporting consistent hashing sharding and pluggable eviction policies (LRU / LFU).",
+    "architecture": "Rust async network server using Tokio and custom lock-free or striped concurrent hash maps. Implements TCP custom binary protocol with consistent hash ring node discovery and background TTL tombstone sweeps.",
+    "scaleTargets": "Achieve 80,000 read operations/sec per thread with memory footprint under 64MB and p99 read latency < 800 microseconds.",
+    "techStack": ["Rust", "Tokio", "TCP", "Concurrency", "System Architecture"],
+    "verificationRubric": [
+      "Cargo benchmark suite showing throughput comparisons against Redis baseline",
+      "Thread safety proven via Rust borrow-checker and stress tests with 100 threads",
+      "Consistent hashing visualization script illustrating re-balancing upon node leave/join",
+      "Pluggable eviction policy trait implementation for LRU, LFU, and FIFO",
+      "CI workflow running cargo clippy, cargo test, and memory sanitizers"
+    ],
+    "portfolioBulletFormula": "Designed high-performance concurrent key-value cache in Rust using Tokio; achieved 80k ops/sec with sub-millisecond p99 latencies using custom consistent hashing and LRU eviction."
+  },
+  {
+    "id": "brief-analytics-clickhouse",
+    "title": "Multi-Tenant B2B Event Analytics Engine",
+    "domain": "Data Engineering",
+    "estimatedHours": 25,
+    "difficulty": "intermediate",
+    "coveredSkills": ["Kafka", "ClickHouse", "Node.js", "SQL", "Docker", "Data Pipelines"],
+    "problemStatement": "SaaS analytics products struggle to query billions of clickstream events in real-time without costly batch compute. Build an analytical ingestion pipeline that streams client telemetry into ClickHouse with instant aggregations.",
+    "architecture": "HTTP telemetry ingestion worker queues JSON beacons into Kafka topics. Kafka-ClickHouse engine tables batch write columnar rows into partition-backed MergeTree tables. A GraphQL/REST API queries funnels, retention cohorts, and time-series aggregations in real time.",
+    "scaleTargets": "Ingest 10,000 events/sec while serving 95% of aggregate dashboard queries in < 100ms over 10M+ recorded events.",
+    "techStack": ["ClickHouse", "Kafka", "Node.js", "Docker", "SQL", "TypeScript"],
+    "verificationRubric": [
+      "ClickHouse MergeTree schema with primary keys tuned for date-partitioning",
+      "Simulated traffic generator streaming 1M events into the ingestion pipeline",
+      "SQL query suite demonstrating funnel conversion and 30-day cohort retention",
+      "Docker compose bundle orchestrating ClickHouse, Kafka, and API services",
+      "Architecture benchmark documenting read/write IOPS and compression ratios"
+    ],
+    "portfolioBulletFormula": "Implemented multi-tenant telemetry pipeline using Kafka and ClickHouse; delivered sub-100ms dashboard aggregations over 10M+ events with an 8x data compression ratio."
+  },
+  {
+    "id": "brief-fullstack-ecommerce",
+    "title": "Full-Stack Headless E-Commerce with Optimistic UI",
+    "domain": "Full-Stack Web",
+    "estimatedHours": 20,
+    "difficulty": "intermediate",
+    "coveredSkills": ["React", "TypeScript", "PostgreSQL", "Next.js", "Stripe", "REST APIs"],
+    "problemStatement": "Traditional e-commerce carts suffer from high bounce rates due to checkout latency, inventory overselling, and slow page re-renders. Build a modern headless storefront with optimistic cart updates, database lock-guarded inventory checkout, and Stripe webhook verification.",
+    "architecture": "Next.js App Router frontend with server components and Zustand/React Query client state. Backend REST/RPC endpoints use PostgreSQL `SELECT ... FOR UPDATE` row locks to prevent overselling inventory during concurrent flash-sale checkouts.",
+    "scaleTargets": "Sub-150ms page load times, 100% inventory oversell prevention under 500 concurrent checkout requests, and 100 Lighthouse performance score.",
+    "techStack": ["Next.js", "React", "TypeScript", "PostgreSQL", "Prisma", "Stripe"],
+    "verificationRubric": [
+      "Live Vercel deployment with functioning Stripe test-mode checkout flow",
+      "Concurrency test script demonstrating zero overselling when 50 items are bought by 100 buyers",
+      "Stripe webhook handler with signature verification and idempotency keys",
+      "Optimistic cart state providing instant UI feedback on poor connections",
+      "Responsive design with dark mode and WCAG 2.1 AA accessibility compliance"
+    ],
+    "portfolioBulletFormula": "Developed full-stack headless commerce platform with Next.js, PostgreSQL, and Stripe; eliminated inventory overselling via row-level locking under 500 concurrent checkout attempts."
+  },
+  {
+    "id": "brief-gitops-registry",
+    "title": "Internal Developer Platform & GitOps Container Pipeline",
+    "domain": "Platform & DevOps",
+    "estimatedHours": 25,
+    "difficulty": "advanced",
+    "coveredSkills": ["Docker", "Kubernetes", "GitHub Actions", "Go", "Bash", "DevOps"],
+    "problemStatement": "Engineering teams lose velocity configuring repetitive CI/CD scripts and manual deployments. Build an automated Internal Developer Platform (IDP) CLI and GitOps agent that automatically creates preview environments for incoming pull requests.",
+    "architecture": "CLI tool written in Go that reads a repository configuration, triggers GitHub Actions workflows to build multi-stage Docker images, and instructs a local Kubernetes cluster (k3s/minikube) to spin up isolated ephemeral namespaces with automated ingress routing.",
+    "scaleTargets": "Provision complete preview environments in < 90 seconds, automatically de-allocating pods upon pull request merge or 24-hour inactivity.",
+    "techStack": ["Kubernetes", "Docker", "Go", "GitHub Actions", "Helm", "Bash"],
+    "verificationRubric": [
+      "Go CLI tool with commands: `idp init`, `idp preview create`, `idp preview teardown`",
+      "Kubernetes manifests and Helm chart for dynamic namespace lifecycle management",
+      "GitHub Actions workflow with branch-scoped container image tagging",
+      "End-to-end screencast demonstrating automatic preview deployment upon PR creation",
+      "Security scanning step checking CVE vulnerabilities with Trivy in CI pipeline"
+    ],
+    "portfolioBulletFormula": "Engineered automated GitOps developer platform using Go, Kubernetes, and GitHub Actions; cut pull-request preview environment provisioning time from 20 minutes to under 90 seconds."
+  },
+  {
+    "id": "brief-rag-vector-search",
+    "title": "Enterprise RAG Semantic Search & Verification Engine",
+    "domain": "AI/ML Applications",
+    "estimatedHours": 20,
+    "difficulty": "intermediate",
+    "coveredSkills": ["Python", "FastAPI", "Vector Databases", "Embeddings", "PostgreSQL", "Docker"],
+    "problemStatement": "LLM applications hallucinate when answering questions from internal company documentation. Build a Retrieval-Augmented Generation (RAG) backend with deterministic hybrid search (dense embeddings + BM25 sparse keyword search) and citation attribution.",
+    "architecture": "FastAPI service that chunks PDF/Markdown documents, generates embeddings with sentence-transformers/OpenAI, and stores vectors in pgvector / Qdrant. Answers user prompts with verbatim citation chunks and calculates hallucination confidence scores.",
+    "scaleTargets": "Query latency < 450ms across 50,000 embedded document chunks with 95% citation recall accuracy and complete offline fallback mode.",
+    "techStack": ["Python", "FastAPI", "pgvector", "PostgreSQL", "Docker", "LangChain"],
+    "verificationRubric": [
+      "Hybrid search implementation blending BM25 lexical search with cosine vector similarity",
+      "Exact source citation highlights showing exact page and paragraph references",
+      "Evaluation benchmark script checking retrieval precision and MRR (Mean Reciprocal Rank)",
+      "Docker container running local embeddings without requiring external API keys",
+      "Swagger API documentation with interactive testing endpoints"
+    ],
+    "portfolioBulletFormula": "Created enterprise RAG engine in Python & pgvector with hybrid BM25/dense vector retrieval; achieved 95% citation attribution accuracy across 50k document chunks in < 450ms."
+  },
+  {
+    "id": "brief-micro-frontend-shell",
+    "title": "Micro-Frontend Host Shell with Module Federation",
+    "domain": "Full-Stack Web",
+    "estimatedHours": 20,
+    "difficulty": "intermediate",
+    "coveredSkills": ["React", "TypeScript", "Webpack", "Performance", "CSS", "Frontend Architecture"],
+    "problemStatement": "Large enterprise frontends suffer from massive monorepo bundle sizes, slow build cycles, and team dependency blocking. Build a federated micro-frontend host application that dynamically consumes isolated remote apps with shared runtime state.",
+    "architecture": "Webpack 5 Module Federation setup with a Host Shell (Auth, Navigation, Theme) dynamically loading remote child micro-apps (Billing, Analytics, Profile) at runtime. Implements shared singleton dependencies (React, design tokens) and isolated CSS scopes.",
+    "scaleTargets": "Sub-2 second initial page bundle load, zero duplicate React bundle transfers, and complete fault tolerance if a remote child fails.",
+    "techStack": ["React", "TypeScript", "Webpack 5", "Module Federation", "TailwindCSS"],
+    "verificationRubric": [
+      "Live hosted demo with 1 host application and 2 independently deployed remote apps",
+      "Error boundary fallback: host shell continues operating when 1 child app throws 500 error",
+      "Shared runtime event bus allowing cross-microfrontend pub/sub communication",
+      "Bundle analysis report showing shared vendor chunks and minimal payload sizes",
+      "Documentation guide for adding a new micro-frontend service in < 15 minutes"
+    ],
+    "portfolioBulletFormula": "Architected federated micro-frontend platform with React and Webpack 5 Module Federation; enabled independent team deployments while slashing initial bundle size by 60%."
+  },
+  {
+    "id": "brief-high-throughput-logging",
+    "title": "High-Throughput Log Processing & Alerting Daemon",
+    "domain": "Systems & Cloud",
+    "estimatedHours": 25,
+    "difficulty": "intermediate",
+    "coveredSkills": ["Java", "Spring Boot", "Elasticsearch", "Redis", "Kafka", "Data Pipelines"],
+    "problemStatement": "Production cloud applications generate tens of gigabytes of unstructured logs per hour that overwhelm traditional relational databases. Build a scalable log ingestion pipeline with regex parsing, indexing, and anomaly alert triggers.",
+    "architecture": "Spring Boot ingestion service that reads batched log payloads from Kafka, normalizes unstructured log lines using high-speed regex pattern matchers, caches rolling error counts in Redis, and bulk indexes records into Elasticsearch.",
+    "scaleTargets": "Ingest and index 15,000 log entries/sec with alert notifications delivered to Slack/Webhook within 5 seconds of error spike detection.",
+    "techStack": ["Java", "Spring Boot", "Elasticsearch", "Redis", "Kafka", "Docker"],
+    "verificationRubric": [
+      "Docker compose stack spinning up Elasticsearch, Redis, and Spring Boot service",
+      "Unit tests verifying multi-threaded log parsing throughput and zero memory leaks",
+      "Rolling window threshold trigger alerting when 5xx errors exceed 50/minute",
+      "Elasticsearch index lifecycle management policy rotating indices after 7 days",
+      "README detailing memory tuning (JVM flags, heap allocations, and garbage collection)"
+    ],
+    "portfolioBulletFormula": "Engineered distributed log ingestion pipeline in Java and Spring Boot; processed 15k events/sec into Elasticsearch with real-time Slack alerting triggered within 5 seconds."
+  },
+  {
+    "id": "brief-raft-consensus",
+    "title": "Distributed Key-Value Store with Raft Consensus",
+    "domain": "Distributed Systems",
+    "estimatedHours": 40,
+    "difficulty": "advanced",
+    "coveredSkills": ["Go", "Distributed Systems", "Networking", "Concurrency", "Algorithms"],
+    "problemStatement": "Single-point-of-failure storage solutions cannot survive node partitions in mission-critical environments. Build a replicated distributed key-value cluster from scratch implementing the Raft consensus algorithm.",
+    "architecture": "Pure Go implementation of the Raft consensus protocol: Leader Election (heartbeats, term increments, split-vote resolution), Log Replication (entries committed across majority quorum), and Safety invariants. Features persistent state storage on disk.",
+    "scaleTargets": "Maintain uninterrupted cluster reads and writes during failure of 2 out of 5 cluster nodes with linearizable consistency guarantees.",
+    "techStack": ["Go", "Distributed Systems", "Raft", "gRPC", "Concurrency"],
+    "verificationRubric": [
+      "Jepsen-style automated partition chaos test simulating network split-brain",
+      "Leader election unit test demonstrating automatic failover within 300ms",
+      "Write-ahead log (WAL) persistence ensuring recovery after crash restarts",
+      "Visual CLI terminal monitor showing cluster heartbeats and node roles",
+      "Detailed architectural specification comparing Raft against Paxos trade-offs"
+    ],
+    "portfolioBulletFormula": "Implemented distributed Raft consensus state machine in Go from scratch; achieved linearizable consistency and sub-300ms leader election failover during simulated network partitions."
+  },
+  {
+    "id": "brief-zero-trust-proxy",
+    "title": "Zero-Trust API Security Gateway with JWT Rotation",
+    "domain": "Security & Platform",
+    "estimatedHours": 20,
+    "difficulty": "intermediate",
+    "coveredSkills": ["Node.js", "Express", "Redis", "Docker", "Security", "REST APIs"],
+    "problemStatement": "Microservices are vulnerable to token theft, replay attacks, and compromised credentials when relying on long-lived API keys. Build a Zero-Trust gateway enforcing asymmetric JWT rotation, IP fingerprinting, and blacklisted revocation.",
+    "architecture": "Express/Node.js edge proxy that verifies incoming client requests against RS256 public keys, validates dynamic fingerprint hashes, checks Redis revocation bloom filters in < 1ms, and signs downstream service-to-service mTLS tokens.",
+    "scaleTargets": "Validate 10,000 auth tokens/sec with sub-2ms overhead while instantly revoking compromised user sessions across all instances.",
+    "techStack": ["Node.js", "Express", "Redis", "Docker", "JWT", "Security"],
+    "verificationRubric": [
+      "Public-private keypair (RS256) rotation workflow without user service disruption",
+      "Immediate session revocation endpoint using Redis fast key-expiry",
+      "Automated security suite testing against replay attacks, tampered signatures, and expired tokens",
+      "Docker container with hardened non-root user and minimal alpine base",
+      "Clear README outlining OWASP Top 10 API Security mitigation steps"
+    ],
+    "portfolioBulletFormula": "Built Zero-Trust API gateway in Node.js & Redis utilizing RS256 token rotation; enforced instantaneous session revocation across 10k req/sec with < 2ms latency overhead."
+  },
+  {
+    "id": "brief-opentelemetry-observability",
+    "title": "Full-Stack Distributed Tracing & APM Platform",
+    "domain": "Platform & DevOps",
+    "estimatedHours": 25,
+    "difficulty": "intermediate",
+    "coveredSkills": ["Docker", "Prometheus", "Grafana", "OpenTelemetry", "React", "DevOps"],
+    "problemStatement": "Debugging distributed microservice errors without centralized tracing leads to hours of guesswork and finger-pointing during incidents. Build an end-to-end observability stack integrating OpenTelemetry auto-instrumentation, metrics, and trace flamegraphs.",
+    "architecture": "OpenTelemetry Collector orchestrates incoming traces from multiple sample polyglot microservices, exports metrics to Prometheus, traces to Jaeger/Tempo, and displays contextual Grafana dashboards and custom React timeline cards.",
+    "scaleTargets": "Capture 100% of error traces and 10% sampled success traces under 5,000 requests/sec with negligible (< 1%) CPU overhead on monitored services.",
+    "techStack": ["OpenTelemetry", "Prometheus", "Grafana", "Jaeger", "Docker", "React"],
+    "verificationRubric": [
+      "1-click Docker Compose environment launching sample microservices + observability stack",
+      "Distributed trace flamegraph showing correlated span IDs across 3 service hops",
+      "Grafana dashboard JSON export tracking Golden Signals: Latency, Traffic, Errors, Saturation",
+      "Chaos injection script generating synthetic latency and verifying anomaly alerting",
+      "Architecture documentation explaining sampling strategies (head vs tail-based)"
+    ],
+    "portfolioBulletFormula": "Architected full-stack distributed observability system using OpenTelemetry, Prometheus, and Grafana; reduced mean-time-to-detection (MTTD) by providing end-to-end trace flamegraphs across 3 microservices."
+  },
+  {
+    "id": "brief-offline-first-sync",
+    "title": "Offline-First Mobile & Web Local-Sync Protocol",
+    "domain": "Full-Stack Web",
+    "estimatedHours": 25,
+    "difficulty": "advanced",
+    "coveredSkills": ["React", "TypeScript", "GraphQL", "SQL", "IndexedDB", "Data Pipelines"],
+    "problemStatement": "Field workers and mobile users frequently lose internet connectivity, leading to dropped changes and stuck form submits. Build an offline-first data synchronization protocol with client-side optimistic mutations and server vector clock conflict resolution.",
+    "architecture": "Client stores mutations in local IndexedDB / SQLite with Lamport logical timestamps. When network connectivity resumes, an event sync engine batches mutations to a GraphQL backend which resolves conflicting updates via Last-Write-Wins or custom merge functions.",
+    "scaleTargets": "Queue 1,000 offline mutations locally, syncing back to server in < 2 seconds upon reconnection with 100% deterministic conflict resolution.",
+    "techStack": ["React", "TypeScript", "IndexedDB", "GraphQL", "PostgreSQL", "Docker"],
+    "verificationRubric": [
+      "Interactive demo toggle simulating online, offline, and high-latency 3G connections",
+      "Conflict resolution visualizer showing simultaneous changes from two browser windows",
+      "Automated test suite validating vector clock incrementation and re-sync ordering",
+      "Persistent offline store maintaining integrity across browser refreshes",
+      "Detailed architectural write-up on offline storage tradeoffs and sync topologies"
+    ],
+    "portfolioBulletFormula": "Implemented offline-first synchronization protocol in React & TypeScript with IndexedDB; enabled seamless queued writes and sub-2s vector clock conflict resolution upon reconnection."
+  }
+]

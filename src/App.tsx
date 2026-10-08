@@ -28,6 +28,18 @@ import { CompanyLevelsPage } from './pages/tools/career-path/CompanyLevelsPage';
 import { PromotionSimulatorPage } from './pages/tools/career-path/PromotionSimulatorPage';
 import { CompanyLadderPage } from './pages/tools/career-path/CompanyLadderPage';
 import { TalentLens } from './pages/tools/TalentLens';
+import { ToolsHubPage } from './pages/tools/ToolsHubPage';
+import { CompareJDsPage } from './features/suite/compare/CompareJDsPage';
+import { ApplicationTrackerPage } from './features/suite/tracker/ApplicationTrackerPage';
+import { CompanyComparePage } from './features/suite/companies/CompanyComparePage';
+import { TailorResumePage } from './features/suite/tailor/TailorResumePage';
+import { ReachOutPage } from './features/suite/outreach/ReachOutPage';
+import { ProfileCheckPage } from './features/suite/profile-check/ProfileCheckPage';
+import { BuildBriefsPage } from './features/suite/briefs/BuildBriefsPage';
+import { OfferDecoderPage } from './features/suite/offer/OfferDecoderPage';
+import { EvidenceCardBuilderPage } from './features/suite/share/EvidenceCardBuilderPage';
+import { EvidenceCardViewerPage } from './features/suite/share/EvidenceCardViewerPage';
+import { BatchReadinessPage } from './features/suite/cohort/BatchReadinessPage';
 
 // Company / BHR Pages
 import { CompanyDashboard } from './pages/company/CompanyDashboard';
@@ -74,6 +86,9 @@ import { NotificationsPage } from './pages/NotificationsPage';
 import { ProtectedRoute } from './components/auth/ProtectedRoute';
 import { ToastContainer } from './components/ui/Toast';
 
+import { ProfileProvider } from './features/suite/profile/ProfileContext';
+import { ProfileDrawer } from './features/suite/profile/components/ProfileDrawer';
+
 export default function App() {
   const { initDemoData, _initialized } = useStore();
   const [appReady, setAppReady] = useState(false);
@@ -91,8 +106,9 @@ export default function App() {
   return (
     <>
     {!appReady && <CinematicLoader onFinish={handleLoadingFinish} isAppReady={_initialized} />}
-    <BrowserRouter>
-      <Routes>
+    <ProfileProvider>
+      <BrowserRouter>
+        <Routes>
         {/* Public routes */}
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
@@ -103,9 +119,21 @@ export default function App() {
         <Route path="/demo" element={<MatchingDemo />} />
         <Route path="/demo/company/:companySlug" element={<CompanyRolesPage />} />
         <Route path="/portal" element={<CandidatePortal />} />
+        <Route path="/card" element={<EvidenceCardViewerPage />} />
         
         {/* Free ATS Candidate Tools */}
+        <Route path="/tools" element={<ToolsHubPage />} />
         <Route path="/tools/resume-checker" element={<ResumeChecker />} />
+        <Route path="/tools/jd-compare" element={<CompareJDsPage />} />
+        <Route path="/tools/tracker" element={<ApplicationTrackerPage />} />
+        <Route path="/tools/company-compare" element={<CompanyComparePage />} />
+        <Route path="/tools/tailor" element={<TailorResumePage />} />
+        <Route path="/tools/reach-out" element={<ReachOutPage />} />
+        <Route path="/tools/profile-check" element={<ProfileCheckPage />} />
+        <Route path="/tools/build-briefs" element={<BuildBriefsPage />} />
+        <Route path="/tools/offer-decoder" element={<OfferDecoderPage />} />
+        <Route path="/tools/evidence-card" element={<EvidenceCardBuilderPage />} />
+        <Route path="/tools/batch-readiness" element={<BatchReadinessPage />} />
         <Route path="/tools/career-path" element={<CareerPathHub />} />
         <Route path="/tools/career-path/dream-job-roadmap" element={<DreamJobRoadmapPage />} />
         <Route path="/tools/career-path/company-levels" element={<CompanyLevelsPage />} />
@@ -176,8 +204,10 @@ export default function App() {
         {/* Catch all */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
+      <ProfileDrawer />
       <ToastContainer />
     </BrowserRouter>
+    </ProfileProvider>
     </>
   );
 }

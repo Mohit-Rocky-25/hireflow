@@ -1,0 +1,232 @@
+# HireFlow Suite Build Log
+
+## 0. Recon & Baseline Summary
+
+### 0.1 Environment & Platform
+- Machine: Windows PowerShell (AMD)
+- Framework: React 19, Vite 8, Tailwind CSS v4, Lucide React, react-router-dom v7, recharts 3, zustand, zod, pdfjs-dist, mammoth
+- Test Runner: Vitest 5.0.3
+- TypeScript: ~6.0.2, strict bundler configuration in `tsconfig.json`
+- Ports: Vite dev server on 5173 / 5174
+
+### 0.2 Real Discovered Paths
+- `fileParser`: `src/features/ats/fileParser.ts`
+- `parseJD`: `src/lib/ats/parseJD.ts` and `src/features/ats/engine/jdAnalyzer.ts`
+- Skills Taxonomy: `src/data/ats/skills-taxonomy.json` & `src/features/ats/knowledge/taxonomy/`
+- Writing Quality Rules: `src/data/ats/writing-quality.json`
+- Format Rules: `src/data/ats/ats-format-rules.json`
+- Market Tiers: `src/data/ats/market-tiers.json`
+- TalentLens Data: `src/pages/demo/talentLensData.ts`
+- Competency Profiles: `src/data/ats/role-profiles.json` & `src/pages/demo/talentLensData.ts`
+- Scoring Engine Entry: `src/features/ats/engine/index.ts` (`runAtsEngine`) & `src/lib/ats/canonicalAnalysis.ts`
+- Verbatim Citation Checker: `src/lib/ats/invariants.ts` (Invariant 4)
+- 32 Golden Resumes Suite: `src/features/ats/__tests__/golden-resumes.test.ts`
+- Tools Hub & Landing Page: `src/pages/LandingPage.tsx`, tools routes in `src/App.tsx`
+- Career Trajectory: `src/pages/tools/career-path/CareerPathHub.tsx`
+- Role Subsections: Candidate (`src/pages/candidate/`), Company/BHR (`src/pages/company/`), Interviewer (`src/pages/interviewer/`), Admin (`src/pages/admin/`)
+- Shared UI: `src/components/ui/`, `src/components/layout/`
+
+### 0.3 UI Patterns Found
+- Theme: Dark cool UI (`bg-bg`, `bg-surface`, `bg-surface-2`, `bg-surface-3`)
+- Typography: Inter/System sans (`font-sans`), monospace for numbers/code (`font-mono`), strong contrast
+- Headings: Bold / ExtraBold, tracking-tight (`tracking-[-0.03em]`, `text-[42px]`, `text-[28px]`, `text-[18px]`)
+- Layout widths: `max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8`
+- Spacing: 16px/24px/32px/48px
+- Cards: `bg-surface border border-border rounded-2xl p-6 shadow-xs hover:border-border-strong`
+- Pill Tabs: `bg-surface-2 p-1 border border-border rounded-xl`, active `bg-text text-bg` or `bg-surface text-text shadow-sm`
+- Buttons: Secondary `bg-surface hover:bg-surface-2 border border-border text-xs font-bold rounded-xl text-text transition-colors`, Primary `bg-gradient-to-r from-primary to-ai text-white rounded-xl font-bold`
+- Chart wrapper: ResponsiveContainer with visible contrasting colors (emerald, amber, violet, cyan), no solid black fills
+- Icons: `lucide-react` with `stroke-[1.5px]` or `stroke-[2px]`
+- Motion: `animate-fade-in`, transitions `duration-150`
+
+### 0.4 Baseline Run & Golden Freeze
+- Typecheck (`npx tsc --noEmit`): PASSED (0 errors)
+- Unit tests (`vitest run`): 139 PASSED across 13 test files
+- Build (`npm run build`): PASSED in 2.56s
+- Golden Baseline: Frozen at `docs/baseline-golden.json` (32 test cases, 100% precision, 100% recall, avg runtime 33.61ms)
+- Branch: `feature/hireflow-suite` created and checked out; `main` branch untouched.
+
+---
+
+## Master Checklist
+
+- [x] Stage 0: Recon, Baseline, Safety Net
+  - [x] 0.1 Inspect repo & record paths
+  - [x] 0.2 Install dependencies non-interactively
+  - [x] 0.3 Baseline run (typecheck, vitest, build)
+  - [x] 0.4 Freeze golden baseline (`docs/baseline-golden.json`)
+  - [x] 0.5 Git setup on `feature/hireflow-suite`
+  - [x] 0.6 Create `docs/BUILD_LOG.md`
+- [x] Stage 1: Foundation: Candidate Profile
+  - [x] 1.1 Strictly typed models (`profile/types.ts`)
+  - [x] 1.2 Profile builder (`profile/buildProfile.ts`)
+  - [x] 1.3 Deterministic evidence ladder 0-4 (`profile/evidenceLadder.ts`)
+  - [x] 1.4 Storage layer with quota guard & import/export (`profile/storage.ts`)
+  - [x] 1.5 ProfileProvider, hooks, My Profile drawer, top chips
+  - [x] 1.6 Unit tests for determinism, ladder, storage roundtrip
+- [x] Stage 2: Engine Upgrades
+  - [x] 2.1 `simulateFix` and `rankFixes`
+  - [x] 2.2 `buildQuickSummary` and Quick Summary card on Roaster & TalentLens
+  - [x] 2.3 Accuracy fixes & 20 new golden test cases
+  - [x] 2.4 Invariant 6 (Summary Consistency)
+  - [x] 2.5 Tests for simulation, ranking, summary, tokens
+- [x] Stage 3: Group A - What should I apply to?
+  - [x] 3.1 Compare Job Descriptions (`/tools/jd-compare`)
+  - [x] 3.2 Application Tracker (`/tools/tracker`)
+  - [x] 3.3 Company vs Company (`/tools/company-compare`)
+- [x] Stage 4: Group B - How do I present myself better?
+  - [x] 4.1 Tailor My Resume (`/tools/tailor`) with truth check
+  - [x] 4.2 Reach Out (`/tools/reach-out`) with slot-filling & placeholders
+  - [x] 4.3 Profile Check (LinkedIn + GitHub) (`/tools/profile-check`)
+- [x] Stage 5: Group C - What do I build or fix?
+  - [x] 5.1 Build Briefs (`/tools/build-briefs`) with set-cover bundler
+- [x] Stage 6: Group D - What offer should I take?
+  - [x] 6.1 Offer model & tax configuration (`tax-config.ts`, `professional-tax.ts`)
+  - [x] 6.2 Calculation engine (`offer/calc.ts`) with marginal relief & 3 worked tests
+  - [x] 6.3 Offer Decoder UI (`/tools/offer-decoder`) with waterfall & comparison
+- [x] Stage 7: Group E - Connecting HireFlow's Roles
+  - [x] 7.1 Evidence Card builder (`/tools/evidence-card`) and viewer (`/card`)
+  - [x] 7.2 Role integrations (Candidate, HR Recruiter, Interviewer)
+  - [x] 7.3 Batch Readiness (`/tools/batch-readiness`)
+  - [x] 7.4 Career Trajectory link-up
+- [x] Stage 8: Navigation, Integration, Polish
+  - [x] 8.1 Tools hub with 5 decision group headings
+  - [x] 8.2 Cross-tool handoff links
+  - [x] 8.3 Empty/loading/error states
+  - [x] 8.4 Lazy loading & performance verification
+  - [x] 8.5 Accessibility & dark contrast audit
+  - [x] 8.6 Consistency pass
+- [x] Stage 9: Verification Loop
+  - [x] 9.1 Typecheck, lint, test suite, build
+  - [x] 9.2 Regression against `docs/baseline-golden.json`
+  - [x] 9.3 Determinism sweep
+  - [x] 9.4 No-network sweep
+  - [x] 9.5 Forbidden-content sweep
+  - [x] 9.6 Browser / smoke render checks
+  - [x] 9.7 `docs/BUILD_REPORT.md`
+  - [x] 9.8 `docs/TESTING_CHECKLIST.md`
+- [x] Stage 10: Complete Verification & Commit
+
+---
+
+## Stage 0 Handoff Note
+- Baseline verified: all 139 pre-existing tests pass; `docs/baseline-golden.json` contains baseline metrics for 32 golden cases.
+- Current branch: `feature/hireflow-suite`.
+- Next task: Stage 1 (Candidate Profile foundation).
+
+## Stage 1 Handoff Note
+- Created `src/features/suite/profile/types.ts` (`CandidateProfile`, `EvidenceLevel`, `ResumeVersion`, `ScanRecord`, `ApplicationEntry`, `BuildPlan`).
+- Created `src/features/suite/profile/evidenceLadder.ts` (`gradeSkill` levels 0-4 with verbatim quotes, metrics and link matching).
+- Created `src/features/suite/profile/buildProfile.ts` (Pass A & Pass B integration, explicit CGPA/backlogs pattern matching, link detection).
+- Created `src/features/suite/profile/storage.ts` (`SuiteStorage` with localStorage quota guards, schema validation, export/import, memStore fallback for test/SSR).
+- Created `ProfileContext.tsx`, `ProfileDrawer.tsx`, `ProfileStatusChip.tsx`.
+- Integrated `ProfileProvider` and `ProfileDrawer` into `App.tsx`.
+- Integrated "Save to my profile" buttons into ATS Roaster (`ResumeChecker.tsx`) and `TalentLens.tsx`.
+- Unit tests (`profileFoundation.test.ts`): all 11 tests pass. All 152 tests across the repo pass. Typecheck clean.
+- Next task: Stage 2 (Engine upgrades: simulateFix, rankFixes, buildQuickSummary, Quick Summary cards, Invariant 6, golden cases expansion).
+
+## Stage 2 Handoff Note
+- Created `src/features/suite/engine/simulateFix.ts` (`simulateFix`, `rankFixes`). Pure simulation runs in < 2ms without mutation, ranking gaps into Wording Fix vs Learn Needed by taxonomy weight x proficiency distance.
+- Created `src/features/suite/engine/quickSummary.ts` (`buildQuickSummary`, `assertSummaryConsistency`). Calibrated golden thresholds for verdicts ('Strong fit', 'Close', 'Stretch', 'Insufficient input'), effort split, and Invariant 6 runtime validation.
+- Created `src/features/suite/components/QuickSummaryCard.tsx` with verdict badge, effort split, top 3 fixes with simulated gains, plain-text copy, and report expand/collapse toggle.
+- Pinned `QuickSummaryCard` at the top of results in both ATS Roaster (`ResumeChecker.tsx`) and `TalentLens.tsx`.
+- Extended ambiguous tokens & context boundary handling for Go, Rust, Swift, Spark, Flask, and diverse engineering disciplines (ECE/Embedded, Mechanical, Civil, Cybersecurity, BI).
+- Created 20 new golden test cases in `src/features/ats/__tests__/new-golden-pairs.ts` and benchmark in `src/features/ats/__tests__/extendedGoldenResumes.test.ts` achieving 100% precision, 100% recall, 40ms avg runtime. Original 32 golden test cases maintained 100% precision and recall with 0 regressions.
+- Created `docs/engine-diff.md` detailing the accuracy improvements and benchmark results.
+- Created unit tests in `src/features/suite/engine/__tests__/engineUpgrades.test.ts` (all 7 tests pass).
+- Complete test suite: all 160 tests passing, `npx tsc --noEmit` clean.
+## Stage 3.1 Handoff Note
+- Created `src/features/suite/compare/compareJDs.ts` (ranking by score & must-haves, shared gaps, unique gaps, cross-JD gains, overlap matrix).
+- Created `src/features/suite/compare/__tests__/compareJDs.test.ts` (5 tests passing).
+- Created `src/features/suite/compare/CompareJDsPage.tsx` and registered `/tools/jd-compare` route.
+
+## Stage 3.2 Handoff Note
+- Created `src/features/suite/tracker/insights.ts` (`computeTrackerInsights`, `isGoneQuiet`, `exportTrackerToCSV`, `importTrackerFromCSV` with state machine CSV parser).
+- Created `src/features/suite/tracker/__tests__/insights.test.ts` (all 5 tests passing).
+- Created `src/features/suite/tracker/ApplicationTrackerPage.tsx` (list view, kanban pipeline board, insights metrics, gone-quiet threshold alerts, CSV export & import, quick link to ATS Roaster).
+- Registered `/tools/tracker` route in `App.tsx`.
+- All tests passing, tsc clean.
+
+## Stage 3.3 Handoff Note
+- Created `src/features/suite/companies/compareCompanies.ts` (side-by-side comparison of 2-3 target companies/roles from Dataset 6, shared competencies vs unique differentiators, directed prep overlap percentage `|Skills(A) ∩ Skills(B)| / |Skills(B)| * 100`, Dataset 4 market tier mapping, interview rounds, hiring bars, candidate profile prioritization recommendation, and data freshness note).
+- Created `src/features/suite/companies/__tests__/compareCompanies.test.ts` (12 unit tests passing).
+- Created `src/features/suite/companies/CompanyComparePage.tsx` with 3 tabs (Overview, Requirements, Prioritize), interactive company & role selectors, and candidate profile integration.
+- Added cross-tool link from `CompanyRolesPage.tsx` ("Compare with another company...") and `TalentLens.tsx`.
+- Registered route `/tools/company-compare` in `App.tsx`.
+- Complete Stage 3 (Group A) is finished and verified!
+
+## Stage 4.1 Handoff Note
+- Created `src/features/suite/tailor/truthCheck.ts` (`assertTruthful`, `extractSkillsFromText`, `extractUnbracketedMetrics`, `hasPlaceholder`) strictly preventing hallucinated skills/frameworks and unbracketed metrics.
+- Created `src/features/suite/tailor/tailorResume.ts` (`tailorResume`) generating Reorder, Rephrase, and Add Context suggestions with before/after alignment scores.
+- Created `src/features/suite/tailor/__tests__/tailor.test.ts` (all 6 tests passing).
+- Created `src/features/suite/tailor/TailorResumePage.tsx` with side-by-side diff view, accept/reject/edit controls, quick-load from Dataset 6 companies, live tailored document preview, and `ResumeVersion` saving to `SuiteStorage`.
+- Registered route `/tools/tailor` in `App.tsx`.
+- All tests passing, tsc clean.
+
+## Stage 4.2 Handoff Note
+- Created `src/data/suite/outreach-templates.json` containing 15 high-converting templates across 5 channels (`linkedin_connect` with 300 char limits, `linkedin_inmail`, `cold_email` with subjects, `warm_referral`, `follow_up`).
+- Created `src/features/suite/outreach/generateOutreach.ts` (`fillSlots`, `detectPlaceholders`, `generateOutreach`, `extractTopProofPoint`, `extractSlotsFromProfile`).
+- Created `src/features/suite/outreach/__tests__/generateOutreach.test.ts` (all 5 tests passing).
+- Created `src/features/suite/outreach/ReachOutPage.tsx` with live char counter, LinkedIn 300-char progress bar, placeholder alert pills, 1-click clipboard copy, and direct tracking handoff to Application Tracker.
+- Registered route `/tools/reach-out` in `App.tsx`.
+- All tests passing, tsc clean.
+
+## Stage 4.3 Handoff Note
+- Created `src/features/suite/profile-check/auditProfile.ts` (offline public profile audit for LinkedIn and GitHub; evaluates headline keyword depth, generic title penalties, About section 4-part rubric, experience bullet quantification, keyword density, GitHub README hygiene signals, and commit velocity; outputs unified 0-100 Public Signal Score and actionable screener checklist).
+- Created `src/features/suite/profile-check/__tests__/auditProfile.test.ts` (all 6 tests passing).
+- Created `src/features/suite/profile-check/ProfileCheckPage.tsx` with unified Public Signal Score card, LinkedIn 4-point rubric audit, GitHub repository hygiene breakdown, screener pass-through checklist, and 1-click clipboard export.
+- Registered route `/tools/profile-check` in `App.tsx`.
+- Typecheck clean, all tests passing. Stage 4 ("How do I present myself better?") complete!
+- Next task: Stage 5 (Group C — What do I build or fix? `/tools/build-briefs`).
+
+## Stage 5.1 Handoff Note
+- Created `src/data/suite/project-briefs.json` containing 14 production-grade engineering briefs across 5 domains (Distributed Systems, Full-Stack Web, Data Engineering, Platform & DevOps, AI/ML Applications) with real problem statements, architecture flows, scale targets, verification rubrics, and resume bullet formulas.
+- Created `src/features/suite/briefs/bundleBriefs.ts` featuring a deterministic greedy set-cover algorithm with deterministic tie-breaking (fewest estimated hours, highest difficulty weight, lexicographical ID) and manual selection evaluator.
+- Created `src/features/suite/briefs/__tests__/bundleBriefs.test.ts` (all 6 tests passing).
+- Created `src/features/suite/briefs/BuildBriefsPage.tsx` with dynamic gap source switcher (Company target, My Profile gaps, Custom inputs), optimal bundle summary card, filterable complete briefs library, interactive full-brief inspection drawer, 1-click bullet formula copying, and Build Plan persistence.
+- Registered route `/tools/build-briefs` in `App.tsx`.
+- Typecheck clean, all tests passing. Stage 5 complete!
+- Next task: Stage 6 (Group D — What offer should I take? `/tools/offer-decoder`).
+
+## Stage 6 Handoff Note
+- Created `src/features/suite/offer/types.ts` (`OfferInput`, `OfferResult`, `WaterfallStep`, `RiskFlag`, `PreferenceWeights`).
+- Created `src/data/suite/tax-config.ts` (FY 2026-27 New Tax Regime default slabs 0-4L nil, 4-8L 5%, 8-12L 10%, 12-16L 15%, 16-20L 20%, 20-24L 25%, >24L 30%; standard deduction Rs 75,000; Section 87A rebate & marginal relief threshold Rs 12,00,000; Old Regime slabs with Rs 50,000 std deduction & 80C cap; 4% cess; lastVerified '2026-10').
+- Created `src/data/suite/professional-tax.ts` (State PT table covering KA, MH, TS, AP, TN, WB, GJ, KL, DL, and manual override).
+- Created `src/features/suite/offer/calc.ts` (pure calculation engine with gross-to-net waterfall, Section 87A marginal relief cap, PF modes, ESOP/RSU vesting, stated CTC inflators, and contract risk flags).
+- Created `src/features/suite/offer/__tests__/calc.test.ts` (all 10 unit tests passing, including the 3 required worked examples: Rs 12,50,000 -> Rs 0; Rs 13,00,000 -> Rs 26,000; Rs 18,00,000 -> Rs 1,50,800).
+- Created `src/features/suite/offer/OfferDecoderPage.tsx` with monthly take-home, year-1 cash, 4-year projection, visible waterfall chart on dark tokens, side-by-side comparison matrix with Dataset 6 reference rows, "What matters to me" preference sliders, and contract risk flag cards.
+- Registered route `/tools/offer-decoder` in `App.tsx`.
+- Added cross-tool link from `ApplicationTrackerPage.tsx` ("Decode Offer" button on Offer status) and `CompanyRolesPage.tsx` ("Have an offer? Decode it...").
+- Typecheck clean, all tests passing. Stage 6 complete!
+
+## Stage 7 Handoff Note
+- Created `src/features/suite/share/cardCodec.ts` (Deflate-Raw compression, Base64URL encoding, SHA-256 integrity hash verification, safe URL length trimming).
+- Created `src/features/suite/share/__tests__/cardCodec.test.ts` (all 5 tests passing).
+- Created `EvidenceCardBuilderPage.tsx` (`/tools/evidence-card`) and `EvidenceCardViewerPage.tsx` (`/card`).
+- Implemented multi-role integrations:
+  - Candidate Dashboard: Evidence Card launcher panel.
+  - HR Recruiter: `CandidateEvidenceCardPanel.tsx` in `CandidateDetail.tsx` with SHA-256 verification and deterministic role match.
+  - Interviewer: `InterviewEvidenceChecklistPanel.tsx` in `InterviewDetail.tsx` with fact-checking checklist for Level <= 2 skills and scratchpad notes.
+- Created `src/features/suite/cohort/batchAnalyzer.ts` (placement cell cohort heatmap, privacy-first anonymization, and curriculum gap rankings).
+- Created `src/features/suite/cohort/__tests__/batchAnalyzer.test.ts` (all 6 tests passing).
+- Created `src/features/suite/cohort/BatchReadinessPage.tsx` (`/tools/batch-readiness`).
+- Created `src/features/suite/integration/trajectory.ts` + tests and wired market tier positioning into `CareerPathHub.tsx`.
+- Stage 7 complete!
+
+## Stage 8 Handoff Note
+- Created `src/pages/tools/ToolsHubPage.tsx` registered at `/tools`, presenting all 10 suite tools across the 5 decision groups with capability search and direct CTAs.
+- Updated `PublicNavbar.tsx`, `LandingPage.tsx`, and authenticated `Sidebar.tsx` with direct Decision Suite links.
+- Pinned cross-tool handoff buttons to `QuickSummaryCard.tsx` (Tailor Resume, Build Projects, Reach Out).
+- Stage 8 complete!
+
+## Stage 9 & 10 Final Handoff Note
+- Regression benchmark verified: 32 Golden Resumes (100% precision, 100% recall, 27.16ms avg runtime) and 20 Extended Golden Resumes (100% precision, 100% recall, 27.58ms avg runtime).
+- Full Vitest suite: 228 / 228 tests passing across 27 test files (100% pass rate).
+- TypeScript check: 0 errors via `tsc --noEmit`.
+- Production bundle: built successfully in 6.28s.
+- Created `docs/BUILD_REPORT.md` and `docs/TESTING_CHECKLIST.md`.
+- All stages (0 through 10) complete!
+
+
+
+
