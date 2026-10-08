@@ -25,13 +25,13 @@
   - [x] 2.5 Generate `ROTATION_CHECKLIST.md`.
   - [x] 2.6 Install pre-commit hook guard and `.github/workflows/security.yml`.
   - [x] 2.7 Re-scan working tree and `--dist`.
-- [ ] **Phase 3 — Dependency and Supply-Chain Security**
-  - [ ] 3.1 Run `npm audit` and generate `docs/security/DEPENDENCIES.md`.
-  - [ ] 3.2 Remediate vulnerable dependencies or document accepted risks.
-  - [ ] 3.3 Verify lockfile integrity and unpinned dependencies.
-  - [ ] 3.4 Audit install scripts and unused packages.
-  - [ ] 3.5 Check for typosquatting risks.
-  - [ ] 3.6 Audit external scripts and fonts in `index.html`.
+- [x] **Phase 3 — Dependency and Supply-Chain Security**
+  - [x] 3.1 Run `npm audit` and generate `docs/security/DEPENDENCIES.md`.
+  - [x] 3.2 Remediate vulnerable dependencies (`source-map-js` fixed, `sprintf-js` in mammoth documented as AR-2).
+  - [x] 3.3 Verify lockfile integrity and unpinned dependencies (lockfile v3 committed, all dependencies pinned).
+  - [x] 3.4 Audit install scripts and unused packages (only `fsevents` native binding detected).
+  - [x] 3.5 Check for typosquatting risks (all 21 direct dependencies verified authentic).
+  - [x] 3.6 Audit external scripts and fonts in `index.html` (zero external CDNs or external scripts).
 - [ ] **Phase 4 — Web Application Vulnerabilities**
   - [ ] 4.1 XSS, HTML sinks, unsafe links, open redirects.
   - [ ] 4.2 Untrusted file handling (PDF/DOCX/TXT size caps, zip-bomb protection).
@@ -115,3 +115,12 @@
   - CI security workflow created at `.github/workflows/security.yml`.
   - Created `docs/security/ROTATION_CHECKLIST.md`.
 - Next: Proceed to Phase 3 (Dependency and Supply-Chain Security).
+
+### Phase 3 Handoff Note
+- **Dependency Audit Status**:
+  - `npm audit` fixed: Upgraded `source-map-js` resolving high severity advisory GHSA-68fv-2mgg-jv7q.
+  - Remaining: 3 Moderate advisories in `mammoth -> argparse -> sprintf-js` (GHSA-hp3w-g68c-fv3c), documented as accepted risk AR-2 since browser docx parsing does not invoke the CLI formatter.
+  - Zero Critical, Zero High advisories remaining.
+  - Generated `docs/security/DEPENDENCIES.md`.
+  - Zero external CDN scripts or remote styles in `index.html`.
+- Next: Proceed to Phase 4 (Web Application Vulnerabilities).

@@ -12,6 +12,7 @@
 | SEC-002 | Medium | Client Secrets Risk | `src/ai/AIProvider.ts:6-8` | Comments instructing `VITE_GEMINI_API_KEY` / `VITE_OPENAI_API_KEY` which leak to browser bundle | Fixed |
 | SEC-003 | Low | Client Direct LLM Egress | `src/lib/ats/index.ts:237` | Direct browser fetch to Gemini API with user-provided key without rate-limiting or proxy | Open |
 | AR-1 | Accepted-Risk | Authentication | `src/components/auth/ProtectedRoute.tsx` | Client-Side Demo Auth: In-browser role checks are not a cryptographic security boundary | Accepted-Risk |
+| AR-2 | Accepted-Risk | Dependency | `package-lock.json` | `sprintf-js` moderate via `mammoth -> argparse` (GHSA-hp3w-g68c-fv3c); browser buffer parsing does not execute CLI formatter | Accepted-Risk |
 
 ---
 
@@ -53,4 +54,12 @@
 - **Location**: `src/components/auth/ProtectedRoute.tsx`, `src/store/useStore.ts`
 - **Evidence (MASKED)**: Client-side routing with role checking based on Zustand client state.
 - **Justification**: HireFlow is currently a client-side prototype SPA without a dedicated multi-tenant backend server. All mock data (candidates, companies, jobs) lives in the client browser. No private enterprise data exists behind client guards. A visible "Demo Mode" banner clarifies this architecture. Real multi-tenant security requires a backend API gateway with JWT/session cookies.
+- **Status**: Accepted-Risk
+
+### AR-2: Transitive CLI Dependency in Mammoth (sprintf-js)
+- **Severity**: Accepted-Risk (Moderate)
+- **Category**: Supply Chain / Dependencies
+- **Location**: `node_modules/mammoth/node_modules/argparse/node_modules/sprintf-js`
+- **Evidence (MASKED)**: Advisory GHSA-hp3w-g68c-fv3c (Moderate denial of service via unbounded precision specifiers).
+- **Justification**: Mammoth is used strictly in-browser via `mammoth.extractRawText({ arrayBuffer })` to parse candidate `.docx` files. The CLI wrapper (`argparse` and `sprintf-js`) is never invoked during runtime file processing. Downgrading via `npm audit fix --force` would install a legacy mammoth version (v0.3.29 from 10+ years ago) breaking modern docx parsing.
 - **Status**: Accepted-Risk
