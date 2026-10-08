@@ -76,7 +76,7 @@
   - [x] 3.3 Company vs Company (`/tools/company-compare`)
 - [ ] Stage 4: Group B - How do I present myself better?
   - [x] 4.1 Tailor My Resume (`/tools/tailor`) with truth check
-  - [ ] 4.2 Reach Out (`/tools/reach-out`) with slot-filling & placeholders
+  - [x] 4.2 Reach Out (`/tools/reach-out`) with slot-filling & placeholders
   - [ ] 4.3 Profile Check (LinkedIn + GitHub) (`/tools/profile-check`)
 - [ ] Stage 5: Group C - What do I build or fix?
   - [ ] 5.1 Build Briefs (`/tools/build-briefs`) with set-cover bundler
@@ -162,4 +162,12 @@
 - Created `src/features/suite/tailor/TailorResumePage.tsx` with side-by-side diff view, accept/reject/edit controls, quick-load from Dataset 6 companies, live tailored document preview, and `ResumeVersion` saving to `SuiteStorage`.
 - Registered route `/tools/tailor` in `App.tsx`.
 - All tests passing, tsc clean.
-- Next task: Stage 4.2 (Reach Out - `/tools/reach-out`).
+
+## Stage 4.2 Handoff Note
+- Created `src/data/suite/outreach-templates.json` containing 15 high-converting templates across 5 channels (`linkedin_connect` with 300 char limits, `linkedin_inmail`, `cold_email` with subjects, `warm_referral`, `follow_up`).
+- Created `src/features/suite/outreach/generateOutreach.ts` (`fillSlots`, `detectPlaceholders`, `generateOutreach`, `extractTopProofPoint`, `extractSlotsFromProfile`).
+- Created `src/features/suite/outreach/__tests__/generateOutreach.test.ts` (all 5 tests passing).
+- Created `src/features/suite/outreach/ReachOutPage.tsx` with live char counter, LinkedIn 300-char progress bar, placeholder alert pills, 1-click clipboard copy, and direct tracking handoff to Application Tracker.
+- Registered route `/tools/reach-out` in `App.tsx`.
+- All tests passing, tsc clean.
+- Next task: Stage 4.3 (Profile Check - `/tools/profile-check`).
