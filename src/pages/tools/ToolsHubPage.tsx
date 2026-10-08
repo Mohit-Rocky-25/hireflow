@@ -1,33 +1,16 @@
-// ============================================================
-// HireFlow Suite — Unified Tools Hub (/tools)
-// Stage 8.1: Decision Suite Command Center
-// Organizes all 10 suite tools across the 5 core candidate & recruiter decision groups.
-// ============================================================
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   FileSearch,
   GitCompare,
-  Kanban,
-  Building2,
   FileEdit,
   Mail,
-  UserCheck,
   FolderGit2,
-  Receipt,
-  ShieldCheck,
-  Users,
   Compass,
   ArrowRight,
   Sparkles,
-  Zap,
   Search,
-  CheckCircle2,
-  Layers,
-  ChevronRight,
 } from 'lucide-react';
-import { useProfile } from '../../features/suite/profile/ProfileContext';
 
 interface ToolItem {
   id: string;
@@ -43,26 +26,47 @@ interface ToolItem {
 interface DecisionGroup {
   id: string;
   groupLetter: string;
-  question: string;
+  title: string;
   description: string;
-  color: string;
-  borderColor: string;
+  colorTheme: {
+    bg: string;
+    border: string;
+    text: string;
+    hoverBorder: string;
+    shadowGlow: string;
+    button: string;
+  };
   tools: ToolItem[];
 }
 
 export function ToolsHubPage() {
-  const { profile, hasProfile, openDrawer } = useProfile();
   const [searchQuery, setSearchQuery] = useState('');
 
   const decisionGroups: DecisionGroup[] = [
     {
       id: 'group-a',
       groupLetter: 'A',
-      question: 'What should I apply to?',
-      description: 'Side-by-side job evaluation, pipeline tracking, and company hiring bar comparisons.',
-      color: 'from-blue-500/10 via-blue-500/5 to-transparent',
-      borderColor: 'border-blue-500/30',
+      title: 'Discovery & Direction',
+      description: 'Explore career ladders and evaluate target roles side-by-side.',
+      colorTheme: {
+        bg: 'bg-indigo-500/10',
+        border: 'border-indigo-500/20',
+        text: 'text-indigo-500',
+        hoverBorder: 'hover:border-indigo-500/50',
+        shadowGlow: 'hover:shadow-[0_8px_30px_rgba(99,102,241,0.15)]',
+        button: 'bg-indigo-500 text-white',
+      },
       tools: [
+        {
+          id: 'career-path',
+          title: 'Career Trajectory & Levels',
+          badge: 'India Market Intelligence',
+          description: 'Dream job roadmaps, India-office leveling ladders, CTC medians, and market tier positioning from Tier C to Tier S.',
+          link: '/tools/career-path',
+          cta: 'Explore Ladders',
+          icon: Compass,
+          tags: ['Tier Positioning', 'Promotion Blockers', 'Market CTC'],
+        },
         {
           id: 'jd-compare',
           title: 'Compare Job Descriptions',
@@ -73,35 +77,21 @@ export function ToolsHubPage() {
           icon: GitCompare,
           tags: ['Deterministic Ranking', 'Shared Gaps', 'Coverage Gain'],
         },
-        {
-          id: 'tracker',
-          title: 'Application Tracker',
-          badge: 'Pipeline Insights',
-          description: 'Kanban pipeline with response rates, interview conversion metrics, gone-quiet alerts, and CSV import/export.',
-          link: '/tools/tracker',
-          cta: 'Track Applications',
-          icon: Kanban,
-          tags: ['Funnel Analytics', 'Gone-Quiet Alerts', 'CSV Parser'],
-        },
-        {
-          id: 'company-compare',
-          title: 'Company vs Company',
-          badge: 'Prep Overlap Engine',
-          description: 'Compare hiring bars and interview rounds across Indian tech companies with directed preparation overlap percentages.',
-          link: '/tools/company-compare',
-          cta: 'Compare Companies',
-          icon: Building2,
-          tags: ['Dataset 6', 'Overlap Formula', 'Interview Rounds'],
-        },
       ],
     },
     {
       id: 'group-b',
       groupLetter: 'B',
-      question: 'How do I present myself better?',
-      description: 'Audit ATS readability, generate cold outreach, tailor bullets with truth checks, and audit public profiles.',
-      color: 'from-emerald-500/10 via-emerald-500/5 to-transparent',
-      borderColor: 'border-emerald-500/30',
+      title: 'Application & Outreach',
+      description: 'Audit your resume, tailor your bullets, and generate high-converting cold outreach.',
+      colorTheme: {
+        bg: 'bg-emerald-500/10',
+        border: 'border-emerald-500/30',
+        text: 'text-emerald-600 dark:text-emerald-400',
+        hoverBorder: 'hover:border-emerald-500/60',
+        shadowGlow: 'hover:shadow-[0_8px_30px_rgba(16,185,129,0.15)]',
+        button: 'bg-emerald-600 text-white',
+      },
       tools: [
         {
           id: 'resume-checker',
@@ -125,109 +115,44 @@ export function ToolsHubPage() {
         },
         {
           id: 'reach-out',
-          title: 'Reach Out (Cold Outreach)',
-          badge: '15 High-Converting Templates',
-          description: 'Generate high-response messages across 5 channels with strict LinkedIn 300-char limits and verbatim proof points.',
+          title: 'Reach Out',
+          badge: 'Targeted Communication',
+          description: 'Generate professional, context-aware messages across channels with strict LinkedIn 300-char limits and verifiable proof points.',
           link: '/tools/reach-out',
           cta: 'Generate Outreach',
           icon: Mail,
-          tags: ['LinkedIn 300 Char', 'Cold Email', 'Tracker Handoff'],
-        },
-        {
-          id: 'profile-check',
-          title: 'Profile Check (LinkedIn & GitHub)',
-          badge: 'Public Signal Audit',
-          description: 'Audit your public profile headlines, 4-part About section, experience bullet density, and GitHub repository hygiene.',
-          link: '/tools/profile-check',
-          cta: 'Audit Public Signal',
-          icon: UserCheck,
-          tags: ['Public Signal 0-100', 'Screener Checklist', 'Repo Hygiene'],
+          tags: ['LinkedIn 300 Char', 'Cold Email', 'Referrals'],
         },
       ],
     },
     {
       id: 'group-c',
       groupLetter: 'C',
-      question: 'What do I build or fix?',
-      description: 'Close missing resume gaps with production-grade engineering briefs and set-cover bundling.',
-      color: 'from-purple-500/10 via-purple-500/5 to-transparent',
-      borderColor: 'border-purple-500/30',
+      title: 'Skill Building',
+      description: 'Close missing resume gaps with production-grade engineering briefs.',
+      colorTheme: {
+        bg: 'bg-cyan-500/10',
+        border: 'border-cyan-500/30',
+        text: 'text-cyan-600 dark:text-cyan-400',
+        hoverBorder: 'hover:border-cyan-500/60',
+        shadowGlow: 'hover:shadow-[0_8px_30px_rgba(6,182,212,0.15)]',
+        button: 'bg-cyan-600 text-white',
+      },
       tools: [
         {
           id: 'build-briefs',
           title: 'Project Build Briefs',
-          badge: 'Optimal Set-Cover Bundler',
-          description: '14 production engineering briefs with scale targets, verification rubrics, and bullet formulas that cover multiple missing skills at once.',
+          badge: 'Gap-Driven Generation',
+          description: 'Generate production engineering briefs directly from your JD skill gaps, complete with deliverables and interview talking points.',
           link: '/tools/build-briefs',
           cta: 'Find Projects to Build',
           icon: FolderGit2,
-          tags: ['Greedy Set-Cover', 'Scale Targets', 'Verification Rubric'],
-        },
-      ],
-    },
-    {
-      id: 'group-d',
-      groupLetter: 'D',
-      question: 'What offer should I take?',
-      description: 'Decode CTC into real take-home cash under FY 2026-27 tax rules, ESOP vesting, and contract risk flags.',
-      color: 'from-amber-500/10 via-amber-500/5 to-transparent',
-      borderColor: 'border-amber-500/30',
-      tools: [
-        {
-          id: 'offer-decoder',
-          title: 'Offer Decoder',
-          badge: 'FY 2026-27 Tax Engine',
-          description: 'Gross-to-net waterfall, Section 87A marginal relief cap, state professional tax, 4-year projection, and contract risk detection.',
-          link: '/tools/offer-decoder',
-          cta: 'Decode Offer CTC',
-          icon: Receipt,
-          tags: ['Marginal Relief Cap', 'State PT', 'Dark Waterfall Chart'],
-        },
-      ],
-    },
-    {
-      id: 'group-e',
-      groupLetter: 'E',
-      question: 'Connecting HireFlow\'s Roles',
-      description: 'Verifiable candidate evidence cards, institutional placement cell audits, and career ladder trajectories.',
-      color: 'from-cyan-500/10 via-cyan-500/5 to-transparent',
-      borderColor: 'border-cyan-500/30',
-      tools: [
-        {
-          id: 'evidence-card',
-          title: 'Verifiable Evidence Card',
-          badge: 'SHA-256 Tamper-Proof',
-          description: 'Generate portable, privacy-minimal proof cards packing Level 0–4 audited skills, verbatim quotes, and repo links without backend storage.',
-          link: '/tools/evidence-card',
-          cta: 'Build Evidence Card',
-          icon: ShieldCheck,
-          tags: ['Deflate-Raw Codec', 'Zero Fluff', 'Recruiter Proof'],
-        },
-        {
-          id: 'batch-readiness',
-          title: 'Batch Readiness (Placement Cells)',
-          badge: 'College Cohort Heatmap',
-          description: 'Institutional readiness intelligence: benchmark student cohorts against target tech companies, rank curriculum gaps, and enforce zero-bias privacy.',
-          link: '/tools/batch-readiness',
-          cta: 'Audit Cohort Readiness',
-          icon: Users,
-          tags: ['Heatmap Matrix', 'Workshop Recommendations', 'CSV Export'],
-        },
-        {
-          id: 'career-path',
-          title: 'Career Trajectory & Levels',
-          badge: 'India Market INR Intelligence',
-          description: 'Dream job roadmaps, India-office leveling ladders, CTC medians, and market tier positioning from Tier C to Tier S.',
-          link: '/tools/career-path',
-          cta: 'Explore Ladders',
-          icon: Compass,
-          tags: ['Tier Positioning', 'Promotion Blockers', 'Market CTC'],
+          tags: ['Real JD Inputs', 'Scale Targets', 'Verification Rubric'],
         },
       ],
     },
   ];
 
-  // Search filtering
   const filteredGroups = decisionGroups
     .map((group) => {
       const matchingTools = group.tools.filter(
@@ -240,93 +165,95 @@ export function ToolsHubPage() {
     })
     .filter((g) => g.tools.length > 0);
 
+  const totalTools = decisionGroups.reduce((acc, g) => acc + g.tools.length, 0);
+
   return (
-    <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12 animate-fade-in">
+    <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-20 animate-fade-in">
       {/* Hero Header */}
-      <div className="text-center max-w-3xl mx-auto space-y-4">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold tracking-wide uppercase">
-          <Sparkles className="w-3.5 h-3.5" />
-          <span>HireFlow Decision Suite • 10 Integrated Tools</span>
+      <div className="text-center max-w-4xl mx-auto space-y-6">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-bold tracking-wide uppercase">
+          <Sparkles className="w-4 h-4" />
+          <span>HireFlow Decision Suite • {totalTools} Essential Tools</span>
         </div>
-        <h1 className="text-3xl sm:text-5xl font-extrabold text-foreground tracking-tight">
+        <h1 className="text-4xl sm:text-6xl font-black text-foreground tracking-tight leading-tight">
           Everything You Need to Win Your Next Tech Role
         </h1>
-        <p className="text-sm sm:text-base text-muted max-w-2xl mx-auto">
-          From deciding where to apply to negotiating your final offer: pure in-browser execution, zero fabrication, and deterministic hiring intelligence.
+        <p className="text-lg sm:text-xl text-muted max-w-3xl mx-auto font-medium">
+          From evaluating your target roles to building the right projects and presenting yourself better. No gimmicks, pure intelligence.
         </p>
 
         {/* Search Bar */}
-        <div className="pt-2 max-w-md mx-auto">
-          <div className="relative">
-            <Search className="w-4 h-4 text-muted absolute left-3.5 top-1/2 -translate-y-1/2" />
+        <div className="pt-6 max-w-xl mx-auto">
+          <div className="relative group">
+            <Search className="w-6 h-6 text-muted absolute left-5 top-1/2 -translate-y-1/2 group-focus-within:text-primary transition-colors" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search tools by capability (e.g. tax, cold email, kafka)..."
-              className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-surface-2 border border-border text-xs text-foreground placeholder:text-muted focus:outline-none focus:border-primary shadow-xs"
+              placeholder="Search tools by capability (e.g. cold email, resume, career)..."
+              className="w-full pl-14 pr-6 py-5 rounded-2xl bg-surface border-2 border-border text-base text-foreground placeholder:text-muted focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all shadow-sm"
             />
           </div>
         </div>
       </div>
 
       {/* Decision Groups Container */}
-      <div className="space-y-12">
+      <div className="space-y-20">
         {filteredGroups.map((group) => (
-          <section key={group.id} className="space-y-5">
+          <section key={group.id} className="space-y-8">
             {/* Group Header */}
-            <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 pb-3 border-b border-border">
-              <div className="flex items-center gap-3">
-                <span className="w-7 h-7 rounded-lg bg-surface-2 border border-border font-mono text-xs font-black text-primary flex items-center justify-center shrink-0">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b-2 border-border">
+              <div className="flex items-start gap-6">
+                <span className={`w-14 h-14 rounded-2xl ${group.colorTheme.bg} ${group.colorTheme.border} border-2 font-mono text-2xl font-black ${group.colorTheme.text} flex items-center justify-center shrink-0`}>
                   {group.groupLetter}
                 </span>
                 <div>
-                  <h2 className="text-lg sm:text-xl font-extrabold text-foreground tracking-tight">
-                    {group.question}
+                  <h2 className="text-[clamp(32px,4vw,44px)] font-[800] text-foreground tracking-tight leading-none mb-3">
+                    {group.title}
                   </h2>
-                  <p className="text-xs text-muted">{group.description}</p>
+                  <p className="text-lg text-muted font-medium">{group.description}</p>
                 </div>
               </div>
-              <span className="text-[11px] font-bold text-muted font-mono">
+              <span className="text-sm font-bold text-muted font-mono uppercase tracking-wider mb-2">
                 {group.tools.length} Tools
               </span>
             </div>
 
             {/* Tools Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div className={`grid gap-6 ${group.tools.length === 1 ? 'grid-cols-1 max-w-4xl mx-auto' : 'grid-cols-1 md:grid-cols-2'}`}>
               {group.tools.map((tool) => {
                 const Icon = tool.icon;
                 return (
                   <Link
                     key={tool.id}
                     to={tool.link}
-                    className="group bg-surface rounded-2xl border border-border hover:border-primary/40 p-6 flex flex-col justify-between transition-all hover:shadow-card-hover relative overflow-hidden"
+                    className={`group block bg-surface rounded-[24px] border-2 border-border p-8 min-h-[280px] flex flex-col justify-between transition-all duration-300 transform hover:-translate-y-2 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/50 ${group.colorTheme.hoverBorder} ${group.colorTheme.shadowGlow} overflow-hidden`}
                   >
-                    <div className="space-y-3.5">
-                      <div className="flex items-start justify-between gap-3">
-                        <div className="w-10 h-10 rounded-xl bg-surface-2 border border-border group-hover:bg-primary/10 group-hover:border-primary/20 flex items-center justify-center text-primary transition-colors shrink-0">
-                          <Icon className="w-5 h-5" />
+                    <div className="space-y-6">
+                      <div className="flex items-start justify-between gap-4">
+                        <div className={`w-16 h-16 rounded-2xl ${group.colorTheme.bg} ${group.colorTheme.border} border-2 flex items-center justify-center ${group.colorTheme.text} transition-colors shrink-0`}>
+                          <Icon className="w-8 h-8" />
                         </div>
-                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-surface-2 border border-border text-muted">
+                        <span className={`px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-wider ${group.colorTheme.bg} ${group.colorTheme.text} border border-transparent group-hover:${group.colorTheme.border}`}>
                           {tool.badge}
                         </span>
                       </div>
 
                       <div>
-                        <h3 className="text-base font-bold text-foreground group-hover:text-primary transition-colors flex items-center gap-1.5">
+                        <h3 className="text-2xl sm:text-[28px] font-bold text-foreground transition-colors group-hover:text-foreground/90 leading-tight">
                           {tool.title}
                         </h3>
-                        <p className="text-xs text-secondary mt-1.5 leading-relaxed line-clamp-3">
+                        <p className="text-base text-text-secondary mt-3 leading-relaxed">
                           {tool.description}
                         </p>
                       </div>
 
                       {/* Capability Tags */}
-                      <div className="flex flex-wrap gap-1.5 pt-1">
+                      <div className="flex flex-wrap gap-2 pt-2">
                         {tool.tags.map((tag, idx) => (
                           <span
                             key={idx}
-                            className="text-[10px] font-medium px-2 py-0.5 rounded bg-surface-2 text-muted"
+                            className={`text-[12px] font-bold px-3 py-1 rounded-md bg-surface-2 text-text-secondary border border-border group-hover:${group.colorTheme.border} transition-colors`}
                           >
                             {tag}
                           </span>
@@ -335,9 +262,13 @@ export function ToolsHubPage() {
                     </div>
 
                     {/* Bottom CTA */}
-                    <div className="pt-5 mt-4 border-t border-border flex items-center justify-between text-xs font-bold text-primary group-hover:translate-x-0.5 transition-transform">
-                      <span>{tool.cta}</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
+                    <div className="mt-8 pt-6 border-t-2 border-border flex items-center justify-between">
+                      <div className={`inline-flex items-center justify-center h-12 px-6 rounded-xl font-bold text-sm transition-all ${group.colorTheme.button} hover:opacity-90`}>
+                        {tool.cta}
+                      </div>
+                      <div className={`w-12 h-12 rounded-xl flex items-center justify-center bg-surface-2 border-2 border-border group-hover:${group.colorTheme.border} transition-transform group-hover:translate-x-1`}>
+                        <ArrowRight className={`w-6 h-6 ${group.colorTheme.text}`} />
+                      </div>
                     </div>
                   </Link>
                 );

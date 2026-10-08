@@ -23,7 +23,7 @@ export function PublicJobDetail() {
       <div className="min-h-screen bg-bg flex items-center justify-center">
         <div className="text-center page-enter">
           <h2 className="text-[20px] font-semibold text-text mb-[8px]">Job not found</h2>
-          <Link to="/jobs" className="text-primary text-[14px] font-medium hover:text-primary-hover">← Back to Jobs</Link>
+          <Link to="/" className="text-primary text-[14px] font-medium hover:text-primary-hover">← Back Home</Link>
         </div>
       </div>
     );
@@ -72,11 +72,11 @@ export function PublicJobDetail() {
       <header className="bg-surface border-b border-border sticky top-0 z-40">
         <div className="max-w-[1000px] mx-auto px-[24px] h-[56px] flex items-center gap-[16px]">
           <button 
-            onClick={() => navigate('/jobs')} 
+            onClick={() => window.history.length > 2 ? navigate(-1) : navigate('/')} 
             className="flex items-center gap-[6px] px-[14px] py-[6px] rounded-lg bg-surface-2 border border-border hover:bg-surface-3 transition-colors text-[13px] font-semibold text-text shadow-sm"
           >
             <ArrowLeft className="w-[16px] h-[16px] stroke-[1.5px]" />
-            Back to Jobs
+            Back
           </button>
         </div>
       </header>

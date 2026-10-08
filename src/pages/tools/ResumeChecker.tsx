@@ -6,6 +6,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { ArrowRight, Sparkles, RotateCcw, Zap, Compass, CheckCircle2, AlertCircle, ArrowUpRight, ShieldCheck, Bookmark } from 'lucide-react';
 import { Link, useSearchParams } from 'react-router-dom';
+import { PageNav } from '../../components/common/PageNav';
 import { useProfile } from '../../features/suite/profile/ProfileContext';
 import { QuickSummaryCard } from '../../features/suite/components/QuickSummaryCard';
 import { buildQuickSummary } from '../../features/suite/engine/quickSummary';
@@ -321,13 +322,8 @@ export function ResumeChecker() {
   return (
     <div className="min-h-screen bg-bg text-text pt-24 pb-16 px-4 sm:px-6 md:px-8 relative">
       {/* Top Navigation */}
-      <div className="absolute top-8 left-6 sm:left-8 print:hidden">
-        <Link
-          to="/"
-          className="inline-flex items-center gap-2 text-sm md:text-base font-bold text-text hover:text-primary transition-colors cursor-pointer"
-        >
-          <ArrowRight className="w-5 h-5 rotate-180" /> Back to Home
-        </Link>
+      <div className="print:hidden">
+        <PageNav onBack={engineResult ? () => handleTryAnotherJob() : undefined} />
       </div>
 
       <div className="max-w-6xl mx-auto space-y-8 animate-fade-in">

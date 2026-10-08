@@ -85,21 +85,6 @@ const TOOLS = [
     link: "/tools/career-path",
   },
   {
-    icon: Users,
-    title: "HireFlow Job Board",
-    color: "from-success/15 to-success/5",
-    borderColor: "border-success/20",
-    iconColor: "text-success",
-    iconBg: "bg-success-bg",
-    points: [
-      "Browse actively recruiting companies",
-      "One-click apply with your HireFlow profile",
-      "Track your application status in real-time"
-    ],
-    cta: "Browse Open Roles",
-    link: "/jobs",
-  },
-  {
     icon: Brain,
     title: "TalentLens Simulator",
     color: "from-violet-500/15 to-violet-500/5",
@@ -351,11 +336,6 @@ export function LandingPage() {
                 Get Started Free <ArrowRight className="w-[20px] h-[20px] stroke-[2px]" />
               </button>
             </Link>
-            <Link to="/jobs">
-              <button className="inline-flex items-center gap-[12px] h-[60px] px-[40px] text-[17px] font-bold text-text-secondary rounded-xl border border-border hover:border-primary/50 hover:text-text hover:bg-surface-2 transition-all duration-[200ms] shadow-sm">
-                Browse Open Roles
-              </button>
-            </Link>
           </div>
         </div>
       </section>
@@ -371,7 +351,6 @@ export function LandingPage() {
               <span className="text-[18px] font-bold text-text tracking-[-0.02em]">HireFlow</span>
             </div>
             <div className="flex gap-[32px] text-[15px] font-medium text-text-secondary">
-              <Link to="/jobs" className="hover:text-primary transition-colors duration-[200ms]">Jobs</Link>
               <Link to="/demo" className="hover:text-primary transition-colors duration-[200ms]">AI Context</Link>
               <Link to="/login" className="hover:text-primary transition-colors duration-[200ms]">Sign In</Link>
               <Link to="/register" className="hover:text-primary transition-colors duration-[200ms]">Register</Link>

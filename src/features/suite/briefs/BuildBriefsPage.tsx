@@ -7,6 +7,7 @@
 
 import React, { useState, useMemo, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { PageNav } from '../../components/common/PageNav';
 import {
   ArrowLeft,
   Hammer,
@@ -36,14 +37,12 @@ import {
 } from './bundleBriefs';
 import { useProfile } from '../profile/ProfileContext';
 import { SuiteStorage } from '../profile/storage';
-import { COMPANIES } from '../../../pages/demo/talentLensData';
 
 export function BuildBriefsPage() {
   const { profile } = useProfile();
 
-  // Mode: profile gaps, company preset, or custom
-  const [gapMode, setGapMode] = useState<'profile' | 'company' | 'custom'>('company');
-  const [selectedCompanyId, setSelectedCompanyId] = useState<string>('razorpay');
+  // Mode: profile gaps or custom
+  const [gapMode, setGapMode] = useState<'profile' | 'custom'>('profile');
   const [customGapsInput, setCustomGapsInput] = useState<string>('Kafka, Go, Redis, Docker, System Design');
 
   // Search & filter
@@ -61,11 +60,6 @@ export function BuildBriefsPage() {
 
   // Compute active target gaps
   const activeGaps = useMemo<string[]>(() => {
-    if (gapMode === 'company') {
-      const comp = COMPANIES.find((c) => c.id === selectedCompanyId) || COMPANIES[0];
-      const allCompSkills = comp.roles.flatMap((r) => r.competencies);
-      return Array.from(new Set(allCompSkills));
-    }
     if (gapMode === 'profile') {
       if (profile && profile.skills.length > 0) {
         // Pick skills with evidence level < 2 as gaps, or all skills
@@ -81,7 +75,7 @@ export function BuildBriefsPage() {
       .split(/[,;\n]+/)
       .map((s) => s.trim())
       .filter(Boolean);
-  }, [gapMode, selectedCompanyId, customGapsInput, profile]);
+  }, [gapMode, customGapsInput, profile]);
 
   // Run Set-Cover Bundler
   const bundleResult = useMemo(() => {
@@ -144,9 +138,7 @@ export function BuildBriefsPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-border pb-6">
         <div>
           <div className="flex items-center gap-2 mb-2 text-xs text-text-muted">
-            <Link to="/tools" className="hover:text-primary transition-colors flex items-center gap-1">
-              <ArrowLeft className="w-3.5 h-3.5" /> Tools Hub
-            </Link>
+            <PageNav />
             <span>/</span>
             <span className="text-secondary font-medium">Build Briefs</span>
           </div>
@@ -189,14 +181,6 @@ export function BuildBriefsPage() {
 
           <div className="flex items-center gap-2 bg-background p-1 rounded-lg border border-border">
             <button
-              onClick={() => setGapMode('company')}
-              className={`px-3 py-1 text-xs font-medium rounded-md transition-colors ${
-                gapMode === 'company' ? 'bg-primary text-surface font-semibold' : 'text-text-muted hover:text-text'
-              }`}
-            >
-              Company Target
-            </button>
-            <button
               onClick={() => setGapMode('profile')}
               className={`px-3 py-1 text-xs font-medium rounded-md transition-colors ${
                 gapMode === 'profile' ? 'bg-primary text-surface font-semibold' : 'text-text-muted hover:text-text'
@@ -216,22 +200,6 @@ export function BuildBriefsPage() {
         </div>
 
         {/* Dynamic Controls per mode */}
-        {gapMode === 'company' && (
-          <div className="flex flex-wrap items-center gap-3 pt-1">
-            <span className="text-xs text-text-muted">Target Company:</span>
-            <select
-              value={selectedCompanyId}
-              onChange={(e) => setSelectedCompanyId(e.target.value)}
-              className="px-3 py-1.5 text-xs rounded-lg bg-background border border-border text-text focus:outline-none focus:border-primary"
-            >
-              {COMPANIES.map((c) => (
-                <option key={c.id} value={c.id}>
-                  {c.name} ({c.tier})
-                </option>
-              ))}
-            </select>
-          </div>
-        )}
 
         {gapMode === 'custom' && (
           <div className="pt-1">

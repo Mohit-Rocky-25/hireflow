@@ -44,7 +44,6 @@ export function PublicNavbar() {
           </Link>
         </div>
         <div className="hidden md:flex items-center gap-[36px]">
-          <Link to="/jobs" className="text-[15px] font-medium text-text-secondary hover:text-text transition-colors duration-[120ms]">Job Board</Link>
           <Link to="/demo" className="inline-flex items-center gap-[6px] text-[15px] font-bold text-white bg-gradient-to-r from-primary to-ai px-[14px] py-[6px] rounded-full hover:opacity-90 transition-opacity shadow-sm">
             <span className="w-2 h-2 rounded-full bg-white animate-pulse"></span> TalentLens™
           </Link>

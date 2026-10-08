@@ -1,128 +1,47 @@
 [
   {
-    "id": "li-conn-recruiter",
-    "channel": "linkedin_connect",
-    "name": "Recruiter Direct Note",
-    "targetAudience": "Recruiter",
-    "maxLength": 300,
-    "template": "Hi {{recipientName}}, noticed you lead recruiting for {{targetCompany}}'s {{targetRole}} team. I specialize in {{primarySkill}} (recently: {{proofPoint}}). Would love to connect and keep in touch as engineering opportunities arise!",
-    "description": "Punchy 300-char note highlighting stack and #1 proof point."
+    "id": "eng_mgr_cold",
+    "channel": "cold_email",
+    "name": "Bypass ATS: Engineering Manager",
+    "targetAudience": "Engineering Manager",
+    "subject": "Quick question regarding {targetRole} at {targetCompany}",
+    "template": "Hi {recipientName},\n\nI noticed {targetCompany} is expanding the engineering team and hiring for the {targetRole} position. Instead of just dropping my resume in the ATS portal, I wanted to reach out directly.\n\nI recently solved a similar technical challenge: {proofPoint}.\n\nGiven the overlap between what you're building and my recent work, I'd love to chat briefly to see if there's a mutual fit. Are you open to a quick 10-minute call later this week?\n\nBest regards,\n{candidateName}\n{portfolioLink}",
+    "description": "A direct, value-driven cold email to a hiring manager highlighting a specific technical proof point."
   },
   {
-    "id": "li-conn-manager",
-    "channel": "linkedin_connect",
-    "name": "Hiring Manager Project Hook",
-    "targetAudience": "Hiring Manager",
-    "maxLength": 300,
-    "template": "Hi {{recipientName}}, admired your team's work on {{admiredProject}} at {{targetCompany}}. As an engineer focused on {{primarySkill}}, I recently {{proofPoint}}. Would love to connect and follow your engineering posts!",
-    "description": "Respectful note referencing the team's public work."
+    "id": "eng_mgr_cold_short",
+    "channel": "cold_email",
+    "name": "Bypass ATS: Short & Punchy",
+    "targetAudience": "Engineering Manager",
+    "subject": "{targetRole} candidate w/ {primarySkill} experience",
+    "template": "Hi {recipientName},\n\nI'm reaching out because I saw your team is hiring for a {targetRole}. I have strong experience in {primarySkill} and recently delivered this result: {proofPoint}.\n\nI'm a big fan of what {targetCompany} is doing with {admiredProject}. I've attached my resume—would you be open to a brief chat this week?\n\nThanks,\n{candidateName}\n{portfolioLink}",
+    "description": "A very concise cold email for busy engineering managers."
   },
   {
-    "id": "li-conn-alumni",
+    "id": "li_connect_standard",
     "channel": "linkedin_connect",
-    "name": "Alumni Common Ground",
+    "name": "LinkedIn Connect: Direct",
+    "targetAudience": "Recruiter / Hiring Manager",
+    "maxLength": 300,
+    "template": "Hi {recipientName}, I saw {targetCompany} is hiring a {targetRole}. I recently accomplished: {proofPoint}. I'd love to connect and see if my background in {primarySkill} aligns with what your team needs right now. Thanks, {candidateName}",
+    "description": "A strict <300 char LinkedIn connection request that immediately gets to the point."
+  },
+  {
+    "id": "li_connect_alumni",
+    "channel": "linkedin_connect",
+    "name": "LinkedIn Connect: Alumni",
     "targetAudience": "Alumnus",
     "maxLength": 300,
-    "template": "Hi {{recipientName}}, fellow alum from {{collegeName}} here! Great to see your journey at {{targetCompany}} as a {{recipientTitle}}. I am exploring {{targetRole}} roles and would love to connect with alumni in the domain.",
-    "description": "Warm alumni connection establishing shared background."
+    "template": "Hi {recipientName}, fellow {collegeName} grad here! I'm applying for the {targetRole} role at {targetCompany} and have strong experience in {primarySkill}. I'd love to connect to hear your thoughts on the engineering culture there. Best, {candidateName}",
+    "description": "Leverages university common ground under the 300 character limit."
   },
   {
-    "id": "li-inmail-recruiter",
-    "channel": "linkedin_inmail",
-    "name": "Recruiter InMail — Value Proposition",
-    "targetAudience": "Recruiter",
-    "template": "Hi {{recipientName}},\n\nI hope you are having a productive week.\n\nI noticed {{targetCompany}} is actively hiring for the {{targetRole}} opening. Having tracked {{targetCompany}}'s engineering scale, I wanted to reach out directly.\n\nMy core stack centers on {{primarySkill}}. In my recent work, I {{proofPoint}}, focusing on production reliability and clean software architecture.\n\nI would love to learn if my background aligns with what the engineering team is looking for. Happy to share my resume or portfolio ({{portfolioLink}}) if you have 5 minutes.\n\nBest regards,\n{{candidateName}}",
-    "description": "Concise 120-word InMail highlighting concrete production evidence."
-  },
-  {
-    "id": "li-inmail-engineer",
-    "channel": "linkedin_inmail",
-    "name": "Peer Engineer Tech Conversation",
-    "targetAudience": "Peer Engineer",
-    "template": "Hi {{recipientName}},\n\nI came across your profile while researching {{targetCompany}}'s engineering stack. I was really impressed by {{admiredProject}}.\n\nI am a {{targetRole}} working primarily with {{primarySkill}}. Recently, I {{proofPoint}}, and had been exploring similar architecture trade-offs that {{targetCompany}} encounters.\n\nI saw open positions on your team and would love 10 minutes to ask about your day-to-day engineering culture. If open, would love to hear your perspective.\n\nThanks,\n{{candidateName}}",
-    "description": "Engineer-to-engineer message focused on architecture culture."
-  },
-  {
-    "id": "li-inmail-manager",
-    "channel": "linkedin_inmail",
-    "name": "Hiring Manager High-Impact Pitch",
-    "targetAudience": "Hiring Manager",
-    "template": "Hi {{recipientName}},\n\nI follow your team's engineering work at {{targetCompany}} and wanted to reach out regarding the {{targetRole}} opening under your group.\n\nMy focus is {{primarySkill}}. A quick highlight of what I bring:\n- {{proofPoint}}\n- Track record in {{commonGround}}\n- Active focus on automated testing, maintainable CI/CD, and latency optimization\n\nGiven the problems your team is solving around {{admiredProject}}, I believe I can hit the ground running. Would you be open to a brief chat or reviewing my background?\n\nWarmly,\n{{candidateName}}",
-    "description": "Direct, structured value proposition for engineering managers."
-  },
-  {
-    "id": "email-cold-pitch",
-    "channel": "cold_email",
-    "name": "Cold Email — Direct Role Application",
-    "targetAudience": "Recruiter",
-    "subject": "Application: {{targetRole}} — {{candidateName}} ({{primarySkill}})",
-    "template": "Hi {{recipientName}},\n\nI am writing to express my strong interest in the {{targetRole}} position at {{targetCompany}}.\n\nI specialize in {{primarySkill}} and have built scalable services with high reliability requirements. Key highlights include:\n- {{proofPoint}}\n- Solid foundation in {{commonGround}} and automated testing\n- Proven ownership from design to deployment\n\nI have admired {{targetCompany}}'s trajectory, particularly {{admiredProject}}. I have attached my resume for your review and you can inspect my code samples here: {{portfolioLink}}.\n\nWould you have 10 minutes this week for a brief introductory call?\n\nBest regards,\n{{candidateName}}\n{{candidateEmail}}",
-    "description": "Standard high-converting cold email with clear subject line."
-  },
-  {
-    "id": "email-hiring-manager",
-    "channel": "cold_email",
-    "name": "Cold Email — Solutions & Problem Solving",
-    "targetAudience": "Hiring Manager",
-    "subject": "Quick question on {{targetCompany}}'s {{targetRole}} stack",
-    "template": "Hi {{recipientName}},\n\nI noticed you lead the team behind {{admiredProject}} at {{targetCompany}}. Building at that scale requires exceptional engineering discipline.\n\nI am a software engineer specializing in {{primarySkill}}. In my last project, I {{proofPoint}}. Given {{targetCompany}}'s emphasis on high availability and developer productivity, I would love to contribute to your upcoming initiatives.\n\nI have reviewed the {{targetRole}} opening and would welcome the chance to discuss how my skill set addresses your current sprint priorities.\n\nAre you free for a brief 10-minute sync this Thursday or Friday?\n\nWarmly,\n{{candidateName}}",
-    "description": "Proactive email showcasing admiration and relevant proof points."
-  },
-  {
-    "id": "email-recruiter-fast",
-    "channel": "cold_email",
-    "name": "Cold Email — Scannable Bullet Pitch",
-    "targetAudience": "Recruiter",
-    "subject": "{{candidateName}} — {{targetRole}} candidate ({{primarySkill}})",
-    "template": "Hi {{recipientName}},\n\nHope your week is going well. I know you receive many applications, so I will keep this concise.\n\nI am applying for the {{targetRole}} role at {{targetCompany}}:\n\n1. Core Tech: {{primarySkill}}\n2. Verified Evidence: {{proofPoint}}\n3. Portfolio: {{portfolioLink}}\n\nI would love the opportunity to interview and demonstrate my problem-solving ability in the technical screen.\n\nThanks for your time,\n{{candidateName}}",
-    "description": "Ultra-scannable 3-point email tailored for busy recruiters."
-  },
-  {
-    "id": "ref-alumni-warm",
-    "channel": "warm_referral",
-    "name": "Alumni Warm Referral Ask",
-    "targetAudience": "Alumnus",
-    "template": "Hi {{recipientName}},\n\nHope you are doing well! I am {{candidateName}}, currently a student/alum from {{collegeName}}.\n\nI saw your profile and noticed you are working as a {{recipientTitle}} at {{targetCompany}}. It is great to see alumni making an impact on the engineering team there.\n\nI am preparing to apply for the {{targetRole}} position. Over the past year, I have built deep experience with {{primarySkill}}, most notably: {{proofPoint}}.\n\nIf you feel comfortable, would you be open to submitting an internal referral for me, or sharing quick advice on the team's interview process? I have my resume ready to share.\n\nThanks so much,\n{{candidateName}}",
-    "description": "Courteous referral request leveraging shared college network."
-  },
-  {
-    "id": "ref-second-degree",
-    "channel": "warm_referral",
-    "name": "Mutual Connection / Peer Referral",
-    "targetAudience": "Peer Engineer",
-    "template": "Hi {{recipientName}},\n\nI hope you are doing well.\n\nI noticed we share mutual connections in the {{commonGround}} community. I have been following {{targetCompany}}'s growth, especially the work your team shipped on {{admiredProject}}.\n\nI am interested in the {{targetRole}} opening and have deep hands-on experience in {{primarySkill}} (recently: {{proofPoint}}).\n\nIf you are open to it, could I send over my resume for an internal referral? I would also value any insider tips on what the engineering team prioritizes in the coding screen.\n\nAppreciate your help,\n{{candidateName}}",
-    "description": "Polite referral ask highlighting shared engineering community."
-  },
-  {
-    "id": "ref-manager-intro",
-    "channel": "warm_referral",
-    "name": "Referral Recommendation via Team Lead",
-    "targetAudience": "Hiring Manager",
-    "template": "Hi {{recipientName}},\n\nHope you are having a great week.\n\nI noticed your team at {{targetCompany}} is looking for a {{targetRole}}. As an engineer with production background in {{primarySkill}}, I recently {{proofPoint}}.\n\nI would love to be considered for your team and wanted to ask if you'd prefer I apply via a referral link or send my resume directly to your hiring coordinator.\n\nLooking forward to hearing from you,\n{{candidateName}}",
-    "description": "Direct referral pathway check with the team hiring manager."
-  },
-  {
-    "id": "followup-gentle",
+    "id": "referral_follow_up",
     "channel": "follow_up",
-    "name": "Gentle Follow-Up (Day 5-7)",
+    "name": "Post-Referral Check-in",
     "targetAudience": "Recruiter",
-    "template": "Hi {{recipientName}},\n\nFollowing up on my previous note regarding the {{targetRole}} opening at {{targetCompany}}.\n\nI know you have a packed schedule, so I just wanted to reiterate my enthusiasm for the role and my readiness in {{primarySkill}}.\n\nHappy to provide any additional details, GitHub code samples ({{portfolioLink}}), or work history whenever convenient.\n\nBest regards,\n{{candidateName}}",
-    "description": "Polite 60-word reminder sent after 5 to 7 days."
-  },
-  {
-    "id": "followup-new-milestone",
-    "channel": "follow_up",
-    "name": "Value-Add Follow-Up with Update",
-    "targetAudience": "Hiring Manager",
-    "template": "Hi {{recipientName}},\n\nWanted to quickly follow up on my note last week regarding {{targetCompany}}'s {{targetRole}} team.\n\nSince reaching out, I just published an update on {{proofPoint}} that directly mirrors the architectural requirements mentioned in the job description.\n\nWould love 5 minutes to discuss if there is a match for your current hiring cycle.\n\nWarmly,\n{{candidateName}}",
-    "description": "Follow-up sharing a fresh proof point or project milestone."
-  },
-  {
-    "id": "followup-closing-loop",
-    "channel": "follow_up",
-    "name": "Final Polite Loop Closure",
-    "targetAudience": "Recruiter",
-    "template": "Hi {{recipientName}},\n\nCircling back one last time regarding the {{targetRole}} position at {{targetCompany}}.\n\nIf the headcount has been filled or the timing is not right, no worries at all! I will keep following {{targetCompany}}'s engineering milestones and would welcome keeping in touch on LinkedIn for future roles.\n\nThanks again for your time,\n{{candidateName}}",
-    "description": "Classy, low-pressure loop closer that keeps future doors open."
+    "subject": "Following up on referral for {targetRole} - {candidateName}",
+    "template": "Hi {recipientName},\n\nI recently applied for the {targetRole} position at {targetCompany} via a referral from {commonGround}.\n\nSince submitting my application, I've continued building my expertise in {primarySkill} and wanted to reiterate my strong interest in joining the team.\n\nPlease let me know if you need any additional information or work samples (my portfolio is at {portfolioLink}). \n\nLooking forward to potentially speaking with you.\n\nBest,\n{candidateName}",
+    "description": "Professional follow-up email after an internal employee has referred you."
   }
 ]

@@ -326,10 +326,7 @@ export function CandidatePortal() {
               {/* Quick links */}
               <div className="bg-surface rounded-xl border border-border p-[20px] shadow-xs space-y-[8px]">
                 <p className="text-[12px] font-bold text-text-muted uppercase tracking-[0.06em] mb-[12px]">Quick Actions</p>
-                <Link to="/jobs" className="flex items-center justify-between p-[12px] rounded-lg hover:bg-surface-2 transition-colors group">
-                  <span className="text-[14px] font-medium text-text-secondary group-hover:text-text">Browse all open jobs</span>
-                  <ChevronRight className="w-[15px] h-[15px] text-text-muted group-hover:text-primary" />
-                </Link>
+
                 <Link to="/demo" className="flex items-center justify-between p-[12px] rounded-lg hover:bg-surface-2 transition-colors group">
                   <span className="text-[14px] font-medium text-text-secondary group-hover:text-text">Test AI match score</span>
                   <ChevronRight className="w-[15px] h-[15px] text-text-muted group-hover:text-primary" />
@@ -476,11 +473,6 @@ export function CandidatePortal() {
                 })}
 
                 <div className="flex gap-[12px] pt-[8px]">
-                  <Link to="/jobs" className="flex-1 sm:flex-none">
-                    <button className="w-full sm:w-auto h-[44px] px-[24px] text-[13px] font-bold text-white rounded-xl bg-gradient-to-r from-primary to-primary-hover shadow-glow-orange hover:scale-[1.01] transition-all flex items-center justify-center gap-[8px]">
-                      Browse More Roles <ArrowRight className="w-[14px] h-[14px]" />
-                    </button>
-                  </Link>
                   <Link to="/demo" className="flex-1 sm:flex-none">
                     <button className="w-full sm:w-auto h-[44px] px-[24px] text-[13px] font-semibold text-text-secondary rounded-xl border border-border-strong hover:border-border-accent hover:text-text hover:bg-surface-2 transition-all flex items-center justify-center gap-[8px]">
                       <Brain className="w-[14px] h-[14px]" /> Check AI Match
@@ -561,21 +553,7 @@ export function CandidatePortal() {
                         </div>
                       </div>
                     </div>
-                    {companyJobs.length > 0 && (
-                      <div className="mt-[16px] pt-[16px] border-t border-border space-y-[6px]">
-                        {companyJobs.slice(0, 2).map(job => (
-                          <Link key={job.id} to={`/jobs/${job.id}`} className="flex items-center justify-between p-[10px] rounded-lg hover:bg-surface-2 transition-colors group">
-                            <span className="text-[13px] font-medium text-text-secondary group-hover:text-text truncate">{job.title}</span>
-                            <ChevronRight className="w-[14px] h-[14px] text-text-muted group-hover:text-primary shrink-0" />
-                          </Link>
-                        ))}
-                        {companyJobs.length > 2 && (
-                          <Link to="/jobs" className="block text-center text-[12px] text-primary hover:underline font-medium pt-[4px]">
-                            +{companyJobs.length - 2} more roles →
-                          </Link>
-                        )}
-                      </div>
-                    )}
+
                   </div>
                 );
               })}

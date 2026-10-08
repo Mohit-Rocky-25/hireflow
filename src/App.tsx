@@ -13,7 +13,6 @@ import { AppShell } from './components/layout/AppShell';
 import { LandingPage } from './pages/LandingPage';
 import { LoginPage } from './pages/auth/LoginPage';
 import { RegisterPage } from './pages/auth/RegisterPage';
-import { JobMarketplace } from './pages/jobs/JobMarketplace';
 import { PublicJobDetail } from './pages/jobs/PublicJobDetail';
 import { PublicCompanyProfile } from './pages/company/PublicCompanyProfile';
 import { MatchingDemo } from './pages/demo/MatchingDemo';
@@ -30,16 +29,9 @@ import { CompanyLadderPage } from './pages/tools/career-path/CompanyLadderPage';
 import { TalentLens } from './pages/tools/TalentLens';
 import { ToolsHubPage } from './pages/tools/ToolsHubPage';
 import { CompareJDsPage } from './features/suite/compare/CompareJDsPage';
-import { ApplicationTrackerPage } from './features/suite/tracker/ApplicationTrackerPage';
-import { CompanyComparePage } from './features/suite/companies/CompanyComparePage';
 import { TailorResumePage } from './features/suite/tailor/TailorResumePage';
 import { ReachOutPage } from './features/suite/outreach/ReachOutPage';
-import { ProfileCheckPage } from './features/suite/profile-check/ProfileCheckPage';
 import { BuildBriefsPage } from './features/suite/briefs/BuildBriefsPage';
-import { OfferDecoderPage } from './features/suite/offer/OfferDecoderPage';
-import { EvidenceCardBuilderPage } from './features/suite/share/EvidenceCardBuilderPage';
-import { EvidenceCardViewerPage } from './features/suite/share/EvidenceCardViewerPage';
-import { BatchReadinessPage } from './features/suite/cohort/BatchReadinessPage';
 
 // Company / BHR Pages
 import { CompanyDashboard } from './pages/company/CompanyDashboard';
@@ -113,27 +105,18 @@ export default function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="/jobs" element={<JobMarketplace />} />
-        <Route path="/jobs/:id" element={<PublicJobDetail />} />
         <Route path="/company/:id" element={<PublicCompanyProfile />} />
         <Route path="/demo" element={<MatchingDemo />} />
         <Route path="/demo/company/:companySlug" element={<CompanyRolesPage />} />
         <Route path="/portal" element={<CandidatePortal />} />
-        <Route path="/card" element={<EvidenceCardViewerPage />} />
         
         {/* Free ATS Candidate Tools */}
         <Route path="/tools" element={<ToolsHubPage />} />
         <Route path="/tools/resume-checker" element={<ResumeChecker />} />
         <Route path="/tools/jd-compare" element={<CompareJDsPage />} />
-        <Route path="/tools/tracker" element={<ApplicationTrackerPage />} />
-        <Route path="/tools/company-compare" element={<CompanyComparePage />} />
         <Route path="/tools/tailor" element={<TailorResumePage />} />
         <Route path="/tools/reach-out" element={<ReachOutPage />} />
-        <Route path="/tools/profile-check" element={<ProfileCheckPage />} />
         <Route path="/tools/build-briefs" element={<BuildBriefsPage />} />
-        <Route path="/tools/offer-decoder" element={<OfferDecoderPage />} />
-        <Route path="/tools/evidence-card" element={<EvidenceCardBuilderPage />} />
-        <Route path="/tools/batch-readiness" element={<BatchReadinessPage />} />
         <Route path="/tools/career-path" element={<CareerPathHub />} />
         <Route path="/tools/career-path/dream-job-roadmap" element={<DreamJobRoadmapPage />} />
         <Route path="/tools/career-path/company-levels" element={<CompanyLevelsPage />} />
@@ -196,7 +179,6 @@ export default function App() {
           <Route path="audit" element={<AdminAuditLog />} />
           <Route path="settings" element={<AdminSettings />} />
           <Route path="notifications" element={<NotificationsPage />} />
-          <Route path="jobs" element={<Navigate to="/jobs" replace />} />
           <Route path="analytics" element={<Navigate to="/admin/dashboard" replace />} />
           <Route path="ai" element={<Navigate to="/admin/settings" replace />} />
         </Route>

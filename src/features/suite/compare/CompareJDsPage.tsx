@@ -23,6 +23,7 @@ import {
   Check,
   Building2,
 } from 'lucide-react';
+import { PageNav } from '../../components/common/PageNav';
 import { useProfile } from '../profile/ProfileContext';
 import { ProfileStatusChip } from '../profile/components/ProfileStatusChip';
 import { compareJDs, CompareJDsResult, JDInput } from './compareJDs';
@@ -134,14 +135,9 @@ export function CompareJDsPage() {
 
   return (
     <div className="min-h-screen bg-bg text-text pt-24 pb-16 px-4 sm:px-6 md:px-8 relative">
+      <PageNav onBack={result ? () => setResult(null) : undefined} />
       {/* Top Navigation */}
-      <div className="max-w-6xl mx-auto mb-6 flex items-center justify-between">
-        <Link
-          to="/"
-          className="inline-flex items-center gap-2 text-sm font-bold text-text hover:text-primary transition-colors cursor-pointer"
-        >
-          <ArrowLeft className="w-4 h-4" /> Back to Tools
-        </Link>
+      <div className="max-w-6xl mx-auto mb-6 flex items-center justify-end">
         <ProfileStatusChip />
       </div>
 

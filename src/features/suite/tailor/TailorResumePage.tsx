@@ -7,6 +7,7 @@
 
 import React, { useState, useMemo, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { PageNav } from '../../components/common/PageNav';
 import {
   ArrowLeft,
   Sparkles,
@@ -214,18 +215,11 @@ Requirements:
 
   return (
     <div className="min-h-screen bg-bg text-text pb-16">
+      <PageNav />
       {/* Top Banner */}
       <div className="border-b border-border bg-surface/50 backdrop-blur-md sticky top-0 z-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex flex-wrap items-center justify-between gap-4">
+        <div className="max-w-7xl mx-auto pl-40 pr-4 sm:px-6 py-4 flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <Link
-              to="/tools/career-path"
-              className="inline-flex items-center gap-1.5 text-xs text-text-muted hover:text-text font-semibold px-2.5 py-1.5 rounded-lg hover:bg-surface-2 transition-colors"
-            >
-              <ArrowLeft className="w-3.5 h-3.5" />
-              Tools Hub
-            </Link>
-            <span className="text-border">/</span>
             <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
               Group B: Present
             </span>
