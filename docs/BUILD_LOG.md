@@ -57,13 +57,13 @@
   - [x] 0.4 Freeze golden baseline (`docs/baseline-golden.json`)
   - [x] 0.5 Git setup on `feature/hireflow-suite`
   - [x] 0.6 Create `docs/BUILD_LOG.md`
-- [ ] Stage 1: Foundation: Candidate Profile
-  - [ ] 1.1 Strictly typed models (`profile/types.ts`)
-  - [ ] 1.2 Profile builder (`profile/buildProfile.ts`)
-  - [ ] 1.3 Deterministic evidence ladder 0-4 (`profile/evidenceLadder.ts`)
-  - [ ] 1.4 Storage layer with quota guard & import/export (`profile/storage.ts`)
-  - [ ] 1.5 ProfileProvider, hooks, My Profile drawer, top chips
-  - [ ] 1.6 Unit tests for determinism, ladder, storage roundtrip
+- [x] Stage 1: Foundation: Candidate Profile
+  - [x] 1.1 Strictly typed models (`profile/types.ts`)
+  - [x] 1.2 Profile builder (`profile/buildProfile.ts`)
+  - [x] 1.3 Deterministic evidence ladder 0-4 (`profile/evidenceLadder.ts`)
+  - [x] 1.4 Storage layer with quota guard & import/export (`profile/storage.ts`)
+  - [x] 1.5 ProfileProvider, hooks, My Profile drawer, top chips
+  - [x] 1.6 Unit tests for determinism, ladder, storage roundtrip
 - [ ] Stage 2: Engine Upgrades
   - [ ] 2.1 `simulateFix` and `rankFixes`
   - [ ] 2.2 `buildQuickSummary` and Quick Summary card on Roaster & TalentLens
@@ -113,3 +113,14 @@
 - Baseline verified: all 139 pre-existing tests pass; `docs/baseline-golden.json` contains baseline metrics for 32 golden cases.
 - Current branch: `feature/hireflow-suite`.
 - Next task: Stage 1 (Candidate Profile foundation).
+
+## Stage 1 Handoff Note
+- Created `src/features/suite/profile/types.ts` (`CandidateProfile`, `EvidenceLevel`, `ResumeVersion`, `ScanRecord`, `ApplicationEntry`, `BuildPlan`).
+- Created `src/features/suite/profile/evidenceLadder.ts` (`gradeSkill` levels 0-4 with verbatim quotes, metrics and link matching).
+- Created `src/features/suite/profile/buildProfile.ts` (Pass A & Pass B integration, explicit CGPA/backlogs pattern matching, link detection).
+- Created `src/features/suite/profile/storage.ts` (`SuiteStorage` with localStorage quota guards, schema validation, export/import, memStore fallback for test/SSR).
+- Created `ProfileContext.tsx`, `ProfileDrawer.tsx`, `ProfileStatusChip.tsx`.
+- Integrated `ProfileProvider` and `ProfileDrawer` into `App.tsx`.
+- Integrated "Save to my profile" buttons into ATS Roaster (`ResumeChecker.tsx`) and `TalentLens.tsx`.
+- Unit tests (`profileFoundation.test.ts`): all 11 tests pass. All 152 tests across the repo pass. Typecheck clean.
+- Next task: Stage 2 (Engine upgrades: simulateFix, rankFixes, buildQuickSummary, Quick Summary cards, Invariant 6, golden cases expansion).

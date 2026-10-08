@@ -74,6 +74,9 @@ import { NotificationsPage } from './pages/NotificationsPage';
 import { ProtectedRoute } from './components/auth/ProtectedRoute';
 import { ToastContainer } from './components/ui/Toast';
 
+import { ProfileProvider } from './features/suite/profile/ProfileContext';
+import { ProfileDrawer } from './features/suite/profile/components/ProfileDrawer';
+
 export default function App() {
   const { initDemoData, _initialized } = useStore();
   const [appReady, setAppReady] = useState(false);
@@ -91,8 +94,9 @@ export default function App() {
   return (
     <>
     {!appReady && <CinematicLoader onFinish={handleLoadingFinish} isAppReady={_initialized} />}
-    <BrowserRouter>
-      <Routes>
+    <ProfileProvider>
+      <BrowserRouter>
+        <Routes>
         {/* Public routes */}
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
@@ -176,8 +180,10 @@ export default function App() {
         {/* Catch all */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
+      <ProfileDrawer />
       <ToastContainer />
     </BrowserRouter>
+    </ProfileProvider>
     </>
   );
 }

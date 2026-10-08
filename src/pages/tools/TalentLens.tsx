@@ -11,10 +11,12 @@ import {
   Brain, CheckCircle2, XCircle, AlertTriangle, HelpCircle,
   ChevronDown, ChevronUp, ArrowLeft, RefreshCw, Users,
   MessageSquare, Target, Shield, TrendingUp, Eye, Clock,
-  Briefcase, Award, Star, ChevronRight, Sparkles
+  Briefcase, Award, Star, ChevronRight, Sparkles, Bookmark
 } from 'lucide-react';
 import { analyzeCandidate } from '../../ai/matching';
 import type { CandidateMatch, RequirementAssessment } from '../../types';
+import { useProfile } from '../../features/suite/profile/ProfileContext';
+import { DEMO_TALENTLENS_RESUME } from '../demo/useTalentLensStore';
 
 // ── Status Components ──
 function EligibilityBadge({ status }: { status: string }) {
@@ -185,6 +187,7 @@ function RequirementCard({ assessment }: { assessment: RequirementAssessment }) 
 // ── Main Component ──
 export function TalentLens() {
   const navigate = useNavigate();
+  const { saveFromResumeText, openDrawer } = useProfile();
   const { users, candidateProfiles, applications, jobs, createMatch, candidateMatches } = useStore();
   const candidateId = "user-cand-1"; // Standalone demo
   const currentCompanyId = "comp-alpha-tech"; // Standalone demo
@@ -353,6 +356,16 @@ export function TalentLens() {
                 <div className="flex items-center gap-[12px] mb-[4px]">
                   <h2 className="text-[18px] font-bold text-text">Intelligence Report</h2>
                   <EligibilityBadge status={match.eligibility} />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      saveFromResumeText(profile?.resumeRawText || DEMO_TALENTLENS_RESUME.text);
+                      openDrawer();
+                    }}
+                    className="ml-2 px-3 py-1 bg-primary/10 hover:bg-primary/20 border border-primary/30 text-xs font-bold rounded-lg text-primary transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs"
+                  >
+                    <Bookmark className="w-3.5 h-3.5" /> Save to my profile
+                  </button>
                 </div>
                 <p className="text-[14px] text-text-secondary">{match.explanation}</p>
               </div>

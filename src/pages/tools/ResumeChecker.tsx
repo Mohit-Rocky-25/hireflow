@@ -4,8 +4,9 @@
 // ============================================================
 
 import React, { useState, useRef, useEffect } from 'react';
-import { ArrowRight, Sparkles, RotateCcw, Zap, Compass, CheckCircle2, AlertCircle, ArrowUpRight, ShieldCheck } from 'lucide-react';
+import { ArrowRight, Sparkles, RotateCcw, Zap, Compass, CheckCircle2, AlertCircle, ArrowUpRight, ShieldCheck, Bookmark } from 'lucide-react';
 import { Link, useSearchParams } from 'react-router-dom';
+import { useProfile } from '../../features/suite/profile/ProfileContext';
 import { parseResumeFile } from '../../features/ats/fileParser';
 import {
   AtsInputSection,
@@ -35,6 +36,7 @@ const STAGED_MESSAGES = [
 
 export function ResumeChecker() {
   const [searchParams] = useSearchParams();
+  const { saveFromResumeText, openDrawer } = useProfile();
 
   const queryCompanyId = searchParams.get('company');
   const queryRoleTitle = searchParams.get('role');
@@ -428,6 +430,17 @@ export function ResumeChecker() {
                   className="px-4 py-2 bg-surface hover:bg-surface-2 border border-border text-xs font-bold rounded-xl text-text transition-colors flex items-center gap-1.5 cursor-pointer shadow-2xs"
                 >
                   <RotateCcw className="w-3.5 h-3.5 text-primary" /> Try Another Job
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    saveFromResumeText(resumeText);
+                    openDrawer();
+                  }}
+                  className="px-4 py-2 bg-primary/10 hover:bg-primary/20 border border-primary/30 text-xs font-bold rounded-xl text-primary transition-colors flex items-center gap-1.5 cursor-pointer shadow-2xs"
+                >
+                  <Bookmark className="w-3.5 h-3.5" /> Save to my profile
                 </button>
               </div>
             </div>
