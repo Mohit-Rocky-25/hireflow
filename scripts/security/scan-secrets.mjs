@@ -289,8 +289,8 @@ function scanGitHistory() {
 
   try {
     // Check if any .env* files were EVER committed
-    const envHistory = execSync('git log --all --diff-filter=A --name-only -- "*.env*"', { encoding: 'utf8' });
-    const envFiles = envHistory.split('\n').map(l => l.trim()).filter(l => l && !l.endsWith('.env.example'));
+    const envHistory = execSync('git log --all --diff-filter=A --name-only --format="" -- "*.env*"', { encoding: 'utf8' });
+    const envFiles = envHistory.split('\n').map(l => l.trim()).filter(l => l && !l.endsWith('.env.example') && (l === '.env' || l.startsWith('.env.')));
     if (envFiles.length > 0) {
       historyFindings.push({
         commit: 'HISTORIC',

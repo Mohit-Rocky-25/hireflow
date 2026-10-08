@@ -17,14 +17,14 @@
   - [x] 1.1 Create `scripts/security/` helper tools (`scan-secrets.mjs`, `audit-deps.mjs`, `scan-bundle.mjs`, `run-check.mjs`).
   - [x] 1.2 Wire npm scripts (`security:secrets`, `security:audit`, `security:bundle`, `security:redteam`, `security:check`).
   - [x] 1.3 Initialize `src/__tests__/security/` test directory and test harness.
-- [ ] **Phase 2 — Secrets, Environment Variables and Hard-Coded Confidential Data**
-  - [ ] 2.1 Build `scripts/security/scan-secrets.mjs` with masked reporting.
-  - [ ] 2.2 Scan working tree and complete git history for committed secrets.
-  - [ ] 2.3 Classify findings (Critical, High, Medium, Low, Info).
-  - [ ] 2.4 Remediate working tree findings, update `.gitignore`, `.env.example`.
-  - [ ] 2.5 Generate `ROTATION_CHECKLIST.md`.
-  - [ ] 2.6 Install pre-commit hook guard and `.github/workflows/security.yml`.
-  - [ ] 2.7 Re-scan working tree and `--dist`.
+- [x] **Phase 2 — Secrets, Environment Variables and Hard-Coded Confidential Data**
+  - [x] 2.1 Build `scripts/security/scan-secrets.mjs` with masked reporting.
+  - [x] 2.2 Scan working tree and complete git history for committed secrets.
+  - [x] 2.3 Classify findings (Critical, High, Medium, Low, Info).
+  - [x] 2.4 Remediate working tree findings, update `.gitignore`, `.env.example`.
+  - [x] 2.5 Generate `ROTATION_CHECKLIST.md`.
+  - [x] 2.6 Install pre-commit hook guard and `.github/workflows/security.yml`.
+  - [x] 2.7 Re-scan working tree and `--dist`.
 - [ ] **Phase 3 — Dependency and Supply-Chain Security**
   - [ ] 3.1 Run `npm audit` and generate `docs/security/DEPENDENCIES.md`.
   - [ ] 3.2 Remediate vulnerable dependencies or document accepted risks.
@@ -102,3 +102,16 @@
   - `src/__tests__/security/smoke.test.ts`: Test harness verified.
 - **NPM Scripts Wired**: `security:secrets`, `security:audit`, `security:bundle`, `security:redteam`, `security:check`.
 - Next: Proceed to Phase 2 (Secrets, Env Data and Hard-Coded Confidential Data).
+
+### Phase 2 Handoff Note
+- **Secrets Audit Status**:
+  - Full Git history scanned across all commits: Zero committed secrets, zero committed `.env` files.
+  - Working tree scanned (289 files): Zero real secrets found.
+  - Production bundle (`dist/`) scanned: Zero source maps, zero real secrets.
+  - Hardened `.gitignore` with certificates, db files, backups, and local env patterns.
+  - Updated `.env.example` with security comments distinguishing server-only vs client vars.
+  - Fixed SEC-002 in `src/ai/AIProvider.ts` (removed misleading `VITE_` API key comments).
+  - Pre-commit hook installed at `.githooks/pre-commit` and configured via `core.hooksPath`.
+  - CI security workflow created at `.github/workflows/security.yml`.
+  - Created `docs/security/ROTATION_CHECKLIST.md`.
+- Next: Proceed to Phase 3 (Dependency and Supply-Chain Security).

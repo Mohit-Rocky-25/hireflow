@@ -1,0 +1,16 @@
+#!/bin/sh
+# HireFlow AI — Pre-Commit Security Guard
+# Blocks any commit containing secrets, tokens, or private credentials.
+
+echo "Running pre-commit security secret scan..."
+node scripts/security/scan-secrets.mjs --staged
+RESULT=$?
+
+if [ $RESULT -ne 0 ]; then
+  echo ""
+  echo "❌ COMMIT REJECTED: Secrets or sensitive credentials detected in staged files."
+  echo "Please remove the credentials or verify allowlist.json before committing."
+  exit 1
+fi
+
+exit 0

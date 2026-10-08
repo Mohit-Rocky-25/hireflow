@@ -2,10 +2,9 @@
 // HireFlow — AI Provider Abstraction Layer
 // Allows swapping LLM providers without touching application code
 // Implements LocalAIProvider (deterministic, no API cost)
-// Environment variables activate real providers:
-//   VITE_AI_PROVIDER=gemini|openai|local (default: local)
-//   VITE_GEMINI_API_KEY=...
-//   VITE_OPENAI_API_KEY=...
+// Environment configuration:
+//   LocalAIProvider is the default (deterministic, zero client API key exposure).
+//   Backend LLM keys (GEMINI_API_KEY) are server-only and must never be exposed via VITE_ prefixes.
 // ============================================================
 
 export interface ExtractionResult<T> {

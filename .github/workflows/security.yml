@@ -1,0 +1,41 @@
+name: Security Audit & Hardening Checks
+
+on:
+  push:
+    branches: [ main, develop, 'security/**' ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  security-audit:
+    name: Security Checks & Red-Team Verification
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Scan Secrets & Credentials
+        run: npm run security:secrets
+
+      - name: Dependency Security Audit
+        run: npm run security:audit
+
+      - name: Production Bundle Scan
+        run: |
+          npm run build
+          npm run security:bundle
+
+      - name: Run Adversarial & Security Test Suites
+        run: npm run security:redteam

@@ -10,15 +10,31 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+coverage
 *.local
 .env
 .env.*
 !.env.example
 
+# Security & Secrets Prevention
+*.pem
+*.key
+*.p12
+*.pfx
+*.sqlite
+*.sqlite3
+*.db
+*.bak
+*.old
+*.orig
+secrets.*
+config.local.*
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
 !.vscode/settings.json
+.vscode/*.local*
 .idea
 .DS_Store
 *.suo

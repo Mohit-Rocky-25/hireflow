@@ -9,7 +9,7 @@
 | ID | Severity | Category | Location | Summary | Status |
 |---|---|---|---|---|---|
 | SEC-001 | Medium | Storage / Credentials | `src/store/useStore.ts:120, 138, 411` | Plaintext passwords stored in browser localStorage under `pw_${userId}` | Open |
-| SEC-002 | Medium | Client Secrets Risk | `src/ai/AIProvider.ts:6-8` | Comments instructing `VITE_GEMINI_API_KEY` / `VITE_OPENAI_API_KEY` which leak to browser bundle | Open |
+| SEC-002 | Medium | Client Secrets Risk | `src/ai/AIProvider.ts:6-8` | Comments instructing `VITE_GEMINI_API_KEY` / `VITE_OPENAI_API_KEY` which leak to browser bundle | Fixed |
 | SEC-003 | Low | Client Direct LLM Egress | `src/lib/ats/index.ts:237` | Direct browser fetch to Gemini API with user-provided key without rate-limiting or proxy | Open |
 | AR-1 | Accepted-Risk | Authentication | `src/components/auth/ProtectedRoute.tsx` | Client-Side Demo Auth: In-browser role checks are not a cryptographic security boundary | Accepted-Risk |
 
@@ -33,9 +33,9 @@
 - **Location**: `src/ai/AIProvider.ts:6-8`
 - **Evidence (MASKED)**: `VITE_GEMINI_API_KEY=...` / `VITE_OPENAI_API_KEY=...`
 - **Impact**: Developers copying these variable names will place private API keys into `VITE_` variables, causing Vite to bundle them into public client-side JavaScript.
-- **Fix Applied**: Remove `VITE_` key examples; document server-only env variables (`GEMINI_API_KEY`) and provide safe architecture.
+- **Fix Applied**: Removed `VITE_` key examples; documented server-only env variables (`GEMINI_API_KEY`) and clarified that client bundle never receives backend keys.
 - **Test That Proves It**: `scripts/security/scan-secrets.mjs`
-- **Status**: Open
+- **Status**: Fixed
 
 ### SEC-003: Direct Browser Network Egress with Custom API Key
 - **Severity**: Low
