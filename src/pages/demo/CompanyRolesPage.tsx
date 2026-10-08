@@ -374,6 +374,15 @@ export function CompanyRolesPage() {
                 </div>
               </div>
 
+              {/* Compare with another company button */}
+              <Link
+                to={`/tools/company-compare?c1=${company.id}`}
+                className="flex items-center gap-[6px] px-[14px] py-[9px] rounded-xl border border-primary/30 bg-primary/5 hover:bg-primary/10 text-primary font-semibold text-[13px] transition-colors"
+              >
+                <Building2 className="w-4 h-4" />
+                Compare with another company...
+              </Link>
+
               {/* Back to Companies Button */}
               <button
                 onClick={handleChangeCompany}

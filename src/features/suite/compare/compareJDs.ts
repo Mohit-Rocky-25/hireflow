@@ -80,7 +80,8 @@ function getMatchTier(skill: SkillResult): 'exact' | 'alias' | 'implied' | 'rela
   if (!skill.found) return 'missing';
   if (skill.isSubstituteMatch) return 'related';
   if (skill.status === 'weak') return 'alias';
-  if (skill.evidence?.[0]?.evidenceTier !== undefined && skill.evidence[0].evidenceTier < 0.5) return 'implied';
+  const maxTier = skill.evidence?.reduce((max, e) => Math.max(max, e.evidenceTier ?? 0), 0) ?? 0;
+  if (maxTier < 0.5 && skill.status !== 'verified') return 'implied';
   return 'exact';
 }
 

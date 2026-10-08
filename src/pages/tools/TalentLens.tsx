@@ -11,7 +11,7 @@ import {
   Brain, CheckCircle2, XCircle, AlertTriangle, HelpCircle,
   ChevronDown, ChevronUp, ArrowLeft, RefreshCw, Users,
   MessageSquare, Target, Shield, TrendingUp, Eye, Clock,
-  Briefcase, Award, Star, ChevronRight, Sparkles, Bookmark
+  Briefcase, Award, Star, ChevronRight, Sparkles, Bookmark, Building2
 } from 'lucide-react';
 import { analyzeCandidate } from '../../ai/matching';
 import type { CandidateMatch, RequirementAssessment } from '../../types';
@@ -343,6 +343,14 @@ export function TalentLens() {
             {analyzing ? <RefreshCw className="w-[16px] h-[16px] animate-spin" /> : <Brain className="w-[16px] h-[16px]" />}
             {analyzing ? 'Analyzing…' : match ? 'Re-Analyze' : 'Analyze'}
           </button>
+
+          <Link
+            to="/tools/company-compare"
+            className="h-[40px] px-[14px] border border-border rounded-lg text-[13px] font-semibold bg-surface hover:bg-surface-2 flex items-center gap-1.5 text-text-secondary hover:text-text transition-colors"
+          >
+            <Building2 className="w-4 h-4 text-primary" />
+            Compare Companies
+          </Link>
         </div>
       </div>
 

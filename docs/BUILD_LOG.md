@@ -70,10 +70,10 @@
   - [x] 2.3 Accuracy fixes & 20 new golden test cases
   - [x] 2.4 Invariant 6 (Summary Consistency)
   - [x] 2.5 Tests for simulation, ranking, summary, tokens
-- [ ] Stage 3: Group A - What should I apply to?
+- [x] Stage 3: Group A - What should I apply to?
   - [x] 3.1 Compare Job Descriptions (`/tools/jd-compare`)
   - [x] 3.2 Application Tracker (`/tools/tracker`)
-  - [ ] 3.3 Company vs Company (`/tools/company-compare`)
+  - [x] 3.3 Company vs Company (`/tools/company-compare`)
 - [ ] Stage 4: Group B - How do I present myself better?
   - [ ] 4.1 Tailor My Resume (`/tools/tailor`) with truth check
   - [ ] 4.2 Reach Out (`/tools/reach-out`) with slot-filling & placeholders
@@ -146,4 +146,12 @@
 - Created `src/features/suite/tracker/ApplicationTrackerPage.tsx` (list view, kanban pipeline board, insights metrics, gone-quiet threshold alerts, CSV export & import, quick link to ATS Roaster).
 - Registered `/tools/tracker` route in `App.tsx`.
 - All tests passing, tsc clean.
-- Next task: Stage 3.3 (Company vs Company - `/tools/company-compare`).
+
+## Stage 3.3 Handoff Note
+- Created `src/features/suite/companies/compareCompanies.ts` (side-by-side comparison of 2-3 target companies/roles from Dataset 6, shared competencies vs unique differentiators, directed prep overlap percentage `|Skills(A) ∩ Skills(B)| / |Skills(B)| * 100`, Dataset 4 market tier mapping, interview rounds, hiring bars, candidate profile prioritization recommendation, and data freshness note).
+- Created `src/features/suite/companies/__tests__/compareCompanies.test.ts` (12 unit tests passing).
+- Created `src/features/suite/companies/CompanyComparePage.tsx` with 3 tabs (Overview, Requirements, Prioritize), interactive company & role selectors, and candidate profile integration.
+- Added cross-tool link from `CompanyRolesPage.tsx` ("Compare with another company...") and `TalentLens.tsx`.
+- Registered route `/tools/company-compare` in `App.tsx`.
+- Complete Stage 3 (Group A) is finished and verified!
+- Next task: Stage 4 (Group B: "How do I present myself better?" — Tailor My Resume, Reach Out, Profile Check).
