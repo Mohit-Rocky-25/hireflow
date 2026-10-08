@@ -7,6 +7,7 @@ import { useStore } from '../../store/useStore';
 import { ArrowLeft, Calendar, Clock, Video, CheckCircle, Star, User, Briefcase, FileText } from 'lucide-react';
 import { toast } from '../../components/ui/Toast';
 import { InterviewEvidenceChecklistPanel } from './components/InterviewEvidenceChecklistPanel';
+import { sanitizeUrl } from '@/utils/security';
 
 export function InterviewDetail() {
   const { id } = useParams();
@@ -157,9 +158,9 @@ export function InterviewDetail() {
               {interview.meetingLink && (
                 <div className="pt-2">
                   <a
-                    href={interview.meetingLink}
+                    href={sanitizeUrl(interview.meetingLink)}
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 px-3 py-1.5 bg-primary text-white text-xs font-medium rounded-btn hover:bg-primary-hover"
                   >
                     <Video className="w-3.5 h-3.5" /> Join Video Call

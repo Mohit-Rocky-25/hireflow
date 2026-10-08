@@ -5,6 +5,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useStore } from '../../store/useStore';
 import { ArrowLeft, Building2, Calendar, CheckCircle2, Clock, Brain, Video, MapPin } from 'lucide-react';
 import type { ApplicationStatus } from '../../types';
+import { sanitizeUrl } from '@/utils/security';
 
 export function CandidateApplicationDetail() {
   const { id } = useParams();
@@ -109,9 +110,9 @@ export function CandidateApplicationDetail() {
           {interview.meetingLink && (
             <div className="pt-2">
               <a
-                href={interview.meetingLink}
+                href={sanitizeUrl(interview.meetingLink)}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 px-4 py-2 bg-primary text-white text-xs font-semibold rounded-btn hover:bg-primary-hover shadow-sm"
               >
                 <Video className="w-4 h-4" /> Join Online Meeting

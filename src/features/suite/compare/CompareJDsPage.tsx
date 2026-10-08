@@ -28,6 +28,7 @@ import { useProfile } from '../profile/ProfileContext';
 import { ProfileStatusChip } from '../profile/components/ProfileStatusChip';
 import { compareJDs, CompareJDsResult, JDInput } from './compareJDs';
 import { COMPANIES } from '../../../pages/demo/talentLensData';
+import { sanitizeCsvCell } from '../../../utils/security';
 
 const INITIAL_JDS: JDInput[] = [
   {
@@ -97,12 +98,12 @@ export function CompareJDsPage() {
     if (!result) return;
     const headers = ['Rank', 'Role', 'Fit Score', 'Verdict', 'Must-Have Coverage', 'Top Fixes'];
     const rows = result.rankedJDs.map((jd, idx) => [
-      idx + 1,
-      `"${jd.label.replace(/"/g, '""')}"`,
-      `${jd.score}%`,
-      `"${jd.verdict}"`,
-      `${Math.round(jd.mustHaveCoverage * 100)}% (${jd.mustHaveMet}/${jd.mustHaveTotal})`,
-      `"${jd.topFixes.map((f) => f.skillName).join(', ')}"`,
+      sanitizeCsvCell(idx + 1),
+      sanitizeCsvCell(jd.label),
+      sanitizeCsvCell(`${jd.score}%`),
+      sanitizeCsvCell(jd.verdict),
+      sanitizeCsvCell(`${Math.round(jd.mustHaveCoverage * 100)}% (${jd.mustHaveMet}/${jd.mustHaveTotal})`),
+      sanitizeCsvCell(jd.topFixes.map((f) => f.skillName).join(', ')),
     ]);
 
     const csvContent = [headers.join(','), ...rows.map((r) => r.join(','))].join('\n');

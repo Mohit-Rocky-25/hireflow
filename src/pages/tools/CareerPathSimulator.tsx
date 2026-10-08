@@ -8,6 +8,7 @@ import React, { useState, useMemo, useRef, useEffect, useLayoutEffect } from 're
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { CareerPathBackButton } from '../../components/career-path/CareerPathBackButton';
 import { BranchCombobox } from '../../components/career-path/BranchCombobox';
+import { sanitizeUrl } from '@/utils/security';
 import {
   DEGREE_BRANCH_CATALOG,
   type DegreeBranchOption,
@@ -892,9 +893,9 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                               <div key={sIdx} className="p-2.5 rounded-lg bg-surface border border-border flex items-center justify-between">
                                 <div>
                                   <a
-                                    href={s.url}
+                                    href={sanitizeUrl(s.url)}
                                     target="_blank"
-                                    rel="noreferrer"
+                                    rel="noopener noreferrer"
                                     className="font-extrabold text-primary hover:underline flex items-center gap-1"
                                   >
                                     {s.name} <ExternalLink className="w-3 h-3" />

@@ -3,6 +3,7 @@
 // ============================================================
 import { useStore } from '../../store/useStore';
 import { Calendar, Clock, Video, Building2, CheckCircle, UserCheck } from 'lucide-react';
+import { sanitizeUrl } from '@/utils/security';
 
 export function CandidateInterviews() {
   const { currentUser, interviews, jobs, companies, users } = useStore();
@@ -75,9 +76,9 @@ export function CandidateInterviews() {
 
                     {interview.meetingLink && interview.status !== 'completed' && (
                       <a
-                        href={interview.meetingLink}
+                        href={sanitizeUrl(interview.meetingLink)}
                         target="_blank"
-                        rel="noreferrer"
+                        rel="noopener noreferrer"
                         className="inline-flex items-center gap-1.5 px-4 py-1.5 bg-primary text-white text-xs font-semibold rounded-btn hover:bg-primary-hover shadow-sm"
                       >
                         <Video className="w-3.5 h-3.5" /> Join Call

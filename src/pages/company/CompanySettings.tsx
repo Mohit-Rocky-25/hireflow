@@ -8,6 +8,7 @@ import {
   Bell, Shield, Palette, CheckCircle, Zap
 } from 'lucide-react';
 import { toast } from '../../components/ui/Toast';
+import { sanitizeUrl } from '@/utils/security';
 
 const SECTIONS = [
   { id: 'profile', label: 'Company Profile', icon: Building2 },
@@ -113,7 +114,7 @@ export function CompanySettings() {
           <p className="text-lg font-bold">{company.name}</p>
           <p className="text-blue-100 text-sm">{company.industry} • {company.location} • {company.size}</p>
           {company.website && (
-            <a href={company.website} target="_blank" rel="noreferrer" className="text-blue-200 text-xs hover:text-white flex items-center gap-1 mt-1">
+            <a href={sanitizeUrl(company.website)} target="_blank" rel="noopener noreferrer" className="text-blue-200 text-xs hover:text-white flex items-center gap-1 mt-1">
               <Globe className="w-3 h-3" /> {company.website}
             </a>
           )}

@@ -4,6 +4,7 @@
 import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useStore } from '../../store/useStore';
+import { sanitizeUrl } from '@/utils/security';
 import {
   Calendar, ArrowRight, CheckCircle, Clock, Search,
   Video, Briefcase, User, ClipboardList, AlertCircle,
@@ -190,9 +191,9 @@ export function InterviewerInterviews() {
                   <div className="flex items-center gap-3 shrink-0">
                     {interview.meetingLink && !isCompleted && (
                       <a
-                        href={interview.meetingLink}
+                        href={sanitizeUrl(interview.meetingLink)}
                         target="_blank"
-                        rel="noreferrer"
+                        rel="noopener noreferrer"
                         onClick={e => e.stopPropagation()}
                         className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white text-[12px] font-semibold rounded-[8px] hover:bg-primary-hover shadow-sm transition-all"
                       >

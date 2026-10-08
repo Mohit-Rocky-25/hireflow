@@ -4,6 +4,7 @@
 import { useState } from 'react';
 import { useStore } from '../../store/useStore';
 import { Shield, Search, Filter, Download, Clock, User, Building2, FileText, RefreshCw } from 'lucide-react';
+import { sanitizeCsvCell } from '@/utils/security';
 
 const ACTION_COLORS: Record<string, string> = {
   created_job: 'bg-blue-50 text-blue-700',
@@ -43,14 +44,14 @@ export function AdminAuditLog() {
 
   const handleExport = () => {
     const csv = [
-      ['Timestamp', 'Action', 'Entity', 'User', 'Company', 'Details'].join(','),
+      ['Timestamp', 'Action', 'Entity', 'User', 'Company', 'Details'].map(sanitizeCsvCell).join(','),
       ...filtered.map(l => [
-        new Date(l.createdAt).toISOString(),
-        l.action,
-        l.entity,
-        getUserName(l.userId),
-        getCompanyName(l.companyId) || '',
-        (l.details || '').replace(/,/g, ';'),
+        sanitizeCsvCell(new Date(l.createdAt).toISOString()),
+        sanitizeCsvCell(l.action),
+        sanitizeCsvCell(l.entity),
+        sanitizeCsvCell(getUserName(l.userId)),
+        sanitizeCsvCell(getCompanyName(l.companyId) || ''),
+        sanitizeCsvCell(l.details || ''),
       ].join(',')),
     ].join('\n');
     const blob = new Blob([csv], { type: 'text/csv' });

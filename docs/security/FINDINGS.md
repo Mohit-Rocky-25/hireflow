@@ -8,9 +8,16 @@
 
 | ID | Severity | Category | Location | Summary | Status |
 |---|---|---|---|---|---|
-| SEC-001 | Medium | Storage / Credentials | `src/store/useStore.ts:120, 138, 411` | Plaintext passwords stored in browser localStorage under `pw_${userId}` | Open |
+| ID | Severity | Category | Location | Summary | Status |
+|---|---|---|---|---|---|
+| SEC-001 | Medium | Storage / Credentials | `src/store/useStore.ts:120, 138, 411` | Plaintext passwords stored in browser localStorage under `pw_${userId}` | Fixed |
 | SEC-002 | Medium | Client Secrets Risk | `src/ai/AIProvider.ts:6-8` | Comments instructing `VITE_GEMINI_API_KEY` / `VITE_OPENAI_API_KEY` which leak to browser bundle | Fixed |
 | SEC-003 | Low | Client Direct LLM Egress | `src/lib/ats/index.ts:237` | Direct browser fetch to Gemini API with user-provided key without rate-limiting or proxy | Open |
+| SEC-004 | Low | Reverse Tabnabbing | Multiple pages | External `target="_blank"` links lacking `rel="noopener noreferrer"` or unvalidated URLs | Fixed |
+| SEC-005 | Medium | File Handling | `fileParser.ts` | Missing file size bounds, magic byte inspection, and zip bomb/traversal guards | Fixed |
+| SEC-006 | Medium | Regular Expression DoS | `pipeline.ts`, `limits.ts` | Unbounded resume/JD input length leading to polynomial regex parsing delays | Fixed |
+| SEC-007 | Medium | Decompression Bomb | `cardCodec.ts` | Evidence Card codec missing decompression budget cap | Fixed |
+| SEC-008 | Low | CSV Injection | `AdminAuditLog.tsx`, `CompareJDsPage.tsx` | Unescaped formula trigger characters in CSV exports | Fixed |
 | AR-1 | Accepted-Risk | Authentication | `src/components/auth/ProtectedRoute.tsx` | Client-Side Demo Auth: In-browser role checks are not a cryptographic security boundary | Accepted-Risk |
 | AR-2 | Accepted-Risk | Dependency | `package-lock.json` | `sprintf-js` moderate via `mammoth -> argparse` (GHSA-hp3w-g68c-fv3c); browser buffer parsing does not execute CLI formatter | Accepted-Risk |
 
@@ -24,9 +31,9 @@
 - **Location**: `src/store/useStore.ts:120, 138, 411`
 - **Evidence (MASKED)**: `localStorage.setItem('pw_' + user.id, password)` and `localStorage.setItem('pw_' + u.id, 'demo****')`
 - **Impact**: Any script running in the browser origin or malicious extension can read credentials from localStorage.
-- **Fix Applied**: Remove plaintext password persistence in localStorage; use in-memory store for session validation with demo mode indicator.
+- **Fix Applied**: Removed plaintext password persistence in localStorage; implemented salted SHA-256 hash validation in scoped session/localStorage; purged all legacy `pw_*` keys on startup; added `clearAllUserData()` action.
 - **Test That Proves It**: `src/__tests__/security/storage-auth.test.ts`
-- **Status**: Open
+- **Status**: Fixed
 
 ### SEC-002: Comments Recommending `VITE_` Prefixed API Keys
 - **Severity**: Medium

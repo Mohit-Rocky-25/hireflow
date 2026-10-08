@@ -5,6 +5,7 @@
 // ============================================================
 
 import { EvidenceLevel } from '../profile/types';
+import { safeJsonParse } from '@/utils/security';
 
 export interface CardSkillEntry {
   name: string;
@@ -111,6 +112,8 @@ async function compressBytes(bytes: Uint8Array): Promise<Uint8Array> {
   return bytes;
 }
 
+export const MAX_DECOMPRESSED_CARD_BYTES = 500 * 1024; // 500 KB cap to prevent multi-megabyte decompression bombs
+
 async function decompressBytes(bytes: Uint8Array): Promise<Uint8Array> {
   if (typeof DecompressionStream !== 'undefined') {
     try {
@@ -118,10 +121,32 @@ async function decompressBytes(bytes: Uint8Array): Promise<Uint8Array> {
       const writer = ds.writable.getWriter();
       writer.write(bytes as unknown as BufferSource);
       writer.close();
-      const response = new Response(ds.readable);
-      const arrayBuffer = await response.arrayBuffer();
-      return new Uint8Array(arrayBuffer);
-    } catch {
+      const reader = ds.readable.getReader();
+      const chunks: Uint8Array[] = [];
+      let totalBytes = 0;
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        if (value) {
+          totalBytes += value.byteLength;
+          if (totalBytes > MAX_DECOMPRESSED_CARD_BYTES) {
+            reader.cancel().catch(() => {});
+            throw new Error('Decompressed payload exceeds 500 KB safety cap (decompression bomb protection).');
+          }
+          chunks.push(value);
+        }
+      }
+      const combined = new Uint8Array(totalBytes);
+      let offset = 0;
+      for (const chunk of chunks) {
+        combined.set(chunk, offset);
+        offset += chunk.byteLength;
+      }
+      return combined;
+    } catch (err: any) {
+      if (err.message && err.message.includes('50 KB safety cap')) {
+        throw err;
+      }
       // fallback raw
     }
   }
@@ -204,13 +229,10 @@ export async function decodeCard(encodedStr: string): Promise<CodecDecodeResult>
     }
 
     let jsonString = new TextDecoder().decode(decompressed);
-    let envelope: CompactCardEnvelope;
-    try {
-      envelope = JSON.parse(jsonString);
-    } catch {
-      // Maybe it was uncompressed raw JSON
+    let envelope = safeJsonParse<CompactCardEnvelope | null>(jsonString, null);
+    if (!envelope) {
       jsonString = new TextDecoder().decode(bytes);
-      envelope = JSON.parse(jsonString);
+      envelope = safeJsonParse<CompactCardEnvelope | null>(jsonString, null);
     }
 
     if (!envelope || envelope.v !== 1 || !envelope.data) {

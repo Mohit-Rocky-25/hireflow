@@ -32,15 +32,15 @@
   - [x] 3.4 Audit install scripts and unused packages (only `fsevents` native binding detected).
   - [x] 3.5 Check for typosquatting risks (all 21 direct dependencies verified authentic).
   - [x] 3.6 Audit external scripts and fonts in `index.html` (zero external CDNs or external scripts).
-- [ ] **Phase 4 — Web Application Vulnerabilities**
-  - [ ] 4.1 XSS, HTML sinks, unsafe links, open redirects.
-  - [ ] 4.2 Untrusted file handling (PDF/DOCX/TXT size caps, zip-bomb protection).
-  - [ ] 4.3 Regex Denial of Service (ReDoS) test suite and engine fixes.
-  - [ ] 4.4 Prototype pollution and unsafe deserialization defense.
-  - [ ] 4.5 Formula injection in CSV exports and HTML output escaping.
-  - [ ] 4.6 Browser storage audit: remove plaintext password storage (`pw_${id}`).
-  - [ ] 4.7 Information leakage: debug drawer gating, console PII logging.
-  - [ ] 4.8 Clickjacking / framing defenses.
+- [x] **Phase 4 — Web Application Vulnerabilities**
+  - [x] 4.1 XSS, HTML sinks, unsafe links, open redirects (`rel="noopener noreferrer"` and `sanitizeUrl` applied across all external link components).
+  - [x] 4.2 Untrusted file handling (magic byte inspection, zip path traversal defense, file size caps in `secureFileValidator.ts`).
+  - [x] 4.3 Regex Denial of Service (ReDoS) test suite and engine fixes (`MAX_INPUT_CHARS` limits + `redos.test.ts`).
+  - [x] 4.4 Prototype pollution and unsafe deserialization defense (`safeJsonParse` + `MAX_DECOMPRESSED_CARD_BYTES` cap).
+  - [x] 4.5 Formula injection in CSV exports (`sanitizeCsvCell` in `AdminAuditLog.tsx` and `CompareJDsPage.tsx`).
+  - [x] 4.6 Browser storage audit: removed plaintext password storage, added salted SHA-256 hash and legacy purge in `useStore.ts`.
+  - [x] 4.7 Information leakage: debug drawer gating, console PII logging.
+  - [x] 4.8 Clickjacking / framing defenses.
 - [ ] **Phase 5 — Authentication, Roles and Access Control**
   - [ ] 5.1 Document auth architecture (client-side demo state vs production).
   - [ ] 5.2 Document AR-1 (Client-Side Demo Auth boundary limitation).

@@ -10,6 +10,11 @@ export const WORD_LIMITS = {
   jd:     { min: 30, max: 2000 },
 } as const;
 
+export const MAX_INPUT_CHARS = {
+  resume: 200 * 1024, // 200 KB
+  jd:     100 * 1024, // 100 KB
+} as const;
+
 export const PREFILLED_MIN_WORDS = 20;
 
 export type WordLimitSide = 'resume' | 'jd';
@@ -74,12 +79,15 @@ export function validateAtsInputs(
   const resumeMax = WORD_LIMITS.resume.max;
   const jdMax = WORD_LIMITS.jd.max;
 
+  const resumeTooLarge = (resumeText || '').length > MAX_INPUT_CHARS.resume;
+  const jdTooLarge = (jdText || '').length > MAX_INPUT_CHARS.jd;
+
   const resumeBelow = resumeWords < resumeMin;
-  const resumeAbove = resumeWords > resumeMax;
+  const resumeAbove = resumeWords > resumeMax || resumeTooLarge;
   const resumeOk = !resumeBelow && !resumeAbove;
 
   const jdBelow = jdWords < jdMin;
-  const jdAbove = jdWords > jdMax;
+  const jdAbove = jdWords > jdMax || jdTooLarge;
   const jdOk = !jdBelow && !jdAbove;
 
   const canAnalyze = resumeOk && jdOk && !options?.isFileExtracting && !options?.isScanning;
@@ -90,13 +98,17 @@ export function validateAtsInputs(
   } else if (!canAnalyze) {
     const reasons: string[] = [];
 
-    if (resumeBelow) {
+    if (resumeTooLarge) {
+      reasons.push('Resume exceeds 200 KB limit, please trim');
+    } else if (resumeBelow) {
       reasons.push(`Resume needs ${resumeMin}+ words (currently ${resumeWords})`);
     } else if (resumeAbove) {
       reasons.push(`Maximum ${resumeMax} words, please trim`);
     }
 
-    if (jdBelow) {
+    if (jdTooLarge) {
+      reasons.push('Job description exceeds 100 KB limit, please trim');
+    } else if (jdBelow) {
       reasons.push(`Job description needs ${jdMin}+ words (currently ${jdWords})`);
     } else if (jdAbove) {
       reasons.push(`Maximum ${jdMax} words, please trim`);

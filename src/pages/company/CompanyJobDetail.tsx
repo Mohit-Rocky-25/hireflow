@@ -10,6 +10,7 @@ import {
   Plus, X, Send
 } from 'lucide-react';
 import { toast } from '../../components/ui/Toast';
+import { sanitizeUrl } from '@/utils/security';
 
 // ── Schedule Interview Modal ───────────────────────────────
 function ScheduleInterviewModal({
@@ -532,7 +533,7 @@ export function CompanyJobDetail() {
                       </div>
                       <div className="flex items-center gap-2">
                         {interview.meetingLink && !isCompleted && (
-                          <a href={interview.meetingLink} target="_blank" rel="noreferrer" className="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white text-[12px] font-semibold rounded-[8px] hover:bg-primary-hover shadow-sm">
+                          <a href={sanitizeUrl(interview.meetingLink)} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white text-[12px] font-semibold rounded-[8px] hover:bg-primary-hover shadow-sm">
                             <Video className="w-3.5 h-3.5" /> Join
                           </a>
                         )}

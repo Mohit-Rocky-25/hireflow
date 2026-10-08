@@ -31,6 +31,7 @@ export interface FileParseResult {
 const MAX_FILE_SIZE_BYTES = 5 * 1024 * 1024; // 5 MB
 
 import { countWords } from '../../utils/wordCount';
+import { verifyMagicBytes, withParserTimeout } from '../../utils/secureFileValidator';
 export { countWords };
 
 /**
@@ -149,7 +150,8 @@ async function extractTextFromPdf(buffer: ArrayBuffer): Promise<{ text: string; 
   const loadingTask = pdfjsLib.getDocument({
     data: new Uint8Array(buffer),
     useSystemFonts: true,
-  });
+    isEvalSupported: false,
+  } as any);
 
   const pdf = await loadingTask.promise;
   const pageCount = pdf.numPages;
@@ -271,12 +273,29 @@ export async function parseResumeFile(file: File): Promise<FileParseResult> {
   }
 
   try {
+    const buffer = await file.arrayBuffer();
+
+    // 2b. Magic bytes validation (Rule 4.2)
+    const magicCheck = verifyMagicBytes(buffer, ext);
+    if (!magicCheck.valid) {
+      return {
+        success: false,
+        text: '',
+        wordCount: 0,
+        fileName,
+        error: magicCheck.error || 'Invalid or corrupted file signature detected.',
+      };
+    }
+
     let rawExtracted = '';
     let pageCount: number | undefined;
 
     if (ext === '.pdf') {
-      const buffer = await file.arrayBuffer();
-      const pdfResult = await extractTextFromPdf(buffer);
+      const pdfResult = await withParserTimeout(
+        extractTextFromPdf(buffer),
+        8000,
+        'PDF extraction timed out. The file may be password-protected or contain complex structures.'
+      );
       rawExtracted = pdfResult.text;
       pageCount = pdfResult.pageCount;
 
@@ -293,11 +312,14 @@ export async function parseResumeFile(file: File): Promise<FileParseResult> {
         };
       }
     } else if (ext === '.docx') {
-      const buffer = await file.arrayBuffer();
-      rawExtracted = await extractTextFromDocx(buffer);
+      rawExtracted = await withParserTimeout(
+        extractTextFromDocx(buffer),
+        8000,
+        'DOCX extraction timed out. The file may be corrupted or excessively complex.'
+      );
     } else {
       // .txt or .md
-      rawExtracted = await file.text();
+      rawExtracted = new TextDecoder('utf-8', { fatal: false }).decode(new Uint8Array(buffer));
     }
 
     // 3. Garbage guard check

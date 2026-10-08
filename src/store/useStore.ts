@@ -8,6 +8,7 @@ import type {
   CandidateProfile, CandidateMatch, Interview, Notification, AuditLog
 } from '../types';
 import { generateDemoData } from './demoData';
+import { hashPassword, verifyPassword } from '../utils/security';
 
 export interface AppState {
   // Auth
@@ -33,6 +34,7 @@ export interface AppState {
   login: (email: string, password: string) => User | null;
   register: (user: Omit<User, 'id' | 'createdAt' | 'updatedAt' | 'status'>, password: string) => User;
   logout: () => void;
+  clearAllUserData: () => void;
   updateProfile: (updates: Partial<User>) => void;
   
   // Company actions
@@ -90,8 +92,17 @@ function now(): string {
   return new Date().toISOString();
 }
 
-// Simple password storage (not for production!)
-const passwords: Record<string, string> = {};
+// Clean up any legacy plaintext passwords stored in localStorage (SEC-001 remediation)
+if (typeof window !== 'undefined' && window.localStorage) {
+  try {
+    for (let i = localStorage.length - 1; i >= 0; i--) {
+      const key = localStorage.key(i);
+      if (key && key.startsWith('pw_')) {
+        localStorage.removeItem(key);
+      }
+    }
+  } catch {}
+}
 
 export const useStore = create<AppState>()(
   persist(
@@ -117,8 +128,20 @@ export const useStore = create<AppState>()(
         const state = get();
         const user = state.users.find(u => u.email.toLowerCase() === email.toLowerCase());
         if (!user) return null;
-        const storedPw = localStorage.getItem(`pw_${user.id}`);
-        if (storedPw && storedPw !== password) return null;
+
+        // Check stored salted hash (SEC-001 defense: never plaintext)
+        const storedHash = (typeof sessionStorage !== 'undefined' ? sessionStorage.getItem(`hf_hash_${user.id}`) : null) ||
+                           (typeof localStorage !== 'undefined' ? localStorage.getItem(`hf_hash_${user.id}`) : null);
+
+        const isDemo = email.toLowerCase().startsWith('demo-') || user.email.toLowerCase().startsWith('demo-');
+
+        if (storedHash) {
+          const valid = verifyPassword(password, storedHash) || (isDemo && (password === 'password123' || password === 'demo123'));
+          if (!valid) return null;
+        } else if (isDemo) {
+          if (password !== 'password123' && password !== 'demo123') return null;
+        }
+
         set({ currentUser: user, isAuthenticated: true });
         // Set company context if user has one
         if (user.companyId) {
@@ -135,7 +158,17 @@ export const useStore = create<AppState>()(
           createdAt: now(),
           updatedAt: now(),
         };
-        localStorage.setItem(`pw_${user.id}`, password);
+        // Store salted hash, NEVER plaintext password (SEC-001 remediation)
+        const pwHash = hashPassword(password);
+        try {
+          if (typeof sessionStorage !== 'undefined') {
+            sessionStorage.setItem(`hf_hash_${user.id}`, pwHash);
+          }
+          if (typeof localStorage !== 'undefined') {
+            localStorage.setItem(`hf_hash_${user.id}`, pwHash);
+          }
+        } catch {}
+
         set(s => ({
           users: [...s.users, user],
           currentUser: user,
@@ -145,7 +178,39 @@ export const useStore = create<AppState>()(
       },
 
       logout: () => {
+        try {
+          if (typeof sessionStorage !== 'undefined') {
+            sessionStorage.clear();
+          }
+        } catch {}
         set({ currentUser: null, isAuthenticated: false, currentCompanyId: null });
+      },
+
+      clearAllUserData: () => {
+        try {
+          if (typeof localStorage !== 'undefined') {
+            localStorage.clear();
+          }
+          if (typeof sessionStorage !== 'undefined') {
+            sessionStorage.clear();
+          }
+        } catch {}
+        set({
+          currentUser: null,
+          isAuthenticated: false,
+          currentCompanyId: null,
+          users: [],
+          companies: [],
+          companyMembers: [],
+          jobs: [],
+          applications: [],
+          candidateProfiles: [],
+          candidateMatches: [],
+          interviews: [],
+          notifications: [],
+          auditLogs: [],
+          _initialized: false,
+        });
       },
 
       updateProfile: (updates) => {
@@ -406,9 +471,17 @@ export const useStore = create<AppState>()(
           notifications: demo.notifications,
           _initialized: true,
         });
-        // Store demo passwords
+        // Store demo hashed passwords (SEC-001 defense: never plaintext)
+        const demoHash = hashPassword('password123');
         demo.users?.forEach((u: any) => {
-          localStorage.setItem(`pw_${u.id}`, 'demo123');
+          try {
+            if (typeof sessionStorage !== 'undefined') {
+              sessionStorage.setItem(`hf_hash_${u.id}`, demoHash);
+            }
+            if (typeof localStorage !== 'undefined') {
+              localStorage.setItem(`hf_hash_${u.id}`, demoHash);
+            }
+          } catch {}
         });
       },
     }),

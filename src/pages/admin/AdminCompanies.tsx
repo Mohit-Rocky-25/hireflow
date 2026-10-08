@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useStore } from '../../store/useStore';
 import { Building2, Search, Plus, MapPin, Globe, Users, Briefcase } from 'lucide-react';
 import { toast } from '../../components/ui/Toast';
+import { sanitizeUrl } from '@/utils/security';
 
 export function AdminCompanies() {
   const { companies, jobs, companyMembers, createCompany } = useStore();
@@ -110,9 +111,9 @@ export function AdminCompanies() {
                 </span>
                 {comp.website && (
                   <a
-                    href={comp.website}
+                    href={sanitizeUrl(comp.website)}
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                     className="text-primary hover:underline flex items-center gap-0.5"
                   >
                     <Globe className="w-3 h-3" /> Web
