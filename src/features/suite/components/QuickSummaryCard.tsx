@@ -4,6 +4,7 @@
 // ============================================================
 
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   ShieldCheck,
   CheckCircle2,
@@ -192,6 +193,31 @@ export function QuickSummaryCard({
           </div>
         </div>
       )}
+
+      {/* Cross-Tool Next Actions */}
+      <div className="pt-3.5 mt-3.5 border-t border-border/60 flex flex-wrap items-center justify-between gap-2 text-xs">
+        <span className="text-text-muted text-[11px] font-medium">Recommended Next Action:</span>
+        <div className="flex items-center gap-2">
+          <Link
+            to="/tools/tailor"
+            className="px-2.5 py-1 rounded-lg bg-surface-2 hover:bg-surface-3 border border-border text-[11px] font-semibold text-text flex items-center gap-1 transition-colors"
+          >
+            <Sparkles className="w-3 h-3 text-primary" /> Tailor Resume
+          </Link>
+          <Link
+            to="/tools/build-briefs"
+            className="px-2.5 py-1 rounded-lg bg-surface-2 hover:bg-surface-3 border border-border text-[11px] font-semibold text-text flex items-center gap-1 transition-colors"
+          >
+            <BookOpen className="w-3 h-3 text-violet-400" /> Build Projects
+          </Link>
+          <Link
+            to="/tools/reach-out"
+            className="px-2.5 py-1 rounded-lg bg-surface-2 hover:bg-surface-3 border border-border text-[11px] font-semibold text-text flex items-center gap-1 transition-colors"
+          >
+            Reach Out
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }

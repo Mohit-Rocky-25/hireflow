@@ -48,6 +48,7 @@ export function PublicNavbar() {
           <Link to="/demo" className="inline-flex items-center gap-[6px] text-[15px] font-bold text-white bg-gradient-to-r from-primary to-ai px-[14px] py-[6px] rounded-full hover:opacity-90 transition-opacity shadow-sm">
             <span className="w-2 h-2 rounded-full bg-white animate-pulse"></span> TalentLens™
           </Link>
+          <Link to="/tools" className="text-[15px] font-medium text-text-secondary hover:text-text transition-colors duration-[120ms]">Decision Suite</Link>
           <Link to="/tools/resume-checker" className="text-[15px] font-medium text-text-secondary hover:text-text transition-colors duration-[120ms]">ATS Roaster</Link>
           <Link to="/tools/career-path" className="text-[15px] font-medium text-text-secondary hover:text-text transition-colors duration-[120ms]">Career Trajectory</Link>
         </div>

@@ -167,8 +167,13 @@ export function LandingPage() {
                 </button>
               </Link>
               <Link to="/tools/resume-checker">
-                <button className="inline-flex items-center gap-[10px] h-[56px] px-[32px] text-[16px] font-semibold text-text-secondary rounded-lg border border-border-strong hover:border-border-accent hover:text-text hover:bg-surface-2 transition-all duration-[150ms]">
-                  ATS Roaster <ChevronRight className="w-[18px] h-[18px] stroke-[1.5px]" />
+                <button className="inline-flex items-center gap-[10px] h-[56px] px-[28px] text-[16px] font-semibold text-text-secondary rounded-lg border border-border-strong hover:border-border-accent hover:text-text hover:bg-surface-2 transition-all duration-[150ms]">
+                  ATS Roaster
+                </button>
+              </Link>
+              <Link to="/tools">
+                <button className="inline-flex items-center gap-[10px] h-[56px] px-[28px] text-[16px] font-semibold text-text-secondary rounded-lg border border-border-strong hover:border-border-accent hover:text-text hover:bg-surface-2 transition-all duration-[150ms]">
+                  Decision Suite <ChevronRight className="w-[18px] h-[18px] stroke-[1.5px]" />
                 </button>
               </Link>
             </div>

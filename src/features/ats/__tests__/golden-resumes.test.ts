@@ -1096,6 +1096,9 @@ describe('Stage 6.6 — 32 Golden Resumes Evaluation & Performance Benchmark', (
     let totalFN = 0;
     const runtimes: number[] = [];
 
+    // Warm-up pass to ensure cold module initialization does not skew benchmark
+    runAtsEngine('Software Engineer proficient in React and TypeScript with Docker', 'Looking for Software Engineer with React');
+
     for (const testCase of GOLDEN_PAIRS) {
       const startTime = performance.now();
       const response = runAtsEngine(testCase.resumeText, testCase.jdText);

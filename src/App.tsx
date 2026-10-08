@@ -28,6 +28,7 @@ import { CompanyLevelsPage } from './pages/tools/career-path/CompanyLevelsPage';
 import { PromotionSimulatorPage } from './pages/tools/career-path/PromotionSimulatorPage';
 import { CompanyLadderPage } from './pages/tools/career-path/CompanyLadderPage';
 import { TalentLens } from './pages/tools/TalentLens';
+import { ToolsHubPage } from './pages/tools/ToolsHubPage';
 import { CompareJDsPage } from './features/suite/compare/CompareJDsPage';
 import { ApplicationTrackerPage } from './features/suite/tracker/ApplicationTrackerPage';
 import { CompanyComparePage } from './features/suite/companies/CompanyComparePage';
@@ -121,6 +122,7 @@ export default function App() {
         <Route path="/card" element={<EvidenceCardViewerPage />} />
         
         {/* Free ATS Candidate Tools */}
+        <Route path="/tools" element={<ToolsHubPage />} />
         <Route path="/tools/resume-checker" element={<ResumeChecker />} />
         <Route path="/tools/jd-compare" element={<CompareJDsPage />} />
         <Route path="/tools/tracker" element={<ApplicationTrackerPage />} />

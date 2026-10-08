@@ -241,7 +241,7 @@ export function BatchReadinessPage() {
               ({report.overallReadyNowPercent}%)
             </span>
           </p>
-          <p className="text-[11px] text-muted mt-1">Ready for $\ge 1$ Tier 1 company bar</p>
+          <p className="text-[11px] text-muted mt-1">Ready for 1+ Tier 1 company bars</p>
         </div>
 
         <div className="bg-surface rounded-2xl border border-border p-5 shadow-xs">
@@ -323,13 +323,13 @@ export function BatchReadinessPage() {
             </div>
             <div className="flex items-center gap-3 text-[11px] font-medium text-muted">
               <span className="flex items-center gap-1">
-                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" /> Ready Now ($\ge 75\%$)
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" /> Ready Now (≥ 75%)
               </span>
               <span className="flex items-center gap-1">
                 <span className="w-2.5 h-2.5 rounded-full bg-amber-500" /> 2-Wk Prep (60–74%)
               </span>
               <span className="flex items-center gap-1">
-                <span className="w-2.5 h-2.5 rounded-full bg-rose-500" /> High Gap ($< 60\%$)
+                <span className="w-2.5 h-2.5 rounded-full bg-rose-500" /> High Gap (&lt; 60%)
               </span>
             </div>
           </div>

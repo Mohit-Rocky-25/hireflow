@@ -16,6 +16,9 @@ describe('Stage 2.3 — 20 Extended Golden Resumes Evaluation & Benchmark', () =
     let totalFN = 0;
     const runtimes: number[] = [];
 
+    // Warm-up pass to ensure cold module initialization does not skew benchmark
+    runAtsEngine('Software Engineer proficient in Go and Kubernetes with Docker', 'Looking for Software Engineer with Go');
+
     for (const testCase of NEW_GOLDEN_PAIRS) {
       const startTime = performance.now();
       const response = runAtsEngine(testCase.resumeText, testCase.jdText);
