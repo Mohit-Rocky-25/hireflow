@@ -31,6 +31,7 @@ import { TalentLens } from './pages/tools/TalentLens';
 import { CompareJDsPage } from './features/suite/compare/CompareJDsPage';
 import { ApplicationTrackerPage } from './features/suite/tracker/ApplicationTrackerPage';
 import { CompanyComparePage } from './features/suite/companies/CompanyComparePage';
+import { TailorResumePage } from './features/suite/tailor/TailorResumePage';
 
 // Company / BHR Pages
 import { CompanyDashboard } from './pages/company/CompanyDashboard';
@@ -116,6 +117,7 @@ export default function App() {
         <Route path="/tools/jd-compare" element={<CompareJDsPage />} />
         <Route path="/tools/tracker" element={<ApplicationTrackerPage />} />
         <Route path="/tools/company-compare" element={<CompanyComparePage />} />
+        <Route path="/tools/tailor" element={<TailorResumePage />} />
         <Route path="/tools/career-path" element={<CareerPathHub />} />
         <Route path="/tools/career-path/dream-job-roadmap" element={<DreamJobRoadmapPage />} />
         <Route path="/tools/career-path/company-levels" element={<CompanyLevelsPage />} />

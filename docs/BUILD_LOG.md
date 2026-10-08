@@ -75,7 +75,7 @@
   - [x] 3.2 Application Tracker (`/tools/tracker`)
   - [x] 3.3 Company vs Company (`/tools/company-compare`)
 - [ ] Stage 4: Group B - How do I present myself better?
-  - [ ] 4.1 Tailor My Resume (`/tools/tailor`) with truth check
+  - [x] 4.1 Tailor My Resume (`/tools/tailor`) with truth check
   - [ ] 4.2 Reach Out (`/tools/reach-out`) with slot-filling & placeholders
   - [ ] 4.3 Profile Check (LinkedIn + GitHub) (`/tools/profile-check`)
 - [ ] Stage 5: Group C - What do I build or fix?
@@ -154,4 +154,12 @@
 - Added cross-tool link from `CompanyRolesPage.tsx` ("Compare with another company...") and `TalentLens.tsx`.
 - Registered route `/tools/company-compare` in `App.tsx`.
 - Complete Stage 3 (Group A) is finished and verified!
-- Next task: Stage 4 (Group B: "How do I present myself better?" — Tailor My Resume, Reach Out, Profile Check).
+
+## Stage 4.1 Handoff Note
+- Created `src/features/suite/tailor/truthCheck.ts` (`assertTruthful`, `extractSkillsFromText`, `extractUnbracketedMetrics`, `hasPlaceholder`) strictly preventing hallucinated skills/frameworks and unbracketed metrics.
+- Created `src/features/suite/tailor/tailorResume.ts` (`tailorResume`) generating Reorder, Rephrase, and Add Context suggestions with before/after alignment scores.
+- Created `src/features/suite/tailor/__tests__/tailor.test.ts` (all 6 tests passing).
+- Created `src/features/suite/tailor/TailorResumePage.tsx` with side-by-side diff view, accept/reject/edit controls, quick-load from Dataset 6 companies, live tailored document preview, and `ResumeVersion` saving to `SuiteStorage`.
+- Registered route `/tools/tailor` in `App.tsx`.
+- All tests passing, tsc clean.
+- Next task: Stage 4.2 (Reach Out - `/tools/reach-out`).
