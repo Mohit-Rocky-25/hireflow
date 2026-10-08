@@ -1,10 +1,9 @@
 /* ============================================================
-   HireFlow — Cinematic Neural Talent Network Loader Styles
-   Sleek dark aesthetic, authentic branding, anamorphic flare,
-   clean typography (no box around AI), and iris reveal
+   HireFlow AI — Cinematic Light Sky & 3D Tornado Loader
+   Light-themed, Blender-level atmospheric sky & dynamic vortex
    ============================================================ */
 
-.hf-cinematic-loader {
+.hf-sky-loader {
   position: fixed;
   inset: 0;
   z-index: 999999;
@@ -12,359 +11,552 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(circle at 50% 45%, #0B1120 0%, #05070D 60%, #000000 100%);
-  color: #FFFFFF;
+  background: linear-gradient(180deg, #BAE6FD 0%, #E0F2FE 28%, #F0F9FF 65%, #FFFFFF 100%);
+  color: #0F172A;
   overflow: hidden;
   user-select: none;
   touch-action: none;
-  overscroll-behavior: contain;
-  transition: opacity 0.35s ease-out;
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, sans-serif;
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Subtle Film Grain */
-.hf-film-grain {
+/* ------------------------------------------------------------
+   Daylight Sky Atmosphere Backdrop
+   ------------------------------------------------------------ */
+.hf-sky-backdrop {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  z-index: 5;
-  opacity: 0.045;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  overflow: hidden;
+  z-index: 0;
 }
 
-/* Horizontal Anamorphic Flare Streak */
-.hf-anamorphic-streak {
+/* Ambient Sun Radiance */
+.hf-sun-radiance {
   position: absolute;
-  top: 50%;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent 0%, #0284C7 25%, #38BDF8 50%, #22D3EE 75%, transparent 100%);
-  box-shadow: 0 0 24px 4px rgba(34, 211, 238, 0.7), 0 0 48px 8px rgba(14, 165, 233, 0.4);
-  transform: translateY(-50%) scaleX(0);
-  opacity: 0;
+  top: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 650px;
+  height: 450px;
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.95) 0%, rgba(186, 230, 253, 0.5) 45%, rgba(224, 242, 254, 0) 75%);
+  filter: blur(40px);
+  animation: sunBreathe 6s ease-in-out infinite alternate;
+}
+
+@keyframes sunBreathe {
+  0% { transform: translateX(-50%) scale(0.95); opacity: 0.8; }
+  100% { transform: translateX(-50%) scale(1.08); opacity: 1; }
+}
+
+/* Ethereal Volumetric Sunlight Beam */
+.hf-light-beam {
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-8deg);
+  width: 320px;
+  height: 100vh;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.1) 40%, rgba(255, 255, 255, 0) 80%);
+  filter: blur(35px);
   pointer-events: none;
-  z-index: 15;
-  animation: hfStreakExpand 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: beamSway 10s ease-in-out infinite alternate;
 }
 
-@keyframes hfStreakExpand {
-  0% { transform: translateY(-50%) scaleX(0); opacity: 0; }
-  30% { opacity: 1; transform: translateY(-50%) scaleX(0.7); }
-  70% { opacity: 0.9; transform: translateY(-50%) scaleX(1); }
-  100% { opacity: 0; transform: translateY(-50%) scaleX(1.1); }
+@keyframes beamSway {
+  0% { transform: translateX(-50%) rotate(-12deg); opacity: 0.5; }
+  100% { transform: translateX(-50%) rotate(4deg); opacity: 0.85; }
 }
 
-/* Canvas: Fullscreen Neural Talent Mesh */
-.hf-particle-canvas {
+/* Floating Stylized Cumulus Clouds */
+.hf-cloud-layer {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(45px);
+  opacity: 0.7;
+}
+
+.hf-cloud-1 {
+  top: 15%;
+  left: -8%;
+  width: 520px;
+  height: 280px;
+  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.9) 0%, rgba(224, 242, 254, 0.4) 60%, transparent 80%);
+  animation: cloudDriftLeft 18s ease-in-out infinite alternate;
+}
+
+.hf-cloud-2 {
+  top: 30%;
+  right: -10%;
+  width: 560px;
+  height: 300px;
+  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.95) 0%, rgba(186, 230, 253, 0.5) 60%, transparent 80%);
+  animation: cloudDriftRight 22s ease-in-out infinite alternate;
+}
+
+.hf-cloud-3 {
+  bottom: 5%;
+  left: 20%;
+  width: 600px;
+  height: 220px;
+  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.8) 0%, rgba(240, 249, 255, 0.3) 70%, transparent 85%);
+  animation: cloudDriftBottom 25s ease-in-out infinite alternate;
+}
+
+@keyframes cloudDriftLeft {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(40px, -20px) scale(1.08); }
+}
+
+@keyframes cloudDriftRight {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(-50px, 15px) scale(1.05); }
+}
+
+@keyframes cloudDriftBottom {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(30px, -15px); }
+}
+
+/* Gentle Wind Wisps */
+.hf-wind-wisps {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 10;
+  background-image: 
+    radial-gradient(1.5px 1.5px at 15% 25%, rgba(2, 132, 199, 0.3), transparent),
+    radial-gradient(1.5px 1.5px at 75% 35%, rgba(56, 189, 248, 0.4), transparent),
+    radial-gradient(2px 2px at 45% 65%, rgba(255, 255, 255, 0.6), transparent),
+    radial-gradient(1.5px 1.5px at 85% 80%, rgba(2, 132, 199, 0.25), transparent);
+  background-size: 100% 100%;
 }
 
-/* Top-Right Minimalist Skip Button */
-.hf-skip-btn {
+/* ------------------------------------------------------------
+   Top Bar & Controls
+   ------------------------------------------------------------ */
+.hf-sky-top-bar {
   position: absolute;
   top: 24px;
   right: 28px;
-  z-index: 50;
+  z-index: 100;
+}
+
+.hf-sky-skip-btn {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px 14px;
+  gap: 8px;
+  padding: 8px 16px;
   font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  color: #94A3B8;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #0369A1;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(186, 230, 253, 0.8);
   border-radius: 999px;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.08);
   cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  user-select: none;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.hf-skip-btn:hover {
-  color: #FFFFFF;
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.25);
-  transform: translateY(-1px) scale(1.03);
+.hf-sky-skip-btn:hover {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: #38BDF8;
+  color: #0284C7;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px -4px rgba(2, 132, 199, 0.18);
 }
 
-.hf-skip-kbd {
+.hf-sky-kbd {
   font-size: 9px;
-  padding: 1px 5px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 4px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: #CBD5E1;
+  padding: 2px 6px;
+  background: #E0F2FE;
+  border-radius: 5px;
+  color: #0284C7;
+  font-weight: 800;
+  letter-spacing: 0.04em;
 }
 
-/* Central Stage Container */
-.hf-loader-stage {
+/* ------------------------------------------------------------
+   Center 3D Stage
+   ------------------------------------------------------------ */
+.hf-sky-stage {
   position: relative;
   z-index: 20;
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
-  padding: 0 24px;
-  will-change: transform;
-  transition: transform 0.15s ease-out;
-}
-
-/* Breathing Aura behind Logo */
-.hf-logo-aura {
-  position: absolute;
-  top: -24px;
-  width: 170px;
-  height: 170px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(37, 99, 235, 0.45) 0%, rgba(124, 58, 237, 0.22) 50%, transparent 75%);
-  filter: blur(22px);
-  pointer-events: none;
-  animation: hfBreathingGlow 3s ease-in-out infinite alternate;
-  z-index: -1;
-}
-
-@keyframes hfBreathingGlow {
-  0% { transform: scale(0.9); opacity: 0.6; }
-  100% { transform: scale(1.22); opacity: 0.95; }
-}
-
-/* Authentic HireFlow Brand Icon Box */
-.hf-logo-box {
-  position: relative;
-  width: 88px;
-  height: 88px;
-  margin-bottom: 24px;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 12px 36px -6px rgba(37, 99, 235, 0.45), 0 0 24px rgba(124, 58, 237, 0.3);
-  animation: hfLogoEntrance 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
-}
-
-@keyframes hfLogoEntrance {
-  0% { opacity: 0; transform: scale(0.8) translateY(12px); }
-  100% { opacity: 1; transform: scale(1) translateY(0); }
-}
-
-.hf-logo-sheen {
-  position: absolute;
-  inset: -50%;
-  background: linear-gradient(115deg, transparent 35%, rgba(255, 255, 255, 0.65) 50%, transparent 65%);
-  pointer-events: none;
-  transform: translateX(-100%) rotate(25deg);
-  animation: hfSheenSweep 1.2s cubic-bezier(0.16, 1, 0.3, 1) 1.1s forwards;
-}
-
-@keyframes hfSheenSweep {
-  0% { transform: translateX(-120%) rotate(25deg); }
-  100% { transform: translateX(120%) rotate(25deg); }
-}
-
-.hf-draw-stroke {
-  stroke-dasharray: 60;
-  stroke-dashoffset: 60;
-  animation: hfStrokeDraw 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.65s forwards;
-}
-
-@keyframes hfStrokeDraw {
-  to { stroke-dashoffset: 0; }
-}
-
-/* ============================================================
-   TYPOGRAPHY: "HireFlow AI" (Clean, NO Box around AI)
-   ============================================================ */
-
-.hf-wordmark-row {
-  display: flex;
-  align-items: baseline;
   justify-content: center;
-  gap: 2px;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  font-size: clamp(38px, 5.5vw, 68px);
-  line-height: 1.1;
+  width: 100%;
+  max-width: 900px;
+  padding: 0 20px;
+}
+
+/* ------------------------------------------------------------
+   3D Tornado Funnel Wrapper & Animation
+   ------------------------------------------------------------ */
+.hf-tornado-wrapper {
+  position: relative;
+  width: 480px;
+  height: 340px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1200px;
+  transform-style: preserve-3d;
+  margin-bottom: 20px;
+  animation: tornadoHover 5s ease-in-out infinite;
+}
+
+@keyframes tornadoHover {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.hf-tornado-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* 3D Outer Vortex Rings */
+.hf-vortex-rings-3d {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  transform-style: preserve-3d;
+  z-index: 2;
+}
+
+.hf-vortex-ring {
+  position: absolute;
+  border-radius: 50%;
+  border-style: solid;
+  transform-style: preserve-3d;
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.25);
+}
+
+/* Ring 1: Crown (Widest, Top of Funnel) */
+.ring-crown {
+  top: 14%;
+  width: 290px;
+  height: 85px;
+  border-width: 2px;
+  border-color: rgba(56, 189, 248, 0.5) rgba(255, 255, 255, 0.8) rgba(14, 165, 233, 0.3) rgba(255, 255, 255, 0.9);
+  border-style: dashed;
+  transform: rotateX(68deg) rotateZ(0deg);
+  animation: spinRingCW 3.5s linear infinite;
+}
+
+/* Ring 2: Upper Funnel */
+.ring-upper {
+  top: 30%;
+  width: 210px;
+  height: 65px;
+  border-width: 2px;
+  border-color: rgba(14, 165, 233, 0.6) rgba(255, 255, 255, 0.9) rgba(99, 102, 241, 0.4) rgba(56, 189, 248, 0.7);
+  transform: rotateX(68deg) rotateZ(0deg);
+  animation: spinRingCCW 2.8s linear infinite;
+}
+
+/* Ring 3: Mid Waist */
+.ring-mid {
+  top: 48%;
+  width: 140px;
+  height: 48px;
+  border-width: 2px;
+  border-color: rgba(2, 132, 199, 0.7) rgba(255, 255, 255, 0.95) rgba(14, 165, 233, 0.8) rgba(99, 102, 241, 0.5);
+  border-style: dashed;
+  transform: rotateX(68deg) rotateZ(0deg);
+  animation: spinRingCW 2.2s linear infinite;
+}
+
+/* Ring 4: Funnel Throat */
+.ring-throat {
+  top: 65%;
+  width: 85px;
+  height: 32px;
+  border-width: 2px;
+  border-color: rgba(2, 132, 199, 0.8) rgba(255, 255, 255, 0.9) rgba(56, 189, 248, 0.9) rgba(255, 255, 255, 0.9);
+  transform: rotateX(68deg) rotateZ(0deg);
+  animation: spinRingCCW 1.6s linear infinite;
+}
+
+/* Ring 5: Vortex Base Needle */
+.ring-base {
+  top: 80%;
+  width: 44px;
+  height: 18px;
+  border-width: 2px;
+  border-color: #0284C7 #38BDF8 #0284C7 #FFFFFF;
+  transform: rotateX(68deg) rotateZ(0deg);
+  animation: spinRingCW 1.1s linear infinite;
+}
+
+/* Pulsing Core Eye */
+.hf-vortex-eye-pulsar {
+  position: absolute;
+  top: 42%;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.75) 0%, rgba(2, 132, 199, 0.3) 50%, transparent 75%);
+  filter: blur(12px);
+  animation: pulsarScale 2s ease-in-out infinite alternate;
+}
+
+@keyframes spinRingCW {
+  0% { transform: rotateX(68deg) rotateZ(0deg); }
+  100% { transform: rotateX(68deg) rotateZ(360deg); }
+}
+
+@keyframes spinRingCCW {
+  0% { transform: rotateX(68deg) rotateZ(360deg); }
+  100% { transform: rotateX(68deg) rotateZ(0deg); }
+}
+
+@keyframes pulsarScale {
+  0% { transform: scale(0.85); opacity: 0.5; }
+  100% { transform: scale(1.3); opacity: 0.95; }
+}
+
+/* ------------------------------------------------------------
+   Brand Reveal Zone (HireFlow AI)
+   ------------------------------------------------------------ */
+.hf-brand-emblem-zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  z-index: 10;
+  animation: brandReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes brandReveal {
+  0% { opacity: 0; transform: translateY(18px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.hf-brand-badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  margin-bottom: 12px;
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #0284C7;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(14, 165, 233, 0.3);
+  border-radius: 999px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.1);
+}
+
+.hf-spark-icon {
+  color: #0284C7;
+  font-size: 12px;
+  animation: sparkSpin 4s linear infinite;
+}
+
+@keyframes sparkSpin {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.2); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+.hf-brand-name-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
   margin-bottom: 8px;
 }
 
-.hf-letter {
-  display: inline-block;
-  opacity: 0;
-  filter: blur(12px);
-  transform: translateY(20px);
-  animation: hfLetterReveal 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+.hf-brand-title-text {
+  margin: 0;
+  font-size: 48px;
+  font-weight: 850;
+  letter-spacing: -0.035em;
+  line-height: 1.1;
+  color: #0F172A; /* Deep modern navy */
 }
 
-@keyframes hfLetterReveal {
-  to { opacity: 1; filter: blur(0px); transform: translateY(0); }
-}
-
-/* AI: Seamless Gradient Typography, NO Box, NO Border */
-.hf-ai-text {
-  margin-left: 8px;
-  background: linear-gradient(135deg, #38BDF8 0%, #22D3EE 60%, #818CF8 100%);
+.hf-title-accent {
+  background: linear-gradient(135deg, #0284C7 0%, #2563EB 50%, #4F46E5 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   display: inline-block;
+  margin-left: 2px;
+}
+
+.hf-brand-ai-chip {
+  font-size: 15px;
   font-weight: 800;
-  opacity: 0;
-  filter: blur(10px);
-  transform: translateY(16px);
-  animation: hfAiReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.1s forwards;
-  position: relative;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  border-radius: 9px;
+  background: linear-gradient(135deg, #0284C7 0%, #2563EB 100%);
+  color: #FFFFFF;
+  box-shadow: 0 6px 16px rgba(2, 132, 199, 0.35);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
-@keyframes hfAiReveal {
-  to { opacity: 1; filter: blur(0px); transform: translateY(0); }
+.hf-brand-tagline {
+  margin: 0 0 32px 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: #475569;
+  max-width: 460px;
+  line-height: 1.5;
 }
 
-/* Subtitle Tagline */
-.hf-tagline {
-  font-size: clamp(11px, 1.4vw, 13px);
-  font-weight: 700;
-  color: #94A3B8;
-  text-transform: uppercase;
-  margin-bottom: 32px;
-  opacity: 0;
-  letter-spacing: 0.55em;
-  animation: hfTaglineReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.15s forwards;
-}
-
-@keyframes hfTaglineReveal {
-  to { opacity: 1; letter-spacing: 0.28em; }
-}
-
-/* ============================================================
-   PROGRESS BAR & METRICS
-   ============================================================ */
-
-.hf-progress-wrapper {
-  width: clamp(260px, 30vw, 360px);
+/* ------------------------------------------------------------
+   Floating Glassmorphic Progress Console
+   ------------------------------------------------------------ */
+.hf-sky-console {
+  width: 350px;
+  max-width: 90vw;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  opacity: 0;
-  animation: hfFadeIn 0.5s ease 0.5s forwards;
+  gap: 12px;
+  padding: 16px 20px;
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 
+    0 20px 40px -15px rgba(14, 165, 233, 0.16),
+    0 0 0 1px rgba(224, 242, 254, 0.65);
+  animation: consoleReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
 }
 
-@keyframes hfFadeIn { to { opacity: 1; } }
+@keyframes consoleReveal {
+  0% { opacity: 0; transform: translateY(16px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
 
-.hf-progress-bar-track {
-  position: relative;
+.hf-console-bar-track {
   width: 100%;
-  height: 2px;
-  background: rgba(148, 163, 184, 0.18);
-  border-radius: 999px;
-  overflow: visible;
-}
-
-.hf-progress-bar-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #2563EB 0%, #0EA5E9 60%, #22D3EE 100%);
-  border-radius: 999px;
-  transition: width 0.1s linear;
-  position: relative;
-}
-
-.hf-progress-head {
-  position: absolute;
-  right: -2px;
-  top: 50%;
-  width: 6px;
   height: 6px;
-  border-radius: 50%;
-  background: #FFFFFF;
-  box-shadow: 0 0 10px #22D3EE, 0 0 20px #0EA5E9, 0 0 30px #38BDF8;
-  transform: translateY(-50%);
+  background: rgba(224, 242, 254, 0.85);
+  border-radius: 999px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04);
 }
 
-.hf-progress-meta {
+.hf-console-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #38BDF8 0%, #0284C7 60%, #4F46E5 100%);
+  border-radius: 999px;
+  transition: width 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  box-shadow: 0 0 12px rgba(2, 132, 199, 0.4);
+}
+
+.hf-console-shimmer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.75) 50%, transparent 100%);
+  animation: barShimmer 1.8s infinite linear;
+}
+
+@keyframes barShimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.hf-console-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+}
+
+.hf-status-indicator {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  font-size: 12px;
-  color: #64748B;
-  font-weight: 500;
+  gap: 8px;
+  color: #334155;
+  font-weight: 550;
+  max-width: 250px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.hf-status-ticker {
-  color: #94A3B8;
+.hf-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #0284C7;
+  box-shadow: 0 0 8px rgba(2, 132, 199, 0.8);
+  animation: liveDotPulse 1.4s ease-in-out infinite alternate;
+  flex-shrink: 0;
+}
+
+@keyframes liveDotPulse {
+  0% { transform: scale(0.85); opacity: 0.6; }
+  100% { transform: scale(1.25); opacity: 1; }
+}
+
+.hf-status-text {
   font-size: 12px;
-  font-weight: 600;
-  min-height: 18px;
-  transition: opacity 0.25s ease;
+  color: #475569;
 }
 
 .hf-percent-counter {
+  color: #0284C7;
+  font-weight: 800;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  font-variant-numeric: tabular-nums;
-  color: #38BDF8;
-  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: -0.02em;
 }
 
-/* ============================================================
-   EXIT HAND-OFF & IRIS REVEAL
-   ============================================================ */
-
-.hf-flash-overlay {
-  position: fixed;
-  inset: 0;
-  background: #FFFFFF;
-  pointer-events: none;
-  z-index: 1000000;
+/* ------------------------------------------------------------
+   Exit Animation (Smooth Upward Atmospheric Dissolve)
+   ------------------------------------------------------------ */
+.hf-sky-exit {
   opacity: 0;
+  transform: translateY(-24px) scale(1.02);
+  filter: blur(8px);
+  pointer-events: none;
 }
 
-.hf-flash-trigger {
-  animation: hfFlashAnimation 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes hfFlashAnimation {
-  0% { opacity: 0; }
-  30% { opacity: 0.26; }
-  100% { opacity: 0; }
-}
-
-.hf-iris-exit {
-  animation: hfIrisMaskExit 0.5s cubic-bezier(0.7, 0, 0.3, 1) forwards;
-  pointer-events: none !important;
-}
-
-@keyframes hfIrisMaskExit {
-  0% { clip-path: circle(150% at 50% 50%); opacity: 1; transform: scale(1); }
-  40% { clip-path: circle(75% at 50% 50%); opacity: 0.95; transform: scale(1.03); }
-  100% { clip-path: circle(0% at 50% 50%); opacity: 0; transform: scale(1.08); }
-}
-
-body.hf-loaded {
-  overflow-y: auto !important;
-  overflow-x: hidden !important;
-}
-
-body.hf-loaded .page-enter {
-  animation: hfHeroReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-@keyframes hfHeroReveal {
-  0% { opacity: 0; transform: translateY(28px) scale(0.98); }
-  100% { opacity: 1; transform: translateY(0) scale(1); }
-}
-
+/* ------------------------------------------------------------
+   Accessibility: Reduced Motion
+   ------------------------------------------------------------ */
 @media (prefers-reduced-motion: reduce) {
-  .hf-anamorphic-streak, .hf-particle-canvas, .hf-logo-sheen { display: none !important; }
-  .hf-letter, .hf-ai-text, .hf-tagline, .hf-progress-wrapper, .hf-logo-box {
-    animation: hfFadeIn 0.3s ease forwards !important;
-    transform: none !important;
-    filter: none !important;
+  .hf-sun-radiance,
+  .hf-light-beam,
+  .hf-cloud-1,
+  .hf-cloud-2,
+  .hf-cloud-3,
+  .hf-tornado-wrapper,
+  .ring-crown,
+  .ring-upper,
+  .ring-mid,
+  .ring-throat,
+  .ring-base,
+  .hf-vortex-eye-pulsar,
+  .hf-spark-icon,
+  .hf-status-dot {
+    animation: none !important;
   }
-  .hf-draw-stroke { stroke-dashoffset: 0 !important; animation: none !important; }
-  .hf-iris-exit { animation: hfFadeOutReduced 0.3s ease forwards !important; }
-  @keyframes hfFadeOutReduced { to { opacity: 0; } }
 }
