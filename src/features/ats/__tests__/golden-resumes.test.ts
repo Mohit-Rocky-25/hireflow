@@ -8,7 +8,7 @@
 import { describe, it, expect } from 'vitest';
 import { runAtsEngine } from '../engine';
 
-interface GoldenTestCase {
+export interface GoldenTestCase {
   id: string;
   domain: string;
   role: string;
@@ -18,7 +18,7 @@ interface GoldenTestCase {
   expectedMissing: string[]; // Skill IDs in JD that MUST be marked missing
 }
 
-const GOLDEN_PAIRS: GoldenTestCase[] = [
+export const GOLDEN_PAIRS: GoldenTestCase[] = [
   // 1. SDE - Junior Fullstack
   {
     id: 'sde_junior_01',
