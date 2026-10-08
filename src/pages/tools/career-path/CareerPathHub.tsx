@@ -17,10 +17,16 @@ import {
   Zap,
   Layers,
   Award,
+  Sparkles,
+  Target,
 } from 'lucide-react';
 import { CareerPathBackButton } from '../../../components/career-path/CareerPathBackButton';
+import { useProfile } from '../../../features/suite/profile/ProfileContext';
+import { getCandidateTierStatus } from '../../../features/suite/integration/trajectory';
 
 export function CareerPathHub() {
+  const { profile, hasProfile } = useProfile();
+  const tierStatus = getCandidateTierStatus(profile);
   const [searchParams] = useSearchParams();
   const tabParam = searchParams.get('tab');
 
@@ -142,6 +148,74 @@ export function CareerPathHub() {
           </button>
         </div>
       </section>
+
+      {/* Candidate Market Tier Positioning Card */}
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 -mt-10 mb-12">
+        <div className="rounded-2xl bg-neutral-900/90 border border-neutral-800 p-6 shadow-xl backdrop-blur-sm space-y-4">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-3 border-b border-neutral-800">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 shrink-0">
+                <Target className="w-5 h-5" />
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <h3 className="text-sm font-bold text-white">Your Market Tier Positioning</h3>
+                  <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-500/10 text-blue-400 border border-blue-500/20">
+                    {tierStatus.currentTier}
+                  </span>
+                </div>
+                <p className="text-xs text-neutral-400 mt-0.5">
+                  {tierStatus.summaryStatement}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 shrink-0 self-start md:self-auto">
+              <Link
+                to="/tools/build-briefs"
+                className="px-3.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition-colors flex items-center gap-1.5"
+              >
+                <Sparkles className="w-3.5 h-3.5" />
+                Bridge Gaps
+              </Link>
+              <Link
+                to="/tools/resume-checker"
+                className="px-3.5 py-1.5 rounded-lg bg-neutral-800 hover:bg-neutral-700 text-neutral-200 text-xs font-semibold border border-neutral-700 transition-colors"
+              >
+                Check Resume
+              </Link>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-1">
+            <div className="space-y-1">
+              <span className="text-[11px] font-medium text-neutral-400">Target Promotion Bar:</span>
+              <p className="text-xs font-bold text-white">{tierStatus.nextTierDisplayName}</p>
+              <div className="w-full h-1.5 bg-neutral-800 rounded-full overflow-hidden mt-1.5">
+                <div
+                  className="h-full bg-gradient-to-r from-blue-500 to-emerald-400 rounded-full"
+                  style={{ width: `${tierStatus.readinessScore}%` }}
+                />
+              </div>
+              <p className="text-[10px] text-neutral-400 text-right">{tierStatus.readinessScore}% ready</p>
+            </div>
+
+            <div className="md:col-span-2 space-y-1.5">
+              <span className="text-[11px] font-medium text-neutral-400">Critical Tier Bridge Gaps:</span>
+              <div className="flex flex-wrap gap-1.5">
+                {tierStatus.tierGaps.map((gap, idx) => (
+                  <span
+                    key={idx}
+                    className="px-2 py-0.5 rounded-md bg-amber-500/10 border border-amber-500/20 text-amber-400 text-[11px] font-medium flex items-center gap-1"
+                  >
+                    • {gap}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* Tool Showcase Sections */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-28 space-y-24">

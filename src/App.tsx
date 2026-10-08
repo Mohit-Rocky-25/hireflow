@@ -38,6 +38,7 @@ import { BuildBriefsPage } from './features/suite/briefs/BuildBriefsPage';
 import { OfferDecoderPage } from './features/suite/offer/OfferDecoderPage';
 import { EvidenceCardBuilderPage } from './features/suite/share/EvidenceCardBuilderPage';
 import { EvidenceCardViewerPage } from './features/suite/share/EvidenceCardViewerPage';
+import { BatchReadinessPage } from './features/suite/cohort/BatchReadinessPage';
 
 // Company / BHR Pages
 import { CompanyDashboard } from './pages/company/CompanyDashboard';
@@ -130,6 +131,7 @@ export default function App() {
         <Route path="/tools/build-briefs" element={<BuildBriefsPage />} />
         <Route path="/tools/offer-decoder" element={<OfferDecoderPage />} />
         <Route path="/tools/evidence-card" element={<EvidenceCardBuilderPage />} />
+        <Route path="/tools/batch-readiness" element={<BatchReadinessPage />} />
         <Route path="/tools/career-path" element={<CareerPathHub />} />
         <Route path="/tools/career-path/dream-job-roadmap" element={<DreamJobRoadmapPage />} />
         <Route path="/tools/career-path/company-levels" element={<CompanyLevelsPage />} />

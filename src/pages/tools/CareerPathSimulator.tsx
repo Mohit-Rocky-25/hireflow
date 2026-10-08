@@ -683,6 +683,15 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                         <p className="text-xs text-secondary mt-1">
                           {activeCompanyLadder.name} • Typical {activeDetailLevel.yoeTypicalMin}–{activeDetailLevel.yoeTypicalMax} Years Experience
                         </p>
+                        <div className="pt-2">
+                          <Link
+                            to="/tools/resume-checker"
+                            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-primary/10 hover:bg-primary/20 text-primary border border-primary/20 text-xs font-bold transition-colors"
+                          >
+                            <Sparkles className="w-3.5 h-3.5" />
+                            Check my resume against this level
+                          </Link>
+                        </div>
                       </div>
 
                       {/* Top CTC Card */}
