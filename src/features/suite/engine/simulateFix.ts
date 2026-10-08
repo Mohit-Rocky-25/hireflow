@@ -100,7 +100,7 @@ export function rankFixes(facts: SimulationFacts): RankedFix[] {
   const ranked: RankedFix[] = [];
 
   for (const skill of gaps) {
-    const isWeak = (skill.found && skill.status === 'weak') || (!skill.found && (skill.evidenceQuotes?.length ?? 0) > 0);
+    const isWeak = (skill.found && skill.status === 'weak') || (!skill.found && ((skill.evidence?.length ?? 0) > 0 || ((skill as any).evidenceQuotes?.length ?? 0) > 0));
     const isSubstitute = Boolean(skill.isSubstituteMatch);
     const gapClass: 'wording' | 'learn' = isWeak || isSubstitute ? 'wording' : 'learn';
 
@@ -122,8 +122,8 @@ export function rankFixes(facts: SimulationFacts): RankedFix[] {
     let evidenceSnippet: string | undefined;
     if (skill.evidence && skill.evidence.length > 0) {
       evidenceSnippet = skill.evidence[0].quote;
-    } else if (skill.evidenceQuotes && skill.evidenceQuotes.length > 0) {
-      evidenceSnippet = skill.evidenceQuotes[0].quote;
+    } else if ((skill as any).evidenceQuotes && (skill as any).evidenceQuotes.length > 0) {
+      evidenceSnippet = (skill as any).evidenceQuotes[0].quote;
     }
 
     ranked.push({

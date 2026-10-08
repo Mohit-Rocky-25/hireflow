@@ -71,7 +71,7 @@
   - [x] 2.4 Invariant 6 (Summary Consistency)
   - [x] 2.5 Tests for simulation, ranking, summary, tokens
 - [ ] Stage 3: Group A - What should I apply to?
-  - [ ] 3.1 Compare Job Descriptions (`/tools/jd-compare`)
+  - [x] 3.1 Compare Job Descriptions (`/tools/jd-compare`)
   - [ ] 3.2 Application Tracker (`/tools/tracker`)
   - [ ] 3.3 Company vs Company (`/tools/company-compare`)
 - [ ] Stage 4: Group B - How do I present myself better?
