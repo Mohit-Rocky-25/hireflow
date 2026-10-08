@@ -470,7 +470,16 @@ export function ApplicationTrackerPage() {
                           )}
                         </td>
                         <td className="py-3 px-4 text-right">
-                          <div className="inline-flex items-center gap-1 font-sans">
+                          <div className="inline-flex items-center gap-1.5 font-sans">
+                            {app.status === 'Offer' && (
+                              <Link
+                                to={`/tools/offer-decoder?company=${encodeURIComponent(app.company)}`}
+                                className="px-2 py-1 text-[11px] font-bold rounded-md bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 border border-emerald-500/20 transition-colors"
+                                title="Decode this offer in Offer Decoder"
+                              >
+                                Decode Offer
+                              </Link>
+                            )}
                             <button
                               type="button"
                               onClick={() => handleOpenEdit(app)}

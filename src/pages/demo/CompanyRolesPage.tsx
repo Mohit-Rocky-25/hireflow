@@ -23,6 +23,7 @@ import {
   Zap,
   Target,
   FileText,
+  DollarSign,
 } from 'lucide-react';
 import { PublicNavbar } from '../../components/layout/PublicNavbar';
 import {
@@ -381,6 +382,15 @@ export function CompanyRolesPage() {
               >
                 <Building2 className="w-4 h-4" />
                 Compare with another company...
+              </Link>
+
+              {/* Decode offer link */}
+              <Link
+                to={`/tools/offer-decoder?company=${company.id}`}
+                className="flex items-center gap-[6px] px-[14px] py-[9px] rounded-xl border border-emerald-500/30 bg-emerald-500/5 hover:bg-emerald-500/10 text-emerald-400 font-semibold text-[13px] transition-colors"
+              >
+                <DollarSign className="w-4 h-4" />
+                Have an offer? Decode it...
               </Link>
 
               {/* Back to Companies Button */}

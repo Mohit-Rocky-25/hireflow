@@ -80,10 +80,10 @@
   - [x] 4.3 Profile Check (LinkedIn + GitHub) (`/tools/profile-check`)
 - [x] Stage 5: Group C - What do I build or fix?
   - [x] 5.1 Build Briefs (`/tools/build-briefs`) with set-cover bundler
-- [ ] Stage 6: Group D - What offer should I take?
-  - [ ] 6.1 Offer model & tax configuration (`tax-config.ts`, `professional-tax.ts`)
-  - [ ] 6.2 Calculation engine (`offer/calc.ts`) with marginal relief & 3 worked tests
-  - [ ] 6.3 Offer Decoder UI (`/tools/offer-decoder`) with waterfall & comparison
+- [x] Stage 6: Group D - What offer should I take?
+  - [x] 6.1 Offer model & tax configuration (`tax-config.ts`, `professional-tax.ts`)
+  - [x] 6.2 Calculation engine (`offer/calc.ts`) with marginal relief & 3 worked tests
+  - [x] 6.3 Offer Decoder UI (`/tools/offer-decoder`) with waterfall & comparison
 - [ ] Stage 7: Group E - Connecting HireFlow's Roles
   - [ ] 7.1 Evidence Card builder (`/tools/evidence-card`) and viewer (`/card`)
   - [ ] 7.2 Role integrations (Candidate, HR Recruiter, Interviewer)
@@ -187,6 +187,19 @@
 - Registered route `/tools/build-briefs` in `App.tsx`.
 - Typecheck clean, all tests passing. Stage 5 complete!
 - Next task: Stage 6 (Group D — What offer should I take? `/tools/offer-decoder`).
+
+## Stage 6 Handoff Note
+- Created `src/features/suite/offer/types.ts` (`OfferInput`, `OfferResult`, `WaterfallStep`, `RiskFlag`, `PreferenceWeights`).
+- Created `src/data/suite/tax-config.ts` (FY 2026-27 New Tax Regime default slabs 0-4L nil, 4-8L 5%, 8-12L 10%, 12-16L 15%, 16-20L 20%, 20-24L 25%, >24L 30%; standard deduction Rs 75,000; Section 87A rebate & marginal relief threshold Rs 12,00,000; Old Regime slabs with Rs 50,000 std deduction & 80C cap; 4% cess; lastVerified '2026-10').
+- Created `src/data/suite/professional-tax.ts` (State PT table covering KA, MH, TS, AP, TN, WB, GJ, KL, DL, and manual override).
+- Created `src/features/suite/offer/calc.ts` (pure calculation engine with gross-to-net waterfall, Section 87A marginal relief cap, PF modes, ESOP/RSU vesting, stated CTC inflators, and contract risk flags).
+- Created `src/features/suite/offer/__tests__/calc.test.ts` (all 10 unit tests passing, including the 3 required worked examples: Rs 12,50,000 -> Rs 0; Rs 13,00,000 -> Rs 26,000; Rs 18,00,000 -> Rs 1,50,800).
+- Created `src/features/suite/offer/OfferDecoderPage.tsx` with monthly take-home, year-1 cash, 4-year projection, visible waterfall chart on dark tokens, side-by-side comparison matrix with Dataset 6 reference rows, "What matters to me" preference sliders, and contract risk flag cards.
+- Registered route `/tools/offer-decoder` in `App.tsx`.
+- Added cross-tool link from `ApplicationTrackerPage.tsx` ("Decode Offer" button on Offer status) and `CompanyRolesPage.tsx` ("Have an offer? Decode it...").
+- Typecheck clean, all tests passing. Stage 6 complete!
+- Next task: Stage 7 (Group E — Connecting HireFlow's Roles: `/tools/evidence-card`, `/card`, `/tools/batch-readiness`, role switcher).
+
 
 
 
