@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom';
 import { useStore } from '../../store/useStore';
-import { Briefcase, Send, Calendar, Award, ArrowRight, CheckCircle2, Clock, FileText, ChevronRight, Brain, AlertCircle } from 'lucide-react';
+import { Briefcase, Send, Calendar, Award, ArrowRight, CheckCircle2, Clock, FileText, ChevronRight, Brain, AlertCircle, ShieldCheck, Share2, Eye } from 'lucide-react';
 import type { ApplicationStatus } from '../../types';
+import { useProfile } from '../../features/suite/profile/ProfileContext';
 
 export function CandidateDashboard() {
   const { currentUser, applications, jobs, companies, interviews, candidateProfiles, candidateMatches } = useStore();
+  const { profile: suiteProfile, hasProfile } = useProfile();
 
   if (!currentUser) return null;
 
@@ -132,6 +134,55 @@ export function CandidateDashboard() {
             </div>
           );
         })}
+      </div>
+
+      {/* Verifiable Evidence Card Banner */}
+      <div className="bg-surface border border-border hover:border-primary/40 rounded-2xl p-5 shadow-xs transition-all">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex items-start gap-3.5">
+            <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary shrink-0 mt-0.5">
+              <ShieldCheck className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <h3 className="text-sm font-bold text-foreground">Verifiable Evidence Card</h3>
+                <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                  SHA-256 Verified
+                </span>
+              </div>
+              <p className="text-xs text-muted mt-1 max-w-xl">
+                Stand out from inflated resumes. Package your Level 0–4 audited skills, verbatim metrics, and repo proofs into a tamper-evident card recruiters trust.
+              </p>
+              {hasProfile && suiteProfile && (
+                <div className="flex flex-wrap items-center gap-2 mt-2">
+                  <span className="text-[11px] font-medium text-muted">
+                    Profile loaded: <strong className="text-foreground">{suiteProfile.skills.length} skills analyzed</strong>
+                  </span>
+                  <span className="text-border">•</span>
+                  <span className="text-[11px] font-medium text-emerald-600 dark:text-emerald-400">
+                    {suiteProfile.skills.filter(s => s.evidenceLevel >= 3).length} high-evidence proofs (L3/L4)
+                  </span>
+                </div>
+              )}
+            </div>
+          </div>
+          <div className="flex items-center gap-2.5 shrink-0 self-end sm:self-center">
+            <Link
+              to="/tools/evidence-card"
+              className="px-4 py-2 bg-gradient-to-r from-primary to-ai text-white text-xs font-bold rounded-xl hover:opacity-95 transition-all shadow-sm flex items-center gap-1.5"
+            >
+              <Share2 className="w-3.5 h-3.5" />
+              Build Evidence Card
+            </Link>
+            <Link
+              to="/card"
+              className="px-3.5 py-2 bg-surface-2 hover:bg-surface-3 border border-border text-xs font-semibold text-foreground rounded-xl transition-colors flex items-center gap-1.5"
+            >
+              <Eye className="w-3.5 h-3.5" />
+              Preview Viewer
+            </Link>
+          </div>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
