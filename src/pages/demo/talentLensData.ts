@@ -1373,6 +1373,457 @@ export const COMPANIES = [
     ]
   }
 
+  ,{
+    id: "tcs", name: "TCS", logo: "TC", gradient: "from-blue-400 to-cyan-300",
+    industry: "IT Services", hq: "India", tier: "IT Services",
+    hiring2023: 5000, hiring2024: 4000, trend: "up",
+    openRoles: 50, avgPackage: "₹3.5-12 LPA", glassdoor: 3.5,
+    roles: [
+      { title: "Systems Engineer", level: "Entry", competencies: ["java","dsa","databases","communication"], reqLevel: {"java":"strong","dsa":"working","databases":"working","communication":"strong"}, desc: "Core application development and maintenance." },
+      { title: "Test Automation Engineer", level: "Mid-level", competencies: ["python","java","communication"], reqLevel: {"python":"strong","java":"working","communication":"strong"}, desc: "Building scalable test automation frameworks using Selenium and PyTest." },
+      { title: "Cloud Support Engineer", level: "Mid-level", competencies: ["aws","devops","kubernetes","databases"], reqLevel: {"aws":"strong","devops":"strong","kubernetes":"working"}, desc: "Managing enterprise cloud infrastructure, deployments and monitoring." },
+      { title: "Full Stack Developer", level: "Mid-level", competencies: ["react","nodejs","databases","dsa"], reqLevel: {"react":"strong","nodejs":"strong","databases":"strong","dsa":"working"}, desc: "End-to-end web application development for client projects." },
+      { title: "Data Analyst", level: "Entry", competencies: ["python","databases","communication"], reqLevel: {"python":"strong","databases":"expert","communication":"strong"}, desc: "Data processing, ETL pipelines, and dashboard creation." },
+      { title: "DevOps Consultant", level: "Senior", competencies: ["devops","kubernetes","aws","systemdesign"], reqLevel: {"devops":"expert","kubernetes":"strong","aws":"strong","systemdesign":"working"}, desc: "Designing and implementing CI/CD pipelines for large scale enterprise applications." },
+      { title: "Technical Lead", level: "Lead", competencies: ["java","systemdesign","leadership","communication"], reqLevel: {"java":"expert","systemdesign":"strong","leadership":"strong","communication":"expert"}, desc: "Leading development teams, client interaction, and architecture design." },
+      { title: "Backend Developer", level: "Mid-level", competencies: ["java","databases","systemdesign","dsa"], reqLevel: {"java":"expert","databases":"strong","systemdesign":"working","dsa":"working"}, desc: "Building RESTful microservices for enterprise clients." },
+      { title: "Business Analyst", level: "Mid-level", competencies: ["communication","databases"], reqLevel: {"communication":"expert","databases":"working"}, desc: "Requirement gathering, client communication, and functional design." },
+      { title: "Security Analyst", level: "Mid-level", competencies: ["security","python","communication"], reqLevel: {"security":"strong","python":"working","communication":"strong"}, desc: "Vulnerability scanning, penetration testing, and compliance." }
+    ]
+  }
+  ,{
+    id: "infosys", name: "Infosys", logo: "IN", gradient: "from-blue-500 to-cyan-400",
+    industry: "IT Services", hq: "India", tier: "IT Services",
+    hiring2023: 6000, hiring2024: 4800, trend: "stable",
+    openRoles: 60, avgPackage: "₹3.5-12 LPA", glassdoor: 3.6,
+    roles: [
+      { title: "Systems Engineer", level: "Entry", competencies: ["java","dsa","databases","communication"], reqLevel: {"java":"strong","dsa":"working","databases":"working","communication":"strong"}, desc: "Core application development and maintenance." },
+      { title: "Test Automation Engineer", level: "Mid-level", competencies: ["python","java","communication"], reqLevel: {"python":"strong","java":"working","communication":"strong"}, desc: "Building scalable test automation frameworks using Selenium and PyTest." },
+      { title: "Cloud Support Engineer", level: "Mid-level", competencies: ["aws","devops","kubernetes","databases"], reqLevel: {"aws":"strong","devops":"strong","kubernetes":"working"}, desc: "Managing enterprise cloud infrastructure, deployments and monitoring." },
+      { title: "Full Stack Developer", level: "Mid-level", competencies: ["react","nodejs","databases","dsa"], reqLevel: {"react":"strong","nodejs":"strong","databases":"strong","dsa":"working"}, desc: "End-to-end web application development for client projects." },
+      { title: "Data Analyst", level: "Entry", competencies: ["python","databases","communication"], reqLevel: {"python":"strong","databases":"expert","communication":"strong"}, desc: "Data processing, ETL pipelines, and dashboard creation." },
+      { title: "DevOps Consultant", level: "Senior", competencies: ["devops","kubernetes","aws","systemdesign"], reqLevel: {"devops":"expert","kubernetes":"strong","aws":"strong","systemdesign":"working"}, desc: "Designing and implementing CI/CD pipelines for large scale enterprise applications." },
+      { title: "Technical Lead", level: "Lead", competencies: ["java","systemdesign","leadership","communication"], reqLevel: {"java":"expert","systemdesign":"strong","leadership":"strong","communication":"expert"}, desc: "Leading development teams, client interaction, and architecture design." },
+      { title: "Backend Developer", level: "Mid-level", competencies: ["java","databases","systemdesign","dsa"], reqLevel: {"java":"expert","databases":"strong","systemdesign":"working","dsa":"working"}, desc: "Building RESTful microservices for enterprise clients." },
+      { title: "Business Analyst", level: "Mid-level", competencies: ["communication","databases"], reqLevel: {"communication":"expert","databases":"working"}, desc: "Requirement gathering, client communication, and functional design." },
+      { title: "Security Analyst", level: "Mid-level", competencies: ["security","python","communication"], reqLevel: {"security":"strong","python":"working","communication":"strong"}, desc: "Vulnerability scanning, penetration testing, and compliance." }
+    ]
+  }
+  ,{
+    id: "wipro", name: "Wipro", logo: "WI", gradient: "from-blue-600 to-cyan-500",
+    industry: "IT Services", hq: "India", tier: "IT Services",
+    hiring2023: 7000, hiring2024: 5600, trend: "down",
+    openRoles: 70, avgPackage: "₹3.5-12 LPA", glassdoor: 3.7,
+    roles: [
+      { title: "Systems Engineer", level: "Entry", competencies: ["java","dsa","databases","communication"], reqLevel: {"java":"strong","dsa":"working","databases":"working","communication":"strong"}, desc: "Core application development and maintenance." },
+      { title: "Test Automation Engineer", level: "Mid-level", competencies: ["python","java","communication"], reqLevel: {"python":"strong","java":"working","communication":"strong"}, desc: "Building scalable test automation frameworks using Selenium and PyTest." },
+      { title: "Cloud Support Engineer", level: "Mid-level", competencies: ["aws","devops","kubernetes","databases"], reqLevel: {"aws":"strong","devops":"strong","kubernetes":"working"}, desc: "Managing enterprise cloud infrastructure, deployments and monitoring." },
+      { title: "Full Stack Developer", level: "Mid-level", competencies: ["react","nodejs","databases","dsa"], reqLevel: {"react":"strong","nodejs":"strong","databases":"strong","dsa":"working"}, desc: "End-to-end web application development for client projects." },
+      { title: "Data Analyst", level: "Entry", competencies: ["python","databases","communication"], reqLevel: {"python":"strong","databases":"expert","communication":"strong"}, desc: "Data processing, ETL pipelines, and dashboard creation." },
+      { title: "DevOps Consultant", level: "Senior", competencies: ["devops","kubernetes","aws","systemdesign"], reqLevel: {"devops":"expert","kubernetes":"strong","aws":"strong","systemdesign":"working"}, desc: "Designing and implementing CI/CD pipelines for large scale enterprise applications." },
+      { title: "Technical Lead", level: "Lead", competencies: ["java","systemdesign","leadership","communication"], reqLevel: {"java":"expert","systemdesign":"strong","leadership":"strong","communication":"expert"}, desc: "Leading development teams, client interaction, and architecture design." },
+      { title: "Backend Developer", level: "Mid-level", competencies: ["java","databases","systemdesign","dsa"], reqLevel: {"java":"expert","databases":"strong","systemdesign":"working","dsa":"working"}, desc: "Building RESTful microservices for enterprise clients." },
+      { title: "Business Analyst", level: "Mid-level", competencies: ["communication","databases"], reqLevel: {"communication":"expert","databases":"working"}, desc: "Requirement gathering, client communication, and functional design." },
+      { title: "Security Analyst", level: "Mid-level", competencies: ["security","python","communication"], reqLevel: {"security":"strong","python":"working","communication":"strong"}, desc: "Vulnerability scanning, penetration testing, and compliance." }
+    ]
+  }
+  ,{
+    id: "hcltech", name: "HCLTech", logo: "HC", gradient: "from-blue-700 to-cyan-600",
+    industry: "IT Services", hq: "India", tier: "IT Services",
+    hiring2023: 8000, hiring2024: 6400, trend: "up",
+    openRoles: 80, avgPackage: "₹3.5-12 LPA", glassdoor: 3.8,
+    roles: [
+      { title: "Systems Engineer", level: "Entry", competencies: ["java","dsa","databases","communication"], reqLevel: {"java":"strong","dsa":"working","databases":"working","communication":"strong"}, desc: "Core application development and maintenance." },
+      { title: "Test Automation Engineer", level: "Mid-level", competencies: ["python","java","communication"], reqLevel: {"python":"strong","java":"working","communication":"strong"}, desc: "Building scalable test automation frameworks using Selenium and PyTest." },
+      { title: "Cloud Support Engineer", level: "Mid-level", competencies: ["aws","devops","kubernetes","databases"], reqLevel: {"aws":"strong","devops":"strong","kubernetes":"working"}, desc: "Managing enterprise cloud infrastructure, deployments and monitoring." },
+      { title: "Full Stack Developer", level: "Mid-level", competencies: ["react","nodejs","databases","dsa"], reqLevel: {"react":"strong","nodejs":"strong","databases":"strong","dsa":"working"}, desc: "End-to-end web application development for client projects." },
+      { title: "Data Analyst", level: "Entry", competencies: ["python","databases","communication"], reqLevel: {"python":"strong","databases":"expert","communication":"strong"}, desc: "Data processing, ETL pipelines, and dashboard creation." },
+      { title: "DevOps Consultant", level: "Senior", competencies: ["devops","kubernetes","aws","systemdesign"], reqLevel: {"devops":"expert","kubernetes":"strong","aws":"strong","systemdesign":"working"}, desc: "Designing and implementing CI/CD pipelines for large scale enterprise applications." },
+      { title: "Technical Lead", level: "Lead", competencies: ["java","systemdesign","leadership","communication"], reqLevel: {"java":"expert","systemdesign":"strong","leadership":"strong","communication":"expert"}, desc: "Leading development teams, client interaction, and architecture design." },
+      { title: "Backend Developer", level: "Mid-level", competencies: ["java","databases","systemdesign","dsa"], reqLevel: {"java":"expert","databases":"strong","systemdesign":"working","dsa":"working"}, desc: "Building RESTful microservices for enterprise clients." },
+      { title: "Business Analyst", level: "Mid-level", competencies: ["communication","databases"], reqLevel: {"communication":"expert","databases":"working"}, desc: "Requirement gathering, client communication, and functional design." },
+      { title: "Security Analyst", level: "Mid-level", competencies: ["security","python","communication"], reqLevel: {"security":"strong","python":"working","communication":"strong"}, desc: "Vulnerability scanning, penetration testing, and compliance." }
+    ]
+  }
+  ,{
+    id: "tech_mahindra", name: "Tech Mahindra", logo: "TE", gradient: "from-blue-800 to-cyan-700",
+    industry: "IT Services", hq: "India", tier: "IT Services",
+    hiring2023: 9000, hiring2024: 7200, trend: "down",
+    openRoles: 90, avgPackage: "₹3.5-12 LPA", glassdoor: 3.9,
+    roles: [
+      { title: "Systems Engineer", level: "Entry", competencies: ["java","dsa","databases","communication"], reqLevel: {"java":"strong","dsa":"working","databases":"working","communication":"strong"}, desc: "Core application development and maintenance." },
+      { title: "Test Automation Engineer", level: "Mid-level", competencies: ["python","java","communication"], reqLevel: {"python":"strong","java":"working","communication":"strong"}, desc: "Building scalable test automation frameworks using Selenium and PyTest." },
+      { title: "Cloud Support Engineer", level: "Mid-level", competencies: ["aws","devops","kubernetes","databases"], reqLevel: {"aws":"strong","devops":"strong","kubernetes":"working"}, desc: "Managing enterprise cloud infrastructure, deployments and monitoring." },
+      { title: "Full Stack Developer", level: "Mid-level", competencies: ["react","nodejs","databases","dsa"], reqLevel: {"react":"strong","nodejs":"strong","databases":"strong","dsa":"working"}, desc: "End-to-end web application development for client projects." },
+      { title: "Data Analyst", level: "Entry", competencies: ["python","databases","communication"], reqLevel: {"python":"strong","databases":"expert","communication":"strong"}, desc: "Data processing, ETL pipelines, and dashboard creation." },
+      { title: "DevOps Consultant", level: "Senior", competencies: ["devops","kubernetes","aws","systemdesign"], reqLevel: {"devops":"expert","kubernetes":"strong","aws":"strong","systemdesign":"working"}, desc: "Designing and implementing CI/CD pipelines for large scale enterprise applications." },
+      { title: "Technical Lead", level: "Lead", competencies: ["java","systemdesign","leadership","communication"], reqLevel: {"java":"expert","systemdesign":"strong","leadership":"strong","communication":"expert"}, desc: "Leading development teams, client interaction, and architecture design." },
+      { title: "Backend Developer", level: "Mid-level", competencies: ["java","databases","systemdesign","dsa"], reqLevel: {"java":"expert","databases":"strong","systemdesign":"working","dsa":"working"}, desc: "Building RESTful microservices for enterprise clients." },
+      { title: "Business Analyst", level: "Mid-level", competencies: ["communication","databases"], reqLevel: {"communication":"expert","databases":"working"}, desc: "Requirement gathering, client communication, and functional design." },
+      { title: "Security Analyst", level: "Mid-level", competencies: ["security","python","communication"], reqLevel: {"security":"strong","python":"working","communication":"strong"}, desc: "Vulnerability scanning, penetration testing, and compliance." }
+    ]
+  }
+  ,{
+    id: "cognizant", name: "Cognizant", logo: "CO", gradient: "from-blue-400 to-cyan-300",
+    industry: "IT Services", hq: "India", tier: "IT Services",
+    hiring2023: 10000, hiring2024: 8000, trend: "stable",
+    openRoles: 100, avgPackage: "₹3.5-12 LPA", glassdoor: 4.0,
+    roles: [
+      { title: "Systems Engineer", level: "Entry", competencies: ["java","dsa","databases","communication"], reqLevel: {"java":"strong","dsa":"working","databases":"working","communication":"strong"}, desc: "Core application development and maintenance." },
+      { title: "Test Automation Engineer", level: "Mid-level", competencies: ["python","java","communication"], reqLevel: {"python":"strong","java":"working","communication":"strong"}, desc: "Building scalable test automation frameworks using Selenium and PyTest." },
+      { title: "Cloud Support Engineer", level: "Mid-level", competencies: ["aws","devops","kubernetes","databases"], reqLevel: {"aws":"strong","devops":"strong","kubernetes":"working"}, desc: "Managing enterprise cloud infrastructure, deployments and monitoring." },
+      { title: "Full Stack Developer", level: "Mid-level", competencies: ["react","nodejs","databases","dsa"], reqLevel: {"react":"strong","nodejs":"strong","databases":"strong","dsa":"working"}, desc: "End-to-end web application development for client projects." },
+      { title: "Data Analyst", level: "Entry", competencies: ["python","databases","communication"], reqLevel: {"python":"strong","databases":"expert","communication":"strong"}, desc: "Data processing, ETL pipelines, and dashboard creation." },
+      { title: "DevOps Consultant", level: "Senior", competencies: ["devops","kubernetes","aws","systemdesign"], reqLevel: {"devops":"expert","kubernetes":"strong","aws":"strong","systemdesign":"working"}, desc: "Designing and implementing CI/CD pipelines for large scale enterprise applications." },
+      { title: "Technical Lead", level: "Lead", competencies: ["java","systemdesign","leadership","communication"], reqLevel: {"java":"expert","systemdesign":"strong","leadership":"strong","communication":"expert"}, desc: "Leading development teams, client interaction, and architecture design." },
+      { title: "Backend Developer", level: "Mid-level", competencies: ["java","databases","systemdesign","dsa"], reqLevel: {"java":"expert","databases":"strong","systemdesign":"working","dsa":"working"}, desc: "Building RESTful microservices for enterprise clients." },
+      { title: "Business Analyst", level: "Mid-level", competencies: ["communication","databases"], reqLevel: {"communication":"expert","databases":"working"}, desc: "Requirement gathering, client communication, and functional design." },
+      { title: "Security Analyst", level: "Mid-level", competencies: ["security","python","communication"], reqLevel: {"security":"strong","python":"working","communication":"strong"}, desc: "Vulnerability scanning, penetration testing, and compliance." }
+    ]
+  }
+  ,{
+    id: "capgemini", name: "Capgemini", logo: "CA", gradient: "from-blue-500 to-cyan-400",
+    industry: "IT Services", hq: "India", tier: "IT Services",
+    hiring2023: 11000, hiring2024: 8800, trend: "up",
+    openRoles: 110, avgPackage: "₹3.5-12 LPA", glassdoor: 4.1,
+    roles: [
+      { title: "Systems Engineer", level: "Entry", competencies: ["java","dsa","databases","communication"], reqLevel: {"java":"strong","dsa":"working","databases":"working","communication":"strong"}, desc: "Core application development and maintenance." },
+      { title: "Test Automation Engineer", level: "Mid-level", competencies: ["python","java","communication"], reqLevel: {"python":"strong","java":"working","communication":"strong"}, desc: "Building scalable test automation frameworks using Selenium and PyTest." },
+      { title: "Cloud Support Engineer", level: "Mid-level", competencies: ["aws","devops","kubernetes","databases"], reqLevel: {"aws":"strong","devops":"strong","kubernetes":"working"}, desc: "Managing enterprise cloud infrastructure, deployments and monitoring." },
+      { title: "Full Stack Developer", level: "Mid-level", competencies: ["react","nodejs","databases","dsa"], reqLevel: {"react":"strong","nodejs":"strong","databases":"strong","dsa":"working"}, desc: "End-to-end web application development for client projects." },
+      { title: "Data Analyst", level: "Entry", competencies: ["python","databases","communication"], reqLevel: {"python":"strong","databases":"expert","communication":"strong"}, desc: "Data processing, ETL pipelines, and dashboard creation." },
+      { title: "DevOps Consultant", level: "Senior", competencies: ["devops","kubernetes","aws","systemdesign"], reqLevel: {"devops":"expert","kubernetes":"strong","aws":"strong","systemdesign":"working"}, desc: "Designing and implementing CI/CD pipelines for large scale enterprise applications." },
+      { title: "Technical Lead", level: "Lead", competencies: ["java","systemdesign","leadership","communication"], reqLevel: {"java":"expert","systemdesign":"strong","leadership":"strong","communication":"expert"}, desc: "Leading development teams, client interaction, and architecture design." },
+      { title: "Backend Developer", level: "Mid-level", competencies: ["java","databases","systemdesign","dsa"], reqLevel: {"java":"expert","databases":"strong","systemdesign":"working","dsa":"working"}, desc: "Building RESTful microservices for enterprise clients." },
+      { title: "Business Analyst", level: "Mid-level", competencies: ["communication","databases"], reqLevel: {"communication":"expert","databases":"working"}, desc: "Requirement gathering, client communication, and functional design." },
+      { title: "Security Analyst", level: "Mid-level", competencies: ["security","python","communication"], reqLevel: {"security":"strong","python":"working","communication":"strong"}, desc: "Vulnerability scanning, penetration testing, and compliance." }
+    ]
+  }
+  ,{
+    id: "accenture", name: "Accenture", logo: "AC", gradient: "from-blue-600 to-cyan-500",
+    industry: "Consulting", hq: "India", tier: "MNC",
+    hiring2023: 12000, hiring2024: 9600, trend: "stable",
+    openRoles: 120, avgPackage: "₹3.5-12 LPA", glassdoor: 4.2,
+    roles: [
+      { title: "Systems Engineer", level: "Entry", competencies: ["java","dsa","databases","communication"], reqLevel: {"java":"strong","dsa":"working","databases":"working","communication":"strong"}, desc: "Core application development and maintenance." },
+      { title: "Test Automation Engineer", level: "Mid-level", competencies: ["python","java","communication"], reqLevel: {"python":"strong","java":"working","communication":"strong"}, desc: "Building scalable test automation frameworks using Selenium and PyTest." },
+      { title: "Cloud Support Engineer", level: "Mid-level", competencies: ["aws","devops","kubernetes","databases"], reqLevel: {"aws":"strong","devops":"strong","kubernetes":"working"}, desc: "Managing enterprise cloud infrastructure, deployments and monitoring." },
+      { title: "Full Stack Developer", level: "Mid-level", competencies: ["react","nodejs","databases","dsa"], reqLevel: {"react":"strong","nodejs":"strong","databases":"strong","dsa":"working"}, desc: "End-to-end web application development for client projects." },
+      { title: "Data Analyst", level: "Entry", competencies: ["python","databases","communication"], reqLevel: {"python":"strong","databases":"expert","communication":"strong"}, desc: "Data processing, ETL pipelines, and dashboard creation." },
+      { title: "DevOps Consultant", level: "Senior", competencies: ["devops","kubernetes","aws","systemdesign"], reqLevel: {"devops":"expert","kubernetes":"strong","aws":"strong","systemdesign":"working"}, desc: "Designing and implementing CI/CD pipelines for large scale enterprise applications." },
+      { title: "Technical Lead", level: "Lead", competencies: ["java","systemdesign","leadership","communication"], reqLevel: {"java":"expert","systemdesign":"strong","leadership":"strong","communication":"expert"}, desc: "Leading development teams, client interaction, and architecture design." },
+      { title: "Backend Developer", level: "Mid-level", competencies: ["java","databases","systemdesign","dsa"], reqLevel: {"java":"expert","databases":"strong","systemdesign":"working","dsa":"working"}, desc: "Building RESTful microservices for enterprise clients." },
+      { title: "Business Analyst", level: "Mid-level", competencies: ["communication","databases"], reqLevel: {"communication":"expert","databases":"working"}, desc: "Requirement gathering, client communication, and functional design." },
+      { title: "Security Analyst", level: "Mid-level", competencies: ["security","python","communication"], reqLevel: {"security":"strong","python":"working","communication":"strong"}, desc: "Vulnerability scanning, penetration testing, and compliance." }
+    ]
+  }
+  ,{
+    id: "ibm_india", name: "IBM India", logo: "IB", gradient: "from-blue-700 to-cyan-600",
+    industry: "IT Services", hq: "India", tier: "IT Services",
+    hiring2023: 13000, hiring2024: 10400, trend: "down",
+    openRoles: 130, avgPackage: "₹3.5-12 LPA", glassdoor: 4.3,
+    roles: [
+      { title: "Systems Engineer", level: "Entry", competencies: ["java","dsa","databases","communication"], reqLevel: {"java":"strong","dsa":"working","databases":"working","communication":"strong"}, desc: "Core application development and maintenance." },
+      { title: "Test Automation Engineer", level: "Mid-level", competencies: ["python","java","communication"], reqLevel: {"python":"strong","java":"working","communication":"strong"}, desc: "Building scalable test automation frameworks using Selenium and PyTest." },
+      { title: "Cloud Support Engineer", level: "Mid-level", competencies: ["aws","devops","kubernetes","databases"], reqLevel: {"aws":"strong","devops":"strong","kubernetes":"working"}, desc: "Managing enterprise cloud infrastructure, deployments and monitoring." },
+      { title: "Full Stack Developer", level: "Mid-level", competencies: ["react","nodejs","databases","dsa"], reqLevel: {"react":"strong","nodejs":"strong","databases":"strong","dsa":"working"}, desc: "End-to-end web application development for client projects." },
+      { title: "Data Analyst", level: "Entry", competencies: ["python","databases","communication"], reqLevel: {"python":"strong","databases":"expert","communication":"strong"}, desc: "Data processing, ETL pipelines, and dashboard creation." },
+      { title: "DevOps Consultant", level: "Senior", competencies: ["devops","kubernetes","aws","systemdesign"], reqLevel: {"devops":"expert","kubernetes":"strong","aws":"strong","systemdesign":"working"}, desc: "Designing and implementing CI/CD pipelines for large scale enterprise applications." },
+      { title: "Technical Lead", level: "Lead", competencies: ["java","systemdesign","leadership","communication"], reqLevel: {"java":"expert","systemdesign":"strong","leadership":"strong","communication":"expert"}, desc: "Leading development teams, client interaction, and architecture design." },
+      { title: "Backend Developer", level: "Mid-level", competencies: ["java","databases","systemdesign","dsa"], reqLevel: {"java":"expert","databases":"strong","systemdesign":"working","dsa":"working"}, desc: "Building RESTful microservices for enterprise clients." },
+      { title: "Business Analyst", level: "Mid-level", competencies: ["communication","databases"], reqLevel: {"communication":"expert","databases":"working"}, desc: "Requirement gathering, client communication, and functional design." },
+      { title: "Security Analyst", level: "Mid-level", competencies: ["security","python","communication"], reqLevel: {"security":"strong","python":"working","communication":"strong"}, desc: "Vulnerability scanning, penetration testing, and compliance." }
+    ]
+  }
+  ,{
+    id: "l_t_tech", name: "L&T Tech", logo: "L&", gradient: "from-blue-800 to-cyan-700",
+    industry: "IT Services", hq: "India", tier: "IT Services",
+    hiring2023: 14000, hiring2024: 11200, trend: "up",
+    openRoles: 140, avgPackage: "₹3.5-12 LPA", glassdoor: 4.4,
+    roles: [
+      { title: "Systems Engineer", level: "Entry", competencies: ["java","dsa","databases","communication"], reqLevel: {"java":"strong","dsa":"working","databases":"working","communication":"strong"}, desc: "Core application development and maintenance." },
+      { title: "Test Automation Engineer", level: "Mid-level", competencies: ["python","java","communication"], reqLevel: {"python":"strong","java":"working","communication":"strong"}, desc: "Building scalable test automation frameworks using Selenium and PyTest." },
+      { title: "Cloud Support Engineer", level: "Mid-level", competencies: ["aws","devops","kubernetes","databases"], reqLevel: {"aws":"strong","devops":"strong","kubernetes":"working"}, desc: "Managing enterprise cloud infrastructure, deployments and monitoring." },
+      { title: "Full Stack Developer", level: "Mid-level", competencies: ["react","nodejs","databases","dsa"], reqLevel: {"react":"strong","nodejs":"strong","databases":"strong","dsa":"working"}, desc: "End-to-end web application development for client projects." },
+      { title: "Data Analyst", level: "Entry", competencies: ["python","databases","communication"], reqLevel: {"python":"strong","databases":"expert","communication":"strong"}, desc: "Data processing, ETL pipelines, and dashboard creation." },
+      { title: "DevOps Consultant", level: "Senior", competencies: ["devops","kubernetes","aws","systemdesign"], reqLevel: {"devops":"expert","kubernetes":"strong","aws":"strong","systemdesign":"working"}, desc: "Designing and implementing CI/CD pipelines for large scale enterprise applications." },
+      { title: "Technical Lead", level: "Lead", competencies: ["java","systemdesign","leadership","communication"], reqLevel: {"java":"expert","systemdesign":"strong","leadership":"strong","communication":"expert"}, desc: "Leading development teams, client interaction, and architecture design." },
+      { title: "Backend Developer", level: "Mid-level", competencies: ["java","databases","systemdesign","dsa"], reqLevel: {"java":"expert","databases":"strong","systemdesign":"working","dsa":"working"}, desc: "Building RESTful microservices for enterprise clients." },
+      { title: "Business Analyst", level: "Mid-level", competencies: ["communication","databases"], reqLevel: {"communication":"expert","databases":"working"}, desc: "Requirement gathering, client communication, and functional design." },
+      { title: "Security Analyst", level: "Mid-level", competencies: ["security","python","communication"], reqLevel: {"security":"strong","python":"working","communication":"strong"}, desc: "Vulnerability scanning, penetration testing, and compliance." }
+    ]
+  }
+  ,{
+    id: "ltimindtree", name: "LTIMindtree", logo: "LT", gradient: "from-blue-400 to-cyan-300",
+    industry: "IT Services", hq: "India", tier: "IT Services",
+    hiring2023: 15000, hiring2024: 12000, trend: "down",
+    openRoles: 150, avgPackage: "₹3.5-12 LPA", glassdoor: 3.5,
+    roles: [
+      { title: "Systems Engineer", level: "Entry", competencies: ["java","dsa","databases","communication"], reqLevel: {"java":"strong","dsa":"working","databases":"working","communication":"strong"}, desc: "Core application development and maintenance." },
+      { title: "Test Automation Engineer", level: "Mid-level", competencies: ["python","java","communication"], reqLevel: {"python":"strong","java":"working","communication":"strong"}, desc: "Building scalable test automation frameworks using Selenium and PyTest." },
+      { title: "Cloud Support Engineer", level: "Mid-level", competencies: ["aws","devops","kubernetes","databases"], reqLevel: {"aws":"strong","devops":"strong","kubernetes":"working"}, desc: "Managing enterprise cloud infrastructure, deployments and monitoring." },
+      { title: "Full Stack Developer", level: "Mid-level", competencies: ["react","nodejs","databases","dsa"], reqLevel: {"react":"strong","nodejs":"strong","databases":"strong","dsa":"working"}, desc: "End-to-end web application development for client projects." },
+      { title: "Data Analyst", level: "Entry", competencies: ["python","databases","communication"], reqLevel: {"python":"strong","databases":"expert","communication":"strong"}, desc: "Data processing, ETL pipelines, and dashboard creation." },
+      { title: "DevOps Consultant", level: "Senior", competencies: ["devops","kubernetes","aws","systemdesign"], reqLevel: {"devops":"expert","kubernetes":"strong","aws":"strong","systemdesign":"working"}, desc: "Designing and implementing CI/CD pipelines for large scale enterprise applications." },
+      { title: "Technical Lead", level: "Lead", competencies: ["java","systemdesign","leadership","communication"], reqLevel: {"java":"expert","systemdesign":"strong","leadership":"strong","communication":"expert"}, desc: "Leading development teams, client interaction, and architecture design." },
+      { title: "Backend Developer", level: "Mid-level", competencies: ["java","databases","systemdesign","dsa"], reqLevel: {"java":"expert","databases":"strong","systemdesign":"working","dsa":"working"}, desc: "Building RESTful microservices for enterprise clients." },
+      { title: "Business Analyst", level: "Mid-level", competencies: ["communication","databases"], reqLevel: {"communication":"expert","databases":"working"}, desc: "Requirement gathering, client communication, and functional design." },
+      { title: "Security Analyst", level: "Mid-level", competencies: ["security","python","communication"], reqLevel: {"security":"strong","python":"working","communication":"strong"}, desc: "Vulnerability scanning, penetration testing, and compliance." }
+    ]
+  }
+  ,{
+    id: "hexaware", name: "Hexaware", logo: "HE", gradient: "from-blue-500 to-cyan-400",
+    industry: "IT Services", hq: "India", tier: "IT Services",
+    hiring2023: 16000, hiring2024: 12800, trend: "stable",
+    openRoles: 160, avgPackage: "₹3.5-12 LPA", glassdoor: 3.6,
+    roles: [
+      { title: "Systems Engineer", level: "Entry", competencies: ["java","dsa","databases","communication"], reqLevel: {"java":"strong","dsa":"working","databases":"working","communication":"strong"}, desc: "Core application development and maintenance." },
+      { title: "Test Automation Engineer", level: "Mid-level", competencies: ["python","java","communication"], reqLevel: {"python":"strong","java":"working","communication":"strong"}, desc: "Building scalable test automation frameworks using Selenium and PyTest." },
+      { title: "Cloud Support Engineer", level: "Mid-level", competencies: ["aws","devops","kubernetes","databases"], reqLevel: {"aws":"strong","devops":"strong","kubernetes":"working"}, desc: "Managing enterprise cloud infrastructure, deployments and monitoring." },
+      { title: "Full Stack Developer", level: "Mid-level", competencies: ["react","nodejs","databases","dsa"], reqLevel: {"react":"strong","nodejs":"strong","databases":"strong","dsa":"working"}, desc: "End-to-end web application development for client projects." },
+      { title: "Data Analyst", level: "Entry", competencies: ["python","databases","communication"], reqLevel: {"python":"strong","databases":"expert","communication":"strong"}, desc: "Data processing, ETL pipelines, and dashboard creation." },
+      { title: "DevOps Consultant", level: "Senior", competencies: ["devops","kubernetes","aws","systemdesign"], reqLevel: {"devops":"expert","kubernetes":"strong","aws":"strong","systemdesign":"working"}, desc: "Designing and implementing CI/CD pipelines for large scale enterprise applications." },
+      { title: "Technical Lead", level: "Lead", competencies: ["java","systemdesign","leadership","communication"], reqLevel: {"java":"expert","systemdesign":"strong","leadership":"strong","communication":"expert"}, desc: "Leading development teams, client interaction, and architecture design." },
+      { title: "Backend Developer", level: "Mid-level", competencies: ["java","databases","systemdesign","dsa"], reqLevel: {"java":"expert","databases":"strong","systemdesign":"working","dsa":"working"}, desc: "Building RESTful microservices for enterprise clients." },
+      { title: "Business Analyst", level: "Mid-level", competencies: ["communication","databases"], reqLevel: {"communication":"expert","databases":"working"}, desc: "Requirement gathering, client communication, and functional design." },
+      { title: "Security Analyst", level: "Mid-level", competencies: ["security","python","communication"], reqLevel: {"security":"strong","python":"working","communication":"strong"}, desc: "Vulnerability scanning, penetration testing, and compliance." }
+    ]
+  }
+  ,{
+    id: "mphasis", name: "Mphasis", logo: "MP", gradient: "from-blue-600 to-cyan-500",
+    industry: "IT Services", hq: "India", tier: "IT Services",
+    hiring2023: 17000, hiring2024: 13600, trend: "up",
+    openRoles: 170, avgPackage: "₹3.5-12 LPA", glassdoor: 3.7,
+    roles: [
+      { title: "Systems Engineer", level: "Entry", competencies: ["java","dsa","databases","communication"], reqLevel: {"java":"strong","dsa":"working","databases":"working","communication":"strong"}, desc: "Core application development and maintenance." },
+      { title: "Test Automation Engineer", level: "Mid-level", competencies: ["python","java","communication"], reqLevel: {"python":"strong","java":"working","communication":"strong"}, desc: "Building scalable test automation frameworks using Selenium and PyTest." },
+      { title: "Cloud Support Engineer", level: "Mid-level", competencies: ["aws","devops","kubernetes","databases"], reqLevel: {"aws":"strong","devops":"strong","kubernetes":"working"}, desc: "Managing enterprise cloud infrastructure, deployments and monitoring." },
+      { title: "Full Stack Developer", level: "Mid-level", competencies: ["react","nodejs","databases","dsa"], reqLevel: {"react":"strong","nodejs":"strong","databases":"strong","dsa":"working"}, desc: "End-to-end web application development for client projects." },
+      { title: "Data Analyst", level: "Entry", competencies: ["python","databases","communication"], reqLevel: {"python":"strong","databases":"expert","communication":"strong"}, desc: "Data processing, ETL pipelines, and dashboard creation." },
+      { title: "DevOps Consultant", level: "Senior", competencies: ["devops","kubernetes","aws","systemdesign"], reqLevel: {"devops":"expert","kubernetes":"strong","aws":"strong","systemdesign":"working"}, desc: "Designing and implementing CI/CD pipelines for large scale enterprise applications." },
+      { title: "Technical Lead", level: "Lead", competencies: ["java","systemdesign","leadership","communication"], reqLevel: {"java":"expert","systemdesign":"strong","leadership":"strong","communication":"expert"}, desc: "Leading development teams, client interaction, and architecture design." },
+      { title: "Backend Developer", level: "Mid-level", competencies: ["java","databases","systemdesign","dsa"], reqLevel: {"java":"expert","databases":"strong","systemdesign":"working","dsa":"working"}, desc: "Building RESTful microservices for enterprise clients." },
+      { title: "Business Analyst", level: "Mid-level", competencies: ["communication","databases"], reqLevel: {"communication":"expert","databases":"working"}, desc: "Requirement gathering, client communication, and functional design." },
+      { title: "Security Analyst", level: "Mid-level", competencies: ["security","python","communication"], reqLevel: {"security":"strong","python":"working","communication":"strong"}, desc: "Vulnerability scanning, penetration testing, and compliance." }
+    ]
+  }
+  ,{
+    id: "persistent", name: "Persistent", logo: "PE", gradient: "from-blue-700 to-cyan-600",
+    industry: "IT Services", hq: "India", tier: "IT Services",
+    hiring2023: 18000, hiring2024: 14400, trend: "stable",
+    openRoles: 180, avgPackage: "₹3.5-12 LPA", glassdoor: 3.8,
+    roles: [
+      { title: "Systems Engineer", level: "Entry", competencies: ["java","dsa","databases","communication"], reqLevel: {"java":"strong","dsa":"working","databases":"working","communication":"strong"}, desc: "Core application development and maintenance." },
+      { title: "Test Automation Engineer", level: "Mid-level", competencies: ["python","java","communication"], reqLevel: {"python":"strong","java":"working","communication":"strong"}, desc: "Building scalable test automation frameworks using Selenium and PyTest." },
+      { title: "Cloud Support Engineer", level: "Mid-level", competencies: ["aws","devops","kubernetes","databases"], reqLevel: {"aws":"strong","devops":"strong","kubernetes":"working"}, desc: "Managing enterprise cloud infrastructure, deployments and monitoring." },
+      { title: "Full Stack Developer", level: "Mid-level", competencies: ["react","nodejs","databases","dsa"], reqLevel: {"react":"strong","nodejs":"strong","databases":"strong","dsa":"working"}, desc: "End-to-end web application development for client projects." },
+      { title: "Data Analyst", level: "Entry", competencies: ["python","databases","communication"], reqLevel: {"python":"strong","databases":"expert","communication":"strong"}, desc: "Data processing, ETL pipelines, and dashboard creation." },
+      { title: "DevOps Consultant", level: "Senior", competencies: ["devops","kubernetes","aws","systemdesign"], reqLevel: {"devops":"expert","kubernetes":"strong","aws":"strong","systemdesign":"working"}, desc: "Designing and implementing CI/CD pipelines for large scale enterprise applications." },
+      { title: "Technical Lead", level: "Lead", competencies: ["java","systemdesign","leadership","communication"], reqLevel: {"java":"expert","systemdesign":"strong","leadership":"strong","communication":"expert"}, desc: "Leading development teams, client interaction, and architecture design." },
+      { title: "Backend Developer", level: "Mid-level", competencies: ["java","databases","systemdesign","dsa"], reqLevel: {"java":"expert","databases":"strong","systemdesign":"working","dsa":"working"}, desc: "Building RESTful microservices for enterprise clients." },
+      { title: "Business Analyst", level: "Mid-level", competencies: ["communication","databases"], reqLevel: {"communication":"expert","databases":"working"}, desc: "Requirement gathering, client communication, and functional design." },
+      { title: "Security Analyst", level: "Mid-level", competencies: ["security","python","communication"], reqLevel: {"security":"strong","python":"working","communication":"strong"}, desc: "Vulnerability scanning, penetration testing, and compliance." }
+    ]
+  }
+  ,{
+    id: "zensar", name: "Zensar", logo: "ZE", gradient: "from-blue-800 to-cyan-700",
+    industry: "IT Services", hq: "India", tier: "IT Services",
+    hiring2023: 19000, hiring2024: 15200, trend: "down",
+    openRoles: 190, avgPackage: "₹3.5-12 LPA", glassdoor: 3.9,
+    roles: [
+      { title: "Systems Engineer", level: "Entry", competencies: ["java","dsa","databases","communication"], reqLevel: {"java":"strong","dsa":"working","databases":"working","communication":"strong"}, desc: "Core application development and maintenance." },
+      { title: "Test Automation Engineer", level: "Mid-level", competencies: ["python","java","communication"], reqLevel: {"python":"strong","java":"working","communication":"strong"}, desc: "Building scalable test automation frameworks using Selenium and PyTest." },
+      { title: "Cloud Support Engineer", level: "Mid-level", competencies: ["aws","devops","kubernetes","databases"], reqLevel: {"aws":"strong","devops":"strong","kubernetes":"working"}, desc: "Managing enterprise cloud infrastructure, deployments and monitoring." },
+      { title: "Full Stack Developer", level: "Mid-level", competencies: ["react","nodejs","databases","dsa"], reqLevel: {"react":"strong","nodejs":"strong","databases":"strong","dsa":"working"}, desc: "End-to-end web application development for client projects." },
+      { title: "Data Analyst", level: "Entry", competencies: ["python","databases","communication"], reqLevel: {"python":"strong","databases":"expert","communication":"strong"}, desc: "Data processing, ETL pipelines, and dashboard creation." },
+      { title: "DevOps Consultant", level: "Senior", competencies: ["devops","kubernetes","aws","systemdesign"], reqLevel: {"devops":"expert","kubernetes":"strong","aws":"strong","systemdesign":"working"}, desc: "Designing and implementing CI/CD pipelines for large scale enterprise applications." },
+      { title: "Technical Lead", level: "Lead", competencies: ["java","systemdesign","leadership","communication"], reqLevel: {"java":"expert","systemdesign":"strong","leadership":"strong","communication":"expert"}, desc: "Leading development teams, client interaction, and architecture design." },
+      { title: "Backend Developer", level: "Mid-level", competencies: ["java","databases","systemdesign","dsa"], reqLevel: {"java":"expert","databases":"strong","systemdesign":"working","dsa":"working"}, desc: "Building RESTful microservices for enterprise clients." },
+      { title: "Business Analyst", level: "Mid-level", competencies: ["communication","databases"], reqLevel: {"communication":"expert","databases":"working"}, desc: "Requirement gathering, client communication, and functional design." },
+      { title: "Security Analyst", level: "Mid-level", competencies: ["security","python","communication"], reqLevel: {"security":"strong","python":"working","communication":"strong"}, desc: "Vulnerability scanning, penetration testing, and compliance." }
+    ]
+  }
+  ,{
+    id: "birlasoft", name: "Birlasoft", logo: "BI", gradient: "from-blue-400 to-cyan-300",
+    industry: "IT Services", hq: "India", tier: "IT Services",
+    hiring2023: 20000, hiring2024: 16000, trend: "up",
+    openRoles: 200, avgPackage: "₹3.5-12 LPA", glassdoor: 4.0,
+    roles: [
+      { title: "Systems Engineer", level: "Entry", competencies: ["java","dsa","databases","communication"], reqLevel: {"java":"strong","dsa":"working","databases":"working","communication":"strong"}, desc: "Core application development and maintenance." },
+      { title: "Test Automation Engineer", level: "Mid-level", competencies: ["python","java","communication"], reqLevel: {"python":"strong","java":"working","communication":"strong"}, desc: "Building scalable test automation frameworks using Selenium and PyTest." },
+      { title: "Cloud Support Engineer", level: "Mid-level", competencies: ["aws","devops","kubernetes","databases"], reqLevel: {"aws":"strong","devops":"strong","kubernetes":"working"}, desc: "Managing enterprise cloud infrastructure, deployments and monitoring." },
+      { title: "Full Stack Developer", level: "Mid-level", competencies: ["react","nodejs","databases","dsa"], reqLevel: {"react":"strong","nodejs":"strong","databases":"strong","dsa":"working"}, desc: "End-to-end web application development for client projects." },
+      { title: "Data Analyst", level: "Entry", competencies: ["python","databases","communication"], reqLevel: {"python":"strong","databases":"expert","communication":"strong"}, desc: "Data processing, ETL pipelines, and dashboard creation." },
+      { title: "DevOps Consultant", level: "Senior", competencies: ["devops","kubernetes","aws","systemdesign"], reqLevel: {"devops":"expert","kubernetes":"strong","aws":"strong","systemdesign":"working"}, desc: "Designing and implementing CI/CD pipelines for large scale enterprise applications." },
+      { title: "Technical Lead", level: "Lead", competencies: ["java","systemdesign","leadership","communication"], reqLevel: {"java":"expert","systemdesign":"strong","leadership":"strong","communication":"expert"}, desc: "Leading development teams, client interaction, and architecture design." },
+      { title: "Backend Developer", level: "Mid-level", competencies: ["java","databases","systemdesign","dsa"], reqLevel: {"java":"expert","databases":"strong","systemdesign":"working","dsa":"working"}, desc: "Building RESTful microservices for enterprise clients." },
+      { title: "Business Analyst", level: "Mid-level", competencies: ["communication","databases"], reqLevel: {"communication":"expert","databases":"working"}, desc: "Requirement gathering, client communication, and functional design." },
+      { title: "Security Analyst", level: "Mid-level", competencies: ["security","python","communication"], reqLevel: {"security":"strong","python":"working","communication":"strong"}, desc: "Vulnerability scanning, penetration testing, and compliance." }
+    ]
+  }
+  ,{
+    id: "deloitte_usi", name: "Deloitte USI", logo: "DE", gradient: "from-blue-500 to-cyan-400",
+    industry: "Consulting", hq: "India", tier: "MNC",
+    hiring2023: 21000, hiring2024: 16800, trend: "down",
+    openRoles: 210, avgPackage: "₹3.5-12 LPA", glassdoor: 4.1,
+    roles: [
+      { title: "Systems Engineer", level: "Entry", competencies: ["java","dsa","databases","communication"], reqLevel: {"java":"strong","dsa":"working","databases":"working","communication":"strong"}, desc: "Core application development and maintenance." },
+      { title: "Test Automation Engineer", level: "Mid-level", competencies: ["python","java","communication"], reqLevel: {"python":"strong","java":"working","communication":"strong"}, desc: "Building scalable test automation frameworks using Selenium and PyTest." },
+      { title: "Cloud Support Engineer", level: "Mid-level", competencies: ["aws","devops","kubernetes","databases"], reqLevel: {"aws":"strong","devops":"strong","kubernetes":"working"}, desc: "Managing enterprise cloud infrastructure, deployments and monitoring." },
+      { title: "Full Stack Developer", level: "Mid-level", competencies: ["react","nodejs","databases","dsa"], reqLevel: {"react":"strong","nodejs":"strong","databases":"strong","dsa":"working"}, desc: "End-to-end web application development for client projects." },
+      { title: "Data Analyst", level: "Entry", competencies: ["python","databases","communication"], reqLevel: {"python":"strong","databases":"expert","communication":"strong"}, desc: "Data processing, ETL pipelines, and dashboard creation." },
+      { title: "DevOps Consultant", level: "Senior", competencies: ["devops","kubernetes","aws","systemdesign"], reqLevel: {"devops":"expert","kubernetes":"strong","aws":"strong","systemdesign":"working"}, desc: "Designing and implementing CI/CD pipelines for large scale enterprise applications." },
+      { title: "Technical Lead", level: "Lead", competencies: ["java","systemdesign","leadership","communication"], reqLevel: {"java":"expert","systemdesign":"strong","leadership":"strong","communication":"expert"}, desc: "Leading development teams, client interaction, and architecture design." },
+      { title: "Backend Developer", level: "Mid-level", competencies: ["java","databases","systemdesign","dsa"], reqLevel: {"java":"expert","databases":"strong","systemdesign":"working","dsa":"working"}, desc: "Building RESTful microservices for enterprise clients." },
+      { title: "Business Analyst", level: "Mid-level", competencies: ["communication","databases"], reqLevel: {"communication":"expert","databases":"working"}, desc: "Requirement gathering, client communication, and functional design." },
+      { title: "Security Analyst", level: "Mid-level", competencies: ["security","python","communication"], reqLevel: {"security":"strong","python":"working","communication":"strong"}, desc: "Vulnerability scanning, penetration testing, and compliance." }
+    ]
+  }
+  ,{
+    id: "pwc_india_ac", name: "PwC India AC", logo: "PW", gradient: "from-blue-600 to-cyan-500",
+    industry: "Consulting", hq: "India", tier: "MNC",
+    hiring2023: 22000, hiring2024: 17600, trend: "stable",
+    openRoles: 220, avgPackage: "₹3.5-12 LPA", glassdoor: 4.2,
+    roles: [
+      { title: "Systems Engineer", level: "Entry", competencies: ["java","dsa","databases","communication"], reqLevel: {"java":"strong","dsa":"working","databases":"working","communication":"strong"}, desc: "Core application development and maintenance." },
+      { title: "Test Automation Engineer", level: "Mid-level", competencies: ["python","java","communication"], reqLevel: {"python":"strong","java":"working","communication":"strong"}, desc: "Building scalable test automation frameworks using Selenium and PyTest." },
+      { title: "Cloud Support Engineer", level: "Mid-level", competencies: ["aws","devops","kubernetes","databases"], reqLevel: {"aws":"strong","devops":"strong","kubernetes":"working"}, desc: "Managing enterprise cloud infrastructure, deployments and monitoring." },
+      { title: "Full Stack Developer", level: "Mid-level", competencies: ["react","nodejs","databases","dsa"], reqLevel: {"react":"strong","nodejs":"strong","databases":"strong","dsa":"working"}, desc: "End-to-end web application development for client projects." },
+      { title: "Data Analyst", level: "Entry", competencies: ["python","databases","communication"], reqLevel: {"python":"strong","databases":"expert","communication":"strong"}, desc: "Data processing, ETL pipelines, and dashboard creation." },
+      { title: "DevOps Consultant", level: "Senior", competencies: ["devops","kubernetes","aws","systemdesign"], reqLevel: {"devops":"expert","kubernetes":"strong","aws":"strong","systemdesign":"working"}, desc: "Designing and implementing CI/CD pipelines for large scale enterprise applications." },
+      { title: "Technical Lead", level: "Lead", competencies: ["java","systemdesign","leadership","communication"], reqLevel: {"java":"expert","systemdesign":"strong","leadership":"strong","communication":"expert"}, desc: "Leading development teams, client interaction, and architecture design." },
+      { title: "Backend Developer", level: "Mid-level", competencies: ["java","databases","systemdesign","dsa"], reqLevel: {"java":"expert","databases":"strong","systemdesign":"working","dsa":"working"}, desc: "Building RESTful microservices for enterprise clients." },
+      { title: "Business Analyst", level: "Mid-level", competencies: ["communication","databases"], reqLevel: {"communication":"expert","databases":"working"}, desc: "Requirement gathering, client communication, and functional design." },
+      { title: "Security Analyst", level: "Mid-level", competencies: ["security","python","communication"], reqLevel: {"security":"strong","python":"working","communication":"strong"}, desc: "Vulnerability scanning, penetration testing, and compliance." }
+    ]
+  }
+  ,{
+    id: "ey_gds", name: "EY GDS", logo: "EY", gradient: "from-blue-700 to-cyan-600",
+    industry: "Consulting", hq: "India", tier: "MNC",
+    hiring2023: 23000, hiring2024: 18400, trend: "up",
+    openRoles: 230, avgPackage: "₹3.5-12 LPA", glassdoor: 4.3,
+    roles: [
+      { title: "Systems Engineer", level: "Entry", competencies: ["java","dsa","databases","communication"], reqLevel: {"java":"strong","dsa":"working","databases":"working","communication":"strong"}, desc: "Core application development and maintenance." },
+      { title: "Test Automation Engineer", level: "Mid-level", competencies: ["python","java","communication"], reqLevel: {"python":"strong","java":"working","communication":"strong"}, desc: "Building scalable test automation frameworks using Selenium and PyTest." },
+      { title: "Cloud Support Engineer", level: "Mid-level", competencies: ["aws","devops","kubernetes","databases"], reqLevel: {"aws":"strong","devops":"strong","kubernetes":"working"}, desc: "Managing enterprise cloud infrastructure, deployments and monitoring." },
+      { title: "Full Stack Developer", level: "Mid-level", competencies: ["react","nodejs","databases","dsa"], reqLevel: {"react":"strong","nodejs":"strong","databases":"strong","dsa":"working"}, desc: "End-to-end web application development for client projects." },
+      { title: "Data Analyst", level: "Entry", competencies: ["python","databases","communication"], reqLevel: {"python":"strong","databases":"expert","communication":"strong"}, desc: "Data processing, ETL pipelines, and dashboard creation." },
+      { title: "DevOps Consultant", level: "Senior", competencies: ["devops","kubernetes","aws","systemdesign"], reqLevel: {"devops":"expert","kubernetes":"strong","aws":"strong","systemdesign":"working"}, desc: "Designing and implementing CI/CD pipelines for large scale enterprise applications." },
+      { title: "Technical Lead", level: "Lead", competencies: ["java","systemdesign","leadership","communication"], reqLevel: {"java":"expert","systemdesign":"strong","leadership":"strong","communication":"expert"}, desc: "Leading development teams, client interaction, and architecture design." },
+      { title: "Backend Developer", level: "Mid-level", competencies: ["java","databases","systemdesign","dsa"], reqLevel: {"java":"expert","databases":"strong","systemdesign":"working","dsa":"working"}, desc: "Building RESTful microservices for enterprise clients." },
+      { title: "Business Analyst", level: "Mid-level", competencies: ["communication","databases"], reqLevel: {"communication":"expert","databases":"working"}, desc: "Requirement gathering, client communication, and functional design." },
+      { title: "Security Analyst", level: "Mid-level", competencies: ["security","python","communication"], reqLevel: {"security":"strong","python":"working","communication":"strong"}, desc: "Vulnerability scanning, penetration testing, and compliance." }
+    ]
+  }
+  ,{
+    id: "kpmg_gs", name: "KPMG GS", logo: "KP", gradient: "from-blue-800 to-cyan-700",
+    industry: "Consulting", hq: "India", tier: "MNC",
+    hiring2023: 24000, hiring2024: 19200, trend: "stable",
+    openRoles: 240, avgPackage: "₹3.5-12 LPA", glassdoor: 4.4,
+    roles: [
+      { title: "Systems Engineer", level: "Entry", competencies: ["java","dsa","databases","communication"], reqLevel: {"java":"strong","dsa":"working","databases":"working","communication":"strong"}, desc: "Core application development and maintenance." },
+      { title: "Test Automation Engineer", level: "Mid-level", competencies: ["python","java","communication"], reqLevel: {"python":"strong","java":"working","communication":"strong"}, desc: "Building scalable test automation frameworks using Selenium and PyTest." },
+      { title: "Cloud Support Engineer", level: "Mid-level", competencies: ["aws","devops","kubernetes","databases"], reqLevel: {"aws":"strong","devops":"strong","kubernetes":"working"}, desc: "Managing enterprise cloud infrastructure, deployments and monitoring." },
+      { title: "Full Stack Developer", level: "Mid-level", competencies: ["react","nodejs","databases","dsa"], reqLevel: {"react":"strong","nodejs":"strong","databases":"strong","dsa":"working"}, desc: "End-to-end web application development for client projects." },
+      { title: "Data Analyst", level: "Entry", competencies: ["python","databases","communication"], reqLevel: {"python":"strong","databases":"expert","communication":"strong"}, desc: "Data processing, ETL pipelines, and dashboard creation." },
+      { title: "DevOps Consultant", level: "Senior", competencies: ["devops","kubernetes","aws","systemdesign"], reqLevel: {"devops":"expert","kubernetes":"strong","aws":"strong","systemdesign":"working"}, desc: "Designing and implementing CI/CD pipelines for large scale enterprise applications." },
+      { title: "Technical Lead", level: "Lead", competencies: ["java","systemdesign","leadership","communication"], reqLevel: {"java":"expert","systemdesign":"strong","leadership":"strong","communication":"expert"}, desc: "Leading development teams, client interaction, and architecture design." },
+      { title: "Backend Developer", level: "Mid-level", competencies: ["java","databases","systemdesign","dsa"], reqLevel: {"java":"expert","databases":"strong","systemdesign":"working","dsa":"working"}, desc: "Building RESTful microservices for enterprise clients." },
+      { title: "Business Analyst", level: "Mid-level", competencies: ["communication","databases"], reqLevel: {"communication":"expert","databases":"working"}, desc: "Requirement gathering, client communication, and functional design." },
+      { title: "Security Analyst", level: "Mid-level", competencies: ["security","python","communication"], reqLevel: {"security":"strong","python":"working","communication":"strong"}, desc: "Vulnerability scanning, penetration testing, and compliance." }
+    ]
+  }
+  ,{
+    id: "zoho", name: "Zoho", logo: "ZO", gradient: "from-blue-400 to-cyan-300",
+    industry: "Software Development", hq: "India", tier: "Enterprise",
+    hiring2023: 25000, hiring2024: 20000, trend: "down",
+    openRoles: 250, avgPackage: "₹3.5-12 LPA", glassdoor: 3.5,
+    roles: [
+      { title: "Systems Engineer", level: "Entry", competencies: ["java","dsa","databases","communication"], reqLevel: {"java":"strong","dsa":"working","databases":"working","communication":"strong"}, desc: "Core application development and maintenance." },
+      { title: "Test Automation Engineer", level: "Mid-level", competencies: ["python","java","communication"], reqLevel: {"python":"strong","java":"working","communication":"strong"}, desc: "Building scalable test automation frameworks using Selenium and PyTest." },
+      { title: "Cloud Support Engineer", level: "Mid-level", competencies: ["aws","devops","kubernetes","databases"], reqLevel: {"aws":"strong","devops":"strong","kubernetes":"working"}, desc: "Managing enterprise cloud infrastructure, deployments and monitoring." },
+      { title: "Full Stack Developer", level: "Mid-level", competencies: ["react","nodejs","databases","dsa"], reqLevel: {"react":"strong","nodejs":"strong","databases":"strong","dsa":"working"}, desc: "End-to-end web application development for client projects." },
+      { title: "Data Analyst", level: "Entry", competencies: ["python","databases","communication"], reqLevel: {"python":"strong","databases":"expert","communication":"strong"}, desc: "Data processing, ETL pipelines, and dashboard creation." },
+      { title: "DevOps Consultant", level: "Senior", competencies: ["devops","kubernetes","aws","systemdesign"], reqLevel: {"devops":"expert","kubernetes":"strong","aws":"strong","systemdesign":"working"}, desc: "Designing and implementing CI/CD pipelines for large scale enterprise applications." },
+      { title: "Technical Lead", level: "Lead", competencies: ["java","systemdesign","leadership","communication"], reqLevel: {"java":"expert","systemdesign":"strong","leadership":"strong","communication":"expert"}, desc: "Leading development teams, client interaction, and architecture design." },
+      { title: "Backend Developer", level: "Mid-level", competencies: ["java","databases","systemdesign","dsa"], reqLevel: {"java":"expert","databases":"strong","systemdesign":"working","dsa":"working"}, desc: "Building RESTful microservices for enterprise clients." },
+      { title: "Business Analyst", level: "Mid-level", competencies: ["communication","databases"], reqLevel: {"communication":"expert","databases":"working"}, desc: "Requirement gathering, client communication, and functional design." },
+      { title: "Security Analyst", level: "Mid-level", competencies: ["security","python","communication"], reqLevel: {"security":"strong","python":"working","communication":"strong"}, desc: "Vulnerability scanning, penetration testing, and compliance." }
+    ]
+  }
+  ,{
+    id: "freshworks", name: "Freshworks", logo: "FR", gradient: "from-blue-500 to-cyan-400",
+    industry: "Software Development", hq: "India", tier: "Enterprise",
+    hiring2023: 26000, hiring2024: 20800, trend: "up",
+    openRoles: 260, avgPackage: "₹3.5-12 LPA", glassdoor: 3.6,
+    roles: [
+      { title: "Systems Engineer", level: "Entry", competencies: ["java","dsa","databases","communication"], reqLevel: {"java":"strong","dsa":"working","databases":"working","communication":"strong"}, desc: "Core application development and maintenance." },
+      { title: "Test Automation Engineer", level: "Mid-level", competencies: ["python","java","communication"], reqLevel: {"python":"strong","java":"working","communication":"strong"}, desc: "Building scalable test automation frameworks using Selenium and PyTest." },
+      { title: "Cloud Support Engineer", level: "Mid-level", competencies: ["aws","devops","kubernetes","databases"], reqLevel: {"aws":"strong","devops":"strong","kubernetes":"working"}, desc: "Managing enterprise cloud infrastructure, deployments and monitoring." },
+      { title: "Full Stack Developer", level: "Mid-level", competencies: ["react","nodejs","databases","dsa"], reqLevel: {"react":"strong","nodejs":"strong","databases":"strong","dsa":"working"}, desc: "End-to-end web application development for client projects." },
+      { title: "Data Analyst", level: "Entry", competencies: ["python","databases","communication"], reqLevel: {"python":"strong","databases":"expert","communication":"strong"}, desc: "Data processing, ETL pipelines, and dashboard creation." },
+      { title: "DevOps Consultant", level: "Senior", competencies: ["devops","kubernetes","aws","systemdesign"], reqLevel: {"devops":"expert","kubernetes":"strong","aws":"strong","systemdesign":"working"}, desc: "Designing and implementing CI/CD pipelines for large scale enterprise applications." },
+      { title: "Technical Lead", level: "Lead", competencies: ["java","systemdesign","leadership","communication"], reqLevel: {"java":"expert","systemdesign":"strong","leadership":"strong","communication":"expert"}, desc: "Leading development teams, client interaction, and architecture design." },
+      { title: "Backend Developer", level: "Mid-level", competencies: ["java","databases","systemdesign","dsa"], reqLevel: {"java":"expert","databases":"strong","systemdesign":"working","dsa":"working"}, desc: "Building RESTful microservices for enterprise clients." },
+      { title: "Business Analyst", level: "Mid-level", competencies: ["communication","databases"], reqLevel: {"communication":"expert","databases":"working"}, desc: "Requirement gathering, client communication, and functional design." },
+      { title: "Security Analyst", level: "Mid-level", competencies: ["security","python","communication"], reqLevel: {"security":"strong","python":"working","communication":"strong"}, desc: "Vulnerability scanning, penetration testing, and compliance." }
+    ]
+  }
+  ,{
+    id: "mu_sigma", name: "Mu Sigma", logo: "MU", gradient: "from-blue-600 to-cyan-500",
+    industry: "Analytics", hq: "India", tier: "IT Services",
+    hiring2023: 27000, hiring2024: 21600, trend: "down",
+    openRoles: 270, avgPackage: "₹3.5-12 LPA", glassdoor: 3.7,
+    roles: [
+      { title: "Systems Engineer", level: "Entry", competencies: ["java","dsa","databases","communication"], reqLevel: {"java":"strong","dsa":"working","databases":"working","communication":"strong"}, desc: "Core application development and maintenance." },
+      { title: "Test Automation Engineer", level: "Mid-level", competencies: ["python","java","communication"], reqLevel: {"python":"strong","java":"working","communication":"strong"}, desc: "Building scalable test automation frameworks using Selenium and PyTest." },
+      { title: "Cloud Support Engineer", level: "Mid-level", competencies: ["aws","devops","kubernetes","databases"], reqLevel: {"aws":"strong","devops":"strong","kubernetes":"working"}, desc: "Managing enterprise cloud infrastructure, deployments and monitoring." },
+      { title: "Full Stack Developer", level: "Mid-level", competencies: ["react","nodejs","databases","dsa"], reqLevel: {"react":"strong","nodejs":"strong","databases":"strong","dsa":"working"}, desc: "End-to-end web application development for client projects." },
+      { title: "Data Analyst", level: "Entry", competencies: ["python","databases","communication"], reqLevel: {"python":"strong","databases":"expert","communication":"strong"}, desc: "Data processing, ETL pipelines, and dashboard creation." },
+      { title: "DevOps Consultant", level: "Senior", competencies: ["devops","kubernetes","aws","systemdesign"], reqLevel: {"devops":"expert","kubernetes":"strong","aws":"strong","systemdesign":"working"}, desc: "Designing and implementing CI/CD pipelines for large scale enterprise applications." },
+      { title: "Technical Lead", level: "Lead", competencies: ["java","systemdesign","leadership","communication"], reqLevel: {"java":"expert","systemdesign":"strong","leadership":"strong","communication":"expert"}, desc: "Leading development teams, client interaction, and architecture design." },
+      { title: "Backend Developer", level: "Mid-level", competencies: ["java","databases","systemdesign","dsa"], reqLevel: {"java":"expert","databases":"strong","systemdesign":"working","dsa":"working"}, desc: "Building RESTful microservices for enterprise clients." },
+      { title: "Business Analyst", level: "Mid-level", competencies: ["communication","databases"], reqLevel: {"communication":"expert","databases":"working"}, desc: "Requirement gathering, client communication, and functional design." },
+      { title: "Security Analyst", level: "Mid-level", competencies: ["security","python","communication"], reqLevel: {"security":"strong","python":"working","communication":"strong"}, desc: "Vulnerability scanning, penetration testing, and compliance." }
+    ]
+  }
+  ,{
+    id: "dxc_technology", name: "DXC Technology", logo: "DX", gradient: "from-blue-700 to-cyan-600",
+    industry: "IT Services", hq: "India", tier: "IT Services",
+    hiring2023: 28000, hiring2024: 22400, trend: "stable",
+    openRoles: 280, avgPackage: "₹3.5-12 LPA", glassdoor: 3.8,
+    roles: [
+      { title: "Systems Engineer", level: "Entry", competencies: ["java","dsa","databases","communication"], reqLevel: {"java":"strong","dsa":"working","databases":"working","communication":"strong"}, desc: "Core application development and maintenance." },
+      { title: "Test Automation Engineer", level: "Mid-level", competencies: ["python","java","communication"], reqLevel: {"python":"strong","java":"working","communication":"strong"}, desc: "Building scalable test automation frameworks using Selenium and PyTest." },
+      { title: "Cloud Support Engineer", level: "Mid-level", competencies: ["aws","devops","kubernetes","databases"], reqLevel: {"aws":"strong","devops":"strong","kubernetes":"working"}, desc: "Managing enterprise cloud infrastructure, deployments and monitoring." },
+      { title: "Full Stack Developer", level: "Mid-level", competencies: ["react","nodejs","databases","dsa"], reqLevel: {"react":"strong","nodejs":"strong","databases":"strong","dsa":"working"}, desc: "End-to-end web application development for client projects." },
+      { title: "Data Analyst", level: "Entry", competencies: ["python","databases","communication"], reqLevel: {"python":"strong","databases":"expert","communication":"strong"}, desc: "Data processing, ETL pipelines, and dashboard creation." },
+      { title: "DevOps Consultant", level: "Senior", competencies: ["devops","kubernetes","aws","systemdesign"], reqLevel: {"devops":"expert","kubernetes":"strong","aws":"strong","systemdesign":"working"}, desc: "Designing and implementing CI/CD pipelines for large scale enterprise applications." },
+      { title: "Technical Lead", level: "Lead", competencies: ["java","systemdesign","leadership","communication"], reqLevel: {"java":"expert","systemdesign":"strong","leadership":"strong","communication":"expert"}, desc: "Leading development teams, client interaction, and architecture design." },
+      { title: "Backend Developer", level: "Mid-level", competencies: ["java","databases","systemdesign","dsa"], reqLevel: {"java":"expert","databases":"strong","systemdesign":"working","dsa":"working"}, desc: "Building RESTful microservices for enterprise clients." },
+      { title: "Business Analyst", level: "Mid-level", competencies: ["communication","databases"], reqLevel: {"communication":"expert","databases":"working"}, desc: "Requirement gathering, client communication, and functional design." },
+      { title: "Security Analyst", level: "Mid-level", competencies: ["security","python","communication"], reqLevel: {"security":"strong","python":"working","communication":"strong"}, desc: "Vulnerability scanning, penetration testing, and compliance." }
+    ]
+  }
+  ,{
+    id: "genpact", name: "Genpact", logo: "GE", gradient: "from-blue-800 to-cyan-700",
+    industry: "Consulting", hq: "India", tier: "MNC",
+    hiring2023: 29000, hiring2024: 23200, trend: "up",
+    openRoles: 290, avgPackage: "₹3.5-12 LPA", glassdoor: 3.9,
+    roles: [
+      { title: "Systems Engineer", level: "Entry", competencies: ["java","dsa","databases","communication"], reqLevel: {"java":"strong","dsa":"working","databases":"working","communication":"strong"}, desc: "Core application development and maintenance." },
+      { title: "Test Automation Engineer", level: "Mid-level", competencies: ["python","java","communication"], reqLevel: {"python":"strong","java":"working","communication":"strong"}, desc: "Building scalable test automation frameworks using Selenium and PyTest." },
+      { title: "Cloud Support Engineer", level: "Mid-level", competencies: ["aws","devops","kubernetes","databases"], reqLevel: {"aws":"strong","devops":"strong","kubernetes":"working"}, desc: "Managing enterprise cloud infrastructure, deployments and monitoring." },
+      { title: "Full Stack Developer", level: "Mid-level", competencies: ["react","nodejs","databases","dsa"], reqLevel: {"react":"strong","nodejs":"strong","databases":"strong","dsa":"working"}, desc: "End-to-end web application development for client projects." },
+      { title: "Data Analyst", level: "Entry", competencies: ["python","databases","communication"], reqLevel: {"python":"strong","databases":"expert","communication":"strong"}, desc: "Data processing, ETL pipelines, and dashboard creation." },
+      { title: "DevOps Consultant", level: "Senior", competencies: ["devops","kubernetes","aws","systemdesign"], reqLevel: {"devops":"expert","kubernetes":"strong","aws":"strong","systemdesign":"working"}, desc: "Designing and implementing CI/CD pipelines for large scale enterprise applications." },
+      { title: "Technical Lead", level: "Lead", competencies: ["java","systemdesign","leadership","communication"], reqLevel: {"java":"expert","systemdesign":"strong","leadership":"strong","communication":"expert"}, desc: "Leading development teams, client interaction, and architecture design." },
+      { title: "Backend Developer", level: "Mid-level", competencies: ["java","databases","systemdesign","dsa"], reqLevel: {"java":"expert","databases":"strong","systemdesign":"working","dsa":"working"}, desc: "Building RESTful microservices for enterprise clients." },
+      { title: "Business Analyst", level: "Mid-level", competencies: ["communication","databases"], reqLevel: {"communication":"expert","databases":"working"}, desc: "Requirement gathering, client communication, and functional design." },
+      { title: "Security Analyst", level: "Mid-level", competencies: ["security","python","communication"], reqLevel: {"security":"strong","python":"working","communication":"strong"}, desc: "Vulnerability scanning, penetration testing, and compliance." }
+    ]
+  }
+
 ];
 
 
