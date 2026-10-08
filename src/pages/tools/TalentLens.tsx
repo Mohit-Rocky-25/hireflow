@@ -16,6 +16,9 @@ import {
 import { analyzeCandidate } from '../../ai/matching';
 import type { CandidateMatch, RequirementAssessment } from '../../types';
 import { useProfile } from '../../features/suite/profile/ProfileContext';
+import { QuickSummaryCard } from '../../features/suite/components/QuickSummaryCard';
+import { buildQuickSummary } from '../../features/suite/engine/quickSummary';
+import { SimulationFacts } from '../../features/suite/engine/simulateFix';
 import { DEMO_TALENTLENS_RESUME } from '../demo/useTalentLensStore';
 
 // ── Status Components ──
@@ -187,7 +190,7 @@ function RequirementCard({ assessment }: { assessment: RequirementAssessment }) 
 // ── Main Component ──
 export function TalentLens() {
   const navigate = useNavigate();
-  const { saveFromResumeText, openDrawer } = useProfile();
+  const { profile: suiteProfile, saveFromResumeText, openDrawer } = useProfile();
   const { users, candidateProfiles, applications, jobs, createMatch, candidateMatches } = useStore();
   const candidateId = "user-cand-1"; // Standalone demo
   const currentCompanyId = "comp-alpha-tech"; // Standalone demo
@@ -195,6 +198,7 @@ export function TalentLens() {
   const [match, setMatch] = useState<CandidateMatch | null>(null);
   const [selectedJobId, setSelectedJobId] = useState<string>('');
   const [analyzing, setAnalyzing] = useState(false);
+  const [showFullTalentLensReport, setShowFullTalentLensReport] = useState(true);
   const [activeTab, setActiveTab] = useState<'overview' | 'requirements' | 'gaps' | 'interview'>('overview');
   const [error, setError] = useState<string | null>(null);
 
@@ -241,6 +245,35 @@ export function TalentLens() {
       setAnalyzing(false);
     }
   };
+
+  const talentLensSummary = match ? buildQuickSummary({
+    skillResults: match.requirementAssessments.map(ra => {
+      const quote = ra.evidenceText || '';
+      const evidenceQuote = quote ? [{
+        quote,
+        section: ra.evidenceSource || 'experience',
+        charStart: 0,
+        charEnd: quote.length,
+        hasMetric: false,
+        evidenceTier: ra.status === 'STRONG' ? 0.85 : 0.5,
+      }] : [];
+
+      return {
+        skillId: ra.requirementId,
+        canonical: ra.requirementName,
+        category: 'general',
+        required: (ra.requirementPriority === 'MANDATORY' ? 'must' : 'nice') as 'must' | 'nice',
+        weight: ra.requirementPriority === 'MANDATORY' ? 4 : 2,
+        found: ra.status !== 'MISSING',
+        status: ra.status === 'STRONG' ? ('verified' as const) : ra.status === 'PARTIAL' || ra.status === 'INFERRED' ? ('weak' as const) : ('missing' as const),
+        proficiency: ra.status === 'STRONG' ? 3 : ra.status === 'PARTIAL' ? 2 : 0,
+        evidence: evidenceQuote,
+        evidenceQuotes: evidenceQuote,
+      };
+    }),
+    baseScore: match.overallScore,
+    wordCount: 300,
+  }, suiteProfile) : null;
 
   if (!candidate) {
     return (
@@ -348,8 +381,19 @@ export function TalentLens() {
       )}
 
       {match && (
-        <>
-          {/* Score Overview */}
+        <div className="space-y-6">
+          {talentLensSummary && (
+            <QuickSummaryCard
+              summary={talentLensSummary}
+              score={match.overallScore}
+              isFullReportVisible={showFullTalentLensReport}
+              onToggleFullReport={() => setShowFullTalentLensReport((prev) => !prev)}
+            />
+          )}
+
+          {showFullTalentLensReport && (
+            <>
+              {/* Score Overview */}
           <div className="bg-surface border border-border rounded-2xl p-[24px]">
             <div className="flex items-start justify-between mb-[24px]">
               <div>
@@ -580,7 +624,9 @@ export function TalentLens() {
               {match.inputHash && ` · Hash: ${match.inputHash}`}
             </p>
           </div>
-        </>
+            </>
+          )}
+        </div>
       )}
       </div>
     </div>

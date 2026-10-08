@@ -67,7 +67,7 @@ export const MOBILE_SECURITY_EMBEDDED: TaxonomySkill[] = [
     id: 'security_tools',
     canonical: 'Security Assessment Tools',
     category: 'security',
-    aliases: ['Burp Suite', 'Wireshark', 'Metasploit', 'Nmap', 'Nessus', 'Kali Linux'],
+    aliases: ['Burp Suite', 'Wireshark', 'Splunk', 'Metasploit', 'Nmap', 'Nessus', 'Kali Linux'],
     weight: 4,
   },
   {

@@ -161,4 +161,11 @@ export const DATA_ML_AI: TaxonomySkill[] = [
     implies: ['machine_learning'],
     weight: 4,
   },
+  {
+    id: 'bi_visualization',
+    canonical: 'Business Intelligence & Visualization',
+    category: 'data_ml',
+    aliases: ['Power BI', 'PowerBI', 'Tableau', 'Looker', 'QuickSight', 'Metabase'],
+    weight: 4,
+  },
 ];

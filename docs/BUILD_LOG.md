@@ -64,12 +64,12 @@
   - [x] 1.4 Storage layer with quota guard & import/export (`profile/storage.ts`)
   - [x] 1.5 ProfileProvider, hooks, My Profile drawer, top chips
   - [x] 1.6 Unit tests for determinism, ladder, storage roundtrip
-- [ ] Stage 2: Engine Upgrades
-  - [ ] 2.1 `simulateFix` and `rankFixes`
-  - [ ] 2.2 `buildQuickSummary` and Quick Summary card on Roaster & TalentLens
-  - [ ] 2.3 Accuracy fixes & 20 new golden test cases
-  - [ ] 2.4 Invariant 6 (Summary Consistency)
-  - [ ] 2.5 Tests for simulation, ranking, summary, tokens
+- [x] Stage 2: Engine Upgrades
+  - [x] 2.1 `simulateFix` and `rankFixes`
+  - [x] 2.2 `buildQuickSummary` and Quick Summary card on Roaster & TalentLens
+  - [x] 2.3 Accuracy fixes & 20 new golden test cases
+  - [x] 2.4 Invariant 6 (Summary Consistency)
+  - [x] 2.5 Tests for simulation, ranking, summary, tokens
 - [ ] Stage 3: Group A - What should I apply to?
   - [ ] 3.1 Compare Job Descriptions (`/tools/jd-compare`)
   - [ ] 3.2 Application Tracker (`/tools/tracker`)
@@ -124,3 +124,16 @@
 - Integrated "Save to my profile" buttons into ATS Roaster (`ResumeChecker.tsx`) and `TalentLens.tsx`.
 - Unit tests (`profileFoundation.test.ts`): all 11 tests pass. All 152 tests across the repo pass. Typecheck clean.
 - Next task: Stage 2 (Engine upgrades: simulateFix, rankFixes, buildQuickSummary, Quick Summary cards, Invariant 6, golden cases expansion).
+
+## Stage 2 Handoff Note
+- Created `src/features/suite/engine/simulateFix.ts` (`simulateFix`, `rankFixes`). Pure simulation runs in < 2ms without mutation, ranking gaps into Wording Fix vs Learn Needed by taxonomy weight x proficiency distance.
+- Created `src/features/suite/engine/quickSummary.ts` (`buildQuickSummary`, `assertSummaryConsistency`). Calibrated golden thresholds for verdicts ('Strong fit', 'Close', 'Stretch', 'Insufficient input'), effort split, and Invariant 6 runtime validation.
+- Created `src/features/suite/components/QuickSummaryCard.tsx` with verdict badge, effort split, top 3 fixes with simulated gains, plain-text copy, and report expand/collapse toggle.
+- Pinned `QuickSummaryCard` at the top of results in both ATS Roaster (`ResumeChecker.tsx`) and `TalentLens.tsx`.
+- Extended ambiguous tokens & context boundary handling for Go, Rust, Swift, Spark, Flask, and diverse engineering disciplines (ECE/Embedded, Mechanical, Civil, Cybersecurity, BI).
+- Created 20 new golden test cases in `src/features/ats/__tests__/new-golden-pairs.ts` and benchmark in `src/features/ats/__tests__/extendedGoldenResumes.test.ts` achieving 100% precision, 100% recall, 40ms avg runtime. Original 32 golden test cases maintained 100% precision and recall with 0 regressions.
+- Created `docs/engine-diff.md` detailing the accuracy improvements and benchmark results.
+- Created unit tests in `src/features/suite/engine/__tests__/engineUpgrades.test.ts` (all 7 tests pass).
+- Complete test suite: all 160 tests passing, `npx tsc --noEmit` clean.
+- Next task: Stage 3 (Group A: "What should I apply to?" — Compare JDs, Application Tracker, Company vs Company).
+

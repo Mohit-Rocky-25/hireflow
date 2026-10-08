@@ -142,6 +142,65 @@ export function findTokenInText(
     return { found: false };
   }
 
+  // 9. Special Token: Swift
+  if (tokenLower === 'swift') {
+    const swiftRegex = isSkillsSection
+      ? /\bSwift\b/i
+      : /\bSwift\b(?!\s+(?:action|delivery|response|resolution|currents?|water))\b/i;
+    const match = rawText.match(swiftRegex);
+    if (match && match.index !== undefined) {
+      const snippet = extractSnippet(rawText, match.index, match[0].length);
+      if (isSkillsSection || /(?:ios|xcode|apple|mobile|ui|developer|programming|language)/i.test(snippet)) {
+        return { found: true, verbatimQuote: snippet };
+      }
+    }
+    return { found: false };
+  }
+
+  // 10. Special Token: Rust
+  if (tokenLower === 'rust') {
+    const rustRegex = isSkillsSection
+      ? /\bRust\b/i
+      : /\bRust\b(?!\s+(?:prevention|corrosion|proof|protection|metal))/i;
+    const match = rawText.match(rustRegex);
+    if (match && match.index !== undefined) {
+      const snippet = extractSnippet(rawText, match.index, match[0].length);
+      if (isSkillsSection || /(?:cargo|systems|memory|compiler|backend|concurrency|programming|language)/i.test(snippet)) {
+        return { found: true, verbatimQuote: snippet };
+      }
+    }
+    return { found: false };
+  }
+
+  // 11. Special Token: Spark
+  if (tokenLower === 'spark') {
+    const sparkRegex = /(?:\bApache\s+Spark\b)|(?:\bPySpark\b)|(?:\bSpark\s+(?:streaming|sql|core|cluster|jobs?|framework)\b)/i;
+    const directMatch = rawText.match(sparkRegex);
+    if (directMatch && directMatch.index !== undefined) {
+      return { found: true, verbatimQuote: extractSnippet(rawText, directMatch.index, directMatch[0].length) };
+    }
+    if (isSkillsSection) {
+      const match = rawText.match(/\bSpark\b/i);
+      if (match && match.index !== undefined) {
+        return { found: true, verbatimQuote: extractSnippet(rawText, match.index, match[0].length) };
+      }
+    }
+    return { found: false };
+  }
+
+  // 12. Special Token: Flask
+  if (tokenLower === 'flask') {
+    const flaskRegex = /\bFlask\b(?!\s+(?:water|vacuum|chemical|insulated))\b/i;
+    const match = rawText.match(flaskRegex);
+    if (match && match.index !== undefined) {
+      const snippet = extractSnippet(rawText, match.index, match[0].length);
+      if (isSkillsSection || /(?:python|api|web|microservice|backend|rest|jinja)/i.test(snippet)) {
+        return { found: true, verbatimQuote: snippet };
+      }
+    }
+    return { found: false };
+  }
+
   // 9. Standard Multi-character Skills with regex boundary escaping
   const escaped = token.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   const boundaryRegex = new RegExp(`\\b${escaped}\\b`, 'i');

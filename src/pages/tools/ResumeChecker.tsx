@@ -7,6 +7,9 @@ import React, { useState, useRef, useEffect } from 'react';
 import { ArrowRight, Sparkles, RotateCcw, Zap, Compass, CheckCircle2, AlertCircle, ArrowUpRight, ShieldCheck, Bookmark } from 'lucide-react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useProfile } from '../../features/suite/profile/ProfileContext';
+import { QuickSummaryCard } from '../../features/suite/components/QuickSummaryCard';
+import { buildQuickSummary } from '../../features/suite/engine/quickSummary';
+import { SimulationFacts } from '../../features/suite/engine/simulateFix';
 import { parseResumeFile } from '../../features/ats/fileParser';
 import {
   AtsInputSection,
@@ -36,7 +39,8 @@ const STAGED_MESSAGES = [
 
 export function ResumeChecker() {
   const [searchParams] = useSearchParams();
-  const { saveFromResumeText, openDrawer } = useProfile();
+  const { profile, saveFromResumeText, openDrawer } = useProfile();
+  const [showFullReport, setShowFullReport] = useState(true);
 
   const queryCompanyId = searchParams.get('company');
   const queryRoleTitle = searchParams.get('role');
@@ -304,6 +308,16 @@ export function ResumeChecker() {
 
   const canonical = engineResult?.canonicalResult;
 
+  const quickSummary = React.useMemo(() => {
+    if (!engineResult) return null;
+    const facts: SimulationFacts = {
+      skillResults: engineResult.skillResults,
+      baseScore: engineResult.score,
+      wordCount: engineResult.audit.wordCount,
+    };
+    return buildQuickSummary(facts, profile);
+  }, [engineResult, profile]);
+
   return (
     <div className="min-h-screen bg-bg text-text pt-24 pb-16 px-4 sm:px-6 md:px-8 relative">
       {/* Top Navigation */}
@@ -372,13 +386,28 @@ export function ResumeChecker() {
         {/* Results Screen */}
         {engineResult && (
           <div className="space-y-8 animate-fade-in">
+            {/* Quick Summary Card Pinned at the Top (Stage 2.2) */}
+            {quickSummary && (
+              <QuickSummaryCard
+                summary={quickSummary}
+                score={engineResult.score}
+                isFullReportVisible={showFullReport}
+                onToggleFullReport={() => setShowFullReport((prev) => !prev)}
+                onFixClick={() => {
+                  setPresentationMode('deep');
+                  setActiveTab('skills');
+                  setShowFullReport(true);
+                }}
+              />
+            )}
+
             {/* Top Re-Scan Action Bar with Mode Switcher (STAGE 9) */}
             <div className="flex flex-wrap items-center justify-between gap-4 p-4 rounded-[16px] bg-surface border border-border shadow-xs print:hidden">
-              <div className="flex items-center gap-3 min-w-0 text-sm">
-                <span className="text-xs font-bold text-text-tertiary uppercase">Target:</span>
-                <span className="font-bold text-text truncate">
-                  {engineResult.bestFitTier} ({engineResult.seniorityFit.level} Level)
-                </span>
+                <div className="flex items-center gap-3 min-w-0 text-sm">
+                  <span className="text-xs font-bold text-text-tertiary uppercase">Target:</span>
+                  <span className="font-bold text-text truncate">
+                    {engineResult.bestFitTier} ({engineResult.seniorityFit.level} Level)
+                  </span>
 
                 {canonical && (
                   <span
@@ -445,8 +474,10 @@ export function ResumeChecker() {
               </div>
             </div>
 
-            {/* PRESENTATION MODE 1: QUICK ROAST (STAGE 9) */}
-            {presentationMode === 'quick' && canonical && (
+            {showFullReport && (
+              <>
+                {/* PRESENTATION MODE 1: QUICK ROAST (STAGE 9) */}
+                {presentationMode === 'quick' && canonical && (
               <div className="space-y-6 animate-fade-in">
                 {/* Score & Verdict Card */}
                 <div className="bg-surface rounded-2xl p-6 sm:p-8 border border-border shadow-xs text-center">
@@ -570,6 +601,8 @@ export function ResumeChecker() {
                     {activeTab === 'learning_path' && <LearningPathTab result={engineResult} />}
                   </div>
                 </div>
+              </>
+            )}
               </>
             )}
           </div>
