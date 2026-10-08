@@ -1,0 +1,56 @@
+# HIREFLOW AI — SECURITY FINDINGS REGISTER
+
+**Format**: `ID | Severity (Critical/High/Medium/Low/Info) | Category | Location (file:line) | Evidence (MASKED) | Impact | Fix applied | Test that proves it | Status (Open/Fixed/Accepted-risk with justification)`
+
+---
+
+## Findings Summary Table
+
+| ID | Severity | Category | Location | Summary | Status |
+|---|---|---|---|---|---|
+| SEC-001 | Medium | Storage / Credentials | `src/store/useStore.ts:120, 138, 411` | Plaintext passwords stored in browser localStorage under `pw_${userId}` | Open |
+| SEC-002 | Medium | Client Secrets Risk | `src/ai/AIProvider.ts:6-8` | Comments instructing `VITE_GEMINI_API_KEY` / `VITE_OPENAI_API_KEY` which leak to browser bundle | Open |
+| SEC-003 | Low | Client Direct LLM Egress | `src/lib/ats/index.ts:237` | Direct browser fetch to Gemini API with user-provided key without rate-limiting or proxy | Open |
+| AR-1 | Accepted-Risk | Authentication | `src/components/auth/ProtectedRoute.tsx` | Client-Side Demo Auth: In-browser role checks are not a cryptographic security boundary | Accepted-Risk |
+
+---
+
+## Detailed Findings
+
+### SEC-001: Plaintext Password Storage in LocalStorage
+- **Severity**: Medium
+- **Category**: Storage Security / Credential Handling
+- **Location**: `src/store/useStore.ts:120, 138, 411`
+- **Evidence (MASKED)**: `localStorage.setItem('pw_' + user.id, password)` and `localStorage.setItem('pw_' + u.id, 'demo****')`
+- **Impact**: Any script running in the browser origin or malicious extension can read credentials from localStorage.
+- **Fix Applied**: Remove plaintext password persistence in localStorage; use in-memory store for session validation with demo mode indicator.
+- **Test That Proves It**: `src/__tests__/security/storage-auth.test.ts`
+- **Status**: Open
+
+### SEC-002: Comments Recommending `VITE_` Prefixed API Keys
+- **Severity**: Medium
+- **Category**: Secret Management
+- **Location**: `src/ai/AIProvider.ts:6-8`
+- **Evidence (MASKED)**: `VITE_GEMINI_API_KEY=...` / `VITE_OPENAI_API_KEY=...`
+- **Impact**: Developers copying these variable names will place private API keys into `VITE_` variables, causing Vite to bundle them into public client-side JavaScript.
+- **Fix Applied**: Remove `VITE_` key examples; document server-only env variables (`GEMINI_API_KEY`) and provide safe architecture.
+- **Test That Proves It**: `scripts/security/scan-secrets.mjs`
+- **Status**: Open
+
+### SEC-003: Direct Browser Network Egress with Custom API Key
+- **Severity**: Low
+- **Category**: Egress & Key Protection
+- **Location**: `src/lib/ats/index.ts:237`
+- **Evidence (MASKED)**: `fetch('https://generativelanguage.googleapis.com/v1beta/models/...:generateContent?key=' + options.geminiApiKey)`
+- **Impact**: Direct browser calls expose the key in browser DevTools Network tab and bypass CORS and rate limiting controls.
+- **Fix Applied**: Route all AI analysis through `/api/ats/analyze` proxy or deterministic local fallback.
+- **Test That Proves It**: `src/__tests__/security/egress.test.ts`
+- **Status**: Open
+
+### AR-1: Client-Side Demo Auth Is Not a Security Boundary
+- **Severity**: Accepted-Risk (Info)
+- **Category**: Architecture / Access Control
+- **Location**: `src/components/auth/ProtectedRoute.tsx`, `src/store/useStore.ts`
+- **Evidence (MASKED)**: Client-side routing with role checking based on Zustand client state.
+- **Justification**: HireFlow is currently a client-side prototype SPA without a dedicated multi-tenant backend server. All mock data (candidates, companies, jobs) lives in the client browser. No private enterprise data exists behind client guards. A visible "Demo Mode" banner clarifies this architecture. Real multi-tenant security requires a backend API gateway with JWT/session cookies.
+- **Status**: Accepted-Risk
