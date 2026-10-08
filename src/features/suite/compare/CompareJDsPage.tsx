@@ -23,7 +23,7 @@ import {
   Check,
   Building2,
 } from 'lucide-react';
-import { PageNav } from '../../components/common/PageNav';
+import { PageNav } from '../../../components/common/PageNav';
 import { useProfile } from '../profile/ProfileContext';
 import { ProfileStatusChip } from '../profile/components/ProfileStatusChip';
 import { compareJDs, CompareJDsResult, JDInput } from './compareJDs';

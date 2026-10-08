@@ -7,7 +7,7 @@
 
 import React, { useState, useMemo, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { PageNav } from '../../components/common/PageNav';
+import { PageNav } from '../../../components/common/PageNav';
 import {
   ArrowLeft,
   Hammer,
