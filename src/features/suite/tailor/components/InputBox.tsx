@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Upload, ClipboardPaste, FileText, CheckCircle2, Building2 } from 'lucide-react';
+import { Upload, ClipboardPaste, FileText, CheckCircle2, Building2, AlertTriangle } from 'lucide-react';
 import { extractTextFromFile } from '../../../../lib/tailorEngine/fileParser';
 import { parseResumeOverview, parseJDOverview, ParsedResume, ParsedJD, pluralize } from '../../../../lib/tailorEngine/parser';
 
@@ -133,12 +133,19 @@ export function InputBox({
         {overview && (
           <div className="flex items-center gap-2 flex-wrap">
             {!isJD && 'sections' in overview ? (
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 text-xs font-semibold">
-                <CheckCircle2 className="w-3.5 h-3.5" />
-                {pluralize((overview as ParsedResume).sections.length, 'section')} ·{' '}
-                {pluralize((overview as ParsedResume).bulletCount, 'bullet')} ·{' '}
-                {pluralize((overview as ParsedResume).metricsFound, 'metric')}
-              </span>
+              (overview as ParsedResume).sections.length < 2 ? (
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-semibold">
+                  <AlertTriangle className="w-3.5 h-3.5" />
+                  Couldn't detect sections — recovering layout...
+                </span>
+              ) : (
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 text-xs font-semibold">
+                  <CheckCircle2 className="w-3.5 h-3.5" />
+                  {pluralize((overview as ParsedResume).sections.length, 'section')} ·{' '}
+                  {pluralize((overview as ParsedResume).bulletCount, 'bullet')} ·{' '}
+                  {pluralize((overview as ParsedResume).metricsFound, 'metric')}
+                </span>
+              )
             ) : overview && 'mustHaves' in overview ? (
               <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-semibold">
                 <CheckCircle2 className="w-3.5 h-3.5" />

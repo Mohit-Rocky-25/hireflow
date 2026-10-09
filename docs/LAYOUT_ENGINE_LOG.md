@@ -27,11 +27,12 @@
   - [x] Create `src/data/tailor/resume-style-guide.json` distilled from public guidance (Harvard OCS, MIT CAPD, Overleaf/Jake's Resume, Naukri Campus, Indeed)
   - [x] Commit Stage 1 to `main`
 
-- [ ] **Stage 2: Layout-Aware Text Extraction**
-  - [ ] PDF extraction: `pdf.js` y-coordinate line grouping, x-sorting, column detection, heading cues, and bullet preserving
-  - [ ] DOCX extraction: style cues (Heading 1/2, ListParagraph), preserve tab-separated dates
-  - [ ] Pre-parse normalization: Unicode NFKC, zero-width removal, bullet glyph normalization, hyphenation joining
-  - [ ] Status chip honesty: amber warning for < 2 sections ("Couldn't detect sections - recovering layout...")
+- [x] **Stage 2: Layout-Aware Text Extraction**
+  - [x] PDF extraction: `pdf.js` y-coordinate line grouping, x-sorting, column detection, heading cues, and bullet preserving (`layoutExtractor.ts`)
+  - [x] DOCX extraction: style cues (Heading 1/2, ListParagraph), preserve tab-separated dates
+  - [x] Pre-parse normalization: Unicode NFKC, zero-width removal, bullet glyph normalization, hyphenation joining
+  - [x] Status chip honesty: amber warning for < 2 sections ("Couldn't detect sections — recovering layout...") in `InputBox.tsx`
+  - [x] Unit tests verified in `src/__tests__/tailor/stage2-extraction.test.ts` (5/5 passed, 27/27 suite total) and typecheck clean
 
 - [ ] **Stage 3: Structure Recovery Engine**
   - [ ] Heading dictionary with aliases & canonical mapping

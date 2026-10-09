@@ -1,14 +1,7 @@
-import * as mammoth from 'mammoth';
-import * as pdfjsLib from 'pdfjs-dist';
 import { verifyMagicBytes, withParserTimeout, MAX_FILE_SIZE_BYTES } from '@/utils/secureFileValidator';
+import { extractLayoutFromPdf, extractLayoutFromDocx, normalizeRawText, ExtractedDocument } from './layoutExtractor';
 
-// Make sure pdf worker is available. Vite handles this via plugin usually, or we set workerSrc
-pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
-  'pdfjs-dist/build/pdf.worker.min.mjs',
-  import.meta.url
-).toString();
-
-export async function extractTextFromFile(file: File): Promise<string> {
+export async function extractLayoutFromFile(file: File): Promise<ExtractedDocument> {
   const ext = file.name.split('.').pop()?.toLowerCase();
   const normalizedExt = '.' + (ext || '');
 
@@ -26,15 +19,28 @@ export async function extractTextFromFile(file: File): Promise<string> {
   }
 
   if (ext === 'txt' || ext === 'md') {
-    return new TextDecoder('utf-8', { fatal: false }).decode(new Uint8Array(arrayBuffer));
+    const raw = new TextDecoder('utf-8', { fatal: false }).decode(new Uint8Array(arrayBuffer));
+    const normalized = normalizeRawText(raw);
+    const lines = normalized.split('\n').filter(Boolean).map((l, i) => ({
+      text: l,
+      y: i * 14,
+      x: 0,
+      height: 12,
+      sizeRatio: 1,
+      bold: l === l.toUpperCase() && l.length > 3,
+      caps: l === l.toUpperCase() && l.length > 3,
+      bullet: l.startsWith('-')
+    }));
+    return {
+      text: normalized,
+      lines,
+      pageCount: 1
+    };
   }
 
   if (ext === 'docx') {
     return await withParserTimeout(
-      (async () => {
-        const result = await mammoth.extractRawText({ arrayBuffer });
-        return result.value || '';
-      })(),
+      extractLayoutFromDocx(arrayBuffer),
       8000,
       'DOCX extraction timed out.'
     );
@@ -44,22 +50,11 @@ export async function extractTextFromFile(file: File): Promise<string> {
     return await withParserTimeout(
       (async () => {
         try {
-          const loadingTask = pdfjsLib.getDocument({
-            data: arrayBuffer,
-            isEvalSupported: false,
-          } as any);
-          const pdf = await loadingTask.promise;
-          let fullText = '';
-          for (let i = 1; i <= pdf.numPages; i++) {
-            const page = await pdf.getPage(i);
-            const textContent = await page.getTextContent();
-            const pageText = textContent.items.map((item: any) => item.str).join(' ');
-            fullText += pageText + '\n';
-          }
-          if (fullText.trim().length < 50) {
+          const doc = await extractLayoutFromPdf(arrayBuffer);
+          if (doc.text.trim().length < 50) {
             throw new Error('This looks like a scanned image. Please paste the text instead.');
           }
-          return fullText;
+          return doc;
         } catch (e: any) {
           if (e.message && e.message.includes('scanned image')) {
             throw e;
@@ -73,4 +68,12 @@ export async function extractTextFromFile(file: File): Promise<string> {
   }
 
   throw new Error('Unsupported file format.');
+}
+
+/**
+ * Backward-compatible text-only extractor.
+ */
+export async function extractTextFromFile(file: File): Promise<string> {
+  const doc = await extractLayoutFromFile(file);
+  return doc.text;
 }
