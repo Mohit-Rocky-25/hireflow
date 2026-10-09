@@ -1,5 +1,6 @@
 // ============================================================
 // Tailor Engine — Projects Parser
+// Handles both structured multi-line and flattened single-line projects
 // Splits project entries, extracts tech stack, formats action bullets
 // ============================================================
 
@@ -11,28 +12,88 @@ export function parseProjectsSection(content: string): RecoveredProject[] {
   if (!content || !content.trim()) return [];
 
   const raw = content.trim();
+  const projects: RecoveredProject[] = [];
 
-  // Split projects on bullet markers or " - Name :" / "\n- "
-  // Handle flattened strings: "- LocalPro : ... - UniSync : ... - SafeRide : ..."
+  // Strategy A: Multi-line structured projects (Title followed by bullets)
+  const lines = raw.split('\n').map((l) => l.trim()).filter(Boolean);
+  if (lines.length > 1) {
+    let current: RecoveredProject | null = null;
+    let foundStructuredBullets = false;
+
+    for (const line of lines) {
+      const isBullet = /^[-•*●▪‣]\s*/.test(line);
+
+      if (isBullet) {
+        foundStructuredBullets = true;
+        const cleanBullet = line.replace(/^[-•*●▪‣]\s*/, '').trim();
+        if (!current) {
+          current = { name: 'Project', techStack: [], bullets: [], rawLines: [] };
+          projects.push(current);
+        }
+        current.bullets.push(cleanBullet);
+        current.rawLines.push(line);
+
+        const techMatch = cleanBullet.match(TECH_CLAUSE_REGEX);
+        if (techMatch) {
+          const rawTech = techMatch[1]
+            .replace(/\band\b/gi, ',')
+            .split(/[,/|]/)
+            .map((t) => t.trim())
+            .filter(Boolean);
+          current.techStack.push(...rawTech);
+        }
+      } else {
+        const parts = line.split('|').map((p) => p.trim());
+        let name = parts[0];
+        let techClause = parts[1] || '';
+
+        if (parts.length === 1 && line.includes(' : ')) {
+          const colonParts = line.split(' : ');
+          name = colonParts[0].trim();
+          techClause = colonParts[1].trim();
+        }
+
+        const techStack: string[] = [];
+        if (techClause) {
+          const parsed = techClause
+            .replace(/\band\b/gi, ',')
+            .split(/[,/|]/)
+            .map((t) => t.trim())
+            .filter(Boolean);
+          techStack.push(...parsed);
+        }
+
+        current = {
+          name,
+          techStack,
+          bullets: [],
+          rawLines: [line]
+        };
+        projects.push(current);
+      }
+    }
+
+    if (foundStructuredBullets && projects.length > 0) {
+      return projects;
+    }
+  }
+
+  // Strategy B: Flattened or inline projects (e.g. "- LocalPro : ... - UniSync : ...")
   const chunks = raw
-    .split(/(?:^|\s+)[-•*]\s+/)
+    .split(/(?:^|\s+)[-•*●▪‣]\s+/)
     .map((c) => c.trim())
     .filter(Boolean);
-
-  const projects: RecoveredProject[] = [];
 
   for (const chunk of chunks) {
     let name = 'Project';
     let description = chunk;
     const techStack: string[] = [];
 
-    // 1. Split on "Name : Description" or "Name - Description"
     const sepMatch = chunk.match(/^([A-Za-z0-9_\s]{2,30})\s*[:–—]\s*(.*)$/);
     if (sepMatch) {
       name = sepMatch[1].trim();
       description = sepMatch[2].trim();
     } else {
-      // Check first 1-3 words before punctuation
       const firstLine = chunk.split('\n')[0] || '';
       const parts = firstLine.split('|');
       if (parts.length > 1) {
@@ -41,7 +102,6 @@ export function parseProjectsSection(content: string): RecoveredProject[] {
       }
     }
 
-    // 2. Extract tech stack clause ("using HTML, CSS, JavaScript, and Firebase.")
     const techMatch = description.match(TECH_CLAUSE_REGEX);
     if (techMatch) {
       const rawTech = techMatch[1];
@@ -50,18 +110,12 @@ export function parseProjectsSection(content: string): RecoveredProject[] {
         .split(/[,/|]/)
         .map((t) => t.trim())
         .filter(Boolean);
-
       techStack.push(...parsedTech);
-
-      // Clean the description bullet if it ends with "using ..."
-      // Keep description punchy
       description = description.replace(techMatch[0], '.').replace(/\.{2,}/g, '.').trim();
     }
 
-    // Format description as clean bullet(s)
     const bullets: string[] = [];
     if (description) {
-      // If description contains multiple clauses separated by periods or semicolons, split
       const sentences = description.split(/\.\s+/).filter(Boolean);
       for (const s of sentences) {
         const cleanS = s.trim().replace(/^\W+/, '').replace(/[.]+$/, '');

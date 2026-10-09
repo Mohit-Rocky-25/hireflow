@@ -25,10 +25,23 @@ export function segmentResumeText(rawText: string): RecoveredSection[] {
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
-    const headingDef = matchExactHeadingLine(line);
+    let headingDef = matchExactHeadingLine(line);
+    let inlineContent = '';
 
-    if (headingDef && i > 0) {
-      // Save previous section
+    if (!headingDef) {
+      // Check for inline colon heading e.g. "SUMMARY: Software engineer with 3 years..."
+      const colonMatch = line.match(/^([A-Za-z\s&]{2,30}):\s*(.*)$/);
+      if (colonMatch) {
+        const potentialDef = matchExactHeadingLine(colonMatch[1]);
+        if (potentialDef) {
+          headingDef = potentialDef;
+          inlineContent = colonMatch[2].trim();
+        }
+      }
+    }
+
+    if (headingDef) {
+      // Save previous section if it had content
       if (currentContentLines.length > 0) {
         lineSections.push({
           kind: currentKind,
@@ -41,7 +54,7 @@ export function segmentResumeText(rawText: string): RecoveredSection[] {
       currentKind = headingDef.kind;
       currentCanonical = headingDef.canonicalTitle;
       currentRaw = line;
-      currentContentLines = [];
+      currentContentLines = inlineContent ? [inlineContent] : [];
       detectedSectionsCount++;
     } else {
       currentContentLines.push(line);

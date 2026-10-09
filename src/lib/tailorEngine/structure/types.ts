@@ -22,6 +22,7 @@ export interface RecoveredHeader {
   email?: string;
   links: string[];
   city?: string;
+  location?: string;
   rawLine: string;
 }
 

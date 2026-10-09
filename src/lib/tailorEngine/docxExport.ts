@@ -85,8 +85,8 @@ export async function generateDocxBlob(model: ResumeDocModel): Promise<Blob> {
     });
   };
 
-  // 2. Professional Summary
-  if (model.summary) {
+  const renderDocxSummary = () => {
+    if (!model.summary) return;
     children.push(createSectionHeader('Professional Summary'));
     children.push(
       new Paragraph({
@@ -100,20 +100,19 @@ export async function generateDocxBlob(model: ResumeDocModel): Promise<Blob> {
         ]
       })
     );
-  }
+  };
 
-  // 3. Experience
-  if (model.experience.length > 0) {
+  const renderDocxExperience = () => {
+    if (model.experience.length === 0) return;
     children.push(createSectionHeader('Work Experience'));
     for (const exp of model.experience) {
-      // Role & Company + Right-aligned Dates using tab stops
       children.push(
         new Paragraph({
           spacing: { before: 120, after: 60 },
           tabStops: [
             {
               type: TabStopType.RIGHT,
-              position: 9000 // right margin tab
+              position: 9000
             }
           ],
           children: [
@@ -139,16 +138,16 @@ export async function generateDocxBlob(model: ResumeDocModel): Promise<Blob> {
         })
       );
 
-      // Bullets
       for (const bullet of exp.bullets) {
+        const cleanText = bullet.text.replace(/^[-•*●▪‣]\s*/, '').trim();
         children.push(
           new Paragraph({
             bullet: { level: 0 },
             spacing: { after: 60 },
             children: [
               new TextRun({
-                text: bullet.text,
-                size: 21, // 10.5pt
+                text: cleanText,
+                size: 21,
                 font: 'Calibri'
               })
             ]
@@ -156,10 +155,10 @@ export async function generateDocxBlob(model: ResumeDocModel): Promise<Blob> {
         );
       }
     }
-  }
+  };
 
-  // 4. Projects
-  if (model.projects.length > 0) {
+  const renderDocxProjects = () => {
+    if (model.projects.length === 0) return;
     children.push(createSectionHeader('Projects'));
     for (const proj of model.projects) {
       children.push(
@@ -190,13 +189,14 @@ export async function generateDocxBlob(model: ResumeDocModel): Promise<Blob> {
       );
 
       for (const bullet of proj.bullets) {
+        const cleanText = bullet.text.replace(/^[-•*●▪‣]\s*/, '').trim();
         children.push(
           new Paragraph({
             bullet: { level: 0 },
             spacing: { after: 60 },
             children: [
               new TextRun({
-                text: bullet.text,
+                text: cleanText,
                 size: 21,
                 font: 'Calibri'
               })
@@ -205,27 +205,50 @@ export async function generateDocxBlob(model: ResumeDocModel): Promise<Blob> {
         );
       }
     }
-  }
+  };
 
-  // 5. Skills
-  if (model.skills.length > 0) {
+  const renderDocxSkills = () => {
+    if (model.skills.length === 0) return;
     children.push(createSectionHeader('Technical Skills'));
-    children.push(
-      new Paragraph({
-        spacing: { after: 120 },
-        children: [
-          new TextRun({
-            text: model.skills.join('  •  '),
-            size: 21,
-            font: 'Calibri'
+    if (model.skillCategories && model.skillCategories.length > 0) {
+      for (const cat of model.skillCategories) {
+        children.push(
+          new Paragraph({
+            spacing: { after: 60 },
+            children: [
+              new TextRun({
+                text: `${cat.category}: `,
+                bold: true,
+                size: 21,
+                font: 'Calibri'
+              }),
+              new TextRun({
+                text: cat.skills.join(', '),
+                size: 21,
+                font: 'Calibri'
+              })
+            ]
           })
-        ]
-      })
-    );
-  }
+        );
+      }
+    } else {
+      children.push(
+        new Paragraph({
+          spacing: { after: 120 },
+          children: [
+            new TextRun({
+              text: model.skills.join('  •  '),
+              size: 21,
+              font: 'Calibri'
+            })
+          ]
+        })
+      );
+    }
+  };
 
-  // 6. Education
-  if (model.education.length > 0) {
+  const renderDocxEducation = () => {
+    if (model.education.length === 0) return;
     children.push(createSectionHeader('Education'));
     for (const edu of model.education) {
       children.push(
@@ -258,6 +281,39 @@ export async function generateDocxBlob(model: ResumeDocModel): Promise<Blob> {
           ]
         })
       );
+    }
+  };
+
+  const renderDocxLanguages = () => {
+    if (!model.languages || model.languages.length === 0) return;
+    children.push(createSectionHeader('Languages'));
+    children.push(
+      new Paragraph({
+        spacing: { after: 120 },
+        children: [
+          new TextRun({
+            text: model.languages.join('  •  '),
+            size: 21,
+            font: 'Calibri'
+          })
+        ]
+      })
+    );
+  };
+
+  const sectionMap: Record<string, () => void> = {
+    summary: renderDocxSummary,
+    experience: renderDocxExperience,
+    projects: renderDocxProjects,
+    skills: renderDocxSkills,
+    education: renderDocxEducation,
+    languages: renderDocxLanguages
+  };
+
+  const order = model.sectionOrder || ['summary', 'experience', 'projects', 'skills', 'education', 'languages'];
+  for (const key of order) {
+    if (sectionMap[key]) {
+      sectionMap[key]();
     }
   }
 

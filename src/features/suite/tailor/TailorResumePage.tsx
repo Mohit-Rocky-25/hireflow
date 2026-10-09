@@ -29,9 +29,10 @@ import { ReviewTabBar, ReviewTab } from './components/ReviewTabBar';
 import { SuggestionCard, CardStatus } from './components/SuggestionCard';
 import { calculateResumeQuality } from '../../../lib/tailorEngine/strength';
 import { applyGrammarGate } from '../../../lib/tailorEngine/grammar';
-import { parseResumeDocModel, findUnresolvedPlaceholders } from '../../../lib/tailorEngine/docModel';
+import { parseResumeDocModel, findUnresolvedPlaceholders, ResumePreset } from '../../../lib/tailorEngine/docModel';
 import { generateDocxBlob, downloadBlob } from '../../../lib/tailorEngine/docxExport';
 import { PaperPreview, ResumeTemplateId } from './components/PaperPreview';
+import { StrengthenChecklist } from './components/StrengthenChecklist';
 import { ExportToolbar } from './components/ExportToolbar';
 import { ExportTruthGateModal } from './components/ExportTruthGateModal';
 
@@ -106,6 +107,7 @@ export function TailorResumePage() {
   const [isGeneratingDocx, setIsGeneratingDocx] = useState(false);
   const [isTruthGateOpen, setIsTruthGateOpen] = useState(false);
   const [pendingExportAction, setPendingExportAction] = useState<'docx' | 'print' | null>(null);
+  const [manualPreset, setManualPreset] = useState<ResumePreset | undefined>(undefined);
 
   // If profile becomes available and user hasn't typed custom resume, populate
   useEffect(() => {
@@ -184,8 +186,20 @@ Requirements:
         }
       });
     }
-    return parseResumeDocModel(resumeText, replacements);
-  }, [resumeText, result, suggestionStatus, editedTexts]);
+    return parseResumeDocModel(resumeText, replacements, manualPreset);
+  }, [resumeText, result, suggestionStatus, editedTexts, manualPreset]);
+
+  // Handle adding detected hidden skill
+  const handleAddSkill = (skill: string) => {
+    if (!resumeText.toLowerCase().includes(skill.toLowerCase())) {
+      const skillsRegex = /(?:technical skills|skills)\s*:?/i;
+      if (skillsRegex.test(resumeText)) {
+        setResumeText((prev) => prev.replace(skillsRegex, (m) => `${m} ${skill}, `));
+      } else {
+        setResumeText((prev) => `${prev}\nTechnical Skills: ${skill}`);
+      }
+    }
+  };
 
   // Unresolved placeholders detection (Export Truth Gate)
   const unresolvedPlaceholders = useMemo(() => {
@@ -593,6 +607,9 @@ Requirements:
                 isGeneratingDocx={isGeneratingDocx}
               />
 
+              {/* Strengthen This Resume Guidance Checklist */}
+              <StrengthenChecklist model={docModel} onAddSkill={handleAddSkill} />
+
               {/* White A4 Paper Sheet Preview */}
               <PaperPreview
                 ref={paperRef}
@@ -601,6 +618,7 @@ Requirements:
                 showChanges={showChanges}
                 isAtsTextView={isAtsTextView}
                 rawText={liveTailoredResume}
+                onPresetChange={setManualPreset}
               />
             </div>
           </div>

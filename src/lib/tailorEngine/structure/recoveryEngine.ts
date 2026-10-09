@@ -9,6 +9,7 @@ import { parseHeader } from './headerParser';
 import { parseEducationSection } from './educationParser';
 import { parseSkillsSection } from './skillsParser';
 import { parseProjectsSection } from './projectsParser';
+import { parseExperienceSection } from './experienceParser';
 import { parseLanguages, parseSocialLinks } from './languagesLinksParser';
 
 export function recoverResumeStructure(rawText: string): RecoveredResume {
@@ -58,14 +59,7 @@ export function recoverResumeStructure(rawText: string): RecoveredResume {
 
   // 5. Experience Extraction
   const expSec = sections.find((s) => s.kind === 'experience');
-  const experience = expSec
-    ? parseProjectsSection(expSec.content).map((p) => ({
-        role: p.name,
-        company: p.techStack[0] || 'Organization',
-        bullets: p.bullets,
-        rawLines: p.rawLines
-      }))
-    : [];
+  const experience = expSec ? parseExperienceSection(expSec.content) : [];
 
   // 6. Skills Extraction (with hidden skill detection from projects/summary)
   const contextToScan = [

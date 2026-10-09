@@ -45,12 +45,14 @@
   - [x] Invariants I1 (Conservation), I2 (No invention), I3 (Determinism) enforced in `recoveryEngine.ts`
   - [x] Synthetic fixtures: `flat-ece-fresher.ts` (Alex Kumar prompt 3.9) + 4 more synthetic fixtures with assertions (16/16 tests passing in `stage3-structure-recovery.test.ts`)
 
-- [ ] **Stage 4: Professional Composer & Page Renderer**
-  - [ ] `ResumeDocModel` as single source of truth across preview, DOCX, and PDF
-  - [ ] Presets: Fresher (Education first), Skills-first (hybrid), Professional (Experience first)
-  - [ ] Fit-to-page ladder and balanced spacing for sparse resumes (no empty bottom / squeezed top)
-  - [ ] Keep Classic, Modern, Compact templates with "Show changes" and "ATS text view"
-  - [ ] "Strengthen this resume" guidance checklist
+- [x] **Stage 4: Professional Composer & Page Renderer**
+  - [x] `ResumeDocModel` as single source of truth across preview, DOCX, and PDF backed by layout recovery engine
+  - [x] Presets: Fresher (Education first), Skills-first (hybrid), Professional (Experience first) with auto-selection and toolbar toggle
+  - [x] Fit-to-page ladder and balanced spacing for sparse resumes (no empty bottom / squeezed top)
+  - [x] Classic, Modern, Compact templates upgraded with categorized skills rows, clean bullets (no literal `- `), max 60 words per bullet, languages section, and show changes highlighting
+  - [x] "Strengthen this resume" guidance checklist (`StrengthenChecklist.tsx`) with missing contact audit, metrics ratio, and interactive "+ Add to skills" for hidden skills
+  - [x] DOCX export updated with dynamic section ordering and categorized skills
+  - [x] Unit tests verified in `src/__tests__/tailor/stage4-composer-renderer.test.ts` (6/6 passed, 49/49 total suite)
 
 - [ ] **Stage 5: Action Word Engine & JD Tailoring**
   - [ ] 4-slot bullet formula chips: Action ✓/✗, Object ✓/✗, Tool ✓/✗, Result ✓/✗

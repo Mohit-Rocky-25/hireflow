@@ -2,7 +2,10 @@
 // Tailor Engine — Single Source Resume Document Model
 // ============================================================
 
-import { cleanText } from './parser';
+import { recoverResumeStructure } from './structure/recoveryEngine';
+import { LeftOutItem } from './structure/types';
+
+export type ResumePreset = 'fresher' | 'skillsFirst' | 'professional';
 
 export interface ResumeContact {
   name: string;
@@ -41,6 +44,11 @@ export interface ResumeEducationItem {
   details?: string;
 }
 
+export interface ResumeSkillCategory {
+  category: string;
+  skills: string[];
+}
+
 export interface ResumeDocModel {
   contact: ResumeContact;
   summary?: string;
@@ -48,176 +56,150 @@ export interface ResumeDocModel {
   projects: ResumeProjectItem[];
   education: ResumeEducationItem[];
   skills: string[];
+  skillCategories?: ResumeSkillCategory[];
+  hiddenSkills?: string[];
+  languages?: string[];
+  links?: string[];
+  leftOut?: LeftOutItem[];
+  confidenceScore?: number;
+  lowConfidenceNotes?: string[];
+  wordCount?: number;
+  preset: ResumePreset;
+  sectionOrder: string[];
+}
+
+/**
+ * Resolves bullet replacement match across multiple prefix permutations.
+ */
+function resolveReplacement(
+  clean: string,
+  replacements: Record<string, string>
+): string | undefined {
+  if (replacements[clean]) return replacements[clean];
+  if (replacements['- ' + clean]) return replacements['- ' + clean];
+  if (replacements['-' + clean]) return replacements['-' + clean];
+  if (replacements['• ' + clean]) return replacements['• ' + clean];
+
+  for (const [k, v] of Object.entries(replacements)) {
+    if (k.replace(/^[-•*●▪‣]\s*/, '').trim() === clean) {
+      return v;
+    }
+  }
+  return undefined;
 }
 
 /**
  * Parses raw resume text and overlays accepted replacements to produce a structured document model.
+ * Backed by the Stage 3 Layout Recovery Engine for robust multi-format support.
  */
 export function parseResumeDocModel(
   resumeText: string,
-  acceptedReplacements: Record<string, string> = {}
+  acceptedReplacements: Record<string, string> = {},
+  manualPreset?: ResumePreset
 ): ResumeDocModel {
-  const cleaned = cleanText(resumeText);
-  const lines = cleaned.split('\n').map((l) => l.trim()).filter((l) => l.length > 0);
+  const recovered = recoverResumeStructure(resumeText || '');
+  let bulletIdCounter = 0;
 
-  const model: ResumeDocModel = {
-    contact: { name: 'Your Name' },
-    summary: '',
-    experience: [],
-    projects: [],
-    education: [],
-    skills: []
-  };
-
-  if (lines.length === 0) return model;
-
-  // 1. Parse Contact from first 1-2 lines before any major section
-  const headerLine = lines[0];
-  const headerParts = headerLine.split('|').map((p) => p.trim());
-  if (headerParts.length >= 1) {
-    model.contact.name = headerParts[0];
-  }
-  for (let i = 1; i < headerParts.length; i++) {
-    const part = headerParts[i];
-    if (part.includes('@')) {
-      model.contact.email = part;
-    } else if (/(?:\+?\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}/.test(part)) {
-      model.contact.phone = part;
-    } else if (part.toLowerCase().includes('engineer') || part.toLowerCase().includes('developer') || part.toLowerCase().includes('architect')) {
-      model.contact.headline = part;
-    } else if (part.includes('github.com') || part.includes('linkedin.com')) {
-      if (!model.contact.links) model.contact.links = [];
-      model.contact.links.push(part);
-    } else {
-      if (!model.contact.location) model.contact.location = part;
-      else if (!model.contact.headline) model.contact.headline = part;
-    }
-  }
-
-  // 2. State machine to parse sections
-  type SectionType = 'none' | 'summary' | 'experience' | 'projects' | 'education' | 'skills';
-  let currentSection: SectionType = 'none';
-
-  let currentExpItem: ResumeExperienceItem | null = null;
-  let currentProjItem: ResumeProjectItem | null = null;
-  let currentEduItem: ResumeEducationItem | null = null;
-
-  let bulletCounter = 0;
-
-  for (let idx = 1; idx < lines.length; idx++) {
-    const line = lines[idx];
-    const lower = line.toLowerCase();
-
-    // Check for Section Header
-    if (lower.startsWith('summary') || lower.startsWith('professional summary') || lower.startsWith('objective')) {
-      currentSection = 'summary';
-      const inlineSummary = line.replace(/^(?:summary|professional summary|objective):?/i, '').trim();
-      if (inlineSummary) {
-        model.summary = inlineSummary;
-      }
-      continue;
-    }
-    if (lower.startsWith('experience') || lower.startsWith('work experience') || lower.startsWith('employment')) {
-      currentSection = 'experience';
-      continue;
-    }
-    if (lower.startsWith('projects') || lower.startsWith('personal projects') || lower.startsWith('technical projects')) {
-      currentSection = 'projects';
-      continue;
-    }
-    if (lower.startsWith('education') || lower.startsWith('academics')) {
-      currentSection = 'education';
-      continue;
-    }
-    if (lower.startsWith('skills') || lower.startsWith('technical skills') || lower.startsWith('core competencies')) {
-      currentSection = 'skills';
-      const inlineSkills = line.replace(/^(?:skills|technical skills|core competencies):?/i, '').trim();
-      if (inlineSkills) {
-        model.skills = inlineSkills.split(/[,|•]/).map((s) => s.trim()).filter(Boolean);
-      }
-      continue;
-    }
-
-    // Process content according to current section
-    if (currentSection === 'summary') {
-      model.summary = (model.summary ? model.summary + ' ' : '') + line;
-    } else if (currentSection === 'skills') {
-      const skillsFromLine = line.split(/[,|•]/).map((s) => s.trim()).filter(Boolean);
-      model.skills.push(...skillsFromLine);
-    } else if (currentSection === 'experience') {
-      if (line.startsWith('-') || line.startsWith('•') || line.startsWith('*')) {
-        const rawBullet = line;
-        const normalizedBullet = '-' + line.substring(1);
-        const replacement = acceptedReplacements[normalizedBullet] || acceptedReplacements[rawBullet];
-        const textToUse = (replacement || rawBullet).replace(/^[-•*]\s*/, '').trim();
-
-        const bObj: ResumeBullet = {
-          id: `b-${bulletCounter++}`,
-          text: textToUse,
-          isModified: !!replacement,
-          originalText: rawBullet.replace(/^[-•*]\s*/, '').trim()
-        };
-
-        if (!currentExpItem) {
-          currentExpItem = { role: 'Software Engineer', company: 'Company', bullets: [] };
-          model.experience.push(currentExpItem);
-        }
-        currentExpItem.bullets.push(bObj);
-      } else {
-        // Entry title line: Role | Company | Dates
-        const parts = line.split('|').map((p) => p.trim());
-        currentExpItem = {
-          role: parts[0] || 'Role',
-          company: parts[1] || '',
-          dates: parts[2] || '',
-          bullets: []
-        };
-        model.experience.push(currentExpItem);
-      }
-    } else if (currentSection === 'projects') {
-      if (line.startsWith('-') || line.startsWith('•') || line.startsWith('*')) {
-        const rawBullet = line;
-        const normalizedBullet = '-' + line.substring(1);
-        const replacement = acceptedReplacements[normalizedBullet] || acceptedReplacements[rawBullet];
-        const textToUse = (replacement || rawBullet).replace(/^[-•*]\s*/, '').trim();
-
-        const bObj: ResumeBullet = {
-          id: `b-${bulletCounter++}`,
-          text: textToUse,
-          isModified: !!replacement,
-          originalText: rawBullet.replace(/^[-•*]\s*/, '').trim()
-        };
-
-        if (!currentProjItem) {
-          currentProjItem = { name: 'Project', bullets: [] };
-          model.projects.push(currentProjItem);
-        }
-        currentProjItem.bullets.push(bObj);
-      } else {
-        // Project title: Name | Link/Tech
-        const parts = line.split('|').map((p) => p.trim());
-        currentProjItem = {
-          name: parts[0] || 'Project',
-          linkOrTech: parts[1] || '',
-          bullets: []
-        };
-        model.projects.push(currentProjItem);
-      }
-    } else if (currentSection === 'education') {
-      const parts = line.split('|').map((p) => p.trim());
-      currentEduItem = {
-        degree: parts[0] || line,
-        institution: parts[1] || '',
-        year: parts[2] || ''
+  // 1. Map Experience with Replacements
+  const experience: ResumeExperienceItem[] = recovered.experience.map((exp) => ({
+    role: exp.role,
+    company: exp.company,
+    dates: exp.dates,
+    bullets: exp.bullets.map((bText) => {
+      const clean = bText.replace(/^[-•*●▪‣]\s*/, '').trim();
+      const rep = resolveReplacement(clean, acceptedReplacements);
+      return {
+        id: `b-${bulletIdCounter++}`,
+        text: (rep || clean).replace(/^[-•*●▪‣]\s*/, '').trim(),
+        isModified: Boolean(rep),
+        originalText: clean
       };
-      model.education.push(currentEduItem);
+    })
+  }));
+
+  // 2. Map Projects with Replacements
+  const projects: ResumeProjectItem[] = recovered.projects.map((proj) => ({
+    name: proj.name,
+    linkOrTech: proj.techStack.length > 0 ? proj.techStack.join(', ') : '',
+    bullets: proj.bullets.map((bText) => {
+      const clean = bText.replace(/^[-•*●▪‣]\s*/, '').trim();
+      const rep = resolveReplacement(clean, acceptedReplacements);
+      return {
+        id: `b-${bulletIdCounter++}`,
+        text: (rep || clean).replace(/^[-•*●▪‣]\s*/, '').trim(),
+        isModified: Boolean(rep),
+        originalText: clean
+      };
+    })
+  }));
+
+  // 3. Map Education
+  const education: ResumeEducationItem[] = recovered.education.map((edu) => ({
+    degree: edu.degree,
+    institution: edu.institution,
+    year: edu.dates,
+    details: edu.branch
+  }));
+
+  // 4. Auto-detect Preset if not manually specified
+  let preset: ResumePreset = 'fresher';
+  if (manualPreset) {
+    preset = manualPreset;
+  } else {
+    const hasExpectedEdu = recovered.education.some((e) => e.isExpected);
+    const hasSubstantialExp = experience.length >= 1 && experience.some((e) => e.bullets.length >= 2);
+
+    if (hasSubstantialExp && !hasExpectedEdu) {
+      preset = 'professional';
+    } else if (recovered.education.length > 0) {
+      preset = 'fresher';
+    } else if (recovered.skills.canonicalSkills.length >= 6) {
+      preset = 'skillsFirst';
+    } else {
+      preset = 'fresher';
     }
   }
 
-  // Deduplicate skills
-  model.skills = Array.from(new Set(model.skills));
+  // 5. Section Order by Preset
+  let sectionOrder: string[];
+  switch (preset) {
+    case 'skillsFirst':
+      sectionOrder = ['summary', 'skills', 'projects', 'experience', 'education', 'languages', 'links'];
+      break;
+    case 'professional':
+      sectionOrder = ['summary', 'experience', 'skills', 'projects', 'education', 'languages', 'links'];
+      break;
+    case 'fresher':
+    default:
+      sectionOrder = ['summary', 'education', 'skills', 'projects', 'experience', 'languages', 'links'];
+      break;
+  }
 
-  return model;
+  return {
+    contact: {
+      name: recovered.header.name || 'Candidate Name',
+      headline: recovered.header.headline,
+      email: recovered.header.email,
+      phone: recovered.header.phone,
+      location: recovered.header.city,
+      links: recovered.links.length > 0 ? recovered.links : recovered.header.links
+    },
+    summary: recovered.summary,
+    experience,
+    projects,
+    education,
+    skills: recovered.skills.canonicalSkills,
+    skillCategories: recovered.skills.categories,
+    hiddenSkills: recovered.skills.hiddenSkills,
+    languages: recovered.languages,
+    links: recovered.links,
+    leftOut: recovered.leftOut,
+    confidenceScore: recovered.confidenceScore,
+    lowConfidenceNotes: recovered.lowConfidenceNotes,
+    wordCount: recovered.wordCount,
+    preset,
+    sectionOrder
+  };
 }
 
 /**
