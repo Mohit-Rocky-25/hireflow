@@ -61,12 +61,13 @@
   - [x] JD seniority mismatch advisory note (`checkSeniorityMismatch`) rendered dynamically in `TailorResumePage.tsx`
   - [x] Unit tests verified in `src/__tests__/tailor/stage5-action-word-engine.test.ts` (7/7 passed, 56/56 total suite)
 
-- [ ] **Stage 6: Change Transparency UI**
-  - [ ] Two-group change split: "Layout repairs" (auto-applied, undoable) vs. "Content edits" (needs review)
-  - [ ] Every change card shows before/after word diff, reason, JD requirement, and words changed X of Y
-  - [ ] Fixed reason text grammar templates
-  - [ ] Low-confidence "Check layout" boundary reassignment panel
-  - [ ] Contrast fixes: tab bar text meets 4.5:1 ratio
+- [x] **Stage 6: Change Transparency UI**
+  - [x] Two-group change split: "Layout repairs" (auto-applied, undoable) vs. "Content edits" (needs review)
+  - [x] Every change card shows before/after word diff, reason, JD requirement, and words changed X of Y
+  - [x] Fixed reason text grammar templates
+  - [x] Low-confidence "Check layout" boundary reassignment panel (`LayoutRepairsPanel.tsx`)
+  - [x] Contrast fixes: tab bar text meets 4.5:1 ratio (`ReviewTabBar.tsx`)
+  - [x] Stage 6 unit tests verified in `src/__tests__/tailor/stage6-change-transparency.test.ts` (3/3 tests passing)
 
 - [ ] **Stage 7: Comprehensive Testing & Verification**
   - [ ] Unit & invariant tests on all fixtures

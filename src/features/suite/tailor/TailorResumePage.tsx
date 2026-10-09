@@ -15,7 +15,8 @@ import {
   XCircle,
   Building2,
   RefreshCw,
-  AlertCircle
+  AlertCircle,
+  AlertTriangle
 } from 'lucide-react';
 import { tailorResume, TailorResult, TailorSuggestion } from './tailorResume';
 import { useProfile } from '../profile/ProfileContext';
@@ -34,6 +35,7 @@ import { generateDocxBlob, downloadBlob } from '../../../lib/tailorEngine/docxEx
 import { checkSeniorityMismatch } from '../../../lib/tailorEngine/actionWordEngine';
 import { PaperPreview, ResumeTemplateId } from './components/PaperPreview';
 import { StrengthenChecklist } from './components/StrengthenChecklist';
+import { LayoutRepairsPanel } from './components/LayoutRepairsPanel';
 import { ExportToolbar } from './components/ExportToolbar';
 import { ExportTruthGateModal } from './components/ExportTruthGateModal';
 
@@ -517,6 +519,9 @@ Requirements:
                 </div>
               </div>
             )}
+
+            {/* Layout Repairs & Structure Check Panel */}
+            <LayoutRepairsPanel model={docModel} />
 
             {/* Stage 3 Sticky Tab Bar */}
             <ReviewTabBar

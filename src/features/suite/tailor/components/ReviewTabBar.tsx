@@ -69,17 +69,17 @@ export const ReviewTabBar: React.FC<ReviewTabBarProps> = ({
                 disabled={isEmpty && tab.id !== 'all'}
                 className={`min-h-[38px] px-3.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-2 whitespace-nowrap transition-all ${
                   isActive
-                    ? 'bg-zinc-800 text-white shadow-sm border border-zinc-700'
+                    ? 'bg-zinc-800 text-white shadow-sm border border-zinc-700 font-bold'
                     : isEmpty
-                    ? 'text-zinc-600 opacity-50 cursor-not-allowed'
-                    : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900'
+                    ? 'text-zinc-500 opacity-60 cursor-not-allowed'
+                    : 'text-zinc-200 hover:text-white hover:bg-zinc-850'
                 }`}
               >
                 {tab.icon}
                 <span>{tab.label}</span>
                 <span
-                  className={`text-[11px] px-1.5 py-0.2 rounded-full ${
-                    isActive ? 'bg-indigo-600/30 text-indigo-300' : 'bg-zinc-800 text-zinc-400'
+                  className={`text-[11px] px-1.5 py-0.2 rounded-full font-bold ${
+                    isActive ? 'bg-indigo-600/40 text-indigo-200' : 'bg-zinc-800 text-zinc-300'
                   }`}
                 >
                   {tab.count}
