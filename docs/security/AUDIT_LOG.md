@@ -46,12 +46,12 @@
   - [x] 5.2 Document AR-1 (Client-Side Demo Auth boundary limitation).
   - [x] 5.3 Route guard verification and session clearing on logout.
   - [x] 5.4 Regression tests for route protection and access control (`src/__tests__/security/auth-guards.test.ts`).
-- [ ] **Phase 6 — AI Security: Prompt Injection, Model Abuse, Data Leakage**
-  - [ ] 6.1 Attack surface definition (Dev server Gemini proxy + Deterministic Engine).
-  - [ ] 6.2 Proxy key security, strict schema enforcement, and output sanitization.
-  - [ ] 6.3 Build 12-category Red-Team Fixture Library in `security/redteam/`.
-  - [ ] 6.4 Build automated red-team test suite `src/__tests__/security/ai-redteam.test.ts`.
-  - [ ] 6.5 Verify anti-gaming integrity, invariant enforcement, and Unicode normalization.
+- [x] **Phase 6 — AI Security: Prompt Injection, Model Abuse, Data Leakage**
+  - [x] 6.1 Attack surface definition (Dev server Gemini proxy + Deterministic Engine).
+  - [x] 6.2 Proxy key security, strict schema enforcement, and output sanitization (SEC-003 fixed).
+  - [x] 6.3 Build 12-category Red-Team Fixture Library in `security/redteam/fixtures.json`.
+  - [x] 6.4 Build automated red-team test suite `src/__tests__/security/ai-redteam.test.ts`.
+  - [x] 6.5 Verify anti-gaming integrity, invariant enforcement, and Unicode normalization.
 - [ ] **Phase 7 — Privacy and Data Protection**
   - [ ] 7.1 PII inventory across memory, localStorage, and exports.
   - [ ] 7.2 Network egress audit: verify zero external telemetry during scan.

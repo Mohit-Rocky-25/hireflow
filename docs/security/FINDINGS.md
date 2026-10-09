@@ -12,7 +12,7 @@
 |---|---|---|---|---|---|
 | SEC-001 | Medium | Storage / Credentials | `src/store/useStore.ts:120, 138, 411` | Plaintext passwords stored in browser localStorage under `pw_${userId}` | Fixed |
 | SEC-002 | Medium | Client Secrets Risk | `src/ai/AIProvider.ts:6-8` | Comments instructing `VITE_GEMINI_API_KEY` / `VITE_OPENAI_API_KEY` which leak to browser bundle | Fixed |
-| SEC-003 | Low | Client Direct LLM Egress | `src/lib/ats/index.ts:237` | Direct browser fetch to Gemini API with user-provided key without rate-limiting or proxy | Open |
+| SEC-003 | Low | Client Direct LLM Egress | `src/lib/ats/index.ts:237` | Direct browser fetch to Gemini API with user-provided key without rate-limiting or proxy | Fixed |
 | SEC-004 | Low | Reverse Tabnabbing | Multiple pages | External `target="_blank"` links lacking `rel="noopener noreferrer"` or unvalidated URLs | Fixed |
 | SEC-005 | Medium | File Handling | `fileParser.ts` | Missing file size bounds, magic byte inspection, and zip bomb/traversal guards | Fixed |
 | SEC-006 | Medium | Regular Expression DoS | `pipeline.ts`, `limits.ts` | Unbounded resume/JD input length leading to polynomial regex parsing delays | Fixed |
@@ -51,9 +51,9 @@
 - **Location**: `src/lib/ats/index.ts:237`
 - **Evidence (MASKED)**: `fetch('https://generativelanguage.googleapis.com/v1beta/models/...:generateContent?key=' + options.geminiApiKey)`
 - **Impact**: Direct browser calls expose the key in browser DevTools Network tab and bypass CORS and rate limiting controls.
-- **Fix Applied**: Route all AI analysis through `/api/ats/analyze` proxy or deterministic local fallback.
-- **Test That Proves It**: `src/__tests__/security/egress.test.ts`
-- **Status**: Open
+- **Fix Applied**: Removed direct client-side external URL call with key query parameter. All AI requests must broker through `/api/ats/analyze` proxy or fall back safely to deterministic scoring.
+- **Test That Proves It**: `src/__tests__/security/ai-redteam.test.ts`
+- **Status**: Fixed
 
 ### AR-1: Client-Side Demo Auth Is Not a Security Boundary
 - **Severity**: Accepted-Risk (Info)

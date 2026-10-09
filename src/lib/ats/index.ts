@@ -230,42 +230,9 @@ export async function analyzeResume(
     console.debug('Dev server API not reached or error, falling back:', err);
   }
 
-  // 3. If client provided custom Gemini API key directly in UI (or localStorage)
-  if (options?.geminiApiKey) {
-    try {
-      const prompt = buildAIPrompt(facts, resumeText, jdText);
-      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${options.geminiApiKey}`;
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          contents: [
-            { role: 'user', parts: [{ text: `${SYSTEM_PROMPT}\n\n${prompt}` }] }
-          ],
-          generationConfig: {
-            responseMimeType: 'application/json',
-          },
-        }),
-      });
-
-      if (response.ok) {
-        const jsonRes = await response.json();
-        const rawText = jsonRes.candidates?.[0]?.content?.parts?.[0]?.text;
-        if (rawText) {
-          const parsed = JSON.parse(rawText);
-          const sanitized = validateAndSanitizeAICommentary(parsed, resumeText, facts);
-          const { facts: f, ai: a } = enforceInvariants(facts, resumeText, sanitized);
-          return {
-            facts: f,
-            ai: a,
-            isAiAvailable: true,
-          };
-        }
-      }
-    } catch (err) {
-      console.warn('Direct client Gemini call failed:', err);
-    }
-  }
+  // SEC-003 Remediation: Never perform direct browser fetch with API keys in URL query params.
+  // All AI model requests must be brokered through the local /api/ats/analyze proxy.
+  // If the proxy is unavailable, gracefully fall back to the verified deterministic engine.
 
   // 4. Default high-grade deterministic fallback commentary
   const hybrid = runHybridAnalysis(resumeText, jdText, { apiKey: options?.geminiApiKey });
