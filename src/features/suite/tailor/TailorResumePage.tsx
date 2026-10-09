@@ -5,9 +5,9 @@
 // strict truthCheck non-fabrication guarantee, and ResumeVersion saving.
 // ============================================================
 
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { PageNav } from '../../../components/common/PageNav';
+import { TailorHeader } from './components/TailorHeader';
 import {
   ArrowLeft,
   Sparkles,
@@ -63,6 +63,22 @@ Requirements:
 
 export function TailorResumePage() {
   const { profile, openDrawer } = useProfile();
+
+  // Header scroll detection for compact title
+  const [h1Visible, setH1Visible] = useState(true);
+  const h1Ref = useRef<HTMLHeadingElement>(null);
+
+  useEffect(() => {
+    if (!h1Ref.current) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setH1Visible(entry.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(h1Ref.current);
+    return () => observer.disconnect();
+  }, []);
 
   // Inputs
   const [resumeText, setResumeText] = useState(() => profile?.masterResumeText || DEFAULT_RESUME);
@@ -216,30 +232,16 @@ Requirements:
 
   return (
     <div className="min-h-screen bg-bg text-text pb-16">
-      <PageNav />
-      {/* Top Banner */}
-      <div className="border-b border-border bg-surface/50 backdrop-blur-md sticky top-0 z-20">
-        <div className="max-w-7xl mx-auto pl-40 pr-4 sm:px-6 py-4 flex flex-wrap items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
-              Group B: Present
-            </span>
-            <span className="text-sm font-bold text-text">Tailor My Resume</span>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold">
-              <ShieldCheck className="w-3.5 h-3.5" />
-              TruthCheck™ Non-Fabrication
-            </span>
-          </div>
-        </div>
-      </div>
+      {/* Unified 64px Header */}
+      <TailorHeader h1Visible={h1Visible} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-8">
         {/* Title */}
         <div className="mb-6">
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-text tracking-tight flex items-center gap-2.5">
+          <h1
+            ref={h1Ref}
+            className="text-2xl sm:text-3xl font-extrabold text-text tracking-tight flex items-center gap-2.5"
+          >
             <Sparkles className="w-7 h-7 text-primary" />
             Tailor My Resume
           </h1>
