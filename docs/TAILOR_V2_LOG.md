@@ -36,13 +36,15 @@
     - B3: Deterministic grammar gate (`grammar.ts`) for capitalization, punctuation, and double words
     - B8: Deduplication of opening verbs within roles/sections
   - [x] Tests verified in `src/__tests__/tailor/stage3-engine-review.test.ts` (8/8 passed, 17/17 total across suite) and typecheck clean
-- [ ] **Stage 4: Real Resume Preview + Download**
-  - [ ] Single source `ResumeDocModel`
-  - [ ] 3 templates: Classic, Modern, Compact
-  - [ ] White A4 paper preview + toolbar
-  - [ ] Clean ATS-safe `.docx` export (`docx` dynamic import) + print-to-PDF
-  - [ ] Pre-download validation dialog & export truth gate
-  - [ ] Unit & export tests
+- [x] **Stage 4: Real Resume Preview + Download**
+  - [x] Single source `ResumeDocModel` (`docModel.ts`) cleanly parsing contact, summary, experience, projects, education, and skills with overlay replacements
+  - [x] 3 templates: Classic (traditional serif/clean), Modern (indigo accents & chips), Compact (dense single-page)
+  - [x] White A4 paper preview (`PaperPreview.tsx`) with realistic drop shadow, `#ffffff` canvas, and print media optimization
+  - [x] Customization & Export toolbar (`ExportToolbar.tsx`): template selector, "Show changes" green highlight toggle, "ATS text view" raw toggle, copy, save, and downloads
+  - [x] Clean ATS-safe `.docx` export (`docxExport.ts` via dynamic `import('docx')`) with real bullets, right-aligned tab stops for dates, and standard fonts
+  - [x] Print-to-PDF via browser print engine
+  - [x] Export truth gate modal (`ExportTruthGateModal.tsx`) warning against unresolved bracket placeholders or unfilled metric fields
+  - [x] Unit tests verified in `src/__tests__/tailor/stage4-export.test.ts` (5/5 passed, 22/22 total across suite) and typecheck clean
 - [ ] **Stage 5: Verify and Commit to Main**
   - [ ] Full typecheck, test suites, and build validation
   - [ ] Multi-resolution browser checks & screenshots

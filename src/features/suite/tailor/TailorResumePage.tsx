@@ -15,13 +15,9 @@ import {
   XCircle,
   Building2,
   RefreshCw,
-  AlertCircle,
-  Layers,
-  HelpCircle,
-  Wrench,
-  Download
+  AlertCircle
 } from 'lucide-react';
-import { tailorResume, TailorResult, TailorSuggestion, SuggestionType } from './tailorResume';
+import { tailorResume, TailorResult, TailorSuggestion } from './tailorResume';
 import { useProfile } from '../profile/ProfileContext';
 import { SuiteStorage } from '../profile/storage';
 import { ResumeVersion } from '../profile/types';
@@ -33,6 +29,11 @@ import { ReviewTabBar, ReviewTab } from './components/ReviewTabBar';
 import { SuggestionCard, CardStatus } from './components/SuggestionCard';
 import { calculateResumeQuality } from '../../../lib/tailorEngine/strength';
 import { applyGrammarGate } from '../../../lib/tailorEngine/grammar';
+import { parseResumeDocModel, findUnresolvedPlaceholders } from '../../../lib/tailorEngine/docModel';
+import { generateDocxBlob, downloadBlob } from '../../../lib/tailorEngine/docxExport';
+import { PaperPreview, ResumeTemplateId } from './components/PaperPreview';
+import { ExportToolbar } from './components/ExportToolbar';
+import { ExportTruthGateModal } from './components/ExportTruthGateModal';
 
 const DEFAULT_RESUME = `Arjun Mehta | arjun@example.com | Full Stack Developer
 SUMMARY: Software engineer with 3 years building web platforms using React, Node.js, TypeScript, and PostgreSQL.
@@ -66,6 +67,7 @@ export function TailorResumePage() {
   // Header scroll detection for compact title
   const [h1Visible, setH1Visible] = useState(true);
   const h1Ref = useRef<HTMLHeadingElement>(null);
+  const paperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!h1Ref.current) return;
@@ -94,8 +96,16 @@ export function TailorResumePage() {
   const [undoSnapshot, setUndoSnapshot] = useState<Record<string, CardStatus> | null>(null);
   const [showUndoToast, setShowUndoToast] = useState(false);
 
-  // Tabs for Stage 3 Review
+  // Review Tab
   const [reviewTab, setReviewTab] = useState<ReviewTab>('all');
+
+  // Stage 4 Export & Paper Preview State
+  const [selectedTemplate, setSelectedTemplate] = useState<ResumeTemplateId>('classic');
+  const [showChanges, setShowChanges] = useState(true);
+  const [isAtsTextView, setIsAtsTextView] = useState(false);
+  const [isGeneratingDocx, setIsGeneratingDocx] = useState(false);
+  const [isTruthGateOpen, setIsTruthGateOpen] = useState(false);
+  const [pendingExportAction, setPendingExportAction] = useState<'docx' | 'print' | null>(null);
 
   // If profile becomes available and user hasn't typed custom resume, populate
   useEffect(() => {
@@ -164,6 +174,28 @@ Requirements:
     return text;
   }, [result, resumeText, suggestionStatus, editedTexts]);
 
+  // Build structured ResumeDocModel for templates & exports
+  const docModel = useMemo(() => {
+    const replacements: Record<string, string> = {};
+    if (result) {
+      result.suggestions.forEach((s) => {
+        if (suggestionStatus[s.id] === 'accepted') {
+          replacements[s.originalText] = editedTexts[s.id] || s.proposedText;
+        }
+      });
+    }
+    return parseResumeDocModel(resumeText, replacements);
+  }, [resumeText, result, suggestionStatus, editedTexts]);
+
+  // Unresolved placeholders detection (Export Truth Gate)
+  const unresolvedPlaceholders = useMemo(() => {
+    return findUnresolvedPlaceholders(liveTailoredResume);
+  }, [liveTailoredResume]);
+
+  const pendingContextCount = useMemo(() => {
+    return Object.values(suggestionStatus).filter((s) => s === 'needs_input').length;
+  }, [suggestionStatus]);
+
   // Tab counts
   const tabCounts = useMemo(() => {
     if (!result) return { all: 0, rephrase: 0, skills: 0, add_context: 0 };
@@ -219,7 +251,6 @@ Requirements:
     setUndoSnapshot({ ...suggestionStatus });
     const nextStatus = { ...suggestionStatus };
     result.suggestions.forEach((s) => {
-      // Do not auto-accept items that still require user input!
       if (s.needsContext && suggestionStatus[s.id] === 'needs_input') return;
       nextStatus[s.id] = 'accepted';
     });
@@ -282,6 +313,83 @@ Requirements:
   // Quality calculations
   const beforeQuality = useMemo(() => calculateResumeQuality(resumeText, jdText), [resumeText, jdText]);
   const afterQuality = useMemo(() => calculateResumeQuality(liveTailoredResume, jdText), [liveTailoredResume, jdText]);
+
+  // ==========================================
+  // Stage 4 Export Handlers
+  // ==========================================
+  const executeDownloadDocx = async () => {
+    try {
+      setIsGeneratingDocx(true);
+      const blob = await generateDocxBlob(docModel);
+      const roleSlug = result?.targetRoleTitle
+        ? result.targetRoleTitle.toLowerCase().replace(/[^a-z0-9]+/g, '-')
+        : 'tailored';
+      downloadBlob(blob, `Resume-${roleSlug}.docx`);
+    } catch (err) {
+      console.error('Failed to generate docx:', err);
+    } finally {
+      setIsGeneratingDocx(false);
+    }
+  };
+
+  const executePrintPdf = () => {
+    window.print();
+  };
+
+  const handleDownloadDocxClick = () => {
+    if (unresolvedPlaceholders.length > 0 || pendingContextCount > 0) {
+      setPendingExportAction('docx');
+      setIsTruthGateOpen(true);
+    } else {
+      executeDownloadDocx();
+    }
+  };
+
+  const handlePrintPdfClick = () => {
+    if (unresolvedPlaceholders.length > 0 || pendingContextCount > 0) {
+      setPendingExportAction('print');
+      setIsTruthGateOpen(true);
+    } else {
+      executePrintPdf();
+    }
+  };
+
+  const handleConfirmTruthGateExport = () => {
+    if (pendingExportAction === 'docx') {
+      executeDownloadDocx();
+    } else if (pendingExportAction === 'print') {
+      executePrintPdf();
+    }
+    setPendingExportAction(null);
+  };
+
+  const handleCopyText = () => {
+    navigator.clipboard.writeText(liveTailoredResume);
+  };
+
+  const handleSaveToProfile = () => {
+    if (!result) return;
+    const existing = SuiteStorage.loadResumeVersions().data || [];
+    const newVersion: ResumeVersion = {
+      id: `ver-${Date.now()}`,
+      label: `Tailored for ${result.targetRoleTitle}`,
+      jdHash: String(jdText.length),
+      createdAt: new Date().toISOString(),
+      acceptedChanges: result.suggestions
+        .filter((s) => suggestionStatus[s.id] === 'accepted')
+        .map((s) => ({
+          id: s.id,
+          type: s.type === 'reorder' ? 'reorder_bullets' : 'action_verb_swap',
+          description: s.rationale,
+          originalSpan: s.originalText,
+          replacementSpan: editedTexts[s.id] || s.proposedText,
+        })),
+      scoreBefore: result.scoreBefore,
+      scoreAfter: result.projectedScoreAfter,
+      tailoredText: liveTailoredResume,
+    };
+    SuiteStorage.saveResumeVersions([newVersion, ...existing]);
+  };
 
   return (
     <div className="min-h-screen bg-bg text-text pb-16">
@@ -456,26 +564,57 @@ Requirements:
               </div>
             )}
 
-            {/* Live Tailored Resume Preview (Placeholder for Stage 4 White A4 Paper Preview) */}
-            <div className="bg-surface border border-border rounded-2xl p-6 mt-8" id="preview-section">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-extrabold flex items-center gap-2">
-                  <FileText className="w-5 h-5 text-primary" />
-                  Live Tailored Preview
-                </h3>
-                <span className="text-xs text-text-muted font-medium">
-                  Reflects accepted revisions in real time
-                </span>
+            {/* Stage 4: Professional Resume Preview & Export Section */}
+            <div className="space-y-4 pt-6" id="preview-section">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="text-xl font-bold text-text flex items-center gap-2.5">
+                    <FileText className="w-5 h-5 text-primary" />
+                    Professional Tailored Resume
+                  </h3>
+                  <p className="text-xs text-text-muted mt-1">
+                    White A4 canvas preview reflecting your accepted changes in real time.
+                  </p>
+                </div>
               </div>
-              <div className="bg-surface-2 p-4 rounded-xl border border-border">
-                <pre className="text-xs font-mono text-text whitespace-pre-wrap leading-relaxed">
-                  {liveTailoredResume}
-                </pre>
-              </div>
+
+              {/* Export & Customization Toolbar */}
+              <ExportToolbar
+                template={selectedTemplate}
+                onTemplateChange={setSelectedTemplate}
+                showChanges={showChanges}
+                onToggleShowChanges={() => setShowChanges(!showChanges)}
+                isAtsTextView={isAtsTextView}
+                onToggleAtsTextView={() => setIsAtsTextView(!isAtsTextView)}
+                onDownloadDocx={handleDownloadDocxClick}
+                onPrintPdf={handlePrintPdfClick}
+                onCopyText={handleCopyText}
+                onSaveToProfile={handleSaveToProfile}
+                isGeneratingDocx={isGeneratingDocx}
+              />
+
+              {/* White A4 Paper Sheet Preview */}
+              <PaperPreview
+                ref={paperRef}
+                model={docModel}
+                template={selectedTemplate}
+                showChanges={showChanges}
+                isAtsTextView={isAtsTextView}
+                rawText={liveTailoredResume}
+              />
             </div>
           </div>
         )}
       </div>
+
+      {/* Export Truth Gate Warning Modal */}
+      <ExportTruthGateModal
+        isOpen={isTruthGateOpen}
+        onClose={() => setIsTruthGateOpen(false)}
+        onConfirmExport={handleConfirmTruthGateExport}
+        unresolvedPlaceholders={unresolvedPlaceholders}
+        pendingContextCount={pendingContextCount}
+      />
     </div>
   );
 }
