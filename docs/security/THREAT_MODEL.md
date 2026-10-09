@@ -1,6 +1,6 @@
 # HIREFLOW AI — THREAT MODEL & ARCHITECTURE INVENTORY
 
-**System**: HireFlow AI (Multi-tenant AI-assisted hiring platform)  
+**System**: HireFlow AI (Candidate-first AI career & ATS intelligence platform)  
 **Version**: 0.0.0 (Vite Single Page Application)  
 **Audit Scope**: Repository codebase and local development/preview runtime  
 **Date**: 2026-10-09  
