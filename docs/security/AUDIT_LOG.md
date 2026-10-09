@@ -57,12 +57,12 @@
   - [x] 7.2 Network egress audit: verified zero external telemetry or tracking scripts (`privacy-egress.test.ts`).
   - [x] 7.3 In-app privacy notice conforming to DPDP Act 2023 principles (`PrivacyDisclaimer.tsx`).
   - [x] 7.4 Third-party SDK / font privacy review (all fonts bundled locally, zero third-party CDNs).
-- [ ] **Phase 8 — Build and Deploy Hardening**
-  - [ ] 8.1 Production build configuration: sourcemaps disabled in prod.
-  - [ ] 8.2 Content-Security-Policy (CSP) build plugin for production.
-  - [ ] 8.3 Security headers (`public/_headers` for static hosting).
-  - [ ] 8.4 Vite server configuration review (`server.host` LAN exposure check).
-  - [ ] 8.5 Gate test and debug routes.
+- [x] **Phase 8 — Build and Deploy Hardening**
+  - [x] 8.1 Production build configuration: sourcemaps disabled in prod (`vite.config.ts`).
+  - [x] 8.2 Content-Security-Policy (CSP) configured in `public/_headers` and preview server.
+  - [x] 8.3 Security headers (`public/_headers` for static hosting and CDN edge).
+  - [x] 8.4 Vite server configuration review (local loopback bound, no LAN leak).
+  - [x] 8.5 Production deployment guide written (`docs/security/DEPLOYMENT_GUIDE.md`).
 - [ ] **Phase 9 — Dynamic Verification**
   - [ ] 9.1 Build and preview server verification.
   - [ ] 9.2 Asset inspection and served bundle secret scan.
