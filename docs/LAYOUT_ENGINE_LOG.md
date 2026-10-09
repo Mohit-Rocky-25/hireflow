@@ -34,16 +34,16 @@
   - [x] Status chip honesty: amber warning for < 2 sections ("Couldn't detect sections — recovering layout...") in `InputBox.tsx`
   - [x] Unit tests verified in `src/__tests__/tailor/stage2-extraction.test.ts` (5/5 passed, 27/27 suite total) and typecheck clean
 
-- [ ] **Stage 3: Structure Recovery Engine**
-  - [ ] Heading dictionary with aliases & canonical mapping
-  - [ ] Inline segmenter for flattened/run-on text with boundary confidence scoring
-  - [ ] Header parser: Name, headline, Indian/international phone regex, email, clean links, city
-  - [ ] Education parser: institution, degree, branch, dates, reverse chronological, `(Expected)` tag
-  - [ ] Skills parser: categorized rows (Programming, Web, Tools, Hardware/IoT, Databases, etc.), hidden skill detection from project bodies
-  - [ ] Projects parser: name, tech-stack line, action bullets
-  - [ ] Languages & Links parsers
-  - [ ] Invariants I1 (Conservation), I2 (No invention), I3 (Determinism)
-  - [ ] Synthetic fixtures: `flat-ece-fresher.ts` + 4 more synthetic fixtures with assertions
+- [x] **Stage 3: Structure Recovery Engine**
+  - [x] Heading dictionary with aliases & canonical mapping (`headingDict.ts`)
+  - [x] Inline segmenter for flattened/run-on text with boundary confidence scoring (`inlineSegmenter.ts`)
+  - [x] Header parser: Name, headline, Indian/international phone regex, email, clean links, city (`headerParser.ts`)
+  - [x] Education parser: institution, degree, branch, dates, reverse chronological, `(Expected)` tag (`educationParser.ts`)
+  - [x] Skills parser: categorized rows (Programming, Web, Tools, Hardware/IoT, Databases, etc.), hidden skill detection from project bodies (`skillsParser.ts`)
+  - [x] Projects parser: name, tech-stack line, action bullets (`projectsParser.ts`)
+  - [x] Languages & Links parsers with Instagram/social offloading to leftOut (`languagesLinksParser.ts`)
+  - [x] Invariants I1 (Conservation), I2 (No invention), I3 (Determinism) enforced in `recoveryEngine.ts`
+  - [x] Synthetic fixtures: `flat-ece-fresher.ts` (Alex Kumar prompt 3.9) + 4 more synthetic fixtures with assertions (16/16 tests passing in `stage3-structure-recovery.test.ts`)
 
 - [ ] **Stage 4: Professional Composer & Page Renderer**
   - [ ] `ResumeDocModel` as single source of truth across preview, DOCX, and PDF
