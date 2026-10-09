@@ -52,11 +52,11 @@
   - [x] 6.3 Build 12-category Red-Team Fixture Library in `security/redteam/fixtures.json`.
   - [x] 6.4 Build automated red-team test suite `src/__tests__/security/ai-redteam.test.ts`.
   - [x] 6.5 Verify anti-gaming integrity, invariant enforcement, and Unicode normalization.
-- [ ] **Phase 7 — Privacy and Data Protection**
-  - [ ] 7.1 PII inventory across memory, localStorage, and exports.
-  - [ ] 7.2 Network egress audit: verify zero external telemetry during scan.
-  - [ ] 7.3 In-app privacy notice conforming to DPDP Act 2023 principles.
-  - [ ] 7.4 Third-party SDK / font privacy review.
+- [x] **Phase 7 — Privacy and Data Protection**
+  - [x] 7.1 PII inventory across memory, localStorage, and exports (`docs/security/PRIVACY_AUDIT.md`).
+  - [x] 7.2 Network egress audit: verified zero external telemetry or tracking scripts (`privacy-egress.test.ts`).
+  - [x] 7.3 In-app privacy notice conforming to DPDP Act 2023 principles (`PrivacyDisclaimer.tsx`).
+  - [x] 7.4 Third-party SDK / font privacy review (all fonts bundled locally, zero third-party CDNs).
 - [ ] **Phase 8 — Build and Deploy Hardening**
   - [ ] 8.1 Production build configuration: sourcemaps disabled in prod.
   - [ ] 8.2 Content-Security-Policy (CSP) build plugin for production.
