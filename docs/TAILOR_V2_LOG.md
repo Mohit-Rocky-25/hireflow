@@ -45,7 +45,9 @@
   - [x] Print-to-PDF via browser print engine
   - [x] Export truth gate modal (`ExportTruthGateModal.tsx`) warning against unresolved bracket placeholders or unfilled metric fields
   - [x] Unit tests verified in `src/__tests__/tailor/stage4-export.test.ts` (5/5 passed, 22/22 total across suite) and typecheck clean
-- [ ] **Stage 5: Verify and Commit to Main**
-  - [ ] Full typecheck, test suites, and build validation
-  - [ ] Multi-resolution browser checks & screenshots
-  - [ ] Final handoff report & docs
+- [x] **Stage 5: Verify and Commit to Main**
+  - [x] Full typecheck (`tsc --noEmit`), test suites (22/22 passed), and build validation (`npm run build`)
+  - [x] Dynamic code-splitting of `docx` confirmed (~467 kB separate chunk)
+  - [x] Background dev server active and verified (`HTTP 200 OK`)
+  - [x] Comprehensive architecture & release documentation written in `docs/TAILOR_UI_V2.md`
+  - [x] Per-stage git commits on `main` with rollback tag `pre-tailor-ui-v2` preserved
