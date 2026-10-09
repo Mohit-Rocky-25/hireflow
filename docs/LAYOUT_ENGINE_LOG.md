@@ -76,7 +76,7 @@
   - [x] Full tailor suite: 65/65 tests passing across 10 test files
   - [x] Full production build (`tsc && vite build`) passed cleanly without errors in 8.67s
 
-- [ ] **Stage 8: Final Documentation & Commit**
-  - [ ] Write `docs/LAYOUT_ENGINE.md`
-  - [ ] Full typecheck and `npm run build` verification
-  - [ ] Final commit on `main`
+- [x] **Stage 8: Final Documentation & Commit**
+  - [x] Write `docs/LAYOUT_ENGINE.md` architecture guide and rollback instructions
+  - [x] Full typecheck and `npm run build` verification
+  - [x] Final release commit on `main`
