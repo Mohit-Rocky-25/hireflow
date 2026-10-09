@@ -23,6 +23,14 @@ export function cleanText(text: string): string {
   return cleaned.trim();
 }
 
+/**
+ * Shared pluralize helper (B7)
+ */
+export function pluralize(count: number, singular: string, plural?: string): string {
+  if (count === 1) return `1 ${singular}`;
+  return `${count} ${plural || singular + 's'}`;
+}
+
 export function parseResumeOverview(text: string): ParsedResume {
   const cleaned = cleanText(text);
   const lines = cleaned.split('\n');
@@ -49,7 +57,7 @@ export function parseResumeOverview(text: string): ParsedResume {
     if (trimmed.startsWith('-')) {
       bulletCount++;
       // Detect metrics (numbers, %, $, time, scale)
-      if (/(?:\d+%|\$\d+|\d+[kKmMbB]|\d+\s*(?:users|requests|req\/s|gb|tb|ms|seconds|minutes|hours|days|months|years|cr))/i.test(trimmed)) {
+      if (/(?:\d+%|\$\d+|\d+[kKmMbB]|\b\d+\s*(?:users|requests|req\/s|gb|tb|ms|seconds|minutes|hours|days|months|years|cr)\b|\b\d{2,}\b)/i.test(trimmed)) {
         metricsFound++;
       }
     }
@@ -61,6 +69,10 @@ export function parseResumeOverview(text: string): ParsedResume {
     metricsFound
   };
 }
+
+const NICE_TO_HAVE_LINE_REGEX = /\b(?:strong plus|a plus|bonus|preferred|good to have|nice to have|desirable)\b/i;
+const MUST_HAVE_HEADER_REGEX = /\b(?:requirements|qualifications|must[\s-]have|what you need|what you'?ll need|technical requirements|core skills|mandatory)\b/i;
+const NICE_TO_HAVE_HEADER_REGEX = /\b(?:nice[\s-]to[\s-]have|bonus|preferred|good to have|plus|desirable)\b/i;
 
 export function parseJDOverview(text: string): ParsedJD {
   const cleaned = cleanText(text);
@@ -92,21 +104,29 @@ export function parseJDOverview(text: string): ParsedJD {
       company = trimmed.split(':')[1].trim();
       return;
     }
-    
-    if (lower.includes('nice to have') || lower.includes('bonus') || lower.includes('strong plus') || lower.includes('preferred')) {
-      currentSection = 'niceToHaves';
-    } else if (lower.includes('requirements') || lower.includes('qualifications') || lower.includes('must have') || lower.includes('what you need')) {
-      currentSection = 'mustHaves';
-    } else if (lower.includes('responsibilities') || lower.includes('what you will do')) {
-      currentSection = 'responsibilities';
-    } else if (trimmed.startsWith('-')) {
-      const cleanBullet = trimmed.substring(1).trim();
-      if (currentSection === 'niceToHaves' || lower.includes('strong plus') || lower.includes('preferred')) {
+
+    const isBullet = trimmed.startsWith('-') || trimmed.startsWith('•') || trimmed.startsWith('*');
+
+    if (isBullet) {
+      const cleanBullet = trimmed.replace(/^[-•*]\s*/, '').trim();
+      if (!cleanBullet) return;
+
+      // Bug B6: lines with "strong plus", "a plus", "bonus", "preferred", etc. are nice-to-haves
+      if (NICE_TO_HAVE_LINE_REGEX.test(cleanBullet) || currentSection === 'niceToHaves') {
         niceToHaves.push(cleanBullet);
       } else if (currentSection === 'mustHaves') {
         mustHaves.push(cleanBullet);
       } else {
         responsibilities.push(cleanBullet);
+      }
+    } else {
+      // Non-bullet section header detection
+      if (NICE_TO_HAVE_HEADER_REGEX.test(lower)) {
+        currentSection = 'niceToHaves';
+      } else if (MUST_HAVE_HEADER_REGEX.test(lower)) {
+        currentSection = 'mustHaves';
+      } else if (lower.includes('responsibilities') || lower.includes('what you will do')) {
+        currentSection = 'responsibilities';
       }
     }
   });

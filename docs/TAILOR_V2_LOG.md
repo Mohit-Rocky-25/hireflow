@@ -15,12 +15,14 @@
   - [x] Fixture creation (`src/__tests__/tailor/fixtures/`)
   - [x] Single cohesive header (~64px, Back + Home left with 44px targets, breadcrumb center, TruthCheck right, 0 overlap)
   - [x] Multi-resolution verification (1440, 1024, 768, 390) passing in `header-overlap.test.ts`
-- [ ] **Stage 2: Page Layout, Inputs, Match Panel**
-  - [ ] Hero & Numbered inputs (1 Your resume, 2 Target job)
-  - [ ] Status chips with `pluralize` helper (B7)
-  - [ ] Quick Load searchable select
-  - [ ] JD parser Nice-to-haves detection (B6)
-  - [ ] Deterministic per-bullet strength score (0-100 rubric) & Resume quality summary
+- [x] **Stage 2: Page Layout, Inputs, Match Panel**
+  - [x] Hero & Numbered inputs (1 Your resume, 2 Target job)
+  - [x] Status chips with `pluralize` helper (B7)
+  - [x] Quick Load searchable select with company/role presets
+  - [x] JD parser Nice-to-haves detection (B6)
+  - [x] Deterministic per-bullet strength score (0-100 rubric) & Resume quality summary
+  - [x] MatchPanel with Base vs After match gauges, delta chips, solid matched vs outlined missing chips, and quality breakdown
+  - [x] Tests verified in `src/__tests__/tailor/stage2-layout-parser.test.ts` (4/4 passed) and typecheck clean
 - [ ] **Stage 3: Review Experience + Engine Fixes**
   - [ ] Sticky 44px tab bar with live counts & muted empty states
   - [ ] Review progress bar & word-level diff cards

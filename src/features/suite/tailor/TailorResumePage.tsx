@@ -27,6 +27,7 @@ import {
   ChevronDown,
   Check,
   CheckCheck,
+  AlertCircle,
 } from 'lucide-react';
 import { tailorResume, TailorResult, TailorSuggestion, SuggestionType } from './tailorResume';
 import { useProfile } from '../profile/ProfileContext';
@@ -34,6 +35,9 @@ import { SuiteStorage } from '../profile/storage';
 import { ResumeVersion } from '../profile/types';
 import { COMPANIES } from '../../../pages/demo/talentLensData';
 import { InputBox } from './components/InputBox';
+import { QuickLoadSelect } from './components/QuickLoadSelect';
+import { MatchPanel } from './components/MatchPanel';
+import { calculateResumeQuality } from '../../../lib/tailorEngine/strength';
 
 const DEFAULT_RESUME = `Arjun Mehta | arjun@example.com | Full Stack Developer
 SUMMARY: Software engineer with 3 years building web platforms using React, Node.js, TypeScript, and PostgreSQL.
@@ -230,38 +234,44 @@ Requirements:
     setTimeout(() => setSavedSuccess(false), 3000);
   };
 
+  // Quality calculations for Resume Quality summary (average strength, metrics, repeated verbs)
+  const beforeQuality = useMemo(() => calculateResumeQuality(resumeText, jdText), [resumeText, jdText]);
+  const afterQuality = useMemo(() => calculateResumeQuality(liveTailoredResume, jdText), [liveTailoredResume, jdText]);
+
   return (
     <div className="min-h-screen bg-bg text-text pb-16">
       {/* Unified 64px Header */}
       <TailorHeader h1Visible={h1Visible} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-8">
-        {/* Title */}
-        <div className="mb-6">
+        {/* Hero Section */}
+        <div className="mb-8 max-w-3xl">
           <h1
             ref={h1Ref}
-            className="text-2xl sm:text-3xl font-extrabold text-text tracking-tight flex items-center gap-2.5"
+            className="text-3xl sm:text-4xl lg:text-5xl font-black text-text tracking-tight flex items-center gap-3"
           >
-            <Sparkles className="w-7 h-7 text-primary" />
+            <Sparkles className="w-8 h-8 text-primary shrink-0" />
             Tailor My Resume
           </h1>
-          <p className="text-sm text-text-secondary mt-1">
-            Deterministic bullet-level alignment for your target job description. Reorders high-impact bullets, aligns technical terminology, and injects bracketed metric placeholders — with zero hallucinations.
+          <p className="text-base sm:text-lg text-text-secondary mt-3 leading-relaxed font-medium">
+            Match your resume to one job. Every change is yours to accept, and nothing is invented.
           </p>
         </div>
 
         {/* Two-Column Input Panel */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
           {/* Left: Base Resume */}
           <InputBox
-            label="Your Base Resume"
-            icon={<FileText className="w-4 h-4 text-primary" />}
+            stepNumber={1}
+            label="Your resume"
+            icon={<FileText className="w-5 h-5 text-primary" />}
             text={resumeText}
             setText={setResumeText}
             placeholder="Paste your base resume text here..."
             extraHeader={
               profile ? (
                 <button
+                  type="button"
                   onClick={() => setResumeText(profile.masterResumeText)}
                   className="text-xs text-primary hover:underline font-semibold"
                 >
@@ -273,92 +283,57 @@ Requirements:
 
           {/* Right: Target JD */}
           <InputBox
-            label="Target Job Description"
-            icon={<Building2 className="w-4 h-4 text-primary" />}
+            stepNumber={2}
+            label="Target job"
+            icon={<Building2 className="w-5 h-5 text-primary" />}
             text={jdText}
             setText={setJdText}
-            placeholder="Paste job description here..."
+            placeholder="Paste target job description here..."
             isJD
             extraHeader={
-              <div className="flex items-center gap-1.5">
-                <span className="text-[10px] text-text-muted">Quick Load:</span>
-                <select
-                  value={selectedCompanyId}
-                  onChange={(e) => handleQuickLoadCompany(e.target.value)}
-                  className="bg-surface-2 border border-border rounded-lg px-2 py-1 text-xs text-text focus:outline-none focus:border-primary max-w-[200px]"
-                >
-                  <option value="">Select target company...</option>
-                  {COMPANIES.slice(0, 15).map((c) => (
-                    <option key={c.id} value={c.id}>
-                      {c.name} ({c.roles[0]?.title})
-                    </option>
-                  ))}
-                </select>
-              </div>
+              <QuickLoadSelect
+                selectedCompanyId={selectedCompanyId}
+                onSelect={handleQuickLoadCompany}
+              />
             }
           />
         </div>
         
-        {/* Run Tailor Button */}
-        <div className="flex justify-end mb-8">
+        {/* Tailor Resume Action Button (52px minimum, bold, states with reason) */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-10 pb-6 border-b border-border">
+          <div className="text-xs text-text-muted">
+            {(!resumeText.trim() || !jdText.trim()) ? (
+              <span className="flex items-center gap-1.5 text-amber-500 font-medium">
+                <AlertCircle className="w-4 h-4" />
+                Paste your resume and target job description to begin tailoring.
+              </span>
+            ) : (
+              <span className="text-emerald-500 font-medium flex items-center gap-1.5">
+                <CheckCircle2 className="w-4 h-4" />
+                Ready to analyze and tailor against requirements.
+              </span>
+            )}
+          </div>
+
           <button
             onClick={handleRunTailor}
             disabled={isTailoring || !resumeText.trim() || !jdText.trim()}
-            className="px-6 py-3 rounded-xl bg-primary text-white text-sm font-bold hover:bg-primary/90 disabled:opacity-50 transition-colors cursor-pointer shadow-md inline-flex items-center gap-2"
+            className="h-[52px] min-h-[52px] px-8 rounded-xl bg-primary text-white text-base font-bold hover:bg-primary/90 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed transition-all cursor-pointer shadow-md inline-flex items-center justify-center gap-2.5 focus-visible:ring-4 focus-visible:ring-primary/20 outline-none"
           >
-            {isTailoring ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4" />}
-            {isTailoring ? 'Analyzing...' : 'Tailor Resume'}
+            {isTailoring ? <RefreshCw className="w-5 h-5 animate-spin" /> : <Sparkles className="w-5 h-5" />}
+            <span>{isTailoring ? 'Analyzing Alignment...' : 'Tailor Resume'}</span>
           </button>
         </div>
 
                 {/* RESULTS SECTION */}
         {result && (
           <div className="space-y-8 animate-fade-in">
-            {/* Score & Summary Banner */}
-            <div className="bg-surface border border-border rounded-2xl p-6 shadow-xs">
-              <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-6">
-                <div>
-                  <div className="text-xs font-bold text-text-muted uppercase tracking-wider mb-1">
-                    ATS Alignment Simulation for {result.targetRoleTitle}
-                  </div>
-                  <h3 className="text-xl font-extrabold text-text">
-                    Projected Match: {result.projectedScoreAfter}% (Base: {result.scoreBefore}%)
-                  </h3>
-                  <div className="mt-2 text-sm text-text-secondary max-w-xl">
-                    <p>✓ Must-haves matched: {result.mustHavesMatched.length} of {result.mustHavesMatched.length + result.mustHavesMissing.length}</p>
-                    <p>✓ Nice-to-haves matched: {result.niceToHavesMatched.length} of {result.niceToHavesMatched.length + result.niceToHavesMissing.length}</p>
-                    {result.unaskedSkills.length > 0 && <p className="text-xs text-text-muted mt-1">Note: You have {result.unaskedSkills.length} skills that the JD didn't explicitly ask for.</p>}
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-4 flex-wrap">
-                  <div className="p-3 rounded-xl bg-surface-2 border border-border text-center min-w-[100px]">
-                    <div className="text-lg font-extrabold text-text">{result.scoreBefore}%</div>
-                    <div className="text-[10px] text-text-muted uppercase font-bold">Base Match</div>
-                  </div>
-                  <div className="text-primary font-extrabold text-lg">→</div>
-                  <div className="p-3 rounded-xl bg-primary/10 border border-primary/20 text-center min-w-[100px]">
-                    <div className="text-lg font-extrabold text-primary">{result.projectedScoreAfter}%</div>
-                    <div className="text-[10px] text-primary uppercase font-bold">Projected</div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Action Buttons */}
-              <div className="flex items-center justify-between flex-wrap gap-4 border-t border-border pt-4">
-                <div className="flex items-center gap-3">
-                  <button onClick={handleDownloadMarkdown} className="px-4 py-2 bg-surface-2 hover:bg-surface-3 rounded-xl text-xs font-bold transition-colors border border-border flex items-center gap-2">
-                    <Download className="w-3.5 h-3.5" /> Download (.txt / .md)
-                  </button>
-                  <button onClick={handleCopy} className="px-4 py-2 bg-surface-2 hover:bg-surface-3 rounded-xl text-xs font-bold transition-colors border border-border flex items-center gap-2">
-                    {copied ? <Check className="w-3.5 h-3.5 text-success" /> : <Copy className="w-3.5 h-3.5" />} {copied ? 'Copied!' : 'Copy'}
-                  </button>
-                  <button onClick={handleSaveToProfile} className="px-4 py-2 bg-primary/10 text-primary hover:bg-primary/20 rounded-xl text-xs font-bold transition-colors border border-primary/20 flex items-center gap-2">
-                    {savedSuccess ? <CheckCheck className="w-3.5 h-3.5" /> : <Bookmark className="w-3.5 h-3.5" />} Save Version
-                  </button>
-                </div>
-              </div>
-            </div>
+            {/* Match Panel with Gauges, Chips & Quality Summary */}
+            <MatchPanel
+              result={result}
+              beforeQuality={beforeQuality}
+              afterQuality={afterQuality}
+            />
 
             {/* Filter Tabs & Bulk Actions */}
             <div className="flex items-center justify-between flex-wrap gap-4 border-b border-border pb-3">
