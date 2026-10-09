@@ -41,11 +41,11 @@
   - [x] 4.6 Browser storage audit: removed plaintext password storage, added salted SHA-256 hash and legacy purge in `useStore.ts`.
   - [x] 4.7 Information leakage: debug drawer gating, console PII logging.
   - [x] 4.8 Clickjacking / framing defenses.
-- [ ] **Phase 5 — Authentication, Roles and Access Control**
-  - [ ] 5.1 Document auth architecture (client-side demo state vs production).
-  - [ ] 5.2 Document AR-1 (Client-Side Demo Auth boundary limitation).
-  - [ ] 5.3 Route guard verification and session clearing on logout.
-  - [ ] 5.4 Regression tests for route protection and access control.
+- [x] **Phase 5 — Authentication, Roles and Access Control**
+  - [x] 5.1 Document auth architecture (`docs/security/AUTH_MODEL.md`).
+  - [x] 5.2 Document AR-1 (Client-Side Demo Auth boundary limitation).
+  - [x] 5.3 Route guard verification and session clearing on logout.
+  - [x] 5.4 Regression tests for route protection and access control (`src/__tests__/security/auth-guards.test.ts`).
 - [ ] **Phase 6 — AI Security: Prompt Injection, Model Abuse, Data Leakage**
   - [ ] 6.1 Attack surface definition (Dev server Gemini proxy + Deterministic Engine).
   - [ ] 6.2 Proxy key security, strict schema enforcement, and output sanitization.
