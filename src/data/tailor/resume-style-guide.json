@@ -1,0 +1,251 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "version": "2.0.0",
+  "updatedAt": "2026-10-09",
+  "meta": {
+    "title": "Hireflow Resume Style Guide",
+    "description": "Distilled deterministic layout, section ordering, and content rules for technical resumes across entry-level and experienced roles.",
+    "sources": [
+      {
+        "name": "Harvard Office of Career Services (OCS) Resume Guide",
+        "url": "https://careerservices.fas.harvard.edu/resources/bullet-point-resume-template/",
+        "dateRead": "2026-10-09",
+        "keyContribution": "Single-page constraint, reverse-chronological format, action-verb first bullet construction"
+      },
+      {
+        "name": "MIT CAPD Career Handbook — Technical Resumes",
+        "url": "https://capd.mit.edu/resources/resume-handbook/",
+        "dateRead": "2026-10-09",
+        "keyContribution": "Technical skills categorization, quantifiable project outcomes, removal of objective statements in favor of technical summaries"
+      },
+      {
+        "name": "Overleaf Gallery — Jake's Resume LaTeX Template",
+        "url": "https://www.overleaf.com/latex/templates/jakes-resume/syzfjbzwjncs",
+        "dateRead": "2026-10-09",
+        "keyContribution": "Standard single-column engineering hierarchy, horizontal divider rules, right-aligned dates, clean category rows for skills"
+      },
+      {
+        "name": "Naukri Campus & Engineering Placement Cell Guidelines (IIT/NIT/VIT)",
+        "url": "https://www.naukri.com/campus/career-guidance/fresher-resume-format",
+        "dateRead": "2026-10-09",
+        "keyContribution": "Education-first layout for campus freshers, branch/degree standardization (B.Tech in ECE/CSE), CGPA/percentage formatting, expected graduation dates"
+      },
+      {
+        "name": "Indeed Career Guide — Software Engineer Resume Samples",
+        "url": "https://www.indeed.com/career-advice/resume-samples/information-technology/software-engineer",
+        "dateRead": "2026-10-09",
+        "keyContribution": "ATS parser readability, elimination of multi-column tables, photos, and declaration paragraphs"
+      }
+    ]
+  },
+  "pageConstraints": {
+    "pageSize": "A4",
+    "targetPages": 1,
+    "maxYearsForOnePage": 6,
+    "margins": {
+      "topInches": 0.6,
+      "bottomInches": 0.6,
+      "leftInches": 0.65,
+      "rightInches": 0.65
+    },
+    "typography": {
+      "namePt": 22,
+      "headlinePt": 11,
+      "sectionHeaderPt": 11.5,
+      "subheadingPt": 10.5,
+      "bodyPt": 10,
+      "minBodyPt": 9.5,
+      "lineHeight": 1.35
+    },
+    "sectionSpacingPt": 9,
+    "dividerRule": "0.75pt solid #374151"
+  },
+  "canonicalSections": {
+    "summary": {
+      "canonicalTitle": "Professional Summary",
+      "aliases": [
+        "summary",
+        "profile",
+        "professional summary",
+        "career objective",
+        "objective",
+        "about me"
+      ],
+      "maxLines": 3,
+      "requiredForStudents": false
+    },
+    "education": {
+      "canonicalTitle": "Education",
+      "aliases": [
+        "education",
+        "academics",
+        "academic background",
+        "qualifications",
+        "educational qualifications"
+      ],
+      "required": true,
+      "orderStrategy": "reverse-chronological"
+    },
+    "skills": {
+      "canonicalTitle": "Technical Skills",
+      "aliases": [
+        "skills",
+        "technical skills",
+        "areas of expertise",
+        "core competencies",
+        "technologies",
+        "tech stack",
+        "tools & technologies",
+        "technical proficiency"
+      ],
+      "required": true,
+      "categories": [
+        "Programming Languages",
+        "Web & Frameworks",
+        "Tools & Platforms",
+        "Databases & Cloud",
+        "Hardware & IoT",
+        "Core Concepts"
+      ]
+    },
+    "projects": {
+      "canonicalTitle": "Projects",
+      "aliases": [
+        "projects",
+        "key projects",
+        "technical projects",
+        "academic projects",
+        "personal projects"
+      ],
+      "required": true,
+      "maxBulletsPerProject": 3,
+      "minBulletsPerProject": 2
+    },
+    "experience": {
+      "canonicalTitle": "Experience",
+      "aliases": [
+        "experience",
+        "work experience",
+        "internships",
+        "internship experience",
+        "industrial training",
+        "employment history",
+        "professional experience"
+      ],
+      "required": false
+    },
+    "certifications": {
+      "canonicalTitle": "Certifications",
+      "aliases": [
+        "certifications",
+        "certificates",
+        "courses",
+        "licenses & certifications"
+      ]
+    },
+    "achievements": {
+      "canonicalTitle": "Achievements",
+      "aliases": [
+        "achievements",
+        "awards",
+        "honours",
+        "extracurricular activities",
+        "positions of responsibility",
+        "academic achievements"
+      ]
+    },
+    "languages": {
+      "canonicalTitle": "Languages",
+      "aliases": [
+        "languages",
+        "languages known"
+      ]
+    },
+    "links": {
+      "canonicalTitle": "Links",
+      "aliases": [
+        "links",
+        "social presence",
+        "profiles",
+        "portfolio",
+        "online presence"
+      ]
+    }
+  },
+  "layoutPresets": {
+    "fresher": {
+      "name": "Fresher / Campus Placement",
+      "description": "Education-first structure designed for engineering students and recent graduates.",
+      "sectionOrder": [
+        "header",
+        "summary",
+        "education",
+        "skills",
+        "projects",
+        "experience",
+        "certifications",
+        "achievements",
+        "languages",
+        "links"
+      ]
+    },
+    "skillsFirst": {
+      "name": "Skills-First / Project Focused",
+      "description": "Highlights practical tech stack upfront for project-heavy candidates.",
+      "sectionOrder": [
+        "header",
+        "summary",
+        "skills",
+        "projects",
+        "experience",
+        "education",
+        "certifications",
+        "achievements",
+        "languages",
+        "links"
+      ]
+    },
+    "professional": {
+      "name": "Professional / Experienced",
+      "description": "Experience-first structure prioritizing demonstrated production engineering.",
+      "sectionOrder": [
+        "header",
+        "summary",
+        "skills",
+        "experience",
+        "projects",
+        "education",
+        "certifications",
+        "languages",
+        "links"
+      ]
+    }
+  },
+  "paddingOmissionRules": [
+    {
+      "pattern": "declaration",
+      "reason": "Outdated formal declarations ('I hereby declare that...') waste valuable page space in modern tech resumes.",
+      "destination": "leftOut"
+    },
+    {
+      "pattern": "hobbies",
+      "reason": "Personal hobbies (reading books, listening to music) add zero signal to engineering evaluations.",
+      "destination": "leftOut"
+    },
+    {
+      "pattern": "fullAddress",
+      "reason": "Detailed postal address / pin code is a privacy risk and unnecessary; city and state/country suffice.",
+      "destination": "leftOut"
+    },
+    {
+      "pattern": "nonProfessionalSocial",
+      "reason": "Personal social handles (Instagram, Snapchat, Facebook) are excluded from professional technical applications.",
+      "destination": "leftOut"
+    },
+    {
+      "pattern": "photo",
+      "reason": "Photos cause ATS parsing errors and introduce unconscious bias in international hiring.",
+      "destination": "leftOut"
+    }
+  ]
+}
