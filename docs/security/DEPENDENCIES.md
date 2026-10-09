@@ -1,6 +1,6 @@
 # HIREFLOW AI — DEPENDENCY SECURITY AUDIT REPORT
 
-**Audit Date**: 2026-10-08  
+**Audit Date**: 2026-10-09  
 **Tool**: `npm audit`  
 **Lockfile Version**: 3 (`package-lock.json`)  
 
