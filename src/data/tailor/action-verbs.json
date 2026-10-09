@@ -1,0 +1,103 @@
+{
+  "categories": {
+    "build": {
+      "name": "Build & Create",
+      "intent": "Creation of systems, features, or architecture from scratch",
+      "verbs": [
+        "engineered",
+        "architected",
+        "developed",
+        "constructed",
+        "implemented",
+        "designed",
+        "crafted",
+        "synthesized",
+        "deployed"
+      ]
+    },
+    "improve": {
+      "name": "Optimize & Enhance",
+      "intent": "Enhancing performance, efficiency, speed, or reliability",
+      "verbs": [
+        "optimized",
+        "streamlined",
+        "accelerated",
+        "refined",
+        "enhanced",
+        "upgraded",
+        "consolidated",
+        "maximized"
+      ]
+    },
+    "analyze": {
+      "name": "Analyze & Investigate",
+      "intent": "Diagnostics, benchmarking, data evaluation, and root-cause analysis",
+      "verbs": [
+        "evaluated",
+        "audited",
+        "benchmarked",
+        "profiled",
+        "diagnosed",
+        "formulated",
+        "investigated",
+        "quantified"
+      ]
+    },
+    "collaborate_lead": {
+      "name": "Collaborate & Lead",
+      "intent": "Team leadership, cross-functional ownership, and mentoring",
+      "verbs": [
+        "spearheaded",
+        "orchestrated",
+        "mentored",
+        "facilitated",
+        "coordinated",
+        "directed",
+        "guided",
+        "championed"
+      ]
+    },
+    "test_quality": {
+      "name": "Test & Quality Assurance",
+      "intent": "Validation, test coverage, automated test pipelines, and QA",
+      "verbs": [
+        "validated",
+        "verified",
+        "debugged",
+        "fortified",
+        "automated",
+        "instrumented",
+        "standardized",
+        "audited"
+      ]
+    },
+    "embedded_iot": {
+      "name": "Hardware & Embedded IoT",
+      "intent": "Firmware programming, microcontrollers, sensor integration, and calibration",
+      "verbs": [
+        "interfaced",
+        "configured",
+        "calibrated",
+        "flashed",
+        "programmed",
+        "integrated",
+        "wired",
+        "prototyped"
+      ]
+    },
+    "data": {
+      "name": "Data Engineering & Pipelines",
+      "intent": "Data modeling, ingestion, transformations, ETL, and indexing",
+      "verbs": [
+        "modeled",
+        "ingested",
+        "indexed",
+        "queried",
+        "transformed",
+        "pipelined",
+        "partitioned",
+        "cleansed"
+      ]
+    }
+  }
+}

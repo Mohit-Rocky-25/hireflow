@@ -54,11 +54,12 @@
   - [x] DOCX export updated with dynamic section ordering and categorized skills
   - [x] Unit tests verified in `src/__tests__/tailor/stage4-composer-renderer.test.ts` (6/6 passed, 49/49 total suite)
 
-- [ ] **Stage 5: Action Word Engine & JD Tailoring**
-  - [ ] 4-slot bullet formula chips: Action ✓/✗, Object ✓/✗, Tool ✓/✗, Result ✓/✗
-  - [ ] Verb ladder data in `src/data/tailor/action-verbs.json` (8-10 verbs per intent category)
-  - [ ] Edit sequence S1–S5 with light-touch budget (≤ 35% words changed per bullet)
-  - [ ] JD seniority mismatch advisory note
+- [x] **Stage 5: Action Word Engine & JD Tailoring**
+  - [x] 4-slot bullet formula chips: Action ✓/✗, Object ✓/✗, Tool ✓/✗, Result ✓/✗ integrated into `SuggestionCard.tsx`
+  - [x] Verb ladder data in `src/data/tailor/action-verbs.json` (7 categories with 8-10 verbs each, 61 total verbs)
+  - [x] Edit sequence S1–S5 with light-touch budget (≤ 35% words changed per bullet, LCS word diff in `actionWordEngine.ts`)
+  - [x] JD seniority mismatch advisory note (`checkSeniorityMismatch`) rendered dynamically in `TailorResumePage.tsx`
+  - [x] Unit tests verified in `src/__tests__/tailor/stage5-action-word-engine.test.ts` (7/7 passed, 56/56 total suite)
 
 - [ ] **Stage 6: Change Transparency UI**
   - [ ] Two-group change split: "Layout repairs" (auto-applied, undoable) vs. "Content edits" (needs review)

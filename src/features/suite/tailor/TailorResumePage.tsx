@@ -31,6 +31,7 @@ import { calculateResumeQuality } from '../../../lib/tailorEngine/strength';
 import { applyGrammarGate } from '../../../lib/tailorEngine/grammar';
 import { parseResumeDocModel, findUnresolvedPlaceholders, ResumePreset } from '../../../lib/tailorEngine/docModel';
 import { generateDocxBlob, downloadBlob } from '../../../lib/tailorEngine/docxExport';
+import { checkSeniorityMismatch } from '../../../lib/tailorEngine/actionWordEngine';
 import { PaperPreview, ResumeTemplateId } from './components/PaperPreview';
 import { StrengthenChecklist } from './components/StrengthenChecklist';
 import { ExportToolbar } from './components/ExportToolbar';
@@ -209,6 +210,10 @@ Requirements:
   const pendingContextCount = useMemo(() => {
     return Object.values(suggestionStatus).filter((s) => s === 'needs_input').length;
   }, [suggestionStatus]);
+
+  const seniorityCheck = useMemo(() => {
+    return checkSeniorityMismatch(resumeText, jdText);
+  }, [resumeText, jdText]);
 
   // Tab counts
   const tabCounts = useMemo(() => {
@@ -501,6 +506,17 @@ Requirements:
               beforeQuality={beforeQuality}
               afterQuality={afterQuality}
             />
+
+            {/* Seniority Fit Advisory */}
+            {seniorityCheck.isMismatch && (
+              <div className="p-4 bg-amber-950/25 border border-amber-800/40 rounded-xl text-xs text-amber-200 flex items-start gap-3">
+                <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                <div className="space-y-1">
+                  <div className="font-semibold text-amber-300">Seniority Fit Advisory</div>
+                  <p className="text-zinc-300 leading-relaxed">{seniorityCheck.advisoryNote}</p>
+                </div>
+              </div>
+            )}
 
             {/* Stage 3 Sticky Tab Bar */}
             <ReviewTabBar

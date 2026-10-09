@@ -14,6 +14,7 @@ import {
 import { TailorSuggestion } from '../../../../lib/tailorEngine/engine';
 import { WordDiffViewer } from './WordDiffViewer';
 import { applyGrammarGate } from '../../../../lib/tailorEngine/grammar';
+import { evaluateBulletFormula, calculateWordDiffBudget } from '../../../../lib/tailorEngine/actionWordEngine';
 
 export type CardStatus = 'pending' | 'accepted' | 'rejected' | 'needs_input';
 
@@ -128,6 +129,60 @@ export const SuggestionCard: React.FC<SuggestionCardProps> = ({
               {suggestion.type === 'rephrase' ? 'Word-Level Revision Diff' : 'Bullet Preview'}
             </div>
             <WordDiffViewer original={suggestion.originalText} proposed={currentText} />
+
+            {/* 4-Slot Bullet Formula & Word Budget Chips */}
+            <div className="flex flex-wrap items-center justify-between gap-2 pt-1 pb-0.5">
+              <div className="flex items-center gap-1.5 flex-wrap">
+                <span className="text-[10px] text-zinc-500 font-semibold tracking-wider uppercase">Formula:</span>
+                <span
+                  className={`text-[10px] px-1.5 py-0.5 rounded border font-medium ${
+                    evaluateBulletFormula(currentText).action
+                      ? 'bg-emerald-950/60 border-emerald-800/60 text-emerald-300'
+                      : 'bg-zinc-800/80 border-zinc-700 text-zinc-500'
+                  }`}
+                  title={evaluateBulletFormula(currentText).action ? 'Starts with active action verb' : 'Missing strong action verb'}
+                >
+                  Action {evaluateBulletFormula(currentText).action ? '✓' : '✗'}
+                </span>
+                <span
+                  className={`text-[10px] px-1.5 py-0.5 rounded border font-medium ${
+                    evaluateBulletFormula(currentText).object
+                      ? 'bg-emerald-950/60 border-emerald-800/60 text-emerald-300'
+                      : 'bg-zinc-800/80 border-zinc-700 text-zinc-500'
+                  }`}
+                  title={evaluateBulletFormula(currentText).object ? 'Mentions target system or feature' : 'Missing clear object/scope'}
+                >
+                  Object {evaluateBulletFormula(currentText).object ? '✓' : '✗'}
+                </span>
+                <span
+                  className={`text-[10px] px-1.5 py-0.5 rounded border font-medium ${
+                    evaluateBulletFormula(currentText).tool
+                      ? 'bg-emerald-950/60 border-emerald-800/60 text-emerald-300'
+                      : 'bg-zinc-800/80 border-zinc-700 text-zinc-500'
+                  }`}
+                  title={evaluateBulletFormula(currentText).tool ? 'Highlights key technical tooling' : 'Missing technical tools'}
+                >
+                  Tool {evaluateBulletFormula(currentText).tool ? '✓' : '✗'}
+                </span>
+                <span
+                  className={`text-[10px] px-1.5 py-0.5 rounded border font-medium ${
+                    evaluateBulletFormula(currentText).result
+                      ? 'bg-emerald-950/60 border-emerald-800/60 text-emerald-300'
+                      : 'bg-zinc-800/80 border-zinc-700 text-zinc-500'
+                  }`}
+                  title={evaluateBulletFormula(currentText).result ? 'Includes measurable metric or outcome' : 'No metric or quantifiable outcome'}
+                >
+                  Result {evaluateBulletFormula(currentText).result ? '✓' : '✗'}
+                </span>
+              </div>
+
+              <div className="text-[10px] text-zinc-400 font-medium">
+                Changed <span className="text-zinc-200">{calculateWordDiffBudget(suggestion.originalText, currentText).wordsChanged}</span> of {calculateWordDiffBudget(suggestion.originalText, currentText).totalWords} words ({Math.round(calculateWordDiffBudget(suggestion.originalText, currentText).percentChanged * 100)}%)
+                {calculateWordDiffBudget(suggestion.originalText, currentText).withinBudget && (
+                  <span className="ml-1 text-emerald-400 font-semibold">• Light-touch</span>
+                )}
+              </div>
+            </div>
           </div>
         )}
 
