@@ -1,10 +1,26 @@
 import { parseResumeOverview, parseJDOverview, ParsedResume, ParsedJD, cleanText } from './parser';
+import {
+  detectSpellingConvention,
+  convertGerundToPastTense,
+  matchWeakOpener,
+  getDeduplicatedVerb,
+  SpellingConvention
+} from './verbs';
+import { applyGrammarGate } from './grammar';
 
-export type SuggestionType = 'reorder' | 'rephrase' | 'add_context' | 'highlight';
+export type SuggestionType = 'rephrase' | 'skills' | 'add_context' | 'reorder' | 'highlight';
 
 export interface TruthCheckResult {
   passed: boolean;
   reason?: string;
+}
+
+export interface SuggestionOption {
+  label: string;
+  text: string;
+  badge?: 'facts' | 'ownership';
+  verb?: string;
+  note?: string;
 }
 
 export interface TailorSuggestion {
@@ -13,8 +29,15 @@ export interface TailorSuggestion {
   section: string;
   originalText: string;
   proposedText: string;
+  options?: SuggestionOption[];
+  chosenOptionIndex?: number;
+  appliedVerb?: string;
   rationale: string;
   truthCheck: TruthCheckResult;
+  needsContext?: boolean;
+  contextPrompt?: string;
+  contextValue?: string;
+  contextTapChips?: string[];
 }
 
 export interface TailorResult {
@@ -31,7 +54,7 @@ export interface TailorResult {
   resumeText: string; // original
 }
 
-const SYNONYMS: Record<string, string[]> = {
+export const SYNONYMS: Record<string, string[]> = {
   'node': ['node.js', 'nodejs'],
   'postgres': ['postgresql', 'psql'],
   'js': ['javascript'],
@@ -53,8 +76,11 @@ const SYNONYMS: Record<string, string[]> = {
   'microservices': ['micro-services', 'distributed systems']
 };
 
-const ACTION_VERBS = ['built', 'designed', 'optimised', 'optimized', 'deployed', 'implemented', 'created', 'developed', 'led', 'managed', 'architected', 'tested'];
-const WEAK_OPENERS = ['responsible for', 'helped with', 'worked on', 'involved in', 'assisted in', 'handled', 'was responsible for'];
+export const ACTION_VERBS = [
+  'built', 'designed', 'optimised', 'optimized', 'deployed', 'implemented', 'created',
+  'developed', 'led', 'managed', 'architected', 'tested', 'engineered', 'spearheaded',
+  'automated', 'authored', 'scaled', 'refactored', 'streamlined', 'delivered'
+];
 
 // Extract numbers from text for TruthCheck
 export function extractNumbers(text: string): string[] {
@@ -87,10 +113,6 @@ export function performTruthCheck(originalResume: string, proposedText: string):
     }
   }
 
-  // Check skills fabrication (simplified: checking if new words that are not common english words exist in original)
-  // For strict truth check, we just ensure no completely fabricated technical terms or companies appear.
-  // We'll rely on the engine not to hallucinate, and the user editing.
-  
   return { passed: true };
 }
 
@@ -105,18 +127,23 @@ export function calculateBulletRelevance(bullet: string, jdText: string): number
     }
   });
 
-  const hasMetric = /(?:\d+%|\$\d+|\d+[kKmMbB]|\d+\s*(?:users|requests|req\/s|gb|tb|ms|seconds|minutes|hours|days|months|years|cr))/i.test(bLower);
+  const hasMetric = /(?:\d+%|\$\d+|\d+[kKmMbB]|\b\d+\s*(?:users|requests|req\/s|gb|tb|ms|seconds|minutes|hours|days|months|years|cr)\b)/i.test(bLower);
   if (hasMetric) score += 5;
 
-  if (ACTION_VERBS.some(v => bLower.startsWith(v))) score += 3;
+  if (ACTION_VERBS.some(v => bLower.replace(/^[-•*]\s*/, '').startsWith(v))) score += 3;
 
   return score;
 }
 
-export function generateTailoredSuggestions(resumeText: string, jdText: string, acceptedIds: Set<string>): TailorResult {
+export function generateTailoredSuggestions(
+  resumeText: string,
+  jdText: string,
+  acceptedIds: Set<string> = new Set<string>()
+): TailorResult {
   const parsedJD = parseJDOverview(jdText);
   const parsedResume = parseResumeOverview(resumeText);
   const resumeLower = cleanText(resumeText).toLowerCase();
+  const spelling: SpellingConvention = detectSpellingConvention(resumeText);
   
   const mustHavesMatched: string[] = [];
   const mustHavesMissing: string[] = [];
@@ -146,7 +173,6 @@ export function generateTailoredSuggestions(resumeText: string, jdText: string, 
   const mhScore = (mustHavesMatched.length / mhTotal) * 80;
   const nhScore = (niceToHavesMatched.length / nhTotal) * 20;
   let baseScore = Math.min(100, Math.round(mhScore + nhScore));
-  // Penalty for missing must haves
   baseScore -= (mustHavesMissing.length * 5);
   baseScore = Math.max(0, baseScore);
 
@@ -163,82 +189,139 @@ export function generateTailoredSuggestions(resumeText: string, jdText: string, 
   
   const sectionKeywords = ['summary', 'experience', 'projects', 'education', 'skills', 'certifications'];
   
+  // Verbs tracked per section/role to prevent repetition (B8)
+  let sectionUsedVerbs = new Set<string>();
   let bulletGroup: { bullet: string; lineIndex: number; relevance: number }[] = [];
   
   const processBulletGroup = () => {
     if (bulletGroup.length === 0) return;
     
-    // Sort group by relevance to suggest reordering
     const sorted = [...bulletGroup].sort((a, b) => b.relevance - a.relevance);
     
     bulletGroup.forEach((bItem, i) => {
       const originalIdx = i;
       const sortedIdx = sorted.findIndex(s => s.bullet === bItem.bullet);
       
-      const bulletText = bItem.bullet.substring(1).trim();
-      const bLower = bulletText.toLowerCase();
-      const hasMetric = /(?:\d+%|\$\d+|\d+[kKmMbB]|\d+\s*(?:users|requests|req\/s|gb|tb|ms|seconds|minutes|hours|days|months|years|cr))/i.test(bLower);
+      const rawBullet = bItem.bullet.replace(/^[-•*]\s*/, '').trim();
+      const bLower = rawBullet.toLowerCase();
+      const hasMetric = /(?:\d+%|\$\d+|\d+[kKmMbB]|\b\d+\s*(?:users|requests|req\/s|gb|tb|ms|seconds|minutes|hours|days|months|years|cr)\b)/i.test(bLower);
       
       let suggestionType: SuggestionType = 'highlight';
       let proposedText = bItem.bullet;
       let rationale = "";
+      let appliedVerb: string | undefined = undefined;
+      let options: SuggestionOption[] | undefined = undefined;
+      let chosenOptionIndex = 0;
+      let needsContext = false;
+      let contextPrompt: string | undefined = undefined;
+      let contextTapChips: string[] | undefined = undefined;
       
-      // 1. Check for weak openers
-      let weakReplaced = false;
-      for (const weak of WEAK_OPENERS) {
-        if (bLower.startsWith(weak)) {
-          let strongVerb = 'Implemented';
-          if (bLower.includes('design') || bLower.includes('architect')) strongVerb = 'Designed';
-          if (bLower.includes('optimi')) strongVerb = 'Optimised';
-          
-          let cleaned = bulletText.substring(weak.length).trim();
-          if (cleaned.startsWith('developing')) cleaned = 'Developed ' + cleaned.substring(10).trim();
-          else if (cleaned.startsWith('writing')) cleaned = 'Wrote ' + cleaned.substring(7).trim();
-          else cleaned = strongVerb + ' ' + cleaned;
-          
-          proposedText = '- ' + cleaned;
-          rationale = `Replaced weak opener '${weak}' with strong verb '${strongVerb}'.`;
-          suggestionType = 'rephrase';
-          weakReplaced = true;
-          break;
-        }
+      // Check existing opening verb
+      const firstWord = rawBullet.split(/\s+/)[0]?.toLowerCase();
+      if (firstWord && ACTION_VERBS.includes(firstWord)) {
+        sectionUsedVerbs.add(firstWord);
       }
-      
-      // 2. Metrics logic
-      if (!hasMetric) {
-        if (!weakReplaced) {
-          // Instead of template, use input format
-          proposedText = bItem.bullet + ' resulting in [How many users/What %? ____]';
-          rationale = "Concrete numbers make this bullet stronger. Please fill in the metric.";
-          suggestionType = 'add_context';
+
+      // 1. Weak Opener Detection (B1, B2, B5, B8)
+      const weakMatch = matchWeakOpener(rawBullet);
+      if (weakMatch) {
+        suggestionType = 'rephrase';
+        const remainder = weakMatch.remainder;
+        const remainderWords = remainder.split(/\s+/);
+        const firstRemainderWord = remainderWords[0] || '';
+        
+        // Try converting gerund
+        let pastVerb = convertGerundToPastTense(firstRemainderWord, spelling);
+        let remainderAfterVerb = remainder;
+
+        if (pastVerb) {
+          remainderAfterVerb = remainder.substring(firstRemainderWord.length).trim();
+        } else {
+          // Infer best verb
+          if (bLower.includes('design') || bLower.includes('architect')) pastVerb = 'Designed';
+          else if (bLower.includes('optimi')) pastVerb = spelling === 'UK' ? 'Optimised' : 'Optimized';
+          else if (bLower.includes('test') || bLower.includes('jest') || bLower.includes('cypress')) pastVerb = 'Wrote';
+          else if (bLower.includes('front') || bLower.includes('react') || bLower.includes('ui')) pastVerb = 'Developed';
+          else pastVerb = 'Engineered';
         }
-      } else {
-        if (!weakReplaced && sortedIdx === 0 && bItem.relevance > 10) {
-          rationale = "This is a very strong bullet for this JD. Consider making the metric bold.";
-          suggestionType = 'highlight';
+
+        // Apply B8 deduplication within role
+        pastVerb = getDeduplicatedVerb(pastVerb, sectionUsedVerbs, spelling);
+        sectionUsedVerbs.add(pastVerb.toLowerCase());
+        appliedVerb = pastVerb;
+
+        const ownershipSentence = applyGrammarGate(`- ${pastVerb} ${remainderAfterVerb}`, bItem.bullet);
+
+        if (weakMatch.kind === 'duty') {
+          // B5 Duty phrase: direct strong replacement
+          proposedText = ownershipSentence;
+          rationale = `Action verb '${pastVerb}' replaces passive duty phrasing '${weakMatch.opener}' to front-load technical execution.`;
+        } else {
+          // B5 Participation phrase: offer Honest (default) and Ownership options
+          const honestVerb = spelling === 'UK' ? 'Collaborated on' : 'Collaborated on';
+          let honestSentence = applyGrammarGate(`- ${honestVerb} ${remainder}`, bItem.bullet);
+          if (firstRemainderWord.toLowerCase() === 'writing') {
+            honestSentence = applyGrammarGate(`- Collaborated on writing ${remainder.substring(7).trim()}`, bItem.bullet);
+          }
+
+          options = [
+            {
+              label: 'Honest (Collaborative)',
+              text: honestSentence,
+              badge: 'facts',
+              verb: 'Collaborated',
+              note: 'Accurate representation of shared or team effort'
+            },
+            {
+              label: 'Direct Ownership',
+              text: ownershipSentence,
+              badge: 'ownership',
+              verb: pastVerb,
+              note: 'Choose if you independently drove this deliverable'
+            }
+          ];
+
+          proposedText = honestSentence;
+          chosenOptionIndex = 0;
+          rationale = `Replaces vague participation phrasing '${weakMatch.opener}'. Choose Honest (default) for team efforts or Direct Ownership if you led the deliverable.`;
         }
+      } else if (!hasMetric) {
+        // 2. Missing metric -> Add Context (Stage 3 Add Context experience)
+        suggestionType = 'add_context';
+        needsContext = true;
+        contextPrompt = 'What was the quantified result or scale of this work?';
+        contextTapChips = [
+          'reduced latency by __%',
+          'served __ users',
+          'saved __ hours/week',
+          'improved throughput by __%'
+        ];
+        // Proposed text stays original bullet until user inputs result
+        proposedText = bItem.bullet;
+        rationale = 'Quantified metrics increase recruiter engagement by up to 40%. Add your measured result.';
+      } else if (sortedIdx === 0 && originalIdx > 0 && bItem.relevance > 10) {
+        // 3. Reorder suggestion
+        suggestionType = 'reorder';
+        proposedText = bItem.bullet;
+        rationale = 'Move this high-relevance bullet to the top of the entry to immediately catch the hiring manager’s eye.';
       }
-      
-      // 3. Reorder suggestion
-      if (sortedIdx !== originalIdx && originalIdx > 0 && sortedIdx === 0) {
-        // If we didn't already give a strong suggestion
-        if (suggestionType === 'highlight' || !rationale) {
-           suggestionType = 'reorder';
-           proposedText = bItem.bullet;
-           rationale = "Move this bullet to the top as it matches core job requirements.";
-        }
-      }
-      
-      if (rationale && suggestionType !== 'highlight') {
-         suggestions.push({
-           id: `sug-${bulletIndex++}`,
-           type: suggestionType,
-           section: currentSection,
-           originalText: bItem.bullet,
-           proposedText,
-           rationale,
-           truthCheck: performTruthCheck(resumeText, proposedText)
-         });
+
+      if (suggestionType === 'rephrase' || suggestionType === 'add_context' || suggestionType === 'reorder') {
+        suggestions.push({
+          id: `sug-${bulletIndex++}`,
+          type: suggestionType,
+          section: currentSection,
+          originalText: bItem.bullet,
+          proposedText,
+          options,
+          chosenOptionIndex,
+          appliedVerb,
+          rationale,
+          truthCheck: performTruthCheck(resumeText, proposedText),
+          needsContext,
+          contextPrompt,
+          contextTapChips
+        });
       }
     });
     
@@ -254,15 +337,17 @@ export function generateTailoredSuggestions(resumeText: string, jdText: string, 
     
     if (isSection) {
       processBulletGroup();
-      currentSection = trimmed;
+      currentSection = trimmed.replace(/:$/, '').trim();
+      sectionUsedVerbs = new Set<string>(); // Reset verb set per section
       return;
     }
     
-    if (trimmed.startsWith('-')) {
+    if (trimmed.startsWith('-') || trimmed.startsWith('•') || trimmed.startsWith('*')) {
+      const normalizedBullet = trimmed.replace(/^[•*]/, '-');
       bulletGroup.push({
-        bullet: trimmed,
+        bullet: normalizedBullet,
         lineIndex,
-        relevance: calculateBulletRelevance(trimmed, jdText)
+        relevance: calculateBulletRelevance(normalizedBullet, jdText)
       });
     } else {
       processBulletGroup();
@@ -270,8 +355,24 @@ export function generateTailoredSuggestions(resumeText: string, jdText: string, 
   });
   processBulletGroup();
 
-  // Projected Score: Add some points for each accepted suggestion
-  const projectedScoreAfter = Math.min(100, baseScore + (acceptedIds.size * 5));
+  // Skills suggestions: check for nice-to-haves (like Redis) that can be highlighted
+  if (niceToHavesMissing.length > 0) {
+    niceToHavesMissing.forEach((skill, sIdx) => {
+      // Check if skill is mentioned elsewhere in resume or could be added
+      suggestions.push({
+        id: `sug-skill-${sIdx}`,
+        type: 'skills',
+        section: 'Skills',
+        originalText: '',
+        proposedText: `Consider adding ${skill} to your SKILLS section if you have working knowledge with it.`,
+        rationale: `The target job lists ${skill} as a preferred or nice-to-have qualification.`,
+        truthCheck: { passed: true }
+      });
+    });
+  }
+
+  // Calculate projected score based on accepted suggestions
+  const projectedScoreAfter = Math.min(100, baseScore + (acceptedIds.size * 4) + (mustHavesMatched.length * 2));
 
   return {
     targetRoleTitle: parsedJD.role,

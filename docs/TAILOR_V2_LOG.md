@@ -23,12 +23,19 @@
   - [x] Deterministic per-bullet strength score (0-100 rubric) & Resume quality summary
   - [x] MatchPanel with Base vs After match gauges, delta chips, solid matched vs outlined missing chips, and quality breakdown
   - [x] Tests verified in `src/__tests__/tailor/stage2-layout-parser.test.ts` (4/4 passed) and typecheck clean
-- [ ] **Stage 3: Review Experience + Engine Fixes**
-  - [ ] Sticky 44px tab bar with live counts & muted empty states
-  - [ ] Review progress bar & word-level diff cards
-  - [ ] Add Context inline result inputs with tap-chips (B3, B4)
-  - [ ] Engine fixes: B1 (gerund conversion + US/UK spelling), B2 (appliedVerb matching), B5 (Honest vs Ownership), B8 (no repeated opening verbs)
-  - [ ] Keyboard shortcuts & toasts
+- [x] **Stage 3: Review Experience + Engine Fixes**
+  - [x] Sticky 44px tab bar (`ReviewTabBar`) with live counts, progress bar ("X of Y reviewed"), and "Review next"
+  - [x] Review cards (`SuggestionCard`) with pure JS word-level diff (`WordDiffViewer`), inline edit, and states (Pending, Accepted, Rejected, Needs input)
+  - [x] Add Context inline result inputs with quick tap-chips (latency %, users, hours/week, throughput)
+  - [x] Bulk actions: Accept All / Reject All with 6-second undo toast (skips uncompleted context items)
+  - [x] Grouping by section (`EXPERIENCE`, `PROJECTS`, `SKILLS`) in "All" view with muted empty states
+  - [x] Engine fixes:
+    - B1: Weak opener + gerund -> past tense conversion via 80+ verb table + US/UK spelling detection (`verbs.ts`)
+    - B2: Dynamic rationale naming exact applied verb
+    - B5: Duty phrases direct conversion vs Participation phrases with Honest (Facts ✓) and Ownership (Ownership ⚠) options
+    - B3: Deterministic grammar gate (`grammar.ts`) for capitalization, punctuation, and double words
+    - B8: Deduplication of opening verbs within roles/sections
+  - [x] Tests verified in `src/__tests__/tailor/stage3-engine-review.test.ts` (8/8 passed, 17/17 total across suite) and typecheck clean
 - [ ] **Stage 4: Real Resume Preview + Download**
   - [ ] Single source `ResumeDocModel`
   - [ ] 3 templates: Classic, Modern, Compact
