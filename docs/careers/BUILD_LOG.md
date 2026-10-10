@@ -16,9 +16,9 @@
   - [x] Log baseline typecheck (0 errors), test suite (17/17 core data tests passing), and dev server running
   - [x] Generate baseline regression snapshots in `docs/careers/baseline-snapshot.json` (269 KB, 56 ladders + 75 TalentLens companies + degrees & equivalence)
 
-- [ ] **Stage 1: Gap Audit (G1-G6)**
-  - [ ] Write `scripts/careers/audit-gaps.mjs`
-  - [ ] Generate `docs/careers/data-gap-report.md` covering G1 (missing level metrics), G2 (branch metadata), G3 (campus hiring), G4 (templated content), G5 (questionable entries), G6 (duplication)
+- [x] **Stage 1: Gap Audit (G1-G6)**
+  - [x] Write `scripts/careers/audit-gaps.mjs`
+  - [x] Generate `docs/careers/data-gap-report.md` covering G1 (182 levels missing rank/YoE), G2 (36 branch entries lacking formal codes/durations), G3 (0 structured fresher programs), G4 (templated content & core SWE track mismatch), G5 (questionable entities & naming drift), G6 (29 shared, 62 TalentLens-only, 27 ladder-only unlinked companies)
 
 - [ ] **Stage 2: Build the Careers Data Platform (`src/careers-core/`)**
   - [ ] Schema & Types (`schema/`)
