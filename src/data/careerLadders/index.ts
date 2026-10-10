@@ -4,24 +4,17 @@
 // ============================================================
 
 import type { CompanyLadder, CareerLevel, CareerTrack, MarketSegment } from './types';
-import { BIG_TECH_INDIA_LADDERS } from './companies/bigTechIndia';
-import { INDIAN_PRODUCT_UNICORN_LADDERS } from './companies/indianProductUnicorns';
-import { GCC_FINANCE_LADDERS } from './companies/gccFinance';
-import { IT_SERVICES_INDIA_LADDERS } from './companies/itServicesIndia';
-import { CORE_ENGINEERING_LADDERS } from './companies/coreEngineering';
+import { getLegacyCompanyLadders } from '../../careers-core/legacy/adapters';
 
 export * from './types';
 export * from './equivalenceMap';
 export * from './blockerCatalog';
 export * from './hiringRoutesCatalog';
 
-export const ALL_COMPANY_LADDERS: CompanyLadder[] = [
-  ...BIG_TECH_INDIA_LADDERS,
-  ...INDIAN_PRODUCT_UNICORN_LADDERS,
-  ...GCC_FINANCE_LADDERS,
-  ...IT_SERVICES_INDIA_LADDERS,
-  ...CORE_ENGINEERING_LADDERS,
-];
+/**
+ * @deprecated Legacy re-export. For new code, import { careers } from '@/careers-core'.
+ */
+export const ALL_COMPANY_LADDERS: CompanyLadder[] = getLegacyCompanyLadders();
 
 // Map companyId -> CompanyLadder for O(1) lookup
 const LADDER_MAP = new Map<string, CompanyLadder>();

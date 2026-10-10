@@ -1,6 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { Search, ChevronDown, Building2, Check, Sparkles } from 'lucide-react';
-import { COMPANIES } from '../../../../pages/demo/talentLensData';
+import { careers } from '../../../../careers-core';
 
 interface QuickLoadSelectProps {
   selectedCompanyId: string;
@@ -12,12 +12,19 @@ export function QuickLoadSelect({ selectedCompanyId, onSelect }: QuickLoadSelect
   const [search, setSearch] = useState('');
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const selectedCompany = COMPANIES.find((c) => c.id === selectedCompanyId);
+  const allCompanies = useMemo(() => {
+    return careers.companies.list().map((c) => ({
+      ...c,
+      firstRole: careers.roles.forCompany(c.id)[0] || null,
+    }));
+  }, []);
 
-  const filtered = COMPANIES.filter(
+  const selectedCompany = allCompanies.find((c) => c.id === selectedCompanyId);
+
+  const filtered = allCompanies.filter(
     (c) =>
       c.name.toLowerCase().includes(search.toLowerCase()) ||
-      c.roles.some((r) => r.title.toLowerCase().includes(search.toLowerCase()))
+      (c.firstRole && c.firstRole.title.toLowerCase().includes(search.toLowerCase()))
   );
 
   useEffect(() => {
@@ -40,7 +47,7 @@ export function QuickLoadSelect({ selectedCompanyId, onSelect }: QuickLoadSelect
         <span className="flex items-center gap-1.5 truncate">
           <Building2 className="w-3.5 h-3.5 text-primary shrink-0" />
           <span className="truncate">
-            {selectedCompany ? `${selectedCompany.name} (${selectedCompany.roles[0]?.title})` : 'Quick Load Target Job...'}
+            {selectedCompany ? `${selectedCompany.name} (${selectedCompany.firstRole?.title || 'Engineering'})` : 'Quick Load Target Job...'}
           </span>
         </span>
         <ChevronDown className={`w-3.5 h-3.5 text-text-muted shrink-0 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
@@ -69,7 +76,7 @@ export function QuickLoadSelect({ selectedCompanyId, onSelect }: QuickLoadSelect
               <div className="p-4 text-xs text-center text-text-muted">No companies found</div>
             ) : (
               filtered.map((c) => {
-                const role = c.roles[0];
+                const role = c.firstRole;
                 const isSelected = c.id === selectedCompanyId;
                 return (
                   <button

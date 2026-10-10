@@ -22,7 +22,7 @@ import { tailorResume, TailorResult, TailorSuggestion } from './tailorResume';
 import { useProfile } from '../profile/ProfileContext';
 import { SuiteStorage } from '../profile/storage';
 import { ResumeVersion } from '../profile/types';
-import { COMPANIES } from '../../../pages/demo/talentLensData';
+import { careers } from '../../../careers-core';
 import { InputBox } from './components/InputBox';
 import { QuickLoadSelect } from './components/QuickLoadSelect';
 import { MatchPanel } from './components/MatchPanel';
@@ -122,16 +122,18 @@ export function TailorResumePage() {
   // Handle Quick Load JD from dataset
   const handleQuickLoadCompany = (companyId: string) => {
     setSelectedCompanyId(companyId);
-    const company = COMPANIES.find((c) => c.id === companyId);
+    const company = careers.companies.get(companyId);
     if (!company) return;
-    const role = company.roles[0];
-    const generatedJD = `Role: ${role.title} (${role.level})
+    const roles = careers.roles.forCompany(company.id);
+    const role = roles[0];
+    const roleCompList = role ? Object.keys(role.competencies) : [];
+    const generatedJD = `Role: ${role?.title || 'Software Engineer'} (${role?.level || 'Mid'})
 Company: ${company.name}
-About: ${role.desc}
+About: Engineering role at ${company.name} within the ${company.marketSegment} segment located across ${company.indiaOffices.join(', ')}.
 Requirements:
-- Strong experience with ${role.competencies.join(', ')}.
+- Strong experience with ${roleCompList.join(', ')}.
 - Demonstrated mastery in production engineering and clean testing practices.
-- Typical round focus: ${company.tier} hiring standard (${company.avgPackage}).`;
+- Typical round focus: ${company.marketTier} hiring standard.`;
     setJdText(generatedJD);
   };
 

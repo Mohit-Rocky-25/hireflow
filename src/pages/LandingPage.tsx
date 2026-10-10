@@ -9,6 +9,7 @@ import {
   MessageSquare, FileText, Briefcase
 } from "lucide-react";
 import { PublicNavbar } from "../components/layout/PublicNavbar";
+import { careers } from "../careers-core";
 
 const FEATURES = [
   {
@@ -142,7 +143,7 @@ export function LandingPage() {
               <span className="gradient-text">Career.</span>
             </h1>
             <p className="text-[20px] text-text-secondary leading-[32px] mb-[52px] max-w-[600px] mx-auto">
-              Simulate ATS resume filters, map your career trajectory, and test your resume against 75 real companies and 900+ roles — all completely free.
+              Simulate ATS resume filters, map your career trajectory, and test your resume against {careers.stats.counts().companies} verified companies and {careers.stats.counts().roles}+ roles — all completely free.
             </p>
             <div className="flex flex-col sm:flex-row gap-[14px] justify-center w-full">
               <Link to="/demo">

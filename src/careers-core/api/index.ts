@@ -259,6 +259,7 @@ export const careers = {
         fresherPrograms: PLATFORM_FRESHER_PROGRAMS.length,
         branches: PLATFORM_BRANCHES.length,
         equivalenceLevels: Object.keys(PLATFORM_EQUIVALENCE_LEVELS).length,
+        competencies: Object.keys(PLATFORM_COMPETENCIES).length,
       };
     },
 

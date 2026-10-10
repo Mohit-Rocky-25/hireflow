@@ -13,171 +13,46 @@ import {
 import { Badge } from '../../components/ui/Components';
 import { Link } from 'react-router-dom';
 
-// ── 25 Real Companies with realistic job roles and requirements ───────────────
-const COMPANIES_DATA = [
-  {
-    name: 'Google',        logo: 'G',  color: 'from-blue-600 to-blue-400',   industry: 'Technology', hq: 'Mountain View, USA', size: '100,000+',
-    roles: [
-      { title: 'Software Engineer (L4)', skills: ['Algorithms', 'Data Structures', 'System Design', 'Python/Java/C++', 'Distributed Systems'], type: 'Full-time', location: 'Bangalore / Hyderabad' },
-      { title: 'Frontend Engineer', skills: ['React', 'TypeScript', 'Web Performance', 'Accessibility', 'CSS'], type: 'Full-time', location: 'Bangalore' },
-    ],
-  },
-  {
-    name: 'Microsoft',     logo: 'M',  color: 'from-blue-500 to-cyan-400',   industry: 'Technology', hq: 'Redmond, USA',       size: '200,000+',
-    roles: [
-      { title: 'Senior Software Engineer', skills: ['C#/.NET', 'Azure', 'Microservices', 'System Design', 'TypeScript'], type: 'Full-time', location: 'Hyderabad / Noida' },
-      { title: 'Cloud Solutions Architect', skills: ['Azure', 'Kubernetes', 'Terraform', 'DevOps', 'Python'], type: 'Full-time', location: 'Remote / Hyderabad' },
-    ],
-  },
-  {
-    name: 'Amazon',        logo: 'A',  color: 'from-orange-500 to-yellow-400', industry: 'E-Commerce / Cloud', hq: 'Seattle, USA', size: '1,500,000+',
-    roles: [
-      { title: 'SDE-II (AWS)',             skills: ['Java', 'AWS', 'Distributed Systems', 'REST APIs', 'System Design'], type: 'Full-time', location: 'Bangalore / Hyderabad' },
-      { title: 'Data Engineer',            skills: ['Python', 'Spark', 'AWS Glue', 'Redshift', 'SQL'],                   type: 'Full-time', location: 'Bangalore' },
-    ],
-  },
-  {
-    name: 'Meta',          logo: 'M',  color: 'from-blue-700 to-indigo-500', industry: 'Social Media', hq: 'Menlo Park, USA', size: '80,000+',
-    roles: [
-      { title: 'Software Engineer (React)', skills: ['React', 'GraphQL', 'JavaScript', 'System Design', 'Performance Optimization'], type: 'Full-time', location: 'Bangalore' },
-    ],
-  },
-  {
-    name: 'Flipkart',      logo: 'F',  color: 'from-yellow-500 to-orange-400', industry: 'E-Commerce', hq: 'Bangalore, India', size: '30,000+',
-    roles: [
-      { title: 'Senior Frontend Engineer', skills: ['React', 'TypeScript', 'Node.js', 'System Design', 'Micro-Frontend'], type: 'Full-time', location: 'Bangalore' },
-      { title: 'ML Engineer',              skills: ['Python', 'TensorFlow', 'MLOps', 'Feature Engineering', 'A/B Testing'], type: 'Full-time', location: 'Bangalore' },
-    ],
-  },
-  {
-    name: 'Infosys',       logo: 'I',  color: 'from-indigo-600 to-blue-400', industry: 'IT Services', hq: 'Bangalore, India', size: '300,000+',
-    roles: [
-      { title: 'Technology Lead',          skills: ['Java', 'Spring Boot', 'Microservices', 'AWS/Azure', 'SQL'],          type: 'Full-time', location: 'Pan India' },
-      { title: 'Digital Analyst',          skills: ['Python', 'Power BI', 'SQL', 'Excel', 'Agile'],                       type: 'Full-time', location: 'Pan India' },
-    ],
-  },
-  {
-    name: 'TCS',           logo: 'T',  color: 'from-purple-600 to-violet-400', industry: 'IT Services', hq: 'Mumbai, India', size: '600,000+',
-    roles: [
-      { title: 'Systems Engineer',         skills: ['Java', 'SQL', 'REST APIs', 'Git', 'Agile/Scrum'],                    type: 'Full-time', location: 'Pan India' },
-      { title: 'Data Analyst',             skills: ['Python', 'SQL', 'Tableau', 'Power BI', 'Statistics'],                type: 'Full-time', location: 'Pan India' },
-    ],
-  },
-  {
-    name: 'Wipro',         logo: 'W',  color: 'from-teal-600 to-emerald-400', industry: 'IT Services', hq: 'Bangalore, India', size: '250,000+',
-    roles: [
-      { title: 'Senior Developer',         skills: ['React', 'Node.js', 'MongoDB', 'Docker', 'CI/CD'],                    type: 'Full-time', location: 'Bangalore / Pune' },
-    ],
-  },
-  {
-    name: 'Zomato',        logo: 'Z',  color: 'from-red-600 to-rose-400',    industry: 'Food Tech', hq: 'Gurugram, India', size: '5,000+',
-    roles: [
-      { title: 'Backend Engineer',         skills: ['Golang/Python', 'Kafka', 'Redis', 'MySQL', 'Kubernetes'],            type: 'Full-time', location: 'Gurugram' },
-      { title: 'Product Data Analyst',     skills: ['SQL', 'Python', 'Looker', 'A/B Testing', 'Statistics'],              type: 'Full-time', location: 'Gurugram' },
-    ],
-  },
-  {
-    name: 'Swiggy',        logo: 'S',  color: 'from-orange-600 to-amber-400', industry: 'Food Tech', hq: 'Bangalore, India', size: '4,000+',
-    roles: [
-      { title: 'SDE-2 (Platform)',         skills: ['Java/Go', 'Spring Boot', 'gRPC', 'Kafka', 'PostgreSQL'],             type: 'Full-time', location: 'Bangalore' },
-    ],
-  },
-  {
-    name: 'Razorpay',      logo: 'R',  color: 'from-blue-800 to-blue-500',  industry: 'Fintech', hq: 'Bangalore, India', size: '3,000+',
-    roles: [
-      { title: 'Software Engineer – Payments', skills: ['Node.js', 'Go', 'PostgreSQL', 'Redis', 'REST APIs'],             type: 'Full-time', location: 'Bangalore' },
-      { title: 'Frontend Engineer',            skills: ['React', 'TypeScript', 'Redux', 'Webpack', 'Web Security'],       type: 'Full-time', location: 'Bangalore' },
-    ],
-  },
-  {
-    name: 'PhonePe',       logo: 'P',  color: 'from-violet-700 to-purple-400', industry: 'Fintech', hq: 'Bangalore, India', size: '2,500+',
-    roles: [
-      { title: 'Senior Engineer',          skills: ['Java', 'Spring Boot', 'Kafka', 'MySQL', 'AWS'],                      type: 'Full-time', location: 'Bangalore' },
-    ],
-  },
-  {
-    name: 'CRED',          logo: 'C',  color: 'from-black to-zinc-700',      industry: 'Fintech', hq: 'Bangalore, India', size: '1,000+',
-    roles: [
-      { title: 'Android Engineer',         skills: ['Kotlin', 'Jetpack Compose', 'MVVM', 'Coroutines', 'GraphQL'],        type: 'Full-time', location: 'Bangalore' },
-      { title: 'Data Engineer',            skills: ['Python', 'dbt', 'Snowflake', 'Airflow', 'Spark'],                    type: 'Full-time', location: 'Bangalore' },
-    ],
-  },
-  {
-    name: 'Ola',           logo: 'O',  color: 'from-green-700 to-lime-400',  industry: 'Mobility', hq: 'Bangalore, India', size: '5,000+',
-    roles: [
-      { title: 'Senior SDE',               skills: ['Java/Go', 'Microservices', 'Redis', 'Kafka', 'System Design'],       type: 'Full-time', location: 'Bangalore' },
-    ],
-  },
-  {
-    name: 'Byju\'s',       logo: 'B',  color: 'from-purple-800 to-fuchsia-500', industry: 'EdTech', hq: 'Bangalore, India', size: '10,000+',
-    roles: [
-      { title: 'Frontend Developer',       skills: ['React Native', 'JavaScript', 'Redux', 'REST APIs', 'Git'],            type: 'Full-time', location: 'Bangalore' },
-    ],
-  },
-  {
-    name: 'Zepto',         logo: 'Z',  color: 'from-pink-700 to-rose-400',   industry: 'Quick Commerce', hq: 'Mumbai, India', size: '2,000+',
-    roles: [
-      { title: 'Software Engineer',        skills: ['Python/Go', 'PostgreSQL', 'Redis', 'Kubernetes', 'System Design'],   type: 'Full-time', location: 'Mumbai' },
-    ],
-  },
-  {
-    name: 'Meesho',        logo: 'M',  color: 'from-pink-600 to-rose-300',   industry: 'Social Commerce', hq: 'Bangalore, India', size: '3,000+',
-    roles: [
-      { title: 'Data Scientist',           skills: ['Python', 'ML Algorithms', 'Spark', 'Recommendation Systems', 'SQL'], type: 'Full-time', location: 'Bangalore' },
-    ],
-  },
-  {
-    name: 'Paytm',         logo: 'P',  color: 'from-blue-600 to-sky-400',    industry: 'Fintech', hq: 'Noida, India', size: '8,000+',
-    roles: [
-      { title: 'Backend Developer',        skills: ['Java', 'Spring', 'MySQL', 'Redis', 'AWS'],                            type: 'Full-time', location: 'Noida / Bangalore' },
-    ],
-  },
-  {
-    name: 'HCL Tech',      logo: 'H',  color: 'from-green-800 to-teal-500',  industry: 'IT Services', hq: 'Noida, India', size: '220,000+',
-    roles: [
-      { title: 'Cloud Engineer',           skills: ['Azure / AWS', 'Terraform', 'Ansible', 'Python', 'Kubernetes'],       type: 'Full-time', location: 'Pan India' },
-    ],
-  },
-  {
-    name: 'Accenture',     logo: 'A',  color: 'from-purple-700 to-violet-500', industry: 'Consulting', hq: 'Dublin, Ireland', size: '700,000+',
-    roles: [
-      { title: 'Full Stack Developer',     skills: ['React', 'Node.js', 'SQL', 'REST APIs', 'Agile'],                     type: 'Full-time', location: 'Pan India' },
-      { title: 'SAP Consultant',           skills: ['SAP S/4HANA', 'ABAP', 'FI/CO', 'Business Analysis', 'SQL'],         type: 'Full-time', location: 'Pan India' },
-    ],
-  },
-  {
-    name: 'IBM',           logo: 'I',  color: 'from-blue-900 to-blue-600',   industry: 'Technology', hq: 'Armonk, USA', size: '280,000+',
-    roles: [
-      { title: 'AI Engineer',              skills: ['Python', 'TensorFlow/PyTorch', 'NLP', 'Watson APIs', 'Cloud'],        type: 'Full-time', location: 'Bangalore / Hyderabad' },
-    ],
-  },
-  {
-    name: 'Deloitte',      logo: 'D',  color: 'from-green-700 to-emerald-500', industry: 'Consulting', hq: 'New York, USA', size: '400,000+',
-    roles: [
-      { title: 'Technology Consultant',    skills: ['Cloud (AWS/Azure)', 'Python', 'SQL', 'Agile', 'Communication'],       type: 'Full-time', location: 'Pan India' },
-      { title: 'Cybersecurity Analyst',    skills: ['SIEM', 'Network Security', 'Python', 'Risk Analysis', 'CISSP'],      type: 'Full-time', location: 'Hyderabad' },
-    ],
-  },
-  {
-    name: 'MakeMyTrip',    logo: 'M',  color: 'from-red-700 to-orange-400',  industry: 'Travel Tech', hq: 'Gurugram, India', size: '5,000+',
-    roles: [
-      { title: 'React Developer',          skills: ['React', 'TypeScript', 'Redux', 'GraphQL', 'Performance Optimization'], type: 'Full-time', location: 'Gurugram' },
-    ],
-  },
-  {
-    name: 'ShareChat',     logo: 'S',  color: 'from-yellow-600 to-amber-400', industry: 'Social Media', hq: 'Bangalore, India', size: '2,500+',
-    roles: [
-      { title: 'ML Engineer',              skills: ['Python', 'PyTorch', 'NLP', 'Video ML', 'MLOps'],                      type: 'Full-time', location: 'Bangalore' },
-    ],
-  },
-  {
-    name: 'Freshworks',    logo: 'F',  color: 'from-green-600 to-teal-400',  industry: 'SaaS', hq: 'San Mateo, USA', size: '7,000+',
-    roles: [
-      { title: 'Senior Software Engineer', skills: ['Ruby on Rails', 'React', 'PostgreSQL', 'Redis', 'Kafka'],             type: 'Full-time', location: 'Chennai / Bangalore' },
-      { title: 'Product Manager',          skills: ['Product Strategy', 'SQL', 'A/B Testing', 'User Research', 'Agile'],  type: 'Full-time', location: 'Chennai' },
-    ],
-  },
+// ── Dynamic Companies & Roles from Careers Data Platform ───────────────
+import { careers } from '../../careers-core';
+
+const GRADIENTS = [
+  'from-blue-600 to-blue-400',
+  'from-blue-500 to-cyan-400',
+  'from-orange-500 to-yellow-400',
+  'from-purple-600 to-pink-400',
+  'from-emerald-600 to-teal-400',
+  'from-rose-600 to-red-400',
+  'from-indigo-600 to-violet-400',
 ];
+
+const COMPANIES_DATA = careers.companies.list().map((c, idx) => {
+  const roles = careers.roles.forCompany(c.id);
+  const mappedRoles = roles.slice(0, 3).map((r) => ({
+    title: r.title,
+    skills: careers.keywords.forRole(r.id).slice(0, 5),
+    type: 'Full-time',
+    location: c.indiaOffices.join(' / ') || 'Bengaluru',
+  }));
+
+  return {
+    id: c.id,
+    name: c.name,
+    logo: c.name.charAt(0).toUpperCase(),
+    color: GRADIENTS[idx % GRADIENTS.length],
+    industry: c.marketSegment,
+    hq: c.headquarters || 'India Tech Hub',
+    size: c.marketTier === 'Tier S' ? '100,000+' : c.marketTier === 'Tier A' ? '5,000+' : '10,000+',
+    roles: mappedRoles.length > 0 ? mappedRoles : [
+      {
+        title: 'Software Engineer',
+        skills: ['Data Structures', 'System Design', 'Algorithms', 'Java', 'Python'],
+        type: 'Full-time',
+        location: c.indiaOffices.join(' / ') || 'Bengaluru',
+      },
+    ],
+  };
+});
 
 // ── Simulated AI skill extraction from a resume ────────────────────────────────
 const SIMULATED_SKILLS = ['React', 'TypeScript', 'Node.js', 'CSS/Tailwind', 'REST APIs', 'Git', 'SQL', 'JavaScript'];
@@ -284,7 +159,7 @@ export function CompanyMatch() {
           </div>
           Company Match — AI Resume Analyser
         </h1>
-        <p className="text-[14px] text-text-secondary ml-[44px]">Upload your resume and compare your skills against requirements of 25 top companies. Get AI-powered gap analysis and personalised suggestions.</p>
+        <p className="text-[14px] text-text-secondary ml-[44px]">Upload your resume and compare your skills against requirements of top companies. Get AI-powered gap analysis and personalised suggestions.</p>
       </div>
 
       {/* ── AI Match Result (shown when a role is selected) ── */}

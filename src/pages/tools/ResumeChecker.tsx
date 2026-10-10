@@ -27,7 +27,7 @@ import { AuditTab } from '../../features/ats/components/AuditTab';
 import { LearningPathTab } from '../../features/ats/components/LearningPathTab';
 import { DebugDrawer } from '../../features/ats/components/DebugDrawer';
 import { useTalentLensStore, DEMO_TALENTLENS_RESUME } from '../demo/useTalentLensStore';
-import { COMPANIES } from '../demo/talentLensData';
+import { careers } from '../../careers-core';
 import { WordLimitSource } from '../../config/limits';
 
 const STAGED_MESSAGES = [
@@ -58,23 +58,23 @@ export function ResumeChecker() {
 
   const [jobText, setJobText] = useState<string>(() => {
     if (queryCompanyId && queryRoleTitle) {
-      const comp = COMPANIES.find((c) => c.id === queryCompanyId);
-      const role = comp?.roles.find((r) => r.title === queryRoleTitle);
+      const comp = careers.companies.get(queryCompanyId);
+      const roles = comp ? careers.roles.forCompany(comp.id) : [];
+      const role = roles.find((r) => r.title.toLowerCase() === queryRoleTitle.toLowerCase());
       if (comp && role) {
-        const reqMap = (role.reqLevel || {}) as unknown as Record<string, string>;
         return [
-          `Company: ${comp.name} (${comp.tier} Tier)`,
+          `Company: ${comp.name} (${comp.marketTier} Tier)`,
           `Target Position: ${role.title} (${role.level})`,
           ``,
           `Role Description:`,
-          role.desc,
+          `Engineering role at ${comp.name} within ${comp.marketSegment} segment across ${comp.indiaOffices.join(', ')}.`,
           ``,
           `Core Competency Requirements:`,
-          ...role.competencies.map((c) => `- ${c.toUpperCase()}: Required proficiency level "${reqMap[c] || 'working'}"`),
+          ...Object.entries(role.competencies).map(([c, lvl]) => `- ${c.toUpperCase()}: Required proficiency level "${lvl}"`),
           ``,
-          `Industry: ${comp.industry}`,
-          `Headquarters: ${comp.hq}`,
-          `Compensation Benchmark: ${comp.avgPackage}`,
+          `Industry: ${comp.marketSegment}`,
+          `Headquarters: ${comp.headquarters || 'India'}`,
+          `Compensation Benchmark: Competitive Market Band`,
         ].join('\n');
       }
     }
@@ -89,10 +89,9 @@ export function ResumeChecker() {
 
   const [jobFileName, setJobFileName] = useState<string | null>(() => {
     if (queryCompanyId && queryRoleTitle) {
-      const comp = COMPANIES.find((c) => c.id === queryCompanyId);
-      const role = comp?.roles.find((r) => r.title === queryRoleTitle);
-      if (comp && role) {
-        return `${comp.name}_${role.title.replace(/\s+/g, '_')}_Requirements.txt`;
+      const comp = careers.companies.get(queryCompanyId);
+      if (comp) {
+        return `${comp.name}_${queryRoleTitle.replace(/\s+/g, '_')}_Requirements.txt`;
       }
     }
     return null;
@@ -145,23 +144,23 @@ export function ResumeChecker() {
       }
 
       if (!jobText) {
-        const comp = COMPANIES.find((c) => c.id === compId);
-        const role = comp?.roles.find((r) => r.title === rTitle);
+        const comp = careers.companies.get(compId);
+        const roles = comp ? careers.roles.forCompany(comp.id) : [];
+        const role = roles.find((r) => r.title.toLowerCase() === rTitle.toLowerCase());
         if (comp && role) {
-          const reqMap = (role.reqLevel || {}) as unknown as Record<string, string>;
           const generatedJD = [
-            `Company: ${comp.name} (${comp.tier} Tier)`,
+            `Company: ${comp.name} (${comp.marketTier} Tier)`,
             `Target Position: ${role.title} (${role.level})`,
             ``,
             `Role Description:`,
-            role.desc,
+            `Engineering role at ${comp.name} within ${comp.marketSegment} segment across ${comp.indiaOffices.join(', ')}.`,
             ``,
             `Core Competency Requirements:`,
-            ...role.competencies.map((c) => `- ${c.toUpperCase()}: Required proficiency level "${reqMap[c] || 'working'}"`),
+            ...Object.entries(role.competencies).map(([c, lvl]) => `- ${c.toUpperCase()}: Required proficiency level "${lvl}"`),
             ``,
-            `Industry: ${comp.industry}`,
-            `Headquarters: ${comp.hq}`,
-            `Compensation Benchmark: ${comp.avgPackage}`,
+            `Industry: ${comp.marketSegment}`,
+            `Headquarters: ${comp.headquarters || 'India'}`,
+            `Compensation Benchmark: Competitive Market Band`,
           ].join('\n');
 
           setJobText(generatedJD);

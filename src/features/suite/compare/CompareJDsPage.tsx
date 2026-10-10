@@ -27,7 +27,6 @@ import { PageNav } from '../../../components/common/PageNav';
 import { useProfile } from '../profile/ProfileContext';
 import { ProfileStatusChip } from '../profile/components/ProfileStatusChip';
 import { compareJDs, CompareJDsResult, JDInput } from './compareJDs';
-import { COMPANIES } from '../../../pages/demo/talentLensData';
 import { sanitizeCsvCell } from '../../../utils/security';
 
 const INITIAL_JDS: JDInput[] = [

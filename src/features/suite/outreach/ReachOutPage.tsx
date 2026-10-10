@@ -35,7 +35,7 @@ import {
   GeneratedMessage,
 } from './generateOutreach';
 import { useProfile } from '../profile/ProfileContext';
-import { COMPANIES } from '../../../pages/demo/talentLensData';
+import { careers } from '../../../careers-core';
 
 const CHANNELS: { id: OutreachChannel | 'all'; label: string }[] = [
   { id: 'all', label: 'All Channels (15)' },
@@ -81,16 +81,18 @@ export function ReachOutPage() {
     }
   }, [profile]);
 
-  // Handle Quick Company Select from Dataset 6
+  // Handle Quick Company Select from Careers Platform
   const handleSelectCompany = (compName: string) => {
-    const comp = COMPANIES.find((c) => c.name === compName || c.id === compName);
+    const comp = careers.companies.get(compName) || careers.companies.list().find((c) => c.name === compName);
     if (!comp) return;
     setTargetCompany(comp.name);
-    if (comp.roles[0]) {
-      setTargetRole(comp.roles[0].title);
-      setPrimarySkill(comp.roles[0].competencies.slice(0, 3).join(', '));
+    const roles = careers.roles.forCompany(comp.id);
+    if (roles[0]) {
+      setTargetRole(roles[0].title);
+      const topComps = Object.keys(roles[0].competencies).slice(0, 3);
+      setPrimarySkill(topComps.join(', ') || 'Software Engineering');
     }
-    setAdmiredProject(`${comp.name}'s ${comp.industry} platform`);
+    setAdmiredProject(`${comp.name}'s ${comp.marketSegment} engineering platform`);
   };
 
   const currentSlots: OutreachSlots = useMemo(() => {
@@ -190,10 +192,10 @@ export function ReachOutPage() {
                 onChange={(e) => handleSelectCompany(e.target.value)}
                 className="bg-surface-2 border border-border rounded-lg px-2.5 py-1 text-xs text-text focus:outline-none focus:border-primary"
               >
-                <option value="">Select from 100 Companies...</option>
-                {COMPANIES.slice(0, 25).map((c) => (
+                <option value="">Select from {careers.stats.counts().companies} Companies...</option>
+                {careers.companies.list().slice(0, 25).map((c) => (
                   <option key={c.id} value={c.name}>
-                    {c.name} ({c.tier})
+                    {c.name} ({c.marketTier})
                   </option>
                 ))}
               </select>

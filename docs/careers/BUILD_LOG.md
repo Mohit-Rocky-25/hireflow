@@ -30,14 +30,15 @@
   - [x] Documentation (`docs/careers/EXTENDING.md`) & scaffolding script (`scripts/careers/new-dataset.mjs`)
   - [x] Data validation suite (`scripts/careers/validate.mjs` & vitest)
 
-- [ ] **Stage 3: Migrate Every Existing Consumer onto the Platform**
-  - [ ] Migrate Career Trajectory / Simulator
-  - [ ] Migrate TalentLens / Company Roles
-  - [ ] Migrate ATS Resume Roaster
-  - [ ] Migrate Tailor My Resume Quick Load
-  - [ ] Migrate Tools Hub / Landing Page counts
-  - [ ] Resolve G1, G2, G4 in canonical data
-  - [ ] Verify baseline snapshot parity
+- [x] **Stage 3: Migrate Every Existing Consumer onto the Platform**
+  - [x] Migrate Career Trajectory / Simulator (`src/data/careerLadders/index.ts` re-exporting enriched ladders)
+  - [x] Migrate TalentLens / Company Roles (`talentLensData.ts` and adapters)
+  - [x] Migrate ATS Resume Roaster (`ResumeChecker.tsx` queries `careers.companies` and `careers.roles`)
+  - [x] Migrate Tailor My Resume Quick Load (`QuickLoadSelect.tsx` and `TailorResumePage.tsx` use `careers`)
+  - [x] Migrate Tools Hub / Landing Page counts (Dynamic `careers.stats.counts()`)
+  - [x] Migrate Candidate Company Match (`CompanyMatch.tsx` dynamically driven by `careers`)
+  - [x] Resolve G1, G2, G4 in canonical data
+  - [x] Verify baseline snapshot parity (`src/__tests__/careers/regressionParity.test.ts` passing)
 
 - [ ] **Stage 4: Pilot Slice Through the Platform**
   - [ ] Add 3 verified pilot programs (TCS Ninja, Indian Product SDE-1, Tata Motors GET)
