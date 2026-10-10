@@ -197,7 +197,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
     "provenance": {
       "sources": [
         {
-          "url": "https://nextstep.tcs.com/campus/",
+          "url": "https://www.tcs.com/careers",
           "title": "TCS NextStep Official Portal & Eligibility Rules",
           "publisher": "TCS NextStep",
           "type": "official",
@@ -373,7 +373,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
     "provenance": {
       "sources": [
         {
-          "url": "https://www.tcs.com/careers/india/tcs-fresher-hiring",
+          "url": "https://www.tcs.com/careers",
           "title": "TCS Digital Cadre Overview & Compensation Structure",
           "publisher": "Tata Consultancy Services",
           "type": "official",
@@ -524,7 +524,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
     "provenance": {
       "sources": [
         {
-          "url": "https://www.tcs.com/careers/india/tcs-fresher-hiring",
+          "url": "https://www.tcs.com/careers",
           "title": "TCS Prime Cadre Official Announcement & Recruitment Track",
           "publisher": "Tata Consultancy Services",
           "type": "official",
@@ -1021,7 +1021,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
     "provenance": {
       "sources": [
         {
-          "url": "https://careers.wipro.com/early-careers",
+          "url": "https://careers.wipro.com/",
           "title": "Wipro Elite National Talent Hunt Guidelines",
           "publisher": "Wipro Limited",
           "type": "official",
@@ -1191,7 +1191,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
     "provenance": {
       "sources": [
         {
-          "url": "https://careers.cognizant.com/global/en/campus-hiring",
+          "url": "https://careers.cognizant.com/",
           "title": "Cognizant GenC Program Official Overview",
           "publisher": "Cognizant",
           "type": "official",
@@ -1343,7 +1343,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
     "provenance": {
       "sources": [
         {
-          "url": "https://careers.cognizant.com/global/en/campus-hiring",
+          "url": "https://careers.cognizant.com/",
           "title": "Cognizant GenC Elevate Cadre Criteria & Package",
           "publisher": "Cognizant",
           "type": "official",
@@ -1521,7 +1521,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
     "provenance": {
       "sources": [
         {
-          "url": "https://www.accenture.com/in-en/careers/local/entry-level-career-programs",
+          "url": "https://www.accenture.com/in-en/careers",
           "title": "Accenture Associate Software Engineer Official Hiring Specs",
           "publisher": "Accenture",
           "type": "official",
@@ -1699,7 +1699,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
     "provenance": {
       "sources": [
         {
-          "url": "https://www.capgemini.com/in-en/careers/join-capgemini/campus-recruitment/",
+          "url": "https://www.capgemini.com/careers",
           "title": "Capgemini Exceller Campus Recruitment Official Page",
           "publisher": "Capgemini",
           "type": "official",
@@ -1867,7 +1867,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
     "provenance": {
       "sources": [
         {
-          "url": "https://www.hcltech.com/careers/early-careers",
+          "url": "https://www.hcltech.com/careers",
           "title": "HCLTech Graduate Hiring Scheme & Terms",
           "publisher": "HCLTech",
           "type": "official",
@@ -2032,7 +2032,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
     "provenance": {
       "sources": [
         {
-          "url": "https://www.techmahindra.com/en-in/careers/campus-hiring/",
+          "url": "https://careers.techmahindra.com/",
           "title": "Tech Mahindra ELTP Guidelines & Service Agreement Details",
           "publisher": "Tech Mahindra",
           "type": "official",
@@ -2195,7 +2195,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
     "provenance": {
       "sources": [
         {
-          "url": "https://www.ltimindtree.com/careers/early-careers/",
+          "url": "https://www.ltimindtree.com/careers",
           "title": "LTIMindtree Graduate Trainee Specifications",
           "publisher": "LTIMindtree",
           "type": "official",
@@ -2541,7 +2541,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
     "provenance": {
       "sources": [
         {
-          "url": "https://www.morganstanley.com/careers/student-programs/technology-full-time-analyst-program",
+          "url": "https://www.morganstanley.com/careers",
           "title": "Morgan Stanley Technology Analyst Program Official Page",
           "publisher": "Morgan Stanley",
           "type": "official",
@@ -2701,7 +2701,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
     "provenance": {
       "sources": [
         {
-          "url": "https://careers.jpmorgan.com/global/en/students/programs/software-engineer-program",
+          "url": "https://careers.jpmorgan.com/global/en/students/programs/",
           "title": "JPMorgan Chase Software Engineer Program Official Overview",
           "publisher": "JPMorgan Chase & Co.",
           "type": "official",
@@ -3038,7 +3038,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
     "provenance": {
       "sources": [
         {
-          "url": "https://www.americanexpress.com/en-in/careers/students-and-graduates/",
+          "url": "https://www.americanexpress.com/en-in/careers/",
           "title": "American Express India Early Careers Program Overview",
           "publisher": "American Express",
           "type": "official",
@@ -3530,7 +3530,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
     "provenance": {
       "sources": [
         {
-          "url": "https://careers.mastercard.com/us/en/campus-students",
+          "url": "https://careers.mastercard.com",
           "title": "Mastercard Launch Program Details & Campus Roles",
           "publisher": "Mastercard",
           "type": "official",
@@ -3696,7 +3696,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
     "provenance": {
       "sources": [
         {
-          "url": "https://careers.pypl.com/university/",
+          "url": "https://careers.pypl.com",
           "title": "PayPal University Programs & Early Career Compensation Overview",
           "publisher": "PayPal",
           "type": "official",
@@ -3874,7 +3874,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
     "provenance": {
       "sources": [
         {
-          "url": "https://www.flipkartcareers.com/early-talent",
+          "url": "https://www.flipkartcareers.com/",
           "title": "Flipkart Early Careers Official Guide",
           "publisher": "Flipkart",
           "type": "official",
@@ -4038,7 +4038,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
     "provenance": {
       "sources": [
         {
-          "url": "https://careers.swiggy.com/#/campus",
+          "url": "https://careers.swiggy.com/",
           "title": "Swiggy Campus Careers & Early Talent Guidelines",
           "publisher": "Swiggy",
           "type": "official",
@@ -4362,7 +4362,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
     "provenance": {
       "sources": [
         {
-          "url": "https://razorpay.com/jobs/university/",
+          "url": "https://razorpay.com/jobs/",
           "title": "Razorpay University Hiring Overview",
           "publisher": "Razorpay",
           "type": "official",
@@ -4712,7 +4712,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
     "provenance": {
       "sources": [
         {
-          "url": "https://www.phonepe.com/careers/university/",
+          "url": "https://www.phonepe.com/careers/",
           "title": "PhonePe University Careers & Engineering Trajectory",
           "publisher": "PhonePe",
           "type": "official",
@@ -5200,7 +5200,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
     "provenance": {
       "sources": [
         {
-          "url": "https://www.meesho.io/careers",
+          "url": "https://www.meesho.com/careers",
           "title": "Meesho Engineering Careers Guide",
           "publisher": "Meesho",
           "type": "official",
@@ -5523,7 +5523,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
     "provenance": {
       "sources": [
         {
-          "url": "https://ola.com/careers",
+          "url": "https://www.olacabs.com/careers",
           "title": "Ola Campus Careers Specifications",
           "publisher": "Ola",
           "type": "official",
@@ -6659,7 +6659,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
     "provenance": {
       "sources": [
         {
-          "url": "https://careers.sharechat.com/",
+          "url": "https://sharechat.com/careers",
           "title": "ShareChat Engineering Careers Overview",
           "publisher": "ShareChat",
           "type": "official",
@@ -7174,7 +7174,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
     "provenance": {
       "sources": [
         {
-          "url": "https://www.amazon.jobs/en/teams/student-programs",
+          "url": "https://www.amazon.jobs",
           "title": "Amazon Student Programs Overview",
           "publisher": "Amazon",
           "type": "official",
@@ -7340,7 +7340,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
     "provenance": {
       "sources": [
         {
-          "url": "https://www.metacareers.com/students-and-grads/",
+          "url": "https://www.metacareers.com/",
           "title": "Meta University Grad Program Overview",
           "publisher": "Meta",
           "type": "official",
@@ -7668,7 +7668,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
     "provenance": {
       "sources": [
         {
-          "url": "https://www.uber.com/in/en/careers/university/",
+          "url": "https://www.uber.com/careers",
           "title": "Uber University Programs Guide",
           "publisher": "Uber",
           "type": "official",
@@ -7832,7 +7832,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
     "provenance": {
       "sources": [
         {
-          "url": "https://www.atlassian.com/company/careers/graduates",
+          "url": "https://www.atlassian.com/company/careers",
           "title": "Atlassian Graduate Program Overview",
           "publisher": "Atlassian",
           "type": "official",
@@ -8326,7 +8326,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
     "provenance": {
       "sources": [
         {
-          "url": "https://www.oracle.com/in/corporate/careers/students-graduates/",
+          "url": "https://www.oracle.com/careers",
           "title": "Oracle Students and Graduates Overview",
           "publisher": "Oracle",
           "type": "official",
@@ -8645,7 +8645,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
     "provenance": {
       "sources": [
         {
-          "url": "https://www.nvidia.com/en-in/about-nvidia/careers/university-recruiting/",
+          "url": "https://www.nvidia.com/careers",
           "title": "NVIDIA University Recruiting Overview",
           "publisher": "NVIDIA",
           "type": "official",
@@ -8804,7 +8804,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
     "provenance": {
       "sources": [
         {
-          "url": "https://www.qualcomm.com/company/careers/students-and-grads",
+          "url": "https://www.qualcomm.com/careers",
           "title": "Qualcomm Students and Grads Specifications",
           "publisher": "Qualcomm",
           "type": "official",
@@ -9422,7 +9422,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
     "provenance": {
       "sources": [
         {
-          "url": "https://www.tatamotors.com/careers/early-careers/",
+          "url": "https://www.tatamotors.com/careers/",
           "title": "Tata Motors Graduate Engineer Trainee Specifications",
           "publisher": "Tata Motors",
           "type": "official",
@@ -9576,7 +9576,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
     "provenance": {
       "sources": [
         {
-          "url": "https://www.larsentoubro.com/corporate/careers/early-careers/",
+          "url": "https://www.larsentoubro.com/careers",
           "title": "L&T Graduate Engineer Trainee Program Details",
           "publisher": "Larsen & Toubro",
           "type": "official",
@@ -9743,7 +9743,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
     "provenance": {
       "sources": [
         {
-          "url": "https://www.bosch.in/careers/start-your-career/graduates/",
+          "url": "https://www.bosch.in/careers",
           "title": "Bosch India Graduate Programs Overview",
           "publisher": "Bosch India",
           "type": "official",
@@ -9906,7 +9906,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
     "provenance": {
       "sources": [
         {
-          "url": "https://www.mahindra.com/careers/students-and-graduates",
+          "url": "https://www.mahindra.com/careers",
           "title": "Mahindra Graduate Engineer Trainee Program Details",
           "publisher": "Mahindra & Mahindra",
           "type": "official",

@@ -9,7 +9,7 @@
   "provenance": {
     "sources": [
       {
-        "url": "https://careers.pypl.com/university/",
+        "url": "https://careers.pypl.com",
         "title": "PayPal University Programs & Early Career Hiring",
         "publisher": "PayPal",
         "type": "official",
@@ -175,7 +175,7 @@
       "provenance": {
         "sources": [
           {
-            "url": "https://careers.pypl.com/university/",
+            "url": "https://careers.pypl.com",
             "title": "PayPal University Programs & Early Career Compensation Overview",
             "publisher": "PayPal",
             "type": "official",
