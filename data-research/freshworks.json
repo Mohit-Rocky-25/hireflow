@@ -1,0 +1,189 @@
+{
+  "companyId": "freshworks",
+  "companyName": "Freshworks",
+  "status": "active",
+  "coverage": "comprehensive",
+  "sparseReason": null,
+  "verifiedDate": "2026-10-10",
+  "researchNotes": "Freshworks recruits Associate Software Engineers (10-14 LPA) in Chennai and Bengaluru for cloud CRM, customer support, and IT service management products.",
+  "provenance": {
+    "sources": [
+      {
+        "url": "https://www.freshworks.com/company/careers/",
+        "title": "Freshworks Careers & Early Career Software Engineering",
+        "publisher": "Freshworks",
+        "type": "official",
+        "accessed": "2026-10-10"
+      }
+    ],
+    "confidence": "high",
+    "lastVerified": "2026-10-10",
+    "dataYear": "2026"
+  },
+  "programs": [
+    {
+      "id": "freshworks-ase",
+      "companyId": "freshworks",
+      "programName": "Freshworks Campus Software Engineer Program",
+      "roleTitle": "Software Engineer",
+      "aliases": [
+        "Freshworks SE",
+        "Freshworks Campus SE"
+      ],
+      "programType": "fulltime",
+      "roleFamily": "sde-product",
+      "campusCategory": "dream",
+      "hiringReach": "select-campuses",
+      "channels": [
+        "on-campus",
+        "portal"
+      ],
+      "testOrPortal": "Freshworks Online Assessment (HackerEarth)",
+      "eligibility": {
+        "degrees": [
+          "B.Tech",
+          "B.E.",
+          "MCA",
+          "M.Tech"
+        ],
+        "branchFamilies": [
+          "software",
+          "data-ai",
+          "electronics-embedded"
+        ],
+        "branchCodes": [
+          "CSE",
+          "IT",
+          "AIML",
+          "AIDS",
+          "ECE"
+        ],
+        "graduationYears": [
+          2026,
+          2027
+        ],
+        "minCgpa": 7,
+        "minPercentage": 70,
+        "backlogPolicy": "Zero active backlogs",
+        "gapYearPolicy": "Standard justification",
+        "notes": "Engineering colleges across South and West India."
+      },
+      "selectionProcess": [
+        {
+          "stage": "Coding Assessment",
+          "type": "coding",
+          "durationMin": 75,
+          "topics": [
+            "DSA (Arrays, Strings, Recursion, Trees)",
+            "Core CS fundamentals"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "Technical Round 1: Problem Solving",
+          "type": "technical",
+          "durationMin": 60,
+          "topics": [
+            "Data structures, Time complexity, Algorithm efficiency"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "Technical Round 2: Web & Database Engineering",
+          "type": "technical",
+          "durationMin": 45,
+          "topics": [
+            "OOPs, Relational databases, REST API design, Web fundamentals"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "Cultural Alignment / Freshworks Values",
+          "type": "managerial",
+          "durationMin": 30,
+          "topics": [
+            "Customer empathy, Craftsmanship, Teamwork"
+          ],
+          "difficulty": "easy"
+        }
+      ],
+      "compensation": {
+        "currency": "INR",
+        "fixedMinLPA": 10,
+        "fixedMaxLPA": 14,
+        "variableLPA": 1.5,
+        "joiningBonusINR": 100000,
+        "stipendPerMonthINR": null,
+        "esopNote": "Freshworks NASDAQ listed stock options included.",
+        "asOfYear": 2026
+      },
+      "training": {
+        "durationMonths": 2,
+        "bondMonths": null,
+        "bondAmountINR": null,
+        "notes": "Freshworks Academy SaaS product engineering training in Chennai."
+      },
+      "locations": [
+        "Chennai",
+        "Bengaluru"
+      ],
+      "seasons": {
+        "typicalMonths": [
+          8,
+          9,
+          10
+        ],
+        "notes": "Autumn campus placement window."
+      },
+      "entry": {
+        "companyLevelCode": "Software Engineer",
+        "equivalenceLevelId": "L3_ENTRY"
+      },
+      "competencyProfile": {
+        "dsa": "strong",
+        "react": "working",
+        "java": "strong",
+        "databases": "strong",
+        "communication": "strong"
+      },
+      "derivedFrom": "official-jd",
+      "trajectory": [
+        {
+          "fromLevelCode": "Software Engineer",
+          "toLevelCode": "Senior Software Engineer",
+          "typicalYearsMin": 2,
+          "typicalYearsMax": 3.5,
+          "conditions": [
+            "Delivering modular features on Freshdesk / Freshservice platforms"
+          ],
+          "blockers": [],
+          "compensationLPAAfter": {
+            "min": 18,
+            "max": 26
+          },
+          "fastTrackNote": "Proactive problem solving fast-tracks promotion to Senior SWE.",
+          "lateralExits": [
+            "SaaS product engineer at leading global firms."
+          ],
+          "confidence": "high",
+          "derived": false
+        }
+      ],
+      "status": "active",
+      "provenance": {
+        "sources": [
+          {
+            "url": "https://www.freshworks.com/company/careers/",
+            "title": "Freshworks Campus Careers Overview",
+            "publisher": "Freshworks",
+            "type": "official",
+            "accessed": "2026-10-10"
+          }
+        ],
+        "confidence": "high",
+        "lastVerified": "2026-10-10",
+        "dataYear": "2026"
+      }
+    }
+  ]
+}

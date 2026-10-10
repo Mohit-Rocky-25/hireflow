@@ -1,0 +1,187 @@
+{
+  "companyId": "myntra",
+  "companyName": "Myntra",
+  "status": "active",
+  "coverage": "comprehensive",
+  "sparseReason": null,
+  "verifiedDate": "2026-10-10",
+  "researchNotes": "Myntra recruits SDE-1 (18-24 LPA) in Bengaluru via on-campus hiring and its national hackathon HackerRamp for fashion tech, personalization, and supply chain.",
+  "provenance": {
+    "sources": [
+      {
+        "url": "https://careers.myntra.com/",
+        "title": "Myntra Careers & HackerRamp Campus Challenge",
+        "publisher": "Myntra",
+        "type": "official",
+        "accessed": "2026-10-10"
+      }
+    ],
+    "confidence": "high",
+    "lastVerified": "2026-10-10",
+    "dataYear": "2026"
+  },
+  "programs": [
+    {
+      "id": "myntra-sde1",
+      "companyId": "myntra",
+      "programName": "Myntra SDE-1 Campus Hiring (HackerRamp)",
+      "roleTitle": "Software Development Engineer I",
+      "aliases": [
+        "Myntra SDE-1",
+        "HackerRamp SDE"
+      ],
+      "programType": "fulltime",
+      "roleFamily": "sde-product",
+      "campusCategory": "super-dream",
+      "hiringReach": "select-campuses",
+      "channels": [
+        "on-campus",
+        "competition",
+        "portal"
+      ],
+      "testOrPortal": "HackerRamp / Unstop Assessment",
+      "eligibility": {
+        "degrees": [
+          "B.Tech",
+          "B.E.",
+          "M.Tech"
+        ],
+        "branchFamilies": [
+          "software",
+          "data-ai",
+          "electronics-embedded"
+        ],
+        "branchCodes": [
+          "CSE",
+          "IT",
+          "AIML",
+          "AIDS",
+          "ECE"
+        ],
+        "graduationYears": [
+          2026,
+          2027
+        ],
+        "minCgpa": 7,
+        "minPercentage": 70,
+        "backlogPolicy": "Zero active backlogs",
+        "gapYearPolicy": "Standard justification",
+        "notes": "Top tier campuses and nationwide finalists in HackerRamp."
+      },
+      "selectionProcess": [
+        {
+          "stage": "Coding Assessment (HackerRamp / Campus)",
+          "type": "coding",
+          "durationMin": 90,
+          "topics": [
+            "DSA (DP, Graph, Trees, Strings)",
+            "Time complexity analysis"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Technical Round 1: Problem Solving",
+          "type": "technical",
+          "durationMin": 60,
+          "topics": [
+            "Data structures, Algorithm efficiency, Edge cases"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Technical Round 2: LLD & Core Engineering",
+          "type": "technical",
+          "durationMin": 60,
+          "topics": [
+            "Object-oriented design patterns, Database schema, Rest APIs"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Cultural Alignment / Leadership",
+          "type": "managerial",
+          "durationMin": 45,
+          "topics": [
+            "Customer empathy, Fashion tech innovation, Ownership"
+          ],
+          "difficulty": "medium"
+        }
+      ],
+      "compensation": {
+        "currency": "INR",
+        "fixedMinLPA": 18,
+        "fixedMaxLPA": 24,
+        "variableLPA": 2.5,
+        "joiningBonusINR": 200000,
+        "stipendPerMonthINR": null,
+        "esopNote": "Myntra stock options included in offer.",
+        "asOfYear": 2026
+      },
+      "training": {
+        "durationMonths": 1,
+        "bondMonths": null,
+        "bondAmountINR": null,
+        "notes": "Bengaluru fashion e-commerce engineering onboarding."
+      },
+      "locations": [
+        "Bengaluru"
+      ],
+      "seasons": {
+        "typicalMonths": [
+          8,
+          9,
+          10
+        ],
+        "notes": "Autumn campus placement season."
+      },
+      "entry": {
+        "companyLevelCode": "SDE-1",
+        "equivalenceLevelId": "L3_ENTRY"
+      },
+      "competencyProfile": {
+        "dsa": "expert",
+        "java": "strong",
+        "databases": "strong",
+        "communication": "strong"
+      },
+      "derivedFrom": "official-jd",
+      "trajectory": [
+        {
+          "fromLevelCode": "SDE-1",
+          "toLevelCode": "SDE-2",
+          "typicalYearsMin": 1.5,
+          "typicalYearsMax": 3,
+          "conditions": [
+            "Delivering high volume catalog or personalization services during EORS"
+          ],
+          "blockers": [],
+          "compensationLPAAfter": {
+            "min": 28,
+            "max": 38
+          },
+          "fastTrackNote": "High performers during End of Reason Sale promoted rapidly.",
+          "lateralExits": [
+            "SDE-2 at top consumer internet startups."
+          ],
+          "confidence": "high",
+          "derived": false
+        }
+      ],
+      "status": "active",
+      "provenance": {
+        "sources": [
+          {
+            "url": "https://careers.myntra.com/",
+            "title": "Myntra Careers & HackerRamp Overview",
+            "publisher": "Myntra",
+            "type": "official",
+            "accessed": "2026-10-10"
+          }
+        ],
+        "confidence": "high",
+        "lastVerified": "2026-10-10",
+        "dataYear": "2026"
+      }
+    }
+  ]
+}

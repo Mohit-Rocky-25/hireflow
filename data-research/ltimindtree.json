@@ -1,0 +1,188 @@
+{
+  "companyId": "ltimindtree",
+  "companyName": "LTIMindtree",
+  "status": "active",
+  "coverage": "comprehensive",
+  "sparseReason": null,
+  "verifiedDate": "2026-10-10",
+  "researchNotes": "LTIMindtree hires Graduate Trainees (4.0-5.0 LPA) and an Accelerate / Specialist track (6.5-8.0 LPA) via Spark campus drives.",
+  "provenance": {
+    "sources": [
+      {
+        "url": "https://www.ltimindtree.com/careers/early-careers/",
+        "title": "LTIMindtree Early Careers & Spark Campus Initiative",
+        "publisher": "LTIMindtree",
+        "type": "official",
+        "accessed": "2026-10-10"
+      }
+    ],
+    "confidence": "high",
+    "lastVerified": "2026-10-10",
+    "dataYear": "2026"
+  },
+  "programs": [
+    {
+      "id": "ltimindtree-graduate",
+      "companyId": "ltimindtree",
+      "programName": "LTIMindtree Graduate Trainee Hiring",
+      "roleTitle": "Graduate Trainee",
+      "aliases": [
+        "Graduate Trainee",
+        "LTIMindtree GET",
+        "Spark Trainee"
+      ],
+      "programType": "trainee",
+      "roleFamily": "sde-services",
+      "campusCategory": "mass",
+      "hiringReach": "mass-pool",
+      "channels": [
+        "on-campus",
+        "portal"
+      ],
+      "testOrPortal": "LTIMindtree Online Assessment",
+      "eligibility": {
+        "degrees": [
+          "B.Tech",
+          "B.E.",
+          "MCA"
+        ],
+        "branchFamilies": [
+          "software",
+          "data-ai",
+          "electronics-embedded",
+          "core-mechanical"
+        ],
+        "branchCodes": [
+          "CSE",
+          "IT",
+          "ECE",
+          "EEE",
+          "ME"
+        ],
+        "graduationYears": [
+          2026,
+          2027
+        ],
+        "minCgpa": 6,
+        "minPercentage": 60,
+        "backlogPolicy": "No active backlogs permitted",
+        "gapYearPolicy": "Max 1 year academic gap permitted",
+        "notes": "Standard 60% requirement throughout education."
+      },
+      "selectionProcess": [
+        {
+          "stage": "Quantitative, Logical & Verbal Aptitude",
+          "type": "aptitude",
+          "durationMin": 60,
+          "topics": [
+            "Aptitude basics",
+            "Logical puzzles",
+            "Verbal comprehension"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "Coding Assessment",
+          "type": "coding",
+          "durationMin": 45,
+          "topics": [
+            "Basic programming in Java/Python",
+            "Array/String manipulation"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "Technical & HR Discussion",
+          "type": "technical",
+          "durationMin": 30,
+          "topics": [
+            "Core CS subjects",
+            "Project overview",
+            "Learning aptitude"
+          ],
+          "difficulty": "medium"
+        }
+      ],
+      "compensation": {
+        "currency": "INR",
+        "fixedMinLPA": 4,
+        "fixedMaxLPA": 5,
+        "variableLPA": 0.3,
+        "joiningBonusINR": null,
+        "stipendPerMonthINR": null,
+        "esopNote": null,
+        "asOfYear": 2026
+      },
+      "training": {
+        "durationMonths": 3,
+        "bondMonths": 24,
+        "bondAmountINR": 200000,
+        "notes": "Post-onboarding technical training with a standard 2-year service agreement."
+      },
+      "locations": [
+        "Mumbai",
+        "Bengaluru",
+        "Pune",
+        "Chennai",
+        "Hyderabad"
+      ],
+      "seasons": {
+        "typicalMonths": [
+          8,
+          9,
+          10,
+          11
+        ],
+        "notes": "Autumn campus placement roadshows."
+      },
+      "entry": {
+        "companyLevelCode": "Graduate Trainee",
+        "equivalenceLevelId": "L3_ENTRY"
+      },
+      "competencyProfile": {
+        "dsa": "working",
+        "java": "working",
+        "databases": "working",
+        "communication": "strong"
+      },
+      "derivedFrom": "official-jd",
+      "trajectory": [
+        {
+          "fromLevelCode": "Graduate Trainee",
+          "toLevelCode": "Software Engineer",
+          "typicalYearsMin": 1,
+          "typicalYearsMax": 2,
+          "conditions": [
+            "Completion of trainee probation and positive project confirmation"
+          ],
+          "blockers": [],
+          "compensationLPAAfter": {
+            "min": 6,
+            "max": 7.5
+          },
+          "fastTrackNote": "Accelerate track allows early promotion to Specialist band.",
+          "lateralExits": [
+            "Junior software engineer in IT consulting."
+          ],
+          "confidence": "high",
+          "derived": false
+        }
+      ],
+      "status": "active",
+      "provenance": {
+        "sources": [
+          {
+            "url": "https://www.ltimindtree.com/careers/early-careers/",
+            "title": "LTIMindtree Graduate Trainee Specifications",
+            "publisher": "LTIMindtree",
+            "type": "official",
+            "accessed": "2026-10-10"
+          }
+        ],
+        "confidence": "high",
+        "lastVerified": "2026-10-10",
+        "dataYear": "2026"
+      }
+    }
+  ]
+}

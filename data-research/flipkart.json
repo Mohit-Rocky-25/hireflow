@@ -1,0 +1,203 @@
+{
+  "companyId": "flipkart",
+  "companyName": "Flipkart",
+  "status": "active",
+  "coverage": "comprehensive",
+  "sparseReason": null,
+  "verifiedDate": "2026-10-10",
+  "researchNotes": "Flipkart recruits SDE-1 (18-26 LPA) via on-campus visits and the flagship Flipkart GRiD national engineering challenge.",
+  "provenance": {
+    "sources": [
+      {
+        "url": "https://www.flipkartcareers.com/early-talent",
+        "title": "Flipkart Early Talent & Flipkart GRiD Engineering Campus Program",
+        "publisher": "Flipkart",
+        "type": "official",
+        "accessed": "2026-10-10"
+      }
+    ],
+    "confidence": "high",
+    "lastVerified": "2026-10-10",
+    "dataYear": "2026"
+  },
+  "programs": [
+    {
+      "id": "flipkart-sde1",
+      "companyId": "flipkart",
+      "programName": "Flipkart SDE-1 Campus Hiring",
+      "roleTitle": "Software Development Engineer I",
+      "aliases": [
+        "Flipkart SDE-1",
+        "GRiD SDE",
+        "Flipkart Early Career SDE"
+      ],
+      "programType": "fulltime",
+      "roleFamily": "sde-product",
+      "campusCategory": "super-dream",
+      "hiringReach": "select-campuses",
+      "channels": [
+        "on-campus",
+        "competition",
+        "portal"
+      ],
+      "testOrPortal": "Flipkart GRiD / HackerEarth Assessment",
+      "eligibility": {
+        "degrees": [
+          "B.Tech",
+          "B.E.",
+          "M.Tech",
+          "Dual Degree"
+        ],
+        "branchFamilies": [
+          "software",
+          "data-ai",
+          "electronics-embedded"
+        ],
+        "branchCodes": [
+          "CSE",
+          "IT",
+          "AIML",
+          "AIDS",
+          "ECE"
+        ],
+        "graduationYears": [
+          2026,
+          2027
+        ],
+        "minCgpa": 7,
+        "minPercentage": 70,
+        "backlogPolicy": "Zero active backlogs permitted",
+        "gapYearPolicy": "Max 12 months gap",
+        "notes": "Premier campus visits and open national qualifiers via Flipkart GRiD hackathon."
+      },
+      "selectionProcess": [
+        {
+          "stage": "Online Coding Assessment (Flipkart GRiD / Campus)",
+          "type": "coding",
+          "durationMin": 90,
+          "topics": [
+            "Hard DSA (Graphs, Dynamic Programming, Segment Trees)",
+            "Algorithmic efficiency"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Machine Coding Round (LLD)",
+          "type": "coding",
+          "durationMin": 120,
+          "topics": [
+            "Low-level design of clean, modular, extensible object-oriented systems (e.g. In-memory Cache, Snake & Ladder, Ride Sharing)"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "DSA Problem Solving & CS Fundamentals",
+          "type": "technical",
+          "durationMin": 60,
+          "topics": [
+            "Complex algorithmic challenges",
+            "OS concurrency",
+            "DBMS indexing"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Hiring Manager & Culture Fitment",
+          "type": "managerial",
+          "durationMin": 45,
+          "topics": [
+            "Customer first mindset",
+            "Bias for action",
+            "Ownership"
+          ],
+          "difficulty": "medium"
+        }
+      ],
+      "compensation": {
+        "currency": "INR",
+        "fixedMinLPA": 18,
+        "fixedMaxLPA": 26,
+        "variableLPA": 2.5,
+        "joiningBonusINR": 300000,
+        "stipendPerMonthINR": null,
+        "esopNote": "Flipkart stock units vesting over 4 years.",
+        "asOfYear": 2026
+      },
+      "training": {
+        "durationMonths": 1,
+        "bondMonths": null,
+        "bondAmountINR": null,
+        "notes": "Flipkart Engineering Bootcamp followed by integration into core commerce/logistics squads."
+      },
+      "locations": [
+        "Bengaluru"
+      ],
+      "seasons": {
+        "typicalMonths": [
+          7,
+          8,
+          9,
+          10
+        ],
+        "notes": "GRiD runs July-September; campus offers delivered September-November."
+      },
+      "entry": {
+        "companyLevelCode": "SDE-1",
+        "equivalenceLevelId": "L3_ENTRY"
+      },
+      "competencyProfile": {
+        "dsa": "expert",
+        "java": "strong",
+        "systemdesign": "working",
+        "databases": "strong",
+        "communication": "strong"
+      },
+      "derivedFrom": "official-jd",
+      "trajectory": [
+        {
+          "fromLevelCode": "SDE-1",
+          "toLevelCode": "SDE-2",
+          "typicalYearsMin": 1.5,
+          "typicalYearsMax": 3,
+          "conditions": [
+            "Independently architecting and delivering high-scale microservices",
+            "Consistent Exceeds Expectations rating during annual appraisal"
+          ],
+          "blockers": [
+            {
+              "title": "High-Scale High-Concurrency System Design Evidence",
+              "category": "system-design",
+              "whyItBlocks": "Promotion to SDE-2 requires demonstrating ownership of services handling peak Big Billion Days traffic with zero downtime.",
+              "evidenceToCounter": "Document service SLA metrics, throughput optimizations, and caching architecture under production peak."
+            }
+          ],
+          "compensationLPAAfter": {
+            "min": 32,
+            "max": 45
+          },
+          "fastTrackNote": "Exceptional performance during Big Billion Days can fast-track SDE-2 promotion in under 2 years.",
+          "lateralExits": [
+            "SDE-2 at top global tech firms (Google, Uber, Microsoft)."
+          ],
+          "confidence": "high",
+          "derived": false
+        }
+      ],
+      "status": "active",
+      "provenance": {
+        "sources": [
+          {
+            "url": "https://www.flipkartcareers.com/early-talent",
+            "title": "Flipkart Early Careers Official Guide",
+            "publisher": "Flipkart",
+            "type": "official",
+            "accessed": "2026-10-10"
+          }
+        ],
+        "confidence": "high",
+        "lastVerified": "2026-10-10",
+        "dataYear": "2026"
+      }
+    }
+  ]
+}

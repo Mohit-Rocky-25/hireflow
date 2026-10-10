@@ -1,0 +1,188 @@
+{
+  "companyId": "cred",
+  "companyName": "CRED",
+  "status": "active",
+  "coverage": "comprehensive",
+  "sparseReason": null,
+  "verifiedDate": "2026-10-10",
+  "researchNotes": "CRED recruits Software Engineers (24-32 LPA) in Bengaluru with an exceptionally high bar for design, engineering craftsmanship, and low-latency architecture.",
+  "provenance": {
+    "sources": [
+      {
+        "url": "https://careers.cred.club/",
+        "title": "CRED Careers & Early Engineering Opportunities",
+        "publisher": "CRED",
+        "type": "official",
+        "accessed": "2026-10-10"
+      }
+    ],
+    "confidence": "high",
+    "lastVerified": "2026-10-10",
+    "dataYear": "2026"
+  },
+  "programs": [
+    {
+      "id": "cred-sde1",
+      "companyId": "cred",
+      "programName": "CRED Software Engineer Campus Hiring",
+      "roleTitle": "Software Engineer",
+      "aliases": [
+        "CRED SDE-1",
+        "CRED Engineer I"
+      ],
+      "programType": "fulltime",
+      "roleFamily": "sde-product",
+      "campusCategory": "super-dream",
+      "hiringReach": "select-campuses",
+      "channels": [
+        "on-campus",
+        "portal"
+      ],
+      "testOrPortal": "CRED HackerRank Challenge",
+      "eligibility": {
+        "degrees": [
+          "B.Tech",
+          "B.E.",
+          "M.Tech"
+        ],
+        "branchFamilies": [
+          "software",
+          "data-ai",
+          "electronics-embedded"
+        ],
+        "branchCodes": [
+          "CSE",
+          "IT",
+          "AIML",
+          "AIDS",
+          "ECE"
+        ],
+        "graduationYears": [
+          2026,
+          2027
+        ],
+        "minCgpa": 8,
+        "minPercentage": 80,
+        "backlogPolicy": "Zero active backlogs",
+        "gapYearPolicy": "Standard justification",
+        "notes": "Top premier institutions (IITs, BITS, top NITs); extreme emphasis on product taste."
+      },
+      "selectionProcess": [
+        {
+          "stage": "Coding Assessment",
+          "type": "coding",
+          "durationMin": 90,
+          "topics": [
+            "DSA (Hard Dynamic Programming, Graph algorithms, Bitwise manipulations)",
+            "Clean code"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Machine Coding Round",
+          "type": "coding",
+          "durationMin": 120,
+          "topics": [
+            "End-to-end design and coding of a modular backend service with concurrency & caching"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Technical Round 2: Core Architecture & Craftsmanship",
+          "type": "technical",
+          "durationMin": 60,
+          "topics": [
+            "Distributed systems primitives, Database internals, Microservice communication"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Culture & Craft Alignment",
+          "type": "managerial",
+          "durationMin": 45,
+          "topics": [
+            "Obsession with craft, Taste in product design, High individual ownership"
+          ],
+          "difficulty": "hard"
+        }
+      ],
+      "compensation": {
+        "currency": "INR",
+        "fixedMinLPA": 24,
+        "fixedMaxLPA": 32,
+        "variableLPA": 3.5,
+        "joiningBonusINR": 400000,
+        "stipendPerMonthINR": null,
+        "esopNote": "Generous CRED ESOP grants included.",
+        "asOfYear": 2026
+      },
+      "training": {
+        "durationMonths": 1,
+        "bondMonths": null,
+        "bondAmountINR": null,
+        "notes": "Direct mentorship under principal engineers in Bengaluru."
+      },
+      "locations": [
+        "Bengaluru"
+      ],
+      "seasons": {
+        "typicalMonths": [
+          7,
+          8,
+          9,
+          10
+        ],
+        "notes": "Conducted in premier campus slot 1 placement windows."
+      },
+      "entry": {
+        "companyLevelCode": "Software Engineer",
+        "equivalenceLevelId": "L3_ENTRY"
+      },
+      "competencyProfile": {
+        "dsa": "expert",
+        "golang": "strong",
+        "systemdesign": "working",
+        "databases": "strong",
+        "communication": "strong"
+      },
+      "derivedFrom": "official-jd",
+      "trajectory": [
+        {
+          "fromLevelCode": "Software Engineer",
+          "toLevelCode": "Senior Engineer",
+          "typicalYearsMin": 1.5,
+          "typicalYearsMax": 3,
+          "conditions": [
+            "Delivering high-reliability financial ledger or reward microservices with zero incidents"
+          ],
+          "blockers": [],
+          "compensationLPAAfter": {
+            "min": 42,
+            "max": 60
+          },
+          "fastTrackNote": "Engineers demonstrating exceptional craft progress directly to Senior Engineer.",
+          "lateralExits": [
+            "Senior SDE at top US Big Tech or tier-1 startups."
+          ],
+          "confidence": "high",
+          "derived": false
+        }
+      ],
+      "status": "active",
+      "provenance": {
+        "sources": [
+          {
+            "url": "https://careers.cred.club/",
+            "title": "CRED Engineering Careers & Criteria",
+            "publisher": "CRED",
+            "type": "official",
+            "accessed": "2026-10-10"
+          }
+        ],
+        "confidence": "high",
+        "lastVerified": "2026-10-10",
+        "dataYear": "2026"
+      }
+    }
+  ]
+}

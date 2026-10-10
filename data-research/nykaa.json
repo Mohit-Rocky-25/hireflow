@@ -1,0 +1,188 @@
+{
+  "companyId": "nykaa",
+  "companyName": "Nykaa",
+  "status": "active",
+  "coverage": "comprehensive",
+  "sparseReason": null,
+  "verifiedDate": "2026-10-10",
+  "researchNotes": "Nykaa recruits Software Engineers (12-16 LPA) in Gurugram and Mumbai for beauty e-commerce, content-commerce, and retail omnichannel stacks.",
+  "provenance": {
+    "sources": [
+      {
+        "url": "https://www.nykaa.com/careers",
+        "title": "Nykaa Careers & Early Engineering Opportunities",
+        "publisher": "Nykaa",
+        "type": "official",
+        "accessed": "2026-10-10"
+      }
+    ],
+    "confidence": "high",
+    "lastVerified": "2026-10-10",
+    "dataYear": "2026"
+  },
+  "programs": [
+    {
+      "id": "nykaa-sde1",
+      "companyId": "nykaa",
+      "programName": "Nykaa Software Engineer Campus Hiring",
+      "roleTitle": "Software Engineer",
+      "aliases": [
+        "Nykaa SE",
+        "Nykaa SDE-1"
+      ],
+      "programType": "fulltime",
+      "roleFamily": "sde-product",
+      "campusCategory": "dream",
+      "hiringReach": "select-campuses",
+      "channels": [
+        "on-campus",
+        "portal"
+      ],
+      "testOrPortal": "Nykaa Online Assessment",
+      "eligibility": {
+        "degrees": [
+          "B.Tech",
+          "B.E.",
+          "MCA",
+          "M.Tech"
+        ],
+        "branchFamilies": [
+          "software",
+          "data-ai",
+          "electronics-embedded"
+        ],
+        "branchCodes": [
+          "CSE",
+          "IT",
+          "AIML",
+          "AIDS",
+          "ECE"
+        ],
+        "graduationYears": [
+          2026,
+          2027
+        ],
+        "minCgpa": 6.5,
+        "minPercentage": 65,
+        "backlogPolicy": "Zero active backlogs",
+        "gapYearPolicy": "Standard justification",
+        "notes": "Engineering colleges across North & West India."
+      },
+      "selectionProcess": [
+        {
+          "stage": "Coding Assessment",
+          "type": "coding",
+          "durationMin": 75,
+          "topics": [
+            "DSA (Trees, Dynamic Programming, Arrays)",
+            "Core CS fundamentals"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "Technical Round 1: Problem Solving",
+          "type": "technical",
+          "durationMin": 45,
+          "topics": [
+            "Data structures, Time complexity, Algorithm dry-run"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "Technical Round 2: LLD & Databases",
+          "type": "technical",
+          "durationMin": 45,
+          "topics": [
+            "OOPs, Database schema, REST APIs"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "HR & Fitment Interview",
+          "type": "hr",
+          "durationMin": 20,
+          "topics": [
+            "Team alignment, Passion for e-commerce and retail"
+          ],
+          "difficulty": "easy"
+        }
+      ],
+      "compensation": {
+        "currency": "INR",
+        "fixedMinLPA": 12,
+        "fixedMaxLPA": 16,
+        "variableLPA": 1.5,
+        "joiningBonusINR": 100000,
+        "stipendPerMonthINR": null,
+        "esopNote": null,
+        "asOfYear": 2026
+      },
+      "training": {
+        "durationMonths": 2,
+        "bondMonths": null,
+        "bondAmountINR": null,
+        "notes": "Gurugram / Mumbai technology center onboarding."
+      },
+      "locations": [
+        "Gurugram",
+        "Mumbai"
+      ],
+      "seasons": {
+        "typicalMonths": [
+          8,
+          9,
+          10
+        ],
+        "notes": "Autumn campus placement window."
+      },
+      "entry": {
+        "companyLevelCode": "Software Engineer",
+        "equivalenceLevelId": "L3_ENTRY"
+      },
+      "competencyProfile": {
+        "dsa": "strong",
+        "java": "strong",
+        "databases": "strong",
+        "communication": "strong"
+      },
+      "derivedFrom": "official-jd",
+      "trajectory": [
+        {
+          "fromLevelCode": "Software Engineer",
+          "toLevelCode": "Senior Software Engineer",
+          "typicalYearsMin": 2,
+          "typicalYearsMax": 3.5,
+          "conditions": [
+            "Production contribution on checkout or catalog search microservices"
+          ],
+          "blockers": [],
+          "compensationLPAAfter": {
+            "min": 20,
+            "max": 28
+          },
+          "fastTrackNote": "High performers receive rapid advancement.",
+          "lateralExits": [
+            "Mid-level e-commerce software engineer."
+          ],
+          "confidence": "high",
+          "derived": false
+        }
+      ],
+      "status": "active",
+      "provenance": {
+        "sources": [
+          {
+            "url": "https://www.nykaa.com/careers",
+            "title": "Nykaa Campus Careers Specifications",
+            "publisher": "Nykaa",
+            "type": "official",
+            "accessed": "2026-10-10"
+          }
+        ],
+        "confidence": "high",
+        "lastVerified": "2026-10-10",
+        "dataYear": "2026"
+      }
+    }
+  ]
+}

@@ -1,0 +1,182 @@
+{
+  "companyId": "intel",
+  "companyName": "Intel India",
+  "status": "active",
+  "coverage": "comprehensive",
+  "sparseReason": null,
+  "verifiedDate": "2026-10-10",
+  "researchNotes": "Intel recruits Associate Hardware / Software Engineers (Grade 5, 14-20 LPA) in Bengaluru for microprocessor architecture, firmware, and compiler engineering.",
+  "provenance": {
+    "sources": [
+      {
+        "url": "https://www.intel.com/content/www/us/en/jobs/locations/india.html",
+        "title": "Intel India Student & Early Career Opportunities",
+        "publisher": "Intel",
+        "type": "official",
+        "accessed": "2026-10-10"
+      }
+    ],
+    "confidence": "high",
+    "lastVerified": "2026-10-10",
+    "dataYear": "2026"
+  },
+  "programs": [
+    {
+      "id": "intel-assoc-eng",
+      "companyId": "intel",
+      "programName": "Intel Associate Hardware/Software Engineer",
+      "roleTitle": "Associate Engineer (Grade 5)",
+      "aliases": [
+        "Intel Grade 5",
+        "Intel College Graduate"
+      ],
+      "programType": "fulltime",
+      "roleFamily": "embedded-firmware",
+      "campusCategory": "dream",
+      "hiringReach": "select-campuses",
+      "channels": [
+        "on-campus",
+        "portal"
+      ],
+      "testOrPortal": "Intel Online Assessment",
+      "eligibility": {
+        "degrees": [
+          "B.Tech",
+          "B.E.",
+          "M.Tech"
+        ],
+        "branchFamilies": [
+          "software",
+          "electronics-embedded"
+        ],
+        "branchCodes": [
+          "CSE",
+          "ECE",
+          "EEE",
+          "AIML"
+        ],
+        "graduationYears": [
+          2026,
+          2027
+        ],
+        "minCgpa": 7,
+        "minPercentage": 70,
+        "backlogPolicy": "Zero active backlogs",
+        "gapYearPolicy": "Standard justification",
+        "notes": "Engineering colleges across India."
+      },
+      "selectionProcess": [
+        {
+          "stage": "Technical & Aptitude Assessment",
+          "type": "technical",
+          "durationMin": 75,
+          "topics": [
+            "C/C++ basics, Digital electronics, Computer architecture, OS fundamentals"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "Technical Round 1: Architecture & Embedded Concepts",
+          "type": "technical",
+          "durationMin": 45,
+          "topics": [
+            "Processor pipelines, Memory hierarchies, C pointers and bit manipulations"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "Technical Round 2: Problem Solving & Design",
+          "type": "technical",
+          "durationMin": 45,
+          "topics": [
+            "Firmware debug scenarios, Concurrency, Hardware-software interface"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "HR & Fitment Interview",
+          "type": "hr",
+          "durationMin": 20,
+          "topics": [
+            "Team alignment, Passion for semiconductors"
+          ],
+          "difficulty": "easy"
+        }
+      ],
+      "compensation": {
+        "currency": "INR",
+        "fixedMinLPA": 14,
+        "fixedMaxLPA": 20,
+        "variableLPA": 2,
+        "joiningBonusINR": 150000,
+        "stipendPerMonthINR": null,
+        "esopNote": null,
+        "asOfYear": 2026
+      },
+      "training": {
+        "durationMonths": 2,
+        "bondMonths": null,
+        "bondAmountINR": null,
+        "notes": "Silicon architecture and firmware lab onboarding in Bengaluru."
+      },
+      "locations": [
+        "Bengaluru"
+      ],
+      "seasons": {
+        "typicalMonths": [
+          8,
+          9,
+          10
+        ],
+        "notes": "Autumn campus placement window."
+      },
+      "entry": {
+        "companyLevelCode": "Grade 5",
+        "equivalenceLevelId": "L3_ENTRY"
+      },
+      "competencyProfile": {
+        "dsa": "strong",
+        "devops": "working",
+        "communication": "strong"
+      },
+      "derivedFrom": "official-jd",
+      "trajectory": [
+        {
+          "fromLevelCode": "Grade 5",
+          "toLevelCode": "Grade 6",
+          "typicalYearsMin": 2,
+          "typicalYearsMax": 3.5,
+          "conditions": [
+            "Production contribution on silicon validation or firmware IP blocks"
+          ],
+          "blockers": [],
+          "compensationLPAAfter": {
+            "min": 22,
+            "max": 32
+          },
+          "fastTrackNote": "High performers receive rapid advancement.",
+          "lateralExits": [
+            "Firmware / silicon engineer at leading semiconductor firms."
+          ],
+          "confidence": "high",
+          "derived": false
+        }
+      ],
+      "status": "active",
+      "provenance": {
+        "sources": [
+          {
+            "url": "https://www.intel.com/content/www/us/en/jobs/locations/india.html",
+            "title": "Intel India Early Career Specifications",
+            "publisher": "Intel",
+            "type": "official",
+            "accessed": "2026-10-10"
+          }
+        ],
+        "confidence": "high",
+        "lastVerified": "2026-10-10",
+        "dataYear": "2026"
+      }
+    }
+  ]
+}

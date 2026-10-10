@@ -1,0 +1,352 @@
+{
+  "companyId": "infosys",
+  "companyName": "Infosys Limited",
+  "status": "active",
+  "coverage": "comprehensive",
+  "sparseReason": null,
+  "verifiedDate": "2026-10-10",
+  "researchNotes": "Infosys runs campus recruitment across 3 tiers: Systems Engineer (3.6-4.0 LPA), Digital Specialist Engineer (DSE, 6.25-6.5 LPA), and Specialist Programmer (SP, 9.5-10.0 LPA, through HackWithInfy).",
+  "provenance": {
+    "sources": [
+      {
+        "url": "https://www.infosys.com/careers/graduates-interns.html",
+        "title": "Infosys Early Careers, InfyTQ & HackWithInfy Program",
+        "publisher": "Infosys Limited",
+        "type": "official",
+        "accessed": "2026-10-10"
+      }
+    ],
+    "confidence": "high",
+    "lastVerified": "2026-10-10",
+    "dataYear": "2026"
+  },
+  "programs": [
+    {
+      "id": "infosys-se",
+      "companyId": "infosys",
+      "programName": "Infosys Systems Engineer Campus Hiring",
+      "roleTitle": "Systems Engineer",
+      "aliases": [
+        "SE",
+        "Infosys SE",
+        "Systems Engineer Trainee"
+      ],
+      "programType": "fulltime",
+      "roleFamily": "sde-services",
+      "campusCategory": "mass",
+      "hiringReach": "mass-pool",
+      "channels": [
+        "on-campus",
+        "off-campus",
+        "portal"
+      ],
+      "testOrPortal": "Infosys Online Assessment (InfyTQ)",
+      "eligibility": {
+        "degrees": [
+          "B.Tech",
+          "B.E.",
+          "MCA",
+          "M.Tech",
+          "M.Sc"
+        ],
+        "branchFamilies": [
+          "software",
+          "data-ai",
+          "electronics-embedded",
+          "core-mechanical",
+          "core-civil",
+          "chemical-bio"
+        ],
+        "branchCodes": [
+          "CSE",
+          "IT",
+          "ECE",
+          "EEE",
+          "ME",
+          "CIVIL",
+          "MCA"
+        ],
+        "graduationYears": [
+          2026,
+          2027
+        ],
+        "minCgpa": 6,
+        "minPercentage": 60,
+        "backlogPolicy": "No active backlogs allowed",
+        "gapYearPolicy": "Max 2 years gap allowed with valid documentation",
+        "notes": "All engineering disciplines eligible with minimum 60% aggregate."
+      },
+      "selectionProcess": [
+        {
+          "stage": "Reasoning Ability & Mathematical Critical Thinking",
+          "type": "aptitude",
+          "durationMin": 60,
+          "topics": [
+            "Logical Reasoning",
+            "Quantitative Aptitude",
+            "Verbal Ability"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "Pseudocode & Numerical Puzzle Solving",
+          "type": "technical",
+          "durationMin": 30,
+          "topics": [
+            "Pseudocode dry-running",
+            "Basic algorithmic puzzles"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "Technical & HR Interview",
+          "type": "technical",
+          "durationMin": 30,
+          "topics": [
+            "Basic OOP concepts",
+            "DBMS queries",
+            "Final year project"
+          ],
+          "difficulty": "medium"
+        }
+      ],
+      "compensation": {
+        "currency": "INR",
+        "fixedMinLPA": 3.6,
+        "fixedMaxLPA": 4,
+        "variableLPA": 0.25,
+        "joiningBonusINR": null,
+        "stipendPerMonthINR": null,
+        "esopNote": null,
+        "asOfYear": 2026
+      },
+      "training": {
+        "durationMonths": 4,
+        "bondMonths": 12,
+        "bondAmountINR": null,
+        "notes": "Legendary Infosys Mysore campus residential training program covering generic and stream tracks."
+      },
+      "locations": [
+        "Bengaluru",
+        "Mysuru",
+        "Pune",
+        "Hyderabad",
+        "Chennai",
+        "Chandigarh",
+        "Thiruvananthapuram"
+      ],
+      "seasons": {
+        "typicalMonths": [
+          8,
+          9,
+          10,
+          11
+        ],
+        "notes": "Standard national campus hiring season."
+      },
+      "entry": {
+        "companyLevelCode": "SE",
+        "equivalenceLevelId": "L4_MID"
+      },
+      "competencyProfile": {
+        "dsa": "working",
+        "java": "working",
+        "databases": "working",
+        "communication": "strong"
+      },
+      "derivedFrom": "official-jd",
+      "trajectory": [
+        {
+          "fromLevelCode": "SE",
+          "toLevelCode": "TA",
+          "typicalYearsMin": 2,
+          "typicalYearsMax": 3.5,
+          "conditions": [
+            "Completion of client projects with good CSAT score",
+            "Clearing internal technical certifications (JL5 readiness)"
+          ],
+          "blockers": [],
+          "compensationLPAAfter": {
+            "min": 5.5,
+            "max": 7.5
+          },
+          "fastTrackNote": "Clearing Bridge-to-DSE programs fast-tracks compensation revision.",
+          "lateralExits": [
+            "Mid-tier IT software developer or banking tech maintenance engineer."
+          ],
+          "confidence": "high",
+          "derived": false
+        }
+      ],
+      "status": "active",
+      "provenance": {
+        "sources": [
+          {
+            "url": "https://www.infosys.com/careers/graduates-interns.html",
+            "title": "Infosys Graduate Systems Engineer Program",
+            "publisher": "Infosys Limited",
+            "type": "official",
+            "accessed": "2026-10-10"
+          }
+        ],
+        "confidence": "high",
+        "lastVerified": "2026-10-10",
+        "dataYear": "2026"
+      }
+    },
+    {
+      "id": "infosys-sp",
+      "companyId": "infosys",
+      "programName": "Infosys Specialist Programmer (HackWithInfy)",
+      "roleTitle": "Specialist Programmer",
+      "aliases": [
+        "SP",
+        "Power Programmer",
+        "DSE/SP"
+      ],
+      "programType": "competition-hiring",
+      "roleFamily": "sde-services",
+      "campusCategory": "super-dream",
+      "hiringReach": "mass-pool",
+      "channels": [
+        "competition",
+        "portal",
+        "on-campus"
+      ],
+      "testOrPortal": "HackWithInfy National Competitive Coding Contest",
+      "eligibility": {
+        "degrees": [
+          "B.Tech",
+          "B.E.",
+          "M.Tech",
+          "MCA"
+        ],
+        "branchFamilies": [
+          "software",
+          "data-ai",
+          "electronics-embedded"
+        ],
+        "branchCodes": [
+          "CSE",
+          "IT",
+          "AIML",
+          "AIDS",
+          "ECE"
+        ],
+        "graduationYears": [
+          2026,
+          2027
+        ],
+        "minCgpa": 6.5,
+        "minPercentage": 65,
+        "backlogPolicy": "No active backlogs permitted",
+        "gapYearPolicy": "Standard company policy",
+        "notes": "Top finalists and qualifiers in HackWithInfy algorithmic coding contest."
+      },
+      "selectionProcess": [
+        {
+          "stage": "HackWithInfy Round 1 (Online Coding)",
+          "type": "coding",
+          "durationMin": 180,
+          "topics": [
+            "Dynamic Programming",
+            "Graph Theory",
+            "Data Structures (Trees, Queues, Fenwick Trees)"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "HackWithInfy Grand Finale / Technical Interview",
+          "type": "technical",
+          "durationMin": 60,
+          "topics": [
+            "Algorithmic optimization",
+            "System design",
+            "Deep dive into hackathon submissions"
+          ],
+          "difficulty": "hard"
+        }
+      ],
+      "compensation": {
+        "currency": "INR",
+        "fixedMinLPA": 9.5,
+        "fixedMaxLPA": 10,
+        "variableLPA": 1,
+        "joiningBonusINR": null,
+        "stipendPerMonthINR": null,
+        "esopNote": null,
+        "asOfYear": 2026
+      },
+      "training": {
+        "durationMonths": 2,
+        "bondMonths": null,
+        "bondAmountINR": null,
+        "notes": "Directly placed into Infosys Strategic Technology Group (STG) / AI Labs."
+      },
+      "locations": [
+        "Bengaluru",
+        "Pune",
+        "Hyderabad",
+        "Chennai"
+      ],
+      "seasons": {
+        "typicalMonths": [
+          5,
+          6,
+          7,
+          8
+        ],
+        "notes": "HackWithInfy takes place across summer leading to campus offers."
+      },
+      "entry": {
+        "companyLevelCode": "DSE_SP",
+        "equivalenceLevelId": "L4_MID"
+      },
+      "competencyProfile": {
+        "dsa": "expert",
+        "java": "strong",
+        "python": "strong",
+        "databases": "strong",
+        "communication": "strong"
+      },
+      "derivedFrom": "official-jd",
+      "trajectory": [
+        {
+          "fromLevelCode": "DSE_SP",
+          "toLevelCode": "TA",
+          "typicalYearsMin": 1.5,
+          "typicalYearsMax": 2.5,
+          "conditions": [
+            "Strategic architecture contribution on Fortune 500 digital accounts"
+          ],
+          "blockers": [],
+          "compensationLPAAfter": {
+            "min": 12,
+            "max": 15
+          },
+          "fastTrackNote": "Specialist cadre has rapid progression through JL5 and JL6.",
+          "lateralExits": [
+            "SDE-2 at top product unicorns or senior engineer at Big Tech."
+          ],
+          "confidence": "high",
+          "derived": false
+        }
+      ],
+      "status": "active",
+      "provenance": {
+        "sources": [
+          {
+            "url": "https://www.infosys.com/careers/hackwithinfy.html",
+            "title": "HackWithInfy Official Contest & Specialist Programmer Details",
+            "publisher": "Infosys Limited",
+            "type": "official",
+            "accessed": "2026-10-10"
+          }
+        ],
+        "confidence": "high",
+        "lastVerified": "2026-10-10",
+        "dataYear": "2026"
+      }
+    }
+  ]
+}

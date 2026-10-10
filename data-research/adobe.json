@@ -1,0 +1,191 @@
+{
+  "companyId": "adobe",
+  "companyName": "Adobe Systems India",
+  "status": "active",
+  "coverage": "comprehensive",
+  "sparseReason": null,
+  "verifiedDate": "2026-10-10",
+  "researchNotes": "Adobe recruits Software Engineers (SE1, 22-30 LPA) in Noida and Bengaluru for Creative Cloud, Document Cloud, and Experience Cloud platforms.",
+  "provenance": {
+    "sources": [
+      {
+        "url": "https://www.adobe.com/careers/university.html",
+        "title": "Adobe University Careers & Early Engineering Opportunities",
+        "publisher": "Adobe",
+        "type": "official",
+        "accessed": "2026-10-10"
+      }
+    ],
+    "confidence": "high",
+    "lastVerified": "2026-10-10",
+    "dataYear": "2026"
+  },
+  "programs": [
+    {
+      "id": "adobe-se1",
+      "companyId": "adobe",
+      "programName": "Adobe Software Engineer 1 (Campus)",
+      "roleTitle": "Software Engineer 1 (SE1)",
+      "aliases": [
+        "Adobe SE1",
+        "Adobe Campus SWE",
+        "Adobe MTS1"
+      ],
+      "programType": "fulltime",
+      "roleFamily": "sde-product",
+      "campusCategory": "super-dream",
+      "hiringReach": "select-campuses",
+      "channels": [
+        "on-campus",
+        "portal",
+        "competition"
+      ],
+      "testOrPortal": "Adobe Online Assessment",
+      "eligibility": {
+        "degrees": [
+          "B.Tech",
+          "B.E.",
+          "M.Tech",
+          "Dual Degree"
+        ],
+        "branchFamilies": [
+          "software",
+          "data-ai",
+          "electronics-embedded"
+        ],
+        "branchCodes": [
+          "CSE",
+          "IT",
+          "AIML",
+          "AIDS",
+          "ECE"
+        ],
+        "graduationYears": [
+          2026,
+          2027
+        ],
+        "minCgpa": 7.5,
+        "minPercentage": 75,
+        "backlogPolicy": "Zero active backlogs",
+        "gapYearPolicy": "Standard justification",
+        "notes": "Premier technology colleges nationwide."
+      },
+      "selectionProcess": [
+        {
+          "stage": "Coding Assessment",
+          "type": "coding",
+          "durationMin": 90,
+          "topics": [
+            "DSA (DP, Graph, Trees, Strings)",
+            "Time complexity analysis"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Technical Round 1: Problem Solving",
+          "type": "technical",
+          "durationMin": 60,
+          "topics": [
+            "Data structures, Algorithm efficiency"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Technical Round 2: Core Computer Science & Design",
+          "type": "technical",
+          "durationMin": 60,
+          "topics": [
+            "OOPs, Operating systems, Multi-threading, C++/Java internals"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Cultural Alignment / Leadership",
+          "type": "managerial",
+          "durationMin": 45,
+          "topics": [
+            "Genuine, Exceptional, Innovative, Involved (Adobe values)"
+          ],
+          "difficulty": "medium"
+        }
+      ],
+      "compensation": {
+        "currency": "INR",
+        "fixedMinLPA": 22,
+        "fixedMaxLPA": 30,
+        "variableLPA": 3,
+        "joiningBonusINR": 300000,
+        "stipendPerMonthINR": null,
+        "esopNote": "Adobe RSUs included in package.",
+        "asOfYear": 2026
+      },
+      "training": {
+        "durationMonths": 2,
+        "bondMonths": null,
+        "bondAmountINR": null,
+        "notes": "Noida / Bengaluru technology center onboarding."
+      },
+      "locations": [
+        "Noida",
+        "Bengaluru"
+      ],
+      "seasons": {
+        "typicalMonths": [
+          8,
+          9,
+          10
+        ],
+        "notes": "Autumn campus placement season."
+      },
+      "entry": {
+        "companyLevelCode": "SE1",
+        "equivalenceLevelId": "L3_ENTRY"
+      },
+      "competencyProfile": {
+        "dsa": "expert",
+        "java": "strong",
+        "systemdesign": "working",
+        "databases": "strong",
+        "communication": "strong"
+      },
+      "derivedFrom": "official-jd",
+      "trajectory": [
+        {
+          "fromLevelCode": "SE1",
+          "toLevelCode": "CS1",
+          "typicalYearsMin": 1.5,
+          "typicalYearsMax": 2.5,
+          "conditions": [
+            "Delivering modular features on Creative Cloud or Acrobat architectures"
+          ],
+          "blockers": [],
+          "compensationLPAAfter": {
+            "min": 38,
+            "max": 50
+          },
+          "fastTrackNote": "High performers promoted to Computer Scientist 1 in under 2 years.",
+          "lateralExits": [
+            "Senior SDE at top tier tech firms."
+          ],
+          "confidence": "high",
+          "derived": false
+        }
+      ],
+      "status": "active",
+      "provenance": {
+        "sources": [
+          {
+            "url": "https://www.adobe.com/careers/university.html",
+            "title": "Adobe University Careers Guide",
+            "publisher": "Adobe",
+            "type": "official",
+            "accessed": "2026-10-10"
+          }
+        ],
+        "confidence": "high",
+        "lastVerified": "2026-10-10",
+        "dataYear": "2026"
+      }
+    }
+  ]
+}

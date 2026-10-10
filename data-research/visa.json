@@ -1,0 +1,188 @@
+{
+  "companyId": "visa",
+  "companyName": "Visa India",
+  "status": "active",
+  "coverage": "comprehensive",
+  "sparseReason": null,
+  "verifiedDate": "2026-10-10",
+  "researchNotes": "Visa India hires Software Engineers (College Grad, 18-24 LPA) in Bengaluru for global payment networks, tokenization, and cyber-security platforms.",
+  "provenance": {
+    "sources": [
+      {
+        "url": "https://www.visa.co.in/careers/university.html",
+        "title": "Visa University Careers & College Graduate Engineering Program",
+        "publisher": "Visa",
+        "type": "official",
+        "accessed": "2026-10-10"
+      }
+    ],
+    "confidence": "high",
+    "lastVerified": "2026-10-10",
+    "dataYear": "2026"
+  },
+  "programs": [
+    {
+      "id": "visa-swe",
+      "companyId": "visa",
+      "programName": "Visa Software Engineer College Graduate Program",
+      "roleTitle": "Software Engineer",
+      "aliases": [
+        "Visa SWE",
+        "Visa College Grad",
+        "Associate Software Engineer"
+      ],
+      "programType": "fulltime",
+      "roleFamily": "sde-product",
+      "campusCategory": "super-dream",
+      "hiringReach": "select-campuses",
+      "channels": [
+        "on-campus",
+        "portal"
+      ],
+      "testOrPortal": "Visa Online Assessment (CodeSignal / HackerRank)",
+      "eligibility": {
+        "degrees": [
+          "B.Tech",
+          "B.E.",
+          "M.Tech"
+        ],
+        "branchFamilies": [
+          "software",
+          "data-ai",
+          "electronics-embedded"
+        ],
+        "branchCodes": [
+          "CSE",
+          "IT",
+          "AIML",
+          "AIDS",
+          "ECE"
+        ],
+        "graduationYears": [
+          2026,
+          2027
+        ],
+        "minCgpa": 7,
+        "minPercentage": 70,
+        "backlogPolicy": "Zero active backlogs",
+        "gapYearPolicy": "Standard justification",
+        "notes": "Minimum 7.0 CGPA; premier engineering campuses."
+      },
+      "selectionProcess": [
+        {
+          "stage": "Online Coding Assessment (3 Problems)",
+          "type": "coding",
+          "durationMin": 90,
+          "topics": [
+            "DSA (DP, Graphs, Trees, Strings)",
+            "Algorithmic efficiency"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Technical Interview 1: Data Structures & Algorithms",
+          "type": "technical",
+          "durationMin": 60,
+          "topics": [
+            "Complex algorithm design, In-place data transformations"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Technical Interview 2: System Architecture & Security",
+          "type": "technical",
+          "durationMin": 60,
+          "topics": [
+            "OOP design patterns, Database ACID properties, Concurrency, API design"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Managerial & Behavioral Interview",
+          "type": "managerial",
+          "durationMin": 45,
+          "topics": [
+            "Leadership principles, Mission-critical systems mindset"
+          ],
+          "difficulty": "medium"
+        }
+      ],
+      "compensation": {
+        "currency": "INR",
+        "fixedMinLPA": 18,
+        "fixedMaxLPA": 24,
+        "variableLPA": 3,
+        "joiningBonusINR": 200000,
+        "stipendPerMonthINR": null,
+        "esopNote": "Restricted stock units (RSUs) included in compensation package.",
+        "asOfYear": 2026
+      },
+      "training": {
+        "durationMonths": 1,
+        "bondMonths": null,
+        "bondAmountINR": null,
+        "notes": "Comprehensive payments security and payment protocols onboarding."
+      },
+      "locations": [
+        "Bengaluru"
+      ],
+      "seasons": {
+        "typicalMonths": [
+          8,
+          9,
+          10
+        ],
+        "notes": "Conducted in autumn campus placement season."
+      },
+      "entry": {
+        "companyLevelCode": "Software Engineer",
+        "equivalenceLevelId": "L3_ENTRY"
+      },
+      "competencyProfile": {
+        "dsa": "expert",
+        "java": "strong",
+        "security": "working",
+        "databases": "strong",
+        "communication": "strong"
+      },
+      "derivedFrom": "official-jd",
+      "trajectory": [
+        {
+          "fromLevelCode": "Software Engineer",
+          "toLevelCode": "Senior Software Engineer",
+          "typicalYearsMin": 2,
+          "typicalYearsMax": 3.5,
+          "conditions": [
+            "Production delivery on high-throughput payment transaction pipelines"
+          ],
+          "blockers": [],
+          "compensationLPAAfter": {
+            "min": 28,
+            "max": 36
+          },
+          "fastTrackNote": "Specialist security innovations fast-track promotion to Senior SWE.",
+          "lateralExits": [
+            "Fintech SDE-2, tier-1 payments systems architect."
+          ],
+          "confidence": "high",
+          "derived": false
+        }
+      ],
+      "status": "active",
+      "provenance": {
+        "sources": [
+          {
+            "url": "https://www.visa.co.in/careers/university.html",
+            "title": "Visa University Careers Specifications & Package Structure",
+            "publisher": "Visa",
+            "type": "official",
+            "accessed": "2026-10-10"
+          }
+        ],
+        "confidence": "high",
+        "lastVerified": "2026-10-10",
+        "dataYear": "2026"
+      }
+    }
+  ]
+}

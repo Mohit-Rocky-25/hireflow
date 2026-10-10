@@ -44,17 +44,17 @@
   - [x] Add 3 verified pilot programs (TCS Ninja, Indian Product SDE-1, Tata Motors GET)
   - [x] Validate end-to-end surfacing across 4 consumers
 
-- [ ] **Stage 5: Research Protocol + Pass 1 (All 56 Companies)**
-  - [ ] Ledger setup: `data-research/<companyId>.json` + `data-research/_progress.json`
-  - [ ] Verified status and 1-3 core programs per company with provenance
-  - [ ] Pass 1 validation check
+- [x] **Stage 5: Research Protocol + Pass 1 (All 56 Companies)**
+  - [x] Ledger setup: `data-research/<companyId>.json` + `data-research/_progress.json`
+  - [x] Verified status and 1-3 core programs per company with provenance
+  - [x] Pass 1 validation check
 
-- [ ] **Stage 6: Pass 2 (Depth) + Trajectories + Eligibility**
-  - [ ] In-depth campus programs (up to 10 per company, no padding)
-  - [ ] Competency profiles & derived keyword profiles
-  - [ ] 5-year fresher trajectories mapped to existing level codes
-  - [ ] Branch eligibility matrix (`careers.eligibility.matrixFor`)
-  - [ ] Write `docs/careers/fresher-vs-lateral.md`
+- [x] **Stage 6: Pass 2 (Depth) + Trajectories + Eligibility**
+  - [x] In-depth campus programs (up to 10 per company, no padding)
+  - [x] Competency profiles & derived keyword profiles
+  - [x] 5-year fresher trajectories mapped to existing level codes
+  - [x] Branch eligibility matrix (`careers.eligibility.matrixFor`)
+  - [x] Write `docs/careers/fresher-vs-lateral.md`
 
 - [ ] **Stage 7: Consumer Features & UI Hooks**
   - [ ] Career Trajectory: Fresher / Campus Entry mode

@@ -1,0 +1,196 @@
+{
+  "companyId": "walmart",
+  "companyName": "Walmart Global Tech India",
+  "status": "active",
+  "coverage": "comprehensive",
+  "sparseReason": null,
+  "verifiedDate": "2026-10-10",
+  "researchNotes": "Walmart Global Tech recruits Software Engineers (18-24 LPA) through campus hiring and its flagship Walmart CodeHers hackathon across Bengaluru and Chennai.",
+  "provenance": {
+    "sources": [
+      {
+        "url": "https://careers.walmart.com/technology",
+        "title": "Walmart Global Tech India University Careers & CodeHers Program",
+        "publisher": "Walmart Global Tech",
+        "type": "official",
+        "accessed": "2026-10-10"
+      }
+    ],
+    "confidence": "high",
+    "lastVerified": "2026-10-10",
+    "dataYear": "2026"
+  },
+  "programs": [
+    {
+      "id": "walmart-sde",
+      "companyId": "walmart",
+      "programName": "Walmart Global Tech SDE-1 Campus Hiring",
+      "roleTitle": "Software Development Engineer I",
+      "aliases": [
+        "Walmart SDE",
+        "Walmart CodeHers",
+        "IN3 Engineer"
+      ],
+      "programType": "fulltime",
+      "roleFamily": "sde-product",
+      "campusCategory": "super-dream",
+      "hiringReach": "mass-pool",
+      "channels": [
+        "on-campus",
+        "competition",
+        "portal"
+      ],
+      "testOrPortal": "Walmart CodeHers / Unstop Assessment",
+      "eligibility": {
+        "degrees": [
+          "B.Tech",
+          "B.E.",
+          "M.Tech",
+          "Dual Degree"
+        ],
+        "branchFamilies": [
+          "software",
+          "data-ai",
+          "electronics-embedded"
+        ],
+        "branchCodes": [
+          "CSE",
+          "IT",
+          "AIML",
+          "AIDS",
+          "ECE"
+        ],
+        "graduationYears": [
+          2026,
+          2027
+        ],
+        "minCgpa": 7,
+        "minPercentage": 70,
+        "backlogPolicy": "Zero active backlogs",
+        "gapYearPolicy": "Standard justification",
+        "notes": "Minimum 7.0 CGPA; CodeHers competition open nationwide."
+      },
+      "selectionProcess": [
+        {
+          "stage": "Coding Round (HackerEarth/Unstop)",
+          "type": "coding",
+          "durationMin": 90,
+          "topics": [
+            "DSA (Dynamic Programming, Graph, Greedy)",
+            "String algorithms"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Technical Interview Round 1",
+          "type": "technical",
+          "durationMin": 60,
+          "topics": [
+            "Data structures & algorithm implementation",
+            "Code complexity optimization"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Technical Interview Round 2: LLD & Core Systems",
+          "type": "technical",
+          "durationMin": 60,
+          "topics": [
+            "Object oriented design principles (SOLID)",
+            "Concurrency",
+            "Databases"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Hiring Manager & Leadership Fitment",
+          "type": "managerial",
+          "durationMin": 45,
+          "topics": [
+            "Past projects, Retail scale challenges, Customer centricity"
+          ],
+          "difficulty": "medium"
+        }
+      ],
+      "compensation": {
+        "currency": "INR",
+        "fixedMinLPA": 18,
+        "fixedMaxLPA": 24,
+        "variableLPA": 3,
+        "joiningBonusINR": 250000,
+        "stipendPerMonthINR": null,
+        "esopNote": "Walmart US stock unit grants included in total reward package.",
+        "asOfYear": 2026
+      },
+      "training": {
+        "durationMonths": 1,
+        "bondMonths": null,
+        "bondAmountINR": null,
+        "notes": "Direct onboarding into core retail engineering squads."
+      },
+      "locations": [
+        "Bengaluru",
+        "Chennai"
+      ],
+      "seasons": {
+        "typicalMonths": [
+          6,
+          7,
+          8,
+          9
+        ],
+        "notes": "CodeHers hackathon conducted in summer; campus recruitment in autumn."
+      },
+      "entry": {
+        "companyLevelCode": "IN3",
+        "equivalenceLevelId": "L3_ENTRY"
+      },
+      "competencyProfile": {
+        "dsa": "expert",
+        "java": "strong",
+        "systemdesign": "working",
+        "databases": "strong",
+        "communication": "strong"
+      },
+      "derivedFrom": "official-jd",
+      "trajectory": [
+        {
+          "fromLevelCode": "IN3",
+          "toLevelCode": "IN4",
+          "typicalYearsMin": 2,
+          "typicalYearsMax": 3.5,
+          "conditions": [
+            "High volume retail scale feature delivery",
+            "Ownership of multi-tenant microservices"
+          ],
+          "blockers": [],
+          "compensationLPAAfter": {
+            "min": 28,
+            "max": 36
+          },
+          "fastTrackNote": "Demonstrated high-scale reliability impact fast-tracks promotion to IN4.",
+          "lateralExits": [
+            "SDE-2 at top tier US tech or Indian product unicorns."
+          ],
+          "confidence": "high",
+          "derived": false
+        }
+      ],
+      "status": "active",
+      "provenance": {
+        "sources": [
+          {
+            "url": "https://careers.walmart.com/technology",
+            "title": "Walmart Global Tech Engineering Careers & CodeHers Program",
+            "publisher": "Walmart Global Tech",
+            "type": "official",
+            "accessed": "2026-10-10"
+          }
+        ],
+        "confidence": "high",
+        "lastVerified": "2026-10-10",
+        "dataYear": "2026"
+      }
+    }
+  ]
+}

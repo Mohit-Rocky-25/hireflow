@@ -1,0 +1,203 @@
+{
+  "companyId": "accenture",
+  "companyName": "Accenture India",
+  "status": "active",
+  "coverage": "comprehensive",
+  "sparseReason": null,
+  "verifiedDate": "2026-10-10",
+  "researchNotes": "Accenture recruits via Associate Software Engineer (ASE, Level 12, 4.5-4.6 LPA) and Advanced Associate Software Engineer (AASE, Level 11, 6.5-7.0 LPA).",
+  "provenance": {
+    "sources": [
+      {
+        "url": "https://www.accenture.com/in-en/careers/local/entry-level-career-programs",
+        "title": "Accenture India Entry-Level Careers & Campus Drives",
+        "publisher": "Accenture",
+        "type": "official",
+        "accessed": "2026-10-10"
+      }
+    ],
+    "confidence": "high",
+    "lastVerified": "2026-10-10",
+    "dataYear": "2026"
+  },
+  "programs": [
+    {
+      "id": "accenture-ase",
+      "companyId": "accenture",
+      "programName": "Accenture Associate Software Engineer (ASE)",
+      "roleTitle": "Associate Software Engineer",
+      "aliases": [
+        "ASE",
+        "Accenture ASE",
+        "Level 12 ASE"
+      ],
+      "programType": "fulltime",
+      "roleFamily": "sde-services",
+      "campusCategory": "mass",
+      "hiringReach": "mass-pool",
+      "channels": [
+        "on-campus",
+        "off-campus",
+        "portal"
+      ],
+      "testOrPortal": "Accenture Assessment Platform",
+      "eligibility": {
+        "degrees": [
+          "B.Tech",
+          "B.E.",
+          "MCA",
+          "M.Tech",
+          "M.Sc"
+        ],
+        "branchFamilies": [
+          "software",
+          "data-ai",
+          "electronics-embedded",
+          "core-mechanical",
+          "core-civil"
+        ],
+        "branchCodes": [
+          "CSE",
+          "IT",
+          "ECE",
+          "EEE",
+          "ME",
+          "CIVIL"
+        ],
+        "graduationYears": [
+          2026,
+          2027
+        ],
+        "minCgpa": 6.5,
+        "minPercentage": 65,
+        "backlogPolicy": "Zero active backlogs at time of selection and joining",
+        "gapYearPolicy": "Max 1 year academic gap post-10th permitted",
+        "notes": "Minimum 65% or 6.5 CGPA without active backlogs."
+      },
+      "selectionProcess": [
+        {
+          "stage": "Cognitive & Technical Assessment",
+          "type": "aptitude",
+          "durationMin": 90,
+          "topics": [
+            "Cognitive reasoning",
+            "Technical basics (Pseudo-code, Cloud, Network Security)"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "Hands-on Coding Assessment",
+          "type": "coding",
+          "durationMin": 45,
+          "topics": [
+            "Coding 2 problems in C/C++/Java/Python"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "Communication Assessment (Automated AI)",
+          "type": "other",
+          "durationMin": 20,
+          "topics": [
+            "Fluency, Pronunciation, Sentence Mastery, Vocabulary"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "Technical & Learning Agility Interview",
+          "type": "technical",
+          "durationMin": 30,
+          "topics": [
+            "Project discussion",
+            "Agile principles",
+            "Problem solving"
+          ],
+          "difficulty": "medium"
+        }
+      ],
+      "compensation": {
+        "currency": "INR",
+        "fixedMinLPA": 4.5,
+        "fixedMaxLPA": 4.6,
+        "variableLPA": 0.35,
+        "joiningBonusINR": null,
+        "stipendPerMonthINR": null,
+        "esopNote": null,
+        "asOfYear": 2026
+      },
+      "training": {
+        "durationMonths": 2,
+        "bondMonths": null,
+        "bondAmountINR": null,
+        "notes": "Accenture Learning & Talent Development training before project billing."
+      },
+      "locations": [
+        "Bengaluru",
+        "Hyderabad",
+        "Pune",
+        "Gurugram",
+        "Chennai",
+        "Mumbai",
+        "Kolkata"
+      ],
+      "seasons": {
+        "typicalMonths": [
+          8,
+          9,
+          10,
+          11
+        ],
+        "notes": "Mass national recruitment drives in autumn."
+      },
+      "entry": {
+        "companyLevelCode": "Level 12",
+        "equivalenceLevelId": "L3_ENTRY"
+      },
+      "competencyProfile": {
+        "dsa": "working",
+        "java": "working",
+        "databases": "working",
+        "communication": "strong"
+      },
+      "derivedFrom": "official-jd",
+      "trajectory": [
+        {
+          "fromLevelCode": "Level 12",
+          "toLevelCode": "Level 11",
+          "typicalYearsMin": 1.5,
+          "typicalYearsMax": 2.5,
+          "conditions": [
+            "Project performance review rating 1 or 2",
+            "Delivery on client milestone deadlines"
+          ],
+          "blockers": [],
+          "compensationLPAAfter": {
+            "min": 6.5,
+            "max": 7.5
+          },
+          "fastTrackNote": "High performers promoted to Level 11 within 18 months.",
+          "lateralExits": [
+            "Software engineer at corporate IT setups."
+          ],
+          "confidence": "high",
+          "derived": false
+        }
+      ],
+      "status": "active",
+      "provenance": {
+        "sources": [
+          {
+            "url": "https://www.accenture.com/in-en/careers/local/entry-level-career-programs",
+            "title": "Accenture Associate Software Engineer Official Hiring Specs",
+            "publisher": "Accenture",
+            "type": "official",
+            "accessed": "2026-10-10"
+          }
+        ],
+        "confidence": "high",
+        "lastVerified": "2026-10-10",
+        "dataYear": "2026"
+      }
+    }
+  ]
+}

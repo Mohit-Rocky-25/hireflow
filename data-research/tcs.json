@@ -1,0 +1,560 @@
+{
+  "companyId": "tcs",
+  "companyName": "Tata Consultancy Services",
+  "status": "active",
+  "coverage": "comprehensive",
+  "sparseReason": null,
+  "verifiedDate": "2026-10-10",
+  "researchNotes": "TCS conducts national drives through TCS NQT (National Qualifier Test). Candidates are banded into Ninja (3.36-3.6 LPA), Digital (7-7.5 LPA), or Prime (9-11.5 LPA) based on cognitive + advanced coding score.",
+  "provenance": {
+    "sources": [
+      {
+        "url": "https://www.tcs.com/careers/india/tcs-fresher-hiring",
+        "title": "TCS National Qualifier Test (NQT) & Early Careers Program",
+        "publisher": "Tata Consultancy Services",
+        "type": "official",
+        "accessed": "2026-10-10"
+      },
+      {
+        "url": "https://nextstep.tcs.com/campus/",
+        "title": "TCS NextStep Campus Portal & Hiring Guidelines",
+        "publisher": "TCS NextStep",
+        "type": "official",
+        "accessed": "2026-10-10"
+      }
+    ],
+    "confidence": "high",
+    "lastVerified": "2026-10-10",
+    "dataYear": "2026"
+  },
+  "programs": [
+    {
+      "id": "tcs-ninja",
+      "companyId": "tcs",
+      "programName": "TCS Ninja Hiring",
+      "roleTitle": "Assistant Systems Engineer",
+      "aliases": [
+        "Ninja",
+        "TCS ASE",
+        "TCS Ninja Track"
+      ],
+      "programType": "fulltime",
+      "roleFamily": "sde-services",
+      "campusCategory": "mass",
+      "hiringReach": "mass-pool",
+      "channels": [
+        "on-campus",
+        "off-campus",
+        "portal"
+      ],
+      "testOrPortal": "TCS NQT (National Qualifier Test)",
+      "eligibility": {
+        "degrees": [
+          "B.Tech",
+          "B.E.",
+          "MCA",
+          "M.Tech",
+          "M.Sc"
+        ],
+        "branchFamilies": [
+          "software",
+          "data-ai",
+          "electronics-embedded",
+          "core-mechanical",
+          "core-civil",
+          "chemical-bio"
+        ],
+        "branchCodes": [
+          "CSE",
+          "IT",
+          "ECE",
+          "EEE",
+          "ME",
+          "CIVIL",
+          "MCA"
+        ],
+        "graduationYears": [
+          2026,
+          2027
+        ],
+        "minCgpa": 6,
+        "minPercentage": 60,
+        "backlogPolicy": "No active backlogs allowed at the time of appearing",
+        "gapYearPolicy": "Max 24 months academic gap permitted with justification",
+        "notes": "Standard 60% / 6.0 CGPA throughout 10th, 12th, and graduation without active backlogs."
+      },
+      "selectionProcess": [
+        {
+          "stage": "TCS NQT Cognitive Assessment",
+          "type": "aptitude",
+          "durationMin": 75,
+          "topics": [
+            "Numerical Ability",
+            "Verbal Ability",
+            "Reasoning Ability"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "TCS NQT Programming Logic & Hands-on Coding",
+          "type": "coding",
+          "durationMin": 45,
+          "topics": [
+            "C/C++/Java/Python basics",
+            "Strings, arrays, basic algorithms"
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "stage": "Technical & HR Interview",
+          "type": "technical",
+          "durationMin": 30,
+          "topics": [
+            "Core CS subjects",
+            "Project discussion",
+            "Willingness to relocate"
+          ],
+          "difficulty": "medium"
+        }
+      ],
+      "compensation": {
+        "currency": "INR",
+        "fixedMinLPA": 3.36,
+        "fixedMaxLPA": 3.6,
+        "variableLPA": 0.2,
+        "joiningBonusINR": null,
+        "stipendPerMonthINR": null,
+        "esopNote": null,
+        "asOfYear": 2026
+      },
+      "training": {
+        "durationMonths": 3,
+        "bondMonths": 12,
+        "bondAmountINR": 50000,
+        "notes": "Initial Learning Program (ILP) at TCS Trivandrum / virtual followed by project allocation."
+      },
+      "locations": [
+        "Bengaluru",
+        "Chennai",
+        "Hyderabad",
+        "Pune",
+        "Mumbai",
+        "Kolkata",
+        "Delhi NCR"
+      ],
+      "seasons": {
+        "typicalMonths": [
+          7,
+          8,
+          9,
+          10
+        ],
+        "notes": "Primary drives run August to October for graduating cohort."
+      },
+      "entry": {
+        "companyLevelCode": "NINJA",
+        "equivalenceLevelId": "L3_ENTRY"
+      },
+      "competencyProfile": {
+        "dsa": "working",
+        "java": "working",
+        "databases": "working",
+        "communication": "strong"
+      },
+      "derivedFrom": "official-jd",
+      "trajectory": [
+        {
+          "fromLevelCode": "NINJA",
+          "toLevelCode": "DIGITAL",
+          "typicalYearsMin": 1.5,
+          "typicalYearsMax": 2.5,
+          "conditions": [
+            "Wings1 high performer clearance or internal Digital elevation exam",
+            "Consistently rated 4+ out of 5 in project appraisals"
+          ],
+          "blockers": [
+            {
+              "title": "Wings1 DCA Clearance Delay",
+              "category": "certification",
+              "whyItBlocks": "Internal elevation to Digital compensation band mandates clearing internal DCA (Digital Capability Assessment).",
+              "evidenceToCounter": "Complete internal Python/Java track certifications and submit top-tier DCA test scores."
+            }
+          ],
+          "compensationLPAAfter": {
+            "min": 7,
+            "max": 7.5
+          },
+          "fastTrackNote": "Clearing Wings1 DCA Articulation exam promotes to Digital band within 12 months.",
+          "lateralExits": [
+            "Service-to-product transitions as Junior Software Engineer at fintech or mid-tier product firms."
+          ],
+          "confidence": "high",
+          "derived": false
+        },
+        {
+          "fromLevelCode": "DIGITAL",
+          "toLevelCode": "C3",
+          "typicalYearsMin": 2.5,
+          "typicalYearsMax": 4,
+          "conditions": [
+            "Client-facing delivery ownership",
+            "Technology lead responsibilities on enterprise migration or modernization accounts"
+          ],
+          "blockers": [],
+          "compensationLPAAfter": {
+            "min": 9.5,
+            "max": 13
+          },
+          "fastTrackNote": "Outstanding client contribution and solutioning patents fast-track promotion to C3.",
+          "lateralExits": [
+            "Mid-level developer at Global Capability Centers (GCCs) or Indian unicorns."
+          ],
+          "confidence": "high",
+          "derived": false
+        }
+      ],
+      "status": "active",
+      "provenance": {
+        "sources": [
+          {
+            "url": "https://nextstep.tcs.com/campus/",
+            "title": "TCS NextStep Official Portal & Eligibility Rules",
+            "publisher": "TCS NextStep",
+            "type": "official",
+            "accessed": "2026-10-10"
+          },
+          {
+            "url": "https://www.tcs.com/careers/india/tcs-fresher-hiring",
+            "title": "TCS National Qualifier Test (NQT) Structure & CTC Bands",
+            "publisher": "Tata Consultancy Services",
+            "type": "official",
+            "accessed": "2026-10-10"
+          }
+        ],
+        "confidence": "high",
+        "lastVerified": "2026-10-10",
+        "dataYear": "2026"
+      }
+    },
+    {
+      "id": "tcs-digital",
+      "companyId": "tcs",
+      "programName": "TCS Digital Hiring",
+      "roleTitle": "Systems Engineer",
+      "aliases": [
+        "Digital",
+        "TCS Digital Track"
+      ],
+      "programType": "fulltime",
+      "roleFamily": "sde-services",
+      "campusCategory": "dream",
+      "hiringReach": "mass-pool",
+      "channels": [
+        "on-campus",
+        "off-campus",
+        "portal"
+      ],
+      "testOrPortal": "TCS NQT Advanced Section",
+      "eligibility": {
+        "degrees": [
+          "B.Tech",
+          "B.E.",
+          "MCA",
+          "M.Tech"
+        ],
+        "branchFamilies": [
+          "software",
+          "data-ai",
+          "electronics-embedded"
+        ],
+        "branchCodes": [
+          "CSE",
+          "IT",
+          "AIML",
+          "AIDS",
+          "ECE",
+          "EEE"
+        ],
+        "graduationYears": [
+          2026,
+          2027
+        ],
+        "minCgpa": 6.5,
+        "minPercentage": 65,
+        "backlogPolicy": "Zero active backlogs permitted",
+        "gapYearPolicy": "Max 24 months academic gap permitted",
+        "notes": "Scored in top 10% of NQT Advanced Coding section or selected via institutional premium drives."
+      },
+      "selectionProcess": [
+        {
+          "stage": "NQT Advanced Cognitive & Quantitative",
+          "type": "aptitude",
+          "durationMin": 40,
+          "topics": [
+            "Advanced Quantitative",
+            "Advanced Reasoning Logic"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "NQT Advanced Coding (2 Problems)",
+          "type": "coding",
+          "durationMin": 90,
+          "topics": [
+            "Data Structures",
+            "Dynamic Programming",
+            "Graph algorithms",
+            "Time complexity optimization"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Digital Technical & Design Interview",
+          "type": "technical",
+          "durationMin": 45,
+          "topics": [
+            "System architecture basics",
+            "Full stack project deep dive",
+            "Cloud/AI fundamentals"
+          ],
+          "difficulty": "hard"
+        }
+      ],
+      "compensation": {
+        "currency": "INR",
+        "fixedMinLPA": 7,
+        "fixedMaxLPA": 7.5,
+        "variableLPA": 0.5,
+        "joiningBonusINR": null,
+        "stipendPerMonthINR": null,
+        "esopNote": null,
+        "asOfYear": 2026
+      },
+      "training": {
+        "durationMonths": 2,
+        "bondMonths": 12,
+        "bondAmountINR": 50000,
+        "notes": "Accelerated digital technology induction with immediate billable project deployment."
+      },
+      "locations": [
+        "Bengaluru",
+        "Hyderabad",
+        "Pune",
+        "Chennai",
+        "Delhi NCR",
+        "Kolkata"
+      ],
+      "seasons": {
+        "typicalMonths": [
+          8,
+          9,
+          10,
+          11
+        ],
+        "notes": "Assessed concurrently during TCS NQT drives."
+      },
+      "entry": {
+        "companyLevelCode": "DIGITAL",
+        "equivalenceLevelId": "L4_MID"
+      },
+      "competencyProfile": {
+        "dsa": "strong",
+        "java": "strong",
+        "python": "working",
+        "databases": "strong",
+        "aws": "working",
+        "communication": "strong"
+      },
+      "derivedFrom": "official-jd",
+      "trajectory": [
+        {
+          "fromLevelCode": "DIGITAL",
+          "toLevelCode": "C3",
+          "typicalYearsMin": 2,
+          "typicalYearsMax": 3.5,
+          "conditions": [
+            "Lead module engineer on cloud transformation or AI accounts",
+            "Consistent high performance band"
+          ],
+          "blockers": [],
+          "compensationLPAAfter": {
+            "min": 10,
+            "max": 13.5
+          },
+          "fastTrackNote": "Direct track to Lead Architect / Assistant Consultant for top technical talent.",
+          "lateralExits": [
+            "SDE-2 at top tier Indian startups or senior analyst at GCCs."
+          ],
+          "confidence": "high",
+          "derived": false
+        }
+      ],
+      "status": "active",
+      "provenance": {
+        "sources": [
+          {
+            "url": "https://www.tcs.com/careers/india/tcs-fresher-hiring",
+            "title": "TCS Digital Cadre Overview & Compensation Structure",
+            "publisher": "Tata Consultancy Services",
+            "type": "official",
+            "accessed": "2026-10-10"
+          }
+        ],
+        "confidence": "high",
+        "lastVerified": "2026-10-10",
+        "dataYear": "2026"
+      }
+    },
+    {
+      "id": "tcs-prime",
+      "companyId": "tcs",
+      "programName": "TCS Prime Hiring",
+      "roleTitle": "Systems Engineer (Prime Cadre)",
+      "aliases": [
+        "Prime",
+        "TCS Prime Band"
+      ],
+      "programType": "fulltime",
+      "roleFamily": "sde-services",
+      "campusCategory": "super-dream",
+      "hiringReach": "select-campuses",
+      "channels": [
+        "on-campus",
+        "portal"
+      ],
+      "testOrPortal": "TCS NQT Prime Level Assessment",
+      "eligibility": {
+        "degrees": [
+          "B.Tech",
+          "B.E.",
+          "M.Tech"
+        ],
+        "branchFamilies": [
+          "software",
+          "data-ai"
+        ],
+        "branchCodes": [
+          "CSE",
+          "IT",
+          "AIML",
+          "AIDS",
+          "DS"
+        ],
+        "graduationYears": [
+          2026,
+          2027
+        ],
+        "minCgpa": 7.5,
+        "minPercentage": 70,
+        "backlogPolicy": "Zero active or historical backlogs",
+        "gapYearPolicy": "Max 12 months gap",
+        "notes": "Reserved for elite programmers clearing the highest tier of NQT Prime or HackQuest/CodeVita."
+      },
+      "selectionProcess": [
+        {
+          "stage": "Prime Coding Challenge (HackQuest / CodeVita round)",
+          "type": "coding",
+          "durationMin": 120,
+          "topics": [
+            "Advanced Competitive Programming",
+            "Trie",
+            "Segment Trees",
+            "Hard DP"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Prime Technical In-depth Panel",
+          "type": "technical",
+          "durationMin": 60,
+          "topics": [
+            "Distributed Systems",
+            "Research / Open Source contributions",
+            "Algorithmic efficiency"
+          ],
+          "difficulty": "hard"
+        }
+      ],
+      "compensation": {
+        "currency": "INR",
+        "fixedMinLPA": 9,
+        "fixedMaxLPA": 11.5,
+        "variableLPA": 1,
+        "joiningBonusINR": null,
+        "stipendPerMonthINR": null,
+        "esopNote": null,
+        "asOfYear": 2026
+      },
+      "training": {
+        "durationMonths": 1,
+        "bondMonths": 12,
+        "bondAmountINR": 50000,
+        "notes": "Fast-tracked into TCS R&D Labs, TCS Pace Ports, or cutting-edge AI centers of excellence."
+      },
+      "locations": [
+        "Bengaluru",
+        "Hyderabad",
+        "Pune",
+        "Mumbai"
+      ],
+      "seasons": {
+        "typicalMonths": [
+          8,
+          9,
+          10
+        ],
+        "notes": "Conducted alongside premier campus placement windows."
+      },
+      "entry": {
+        "companyLevelCode": "DIGITAL",
+        "equivalenceLevelId": "L4_MID"
+      },
+      "competencyProfile": {
+        "dsa": "expert",
+        "systemdesign": "working",
+        "python": "strong",
+        "java": "strong",
+        "ml": "working",
+        "communication": "strong"
+      },
+      "derivedFrom": "official-jd",
+      "trajectory": [
+        {
+          "fromLevelCode": "DIGITAL",
+          "toLevelCode": "C3",
+          "typicalYearsMin": 1.5,
+          "typicalYearsMax": 2.5,
+          "conditions": [
+            "Rapid delivery of AI/cloud proof-of-concepts for tier-1 strategic clients"
+          ],
+          "blockers": [],
+          "compensationLPAAfter": {
+            "min": 12,
+            "max": 15
+          },
+          "fastTrackNote": "Direct entry into TCS CTO office innovation squads.",
+          "lateralExits": [
+            "Product Engineer at top tech companies."
+          ],
+          "confidence": "high",
+          "derived": false
+        }
+      ],
+      "status": "active",
+      "provenance": {
+        "sources": [
+          {
+            "url": "https://www.tcs.com/careers/india/tcs-fresher-hiring",
+            "title": "TCS Prime Cadre Official Announcement & Recruitment Track",
+            "publisher": "Tata Consultancy Services",
+            "type": "official",
+            "accessed": "2026-10-10"
+          }
+        ],
+        "confidence": "high",
+        "lastVerified": "2026-10-10",
+        "dataYear": "2026"
+      }
+    }
+  ]
+}

@@ -1,0 +1,191 @@
+{
+  "companyId": "meta",
+  "companyName": "Meta India",
+  "status": "active",
+  "coverage": "standard",
+  "sparseReason": null,
+  "verifiedDate": "2026-10-10",
+  "researchNotes": "Meta recruits Software Engineers (University Grad, E3, 28-38 LPA) across Bengaluru and Gurugram through premier campus drives and summer internships.",
+  "provenance": {
+    "sources": [
+      {
+        "url": "https://www.metacareers.com/students-and-grads/",
+        "title": "Meta Careers for Students and Grads",
+        "publisher": "Meta",
+        "type": "official",
+        "accessed": "2026-10-10"
+      }
+    ],
+    "confidence": "high",
+    "lastVerified": "2026-10-10",
+    "dataYear": "2026"
+  },
+  "programs": [
+    {
+      "id": "meta-swe-univ",
+      "companyId": "meta",
+      "programName": "Meta Software Engineer (University Grad)",
+      "roleTitle": "Software Engineer (Entry E3)",
+      "aliases": [
+        "Meta E3",
+        "Meta University Grad"
+      ],
+      "programType": "fulltime",
+      "roleFamily": "sde-product",
+      "campusCategory": "super-dream",
+      "hiringReach": "select-campuses",
+      "channels": [
+        "on-campus",
+        "portal",
+        "internship-ppo"
+      ],
+      "testOrPortal": "Meta Online Assessment (CodeSignal)",
+      "eligibility": {
+        "degrees": [
+          "B.Tech",
+          "B.E.",
+          "M.Tech",
+          "PhD"
+        ],
+        "branchFamilies": [
+          "software",
+          "data-ai",
+          "electronics-embedded"
+        ],
+        "branchCodes": [
+          "CSE",
+          "IT",
+          "AIML",
+          "AIDS",
+          "ECE"
+        ],
+        "graduationYears": [
+          2026,
+          2027
+        ],
+        "minCgpa": 8,
+        "minPercentage": 80,
+        "backlogPolicy": "Zero active backlogs",
+        "gapYearPolicy": "Standard justification",
+        "notes": "Top tier campuses across India."
+      },
+      "selectionProcess": [
+        {
+          "stage": "Meta Online Coding Assessment (CodeSignal)",
+          "type": "coding",
+          "durationMin": 70,
+          "topics": [
+            "DSA (Hard Dynamic Programming, Trees, Graph algorithms)"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Technical Interview 1: Data Structures & Algorithms",
+          "type": "technical",
+          "durationMin": 45,
+          "topics": [
+            "Speed and precision in solving 2 algorithmic problems"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Technical Interview 2: Problem Solving & Edge Cases",
+          "type": "technical",
+          "durationMin": 45,
+          "topics": [
+            "Optimized coding under strict constraints"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Behavioral & Meta Values Interview",
+          "type": "managerial",
+          "durationMin": 45,
+          "topics": [
+            "Move fast, Focus on long term impact, Build awesome things"
+          ],
+          "difficulty": "medium"
+        }
+      ],
+      "compensation": {
+        "currency": "INR",
+        "fixedMinLPA": 28,
+        "fixedMaxLPA": 38,
+        "variableLPA": 4.5,
+        "joiningBonusINR": 400000,
+        "stipendPerMonthINR": null,
+        "esopNote": "Meta RSUs vesting over 4 years.",
+        "asOfYear": 2026
+      },
+      "training": {
+        "durationMonths": 2,
+        "bondMonths": null,
+        "bondAmountINR": null,
+        "notes": "Meta Bootcamp intensive onboarding."
+      },
+      "locations": [
+        "Bengaluru",
+        "Gurugram"
+      ],
+      "seasons": {
+        "typicalMonths": [
+          7,
+          8,
+          9,
+          10
+        ],
+        "notes": "Autumn campus placement slot 1."
+      },
+      "entry": {
+        "companyLevelCode": "E3",
+        "equivalenceLevelId": "L3_ENTRY"
+      },
+      "competencyProfile": {
+        "dsa": "expert",
+        "python": "strong",
+        "systemdesign": "working",
+        "databases": "strong",
+        "communication": "strong"
+      },
+      "derivedFrom": "official-jd",
+      "trajectory": [
+        {
+          "fromLevelCode": "E3",
+          "toLevelCode": "E4",
+          "typicalYearsMin": 1.5,
+          "typicalYearsMax": 2.5,
+          "conditions": [
+            "High volume production feature delivery",
+            "Independent ownership"
+          ],
+          "blockers": [],
+          "compensationLPAAfter": {
+            "min": 48,
+            "max": 70
+          },
+          "fastTrackNote": "Exceptional impact fast-tracks E4 promotion.",
+          "lateralExits": [
+            "Senior SDE at top US Big Tech."
+          ],
+          "confidence": "high",
+          "derived": false
+        }
+      ],
+      "status": "active",
+      "provenance": {
+        "sources": [
+          {
+            "url": "https://www.metacareers.com/students-and-grads/",
+            "title": "Meta University Grad Program Overview",
+            "publisher": "Meta",
+            "type": "official",
+            "accessed": "2026-10-10"
+          }
+        ],
+        "confidence": "high",
+        "lastVerified": "2026-10-10",
+        "dataYear": "2026"
+      }
+    }
+  ]
+}

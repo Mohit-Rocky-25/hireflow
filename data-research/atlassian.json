@@ -1,0 +1,189 @@
+{
+  "companyId": "atlassian",
+  "companyName": "Atlassian India",
+  "status": "active",
+  "coverage": "comprehensive",
+  "sparseReason": null,
+  "verifiedDate": "2026-10-10",
+  "researchNotes": "Atlassian recruits Graduate Software Engineers (P3, 24-32 LPA) across India (remote-first / Bengaluru) for Jira, Confluence, and cloud developer platforms.",
+  "provenance": {
+    "sources": [
+      {
+        "url": "https://www.atlassian.com/company/careers/graduates",
+        "title": "Atlassian Graduate Program & University Hiring",
+        "publisher": "Atlassian",
+        "type": "official",
+        "accessed": "2026-10-10"
+      }
+    ],
+    "confidence": "high",
+    "lastVerified": "2026-10-10",
+    "dataYear": "2026"
+  },
+  "programs": [
+    {
+      "id": "atlassian-grad-swe",
+      "companyId": "atlassian",
+      "programName": "Atlassian Graduate Software Engineer Program",
+      "roleTitle": "Graduate Software Engineer (P3)",
+      "aliases": [
+        "Atlassian Grad",
+        "Atlassian P3"
+      ],
+      "programType": "fulltime",
+      "roleFamily": "sde-product",
+      "campusCategory": "super-dream",
+      "hiringReach": "select-campuses",
+      "channels": [
+        "on-campus",
+        "portal",
+        "internship-ppo"
+      ],
+      "testOrPortal": "Atlassian Coding Assessment (HackerRank)",
+      "eligibility": {
+        "degrees": [
+          "B.Tech",
+          "B.E.",
+          "M.Tech"
+        ],
+        "branchFamilies": [
+          "software",
+          "data-ai",
+          "electronics-embedded"
+        ],
+        "branchCodes": [
+          "CSE",
+          "IT",
+          "AIML",
+          "AIDS",
+          "ECE"
+        ],
+        "graduationYears": [
+          2026,
+          2027
+        ],
+        "minCgpa": 7.5,
+        "minPercentage": 75,
+        "backlogPolicy": "Zero active backlogs",
+        "gapYearPolicy": "Standard justification",
+        "notes": "Premier technology campuses across India."
+      },
+      "selectionProcess": [
+        {
+          "stage": "Coding Assessment",
+          "type": "coding",
+          "durationMin": 90,
+          "topics": [
+            "DSA (DP, Graph, Trees, Strings)",
+            "Time complexity analysis"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Technical Round 1: Problem Solving",
+          "type": "technical",
+          "durationMin": 60,
+          "topics": [
+            "Data structures, Algorithm efficiency"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Technical Round 2: System Craft & Design",
+          "type": "technical",
+          "durationMin": 60,
+          "topics": [
+            "Object-oriented design patterns, Concurrency, Caching"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Values Interview (Atlassian Core Values)",
+          "type": "managerial",
+          "durationMin": 45,
+          "topics": [
+            "Open company no bullshit, Build with heart and balance"
+          ],
+          "difficulty": "medium"
+        }
+      ],
+      "compensation": {
+        "currency": "INR",
+        "fixedMinLPA": 24,
+        "fixedMaxLPA": 32,
+        "variableLPA": 3.5,
+        "joiningBonusINR": 300000,
+        "stipendPerMonthINR": null,
+        "esopNote": "Atlassian RSUs vesting over 4 years.",
+        "asOfYear": 2026
+      },
+      "training": {
+        "durationMonths": 2,
+        "bondMonths": null,
+        "bondAmountINR": null,
+        "notes": "Remote-first global graduate onboarding cohort."
+      },
+      "locations": [
+        "Bengaluru",
+        "Remote"
+      ],
+      "seasons": {
+        "typicalMonths": [
+          8,
+          9,
+          10
+        ],
+        "notes": "Autumn campus placement season."
+      },
+      "entry": {
+        "companyLevelCode": "P3",
+        "equivalenceLevelId": "L3_ENTRY"
+      },
+      "competencyProfile": {
+        "dsa": "expert",
+        "java": "strong",
+        "systemdesign": "working",
+        "databases": "strong",
+        "communication": "strong"
+      },
+      "derivedFrom": "official-jd",
+      "trajectory": [
+        {
+          "fromLevelCode": "P3",
+          "toLevelCode": "P4",
+          "typicalYearsMin": 1.5,
+          "typicalYearsMax": 2.5,
+          "conditions": [
+            "Delivering modular features on Jira/Confluence cloud architectures"
+          ],
+          "blockers": [],
+          "compensationLPAAfter": {
+            "min": 40,
+            "max": 55
+          },
+          "fastTrackNote": "High performers promoted to P4 in under 2 years.",
+          "lateralExits": [
+            "Senior SDE at top tier tech firms."
+          ],
+          "confidence": "high",
+          "derived": false
+        }
+      ],
+      "status": "active",
+      "provenance": {
+        "sources": [
+          {
+            "url": "https://www.atlassian.com/company/careers/graduates",
+            "title": "Atlassian Graduate Program Overview",
+            "publisher": "Atlassian",
+            "type": "official",
+            "accessed": "2026-10-10"
+          }
+        ],
+        "confidence": "high",
+        "lastVerified": "2026-10-10",
+        "dataYear": "2026"
+      }
+    }
+  ]
+}

@@ -1,0 +1,191 @@
+{
+  "companyId": "paypal",
+  "companyName": "PayPal India",
+  "status": "active",
+  "coverage": "comprehensive",
+  "sparseReason": null,
+  "verifiedDate": "2026-10-10",
+  "researchNotes": "PayPal India recruits Software Engineers 1 (18-25 LPA) in Chennai and Bengaluru for checkout, risk platforms, and wallet microservices.",
+  "provenance": {
+    "sources": [
+      {
+        "url": "https://careers.pypl.com/university/",
+        "title": "PayPal University Programs & Early Career Hiring",
+        "publisher": "PayPal",
+        "type": "official",
+        "accessed": "2026-10-10"
+      }
+    ],
+    "confidence": "high",
+    "lastVerified": "2026-10-10",
+    "dataYear": "2026"
+  },
+  "programs": [
+    {
+      "id": "paypal-swe",
+      "companyId": "paypal",
+      "programName": "PayPal University Graduate Engineering Program",
+      "roleTitle": "Software Engineer 1",
+      "aliases": [
+        "PayPal SWE",
+        "PayPal SE1",
+        "University Grad SWE"
+      ],
+      "programType": "fulltime",
+      "roleFamily": "sde-product",
+      "campusCategory": "super-dream",
+      "hiringReach": "select-campuses",
+      "channels": [
+        "on-campus",
+        "portal",
+        "internship-ppo"
+      ],
+      "testOrPortal": "PayPal Coding Challenge (HackerRank)",
+      "eligibility": {
+        "degrees": [
+          "B.Tech",
+          "B.E.",
+          "M.Tech"
+        ],
+        "branchFamilies": [
+          "software",
+          "data-ai",
+          "electronics-embedded"
+        ],
+        "branchCodes": [
+          "CSE",
+          "IT",
+          "AIML",
+          "AIDS",
+          "ECE"
+        ],
+        "graduationYears": [
+          2026,
+          2027
+        ],
+        "minCgpa": 7.5,
+        "minPercentage": 75,
+        "backlogPolicy": "Zero active backlogs",
+        "gapYearPolicy": "Standard justification",
+        "notes": "Minimum 7.5 CGPA; premier technology institutions across India."
+      },
+      "selectionProcess": [
+        {
+          "stage": "Coding Assessment (3 Problems)",
+          "type": "coding",
+          "durationMin": 90,
+          "topics": [
+            "Advanced DSA (Graphs, Dynamic Programming, Heap)",
+            "Math & Complexity"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Technical Interview 1: Problem Solving & Algorithms",
+          "type": "technical",
+          "durationMin": 60,
+          "topics": [
+            "Algorithmic problem solving, Data structures optimization"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Technical Interview 2: LLD & System Components",
+          "type": "technical",
+          "durationMin": 60,
+          "topics": [
+            "Object oriented architecture, Design patterns, Concurrency, Database design"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Behavioral & Values Alignment",
+          "type": "managerial",
+          "durationMin": 45,
+          "topics": [
+            "Collaboration, Diversity & inclusion, Customer empathy"
+          ],
+          "difficulty": "medium"
+        }
+      ],
+      "compensation": {
+        "currency": "INR",
+        "fixedMinLPA": 18,
+        "fixedMaxLPA": 25,
+        "variableLPA": 3,
+        "joiningBonusINR": 200000,
+        "stipendPerMonthINR": null,
+        "esopNote": "PayPal restricted stock unit (RSU) component included.",
+        "asOfYear": 2026
+      },
+      "training": {
+        "durationMonths": 1,
+        "bondMonths": null,
+        "bondAmountINR": null,
+        "notes": "Direct integration into Chennai / Bengaluru payments and risk engineering teams."
+      },
+      "locations": [
+        "Chennai",
+        "Bengaluru"
+      ],
+      "seasons": {
+        "typicalMonths": [
+          7,
+          8,
+          9,
+          10
+        ],
+        "notes": "Conducted in early campus placement season."
+      },
+      "entry": {
+        "companyLevelCode": "Software Engineer 1",
+        "equivalenceLevelId": "L3_ENTRY"
+      },
+      "competencyProfile": {
+        "dsa": "expert",
+        "java": "strong",
+        "systemdesign": "working",
+        "databases": "strong",
+        "communication": "strong"
+      },
+      "derivedFrom": "official-jd",
+      "trajectory": [
+        {
+          "fromLevelCode": "Software Engineer 1",
+          "toLevelCode": "Software Engineer 2",
+          "typicalYearsMin": 1.5,
+          "typicalYearsMax": 3,
+          "conditions": [
+            "Production contribution on checkout resilience or fraud detection microservices"
+          ],
+          "blockers": [],
+          "compensationLPAAfter": {
+            "min": 28,
+            "max": 36
+          },
+          "fastTrackNote": "Top decile engineers promoted to SE2 in under 2 years.",
+          "lateralExits": [
+            "SDE-2 at top product unicorns or Big Tech."
+          ],
+          "confidence": "high",
+          "derived": false
+        }
+      ],
+      "status": "active",
+      "provenance": {
+        "sources": [
+          {
+            "url": "https://careers.pypl.com/university/",
+            "title": "PayPal University Programs & Early Career Compensation Overview",
+            "publisher": "PayPal",
+            "type": "official",
+            "accessed": "2026-10-10"
+          }
+        ],
+        "confidence": "high",
+        "lastVerified": "2026-10-10",
+        "dataYear": "2026"
+      }
+    }
+  ]
+}

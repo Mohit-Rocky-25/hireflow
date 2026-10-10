@@ -1,0 +1,186 @@
+{
+  "companyId": "inmobi",
+  "companyName": "InMobi",
+  "status": "active",
+  "coverage": "comprehensive",
+  "sparseReason": null,
+  "verifiedDate": "2026-10-10",
+  "researchNotes": "InMobi recruits Software Engineers (16-22 LPA) in Bengaluru for real-time ad tech auctions, low-latency ad exchanges, and Glance lock-screen platforms.",
+  "provenance": {
+    "sources": [
+      {
+        "url": "https://www.inmobi.com/company/careers/",
+        "title": "InMobi Careers & University Engineering Program",
+        "publisher": "InMobi",
+        "type": "official",
+        "accessed": "2026-10-10"
+      }
+    ],
+    "confidence": "high",
+    "lastVerified": "2026-10-10",
+    "dataYear": "2026"
+  },
+  "programs": [
+    {
+      "id": "inmobi-sde1",
+      "companyId": "inmobi",
+      "programName": "InMobi Software Engineer Campus Hiring",
+      "roleTitle": "Software Engineer",
+      "aliases": [
+        "InMobi SE",
+        "InMobi SDE-1"
+      ],
+      "programType": "fulltime",
+      "roleFamily": "sde-product",
+      "campusCategory": "super-dream",
+      "hiringReach": "select-campuses",
+      "channels": [
+        "on-campus",
+        "portal"
+      ],
+      "testOrPortal": "InMobi Coding Assessment (HackerRank)",
+      "eligibility": {
+        "degrees": [
+          "B.Tech",
+          "B.E.",
+          "M.Tech"
+        ],
+        "branchFamilies": [
+          "software",
+          "data-ai",
+          "electronics-embedded"
+        ],
+        "branchCodes": [
+          "CSE",
+          "IT",
+          "AIML",
+          "AIDS",
+          "ECE"
+        ],
+        "graduationYears": [
+          2026,
+          2027
+        ],
+        "minCgpa": 7,
+        "minPercentage": 70,
+        "backlogPolicy": "Zero active backlogs",
+        "gapYearPolicy": "Standard justification",
+        "notes": "Top tier campuses across India."
+      },
+      "selectionProcess": [
+        {
+          "stage": "Coding Assessment",
+          "type": "coding",
+          "durationMin": 90,
+          "topics": [
+            "DSA (DP, Graph, Trees, Strings)",
+            "Time complexity analysis"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Technical Round 1: Problem Solving",
+          "type": "technical",
+          "durationMin": 60,
+          "topics": [
+            "Data structures, Algorithm efficiency"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Technical Round 2: LLD & Core Systems",
+          "type": "technical",
+          "durationMin": 60,
+          "topics": [
+            "Object-oriented design patterns, Concurrency, Caching"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Cultural Alignment / Leadership",
+          "type": "managerial",
+          "durationMin": 45,
+          "topics": [
+            "Imagination, Free spirited, Being human (InMobi values)"
+          ],
+          "difficulty": "medium"
+        }
+      ],
+      "compensation": {
+        "currency": "INR",
+        "fixedMinLPA": 16,
+        "fixedMaxLPA": 22,
+        "variableLPA": 2,
+        "joiningBonusINR": 150000,
+        "stipendPerMonthINR": null,
+        "esopNote": "InMobi stock options included in offer.",
+        "asOfYear": 2026
+      },
+      "training": {
+        "durationMonths": 1,
+        "bondMonths": null,
+        "bondAmountINR": null,
+        "notes": "High throughput real-time auction systems onboarding in Bengaluru."
+      },
+      "locations": [
+        "Bengaluru"
+      ],
+      "seasons": {
+        "typicalMonths": [
+          8,
+          9,
+          10
+        ],
+        "notes": "Autumn campus placement season."
+      },
+      "entry": {
+        "companyLevelCode": "Software Engineer",
+        "equivalenceLevelId": "L3_ENTRY"
+      },
+      "competencyProfile": {
+        "dsa": "expert",
+        "java": "strong",
+        "databases": "strong",
+        "communication": "strong"
+      },
+      "derivedFrom": "official-jd",
+      "trajectory": [
+        {
+          "fromLevelCode": "Software Engineer",
+          "toLevelCode": "Senior Software Engineer",
+          "typicalYearsMin": 1.5,
+          "typicalYearsMax": 3,
+          "conditions": [
+            "Delivering low latency real-time bidding auction services"
+          ],
+          "blockers": [],
+          "compensationLPAAfter": {
+            "min": 28,
+            "max": 38
+          },
+          "fastTrackNote": "High performers promoted to Senior SWE in under 2 years.",
+          "lateralExits": [
+            "Senior SDE at top tier adtech or product unicorns."
+          ],
+          "confidence": "high",
+          "derived": false
+        }
+      ],
+      "status": "active",
+      "provenance": {
+        "sources": [
+          {
+            "url": "https://www.inmobi.com/company/careers/",
+            "title": "InMobi Engineering Careers Guide",
+            "publisher": "InMobi",
+            "type": "official",
+            "accessed": "2026-10-10"
+          }
+        ],
+        "confidence": "high",
+        "lastVerified": "2026-10-10",
+        "dataYear": "2026"
+      }
+    }
+  ]
+}

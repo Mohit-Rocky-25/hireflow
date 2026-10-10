@@ -1,0 +1,184 @@
+{
+  "companyId": "qualcomm",
+  "companyName": "Qualcomm India",
+  "status": "active",
+  "coverage": "comprehensive",
+  "sparseReason": null,
+  "verifiedDate": "2026-10-10",
+  "researchNotes": "Qualcomm recruits Associate Engineers (16-22 LPA) across Hyderabad, Bengaluru, and Chennai for 5G modems, Snapdragon software, and VLSI physical design.",
+  "provenance": {
+    "sources": [
+      {
+        "url": "https://www.qualcomm.com/company/careers/students-and-grads",
+        "title": "Qualcomm Students and Grads Engineering Programs",
+        "publisher": "Qualcomm",
+        "type": "official",
+        "accessed": "2026-10-10"
+      }
+    ],
+    "confidence": "high",
+    "lastVerified": "2026-10-10",
+    "dataYear": "2026"
+  },
+  "programs": [
+    {
+      "id": "qualcomm-assoc-eng",
+      "companyId": "qualcomm",
+      "programName": "Qualcomm Associate Engineer Campus Hiring",
+      "roleTitle": "Associate Engineer",
+      "aliases": [
+        "Qualcomm Associate Engineer",
+        "Qualcomm Engineer"
+      ],
+      "programType": "fulltime",
+      "roleFamily": "embedded-firmware",
+      "campusCategory": "super-dream",
+      "hiringReach": "select-campuses",
+      "channels": [
+        "on-campus",
+        "portal"
+      ],
+      "testOrPortal": "Qualcomm Online Assessment",
+      "eligibility": {
+        "degrees": [
+          "B.Tech",
+          "B.E.",
+          "M.Tech"
+        ],
+        "branchFamilies": [
+          "software",
+          "electronics-embedded"
+        ],
+        "branchCodes": [
+          "CSE",
+          "ECE",
+          "EEE",
+          "AIML"
+        ],
+        "graduationYears": [
+          2026,
+          2027
+        ],
+        "minCgpa": 7,
+        "minPercentage": 70,
+        "backlogPolicy": "Zero active backlogs",
+        "gapYearPolicy": "Standard justification",
+        "notes": "Engineering colleges across India."
+      },
+      "selectionProcess": [
+        {
+          "stage": "Technical Assessment",
+          "type": "technical",
+          "durationMin": 75,
+          "topics": [
+            "C/C++ basics, Data structures, Digital design, OS concepts"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "Technical Round 1: Embedded C & Data Structures",
+          "type": "technical",
+          "durationMin": 45,
+          "topics": [
+            "Bitwise operations, Memory alignment, Linked lists, Pointers"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "Technical Round 2: Core Engineering",
+          "type": "technical",
+          "durationMin": 45,
+          "topics": [
+            "RTOS concepts, Interrupt handlers, Concurrency, Hardware interfaces"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "HR & Fitment Interview",
+          "type": "hr",
+          "durationMin": 20,
+          "topics": [
+            "Team alignment, Passion for wireless and mobile tech"
+          ],
+          "difficulty": "easy"
+        }
+      ],
+      "compensation": {
+        "currency": "INR",
+        "fixedMinLPA": 16,
+        "fixedMaxLPA": 22,
+        "variableLPA": 2.5,
+        "joiningBonusINR": 200000,
+        "stipendPerMonthINR": null,
+        "esopNote": null,
+        "asOfYear": 2026
+      },
+      "training": {
+        "durationMonths": 2,
+        "bondMonths": null,
+        "bondAmountINR": null,
+        "notes": "Snapdragon and wireless modem onboarding in Hyderabad / Bengaluru."
+      },
+      "locations": [
+        "Hyderabad",
+        "Bengaluru",
+        "Chennai"
+      ],
+      "seasons": {
+        "typicalMonths": [
+          8,
+          9,
+          10
+        ],
+        "notes": "Autumn campus placement window."
+      },
+      "entry": {
+        "companyLevelCode": "Engineer",
+        "equivalenceLevelId": "L3_ENTRY"
+      },
+      "competencyProfile": {
+        "dsa": "strong",
+        "databases": "working",
+        "communication": "strong"
+      },
+      "derivedFrom": "official-jd",
+      "trajectory": [
+        {
+          "fromLevelCode": "Engineer",
+          "toLevelCode": "Senior Engineer",
+          "typicalYearsMin": 2,
+          "typicalYearsMax": 3.5,
+          "conditions": [
+            "Production contribution on modem firmware or multimedia drivers"
+          ],
+          "blockers": [],
+          "compensationLPAAfter": {
+            "min": 25,
+            "max": 35
+          },
+          "fastTrackNote": "High performers receive rapid advancement.",
+          "lateralExits": [
+            "Senior wireless/embedded engineer."
+          ],
+          "confidence": "high",
+          "derived": false
+        }
+      ],
+      "status": "active",
+      "provenance": {
+        "sources": [
+          {
+            "url": "https://www.qualcomm.com/company/careers/students-and-grads",
+            "title": "Qualcomm Students and Grads Specifications",
+            "publisher": "Qualcomm",
+            "type": "official",
+            "accessed": "2026-10-10"
+          }
+        ],
+        "confidence": "high",
+        "lastVerified": "2026-10-10",
+        "dataYear": "2026"
+      }
+    }
+  ]
+}

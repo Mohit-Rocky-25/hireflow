@@ -1,0 +1,179 @@
+{
+  "companyId": "lnt",
+  "companyName": "Larsen & Toubro",
+  "status": "active",
+  "coverage": "comprehensive",
+  "sparseReason": null,
+  "verifiedDate": "2026-10-10",
+  "researchNotes": "L&T recruits Graduate Engineer Trainees (GET, 5.5-7.0 LPA) and Post Graduate Engineer Trainees (PGET, 6.5-8.5 LPA, including Build India Scholarship) across Civil, Mechanical, Electrical, and Heavy Engineering verticals.",
+  "provenance": {
+    "sources": [
+      {
+        "url": "https://www.larsentoubro.com/corporate/careers/early-careers/",
+        "title": "L&T Early Careers & Graduate Engineer Trainee Program",
+        "publisher": "Larsen & Toubro",
+        "type": "official",
+        "accessed": "2026-10-10"
+      }
+    ],
+    "confidence": "high",
+    "lastVerified": "2026-10-10",
+    "dataYear": "2026"
+  },
+  "programs": [
+    {
+      "id": "lnt-get",
+      "companyId": "lnt",
+      "programName": "L&T Graduate Engineer Trainee (GET)",
+      "roleTitle": "Graduate Engineer Trainee",
+      "aliases": [
+        "L&T GET",
+        "Larsen Toubro GET",
+        "L&T Trainee"
+      ],
+      "programType": "trainee",
+      "roleFamily": "core-civil",
+      "campusCategory": "dream",
+      "hiringReach": "select-campuses",
+      "channels": [
+        "on-campus",
+        "portal"
+      ],
+      "testOrPortal": "L&T Online Assessment Portal",
+      "eligibility": {
+        "degrees": [
+          "B.Tech",
+          "B.E."
+        ],
+        "branchFamilies": [
+          "core-civil",
+          "core-mechanical",
+          "electronics-embedded"
+        ],
+        "branchCodes": [
+          "CIVIL",
+          "ME",
+          "EE",
+          "EEE"
+        ],
+        "graduationYears": [
+          2026,
+          2027
+        ],
+        "minCgpa": 6.5,
+        "minPercentage": 65,
+        "backlogPolicy": "Zero active backlogs at time of selection and joining",
+        "gapYearPolicy": "Max 1 year academic gap permitted",
+        "notes": "Engineering colleges across India with accredited Civil, Mechanical, or Electrical departments."
+      },
+      "selectionProcess": [
+        {
+          "stage": "L&T Technical & General Assessment",
+          "type": "aptitude",
+          "durationMin": 90,
+          "topics": [
+            "Core engineering discipline MCQ",
+            "Quantitative & Logical ability",
+            "English comprehension"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "Technical Interview",
+          "type": "technical",
+          "durationMin": 45,
+          "topics": [
+            "Structural mechanics, Surveying, Fluid dynamics, Power systems, Project design calculations"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "HR & Project Site Readiness Interview",
+          "type": "hr",
+          "durationMin": 20,
+          "topics": [
+            "Site readiness across remote infrastructure projects, Values alignment"
+          ],
+          "difficulty": "easy"
+        }
+      ],
+      "compensation": {
+        "currency": "INR",
+        "fixedMinLPA": 5.5,
+        "fixedMaxLPA": 7,
+        "variableLPA": 0.5,
+        "joiningBonusINR": null,
+        "stipendPerMonthINR": null,
+        "esopNote": null,
+        "asOfYear": 2026
+      },
+      "training": {
+        "durationMonths": 12,
+        "bondMonths": 24,
+        "bondAmountINR": 200000,
+        "notes": "L&T Leadership Development Academy (LDA Lonavala) induction followed by major project site postings (metro, bridge, nuclear, energy)."
+      },
+      "locations": [
+        "Mumbai",
+        "Chennai",
+        "Delhi NCR",
+        "Project Sites Pan-India"
+      ],
+      "seasons": {
+        "typicalMonths": [
+          8,
+          9,
+          10,
+          11
+        ],
+        "notes": "Autumn campus placement season."
+      },
+      "entry": {
+        "companyLevelCode": "GET",
+        "equivalenceLevelId": "L3_ENTRY"
+      },
+      "competencyProfile": {
+        "communication": "strong",
+        "leadership": "working"
+      },
+      "derivedFrom": "official-jd",
+      "trajectory": [
+        {
+          "fromLevelCode": "GET",
+          "toLevelCode": "EXE",
+          "typicalYearsMin": 1,
+          "typicalYearsMax": 1.5,
+          "conditions": [
+            "Completion of 1-year GET tenure and project site performance evaluation"
+          ],
+          "blockers": [],
+          "compensationLPAAfter": {
+            "min": 7.5,
+            "max": 9.5
+          },
+          "fastTrackNote": "Confirmed as Executive Engineer upon 12-month completion.",
+          "lateralExits": [
+            "Project engineer at global EPC / infrastructure majors."
+          ],
+          "confidence": "high",
+          "derived": false
+        }
+      ],
+      "status": "active",
+      "provenance": {
+        "sources": [
+          {
+            "url": "https://www.larsentoubro.com/corporate/careers/early-careers/",
+            "title": "L&T Graduate Engineer Trainee Program Details",
+            "publisher": "Larsen & Toubro",
+            "type": "official",
+            "accessed": "2026-10-10"
+          }
+        ],
+        "confidence": "high",
+        "lastVerified": "2026-10-10",
+        "dataYear": "2026"
+      }
+    }
+  ]
+}

@@ -1,0 +1,747 @@
+{
+  "date": "2026-10-10",
+  "totalCompanies": 56,
+  "completedCompanies": 56,
+  "statusSummary": {
+    "active": 55,
+    "limited": 1,
+    "discontinued": 0,
+    "unverified": 0
+  },
+  "confidenceSummary": {
+    "high": 60,
+    "medium": 0,
+    "low": 0
+  },
+  "totalPrograms": 60,
+  "companies": [
+    {
+      "companyId": "tcs",
+      "companyName": "Tata Consultancy Services",
+      "status": "active",
+      "coverage": "comprehensive",
+      "sparseReason": null,
+      "programsCount": 3,
+      "confidenceMix": {
+        "high": 3,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "infosys",
+      "companyName": "Infosys Limited",
+      "status": "active",
+      "coverage": "comprehensive",
+      "sparseReason": null,
+      "programsCount": 2,
+      "confidenceMix": {
+        "high": 2,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "wipro",
+      "companyName": "Wipro Limited",
+      "status": "active",
+      "coverage": "comprehensive",
+      "sparseReason": null,
+      "programsCount": 1,
+      "confidenceMix": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "cognizant",
+      "companyName": "Cognizant Technology Solutions",
+      "status": "active",
+      "coverage": "comprehensive",
+      "sparseReason": null,
+      "programsCount": 2,
+      "confidenceMix": {
+        "high": 2,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "accenture",
+      "companyName": "Accenture India",
+      "status": "active",
+      "coverage": "comprehensive",
+      "sparseReason": null,
+      "programsCount": 1,
+      "confidenceMix": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "capgemini",
+      "companyName": "Capgemini India",
+      "status": "active",
+      "coverage": "comprehensive",
+      "sparseReason": null,
+      "programsCount": 1,
+      "confidenceMix": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "hcltech",
+      "companyName": "HCL Technologies",
+      "status": "active",
+      "coverage": "comprehensive",
+      "sparseReason": null,
+      "programsCount": 1,
+      "confidenceMix": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "tech-mahindra",
+      "companyName": "Tech Mahindra",
+      "status": "active",
+      "coverage": "comprehensive",
+      "sparseReason": null,
+      "programsCount": 1,
+      "confidenceMix": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "ltimindtree",
+      "companyName": "LTIMindtree",
+      "status": "active",
+      "coverage": "comprehensive",
+      "sparseReason": null,
+      "programsCount": 1,
+      "confidenceMix": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "goldman-sachs",
+      "companyName": "Goldman Sachs India",
+      "status": "active",
+      "coverage": "comprehensive",
+      "sparseReason": null,
+      "programsCount": 1,
+      "confidenceMix": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "morgan-stanley",
+      "companyName": "Morgan Stanley India",
+      "status": "active",
+      "coverage": "comprehensive",
+      "sparseReason": null,
+      "programsCount": 1,
+      "confidenceMix": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "jpmorgan",
+      "companyName": "JPMorgan Chase & Co.",
+      "status": "active",
+      "coverage": "comprehensive",
+      "sparseReason": null,
+      "programsCount": 1,
+      "confidenceMix": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "walmart",
+      "companyName": "Walmart Global Tech India",
+      "status": "active",
+      "coverage": "comprehensive",
+      "sparseReason": null,
+      "programsCount": 1,
+      "confidenceMix": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "american-express",
+      "companyName": "American Express India",
+      "status": "active",
+      "coverage": "comprehensive",
+      "sparseReason": null,
+      "programsCount": 1,
+      "confidenceMix": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "target",
+      "companyName": "Target India",
+      "status": "active",
+      "coverage": "comprehensive",
+      "sparseReason": null,
+      "programsCount": 1,
+      "confidenceMix": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "visa",
+      "companyName": "Visa India",
+      "status": "active",
+      "coverage": "comprehensive",
+      "sparseReason": null,
+      "programsCount": 1,
+      "confidenceMix": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "mastercard",
+      "companyName": "Mastercard India",
+      "status": "active",
+      "coverage": "comprehensive",
+      "sparseReason": null,
+      "programsCount": 1,
+      "confidenceMix": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "paypal",
+      "companyName": "PayPal India",
+      "status": "active",
+      "coverage": "comprehensive",
+      "sparseReason": null,
+      "programsCount": 1,
+      "confidenceMix": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "flipkart",
+      "companyName": "Flipkart",
+      "status": "active",
+      "coverage": "comprehensive",
+      "sparseReason": null,
+      "programsCount": 1,
+      "confidenceMix": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "swiggy",
+      "companyName": "Swiggy",
+      "status": "active",
+      "coverage": "comprehensive",
+      "sparseReason": null,
+      "programsCount": 1,
+      "confidenceMix": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "zomato",
+      "companyName": "Zomato",
+      "status": "active",
+      "coverage": "comprehensive",
+      "sparseReason": null,
+      "programsCount": 1,
+      "confidenceMix": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "razorpay",
+      "companyName": "Razorpay",
+      "status": "active",
+      "coverage": "comprehensive",
+      "sparseReason": null,
+      "programsCount": 1,
+      "confidenceMix": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "zoho",
+      "companyName": "Zoho Corporation",
+      "status": "active",
+      "coverage": "comprehensive",
+      "sparseReason": null,
+      "programsCount": 1,
+      "confidenceMix": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "phonepe",
+      "companyName": "PhonePe",
+      "status": "active",
+      "coverage": "comprehensive",
+      "sparseReason": null,
+      "programsCount": 1,
+      "confidenceMix": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "paytm",
+      "companyName": "Paytm",
+      "status": "active",
+      "coverage": "comprehensive",
+      "sparseReason": null,
+      "programsCount": 1,
+      "confidenceMix": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "cred",
+      "companyName": "CRED",
+      "status": "active",
+      "coverage": "comprehensive",
+      "sparseReason": null,
+      "programsCount": 1,
+      "confidenceMix": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "meesho",
+      "companyName": "Meesho",
+      "status": "active",
+      "coverage": "comprehensive",
+      "sparseReason": null,
+      "programsCount": 1,
+      "confidenceMix": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "zepto",
+      "companyName": "Zepto",
+      "status": "active",
+      "coverage": "comprehensive",
+      "sparseReason": null,
+      "programsCount": 1,
+      "confidenceMix": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "ola",
+      "companyName": "Ola (ANI Technologies)",
+      "status": "active",
+      "coverage": "comprehensive",
+      "sparseReason": null,
+      "programsCount": 1,
+      "confidenceMix": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "freshworks",
+      "companyName": "Freshworks",
+      "status": "active",
+      "coverage": "comprehensive",
+      "sparseReason": null,
+      "programsCount": 1,
+      "confidenceMix": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "groww",
+      "companyName": "Groww",
+      "status": "active",
+      "coverage": "comprehensive",
+      "sparseReason": null,
+      "programsCount": 1,
+      "confidenceMix": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "dream11",
+      "companyName": "Dream11 (Dream Sports)",
+      "status": "active",
+      "coverage": "comprehensive",
+      "sparseReason": null,
+      "programsCount": 1,
+      "confidenceMix": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "myntra",
+      "companyName": "Myntra",
+      "status": "active",
+      "coverage": "comprehensive",
+      "sparseReason": null,
+      "programsCount": 1,
+      "confidenceMix": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "nykaa",
+      "companyName": "Nykaa",
+      "status": "active",
+      "coverage": "comprehensive",
+      "sparseReason": null,
+      "programsCount": 1,
+      "confidenceMix": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "inmobi",
+      "companyName": "InMobi",
+      "status": "active",
+      "coverage": "comprehensive",
+      "sparseReason": null,
+      "programsCount": 1,
+      "confidenceMix": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "sharechat",
+      "companyName": "ShareChat (Mohalla Tech)",
+      "status": "active",
+      "coverage": "comprehensive",
+      "sparseReason": null,
+      "programsCount": 1,
+      "confidenceMix": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "google",
+      "companyName": "Google India",
+      "status": "active",
+      "coverage": "comprehensive",
+      "sparseReason": null,
+      "programsCount": 1,
+      "confidenceMix": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "microsoft",
+      "companyName": "Microsoft India",
+      "status": "active",
+      "coverage": "comprehensive",
+      "sparseReason": null,
+      "programsCount": 1,
+      "confidenceMix": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "amazon",
+      "companyName": "Amazon India",
+      "status": "active",
+      "coverage": "comprehensive",
+      "sparseReason": null,
+      "programsCount": 1,
+      "confidenceMix": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "meta",
+      "companyName": "Meta India",
+      "status": "active",
+      "coverage": "standard",
+      "sparseReason": null,
+      "programsCount": 1,
+      "confidenceMix": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "apple",
+      "companyName": "Apple India",
+      "status": "active",
+      "coverage": "standard",
+      "sparseReason": null,
+      "programsCount": 1,
+      "confidenceMix": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "uber",
+      "companyName": "Uber India",
+      "status": "active",
+      "coverage": "comprehensive",
+      "sparseReason": null,
+      "programsCount": 1,
+      "confidenceMix": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "atlassian",
+      "companyName": "Atlassian India",
+      "status": "active",
+      "coverage": "comprehensive",
+      "sparseReason": null,
+      "programsCount": 1,
+      "confidenceMix": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "adobe",
+      "companyName": "Adobe Systems India",
+      "status": "active",
+      "coverage": "comprehensive",
+      "sparseReason": null,
+      "programsCount": 1,
+      "confidenceMix": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "salesforce",
+      "companyName": "Salesforce India",
+      "status": "active",
+      "coverage": "comprehensive",
+      "sparseReason": null,
+      "programsCount": 1,
+      "confidenceMix": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "oracle",
+      "companyName": "Oracle India",
+      "status": "active",
+      "coverage": "comprehensive",
+      "sparseReason": null,
+      "programsCount": 1,
+      "confidenceMix": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "intel",
+      "companyName": "Intel India",
+      "status": "active",
+      "coverage": "comprehensive",
+      "sparseReason": null,
+      "programsCount": 1,
+      "confidenceMix": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "nvidia",
+      "companyName": "NVIDIA India",
+      "status": "active",
+      "coverage": "comprehensive",
+      "sparseReason": null,
+      "programsCount": 1,
+      "confidenceMix": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "qualcomm",
+      "companyName": "Qualcomm India",
+      "status": "active",
+      "coverage": "comprehensive",
+      "sparseReason": null,
+      "programsCount": 1,
+      "confidenceMix": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "cisco",
+      "companyName": "Cisco Systems India",
+      "status": "active",
+      "coverage": "comprehensive",
+      "sparseReason": null,
+      "programsCount": 1,
+      "confidenceMix": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "linkedin",
+      "companyName": "LinkedIn India",
+      "status": "active",
+      "coverage": "comprehensive",
+      "sparseReason": null,
+      "programsCount": 1,
+      "confidenceMix": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "netflix",
+      "companyName": "Netflix India",
+      "status": "limited",
+      "coverage": "sparse",
+      "sparseReason": "Netflix India engineering primarily recruits experienced lateral senior engineers (L5/L6); no general campus SDE fresher ladder exists, only select summer research/engineering internships.",
+      "programsCount": 1,
+      "confidenceMix": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "tata-motors",
+      "companyName": "Tata Motors",
+      "status": "active",
+      "coverage": "comprehensive",
+      "sparseReason": null,
+      "programsCount": 1,
+      "confidenceMix": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "lnt",
+      "companyName": "Larsen & Toubro",
+      "status": "active",
+      "coverage": "comprehensive",
+      "sparseReason": null,
+      "programsCount": 1,
+      "confidenceMix": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "bosch-india",
+      "companyName": "Bosch India",
+      "status": "active",
+      "coverage": "comprehensive",
+      "sparseReason": null,
+      "programsCount": 1,
+      "confidenceMix": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    {
+      "companyId": "mahindra",
+      "companyName": "Mahindra & Mahindra",
+      "status": "active",
+      "coverage": "comprehensive",
+      "sparseReason": null,
+      "programsCount": 1,
+      "confidenceMix": {
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      }
+    }
+  ]
+}

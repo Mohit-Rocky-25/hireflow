@@ -1,0 +1,190 @@
+{
+  "companyId": "tech-mahindra",
+  "companyName": "Tech Mahindra",
+  "status": "active",
+  "coverage": "comprehensive",
+  "sparseReason": null,
+  "verifiedDate": "2026-10-10",
+  "researchNotes": "Tech Mahindra recruits Associate Software Engineers via ELTP (Entry Level Trainee Program, 3.25-4.0 LPA) and a SuperCoder track (5.5-7 LPA).",
+  "provenance": {
+    "sources": [
+      {
+        "url": "https://www.techmahindra.com/en-in/careers/campus-hiring/",
+        "title": "Tech Mahindra Campus Hiring & ELTP Program",
+        "publisher": "Tech Mahindra",
+        "type": "official",
+        "accessed": "2026-10-10"
+      }
+    ],
+    "confidence": "high",
+    "lastVerified": "2026-10-10",
+    "dataYear": "2026"
+  },
+  "programs": [
+    {
+      "id": "tech-mahindra-ase",
+      "companyId": "tech-mahindra",
+      "programName": "Tech Mahindra Associate Software Engineer (ELTP)",
+      "roleTitle": "Associate Software Engineer",
+      "aliases": [
+        "TechM ASE",
+        "ELTP",
+        "Associate Software Engineer"
+      ],
+      "programType": "fulltime",
+      "roleFamily": "sde-services",
+      "campusCategory": "mass",
+      "hiringReach": "mass-pool",
+      "channels": [
+        "on-campus",
+        "portal"
+      ],
+      "testOrPortal": "Tech Mahindra Assessment Portal",
+      "eligibility": {
+        "degrees": [
+          "B.Tech",
+          "B.E.",
+          "MCA"
+        ],
+        "branchFamilies": [
+          "software",
+          "data-ai",
+          "electronics-embedded",
+          "core-mechanical",
+          "core-civil"
+        ],
+        "branchCodes": [
+          "CSE",
+          "IT",
+          "ECE",
+          "EEE",
+          "ME",
+          "CIVIL"
+        ],
+        "graduationYears": [
+          2026,
+          2027
+        ],
+        "minCgpa": 6,
+        "minPercentage": 60,
+        "backlogPolicy": "No active backlogs allowed",
+        "gapYearPolicy": "Max 1 year academic gap permitted",
+        "notes": "60% throughout 10th, 12th, and B.Tech without backlogs."
+      },
+      "selectionProcess": [
+        {
+          "stage": "Aptitude & English Essay Test",
+          "type": "aptitude",
+          "durationMin": 60,
+          "topics": [
+            "Logical reasoning",
+            "Quantitative ability",
+            "Written communication"
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "stage": "Technical & Psychometric Test",
+          "type": "technical",
+          "durationMin": 45,
+          "topics": [
+            "Computer fundamentals",
+            "Personality profile assessment"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "Technical & HR Interview",
+          "type": "technical",
+          "durationMin": 25,
+          "topics": [
+            "OOP concepts",
+            "Database basics",
+            "Project review"
+          ],
+          "difficulty": "medium"
+        }
+      ],
+      "compensation": {
+        "currency": "INR",
+        "fixedMinLPA": 3.25,
+        "fixedMaxLPA": 4,
+        "variableLPA": 0.25,
+        "joiningBonusINR": null,
+        "stipendPerMonthINR": null,
+        "esopNote": null,
+        "asOfYear": 2026
+      },
+      "training": {
+        "durationMonths": 3,
+        "bondMonths": 24,
+        "bondAmountINR": 100000,
+        "notes": "Comprehensive ELTP classroom and lab training program with a 2-year service agreement."
+      },
+      "locations": [
+        "Pune",
+        "Hyderabad",
+        "Bengaluru",
+        "Chennai",
+        "Noida",
+        "Mumbai"
+      ],
+      "seasons": {
+        "typicalMonths": [
+          9,
+          10,
+          11
+        ],
+        "notes": "Standard national campus hiring season."
+      },
+      "entry": {
+        "companyLevelCode": "Associate Software Engineer",
+        "equivalenceLevelId": "L3_ENTRY"
+      },
+      "competencyProfile": {
+        "dsa": "working",
+        "java": "working",
+        "databases": "working",
+        "communication": "strong"
+      },
+      "derivedFrom": "official-jd",
+      "trajectory": [
+        {
+          "fromLevelCode": "Associate Software Engineer",
+          "toLevelCode": "Software Engineer",
+          "typicalYearsMin": 1.5,
+          "typicalYearsMax": 2.5,
+          "conditions": [
+            "Completion of service agreement probation and positive customer billability"
+          ],
+          "blockers": [],
+          "compensationLPAAfter": {
+            "min": 5,
+            "max": 6.5
+          },
+          "fastTrackNote": "High performers in telecom/5G verticals receive accelerated bonuses.",
+          "lateralExits": [
+            "Telecom software engineer or enterprise application developer."
+          ],
+          "confidence": "high",
+          "derived": false
+        }
+      ],
+      "status": "active",
+      "provenance": {
+        "sources": [
+          {
+            "url": "https://www.techmahindra.com/en-in/careers/campus-hiring/",
+            "title": "Tech Mahindra ELTP Guidelines & Service Agreement Details",
+            "publisher": "Tech Mahindra",
+            "type": "official",
+            "accessed": "2026-10-10"
+          }
+        ],
+        "confidence": "high",
+        "lastVerified": "2026-10-10",
+        "dataYear": "2026"
+      }
+    }
+  ]
+}

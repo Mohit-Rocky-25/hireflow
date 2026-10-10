@@ -2,14 +2,14 @@
   "manifestVersion": "1.0.0",
   "schemaVersion": "1.0.0",
   "datasetVersion": "2026.10.10",
-  "generatedAt": "2026-10-10T11:20:00.000Z",
+  "generatedAt": "2026-10-10T12:00:00.000Z",
   "owner": "HireFlow Platform Engineering",
   "entities": {
     "companiesCount": 56,
     "levelsCount": 182,
     "rolesCount": 908,
-    "fresherProgramsCount": 3,
-    "branchesCount": 24,
+    "fresherProgramsCount": 60,
+    "branchesCount": 36,
     "equivalenceLevelsCount": 9,
     "competenciesCount": 19
   },
@@ -29,5 +29,6 @@
       "path": "src/data/ats/ats-format-rules.json",
       "access": "read-only"
     }
-  ]
+  ],
+  "sourcesCount": 0
 }

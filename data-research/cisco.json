@@ -1,0 +1,187 @@
+{
+  "companyId": "cisco",
+  "companyName": "Cisco Systems India",
+  "status": "active",
+  "coverage": "comprehensive",
+  "sparseReason": null,
+  "verifiedDate": "2026-10-10",
+  "researchNotes": "Cisco recruits Associate Software Engineers / Network Engineers (Grade 6, 14-18 LPA) in Bengaluru for cloud networking, IOS-XE router operating systems, and Webex collaboration.",
+  "provenance": {
+    "sources": [
+      {
+        "url": "https://www.cisco.com/c/en/us/about/careers/students-and-new-graduates.html",
+        "title": "Cisco Students and New Graduates Programs",
+        "publisher": "Cisco",
+        "type": "official",
+        "accessed": "2026-10-10"
+      }
+    ],
+    "confidence": "high",
+    "lastVerified": "2026-10-10",
+    "dataYear": "2026"
+  },
+  "programs": [
+    {
+      "id": "cisco-assoc-se",
+      "companyId": "cisco",
+      "programName": "Cisco Associate Software Engineer (Grade 6)",
+      "roleTitle": "Software Engineer (Grade 6)",
+      "aliases": [
+        "Cisco Grade 6",
+        "Cisco College Grad"
+      ],
+      "programType": "fulltime",
+      "roleFamily": "sde-product",
+      "campusCategory": "dream",
+      "hiringReach": "select-campuses",
+      "channels": [
+        "on-campus",
+        "portal"
+      ],
+      "testOrPortal": "Cisco Online Assessment",
+      "eligibility": {
+        "degrees": [
+          "B.Tech",
+          "B.E.",
+          "MCA",
+          "M.Tech"
+        ],
+        "branchFamilies": [
+          "software",
+          "data-ai",
+          "electronics-embedded"
+        ],
+        "branchCodes": [
+          "CSE",
+          "IT",
+          "AIML",
+          "AIDS",
+          "ECE"
+        ],
+        "graduationYears": [
+          2026,
+          2027
+        ],
+        "minCgpa": 7,
+        "minPercentage": 70,
+        "backlogPolicy": "Zero active backlogs",
+        "gapYearPolicy": "Standard justification",
+        "notes": "Engineering colleges across India."
+      },
+      "selectionProcess": [
+        {
+          "stage": "Technical Assessment",
+          "type": "technical",
+          "durationMin": 75,
+          "topics": [
+            "DSA problems, Networking fundamentals (TCP/IP, Routing), OS concepts"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "Technical Round 1: Problem Solving & Networking",
+          "type": "technical",
+          "durationMin": 45,
+          "topics": [
+            "Data structures, Socket programming, Protocol stacks"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "Technical Round 2: Systems & Design",
+          "type": "technical",
+          "durationMin": 45,
+          "topics": [
+            "OOPs, Concurrency, Distributed networking concepts"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "HR & Fitment Interview",
+          "type": "hr",
+          "durationMin": 20,
+          "topics": [
+            "Team alignment, Passion for cloud and networking"
+          ],
+          "difficulty": "easy"
+        }
+      ],
+      "compensation": {
+        "currency": "INR",
+        "fixedMinLPA": 14,
+        "fixedMaxLPA": 18,
+        "variableLPA": 2,
+        "joiningBonusINR": 150000,
+        "stipendPerMonthINR": null,
+        "esopNote": null,
+        "asOfYear": 2026
+      },
+      "training": {
+        "durationMonths": 2,
+        "bondMonths": null,
+        "bondAmountINR": null,
+        "notes": "Cisco networking and cloud software onboarding in Bengaluru."
+      },
+      "locations": [
+        "Bengaluru"
+      ],
+      "seasons": {
+        "typicalMonths": [
+          8,
+          9,
+          10
+        ],
+        "notes": "Autumn campus placement window."
+      },
+      "entry": {
+        "companyLevelCode": "Grade 6",
+        "equivalenceLevelId": "L3_ENTRY"
+      },
+      "competencyProfile": {
+        "dsa": "strong",
+        "python": "strong",
+        "security": "working",
+        "devops": "working",
+        "communication": "strong"
+      },
+      "derivedFrom": "official-jd",
+      "trajectory": [
+        {
+          "fromLevelCode": "Grade 6",
+          "toLevelCode": "Grade 8",
+          "typicalYearsMin": 2,
+          "typicalYearsMax": 3.5,
+          "conditions": [
+            "Production contribution on routing software or security features"
+          ],
+          "blockers": [],
+          "compensationLPAAfter": {
+            "min": 22,
+            "max": 32
+          },
+          "fastTrackNote": "High performers receive rapid advancement.",
+          "lateralExits": [
+            "Network software engineer."
+          ],
+          "confidence": "high",
+          "derived": false
+        }
+      ],
+      "status": "active",
+      "provenance": {
+        "sources": [
+          {
+            "url": "https://www.cisco.com/c/en/us/about/careers/students-and-new-graduates.html",
+            "title": "Cisco Students and New Graduates Guide",
+            "publisher": "Cisco",
+            "type": "official",
+            "accessed": "2026-10-10"
+          }
+        ],
+        "confidence": "high",
+        "lastVerified": "2026-10-10",
+        "dataYear": "2026"
+      }
+    }
+  ]
+}

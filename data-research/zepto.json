@@ -1,0 +1,187 @@
+{
+  "companyId": "zepto",
+  "companyName": "Zepto",
+  "status": "active",
+  "coverage": "comprehensive",
+  "sparseReason": null,
+  "verifiedDate": "2026-10-10",
+  "researchNotes": "Zepto recruits SDE-1 (18-24 LPA) for 10-minute quick commerce delivery systems, dark store warehouse routing, and catalog search in Bengaluru.",
+  "provenance": {
+    "sources": [
+      {
+        "url": "https://www.zeptonow.com/careers",
+        "title": "Zepto Engineering Careers & Campus Recruitment",
+        "publisher": "Zepto",
+        "type": "official",
+        "accessed": "2026-10-10"
+      }
+    ],
+    "confidence": "high",
+    "lastVerified": "2026-10-10",
+    "dataYear": "2026"
+  },
+  "programs": [
+    {
+      "id": "zepto-sde1",
+      "companyId": "zepto",
+      "programName": "Zepto SDE-1 Campus Hiring",
+      "roleTitle": "Software Development Engineer I",
+      "aliases": [
+        "Zepto SDE-1",
+        "SDE-1 Zepto"
+      ],
+      "programType": "fulltime",
+      "roleFamily": "sde-product",
+      "campusCategory": "super-dream",
+      "hiringReach": "select-campuses",
+      "channels": [
+        "on-campus",
+        "portal"
+      ],
+      "testOrPortal": "Zepto Coding Challenge",
+      "eligibility": {
+        "degrees": [
+          "B.Tech",
+          "B.E.",
+          "M.Tech"
+        ],
+        "branchFamilies": [
+          "software",
+          "data-ai",
+          "electronics-embedded"
+        ],
+        "branchCodes": [
+          "CSE",
+          "IT",
+          "AIML",
+          "AIDS",
+          "ECE"
+        ],
+        "graduationYears": [
+          2026,
+          2027
+        ],
+        "minCgpa": 7,
+        "minPercentage": 70,
+        "backlogPolicy": "Zero active backlogs",
+        "gapYearPolicy": "Standard justification",
+        "notes": "Top tier campuses across India."
+      },
+      "selectionProcess": [
+        {
+          "stage": "Coding Assessment",
+          "type": "coding",
+          "durationMin": 90,
+          "topics": [
+            "DSA (Graphs, Dynamic Programming, Heap)",
+            "Complexity optimization"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Technical Round 1: Problem Solving",
+          "type": "technical",
+          "durationMin": 60,
+          "topics": [
+            "Data structures, Algorithm efficiency"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Technical Round 2: Practical Coding & LLD",
+          "type": "technical",
+          "durationMin": 60,
+          "topics": [
+            "Object-oriented design patterns, Concurrency, Caching"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Cultural Alignment / Leadership",
+          "type": "managerial",
+          "durationMin": 45,
+          "topics": [
+            "Execution speed, Quick commerce scale, Resilience"
+          ],
+          "difficulty": "medium"
+        }
+      ],
+      "compensation": {
+        "currency": "INR",
+        "fixedMinLPA": 18,
+        "fixedMaxLPA": 24,
+        "variableLPA": 2.5,
+        "joiningBonusINR": 200000,
+        "stipendPerMonthINR": null,
+        "esopNote": "Zepto ESOP grants included.",
+        "asOfYear": 2026
+      },
+      "training": {
+        "durationMonths": 1,
+        "bondMonths": null,
+        "bondAmountINR": null,
+        "notes": "Dark store warehouse and real-time dispatch systems onboarding in Bengaluru."
+      },
+      "locations": [
+        "Bengaluru",
+        "Mumbai"
+      ],
+      "seasons": {
+        "typicalMonths": [
+          8,
+          9,
+          10
+        ],
+        "notes": "Autumn campus placement season."
+      },
+      "entry": {
+        "companyLevelCode": "SDE-1",
+        "equivalenceLevelId": "L3_ENTRY"
+      },
+      "competencyProfile": {
+        "dsa": "expert",
+        "golang": "strong",
+        "databases": "strong",
+        "communication": "strong"
+      },
+      "derivedFrom": "official-jd",
+      "trajectory": [
+        {
+          "fromLevelCode": "SDE-1",
+          "toLevelCode": "SDE-2",
+          "typicalYearsMin": 1.5,
+          "typicalYearsMax": 2.5,
+          "conditions": [
+            "Delivering low latency dispatch and fulfillment services"
+          ],
+          "blockers": [],
+          "compensationLPAAfter": {
+            "min": 28,
+            "max": 40
+          },
+          "fastTrackNote": "Rapid shipping and extreme ownership fast-tracks promotion to SDE-2 in under 18 months.",
+          "lateralExits": [
+            "SDE-2 at leading consumer internet startups."
+          ],
+          "confidence": "high",
+          "derived": false
+        }
+      ],
+      "status": "active",
+      "provenance": {
+        "sources": [
+          {
+            "url": "https://www.zeptonow.com/careers",
+            "title": "Zepto Engineering Careers Overview",
+            "publisher": "Zepto",
+            "type": "official",
+            "accessed": "2026-10-10"
+          }
+        ],
+        "confidence": "high",
+        "lastVerified": "2026-10-10",
+        "dataYear": "2026"
+      }
+    }
+  ]
+}

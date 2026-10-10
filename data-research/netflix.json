@@ -1,0 +1,144 @@
+{
+  "companyId": "netflix",
+  "companyName": "Netflix India",
+  "status": "limited",
+  "coverage": "sparse",
+  "sparseReason": "Netflix India engineering primarily recruits experienced lateral senior engineers (L5/L6); no general campus SDE fresher ladder exists, only select summer research/engineering internships.",
+  "verifiedDate": "2026-10-10",
+  "researchNotes": "Netflix maintains a high-performance senior-only culture model. Freshers are not hired through mass or standard campus engineering drives in India. Summer internships are exceptionally rare and highly selective.",
+  "provenance": {
+    "sources": [
+      {
+        "url": "https://jobs.netflix.com/",
+        "title": "Netflix Official Careers & Culture Memo",
+        "publisher": "Netflix",
+        "type": "official",
+        "accessed": "2026-10-10"
+      }
+    ],
+    "confidence": "high",
+    "lastVerified": "2026-10-10",
+    "dataYear": "2026"
+  },
+  "programs": [
+    {
+      "id": "netflix-grad-intern",
+      "companyId": "netflix",
+      "programName": "Netflix Emerging Talent / Summer Engineering Intern",
+      "roleTitle": "Engineering Intern (Select Emerging Talent)",
+      "aliases": [
+        "Netflix Intern",
+        "Netflix Summer Intern"
+      ],
+      "programType": "internship-ppo",
+      "roleFamily": "sde-product",
+      "campusCategory": "unclassified",
+      "hiringReach": "invite-only",
+      "channels": [
+        "portal"
+      ],
+      "testOrPortal": "Netflix Technical Screening",
+      "eligibility": {
+        "degrees": [
+          "B.Tech",
+          "B.E.",
+          "M.Tech",
+          "PhD"
+        ],
+        "branchFamilies": [
+          "software",
+          "data-ai"
+        ],
+        "branchCodes": [
+          "CSE",
+          "IT",
+          "AIML"
+        ],
+        "graduationYears": [
+          2026,
+          2027
+        ],
+        "minCgpa": 8.5,
+        "minPercentage": 85,
+        "backlogPolicy": "Zero backlogs",
+        "gapYearPolicy": "Standard justification",
+        "notes": "Extremely limited opportunistic hiring. General new grad hiring is not practiced; lateral entry starts at Senior Software Engineer (L5)."
+      },
+      "selectionProcess": [
+        {
+          "stage": "Technical Assessment & Deep Dive",
+          "type": "technical",
+          "durationMin": 90,
+          "topics": [
+            "Distributed systems, Algorithms, Operating systems, Concurrency"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "System Architecture & Netflix Culture",
+          "type": "managerial",
+          "durationMin": 60,
+          "topics": [
+            "Freedom and Responsibility, Extreme context over control, Self-discipline"
+          ],
+          "difficulty": "hard"
+        }
+      ],
+      "compensation": {
+        "currency": "INR",
+        "fixedMinLPA": null,
+        "fixedMaxLPA": null,
+        "variableLPA": null,
+        "joiningBonusINR": null,
+        "stipendPerMonthINR": 150000,
+        "esopNote": null,
+        "asOfYear": 2026
+      },
+      "training": {
+        "durationMonths": 3,
+        "bondMonths": null,
+        "bondAmountINR": null,
+        "notes": "High freedom-and-responsibility summer project incubation."
+      },
+      "locations": [
+        "Mumbai",
+        "Bengaluru"
+      ],
+      "seasons": {
+        "typicalMonths": [
+          5,
+          6,
+          7
+        ],
+        "notes": "Summer internship cycle when active."
+      },
+      "entry": {
+        "companyLevelCode": null,
+        "equivalenceLevelId": null
+      },
+      "competencyProfile": {
+        "dsa": "expert",
+        "systemdesign": "strong",
+        "java": "strong",
+        "communication": "expert"
+      },
+      "derivedFrom": "official-jd",
+      "trajectory": [],
+      "status": "limited",
+      "provenance": {
+        "sources": [
+          {
+            "url": "https://jobs.netflix.com/",
+            "title": "Netflix Jobs & Early Careers Notice",
+            "publisher": "Netflix",
+            "type": "official",
+            "accessed": "2026-10-10"
+          }
+        ],
+        "confidence": "high",
+        "lastVerified": "2026-10-10",
+        "dataYear": "2026"
+      }
+    }
+  ]
+}

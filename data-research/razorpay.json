@@ -1,0 +1,187 @@
+{
+  "companyId": "razorpay",
+  "companyName": "Razorpay",
+  "status": "active",
+  "coverage": "comprehensive",
+  "sparseReason": null,
+  "verifiedDate": "2026-10-10",
+  "researchNotes": "Razorpay recruits SDE-1 (18-24 LPA) for core payment gateways, banking APIs, and payroll systems in Bengaluru.",
+  "provenance": {
+    "sources": [
+      {
+        "url": "https://razorpay.com/jobs/university/",
+        "title": "Razorpay University Hiring & Early Career Engineering Program",
+        "publisher": "Razorpay",
+        "type": "official",
+        "accessed": "2026-10-10"
+      }
+    ],
+    "confidence": "high",
+    "lastVerified": "2026-10-10",
+    "dataYear": "2026"
+  },
+  "programs": [
+    {
+      "id": "razorpay-sde1",
+      "companyId": "razorpay",
+      "programName": "Razorpay SDE-1 Campus Hiring",
+      "roleTitle": "Software Development Engineer I",
+      "aliases": [
+        "Razorpay SDE-1",
+        "SDE-1 Razorpay"
+      ],
+      "programType": "fulltime",
+      "roleFamily": "sde-product",
+      "campusCategory": "super-dream",
+      "hiringReach": "select-campuses",
+      "channels": [
+        "on-campus",
+        "portal"
+      ],
+      "testOrPortal": "Razorpay HackerRank Challenge",
+      "eligibility": {
+        "degrees": [
+          "B.Tech",
+          "B.E.",
+          "M.Tech"
+        ],
+        "branchFamilies": [
+          "software",
+          "data-ai",
+          "electronics-embedded"
+        ],
+        "branchCodes": [
+          "CSE",
+          "IT",
+          "AIML",
+          "AIDS",
+          "ECE"
+        ],
+        "graduationYears": [
+          2026,
+          2027
+        ],
+        "minCgpa": 7,
+        "minPercentage": 70,
+        "backlogPolicy": "Zero active backlogs",
+        "gapYearPolicy": "Standard justification",
+        "notes": "Premier technology colleges across India."
+      },
+      "selectionProcess": [
+        {
+          "stage": "Coding Assessment",
+          "type": "coding",
+          "durationMin": 90,
+          "topics": [
+            "DSA (DP, Graph, Trees, Trie)",
+            "Algorithmic efficiency"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Technical Round 1: DSA Deep Dive",
+          "type": "technical",
+          "durationMin": 60,
+          "topics": [
+            "Problem solving, Space and time complexity optimization"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Technical Round 2: LLD & Core Engineering",
+          "type": "technical",
+          "durationMin": 60,
+          "topics": [
+            "Object-oriented design patterns, Database transactions, Idempotency basics"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Culture & Hiring Manager Round",
+          "type": "managerial",
+          "durationMin": 45,
+          "topics": [
+            "Razorpay values (Think Differently, Deliver Customer Delight, Extreme Ownership)"
+          ],
+          "difficulty": "medium"
+        }
+      ],
+      "compensation": {
+        "currency": "INR",
+        "fixedMinLPA": 18,
+        "fixedMaxLPA": 24,
+        "variableLPA": 2.5,
+        "joiningBonusINR": 200000,
+        "stipendPerMonthINR": null,
+        "esopNote": "Razorpay ESOPs with standard 4-year vesting schedule.",
+        "asOfYear": 2026
+      },
+      "training": {
+        "durationMonths": 1,
+        "bondMonths": null,
+        "bondAmountINR": null,
+        "notes": "Payment infrastructure and financial security onboarding in Bengaluru."
+      },
+      "locations": [
+        "Bengaluru"
+      ],
+      "seasons": {
+        "typicalMonths": [
+          8,
+          9,
+          10
+        ],
+        "notes": "Autumn campus placement season."
+      },
+      "entry": {
+        "companyLevelCode": "SDE-1",
+        "equivalenceLevelId": "L3_ENTRY"
+      },
+      "competencyProfile": {
+        "dsa": "expert",
+        "golang": "strong",
+        "finance": "working",
+        "databases": "strong",
+        "communication": "strong"
+      },
+      "derivedFrom": "official-jd",
+      "trajectory": [
+        {
+          "fromLevelCode": "SDE-1",
+          "toLevelCode": "SDE-2",
+          "typicalYearsMin": 1.5,
+          "typicalYearsMax": 3,
+          "conditions": [
+            "Production delivery on zero-downtime payments authorization pipelines"
+          ],
+          "blockers": [],
+          "compensationLPAAfter": {
+            "min": 30,
+            "max": 42
+          },
+          "fastTrackNote": "Fintech high performers promoted to SDE-2 in under 2 years.",
+          "lateralExits": [
+            "SDE-2 at global fintech or product unicorns."
+          ],
+          "confidence": "high",
+          "derived": false
+        }
+      ],
+      "status": "active",
+      "provenance": {
+        "sources": [
+          {
+            "url": "https://razorpay.com/jobs/university/",
+            "title": "Razorpay University Hiring Overview",
+            "publisher": "Razorpay",
+            "type": "official",
+            "accessed": "2026-10-10"
+          }
+        ],
+        "confidence": "high",
+        "lastVerified": "2026-10-10",
+        "dataYear": "2026"
+      }
+    }
+  ]
+}

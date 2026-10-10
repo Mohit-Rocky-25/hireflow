@@ -1,0 +1,201 @@
+{
+  "companyId": "goldman-sachs",
+  "companyName": "Goldman Sachs India",
+  "status": "active",
+  "coverage": "comprehensive",
+  "sparseReason": null,
+  "verifiedDate": "2026-10-10",
+  "researchNotes": "Goldman Sachs hires across engineering campuses in Bengaluru & Hyderabad via the New Analyst Program and the Engineering Campus Hiring Program (ECHP). Strong focus on algorithms, systems, and financial engineering.",
+  "provenance": {
+    "sources": [
+      {
+        "url": "https://www.goldmansachs.com/careers/students/programs/india/engineering-campus-hiring-program.html",
+        "title": "Goldman Sachs Engineering Campus Hiring Program (ECHP)",
+        "publisher": "Goldman Sachs",
+        "type": "official",
+        "accessed": "2026-10-10"
+      }
+    ],
+    "confidence": "high",
+    "lastVerified": "2026-10-10",
+    "dataYear": "2026"
+  },
+  "programs": [
+    {
+      "id": "goldman-sachs-analyst",
+      "companyId": "goldman-sachs",
+      "programName": "Goldman Sachs New Analyst Program (Engineering)",
+      "roleTitle": "Analyst (Software Engineer)",
+      "aliases": [
+        "New Analyst",
+        "GS Analyst",
+        "Engineering Analyst"
+      ],
+      "programType": "fulltime",
+      "roleFamily": "analyst-fintech",
+      "campusCategory": "super-dream",
+      "hiringReach": "select-campuses",
+      "channels": [
+        "on-campus",
+        "portal",
+        "competition"
+      ],
+      "testOrPortal": "Goldman Sachs HackerRank Assessment",
+      "eligibility": {
+        "degrees": [
+          "B.Tech",
+          "B.E.",
+          "M.Tech",
+          "Dual Degree"
+        ],
+        "branchFamilies": [
+          "software",
+          "data-ai",
+          "electronics-embedded"
+        ],
+        "branchCodes": [
+          "CSE",
+          "IT",
+          "AIML",
+          "AIDS",
+          "ECE",
+          "MNC"
+        ],
+        "graduationYears": [
+          2026,
+          2027
+        ],
+        "minCgpa": 7,
+        "minPercentage": 70,
+        "backlogPolicy": "Zero active backlogs",
+        "gapYearPolicy": "Standard justification required",
+        "notes": "Minimum 7.0 CGPA; primary preference for Tier 1 and premier technology institutions."
+      },
+      "selectionProcess": [
+        {
+          "stage": "Aptitude & Advanced Programming Assessment",
+          "type": "coding",
+          "durationMin": 120,
+          "topics": [
+            "DSA (Dynamic Programming, Graph algorithms)",
+            "Math & Probability",
+            "Advanced CS fundamentals"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Technical Round 1: DSA & Core Systems",
+          "type": "technical",
+          "durationMin": 60,
+          "topics": [
+            "Tree & Graph traversals",
+            "Time & Space complexity analysis",
+            "Object oriented design"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Technical Round 2: System Design & Java/C++",
+          "type": "technical",
+          "durationMin": 60,
+          "topics": [
+            "Low level design",
+            "Concurrency & Multithreading",
+            "Database indexing & transactions"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Senior Leadership / Fitment Round",
+          "type": "managerial",
+          "durationMin": 45,
+          "topics": [
+            "Culture fit",
+            "Financial markets awareness",
+            "Problem solving under pressure"
+          ],
+          "difficulty": "medium"
+        }
+      ],
+      "compensation": {
+        "currency": "INR",
+        "fixedMinLPA": 24,
+        "fixedMaxLPA": 28,
+        "variableLPA": 4,
+        "joiningBonusINR": 300000,
+        "stipendPerMonthINR": null,
+        "esopNote": null,
+        "asOfYear": 2026
+      },
+      "training": {
+        "durationMonths": 2,
+        "bondMonths": null,
+        "bondAmountINR": null,
+        "notes": "Global New Analyst onboarding in Bengaluru with financial markets orientation."
+      },
+      "locations": [
+        "Bengaluru",
+        "Hyderabad"
+      ],
+      "seasons": {
+        "typicalMonths": [
+          7,
+          8,
+          9,
+          10
+        ],
+        "notes": "Conducted during early campus placement season."
+      },
+      "entry": {
+        "companyLevelCode": "ANALYST",
+        "equivalenceLevelId": "L3_ENTRY"
+      },
+      "competencyProfile": {
+        "dsa": "expert",
+        "java": "strong",
+        "finance": "working",
+        "databases": "strong",
+        "communication": "strong"
+      },
+      "derivedFrom": "official-jd",
+      "trajectory": [
+        {
+          "fromLevelCode": "ANALYST",
+          "toLevelCode": "ASSOCIATE",
+          "typicalYearsMin": 2,
+          "typicalYearsMax": 3.5,
+          "conditions": [
+            "Consistent high performance ratings across annual 360 reviews",
+            "Ownership of critical trading or regulatory engine components"
+          ],
+          "blockers": [],
+          "compensationLPAAfter": {
+            "min": 38,
+            "max": 48
+          },
+          "fastTrackNote": "Outstanding quantitative impact results in fast-track promotion to Associate.",
+          "lateralExits": [
+            "Quant dev at hedge funds, SDE-2 at top product unicorns, Big Tech."
+          ],
+          "confidence": "high",
+          "derived": false
+        }
+      ],
+      "status": "active",
+      "provenance": {
+        "sources": [
+          {
+            "url": "https://www.goldmansachs.com/careers/students/programs/india/engineering-campus-hiring-program.html",
+            "title": "Goldman Sachs Engineering Campus Hiring Details",
+            "publisher": "Goldman Sachs",
+            "type": "official",
+            "accessed": "2026-10-10"
+          }
+        ],
+        "confidence": "high",
+        "lastVerified": "2026-10-10",
+        "dataYear": "2026"
+      }
+    }
+  ]
+}

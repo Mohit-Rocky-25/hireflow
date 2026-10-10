@@ -1,0 +1,211 @@
+{
+  "companyId": "zoho",
+  "companyName": "Zoho Corporation",
+  "status": "active",
+  "coverage": "comprehensive",
+  "sparseReason": null,
+  "verifiedDate": "2026-10-10",
+  "researchNotes": "Zoho hires Software Developers (6.0-10.5 LPA) across Chennai and Tenkasi. Renowned for its hands-on practical coding test rounds (Round 1 to 5) with zero reliance on generic resume cutoffs.",
+  "provenance": {
+    "sources": [
+      {
+        "url": "https://www.zoho.com/careers/",
+        "title": "Zoho Careers & Software Developer Recruitment",
+        "publisher": "Zoho Corporation",
+        "type": "official",
+        "accessed": "2026-10-10"
+      }
+    ],
+    "confidence": "high",
+    "lastVerified": "2026-10-10",
+    "dataYear": "2026"
+  },
+  "programs": [
+    {
+      "id": "zoho-se",
+      "companyId": "zoho",
+      "programName": "Zoho Software Developer Campus Hiring",
+      "roleTitle": "Software Developer (Member Technical Staff)",
+      "aliases": [
+        "Zoho SE",
+        "Zoho MTS",
+        "Zoho Developer"
+      ],
+      "programType": "fulltime",
+      "roleFamily": "sde-product",
+      "campusCategory": "dream",
+      "hiringReach": "mass-pool",
+      "channels": [
+        "on-campus",
+        "off-campus",
+        "portal"
+      ],
+      "testOrPortal": "Zoho Recruitment Test Platform",
+      "eligibility": {
+        "degrees": [
+          "B.Tech",
+          "B.E.",
+          "MCA",
+          "B.Sc",
+          "BCA",
+          "M.Tech"
+        ],
+        "branchFamilies": [
+          "software",
+          "data-ai",
+          "electronics-embedded",
+          "core-mechanical",
+          "core-civil",
+          "general-science"
+        ],
+        "branchCodes": [
+          "CSE",
+          "IT",
+          "ECE",
+          "EEE",
+          "ME",
+          "CIVIL",
+          "BCA",
+          "BSC",
+          "MCA"
+        ],
+        "graduationYears": [
+          2026,
+          2027
+        ],
+        "minCgpa": null,
+        "minPercentage": null,
+        "backlogPolicy": "Backlogs allowed if programming competency is proven",
+        "gapYearPolicy": "No bar on gaps",
+        "notes": "True meritocratic hiring; zero cutoff on marks/degree if candidate passes practical programming rounds."
+      },
+      "selectionProcess": [
+        {
+          "stage": "Round 1: C/C++/Java Programming Logic & Flow",
+          "type": "aptitude",
+          "durationMin": 60,
+          "topics": [
+            "Pseudocode dry-run, Pointer arithmetic, Recursion tracing, Time complexity"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "Round 2: Basic Programming (5 Questions)",
+          "type": "coding",
+          "durationMin": 90,
+          "topics": [
+            "String manipulations, Pattern generation, Array manipulation without built-in libraries"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "Round 3: Advanced Programming (Machine Coding)",
+          "type": "coding",
+          "durationMin": 150,
+          "topics": [
+            "Building complete console applications (e.g. Railway Reservation System, Dungeon Game, Banking Terminal) with OOP principles"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Round 4: Technical Interview",
+          "type": "technical",
+          "durationMin": 60,
+          "topics": [
+            "Deep dive into Round 3 implementation, Data structure internals, Edge cases"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Round 5: HR & Cultural Alignment",
+          "type": "hr",
+          "durationMin": 30,
+          "topics": [
+            "Long-term commitment, Passion for crafting software, Team culture"
+          ],
+          "difficulty": "easy"
+        }
+      ],
+      "compensation": {
+        "currency": "INR",
+        "fixedMinLPA": 6,
+        "fixedMaxLPA": 10.5,
+        "variableLPA": 1,
+        "joiningBonusINR": null,
+        "stipendPerMonthINR": null,
+        "esopNote": "Privately held profitable company; generous profit sharing & campus benefits.",
+        "asOfYear": 2026
+      },
+      "training": {
+        "durationMonths": 3,
+        "bondMonths": null,
+        "bondAmountINR": null,
+        "notes": "Hands-on incubation within product engineering teams at Chennai or Tenkasi."
+      },
+      "locations": [
+        "Chennai",
+        "Tenkasi",
+        "Salem",
+        "Madurai"
+      ],
+      "seasons": {
+        "typicalMonths": [
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "notes": "Rolling recruitment drives throughout the year."
+      },
+      "entry": {
+        "companyLevelCode": "MTS",
+        "equivalenceLevelId": "L3_ENTRY"
+      },
+      "competencyProfile": {
+        "dsa": "strong",
+        "java": "strong",
+        "databases": "working",
+        "communication": "strong"
+      },
+      "derivedFrom": "official-jd",
+      "trajectory": [
+        {
+          "fromLevelCode": "MTS",
+          "toLevelCode": "SMTS",
+          "typicalYearsMin": 2,
+          "typicalYearsMax": 3.5,
+          "conditions": [
+            "Deep module ownership on Zoho enterprise cloud apps (CRM, Creator, Books)"
+          ],
+          "blockers": [],
+          "compensationLPAAfter": {
+            "min": 14,
+            "max": 20
+          },
+          "fastTrackNote": "Crafting high-impact features independently promotes directly to SMTS.",
+          "lateralExits": [
+            "Product engineer at SaaS unicorns or global software providers."
+          ],
+          "confidence": "high",
+          "derived": false
+        }
+      ],
+      "status": "active",
+      "provenance": {
+        "sources": [
+          {
+            "url": "https://www.zoho.com/careers/",
+            "title": "Zoho Corporation Recruitment Guidelines & Rounds",
+            "publisher": "Zoho Corporation",
+            "type": "official",
+            "accessed": "2026-10-10"
+          }
+        ],
+        "confidence": "high",
+        "lastVerified": "2026-10-10",
+        "dataYear": "2026"
+      }
+    }
+  ]
+}

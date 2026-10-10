@@ -1,0 +1,187 @@
+{
+  "companyId": "nvidia",
+  "companyName": "NVIDIA India",
+  "status": "active",
+  "coverage": "comprehensive",
+  "sparseReason": null,
+  "verifiedDate": "2026-10-10",
+  "researchNotes": "NVIDIA recruits Associate Software Engineers / Hardware Engineers (IC1, 20-28 LPA) in Bengaluru and Pune for CUDA, deep learning systems, and GPU architecture.",
+  "provenance": {
+    "sources": [
+      {
+        "url": "https://www.nvidia.com/en-in/about-nvidia/careers/university-recruiting/",
+        "title": "NVIDIA University Recruiting & Early Careers",
+        "publisher": "NVIDIA",
+        "type": "official",
+        "accessed": "2026-10-10"
+      }
+    ],
+    "confidence": "high",
+    "lastVerified": "2026-10-10",
+    "dataYear": "2026"
+  },
+  "programs": [
+    {
+      "id": "nvidia-assoc-swe",
+      "companyId": "nvidia",
+      "programName": "NVIDIA Associate Software Engineer (IC1)",
+      "roleTitle": "Associate Software Engineer (IC1)",
+      "aliases": [
+        "NVIDIA IC1",
+        "NVIDIA Early Career Engineer"
+      ],
+      "programType": "fulltime",
+      "roleFamily": "sde-product",
+      "campusCategory": "super-dream",
+      "hiringReach": "select-campuses",
+      "channels": [
+        "on-campus",
+        "portal"
+      ],
+      "testOrPortal": "NVIDIA Online Technical Assessment",
+      "eligibility": {
+        "degrees": [
+          "B.Tech",
+          "B.E.",
+          "M.Tech",
+          "Dual Degree"
+        ],
+        "branchFamilies": [
+          "software",
+          "data-ai",
+          "electronics-embedded"
+        ],
+        "branchCodes": [
+          "CSE",
+          "IT",
+          "AIML",
+          "AIDS",
+          "ECE"
+        ],
+        "graduationYears": [
+          2026,
+          2027
+        ],
+        "minCgpa": 7.5,
+        "minPercentage": 75,
+        "backlogPolicy": "Zero active backlogs",
+        "gapYearPolicy": "Standard justification",
+        "notes": "Premier technology colleges across India."
+      },
+      "selectionProcess": [
+        {
+          "stage": "Technical Assessment",
+          "type": "technical",
+          "durationMin": 90,
+          "topics": [
+            "C/C++ deep dive, Algorithms, OS internals, Concurrency, GPU basics"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Technical Round 1: Algorithms & Systems",
+          "type": "technical",
+          "durationMin": 60,
+          "topics": [
+            "Data structures, Multi-threaded programming, Memory architectures"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Technical Round 2: Low-Level Architecture",
+          "type": "technical",
+          "durationMin": 60,
+          "topics": [
+            "SIMD, CUDA/GPU fundamentals, Compiler optimizations, Cache coherence"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Hiring Manager & Culture Alignment",
+          "type": "managerial",
+          "durationMin": 45,
+          "topics": [
+            "Innovation passion, Intellectual honesty, Team first"
+          ],
+          "difficulty": "medium"
+        }
+      ],
+      "compensation": {
+        "currency": "INR",
+        "fixedMinLPA": 20,
+        "fixedMaxLPA": 28,
+        "variableLPA": 3.5,
+        "joiningBonusINR": 300000,
+        "stipendPerMonthINR": null,
+        "esopNote": "NVIDIA RSUs vesting over 4 years.",
+        "asOfYear": 2026
+      },
+      "training": {
+        "durationMonths": 2,
+        "bondMonths": null,
+        "bondAmountINR": null,
+        "notes": "GPU computing and AI platform onboarding in Bengaluru / Pune."
+      },
+      "locations": [
+        "Bengaluru",
+        "Pune"
+      ],
+      "seasons": {
+        "typicalMonths": [
+          8,
+          9,
+          10
+        ],
+        "notes": "Autumn campus placement season."
+      },
+      "entry": {
+        "companyLevelCode": "IC1",
+        "equivalenceLevelId": "L3_ENTRY"
+      },
+      "competencyProfile": {
+        "dsa": "expert",
+        "python": "strong",
+        "systemdesign": "working",
+        "communication": "strong"
+      },
+      "derivedFrom": "official-jd",
+      "trajectory": [
+        {
+          "fromLevelCode": "IC1",
+          "toLevelCode": "IC2",
+          "typicalYearsMin": 1.5,
+          "typicalYearsMax": 2.5,
+          "conditions": [
+            "Delivering modular features on CUDA runtime or driver stacks"
+          ],
+          "blockers": [],
+          "compensationLPAAfter": {
+            "min": 38,
+            "max": 52
+          },
+          "fastTrackNote": "High performers promoted to IC2 in under 2 years.",
+          "lateralExits": [
+            "AI systems / GPU compiler engineer at leading firms."
+          ],
+          "confidence": "high",
+          "derived": false
+        }
+      ],
+      "status": "active",
+      "provenance": {
+        "sources": [
+          {
+            "url": "https://www.nvidia.com/en-in/about-nvidia/careers/university-recruiting/",
+            "title": "NVIDIA University Recruiting Overview",
+            "publisher": "NVIDIA",
+            "type": "official",
+            "accessed": "2026-10-10"
+          }
+        ],
+        "confidence": "high",
+        "lastVerified": "2026-10-10",
+        "dataYear": "2026"
+      }
+    }
+  ]
+}

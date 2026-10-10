@@ -1,0 +1,189 @@
+{
+  "companyId": "paytm",
+  "companyName": "Paytm",
+  "status": "active",
+  "coverage": "comprehensive",
+  "sparseReason": null,
+  "verifiedDate": "2026-10-10",
+  "researchNotes": "Paytm recruits Software Engineers (10-15 LPA) in Noida and Bengaluru for payments, soundbox, and financial cloud platforms.",
+  "provenance": {
+    "sources": [
+      {
+        "url": "https://paytm.com/careers",
+        "title": "Paytm Careers & Campus Hiring Opportunities",
+        "publisher": "Paytm",
+        "type": "official",
+        "accessed": "2026-10-10"
+      }
+    ],
+    "confidence": "high",
+    "lastVerified": "2026-10-10",
+    "dataYear": "2026"
+  },
+  "programs": [
+    {
+      "id": "paytm-sde1",
+      "companyId": "paytm",
+      "programName": "Paytm Software Engineer Campus Hiring",
+      "roleTitle": "Software Engineer",
+      "aliases": [
+        "Paytm SE",
+        "Paytm SDE-1"
+      ],
+      "programType": "fulltime",
+      "roleFamily": "sde-product",
+      "campusCategory": "dream",
+      "hiringReach": "select-campuses",
+      "channels": [
+        "on-campus",
+        "portal"
+      ],
+      "testOrPortal": "Paytm Coding Assessment (CoCubes / HackerEarth)",
+      "eligibility": {
+        "degrees": [
+          "B.Tech",
+          "B.E.",
+          "MCA",
+          "M.Tech"
+        ],
+        "branchFamilies": [
+          "software",
+          "data-ai",
+          "electronics-embedded"
+        ],
+        "branchCodes": [
+          "CSE",
+          "IT",
+          "AIML",
+          "AIDS",
+          "ECE"
+        ],
+        "graduationYears": [
+          2026,
+          2027
+        ],
+        "minCgpa": 6.5,
+        "minPercentage": 65,
+        "backlogPolicy": "Zero active backlogs",
+        "gapYearPolicy": "Standard justification",
+        "notes": "Engineering colleges across North & South India."
+      },
+      "selectionProcess": [
+        {
+          "stage": "Coding Assessment",
+          "type": "coding",
+          "durationMin": 75,
+          "topics": [
+            "DSA (Trees, Dynamic Programming, Arrays)",
+            "Core CS fundamentals"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "Technical Round 1: Problem Solving",
+          "type": "technical",
+          "durationMin": 45,
+          "topics": [
+            "Data structures, Time complexity, Algorithm dry-run"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "Technical Round 2: LLD & Databases",
+          "type": "technical",
+          "durationMin": 45,
+          "topics": [
+            "OOPs, Database schema, REST APIs"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "HR & Fitment Interview",
+          "type": "hr",
+          "durationMin": 20,
+          "topics": [
+            "Team alignment, Passion for fintech"
+          ],
+          "difficulty": "easy"
+        }
+      ],
+      "compensation": {
+        "currency": "INR",
+        "fixedMinLPA": 10,
+        "fixedMaxLPA": 15,
+        "variableLPA": 1.5,
+        "joiningBonusINR": 100000,
+        "stipendPerMonthINR": null,
+        "esopNote": null,
+        "asOfYear": 2026
+      },
+      "training": {
+        "durationMonths": 2,
+        "bondMonths": null,
+        "bondAmountINR": null,
+        "notes": "Noida technology center onboarding."
+      },
+      "locations": [
+        "Noida",
+        "Bengaluru"
+      ],
+      "seasons": {
+        "typicalMonths": [
+          8,
+          9,
+          10
+        ],
+        "notes": "Conducted in autumn campus recruitment window."
+      },
+      "entry": {
+        "companyLevelCode": "Software Engineer",
+        "equivalenceLevelId": "L3_ENTRY"
+      },
+      "competencyProfile": {
+        "dsa": "strong",
+        "java": "strong",
+        "finance": "working",
+        "databases": "strong",
+        "communication": "strong"
+      },
+      "derivedFrom": "official-jd",
+      "trajectory": [
+        {
+          "fromLevelCode": "Software Engineer",
+          "toLevelCode": "Senior Software Engineer",
+          "typicalYearsMin": 2,
+          "typicalYearsMax": 3.5,
+          "conditions": [
+            "Production contribution on soundbox/merchant payment services"
+          ],
+          "blockers": [],
+          "compensationLPAAfter": {
+            "min": 18,
+            "max": 26
+          },
+          "fastTrackNote": "High performers receive rapid advancement.",
+          "lateralExits": [
+            "Mid-level fintech software engineer."
+          ],
+          "confidence": "high",
+          "derived": false
+        }
+      ],
+      "status": "active",
+      "provenance": {
+        "sources": [
+          {
+            "url": "https://paytm.com/careers",
+            "title": "Paytm Campus Careers Specifications",
+            "publisher": "Paytm",
+            "type": "official",
+            "accessed": "2026-10-10"
+          }
+        ],
+        "confidence": "high",
+        "lastVerified": "2026-10-10",
+        "dataYear": "2026"
+      }
+    }
+  ]
+}

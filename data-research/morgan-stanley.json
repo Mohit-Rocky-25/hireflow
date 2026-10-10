@@ -1,0 +1,195 @@
+{
+  "companyId": "morgan-stanley",
+  "companyName": "Morgan Stanley India",
+  "status": "active",
+  "coverage": "comprehensive",
+  "sparseReason": null,
+  "verifiedDate": "2026-10-10",
+  "researchNotes": "Morgan Stanley recruits Technology Analysts (20-25 LPA) across Bengaluru and Mumbai through on-campus drives and summer internship PPO conversions.",
+  "provenance": {
+    "sources": [
+      {
+        "url": "https://www.morganstanley.com/careers/student-programs/technology-full-time-analyst-program",
+        "title": "Morgan Stanley Technology Full-Time Analyst Program",
+        "publisher": "Morgan Stanley",
+        "type": "official",
+        "accessed": "2026-10-10"
+      }
+    ],
+    "confidence": "high",
+    "lastVerified": "2026-10-10",
+    "dataYear": "2026"
+  },
+  "programs": [
+    {
+      "id": "morgan-stanley-analyst",
+      "companyId": "morgan-stanley",
+      "programName": "Morgan Stanley Technology Analyst Program",
+      "roleTitle": "Technology Analyst",
+      "aliases": [
+        "Tech Analyst",
+        "MS Analyst",
+        "Technology Analyst"
+      ],
+      "programType": "fulltime",
+      "roleFamily": "analyst-fintech",
+      "campusCategory": "super-dream",
+      "hiringReach": "select-campuses",
+      "channels": [
+        "on-campus",
+        "internship-ppo"
+      ],
+      "testOrPortal": "Morgan Stanley Assessment (HackerRank)",
+      "eligibility": {
+        "degrees": [
+          "B.Tech",
+          "B.E.",
+          "M.Tech",
+          "Dual Degree"
+        ],
+        "branchFamilies": [
+          "software",
+          "data-ai",
+          "electronics-embedded"
+        ],
+        "branchCodes": [
+          "CSE",
+          "IT",
+          "AIML",
+          "AIDS",
+          "ECE"
+        ],
+        "graduationYears": [
+          2026,
+          2027
+        ],
+        "minCgpa": 7,
+        "minPercentage": 70,
+        "backlogPolicy": "Zero active backlogs",
+        "gapYearPolicy": "Standard justification",
+        "notes": "Premier campus engineering drives."
+      },
+      "selectionProcess": [
+        {
+          "stage": "Online Technical & Aptitude Assessment",
+          "type": "coding",
+          "durationMin": 90,
+          "topics": [
+            "DSA problems",
+            "Core Computer Science MCQ",
+            "Aptitude & Reasoning"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Technical Round 1: DSA & Problem Solving",
+          "type": "technical",
+          "durationMin": 60,
+          "topics": [
+            "Binary trees, Graphs, Hash maps",
+            "Complexity analysis"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Technical Round 2: Architecture & Concurrency",
+          "type": "technical",
+          "durationMin": 60,
+          "topics": [
+            "Multi-threading, Memory models, Low latency concepts"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Professional Fitment / HR",
+          "type": "hr",
+          "durationMin": 30,
+          "topics": [
+            "Behavioral questions",
+            "Teamwork",
+            "Financial sector interest"
+          ],
+          "difficulty": "medium"
+        }
+      ],
+      "compensation": {
+        "currency": "INR",
+        "fixedMinLPA": 20,
+        "fixedMaxLPA": 25,
+        "variableLPA": 3.5,
+        "joiningBonusINR": 200000,
+        "stipendPerMonthINR": null,
+        "esopNote": null,
+        "asOfYear": 2026
+      },
+      "training": {
+        "durationMonths": 2,
+        "bondMonths": null,
+        "bondAmountINR": null,
+        "notes": "Global Technology Training Program (GTTP)."
+      },
+      "locations": [
+        "Bengaluru",
+        "Mumbai"
+      ],
+      "seasons": {
+        "typicalMonths": [
+          7,
+          8,
+          9,
+          10
+        ],
+        "notes": "Conducted in early campus placement season."
+      },
+      "entry": {
+        "companyLevelCode": "ASSOC",
+        "equivalenceLevelId": "L3_ENTRY"
+      },
+      "competencyProfile": {
+        "dsa": "expert",
+        "java": "strong",
+        "finance": "working",
+        "databases": "strong",
+        "communication": "strong"
+      },
+      "derivedFrom": "official-jd",
+      "trajectory": [
+        {
+          "fromLevelCode": "ASSOC",
+          "toLevelCode": "MGR",
+          "typicalYearsMin": 2.5,
+          "typicalYearsMax": 4,
+          "conditions": [
+            "Production delivery on wealth management or institutional securities platforms"
+          ],
+          "blockers": [],
+          "compensationLPAAfter": {
+            "min": 32,
+            "max": 42
+          },
+          "fastTrackNote": "Specialist contribution on algorithmic trading components fast-tracks promotion.",
+          "lateralExits": [
+            "Senior SDE at top fintech startups or tier 1 banking tech firms."
+          ],
+          "confidence": "high",
+          "derived": false
+        }
+      ],
+      "status": "active",
+      "provenance": {
+        "sources": [
+          {
+            "url": "https://www.morganstanley.com/careers/student-programs/technology-full-time-analyst-program",
+            "title": "Morgan Stanley Technology Analyst Program Official Page",
+            "publisher": "Morgan Stanley",
+            "type": "official",
+            "accessed": "2026-10-10"
+          }
+        ],
+        "confidence": "high",
+        "lastVerified": "2026-10-10",
+        "dataYear": "2026"
+      }
+    }
+  ]
+}

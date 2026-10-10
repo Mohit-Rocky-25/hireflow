@@ -1,0 +1,191 @@
+{
+  "companyId": "mastercard",
+  "companyName": "Mastercard India",
+  "status": "active",
+  "coverage": "comprehensive",
+  "sparseReason": null,
+  "verifiedDate": "2026-10-10",
+  "researchNotes": "Mastercard recruits Associate Software Engineers (14-18 LPA) across Pune and Gurugram technology centers for payment authorization, fraud analytics, and loyalty platforms.",
+  "provenance": {
+    "sources": [
+      {
+        "url": "https://www.mastercard.us/en-us/vision/who-we-are/careers/campus.html",
+        "title": "Mastercard Campus Careers & Launch Program",
+        "publisher": "Mastercard",
+        "type": "official",
+        "accessed": "2026-10-10"
+      }
+    ],
+    "confidence": "high",
+    "lastVerified": "2026-10-10",
+    "dataYear": "2026"
+  },
+  "programs": [
+    {
+      "id": "mastercard-ase",
+      "companyId": "mastercard",
+      "programName": "Mastercard Launch Campus Program",
+      "roleTitle": "Software Engineer",
+      "aliases": [
+        "Mastercard Launch",
+        "Associate Software Engineer",
+        "Mastercard SE"
+      ],
+      "programType": "fulltime",
+      "roleFamily": "sde-product",
+      "campusCategory": "dream",
+      "hiringReach": "select-campuses",
+      "channels": [
+        "on-campus",
+        "portal"
+      ],
+      "testOrPortal": "Mastercard Assessment (HackerRank)",
+      "eligibility": {
+        "degrees": [
+          "B.Tech",
+          "B.E.",
+          "M.Tech"
+        ],
+        "branchFamilies": [
+          "software",
+          "data-ai",
+          "electronics-embedded"
+        ],
+        "branchCodes": [
+          "CSE",
+          "IT",
+          "AIML",
+          "AIDS",
+          "ECE"
+        ],
+        "graduationYears": [
+          2026,
+          2027
+        ],
+        "minCgpa": 7,
+        "minPercentage": 70,
+        "backlogPolicy": "Zero active backlogs",
+        "gapYearPolicy": "Standard justification",
+        "notes": "Minimum 7.0 CGPA throughout college."
+      },
+      "selectionProcess": [
+        {
+          "stage": "Coding & Aptitude Assessment",
+          "type": "coding",
+          "durationMin": 75,
+          "topics": [
+            "DSA problems",
+            "SQL queries",
+            "Aptitude & Logical thinking"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "Technical Interview 1: Data Structures",
+          "type": "technical",
+          "durationMin": 60,
+          "topics": [
+            "Trees, Graphs, Hash maps, Algorithms complexity"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Technical Interview 2: Java / Microservices",
+          "type": "technical",
+          "durationMin": 45,
+          "topics": [
+            "OOPs principles, Rest APIs, Multithreading, Relational databases"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "Behavioral & Leadership Fitment",
+          "type": "managerial",
+          "durationMin": 30,
+          "topics": [
+            "Cultural alignment, High integrity standards, Teamwork"
+          ],
+          "difficulty": "easy"
+        }
+      ],
+      "compensation": {
+        "currency": "INR",
+        "fixedMinLPA": 14,
+        "fixedMaxLPA": 18,
+        "variableLPA": 2,
+        "joiningBonusINR": 150000,
+        "stipendPerMonthINR": null,
+        "esopNote": null,
+        "asOfYear": 2026
+      },
+      "training": {
+        "durationMonths": 2,
+        "bondMonths": null,
+        "bondAmountINR": null,
+        "notes": "Mastercard Launch global cohort development program."
+      },
+      "locations": [
+        "Pune",
+        "Gurugram",
+        "Vadodara"
+      ],
+      "seasons": {
+        "typicalMonths": [
+          8,
+          9,
+          10
+        ],
+        "notes": "Conducted in autumn campus placement season."
+      },
+      "entry": {
+        "companyLevelCode": "Software Engineer",
+        "equivalenceLevelId": "L3_ENTRY"
+      },
+      "competencyProfile": {
+        "dsa": "strong",
+        "java": "strong",
+        "finance": "working",
+        "databases": "strong",
+        "communication": "strong"
+      },
+      "derivedFrom": "official-jd",
+      "trajectory": [
+        {
+          "fromLevelCode": "Software Engineer",
+          "toLevelCode": "Senior Software Engineer",
+          "typicalYearsMin": 2,
+          "typicalYearsMax": 3.5,
+          "conditions": [
+            "Consistent high performance ratings on mission-critical payments delivery"
+          ],
+          "blockers": [],
+          "compensationLPAAfter": {
+            "min": 22,
+            "max": 28
+          },
+          "fastTrackNote": "Exceptional contributions on fraud prevention algorithms fast-track promotion.",
+          "lateralExits": [
+            "Mid-level fintech software engineer."
+          ],
+          "confidence": "high",
+          "derived": false
+        }
+      ],
+      "status": "active",
+      "provenance": {
+        "sources": [
+          {
+            "url": "https://www.mastercard.us/en-us/vision/who-we-are/careers/campus.html",
+            "title": "Mastercard Launch Program Details & Campus Roles",
+            "publisher": "Mastercard",
+            "type": "official",
+            "accessed": "2026-10-10"
+          }
+        ],
+        "confidence": "high",
+        "lastVerified": "2026-10-10",
+        "dataYear": "2026"
+      }
+    }
+  ]
+}

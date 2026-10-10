@@ -1,0 +1,195 @@
+{
+  "companyId": "wipro",
+  "companyName": "Wipro Limited",
+  "status": "active",
+  "coverage": "comprehensive",
+  "sparseReason": null,
+  "verifiedDate": "2026-10-10",
+  "researchNotes": "Wipro runs Elite NLTH (Project Engineer, 3.5-3.8 LPA) and Turbo (6.5-7 LPA, velocity track for higher scoring coders), along with WILP for BSc/BCA.",
+  "provenance": {
+    "sources": [
+      {
+        "url": "https://careers.wipro.com/early-careers",
+        "title": "Wipro Early Careers & Elite NLTH Hiring Program",
+        "publisher": "Wipro Limited",
+        "type": "official",
+        "accessed": "2026-10-10"
+      }
+    ],
+    "confidence": "high",
+    "lastVerified": "2026-10-10",
+    "dataYear": "2026"
+  },
+  "programs": [
+    {
+      "id": "wipro-elite",
+      "companyId": "wipro",
+      "programName": "Wipro Elite National Talent Hunt (NLTH)",
+      "roleTitle": "Project Engineer",
+      "aliases": [
+        "Elite",
+        "Wipro Elite",
+        "Project Engineer Fresher"
+      ],
+      "programType": "fulltime",
+      "roleFamily": "sde-services",
+      "campusCategory": "mass",
+      "hiringReach": "mass-pool",
+      "channels": [
+        "on-campus",
+        "off-campus",
+        "portal"
+      ],
+      "testOrPortal": "Wipro NLTH Assessment (AMCAT platform)",
+      "eligibility": {
+        "degrees": [
+          "B.Tech",
+          "B.E.",
+          "MCA",
+          "M.Tech"
+        ],
+        "branchFamilies": [
+          "software",
+          "data-ai",
+          "electronics-embedded",
+          "core-mechanical",
+          "core-civil",
+          "chemical-bio"
+        ],
+        "branchCodes": [
+          "CSE",
+          "IT",
+          "ECE",
+          "EEE",
+          "ME",
+          "CIVIL"
+        ],
+        "graduationYears": [
+          2026,
+          2027
+        ],
+        "minCgpa": 6,
+        "minPercentage": 60,
+        "backlogPolicy": "Max 1 active backlog allowed at test stage; 0 at joining",
+        "gapYearPolicy": "Max 3 years education gap allowed",
+        "notes": "All branches eligible with 60% minimum in 10th, 12th, and engineering."
+      },
+      "selectionProcess": [
+        {
+          "stage": "Aptitude & Written Communication Test",
+          "type": "aptitude",
+          "durationMin": 68,
+          "topics": [
+            "Logical Reasoning",
+            "Quantitative Ability",
+            "English Essay Writing"
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "stage": "Online Coding Challenge (2 Questions)",
+          "type": "coding",
+          "durationMin": 60,
+          "topics": [
+            "Basic programming in Java/C/C++/Python",
+            "Arrays and string manipulations"
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "stage": "Business & Technical Discussion",
+          "type": "technical",
+          "durationMin": 25,
+          "topics": [
+            "Project presentation",
+            "Basics of programming",
+            "Flexibility on domains"
+          ],
+          "difficulty": "medium"
+        }
+      ],
+      "compensation": {
+        "currency": "INR",
+        "fixedMinLPA": 3.5,
+        "fixedMaxLPA": 3.8,
+        "variableLPA": 0.2,
+        "joiningBonusINR": null,
+        "stipendPerMonthINR": null,
+        "esopNote": null,
+        "asOfYear": 2026
+      },
+      "training": {
+        "durationMonths": 3,
+        "bondMonths": 12,
+        "bondAmountINR": 75000,
+        "notes": "Project Readiness Program (PRP) with training and domain assessment."
+      },
+      "locations": [
+        "Bengaluru",
+        "Hyderabad",
+        "Pune",
+        "Chennai",
+        "Noida",
+        "Kolkata"
+      ],
+      "seasons": {
+        "typicalMonths": [
+          8,
+          9,
+          10,
+          11
+        ],
+        "notes": "Elite NLTH window opens late summer."
+      },
+      "entry": {
+        "companyLevelCode": "Elite",
+        "equivalenceLevelId": "L3_ENTRY"
+      },
+      "competencyProfile": {
+        "dsa": "working",
+        "java": "working",
+        "databases": "working",
+        "communication": "strong"
+      },
+      "derivedFrom": "official-jd",
+      "trajectory": [
+        {
+          "fromLevelCode": "Elite",
+          "toLevelCode": "Senior Project Engineer",
+          "typicalYearsMin": 2,
+          "typicalYearsMax": 3.5,
+          "conditions": [
+            "Annual appraisal rating Exceeds Expectations",
+            "Customer billability and technology certification in cloud or microservices"
+          ],
+          "blockers": [],
+          "compensationLPAAfter": {
+            "min": 5.5,
+            "max": 7
+          },
+          "fastTrackNote": "Clearing internal Velocity exam elevates salary to Turbo band level.",
+          "lateralExits": [
+            "Mid-tier IT software developer or QA automation engineer."
+          ],
+          "confidence": "high",
+          "derived": false
+        }
+      ],
+      "status": "active",
+      "provenance": {
+        "sources": [
+          {
+            "url": "https://careers.wipro.com/early-careers",
+            "title": "Wipro Elite National Talent Hunt Guidelines",
+            "publisher": "Wipro Limited",
+            "type": "official",
+            "accessed": "2026-10-10"
+          }
+        ],
+        "confidence": "high",
+        "lastVerified": "2026-10-10",
+        "dataYear": "2026"
+      }
+    }
+  ]
+}

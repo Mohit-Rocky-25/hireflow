@@ -1,0 +1,188 @@
+{
+  "companyId": "target",
+  "companyName": "Target India",
+  "status": "active",
+  "coverage": "comprehensive",
+  "sparseReason": null,
+  "verifiedDate": "2026-10-10",
+  "researchNotes": "Target India recruits Graduate Engineers (13-16 LPA) in Bengaluru for its global retail, supply chain, and e-commerce tech stacks.",
+  "provenance": {
+    "sources": [
+      {
+        "url": "https://india.target.com/careers/technology",
+        "title": "Target India Technology Careers & Early Talent Hiring",
+        "publisher": "Target India",
+        "type": "official",
+        "accessed": "2026-10-10"
+      }
+    ],
+    "confidence": "high",
+    "lastVerified": "2026-10-10",
+    "dataYear": "2026"
+  },
+  "programs": [
+    {
+      "id": "target-engineer",
+      "companyId": "target",
+      "programName": "Target India Campus Technology Program",
+      "roleTitle": "Engineer (Software Development)",
+      "aliases": [
+        "Target Engineer",
+        "Target SDE",
+        "Target India Trainee"
+      ],
+      "programType": "fulltime",
+      "roleFamily": "sde-product",
+      "campusCategory": "dream",
+      "hiringReach": "select-campuses",
+      "channels": [
+        "on-campus",
+        "portal"
+      ],
+      "testOrPortal": "Target Coding Challenge (HackerRank)",
+      "eligibility": {
+        "degrees": [
+          "B.Tech",
+          "B.E.",
+          "M.Tech"
+        ],
+        "branchFamilies": [
+          "software",
+          "data-ai",
+          "electronics-embedded"
+        ],
+        "branchCodes": [
+          "CSE",
+          "IT",
+          "AIML",
+          "AIDS",
+          "ECE"
+        ],
+        "graduationYears": [
+          2026,
+          2027
+        ],
+        "minCgpa": 6.5,
+        "minPercentage": 65,
+        "backlogPolicy": "Zero active backlogs",
+        "gapYearPolicy": "Standard justification",
+        "notes": "Minimum 6.5 CGPA; on-campus visits to established engineering colleges."
+      },
+      "selectionProcess": [
+        {
+          "stage": "Target Online Coding Assessment",
+          "type": "coding",
+          "durationMin": 75,
+          "topics": [
+            "DSA (Arrays, Strings, Recursion, Trees)",
+            "Core CS fundamentals"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "Technical Interview 1: Problem Solving",
+          "type": "technical",
+          "durationMin": 60,
+          "topics": [
+            "Algorithm design, Time and space complexity analysis"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "Technical Interview 2: Engineering & Design",
+          "type": "technical",
+          "durationMin": 45,
+          "topics": [
+            "OOPs, Database schema design, Web architecture basics"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "Culture & Behavioral Interview",
+          "type": "managerial",
+          "durationMin": 30,
+          "topics": [
+            "Target core values, Team collaboration, Customer focus"
+          ],
+          "difficulty": "easy"
+        }
+      ],
+      "compensation": {
+        "currency": "INR",
+        "fixedMinLPA": 13,
+        "fixedMaxLPA": 16,
+        "variableLPA": 1.5,
+        "joiningBonusINR": 100000,
+        "stipendPerMonthINR": null,
+        "esopNote": null,
+        "asOfYear": 2026
+      },
+      "training": {
+        "durationMonths": 2,
+        "bondMonths": null,
+        "bondAmountINR": null,
+        "notes": "Retail tech induction program at Target India headquarters in Bengaluru."
+      },
+      "locations": [
+        "Bengaluru"
+      ],
+      "seasons": {
+        "typicalMonths": [
+          8,
+          9,
+          10
+        ],
+        "notes": "Conducted in autumn campus placement window."
+      },
+      "entry": {
+        "companyLevelCode": "Engineer",
+        "equivalenceLevelId": "L3_ENTRY"
+      },
+      "competencyProfile": {
+        "dsa": "strong",
+        "java": "strong",
+        "databases": "working",
+        "python": "working",
+        "communication": "strong"
+      },
+      "derivedFrom": "official-jd",
+      "trajectory": [
+        {
+          "fromLevelCode": "Engineer",
+          "toLevelCode": "Senior Engineer",
+          "typicalYearsMin": 2,
+          "typicalYearsMax": 3.5,
+          "conditions": [
+            "Reliable delivery on global supply chain / omnichannel features"
+          ],
+          "blockers": [],
+          "compensationLPAAfter": {
+            "min": 20,
+            "max": 26
+          },
+          "fastTrackNote": "High velocity contributors promoted to Senior Engineer in under 2.5 years.",
+          "lateralExits": [
+            "Mid-level engineer in e-commerce or retail technology."
+          ],
+          "confidence": "high",
+          "derived": false
+        }
+      ],
+      "status": "active",
+      "provenance": {
+        "sources": [
+          {
+            "url": "https://india.target.com/careers/technology",
+            "title": "Target India Technology Careers Overview",
+            "publisher": "Target India",
+            "type": "official",
+            "accessed": "2026-10-10"
+          }
+        ],
+        "confidence": "high",
+        "lastVerified": "2026-10-10",
+        "dataYear": "2026"
+      }
+    }
+  ]
+}

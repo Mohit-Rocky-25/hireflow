@@ -1,0 +1,193 @@
+{
+  "companyId": "hcltech",
+  "companyName": "HCL Technologies",
+  "status": "active",
+  "coverage": "comprehensive",
+  "sparseReason": null,
+  "verifiedDate": "2026-10-10",
+  "researchNotes": "HCLTech recruits via Graduate Engineer Trainee (GET, 4.25-4.75 LPA) and TechBee (early-career path for 12th/BCA).",
+  "provenance": {
+    "sources": [
+      {
+        "url": "https://www.hcltech.com/careers/early-careers",
+        "title": "HCLTech Early Careers & Graduate Engineer Trainee Programs",
+        "publisher": "HCLTech",
+        "type": "official",
+        "accessed": "2026-10-10"
+      }
+    ],
+    "confidence": "high",
+    "lastVerified": "2026-10-10",
+    "dataYear": "2026"
+  },
+  "programs": [
+    {
+      "id": "hcltech-get",
+      "companyId": "hcltech",
+      "programName": "HCLTech Graduate Engineer Trainee (GET)",
+      "roleTitle": "Graduate Engineer Trainee",
+      "aliases": [
+        "GET",
+        "HCL GET",
+        "HCLTech Engineer Trainee"
+      ],
+      "programType": "trainee",
+      "roleFamily": "sde-services",
+      "campusCategory": "mass",
+      "hiringReach": "mass-pool",
+      "channels": [
+        "on-campus",
+        "off-campus",
+        "portal"
+      ],
+      "testOrPortal": "HCL First Careers Assessment",
+      "eligibility": {
+        "degrees": [
+          "B.Tech",
+          "B.E.",
+          "MCA",
+          "M.Tech"
+        ],
+        "branchFamilies": [
+          "software",
+          "data-ai",
+          "electronics-embedded",
+          "core-mechanical"
+        ],
+        "branchCodes": [
+          "CSE",
+          "IT",
+          "ECE",
+          "EEE",
+          "ME"
+        ],
+        "graduationYears": [
+          2026,
+          2027
+        ],
+        "minCgpa": 6.5,
+        "minPercentage": 65,
+        "backlogPolicy": "No active backlogs allowed",
+        "gapYearPolicy": "Max 1 year education gap",
+        "notes": "Minimum 65% aggregate throughout academic history."
+      },
+      "selectionProcess": [
+        {
+          "stage": "Aptitude & Technical MCQ Test",
+          "type": "aptitude",
+          "durationMin": 60,
+          "topics": [
+            "Quantitative reasoning",
+            "Logical skills",
+            "Language ability",
+            "Computer science fundamentals"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "Technical Interview",
+          "type": "technical",
+          "durationMin": 30,
+          "topics": [
+            "Programming in C/Java/Python",
+            "Operating systems",
+            "DBMS basics"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "HR & Fitment Discussion",
+          "type": "hr",
+          "durationMin": 15,
+          "topics": [
+            "Relocation preferences",
+            "Shift readiness"
+          ],
+          "difficulty": "easy"
+        }
+      ],
+      "compensation": {
+        "currency": "INR",
+        "fixedMinLPA": 4.25,
+        "fixedMaxLPA": 4.75,
+        "variableLPA": 0.3,
+        "joiningBonusINR": null,
+        "stipendPerMonthINR": null,
+        "esopNote": null,
+        "asOfYear": 2026
+      },
+      "training": {
+        "durationMonths": 3,
+        "bondMonths": 12,
+        "bondAmountINR": null,
+        "notes": "Structured technical training at HCLTech campuses (Noida, Madurai, Lucknow)."
+      },
+      "locations": [
+        "Noida",
+        "Bengaluru",
+        "Chennai",
+        "Hyderabad",
+        "Pune",
+        "Lucknow",
+        "Nagpur"
+      ],
+      "seasons": {
+        "typicalMonths": [
+          9,
+          10,
+          11,
+          12
+        ],
+        "notes": "Standard campus hiring drive cycle."
+      },
+      "entry": {
+        "companyLevelCode": "GET",
+        "equivalenceLevelId": "L3_ENTRY"
+      },
+      "competencyProfile": {
+        "dsa": "working",
+        "java": "working",
+        "databases": "working",
+        "communication": "strong"
+      },
+      "derivedFrom": "official-jd",
+      "trajectory": [
+        {
+          "fromLevelCode": "GET",
+          "toLevelCode": "Software Engineer",
+          "typicalYearsMin": 1,
+          "typicalYearsMax": 1.5,
+          "conditions": [
+            "Completion of trainee probation and positive project confirmation assessment"
+          ],
+          "blockers": [],
+          "compensationLPAAfter": {
+            "min": 5.5,
+            "max": 6.5
+          },
+          "fastTrackNote": "Confirmed as Software Engineer upon 12-month completion.",
+          "lateralExits": [
+            "Junior software engineer."
+          ],
+          "confidence": "high",
+          "derived": false
+        }
+      ],
+      "status": "active",
+      "provenance": {
+        "sources": [
+          {
+            "url": "https://www.hcltech.com/careers/early-careers",
+            "title": "HCLTech Graduate Hiring Scheme & Terms",
+            "publisher": "HCLTech",
+            "type": "official",
+            "accessed": "2026-10-10"
+          }
+        ],
+        "confidence": "high",
+        "lastVerified": "2026-10-10",
+        "dataYear": "2026"
+      }
+    }
+  ]
+}

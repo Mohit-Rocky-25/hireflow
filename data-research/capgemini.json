@@ -1,0 +1,203 @@
+{
+  "companyId": "capgemini",
+  "companyName": "Capgemini India",
+  "status": "active",
+  "coverage": "comprehensive",
+  "sparseReason": null,
+  "verifiedDate": "2026-10-10",
+  "researchNotes": "Capgemini Exceller hires Analysts (4.0-4.25 LPA) and Senior Analysts (5.75-7.5 LPA) through a multi-stage assessment on CoCubes/Aon.",
+  "provenance": {
+    "sources": [
+      {
+        "url": "https://www.capgemini.com/in-en/careers/join-capgemini/campus-recruitment/",
+        "title": "Capgemini Exceller Campus Recruitment Program",
+        "publisher": "Capgemini",
+        "type": "official",
+        "accessed": "2026-10-10"
+      }
+    ],
+    "confidence": "high",
+    "lastVerified": "2026-10-10",
+    "dataYear": "2026"
+  },
+  "programs": [
+    {
+      "id": "capgemini-analyst",
+      "companyId": "capgemini",
+      "programName": "Capgemini Exceller Analyst Hiring",
+      "roleTitle": "Analyst (Software Engineer)",
+      "aliases": [
+        "Analyst",
+        "Capgemini Analyst",
+        "Exceller Analyst"
+      ],
+      "programType": "fulltime",
+      "roleFamily": "sde-services",
+      "campusCategory": "mass",
+      "hiringReach": "mass-pool",
+      "channels": [
+        "on-campus",
+        "portal"
+      ],
+      "testOrPortal": "Capgemini Exceller Assessment (CoCubes/Aon)",
+      "eligibility": {
+        "degrees": [
+          "B.Tech",
+          "B.E.",
+          "MCA",
+          "M.Tech"
+        ],
+        "branchFamilies": [
+          "software",
+          "data-ai",
+          "electronics-embedded",
+          "core-mechanical",
+          "core-civil"
+        ],
+        "branchCodes": [
+          "CSE",
+          "IT",
+          "ECE",
+          "EEE",
+          "ME",
+          "CIVIL"
+        ],
+        "graduationYears": [
+          2026,
+          2027
+        ],
+        "minCgpa": 6,
+        "minPercentage": 60,
+        "backlogPolicy": "Zero active backlogs at time of evaluation",
+        "gapYearPolicy": "Max 1 year education gap post-secondary",
+        "notes": "Standard 60% criteria across academics."
+      },
+      "selectionProcess": [
+        {
+          "stage": "Pseudocode & Technical MCQ",
+          "type": "technical",
+          "durationMin": 30,
+          "topics": [
+            "Data structures basics",
+            "Algorithms logic",
+            "OOPs"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "English Communication Test",
+          "type": "other",
+          "durationMin": 30,
+          "topics": [
+            "Grammar, Reading comprehension, Vocabulary"
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "stage": "Game-Based Aptitude Assessment",
+          "type": "aptitude",
+          "durationMin": 30,
+          "topics": [
+            "Inductive reasoning",
+            "Grid challenge",
+            "Motion challenge"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "Behavioral & Technical Interview",
+          "type": "technical",
+          "durationMin": 25,
+          "topics": [
+            "Project presentation",
+            "Willingness to learn new tech"
+          ],
+          "difficulty": "medium"
+        }
+      ],
+      "compensation": {
+        "currency": "INR",
+        "fixedMinLPA": 4,
+        "fixedMaxLPA": 4.25,
+        "variableLPA": 0.25,
+        "joiningBonusINR": null,
+        "stipendPerMonthINR": null,
+        "esopNote": null,
+        "asOfYear": 2026
+      },
+      "training": {
+        "durationMonths": 3,
+        "bondMonths": null,
+        "bondAmountINR": null,
+        "notes": "Capgemini University training curriculum."
+      },
+      "locations": [
+        "Bengaluru",
+        "Mumbai",
+        "Pune",
+        "Hyderabad",
+        "Chennai",
+        "Noida",
+        "Kolkata"
+      ],
+      "seasons": {
+        "typicalMonths": [
+          8,
+          9,
+          10,
+          11
+        ],
+        "notes": "Capgemini Exceller roadshow in early campus placement cycle."
+      },
+      "entry": {
+        "companyLevelCode": "Analyst",
+        "equivalenceLevelId": "L3_ENTRY"
+      },
+      "competencyProfile": {
+        "dsa": "working",
+        "java": "working",
+        "databases": "working",
+        "communication": "strong"
+      },
+      "derivedFrom": "official-jd",
+      "trajectory": [
+        {
+          "fromLevelCode": "Analyst",
+          "toLevelCode": "Senior Analyst",
+          "typicalYearsMin": 1.5,
+          "typicalYearsMax": 2.5,
+          "conditions": [
+            "Annual appraisal score meeting threshold",
+            "Client billable delivery"
+          ],
+          "blockers": [],
+          "compensationLPAAfter": {
+            "min": 6,
+            "max": 7.5
+          },
+          "fastTrackNote": "Specialist certification clearance offers early elevation to Senior Analyst.",
+          "lateralExits": [
+            "Mid-tier IT software developer."
+          ],
+          "confidence": "high",
+          "derived": false
+        }
+      ],
+      "status": "active",
+      "provenance": {
+        "sources": [
+          {
+            "url": "https://www.capgemini.com/in-en/careers/join-capgemini/campus-recruitment/",
+            "title": "Capgemini Exceller Campus Recruitment Official Page",
+            "publisher": "Capgemini",
+            "type": "official",
+            "accessed": "2026-10-10"
+          }
+        ],
+        "confidence": "high",
+        "lastVerified": "2026-10-10",
+        "dataYear": "2026"
+      }
+    }
+  ]
+}

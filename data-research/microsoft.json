@@ -1,0 +1,190 @@
+{
+  "companyId": "microsoft",
+  "companyName": "Microsoft India",
+  "status": "active",
+  "coverage": "comprehensive",
+  "sparseReason": null,
+  "verifiedDate": "2026-10-10",
+  "researchNotes": "Microsoft recruits Software Engineers (Level 59, 24-32 LPA) across Bengaluru, Hyderabad, and Noida through on-campus drives, summer internships, and the Engage mentorship program.",
+  "provenance": {
+    "sources": [
+      {
+        "url": "https://careers.microsoft.com/students/us/en",
+        "title": "Microsoft Students and Graduates Engineering Opportunities",
+        "publisher": "Microsoft",
+        "type": "official",
+        "accessed": "2026-10-10"
+      }
+    ],
+    "confidence": "high",
+    "lastVerified": "2026-10-10",
+    "dataYear": "2026"
+  },
+  "programs": [
+    {
+      "id": "microsoft-sde-univ",
+      "companyId": "microsoft",
+      "programName": "Microsoft Software Engineer (University Grad)",
+      "roleTitle": "Software Engineer (Level 59)",
+      "aliases": [
+        "Microsoft Level 59",
+        "Microsoft SDE New Grad"
+      ],
+      "programType": "fulltime",
+      "roleFamily": "sde-product",
+      "campusCategory": "super-dream",
+      "hiringReach": "select-campuses",
+      "channels": [
+        "on-campus",
+        "portal",
+        "internship-ppo"
+      ],
+      "testOrPortal": "Microsoft Online Assessment",
+      "eligibility": {
+        "degrees": [
+          "B.Tech",
+          "B.E.",
+          "M.Tech",
+          "Dual Degree"
+        ],
+        "branchFamilies": [
+          "software",
+          "data-ai",
+          "electronics-embedded"
+        ],
+        "branchCodes": [
+          "CSE",
+          "IT",
+          "AIML",
+          "AIDS",
+          "ECE"
+        ],
+        "graduationYears": [
+          2026,
+          2027
+        ],
+        "minCgpa": 7.5,
+        "minPercentage": 75,
+        "backlogPolicy": "Zero active backlogs",
+        "gapYearPolicy": "Standard justification",
+        "notes": "Premier technology colleges nationwide."
+      },
+      "selectionProcess": [
+        {
+          "stage": "Online Coding Assessment (3 Problems)",
+          "type": "coding",
+          "durationMin": 90,
+          "topics": [
+            "DSA (DP, Graphs, Trees, Strings)",
+            "Time complexity analysis"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Technical Interview 1: Problem Solving",
+          "type": "technical",
+          "durationMin": 45,
+          "topics": [
+            "Algorithmic problem solving, In-place data structures"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Technical Interview 2: Algorithms & Core Systems",
+          "type": "technical",
+          "durationMin": 45,
+          "topics": [
+            "Tree algorithms, Concurrency, Operating systems"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "AA (As-Appropriate) / Hiring Manager Round",
+          "type": "managerial",
+          "durationMin": 45,
+          "topics": [
+            "Growth mindset, System design fundamentals, Cultural alignment"
+          ],
+          "difficulty": "medium"
+        }
+      ],
+      "compensation": {
+        "currency": "INR",
+        "fixedMinLPA": 24,
+        "fixedMaxLPA": 32,
+        "variableLPA": 3.5,
+        "joiningBonusINR": 300000,
+        "stipendPerMonthINR": null,
+        "esopNote": "Microsoft stock awards (RSUs) vesting over 4 years.",
+        "asOfYear": 2026
+      },
+      "training": {
+        "durationMonths": 2,
+        "bondMonths": null,
+        "bondAmountINR": null,
+        "notes": "Microsoft Aspire global early-in-career onboarding experience."
+      },
+      "locations": [
+        "Bengaluru",
+        "Hyderabad",
+        "Noida"
+      ],
+      "seasons": {
+        "typicalMonths": [
+          8,
+          9,
+          10
+        ],
+        "notes": "Autumn campus placement season."
+      },
+      "entry": {
+        "companyLevelCode": "59",
+        "equivalenceLevelId": "L3_ENTRY"
+      },
+      "competencyProfile": {
+        "dsa": "expert",
+        "java": "strong",
+        "databases": "strong",
+        "communication": "strong"
+      },
+      "derivedFrom": "official-jd",
+      "trajectory": [
+        {
+          "fromLevelCode": "59",
+          "toLevelCode": "61",
+          "typicalYearsMin": 1.5,
+          "typicalYearsMax": 2.5,
+          "conditions": [
+            "Delivery on Azure, Office 365, or Developer Division cloud services"
+          ],
+          "blockers": [],
+          "compensationLPAAfter": {
+            "min": 38,
+            "max": 50
+          },
+          "fastTrackNote": "Exemplary impact fast-tracks Level 61 promotion.",
+          "lateralExits": [
+            "SDE-2 at top global tech companies."
+          ],
+          "confidence": "high",
+          "derived": false
+        }
+      ],
+      "status": "active",
+      "provenance": {
+        "sources": [
+          {
+            "url": "https://careers.microsoft.com/students/us/en",
+            "title": "Microsoft Early Careers Engineering Guidelines",
+            "publisher": "Microsoft",
+            "type": "official",
+            "accessed": "2026-10-10"
+          }
+        ],
+        "confidence": "high",
+        "lastVerified": "2026-10-10",
+        "dataYear": "2026"
+      }
+    }
+  ]
+}

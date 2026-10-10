@@ -1,0 +1,197 @@
+{
+  "companyId": "amazon",
+  "companyName": "Amazon India",
+  "status": "active",
+  "coverage": "comprehensive",
+  "sparseReason": null,
+  "verifiedDate": "2026-10-10",
+  "researchNotes": "Amazon recruits SDE-1 (L4, 22-30 LPA) through campus hiring, summer intern PPO conversions, and the Amazon WoW initiative for women in engineering.",
+  "provenance": {
+    "sources": [
+      {
+        "url": "https://www.amazon.jobs/en/teams/student-programs",
+        "title": "Amazon Student Programs & Early Career SDE Hiring",
+        "publisher": "Amazon",
+        "type": "official",
+        "accessed": "2026-10-10"
+      }
+    ],
+    "confidence": "high",
+    "lastVerified": "2026-10-10",
+    "dataYear": "2026"
+  },
+  "programs": [
+    {
+      "id": "amazon-sde1",
+      "companyId": "amazon",
+      "programName": "Amazon SDE-1 Campus Hiring",
+      "roleTitle": "Software Development Engineer I (L4)",
+      "aliases": [
+        "Amazon SDE-1",
+        "Amazon L4",
+        "Amazon WoW"
+      ],
+      "programType": "fulltime",
+      "roleFamily": "sde-product",
+      "campusCategory": "super-dream",
+      "hiringReach": "select-campuses",
+      "channels": [
+        "on-campus",
+        "portal",
+        "competition",
+        "internship-ppo"
+      ],
+      "testOrPortal": "Amazon Online Assessment (OA1 & OA2)",
+      "eligibility": {
+        "degrees": [
+          "B.Tech",
+          "B.E.",
+          "M.Tech",
+          "MCA"
+        ],
+        "branchFamilies": [
+          "software",
+          "data-ai",
+          "electronics-embedded"
+        ],
+        "branchCodes": [
+          "CSE",
+          "IT",
+          "AIML",
+          "AIDS",
+          "ECE"
+        ],
+        "graduationYears": [
+          2026,
+          2027
+        ],
+        "minCgpa": 7,
+        "minPercentage": 70,
+        "backlogPolicy": "Zero active backlogs",
+        "gapYearPolicy": "Standard justification",
+        "notes": "Top tier campuses across India and Amazon WoW qualifiers."
+      },
+      "selectionProcess": [
+        {
+          "stage": "Amazon Online Assessment (OA1: Code Debugging + Coding)",
+          "type": "coding",
+          "durationMin": 70,
+          "topics": [
+            "Debugging 7 logic bugs",
+            "2 coding problems on arrays/strings"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "Amazon OA2: Work Style Simulation & Reasoning",
+          "type": "aptitude",
+          "durationMin": 90,
+          "topics": [
+            "Amazon Leadership Principles scenario test",
+            "Logical reasoning"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "Technical Loop 1: Data Structures & Algorithms",
+          "type": "technical",
+          "durationMin": 60,
+          "topics": [
+            "Trees, Graphs, Dynamic Programming, LP questions"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Technical Loop 2: LLD & Bar Raiser",
+          "type": "technical",
+          "durationMin": 60,
+          "topics": [
+            "Object-oriented design (SOLID), Concurrency, Deep LP probe"
+          ],
+          "difficulty": "hard"
+        }
+      ],
+      "compensation": {
+        "currency": "INR",
+        "fixedMinLPA": 22,
+        "fixedMaxLPA": 30,
+        "variableLPA": 3.5,
+        "joiningBonusINR": 400000,
+        "stipendPerMonthINR": null,
+        "esopNote": "Amazon RSUs vesting over 4 years (5%, 15%, 40%, 40%).",
+        "asOfYear": 2026
+      },
+      "training": {
+        "durationMonths": 2,
+        "bondMonths": null,
+        "bondAmountINR": null,
+        "notes": "Amazon internal development onboarding with designated SDE-2 mentor."
+      },
+      "locations": [
+        "Bengaluru",
+        "Hyderabad",
+        "Chennai",
+        "Delhi NCR"
+      ],
+      "seasons": {
+        "typicalMonths": [
+          7,
+          8,
+          9,
+          10
+        ],
+        "notes": "Autumn campus placement cycle."
+      },
+      "entry": {
+        "companyLevelCode": "L4",
+        "equivalenceLevelId": "L3_ENTRY"
+      },
+      "competencyProfile": {
+        "dsa": "expert",
+        "java": "strong",
+        "systemdesign": "working",
+        "databases": "strong",
+        "communication": "strong"
+      },
+      "derivedFrom": "official-jd",
+      "trajectory": [
+        {
+          "fromLevelCode": "L4",
+          "toLevelCode": "L5",
+          "typicalYearsMin": 1.5,
+          "typicalYearsMax": 3,
+          "conditions": [
+            "Delivering Tier-1 microservice features with high operational excellence",
+            "Demonstrating Leadership Principles consistently"
+          ],
+          "blockers": [],
+          "compensationLPAAfter": {
+            "min": 40,
+            "max": 60
+          },
+          "fastTrackNote": "Exemplary operational excellence and delivery fast-tracks promotion to L5.",
+          "lateralExits": [
+            "SDE-2 at top global tech companies."
+          ],
+          "confidence": "high",
+          "derived": false
+        }
+      ],
+      "status": "active",
+      "provenance": {
+        "sources": [
+          {
+            "url": "https://www.amazon.jobs/en/teams/student-programs",
+            "title": "Amazon Student Programs Overview",
+            "publisher": "Amazon",
+            "type": "official",
+            "accessed": "2026-10-10"
+          }
+        ],
+        "confidence": "high",
+        "lastVerified": "2026-10-10",
+        "dataYear": "2026"
+      }
+    }
+  ]
+}

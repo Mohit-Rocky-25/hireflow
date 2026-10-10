@@ -1,0 +1,191 @@
+{
+  "companyId": "american-express",
+  "companyName": "American Express India",
+  "status": "active",
+  "coverage": "comprehensive",
+  "sparseReason": null,
+  "verifiedDate": "2026-10-10",
+  "researchNotes": "American Express recruits Technology Campus Analysts (Band 28, 15-18 LPA) across Gurugram and Bengaluru via on-campus recruitment and national hackathons.",
+  "provenance": {
+    "sources": [
+      {
+        "url": "https://www.americanexpress.com/en-in/careers/students-and-graduates/",
+        "title": "American Express India Campus Careers & Technology Analyst Program",
+        "publisher": "American Express",
+        "type": "official",
+        "accessed": "2026-10-10"
+      }
+    ],
+    "confidence": "high",
+    "lastVerified": "2026-10-10",
+    "dataYear": "2026"
+  },
+  "programs": [
+    {
+      "id": "american-express-analyst",
+      "companyId": "american-express",
+      "programName": "American Express Campus Technology Analyst",
+      "roleTitle": "Engineer I (Band 28)",
+      "aliases": [
+        "AmEx Analyst",
+        "Band 28 Engineer",
+        "AmEx Campus Tech"
+      ],
+      "programType": "fulltime",
+      "roleFamily": "analyst-fintech",
+      "campusCategory": "dream",
+      "hiringReach": "select-campuses",
+      "channels": [
+        "on-campus",
+        "portal"
+      ],
+      "testOrPortal": "American Express Online Assessment (HackerEarth)",
+      "eligibility": {
+        "degrees": [
+          "B.Tech",
+          "B.E.",
+          "M.Tech"
+        ],
+        "branchFamilies": [
+          "software",
+          "data-ai",
+          "electronics-embedded"
+        ],
+        "branchCodes": [
+          "CSE",
+          "IT",
+          "AIML",
+          "AIDS",
+          "ECE"
+        ],
+        "graduationYears": [
+          2026,
+          2027
+        ],
+        "minCgpa": 7,
+        "minPercentage": 70,
+        "backlogPolicy": "No active backlogs allowed",
+        "gapYearPolicy": "Max 1 year gap permitted",
+        "notes": "Minimum 7.0 CGPA throughout engineering."
+      },
+      "selectionProcess": [
+        {
+          "stage": "Online Coding & Aptitude Test",
+          "type": "coding",
+          "durationMin": 90,
+          "topics": [
+            "DSA (Trees, Graphs, DP)",
+            "SQL & Database queries",
+            "Logical reasoning"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Technical Interview Round 1",
+          "type": "technical",
+          "durationMin": 60,
+          "topics": [
+            "Data structures, Algorithm efficiency, Object oriented design"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Technical & Systems Round 2",
+          "type": "technical",
+          "durationMin": 45,
+          "topics": [
+            "Payment gateway concepts, Concurrency, Microservices basics"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "Behavioral & Leadership Fitment",
+          "type": "managerial",
+          "durationMin": 30,
+          "topics": [
+            "Team collaboration, Problem solving under deadlines"
+          ],
+          "difficulty": "medium"
+        }
+      ],
+      "compensation": {
+        "currency": "INR",
+        "fixedMinLPA": 15,
+        "fixedMaxLPA": 18,
+        "variableLPA": 2,
+        "joiningBonusINR": 150000,
+        "stipendPerMonthINR": null,
+        "esopNote": null,
+        "asOfYear": 2026
+      },
+      "training": {
+        "durationMonths": 2,
+        "bondMonths": null,
+        "bondAmountINR": null,
+        "notes": "Structured onboarding program in Gurugram / Bengaluru technology hubs."
+      },
+      "locations": [
+        "Gurugram",
+        "Bengaluru"
+      ],
+      "seasons": {
+        "typicalMonths": [
+          8,
+          9,
+          10
+        ],
+        "notes": "Autumn campus placement window."
+      },
+      "entry": {
+        "companyLevelCode": "Band 28",
+        "equivalenceLevelId": "L3_ENTRY"
+      },
+      "competencyProfile": {
+        "dsa": "strong",
+        "java": "strong",
+        "finance": "working",
+        "databases": "strong",
+        "communication": "strong"
+      },
+      "derivedFrom": "official-jd",
+      "trajectory": [
+        {
+          "fromLevelCode": "Band 28",
+          "toLevelCode": "Band 30",
+          "typicalYearsMin": 2,
+          "typicalYearsMax": 3.5,
+          "conditions": [
+            "Successful delivery across credit/fraud payment systems",
+            "Exceeds Expectations performance rating"
+          ],
+          "blockers": [],
+          "compensationLPAAfter": {
+            "min": 22,
+            "max": 28
+          },
+          "fastTrackNote": "Exemplary technical innovations recognized with accelerated Band 30 promotion.",
+          "lateralExits": [
+            "Mid-level fintech engineer at leading payment processors."
+          ],
+          "confidence": "high",
+          "derived": false
+        }
+      ],
+      "status": "active",
+      "provenance": {
+        "sources": [
+          {
+            "url": "https://www.americanexpress.com/en-in/careers/students-and-graduates/",
+            "title": "American Express India Early Careers Program Overview",
+            "publisher": "American Express",
+            "type": "official",
+            "accessed": "2026-10-10"
+          }
+        ],
+        "confidence": "high",
+        "lastVerified": "2026-10-10",
+        "dataYear": "2026"
+      }
+    }
+  ]
+}

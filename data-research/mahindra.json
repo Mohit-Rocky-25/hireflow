@@ -1,0 +1,188 @@
+{
+  "companyId": "mahindra",
+  "companyName": "Mahindra & Mahindra",
+  "status": "active",
+  "coverage": "comprehensive",
+  "sparseReason": null,
+  "verifiedDate": "2026-10-10",
+  "researchNotes": "Mahindra recruits Graduate Engineer Trainees (6.0-8.0 LPA) and Post Graduate Engineer Trainees (7.5-9.5 LPA) across Chennai (MRV - Mahindra Research Valley), Pune, and Mumbai for SUV engineering, powertrain electrification, and smart tractor electronics.",
+  "provenance": {
+    "sources": [
+      {
+        "url": "https://www.mahindra.com/careers/students-and-graduates",
+        "title": "Mahindra Careers & Graduate Engineer Trainee Program",
+        "publisher": "Mahindra & Mahindra",
+        "type": "official",
+        "accessed": "2026-10-10"
+      }
+    ],
+    "confidence": "high",
+    "lastVerified": "2026-10-10",
+    "dataYear": "2026"
+  },
+  "programs": [
+    {
+      "id": "mahindra-get",
+      "companyId": "mahindra",
+      "programName": "Mahindra Graduate Engineer Trainee (GET)",
+      "roleTitle": "Graduate Engineer Trainee",
+      "aliases": [
+        "Mahindra GET",
+        "M&M GET",
+        "GET Mahindra Auto"
+      ],
+      "programType": "trainee",
+      "roleFamily": "core-mechanical",
+      "campusCategory": "dream",
+      "hiringReach": "select-campuses",
+      "channels": [
+        "on-campus",
+        "portal"
+      ],
+      "testOrPortal": "Mahindra Online Assessment",
+      "eligibility": {
+        "degrees": [
+          "B.Tech",
+          "B.E."
+        ],
+        "branchFamilies": [
+          "core-mechanical",
+          "electronics-embedded"
+        ],
+        "branchCodes": [
+          "ME",
+          "AUTO",
+          "MECHATRONICS",
+          "EE",
+          "EEE"
+        ],
+        "graduationYears": [
+          2026,
+          2027
+        ],
+        "minCgpa": 6.5,
+        "minPercentage": 65,
+        "backlogPolicy": "Zero active backlogs",
+        "gapYearPolicy": "Max 1 year academic gap permitted",
+        "notes": "Premier and state engineering colleges."
+      },
+      "selectionProcess": [
+        {
+          "stage": "Aptitude & Technical Engineering Assessment",
+          "type": "aptitude",
+          "durationMin": 75,
+          "topics": [
+            "Core mechanical/automotive engineering MCQ",
+            "Numerical & logical aptitude"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "Group Discussion",
+          "type": "gd",
+          "durationMin": 30,
+          "topics": [
+            "Future of Indian EV adoption, Farm mechanization, Safety regulations"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "Technical Interview",
+          "type": "technical",
+          "durationMin": 45,
+          "topics": [
+            "Chassis engineering, IC engines vs EVs, CAD/CAM, Thermal systems, Project deep dive"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "HR & Mahindra Rise Culture Interview",
+          "type": "hr",
+          "durationMin": 20,
+          "topics": [
+            "Rise pillars (Accept No Limits, Alternative Thinking, Driving Positive Change)"
+          ],
+          "difficulty": "easy"
+        }
+      ],
+      "compensation": {
+        "currency": "INR",
+        "fixedMinLPA": 6,
+        "fixedMaxLPA": 8,
+        "variableLPA": 0.75,
+        "joiningBonusINR": null,
+        "stipendPerMonthINR": null,
+        "esopNote": null,
+        "asOfYear": 2026
+      },
+      "training": {
+        "durationMonths": 12,
+        "bondMonths": 24,
+        "bondAmountINR": 150000,
+        "notes": "1-year structured GET program: 3 months classroom at Mahindra Institute of Quality / MRV + 9 months rotational assignments."
+      },
+      "locations": [
+        "Chennai",
+        "Pune",
+        "Mumbai",
+        "Zaheerabad",
+        "Nagpur"
+      ],
+      "seasons": {
+        "typicalMonths": [
+          8,
+          9,
+          10,
+          11
+        ],
+        "notes": "Autumn campus placement season."
+      },
+      "entry": {
+        "companyLevelCode": "GET",
+        "equivalenceLevelId": "L3_ENTRY"
+      },
+      "competencyProfile": {
+        "communication": "strong",
+        "leadership": "working"
+      },
+      "derivedFrom": "official-jd",
+      "trajectory": [
+        {
+          "fromLevelCode": "GET",
+          "toLevelCode": "DM",
+          "typicalYearsMin": 1,
+          "typicalYearsMax": 1.5,
+          "conditions": [
+            "Completion of 12-month GET training and plant probation evaluation"
+          ],
+          "blockers": [],
+          "compensationLPAAfter": {
+            "min": 8.5,
+            "max": 11
+          },
+          "fastTrackNote": "Confirmed as Deputy Manager upon 12-month completion.",
+          "lateralExits": [
+            "Automotive R&D engineer."
+          ],
+          "confidence": "high",
+          "derived": false
+        }
+      ],
+      "status": "active",
+      "provenance": {
+        "sources": [
+          {
+            "url": "https://www.mahindra.com/careers/students-and-graduates",
+            "title": "Mahindra Graduate Engineer Trainee Program Details",
+            "publisher": "Mahindra & Mahindra",
+            "type": "official",
+            "accessed": "2026-10-10"
+          }
+        ],
+        "confidence": "high",
+        "lastVerified": "2026-10-10",
+        "dataYear": "2026"
+      }
+    }
+  ]
+}

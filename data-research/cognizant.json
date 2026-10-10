@@ -1,0 +1,347 @@
+{
+  "companyId": "cognizant",
+  "companyName": "Cognizant Technology Solutions",
+  "status": "active",
+  "coverage": "comprehensive",
+  "sparseReason": null,
+  "verifiedDate": "2026-10-10",
+  "researchNotes": "Cognizant hires through GenC (4-4.5 LPA), GenC Pro (5.4-6 LPA), and GenC Elevate / Next (6.5-7.5 LPA). Naming has evolved from GenC Next to GenC Elevate / Pro.",
+  "provenance": {
+    "sources": [
+      {
+        "url": "https://careers.cognizant.com/global/en/campus-hiring",
+        "title": "Cognizant Campus Hiring: GenC & GenC Elevate Tracks",
+        "publisher": "Cognizant",
+        "type": "official",
+        "accessed": "2026-10-10"
+      }
+    ],
+    "confidence": "high",
+    "lastVerified": "2026-10-10",
+    "dataYear": "2026"
+  },
+  "programs": [
+    {
+      "id": "cognizant-genc",
+      "companyId": "cognizant",
+      "programName": "Cognizant GenC Campus Hiring",
+      "roleTitle": "Programmer Analyst Trainee (GenC)",
+      "aliases": [
+        "GenC",
+        "Cognizant GenC PAT"
+      ],
+      "programType": "fulltime",
+      "roleFamily": "sde-services",
+      "campusCategory": "mass",
+      "hiringReach": "mass-pool",
+      "channels": [
+        "on-campus",
+        "off-campus",
+        "portal"
+      ],
+      "testOrPortal": "Cognizant Superset Assessment Platform",
+      "eligibility": {
+        "degrees": [
+          "B.Tech",
+          "B.E.",
+          "MCA",
+          "M.Tech",
+          "M.Sc"
+        ],
+        "branchFamilies": [
+          "software",
+          "data-ai",
+          "electronics-embedded",
+          "core-mechanical",
+          "core-civil"
+        ],
+        "branchCodes": [
+          "CSE",
+          "IT",
+          "ECE",
+          "EEE",
+          "ME",
+          "CIVIL"
+        ],
+        "graduationYears": [
+          2026,
+          2027
+        ],
+        "minCgpa": 6,
+        "minPercentage": 60,
+        "backlogPolicy": "Zero active backlogs at time of selection",
+        "gapYearPolicy": "Max 2 years education gap",
+        "notes": "Aggregate 60% with all engineering streams welcomed."
+      },
+      "selectionProcess": [
+        {
+          "stage": "GenC Aptitude & Analytical Assessment",
+          "type": "aptitude",
+          "durationMin": 70,
+          "topics": [
+            "Quantitative Reasoning",
+            "Logical Analysis",
+            "Verbal Skills"
+          ],
+          "difficulty": "easy"
+        },
+        {
+          "stage": "Technical Interview",
+          "type": "technical",
+          "durationMin": 30,
+          "topics": [
+            "Core OOP concepts",
+            "SQL queries",
+            "Basic programming logic"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "HR & Suitability Interview",
+          "type": "hr",
+          "durationMin": 15,
+          "topics": [
+            "Location flexibility",
+            "Communication skills"
+          ],
+          "difficulty": "easy"
+        }
+      ],
+      "compensation": {
+        "currency": "INR",
+        "fixedMinLPA": 4,
+        "fixedMaxLPA": 4.5,
+        "variableLPA": 0.25,
+        "joiningBonusINR": null,
+        "stipendPerMonthINR": null,
+        "esopNote": null,
+        "asOfYear": 2026
+      },
+      "training": {
+        "durationMonths": 3,
+        "bondMonths": null,
+        "bondAmountINR": null,
+        "notes": "Cognizant Academy internship or post-joining full-time training program."
+      },
+      "locations": [
+        "Chennai",
+        "Bengaluru",
+        "Hyderabad",
+        "Pune",
+        "Kolkata",
+        "Kochi",
+        "Coimbatore"
+      ],
+      "seasons": {
+        "typicalMonths": [
+          8,
+          9,
+          10,
+          11
+        ],
+        "notes": "Conducted in autumn campus recruitment window."
+      },
+      "entry": {
+        "companyLevelCode": "GenC",
+        "equivalenceLevelId": "L3_ENTRY"
+      },
+      "competencyProfile": {
+        "dsa": "working",
+        "java": "working",
+        "databases": "working",
+        "communication": "strong"
+      },
+      "derivedFrom": "official-jd",
+      "trajectory": [
+        {
+          "fromLevelCode": "GenC",
+          "toLevelCode": "Associate",
+          "typicalYearsMin": 2,
+          "typicalYearsMax": 3.5,
+          "conditions": [
+            "Successful delivery across account releases",
+            "Completion of PAT confirmation appraisal"
+          ],
+          "blockers": [],
+          "compensationLPAAfter": {
+            "min": 6,
+            "max": 7.5
+          },
+          "fastTrackNote": "Clearing internal Elevate exams offers mid-year salary corrections.",
+          "lateralExits": [
+            "Software engineer at corporate IT setups."
+          ],
+          "confidence": "high",
+          "derived": false
+        }
+      ],
+      "status": "active",
+      "provenance": {
+        "sources": [
+          {
+            "url": "https://careers.cognizant.com/global/en/campus-hiring",
+            "title": "Cognizant GenC Program Official Overview",
+            "publisher": "Cognizant",
+            "type": "official",
+            "accessed": "2026-10-10"
+          }
+        ],
+        "confidence": "high",
+        "lastVerified": "2026-10-10",
+        "dataYear": "2026"
+      }
+    },
+    {
+      "id": "cognizant-genc-elevate",
+      "companyId": "cognizant",
+      "programName": "Cognizant GenC Elevate / Next Hiring",
+      "roleTitle": "Programmer Analyst Trainee (GenC Elevate)",
+      "aliases": [
+        "GenC Next",
+        "GenC Elevate",
+        "GenC Pro"
+      ],
+      "programType": "fulltime",
+      "roleFamily": "sde-services",
+      "campusCategory": "dream",
+      "hiringReach": "mass-pool",
+      "channels": [
+        "on-campus",
+        "portal"
+      ],
+      "testOrPortal": "Cognizant Skill Assessment (Advanced Coding)",
+      "eligibility": {
+        "degrees": [
+          "B.Tech",
+          "B.E.",
+          "M.Tech",
+          "MCA"
+        ],
+        "branchFamilies": [
+          "software",
+          "data-ai",
+          "electronics-embedded"
+        ],
+        "branchCodes": [
+          "CSE",
+          "IT",
+          "AIML",
+          "AIDS",
+          "ECE"
+        ],
+        "graduationYears": [
+          2026,
+          2027
+        ],
+        "minCgpa": 6.5,
+        "minPercentage": 65,
+        "backlogPolicy": "Zero active backlogs",
+        "gapYearPolicy": "Max 1 year education gap",
+        "notes": "High scoring candidates from the skill-based coding round or tier-1 partner colleges."
+      },
+      "selectionProcess": [
+        {
+          "stage": "GenC Elevate Advanced Coding Round",
+          "type": "coding",
+          "durationMin": 90,
+          "topics": [
+            "Advanced Data Structures",
+            "Algorithms",
+            "SQL & Database optimization"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Subject Matter Technical Interview",
+          "type": "technical",
+          "durationMin": 45,
+          "topics": [
+            "Full-stack system architecture",
+            "Cloud concepts",
+            "Real-world problem solving"
+          ],
+          "difficulty": "hard"
+        }
+      ],
+      "compensation": {
+        "currency": "INR",
+        "fixedMinLPA": 6.5,
+        "fixedMaxLPA": 7.5,
+        "variableLPA": 0.5,
+        "joiningBonusINR": null,
+        "stipendPerMonthINR": null,
+        "esopNote": null,
+        "asOfYear": 2026
+      },
+      "training": {
+        "durationMonths": 2,
+        "bondMonths": null,
+        "bondAmountINR": null,
+        "notes": "Focused domain training for enterprise digital engineering practice."
+      },
+      "locations": [
+        "Bengaluru",
+        "Chennai",
+        "Hyderabad",
+        "Pune"
+      ],
+      "seasons": {
+        "typicalMonths": [
+          8,
+          9,
+          10
+        ],
+        "notes": "Conducted alongside GenC campus drives."
+      },
+      "entry": {
+        "companyLevelCode": "GenC Next",
+        "equivalenceLevelId": "L4_MID"
+      },
+      "competencyProfile": {
+        "dsa": "strong",
+        "java": "strong",
+        "databases": "strong",
+        "python": "working",
+        "communication": "strong"
+      },
+      "derivedFrom": "official-jd",
+      "trajectory": [
+        {
+          "fromLevelCode": "GenC Next",
+          "toLevelCode": "Associate",
+          "typicalYearsMin": 1.5,
+          "typicalYearsMax": 2.5,
+          "conditions": [
+            "High performance rating and technical lead ownership in project"
+          ],
+          "blockers": [],
+          "compensationLPAAfter": {
+            "min": 8.5,
+            "max": 10.5
+          },
+          "fastTrackNote": "Specialist promotion path into Cognizant Digital Business practice.",
+          "lateralExits": [
+            "SDE-2 at Indian product startups."
+          ],
+          "confidence": "high",
+          "derived": false
+        }
+      ],
+      "status": "active",
+      "provenance": {
+        "sources": [
+          {
+            "url": "https://careers.cognizant.com/global/en/campus-hiring",
+            "title": "Cognizant GenC Elevate Cadre Criteria & Package",
+            "publisher": "Cognizant",
+            "type": "official",
+            "accessed": "2026-10-10"
+          }
+        ],
+        "confidence": "high",
+        "lastVerified": "2026-10-10",
+        "dataYear": "2026"
+      }
+    }
+  ]
+}

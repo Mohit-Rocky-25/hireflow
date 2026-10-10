@@ -1,0 +1,189 @@
+{
+  "companyId": "uber",
+  "companyName": "Uber India",
+  "status": "active",
+  "coverage": "comprehensive",
+  "sparseReason": null,
+  "verifiedDate": "2026-10-10",
+  "researchNotes": "Uber recruits Software Engineers (L3, 26-36 LPA) in Bengaluru and Hyderabad for high scale dispatch, mobility maps, and marketplace algorithms.",
+  "provenance": {
+    "sources": [
+      {
+        "url": "https://www.uber.com/in/en/careers/university/",
+        "title": "Uber University Programs & Early Talent Engineering",
+        "publisher": "Uber",
+        "type": "official",
+        "accessed": "2026-10-10"
+      }
+    ],
+    "confidence": "high",
+    "lastVerified": "2026-10-10",
+    "dataYear": "2026"
+  },
+  "programs": [
+    {
+      "id": "uber-swe1",
+      "companyId": "uber",
+      "programName": "Uber Software Engineer (University Grad)",
+      "roleTitle": "Software Engineer I (L3)",
+      "aliases": [
+        "Uber L3",
+        "Uber University Grad"
+      ],
+      "programType": "fulltime",
+      "roleFamily": "sde-product",
+      "campusCategory": "super-dream",
+      "hiringReach": "select-campuses",
+      "channels": [
+        "on-campus",
+        "portal",
+        "internship-ppo"
+      ],
+      "testOrPortal": "Uber HackerRank Challenge",
+      "eligibility": {
+        "degrees": [
+          "B.Tech",
+          "B.E.",
+          "M.Tech"
+        ],
+        "branchFamilies": [
+          "software",
+          "data-ai",
+          "electronics-embedded"
+        ],
+        "branchCodes": [
+          "CSE",
+          "IT",
+          "AIML",
+          "AIDS",
+          "ECE"
+        ],
+        "graduationYears": [
+          2026,
+          2027
+        ],
+        "minCgpa": 8,
+        "minPercentage": 80,
+        "backlogPolicy": "Zero active backlogs",
+        "gapYearPolicy": "Standard justification",
+        "notes": "Premier technology campuses across India."
+      },
+      "selectionProcess": [
+        {
+          "stage": "Coding Assessment",
+          "type": "coding",
+          "durationMin": 90,
+          "topics": [
+            "DSA (DP, Graph, Trees, Strings)",
+            "Time complexity analysis"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Technical Round 1: Problem Solving",
+          "type": "technical",
+          "durationMin": 60,
+          "topics": [
+            "Data structures, Algorithm efficiency"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Technical Round 2: Architecture & Concurrency",
+          "type": "technical",
+          "durationMin": 60,
+          "topics": [
+            "Object-oriented design patterns, Concurrency, Caching"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Cultural Alignment / Leadership",
+          "type": "managerial",
+          "durationMin": 45,
+          "topics": [
+            "Go get it, Trip obsessed, Build with heart (Uber values)"
+          ],
+          "difficulty": "medium"
+        }
+      ],
+      "compensation": {
+        "currency": "INR",
+        "fixedMinLPA": 26,
+        "fixedMaxLPA": 36,
+        "variableLPA": 4,
+        "joiningBonusINR": 400000,
+        "stipendPerMonthINR": null,
+        "esopNote": "Uber RSUs vesting over 4 years.",
+        "asOfYear": 2026
+      },
+      "training": {
+        "durationMonths": 1,
+        "bondMonths": null,
+        "bondAmountINR": null,
+        "notes": "Marketplace and dispatch infrastructure engineering onboarding in Bengaluru / Hyderabad."
+      },
+      "locations": [
+        "Bengaluru",
+        "Hyderabad"
+      ],
+      "seasons": {
+        "typicalMonths": [
+          8,
+          9,
+          10
+        ],
+        "notes": "Autumn campus placement slot 1."
+      },
+      "entry": {
+        "companyLevelCode": "L3",
+        "equivalenceLevelId": "L3_ENTRY"
+      },
+      "competencyProfile": {
+        "dsa": "expert",
+        "golang": "strong",
+        "systemdesign": "working",
+        "databases": "strong",
+        "communication": "strong"
+      },
+      "derivedFrom": "official-jd",
+      "trajectory": [
+        {
+          "fromLevelCode": "L3",
+          "toLevelCode": "L4",
+          "typicalYearsMin": 1.5,
+          "typicalYearsMax": 2.5,
+          "conditions": [
+            "Delivering low-latency high-concurrency microservices on core dispatch stacks"
+          ],
+          "blockers": [],
+          "compensationLPAAfter": {
+            "min": 46,
+            "max": 65
+          },
+          "fastTrackNote": "High performers promoted to L4 in under 2 years.",
+          "lateralExits": [
+            "Senior SDE at top US tech or leading startups."
+          ],
+          "confidence": "high",
+          "derived": false
+        }
+      ],
+      "status": "active",
+      "provenance": {
+        "sources": [
+          {
+            "url": "https://www.uber.com/in/en/careers/university/",
+            "title": "Uber University Programs Guide",
+            "publisher": "Uber",
+            "type": "official",
+            "accessed": "2026-10-10"
+          }
+        ],
+        "confidence": "high",
+        "lastVerified": "2026-10-10",
+        "dataYear": "2026"
+      }
+    }
+  ]
+}

@@ -1,0 +1,192 @@
+{
+  "companyId": "bosch-india",
+  "companyName": "Bosch India",
+  "status": "active",
+  "coverage": "comprehensive",
+  "sparseReason": null,
+  "verifiedDate": "2026-10-10",
+  "researchNotes": "Bosch India recruits Graduate Engineer Trainees (6.0-8.0 LPA) and Junior Embedded Systems Engineers (7.0-9.0 LPA) in Bengaluru and Coimbatore for mobility software, ADAS, and connected vehicle IoT.",
+  "provenance": {
+    "sources": [
+      {
+        "url": "https://www.bosch.in/careers/start-your-career/graduates/",
+        "title": "Bosch India Graduate Opportunities & Entry Programs",
+        "publisher": "Bosch India",
+        "type": "official",
+        "accessed": "2026-10-10"
+      }
+    ],
+    "confidence": "high",
+    "lastVerified": "2026-10-10",
+    "dataYear": "2026"
+  },
+  "programs": [
+    {
+      "id": "bosch-get",
+      "companyId": "bosch-india",
+      "programName": "Bosch Graduate Engineer Trainee (GET)",
+      "roleTitle": "Associate Software Engineer (ASSE)",
+      "aliases": [
+        "Bosch GET",
+        "Bosch ASSE",
+        "Bosch Trainee"
+      ],
+      "programType": "trainee",
+      "roleFamily": "embedded-firmware",
+      "campusCategory": "dream",
+      "hiringReach": "select-campuses",
+      "channels": [
+        "on-campus",
+        "portal"
+      ],
+      "testOrPortal": "Bosch Online Assessment",
+      "eligibility": {
+        "degrees": [
+          "B.Tech",
+          "B.E.",
+          "M.Tech"
+        ],
+        "branchFamilies": [
+          "electronics-embedded",
+          "software",
+          "core-mechanical"
+        ],
+        "branchCodes": [
+          "ECE",
+          "EEE",
+          "CSE",
+          "AUTO",
+          "MECHATRONICS"
+        ],
+        "graduationYears": [
+          2026,
+          2027
+        ],
+        "minCgpa": 7,
+        "minPercentage": 70,
+        "backlogPolicy": "Zero active backlogs",
+        "gapYearPolicy": "Standard justification",
+        "notes": "Engineering colleges across South and West India."
+      },
+      "selectionProcess": [
+        {
+          "stage": "Technical & Aptitude Assessment",
+          "type": "technical",
+          "durationMin": 75,
+          "topics": [
+            "C/Embedded C basics",
+            "Digital electronics",
+            "Microcontroller architecture",
+            "Logical reasoning"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "Technical Interview 1: Embedded C & Microcontrollers",
+          "type": "technical",
+          "durationMin": 45,
+          "topics": [
+            "Timers, Interrupts, CAN/LIN protocols, Memory layout"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "Technical Interview 2: Automotive Systems & Design",
+          "type": "technical",
+          "durationMin": 45,
+          "topics": [
+            "AUTOSAR basics, RTOS, Sensor integration, Final year embedded project"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "HR & Fitment Discussion",
+          "type": "hr",
+          "durationMin": 20,
+          "topics": [
+            "Team alignment, Passion for mobility technologies"
+          ],
+          "difficulty": "easy"
+        }
+      ],
+      "compensation": {
+        "currency": "INR",
+        "fixedMinLPA": 6,
+        "fixedMaxLPA": 8,
+        "variableLPA": 0.8,
+        "joiningBonusINR": null,
+        "stipendPerMonthINR": null,
+        "esopNote": null,
+        "asOfYear": 2026
+      },
+      "training": {
+        "durationMonths": 6,
+        "bondMonths": null,
+        "bondAmountINR": null,
+        "notes": "Bosch Mobility Solutions training center onboarding in Bengaluru / Coimbatore."
+      },
+      "locations": [
+        "Bengaluru",
+        "Coimbatore",
+        "Pune"
+      ],
+      "seasons": {
+        "typicalMonths": [
+          8,
+          9,
+          10,
+          11
+        ],
+        "notes": "Autumn campus placement window."
+      },
+      "entry": {
+        "companyLevelCode": "ASSE",
+        "equivalenceLevelId": "L3_ENTRY"
+      },
+      "competencyProfile": {
+        "dsa": "working",
+        "python": "working",
+        "devops": "working",
+        "communication": "strong"
+      },
+      "derivedFrom": "official-jd",
+      "trajectory": [
+        {
+          "fromLevelCode": "ASSE",
+          "toLevelCode": "SSE",
+          "typicalYearsMin": 1.5,
+          "typicalYearsMax": 2.5,
+          "conditions": [
+            "Delivery on ECU firmware or ADAS validation modules"
+          ],
+          "blockers": [],
+          "compensationLPAAfter": {
+            "min": 9.5,
+            "max": 13
+          },
+          "fastTrackNote": "Confirmed as Software Engineer upon 12-month completion.",
+          "lateralExits": [
+            "Embedded automotive engineer at global Tier-1s."
+          ],
+          "confidence": "high",
+          "derived": false
+        }
+      ],
+      "status": "active",
+      "provenance": {
+        "sources": [
+          {
+            "url": "https://www.bosch.in/careers/start-your-career/graduates/",
+            "title": "Bosch India Graduate Programs Overview",
+            "publisher": "Bosch India",
+            "type": "official",
+            "accessed": "2026-10-10"
+          }
+        ],
+        "confidence": "high",
+        "lastVerified": "2026-10-10",
+        "dataYear": "2026"
+      }
+    }
+  ]
+}

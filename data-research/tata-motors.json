@@ -1,0 +1,199 @@
+{
+  "companyId": "tata-motors",
+  "companyName": "Tata Motors",
+  "status": "active",
+  "coverage": "comprehensive",
+  "sparseReason": null,
+  "verifiedDate": "2026-10-10",
+  "researchNotes": "Tata Motors recruits Graduate Engineer Trainees (GET, 6.5-8.5 LPA) and Post Graduate Engineer Trainees (PGET, 8.0-10.5 LPA) across Pune, Jamshedpur, Sanand, and Lucknow for EV powertrains, battery management systems, vehicle dynamics, and connected automotive platforms.",
+  "provenance": {
+    "sources": [
+      {
+        "url": "https://www.tatamotors.com/careers/early-careers/",
+        "title": "Tata Motors Graduate Engineer Trainee (GET) Program",
+        "publisher": "Tata Motors",
+        "type": "official",
+        "accessed": "2026-10-10"
+      }
+    ],
+    "confidence": "high",
+    "lastVerified": "2026-10-10",
+    "dataYear": "2026"
+  },
+  "programs": [
+    {
+      "id": "tatamotors-get",
+      "companyId": "tata-motors",
+      "programName": "Tata Motors Graduate Engineer Trainee (GET)",
+      "roleTitle": "Graduate Engineer Trainee",
+      "aliases": [
+        "Tata Motors GET",
+        "GET Tata Motors",
+        "TML GET"
+      ],
+      "programType": "trainee",
+      "roleFamily": "core-mechanical",
+      "campusCategory": "dream",
+      "hiringReach": "select-campuses",
+      "channels": [
+        "on-campus",
+        "portal"
+      ],
+      "testOrPortal": "Tata Motors Assessment Portal",
+      "eligibility": {
+        "degrees": [
+          "B.Tech",
+          "B.E."
+        ],
+        "branchFamilies": [
+          "core-mechanical",
+          "electronics-embedded",
+          "software"
+        ],
+        "branchCodes": [
+          "ME",
+          "AUTO",
+          "MECHATRONICS",
+          "EE",
+          "EEE",
+          "ECE"
+        ],
+        "graduationYears": [
+          2026,
+          2027
+        ],
+        "minCgpa": 6.5,
+        "minPercentage": 65,
+        "backlogPolicy": "Zero active backlogs at time of joining",
+        "gapYearPolicy": "Max 1 year academic gap permitted",
+        "notes": "Premier and national engineering institutions with Mechanical, Automobile, Mechatronics, or Electrical streams."
+      },
+      "selectionProcess": [
+        {
+          "stage": "Aptitude & Technical Engineering Assessment",
+          "type": "aptitude",
+          "durationMin": 75,
+          "topics": [
+            "Engineering Mathematics",
+            "Strength of Materials, Thermodynamics, Mechatronics",
+            "Logical Reasoning"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "Group Discussion (Case Study)",
+          "type": "gd",
+          "durationMin": 30,
+          "topics": [
+            "EV Transition, Sustainable Mobility, Autonomous Safety in Indian Driving Conditions"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "Technical Interview",
+          "type": "technical",
+          "durationMin": 45,
+          "topics": [
+            "Powertrain basics, FEA/CAD, Battery chemistry, Final year automotive project"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "HR & Tata Values Fitment",
+          "type": "hr",
+          "durationMin": 20,
+          "topics": [
+            "Tata Code of Conduct, Long term engineering commitment, Plant location flexibility"
+          ],
+          "difficulty": "easy"
+        }
+      ],
+      "compensation": {
+        "currency": "INR",
+        "fixedMinLPA": 6.5,
+        "fixedMaxLPA": 8.5,
+        "variableLPA": 0.75,
+        "joiningBonusINR": null,
+        "stipendPerMonthINR": null,
+        "esopNote": null,
+        "asOfYear": 2026
+      },
+      "training": {
+        "durationMonths": 12,
+        "bondMonths": 24,
+        "bondAmountINR": 150000,
+        "notes": "Comprehensive 1-year training: 3 months classroom at Pune Training Division + 9 months rotational plant stints."
+      },
+      "locations": [
+        "Pune",
+        "Jamshedpur",
+        "Sanand",
+        "Pantnagar",
+        "Lucknow"
+      ],
+      "seasons": {
+        "typicalMonths": [
+          8,
+          9,
+          10,
+          11
+        ],
+        "notes": "Primary autumn campus placement season."
+      },
+      "entry": {
+        "companyLevelCode": "GET",
+        "equivalenceLevelId": "L3_ENTRY"
+      },
+      "competencyProfile": {
+        "communication": "strong",
+        "leadership": "working"
+      },
+      "derivedFrom": "official-jd",
+      "trajectory": [
+        {
+          "fromLevelCode": "GET",
+          "toLevelCode": "L1",
+          "typicalYearsMin": 1,
+          "typicalYearsMax": 1.5,
+          "conditions": [
+            "Completion of 12-month GET training and plant probation",
+            "Successful presentation of end-of-stint technical project to plant heads"
+          ],
+          "blockers": [
+            {
+              "title": "Plant Stint & Technical Assessment Clearance",
+              "category": "training",
+              "whyItBlocks": "Progression from GET to Assistant Manager (L1) requires successful viva voce before the Engineering Cadre Review committee.",
+              "evidenceToCounter": "Complete all 3 rotational plant assignments and achieve sign-off on shop-floor improvement projects."
+            }
+          ],
+          "compensationLPAAfter": {
+            "min": 9,
+            "max": 11.5
+          },
+          "fastTrackNote": "Outstanding innovation project award winners receive fast-track placement into Passenger EV Engineering (TPEM) squads.",
+          "lateralExits": [
+            "R&D Engineer at global automotive Tier 1 suppliers (Bosch, Continental, Magna)."
+          ],
+          "confidence": "high",
+          "derived": false
+        }
+      ],
+      "status": "active",
+      "provenance": {
+        "sources": [
+          {
+            "url": "https://www.tatamotors.com/careers/early-careers/",
+            "title": "Tata Motors Graduate Engineer Trainee Specifications",
+            "publisher": "Tata Motors",
+            "type": "official",
+            "accessed": "2026-10-10"
+          }
+        ],
+        "confidence": "high",
+        "lastVerified": "2026-10-10",
+        "dataYear": "2026"
+      }
+    }
+  ]
+}

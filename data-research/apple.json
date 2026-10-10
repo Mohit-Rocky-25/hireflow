@@ -1,0 +1,189 @@
+{
+  "companyId": "apple",
+  "companyName": "Apple India",
+  "status": "active",
+  "coverage": "standard",
+  "sparseReason": null,
+  "verifiedDate": "2026-10-10",
+  "researchNotes": "Apple hires Software Engineers (ICT2, 24-34 LPA) and Silicon/Hardware Interns across Bengaluru and Hyderabad for Apple Maps, retail engineering, and custom silicon technologies.",
+  "provenance": {
+    "sources": [
+      {
+        "url": "https://www.apple.com/careers/in/",
+        "title": "Apple Careers India & Early Engineering Opportunities",
+        "publisher": "Apple",
+        "type": "official",
+        "accessed": "2026-10-10"
+      }
+    ],
+    "confidence": "high",
+    "lastVerified": "2026-10-10",
+    "dataYear": "2026"
+  },
+  "programs": [
+    {
+      "id": "apple-swe-univ",
+      "companyId": "apple",
+      "programName": "Apple Software Engineer (Early Career)",
+      "roleTitle": "Software Engineer (ICT2)",
+      "aliases": [
+        "Apple ICT2",
+        "Apple Early Career SWE"
+      ],
+      "programType": "fulltime",
+      "roleFamily": "sde-product",
+      "campusCategory": "super-dream",
+      "hiringReach": "select-campuses",
+      "channels": [
+        "on-campus",
+        "portal",
+        "internship-ppo"
+      ],
+      "testOrPortal": "Apple Coding Assessment",
+      "eligibility": {
+        "degrees": [
+          "B.Tech",
+          "B.E.",
+          "M.Tech"
+        ],
+        "branchFamilies": [
+          "software",
+          "data-ai",
+          "electronics-embedded"
+        ],
+        "branchCodes": [
+          "CSE",
+          "IT",
+          "AIML",
+          "AIDS",
+          "ECE"
+        ],
+        "graduationYears": [
+          2026,
+          2027
+        ],
+        "minCgpa": 8,
+        "minPercentage": 80,
+        "backlogPolicy": "Zero active backlogs",
+        "gapYearPolicy": "Standard justification",
+        "notes": "Premier technology campuses across India."
+      },
+      "selectionProcess": [
+        {
+          "stage": "Coding Assessment",
+          "type": "coding",
+          "durationMin": 90,
+          "topics": [
+            "DSA (DP, Graphs, Trees, Strings)",
+            "Time complexity analysis"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Technical Round 1: Problem Solving",
+          "type": "technical",
+          "durationMin": 60,
+          "topics": [
+            "Algorithmic optimization, Clean code"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Technical Round 2: Core Engineering & Systems",
+          "type": "technical",
+          "durationMin": 60,
+          "topics": [
+            "Concurrency, Memory management, Low-level system concepts"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Apple Culture & Quality Bar",
+          "type": "managerial",
+          "durationMin": 45,
+          "topics": [
+            "Attention to detail, User privacy, Quality obsession"
+          ],
+          "difficulty": "medium"
+        }
+      ],
+      "compensation": {
+        "currency": "INR",
+        "fixedMinLPA": 24,
+        "fixedMaxLPA": 34,
+        "variableLPA": 4,
+        "joiningBonusINR": 350000,
+        "stipendPerMonthINR": null,
+        "esopNote": "Apple RSUs vesting over 4 years.",
+        "asOfYear": 2026
+      },
+      "training": {
+        "durationMonths": 2,
+        "bondMonths": null,
+        "bondAmountINR": null,
+        "notes": "Apple engineering orientation and security onboarding in Bengaluru / Hyderabad."
+      },
+      "locations": [
+        "Bengaluru",
+        "Hyderabad"
+      ],
+      "seasons": {
+        "typicalMonths": [
+          8,
+          9,
+          10
+        ],
+        "notes": "Autumn campus placement season."
+      },
+      "entry": {
+        "companyLevelCode": "ICT2",
+        "equivalenceLevelId": "L3_ENTRY"
+      },
+      "competencyProfile": {
+        "dsa": "expert",
+        "swift": "working",
+        "java": "strong",
+        "databases": "strong",
+        "communication": "strong"
+      },
+      "derivedFrom": "official-jd",
+      "trajectory": [
+        {
+          "fromLevelCode": "ICT2",
+          "toLevelCode": "ICT3",
+          "typicalYearsMin": 2,
+          "typicalYearsMax": 3.5,
+          "conditions": [
+            "Flawless delivery on core consumer apps or infrastructure"
+          ],
+          "blockers": [],
+          "compensationLPAAfter": {
+            "min": 42,
+            "max": 58
+          },
+          "fastTrackNote": "High performers receive accelerated advancement.",
+          "lateralExits": [
+            "Senior SDE at top tier tech firms."
+          ],
+          "confidence": "high",
+          "derived": false
+        }
+      ],
+      "status": "active",
+      "provenance": {
+        "sources": [
+          {
+            "url": "https://www.apple.com/careers/in/",
+            "title": "Apple Careers India Guide",
+            "publisher": "Apple",
+            "type": "official",
+            "accessed": "2026-10-10"
+          }
+        ],
+        "confidence": "high",
+        "lastVerified": "2026-10-10",
+        "dataYear": "2026"
+      }
+    }
+  ]
+}

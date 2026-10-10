@@ -1,0 +1,203 @@
+{
+  "companyId": "google",
+  "companyName": "Google India",
+  "status": "active",
+  "coverage": "comprehensive",
+  "sparseReason": null,
+  "verifiedDate": "2026-10-10",
+  "researchNotes": "Google recruits University Graduates (L3, 25-35 LPA) and runs the STEP internship (2nd year) and Summer Engineering Internships (3rd year) converting to PPOs.",
+  "provenance": {
+    "sources": [
+      {
+        "url": "https://careers.google.com/students/",
+        "title": "Google Students & Early Career Software Engineering",
+        "publisher": "Google",
+        "type": "official",
+        "accessed": "2026-10-10"
+      }
+    ],
+    "confidence": "high",
+    "lastVerified": "2026-10-10",
+    "dataYear": "2026"
+  },
+  "programs": [
+    {
+      "id": "google-swe-univ",
+      "companyId": "google",
+      "programName": "Google Software Engineer (University Graduate)",
+      "roleTitle": "Software Engineer II (Entry L3)",
+      "aliases": [
+        "Google L3",
+        "Google New Grad",
+        "Google SWE University"
+      ],
+      "programType": "fulltime",
+      "roleFamily": "sde-product",
+      "campusCategory": "super-dream",
+      "hiringReach": "select-campuses",
+      "channels": [
+        "on-campus",
+        "portal",
+        "internship-ppo"
+      ],
+      "testOrPortal": "Google Online Challenge (GOC)",
+      "eligibility": {
+        "degrees": [
+          "B.Tech",
+          "B.E.",
+          "M.Tech",
+          "Dual Degree",
+          "PhD"
+        ],
+        "branchFamilies": [
+          "software",
+          "data-ai",
+          "electronics-embedded"
+        ],
+        "branchCodes": [
+          "CSE",
+          "IT",
+          "AIML",
+          "AIDS",
+          "ECE",
+          "MNC"
+        ],
+        "graduationYears": [
+          2026,
+          2027
+        ],
+        "minCgpa": 8,
+        "minPercentage": 80,
+        "backlogPolicy": "Zero active backlogs",
+        "gapYearPolicy": "Standard justification",
+        "notes": "Premier engineering institutes (IITs, NITs, BITS, IIITs) and top finalists in Google Girl Hackathon / Code Jam archives."
+      },
+      "selectionProcess": [
+        {
+          "stage": "Google Online Challenge (GOC)",
+          "type": "coding",
+          "durationMin": 60,
+          "topics": [
+            "DSA (Hard Dynamic Programming, Trees, Graphs, Strings)"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Technical Interview 1: Data Structures & Algorithms",
+          "type": "technical",
+          "durationMin": 45,
+          "topics": [
+            "Algorithmic problem solving, Time & Space complexity analysis"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Technical Interview 2: Graph Theory & Optimization",
+          "type": "technical",
+          "durationMin": 45,
+          "topics": [
+            "Shortest paths, Union-find, Topological sort, Edge cases"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Technical Interview 3: Dynamic Programming & Recursion",
+          "type": "technical",
+          "durationMin": 45,
+          "topics": [
+            "State space reduction, Bitmask DP, Tree DP"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Googleyness & Leadership",
+          "type": "managerial",
+          "durationMin": 45,
+          "topics": [
+            "Navigating ambiguity, Ethical decision making, Collaboration"
+          ],
+          "difficulty": "medium"
+        }
+      ],
+      "compensation": {
+        "currency": "INR",
+        "fixedMinLPA": 25,
+        "fixedMaxLPA": 35,
+        "variableLPA": 4.5,
+        "joiningBonusINR": 400000,
+        "stipendPerMonthINR": null,
+        "esopNote": "Alphabet Class C Google Stock Units (GSUs) vesting over 4 years.",
+        "asOfYear": 2026
+      },
+      "training": {
+        "durationMonths": 2,
+        "bondMonths": null,
+        "bondAmountINR": null,
+        "notes": "Google Engineering Residency / Noogler Orientation with assigned host and mentor."
+      },
+      "locations": [
+        "Bengaluru",
+        "Hyderabad"
+      ],
+      "seasons": {
+        "typicalMonths": [
+          7,
+          8,
+          9,
+          10
+        ],
+        "notes": "Premier campus placement slot 1 window."
+      },
+      "entry": {
+        "companyLevelCode": "L3",
+        "equivalenceLevelId": "L3_ENTRY"
+      },
+      "competencyProfile": {
+        "dsa": "expert",
+        "java": "strong",
+        "python": "strong",
+        "systemdesign": "working",
+        "communication": "strong"
+      },
+      "derivedFrom": "official-jd",
+      "trajectory": [
+        {
+          "fromLevelCode": "L3",
+          "toLevelCode": "L4",
+          "typicalYearsMin": 1.5,
+          "typicalYearsMax": 3,
+          "conditions": [
+            "Consistently rated Consistently Meets or Exceeds Expectations",
+            "Independent delivery of complex system components with measurable engineering impact"
+          ],
+          "blockers": [],
+          "compensationLPAAfter": {
+            "min": 45,
+            "max": 65
+          },
+          "fastTrackNote": "Outstanding algorithmic innovation or core infrastructure impact fast-tracks promotion.",
+          "lateralExits": [
+            "Senior SDE at top US Big Tech or Principal Engineer at product startups."
+          ],
+          "confidence": "high",
+          "derived": false
+        }
+      ],
+      "status": "active",
+      "provenance": {
+        "sources": [
+          {
+            "url": "https://careers.google.com/students/",
+            "title": "Google University Graduate Program Details",
+            "publisher": "Google",
+            "type": "official",
+            "accessed": "2026-10-10"
+          }
+        ],
+        "confidence": "high",
+        "lastVerified": "2026-10-10",
+        "dataYear": "2026"
+      }
+    }
+  ]
+}

@@ -1,0 +1,185 @@
+{
+  "companyId": "jpmorgan",
+  "companyName": "JPMorgan Chase & Co.",
+  "status": "active",
+  "coverage": "comprehensive",
+  "sparseReason": null,
+  "verifiedDate": "2026-10-10",
+  "researchNotes": "JPMorgan runs the Software Engineer Program (SEP, 16-20 LPA) across Bengaluru, Hyderabad, and Mumbai, fed by on-campus recruitment and the flagship Code for Good hackathon.",
+  "provenance": {
+    "sources": [
+      {
+        "url": "https://careers.jpmorgan.com/global/en/students/programs/software-engineer-program",
+        "title": "JPMorgan Chase Software Engineer Program (SEP)",
+        "publisher": "JPMorgan Chase & Co.",
+        "type": "official",
+        "accessed": "2026-10-10"
+      }
+    ],
+    "confidence": "high",
+    "lastVerified": "2026-10-10",
+    "dataYear": "2026"
+  },
+  "programs": [
+    {
+      "id": "jpmorgan-sep",
+      "companyId": "jpmorgan",
+      "programName": "JPMorgan Chase Software Engineer Program (SEP)",
+      "roleTitle": "Software Engineer",
+      "aliases": [
+        "SEP",
+        "JPMC SEP",
+        "Software Engineer Program"
+      ],
+      "programType": "fulltime",
+      "roleFamily": "sde-product",
+      "campusCategory": "dream",
+      "hiringReach": "select-campuses",
+      "channels": [
+        "on-campus",
+        "competition",
+        "internship-ppo"
+      ],
+      "testOrPortal": "Code for Good Hackathon / HackerRank Assessment",
+      "eligibility": {
+        "degrees": [
+          "B.Tech",
+          "B.E.",
+          "MCA",
+          "M.Tech"
+        ],
+        "branchFamilies": [
+          "software",
+          "data-ai",
+          "electronics-embedded"
+        ],
+        "branchCodes": [
+          "CSE",
+          "IT",
+          "AIML",
+          "AIDS",
+          "ECE"
+        ],
+        "graduationYears": [
+          2026,
+          2027
+        ],
+        "minCgpa": 7,
+        "minPercentage": 70,
+        "backlogPolicy": "No active backlogs allowed",
+        "gapYearPolicy": "Max 1 year academic gap permitted",
+        "notes": "Minimum 7.0 CGPA; high conversion rate from Code for Good hackathon finalists."
+      },
+      "selectionProcess": [
+        {
+          "stage": "Coding Assessment (2 Problems)",
+          "type": "coding",
+          "durationMin": 60,
+          "topics": [
+            "DSA (Arrays, Strings, Trees, Greedy)",
+            "Optimization"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "Code for Good Hackathon / Technical Evaluation",
+          "type": "project-review",
+          "durationMin": 1440,
+          "topics": [
+            "24-hour collaborative team hackathon solving NGO/real-world challenges"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Behavioral & Leadership Discussion",
+          "type": "managerial",
+          "durationMin": 45,
+          "topics": [
+            "Collaboration, Agile culture, Resilience"
+          ],
+          "difficulty": "medium"
+        }
+      ],
+      "compensation": {
+        "currency": "INR",
+        "fixedMinLPA": 16,
+        "fixedMaxLPA": 20,
+        "variableLPA": 2.5,
+        "joiningBonusINR": 150000,
+        "stipendPerMonthINR": null,
+        "esopNote": null,
+        "asOfYear": 2026
+      },
+      "training": {
+        "durationMonths": 2,
+        "bondMonths": null,
+        "bondAmountINR": null,
+        "notes": "Comprehensive SEP global curriculum with continuous learning modules."
+      },
+      "locations": [
+        "Bengaluru",
+        "Hyderabad",
+        "Mumbai"
+      ],
+      "seasons": {
+        "typicalMonths": [
+          6,
+          7,
+          8,
+          9
+        ],
+        "notes": "Code for Good hackathons take place in summer; campus drives in autumn."
+      },
+      "entry": {
+        "companyLevelCode": "Software Engineer",
+        "equivalenceLevelId": "L3_ENTRY"
+      },
+      "competencyProfile": {
+        "dsa": "strong",
+        "java": "strong",
+        "python": "working",
+        "databases": "strong",
+        "communication": "strong"
+      },
+      "derivedFrom": "official-jd",
+      "trajectory": [
+        {
+          "fromLevelCode": "Software Engineer",
+          "toLevelCode": "Associate",
+          "typicalYearsMin": 2.5,
+          "typicalYearsMax": 3.5,
+          "conditions": [
+            "Completion of 2-year SEP rotation",
+            "Demonstrated production ownership of core banking systems"
+          ],
+          "blockers": [],
+          "compensationLPAAfter": {
+            "min": 25,
+            "max": 32
+          },
+          "fastTrackNote": "High performers in cloud modernization squads graduate to Associate early.",
+          "lateralExits": [
+            "SDE-2 at top consumer internet startups."
+          ],
+          "confidence": "high",
+          "derived": false
+        }
+      ],
+      "status": "active",
+      "provenance": {
+        "sources": [
+          {
+            "url": "https://careers.jpmorgan.com/global/en/students/programs/software-engineer-program",
+            "title": "JPMorgan Chase Software Engineer Program Official Overview",
+            "publisher": "JPMorgan Chase & Co.",
+            "type": "official",
+            "accessed": "2026-10-10"
+          }
+        ],
+        "confidence": "high",
+        "lastVerified": "2026-10-10",
+        "dataYear": "2026"
+      }
+    }
+  ]
+}

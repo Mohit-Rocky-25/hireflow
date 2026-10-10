@@ -1,0 +1,188 @@
+{
+  "companyId": "dream11",
+  "companyName": "Dream11 (Dream Sports)",
+  "status": "active",
+  "coverage": "comprehensive",
+  "sparseReason": null,
+  "verifiedDate": "2026-10-10",
+  "researchNotes": "Dream11 recruits SDE-1 (20-26 LPA) in Mumbai for massive concurrency sports tech, processing millions of user requests per second during IPL live matches.",
+  "provenance": {
+    "sources": [
+      {
+        "url": "https://www.dreamsports.group/careers/",
+        "title": "Dream Sports Careers & Dream11 Engineering Hiring",
+        "publisher": "Dream Sports",
+        "type": "official",
+        "accessed": "2026-10-10"
+      }
+    ],
+    "confidence": "high",
+    "lastVerified": "2026-10-10",
+    "dataYear": "2026"
+  },
+  "programs": [
+    {
+      "id": "dream11-sde1",
+      "companyId": "dream11",
+      "programName": "Dream11 SDE-1 Campus Hiring",
+      "roleTitle": "Software Development Engineer I",
+      "aliases": [
+        "Dream11 SDE-1",
+        "SDE-1 Dream11"
+      ],
+      "programType": "fulltime",
+      "roleFamily": "sde-product",
+      "campusCategory": "super-dream",
+      "hiringReach": "select-campuses",
+      "channels": [
+        "on-campus",
+        "portal"
+      ],
+      "testOrPortal": "Dream11 Coding Assessment (HackerRank)",
+      "eligibility": {
+        "degrees": [
+          "B.Tech",
+          "B.E.",
+          "M.Tech"
+        ],
+        "branchFamilies": [
+          "software",
+          "data-ai",
+          "electronics-embedded"
+        ],
+        "branchCodes": [
+          "CSE",
+          "IT",
+          "AIML",
+          "AIDS",
+          "ECE"
+        ],
+        "graduationYears": [
+          2026,
+          2027
+        ],
+        "minCgpa": 7.5,
+        "minPercentage": 75,
+        "backlogPolicy": "Zero active backlogs",
+        "gapYearPolicy": "Standard justification",
+        "notes": "Top tier campuses; extreme emphasis on concurrency."
+      },
+      "selectionProcess": [
+        {
+          "stage": "Coding Assessment",
+          "type": "coding",
+          "durationMin": 90,
+          "topics": [
+            "DSA (DP, Graph, Concurrency, Math)",
+            "Complexity optimization"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Technical Round 1: Problem Solving",
+          "type": "technical",
+          "durationMin": 60,
+          "topics": [
+            "Data structures, Concurrency basics, Time and space analysis"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Technical Round 2: LLD & High Concurrency Design",
+          "type": "technical",
+          "durationMin": 60,
+          "topics": [
+            "In-memory caching, Distributed locks, Thread safety, Sharded databases"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Cultural Alignment / Leadership",
+          "type": "managerial",
+          "durationMin": 45,
+          "topics": [
+            "Data-driven culture, Sports passion, Extreme ownership"
+          ],
+          "difficulty": "medium"
+        }
+      ],
+      "compensation": {
+        "currency": "INR",
+        "fixedMinLPA": 20,
+        "fixedMaxLPA": 26,
+        "variableLPA": 3,
+        "joiningBonusINR": 250000,
+        "stipendPerMonthINR": null,
+        "esopNote": "Dream Sports ESOPs included.",
+        "asOfYear": 2026
+      },
+      "training": {
+        "durationMonths": 1,
+        "bondMonths": null,
+        "bondAmountINR": null,
+        "notes": "Live match traffic simulation training in Mumbai."
+      },
+      "locations": [
+        "Mumbai"
+      ],
+      "seasons": {
+        "typicalMonths": [
+          7,
+          8,
+          9,
+          10
+        ],
+        "notes": "Autumn campus placement season."
+      },
+      "entry": {
+        "companyLevelCode": "SDE-1",
+        "equivalenceLevelId": "L3_ENTRY"
+      },
+      "competencyProfile": {
+        "dsa": "expert",
+        "java": "strong",
+        "systemdesign": "working",
+        "databases": "strong",
+        "communication": "strong"
+      },
+      "derivedFrom": "official-jd",
+      "trajectory": [
+        {
+          "fromLevelCode": "SDE-1",
+          "toLevelCode": "SDE-2",
+          "typicalYearsMin": 1.5,
+          "typicalYearsMax": 3,
+          "conditions": [
+            "Delivering zero-downtime match contest engines handling millions of concurrent users"
+          ],
+          "blockers": [],
+          "compensationLPAAfter": {
+            "min": 35,
+            "max": 48
+          },
+          "fastTrackNote": "Handling peak IPL traffic without degradation fast-tracks promotion to SDE-2.",
+          "lateralExits": [
+            "High scale backend engineer at top tech firms."
+          ],
+          "confidence": "high",
+          "derived": false
+        }
+      ],
+      "status": "active",
+      "provenance": {
+        "sources": [
+          {
+            "url": "https://www.dreamsports.group/careers/",
+            "title": "Dream Sports Careers & Dream11 High Scale Overview",
+            "publisher": "Dream Sports",
+            "type": "official",
+            "accessed": "2026-10-10"
+          }
+        ],
+        "confidence": "high",
+        "lastVerified": "2026-10-10",
+        "dataYear": "2026"
+      }
+    }
+  ]
+}

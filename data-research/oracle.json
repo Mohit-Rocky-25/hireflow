@@ -1,0 +1,189 @@
+{
+  "companyId": "oracle",
+  "companyName": "Oracle India",
+  "status": "active",
+  "coverage": "comprehensive",
+  "sparseReason": null,
+  "verifiedDate": "2026-10-10",
+  "researchNotes": "Oracle recruits Associate Software Engineers / Applications Developers (IC1, 14-18 LPA) across Bengaluru, Hyderabad, and Pune for Oracle Cloud Infrastructure (OCI) and enterprise apps.",
+  "provenance": {
+    "sources": [
+      {
+        "url": "https://www.oracle.com/in/corporate/careers/students-graduates/",
+        "title": "Oracle Students and Graduates Career Opportunities",
+        "publisher": "Oracle",
+        "type": "official",
+        "accessed": "2026-10-10"
+      }
+    ],
+    "confidence": "high",
+    "lastVerified": "2026-10-10",
+    "dataYear": "2026"
+  },
+  "programs": [
+    {
+      "id": "oracle-assoc-dev",
+      "companyId": "oracle",
+      "programName": "Oracle Associate Software Engineer (IC1)",
+      "roleTitle": "Associate Applications Developer (IC1)",
+      "aliases": [
+        "Oracle IC1",
+        "Oracle Associate Developer"
+      ],
+      "programType": "fulltime",
+      "roleFamily": "sde-product",
+      "campusCategory": "dream",
+      "hiringReach": "select-campuses",
+      "channels": [
+        "on-campus",
+        "portal"
+      ],
+      "testOrPortal": "Oracle Coding Assessment",
+      "eligibility": {
+        "degrees": [
+          "B.Tech",
+          "B.E.",
+          "MCA",
+          "M.Tech"
+        ],
+        "branchFamilies": [
+          "software",
+          "data-ai",
+          "electronics-embedded"
+        ],
+        "branchCodes": [
+          "CSE",
+          "IT",
+          "AIML",
+          "AIDS",
+          "ECE"
+        ],
+        "graduationYears": [
+          2026,
+          2027
+        ],
+        "minCgpa": 7,
+        "minPercentage": 70,
+        "backlogPolicy": "Zero active backlogs",
+        "gapYearPolicy": "Standard justification",
+        "notes": "Engineering colleges across India."
+      },
+      "selectionProcess": [
+        {
+          "stage": "Coding Assessment",
+          "type": "coding",
+          "durationMin": 75,
+          "topics": [
+            "DSA (Trees, Dynamic Programming, Arrays)",
+            "Core CS fundamentals"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "Technical Round 1: Problem Solving",
+          "type": "technical",
+          "durationMin": 45,
+          "topics": [
+            "Data structures, Time complexity, Algorithm dry-run"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "Technical Round 2: LLD & Databases",
+          "type": "technical",
+          "durationMin": 45,
+          "topics": [
+            "OOPs, Database schema, REST APIs"
+          ],
+          "difficulty": "medium"
+        },
+        {
+          "stage": "HR & Fitment Interview",
+          "type": "hr",
+          "durationMin": 20,
+          "topics": [
+            "Team alignment, Passion for database and cloud tech"
+          ],
+          "difficulty": "easy"
+        }
+      ],
+      "compensation": {
+        "currency": "INR",
+        "fixedMinLPA": 14,
+        "fixedMaxLPA": 18,
+        "variableLPA": 2,
+        "joiningBonusINR": 150000,
+        "stipendPerMonthINR": null,
+        "esopNote": null,
+        "asOfYear": 2026
+      },
+      "training": {
+        "durationMonths": 2,
+        "bondMonths": null,
+        "bondAmountINR": null,
+        "notes": "OCI and enterprise application engineering onboarding in Bengaluru / Hyderabad."
+      },
+      "locations": [
+        "Bengaluru",
+        "Hyderabad",
+        "Pune"
+      ],
+      "seasons": {
+        "typicalMonths": [
+          8,
+          9,
+          10
+        ],
+        "notes": "Autumn campus placement window."
+      },
+      "entry": {
+        "companyLevelCode": "IC1",
+        "equivalenceLevelId": "L3_ENTRY"
+      },
+      "competencyProfile": {
+        "dsa": "strong",
+        "java": "strong",
+        "databases": "strong",
+        "communication": "strong"
+      },
+      "derivedFrom": "official-jd",
+      "trajectory": [
+        {
+          "fromLevelCode": "IC1",
+          "toLevelCode": "IC2",
+          "typicalYearsMin": 2,
+          "typicalYearsMax": 3.5,
+          "conditions": [
+            "Production contribution on cloud infrastructure or database tools"
+          ],
+          "blockers": [],
+          "compensationLPAAfter": {
+            "min": 22,
+            "max": 30
+          },
+          "fastTrackNote": "High performers receive rapid advancement.",
+          "lateralExits": [
+            "Mid-level software engineer."
+          ],
+          "confidence": "high",
+          "derived": false
+        }
+      ],
+      "status": "active",
+      "provenance": {
+        "sources": [
+          {
+            "url": "https://www.oracle.com/in/corporate/careers/students-graduates/",
+            "title": "Oracle Students and Graduates Overview",
+            "publisher": "Oracle",
+            "type": "official",
+            "accessed": "2026-10-10"
+          }
+        ],
+        "confidence": "high",
+        "lastVerified": "2026-10-10",
+        "dataYear": "2026"
+      }
+    }
+  ]
+}

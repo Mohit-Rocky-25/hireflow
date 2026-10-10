@@ -1,0 +1,189 @@
+{
+  "companyId": "phonepe",
+  "companyName": "PhonePe",
+  "status": "active",
+  "coverage": "comprehensive",
+  "sparseReason": null,
+  "verifiedDate": "2026-10-10",
+  "researchNotes": "PhonePe recruits Software Engineers (20-26 LPA) across Bengaluru and Pune for high-scale UPI, payments, and financial switch infrastructures.",
+  "provenance": {
+    "sources": [
+      {
+        "url": "https://www.phonepe.com/careers/university/",
+        "title": "PhonePe University Careers & Software Engineering Program",
+        "publisher": "PhonePe",
+        "type": "official",
+        "accessed": "2026-10-10"
+      }
+    ],
+    "confidence": "high",
+    "lastVerified": "2026-10-10",
+    "dataYear": "2026"
+  },
+  "programs": [
+    {
+      "id": "phonepe-sde1",
+      "companyId": "phonepe",
+      "programName": "PhonePe Software Engineer University Grad",
+      "roleTitle": "Software Engineer",
+      "aliases": [
+        "PhonePe SE",
+        "PhonePe SDE-1"
+      ],
+      "programType": "fulltime",
+      "roleFamily": "sde-product",
+      "campusCategory": "super-dream",
+      "hiringReach": "select-campuses",
+      "channels": [
+        "on-campus",
+        "portal"
+      ],
+      "testOrPortal": "PhonePe Coding Assessment (DoSelect / HackerRank)",
+      "eligibility": {
+        "degrees": [
+          "B.Tech",
+          "B.E.",
+          "M.Tech"
+        ],
+        "branchFamilies": [
+          "software",
+          "data-ai",
+          "electronics-embedded"
+        ],
+        "branchCodes": [
+          "CSE",
+          "IT",
+          "AIML",
+          "AIDS",
+          "ECE"
+        ],
+        "graduationYears": [
+          2026,
+          2027
+        ],
+        "minCgpa": 7.5,
+        "minPercentage": 75,
+        "backlogPolicy": "Zero active backlogs",
+        "gapYearPolicy": "Standard justification",
+        "notes": "Premier technology campuses (IITs, NITs, BITS, top state colleges)."
+      },
+      "selectionProcess": [
+        {
+          "stage": "Coding Assessment",
+          "type": "coding",
+          "durationMin": 90,
+          "topics": [
+            "DSA (Advanced DP, Graph, Trie, Heap)",
+            "Math & Number theory"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Technical Round 1: DSA & Problem Solving",
+          "type": "technical",
+          "durationMin": 60,
+          "topics": [
+            "Algorithmic optimization, Time and space complexity trade-offs"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Technical Round 2: Architecture & Concurrency",
+          "type": "technical",
+          "durationMin": 60,
+          "topics": [
+            "Multi-threading, Distributed messaging (Kafka), Relational databases"
+          ],
+          "difficulty": "hard"
+        },
+        {
+          "stage": "Leadership & Engineering Culture",
+          "type": "managerial",
+          "durationMin": 45,
+          "topics": [
+            "Scale, Resilience under billions of transactions, Ownership"
+          ],
+          "difficulty": "medium"
+        }
+      ],
+      "compensation": {
+        "currency": "INR",
+        "fixedMinLPA": 20,
+        "fixedMaxLPA": 26,
+        "variableLPA": 3,
+        "joiningBonusINR": 300000,
+        "stipendPerMonthINR": null,
+        "esopNote": "PhonePe ESOP grants included.",
+        "asOfYear": 2026
+      },
+      "training": {
+        "durationMonths": 1,
+        "bondMonths": null,
+        "bondAmountINR": null,
+        "notes": "High-throughput payment switch engineering boot camp in Bengaluru."
+      },
+      "locations": [
+        "Bengaluru",
+        "Pune"
+      ],
+      "seasons": {
+        "typicalMonths": [
+          7,
+          8,
+          9,
+          10
+        ],
+        "notes": "Early autumn campus recruitment season."
+      },
+      "entry": {
+        "companyLevelCode": "Software Engineer",
+        "equivalenceLevelId": "L3_ENTRY"
+      },
+      "competencyProfile": {
+        "dsa": "expert",
+        "java": "strong",
+        "finance": "working",
+        "databases": "strong",
+        "communication": "strong"
+      },
+      "derivedFrom": "official-jd",
+      "trajectory": [
+        {
+          "fromLevelCode": "Software Engineer",
+          "toLevelCode": "Senior Software Engineer",
+          "typicalYearsMin": 2,
+          "typicalYearsMax": 3.5,
+          "conditions": [
+            "Delivering low-latency high-concurrency microservices on core UPI stacks"
+          ],
+          "blockers": [],
+          "compensationLPAAfter": {
+            "min": 36,
+            "max": 48
+          },
+          "fastTrackNote": "Critical payments infrastructure contributions fast-track promotion.",
+          "lateralExits": [
+            "Senior SDE at top fintech startups or Big Tech."
+          ],
+          "confidence": "high",
+          "derived": false
+        }
+      ],
+      "status": "active",
+      "provenance": {
+        "sources": [
+          {
+            "url": "https://www.phonepe.com/careers/university/",
+            "title": "PhonePe University Careers & Engineering Trajectory",
+            "publisher": "PhonePe",
+            "type": "official",
+            "accessed": "2026-10-10"
+          }
+        ],
+        "confidence": "high",
+        "lastVerified": "2026-10-10",
+        "dataYear": "2026"
+      }
+    }
+  ]
+}
