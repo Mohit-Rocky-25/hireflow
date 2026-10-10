@@ -10,6 +10,7 @@ import {
   ArrowRight,
   Sparkles,
   Search,
+  Database,
 } from 'lucide-react';
 import { PageNav } from '../../components/common/PageNav';
 import { careers } from '../../careers-core';
@@ -151,6 +152,16 @@ export function ToolsHubPage() {
           icon: GitCompare,
           tags: ['Deterministic Ranking', 'Shared Gaps', 'Coverage Gain'],
         },
+        {
+          id: 'careers-explorer',
+          title: 'Careers Data Platform Explorer',
+          badge: '56 Employers · 60 Programs',
+          description: 'Browse the full unified dataset of 56 top employers, 60 verified campus/fresher intake programs, eligibility cutoffs, and audit ledgers.',
+          link: '/dev/careers-data',
+          cta: 'Explore Dataset',
+          icon: Database,
+          tags: ['56 Companies', '60 Campus Programs', 'Branch Matrix', 'Audit Ledgers'],
+        },
       ],
     },
   ];
@@ -185,29 +196,36 @@ export function ToolsHubPage() {
           From evaluating your target roles to building the right projects and presenting yourself better. No gimmicks, pure intelligence.
         </p>
 
-        {/* Live Careers Data Platform Metrics */}
+        {/* Live Careers Data Platform Metrics & Quick Link */}
         {(() => {
           const stats = careers.stats.counts();
           return (
-            <div className="flex flex-wrap items-center justify-center gap-2.5 pt-2 text-xs font-semibold">
-              <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-2 border border-border shadow-xs">
+            <Link
+              to="/dev/careers-data"
+              title="Click to open Careers Data Platform Explorer"
+              className="inline-flex flex-wrap items-center justify-center gap-2.5 pt-2 text-xs font-semibold group cursor-pointer hover:opacity-95 transition-all"
+            >
+              <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-2 border border-border group-hover:border-primary/50 shadow-xs transition-colors">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                 <span className="text-foreground font-bold">{stats.companies}</span>
                 <span className="text-text-secondary">Verified Employers</span>
               </div>
-              <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-2 border border-border shadow-xs">
+              <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-2 border border-border group-hover:border-primary/50 shadow-xs transition-colors">
                 <span className="text-primary font-bold">{stats.fresherPrograms}</span>
                 <span className="text-text-secondary">Campus Programs ('26-27)</span>
               </div>
-              <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-2 border border-border shadow-xs">
+              <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-2 border border-border group-hover:border-primary/50 shadow-xs transition-colors">
                 <span className="text-foreground font-bold">{stats.levels}</span>
                 <span className="text-text-secondary">Level Ladders</span>
               </div>
-              <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-2 border border-border shadow-xs">
+              <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-2 border border-border group-hover:border-primary/50 shadow-xs transition-colors">
                 <span className="text-foreground font-bold">{stats.branches}</span>
                 <span className="text-text-secondary">Engineering Branches</span>
               </div>
-            </div>
+              <span className="text-[11px] text-primary font-bold ml-1 group-hover:underline">
+                Explore Full Dataset ↗
+              </span>
+            </Link>
           );
         })()}
 
