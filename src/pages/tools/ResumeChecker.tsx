@@ -42,7 +42,7 @@ import { AuditTab } from '../../features/ats/components/AuditTab';
 import { LearningPathTab } from '../../features/ats/components/LearningPathTab';
 import { DebugDrawer } from '../../features/ats/components/DebugDrawer';
 import { useTalentLensStore, DEMO_TALENTLENS_RESUME } from '../demo/useTalentLensStore';
-import { careers, DataBadge } from '../../careers-core';
+import { COMPANIES } from '../demo/talentLensData';
 import { WordLimitSource } from '../../config/limits';
 
 const STAGED_MESSAGES = [
@@ -73,24 +73,10 @@ export function ResumeChecker() {
 
   const [jobText, setJobText] = useState<string>(() => {
     if (queryCompanyId && queryRoleTitle) {
-      const comp = careers.companies.get(queryCompanyId);
-      const roles = comp ? careers.roles.forCompany(comp.id) : [];
-      const role = roles.find((r) => r.title.toLowerCase() === queryRoleTitle.toLowerCase());
-      if (comp && role) {
-        return [
-          `Company: ${comp.name} (${comp.marketTier} Tier)`,
-          `Target Position: ${role.title} (${role.level})`,
-          ``,
-          `Role Description:`,
-          `Engineering role at ${comp.name} within ${comp.marketSegment} segment across ${comp.indiaOffices.join(', ')}.`,
-          ``,
-          `Core Competency Requirements:`,
-          ...Object.entries(role.competencies).map(([c, lvl]) => `- ${c.toUpperCase()}: Required proficiency level "${lvl}"`),
-          ``,
-          `Industry: ${comp.marketSegment}`,
-          `Headquarters: ${comp.headquarters || 'India'}`,
-          `Compensation Benchmark: Competitive Market Band`,
-        ].join('\n');
+      const comp = COMPANIES.find(c => c.id === queryCompanyId);
+      const role = comp?.roles.find(r => r.title.toLowerCase() === queryRoleTitle.toLowerCase());
+      if (comp && role && role.fullText) {
+        return role.fullText;
       }
     }
     return '';
@@ -104,9 +90,9 @@ export function ResumeChecker() {
 
   const [jobFileName, setJobFileName] = useState<string | null>(() => {
     if (queryCompanyId && queryRoleTitle) {
-      const comp = careers.companies.get(queryCompanyId);
+      const comp = COMPANIES.find(c => c.id === queryCompanyId);
       if (comp) {
-        return `${comp.name}_${queryRoleTitle.replace(/\s+/g, '_')}_Requirements.txt`;
+        return `${comp.name}_${queryRoleTitle.replace(/\s+/g, '_')}_JD.txt`;
       }
     }
     return null;
@@ -135,62 +121,7 @@ export function ResumeChecker() {
   const [activeTab, setActiveTab] = useState<ReportTabId>('overview');
   const [presentationMode, setPresentationMode] = useState<'deep' | 'quick'>('deep');
 
-  // Fresher / Campus Program scan target selection
-  const [selectedCampusCompanyId, setSelectedCampusCompanyId] = useState<string>('');
-  const [selectedCampusProgramId, setSelectedCampusProgramId] = useState<string>('');
-
-  const campusCompanies = useMemo(() => {
-    const progs = careers.programs.query();
-    const companyIds = Array.from(new Set(progs.map((p) => p.companyId)));
-    return companyIds
-      .map((id) => careers.companies.get(id))
-      .filter((c): c is NonNullable<typeof c> => Boolean(c))
-      .sort((a, b) => a.name.localeCompare(b.name));
-  }, []);
-
-  const campusProgramsForSelectedCompany = useMemo(() => {
-    if (!selectedCampusCompanyId) return [];
-    return careers.programs.forCompany(selectedCampusCompanyId);
-  }, [selectedCampusCompanyId]);
-
-  const activeCampusProgram = useMemo(() => {
-    if (!selectedCampusProgramId) return null;
-    return careers.programs.get(selectedCampusProgramId) || null;
-  }, [selectedCampusProgramId]);
-
-  const handleSelectCampusProgram = (progId: string) => {
-    setSelectedCampusProgramId(progId);
-    const prog = careers.programs.get(progId);
-    if (!prog) return;
-    const comp = careers.companies.get(prog.companyId);
-    const compKeys = Object.keys(prog.competencyProfile || {});
-    const ctcStr = prog.compensation?.fixedMinLPA
-      ? `₹${prog.compensation.fixedMinLPA}${prog.compensation.fixedMaxLPA ? ` - ₹${prog.compensation.fixedMaxLPA}` : ''} LPA`
-      : 'Competitive Campus Package';
-    const rounds = prog.selectionProcess.map((s) => s.stage).join(' → ') || 'OA → Technical → HR';
-
-    const generatedJD = [
-      `Target Campus Program: ${prog.programName} (${prog.roleTitle})`,
-      `Company: ${comp?.name || prog.companyId} (${comp?.marketTier || 'Tier A'} Tier)`,
-      `Campus Category: ${prog.campusCategory.toUpperCase()}`,
-      `Eligible Branches: ${prog.eligibility.branchCodes.join(', ') || 'Engineering & Technology'}`,
-      `Academic Cutoff: ${prog.eligibility.minCgpa ? `${prog.eligibility.minCgpa} CGPA` : 'No hard cutoff'} · ${prog.eligibility.backlogPolicy || 'Zero active backlogs'}`,
-      `Compensation: ${ctcStr}`,
-      `Selection Funnel: ${rounds}`,
-      ``,
-      `Core Competency Requirements:`,
-      ...compKeys.map((k) => `- ${k.toUpperCase()}: Required proficiency "${prog.competencyProfile[k]}"`),
-      ``,
-      `Role Description & Screening Emphasis:`,
-      `Campus engineering intake for ${comp?.name || prog.companyId}. Evaluation emphasizes foundational problem-solving, algorithmic reasoning, and clean production code.`,
-      `First round focus: ${prog.selectionProcess[0]?.stage || 'Online Assessment'} (${prog.selectionProcess[0]?.topics?.join(', ') || 'DSA & CS Core'}).`,
-    ].join('\n');
-
-    setJobText(generatedJD);
-    setJobFileName(`${comp?.name || prog.companyId}_${prog.programName.replace(/\s+/g, '_')}_2026.txt`);
-    setJobSource('prefilled');
-    setFileError(null);
-  };
+  // Campus UI removed for TalentLens JD single source
 
   const headerRef = useRef<HTMLDivElement>(null);
   const tabBarRef = useRef<HTMLDivElement>(null);
@@ -216,27 +147,11 @@ export function ResumeChecker() {
       }
 
       if (!jobText) {
-        const comp = careers.companies.get(compId);
-        const roles = comp ? careers.roles.forCompany(comp.id) : [];
-        const role = roles.find((r) => r.title.toLowerCase() === rTitle.toLowerCase());
-        if (comp && role) {
-          const generatedJD = [
-            `Company: ${comp.name} (${comp.marketTier} Tier)`,
-            `Target Position: ${role.title} (${role.level})`,
-            ``,
-            `Role Description:`,
-            `Engineering role at ${comp.name} within ${comp.marketSegment} segment across ${comp.indiaOffices.join(', ')}.`,
-            ``,
-            `Core Competency Requirements:`,
-            ...Object.entries(role.competencies).map(([c, lvl]) => `- ${c.toUpperCase()}: Required proficiency level "${lvl}"`),
-            ``,
-            `Industry: ${comp.marketSegment}`,
-            `Headquarters: ${comp.headquarters || 'India'}`,
-            `Compensation Benchmark: Competitive Market Band`,
-          ].join('\n');
-
-          setJobText(generatedJD);
-          setJobFileName(`${comp.name}_${role.title.replace(/\s+/g, '_')}_Requirements.txt`);
+        const comp = COMPANIES.find(c => c.id === compId);
+        const role = comp?.roles.find((r) => r.title.toLowerCase() === rTitle.toLowerCase());
+        if (comp && role && role.fullText) {
+          setJobText(role.fullText);
+          setJobFileName(`${comp.name}_${role.title.replace(/\s+/g, '_')}_JD.txt`);
           setJobSource('prefilled');
         }
       }
@@ -303,8 +218,7 @@ export function ResumeChecker() {
     setJobPageCount(undefined);
     setJobSource(undefined);
     setFileError(null);
-    setSelectedCampusCompanyId('');
-    setSelectedCampusProgramId('');
+    
   };
 
   const handleTabChange = (tab: ReportTabId) => {
@@ -419,128 +333,7 @@ export function ResumeChecker() {
         {/* Input Panel Section */}
         {!engineResult && (
           <div className="space-y-6">
-            {/* Quick Load Campus Hiring Target Selector */}
-            <div className="bg-surface rounded-2xl border border-border p-5 space-y-4 shadow-xs">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-border/60 pb-3">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400">
-                    <GraduationCap className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-bold text-foreground">
-                      No JD? Scan against a 2026-27 Campus Hiring Program
-                    </h3>
-                    <p className="text-xs text-text-secondary">
-                      Target verified engineering fresher criteria across {campusCompanies.length} top employers.
-                    </p>
-                  </div>
-                </div>
-                <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 self-start sm:self-auto">
-                  60 Verified Campus Programs
-                </span>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-xs font-bold text-text-secondary mb-1.5">
-                    1. Select Employer:
-                  </label>
-                  <select
-                    value={selectedCampusCompanyId}
-                    onChange={(e) => {
-                      const compId = e.target.value;
-                      setSelectedCampusCompanyId(compId);
-                      const progs = careers.programs.forCompany(compId);
-                      if (progs.length > 0) {
-                        handleSelectCampusProgram(progs[0].id);
-                      } else {
-                        setSelectedCampusProgramId('');
-                      }
-                    }}
-                    className="w-full bg-surface-2 border border-border rounded-xl px-3 py-2.5 text-xs font-semibold text-foreground focus:ring-2 focus:ring-primary outline-none"
-                  >
-                    <option value="">-- Choose Company --</option>
-                    {campusCompanies.map((c) => (
-                      <option key={c.id} value={c.id}>
-                        {c.name} ({c.marketSegment})
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-bold text-text-secondary mb-1.5">
-                    2. Select Campus Program:
-                  </label>
-                  <select
-                    value={selectedCampusProgramId}
-                    onChange={(e) => handleSelectCampusProgram(e.target.value)}
-                    disabled={!selectedCampusCompanyId || campusProgramsForSelectedCompany.length === 0}
-                    className="w-full bg-surface-2 border border-border rounded-xl px-3 py-2.5 text-xs font-semibold text-foreground focus:ring-2 focus:ring-primary outline-none disabled:opacity-50"
-                  >
-                    <option value="">
-                      {selectedCampusCompanyId
-                        ? campusProgramsForSelectedCompany.length > 0
-                          ? '-- Choose Program --'
-                          : 'No campus programs found'
-                        : 'Select employer first'}
-                    </option>
-                    {campusProgramsForSelectedCompany.map((p) => (
-                      <option key={p.id} value={p.id}>
-                        {p.programName} ({p.roleTitle})
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-
-              {/* "How this program reads your resume" Note */}
-              {activeCampusProgram && (
-                <div className="mt-3 p-4 rounded-xl bg-blue-500/5 border border-blue-500/20 space-y-2.5 text-xs">
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-blue-500/15">
-                    <span className="font-bold text-blue-400 flex items-center gap-1.5 text-xs">
-                      <Info className="w-4 h-4 shrink-0" />
-                      How {careers.companies.get(activeCampusProgram.companyId)?.name} reads your resume for {activeCampusProgram.programName}
-                    </span>
-                    <DataBadge entity={activeCampusProgram} />
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 py-1 text-[11px]">
-                    <div className="bg-surface-2 p-2.5 rounded-lg border border-border">
-                      <span className="text-text-muted block text-[10px] uppercase font-bold">Academic Gate</span>
-                      <span className="font-semibold text-foreground text-xs">
-                        {activeCampusProgram.eligibility.minCgpa ? `≥ ${activeCampusProgram.eligibility.minCgpa} CGPA` : 'No hard cutoff'}
-                      </span>
-                      <div className="text-[10px] text-text-secondary truncate mt-0.5">
-                        {activeCampusProgram.eligibility.backlogPolicy || 'Zero active backlogs'}
-                      </div>
-                    </div>
-                    <div className="bg-surface-2 p-2.5 rounded-lg border border-border">
-                      <span className="text-text-muted block text-[10px] uppercase font-bold">First Round</span>
-                      <span className="font-semibold text-foreground text-xs truncate block">
-                        {activeCampusProgram.selectionProcess[0]?.stage || 'Online Assessment'}
-                      </span>
-                      <div className="text-[10px] text-text-secondary truncate mt-0.5">
-                        {activeCampusProgram.selectionProcess[0]?.topics?.slice(0, 3).join(', ') || 'DSA & CS Core'}
-                      </div>
-                    </div>
-                    <div className="bg-surface-2 p-2.5 rounded-lg border border-border">
-                      <span className="text-text-muted block text-[10px] uppercase font-bold">Compensation</span>
-                      <span className="font-semibold text-emerald-400 text-xs">
-                        {activeCampusProgram.compensation?.fixedMinLPA ? `₹${activeCampusProgram.compensation.fixedMinLPA} LPA` : 'Standard Band'}
-                      </span>
-                      <div className="text-[10px] text-text-secondary truncate mt-0.5">
-                        {activeCampusProgram.campusCategory.toUpperCase()} Category
-                      </div>
-                    </div>
-                  </div>
-
-                  <p className="text-text-secondary leading-relaxed pt-1">
-                    <strong className="text-foreground">Recruiter screening criteria:</strong> ATS parsers and campus evaluators filter on clean branch eligibility ({activeCampusProgram.eligibility.branchCodes.join(', ')}), explicit programming language tokens ({Object.keys(activeCampusProgram.competencyProfile).join(', ')}), verifiable GitHub/production project links, and zero unaddressed backlogs.
-                  </p>
-                </div>
-              )}
-            </div>
+            
 
             <AtsInputSection
               resumeText={resumeText}

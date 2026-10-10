@@ -164,13 +164,13 @@ export function CompanyRolesPage() {
   }, [companyPrograms, roleSearch]);
 
   const handleSelectProgram = (prog: FresherProgram) => {
-    const progAsRole: Role = {
+    const progAsRole = {
       title: `${prog.roleTitle} (${prog.programName})`,
       level: prog.campusCategory.toUpperCase(),
       desc: `${prog.eligibility.notes || `Campus graduate engineering intake for ${company?.name || prog.companyId}`}. Cutoff: ${prog.eligibility.minCgpa ?? 'None'} CGPA. Stages: ${prog.selectionProcess.map((s) => s.stage).join(' → ')}.`,
       competencies: Object.keys(prog.competencyProfile),
       reqLevel: prog.competencyProfile as any,
-    };
+    } as Role;
     selectRole(progAsRole);
   };
 
@@ -746,7 +746,8 @@ export function CompanyRolesPage() {
                           </div>
                         </div>
 
-                        {/* Mobile-Only Action Panel */}
+                        
+                      {/* Mobile-Only Action Panel */}
                         {isSelected && (
                           <div className="lg:hidden mt-[10px] mb-[12px] bg-surface-2 border border-primary/40 rounded-2xl p-[18px] animate-slide-up shadow-sm">
                             <div className="flex items-center gap-[10px] mb-[10px]">
@@ -868,6 +869,73 @@ export function CompanyRolesPage() {
                         </div>
                       </button>
 
+                      
+                      {/* Expanded JD Details */}
+                      {isSelected && (role as any).fullText && (
+                        <div className="mt-2 p-5 bg-surface-2 rounded-xl border border-border animate-fade-in cursor-default text-left" onClick={(e) => e.stopPropagation()}>
+                          <div className="flex items-center justify-between mb-4 border-b border-border pb-3">
+                            <h4 className="text-sm font-bold text-foreground">Complete Job Description</h4>
+                            <div className="flex gap-2">
+                              <button
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  navigator.clipboard.writeText((role as any).fullText || '');
+                                  alert('JD Copied to clipboard!');
+                                }}
+                                className="px-3 py-1.5 bg-surface-3 hover:bg-surface border border-border rounded-lg text-xs font-bold text-text transition-colors flex items-center gap-1"
+                              >
+                                📋 Copy JD
+                              </button>
+                              <Link
+                                to={`/tools/resume-checker?company=${company.id}&role=${encodeURIComponent(role.title)}`}
+                                onClick={(e) => e.stopPropagation()}
+                                className="px-3 py-1.5 bg-primary/10 hover:bg-primary/20 text-primary rounded-lg text-xs font-bold transition-colors flex items-center gap-1"
+                              >
+                                🎯 Use in ATS Scanner
+                              </Link>
+                            </div>
+                          </div>
+                          
+                          <div className="space-y-4 text-xs text-text-secondary leading-relaxed">
+                            {(role as any).aboutRole && (
+                              <div>
+                                <h5 className="font-bold text-text mb-1">About the Role</h5>
+                                <p>{(role as any).aboutRole}</p>
+                              </div>
+                            )}
+                            {(role as any).responsibilities && (role as any).responsibilities.length > 0 && (
+                              <div>
+                                <h5 className="font-bold text-text mb-1">Key Responsibilities</h5>
+                                <ul className="list-disc pl-4 space-y-1">
+                                  {(role as any).responsibilities.map((r: string, i: number) => <li key={i}>{r}</li>)}
+                                </ul>
+                              </div>
+                            )}
+                            {(role as any).qualifications && (role as any).qualifications.length > 0 && (
+                              <div>
+                                <h5 className="font-bold text-text mb-1">Qualifications</h5>
+                                <ul className="list-disc pl-4 space-y-1">
+                                  {(role as any).qualifications.map((q: string, i: number) => <li key={i}>{q}</li>)}
+                                </ul>
+                              </div>
+                            )}
+                            {(role as any).hiringProcess && (role as any).hiringProcess.length > 0 && (
+                              <div>
+                                <h5 className="font-bold text-text mb-1">Interview Process</h5>
+                                <div className="flex items-center gap-2 text-[11px] font-bold mt-2">
+                                  {(role as any).hiringProcess.map((step: string, i: number) => (
+                                    <React.Fragment key={i}>
+                                      <span className="px-2 py-1 bg-surface-3 rounded-md text-text">{step}</span>
+                                      {i < (role as any).hiringProcess!.length - 1 && <span className="text-text-muted">→</span>}
+                                    </React.Fragment>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      )}
+                      
                       {/* Mobile-Only Action Panel (Right under selected role card) */}
                       {isSelected && (
                         <div className="lg:hidden mt-[10px] mb-[12px] bg-surface-2 border border-primary/40 rounded-2xl p-[18px] animate-slide-up shadow-sm">
