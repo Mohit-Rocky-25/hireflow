@@ -82,7 +82,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
       notes: 'Main drive August–October for final year; national off-campus phases in Jan–Feb.',
     },
     entry: {
-      companyLevelCode: 'Ninja',
+      companyLevelCode: 'NINJA',
       equivalenceLevelId: 'L3_ENTRY',
     },
     competencyProfile: {
@@ -95,8 +95,8 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
     derivedFrom: 'official-jd',
     trajectory: [
       {
-        fromLevelCode: 'Ninja',
-        toLevelCode: 'Digital',
+        fromLevelCode: 'NINJA',
+        toLevelCode: 'DIGITAL',
         typicalYearsMin: 1.5,
         typicalYearsMax: 2.5,
         conditions: ['Clear internal Digital Wings elevation assessment or Wings 1 milestone with Distinction'],
@@ -108,8 +108,8 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
         derived: false,
       },
       {
-        fromLevelCode: 'Digital',
-        toLevelCode: 'Prime',
+        fromLevelCode: 'DIGITAL',
+        toLevelCode: 'C3',
         typicalYearsMin: 2,
         typicalYearsMax: 4,
         conditions: ['Sustained high performance rating and system architecture certification'],

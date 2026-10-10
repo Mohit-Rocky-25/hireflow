@@ -40,9 +40,9 @@
   - [x] Resolve G1, G2, G4 in canonical data
   - [x] Verify baseline snapshot parity (`src/__tests__/careers/regressionParity.test.ts` passing)
 
-- [ ] **Stage 4: Pilot Slice Through the Platform**
-  - [ ] Add 3 verified pilot programs (TCS Ninja, Indian Product SDE-1, Tata Motors GET)
-  - [ ] Validate end-to-end surfacing across 4 consumers
+- [x] **Stage 4: Pilot Slice Through the Platform**
+  - [x] Add 3 verified pilot programs (TCS Ninja, Indian Product SDE-1, Tata Motors GET)
+  - [x] Validate end-to-end surfacing across 4 consumers
 
 - [ ] **Stage 5: Research Protocol + Pass 1 (All 56 Companies)**
   - [ ] Ledger setup: `data-research/<companyId>.json` + `data-research/_progress.json`
