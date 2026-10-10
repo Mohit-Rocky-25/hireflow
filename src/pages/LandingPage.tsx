@@ -6,7 +6,7 @@ import { useStore } from "../store/useStore";
 import {
   Sparkles, Brain, Users, CheckCircle, ArrowRight,
   Shield, Zap, Target, Building2, ChevronRight, Cpu, BarChart3, TrendingUp,
-  MessageSquare, FileText, Briefcase
+  MessageSquare, FileText, Briefcase, GraduationCap
 } from "lucide-react";
 import { PublicNavbar } from "../components/layout/PublicNavbar";
 import { careers } from "../careers-core";
@@ -47,10 +47,42 @@ const FEATURES = [
 ];
 
 const STATS = [
-  { value: "75", label: "Enterprise Companies", icon: Building2 },
-  { value: "Real-time", label: "ATS Simulation", icon: Zap },
-  { value: "100%", label: "Free forever", icon: CheckCircle },
-  { value: "Contextual", label: "AI Matching Engine", icon: Brain },
+  {
+    value: "100+",
+    label: "Top Employers",
+    sub: "FAANG, Unicorns & GCCs",
+    icon: Building2,
+    color: "from-blue-500/15 to-indigo-500/5",
+    iconColor: "text-blue-500",
+    badgeBg: "bg-blue-500/10 border-blue-500/20",
+  },
+  {
+    value: "908+",
+    label: "Calibrated Roles",
+    sub: "Real 6-layer competency weights",
+    icon: Briefcase,
+    color: "from-amber-500/15 to-orange-500/5",
+    iconColor: "text-amber-500",
+    badgeBg: "bg-amber-500/10 border-amber-500/20",
+  },
+  {
+    value: "6-Layer",
+    label: "Deep ATS Audit",
+    sub: "Harsh invariant citations & fixes",
+    icon: Zap,
+    color: "from-violet-500/15 to-purple-500/5",
+    iconColor: "text-violet-500",
+    badgeBg: "bg-violet-500/10 border-violet-500/20",
+  },
+  {
+    value: "'26-27",
+    label: "Campus Intelligence",
+    sub: "60 verified fresher programs & cutoffs",
+    icon: GraduationCap,
+    color: "from-emerald-500/15 to-teal-500/5",
+    iconColor: "text-emerald-500",
+    badgeBg: "bg-emerald-500/10 border-emerald-500/20",
+  },
 ];
 
 const TOOLS = [
@@ -165,14 +197,31 @@ export function LandingPage() {
             </div>
           </div>
           
-          <div className="mt-[80px] grid grid-cols-2 md:grid-cols-4 gap-[1px] bg-border rounded-xl overflow-hidden shadow-md page-enter max-w-[1000px] mx-auto">
+          <div className="mt-[72px] grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 page-enter max-w-[1100px] mx-auto w-full px-2">
             {STATS.map((s, i) => {
               const Icon = s.icon;
               return (
-                <div key={i} className="bg-surface-2 px-[32px] py-[28px] flex flex-col items-center gap-[8px] text-center">
-                  <Icon className="w-[24px] h-[24px] text-primary stroke-[1.5px] mb-[4px]" />
-                  <span className="text-[36px] font-extrabold text-text tracking-[-0.04em] leading-none gradient-text">{s.value}</span>
-                  <span className="text-[13px] text-text-secondary font-medium">{s.label}</span>
+                <div
+                  key={i}
+                  className="group relative rounded-2xl bg-surface/90 dark:bg-surface-2/70 border border-border/80 hover:border-primary/40 p-5 sm:p-6 flex flex-col items-center text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/5 backdrop-blur-sm overflow-hidden"
+                >
+                  <div className={`absolute top-0 right-0 w-24 h-24 rounded-full bg-gradient-to-br ${s.color} blur-2xl opacity-50 pointer-events-none group-hover:scale-150 transition-transform duration-500`} />
+                  
+                  <div className={`w-11 h-11 rounded-xl ${s.badgeBg} border flex items-center justify-center mb-3 shadow-xs group-hover:scale-110 transition-transform duration-300`}>
+                    <Icon className={`w-5 h-5 ${s.iconColor} stroke-[1.75px]`} />
+                  </div>
+                  
+                  <span className="text-3xl sm:text-4xl font-extrabold text-foreground tracking-tight leading-none mb-1.5 gradient-text">
+                    {s.value}
+                  </span>
+                  
+                  <span className="text-sm font-bold text-foreground tracking-tight">
+                    {s.label}
+                  </span>
+                  
+                  <span className="text-[11px] text-text-muted font-medium mt-0.5 leading-snug">
+                    {s.sub}
+                  </span>
                 </div>
               );
             })}
