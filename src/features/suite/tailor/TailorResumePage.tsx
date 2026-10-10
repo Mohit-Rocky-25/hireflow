@@ -119,10 +119,37 @@ export function TailorResumePage() {
     }
   }, [profile, resumeText]);
 
-  // Handle Quick Load JD from dataset
-  const handleQuickLoadCompany = (companyId: string) => {
-    setSelectedCompanyId(companyId);
-    const company = careers.companies.get(companyId);
+  // Handle Quick Load JD from dataset (Companies & Campus Programs)
+  const handleQuickLoadCompany = (targetId: string) => {
+    setSelectedCompanyId(targetId);
+    
+    // Check if target is a FresherProgram
+    const prog = careers.programs.get(targetId);
+    if (prog) {
+      const company = careers.companies.get(prog.companyId);
+      const compKeys = Object.keys(prog.competencyProfile || {});
+      const ctcStr = prog.compensation?.fixedMinLPA
+        ? `₹${prog.compensation.fixedMinLPA}${prog.compensation.fixedMaxLPA ? ` - ₹${prog.compensation.fixedMaxLPA}` : ''} LPA`
+        : 'Competitive Campus Band';
+      const rounds = prog.selectionProcess.map((s) => s.stage).join(' → ') || 'OA → Technical → HR';
+      const generatedJD = `Role: ${prog.roleTitle} (${prog.programName})
+Company: ${company?.name || prog.companyId}
+Intake: Campus Graduate Intake 2026-27 (${prog.campusCategory.toUpperCase()})
+Eligible Branches: ${prog.eligibility.branchCodes.join(', ') || 'Engineering & Technology'}
+Cutoff: ${prog.eligibility.minCgpa ? `${prog.eligibility.minCgpa} CGPA` : 'No active cutoff'} · ${prog.eligibility.backlogPolicy || 'Zero active backlogs'}
+Package / Compensation: ${ctcStr}
+Selection Funnel: ${rounds}
+
+Core Competencies Evaluated:
+${compKeys.map((k) => `- ${k.toUpperCase()}: ${prog.competencyProfile[k]} proficiency`).join('\n')}
+
+Role Description:
+Campus engineering intake for ${company?.name || prog.companyId}. Evaluation emphasizes foundational problem-solving, algorithmic reasoning, and clean production code.`;
+      setJdText(generatedJD);
+      return;
+    }
+
+    const company = careers.companies.get(targetId);
     if (!company) return;
     const roles = careers.roles.forCompany(company.id);
     const role = roles[0];

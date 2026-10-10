@@ -24,8 +24,12 @@ import {
   Target,
   FileText,
   DollarSign,
+  GraduationCap,
+  Info,
 } from 'lucide-react';
 import { PublicNavbar } from '../../components/layout/PublicNavbar';
+import { careers, useEligibility, DataBadge } from '../../careers-core';
+import type { FresherProgram } from '../../careers-core';
 import {
   findCompanyBySlug,
   COMPANIES,
@@ -42,6 +46,34 @@ import {
   getCompanySlug,
 } from './talentLensData';
 import { useTalentLensStore } from './useTalentLensStore';
+
+function ProgramEligibilityBadge({ programId, facts }: { programId: string; facts: any }) {
+  const result = useEligibility(facts, programId);
+  if (result.status === 'eligible') {
+    return (
+      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/15 border border-emerald-500/30 text-emerald-400">
+        <CheckCircle className="w-3 h-3 text-emerald-400" />
+        Eligible
+      </span>
+    );
+  }
+  if (result.status === 'ineligible') {
+    return (
+      <span
+        className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-500/15 border border-rose-500/30 text-rose-400"
+        title={result.reasons.join('; ')}
+      >
+        <AlertTriangle className="w-3 h-3 text-rose-400" />
+        Ineligible ({result.reasons[0] || 'Cutoff not met'})
+      </span>
+    );
+  }
+  return (
+    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-neutral-800 text-neutral-400">
+      Unknown
+    </span>
+  );
+}
 
 export function CompanyRolesPage() {
   const { companySlug = '' } = useParams<{ companySlug: string }>();
@@ -98,6 +130,49 @@ export function CompanyRolesPage() {
         r.competencies.some((c) => c.toLowerCase().includes(q))
     );
   }, [company, roleSearch]);
+
+  // Fresher programs for company (Careers Data Platform)
+  const companyPrograms = useMemo(() => {
+    if (!company) return [];
+    return careers.programs.forCompany(company.id);
+  }, [company]);
+
+  const [roleMode, setRoleMode] = useState<'fresher' | 'experienced'>('fresher');
+  const [candidateCgpa, setCandidateCgpa] = useState<number>(8.0);
+  const [candidateBranch, setCandidateBranch] = useState<string>('cs');
+  const [candidateBacklogs, setCandidateBacklogs] = useState<number>(0);
+
+  const candidateFacts = useMemo(
+    () => ({
+      cgpa: candidateCgpa,
+      branchCode: candidateBranch,
+      backlogs: candidateBacklogs,
+      gradYear: 2026,
+    }),
+    [candidateCgpa, candidateBranch, candidateBacklogs]
+  );
+
+  const filteredPrograms = useMemo(() => {
+    const q = roleSearch.toLowerCase().trim();
+    if (!q) return companyPrograms;
+    return companyPrograms.filter(
+      (p) =>
+        p.programName.toLowerCase().includes(q) ||
+        p.roleTitle.toLowerCase().includes(q) ||
+        p.roleFamily.toLowerCase().includes(q)
+    );
+  }, [companyPrograms, roleSearch]);
+
+  const handleSelectProgram = (prog: FresherProgram) => {
+    const progAsRole: Role = {
+      title: `${prog.roleTitle} (${prog.programName})`,
+      level: prog.campusCategory.toUpperCase(),
+      desc: `${prog.eligibility.notes || `Campus graduate engineering intake for ${company?.name || prog.companyId}`}. Cutoff: ${prog.eligibility.minCgpa ?? 'None'} CGPA. Stages: ${prog.selectionProcess.map((s) => s.stage).join(' → ')}.`,
+      competencies: Object.keys(prog.competencyProfile),
+      reqLevel: prog.competencyProfile as any,
+    };
+    selectRole(progAsRole);
+  };
 
   // Handle analysis
   const handleRunAnalysis = () => {
@@ -410,6 +485,40 @@ export function CompanyRolesPage() {
           <div className="flex flex-col lg:flex-row items-start gap-[24px]">
             {/* Roles Column */}
             <div className="flex-1 w-full min-w-0">
+              {/* Segmented Control: Fresher vs Experienced */}
+              <div className="flex items-center gap-2 p-1.5 bg-surface-2 border border-border rounded-2xl mb-4">
+                <button
+                  type="button"
+                  onClick={() => setRoleMode('fresher')}
+                  className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-xs font-bold transition-all ${
+                    roleMode === 'fresher'
+                      ? 'bg-primary text-white shadow-sm'
+                      : 'text-text-secondary hover:text-text'
+                  }`}
+                >
+                  <GraduationCap className="w-4 h-4" />
+                  <span>Fresher / Campus ('26-27)</span>
+                  <span className="px-1.5 py-0.5 rounded-full text-[10px] bg-white/20 font-mono">
+                    {companyPrograms.length}
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setRoleMode('experienced')}
+                  className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-xs font-bold transition-all ${
+                    roleMode === 'experienced'
+                      ? 'bg-primary text-white shadow-sm'
+                      : 'text-text-secondary hover:text-text'
+                  }`}
+                >
+                  <Briefcase className="w-4 h-4" />
+                  <span>Experienced Roles</span>
+                  <span className="px-1.5 py-0.5 rounded-full text-[10px] bg-white/20 font-mono">
+                    {company.roles.length}
+                  </span>
+                </button>
+              </div>
+
               {/* Search if company has more than 8 roles */}
               {company.roles.length > 8 && (
                 <div className="relative mb-[16px]">
@@ -431,9 +540,258 @@ export function CompanyRolesPage() {
                 </div>
               )}
 
-              {/* Roles List */}
-              <div className="space-y-[10px]">
-                {filteredRoles.map((role) => {
+              {/* ── FRESHER MODE VIEW ── */}
+              {roleMode === 'fresher' && (
+                <div className="space-y-4">
+                  {/* Candidate Quick Eligibility Filter Bar */}
+                  {companyPrograms.length > 0 && (
+                    <div className="p-3.5 bg-surface border border-border rounded-2xl flex flex-wrap items-center justify-between gap-3 text-xs">
+                      <div className="flex items-center gap-2">
+                        <span className="font-bold text-text">Verify My Eligibility:</span>
+                        <span className="text-[11px] text-text-secondary">
+                          Live evaluation against 2026-27 campus hiring criteria
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <div className="flex items-center gap-1">
+                          <span className="text-[11px] text-text-muted">Branch:</span>
+                          <select
+                            value={candidateBranch}
+                            onChange={(e) => setCandidateBranch(e.target.value)}
+                            className="bg-surface-2 border border-border rounded-lg px-2 py-1 text-xs font-semibold text-text outline-none"
+                          >
+                            <option value="cs">CS</option>
+                            <option value="it">IT</option>
+                            <option value="ece">ECE</option>
+                            <option value="ee">EE</option>
+                            <option value="mech">MECH</option>
+                            <option value="civil">CIVIL</option>
+                          </select>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <span className="text-[11px] text-text-muted">CGPA:</span>
+                          <select
+                            value={candidateCgpa}
+                            onChange={(e) => setCandidateCgpa(parseFloat(e.target.value))}
+                            className="bg-surface-2 border border-border rounded-lg px-2 py-1 text-xs font-semibold text-text outline-none"
+                          >
+                            <option value="9.0">≥ 9.0</option>
+                            <option value="8.0">≥ 8.0</option>
+                            <option value="7.5">≥ 7.5</option>
+                            <option value="7.0">≥ 7.0</option>
+                            <option value="6.5">≥ 6.5</option>
+                            <option value="6.0">≥ 6.0</option>
+                          </select>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <span className="text-[11px] text-text-muted">Backlogs:</span>
+                          <select
+                            value={candidateBacklogs}
+                            onChange={(e) => setCandidateBacklogs(parseInt(e.target.value, 10))}
+                            className="bg-surface-2 border border-border rounded-lg px-2 py-1 text-xs font-semibold text-text outline-none"
+                          >
+                            <option value="0">0 Active</option>
+                            <option value="1">1 Active</option>
+                            <option value="2">2+ Active</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Empty state: No campus programs (e.g. Netflix) */}
+                  {companyPrograms.length === 0 && (
+                    <div className="p-8 rounded-2xl bg-surface border border-border text-center space-y-3">
+                      <div className="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-400 mx-auto flex items-center justify-center">
+                        <Info className="w-6 h-6" />
+                      </div>
+                      <h4 className="text-base font-bold text-foreground">
+                        No General Fresher / Campus Intake for {company.name}
+                      </h4>
+                      <p className="text-xs text-text-secondary max-w-md mx-auto leading-relaxed">
+                        {company.name} engineering hires strictly lateral senior roles (L5/L6) in India. There is no open campus graduate intake program.
+                      </p>
+                      <button
+                        type="button"
+                        onClick={() => setRoleMode('experienced')}
+                        className="px-5 py-2 rounded-xl bg-primary text-white text-xs font-bold hover:bg-primary-hover transition-colors shadow-sm"
+                      >
+                        Explore Experienced Roles ({company.roles.length})
+                      </button>
+                    </div>
+                  )}
+
+                  {/* Program Cards */}
+                  {filteredPrograms.map((prog) => {
+                    const isSelected = selectedRole?.title.includes(prog.programName);
+                    const ctcStr = prog.compensation?.fixedMinLPA
+                      ? `₹${prog.compensation.fixedMinLPA}${prog.compensation.fixedMaxLPA ? ` - ₹${prog.compensation.fixedMaxLPA}` : ''} LPA`
+                      : 'Competitive Market Band';
+
+                    return (
+                      <div key={prog.id} className="flex flex-col">
+                        <div
+                          className={`w-full p-[18px] rounded-2xl border transition-all flex flex-col justify-between gap-[12px] ${
+                            isSelected
+                              ? 'bg-surface-2 border-primary shadow-md'
+                              : 'bg-surface border-border hover:border-primary/40 hover:bg-surface-2'
+                          }`}
+                        >
+                          <div className="flex items-start justify-between gap-[12px]">
+                            <div className="space-y-1">
+                              <div className="flex items-center gap-[8px] flex-wrap">
+                                <h3 className="text-[15px] font-bold text-text">
+                                  {prog.programName}
+                                </h3>
+                                <span className="text-[10px] font-bold px-[8px] py-[2px] rounded-full bg-primary/10 text-primary border border-primary/20">
+                                  {prog.campusCategory.toUpperCase()}
+                                </span>
+                                <DataBadge entity={prog} />
+                                <ProgramEligibilityBadge
+                                  programId={prog.id}
+                                  facts={candidateFacts}
+                                />
+                              </div>
+                              <div className="text-[13px] font-semibold text-text-secondary">
+                                {prog.roleTitle} · {prog.roleFamily}
+                              </div>
+                            </div>
+
+                            <button
+                              type="button"
+                              onClick={() => handleSelectProgram(prog)}
+                              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                                isSelected
+                                  ? 'bg-primary text-white'
+                                  : 'bg-surface-3 border border-border text-text hover:bg-primary/10 hover:text-primary'
+                              }`}
+                            >
+                              {isSelected ? 'Selected ✓' : 'Select Role'}
+                            </button>
+                          </div>
+
+                          {/* Compensation & Criteria Grid */}
+                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs py-1">
+                            <div className="p-2 rounded-xl bg-surface-2 border border-border/60">
+                              <span className="text-[10px] text-text-muted uppercase font-bold block">
+                                Compensation
+                              </span>
+                              <span className="font-bold text-emerald-400">{ctcStr}</span>
+                            </div>
+                            <div className="p-2 rounded-xl bg-surface-2 border border-border/60">
+                              <span className="text-[10px] text-text-muted uppercase font-bold block">
+                                Cutoffs &amp; Backlogs
+                              </span>
+                              <span className="font-semibold text-text">
+                                {prog.eligibility.minCgpa ? `≥ ${prog.eligibility.minCgpa} CGPA` : 'No CGPA cutoff'} · {prog.eligibility.backlogPolicy || '0 backlogs'}
+                              </span>
+                            </div>
+                            <div className="p-2 rounded-xl bg-surface-2 border border-border/60">
+                              <span className="text-[10px] text-text-muted uppercase font-bold block">
+                                Eligible Branches
+                              </span>
+                              <span className="font-semibold text-text truncate block" title={prog.eligibility.branchCodes.join(', ')}>
+                                {prog.eligibility.branchCodes.join(', ') || 'Engineering'}
+                              </span>
+                            </div>
+                          </div>
+
+                          {/* Selection Stages Stepper */}
+                          <div className="pt-2 border-t border-border/60">
+                            <span className="text-[10px] font-bold uppercase tracking-wider text-text-muted block mb-1.5">
+                              Selection Funnel ({prog.selectionProcess.length} Stages):
+                            </span>
+                            <div className="flex items-center gap-1.5 flex-wrap">
+                              {prog.selectionProcess.map((stage, idx) => (
+                                <div
+                                  key={idx}
+                                  className="flex items-center gap-1 px-2 py-0.5 rounded-md bg-surface-3 border border-border text-[11px] text-text-secondary"
+                                >
+                                  <span className="font-mono text-[10px] text-primary font-bold">
+                                    {idx + 1}.
+                                  </span>
+                                  <span>{stage.stage}</span>
+                                  {stage.topics.length > 0 && (
+                                    <span className="text-[10px] text-text-muted">
+                                      ({stage.topics.slice(0, 2).join(', ')})
+                                    </span>
+                                  )}
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+
+                          {/* Competency tags & Actions */}
+                          <div className="flex items-center justify-between gap-2 flex-wrap pt-2 border-t border-border/60">
+                            <div className="flex items-center gap-1.5 flex-wrap">
+                              <span className="text-[10px] font-semibold text-text-muted uppercase">
+                                Skills Evaluated:
+                              </span>
+                              {Object.keys(prog.competencyProfile).map((c) => (
+                                <span
+                                  key={c}
+                                  className="text-[10px] font-bold px-[7px] py-[2px] rounded-md bg-surface-3 text-text-secondary border border-border/80 uppercase"
+                                >
+                                  {c}
+                                </span>
+                              ))}
+                            </div>
+
+                            <Link
+                              to={`/tools/resume-checker?company=${company.id}&role=${encodeURIComponent(prog.roleTitle)}`}
+                              className="text-[11px] font-bold text-primary hover:underline inline-flex items-center gap-1"
+                            >
+                              Scan in ATS Roaster →
+                            </Link>
+                          </div>
+                        </div>
+
+                        {/* Mobile-Only Action Panel */}
+                        {isSelected && (
+                          <div className="lg:hidden mt-[10px] mb-[12px] bg-surface-2 border border-primary/40 rounded-2xl p-[18px] animate-slide-up shadow-sm">
+                            <div className="flex items-center gap-[10px] mb-[10px]">
+                              <div className="w-[32px] h-[32px] rounded-xl bg-primary-light flex items-center justify-center text-primary">
+                                <Brain className="w-4 h-4" />
+                              </div>
+                              <div>
+                                <div className="text-[13px] font-bold text-text">
+                                  {company.name} — {prog.programName}
+                                </div>
+                                <div className="text-[11px] text-text-secondary">
+                                  {Object.keys(prog.competencyProfile).length} competencies to analyze
+                                </div>
+                              </div>
+                            </div>
+                            <button
+                              type="button"
+                              onClick={handleRunAnalysis}
+                              disabled={analyzing || !resumeText.trim()}
+                              className="w-full bg-primary text-white py-[11px] px-[16px] rounded-xl font-bold text-[13px] hover:bg-primary-hover transition-all flex items-center justify-center gap-[8px] disabled:opacity-40 disabled:cursor-not-allowed shadow-sm"
+                            >
+                              {analyzing ? (
+                                <>
+                                  <RefreshCw className="w-4 h-4 animate-spin" />
+                                  <span>Analyzing deeply...</span>
+                                </>
+                              ) : (
+                                <>
+                                  <Brain className="w-4 h-4" />
+                                  <span>Run Deep AI Analysis</span>
+                                </>
+                              )}
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+
+              {/* ── EXPERIENCED MODE VIEW ── */}
+              {roleMode === 'experienced' && (
+                <div className="space-y-[10px]">
+                  {filteredRoles.map((role) => {
                   const isSelected = selectedRole?.title === role.title;
                   return (
                     <div key={role.title} className="flex flex-col">
@@ -588,6 +946,7 @@ export function CompanyRolesPage() {
                   </div>
                 )}
               </div>
+            )}
             </div>
 
             {/* Desktop-Only Sticky Action Panel (Right Side) */}

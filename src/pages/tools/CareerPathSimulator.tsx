@@ -86,6 +86,8 @@ import {
   type StudentPromotionPlan,
   type CompDataPoint,
 } from '../../lib/careerEngine';
+import { careers, DataBadge } from '../../careers-core';
+import type { FresherProgram } from '../../careers-core';
 
 export interface CareerPathSimulatorProps {
   fixedTab?: 'simulator' | 'explorer';
@@ -169,7 +171,9 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
     }
   };
 
-  const [simulatorMode, setSimulatorMode] = useState<'student' | 'professional'>('student');
+  const [simulatorMode, setSimulatorMode] = useState<'student' | 'fresher-programs' | 'professional'>('student');
+  const [campusCategoryFilter, setCampusCategoryFilter] = useState<'all' | 'super-dream' | 'dream' | 'mass'>('all');
+  const [campusProgramSearch, setCampusProgramSearch] = useState('');
 
   // ─────────────────────────────────────────────────────────────
   // SUBSECTION 1: Company Levels & Pay State
@@ -222,6 +226,30 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
   const [selectedBranchOption, setSelectedBranchOption] = useState<DegreeBranchOption>(
     DEGREE_BRANCH_CATALOG[0]
   );
+
+  // Branch eligible campus programs using careers.programs.forBranch
+  const branchPrograms = useMemo(() => {
+    const byFamily = careers.programs.forBranch(selectedBranchOption.family);
+    const codeGuess = selectedBranchOption.id.replace('btech-', '').replace('be-', '');
+    const byCode = careers.programs.forBranch(codeGuess);
+    const combined = Array.from(new Set([...byFamily, ...byCode]));
+    return combined;
+  }, [selectedBranchOption]);
+
+  const filteredBranchPrograms = useMemo(() => {
+    return branchPrograms.filter((p) => {
+      const matchCat = campusCategoryFilter === 'all' || p.campusCategory === campusCategoryFilter;
+      const q = campusProgramSearch.toLowerCase().trim();
+      const matchSearch =
+        !q ||
+        p.programName.toLowerCase().includes(q) ||
+        p.roleTitle.toLowerCase().includes(q) ||
+        p.companyId.toLowerCase().includes(q) ||
+        (careers.companies.get(p.companyId)?.name.toLowerCase().includes(q) ?? false);
+      return matchCat && matchSearch;
+    });
+  }, [branchPrograms, campusCategoryFilter, campusProgramSearch]);
+
   const [studentDegree, setStudentDegree] = useState<string>(DEGREE_BRANCH_CATALOG[0].label);
   const [studentTier, setStudentTier] = useState<StudentProfile['collegeTier']>('Tier 1');
   const [studentGradYear, setStudentGradYear] = useState<number>(() => {
@@ -925,22 +953,39 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
         {activeTab === 'simulator' && (
           <div className="space-y-8 animate-fade-in">
             {/* Mode Switcher: Student vs Working Professional */}
+            {/* Mode Switcher: Fresher Entry vs Student Roadmap vs Working Professional */}
             <div className="flex justify-center">
-              <div className="inline-flex p-1.5 bg-neutral-900 border border-neutral-800 rounded-2xl shadow-sm">
+              <div className="inline-flex p-1.5 bg-neutral-900 border border-neutral-800 rounded-2xl shadow-sm flex-wrap gap-1">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSimulatorMode('fresher-programs');
+                    setProfResult(null);
+                    setStudentResult(null);
+                  }}
+                  className={`px-5 py-2.5 rounded-xl text-xs font-black transition-all flex items-center gap-2 cursor-pointer ${
+                    simulatorMode === 'fresher-programs'
+                      ? 'bg-blue-600 text-white shadow-xs'
+                      : 'text-neutral-400 hover:text-white'
+                  }`}
+                >
+                  <Sparkles className="w-4 h-4 text-emerald-400" />
+                  Fresher / Campus Entry ('26-27)
+                </button>
                 <button
                   type="button"
                   onClick={() => {
                     setSimulatorMode('student');
                     setProfResult(null);
                   }}
-                  className={`px-6 py-2.5 rounded-xl text-xs font-black transition-all flex items-center gap-2 cursor-pointer ${
+                  className={`px-5 py-2.5 rounded-xl text-xs font-black transition-all flex items-center gap-2 cursor-pointer ${
                     simulatorMode === 'student'
                       ? 'bg-blue-600 text-white shadow-xs'
                       : 'text-neutral-400 hover:text-white'
                   }`}
                 >
                   <GraduationCap className="w-4 h-4" />
-                  I&apos;m a Student / Fresher
+                  Campus-to-Dream Roadmap
                 </button>
                 <button
                   type="button"
@@ -948,7 +993,7 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                     setSimulatorMode('professional');
                     setStudentResult(null);
                   }}
-                  className={`px-6 py-2.5 rounded-xl text-xs font-black transition-all flex items-center gap-2 cursor-pointer ${
+                  className={`px-5 py-2.5 rounded-xl text-xs font-black transition-all flex items-center gap-2 cursor-pointer ${
                     simulatorMode === 'professional'
                       ? 'bg-blue-600 text-white shadow-xs'
                       : 'text-neutral-400 hover:text-white'
@@ -959,6 +1004,237 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                 </button>
               </div>
             </div>
+
+            {/* ─────────────────────────────────────────────────────────
+                MODE C: FRESHER / CAMPUS ENTRY PROGRAMS VIEW
+                ───────────────────────────────────────────────────────── */}
+            {simulatorMode === 'fresher-programs' && (
+              <div className="space-y-6">
+                {/* Branch Selection & Filter Header */}
+                <div className="bg-neutral-900 rounded-2xl p-6 border border-neutral-800 shadow-xl space-y-4">
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-neutral-800">
+                    <div>
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+                          2026-27 Hiring Season Live
+                        </span>
+                        <span className="text-xs text-neutral-400 font-bold">
+                          {branchPrograms.length} Eligible Programs
+                        </span>
+                      </div>
+                      <h2 className="text-xl font-black text-white flex items-center gap-2">
+                        <Sparkles className="w-5 h-5 text-emerald-400" />
+                        Verified Campus Entry Programs for Your Engineering Branch
+                      </h2>
+                      <p className="text-xs text-neutral-300 mt-0.5">
+                        Authentic hiring criteria, first-round screening formats, bond commitments, and promotion steps across India employers.
+                      </p>
+                    </div>
+
+                    {/* Degree & Branch Combobox */}
+                    <div className="w-full md:w-80 shrink-0">
+                      <label className="text-xs font-bold text-neutral-400 block mb-1.5">
+                        Your Branch / Discipline:
+                      </label>
+                      <BranchCombobox
+                        value={selectedBranchOption.id}
+                        onChange={handleBranchChange}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Filter Pills & Search */}
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-1">
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      <span className="text-xs font-bold text-neutral-400 mr-1">Category:</span>
+                      {(['all', 'super-dream', 'dream', 'mass'] as const).map((cat) => (
+                        <button
+                          key={cat}
+                          type="button"
+                          onClick={() => setCampusCategoryFilter(cat)}
+                          className={`px-3 py-1 rounded-xl text-xs font-bold transition-all capitalize ${
+                            campusCategoryFilter === cat
+                              ? 'bg-blue-600 text-white'
+                              : 'bg-neutral-800 text-neutral-400 hover:text-white'
+                          }`}
+                        >
+                          {cat === 'all' ? `All (${branchPrograms.length})` : cat.replace('-', ' ')}
+                        </button>
+                      ))}
+                    </div>
+
+                    <div className="relative w-full sm:w-64">
+                      <Search className="w-3.5 h-3.5 text-neutral-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                      <input
+                        type="text"
+                        value={campusProgramSearch}
+                        onChange={(e) => setCampusProgramSearch(e.target.value)}
+                        placeholder="Search company, role, program..."
+                        className="w-full pl-8 pr-3 py-1.5 rounded-xl bg-neutral-800 border border-neutral-700 text-xs text-white placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Programs Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  {filteredBranchPrograms.map((prog) => {
+                    const comp = careers.companies.get(prog.companyId);
+                    const ctcStr = prog.compensation?.fixedMinLPA
+                      ? `₹${prog.compensation.fixedMinLPA}${prog.compensation.fixedMaxLPA ? ` - ₹${prog.compensation.fixedMaxLPA}` : ''} LPA`
+                      : 'Competitive Market Band';
+
+                    return (
+                      <div
+                        key={prog.id}
+                        className="bg-neutral-900 rounded-2xl p-5 border border-neutral-800 hover:border-neutral-700 transition-all flex flex-col justify-between gap-4 shadow-sm group"
+                      >
+                        <div className="space-y-3">
+                          <div className="flex items-start justify-between gap-3">
+                            <div>
+                              <div className="flex items-center gap-2 flex-wrap mb-1">
+                                <span className="font-bold text-white text-base group-hover:text-blue-400 transition-colors">
+                                  {comp?.name || prog.companyId}
+                                </span>
+                                <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-blue-500/15 text-blue-300 border border-blue-500/30 uppercase">
+                                  {prog.campusCategory.replace('-', ' ')}
+                                </span>
+                                <DataBadge entity={prog} />
+                              </div>
+                              <h3 className="text-sm font-bold text-neutral-200">
+                                {prog.programName}
+                              </h3>
+                              <p className="text-xs text-neutral-400 font-medium">
+                                {prog.roleTitle} · {prog.roleFamily}
+                              </p>
+                            </div>
+
+                            <div className="text-right shrink-0">
+                              <span className="text-xs font-bold text-emerald-400 block">
+                                {ctcStr}
+                              </span>
+                              <span className="text-[10px] text-neutral-400 font-mono">
+                                Total CTC
+                              </span>
+                            </div>
+                          </div>
+
+                          {/* Key Criteria Pill Bar */}
+                          <div className="grid grid-cols-3 gap-2 text-xs py-1">
+                            <div className="p-2 rounded-xl bg-neutral-800/70 border border-neutral-700/60">
+                              <span className="text-[10px] text-neutral-400 font-bold uppercase block">
+                                Academic Cutoff
+                              </span>
+                              <span className="font-semibold text-neutral-200 text-[11px]">
+                                {prog.eligibility.minCgpa ? `≥ ${prog.eligibility.minCgpa} CGPA` : 'No hard cutoff'}
+                              </span>
+                              <div className="text-[10px] text-neutral-400 truncate mt-0.5">
+                                {prog.eligibility.backlogPolicy || '0 backlogs'}
+                              </div>
+                            </div>
+
+                            <div className="p-2 rounded-xl bg-neutral-800/70 border border-neutral-700/60">
+                              <span className="text-[10px] text-neutral-400 font-bold uppercase block">
+                                Training &amp; Bond
+                              </span>
+                              <span className="font-semibold text-neutral-200 text-[11px]">
+                                {prog.training.bondMonths ? `${prog.training.bondMonths} mo bond` : 'Zero service bond'}
+                              </span>
+                              <div className="text-[10px] text-neutral-400 truncate mt-0.5">
+                                {prog.training.bondAmountINR ? `₹${(prog.training.bondAmountINR / 100000).toFixed(1)}L bond` : 'No penalty'}
+                              </div>
+                            </div>
+
+                            <div className="p-2 rounded-xl bg-neutral-800/70 border border-neutral-700/60">
+                              <span className="text-[10px] text-neutral-400 font-bold uppercase block">
+                                Next Promotion
+                              </span>
+                              <span className="font-semibold text-neutral-200 text-[11px] truncate block">
+                                {prog.trajectory[0] ? `${prog.trajectory[0].fromLevelCode} → ${prog.trajectory[0].toLevelCode}` : 'Fast-Track'}
+                              </span>
+                              <div className="text-[10px] text-emerald-400 truncate mt-0.5">
+                                {prog.trajectory[0]?.typicalYearsMin ? `${prog.trajectory[0].typicalYearsMin}-${prog.trajectory[0].typicalYearsMax} yrs cadence` : 'Standard cadence'}
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Selection Stages Funnel */}
+                          <div className="pt-2 border-t border-neutral-800">
+                            <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 block mb-1">
+                              Selection Stages ({prog.selectionProcess.length} Rounds):
+                            </span>
+                            <div className="flex items-center gap-1.5 flex-wrap">
+                              {prog.selectionProcess.map((stage, idx) => (
+                                <div
+                                  key={idx}
+                                  className="flex items-center gap-1 px-2 py-0.5 rounded-md bg-neutral-800 border border-neutral-700 text-[11px] text-neutral-300"
+                                >
+                                  <span className="font-mono text-[10px] text-blue-400 font-bold">
+                                    {idx + 1}.
+                                  </span>
+                                  <span>{stage.stage}</span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+
+                          {/* Competency badges */}
+                          <div className="flex items-center gap-1.5 flex-wrap pt-1">
+                            <span className="text-[10px] font-semibold text-neutral-400 uppercase">
+                              Evaluated Skills:
+                            </span>
+                            {Object.keys(prog.competencyProfile).map((c) => (
+                              <span
+                                key={c}
+                                className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-neutral-800 text-neutral-300 border border-neutral-700 uppercase"
+                              >
+                                {c}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Bottom Actions */}
+                        <div className="pt-3 border-t border-neutral-800 flex items-center justify-between gap-3">
+                          <Link
+                            to={`/tools/resume-checker?company=${prog.companyId}&role=${encodeURIComponent(prog.roleTitle)}`}
+                            className="px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition-all shadow-sm flex items-center gap-1.5"
+                          >
+                            <FileText className="w-3.5 h-3.5" />
+                            Roast Resume Against Program
+                          </Link>
+
+                          <Link
+                            to={`/demo/company/${prog.companyId}`}
+                            className="text-xs font-bold text-neutral-400 hover:text-white transition-colors"
+                          >
+                            Company Roles &amp; Fit →
+                          </Link>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {filteredBranchPrograms.length === 0 && (
+                  <div className="p-12 text-center bg-neutral-900 border border-neutral-800 rounded-2xl space-y-3">
+                    <p className="text-sm font-bold text-neutral-300">
+                      No campus programs found matching &ldquo;{campusProgramSearch}&rdquo;
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setCampusProgramSearch('');
+                        setCampusCategoryFilter('all');
+                      }}
+                      className="text-xs font-bold text-blue-400 hover:underline"
+                    >
+                      Clear search and category filters
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
 
             {/* ─────────────────────────────────────────────────────────
                 MODE A: STUDENT SIMULATOR FORM

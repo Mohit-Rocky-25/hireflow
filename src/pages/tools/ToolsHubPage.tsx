@@ -12,6 +12,7 @@ import {
   Search,
 } from 'lucide-react';
 import { PageNav } from '../../components/common/PageNav';
+import { careers } from '../../careers-core';
 
 interface ToolItem {
   id: string;
@@ -183,6 +184,32 @@ export function ToolsHubPage() {
         <p className="text-lg sm:text-xl text-muted max-w-3xl mx-auto font-medium">
           From evaluating your target roles to building the right projects and presenting yourself better. No gimmicks, pure intelligence.
         </p>
+
+        {/* Live Careers Data Platform Metrics */}
+        {(() => {
+          const stats = careers.stats.counts();
+          return (
+            <div className="flex flex-wrap items-center justify-center gap-2.5 pt-2 text-xs font-semibold">
+              <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-2 border border-border shadow-xs">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="text-foreground font-bold">{stats.companies}</span>
+                <span className="text-text-secondary">Verified Employers</span>
+              </div>
+              <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-2 border border-border shadow-xs">
+                <span className="text-primary font-bold">{stats.fresherPrograms}</span>
+                <span className="text-text-secondary">Campus Programs ('26-27)</span>
+              </div>
+              <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-2 border border-border shadow-xs">
+                <span className="text-foreground font-bold">{stats.levels}</span>
+                <span className="text-text-secondary">Level Ladders</span>
+              </div>
+              <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-2 border border-border shadow-xs">
+                <span className="text-foreground font-bold">{stats.branches}</span>
+                <span className="text-text-secondary">Engineering Branches</span>
+              </div>
+            </div>
+          );
+        })()}
 
         {/* Search Bar */}
         <div className="pt-6 max-w-xl mx-auto">

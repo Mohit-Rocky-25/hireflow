@@ -32,6 +32,7 @@ import { CompareJDsPage } from './features/suite/compare/CompareJDsPage';
 import { TailorResumePage } from './features/suite/tailor/TailorResumePage';
 import { ReachOutPage } from './features/suite/outreach/ReachOutPage';
 import { BuildBriefsPage } from './features/suite/briefs/BuildBriefsPage';
+import { CareersDataExplorer } from './careers-core/dev/CareersDataExplorer';
 
 // Company / BHR Pages
 import { CompanyDashboard } from './pages/company/CompanyDashboard';
@@ -125,6 +126,7 @@ export default function App() {
         <Route path="/tools/career-path/simulator" element={<Navigate to="/tools/career-path/dream-job-roadmap" replace />} />
         <Route path="/tools/career-path/explorer" element={<Navigate to="/tools/career-path/company-levels" replace />} />
         <Route path="/tools/talent-lens" element={<TalentLens />} />
+        <Route path="/dev/careers-data" element={<CareersDataExplorer />} />
 
         {/* Company / BHR / HR Routes */}
         <Route path="/company" element={<ProtectedRoute roles={['BHR_MANAGER', 'HR_RECRUITER']}><AppShell /></ProtectedRoute>}>

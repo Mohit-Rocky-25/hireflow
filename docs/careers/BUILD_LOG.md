@@ -56,13 +56,13 @@
   - [x] Branch eligibility matrix (`careers.eligibility.matrixFor`)
   - [x] Write `docs/careers/fresher-vs-lateral.md`
 
-- [ ] **Stage 7: Consumer Features & UI Hooks**
-  - [ ] Career Trajectory: Fresher / Campus Entry mode
-  - [ ] TalentLens: Fresher / Experienced segmented control
-  - [ ] ATS Resume Roaster: Fresher program target scan
-  - [ ] Tailor My Resume: Quick load from campus programs
-  - [ ] Provenance `<DataBadge>` integration
-  - [ ] Dev Data Explorer (`/dev/careers-data`)
+- [x] **Stage 7: Consumer Features & UI Hooks**
+  - [x] Career Trajectory: Fresher / Campus Entry mode
+  - [x] TalentLens: Fresher / Experienced segmented control
+  - [x] ATS Resume Roaster: Fresher program target scan
+  - [x] Tailor My Resume: Quick load from campus programs
+  - [x] Provenance `<DataBadge>` integration
+  - [x] Dev Data Explorer (`/dev/careers-data`)
 
 - [ ] **Stage 8: Comprehensive QA & Verification**
   - [ ] Platform test suite & referential integrity
