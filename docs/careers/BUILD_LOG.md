@@ -70,7 +70,7 @@
   - [x] Generate `docs/careers/coverage-report.md` & `docs/careers/spot-check.csv`
   - [x] Multi-resolution verification (Production build & unit tests passing; browser automation bypassed per user preference due to Playwright CDN 404)
 
-- [ ] **Stage 9: Documentation & Commit to Main**
-  - [ ] Write `docs/careers/README.md`
-  - [ ] Full production build & test suite passing
-  - [ ] Final commit on `main`
+- [x] **Stage 9: Documentation & Commit to Main**
+  - [x] Write `docs/careers/README.md`
+  - [x] Full production build & test suite passing (0 errors, 16/16 Vitest tests passing)
+  - [x] Final commit on `main`
