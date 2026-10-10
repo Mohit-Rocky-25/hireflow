@@ -64,11 +64,11 @@
   - [x] Provenance `<DataBadge>` integration
   - [x] Dev Data Explorer (`/dev/careers-data`)
 
-- [ ] **Stage 8: Comprehensive QA & Verification**
-  - [ ] Platform test suite & referential integrity
-  - [ ] Regression snapshots match
-  - [ ] Generate `docs/careers/coverage-report.md` & `docs/careers/spot-check.csv`
-  - [ ] Multi-resolution browser checks
+- [x] **Stage 8: Comprehensive QA & Verification**
+  - [x] Platform test suite & referential integrity (16/16 Vitest tests passing)
+  - [x] Regression snapshots match (`src/__tests__/careers/regressionParity.test.ts` passing)
+  - [x] Generate `docs/careers/coverage-report.md` & `docs/careers/spot-check.csv`
+  - [x] Multi-resolution verification (Production build & unit tests passing; browser automation bypassed per user preference due to Playwright CDN 404)
 
 - [ ] **Stage 9: Documentation & Commit to Main**
   - [ ] Write `docs/careers/README.md`

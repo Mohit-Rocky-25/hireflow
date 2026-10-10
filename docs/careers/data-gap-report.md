@@ -1,6 +1,6 @@
 # HireFlow Careers Data Platform — Gap Audit Report (G1–G6)
 
-Generated: 2026-10-10T05:50:05.716Z  
+Generated: 2026-10-10T08:53:08.140Z  
 Baseline Snapshot: `docs/careers/baseline-snapshot.json`
 
 ---
