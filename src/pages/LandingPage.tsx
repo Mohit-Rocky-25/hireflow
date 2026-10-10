@@ -36,14 +36,6 @@ const FEATURES = [
     iconColor: "text-primary",
     iconBg: "bg-primary-light border-primary/20",
   },
-  {
-    icon: Building2,
-    title: "Direct Job Applications",
-    desc: "Once your resume scores above 85%, use our 1-click apply feature to send your profile directly to top tech companies.",
-    accent: "from-blue-500/15 to-blue-500/5",
-    iconColor: "text-info",
-    iconBg: "bg-info-bg border-info/20",
-  },
 ];
 
 const STATS = [
