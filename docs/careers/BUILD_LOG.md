@@ -20,15 +20,15 @@
   - [x] Write `scripts/careers/audit-gaps.mjs`
   - [x] Generate `docs/careers/data-gap-report.md` covering G1 (182 levels missing rank/YoE), G2 (36 branch entries lacking formal codes/durations), G3 (0 structured fresher programs), G4 (templated content & core SWE track mismatch), G5 (questionable entities & naming drift), G6 (29 shared, 62 TalentLens-only, 27 ladder-only unlinked companies)
 
-- [ ] **Stage 2: Build the Careers Data Platform (`src/careers-core/`)**
-  - [ ] Schema & Types (`schema/`)
-  - [ ] Manifest & Invariant Registry (`data/`, `registry/`)
-  - [ ] Public API (`api/index.ts`)
-  - [ ] Legacy Adapters (`legacy/`)
-  - [ ] React Hooks & `<DataBadge>` (`react/`)
-  - [ ] Governance check & import restrictions
-  - [ ] Documentation (`docs/careers/EXTENDING.md`) & scaffolding script (`scripts/careers/new-dataset.mjs`)
-  - [ ] Data validation suite (`scripts/careers/validate.mjs`)
+- [x] **Stage 2: Build the Careers Data Platform (`src/careers-core/`)**
+  - [x] Schema & Types (`schema/`)
+  - [x] Manifest & Invariant Registry (`data/`, `registry/`)
+  - [x] Public API (`api/index.ts`)
+  - [x] Legacy Adapters (`legacy/`)
+  - [x] React Hooks & `<DataBadge>` (`react/`)
+  - [x] Governance check & import restrictions
+  - [x] Documentation (`docs/careers/EXTENDING.md`) & scaffolding script (`scripts/careers/new-dataset.mjs`)
+  - [x] Data validation suite (`scripts/careers/validate.mjs` & vitest)
 
 - [ ] **Stage 3: Migrate Every Existing Consumer onto the Platform**
   - [ ] Migrate Career Trajectory / Simulator

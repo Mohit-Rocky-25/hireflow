@@ -1,0 +1,33 @@
+{
+  "manifestVersion": "1.0.0",
+  "schemaVersion": "1.0.0",
+  "datasetVersion": "2026.10.10",
+  "generatedAt": "2026-10-10T11:20:00.000Z",
+  "owner": "HireFlow Platform Engineering",
+  "entities": {
+    "companiesCount": 56,
+    "levelsCount": 182,
+    "rolesCount": 908,
+    "fresherProgramsCount": 3,
+    "branchesCount": 24,
+    "equivalenceLevelsCount": 9,
+    "competenciesCount": 19
+  },
+  "registeredSubsystems": [
+    {
+      "name": "skills-taxonomy",
+      "path": "src/data/ats/skills-taxonomy.json",
+      "access": "read-only"
+    },
+    {
+      "name": "writing-quality",
+      "path": "src/data/ats/writing-quality.json",
+      "access": "read-only"
+    },
+    {
+      "name": "ats-format-rules",
+      "path": "src/data/ats/ats-format-rules.json",
+      "access": "read-only"
+    }
+  ]
+}
