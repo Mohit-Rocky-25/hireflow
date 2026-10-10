@@ -339,7 +339,7 @@ export function LandingPage() {
               Know exactly <span className="text-ai">why</span> you're getting rejected.
             </h2>
             <p className="text-[18px] text-text-secondary leading-[1.8] mb-[32px]">
-              Stop firing your resume into the void. Our scanner reads exactly like Workday or Greenhouse, instantly flagging missing hard skills, overused buzzwords, and formatting errors before you apply.
+              Stop firing your resume into the void. Our scanner evaluates your profile with industry-leading precision, instantly flagging missing hard skills, overused buzzwords, and formatting errors before you apply.
             </p>
             <ul className="space-y-[16px] text-[15px] text-text font-medium">
               <li className="flex items-center gap-[12px] justify-center lg:justify-start">
