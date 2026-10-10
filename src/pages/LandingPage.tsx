@@ -40,16 +40,16 @@ const FEATURES = [
 
 const STATS = [
   {
-    value: "100+",
+    value: "125+",
     label: "Top Employers",
-    sub: "FAANG, Unicorns & GCCs",
+    sub: "FAANG, Unicorns, GCCs & Indian Giants",
     icon: Building2,
     color: "from-blue-500/15 to-indigo-500/5",
     iconColor: "text-blue-500",
     badgeBg: "bg-blue-500/10 border-blue-500/20",
   },
   {
-    value: "908+",
+    value: "1000+",
     label: "Calibrated Roles",
     sub: "Real 6-layer competency weights",
     icon: Briefcase,
@@ -69,7 +69,7 @@ const STATS = [
   {
     value: "'26-27",
     label: "Campus Intelligence",
-    sub: "60 verified fresher programs & cutoffs",
+    sub: "85+ verified fresher programs & cutoffs",
     icon: GraduationCap,
     color: "from-emerald-500/15 to-teal-500/5",
     iconColor: "text-emerald-500",
@@ -197,9 +197,9 @@ export function LandingPage() {
                   <Building2 className="w-[32px] h-[32px] text-blue-500" />
                 </div>
                 <div>
-                  <h3 className="text-[56px] font-black text-text tracking-tighter leading-none mb-[12px] group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-500 group-hover:to-indigo-400 transition-all duration-500">100+</h3>
+                  <h3 className="text-[56px] font-black text-text tracking-tighter leading-none mb-[12px] group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-500 group-hover:to-indigo-400 transition-all duration-500">125+</h3>
                   <p className="text-[20px] font-extrabold text-text mb-[6px] tracking-tight">Top Tech Employers</p>
-                  <p className="text-[15px] text-text-secondary font-medium">FAANG, Unicorns, and elite GCCs verified.</p>
+                  <p className="text-[15px] text-text-secondary font-medium">FAANG, Unicorns, GCCs and Indian Tech Giants verified.</p>
                 </div>
               </div>
               <div className="absolute bottom-[-15%] right-[-5%] opacity-[0.03] group-hover:opacity-[0.08] group-hover:scale-110 transition-all duration-700 pointer-events-none rotate-12">
@@ -215,7 +215,7 @@ export function LandingPage() {
                   <Briefcase className="w-[32px] h-[32px] text-amber-500" />
                 </div>
                 <div>
-                  <h3 className="text-[56px] font-black text-text tracking-tighter leading-none mb-[12px] group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-amber-500 group-hover:to-orange-400 transition-all duration-500">908+</h3>
+                  <h3 className="text-[56px] font-black text-text tracking-tighter leading-none mb-[12px] group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-amber-500 group-hover:to-orange-400 transition-all duration-500">1000+</h3>
                   <p className="text-[20px] font-extrabold text-text mb-[6px] tracking-tight">Calibrated Roles</p>
                   <p className="text-[15px] text-text-secondary font-medium">Deep 6-layer competency mapping.</p>
                 </div>
@@ -247,7 +247,7 @@ export function LandingPage() {
                 <div>
                   <h3 className="text-[56px] font-black text-text tracking-tighter leading-none mb-[12px] group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-emerald-500 group-hover:to-teal-400 transition-all duration-500">'26-27</h3>
                   <p className="text-[20px] font-extrabold text-text mb-[6px] tracking-tight">Campus Intelligence</p>
-                  <p className="text-[15px] text-text-secondary font-medium">60 verified fresher programs, actual CTC bands & eligibility.</p>
+                  <p className="text-[15px] text-text-secondary font-medium">85+ verified fresher programs, actual CTC bands & eligibility.</p>
                 </div>
               </div>
               <div className="absolute bottom-[-20%] right-[-5%] opacity-[0.03] group-hover:opacity-[0.08] group-hover:scale-110 transition-all duration-700 pointer-events-none -rotate-12">

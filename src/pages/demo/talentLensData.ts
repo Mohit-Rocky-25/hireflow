@@ -97368,6 +97368,3706 @@ export const COMPANIES = [
         fullText: "Job Title: Security Analyst\nCompany: Genpact\nLocation: India\nEmployment Type: Full-time\nExperience Level: 2-5 years\n\nAbout the Role:\nAs a Security Analyst at Genpact, you will be at the forefront of the Consulting industry, shaping the future of our core platforms. You will tackle complex technical challenges, working alongside a world-class engineering team. Vulnerability scanning, penetration testing, and compliance. We are looking for passionate builders who thrive in fast-paced environments and have a deep commitment to operational excellence.\n\nKey Responsibilities:\n• Design, develop, test, deploy, maintain and improve software across the stack.\n• Manage individual project priorities, deadlines, and deliverables effectively.\n• Drive engineering best practices including CI/CD, comprehensive testing, and technical documentation.\n• Identify and resolve performance bottlenecks, optimizing systems for scale and high availability.\n• Contribute to technical vision and architectural decisions for new and existing subsystems.\n• Collaborate closely with product managers, designers, and cross-functional engineering teams to define and deliver new features.\n• Develop highly performant Python applications, optimizing data pipelines and machine learning integrations.\n• Perform threat modeling, security assessments, and implement robust security controls across the software lifecycle.\n\nRequired Qualifications:\n• Bachelor's or Master's degree in Computer Science, Engineering, or a related technical field.\n• Minimum of 2-5 years of professional software development experience.\n• Proven track record of building and delivering complex, production-grade software systems.\n• Strong command of computer science fundamentals, including object-oriented design, data structures, and algorithmic complexity.\n• Excellent problem-solving skills and ability to thrive in an ambiguous, fast-moving environment.\n• Demonstrated ability to write clean, maintainable, and well-tested code.\n\nRequired Skills & Technologies:\n• Security\n• Python\n• Communication\n• SQL\n• REST APIs\n• CI/CD\n\nHiring Process:\n1. Recruiter Screening (30 mins)\n2. Technical Assessment / Take-home Assignment\n3. Technical Interview 1: Data Structures & Algorithms\n4. Technical Interview 2: System Design & Domain Knowledge\n5. Hiring Manager & Culture Fit Round"
       }
     ]
+  },
+  {
+    id: "tcs",
+    name: "Tata Consultancy Services",
+    logo: "TCS",
+    gradient: "from-blue-600 to-blue-400",
+    industry: "IT Services",
+    hq: "Mumbai, India",
+    tier: "MNC",
+    hiring2023: 40000,
+    hiring2024: 40000,
+    trend: "stable",
+    openRoles: 1500,
+    avgPackage: "₹3.3-7.5 LPA",
+    glassdoor: 3.9,
+    roles: [
+      {
+        title: "Systems Engineer",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "communication",
+          "databases",
+          "python"
+        ],
+        reqLevel: {
+          communication: "strong",
+          databases: "strong",
+          python: "strong"
+        },
+        desc: "Campus recruitment for Systems Engineer at Tata Consultancy Services. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Tata Consultancy Services as a Systems Engineer and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Systems Engineer\\nCompany: Tata Consultancy Services\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Tata Consultancy Services as a Systems Engineer... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      },
+      {
+        title: "Software Developer",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "dsa",
+          "java",
+          "databases",
+          "communication"
+        ],
+        reqLevel: {
+          dsa: "strong",
+          java: "strong",
+          databases: "strong",
+          communication: "strong"
+        },
+        desc: "Campus recruitment for Software Developer at Tata Consultancy Services. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Tata Consultancy Services as a Software Developer and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Software Developer\\nCompany: Tata Consultancy Services\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Tata Consultancy Services as a Software Developer... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      },
+      {
+        title: "Data Analyst",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "communication",
+          "databases",
+          "python"
+        ],
+        reqLevel: {
+          communication: "strong",
+          databases: "strong",
+          python: "strong"
+        },
+        desc: "Campus recruitment for Data Analyst at Tata Consultancy Services. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Tata Consultancy Services as a Data Analyst and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Data Analyst\\nCompany: Tata Consultancy Services\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Tata Consultancy Services as a Data Analyst... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      }
+    ]
+  },
+  {
+    id: "infosys",
+    name: "Infosys",
+    logo: "INF",
+    gradient: "from-blue-700 to-indigo-500",
+    industry: "IT Services",
+    hq: "Bangalore, India",
+    tier: "MNC",
+    hiring2023: 35000,
+    hiring2024: 20000,
+    trend: "down",
+    openRoles: 1200,
+    avgPackage: "₹3.6-8.0 LPA",
+    glassdoor: 3.9,
+    roles: [
+      {
+        title: "Systems Engineer",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "communication",
+          "databases",
+          "python"
+        ],
+        reqLevel: {
+          communication: "strong",
+          databases: "strong",
+          python: "strong"
+        },
+        desc: "Campus recruitment for Systems Engineer at Infosys. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Infosys as a Systems Engineer and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Systems Engineer\\nCompany: Infosys\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Infosys as a Systems Engineer... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      },
+      {
+        title: "Software Developer",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "dsa",
+          "java",
+          "databases",
+          "communication"
+        ],
+        reqLevel: {
+          dsa: "strong",
+          java: "strong",
+          databases: "strong",
+          communication: "strong"
+        },
+        desc: "Campus recruitment for Software Developer at Infosys. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Infosys as a Software Developer and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Software Developer\\nCompany: Infosys\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Infosys as a Software Developer... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      },
+      {
+        title: "Data Analyst",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "communication",
+          "databases",
+          "python"
+        ],
+        reqLevel: {
+          communication: "strong",
+          databases: "strong",
+          python: "strong"
+        },
+        desc: "Campus recruitment for Data Analyst at Infosys. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Infosys as a Data Analyst and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Data Analyst\\nCompany: Infosys\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Infosys as a Data Analyst... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      }
+    ]
+  },
+  {
+    id: "wipro",
+    name: "Wipro",
+    logo: "W",
+    gradient: "from-blue-500 to-teal-400",
+    industry: "IT Services",
+    hq: "Bangalore, India",
+    tier: "MNC",
+    hiring2023: 20000,
+    hiring2024: 15000,
+    trend: "down",
+    openRoles: 800,
+    avgPackage: "₹3.5-6.5 LPA",
+    glassdoor: 3.8,
+    roles: [
+      {
+        title: "Systems Engineer",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "communication",
+          "databases",
+          "python"
+        ],
+        reqLevel: {
+          communication: "strong",
+          databases: "strong",
+          python: "strong"
+        },
+        desc: "Campus recruitment for Systems Engineer at Wipro. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Wipro as a Systems Engineer and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Systems Engineer\\nCompany: Wipro\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Wipro as a Systems Engineer... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      },
+      {
+        title: "Software Developer",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "dsa",
+          "java",
+          "databases",
+          "communication"
+        ],
+        reqLevel: {
+          dsa: "strong",
+          java: "strong",
+          databases: "strong",
+          communication: "strong"
+        },
+        desc: "Campus recruitment for Software Developer at Wipro. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Wipro as a Software Developer and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Software Developer\\nCompany: Wipro\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Wipro as a Software Developer... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      },
+      {
+        title: "Data Analyst",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "communication",
+          "databases",
+          "python"
+        ],
+        reqLevel: {
+          communication: "strong",
+          databases: "strong",
+          python: "strong"
+        },
+        desc: "Campus recruitment for Data Analyst at Wipro. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Wipro as a Data Analyst and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Data Analyst\\nCompany: Wipro\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Wipro as a Data Analyst... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      }
+    ]
+  },
+  {
+    id: "hcl",
+    name: "HCLTech",
+    logo: "HCL",
+    gradient: "from-blue-600 to-blue-300",
+    industry: "IT Services",
+    hq: "Noida, India",
+    tier: "MNC",
+    hiring2023: 15000,
+    hiring2024: 10000,
+    trend: "down",
+    openRoles: 600,
+    avgPackage: "₹4.25-6.0 LPA",
+    glassdoor: 3.8,
+    roles: [
+      {
+        title: "Systems Engineer",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "communication",
+          "databases",
+          "python"
+        ],
+        reqLevel: {
+          communication: "strong",
+          databases: "strong",
+          python: "strong"
+        },
+        desc: "Campus recruitment for Systems Engineer at HCLTech. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join HCLTech as a Systems Engineer and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Systems Engineer\\nCompany: HCLTech\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin HCLTech as a Systems Engineer... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      },
+      {
+        title: "Software Developer",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "dsa",
+          "java",
+          "databases",
+          "communication"
+        ],
+        reqLevel: {
+          dsa: "strong",
+          java: "strong",
+          databases: "strong",
+          communication: "strong"
+        },
+        desc: "Campus recruitment for Software Developer at HCLTech. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join HCLTech as a Software Developer and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Software Developer\\nCompany: HCLTech\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin HCLTech as a Software Developer... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      },
+      {
+        title: "Data Analyst",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "communication",
+          "databases",
+          "python"
+        ],
+        reqLevel: {
+          communication: "strong",
+          databases: "strong",
+          python: "strong"
+        },
+        desc: "Campus recruitment for Data Analyst at HCLTech. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join HCLTech as a Data Analyst and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Data Analyst\\nCompany: HCLTech\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin HCLTech as a Data Analyst... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      }
+    ]
+  },
+  {
+    id: "techm",
+    name: "Tech Mahindra",
+    logo: "TM",
+    gradient: "from-red-600 to-red-400",
+    industry: "IT Services",
+    hq: "Pune, India",
+    tier: "MNC",
+    hiring2023: 12000,
+    hiring2024: 8000,
+    trend: "down",
+    openRoles: 500,
+    avgPackage: "₹3.25-5.5 LPA",
+    glassdoor: 3.7,
+    roles: [
+      {
+        title: "Systems Engineer",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "communication",
+          "databases",
+          "python"
+        ],
+        reqLevel: {
+          communication: "strong",
+          databases: "strong",
+          python: "strong"
+        },
+        desc: "Campus recruitment for Systems Engineer at Tech Mahindra. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Tech Mahindra as a Systems Engineer and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Systems Engineer\\nCompany: Tech Mahindra\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Tech Mahindra as a Systems Engineer... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      },
+      {
+        title: "Software Developer",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "dsa",
+          "java",
+          "databases",
+          "communication"
+        ],
+        reqLevel: {
+          dsa: "strong",
+          java: "strong",
+          databases: "strong",
+          communication: "strong"
+        },
+        desc: "Campus recruitment for Software Developer at Tech Mahindra. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Tech Mahindra as a Software Developer and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Software Developer\\nCompany: Tech Mahindra\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Tech Mahindra as a Software Developer... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      },
+      {
+        title: "Data Analyst",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "communication",
+          "databases",
+          "python"
+        ],
+        reqLevel: {
+          communication: "strong",
+          databases: "strong",
+          python: "strong"
+        },
+        desc: "Campus recruitment for Data Analyst at Tech Mahindra. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Tech Mahindra as a Data Analyst and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Data Analyst\\nCompany: Tech Mahindra\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Tech Mahindra as a Data Analyst... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      }
+    ]
+  },
+  {
+    id: "cognizant",
+    name: "Cognizant",
+    logo: "CTS",
+    gradient: "from-blue-700 to-blue-500",
+    industry: "IT Services",
+    hq: "Teaneck, NJ",
+    tier: "MNC",
+    hiring2023: 25000,
+    hiring2024: 20000,
+    trend: "down",
+    openRoles: 1400,
+    avgPackage: "₹4.0-6.7 LPA",
+    glassdoor: 3.9,
+    roles: [
+      {
+        title: "Systems Engineer",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "communication",
+          "databases",
+          "python"
+        ],
+        reqLevel: {
+          communication: "strong",
+          databases: "strong",
+          python: "strong"
+        },
+        desc: "Campus recruitment for Systems Engineer at Cognizant. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Cognizant as a Systems Engineer and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Systems Engineer\\nCompany: Cognizant\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Cognizant as a Systems Engineer... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      },
+      {
+        title: "Software Developer",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "dsa",
+          "java",
+          "databases",
+          "communication"
+        ],
+        reqLevel: {
+          dsa: "strong",
+          java: "strong",
+          databases: "strong",
+          communication: "strong"
+        },
+        desc: "Campus recruitment for Software Developer at Cognizant. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Cognizant as a Software Developer and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Software Developer\\nCompany: Cognizant\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Cognizant as a Software Developer... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      },
+      {
+        title: "Data Analyst",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "communication",
+          "databases",
+          "python"
+        ],
+        reqLevel: {
+          communication: "strong",
+          databases: "strong",
+          python: "strong"
+        },
+        desc: "Campus recruitment for Data Analyst at Cognizant. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Cognizant as a Data Analyst and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Data Analyst\\nCompany: Cognizant\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Cognizant as a Data Analyst... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      }
+    ]
+  },
+  {
+    id: "accenture",
+    name: "Accenture",
+    logo: "ACN",
+    gradient: "from-purple-600 to-purple-400",
+    industry: "Consulting & IT",
+    hq: "Dublin, Ireland",
+    tier: "MNC",
+    hiring2023: 30000,
+    hiring2024: 25000,
+    trend: "stable",
+    openRoles: 2000,
+    avgPackage: "₹4.5-12.0 LPA",
+    glassdoor: 4,
+    roles: [
+      {
+        title: "Systems Engineer",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "communication",
+          "databases",
+          "python"
+        ],
+        reqLevel: {
+          communication: "strong",
+          databases: "strong",
+          python: "strong"
+        },
+        desc: "Campus recruitment for Systems Engineer at Accenture. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Accenture as a Systems Engineer and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Systems Engineer\\nCompany: Accenture\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Accenture as a Systems Engineer... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      },
+      {
+        title: "Software Developer",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "dsa",
+          "java",
+          "databases",
+          "communication"
+        ],
+        reqLevel: {
+          dsa: "strong",
+          java: "strong",
+          databases: "strong",
+          communication: "strong"
+        },
+        desc: "Campus recruitment for Software Developer at Accenture. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Accenture as a Software Developer and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Software Developer\\nCompany: Accenture\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Accenture as a Software Developer... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      },
+      {
+        title: "Data Analyst",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "communication",
+          "databases",
+          "python"
+        ],
+        reqLevel: {
+          communication: "strong",
+          databases: "strong",
+          python: "strong"
+        },
+        desc: "Campus recruitment for Data Analyst at Accenture. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Accenture as a Data Analyst and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Data Analyst\\nCompany: Accenture\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Accenture as a Data Analyst... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      }
+    ]
+  },
+  {
+    id: "capgemini",
+    name: "Capgemini",
+    logo: "CAP",
+    gradient: "from-blue-500 to-cyan-500",
+    industry: "IT Services",
+    hq: "Paris, France",
+    tier: "MNC",
+    hiring2023: 20000,
+    hiring2024: 15000,
+    trend: "down",
+    openRoles: 1000,
+    avgPackage: "₹4.25-7.5 LPA",
+    glassdoor: 3.9,
+    roles: [
+      {
+        title: "Systems Engineer",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "communication",
+          "databases",
+          "python"
+        ],
+        reqLevel: {
+          communication: "strong",
+          databases: "strong",
+          python: "strong"
+        },
+        desc: "Campus recruitment for Systems Engineer at Capgemini. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Capgemini as a Systems Engineer and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Systems Engineer\\nCompany: Capgemini\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Capgemini as a Systems Engineer... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      },
+      {
+        title: "Software Developer",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "dsa",
+          "java",
+          "databases",
+          "communication"
+        ],
+        reqLevel: {
+          dsa: "strong",
+          java: "strong",
+          databases: "strong",
+          communication: "strong"
+        },
+        desc: "Campus recruitment for Software Developer at Capgemini. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Capgemini as a Software Developer and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Software Developer\\nCompany: Capgemini\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Capgemini as a Software Developer... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      },
+      {
+        title: "Data Analyst",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "communication",
+          "databases",
+          "python"
+        ],
+        reqLevel: {
+          communication: "strong",
+          databases: "strong",
+          python: "strong"
+        },
+        desc: "Campus recruitment for Data Analyst at Capgemini. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Capgemini as a Data Analyst and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Data Analyst\\nCompany: Capgemini\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Capgemini as a Data Analyst... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      }
+    ]
+  },
+  {
+    id: "ibm",
+    name: "IBM",
+    logo: "IBM",
+    gradient: "from-blue-800 to-blue-600",
+    industry: "Technology",
+    hq: "Armonk, NY",
+    tier: "MNC",
+    hiring2023: 10000,
+    hiring2024: 8000,
+    trend: "stable",
+    openRoles: 900,
+    avgPackage: "₹4.5-9.0 LPA",
+    glassdoor: 4.1,
+    roles: [
+      {
+        title: "Systems Engineer",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "communication",
+          "databases",
+          "python"
+        ],
+        reqLevel: {
+          communication: "strong",
+          databases: "strong",
+          python: "strong"
+        },
+        desc: "Campus recruitment for Systems Engineer at IBM. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join IBM as a Systems Engineer and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Systems Engineer\\nCompany: IBM\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin IBM as a Systems Engineer... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      },
+      {
+        title: "Software Developer",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "dsa",
+          "java",
+          "databases",
+          "communication"
+        ],
+        reqLevel: {
+          dsa: "strong",
+          java: "strong",
+          databases: "strong",
+          communication: "strong"
+        },
+        desc: "Campus recruitment for Software Developer at IBM. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join IBM as a Software Developer and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Software Developer\\nCompany: IBM\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin IBM as a Software Developer... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      },
+      {
+        title: "Data Analyst",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "communication",
+          "databases",
+          "python"
+        ],
+        reqLevel: {
+          communication: "strong",
+          databases: "strong",
+          python: "strong"
+        },
+        desc: "Campus recruitment for Data Analyst at IBM. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join IBM as a Data Analyst and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Data Analyst\\nCompany: IBM\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin IBM as a Data Analyst... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      }
+    ]
+  },
+  {
+    id: "amazon_in",
+    name: "Amazon India",
+    logo: "AMZ",
+    gradient: "from-yellow-500 to-orange-400",
+    industry: "E-commerce/Cloud",
+    hq: "Seattle, WA",
+    tier: "FAANG",
+    hiring2023: 8000,
+    hiring2024: 6000,
+    trend: "stable",
+    openRoles: 1200,
+    avgPackage: "₹15-45 LPA",
+    glassdoor: 4.2,
+    roles: [
+      {
+        title: "Systems Engineer",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "communication",
+          "databases",
+          "python"
+        ],
+        reqLevel: {
+          communication: "strong",
+          databases: "strong",
+          python: "strong"
+        },
+        desc: "Campus recruitment for Systems Engineer at Amazon India. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Amazon India as a Systems Engineer and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Systems Engineer\\nCompany: Amazon India\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Amazon India as a Systems Engineer... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      },
+      {
+        title: "Software Developer",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "dsa",
+          "java",
+          "databases",
+          "communication"
+        ],
+        reqLevel: {
+          dsa: "strong",
+          java: "strong",
+          databases: "strong",
+          communication: "strong"
+        },
+        desc: "Campus recruitment for Software Developer at Amazon India. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Amazon India as a Software Developer and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Software Developer\\nCompany: Amazon India\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Amazon India as a Software Developer... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      },
+      {
+        title: "Data Analyst",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "communication",
+          "databases",
+          "python"
+        ],
+        reqLevel: {
+          communication: "strong",
+          databases: "strong",
+          python: "strong"
+        },
+        desc: "Campus recruitment for Data Analyst at Amazon India. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Amazon India as a Data Analyst and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Data Analyst\\nCompany: Amazon India\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Amazon India as a Data Analyst... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      }
+    ]
+  },
+  {
+    id: "microsoft_in",
+    name: "Microsoft India",
+    logo: "MS",
+    gradient: "from-blue-500 to-green-500",
+    industry: "Technology",
+    hq: "Redmond, WA",
+    tier: "FAANG",
+    hiring2023: 5000,
+    hiring2024: 4500,
+    trend: "stable",
+    openRoles: 800,
+    avgPackage: "₹18-50 LPA",
+    glassdoor: 4.4,
+    roles: [
+      {
+        title: "Systems Engineer",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "communication",
+          "databases",
+          "python"
+        ],
+        reqLevel: {
+          communication: "strong",
+          databases: "strong",
+          python: "strong"
+        },
+        desc: "Campus recruitment for Systems Engineer at Microsoft India. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Microsoft India as a Systems Engineer and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Systems Engineer\\nCompany: Microsoft India\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Microsoft India as a Systems Engineer... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      },
+      {
+        title: "Software Developer",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "dsa",
+          "java",
+          "databases",
+          "communication"
+        ],
+        reqLevel: {
+          dsa: "strong",
+          java: "strong",
+          databases: "strong",
+          communication: "strong"
+        },
+        desc: "Campus recruitment for Software Developer at Microsoft India. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Microsoft India as a Software Developer and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Software Developer\\nCompany: Microsoft India\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Microsoft India as a Software Developer... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      },
+      {
+        title: "Data Analyst",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "communication",
+          "databases",
+          "python"
+        ],
+        reqLevel: {
+          communication: "strong",
+          databases: "strong",
+          python: "strong"
+        },
+        desc: "Campus recruitment for Data Analyst at Microsoft India. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Microsoft India as a Data Analyst and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Data Analyst\\nCompany: Microsoft India\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Microsoft India as a Data Analyst... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      }
+    ]
+  },
+  {
+    id: "oracle",
+    name: "Oracle",
+    logo: "ORCL",
+    gradient: "from-red-600 to-orange-500",
+    industry: "Technology",
+    hq: "Austin, TX",
+    tier: "MNC",
+    hiring2023: 6000,
+    hiring2024: 5500,
+    trend: "stable",
+    openRoles: 750,
+    avgPackage: "₹12-25 LPA",
+    glassdoor: 3.9,
+    roles: [
+      {
+        title: "Systems Engineer",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "communication",
+          "databases",
+          "python"
+        ],
+        reqLevel: {
+          communication: "strong",
+          databases: "strong",
+          python: "strong"
+        },
+        desc: "Campus recruitment for Systems Engineer at Oracle. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Oracle as a Systems Engineer and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Systems Engineer\\nCompany: Oracle\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Oracle as a Systems Engineer... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      },
+      {
+        title: "Software Developer",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "dsa",
+          "java",
+          "databases",
+          "communication"
+        ],
+        reqLevel: {
+          dsa: "strong",
+          java: "strong",
+          databases: "strong",
+          communication: "strong"
+        },
+        desc: "Campus recruitment for Software Developer at Oracle. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Oracle as a Software Developer and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Software Developer\\nCompany: Oracle\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Oracle as a Software Developer... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      },
+      {
+        title: "Data Analyst",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "communication",
+          "databases",
+          "python"
+        ],
+        reqLevel: {
+          communication: "strong",
+          databases: "strong",
+          python: "strong"
+        },
+        desc: "Campus recruitment for Data Analyst at Oracle. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Oracle as a Data Analyst and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Data Analyst\\nCompany: Oracle\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Oracle as a Data Analyst... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      }
+    ]
+  },
+  {
+    id: "cisco",
+    name: "Cisco",
+    logo: "CSCO",
+    gradient: "from-blue-500 to-blue-300",
+    industry: "Networking",
+    hq: "San Jose, CA",
+    tier: "MNC",
+    hiring2023: 4000,
+    hiring2024: 3500,
+    trend: "stable",
+    openRoles: 500,
+    avgPackage: "₹15-30 LPA",
+    glassdoor: 4.3,
+    roles: [
+      {
+        title: "Systems Engineer",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "communication",
+          "databases",
+          "python"
+        ],
+        reqLevel: {
+          communication: "strong",
+          databases: "strong",
+          python: "strong"
+        },
+        desc: "Campus recruitment for Systems Engineer at Cisco. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Cisco as a Systems Engineer and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Systems Engineer\\nCompany: Cisco\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Cisco as a Systems Engineer... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      },
+      {
+        title: "Software Developer",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "dsa",
+          "java",
+          "databases",
+          "communication"
+        ],
+        reqLevel: {
+          dsa: "strong",
+          java: "strong",
+          databases: "strong",
+          communication: "strong"
+        },
+        desc: "Campus recruitment for Software Developer at Cisco. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Cisco as a Software Developer and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Software Developer\\nCompany: Cisco\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Cisco as a Software Developer... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      },
+      {
+        title: "Data Analyst",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "communication",
+          "databases",
+          "python"
+        ],
+        reqLevel: {
+          communication: "strong",
+          databases: "strong",
+          python: "strong"
+        },
+        desc: "Campus recruitment for Data Analyst at Cisco. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Cisco as a Data Analyst and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Data Analyst\\nCompany: Cisco\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Cisco as a Data Analyst... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      }
+    ]
+  },
+  {
+    id: "goldman",
+    name: "Goldman Sachs",
+    logo: "GS",
+    gradient: "from-blue-400 to-blue-200",
+    industry: "Finance",
+    hq: "New York, NY",
+    tier: "MNC",
+    hiring2023: 1500,
+    hiring2024: 1200,
+    trend: "stable",
+    openRoles: 250,
+    avgPackage: "₹20-35 LPA",
+    glassdoor: 4,
+    roles: [
+      {
+        title: "Systems Engineer",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "communication",
+          "databases",
+          "python"
+        ],
+        reqLevel: {
+          communication: "strong",
+          databases: "strong",
+          python: "strong"
+        },
+        desc: "Campus recruitment for Systems Engineer at Goldman Sachs. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Goldman Sachs as a Systems Engineer and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Systems Engineer\\nCompany: Goldman Sachs\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Goldman Sachs as a Systems Engineer... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      },
+      {
+        title: "Software Developer",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "dsa",
+          "java",
+          "databases",
+          "communication"
+        ],
+        reqLevel: {
+          dsa: "strong",
+          java: "strong",
+          databases: "strong",
+          communication: "strong"
+        },
+        desc: "Campus recruitment for Software Developer at Goldman Sachs. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Goldman Sachs as a Software Developer and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Software Developer\\nCompany: Goldman Sachs\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Goldman Sachs as a Software Developer... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      },
+      {
+        title: "Data Analyst",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "communication",
+          "databases",
+          "python"
+        ],
+        reqLevel: {
+          communication: "strong",
+          databases: "strong",
+          python: "strong"
+        },
+        desc: "Campus recruitment for Data Analyst at Goldman Sachs. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Goldman Sachs as a Data Analyst and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Data Analyst\\nCompany: Goldman Sachs\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Goldman Sachs as a Data Analyst... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      }
+    ]
+  },
+  {
+    id: "jpmc",
+    name: "JP Morgan Chase",
+    logo: "JPM",
+    gradient: "from-stone-600 to-stone-400",
+    industry: "Finance",
+    hq: "New York, NY",
+    tier: "MNC",
+    hiring2023: 2000,
+    hiring2024: 1800,
+    trend: "stable",
+    openRoles: 400,
+    avgPackage: "₹18-32 LPA",
+    glassdoor: 4.1,
+    roles: [
+      {
+        title: "Systems Engineer",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "communication",
+          "databases",
+          "python"
+        ],
+        reqLevel: {
+          communication: "strong",
+          databases: "strong",
+          python: "strong"
+        },
+        desc: "Campus recruitment for Systems Engineer at JP Morgan Chase. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join JP Morgan Chase as a Systems Engineer and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Systems Engineer\\nCompany: JP Morgan Chase\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin JP Morgan Chase as a Systems Engineer... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      },
+      {
+        title: "Software Developer",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "dsa",
+          "java",
+          "databases",
+          "communication"
+        ],
+        reqLevel: {
+          dsa: "strong",
+          java: "strong",
+          databases: "strong",
+          communication: "strong"
+        },
+        desc: "Campus recruitment for Software Developer at JP Morgan Chase. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join JP Morgan Chase as a Software Developer and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Software Developer\\nCompany: JP Morgan Chase\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin JP Morgan Chase as a Software Developer... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      },
+      {
+        title: "Data Analyst",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "communication",
+          "databases",
+          "python"
+        ],
+        reqLevel: {
+          communication: "strong",
+          databases: "strong",
+          python: "strong"
+        },
+        desc: "Campus recruitment for Data Analyst at JP Morgan Chase. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join JP Morgan Chase as a Data Analyst and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Data Analyst\\nCompany: JP Morgan Chase\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin JP Morgan Chase as a Data Analyst... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      }
+    ]
+  },
+  {
+    id: "morgan",
+    name: "Morgan Stanley",
+    logo: "MS",
+    gradient: "from-blue-700 to-blue-500",
+    industry: "Finance",
+    hq: "New York, NY",
+    tier: "MNC",
+    hiring2023: 1200,
+    hiring2024: 1000,
+    trend: "stable",
+    openRoles: 200,
+    avgPackage: "₹16-30 LPA",
+    glassdoor: 4.1,
+    roles: [
+      {
+        title: "Systems Engineer",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "communication",
+          "databases",
+          "python"
+        ],
+        reqLevel: {
+          communication: "strong",
+          databases: "strong",
+          python: "strong"
+        },
+        desc: "Campus recruitment for Systems Engineer at Morgan Stanley. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Morgan Stanley as a Systems Engineer and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Systems Engineer\\nCompany: Morgan Stanley\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Morgan Stanley as a Systems Engineer... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      },
+      {
+        title: "Software Developer",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "dsa",
+          "java",
+          "databases",
+          "communication"
+        ],
+        reqLevel: {
+          dsa: "strong",
+          java: "strong",
+          databases: "strong",
+          communication: "strong"
+        },
+        desc: "Campus recruitment for Software Developer at Morgan Stanley. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Morgan Stanley as a Software Developer and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Software Developer\\nCompany: Morgan Stanley\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Morgan Stanley as a Software Developer... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      },
+      {
+        title: "Data Analyst",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "communication",
+          "databases",
+          "python"
+        ],
+        reqLevel: {
+          communication: "strong",
+          databases: "strong",
+          python: "strong"
+        },
+        desc: "Campus recruitment for Data Analyst at Morgan Stanley. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Morgan Stanley as a Data Analyst and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Data Analyst\\nCompany: Morgan Stanley\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Morgan Stanley as a Data Analyst... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      }
+    ]
+  },
+  {
+    id: "deloitte",
+    name: "Deloitte",
+    logo: "DEL",
+    gradient: "from-green-600 to-green-400",
+    industry: "Consulting",
+    hq: "London, UK",
+    tier: "MNC",
+    hiring2023: 15000,
+    hiring2024: 12000,
+    trend: "stable",
+    openRoles: 1500,
+    avgPackage: "₹6.5-12 LPA",
+    glassdoor: 4,
+    roles: [
+      {
+        title: "Systems Engineer",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "communication",
+          "databases",
+          "python"
+        ],
+        reqLevel: {
+          communication: "strong",
+          databases: "strong",
+          python: "strong"
+        },
+        desc: "Campus recruitment for Systems Engineer at Deloitte. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Deloitte as a Systems Engineer and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Systems Engineer\\nCompany: Deloitte\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Deloitte as a Systems Engineer... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      },
+      {
+        title: "Software Developer",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "dsa",
+          "java",
+          "databases",
+          "communication"
+        ],
+        reqLevel: {
+          dsa: "strong",
+          java: "strong",
+          databases: "strong",
+          communication: "strong"
+        },
+        desc: "Campus recruitment for Software Developer at Deloitte. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Deloitte as a Software Developer and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Software Developer\\nCompany: Deloitte\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Deloitte as a Software Developer... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      },
+      {
+        title: "Data Analyst",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "communication",
+          "databases",
+          "python"
+        ],
+        reqLevel: {
+          communication: "strong",
+          databases: "strong",
+          python: "strong"
+        },
+        desc: "Campus recruitment for Data Analyst at Deloitte. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Deloitte as a Data Analyst and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Data Analyst\\nCompany: Deloitte\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Deloitte as a Data Analyst... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      }
+    ]
+  },
+  {
+    id: "ey",
+    name: "EY",
+    logo: "EY",
+    gradient: "from-yellow-400 to-yellow-200",
+    industry: "Consulting",
+    hq: "London, UK",
+    tier: "MNC",
+    hiring2023: 12000,
+    hiring2024: 10000,
+    trend: "stable",
+    openRoles: 1100,
+    avgPackage: "₹5.5-10 LPA",
+    glassdoor: 3.9,
+    roles: [
+      {
+        title: "Systems Engineer",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "communication",
+          "databases",
+          "python"
+        ],
+        reqLevel: {
+          communication: "strong",
+          databases: "strong",
+          python: "strong"
+        },
+        desc: "Campus recruitment for Systems Engineer at EY. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join EY as a Systems Engineer and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Systems Engineer\\nCompany: EY\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin EY as a Systems Engineer... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      },
+      {
+        title: "Software Developer",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "dsa",
+          "java",
+          "databases",
+          "communication"
+        ],
+        reqLevel: {
+          dsa: "strong",
+          java: "strong",
+          databases: "strong",
+          communication: "strong"
+        },
+        desc: "Campus recruitment for Software Developer at EY. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join EY as a Software Developer and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Software Developer\\nCompany: EY\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin EY as a Software Developer... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      },
+      {
+        title: "Data Analyst",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "communication",
+          "databases",
+          "python"
+        ],
+        reqLevel: {
+          communication: "strong",
+          databases: "strong",
+          python: "strong"
+        },
+        desc: "Campus recruitment for Data Analyst at EY. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join EY as a Data Analyst and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Data Analyst\\nCompany: EY\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin EY as a Data Analyst... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      }
+    ]
+  },
+  {
+    id: "pwc",
+    name: "PwC",
+    logo: "PWC",
+    gradient: "from-orange-500 to-orange-300",
+    industry: "Consulting",
+    hq: "London, UK",
+    tier: "MNC",
+    hiring2023: 10000,
+    hiring2024: 8000,
+    trend: "down",
+    openRoles: 900,
+    avgPackage: "₹6.0-11 LPA",
+    glassdoor: 3.9,
+    roles: [
+      {
+        title: "Systems Engineer",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "communication",
+          "databases",
+          "python"
+        ],
+        reqLevel: {
+          communication: "strong",
+          databases: "strong",
+          python: "strong"
+        },
+        desc: "Campus recruitment for Systems Engineer at PwC. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join PwC as a Systems Engineer and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Systems Engineer\\nCompany: PwC\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin PwC as a Systems Engineer... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      },
+      {
+        title: "Software Developer",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "dsa",
+          "java",
+          "databases",
+          "communication"
+        ],
+        reqLevel: {
+          dsa: "strong",
+          java: "strong",
+          databases: "strong",
+          communication: "strong"
+        },
+        desc: "Campus recruitment for Software Developer at PwC. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join PwC as a Software Developer and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Software Developer\\nCompany: PwC\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin PwC as a Software Developer... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      },
+      {
+        title: "Data Analyst",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "communication",
+          "databases",
+          "python"
+        ],
+        reqLevel: {
+          communication: "strong",
+          databases: "strong",
+          python: "strong"
+        },
+        desc: "Campus recruitment for Data Analyst at PwC. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join PwC as a Data Analyst and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Data Analyst\\nCompany: PwC\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin PwC as a Data Analyst... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      }
+    ]
+  },
+  {
+    id: "kpmg",
+    name: "KPMG",
+    logo: "KPMG",
+    gradient: "from-blue-800 to-blue-500",
+    industry: "Consulting",
+    hq: "Amstelveen, NL",
+    tier: "MNC",
+    hiring2023: 8000,
+    hiring2024: 7000,
+    trend: "stable",
+    openRoles: 800,
+    avgPackage: "₹5.5-10 LPA",
+    glassdoor: 3.8,
+    roles: [
+      {
+        title: "Systems Engineer",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "communication",
+          "databases",
+          "python"
+        ],
+        reqLevel: {
+          communication: "strong",
+          databases: "strong",
+          python: "strong"
+        },
+        desc: "Campus recruitment for Systems Engineer at KPMG. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join KPMG as a Systems Engineer and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Systems Engineer\\nCompany: KPMG\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin KPMG as a Systems Engineer... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      },
+      {
+        title: "Software Developer",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "dsa",
+          "java",
+          "databases",
+          "communication"
+        ],
+        reqLevel: {
+          dsa: "strong",
+          java: "strong",
+          databases: "strong",
+          communication: "strong"
+        },
+        desc: "Campus recruitment for Software Developer at KPMG. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join KPMG as a Software Developer and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Software Developer\\nCompany: KPMG\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin KPMG as a Software Developer... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      },
+      {
+        title: "Data Analyst",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "communication",
+          "databases",
+          "python"
+        ],
+        reqLevel: {
+          communication: "strong",
+          databases: "strong",
+          python: "strong"
+        },
+        desc: "Campus recruitment for Data Analyst at KPMG. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join KPMG as a Data Analyst and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Data Analyst\\nCompany: KPMG\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin KPMG as a Data Analyst... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      }
+    ]
+  },
+  {
+    id: "samsung",
+    name: "Samsung R&D",
+    logo: "SAM",
+    gradient: "from-blue-700 to-indigo-600",
+    industry: "Electronics",
+    hq: "Suwon, SK",
+    tier: "MNC",
+    hiring2023: 3000,
+    hiring2024: 2500,
+    trend: "stable",
+    openRoles: 400,
+    avgPackage: "₹14-22 LPA",
+    glassdoor: 4,
+    roles: [
+      {
+        title: "Systems Engineer",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "communication",
+          "databases",
+          "python"
+        ],
+        reqLevel: {
+          communication: "strong",
+          databases: "strong",
+          python: "strong"
+        },
+        desc: "Campus recruitment for Systems Engineer at Samsung R&D. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Samsung R&D as a Systems Engineer and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Systems Engineer\\nCompany: Samsung R&D\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Samsung R&D as a Systems Engineer... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      },
+      {
+        title: "Software Developer",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "dsa",
+          "java",
+          "databases",
+          "communication"
+        ],
+        reqLevel: {
+          dsa: "strong",
+          java: "strong",
+          databases: "strong",
+          communication: "strong"
+        },
+        desc: "Campus recruitment for Software Developer at Samsung R&D. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Samsung R&D as a Software Developer and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Software Developer\\nCompany: Samsung R&D\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Samsung R&D as a Software Developer... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      },
+      {
+        title: "Data Analyst",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "communication",
+          "databases",
+          "python"
+        ],
+        reqLevel: {
+          communication: "strong",
+          databases: "strong",
+          python: "strong"
+        },
+        desc: "Campus recruitment for Data Analyst at Samsung R&D. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Samsung R&D as a Data Analyst and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Data Analyst\\nCompany: Samsung R&D\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Samsung R&D as a Data Analyst... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      }
+    ]
+  },
+  {
+    id: "qualcomm",
+    name: "Qualcomm",
+    logo: "QCOM",
+    gradient: "from-blue-600 to-blue-400",
+    industry: "Semiconductors",
+    hq: "San Diego, CA",
+    tier: "MNC",
+    hiring2023: 2000,
+    hiring2024: 1800,
+    trend: "stable",
+    openRoles: 300,
+    avgPackage: "₹18-35 LPA",
+    glassdoor: 4.1,
+    roles: [
+      {
+        title: "Systems Engineer",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "communication",
+          "databases",
+          "python"
+        ],
+        reqLevel: {
+          communication: "strong",
+          databases: "strong",
+          python: "strong"
+        },
+        desc: "Campus recruitment for Systems Engineer at Qualcomm. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Qualcomm as a Systems Engineer and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Systems Engineer\\nCompany: Qualcomm\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Qualcomm as a Systems Engineer... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      },
+      {
+        title: "Software Developer",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "dsa",
+          "java",
+          "databases",
+          "communication"
+        ],
+        reqLevel: {
+          dsa: "strong",
+          java: "strong",
+          databases: "strong",
+          communication: "strong"
+        },
+        desc: "Campus recruitment for Software Developer at Qualcomm. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Qualcomm as a Software Developer and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Software Developer\\nCompany: Qualcomm\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Qualcomm as a Software Developer... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      },
+      {
+        title: "Data Analyst",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "communication",
+          "databases",
+          "python"
+        ],
+        reqLevel: {
+          communication: "strong",
+          databases: "strong",
+          python: "strong"
+        },
+        desc: "Campus recruitment for Data Analyst at Qualcomm. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Qualcomm as a Data Analyst and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Data Analyst\\nCompany: Qualcomm\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Qualcomm as a Data Analyst... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      }
+    ]
+  },
+  {
+    id: "adobe",
+    name: "Adobe",
+    logo: "ADBE",
+    gradient: "from-red-600 to-red-500",
+    industry: "Software",
+    hq: "San Jose, CA",
+    tier: "MNC",
+    hiring2023: 1000,
+    hiring2024: 800,
+    trend: "stable",
+    openRoles: 150,
+    avgPackage: "₹22-40 LPA",
+    glassdoor: 4.4,
+    roles: [
+      {
+        title: "Systems Engineer",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "communication",
+          "databases",
+          "python"
+        ],
+        reqLevel: {
+          communication: "strong",
+          databases: "strong",
+          python: "strong"
+        },
+        desc: "Campus recruitment for Systems Engineer at Adobe. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Adobe as a Systems Engineer and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Systems Engineer\\nCompany: Adobe\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Adobe as a Systems Engineer... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      },
+      {
+        title: "Software Developer",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "dsa",
+          "java",
+          "databases",
+          "communication"
+        ],
+        reqLevel: {
+          dsa: "strong",
+          java: "strong",
+          databases: "strong",
+          communication: "strong"
+        },
+        desc: "Campus recruitment for Software Developer at Adobe. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Adobe as a Software Developer and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Software Developer\\nCompany: Adobe\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Adobe as a Software Developer... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      },
+      {
+        title: "Data Analyst",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "communication",
+          "databases",
+          "python"
+        ],
+        reqLevel: {
+          communication: "strong",
+          databases: "strong",
+          python: "strong"
+        },
+        desc: "Campus recruitment for Data Analyst at Adobe. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Adobe as a Data Analyst and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Data Analyst\\nCompany: Adobe\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Adobe as a Data Analyst... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      }
+    ]
+  },
+  {
+    id: "walmart",
+    name: "Walmart Global Tech",
+    logo: "WMT",
+    gradient: "from-blue-500 to-yellow-400",
+    industry: "Retail/Tech",
+    hq: "Bentonville, AR",
+    tier: "MNC",
+    hiring2023: 4000,
+    hiring2024: 3500,
+    trend: "stable",
+    openRoles: 600,
+    avgPackage: "₹16-32 LPA",
+    glassdoor: 4.1,
+    roles: [
+      {
+        title: "Systems Engineer",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "communication",
+          "databases",
+          "python"
+        ],
+        reqLevel: {
+          communication: "strong",
+          databases: "strong",
+          python: "strong"
+        },
+        desc: "Campus recruitment for Systems Engineer at Walmart Global Tech. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Walmart Global Tech as a Systems Engineer and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Systems Engineer\\nCompany: Walmart Global Tech\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Walmart Global Tech as a Systems Engineer... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      },
+      {
+        title: "Software Developer",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "dsa",
+          "java",
+          "databases",
+          "communication"
+        ],
+        reqLevel: {
+          dsa: "strong",
+          java: "strong",
+          databases: "strong",
+          communication: "strong"
+        },
+        desc: "Campus recruitment for Software Developer at Walmart Global Tech. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Walmart Global Tech as a Software Developer and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Software Developer\\nCompany: Walmart Global Tech\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Walmart Global Tech as a Software Developer... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      },
+      {
+        title: "Data Analyst",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "communication",
+          "databases",
+          "python"
+        ],
+        reqLevel: {
+          communication: "strong",
+          databases: "strong",
+          python: "strong"
+        },
+        desc: "Campus recruitment for Data Analyst at Walmart Global Tech. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Walmart Global Tech as a Data Analyst and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Data Analyst\\nCompany: Walmart Global Tech\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Walmart Global Tech as a Data Analyst... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      }
+    ]
+  },
+  {
+    id: "barclays",
+    name: "Barclays",
+    logo: "BARC",
+    gradient: "from-cyan-600 to-blue-500",
+    industry: "Finance",
+    hq: "London, UK",
+    tier: "MNC",
+    hiring2023: 1500,
+    hiring2024: 1200,
+    trend: "down",
+    openRoles: 250,
+    avgPackage: "₹14-25 LPA",
+    glassdoor: 4,
+    roles: [
+      {
+        title: "Systems Engineer",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "communication",
+          "databases",
+          "python"
+        ],
+        reqLevel: {
+          communication: "strong",
+          databases: "strong",
+          python: "strong"
+        },
+        desc: "Campus recruitment for Systems Engineer at Barclays. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Barclays as a Systems Engineer and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Systems Engineer\\nCompany: Barclays\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Barclays as a Systems Engineer... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      },
+      {
+        title: "Software Developer",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "dsa",
+          "java",
+          "databases",
+          "communication"
+        ],
+        reqLevel: {
+          dsa: "strong",
+          java: "strong",
+          databases: "strong",
+          communication: "strong"
+        },
+        desc: "Campus recruitment for Software Developer at Barclays. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Barclays as a Software Developer and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Software Developer\\nCompany: Barclays\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Barclays as a Software Developer... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      },
+      {
+        title: "Data Analyst",
+        level: "Fresher / Entry-Level",
+        competencies: [
+          "communication",
+          "databases",
+          "python"
+        ],
+        reqLevel: {
+          communication: "strong",
+          databases: "strong",
+          python: "strong"
+        },
+        desc: "Campus recruitment for Data Analyst at Barclays. Extensive multi-round evaluation.",
+        location: "Pan India",
+        employmentType: "Full-time",
+        experienceLevel: "0-2 years",
+        aboutRole: "Join Barclays as a Data Analyst and kickstart your career working on enterprise-scale projects. You will undergo rigorous training and work with global teams to deliver high-quality solutions.",
+        responsibilities: [
+          "Understand project requirements and business logic.",
+          "Develop, test, and deploy software modules.",
+          "Collaborate with senior developers and cross-functional teams.",
+          "Participate in code reviews and agile rituals.",
+          "Ensure adherence to coding standards and security guidelines.",
+          "Continuously learn and adapt to new technologies and frameworks."
+        ],
+        qualifications: [
+          "B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.",
+          "Minimum 60% or 6.0 CGPA throughout academics.",
+          "No active backlogs at the time of joining.",
+          "Strong foundational knowledge in Data Structures and Algorithms.",
+          "Good understanding of RDBMS, SQL, and Object-Oriented Programming.",
+          "Excellent communication and teamwork skills."
+        ],
+        hiringProcess: [
+          "Online Aptitude & Technical Test",
+          "Coding Assessment",
+          "Technical Interview",
+          "HR Interview",
+          "Offer Rollout"
+        ],
+        fullText: "Job Title: Data Analyst\\nCompany: Barclays\\nLocation: Pan India\\n\\nAbout the Role:\\nJoin Barclays as a Data Analyst... [Expanded Full JD Content]\\n\\nKey Responsibilities:\\n- Understand project requirements and business logic.\\n- Develop, test, and deploy software modules.\\n- Collaborate with senior developers and cross-functional teams.\\n\\nQualifications:\\n- B.Tech/B.E/M.Tech/MCA in Computer Science, IT, or related fields.\\n- Minimum 60% or 6.0 CGPA throughout academics.\\n- Strong foundational knowledge in Data Structures and Algorithms.\\n\\nHiring Process:\\n- Online Aptitude & Technical Test\\n- Coding Assessment\\n- Technical Interview\\n- HR Interview"
+      }
+    ]
   }
 ];
 
