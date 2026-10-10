@@ -13,9 +13,10 @@ export type OutreachChannel =
   | 'linkedin_inmail'
   | 'cold_email'
   | 'warm_referral'
-  | 'follow_up';
+  | 'follow_up'
+  | 'academic_outreach';
 
-export type RecipientType = 'Recruiter' | 'Hiring Manager' | 'Peer Engineer' | 'Alumnus';
+export type RecipientType = 'Recruiter' | 'Hiring Manager' | 'Peer Engineer' | 'Alumnus' | 'Professor' | 'Admissions';
 
 export interface OutreachSlots {
   recipientName?: string;
@@ -31,6 +32,8 @@ export interface OutreachSlots {
   portfolioLink?: string;
   candidateName?: string;
   candidateEmail?: string;
+  researchTopic?: string;
+  mastersProgram?: string;
 }
 
 export interface OutreachTemplateItem {
@@ -73,6 +76,8 @@ const DEFAULT_SLOT_PLACEHOLDERS: Record<string, string> = {
   portfolioLink: '[Portfolio / GitHub Link]',
   candidateName: '[Your Name]',
   candidateEmail: '[Your Email]',
+  researchTopic: '[Research Topic / Paper Title]',
+  mastersProgram: '[Masters Program Name]',
 };
 
 /**
@@ -171,6 +176,8 @@ export function fillSlots(templateText: string, slots: OutreachSlots): string {
     portfolioLink: slots.portfolioLink?.trim() || DEFAULT_SLOT_PLACEHOLDERS.portfolioLink,
     candidateName: slots.candidateName?.trim() || DEFAULT_SLOT_PLACEHOLDERS.candidateName,
     candidateEmail: slots.candidateEmail?.trim() || DEFAULT_SLOT_PLACEHOLDERS.candidateEmail,
+    researchTopic: slots.researchTopic?.trim() || DEFAULT_SLOT_PLACEHOLDERS.researchTopic,
+    mastersProgram: slots.mastersProgram?.trim() || DEFAULT_SLOT_PLACEHOLDERS.mastersProgram,
   };
 
   for (const [key, val] of Object.entries(slotMap)) {

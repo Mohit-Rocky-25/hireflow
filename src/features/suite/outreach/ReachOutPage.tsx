@@ -1,8 +1,9 @@
 // ============================================================
 // Suite UI — Reach Out (/tools/reach-out)
 // Decision Group: "How do I present myself better?"
-// Cold outreach message generator across 5 channels:
-// LinkedIn connect (300 char limit), InMail, Cold email, Referral, Follow-up.
+// Cold outreach message generator across 6 channels:
+// LinkedIn connect (300 char limit), InMail, Cold email, Referral, Follow-up,
+// Academic Outreach (professor / admissions).
 // Deterministic slot-filling, live char counters, and placeholder detection.
 // ============================================================
 
@@ -37,13 +38,14 @@ import {
 import { useProfile } from '../profile/ProfileContext';
 import { careers } from '../../../careers-core';
 
-const CHANNELS: { id: OutreachChannel | 'all'; label: string }[] = [
-  { id: 'all', label: 'All Channels (15)' },
-  { id: 'linkedin_connect', label: 'LinkedIn Connect (300 char)' },
-  { id: 'linkedin_inmail', label: 'LinkedIn InMail' },
-  { id: 'cold_email', label: 'Cold Email' },
-  { id: 'warm_referral', label: 'Warm Referral' },
-  { id: 'follow_up', label: 'Follow-Up' },
+const CHANNELS: { id: OutreachChannel | 'all'; label: string; emoji: string }[] = [
+  { id: 'all', label: 'All Channels (50)', emoji: '🗂️' },
+  { id: 'linkedin_connect', label: 'LinkedIn Connect (300 char)', emoji: '🔗' },
+  { id: 'linkedin_inmail', label: 'LinkedIn InMail', emoji: '💬' },
+  { id: 'cold_email', label: 'Cold Email', emoji: '📧' },
+  { id: 'warm_referral', label: 'Warm Referral', emoji: '🤝' },
+  { id: 'follow_up', label: 'Follow-Up', emoji: '🔄' },
+  { id: 'academic_outreach', label: 'Academic / MS Outreach', emoji: '🎓' },
 ];
 
 export function ReachOutPage() {
@@ -64,6 +66,9 @@ export function ReachOutPage() {
   const [collegeName, setCollegeName] = useState<string>('');
   const [admiredProject, setAdmiredProject] = useState<string>('UPI payment switch');
   const [portfolioLink, setPortfolioLink] = useState<string>('github.com/myname/portfolio');
+  // Academic-outreach-specific slots
+  const [researchTopic, setResearchTopic] = useState<string>('');
+  const [mastersProgram, setMastersProgram] = useState<string>('');
 
   // Copy toast state: templateId -> boolean
   const [copiedId, setCopiedId] = useState<string | null>(null);
@@ -110,6 +115,8 @@ export function ReachOutPage() {
       portfolioLink: portfolioLink || undefined,
       candidateName: profile?.identity?.name || undefined,
       candidateEmail: profile?.identity?.email || undefined,
+      researchTopic: researchTopic || undefined,
+      mastersProgram: mastersProgram || undefined,
     };
   }, [
     targetCompany,
@@ -123,6 +130,8 @@ export function ReachOutPage() {
     collegeName,
     admiredProject,
     portfolioLink,
+    researchTopic,
+    mastersProgram,
     profile,
   ]);
 
@@ -239,6 +248,8 @@ export function ReachOutPage() {
                 <option value="Hiring Manager">Hiring Manager / Tech Lead</option>
                 <option value="Peer Engineer">Peer Software Engineer</option>
                 <option value="Alumnus">Alumnus / Second-degree Connection</option>
+                <option value="Professor">Professor / Faculty (Academic)</option>
+                <option value="Admissions">Admissions Office / Program Director</option>
               </select>
             </div>
 
@@ -313,6 +324,40 @@ export function ReachOutPage() {
                 className="w-full bg-surface-2 border border-border rounded-xl px-3 py-2 text-xs text-text focus:outline-none focus:border-primary"
               />
             </div>
+
+            {/* Academic: Research Topic */}
+            {(activeChannel === 'academic_outreach' || activeChannel === 'all') && (
+              <div>
+                <label className="block text-xs font-semibold text-text-secondary mb-1">
+                  🎓 Research Topic / Paper Title
+                  <span className="ml-1 text-[10px] text-primary font-normal">(Academic only)</span>
+                </label>
+                <input
+                  type="text"
+                  value={researchTopic}
+                  onChange={(e) => setResearchTopic(e.target.value)}
+                  placeholder="e.g. Federated Learning for NLP, LLM inference optimization"
+                  className="w-full bg-surface-2 border border-primary/30 rounded-xl px-3 py-2 text-xs text-text focus:outline-none focus:border-primary"
+                />
+              </div>
+            )}
+
+            {/* Academic: Masters Program */}
+            {(activeChannel === 'academic_outreach' || activeChannel === 'all') && (
+              <div>
+                <label className="block text-xs font-semibold text-text-secondary mb-1">
+                  🎓 Masters / PhD Program Name
+                  <span className="ml-1 text-[10px] text-primary font-normal">(Academic only)</span>
+                </label>
+                <input
+                  type="text"
+                  value={mastersProgram}
+                  onChange={(e) => setMastersProgram(e.target.value)}
+                  placeholder="e.g. MS in Computer Science, MEng in AI"
+                  className="w-full bg-surface-2 border border-primary/30 rounded-xl px-3 py-2 text-xs text-text focus:outline-none focus:border-primary"
+                />
+              </div>
+            )}
           </div>
         </div>
 
@@ -322,12 +367,13 @@ export function ReachOutPage() {
             <button
               key={ch.id}
               onClick={() => setActiveChannel(ch.id)}
-              className={`px-4 py-3 text-xs font-bold whitespace-nowrap border-b-2 transition-colors cursor-pointer ${
+              className={`px-4 py-3 text-xs font-bold whitespace-nowrap border-b-2 transition-colors cursor-pointer flex items-center gap-1.5 ${
                 activeChannel === ch.id
                   ? 'border-primary text-primary'
                   : 'border-transparent text-text-secondary hover:text-text'
               }`}
             >
+              <span>{ch.emoji}</span>
               {ch.label}
             </button>
           ))}
@@ -364,10 +410,12 @@ export function ReachOutPage() {
                           ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
                           : msg.channel === 'warm_referral'
                           ? 'bg-amber-500/10 text-amber-400 border-amber-500/20'
+                          : msg.channel === 'academic_outreach'
+                          ? 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20'
                           : 'bg-rose-500/10 text-rose-400 border-rose-500/20'
                       }`}
                     >
-                      {msg.channel.replace('_', ' ')}
+                      {msg.channel === 'academic_outreach' ? '🎓 Academic' : msg.channel.replace(/_/g, ' ')}
                     </span>
                   </div>
 

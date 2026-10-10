@@ -1,137 +1,452 @@
 [
   {
-    "id": "li_connect_standard",
+    "id": "li_connect_signal_trigger",
     "channel": "linkedin_connect",
-    "name": "LinkedIn Connect: Direct",
+    "name": "Signal Trigger: They Posted Content",
+    "targetAudience": "Hiring Manager",
+    "maxLength": 300,
+    "template": "Hi {{recipientName}}, your recent post about {{admiredProject}} was spot-on. I've been solving the exact same problem with {{primarySkill}}. I'm exploring {{targetRole}} roles—would love to stay connected and follow your work.",
+    "description": "Triggered by a recent post/article. Referencing specific content instantly bypasses the 'generic spam' filter. Under 300 chars."
+  },
+  {
+    "id": "li_connect_tech_blog_hook",
+    "channel": "linkedin_connect",
+    "name": "Tech Blog Hook: Specific Insight",
+    "targetAudience": "Peer Engineer",
+    "maxLength": 300,
+    "template": "Hi {{recipientName}}, {{targetCompany}}'s eng blog post on {{admiredProject}} was brilliant—especially the trade-off decision on {{primarySkill}}. I've faced similar architecture decisions. Would love to connect with folks doing this kind of work.",
+    "description": "References a specific technical decision from a company blog, signaling you've done your homework. Not a job-ask — builds rapport first."
+  },
+  {
+    "id": "li_connect_funding_trigger",
+    "channel": "linkedin_connect",
+    "name": "Funding Round / Growth Trigger",
     "targetAudience": "Recruiter / Hiring Manager",
     "maxLength": 300,
-    "template": "Hi {{recipientName}}, I saw {{targetCompany}} is hiring a {{targetRole}}. I recently accomplished: {{proofPoint}}. I'd love to connect and see if my background in {{primarySkill}} aligns with what your team needs right now. Thanks, {{candidateName}}",
-    "description": "A strict <300 char LinkedIn connection request that immediately gets to the point."
+    "template": "Hi {{recipientName}}, congrats on {{targetCompany}}'s recent growth! Engineering scale-ups after funding are exciting inflection points. I've navigated this as a {{primarySkill}} engineer ({{proofPoint}}). Would love to connect. — {{candidateName}}",
+    "description": "Responds to a company trigger like a funding round or product launch. Positioning yourself as someone who thrives in high-growth phases."
   },
   {
-    "id": "li_connect_alumni",
+    "id": "li_connect_competitor_lateral",
     "channel": "linkedin_connect",
-    "name": "LinkedIn Connect: Alumni",
-    "targetAudience": "Alumnus",
-    "maxLength": 300,
-    "template": "Hi {{recipientName}}, fellow {{collegeName}} grad here! I'm applying for the {{targetRole}} role at {{targetCompany}} and have strong experience in {{primarySkill}}. I'd love to connect to hear your thoughts on the engineering culture there. Best, {{candidateName}}",
-    "description": "Leverages university common ground under the 300 character limit."
-  },
-  {
-    "id": "li_connect_peer",
-    "channel": "linkedin_connect",
-    "name": "LinkedIn Connect: Peer Engineer",
+    "name": "Competitor Lateral Move: Domain Expert",
     "targetAudience": "Peer Engineer",
     "maxLength": 300,
-    "template": "Hi {{recipientName}}, admired your team's work at {{targetCompany}} on {{admiredProject}}. I specialize in {{primarySkill}} (notably: {{proofPoint}}). Would love to connect and follow your engineering journey! - {{candidateName}}",
-    "description": "Short peer-to-peer networking message under 300 characters."
+    "template": "Hi {{recipientName}}, I've spent years solving similar problems at a company in the same space as {{targetCompany}}—specifically in {{primarySkill}}. Would love to connect and exchange notes on how you all approach it. No agenda! — {{candidateName}}",
+    "description": "Doesn't ask for a job at all. Pure networking play. Engineers respond well to peers who want to learn, not just extract referrals."
   },
   {
-    "id": "li_inmail_recruiter",
-    "channel": "linkedin_inmail",
-    "name": "InMail: Talent Acquisition",
-    "targetAudience": "Recruiter",
-    "subject": "Regarding {{targetRole}} at {{targetCompany}}",
-    "template": "Hi {{recipientName}},\n\nI noticed {{targetCompany}} is hiring for {{targetRole}} on the engineering team. Over the past few years, I've specialized in {{primarySkill}}.\n\nMost recently, I {{proofPoint}}.\n\nI'd love to learn if my background aligns with open priorities on the team. I've attached my portfolio ({{portfolioLink}}) for reference. Are you open to a brief chat?\n\nBest,\n{{candidateName}}",
-    "description": "Polite and compelling InMail tailored for recruiters and talent acquisition leads."
-  },
-  {
-    "id": "li_inmail_hiring_manager",
-    "channel": "linkedin_inmail",
-    "name": "InMail: Engineering Leader",
-    "targetAudience": "Hiring Manager",
-    "subject": "Engineering contribution to {{targetCompany}} ({{targetRole}})",
-    "template": "Hi {{recipientName}},\n\nI came across your team's initiatives at {{targetCompany}} and was impressed by {{admiredProject}}. As an engineer passionate about {{primarySkill}}, I recently {{proofPoint}}.\n\nI'm very interested in the {{targetRole}} opening and would appreciate the chance to discuss how I can hit the ground running.\n\nLooking forward to connecting.\n\nSincerely,\n{{candidateName}}\n{{portfolioLink}}",
-    "description": "Technical leadership InMail highlighting direct project admiration and quantifiable impact."
-  },
-  {
-    "id": "li_inmail_pitch",
-    "channel": "linkedin_inmail",
-    "name": "InMail: Quick Stack Pitch",
-    "targetAudience": "Hiring Manager",
-    "subject": "{{primarySkill}} engineer interested in {{targetRole}} at {{targetCompany}}",
-    "template": "Hi {{recipientName}},\n\nReaching out directly regarding the {{targetRole}} role at {{targetCompany}}.\n\nMy core stack is {{primarySkill}}, and my #1 quantifiable achievement is: {{proofPoint}}.\n\nI've been following {{targetCompany}}'s growth and would love 10 minutes to discuss how my skill set could add value to current sprint goals.\n\nBest regards,\n{{candidateName}}\n{{portfolioLink}}",
-    "description": "Action-oriented InMail with high signal-to-noise ratio."
-  },
-  {
-    "id": "eng_mgr_cold",
-    "channel": "cold_email",
-    "name": "Bypass ATS: Engineering Manager",
-    "targetAudience": "Engineering Manager",
-    "subject": "Quick question regarding {{targetRole}} at {{targetCompany}}",
-    "template": "Hi {{recipientName}},\n\nI noticed {{targetCompany}} is expanding the engineering team and hiring for the {{targetRole}} position. Instead of just dropping my resume in the ATS portal, I wanted to reach out directly.\n\nI recently solved a similar technical challenge: {{proofPoint}}.\n\nGiven the overlap between what you're building and my recent work, I'd love to chat briefly to see if there's a mutual fit. Are you open to a quick 10-minute call later this week?\n\nBest regards,\n{{candidateName}}\n{{portfolioLink}}",
-    "description": "A direct, value-driven cold email to a hiring manager highlighting a specific technical proof point."
-  },
-  {
-    "id": "eng_mgr_cold_short",
-    "channel": "cold_email",
-    "name": "Bypass ATS: Short & Punchy",
-    "targetAudience": "Engineering Manager",
-    "subject": "{{targetRole}} candidate w/ {{primarySkill}} experience",
-    "template": "Hi {{recipientName}},\n\nI'm reaching out because I saw your team is hiring for a {{targetRole}}. I have strong experience in {{primarySkill}} and recently delivered this result: {{proofPoint}}.\n\nI'm a big fan of what {{targetCompany}} is doing with {{admiredProject}}. I've attached my resume—would you be open to a brief chat this week?\n\nThanks,\n{{candidateName}}\n{{portfolioLink}}",
-    "description": "A very concise cold email for busy engineering managers."
-  },
-  {
-    "id": "cold_email_project_admirer",
-    "channel": "cold_email",
-    "name": "Bypass ATS: Tech Stack Alignment",
-    "targetAudience": "Hiring Manager",
-    "subject": "Feedback on {{admiredProject}} & interest in {{targetRole}}",
-    "template": "Hi {{recipientName}},\n\nI've been closely following {{targetCompany}}'s release of {{admiredProject}} and love the architecture choices.\n\nAs an engineer working with {{primarySkill}}, I recently {{proofPoint}}. I saw the open {{targetRole}} role and think I could contribute immediately.\n\nWould you be open to a quick chat to discuss technical priorities?\n\nBest,\n{{candidateName}}\n{{portfolioLink}}",
-    "description": "Engaging cold email demonstrating genuine knowledge of the company's tech stack."
-  },
-  {
-    "id": "warm_referral_mutual",
-    "channel": "warm_referral",
-    "name": "Warm Referral: Mutual Contact",
+    "id": "li_connect_open_source_collab",
+    "channel": "linkedin_connect",
+    "name": "Open-Source Contributor Recognition",
     "targetAudience": "Peer Engineer",
-    "subject": "Connecting via {{commonGround}} regarding {{targetRole}} at {{targetCompany}}",
-    "template": "Hi {{recipientName}},\n\n{{commonGround}} suggested I reach out to you directly! I'm applying for the {{targetRole}} role at {{targetCompany}}.\n\nI have a strong background in {{primarySkill}} and recently {{proofPoint}}. Knowing the high standards at {{targetCompany}}, I'd love to ask a couple of quick questions about your experience on the team.\n\nThanks so much for your time!\n\nBest,\n{{candidateName}}\n{{portfolioLink}}",
-    "description": "High-conversion warm intro leveraging a common connection or mutual interest."
+    "maxLength": 300,
+    "template": "Hi {{recipientName}}, I saw your contributions to {{admiredProject}}—great work on the {{primarySkill}} implementation. I've been contributing to similar projects ({{proofPoint}}). Would love to connect with engineers doing this kind of work!",
+    "description": "Connects via a shared open-source contribution. Highest signal for engineering credibility — no ATS can filter this."
   },
   {
-    "id": "warm_referral_alumni",
+    "id": "li_inmail_problem_first",
+    "channel": "linkedin_inmail",
+    "name": "Problem-First InMail: Name Their Pain",
+    "targetAudience": "Hiring Manager",
+    "subject": "The {{primarySkill}} scaling problem you're probably dealing with",
+    "template": "Hi {{recipientName}},\n\nEvery team scaling {{primarySkill}} past a certain point hits the same wall—{{admiredProject}} is a classic example of where that gets painful.\n\nI spent the last year solving exactly this: {{proofPoint}}. I documented the entire approach here: {{portfolioLink}}.\n\nI noticed the {{targetRole}} opening at {{targetCompany}}. I think I could be useful. Worth a 15-minute call to find out?\n\n— {{candidateName}}",
+    "description": "Opens with the PROBLEM, not your resume. Engineering managers hate pitches — they love solutions. Creates immediate intrigue."
+  },
+  {
+    "id": "li_inmail_specific_jd_teardown",
+    "channel": "linkedin_inmail",
+    "name": "JD Teardown: Respond to Exact Requirements",
+    "targetAudience": "Recruiter",
+    "subject": "Re: {{targetRole}} — 3 specific ways I match your requirements",
+    "template": "Hi {{recipientName}},\n\nI read the {{targetRole}} JD carefully. Three things jumped out:\n\n1. You need {{primarySkill}} — I've used it to {{proofPoint}}.\n2. You mention scale — I've worked with systems serving millions of users.\n3. You want someone who ships fast — my last project went from zero to production in 6 weeks.\n\nI'm not dropping a generic application. I'm asking for a direct conversation. Can we do 15 minutes this week?\n\n{{candidateName}} | {{portfolioLink}}",
+    "description": "Mirrors the JD back to the recruiter with numbered proof points. Treats them as a smart reader who wants evidence, not enthusiasm."
+  },
+  {
+    "id": "li_inmail_the_contrarian",
+    "channel": "linkedin_inmail",
+    "name": "The Contrarian: Challenge a Belief",
+    "targetAudience": "Hiring Manager",
+    "subject": "Unpopular opinion: why most {{targetRole}} hires fail in year one",
+    "template": "Hi {{recipientName}},\n\nMost {{targetRole}} hires at {{targetCompany}}-scale companies fail not because of skill gaps, but because of ramp-up friction and context mismatch.\n\nI've been thinking about this because I'm exploring the open {{targetRole}} role. I've already studied {{admiredProject}} and have opinions on the architectural direction.\n\nHere's what I'd prioritize in the first 30 days: {{proofPoint}}.\n\nWould you be open to a call where I try to convince you I'm different from the average applicant?\n\n{{candidateName}} | {{portfolioLink}}",
+    "description": "Opens with a bold, contrarian take to stand out from 200 applicants. High risk, very high reward — only use when you've done deep company research."
+  },
+  {
+    "id": "li_inmail_value_before_ask",
+    "channel": "linkedin_inmail",
+    "name": "Give Value First: Unsolicited Insight",
+    "targetAudience": "Hiring Manager",
+    "subject": "Something I noticed about {{targetCompany}}'s {{admiredProject}}",
+    "template": "Hi {{recipientName}},\n\nI spent time analyzing {{targetCompany}}'s {{admiredProject}} and noticed something: {{primarySkill}} appears to be a bottleneck in the current approach based on the public-facing behavior.\n\nFor context, I solved an almost identical issue at my last project: {{proofPoint}}. Happy to share the approach in full — no strings attached.\n\nI'm also actively exploring the {{targetRole}} role. But genuinely, if the insight is useful, that's enough for me.\n\n{{candidateName}} | {{portfolioLink}}",
+    "description": "Leads with a free insight/audit. The most disarming outreach format — removes all transactional pressure, which paradoxically increases reply rate."
+  },
+  {
+    "id": "li_inmail_the_30_60_90",
+    "channel": "linkedin_inmail",
+    "name": "30-60-90 Day Plan Pitch",
+    "targetAudience": "Hiring Manager",
+    "subject": "What I'd do in my first 90 days as {{targetRole}} at {{targetCompany}}",
+    "template": "Hi {{recipientName}},\n\nI put together a rough 30-60-90 day plan for the {{targetRole}} role, based on what I know about {{targetCompany}}'s current direction with {{admiredProject}}:\n\n• Days 1–30: Shadow the team, audit {{primarySkill}} architecture, identify top 3 quick wins.\n• Days 31–60: Ship first measurable improvement (similar to how I did {{proofPoint}}).\n• Days 61–90: Own a vertical end-to-end and propose roadmap improvements.\n\nI know this is unusual to send cold, but I wanted to show I'm serious. Worth a call?\n\n{{candidateName}} | {{portfolioLink}}",
+    "description": "The 30-60-90 plan is what hiring managers ask for in final rounds — you're sending it cold. Instantly signals a senior, strategic mindset."
+  },
+  {
+    "id": "cold_email_bypass_ats_hr",
+    "channel": "cold_email",
+    "name": "ATS Bypass: Email the Engineer, Not HR",
+    "targetAudience": "Engineering Manager",
+    "subject": "Skipping the queue — {{targetRole}} at {{targetCompany}}",
+    "template": "Hi {{recipientName}},\n\nI know this lands outside the official channel, and that's intentional.\n\nI applied for the {{targetRole}} role through the portal, but I wanted to introduce myself directly because ATS systems have a habit of filtering out people who don't keyword-stuff their resumes.\n\nWhat I actually do: {{proofPoint}}. My stack is {{primarySkill}}. Full context: {{portfolioLink}}.\n\nI'm not asking you to bypass your process. I'm just asking you to make sure my application gets a fair look before a machine decides I'm not qualified.\n\nIs that a fair ask?\n\n{{candidateName}}",
+    "description": "Transparently bypasses ATS by explaining WHY you're doing it. Disarming honesty about the system builds immediate human connection."
+  },
+  {
+    "id": "cold_email_founder_mode",
+    "channel": "cold_email",
+    "name": "Startup Founder Mode: Talk Business, Not Resume",
+    "targetAudience": "Startup Founder",
+    "subject": "Engineer who actually cares about the product — {{targetRole}}",
+    "template": "Hi {{recipientName}},\n\nI've been following {{targetCompany}} closely. The problem you're solving in {{admiredProject}} is one I'm genuinely obsessed with.\n\nI'm a {{primarySkill}} engineer, but more importantly I think like a founder. I don't just build what I'm told — I ask why. I've shipped products from 0→1: {{proofPoint}}.\n\nI'm not sending you a resume (unless you want one). I'm sending you a question: what's the one engineering problem keeping you up at night right now? Because that's what I'd want to work on as your {{targetRole}}.\n\n{{candidateName}} | {{portfolioLink}}",
+    "description": "Founders don't read resumes — they read conviction. This template speaks founder-to-founder, emphasizing product thinking over technical credentials."
+  },
+  {
+    "id": "cold_email_referral_blurb_attached",
+    "channel": "cold_email",
+    "name": "FAANG Referral: Include the Ready-to-Paste Blurb",
+    "targetAudience": "Peer Engineer",
+    "subject": "Referral request for {{targetRole}} (Job ID attached) — {{candidateName}}",
+    "template": "Hi {{recipientName}},\n\nI'm a {{collegeName}} grad currently applying to {{targetCompany}} for the {{targetRole}} role. I found you via LinkedIn and noticed your engineering background aligns with the team I'm targeting.\n\nI know you might be asked to write a blurb in the referral portal, so I've made it easy:\n\n--- COPY-PASTE BLURB ---\n\"{{candidateName}} is a strong {{primarySkill}} engineer who {{proofPoint}}. I believe they'd be a great cultural and technical fit for the {{targetRole}} team.\"\n------------------------\n\nMy resume: {{portfolioLink}}\n\nNo pressure at all if you're not comfortable — I truly appreciate your time either way.\n\n{{candidateName}}",
+    "description": "The #1 insight from FAANG referral research: include a copy-paste referral blurb. Reduces friction to almost zero — the referrer just has to paste."
+  },
+  {
+    "id": "cold_email_the_quick_win",
+    "channel": "cold_email",
+    "name": "Quick Win: Ship Something Before the Interview",
+    "targetAudience": "Engineering Manager",
+    "subject": "I built something for {{targetCompany}} this weekend",
+    "template": "Hi {{recipientName}},\n\nI know this is an unusual email. I built a small tool/prototype this weekend that addresses something I noticed in {{admiredProject}}: {{proofPoint}}.\n\nYou can see it here: {{portfolioLink}}.\n\nI'm actively applying for the {{targetRole}} role and wanted to demonstrate how I approach problems before you ever read my resume. I ship first and talk second.\n\nIf this resonates with how your team thinks, I'd love a conversation.\n\n{{candidateName}}",
+    "description": "The ultimate proof-of-work outreach. Building something relevant before applying is the single highest-conversion job search move in engineering."
+  },
+  {
+    "id": "cold_email_the_data_pitch",
+    "channel": "cold_email",
+    "name": "Data-Led Pitch: Lead with Numbers Only",
+    "targetAudience": "Engineering Manager",
+    "subject": "{{targetRole}} candidate — let the data speak",
+    "template": "Hi {{recipientName}},\n\n3 numbers about me:\n\n• {{proofPoint}}\n• Built with {{primarySkill}} across production systems\n• Applying for {{targetRole}} at {{targetCompany}}\n\n1 question: Do those numbers match what you're looking for right now?\n\nIf yes → {{portfolioLink}}\nIf no → I'd still love to know what metric would impress you.\n\n{{candidateName}}",
+    "description": "Pure numerical signal. Engineering managers process data, not prose. A 5-line email with real metrics gets more reads than 5 paragraphs of storytelling."
+  },
+  {
+    "id": "cold_email_inbound_content",
+    "channel": "cold_email",
+    "name": "Content-Led: They Engaged With Your Work",
+    "targetAudience": "Hiring Manager",
+    "subject": "You (or your team) liked my {{primarySkill}} post — here's more context",
+    "template": "Hi {{recipientName}},\n\nI noticed {{targetCompany}} engaged with my recent post/article on {{primarySkill}}. That made me look into what your team is building with {{admiredProject}} — and I got genuinely excited.\n\nThe work I published was based on this experience: {{proofPoint}}.\n\nI saw the {{targetRole}} opening. I think it's the right fit. But more than that — I think I'd have fun working on this problem with your team.\n\nCan we talk?\n\n{{candidateName}} | {{portfolioLink}}",
+    "description": "Responds to a social signal where they engaged with your content. Flips the dynamic — they came to you first, making your outreach warm."
+  },
+  {
+    "id": "warm_referral_job_id_sniper",
     "channel": "warm_referral",
-    "name": "Warm Referral: Alumni Network",
+    "name": "Sniper Referral: Specific Job ID + Fit Justification",
+    "targetAudience": "Peer Engineer",
+    "subject": "Referral for {{targetRole}} at {{targetCompany}} — specific ask",
+    "template": "Hi {{recipientName}},\n\nI'll be direct: I'm applying for {{targetRole}} at {{targetCompany}} and I'd love your referral.\n\nHere's exactly why I think I'm a fit (so you have something concrete if the portal asks):\n\n✓ {{primarySkill}} — my core stack for 3+ years\n✓ {{proofPoint}} — directly relevant to what your team ships\n✓ I've been following {{admiredProject}} closely and have strong opinions on its direction\n\nIf you're not comfortable referring someone you don't know well, I completely get it. But if any of the above resonates, I'd be grateful — even a quick thumbs-up in the portal makes a huge difference.\n\n{{candidateName}} | {{portfolioLink}}",
+    "description": "Research says the #1 reason people don't refer is the friction of writing the justification. This removes that by pre-writing the reasons for them."
+  },
+  {
+    "id": "warm_referral_alumni_insider",
+    "channel": "warm_referral",
+    "name": "Alumni Insider: Ask for Intel, Not a Job",
     "targetAudience": "Alumnus",
-    "subject": "{{collegeName}} alum exploring {{targetRole}} at {{targetCompany}}",
-    "template": "Hi {{recipientName}},\n\nI saw that you're also a {{collegeName}} alumnus working at {{targetCompany}}! I'm actively applying for the {{targetRole}} position.\n\nMy focus has been in {{primarySkill}}, with recent impact: {{proofPoint}}.\n\nIf you have 5-10 minutes, I'd love to hear your insights on the team's culture and what made your transition successful.\n\nWarm regards,\n{{candidateName}}\n{{portfolioLink}}",
-    "description": "Alumni network referral outreach with respectful ask."
+    "subject": "{{collegeName}} alumnus at {{targetCompany}} — quick culture question",
+    "template": "Hi {{recipientName}},\n\nFellow {{collegeName}} alum here — I'm deep in the interview process for the {{targetRole}} at {{targetCompany}}.\n\nI'd love to ask you one specific question (I won't take more than 5 minutes of your time):\n\nWhat's one thing about {{targetCompany}}'s engineering culture that you wish you'd known before joining?\n\nFYI, my background in {{primarySkill}} and specifically {{proofPoint}} is why I think this role is a strong fit. But honestly, culture fit matters more to me than anything else at this stage.\n\nThanks for existing in my network!\n\n{{candidateName}}",
+    "description": "The single-question ask is the highest-response format in networking research. It's impossible to ignore — it takes 30 seconds to answer and feels easy."
   },
   {
-    "id": "warm_referral_direct_request",
+    "id": "warm_referral_community_member",
     "channel": "warm_referral",
-    "name": "Warm Referral: Direct Referral Request",
+    "name": "Community Member: Shared Slack/Discord/Meetup",
     "targetAudience": "Peer Engineer",
-    "subject": "Referral request for {{targetRole}} - {{candidateName}}",
-    "template": "Hi {{recipientName}},\n\nHope all is well. I'm preparing an application for the {{targetRole}} role at {{targetCompany}} and saw your engineering work.\n\nGiven my experience in {{primarySkill}} (notably: {{proofPoint}}), I believe I'd be a great fit. If comfortable, would you consider submitting an internal referral for me? My work is at {{portfolioLink}}.\n\nThank you for considering!\n\nBest,\n{{candidateName}}",
-    "description": "Direct and respectful internal referral request with link to proof of work."
+    "subject": "From the {{commonGround}} community — {{targetRole}} at {{targetCompany}}",
+    "template": "Hi {{recipientName}},\n\nWe're both in {{commonGround}} — I've seen your posts there and always found them helpful.\n\nI noticed you're at {{targetCompany}}, which is on my shortlist. I'm a {{primarySkill}} engineer with a focus on {{admiredProject}}-type problems (most recently: {{proofPoint}}).\n\nI'm applying for the {{targetRole}} role. If you'd be open to a quick referral or just 10 minutes to tell me about the team, I'd owe you a very detailed reply to any technical question you post in {{commonGround}} 😄\n\n{{candidateName}} | {{portfolioLink}}",
+    "description": "Community-based warm outreach. Shared communities (Discord, Slack, Twitter/X, meetups) are underutilized and have dramatically higher reply rates than cold LinkedIn."
   },
   {
-    "id": "referral_follow_up",
-    "channel": "follow_up",
-    "name": "Post-Referral Check-in",
-    "targetAudience": "Recruiter",
-    "subject": "Following up on referral for {{targetRole}} - {{candidateName}}",
-    "template": "Hi {{recipientName}},\n\nI recently applied for the {{targetRole}} position at {{targetCompany}} via a referral from {{commonGround}}.\n\nSince submitting my application, I've continued building my expertise in {{primarySkill}} and wanted to reiterate my strong interest in joining the team.\n\nPlease let me know if you need any additional information or work samples (my portfolio is at {{portfolioLink}}).\n\nLooking forward to potentially speaking with you.\n\nBest,\n{{candidateName}}",
-    "description": "Professional follow-up email after an internal employee has referred you."
+    "id": "warm_referral_github_collaborator",
+    "channel": "warm_referral",
+    "name": "GitHub/Open-Source Collaborator Referral",
+    "targetAudience": "Peer Engineer",
+    "subject": "OSS collaborator applying for {{targetRole}} at {{targetCompany}}",
+    "template": "Hi {{recipientName}},\n\nYou may remember me — I submitted a PR to {{admiredProject}} a while back. You reviewed it.\n\nI've been actively building in the {{primarySkill}} ecosystem since then: {{proofPoint}}.\n\nI just saw that {{targetCompany}} is hiring for {{targetRole}}. Given that we've technically already collaborated on open-source, I figured this was the most honest warm outreach I could do.\n\nWould you be open to referring me or pointing me to the right person on the team?\n\n{{candidateName}} | {{portfolioLink}}",
+    "description": "Most powerful warm referral: an existing collaborative relationship via open source. This is not networking — it's a professional relationship you already have."
   },
   {
-    "id": "follow_up_post_interview",
-    "channel": "follow_up",
-    "name": "Post-Interview Thank You",
+    "id": "warm_referral_conference_speaker",
+    "channel": "warm_referral",
+    "name": "Conference Connection: Post-Talk Outreach",
     "targetAudience": "Hiring Manager",
-    "subject": "Thank you - {{targetRole}} interview / {{candidateName}}",
-    "template": "Hi {{recipientName}},\n\nThank you so much for taking the time to speak with me about the {{targetRole}} position at {{targetCompany}}.\n\nI really enjoyed our discussion around {{admiredProject}} and the technical direction in {{primarySkill}}.\n\nPlease feel free to reach out if any further context on my background ({{proofPoint}}) is helpful.\n\nBest regards,\n{{candidateName}}",
-    "description": "Thoughtful post-interview follow up reinforcing technical alignment."
+    "subject": "Loved your talk at {{commonGround}} — and I'm applying to {{targetCompany}}",
+    "template": "Hi {{recipientName}},\n\nI attended your talk at {{commonGround}} on {{admiredProject}} — the part about {{primarySkill}} trade-offs was exactly the nuance most people miss.\n\nI've been applying those same principles in my own work: {{proofPoint}}.\n\nI'm now actively exploring the {{targetRole}} role at {{targetCompany}}. Given what I learned about your team's philosophy from your talk, this feels like a strong fit.\n\nWould you be open to a quick 10-minute chat before I formally submit?\n\n{{candidateName}} | {{portfolioLink}}",
+    "description": "Conference outreach is the warmest possible channel — they put their ideas in public and you're responding to those specific ideas. Instant credibility."
   },
   {
-    "id": "follow_up_gentle_nudge",
+    "id": "follow_up_day_3_nudge",
     "channel": "follow_up",
-    "name": "Gentle Application Nudge",
+    "name": "Day 3 Nudge: Short, No Apology",
     "targetAudience": "Recruiter",
-    "subject": "Checking in: {{targetRole}} application - {{candidateName}}",
-    "template": "Hi {{recipientName}},\n\nHope you've had a great week. I wanted to quickly follow up on my note regarding the {{targetRole}} opportunity at {{targetCompany}}.\n\nI remain very enthusiastic about the work your team is doing with {{primarySkill}}. If the position has already been filled, no worries at all—I'd still love to stay connected.\n\nThank you,\n{{candidateName}}",
-    "description": "Low-pressure follow up for when you haven't heard back after 5-7 days."
+    "subject": "Re: {{targetRole}} — quick bump",
+    "template": "Hi {{recipientName}},\n\nJust bumping this to the top of your inbox in case it got buried.\n\nStill very interested in the {{targetRole}} at {{targetCompany}}. My one-line pitch: I {{proofPoint}} using {{primarySkill}}.\n\n{{portfolioLink}} has the full context.\n\n{{candidateName}}",
+    "description": "Research: most replies happen on the 2nd or 3rd touchpoint, not the first. This is the 3-day follow-up — short, no apology, no groveling. Just a clean bump."
+  },
+  {
+    "id": "follow_up_value_add",
+    "channel": "follow_up",
+    "name": "Value-Add Follow-Up: New Information",
+    "targetAudience": "Hiring Manager",
+    "subject": "Following up + something relevant I wanted to share",
+    "template": "Hi {{recipientName}},\n\nFollowing up on my previous note about the {{targetRole}} role at {{targetCompany}}.\n\nI also wanted to share something I've been working on since we last spoke — I just published a detailed breakdown of {{admiredProject}}-type architecture here: {{portfolioLink}}.\n\nI thought it might be relevant given your team's current direction in {{primarySkill}}. No pressure to respond if the timing isn't right — I just didn't want to send a blank \"still interested\" email.\n\nHope things are going well on your end!\n\n{{candidateName}}",
+    "description": "The best follow-up adds NEW value, not just restates interest. A new published piece, insight, or project update gives them a fresh reason to open the email."
+  },
+  {
+    "id": "follow_up_post_interview_24h",
+    "channel": "follow_up",
+    "name": "Post-Interview: 24-Hour Thank You (With Specific Detail)",
+    "targetAudience": "Hiring Manager",
+    "subject": "Thank you — and one more thought on the {{admiredProject}} question",
+    "template": "Hi {{recipientName}},\n\nThank you for the time today — that was one of the more engaging technical conversations I've had in a while.\n\nThe question about {{admiredProject}} stuck with me. After reflecting on it, I think the approach I'd actually take is slightly different from what I said during the call: {{proofPoint}}.\n\nI wanted to share that in real-time rather than wait for a formal debrief, because I think it's a better answer and you deserve the better version.\n\nLooking forward to the next steps.\n\n{{candidateName}}",
+    "description": "Post-interview follow-up that adds NEW intellectual content rather than just thanking them. Shows you're still thinking about their problems after the call ends."
+  },
+  {
+    "id": "follow_up_ghosted_professional",
+    "channel": "follow_up",
+    "name": "Ghosted: Professional Final Attempt",
+    "targetAudience": "Recruiter",
+    "subject": "Final check-in: {{targetRole}} — {{candidateName}}",
+    "template": "Hi {{recipientName}},\n\nI know inboxes are brutal, so I'll keep this short — this is my last follow-up on the {{targetRole}} role at {{targetCompany}}.\n\nIf the position has been filled or paused, I completely understand. No hard feelings at all.\n\nIf it's still open, I'd love 15 minutes. My work is at {{portfolioLink}} if it's helpful for a quick review.\n\nEither way, I'd genuinely appreciate a one-word reply just so I know to close this loop on my end.\n\nThank you,\n{{candidateName}}",
+    "description": "The 'last follow-up' framing works because it implies finality — people reply to close a loop. The 'one-word reply' ask reduces friction to near zero."
+  },
+  {
+    "id": "follow_up_offer_competing",
+    "channel": "follow_up",
+    "name": "Time Pressure: Competing Offer Nudge",
+    "targetAudience": "Recruiter",
+    "subject": "Update on my {{targetRole}} application — competing offer",
+    "template": "Hi {{recipientName}},\n\nI wanted to give you an honest update: I've received another offer that I need to respond to by {{commonGround}}.\n\n{{targetCompany}} is genuinely my first choice — the work on {{admiredProject}} and the {{targetRole}} scope are exactly what I'm looking for. I'd hate to take another offer without giving you a chance to move forward if there's still interest.\n\nIs there any flexibility to accelerate the timeline on your end?\n\nThank you for considering it — I know this puts you in an awkward position and I genuinely appreciate your time throughout this process.\n\n{{candidateName}}",
+    "description": "The competing offer email is a legitimate business tactic. Deadline-driven urgency works — recruiters WILL accelerate for the right candidate. Must be truthful."
+  },
+  {
+    "id": "follow_up_keep_door_open",
+    "channel": "follow_up",
+    "name": "Role Didn't Work Out: Keep the Door Open",
+    "targetAudience": "Hiring Manager",
+    "subject": "Thanks for the process — staying in touch",
+    "template": "Hi {{recipientName}},\n\nThank you for letting me know about the {{targetRole}} decision. I appreciate the transparency — I know that's not always easy.\n\nI learned a lot from the conversations, particularly around {{admiredProject}} and your team's approach to {{primarySkill}}.\n\nI'd love to stay connected. If anything opens up in the future that might be a fit, I hope you'll think of me. I'll keep following your team's work — it's genuinely impressive.\n\nWishing the new hire all the best!\n\n{{candidateName}} | {{portfolioLink}}",
+    "description": "The gracious rejection response. The #1 source of future opportunities is a warm relationship with a hiring manager who rejected you. Stay professional and memorable."
+  },
+  {
+    "id": "academic_professor_research_fit",
+    "channel": "academic_outreach",
+    "name": "Professor Outreach: Research Alignment (Not a Generic Ask)",
+    "targetAudience": "Professor",
+    "subject": "Prospective MS student — read your paper on {{researchTopic}}, have a specific question",
+    "template": "Dear Professor {{recipientName}},\n\nI recently read your 2024 paper on {{researchTopic}} and I have a genuine question about Section 3: did you consider {{primarySkill}}-based approaches for the optimization step, or was there a deliberate tradeoff against interpretability?\n\nI ask because in my own undergraduate project — {{proofPoint}} — I ran into a very similar wall and took a different approach.\n\nI'm applying to the {{mastersProgram}} at {{targetCompany}} and your lab's work is the primary reason. I'd be grateful for 15 minutes to discuss whether my background aligns with any current research directions in your group.\n\nSincerely,\n{{candidateName}}\n{{portfolioLink}}",
+    "description": "The #1 rule for professor outreach: reference a specific paper and ask a genuine technical question. Generic 'I admire your work' emails are ignored. This one gets read."
+  },
+  {
+    "id": "academic_sop_advisor_match",
+    "channel": "academic_outreach",
+    "name": "SOP Alignment: Show You Know Their Research Subfield",
+    "targetAudience": "Professor",
+    "subject": "Applicant to {{mastersProgram}} — research interest in {{researchTopic}}",
+    "template": "Dear Professor {{recipientName}},\n\nMy name is {{candidateName}} and I'm applying to the {{mastersProgram}} at {{targetCompany}} for Fall 2025.\n\nMy intended research direction is {{researchTopic}}, and your lab's recent work on this is the most compelling I've seen in the field — particularly the methodological choices in {{admiredProject}}.\n\nMy technical background: {{primarySkill}} with a demonstrable result: {{proofPoint}}.\n\nI wanted to reach out before my application is submitted to ask: is your lab planning to take on new MS students next cycle? My SOP will cite your research explicitly, and I want to make sure that's aligned with your capacity.\n\nThank you for your time.\n\n{{candidateName}} | {{portfolioLink}} | {{candidateEmail}}",
+    "description": "Sends the email BEFORE the application deadline — signals proactivity and helps the professor prepare to look for your application in the pile."
+  },
+  {
+    "id": "academic_international_student",
+    "channel": "academic_outreach",
+    "name": "International Applicant: Address Funding Concerns Directly",
+    "targetAudience": "Professor",
+    "subject": "International applicant for {{mastersProgram}} — self-funded, strong {{primarySkill}} background",
+    "template": "Dear Professor {{recipientName}},\n\nI'm an international student applying to the {{mastersProgram}} at {{targetCompany}} and I want to address the elephant in the room upfront: funding.\n\nI am planning to self-fund, so I am not placing a financial burden on your lab. My interest in your research on {{researchTopic}} is purely academic.\n\nMy relevant background: I have strong hands-on experience in {{primarySkill}}, evidenced by {{proofPoint}}. My portfolio: {{portfolioLink}}.\n\nI understand your capacity is limited. I'm only asking for a 10-minute video call to assess whether my research interests align with current lab directions — not for a guaranteed spot.\n\nThank you for considering my request.\n\n{{candidateName}} | {{candidateEmail}}",
+    "description": "Internationally students often get ignored because professors assume funding dependency. Proactively addressing this removes the #1 friction point."
+  },
+  {
+    "id": "academic_ms_to_phd_bridge",
+    "channel": "academic_outreach",
+    "name": "MS Applicant with PhD Ambition: Signal Long-Term Commitment",
+    "targetAudience": "Professor",
+    "subject": "MS → PhD pathway interest — {{researchTopic}} lab at {{targetCompany}}",
+    "template": "Dear Professor {{recipientName}},\n\nI'm applying to the {{mastersProgram}} at {{targetCompany}} with the long-term goal of transitioning to a PhD program, ideally within your lab or an affiliated research group.\n\nI want to be transparent about this because it changes what I'm looking for in an advisor. I'm not just seeking coursework — I'm looking for a mentor whose research problems I can grow into over multiple years.\n\nYour work on {{researchTopic}} sits exactly at the intersection of my technical strengths ({{primarySkill}}) and the research questions I care most about. My first serious contribution in this space: {{proofPoint}}.\n\nWould you be open to a brief exploratory conversation?\n\n{{candidateName}} | {{portfolioLink}}",
+    "description": "MS-to-PhD pipeline interest is extremely valuable to professors. Signaling long-term commitment dramatically increases response probability."
+  },
+  {
+    "id": "academic_industry_to_research",
+    "channel": "academic_outreach",
+    "name": "Industry → Research Pivot: Validate the Decision",
+    "targetAudience": "Professor",
+    "subject": "Industry engineer pivoting to research — seeking your perspective",
+    "template": "Dear Professor {{recipientName}},\n\nI'm a {{primarySkill}} engineer with industry experience ({{proofPoint}}) making a deliberate pivot to academic research. I'm applying to the {{mastersProgram}} at {{targetCompany}}.\n\nI want to be honest: I'm not sure if the pivot makes sense yet, and I'd rather find out before I commit. Your research on {{researchTopic}} is the area I'm most excited about — but I'd value your honest assessment of whether an industry-to-research transition is viable for someone with my background.\n\nI'm not asking you to admit me. I'm asking for 10 minutes of honest guidance.\n\nMy background: {{portfolioLink}}\n\nThank you,\n{{candidateName}}",
+    "description": "Vulnerability-based outreach for non-traditional applicants. Asking for guidance (not admission) positions you as intellectually honest — a trait professors prize above almost anything."
+  },
+  {
+    "id": "li_connect_post_layoff",
+    "channel": "linkedin_connect",
+    "name": "Post-Layoff: Lead with Resilience, Not Desperation",
+    "targetAudience": "Recruiter / Hiring Manager",
+    "maxLength": 300,
+    "template": "Hi {{recipientName}}, I was recently part of a layoff at my previous company — one of thousands caught in the wave. Instead of panic-applying, I've been rebuilding deliberately: {{proofPoint}}. I'm exploring {{targetRole}} roles and {{targetCompany}} is high on my list. Would love to connect.",
+    "description": "Post-layoff outreach done right: acknowledge it, then immediately pivot to what you've DONE since. Desperation repels — momentum attracts."
+  },
+  {
+    "id": "li_connect_career_changer",
+    "channel": "linkedin_connect",
+    "name": "Career Changer: Own the Non-Linear Path",
+    "targetAudience": "Hiring Manager",
+    "maxLength": 300,
+    "template": "Hi {{recipientName}}, my path to {{primarySkill}} wasn't straight — I came from {{commonGround}}. That background is actually why I'm unusually good at this: {{proofPoint}}. Exploring {{targetRole}} roles at companies like {{targetCompany}}. Would love to connect.",
+    "description": "Career changers who apologize for their background get ignored. Career changers who frame it as a superpower get hired. Own the non-linear path."
+  },
+  {
+    "id": "li_connect_fresher_campus",
+    "channel": "linkedin_connect",
+    "name": "Fresher/Campus: Lead with Projects, Not GPA",
+    "targetAudience": "Recruiter / Hiring Manager",
+    "maxLength": 300,
+    "template": "Hi {{recipientName}}, I'm a final-year {{collegeName}} student and instead of listing my GPA, I'll just link my work: {{portfolioLink}}. My recent project: {{proofPoint}}. Exploring {{targetRole}} opportunities at {{targetCompany}}. — {{candidateName}}",
+    "description": "Freshers who lead with GPA are invisible. Freshers who lead with proof-of-work are memorable. This flips the script for campus recruiters."
+  },
+  {
+    "id": "cold_email_technical_audit",
+    "channel": "cold_email",
+    "name": "Unsolicited Technical Audit: Find a Real Bug/Issue",
+    "targetAudience": "Engineering Manager",
+    "subject": "Found a {{primarySkill}} issue on {{targetCompany}}'s public API",
+    "template": "Hi {{recipientName}},\n\nI was exploring {{targetCompany}}'s {{admiredProject}} and noticed something in the public API/docs that might be worth flagging:\n\n{{proofPoint}}\n\nI'm not trying to embarrass anyone — this kind of thing happens at every scale. I noticed it because I've spent a lot of time in {{primarySkill}} and it jumped out at me.\n\nI mention this because I'm also applying for the {{targetRole}} role. I figured a concrete observation beats a cover letter.\n\nHappy to discuss further or just help fix it.\n\n{{candidateName}} | {{portfolioLink}}",
+    "description": "The ultimate show-don't-tell. Finding a real bug or UX issue in a public product is the most powerful cold email you can send — it proves your skills before the interview."
+  },
+  {
+    "id": "cold_email_customer_turned_candidate",
+    "channel": "cold_email",
+    "name": "Power User Turned Candidate",
+    "targetAudience": "Hiring Manager",
+    "subject": "Your biggest power user is applying for the {{targetRole}}",
+    "template": "Hi {{recipientName}},\n\nI've been a power user of {{admiredProject}} for {{commonGround}}. I know the product deeply enough to have found three non-obvious {{primarySkill}} patterns that most users miss — and I've written about them: {{portfolioLink}}.\n\nWhen I saw the {{targetRole}} opening at {{targetCompany}}, it felt obvious. The best person to build a product is often someone who can't stop using it.\n\nI also have the technical credentials: {{proofPoint}}.\n\nIs there room for a conversation?\n\n{{candidateName}}",
+    "description": "Being a genuine user of the product is one of the strongest candidate signals — it proves cultural alignment and deep domain knowledge simultaneously."
+  },
+  {
+    "id": "cold_email_weekend_project",
+    "channel": "cold_email",
+    "name": "Weekend Project: Reverse-Engineer Their Stack",
+    "targetAudience": "Engineering Manager",
+    "subject": "I reverse-engineered {{admiredProject}} this weekend",
+    "template": "Hi {{recipientName}},\n\nI spent this weekend reverse-engineering the public behavior of {{admiredProject}} to understand how your team handles {{primarySkill}} at scale.\n\nMy notes and findings: {{portfolioLink}}\n\nMain observation: {{proofPoint}}.\n\nI built a small prototype based on what I learned — also in the link above.\n\nI'm applying for the {{targetRole}} at {{targetCompany}}, but wanted to show what I do when I'm genuinely interested in a problem, before you ever read my resume.\n\n{{candidateName}}",
+    "description": "Reverse-engineering a company's public product to demonstrate curiosity and initiative is the highest-effort, highest-return cold outreach move in engineering."
+  },
+  {
+    "id": "warm_referral_mutual_slack_intro",
+    "channel": "warm_referral",
+    "name": "Mutual Slack/Discord Intro: Ask Them to Forward It",
+    "targetAudience": "Peer Engineer",
+    "subject": "Quick favor — can you forward this to someone at {{targetCompany}}?",
+    "template": "Hi {{recipientName}},\n\nI know we're both in {{commonGround}} and I wanted to ask a quick favor.\n\nI'm applying for the {{targetRole}} at {{targetCompany}} and wondered if you happen to know anyone on the engineering team there who might be willing to have a 10-minute call with me.\n\nI'm not asking you to vouch for me to someone you don't know — just an intro if you have a natural connection. My background in {{primarySkill}}: {{proofPoint}}. Full portfolio: {{portfolioLink}}.\n\nIf no one comes to mind, no worries at all. I appreciate you reading this far!\n\n{{candidateName}}",
+    "description": "Asking for a FORWARDED intro rather than a direct referral is a lighter ask that many more people will say yes to. Often leads to a warmer connection."
+  },
+  {
+    "id": "warm_referral_senior_mentorship_ask",
+    "channel": "warm_referral",
+    "name": "Mentorship-Framed Referral: Ask for Advice, Get an Intro",
+    "targetAudience": "Alumnus",
+    "subject": "Seeking advice from a senior {{collegeName}} alum at {{targetCompany}}",
+    "template": "Hi {{recipientName}},\n\nI hope you don't mind the cold reach-out — I found you through the {{collegeName}} alumni network.\n\nI'm a junior {{primarySkill}} engineer currently navigating my first serious job search. {{targetCompany}} is at the top of my list, and I wanted to ask someone with your experience a genuine question:\n\nWhat's the most important thing you'd tell someone applying to {{targetCompany}} right now that you can't find in any job description?\n\nFor context, my most relevant experience: {{proofPoint}}. Full context: {{portfolioLink}}.\n\nEven a 5-minute voice note would be incredibly valuable. Thank you.\n\n{{candidateName}}",
+    "description": "Asking for advice (not a referral) is the most powerful framing in career networking. Seniors love sharing wisdom, and advice-asks consistently convert to referrals."
+  },
+  {
+    "id": "warm_referral_give_first",
+    "channel": "warm_referral",
+    "name": "Give First: Offer Value Before Asking for Referral",
+    "targetAudience": "Peer Engineer",
+    "subject": "Resource for your {{primarySkill}} question + a small favor",
+    "template": "Hi {{recipientName}},\n\nI saw your recent post/comment about {{primarySkill}} challenges in {{commonGround}}. I've been deep in this problem and put together a guide that might help: {{portfolioLink}}.\n\nNo ask attached — I just thought it would be useful.\n\nActually, there is one small thing: I'm applying to {{targetCompany}} for the {{targetRole}} role. If you're open to it after reviewing my work, I'd be grateful for a referral or even just a warm intro to someone on the team.\n\nBut seriously — the resource is genuinely no-strings-attached.\n\n{{candidateName}}",
+    "description": "Give value before asking for anything. The contrast between offering first and then asking makes the ask feel almost unfair NOT to honor. Highest warm-referral conversion."
+  },
+  {
+    "id": "follow_up_interview_debrief",
+    "channel": "follow_up",
+    "name": "Post-Interview: Proactive Debrief Request",
+    "targetAudience": "Recruiter",
+    "subject": "Request for feedback — {{targetRole}} interview",
+    "template": "Hi {{recipientName}},\n\nThank you for letting me know about the {{targetRole}} decision.\n\nI'd genuinely appreciate any feedback you're able to share — not to contest the outcome, but because I'm actively improving and real signal is more valuable to me than generic encouragement.\n\nSpecifically: if there was one area where my answers fell short, I'd love to know.\n\nI have deep respect for how {{targetCompany}} runs its interview process, and I'd love to apply again in the future with a stronger profile.\n\nThank you again for your time throughout.\n\n{{candidateName}}",
+    "description": "Most candidates don't ask for feedback. Recruiters remember the rare ones who do — professionally, humbly, and specifically. This keeps the door open for future rounds."
+  },
+  {
+    "id": "follow_up_referral_status",
+    "channel": "follow_up",
+    "name": "Check-In With Referrer: Status Update",
+    "targetAudience": "Peer Engineer",
+    "subject": "Update on {{targetCompany}} application — thank you again",
+    "template": "Hi {{recipientName}},\n\nJust wanted to close the loop — I submitted my application for the {{targetRole}} at {{targetCompany}} and wanted to say thank you again for the referral.\n\nAn update on my end: I've since also published new work on {{primarySkill}} here: {{portfolioLink}}. I thought it might be useful context if anyone internally looks me up.\n\nNo action needed from you — just keeping you in the loop since you put your name behind me. I'll update you when I hear back!\n\n{{candidateName}}",
+    "description": "Closing the loop with your referrer is often overlooked but critical — it maintains trust, keeps them informed, and ensures they remain a future ally."
+  },
+  {
+    "id": "li_connect_second_degree",
+    "channel": "linkedin_connect",
+    "name": "2nd Degree Connection: Name Drop the Mutual",
+    "targetAudience": "Recruiter / Hiring Manager",
+    "maxLength": 300,
+    "template": "Hi {{recipientName}}, we're connected through {{commonGround}} — they mentioned you're building interesting things at {{targetCompany}}. My background is {{primarySkill}} ({{proofPoint}}). Exploring {{targetRole}} roles. Would love to connect! — {{candidateName}}",
+    "description": "2nd-degree connections with a named mutual have dramatically higher reply rates than cold outreach. Name-dropping the shared connection is social proof."
+  },
+  {
+    "id": "cold_email_the_micro_case_study",
+    "channel": "cold_email",
+    "name": "Micro Case Study: Replace the Cover Letter",
+    "targetAudience": "Hiring Manager",
+    "subject": "Instead of a cover letter — here's a mini case study",
+    "template": "Hi {{recipientName}},\n\nI hate cover letters. So instead, here's a 3-paragraph case study of the most relevant thing I've built:\n\nPROBLEM: {{admiredProject}}-type challenges in {{primarySkill}} at scale.\nMY SOLUTION: {{proofPoint}}\nRESULT: Measurable impact to system performance / user experience.\n\nFull technical breakdown (architecture, decisions, trade-offs): {{portfolioLink}}\n\nI'm applying for the {{targetRole}} at {{targetCompany}}. This is what I do instead of writing about myself.\n\n{{candidateName}}",
+    "description": "The case-study format replaces the universally despised cover letter. Engineers respond to structured problem-solving — it's literally how they think."
+  },
+  {
+    "id": "li_inmail_the_short_story",
+    "channel": "linkedin_inmail",
+    "name": "The Micro-Story: Make Them Feel Something",
+    "targetAudience": "Hiring Manager",
+    "subject": "The problem that made me want to work at {{targetCompany}}",
+    "template": "Hi {{recipientName}},\n\nSix months ago, I was debugging a {{primarySkill}} issue at 2am when I realized: I'd been solving the wrong problem for months.\n\nThat moment changed how I think about engineering. It led directly to: {{proofPoint}}.\n\nIt also made me realize I want to work on problems where those moments happen more often — at a team with real technical depth.\n\nThat's why {{targetCompany}}'s {{targetRole}} is at the top of my list. I've studied {{admiredProject}} carefully and I have things to say about it.\n\nWorth a conversation?\n\n{{candidateName}} | {{portfolioLink}}",
+    "description": "Storytelling creates emotion; emotion creates memory. Most InMails are forgettable bullet lists. A micro-story (2am debugging moment) is remembered because it's human."
+  },
+  {
+    "id": "li_inmail_the_honest_pitch",
+    "channel": "linkedin_inmail",
+    "name": "Radical Honesty: What You're Bad At Too",
+    "targetAudience": "Hiring Manager",
+    "subject": "A different kind of candidate pitch for {{targetRole}}",
+    "template": "Hi {{recipientName}},\n\nMost candidate pitches are optimized to sound perfect. Mine isn't.\n\nWhat I'm exceptionally good at: {{primarySkill}}. Evidence: {{proofPoint}}.\n\nWhat I'm still developing: {{admiredProject}}-level depth in distributed systems (which is exactly why I want to be at {{targetCompany}}).\n\nI'm not a finished product. I'm a high-velocity learner with strong fundamentals applying for the {{targetRole}} because I think it's the fastest way I grow and the fastest way I contribute.\n\nIf that sounds like someone you want on the team, I'd love to talk.\n\n{{candidateName}} | {{portfolioLink}}",
+    "description": "Radical honesty stands out precisely because no one does it. Naming a genuine weakness signals self-awareness — the trait most hiring managers say they can't test for."
+  },
+  {
+    "id": "follow_up_linkedin_post_react",
+    "channel": "follow_up",
+    "name": "Post-Application LinkedIn Engagement: Warm the Cold",
+    "targetAudience": "Hiring Manager",
+    "subject": "Quick note — I've been following {{targetCompany}}'s updates",
+    "template": "Hi {{recipientName}},\n\nI applied for the {{targetRole}} role last week and wanted to follow up — but also share something more concrete.\n\nI've been following {{targetCompany}}'s LinkedIn updates and your recent post about {{admiredProject}} was excellent — specifically the point about {{primarySkill}} and scale.\n\nI commented with some thoughts (check the thread if you have a moment). I'm sharing this not to game the algorithm, but because I genuinely engage with the problems you're publishing about.\n\nLooking forward to hearing from the team.\n\n{{candidateName}} | {{portfolioLink}}",
+    "description": "Multi-channel follow-up that pairs an email with visible public engagement. Shows genuine interest that can be independently verified by the hiring manager."
+  },
+  {
+    "id": "warm_referral_pay_it_forward",
+    "channel": "warm_referral",
+    "name": "Pay It Forward: Promise to Return the Favor",
+    "targetAudience": "Peer Engineer",
+    "subject": "Referral for {{targetRole}} — and I'll return the favor",
+    "template": "Hi {{recipientName}},\n\nI'm applying for {{targetRole}} at {{targetCompany}} and was hoping you might be open to an internal referral.\n\nI know referrals are a big ask from someone you may not know well, so I want to be upfront about what I bring and what I offer in return:\n\nWhat I bring: strong {{primarySkill}} background ({{proofPoint}})\nWhat I offer: If you're ever job hunting or need a technical intro anywhere in my network, I will return this favor without hesitation.\n\nMy resume and portfolio: {{portfolioLink}}\n\nEven if the timing is bad, I'd be grateful to stay connected.\n\n{{candidateName}}",
+    "description": "The explicit reciprocity offer activates a social norm that most people feel compelled to honor. It reframes the referral as an exchange, not an extraction."
+  },
+  {
+    "id": "academic_lab_rotation_ask",
+    "channel": "academic_outreach",
+    "name": "Lab Rotation Request: Low-Stakes Entry",
+    "targetAudience": "Professor",
+    "subject": "Lab rotation interest — {{researchTopic}} — {{candidateName}}",
+    "template": "Dear Professor {{recipientName}},\n\nI'm a first-year student in the {{mastersProgram}} at {{targetCompany}} and I'm building my lab rotation shortlist.\n\nYour group's research on {{researchTopic}} is my top priority because it directly extends work I was doing as an undergrad: {{proofPoint}}.\n\nI'm particularly interested in how you approach {{primarySkill}} in this context, and I have a few ideas I'd love to run by you during a rotation.\n\nWould you be open to a 15-minute meeting to discuss whether my background would be a useful fit for the lab this semester?\n\nThank you,\n{{candidateName}} | {{portfolioLink}}",
+    "description": "Lab rotation request is lower stakes than a full thesis commitment. Professors are more likely to say yes to rotations, and rotations frequently convert to full advisor relationships."
   }
 ]
