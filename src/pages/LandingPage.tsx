@@ -196,35 +196,72 @@ export function LandingPage() {
               </Link>
             </div>
           </div>
-          
-          <div className="mt-[72px] grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 page-enter max-w-[1100px] mx-auto w-full px-2">
-            {STATS.map((s, i) => {
-              const Icon = s.icon;
-              return (
-                <div
-                  key={i}
-                  className="group relative rounded-2xl bg-surface/90 dark:bg-surface-2/70 border border-border/80 hover:border-primary/40 p-5 sm:p-6 flex flex-col items-center text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/5 backdrop-blur-sm overflow-hidden"
-                >
-                  <div className={`absolute top-0 right-0 w-24 h-24 rounded-full bg-gradient-to-br ${s.color} blur-2xl opacity-50 pointer-events-none group-hover:scale-150 transition-transform duration-500`} />
-                  
-                  <div className={`w-11 h-11 rounded-xl ${s.badgeBg} border flex items-center justify-center mb-3 shadow-xs group-hover:scale-110 transition-transform duration-300`}>
-                    <Icon className={`w-5 h-5 ${s.iconColor} stroke-[1.75px]`} />
-                  </div>
-                  
-                  <span className="text-3xl sm:text-4xl font-extrabold text-foreground tracking-tight leading-none mb-1.5 gradient-text">
-                    {s.value}
-                  </span>
-                  
-                  <span className="text-sm font-bold text-foreground tracking-tight">
-                    {s.label}
-                  </span>
-                  
-                  <span className="text-[11px] text-text-muted font-medium mt-0.5 leading-snug">
-                    {s.sub}
-                  </span>
+          <div className="mt-[80px] grid grid-cols-1 md:grid-cols-3 gap-[24px] page-enter max-w-[1140px] mx-auto w-full px-[20px]">
+            {/* Card 1: Employers (Wide) */}
+            <div className="md:col-span-2 relative rounded-[32px] bg-gradient-to-br from-surface/80 to-surface-2/80 backdrop-blur-md border border-border/80 p-[40px] overflow-hidden group hover:border-blue-500/40 transition-all duration-500 hover:shadow-[0_20px_40px_-15px_rgba(59,130,246,0.15)]">
+              <div className="absolute top-[-20%] right-[-10%] w-[400px] h-[400px] rounded-full bg-blue-500/10 blur-[80px] pointer-events-none group-hover:bg-blue-500/20 transition-colors duration-700" />
+              <div className="relative z-10 flex flex-col h-full justify-between">
+                <div className="w-[64px] h-[64px] rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center mb-[32px] group-hover:scale-110 transition-transform duration-500">
+                  <Building2 className="w-[32px] h-[32px] text-blue-500" />
                 </div>
-              );
-            })}
+                <div>
+                  <h3 className="text-[56px] font-black text-text tracking-tighter leading-none mb-[12px] group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-500 group-hover:to-indigo-400 transition-all duration-500">100+</h3>
+                  <p className="text-[20px] font-extrabold text-text mb-[6px] tracking-tight">Top Tech Employers</p>
+                  <p className="text-[15px] text-text-secondary font-medium">FAANG, Unicorns, and elite GCCs verified.</p>
+                </div>
+              </div>
+              <div className="absolute bottom-[-15%] right-[-5%] opacity-[0.03] group-hover:opacity-[0.08] group-hover:scale-110 transition-all duration-700 pointer-events-none rotate-12">
+                <Building2 className="w-[280px] h-[280px] text-blue-500" />
+              </div>
+            </div>
+
+            {/* Card 2: Roles (Tall/Square) */}
+            <div className="relative rounded-[32px] bg-gradient-to-br from-surface/80 to-surface-2/80 backdrop-blur-md border border-border/80 p-[40px] overflow-hidden group hover:border-amber-500/40 transition-all duration-500 hover:shadow-[0_20px_40px_-15px_rgba(245,158,11,0.15)]">
+              <div className="absolute top-0 right-0 w-[200px] h-[200px] rounded-full bg-amber-500/10 blur-[60px] pointer-events-none group-hover:bg-amber-500/20 transition-colors duration-700" />
+              <div className="relative z-10 flex flex-col h-full justify-between">
+                <div className="w-[64px] h-[64px] rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center mb-[32px] group-hover:scale-110 transition-transform duration-500">
+                  <Briefcase className="w-[32px] h-[32px] text-amber-500" />
+                </div>
+                <div>
+                  <h3 className="text-[56px] font-black text-text tracking-tighter leading-none mb-[12px] group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-amber-500 group-hover:to-orange-400 transition-all duration-500">908+</h3>
+                  <p className="text-[20px] font-extrabold text-text mb-[6px] tracking-tight">Calibrated Roles</p>
+                  <p className="text-[15px] text-text-secondary font-medium">Deep 6-layer competency mapping.</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Card 3: ATS Audit (Square) */}
+            <div className="relative rounded-[32px] bg-gradient-to-br from-surface/80 to-surface-2/80 backdrop-blur-md border border-border/80 p-[40px] overflow-hidden group hover:border-violet-500/40 transition-all duration-500 hover:shadow-[0_20px_40px_-15px_rgba(139,92,246,0.15)]">
+              <div className="absolute bottom-0 left-0 w-[250px] h-[250px] rounded-full bg-violet-500/10 blur-[70px] pointer-events-none group-hover:bg-violet-500/20 transition-colors duration-700" />
+              <div className="relative z-10 flex flex-col h-full justify-between">
+                <div className="w-[64px] h-[64px] rounded-2xl bg-violet-500/10 border border-violet-500/20 flex items-center justify-center mb-[32px] group-hover:scale-110 transition-transform duration-500">
+                  <Zap className="w-[32px] h-[32px] text-violet-500" />
+                </div>
+                <div>
+                  <h3 className="text-[48px] font-black text-text tracking-tighter leading-none mb-[12px] group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-violet-500 group-hover:to-purple-400 transition-all duration-500">6-Layer</h3>
+                  <p className="text-[20px] font-extrabold text-text mb-[6px] tracking-tight">Deep ATS Audit</p>
+                  <p className="text-[15px] text-text-secondary font-medium">Harsh citations & gap fixes.</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Card 4: Campus Intelligence (Wide) */}
+            <div className="md:col-span-2 relative rounded-[32px] bg-gradient-to-br from-surface/80 to-surface-2/80 backdrop-blur-md border border-border/80 p-[40px] overflow-hidden group hover:border-emerald-500/40 transition-all duration-500 hover:shadow-[0_20px_40px_-15px_rgba(16,185,129,0.15)]">
+              <div className="absolute top-[-20%] right-[-10%] w-[400px] h-[400px] rounded-full bg-emerald-500/10 blur-[80px] pointer-events-none group-hover:bg-emerald-500/20 transition-colors duration-700" />
+              <div className="relative z-10 flex flex-col h-full justify-between">
+                <div className="w-[64px] h-[64px] rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center mb-[32px] group-hover:scale-110 transition-transform duration-500">
+                  <GraduationCap className="w-[32px] h-[32px] text-emerald-500" />
+                </div>
+                <div>
+                  <h3 className="text-[56px] font-black text-text tracking-tighter leading-none mb-[12px] group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-emerald-500 group-hover:to-teal-400 transition-all duration-500">'26-27</h3>
+                  <p className="text-[20px] font-extrabold text-text mb-[6px] tracking-tight">Campus Intelligence</p>
+                  <p className="text-[15px] text-text-secondary font-medium">60 verified fresher programs, actual CTC bands & eligibility.</p>
+                </div>
+              </div>
+              <div className="absolute bottom-[-20%] right-[-5%] opacity-[0.03] group-hover:opacity-[0.08] group-hover:scale-110 transition-all duration-700 pointer-events-none -rotate-12">
+                <GraduationCap className="w-[260px] h-[260px] text-emerald-500" />
+              </div>
+            </div>
           </div>
         </div>
       </section>
