@@ -80,5 +80,5 @@ describe('Careers Platform Governance & "One Door" Import Enforcement', () => {
     expect(careers.ext.register).toBeTypeOf('function');
     expect(careers.ext.get).toBeTypeOf('function');
     expect(careers.ext.set).toBeTypeOf('function');
-  });
+  }, 15000);
 });

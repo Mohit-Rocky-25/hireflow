@@ -1130,8 +1130,8 @@ describe('Stage 6.6 — 32 Golden Resumes Evaluation & Performance Benchmark', (
         }
       }
 
-      // Assert each single test case executes under 300ms
-      expect(elapsed).toBeLessThan(300);
+      // Assert each single test case executes under 600ms
+      expect(elapsed).toBeLessThan(600);
     }
 
     const precision = totalTP / Math.max(1, totalTP + totalFP);

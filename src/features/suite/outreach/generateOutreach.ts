@@ -174,7 +174,7 @@ export function fillSlots(templateText: string, slots: OutreachSlots): string {
   };
 
   for (const [key, val] of Object.entries(slotMap)) {
-    const reg = new RegExp(`\\{\\{${key}\\}\\}`, 'g');
+    const reg = new RegExp(`\\{\\{${key}\\}\\}|\\{${key}\\}`, 'g');
     filled = filled.replace(reg, val);
   }
 
