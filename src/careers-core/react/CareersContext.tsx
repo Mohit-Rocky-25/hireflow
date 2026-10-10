@@ -139,29 +139,45 @@ export function DataBadge({ entity, provenance, showSources = true }: DataBadgeP
           </div>
 
           <div className="font-medium text-neutral-300 text-[11px] mb-1">Recorded Sources:</div>
-          <div className="space-y-1.5 max-h-36 overflow-y-auto pr-1">
+          <div className="space-y-2 max-h-48 overflow-y-auto pr-1">
             {prov.sources && prov.sources.length > 0 ? (
               prov.sources.map((src, i) => (
-                <div key={i} className="p-1.5 rounded-lg bg-neutral-800/60 border border-neutral-700/50">
-                  <div className="font-medium text-neutral-200 truncate">{src.title}</div>
-                  <div className="flex items-center justify-between text-[10px] text-neutral-400 mt-0.5">
+                <div key={i} className="p-2 rounded-lg bg-neutral-800/60 border border-neutral-700/50 space-y-1">
+                  <div className="font-medium text-neutral-200 text-xs leading-snug">{src.title}</div>
+                  <div className="flex items-center justify-between text-[10px] text-neutral-400 pt-0.5">
                     <span>{src.publisher} ({src.type})</span>
-                    {src.url && (
+                    <div className="flex items-center gap-2">
+                      {src.url && (
+                        <a
+                          href={src.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-0.5 text-blue-400 hover:text-blue-300 font-semibold underline"
+                          title="Open official verified URL"
+                        >
+                          Official Link <ExternalLink className="w-2.5 h-2.5" />
+                        </a>
+                      )}
                       <a
-                        href={src.url}
+                        href={`https://www.google.com/search?q=${encodeURIComponent(`${src.publisher} ${src.title} campus careers official`)}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-0.5 text-blue-400 hover:underline"
+                        className="inline-flex items-center gap-0.5 text-emerald-400 hover:text-emerald-300 font-medium"
+                        title="If company season page moved, search live campus drive"
                       >
-                        Link <ExternalLink className="w-2.5 h-2.5" />
+                        Search Live ↗
                       </a>
-                    )}
+                    </div>
                   </div>
                 </div>
               ))
             ) : (
               <div className="text-neutral-400 italic">No external sources listed.</div>
             )}
+          </div>
+
+          <div className="mt-2 text-[10px] text-neutral-400 leading-tight border-t border-neutral-800 pt-1.5">
+            Tip: Corporate portals frequently archive past seasonal links. If an employer's URL moved, click <span className="text-emerald-400 font-semibold">Search Live ↗</span> for the latest recruitment cycle.
           </div>
 
           <button

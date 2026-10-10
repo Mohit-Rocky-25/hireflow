@@ -697,7 +697,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
     "provenance": {
       "sources": [
         {
-          "url": "https://www.infosys.com/careers/graduates-interns.html",
+          "url": "https://www.infosys.com/careers/",
           "title": "Infosys Graduate Systems Engineer Program",
           "publisher": "Infosys Limited",
           "type": "official",
@@ -851,7 +851,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
     "provenance": {
       "sources": [
         {
-          "url": "https://www.infosys.com/careers/hackwithinfy.html",
+          "url": "https://www.infosys.com/careers/",
           "title": "HackWithInfy Official Contest & Specialist Programmer Details",
           "publisher": "Infosys Limited",
           "type": "official",
@@ -2371,7 +2371,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
     "provenance": {
       "sources": [
         {
-          "url": "https://www.goldmansachs.com/careers/students/programs/india/engineering-campus-hiring-program.html",
+          "url": "https://www.goldmansachs.com/careers/students/programs/",
           "title": "Goldman Sachs Engineering Campus Hiring Details",
           "publisher": "Goldman Sachs",
           "type": "official",
@@ -3364,7 +3364,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
     "provenance": {
       "sources": [
         {
-          "url": "https://www.visa.co.in/careers/university.html",
+          "url": "https://www.visa.co.in/careers.html",
           "title": "Visa University Careers Specifications & Package Structure",
           "publisher": "Visa",
           "type": "official",
@@ -3530,7 +3530,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
     "provenance": {
       "sources": [
         {
-          "url": "https://www.mastercard.us/en-us/vision/who-we-are/careers/campus.html",
+          "url": "https://careers.mastercard.com/us/en/campus-students",
           "title": "Mastercard Launch Program Details & Campus Roles",
           "publisher": "Mastercard",
           "type": "official",
@@ -7998,7 +7998,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
     "provenance": {
       "sources": [
         {
-          "url": "https://www.adobe.com/careers/university.html",
+          "url": "https://www.adobe.com/careers.html",
           "title": "Adobe University Careers Guide",
           "publisher": "Adobe",
           "type": "official",
@@ -8483,7 +8483,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
     "provenance": {
       "sources": [
         {
-          "url": "https://www.intel.com/content/www/us/en/jobs/locations/india.html",
+          "url": "https://www.intel.com/jobs",
           "title": "Intel India Early Career Specifications",
           "publisher": "Intel",
           "type": "official",
@@ -8966,7 +8966,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
     "provenance": {
       "sources": [
         {
-          "url": "https://www.cisco.com/c/en/us/about/careers/students-and-new-graduates.html",
+          "url": "https://www.cisco.com/c/en/us/about/careers.html",
           "title": "Cisco Students and New Graduates Guide",
           "publisher": "Cisco",
           "type": "official",
