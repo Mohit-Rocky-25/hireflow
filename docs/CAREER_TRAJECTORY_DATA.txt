@@ -1,0 +1,2797 @@
+================================================================================
+HIREFLOW CAREER TRAJECTORY & PROMOTION INTELLIGENCE MASTER DATASET
+Comprehensive Dataset: Companies, Levels, Compensation, Promotion Criteria,
+Structured Blockers, Hiring Pathways & Cross-Company Equivalence (India Market in INR)
+================================================================================
+
+Total Companies: 56
+Market Segments: Big Tech India, Indian Product Unicorn, GCC / Finance, Indian IT Services, Core Engineering & Automotive
+
+--------------------------------------------------------------------------------
+SECTION 1: CROSS-COMPANY LEVEL EQUIVALENCE MATRIX
+--------------------------------------------------------------------------------
+
+[L3_ENTRY] Entry Level / Associate (Entry (L3))
+  Typical YoE: 0-2 years | Order: 0
+  Description: New graduates and early-career engineers. Focused on execution of bounded tasks with guidance.
+  Terminal Expectation: Up-or-out expected at most Big Tech within 24-36 months.
+
+[L4_MID] Mid-Level Software Engineer (Mid (L4))
+  Typical YoE: 2-5 years | Order: 1
+  Description: Fully autonomous individual contributor. Owns end-to-end features, unblocks self, designs sub-systems.
+  Terminal Expectation: Many companies require promotion to Senior (L5) within 3-5 years (semi-terminal).
+
+[L5_SENIOR] Senior Software Engineer (Senior (L5))
+  Typical YoE: 5-8+ years | Order: 2
+  Description: Career-terminal level for ~70% of engineers. Owns complex system architecture, sets standards, mentors juniors.
+  Terminal Expectation: Fully terminal level. Engineers can stay here indefinitely with strong performance.
+
+[L6_STAFF] Staff Engineer / Tech Lead (Staff (L6))
+  Typical YoE: 8-12+ years | Order: 3
+  Description: Multi-team and org-wide technical leadership. Defines multi-quarter roadmaps, solves ambiguous cross-cutting problems.
+  Terminal Expectation: Requires demonstrated business-critical scope. High stall rate (~80% fail to advance further).
+
+[L7_PRINCIPAL] Principal / Senior Staff Engineer (Principal (L7))
+  Typical YoE: 12-16+ years | Order: 4
+  Description: Company-wide or business-unit technical authority. Steers technology strategy, interfaces with VP/C-suite.
+  Terminal Expectation: Fewer than 3-5% of company engineers reach this level.
+
+[L8_DISTINGUISHED] Distinguished Engineer / Fellow (Distinguished (L8))
+  Typical YoE: 16+ years | Order: 5
+  Description: Industry-level technical luminary. Influences industry standards, patents, core company platform foundations.
+  Terminal Expectation: Appointed by executive committee. < 0.5% of engineering population.
+
+[M1_MANAGER] Engineering Manager (EM (M1))
+  Typical YoE: 6-10 years | Order: 2
+  Description: Direct people manager for 6-12 engineers. Responsible for delivery, career growth, team health, and execution.
+  Terminal Expectation: Can be terminal at mid-size companies, progression requires scaling team or multiple pods.
+
+[M2_SENIOR_MANAGER] Senior Engineering Manager (Sr EM (M2))
+  Typical YoE: 10-14 years | Order: 3
+  Description: Second-line manager (manages managers or large org of 20-40 engineers). Strategic roadmap and talent calibration.
+  Terminal Expectation: High bar, requires managing complex cross-functional group.
+
+[M3_DIRECTOR] Director of Engineering (Director (M3))
+  Typical YoE: 14+ years | Order: 4
+  Description: Executive leader of an entire engineering pillar (50-150+ engineers). Accountable for organizational P&L/business outcomes.
+  Terminal Expectation: Executive band.
+
+--------------------------------------------------------------------------------
+SECTION 2: COMPANY LADDERS & COMPENSATION BY MARKET SEGMENT
+--------------------------------------------------------------------------------
+
+
+################################################################################
+MARKET SEGMENT: BIG TECH INDIA (16 Companies)
+################################################################################
+
+================================================================================
+COMPANY: Google India [ID: google]
+Market Segment: Big Tech India
+Headquarters: Bengaluru / Hyderabad, India (Global HQ: Mountain View, CA)
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (5 Levels Defined):
+
+  * LEVEL CODE: L3 — Software Engineer II (Entry)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Half-yearly (March & September cycles) (Review Months: 3, 9)
+      - Nominator: Manager nomination with peer feedback packet | Decider: Local Department Promotion Committee (LPC)
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Allowed
+      - Required Artifacts: Promo Document; 3-5 Peer Reviews; Manager Assessment; Design Artifacts
+
+  * LEVEL CODE: L4 — Software Engineer III
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Half-yearly (March & September cycles) (Review Months: 3, 9)
+      - Nominator: Manager nomination or self-nomination with manager endorsement | Decider: Centralized Engineering Promotion Committee (EPC)
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Allowed
+      - Required Artifacts: Promo Packet; 5 Peer Reviews; Design Docs (go/docs); Manager Recommendation
+
+  * LEVEL CODE: L5 — Senior Software Engineer
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Half-yearly cycles (Review Months: 3, 9)
+      - Nominator: Manager nomination with Director endorsement | Decider: Senior Engineering Promotion Committee (SEPC)
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Allowed
+      - Required Artifacts: Detailed Impact Packet; Director Endorsement; Cross-Org Peer Reviews
+
+  * LEVEL CODE: L6 — Staff Software Engineer
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review cadence (Review Months: 9)
+      - Nominator: Engineering Director nomination | Decider: Global Staff Promotion Committee & VP Approval
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Executive Impact Dossier; VP Sponsorship Memo; Cross-site Staff Reviews
+
+  * LEVEL CODE: M1 — Engineering Manager
+    Track: EM | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Half-yearly cycles (Review Months: 3, 9)
+      - Nominator: Director sponsorship | Decider: Management Calibration Board
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: MFS Reports; Team Delivery Track Record; Director Assessment
+
+
+================================================================================
+COMPANY: Microsoft India [ID: microsoft]
+Market Segment: Big Tech India
+Headquarters: Hyderabad / Bengaluru / Noida, India (Global HQ: Redmond, WA)
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (5 Levels Defined):
+
+  * LEVEL CODE: 59 — Software Engineer
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual Connect cycle with mid-year check-in (Review Months: 8)
+      - Nominator: Manager recommendation | Decider: Partner Director Org Calibration
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Connect Performance Profile; Peer Feedback; Manager Assessment
+
+  * LEVEL CODE: 61 — Software Engineer II
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual Connect cycle (August) (Review Months: 8)
+      - Nominator: Engineering Manager | Decider: Partner General Manager calibration panel
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Connect Impact Summary; Telemetry Evidence; Manager Justification
+
+  * LEVEL CODE: 63 — Senior Software Engineer
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual Connect cycle (August) (Review Months: 8)
+      - Nominator: Partner Lead & Manager nomination | Decider: Division Calibration Board (Partner / Corporate VP)
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Executive Dossier; Business Metric Proof; Partner Endorsements
+
+  * LEVEL CODE: 65 — Principal Software Engineer
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual cycle (August) (Review Months: 8)
+      - Nominator: Partner Director / Corporate VP nomination | Decider: Global Executive Calibration Committee
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Corporate VP Sponsorship; Global Impact Audit; Strategic Roadmap
+
+  * LEVEL CODE: M1 — Software Engineering Manager
+    Track: EM | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual Connect cycle (August) (Review Months: 8)
+      - Nominator: Partner Group Manager | Decider: Leadership Calibration Panel
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Team Scorecard; Connect Performance Profiles; GM Endorsement
+
+
+================================================================================
+COMPANY: Amazon India [ID: amazon]
+Market Segment: Big Tech India
+Headquarters: Bengaluru / Hyderabad, India (Global HQ: Seattle, WA)
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (5 Levels Defined):
+
+  * LEVEL CODE: L4 — Software Development Engineer I (SDE I)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Quarterly promotion reviews (rolling promotion windows) (Review Months: 1, 4, 7, 10)
+      - Nominator: Software Development Manager (SDM) submission | Decider: Bar Raiser / Senior Principal calibration review
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Promo Doc with LP Alignment; Peer Feedback from 3+ SDE II/III; Operational Metrics
+
+  * LEVEL CODE: L5 — Software Development Engineer II (SDE II)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Quarterly promotion review cycles (Review Months: 1, 4, 7, 10)
+      - Nominator: SDM with Principal SDE co-sponsorship | Decider: Director & Principal Engineering Calibration Board
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Amazon Promo Doc; Data Evidence Sheets; Peer Reviews; COE List
+
+  * LEVEL CODE: L6 — Senior Software Development Engineer (SDE III)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Half-yearly cycles (Review Months: 4, 10)
+      - Nominator: Director & Senior Principal recommendation | Decider: VP & Distinguished Engineer Calibration Council
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Comprehensive Promo Packet; VP Justification Memo; 360 Cross-Site Feedback
+
+  * LEVEL CODE: L7 — Principal Software Engineer (Principal SDE)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review cadence (Review Months: 10)
+      - Nominator: VP & Principal Community nomination | Decider: Senior Vice President & Worldwide Principal Council
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: PEC Dossier; SVP Endorsement; System Architecture Portfolio
+
+  * LEVEL CODE: SDM1 — Software Development Manager I (L6)
+    Track: EM | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Half-yearly cycles (Review Months: 4, 10)
+      - Nominator: Director recommendation | Decider: Operations & Engineering Management Board
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Team Scorecard; Hiring & Development Record; Operational Review
+
+
+================================================================================
+COMPANY: Meta India [ID: meta]
+Market Segment: Big Tech India
+Headquarters: Bengaluru / Gurugram, India (Global HQ: Menlo Park, CA)
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (5 Levels Defined):
+
+  * LEVEL CODE: E3 — Software Engineer (Entry)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Half-yearly PSC cycles (January & July) (Review Months: 1, 7)
+      - Nominator: Manager nomination via PSC calibration | Decider: Cross-functional Calibration Committee
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: PSC Self Review; 3-5 Peer Reviews; Manager Assessment
+
+  * LEVEL CODE: E4 — Software Engineer (Mid)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Half-yearly PSC cycles (January & July) (Review Months: 1, 7)
+      - Nominator: Manager nomination | Decider: Senior Calibration Committee
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: PSC Packet; Experiment Data; Peer Endorsements
+
+  * LEVEL CODE: E5 — Senior Software Engineer
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Half-yearly PSC cycles (Review Months: 1, 7)
+      - Nominator: Director & Manager nomination | Decider: Director Calibration Committee
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: PSC Dossier; Director Recommendation; Cross-Org Impact Metrics
+
+  * LEVEL CODE: E6 — Staff Software Engineer
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review cycle (July) (Review Months: 7)
+      - Nominator: Director & VP nomination | Decider: Executive Staff Calibration Committee
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Executive Impact Case; VP Recommendation; Global Feedback Dossier
+
+  * LEVEL CODE: M1 — Engineering Manager
+    Track: EM | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Half-yearly cycles (Review Months: 1, 7)
+      - Nominator: Director nomination | Decider: Management Calibration Board
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Pulse Survey Reports; Team Roadmap Review; Director Assessment
+
+
+================================================================================
+COMPANY: Apple India [ID: apple]
+Market Segment: Big Tech India
+Headquarters: Bengaluru / Hyderabad, India (Global HQ: Cupertino, CA)
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (3 Levels Defined):
+
+  * LEVEL CODE: ICT2 — Software Engineer (ICT2)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review cycle (September) (Review Months: 9)
+      - Nominator: Manager nomination | Decider: Senior Director Calibration Panel
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Annual Performance Review; Peer Recommendations; Manager Memo
+
+  * LEVEL CODE: ICT3 — Software Engineer (ICT3)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review cycle (September) (Review Months: 9)
+      - Nominator: Engineering Manager | Decider: Senior Director Panel
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Performance Dossier; Code Metrics; Manager Review
+
+  * LEVEL CODE: ICT4 — Senior Software Engineer (ICT4)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review cycle (September) (Review Months: 9)
+      - Nominator: Senior Director nomination | Decider: Vice President & Executive Calibration Committee
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Executive Dossier; VP Recommendation Memo; Cross-Site Peer Reviews
+
+
+================================================================================
+COMPANY: Uber India [ID: uber]
+Market Segment: Big Tech India
+Headquarters: Bengaluru / Hyderabad, India (Global HQ: San Francisco, CA)
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (3 Levels Defined):
+
+  * LEVEL CODE: L3 — Software Engineer I
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Half-yearly cycles (Q1 & Q3) (Review Months: 3, 9)
+      - Nominator: Engineering Manager | Decider: Local Calibration Committee
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Allowed
+      - Required Artifacts: Promo Packet; Peer Reviews; Delivery Proof
+
+  * LEVEL CODE: L4 — Software Engineer II
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Half-yearly cycles (Review Months: 3, 9)
+      - Nominator: Manager nomination | Decider: Engineering Calibration Committee
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Allowed
+      - Required Artifacts: Promo Packet; Peer Reviews; Metrics Proof
+
+  * LEVEL CODE: L5 — Senior Software Engineer
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Half-yearly review cycle (Review Months: 3, 9)
+      - Nominator: Director & Manager nomination | Decider: Senior Calibration Committee & VP Approval
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Allowed
+      - Required Artifacts: Senior Impact Dossier; Director Recommendation; Cross-Site Peer Reviews
+
+
+================================================================================
+COMPANY: Atlassian India [ID: atlassian]
+Market Segment: Big Tech India
+Headquarters: Bengaluru, India (Global HQ: Sydney, Australia)
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (3 Levels Defined):
+
+  * LEVEL CODE: P3 — Software Engineer
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual cycle with mid-year check (Review Months: 7)
+      - Nominator: Engineering Manager | Decider: Local Department Calibration Panel
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Allowed
+      - Required Artifacts: Growth & Impact Packet; Peer Feedback; Manager Assessment
+
+  * LEVEL CODE: P4 — Senior Software Engineer
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review cycle (July) (Review Months: 7)
+      - Nominator: Engineering Manager | Decider: Engineering Calibration Committee
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Allowed
+      - Required Artifacts: Impact Dossier; Peer Endorsements; Architecture RFCs
+
+  * LEVEL CODE: P5 — Principal Software Engineer
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review cycle (July) (Review Months: 7)
+      - Nominator: Head of Engineering nomination | Decider: Global Executive Calibration Committee
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Principal Impact Case; Head of Eng Endorsement; Global Peer Reviews
+
+
+================================================================================
+COMPANY: Adobe India [ID: adobe]
+Market Segment: Big Tech India
+Headquarters: Noida / Bengaluru, India (Global HQ: San Jose, CA)
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (3 Levels Defined):
+
+  * LEVEL CODE: SE1 — Software Engineer
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual cycle (November) (Review Months: 11)
+      - Nominator: Engineering Manager | Decider: Department Calibration Board
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Check-in Summary; Peer Feedback; Manager Assessment
+
+  * LEVEL CODE: CS1 — Computer Scientist
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual cycle (November) (Review Months: 11)
+      - Nominator: Engineering Manager | Decider: Director Calibration Panel
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Performance Dossier; Patent/RFC Proof; Manager Review
+
+  * LEVEL CODE: SCS — Senior Computer Scientist
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual cycle (November) (Review Months: 11)
+      - Nominator: Senior Director recommendation | Decider: VP Calibration Committee
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Senior Dossier; Patent Portfolio; Director Endorsement
+
+
+================================================================================
+COMPANY: Salesforce India [ID: salesforce]
+Market Segment: Big Tech India
+Headquarters: Hyderabad / Bengaluru, India (Global HQ: San Francisco, CA)
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (3 Levels Defined):
+
+  * LEVEL CODE: AMTS — Associate Member of Technical Staff (AMTS)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review cycle (February) (Review Months: 2)
+      - Nominator: Engineering Manager | Decider: Director Calibration Board
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: V2MOM Scorecard; Peer Feedback; Manager Assessment
+
+  * LEVEL CODE: MTS — Member of Technical Staff (MTS)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual cycle (February) (Review Months: 2)
+      - Nominator: Engineering Manager | Decider: Director Calibration Panel
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: V2MOM Record; Technical RFCs; Peer Reviews
+
+  * LEVEL CODE: SMTS — Senior Member of Technical Staff (SMTS)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual cycle (February) (Review Months: 2)
+      - Nominator: Director recommendation | Decider: VP Calibration Committee
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: SMTS Dossier; Architecture Blueprint; VP Recommendation
+
+
+================================================================================
+COMPANY: Oracle India (OCI) [ID: oracle]
+Market Segment: Big Tech India
+Headquarters: Bengaluru / Hyderabad, India (Global HQ: Austin, TX)
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (3 Levels Defined):
+
+  * LEVEL CODE: IC1 — Software Engineer (IC1)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review cycle (June) (Review Months: 6)
+      - Nominator: Engineering Manager | Decider: Department Calibration Board
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Performance Review; Code Review Metrics; Manager Assessment
+
+  * LEVEL CODE: IC2 — Senior Software Engineer (IC2)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual cycle (June) (Review Months: 6)
+      - Nominator: Engineering Manager | Decider: Director Calibration Panel
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Performance Dossier; Code Review History; Manager Review
+
+  * LEVEL CODE: IC3 — Principal Software Engineer (IC3)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual cycle (June) (Review Months: 6)
+      - Nominator: Senior Director recommendation | Decider: VP Calibration Committee
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Principal Dossier; Architecture Blueprint; VP Recommendation
+
+
+================================================================================
+COMPANY: Intel India [ID: intel]
+Market Segment: Big Tech India
+Headquarters: Bengaluru / Hyderabad, India (Global HQ: Santa Clara, CA)
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (3 Levels Defined):
+
+  * LEVEL CODE: Grade 5 — Software Engineer (Grade 5)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual focal review (October) (Review Months: 10)
+      - Nominator: Engineering Manager | Decider: Business Unit Calibration Committee
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Annual Focal Review; Manager Recommendation
+
+  * LEVEL CODE: Grade 6 — Software Engineer II (Grade 6)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual focal review (October) (Review Months: 10)
+      - Nominator: Engineering Manager | Decider: Division Calibration Committee
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Performance Dossier; Manager Assessment
+
+  * LEVEL CODE: Grade 7 — Senior Software Engineer (Grade 7)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual focal review (October) (Review Months: 10)
+      - Nominator: Director nomination | Decider: Business Group VP Calibration
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Senior Dossier; Letters of Endorsement
+
+
+================================================================================
+COMPANY: NVIDIA India [ID: nvidia]
+Market Segment: Big Tech India
+Headquarters: Bengaluru / Pune, India (Global HQ: Santa Clara, CA)
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (3 Levels Defined):
+
+  * LEVEL CODE: IC1 — Software Engineer (IC1)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review cycle (February) (Review Months: 2)
+      - Nominator: Engineering Manager | Decider: Department Calibration Board
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Performance Evaluation; Manager Assessment
+
+  * LEVEL CODE: IC2 — Senior Software Engineer (IC2)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review cycle (February) (Review Months: 2)
+      - Nominator: Engineering Manager | Decider: Director Review Panel
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Technical Dossier; Code Review History
+
+  * LEVEL CODE: IC3 — Staff Software Engineer (IC3)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review cycle (February) (Review Months: 2)
+      - Nominator: Senior Director nomination | Decider: VP Engineering Council
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Staff Dossier; VP Recommendation Letters
+
+
+================================================================================
+COMPANY: Qualcomm India [ID: qualcomm]
+Market Segment: Big Tech India
+Headquarters: Hyderabad / Bengaluru, India (Global HQ: San Diego, CA)
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (3 Levels Defined):
+
+  * LEVEL CODE: Engineer — Engineer
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (November) (Review Months: 11)
+      - Nominator: Engineering Manager | Decider: Department Calibration Board
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Annual Performance Review; Manager Assessment
+
+  * LEVEL CODE: Senior Engineer — Senior Engineer
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (November) (Review Months: 11)
+      - Nominator: Engineering Manager | Decider: Director Review Panel
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Performance Dossier; Code Review Contributions
+
+  * LEVEL CODE: Staff Engineer — Staff Engineer
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (November) (Review Months: 11)
+      - Nominator: Director / Senior Director | Decider: VP Engineering Calibration Board
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Staff Dossier; Patent Portfolio; VP Endorsements
+
+
+================================================================================
+COMPANY: Cisco Systems India [ID: cisco]
+Market Segment: Big Tech India
+Headquarters: Bengaluru, India (Global HQ: San Jose, CA)
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (3 Levels Defined):
+
+  * LEVEL CODE: Grade 6 — Software Engineer (Grade 6)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (August) (Review Months: 8)
+      - Nominator: Engineering Manager | Decider: Department Calibration Board
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Performance Appraisal; Manager Recommendation
+
+  * LEVEL CODE: Grade 8 — Software Engineer II / Senior (Grade 8)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (August) (Review Months: 8)
+      - Nominator: Engineering Manager | Decider: Director Review Panel
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Performance Dossier; Manager Review
+
+  * LEVEL CODE: Grade 10 — Technical Leader (Grade 10)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (August) (Review Months: 8)
+      - Nominator: Director nomination | Decider: VP Engineering Council
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Leader Dossier; Endorsements from Distinguished Engineers
+
+
+================================================================================
+COMPANY: LinkedIn India [ID: linkedin]
+Market Segment: Big Tech India
+Headquarters: Bengaluru, India (Global HQ: Sunnyvale, CA)
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (3 Levels Defined):
+
+  * LEVEL CODE: SWE — Software Engineer (SWE)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Half-yearly cycles (April & October) (Review Months: 4, 10)
+      - Nominator: Engineering Manager with peer packet | Decider: Engineering Promotion Committee
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Allowed
+      - Required Artifacts: Promo Document; 3-5 Peer Reviews; Manager Assessment
+
+  * LEVEL CODE: Senior SWE — Senior Software Engineer
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Half-yearly cycles (April & October) (Review Months: 4, 10)
+      - Nominator: Engineering Manager | Decider: Senior Calibration Committee
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Allowed
+      - Required Artifacts: Senior Promo Packet; Cross-Team Endorsements
+
+  * LEVEL CODE: Staff SWE — Staff Software Engineer
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual focal cycle (October) (Review Months: 10)
+      - Nominator: Director nomination | Decider: Global Staff Promotion Council
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Staff Packet; Staff+ Endorsement Letters; Director Justification
+
+
+================================================================================
+COMPANY: Netflix India [ID: netflix]
+Market Segment: Big Tech India
+Headquarters: Mumbai / Bengaluru, India (Global HQ: Los Gatos, CA)
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (2 Levels Defined):
+
+  * LEVEL CODE: L5 — Senior Software Engineer (L5)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Continuous 360 feedback with annual compensation review (November) (Review Months: 11)
+      - Nominator: Engineering Director | Decider: VP Engineering Calibration
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: 360 Peer Feedback; Keeper Test Evaluation
+
+  * LEVEL CODE: L6 — Staff Software Engineer (L6)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (November) (Review Months: 11)
+      - Nominator: VP Engineering | Decider: Executive Committee
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Executive Dossier; Global 360 Feedback
+
+
+
+################################################################################
+MARKET SEGMENT: INDIAN PRODUCT UNICORN (18 Companies)
+################################################################################
+
+================================================================================
+COMPANY: Flipkart [ID: flipkart]
+Market Segment: Indian Product Unicorn
+Headquarters: Bengaluru, India
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (5 Levels Defined):
+
+  * LEVEL CODE: SDE-1 — Software Development Engineer I
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual appraisal cycle with mid-year check (April) (Review Months: 4)
+      - Nominator: Engineering Manager | Decider: Engineering Calibration Panel
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Allowed
+      - Required Artifacts: Appraisal Dossier; Peer Feedback; Manager Assessment
+
+  * LEVEL CODE: SDE-2 — Software Development Engineer II
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual cycle (April) (Review Months: 4)
+      - Nominator: Engineering Manager | Decider: Director Calibration Board
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Allowed
+      - Required Artifacts: Design Dossier; Scale Test Metrics; Manager Review
+
+  * LEVEL CODE: SDE-3 — Senior Software Development Engineer (SDE-3)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual cycle (April) (Review Months: 4)
+      - Nominator: Director & Manager nomination | Decider: Vice President & Architecture Review Committee
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Architecture Portfolio; Scale Metrics; Director Endorsement
+
+  * LEVEL CODE: ARCH — Principal Architect / SDE-4
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review cadence (Review Months: 4)
+      - Nominator: VP nomination | Decider: Executive Committee (CTO & SVPs)
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Enterprise Architecture Portfolio; VP Endorsement
+
+  * LEVEL CODE: EM1 — Engineering Manager
+    Track: EM | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual appraisal cycle (April) (Review Months: 4)
+      - Nominator: Director nomination | Decider: Leadership Calibration Panel
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Pod Delivery Scorecard; Retention Proof; Director Memo
+
+
+================================================================================
+COMPANY: Swiggy [ID: swiggy]
+Market Segment: Indian Product Unicorn
+Headquarters: Bengaluru, India
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (3 Levels Defined):
+
+  * LEVEL CODE: SDE-1 — Software Development Engineer I
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual appraisal cycle (April) (Review Months: 4)
+      - Nominator: Engineering Manager | Decider: Department Calibration Panel
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Allowed
+      - Required Artifacts: Appraisal Packet; Peer Feedback; Manager Assessment
+
+  * LEVEL CODE: SDE-2 — Software Development Engineer II
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual cycle (April) (Review Months: 4)
+      - Nominator: Engineering Manager | Decider: Director Calibration Board
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Allowed
+      - Required Artifacts: Design Dossier; Scale Test Metrics; Manager Review
+
+  * LEVEL CODE: SDE-3 — Senior Software Development Engineer (SDE-3)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual cycle (April) (Review Months: 4)
+      - Nominator: Director & Manager nomination | Decider: Vice President & Architecture Review Committee
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Architecture Portfolio; Scale Metrics; Director Endorsement
+
+
+================================================================================
+COMPANY: Zomato [ID: zomato]
+Market Segment: Indian Product Unicorn
+Headquarters: Gurugram, India
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (3 Levels Defined):
+
+  * LEVEL CODE: SDE-1 — Software Development Engineer I
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual appraisal cycle (April) (Review Months: 4)
+      - Nominator: Engineering Manager | Decider: Department Calibration Panel
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Allowed
+      - Required Artifacts: Appraisal Packet; Peer Feedback; Manager Assessment
+
+  * LEVEL CODE: SDE-2 — Software Development Engineer II
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual cycle (April) (Review Months: 4)
+      - Nominator: Engineering Manager | Decider: Director Calibration Board
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Allowed
+      - Required Artifacts: Design Dossier; Scale Test Metrics; Manager Review
+
+  * LEVEL CODE: SDE-3 — Senior Software Development Engineer (SDE-3)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual cycle (April) (Review Months: 4)
+      - Nominator: Director & Manager nomination | Decider: Vice President & Architecture Review Committee
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Architecture Portfolio; Scale Metrics; Director Endorsement
+
+
+================================================================================
+COMPANY: Razorpay [ID: razorpay]
+Market Segment: Indian Product Unicorn
+Headquarters: Bengaluru, India
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (3 Levels Defined):
+
+  * LEVEL CODE: SDE-1 — Software Development Engineer I
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual appraisal cycle (April) (Review Months: 4)
+      - Nominator: Engineering Manager | Decider: Department Calibration Panel
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Allowed
+      - Required Artifacts: Appraisal Packet; Peer Feedback; Manager Assessment
+
+  * LEVEL CODE: SDE-2 — Software Development Engineer II
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual cycle (April) (Review Months: 4)
+      - Nominator: Engineering Manager | Decider: Director Calibration Board
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Allowed
+      - Required Artifacts: Design Dossier; Scale Test Metrics; Manager Review
+
+  * LEVEL CODE: SENIOR — Senior Software Development Engineer
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual cycle (April) (Review Months: 4)
+      - Nominator: Director & Manager nomination | Decider: Vice President & Architecture Review Committee
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Architecture Portfolio; Scale Metrics; Director Endorsement
+
+
+================================================================================
+COMPANY: Zoho [ID: zoho]
+Market Segment: Indian Product Unicorn
+Headquarters: Chennai / Tenkasi, India
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (3 Levels Defined):
+
+  * LEVEL CODE: MTS — Member Technical Staff
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review cadence (Review Months: 5)
+      - Nominator: Team Lead / Manager | Decider: Department Leadership Panel
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Product Delivery Log; Lead Assessment
+
+  * LEVEL CODE: SMTS — Senior Member Technical Staff
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual appraisal cycle (Review Months: 5)
+      - Nominator: Product Head | Decider: Senior Leadership Board
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Product Impact Review; Lead Recommendation
+
+  * LEVEL CODE: LEAD — Lead Member Technical Staff
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review cadence (Review Months: 5)
+      - Nominator: Executive Leadership | Decider: Executive Committee
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Product Architecture Portfolio; Founder Review
+
+
+================================================================================
+COMPANY: PhonePe [ID: phonepe]
+Market Segment: Indian Product Unicorn
+Headquarters: Bengaluru, Karnataka, India
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (3 Levels Defined):
+
+  * LEVEL CODE: Software Engineer — Software Engineer
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (April) (Review Months: 4)
+      - Nominator: Engineering Manager | Decider: Engineering Calibration Panel
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Annual Performance Assessment; Tech Design Documents
+
+  * LEVEL CODE: Senior Software Engineer — Senior Software Engineer
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (April) (Review Months: 4)
+      - Nominator: Engineering Manager | Decider: Director Review Panel
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Senior Dossier; Architecture Deliverables
+
+  * LEVEL CODE: Lead Software Engineer — Lead Software Engineer
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (April) (Review Months: 4)
+      - Nominator: Director of Engineering | Decider: VP & CTO Review Board
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Lead Dossier; VP Recommendation
+
+
+================================================================================
+COMPANY: Paytm (One97) [ID: paytm]
+Market Segment: Indian Product Unicorn
+Headquarters: Noida / Bengaluru, India
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (3 Levels Defined):
+
+  * LEVEL CODE: Software Engineer — Software Engineer
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (April) (Review Months: 4)
+      - Nominator: Engineering Manager | Decider: Department Committee
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Performance Appraisal
+
+  * LEVEL CODE: Senior Software Engineer — Senior Software Engineer
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (April) (Review Months: 4)
+      - Nominator: Engineering Manager | Decider: Director Review Panel
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Performance Dossier
+
+  * LEVEL CODE: Tech Lead — Tech Lead
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (April) (Review Months: 4)
+      - Nominator: Director of Engineering | Decider: VP Engineering Calibration Board
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Lead Dossier; CTO Review
+
+
+================================================================================
+COMPANY: CRED [ID: cred]
+Market Segment: Indian Product Unicorn
+Headquarters: Bengaluru, Karnataka, India
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (3 Levels Defined):
+
+  * LEVEL CODE: Software Engineer — Backend Engineer / Product Engineer
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (March) (Review Months: 3)
+      - Nominator: Engineering Lead | Decider: Peer Calibration Circle
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Allowed
+      - Required Artifacts: Engineering Impact Document; Peer Feedback
+
+  * LEVEL CODE: Senior Engineer — Senior Backend Engineer
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (March) (Review Months: 3)
+      - Nominator: Engineering Lead | Decider: Engineering Leadership Panel
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Allowed
+      - Required Artifacts: Senior Dossier; Code Metrics
+
+  * LEVEL CODE: Lead Engineer — Lead Engineer / Staff
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (March) (Review Months: 3)
+      - Nominator: VP of Engineering | Decider: CTO & Founders Calibration
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Staff Packet; CTO Approval
+
+
+================================================================================
+COMPANY: Meesho [ID: meesho]
+Market Segment: Indian Product Unicorn
+Headquarters: Bengaluru, Karnataka, India
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (3 Levels Defined):
+
+  * LEVEL CODE: SDE-1 — Software Development Engineer I
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Bi-annual cycles (April & October) (Review Months: 4, 10)
+      - Nominator: Engineering Manager | Decider: Calibration Committee
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Allowed
+      - Required Artifacts: Promo Packet; Peer Feedback
+
+  * LEVEL CODE: SDE-2 — Software Development Engineer II
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Bi-annual cycles (April & October) (Review Months: 4, 10)
+      - Nominator: Engineering Manager | Decider: Director Review Panel
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Allowed
+      - Required Artifacts: SDE-2 Dossier; Architecture Deliverables
+
+  * LEVEL CODE: SDE-3 — Software Development Engineer III
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual cycle (April) (Review Months: 4)
+      - Nominator: Director of Engineering | Decider: VP Engineering Council
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Staff Dossier; CTO Alignment
+
+
+================================================================================
+COMPANY: Zepto [ID: zepto]
+Market Segment: Indian Product Unicorn
+Headquarters: Bengaluru / Mumbai, India
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (3 Levels Defined):
+
+  * LEVEL CODE: SDE-1 — Software Development Engineer I
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Bi-annual review (April & October) (Review Months: 4, 10)
+      - Nominator: Engineering Manager | Decider: Engineering Calibration Board
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Allowed
+      - Required Artifacts: Sprint Performance Review
+
+  * LEVEL CODE: SDE-2 — Software Development Engineer II
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Bi-annual review (April & October) (Review Months: 4, 10)
+      - Nominator: Engineering Manager | Decider: Director Review Panel
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Allowed
+      - Required Artifacts: SDE-2 Dossier; Architecture Reviews
+
+  * LEVEL CODE: SDE-3 — Software Development Engineer III
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (April) (Review Months: 4)
+      - Nominator: Director of Engineering | Decider: VP & CTO Review Board
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Lead Packet; CTO Endorsement
+
+
+================================================================================
+COMPANY: Ola [ID: ola]
+Market Segment: Indian Product Unicorn
+Headquarters: Bengaluru, Karnataka, India
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (3 Levels Defined):
+
+  * LEVEL CODE: SDE-1 — Software Development Engineer I
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (April) (Review Months: 4)
+      - Nominator: Engineering Manager | Decider: Department Calibration Panel
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Annual Performance Review
+
+  * LEVEL CODE: SDE-2 — Software Development Engineer II
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (April) (Review Months: 4)
+      - Nominator: Engineering Manager | Decider: Director Review Panel
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Performance Dossier
+
+  * LEVEL CODE: SDE-3 — Software Development Engineer III
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (April) (Review Months: 4)
+      - Nominator: Director of Engineering | Decider: VP Engineering Calibration Board
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Lead Dossier; CTO Review
+
+
+================================================================================
+COMPANY: Freshworks [ID: freshworks]
+Market Segment: Indian Product Unicorn
+Headquarters: Chennai / Bengaluru, India (Global HQ: San Mateo, CA)
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (3 Levels Defined):
+
+  * LEVEL CODE: Software Engineer — Software Engineer
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (April) (Review Months: 4)
+      - Nominator: Engineering Manager | Decider: Department Calibration Board
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Performance Appraisal
+
+  * LEVEL CODE: Senior Software Engineer — Senior Software Engineer
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (April) (Review Months: 4)
+      - Nominator: Engineering Manager | Decider: Director Review Panel
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Performance Dossier
+
+  * LEVEL CODE: Lead Software Engineer — Lead Software Engineer
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (April) (Review Months: 4)
+      - Nominator: Director of Engineering | Decider: VP Engineering Calibration Board
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Lead Dossier; VP Recommendation
+
+
+================================================================================
+COMPANY: Groww [ID: groww]
+Market Segment: Indian Product Unicorn
+Headquarters: Bengaluru, Karnataka, India
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (3 Levels Defined):
+
+  * LEVEL CODE: SDE-1 — Software Development Engineer I
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Bi-annual review (April & October) (Review Months: 4, 10)
+      - Nominator: Engineering Manager | Decider: Engineering Calibration Board
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Allowed
+      - Required Artifacts: Performance Review; Peer Feedback
+
+  * LEVEL CODE: SDE-2 — Software Development Engineer II
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Bi-annual review (April & October) (Review Months: 4, 10)
+      - Nominator: Engineering Manager | Decider: Director Review Panel
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Allowed
+      - Required Artifacts: SDE-2 Dossier; Architecture Deliverables
+
+  * LEVEL CODE: SDE-3 — Software Development Engineer III
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (April) (Review Months: 4)
+      - Nominator: Director of Engineering | Decider: VP Engineering Calibration Board
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Staff Packet; CTO Alignment
+
+
+================================================================================
+COMPANY: Dream11 (Sporta Tech) [ID: dream11]
+Market Segment: Indian Product Unicorn
+Headquarters: Mumbai, Maharashtra, India
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (3 Levels Defined):
+
+  * LEVEL CODE: SDE-1 — Software Development Engineer I
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (May) (Review Months: 5)
+      - Nominator: Engineering Manager | Decider: Calibration Committee
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Allowed
+      - Required Artifacts: Performance Review
+
+  * LEVEL CODE: SDE-2 — Software Development Engineer II
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (May) (Review Months: 5)
+      - Nominator: Engineering Manager | Decider: Director Review Panel
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Allowed
+      - Required Artifacts: SDE-2 Dossier
+
+  * LEVEL CODE: SDE-3 — Software Development Engineer III
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (May) (Review Months: 5)
+      - Nominator: Director of Engineering | Decider: VP Engineering Calibration Board
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Staff Packet; CTO Alignment
+
+
+================================================================================
+COMPANY: Myntra [ID: myntra]
+Market Segment: Indian Product Unicorn
+Headquarters: Bengaluru, Karnataka, India
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (3 Levels Defined):
+
+  * LEVEL CODE: SDE-1 — Software Development Engineer I
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (April) (Review Months: 4)
+      - Nominator: Engineering Manager | Decider: Department Calibration Board
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Allowed
+      - Required Artifacts: Performance Review
+
+  * LEVEL CODE: SDE-2 — Software Development Engineer II
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (April) (Review Months: 4)
+      - Nominator: Engineering Manager | Decider: Director Review Panel
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Allowed
+      - Required Artifacts: SDE-2 Dossier
+
+  * LEVEL CODE: SDE-3 — Software Development Engineer III
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (April) (Review Months: 4)
+      - Nominator: Director of Engineering | Decider: VP Engineering Calibration Board
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Staff Packet; VP Alignment
+
+
+================================================================================
+COMPANY: Nykaa [ID: nykaa]
+Market Segment: Indian Product Unicorn
+Headquarters: Mumbai / Gurugram, India
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (3 Levels Defined):
+
+  * LEVEL CODE: Software Engineer — Software Engineer
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (April) (Review Months: 4)
+      - Nominator: Engineering Manager | Decider: Department Calibration Board
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Performance Appraisal
+
+  * LEVEL CODE: Senior Software Engineer — Senior Software Engineer
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (April) (Review Months: 4)
+      - Nominator: Engineering Manager | Decider: Director Review Panel
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Performance Dossier
+
+  * LEVEL CODE: Technical Lead — Technical Lead
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (April) (Review Months: 4)
+      - Nominator: Director of Engineering | Decider: VP Engineering Calibration Board
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Lead Dossier; CTO Review
+
+
+================================================================================
+COMPANY: InMobi [ID: inmobi]
+Market Segment: Indian Product Unicorn
+Headquarters: Bengaluru, Karnataka, India
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (3 Levels Defined):
+
+  * LEVEL CODE: Software Engineer — Software Engineer
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (April) (Review Months: 4)
+      - Nominator: Engineering Manager | Decider: Department Calibration Board
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Performance Appraisal
+
+  * LEVEL CODE: Senior Software Engineer — Senior Software Engineer
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (April) (Review Months: 4)
+      - Nominator: Engineering Manager | Decider: Director Review Panel
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Performance Dossier
+
+  * LEVEL CODE: Lead Engineer — Lead Engineer
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (April) (Review Months: 4)
+      - Nominator: Director of Engineering | Decider: VP Engineering Calibration Board
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Lead Dossier; CTO Alignment
+
+
+================================================================================
+COMPANY: ShareChat (Mohalla Tech) [ID: sharechat]
+Market Segment: Indian Product Unicorn
+Headquarters: Bengaluru, Karnataka, India
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (3 Levels Defined):
+
+  * LEVEL CODE: SDE-1 — Software Development Engineer I
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (April) (Review Months: 4)
+      - Nominator: Engineering Manager | Decider: Department Calibration Board
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Allowed
+      - Required Artifacts: Performance Appraisal
+
+  * LEVEL CODE: SDE-2 — Software Development Engineer II
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (April) (Review Months: 4)
+      - Nominator: Engineering Manager | Decider: Director Review Panel
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Allowed
+      - Required Artifacts: SDE-2 Dossier
+
+  * LEVEL CODE: SDE-3 — Software Development Engineer III
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (April) (Review Months: 4)
+      - Nominator: Director of Engineering | Decider: VP Engineering Calibration Board
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Staff Packet; VP Alignment
+
+
+
+################################################################################
+MARKET SEGMENT: GCC / FINANCE (9 Companies)
+################################################################################
+
+================================================================================
+COMPANY: Goldman Sachs India [ID: goldman-sachs]
+Market Segment: GCC / Finance
+Headquarters: Bengaluru / Hyderabad, India (Global HQ: New York, NY)
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (3 Levels Defined):
+
+  * LEVEL CODE: ANALYST — Analyst (Software Engineer)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual Year-End Review (November/December) (Review Months: 11)
+      - Nominator: Managing Director & Vice President recommendation | Decider: Regional Managing Director Calibration Board
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Year-End Performance Review; Peer 360 Feedback; Business Unit Impact
+
+  * LEVEL CODE: ASSOCIATE — Associate (Senior Software Engineer)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual Year-End Review (November/December) (Review Months: 11)
+      - Nominator: Vice President & Business Unit Head | Decider: Global Division Calibration Panel
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Performance Dossier; Risk Audit Certification; MD Sponsorship
+
+  * LEVEL CODE: VP — Vice President (VP)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual cycle (November) (Review Months: 11)
+      - Nominator: Managing Director nomination | Decider: Global Partnership Committee & MD Panel
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Executive Impact Case; Global MD Sponsorship Memo
+
+
+================================================================================
+COMPANY: Walmart Global Tech India [ID: walmart]
+Market Segment: GCC / Finance
+Headquarters: Bengaluru / Chennai, India (Global HQ: Bentonville, AR)
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (3 Levels Defined):
+
+  * LEVEL CODE: IN3 — Software Engineer II (IN3)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual appraisal cycle (February/March) (Review Months: 2)
+      - Nominator: Engineering Manager | Decider: Department Calibration Panel
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Allowed
+      - Required Artifacts: Performance Packet; Peer Feedback; Manager Assessment
+
+  * LEVEL CODE: IN4 — Senior Software Engineer (IN4)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual cycle (February) (Review Months: 2)
+      - Nominator: Engineering Manager | Decider: Director Calibration Board
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Allowed
+      - Required Artifacts: Design Dossier; Scale Test Metrics; Manager Review
+
+  * LEVEL CODE: IN5 — Staff Software Engineer (IN5)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual cycle (February) (Review Months: 2)
+      - Nominator: Director & Manager nomination | Decider: Vice President & Global Architecture Board
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Architecture Portfolio; Scale Metrics; Director Endorsement
+
+
+================================================================================
+COMPANY: Morgan Stanley India [ID: morgan-stanley]
+Market Segment: GCC / Finance
+Headquarters: Bengaluru / Mumbai, India (Global HQ: New York, NY)
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (3 Levels Defined):
+
+  * LEVEL CODE: ASSOC — Associate (Software Engineer)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review cycle (November) (Review Months: 11)
+      - Nominator: Engineering Manager | Decider: Department Calibration Board
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Performance Dossier; Peer Feedback; Manager Assessment
+
+  * LEVEL CODE: MGR — Manager / Senior Associate
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual cycle (November) (Review Months: 11)
+      - Nominator: Vice President & Business Head | Decider: Managing Director Calibration Panel
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Performance Dossier; Risk Audit Certification; VP Sponsorship
+
+  * LEVEL CODE: VP — Vice President (VP)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual cycle (November) (Review Months: 11)
+      - Nominator: Managing Director nomination | Decider: Global Executive Calibration Committee
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Executive Impact Case; Global MD Sponsorship Memo
+
+
+================================================================================
+COMPANY: JPMorgan Chase India [ID: jpmorgan]
+Market Segment: GCC / Finance
+Headquarters: Bengaluru / Hyderabad / Mumbai, India (Global HQ: New York, NY)
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (3 Levels Defined):
+
+  * LEVEL CODE: Software Engineer — Software Engineer / Analyst (601)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual year-end review (January) (Review Months: 1)
+      - Nominator: Engineering Manager | Decider: Line of Business Calibration Committee
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Year-End Performance Assessment; Manager Evaluation
+
+  * LEVEL CODE: Associate — Associate / Senior Software Engineer (602)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual year-end review (January) (Review Months: 1)
+      - Nominator: Vice President Manager | Decider: Executive Director Calibration Committee
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Associate Dossier; Global Stakeholder Feedback
+
+  * LEVEL CODE: Vice President — Vice President (603)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (January) (Review Months: 1)
+      - Nominator: Executive Director / Managing Director | Decider: Global Technology MD Committee
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: VP Dossier; MD Sponsorship
+
+
+================================================================================
+COMPANY: American Express India [ID: american-express]
+Market Segment: GCC / Finance
+Headquarters: Gurugram / Bengaluru, India (Global HQ: New York, NY)
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (3 Levels Defined):
+
+  * LEVEL CODE: Band 28 — Engineer I (Band 28)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (February) (Review Months: 2)
+      - Nominator: Engineering Manager | Decider: Band Calibration Committee
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Annual Performance Review
+
+  * LEVEL CODE: Band 30 — Engineer II (Band 30)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (February) (Review Months: 2)
+      - Nominator: Engineering Manager | Decider: Director Calibration Panel
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Band 30 Dossier
+
+  * LEVEL CODE: Band 35 — Senior Engineer / Tech Leader (Band 35)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (February) (Review Months: 2)
+      - Nominator: Director / VP | Decider: VP Engineering Calibration Board
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Leader Dossier; VP Recommendation
+
+
+================================================================================
+COMPANY: Target India [ID: target]
+Market Segment: GCC / Finance
+Headquarters: Bengaluru, India (Global HQ: Minneapolis, MN)
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (3 Levels Defined):
+
+  * LEVEL CODE: Engineer — Engineer
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (March) (Review Months: 3)
+      - Nominator: Engineering Manager | Decider: Department Calibration Board
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Performance Appraisal
+
+  * LEVEL CODE: Senior Engineer — Senior Engineer
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (March) (Review Months: 3)
+      - Nominator: Engineering Manager | Decider: Director Review Panel
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Performance Dossier
+
+  * LEVEL CODE: Lead Engineer — Lead Engineer
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (March) (Review Months: 3)
+      - Nominator: Director of Engineering | Decider: VP Engineering Calibration Board
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Lead Dossier; VP Recommendation
+
+
+================================================================================
+COMPANY: Visa India [ID: visa]
+Market Segment: GCC / Finance
+Headquarters: Bengaluru, India (Global HQ: San Francisco, CA)
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (3 Levels Defined):
+
+  * LEVEL CODE: Software Engineer — Software Engineer
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (October) (Review Months: 10)
+      - Nominator: Engineering Manager | Decider: Department Calibration Board
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Performance Appraisal
+
+  * LEVEL CODE: Senior Software Engineer — Senior Software Engineer
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (October) (Review Months: 10)
+      - Nominator: Engineering Manager | Decider: Director Review Panel
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Senior Dossier
+
+  * LEVEL CODE: Staff Software Engineer — Staff Software Engineer
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (October) (Review Months: 10)
+      - Nominator: Director of Engineering | Decider: VP Engineering Calibration Board
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Staff Dossier; VP Recommendation
+
+
+================================================================================
+COMPANY: Mastercard India [ID: mastercard]
+Market Segment: GCC / Finance
+Headquarters: Pune / Gurugram, India (Global HQ: Purchase, NY)
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (3 Levels Defined):
+
+  * LEVEL CODE: Software Engineer — Software Engineer
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (February) (Review Months: 2)
+      - Nominator: Engineering Manager | Decider: Department Calibration Board
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Performance Appraisal
+
+  * LEVEL CODE: Senior Software Engineer — Senior Software Engineer
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (February) (Review Months: 2)
+      - Nominator: Engineering Manager | Decider: Director Review Panel
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Senior Dossier
+
+  * LEVEL CODE: Lead Software Engineer — Lead Software Engineer
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (February) (Review Months: 2)
+      - Nominator: Director of Engineering | Decider: VP Engineering Calibration Board
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Lead Dossier; VP Recommendation
+
+
+================================================================================
+COMPANY: PayPal India [ID: paypal]
+Market Segment: GCC / Finance
+Headquarters: Bengaluru / Chennai, India (Global HQ: San Jose, CA)
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (3 Levels Defined):
+
+  * LEVEL CODE: Software Engineer 1 — Software Engineer 1
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (March) (Review Months: 3)
+      - Nominator: Engineering Manager | Decider: Department Calibration Board
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Performance Appraisal
+
+  * LEVEL CODE: Software Engineer 2 — Software Engineer 2
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (March) (Review Months: 3)
+      - Nominator: Engineering Manager | Decider: Director Review Panel
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Performance Dossier
+
+  * LEVEL CODE: Senior Software Engineer — Senior Software Engineer
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (March) (Review Months: 3)
+      - Nominator: Director of Engineering | Decider: VP Engineering Calibration Board
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Staff Dossier; VP Recommendation
+
+
+
+################################################################################
+MARKET SEGMENT: INDIAN IT SERVICES (9 Companies)
+################################################################################
+
+================================================================================
+COMPANY: Tata Consultancy Services (TCS) [ID: tcs]
+Market Segment: Indian IT Services
+Headquarters: Mumbai, India
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (4 Levels Defined):
+
+  * LEVEL CODE: NINJA — Assistant Systems Engineer (Ninja)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual appraisal cycle (April) (Review Months: 4)
+      - Nominator: Project Delivery Manager | Decider: Delivery Unit (DU) Calibration Panel
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Ultimatix Performance Appraisal; iEvolve Certifications; Client Feedback
+
+  * LEVEL CODE: DIGITAL — Systems Engineer (Digital / Prime)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual appraisal cycle (April) (Review Months: 4)
+      - Nominator: Project Manager | Decider: Delivery Unit Panel
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Digital Capability Proof; Project Manager Assessment
+
+  * LEVEL CODE: C3 — IT Analyst / Assistant Consultant (C3)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual appraisal cycle (April) (Review Months: 4)
+      - Nominator: Delivery Manager | Decider: Industry Solution Unit (ISU) Calibration Committee
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Appraisal Dossier; Client Scorecard; Delivery Head Endorsement
+
+  * LEVEL CODE: C4 — Consultant / Solution Architect (C4)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual cycle (April) (Review Months: 4)
+      - Nominator: ISU Head & Delivery Director | Decider: Corporate Executive Panel & VP of HR
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Account Performance Record; RFP Wins Documentation; ISU Head Memo
+
+
+================================================================================
+COMPANY: Infosys [ID: infosys]
+Market Segment: Indian IT Services
+Headquarters: Bengaluru, India
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (4 Levels Defined):
+
+  * LEVEL CODE: SE — Systems Engineer
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual appraisal cycle (April) (Review Months: 4)
+      - Nominator: Project Manager | Decider: Unit Calibration Committee
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Performance Appraisal; Training Scorecard
+
+  * LEVEL CODE: DSE_SP — Specialist Programmer / DSE
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual appraisal cycle (April) (Review Months: 4)
+      - Nominator: Project Manager | Decider: Unit Calibration Committee
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Digital Skills Portfolio; Project Review
+
+  * LEVEL CODE: TA — Technology Analyst (JL5)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual appraisal cycle (April) (Review Months: 4)
+      - Nominator: Delivery Manager | Decider: Unit Calibration Committee
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Appraisal Dossier; Client Scorecard
+
+  * LEVEL CODE: TL — Technology Lead (JL6)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual cycle (April) (Review Months: 4)
+      - Nominator: AVP & Delivery Head | Decider: Corporate Executive Panel
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Account Performance Record; AVP Recommendation Memo
+
+
+================================================================================
+COMPANY: Wipro [ID: wipro]
+Market Segment: Indian IT Services
+Headquarters: Bengaluru, Karnataka, India
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (4 Levels Defined):
+
+  * LEVEL CODE: Elite — Project Engineer (Elite Fresher)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual appraisal cycle (June) (Review Months: 6)
+      - Nominator: Project Manager (Delivery Lead) | Decider: Practice Delivery Head
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Annual Performance Appraisal Form; Client Feedback
+
+  * LEVEL CODE: Turbo — Project Engineer (Turbo / Velocity Track)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual appraisal cycle (June) (Review Months: 6)
+      - Nominator: Project Delivery Manager | Decider: Practice Delivery Head
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Appraisal Packet; Client Feedback
+
+  * LEVEL CODE: Senior Project Engineer — Senior Project Engineer (Band B2/B3)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual appraisal cycle (June) (Review Months: 6)
+      - Nominator: Delivery Manager | Decider: General Manager Calibration Panel
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Senior Appraisal Dossier
+
+  * LEVEL CODE: Technical Lead — Technical Lead / Module Lead (Band C1)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual appraisal cycle (June) (Review Months: 6)
+      - Nominator: Practice Head / Delivery Director | Decider: Vice President Review Committee
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Lead Dossier; Client Account Impact Metrics
+
+
+================================================================================
+COMPANY: HCLTech [ID: hcltech]
+Market Segment: Indian IT Services
+Headquarters: Noida, Uttar Pradesh, India
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (3 Levels Defined):
+
+  * LEVEL CODE: GET — Graduate Engineer Trainee (GET / E1)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (October) (Review Months: 10)
+      - Nominator: Project Manager | Decider: Delivery Panel
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Performance Appraisal
+
+  * LEVEL CODE: Software Engineer — Software Engineer (E2)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (October) (Review Months: 10)
+      - Nominator: Project Manager | Decider: Delivery Director Panel
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Performance Dossier
+
+  * LEVEL CODE: Senior Software Engineer — Senior Software Engineer (E3)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (October) (Review Months: 10)
+      - Nominator: Delivery Director | Decider: VP Review Committee
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Senior Dossier; Client Impact Metrics
+
+
+================================================================================
+COMPANY: Cognizant (CTS) [ID: cognizant]
+Market Segment: Indian IT Services
+Headquarters: Chennai / Teaneck, NJ (India Operational HQ: Chennai)
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (4 Levels Defined):
+
+  * LEVEL CODE: GenC — Programmer Analyst Trainee (GenC)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual appraisal cycle (April) (Review Months: 4)
+      - Nominator: Project Manager | Decider: Department Calibration Board
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Annual Performance Form
+
+  * LEVEL CODE: GenC Next — Programmer Analyst Trainee (GenC Next / Pro)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual appraisal cycle (April) (Review Months: 4)
+      - Nominator: Project Manager | Decider: Department Calibration Board
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Performance Dossier
+
+  * LEVEL CODE: Associate — Associate (Band 2)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual appraisal cycle (April) (Review Months: 4)
+      - Nominator: Delivery Manager | Decider: Director Review Panel
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Associate Dossier
+
+  * LEVEL CODE: Senior Associate — Senior Associate (Band 3)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual appraisal cycle (April) (Review Months: 4)
+      - Nominator: Senior Director / Practice Head | Decider: VP Review Committee
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Senior Associate Dossier; Client Account Impact
+
+
+================================================================================
+COMPANY: Accenture India [ID: accenture]
+Market Segment: Indian IT Services
+Headquarters: Bengaluru / Mumbai, India (Global HQ: Dublin, Ireland)
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (3 Levels Defined):
+
+  * LEVEL CODE: Level 12 — Associate Software Engineer (Level 12)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (December) (Review Months: 12)
+      - Nominator: People Lead (Manager) | Decider: Talent Calibration Committee
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Performance Achievement Form
+
+  * LEVEL CODE: Level 11 — Software Engineer / Analyst (Level 11)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (December) (Review Months: 12)
+      - Nominator: People Lead | Decider: Delivery Director Panel
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Performance Achievement Dossier
+
+  * LEVEL CODE: Level 9 — Team Lead / Consultant (Level 9)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual review (December) (Review Months: 12)
+      - Nominator: Managing Director | Decider: Talent Calibration Council
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Senior Dossier; Client Account Impact
+
+
+================================================================================
+COMPANY: Capgemini India [ID: capgemini]
+Market Segment: Indian IT Services
+Headquarters: Mumbai / Bengaluru, India (Global HQ: Paris, France)
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (3 Levels Defined):
+
+  * LEVEL CODE: Analyst — Analyst (Grade A4)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual appraisal cycle (April) (Review Months: 4)
+      - Nominator: Project Manager | Decider: Department Calibration Board
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Performance Appraisal Form
+
+  * LEVEL CODE: Senior Analyst — Senior Analyst (Grade A5)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual appraisal cycle (April) (Review Months: 4)
+      - Nominator: Project Manager | Decider: Director Review Panel
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Performance Dossier
+
+  * LEVEL CODE: Consultant — Consultant / Lead (Grade C1)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual appraisal cycle (April) (Review Months: 4)
+      - Nominator: Practice Head / Delivery Director | Decider: VP Review Committee
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Lead Dossier; Client Account Impact
+
+
+================================================================================
+COMPANY: Tech Mahindra [ID: tech-mahindra]
+Market Segment: Indian IT Services
+Headquarters: Pune, Maharashtra, India
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (3 Levels Defined):
+
+  * LEVEL CODE: Associate Software Engineer — Associate Software Engineer (Band U1)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual appraisal cycle (June) (Review Months: 6)
+      - Nominator: Project Manager | Decider: Department Calibration Board
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Performance Appraisal Form
+
+  * LEVEL CODE: Software Engineer — Software Engineer (Band U2)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual appraisal cycle (June) (Review Months: 6)
+      - Nominator: Project Manager | Decider: Director Review Panel
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Performance Dossier
+
+  * LEVEL CODE: Senior Software Engineer — Senior Software Engineer / Tech Lead (Band U3)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual appraisal cycle (June) (Review Months: 6)
+      - Nominator: Practice Head / Delivery Director | Decider: VP Review Committee
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Lead Dossier; Client Account Impact
+
+
+================================================================================
+COMPANY: LTIMindtree [ID: ltimindtree]
+Market Segment: Indian IT Services
+Headquarters: Mumbai / Bengaluru, India
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (3 Levels Defined):
+
+  * LEVEL CODE: Graduate Trainee — Graduate Trainee / Software Engineer
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual appraisal cycle (April) (Review Months: 4)
+      - Nominator: Project Manager | Decider: Department Calibration Board
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Performance Appraisal Form
+
+  * LEVEL CODE: Software Engineer — Software Engineer (Grade P1)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual appraisal cycle (April) (Review Months: 4)
+      - Nominator: Project Manager | Decider: Director Review Panel
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Performance Dossier
+
+  * LEVEL CODE: Senior Software Engineer — Senior Software Engineer / Specialist (Grade P2)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual appraisal cycle (April) (Review Months: 4)
+      - Nominator: Practice Head / Delivery Director | Decider: VP Review Committee
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Lead Dossier; Client Account Impact
+
+
+
+################################################################################
+MARKET SEGMENT: CORE ENGINEERING & AUTOMOTIVE (4 Companies)
+################################################################################
+
+================================================================================
+COMPANY: Tata Motors [ID: tata-motors]
+Market Segment: Core Engineering & Automotive
+Headquarters: Mumbai / Pune, India
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (4 Levels Defined):
+
+  * LEVEL CODE: GET — Graduate Engineer Trainee (GET)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual post-training confirmation cycle (Review Months: 7)
+      - Nominator: Chief Engineering Mentor / Plant Head | Decider: Automotive Engineering Technical Board
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Trainee Project Presentation; Mentor Evaluation; Six Sigma Green Belt Basics
+
+  * LEVEL CODE: L1 — Assistant Manager (Engineering & Systems)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual appraisal cycle (May) (Review Months: 5)
+      - Nominator: Engineering Manager | Decider: Divisional Calibration Committee
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Allowed
+      - Required Artifacts: Annual Performance Review; ECN Track Record; Vendor Audit Reports
+
+  * LEVEL CODE: L2 — Manager (Product Engineering & Powertrain)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual promotion cycle (Review Months: 5)
+      - Nominator: General Manager R&D | Decider: Executive Leadership Committee
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Strategic Impact Portfolio; BOM Cost Savings Audit; Peer Reviews
+
+  * LEVEL CODE: L3 — Senior Manager / Technical Specialist
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Executive promotion cycle (Review Months: 5)
+      - Nominator: Vice President R&D | Decider: Executive Committee & CTO
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Executive Nomination Dossier; Patent Portfolio; Industry Recognition
+
+
+================================================================================
+COMPANY: Larsen & Toubro (L&T) [ID: lnt]
+Market Segment: Core Engineering & Automotive
+Headquarters: Mumbai, India
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (3 Levels Defined):
+
+  * LEVEL CODE: GET — Graduate Engineer Trainee (GET)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual training confirmation (Review Months: 7)
+      - Nominator: Project Director | Decider: Corporate HR & Technical Committee
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Training Completion Report; Safety Certification
+
+  * LEVEL CODE: EXE — Executive Engineer
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual appraisal cycle (April) (Review Months: 4)
+      - Nominator: Project Manager | Decider: Business Unit Head
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: L&T Performance Appraisal System (PAS); Milestone Deliverable Audit
+
+  * LEVEL CODE: AM — Assistant Manager (Projects & Engineering)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual appraisal cycle (Review Months: 4)
+      - Nominator: Cluster Head | Decider: Divisional Management Council
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Project Completion Records; Leadership Assessment Index
+
+
+================================================================================
+COMPANY: Bosch India (BGSW) [ID: bosch-india]
+Market Segment: Core Engineering & Automotive
+Headquarters: Bengaluru, India
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (3 Levels Defined):
+
+  * LEVEL CODE: ASSE — Associate Software / Systems Engineer
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual cycle (January) (Review Months: 1)
+      - Nominator: Engineering Team Lead | Decider: Department Calibration Panel
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Allowed
+      - Required Artifacts: Quality Metrics Scorecard; Peer Reviews; ISO 26262 Compliance Log
+
+  * LEVEL CODE: SSE — Software / Systems Engineer (Mobility)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual cycle (January) (Review Months: 1)
+      - Nominator: Engineering Manager | Decider: Business Unit Leadership
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Allowed
+      - Required Artifacts: Project Delivery Records; Customer Feedback Scorecard
+
+  * LEVEL CODE: SR_ENG — Senior Engineer / Technical Specialist
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual appraisal cycle (Review Months: 1)
+      - Nominator: Director of Engineering | Decider: Executive Engineering Panel
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Technical Dossier; OEM Testimonials; Patent Disclosures
+
+
+================================================================================
+COMPANY: Mahindra & Mahindra [ID: mahindra]
+Market Segment: Core Engineering & Automotive
+Headquarters: Mumbai / Chennai (MRV), India
+India Tech Hubs: Bangalore / Remote
+Career Tracks Available: SWE, EM
+--------------------------------------------------------------------------------
+CAREER LEVELS (3 Levels Defined):
+
+  * LEVEL CODE: GET — Graduate Engineer Trainee (GET)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual confirmation cycle (Review Months: 7)
+      - Nominator: Chief Engineer MRV | Decider: Technical Review Board
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Trainee Evaluation Dossier; MRV Project Report
+
+  * LEVEL CODE: DM — Deputy Manager (Engineering)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual appraisal cycle (May) (Review Months: 5)
+      - Nominator: Platform Chief Engineer | Decider: Divisional Review Council
+      - Calibration Layers: 2 layers
+      - Self-Nomination: Allowed
+      - Required Artifacts: Annual Performance Scorecard; Project Delivery Evidence
+
+  * LEVEL CODE: MGR — Manager (Product Development & R&D)
+    Track: SWE | Equivalence Rank: N/A
+    Typical Experience: N/A years
+    Typical Years in Level: N/A
+    Promotion Calibration Process:
+      - Cadence: Annual appraisal cycle (Review Months: 5)
+      - Nominator: Vice President Product Development | Decider: Executive Committee
+      - Calibration Layers: 3 layers
+      - Self-Nomination: Manager nominated only
+      - Required Artifacts: Platform Impact Dossier; Cost Savings Audit; Peer Reviews
+
+
+--------------------------------------------------------------------------------
+SECTION 3: DEGREE & BRANCH FAMILIES CATALOG
+--------------------------------------------------------------------------------
+
+Degree: B.Tech / B.E | Branch: Computer Science & Engineering (CSE) [Code: undefined]
+  Family: software | Program Length: undefined Years
+  Default Track: undefined | Target Role: undefined
+
+Degree: B.Tech / B.E | Branch: Information Technology (IT) [Code: undefined]
+  Family: software | Program Length: undefined Years
+  Default Track: undefined | Target Role: undefined
+
+Degree: B.Tech / B.E | Branch: Artificial Intelligence & Machine Learning (AI & ML) [Code: undefined]
+  Family: data-ai | Program Length: undefined Years
+  Default Track: undefined | Target Role: undefined
+
+Degree: B.Tech / B.E | Branch: AI & Data Science [Code: undefined]
+  Family: data-ai | Program Length: undefined Years
+  Default Track: undefined | Target Role: undefined
+
+Degree: B.Tech / B.E | Branch: Data Science [Code: undefined]
+  Family: data-ai | Program Length: undefined Years
+  Default Track: undefined | Target Role: undefined
+
+Degree: B.Tech / B.E | Branch: CSE (Cyber Security) [Code: undefined]
+  Family: software | Program Length: undefined Years
+  Default Track: undefined | Target Role: undefined
+
+Degree: B.Tech / B.E | Branch: CSE (Internet of Things - IoT) [Code: undefined]
+  Family: electronics-embedded | Program Length: undefined Years
+  Default Track: undefined | Target Role: undefined
+
+Degree: B.Tech / B.E | Branch: CSE (Blockchain Technology) [Code: undefined]
+  Family: software | Program Length: undefined Years
+  Default Track: undefined | Target Role: undefined
+
+Degree: B.Tech / B.E | Branch: Mathematics & Computing (MnC) [Code: undefined]
+  Family: software | Program Length: undefined Years
+  Default Track: undefined | Target Role: undefined
+
+Degree: B.Tech / B.E | Branch: Electronics & Communication Engineering (ECE) [Code: undefined]
+  Family: electronics-embedded | Program Length: undefined Years
+  Default Track: undefined | Target Role: undefined
+
+Degree: B.Tech / B.E | Branch: Electrical & Electronics Engineering (EEE) [Code: undefined]
+  Family: electronics-embedded | Program Length: undefined Years
+  Default Track: undefined | Target Role: undefined
+
+Degree: B.Tech / B.E | Branch: Electrical Engineering [Code: undefined]
+  Family: electronics-embedded | Program Length: undefined Years
+  Default Track: undefined | Target Role: undefined
+
+Degree: B.Tech / B.E | Branch: Electronics & Instrumentation Engineering [Code: undefined]
+  Family: electronics-embedded | Program Length: undefined Years
+  Default Track: undefined | Target Role: undefined
+
+Degree: B.Tech / B.E | Branch: Instrumentation & Control Engineering [Code: undefined]
+  Family: electronics-embedded | Program Length: undefined Years
+  Default Track: undefined | Target Role: undefined
+
+Degree: B.Tech / B.E | Branch: Mechanical Engineering [Code: undefined]
+  Family: core-mechanical | Program Length: undefined Years
+  Default Track: undefined | Target Role: undefined
+
+Degree: B.Tech / B.E | Branch: Mechatronics Engineering [Code: undefined]
+  Family: core-mechanical | Program Length: undefined Years
+  Default Track: undefined | Target Role: undefined
+
+Degree: B.Tech / B.E | Branch: Robotics & Automation [Code: undefined]
+  Family: core-mechanical | Program Length: undefined Years
+  Default Track: undefined | Target Role: undefined
+
+Degree: B.Tech / B.E | Branch: Automobile Engineering [Code: undefined]
+  Family: core-mechanical | Program Length: undefined Years
+  Default Track: undefined | Target Role: undefined
+
+Degree: B.Tech / B.E | Branch: Aerospace & Aeronautical Engineering [Code: undefined]
+  Family: core-mechanical | Program Length: undefined Years
+  Default Track: undefined | Target Role: undefined
+
+Degree: B.Tech / B.E | Branch: Civil Engineering [Code: undefined]
+  Family: core-civil | Program Length: undefined Years
+  Default Track: undefined | Target Role: undefined
+
+Degree: B.Tech / B.E | Branch: Chemical Engineering [Code: undefined]
+  Family: chemical-bio | Program Length: undefined Years
+  Default Track: undefined | Target Role: undefined
+
+Degree: B.Tech / B.E | Branch: Biotechnology & Biochemical Engineering [Code: undefined]
+  Family: chemical-bio | Program Length: undefined Years
+  Default Track: undefined | Target Role: undefined
+
+Degree: B.Tech / B.E | Branch: Production & Industrial Engineering [Code: undefined]
+  Family: core-mechanical | Program Length: undefined Years
+  Default Track: undefined | Target Role: undefined
+
+Degree: B.Tech / B.E | Branch: Metallurgy & Materials Engineering [Code: undefined]
+  Family: core-mechanical | Program Length: undefined Years
+  Default Track: undefined | Target Role: undefined
+
+Degree: B.Tech / B.E | Branch: Mining Engineering [Code: undefined]
+  Family: core-civil | Program Length: undefined Years
+  Default Track: undefined | Target Role: undefined
+
+Degree: B.Tech / B.E | Branch: Agricultural Engineering [Code: undefined]
+  Family: chemical-bio | Program Length: undefined Years
+  Default Track: undefined | Target Role: undefined
+
+Degree: B.Tech / B.E | Branch: Engineering Physics [Code: undefined]
+  Family: electronics-embedded | Program Length: undefined Years
+  Default Track: undefined | Target Role: undefined
+
+Degree: B.Tech + M.Tech Dual Degree | Branch: B.Tech + M.Tech Dual Degree (Computer Science / Engineering) [Code: undefined]
+  Family: software | Program Length: undefined Years
+  Default Track: undefined | Target Role: undefined
+
+Degree: Integrated M.Tech | Branch: Integrated M.Tech (5-Year Integrated Program) [Code: undefined]
+  Family: software | Program Length: undefined Years
+  Default Track: undefined | Target Role: undefined
+
+Degree: BCA | Branch: Bachelor of Computer Applications (BCA) [Code: undefined]
+  Family: software | Program Length: undefined Years
+  Default Track: undefined | Target Role: undefined
+
+Degree: B.Sc | Branch: B.Sc (Computer Science / IT / Data Science) [Code: undefined]
+  Family: data-ai | Program Length: undefined Years
+  Default Track: undefined | Target Role: undefined
+
+Degree: BBA | Branch: BBA (Business Analytics / Information Systems) [Code: undefined]
+  Family: management | Program Length: undefined Years
+  Default Track: undefined | Target Role: undefined
+
+Degree: M.Tech | Branch: M.Tech (CSE / AI / VLSI / Data Science) [Code: undefined]
+  Family: data-ai | Program Length: undefined Years
+  Default Track: undefined | Target Role: undefined
+
+Degree: MCA | Branch: Master of Computer Applications (MCA) [Code: undefined]
+  Family: software | Program Length: undefined Years
+  Default Track: undefined | Target Role: undefined
+
+Degree: M.Sc | Branch: M.Sc (Computer Science / Data Science) [Code: undefined]
+  Family: data-ai | Program Length: undefined Years
+  Default Track: undefined | Target Role: undefined
+
+Degree: MBA | Branch: MBA (Tech Management / Business Analytics) [Code: undefined]
+  Family: management | Program Length: undefined Years
+  Default Track: undefined | Target Role: undefined
+

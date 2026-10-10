@@ -1,0 +1,2359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>HireFlow — Career Trajectory Master Dataset</title>
+<style>
+  @page {
+    size: A4;
+    margin: 16mm 14mm 16mm 14mm;
+    @bottom-right {
+      content: counter(page);
+    }
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #1e293b;
+    background: #ffffff;
+    line-height: 1.5;
+    font-size: 11pt;
+    margin: 0;
+    padding: 0;
+  }
+  .header-cover {
+    border-bottom: 3px solid #2563eb;
+    padding-bottom: 24px;
+    margin-bottom: 32px;
+  }
+  h1 {
+    color: #0f172a;
+    font-size: 24pt;
+    margin: 0 0 8px 0;
+    font-weight: 800;
+  }
+  .subtitle {
+    color: #475569;
+    font-size: 13pt;
+    margin-bottom: 12px;
+  }
+  .meta-badges {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    font-size: 9pt;
+    font-weight: 600;
+  }
+  .badge {
+    background: #f1f5f9;
+    border: 1px solid #cbd5e1;
+    padding: 4px 10px;
+    border-radius: 6px;
+    color: #334155;
+  }
+  h2 {
+    color: #1e3a8a;
+    font-size: 16pt;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 6px;
+    margin-top: 32px;
+    page-break-after: avoid;
+  }
+  h3 {
+    color: #0f172a;
+    font-size: 13pt;
+    margin-top: 24px;
+    margin-bottom: 8px;
+    page-break-after: avoid;
+  }
+  .company-card {
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 24px;
+    background: #f8fafc;
+    page-break-inside: avoid;
+  }
+  .company-title {
+    font-size: 14pt;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0 0 4px 0;
+  }
+  .company-meta {
+    font-size: 9.5pt;
+    color: #64748b;
+    margin-bottom: 14px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 9pt;
+  }
+  th {
+    background: #e2e8f0;
+    color: #0f172a;
+    text-align: left;
+    padding: 6px 8px;
+    font-weight: 700;
+    border: 1px solid #cbd5e1;
+  }
+  td {
+    padding: 6px 8px;
+    border: 1px solid #cbd5e1;
+    vertical-align: top;
+  }
+  tr:nth-child(even) td {
+    background: #f1f5f9;
+  }
+  .comp-tag {
+    font-weight: 700;
+    color: #059669;
+  }
+  .blocker-box {
+    background: #fef2f2;
+    border-left: 3px solid #ef4444;
+    padding: 8px 12px;
+    margin: 8px 0;
+    font-size: 9pt;
+    border-radius: 0 6px 6px 0;
+  }
+  .hiring-box {
+    background: #f0fdf4;
+    border-left: 3px solid #10b981;
+    padding: 8px 12px;
+    margin: 8px 0;
+    font-size: 9pt;
+    border-radius: 0 6px 6px 0;
+  }
+  .page-break {
+    page-break-before: always;
+  }
+</style>
+</head>
+<body>
+
+<div class="header-cover">
+  <h1>HireFlow — Career Trajectory & Levels Master Report</h1>
+  <div class="subtitle">Complete Dataset of Career Ladders, Promotion Invariants, Compensation (INR), and Campus Routes</div>
+  <div class="meta-badges">
+    <span class="badge">Companies: 56</span>
+    <span class="badge">Segments: 5</span>
+    <span class="badge">Currency: INR (₹)</span>
+    <span class="badge">Market: India Tech</span>
+  </div>
+</div>
+
+<h2>1. Cross-Company Level Equivalence Matrix</h2>
+<p>Standardized progression ladder mapping levels across Big Tech, Unicorns, GCCs, and IT Services:</p>
+<table>
+  <thead>
+    <tr>
+      <th style="width: 15%;">Level Key</th>
+      <th style="width: 25%;">Standard Title</th>
+      <th style="width: 15%;">Typical YoE</th>
+      <th style="width: 45%;">Scope, Responsibility & Terminal Expectation</th>
+    </tr>
+  </thead>
+  <tbody><tr>
+        <td><strong>L3_ENTRY</strong></td>
+        <td><strong>Entry Level / Associate</strong> (Entry (L3))</td>
+        <td>0-2 years</td>
+        <td>New graduates and early-career engineers. Focused on execution of bounded tasks with guidance.<br><em style="color:#64748b;font-size:8.5pt;">Up-or-out expected at most Big Tech within 24-36 months.</em></td>
+      </tr><tr>
+        <td><strong>L4_MID</strong></td>
+        <td><strong>Mid-Level Software Engineer</strong> (Mid (L4))</td>
+        <td>2-5 years</td>
+        <td>Fully autonomous individual contributor. Owns end-to-end features, unblocks self, designs sub-systems.<br><em style="color:#64748b;font-size:8.5pt;">Many companies require promotion to Senior (L5) within 3-5 years (semi-terminal).</em></td>
+      </tr><tr>
+        <td><strong>L5_SENIOR</strong></td>
+        <td><strong>Senior Software Engineer</strong> (Senior (L5))</td>
+        <td>5-8+ years</td>
+        <td>Career-terminal level for ~70% of engineers. Owns complex system architecture, sets standards, mentors juniors.<br><em style="color:#64748b;font-size:8.5pt;">Fully terminal level. Engineers can stay here indefinitely with strong performance.</em></td>
+      </tr><tr>
+        <td><strong>L6_STAFF</strong></td>
+        <td><strong>Staff Engineer / Tech Lead</strong> (Staff (L6))</td>
+        <td>8-12+ years</td>
+        <td>Multi-team and org-wide technical leadership. Defines multi-quarter roadmaps, solves ambiguous cross-cutting problems.<br><em style="color:#64748b;font-size:8.5pt;">Requires demonstrated business-critical scope. High stall rate (~80% fail to advance further).</em></td>
+      </tr><tr>
+        <td><strong>L7_PRINCIPAL</strong></td>
+        <td><strong>Principal / Senior Staff Engineer</strong> (Principal (L7))</td>
+        <td>12-16+ years</td>
+        <td>Company-wide or business-unit technical authority. Steers technology strategy, interfaces with VP/C-suite.<br><em style="color:#64748b;font-size:8.5pt;">Fewer than 3-5% of company engineers reach this level.</em></td>
+      </tr><tr>
+        <td><strong>L8_DISTINGUISHED</strong></td>
+        <td><strong>Distinguished Engineer / Fellow</strong> (Distinguished (L8))</td>
+        <td>16+ years</td>
+        <td>Industry-level technical luminary. Influences industry standards, patents, core company platform foundations.<br><em style="color:#64748b;font-size:8.5pt;">Appointed by executive committee. < 0.5% of engineering population.</em></td>
+      </tr><tr>
+        <td><strong>M1_MANAGER</strong></td>
+        <td><strong>Engineering Manager</strong> (EM (M1))</td>
+        <td>6-10 years</td>
+        <td>Direct people manager for 6-12 engineers. Responsible for delivery, career growth, team health, and execution.<br><em style="color:#64748b;font-size:8.5pt;">Can be terminal at mid-size companies, progression requires scaling team or multiple pods.</em></td>
+      </tr><tr>
+        <td><strong>M2_SENIOR_MANAGER</strong></td>
+        <td><strong>Senior Engineering Manager</strong> (Sr EM (M2))</td>
+        <td>10-14 years</td>
+        <td>Second-line manager (manages managers or large org of 20-40 engineers). Strategic roadmap and talent calibration.<br><em style="color:#64748b;font-size:8.5pt;">High bar, requires managing complex cross-functional group.</em></td>
+      </tr><tr>
+        <td><strong>M3_DIRECTOR</strong></td>
+        <td><strong>Director of Engineering</strong> (Director (M3))</td>
+        <td>14+ years</td>
+        <td>Executive leader of an entire engineering pillar (50-150+ engineers). Accountable for organizational P&L/business outcomes.<br><em style="color:#64748b;font-size:8.5pt;">Executive band.</em></td>
+      </tr></tbody></table><div class="page-break"></div><h2>2. Company Career Ladders & Compensation Master Data</h2><h3>Market Segment: Big Tech India (16 Companies)</h3><div class="company-card">
+          <div class="company-title">Google India</div>
+          <div class="company-meta">
+            Headquarters: Bengaluru / Hyderabad, India (Global HQ: Mountain View, CA) |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>L3</strong></td>
+            <td>Software Engineer II (Entry)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>L4</strong></td>
+            <td>Software Engineer III</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>L5</strong></td>
+            <td>Senior Software Engineer</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>L6</strong></td>
+            <td>Staff Software Engineer</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>M1</strong></td>
+            <td>Engineering Manager</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><div class="company-card">
+          <div class="company-title">Microsoft India</div>
+          <div class="company-meta">
+            Headquarters: Hyderabad / Bengaluru / Noida, India (Global HQ: Redmond, WA) |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>59</strong></td>
+            <td>Software Engineer</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>61</strong></td>
+            <td>Software Engineer II</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>63</strong></td>
+            <td>Senior Software Engineer</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>65</strong></td>
+            <td>Principal Software Engineer</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>M1</strong></td>
+            <td>Software Engineering Manager</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><div class="company-card">
+          <div class="company-title">Amazon India</div>
+          <div class="company-meta">
+            Headquarters: Bengaluru / Hyderabad, India (Global HQ: Seattle, WA) |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>L4</strong></td>
+            <td>Software Development Engineer I (SDE I)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>L5</strong></td>
+            <td>Software Development Engineer II (SDE II)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>L6</strong></td>
+            <td>Senior Software Development Engineer (SDE III)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>L7</strong></td>
+            <td>Principal Software Engineer (Principal SDE)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>SDM1</strong></td>
+            <td>Software Development Manager I (L6)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><div class="company-card">
+          <div class="company-title">Meta India</div>
+          <div class="company-meta">
+            Headquarters: Bengaluru / Gurugram, India (Global HQ: Menlo Park, CA) |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>E3</strong></td>
+            <td>Software Engineer (Entry)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>E4</strong></td>
+            <td>Software Engineer (Mid)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>E5</strong></td>
+            <td>Senior Software Engineer</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>E6</strong></td>
+            <td>Staff Software Engineer</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>M1</strong></td>
+            <td>Engineering Manager</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><div class="company-card">
+          <div class="company-title">Apple India</div>
+          <div class="company-meta">
+            Headquarters: Bengaluru / Hyderabad, India (Global HQ: Cupertino, CA) |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>ICT2</strong></td>
+            <td>Software Engineer (ICT2)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>ICT3</strong></td>
+            <td>Software Engineer (ICT3)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>ICT4</strong></td>
+            <td>Senior Software Engineer (ICT4)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><div class="company-card">
+          <div class="company-title">Uber India</div>
+          <div class="company-meta">
+            Headquarters: Bengaluru / Hyderabad, India (Global HQ: San Francisco, CA) |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>L3</strong></td>
+            <td>Software Engineer I</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>L4</strong></td>
+            <td>Software Engineer II</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>L5</strong></td>
+            <td>Senior Software Engineer</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><div class="company-card">
+          <div class="company-title">Atlassian India</div>
+          <div class="company-meta">
+            Headquarters: Bengaluru, India (Global HQ: Sydney, Australia) |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>P3</strong></td>
+            <td>Software Engineer</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>P4</strong></td>
+            <td>Senior Software Engineer</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>P5</strong></td>
+            <td>Principal Software Engineer</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><div class="company-card">
+          <div class="company-title">Adobe India</div>
+          <div class="company-meta">
+            Headquarters: Noida / Bengaluru, India (Global HQ: San Jose, CA) |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>SE1</strong></td>
+            <td>Software Engineer</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>CS1</strong></td>
+            <td>Computer Scientist</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>SCS</strong></td>
+            <td>Senior Computer Scientist</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><div class="company-card">
+          <div class="company-title">Salesforce India</div>
+          <div class="company-meta">
+            Headquarters: Hyderabad / Bengaluru, India (Global HQ: San Francisco, CA) |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>AMTS</strong></td>
+            <td>Associate Member of Technical Staff (AMTS)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>MTS</strong></td>
+            <td>Member of Technical Staff (MTS)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>SMTS</strong></td>
+            <td>Senior Member of Technical Staff (SMTS)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><div class="company-card">
+          <div class="company-title">Oracle India (OCI)</div>
+          <div class="company-meta">
+            Headquarters: Bengaluru / Hyderabad, India (Global HQ: Austin, TX) |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>IC1</strong></td>
+            <td>Software Engineer (IC1)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>IC2</strong></td>
+            <td>Senior Software Engineer (IC2)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>IC3</strong></td>
+            <td>Principal Software Engineer (IC3)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><div class="company-card">
+          <div class="company-title">Intel India</div>
+          <div class="company-meta">
+            Headquarters: Bengaluru / Hyderabad, India (Global HQ: Santa Clara, CA) |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>Grade 5</strong></td>
+            <td>Software Engineer (Grade 5)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>Grade 6</strong></td>
+            <td>Software Engineer II (Grade 6)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>Grade 7</strong></td>
+            <td>Senior Software Engineer (Grade 7)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><div class="company-card">
+          <div class="company-title">NVIDIA India</div>
+          <div class="company-meta">
+            Headquarters: Bengaluru / Pune, India (Global HQ: Santa Clara, CA) |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>IC1</strong></td>
+            <td>Software Engineer (IC1)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>IC2</strong></td>
+            <td>Senior Software Engineer (IC2)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>IC3</strong></td>
+            <td>Staff Software Engineer (IC3)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><div class="company-card">
+          <div class="company-title">Qualcomm India</div>
+          <div class="company-meta">
+            Headquarters: Hyderabad / Bengaluru, India (Global HQ: San Diego, CA) |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>Engineer</strong></td>
+            <td>Engineer</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>Senior Engineer</strong></td>
+            <td>Senior Engineer</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>Staff Engineer</strong></td>
+            <td>Staff Engineer</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><div class="company-card">
+          <div class="company-title">Cisco Systems India</div>
+          <div class="company-meta">
+            Headquarters: Bengaluru, India (Global HQ: San Jose, CA) |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>Grade 6</strong></td>
+            <td>Software Engineer (Grade 6)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>Grade 8</strong></td>
+            <td>Software Engineer II / Senior (Grade 8)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>Grade 10</strong></td>
+            <td>Technical Leader (Grade 10)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><div class="company-card">
+          <div class="company-title">LinkedIn India</div>
+          <div class="company-meta">
+            Headquarters: Bengaluru, India (Global HQ: Sunnyvale, CA) |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>SWE</strong></td>
+            <td>Software Engineer (SWE)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>Senior SWE</strong></td>
+            <td>Senior Software Engineer</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>Staff SWE</strong></td>
+            <td>Staff Software Engineer</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><div class="company-card">
+          <div class="company-title">Netflix India</div>
+          <div class="company-meta">
+            Headquarters: Mumbai / Bengaluru, India (Global HQ: Los Gatos, CA) |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>L5</strong></td>
+            <td>Senior Software Engineer (L5)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>L6</strong></td>
+            <td>Staff Software Engineer (L6)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><h3>Market Segment: Indian Product Unicorn (18 Companies)</h3><div class="company-card">
+          <div class="company-title">Flipkart</div>
+          <div class="company-meta">
+            Headquarters: Bengaluru, India |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>SDE-1</strong></td>
+            <td>Software Development Engineer I</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>SDE-2</strong></td>
+            <td>Software Development Engineer II</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>SDE-3</strong></td>
+            <td>Senior Software Development Engineer (SDE-3)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>ARCH</strong></td>
+            <td>Principal Architect / SDE-4</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>EM1</strong></td>
+            <td>Engineering Manager</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><div class="company-card">
+          <div class="company-title">Swiggy</div>
+          <div class="company-meta">
+            Headquarters: Bengaluru, India |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>SDE-1</strong></td>
+            <td>Software Development Engineer I</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>SDE-2</strong></td>
+            <td>Software Development Engineer II</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>SDE-3</strong></td>
+            <td>Senior Software Development Engineer (SDE-3)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><div class="company-card">
+          <div class="company-title">Zomato</div>
+          <div class="company-meta">
+            Headquarters: Gurugram, India |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>SDE-1</strong></td>
+            <td>Software Development Engineer I</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>SDE-2</strong></td>
+            <td>Software Development Engineer II</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>SDE-3</strong></td>
+            <td>Senior Software Development Engineer (SDE-3)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><div class="company-card">
+          <div class="company-title">Razorpay</div>
+          <div class="company-meta">
+            Headquarters: Bengaluru, India |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>SDE-1</strong></td>
+            <td>Software Development Engineer I</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>SDE-2</strong></td>
+            <td>Software Development Engineer II</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>SENIOR</strong></td>
+            <td>Senior Software Development Engineer</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><div class="company-card">
+          <div class="company-title">Zoho</div>
+          <div class="company-meta">
+            Headquarters: Chennai / Tenkasi, India |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>MTS</strong></td>
+            <td>Member Technical Staff</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>SMTS</strong></td>
+            <td>Senior Member Technical Staff</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>LEAD</strong></td>
+            <td>Lead Member Technical Staff</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><div class="company-card">
+          <div class="company-title">PhonePe</div>
+          <div class="company-meta">
+            Headquarters: Bengaluru, Karnataka, India |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>Software Engineer</strong></td>
+            <td>Software Engineer</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>Senior Software Engineer</strong></td>
+            <td>Senior Software Engineer</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>Lead Software Engineer</strong></td>
+            <td>Lead Software Engineer</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><div class="company-card">
+          <div class="company-title">Paytm (One97)</div>
+          <div class="company-meta">
+            Headquarters: Noida / Bengaluru, India |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>Software Engineer</strong></td>
+            <td>Software Engineer</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>Senior Software Engineer</strong></td>
+            <td>Senior Software Engineer</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>Tech Lead</strong></td>
+            <td>Tech Lead</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><div class="company-card">
+          <div class="company-title">CRED</div>
+          <div class="company-meta">
+            Headquarters: Bengaluru, Karnataka, India |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>Software Engineer</strong></td>
+            <td>Backend Engineer / Product Engineer</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>Senior Engineer</strong></td>
+            <td>Senior Backend Engineer</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>Lead Engineer</strong></td>
+            <td>Lead Engineer / Staff</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><div class="company-card">
+          <div class="company-title">Meesho</div>
+          <div class="company-meta">
+            Headquarters: Bengaluru, Karnataka, India |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>SDE-1</strong></td>
+            <td>Software Development Engineer I</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>SDE-2</strong></td>
+            <td>Software Development Engineer II</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>SDE-3</strong></td>
+            <td>Software Development Engineer III</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><div class="company-card">
+          <div class="company-title">Zepto</div>
+          <div class="company-meta">
+            Headquarters: Bengaluru / Mumbai, India |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>SDE-1</strong></td>
+            <td>Software Development Engineer I</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>SDE-2</strong></td>
+            <td>Software Development Engineer II</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>SDE-3</strong></td>
+            <td>Software Development Engineer III</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><div class="company-card">
+          <div class="company-title">Ola</div>
+          <div class="company-meta">
+            Headquarters: Bengaluru, Karnataka, India |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>SDE-1</strong></td>
+            <td>Software Development Engineer I</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>SDE-2</strong></td>
+            <td>Software Development Engineer II</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>SDE-3</strong></td>
+            <td>Software Development Engineer III</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><div class="company-card">
+          <div class="company-title">Freshworks</div>
+          <div class="company-meta">
+            Headquarters: Chennai / Bengaluru, India (Global HQ: San Mateo, CA) |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>Software Engineer</strong></td>
+            <td>Software Engineer</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>Senior Software Engineer</strong></td>
+            <td>Senior Software Engineer</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>Lead Software Engineer</strong></td>
+            <td>Lead Software Engineer</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><div class="company-card">
+          <div class="company-title">Groww</div>
+          <div class="company-meta">
+            Headquarters: Bengaluru, Karnataka, India |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>SDE-1</strong></td>
+            <td>Software Development Engineer I</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>SDE-2</strong></td>
+            <td>Software Development Engineer II</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>SDE-3</strong></td>
+            <td>Software Development Engineer III</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><div class="company-card">
+          <div class="company-title">Dream11 (Sporta Tech)</div>
+          <div class="company-meta">
+            Headquarters: Mumbai, Maharashtra, India |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>SDE-1</strong></td>
+            <td>Software Development Engineer I</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>SDE-2</strong></td>
+            <td>Software Development Engineer II</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>SDE-3</strong></td>
+            <td>Software Development Engineer III</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><div class="company-card">
+          <div class="company-title">Myntra</div>
+          <div class="company-meta">
+            Headquarters: Bengaluru, Karnataka, India |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>SDE-1</strong></td>
+            <td>Software Development Engineer I</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>SDE-2</strong></td>
+            <td>Software Development Engineer II</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>SDE-3</strong></td>
+            <td>Software Development Engineer III</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><div class="company-card">
+          <div class="company-title">Nykaa</div>
+          <div class="company-meta">
+            Headquarters: Mumbai / Gurugram, India |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>Software Engineer</strong></td>
+            <td>Software Engineer</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>Senior Software Engineer</strong></td>
+            <td>Senior Software Engineer</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>Technical Lead</strong></td>
+            <td>Technical Lead</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><div class="company-card">
+          <div class="company-title">InMobi</div>
+          <div class="company-meta">
+            Headquarters: Bengaluru, Karnataka, India |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>Software Engineer</strong></td>
+            <td>Software Engineer</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>Senior Software Engineer</strong></td>
+            <td>Senior Software Engineer</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>Lead Engineer</strong></td>
+            <td>Lead Engineer</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><div class="company-card">
+          <div class="company-title">ShareChat (Mohalla Tech)</div>
+          <div class="company-meta">
+            Headquarters: Bengaluru, Karnataka, India |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>SDE-1</strong></td>
+            <td>Software Development Engineer I</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>SDE-2</strong></td>
+            <td>Software Development Engineer II</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>SDE-3</strong></td>
+            <td>Software Development Engineer III</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><h3>Market Segment: GCC / Finance (9 Companies)</h3><div class="company-card">
+          <div class="company-title">Goldman Sachs India</div>
+          <div class="company-meta">
+            Headquarters: Bengaluru / Hyderabad, India (Global HQ: New York, NY) |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>ANALYST</strong></td>
+            <td>Analyst (Software Engineer)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>ASSOCIATE</strong></td>
+            <td>Associate (Senior Software Engineer)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>VP</strong></td>
+            <td>Vice President (VP)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><div class="company-card">
+          <div class="company-title">Walmart Global Tech India</div>
+          <div class="company-meta">
+            Headquarters: Bengaluru / Chennai, India (Global HQ: Bentonville, AR) |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>IN3</strong></td>
+            <td>Software Engineer II (IN3)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>IN4</strong></td>
+            <td>Senior Software Engineer (IN4)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>IN5</strong></td>
+            <td>Staff Software Engineer (IN5)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><div class="company-card">
+          <div class="company-title">Morgan Stanley India</div>
+          <div class="company-meta">
+            Headquarters: Bengaluru / Mumbai, India (Global HQ: New York, NY) |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>ASSOC</strong></td>
+            <td>Associate (Software Engineer)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>MGR</strong></td>
+            <td>Manager / Senior Associate</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>VP</strong></td>
+            <td>Vice President (VP)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><div class="company-card">
+          <div class="company-title">JPMorgan Chase India</div>
+          <div class="company-meta">
+            Headquarters: Bengaluru / Hyderabad / Mumbai, India (Global HQ: New York, NY) |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>Software Engineer</strong></td>
+            <td>Software Engineer / Analyst (601)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>Associate</strong></td>
+            <td>Associate / Senior Software Engineer (602)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>Vice President</strong></td>
+            <td>Vice President (603)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><div class="company-card">
+          <div class="company-title">American Express India</div>
+          <div class="company-meta">
+            Headquarters: Gurugram / Bengaluru, India (Global HQ: New York, NY) |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>Band 28</strong></td>
+            <td>Engineer I (Band 28)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>Band 30</strong></td>
+            <td>Engineer II (Band 30)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>Band 35</strong></td>
+            <td>Senior Engineer / Tech Leader (Band 35)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><div class="company-card">
+          <div class="company-title">Target India</div>
+          <div class="company-meta">
+            Headquarters: Bengaluru, India (Global HQ: Minneapolis, MN) |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>Engineer</strong></td>
+            <td>Engineer</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>Senior Engineer</strong></td>
+            <td>Senior Engineer</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>Lead Engineer</strong></td>
+            <td>Lead Engineer</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><div class="company-card">
+          <div class="company-title">Visa India</div>
+          <div class="company-meta">
+            Headquarters: Bengaluru, India (Global HQ: San Francisco, CA) |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>Software Engineer</strong></td>
+            <td>Software Engineer</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>Senior Software Engineer</strong></td>
+            <td>Senior Software Engineer</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>Staff Software Engineer</strong></td>
+            <td>Staff Software Engineer</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><div class="company-card">
+          <div class="company-title">Mastercard India</div>
+          <div class="company-meta">
+            Headquarters: Pune / Gurugram, India (Global HQ: Purchase, NY) |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>Software Engineer</strong></td>
+            <td>Software Engineer</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>Senior Software Engineer</strong></td>
+            <td>Senior Software Engineer</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>Lead Software Engineer</strong></td>
+            <td>Lead Software Engineer</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><div class="company-card">
+          <div class="company-title">PayPal India</div>
+          <div class="company-meta">
+            Headquarters: Bengaluru / Chennai, India (Global HQ: San Jose, CA) |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>Software Engineer 1</strong></td>
+            <td>Software Engineer 1</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>Software Engineer 2</strong></td>
+            <td>Software Engineer 2</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>Senior Software Engineer</strong></td>
+            <td>Senior Software Engineer</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><h3>Market Segment: Indian IT Services (9 Companies)</h3><div class="company-card">
+          <div class="company-title">Tata Consultancy Services (TCS)</div>
+          <div class="company-meta">
+            Headquarters: Mumbai, India |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>NINJA</strong></td>
+            <td>Assistant Systems Engineer (Ninja)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>DIGITAL</strong></td>
+            <td>Systems Engineer (Digital / Prime)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>C3</strong></td>
+            <td>IT Analyst / Assistant Consultant (C3)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>C4</strong></td>
+            <td>Consultant / Solution Architect (C4)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><div class="company-card">
+          <div class="company-title">Infosys</div>
+          <div class="company-meta">
+            Headquarters: Bengaluru, India |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>SE</strong></td>
+            <td>Systems Engineer</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>DSE_SP</strong></td>
+            <td>Specialist Programmer / DSE</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>TA</strong></td>
+            <td>Technology Analyst (JL5)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>TL</strong></td>
+            <td>Technology Lead (JL6)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><div class="company-card">
+          <div class="company-title">Wipro</div>
+          <div class="company-meta">
+            Headquarters: Bengaluru, Karnataka, India |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>Elite</strong></td>
+            <td>Project Engineer (Elite Fresher)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>Turbo</strong></td>
+            <td>Project Engineer (Turbo / Velocity Track)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>Senior Project Engineer</strong></td>
+            <td>Senior Project Engineer (Band B2/B3)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>Technical Lead</strong></td>
+            <td>Technical Lead / Module Lead (Band C1)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><div class="company-card">
+          <div class="company-title">HCLTech</div>
+          <div class="company-meta">
+            Headquarters: Noida, Uttar Pradesh, India |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>GET</strong></td>
+            <td>Graduate Engineer Trainee (GET / E1)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>Software Engineer</strong></td>
+            <td>Software Engineer (E2)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>Senior Software Engineer</strong></td>
+            <td>Senior Software Engineer (E3)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><div class="company-card">
+          <div class="company-title">Cognizant (CTS)</div>
+          <div class="company-meta">
+            Headquarters: Chennai / Teaneck, NJ (India Operational HQ: Chennai) |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>GenC</strong></td>
+            <td>Programmer Analyst Trainee (GenC)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>GenC Next</strong></td>
+            <td>Programmer Analyst Trainee (GenC Next / Pro)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>Associate</strong></td>
+            <td>Associate (Band 2)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>Senior Associate</strong></td>
+            <td>Senior Associate (Band 3)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><div class="company-card">
+          <div class="company-title">Accenture India</div>
+          <div class="company-meta">
+            Headquarters: Bengaluru / Mumbai, India (Global HQ: Dublin, Ireland) |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>Level 12</strong></td>
+            <td>Associate Software Engineer (Level 12)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>Level 11</strong></td>
+            <td>Software Engineer / Analyst (Level 11)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>Level 9</strong></td>
+            <td>Team Lead / Consultant (Level 9)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><div class="company-card">
+          <div class="company-title">Capgemini India</div>
+          <div class="company-meta">
+            Headquarters: Mumbai / Bengaluru, India (Global HQ: Paris, France) |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>Analyst</strong></td>
+            <td>Analyst (Grade A4)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>Senior Analyst</strong></td>
+            <td>Senior Analyst (Grade A5)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>Consultant</strong></td>
+            <td>Consultant / Lead (Grade C1)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><div class="company-card">
+          <div class="company-title">Tech Mahindra</div>
+          <div class="company-meta">
+            Headquarters: Pune, Maharashtra, India |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>Associate Software Engineer</strong></td>
+            <td>Associate Software Engineer (Band U1)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>Software Engineer</strong></td>
+            <td>Software Engineer (Band U2)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>Senior Software Engineer</strong></td>
+            <td>Senior Software Engineer / Tech Lead (Band U3)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><div class="company-card">
+          <div class="company-title">LTIMindtree</div>
+          <div class="company-meta">
+            Headquarters: Mumbai / Bengaluru, India |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>Graduate Trainee</strong></td>
+            <td>Graduate Trainee / Software Engineer</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>Software Engineer</strong></td>
+            <td>Software Engineer (Grade P1)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>Senior Software Engineer</strong></td>
+            <td>Senior Software Engineer / Specialist (Grade P2)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><h3>Market Segment: Core Engineering & Automotive (4 Companies)</h3><div class="company-card">
+          <div class="company-title">Tata Motors</div>
+          <div class="company-meta">
+            Headquarters: Mumbai / Pune, India |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>GET</strong></td>
+            <td>Graduate Engineer Trainee (GET)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>L1</strong></td>
+            <td>Assistant Manager (Engineering & Systems)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>L2</strong></td>
+            <td>Manager (Product Engineering & Powertrain)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>L3</strong></td>
+            <td>Senior Manager / Technical Specialist</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><div class="company-card">
+          <div class="company-title">Larsen & Toubro (L&T)</div>
+          <div class="company-meta">
+            Headquarters: Mumbai, India |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>GET</strong></td>
+            <td>Graduate Engineer Trainee (GET)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>EXE</strong></td>
+            <td>Executive Engineer</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>AM</strong></td>
+            <td>Assistant Manager (Projects & Engineering)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><div class="company-card">
+          <div class="company-title">Bosch India (BGSW)</div>
+          <div class="company-meta">
+            Headquarters: Bengaluru, India |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>ASSE</strong></td>
+            <td>Associate Software / Systems Engineer</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>SSE</strong></td>
+            <td>Software / Systems Engineer (Mobility)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>SR_ENG</strong></td>
+            <td>Senior Engineer / Technical Specialist</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div><div class="company-card">
+          <div class="company-title">Mahindra & Mahindra</div>
+          <div class="company-meta">
+            Headquarters: Mumbai / Chennai (MRV), India |
+            India Tech Hubs: Bangalore |
+            Tracks: SWE, EM
+          </div>
+
+          <h4>Career Levels & Compensation (INR)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 12%;">Level</th>
+                <th style="width: 20%;">Title</th>
+                <th style="width: 12%;">YoE</th>
+                <th style="width: 26%;">Median Annual CTC</th>
+                <th style="width: 30%;">Scope / Impact Bar</th>
+              </tr>
+            </thead>
+            <tbody><tr>
+            <td><strong>GET</strong></td>
+            <td>Graduate Engineer Trainee (GET)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>DM</strong></td>
+            <td>Deputy Manager (Engineering)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr><tr>
+            <td><strong>MGR</strong></td>
+            <td>Manager (Product Development & R&D)</td>
+            <td>- yrs</td>
+            <td class="comp-tag">Confidential / Custom</td>
+            <td>Standard Track</td>
+          </tr></tbody></table></div></body></html>
