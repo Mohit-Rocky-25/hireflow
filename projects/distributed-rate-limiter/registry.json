@@ -1,0 +1,53 @@
+{
+  "slug": "distributed-rate-limiter",
+  "title": "Distributed Rate Limiter & Token Bucket Gateway",
+  "domain": "Distributed Systems",
+  "difficulty": "intermediate",
+  "hours": 20,
+  "stack": ["Go", "Redis", "Docker", "gRPC", "Prometheus"],
+  "competencies": {
+    "backend": 3,
+    "distributed-systems": 3,
+    "performance": 3,
+    "testing": 3,
+    "system-design-writeup": 3,
+    "sync-and-consistency": 2,
+    "api-design": 2,
+    "caching": 2,
+    "observability": 2,
+    "devops-docker": 2,
+    "security-auth": 1
+  },
+  "rubric_ids": ["RUB-01", "RUB-02", "RUB-03", "RUB-04", "RUB-05", "RUB-06", "RUB-07"],
+  "targets": [
+    {
+      "metric": "Sustained Ingress Throughput",
+      "value": "25,000 req/sec",
+      "condition": "4 worker cores, 2 proxy replicas, 100 concurrent k6 VUs on 1Gbps virtual bridge network"
+    },
+    {
+      "metric": "Proxy Latency Overhead",
+      "value": "< 3.5ms p99",
+      "condition": "25,000 req/sec load against local mock upstream responding with 0ms baseline delay"
+    },
+    {
+      "metric": "Enforcement Precision",
+      "value": "100% (zero token leakage)",
+      "condition": "50 concurrent goroutines competing for a bucket of capacity 1,000 with 0 refill rate"
+    },
+    {
+      "metric": "Redis Script Execution Time",
+      "value": "< 1.0ms p95",
+      "condition": "Single Redis instance under 25,000 RPS proxy query pipeline"
+    },
+    {
+      "metric": "Fail-Open Transition Latency",
+      "value": "< 12ms per request",
+      "condition": "Redis severed via docker stop redis during active 1,000 req/sec stream"
+    }
+  ],
+  "stretch": [
+    "Sliding window counter algorithm fallback selector alongside token bucket",
+    "Distributed Redis cluster sharding using client-side consistent hashing"
+  ]
+}
