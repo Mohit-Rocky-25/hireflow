@@ -22,6 +22,7 @@ import {
 } from 'lucide-react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { PageNav } from '../../components/common/PageNav';
+import { PublicNavbar } from '../../components/layout/PublicNavbar';
 import { useProfile } from '../../features/suite/profile/ProfileContext';
 import { QuickSummaryCard } from '../../features/suite/components/QuickSummaryCard';
 import { buildQuickSummary } from '../../features/suite/engine/quickSummary';
@@ -302,6 +303,7 @@ export function ResumeChecker() {
 
   return (
     <div className="min-h-screen bg-bg text-text pt-24 pb-16 px-4 sm:px-6 md:px-8 relative">
+      <PublicNavbar />
       {/* Top Navigation */}
       <div className="print:hidden">
         <PageNav onBack={engineResult ? () => handleTryAnotherJob() : undefined} />
@@ -310,8 +312,8 @@ export function ResumeChecker() {
       <div className="max-w-6xl mx-auto space-y-8 animate-fade-in">
         {/* Hero Title with Updated Positioning (STAGE 9) */}
         <div className="text-center max-w-3xl mx-auto mb-6 mt-2 print:mb-4">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-primary/10 border border-primary/25 text-primary rounded-full text-xs font-bold uppercase tracking-wider mb-3 shadow-2xs">
-            <Sparkles className="w-3.5 h-3.5 text-primary" /> ATS Resume Roaster · Job Fit &amp; Resume Improvement
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-[#991B1B] border border-red-950/40 text-black rounded-full text-xs font-black uppercase tracking-wider mb-3 shadow-sm">
+            <Sparkles className="w-3.5 h-3.5 text-black" /> ATS Resume Roaster · Job Fit &amp; Resume Improvement
           </div>
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight mb-3">
             How well does this resume match,{' '}

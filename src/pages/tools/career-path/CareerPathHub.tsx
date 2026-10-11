@@ -21,6 +21,7 @@ import {
   Target,
 } from 'lucide-react';
 import { CareerPathBackButton } from '../../../components/career-path/CareerPathBackButton';
+import { PublicNavbar } from '../../../components/layout/PublicNavbar';
 import { useProfile } from '../../../features/suite/profile/ProfileContext';
 import { getCandidateTierStatus } from '../../../features/suite/integration/trajectory';
 
@@ -84,7 +85,8 @@ export function CareerPathHub() {
   };
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-neutral-100 flex flex-col selection:bg-blue-500 selection:text-white" data-theme="career-dark">
+    <div className="min-h-screen bg-neutral-950 text-neutral-100 flex flex-col pt-16 selection:bg-blue-500 selection:text-white" data-theme="career-dark">
+      <PublicNavbar />
       {/* Pinned Top Navigation */}
       <CareerPathBackButton isHub={true} />
 
@@ -98,8 +100,8 @@ export function CareerPathHub() {
 
         <div className="relative max-w-5xl mx-auto flex flex-col items-center">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-950/60 border border-blue-800 text-blue-300 text-xs font-semibold tracking-wide uppercase mb-6 shadow-sm">
-            <Zap className="w-3.5 h-3.5 text-blue-400" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black border border-neutral-700 text-white text-xs font-extrabold tracking-wide uppercase mb-6 shadow-sm">
+            <Zap className="w-3.5 h-3.5 text-white" />
             <span>India Market • INR (₹) Career Intelligence</span>
           </div>
 
