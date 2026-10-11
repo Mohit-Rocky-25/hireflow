@@ -100,7 +100,7 @@ export function CareerPathHub() {
 
         <div className="relative max-w-5xl mx-auto flex flex-col items-center">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black border border-neutral-700 text-white text-xs font-extrabold tracking-wide uppercase mb-6 shadow-sm">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-[#0F172A] to-[#1E293B] border border-slate-700/60 text-white text-xs font-bold tracking-wide uppercase mb-6 shadow-sm">
             <Zap className="w-3.5 h-3.5 text-white" />
             <span>India Market • INR (₹) Career Intelligence</span>
           </div>

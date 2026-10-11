@@ -199,8 +199,8 @@ export function ToolsHubPage() {
         <PageNav />
         {/* Hero Header */}
         <div className="text-center max-w-4xl mx-auto space-y-6">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#86EFAC] border border-[#4ADE80] text-black text-sm font-extrabold tracking-wide uppercase shadow-sm">
-            <Sparkles className="w-4 h-4 text-black" />
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-[#4F46E5] to-[#7C3AED] text-white text-sm font-bold tracking-wide uppercase shadow-sm shadow-indigo-500/20">
+            <Sparkles className="w-4 h-4 text-white" />
             <span>HireFlow Decision Suite • {totalTools} Essential Tools</span>
           </div>
         <h1 className="text-4xl sm:text-6xl font-black text-foreground tracking-tight leading-tight">
