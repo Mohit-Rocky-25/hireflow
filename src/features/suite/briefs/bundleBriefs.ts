@@ -16,7 +16,11 @@ export interface ProjectBrief {
   estimatedHours: number;
   difficulty: BriefDifficulty;
   coveredSkills: string[];
+  // ── Core Brief Content ──
   problemStatement: string;
+  useCases: string;           // real-world deployment contexts
+  problemItSolves: string;    // why this is technically hard & rare
+  recruiterSignal: string;    // why a recruiter shortlists you for this
   architecture: string;
   scaleTargets: string;
   techStack: string[];
