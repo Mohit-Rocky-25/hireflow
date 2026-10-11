@@ -10,14 +10,15 @@ interface NavTool {
   path: string;
   icon: typeof Sparkles;
   badge: string;
-  badgeBg: string;       // badge pill bg — always vivid, always visible
-  badgeText: string;     // badge text color
-  iconColor: string;     // icon color
-  iconActiveBg: string;  // icon box bg when active
-  activeBg: string;      // container bg when active
-  activeBorder: string;  // container border when active
-  activeText: string;    // name text when active
-  hoverBg: string;       // container bg on hover (inactive)
+  // Light palette design system
+  activeContainer: string;
+  inactiveContainer: string;
+  activeIconBox: string;
+  inactiveIconBox: string;
+  activeText: string;
+  inactiveText: string;
+  activeBadge: string;
+  inactiveBadge: string;
   description: string;
 }
 
@@ -28,14 +29,14 @@ const NAV_TOOLS: NavTool[] = [
     path: '/demo',
     icon: Sparkles,
     badge: '125+ FIRMS',
-    badgeBg: 'bg-sky-500',
-    badgeText: 'text-white',
-    iconColor: 'text-sky-400',
-    iconActiveBg: 'bg-sky-500/25',
-    activeBg: 'bg-sky-500/15',
-    activeBorder: 'border-sky-400/50',
-    activeText: 'text-sky-300 font-bold',
-    hoverBg: 'hover:bg-white/5',
+    activeContainer: 'bg-white shadow-sm border-sky-300 ring-1 ring-sky-500/20',
+    inactiveContainer: 'border-transparent hover:bg-white/70 hover:border-slate-200/80 hover:shadow-2xs',
+    activeIconBox: 'bg-sky-500 text-white shadow-xs',
+    inactiveIconBox: 'bg-sky-50 text-sky-600 border border-sky-100/80 group-hover:bg-sky-100/70',
+    activeText: 'text-slate-950 font-bold',
+    inactiveText: 'text-slate-800 group-hover:text-slate-950 font-semibold',
+    activeBadge: 'bg-sky-500 text-white shadow-xs',
+    inactiveBadge: 'bg-sky-50 text-sky-700 border border-sky-200/70 group-hover:bg-sky-100 group-hover:text-sky-800',
     description: 'Simulate hiring filters across 125+ top tech employers & campus programs',
   },
   {
@@ -44,14 +45,14 @@ const NAV_TOOLS: NavTool[] = [
     path: '/tools',
     icon: Layers,
     badge: 'PRO',
-    badgeBg: 'bg-violet-500',
-    badgeText: 'text-white',
-    iconColor: 'text-violet-400',
-    iconActiveBg: 'bg-violet-500/25',
-    activeBg: 'bg-violet-500/15',
-    activeBorder: 'border-violet-400/50',
-    activeText: 'text-violet-300 font-bold',
-    hoverBg: 'hover:bg-white/5',
+    activeContainer: 'bg-white shadow-sm border-indigo-300 ring-1 ring-indigo-500/20',
+    inactiveContainer: 'border-transparent hover:bg-white/70 hover:border-slate-200/80 hover:shadow-2xs',
+    activeIconBox: 'bg-indigo-600 text-white shadow-xs',
+    inactiveIconBox: 'bg-indigo-50 text-indigo-600 border border-indigo-100/80 group-hover:bg-indigo-100/70',
+    activeText: 'text-slate-950 font-bold',
+    inactiveText: 'text-slate-800 group-hover:text-slate-950 font-semibold',
+    activeBadge: 'bg-indigo-600 text-white shadow-xs',
+    inactiveBadge: 'bg-indigo-50 text-indigo-700 border border-indigo-200/70 group-hover:bg-indigo-100 group-hover:text-indigo-800',
     description: 'Career engineering tools, project briefs & skill verification',
   },
   {
@@ -60,14 +61,14 @@ const NAV_TOOLS: NavTool[] = [
     path: '/tools/resume-checker',
     icon: Flame,
     badge: 'HOT',
-    badgeBg: 'bg-orange-500',
-    badgeText: 'text-white',
-    iconColor: 'text-orange-400',
-    iconActiveBg: 'bg-orange-500/25',
-    activeBg: 'bg-orange-500/15',
-    activeBorder: 'border-orange-400/50',
-    activeText: 'text-orange-300 font-bold',
-    hoverBg: 'hover:bg-white/5',
+    activeContainer: 'bg-white shadow-sm border-amber-300 ring-1 ring-amber-500/20',
+    inactiveContainer: 'border-transparent hover:bg-white/70 hover:border-slate-200/80 hover:shadow-2xs',
+    activeIconBox: 'bg-amber-500 text-white shadow-xs',
+    inactiveIconBox: 'bg-amber-50 text-amber-600 border border-amber-100/80 group-hover:bg-amber-100/70',
+    activeText: 'text-slate-950 font-bold',
+    inactiveText: 'text-slate-800 group-hover:text-slate-950 font-semibold',
+    activeBadge: 'bg-amber-500 text-white shadow-xs',
+    inactiveBadge: 'bg-amber-50 text-amber-700 border border-amber-200/70 group-hover:bg-amber-100 group-hover:text-amber-800',
     description: 'Instant ruthless resume audit & keyword scoring',
   },
   {
@@ -76,14 +77,14 @@ const NAV_TOOLS: NavTool[] = [
     path: '/tools/career-path',
     icon: TrendingUp,
     badge: '₹ CTC',
-    badgeBg: 'bg-emerald-500',
-    badgeText: 'text-white',
-    iconColor: 'text-emerald-400',
-    iconActiveBg: 'bg-emerald-500/25',
-    activeBg: 'bg-emerald-500/15',
-    activeBorder: 'border-emerald-400/50',
-    activeText: 'text-emerald-300 font-bold',
-    hoverBg: 'hover:bg-white/5',
+    activeContainer: 'bg-white shadow-sm border-emerald-300 ring-1 ring-emerald-500/20',
+    inactiveContainer: 'border-transparent hover:bg-white/70 hover:border-slate-200/80 hover:shadow-2xs',
+    activeIconBox: 'bg-emerald-600 text-white shadow-xs',
+    inactiveIconBox: 'bg-emerald-50 text-emerald-600 border border-emerald-100/80 group-hover:bg-emerald-100/70',
+    activeText: 'text-slate-950 font-bold',
+    inactiveText: 'text-slate-800 group-hover:text-slate-950 font-semibold',
+    activeBadge: 'bg-emerald-600 text-white shadow-xs',
+    inactiveBadge: 'bg-emerald-50 text-emerald-700 border border-emerald-200/70 group-hover:bg-emerald-100 group-hover:text-emerald-800',
     description: 'India tech salary ladders, company tier roadmap & CTC insights',
   },
 ];
@@ -134,28 +135,28 @@ export function PublicNavbar() {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-surface/85 backdrop-blur-xl border-b border-border/80 transition-all duration-200">
-      <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8 h-[64px] flex items-center justify-between">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-xl border-b border-slate-200/80 shadow-[0_1px_3px_rgba(0,0,0,0.03)] transition-all duration-200">
+      <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 h-[64px] flex items-center justify-between">
 
         {/* Left: Brand Identity */}
         <div className="flex items-center gap-4">
           <Link to="/" className="flex items-center gap-2.5 group focus:outline-none">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-primary to-ai flex items-center justify-center shadow-xs group-hover:scale-105 transition-all duration-200">
-              <Sparkles className="w-4 h-4 text-white stroke-[2px]" />
+            <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center shadow-xs group-hover:scale-105 transition-all duration-200">
+              <Sparkles className="w-4 h-4 text-white stroke-[2.5px]" />
             </div>
             <div className="flex items-center gap-1.5">
-              <span className="text-[18px] font-bold text-text tracking-tight group-hover:text-primary transition-colors">
+              <span className="text-[18px] font-extrabold text-slate-950 tracking-tight group-hover:text-sky-600 transition-colors">
                 HireFlow
               </span>
-              <span className="hidden sm:inline-block text-[10px] font-semibold tracking-wider uppercase px-1.5 py-0.5 rounded bg-surface-2 text-text-muted border border-border">
+              <span className="hidden sm:inline-block text-[10px] font-bold tracking-wider uppercase px-1.5 py-0.5 rounded-md bg-slate-100 text-slate-600 border border-slate-200">
                 Suite
               </span>
             </div>
           </Link>
         </div>
 
-        {/* Center: Navigation Tool Dock */}
-        <div className="hidden md:flex items-center gap-0.5 p-1 bg-black/40 border border-white/10 rounded-2xl shadow-sm backdrop-blur-md">
+        {/* Center: Premium Light-Palette Subsections Widget Dock */}
+        <div className="hidden md:flex items-center gap-1 p-1 bg-slate-100/95 border border-slate-200/90 rounded-2xl shadow-[inset_0_1px_2px_rgba(0,0,0,0.04)]">
           {NAV_TOOLS.map((tool) => {
             const active = isItemActive(tool.path);
             return (
@@ -163,32 +164,28 @@ export function PublicNavbar() {
                 key={tool.id}
                 to={tool.path}
                 className={`
-                  group relative flex items-center gap-2 px-3 py-2 rounded-xl text-[13px] border transition-all duration-150
-                  ${active
-                    ? `${tool.activeBg} ${tool.activeBorder} shadow-sm`
-                    : `border-transparent ${tool.hoverBg}`
-                  }
+                  group relative flex items-center gap-2 px-3 py-1.5 rounded-xl text-[13px] border transition-all duration-150 select-none
+                  ${active ? tool.activeContainer : tool.inactiveContainer}
                 `}
               >
                 {/* Icon Box */}
                 <div className={`w-5 h-5 rounded-md flex items-center justify-center flex-shrink-0 transition-all ${
-                  active ? tool.iconActiveBg : 'bg-white/5 group-hover:bg-white/10'
+                  active ? tool.activeIconBox : tool.inactiveIconBox
                 }`}>
-                  <tool.icon className={`w-3.5 h-3.5 ${tool.iconColor}`} />
+                  <tool.icon className="w-3.5 h-3.5 stroke-[2.2px]" />
                 </div>
 
-                {/* Label */}
-                <span className={`whitespace-nowrap transition-colors ${
-                  active ? tool.activeText : 'text-zinc-400 group-hover:text-zinc-200 font-medium'
+                {/* Sub-section Label - Dark & prominent */}
+                <span className={`whitespace-nowrap transition-colors tracking-tight ${
+                  active ? tool.activeText : tool.inactiveText
                 }`}>
                   {tool.name}
                 </span>
 
-                {/* Badge — always vivid, always solid */}
+                {/* Crisp Light Palette Badge */}
                 <span className={`
-                  text-[9px] font-black tracking-wider uppercase px-1.5 py-0.5 rounded-md
-                  ${tool.badgeBg} ${tool.badgeText}
-                  ${active ? 'opacity-100' : 'opacity-85 group-hover:opacity-100'}
+                  text-[10px] font-black tracking-wider uppercase px-1.5 py-0.5 rounded-md transition-all
+                  ${active ? tool.activeBadge : tool.inactiveBadge}
                 `}>
                   {tool.badge}
                 </span>
@@ -203,7 +200,7 @@ export function PublicNavbar() {
             <Link to={getDashboardLink()}>
               <Button
                 variant="header"
-                className="h-[36px] px-4 text-[13px] font-semibold rounded-full flex items-center gap-1.5 shadow-xs"
+                className="h-[36px] px-4 text-[13px] font-semibold rounded-full flex items-center gap-1.5 shadow-xs bg-slate-900 hover:bg-black text-white"
               >
                 Dashboard <ArrowRight className="w-3.5 h-3.5 stroke-[2px]" />
               </Button>
@@ -212,12 +209,12 @@ export function PublicNavbar() {
             <div className="hidden sm:flex items-center gap-2">
               <Link
                 to="/login"
-                className="px-3.5 py-1.5 rounded-full text-[13px] font-medium text-text-secondary hover:text-text hover:bg-surface-2 transition-all"
+                className="px-3.5 py-1.5 rounded-full text-[13px] font-bold text-slate-700 hover:text-slate-950 hover:bg-slate-100 transition-all"
               >
                 Sign In
               </Link>
               <Link to="/register">
-                <button className="h-[36px] px-4 rounded-full bg-text text-surface hover:opacity-90 font-semibold text-[13px] shadow-xs hover:shadow transition-all duration-150 flex items-center gap-1">
+                <button className="h-[36px] px-4 rounded-full bg-slate-950 hover:bg-black text-white font-bold text-[13px] shadow-sm hover:shadow transition-all duration-150 flex items-center gap-1.5">
                   Get Started
                 </button>
               </Link>
@@ -227,7 +224,7 @@ export function PublicNavbar() {
           {/* Mobile Menu Hamburger */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded-lg text-text-secondary hover:text-text hover:bg-surface-2 transition-colors focus:outline-none"
+            className="md:hidden p-2 rounded-xl text-slate-700 hover:text-slate-950 hover:bg-slate-100 transition-colors focus:outline-none"
             aria-label="Toggle menu"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -235,11 +232,11 @@ export function PublicNavbar() {
         </div>
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Drawer (Clean, crisp light palette) */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-white/10 bg-black/80 backdrop-blur-xl px-4 py-4 space-y-3 shadow-xl animate-slide-up">
-          <div className="text-[10px] font-black uppercase tracking-widest text-zinc-500 px-2">
-            Platform Tools
+        <div className="md:hidden border-t border-slate-200 bg-white/95 backdrop-blur-xl px-4 py-4 space-y-3 shadow-xl animate-slide-up">
+          <div className="text-[11px] font-black uppercase tracking-wider text-slate-500 px-2">
+            Platform Subsections
           </div>
           <div className="space-y-1.5">
             {NAV_TOOLS.map((tool) => {
@@ -251,48 +248,50 @@ export function PublicNavbar() {
                   onClick={() => setMobileMenuOpen(false)}
                   className={`flex items-center justify-between p-3 rounded-2xl border transition-all ${
                     active
-                      ? `${tool.activeBg} ${tool.activeBorder}`
-                      : 'bg-white/5 border-white/8 hover:bg-white/10'
+                      ? `${tool.activeContainer} bg-white ring-1 ring-slate-900/10`
+                      : 'bg-slate-50/70 border-slate-200/70 hover:bg-white hover:border-slate-300'
                   }`}
                 >
                   <div className="flex items-center gap-3">
                     {/* Icon */}
                     <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${
-                      active ? tool.iconActiveBg : 'bg-white/8'
+                      active ? tool.activeIconBox : tool.inactiveIconBox
                     }`}>
-                      <tool.icon className={`w-5 h-5 ${tool.iconColor}`} />
+                      <tool.icon className="w-5 h-5 stroke-[2.2px]" />
                     </div>
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className={`text-[14px] font-semibold ${
-                          active ? tool.activeText : 'text-zinc-200'
+                        <span className={`text-[14px] font-bold ${
+                          active ? 'text-slate-950' : 'text-slate-800'
                         }`}>{tool.name}</span>
-                        <span className={`text-[9px] font-black px-1.5 py-0.5 rounded-md uppercase ${tool.badgeBg} ${tool.badgeText}`}>
+                        <span className={`text-[10px] font-black px-1.5 py-0.5 rounded-md uppercase ${
+                          active ? tool.activeBadge : tool.inactiveBadge
+                        }`}>
                           {tool.badge}
                         </span>
                       </div>
-                      <p className="text-[12px] text-zinc-500 font-normal mt-0.5">{tool.description}</p>
+                      <p className="text-[12px] text-slate-500 font-normal mt-0.5">{tool.description}</p>
                     </div>
                   </div>
-                  <ChevronRight className="w-4 h-4 text-zinc-600 flex-shrink-0" />
+                  <ChevronRight className="w-4 h-4 text-slate-400 flex-shrink-0" />
                 </Link>
               );
             })}
           </div>
 
           {!isAuthenticated && (
-            <div className="pt-3 border-t border-white/10 flex flex-col gap-2">
+            <div className="pt-3 border-t border-slate-200 flex flex-col gap-2">
               <Link
                 to="/login"
                 onClick={() => setMobileMenuOpen(false)}
-                className="w-full text-center py-2 text-[13px] font-medium text-zinc-400 hover:text-white rounded-lg hover:bg-white/5 transition-all"
+                className="w-full text-center py-2.5 text-[13px] font-bold text-slate-700 hover:text-slate-950 rounded-xl hover:bg-slate-100 transition-all"
               >
                 Sign In
               </Link>
               <Link
                 to="/register"
                 onClick={() => setMobileMenuOpen(false)}
-                className="w-full text-center py-2.5 text-[13px] font-semibold text-black bg-white rounded-lg shadow-xs hover:opacity-90 transition-all"
+                className="w-full text-center py-2.5 text-[13px] font-bold text-white bg-slate-950 hover:bg-black rounded-xl shadow-xs transition-all"
               >
                 Get Started
               </Link>
