@@ -1197,7 +1197,7 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                         {/* Bottom Actions */}
                         <div className="pt-3 border-t border-neutral-800 flex items-center justify-between gap-3">
                           <Link
-                            to={`/tools/resume-checker?company=${prog.companyId}&role=${encodeURIComponent(prog.roleTitle)}`}
+                            to={`/tools/resume-checker?company=${prog.companyId}&role=${encodeURIComponent(prog.roleTitle)}&program=${encodeURIComponent(prog.id)}`}
                             className="px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition-all shadow-sm flex items-center gap-1.5"
                           >
                             <FileText className="w-3.5 h-3.5" />

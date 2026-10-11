@@ -42,8 +42,8 @@ import { AuditTab } from '../../features/ats/components/AuditTab';
 import { LearningPathTab } from '../../features/ats/components/LearningPathTab';
 import { DebugDrawer } from '../../features/ats/components/DebugDrawer';
 import { useTalentLensStore, DEMO_TALENTLENS_RESUME } from '../demo/useTalentLensStore';
-import { COMPANIES } from '../demo/talentLensData';
 import { WordLimitSource } from '../../config/limits';
+import { resolveTargetJob } from './resolveTargetJob';
 
 const STAGED_MESSAGES = [
   'Reading resume tokens & structural sections...',
@@ -60,10 +60,15 @@ export function ResumeChecker() {
 
   const queryCompanyId = searchParams.get('company');
   const queryRoleTitle = searchParams.get('role');
-  const isFromTalentLens = Boolean(queryCompanyId && queryRoleTitle);
+  const queryProgramId = searchParams.get('program');
+  const isFromTalentLens = Boolean(queryCompanyId && (queryRoleTitle || queryProgramId));
 
   const initialStoredResume = useTalentLensStore.getState().resumeText;
   const initialStoredFileName = useTalentLensStore.getState().resumeFileName;
+
+  const initialResolvedJob = useMemo(() => {
+    return resolveTargetJob(queryCompanyId, queryRoleTitle, queryProgramId);
+  }, [queryCompanyId, queryRoleTitle, queryProgramId]);
 
   const [resumeText, setResumeText] = useState<string>(() => {
     if (initialStoredResume) return initialStoredResume;
@@ -72,14 +77,7 @@ export function ResumeChecker() {
   });
 
   const [jobText, setJobText] = useState<string>(() => {
-    if (queryCompanyId && queryRoleTitle) {
-      const comp = COMPANIES.find(c => c.id === queryCompanyId);
-      const role = comp?.roles.find(r => r.title.toLowerCase() === queryRoleTitle.toLowerCase());
-      if (comp && role && role.fullText) {
-        return role.fullText;
-      }
-    }
-    return '';
+    return initialResolvedJob.text;
   });
 
   const [resumeFileName, setResumeFileName] = useState<string | null>(() => {
@@ -89,13 +87,7 @@ export function ResumeChecker() {
   });
 
   const [jobFileName, setJobFileName] = useState<string | null>(() => {
-    if (queryCompanyId && queryRoleTitle) {
-      const comp = COMPANIES.find(c => c.id === queryCompanyId);
-      if (comp) {
-        return `${comp.name}_${queryRoleTitle.replace(/\s+/g, '_')}_JD.txt`;
-      }
-    }
-    return null;
+    return initialResolvedJob.fileName;
   });
 
   const [resumeSource, setResumeSource] = useState<WordLimitSource>(() => {
@@ -104,6 +96,7 @@ export function ResumeChecker() {
   });
 
   const [jobSource, setJobSource] = useState<WordLimitSource>(() => {
+    if (initialResolvedJob.text) return 'prefilled';
     if (isFromTalentLens) return 'prefilled';
     return undefined;
   });
@@ -125,12 +118,14 @@ export function ResumeChecker() {
 
   const headerRef = useRef<HTMLDivElement>(null);
   const tabBarRef = useRef<HTMLDivElement>(null);
+  const userClearedJobRef = useRef(false);
 
   // Sync from TalentLens URL query parameters & ensure store has resume loaded
   useEffect(() => {
     const compId = searchParams.get('company');
     const rTitle = searchParams.get('role');
-    if (compId && rTitle) {
+    const pId = searchParams.get('program');
+    if (compId && (rTitle || pId)) {
       const stored = useTalentLensStore.getState().resumeText;
       const storedFile = useTalentLensStore.getState().resumeFileName;
       if (!resumeText) {
@@ -146,12 +141,11 @@ export function ResumeChecker() {
         setResumeSource('talentlens');
       }
 
-      if (!jobText) {
-        const comp = COMPANIES.find(c => c.id === compId);
-        const role = comp?.roles.find((r) => r.title.toLowerCase() === rTitle.toLowerCase());
-        if (comp && role && role.fullText) {
-          setJobText(role.fullText);
-          setJobFileName(`${comp.name}_${role.title.replace(/\s+/g, '_')}_JD.txt`);
+      if (!jobText && !userClearedJobRef.current) {
+        const resolved = resolveTargetJob(compId, rTitle, pId);
+        if (resolved.text) {
+          setJobText(resolved.text);
+          setJobFileName(resolved.fileName);
           setJobSource('prefilled');
         }
       }
@@ -213,12 +207,12 @@ export function ResumeChecker() {
   };
 
   const handleClearJob = () => {
+    userClearedJobRef.current = true;
     setJobText('');
     setJobFileName(null);
     setJobPageCount(undefined);
     setJobSource(undefined);
     setFileError(null);
-    
   };
 
   const handleTabChange = (tab: ReportTabId) => {

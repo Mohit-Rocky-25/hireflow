@@ -738,7 +738,7 @@ export function CompanyRolesPage() {
                             </div>
 
                             <Link
-                              to={`/tools/resume-checker?company=${company.id}&role=${encodeURIComponent(prog.roleTitle)}`}
+                              to={`/tools/resume-checker?company=${company.id}&role=${encodeURIComponent(prog.roleTitle)}&program=${encodeURIComponent(prog.id)}`}
                               className="text-[11px] font-bold text-primary hover:underline inline-flex items-center gap-1"
                             >
                               Scan in ATS Roaster →
