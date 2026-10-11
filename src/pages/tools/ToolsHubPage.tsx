@@ -11,6 +11,7 @@ import {
   Sparkles,
   Search,
   Database,
+  Award,
 } from 'lucide-react';
 import { PageNav } from '../../components/common/PageNav';
 import { careers } from '../../careers-core';
@@ -95,8 +96,8 @@ export function ToolsHubPage() {
     {
       id: 'group-b',
       groupLetter: 'B',
-      title: 'Projects to Build',
-      description: 'Close missing resume gaps with production-grade engineering briefs.',
+      title: 'Projects & Career Evidence',
+      description: 'Close missing resume gaps with production-grade engineering briefs and verifiable career credentials.',
       colorTheme: {
         bg: 'bg-cyan-500/10',
         border: 'border-cyan-500/30',
@@ -106,6 +107,16 @@ export function ToolsHubPage() {
         button: 'bg-cyan-600 text-white',
       },
       tools: [
+        {
+          id: 'credential-engine',
+          title: 'Credential & Opportunity Engine',
+          badge: 'Evidence-Building Hub',
+          description: 'Find industry-relevant certifications, competitions, and open-source programs that create verifiable resume evidence for your target role.',
+          link: '/tools/credential-engine',
+          cta: 'Build Career Evidence',
+          icon: Award,
+          tags: ['Certifications', 'Competitions & SIH', 'GSoC & LFX', 'Opportunity Plan'],
+        },
         {
           id: 'build-briefs',
           title: 'Project Build Briefs',

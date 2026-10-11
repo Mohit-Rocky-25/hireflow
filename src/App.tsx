@@ -32,6 +32,7 @@ import { CompareJDsPage } from './features/suite/compare/CompareJDsPage';
 import { TailorResumePage } from './features/suite/tailor/TailorResumePage';
 import { ReachOutPage } from './features/suite/outreach/ReachOutPage';
 import { BuildBriefsPage } from './features/suite/briefs/BuildBriefsPage';
+import { CredentialOpportunityEnginePage } from './features/suite/credentials/CredentialOpportunityEnginePage';
 import { CareersDataExplorer } from './careers-core/dev/CareersDataExplorer';
 
 // Company / BHR Pages
@@ -126,6 +127,9 @@ export default function App() {
         <Route path="/tools/career-path/simulator" element={<Navigate to="/tools/career-path/dream-job-roadmap" replace />} />
         <Route path="/tools/career-path/explorer" element={<Navigate to="/tools/career-path/company-levels" replace />} />
         <Route path="/tools/talent-lens" element={<TalentLens />} />
+        <Route path="/tools/credential-engine" element={<CredentialOpportunityEnginePage />} />
+        <Route path="/tools/credentials" element={<Navigate to="/tools/credential-engine" replace />} />
+        <Route path="/tools/opportunity-engine" element={<Navigate to="/tools/credential-engine" replace />} />
         <Route path="/dev/careers-data" element={<CareersDataExplorer />} />
 
         {/* Company / BHR / HR Routes */}
