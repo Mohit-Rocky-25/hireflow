@@ -14,6 +14,7 @@ import {
   Award,
 } from 'lucide-react';
 import { PageNav } from '../../components/common/PageNav';
+import { PublicNavbar } from '../../components/layout/PublicNavbar';
 import { careers } from '../../careers-core';
 
 interface ToolItem {
@@ -192,14 +193,16 @@ export function ToolsHubPage() {
   const totalTools = decisionGroups.reduce((acc, g) => acc + g.tools.length, 0);
 
   return (
-    <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-20 animate-fade-in relative">
-      <PageNav />
-      {/* Hero Header */}
-      <div className="text-center max-w-4xl mx-auto space-y-6">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-bold tracking-wide uppercase">
-          <Sparkles className="w-4 h-4" />
-          <span>HireFlow Decision Suite • {totalTools} Essential Tools</span>
-        </div>
+    <div className="min-h-screen bg-bg">
+      <PublicNavbar />
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 space-y-20 animate-fade-in relative">
+        <PageNav />
+        {/* Hero Header */}
+        <div className="text-center max-w-4xl mx-auto space-y-6">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#86EFAC] border border-[#4ADE80] text-black text-sm font-extrabold tracking-wide uppercase shadow-sm">
+            <Sparkles className="w-4 h-4 text-black" />
+            <span>HireFlow Decision Suite • {totalTools} Essential Tools</span>
+          </div>
         <h1 className="text-4xl sm:text-6xl font-black text-foreground tracking-tight leading-tight">
           Everything You Need to Win Your Next Tech Role
         </h1>
@@ -334,6 +337,7 @@ export function ToolsHubPage() {
             </div>
           </section>
         ))}
+      </div>
       </div>
     </div>
   );
