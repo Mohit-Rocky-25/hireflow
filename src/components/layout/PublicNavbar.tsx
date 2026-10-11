@@ -43,13 +43,19 @@ export function PublicNavbar() {
             <span className="text-[20px] font-bold text-text tracking-[-0.03em]">HireFlow</span>
           </Link>
         </div>
-        <div className="hidden md:flex items-center gap-[36px]">
-          <Link to="/demo" className="inline-flex items-center gap-[6px] text-[15px] font-bold text-white bg-gradient-to-r from-primary to-ai px-[14px] py-[6px] rounded-full hover:opacity-90 transition-opacity shadow-sm">
+        <div className="hidden md:flex items-center gap-[10px] lg:gap-[14px]">
+          <Link to="/demo" className="inline-flex items-center gap-[6px] text-[14px] lg:text-[15px] font-bold text-white bg-gradient-to-r from-primary to-ai px-[13px] lg:px-[15px] py-[6px] rounded-full hover:opacity-90 transition-opacity shadow-sm">
             <span className="w-2 h-2 rounded-full bg-white animate-pulse"></span> TalentLens™
           </Link>
-          <Link to="/tools" className="text-[15px] font-medium text-text-secondary hover:text-text transition-colors duration-[120ms]">Decision Suite</Link>
-          <Link to="/tools/resume-checker" className="text-[15px] font-medium text-text-secondary hover:text-text transition-colors duration-[120ms]">ATS Roaster</Link>
-          <Link to="/tools/career-path" className="text-[15px] font-medium text-text-secondary hover:text-text transition-colors duration-[120ms]">Career Trajectory</Link>
+          <Link to="/tools" className="inline-flex items-center gap-[6px] text-[14px] lg:text-[15px] font-extrabold text-black bg-[#86EFAC] hover:bg-[#6EE7B7] px-[13px] lg:px-[15px] py-[6px] rounded-full transition-all shadow-sm border border-[#4ADE80]">
+            <span className="w-2 h-2 rounded-full bg-black/80 animate-pulse"></span> Decision Suite
+          </Link>
+          <Link to="/tools/resume-checker" className="inline-flex items-center gap-[6px] text-[14px] lg:text-[15px] font-black text-black bg-[#991B1B] hover:bg-[#B91C1C] px-[13px] lg:px-[15px] py-[6px] rounded-full transition-all shadow-sm border border-red-950/50">
+            <span className="w-2 h-2 rounded-full bg-black animate-pulse"></span> ATS Roaster
+          </Link>
+          <Link to="/tools/career-path" className="inline-flex items-center gap-[6px] text-[14px] lg:text-[15px] font-extrabold text-white bg-black hover:bg-neutral-800 px-[13px] lg:px-[15px] py-[6px] rounded-full transition-all shadow-sm border border-neutral-700">
+            <span className="w-2 h-2 rounded-full bg-white animate-pulse"></span> Career Trajectory
+          </Link>
         </div>
         <div className="flex items-center gap-[10px]">
           {isAuthenticated ? (
