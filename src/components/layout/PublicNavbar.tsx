@@ -44,16 +44,16 @@ export function PublicNavbar() {
           </Link>
         </div>
         <div className="hidden md:flex items-center gap-[10px] lg:gap-[14px]">
-          <Link to="/demo" className="inline-flex items-center gap-[6px] text-[14px] lg:text-[15px] font-bold text-white bg-gradient-to-r from-primary to-ai px-[13px] lg:px-[15px] py-[6px] rounded-full hover:opacity-90 transition-opacity shadow-sm">
+          <Link to="/demo" className="inline-flex items-center gap-[6px] text-[14px] lg:text-[15px] font-bold text-white bg-gradient-to-r from-primary to-ai px-[13px] lg:px-[15px] py-[6px] rounded-full hover:opacity-90 transition-all shadow-sm shadow-blue-500/20">
             <span className="w-2 h-2 rounded-full bg-white animate-pulse"></span> TalentLens™
           </Link>
-          <Link to="/tools" className="inline-flex items-center gap-[6px] text-[14px] lg:text-[15px] font-extrabold text-black bg-[#86EFAC] hover:bg-[#6EE7B7] px-[13px] lg:px-[15px] py-[6px] rounded-full transition-all shadow-sm border border-[#4ADE80]">
-            <span className="w-2 h-2 rounded-full bg-black/80 animate-pulse"></span> Decision Suite
+          <Link to="/tools" className="inline-flex items-center gap-[6px] text-[14px] lg:text-[15px] font-bold text-white bg-gradient-to-r from-[#4F46E5] to-[#7C3AED] hover:opacity-90 px-[13px] lg:px-[15px] py-[6px] rounded-full transition-all shadow-sm shadow-indigo-500/20">
+            <span className="w-2 h-2 rounded-full bg-white animate-pulse"></span> Decision Suite
           </Link>
-          <Link to="/tools/resume-checker" className="inline-flex items-center gap-[6px] text-[14px] lg:text-[15px] font-black text-black bg-[#991B1B] hover:bg-[#B91C1C] px-[13px] lg:px-[15px] py-[6px] rounded-full transition-all shadow-sm border border-red-950/50">
-            <span className="w-2 h-2 rounded-full bg-black animate-pulse"></span> ATS Roaster
+          <Link to="/tools/resume-checker" className="inline-flex items-center gap-[6px] text-[14px] lg:text-[15px] font-bold text-white bg-gradient-to-r from-[#D97706] to-[#EA580C] hover:opacity-90 px-[13px] lg:px-[15px] py-[6px] rounded-full transition-all shadow-sm shadow-orange-500/20">
+            <span className="w-2 h-2 rounded-full bg-white animate-pulse"></span> ATS Roaster
           </Link>
-          <Link to="/tools/career-path" className="inline-flex items-center gap-[6px] text-[14px] lg:text-[15px] font-extrabold text-white bg-black hover:bg-neutral-800 px-[13px] lg:px-[15px] py-[6px] rounded-full transition-all shadow-sm border border-neutral-700">
+          <Link to="/tools/career-path" className="inline-flex items-center gap-[6px] text-[14px] lg:text-[15px] font-bold text-white bg-gradient-to-r from-[#0F172A] to-[#1E293B] hover:opacity-90 px-[13px] lg:px-[15px] py-[6px] rounded-full transition-all shadow-sm border border-slate-700/60">
             <span className="w-2 h-2 rounded-full bg-white animate-pulse"></span> Career Trajectory
           </Link>
         </div>
