@@ -102,8 +102,8 @@ export function OpportunityDetailModal({
   const getValueBadge = (label: string, val: 'low' | 'medium' | 'high') => {
     const colors = {
       high: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/30',
-      medium: 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/30',
-      low: 'bg-zinc-500/15 text-zinc-600 dark:text-zinc-400 border-zinc-500/30',
+      medium: 'bg-primary/10 text-primary border-primary/25',
+      low: 'bg-surface-2 text-text-secondary border-border',
     };
     return (
       <span className={`inline-flex items-center gap-1 px-2.5 py-1 text-xs font-semibold rounded-md border ${colors[val]}`}>
@@ -239,10 +239,10 @@ export function OpportunityDetailModal({
         {/* Scrollable Body Content */}
         <div className="p-6 sm:p-8 space-y-8 overflow-y-auto text-sm sm:text-base leading-relaxed text-foreground">
           {/* Section: Indian Market Pricing & Student Aid Pathway */}
-          <div className="p-5 sm:p-6 rounded-3xl bg-gradient-to-br from-emerald-500/10 via-amber-500/5 to-primary/10 border-2 border-emerald-500/30 space-y-4 shadow-sm">
+          <div className="p-5 sm:p-6 rounded-3xl bg-surface-2/70 border-2 border-emerald-500/30 space-y-4 shadow-sm">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <div className="p-2 rounded-xl bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 font-black">
+                <div className="p-2 rounded-xl bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 font-black">
                   <IndianRupee className="w-5 h-5" />
                 </div>
                 <div>
@@ -256,7 +256,7 @@ export function OpportunityDetailModal({
               </div>
 
               {opportunity.ppoOffered && (
-                <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/40 text-xs font-black">
+                <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 text-xs font-black">
                   <Briefcase className="w-3.5 h-3.5" />
                   <span>{opportunity.ppoOffered}</span>
                 </span>
@@ -283,7 +283,7 @@ export function OpportunityDetailModal({
               <div className="p-3.5 rounded-2xl bg-surface border border-border space-y-1">
                 <span className="text-[11px] font-bold uppercase text-text-secondary">Credentials / Stipend</span>
                 <p className="text-sm font-bold text-foreground flex items-center gap-1.5">
-                  <Coins className="w-4 h-4 text-amber-500 shrink-0" />
+                  <Coins className="w-4 h-4 text-emerald-500 shrink-0" />
                   <span>{opportunity.stipendAmount || opportunity.validity || 'Lifetime Verified'}</span>
                 </p>
               </div>
@@ -291,13 +291,20 @@ export function OpportunityDetailModal({
 
             {/* Student Discount & Free Waiver Guide */}
             {opportunity.studentDiscountNote && (
-              <div className="p-3.5 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-start gap-3">
-                <GraduationCap className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
-                <div className="space-y-1">
-                  <h4 className="text-xs font-black uppercase tracking-wider text-amber-700 dark:text-amber-300">
-                    How Indian College Students Can Get This Free or Discounted
-                  </h4>
-                  <p className="text-xs sm:text-sm text-text-secondary leading-relaxed font-medium">
+              <div className="p-4 sm:p-5 rounded-2xl bg-surface border-2 border-emerald-500/30 flex items-start gap-3.5 shadow-2xs">
+                <div className="p-2 rounded-xl bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5">
+                  <GraduationCap className="w-5 h-5" />
+                </div>
+                <div className="space-y-1.5 flex-1 min-w-0">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <h4 className="text-xs font-black uppercase tracking-wider text-emerald-700 dark:text-emerald-300">
+                      How Indian College Students Can Get This Free or Discounted
+                    </h4>
+                    <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
+                      Verified Playbook
+                    </span>
+                  </div>
+                  <p className="text-xs sm:text-sm text-foreground/90 leading-relaxed font-medium">
                     {opportunity.studentDiscountNote}
                   </p>
                 </div>
@@ -429,13 +436,13 @@ export function OpportunityDetailModal({
             </div>
           </div>
 
-          {/* Section: Suitability Guidance & Warnings */}
+          {/* Section: Suitability Guidance & Recommendations */}
           {opportunity.suitabilityNotes && (
-            <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-start gap-3">
-              <AlertTriangle className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
+            <div className="p-4 rounded-2xl bg-surface-2 border border-border flex items-start gap-3">
+              <AlertTriangle className="w-5 h-5 text-text-muted shrink-0 mt-0.5" />
               <div className="space-y-1">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400">
-                  Suitability Guidance & Warnings
+                <h4 className="text-xs font-bold uppercase tracking-wider text-foreground">
+                  Suitability Guidance & Recommendations
                 </h4>
                 <p className="text-xs sm:text-sm text-text-secondary leading-relaxed">
                   {opportunity.suitabilityNotes}

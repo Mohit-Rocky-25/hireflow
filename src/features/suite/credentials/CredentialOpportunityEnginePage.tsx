@@ -51,7 +51,7 @@ export function CredentialOpportunityEnginePage() {
         {/* Effulgent Hero Section */}
         <div className="text-center max-w-4xl mx-auto space-y-6 pt-6 sm:pt-4">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-orange-500/15 via-primary/15 to-emerald-500/15 border border-primary/25 text-primary text-xs sm:text-sm font-black tracking-wide uppercase shadow-xs">
-            <Sparkles className="w-4 h-4 text-amber-500 animate-spin-slow" />
+            <Sparkles className="w-4 h-4 text-primary animate-spin-slow" />
             <span>Design Suite · Indian Engineering Career Evidence Engine</span>
           </div>
 

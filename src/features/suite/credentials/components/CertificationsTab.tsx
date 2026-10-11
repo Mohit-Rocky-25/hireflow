@@ -212,48 +212,48 @@ export function CertificationsTab({
     const lower = issuer.toLowerCase();
     if (lower.includes('amazon') || lower.includes('aws')) {
       return {
-        accent: 'from-amber-500/20 via-orange-500/10 to-transparent',
-        border: 'hover:border-amber-500/60 hover:shadow-[0_12px_36px_rgba(245,158,11,0.2)]',
-        badge: 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/30',
+        accent: 'from-orange-500/30 via-primary/10 to-transparent',
+        border: 'hover:border-orange-500/50 hover:shadow-lg',
+        badge: 'bg-orange-500/10 text-orange-600 dark:text-orange-400 border-orange-500/25',
         brand: 'AWS',
       };
     }
     if (lower.includes('google') || lower.includes('gcp') || lower.includes('tensorflow')) {
       return {
-        accent: 'from-blue-500/20 via-cyan-500/10 to-transparent',
-        border: 'hover:border-blue-500/60 hover:shadow-[0_12px_36px_rgba(59,130,246,0.2)]',
-        badge: 'bg-blue-500/15 text-blue-600 dark:text-blue-400 border-blue-500/30',
+        accent: 'from-blue-500/30 via-cyan-500/10 to-transparent',
+        border: 'hover:border-blue-500/50 hover:shadow-lg',
+        badge: 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/25',
         brand: 'Google',
       };
     }
     if (lower.includes('microsoft') || lower.includes('azure')) {
       return {
-        accent: 'from-sky-500/20 via-indigo-500/10 to-transparent',
-        border: 'hover:border-sky-500/60 hover:shadow-[0_12px_36px_rgba(14,165,233,0.2)]',
-        badge: 'bg-sky-500/15 text-sky-600 dark:text-sky-400 border-sky-500/30',
+        accent: 'from-sky-500/30 via-indigo-500/10 to-transparent',
+        border: 'hover:border-sky-500/50 hover:shadow-lg',
+        badge: 'bg-sky-500/10 text-sky-600 dark:text-sky-400 border-sky-500/25',
         brand: 'Microsoft',
       };
     }
     if (lower.includes('meta')) {
       return {
-        accent: 'from-purple-500/20 via-pink-500/10 to-transparent',
-        border: 'hover:border-purple-500/60 hover:shadow-[0_12px_36px_rgba(168,85,247,0.2)]',
-        badge: 'bg-purple-500/15 text-purple-600 dark:text-purple-400 border-purple-500/30',
+        accent: 'from-purple-500/30 via-pink-500/10 to-transparent',
+        border: 'hover:border-purple-500/50 hover:shadow-lg',
+        badge: 'bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/25',
         brand: 'Meta',
       };
     }
     if (lower.includes('comptia')) {
       return {
-        accent: 'from-rose-500/20 via-red-500/10 to-transparent',
-        border: 'hover:border-rose-500/60 hover:shadow-[0_12px_36px_rgba(244,63,94,0.2)]',
-        badge: 'bg-rose-500/15 text-rose-600 dark:text-rose-400 border-rose-500/30',
+        accent: 'from-rose-500/30 via-red-500/10 to-transparent',
+        border: 'hover:border-rose-500/50 hover:shadow-lg',
+        badge: 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/25',
         brand: 'CompTIA',
       };
     }
     return {
-      accent: 'from-primary/20 via-primary/5 to-transparent',
-      border: 'hover:border-primary/60 hover:shadow-[0_12px_36px_rgba(99,102,241,0.2)]',
-      badge: 'bg-primary/15 text-primary border-primary/30',
+      accent: 'from-primary/30 via-primary/10 to-transparent',
+      border: 'hover:border-primary/50 hover:shadow-lg',
+      badge: 'bg-primary/10 text-primary border-primary/25',
       brand: 'Certification',
     };
   };
@@ -491,26 +491,56 @@ export function CertificationsTab({
                   {cert.whatItProves}
                 </p>
 
-                {/* Prominent Glowing Price & Time Badges */}
-                <div className="flex flex-wrap gap-2 text-xs pt-1">
-                  <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 font-bold shadow-xs">
-                    <IndianRupee className="w-3.5 h-3.5 shrink-0" />
-                    <span>{cert.costInr || cert.cost}</span>
+                {/* TalentLens-Style Dimension Widgets Grid */}
+                <div className="grid grid-cols-2 gap-2 pt-1">
+                  <div className="bg-surface-2/70 border border-border/80 rounded-xl p-2.5">
+                    <p className="text-[10px] font-bold text-text-muted uppercase tracking-wider mb-1">
+                      Fee / Student Aid
+                    </p>
+                    <p className="text-xs font-black text-emerald-600 dark:text-emerald-400 flex items-center gap-1 truncate">
+                      <IndianRupee className="w-3.5 h-3.5 shrink-0" />
+                      <span>{cert.costInr || cert.cost}</span>
+                    </p>
                   </div>
 
-                  <div className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-surface-2 border border-border text-text-secondary font-semibold">
-                    <Clock className="w-3.5 h-3.5 text-primary shrink-0" />
-                    <span>{cert.estimatedPreparationTime}</span>
+                  <div className="bg-surface-2/70 border border-border/80 rounded-xl p-2.5">
+                    <p className="text-[10px] font-bold text-text-muted uppercase tracking-wider mb-1">
+                      Prep Duration
+                    </p>
+                    <p className="text-xs font-bold text-foreground flex items-center gap-1.5 truncate">
+                      <Clock className="w-3.5 h-3.5 text-primary shrink-0" />
+                      <span>{cert.estimatedPreparationTime}</span>
+                    </p>
                   </div>
                 </div>
 
-                {/* Student Aid / Discount Highlight Pill */}
+                {/* TalentLens-Style Interactive Student Waiver & Playbook Widget */}
                 {cert.studentDiscountNote && (
-                  <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/25 flex items-start gap-2">
-                    <GraduationCap className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
-                    <p className="text-[11px] text-amber-700 dark:text-amber-300 leading-tight font-medium line-clamp-2">
-                      <strong className="font-bold">Indian Student Note:</strong> {cert.studentDiscountNote}
-                    </p>
+                  <div
+                    className="group/waiver p-2.5 rounded-xl bg-surface-2/80 hover:bg-primary/5 border border-border hover:border-primary/40 flex items-center justify-between text-xs transition-colors shadow-2xs"
+                    title="Click card to unlock full voucher codes, fee waivers, and academic lab routes"
+                  >
+                    <div className="flex items-center gap-2.5 min-w-0">
+                      <div className="p-1.5 rounded-lg bg-primary/10 text-primary group-hover/waiver:bg-primary group-hover/waiver:text-white transition-colors shrink-0">
+                        <GraduationCap className="w-4 h-4" />
+                      </div>
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-1.5">
+                          <p className="text-[11px] font-bold text-foreground truncate">
+                            Student Aid & Waiver Playbook
+                          </p>
+                          <span className="px-1.5 py-0.2 rounded text-[9px] font-extrabold uppercase bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25">
+                            Guide
+                          </span>
+                        </div>
+                        <p className="text-[10px] text-text-muted truncate">
+                          Vouchers, free labs & discount application steps
+                        </p>
+                      </div>
+                    </div>
+                    <span className="text-[10px] font-bold text-primary flex items-center shrink-0 ml-2 group-hover/waiver:translate-x-0.5 transition-transform">
+                      Details <ChevronRight className="w-3 h-3 ml-0.5" />
+                    </span>
                   </div>
                 )}
 

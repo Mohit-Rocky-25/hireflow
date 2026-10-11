@@ -361,7 +361,7 @@ export function OpenSourceTab({
                 {opp.applicationTips && opp.applicationTips.length > 0 && (
                   <div className="p-3.5 rounded-2xl bg-surface-2 border border-border space-y-1">
                     <span className="text-xs font-bold text-foreground flex items-center gap-1.5">
-                      <Lightbulb className="w-3.5 h-3.5 text-amber-500" />
+                      <Lightbulb className="w-3.5 h-3.5 text-primary" />
                       Key Application Tip
                     </span>
                     <p className="text-xs text-text-secondary leading-relaxed">

@@ -193,10 +193,10 @@ export function OpportunityPlanTab({
 
         {/* Avoid Overload Warning (if triggered) */}
         {planResult.overloadWarning && (
-          <div className="p-4 rounded-2xl bg-amber-500/10 border-2 border-amber-500/30 flex items-start gap-3">
-            <AlertTriangle className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
+          <div className="p-4 rounded-2xl bg-surface-2 border border-border flex items-start gap-3">
+            <AlertTriangle className="w-5 h-5 text-text-muted shrink-0 mt-0.5" />
             <div className="space-y-1">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-foreground">
                 Avoid Credential Overload
               </h4>
               <p className="text-xs sm:text-sm text-text-secondary leading-relaxed">
@@ -622,8 +622,8 @@ export function OpportunityPlanTab({
                   </div>
 
                   {step.doNotPursueYetWarning && (
-                    <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-xs text-amber-700 dark:text-amber-300 flex items-start gap-2">
-                      <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5" />
+                    <div className="p-3 rounded-xl bg-surface-2 border border-border text-xs text-text-secondary flex items-start gap-2">
+                      <AlertTriangle className="w-4 h-4 text-text-muted shrink-0 mt-0.5" />
                       <span>{step.doNotPursueYetWarning}</span>
                     </div>
                   )}

@@ -440,7 +440,7 @@ export function EventsTab({
                     {event.name}
                   </h3>
                   <p className="text-xs text-text-secondary font-medium mt-1 flex items-center gap-1.5">
-                    <Trophy className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                    <Trophy className="w-3.5 h-3.5 text-primary shrink-0" />
                     <span>Organizer: <strong className="text-foreground">{event.organizer}</strong></span>
                   </p>
                 </div>
@@ -460,7 +460,7 @@ export function EventsTab({
                   )}
 
                   {event.costInr && (
-                    <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-500/15 border border-amber-500/35 text-amber-600 dark:text-amber-400 font-bold text-xs shadow-xs">
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-indigo-500/10 border border-indigo-500/25 text-indigo-600 dark:text-indigo-400 font-bold text-xs shadow-xs">
                       <Gift className="w-3.5 h-3.5 shrink-0" />
                       <span>{event.costInr}</span>
                     </div>
