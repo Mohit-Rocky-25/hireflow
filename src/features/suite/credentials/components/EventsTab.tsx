@@ -201,6 +201,23 @@ export function EventsTab({
     if (onPlanUpdated) onPlanUpdated();
   };
 
+  const handleExternalRedirect = (e: React.MouseEvent, url?: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (url) {
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
+  };
+
+  const getDomainFromUrl = (url?: string) => {
+    if (!url) return '';
+    try {
+      return new URL(url).hostname.replace(/^www\./, '');
+    } catch {
+      return '';
+    }
+  };
+
   return (
     <div className="space-y-8 animate-fade-in">
       {/* Category Definitions Showcase Banner */}
@@ -503,12 +520,13 @@ export function EventsTab({
                   href={portalUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={(e) => e.stopPropagation()}
-                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-surface-2 hover:bg-primary hover:text-white border border-border hover:border-primary font-black text-foreground transition-all duration-200 group/btn shadow-xs"
-                  title={`Open official registration portal for ${event.name}`}
+                  onClick={(e) => handleExternalRedirect(e, portalUrl)}
+                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-surface-2 hover:bg-primary hover:text-white border border-border hover:border-primary font-black text-foreground transition-all duration-200 group/btn shadow-xs cursor-pointer"
+                  title={`Open official registration portal for ${event.name} (${getDomainFromUrl(portalUrl)})`}
                 >
                   <span>Register on Portal</span>
-                  <ExternalLink className="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform text-primary group-hover/btn:text-white" />
+                  <span className="text-[10px] font-mono opacity-60 hidden sm:inline">({getDomainFromUrl(portalUrl)})</span>
+                  <ExternalLink className="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform text-primary group-hover/btn:text-white shrink-0" />
                 </a>
 
                 {/* Details Trigger */}

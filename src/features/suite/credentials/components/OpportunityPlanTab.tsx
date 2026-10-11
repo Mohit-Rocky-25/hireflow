@@ -127,6 +127,23 @@ export function OpportunityPlanTab({
     reloadSaved();
   };
 
+  const handleExternalRedirect = (e: React.MouseEvent, url?: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (url) {
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
+  };
+
+  const getDomainFromUrl = (url?: string) => {
+    if (!url) return '';
+    try {
+      return new URL(url).hostname.replace(/^www\./, '');
+    } catch {
+      return '';
+    }
+  };
+
   const selectedRolePath = useMemo(() => {
     return (
       ROLE_RECOMMENDATION_PATHS.find((p) => p.roleId === selectedPathRoleId) ||
@@ -273,16 +290,31 @@ export function OpportunityPlanTab({
                     </div>
                   </div>
 
-                  <div className="pt-4 border-t border-border flex items-center justify-between">
-                    <button
-                      onClick={() => onSelectOpportunity(rec.opportunity)}
-                      className="text-xs font-bold text-primary hover:underline"
-                    >
-                      Inspect Full Record →
-                    </button>
+                  <div className="pt-4 border-t border-border flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-3">
+                      <button
+                        onClick={() => onSelectOpportunity(rec.opportunity)}
+                        className="text-xs font-bold text-primary hover:underline cursor-pointer"
+                      >
+                        Inspect Record →
+                      </button>
+                      {(rec.opportunity.directPortalUrl || rec.opportunity.officialUrl) && (
+                        <a
+                          href={rec.opportunity.directPortalUrl || rec.opportunity.officialUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => handleExternalRedirect(e, rec.opportunity.directPortalUrl || rec.opportunity.officialUrl)}
+                          className="text-xs font-semibold text-text-secondary hover:text-primary transition-colors inline-flex items-center gap-1 cursor-pointer"
+                          title={`Open official portal (${getDomainFromUrl(rec.opportunity.directPortalUrl || rec.opportunity.officialUrl)})`}
+                        >
+                          <span>Portal</span>
+                          <ExternalLink className="w-3 h-3" />
+                        </a>
+                      )}
+                    </div>
                     <button
                       onClick={() => handleAddRecommendationToPlan(rec.opportunity, '30_day')}
-                      className="px-3 py-1.5 rounded-lg bg-emerald-600 text-white text-xs font-bold hover:bg-emerald-700 transition-colors"
+                      className="px-3 py-1.5 rounded-lg bg-emerald-600 text-white text-xs font-bold hover:bg-emerald-700 transition-colors cursor-pointer shrink-0"
                     >
                       {savedItems.some((s) => s.opportunityId === rec.opportunity.id)
                         ? 'Saved in Plan'
@@ -341,16 +373,31 @@ export function OpportunityPlanTab({
                     </div>
                   </div>
 
-                  <div className="pt-4 border-t border-border flex items-center justify-between">
-                    <button
-                      onClick={() => onSelectOpportunity(rec.opportunity)}
-                      className="text-xs font-bold text-primary hover:underline"
-                    >
-                      Inspect Full Record →
-                    </button>
+                  <div className="pt-4 border-t border-border flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-3">
+                      <button
+                        onClick={() => onSelectOpportunity(rec.opportunity)}
+                        className="text-xs font-bold text-primary hover:underline cursor-pointer"
+                      >
+                        Inspect Record →
+                      </button>
+                      {(rec.opportunity.directPortalUrl || rec.opportunity.officialUrl) && (
+                        <a
+                          href={rec.opportunity.directPortalUrl || rec.opportunity.officialUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => handleExternalRedirect(e, rec.opportunity.directPortalUrl || rec.opportunity.officialUrl)}
+                          className="text-xs font-semibold text-text-secondary hover:text-primary transition-colors inline-flex items-center gap-1 cursor-pointer"
+                          title={`Open official portal (${getDomainFromUrl(rec.opportunity.directPortalUrl || rec.opportunity.officialUrl)})`}
+                        >
+                          <span>Portal</span>
+                          <ExternalLink className="w-3 h-3" />
+                        </a>
+                      )}
+                    </div>
                     <button
                       onClick={() => handleAddRecommendationToPlan(rec.opportunity, '90_day')}
-                      className="px-3 py-1.5 rounded-lg bg-blue-600 text-white text-xs font-bold hover:bg-blue-700 transition-colors"
+                      className="px-3 py-1.5 rounded-lg bg-blue-600 text-white text-xs font-bold hover:bg-blue-700 transition-colors cursor-pointer shrink-0"
                     >
                       {savedItems.some((s) => s.opportunityId === rec.opportunity.id)
                         ? 'Saved in Plan'
@@ -407,7 +454,7 @@ export function OpportunityPlanTab({
                       className="p-4 rounded-2xl bg-surface-2 border border-border flex flex-col sm:flex-row sm:items-center justify-between gap-4"
                     >
                       <div className="space-y-1">
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2 flex-wrap">
                           <span className="text-xs font-mono font-bold text-primary">#{opp.rank}</span>
                           <h4
                             onClick={() => onSelectOpportunity(opp)}
@@ -415,6 +462,19 @@ export function OpportunityPlanTab({
                           >
                             {opp.name}
                           </h4>
+                          {(opp.directPortalUrl || opp.officialUrl) && (
+                            <a
+                              href={opp.directPortalUrl || opp.officialUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              onClick={(e) => handleExternalRedirect(e, opp.directPortalUrl || opp.officialUrl)}
+                              className="p-1 rounded-md text-text-secondary hover:text-primary hover:bg-surface transition-colors inline-flex items-center gap-1 text-xs font-bold"
+                              title={`Open official portal (${getDomainFromUrl(opp.directPortalUrl || opp.officialUrl)})`}
+                            >
+                              <span>Portal</span>
+                              <ExternalLink className="w-3 h-3" />
+                            </a>
+                          )}
                           <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-surface text-text-secondary border border-border capitalize">
                             {opp.kind.replace('_', ' ')}
                           </span>
@@ -523,12 +583,27 @@ export function OpportunityPlanTab({
                       </div>
                     </div>
 
-                    <button
-                      onClick={() => onSelectOpportunity(opp)}
-                      className="px-3 py-1.5 rounded-lg bg-surface-2 border border-border text-xs font-bold text-primary hover:bg-surface transition-colors shrink-0"
-                    >
-                      View Details →
-                    </button>
+                    <div className="flex items-center gap-2 shrink-0">
+                      {(opp.directPortalUrl || opp.officialUrl) && (
+                        <a
+                          href={opp.directPortalUrl || opp.officialUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => handleExternalRedirect(e, opp.directPortalUrl || opp.officialUrl)}
+                          className="px-3 py-1.5 rounded-lg bg-surface-2 border border-border text-xs font-semibold text-text-secondary hover:text-foreground transition-colors inline-flex items-center gap-1 cursor-pointer"
+                          title={`Open official portal (${getDomainFromUrl(opp.directPortalUrl || opp.officialUrl)})`}
+                        >
+                          <span>Portal</span>
+                          <ExternalLink className="w-3 h-3" />
+                        </a>
+                      )}
+                      <button
+                        onClick={() => onSelectOpportunity(opp)}
+                        className="px-3 py-1.5 rounded-lg bg-surface-2 border border-border text-xs font-bold text-primary hover:bg-surface transition-colors cursor-pointer"
+                      >
+                        View Details →
+                      </button>
+                    </div>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs text-text-secondary pt-2">

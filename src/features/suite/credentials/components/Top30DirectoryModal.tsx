@@ -48,6 +48,23 @@ export function Top30DirectoryModal({
     });
   }, [searchQuery, tierFilter, kindFilter, onlyIndian]);
 
+  const handleExternalRedirect = (e: React.MouseEvent, url?: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (url) {
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
+  };
+
+  const getDomainFromUrl = (url?: string) => {
+    if (!url) return '';
+    try {
+      return new URL(url).hostname.replace(/^www\./, '');
+    } catch {
+      return '';
+    }
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -177,8 +194,9 @@ export function Top30DirectoryModal({
                         href={portalUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-1 rounded-md text-primary hover:bg-primary/10 inline-flex items-center gap-1 font-bold"
-                        title="Open Official Website"
+                        onClick={(e) => handleExternalRedirect(e, portalUrl)}
+                        className="p-1.5 rounded-lg text-primary hover:bg-primary/10 inline-flex items-center gap-1 font-bold cursor-pointer"
+                        title={`Open official portal for ${opp.name} (${getDomainFromUrl(portalUrl)})`}
                       >
                         <span>Portal</span>
                         <ExternalLink className="w-3 h-3" />

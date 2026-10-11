@@ -116,6 +116,23 @@ export function OpportunityDetailModal({
   const portalUrl = opportunity.directPortalUrl || opportunity.officialUrl;
   const isIndian = opportunity.isIndianFlagship || opportunity.id === 'opp-sih';
 
+  const handleExternalRedirect = (e: React.MouseEvent, url?: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (url) {
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
+  };
+
+  const getDomainFromUrl = (url?: string) => {
+    if (!url) return '';
+    try {
+      return new URL(url).hostname.replace(/^www\./, '');
+    } catch {
+      return '';
+    }
+  };
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md animate-fade-in">
       <div
@@ -208,10 +225,13 @@ export function OpportunityDetailModal({
               href={portalUrl}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={(e) => handleExternalRedirect(e, portalUrl)}
               className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-black rounded-xl bg-gradient-to-r from-primary to-indigo-600 text-white hover:opacity-95 shadow-md shadow-primary/25 transition-all cursor-pointer"
+              title={`Visit Official Portal (${getDomainFromUrl(portalUrl)})`}
             >
               <span>Visit Official Portal</span>
-              <ExternalLink className="w-3.5 h-3.5" />
+              <span className="opacity-80 font-mono text-[10px]">({getDomainFromUrl(portalUrl)})</span>
+              <ExternalLink className="w-3.5 h-3.5 shrink-0" />
             </a>
           </div>
         </div>
@@ -436,9 +456,11 @@ export function OpportunityDetailModal({
                   href={opportunity.syllabusUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-bold text-text-secondary hover:text-foreground hover:underline inline-flex items-center gap-1"
+                  onClick={(e) => handleExternalRedirect(e, opportunity.syllabusUrl)}
+                  className="font-bold text-text-secondary hover:text-foreground hover:underline inline-flex items-center gap-1 cursor-pointer"
+                  title="Open official curriculum or syllabus documentation"
                 >
-                  <span>Syllabus Guide</span>
+                  <span>Syllabus / Guide</span>
                   <ExternalLink className="w-3 h-3" />
                 </a>
               )}
@@ -447,10 +469,13 @@ export function OpportunityDetailModal({
                 href={portalUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-2 rounded-xl bg-primary text-white font-bold inline-flex items-center gap-1.5 hover:opacity-90 shadow-xs"
+                onClick={(e) => handleExternalRedirect(e, portalUrl)}
+                className="px-4 py-2 rounded-xl bg-primary text-white font-bold inline-flex items-center gap-1.5 hover:opacity-90 shadow-xs cursor-pointer"
+                title={`Open official website (${getDomainFromUrl(portalUrl)})`}
               >
                 <span>Open Official Website</span>
-                <ExternalLink className="w-3.5 h-3.5" />
+                <span className="opacity-80 font-mono text-[10px]">({getDomainFromUrl(portalUrl)})</span>
+                <ExternalLink className="w-3.5 h-3.5 shrink-0" />
               </a>
             </div>
           </div>
