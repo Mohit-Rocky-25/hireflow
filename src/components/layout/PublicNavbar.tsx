@@ -4,47 +4,39 @@ import { Sparkles, Layers, Flame, TrendingUp, ArrowRight, Menu, X, ChevronRight 
 import { useStore } from '../../store/useStore';
 import { Button } from '../ui/Components';
 
-interface NavToolItem {
+interface NavTool {
   id: string;
   name: string;
   path: string;
   icon: typeof Sparkles;
-  badge?: string;
+  badge: string;
+  badgeBg: string;       // badge pill bg — always vivid, always visible
+  badgeText: string;     // badge text color
+  iconColor: string;     // icon color
+  iconActiveBg: string;  // icon box bg when active
+  activeBg: string;      // container bg when active
+  activeBorder: string;  // container border when active
+  activeText: string;    // name text when active
+  hoverBg: string;       // container bg on hover (inactive)
   description: string;
-  activeClasses: {
-    container: string;
-    iconBox: string;
-    text: string;
-    badge: string;
-  };
-  inactiveClasses: {
-    container: string;
-    iconBox: string;
-    text: string;
-    badge: string;
-  };
 }
 
-const NAV_TOOLS: NavToolItem[] = [
+const NAV_TOOLS: NavTool[] = [
   {
     id: 'talentlens',
     name: 'TalentLens™',
     path: '/demo',
     icon: Sparkles,
     badge: '125+ FIRMS',
-    description: 'Simulate hiring filters across top tech employers & campus programs',
-    activeClasses: {
-      container: 'bg-sky-50 dark:bg-sky-950/60 border-sky-300 dark:border-sky-700/70 shadow-sm',
-      iconBox: 'bg-sky-500 text-white shadow-xs',
-      text: 'text-sky-950 dark:text-sky-100 font-extrabold',
-      badge: 'bg-sky-500 text-white font-black',
-    },
-    inactiveClasses: {
-      container: 'hover:bg-sky-50/50 dark:hover:bg-sky-950/20 hover:border-sky-200 dark:hover:border-sky-800/40',
-      iconBox: 'bg-sky-500/10 text-sky-600 dark:text-sky-400 group-hover:bg-sky-500/20',
-      text: 'text-text-secondary group-hover:text-text font-semibold',
-      badge: 'bg-sky-500/10 text-sky-700 dark:text-sky-300 border border-sky-500/25 font-bold',
-    },
+    badgeBg: 'bg-sky-500',
+    badgeText: 'text-white',
+    iconColor: 'text-sky-400',
+    iconActiveBg: 'bg-sky-500/25',
+    activeBg: 'bg-sky-500/15',
+    activeBorder: 'border-sky-400/50',
+    activeText: 'text-sky-300 font-bold',
+    hoverBg: 'hover:bg-white/5',
+    description: 'Simulate hiring filters across 125+ top tech employers & campus programs',
   },
   {
     id: 'decision-suite',
@@ -52,19 +44,15 @@ const NAV_TOOLS: NavToolItem[] = [
     path: '/tools',
     icon: Layers,
     badge: 'PRO',
+    badgeBg: 'bg-violet-500',
+    badgeText: 'text-white',
+    iconColor: 'text-violet-400',
+    iconActiveBg: 'bg-violet-500/25',
+    activeBg: 'bg-violet-500/15',
+    activeBorder: 'border-violet-400/50',
+    activeText: 'text-violet-300 font-bold',
+    hoverBg: 'hover:bg-white/5',
     description: 'Career engineering tools, project briefs & skill verification',
-    activeClasses: {
-      container: 'bg-indigo-50 dark:bg-indigo-950/60 border-indigo-300 dark:border-indigo-700/70 shadow-sm',
-      iconBox: 'bg-indigo-600 text-white shadow-xs',
-      text: 'text-indigo-950 dark:text-indigo-100 font-extrabold',
-      badge: 'bg-indigo-600 text-white font-black',
-    },
-    inactiveClasses: {
-      container: 'hover:bg-indigo-50/50 dark:hover:bg-indigo-950/20 hover:border-indigo-200 dark:hover:border-indigo-800/40',
-      iconBox: 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 group-hover:bg-indigo-500/20',
-      text: 'text-text-secondary group-hover:text-text font-semibold',
-      badge: 'bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 border border-indigo-500/25 font-bold',
-    },
   },
   {
     id: 'ats-roaster',
@@ -72,19 +60,15 @@ const NAV_TOOLS: NavToolItem[] = [
     path: '/tools/resume-checker',
     icon: Flame,
     badge: 'HOT',
+    badgeBg: 'bg-orange-500',
+    badgeText: 'text-white',
+    iconColor: 'text-orange-400',
+    iconActiveBg: 'bg-orange-500/25',
+    activeBg: 'bg-orange-500/15',
+    activeBorder: 'border-orange-400/50',
+    activeText: 'text-orange-300 font-bold',
+    hoverBg: 'hover:bg-white/5',
     description: 'Instant ruthless resume audit & keyword scoring',
-    activeClasses: {
-      container: 'bg-amber-50 dark:bg-amber-950/60 border-amber-300 dark:border-amber-700/70 shadow-sm',
-      iconBox: 'bg-amber-500 text-white shadow-xs',
-      text: 'text-amber-950 dark:text-amber-100 font-extrabold',
-      badge: 'bg-amber-500 text-white font-black',
-    },
-    inactiveClasses: {
-      container: 'hover:bg-amber-50/50 dark:hover:bg-amber-950/20 hover:border-amber-200 dark:hover:border-amber-800/40',
-      iconBox: 'bg-amber-500/10 text-amber-600 dark:text-amber-400 group-hover:bg-amber-500/20',
-      text: 'text-text-secondary group-hover:text-text font-semibold',
-      badge: 'bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/25 font-bold',
-    },
   },
   {
     id: 'career-trajectory',
@@ -92,19 +76,15 @@ const NAV_TOOLS: NavToolItem[] = [
     path: '/tools/career-path',
     icon: TrendingUp,
     badge: '₹ CTC',
+    badgeBg: 'bg-emerald-500',
+    badgeText: 'text-white',
+    iconColor: 'text-emerald-400',
+    iconActiveBg: 'bg-emerald-500/25',
+    activeBg: 'bg-emerald-500/15',
+    activeBorder: 'border-emerald-400/50',
+    activeText: 'text-emerald-300 font-bold',
+    hoverBg: 'hover:bg-white/5',
     description: 'India tech salary ladders, company tier roadmap & CTC insights',
-    activeClasses: {
-      container: 'bg-emerald-50 dark:bg-emerald-950/60 border-emerald-300 dark:border-emerald-700/70 shadow-sm',
-      iconBox: 'bg-emerald-600 text-white shadow-xs',
-      text: 'text-emerald-950 dark:text-emerald-100 font-extrabold',
-      badge: 'bg-emerald-600 text-white font-black',
-    },
-    inactiveClasses: {
-      container: 'hover:bg-emerald-50/50 dark:hover:bg-emerald-950/20 hover:border-emerald-200 dark:hover:border-emerald-800/40',
-      iconBox: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 group-hover:bg-emerald-500/20',
-      text: 'text-text-secondary group-hover:text-text font-semibold',
-      badge: 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border border-emerald-500/25 font-bold',
-    },
   },
 ];
 
@@ -156,7 +136,7 @@ export function PublicNavbar() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-surface/85 backdrop-blur-xl border-b border-border/80 transition-all duration-200">
       <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8 h-[64px] flex items-center justify-between">
-        
+
         {/* Left: Brand Identity */}
         <div className="flex items-center gap-4">
           <Link to="/" className="flex items-center gap-2.5 group focus:outline-none">
@@ -174,26 +154,44 @@ export function PublicNavbar() {
           </Link>
         </div>
 
-        {/* Center: Sleek High-Contrast Navigation Widget Dock */}
-        <div className="hidden md:flex items-center gap-1 p-1 bg-surface-2/80 dark:bg-zinc-900/90 border border-border rounded-2xl shadow-xs backdrop-blur-md">
+        {/* Center: Navigation Tool Dock */}
+        <div className="hidden md:flex items-center gap-0.5 p-1 bg-black/40 border border-white/10 rounded-2xl shadow-sm backdrop-blur-md">
           {NAV_TOOLS.map((tool) => {
             const active = isItemActive(tool.path);
-            const classes = active ? tool.activeClasses : tool.inactiveClasses;
             return (
               <Link
                 key={tool.id}
                 to={tool.path}
-                className={`relative flex items-center gap-2 px-3 py-1.5 rounded-xl text-[13px] border border-transparent transition-all duration-150 group ${classes.container}`}
+                className={`
+                  group relative flex items-center gap-2 px-3 py-2 rounded-xl text-[13px] border transition-all duration-150
+                  ${active
+                    ? `${tool.activeBg} ${tool.activeBorder} shadow-sm`
+                    : `border-transparent ${tool.hoverBg}`
+                  }
+                `}
               >
-                <div className={`w-5 h-5 rounded-md flex items-center justify-center transition-all ${classes.iconBox}`}>
-                  <tool.icon className="w-3.5 h-3.5" />
+                {/* Icon Box */}
+                <div className={`w-5 h-5 rounded-md flex items-center justify-center flex-shrink-0 transition-all ${
+                  active ? tool.iconActiveBg : 'bg-white/5 group-hover:bg-white/10'
+                }`}>
+                  <tool.icon className={`w-3.5 h-3.5 ${tool.iconColor}`} />
                 </div>
-                <span className={classes.text}>{tool.name}</span>
-                {tool.badge && (
-                  <span className={`text-[9px] px-1.5 py-0.5 rounded-md tracking-wider uppercase ${classes.badge}`}>
-                    {tool.badge}
-                  </span>
-                )}
+
+                {/* Label */}
+                <span className={`whitespace-nowrap transition-colors ${
+                  active ? tool.activeText : 'text-zinc-400 group-hover:text-zinc-200 font-medium'
+                }`}>
+                  {tool.name}
+                </span>
+
+                {/* Badge — always vivid, always solid */}
+                <span className={`
+                  text-[9px] font-black tracking-wider uppercase px-1.5 py-0.5 rounded-md
+                  ${tool.badgeBg} ${tool.badgeText}
+                  ${active ? 'opacity-100' : 'opacity-85 group-hover:opacity-100'}
+                `}>
+                  {tool.badge}
+                </span>
               </Link>
             );
           })}
@@ -239,14 +237,13 @@ export function PublicNavbar() {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-border bg-surface/95 backdrop-blur-xl px-4 py-4 space-y-3 shadow-lg animate-slide-up">
-          <div className="text-[11px] font-bold uppercase tracking-wider text-text-muted px-2">
+        <div className="md:hidden border-t border-white/10 bg-black/80 backdrop-blur-xl px-4 py-4 space-y-3 shadow-xl animate-slide-up">
+          <div className="text-[10px] font-black uppercase tracking-widest text-zinc-500 px-2">
             Platform Tools
           </div>
           <div className="space-y-1.5">
             {NAV_TOOLS.map((tool) => {
               const active = isItemActive(tool.path);
-              const classes = active ? tool.activeClasses : tool.inactiveClasses;
               return (
                 <Link
                   key={tool.id}
@@ -254,45 +251,48 @@ export function PublicNavbar() {
                   onClick={() => setMobileMenuOpen(false)}
                   className={`flex items-center justify-between p-3 rounded-2xl border transition-all ${
                     active
-                      ? `${classes.container} border`
-                      : 'bg-surface border-border text-text-secondary hover:text-text hover:bg-surface-2/60'
+                      ? `${tool.activeBg} ${tool.activeBorder}`
+                      : 'bg-white/5 border-white/8 hover:bg-white/10'
                   }`}
                 >
                   <div className="flex items-center gap-3">
-                    <div className={`w-9 h-9 rounded-xl flex items-center justify-center shadow-xs ${classes.iconBox}`}>
-                      <tool.icon className="w-4 h-4" />
+                    {/* Icon */}
+                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${
+                      active ? tool.iconActiveBg : 'bg-white/8'
+                    }`}>
+                      <tool.icon className={`w-5 h-5 ${tool.iconColor}`} />
                     </div>
                     <div>
-                      <div className="flex items-center gap-1.5 text-[14px]">
-                        <span className={classes.text}>{tool.name}</span>
-                        {tool.badge && (
-                          <span className={`text-[9px] px-1.5 py-0.5 rounded-md uppercase ${classes.badge}`}>
-                            {tool.badge}
-                          </span>
-                        )}
+                      <div className="flex items-center gap-2">
+                        <span className={`text-[14px] font-semibold ${
+                          active ? tool.activeText : 'text-zinc-200'
+                        }`}>{tool.name}</span>
+                        <span className={`text-[9px] font-black px-1.5 py-0.5 rounded-md uppercase ${tool.badgeBg} ${tool.badgeText}`}>
+                          {tool.badge}
+                        </span>
                       </div>
-                      <p className="text-[12px] text-text-muted font-normal mt-0.5">{tool.description}</p>
+                      <p className="text-[12px] text-zinc-500 font-normal mt-0.5">{tool.description}</p>
                     </div>
                   </div>
-                  <ChevronRight className="w-4 h-4 text-text-muted" />
+                  <ChevronRight className="w-4 h-4 text-zinc-600 flex-shrink-0" />
                 </Link>
               );
             })}
           </div>
 
           {!isAuthenticated && (
-            <div className="pt-3 border-t border-border flex flex-col gap-2">
+            <div className="pt-3 border-t border-white/10 flex flex-col gap-2">
               <Link
                 to="/login"
                 onClick={() => setMobileMenuOpen(false)}
-                className="w-full text-center py-2 text-[13px] font-medium text-text-secondary hover:text-text rounded-lg hover:bg-surface-2"
+                className="w-full text-center py-2 text-[13px] font-medium text-zinc-400 hover:text-white rounded-lg hover:bg-white/5 transition-all"
               >
                 Sign In
               </Link>
               <Link
                 to="/register"
                 onClick={() => setMobileMenuOpen(false)}
-                className="w-full text-center py-2.5 text-[13px] font-semibold text-surface bg-text rounded-lg shadow-xs hover:opacity-90"
+                className="w-full text-center py-2.5 text-[13px] font-semibold text-black bg-white rounded-lg shadow-xs hover:opacity-90 transition-all"
               >
                 Get Started
               </Link>
