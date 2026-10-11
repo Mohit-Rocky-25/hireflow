@@ -26,6 +26,7 @@ import {
   DollarSign,
   GraduationCap,
   Info,
+  Sparkles,
 } from 'lucide-react';
 import { PublicNavbar } from '../../components/layout/PublicNavbar';
 import { careers, useEligibility, DataBadge } from '../../careers-core';
@@ -45,7 +46,7 @@ import {
   AnalysisResult,
   getCompanySlug,
 } from './talentLensData';
-import { useTalentLensStore } from './useTalentLensStore';
+import { useTalentLensStore, DEMO_TALENTLENS_RESUME } from './useTalentLensStore';
 
 function ProgramEligibilityBadge({ programId, facts }: { programId: string; facts: any }) {
   const result = useEligibility(facts, programId);
@@ -83,6 +84,7 @@ export function CompanyRolesPage() {
   // Shared store
   const {
     resumeText,
+    setResume,
     selectedRoleTitle,
     selectCompany,
     selectRole,
@@ -112,11 +114,39 @@ export function CompanyRolesPage() {
   // View state: 'roles' vs 'analysis'
   const isAnalysisView = searchParams.get('view') === 'analysis' && result !== null;
 
-  // Selected role from company
-  const selectedRole = useMemo(() => {
-    if (!company) return null;
-    return company.roles.find((r) => r.title === selectedRoleTitle) || null;
-  }, [company, selectedRoleTitle]);
+  // Fresher programs for company (Careers Data Platform)
+  const companyPrograms = useMemo(() => {
+    if (!company) return [];
+    return careers.programs.forCompany(company.id);
+  }, [company]);
+
+  // Selected role from company OR campus programs
+  const selectedRole = useMemo<Role | null>(() => {
+    if (!company || !selectedRoleTitle) return null;
+    const standardRole = company.roles.find((r) => r.title === selectedRoleTitle);
+    if (standardRole) return standardRole;
+
+    // Check campus programs
+    const matchingProg = companyPrograms.find(
+      (p) =>
+        `${p.roleTitle} (${p.programName})` === selectedRoleTitle ||
+        p.programName === selectedRoleTitle ||
+        p.roleTitle === selectedRoleTitle ||
+        selectedRoleTitle.includes(p.programName)
+    );
+
+    if (matchingProg) {
+      return {
+        title: `${matchingProg.roleTitle} (${matchingProg.programName})`,
+        level: matchingProg.campusCategory.toUpperCase(),
+        desc: `${matchingProg.eligibility.notes || `Campus graduate engineering intake for ${company.name}`}. Cutoff: ${matchingProg.eligibility.minCgpa ?? 'None'} CGPA. Stages: ${matchingProg.selectionProcess.map((s) => s.stage).join(' → ')}.`,
+        competencies: Object.keys(matchingProg.competencyProfile),
+        reqLevel: matchingProg.competencyProfile as any,
+      } as Role;
+    }
+
+    return null;
+  }, [company, selectedRoleTitle, companyPrograms]);
 
   // Filtered roles
   const filteredRoles = useMemo(() => {
@@ -130,12 +160,6 @@ export function CompanyRolesPage() {
         r.competencies.some((c) => c.toLowerCase().includes(q))
     );
   }, [company, roleSearch]);
-
-  // Fresher programs for company (Careers Data Platform)
-  const companyPrograms = useMemo(() => {
-    if (!company) return [];
-    return careers.programs.forCompany(company.id);
-  }, [company]);
 
   const [roleMode, setRoleMode] = useState<'fresher' | 'experienced'>('fresher');
   const [candidateCgpa, setCandidateCgpa] = useState<number>(8.0);
@@ -486,34 +510,42 @@ export function CompanyRolesPage() {
             {/* Roles Column */}
             <div className="flex-1 w-full min-w-0">
               {/* Segmented Control: Fresher vs Experienced */}
-              <div className="flex items-center gap-2 p-1.5 bg-surface-2 border border-border rounded-2xl mb-4">
+              <div className="grid grid-cols-2 gap-2 p-1.5 bg-surface-2/90 border border-border/80 rounded-2xl mb-4 shadow-xs">
                 <button
                   type="button"
                   onClick={() => setRoleMode('fresher')}
-                  className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-xs font-bold transition-all ${
+                  className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs font-bold transition-all ${
                     roleMode === 'fresher'
-                      ? 'bg-primary text-white shadow-sm'
-                      : 'text-text-secondary hover:text-text'
+                      ? 'bg-black text-white dark:bg-white dark:text-black shadow-md font-extrabold ring-1 ring-black/10'
+                      : 'text-text-secondary hover:text-text hover:bg-surface/60'
                   }`}
                 >
-                  <GraduationCap className="w-4 h-4" />
-                  <span>Fresher / Campus ('26-27)</span>
-                  <span className="px-1.5 py-0.5 rounded-full text-[10px] bg-white/20 font-mono">
+                  <GraduationCap className={`w-4 h-4 ${roleMode === 'fresher' ? 'text-amber-400 dark:text-amber-500' : 'text-text-muted'}`} />
+                  <span className="tracking-tight">Fresher / Campus ('26-27)</span>
+                  <span className={`px-2 py-0.5 rounded-full text-[11px] font-mono font-bold ${
+                    roleMode === 'fresher'
+                      ? 'bg-white/20 text-white dark:bg-black/15 dark:text-black'
+                      : 'bg-surface-3 text-text-muted border border-border'
+                  }`}>
                     {companyPrograms.length}
                   </span>
                 </button>
                 <button
                   type="button"
                   onClick={() => setRoleMode('experienced')}
-                  className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-xs font-bold transition-all ${
+                  className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs font-bold transition-all ${
                     roleMode === 'experienced'
-                      ? 'bg-primary text-white shadow-sm'
-                      : 'text-text-secondary hover:text-text'
+                      ? 'bg-black text-white dark:bg-white dark:text-black shadow-md font-extrabold ring-1 ring-black/10'
+                      : 'text-text-secondary hover:text-text hover:bg-surface/60'
                   }`}
                 >
-                  <Briefcase className="w-4 h-4" />
-                  <span>Experienced Roles</span>
-                  <span className="px-1.5 py-0.5 rounded-full text-[10px] bg-white/20 font-mono">
+                  <Briefcase className={`w-4 h-4 ${roleMode === 'experienced' ? 'text-sky-400 dark:text-sky-500' : 'text-text-muted'}`} />
+                  <span className="tracking-tight">Experienced Lateral Roles</span>
+                  <span className={`px-2 py-0.5 rounded-full text-[11px] font-mono font-bold ${
+                    roleMode === 'experienced'
+                      ? 'bg-white/20 text-white dark:bg-black/15 dark:text-black'
+                      : 'bg-surface-3 text-text-muted border border-border'
+                  }`}>
                     {company.roles.length}
                   </span>
                 </button>
@@ -623,7 +655,11 @@ export function CompanyRolesPage() {
 
                   {/* Program Cards */}
                   {filteredPrograms.map((prog) => {
-                    const isSelected = selectedRole?.title.includes(prog.programName);
+                    const isSelected =
+                      !!selectedRole &&
+                      (selectedRole.title === `${prog.roleTitle} (${prog.programName})` ||
+                        selectedRole.title === prog.programName ||
+                        selectedRole.title.includes(prog.programName));
                     const ctcStr = prog.compensation?.fixedMinLPA
                       ? `₹${prog.compensation.fixedMinLPA}${prog.compensation.fixedMaxLPA ? ` - ₹${prog.compensation.fixedMaxLPA}` : ''} LPA`
                       : 'Competitive Market Band';
@@ -631,19 +667,28 @@ export function CompanyRolesPage() {
                     return (
                       <div key={prog.id} className="flex flex-col">
                         <div
-                          className={`w-full p-[18px] rounded-2xl border transition-all flex flex-col justify-between gap-[12px] ${
+                          onClick={() => handleSelectProgram(prog)}
+                          role="button"
+                          tabIndex={0}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                              e.preventDefault();
+                              handleSelectProgram(prog);
+                            }
+                          }}
+                          className={`group w-full p-[20px] rounded-2xl border transition-all flex flex-col justify-between gap-[14px] cursor-pointer select-none text-left ${
                             isSelected
-                              ? 'bg-surface-2 border-primary shadow-md'
-                              : 'bg-surface border-border hover:border-primary/40 hover:bg-surface-2'
+                              ? 'bg-surface-2 border-black ring-2 ring-black/80 shadow-lg dark:border-white dark:ring-white/80'
+                              : 'bg-surface border-border hover:border-black/40 hover:bg-surface-2 hover:shadow-md dark:hover:border-white/40'
                           }`}
                         >
-                          <div className="flex items-start justify-between gap-[12px]">
-                            <div className="space-y-1">
+                          <div className="flex items-start justify-between gap-[14px]">
+                            <div className="space-y-1.5 flex-1 min-w-0">
                               <div className="flex items-center gap-[8px] flex-wrap">
-                                <h3 className="text-[15px] font-bold text-text">
+                                <h3 className="text-[17px] sm:text-[18px] font-black text-black dark:text-white tracking-tight leading-snug group-hover:text-primary transition-colors">
                                   {prog.programName}
                                 </h3>
-                                <span className="text-[10px] font-bold px-[8px] py-[2px] rounded-full bg-primary/10 text-primary border border-primary/20">
+                                <span className="text-[10px] font-black px-[8px] py-[2px] rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/25 uppercase tracking-wider">
                                   {prog.campusCategory.toUpperCase()}
                                 </span>
                                 <DataBadge entity={prog} />
@@ -652,45 +697,55 @@ export function CompanyRolesPage() {
                                   facts={candidateFacts}
                                 />
                               </div>
-                              <div className="text-[13px] font-semibold text-text-secondary">
-                                {prog.roleTitle} · {prog.roleFamily}
+                              <div className="text-[13px] font-bold text-zinc-700 dark:text-zinc-300">
+                                {prog.roleTitle} · <span className="text-text-muted font-normal">{prog.roleFamily}</span>
                               </div>
                             </div>
 
                             <button
                               type="button"
-                              onClick={() => handleSelectProgram(prog)}
-                              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleSelectProgram(prog);
+                              }}
+                              className={`shrink-0 px-3.5 py-1.5 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 ${
                                 isSelected
-                                  ? 'bg-primary text-white'
-                                  : 'bg-surface-3 border border-border text-text hover:bg-primary/10 hover:text-primary'
+                                  ? 'bg-black text-white dark:bg-white dark:text-black shadow-sm ring-1 ring-black/20'
+                                  : 'bg-surface-3 border border-border text-zinc-900 dark:text-zinc-100 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black shadow-xs'
                               }`}
                             >
-                              {isSelected ? 'Selected ✓' : 'Select Role'}
+                              {isSelected ? (
+                                <>
+                                  <CheckCircle className="w-3.5 h-3.5 text-emerald-400 dark:text-emerald-600" />
+                                  <span>Selected ✓</span>
+                                </>
+                              ) : (
+                                <span>Select Role →</span>
+                              )}
                             </button>
                           </div>
 
                           {/* Compensation & Criteria Grid */}
                           <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs py-1">
-                            <div className="p-2 rounded-xl bg-surface-2 border border-border/60">
-                              <span className="text-[10px] text-text-muted uppercase font-bold block">
+                            <div className="p-2.5 rounded-xl bg-emerald-500/[0.07] border border-emerald-500/20">
+                              <span className="text-[10px] text-emerald-800 dark:text-emerald-300 uppercase font-black tracking-wider block">
                                 Compensation
                               </span>
-                              <span className="font-bold text-emerald-400">{ctcStr}</span>
+                              <span className="font-black text-[13px] text-emerald-600 dark:text-emerald-400">{ctcStr}</span>
                             </div>
-                            <div className="p-2 rounded-xl bg-surface-2 border border-border/60">
-                              <span className="text-[10px] text-text-muted uppercase font-bold block">
+                            <div className="p-2.5 rounded-xl bg-surface-2 border border-border/80">
+                              <span className="text-[10px] text-text-muted uppercase font-bold tracking-wider block">
                                 Cutoffs &amp; Backlogs
                               </span>
-                              <span className="font-semibold text-text">
+                              <span className="font-bold text-zinc-900 dark:text-zinc-100">
                                 {prog.eligibility.minCgpa ? `≥ ${prog.eligibility.minCgpa} CGPA` : 'No CGPA cutoff'} · {prog.eligibility.backlogPolicy || '0 backlogs'}
                               </span>
                             </div>
-                            <div className="p-2 rounded-xl bg-surface-2 border border-border/60">
-                              <span className="text-[10px] text-text-muted uppercase font-bold block">
+                            <div className="p-2.5 rounded-xl bg-surface-2 border border-border/80">
+                              <span className="text-[10px] text-text-muted uppercase font-bold tracking-wider block">
                                 Eligible Branches
                               </span>
-                              <span className="font-semibold text-text truncate block" title={prog.eligibility.branchCodes.join(', ')}>
+                              <span className="font-bold text-zinc-900 dark:text-zinc-100 truncate block" title={prog.eligibility.branchCodes.join(', ')}>
                                 {prog.eligibility.branchCodes.join(', ') || 'Engineering'}
                               </span>
                             </div>
@@ -698,19 +753,19 @@ export function CompanyRolesPage() {
 
                           {/* Selection Stages Stepper */}
                           <div className="pt-2 border-t border-border/60">
-                            <span className="text-[10px] font-bold uppercase tracking-wider text-text-muted block mb-1.5">
+                            <span className="text-[10px] font-black uppercase tracking-wider text-text-muted block mb-1.5">
                               Selection Funnel ({prog.selectionProcess.length} Stages):
                             </span>
                             <div className="flex items-center gap-1.5 flex-wrap">
                               {prog.selectionProcess.map((stage, idx) => (
                                 <div
                                   key={idx}
-                                  className="flex items-center gap-1 px-2 py-0.5 rounded-md bg-surface-3 border border-border text-[11px] text-text-secondary"
+                                  className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-surface-3 border border-border text-[11px] font-medium text-text-secondary"
                                 >
-                                  <span className="font-mono text-[10px] text-primary font-bold">
+                                  <span className="font-mono text-[10px] text-primary font-black">
                                     {idx + 1}.
                                   </span>
-                                  <span>{stage.stage}</span>
+                                  <span className="font-semibold text-text">{stage.stage}</span>
                                   {stage.topics.length > 0 && (
                                     <span className="text-[10px] text-text-muted">
                                       ({stage.topics.slice(0, 2).join(', ')})
@@ -724,13 +779,13 @@ export function CompanyRolesPage() {
                           {/* Competency tags & Actions */}
                           <div className="flex items-center justify-between gap-2 flex-wrap pt-2 border-t border-border/60">
                             <div className="flex items-center gap-1.5 flex-wrap">
-                              <span className="text-[10px] font-semibold text-text-muted uppercase">
+                              <span className="text-[10px] font-bold text-text-muted uppercase tracking-wider">
                                 Skills Evaluated:
                               </span>
                               {Object.keys(prog.competencyProfile).map((c) => (
                                 <span
                                   key={c}
-                                  className="text-[10px] font-bold px-[7px] py-[2px] rounded-md bg-surface-3 text-text-secondary border border-border/80 uppercase"
+                                  className="text-[10px] font-black px-[8px] py-[2px] rounded-md bg-surface-3 text-text border border-border/80 uppercase"
                                 >
                                   {c}
                                 </span>
@@ -739,6 +794,7 @@ export function CompanyRolesPage() {
 
                             <Link
                               to={`/tools/resume-checker?company=${company.id}&role=${encodeURIComponent(prog.roleTitle)}&program=${encodeURIComponent(prog.id)}`}
+                              onClick={(e) => e.stopPropagation()}
                               className="text-[11px] font-bold text-primary hover:underline inline-flex items-center gap-1"
                             >
                               Scan in ATS Roaster →
@@ -746,23 +802,44 @@ export function CompanyRolesPage() {
                           </div>
                         </div>
 
-                        
-                      {/* Mobile-Only Action Panel */}
+                        {/* Mobile-Only Action Panel */}
                         {isSelected && (
-                          <div className="lg:hidden mt-[10px] mb-[12px] bg-surface-2 border border-primary/40 rounded-2xl p-[18px] animate-slide-up shadow-sm">
-                            <div className="flex items-center gap-[10px] mb-[10px]">
-                              <div className="w-[32px] h-[32px] rounded-xl bg-primary-light flex items-center justify-center text-primary">
+                          <div className="lg:hidden mt-[10px] mb-[12px] bg-surface-2 border border-black/20 dark:border-white/20 rounded-2xl p-[18px] animate-slide-up shadow-md">
+                            <div className="flex items-center gap-[10px] mb-[12px]">
+                              <div className="w-[36px] h-[36px] rounded-xl bg-black text-white dark:bg-white dark:text-black flex items-center justify-center flex-shrink-0">
                                 <Brain className="w-4 h-4" />
                               </div>
                               <div>
-                                <div className="text-[13px] font-bold text-text">
+                                <div className="text-[14px] font-black text-black dark:text-white">
                                   {company.name} — {prog.programName}
                                 </div>
-                                <div className="text-[11px] text-text-secondary">
-                                  {Object.keys(prog.competencyProfile).length} competencies to analyze
+                                <div className="text-[11px] text-text-secondary font-medium">
+                                  {Object.keys(prog.competencyProfile).length} competencies ready for deep screening
                                 </div>
                               </div>
                             </div>
+
+                            {!resumeText.trim() ? (
+                              <div className="p-3 bg-amber-500/10 border border-amber-500/25 rounded-xl mb-3 text-xs space-y-2">
+                                <div className="font-bold text-amber-700 dark:text-amber-400 flex items-center gap-1.5">
+                                  <Info className="w-3.5 h-3.5" /> Resume needed for AI screening
+                                </div>
+                                <button
+                                  type="button"
+                                  onClick={() => setResume(DEMO_TALENTLENS_RESUME.text, DEMO_TALENTLENS_RESUME.fileName)}
+                                  className="w-full flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg bg-black text-white dark:bg-white dark:text-black font-extrabold text-xs shadow-sm"
+                                >
+                                  <Sparkles className="w-3.5 h-3.5 text-amber-400 dark:text-amber-500" />
+                                  <span>Load Sample Resume &amp; Verify Now</span>
+                                </button>
+                              </div>
+                            ) : (
+                              <div className="p-2.5 bg-emerald-500/10 border border-emerald-500/25 rounded-xl mb-3 flex items-center gap-2 text-xs text-emerald-700 dark:text-emerald-400 font-bold">
+                                <CheckCircle className="w-4 h-4 flex-shrink-0" />
+                                <span>Resume ready ({resumeText.split(/\s+/).length} words)</span>
+                              </div>
+                            )}
+
                             <button
                               type="button"
                               onClick={handleRunAnalysis}
@@ -1069,27 +1146,49 @@ export function CompanyRolesPage() {
 
                     {/* Resume state check */}
                     {!resumeText.trim() ? (
-                      <div className="p-[12px] bg-warning-bg border border-warning/30 rounded-xl mb-[16px] text-[12px] text-warning">
-                        <div className="font-bold mb-[2px]">⚠ Add resume first</div>
-                        <p className="text-[11px] text-warning/90 leading-[16px] mb-[6px]">
-                          Resume text is required to benchmark your competencies against {company.name}&lsquo;s hiring standards.
+                      <div className="p-[14px] bg-amber-500/10 border border-amber-500/25 rounded-xl mb-[16px] text-xs space-y-2">
+                        <div className="font-bold text-amber-700 dark:text-amber-400 flex items-center gap-1.5">
+                          <Info className="w-4 h-4" /> Resume needed for AI screening
+                        </div>
+                        <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                          Benchmark your profile against {company.name}&rsquo;s criteria. Add your resume or test immediately with our verified engineering sample resume.
                         </p>
-                        <Link
-                          to="/demo"
-                          className="inline-flex items-center gap-[4px] text-primary font-bold text-[12px] underline"
-                        >
-                          <FileText className="w-3.5 h-3.5" /> Go to Step 1 &amp; Add Resume
-                        </Link>
+                        <div className="flex flex-col gap-1.5 pt-1">
+                          <button
+                            type="button"
+                            onClick={() => setResume(DEMO_TALENTLENS_RESUME.text, DEMO_TALENTLENS_RESUME.fileName)}
+                            className="w-full flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-lg bg-black text-white dark:bg-white dark:text-black font-extrabold text-xs shadow-sm hover:opacity-90 transition-opacity"
+                          >
+                            <Sparkles className="w-3.5 h-3.5 text-amber-400 dark:text-amber-500" />
+                            <span>Load Sample Resume &amp; Verify Now</span>
+                          </button>
+                          <Link
+                            to="/demo"
+                            className="inline-flex items-center justify-center gap-1 text-[11px] font-bold text-text-secondary hover:text-text py-1"
+                          >
+                            <FileText className="w-3 h-3" /> Or upload custom resume in Step 1
+                          </Link>
+                        </div>
                       </div>
                     ) : (
-                      <div className="p-[12px] bg-success-bg border border-success/25 rounded-xl mb-[16px] flex items-center gap-[10px] text-[12px] text-success">
-                        <CheckCircle className="w-[18px] h-[18px] flex-shrink-0" />
-                        <div>
-                          <div className="font-bold">Resume verified in state</div>
-                          <div className="text-[11px] text-success/80">
-                            {resumeText.split(/\s+/).length} words ready for multi-layer scan
+                      <div className="p-[12px] bg-emerald-500/10 border border-emerald-500/25 rounded-xl mb-[16px] flex items-center justify-between gap-[10px] text-[12px] text-emerald-700 dark:text-emerald-400">
+                        <div className="flex items-center gap-2">
+                          <CheckCircle className="w-[18px] h-[18px] flex-shrink-0" />
+                          <div>
+                            <div className="font-bold">Resume verified in state</div>
+                            <div className="text-[11px] opacity-80">
+                              {resumeText.split(/\s+/).length} words ready for multi-layer scan
+                            </div>
                           </div>
                         </div>
+                        <button
+                          type="button"
+                          onClick={() => setResume(DEMO_TALENTLENS_RESUME.text, DEMO_TALENTLENS_RESUME.fileName)}
+                          title="Switch to standard sample resume"
+                          className="text-[10px] font-bold underline text-text-muted hover:text-text"
+                        >
+                          Reset Sample
+                        </button>
                       </div>
                     )}
 

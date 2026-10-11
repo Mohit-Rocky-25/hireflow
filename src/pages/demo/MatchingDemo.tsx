@@ -7,7 +7,7 @@ import React, { useRef, useCallback, useEffect } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import {
   Brain, CheckCircle, ArrowRight, Building2, Search,
-  Upload, FileText, BarChart3, Briefcase, Zap
+  Upload, FileText, BarChart3, Briefcase, Zap, Sparkles, X
 } from "lucide-react";
 import { Button } from "../../components/ui/Components";
 import { PublicNavbar } from "../../components/layout/PublicNavbar";
@@ -21,6 +21,7 @@ import {
 } from "./talentLensData";
 import { useTalentLensStore } from "./useTalentLensStore";
 import { parseResumeFile } from "../../features/ats/fileParser";
+import { searchCompanies, deduplicateCompanies } from "../../utils/companySearchEngine";
 
 export function MatchingDemo() {
   const navigate = useNavigate();
@@ -77,17 +78,19 @@ export function MatchingDemo() {
     if (file) handleFileUpload(file);
   }, [handleFileUpload]);
 
-  const filteredCompanies = COMPANIES.filter(c => {
-    const q = companySearch.toLowerCase().trim();
-    const matchSearch =
-      !q ||
-      c.name.toLowerCase().includes(q) ||
-      c.industry.toLowerCase().includes(q) ||
-      c.roles.some(r => r.title.toLowerCase().includes(q));
-    const matchIndustry = industryFilter === "All" || c.industry.includes(industryFilter);
-    const matchTier = tierFilter === "All" || c.tier === tierFilter;
-    return matchSearch && matchIndustry && matchTier;
-  });
+  // Clean and deduplicate company catalog to merge multi-entry companies and eliminate React key collisions
+  const cleanCompanies = React.useMemo(() => deduplicateCompanies(COMPANIES), []);
+
+  // Intelligent typo-tolerant, case-insensitive multi-field search engine
+  const searchResult = React.useMemo(() => {
+    return searchCompanies(cleanCompanies, companySearch, {
+      industryFilter,
+      tierFilter,
+    });
+  }, [cleanCompanies, companySearch, industryFilter, tierFilter]);
+
+  const filteredCompanies = searchResult.results;
+  const scoredResults = searchResult.scoredResults;
 
   return (
     <div className="min-h-screen bg-bg">
@@ -252,125 +255,211 @@ Example:
         {/* ── STEP 2: COMPANY SELECTION GRID ── */}
         {step >= 2 && (
           <div className="animate-fade-in">
-            {/* Filter Bar */}
+            {/* Filter Bar with Intelligent Search & Similar Word Suggestions */}
             <div className="bg-surface border border-border rounded-2xl p-[18px] mb-[24px] shadow-sm">
               <div className="flex flex-wrap gap-[10px] items-center">
-                <div className="relative flex-1 min-w-[220px]">
+                <div className="relative flex-1 min-w-[240px]">
                   <Search className="absolute left-[12px] top-1/2 -translate-y-1/2 w-[15px] h-[15px] text-text-secondary" />
                   <input
                     value={companySearch}
                     onChange={e => setCompanySearch(e.target.value)}
-                    placeholder="Search company or role keyword..."
-                    className="w-full pl-[36px] pr-[12px] h-[38px] bg-surface-2 border border-border rounded-xl text-[13px] text-text focus:outline-none focus:border-primary/50"
+                    placeholder="Search company (case & typo-tolerant: barclays, googl, TCS...)"
+                    className="w-full pl-[36px] pr-[36px] h-[40px] bg-surface-2 border border-border rounded-xl text-[13px] text-text focus:outline-none focus:border-primary/50 transition-colors"
                   />
+                  {companySearch && (
+                    <button
+                      type="button"
+                      onClick={() => setCompanySearch("")}
+                      className="absolute right-[10px] top-1/2 -translate-y-1/2 p-1 text-text-muted hover:text-text rounded-md transition-colors"
+                      title="Clear search"
+                    >
+                      <X className="w-3.5 h-3.5" />
+                    </button>
+                  )}
                 </div>
                 <select
                   value={industryFilter}
                   onChange={e => setIndustryFilter(e.target.value)}
-                  className="h-[38px] px-[12px] bg-surface-2 border border-border rounded-xl text-[13px] text-text focus:outline-none cursor-pointer"
+                  className="h-[40px] px-[12px] bg-surface-2 border border-border rounded-xl text-[13px] text-text focus:outline-none cursor-pointer"
                 >
                   {INDUSTRIES.map(i => <option key={i} value={i}>{i}</option>)}
                 </select>
                 <select
                   value={tierFilter}
                   onChange={e => setTierFilter(e.target.value)}
-                  className="h-[38px] px-[12px] bg-surface-2 border border-border rounded-xl text-[13px] text-text focus:outline-none cursor-pointer"
+                  className="h-[40px] px-[12px] bg-surface-2 border border-border rounded-xl text-[13px] text-text focus:outline-none cursor-pointer"
                 >
                   {TIERS.map(t => <option key={t} value={t}>{t}</option>)}
                 </select>
-                <span className="text-[13px] text-text-secondary ml-auto">
+                <span className="text-[13px] text-text-secondary ml-auto font-medium">
                   {filteredCompanies.length} companies · {filteredCompanies.reduce((a, c) => a + c.roles.length, 0)} roles
                 </span>
               </div>
+
+              {/* Typo Correction Banner ("Did you mean?") */}
+              {searchResult.didYouMean && searchResult.isFuzzyMatch && (
+                <div className="mt-3 pt-3 border-t border-border flex items-center justify-between flex-wrap gap-2 animate-fade-in bg-primary-light/30 -mx-[18px] -mb-[18px] p-3 px-4 rounded-b-2xl">
+                  <div className="flex items-center gap-2 text-[13px] text-text">
+                    <Sparkles className="w-4 h-4 text-primary shrink-0" />
+                    <span>
+                      Showing results for <strong className="text-primary font-bold">{searchResult.didYouMean}</strong> (auto-corrected from &lsquo;{companySearch}&rsquo;)
+                    </span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setCompanySearch(searchResult.didYouMean!)}
+                    className="text-[12px] font-bold text-primary hover:underline px-2.5 py-1 rounded-lg bg-surface border border-primary/20 hover:border-primary/40 transition-colors"
+                  >
+                    Exact match &lsquo;{searchResult.didYouMean}&rsquo;
+                  </button>
+                </div>
+              )}
+
+              {/* Similar Company Word Searches */}
+              {companySearch.trim() && searchResult.suggestedCompanies.length > 0 && (
+                <div className="mt-3 pt-2.5 border-t border-border/70 flex items-center gap-2 flex-wrap text-[12px]">
+                  <span className="text-text-muted font-medium flex items-center gap-1">
+                    <Building2 className="w-3.5 h-3.5 text-text-muted" /> Similar companies:
+                  </span>
+                  {searchResult.suggestedCompanies.map(name => (
+                    <button
+                      key={name}
+                      type="button"
+                      onClick={() => setCompanySearch(name)}
+                      className="px-2.5 py-1 rounded-full bg-surface-2 hover:bg-surface-3 text-text font-medium text-[11.5px] border border-border transition-colors hover:border-primary/40"
+                    >
+                      {name}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* Responsive Companies Grid: 3 cols desktop, 2 cols tablet, 1 col mobile */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[16px] mb-[64px]">
-              {filteredCompanies.map(company => (
-                <Link
-                  key={company.id}
-                  to={`/demo/company/${getCompanySlug(company.name)}`}
-                  className="group bg-surface border border-border rounded-2xl p-[20px] transition-all hover:shadow-md hover:border-primary/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary flex flex-col justify-between cursor-pointer"
-                >
-                  <div>
-                    {/* Header */}
-                    <div className="flex items-start justify-between mb-[12px]">
-                      <div className="flex items-center gap-[10px]">
-                        <div
-                          className={`w-[42px] h-[42px] rounded-xl bg-gradient-to-br ${company.gradient} flex items-center justify-center text-white font-extrabold text-[14px] flex-shrink-0 shadow-sm`}
-                        >
-                          {company.logo}
-                        </div>
-                        <div>
-                          <div className="font-bold text-text text-[15px] group-hover:text-primary transition-colors">
-                            {company.name}
+              {filteredCompanies.map((company, idx) => {
+                const matchInfo = scoredResults.find(m => m.company.id === company.id);
+                return (
+                  <Link
+                    key={`${company.id}-${company.name}-${idx}`}
+                    to={`/demo/company/${getCompanySlug(company.name)}`}
+                    className="group bg-surface border border-border rounded-2xl p-[20px] transition-all hover:shadow-md hover:border-primary/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary flex flex-col justify-between cursor-pointer"
+                  >
+                    <div>
+                      {/* Header */}
+                      <div className="flex items-start justify-between mb-[12px]">
+                        <div className="flex items-center gap-[10px]">
+                          <div
+                            className={`w-[42px] h-[42px] rounded-xl bg-gradient-to-br ${company.gradient} flex items-center justify-center text-white font-extrabold text-[14px] flex-shrink-0 shadow-sm`}
+                          >
+                            {company.logo}
                           </div>
-                          <div className="text-[11px] text-text-secondary">{company.hq}</div>
+                          <div>
+                            <div className="font-bold text-text text-[15px] group-hover:text-primary transition-colors">
+                              {company.name}
+                            </div>
+                            <div className="text-[11px] text-text-secondary">{company.hq}</div>
+                          </div>
+                        </div>
+                        <span
+                          className={`text-[10px] font-bold px-[8px] py-[2px] rounded-full ${
+                            company.tier === "FAANG"
+                              ? "bg-ai-light text-ai"
+                              : company.tier === "Unicorn"
+                              ? "bg-primary-light text-primary"
+                              : company.tier === "MNC"
+                              ? "bg-info-bg text-info"
+                              : company.tier === "Startup"
+                              ? "bg-success-bg text-success"
+                              : "bg-surface-3 text-text-secondary"
+                          }`}
+                        >
+                          {company.tier}
+                        </span>
+                      </div>
+
+                      {/* Mini-Stats */}
+                      <div className="grid grid-cols-3 gap-[6px] mb-[12px]">
+                        <div className="bg-surface-2 rounded-lg p-[8px] text-center border border-border/50">
+                          <div className="text-[12px] font-bold text-text">
+                            {company.hiring2024.toLocaleString()}
+                          </div>
+                          <div className="text-[10px] text-text-muted">Hires 2024</div>
+                          <div className={`text-[10px] font-bold ${TREND_COLOR[company.trend]}`}>
+                            {TREND_ICON[company.trend]}
+                          </div>
+                        </div>
+                        <div className="bg-surface-2 rounded-lg p-[8px] text-center border border-border/50">
+                          <div className="text-[12px] font-bold text-text">{company.openRoles}+</div>
+                          <div className="text-[10px] text-text-muted">Open Roles</div>
+                        </div>
+                        <div className="bg-surface-2 rounded-lg p-[8px] text-center border border-border/50">
+                          <div className="text-[11px] font-bold text-text">⭐{company.glassdoor}</div>
+                          <div className="text-[10px] text-text-muted">Glassdoor</div>
                         </div>
                       </div>
-                      <span
-                        className={`text-[10px] font-bold px-[8px] py-[2px] rounded-full ${
-                          company.tier === "FAANG"
-                            ? "bg-ai-light text-ai"
-                            : company.tier === "Unicorn"
-                            ? "bg-primary-light text-primary"
-                            : company.tier === "MNC"
-                            ? "bg-info-bg text-info"
-                            : company.tier === "Startup"
-                            ? "bg-success-bg text-success"
-                            : "bg-surface-3 text-text-secondary"
-                        }`}
-                      >
-                        {company.tier}
+
+                      <div className="text-[11px] text-text-secondary mb-[10px] font-medium">
+                        {company.avgPackage} • {company.industry}
+                      </div>
+
+                      {/* Match Context Badge (Why this company matched) */}
+                      {matchInfo && matchInfo.matchedField === 'role' && (
+                        <div className="mb-[12px] text-[11px] text-primary bg-primary-light/70 px-2 py-0.5 rounded-md inline-flex items-center gap-1 border border-primary/20">
+                          <span className="text-text-muted">Matched Role:</span> <span className="font-semibold">{matchInfo.matchedTerm}</span>
+                        </div>
+                      )}
+                      {matchInfo && matchInfo.matchedField === 'skill' && (
+                        <div className="mb-[12px] text-[11px] text-ai bg-ai-light/70 px-2 py-0.5 rounded-md inline-flex items-center gap-1 border border-ai/20">
+                          <span className="text-text-muted">Skill:</span> <span className="font-semibold uppercase">{matchInfo.matchedTerm}</span>
+                        </div>
+                      )}
+                      {matchInfo && matchInfo.matchedField === 'alias' && (
+                        <div className="mb-[12px] text-[11px] text-text-secondary bg-surface-2 px-2 py-0.5 rounded-md inline-flex items-center gap-1 border border-border">
+                          <span className="text-text-muted">Alias:</span> <span className="font-semibold">{matchInfo.matchedTerm}</span>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Clean "View Roles →" Affordance */}
+                    <div className="pt-[12px] border-t border-border flex items-center justify-between text-[12px] font-semibold text-primary">
+                      <span className="text-text-secondary text-[11px] font-normal">
+                        {company.roles.length} Roles available
+                      </span>
+                      <span className="inline-flex items-center gap-[4px] group-hover:translate-x-[3px] transition-transform">
+                        View Roles <ArrowRight className="w-[14px] h-[14px]" />
                       </span>
                     </div>
-
-                    {/* Mini-Stats */}
-                    <div className="grid grid-cols-3 gap-[6px] mb-[12px]">
-                      <div className="bg-surface-2 rounded-lg p-[8px] text-center border border-border/50">
-                        <div className="text-[12px] font-bold text-text">
-                          {company.hiring2024.toLocaleString()}
-                        </div>
-                        <div className="text-[10px] text-text-muted">Hires 2024</div>
-                        <div className={`text-[10px] font-bold ${TREND_COLOR[company.trend]}`}>
-                          {TREND_ICON[company.trend]}
-                        </div>
-                      </div>
-                      <div className="bg-surface-2 rounded-lg p-[8px] text-center border border-border/50">
-                        <div className="text-[12px] font-bold text-text">{company.openRoles}+</div>
-                        <div className="text-[10px] text-text-muted">Open Roles</div>
-                      </div>
-                      <div className="bg-surface-2 rounded-lg p-[8px] text-center border border-border/50">
-                        <div className="text-[11px] font-bold text-text">⭐{company.glassdoor}</div>
-                        <div className="text-[10px] text-text-muted">Glassdoor</div>
-                      </div>
-                    </div>
-
-                    <div className="text-[11px] text-text-secondary mb-[14px] font-medium">
-                      {company.avgPackage} • {company.industry}
-                    </div>
-                  </div>
-
-                  {/* Clean "View Roles →" Affordance */}
-                  <div className="pt-[12px] border-t border-border flex items-center justify-between text-[12px] font-semibold text-primary">
-                    <span className="text-text-secondary text-[11px] font-normal">
-                      {company.roles.length} Roles available
-                    </span>
-                    <span className="inline-flex items-center gap-[4px] group-hover:translate-x-[3px] transition-transform">
-                      View Roles <ArrowRight className="w-[14px] h-[14px]" />
-                    </span>
-                  </div>
-                </Link>
-              ))}
+                  </Link>
+                );
+              })}
             </div>
 
             {filteredCompanies.length === 0 && (
               <div className="text-center py-[64px] bg-surface border border-border rounded-2xl p-[32px] mb-[64px]">
-                <Building2 className="w-[36px] h-[36px] text-text-muted mx-auto mb-[12px]" />
-                <h3 className="text-[16px] font-bold text-text mb-[4px]">No companies found</h3>
-                <p className="text-[13px] text-text-secondary mb-[16px]">
-                  Try adjusting your search query or filter options.
+                <Building2 className="w-[42px] h-[42px] text-text-muted mx-auto mb-[14px]" />
+                <h3 className="text-[18px] font-bold text-text mb-[6px]">
+                  No companies found for &ldquo;{companySearch}&rdquo;
+                </h3>
+                <p className="text-[13px] text-text-secondary mb-[20px] max-w-[480px] mx-auto">
+                  We couldn&rsquo;t find an exact or close match. Try searching for top tech employers below:
                 </p>
+                <div className="flex flex-wrap justify-center gap-2 max-w-[620px] mx-auto mb-[24px]">
+                  {['Barclays', 'Google', 'Microsoft', 'Amazon', 'TCS', 'Infosys', 'Uber', 'Atlassian', 'Adobe', 'Freshworks', 'Flipkart', 'Goldman Sachs'].map(topCompany => (
+                    <button
+                      key={topCompany}
+                      type="button"
+                      onClick={() => {
+                        setCompanySearch(topCompany);
+                        setIndustryFilter('All');
+                        setTierFilter('All');
+                      }}
+                      className="px-3 py-1.5 rounded-full bg-surface-2 hover:bg-surface-3 text-text text-[12px] font-semibold border border-border hover:border-primary/40 transition-colors"
+                    >
+                      {topCompany}
+                    </button>
+                  ))}
+                </div>
                 <button
                   type="button"
                   onClick={() => {
@@ -378,9 +467,9 @@ Example:
                     setIndustryFilter("All");
                     setTierFilter("All");
                   }}
-                  className="px-[16px] py-[8px] rounded-xl bg-surface-2 hover:bg-surface-3 text-text font-medium text-[12px] border border-border transition-colors"
+                  className="px-[20px] py-[9px] rounded-xl bg-text text-surface font-semibold text-[13px] hover:opacity-90 transition-opacity"
                 >
-                  Reset Filters
+                  Reset All Filters
                 </button>
               </div>
             )}

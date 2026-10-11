@@ -21,7 +21,6 @@ import {
   Target,
 } from 'lucide-react';
 import { CareerPathBackButton } from '../../../components/career-path/CareerPathBackButton';
-import { PublicNavbar } from '../../../components/layout/PublicNavbar';
 import { useProfile } from '../../../features/suite/profile/ProfileContext';
 import { getCandidateTierStatus } from '../../../features/suite/integration/trajectory';
 
@@ -85,8 +84,7 @@ export function CareerPathHub() {
   };
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-neutral-100 flex flex-col pt-16 selection:bg-blue-500 selection:text-white" data-theme="career-dark">
-      <PublicNavbar />
+    <div className="min-h-screen bg-neutral-950 text-neutral-100 flex flex-col selection:bg-blue-500 selection:text-white" data-theme="career-dark">
       {/* Pinned Top Navigation */}
       <CareerPathBackButton isHub={true} />
 
