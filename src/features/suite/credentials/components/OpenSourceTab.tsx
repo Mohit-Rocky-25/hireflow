@@ -1,13 +1,12 @@
 // ============================================================
-// Credential & Opportunity Engine — Open-Source Programs Tab (Stage 6)
-// Comprehensive guide to GSoC, Outreachy, LFX, MLH Fellowship, & KDE
+// Credential & Opportunity Engine — Open-Source & Fellowships Tab
+// Comprehensive guide to GSoC, C4GT India, IIT Fellowships, LFX, & Outreachy
 // ============================================================
 
 import React, { useState, useMemo } from 'react';
 import {
   Search,
   GitBranch,
-  Users,
   Calendar,
   ExternalLink,
   Sparkles,
@@ -15,12 +14,13 @@ import {
   Bookmark,
   BookmarkCheck,
   CheckCircle2,
-  DollarSign,
   AlertTriangle,
   Lightbulb,
   Award,
+  IndianRupee,
+  Coins,
 } from 'lucide-react';
-import { TOP_30_OPPORTUNITIES } from '../data/opportunitiesData';
+import { ALL_OPPORTUNITIES } from '../data/opportunitiesData';
 import { OpportunityRecord } from '../types';
 import { CredentialsStorage } from '../storage';
 
@@ -30,6 +30,13 @@ interface OpenSourceTabProps {
 }
 
 const SUPPORTING_PROGRAM_CATEGORIES = [
+  {
+    title: 'Code for GovTech (C4GT) Dedicated Track',
+    scope: 'India Digital Public Infrastructure',
+    description: 'Premier national program building Digital Public Goods (Aadhaar, UPI, Sunbird, Beckn, DIGIT). 1:1 mentorship from lead architects + ₹1,00,000 INR stipend.',
+    skills: 'Java, Python, TypeScript, Microservices, Beckn Protocol',
+    url: 'https://www.c4gt.community/',
+  },
   {
     title: 'Linux Foundation & CNCF Mentorships',
     scope: 'Cloud Native & Kernel',
@@ -43,13 +50,6 @@ const SUPPORTING_PROGRAM_CATEGORIES = [
     description: 'Hands-on contributor onboarding for Apache Software Foundation projects (Kafka, Spark, Airflow, Flink, Cassandra). Community-driven meritocracy.',
     skills: 'Java, Python, Scala, Distributed Systems, SQL',
     url: 'https://community.apache.org/mentoring/',
-  },
-  {
-    title: 'Organization-Specific Programs (Mozilla, KDE, GNOME)',
-    scope: 'Developer Tools & Systems',
-    description: 'Direct seasonal internships and community mentorships run by dedicated foundations (Mozilla Winter of Security, Season of KDE, GNOME Outreach).',
-    skills: 'Rust, C++, Python, Qt/QML, Web Standards',
-    url: 'https://wiki.mozilla.org/Mentorship',
   },
   {
     title: 'Summer of Bitcoin & Web3 Fellowships',
@@ -66,13 +66,14 @@ export function OpenSourceTab({
 }: OpenSourceTabProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedType, setSelectedType] = useState<string>('All');
+  const [onlyIndian, setOnlyIndian] = useState(false);
   const [savedIds, setSavedIds] = useState<Set<string>>(() => {
     const items = CredentialsStorage.loadPlanItems();
     return new Set(items.map((i) => i.opportunityId));
   });
 
   const osOpportunities = useMemo(() => {
-    return TOP_30_OPPORTUNITIES.filter(
+    return ALL_OPPORTUNITIES.filter(
       (o) =>
         o.kind === 'open_source' ||
         o.id === 'opp-gsoc' ||
@@ -80,12 +81,19 @@ export function OpenSourceTab({
         o.id === 'opp-outreachy' ||
         o.id === 'opp-lfx' ||
         o.id === 'opp-sok' ||
-        o.id === 'opp-hacktoberfest'
+        o.id === 'opp-hacktoberfest' ||
+        o.id === 'opp-c4gt' ||
+        o.id === 'opp-iit-fellowship' ||
+        o.id === 'opp-niti-aayog'
     );
   }, []);
 
   const filteredOpps = useMemo(() => {
     return osOpportunities.filter((opp) => {
+      if (onlyIndian && !opp.isIndianFlagship) {
+        return false;
+      }
+
       if (searchQuery.trim()) {
         const q = searchQuery.toLowerCase();
         const matchesName = opp.name.toLowerCase().includes(q);
@@ -93,12 +101,14 @@ export function OpenSourceTab({
         const matchesSkills = opp.relatedSkills.some((s) => s.toLowerCase().includes(q));
         if (!matchesName && !matchesOrg && !matchesSkills) return false;
       }
+
       if (selectedType !== 'All' && opp.type !== selectedType) {
         return false;
       }
+
       return true;
     });
-  }, [osOpportunities, searchQuery, selectedType]);
+  }, [osOpportunities, onlyIndian, searchQuery, selectedType]);
 
   const handleTogglePlan = (e: React.MouseEvent, oppId: string) => {
     e.stopPropagation();
@@ -113,13 +123,13 @@ export function OpenSourceTab({
         CredentialsStorage.savePlanItem({
           opportunityId: opp.id,
           status: 'interested',
-          targetTimeline: '90_day',
+          targetTimeline: '30_day',
           priority: 'high',
           reasonForRecommendation: `Saved from Open Source catalog: ${opp.name}`,
-          evidenceCreated: `Public GitHub commits in ${opp.name}`,
-          resumeImprovementSupported: `Open-source production PR evidence for ${opp.targetRoles[0] || 'Target Role'}`,
+          evidenceCreated: `Merged open-source contributions for ${opp.targetRoles[0] || 'Target Role'}`,
+          resumeImprovementSupported: `High-signal verifiable commit history in ${opp.relatedSkills.slice(0, 3).join(', ')}`,
           estimatedEffort: opp.duration,
-          completionCondition: 'Select org, submit beginner PRs, submit official proposal.',
+          completionCondition: 'Merged PRs and mentor sign-off.',
           addedAt: new Date().toISOString(),
           updatedAt: new Date().toISOString(),
         });
@@ -132,74 +142,79 @@ export function OpenSourceTab({
   };
 
   return (
-    <div className="space-y-10 animate-fade-in">
-      {/* Google Summer of Code Deep-Dive Callout */}
-      <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-violet-500/10 via-surface to-surface-2 border-2 border-violet-500/30 shadow-md space-y-6">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <div className="space-y-1">
-            <span className="px-2.5 py-1 text-xs font-mono font-bold rounded-md bg-violet-500/15 text-violet-600 dark:text-violet-400 border border-violet-500/30">
-              Gold Standard Program · Google Summer of Code
-            </span>
-            <h3 className="text-2xl sm:text-3xl font-black text-foreground">
-              GSoC is a Mentored Contribution Program, NOT a Hackathon
-            </h3>
+    <div className="space-y-8 animate-fade-in">
+      {/* Educational Banner */}
+      <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-emerald-500/10 via-teal-500/10 to-primary/10 border border-emerald-500/25 shadow-sm space-y-4">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div className="space-y-2 max-w-2xl">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-xs font-black uppercase tracking-wider">
+              <span>High-Yield Verifiable Experience</span>
+            </div>
+            <h2 className="text-xl sm:text-2xl font-black text-foreground tracking-tight">
+              Open-Source Mentorships & Indian Research Fellowships
+            </h2>
+            <p className="text-xs sm:text-sm text-text-secondary leading-relaxed">
+              Open-source programs and fellowships yield <strong>verifiable public commit histories</strong> that senior engineering hiring managers rank higher than personal side projects. Programs like <strong>GSoC</strong>, <strong>C4GT India</strong>, and <strong>LFX</strong> provide substantial stipends (₹1 Lakh to ₹2.5 Lakhs INR).
+            </p>
           </div>
-          <button
-            onClick={() => {
-              const gsoc = TOP_30_OPPORTUNITIES.find((o) => o.id === 'opp-gsoc');
-              if (gsoc) onSelectOpportunity(gsoc);
-            }}
-            className="px-4 py-2 rounded-xl bg-violet-600 text-white text-xs font-bold hover:bg-violet-700 transition-colors flex items-center gap-1.5 shrink-0"
-          >
-            <span>View Full GSoC Record</span>
-            <ChevronRight className="w-4 h-4" />
-          </button>
+
+          <div className="flex flex-wrap items-center gap-2 shrink-0">
+            <button
+              onClick={() => setOnlyIndian(!onlyIndian)}
+              className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all border flex items-center gap-2 shadow-xs cursor-pointer ${
+                onlyIndian
+                  ? 'bg-gradient-to-r from-emerald-500 to-teal-600 text-white border-emerald-500 shadow-emerald-500/25 scale-[1.03]'
+                  : 'bg-surface border-border text-foreground hover:bg-surface-2'
+              }`}
+            >
+              <span>🇮🇳</span>
+              <span>{onlyIndian ? 'Showing Indian Fellowships' : 'Filter Indian Programs Only'}</span>
+            </button>
+          </div>
         </div>
 
-        <p className="text-sm text-text-secondary leading-relaxed">
-          A common mistake Indian engineering students make is treating GSoC like a weekend hackathon. <strong>GSoC is a 12-to-22-week production software engineering mentorship.</strong> Organizations accept contributors who have demonstrated interest, communicated respectfully with maintainers, and submitted clean bug fixes <em>before</em> the proposal window opens.
-        </p>
-
-        {/* 9-Step Preparation Flow */}
-        <div className="space-y-3">
-          <h4 className="text-xs font-bold uppercase tracking-wider text-violet-600 dark:text-violet-400 flex items-center gap-1.5">
-            <Sparkles className="w-4 h-4" />
-            The Proven 9-Step GSoC Preparation Flow
-          </h4>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
-            {[
-              { num: 1, title: 'Explore Mentoring Orgs', desc: 'Browse accepted orgs from prior years matching your language (Python, C++, Go, Rust).' },
-              { num: 2, title: 'Read Contribution Guides', desc: 'Read CONTRIBUTING.md, setup local build dev containers, and adhere to linting standards.' },
-              { num: 3, title: 'Join Community Channels', desc: 'Introduce yourself politely on Matrix, Discord, or IRC without asking for beginner tasks directly.' },
-              { num: 4, title: 'Inspect Project Ideas', desc: 'Filter the official GSoC ideas list for tasks aligned with your engineering interest.' },
-              { num: 5, title: 'Fix Good First Issues', desc: 'Submit 2–3 small documentation or bug fix pull requests to establish credibility.' },
-              { num: 6, title: 'Author Substantive PRs', desc: 'Submit test-backed pull requests demonstrating that you can navigate complex logic.' },
-              { num: 7, title: 'Consult With Mentors', desc: 'Share an early outline of your technical proposal in public channels for feedback.' },
-              { num: 8, title: 'Draft Technical Proposal', desc: 'Include week-by-week delivery milestones, unit test strategy, and university exam buffers.' },
-              { num: 9, title: 'Submit & Stay Active', desc: 'Submit on the Google portal before deadline and continue reviewing PRs during evaluation.' },
-            ].map((step) => (
-              <div key={step.num} className="p-3.5 rounded-xl bg-surface border border-border space-y-1">
-                <span className="w-6 h-6 rounded-full bg-violet-500/15 text-violet-600 dark:text-violet-400 font-bold flex items-center justify-center text-xs">
-                  {step.num}
-                </span>
-                <strong className="text-foreground block">{step.title}</strong>
-                <span className="text-text-secondary">{step.desc}</span>
-              </div>
-            ))}
+        {/* 3 Strategic Rules */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 pt-3 border-t border-border/80">
+          <div className="p-3 rounded-xl bg-surface/70 border border-border text-xs space-y-1">
+            <span className="font-bold text-foreground flex items-center gap-1.5">
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
+              1. Asynchronous Execution
+            </span>
+            <p className="text-text-secondary leading-snug">
+              Mentors evaluate how you communicate in public issues, read unfamiliar architecture, and handle PR reviews.
+            </p>
+          </div>
+          <div className="p-3 rounded-xl bg-surface/70 border border-border text-xs space-y-1">
+            <span className="font-bold text-foreground flex items-center gap-1.5">
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
+              2. Pre-Application PRs
+            </span>
+            <p className="text-text-secondary leading-snug">
+              Successful applicants submit 2-3 merged bug fixes or docs PRs BEFORE the formal proposal submission deadline.
+            </p>
+          </div>
+          <div className="p-3 rounded-xl bg-surface/70 border border-border text-xs space-y-1">
+            <span className="font-bold text-foreground flex items-center gap-1.5">
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
+              3. Verifiable Commit Evidence
+            </span>
+            <p className="text-text-secondary leading-snug">
+              Your resume bullets link directly to merged upstream pull requests and public git commit hashes.
+            </p>
           </div>
         </div>
       </div>
 
       {/* Catalog Search & Filter */}
-      <div className="p-5 rounded-2xl bg-surface border border-border flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div className="p-6 rounded-2xl bg-surface/80 backdrop-blur-md border border-border flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm">
         <div className="relative w-full sm:max-w-md">
-          <Search className="w-5 h-5 text-text-secondary absolute left-4 top-1/2 -translate-y-1/2" />
+          <Search className="w-5 h-5 text-primary absolute left-4 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search open-source programs (GSoC, LFX, MLH, Outreachy)..."
-            className="w-full pl-11 pr-4 py-2.5 rounded-xl bg-surface-2 border border-border text-sm text-foreground placeholder:text-muted focus:outline-none focus:border-primary"
+            placeholder="Search programs (GSoC, C4GT, IIT SURGE, LFX, Outreachy)..."
+            className="w-full pl-11 pr-4 py-2.5 rounded-xl bg-surface-2 border border-border text-sm text-foreground placeholder:text-muted focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all shadow-inner"
           />
         </div>
 
@@ -220,29 +235,57 @@ export function OpenSourceTab({
         </div>
       </div>
 
-      {/* Open Source Programs Grid */}
+      {/* Open Source Programs Grid with Effulgent Design */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {filteredOpps.map((opp) => {
           const isSaved = savedIds.has(opp.id);
+          const portalUrl = opp.directPortalUrl || opp.officialUrl;
+          const isIndian = opp.isIndianFlagship;
+
           return (
             <div
               key={opp.id}
               onClick={() => onSelectOpportunity(opp)}
-              className="group bg-surface rounded-3xl border-2 border-border p-6 sm:p-7 flex flex-col justify-between hover:border-primary/60 transition-all duration-200 cursor-pointer shadow-xs hover:shadow-lg space-y-6"
+              className={`group bg-surface rounded-3xl border-2 ${
+                isIndian
+                  ? 'border-emerald-500/30 hover:border-emerald-500/80 hover:shadow-[0_16px_40px_rgba(16,185,129,0.18)]'
+                  : 'border-border hover:border-primary/70 hover:shadow-[0_16px_40px_rgba(99,102,241,0.18)]'
+              } p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer shadow-sm hover:-translate-y-1 relative overflow-hidden`}
             >
-              <div className="space-y-4">
+              {/* Luminous Top Accent Bar */}
+              <div
+                className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${
+                  isIndian
+                    ? 'from-emerald-500 via-teal-400 to-cyan-500'
+                    : 'from-primary via-indigo-400 to-purple-400'
+                }`}
+              />
+
+              <div className="space-y-5">
+                {/* Header row */}
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex flex-wrap items-center gap-1.5">
-                    <span className="px-2.5 py-1 text-xs font-mono font-bold rounded-md bg-primary/10 text-primary border border-primary/20">
-                      #{opp.rank} of Top 30
-                    </span>
-                    <span className="px-2.5 py-1 text-xs font-bold rounded-md bg-surface-2 text-text-secondary border border-border capitalize">
+                    {isIndian ? (
+                      <span className="px-2.5 py-1 text-[11px] font-black rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 flex items-center gap-1">
+                        <span>🇮🇳</span>
+                        <span>Indian Flagship</span>
+                      </span>
+                    ) : (
+                      <span className="px-2.5 py-1 text-[11px] font-mono font-bold rounded-lg bg-primary/10 text-primary border border-primary/20">
+                        #{opp.rank}
+                      </span>
+                    )}
+
+                    <span className="px-2.5 py-1 text-[11px] font-bold rounded-lg bg-surface-2 text-text-secondary border border-border capitalize">
                       {opp.type.replace('_', ' ')}
                     </span>
-                    <span className="px-2.5 py-1 text-xs font-bold rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
-                      Stipend / Paid
+
+                    <span className="px-2.5 py-1 text-[11px] font-black rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 flex items-center gap-1">
+                      <Coins className="w-3 h-3" />
+                      <span>Paid Stipend</span>
                     </span>
                   </div>
+
                   <button
                     onClick={(e) => handleTogglePlan(e, opp.id)}
                     className={`p-2 rounded-xl border transition-all ${
@@ -257,18 +300,29 @@ export function OpenSourceTab({
                   </button>
                 </div>
 
+                {/* Title & Organizer */}
                 <div>
-                  <h3 className="text-xl sm:text-2xl font-black text-foreground group-hover:text-primary transition-colors">
+                  <h3 className="text-xl sm:text-2xl font-black text-foreground group-hover:text-primary transition-colors tracking-tight leading-snug">
                     {opp.name}
                   </h3>
-                  <p className="text-xs text-text-secondary font-medium mt-1">
-                    Organizer: <span className="text-foreground font-semibold">{opp.organizer}</span>
+                  <p className="text-xs text-text-secondary font-medium mt-1 flex items-center gap-1.5">
+                    <GitBranch className="w-3.5 h-3.5 text-primary shrink-0" />
+                    <span>Organizer: <strong className="text-foreground">{opp.organizer}</strong></span>
                   </p>
                 </div>
 
-                <p className="text-sm text-text-secondary leading-relaxed line-clamp-3">
+                {/* What it is */}
+                <p className="text-xs sm:text-sm text-text-secondary leading-relaxed line-clamp-3">
                   {opp.whatItIs}
                 </p>
+
+                {/* Prominent Stipend Amount Banner */}
+                {(opp.stipendAmount || opp.costInr) && (
+                  <div className="p-3 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center gap-2.5 text-xs text-emerald-700 dark:text-emerald-300 font-bold shadow-xs">
+                    <IndianRupee className="w-4 h-4 shrink-0 text-emerald-500" />
+                    <span>Stipend: <strong className="text-foreground">{opp.stipendAmount || opp.costInr}</strong></span>
+                  </div>
+                )}
 
                 {/* Key Program Facts */}
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 text-xs text-text-secondary">
@@ -277,8 +331,8 @@ export function OpenSourceTab({
                     <strong className="text-foreground truncate block">{opp.duration}</strong>
                   </div>
                   <div className="p-2.5 rounded-xl bg-surface-2 border border-border">
-                    <span className="text-[10px] text-muted block uppercase font-bold">Stipend / Cost</span>
-                    <strong className="text-emerald-500 truncate block">{opp.cost || 'Stipend provided'}</strong>
+                    <span className="text-[10px] text-muted block uppercase font-bold">Application Fee</span>
+                    <strong className="text-emerald-500 truncate block">100% Free</strong>
                   </div>
                   <div className="p-2.5 rounded-xl bg-surface-2 border border-border">
                     <span className="text-[10px] text-muted block uppercase font-bold">Typical Window</span>
@@ -288,7 +342,7 @@ export function OpenSourceTab({
 
                 {/* Application Tip Snippet */}
                 {opp.applicationTips && opp.applicationTips.length > 0 && (
-                  <div className="p-3.5 rounded-xl bg-surface-2 border border-border space-y-1">
+                  <div className="p-3.5 rounded-2xl bg-surface-2 border border-border space-y-1">
                     <span className="text-xs font-bold text-foreground flex items-center gap-1.5">
                       <Lightbulb className="w-3.5 h-3.5 text-amber-500" />
                       Key Application Tip
@@ -300,13 +354,24 @@ export function OpenSourceTab({
                 )}
               </div>
 
-              {/* Card Footer */}
-              <div className="pt-4 border-t border-border flex items-center justify-between text-xs">
-                <span className="text-text-secondary">
-                  Resume Value: <strong className="capitalize text-foreground">{opp.resumeValue}</strong>
-                </span>
+              {/* Bottom Dual Action Bar */}
+              <div className="mt-6 pt-4 border-t border-border flex items-center justify-between gap-3 text-xs">
+                {/* Working Direct Website Portal Link */}
+                <a
+                  href={portalUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-surface-2 hover:bg-primary hover:text-white border border-border hover:border-primary font-black text-foreground transition-all duration-200 group/btn shadow-xs"
+                  title={`Open official portal for ${opp.name}`}
+                >
+                  <span>Apply on Portal</span>
+                  <ExternalLink className="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform text-primary group-hover/btn:text-white" />
+                </a>
+
+                {/* Details Trigger */}
                 <span className="inline-flex items-center gap-1 font-bold text-primary group-hover:translate-x-1 transition-transform">
-                  <span>View Details & Mentorship Flow</span>
+                  <span>Mentorship Flow & Checklist</span>
                   <ChevronRight className="w-4 h-4" />
                 </span>
               </div>

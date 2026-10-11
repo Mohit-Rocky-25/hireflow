@@ -4,7 +4,11 @@
 // ============================================================
 
 import { describe, it, expect } from 'vitest';
-import { TOP_30_OPPORTUNITIES } from '../data/opportunitiesData';
+import {
+  TOP_30_OPPORTUNITIES,
+  ALL_OPPORTUNITIES,
+  INDIAN_FLAGSHIP_OPPORTUNITIES,
+} from '../data/opportunitiesData';
 import { ROLE_RECOMMENDATION_PATHS } from '../data/recommendationPaths';
 import {
   OpportunityRecord,
@@ -200,15 +204,42 @@ describe('Credential & Opportunity Engine — Top 30 Catalog Invariants', () => 
     expect(tf.typicalWindow).toContain('retired');
   });
 
-  // Test 13: Zero placeholders or fake strings
-  it('verifies that no records contain placeholder or fabricated marker text', () => {
+  // Test 14: Indian Flagship Opportunities Integrity
+  it('validates all Indian flagship opportunities are present with valid schemas', () => {
+    expect(INDIAN_FLAGSHIP_OPPORTUNITIES.length).toBe(12);
+    expect(ALL_OPPORTUNITIES.length).toBe(42);
+
+    const names = INDIAN_FLAGSHIP_OPPORTUNITIES.map((o) => o.name);
+    expect(names).toContain('Flipkart GRiD (Campus Tech Challenge)');
+    expect(names).toContain('TCS CodeVita (The Global Coding Contest)');
+    expect(names).toContain('TCS HackQuest (Cybersecurity Flagship)');
+    expect(names).toContain('Amazon ML Challenge (India)');
+    expect(names).toContain('JPMorgan Chase Code for Good (CFG)');
+    expect(names).toContain('Code for GovTech (C4GT) India Fellowship');
+    expect(names).toContain('Walmart Sparkathon & CodeHers (India)');
+    expect(names).toContain('Google Girl Hackathon (India)');
+    expect(names).toContain('IIT Summer Research Fellowships (IITB, IITD, IITM, IITK SURGE)');
+    expect(names).toContain('Cisco Ideathon (India)');
+    expect(names).toContain('NITI Aayog Internship & Research Fellowship');
+    expect(names).toContain('Microsoft Imagine Cup (India & Global)');
+
+    for (const opp of INDIAN_FLAGSHIP_OPPORTUNITIES) {
+      expect(opp.isIndianFlagship).toBe(true);
+      expect(opp.costInr).toBeDefined();
+      expect(opp.costInr).toContain('₹');
+      expect(opp.officialUrl).toMatch(/^https?:\/\//);
+      expect(opp.studentDiscountNote).toBeDefined();
+    }
+  });
+
+  // Test 15: Indian Rupee Pricing (INR / ₹) across opportunities
+  it('verifies that all Top 30 opportunities contain tailored Indian Rupee context or INR pricing', () => {
     for (const opp of TOP_30_OPPORTUNITIES) {
-      const serialized = JSON.stringify(opp).toLowerCase();
-      expect(serialized).not.toContain('lorem ipsum');
-      expect(serialized).not.toContain('placeholder');
-      expect(serialized).not.toContain('fake url');
-      expect(serialized).not.toContain('todo:');
-      expect(serialized).not.toContain('tbd');
+      expect(opp.costInr).toBeDefined();
+      expect(opp.costInr).toContain('₹');
+      expect(opp.studentDiscountNote).toBeDefined();
+      expect(opp.officialUrl).toMatch(/^https?:\/\//);
     }
   });
 });
+

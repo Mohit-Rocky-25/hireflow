@@ -1,6 +1,6 @@
 // ============================================================
-// Credential & Opportunity Engine — Competitions & Events Tab (Stage 5)
-// Deeply structured guidance for hackathons, datathons, CTFs, & SIH
+// Credential & Opportunity Engine — Competitions & Events Tab
+// Deeply structured catalog of Indian & global hackathons, codathons, & CTFs
 // ============================================================
 
 import React, { useState, useMemo } from 'react';
@@ -9,20 +9,18 @@ import {
   Trophy,
   Users,
   Calendar,
-  Globe,
   Sparkles,
   ChevronRight,
   Bookmark,
   BookmarkCheck,
-  CheckCircle2,
   Copy,
   Check,
-  Zap,
-  Info,
-  HelpCircle,
+  ExternalLink,
+  Briefcase,
+  Gift,
 } from 'lucide-react';
-import { TOP_30_OPPORTUNITIES } from '../data/opportunitiesData';
-import { OpportunityRecord, EventType } from '../types';
+import { ALL_OPPORTUNITIES } from '../data/opportunitiesData';
+import { OpportunityRecord } from '../types';
 import { CredentialsStorage } from '../storage';
 
 interface EventsTabProps {
@@ -67,28 +65,10 @@ const EVENT_TYPE_DEFINITIONS: Array<{
     bestFor: 'Proving hands-on defensive and offensive security skill with concrete flags captured.',
   },
   {
-    type: 'case_competition',
-    name: 'Case Competition',
-    description: 'Business, product, strategy, or analytics case solving presented to executive leadership or consulting panels.',
-    bestFor: 'Proving economic impact modeling, stakeholder communication, and strategic problem framing.',
-  },
-  {
     type: 'ai_challenge',
     name: 'AI / ML Challenge',
     description: 'Applied machine learning or generative AI competition building custom models or agents for domain tasks.',
     bestFor: 'Proving model fine-tuning, latency optimization, and real-world evaluation metrics.',
-  },
-  {
-    type: 'game_jam',
-    name: 'Game Jam',
-    description: 'Rapid video game development sprint designing game mechanics, physics, and assets within 48–72 hours.',
-    bestFor: 'Proving real-time graphics programming, game engines (Unity, Unreal), and asset pipeline integration.',
-  },
-  {
-    type: 'robotics',
-    name: 'Robotics Challenge',
-    description: 'Hardware, embedded systems, microcontrollers (ROS, Arduino, ESP32), and automation robotics challenges.',
-    bestFor: 'Proving hardware-software sensor integration and embedded firmware engineering.',
   },
 ];
 
@@ -102,6 +82,7 @@ export function EventsTab({
   const [selectedMode, setSelectedMode] = useState<string>('All');
   const [selectedScope, setSelectedScope] = useState<string>('All');
   const [selectedTier, setSelectedTier] = useState<string>('All');
+  const [onlyIndianFlagships, setOnlyIndianFlagships] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [savedIds, setSavedIds] = useState<Set<string>>(() => {
     const items = CredentialsStorage.loadPlanItems();
@@ -109,19 +90,37 @@ export function EventsTab({
   });
 
   const eventOpportunities = useMemo(() => {
-    return TOP_30_OPPORTUNITIES.filter(
+    return ALL_OPPORTUNITIES.filter(
       (o) =>
         o.kind === 'event' ||
+        o.type === 'hackathon' ||
+        o.type === 'codathon' ||
+        o.type === 'ideathon' ||
+        o.type === 'datathon' ||
+        o.type === 'ctf' ||
+        o.type === 'ai_challenge' ||
         o.id === 'opp-sih' ||
         o.id === 'opp-kaggle-comp' ||
         o.id === 'opp-mlh-hackathons' ||
         o.id === 'opp-hacktoberfest' ||
-        o.id === 'opp-mlh-fellowship'
+        o.id === 'opp-flipkart-grid' ||
+        o.id === 'opp-tcs-codevita' ||
+        o.id === 'opp-tcs-hackquest' ||
+        o.id === 'opp-amazon-ml' ||
+        o.id === 'opp-jpmc-cfg' ||
+        o.id === 'opp-walmart-spark' ||
+        o.id === 'opp-google-girl-hack' ||
+        o.id === 'opp-cisco-ideathon' ||
+        o.id === 'opp-imagine-cup'
     );
   }, []);
 
   const filteredEvents = useMemo(() => {
     return eventOpportunities.filter((event) => {
+      if (onlyIndianFlagships && !event.isIndianFlagship && event.id !== 'opp-sih') {
+        return false;
+      }
+
       if (searchQuery.trim()) {
         const query = searchQuery.toLowerCase();
         const matchesName = event.name.toLowerCase().includes(query);
@@ -155,6 +154,7 @@ export function EventsTab({
     });
   }, [
     eventOpportunities,
+    onlyIndianFlagships,
     searchQuery,
     selectedType,
     selectedRole,
@@ -202,208 +202,207 @@ export function EventsTab({
   };
 
   return (
-    <div className="space-y-10 animate-fade-in">
-      {/* Smart India Hackathon Special Spotlight Banner */}
-      <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-primary/10 via-surface to-surface-2 border-2 border-primary/30 shadow-md space-y-4 relative overflow-hidden">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <div className="flex items-center gap-2">
-            <span className="w-8 h-8 rounded-xl bg-primary text-white flex items-center justify-center font-bold text-sm">
-              🇮🇳
-            </span>
-            <div>
-              <span className="text-xs font-mono font-bold text-primary uppercase tracking-wider">
-                Flagship National Platform · Smart India Hackathon
-              </span>
-              <h3 className="text-xl sm:text-2xl font-black text-foreground">
-                How College Students Compete & Build Career Proof
-              </h3>
+    <div className="space-y-8 animate-fade-in">
+      {/* Category Definitions Showcase Banner */}
+      <div className="p-6 rounded-3xl bg-gradient-to-r from-orange-500/10 via-primary/10 to-indigo-500/10 border border-orange-500/25 shadow-sm relative overflow-hidden">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div className="space-y-1.5 max-w-2xl">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/15 border border-orange-500/30 text-orange-600 dark:text-orange-400 text-xs font-black uppercase tracking-wider">
+              <span>🇮🇳 Indian Collegiate Flagship Hub</span>
             </div>
+            <h2 className="text-xl sm:text-2xl font-black text-foreground tracking-tight">
+              Premier Hackathons, Codathons & Direct PPO Challenges
+            </h2>
+            <p className="text-xs sm:text-sm text-text-secondary leading-relaxed">
+              Target high-impact Indian campus challenges like <strong>Flipkart GRiD</strong>, <strong>TCS CodeVita</strong>, <strong>Smart India Hackathon</strong>, <strong>Amazon ML Challenge</strong>, and <strong>JPMorgan CFG</strong> that offer direct Pre-Placement Offers (PPOs) up to ₹32 LPA.
+            </p>
           </div>
-          <button
-            onClick={() => {
-              const sih = TOP_30_OPPORTUNITIES.find((o) => o.id === 'opp-sih');
-              if (sih) onSelectOpportunity(sih);
-            }}
-            className="px-4 py-2 rounded-xl bg-primary text-white text-xs font-bold hover:opacity-90 transition-opacity flex items-center gap-1.5 shrink-0"
-          >
-            <span>Explore SIH Playbook</span>
-            <ChevronRight className="w-4 h-4" />
-          </button>
-        </div>
 
-        <p className="text-sm text-text-secondary leading-relaxed">
-          Smart India Hackathon (SIH) is the world’s largest nationwide student innovation platform where collegiate teams solve real problem statements posted by Central Government Ministries, State Departments, and PSUs. <strong>Participation begins at the institute internal round:</strong> your college conducts an internal hackathon to nominate the top 30-40 teams to the national portal. Never hardcode unconfirmed dates—rely on verified typical annual windows.
-        </p>
-
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
-          <div className="p-3.5 rounded-xl bg-surface border border-border text-xs space-y-1">
-            <strong className="text-foreground block">1. Form 6-Member Squad</strong>
-            <span className="text-text-secondary">Mandatory 6 members with at least 1 female teammate. Balance frontend, backend, devops, and pitch lead.</span>
-          </div>
-          <div className="p-3.5 rounded-xl bg-surface border border-border text-xs space-y-1">
-            <strong className="text-foreground block">2. Internal College Selection</strong>
-            <span className="text-text-secondary">Compete in internal campus hackathon (Aug–Sep) to secure official college SPOC nomination.</span>
-          </div>
-          <div className="p-3.5 rounded-xl bg-surface border border-border text-xs space-y-1">
-            <strong className="text-foreground block">3. 36-Hour Grand Finale</strong>
-            <span className="text-text-secondary">Travel to assigned nodal center and build non-stop prototype under live ministry evaluator checks.</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Clear Distinction Guide: Hackathon vs Codathon vs Datathon vs CTF vs Ideathon */}
-      <div className="space-y-4">
-        <div className="flex items-center gap-2">
-          <HelpCircle className="w-5 h-5 text-primary" />
-          <h3 className="text-lg font-extrabold text-foreground tracking-tight">
-            Understanding Competition Types: What Each Format Proves
-          </h3>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {EVENT_TYPE_DEFINITIONS.map((item) => (
-            <div
-              key={item.type}
-              onClick={() => setSelectedType(selectedType === item.type ? 'All' : item.type)}
-              className={`p-4 rounded-2xl border transition-all cursor-pointer ${
-                selectedType === item.type
-                  ? 'bg-primary/5 border-primary shadow-xs ring-1 ring-primary'
-                  : 'bg-surface border-border hover:border-border/80 hover:bg-surface-2'
+          <div className="flex flex-wrap items-center gap-2 shrink-0">
+            <button
+              onClick={() => setOnlyIndianFlagships(!onlyIndianFlagships)}
+              className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all border flex items-center gap-2 shadow-xs cursor-pointer ${
+                onlyIndianFlagships
+                  ? 'bg-gradient-to-r from-orange-500 to-amber-600 text-white border-orange-500 shadow-orange-500/25 scale-[1.03]'
+                  : 'bg-surface border-border text-foreground hover:bg-surface-2'
               }`}
             >
-              <div className="flex items-center justify-between mb-1.5">
-                <span className="text-sm font-bold text-foreground">{item.name}</span>
-                {selectedType === item.type && (
-                  <span className="text-[10px] font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-md">
-                    Active Filter
-                  </span>
-                )}
-              </div>
-              <p className="text-xs text-text-secondary leading-relaxed mb-2.5">
-                {item.description}
-              </p>
-              <div className="text-[11px] font-medium text-primary">
-                <strong>Proves:</strong> {item.bestFor}
-              </div>
-            </div>
-          ))}
+              <span>🇮🇳</span>
+              <span>{onlyIndianFlagships ? 'Showing Indian Flagships' : 'Filter Indian Flagships Only'}</span>
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Filter and Search Bar */}
-      <div className="p-5 rounded-2xl bg-surface border border-border space-y-4 shadow-xs">
+      {/* Filter Chips Bar */}
+      <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
+        {['All', 'hackathon', 'codathon', 'datathon', 'ctf', 'ideathon', 'ai_challenge'].map((type) => (
+          <button
+            key={type}
+            onClick={() => setSelectedType(type)}
+            className={`px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all border capitalize ${
+              selectedType === type
+                ? 'bg-primary text-white border-primary shadow-xs scale-[1.02]'
+                : 'bg-surface border-border text-text-secondary hover:text-foreground hover:bg-surface-2'
+            }`}
+          >
+            {type === 'All' ? 'All Competition Types' : type.replace('_', ' ')}
+          </button>
+        ))}
+      </div>
+
+      {/* Search & Logistics Filter Bar */}
+      <div className="p-6 rounded-2xl bg-surface/80 backdrop-blur-md border border-border space-y-4 shadow-sm">
         <div className="relative">
-          <Search className="w-5 h-5 text-text-secondary absolute left-4 top-1/2 -translate-y-1/2" />
+          <Search className="w-5 h-5 text-primary absolute left-4 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search events by name, skill, organizer (e.g. Smart India Hackathon, Kaggle, MLH, Devpost)..."
-            className="w-full pl-11 pr-4 py-3 rounded-xl bg-surface-2 border border-border text-sm text-foreground placeholder:text-muted focus:outline-none focus:border-primary transition-all"
+            placeholder="Search by challenge name, tech stack, company (e.g. Flipkart GRiD, TCS, Amazon ML, Python, AI)..."
+            className="w-full pl-11 pr-4 py-3 rounded-xl bg-surface-2 border border-border text-sm text-foreground placeholder:text-muted focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all shadow-inner"
           />
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           <div className="space-y-1">
-            <label className="text-[11px] font-bold uppercase text-text-secondary">Event Type</label>
-            <select
-              value={selectedType}
-              onChange={(e) => setSelectedType(e.target.value)}
-              className="w-full px-2.5 py-1.5 rounded-lg bg-surface-2 border border-border text-xs text-foreground focus:outline-none focus:border-primary"
-            >
-              <option value="All">All Types</option>
-              {EVENT_TYPE_DEFINITIONS.map((def) => (
-                <option key={def.type} value={def.type}>{def.name}</option>
-              ))}
-            </select>
-          </div>
-
-          <div className="space-y-1">
-            <label className="text-[11px] font-bold uppercase text-text-secondary">Target Role</label>
+            <label className="text-[11px] font-bold uppercase tracking-wider text-text-secondary">Target Role</label>
             <select
               value={selectedRole}
               onChange={(e) => setSelectedRole(e.target.value)}
-              className="w-full px-2.5 py-1.5 rounded-lg bg-surface-2 border border-border text-xs text-foreground focus:outline-none focus:border-primary"
+              className="w-full px-2.5 py-2 rounded-lg bg-surface-2 border border-border text-xs text-foreground focus:outline-none focus:border-primary font-medium"
             >
               <option value="All">All Roles</option>
               <option value="Full-Stack Developer">Full-Stack Developer</option>
               <option value="Backend Developer">Backend Developer</option>
-              <option value="Frontend Developer">Frontend Developer</option>
               <option value="AI/ML Engineer">AI/ML Engineer</option>
-              <option value="Data Analyst">Data Analyst</option>
+              <option value="Cybersecurity Analyst">Cybersecurity Analyst</option>
               <option value="Cloud/DevOps Engineer">Cloud/DevOps Engineer</option>
             </select>
           </div>
 
           <div className="space-y-1">
-            <label className="text-[11px] font-bold uppercase text-text-secondary">Mode</label>
+            <label className="text-[11px] font-bold uppercase tracking-wider text-text-secondary">Competition Mode</label>
             <select
               value={selectedMode}
               onChange={(e) => setSelectedMode(e.target.value)}
-              className="w-full px-2.5 py-1.5 rounded-lg bg-surface-2 border border-border text-xs text-foreground focus:outline-none focus:border-primary"
+              className="w-full px-2.5 py-2 rounded-lg bg-surface-2 border border-border text-xs text-foreground focus:outline-none focus:border-primary font-medium"
             >
               <option value="All">All Modes</option>
-              <option value="online">Online</option>
-              <option value="hybrid">Hybrid</option>
-              <option value="offline">In-person</option>
+              <option value="online">Online Sprint</option>
+              <option value="hybrid">Hybrid (Online + Finale)</option>
+              <option value="offline">In-Person</option>
             </select>
           </div>
 
           <div className="space-y-1">
-            <label className="text-[11px] font-bold uppercase text-text-secondary">Scope</label>
+            <label className="text-[11px] font-bold uppercase tracking-wider text-text-secondary">Scope</label>
             <select
               value={selectedScope}
               onChange={(e) => setSelectedScope(e.target.value)}
-              className="w-full px-2.5 py-1.5 rounded-lg bg-surface-2 border border-border text-xs text-foreground focus:outline-none focus:border-primary"
+              className="w-full px-2.5 py-2 rounded-lg bg-surface-2 border border-border text-xs text-foreground focus:outline-none focus:border-primary font-medium"
             >
               <option value="All">All Scopes</option>
-              <option value="national">National</option>
-              <option value="international">International</option>
-              <option value="college">College Level</option>
+              <option value="national">National (India)</option>
+              <option value="international">Global / International</option>
             </select>
           </div>
 
           <div className="space-y-1">
-            <label className="text-[11px] font-bold uppercase text-text-secondary">Release Tier</label>
+            <label className="text-[11px] font-bold uppercase tracking-wider text-text-secondary">Tier Structure</label>
             <select
               value={selectedTier}
               onChange={(e) => setSelectedTier(e.target.value)}
-              className="w-full px-2.5 py-1.5 rounded-lg bg-surface-2 border border-border text-xs text-foreground focus:outline-none focus:border-primary"
+              className="w-full px-2.5 py-2 rounded-lg bg-surface-2 border border-border text-xs text-foreground focus:outline-none focus:border-primary font-medium"
             >
               <option value="All">All Tiers</option>
               <option value="tier1">Tier 1 · Build First</option>
               <option value="tier2">Tier 2 · Build Next</option>
-              <option value="tier3">Tier 3 · Post-Core</option>
+              <option value="tier3">Tier 3 · Extended</option>
             </select>
           </div>
         </div>
+
+        {/* Filter reset indicator */}
+        {(selectedType !== 'All' ||
+          selectedRole !== 'All' ||
+          selectedMode !== 'All' ||
+          selectedScope !== 'All' ||
+          selectedTier !== 'All' ||
+          onlyIndianFlagships ||
+          searchQuery) && (
+          <div className="pt-2 flex items-center justify-between text-xs text-text-secondary border-t border-border">
+            <span>Showing <strong>{filteredEvents.length}</strong> of {eventOpportunities.length} competitions</span>
+            <button
+              onClick={() => {
+                setSearchQuery('');
+                setSelectedType('All');
+                setSelectedRole('All');
+                setSelectedMode('All');
+                setSelectedScope('All');
+                setSelectedTier('All');
+                setOnlyIndianFlagships(false);
+              }}
+              className="font-bold text-primary hover:underline cursor-pointer"
+            >
+              Reset All Filters
+            </button>
+          </div>
+        )}
       </div>
 
-      {/* Events Grid */}
+      {/* Events Grid with Effulgent Cards */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {filteredEvents.map((event) => {
           const isSaved = savedIds.has(event.id);
+          const portalUrl = event.directPortalUrl || event.officialUrl;
+          const isIndian = event.isIndianFlagship || event.id === 'opp-sih';
+
           return (
             <div
               key={event.id}
               onClick={() => onSelectOpportunity(event)}
-              className="group bg-surface rounded-3xl border-2 border-border p-6 sm:p-7 flex flex-col justify-between hover:border-primary/60 transition-all duration-200 cursor-pointer shadow-xs hover:shadow-lg space-y-6"
+              className={`group bg-surface rounded-3xl border-2 ${
+                isIndian
+                  ? 'border-orange-500/30 hover:border-orange-500/80 hover:shadow-[0_16px_40px_rgba(249,115,22,0.18)]'
+                  : 'border-border hover:border-primary/70 hover:shadow-[0_16px_40px_rgba(99,102,241,0.18)]'
+              } p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer shadow-sm hover:-translate-y-1 relative overflow-hidden`}
             >
-              <div className="space-y-4">
+              {/* Luminous Top Accent Bar */}
+              <div
+                className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${
+                  isIndian
+                    ? 'from-orange-500 via-amber-400 to-emerald-500'
+                    : 'from-primary via-indigo-400 to-sky-400'
+                }`}
+              />
+
+              <div className="space-y-5">
                 {/* Header row */}
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex flex-wrap items-center gap-1.5">
-                    <span className="px-2.5 py-1 text-xs font-mono font-bold rounded-md bg-primary/10 text-primary border border-primary/20">
-                      #{event.rank} of Top 30
-                    </span>
-                    <span className="px-2.5 py-1 text-xs font-bold rounded-md bg-surface-2 text-text-secondary border border-border capitalize">
+                    {isIndian ? (
+                      <span className="px-2.5 py-1 text-[11px] font-black rounded-lg bg-orange-500/15 text-orange-600 dark:text-orange-400 border border-orange-500/30 flex items-center gap-1">
+                        <span>🇮🇳</span>
+                        <span>National Flagship</span>
+                      </span>
+                    ) : (
+                      <span className="px-2.5 py-1 text-[11px] font-mono font-bold rounded-lg bg-primary/10 text-primary border border-primary/20">
+                        #{event.rank}
+                      </span>
+                    )}
+
+                    <span className="px-2.5 py-1 text-[11px] font-bold rounded-lg bg-surface-2 text-text-secondary border border-border capitalize">
                       {event.type.replace('_', ' ')}
                     </span>
+
                     {event.scope && (
-                      <span className="px-2.5 py-1 text-xs font-bold rounded-md bg-surface-2 text-text-secondary border border-border capitalize">
+                      <span className="px-2.5 py-1 text-[11px] font-bold rounded-lg bg-surface-2 text-text-secondary border border-border capitalize">
                         {event.scope}
                       </span>
                     )}
                   </div>
+
                   <button
                     onClick={(e) => handleTogglePlan(e, event.id)}
                     className={`p-2 rounded-xl border transition-all ${
@@ -418,45 +417,65 @@ export function EventsTab({
                   </button>
                 </div>
 
+                {/* Title & Organizer */}
                 <div>
-                  <h3 className="text-xl sm:text-2xl font-black text-foreground group-hover:text-primary transition-colors">
+                  <h3 className="text-xl sm:text-2xl font-black text-foreground group-hover:text-primary transition-colors tracking-tight leading-snug">
                     {event.name}
                   </h3>
-                  <p className="text-xs text-text-secondary font-medium mt-1">
-                    Organizer: <span className="text-foreground font-semibold">{event.organizer}</span>
+                  <p className="text-xs text-text-secondary font-medium mt-1 flex items-center gap-1.5">
+                    <Trophy className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                    <span>Organizer: <strong className="text-foreground">{event.organizer}</strong></span>
                   </p>
                 </div>
 
-                <p className="text-sm text-text-secondary leading-relaxed line-clamp-2">
+                {/* What it is overview */}
+                <p className="text-xs sm:text-sm text-text-secondary leading-relaxed line-clamp-2">
                   {event.whatItIs}
                 </p>
 
+                {/* High-Value Highlights: PPO / Prize Badges */}
+                <div className="flex flex-wrap gap-2 pt-1">
+                  {event.ppoOffered && (
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-500/15 border border-emerald-500/35 text-emerald-600 dark:text-emerald-400 font-bold text-xs shadow-xs">
+                      <Briefcase className="w-3.5 h-3.5 shrink-0" />
+                      <span>{event.ppoOffered}</span>
+                    </div>
+                  )}
+
+                  {event.costInr && (
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-500/15 border border-amber-500/35 text-amber-600 dark:text-amber-400 font-bold text-xs shadow-xs">
+                      <Gift className="w-3.5 h-3.5 shrink-0" />
+                      <span>{event.costInr}</span>
+                    </div>
+                  )}
+                </div>
+
                 {/* Key logistics row */}
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 text-xs text-text-secondary">
+                <div className="grid grid-cols-3 gap-2 text-xs text-text-secondary">
                   <div className="p-2.5 rounded-xl bg-surface-2 border border-border">
                     <span className="text-[10px] text-muted block uppercase font-bold">Duration</span>
-                    <strong className="text-foreground">{event.duration}</strong>
+                    <strong className="text-foreground truncate block">{event.duration}</strong>
                   </div>
                   <div className="p-2.5 rounded-xl bg-surface-2 border border-border">
                     <span className="text-[10px] text-muted block uppercase font-bold">Team Size</span>
-                    <strong className="text-foreground">{event.teamSize || 'Solo / Team'}</strong>
+                    <strong className="text-foreground truncate block">{event.teamSize || 'Solo / Squad'}</strong>
                   </div>
                   <div className="p-2.5 rounded-xl bg-surface-2 border border-border">
-                    <span className="text-[10px] text-muted block uppercase font-bold">Typical Window</span>
+                    <span className="text-[10px] text-muted block uppercase font-bold">Window</span>
                     <strong className="text-foreground truncate block">{event.typicalWindow.replace('Typical window: ', '')}</strong>
                   </div>
                 </div>
 
-                {/* Resume bullet preview card */}
-                <div className="p-3.5 rounded-xl bg-primary/5 border border-primary/20 space-y-2">
+                {/* Resume bullet formula preview card */}
+                <div className="p-3.5 rounded-2xl bg-primary/5 border border-primary/20 space-y-2">
                   <div className="flex items-center justify-between text-xs">
-                    <span className="font-bold text-primary flex items-center gap-1">
+                    <span className="font-bold text-primary flex items-center gap-1.5">
                       <Sparkles className="w-3.5 h-3.5" />
-                      Resume Presentation Formula
+                      Resume Presentation Bullet
                     </span>
                     <button
                       onClick={(e) => handleCopyTemplate(e, event)}
-                      className="text-[11px] font-bold text-foreground hover:text-primary transition-colors flex items-center gap-1"
+                      className="text-[11px] font-bold text-foreground hover:text-primary transition-colors flex items-center gap-1 cursor-pointer"
                     >
                       {copiedId === event.id ? (
                         <>
@@ -471,19 +490,30 @@ export function EventsTab({
                       )}
                     </button>
                   </div>
-                  <p className="font-mono text-xs text-foreground bg-surface p-2.5 rounded-lg border border-border">
+                  <p className="font-mono text-xs text-foreground bg-surface p-2.5 rounded-xl border border-border line-clamp-2 leading-relaxed">
                     {event.resumePresentationTemplate}
                   </p>
                 </div>
               </div>
 
-              {/* Card Footer */}
-              <div className="pt-4 border-t border-border flex items-center justify-between text-xs">
-                <span className="text-text-secondary">
-                  Last verified: <strong className="text-foreground">{event.lastVerifiedAt}</strong>
-                </span>
+              {/* Bottom Dual Action Bar */}
+              <div className="mt-6 pt-4 border-t border-border flex items-center justify-between gap-3 text-xs">
+                {/* Working Direct Registration Portal Link */}
+                <a
+                  href={portalUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-surface-2 hover:bg-primary hover:text-white border border-border hover:border-primary font-black text-foreground transition-all duration-200 group/btn shadow-xs"
+                  title={`Open official registration portal for ${event.name}`}
+                >
+                  <span>Register on Portal</span>
+                  <ExternalLink className="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform text-primary group-hover/btn:text-white" />
+                </a>
+
+                {/* Details Trigger */}
                 <span className="inline-flex items-center gap-1 font-bold text-primary group-hover:translate-x-1 transition-transform">
-                  <span>View Full Details & Checklist</span>
+                  <span>Strategy & Checklist</span>
                   <ChevronRight className="w-4 h-4" />
                 </span>
               </div>
@@ -491,6 +521,16 @@ export function EventsTab({
           );
         })}
       </div>
+
+      {filteredEvents.length === 0 && (
+        <div className="p-12 text-center rounded-2xl bg-surface border-2 border-dashed border-border space-y-3">
+          <Trophy className="w-10 h-10 text-muted mx-auto" />
+          <h3 className="text-lg font-bold text-foreground">No events match your active filters</h3>
+          <p className="text-sm text-text-secondary max-w-md mx-auto">
+            Try adjusting your role or mode filters to view hackathons and competitions.
+          </p>
+        </div>
+      )}
     </div>
   );
 }

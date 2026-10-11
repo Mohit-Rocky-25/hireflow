@@ -207,6 +207,12 @@ export interface OpportunityRecord {
   commonMistakes?: string[];
   contributionExpectations?: string;
   teamSize?: string;
+  costInr?: string;
+  studentDiscountNote?: string;
+  isIndianFlagship?: boolean;
+  ppoOffered?: string;
+  stipendAmount?: string;
+  directPortalUrl?: string;
 }
 
 // ── Opportunity Plan & Recommendation Models ──

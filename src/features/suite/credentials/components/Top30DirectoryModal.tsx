@@ -1,6 +1,6 @@
 // ============================================================
-// Credential & Opportunity Engine — Top 30 Directory Component (Stage 10)
-// Complete ranked table view of all 30 opportunities
+// Credential & Opportunity Engine — Opportunity Directory Component
+// Complete searchable table view of all 42 opportunities with INR pricing & links
 // ============================================================
 
 import React, { useState, useMemo } from 'react';
@@ -9,11 +9,10 @@ import {
   Search,
   ExternalLink,
   ChevronRight,
-  Filter,
-  CheckCircle2,
   Award,
+  IndianRupee,
 } from 'lucide-react';
-import { TOP_30_OPPORTUNITIES } from '../data/opportunitiesData';
+import { ALL_OPPORTUNITIES } from '../data/opportunitiesData';
 import { OpportunityRecord } from '../types';
 
 interface Top30DirectoryModalProps {
@@ -30,9 +29,12 @@ export function Top30DirectoryModal({
   const [searchQuery, setSearchQuery] = useState('');
   const [tierFilter, setTierFilter] = useState<string>('All');
   const [kindFilter, setKindFilter] = useState<string>('All');
+  const [onlyIndian, setOnlyIndian] = useState(false);
 
   const filtered = useMemo(() => {
-    return TOP_30_OPPORTUNITIES.filter((opp) => {
+    return ALL_OPPORTUNITIES.filter((opp) => {
+      if (onlyIndian && !opp.isIndianFlagship && opp.id !== 'opp-sih') return false;
+
       if (searchQuery.trim()) {
         const q = searchQuery.toLowerCase();
         const matchesName = opp.name.toLowerCase().includes(q);
@@ -44,14 +46,14 @@ export function Top30DirectoryModal({
       if (kindFilter !== 'All' && opp.kind !== kindFilter) return false;
       return true;
     });
-  }, [searchQuery, tierFilter, kindFilter]);
+  }, [searchQuery, tierFilter, kindFilter, onlyIndian]);
 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/75 backdrop-blur-xs animate-fade-in">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md animate-fade-in">
       <div
-        className="bg-surface border-2 border-border rounded-3xl w-full max-w-6xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden"
+        className="bg-surface border-2 border-border/80 rounded-3xl w-full max-w-6xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -60,16 +62,16 @@ export function Top30DirectoryModal({
             <div className="flex items-center gap-2">
               <Award className="w-5 h-5 text-primary" />
               <h2 className="text-xl sm:text-2xl font-black text-foreground">
-                Top 30 Opportunity Catalog Directory
+                Verified Career Evidence Catalog Directory
               </h2>
             </div>
             <p className="text-xs text-text-secondary mt-1">
-              Curated, verified benchmark catalog for BTech & college engineering students.
+              Curated, verified benchmark catalog of 42 high-value certifications, Indian hackathons, and open-source programs.
             </p>
           </div>
           <button
             onClick={onClose}
-            className="p-2 rounded-xl bg-surface border border-border text-text-secondary hover:text-foreground transition-colors"
+            className="p-2.5 rounded-xl bg-surface border border-border text-text-secondary hover:text-foreground transition-colors cursor-pointer"
             aria-label="Close modal"
           >
             <X className="w-5 h-5" />
@@ -84,27 +86,39 @@ export function Top30DirectoryModal({
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Filter by title, role, or organizer..."
+              placeholder="Search by title, role, skill, or issuer..."
               className="w-full pl-9 pr-3 py-2 rounded-xl bg-surface-2 border border-border text-xs text-foreground focus:outline-none focus:border-primary"
             />
           </div>
 
-          <div className="flex items-center gap-2 w-full sm:w-auto">
+          <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+            <button
+              onClick={() => setOnlyIndian(!onlyIndian)}
+              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all border flex items-center gap-1.5 cursor-pointer ${
+                onlyIndian
+                  ? 'bg-orange-500/15 text-orange-600 dark:text-orange-400 border-orange-500/40'
+                  : 'bg-surface-2 border-border text-text-secondary hover:text-foreground'
+              }`}
+            >
+              <span>🇮🇳</span>
+              <span>Indian Flagships</span>
+            </button>
+
             <select
               value={tierFilter}
               onChange={(e) => setTierFilter(e.target.value)}
-              className="px-2.5 py-1.5 rounded-lg bg-surface-2 border border-border text-xs text-foreground focus:outline-none focus:border-primary"
+              className="px-2.5 py-1.5 rounded-lg bg-surface-2 border border-border text-xs text-foreground focus:outline-none focus:border-primary font-medium"
             >
               <option value="All">All Tiers</option>
-              <option value="tier1">Tier 1 · Build First (1-10)</option>
-              <option value="tier2">Tier 2 · Build Next (11-20)</option>
-              <option value="tier3">Tier 3 · Post-Core (21-30)</option>
+              <option value="tier1">Tier 1 · Build First</option>
+              <option value="tier2">Tier 2 · Build Next</option>
+              <option value="tier3">Tier 3 · Post-Core</option>
             </select>
 
             <select
               value={kindFilter}
               onChange={(e) => setKindFilter(e.target.value)}
-              className="px-2.5 py-1.5 rounded-lg bg-surface-2 border border-border text-xs text-foreground focus:outline-none focus:border-primary"
+              className="px-2.5 py-1.5 rounded-lg bg-surface-2 border border-border text-xs text-foreground focus:outline-none focus:border-primary font-medium"
             >
               <option value="All">All Types</option>
               <option value="certification">Certifications</option>
@@ -119,48 +133,66 @@ export function Top30DirectoryModal({
           <table className="w-full text-left text-xs text-text-secondary border-collapse">
             <thead>
               <tr className="border-b border-border text-foreground font-bold uppercase tracking-wider text-[11px] bg-surface-2">
-                <th className="py-3 px-3">Rank</th>
+                <th className="py-3 px-3">#</th>
                 <th className="py-3 px-3">Opportunity Name</th>
                 <th className="py-3 px-3">Type</th>
-                <th className="py-3 px-3">Category</th>
+                <th className="py-3 px-3">Indian Market Fee (INR)</th>
                 <th className="py-3 px-3">Best-For Roles</th>
                 <th className="py-3 px-3">Resume Val</th>
-                <th className="py-3 px-3">Evidence Val</th>
                 <th className="py-3 px-3">Typical Window</th>
-                <th className="py-3 px-3">Confidence</th>
-                <th className="py-3 px-3">Last Verified</th>
+                <th className="py-3 px-3">Official Portal</th>
                 <th className="py-3 px-3">Action</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border">
-              {filtered.map((opp) => (
-                <tr
-                  key={opp.id}
-                  onClick={() => {
-                    onSelectOpportunity(opp);
-                    onClose();
-                  }}
-                  className="hover:bg-surface-2 transition-colors cursor-pointer group"
-                >
-                  <td className="py-3 px-3 font-mono font-bold text-primary">#{opp.rank}</td>
-                  <td className="py-3 px-3 font-bold text-foreground group-hover:text-primary transition-colors">
-                    {opp.name}
-                  </td>
-                  <td className="py-3 px-3 capitalize">{opp.type.replace('_', ' ')}</td>
-                  <td className="py-3 px-3 truncate max-w-[140px]">{opp.category[0]}</td>
-                  <td className="py-3 px-3 truncate max-w-[160px]">{opp.targetRoles.slice(0, 2).join(', ')}</td>
-                  <td className="py-3 px-3 capitalize font-semibold text-foreground">{opp.resumeValue}</td>
-                  <td className="py-3 px-3 capitalize font-semibold text-foreground">{opp.evidenceValue}</td>
-                  <td className="py-3 px-3 truncate max-w-[150px]">{opp.typicalWindow.replace('Typical window: ', '')}</td>
-                  <td className="py-3 px-3 capitalize font-semibold text-foreground">{opp.confidence}</td>
-                  <td className="py-3 px-3 whitespace-nowrap">{opp.lastVerifiedAt}</td>
-                  <td className="py-3 px-3">
-                    <span className="text-primary font-bold group-hover:underline inline-flex items-center gap-1">
-                      Details →
-                    </span>
-                  </td>
-                </tr>
-              ))}
+              {filtered.map((opp) => {
+                const portalUrl = opp.directPortalUrl || opp.officialUrl;
+                const isIndianFlag = opp.isIndianFlagship || opp.id === 'opp-sih';
+
+                return (
+                  <tr
+                    key={opp.id}
+                    onClick={() => {
+                      onSelectOpportunity(opp);
+                      onClose();
+                    }}
+                    className="hover:bg-surface-2 transition-colors cursor-pointer group"
+                  >
+                    <td className="py-3 px-3 font-mono font-bold text-primary">#{opp.rank}</td>
+                    <td className="py-3 px-3 font-bold text-foreground group-hover:text-primary transition-colors">
+                      <div className="flex items-center gap-1.5">
+                        {isIndianFlag && <span title="Indian Flagship">🇮🇳</span>}
+                        <span>{opp.name}</span>
+                      </div>
+                    </td>
+                    <td className="py-3 px-3 capitalize">{opp.type.replace('_', ' ')}</td>
+                    <td className="py-3 px-3 font-bold text-emerald-600 dark:text-emerald-400 whitespace-nowrap">
+                      {opp.costInr || opp.cost || 'Free'}
+                    </td>
+                    <td className="py-3 px-3 truncate max-w-[160px]">{opp.targetRoles.slice(0, 2).join(', ')}</td>
+                    <td className="py-3 px-3 capitalize font-semibold text-foreground">{opp.resumeValue}</td>
+                    <td className="py-3 px-3 truncate max-w-[150px]">{opp.typicalWindow.replace('Typical window: ', '')}</td>
+                    <td className="py-3 px-3" onClick={(e) => e.stopPropagation()}>
+                      <a
+                        href={portalUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-1 rounded-md text-primary hover:bg-primary/10 inline-flex items-center gap-1 font-bold"
+                        title="Open Official Website"
+                      >
+                        <span>Portal</span>
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                    </td>
+                    <td className="py-3 px-3">
+                      <span className="text-primary font-bold group-hover:underline inline-flex items-center gap-0.5">
+                        <span>Details</span>
+                        <ChevronRight className="w-3.5 h-3.5" />
+                      </span>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
