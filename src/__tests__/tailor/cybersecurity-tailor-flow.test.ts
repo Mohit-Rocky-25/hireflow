@@ -232,16 +232,15 @@ CERTIFICATIONS & CONTINUOUS LEARNING
 
     const recovered = recoverResumeStructure(rawResume);
 
-    // 1. Projects must be isolated into exactly 4 distinct projects
-    expect(recovered.projects.length).toBe(4);
+    // 1. Projects must be isolated into exactly 3 distinct technical projects (CTF routed to achievements)
+    expect(recovered.projects.length).toBe(3);
     expect(recovered.projects[0].name).toContain('Android Application Security Assessment');
     expect(recovered.projects[0].bullets.length).toBe(3);
     expect(recovered.projects[1].name).toContain('Binary Patching & Privilege Escalation');
     expect(recovered.projects[1].bullets.length).toBe(2);
-    expect(recovered.projects[2].name).toContain('L3AK CTF');
-    expect(recovered.projects[2].bullets.length).toBe(3);
-    expect(recovered.projects[3].name).toContain('Network Security Fundamentals');
-    expect(recovered.projects[3].bullets.length).toBe(2);
+    expect(recovered.projects[2].name).toContain('Network Security Fundamentals');
+    expect(recovered.projects[2].bullets.length).toBe(2);
+    expect(recovered.achievements.join(' ')).toContain('L3AK CTF');
 
     // 2. Core Competencies must NOT be polluted with project narratives or sentences
     const coreCompCategory = recovered.skills.categories.find(
@@ -256,9 +255,10 @@ CERTIFICATIONS & CONTINUOUS LEARNING
       expect(skill.length).toBeLessThan(40);
     }
 
-    // 3. Document Model should properly contain projects and clean skill categories
+    // 3. Document Model should properly contain 3 projects, achievements, and clean skill categories
     const docModel = parseResumeDocModel(rawResume);
-    expect(docModel.projects.length).toBe(4);
+    expect(docModel.projects.length).toBe(3);
+    expect(docModel.achievements.length).toBeGreaterThan(0);
     expect(docModel.projects[0].bullets.length).toBe(3);
     expect(docModel.projects[0].bullets[0].text).toContain('Performed static analysis with JADX');
     expect(docModel.projects[1].bullets[0].text).toContain('Reverse engineered an Android APK');

@@ -260,18 +260,48 @@ export const ClassicTemplate: React.FC<TemplateProps> = ({ model, showChanges })
 
   const renderCertifications = () => {
     if (!model.certifications || model.certifications.length === 0) return null;
+
+    const completed: string[] = [];
+    const inProgress: string[] = [];
+    const practice: string[] = [];
+
+    for (const cert of model.certifications) {
+      if (/\b(?:studying|preparing|currently|in\s*progress|pursuing|candidate)\b/i.test(cert)) {
+        inProgress.push(cert);
+      } else if (/\b(?:labs?|platforms?|learning\s*logs?|portswigger|hack\s*the\s*box|tryhackme|bug\s*hunting)\b/i.test(cert)) {
+        practice.push(cert);
+      } else {
+        completed.push(cert);
+      }
+    }
+
+    const groups = [
+      { label: 'Completed', items: completed },
+      { label: 'In Progress', items: inProgress },
+      { label: 'Self-Directed Practice', items: practice }
+    ].filter((g) => g.items.length > 0);
+
     return (
       <section key="certifications" className="mt-3.5">
         <h2 className="text-[10.5pt] font-bold uppercase tracking-wider text-black border-b border-gray-400 pb-0.5 mb-1.5 font-sans">
-          Certifications & Continuous Learning
+          CERTIFICATIONS & LEARNING
         </h2>
-        <ul className="list-disc list-outside ml-4 space-y-0.5 text-[9.6pt] text-gray-800 font-sans">
-          {model.certifications.map((cert, idx) => (
-            <li key={idx} className="leading-snug">
-              {cert}
-            </li>
+        <div className="space-y-1.5">
+          {groups.map((group) => (
+            <div key={group.label}>
+              <div className="text-[8.5pt] font-semibold text-gray-700 uppercase tracking-wide font-sans mb-0.5">
+                {group.label}
+              </div>
+              <ul className="list-disc list-outside ml-4 space-y-0.5 text-[9.6pt] text-gray-800 font-sans">
+                {group.items.map((cert, idx) => (
+                  <li key={idx} className="leading-snug">
+                    {cert}
+                  </li>
+                ))}
+              </ul>
+            </div>
           ))}
-        </ul>
+        </div>
       </section>
     );
   };

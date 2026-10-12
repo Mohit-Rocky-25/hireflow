@@ -274,19 +274,49 @@ export const ModernTemplate: React.FC<TemplateProps> = ({ model, showChanges }) 
 
   const renderCertifications = () => {
     if (!model.certifications || model.certifications.length === 0) return null;
+
+    const completed: string[] = [];
+    const inProgress: string[] = [];
+    const practice: string[] = [];
+
+    for (const cert of model.certifications) {
+      if (/\b(?:studying|preparing|currently|in\s*progress|pursuing|candidate)\b/i.test(cert)) {
+        inProgress.push(cert);
+      } else if (/\b(?:labs?|platforms?|learning\s*logs?|portswigger|hack\s*the\s*box|tryhackme|bug\s*hunting)\b/i.test(cert)) {
+        practice.push(cert);
+      } else {
+        completed.push(cert);
+      }
+    }
+
+    const groups = [
+      { label: 'Completed', items: completed },
+      { label: 'In Progress', items: inProgress },
+      { label: 'Self-Directed Practice', items: practice }
+    ].filter((g) => g.items.length > 0);
+
     return (
       <section key="certifications" className="mt-3.5">
-        <h2 className="text-[10pt] font-bold uppercase tracking-wider text-indigo-900 flex items-center gap-2 mb-1.5">
+        <h2 className="text-[10pt] font-bold uppercase tracking-wider text-indigo-900 flex items-center gap-2 mb-1.5 font-sans">
           <span className="w-1.5 h-1.5 rounded-full bg-indigo-600 inline-block"></span>
-          Certifications & Continuous Learning
+          CERTIFICATIONS & LEARNING
         </h2>
-        <ul className="list-disc list-outside ml-4 space-y-0.5 text-[9.4pt] text-zinc-700">
-          {model.certifications.map((cert, idx) => (
-            <li key={idx} className="leading-snug">
-              {cert}
-            </li>
+        <div className="space-y-1.5">
+          {groups.map((group) => (
+            <div key={group.label}>
+              <div className="text-[8.5pt] font-semibold text-indigo-800 uppercase tracking-wide mb-0.5 font-sans">
+                {group.label}
+              </div>
+              <ul className="list-disc list-outside ml-4 space-y-0.5 text-[9.4pt] text-zinc-700">
+                {group.items.map((cert, idx) => (
+                  <li key={idx} className="leading-snug">
+                    {cert}
+                  </li>
+                ))}
+              </ul>
+            </div>
           ))}
-        </ul>
+        </div>
       </section>
     );
   };

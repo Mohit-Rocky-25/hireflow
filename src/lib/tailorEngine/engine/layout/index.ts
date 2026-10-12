@@ -149,12 +149,34 @@ export function buildLayoutTree(
 
       case 'certifications': {
         if (resume.certifications.length > 0) {
+          const completed = resume.certifications.filter((c) => c.status === 'completed');
+          const inProgress = resume.certifications.filter((c) => c.status === 'in_progress');
+          const practice = resume.certifications.filter((c) => c.status === 'practice' || (c.status as string) === 'coursework');
+
+          const lines: string[] = [];
+          if (completed.length > 0) {
+            lines.push('Completed:');
+            for (const c of completed) {
+              lines.push(`• ${c.name}${c.issuer ? ` — ${c.issuer}` : ''}${c.date ? ` (${c.date})` : ''}`);
+            }
+          }
+          if (inProgress.length > 0) {
+            lines.push('In Progress:');
+            for (const c of inProgress) {
+              lines.push(`• ${c.name}${c.issuer ? ` — ${c.issuer}` : ''}${c.date ? ` (${c.date})` : ''}`);
+            }
+          }
+          if (practice.length > 0) {
+            lines.push('Self-Directed Practice:');
+            for (const c of practice) {
+              lines.push(`• ${c.name}${c.issuer ? ` — ${c.issuer}` : ''}${c.date ? ` (${c.date})` : ''}`);
+            }
+          }
+
           sections.push({
             key: 'certifications',
-            title: 'Certifications & Training',
-            lines: resume.certifications.map(
-              (c) => `${c.name}${c.issuer ? ` — ${c.issuer}` : ''}${c.status !== 'completed' ? ` [${c.status}]` : ''}`
-            )
+            title: 'CERTIFICATIONS & LEARNING',
+            lines
           });
         }
         break;

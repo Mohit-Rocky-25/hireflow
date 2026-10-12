@@ -73,7 +73,7 @@ export function recoverResumeStructure(rawText: string): RecoveredResume {
     }
   }
 
-  const projects = parseProjectsSection(projectsContent);
+  let projects = parseProjectsSection(projectsContent);
 
   // 5. Experience Extraction
   const expContent = sections.filter((s) => s.kind === 'experience').map((s) => s.content).join('\n');

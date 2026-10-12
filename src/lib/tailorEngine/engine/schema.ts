@@ -94,7 +94,7 @@ export const CertificationItemSchema = z.object({
   name: z.string().min(1),
   issuer: z.string().optional(),
   date: DateFieldSchema,
-  status: z.enum(['completed', 'in_progress', 'coursework']).default('completed')
+  status: z.enum(['completed', 'in_progress', 'practice', 'coursework']).default('completed')
 });
 
 export const CustomSectionSchema = z.object({

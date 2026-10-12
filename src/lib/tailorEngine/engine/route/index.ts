@@ -609,6 +609,28 @@ function parseLeadershipChunk(
 // -------------------------------------------------------------
 // Certifications Chunk Parser (Typed Status)
 // -------------------------------------------------------------
+function splitMixedCertLine(clean: string): string[] {
+  // Check if line mixes Completed / Coursework with In Progress (studying/preparing/currently)
+  const inProgressMatch = clean.match(/^(.*?)(?:,\s*and\s+|\s+and\s+|;\s*)((?:studying|preparing|currently|in\s*progress)\b.*)$/i);
+  if (inProgressMatch && inProgressMatch[1].trim() && inProgressMatch[2].trim()) {
+    const part1 = inProgressMatch[1].trim();
+    let part2 = inProgressMatch[2].trim();
+    part2 = part2.charAt(0).toUpperCase() + part2.slice(1);
+    return [part1, part2];
+  }
+
+  // Check if line mixes with Self-Directed Practice (labs/platforms/learning log)
+  const practiceMatch = clean.match(/^(.*?)(?:,\s*and\s+|\s+and\s+|;\s*)((?:actively\s+)?(?:solving\s+)?(?:labs?|platforms?|learning\s*logs?)\b.*)$/i);
+  if (practiceMatch && practiceMatch[1].trim() && practiceMatch[2].trim()) {
+    const part1 = practiceMatch[1].trim();
+    let part2 = practiceMatch[2].trim();
+    part2 = part2.charAt(0).toUpperCase() + part2.slice(1);
+    return [part1, part2];
+  }
+
+  return [clean];
+}
+
 function parseCertificationsChunk(
   chunk: NormalizedSectionChunk,
   outCerts: CertificationItem[],
@@ -636,27 +658,44 @@ function parseCertificationsChunk(
       continue;
     }
 
-    let status: 'completed' | 'in_progress' | 'coursework' = 'completed';
-    if (/coursework|udemy|coursera|learning\s*log/i.test(clean)) {
-      status = 'coursework';
-    } else if (/studying|in\s*progress|candidate|pursuing/i.test(clean)) {
-      status = 'in_progress';
+    const segments = splitMixedCertLine(clean);
+
+    for (const seg of segments) {
+      let status: 'completed' | 'in_progress' | 'practice' = 'completed';
+      if (/\b(?:studying|preparing|currently|in\s*progress|pursuing|candidate)\b/i.test(seg)) {
+        status = 'in_progress';
+      } else if (/\b(?:labs?|platforms?|learning\s*logs?|portswigger|hack\s*the\s*box|tryhackme|leetcode|bug\s*hunting)\b/i.test(seg)) {
+        status = 'practice';
+      } else {
+        status = 'completed';
+      }
+
+      let name = seg;
+      let issuer: string | undefined = undefined;
+
+      if (seg.includes('—')) {
+        const parts = seg.split('—').map((p) => p.trim());
+        name = parts[0];
+        issuer = parts.slice(1).join(' — ');
+      } else if (seg.includes('|')) {
+        const parts = seg.split('|').map((p) => p.trim());
+        name = parts[0];
+        issuer = parts.slice(1).join(' | ');
+      } else {
+        const parenMatch = seg.match(/^(.*?)\s*\((.*?)\)$/);
+        if (parenMatch) {
+          name = parenMatch[1].trim();
+          issuer = parenMatch[2].trim();
+        }
+      }
+
+      // Ensure name starts capitalized
+      if (name.length > 0) {
+        name = name.charAt(0).toUpperCase() + name.slice(1);
+      }
+
+      outCerts.push({ name, issuer, status });
     }
-
-    let name = clean;
-    let issuer: string | undefined = undefined;
-
-    if (clean.includes('—')) {
-      const parts = clean.split('—').map((p) => p.trim());
-      name = parts[0];
-      issuer = parts[1];
-    } else if (clean.includes('|')) {
-      const parts = clean.split('|').map((p) => p.trim());
-      name = parts[0];
-      issuer = parts[1];
-    }
-
-    outCerts.push({ name, issuer, status });
   }
 }
 
