@@ -263,6 +263,16 @@ function normalizeSkillToken(token: string): string[] {
   const clean = token.trim().replace(/^[-•*●▪‣]\s*/, '').trim();
   const lower = clean.toLowerCase();
 
+  // Guard: Reject narrative sentences, project descriptions, or action bullets
+  if (
+    clean.length > 45 ||
+    clean.split(/\s+/).length > 5 ||
+    /^(?:performed|identified|documented|built|developed|engineered|created|configured|tested|reverse\s*engineered|analyzed|implemented|competed|attempted|reviewed|used|designed|authored|spearheaded|automated|conducted|organized|maintained|deployed)\b/i.test(clean) ||
+    /[.!?]$/.test(clean)
+  ) {
+    return [];
+  }
+
   // Special compound phrases
   if (lower === 'git and github' || lower === 'git & github') {
     return ['Git', 'GitHub'];
@@ -362,6 +372,13 @@ export function parseSkillsSection(content: string, contextTextsToScan: string[]
   for (const line of rawLines) {
     const isCategoryLine = line.match(/^([A-Za-z0-9\s&/]{2,35})\s*[:–—]\s*(.+)$/);
     if (!isCategoryLine) {
+      // Guard: Skip lines that are action bullets (starting with action verbs)
+      if (
+        /^(?:performed|identified|documented|built|developed|engineered|created|configured|tested|reverse\s*engineered|analyzed|implemented|competed|attempted|reviewed|used|designed|authored|spearheaded|automated|conducted|organized|maintained|deployed)\b/i.test(line)
+      ) {
+        continue;
+      }
+
       const tokens = line
         .split(/(?:[\n•●▪‣*;|,]|\s+[-–—]\s+)/)
         .map((t) => t.trim().replace(/^[-•*]\s*/, '').trim())

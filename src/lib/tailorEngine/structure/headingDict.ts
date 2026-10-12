@@ -63,7 +63,19 @@ export const HEADING_DEFINITIONS: HeadingDefinition[] = [
       'notable projects',
       'relevant projects',
       'security projects',
+      'security projects & practical experience',
+      'security projects and practical experience',
+      'projects & practical experience',
+      'projects and practical experience',
+      'projects & experience',
+      'practical experience & projects',
+      'technical projects & experience',
       'hands-on projects',
+      'hands-on projects & labs',
+      'security projects & labs',
+      'projects & lab work',
+      'lab work & projects',
+      'practical projects',
       'featured projects',
       'selected projects',
       'independent projects',
@@ -192,18 +204,53 @@ export interface HeadingMatch {
  * Checks if a standalone trimmed line matches a known heading.
  */
 export function matchExactHeadingLine(line: string): HeadingDefinition | null {
-  const clean = line
+  const trimmed = line.trim();
+  // Guard: Bullet lines or list items are NEVER section headings
+  if (/^[-•*●▪‣]\s*/.test(trimmed)) {
+    return null;
+  }
+
+  const clean = trimmed
     .replace(/^[#*_\-\s]+/, '')
     .replace(/[:\-#•*_\s]+$/, '')
     .trim()
     .toLowerCase();
-  if (clean.length < 2 || clean.length > 40) return null;
+
+  // Section headings are concise: 2 to 50 characters, at most 5 words
+  if (clean.length < 2 || clean.length > 50 || clean.split(/\s+/).length > 5) return null;
 
   for (const def of HEADING_DEFINITIONS) {
     if (def.aliases.includes(clean)) {
       return def;
     }
   }
+
+  // Regex / Pattern Fallbacks for compound or decorated section headings
+  // 1. Projects: Contains "project" or "projects" (e.g. "security projects & practical experience", "academic & personal projects")
+  if (/\bprojects?\b/i.test(clean) && !/\b(?:management|manager|coordination)\b/i.test(clean)) {
+    return HEADING_DEFINITIONS.find((d) => d.kind === 'projects') || null;
+  }
+
+  // 2. Experience: Contains "experience", "employment", or "internships"
+  if (/\b(?:work\s*experience|practical\s*experience|professional\s*experience|employment|internships?|work\s*history)\b/i.test(clean)) {
+    return HEADING_DEFINITIONS.find((d) => d.kind === 'experience') || null;
+  }
+
+  // 3. Technical Skills: Contains "skills" or "competencies"
+  if (/\b(?:technical\s*skills?|core\s*competencies|skills?\s*&\s*abilities|technical\s*proficiency)\b/i.test(clean)) {
+    return HEADING_DEFINITIONS.find((d) => d.kind === 'skills') || null;
+  }
+
+  // 4. Certifications & Training
+  if (/\b(?:certifications?|certificates?|continuous\s*learning|ongoing\s*learning)\b/i.test(clean)) {
+    return HEADING_DEFINITIONS.find((d) => d.kind === 'certifications') || null;
+  }
+
+  // 5. Leadership & Involvement
+  if (/\b(?:leadership|involvement|extracurricular)\b/i.test(clean)) {
+    return HEADING_DEFINITIONS.find((d) => d.kind === 'leadership') || null;
+  }
+
   return null;
 }
 

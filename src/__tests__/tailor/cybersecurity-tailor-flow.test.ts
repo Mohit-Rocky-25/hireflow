@@ -191,4 +191,81 @@ Requirements:
     expect(afterFormula.result).toBe(true); // 4 subnets / zero packet loss
     expect(afterFormula.score).toBe(4);
   });
+
+  it('correctly isolates SECURITY PROJECTS & PRACTICAL EXPERIENCE from Core Competencies into presentable project bullets', () => {
+    const rawResume = `JESWANTH POSINA CYBERSECURITY
+jeswanth.cipher1337@gmail.com | +91 7288922933 | Intern | linkedin.com/in/jeswanthposina | github.com/HackerJbon1337
+
+TECHNICAL SKILLS
+Scripting & Platforms: Bash (Kali Linux), PowerShell, Linux, IIS
+Core Competencies: Static & Dynamic Analysis, Reverse Engineering, Binary Patching, OWASP Top 10, OWASP MASTG, CTFs
+Tools & Platforms: Browser DevTools
+Networking & Protocols: Network Encapsulation
+
+SECURITY PROJECTS & PRACTICAL EXPERIENCE
+Android Application Security Assessment (AndroGoat) 2026
+Performed static analysis with JADX to locate hardcoded secrets (API keys, Promo Codes, tokens) embedded in a vulnerable Android APK.
+Identified insecure local data storage in SharedPreferences by combining static analysis (JADX) with dynamic inspection via ADB.
+Documented client-side trust risks and secure-storage recommendations based on OWASP Mobile Top 10 principles.
+
+Binary Patching & Privilege Escalation Challenge 2026
+Reverse engineered an Android APK to locate a client-side isAdmin authorization check using JADX.
+Modified Application Logic With APKTool, Rebuilt and Re-signed The APK, and successfully escalated privileges on an emulator, demonstrating the risk of enforcing security decisions on the client side.
+
+L3AK CTF 2026 (International Capture the Flag Competition) 2026
+Competed in a 48-hour international CTF as a first-time participant after an invitation from a senior teammate.
+Attempted GeoOSINT and CSRF-bypass challenges, built practical skills in HTTP request analysis, and Client-side JavaScript Injection.
+Reviewed official write-ups for unsolved challenges to close knowledge gaps and improve future performance.
+
+Network Security Fundamentals & Lab Work 2026
+Built and tested a subnetted network topology in Cisco Packet Tracer to reinforce IP addressing, and Routing Concepts.
+Used Wireshark and Nmap to analyze HTTP traffic from a self-hosted IIS server and test firewall/ACL behavior on a live network, Including ICMP Vs. HTTPS Handling.
+
+LEADERSHIP & INVOLVEMENT
+Technical Team Member — Null (InfoSec) Chapter — VIT-AP University 2026 – Present
+• Contribute to a student-run information security community focused on ethical hacking, CTFs, and security awareness on campus.
+
+CERTIFICATIONS & CONTINUOUS LEARNING
+• Completed OSI Model & TCP/IP Suite coursework (David Bombal — Networking Udemy course) and studying the OWASP MASTG for structured mobile pentesting methodology.
+• Actively solving labs on PortSwigger Web Security Academy and following Real-World Bug Hunting by Peter Yaworski
+• maintains a public, day-by-day cybersecurity learning log.`;
+
+    const recovered = recoverResumeStructure(rawResume);
+
+    // 1. Projects must be isolated into exactly 4 distinct projects
+    expect(recovered.projects.length).toBe(4);
+    expect(recovered.projects[0].name).toContain('Android Application Security Assessment');
+    expect(recovered.projects[0].bullets.length).toBe(3);
+    expect(recovered.projects[1].name).toContain('Binary Patching & Privilege Escalation');
+    expect(recovered.projects[1].bullets.length).toBe(2);
+    expect(recovered.projects[2].name).toContain('L3AK CTF');
+    expect(recovered.projects[2].bullets.length).toBe(3);
+    expect(recovered.projects[3].name).toContain('Network Security Fundamentals');
+    expect(recovered.projects[3].bullets.length).toBe(2);
+
+    // 2. Core Competencies must NOT be polluted with project narratives or sentences
+    const coreCompCategory = recovered.skills.categories.find(
+      (c) => c.category.toLowerCase().includes('core') || c.category.toLowerCase().includes('competenc')
+    );
+    expect(coreCompCategory).toBeDefined();
+    for (const skill of coreCompCategory?.skills || []) {
+      expect(skill).not.toContain('AndroGoat');
+      expect(skill).not.toContain('Performed');
+      expect(skill).not.toContain('Identified');
+      expect(skill).not.toContain('Reverse engineered');
+      expect(skill.length).toBeLessThan(40);
+    }
+
+    // 3. Document Model should properly contain projects and clean skill categories
+    const docModel = parseResumeDocModel(rawResume);
+    expect(docModel.projects.length).toBe(4);
+    expect(docModel.projects[0].bullets.length).toBe(3);
+    expect(docModel.projects[0].bullets[0].text).toContain('Performed static analysis with JADX');
+    expect(docModel.projects[1].bullets[0].text).toContain('Reverse engineered an Android APK');
+
+    // 4. Leadership & Certifications are preserved
+    expect(docModel.leadership.length).toBe(1);
+    expect(docModel.certifications.length).toBe(3);
+  });
 });
+

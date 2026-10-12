@@ -52,29 +52,45 @@ export function recoverResumeStructure(rawText: string): RecoveredResume {
   }
 
   // 3. Education Extraction
-  const eduSec = sections.find((s) => s.kind === 'education');
-  const education = eduSec ? parseEducationSection(eduSec.content) : [];
+  const eduContent = sections.filter((s) => s.kind === 'education').map((s) => s.content).join('\n');
+  const education = eduContent ? parseEducationSection(eduContent) : [];
 
-  // 4. Projects Extraction
-  const projSec = sections.find((s) => s.kind === 'projects');
-  const projects = projSec ? parseProjectsSection(projSec.content) : [];
+  // 4. Projects Extraction & Rescue Guard from Skills
+  let projectsContent = sections.filter((s) => s.kind === 'projects').map((s) => s.content).join('\n');
+  let skillsContent = sections.filter((s) => s.kind === 'skills').map((s) => s.content).join('\n');
+
+  // Rescue Guard: If skillsContent contains an internal Projects heading within multi-line text
+  const projectHeadingRegex = /\n\s*(?:(?:security|technical|academic|personal|hands-on|key)?\s*projects?(?:\s*(?:&|and)\s*(?:practical\s*experience|experience|labs|lab\s*work))?)\s*:?\s*(?:\n|$)/i;
+  if (projectHeadingRegex.test(skillsContent)) {
+    const matchIndex = skillsContent.search(projectHeadingRegex);
+    if (matchIndex > 0) {
+      const beforeHeading = skillsContent.slice(0, matchIndex).trim();
+      const afterHeading = skillsContent.slice(matchIndex).replace(projectHeadingRegex, '').trim();
+      if (beforeHeading.length > 0 && afterHeading.length > 0) {
+        skillsContent = beforeHeading;
+        projectsContent = (projectsContent ? projectsContent + '\n' : '') + afterHeading;
+      }
+    }
+  }
+
+  const projects = parseProjectsSection(projectsContent);
 
   // 5. Experience Extraction
-  const expSec = sections.find((s) => s.kind === 'experience');
-  const experience = expSec ? parseExperienceSection(expSec.content) : [];
+  const expContent = sections.filter((s) => s.kind === 'experience').map((s) => s.content).join('\n');
+  const experience = expContent ? parseExperienceSection(expContent) : [];
 
   // 6. Leadership Extraction
-  const leaderSec = sections.find((s) => s.kind === 'leadership');
-  const leadership = leaderSec ? parseLeadershipSection(leaderSec.content) : [];
+  const leaderContent = sections.filter((s) => s.kind === 'leadership').map((s) => s.content).join('\n');
+  const leadership = leaderContent ? parseLeadershipSection(leaderContent) : [];
 
   // 7. Certifications & Continuous Learning Extraction
-  const certSec = sections.find((s) => s.kind === 'certifications');
-  const certifications = certSec ? parseCertificationsSection(certSec.content) : [];
+  const certContent = sections.filter((s) => s.kind === 'certifications').map((s) => s.content).join('\n');
+  const certifications = certContent ? parseCertificationsSection(certContent) : [];
 
   // 8. Achievements Extraction
-  const achieveSec = sections.find((s) => s.kind === 'achievements');
-  const achievements = achieveSec
-    ? achieveSec.content
+  const achieveContent = sections.filter((s) => s.kind === 'achievements').map((s) => s.content).join('\n');
+  const achievements = achieveContent
+    ? achieveContent
         .split('\n')
         .map((l) => l.replace(/^[-•*●▪‣]\s*/, '').trim())
         .filter(Boolean)
@@ -87,8 +103,7 @@ export function recoverResumeStructure(rawText: string): RecoveredResume {
     ...experience.map((e) => `${e.role} ${e.company} ${e.bullets.join(' ')} ${e.rawLines.join(' ')}`),
     ...leadership.map((l) => `${l.role} ${l.company} ${l.bullets.join(' ')} ${l.rawLines.join(' ')}`)
   ];
-  const skillsSec = sections.find((s) => s.kind === 'skills');
-  const skills = parseSkillsSection(skillsSec ? skillsSec.content : '', contextToScan);
+  const skills = parseSkillsSection(skillsContent, contextToScan);
 
   // 10. Languages Extraction
   const langSec = sections.find((s) => s.kind === 'languages');

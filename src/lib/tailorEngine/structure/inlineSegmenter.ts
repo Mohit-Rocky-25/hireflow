@@ -42,6 +42,13 @@ export function segmentResumeText(rawText: string): RecoveredSection[] {
     }
 
     if (headingDef) {
+      // If we are already in the same section kind (e.g. inside 'skills' and encountered another skills subcategory like 'Core Competencies:'),
+      // keep it as content inside the current section rather than fragmenting into duplicate sections
+      if (currentKind === headingDef.kind) {
+        currentContentLines.push(line);
+        continue;
+      }
+
       // Save previous section if it had content
       if (currentContentLines.length > 0) {
         lineSections.push({

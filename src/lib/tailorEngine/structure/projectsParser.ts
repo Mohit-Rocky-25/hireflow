@@ -21,11 +21,18 @@ export function parseProjectsSection(content: string): RecoveredProject[] {
     let foundStructuredBullets = false;
 
     for (const line of lines) {
-      const isBullet = /^[-•*●▪‣]\s*/.test(line);
+      const isBulletSymbol = /^[-•*●▪‣]\s*/.test(line);
+      const isActionSentence =
+        /^(?:performed|identified|documented|built|developed|engineered|created|configured|tested|reverse\s*engineered|analyzed|implemented|competed|attempted|reviewed|used|designed|authored|spearheaded|automated|conducted|organized|maintained|deployed|optimized|integrated)\b/i.test(line) ||
+        (line.split(/\s+/).length > 7 && /[.!?]$/.test(line));
+
+      const isBullet = isBulletSymbol || (current !== null && isActionSentence);
 
       if (isBullet) {
         foundStructuredBullets = true;
-        const cleanBullet = line.replace(/^[-•*●▪‣]\s*/, '').trim();
+        let cleanBullet = line.replace(/^[-•*●▪‣]\s*/, '').trim();
+        if (!cleanBullet.endsWith('.')) cleanBullet += '.';
+
         if (!current) {
           current = { name: 'Project', techStack: [], bullets: [], rawLines: [] };
           projects.push(current);
@@ -53,6 +60,13 @@ export function parseProjectsSection(content: string): RecoveredProject[] {
           techClause = colonParts[1].trim();
         }
 
+        // Extract trailing year/dates from title (e.g. "Challenge 2026")
+        const yearMatch = name.match(/\s+((?:19|20)\d{2}(?:\s*[-–—]\s*(?:present|(?:19|20)\d{2}))?)$/i);
+        if (yearMatch && !techClause) {
+          techClause = yearMatch[1];
+          name = name.slice(0, yearMatch.index).trim();
+        }
+
         const techStack: string[] = [];
         if (techClause) {
           const parsed = techClause
@@ -73,7 +87,7 @@ export function parseProjectsSection(content: string): RecoveredProject[] {
       }
     }
 
-    if (foundStructuredBullets && projects.length > 0) {
+    if (projects.length > 0 && projects.some((p) => p.bullets.length > 0)) {
       return projects;
     }
   }
