@@ -39,7 +39,7 @@ import { LayoutRepairsPanel } from './components/LayoutRepairsPanel';
 import { ExportToolbar } from './components/ExportToolbar';
 import { ExportTruthGateModal } from './components/ExportTruthGateModal';
 
-const DEFAULT_RESUME = `Arjun Mehta | arjun@example.com | Full Stack Developer
+const SAMPLE_RESUME = `Arjun Mehta | arjun@example.com | Full Stack Developer
 SUMMARY: Software engineer with 3 years building web platforms using React, Node.js, TypeScript, and PostgreSQL.
 
 EXPERIENCE:
@@ -57,7 +57,7 @@ Task Orchestrator | github.com/arjun/task-orch
 SKILLS:
 React, TypeScript, JavaScript, Node.js, Express, PostgreSQL, Redis, Jest, Git`;
 
-const DEFAULT_JD = `Role: Senior Backend Engineer
+const SAMPLE_JD = `Role: Senior Backend Engineer
 Company: Razorpay
 Requirements:
 - Deep expertise in PostgreSQL database architecture and high-throughput query optimization.
@@ -85,9 +85,9 @@ export function TailorResumePage() {
     return () => observer.disconnect();
   }, []);
 
-  // Inputs
-  const [resumeText, setResumeText] = useState(() => profile?.masterResumeText || DEFAULT_RESUME);
-  const [jdText, setJdText] = useState(DEFAULT_JD);
+  // Inputs: Strictly empty by default with zero demo data pre-loaded
+  const [resumeText, setResumeText] = useState('');
+  const [jdText, setJdText] = useState('');
   const [selectedCompanyId, setSelectedCompanyId] = useState<string>('');
 
   // Results & Process
@@ -111,13 +111,6 @@ export function TailorResumePage() {
   const [isTruthGateOpen, setIsTruthGateOpen] = useState(false);
   const [pendingExportAction, setPendingExportAction] = useState<'docx' | 'print' | null>(null);
   const [manualPreset, setManualPreset] = useState<ResumePreset | undefined>(undefined);
-
-  // If profile becomes available and user hasn't typed custom resume, populate
-  useEffect(() => {
-    if (profile?.masterResumeText && resumeText === DEFAULT_RESUME) {
-      setResumeText(profile.masterResumeText);
-    }
-  }, [profile, resumeText]);
 
   // Handle Quick Load JD from dataset (Companies & Campus Programs)
   const handleQuickLoadCompany = (targetId: string) => {
@@ -467,18 +460,22 @@ Requirements:
           <InputBox
             stepNumber={1}
             label="Your resume"
-            icon={<FileText className="w-5 h-5 text-primary" />}
+            subtitle="Paste resume text or upload .pdf / .docx document"
+            icon={<FileText className="w-5 h-5 text-sky-600" />}
             text={resumeText}
             setText={setResumeText}
-            placeholder="Paste your base resume text here..."
+            placeholder={`// Paste your resume text here...\n// Recommended sections:\n// • Contact Info & Professional Summary\n// • Work Experience & Impact (with metrics)\n// • Technical Skills & Core Competencies\n// • Education & Notable Projects`}
+            onLoadSample={() => setResumeText(SAMPLE_RESUME)}
+            sampleButtonLabel="Try Sample Resume"
             extraHeader={
-              profile ? (
+              profile?.masterResumeText ? (
                 <button
                   type="button"
                   onClick={() => setResumeText(profile.masterResumeText)}
-                  className="text-xs text-primary hover:underline font-semibold"
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold text-sky-700 bg-sky-50 hover:bg-sky-100 border border-sky-200 transition-all cursor-pointer"
+                  title="Import master resume from your HireFlow profile"
                 >
-                  Reset from Profile
+                  Import from Profile
                 </button>
               ) : null
             }
@@ -487,12 +484,15 @@ Requirements:
           {/* Right: Target JD */}
           <InputBox
             stepNumber={2}
-            label="Target job"
-            icon={<Building2 className="w-5 h-5 text-primary" />}
+            label="Target job description"
+            subtitle="Paste target requirements or select a verified role"
+            icon={<Building2 className="w-5 h-5 text-violet-600" />}
             text={jdText}
             setText={setJdText}
-            placeholder="Paste target job description here..."
+            placeholder={`// Paste the target job description or requirements here...\n// Include:\n// • Role Title & Target Seniority Level\n// • Must-Have Technical Skills & Stack\n// • Core Responsibilities & Impact\n// • Preferred / Nice-to-Have Qualifications`}
             isJD
+            onLoadSample={() => setJdText(SAMPLE_JD)}
+            sampleButtonLabel="Try Sample JD"
             extraHeader={
               <QuickLoadSelect
                 selectedCompanyId={selectedCompanyId}
@@ -502,18 +502,28 @@ Requirements:
           />
         </div>
 
-        {/* Tailor Resume Action Button (52px minimum, bold, states with reason) */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-10 pb-6 border-b border-border">
-          <div className="text-xs text-text-muted">
-            {!resumeText.trim() || !jdText.trim() ? (
-              <span className="flex items-center gap-1.5 text-amber-500 font-medium">
-                <AlertCircle className="w-4 h-4" />
-                Paste your resume and target job description to begin tailoring.
+        {/* Tailor Resume Action Button & Validation Status */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-10 pb-6 border-b border-slate-200">
+          <div className="text-xs text-slate-500">
+            {!resumeText.trim() && !jdText.trim() ? (
+              <span className="flex items-center gap-2 text-slate-500 font-medium text-xs sm:text-sm">
+                <span className="w-2 h-2 rounded-full bg-slate-300" />
+                Paste both your resume and target job description above to begin tailoring.
+              </span>
+            ) : !resumeText.trim() ? (
+              <span className="flex items-center gap-2 text-amber-600 font-medium text-xs sm:text-sm">
+                <AlertCircle className="w-4 h-4 text-amber-500 shrink-0" />
+                Resume missing — paste or upload your resume in Box 1.
+              </span>
+            ) : !jdText.trim() ? (
+              <span className="flex items-center gap-2 text-amber-600 font-medium text-xs sm:text-sm">
+                <AlertCircle className="w-4 h-4 text-amber-500 shrink-0" />
+                Job description missing — paste target job requirements in Box 2.
               </span>
             ) : (
-              <span className="text-emerald-500 font-medium flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4" />
-                Ready to analyze and tailor against requirements.
+              <span className="text-emerald-700 font-semibold flex items-center gap-2 text-xs sm:text-sm bg-emerald-50 px-3 py-1.5 rounded-full border border-emerald-200">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                Ready to analyze alignment and generate truthful tailoring suggestions.
               </span>
             )}
           </div>
@@ -521,7 +531,11 @@ Requirements:
           <button
             onClick={handleRunTailor}
             disabled={isTailoring || !resumeText.trim() || !jdText.trim()}
-            className="h-[52px] min-h-[52px] px-8 rounded-xl bg-primary text-white text-base font-bold hover:bg-primary/90 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed transition-all cursor-pointer shadow-md inline-flex items-center justify-center gap-2.5 focus-visible:ring-4 focus-visible:ring-primary/20 outline-none"
+            className={`h-[52px] min-h-[52px] px-8 rounded-xl text-base font-bold transition-all inline-flex items-center justify-center gap-2.5 outline-none ${
+              isTailoring || !resumeText.trim() || !jdText.trim()
+                ? 'bg-slate-100 text-slate-400 border border-slate-200 cursor-not-allowed shadow-none'
+                : 'bg-gradient-to-r from-sky-500 via-indigo-600 to-violet-600 text-white shadow-md hover:shadow-lg hover:brightness-105 active:scale-[0.98] cursor-pointer'
+            }`}
           >
             {isTailoring ? <RefreshCw className="w-5 h-5 animate-spin" /> : <Sparkles className="w-5 h-5" />}
             <span>{isTailoring ? 'Analyzing Alignment...' : 'Tailor Resume'}</span>
