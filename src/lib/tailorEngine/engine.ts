@@ -155,6 +155,130 @@ export function calculateBulletRelevance(bullet: string, jdSkills: string[]): nu
   return score;
 }
 
+export interface DomainContextSpec {
+  prompt: string;
+  chips: string[];
+}
+
+export function detectDomainContext(bullet: string, _section?: string): DomainContextSpec {
+  const bLower = bullet.toLowerCase();
+
+  // 1. Networking, Topology, Routing & Protocols
+  if (
+    /\b(?:cisco|packet\s*tracer|topology|subnet|subnets|subnetted|ip\s*addressing|routing|encapsulation|vlan|vlans|bgp|ospf|switch|switches|router|routers|firewall|dns|dhcp|nat|lan|wan|vpn|tcp\/ip|wireshark|network)\b/i.test(bLower)
+  ) {
+    return {
+      prompt: 'Specify verified network scale, topology size, or routing verification:',
+      chips: [
+        'spanning [X] subnets across [Y] VLANs',
+        'verifying zero packet drop across routing hops',
+        'configured across [X] virtual routers and switch nodes',
+        'subdivided using [VLSM/CIDR] addressing tables'
+      ]
+    };
+  }
+
+  // 2. Cybersecurity, Pentesting, Reverse Engineering, AppSec, Vulnerability Analysis
+  if (
+    /\b(?:owasp|mastg|apk|binary|binaries|vulnerability|vulnerabilities|penetration|pentest|pentesting|burp|burp\s*suite|nmap|ctf|reverse\s*engineering|ghidra|frida|static\s*analysis|dynamic\s*analysis|cve|exploit|security\s*audit|encryption|cryptography|jwt|xss|sql\s*injection|sqli|malware|threat|hardening)\b/i.test(bLower)
+  ) {
+    return {
+      prompt: 'Specify verified security scope, test scenarios, or findings:',
+      chips: [
+        'identifying [X] OWASP Top 10 vulnerabilities',
+        'tested across [X] security test cases / attack scenarios',
+        'analyzing [X] target endpoints and APIs',
+        'documenting remediation for [X] high-risk findings'
+      ]
+    };
+  }
+
+  // 3. Database, Data Engineering, SQL & Analytics
+  if (
+    /\b(?:sql|mysql|postgresql|postgres|nosql|mongodb|redis|database|databases|query|queries|schema|etl|pipeline|index|indexing|warehouse|spark|hadoop|kafka)\b/i.test(bLower)
+  ) {
+    return {
+      prompt: 'Specify verified data volume, query execution, or table scale:',
+      chips: [
+        'optimizing query execution across [X] relational tables',
+        'processing datasets of [X] records / rows',
+        'indexing high-volume lookup columns for faster retrieval',
+        'reducing batch processing execution time by [X%]'
+      ]
+    };
+  }
+
+  // 4. Backend, APIs & Distributed Systems
+  if (
+    /\b(?:api|apis|rest|graphql|endpoint|endpoints|microservice|microservices|backend|server|express|fastapi|django|spring|spring\s*boot|grpc|concurrency|websocket)\b/i.test(bLower)
+  ) {
+    return {
+      prompt: 'Specify verified throughput, endpoints, or response latency target:',
+      chips: [
+        'handling requests with [< X ms] response latency',
+        'implemented across [X] RESTful API endpoints',
+        'validated with [X] integration test suites',
+        'handling [X] concurrent requests with 0 dropped connections'
+      ]
+    };
+  }
+
+  // 5. Frontend, Web & Mobile Applications
+  if (
+    /\b(?:react|vue|angular|next\.js|svelte|frontend|ui|ux|tailwind|css|html|javascript|typescript|mobile|flutter|react\s*native|android|ios|component|components|viewports|responsive)\b/i.test(bLower)
+  ) {
+    return {
+      prompt: 'Specify verified interface scope, screen viewports, or performance:',
+      chips: [
+        'tested across [X] responsive viewports and screen sizes',
+        'engineered [X] reusable, accessible UI components',
+        'reducing initial page load / render time by [X%]',
+        'achieving [X%] Lighthouse performance score'
+      ]
+    };
+  }
+
+  // 6. DevOps, Cloud, CI/CD & Infrastructure
+  if (
+    /\b(?:docker|kubernetes|k8s|aws|azure|gcp|ci\/cd|pipeline|jenkins|github\s*actions|terraform|ansible|linux|nginx|deploy|deployment|staging|production)\b/i.test(bLower)
+  ) {
+    return {
+      prompt: 'Specify verified deployment environments, build speed, or pipeline stages:',
+      chips: [
+        'deployed across [X] containerized environments',
+        'reducing build and deployment pipeline time by [X%]',
+        'automating CI/CD workflows across [X] build stages',
+        'maintaining [99.X%] service uptime'
+      ]
+    };
+  }
+
+  // 7. Testing, QA & Test Automation
+  if (
+    /\b(?:test|tests|testing|qa|cypress|selenium|playwright|vitest|jest|unit\s*test|integration\s*test|e2e|automation)\b/i.test(bLower)
+  ) {
+    return {
+      prompt: 'Specify verified test coverage, test count, or defect reduction:',
+      chips: [
+        'expanding test coverage to [X%]',
+        'authored [X] automated end-to-end and unit test cases',
+        'reducing regression bug reports by [X%]'
+      ]
+    };
+  }
+
+  // 8. General Technical Projects / Academic Labs (Default fallback)
+  return {
+    prompt: 'Specify verified scope, dataset size, or functional validation:',
+    chips: [
+      'validated against [X] functional test requirements',
+      'benchmarked across [X] experimental test cases',
+      'completed [X] milestones within the project scope',
+      'reducing task execution time by [X%]'
+    ]
+  };
+}
+
 export function generateTailoredSuggestions(
   resumeText: string,
   jdText: string,
@@ -344,31 +468,18 @@ export function generateTailoredSuggestions(
     const isTopRelevance = sortedByRelevance.slice(0, 3).some(r => r.bullet === bItem.bullet);
     if (!hasMetric && isTopRelevance && contextSuggestionsCount < MAX_CONTEXT_SUGGESTIONS) {
       contextSuggestionsCount++;
-      const sampleChip = bLower.includes('query') || bLower.includes('sql') || bLower.includes('database')
-        ? 'reducing query latency by [35%]'
-        : bLower.includes('api') || bLower.includes('service')
-        ? 'handling [50,000+] requests/day'
-        : bLower.includes('user') || bLower.includes('frontend')
-        ? 'serving [25,000+] active users'
-        : 'reducing turnaround time by [30%]';
-
-      const proposedWithPlaceholder = `${bItem.bullet.replace(/[.,;]+$/, '')}, ${sampleChip}.`;
+      const domainContext = detectDomainContext(bItem.bullet, bItem.section);
 
       suggestions.push({
         id: `sug-context-${bulletIndex++}`,
         type: 'add_context',
         section: bItem.section,
         originalText: bItem.bullet,
-        proposedText: proposedWithPlaceholder,
+        proposedText: bItem.bullet, // Keep candidate's authentic bullet initially without fabricating fake statistics
         needsContext: true,
-        contextPrompt: 'Add quantifiable metrics to substantiate your technical contribution:',
-        contextTapChips: [
-          'reducing query latency by [35%]',
-          'handling [50,000+] requests/day',
-          'improving test coverage to [85%]',
-          'saving [15+] engineering hours/week'
-        ],
-        rationale: 'Adding measured scale or efficiency metrics significantly boosts recruiter confidence.',
+        contextPrompt: domainContext.prompt,
+        contextTapChips: domainContext.chips,
+        rationale: 'Substantiating this bullet with your verified project outcomes, scope, or scale will significantly improve recruiter trust (customizable below).',
         truthCheck: { passed: true }
       });
       return;

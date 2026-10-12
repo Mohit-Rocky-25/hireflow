@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   Check,
   X,
@@ -31,6 +31,7 @@ interface SuggestionCardProps {
   onSaveEdit: (id: string, newText: string) => void;
   onOptionSelect?: (id: string, optionIndex: number, text: string) => void;
   onApplyContext?: (id: string, resultSnippet: string) => void;
+  onUndo?: (id: string) => void;
 }
 
 export const SuggestionCard: React.FC<SuggestionCardProps> = ({
@@ -41,12 +42,14 @@ export const SuggestionCard: React.FC<SuggestionCardProps> = ({
   onReject,
   onSaveEdit,
   onOptionSelect,
-  onApplyContext
+  onApplyContext,
+  onUndo
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editText, setEditText] = useState(editedText || suggestion.proposedText);
   const [selectedOptIndex, setSelectedOptIndex] = useState(suggestion.chosenOptionIndex || 0);
   const [contextInput, setContextInput] = useState(suggestion.contextValue || '');
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const currentText = editedText || (suggestion.options ? suggestion.options[selectedOptIndex]?.text : suggestion.proposedText);
 
@@ -66,7 +69,15 @@ export const SuggestionCard: React.FC<SuggestionCardProps> = ({
 
   const handleContextChipClick = (chip: string) => {
     setContextInput(chip);
-    onApplyContext?.(suggestion.id, chip);
+    setTimeout(() => {
+      if (inputRef.current) {
+        inputRef.current.focus();
+        const match = chip.match(/\[(.*?)\]/);
+        if (match && match.index !== undefined) {
+          inputRef.current.setSelectionRange(match.index, match.index + match[0].length);
+        }
+      }
+    }, 50);
   };
 
   const handleApplyContextSubmit = (e?: React.FormEvent) => {
@@ -292,27 +303,102 @@ export const SuggestionCard: React.FC<SuggestionCardProps> = ({
           </div>
         )}
 
-        {/* Add Context Interactive Tap Chips */}
+        {/* Add Context Interactive Tap Chips & Custom Direct Input */}
         {suggestion.needsContext && (
-          <div className="p-3.5 bg-amber-50/60 border border-amber-200 rounded-xl space-y-3">
-            <div className="flex items-center gap-2 text-xs font-bold text-amber-800">
-              <HelpCircle className="w-4 h-4 text-amber-600" />
-              <span>{suggestion.contextPrompt || 'Add quantifiable metric to substantiate this work:'}</span>
+          <div className="p-3.5 sm:p-4 bg-amber-50/70 border border-amber-200/90 rounded-xl space-y-3 shadow-2xs">
+            <div className="flex items-start justify-between gap-2">
+              <div className="flex items-start gap-2 text-xs font-bold text-amber-900">
+                <HelpCircle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+                <div>
+                  <span>{suggestion.contextPrompt || 'Add quantifiable metric to substantiate this work:'}</span>
+                  <p className="text-[11px] font-normal text-amber-800/80 mt-0.5">
+                    Click a domain starter pattern below to populate the editable field, then adjust the numbers to reflect your actual project findings.
+                  </p>
+                </div>
+              </div>
             </div>
 
             {/* Quick Tap Chips */}
             {suggestion.contextTapChips && (
-              <div className="flex flex-wrap gap-1.5">
-                {suggestion.contextTapChips.map((chip, cIdx) => (
+              <div className="space-y-1.5">
+                <div className="text-[10px] font-bold uppercase tracking-wider text-amber-800/70">
+                  Starter Patterns (Click to Load & Edit):
+                </div>
+                <div className="flex flex-wrap gap-1.5">
+                  {suggestion.contextTapChips.map((chip, cIdx) => (
+                    <button
+                      key={cIdx}
+                      type="button"
+                      onClick={() => handleContextChipClick(chip)}
+                      className={`text-xs px-2.5 py-1 rounded-lg border transition-all shadow-2xs font-mono font-medium cursor-pointer ${
+                        contextInput === chip
+                          ? 'bg-amber-200/80 text-amber-950 border-amber-400 ring-2 ring-amber-400/30'
+                          : 'bg-white hover:bg-amber-100/70 text-amber-900 border-amber-300'
+                      }`}
+                    >
+                      + {chip}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Direct Outcome Custom Input Field */}
+            <div className="pt-1 border-t border-amber-200/60 space-y-2">
+              <div className="text-[10px] font-bold uppercase tracking-wider text-amber-800/70">
+                Edit Verified Outcome to Add:
+              </div>
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+                <div className="relative flex-1">
+                  <input
+                    ref={inputRef}
+                    type="text"
+                    value={contextInput}
+                    onChange={(e) => setContextInput(e.target.value)}
+                    placeholder="e.g. spanning 4 subnets across 3 VLANs with 0% packet loss"
+                    className="w-full px-3 py-2 text-xs font-mono bg-white border border-amber-300 rounded-lg text-slate-800 placeholder-slate-400 focus:outline-none focus:border-amber-600 focus:ring-2 focus:ring-amber-500/20 shadow-2xs"
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        e.preventDefault();
+                        handleApplyContextSubmit();
+                      }
+                    }}
+                  />
+                </div>
+                <div className="flex items-center gap-1.5 shrink-0">
                   <button
-                    key={cIdx}
                     type="button"
-                    onClick={() => handleContextChipClick(chip)}
-                    className="text-xs px-2.5 py-1 rounded-lg bg-white hover:bg-amber-100/60 text-amber-900 border border-amber-300 transition-colors shadow-2xs font-mono font-medium cursor-pointer"
+                    onClick={handleApplyContextSubmit}
+                    disabled={!contextInput.trim()}
+                    className="px-3.5 py-2 text-xs font-bold rounded-lg bg-amber-600 hover:bg-amber-700 disabled:opacity-40 disabled:cursor-not-allowed text-white transition-all shadow-xs cursor-pointer inline-flex items-center gap-1.5"
                   >
-                    + {chip}
+                    <Check className="w-3.5 h-3.5" />
+                    Apply Outcome
                   </button>
-                ))}
+                  {contextInput && (
+                    <button
+                      type="button"
+                      onClick={() => setContextInput('')}
+                      className="p-2 text-xs text-amber-700 hover:text-amber-900 rounded-lg hover:bg-amber-100 transition-colors cursor-pointer"
+                      title="Clear"
+                    >
+                      <X className="w-3.5 h-3.5" />
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Live Status when Outcome is already applied */}
+            {status === 'accepted' && (
+              <div className="p-2 rounded-lg bg-emerald-50 border border-emerald-200 text-xs text-emerald-800 flex items-center justify-between">
+                <span className="flex items-center gap-1.5">
+                  <Check className="w-3.5 h-3.5 text-emerald-600" />
+                  <span>Outcome applied to bullet above.</span>
+                </span>
+                <span className="text-[11px] text-emerald-700 font-sans">
+                  Formula updated: Metric ✓
+                </span>
               </div>
             )}
           </div>
@@ -364,7 +450,7 @@ export const SuggestionCard: React.FC<SuggestionCardProps> = ({
                 </span>
                 <button
                   type="button"
-                  onClick={() => onReject(suggestion.id)}
+                  onClick={() => (onUndo ? onUndo(suggestion.id) : onReject(suggestion.id))}
                   className="text-xs font-medium text-slate-500 hover:text-slate-800 hover:underline cursor-pointer"
                 >
                   Undo

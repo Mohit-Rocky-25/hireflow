@@ -40,12 +40,14 @@ const COMMON_TECH_TOKENS = new Set([
   'react', 'node', 'node.js', 'typescript', 'javascript', 'python', 'java', 'c', 'c++',
   'postgresql', 'postgres', 'mysql', 'sql', 'redis', 'firebase', 'mongodb', 'docker',
   'kubernetes', 'k8s', 'aws', 'gcp', 'linux', 'git', 'github', 'esp32', 'arduino',
-  'raspberry pi', 'html', 'css', 'jest', 'cypress', 'express', 'rest', 'api', 'iot'
+  'raspberry pi', 'html', 'css', 'jest', 'cypress', 'express', 'rest', 'api', 'iot',
+  'cisco', 'wireshark', 'nmap', 'burp', 'ghidra', 'frida', 'metasploit', 'snort',
+  'terraform', 'ansible', 'jenkins', 'splunk', 'tracer'
 ]);
 
-const OBJECT_NOUNS_REGEX = /\b(?:system|platform|application|service|microservice|feature|dashboard|pipeline|queue|database|query|queries|frontend|backend|infrastructure|architecture|workflow|interface|module|firmware|hardware|circuit|device|prototype)\b/i;
+const OBJECT_NOUNS_REGEX = /\b(?:system|platform|application|service|microservice|feature|dashboard|pipeline|queue|database|query|queries|frontend|backend|infrastructure|architecture|workflow|interface|module|firmware|hardware|circuit|device|prototype|topology|network|routing|subnet|vlan|firewall|endpoint|apk|binary)\b/i;
 
-const RESULT_METRICS_REGEX = /(?:\d+%\s*(?:reduction|increase|improvement|drop|faster|latency|boost|efficiency)?|\b\d+(?:,\d+)?\+?\s*(?:users|clients|requests|req\/s|rps|queries|qps|active|records|ms|seconds|minutes|hrs|gb|mb|k)\b|\breducing\s+latency\s+by|\bdecreased\s+load\s+time|\bscaled\s+to\b)/i;
+const RESULT_METRICS_REGEX = /(?:\d+%\s*(?:reduction|increase|improvement|drop|faster|latency|boost|efficiency)?|\b\d+(?:,\d+)?\+?\s*(?:users|clients|requests|req\/s|rps|queries|qps|active|records|ms|seconds|minutes|hrs|gb|mb|k|subnets|vlans|hops|routers|endpoints|vulnerabilities|findings|test\s*cases)\b|\breducing\s+latency\s+by|\bdecreased\s+load\s+time|\bscaled\s+to\b|\bzero\s+(?:packet\s*loss|packet\s*drop|vulnerabilities|defects)\b)/i;
 
 /**
  * Evaluates the 4-slot bullet formula (Action, Object, Tool, Result).
@@ -65,7 +67,7 @@ export function evaluateBulletFormula(rawBullet: string): BulletFormula {
 
   // 3. Tool: Mentions specific tech/framework/library/hardware
   const words = clean.toLowerCase().split(/[\s,./()]+/);
-  const tool = words.some((w) => COMMON_TECH_TOKENS.has(w)) || /\b(?:react|node|postgres|redis|jest|cypress|esp32|docker|aws)\b/i.test(clean);
+  const tool = words.some((w) => COMMON_TECH_TOKENS.has(w)) || /\b(?:react|node|postgres|redis|jest|cypress|esp32|docker|aws|cisco|packet\s*tracer|wireshark|nmap|burp|ghidra|terraform)\b/i.test(clean);
 
   // 4. Result: Contains measurable metrics, speedups, scale, numbers
   const result = RESULT_METRICS_REGEX.test(clean) || /\b\d+(?:,\d+)?\b/.test(clean);

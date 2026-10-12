@@ -297,9 +297,23 @@ Requirements:
     const sug = result?.suggestions.find((s) => s.id === id);
     if (!sug) return;
     const originalClean = sug.originalText.replace(/^[-•*]\s*/, '').replace(/[.,]+$/, '');
-    const updated = applyGrammarGate(`- ${originalClean}, ${snippet}.`);
+    const cleanSnippet = snippet.replace(/[.,;]+$/, '').trim();
+    const updated = applyGrammarGate(`- ${originalClean}, ${cleanSnippet}.`);
     setEditedTexts((prev) => ({ ...prev, [id]: updated }));
     setSuggestionStatus((prev) => ({ ...prev, [id]: 'accepted' }));
+  };
+
+  const handleUndo = (id: string) => {
+    const sug = result?.suggestions.find((s) => s.id === id);
+    setSuggestionStatus((prev) => ({
+      ...prev,
+      [id]: sug?.needsContext ? 'needs_input' : 'pending'
+    }));
+    setEditedTexts((prev) => {
+      const next = { ...prev };
+      delete next[id];
+      return next;
+    });
   };
 
   // Bulk Actions
@@ -636,6 +650,7 @@ Requirements:
                           onSaveEdit={handleSaveEdit}
                           onOptionSelect={handleOptionSelect}
                           onApplyContext={handleApplyContext}
+                          onUndo={handleUndo}
                         />
                       ))}
                     </div>
@@ -656,6 +671,7 @@ Requirements:
                     onSaveEdit={handleSaveEdit}
                     onOptionSelect={handleOptionSelect}
                     onApplyContext={handleApplyContext}
+                    onUndo={handleUndo}
                   />
                 ))}
               </div>

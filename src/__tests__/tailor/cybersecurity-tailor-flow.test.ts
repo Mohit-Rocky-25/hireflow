@@ -5,6 +5,8 @@ import { parseSkillsSection } from '../../lib/tailorEngine/structure/skillsParse
 import { parseEducationSection } from '../../lib/tailorEngine/structure/educationParser';
 import { recoverResumeStructure } from '../../lib/tailorEngine/structure/recoveryEngine';
 import { parseResumeDocModel } from '../../lib/tailorEngine/docModel';
+import { generateTailoredSuggestions } from '../../lib/tailorEngine/engine';
+import { evaluateBulletFormula } from '../../lib/tailorEngine/actionWordEngine';
 
 describe('Cybersecurity Resume & Role Tailoring Pipeline', () => {
   it('correctly splits candidate name from cybersecurity headline', () => {
@@ -136,5 +138,57 @@ CONTINUOUS LEARNING
     expect(modifiedBullet).toBeDefined();
     expect(modifiedBullet?.isModified).toBe(true);
     expect(modifiedBullet?.text).toContain('improving vulnerability detection proficiency');
+  });
+
+  it('generates domain-aligned network suggestions without misleading canned demo data', () => {
+    const resumeWithNetworkBullet = `JESWANTH POSINA
+jeswanth.cipher1337@gmail.com
+EXPERIENCE
+Student Network Engineer | CyberLab
+- Built and tested a subnetted network topology in Cisco Packet Tracer to reinforce IP addressing, encapsulation, and routing concepts.`;
+
+    const jdText = `Role: Network Security Engineer
+Company: CloudNet
+Requirements:
+- Strong experience with Cisco, subnetting, and network topology.
+- Experience with routing, encapsulation, and IP addressing.`;
+
+    const result = generateTailoredSuggestions(resumeWithNetworkBullet, jdText);
+    const contextSug = result.suggestions.find((s) => s.needsContext);
+
+    expect(contextSug).toBeDefined();
+    // Authentic bullet preserved without fake canned demo metrics!
+    expect(contextSug?.proposedText).toBe(
+      '- Built and tested a subnetted network topology in Cisco Packet Tracer to reinforce IP addressing, encapsulation, and routing concepts.'
+    );
+    expect(contextSug?.proposedText).not.toContain('saving [15+] engineering hours/week');
+    expect(contextSug?.proposedText).not.toContain('handling [50,000+] requests/day');
+    expect(contextSug?.proposedText).not.toContain('85k');
+
+    // Context prompt and chips must align with networking!
+    expect(contextSug?.contextPrompt).toContain('network');
+    expect(contextSug?.contextTapChips).toBeDefined();
+    expect(contextSug?.contextTapChips?.some((c) => c.includes('subnets') || c.includes('VLANs'))).toBe(true);
+    expect(contextSug?.contextTapChips?.some((c) => c.includes('packet drop') || c.includes('routing'))).toBe(true);
+  });
+
+  it('correctly evaluates 4-slot formula for networking bullets with Cisco Packet Tracer and subnets', () => {
+    const rawBullet = 'Built and tested a subnetted network topology in Cisco Packet Tracer to reinforce IP addressing, encapsulation, and routing concepts';
+    const beforeFormula = evaluateBulletFormula(rawBullet);
+
+    expect(beforeFormula.action).toBe(true); // Built
+    expect(beforeFormula.object).toBe(true); // topology / routing
+    expect(beforeFormula.tool).toBe(true);   // Cisco Packet Tracer
+    expect(beforeFormula.result).toBe(false); // No metric yet
+
+    // After applying custom verified outcome
+    const withCustomOutcome = `${rawBullet}, spanning 4 subnets across 3 VLANs with zero packet loss`;
+    const afterFormula = evaluateBulletFormula(withCustomOutcome);
+
+    expect(afterFormula.action).toBe(true);
+    expect(afterFormula.object).toBe(true);
+    expect(afterFormula.tool).toBe(true);
+    expect(afterFormula.result).toBe(true); // 4 subnets / zero packet loss
+    expect(afterFormula.score).toBe(4);
   });
 });
