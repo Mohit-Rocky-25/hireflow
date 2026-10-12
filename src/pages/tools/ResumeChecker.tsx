@@ -5,6 +5,7 @@
 
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import {
+  ArrowLeft,
   ArrowRight,
   Sparkles,
   RotateCcw,
@@ -20,8 +21,7 @@ import {
   Info,
   X,
 } from 'lucide-react';
-import { Link, useSearchParams } from 'react-router-dom';
-import { PageNav } from '../../components/common/PageNav';
+import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 import { PublicNavbar } from '../../components/layout/PublicNavbar';
 import { useProfile } from '../../features/suite/profile/ProfileContext';
 import { QuickSummaryCard } from '../../features/suite/components/QuickSummaryCard';
@@ -55,6 +55,7 @@ const STAGED_MESSAGES = [
 ];
 
 export function ResumeChecker() {
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { profile, saveFromResumeText, openDrawer } = useProfile();
   const [showFullReport, setShowFullReport] = useState(true);
@@ -302,26 +303,39 @@ export function ResumeChecker() {
   }, [engineResult, profile]);
 
   return (
-    <div className="min-h-screen bg-bg text-text pt-24 pb-16 px-4 sm:px-6 md:px-8 relative">
+    <div className="min-h-screen bg-bg text-text pt-28 pb-20 px-4 sm:px-6 md:px-8 relative">
       <PublicNavbar />
-      {/* Top Navigation */}
-      <div className="print:hidden">
-        <PageNav onBack={engineResult ? () => handleTryAnotherJob() : undefined} />
-      </div>
 
       <div className="max-w-6xl mx-auto space-y-8 animate-fade-in">
-        {/* Hero Title with Updated Positioning (STAGE 9) */}
-        <div className="text-center max-w-3xl mx-auto mb-6 mt-2 print:mb-4">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-gradient-to-r from-[#D97706] to-[#EA580C] text-white rounded-full text-xs font-bold uppercase tracking-wider mb-3 shadow-sm shadow-orange-500/20">
-            <Sparkles className="w-3.5 h-3.5 text-white" /> ATS Resume Roaster · Job Fit &amp; Resume Improvement
+        {/* In-Flow Navigation Bar */}
+        <div className="flex items-center justify-between pb-2 print:hidden">
+          <button
+            type="button"
+            onClick={() => (engineResult ? handleTryAnotherJob() : navigate('/tools'))}
+            className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white border border-slate-200/90 text-slate-700 hover:text-slate-950 hover:bg-slate-50 text-xs font-bold transition-all shadow-2xs group cursor-pointer"
+          >
+            <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" />
+            <span>{engineResult ? '← Modify Inputs' : '← Back to Decision Suite'}</span>
+          </button>
+
+          <span className="text-[11px] font-mono font-bold text-slate-400 uppercase tracking-wider hidden sm:inline-block">
+            HireFlow Suite · ATS Invariant Roaster
+          </span>
+        </div>
+
+        {/* Hero Title with Top-Designer Caliber */}
+        <div className="text-center max-w-3xl mx-auto mb-8 mt-1 print:mb-4">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-amber-500/10 border border-amber-500/25 text-amber-700 rounded-full text-xs font-black uppercase tracking-wider mb-4 shadow-2xs">
+            <Sparkles className="w-3.5 h-3.5 text-amber-500 animate-pulse" />
+            <span>ATS Resume Roaster · Engineering Fit Engine</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight mb-3">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-950 tracking-tight leading-[1.12] mb-3.5">
             How well does this resume match,{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-ai">
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-sky-500 via-indigo-600 to-violet-600">
               and what should I improve?
             </span>
           </h1>
-          <p className="text-text-secondary text-[16px] leading-relaxed max-w-2xl mx-auto">
+          <p className="text-slate-600 text-[15px] sm:text-[16px] leading-relaxed max-w-2xl mx-auto font-normal">
             Zero hallucinations. Verifiable citations. Calibrated against real engineering hiring bars. Directional diagnostic evaluation.
           </p>
         </div>
