@@ -1,10 +1,41 @@
-import { CanonicalResume } from '../schema';
+import { CanonicalResume, EducationItem } from '../schema';
 import { ATS_DESIGN_TOKENS, DesignTokens } from '../tokens';
 
 export interface LayoutSection {
   key: string;
   title: string;
   lines: string[];
+}
+
+export function formatEducationLine(edu: EducationItem): string {
+  const parts: string[] = [];
+  if (edu.degree) parts.push(edu.degree);
+  if (edu.institution) parts.push(edu.institution);
+
+  let dateStr = '';
+  if (edu.start && edu.end) {
+    dateStr = `${edu.start} - ${edu.end}`;
+  } else if (edu.end) {
+    dateStr = edu.end;
+  } else if (edu.start) {
+    dateStr = edu.start;
+  }
+
+  if (dateStr) {
+    if (edu.expected) {
+      dateStr += ' (Expected)';
+    }
+    parts.push(dateStr);
+  } else if (edu.expected) {
+    parts.push('(Expected)');
+  }
+
+  if (edu.gpa) {
+    const cleanGpa = edu.gpa.replace(/^(?:cgpa|gpa)[:\s]*/i, '').trim();
+    parts.push(`CGPA: ${cleanGpa}`);
+  }
+
+  return parts.join(' | ');
 }
 
 export interface LayoutTree {
@@ -71,9 +102,7 @@ export function buildLayoutTree(
           sections.push({
             key: 'education',
             title: 'Education',
-            lines: resume.education.map(
-              (e) => `${e.degree} — ${e.institution}${e.end ? ` (${e.end})` : ''}${e.gpa ? ` | GPA: ${e.gpa}` : ''}`
-            )
+            lines: resume.education.map((e) => formatEducationLine(e))
           });
         }
         break;

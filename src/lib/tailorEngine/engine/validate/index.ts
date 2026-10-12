@@ -45,14 +45,29 @@ export function validateResume(resume: CanonicalResume, layout: LayoutTree): Val
   // 3. Education Validation
   for (let i = 0; i < resume.education.length; i++) {
     const edu = resume.education[i];
-    if (!edu.end && !edu.start) {
-      warnings.push(`Education entry for "${edu.degree}" is missing graduation date.`);
+    const hasDates = Boolean(edu.end || edu.start);
+    if (!hasDates) {
+      warnings.push(`ATS lint warning: Education entry for "${edu.degree}" has no dates.`);
+    }
+
+    const missingFields: string[] = [];
+    if (!edu.start) missingFields.push('start');
+    if (!edu.end) missingFields.push('end');
+    if (edu.expected === undefined) missingFields.push('expected');
+    if (!edu.gpa) missingFields.push('gpa');
+
+    if (missingFields.length > 0) {
       suggestions.push({
-        id: `sug-edu-date-${i}`,
-        severity: 'info',
-        message: `Add graduation year or expected graduation date for ${edu.degree}.`,
+        id: `sug-edu-completeness-${i}`,
+        severity: 'warn',
+        message: 'Add expected graduation year and CGPA',
         targetSection: 'education',
-        targetIndex: i
+        targetIndex: i,
+        suggestedAction: 'open_input_fields',
+        fixAction: {
+          type: 'open_input_fields',
+          fields: missingFields
+        }
       });
     }
   }

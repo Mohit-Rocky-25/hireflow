@@ -254,19 +254,29 @@ function parseEducationChunk(
       const institution = parts[1] || 'University';
       let start: string | undefined = undefined;
       let end: string | undefined = undefined;
+      let expected: boolean | undefined = undefined;
+      let gpa: string | undefined = undefined;
 
-      const datePart = parts.slice(2).join(' - ');
-      if (datePart) {
-        const dateMatch = datePart.match(/((?:19|20)\d{2})\s*[-–—]\s*((?:19|20)\d{2}|present)/i);
+      for (let pIdx = 2; pIdx < parts.length; pIdx++) {
+        const p = parts[pIdx];
+        if (/\bexpected\b/i.test(p)) {
+          expected = true;
+        }
+        if (/\b(?:cgpa|gpa)\b/i.test(p)) {
+          gpa = p.replace(/^(?:cgpa|gpa)[:\s]*/i, '').trim();
+          continue;
+        }
+        const cleanP = p.replace(/\(?expected\)?/i, '').trim();
+        const dateMatch = cleanP.match(/((?:19|20)\d{2})\s*[-–—]\s*((?:19|20)\d{2}|present)/i);
         if (dateMatch) {
           start = dateMatch[1];
           end = dateMatch[2];
-        } else {
-          end = datePart;
+        } else if (cleanP) {
+          end = cleanP;
         }
       }
 
-      outEdu.push({ degree, institution, start, end });
+      outEdu.push({ degree, institution, start, end, expected, gpa });
       i++;
       continue;
     }
@@ -279,13 +289,18 @@ function parseEducationChunk(
     const institution = lines[i + 1] || 'University';
     let start: string | undefined = undefined;
     let end: string | undefined = undefined;
+    let expected: boolean | undefined = undefined;
     let gpa: string | undefined = undefined;
 
     let offset = 2;
     while (i + offset < lines.length) {
       const subLine = lines[i + offset];
       const dateMatch = subLine.match(/((?:19|20)\d{2})\s*[-–—]\s*((?:19|20)\d{2}|present)/i);
-      const gpaMatch = subLine.match(/GPA:\s*([\d.]+(?:\s*\/\s*[\d.]+)?)/i);
+      const gpaMatch = subLine.match(/(?:CGPA|GPA):\s*([\d.]+(?:\s*\/\s*[\d.]+)?)/i);
+
+      if (/\bexpected\b/i.test(subLine)) {
+        expected = true;
+      }
 
       if (dateMatch) {
         start = dateMatch[1];
@@ -301,7 +316,7 @@ function parseEducationChunk(
       }
     }
 
-    outEdu.push({ degree, institution, start, end, gpa });
+    outEdu.push({ degree, institution, start, end, expected, gpa });
     i += offset;
   }
 }

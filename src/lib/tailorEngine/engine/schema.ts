@@ -116,7 +116,13 @@ export const SuggestionSchema = z.object({
   message: z.string(),
   targetSection: z.string(),
   targetIndex: z.number().optional(),
-  suggestedAction: z.string().optional()
+  suggestedAction: z.string().optional(),
+  fixAction: z
+    .object({
+      type: z.string(),
+      fields: z.array(z.string()).optional()
+    })
+    .optional()
 });
 
 export const ResumeSchema = z.object({
