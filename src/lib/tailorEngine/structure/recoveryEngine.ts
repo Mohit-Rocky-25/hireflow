@@ -10,6 +10,8 @@ import { parseEducationSection } from './educationParser';
 import { parseSkillsSection } from './skillsParser';
 import { parseProjectsSection } from './projectsParser';
 import { parseExperienceSection } from './experienceParser';
+import { parseCertificationsSection } from './certificationsParser';
+import { parseLeadershipSection } from './leadershipParser';
 import { parseLanguages, parseSocialLinks } from './languagesLinksParser';
 
 export function recoverResumeStructure(rawText: string): RecoveredResume {
@@ -32,7 +34,7 @@ export function recoverResumeStructure(rawText: string): RecoveredResume {
     // Score summaries based on length & technical keyword density
     const scored = summarySecs.map((s) => {
       const words = s.content.split(/\s+/).length;
-      const techHits = (s.content.match(/\b(?:developer|engineer|java|python|react|node|iot|web|cloud|sql)\b/gi) || []).length;
+      const techHits = (s.content.match(/\b(?:developer|engineer|security|cybersecurity|cloud|java|python|react|node|iot|web|sql)\b/gi) || []).length;
       return { sec: s, score: words + techHits * 5 };
     });
     scored.sort((a, b) => b.score - a.score);
@@ -61,20 +63,38 @@ export function recoverResumeStructure(rawText: string): RecoveredResume {
   const expSec = sections.find((s) => s.kind === 'experience');
   const experience = expSec ? parseExperienceSection(expSec.content) : [];
 
-  // 6. Skills Extraction (with hidden skill detection from projects/summary)
+  // 6. Leadership Extraction
+  const leaderSec = sections.find((s) => s.kind === 'leadership');
+  const leadership = leaderSec ? parseLeadershipSection(leaderSec.content) : [];
+
+  // 7. Certifications & Continuous Learning Extraction
+  const certSec = sections.find((s) => s.kind === 'certifications');
+  const certifications = certSec ? parseCertificationsSection(certSec.content) : [];
+
+  // 8. Achievements Extraction
+  const achieveSec = sections.find((s) => s.kind === 'achievements');
+  const achievements = achieveSec
+    ? achieveSec.content
+        .split('\n')
+        .map((l) => l.replace(/^[-•*●▪‣]\s*/, '').trim())
+        .filter(Boolean)
+    : [];
+
+  // 9. Skills Extraction (with hidden skill detection from projects/summary/experience)
   const contextToScan = [
     chosenSummary,
     ...projects.map((p) => `${p.name} ${p.techStack.join(' ')} ${p.bullets.join(' ')} ${p.rawLines.join(' ')}`),
-    ...experience.map((e) => `${e.role} ${e.company} ${e.bullets.join(' ')} ${e.rawLines.join(' ')}`)
+    ...experience.map((e) => `${e.role} ${e.company} ${e.bullets.join(' ')} ${e.rawLines.join(' ')}`),
+    ...leadership.map((l) => `${l.role} ${l.company} ${l.bullets.join(' ')} ${l.rawLines.join(' ')}`)
   ];
   const skillsSec = sections.find((s) => s.kind === 'skills');
   const skills = parseSkillsSection(skillsSec ? skillsSec.content : '', contextToScan);
 
-  // 7. Languages Extraction
+  // 10. Languages Extraction
   const langSec = sections.find((s) => s.kind === 'languages');
   const languages = langSec ? parseLanguages(langSec.content) : [];
 
-  // 8. Links Extraction
+  // 11. Links Extraction
   const linkSec = sections.find((s) => s.kind === 'links');
   let links: string[] = [...header.links];
   if (linkSec) {
@@ -85,7 +105,7 @@ export function recoverResumeStructure(rawText: string): RecoveredResume {
   // Deduplicate links
   links = Array.from(new Set(links));
 
-  // 9. Padding / Declaration sections to Left Out
+  // 12. Padding / Declaration sections to Left Out
   const paddingSecs = sections.filter((s) => s.kind === 'padding');
   for (const pad of paddingSecs) {
     leftOut.push({
@@ -115,8 +135,9 @@ export function recoverResumeStructure(rawText: string): RecoveredResume {
     skills,
     projects,
     experience,
-    certifications: [],
-    achievements: [],
+    certifications,
+    leadership,
+    achievements,
     languages,
     links,
     leftOut,

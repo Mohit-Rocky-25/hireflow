@@ -10,6 +10,7 @@ export type SectionKind =
   | 'projects'
   | 'experience'
   | 'certifications'
+  | 'leadership'
   | 'achievements'
   | 'languages'
   | 'links'
@@ -90,6 +91,7 @@ export interface RecoveredResume {
   projects: RecoveredProject[];
   experience: RecoveredExperience[];
   certifications: string[];
+  leadership: RecoveredExperience[];
   achievements: string[];
   languages: string[];
   links: string[];

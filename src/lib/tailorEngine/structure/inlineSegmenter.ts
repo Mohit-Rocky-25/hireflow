@@ -29,8 +29,9 @@ export function segmentResumeText(rawText: string): RecoveredSection[] {
     let inlineContent = '';
 
     if (!headingDef) {
-      // Check for inline colon heading e.g. "SUMMARY: Software engineer with 3 years..."
-      const colonMatch = line.match(/^([A-Za-z\s&]{2,30}):\s*(.*)$/);
+      // Check for inline colon heading e.g. "SUMMARY: Software engineer...", "### SUMMARY: ...", "**SUMMARY:** ..."
+      const strippedLine = line.replace(/^[#*_\-\s]+/, '');
+      const colonMatch = strippedLine.match(/^([A-Za-z\s&]{2,35}):\s*(.*)$/);
       if (colonMatch) {
         const potentialDef = matchExactHeadingLine(colonMatch[1]);
         if (potentialDef) {

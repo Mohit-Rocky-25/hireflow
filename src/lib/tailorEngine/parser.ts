@@ -158,6 +158,11 @@ const NICE_TO_HAVE_HEADER_REGEX = /\b(?:nice[\s-]to[\s-]have|bonus|preferred qua
 
 const COMMON_ROLE_TITLES = [
   /senior backend engineer/i,
+  /cloud\s*(?:security\s*)?(?:engineer|architect)/i,
+  /(?:cyber\s*)?security\s*(?:engineer|analyst|specialist|consultant|architect)/i,
+  /penetration\s*tester|pentester/i,
+  /infosec\s*(?:engineer|analyst)/i,
+  /network\s*(?:security\s*)?(?:engineer|administrator)/i,
   /full\s*stack\s*(?:developer|engineer)/i,
   /frontend\s*(?:developer|engineer)/i,
   /backend\s*(?:developer|engineer)/i,
@@ -168,6 +173,8 @@ const COMMON_ROLE_TITLES = [
   /site\s*reliability\s*engineer/i,
   /machine\s*learning\s*engineer/i,
   /data\s*(?:engineer|scientist)/i,
+  /qa\s*(?:engineer|tester|lead)/i,
+  /test\s*automation\s*engineer/i,
   /mobile\s*(?:developer|engineer)/i
 ];
 
@@ -183,32 +190,69 @@ export function parseJDOverview(text: string): ParsedJD {
   
   let currentSection: 'mustHaves' | 'niceToHaves' | 'responsibilities' | 'general' = 'general';
 
-  // 1. Role Title Detection: scan header lines or common roles
-  for (let i = 0; i < Math.min(lines.length, 8); i++) {
-    const line = lines[i].trim();
-    if (!line) continue;
-    const lower = line.toLowerCase();
+  // 1. Role Title Detection: scan header lines with markdown-safe prefix stripping
+  for (let i = 0; i < Math.min(lines.length, 10); i++) {
+    const rawLine = lines[i].trim();
+    if (!rawLine) continue;
 
-    if (lower.startsWith('role:') || lower.startsWith('title:') || lower.startsWith('job title:')) {
-      role = line.split(':')[1].replace(/^[#*\-=_~•\s]+/, '').trim();
-      break;
+    // Strip leading markdown, asterisks, bullets, hashes
+    const stripped = rawLine.replace(/^[#*\-=_~•\s]+/, '').replace(/[*_~#]+$/, '').trim();
+    if (!stripped) continue;
+
+    // Pattern A: Explicit prefix like "Role: Cloud Security Engineer", "**Role**: ...", "Job Title: ..."
+    const rolePrefixMatch = stripped.match(/^(?:role|job\s*title|title|position|target\s*role|designation)\s*[:\-–]\s*(.+)$/i);
+    if (rolePrefixMatch) {
+      const candidate = rolePrefixMatch[1].replace(/^[#*\-=_~•\s]+/, '').replace(/[*_~#]+$/, '').trim();
+      if (candidate.length > 2) {
+        role = candidate;
+        break;
+      }
     }
+
+    // Pattern B: Markdown header containing a role title e.g. "# Cloud Security Engineer"
+    if (rawLine.startsWith('#')) {
+      const headerText = stripped.replace(/^#+\s*/, '').trim();
+      if (
+        headerText.length > 2 &&
+        headerText.length < 75 &&
+        !/^(?:about|requirements|qualifications|overview|responsibilities|description|summary|company)/i.test(headerText)
+      ) {
+        role = headerText;
+        break;
+      }
+    }
+
+    // Pattern C: Known role title match in line
     for (const titleRegex of COMMON_ROLE_TITLES) {
-      const m = line.match(titleRegex);
-      if (m && line.length < 70) {
-        role = line.replace(/^[#*\-=_~•\s]+/, '').trim();
+      const m = stripped.match(titleRegex);
+      if (m && stripped.length < 80) {
+        role = stripped;
         break;
       }
     }
     if (role !== "Software Engineer") break;
+
+    // Pattern D: Line containing engineering/tech archetype words (engineer, analyst, developer, etc.)
+    if (
+      i < 3 &&
+      /\b(?:engineer|developer|architect|analyst|specialist|consultant|administrator|tester|lead|scientist|intern|researcher|technician|officer|manager)\b/i.test(stripped) &&
+      stripped.length < 70 &&
+      !/^(?:about|requirements|qualifications|overview|responsibilities|description|experience|summary|company)/i.test(stripped)
+    ) {
+      role = stripped;
+      break;
+    }
   }
 
-  // 2. Company Detection
-  for (let i = 0; i < Math.min(lines.length, 8); i++) {
-    const line = lines[i].trim();
-    const lower = line.toLowerCase();
-    if (lower.startsWith('company:') || lower.startsWith('organization:') || lower.startsWith('employer:')) {
-      company = line.split(':')[1].replace(/^[#*\-=_~•\s]+/, '').trim();
+  // 2. Company Detection with markdown-safe prefix stripping
+  for (let i = 0; i < Math.min(lines.length, 10); i++) {
+    const rawLine = lines[i].trim();
+    if (!rawLine) continue;
+    const stripped = rawLine.replace(/^[#*\-=_~•\s]+/, '').replace(/[*_~#]+$/, '').trim();
+
+    const compPrefixMatch = stripped.match(/^(?:company|organization|employer|client)\s*[:\-–]\s*(.+)$/i);
+    if (compPrefixMatch) {
+      company = compPrefixMatch[1].replace(/^[#*\-=_~•\s]+/, '').replace(/[*_~#]+$/, '').trim();
       break;
     }
   }

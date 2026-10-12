@@ -6,14 +6,14 @@
 import { RecoveredEducation } from './types';
 
 const DEGREE_PATTERNS = [
-  { match: /\b(?:B\.?\s*Tech|B\.?\s*E\.?|Bachelor of Technology|Bachelor of Engineering)\b(?:\s+in\s+([a-zA-Z\s]+))?/i, name: 'B.Tech' },
-  { match: /\b(?:M\.?\s*Tech|M\.?\s*E\.?|Master of Technology)\b(?:\s+in\s+([a-zA-Z\s]+))?/i, name: 'M.Tech' },
-  { match: /\b(?:B\.?\s*S\.?|B\.?\s*Sc\.?|Bachelor of Science)\b(?:\s+in\s+([a-zA-Z\s]+))?/i, name: 'B.S.' },
-  { match: /\b(?:M\.?\s*S\.?|M\.?\s*Sc\.?|Master of Science)\b(?:\s+in\s+([a-zA-Z\s]+))?/i, name: 'M.S.' },
+  { match: /\b(?:B\.?\s*Tech|B\.?\s*E\.?|Bachelor of Technology|Bachelor of Engineering)\b(?:\s+in\s+([^\n\r,|;]+))?/i, name: 'B.Tech' },
+  { match: /\b(?:M\.?\s*Tech|M\.?\s*E\.?|Master of Technology)\b(?:\s+in\s+([^\n\r,|;]+))?/i, name: 'M.Tech' },
+  { match: /\b(?:B\.?\s*S\.?|B\.?\s*Sc\.?|Bachelor of Science)\b(?:\s+in\s+([^\n\r,|;]+))?/i, name: 'B.S.' },
+  { match: /\b(?:M\.?\s*S\.?|M\.?\s*Sc\.?|Master of Science)\b(?:\s+in\s+([^\n\r,|;]+))?/i, name: 'M.S.' },
   { match: /\b(?:BCA|MCA|MBA|BBA)\b/i, name: 'Degree' },
   { match: /\b(?:Intermediate|12th|Higher Secondary|Junior College|Class XII)\b(?:\s+schooling|\s+education)?/i, name: 'Intermediate' },
   { match: /\b(?:10th|Secondary School|SSC|Matriculation|Class X)\b/i, name: 'Secondary School (10th)' },
-  { match: /\b(?:Diploma)\b(?:\s+in\s+([a-zA-Z\s]+))?/i, name: 'Diploma' }
+  { match: /\b(?:Diploma)\b(?:\s+in\s+([^\n\r,|;]+))?/i, name: 'Diploma' }
 ];
 
 const DATE_RANGE_REGEX = /(?:(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)[a-z]*\.?\s*)?\b(20\d{2})\b\s*(?:to|-|–|—)\s*(?:(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)[a-z]*\.?\s*)?\b(20\d{2}|Present)\b/gi;
@@ -61,12 +61,37 @@ export function parseEducationSection(content: string): RecoveredEducation[] {
     });
   }
 
-  // If no date ranges detected, parse whole block as a single education entry
+  // If no date ranges detected, parse degree, branch, and institution cleanly
   if (dateMatches.length === 0) {
+    let degreeName = 'Bachelor of Technology';
+    let branchName = '';
+    let remaining = raw;
+
+    for (const dp of DEGREE_PATTERNS) {
+      const match = raw.match(dp.match);
+      if (match) {
+        degreeName = dp.name;
+        if (match[1]) {
+          branchName = match[1].trim();
+        }
+        remaining = raw.replace(match[0], ' ').trim();
+        break;
+      }
+    }
+
+    if (/\b(?:Electronics and Communication|ECE)\b/i.test(raw)) {
+      branchName = 'Electronics and Communication Engineering';
+    } else if (/\b(?:Computer Science|CSE)\b/i.test(raw)) {
+      branchName = 'Computer Science & Engineering';
+    }
+
+    const institution = remaining.length > 3 ? titleCaseWithAcronyms(remaining.replace(/^[-•,–—|]\s*/, '').trim()) : '';
+
     return [
       {
-        institution: titleCaseWithAcronyms(raw.slice(0, 45)),
-        degree: 'Education',
+        institution,
+        degree: branchName ? `${degreeName} in ${branchName}` : degreeName,
+        branch: branchName,
         dates: '',
         isExpected: false,
         rawLine: raw
@@ -97,7 +122,8 @@ export function parseEducationSection(content: string): RecoveredEducation[] {
       if (match) {
         degreeName = dp.name;
         if (match[1]) {
-          branchName = match[1].trim().toUpperCase();
+          const rawBranch = match[1].trim();
+          branchName = rawBranch.length <= 4 ? rawBranch.toUpperCase() : titleCaseWithAcronyms(rawBranch);
         } else if (/\bECE\b/i.test(textBeforeDate)) {
           branchName = 'ECE';
         } else if (/\bCSE\b/i.test(textBeforeDate)) {

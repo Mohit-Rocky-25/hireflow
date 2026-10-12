@@ -59,6 +59,9 @@ export interface ResumeDocModel {
   addedSkills?: string[];
   skillCategories?: ResumeSkillCategory[];
   hiddenSkills?: string[];
+  certifications?: string[];
+  leadership?: ResumeExperienceItem[];
+  achievements?: string[];
   languages?: string[];
   links?: string[];
   leftOut?: LeftOutItem[];
@@ -67,6 +70,10 @@ export interface ResumeDocModel {
   wordCount?: number;
   preset: ResumePreset;
   sectionOrder: string[];
+}
+
+function cleanForMatch(str: string): string {
+  return str.toLowerCase().replace(/^[#*•●▪‣\-\s]+/, '').replace(/[\s.,;:]+$/, '').trim();
 }
 
 /**
@@ -81,8 +88,9 @@ function resolveReplacement(
   if (replacements['-' + clean]) return replacements['-' + clean];
   if (replacements['• ' + clean]) return replacements['• ' + clean];
 
+  const targetClean = cleanForMatch(clean);
   for (const [k, v] of Object.entries(replacements)) {
-    if (k.replace(/^[-•*●▪‣]\s*/, '').trim() === clean) {
+    if (cleanForMatch(k) === targetClean) {
       return v;
     }
   }
@@ -135,15 +143,32 @@ export function parseResumeDocModel(
     })
   }));
 
-  // 3. Map Education
+  // 3. Map Leadership with Replacements
+  const leadership: ResumeExperienceItem[] = (recovered.leadership || []).map((lead) => ({
+    role: lead.role,
+    company: lead.company,
+    dates: lead.dates,
+    bullets: lead.bullets.map((bText) => {
+      const clean = bText.replace(/^[-•*●▪‣]\s*/, '').trim();
+      const rep = resolveReplacement(clean, acceptedReplacements);
+      return {
+        id: `b-${bulletIdCounter++}`,
+        text: (rep || clean).replace(/^[-•*●▪‣]\s*/, '').trim(),
+        isModified: Boolean(rep),
+        originalText: clean
+      };
+    })
+  }));
+
+  // 4. Map Education
   const education: ResumeEducationItem[] = recovered.education.map((edu) => ({
     degree: edu.degree,
     institution: edu.institution,
     year: edu.dates,
-    details: edu.branch
+    details: edu.branch && !edu.degree.toLowerCase().includes(edu.branch.toLowerCase()) ? edu.branch : undefined
   }));
 
-  // 4. Auto-detect Preset if not manually specified
+  // 5. Auto-detect Preset if not manually specified
   let preset: ResumePreset = 'fresher';
   if (manualPreset) {
     preset = manualPreset;
@@ -162,18 +187,51 @@ export function parseResumeDocModel(
     }
   }
 
-  // 5. Section Order by Preset
+  // 6. Section Order by Preset
   let sectionOrder: string[];
   switch (preset) {
     case 'skillsFirst':
-      sectionOrder = ['summary', 'skills', 'projects', 'experience', 'education', 'languages', 'links'];
+      sectionOrder = [
+        'summary',
+        'skills',
+        'projects',
+        'experience',
+        'education',
+        'leadership',
+        'certifications',
+        'achievements',
+        'languages',
+        'links'
+      ];
       break;
     case 'professional':
-      sectionOrder = ['summary', 'experience', 'skills', 'projects', 'education', 'languages', 'links'];
+      sectionOrder = [
+        'summary',
+        'experience',
+        'skills',
+        'projects',
+        'education',
+        'leadership',
+        'certifications',
+        'achievements',
+        'languages',
+        'links'
+      ];
       break;
     case 'fresher':
     default:
-      sectionOrder = ['summary', 'education', 'skills', 'projects', 'experience', 'languages', 'links'];
+      sectionOrder = [
+        'summary',
+        'education',
+        'skills',
+        'projects',
+        'experience',
+        'leadership',
+        'certifications',
+        'achievements',
+        'languages',
+        'links'
+      ];
       break;
   }
 
@@ -221,6 +279,9 @@ export function parseResumeDocModel(
     addedSkills: newSkillsToAdd,
     skillCategories,
     hiddenSkills: recovered.skills.hiddenSkills,
+    certifications: recovered.certifications,
+    leadership,
+    achievements: recovered.achievements,
     languages: recovered.languages,
     links: recovered.links,
     leftOut: recovered.leftOut,

@@ -5,13 +5,28 @@
 import { RecoveredHeader } from './types';
 
 const ROLE_KEYWORDS = [
+  'cybersecurity engineer',
+  'cybersecurity analyst',
+  'cloud security engineer',
+  'cloud security',
+  'security engineer',
+  'security analyst',
+  'penetration tester',
+  'pentester',
+  'cybersecurity',
+  'infosec',
+  'security',
+  'network engineer',
   'full stack developer',
+  'full stack engineer',
   'software engineer',
   'frontend engineer',
   'backend engineer',
-  'full stack engineer',
   'devops engineer',
+  'cloud architect',
+  'solutions architect',
   'data scientist',
+  'data engineer',
   'machine learning engineer',
   'mobile developer',
   'android developer',
@@ -19,12 +34,15 @@ const ROLE_KEYWORDS = [
   'systems engineer',
   'cloud engineer',
   'qa engineer',
+  'test automation engineer',
   'embedded engineer',
   'developer',
   'engineer',
   'student',
   'intern',
-  'analyst'
+  'analyst',
+  'specialist',
+  'consultant'
 ];
 
 function toTitleCase(str: string): string {

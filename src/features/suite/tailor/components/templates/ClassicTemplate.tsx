@@ -125,8 +125,11 @@ export const ClassicTemplate: React.FC<TemplateProps> = ({ model, showChanges })
                   {proj.bullets.map((b) => (
                     <li key={b.id} className="leading-snug">
                       {showChanges && b.isModified ? (
-                        <span className="bg-emerald-100 text-emerald-950 px-1 py-0.5 rounded font-medium border-b border-emerald-400">
+                        <span className="bg-emerald-50 text-emerald-950 px-2 py-0.5 rounded font-medium border-l-[3px] border-emerald-500 inline-block">
                           {cleanBullet(b.text)}
+                          <span className="ml-2 text-[7pt] font-black uppercase text-emerald-700 bg-emerald-100 px-1 py-0.2 rounded tracking-wider">
+                            Updated
+                          </span>
                         </span>
                       ) : (
                         cleanBullet(b.text)
@@ -164,8 +167,11 @@ export const ClassicTemplate: React.FC<TemplateProps> = ({ model, showChanges })
                   {exp.bullets.map((b) => (
                     <li key={b.id} className="leading-snug">
                       {showChanges && b.isModified ? (
-                        <span className="bg-emerald-100 text-emerald-950 px-1 py-0.5 rounded font-medium border-b border-emerald-400">
+                        <span className="bg-emerald-50 text-emerald-950 px-2 py-0.5 rounded font-medium border-l-[3px] border-emerald-500 inline-block">
                           {cleanBullet(b.text)}
+                          <span className="ml-2 text-[7pt] font-black uppercase text-emerald-700 bg-emerald-100 px-1 py-0.2 rounded tracking-wider">
+                            Updated
+                          </span>
                         </span>
                       ) : (
                         cleanBullet(b.text)
@@ -177,6 +183,84 @@ export const ClassicTemplate: React.FC<TemplateProps> = ({ model, showChanges })
             </div>
           ))}
         </div>
+      </section>
+    );
+  };
+
+  const renderLeadership = () => {
+    if (!model.leadership || model.leadership.length === 0) return null;
+    return (
+      <section key="leadership" className="mt-3.5">
+        <h2 className="text-[10.5pt] font-bold uppercase tracking-wider text-black border-b border-gray-400 pb-0.5 mb-2 font-sans">
+          Leadership & Involvement
+        </h2>
+        <div className="space-y-2.5">
+          {model.leadership.map((item, idx) => (
+            <div key={idx} className="space-y-1">
+              <div className="flex justify-between items-baseline font-sans text-[10pt]">
+                <div>
+                  <span className="font-bold text-black">{item.role}</span>
+                  {item.company && <span className="italic text-gray-800"> — {item.company}</span>}
+                </div>
+                {item.dates && <span className="text-[9pt] text-gray-600 font-medium">{item.dates}</span>}
+              </div>
+              {item.bullets.length > 0 && (
+                <ul className="list-disc list-outside ml-4 space-y-0.5 text-[9.6pt] text-gray-800 font-sans">
+                  {item.bullets.map((b) => (
+                    <li key={b.id} className="leading-snug">
+                      {showChanges && b.isModified ? (
+                        <span className="bg-emerald-50 text-emerald-950 px-2 py-0.5 rounded font-medium border-l-[3px] border-emerald-500 inline-block">
+                          {cleanBullet(b.text)}
+                          <span className="ml-2 text-[7pt] font-black uppercase text-emerald-700 bg-emerald-100 px-1 py-0.2 rounded tracking-wider">
+                            Updated
+                          </span>
+                        </span>
+                      ) : (
+                        cleanBullet(b.text)
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          ))}
+        </div>
+      </section>
+    );
+  };
+
+  const renderCertifications = () => {
+    if (!model.certifications || model.certifications.length === 0) return null;
+    return (
+      <section key="certifications" className="mt-3.5">
+        <h2 className="text-[10.5pt] font-bold uppercase tracking-wider text-black border-b border-gray-400 pb-0.5 mb-1.5 font-sans">
+          Certifications & Continuous Learning
+        </h2>
+        <ul className="list-disc list-outside ml-4 space-y-0.5 text-[9.6pt] text-gray-800 font-sans">
+          {model.certifications.map((cert, idx) => (
+            <li key={idx} className="leading-snug">
+              {cert}
+            </li>
+          ))}
+        </ul>
+      </section>
+    );
+  };
+
+  const renderAchievements = () => {
+    if (!model.achievements || model.achievements.length === 0) return null;
+    return (
+      <section key="achievements" className="mt-3.5">
+        <h2 className="text-[10.5pt] font-bold uppercase tracking-wider text-black border-b border-gray-400 pb-0.5 mb-1.5 font-sans">
+          Honors & Achievements
+        </h2>
+        <ul className="list-disc list-outside ml-4 space-y-0.5 text-[9.6pt] text-gray-800 font-sans">
+          {model.achievements.map((ach, idx) => (
+            <li key={idx} className="leading-snug">
+              {ach}
+            </li>
+          ))}
+        </ul>
       </section>
     );
   };
@@ -201,6 +285,9 @@ export const ClassicTemplate: React.FC<TemplateProps> = ({ model, showChanges })
     skills: renderSkills,
     projects: renderProjects,
     experience: renderExperience,
+    leadership: renderLeadership,
+    certifications: renderCertifications,
+    achievements: renderAchievements,
     languages: renderLanguages
   };
 

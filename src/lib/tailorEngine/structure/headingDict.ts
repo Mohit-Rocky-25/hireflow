@@ -60,7 +60,14 @@ export const HEADING_DEFINITIONS: HeadingDefinition[] = [
       'academic projects',
       'personal projects',
       'technical projects',
-      'notable projects'
+      'notable projects',
+      'relevant projects',
+      'security projects',
+      'hands-on projects',
+      'featured projects',
+      'selected projects',
+      'independent projects',
+      'engineering projects'
     ]
   },
   {
@@ -73,31 +80,71 @@ export const HEADING_DEFINITIONS: HeadingDefinition[] = [
       'industrial training',
       'employment history',
       'professional experience',
+      'practical experience',
+      'relevant experience',
+      'hands-on experience',
+      'career history',
+      'work history',
       'experience'
     ]
   },
   {
     kind: 'certifications',
-    canonicalTitle: 'Certifications',
+    canonicalTitle: 'Certifications & Training',
     aliases: [
       'certifications',
       'certificates',
+      'continuous learning',
+      'ongoing learning',
+      'professional development',
       'courses',
       'licenses & certifications',
-      'certifications & courses'
+      'certifications & courses',
+      'certifications & training',
+      'courses & certifications',
+      'training & certifications',
+      'training',
+      'credentials'
+    ]
+  },
+  {
+    kind: 'leadership',
+    canonicalTitle: 'Leadership & Involvement',
+    aliases: [
+      'leadership & involvement',
+      'leadership and involvement',
+      'leadership',
+      'campus involvement',
+      'community involvement',
+      'positions of responsibility',
+      'student leadership',
+      'extracurricular activities',
+      'co-curricular activities',
+      'extracurriculars',
+      'involvement',
+      'activities & leadership',
+      'activities',
+      'volunteer experience',
+      'volunteering'
     ]
   },
   {
     kind: 'achievements',
-    canonicalTitle: 'Achievements',
+    canonicalTitle: 'Honors & Achievements',
     aliases: [
       'achievements',
       'awards',
       'honours',
+      'honors',
+      'awards & achievements',
       'honors & awards',
-      'extracurricular activities',
-      'positions of responsibility',
-      'academic achievements'
+      'honours & awards',
+      'competitions',
+      'ctf competitions',
+      'hackathons',
+      'key achievements',
+      'academic achievements',
+      'accomplishments'
     ]
   },
   {
@@ -145,8 +192,12 @@ export interface HeadingMatch {
  * Checks if a standalone trimmed line matches a known heading.
  */
 export function matchExactHeadingLine(line: string): HeadingDefinition | null {
-  const clean = line.replace(/[:\-#•*]+$/, '').trim().toLowerCase();
-  if (clean.length < 2 || clean.length > 35) return null;
+  const clean = line
+    .replace(/^[#*_\-\s]+/, '')
+    .replace(/[:\-#•*_\s]+$/, '')
+    .trim()
+    .toLowerCase();
+  if (clean.length < 2 || clean.length > 40) return null;
 
   for (const def of HEADING_DEFINITIONS) {
     if (def.aliases.includes(clean)) {
