@@ -41,6 +41,7 @@ import { LayoutRepairsPanel } from './components/LayoutRepairsPanel';
 import { ExportToolbar } from './components/ExportToolbar';
 import { ExportTruthGateModal } from './components/ExportTruthGateModal';
 import { applyAcceptedSuggestions } from '../../../lib/tailorEngine/patcher';
+import { LayoutDensity } from '../../../lib/tailorEngine/heightSentinel';
 
 const SAMPLE_RESUME = `Arjun Mehta | arjun@example.com | Full Stack Developer
 SUMMARY: Software engineer with 3 years building web platforms using React, Node.js, TypeScript, and PostgreSQL.
@@ -114,6 +115,7 @@ export function TailorResumePage() {
   const [isTruthGateOpen, setIsTruthGateOpen] = useState(false);
   const [pendingExportAction, setPendingExportAction] = useState<'docx' | 'print' | null>(null);
   const [manualPreset, setManualPreset] = useState<ResumePreset | undefined>(undefined);
+  const [layoutDensity, setLayoutDensity] = useState<LayoutDensity>('comfortable');
 
   // Handle Quick Load JD from dataset (Companies & Campus Programs)
   const handleQuickLoadCompany = (targetId: string) => {
@@ -817,7 +819,7 @@ Requirements:
               {/* Strengthen This Resume Guidance Checklist */}
               <StrengthenChecklist model={docModel} onAddSkill={handleAddSkill} />
 
-              {/* White A4 Paper Sheet Preview */}
+              {/* White A4 Paper Sheet Preview with Real-Time 1-Page Height Sentinel */}
               <PaperPreview
                 ref={paperRef}
                 model={docModel}
@@ -826,6 +828,8 @@ Requirements:
                 isAtsTextView={isAtsTextView}
                 rawText={liveTailoredResume}
                 onPresetChange={setManualPreset}
+                density={layoutDensity}
+                onDensityChange={setLayoutDensity}
               />
             </div>
           </div>
