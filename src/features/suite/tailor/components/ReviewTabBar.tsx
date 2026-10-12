@@ -28,6 +28,8 @@ interface ReviewTabBarProps {
   onRejectAll: () => void;
   onUndoBulk?: () => void;
   showUndoToast?: boolean;
+  onRevertToSource?: () => void;
+  safeEditCount?: number;
 }
 
 export const ReviewTabBar: React.FC<ReviewTabBarProps> = ({
@@ -40,7 +42,9 @@ export const ReviewTabBar: React.FC<ReviewTabBarProps> = ({
   onAcceptAll,
   onRejectAll,
   onUndoBulk,
-  showUndoToast
+  showUndoToast,
+  onRevertToSource,
+  safeEditCount
 }) => {
   const percentComplete = totalCount > 0 ? Math.round((reviewedCount / totalCount) * 100) : 0;
 
@@ -89,10 +93,10 @@ export const ReviewTabBar: React.FC<ReviewTabBarProps> = ({
         </div>
 
         {/* Right: Progress and Bulk Actions */}
-        <div className="flex items-center justify-between md:justify-end gap-4 shrink-0">
+        <div className="flex items-center justify-between md:justify-end gap-3 shrink-0 flex-wrap">
           {/* Progress Bar & Status */}
-          <div className="flex items-center gap-3">
-            <div className="w-24 sm:w-32 bg-slate-200/90 h-2.5 rounded-full overflow-hidden p-0.5 border border-slate-300/60 shadow-inner">
+          <div className="flex items-center gap-2.5">
+            <div className="w-20 sm:w-28 bg-slate-200/90 h-2.5 rounded-full overflow-hidden p-0.5 border border-slate-300/60 shadow-inner">
               <div
                 className="bg-gradient-to-r from-emerald-500 to-teal-400 h-full rounded-full transition-all duration-300 shadow-xs"
                 style={{ width: `${percentComplete}%` }}
@@ -111,14 +115,15 @@ export const ReviewTabBar: React.FC<ReviewTabBarProps> = ({
           </div>
 
           {/* Bulk Action Buttons */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5">
             <button
               type="button"
               onClick={onAcceptAll}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 text-xs font-bold transition-all shadow-2xs cursor-pointer"
+              title="Accepts only verified safe edits (no questions accepted automatically)"
             >
               <CheckCheck className="w-3.5 h-3.5 text-emerald-600" />
-              <span>Accept All</span>
+              <span>{safeEditCount !== undefined ? `Accept Safe Edits (${safeEditCount})` : 'Accept All Safe Edits'}</span>
             </button>
 
             <button
@@ -129,6 +134,18 @@ export const ReviewTabBar: React.FC<ReviewTabBarProps> = ({
               <XCircle className="w-3.5 h-3.5 text-slate-400" />
               <span>Decline All</span>
             </button>
+
+            {onRevertToSource && (
+              <button
+                type="button"
+                onClick={onRevertToSource}
+                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-white hover:bg-rose-50 text-slate-600 hover:text-rose-600 border border-slate-200 hover:border-rose-200 text-xs font-semibold transition-all cursor-pointer"
+                title="Revert all changes back to original source resume"
+              >
+                <RotateCcw className="w-3.5 h-3.5 text-slate-400 hover:text-rose-600" />
+                <span className="hidden sm:inline">Revert</span>
+              </button>
+            )}
 
             {showUndoToast && onUndoBulk && (
               <button
