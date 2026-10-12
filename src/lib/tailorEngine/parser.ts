@@ -21,6 +21,8 @@ export interface ParsedJD {
   niceToHaveSkills: string[];
   responsibilities: string[];
   allDetectedSkills: string[];
+  confidenceScore: 'high' | 'low';
+  confidenceWarning?: string;
 }
 
 export function cleanText(text: string): string {
@@ -313,14 +315,45 @@ export function parseJDOverview(text: string): ParsedJD {
   const { skills: mustHaveSkills } = extractCanonicalSkills(mustHaveText);
   const { skills: niceToHaveSkillsRaw } = extractCanonicalSkills(niceToHaveText);
 
+  // Extract multi-word technical requirement phrases (e.g. "Computer Science Fundamentals")
+  const multiWordPattern = /\b([A-Z][a-zA-Z0-9+#.]+(?:\s+[A-Z][a-zA-Z0-9+#.]+){1,3})\b/g;
+  const extraPhrases: string[] = [];
+  let mwMatch: RegExpExecArray | null;
+  while ((mwMatch = multiWordPattern.exec(allJDText)) !== null) {
+    const phrase = mwMatch[1].trim();
+    if (
+      phrase.length > 5 &&
+      phrase.length < 40 &&
+      !/^(?:Bachelor|Master|University|College|Company|Target Company|Requirements|Responsibilities|Preferred Qualifications|What You Need|Nice To Have|Work Experience|About Us)/i.test(phrase)
+    ) {
+      if (!allDetectedSkills.some((s) => s.toLowerCase() === phrase.toLowerCase())) {
+        extraPhrases.push(phrase);
+      }
+    }
+  }
+
+  const combinedAllDetected = Array.from(new Set([...allDetectedSkills, ...extraPhrases]));
+  const combinedMustHave = Array.from(
+    new Set([
+      ...mustHaveSkills,
+      ...extraPhrases.filter((p) => mustHaveText.toLowerCase().includes(p.toLowerCase()))
+    ])
+  );
+
   // If mustHaveSkills found nothing in categorized lines, use all detected skills
-  const effectiveMustHaveSkills = mustHaveSkills.length > 0 
-    ? mustHaveSkills 
-    : allDetectedSkills.slice(0, Math.min(allDetectedSkills.length, 6));
+  const effectiveMustHaveSkills = combinedMustHave.length > 0 
+    ? combinedMustHave 
+    : combinedAllDetected.slice(0, Math.min(combinedAllDetected.length, 6));
 
   const effectiveNiceToHaveSkills = niceToHaveSkillsRaw.length > 0
     ? niceToHaveSkillsRaw
-    : allDetectedSkills.slice(effectiveMustHaveSkills.length);
+    : combinedAllDetected.slice(effectiveMustHaveSkills.length);
+
+  const confidenceScore: 'high' | 'low' = effectiveMustHaveSkills.length >= 3 ? 'high' : 'low';
+  const confidenceWarning =
+    confidenceScore === 'low'
+      ? 'Low confidence: paste more of the job description to identify core stack.'
+      : undefined;
 
   return {
     role,
@@ -330,6 +363,8 @@ export function parseJDOverview(text: string): ParsedJD {
     niceToHaves,
     niceToHaveSkills: effectiveNiceToHaveSkills,
     responsibilities,
-    allDetectedSkills
+    allDetectedSkills: combinedAllDetected,
+    confidenceScore,
+    confidenceWarning
   };
 }
