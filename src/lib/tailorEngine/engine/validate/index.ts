@@ -97,7 +97,43 @@ export function validateResume(resume: CanonicalResume, layout: LayoutTree): Val
     });
   }
 
-  // 5. Skills Groups Check
+  // 5. Per-bullet Metric Suggestions for Projects & Achievements (Item H, per R4)
+  // For each project/achievement bullet with no number, emit a non-blocking suggestion.
+  // Never insert anything into the resume text.
+  resume.projects.forEach((proj, projIdx) => {
+    proj.bullets.forEach((bullet, bulletIdx) => {
+      if (!/\d+/.test(bullet)) {
+        suggestions.push({
+          id: `sug-metric-proj-${projIdx}-${bulletIdx}`,
+          severity: 'info',
+          message: 'Add rank, team size or challenges solved',
+          targetSection: 'projects',
+          targetIndex: projIdx,
+          suggestedAction: 'Add rank, team size or challenges solved'
+        });
+      }
+    });
+  });
+
+  if (resume.achievements) {
+    resume.achievements.forEach((ach, achIdx) => {
+      const bullets = ach.bullets && ach.bullets.length > 0 ? ach.bullets : ach.detail ? [ach.detail] : [];
+      bullets.forEach((bullet, bulletIdx) => {
+        if (!/\d+/.test(bullet)) {
+          suggestions.push({
+            id: `sug-metric-ach-${achIdx}-${bulletIdx}`,
+            severity: 'info',
+            message: 'Add rank, team size or challenges solved',
+            targetSection: 'achievements',
+            targetIndex: achIdx,
+            suggestedAction: 'Add rank, team size or challenges solved'
+          });
+        }
+      });
+    });
+  }
+
+  // 6. Skills Groups Check
   for (const group of resume.skills.groups) {
     if (group.items.length < 2) {
       warnings.push(`Skill category "${group.label}" contains only 1 item.`);
