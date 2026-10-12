@@ -117,14 +117,14 @@ export function LandingPage() {
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-[32px] w-full text-center">
           <div className="max-w-[860px] mx-auto page-enter flex flex-col items-center">
             
-            {/* Main Headline */}
-            <h1 className="text-[52px] sm:text-[68px] lg:text-[84px] font-black text-slate-950 dark:text-white leading-[1.03] tracking-[-0.04em] mb-[24px]">
+            {/* Main Headline — Deep Solid Black */}
+            <h1 className="text-[52px] sm:text-[68px] lg:text-[84px] font-black text-black leading-[1.03] tracking-[-0.04em] mb-[24px]">
               Take control of your{" "}
               <span className="gradient-text">Career.</span>
             </h1>
 
             {/* Subtitle */}
-            <p className="text-[18px] sm:text-[20px] text-slate-600 dark:text-zinc-400 leading-[30px] sm:leading-[32px] mb-[44px] max-w-[620px] mx-auto font-normal">
+            <p className="text-[18px] sm:text-[20px] text-text-secondary leading-[30px] sm:leading-[32px] mb-[44px] max-w-[620px] mx-auto font-normal">
               Simulate ATS resume filters, map your career trajectory, and test your resume against {careers.stats.counts().companies} verified companies and {careers.stats.counts().roles}+ roles — all completely free.
             </p>
 
@@ -137,12 +137,12 @@ export function LandingPage() {
                 </button>
               </Link>
               <Link to="/tools/resume-checker">
-                <button className="inline-flex items-center gap-[10px] h-[54px] px-[28px] text-[15px] font-semibold text-slate-700 dark:text-zinc-200 rounded-xl border border-slate-200 dark:border-white/15 bg-white dark:bg-white/5 hover:border-slate-300 hover:text-black hover:bg-slate-50 transition-all duration-[150ms] shadow-xs">
+                <button className="inline-flex items-center gap-[10px] h-[54px] px-[28px] text-[15px] font-semibold text-text-secondary rounded-xl border border-border-strong bg-white hover:border-border-accent hover:text-black hover:bg-surface-2 transition-all duration-[150ms] shadow-xs">
                   ATS Roaster
                 </button>
               </Link>
               <Link to="/tools">
-                <button className="inline-flex items-center gap-[10px] h-[54px] px-[28px] text-[15px] font-semibold text-slate-700 dark:text-zinc-200 rounded-xl border border-slate-200 dark:border-white/15 bg-white dark:bg-white/5 hover:border-slate-300 hover:text-black hover:bg-slate-50 transition-all duration-[150ms] shadow-xs">
+                <button className="inline-flex items-center gap-[10px] h-[54px] px-[28px] text-[15px] font-semibold text-text-secondary rounded-xl border border-border-strong bg-white hover:border-border-accent hover:text-black hover:bg-surface-2 transition-all duration-[150ms] shadow-xs">
                   Decision Suite <ChevronRight className="w-[16px] h-[16px] stroke-[2px]" />
                 </button>
               </Link>
@@ -221,14 +221,14 @@ export function LandingPage() {
       </section>
 
       {/* Free Tools Cards (Symmetrical 3-Column Grid) */}
-      <section className="py-[100px] border-t border-border bg-slate-50/60 dark:bg-zinc-950">
+      <section className="py-[100px] border-t border-border bg-slate-50/60">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-[32px]">
           <div className="text-center mb-[60px]">
             <p className="text-[12px] font-bold text-primary uppercase tracking-[0.14em] mb-[12px]">Free Tools</p>
-            <h2 className="text-[38px] sm:text-[46px] font-black text-slate-950 dark:text-white tracking-[-0.03em] mb-[14px]">
+            <h2 className="text-[38px] sm:text-[46px] font-black text-black tracking-[-0.03em] mb-[14px]">
               Accelerate your career.
             </h2>
-            <p className="text-[17px] sm:text-[18px] text-slate-600 dark:text-zinc-400 max-w-[500px] mx-auto leading-relaxed">
+            <p className="text-[17px] sm:text-[18px] text-text-secondary max-w-[500px] mx-auto leading-relaxed">
               Everything you need to land your next big role.
             </p>
           </div>
@@ -241,7 +241,7 @@ export function LandingPage() {
                 <Link
                   key={i}
                   to={role.link}
-                  className={`group relative rounded-3xl bg-white dark:bg-zinc-900 border border-slate-200/90 dark:border-white/10 p-8 sm:p-9 flex flex-col justify-between shadow-xs hover:shadow-xl hover:-translate-y-2 active:scale-[0.985] transition-all duration-200 cursor-pointer overflow-hidden ${role.cardHoverStyle}`}
+                  className={`group relative rounded-3xl bg-white border border-slate-200/90 p-8 sm:p-9 flex flex-col justify-between shadow-xs hover:shadow-xl hover:-translate-y-2 active:scale-[0.985] transition-all duration-200 cursor-pointer overflow-hidden ${role.cardHoverStyle}`}
                 >
                   {/* Subtle top glow bar on hover */}
                   <div className={`absolute top-0 left-6 right-6 h-[3px] rounded-b-full bg-gradient-to-r ${role.accentGrad} opacity-0 group-hover:opacity-100 transition-opacity duration-200`} />
@@ -258,14 +258,14 @@ export function LandingPage() {
                     </div>
 
                     {/* Title */}
-                    <h3 className="text-[24px] sm:text-[26px] font-black text-slate-950 dark:text-white mb-4 tracking-tight group-hover:text-primary transition-colors">
+                    <h3 className="text-[24px] sm:text-[26px] font-black text-black mb-4 tracking-tight group-hover:text-primary transition-colors">
                       {role.title}
                     </h3>
 
                     {/* Points list */}
                     <ul className="space-y-3.5 mb-8">
                       {role.points.map((p, j) => (
-                        <li key={j} className="flex items-start gap-3 text-[14px] sm:text-[15px] text-slate-600 dark:text-zinc-400 font-medium leading-snug">
+                        <li key={j} className="flex items-start gap-3 text-[14px] sm:text-[15px] text-text-secondary font-medium leading-snug">
                           <CheckCircle className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0 stroke-[2.2px]" />
                           <span>{p}</span>
                         </li>
@@ -274,7 +274,7 @@ export function LandingPage() {
                   </div>
 
                   {/* Interactive Button */}
-                  <div className={`w-full py-3.5 px-5 rounded-xl border border-slate-200/90 dark:border-white/10 bg-slate-50 dark:bg-white/5 text-slate-800 dark:text-zinc-200 text-[14px] font-bold flex items-center justify-between transition-all duration-200 shadow-2xs ${role.buttonStyle}`}>
+                  <div className={`w-full py-3.5 px-5 rounded-xl border border-slate-200/90 bg-slate-50 text-slate-800 text-[14px] font-bold flex items-center justify-between transition-all duration-200 shadow-2xs ${role.buttonStyle}`}>
                     <span>{role.cta}</span>
                     <ArrowRight className="w-4 h-4 stroke-[2.2px] group-hover:translate-x-1 transition-transform duration-200" />
                   </div>
@@ -286,14 +286,14 @@ export function LandingPage() {
       </section>
 
       {/* Core Features (Symmetrical 3-Column Grid) */}
-      <section id="features" className="py-[100px] border-t border-border bg-white dark:bg-zinc-900 relative">
+      <section id="features" className="py-[100px] border-t border-border bg-white relative">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-[32px] relative z-10">
           <div className="mb-[60px] text-center max-w-2xl mx-auto">
             <p className="text-[12px] font-bold text-primary uppercase tracking-[0.14em] mb-[12px]">Core Features</p>
-            <h2 className="text-[38px] sm:text-[46px] font-black text-slate-950 dark:text-white mb-[14px] tracking-[-0.03em]">
+            <h2 className="text-[38px] sm:text-[46px] font-black text-black mb-[14px] tracking-[-0.03em]">
               Built for the modern candidate
             </h2>
-            <p className="text-[17px] sm:text-[18px] text-slate-600 dark:text-zinc-400 leading-relaxed">
+            <p className="text-[17px] sm:text-[18px] text-text-secondary leading-relaxed">
               We reverse-engineered enterprise ATS systems so you can finally beat them.
             </p>
           </div>
@@ -305,15 +305,15 @@ export function LandingPage() {
               return (
                 <div
                   key={i}
-                  className="group relative rounded-3xl bg-slate-50/70 dark:bg-zinc-800/50 border border-slate-200/80 dark:border-white/10 p-8 hover:bg-white dark:hover:bg-zinc-800 hover:border-slate-300 dark:hover:border-white/20 hover:shadow-lg hover:-translate-y-1.5 transition-all duration-200"
+                  className="group relative rounded-3xl bg-slate-50/70 border border-slate-200/80 p-8 hover:bg-white hover:border-slate-300 hover:shadow-lg hover:-translate-y-1.5 transition-all duration-200"
                 >
                   <div className={`w-12 h-12 rounded-2xl ${f.iconBg} border flex items-center justify-center mb-6 shadow-xs group-hover:scale-105 transition-transform duration-200`}>
                     <Icon className={`w-6 h-6 ${f.iconColor} stroke-[2px]`} />
                   </div>
-                  <h3 className="text-[20px] font-bold text-slate-950 dark:text-white mb-2.5 tracking-tight group-hover:text-primary transition-colors">
+                  <h3 className="text-[20px] font-bold text-black mb-2.5 tracking-tight group-hover:text-primary transition-colors">
                     {f.title}
                   </h3>
-                  <p className="text-[14px] sm:text-[15px] text-slate-600 dark:text-zinc-400 leading-relaxed font-normal">
+                  <p className="text-[14px] sm:text-[15px] text-text-secondary leading-relaxed font-normal">
                     {f.desc}
                   </p>
                 </div>
