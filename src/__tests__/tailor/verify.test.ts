@@ -32,7 +32,9 @@ describe('HireFlow Resume Tailor — 12-Fixture Verification Suite', () => {
       const allBullets = [
         ...canonical.experience.flatMap((e) => e.bullets),
         ...canonical.projects.flatMap((p) => p.bullets),
-        ...canonical.leadership.flatMap((l) => l.bullets)
+        ...canonical.leadership.flatMap((l) => l.bullets),
+        ...(canonical.achievements || []).flatMap((a) => (a.bullets || [a.title])),
+        ...(canonical.certifications || []).map((c) => c.name)
       ];
       for (const bullet of allBullets) {
         const firstChar = bullet.trim().charAt(0);

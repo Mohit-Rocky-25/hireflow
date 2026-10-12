@@ -16,6 +16,11 @@ export function parseCertificationsSection(content: string): string[] {
     .filter(Boolean);
 
   for (const line of lines) {
+    if (/^[a-z]/.test(line) && items.length > 0) {
+      items[items.length - 1] += ' and ' + line;
+      continue;
+    }
+
     // If a line is comma-separated list of multiple distinct certs (e.g. "AWS SAA, CompTIA Sec+, CEH")
     // but check that it's not a single title with an issuer like "Network Security, Coursera"
     if (line.includes(',') && !line.includes('(') && line.split(',').length >= 3) {

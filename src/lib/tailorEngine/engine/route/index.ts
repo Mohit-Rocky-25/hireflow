@@ -307,6 +307,30 @@ function parseEducationChunk(
 
 // -------------------------------------------------------------
 // Experience Chunk Parser
+function appendOrMergeBullet(
+  bullets: string[],
+  cleanLine: string,
+  sectionName: string,
+  needs_review: NeedsReviewBlock[]
+): void {
+  const isFragment = /^[a-z]/.test(cleanLine);
+  if (isFragment) {
+    if (bullets.length > 0) {
+      bullets[bullets.length - 1] += ' ' + cleanLine;
+    } else {
+      needs_review.push({
+        id: `rev-frag-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
+        rawText: cleanLine,
+        candidateSection: sectionName,
+        confidence: 0.5,
+        reason: 'Sentence fragment starting with lowercase letter cannot be merged'
+      });
+    }
+  } else {
+    bullets.push(cleanLine);
+  }
+}
+
 // -------------------------------------------------------------
 function parseExperienceChunk(
   chunk: NormalizedSectionChunk,
@@ -321,7 +345,7 @@ function parseExperienceChunk(
 
     if (isBullet && current) {
       const cleanBullet = line.replace(/^[-•*●▪‣]\s*/, '').trim();
-      current.bullets.push(cleanBullet);
+      appendOrMergeBullet(current.bullets, cleanBullet, 'experience', needs_review);
       continue;
     }
 
@@ -354,7 +378,7 @@ function parseExperienceChunk(
       };
       outExp.push(current);
     } else if (current && (ACTION_VERB_REGEX.test(line) || line.split(/\s+/).length > 7)) {
-      current.bullets.push(line.trim());
+      appendOrMergeBullet(current.bullets, line.trim(), 'experience', needs_review);
     } else if (!current) {
       current = {
         role: line,
@@ -387,7 +411,7 @@ function parseProjectsChunk(
         current = { name: 'Technical Project', stack: [], bullets: [] };
         outProj.push(current);
       }
-      current.bullets.push(cleanBullet);
+      appendOrMergeBullet(current.bullets, cleanBullet, 'projects', needs_review);
       continue;
     }
 
@@ -517,7 +541,8 @@ function parseLeadershipChunk(
     const isBullet = /^[-•*●▪‣]\s*/.test(line);
 
     if (isBullet && current) {
-      current.bullets.push(line.replace(/^[-•*●▪‣]\s*/, '').trim());
+      const cleanBullet = line.replace(/^[-•*●▪‣]\s*/, '').trim();
+      appendOrMergeBullet(current.bullets, cleanBullet, 'leadership', needs_review);
       continue;
     }
 
@@ -538,7 +563,7 @@ function parseLeadershipChunk(
       current = { role: line, org: 'Community', bullets: [] };
       outLead.push(current);
     } else {
-      current.bullets.push(line.replace(/^[-•*●▪‣]\s*/, '').trim());
+      appendOrMergeBullet(current.bullets, line.replace(/^[-•*●▪‣]\s*/, '').trim(), 'leadership', needs_review);
     }
   }
 }
@@ -556,6 +581,22 @@ function parseCertificationsChunk(
   for (const line of lines) {
     const clean = line.replace(/^[-•*●▪‣]\s*/, '').trim();
     if (!clean) continue;
+
+    // Fragment continuation check: merge into previous cert or send to needs_review
+    if (/^[a-z]/.test(clean)) {
+      if (outCerts.length > 0) {
+        outCerts[outCerts.length - 1].name += ' and ' + clean;
+      } else {
+        needs_review.push({
+          id: `rev-frag-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
+          rawText: clean,
+          candidateSection: 'certifications',
+          confidence: 0.5,
+          reason: 'Certification fragment starting with lowercase letter cannot be merged'
+        });
+      }
+      continue;
+    }
 
     let status: 'completed' | 'in_progress' | 'coursework' = 'completed';
     if (/coursework|udemy|coursera|learning\s*log/i.test(clean)) {
@@ -594,6 +635,22 @@ function parseAchievementsChunk(
   for (const line of lines) {
     const clean = line.replace(/^[-•*●▪‣]\s*/, '').trim();
     if (!clean) continue;
+
+    if (/^[a-z]/.test(clean)) {
+      if (outAch.length > 0) {
+        outAch[outAch.length - 1].title += ' ' + clean;
+      } else {
+        needs_review.push({
+          id: `rev-frag-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
+          rawText: clean,
+          candidateSection: 'achievements',
+          confidence: 0.5,
+          reason: 'Achievement fragment starting with lowercase letter cannot be merged'
+        });
+      }
+      continue;
+    }
+
     outAch.push({ title: clean });
   }
 }

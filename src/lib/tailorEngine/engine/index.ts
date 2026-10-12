@@ -56,3 +56,28 @@ export function processResumePipeline(
     htmlPreview
   };
 }
+
+export function tailorResumePipeline(
+  rawInput: string,
+  targetJobDescription?: string,
+  options?: { targetPageCount?: 1 | 2; activeTemplate?: 'classic' | 'modern' | 'compact' }
+) {
+  const rawBlocks = parseRawContent(rawInput);
+  const normalizedChunks = normalizeRawBlocks(rawBlocks);
+  const routed = routeResumeContent(normalizedChunks);
+  const polished = polishResumeContent(routed);
+  const layout = buildLayoutTree(polished, 'fresher');
+  const validation = validateResume(polished, layout);
+  const exportedHtml = renderHtmlPreview(layout);
+
+  return {
+    rawBlocks,
+    normalized: normalizedChunks,
+    routed,
+    polished,
+    canonical: polished,
+    layout,
+    validation,
+    exported: { html: exportedHtml }
+  };
+}
