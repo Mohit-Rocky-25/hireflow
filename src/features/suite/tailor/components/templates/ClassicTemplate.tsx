@@ -23,7 +23,7 @@ export const ClassicTemplate: React.FC<TemplateProps> = ({ model, showChanges })
         <h2 className="text-[10.5pt] font-bold uppercase tracking-wider text-black border-b border-gray-400 pb-0.5 mb-1.5 font-sans">
           Professional Summary
         </h2>
-        <p className="text-[9.8pt] text-gray-800 leading-relaxed text-justify">
+        <p className="text-[9.8pt] text-gray-800 leading-relaxed text-left font-sans">
           {model.summary}
         </p>
       </section>
@@ -57,14 +57,38 @@ export const ClassicTemplate: React.FC<TemplateProps> = ({ model, showChanges })
     if (model.skills.length === 0) return null;
     const isAdded = (s: string) => showChanges && Boolean(model.addedSkills?.includes(s));
 
+    // Merge single-item orphan categories to avoid orphan 1-item lines
+    const mergedCategories = (() => {
+      if (!model.skillCategories || model.skillCategories.length <= 1) return model.skillCategories || [];
+      const valid: Array<{ category: string; skills: string[] }> = [];
+      const orphans: string[] = [];
+      for (const g of model.skillCategories) {
+        if (g.skills.length < 2) {
+          orphans.push(...g.skills);
+        } else {
+          valid.push({ category: g.category, skills: [...g.skills] });
+        }
+      }
+      if (orphans.length > 0) {
+        if (valid.length > 0) {
+          for (const s of orphans) {
+            if (!valid[0].skills.includes(s)) valid[0].skills.push(s);
+          }
+        } else {
+          valid.push({ category: 'Core Skills', skills: orphans });
+        }
+      }
+      return valid;
+    })();
+
     return (
       <section key="skills" className="mt-3.5">
         <h2 className="text-[10.5pt] font-bold uppercase tracking-wider text-black border-b border-gray-400 pb-0.5 mb-1.5 font-sans">
           Technical Skills
         </h2>
-        {model.skillCategories && model.skillCategories.length > 0 ? (
+        {mergedCategories.length > 0 ? (
           <div className="space-y-1 font-sans text-[9.6pt]">
-            {model.skillCategories.map((group) => (
+            {mergedCategories.map((group) => (
               <div key={group.category} className="leading-snug">
                 <span className="font-bold text-black">{group.category}: </span>
                 <span className="text-gray-800">
@@ -291,18 +315,24 @@ export const ClassicTemplate: React.FC<TemplateProps> = ({ model, showChanges })
     languages: renderLanguages
   };
 
+  const balancedContactLines = (() => {
+    if (contactParts.length <= 4) return [contactParts.join('  |  ')];
+    const mid = Math.ceil(contactParts.length / 2);
+    return [contactParts.slice(0, mid).join('  |  '), contactParts.slice(mid).join('  |  ')];
+  })();
+
   return (
-    <div className="font-serif text-[10.5pt] text-gray-900 leading-normal max-w-none">
+    <div className="font-sans text-[10pt] text-gray-900 leading-normal max-w-none">
       {/* Header */}
       <header className="text-center pb-2.5 border-b-2 border-gray-800">
         <h1 className="text-2xl font-bold tracking-tight text-black font-sans uppercase">
           {model.contact.name}
         </h1>
-        {contactParts.length > 0 && (
-          <p className="text-[9.2pt] text-gray-700 mt-1 font-sans">
-            {contactParts.join('  |  ')}
+        {balancedContactLines.map((line, idx) => (
+          <p key={idx} className="text-[9.2pt] text-gray-700 mt-1 font-sans">
+            {line}
           </p>
-        )}
+        ))}
       </header>
 
       {/* Dynamic Preset Section Ordering */}
