@@ -13,10 +13,26 @@ export interface BulletFormula {
   score: number;   // 0 to 4
 }
 
+// Comprehensive list of recognized strong active verbs (60+ verbs)
+export const EXPANDED_ACTION_VERBS = [
+  'performed', 'conducted', 'executed', 'analyzed', 'investigated', 'observed', 'monitored',
+  'discovered', 'identified', 'configured', 'patched', 'reversed', 'inspected', 'audited',
+  'tested', 'assessed', 'evaluated', 'verified', 'validated', 'engineered', 'architected',
+  'developed', 'built', 'authored', 'created', 'implemented', 'spearheaded', 'directed',
+  'led', 'orchestrated', 'automated', 'streamlined', 'optimized', 'enhanced', 'modernized',
+  'refactored', 'deployed', 'managed', 'maintained', 'designed', 'facilitated', 'coordinated',
+  'collaborated', 'programmed', 'benchmarked', 'formulated', 'integrated', 'secured',
+  'published', 'trained', 'supervised', 'diagnosed', 'quantified', 'maximized', 'consolidated',
+  'upgraded', 'refined', 'accelerated', 'crafted', 'constructed', 'synthesized', 'championed'
+];
+
 // Flat list of all recognized strong action verbs
-export const ALL_ACTION_VERBS: string[] = Object.values(
-  actionVerbsData.categories
-).flatMap((cat) => cat.verbs);
+export const ALL_ACTION_VERBS: string[] = Array.from(
+  new Set([
+    ...Object.values(actionVerbsData.categories).flatMap((cat) => cat.verbs),
+    ...EXPANDED_ACTION_VERBS
+  ])
+);
 
 const WEAK_OPENERS: Array<{ regex: RegExp; replacement: string }> = [
   { regex: /^(?:responsible for developing|responsible for the development of)\s+/i, replacement: 'Developed ' },
@@ -42,7 +58,7 @@ const COMMON_TECH_TOKENS = new Set([
   'kubernetes', 'k8s', 'aws', 'gcp', 'linux', 'git', 'github', 'esp32', 'arduino',
   'raspberry pi', 'html', 'css', 'jest', 'cypress', 'express', 'rest', 'api', 'iot',
   'cisco', 'wireshark', 'nmap', 'burp', 'ghidra', 'frida', 'metasploit', 'snort',
-  'terraform', 'ansible', 'jenkins', 'splunk', 'tracer'
+  'terraform', 'ansible', 'jenkins', 'splunk', 'tracer', 'jadx', 'apktool'
 ]);
 
 const OBJECT_NOUNS_REGEX = /\b(?:system|platform|application|service|microservice|feature|dashboard|pipeline|queue|database|query|queries|frontend|backend|infrastructure|architecture|workflow|interface|module|firmware|hardware|circuit|device|prototype|topology|network|routing|subnet|vlan|firewall|endpoint|apk|binary)\b/i;
@@ -60,7 +76,7 @@ export function evaluateBulletFormula(rawBullet: string): BulletFormula {
 
   // 1. Action: First word is a recognized action verb or past-tense verb
   const firstWord = clean.split(/\s+/)[0]?.toLowerCase().replace(/[^a-z]/g, '') || '';
-  const action = ALL_ACTION_VERBS.includes(firstWord) || /^(?:built|designed|developed|engineered|implemented|optimized|created|authored|spearheaded|streamlined|automated|refactored|deployed|configured|tested|resolved|integrated)$/.test(firstWord);
+  const action = ALL_ACTION_VERBS.includes(firstWord) || EXPANDED_ACTION_VERBS.includes(firstWord) || /^(?:built|designed|developed|engineered|implemented|optimized|created|authored|spearheaded|streamlined|automated|refactored|deployed|configured|tested|resolved|integrated|performed|conducted|identified|reversed|patched)$/.test(firstWord);
 
   // 2. Object: Mentions target system/feature/problem
   const object = OBJECT_NOUNS_REGEX.test(clean);
