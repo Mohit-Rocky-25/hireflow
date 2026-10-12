@@ -406,9 +406,10 @@ export function generateTailoredSuggestions(
     });
   });
 
-  // Calculate projected score based on accepted suggestions
-  const acceptedBoost = (acceptedIds.size * 5) + (mustHavesMatched.length * 3);
-  const projectedScoreAfter = Math.min(100, Math.max(baseScore, baseScore + acceptedBoost));
+  // Calculate projected score if recommendations are applied
+  const potentialSkillBoost = uniqueSkillsToAdd.length * 8;
+  const potentialRevisionBoost = Math.min(20, suggestions.filter((s) => s.type === 'rephrase' || s.type === 'add_context').length * 4);
+  const projectedScoreAfter = Math.min(98, Math.max(baseScore + 12, baseScore + potentialSkillBoost + potentialRevisionBoost));
 
   return {
     targetRoleTitle: parsedJD.role,

@@ -237,9 +237,40 @@ Requirements:
     return Object.values(suggestionStatus).filter((s) => s === 'accepted' || s === 'rejected').length;
   }, [suggestionStatus]);
 
+  const acceptedCount = useMemo(() => {
+    return Object.values(suggestionStatus).filter((s) => s === 'accepted').length;
+  }, [suggestionStatus]);
+
   const totalCount = useMemo(() => {
     return result?.suggestions.length || 0;
   }, [result]);
+
+  // Dynamic live match score that climbs visibly as suggestions and skills are accepted
+  const liveScore = useMemo(() => {
+    if (!result) return 0;
+    const base = result.scoreBefore;
+    const target = result.projectedScoreAfter;
+    if (result.suggestions.length === 0) return base;
+
+    // Check newly fulfilled skills
+    const newlyAddedSkills = result.mustHavesMissing.filter((skill) =>
+      acceptedSkills.some((as) => as.toLowerCase() === skill.toLowerCase())
+    ).length;
+
+    const newlyAddedBonusSkills = result.niceToHavesMissing.filter((skill) =>
+      acceptedSkills.some((as) => as.toLowerCase() === skill.toLowerCase())
+    ).length;
+
+    const acceptedOtherRevisions = Math.max(
+      0,
+      acceptedCount - newlyAddedSkills - newlyAddedBonusSkills
+    );
+
+    // Boost: +8% per core missing skill accepted, +4% per bonus skill, +3% per rephrasing/context accepted
+    const boost = (newlyAddedSkills * 8) + (newlyAddedBonusSkills * 4) + (acceptedOtherRevisions * 3);
+
+    return Math.min(100, Math.max(base, Math.min(target, base + boost)));
+  }, [result, acceptedSkills, acceptedCount]);
 
   // Suggestion actions
   const handleAccept = (id: string, finalText?: string) => {
@@ -533,6 +564,10 @@ Requirements:
               result={result}
               beforeQuality={beforeQuality}
               afterQuality={afterQuality}
+              liveScore={liveScore}
+              acceptedSkills={acceptedSkills}
+              acceptedCount={acceptedCount}
+              totalSuggestions={totalCount}
             />
 
             {/* Seniority Fit Advisory */}
@@ -556,6 +591,7 @@ Requirements:
               counts={tabCounts}
               reviewedCount={reviewedCount}
               totalCount={totalCount}
+              acceptedCount={acceptedCount}
               onReviewNext={handleReviewNext}
               onAcceptAll={handleAcceptAll}
               onRejectAll={handleRejectAll}

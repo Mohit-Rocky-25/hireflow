@@ -121,7 +121,7 @@ export const SuggestionCard: React.FC<SuggestionCardProps> = ({
       id={`card-${suggestion.id}`}
       className={`rounded-2xl border transition-all duration-200 overflow-hidden ${
         status === 'accepted'
-          ? 'bg-white border-emerald-300 ring-2 ring-emerald-500/10 shadow-sm'
+          ? 'bg-emerald-50/25 border-emerald-400 ring-2 ring-emerald-500/15 shadow-sm'
           : status === 'rejected'
           ? 'bg-slate-50/70 border-slate-200 opacity-60'
           : status === 'needs_input'

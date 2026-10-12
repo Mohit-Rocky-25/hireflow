@@ -22,6 +22,7 @@ interface ReviewTabBarProps {
   };
   reviewedCount: number;
   totalCount: number;
+  acceptedCount?: number;
   onReviewNext: () => void;
   onAcceptAll: () => void;
   onRejectAll: () => void;
@@ -35,6 +36,7 @@ export const ReviewTabBar: React.FC<ReviewTabBarProps> = ({
   counts,
   reviewedCount,
   totalCount,
+  acceptedCount,
   onAcceptAll,
   onRejectAll,
   onUndoBulk,
@@ -89,16 +91,23 @@ export const ReviewTabBar: React.FC<ReviewTabBarProps> = ({
         {/* Right: Progress and Bulk Actions */}
         <div className="flex items-center justify-between md:justify-end gap-4 shrink-0">
           {/* Progress Bar & Status */}
-          <div className="flex items-center gap-2.5">
-            <div className="w-20 sm:w-28 bg-slate-200 h-2 rounded-full overflow-hidden">
+          <div className="flex items-center gap-3">
+            <div className="w-24 sm:w-32 bg-slate-200/90 h-2.5 rounded-full overflow-hidden p-0.5 border border-slate-300/60 shadow-inner">
               <div
-                className="bg-emerald-500 h-full rounded-full transition-all duration-300"
+                className="bg-gradient-to-r from-emerald-500 to-teal-400 h-full rounded-full transition-all duration-300 shadow-xs"
                 style={{ width: `${percentComplete}%` }}
               />
             </div>
-            <span className="text-xs font-mono font-bold text-slate-700">
-              {reviewedCount}/{totalCount}
-            </span>
+            <div className="flex items-center gap-1.5 text-xs font-mono">
+              {acceptedCount !== undefined && acceptedCount > 0 && (
+                <span className="font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 rounded">
+                  {acceptedCount} accepted
+                </span>
+              )}
+              <span className="font-bold text-slate-700">
+                {reviewedCount}/{totalCount}
+              </span>
+            </div>
           </div>
 
           {/* Bulk Action Buttons */}
