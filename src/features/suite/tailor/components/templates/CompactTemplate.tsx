@@ -57,14 +57,38 @@ export const CompactTemplate: React.FC<TemplateProps> = ({ model, showChanges })
     if (model.skills.length === 0) return null;
     const isAdded = (s: string) => showChanges && Boolean(model.addedSkills?.includes(s));
 
+    // Merge single-item orphan categories to avoid orphan 1-item lines
+    const mergedCategories = (() => {
+      if (!model.skillCategories || model.skillCategories.length <= 1) return model.skillCategories || [];
+      const valid: Array<{ category: string; skills: string[] }> = [];
+      const orphans: string[] = [];
+      for (const g of model.skillCategories) {
+        if (g.skills.length < 2) {
+          orphans.push(...g.skills);
+        } else {
+          valid.push({ category: g.category, skills: [...g.skills] });
+        }
+      }
+      if (orphans.length > 0) {
+        if (valid.length > 0) {
+          for (const s of orphans) {
+            if (!valid[0].skills.includes(s)) valid[0].skills.push(s);
+          }
+        } else {
+          valid.push({ category: 'Core Skills', skills: orphans });
+        }
+      }
+      return valid;
+    })();
+
     return (
       <section key="skills" className="mt-2.5">
         <div className="text-[8.8pt] font-black uppercase text-black border-b border-neutral-300 pb-0.5 mb-1">
           Skills
         </div>
-        {model.skillCategories && model.skillCategories.length > 0 ? (
+        {mergedCategories.length > 0 ? (
           <div className="space-y-0.5 text-[8.4pt]">
-            {model.skillCategories.map((group) => (
+            {mergedCategories.map((group) => (
               <div key={group.category} className="leading-tight">
                 <span className="font-bold text-black">{group.category}: </span>
                 <span className="text-neutral-800">
