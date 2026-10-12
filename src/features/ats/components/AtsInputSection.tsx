@@ -183,10 +183,16 @@ export const AtsInputSection: React.FC<Props> = ({
   } = validation;
 
   const handleLoadSampleResume = () => {
+    if (resumeFileName) {
+      onClearResume();
+    }
     onResumeTextChange(SAMPLE_RESUME_TEXT);
   };
 
   const handleLoadSampleJd = (presetKey: string) => {
+    if (jobFileName) {
+      onClearJob();
+    }
     if (presetKey === 'senior-backend') {
       onJobTextChange(SAMPLE_JD_SENIOR_BACKEND);
       onExperienceLevelChange('3-6 yrs');

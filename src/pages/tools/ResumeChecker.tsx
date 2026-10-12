@@ -121,6 +121,7 @@ export function ResumeChecker() {
   const headerRef = useRef<HTMLDivElement>(null);
   const tabBarRef = useRef<HTMLDivElement>(null);
   const userClearedJobRef = useRef(false);
+  const userClearedResumeRef = useRef(false);
 
   // Sync from TalentLens URL query parameters & ensure store has resume loaded
   useEffect(() => {
@@ -130,7 +131,7 @@ export function ResumeChecker() {
     if (compId && (rTitle || pId)) {
       const stored = useTalentLensStore.getState().resumeText;
       const storedFile = useTalentLensStore.getState().resumeFileName;
-      if (!resumeText) {
+      if (!userClearedResumeRef.current && !resumeText) {
         const textToUse = stored || DEMO_TALENTLENS_RESUME.text;
         const fileToUse = storedFile || DEMO_TALENTLENS_RESUME.fileName;
         setResumeText(textToUse);
@@ -139,11 +140,9 @@ export function ResumeChecker() {
         if (!stored) {
           useTalentLensStore.getState().setResume(textToUse, fileToUse);
         }
-      } else if (!resumeSource) {
-        setResumeSource('talentlens');
       }
 
-      if (!jobText && !userClearedJobRef.current) {
+      if (!userClearedJobRef.current && !jobText) {
         const resolved = resolveTargetJob(compId, rTitle, pId);
         if (resolved.text) {
           setJobText(resolved.text);
@@ -151,16 +150,8 @@ export function ResumeChecker() {
           setJobSource('prefilled');
         }
       }
-    } else {
-      const stored = useTalentLensStore.getState().resumeText;
-      const storedFile = useTalentLensStore.getState().resumeFileName;
-      if (!resumeText && stored) {
-        setResumeText(stored);
-        setResumeFileName(storedFile || DEMO_TALENTLENS_RESUME.fileName);
-        setResumeSource('talentlens');
-      }
     }
-  }, [searchParams, resumeText, jobText, resumeSource]);
+  }, [searchParams]);
 
   useEffect(() => {
     if (!isScanning) {
@@ -183,11 +174,13 @@ export function ResumeChecker() {
         return;
       }
       if (type === 'resume') {
+        userClearedResumeRef.current = false;
         setResumeText(res.text);
         setResumeFileName(res.fileName);
         setResumePageCount(res.pageCount);
         setResumeSource('upload');
       } else {
+        userClearedJobRef.current = false;
         setJobText(res.text);
         setJobFileName(res.fileName);
         setJobPageCount(res.pageCount);
@@ -201,6 +194,7 @@ export function ResumeChecker() {
   };
 
   const handleClearResume = () => {
+    userClearedResumeRef.current = true;
     setResumeText('');
     setResumeFileName(null);
     setResumePageCount(undefined);
@@ -225,6 +219,7 @@ export function ResumeChecker() {
   };
 
   const handleImportTalentLensResume = (text: string, fileName: string) => {
+    userClearedResumeRef.current = false;
     setResumeText(text);
     setResumeFileName(fileName || DEMO_TALENTLENS_RESUME.fileName);
     setResumePageCount(1);
@@ -362,12 +357,24 @@ export function ResumeChecker() {
             resumeSource={resumeSource}
             jobSource={jobSource}
             onResumeTextChange={(txt) => {
+              userClearedResumeRef.current = false;
               setResumeText(txt);
               setFileError(null);
+              if (!txt.trim()) {
+                setResumeFileName(null);
+                setResumePageCount(undefined);
+                setResumeSource(undefined);
+              }
             }}
             onJobTextChange={(txt) => {
+              userClearedJobRef.current = false;
               setJobText(txt);
               setFileError(null);
+              if (!txt.trim()) {
+                setJobFileName(null);
+                setJobPageCount(undefined);
+                setJobSource(undefined);
+              }
             }}
             onTargetTierChange={setTargetTier}
             onExperienceLevelChange={setExperienceLevel}

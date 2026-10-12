@@ -93,8 +93,36 @@ export const FileDropzone: React.FC<FileDropzoneProps> = ({
   const progressPercent = Math.min(100, Math.round((wordCount / minWords) * 100));
 
   return (
-    <div className="group relative bg-white border border-slate-200/90 rounded-3xl p-6 sm:p-7 shadow-[0_10px_30px_-5px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.07)] hover:border-slate-300 flex flex-col h-[590px] transition-all duration-300">
-      
+    <div
+      onDragOver={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setDragActive(true);
+      }}
+      onDragLeave={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (e.currentTarget.contains(e.relatedTarget as Node)) return;
+        setDragActive(false);
+      }}
+      onDrop={handleDrop}
+      className={`group relative bg-white border rounded-3xl p-6 sm:p-7 flex flex-col h-[590px] transition-all duration-300 ${
+        dragActive
+          ? 'border-sky-500 bg-sky-50/40 ring-4 ring-sky-500/10'
+          : 'border-slate-200/90 hover:border-slate-300 shadow-[0_10px_30px_-5px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.07)]'
+      }`}
+    >
+      {/* Drag Overlay */}
+      {dragActive && (
+        <div className="absolute inset-0 z-30 rounded-3xl bg-sky-50/95 backdrop-blur-xs border-2 border-dashed border-sky-500 flex flex-col items-center justify-center p-6 text-center animate-fade-in pointer-events-none">
+          <div className="w-16 h-16 rounded-2xl bg-white border border-sky-200 shadow-md flex items-center justify-center text-sky-600 mb-3 animate-bounce">
+            <Upload className="w-8 h-8 stroke-[2px]" />
+          </div>
+          <p className="text-lg font-black text-slate-950">Drop file to attach</p>
+          <p className="text-xs text-slate-500 mt-1 font-medium">Extracts text and auto-scans for ATS compatibility</p>
+        </div>
+      )}
+
       {/* Top subtle decorative accent line */}
       <div
         className={`absolute top-0 left-8 right-8 h-[3px] rounded-b-full ${
@@ -226,14 +254,15 @@ export const FileDropzone: React.FC<FileDropzoneProps> = ({
           </div>
         )}
 
-        {/* Clear Button if text exists */}
-        {text && (
+        {/* Clear Button: only show in quick-bar if text exists AND no file attachment (since file banner has its own remove button) */}
+        {!fileName && text && (
           <button
             type="button"
             onClick={onClear}
-            className="text-[11px] text-red-600 hover:text-red-700 font-bold hover:underline cursor-pointer ml-auto shrink-0 flex items-center gap-1"
+            className="text-[11px] text-rose-600 hover:text-rose-700 font-bold hover:underline cursor-pointer ml-auto shrink-0 flex items-center gap-1 transition-colors px-2 py-0.5 rounded-md hover:bg-rose-50"
+            title="Clear text"
           >
-            <RotateCcw className="w-3 h-3" /> Clear
+            <RotateCcw className="w-3 h-3" /> Clear Text
           </button>
         )}
       </div>
@@ -247,6 +276,7 @@ export const FileDropzone: React.FC<FileDropzoneProps> = ({
         onChange={(e) => {
           if (e.target.files?.[0]) {
             onFileUpload(e.target.files[0]);
+            e.target.value = ''; // Always clear native value so re-uploading works reliably
           }
         }}
       />
@@ -270,9 +300,10 @@ export const FileDropzone: React.FC<FileDropzoneProps> = ({
               <button
                 type="button"
                 onClick={onClear}
-                className="text-red-600 hover:text-red-700 font-bold cursor-pointer text-xs ml-2 hover:underline"
+                className="text-rose-600 hover:text-rose-700 font-bold cursor-pointer text-xs ml-2 hover:underline inline-flex items-center gap-1"
+                title="Remove attached file"
               >
-                Clear File
+                <Trash2 className="w-3 h-3" /> Remove File
               </button>
             </div>
           )}
@@ -393,9 +424,9 @@ export const FileDropzone: React.FC<FileDropzoneProps> = ({
                 <button
                   type="button"
                   onClick={onClear}
-                  className="px-3.5 py-1.5 text-xs font-bold text-red-600 hover:bg-red-50 rounded-lg transition-colors flex items-center gap-1 cursor-pointer"
+                  className="px-3.5 py-1.5 text-xs font-bold text-rose-600 hover:bg-rose-50 rounded-lg transition-colors flex items-center gap-1 cursor-pointer"
                 >
-                  <Trash2 className="w-3.5 h-3.5" /> Remove
+                  <Trash2 className="w-3.5 h-3.5" /> Remove File
                 </button>
               </div>
             </div>
