@@ -144,10 +144,15 @@ export const ModernTemplate: React.FC<TemplateProps> = ({ model, showChanges }) 
             <div key={idx} className="space-y-1">
               <div className="flex justify-between items-baseline text-[9.8pt]">
                 <span className="font-bold text-zinc-950">{proj.name}</span>
-                {proj.linkOrTech && (
-                  <span className="text-[8.8pt] text-indigo-600 font-mono font-medium">{proj.linkOrTech}</span>
+                {proj.date && (
+                  <span className="text-[8.8pt] text-zinc-500 font-medium">{proj.date}</span>
                 )}
               </div>
+              {proj.linkOrTech && (
+                <div className="text-[8.5pt] text-zinc-700 font-medium">
+                  <span className="font-semibold text-zinc-900">Tools:</span> {proj.linkOrTech}
+                </div>
+              )}
               {proj.bullets.length > 0 && (
                 <ul className="list-disc list-outside ml-4 space-y-0.5 text-[9.4pt] text-zinc-700">
                   {proj.bullets.map((b) => (

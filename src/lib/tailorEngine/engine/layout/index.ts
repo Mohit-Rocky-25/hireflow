@@ -94,7 +94,10 @@ export function buildLayoutTree(
         if (resume.projects.length > 0) {
           const lines: string[] = [];
           for (const p of resume.projects) {
-            lines.push(`${p.name}${p.date ? ` (${p.date})` : ''}${p.stack.length > 0 ? ` [${p.stack.join(', ')}]` : ''}`);
+            lines.push(`${p.name}${p.date ? ` | ${p.date}` : ''}`);
+            if (p.stack && p.stack.length > 0) {
+              lines.push(`Tools: ${p.stack.join(', ')}`);
+            }
             for (const b of p.bullets) {
               lines.push(`• ${b}`);
             }

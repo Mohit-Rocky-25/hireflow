@@ -140,10 +140,15 @@ export const ClassicTemplate: React.FC<TemplateProps> = ({ model, showChanges })
             <div key={idx} className="space-y-1">
               <div className="flex justify-between items-baseline font-sans text-[10pt]">
                 <span className="font-bold text-black">{proj.name}</span>
-                {proj.linkOrTech && (
-                  <span className="text-[9pt] text-gray-600 italic font-mono">{proj.linkOrTech}</span>
+                {proj.date && (
+                  <span className="text-[9pt] text-gray-600 font-medium">{proj.date}</span>
                 )}
               </div>
+              {proj.linkOrTech && (
+                <div className="text-[8.5pt] text-gray-700 font-sans font-medium">
+                  <span className="font-semibold text-gray-900">Tools:</span> {proj.linkOrTech}
+                </div>
+              )}
               {proj.bullets.length > 0 && (
                 <ul className="list-disc list-outside ml-4 space-y-0.5 text-[9.6pt] text-gray-800 font-sans">
                   {proj.bullets.map((b) => (

@@ -61,9 +61,10 @@ export function parseProjectsSection(content: string): RecoveredProject[] {
         }
 
         // Extract trailing year/dates from title (e.g. "Challenge 2026")
+        let date: string | undefined = undefined;
         const yearMatch = name.match(/\s+((?:19|20)\d{2}(?:\s*[-–—]\s*(?:present|(?:19|20)\d{2}))?)$/i);
-        if (yearMatch && !techClause) {
-          techClause = yearMatch[1];
+        if (yearMatch) {
+          date = yearMatch[1].trim();
           name = name.slice(0, yearMatch.index).trim();
         }
 
@@ -80,6 +81,7 @@ export function parseProjectsSection(content: string): RecoveredProject[] {
         current = {
           name,
           techStack,
+          date,
           bullets: [],
           rawLines: [line]
         };

@@ -10,7 +10,8 @@ import {
   CertificationItem,
   CustomSection,
   NeedsReviewBlock,
-  LinkItem
+  LinkItem,
+  DATE_GRAMMAR_REGEX
 } from '../schema';
 
 const ACTION_VERB_REGEX =
@@ -412,6 +413,16 @@ function parseProjectsChunk(
         outProj.push(current);
       }
       appendOrMergeBullet(current.bullets, cleanBullet, 'projects', needs_review);
+
+      // Extract known tools mentioned in bullet to current.stack
+      for (const [key, canonical] of Object.entries(CANONICAL_SKILL_NAMES)) {
+        const escapedKey = key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        if (new RegExp(`(?:^|\\W)${escapedKey}(?:$|\\W)`, 'i').test(cleanBullet)) {
+          if (!current.stack.includes(canonical)) {
+            current.stack.push(canonical);
+          }
+        }
+      }
       continue;
     }
 
@@ -420,8 +431,18 @@ function parseProjectsChunk(
     if (line.includes('|')) {
       const parts = line.split('|').map((p) => p.trim());
       const name = parts[0];
-      const stack = parts[1] ? parts[1].split(/[,/]/).map((s) => s.trim()).filter(Boolean) : [];
-      const date = parts[2] ? parts[2].trim() : undefined;
+      const stack: string[] = [];
+      let date: string | undefined = undefined;
+
+      for (let i = 1; i < parts.length; i++) {
+        const p = parts[i];
+        if (DATE_GRAMMAR_REGEX.test(p)) {
+          date = p;
+        } else {
+          const tools = p.split(/[,/]/).map((s) => s.trim()).filter(Boolean);
+          stack.push(...tools);
+        }
+      }
 
       current = { name, stack, date, bullets: [] };
       outProj.push(current);

@@ -14,12 +14,37 @@ export const HeaderSchema = z.object({
   links: z.array(LinkItemSchema).default([])
 });
 
+export const DATE_GRAMMAR_REGEX = /^(?:(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?|Spring|Summer|Fall|Winter)\s+)?(?:19|20)\d{2}(?:\s*[-–—]\s*(?:(?:(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?|Spring|Summer|Fall|Winter)\s+)?(?:19|20)\d{2}|[Pp]resent|[Cc]urrent))?(?:\s*\([Ee]xpected\))?$|^[Pp]resent$|^[Cc]urrent$/i;
+
+export const KNOWN_TOOL_TOKENS = [
+  'jadx', 'apktool', 'frida', 'wireshark', 'nmap', 'burp', 'metasploit',
+  'react', 'node', 'nodejs', 'python', 'java', 'c++', 'go', 'golang',
+  'aws', 'docker', 'kubernetes', 'k8s', 'redis', 'postgres', 'postgresql',
+  'mongodb', 'graphql', 'rest', 'git', 'cisco', 'packet tracer', 'figma'
+];
+
+function escapeRegExp(str: string): string {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+export const DateFieldSchema = z.string().optional().refine((val) => {
+  if (!val || !val.trim()) return true;
+  const trimmed = val.trim();
+  if (!DATE_GRAMMAR_REGEX.test(trimmed)) return false;
+  const lower = trimmed.toLowerCase();
+  for (const tool of KNOWN_TOOL_TOKENS) {
+    const escaped = escapeRegExp(tool);
+    if (new RegExp(`(?:^|\\W)${escaped}(?:$|\\W)`, 'i').test(lower)) return false;
+  }
+  return true;
+}, 'Date fields must match date grammar and contain no tool tokens');
+
 export const EducationItemSchema = z.object({
   degree: z.string().min(1),
   institution: z.string().min(1),
   location: z.string().optional(),
-  start: z.string().optional(),
-  end: z.string().optional(),
+  start: DateFieldSchema,
+  end: DateFieldSchema,
   expected: z.boolean().optional(),
   gpa: z.string().optional(),
   coursework: z.array(z.string()).optional()
@@ -29,15 +54,15 @@ export const ExperienceItemSchema = z.object({
   role: z.string().min(1),
   org: z.string().min(1),
   location: z.string().optional(),
-  start: z.string().optional(),
-  end: z.string().optional(),
+  start: DateFieldSchema,
+  end: DateFieldSchema,
   bullets: z.array(z.string()).default([])
 });
 
 export const ProjectItemSchema = z.object({
   name: z.string().min(1),
   context: z.string().optional(),
-  date: z.string().optional(),
+  date: DateFieldSchema,
   stack: z.array(z.string()).default([]),
   bullets: z.array(z.string()).default([]),
   link: z.string().optional()
@@ -60,7 +85,7 @@ export const SkillsSchema = z.object({
 
 export const AchievementItemSchema = z.object({
   title: z.string().min(1),
-  date: z.string().optional(),
+  date: DateFieldSchema,
   detail: z.string().optional(),
   bullets: z.array(z.string()).optional()
 });
@@ -68,7 +93,7 @@ export const AchievementItemSchema = z.object({
 export const CertificationItemSchema = z.object({
   name: z.string().min(1),
   issuer: z.string().optional(),
-  date: z.string().optional(),
+  date: DateFieldSchema,
   status: z.enum(['completed', 'in_progress', 'coursework']).default('completed')
 });
 

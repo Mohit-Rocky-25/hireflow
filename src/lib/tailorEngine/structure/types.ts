@@ -55,6 +55,7 @@ export interface RecoveredSkills {
 export interface RecoveredProject {
   name: string;
   techStack: string[];
+  date?: string;
   bullets: string[];
   rawLines: string[];
 }

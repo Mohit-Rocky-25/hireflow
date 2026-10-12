@@ -34,6 +34,7 @@ export interface ResumeExperienceItem {
 export interface ResumeProjectItem {
   name: string;
   linkOrTech?: string;
+  date?: string;
   bullets: ResumeBullet[];
 }
 
@@ -130,6 +131,7 @@ export function parseResumeDocModel(
   // 2. Map Projects with Replacements
   const projects: ResumeProjectItem[] = recovered.projects.map((proj) => ({
     name: proj.name,
+    date: proj.date,
     linkOrTech: proj.techStack.length > 0 ? proj.techStack.join(', ') : '',
     bullets: proj.bullets.map((bText) => {
       const clean = bText.replace(/^[-•*●▪‣]\s*/, '').trim();

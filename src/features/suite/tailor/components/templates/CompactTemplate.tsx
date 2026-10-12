@@ -140,10 +140,15 @@ export const CompactTemplate: React.FC<TemplateProps> = ({ model, showChanges })
             <div key={idx} className="space-y-0.5">
               <div className="flex justify-between items-baseline text-[8.8pt]">
                 <span className="font-bold text-black">{proj.name}</span>
-                {proj.linkOrTech && (
-                  <span className="text-[8pt] text-neutral-600 font-mono">{proj.linkOrTech}</span>
+                {proj.date && (
+                  <span className="text-[8pt] text-neutral-600 font-medium">{proj.date}</span>
                 )}
               </div>
+              {proj.linkOrTech && (
+                <div className="text-[7.8pt] text-neutral-700 font-medium">
+                  <span className="font-semibold text-neutral-900">Tools:</span> {proj.linkOrTech}
+                </div>
+              )}
               {proj.bullets.length > 0 && (
                 <ul className="list-disc list-outside ml-3.5 space-y-0.5 text-[8.5pt] text-neutral-800">
                   {proj.bullets.map((b) => (
