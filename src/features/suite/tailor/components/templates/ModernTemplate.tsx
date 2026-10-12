@@ -59,15 +59,39 @@ export const ModernTemplate: React.FC<TemplateProps> = ({ model, showChanges }) 
     if (model.skills.length === 0) return null;
     const isAdded = (s: string) => showChanges && Boolean(model.addedSkills?.includes(s));
 
+    // Merge single-item orphan categories to avoid orphan 1-item lines
+    const mergedCategories = (() => {
+      if (!model.skillCategories || model.skillCategories.length <= 1) return model.skillCategories || [];
+      const valid: Array<{ category: string; skills: string[] }> = [];
+      const orphans: string[] = [];
+      for (const g of model.skillCategories) {
+        if (g.skills.length < 2) {
+          orphans.push(...g.skills);
+        } else {
+          valid.push({ category: g.category, skills: [...g.skills] });
+        }
+      }
+      if (orphans.length > 0) {
+        if (valid.length > 0) {
+          for (const s of orphans) {
+            if (!valid[0].skills.includes(s)) valid[0].skills.push(s);
+          }
+        } else {
+          valid.push({ category: 'Core Skills', skills: orphans });
+        }
+      }
+      return valid;
+    })();
+
     return (
       <section key="skills" className="mt-3.5">
         <h2 className="text-[10pt] font-bold uppercase tracking-wider text-indigo-900 flex items-center gap-2 mb-1.5">
           <span className="w-1.5 h-1.5 rounded-full bg-indigo-600 inline-block"></span>
           Technical Skills
         </h2>
-        {model.skillCategories && model.skillCategories.length > 0 ? (
+        {mergedCategories.length > 0 ? (
           <div className="space-y-1.5 text-[9.2pt]">
-            {model.skillCategories.map((group) => (
+            {mergedCategories.map((group) => (
               <div key={group.category} className="flex flex-wrap items-center gap-1.5">
                 <span className="font-bold text-zinc-900 min-w-[140px]">{group.category}:</span>
                 <div className="flex flex-wrap gap-1">
@@ -320,16 +344,27 @@ export const ModernTemplate: React.FC<TemplateProps> = ({ model, showChanges }) 
             {model.contact.headline}
           </p>
         )}
-        {contactParts.length > 0 && (
-          <p className="text-[9pt] text-zinc-600 mt-1 flex flex-wrap gap-x-3 gap-y-1">
-            {contactParts.filter((p) => p !== model.contact.headline).map((p, i) => (
-              <span key={i} className="flex items-center gap-1.5">
-                {i > 0 && <span className="text-zinc-400">•</span>}
-                {p}
-              </span>
-            ))}
-          </p>
-        )}
+        {contactParts.length > 0 && (() => {
+          const filtered = contactParts.filter((p) => p !== model.contact.headline);
+          const rows = filtered.length <= 4
+            ? [filtered]
+            : [filtered.slice(0, Math.ceil(filtered.length / 2)), filtered.slice(Math.ceil(filtered.length / 2))];
+
+          return (
+            <div className="space-y-0.5 mt-1">
+              {rows.map((row, rIdx) => (
+                <p key={rIdx} className="text-[9pt] text-zinc-600 flex flex-wrap gap-x-3">
+                  {row.map((p, i) => (
+                    <span key={i} className="flex items-center gap-1.5">
+                      {i > 0 && <span className="text-zinc-400">•</span>}
+                      {p}
+                    </span>
+                  ))}
+                </p>
+              ))}
+            </div>
+          );
+        })()}
       </header>
 
       {/* Dynamic Preset Section Ordering */}
