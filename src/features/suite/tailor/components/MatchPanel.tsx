@@ -13,31 +13,31 @@ export function MatchPanel({ result, beforeQuality, afterQuality }: MatchPanelPr
   const delta = result.projectedScoreAfter - result.scoreBefore;
 
   return (
-    <div className="bg-surface border-2 border-border rounded-2xl p-6 sm:p-8 shadow-sm space-y-6">
+    <div className="bg-white border border-slate-200/90 rounded-2xl p-6 sm:p-8 shadow-sm space-y-6">
       {/* Top Header & Gauges */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-border">
-        <div className="space-y-1">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-primary/10 text-primary border border-primary/20">
-            <Sparkles className="w-3.5 h-3.5" />
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-slate-100">
+        <div className="space-y-1.5">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-indigo-50 text-indigo-700 border border-indigo-200">
+            <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
             Match Alignment Analysis
           </div>
-          <h2 className="text-2xl sm:text-3xl font-black text-text tracking-tight">
+          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
             Target: {result.targetRoleTitle}
           </h2>
-          <p className="text-sm text-text-secondary">
-            Deterministic keyword, evidence, and ATS requirement matching against the job description.
+          <p className="text-sm text-slate-500">
+            Deterministic keyword, evidence, and ATS requirement matching calibrated to this job description.
           </p>
         </div>
 
         {/* Gauges + Delta */}
         <div className="flex items-center gap-4 flex-wrap">
           {/* Base Score Gauge */}
-          <div className="p-4 rounded-2xl bg-surface-2 border-2 border-border text-center min-w-[110px]">
-            <div className="text-2xl sm:text-3xl font-black text-text font-mono">
+          <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-center min-w-[110px] shadow-2xs">
+            <div className="text-2xl sm:text-3xl font-black text-slate-900 font-mono">
               {result.scoreBefore}%
             </div>
-            <div className="text-[11px] font-bold text-text-muted uppercase tracking-wider mt-0.5">
-              Base Match
+            <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mt-0.5">
+              Current Match
             </div>
           </div>
 
@@ -46,21 +46,21 @@ export function MatchPanel({ result, beforeQuality, afterQuality }: MatchPanelPr
             <span
               className={`px-2.5 py-1 rounded-full text-xs font-black font-mono border ${
                 delta > 0
-                  ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/30'
-                  : 'bg-surface-2 text-text-muted border-border'
+                  ? 'bg-emerald-50 text-emerald-700 border-emerald-300'
+                  : 'bg-slate-50 text-slate-500 border-slate-200'
               }`}
             >
               {delta > 0 ? `+${delta}%` : '+0%'}
             </span>
-            <div className="text-primary font-black text-xl">→</div>
+            <div className="text-indigo-600 font-black text-xl">→</div>
           </div>
 
           {/* Projected Score Gauge */}
-          <div className="p-4 rounded-2xl bg-primary/10 border-2 border-primary/30 text-center min-w-[110px]">
-            <div className="text-2xl sm:text-3xl font-black text-primary font-mono">
+          <div className="p-4 rounded-2xl bg-indigo-50/80 border border-indigo-200 text-center min-w-[110px] shadow-2xs">
+            <div className="text-2xl sm:text-3xl font-black text-indigo-700 font-mono">
               {result.projectedScoreAfter}%
             </div>
-            <div className="text-[11px] font-bold text-primary uppercase tracking-wider mt-0.5">
+            <div className="text-[11px] font-bold text-indigo-800 uppercase tracking-wider mt-0.5">
               Projected
             </div>
           </div>
@@ -69,8 +69,8 @@ export function MatchPanel({ result, beforeQuality, afterQuality }: MatchPanelPr
 
       {/* Delta explanation if delta === 0 */}
       {delta === 0 && (
-        <div className="p-4 rounded-xl bg-surface-2 border border-border text-xs text-text-secondary flex items-start gap-2.5 leading-relaxed">
-          <AlertCircle className="w-4 h-4 text-text-muted shrink-0 mt-0.5" />
+        <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600 flex items-start gap-2.5 leading-relaxed">
+          <AlertCircle className="w-4 h-4 text-slate-400 shrink-0 mt-0.5" />
           <span>
             <strong>Match Note:</strong> Rephrasing improves how bullets read; the match moves when new skills or evidence appear.
           </span>
@@ -82,10 +82,10 @@ export function MatchPanel({ result, beforeQuality, afterQuality }: MatchPanelPr
         {/* Must-Haves */}
         <div className="space-y-3">
           <div className="flex items-center justify-between text-xs font-bold">
-            <span className="text-text uppercase tracking-wider flex items-center gap-1.5">
-              Must-Haves
+            <span className="text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
+              Required Core Stack
             </span>
-            <span className="text-text-muted font-mono">
+            <span className="text-slate-500 font-mono">
               {result.mustHavesMatched.length} of{' '}
               {result.mustHavesMatched.length + result.mustHavesMissing.length} Matched
             </span>
@@ -95,21 +95,21 @@ export function MatchPanel({ result, beforeQuality, afterQuality }: MatchPanelPr
             {result.mustHavesMatched.map((skill, i) => (
               <span
                 key={`mh-matched-${i}`}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-500 text-xs font-bold shadow-2xs"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold shadow-2xs"
                 title="Matched requirement in resume"
               >
-                <CheckCircle2 className="w-3.5 h-3.5" />
-                <span className="truncate max-w-[240px]">{skill}</span>
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                <span className="truncate max-w-[200px]">{skill}</span>
               </span>
             ))}
             {result.mustHavesMissing.map((skill, i) => (
               <span
                 key={`mh-missing-${i}`}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-surface-2 border border-dashed border-border-strong text-text-muted text-xs font-medium"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-50 border border-dashed border-slate-300 text-slate-500 text-xs font-medium"
                 title="Missing requirement not found in resume"
               >
-                <Circle className="w-3.5 h-3.5 text-text-muted" />
-                <span className="truncate max-w-[240px]">{skill}</span>
+                <Circle className="w-3.5 h-3.5 text-slate-400" />
+                <span className="truncate max-w-[200px]">{skill}</span>
               </span>
             ))}
           </div>
@@ -118,10 +118,10 @@ export function MatchPanel({ result, beforeQuality, afterQuality }: MatchPanelPr
         {/* Nice-To-Haves */}
         <div className="space-y-3">
           <div className="flex items-center justify-between text-xs font-bold">
-            <span className="text-text uppercase tracking-wider flex items-center gap-1.5">
-              Nice-To-Haves
+            <span className="text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
+              Preferred & Bonus Stack
             </span>
-            <span className="text-text-muted font-mono">
+            <span className="text-slate-500 font-mono">
               {result.niceToHavesMatched.length} of{' '}
               {result.niceToHavesMatched.length + result.niceToHavesMissing.length} Matched
             </span>
@@ -131,21 +131,21 @@ export function MatchPanel({ result, beforeQuality, afterQuality }: MatchPanelPr
             {result.niceToHavesMatched.map((skill, i) => (
               <span
                 key={`nh-matched-${i}`}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-500 text-xs font-bold shadow-2xs"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-indigo-50 border border-indigo-200 text-indigo-800 text-xs font-bold shadow-2xs"
                 title="Matched bonus skill in resume"
               >
-                <CheckCircle2 className="w-3.5 h-3.5" />
-                <span className="truncate max-w-[240px]">{skill}</span>
+                <CheckCircle2 className="w-3.5 h-3.5 text-indigo-600" />
+                <span className="truncate max-w-[200px]">{skill}</span>
               </span>
             ))}
             {result.niceToHavesMissing.map((skill, i) => (
               <span
                 key={`nh-missing-${i}`}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-surface-2 border border-dashed border-border-strong text-text-muted text-xs font-medium"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-50 border border-dashed border-slate-300 text-slate-500 text-xs font-medium"
                 title="Missing nice-to-have skill"
               >
-                <Circle className="w-3.5 h-3.5 text-text-muted" />
-                <span className="truncate max-w-[240px]">{skill}</span>
+                <Circle className="w-3.5 h-3.5 text-slate-400" />
+                <span className="truncate max-w-[200px]">{skill}</span>
               </span>
             ))}
           </div>
@@ -153,37 +153,31 @@ export function MatchPanel({ result, beforeQuality, afterQuality }: MatchPanelPr
       </div>
 
       {/* Resume Quality Summary Bar */}
-      <div className="mt-4 pt-5 border-t border-border flex flex-wrap items-center justify-between gap-4 text-xs">
+      <div className="mt-4 pt-5 border-t border-slate-100 flex flex-wrap items-center justify-between gap-4 text-xs">
         <div className="flex items-center gap-2">
-          <Award className="w-4 h-4 text-primary" />
-          <span className="font-bold text-text">Resume Quality Summary:</span>
+          <Award className="w-4 h-4 text-indigo-600" />
+          <span className="font-bold text-slate-800">Resume Quality Indicator:</span>
         </div>
 
-        <div className="flex items-center gap-6 flex-wrap">
-          <div>
-            <span className="text-text-muted">Avg Bullet Strength: </span>
-            <span className="font-bold font-mono text-text">
-              {beforeQuality.avgStrength} →{' '}
-              <span className="text-primary">{afterQuality.avgStrength}</span>
+        <div className="flex items-center gap-4 flex-wrap">
+          <div className="flex items-center gap-1.5">
+            <span className="text-slate-500">Bullet Strength:</span>
+            <span className="font-bold text-slate-800">
+              {Math.round(beforeQuality.avgStrength)}% → {Math.round(afterQuality.avgStrength)}%
             </span>
           </div>
 
-          <div>
-            <span className="text-text-muted">Bullets with Metrics: </span>
-            <span className="font-bold font-mono text-text">
-              {beforeQuality.bulletsWithMetricsPercent}% →{' '}
-              <span className="text-emerald-500">{afterQuality.bulletsWithMetricsPercent}%</span>
+          <div className="flex items-center gap-1.5">
+            <span className="text-slate-500">Quantified Bullets:</span>
+            <span className="font-bold text-slate-800">
+              {Math.round(beforeQuality.bulletsWithMetricsPercent)}% → {Math.round(afterQuality.bulletsWithMetricsPercent)}%
             </span>
           </div>
 
-          <div>
-            <span className="text-text-muted">Repeated Opener Verbs: </span>
-            <span className="font-bold font-mono text-text">
-              {afterQuality.repeatedVerbs.length === 0 ? (
-                <span className="text-emerald-500">0 (Clean)</span>
-              ) : (
-                <span className="text-amber-500">{afterQuality.repeatedVerbs.length} repeated</span>
-              )}
+          <div className="flex items-center gap-1.5">
+            <span className="text-slate-500">Tailored Score:</span>
+            <span className="font-bold text-emerald-700">
+              {Math.round(afterQuality.avgStrength)}/100
             </span>
           </div>
         </div>

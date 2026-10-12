@@ -55,6 +55,8 @@ export const ClassicTemplate: React.FC<TemplateProps> = ({ model, showChanges })
 
   const renderSkills = () => {
     if (model.skills.length === 0) return null;
+    const isAdded = (s: string) => showChanges && Boolean(model.addedSkills?.includes(s));
+
     return (
       <section key="skills" className="mt-3.5">
         <h2 className="text-[10.5pt] font-bold uppercase tracking-wider text-black border-b border-gray-400 pb-0.5 mb-1.5 font-sans">
@@ -65,14 +67,38 @@ export const ClassicTemplate: React.FC<TemplateProps> = ({ model, showChanges })
             {model.skillCategories.map((group) => (
               <div key={group.category} className="leading-snug">
                 <span className="font-bold text-black">{group.category}: </span>
-                <span className="text-gray-800">{group.skills.join(', ')}</span>
+                <span className="text-gray-800">
+                  {group.skills.map((skill, sIdx) => (
+                    <React.Fragment key={skill}>
+                      {sIdx > 0 && ', '}
+                      {isAdded(skill) ? (
+                        <span className="bg-emerald-100 text-emerald-950 font-bold px-1.5 py-0.5 rounded border border-emerald-300 inline-block">
+                          +{skill}
+                        </span>
+                      ) : (
+                        skill
+                      )}
+                    </React.Fragment>
+                  ))}
+                </span>
               </div>
             ))}
           </div>
         ) : (
-          <p className="text-[9.8pt] text-gray-800 leading-relaxed font-sans">
-            {model.skills.join('  •  ')}
-          </p>
+          <div className="text-[9.8pt] text-gray-800 leading-relaxed font-sans flex flex-wrap gap-x-2 gap-y-1">
+            {model.skills.map((skill, sIdx) => (
+              <React.Fragment key={skill}>
+                {sIdx > 0 && <span className="text-gray-400">•</span>}
+                {isAdded(skill) ? (
+                  <span className="bg-emerald-100 text-emerald-950 font-bold px-1.5 py-0.5 rounded border border-emerald-300 inline-block">
+                    +{skill}
+                  </span>
+                ) : (
+                  <span>{skill}</span>
+                )}
+              </React.Fragment>
+            ))}
+          </div>
         )}
       </section>
     );

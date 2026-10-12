@@ -12,16 +12,16 @@ export const WordDiffViewer: React.FC<WordDiffViewerProps> = ({ original, propos
   }, [original, proposed]);
 
   return (
-    <div className="font-mono text-[13px] leading-relaxed select-text p-3 bg-zinc-900/60 rounded-lg border border-zinc-800/80 text-zinc-300">
+    <div className="font-mono text-[13px] leading-relaxed select-text p-3 sm:p-3.5 bg-slate-50/90 rounded-xl border border-slate-200/90 text-slate-800 shadow-inner">
       <div className="flex items-start gap-2">
-        <span className="text-zinc-500 select-none">•</span>
+        <span className="text-slate-400 select-none font-bold mt-0.5">•</span>
         <div className="flex-1 flex flex-wrap gap-x-1.5 gap-y-1 items-center">
           {diffs.map((token, index) => {
             if (token.type === 'removed') {
               return (
                 <span
                   key={index}
-                  className="line-through text-rose-300 bg-rose-950/60 border border-rose-800/50 px-1.5 py-0.5 rounded text-xs select-all"
+                  className="line-through text-rose-700 bg-rose-50 border border-rose-200 px-1.5 py-0.5 rounded text-xs select-all font-medium"
                   title="Removed in revision"
                 >
                   {token.value}
@@ -32,7 +32,7 @@ export const WordDiffViewer: React.FC<WordDiffViewerProps> = ({ original, propos
               return (
                 <span
                   key={index}
-                  className="text-emerald-300 bg-emerald-950/60 border border-emerald-800/50 px-1.5 py-0.5 rounded font-medium text-xs select-all"
+                  className="text-emerald-800 bg-emerald-100 border border-emerald-300 px-1.5 py-0.5 rounded font-bold text-xs select-all shadow-2xs"
                   title="Added in revision"
                 >
                   {token.value}
@@ -40,7 +40,7 @@ export const WordDiffViewer: React.FC<WordDiffViewerProps> = ({ original, propos
               );
             }
             return (
-              <span key={index} className="text-zinc-200">
+              <span key={index} className="text-slate-700">
                 {token.value}
               </span>
             );

@@ -56,6 +56,7 @@ export interface ResumeDocModel {
   projects: ResumeProjectItem[];
   education: ResumeEducationItem[];
   skills: string[];
+  addedSkills?: string[];
   skillCategories?: ResumeSkillCategory[];
   hiddenSkills?: string[];
   languages?: string[];
@@ -95,7 +96,8 @@ function resolveReplacement(
 export function parseResumeDocModel(
   resumeText: string,
   acceptedReplacements: Record<string, string> = {},
-  manualPreset?: ResumePreset
+  manualPreset?: ResumePreset,
+  acceptedSkills: string[] = []
 ): ResumeDocModel {
   const recovered = recoverResumeStructure(resumeText || '');
   let bulletIdCounter = 0;
@@ -175,6 +177,33 @@ export function parseResumeDocModel(
       break;
   }
 
+  // Merge recovered skills with accepted skills
+  const existingSkills = recovered.skills.canonicalSkills || [];
+  const existingSet = new Set(existingSkills.map((s) => s.toLowerCase()));
+  const newSkillsToAdd: string[] = [];
+
+  acceptedSkills.forEach((s) => {
+    if (!existingSet.has(s.toLowerCase())) {
+      existingSet.add(s.toLowerCase());
+      newSkillsToAdd.push(s);
+    }
+  });
+
+  const mergedSkills = [...existingSkills, ...newSkillsToAdd];
+
+  let skillCategories = recovered.skills.categories;
+  if (newSkillsToAdd.length > 0) {
+    if (skillCategories && skillCategories.length > 0) {
+      skillCategories = [
+        ...skillCategories,
+        {
+          category: 'Tailored Skills',
+          skills: newSkillsToAdd
+        }
+      ];
+    }
+  }
+
   return {
     contact: {
       name: recovered.header.name || 'Candidate Name',
@@ -188,8 +217,9 @@ export function parseResumeDocModel(
     experience,
     projects,
     education,
-    skills: recovered.skills.canonicalSkills,
-    skillCategories: recovered.skills.categories,
+    skills: mergedSkills,
+    addedSkills: newSkillsToAdd,
+    skillCategories,
     hiddenSkills: recovered.skills.hiddenSkills,
     languages: recovered.languages,
     links: recovered.links,

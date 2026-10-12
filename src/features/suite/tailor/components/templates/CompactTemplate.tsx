@@ -55,6 +55,8 @@ export const CompactTemplate: React.FC<TemplateProps> = ({ model, showChanges })
 
   const renderSkills = () => {
     if (model.skills.length === 0) return null;
+    const isAdded = (s: string) => showChanges && Boolean(model.addedSkills?.includes(s));
+
     return (
       <section key="skills" className="mt-2.5">
         <div className="text-[8.8pt] font-black uppercase text-black border-b border-neutral-300 pb-0.5 mb-1">
@@ -65,14 +67,38 @@ export const CompactTemplate: React.FC<TemplateProps> = ({ model, showChanges })
             {model.skillCategories.map((group) => (
               <div key={group.category} className="leading-tight">
                 <span className="font-bold text-black">{group.category}: </span>
-                <span className="text-neutral-800">{group.skills.join(', ')}</span>
+                <span className="text-neutral-800">
+                  {group.skills.map((skill, sIdx) => (
+                    <React.Fragment key={skill}>
+                      {sIdx > 0 && ', '}
+                      {isAdded(skill) ? (
+                        <span className="bg-emerald-100 text-emerald-950 font-bold px-1 rounded border border-emerald-300 inline-block">
+                          +{skill}
+                        </span>
+                      ) : (
+                        skill
+                      )}
+                    </React.Fragment>
+                  ))}
+                </span>
               </div>
             ))}
           </div>
         ) : (
-          <p className="text-[8.5pt] text-neutral-800 leading-snug">
-            {model.skills.join(' • ')}
-          </p>
+          <div className="text-[8.5pt] text-neutral-800 leading-snug flex flex-wrap gap-x-1.5 gap-y-0.5">
+            {model.skills.map((skill, sIdx) => (
+              <React.Fragment key={skill}>
+                {sIdx > 0 && <span className="text-neutral-400">•</span>}
+                {isAdded(skill) ? (
+                  <span className="bg-emerald-100 text-emerald-950 font-bold px-1 rounded border border-emerald-300 inline-block">
+                    +{skill}
+                  </span>
+                ) : (
+                  <span>{skill}</span>
+                )}
+              </React.Fragment>
+            ))}
+          </div>
         )}
       </section>
     );

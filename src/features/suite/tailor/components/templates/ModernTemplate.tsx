@@ -57,6 +57,8 @@ export const ModernTemplate: React.FC<TemplateProps> = ({ model, showChanges }) 
 
   const renderSkills = () => {
     if (model.skills.length === 0) return null;
+    const isAdded = (s: string) => showChanges && Boolean(model.addedSkills?.includes(s));
+
     return (
       <section key="skills" className="mt-3.5">
         <h2 className="text-[10pt] font-bold uppercase tracking-wider text-indigo-900 flex items-center gap-2 mb-1.5">
@@ -70,8 +72,15 @@ export const ModernTemplate: React.FC<TemplateProps> = ({ model, showChanges }) 
                 <span className="font-bold text-zinc-900 min-w-[140px]">{group.category}:</span>
                 <div className="flex flex-wrap gap-1">
                   {group.skills.map((s, i) => (
-                    <span key={i} className="bg-indigo-50/70 text-indigo-950 font-medium px-2 py-0.5 rounded border border-indigo-100/80 text-[8.8pt]">
-                      {s}
+                    <span
+                      key={i}
+                      className={`font-medium px-2 py-0.5 rounded text-[8.8pt] ${
+                        isAdded(s)
+                          ? 'bg-emerald-100 text-emerald-950 border border-emerald-300 font-bold shadow-2xs'
+                          : 'bg-indigo-50/70 text-indigo-950 border border-indigo-100/80'
+                      }`}
+                    >
+                      {isAdded(s) ? `+${s}` : s}
                     </span>
                   ))}
                 </div>
@@ -81,8 +90,15 @@ export const ModernTemplate: React.FC<TemplateProps> = ({ model, showChanges }) 
         ) : (
           <div className="flex flex-wrap gap-1.5">
             {model.skills.map((s, i) => (
-              <span key={i} className="text-[9pt] bg-zinc-100 text-zinc-800 font-medium px-2 py-0.5 rounded border border-zinc-200">
-                {s}
+              <span
+                key={i}
+                className={`font-medium px-2 py-0.5 rounded text-[9pt] ${
+                  isAdded(s)
+                    ? 'bg-emerald-100 text-emerald-950 border border-emerald-300 font-bold shadow-2xs'
+                    : 'bg-zinc-100 text-zinc-800 border border-zinc-200'
+                }`}
+              >
+                {isAdded(s) ? `+${s}` : s}
               </span>
             ))}
           </div>

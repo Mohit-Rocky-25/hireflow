@@ -38,6 +38,7 @@ import { StrengthenChecklist } from './components/StrengthenChecklist';
 import { LayoutRepairsPanel } from './components/LayoutRepairsPanel';
 import { ExportToolbar } from './components/ExportToolbar';
 import { ExportTruthGateModal } from './components/ExportTruthGateModal';
+import { applyAcceptedSuggestions } from '../../../lib/tailorEngine/patcher';
 
 const SAMPLE_RESUME = `Arjun Mehta | arjun@example.com | Full Stack Developer
 SUMMARY: Software engineer with 3 years building web platforms using React, Node.js, TypeScript, and PostgreSQL.
@@ -185,34 +186,16 @@ Requirements:
     }, 200);
   };
 
-  // Build live tailored preview based on accepted / edited suggestions
-  const liveTailoredResume = useMemo(() => {
-    if (!result) return resumeText;
-    let text = resumeText;
-    result.suggestions.forEach((s) => {
-      const status = suggestionStatus[s.id];
-      if (status === 'accepted') {
-        const replacement = editedTexts[s.id] || s.proposedText;
-        if (s.originalText && replacement) {
-          text = text.replace(s.originalText, replacement);
-        }
-      }
-    });
-    return text;
+  // Build live tailored preview and patched docModel based on accepted / edited suggestions
+  const { liveTailoredResume, acceptedSkills, modifiedBullets } = useMemo(() => {
+    if (!result) return { liveTailoredResume: resumeText, acceptedSkills: [], modifiedBullets: {} };
+    return applyAcceptedSuggestions(resumeText, result.suggestions, suggestionStatus, editedTexts);
   }, [result, resumeText, suggestionStatus, editedTexts]);
 
   // Build structured ResumeDocModel for templates & exports
   const docModel = useMemo(() => {
-    const replacements: Record<string, string> = {};
-    if (result) {
-      result.suggestions.forEach((s) => {
-        if (suggestionStatus[s.id] === 'accepted') {
-          replacements[s.originalText] = editedTexts[s.id] || s.proposedText;
-        }
-      });
-    }
-    return parseResumeDocModel(resumeText, replacements, manualPreset);
-  }, [resumeText, result, suggestionStatus, editedTexts, manualPreset]);
+    return parseResumeDocModel(resumeText, modifiedBullets, manualPreset, acceptedSkills);
+  }, [resumeText, modifiedBullets, manualPreset, acceptedSkills]);
 
   // Handle adding detected hidden skill
   const handleAddSkill = (skill: string) => {
@@ -582,8 +565,8 @@ Requirements:
 
             {/* Suggestions List */}
             {filteredSuggestions.length === 0 ? (
-              <div className="p-8 text-center bg-zinc-900/40 rounded-xl border border-zinc-800 text-zinc-400">
-                <p className="text-sm">
+              <div className="p-8 text-center bg-slate-50/80 rounded-2xl border border-slate-200 text-slate-500">
+                <p className="text-sm font-medium">
                   {reviewTab === 'skills'
                     ? 'No missing skills to add — your resume already covers the required technologies.'
                     : reviewTab === 'add_context'
@@ -596,11 +579,11 @@ Requirements:
               <div className="space-y-8">
                 {Object.entries(groupedSuggestions).map(([section, items]) => (
                   <div key={section} className="space-y-3">
-                    <div className="flex items-center gap-2 pb-2 border-b border-zinc-800">
-                      <h3 className="text-xs font-bold text-zinc-400 uppercase tracking-wider">
+                    <div className="flex items-center gap-2 pb-2 border-b border-slate-200">
+                      <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider">
                         {section}
                       </h3>
-                      <span className="text-[11px] text-zinc-500 font-mono">
+                      <span className="text-[11px] text-slate-500 font-mono font-semibold">
                         ({items.length} {items.length === 1 ? 'revision' : 'revisions'})
                       </span>
                     </div>
