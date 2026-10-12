@@ -101,6 +101,108 @@ export function trimProfessionalSummary(
   };
 }
 
+export interface VerbDefinition {
+  present: string;
+  past: string;
+  third?: string;
+  gerund?: string;
+  forms?: string[];
+}
+
+export const VERB_DEFINITIONS: VerbDefinition[] = [
+  { present: 'Build', past: 'Built', third: 'Builds', gerund: 'Building' },
+  { present: 'Develop', past: 'Developed', third: 'Develops', gerund: 'Developing' },
+  { present: 'Design', past: 'Designed', third: 'Designs', gerund: 'Designing' },
+  { present: 'Implement', past: 'Implemented', third: 'Implements', gerund: 'Implementing' },
+  { present: 'Architect', past: 'Architected', third: 'Architects', gerund: 'Architecting' },
+  { present: 'Engineer', past: 'Engineered', third: 'Engineers', gerund: 'Engineering' },
+  { present: 'Lead', past: 'Led', third: 'Leads', gerund: 'Leading' },
+  { present: 'Manage', past: 'Managed', third: 'Manages', gerund: 'Managing' },
+  { present: 'Maintain', past: 'Maintained', third: 'Maintains', gerund: 'Maintaining' },
+  { present: 'Optimize', past: 'Optimized', third: 'Optimizes', gerund: 'Optimizing', forms: ['optimise', 'optimises', 'optimising', 'optimised'] },
+  { present: 'Automate', past: 'Automated', third: 'Automates', gerund: 'Automating' },
+  { present: 'Deploy', past: 'Deployed', third: 'Deploys', gerund: 'Deploying' },
+  { present: 'Configure', past: 'Configured', third: 'Configures', gerund: 'Configuring' },
+  { present: 'Create', past: 'Created', third: 'Creates', gerund: 'Creating' },
+  { present: 'Write', past: 'Wrote', third: 'Writes', gerund: 'Writing' },
+  { present: 'Test', past: 'Tested', third: 'Tests', gerund: 'Testing' },
+  { present: 'Direct', past: 'Directed', third: 'Directs', gerund: 'Directing' },
+  { present: 'Analyze', past: 'Analyzed', third: 'Analyzes', gerund: 'Analyzing', forms: ['analyse', 'analyses', 'analysing', 'analysed'] },
+  { present: 'Collaborate', past: 'Collaborated', third: 'Collaborates', gerund: 'Collaborating' },
+  { present: 'Coordinate', past: 'Coordinated', third: 'Coordinates', gerund: 'Coordinating' },
+  { present: 'Conduct', past: 'Conducted', third: 'Conducts', gerund: 'Conducting' },
+  { present: 'Perform', past: 'Performed', third: 'Performs', gerund: 'Performing' },
+  { present: 'Monitor', past: 'Monitored', third: 'Monitors', gerund: 'Monitoring' },
+  { present: 'Scale', past: 'Scaled', third: 'Scales', gerund: 'Scaling' },
+  { present: 'Migrate', past: 'Migrated', third: 'Migrates', gerund: 'Migrating' },
+  { present: 'Integrate', past: 'Integrated', third: 'Integrates', gerund: 'Integrating' },
+  { present: 'Spearhead', past: 'Spearheaded', third: 'Spearheads', gerund: 'Spearheading' },
+  { present: 'Deliver', past: 'Delivered', third: 'Delivers', gerund: 'Delivering' },
+  { present: 'Enhance', past: 'Enhanced', third: 'Enhances', gerund: 'Enhancing' },
+  { present: 'Execute', past: 'Executed', third: 'Executes', gerund: 'Executing' },
+  { present: 'Resolve', past: 'Resolved', third: 'Resolves', gerund: 'Resolving' },
+  { present: 'Secure', past: 'Secured', third: 'Secures', gerund: 'Securing' },
+  { present: 'Launch', past: 'Launched', third: 'Launches', gerund: 'Launching' },
+  { present: 'Establish', past: 'Established', third: 'Establishes', gerund: 'Establishing' },
+  { present: 'Evaluate', past: 'Evaluated', third: 'Evaluates', gerund: 'Evaluating' },
+  { present: 'Publish', past: 'Published', third: 'Publishes', gerund: 'Publishing' },
+  { present: 'Overhaul', past: 'Overhauled', third: 'Overhauls', gerund: 'Overhauling' },
+  { present: 'Streamline', past: 'Streamlined', third: 'Streamlines', gerund: 'Streamlining' },
+  { present: 'Supervise', past: 'Supervised', third: 'Supervises', gerund: 'Supervising' },
+  { present: 'Facilitate', past: 'Facilitated', third: 'Facilitates', gerund: 'Facilitating' },
+  { present: 'Benchmark', past: 'Benchmarked', third: 'Benchmarks', gerund: 'Benchmarking' },
+  { present: 'Troubleshoot', past: 'Troubleshot', third: 'Troubleshoots', gerund: 'Troubleshooting' },
+  { present: 'Train', past: 'Trained', third: 'Trains', gerund: 'Training' },
+  { present: 'Verify', past: 'Verified', third: 'Verifies', gerund: 'Verifying' },
+  { present: 'Validate', past: 'Validated', third: 'Validates', gerund: 'Validating' },
+  { present: 'Modernize', past: 'Modernized', third: 'Modernizes', gerund: 'Modernizing', forms: ['modernise', 'modernises', 'modernising', 'modernised'] },
+  { present: 'Consolidate', past: 'Consolidated', third: 'Consolidates', gerund: 'Consolidating' },
+  { present: 'Improve', past: 'Improved', third: 'Improves', gerund: 'Improving' },
+  { present: 'Accelerate', past: 'Accelerated', third: 'Accelerates', gerund: 'Accelerating' },
+  { present: 'Investigate', past: 'Investigated', third: 'Investigates', gerund: 'Investigating' },
+  { present: 'Assess', past: 'Assessed', third: 'Assesses', gerund: 'Assessing' },
+  { present: 'Inspect', past: 'Inspected', third: 'Inspects', gerund: 'Inspecting' },
+  { present: 'Run', past: 'Ran', third: 'Runs', gerund: 'Running' },
+  { present: 'Oversee', past: 'Oversaw', third: 'Oversees', gerund: 'Overseeing' },
+];
+
+export const VERB_LEXICON: Record<string, { present: string; past: string }> = {};
+
+for (const def of VERB_DEFINITIONS) {
+  const target = { present: def.present, past: def.past };
+  VERB_LEXICON[def.present.toLowerCase()] = target;
+  VERB_LEXICON[def.past.toLowerCase()] = target;
+  if (def.third) VERB_LEXICON[def.third.toLowerCase()] = target;
+  if (def.gerund) VERB_LEXICON[def.gerund.toLowerCase()] = target;
+  if (def.forms) {
+    for (const f of def.forms) {
+      VERB_LEXICON[f.toLowerCase()] = target;
+    }
+  }
+}
+
+export function isEntryCurrent(endDate?: string): boolean {
+  if (!endDate) return false;
+  return /present/i.test(endDate.trim());
+}
+
+export function normalizeVerbTense(bullet: string, isCurrent: boolean): string {
+  const match = bullet.match(/^(\s*[-•*●▪‣]?\s*)([A-Za-z]+)(\b.*)$/s);
+  if (!match) return bullet;
+
+  const prefix = match[1];
+  const firstWord = match[2];
+  const remainder = match[3];
+  const lowerWord = firstWord.toLowerCase();
+
+  const entry = VERB_LEXICON[lowerWord];
+  if (!entry) return bullet;
+
+  const targetVerb = isCurrent ? entry.present : entry.past;
+  const capitalizedVerb = targetVerb.charAt(0).toUpperCase() + targetVerb.slice(1);
+  return `${prefix}${capitalizedVerb}${remainder}`;
+}
+
 export function polishResumeContent(
   resume: CanonicalResume,
   targetRole?: string
@@ -121,23 +223,37 @@ export function polishResumeContent(
   for (const exp of polished.experience) {
     if (exp.start) exp.start = normalizeDate(exp.start);
     if (exp.end) exp.end = normalizeDate(exp.end);
-    exp.bullets = exp.bullets.map((b) => polishBullet(b));
+    const isCurrent = isEntryCurrent(exp.end);
+    exp.bullets = exp.bullets.map((b) => normalizeVerbTense(polishBullet(b), isCurrent));
   }
 
   // 3. Polish Projects Bullets & Dates
   for (const proj of polished.projects) {
     if (proj.date) proj.date = normalizeDate(proj.date);
-    proj.bullets = proj.bullets.map((b) => polishBullet(b));
+    const isCurrent = isEntryCurrent(proj.date);
+    proj.bullets = proj.bullets.map((b) => normalizeVerbTense(polishBullet(b), isCurrent));
   }
 
   // 4. Polish Leadership Bullets & Dates
   for (const lead of polished.leadership) {
     if (lead.start) lead.start = normalizeDate(lead.start);
     if (lead.end) lead.end = normalizeDate(lead.end);
-    lead.bullets = lead.bullets.map((b) => polishBullet(b));
+    const isCurrent = isEntryCurrent(lead.end);
+    lead.bullets = lead.bullets.map((b) => normalizeVerbTense(polishBullet(b), isCurrent));
   }
 
-  // 5. Polish Education Dates
+  // 5. Polish Achievements Bullets & Dates
+  if (polished.achievements) {
+    for (const ach of polished.achievements) {
+      if (ach.date) ach.date = normalizeDate(ach.date);
+      const isCurrent = isEntryCurrent(ach.date);
+      if (ach.bullets) {
+        ach.bullets = ach.bullets.map((b) => normalizeVerbTense(polishBullet(b), isCurrent));
+      }
+    }
+  }
+
+  // 6. Polish Education Dates
   for (const edu of polished.education) {
     if (edu.start) edu.start = normalizeDate(edu.start);
     if (edu.end) edu.end = normalizeDate(edu.end);
