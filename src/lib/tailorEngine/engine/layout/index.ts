@@ -47,8 +47,8 @@ export function buildLayoutTree(
     (resume.experience.length >= 2 && resume.experience.some((e) => e.bullets.length >= 2));
 
   const sectionOrder = isExperienced
-    ? ['summary', 'experience', 'skills', 'projects', 'education', 'certifications', 'leadership', 'achievements']
-    : ['summary', 'education', 'skills', 'projects', 'experience', 'leadership', 'certifications', 'achievements'];
+    ? ['summary', 'experience', 'skills', 'projects', 'achievements', 'leadership', 'certifications', 'education']
+    : ['summary', 'education', 'skills', 'projects', 'achievements', 'leadership', 'certifications', 'experience'];
 
   // 3. Assemble Sections (Omit any empty section)
   const sections: LayoutSection[] = [];
@@ -162,10 +162,19 @@ export function buildLayoutTree(
 
       case 'achievements': {
         if (resume.achievements.length > 0) {
+          const lines: string[] = [];
+          for (const a of resume.achievements) {
+            lines.push(`${a.title}${a.date ? ` | ${a.date}` : ''}`);
+            if (a.bullets && a.bullets.length > 0) {
+              for (const b of a.bullets) {
+                lines.push(`• ${b}`);
+              }
+            }
+          }
           sections.push({
             key: 'achievements',
-            title: 'Honors & Achievements',
-            lines: resume.achievements.map((a) => `• ${a.title}`)
+            title: 'Achievements',
+            lines
           });
         }
         break;

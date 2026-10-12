@@ -281,7 +281,7 @@ export const ClassicTemplate: React.FC<TemplateProps> = ({ model, showChanges })
     return (
       <section key="achievements" className="mt-3.5">
         <h2 className="text-[10.5pt] font-bold uppercase tracking-wider text-black border-b border-gray-400 pb-0.5 mb-1.5 font-sans">
-          Honors & Achievements
+          Achievements
         </h2>
         <ul className="list-disc list-outside ml-4 space-y-0.5 text-[9.6pt] text-gray-800 font-sans">
           {model.achievements.map((ach, idx) => (

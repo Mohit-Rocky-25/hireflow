@@ -281,7 +281,7 @@ export const CompactTemplate: React.FC<TemplateProps> = ({ model, showChanges })
     return (
       <section key="achievements" className="mt-2.5">
         <div className="text-[8.8pt] font-black uppercase text-black border-b border-neutral-300 pb-0.5 mb-1">
-          Honors & Achievements
+          Achievements
         </div>
         <ul className="list-disc list-outside ml-3.5 space-y-0.5 text-[8.5pt] text-neutral-800">
           {model.achievements.map((ach, idx) => (

@@ -297,7 +297,7 @@ export const ModernTemplate: React.FC<TemplateProps> = ({ model, showChanges }) 
       <section key="achievements" className="mt-3.5">
         <h2 className="text-[10pt] font-bold uppercase tracking-wider text-indigo-900 flex items-center gap-2 mb-1.5">
           <span className="w-1.5 h-1.5 rounded-full bg-indigo-600 inline-block"></span>
-          Honors & Achievements
+          Achievements
         </h2>
         <ul className="list-disc list-outside ml-4 space-y-0.5 text-[9.4pt] text-zinc-700">
           {model.achievements.map((ach, idx) => (

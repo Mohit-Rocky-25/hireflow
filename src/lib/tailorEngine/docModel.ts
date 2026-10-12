@@ -197,11 +197,11 @@ export function parseResumeDocModel(
         'summary',
         'skills',
         'projects',
+        'achievements',
+        'leadership',
         'experience',
         'education',
-        'leadership',
         'certifications',
-        'achievements',
         'languages',
         'links'
       ];
@@ -212,10 +212,10 @@ export function parseResumeDocModel(
         'experience',
         'skills',
         'projects',
-        'education',
-        'leadership',
-        'certifications',
         'achievements',
+        'leadership',
+        'education',
+        'certifications',
         'languages',
         'links'
       ];
@@ -227,10 +227,10 @@ export function parseResumeDocModel(
         'education',
         'skills',
         'projects',
-        'experience',
-        'leadership',
-        'certifications',
         'achievements',
+        'leadership',
+        'experience',
+        'certifications',
         'languages',
         'links'
       ];

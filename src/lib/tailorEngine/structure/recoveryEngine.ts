@@ -142,6 +142,19 @@ export function recoverResumeStructure(rawText: string): RecoveredResume {
 
   const wordCount = rawText.trim().split(/\s+/).length;
 
+  // Competition to Achievements Re-route
+  const COMPETITION_REGEX = /\b(?:contest|ctf|competition|hackathon|rank|award|winner)\b/i;
+  const filteredProjects: typeof projects = [];
+  for (const proj of projects) {
+    if (COMPETITION_REGEX.test(proj.name) || COMPETITION_REGEX.test(proj.bullets.join(' '))) {
+      achievements.push(proj.name);
+      achievements.push(...proj.bullets);
+    } else {
+      filteredProjects.push(proj);
+    }
+  }
+  projects = filteredProjects;
+
   return {
     header,
     summary: chosenSummary,

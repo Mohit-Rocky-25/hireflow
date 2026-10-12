@@ -60,9 +60,10 @@ describe('HireFlow Resume Tailor — 12-Fixture Verification Suite', () => {
       // Invariant 5: Output fits within page limit (at most 2 pages)
       expect(layout.estimatedPages).toBeLessThanOrEqual(2);
 
-      // Invariant 6: Regression check on Cybersecurity Fresher (Defect 1)
+      // Invariant 6: Regression check on Cybersecurity Fresher (Defect 1 & Defect C)
       if (fixture.id === 'cybersecurity-fresher') {
-        expect(canonical.projects.length).toBe(4);
+        expect(canonical.projects.length).toBe(3);
+        expect(canonical.achievements.length).toBeGreaterThan(0);
         expect(canonical.skills.groups.length).toBeGreaterThan(0);
         for (const g of canonical.skills.groups) {
           for (const item of g.items) {

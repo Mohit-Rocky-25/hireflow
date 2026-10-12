@@ -49,8 +49,8 @@ CERTIFICATIONS & CONTINUOUS LEARNING
 • Completed OSI Model & TCP/IP Suite coursework (David Bombal — Networking Udemy course) and studying the OWASP MASTG for structured mobile pentesting methodology.
 • Actively solving labs on PortSwigger Web Security Academy and following Real-World Bug Hunting by Peter Yaworski
 • maintains a public, day-by-day cybersecurity learning log.`,
-    expectedSections: ['header', 'skills', 'projects', 'leadership', 'certifications'],
-    notes: 'Regression test: Core Competencies must not swallow projects or practical experiences.'
+    expectedSections: ['header', 'skills', 'projects', 'achievements', 'leadership', 'certifications'],
+    notes: 'Regression test: Core Competencies must not swallow projects, and CTFs route to achievements.'
   },
 
   // 2. Senior Backend Engineer (Experienced, High Scale)

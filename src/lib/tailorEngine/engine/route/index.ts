@@ -116,7 +116,7 @@ export function routeResumeContent(chunks: NormalizedSectionChunk[]): CanonicalR
       }
 
       case 'projects': {
-        parseProjectsChunk(chunk, projects, needs_review);
+        parseProjectsChunk(chunk, projects, achievements, needs_review);
         break;
       }
 
@@ -397,10 +397,26 @@ function parseExperienceChunk(
 function parseProjectsChunk(
   chunk: NormalizedSectionChunk,
   outProj: ProjectItem[],
+  outAch: AchievementItem[],
   needs_review: NeedsReviewBlock[]
 ): void {
   const lines = chunk.blocks.map((b) => b.rawText);
   let current: ProjectItem | null = null;
+  const COMPETITION_REGEX = /\b(?:contest|ctf|competition|hackathon|rank|award|winner)\b/i;
+
+  const commitProject = (p: ProjectItem | null) => {
+    if (!p) return;
+    const isCompetition = COMPETITION_REGEX.test(p.name) || COMPETITION_REGEX.test(p.bullets.join(' '));
+    if (isCompetition) {
+      outAch.push({
+        title: p.name,
+        date: p.date,
+        bullets: p.bullets
+      });
+    } else {
+      outProj.push(p);
+    }
+  };
 
   for (const line of lines) {
     const isBullet = /^[-•*●▪‣]\s*/.test(line);
@@ -410,7 +426,6 @@ function parseProjectsChunk(
       const cleanBullet = line.replace(/^[-•*●▪‣]\s*/, '').trim();
       if (!current) {
         current = { name: 'Technical Project', stack: [], bullets: [] };
-        outProj.push(current);
       }
       appendOrMergeBullet(current.bullets, cleanBullet, 'projects', needs_review);
 
@@ -428,6 +443,8 @@ function parseProjectsChunk(
 
     // Title line e.g. "FinFlow Mobile Banking Redesign | React Native, Figma | 2023"
     // or "Android Application Security Assessment (AndroGoat) 2026"
+    commitProject(current);
+
     if (line.includes('|')) {
       const parts = line.split('|').map((p) => p.trim());
       const name = parts[0];
@@ -445,7 +462,6 @@ function parseProjectsChunk(
       }
 
       current = { name, stack, date, bullets: [] };
-      outProj.push(current);
     } else {
       let name = line;
       let date: string | undefined = undefined;
@@ -457,9 +473,10 @@ function parseProjectsChunk(
       }
 
       current = { name, stack: [], date, bullets: [] };
-      outProj.push(current);
     }
   }
+
+  commitProject(current);
 }
 
 // -------------------------------------------------------------
