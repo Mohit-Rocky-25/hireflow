@@ -157,19 +157,14 @@ Requirements:
     const contextSug = result.suggestions.find((s) => s.needsContext);
 
     expect(contextSug).toBeDefined();
-    // Authentic bullet preserved without fake canned demo metrics!
-    expect(contextSug?.proposedText).toBe(
-      '- Built and tested a subnetted network topology in Cisco Packet Tracer to reinforce IP addressing, encapsulation, and routing concepts.'
-    );
-    expect(contextSug?.proposedText).not.toContain('saving [15+] engineering hours/week');
-    expect(contextSug?.proposedText).not.toContain('handling [50,000+] requests/day');
-    expect(contextSug?.proposedText).not.toContain('85k');
-
-    // Context prompt and chips must align with networking!
-    expect(contextSug?.contextPrompt).toContain('network');
-    expect(contextSug?.contextTapChips).toBeDefined();
-    expect(contextSug?.contextTapChips?.some((c) => c.includes('subnets') || c.includes('VLANs'))).toBe(true);
-    expect(contextSug?.contextTapChips?.some((c) => c.includes('packet drop') || c.includes('routing'))).toBe(true);
+    // In accordance with Redesign Rules 1 & 3:
+    // Engine generates a QUESTION with empty proposedText, zero canned chips, and honest consequence text!
+    expect(contextSug?.kind).toBe('QUESTION');
+    expect(contextSug?.proposedText).toBe('');
+    expect(contextSug?.question).toContain('network');
+    expect(contextSug?.consequenceText).toContain('subnetting');
+    expect(contextSug?.examplePlaceholder).toContain('Example format');
+    expect(contextSug?.contextTapChips).toHaveLength(0);
   });
 
   it('correctly evaluates 4-slot formula for networking bullets with Cisco Packet Tracer and subnets', () => {

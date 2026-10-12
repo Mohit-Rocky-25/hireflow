@@ -7,7 +7,6 @@ import {
   AlertTriangle,
   Sparkles,
   Info,
-  CornerDownRight,
   PlusCircle,
   HelpCircle,
   RotateCcw,
@@ -48,10 +47,25 @@ export const SuggestionCard: React.FC<SuggestionCardProps> = ({
   const [isEditing, setIsEditing] = useState(false);
   const [editText, setEditText] = useState(editedText || suggestion.proposedText);
   const [selectedOptIndex, setSelectedOptIndex] = useState(suggestion.chosenOptionIndex || 0);
+
+  // Question state
+  const isQuestion = suggestion.kind === 'QUESTION';
+  const isSkillQuestion = suggestion.type === 'skills' || Boolean(suggestion.targetSkill);
+
+  // Skill Question interactive state
+  const [skillAnswer, setSkillAnswer] = useState<'unanswered' | 'yes' | 'no'>(
+    status === 'accepted' ? 'yes' : status === 'rejected' ? 'no' : 'unanswered'
+  );
+  const [evidenceText, setEvidenceText] = useState('');
+
+  // Metric / Context interactive state
   const [contextInput, setContextInput] = useState(suggestion.contextValue || '');
   const inputRef = useRef<HTMLInputElement>(null);
 
   const currentText = editedText || (suggestion.options ? suggestion.options[selectedOptIndex]?.text : suggestion.proposedText);
+
+  const contextHasBrackets = /[\[\]]/.test(contextInput);
+  const evidenceHasBrackets = /[\[\]]/.test(evidenceText);
 
   const handleSaveInlineEdit = () => {
     const polished = applyGrammarGate(editText, suggestion.originalText);
@@ -67,57 +81,60 @@ export const SuggestionCard: React.FC<SuggestionCardProps> = ({
     }
   };
 
-  const handleContextChipClick = (chip: string) => {
-    setContextInput(chip);
-    setTimeout(() => {
-      if (inputRef.current) {
-        inputRef.current.focus();
-        const match = chip.match(/\[(.*?)\]/);
-        if (match && match.index !== undefined) {
-          inputRef.current.setSelectionRange(match.index, match.index + match[0].length);
-        }
-      }
-    }, 50);
+  const handleSkillNo = () => {
+    setSkillAnswer('no');
+    onReject(suggestion.id);
+  };
+
+  const handleSkillYes = () => {
+    setSkillAnswer('yes');
+  };
+
+  const handleSkillAddSubmit = (e?: React.FormEvent) => {
+    e?.preventDefault();
+    if (!evidenceText.trim() || evidenceHasBrackets) return;
+    const target = suggestion.targetSkill || suggestion.skillToAdd || '';
+    onAccept(suggestion.id, target);
   };
 
   const handleApplyContextSubmit = (e?: React.FormEvent) => {
     e?.preventDefault();
-    if (!contextInput.trim()) return;
+    if (!contextInput.trim() || contextHasBrackets) return;
     onApplyContext?.(suggestion.id, contextInput.trim());
   };
 
   // Status Badge Configuration
   const statusBadge = {
-    pending: { label: 'Pending review', className: 'bg-slate-100 text-slate-600 border-slate-200' },
+    pending: { label: isQuestion ? 'Question pending' : 'Pending review', className: 'bg-slate-100 text-slate-600 border-slate-200' },
     accepted: { label: 'Accepted ✓', className: 'bg-emerald-100 text-emerald-800 border-emerald-300 font-bold' },
     rejected: { label: 'Declined ✕', className: 'bg-slate-100 text-slate-400 border-slate-200 line-through' },
-    needs_input: { label: 'Input Recommended ⚠', className: 'bg-amber-100 text-amber-800 border-amber-300 font-semibold' }
+    needs_input: { label: 'Needs your input ⚠', className: 'bg-amber-100 text-amber-800 border-amber-300 font-semibold' }
   }[status];
 
   // Category Badge Configuration
   const categoryConfig = {
     rephrase: {
-      label: 'Action Revision',
+      label: 'Action Revision (Safe)',
       icon: <Sparkles className="w-3.5 h-3.5 text-indigo-600" />,
       className: 'bg-indigo-50 text-indigo-700 border-indigo-200'
     },
     skills: {
-      label: 'Skill Integration',
+      label: 'Skill Question',
       icon: <Wrench className="w-3.5 h-3.5 text-emerald-600" />,
       className: 'bg-emerald-50 text-emerald-700 border-emerald-200'
     },
     add_context: {
-      label: 'Measurable Impact',
+      label: 'Impact Question',
       icon: <HelpCircle className="w-3.5 h-3.5 text-amber-600" />,
       className: 'bg-amber-50 text-amber-700 border-amber-200'
     },
     reorder: {
-      label: 'Priority Alignment',
+      label: 'Priority Alignment (Safe)',
       icon: <Layers className="w-3.5 h-3.5 text-sky-600" />,
       className: 'bg-sky-50 text-sky-700 border-sky-200'
     },
     highlight: {
-      label: 'Highlight',
+      label: 'Highlight (Safe)',
       icon: <ArrowUpRight className="w-3.5 h-3.5 text-purple-600" />,
       className: 'bg-purple-50 text-purple-700 border-purple-200'
     }
@@ -135,7 +152,7 @@ export const SuggestionCard: React.FC<SuggestionCardProps> = ({
           ? 'bg-emerald-50/25 border-emerald-400 ring-2 ring-emerald-500/15 shadow-sm'
           : status === 'rejected'
           ? 'bg-slate-50/70 border-slate-200 opacity-60'
-          : status === 'needs_input'
+          : isQuestion
           ? 'bg-white border-amber-300 ring-2 ring-amber-500/10 shadow-sm'
           : 'bg-white border-slate-200/90 hover:border-slate-300 shadow-xs hover:shadow-md'
       }`}
@@ -152,6 +169,15 @@ export const SuggestionCard: React.FC<SuggestionCardProps> = ({
             {categoryConfig.icon}
             {categoryConfig.label}
           </span>
+          {isQuestion ? (
+            <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-200">
+              Needs your input
+            </span>
+          ) : (
+            <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-sky-100 text-sky-800 border border-sky-200">
+              Source content only
+            </span>
+          )}
         </div>
 
         <div className="flex items-center gap-2">
@@ -162,41 +188,195 @@ export const SuggestionCard: React.FC<SuggestionCardProps> = ({
       </div>
 
       <div className="p-4 sm:p-5 space-y-4">
-        {/* VIEW 1: Concrete Skill Addition Card */}
-        {suggestion.type === 'skills' ? (
-          <div className="p-4 rounded-xl bg-emerald-50/50 border border-emerald-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        {/* Mandatory Beginner-Safe Warning Banner on QUESTION Cards */}
+        {isQuestion && (
+          <div className="flex items-center gap-2.5 p-3 rounded-xl bg-amber-500/10 border border-amber-200 text-amber-900 text-xs">
+            <ShieldCheck className="w-4 h-4 text-amber-600 shrink-0" />
+            <div>
+              <p className="font-semibold text-amber-950">
+                Only add things that are true and that you can explain in an interview.
+              </p>
+              <p className="text-[11px] text-amber-800/80">
+                The engine never invents facts or adds unverified claims. You supply the evidence.
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* ============================================================== */}
+        {/* CASE A: QUESTION - SKILL VERIFICATION                         */}
+        {/* ============================================================== */}
+        {isQuestion && isSkillQuestion ? (
+          <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
             <div className="space-y-1">
-              <div className="flex items-center gap-2">
-                <span className="text-xs font-bold text-emerald-800 uppercase tracking-wider">
-                  Target Skill Addition:
-                </span>
-                <span className="px-2.5 py-1 rounded-lg bg-emerald-600 text-white font-mono font-bold text-xs shadow-xs">
-                  +{suggestion.skillToAdd || suggestion.proposedText}
-                </span>
+              <div className="text-sm font-bold text-slate-900">
+                {suggestion.question || `The job asks for ${suggestion.targetSkill || suggestion.skillToAdd}. Have you used it?`}
               </div>
               <p className="text-xs text-slate-600">
-                Directly incorporates <strong>{suggestion.skillToAdd || 'required skill'}</strong> into your Technical Skills section so ATS scanners and recruiters match it instantly.
+                {suggestion.consequenceText || 'Only add skills you have actually used and can explain in an interview. If not, it stays in your Gap Report.'}
               </p>
             </div>
 
-            {status !== 'accepted' && (
-              <button
-                type="button"
-                onClick={() => onAccept(suggestion.id)}
-                className="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition-all shadow-xs cursor-pointer"
-              >
-                <PlusCircle className="w-3.5 h-3.5" />
-                Add Skill to Resume
-              </button>
+            {status === 'accepted' ? (
+              <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-800 flex items-center justify-between">
+                <span className="flex items-center gap-1.5 font-medium">
+                  <Check className="w-4 h-4 text-emerald-600" />
+                  <span>Added <strong>{suggestion.targetSkill || suggestion.skillToAdd}</strong> to your Technical Skills based on your verified input.</span>
+                </span>
+                <span className="text-[11px] font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded">
+                  Provenance: user_input
+                </span>
+              </div>
+            ) : status === 'rejected' ? (
+              <div className="p-3 rounded-xl bg-slate-100 border border-slate-200 text-xs text-slate-600">
+                OK. We won't add it. It stays in your Gap Report.
+              </div>
+            ) : skillAnswer === 'unanswered' ? (
+              <div className="flex items-center gap-2 pt-1">
+                <button
+                  type="button"
+                  onClick={handleSkillYes}
+                  className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition-all shadow-xs cursor-pointer inline-flex items-center gap-1.5"
+                >
+                  <Check className="w-3.5 h-3.5" />
+                  Yes, I have
+                </button>
+                <button
+                  type="button"
+                  onClick={handleSkillNo}
+                  className="px-4 py-2 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs font-semibold transition-all cursor-pointer inline-flex items-center gap-1.5"
+                >
+                  <X className="w-3.5 h-3.5" />
+                  No
+                </button>
+              </div>
+            ) : (
+              /* When user clicks 'Yes, I have', ask for evidence before allowing add */
+              <form onSubmit={handleSkillAddSubmit} className="space-y-2 pt-1 border-t border-slate-200/80">
+                <label className="block text-xs font-bold text-slate-800">
+                  Where did you use it? (project, course, lab)
+                </label>
+                <input
+                  type="text"
+                  value={evidenceText}
+                  onChange={(e) => setEvidenceText(e.target.value)}
+                  placeholder="e.g. built REST endpoints using Docker in coursework"
+                  className="w-full px-3 py-2 text-xs font-mono bg-white border border-slate-300 rounded-lg text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 shadow-2xs"
+                />
+
+                {evidenceHasBrackets && (
+                  <p className="text-[11px] text-rose-600 font-semibold flex items-center gap-1">
+                    <AlertTriangle className="w-3.5 h-3.5 shrink-0" />
+                    Bracket placeholders [ ] are not allowed. Please enter your real experience.
+                  </p>
+                )}
+
+                <div className="flex items-center justify-between pt-1">
+                  <button
+                    type="button"
+                    onClick={() => setSkillAnswer('unanswered')}
+                    className="text-xs text-slate-500 hover:text-slate-800 underline cursor-pointer"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={!evidenceText.trim() || evidenceHasBrackets}
+                    className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 disabled:opacity-40 disabled:cursor-not-allowed text-white text-xs font-bold transition-all shadow-xs cursor-pointer inline-flex items-center gap-1.5"
+                  >
+                    <PlusCircle className="w-3.5 h-3.5" />
+                    Add Skill to Resume
+                  </button>
+                </div>
+              </form>
+            )}
+          </div>
+        ) : isQuestion && suggestion.type === 'add_context' ? (
+          /* ============================================================== */
+          /* CASE B: QUESTION - METRIC / IMPACT QUESTION                    */
+          /* ============================================================== */
+          <div className="p-4 rounded-xl bg-amber-50/70 border border-amber-200 space-y-3">
+            <div className="space-y-1">
+              <div className="text-xs text-slate-500 font-medium uppercase tracking-wider">
+                Current Resume Bullet:
+              </div>
+              <div className="p-2.5 rounded-lg bg-white border border-amber-200/80 text-xs font-mono text-slate-800">
+                {suggestion.originalText}
+              </div>
+            </div>
+
+            <div className="space-y-1">
+              <div className="text-xs font-bold text-amber-950 flex items-start gap-1.5">
+                <HelpCircle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+                <span>{suggestion.question || 'What was the verified scope or milestone count of this project?'}</span>
+              </div>
+              <p className="text-[11px] text-amber-800/80">
+                {suggestion.consequenceText || "Don't guess: interviewers often ask for details. Leave blank if unmeasured."}
+              </p>
+            </div>
+
+            {status === 'accepted' ? (
+              <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-800 flex items-center justify-between">
+                <span className="flex items-center gap-1.5 font-medium">
+                  <Check className="w-4 h-4 text-emerald-600" />
+                  <span>Verified outcome appended to bullet.</span>
+                </span>
+                <span className="text-[11px] font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded">
+                  Provenance: user_input
+                </span>
+              </div>
+            ) : (
+              <form onSubmit={handleApplyContextSubmit} className="space-y-2 pt-1 border-t border-amber-200/80">
+                <label className="block text-[11px] font-bold uppercase tracking-wider text-amber-900">
+                  Your Verified Outcome or Scale (Empty by default):
+                </label>
+                <div className="relative">
+                  <input
+                    ref={inputRef}
+                    type="text"
+                    value={contextInput}
+                    onChange={(e) => setContextInput(e.target.value)}
+                    placeholder={suggestion.examplePlaceholder || 'Example format, replace with your own: e.g. validated against 4 core functional requirements'}
+                    className="w-full px-3 py-2 text-xs font-mono bg-white border border-amber-300 rounded-lg text-slate-800 placeholder-slate-400 focus:outline-none focus:border-amber-600 focus:ring-2 focus:ring-amber-500/20 shadow-2xs"
+                  />
+                </div>
+
+                {contextHasBrackets && (
+                  <p className="text-[11px] text-rose-600 font-semibold flex items-center gap-1">
+                    <AlertTriangle className="w-3.5 h-3.5 shrink-0" />
+                    Bracket placeholders [ ] are not allowed. Please enter your real numbers or leave blank.
+                  </p>
+                )}
+
+                <div className="flex items-center justify-end gap-2 pt-1">
+                  <button
+                    type="button"
+                    onClick={() => onReject(suggestion.id)}
+                    className="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:bg-slate-200 transition-colors cursor-pointer"
+                  >
+                    Skip (Leave Blank)
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={!contextInput.trim() || contextHasBrackets}
+                    className="px-3.5 py-1.5 text-xs font-bold rounded-lg bg-amber-600 hover:bg-amber-700 disabled:opacity-40 disabled:cursor-not-allowed text-white transition-all shadow-xs cursor-pointer inline-flex items-center gap-1.5"
+                  >
+                    <Check className="w-3.5 h-3.5" />
+                    Add Outcome to Bullet
+                  </button>
+                </div>
+              </form>
             )}
           </div>
         ) : (
-          /* VIEW 2: Word-Level Revision Diff for Bullets */
+          /* ============================================================== */
+          /* CASE C: SAFE_EDIT (Verb Strengthening / Priority Reorder)     */
+          /* ============================================================== */
           suggestion.originalText && (
             <div className="space-y-2">
               <div className="flex items-center justify-between text-xs text-slate-500 font-medium">
                 <span className="uppercase tracking-wider text-[11px] font-bold text-slate-600">
-                  {suggestion.type === 'rephrase' ? 'Word Revision Diff' : 'Bullet Preview'}
+                  {suggestion.type === 'rephrase' ? 'Word Revision Diff (Safe)' : 'Bullet Preview'}
                 </span>
                 <div className="flex items-center gap-2 text-[11px]">
                   <span className="inline-flex items-center gap-1 text-slate-500">
@@ -260,8 +440,8 @@ export const SuggestionCard: React.FC<SuggestionCardProps> = ({
           )
         )}
 
-        {/* Phrasing Options Selector (Direct Ownership vs Honest Collaborative) */}
-        {suggestion.options && suggestion.options.length > 0 && (
+        {/* Phrasing Options Selector for SAFE_EDIT (Direct Ownership vs Honest Collaborative) */}
+        {!isQuestion && suggestion.options && suggestion.options.length > 0 && (
           <div className="p-3.5 bg-slate-50 border border-slate-200/90 rounded-xl space-y-2">
             <div className="flex items-center gap-1.5 text-xs font-bold text-slate-700">
               <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
@@ -300,107 +480,6 @@ export const SuggestionCard: React.FC<SuggestionCardProps> = ({
                 </button>
               ))}
             </div>
-          </div>
-        )}
-
-        {/* Add Context Interactive Tap Chips & Custom Direct Input */}
-        {suggestion.needsContext && (
-          <div className="p-3.5 sm:p-4 bg-amber-50/70 border border-amber-200/90 rounded-xl space-y-3 shadow-2xs">
-            <div className="flex items-start justify-between gap-2">
-              <div className="flex items-start gap-2 text-xs font-bold text-amber-900">
-                <HelpCircle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
-                <div>
-                  <span>{suggestion.contextPrompt || 'Add quantifiable metric to substantiate this work:'}</span>
-                  <p className="text-[11px] font-normal text-amber-800/80 mt-0.5">
-                    Click a domain starter pattern below to populate the editable field, then adjust the numbers to reflect your actual project findings.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Quick Tap Chips */}
-            {suggestion.contextTapChips && (
-              <div className="space-y-1.5">
-                <div className="text-[10px] font-bold uppercase tracking-wider text-amber-800/70">
-                  Starter Patterns (Click to Load & Edit):
-                </div>
-                <div className="flex flex-wrap gap-1.5">
-                  {suggestion.contextTapChips.map((chip, cIdx) => (
-                    <button
-                      key={cIdx}
-                      type="button"
-                      onClick={() => handleContextChipClick(chip)}
-                      className={`text-xs px-2.5 py-1 rounded-lg border transition-all shadow-2xs font-mono font-medium cursor-pointer ${
-                        contextInput === chip
-                          ? 'bg-amber-200/80 text-amber-950 border-amber-400 ring-2 ring-amber-400/30'
-                          : 'bg-white hover:bg-amber-100/70 text-amber-900 border-amber-300'
-                      }`}
-                    >
-                      + {chip}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Direct Outcome Custom Input Field */}
-            <div className="pt-1 border-t border-amber-200/60 space-y-2">
-              <div className="text-[10px] font-bold uppercase tracking-wider text-amber-800/70">
-                Edit Verified Outcome to Add:
-              </div>
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
-                <div className="relative flex-1">
-                  <input
-                    ref={inputRef}
-                    type="text"
-                    value={contextInput}
-                    onChange={(e) => setContextInput(e.target.value)}
-                    placeholder="e.g. spanning 4 subnets across 3 VLANs with 0% packet loss"
-                    className="w-full px-3 py-2 text-xs font-mono bg-white border border-amber-300 rounded-lg text-slate-800 placeholder-slate-400 focus:outline-none focus:border-amber-600 focus:ring-2 focus:ring-amber-500/20 shadow-2xs"
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter') {
-                        e.preventDefault();
-                        handleApplyContextSubmit();
-                      }
-                    }}
-                  />
-                </div>
-                <div className="flex items-center gap-1.5 shrink-0">
-                  <button
-                    type="button"
-                    onClick={handleApplyContextSubmit}
-                    disabled={!contextInput.trim()}
-                    className="px-3.5 py-2 text-xs font-bold rounded-lg bg-amber-600 hover:bg-amber-700 disabled:opacity-40 disabled:cursor-not-allowed text-white transition-all shadow-xs cursor-pointer inline-flex items-center gap-1.5"
-                  >
-                    <Check className="w-3.5 h-3.5" />
-                    Apply Outcome
-                  </button>
-                  {contextInput && (
-                    <button
-                      type="button"
-                      onClick={() => setContextInput('')}
-                      className="p-2 text-xs text-amber-700 hover:text-amber-900 rounded-lg hover:bg-amber-100 transition-colors cursor-pointer"
-                      title="Clear"
-                    >
-                      <X className="w-3.5 h-3.5" />
-                    </button>
-                  )}
-                </div>
-              </div>
-            </div>
-
-            {/* Live Status when Outcome is already applied */}
-            {status === 'accepted' && (
-              <div className="p-2 rounded-lg bg-emerald-50 border border-emerald-200 text-xs text-emerald-800 flex items-center justify-between">
-                <span className="flex items-center gap-1.5">
-                  <Check className="w-3.5 h-3.5 text-emerald-600" />
-                  <span>Outcome applied to bullet above.</span>
-                </span>
-                <span className="text-[11px] text-emerald-700 font-sans">
-                  Formula updated: Metric ✓
-                </span>
-              </div>
-            )}
           </div>
         )}
 
@@ -459,15 +538,29 @@ export const SuggestionCard: React.FC<SuggestionCardProps> = ({
             ) : status === 'rejected' ? (
               <div className="flex items-center gap-2">
                 <span className="text-xs text-slate-400">Declined</span>
+                {!isQuestion && (
+                  <button
+                    type="button"
+                    onClick={() => onAccept(suggestion.id)}
+                    className="text-xs font-bold text-indigo-600 hover:underline cursor-pointer"
+                  >
+                    Restore & Accept
+                  </button>
+                )}
+              </div>
+            ) : isQuestion ? (
+              /* For QUESTION cards: Only Decline/Skip in footer. No 1-click Accept until answered above! */
+              <div className="flex items-center gap-1.5">
                 <button
                   type="button"
-                  onClick={() => onAccept(suggestion.id)}
-                  className="text-xs font-bold text-indigo-600 hover:underline cursor-pointer"
+                  onClick={() => onReject(suggestion.id)}
+                  className="px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-500 hover:text-slate-800 hover:bg-slate-100 border border-slate-200 transition-all cursor-pointer"
                 >
-                  Restore & Accept
+                  Skip Question
                 </button>
               </div>
             ) : (
+              /* For SAFE_EDIT cards: Standard 1-click Accept, Decline, and Inline Edit */
               <div className="flex items-center gap-1.5">
                 {!isEditing && (
                   <button

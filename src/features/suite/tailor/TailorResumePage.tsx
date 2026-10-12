@@ -16,7 +16,9 @@ import {
   Building2,
   RefreshCw,
   AlertCircle,
-  AlertTriangle
+  AlertTriangle,
+  ShieldCheck,
+  RotateCcw
 } from 'lucide-react';
 import { tailorResume, TailorResult, TailorSuggestion } from './tailorResume';
 import { useProfile } from '../profile/ProfileContext';
@@ -245,32 +247,103 @@ Requirements:
     return result?.suggestions.length || 0;
   }, [result]);
 
-  // Dynamic live match score that climbs visibly as suggestions and skills are accepted
+  // Rule 5: Honest live match score that climbs only as genuine skills are verified
   const liveScore = useMemo(() => {
     if (!result) return 0;
     const base = result.scoreBefore;
-    const target = result.projectedScoreAfter;
     if (result.suggestions.length === 0) return base;
 
-    // Check newly fulfilled skills
-    const newlyAddedSkills = result.mustHavesMissing.filter((skill) =>
+    // Honest calculation without unearned +8%/+4%/+3% boosts
+    const totalMust = (result.mustHavesMatched.length + result.mustHavesMissing.length) || 1;
+    const totalNice = (result.niceToHavesMatched.length + result.niceToHavesMissing.length) || 1;
+
+    const newlyAddedMustSkills = result.mustHavesMissing.filter((skill) =>
       acceptedSkills.some((as) => as.toLowerCase() === skill.toLowerCase())
     ).length;
 
-    const newlyAddedBonusSkills = result.niceToHavesMissing.filter((skill) =>
+    const newlyAddedNiceSkills = result.niceToHavesMissing.filter((skill) =>
       acceptedSkills.some((as) => as.toLowerCase() === skill.toLowerCase())
     ).length;
 
-    const acceptedOtherRevisions = Math.max(
-      0,
-      acceptedCount - newlyAddedSkills - newlyAddedBonusSkills
-    );
+    const matchedMust = result.mustHavesMatched.length + newlyAddedMustSkills;
+    const matchedNice = result.niceToHavesMatched.length + newlyAddedNiceSkills;
 
-    // Boost: +8% per core missing skill accepted, +4% per bonus skill, +3% per rephrasing/context accepted
-    const boost = (newlyAddedSkills * 8) + (newlyAddedBonusSkills * 4) + (acceptedOtherRevisions * 3);
+    const matchRatio = (matchedMust / totalMust) * 75 + (matchedNice / totalNice) * 15;
+    return Math.min(100, Math.max(base, Math.round(matchRatio + 10)));
+  }, [result, acceptedSkills]);
 
-    return Math.min(100, Math.max(base, Math.min(target, base + boost)));
-  }, [result, acceptedSkills, acceptedCount]);
+  // Rule 7: Count pending SAFE_EDIT items
+  const pendingSafeEditCount = useMemo(() => {
+    if (!result) return 0;
+    return result.suggestions.filter(
+      (s) => s.kind === 'SAFE_EDIT' && suggestionStatus[s.id] !== 'accepted'
+    ).length;
+  }, [result, suggestionStatus]);
+
+  // Rule 6: Safety Net Violations Check
+  const exportViolations = useMemo(() => {
+    const list: Array<{ id: string; text: string; reason: string }> = [];
+    if (!result) return list;
+
+    result.suggestions.forEach((s) => {
+      if (suggestionStatus[s.id] === 'accepted') {
+        const text = editedTexts[s.id] || s.proposedText;
+        if (/[\[\]]/.test(text)) {
+          list.push({
+            id: s.id,
+            text,
+            reason: 'Contains unverified bracket placeholder [ ]'
+          });
+        }
+      }
+    });
+
+    return list;
+  }, [result, suggestionStatus, editedTexts]);
+
+  // Rule 6: Pre-export review user-added lines (provenance = user_input)
+  const userAddedLines = useMemo(() => {
+    const list: Array<{ id: string; text: string; type: 'skill' | 'bullet' }> = [];
+    if (!result) return list;
+
+    acceptedSkills.forEach((skill, idx) => {
+      list.push({
+        id: `user-skill-${idx}`,
+        text: `+ ${skill} (Technical Skills)`,
+        type: 'skill'
+      });
+    });
+
+    result.suggestions.forEach((s) => {
+      if (s.kind === 'QUESTION' && suggestionStatus[s.id] === 'accepted') {
+        const text = editedTexts[s.id] || s.proposedText;
+        if (text && s.type !== 'skills') {
+          list.push({
+            id: s.id,
+            text,
+            type: 'bullet'
+          });
+        }
+      }
+    });
+
+    return list;
+  }, [result, acceptedSkills, suggestionStatus, editedTexts]);
+
+  const handleRevertToSource = () => {
+    if (!result) return;
+    const initialStatus: Record<string, CardStatus> = {};
+    result.suggestions.forEach((s) => {
+      initialStatus[s.id] = s.kind === 'QUESTION' ? 'needs_input' : 'pending';
+    });
+    setSuggestionStatus(initialStatus);
+    setEditedTexts({});
+    setShowUndoToast(false);
+  };
+
+  const handleRemoveViolation = (id: string) => {
+    handleUndo(id);
+  };
 
   // Suggestion actions
   const handleAccept = (id: string, finalText?: string) => {
@@ -322,7 +395,9 @@ Requirements:
     setUndoSnapshot({ ...suggestionStatus });
     const nextStatus = { ...suggestionStatus };
     result.suggestions.forEach((s) => {
-      if (s.needsContext && suggestionStatus[s.id] === 'needs_input') return;
+      // RULE 7: Accept All scope applies strictly to SAFE_EDIT.
+      // QUESTION cards are NEVER accepted in bulk!
+      if (s.kind === 'QUESTION') return;
       nextStatus[s.id] = 'accepted';
     });
     setSuggestionStatus(nextStatus);
@@ -408,7 +483,7 @@ Requirements:
   };
 
   const handleDownloadDocxClick = () => {
-    if (unresolvedPlaceholders.length > 0 || pendingContextCount > 0) {
+    if (unresolvedPlaceholders.length > 0 || exportViolations.length > 0 || userAddedLines.length > 0) {
       setPendingExportAction('docx');
       setIsTruthGateOpen(true);
     } else {
@@ -417,7 +492,7 @@ Requirements:
   };
 
   const handlePrintPdfClick = () => {
-    if (unresolvedPlaceholders.length > 0 || pendingContextCount > 0) {
+    if (unresolvedPlaceholders.length > 0 || exportViolations.length > 0 || userAddedLines.length > 0) {
       setPendingExportAction('print');
       setIsTruthGateOpen(true);
     } else {
@@ -598,6 +673,37 @@ Requirements:
             {/* Layout Repairs & Structure Check Panel */}
             <LayoutRepairsPanel model={docModel} />
 
+            {/* Recruiter-Grade Integrity Badge Banner */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-2xl border bg-slate-50/80 shadow-2xs">
+              <div className="flex items-center gap-2.5">
+                {unresolvedPlaceholders.length > 0 || exportViolations.length > 0 ? (
+                  <>
+                    <div className="w-2.5 h-2.5 rounded-full bg-rose-500 animate-pulse shrink-0" />
+                    <span className="text-xs font-bold text-rose-800">
+                      Integrity Alert: {unresolvedPlaceholders.length + exportViolations.length} unverified claim{unresolvedPlaceholders.length + exportViolations.length > 1 ? 's' : ''} (blocks export)
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <span className="text-xs font-bold text-emerald-800">
+                      Integrity Verified: All content from your resume or your own input
+                    </span>
+                  </>
+                )}
+              </div>
+
+              <button
+                type="button"
+                onClick={handleRevertToSource}
+                className="text-xs font-semibold text-slate-500 hover:text-rose-600 hover:underline cursor-pointer inline-flex items-center gap-1 self-end sm:self-auto"
+                title="Restore original source resume with zero changes"
+              >
+                <RotateCcw className="w-3 h-3 text-slate-400 hover:text-rose-600" />
+                Revert to source resume
+              </button>
+            </div>
+
             {/* Stage 3 Sticky Tab Bar */}
             <ReviewTabBar
               activeTab={reviewTab}
@@ -611,6 +717,8 @@ Requirements:
               onRejectAll={handleRejectAll}
               onUndoBulk={handleUndoBulk}
               showUndoToast={showUndoToast}
+              onRevertToSource={handleRevertToSource}
+              safeEditCount={pendingSafeEditCount}
             />
 
             {/* Suggestions List */}
@@ -724,13 +832,16 @@ Requirements:
         )}
       </div>
 
-      {/* Export Truth Gate Warning Modal */}
+      {/* Export Truth Gate Warning & Verification Modal */}
       <ExportTruthGateModal
         isOpen={isTruthGateOpen}
         onClose={() => setIsTruthGateOpen(false)}
         onConfirmExport={handleConfirmTruthGateExport}
         unresolvedPlaceholders={unresolvedPlaceholders}
-        pendingContextCount={pendingContextCount}
+        violations={exportViolations}
+        onRemoveViolation={handleRemoveViolation}
+        userAddedLines={userAddedLines}
+        onRevertToSource={handleRevertToSource}
       />
     </div>
   );
