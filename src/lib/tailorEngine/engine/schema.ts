@@ -128,6 +128,7 @@ export const SuggestionSchema = z.object({
 export const ResumeSchema = z.object({
   header: HeaderSchema,
   summary: z.string().optional(),
+  summaryDiff: z.object({ original: z.string(), trimmed: z.string() }).optional(),
   education: z.array(EducationItemSchema).default([]),
   experience: z.array(ExperienceItemSchema).default([]),
   projects: z.array(ProjectItemSchema).default([]),

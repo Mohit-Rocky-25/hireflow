@@ -26,8 +26,16 @@ export interface ProcessedTailoredResume {
 
 export function processResumePipeline(
   rawInput: string,
-  preset: 'fresher' | 'experienced' = 'fresher'
+  presetOrRole?: 'fresher' | 'experienced' | string,
+  maybeTargetRole?: string
 ): ProcessedTailoredResume {
+  const preset: 'fresher' | 'experienced' =
+    presetOrRole === 'experienced' ? 'experienced' : 'fresher';
+  const targetRole =
+    presetOrRole && presetOrRole !== 'fresher' && presetOrRole !== 'experienced'
+      ? presetOrRole
+      : maybeTargetRole;
+
   // Stage 1: PARSE
   const rawBlocks = parseRawContent(rawInput);
 
@@ -38,7 +46,7 @@ export function processResumePipeline(
   const routedResume = routeResumeContent(normalizedChunks);
 
   // Stage 4: POLISH
-  const polishedResume = polishResumeContent(routedResume);
+  const polishedResume = polishResumeContent(routedResume, targetRole);
 
   // Stage 5: LAYOUT
   const layout = buildLayoutTree(polishedResume, preset);
@@ -65,7 +73,7 @@ export function tailorResumePipeline(
   const rawBlocks = parseRawContent(rawInput);
   const normalizedChunks = normalizeRawBlocks(rawBlocks);
   const routed = routeResumeContent(normalizedChunks);
-  const polished = polishResumeContent(routed);
+  const polished = polishResumeContent(routed, targetJobDescription);
   const layout = buildLayoutTree(polished, 'fresher');
   const validation = validateResume(polished, layout);
   const exportedHtml = renderHtmlPreview(layout);
