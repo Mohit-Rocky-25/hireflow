@@ -20,6 +20,7 @@ import {
   SpellingConvention
 } from './verbs';
 import { applyGrammarGate } from './grammar';
+import { ALL_ACTION_VERBS } from './actionWordEngine';
 
 export type SuggestionType = 'rephrase' | 'skills' | 'add_context' | 'reorder' | 'highlight';
 
@@ -36,8 +37,11 @@ export interface SuggestionOption {
   note?: string;
 }
 
+export type SuggestionClass = 'SAFE_EDIT' | 'QUESTION';
+
 export interface TailorSuggestion {
   id: string;
+  kind: SuggestionClass;
   type: SuggestionType;
   section: string;
   originalText: string;
@@ -53,6 +57,10 @@ export interface TailorSuggestion {
   contextPrompt?: string;
   contextValue?: string;
   contextTapChips?: string[];
+  question?: string;
+  consequenceText?: string;
+  examplePlaceholder?: string;
+  targetSkill?: string;
 }
 
 export interface TailorResult {
@@ -155,12 +163,13 @@ export function calculateBulletRelevance(bullet: string, jdSkills: string[]): nu
   return score;
 }
 
-export interface DomainContextSpec {
-  prompt: string;
-  chips: string[];
+export interface DomainQuestionSpec {
+  question: string;
+  consequence: string;
+  examplePlaceholder: string;
 }
 
-export function detectDomainContext(bullet: string, _section?: string): DomainContextSpec {
+export function detectDomainQuestion(bullet: string, _section?: string): DomainQuestionSpec {
   const bLower = bullet.toLowerCase();
 
   // 1. Networking, Topology, Routing & Protocols
@@ -168,13 +177,9 @@ export function detectDomainContext(bullet: string, _section?: string): DomainCo
     /\b(?:cisco|packet\s*tracer|topology|subnet|subnets|subnetted|ip\s*addressing|routing|encapsulation|vlan|vlans|bgp|ospf|switch|switches|router|routers|firewall|dns|dhcp|nat|lan|wan|vpn|tcp\/ip|wireshark|network)\b/i.test(bLower)
   ) {
     return {
-      prompt: 'Specify verified network scale, topology size, or routing verification:',
-      chips: [
-        'spanning [X] subnets across [Y] VLANs',
-        'verifying zero packet drop across routing hops',
-        'configured across [X] virtual routers and switch nodes',
-        'subdivided using [VLSM/CIDR] addressing tables'
-      ]
+      question: 'What was the verified network scale or topology in this lab? Leave blank if unmeasured.',
+      consequence: "Don't guess: interviewers often ask for subnetting and routing specifics.",
+      examplePlaceholder: 'Example format, replace with your own: e.g. spanning 4 subnets across 2 virtual routers'
     };
   }
 
@@ -183,13 +188,9 @@ export function detectDomainContext(bullet: string, _section?: string): DomainCo
     /\b(?:owasp|mastg|apk|binary|binaries|vulnerability|vulnerabilities|penetration|pentest|pentesting|burp|burp\s*suite|nmap|ctf|reverse\s*engineering|ghidra|frida|static\s*analysis|dynamic\s*analysis|cve|exploit|security\s*audit|encryption|cryptography|jwt|xss|sql\s*injection|sqli|malware|threat|hardening)\b/i.test(bLower)
   ) {
     return {
-      prompt: 'Specify verified security scope, test scenarios, or findings:',
-      chips: [
-        'identifying [X] OWASP Top 10 vulnerabilities',
-        'tested across [X] security test cases / attack scenarios',
-        'analyzing [X] target endpoints and APIs',
-        'documenting remediation for [X] high-risk findings'
-      ]
+      question: 'How many test cases or scenarios did you run in this project? Leave blank if you don\'t know.',
+      consequence: "Don't guess: interviewers often ask for details. Never invent test case counts.",
+      examplePlaceholder: 'Example format, replace with your own: e.g. evaluated across 12 endpoints, identifying 2 high-risk findings'
     };
   }
 
@@ -198,13 +199,9 @@ export function detectDomainContext(bullet: string, _section?: string): DomainCo
     /\b(?:sql|mysql|postgresql|postgres|nosql|mongodb|redis|database|databases|query|queries|schema|etl|pipeline|index|indexing|warehouse|spark|hadoop|kafka)\b/i.test(bLower)
   ) {
     return {
-      prompt: 'Specify verified data volume, query execution, or table scale:',
-      chips: [
-        'optimizing query execution across [X] relational tables',
-        'processing datasets of [X] records / rows',
-        'indexing high-volume lookup columns for faster retrieval',
-        'reducing batch processing execution time by [X%]'
-      ]
+      question: 'What was the dataset size or query performance measured? Leave blank if unmeasured.',
+      consequence: 'Interviewers will ask how you measured performance or schema scale.',
+      examplePlaceholder: 'Example format, replace with your own: e.g. optimized query execution across 8 relational tables'
     };
   }
 
@@ -213,13 +210,9 @@ export function detectDomainContext(bullet: string, _section?: string): DomainCo
     /\b(?:api|apis|rest|graphql|endpoint|endpoints|microservice|microservices|backend|server|express|fastapi|django|spring|spring\s*boot|grpc|concurrency|websocket)\b/i.test(bLower)
   ) {
     return {
-      prompt: 'Specify verified throughput, endpoints, or response latency target:',
-      chips: [
-        'handling requests with [< X ms] response latency',
-        'implemented across [X] RESTful API endpoints',
-        'validated with [X] integration test suites',
-        'handling [X] concurrent requests with 0 dropped connections'
-      ]
+      question: 'How many endpoints did you build or what response time did you observe? Leave blank if unknown.',
+      consequence: 'Be prepared to explain your testing methodology if you cite response times.',
+      examplePlaceholder: 'Example format, replace with your own: e.g. built across 6 REST endpoints with automated unit tests'
     };
   }
 
@@ -228,13 +221,9 @@ export function detectDomainContext(bullet: string, _section?: string): DomainCo
     /\b(?:react|vue|angular|next\.js|svelte|frontend|ui|ux|tailwind|css|html|javascript|typescript|mobile|flutter|react\s*native|android|ios|component|components|viewports|responsive)\b/i.test(bLower)
   ) {
     return {
-      prompt: 'Specify verified interface scope, screen viewports, or performance:',
-      chips: [
-        'tested across [X] responsive viewports and screen sizes',
-        'engineered [X] reusable, accessible UI components',
-        'reducing initial page load / render time by [X%]',
-        'achieving [X%] Lighthouse performance score'
-      ]
+      question: 'How many components, viewports, or screens did you build? Leave blank if unmeasured.',
+      consequence: 'Interviewers may inspect component hierarchy during portfolio reviews.',
+      examplePlaceholder: 'Example format, replace with your own: e.g. designed 5 modular UI components tested across mobile and desktop'
     };
   }
 
@@ -243,13 +232,9 @@ export function detectDomainContext(bullet: string, _section?: string): DomainCo
     /\b(?:docker|kubernetes|k8s|aws|azure|gcp|ci\/cd|pipeline|jenkins|github\s*actions|terraform|ansible|linux|nginx|deploy|deployment|staging|production)\b/i.test(bLower)
   ) {
     return {
-      prompt: 'Specify verified deployment environments, build speed, or pipeline stages:',
-      chips: [
-        'deployed across [X] containerized environments',
-        'reducing build and deployment pipeline time by [X%]',
-        'automating CI/CD workflows across [X] build stages',
-        'maintaining [99.X%] service uptime'
-      ]
+      question: 'How many deployment environments or pipeline stages did you configure? Leave blank if unsure.',
+      consequence: 'Interviewers will test your understanding of CI/CD and deployment architecture.',
+      examplePlaceholder: 'Example format, replace with your own: e.g. deployed containerized service with 3 GitHub Actions CI stages'
     };
   }
 
@@ -258,25 +243,57 @@ export function detectDomainContext(bullet: string, _section?: string): DomainCo
     /\b(?:test|tests|testing|qa|cypress|selenium|playwright|vitest|jest|unit\s*test|integration\s*test|e2e|automation)\b/i.test(bLower)
   ) {
     return {
-      prompt: 'Specify verified test coverage, test count, or defect reduction:',
-      chips: [
-        'expanding test coverage to [X%]',
-        'authored [X] automated end-to-end and unit test cases',
-        'reducing regression bug reports by [X%]'
-      ]
+      question: 'How many test cases or what test coverage was achieved? Leave blank if unmeasured.',
+      consequence: "Don't guess: interviewers often ask for exact test coverage and edge cases.",
+      examplePlaceholder: 'Example format, replace with your own: e.g. authored 18 automated unit and integration tests'
     };
   }
 
-  // 8. General Technical Projects / Academic Labs (Default fallback)
+  // 8. General Technical Projects / Fallback
   return {
-    prompt: 'Specify verified scope, dataset size, or functional validation:',
-    chips: [
-      'validated against [X] functional test requirements',
-      'benchmarked across [X] experimental test cases',
-      'completed [X] milestones within the project scope',
-      'reducing task execution time by [X%]'
-    ]
+    question: 'What was the verifiable scope or milestone count of this project? Leave blank if unmeasured.',
+    consequence: 'Don’t guess: interviewers appreciate honest scope over inflated metrics.',
+    examplePlaceholder: 'Example format, replace with your own: e.g. validated against 4 core functional requirements'
   };
+}
+
+export function detectDomainContext(bullet: string, section?: string): { prompt: string; chips: string[] } {
+  const q = detectDomainQuestion(bullet, section);
+  return {
+    prompt: q.question,
+    chips: []
+  };
+}
+
+export function detectSectionHeader(line: string): string | null {
+  const lower = line.toLowerCase().replace(/[:#*\-–—]/g, ' ').trim();
+  if (lower.length > 55) return null;
+
+  if (/\b(?:project|projects|practical experience|academic projects|technical projects)\b/i.test(lower)) {
+    return 'Projects';
+  }
+  if (/\b(?:experience|work history|employment|professional experience|clinical experience)\b/i.test(lower)) {
+    return 'Experience';
+  }
+  if (/\b(?:education|academic|qualifications|degree)\b/i.test(lower)) {
+    return 'Education';
+  }
+  if (/\b(?:skill|skills|technologies|technical competencies|core competencies)\b/i.test(lower)) {
+    return 'Technical Skills';
+  }
+  if (/\b(?:certification|certifications|licensure|licenses|continuous learning)\b/i.test(lower)) {
+    return 'Certifications';
+  }
+  if (/\b(?:leadership|involvement|extracurricular|activities|community)\b/i.test(lower)) {
+    return 'Leadership';
+  }
+  if (/\b(?:achievement|achievements|awards|honors|competitions|ctf)\b/i.test(lower)) {
+    return 'Achievements';
+  }
+  if (/\b(?:summary|profile|about me|objective)\b/i.test(lower)) {
+    return 'Summary';
+  }
+  return null;
 }
 
 export function generateTailoredSuggestions(
@@ -349,23 +366,24 @@ export function generateTailoredSuggestions(
   }
   const allBullets: BulletItem[] = [];
 
-  const sectionKeywords = ['summary', 'experience', 'projects', 'education', 'skills', 'certifications'];
-
   lines.forEach((line, lineIndex) => {
     const trimmed = line.trim();
     if (!trimmed) return;
-    const lower = trimmed.toLowerCase();
-    const isSection = sectionKeywords.some(kw => lower.startsWith(kw) && trimmed.length < 35);
 
-    if (isSection) {
-      currentSection = trimmed.replace(/:$/, '').trim();
+    const detectedSec = detectSectionHeader(trimmed);
+    if (detectedSec) {
+      currentSection = detectedSec;
       return;
     }
 
-    if (trimmed.startsWith('-') || trimmed.startsWith('•') || trimmed.startsWith('*')) {
-      const normalizedBullet = trimmed.replace(/^[•*●▪‣]/, '-');
+    const isBulletPrefix = trimmed.startsWith('-') || trimmed.startsWith('•') || trimmed.startsWith('*') || trimmed.startsWith('●');
+    const firstWord = trimmed.replace(/^[-•*●▪‣]\s*/, '').split(/\s+/)[0]?.toLowerCase().replace(/[^a-z]/g, '') || '';
+    const isActionSentence = ALL_ACTION_VERBS.includes(firstWord) || /^(?:performed|conducted|identified|reversed|patched|modified|reviewed|built|used|tested|analyzed|competed|attempted)$/i.test(firstWord);
+
+    if (isBulletPrefix || (isActionSentence && (currentSection === 'Experience' || currentSection === 'Projects' || currentSection === 'Leadership'))) {
+      const normalizedBullet = trimmed.replace(/^[•*●▪‣]\s*/, '- ');
       allBullets.push({
-        bullet: normalizedBullet,
+        bullet: normalizedBullet.startsWith('- ') ? normalizedBullet : `- ${normalizedBullet}`,
         lineIndex,
         relevance: calculateBulletRelevance(normalizedBullet, parsedJD.mustHaveSkills),
         section: currentSection
@@ -394,7 +412,7 @@ export function generateTailoredSuggestions(
     const bLower = rawBullet.toLowerCase();
     const hasMetric = /(?:\d+%|\$\d+|\d+[kKmMbB]|\b\d+\s*(?:users|requests|req\/s|gb|tb|ms|seconds|minutes|hours|days|months|years|cr)\b)/i.test(bLower);
 
-    // 1. Weak Opener Detection (Rephrase suggestion)
+    // 1. Weak Opener Detection (SAFE_EDIT: purely strengthens verb using source content)
     const weakMatch = matchWeakOpener(rawBullet);
     if (weakMatch) {
       const remainder = weakMatch.remainder;
@@ -451,6 +469,7 @@ export function generateTailoredSuggestions(
 
       suggestions.push({
         id: `sug-rephrase-${bulletIndex++}`,
+        kind: 'SAFE_EDIT',
         type: 'rephrase',
         section: bItem.section,
         originalText: bItem.bullet,
@@ -464,31 +483,36 @@ export function generateTailoredSuggestions(
       return;
     }
 
-    // 2. High-Impact Context / Metric Injection (ONLY for top 2 relevant bullets without metrics)
+    // 2. High-Impact Context / Metric Question (QUESTION: user supplies facts, engine never supplies fake claims)
     const isTopRelevance = sortedByRelevance.slice(0, 3).some(r => r.bullet === bItem.bullet);
     if (!hasMetric && isTopRelevance && contextSuggestionsCount < MAX_CONTEXT_SUGGESTIONS) {
       contextSuggestionsCount++;
-      const domainContext = detectDomainContext(bItem.bullet, bItem.section);
+      const domainQ = detectDomainQuestion(bItem.bullet, bItem.section);
 
       suggestions.push({
         id: `sug-context-${bulletIndex++}`,
+        kind: 'QUESTION',
         type: 'add_context',
         section: bItem.section,
         originalText: bItem.bullet,
-        proposedText: bItem.bullet, // Keep candidate's authentic bullet initially without fabricating fake statistics
+        proposedText: '', // Empty! Engine never supplies unverified claims or bracket placeholders
         needsContext: true,
-        contextPrompt: domainContext.prompt,
-        contextTapChips: domainContext.chips,
-        rationale: 'Substantiating this bullet with your verified project outcomes, scope, or scale will significantly improve recruiter trust (customizable below).',
+        question: domainQ.question,
+        consequenceText: domainQ.consequence,
+        examplePlaceholder: domainQ.examplePlaceholder,
+        contextPrompt: domainQ.question,
+        contextTapChips: [],
+        rationale: 'Substantiating this bullet with your verified project outcomes, scope, or scale will significantly improve recruiter trust.',
         truthCheck: { passed: true }
       });
       return;
     }
 
-    // 3. Reorder suggestion for high-relevance bullets that are buried
+    // 3. Reorder suggestion for high-relevance bullets (SAFE_EDIT: purely reorders existing bullet)
     if (i > 1 && bItem.relevance > 20) {
       suggestions.push({
         id: `sug-reorder-${bulletIndex++}`,
+        kind: 'SAFE_EDIT',
         type: 'reorder',
         section: bItem.section,
         originalText: bItem.bullet,
@@ -499,33 +523,32 @@ export function generateTailoredSuggestions(
     }
   });
 
-  // 4. Actionable Concrete Skill Additions (From JD Missing Must-Haves & Top Nice-To-Haves)
+  // 4. JD Keywords as Questions (QUESTION: user confirms if used, never auto-injected as added chips)
   const skillsToAdd = [...mustHavesMissing.slice(0, 3), ...niceToHavesMissing.slice(0, 2)];
   const uniqueSkillsToAdd = Array.from(new Set(skillsToAdd));
 
   uniqueSkillsToAdd.forEach((skill, sIdx) => {
     suggestions.push({
       id: `sug-skill-${sIdx}`,
+      kind: 'QUESTION',
       type: 'skills',
       section: 'Technical Skills',
       originalText: '',
-      proposedText: `Add '${skill}' to your Technical Skills section`,
-      skillToAdd: skill,
+      proposedText: '', // Empty! Never populated until user types evidence
+      targetSkill: skill,
+      question: `The job asks for ${skill}. Have you used it?`,
+      consequenceText: `Only add skills you have actually used and can explain in an interview. If not, it stays in your Gap Report.`,
+      examplePlaceholder: `Where did you use it? (project, course, lab)`,
       skillCategory: 'Target Stack',
-      rationale: `Target job requires ${skill}. Adding it to your Skills section signals direct technical compatibility.`,
+      rationale: `Target job requires ${skill}. If you have authentic experience with it, verify with evidence before adding.`,
       truthCheck: { passed: true }
     });
   });
 
-  // Calculate projected score if recommendations are applied
-  const potentialSkillBoost = uniqueSkillsToAdd.length * 8;
-  const potentialRevisionBoost = Math.min(20, suggestions.filter((s) => s.type === 'rephrase' || s.type === 'add_context').length * 4);
-  const projectedScoreAfter = Math.min(98, Math.max(baseScore + 12, baseScore + potentialSkillBoost + potentialRevisionBoost));
-
   return {
     targetRoleTitle: parsedJD.role,
     scoreBefore: baseScore,
-    projectedScoreAfter,
+    projectedScoreAfter: baseScore, // Honest score: zero artificial boosts until user supplies facts
     suggestions,
     gaps,
     mustHavesMatched,
