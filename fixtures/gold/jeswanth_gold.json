@@ -1,0 +1,142 @@
+{
+  "id": "jeswanth-gold",
+  "name": "Jeswanth Posina",
+  "targetRole": "Application Security Engineer / Penetration Tester",
+  "titleLine": "Application & Mobile Security | Penetration Testing",
+  "contact": {
+    "name": "Jeswanth Posina",
+    "email": "jeswanth.cipher1337@gmail.com",
+    "phone": "+91 7288922933",
+    "location": "Amaravati, Andhra Pradesh, India",
+    "links": [
+      "linkedin.com/in/jeswanthposina",
+      "github.com/HackerJbon1337"
+    ]
+  },
+  "summary": "Second-year ECE student at VIT-AP focused on Android application security: static and dynamic analysis, reverse engineering and binary patching with JADX, APKTool and ADB, following OWASP MASTG. Competed in L3AK CTF 2026 and contribute to the Null InfoSec chapter. Seeking an Application Security Engineer role.",
+  "sections": [
+    {
+      "key": "summary",
+      "title": "Professional Summary"
+    },
+    {
+      "key": "education",
+      "title": "Education",
+      "entries": [
+        {
+          "institution": "VIT-AP University",
+          "degree": "B.Tech in Electronics and Communication Engineering",
+          "dates": "2024 - 2028 (Expected)",
+          "location": "Amaravati, India"
+        }
+      ]
+    },
+    {
+      "key": "skills",
+      "title": "Technical Skills",
+      "groups": [
+        {
+          "category": "Application Security & Pentesting",
+          "items": ["Static & Dynamic Analysis", "OWASP Top 10", "OWASP MASTG", "Reverse Engineering", "Binary Patching", "Android Security Testing"]
+        },
+        {
+          "category": "Tools & Environments",
+          "items": ["JADX", "APKTool", "ADB", "Wireshark", "Nmap", "Kali Linux", "Burp Suite", "Browser DevTools", "Cisco Packet Tracer"]
+        },
+        {
+          "category": "Networking & Protocols",
+          "items": ["TCP/IP", "OSI Model", "Subnetting", "Routing", "HTTP/HTTPS", "ICMP", "Firewalls/ACLs", "IIS"]
+        },
+        {
+          "category": "Scripting & Systems",
+          "items": ["Bash", "PowerShell basics", "Linux"]
+        }
+      ]
+    },
+    {
+      "key": "projects",
+      "title": "Security Projects & Practical Experience",
+      "entries": [
+        {
+          "title": "Android Application Security Assessment (AndroGoat)",
+          "date": "2026",
+          "tools": ["JADX", "ADB", "OWASP Mobile Top 10"],
+          "bullets": [
+            "Performed static analysis with JADX to locate hardcoded secrets (API keys, promo codes, tokens) embedded in a vulnerable Android APK.",
+            "Identified insecure local data storage in SharedPreferences by combining static analysis with dynamic inspection via ADB.",
+            "Documented client-side trust risks and secure-storage recommendations based on OWASP Mobile Top 10 principles."
+          ]
+        },
+        {
+          "title": "Binary Patching & Privilege Escalation Challenge",
+          "date": "2026",
+          "tools": ["JADX", "APKTool"],
+          "bullets": [
+            "Reverse engineered an Android APK to locate client-side isAdmin authorization check using JADX.",
+            "Modified application logic with APKTool, rebuilt and re-signed the APK, and escalated privileges on an emulator, proving client-side authorization bypass."
+          ]
+        },
+        {
+          "title": "Network Security Fundamentals & Lab Work",
+          "date": "2026",
+          "tools": ["Cisco Packet Tracer", "Wireshark", "Nmap", "IIS"],
+          "bullets": [
+            "Configured and verified a subnetted network topology in Cisco Packet Tracer to reinforce IP addressing and routing concepts.",
+            "Analyzed HTTP traffic and firewall/ACL behavior using Wireshark and Nmap on a self-hosted IIS server, comparing ICMP versus HTTPS handling."
+          ]
+        }
+      ]
+    },
+    {
+      "key": "achievements",
+      "title": "Achievements & Competitions",
+      "entries": [
+        {
+          "title": "L3AK CTF 2026 (International Capture the Flag Competition)",
+          "date": "2026",
+          "bullets": [
+            "Competed in a 48-hour international CTF solving GeoOSINT and CSRF-bypass challenges under competitive conditions.",
+            "Conducted HTTP request analysis and client-side JavaScript injection testing.",
+            "Analyzed official write-ups for unsolved challenges to expand exploitation methodologies."
+          ]
+        }
+      ]
+    },
+    {
+      "key": "leadership",
+      "title": "Leadership & Involvement",
+      "entries": [
+        {
+          "role": "Technical Team Member",
+          "organization": "Null (InfoSec) Chapter — VIT-AP University",
+          "dates": "2026 – Present",
+          "bullets": [
+            "Contribute to a student-run information security community focused on ethical hacking, CTF challenges, and security awareness."
+          ]
+        }
+      ]
+    },
+    {
+      "key": "learning",
+      "title": "Continuous Learning & Training",
+      "groups": [
+        {
+          "status": "Coursework Completed",
+          "items": ["OSI Model & TCP/IP Suite (David Bombal — Networking Udemy)"]
+        },
+        {
+          "status": "In Progress",
+          "items": ["OWASP MASTG Mobile Pentesting Methodology", "PortSwigger Web Security Academy Labs", "Real-World Bug Hunting study log"]
+        }
+      ]
+    }
+  ],
+  "benchmarkScores": {
+    "structure": 20,
+    "content": 28,
+    "consistency": 15,
+    "atsParsability": 20,
+    "completeness": 14,
+    "resumeQualityTotal": 97
+  }
+}
