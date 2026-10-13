@@ -100,11 +100,11 @@ export const ModernTemplate: React.FC<TemplateProps> = ({ model, showChanges }) 
                       key={i}
                       className={`font-medium px-2 py-0.5 rounded text-[8.8pt] ${
                         isAdded(s)
-                          ? 'bg-emerald-100 text-emerald-950 border border-emerald-300 font-bold shadow-2xs'
-                          : 'bg-indigo-50/70 text-indigo-950 border border-indigo-100/80'
+                          ? 'bg-emerald-100 text-emerald-950 border border-emerald-300 font-bold shadow-2xs print:bg-transparent print:border-none print:p-0 print:font-normal print:text-inherit'
+                          : 'bg-indigo-50/70 text-indigo-950 border border-indigo-100/80 print:bg-transparent print:border-none print:p-0'
                       }`}
                     >
-                      {isAdded(s) ? `+${s}` : s}
+                      {isAdded(s) ? <><span className="print:hidden">+</span>{s}</> : s}
                     </span>
                   ))}
                 </div>
@@ -118,11 +118,11 @@ export const ModernTemplate: React.FC<TemplateProps> = ({ model, showChanges }) 
                 key={i}
                 className={`font-medium px-2 py-0.5 rounded text-[9pt] ${
                   isAdded(s)
-                    ? 'bg-emerald-100 text-emerald-950 border border-emerald-300 font-bold shadow-2xs'
-                    : 'bg-zinc-100 text-zinc-800 border border-zinc-200'
+                    ? 'bg-emerald-100 text-emerald-950 border border-emerald-300 font-bold shadow-2xs print:bg-transparent print:border-none print:p-0 print:font-normal print:text-inherit'
+                    : 'bg-zinc-100 text-zinc-800 border border-zinc-200 print:bg-transparent print:border-none print:p-0'
                 }`}
               >
-                {isAdded(s) ? `+${s}` : s}
+                {isAdded(s) ? <><span className="print:hidden">+</span>{s}</> : s}
               </span>
             ))}
           </div>
@@ -158,9 +158,9 @@ export const ModernTemplate: React.FC<TemplateProps> = ({ model, showChanges }) 
                   {proj.bullets.map((b) => (
                     <li key={b.id} className="leading-snug">
                       {showChanges && b.isModified ? (
-                        <span className="bg-emerald-50 text-emerald-950 px-2 py-0.5 rounded font-medium border-l-[3px] border-emerald-500 inline-block">
+                        <span className="bg-emerald-50 text-emerald-950 px-2 py-0.5 rounded font-medium border-l-[3px] border-emerald-500 inline-block print:bg-transparent print:border-none print:p-0 print:font-normal print:text-inherit">
                           {cleanBullet(b.text)}
-                          <span className="ml-2 text-[7pt] font-black uppercase text-emerald-700 bg-emerald-100 px-1 py-0.2 rounded tracking-wider">
+                          <span className="ml-2 text-[7pt] font-black uppercase text-emerald-700 bg-emerald-100 px-1 py-0.2 rounded tracking-wider print:hidden">
                             Updated
                           </span>
                         </span>
@@ -195,7 +195,7 @@ export const ModernTemplate: React.FC<TemplateProps> = ({ model, showChanges }) 
                   {exp.company && <span className="text-zinc-700 font-medium"> @ {exp.company}</span>}
                 </div>
                 {exp.dates && (
-                  <span className="text-[8.8pt] font-semibold text-zinc-500 bg-zinc-100 px-2 py-0.5 rounded">
+                  <span className="text-[8.8pt] font-semibold text-zinc-500 bg-zinc-100 px-2 py-0.5 rounded print:bg-transparent">
                     {exp.dates}
                   </span>
                 )}
@@ -205,9 +205,9 @@ export const ModernTemplate: React.FC<TemplateProps> = ({ model, showChanges }) 
                   {exp.bullets.map((b) => (
                     <li key={b.id} className="leading-snug">
                       {showChanges && b.isModified ? (
-                        <span className="bg-emerald-50 text-emerald-950 px-2 py-0.5 rounded font-medium border-l-[3px] border-emerald-500 inline-block">
+                        <span className="bg-emerald-50 text-emerald-950 px-2 py-0.5 rounded font-medium border-l-[3px] border-emerald-500 inline-block print:bg-transparent print:border-none print:p-0 print:font-normal print:text-inherit">
                           {cleanBullet(b.text)}
-                          <span className="ml-2 text-[7pt] font-black uppercase text-emerald-700 bg-emerald-100 px-1 py-0.2 rounded tracking-wider">
+                          <span className="ml-2 text-[7pt] font-black uppercase text-emerald-700 bg-emerald-100 px-1 py-0.2 rounded tracking-wider print:hidden">
                             Updated
                           </span>
                         </span>
