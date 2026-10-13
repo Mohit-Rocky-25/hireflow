@@ -1,6 +1,6 @@
 // ============================================================
 // HIREFLOW HANDMADE RESUME EDITOR — TALENTLENS™ STUDIO PARITY
-// Modular, interactive subsection cards with live requirement mapping,
+// Modular, interactive subsection 2-column cards with live requirement mapping,
 // in-place role & bullet elevation, 1-page fit sentinel, and search filtering
 // ============================================================
 
@@ -35,7 +35,9 @@ import {
   Layers,
   MapPin,
   ExternalLink,
-  X
+  X,
+  Shield,
+  Award
 } from 'lucide-react';
 import { useTailorStore } from '../../../../lib/tailor/store/tailorStore';
 import { ResumeTemplateId, TailoredSection, RequirementAssessment } from '../../../../lib/tailor/types';
@@ -191,28 +193,44 @@ export function HandmadeResumeEditor() {
     return name.slice(0, 2).toUpperCase();
   };
 
+  // Helper to find matching requirements for an entry's bullets
+  const getEntryMatchingReqs = (bullets: { text: string }[]) => {
+    if (!job.requirements) return [];
+    const fullText = bullets.map((b) => b.text.toLowerCase()).join(' ');
+    return job.requirements.filter((r) => {
+      const concept = r.normalizedConcept.toLowerCase();
+      const kwMatches = r.keywords.some((kw) => fullText.includes(kw.toLowerCase()));
+      return fullText.includes(concept) || kwMatches;
+    });
+  };
+
   return (
-    <div className="space-y-5 animate-fade-in">
+    <div className="space-y-6 animate-fade-in">
       {/* ── TALENTLENS-STYLE TARGET HEADER & READINESS BAR ── */}
-      <div className="rounded-2xl bg-neutral-900 border border-neutral-800 p-4 shadow-xl backdrop-blur-sm space-y-3.5">
+      <div className="rounded-2xl bg-neutral-900 border border-neutral-800 p-4 sm:p-5 shadow-xl backdrop-blur-sm space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-neutral-800/80">
-          <div className="flex items-center gap-3">
-            <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${getGradient(job.company)} flex items-center justify-center text-white font-black text-sm shadow-md shrink-0`}>
+          <div className="flex items-center gap-3.5">
+            <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${getGradient(job.company)} flex items-center justify-center text-white font-black text-sm shadow-md shrink-0`}>
               {getInitials(job.company)}
             </div>
             <div>
               <div className="flex items-center gap-2 flex-wrap">
-                <h2 className="text-sm sm:text-base font-black text-white tracking-tight">
+                <h2 className="text-base sm:text-lg font-black text-white tracking-tight">
                   {job.company}
                 </h2>
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-500/10 text-blue-400 border border-blue-500/20">
-                  Target Role
+                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-blue-500/15 text-blue-400 border border-blue-500/30 uppercase tracking-wider">
+                  Target Company
+                </span>
+                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 uppercase tracking-wider">
+                  Live Mapping
                 </span>
               </div>
               <div className="text-xs text-neutral-400 font-medium mt-0.5 flex items-center gap-2">
-                <span>{job.title}</span>
+                <span className="text-neutral-200 font-bold">{job.title}</span>
                 <span>•</span>
-                <span className="text-neutral-500">{job.requirements.length} Requirements Active</span>
+                <span className="text-neutral-400">{job.requirements.length} Requirements Active</span>
+                <span>•</span>
+                <span className="text-emerald-400 font-bold">TalentLens™ Engine</span>
               </div>
             </div>
           </div>
@@ -220,7 +238,7 @@ export function HandmadeResumeEditor() {
           {/* Quick Auto-Fit 1P Action */}
           <button
             onClick={handleAutoFit}
-            className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-bold transition self-start sm:self-auto"
+            className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-bold transition self-start sm:self-auto shadow-sm"
             title="Automatically adjust font size, margins, and density to guarantee optimal 1-page fit"
           >
             <Zap className="w-3.5 h-3.5 text-emerald-400" />
@@ -228,26 +246,25 @@ export function HandmadeResumeEditor() {
           </button>
         </div>
 
-        {/* TalentLens 3 Mini-Stats Grid */}
-        <div className="grid grid-cols-3 gap-2 sm:gap-3 text-center">
+        {/* Target Alignment Metrics Strip (3 Mini Cards) */}
+        <div className="grid grid-cols-3 gap-2.5 text-center">
           <div className="bg-neutral-950/80 rounded-xl p-2.5 border border-neutral-800">
-            <div className="text-xs sm:text-sm font-black text-white">
-              {mandatoryReqs.length > 0 ? `${Math.round((mandatoryMatchedCount / mandatoryReqs.length) * 100)}%` : '100%'}
+            <div className="text-xs sm:text-sm font-black text-emerald-400">
+              {mandatoryMatchedCount} / {mandatoryReqs.length}
             </div>
-            <div className="text-[10px] text-neutral-400 mt-0.5">Mandatory Match</div>
-            <div className="text-[10px] font-bold text-emerald-400 mt-0.5 flex items-center justify-center gap-1">
-              <CheckCircle2 className="w-3 h-3 text-emerald-400" />
-              <span>{mandatoryMatchedCount}/{mandatoryReqs.length} Met</span>
+            <div className="text-[10px] text-neutral-400 mt-0.5">Mandatory Criteria</div>
+            <div className="text-[10px] font-bold text-neutral-300 mt-0.5">
+              {Math.round((mandatoryMatchedCount / Math.max(1, mandatoryReqs.length)) * 100)}% Match
             </div>
           </div>
 
           <div className="bg-neutral-950/80 rounded-xl p-2.5 border border-neutral-800">
-            <div className="text-xs sm:text-sm font-black text-white">
-              {resume.layoutSettings.fontSize.toUpperCase()}
+            <div className="text-xs sm:text-sm font-black text-blue-400">
+              {resume.pageCount || 1} Page
             </div>
-            <div className="text-[10px] text-neutral-400 mt-0.5">Canvas Density</div>
+            <div className="text-[10px] text-neutral-400 mt-0.5">Length Status</div>
             <div className="text-[10px] font-bold text-blue-400 mt-0.5">
-              1-Page Sentinel
+              1-Page Sentinel Active
             </div>
           </div>
 
@@ -434,7 +451,7 @@ export function HandmadeResumeEditor() {
         </div>
       </div>
 
-      {/* ── SUBSECTION 1: WORK EXPERIENCE (TALENTLENS ROLE CARD GRID) ── */}
+      {/* ── SUBSECTION 1: WORK EXPERIENCE (TALENTLENS 2-COLUMN MODULAR CARD GRID) ── */}
       {(activeTab === 'all' || activeTab === 'experience') && expSection && (
         <div className="rounded-2xl bg-neutral-900/80 border border-neutral-800 p-5 space-y-4 shadow-xl backdrop-blur-sm">
           <div className="flex items-center justify-between border-b border-neutral-800 pb-3">
@@ -450,66 +467,105 @@ export function HandmadeResumeEditor() {
 
             <button
               onClick={() => addEntryToSection(expSection.id, 'Software Engineer', 'Company / Tech Organization')}
-              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-blue-600/10 hover:bg-blue-600/20 text-blue-400 border border-blue-500/20 text-xs font-bold transition"
+              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-blue-600/10 hover:bg-blue-600/20 text-blue-400 border border-blue-500/20 text-xs font-bold transition shadow-xs"
             >
               <Plus className="w-3.5 h-3.5" />
               <span>Add Role</span>
             </button>
           </div>
 
-          {/* Role Cards List */}
-          <div className="space-y-3.5">
+          {/* 2-Column Responsive Card Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {filteredExpEntries.map((entry) => {
               const isExpanded = expandedEntryId === entry.id;
               const suggestions = generateUniqueAccomplishments(entry.primaryTitle, entry.secondaryTitle || '', job, candidate);
               const isSugOpen = !!expandedSuggestions[entry.id];
+              const matchedReqs = getEntryMatchingReqs(entry.bullets || []);
 
               return (
                 <div
                   key={entry.id}
-                  className={`rounded-2xl border transition-all overflow-hidden ${
+                  className={`rounded-2xl border transition-all overflow-hidden flex flex-col justify-between ${
                     isExpanded
-                      ? 'bg-neutral-950 border-blue-500/60 ring-1 ring-blue-500/40 shadow-xl'
-                      : 'bg-neutral-950/70 border-neutral-800 hover:border-neutral-700 hover:bg-neutral-950'
+                      ? 'md:col-span-2 bg-neutral-950 border-blue-500/80 ring-2 ring-blue-500/50 shadow-2xl'
+                      : 'col-span-1 bg-neutral-950/70 border-neutral-800 hover:border-neutral-700 hover:bg-neutral-950 shadow-md'
                   }`}
                 >
                   {/* TalentLens-Style Role Header Card */}
                   <div
                     onClick={() => setExpandedEntryId(isExpanded ? null : entry.id)}
-                    className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 cursor-pointer select-none"
+                    className="p-4 sm:p-5 flex flex-col justify-between gap-3.5 cursor-pointer select-none"
                   >
-                    <div className="flex items-start gap-3.5 min-w-0">
-                      <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${getGradient(entry.secondaryTitle || entry.primaryTitle)} flex items-center justify-center text-white font-black text-xs shrink-0 shadow-sm mt-0.5 sm:mt-0`}>
-                        {getInitials(entry.secondaryTitle || entry.primaryTitle)}
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="flex items-start gap-3.5 min-w-0">
+                        <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${getGradient(entry.secondaryTitle || entry.primaryTitle)} flex items-center justify-center text-white font-black text-xs shrink-0 shadow-sm mt-0.5`}>
+                          {getInitials(entry.secondaryTitle || entry.primaryTitle)}
+                        </div>
+
+                        <div className="min-w-0 space-y-1">
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <h4 className="text-sm sm:text-base font-black text-white tracking-tight group-hover:text-blue-400 transition-colors">
+                              {entry.primaryTitle}
+                            </h4>
+                            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-neutral-800 text-neutral-300 border border-neutral-700">
+                              {entry.dateRange || 'Present'}
+                            </span>
+                          </div>
+
+                          <div className="text-xs text-neutral-400 font-medium flex items-center gap-2 flex-wrap">
+                            <span className="text-neutral-200 font-bold">{entry.secondaryTitle}</span>
+                            {entry.location && (
+                              <>
+                                <span>•</span>
+                                <span className="text-neutral-500">{entry.location}</span>
+                              </>
+                            )}
+                          </div>
+                        </div>
                       </div>
 
-                      <div className="min-w-0 space-y-1">
-                        <div className="flex items-center gap-2 flex-wrap">
-                          <h4 className="text-sm font-black text-white tracking-tight group-hover:text-blue-400 transition-colors">
-                            {entry.primaryTitle}
-                          </h4>
-                          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-neutral-800 text-neutral-300 border border-neutral-700">
-                            {entry.dateRange || 'Present'}
-                          </span>
-                        </div>
-
-                        <div className="text-xs text-neutral-400 font-medium flex items-center gap-2">
-                          <span className="text-neutral-200 font-bold">{entry.secondaryTitle}</span>
-                          {entry.location && (
-                            <>
-                              <span>•</span>
-                              <span className="text-neutral-500">{entry.location}</span>
-                            </>
-                          )}
-                        </div>
+                      <div className="shrink-0">
+                        <span className="px-2 py-0.5 rounded-full bg-neutral-900 border border-neutral-800 text-[11px] font-mono text-neutral-400 font-bold">
+                          {entry.bullets?.length || 0} Bullets
+                        </span>
                       </div>
                     </div>
 
-                    {/* Right Action Affordance */}
-                    <div className="flex items-center justify-between sm:justify-end gap-2 shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-neutral-850">
-                      <div className="flex items-center gap-2 text-[11px] text-neutral-400 font-mono">
-                        <span className="px-2 py-0.5 rounded bg-neutral-900 border border-neutral-800">
-                          {entry.bullets?.length || 0} Bullets
+                    {/* Preview Bullet Snippet when collapsed */}
+                    {!isExpanded && entry.bullets && entry.bullets.length > 0 && (
+                      <p className="text-xs text-neutral-400 line-clamp-2 leading-relaxed italic bg-neutral-900/40 p-2.5 rounded-xl border border-neutral-850">
+                        &ldquo;{entry.bullets[0].text}&rdquo;
+                      </p>
+                    )}
+
+                    {/* TalentLens Evidence Callout Box */}
+                    <div className="bg-amber-500/[0.08] border border-amber-500/25 rounded-xl p-2.5 space-y-1">
+                      <div className="flex items-center justify-between text-[10px] font-black uppercase tracking-wider text-amber-400">
+                        <span className="flex items-center gap-1">
+                          <Target className="w-3 h-3 text-amber-400" />
+                          Target Requirement Alignment
+                        </span>
+                        <span className="font-mono text-neutral-300 font-bold">
+                          {matchedReqs.length} Matches
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-neutral-300 leading-snug">
+                        {matchedReqs.length > 0
+                          ? `Direct evidence mapped for: ${matchedReqs.map((r) => r.normalizedConcept).slice(0, 3).join(', ')}`
+                          : `No direct keyword overlap with ${job.company} criteria. Click Configure to add job-aligned bullets.`}
+                      </p>
+                    </div>
+
+                    {/* Bottom Action Affordance */}
+                    <div className="flex items-center justify-between pt-2 border-t border-neutral-850">
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        {entry.bullets && entry.bullets.length > 0 && (
+                          <span className="px-2 py-0.5 rounded-md bg-neutral-900 text-[10px] font-mono text-emerald-400 border border-emerald-500/20 font-bold">
+                            ✓ Google XYZ
+                          </span>
+                        )}
+                        <span className="text-[10px] text-neutral-500">
+                          {job.company} fit
                         </span>
                       </div>
 
@@ -519,13 +575,13 @@ export function HandmadeResumeEditor() {
                           e.stopPropagation();
                           setExpandedEntryId(isExpanded ? null : entry.id);
                         }}
-                        className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 ${
+                        className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm ${
                           isExpanded
-                            ? 'bg-blue-600 text-white shadow-xs'
-                            : 'bg-neutral-800 text-neutral-200 hover:bg-neutral-700 hover:text-white'
+                            ? 'bg-blue-600 text-white'
+                            : 'bg-neutral-800 text-neutral-200 hover:bg-blue-600 hover:text-white'
                         }`}
                       >
-                        <span>{isExpanded ? 'Collapse' : 'Configure Role'}</span>
+                        <span>{isExpanded ? 'Collapse' : 'Configure Role →'}</span>
                         {isExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
                       </button>
                     </div>
@@ -715,7 +771,7 @@ export function HandmadeResumeEditor() {
         </div>
       )}
 
-      {/* ── SUBSECTION 2: TECHNICAL PROJECTS (TALENTLENS CARDS) ── */}
+      {/* ── SUBSECTION 2: TECHNICAL PROJECTS (TALENTLENS 2-COLUMN MODULAR CARD GRID) ── */}
       {(activeTab === 'all' || activeTab === 'projects') && projSection && (
         <div className="rounded-2xl bg-neutral-900/80 border border-neutral-800 p-5 space-y-4 shadow-xl backdrop-blur-sm">
           <div className="flex items-center justify-between border-b border-neutral-800 pb-3">
@@ -731,50 +787,86 @@ export function HandmadeResumeEditor() {
 
             <button
               onClick={() => addEntryToSection(projSection.id, 'New Project Title', 'React, Node.js, PostgreSQL')}
-              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-indigo-600/10 hover:bg-indigo-600/20 text-indigo-400 border border-indigo-500/20 text-xs font-bold transition"
+              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-indigo-600/10 hover:bg-indigo-600/20 text-indigo-400 border border-indigo-500/20 text-xs font-bold transition shadow-xs"
             >
               <Plus className="w-3.5 h-3.5" />
               <span>Add Project</span>
             </button>
           </div>
 
-          <div className="space-y-3.5">
+          {/* 2-Column Responsive Card Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {filteredProjEntries.map((proj) => {
               const isExpanded = expandedEntryId === proj.id;
               const suggestions = generateUniqueAccomplishments(proj.primaryTitle, proj.secondaryTitle || '', job, candidate);
               const isSugOpen = !!expandedSuggestions[proj.id];
+              const matchedReqs = getEntryMatchingReqs(proj.bullets || []);
 
               return (
                 <div
                   key={proj.id}
-                  className={`rounded-2xl border transition-all overflow-hidden ${
+                  className={`rounded-2xl border transition-all overflow-hidden flex flex-col justify-between ${
                     isExpanded
-                      ? 'bg-neutral-950 border-indigo-500/60 ring-1 ring-indigo-500/40 shadow-xl'
-                      : 'bg-neutral-950/70 border-neutral-800 hover:border-neutral-700 hover:bg-neutral-950'
+                      ? 'md:col-span-2 bg-neutral-950 border-indigo-500/80 ring-2 ring-indigo-500/50 shadow-2xl'
+                      : 'col-span-1 bg-neutral-950/70 border-neutral-800 hover:border-neutral-700 hover:bg-neutral-950 shadow-md'
                   }`}
                 >
                   <div
                     onClick={() => setExpandedEntryId(isExpanded ? null : proj.id)}
-                    className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 cursor-pointer select-none"
+                    className="p-4 sm:p-5 flex flex-col justify-between gap-3.5 cursor-pointer select-none"
                   >
-                    <div className="flex items-start gap-3.5 min-w-0">
-                      <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${getGradient(proj.primaryTitle)} flex items-center justify-center text-white font-black text-xs shrink-0 shadow-sm mt-0.5 sm:mt-0`}>
-                        {getInitials(proj.primaryTitle)}
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="flex items-start gap-3.5 min-w-0">
+                        <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${getGradient(proj.primaryTitle)} flex items-center justify-center text-white font-black text-xs shrink-0 shadow-sm mt-0.5`}>
+                          {getInitials(proj.primaryTitle)}
+                        </div>
+
+                        <div className="min-w-0 space-y-1">
+                          <h4 className="text-sm sm:text-base font-black text-white tracking-tight">
+                            {proj.primaryTitle}
+                          </h4>
+                          <div className="text-xs text-neutral-400 font-medium flex items-center gap-2 flex-wrap">
+                            <span className="text-indigo-400 font-bold">{proj.secondaryTitle}</span>
+                          </div>
+                        </div>
                       </div>
 
-                      <div className="min-w-0 space-y-1">
-                        <h4 className="text-sm font-black text-white tracking-tight">
-                          {proj.primaryTitle}
-                        </h4>
-                        <div className="text-xs text-neutral-400 font-medium flex items-center gap-2 flex-wrap">
-                          <span className="text-indigo-400 font-bold">{proj.secondaryTitle}</span>
-                        </div>
+                      <div className="shrink-0">
+                        <span className="px-2 py-0.5 rounded-full bg-neutral-900 border border-neutral-800 text-[11px] font-mono text-neutral-400 font-bold">
+                          {proj.bullets?.length || 0} Bullets
+                        </span>
                       </div>
                     </div>
 
-                    <div className="flex items-center justify-between sm:justify-end gap-2 shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-neutral-850">
-                      <span className="px-2 py-0.5 rounded bg-neutral-900 border border-neutral-800 text-[11px] font-mono text-neutral-400">
-                        {proj.bullets?.length || 0} Bullets
+                    {/* Preview Bullet Snippet when collapsed */}
+                    {!isExpanded && proj.bullets && proj.bullets.length > 0 && (
+                      <p className="text-xs text-neutral-400 line-clamp-2 leading-relaxed italic bg-neutral-900/40 p-2.5 rounded-xl border border-neutral-850">
+                        &ldquo;{proj.bullets[0].text}&rdquo;
+                      </p>
+                    )}
+
+                    {/* TalentLens Evidence Callout Box */}
+                    <div className="bg-indigo-500/[0.08] border border-indigo-500/25 rounded-xl p-2.5 space-y-1">
+                      <div className="flex items-center justify-between text-[10px] font-black uppercase tracking-wider text-indigo-400">
+                        <span className="flex items-center gap-1">
+                          <Target className="w-3 h-3 text-indigo-400" />
+                          Project Domain Relevance
+                        </span>
+                        <span className="font-mono text-neutral-300 font-bold">
+                          {matchedReqs.length} Matches
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-neutral-300 leading-snug">
+                        {matchedReqs.length > 0
+                          ? `Validates target requirements: ${matchedReqs.map((r) => r.normalizedConcept).slice(0, 3).join(', ')}`
+                          : `Demonstrates full-stack proficiency. Click Configure to enrich with metrics.`}
+                      </p>
+                    </div>
+
+                    {/* Bottom Action Affordance */}
+                    <div className="flex items-center justify-between pt-2 border-t border-neutral-850">
+                      <span className="text-[10px] text-neutral-500">
+                        Portfolio Artifact
                       </span>
 
                       <button
@@ -783,13 +875,13 @@ export function HandmadeResumeEditor() {
                           e.stopPropagation();
                           setExpandedEntryId(isExpanded ? null : proj.id);
                         }}
-                        className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 ${
+                        className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm ${
                           isExpanded
-                            ? 'bg-indigo-600 text-white shadow-xs'
-                            : 'bg-neutral-800 text-neutral-200 hover:bg-neutral-700 hover:text-white'
+                            ? 'bg-indigo-600 text-white'
+                            : 'bg-neutral-800 text-neutral-200 hover:bg-indigo-600 hover:text-white'
                         }`}
                       >
-                        <span>{isExpanded ? 'Collapse' : 'Configure Project'}</span>
+                        <span>{isExpanded ? 'Collapse' : 'Configure Project →'}</span>
                         {isExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
                       </button>
                     </div>
@@ -876,7 +968,7 @@ export function HandmadeResumeEditor() {
         </div>
       )}
 
-      {/* ── SUBSECTION 3: TECHNICAL SKILLS (TALENTLENS CATEGORY MATRIX) ── */}
+      {/* ── SUBSECTION 3: TECHNICAL SKILLS (TALENTLENS 2-COLUMN CATEGORY MATRIX) ── */}
       {(activeTab === 'all' || activeTab === 'skills') && skillsSection && (
         <div className="rounded-2xl bg-neutral-900/80 border border-neutral-800 p-5 space-y-4 shadow-xl backdrop-blur-sm">
           <div className="flex items-center justify-between border-b border-neutral-800 pb-3">
@@ -891,70 +983,90 @@ export function HandmadeResumeEditor() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
-            {Object.entries(skillsCategories).map(([category, skills]) => (
-              <div
-                key={category}
-                className="rounded-xl bg-neutral-950 border border-neutral-800 p-4 space-y-3 flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-xs font-black uppercase tracking-wider text-neutral-200">
-                      {category}
-                    </span>
-                    <span className="text-[10px] font-mono text-neutral-500">
-                      {skills.length} items
-                    </span>
-                  </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {Object.entries(skillsCategories).map(([category, skills]) => {
+              const matchedCategorySkills = skills.filter((s) =>
+                job.requirements.some((r) => r.normalizedConcept.toLowerCase().includes(s.toLowerCase()) || r.keywords.some((kw) => kw.toLowerCase().includes(s.toLowerCase())))
+              );
 
-                  <div className="flex flex-wrap gap-1.5 min-h-[36px]">
-                    {skills.map((skill) => (
-                      <span
-                        key={skill}
-                        className="group inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium bg-neutral-900 border border-neutral-800 text-neutral-200 hover:border-neutral-700 transition"
-                      >
-                        <span>{skill}</span>
-                        <button
-                          onClick={() => removeSkillFromCategory(category, skill)}
-                          className="text-neutral-500 hover:text-rose-400 transition ml-0.5"
-                          title="Remove skill"
-                        >
-                          &times;
-                        </button>
+              return (
+                <div
+                  key={category}
+                  className="rounded-2xl bg-neutral-950 border border-neutral-800 p-4 space-y-3 flex flex-col justify-between shadow-md"
+                >
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-black uppercase tracking-wider text-neutral-200">
+                        {category}
                       </span>
-                    ))}
+                      <span className="text-[10px] font-mono text-neutral-400 px-2 py-0.5 rounded bg-neutral-900 border border-neutral-850">
+                        {skills.length} items
+                      </span>
+                    </div>
+
+                    {matchedCategorySkills.length > 0 && (
+                      <div className="text-[10px] text-emerald-400 font-bold flex items-center gap-1">
+                        <CheckCircle className="w-3 h-3 text-emerald-400" />
+                        <span>{matchedCategorySkills.length} skills directly match {job.company} JD</span>
+                      </div>
+                    )}
+
+                    <div className="flex flex-wrap gap-1.5 min-h-[36px] pt-1">
+                      {skills.map((skill) => {
+                        const isMatch = matchedCategorySkills.includes(skill);
+                        return (
+                          <span
+                            key={skill}
+                            className={`group inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium border transition ${
+                              isMatch
+                                ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-300 font-bold'
+                                : 'bg-neutral-900 border-neutral-800 text-neutral-200 hover:border-neutral-700'
+                            }`}
+                          >
+                            <span>{skill}</span>
+                            <button
+                              onClick={() => removeSkillFromCategory(category, skill)}
+                              className="text-neutral-500 hover:text-rose-400 transition ml-0.5"
+                              title="Remove skill"
+                            >
+                              &times;
+                            </button>
+                          </span>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Add Skill Chip Input */}
+                  <div className="flex items-center gap-1.5 pt-2 border-t border-neutral-900">
+                    <input
+                      type="text"
+                      value={newSkillInput[category] || ''}
+                      onChange={(e) => setNewSkillInput((prev) => ({ ...prev, [category]: e.target.value }))}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          e.preventDefault();
+                          handleAddSkill(category);
+                        }
+                      }}
+                      placeholder={`Add to ${category}...`}
+                      className="flex-1 bg-neutral-900 border border-neutral-800 rounded-lg px-2.5 py-1 text-xs text-neutral-200 placeholder-neutral-500 focus:outline-none focus:border-emerald-500"
+                    />
+                    <button
+                      onClick={() => handleAddSkill(category)}
+                      className="px-2.5 py-1 rounded-lg bg-emerald-600/15 hover:bg-emerald-600/30 text-emerald-400 border border-emerald-500/20 text-xs font-bold transition"
+                    >
+                      Add
+                    </button>
                   </div>
                 </div>
-
-                {/* Add Skill Chip Input */}
-                <div className="flex items-center gap-1.5 pt-2 border-t border-neutral-900">
-                  <input
-                    type="text"
-                    value={newSkillInput[category] || ''}
-                    onChange={(e) => setNewSkillInput((prev) => ({ ...prev, [category]: e.target.value }))}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter') {
-                        e.preventDefault();
-                        handleAddSkill(category);
-                      }
-                    }}
-                    placeholder={`Add to ${category}...`}
-                    className="flex-1 bg-neutral-900 border border-neutral-800 rounded-lg px-2.5 py-1 text-xs text-neutral-200 placeholder-neutral-500 focus:outline-none focus:border-emerald-500"
-                  />
-                  <button
-                    onClick={() => handleAddSkill(category)}
-                    className="px-2.5 py-1 rounded-lg bg-emerald-600/15 hover:bg-emerald-600/30 text-emerald-400 border border-emerald-500/20 text-xs font-bold transition"
-                  >
-                    Add
-                  </button>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       )}
 
-      {/* ── SUBSECTION 4: TARGET JOB REQUIREMENTS MAPPING (TALENTLENS 6-LAYER PARITY) ── */}
+      {/* ── SUBSECTION 4: TARGET JOB REQUIREMENTS MAPPING (TALENTLENS 2-COLUMN GRID) ── */}
       {(activeTab === 'all' || activeTab === 'requirements') && evidence && (
         <div className="rounded-2xl bg-neutral-900/80 border border-neutral-800 p-5 space-y-4 shadow-xl backdrop-blur-sm">
           <div className="flex items-center justify-between border-b border-neutral-800 pb-3">
@@ -965,11 +1077,11 @@ export function HandmadeResumeEditor() {
               </h3>
             </div>
             <span className="text-[11px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
-              {mandatoryMatchedCount}/{mandatoryReqs.length} Mandatory Requirements Satisfied
+              {mandatoryMatchedCount}/{mandatoryReqs.length} Mandatory Satisfied
             </span>
           </div>
 
-          <div className="space-y-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {job.requirements.map((req) => {
               const assessment = evidence.assessments.find((a) => a.requirementId === req.id);
               const status = assessment?.status || 'MISSING';
@@ -977,56 +1089,56 @@ export function HandmadeResumeEditor() {
               return (
                 <div
                   key={req.id}
-                  className={`rounded-xl border p-3.5 space-y-2 transition ${
+                  className={`rounded-2xl border p-4 space-y-3 transition flex flex-col justify-between shadow-md ${
                     status === 'DIRECT'
-                      ? 'bg-neutral-950/80 border-emerald-500/30'
+                      ? 'bg-neutral-950/90 border-emerald-500/30 ring-1 ring-emerald-500/10'
                       : status === 'TRANSFERABLE'
-                      ? 'bg-neutral-950/80 border-indigo-500/30'
-                      : 'bg-neutral-950/80 border-amber-500/30'
+                      ? 'bg-neutral-950/90 border-indigo-500/30 ring-1 ring-indigo-500/10'
+                      : 'bg-neutral-950/90 border-amber-500/30 ring-1 ring-amber-500/10'
                   }`}
                 >
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="space-y-1">
-                      <div className="flex items-center gap-2 flex-wrap">
-                        <span className={`text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider ${
-                          status === 'DIRECT'
-                            ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30'
-                            : status === 'TRANSFERABLE'
-                            ? 'bg-indigo-500/15 text-indigo-400 border border-indigo-500/30'
-                            : 'bg-amber-500/15 text-amber-400 border border-amber-500/30'
-                        }`}>
-                          {status === 'DIRECT' ? '✓ Direct Match' : status === 'TRANSFERABLE' ? '⇄ Transferable' : '○ Missing Evidence'}
-                        </span>
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between gap-2 flex-wrap">
+                      <span className={`text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider ${
+                        status === 'DIRECT'
+                          ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30'
+                          : status === 'TRANSFERABLE'
+                          ? 'bg-indigo-500/15 text-indigo-400 border border-indigo-500/30'
+                          : 'bg-amber-500/15 text-amber-400 border border-amber-500/30'
+                      }`}>
+                        {status === 'DIRECT' ? '✓ Direct Match' : status === 'TRANSFERABLE' ? '⇄ Transferable' : '○ Missing Evidence'}
+                      </span>
 
-                        <span className="text-[10px] font-bold text-neutral-400 uppercase">
-                          {req.priority} • {req.category}
-                        </span>
-                      </div>
-
-                      <p className="text-xs font-bold text-white pt-0.5">
-                        {req.text}
-                      </p>
+                      <span className="text-[10px] font-mono text-neutral-400 uppercase font-bold">
+                        {req.priority}
+                      </span>
                     </div>
+
+                    <p className="text-xs font-bold text-white leading-relaxed">
+                      {req.text}
+                    </p>
+
+                    {/* Supporting Resume Evidence */}
+                    {assessment && assessment.supportingFacts.length > 0 ? (
+                      <div className="rounded-xl bg-neutral-900/80 p-2.5 border border-neutral-850 text-xs text-neutral-300 space-y-1">
+                        <div className="text-[10px] font-bold uppercase text-neutral-400">
+                          Resume Evidence:
+                        </div>
+                        <div className="italic text-neutral-200 leading-relaxed text-[11px]">
+                          &ldquo;{assessment.supportingFacts[0].verbatimText}&rdquo;
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="rounded-xl bg-neutral-900/50 p-2.5 border border-neutral-850 text-[11px] text-amber-300/80">
+                        <span>No direct evidence in resume. Recommended: Elevate bullet with {req.normalizedConcept}.</span>
+                      </div>
+                    )}
                   </div>
 
-                  {/* Supporting Resume Evidence */}
-                  {assessment && assessment.supportingFacts.length > 0 ? (
-                    <div className="rounded-lg bg-neutral-900/70 p-2.5 border border-neutral-850 text-xs text-neutral-300 space-y-1">
-                      <div className="text-[10px] font-bold uppercase text-neutral-400">
-                        Verified Evidence in Resume:
-                      </div>
-                      <div className="italic text-neutral-300 leading-relaxed">
-                        &ldquo;{assessment.supportingFacts[0].verbatimText}&rdquo;
-                      </div>
-                      <div className="text-[10px] text-neutral-500 font-mono">
-                        Source Section: {assessment.supportingFacts[0].section} • Confidence: {Math.round(assessment.supportingFacts[0].confidence * 100)}%
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="rounded-lg bg-neutral-900/40 p-2 border border-neutral-850 text-[11px] text-neutral-400">
-                      <span>No direct evidence in resume. Recommended: Add an accomplishment addressing {req.normalizedConcept}.</span>
-                    </div>
-                  )}
+                  <div className="pt-2 border-t border-neutral-900 flex items-center justify-between text-[10px] text-neutral-400">
+                    <span className="font-mono">Category: {req.category}</span>
+                    <span className="text-neutral-500 font-bold">{job.company}</span>
+                  </div>
                 </div>
               );
             })}
@@ -1034,7 +1146,7 @@ export function HandmadeResumeEditor() {
         </div>
       )}
 
-      {/* ── SUBSECTION 5: EDUCATION (TALENTLENS DEGREE CARDS) ── */}
+      {/* ── SUBSECTION 5: EDUCATION (TALENTLENS 2-COLUMN DEGREE CARDS) ── */}
       {(activeTab === 'all' || activeTab === 'education') && eduSection && (
         <div className="rounded-2xl bg-neutral-900/80 border border-neutral-800 p-5 space-y-4 shadow-xl backdrop-blur-sm">
           <div className="flex items-center justify-between border-b border-neutral-800 pb-3">
@@ -1043,31 +1155,37 @@ export function HandmadeResumeEditor() {
               <h3 className="text-xs font-black uppercase tracking-wider text-white">
                 EDUCATION &amp; ACADEMIC CREDENTIALS
               </h3>
+              <span className="px-2 py-0.5 rounded-full text-[10px] font-mono bg-neutral-800 text-neutral-400 border border-neutral-700">
+                {eduEntries.length} Degrees
+              </span>
             </div>
           </div>
 
-          <div className="space-y-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {eduEntries.map((edu) => (
               <div
                 key={edu.id}
-                className="rounded-xl bg-neutral-950 border border-neutral-800 p-4 space-y-2"
+                className="rounded-2xl bg-neutral-950 border border-neutral-800 p-4 space-y-3 flex flex-col justify-between shadow-md"
               >
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                  <div>
+                <div className="flex items-start gap-3">
+                  <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${getGradient(edu.secondaryTitle || edu.primaryTitle)} flex items-center justify-center text-white font-black text-xs shrink-0 shadow-sm`}>
+                    {getInitials(edu.secondaryTitle || edu.primaryTitle)}
+                  </div>
+                  <div className="min-w-0 space-y-0.5 flex-1">
                     <h4 className="text-sm font-black text-white">{edu.primaryTitle}</h4>
                     <div className="text-xs text-neutral-400 font-medium">{edu.secondaryTitle}</div>
                   </div>
+                </div>
 
-                  <div className="flex items-center gap-2">
-                    <span className="px-2.5 py-1 rounded-full text-xs font-mono font-bold bg-neutral-900 border border-neutral-800 text-neutral-300">
-                      {edu.dateRange || 'Graduated'}
+                <div className="flex items-center justify-between gap-2 pt-2 border-t border-neutral-900">
+                  <span className="px-2.5 py-1 rounded-full text-xs font-mono font-bold bg-neutral-900 border border-neutral-800 text-neutral-300">
+                    {edu.dateRange || 'Graduated'}
+                  </span>
+                  {edu.bullets && edu.bullets.length > 0 && (
+                    <span className="px-2.5 py-1 rounded-full text-xs font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                      {edu.bullets[0].text}
                     </span>
-                    {edu.bullets && edu.bullets.length > 0 && (
-                      <span className="px-2.5 py-1 rounded-full text-xs font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20">
-                        {edu.bullets[0].text}
-                      </span>
-                    )}
-                  </div>
+                  )}
                 </div>
               </div>
             ))}
