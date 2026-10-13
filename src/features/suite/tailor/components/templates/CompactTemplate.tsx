@@ -96,8 +96,8 @@ export const CompactTemplate: React.FC<TemplateProps> = ({ model, showChanges })
                     <React.Fragment key={skill}>
                       {sIdx > 0 && ', '}
                       {isAdded(skill) ? (
-                        <span className="bg-emerald-100 text-emerald-950 font-bold px-1 rounded border border-emerald-300 inline-block">
-                          +{skill}
+                        <span className="bg-emerald-100 text-emerald-950 font-bold px-1 rounded border border-emerald-300 inline-block print:bg-transparent print:border-none print:p-0 print:font-normal print:text-inherit">
+                          <span className="print:hidden">+</span>{skill}
                         </span>
                       ) : (
                         skill
@@ -114,8 +114,8 @@ export const CompactTemplate: React.FC<TemplateProps> = ({ model, showChanges })
               <React.Fragment key={skill}>
                 {sIdx > 0 && <span className="text-neutral-400">•</span>}
                 {isAdded(skill) ? (
-                  <span className="bg-emerald-100 text-emerald-950 font-bold px-1 rounded border border-emerald-300 inline-block">
-                    +{skill}
+                  <span className="bg-emerald-100 text-emerald-950 font-bold px-1 rounded border border-emerald-300 inline-block print:bg-transparent print:border-none print:p-0 print:font-normal print:text-inherit">
+                    <span className="print:hidden">+</span>{skill}
                   </span>
                 ) : (
                   <span>{skill}</span>
@@ -154,9 +154,9 @@ export const CompactTemplate: React.FC<TemplateProps> = ({ model, showChanges })
                   {proj.bullets.map((b) => (
                     <li key={b.id} className="leading-snug">
                       {showChanges && b.isModified ? (
-                        <span className="bg-emerald-50 text-emerald-950 px-1.5 py-0.2 rounded font-medium border-l-[3px] border-emerald-500 inline-block">
+                        <span className="bg-emerald-50 text-emerald-950 px-1.5 py-0.2 rounded font-medium border-l-[3px] border-emerald-500 inline-block print:bg-transparent print:border-none print:p-0 print:font-normal print:text-inherit">
                           {cleanBullet(b.text)}
-                          <span className="ml-1.5 text-[6.5pt] font-black uppercase text-emerald-700 bg-emerald-100 px-1 py-0.2 rounded tracking-wider">
+                          <span className="ml-1.5 text-[6.5pt] font-black uppercase text-emerald-700 bg-emerald-100 px-1 py-0.2 rounded tracking-wider print:hidden">
                             Updated
                           </span>
                         </span>
@@ -189,16 +189,16 @@ export const CompactTemplate: React.FC<TemplateProps> = ({ model, showChanges })
                   <span className="font-bold text-black">{exp.role}</span>
                   {exp.company && <span className="text-neutral-700">, {exp.company}</span>}
                 </div>
-                {exp.dates && <span className="text-[8pt] text-neutral-500 font-mono">{exp.dates}</span>}
+                {exp.dates && <span className="text-[8pt] text-neutral-500 font-mono print:text-black">{exp.dates}</span>}
               </div>
               {exp.bullets.length > 0 && (
                 <ul className="list-disc list-outside ml-3.5 space-y-0.5 text-[8.5pt] text-neutral-800">
                   {exp.bullets.map((b) => (
                     <li key={b.id} className="leading-snug">
                       {showChanges && b.isModified ? (
-                        <span className="bg-emerald-50 text-emerald-950 px-1.5 py-0.2 rounded font-medium border-l-[3px] border-emerald-500 inline-block">
+                        <span className="bg-emerald-50 text-emerald-950 px-1.5 py-0.2 rounded font-medium border-l-[3px] border-emerald-500 inline-block print:bg-transparent print:border-none print:p-0 print:font-normal print:text-inherit">
                           {cleanBullet(b.text)}
-                          <span className="ml-1.5 text-[6.5pt] font-black uppercase text-emerald-700 bg-emerald-100 px-1 py-0.2 rounded tracking-wider">
+                          <span className="ml-1.5 text-[6.5pt] font-black uppercase text-emerald-700 bg-emerald-100 px-1 py-0.2 rounded tracking-wider print:hidden">
                             Updated
                           </span>
                         </span>
