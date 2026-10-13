@@ -8,7 +8,7 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "vitest run",
-    "verify": "vitest run src/__tests__/tailor/verify.test.ts",
+    "verify": "vitest run",
     "validate:data": "vitest run src/data/__tests__/validateData.test.ts",
     "security:secrets": "node scripts/security/scan-secrets.mjs",
     "security:audit": "node scripts/security/audit-deps.mjs",
