@@ -22,6 +22,7 @@ import { planTailoringStrategy } from '../engine/strategyPlanner';
 import { tailorBulletPoint } from '../engine/bulletTailor';
 import { verifyFactualIntegrity } from '../engine/truthGate';
 import { DEMO_FRESHER_RESUME, DEMO_SOFTWARE_ENGINEER_JD, DEMO_SECURITY_RESUME, DEMO_SECURITY_JD } from './fixtures';
+import { elevateResumeToBestStandard, MakeItBetterResult } from '../engine/makeItBetterEngine';
 
 export type PipelineStage = 'resume' | 'job' | 'requirements' | 'evidence' | 'strategy' | 'editor' | 'export';
 export type AppViewTab = 'pipeline' | 'dashboard' | 'knowledge' | 'privacy';
@@ -41,6 +42,15 @@ interface TailorState {
   setJobDescriptionText: (rawText: string) => void;
   runAnalysisAndMatching: () => void;
   generateTailoredResumeDraft: () => void;
+  applyMakeItBetter: () => MakeItBetterResult | null;
+  addBulletToEntry: (sectionId: string, entryId: string, text?: string) => void;
+  deleteBulletFromEntry: (sectionId: string, entryId: string, bulletId: string) => void;
+  addEntryToSection: (sectionId: string, primaryTitle?: string, secondaryTitle?: string) => void;
+  deleteEntryFromSection: (sectionId: string, entryId: string) => void;
+  autoFitOnePage: () => void;
+  updateCandidateContact: (fields: Partial<CandidateProfile['contact']>) => void;
+  updateCandidateName: (fullName: string) => void;
+  updateSummaryText: (text: string) => void;
   updateBulletText: (sectionId: string, entryId: string, bulletId: string, text: string) => void;
   toggleSectionVisibility: (sectionId: string) => void;
   reorderSections: (fromIndex: number, toIndex: number) => void;
@@ -452,6 +462,261 @@ export const useTailorStore = create<TailorState>((set, get) => ({
         updatedAt: new Date().toISOString()
       }
     }));
+  },
+
+  applyMakeItBetter: () => {
+    const { activeProject } = get();
+    if (!activeProject.tailoredResume) return null;
+
+    const result = elevateResumeToBestStandard(
+      activeProject.tailoredResume,
+      activeProject.candidate,
+      activeProject.job
+    );
+
+    set((state) => ({
+      activeProject: {
+        ...state.activeProject,
+        tailoredResume: result.upgradedResume,
+        updatedAt: new Date().toISOString()
+      }
+    }));
+
+    return result;
+  },
+
+  addBulletToEntry: (sectionId, entryId, text = 'Engineered key component improving workflow efficiency.') => {
+    set((state) => {
+      if (!state.activeProject.tailoredResume) return state;
+      const candidate = state.activeProject.candidate;
+      const sections = state.activeProject.tailoredResume.sections.map((sec) => {
+        if (sec.id !== sectionId || !sec.content.entries) return sec;
+        return {
+          ...sec,
+          content: {
+            ...sec.content,
+            entries: sec.content.entries.map((entry) => {
+              if (entry.id !== entryId) return entry;
+              const newBulletId = `b_new_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`;
+              return {
+                ...entry,
+                bullets: [...(entry.bullets || []), { id: newBulletId, text, originalText: text, isEditedByUser: true }]
+              };
+            })
+          }
+        };
+      });
+
+      const updatedResume = {
+        ...state.activeProject.tailoredResume,
+        sections,
+        updatedAt: new Date().toISOString()
+      };
+      updatedResume.truthGateResult = verifyFactualIntegrity(updatedResume, candidate);
+
+      return {
+        activeProject: {
+          ...state.activeProject,
+          tailoredResume: updatedResume,
+          updatedAt: new Date().toISOString()
+        }
+      };
+    });
+  },
+
+  deleteBulletFromEntry: (sectionId, entryId, bulletId) => {
+    set((state) => {
+      if (!state.activeProject.tailoredResume) return state;
+      const candidate = state.activeProject.candidate;
+      const sections = state.activeProject.tailoredResume.sections.map((sec) => {
+        if (sec.id !== sectionId || !sec.content.entries) return sec;
+        return {
+          ...sec,
+          content: {
+            ...sec.content,
+            entries: sec.content.entries.map((entry) => {
+              if (entry.id !== entryId || !entry.bullets) return entry;
+              return {
+                ...entry,
+                bullets: entry.bullets.filter((b) => b.id !== bulletId)
+              };
+            })
+          }
+        };
+      });
+
+      const updatedResume = {
+        ...state.activeProject.tailoredResume,
+        sections,
+        updatedAt: new Date().toISOString()
+      };
+      updatedResume.truthGateResult = verifyFactualIntegrity(updatedResume, candidate);
+
+      return {
+        activeProject: {
+          ...state.activeProject,
+          tailoredResume: updatedResume,
+          updatedAt: new Date().toISOString()
+        }
+      };
+    });
+  },
+
+  addEntryToSection: (sectionId, primaryTitle = 'New Role / Project', secondaryTitle = 'Organization / Tech Stack') => {
+    set((state) => {
+      if (!state.activeProject.tailoredResume) return state;
+      const candidate = state.activeProject.candidate;
+      const newEntryId = `entry_${Date.now()}`;
+      const sections = state.activeProject.tailoredResume.sections.map((sec) => {
+        if (sec.id !== sectionId) return sec;
+        const newEntry = {
+          id: newEntryId,
+          primaryTitle,
+          secondaryTitle,
+          dateRange: 'Present',
+          bullets: [
+            { id: `b_${newEntryId}_1`, text: 'Spearheaded core feature implementation delivering measurable performance gains.', isEditedByUser: true }
+          ]
+        };
+        return {
+          ...sec,
+          content: {
+            ...sec.content,
+            entries: [newEntry, ...(sec.content.entries || [])]
+          }
+        };
+      });
+
+      const updatedResume = {
+        ...state.activeProject.tailoredResume,
+        sections,
+        updatedAt: new Date().toISOString()
+      };
+      updatedResume.truthGateResult = verifyFactualIntegrity(updatedResume, candidate);
+
+      return {
+        activeProject: {
+          ...state.activeProject,
+          tailoredResume: updatedResume,
+          updatedAt: new Date().toISOString()
+        }
+      };
+    });
+  },
+
+  deleteEntryFromSection: (sectionId, entryId) => {
+    set((state) => {
+      if (!state.activeProject.tailoredResume) return state;
+      const candidate = state.activeProject.candidate;
+      const sections = state.activeProject.tailoredResume.sections.map((sec) => {
+        if (sec.id !== sectionId || !sec.content.entries) return sec;
+        return {
+          ...sec,
+          content: {
+            ...sec.content,
+            entries: sec.content.entries.filter((entry) => entry.id !== entryId)
+          }
+        };
+      });
+
+      const updatedResume = {
+        ...state.activeProject.tailoredResume,
+        sections,
+        updatedAt: new Date().toISOString()
+      };
+      updatedResume.truthGateResult = verifyFactualIntegrity(updatedResume, candidate);
+
+      return {
+        activeProject: {
+          ...state.activeProject,
+          tailoredResume: updatedResume,
+          updatedAt: new Date().toISOString()
+        }
+      };
+    });
+  },
+
+  autoFitOnePage: () => {
+    set((state) => {
+      if (!state.activeProject.tailoredResume) return state;
+      return {
+        activeProject: {
+          ...state.activeProject,
+          tailoredResume: {
+            ...state.activeProject.tailoredResume,
+            layoutSettings: {
+              ...state.activeProject.tailoredResume.layoutSettings,
+              fontSize: 'compact',
+              margins: 'tight',
+              lineSpacing: 'dense'
+            },
+            updatedAt: new Date().toISOString()
+          }
+        }
+      };
+    });
+  },
+
+  updateCandidateName: (fullName) => {
+    set((state) => ({
+      activeProject: {
+        ...state.activeProject,
+        candidate: {
+          ...state.activeProject.candidate,
+          fullName
+        },
+        updatedAt: new Date().toISOString()
+      }
+    }));
+  },
+
+  updateCandidateContact: (fields) => {
+    set((state) => ({
+      activeProject: {
+        ...state.activeProject,
+        candidate: {
+          ...state.activeProject.candidate,
+          contact: {
+            ...state.activeProject.candidate.contact,
+            ...fields
+          }
+        },
+        updatedAt: new Date().toISOString()
+      }
+    }));
+  },
+
+  updateSummaryText: (text) => {
+    set((state) => {
+      if (!state.activeProject.tailoredResume) return state;
+      const sections = state.activeProject.tailoredResume.sections.map((sec) => {
+        if (sec.type === 'summary') {
+          return {
+            ...sec,
+            content: {
+              ...sec.content,
+              summaryText: text
+            }
+          };
+        }
+        return sec;
+      });
+
+      return {
+        activeProject: {
+          ...state.activeProject,
+          candidate: {
+            ...state.activeProject.candidate,
+            summary: text
+          },
+          tailoredResume: {
+            ...state.activeProject.tailoredResume,
+            sections,
+            updatedAt: new Date().toISOString()
+          }
+        }
+      };
+    });
   },
 
   updateBulletText: (sectionId, entryId, bulletId, newText) => {
