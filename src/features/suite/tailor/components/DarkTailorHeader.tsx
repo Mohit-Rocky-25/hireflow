@@ -1,6 +1,7 @@
 // ============================================================
 // HIREFLOW DARK RESUME TAILOR HEADER
-// Sleek dark UI header aligned with Career Trajectory and Landing Page aesthetics
+// Sleek dark UI header with multi-format download suite (DOCX, PDF, TXT, MD, JSON)
+// and quick profile presets
 // ============================================================
 
 import React, { useState } from 'react';
@@ -16,13 +17,20 @@ import {
   UploadCloud,
   ChevronLeft,
   Zap,
-  Sliders,
   CheckCircle2,
-  RefreshCw
+  ChevronDown,
+  FileCode,
+  FileSpreadsheet
 } from 'lucide-react';
 import { useTailorStore } from '../../../../lib/tailor/store/tailorStore';
 import { downloadResumeAsDocx } from '../../../../lib/tailor/export/docxExporter';
-import { triggerPrintToPdf, generatePlainTextResume } from '../../../../lib/tailor/export/pdfExporter';
+import {
+  triggerPrintToPdf,
+  generatePlainTextResume,
+  downloadResumeAsTxt,
+  downloadResumeAsMarkdown,
+  downloadResumeAsJson
+} from '../../../../lib/tailor/export/pdfExporter';
 
 interface DarkTailorHeaderProps {
   onOpenInputModal: () => void;
@@ -42,15 +50,23 @@ export function DarkTailorHeader({
   const [copied, setCopied] = useState(false);
   const [downloadingDocx, setDownloadingDocx] = useState(false);
   const [elevating, setElevating] = useState(false);
+  const [downloadMenuOpen, setDownloadMenuOpen] = useState(false);
+  const [downloadToast, setDownloadToast] = useState<string | null>(null);
 
   const resume = activeProject.tailoredResume;
   const candidate = activeProject.candidate;
+
+  const showToast = (msg: string) => {
+    setDownloadToast(msg);
+    setTimeout(() => setDownloadToast(null), 2500);
+  };
 
   const handleCopyText = () => {
     if (!resume) return;
     const text = generatePlainTextResume(resume, candidate);
     navigator.clipboard.writeText(text);
     setCopied(true);
+    showToast('Copied plain text to clipboard');
     setTimeout(() => setCopied(false), 2000);
   };
 
@@ -59,11 +75,34 @@ export function DarkTailorHeader({
     setDownloadingDocx(true);
     try {
       await downloadResumeAsDocx(resume, candidate);
+      showToast('Downloaded .DOCX (Word)');
     } catch (e) {
       console.error('Failed to download docx:', e);
     } finally {
       setDownloadingDocx(false);
+      setDownloadMenuOpen(false);
     }
+  };
+
+  const handleDownloadTxt = () => {
+    if (!resume) return;
+    downloadResumeAsTxt(resume, candidate);
+    showToast('Downloaded .TXT resume');
+    setDownloadMenuOpen(false);
+  };
+
+  const handleDownloadMarkdown = () => {
+    if (!resume) return;
+    downloadResumeAsMarkdown(resume, candidate);
+    showToast('Downloaded .MD resume');
+    setDownloadMenuOpen(false);
+  };
+
+  const handleDownloadJson = () => {
+    if (!resume) return;
+    downloadResumeAsJson(resume, candidate);
+    showToast('Downloaded .JSON backup');
+    setDownloadMenuOpen(false);
   };
 
   const handleTriggerMakeItBetter = () => {
@@ -132,15 +171,15 @@ export function DarkTailorHeader({
           </div>
 
           {/* Right Action Hub */}
-          <div className="flex items-center gap-2 flex-wrap">
+          <div className="flex items-center gap-2 flex-wrap relative">
             {/* Input Data Button */}
             <button
               onClick={onOpenInputModal}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-neutral-900 hover:bg-neutral-800 border border-neutral-700/80 text-xs font-semibold text-neutral-200 transition shadow-xs"
-              title="Paste or upload custom Resume & Job Description"
+              title="Upload or paste custom Resume & Job Description"
             >
               <UploadCloud className="w-3.5 h-3.5 text-blue-400" />
-              <span>Resume &amp; JD</span>
+              <span>Upload / Input</span>
             </button>
 
             {/* "Make It Better" Primary Action */}
@@ -154,38 +193,103 @@ export function DarkTailorHeader({
               <span>Make It Better</span>
             </button>
 
-            {/* Export Actions */}
-            <div className="flex items-center gap-1 bg-neutral-900 p-1 rounded-xl border border-neutral-800">
-              <button
-                onClick={handleDownloadDocx}
-                disabled={downloadingDocx}
-                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold text-neutral-200 hover:text-white hover:bg-neutral-800 transition disabled:opacity-50"
-                title="Download genuine Microsoft Word .DOCX binary"
-              >
-                <Download className="w-3.5 h-3.5 text-emerald-400" />
-                <span className="hidden sm:inline">DOCX</span>
-              </button>
+            {/* Download Hub Dropdown & Quick Actions */}
+            <div className="relative">
+              <div className="flex items-center gap-1 bg-neutral-900 p-1 rounded-xl border border-neutral-800">
+                <button
+                  onClick={handleDownloadDocx}
+                  disabled={downloadingDocx}
+                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold text-neutral-200 hover:text-white hover:bg-neutral-800 transition disabled:opacity-50"
+                  title="Download genuine Microsoft Word .DOCX binary"
+                >
+                  <Download className="w-3.5 h-3.5 text-emerald-400" />
+                  <span className="hidden sm:inline">DOCX</span>
+                </button>
 
-              <button
-                onClick={triggerPrintToPdf}
-                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold text-neutral-200 hover:text-white hover:bg-neutral-800 transition"
-                title="Print or Save as Vector PDF"
-              >
-                <Printer className="w-3.5 h-3.5 text-sky-400" />
-                <span className="hidden sm:inline">PDF</span>
-              </button>
+                <button
+                  onClick={triggerPrintToPdf}
+                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold text-neutral-200 hover:text-white hover:bg-neutral-800 transition"
+                  title="Print or Save as Vector PDF"
+                >
+                  <Printer className="w-3.5 h-3.5 text-sky-400" />
+                  <span className="hidden sm:inline">PDF</span>
+                </button>
 
-              <button
-                onClick={handleCopyText}
-                className="p-1.5 rounded-lg text-neutral-400 hover:text-white hover:bg-neutral-800 transition"
-                title="Copy Clean ATS Plain Text"
-              >
-                {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-              </button>
+                <button
+                  onClick={() => setDownloadMenuOpen(!downloadMenuOpen)}
+                  className="p-1 rounded-lg text-neutral-400 hover:text-white hover:bg-neutral-800 transition"
+                  title="More download formats (TXT, MD, JSON)"
+                >
+                  <ChevronDown className="w-3.5 h-3.5" />
+                </button>
+
+                <button
+                  onClick={handleCopyText}
+                  className="p-1.5 rounded-lg text-neutral-400 hover:text-white hover:bg-neutral-800 transition"
+                  title="Copy Clean ATS Plain Text"
+                >
+                  {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                </button>
+              </div>
+
+              {/* Multi-Format Download Dropdown Menu */}
+              {downloadMenuOpen && (
+                <div className="absolute right-0 top-full mt-2 w-52 bg-neutral-900 border border-neutral-800 rounded-xl shadow-2xl z-50 p-1.5 space-y-1 animate-fade-in text-xs">
+                  <div className="px-2.5 py-1 text-[10px] font-bold text-neutral-400 uppercase tracking-wider border-b border-neutral-800">
+                    Export Resume As
+                  </div>
+                  <button
+                    onClick={handleDownloadDocx}
+                    className="w-full text-left px-2.5 py-1.5 rounded-lg hover:bg-neutral-800 text-neutral-200 hover:text-white flex items-center gap-2 transition"
+                  >
+                    <Download className="w-3.5 h-3.5 text-emerald-400" />
+                    <span>Microsoft Word (.docx)</span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      triggerPrintToPdf();
+                      setDownloadMenuOpen(false);
+                    }}
+                    className="w-full text-left px-2.5 py-1.5 rounded-lg hover:bg-neutral-800 text-neutral-200 hover:text-white flex items-center gap-2 transition"
+                  >
+                    <Printer className="w-3.5 h-3.5 text-sky-400" />
+                    <span>Print / Vector PDF</span>
+                  </button>
+                  <button
+                    onClick={handleDownloadTxt}
+                    className="w-full text-left px-2.5 py-1.5 rounded-lg hover:bg-neutral-800 text-neutral-200 hover:text-white flex items-center gap-2 transition"
+                  >
+                    <FileText className="w-3.5 h-3.5 text-amber-400" />
+                    <span>Plain Text (.txt)</span>
+                  </button>
+                  <button
+                    onClick={handleDownloadMarkdown}
+                    className="w-full text-left px-2.5 py-1.5 rounded-lg hover:bg-neutral-800 text-neutral-200 hover:text-white flex items-center gap-2 transition"
+                  >
+                    <FileCode className="w-3.5 h-3.5 text-violet-400" />
+                    <span>Markdown (.md)</span>
+                  </button>
+                  <button
+                    onClick={handleDownloadJson}
+                    className="w-full text-left px-2.5 py-1.5 rounded-lg hover:bg-neutral-800 text-neutral-200 hover:text-white flex items-center gap-2 transition"
+                  >
+                    <FileSpreadsheet className="w-3.5 h-3.5 text-indigo-400" />
+                    <span>Structured Data (.json)</span>
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>
       </div>
+
+      {/* Floating Download Toast */}
+      {downloadToast && (
+        <div className="fixed bottom-6 right-6 z-50 bg-neutral-900 border border-emerald-500/40 text-emerald-400 px-4 py-2 rounded-xl shadow-xl text-xs font-bold flex items-center gap-2 animate-bounce">
+          <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+          <span>{downloadToast}</span>
+        </div>
+      )}
     </header>
   );
 }
