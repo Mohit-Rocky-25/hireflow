@@ -485,10 +485,14 @@ export const useTailorStore = create<TailorState>((set, get) => ({
     return result;
   },
 
-  addBulletToEntry: (sectionId, entryId, text = 'Engineered key component improving workflow efficiency.') => {
+  addBulletToEntry: (sectionId, entryId, text) => {
     set((state) => {
       if (!state.activeProject.tailoredResume) return state;
       const candidate = state.activeProject.candidate;
+      const job = state.activeProject.job;
+      const keyTech = job.domainKeywords?.[0] || 'core backend';
+      const bulletText = text || `Architected high-throughput ${keyTech} integration, optimizing API response throughput and achieving 99.9% uptime.`;
+
       const sections = state.activeProject.tailoredResume.sections.map((sec) => {
         if (sec.id !== sectionId || !sec.content.entries) return sec;
         return {
@@ -500,7 +504,7 @@ export const useTailorStore = create<TailorState>((set, get) => ({
               const newBulletId = `b_new_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`;
               return {
                 ...entry,
-                bullets: [...(entry.bullets || []), { id: newBulletId, text, originalText: text, isEditedByUser: true }]
+                bullets: [...(entry.bullets || []), { id: newBulletId, text: bulletText, originalText: bulletText, isEditedByUser: true }]
               };
             })
           }

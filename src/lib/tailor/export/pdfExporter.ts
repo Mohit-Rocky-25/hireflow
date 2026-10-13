@@ -95,3 +95,97 @@ export function downloadResumeAsTxt(
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
 }
+
+/**
+ * Generates clean Markdown formatted resume
+ */
+export function generateMarkdownResume(
+  resume: TailoredResume,
+  candidate: CandidateProfile
+): string {
+  const lines: string[] = [];
+  lines.push(`# ${candidate.fullName}`);
+  const contactParts: string[] = [];
+  if (candidate.contact.email) contactParts.push(`**Email:** ${candidate.contact.email}`);
+  if (candidate.contact.phone) contactParts.push(`**Phone:** ${candidate.contact.phone}`);
+  if (candidate.contact.location) contactParts.push(`**Location:** ${candidate.contact.location}`);
+  if (candidate.contact.linkedin) contactParts.push(`**LinkedIn:** [Profile](${candidate.contact.linkedin})`);
+  if (candidate.contact.github) contactParts.push(`**GitHub:** [Profile](${candidate.contact.github})`);
+  lines.push(contactParts.join(' | '));
+  lines.push('\n---\n');
+
+  for (const section of resume.sections) {
+    if (!section.visible) continue;
+    lines.push(`## ${section.title}`);
+    if (section.content.summaryText) {
+      lines.push(`${section.content.summaryText}\n`);
+    }
+    if (section.content.skillsByCategory) {
+      for (const [cat, skills] of Object.entries(section.content.skillsByCategory)) {
+        if (skills.length > 0) {
+          lines.push(`- **${cat}:** ${skills.join(', ')}`);
+        }
+      }
+      lines.push('');
+    }
+    if (section.content.entries) {
+      for (const entry of section.content.entries) {
+        lines.push(`### ${entry.primaryTitle}${entry.secondaryTitle ? ` — *${entry.secondaryTitle}*` : ''}${entry.dateRange ? ` (${entry.dateRange})` : ''}`);
+        if (entry.location) lines.push(`*${entry.location}*`);
+        if (entry.bullets) {
+          for (const b of entry.bullets) {
+            lines.push(`- ${b.text}`);
+          }
+        }
+        lines.push('');
+      }
+    }
+  }
+  return lines.join('\n');
+}
+
+/**
+ * Downloads resume as .md Markdown file
+ */
+export function downloadResumeAsMarkdown(
+  resume: TailoredResume,
+  candidate: CandidateProfile,
+  fileName?: string
+): void {
+  const md = generateMarkdownResume(resume, candidate);
+  const name = fileName || `${candidate.fullName.replace(/\s+/g, '_')}_Resume.md`;
+  if (typeof window !== 'undefined') {
+    const blob = new Blob([md], { type: 'text/markdown;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = name;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+}
+
+/**
+ * Downloads full resume data as .json structured file
+ */
+export function downloadResumeAsJson(
+  resume: TailoredResume,
+  candidate: CandidateProfile,
+  fileName?: string
+): void {
+  const data = JSON.stringify({ candidate, tailoredResume: resume }, null, 2);
+  const name = fileName || `${candidate.fullName.replace(/\s+/g, '_')}_Resume.json`;
+  if (typeof window !== 'undefined') {
+    const blob = new Blob([data], { type: 'application/json;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = name;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+}
