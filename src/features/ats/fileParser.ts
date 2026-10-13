@@ -5,6 +5,7 @@
 
 import * as pdfjsLib from 'pdfjs-dist/legacy/build/pdf.mjs';
 import mammoth from 'mammoth';
+import JSZip from 'jszip';
 
 // Configure PDF.js worker for browser execution
 if (typeof window !== 'undefined' && !pdfjsLib.GlobalWorkerOptions.workerSrc) {
@@ -230,16 +231,52 @@ async function extractTextFromPdf(buffer: ArrayBuffer): Promise<{ text: string; 
 }
 
 /**
- * Extracts clean text from DOCX using mammoth extractRawText.
+ * Extracts clean text from DOCX using mammoth extractRawText with JSZip fallback.
  */
 async function extractTextFromDocx(buffer: ArrayBuffer): Promise<string> {
-  const globalBuf = (globalThis as { Buffer?: { from: (buf: ArrayBuffer) => unknown } }).Buffer;
-  const nodeBuffer = typeof globalBuf !== 'undefined' ? globalBuf.from(buffer) : undefined;
-  const options = nodeBuffer
-    ? { buffer: nodeBuffer, arrayBuffer: buffer }
-    : { arrayBuffer: buffer };
-  const result = await mammoth.extractRawText(options as any);
-  return result.value || '';
+  // Strategy 1: Mammoth
+  try {
+    const globalBuf = (globalThis as { Buffer?: { from: (buf: ArrayBuffer) => unknown } }).Buffer;
+    const nodeBuffer = typeof globalBuf !== 'undefined' ? globalBuf.from(buffer) : undefined;
+    const options = nodeBuffer
+      ? { buffer: nodeBuffer, arrayBuffer: buffer }
+      : { arrayBuffer: buffer };
+    const result = await mammoth.extractRawText(options as any);
+    if (result && result.value && result.value.trim().length > 0) {
+      return result.value;
+    }
+  } catch (mammothErr) {
+    console.warn('Mammoth extraction failed or incomplete, using JSZip XML fallback:', mammothErr);
+  }
+
+  // Strategy 2: Direct OpenXML extraction via JSZip
+  try {
+    const zip = await JSZip.loadAsync(buffer);
+    const docXmlFile = zip.file('word/document.xml');
+    if (docXmlFile) {
+      const xml = await docXmlFile.async('text');
+      const text = xml
+        .replace(/<w:p(?: [^>]*)?>/g, '\n')
+        .replace(/<w:br(?: [^>]*)?>/g, '\n')
+        .replace(/<w:tab(?: [^>]*)?>/g, '\t')
+        .replace(/<[^>]+>/g, '')
+        .replace(/&amp;/g, '&')
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>')
+        .replace(/&quot;/g, '"')
+        .replace(/&apos;/g, "'")
+        .replace(/\n{3,}/g, '\n\n')
+        .trim();
+
+      if (text.length > 0) {
+        return text;
+      }
+    }
+  } catch (zipErr) {
+    console.error('JSZip direct XML extraction failed:', zipErr);
+  }
+
+  return '';
 }
 
 /**

@@ -108,6 +108,7 @@ export const CANONICAL_SKILLS: CanonicalSkill[] = [
   { id: 'git', name: 'Git & Version Control', category: 'methodology', domain: 'software_engineering', aliases: ['git', 'github', 'gitlab', 'version control', 'bitbucket'] },
   { id: 'unit_testing', name: 'Unit & Integration Testing', category: 'methodology', domain: 'software_engineering', aliases: ['unit testing', 'tdd', 'jest', 'vitest', 'pytest', 'junit'] },
   { id: 'system_design', name: 'System Design & Architecture', category: 'methodology', domain: 'software_engineering', aliases: ['system design', 'high level design', 'software architecture'] },
+  { id: 'dsa', name: 'Data Structures & Algorithms', category: 'methodology', domain: 'software_engineering', aliases: ['data structures', 'algorithms', 'dsa', 'data structures and algorithms', 'data structures & algorithms'] },
 
   // ── Professional & Leadership ──
   { id: 'cross_functional_collab', name: 'Cross-Functional Collaboration', category: 'soft_skill', domain: 'leadership', aliases: ['stakeholder management', 'team collaboration', 'interdisciplinary teamwork'] },

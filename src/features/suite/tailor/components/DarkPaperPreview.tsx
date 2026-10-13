@@ -138,16 +138,16 @@ export function DarkPaperPreview({ resume, candidate, className = '' }: DarkPape
           {/* Candidate Header */}
           <header className={`mb-3.5 ${template === 'modern' ? 'border-b-2 border-slate-900 pb-2.5' : 'text-center border-b border-slate-300 pb-2'}`}>
             <h1 className={`text-xl sm:text-2xl font-black tracking-tight uppercase ${template === 'modern' ? 'text-slate-950' : 'text-black'}`}>
-              {candidate.fullName}
+              {candidate.fullName || 'Candidate Name'}
             </h1>
 
             {/* Contact details */}
             <div className={`flex flex-wrap gap-x-3 gap-y-0.5 text-[8.5pt] text-slate-700 mt-1 ${template === 'modern' ? '' : 'justify-center'}`}>
-              {candidate.contact.location && <span>{candidate.contact.location}</span>}
-              {candidate.contact.phone && <span>&bull; {candidate.contact.phone}</span>}
-              {candidate.contact.email && <span>&bull; {candidate.contact.email}</span>}
-              {candidate.contact.linkedin && <span>&bull; {candidate.contact.linkedin.replace(/^https?:\/\//, '')}</span>}
-              {candidate.contact.github && <span>&bull; {candidate.contact.github.replace(/^https?:\/\//, '')}</span>}
+              {candidate.contact?.location && <span>{candidate.contact.location}</span>}
+              {candidate.contact?.phone && <span>&bull; {candidate.contact.phone}</span>}
+              {candidate.contact?.email && <span>&bull; {candidate.contact.email}</span>}
+              {candidate.contact?.linkedin && <span>&bull; {candidate.contact.linkedin.replace(/^https?:\/\//, '')}</span>}
+              {candidate.contact?.github && <span>&bull; {candidate.contact.github.replace(/^https?:\/\//, '')}</span>}
             </div>
           </header>
 

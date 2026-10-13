@@ -50,6 +50,7 @@ export function parseJobDescription(rawText: string): JobDescription {
   // Extract Requirements
   const requirements: JobRequirement[] = [];
   let currentPriority: RequirementPriority = 'MANDATORY';
+  let inRequirementsSection = false;
 
   for (const line of lines) {
     const lower = line.toLowerCase();
@@ -57,15 +58,29 @@ export function parseJobDescription(rawText: string): JobDescription {
     // Priority header switches
     if (/preferred|nice to have|bonus|plus|good to have|desired/i.test(lower)) {
       currentPriority = 'PREFERRED';
+      inRequirementsSection = true;
       continue;
     }
     if (/required|requirements|must have|qualifications|what you need|minimum qualifications/i.test(lower)) {
       currentPriority = 'MANDATORY';
+      inRequirementsSection = true;
+      continue;
+    }
+    if (/^(?:about\s+(?:the\s+role|the\s+company|us|this\s+position)|role\s+overview|who\s+we\s+are|the\s+opportunity|responsibilities|what\s+you'll\s+do)[:\s]*$/i.test(lower)) {
+      inRequirementsSection = false;
       continue;
     }
 
     const isBullet = line.startsWith('•') || line.startsWith('-') || line.startsWith('*') || /^\d+\./.test(line);
     const cleanLine = line.replace(/^[•\-*\d.]\s*/, '').trim();
+
+    // Skip introductory lines if not a bullet and not inside an explicit requirements section
+    if (!isBullet && !inRequirementsSection) {
+      continue;
+    }
+    if (cleanLine === title || (company !== 'Target Company' && cleanLine.toLowerCase().includes(company.toLowerCase()) && cleanLine.length < 50)) {
+      continue;
+    }
 
     if (isBullet || (cleanLine.length > 25 && cleanLine.length < 250 && !line.endsWith(':'))) {
       const skillsInLine = extractSkillsFromText(cleanLine);

@@ -17,40 +17,45 @@ import {
 import { useTailorStore } from '../../../../lib/tailor/store/tailorStore';
 import { EducationEntry, ExperienceEntry, ProjectEntry } from '../../../../lib/tailor/types';
 
+import { extractTextFromFile } from '../../../../lib/ats/fileExtractor';
+
 export function StageAResumeUpload() {
   const { activeProject, uploadResumeText, setStage } = useTailorStore();
   const candidate = activeProject.candidate;
   const [showRawText, setShowRawText] = useState(false);
   const [dragActive, setDragActive] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
 
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const text = event.target?.result as string;
-      if (text) {
+    setIsProcessing(true);
+    try {
+      const text = await extractTextFromFile(file);
+      if (text && !text.startsWith('[Unable') && !text.startsWith('[Binary')) {
         uploadResumeText(text, file.name);
       }
-    };
-    reader.readAsText(file);
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
-  const handleDrop = (e: React.DragEvent) => {
+  const handleDrop = async (e: React.DragEvent) => {
     e.preventDefault();
     setDragActive(false);
     const file = e.dataTransfer.files?.[0];
     if (!file) return;
 
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const text = event.target?.result as string;
-      if (text) {
+    setIsProcessing(true);
+    try {
+      const text = await extractTextFromFile(file);
+      if (text && !text.startsWith('[Unable') && !text.startsWith('[Binary')) {
         uploadResumeText(text, file.name);
       }
-    };
-    reader.readAsText(file);
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   return (
