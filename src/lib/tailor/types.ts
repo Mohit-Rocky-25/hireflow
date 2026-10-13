@@ -189,6 +189,7 @@ export interface JobRequirement {
   weight: number;
   confidence: number;
   explanation?: string;
+  keywords?: string[];
 }
 
 export interface JobDescription {
@@ -340,6 +341,7 @@ export interface TailoredResume {
   layoutSettings: LayoutSettings;
   truthGateResult: TruthGateResult;
   updatedAt: string;
+  pageCount?: number;
 }
 
 // ── Project Container ──

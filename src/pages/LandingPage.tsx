@@ -10,6 +10,10 @@ import {
 } from "lucide-react";
 import { PublicNavbar } from "../components/layout/PublicNavbar";
 import { careers } from "../careers-core";
+import { COMPANIES } from "./demo/talentLensData";
+
+const TOTAL_COMPANIES = COMPANIES.length;
+const TOTAL_ROLES = COMPANIES.reduce((acc, c) => acc + c.roles.length, 0);
 
 const FEATURES = [
   {
@@ -73,7 +77,7 @@ const TOOLS = [
   {
     icon: Brain,
     title: "TalentLens Simulator",
-    badge: "125+ Firms · 6-Layer AI",
+    badge: `${TOTAL_COMPANIES}+ Employers & Recruiters · 6-Layer AI`,
     badgeStyle: "bg-sky-50 text-sky-700 border-sky-200/80 group-hover:bg-sky-100",
     iconBoxStyle: "bg-sky-500/10 border-sky-500/20 text-sky-600 group-hover:bg-sky-500 group-hover:text-white",
     cardHoverStyle: "hover:border-sky-400/90 hover:ring-2 hover:ring-sky-400/15",
@@ -125,7 +129,7 @@ export function LandingPage() {
 
             {/* Subtitle */}
             <p className="text-[18px] sm:text-[20px] text-text-secondary leading-[30px] sm:leading-[32px] mb-[44px] max-w-[620px] mx-auto font-normal">
-              Simulate ATS resume filters, map your career trajectory, and test your resume against {careers.stats.counts().companies} verified companies and {careers.stats.counts().roles}+ roles — all completely free.
+              Simulate ATS resume filters, map your career trajectory, and test your resume against {TOTAL_COMPANIES}+ verified employers and {TOTAL_ROLES.toLocaleString()}+ calibrated roles across active recruiters — all completely free.
             </p>
 
             {/* Action Buttons */}
@@ -159,9 +163,9 @@ export function LandingPage() {
                   <Building2 className="w-[30px] h-[30px] text-blue-500" />
                 </div>
                 <div>
-                  <h3 className="text-[52px] sm:text-[56px] font-black text-text tracking-tighter leading-none mb-[12px] group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-500 group-hover:to-indigo-400 transition-all duration-500">125+</h3>
-                  <p className="text-[20px] font-extrabold text-text mb-[6px] tracking-tight">Top Tech Employers</p>
-                  <p className="text-[15px] text-text-secondary font-medium">FAANG, Unicorns, GCCs and Indian Tech Giants verified.</p>
+                  <h3 className="text-[52px] sm:text-[56px] font-black text-text tracking-tighter leading-none mb-[12px] group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-500 group-hover:to-indigo-400 transition-all duration-500">{TOTAL_COMPANIES}+</h3>
+                  <p className="text-[20px] font-extrabold text-text mb-[6px] tracking-tight">Top Employers & Recruiters</p>
+                  <p className="text-[15px] text-text-secondary font-medium">FAANG, Unicorns, Cybersecurity, GCCs, and Indian Tech Giants verified.</p>
                 </div>
               </div>
               <div className="absolute bottom-[-15%] right-[-5%] opacity-[0.03] group-hover:opacity-[0.08] group-hover:scale-110 transition-all duration-700 pointer-events-none rotate-12">
@@ -177,9 +181,9 @@ export function LandingPage() {
                   <Briefcase className="w-[30px] h-[30px] text-amber-500" />
                 </div>
                 <div>
-                  <h3 className="text-[52px] sm:text-[56px] font-black text-text tracking-tighter leading-none mb-[12px] group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-amber-500 group-hover:to-orange-400 transition-all duration-500">1000+</h3>
+                  <h3 className="text-[52px] sm:text-[56px] font-black text-text tracking-tighter leading-none mb-[12px] group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-amber-500 group-hover:to-orange-400 transition-all duration-500">{TOTAL_ROLES.toLocaleString()}+</h3>
                   <p className="text-[20px] font-extrabold text-text mb-[6px] tracking-tight">Calibrated Roles</p>
-                  <p className="text-[15px] text-text-secondary font-medium">Deep 6-layer competency mapping.</p>
+                  <p className="text-[15px] text-text-secondary font-medium">Deep 6-layer competency mapping across all companies.</p>
                 </div>
               </div>
             </div>

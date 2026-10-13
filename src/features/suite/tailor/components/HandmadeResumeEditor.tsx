@@ -199,7 +199,7 @@ export function HandmadeResumeEditor() {
     const fullText = bullets.map((b) => b.text.toLowerCase()).join(' ');
     return job.requirements.filter((r) => {
       const concept = r.normalizedConcept.toLowerCase();
-      const kwMatches = r.keywords.some((kw) => fullText.includes(kw.toLowerCase()));
+      const kwMatches = (r.keywords || []).some((kw: string) => fullText.includes(kw.toLowerCase()));
       return fullText.includes(concept) || kwMatches;
     });
   };
@@ -986,7 +986,7 @@ export function HandmadeResumeEditor() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {Object.entries(skillsCategories).map(([category, skills]) => {
               const matchedCategorySkills = skills.filter((s) =>
-                job.requirements.some((r) => r.normalizedConcept.toLowerCase().includes(s.toLowerCase()) || r.keywords.some((kw) => kw.toLowerCase().includes(s.toLowerCase())))
+                job.requirements.some((r) => r.normalizedConcept.toLowerCase().includes(s.toLowerCase()) || (r.keywords || []).some((kw: string) => kw.toLowerCase().includes(s.toLowerCase())))
               );
 
               return (

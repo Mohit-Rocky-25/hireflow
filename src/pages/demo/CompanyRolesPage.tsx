@@ -1858,15 +1858,15 @@ export function CompanyRolesPage() {
           {[
             {
               icon: Building2,
-              value: `${COMPANIES.length}`,
-              label: 'Companies',
-              sub: 'FAANG to Deep Tech',
+              value: `${COMPANIES.length}+`,
+              label: 'Employers & Recruiters',
+              sub: 'FAANG, Unicorns & Cybersecurity',
             },
             {
               icon: Briefcase,
               value: `${COMPANIES.reduce((a, c) => a + c.roles.length, 0)}+`,
-              label: 'Specific Roles',
-              sub: 'Real 2024-25 requirements',
+              label: 'Calibrated Roles',
+              sub: '10+ roles per company verified',
             },
             {
               icon: BarChart3,

@@ -13,8 +13,9 @@ import {
 import { Badge } from '../../components/ui/Components';
 import { Link } from 'react-router-dom';
 
-// ── Dynamic Companies & Roles from Careers Data Platform ───────────────
+// ── Dynamic Companies & Roles from Unified Database ───────────────
 import { careers } from '../../careers-core';
+import { COMPANIES } from '../demo/talentLensData';
 
 const GRADIENTS = [
   'from-blue-600 to-blue-400',
@@ -26,29 +27,52 @@ const GRADIENTS = [
   'from-indigo-600 to-violet-400',
 ];
 
-const COMPANIES_DATA = careers.companies.list().map((c, idx) => {
-  const roles = careers.roles.forCompany(c.id);
-  const mappedRoles = roles.slice(0, 3).map((r) => ({
+const SKILL_MAP: Record<string, string> = {
+  dsa: 'Data Structures & Algorithms',
+  systemdesign: 'System Design',
+  java: 'Java',
+  python: 'Python',
+  golang: 'Go',
+  nodejs: 'Node.js',
+  react: 'React',
+  typescript: 'TypeScript',
+  aws: 'AWS Cloud',
+  kubernetes: 'Kubernetes & Docker',
+  ml: 'Machine Learning',
+  databases: 'Databases & SQL',
+  leadership: 'Engineering Leadership',
+  devops: 'DevOps & CI/CD',
+  security: 'Cybersecurity',
+  swift: 'iOS / Swift',
+  kotlin: 'Android / Kotlin',
+  finance: 'FinTech Systems',
+  communication: 'Technical Communication',
+};
+
+const formatSkill = (s: string) => SKILL_MAP[s.toLowerCase()] || s.charAt(0).toUpperCase() + s.slice(1);
+
+const COMPANIES_DATA = COMPANIES.map((c, idx) => {
+  const mappedRoles = (c.roles || []).map((r) => ({
     title: r.title,
-    skills: careers.keywords.forRole(r.id).slice(0, 5),
+    skills: (r.competencies || []).map(formatSkill),
     type: 'Full-time',
-    location: c.indiaOffices.join(' / ') || 'Bengaluru',
+    location: c.hq || 'India / Remote',
   }));
 
   return {
     id: c.id,
     name: c.name,
-    logo: c.name.charAt(0).toUpperCase(),
-    color: GRADIENTS[idx % GRADIENTS.length],
-    industry: c.marketSegment,
-    hq: c.headquarters || 'India Tech Hub',
-    size: c.marketTier === 'Tier S' ? '100,000+' : c.marketTier === 'Tier A' ? '5,000+' : '10,000+',
+    logo: c.logo || c.name.charAt(0).toUpperCase(),
+    color: c.gradient || GRADIENTS[idx % GRADIENTS.length],
+    industry: c.industry || 'Technology',
+    hq: c.hq || 'India Tech Hub',
+    size: c.tier === 'FAANG' || c.tier === 'Tier S' ? '100,000+' : c.tier === 'Enterprise' ? '25,000+' : '5,000+',
     roles: mappedRoles.length > 0 ? mappedRoles : [
       {
         title: 'Software Engineer',
-        skills: ['Data Structures', 'System Design', 'Algorithms', 'Java', 'Python'],
+        skills: ['Data Structures & Algorithms', 'System Design', 'Python', 'Java'],
         type: 'Full-time',
-        location: c.indiaOffices.join(' / ') || 'Bengaluru',
+        location: c.hq || 'Bengaluru',
       },
     ],
   };
@@ -401,7 +425,7 @@ export function CompanyMatch() {
       </div>
 
       <p className="text-center text-[12px] text-text-muted pb-[24px]">
-        Showing {filteredCompanies.length} companies · {COMPANIES_DATA.reduce((a, c) => a + c.roles.length, 0)} open roles — AI match scores are calculated against your uploaded resume skills.
+        Showing {filteredCompanies.length} employers & recruiters · {COMPANIES_DATA.reduce((a, c) => a + c.roles.length, 0)} calibrated roles — AI match scores are calculated against your uploaded resume skills.
       </p>
     </div>
   );

@@ -292,7 +292,7 @@ Example:
                   {TIERS.map(t => <option key={t} value={t}>{t}</option>)}
                 </select>
                 <span className="text-[13px] text-text-secondary ml-auto font-medium">
-                  {filteredCompanies.length} companies · {filteredCompanies.reduce((a, c) => a + c.roles.length, 0)} roles
+                  {filteredCompanies.length} employers & recruiters · {filteredCompanies.reduce((a, c) => a + c.roles.length, 0)} calibrated roles
                 </span>
               </div>
 
@@ -479,8 +479,8 @@ Example:
         {/* 4-Stat Strip (Preserved as-is) */}
         <div className="mt-[56px] grid grid-cols-2 md:grid-cols-4 gap-[14px] border-t border-border pt-[40px]">
           {[
-            { icon: Building2, value: `${COMPANIES.length}`, label: "Companies", sub: "FAANG to Deep Tech" },
-            { icon: Briefcase, value: `${COMPANIES.reduce((a, c) => a + c.roles.length, 0)}+`, label: "Specific Roles", sub: "Real 2024-25 requirements" },
+            { icon: Building2, value: `${COMPANIES.length}+`, label: "Employers & Recruiters", sub: "FAANG, Unicorns & Cybersecurity" },
+            { icon: Briefcase, value: `${COMPANIES.reduce((a, c) => a + c.roles.length, 0)}+`, label: "Calibrated Roles", sub: "10+ roles per company verified" },
             { icon: BarChart3, value: "6-Layer", label: "Analysis Engine", sub: "Anti-gaming AI" },
             { icon: Zap, value: "TalentLens™", label: "Intelligence Platform", sub: "Candidate verification" },
           ].map(s => (

@@ -178,7 +178,7 @@ export function CareersDataExplorer() {
                   onChange={(e) => setSelectedCompanyId(e.target.value)}
                   className="w-full px-3 py-2 bg-neutral-800 border border-neutral-700 rounded-xl text-xs text-white focus:outline-none focus:border-blue-500"
                 >
-                  <option value="ALL">All Companies (56)</option>
+                  <option value="ALL">All Companies ({allCompanies.length})</option>
                   {allCompanies.map((c) => (
                     <option key={c.id} value={c.id}>
                       {c.name}

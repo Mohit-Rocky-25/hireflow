@@ -16,6 +16,7 @@ import {
 import { PageNav } from '../../components/common/PageNav';
 import { PublicNavbar } from '../../components/layout/PublicNavbar';
 import { careers } from '../../careers-core';
+import { COMPANIES } from '../demo/talentLensData';
 
 interface ToolItem {
   id: string;
@@ -167,12 +168,12 @@ export function ToolsHubPage() {
         {
           id: 'careers-explorer',
           title: 'Careers Data Platform Explorer',
-          badge: '56 Employers · 60 Programs',
-          description: 'Browse the full unified dataset of 56 top employers, 60 verified campus/fresher intake programs, eligibility cutoffs, and audit ledgers.',
+          badge: `${COMPANIES.length}+ Employers · ${COMPANIES.reduce((a, c) => a + c.roles.length, 0)}+ Roles`,
+          description: `Browse the full unified dataset of ${COMPANIES.length} top employers and active recruiters, ${COMPANIES.reduce((a, c) => a + c.roles.length, 0)}+ calibrated roles, eligibility cutoffs, and audit ledgers.`,
           link: '/dev/careers-data',
           cta: 'Explore Dataset',
           icon: Database,
-          tags: ['56 Companies', '60 Campus Programs', 'Branch Matrix', 'Audit Ledgers'],
+          tags: [`${COMPANIES.length}+ Companies`, `${COMPANIES.reduce((a, c) => a + c.roles.length, 0)}+ Roles`, 'Cybersecurity & Tech', 'Audit Ledgers'],
         },
       ],
     },
@@ -213,6 +214,8 @@ export function ToolsHubPage() {
         {/* Live Careers Data Platform Metrics & Quick Link */}
         {(() => {
           const stats = careers.stats.counts();
+          const totalCompanies = COMPANIES.length;
+          const totalRoles = COMPANIES.reduce((a, c) => a + c.roles.length, 0);
           return (
             <Link
               to="/dev/careers-data"
@@ -221,11 +224,15 @@ export function ToolsHubPage() {
             >
               <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-2 border border-border group-hover:border-primary/50 shadow-xs transition-colors">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                <span className="text-foreground font-bold">{stats.companies}</span>
-                <span className="text-text-secondary">Verified Employers</span>
+                <span className="text-foreground font-bold">{totalCompanies}</span>
+                <span className="text-text-secondary">Verified Employers & Recruiters</span>
               </div>
               <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-2 border border-border group-hover:border-primary/50 shadow-xs transition-colors">
-                <span className="text-primary font-bold">{stats.fresherPrograms}</span>
+                <span className="text-primary font-bold">{totalRoles.toLocaleString()}+</span>
+                <span className="text-text-secondary">Calibrated Roles</span>
+              </div>
+              <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-2 border border-border group-hover:border-primary/50 shadow-xs transition-colors">
+                <span className="text-foreground font-bold">{stats.fresherPrograms}</span>
                 <span className="text-text-secondary">Campus Programs ('26-27)</span>
               </div>
               <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-2 border border-border group-hover:border-primary/50 shadow-xs transition-colors">

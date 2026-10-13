@@ -19,15 +19,20 @@ describe('TalentLens Flow & Data Layer', () => {
   });
 
   it('contains comprehensive dataset of companies and roles', () => {
-    expect(COMPANIES.length).toBeGreaterThanOrEqual(75);
+    expect(COMPANIES.length).toBeGreaterThanOrEqual(140);
     const totalRoles = COMPANIES.reduce((acc, c) => acc + c.roles.length, 0);
-    expect(totalRoles).toBeGreaterThanOrEqual(600);
+    expect(totalRoles).toBeGreaterThanOrEqual(1450);
+
+    // Verify all companies have at least 10 calibrated roles
+    COMPANIES.forEach((c) => {
+      expect(c.roles.length).toBeGreaterThanOrEqual(10);
+    });
 
     // Verify company shape
     const google = COMPANIES.find((c) => c.id === 'google');
     expect(google).toBeDefined();
     expect(google?.tier).toBe('FAANG');
-    expect(google?.roles.length).toBeGreaterThanOrEqual(8);
+    expect(google?.roles.length).toBeGreaterThanOrEqual(10);
   });
 
   it('getCompanySlug generates lowercase hyphenated slugs', () => {
