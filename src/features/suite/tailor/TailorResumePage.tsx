@@ -1,44 +1,49 @@
 // ============================================================
-// Resume Tailor (Clean Slate / Blank Canvas)
+// HIREFLOW AI RESUME TAILORING SAAS — MAIN APPLICATION PAGE
 // Route: /tools/tailor
-// Ready to build from scratch
+// 7-Stage Guided Pipeline + Knowledge Explorer + Privacy Center
 // ============================================================
 
 import React from 'react';
-import { Sparkles, FileText, ArrowRight } from 'lucide-react';
+import { useTailorStore } from '../../../lib/tailor/store/tailorStore';
+import { TailorHeader } from './components/TailorHeader';
+import { StageAResumeUpload } from './components/StageAResumeUpload';
+import { StageBJobDescription } from './components/StageBJobDescription';
+import { StageCRequirements } from './components/StageCRequirements';
+import { StageDEvidenceReview } from './components/StageDEvidenceReview';
+import { StageETailoringPlan } from './components/StageETailoringPlan';
+import { StageFResumeEditor } from './components/StageFResumeEditor';
+import { StageGValidationExport } from './components/StageGValidationExport';
+import { KnowledgeTab } from './components/KnowledgeTab';
+import { DashboardHistoryTab } from './components/DashboardHistoryTab';
+import { PrivacyTab } from './components/PrivacyTab';
 
 export function TailorResumePage() {
+  const { currentStage, activeTab } = useTailorStore();
+
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col justify-center items-center px-4 py-16">
-      <div className="max-w-xl w-full bg-white border border-slate-200 rounded-2xl p-8 shadow-sm text-center space-y-6">
-        <div className="w-16 h-16 mx-auto rounded-2xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 shadow-xs">
-          <Sparkles className="w-8 h-8" />
-        </div>
+    <div className="min-h-screen bg-slate-100/70 text-slate-900 flex flex-col font-sans">
+      {/* Top Application Header */}
+      <TailorHeader />
 
-        <div className="space-y-2">
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-            Resume Tailor
-          </h1>
-          <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-medium">
-            Clean slate ready. All previous tailor files and engines have been completely removed.
-          </p>
-        </div>
+      {/* Main Content Area */}
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        {activeTab === 'pipeline' && (
+          <>
+            {currentStage === 'resume' && <StageAResumeUpload />}
+            {currentStage === 'job' && <StageBJobDescription />}
+            {currentStage === 'requirements' && <StageCRequirements />}
+            {currentStage === 'evidence' && <StageDEvidenceReview />}
+            {currentStage === 'strategy' && <StageETailoringPlan />}
+            {currentStage === 'editor' && <StageFResumeEditor />}
+            {currentStage === 'export' && <StageGValidationExport />}
+          </>
+        )}
 
-        <div className="p-4 rounded-xl bg-slate-50 border border-slate-200/80 text-left text-xs text-slate-600 space-y-2 font-mono">
-          <div className="font-bold text-slate-800 uppercase tracking-wider font-sans text-[11px]">
-            Clean Slate Status:
-          </div>
-          <div className="text-emerald-700 flex items-center gap-1.5 font-medium">
-            <span>✓</span> Old tailor engine and UI deleted completely
-          </div>
-          <div className="text-emerald-700 flex items-center gap-1.5 font-medium">
-            <span>✓</span> Route active at /tools/tailor
-          </div>
-          <div className="text-indigo-700 flex items-center gap-1.5 font-medium">
-            <span>→</span> Ready to build new tailoring engine from scratch
-          </div>
-        </div>
-      </div>
+        {activeTab === 'knowledge' && <KnowledgeTab />}
+        {activeTab === 'dashboard' && <DashboardHistoryTab />}
+        {activeTab === 'privacy' && <PrivacyTab />}
+      </main>
     </div>
   );
 }
