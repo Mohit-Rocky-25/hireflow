@@ -5,7 +5,9 @@ import {
   Printer,
   Copy,
   Check,
-  Bookmark
+  Bookmark,
+  Eye,
+  EyeOff
 } from 'lucide-react';
 import { ResumeTemplateId } from './PaperPreview';
 
@@ -18,6 +20,8 @@ interface ExportToolbarProps {
   onToggleAtsTextView: () => void;
   onDownloadDocx: () => void;
   onPrintPdf: () => void;
+  onDownloadTxt?: () => void;
+  onDownloadLatex?: () => void;
   onCopyText: () => void;
   onSaveToProfile?: () => void;
   isGeneratingDocx?: boolean;
@@ -32,6 +36,8 @@ export const ExportToolbar: React.FC<ExportToolbarProps> = ({
   onToggleAtsTextView,
   onDownloadDocx,
   onPrintPdf,
+  onDownloadTxt,
+  onDownloadLatex,
   onCopyText,
   onSaveToProfile,
   isGeneratingDocx
@@ -73,18 +79,28 @@ export const ExportToolbar: React.FC<ExportToolbarProps> = ({
           ))}
         </div>
 
-        {/* Show Changes Toggle */}
+        {/* Clean Mode vs Highlight Changes Switch */}
         <button
           type="button"
           onClick={onToggleShowChanges}
           className={`px-3 py-1.5 rounded-xl text-xs font-bold border transition-all flex items-center gap-1.5 cursor-pointer ${
             showChanges
               ? 'bg-emerald-50 text-emerald-800 border-emerald-300 shadow-xs'
-              : 'bg-white text-slate-600 border-slate-200 hover:text-slate-900'
+              : 'bg-white text-slate-700 border-slate-200 hover:text-slate-900'
           }`}
+          title={showChanges ? 'Switch to clean final paper preview' : 'Highlight accepted changes'}
         >
-          <span className={`w-2 h-2 rounded-full ${showChanges ? 'bg-emerald-500' : 'bg-slate-300'}`} />
-          Highlight changes
+          {showChanges ? (
+            <>
+              <EyeOff className="w-3.5 h-3.5 text-emerald-600" />
+              <span>Highlight changes</span>
+            </>
+          ) : (
+            <>
+              <Eye className="w-3.5 h-3.5 text-slate-500" />
+              <span>Clean final resume</span>
+            </>
+          )}
         </button>
 
         {/* ATS Text View Toggle */}
@@ -98,22 +114,18 @@ export const ExportToolbar: React.FC<ExportToolbarProps> = ({
           }`}
         >
           <FileText className="w-3.5 h-3.5" />
-          ATS text view
+          <span>ATS text view</span>
         </button>
-
-        {/* Page Count Badge */}
-        <span className="text-[11px] text-slate-500 bg-slate-50 px-2.5 py-1.5 rounded-xl border border-slate-200 font-mono font-bold">
-          1 Page (Est.)
-        </span>
       </div>
 
       {/* Right: Export & Download Actions */}
-      <div className="flex items-center gap-2 justify-end flex-wrap">
+      <div className="flex items-center gap-1.5 justify-end flex-wrap">
         {/* Copy Plain Text */}
         <button
           type="button"
           onClick={handleCopyClick}
           className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 transition-colors cursor-pointer shadow-2xs"
+          title="Copy formatted text to clipboard"
         >
           {copied ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5 text-slate-500" />}
           <span>{copied ? 'Copied' : 'Copy'}</span>
@@ -125,9 +137,36 @@ export const ExportToolbar: React.FC<ExportToolbarProps> = ({
             type="button"
             onClick={handleSaveClick}
             className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 transition-colors cursor-pointer shadow-2xs"
+            title="Save this version into Candidate Profile"
           >
             {savedSuccess ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Bookmark className="w-3.5 h-3.5 text-slate-500" />}
             <span>{savedSuccess ? 'Saved' : 'Save'}</span>
+          </button>
+        )}
+
+        {/* LaTeX (.tex) */}
+        {onDownloadLatex && (
+          <button
+            type="button"
+            onClick={onDownloadLatex}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 transition-colors cursor-pointer shadow-2xs"
+            title="Download Jake's Resume LaTeX (.tex) file"
+          >
+            <span className="font-mono text-[11px] text-amber-600 font-bold">TeX</span>
+            <span>LaTeX</span>
+          </button>
+        )}
+
+        {/* Plain Text (.txt) */}
+        {onDownloadTxt && (
+          <button
+            type="button"
+            onClick={onDownloadTxt}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 transition-colors cursor-pointer shadow-2xs"
+            title="Download plain text file for job portals"
+          >
+            <FileText className="w-3.5 h-3.5 text-slate-500" />
+            <span>.txt</span>
           </button>
         )}
 
@@ -135,8 +174,8 @@ export const ExportToolbar: React.FC<ExportToolbarProps> = ({
         <button
           type="button"
           onClick={onPrintPdf}
-          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-bold rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 transition-colors cursor-pointer shadow-2xs"
-          title="Print or Save as PDF"
+          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-bold rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-300 transition-colors cursor-pointer shadow-2xs"
+          title="Print to PDF (Clean recruiter format with zero diff badges)"
         >
           <Printer className="w-3.5 h-3.5 text-indigo-600" />
           <span>Print / PDF</span>
@@ -148,9 +187,10 @@ export const ExportToolbar: React.FC<ExportToolbarProps> = ({
           onClick={onDownloadDocx}
           disabled={isGeneratingDocx}
           className="inline-flex items-center gap-1.5 px-4 py-1.5 text-xs font-bold rounded-xl bg-gradient-to-r from-sky-500 via-indigo-600 to-violet-600 hover:brightness-105 active:scale-[0.98] disabled:opacity-50 text-white transition-all shadow-xs cursor-pointer"
+          title="Download Microsoft Word (.docx) document"
         >
           <Download className="w-3.5 h-3.5" />
-          <span>{isGeneratingDocx ? 'Generating...' : 'Download .docx'}</span>
+          <span>{isGeneratingDocx ? 'Generating...' : 'Word (.docx)'}</span>
         </button>
       </div>
     </div>

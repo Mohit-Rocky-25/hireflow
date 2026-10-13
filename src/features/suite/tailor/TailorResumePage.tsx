@@ -34,6 +34,8 @@ import { calculateResumeQuality } from '../../../lib/tailorEngine/strength';
 import { applyGrammarGate } from '../../../lib/tailorEngine/grammar';
 import { parseResumeDocModel, findUnresolvedPlaceholders, ResumePreset } from '../../../lib/tailorEngine/docModel';
 import { generateDocxBlob, downloadBlob } from '../../../lib/tailorEngine/docxExport';
+import { generateLatexBlob } from '../../../lib/tailorEngine/latexExport';
+import { generatePlainTextBlob } from '../../../lib/tailorEngine/textExport';
 import { checkSeniorityMismatch } from '../../../lib/tailorEngine/actionWordEngine';
 import { PaperPreview, ResumeTemplateId } from './components/PaperPreview';
 import { StrengthenChecklist } from './components/StrengthenChecklist';
@@ -113,7 +115,7 @@ export function TailorResumePage() {
   const [isAtsTextView, setIsAtsTextView] = useState(false);
   const [isGeneratingDocx, setIsGeneratingDocx] = useState(false);
   const [isTruthGateOpen, setIsTruthGateOpen] = useState(false);
-  const [pendingExportAction, setPendingExportAction] = useState<'docx' | 'print' | null>(null);
+  const [pendingExportAction, setPendingExportAction] = useState<'docx' | 'print' | 'txt' | 'latex' | null>(null);
   const [manualPreset, setManualPreset] = useState<ResumePreset | undefined>(undefined);
   const [layoutDensity, setLayoutDensity] = useState<LayoutDensity>('comfortable');
 
@@ -480,8 +482,38 @@ Requirements:
     }
   };
 
+  const executeDownloadTxt = () => {
+    try {
+      const blob = generatePlainTextBlob(docModel);
+      const roleSlug = result?.targetRoleTitle
+        ? result.targetRoleTitle.toLowerCase().replace(/[^a-z0-9]+/g, '-')
+        : 'tailored';
+      downloadBlob(blob, `Resume-${roleSlug}.txt`);
+    } catch (err) {
+      console.error('Failed to generate txt:', err);
+    }
+  };
+
+  const executeDownloadLatex = () => {
+    try {
+      const blob = generateLatexBlob(docModel);
+      const roleSlug = result?.targetRoleTitle
+        ? result.targetRoleTitle.toLowerCase().replace(/[^a-z0-9]+/g, '-')
+        : 'tailored';
+      downloadBlob(blob, `Resume-${roleSlug}.tex`);
+    } catch (err) {
+      console.error('Failed to generate latex:', err);
+    }
+  };
+
   const executePrintPdf = () => {
-    window.print();
+    // Strictly disable diff highlights during PDF printing to ensure 100% clean output
+    const prev = showChanges;
+    setShowChanges(false);
+    setTimeout(() => {
+      window.print();
+      setTimeout(() => setShowChanges(prev), 1000);
+    }, 120);
   };
 
   const handleDownloadDocxClick = () => {
@@ -502,11 +534,33 @@ Requirements:
     }
   };
 
+  const handleDownloadTxtClick = () => {
+    if (unresolvedPlaceholders.length > 0 || exportViolations.length > 0 || userAddedLines.length > 0) {
+      setPendingExportAction('txt');
+      setIsTruthGateOpen(true);
+    } else {
+      executeDownloadTxt();
+    }
+  };
+
+  const handleDownloadLatexClick = () => {
+    if (unresolvedPlaceholders.length > 0 || exportViolations.length > 0 || userAddedLines.length > 0) {
+      setPendingExportAction('latex');
+      setIsTruthGateOpen(true);
+    } else {
+      executeDownloadLatex();
+    }
+  };
+
   const handleConfirmTruthGateExport = () => {
     if (pendingExportAction === 'docx') {
       executeDownloadDocx();
     } else if (pendingExportAction === 'print') {
       executePrintPdf();
+    } else if (pendingExportAction === 'txt') {
+      executeDownloadTxt();
+    } else if (pendingExportAction === 'latex') {
+      executeDownloadLatex();
     }
     setPendingExportAction(null);
   };
@@ -811,6 +865,8 @@ Requirements:
                 onToggleAtsTextView={() => setIsAtsTextView(!isAtsTextView)}
                 onDownloadDocx={handleDownloadDocxClick}
                 onPrintPdf={handlePrintPdfClick}
+                onDownloadTxt={handleDownloadTxtClick}
+                onDownloadLatex={handleDownloadLatexClick}
                 onCopyText={handleCopyText}
                 onSaveToProfile={handleSaveToProfile}
                 isGeneratingDocx={isGeneratingDocx}
@@ -825,11 +881,18 @@ Requirements:
                 model={docModel}
                 template={selectedTemplate}
                 showChanges={showChanges}
+                onToggleShowChanges={() => setShowChanges(!showChanges)}
                 isAtsTextView={isAtsTextView}
                 rawText={liveTailoredResume}
                 onPresetChange={setManualPreset}
                 density={layoutDensity}
                 onDensityChange={setLayoutDensity}
+                onDownloadPdf={handlePrintPdfClick}
+                onDownloadDocx={handleDownloadDocxClick}
+                onDownloadTxt={handleDownloadTxtClick}
+                onDownloadLatex={handleDownloadLatexClick}
+                onCopyText={handleCopyText}
+                isGeneratingDocx={isGeneratingDocx}
               />
             </div>
           </div>
