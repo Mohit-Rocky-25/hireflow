@@ -56,6 +56,9 @@ interface TailorState {
   reorderSections: (fromIndex: number, toIndex: number) => void;
   setTemplate: (template: ResumeTemplateId) => void;
   setLayoutSetting: <K extends keyof LayoutSettings>(key: K, value: LayoutSettings[K]) => void;
+  updateEntryFields: (sectionId: string, entryId: string, fields: Partial<{ primaryTitle: string; secondaryTitle: string; dateRange: string; location: string }>) => void;
+  addSkillToCategory: (category: string, skill: string) => void;
+  removeSkillFromCategory: (category: string, skill: string) => void;
   confirmRequirementClaim: (requirementId: string) => void;
   saveProjectSnapshot: (summary?: string) => void;
   wipeAllData: () => void;
@@ -881,6 +884,103 @@ export const useTailorStore = create<TailorState>((set, get) => ({
               ...state.activeProject.tailoredResume.layoutSettings,
               [key]: value
             },
+            updatedAt: new Date().toISOString()
+          }
+        }
+      };
+    });
+  },
+
+  updateEntryFields: (sectionId, entryId, fields) => {
+    set((state) => {
+      if (!state.activeProject.tailoredResume) return state;
+      const sections = state.activeProject.tailoredResume.sections.map((sec) => {
+        if (sec.id !== sectionId || !sec.content.entries) return sec;
+        return {
+          ...sec,
+          content: {
+            ...sec.content,
+            entries: sec.content.entries.map((entry) => {
+              if (entry.id !== entryId) return entry;
+              return {
+                ...entry,
+                ...fields
+              };
+            })
+          }
+        };
+      });
+
+      return {
+        activeProject: {
+          ...state.activeProject,
+          tailoredResume: {
+            ...state.activeProject.tailoredResume,
+            sections,
+            updatedAt: new Date().toISOString()
+          }
+        }
+      };
+    });
+  },
+
+  addSkillToCategory: (category, skill) => {
+    set((state) => {
+      if (!state.activeProject.tailoredResume || !skill.trim()) return state;
+      const cleanSkill = skill.trim();
+      const sections = state.activeProject.tailoredResume.sections.map((sec) => {
+        if (sec.type !== 'skills' || !sec.content.skillsByCategory) return sec;
+        const currentList = sec.content.skillsByCategory[category] || [];
+        if (currentList.includes(cleanSkill)) return sec;
+        return {
+          ...sec,
+          content: {
+            ...sec.content,
+            skillsByCategory: {
+              ...sec.content.skillsByCategory,
+              [category]: [...currentList, cleanSkill]
+            }
+          }
+        };
+      });
+
+      return {
+        activeProject: {
+          ...state.activeProject,
+          tailoredResume: {
+            ...state.activeProject.tailoredResume,
+            sections,
+            updatedAt: new Date().toISOString()
+          }
+        }
+      };
+    });
+  },
+
+  removeSkillFromCategory: (category, skill) => {
+    set((state) => {
+      if (!state.activeProject.tailoredResume) return state;
+      const sections = state.activeProject.tailoredResume.sections.map((sec) => {
+        if (sec.type !== 'skills' || !sec.content.skillsByCategory) return sec;
+        const currentList = sec.content.skillsByCategory[category] || [];
+        return {
+          ...sec,
+          content: {
+            ...sec.content,
+            skillsByCategory: {
+              ...sec.content.skillsByCategory,
+              [category]: currentList.filter(s => s !== skill)
+            }
+          }
+        };
+      });
+
+      return {
+        activeProject: {
+          ...state.activeProject,
+          tailoredResume: {
+            ...state.activeProject.tailoredResume,
+            sections,
             updatedAt: new Date().toISOString()
           }
         }
