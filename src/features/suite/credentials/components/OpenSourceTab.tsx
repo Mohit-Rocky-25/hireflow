@@ -449,7 +449,13 @@ export function OpenSourceTab({
           return (
             <div
               key={opp.id}
-              onClick={() => onSelectOpportunity(opp)}
+              onClick={() => {
+                const targetUrl = opp.directPortalUrl || opp.officialUrl || opp.syllabusUrl;
+                if (targetUrl) {
+                  window.open(targetUrl, '_blank', 'noopener,noreferrer');
+                }
+              }}
+              title={`Click to directly open official page for ${opp.name}`}
               className="group bg-surface rounded-2xl border-2 border-border/80 p-6 flex flex-col justify-between hover:border-emerald-500/50 hover:shadow-lg transition-all duration-300 cursor-pointer shadow-sm hover:-translate-y-1 relative overflow-hidden"
             >
               <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-emerald-500 via-teal-400 to-transparent" />
@@ -612,10 +618,18 @@ export function OpenSourceTab({
                 </div>
 
                 {/* Modal View Details Trigger */}
-                <span className="inline-flex items-center gap-1 font-bold text-emerald-500 group-hover:translate-x-1 transition-transform">
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onSelectOpportunity(opp);
+                  }}
+                  className="inline-flex items-center gap-1 font-black text-xs sm:text-sm text-emerald-500 hover:text-emerald-600 dark:hover:text-emerald-400 group-hover:translate-x-0.5 transition-all cursor-pointer hover:underline"
+                  title="Open in-depth stipend, timeline & application guidelines modal"
+                >
                   <span>View Details</span>
                   <ChevronRight className="w-4 h-4" />
-                </span>
+                </button>
               </div>
             </div>
           );

@@ -415,7 +415,11 @@ export function OpportunityPlanTab({
                     </div>
 
                     <h4
-                      onClick={() => onSelectOpportunity(rec.opportunity)}
+                      onClick={() => {
+                        const url = rec.opportunity.directPortalUrl || rec.opportunity.officialUrl || rec.opportunity.syllabusUrl;
+                        if (url) window.open(url, '_blank', 'noopener,noreferrer');
+                      }}
+                      title={`Open official site for ${rec.opportunity.name}`}
                       className="text-lg font-bold text-foreground hover:text-primary transition-colors cursor-pointer"
                     >
                       {rec.opportunity.name}
@@ -503,7 +507,11 @@ export function OpportunityPlanTab({
                     </div>
 
                     <h4
-                      onClick={() => onSelectOpportunity(rec.opportunity)}
+                      onClick={() => {
+                        const url = rec.opportunity.directPortalUrl || rec.opportunity.officialUrl || rec.opportunity.syllabusUrl;
+                        if (url) window.open(url, '_blank', 'noopener,noreferrer');
+                      }}
+                      title={`Open official site for ${rec.opportunity.name}`}
                       className="text-lg font-bold text-foreground hover:text-primary transition-colors cursor-pointer"
                     >
                       {rec.opportunity.name}
@@ -591,7 +599,11 @@ export function OpportunityPlanTab({
                     </div>
 
                     <h4
-                      onClick={() => onSelectOpportunity(rec.opportunity)}
+                      onClick={() => {
+                        const url = rec.opportunity.directPortalUrl || rec.opportunity.officialUrl || rec.opportunity.syllabusUrl;
+                        if (url) window.open(url, '_blank', 'noopener,noreferrer');
+                      }}
+                      title={`Open official site for ${rec.opportunity.name}`}
                       className="text-lg font-bold text-foreground hover:text-primary transition-colors cursor-pointer"
                     >
                       {rec.opportunity.name}
@@ -696,7 +708,11 @@ export function OpportunityPlanTab({
                       <div className="flex items-center gap-2 flex-wrap">
                         <span className="text-xs font-mono font-bold text-primary">#{opp.rank}</span>
                         <h4
-                          onClick={() => onSelectOpportunity(opp)}
+                          onClick={() => {
+                            const url = opp.directPortalUrl || opp.officialUrl || opp.syllabusUrl;
+                            if (url) window.open(url, '_blank', 'noopener,noreferrer');
+                          }}
+                          title={`Open official site for ${opp.name}`}
                           className="text-base font-bold text-foreground hover:text-primary cursor-pointer truncate"
                         >
                           {opp.name}
@@ -733,6 +749,13 @@ export function OpportunityPlanTab({
                             <span>Syllabus Guide</span>
                           </a>
                         )}
+                        <button
+                          type="button"
+                          onClick={() => onSelectOpportunity(opp)}
+                          className="text-xs font-semibold text-text-secondary hover:text-foreground hover:underline cursor-pointer"
+                        >
+                          View Details
+                        </button>
                       </div>
                     </div>
 
@@ -826,7 +849,11 @@ export function OpportunityPlanTab({
                           </span>
                           <div className="space-y-1">
                             <h5
-                              onClick={() => onSelectOpportunity(opp)}
+                              onClick={() => {
+                                const url = opp.directPortalUrl || opp.officialUrl || opp.syllabusUrl;
+                                if (url) window.open(url, '_blank', 'noopener,noreferrer');
+                              }}
+                              title={`Open official site for ${opp.name}`}
                               className="text-sm font-bold text-foreground hover:text-primary cursor-pointer"
                             >
                               {opp.name}
@@ -835,6 +862,13 @@ export function OpportunityPlanTab({
                             <p className="text-[11px] text-text-muted">
                               Evidence created: <strong className="text-foreground">{step.evidenceCreated}</strong>
                             </p>
+                            <button
+                              type="button"
+                              onClick={() => onSelectOpportunity(opp)}
+                              className="text-xs font-bold text-primary hover:underline cursor-pointer pt-0.5 inline-block"
+                            >
+                              View Details →
+                            </button>
                           </div>
                         </div>
 

@@ -129,9 +129,12 @@ export function OpportunityDetailModal({
   );
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md animate-fade-in">
+    <div
+      onClick={onClose}
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/40 backdrop-blur-xs animate-fade-in cursor-pointer"
+    >
       <div
-        className="bg-surface border-2 border-border/80 rounded-3xl w-full max-w-4xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden animate-scale-in relative"
+        className="bg-surface border-2 border-border/80 rounded-3xl w-full max-w-4xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden animate-scale-in relative cursor-default"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Top Accent Gradient Bar */}

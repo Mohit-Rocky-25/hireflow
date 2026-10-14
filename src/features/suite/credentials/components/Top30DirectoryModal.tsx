@@ -68,9 +68,12 @@ export function Top30DirectoryModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md animate-fade-in">
+    <div
+      onClick={onClose}
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/40 backdrop-blur-xs animate-fade-in cursor-pointer"
+    >
       <div
-        className="bg-surface border-2 border-border/80 rounded-3xl w-full max-w-6xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden"
+        className="bg-surface border-2 border-border/80 rounded-3xl w-full max-w-6xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden cursor-default"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -170,10 +173,10 @@ export function Top30DirectoryModal({
                   <tr
                     key={opp.id}
                     onClick={() => {
-                      onSelectOpportunity(opp);
-                      onClose();
+                      if (portalUrl) window.open(portalUrl, '_blank', 'noopener,noreferrer');
                     }}
                     className="hover:bg-surface-2 transition-colors cursor-pointer group"
+                    title={`Click to open official site for ${opp.name}`}
                   >
                     <td className="py-3 px-3 font-mono font-bold text-primary">#{opp.rank}</td>
                     <td className="py-3 px-3 font-bold text-foreground group-hover:text-primary transition-colors">
@@ -218,10 +221,19 @@ export function Top30DirectoryModal({
                       </div>
                     </td>
                     <td className="py-3 px-3">
-                      <span className="text-primary font-bold group-hover:underline inline-flex items-center gap-0.5">
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onSelectOpportunity(opp);
+                          onClose();
+                        }}
+                        className="text-primary font-bold hover:underline inline-flex items-center gap-0.5 cursor-pointer"
+                        title="View modal breakdown & aid"
+                      >
                         <span>Details</span>
                         <ChevronRight className="w-3.5 h-3.5" />
-                      </span>
+                      </button>
                     </td>
                   </tr>
                 );

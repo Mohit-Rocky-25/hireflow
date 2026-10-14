@@ -662,8 +662,12 @@ export function CertificationsTab({
           return (
             <div
               key={cert.id}
-              onClick={() => onSelectOpportunity(cert)}
+              onClick={() => {
+                const targetUrl = cert.directPortalUrl || cert.officialUrl || cert.syllabusUrl;
+                if (targetUrl) window.open(targetUrl, '_blank', 'noopener,noreferrer');
+              }}
               className={`group bg-surface rounded-2xl border-2 border-border/80 p-6 flex flex-col justify-between ${theme.border} transition-all duration-300 cursor-pointer shadow-sm hover:-translate-y-1 relative overflow-hidden`}
+              title={`Click to directly open official website for ${cert.name}`}
             >
               {/* Radiant top accent bar */}
               <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${theme.accent}`} />
@@ -857,10 +861,18 @@ export function CertificationsTab({
                 </div>
 
                 {/* Modal View Details Trigger */}
-                <span className="inline-flex items-center gap-1 font-black text-xs sm:text-sm text-primary group-hover:translate-x-1 transition-transform">
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onSelectOpportunity(cert);
+                  }}
+                  className="inline-flex items-center gap-1 font-black text-xs sm:text-sm text-primary hover:underline group-hover:translate-x-1 transition-transform cursor-pointer"
+                  title="Open curriculum & financial aid breakdown modal"
+                >
                   <span>View Details</span>
                   <ChevronRight className="w-4 h-4" />
-                </span>
+                </button>
               </div>
             </div>
           );
