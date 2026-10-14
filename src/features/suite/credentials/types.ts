@@ -344,8 +344,8 @@ export interface OpportunityRichDetails {
   whatItCovers?: string[];
   what_it_covers?: string[];
   format?: Record<string, any>;
-  costBreakdown?: Array<{ item: string; usd?: number; inr?: number }>;
-  cost_breakdown?: Array<{ item: string; usd?: number; inr?: number }>;
+  costBreakdown?: Array<{ item: string; usd?: number; inr?: number; note?: string }>;
+  cost_breakdown?: Array<{ item: string; usd?: number; inr?: number; note?: string }>;
   validityRenewal?: string | null;
   validity_renewal?: string | null;
   prerequisites?: string;
