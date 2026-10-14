@@ -9,16 +9,16 @@ export const publicManifest: NavManifest = {
   entries: [
     {
       id: 'landing-home',
-      label: 'HireFlow Home',
-      shortLabel: 'Home',
-      description: 'HireFlow public hero landing page and platform features overview',
+      label: 'Main Website',
+      shortLabel: 'Main Site',
+      description: 'HireFlow public hero landing page, platform features, and live overview',
       route: '/',
-      icon: 'Home',
+      icon: 'Globe',
       section: 'root',
       roles: 'all',
       order: 0,
-      keywords: ['home', 'landing', 'hireflow', 'main'],
-      hideFromSidebar: true,
+      keywords: ['home', 'landing', 'hireflow', 'main', 'website', 'public'],
+      hideFromSidebar: false,
       exact: true,
     },
     {

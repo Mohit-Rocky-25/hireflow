@@ -86,12 +86,18 @@ export function PublicNavbar() {
 
         {/* Right Action Buttons */}
         <div className="flex items-center gap-[10px]">
-          {isAuthenticated ? (
-            <Link to={getDashboardLink()}>
-              <Button variant="header" className="h-[40px] px-[18px] text-[14px] font-semibold rounded-md">
-                Go to Dashboard <ArrowRight className="w-4 h-4 stroke-[1.5px]" />
-              </Button>
-            </Link>
+          {isAuthenticated && currentUser ? (
+            <div className="flex items-center gap-3">
+              <div className="hidden lg:flex flex-col items-end text-right">
+                <span className="text-xs font-bold text-foreground leading-tight">{currentUser.displayName}</span>
+                <span className="text-[10px] font-semibold text-primary uppercase tracking-wider">{currentUser.role.replace(/_/g, ' ')}</span>
+              </div>
+              <Link to={getDashboardLink()}>
+                <Button variant="header" className="h-[40px] px-[16px] text-[13px] font-bold rounded-lg flex items-center gap-1.5 shadow-sm">
+                  <span>Open Workspace</span> <ArrowRight className="w-4 h-4 stroke-[2px]" />
+                </Button>
+              </Link>
+            </div>
           ) : (
             <div className="hidden sm:flex items-center gap-[8px]">
               <Link

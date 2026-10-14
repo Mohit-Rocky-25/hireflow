@@ -18,6 +18,7 @@ import {
   Shield,
   X,
   Compass,
+  Globe,
 } from 'lucide-react';
 import { getSidebarEntriesForRole } from '../../navigation/registry';
 import { getNavIcon } from '../../navigation/icons';
@@ -238,6 +239,19 @@ export function AppSidebar({
             )}
           </Link>
 
+          {/* Quick Jump to Main Public Site */}
+          {(!isCollapsed || isMobileOpen) && (
+            <Link
+              to="/"
+              onClick={handleItemClick}
+              className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-bold text-text-muted hover:text-foreground bg-surface-2 hover:bg-surface-3 border border-border rounded-lg transition-colors shrink-0"
+              title="Visit HireFlow Main Landing Site"
+            >
+              <Globe className="w-3.5 h-3.5 text-primary" />
+              <span>Main Site</span>
+            </Link>
+          )}
+
           {/* Mobile Close Button */}
           {isMobileOpen && (
             <button
@@ -441,6 +455,23 @@ export function AppSidebar({
             );
           })}
         </nav>
+
+        {/* Quick Link to Main Website & Portals */}
+        <div className="px-2 py-1.5 border-t border-border shrink-0 bg-surface">
+          <Link
+            to="/"
+            onClick={handleItemClick}
+            className={`flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold text-text-muted hover:text-foreground hover:bg-surface-2 transition-all ${
+              isCollapsed && !isMobileOpen ? 'justify-center px-0' : ''
+            }`}
+            title="Explore Main Site & Portals"
+          >
+            <Globe className="w-4 h-4 text-primary shrink-0" />
+            {(!isCollapsed || isMobileOpen) && (
+              <span className="truncate flex-1">Explore Main Site</span>
+            )}
+          </Link>
+        </div>
 
         {/* Bottom User Profile & Sign Out Bar */}
         {currentUser ? (
