@@ -24,6 +24,9 @@ import {
   Check,
   FileText,
   Clock,
+  RotateCcw,
+  X,
+  Filter,
 } from 'lucide-react';
 import { ALL_OPPORTUNITIES } from '../data/opportunitiesData';
 import { OpportunityRecord, OpportunityFlag, EngineeringBranch, TrustLevel } from '../types';
@@ -172,28 +175,28 @@ export function OpenSourceTab({
     switch (trust) {
       case 'verified_official':
         return (
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-bold rounded-md bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
-            <Check className="w-3 h-3" />
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-black rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
+            <Check className="w-3.5 h-3.5" />
             <span>Verified Official</span>
           </span>
         );
       case 'verified_multi_source':
         return (
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-bold rounded-md bg-teal-500/15 text-teal-600 dark:text-teal-400 border border-teal-500/30">
-            <ShieldCheck className="w-3 h-3" />
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-black rounded-lg bg-teal-500/15 text-teal-600 dark:text-teal-400 border border-teal-500/30">
+            <ShieldCheck className="w-3.5 h-3.5" />
             <span>Multi-Source Verified</span>
           </span>
         );
       case 'reported_single_source':
         return (
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-bold rounded-md bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30">
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-black rounded-lg bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30">
             <span>ℹ Single-Source Reported</span>
           </span>
         );
       case 'unverified_recurring':
         return (
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-bold rounded-md bg-slate-500/15 text-slate-400 border border-slate-500/30">
-            <AlertTriangle className="w-3 h-3" />
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-black rounded-lg bg-slate-500/15 text-slate-400 border border-slate-500/30">
+            <AlertTriangle className="w-3.5 h-3.5" />
             <span>Unverified Recurring</span>
           </span>
         );
@@ -268,80 +271,80 @@ export function OpenSourceTab({
           />
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
           {/* Program Type */}
-          <div className="space-y-1">
-            <label className="text-[11px] font-bold uppercase tracking-wider text-text-secondary">
+          <div className="space-y-1.5">
+            <label className="text-xs font-black uppercase tracking-wider text-foreground block">
               Program Type
             </label>
             <select
               value={selectedType}
               onChange={(e) => setSelectedType(e.target.value)}
-              className="w-full px-2.5 py-2 rounded-lg bg-surface-2 border border-border text-xs text-foreground focus:outline-none focus:border-primary font-medium"
+              className="w-full px-3 py-2.5 rounded-xl bg-surface-2 hover:bg-surface border-2 border-border/90 hover:border-emerald-500/50 focus:border-emerald-500 text-sm font-bold text-foreground focus:outline-none transition-all cursor-pointer shadow-2xs"
             >
-              <option value="All">All Formats</option>
-              <option value="mentorship">Mentorship Program</option>
-              <option value="fellowship">Fellowship</option>
-              <option value="contribution_program">Contribution Sprint</option>
+              <option value="All" className="bg-surface text-foreground font-bold">All Formats</option>
+              <option value="mentorship" className="bg-surface text-foreground font-semibold">Mentorship Program</option>
+              <option value="fellowship" className="bg-surface text-foreground font-semibold">Fellowship</option>
+              <option value="contribution_program" className="bg-surface text-foreground font-semibold">Contribution Sprint</option>
             </select>
           </div>
 
           {/* Active Status / Flag */}
-          <div className="space-y-1">
-            <label className="text-[11px] font-bold uppercase tracking-wider text-text-secondary">
+          <div className="space-y-1.5">
+            <label className="text-xs font-black uppercase tracking-wider text-foreground block">
               Active Status & Flag
             </label>
             <select
               value={selectedFlag}
               onChange={(e) => setSelectedFlag(e.target.value)}
-              className="w-full px-2.5 py-2 rounded-lg bg-surface-2 border border-border text-xs text-foreground focus:outline-none focus:border-primary font-medium"
+              className="w-full px-3 py-2.5 rounded-xl bg-surface-2 hover:bg-surface border-2 border-border/90 hover:border-emerald-500/50 focus:border-emerald-500 text-sm font-bold text-foreground focus:outline-none transition-all cursor-pointer shadow-2xs"
             >
-              <option value="All">All Statuses</option>
-              <option value="open_now">🟢 Open Now (October)</option>
-              <option value="start_now">⏳ Preparation Window Open</option>
-              <option value="paid_stipend">💰 Paid Stipend</option>
-              <option value="hidden_gem">💎 Hidden Gem (High Signal)</option>
-              <option value="evidence_builder">⭐ High Evidence Builder</option>
+              <option value="All" className="bg-surface text-foreground font-bold">All Statuses</option>
+              <option value="open_now" className="bg-surface text-foreground font-semibold">🟢 Open Now (October)</option>
+              <option value="start_now" className="bg-surface text-foreground font-semibold">⏳ Preparation Window Open</option>
+              <option value="paid_stipend" className="bg-surface text-foreground font-semibold">💰 Paid Stipend</option>
+              <option value="hidden_gem" className="bg-surface text-foreground font-semibold">💎 Hidden Gem (High Signal)</option>
+              <option value="evidence_builder" className="bg-surface text-foreground font-semibold">⭐ High Evidence Builder</option>
             </select>
           </div>
 
           {/* College Branch */}
-          <div className="space-y-1">
-            <label className="text-[11px] font-bold uppercase tracking-wider text-text-secondary">
+          <div className="space-y-1.5">
+            <label className="text-xs font-black uppercase tracking-wider text-foreground block">
               College Branch
             </label>
             <select
               value={selectedBranch}
               onChange={(e) => setSelectedBranch(e.target.value)}
-              className="w-full px-2.5 py-2 rounded-lg bg-surface-2 border border-border text-xs text-foreground focus:outline-none focus:border-primary font-medium"
+              className="w-full px-3 py-2.5 rounded-xl bg-surface-2 hover:bg-surface border-2 border-border/90 hover:border-emerald-500/50 focus:border-emerald-500 text-sm font-bold text-foreground focus:outline-none transition-all cursor-pointer shadow-2xs"
             >
-              <option value="All">All Branches</option>
-              <option value="CSE">CSE / IT</option>
-              <option value="ECE">ECE / Systems Edge</option>
-              <option value="MECH">Mechanical / Civil</option>
+              <option value="All" className="bg-surface text-foreground font-bold">All Branches</option>
+              <option value="CSE" className="bg-surface text-foreground font-semibold">CSE / IT</option>
+              <option value="ECE" className="bg-surface text-foreground font-semibold">ECE / Systems Edge</option>
+              <option value="MECH" className="bg-surface text-foreground font-semibold">Mechanical / Civil</option>
             </select>
           </div>
 
           {/* Trust Level */}
-          <div className="space-y-1">
-            <label className="text-[11px] font-bold uppercase tracking-wider text-text-secondary">
+          <div className="space-y-1.5">
+            <label className="text-xs font-black uppercase tracking-wider text-foreground block">
               Verification Trust
             </label>
             <select
               value={selectedTrust}
               onChange={(e) => setSelectedTrust(e.target.value)}
-              className="w-full px-2.5 py-2 rounded-lg bg-surface-2 border border-border text-xs text-foreground focus:outline-none focus:border-primary font-medium"
+              className="w-full px-3 py-2.5 rounded-xl bg-surface-2 hover:bg-surface border-2 border-border/90 hover:border-emerald-500/50 focus:border-emerald-500 text-sm font-bold text-foreground focus:outline-none transition-all cursor-pointer shadow-2xs"
             >
-              <option value="All">All Trust Levels</option>
-              <option value="verified_official">Verified Official</option>
-              <option value="verified_multi_source">Multi-Source Verified</option>
-              <option value="reported_single_source">Single-Source Reported</option>
-              <option value="unverified_recurring">Unverified Recurring</option>
+              <option value="All" className="bg-surface text-foreground font-bold">All Trust Levels</option>
+              <option value="verified_official" className="bg-surface text-foreground font-semibold">Verified Official</option>
+              <option value="verified_multi_source" className="bg-surface text-foreground font-semibold">Multi-Source Verified</option>
+              <option value="reported_single_source" className="bg-surface text-foreground font-semibold">Single-Source Reported</option>
+              <option value="unverified_recurring" className="bg-surface text-foreground font-semibold">Unverified Recurring</option>
             </select>
           </div>
         </div>
 
-        {/* Reset active filters */}
+        {/* Active Filter Chips and Reset Bar */}
         {(selectedType !== 'All' ||
           selectedTrust !== 'All' ||
           selectedFlag !== 'All' ||
@@ -349,10 +352,68 @@ export function OpenSourceTab({
           onlyPaidStipend ||
           onlyIndian ||
           searchQuery) && (
-          <div className="pt-2 flex items-center justify-between text-xs text-text-secondary border-t border-border">
-            <span>
-              Showing <strong>{filteredOpps.length}</strong> of {osOpportunities.length} programs
-            </span>
+          <div className="pt-3 border-t border-border flex flex-wrap items-center justify-between gap-3 animate-fade-in">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="px-3.5 py-1.5 rounded-xl bg-emerald-500/15 border-2 border-emerald-500/30 text-xs sm:text-sm font-black text-emerald-600 dark:text-emerald-400">
+                Showing {filteredOpps.length} of {osOpportunities.length} OSS Programs
+              </span>
+
+              {selectedType !== 'All' && (
+                <button
+                  onClick={() => setSelectedType('All')}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-2 border border-border text-xs font-bold text-foreground hover:bg-rose-500/10 hover:border-rose-500/30 hover:text-rose-600 transition-all cursor-pointer"
+                  title="Remove Program Type filter"
+                >
+                  <span>Type: <strong>{selectedType}</strong></span>
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              )}
+
+              {selectedFlag !== 'All' && (
+                <button
+                  onClick={() => setSelectedFlag('All')}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-2 border border-border text-xs font-bold text-foreground hover:bg-rose-500/10 hover:border-rose-500/30 hover:text-rose-600 transition-all cursor-pointer"
+                  title="Remove Status/Flag filter"
+                >
+                  <span>Status: <strong>{selectedFlag.replace('_', ' ')}</strong></span>
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              )}
+
+              {selectedBranch !== 'All' && (
+                <button
+                  onClick={() => setSelectedBranch('All')}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-2 border border-border text-xs font-bold text-foreground hover:bg-rose-500/10 hover:border-rose-500/30 hover:text-rose-600 transition-all cursor-pointer"
+                  title="Remove Branch filter"
+                >
+                  <span>Branch: <strong>{selectedBranch}</strong></span>
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              )}
+
+              {selectedTrust !== 'All' && (
+                <button
+                  onClick={() => setSelectedTrust('All')}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-2 border border-border text-xs font-bold text-foreground hover:bg-rose-500/10 hover:border-rose-500/30 hover:text-rose-600 transition-all cursor-pointer"
+                  title="Remove Trust filter"
+                >
+                  <span>Trust: <strong>{selectedTrust.replace('_', ' ')}</strong></span>
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              )}
+
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery('')}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-2 border border-border text-xs font-bold text-foreground hover:bg-rose-500/10 hover:border-rose-500/30 hover:text-rose-600 transition-all cursor-pointer"
+                  title="Clear search query"
+                >
+                  <span>Search: "{searchQuery}"</span>
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              )}
+            </div>
+
             <button
               onClick={() => {
                 setSearchQuery('');
@@ -363,9 +424,10 @@ export function OpenSourceTab({
                 setOnlyPaidStipend(false);
                 setOnlyIndian(false);
               }}
-              className="font-bold text-primary hover:underline cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-rose-500/15 hover:bg-rose-500/25 border-2 border-rose-500/30 font-black text-xs sm:text-sm text-rose-600 dark:text-rose-400 transition-all cursor-pointer shadow-2xs"
             >
-              Reset All Filters
+              <RotateCcw className="w-4 h-4" />
+              <span>Reset All Filters</span>
             </button>
           </div>
         )}
@@ -560,13 +622,38 @@ export function OpenSourceTab({
         })}
       </div>
 
+      {/* Prominent Empty State with Instant Filter Reset */}
       {filteredOpps.length === 0 && (
-        <div className="p-12 text-center rounded-2xl bg-surface border-2 border-dashed border-border space-y-3">
-          <GitBranch className="w-10 h-10 text-muted mx-auto" />
-          <h3 className="text-lg font-bold text-foreground">No open-source programs match your active filters</h3>
-          <p className="text-sm text-text-secondary max-w-md mx-auto">
-            Try resetting the flag or branch filters to browse all open-source fellowships and mentorship programs.
-          </p>
+        <div className="p-10 sm:p-14 text-center rounded-3xl bg-surface border-2 border-dashed border-border/90 space-y-5 shadow-sm animate-fade-in">
+          <div className="w-16 h-16 rounded-2xl bg-emerald-500/10 border-2 border-emerald-500/25 flex items-center justify-center text-emerald-500 mx-auto shadow-inner">
+            <Filter className="w-8 h-8" />
+          </div>
+          <div className="space-y-2">
+            <h3 className="text-xl sm:text-2xl font-black text-foreground">
+              No open-source programs match your active filters
+            </h3>
+            <p className="text-sm sm:text-base font-bold text-text-secondary max-w-lg mx-auto leading-relaxed">
+              Try clearing specific branch, stipend, or cycle filters to discover global open-source fellowships and mentorship programs.
+            </p>
+          </div>
+
+          <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
+            <button
+              onClick={() => {
+                setSearchQuery('');
+                setSelectedType('All');
+                setSelectedTrust('All');
+                setSelectedFlag('All');
+                setSelectedBranch('All');
+                setOnlyPaidStipend(false);
+                setOnlyIndian(false);
+              }}
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-black text-sm shadow-lg shadow-emerald-500/25 cursor-pointer transition-all hover:scale-[1.02]"
+            >
+              <RotateCcw className="w-4 h-4" />
+              <span>Reset All Filters & Show All {osOpportunities.length} Programs</span>
+            </button>
+          </div>
         </div>
       )}
     </div>

@@ -23,6 +23,9 @@ import {
   AlertTriangle,
   Building2,
   FileText,
+  RotateCcw,
+  X,
+  Filter,
 } from 'lucide-react';
 import { ALL_OPPORTUNITIES } from '../data/opportunitiesData';
 import { OpportunityRecord, OpportunityFlag, EngineeringBranch, TrustLevel } from '../types';
@@ -240,28 +243,28 @@ export function EventsTab({
     switch (trust) {
       case 'verified_official':
         return (
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-bold rounded-md bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
-            <Check className="w-3 h-3" />
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-black rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
+            <Check className="w-3.5 h-3.5" />
             <span>Verified Official</span>
           </span>
         );
       case 'verified_multi_source':
         return (
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-bold rounded-md bg-sky-500/15 text-sky-600 dark:text-sky-400 border border-sky-500/30">
-            <ShieldCheck className="w-3 h-3" />
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-black rounded-lg bg-sky-500/15 text-sky-600 dark:text-sky-400 border border-sky-500/30">
+            <ShieldCheck className="w-3.5 h-3.5" />
             <span>Multi-Source Verified</span>
           </span>
         );
       case 'reported_single_source':
         return (
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-bold rounded-md bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30">
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-black rounded-lg bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30">
             <span>ℹ Single-Source Reported</span>
           </span>
         );
       case 'unverified_recurring':
         return (
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-bold rounded-md bg-slate-500/15 text-slate-400 border border-slate-500/30">
-            <AlertTriangle className="w-3 h-3" />
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-black rounded-lg bg-slate-500/15 text-slate-400 border border-slate-500/30">
+            <AlertTriangle className="w-3.5 h-3.5" />
             <span>Unverified Recurring</span>
           </span>
         );
@@ -328,57 +331,57 @@ export function EventsTab({
           />
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5">
           {/* Event Type */}
-          <div className="space-y-1">
-            <label className="text-[11px] font-bold uppercase tracking-wider text-text-secondary">
+          <div className="space-y-1.5">
+            <label className="text-xs font-black uppercase tracking-wider text-foreground block">
               Event Type
             </label>
             <select
               value={selectedType}
               onChange={(e) => setSelectedType(e.target.value)}
-              className="w-full px-2.5 py-2 rounded-lg bg-surface-2 border border-border text-xs text-foreground focus:outline-none focus:border-primary font-medium"
+              className="w-full px-3 py-2.5 rounded-xl bg-surface-2 hover:bg-surface border-2 border-border/90 hover:border-orange-500/50 focus:border-orange-500 text-sm font-bold text-foreground focus:outline-none transition-all cursor-pointer shadow-2xs"
             >
-              <option value="All">All Formats</option>
-              <option value="hackathon">Hackathon (Prototype MVP)</option>
-              <option value="codathon">Codathon (Algorithms & DSA)</option>
-              <option value="ai_challenge">AI / ML Challenge</option>
-              <option value="ctf">Cybersecurity CTF</option>
-              <option value="datathon">Datathon</option>
-              <option value="ideathon">Ideathon</option>
+              <option value="All" className="bg-surface text-foreground font-bold">All Formats</option>
+              <option value="hackathon" className="bg-surface text-foreground font-semibold">Hackathon (Prototype MVP)</option>
+              <option value="codathon" className="bg-surface text-foreground font-semibold">Codathon (Algorithms & DSA)</option>
+              <option value="ai_challenge" className="bg-surface text-foreground font-semibold">AI / ML Challenge</option>
+              <option value="ctf" className="bg-surface text-foreground font-semibold">Cybersecurity CTF</option>
+              <option value="datathon" className="bg-surface text-foreground font-semibold">Datathon</option>
+              <option value="ideathon" className="bg-surface text-foreground font-semibold">Ideathon</option>
             </select>
           </div>
 
           {/* College Branch */}
-          <div className="space-y-1">
-            <label className="text-[11px] font-bold uppercase tracking-wider text-text-secondary">
+          <div className="space-y-1.5">
+            <label className="text-xs font-black uppercase tracking-wider text-foreground block">
               College Branch
             </label>
             <select
               value={selectedBranch}
               onChange={(e) => setSelectedBranch(e.target.value)}
-              className="w-full px-2.5 py-2 rounded-lg bg-surface-2 border border-border text-xs text-foreground focus:outline-none focus:border-primary font-medium"
+              className="w-full px-3 py-2.5 rounded-xl bg-surface-2 hover:bg-surface border-2 border-border/90 hover:border-orange-500/50 focus:border-orange-500 text-sm font-bold text-foreground focus:outline-none transition-all cursor-pointer shadow-2xs"
             >
-              <option value="All">All Branches</option>
-              <option value="CSE">CSE / IT</option>
-              <option value="ECE">ECE / EEE Edge</option>
-              <option value="MECH">Mechanical / Civil</option>
+              <option value="All" className="bg-surface text-foreground font-bold">All Branches</option>
+              <option value="CSE" className="bg-surface text-foreground font-semibold">CSE / IT</option>
+              <option value="ECE" className="bg-surface text-foreground font-semibold">ECE / EEE Edge</option>
+              <option value="MECH" className="bg-surface text-foreground font-semibold">Mechanical / Civil</option>
             </select>
           </div>
 
           {/* Target Role */}
-          <div className="space-y-1">
-            <label className="text-[11px] font-bold uppercase tracking-wider text-text-secondary">
+          <div className="space-y-1.5">
+            <label className="text-xs font-black uppercase tracking-wider text-foreground block">
               Target Role
             </label>
             <select
               value={selectedRole}
               onChange={(e) => setSelectedRole(e.target.value)}
-              className="w-full px-2.5 py-2 rounded-lg bg-surface-2 border border-border text-xs text-foreground focus:outline-none focus:border-primary font-medium"
+              className="w-full px-3 py-2.5 rounded-xl bg-surface-2 hover:bg-surface border-2 border-border/90 hover:border-orange-500/50 focus:border-orange-500 text-sm font-bold text-foreground focus:outline-none transition-all cursor-pointer shadow-2xs"
             >
-              <option value="All">All Roles</option>
+              <option value="All" className="bg-surface text-foreground font-bold">All Roles</option>
               {roles.map((r) => (
-                <option key={r} value={r}>
+                <option key={r} value={r} className="bg-surface text-foreground font-semibold">
                   {r}
                 </option>
               ))}
@@ -386,44 +389,44 @@ export function EventsTab({
           </div>
 
           {/* Verification Trust */}
-          <div className="space-y-1">
-            <label className="text-[11px] font-bold uppercase tracking-wider text-text-secondary">
+          <div className="space-y-1.5">
+            <label className="text-xs font-black uppercase tracking-wider text-foreground block">
               Trust Level
             </label>
             <select
               value={selectedTrust}
               onChange={(e) => setSelectedTrust(e.target.value)}
-              className="w-full px-2.5 py-2 rounded-lg bg-surface-2 border border-border text-xs text-foreground focus:outline-none focus:border-primary font-medium"
+              className="w-full px-3 py-2.5 rounded-xl bg-surface-2 hover:bg-surface border-2 border-border/90 hover:border-orange-500/50 focus:border-orange-500 text-sm font-bold text-foreground focus:outline-none transition-all cursor-pointer shadow-2xs"
             >
-              <option value="All">All Trust Levels</option>
-              <option value="verified_official">Verified Official</option>
-              <option value="verified_multi_source">Multi-Source Verified</option>
-              <option value="reported_single_source">Single-Source Reported</option>
-              <option value="unverified_recurring">Unverified Recurring</option>
+              <option value="All" className="bg-surface text-foreground font-bold">All Trust Levels</option>
+              <option value="verified_official" className="bg-surface text-foreground font-semibold">Verified Official</option>
+              <option value="verified_multi_source" className="bg-surface text-foreground font-semibold">Multi-Source Verified</option>
+              <option value="reported_single_source" className="bg-surface text-foreground font-semibold">Single-Source Reported</option>
+              <option value="unverified_recurring" className="bg-surface text-foreground font-semibold">Unverified Recurring</option>
             </select>
           </div>
 
           {/* Special Flag */}
-          <div className="space-y-1">
-            <label className="text-[11px] font-bold uppercase tracking-wider text-text-secondary">
+          <div className="space-y-1.5">
+            <label className="text-xs font-black uppercase tracking-wider text-foreground block">
               Attribute / Flag
             </label>
             <select
               value={selectedFlag}
               onChange={(e) => setSelectedFlag(e.target.value)}
-              className="w-full px-2.5 py-2 rounded-lg bg-surface-2 border border-border text-xs text-foreground focus:outline-none focus:border-primary font-medium"
+              className="w-full px-3 py-2.5 rounded-xl bg-surface-2 hover:bg-surface border-2 border-border/90 hover:border-orange-500/50 focus:border-orange-500 text-sm font-bold text-foreground focus:outline-none transition-all cursor-pointer shadow-2xs"
             >
-              <option value="All">All Flags</option>
-              <option value="hiring_pipeline">PPO / PPI Pipeline</option>
-              <option value="college_route">College Route (SPOC Required)</option>
-              <option value="women_track">Women in Tech Track</option>
-              <option value="core_industry">Core Industry / Non-Web</option>
-              <option value="closed_this_year">Next Cycle Expected</option>
+              <option value="All" className="bg-surface text-foreground font-bold">All Flags</option>
+              <option value="hiring_pipeline" className="bg-surface text-foreground font-semibold">PPO / PPI Pipeline</option>
+              <option value="college_route" className="bg-surface text-foreground font-semibold">College Route (SPOC Required)</option>
+              <option value="women_track" className="bg-surface text-foreground font-semibold">Women in Tech Track</option>
+              <option value="core_industry" className="bg-surface text-foreground font-semibold">Core Industry / Non-Web</option>
+              <option value="closed_this_year" className="bg-surface text-foreground font-semibold">Next Cycle Expected</option>
             </select>
           </div>
         </div>
 
-        {/* Reset active filters */}
+        {/* Active Filter Chips and Reset Bar */}
         {(selectedType !== 'All' ||
           selectedRole !== 'All' ||
           selectedBranch !== 'All' ||
@@ -432,10 +435,79 @@ export function EventsTab({
           onlyHiringPipeline ||
           onlyIndianFlagships ||
           searchQuery) && (
-          <div className="pt-2 flex items-center justify-between text-xs text-text-secondary border-t border-border">
-            <span>
-              Showing <strong>{filteredEvents.length}</strong> of {eventOpportunities.length} competitions & hackathons
-            </span>
+          <div className="pt-3 border-t border-border flex flex-wrap items-center justify-between gap-3 animate-fade-in">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="px-3.5 py-1.5 rounded-xl bg-orange-500/15 border-2 border-orange-500/30 text-xs sm:text-sm font-black text-orange-600 dark:text-orange-400">
+                Showing {filteredEvents.length} of {eventOpportunities.length} Competitions
+              </span>
+
+              {selectedType !== 'All' && (
+                <button
+                  onClick={() => setSelectedType('All')}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-2 border border-border text-xs font-bold text-foreground hover:bg-rose-500/10 hover:border-rose-500/30 hover:text-rose-600 transition-all cursor-pointer"
+                  title="Remove Event Type filter"
+                >
+                  <span>Type: <strong>{selectedType}</strong></span>
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              )}
+
+              {selectedBranch !== 'All' && (
+                <button
+                  onClick={() => setSelectedBranch('All')}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-2 border border-border text-xs font-bold text-foreground hover:bg-rose-500/10 hover:border-rose-500/30 hover:text-rose-600 transition-all cursor-pointer"
+                  title="Remove Branch filter"
+                >
+                  <span>Branch: <strong>{selectedBranch}</strong></span>
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              )}
+
+              {selectedRole !== 'All' && (
+                <button
+                  onClick={() => setSelectedRole('All')}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-2 border border-border text-xs font-bold text-foreground hover:bg-rose-500/10 hover:border-rose-500/30 hover:text-rose-600 transition-all cursor-pointer"
+                  title="Remove Target Role filter"
+                >
+                  <span>Role: <strong>{selectedRole}</strong></span>
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              )}
+
+              {selectedTrust !== 'All' && (
+                <button
+                  onClick={() => setSelectedTrust('All')}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-2 border border-border text-xs font-bold text-foreground hover:bg-rose-500/10 hover:border-rose-500/30 hover:text-rose-600 transition-all cursor-pointer"
+                  title="Remove Trust filter"
+                >
+                  <span>Trust: <strong>{selectedTrust.replace('_', ' ')}</strong></span>
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              )}
+
+              {selectedFlag !== 'All' && (
+                <button
+                  onClick={() => setSelectedFlag('All')}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-2 border border-border text-xs font-bold text-foreground hover:bg-rose-500/10 hover:border-rose-500/30 hover:text-rose-600 transition-all cursor-pointer"
+                  title="Remove Flag filter"
+                >
+                  <span>Flag: <strong>{selectedFlag.replace('_', ' ')}</strong></span>
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              )}
+
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery('')}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-2 border border-border text-xs font-bold text-foreground hover:bg-rose-500/10 hover:border-rose-500/30 hover:text-rose-600 transition-all cursor-pointer"
+                  title="Clear search query"
+                >
+                  <span>Search: "{searchQuery}"</span>
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              )}
+            </div>
+
             <button
               onClick={() => {
                 setSearchQuery('');
@@ -447,9 +519,10 @@ export function EventsTab({
                 setOnlyHiringPipeline(false);
                 setOnlyIndianFlagships(false);
               }}
-              className="font-bold text-primary hover:underline cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-rose-500/15 hover:bg-rose-500/25 border-2 border-rose-500/30 font-black text-xs sm:text-sm text-rose-600 dark:text-rose-400 transition-all cursor-pointer shadow-2xs"
             >
-              Reset All Filters
+              <RotateCcw className="w-4 h-4" />
+              <span>Reset All Filters</span>
             </button>
           </div>
         )}
@@ -650,13 +723,39 @@ export function EventsTab({
         })}
       </div>
 
+      {/* Prominent Empty State with Instant Filter Reset */}
       {filteredEvents.length === 0 && (
-        <div className="p-12 text-center rounded-2xl bg-surface border-2 border-dashed border-border space-y-3">
-          <Trophy className="w-10 h-10 text-muted mx-auto" />
-          <h3 className="text-lg font-bold text-foreground">No competitions match your active filters</h3>
-          <p className="text-sm text-text-secondary max-w-md mx-auto">
-            Try clearing specific format or branch filters to explore campus hackathons and algorithmic contests.
-          </p>
+        <div className="p-10 sm:p-14 text-center rounded-3xl bg-surface border-2 border-dashed border-border/90 space-y-5 shadow-sm animate-fade-in">
+          <div className="w-16 h-16 rounded-2xl bg-orange-500/10 border-2 border-orange-500/25 flex items-center justify-center text-orange-500 mx-auto shadow-inner">
+            <Filter className="w-8 h-8" />
+          </div>
+          <div className="space-y-2">
+            <h3 className="text-xl sm:text-2xl font-black text-foreground">
+              No competitions match your active filters
+            </h3>
+            <p className="text-sm sm:text-base font-bold text-text-secondary max-w-lg mx-auto leading-relaxed">
+              Try adjusting your format, branch, or trust filters to discover competitive hackathons and hiring challenges.
+            </p>
+          </div>
+
+          <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
+            <button
+              onClick={() => {
+                setSearchQuery('');
+                setSelectedType('All');
+                setSelectedRole('All');
+                setSelectedBranch('All');
+                setSelectedTrust('All');
+                setSelectedFlag('All');
+                setOnlyHiringPipeline(false);
+                setOnlyIndianFlagships(false);
+              }}
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-orange-500 to-amber-600 hover:from-orange-600 hover:to-amber-700 text-white font-black text-sm shadow-lg shadow-orange-500/25 cursor-pointer transition-all hover:scale-[1.02]"
+            >
+              <RotateCcw className="w-4 h-4" />
+              <span>Reset All Filters & Show All {eventOpportunities.length} Competitions</span>
+            </button>
+          </div>
         </div>
       )}
     </div>

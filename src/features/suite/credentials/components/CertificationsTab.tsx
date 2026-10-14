@@ -21,6 +21,10 @@ import {
   AlertTriangle,
   Flame,
   Check,
+  RotateCcw,
+  FileText,
+  X,
+  Filter,
 } from 'lucide-react';
 import { ALL_OPPORTUNITIES } from '../data/opportunitiesData';
 import {
@@ -331,28 +335,28 @@ export function CertificationsTab({
     switch (trust) {
       case 'verified_official':
         return (
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-bold rounded-md bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
-            <Check className="w-3 h-3" />
+          <span className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-black rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
+            <Check className="w-3.5 h-3.5" />
             <span>Verified Official</span>
           </span>
         );
       case 'verified_multi_source':
         return (
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-bold rounded-md bg-sky-500/15 text-sky-600 dark:text-sky-400 border border-sky-500/30">
-            <ShieldCheck className="w-3 h-3" />
+          <span className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-black rounded-lg bg-sky-500/15 text-sky-600 dark:text-sky-400 border border-sky-500/30">
+            <ShieldCheck className="w-3.5 h-3.5" />
             <span>Multi-Source Verified</span>
           </span>
         );
       case 'reported_single_source':
         return (
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-bold rounded-md bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30">
+          <span className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-black rounded-lg bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30">
             <span>ℹ Reported · Check Official</span>
           </span>
         );
       case 'unverified_recurring':
         return (
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-bold rounded-md bg-slate-500/15 text-slate-400 border border-slate-500/30">
-            <AlertTriangle className="w-3 h-3" />
+          <span className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-black rounded-lg bg-slate-500/15 text-slate-400 border border-slate-500/30">
+            <AlertTriangle className="w-3.5 h-3.5" />
             <span>Unverified Recurring</span>
           </span>
         );
@@ -420,20 +424,20 @@ export function CertificationsTab({
           />
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3.5">
           {/* Target Role */}
-          <div className="space-y-1">
-            <label className="text-[11px] font-bold uppercase tracking-wider text-text-secondary">
+          <div className="space-y-1.5">
+            <label className="text-xs font-black uppercase tracking-wider text-foreground block">
               Target Role
             </label>
             <select
               value={selectedRole}
               onChange={(e) => setSelectedRole(e.target.value)}
-              className="w-full px-2.5 py-2 rounded-lg bg-surface-2 border border-border text-xs text-foreground focus:outline-none focus:border-primary font-medium"
+              className="w-full px-3 py-2.5 rounded-xl bg-surface-2 hover:bg-surface border-2 border-border/90 hover:border-primary/50 focus:border-primary text-sm font-bold text-foreground focus:outline-none transition-all cursor-pointer shadow-2xs"
             >
-              <option value="All">All Roles</option>
+              <option value="All" className="bg-surface text-foreground font-bold">All Roles</option>
               {roles.map((r) => (
-                <option key={r} value={r}>
+                <option key={r} value={r} className="bg-surface text-foreground font-semibold">
                   {r}
                 </option>
               ))}
@@ -441,96 +445,96 @@ export function CertificationsTab({
           </div>
 
           {/* Branch Edge Filter */}
-          <div className="space-y-1">
-            <label className="text-[11px] font-bold uppercase tracking-wider text-text-secondary">
+          <div className="space-y-1.5">
+            <label className="text-xs font-black uppercase tracking-wider text-foreground block">
               College Branch
             </label>
             <select
               value={selectedBranch}
               onChange={(e) => setSelectedBranch(e.target.value)}
-              className="w-full px-2.5 py-2 rounded-lg bg-surface-2 border border-border text-xs text-foreground focus:outline-none focus:border-primary font-medium"
+              className="w-full px-3 py-2.5 rounded-xl bg-surface-2 hover:bg-surface border-2 border-border/90 hover:border-primary/50 focus:border-primary text-sm font-bold text-foreground focus:outline-none transition-all cursor-pointer shadow-2xs"
             >
-              <option value="All">All Branches</option>
-              <option value="CSE">CSE / IT</option>
-              <option value="ECE">ECE / EEE Edge</option>
-              <option value="MECH">Mechanical / Civil</option>
+              <option value="All" className="bg-surface text-foreground font-bold">All Branches</option>
+              <option value="CSE" className="bg-surface text-foreground font-semibold">CSE / IT</option>
+              <option value="ECE" className="bg-surface text-foreground font-semibold">ECE / EEE Edge</option>
+              <option value="MECH" className="bg-surface text-foreground font-semibold">Mechanical / Civil</option>
             </select>
           </div>
 
           {/* Level */}
-          <div className="space-y-1">
-            <label className="text-[11px] font-bold uppercase tracking-wider text-text-secondary">
+          <div className="space-y-1.5">
+            <label className="text-xs font-black uppercase tracking-wider text-foreground block">
               Exam Level
             </label>
             <select
               value={selectedLevel}
               onChange={(e) => setSelectedLevel(e.target.value)}
-              className="w-full px-2.5 py-2 rounded-lg bg-surface-2 border border-border text-xs text-foreground focus:outline-none focus:border-primary font-medium"
+              className="w-full px-3 py-2.5 rounded-xl bg-surface-2 hover:bg-surface border-2 border-border/90 hover:border-primary/50 focus:border-primary text-sm font-bold text-foreground focus:outline-none transition-all cursor-pointer shadow-2xs"
             >
-              <option value="All">All Levels</option>
-              <option value="foundation">Foundation</option>
-              <option value="associate">Associate</option>
-              <option value="professional">Professional</option>
+              <option value="All" className="bg-surface text-foreground font-bold">All Levels</option>
+              <option value="foundation" className="bg-surface text-foreground font-semibold">Foundation</option>
+              <option value="associate" className="bg-surface text-foreground font-semibold">Associate</option>
+              <option value="professional" className="bg-surface text-foreground font-semibold">Professional</option>
             </select>
           </div>
 
           {/* Trust Level */}
-          <div className="space-y-1">
-            <label className="text-[11px] font-bold uppercase tracking-wider text-text-secondary">
+          <div className="space-y-1.5">
+            <label className="text-xs font-black uppercase tracking-wider text-foreground block">
               Verification Trust
             </label>
             <select
               value={selectedTrust}
               onChange={(e) => setSelectedTrust(e.target.value)}
-              className="w-full px-2.5 py-2 rounded-lg bg-surface-2 border border-border text-xs text-foreground focus:outline-none focus:border-primary font-medium"
+              className="w-full px-3 py-2.5 rounded-xl bg-surface-2 hover:bg-surface border-2 border-border/90 hover:border-primary/50 focus:border-primary text-sm font-bold text-foreground focus:outline-none transition-all cursor-pointer shadow-2xs"
             >
-              <option value="All">All Trust Levels</option>
-              <option value="verified_official">Verified Official</option>
-              <option value="verified_multi_source">Multi-Source Verified</option>
-              <option value="reported_single_source">Single-Source Reported</option>
-              <option value="unverified_recurring">Unverified Recurring</option>
+              <option value="All" className="bg-surface text-foreground font-bold">All Trust Levels</option>
+              <option value="verified_official" className="bg-surface text-foreground font-semibold">Verified Official</option>
+              <option value="verified_multi_source" className="bg-surface text-foreground font-semibold">Multi-Source Verified</option>
+              <option value="reported_single_source" className="bg-surface text-foreground font-semibold">Single-Source Reported</option>
+              <option value="unverified_recurring" className="bg-surface text-foreground font-semibold">Unverified Recurring</option>
             </select>
           </div>
 
           {/* Budget */}
-          <div className="space-y-1">
-            <label className="text-[11px] font-bold uppercase tracking-wider text-text-secondary">
+          <div className="space-y-1.5">
+            <label className="text-xs font-black uppercase tracking-wider text-foreground block">
               Indian Market Fee
             </label>
             <select
               value={selectedBudget}
               onChange={(e) => setSelectedBudget(e.target.value)}
-              className="w-full px-2.5 py-2 rounded-lg bg-surface-2 border border-border text-xs text-foreground focus:outline-none focus:border-primary font-medium"
+              className="w-full px-3 py-2.5 rounded-xl bg-surface-2 hover:bg-surface border-2 border-border/90 hover:border-primary/50 focus:border-primary text-sm font-bold text-foreground focus:outline-none transition-all cursor-pointer shadow-2xs"
             >
-              <option value="All">All Budgets (INR)</option>
-              <option value="₹0 Free / 100% Aid">₹0 Free / Coursework</option>
-              <option value="Under ₹5,000 / $60">Under ₹5,000 (NPTEL, PCEP, AZ India)</option>
-              <option value="₹5,000 – ₹15,000">₹5,000 – ₹15,000</option>
-              <option value="₹15,000+">₹15,000+ (CKA, PNPT, CCNA)</option>
+              <option value="All" className="bg-surface text-foreground font-bold">All Budgets (INR)</option>
+              <option value="₹0 Free / 100% Aid" className="bg-surface text-foreground font-semibold">₹0 Free / Coursework</option>
+              <option value="Under ₹5,000 / $60" className="bg-surface text-foreground font-semibold">Under ₹5,000 (NPTEL, PCEP, AZ India)</option>
+              <option value="₹5,000 – ₹15,000" className="bg-surface text-foreground font-semibold">₹5,000 – ₹15,000</option>
+              <option value="₹15,000+" className="bg-surface text-foreground font-semibold">₹15,000+ (CKA, PNPT, CCNA)</option>
             </select>
           </div>
 
           {/* Flag filter */}
-          <div className="space-y-1">
-            <label className="text-[11px] font-bold uppercase tracking-wider text-text-secondary">
+          <div className="space-y-1.5">
+            <label className="text-xs font-black uppercase tracking-wider text-foreground block">
               Special Attribute
             </label>
             <select
               value={selectedFlag}
               onChange={(e) => setSelectedFlag(e.target.value)}
-              className="w-full px-2.5 py-2 rounded-lg bg-surface-2 border border-border text-xs text-foreground focus:outline-none focus:border-primary font-medium"
+              className="w-full px-3 py-2.5 rounded-xl bg-surface-2 hover:bg-surface border-2 border-border/90 hover:border-primary/50 focus:border-primary text-sm font-bold text-foreground focus:outline-none transition-all cursor-pointer shadow-2xs"
             >
-              <option value="All">All Attributes</option>
-              <option value="best_value">Best Value per Rupee</option>
-              <option value="hands_on">Hands-On Practical Exam</option>
-              <option value="hidden_gem">Hidden Gem (High Signal)</option>
-              <option value="branch_edge_ece">Strong ECE / EEE Fit</option>
-              <option value="changed_2026">Terms Changed in 2026</option>
+              <option value="All" className="bg-surface text-foreground font-bold">All Attributes</option>
+              <option value="best_value" className="bg-surface text-foreground font-semibold">Best Value per Rupee</option>
+              <option value="hands_on" className="bg-surface text-foreground font-semibold">Hands-On Practical Exam</option>
+              <option value="hidden_gem" className="bg-surface text-foreground font-semibold">Hidden Gem (High Signal)</option>
+              <option value="branch_edge_ece" className="bg-surface text-foreground font-semibold">Strong ECE / EEE Fit</option>
+              <option value="changed_2026" className="bg-surface text-foreground font-semibold">Terms Changed in 2026</option>
             </select>
           </div>
         </div>
 
-        {/* Reset button if active filters */}
+        {/* Active Filter Chips and Reset Bar */}
         {(selectedCategory !== 'All' ||
           selectedRole !== 'All' ||
           selectedLevel !== 'All' ||
@@ -541,10 +545,90 @@ export function CertificationsTab({
           selectedTime !== 'All' ||
           selectedTier !== 'All' ||
           searchQuery) && (
-          <div className="pt-2 flex items-center justify-between text-xs text-text-secondary border-t border-border">
-            <span>
-              Showing <strong>{filteredCerts.length}</strong> of {allCerts.length} certifications
-            </span>
+          <div className="pt-3 border-t border-border flex flex-wrap items-center justify-between gap-3 animate-fade-in">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="px-3.5 py-1.5 rounded-xl bg-primary/15 border-2 border-primary/30 text-xs sm:text-sm font-black text-primary">
+                Showing {filteredCerts.length} of {allCerts.length} Certifications
+              </span>
+
+              {selectedRole !== 'All' && (
+                <button
+                  onClick={() => setSelectedRole('All')}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-2 border border-border text-xs font-bold text-foreground hover:bg-rose-500/10 hover:border-rose-500/30 hover:text-rose-600 transition-all cursor-pointer"
+                  title="Remove Target Role filter"
+                >
+                  <span>Role: <strong>{selectedRole}</strong></span>
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              )}
+
+              {selectedBranch !== 'All' && (
+                <button
+                  onClick={() => setSelectedBranch('All')}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-2 border border-border text-xs font-bold text-foreground hover:bg-rose-500/10 hover:border-rose-500/30 hover:text-rose-600 transition-all cursor-pointer"
+                  title="Remove Branch filter"
+                >
+                  <span>Branch: <strong>{selectedBranch}</strong></span>
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              )}
+
+              {selectedLevel !== 'All' && (
+                <button
+                  onClick={() => setSelectedLevel('All')}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-2 border border-border text-xs font-bold text-foreground hover:bg-rose-500/10 hover:border-rose-500/30 hover:text-rose-600 transition-all cursor-pointer"
+                  title="Remove Exam Level filter"
+                >
+                  <span>Level: <strong>{selectedLevel}</strong></span>
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              )}
+
+              {selectedTrust !== 'All' && (
+                <button
+                  onClick={() => setSelectedTrust('All')}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-2 border border-border text-xs font-bold text-foreground hover:bg-rose-500/10 hover:border-rose-500/30 hover:text-rose-600 transition-all cursor-pointer"
+                  title="Remove Trust filter"
+                >
+                  <span>Trust: <strong>{selectedTrust.replace('_', ' ')}</strong></span>
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              )}
+
+              {selectedBudget !== 'All' && (
+                <button
+                  onClick={() => setSelectedBudget('All')}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-2 border border-border text-xs font-bold text-foreground hover:bg-rose-500/10 hover:border-rose-500/30 hover:text-rose-600 transition-all cursor-pointer"
+                  title="Remove Fee filter"
+                >
+                  <span>Fee: <strong>{selectedBudget}</strong></span>
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              )}
+
+              {selectedFlag !== 'All' && (
+                <button
+                  onClick={() => setSelectedFlag('All')}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-2 border border-border text-xs font-bold text-foreground hover:bg-rose-500/10 hover:border-rose-500/30 hover:text-rose-600 transition-all cursor-pointer"
+                  title="Remove Attribute filter"
+                >
+                  <span>Attribute: <strong>{selectedFlag.replace('_', ' ')}</strong></span>
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              )}
+
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery('')}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-2 border border-border text-xs font-bold text-foreground hover:bg-rose-500/10 hover:border-rose-500/30 hover:text-rose-600 transition-all cursor-pointer"
+                  title="Clear search query"
+                >
+                  <span>Search: "{searchQuery}"</span>
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              )}
+            </div>
+
             <button
               onClick={() => {
                 setSearchQuery('');
@@ -558,9 +642,10 @@ export function CertificationsTab({
                 setSelectedTime('All');
                 setSelectedTier('All');
               }}
-              className="font-bold text-primary hover:underline cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-rose-500/15 hover:bg-rose-500/25 border-2 border-rose-500/30 font-black text-xs sm:text-sm text-rose-600 dark:text-rose-400 transition-all cursor-pointer shadow-2xs"
             >
-              Reset All Filters
+              <RotateCcw className="w-4 h-4" />
+              <span>Reset All Filters</span>
             </button>
           </div>
         )}
@@ -587,18 +672,18 @@ export function CertificationsTab({
                 {/* Header row */}
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex flex-wrap items-center gap-1.5">
-                    <span className="px-2 py-0.5 text-[10px] font-mono font-black rounded-md bg-primary/10 text-primary border border-primary/20">
+                    <span className="px-2.5 py-1 text-xs font-mono font-black rounded-lg bg-primary/10 text-primary border border-primary/25">
                       #{cert.rank}
                     </span>
-                    <span className="px-2 py-0.5 text-[10px] font-bold rounded-md bg-surface-2 text-text-secondary border border-border capitalize">
+                    <span className="px-2.5 py-1 text-xs font-black rounded-lg bg-surface-2 text-foreground border border-border capitalize">
                       {cert.level}
                     </span>
                     {cert.releaseTier === 'tier1' && (
-                      <span className="px-2 py-0.5 text-[10px] font-black rounded-md bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
+                      <span className="px-2.5 py-1 text-xs font-black rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
                         Tier 1 Core
                       </span>
                     )}
-                    <span className={`px-2 py-0.5 text-[10px] font-bold rounded-md border ${theme.badge}`}>
+                    <span className={`px-2.5 py-1 text-xs font-black rounded-lg border ${theme.badge}`}>
                       {theme.brand}
                     </span>
                     {renderTrustBadge(cert)}
@@ -606,7 +691,7 @@ export function CertificationsTab({
 
                   <button
                     onClick={(e) => handleTogglePlan(e, cert.id)}
-                    className={`p-2 rounded-xl border transition-all shrink-0 ${
+                    className={`p-2.5 rounded-xl border-2 transition-all shrink-0 cursor-pointer ${
                       isSaved
                         ? 'bg-primary text-white border-primary shadow-sm shadow-primary/30'
                         : 'bg-surface-2 border-border text-text-secondary hover:text-foreground hover:bg-surface-2/80'
@@ -620,11 +705,11 @@ export function CertificationsTab({
 
                 {/* Title & Issuer */}
                 <div>
-                  <h3 className="text-lg font-black text-foreground group-hover:text-primary transition-colors leading-snug tracking-tight">
+                  <h3 className="text-lg sm:text-xl font-black text-foreground group-hover:text-primary transition-colors leading-snug tracking-tight">
                     {cert.name}
                   </h3>
-                  <p className="text-xs text-text-secondary font-medium mt-1 flex items-center gap-1.5">
-                    <Award className="w-3.5 h-3.5 text-primary shrink-0" />
+                  <p className="text-sm font-bold text-text-secondary mt-1 flex items-center gap-1.5">
+                    <Award className="w-4 h-4 text-primary shrink-0" />
                     <span>{cert.issuer || cert.organizer}</span>
                   </p>
                 </div>
@@ -632,60 +717,60 @@ export function CertificationsTab({
                 {/* Branch and Special Attribute Badges */}
                 <div className="flex flex-wrap items-center gap-1.5">
                   {cert.flags?.includes('branch_edge_ece') && (
-                    <span className="px-2 py-0.5 text-[10px] font-bold rounded-md bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/25">
+                    <span className="px-2.5 py-1 text-xs font-black rounded-lg bg-purple-500/15 text-purple-600 dark:text-purple-400 border border-purple-500/30">
                       ⚡ High ECE/EEE Fit
                     </span>
                   )}
                   {cert.flags?.includes('branch_edge_mech') && (
-                    <span className="px-2 py-0.5 text-[10px] font-bold rounded-md bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/25">
+                    <span className="px-2.5 py-1 text-xs font-black rounded-lg bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30">
                       ⚙ Mech/Civil Core
                     </span>
                   )}
                   {cert.flags?.includes('branch_edge_noncs') && (
-                    <span className="px-2 py-0.5 text-[10px] font-bold rounded-md bg-teal-500/10 text-teal-600 dark:text-teal-400 border border-teal-500/25">
+                    <span className="px-2.5 py-1 text-xs font-black rounded-lg bg-teal-500/15 text-teal-600 dark:text-teal-400 border border-teal-500/30">
                       🌐 Non-CS Edge
                     </span>
                   )}
                   {cert.flags?.includes('best_value') && (
-                    <span className="px-2 py-0.5 text-[10px] font-bold rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25 flex items-center gap-0.5">
-                      <Sparkles className="w-2.5 h-2.5" /> Best Value
+                    <span className="px-2.5 py-1 text-xs font-black rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 flex items-center gap-1">
+                      <Sparkles className="w-3 h-3" /> Best Value
                     </span>
                   )}
                   {cert.flags?.includes('hands_on') && (
-                    <span className="px-2 py-0.5 text-[10px] font-bold rounded-md bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/25">
+                    <span className="px-2.5 py-1 text-xs font-black rounded-lg bg-blue-500/15 text-blue-600 dark:text-blue-400 border border-blue-500/30">
                       Hands-On Practical
                     </span>
                   )}
                   {cert.flags?.includes('changed_2026') && (
-                    <span className="px-2 py-0.5 text-[10px] font-bold rounded-md bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/25">
+                    <span className="px-2.5 py-1 text-xs font-black rounded-lg bg-rose-500/15 text-rose-600 dark:text-rose-400 border border-rose-500/30">
                       2026 Terms Updated
                     </span>
                   )}
                 </div>
 
                 {/* What it proves */}
-                <p className="text-xs text-text-secondary line-clamp-2 leading-relaxed">
+                <p className="text-sm font-medium text-foreground/90 leading-relaxed">
                   {cert.whatItProves}
                 </p>
 
                 {/* Fee & Prep Duration Grid */}
-                <div className="grid grid-cols-2 gap-2 pt-1">
-                  <div className="bg-surface-2/70 border border-border/80 rounded-xl p-2.5">
-                    <p className="text-[10px] font-bold text-text-muted uppercase tracking-wider mb-1">
+                <div className="grid grid-cols-2 gap-2.5 pt-1">
+                  <div className="bg-surface-2/80 border-2 border-border/80 rounded-xl p-3">
+                    <p className="text-xs font-black text-text-secondary uppercase tracking-wider mb-1">
                       Fee / Student Aid
                     </p>
-                    <p className="text-xs font-black text-emerald-600 dark:text-emerald-400 flex items-center gap-1 truncate" title={priceDisplay}>
-                      <IndianRupee className="w-3.5 h-3.5 shrink-0" />
+                    <p className="text-sm sm:text-base font-black text-emerald-600 dark:text-emerald-400 flex items-center gap-1 truncate" title={priceDisplay}>
+                      <IndianRupee className="w-4 h-4 shrink-0" />
                       <span>{priceDisplay}</span>
                     </p>
                   </div>
 
-                  <div className="bg-surface-2/70 border border-border/80 rounded-xl p-2.5">
-                    <p className="text-[10px] font-bold text-text-muted uppercase tracking-wider mb-1">
+                  <div className="bg-surface-2/80 border-2 border-border/80 rounded-xl p-3">
+                    <p className="text-xs font-black text-text-secondary uppercase tracking-wider mb-1">
                       Prep Duration
                     </p>
-                    <p className="text-xs font-bold text-foreground flex items-center gap-1.5 truncate">
-                      <Clock className="w-3.5 h-3.5 text-primary shrink-0" />
+                    <p className="text-sm font-bold text-foreground flex items-center gap-1.5 truncate">
+                      <Clock className="w-4 h-4 text-primary shrink-0" />
                       <span>{cert.estimatedPreparationTime}</span>
                     </p>
                   </div>
@@ -694,68 +779,85 @@ export function CertificationsTab({
                 {/* Student Aid Callout */}
                 {(cert.studentDiscountNote || cert.studentAid?.summary) && (
                   <div
-                    className="group/waiver p-2.5 rounded-xl bg-surface-2/80 hover:bg-primary/5 border border-border hover:border-primary/40 flex items-center justify-between text-xs transition-colors shadow-2xs"
+                    className="group/waiver p-3 rounded-xl bg-surface-2/90 hover:bg-primary/10 border-2 border-border hover:border-primary/50 flex items-center justify-between text-xs transition-colors shadow-2xs"
                     title={cert.studentDiscountNote || cert.studentAid?.summary || ''}
                   >
                     <div className="flex items-center gap-2.5 min-w-0">
-                      <div className="p-1.5 rounded-lg bg-primary/10 text-primary group-hover/waiver:bg-primary group-hover/waiver:text-white transition-colors shrink-0">
+                      <div className="p-2 rounded-lg bg-primary/15 text-primary group-hover/waiver:bg-primary group-hover/waiver:text-white transition-colors shrink-0">
                         <GraduationCap className="w-4 h-4" />
                       </div>
                       <div className="min-w-0">
                         <div className="flex items-center gap-1.5">
-                          <p className="text-[11px] font-bold text-foreground truncate">
+                          <p className="text-xs font-black text-foreground truncate">
                             Student Aid & Waiver Pathway
                           </p>
-                          <span className="px-1.5 py-0.2 rounded text-[9px] font-extrabold uppercase bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25">
+                          <span className="px-1.5 py-0.5 rounded text-[10px] font-black uppercase bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
                             Playbook
                           </span>
                         </div>
-                        <p className="text-[10px] text-text-muted truncate">
+                        <p className="text-xs font-medium text-text-secondary truncate mt-0.5">
                           {cert.studentAid?.summary || cert.studentDiscountNote}
                         </p>
                       </div>
                     </div>
-                    <span className="text-[10px] font-bold text-primary flex items-center shrink-0 ml-2 group-hover/waiver:translate-x-0.5 transition-transform">
-                      Details <ChevronRight className="w-3 h-3 ml-0.5" />
+                    <span className="text-xs font-black text-primary flex items-center shrink-0 ml-2 group-hover/waiver:translate-x-0.5 transition-transform">
+                      Details <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
                     </span>
                   </div>
                 )}
 
                 {/* Target Roles */}
                 <div className="flex flex-wrap gap-1.5 pt-1">
-                  {cert.targetRoles.slice(0, 2).map((role, idx) => (
+                  {cert.targetRoles.slice(0, 3).map((role, idx) => (
                     <span
                       key={idx}
-                      className="text-[11px] font-bold px-2.5 py-1 rounded-md bg-surface-2 text-foreground/80 border border-border"
+                      className="text-xs font-bold px-3 py-1 rounded-lg bg-surface-2 text-foreground border border-border"
                     >
                       {role}
                     </span>
                   ))}
-                  {cert.targetRoles.length > 2 && (
-                    <span className="text-[10px] text-muted self-center font-bold">
-                      +{cert.targetRoles.length - 2} more
+                  {cert.targetRoles.length > 3 && (
+                    <span className="text-xs text-text-muted self-center font-black">
+                      +{cert.targetRoles.length - 3} more
                     </span>
                   )}
                 </div>
               </div>
 
               {/* Bottom Dual Action Bar */}
-              <div className="mt-5 pt-4 border-t border-border flex items-center justify-between gap-2 text-xs">
-                {/* Working Direct Website Portal Link */}
-                <a
-                  href={portalUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={(e) => handleExternalRedirect(e, portalUrl)}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-surface-2 hover:bg-primary hover:text-white border border-border hover:border-primary font-bold text-foreground transition-all duration-200 group/btn shadow-xs cursor-pointer"
-                  title={`Open official portal (${getDomainFromUrl(portalUrl)})`}
-                >
-                  <span>Official Portal</span>
-                  <ExternalLink className="w-3.5 h-3.5 text-primary group-hover/btn:text-white shrink-0" />
-                </a>
+              <div className="mt-5 pt-4 border-t border-border flex flex-wrap items-center justify-between gap-2 text-xs">
+                <div className="flex items-center gap-2">
+                  {/* Working Direct Website Portal Link */}
+                  <a
+                    href={portalUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => handleExternalRedirect(e, portalUrl)}
+                    className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-surface-2 hover:bg-primary hover:text-white border border-border hover:border-primary font-black text-xs sm:text-sm text-foreground transition-all duration-200 group/btn shadow-xs cursor-pointer"
+                    title={`Open official portal (${getDomainFromUrl(portalUrl)})`}
+                  >
+                    <span>Portal</span>
+                    <ExternalLink className="w-3.5 h-3.5 text-primary group-hover/btn:text-white shrink-0" />
+                  </a>
+
+                  {/* Direct Operable Syllabus Link */}
+                  {cert.syllabusUrl && (
+                    <a
+                      href={cert.syllabusUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => handleExternalRedirect(e, cert.syllabusUrl)}
+                      className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-surface-2 hover:bg-surface-3 border border-border font-bold text-xs sm:text-sm text-text-secondary hover:text-foreground transition-all cursor-pointer"
+                      title="Open official examination syllabus and objectives"
+                    >
+                      <FileText className="w-3.5 h-3.5 text-primary" />
+                      <span>Syllabus</span>
+                    </a>
+                  )}
+                </div>
 
                 {/* Modal View Details Trigger */}
-                <span className="inline-flex items-center gap-1 font-bold text-primary group-hover:translate-x-1 transition-transform">
+                <span className="inline-flex items-center gap-1 font-black text-xs sm:text-sm text-primary group-hover:translate-x-1 transition-transform">
                   <span>View Details</span>
                   <ChevronRight className="w-4 h-4" />
                 </span>
@@ -765,13 +867,50 @@ export function CertificationsTab({
         })}
       </div>
 
+      {/* Prominent Empty State with Instant Filter Reset */}
       {filteredCerts.length === 0 && (
-        <div className="p-12 text-center rounded-2xl bg-surface border-2 border-dashed border-border space-y-3">
-          <Award className="w-10 h-10 text-muted mx-auto" />
-          <h3 className="text-lg font-bold text-foreground">No certifications match your active filters</h3>
-          <p className="text-sm text-text-secondary max-w-md mx-auto">
-            Try adjusting your role, branch, or budget filters to explore credentials from the catalog.
-          </p>
+        <div className="p-10 sm:p-14 text-center rounded-3xl bg-surface border-2 border-dashed border-border/90 space-y-5 shadow-sm animate-fade-in">
+          <div className="w-16 h-16 rounded-2xl bg-primary/10 border-2 border-primary/25 flex items-center justify-center text-primary mx-auto shadow-inner">
+            <Filter className="w-8 h-8" />
+          </div>
+          <div className="space-y-2">
+            <h3 className="text-xl sm:text-2xl font-black text-foreground">
+              No certifications match your active filters
+            </h3>
+            <p className="text-sm sm:text-base font-bold text-text-secondary max-w-lg mx-auto leading-relaxed">
+              You currently have selective filters applied ({selectedRole !== 'All' ? `Role: "${selectedRole}", ` : ''}{selectedBranch !== 'All' ? `Branch: "${selectedBranch}", ` : ''}{selectedTrust !== 'All' ? `Trust: "${selectedTrust.replace('_', ' ')}"` : ''}).
+            </p>
+          </div>
+
+          <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
+            <button
+              onClick={() => {
+                setSearchQuery('');
+                setSelectedCategory('All');
+                setSelectedRole('All');
+                setSelectedLevel('All');
+                setSelectedBranch('All');
+                setSelectedTrust('All');
+                setSelectedFlag('All');
+                setSelectedBudget('All');
+                setSelectedTime('All');
+                setSelectedTier('All');
+              }}
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary hover:bg-primary/90 text-white font-black text-sm shadow-lg shadow-primary/25 cursor-pointer transition-all hover:scale-[1.02]"
+            >
+              <RotateCcw className="w-4 h-4" />
+              <span>Reset All Filters & Show All {allCerts.length} Certifications</span>
+            </button>
+
+            {selectedTrust === 'unverified_recurring' && (
+              <button
+                onClick={() => setSelectedTrust('All')}
+                className="px-5 py-3 rounded-xl bg-surface-2 hover:bg-surface-3 border border-border text-sm font-bold text-foreground cursor-pointer transition-all"
+              >
+                Clear "Unverified Recurring" Filter (Show Verified)
+              </button>
+            )}
+          </div>
         </div>
       )}
     </div>
