@@ -7,10 +7,11 @@
 import { OpportunityRecord } from '../types';
 import { INDIAN_FLAGSHIP_OPPORTUNITIES } from './indianOpportunitiesData';
 import { RESEARCHED_MARKET_OPPORTUNITIES } from './researchedOpportunitiesData';
+import { enrichOpportunityWithCuratedBrief } from './curatedBriefsPayload';
 
 export { INDIAN_FLAGSHIP_OPPORTUNITIES, RESEARCHED_MARKET_OPPORTUNITIES };
 
-export const TOP_30_OPPORTUNITIES: OpportunityRecord[] = [
+const RAW_TOP_30_OPPORTUNITIES: OpportunityRecord[] = [
   // =========================================================================
   // TIER 1 — BUILD FIRST (Records 1 to 10)
   // =========================================================================
@@ -1963,6 +1964,8 @@ export const TOP_30_OPPORTUNITIES: OpportunityRecord[] = [
   },
 ];
 
+export const TOP_30_OPPORTUNITIES: OpportunityRecord[] =
+  RAW_TOP_30_OPPORTUNITIES.map(enrichOpportunityWithCuratedBrief);
 
 // Combined catalog: Core Top 30 + Indian Flagship Competitions & Fellowships + Researched Market Opportunities
 export const ALL_OPPORTUNITIES: OpportunityRecord[] = [

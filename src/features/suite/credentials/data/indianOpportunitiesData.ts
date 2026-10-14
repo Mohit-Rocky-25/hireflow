@@ -5,8 +5,9 @@
 // ============================================================
 
 import { OpportunityRecord } from '../types';
+import { enrichOpportunityWithCuratedBrief } from './curatedBriefsPayload';
 
-export const INDIAN_FLAGSHIP_OPPORTUNITIES: OpportunityRecord[] = [
+const RAW_INDIAN_FLAGSHIP_OPPORTUNITIES: OpportunityRecord[] = [
   // 1. Flipkart GRiD
   {
     schemaVersion: 1,
@@ -823,3 +824,6 @@ export const INDIAN_FLAGSHIP_OPPORTUNITIES: OpportunityRecord[] = [
     whatItProves: 'Proves high-level product vision, architectural maturity with Azure cloud, and executive-level pitching ability.',
   },
 ];
+
+export const INDIAN_FLAGSHIP_OPPORTUNITIES: OpportunityRecord[] =
+  RAW_INDIAN_FLAGSHIP_OPPORTUNITIES.map(enrichOpportunityWithCuratedBrief);

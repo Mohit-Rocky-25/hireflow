@@ -543,13 +543,8 @@ export function EventsTab({
           return (
             <div
               key={event.id}
-              onClick={() => {
-                const targetUrl = event.directPortalUrl || event.officialUrl || event.syllabusUrl;
-                if (targetUrl) {
-                  window.open(targetUrl, '_blank', 'noopener,noreferrer');
-                }
-              }}
-              title={`Click to directly open official page for ${event.name}`}
+              onClick={() => onSelectOpportunity(event)}
+              title={`Click to open full competition brief for ${event.name}`}
               className="group bg-surface rounded-2xl border-2 border-border/80 p-6 flex flex-col justify-between hover:border-orange-500/50 hover:shadow-lg transition-all duration-300 cursor-pointer shadow-sm hover:-translate-y-1 relative overflow-hidden"
             >
               <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-orange-500 via-amber-400 to-transparent" />
@@ -718,7 +713,7 @@ export function EventsTab({
                   )}
                 </div>
 
-                {/* Modal View Details Trigger */}
+                {/* Modal View Brief Trigger */}
                 <button
                   type="button"
                   onClick={(e) => {
@@ -726,9 +721,9 @@ export function EventsTab({
                     onSelectOpportunity(event);
                   }}
                   className="inline-flex items-center gap-1 font-black text-xs sm:text-sm text-orange-500 hover:text-orange-600 dark:hover:text-orange-400 group-hover:translate-x-0.5 transition-all cursor-pointer hover:underline"
-                  title="Open in-depth competition rules, dates & breakdown modal"
+                  title="Open in-depth competition rules, dates & breakdown brief"
                 >
-                  <span>View Details</span>
+                  <span>View Brief</span>
                   <ChevronRight className="w-4 h-4" />
                 </button>
               </div>

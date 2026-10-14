@@ -449,13 +449,8 @@ export function OpenSourceTab({
           return (
             <div
               key={opp.id}
-              onClick={() => {
-                const targetUrl = opp.directPortalUrl || opp.officialUrl || opp.syllabusUrl;
-                if (targetUrl) {
-                  window.open(targetUrl, '_blank', 'noopener,noreferrer');
-                }
-              }}
-              title={`Click to directly open official page for ${opp.name}`}
+              onClick={() => onSelectOpportunity(opp)}
+              title={`Click to open full fellowship & program brief for ${opp.name}`}
               className="group bg-surface rounded-2xl border-2 border-border/80 p-6 flex flex-col justify-between hover:border-emerald-500/50 hover:shadow-lg transition-all duration-300 cursor-pointer shadow-sm hover:-translate-y-1 relative overflow-hidden"
             >
               <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-emerald-500 via-teal-400 to-transparent" />
@@ -625,9 +620,9 @@ export function OpenSourceTab({
                     onSelectOpportunity(opp);
                   }}
                   className="inline-flex items-center gap-1 font-black text-xs sm:text-sm text-emerald-500 hover:text-emerald-600 dark:hover:text-emerald-400 group-hover:translate-x-0.5 transition-all cursor-pointer hover:underline"
-                  title="Open in-depth stipend, timeline & application guidelines modal"
+                  title="Open in-depth stipend, timeline & application guidelines brief"
                 >
-                  <span>View Details</span>
+                  <span>View Brief</span>
                   <ChevronRight className="w-4 h-4" />
                 </button>
               </div>

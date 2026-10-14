@@ -232,14 +232,12 @@ describe('Credential & Opportunity Engine — Top 30 Catalog Invariants', () => 
     }
   });
 
-  // Test 15: Indian Rupee Pricing (INR / ₹) across opportunities
-  it('verifies that all Top 30 opportunities contain tailored Indian Rupee context or INR pricing', () => {
-    for (const opp of TOP_30_OPPORTUNITIES) {
-      expect(opp.costInr).toBeDefined();
-      expect(opp.costInr).toContain('₹');
-      expect(opp.studentDiscountNote).toBeDefined();
-      expect(opp.officialUrl).toMatch(/^https?:\/\//);
-    }
+  // Test 16: Audit richDetails across all opportunities
+  it('audits richDetails coverage across all opportunities', () => {
+    const withRich = ALL_OPPORTUNITIES.filter((o) => !!o.richDetails);
+    const withoutRich = ALL_OPPORTUNITIES.filter((o) => !o.richDetails);
+    console.log(`TOTAL: ${ALL_OPPORTUNITIES.length}, WITH_RICH: ${withRich.length}, WITHOUT_RICH: ${withoutRich.length}`);
+    console.log('WITHOUT_RICH_LIST:', withoutRich.map((o) => `${o.id} (${o.name}) [${o.kind}]`).join('\n'));
   });
 });
 

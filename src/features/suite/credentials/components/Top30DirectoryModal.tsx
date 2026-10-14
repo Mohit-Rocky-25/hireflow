@@ -189,10 +189,11 @@ export function Top30DirectoryModal({
                   <tr
                     key={opp.id}
                     onClick={() => {
-                      if (portalUrl) window.open(portalUrl, '_blank', 'noopener,noreferrer');
+                      onSelectOpportunity(opp);
+                      onClose();
                     }}
                     className="hover:bg-surface-2 transition-colors cursor-pointer group"
-                    title={`Click to open official site for ${opp.name}`}
+                    title={`Click to open full preparation brief for ${opp.name}`}
                   >
                     <td className="py-3 px-3 font-mono font-bold text-primary">#{opp.rank}</td>
                     <td className="py-3 px-3 font-bold text-foreground group-hover:text-primary transition-colors">
@@ -245,9 +246,9 @@ export function Top30DirectoryModal({
                           onClose();
                         }}
                         className="text-primary font-bold hover:underline inline-flex items-center gap-0.5 cursor-pointer"
-                        title="View modal breakdown & aid"
+                        title="View comprehensive preparation brief & aid"
                       >
-                        <span>Details</span>
+                        <span>Brief</span>
                         <ChevronRight className="w-3.5 h-3.5" />
                       </button>
                     </td>
