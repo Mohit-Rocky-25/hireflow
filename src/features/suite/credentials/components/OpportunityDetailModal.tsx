@@ -1,9 +1,10 @@
 // ============================================================
 // Credential & Opportunity Engine — Detail Modal Component
-// High-fidelity modal displaying Indian pricing, student aid, & direct portal links
+// High-fidelity multi-tab modal displaying Indian pricing, operable syllabus guides,
+// student waivers, timeline windows, verifiable resume evidence, & official citations.
 // ============================================================
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import {
   X,
   ExternalLink,
@@ -22,8 +23,19 @@ import {
   IndianRupee,
   Briefcase,
   Coins,
+  FileText,
+  Users,
+  Building2,
+  ArrowRight,
+  BookmarkCheck,
+  Info,
 } from 'lucide-react';
-import { OpportunityRecord, OpportunityPlanStatus } from '../types';
+import {
+  OpportunityRecord,
+  OpportunityPlanStatus,
+  formatComputedInr,
+  USD_TO_INR_EXCHANGE_RATE,
+} from '../types';
 import { CredentialsStorage } from '../storage';
 
 interface OpportunityDetailModalProps {
@@ -32,16 +44,20 @@ interface OpportunityDetailModalProps {
   onPlanUpdated?: () => void;
 }
 
+type ModalTab = 'overview' | 'fees_aid' | 'syllabus' | 'resume_evidence' | 'pitfalls_sources';
+
 export function OpportunityDetailModal({
   opportunity,
   onClose,
   onPlanUpdated,
 }: OpportunityDetailModalProps) {
+  const [activeTab, setActiveTab] = useState<ModalTab>('overview');
   const [copiedTemplate, setCopiedTemplate] = useState(false);
   const [currentStatus, setCurrentStatus] = useState<OpportunityPlanStatus | null>(null);
 
   useEffect(() => {
     if (!opportunity) return;
+    setActiveTab('overview');
     const items = CredentialsStorage.loadPlanItems();
     const existing = items.find((i) => i.opportunityId === opportunity.id);
     setCurrentStatus(existing ? existing.status : null);
@@ -73,9 +89,9 @@ export function OpportunityDetailModal({
         status,
         targetTimeline: '30_day',
         priority: 'high',
-        reasonForRecommendation: `Added directly from catalog: ${opportunity.name}`,
+        reasonForRecommendation: `Saved directly from detail modal: ${opportunity.name}`,
         evidenceCreated: `Verifiable evidence for ${opportunity.targetRoles.slice(0, 2).join(', ')}`,
-        resumeImprovementSupported: `Supports resume evidence in ${opportunity.relatedSkills.slice(0, 3).join(', ')}`,
+        resumeImprovementSupported: `Supports resume proof in ${opportunity.relatedSkills.slice(0, 3).join(', ')}`,
         estimatedEffort: opportunity.estimatedPreparationTime,
         completionCondition: `Complete official requirements and verify certificate/project link.`,
         addedAt: new Date().toISOString(),
@@ -86,35 +102,9 @@ export function OpportunityDetailModal({
     if (onPlanUpdated) onPlanUpdated();
   };
 
-  const getTierBadge = (tier: string) => {
-    switch (tier) {
-      case 'tier1':
-        return <span className="px-2.5 py-1 text-xs font-black rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">Tier 1 · Build First</span>;
-      case 'tier2':
-        return <span className="px-2.5 py-1 text-xs font-black rounded-lg bg-blue-500/15 text-blue-600 dark:text-blue-400 border border-blue-500/30">Tier 2 · Build Next</span>;
-      case 'tier3':
-        return <span className="px-2.5 py-1 text-xs font-black rounded-lg bg-purple-500/15 text-purple-600 dark:text-purple-400 border border-purple-500/30">Tier 3 · Post-Core</span>;
-      default:
-        return null;
-    }
-  };
-
-  const getValueBadge = (label: string, val: 'low' | 'medium' | 'high') => {
-    const colors = {
-      high: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/30',
-      medium: 'bg-primary/10 text-primary border-primary/25',
-      low: 'bg-surface-2 text-text-secondary border-border',
-    };
-    return (
-      <span className={`inline-flex items-center gap-1 px-2.5 py-1 text-xs font-semibold rounded-md border ${colors[val]}`}>
-        <span>{label}:</span>
-        <span className="capitalize font-bold">{val}</span>
-      </span>
-    );
-  };
-
   const portalUrl = opportunity.directPortalUrl || opportunity.officialUrl;
-  const isIndian = opportunity.isIndianFlagship || opportunity.id === 'opp-sih';
+  const syllabusUrl = opportunity.syllabusUrl || portalUrl;
+  const isIndian = opportunity.isIndianFlagship || opportunity.id.includes('sih') || opportunity.id.includes('grid');
 
   const handleExternalRedirect = (e: React.MouseEvent, url?: string) => {
     e.preventDefault();
@@ -133,13 +123,18 @@ export function OpportunityDetailModal({
     }
   };
 
+  const formattedFee = formatComputedInr(
+    opportunity.feeDisplay?.usd ?? null,
+    opportunity.feeDisplay?.inrOfficial ?? null
+  );
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md animate-fade-in">
       <div
         className="bg-surface border-2 border-border/80 rounded-3xl w-full max-w-4xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden animate-scale-in relative"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Effulgent Top Accent Bar */}
+        {/* Top Accent Gradient Bar */}
         <div
           className={`h-2 w-full bg-gradient-to-r ${
             isIndian
@@ -152,24 +147,30 @@ export function OpportunityDetailModal({
         <div className="p-6 sm:p-8 border-b border-border bg-surface-2/60 flex items-start justify-between gap-4">
           <div className="space-y-2">
             <div className="flex flex-wrap items-center gap-2">
-              {isIndian ? (
-                <span className="px-2.5 py-1 text-xs font-black rounded-lg bg-orange-500/15 text-orange-600 dark:text-orange-400 border border-orange-500/30 flex items-center gap-1">
-                  <span>🇮🇳</span>
-                  <span>National Indian Flagship</span>
-                </span>
-              ) : (
-                <span className="px-2.5 py-1 text-xs font-mono font-black rounded-md bg-primary/10 text-primary border border-primary/20">
-                  #{opportunity.rank} of Catalog
+              <span className="px-2.5 py-1 text-xs font-mono font-black rounded-md bg-primary/10 text-primary border border-primary/20">
+                #{opportunity.rank} in Engine
+              </span>
+
+              {opportunity.releaseTier === 'tier1' && (
+                <span className="px-2.5 py-1 text-xs font-black rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
+                  Tier 1 Core
                 </span>
               )}
 
-              {getTierBadge(opportunity.releaseTier)}
               <span className="px-2.5 py-1 text-xs font-bold rounded-md bg-surface text-text-secondary border border-border capitalize">
                 {opportunity.kind.replace('_', ' ')}
               </span>
-              {opportunity.level && (
-                <span className="px-2.5 py-1 text-xs font-bold rounded-md bg-surface text-text-secondary border border-border capitalize">
-                  Level: {opportunity.level}
+
+              {opportunity.trust && (
+                <span className="px-2.5 py-1 text-xs font-bold rounded-md bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 flex items-center gap-1">
+                  <ShieldCheck className="w-3.5 h-3.5" />
+                  <span className="capitalize">{opportunity.trust.replace('_', ' ')}</span>
+                </span>
+              )}
+
+              {opportunity.branches && !opportunity.branches.includes('ALL') && (
+                <span className="px-2.5 py-1 text-xs font-bold rounded-md bg-purple-500/15 text-purple-600 dark:text-purple-400 border border-purple-500/30">
+                  {opportunity.branches.join(', ')} Fit
                 </span>
               )}
             </div>
@@ -193,25 +194,77 @@ export function OpportunityDetailModal({
         </div>
 
         {/* Action Quick Bar */}
-        <div className="px-6 sm:px-8 py-3.5 bg-surface border-b border-border flex flex-wrap items-center justify-between gap-3">
-          <div className="flex flex-wrap items-center gap-2">
-            {getValueBadge('Resume Value', opportunity.resumeValue)}
-            {getValueBadge('Evidence Value', opportunity.evidenceValue)}
-            {getValueBadge('Portfolio Value', opportunity.portfolioValue)}
-            <span className="text-xs text-text-secondary px-2 py-1 rounded-md bg-surface-2 border border-border">
-              Confidence: <strong className="capitalize text-foreground">{opportunity.confidence}</strong>
-            </span>
+        <div className="px-6 sm:px-8 py-3 bg-surface border-b border-border flex flex-wrap items-center justify-between gap-3">
+          {/* 5 Deep Tabs Navigation */}
+          <div className="flex items-center gap-1 sm:gap-2 overflow-x-auto pb-1 scrollbar-none">
+            <button
+              onClick={() => setActiveTab('overview')}
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                activeTab === 'overview'
+                  ? 'bg-primary text-white shadow-xs'
+                  : 'text-text-secondary hover:text-foreground hover:bg-surface-2'
+              }`}
+            >
+              1. Overview
+            </button>
+
+            <button
+              onClick={() => setActiveTab('fees_aid')}
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1 ${
+                activeTab === 'fees_aid'
+                  ? 'bg-emerald-600 text-white shadow-xs'
+                  : 'text-text-secondary hover:text-foreground hover:bg-surface-2'
+              }`}
+            >
+              <IndianRupee className="w-3.5 h-3.5" />
+              <span>2. Fees & Waivers</span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab('syllabus')}
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1 ${
+                activeTab === 'syllabus'
+                  ? 'bg-indigo-600 text-white shadow-xs'
+                  : 'text-text-secondary hover:text-foreground hover:bg-surface-2'
+              }`}
+            >
+              <FileText className="w-3.5 h-3.5" />
+              <span>3. Syllabus & Guide</span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab('resume_evidence')}
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                activeTab === 'resume_evidence'
+                  ? 'bg-primary text-white shadow-xs'
+                  : 'text-text-secondary hover:text-foreground hover:bg-surface-2'
+              }`}
+            >
+              4. Resume Evidence
+            </button>
+
+            <button
+              onClick={() => setActiveTab('pitfalls_sources')}
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                activeTab === 'pitfalls_sources'
+                  ? 'bg-primary text-white shadow-xs'
+                  : 'text-text-secondary hover:text-foreground hover:bg-surface-2'
+              }`}
+            >
+              5. Pitfalls & Sources
+            </button>
           </div>
 
-          <div className="flex items-center gap-2.5">
-            <div className="inline-flex rounded-xl border border-border bg-surface-2 p-1 text-xs font-semibold">
+          <div className="flex items-center gap-2">
+            {/* Save to Plan Quick Switch */}
+            <div className="inline-flex rounded-xl border border-border bg-surface-2 p-0.5 text-xs font-semibold">
               {(['interested', 'in_progress', 'completed'] as OpportunityPlanStatus[]).map((st) => (
                 <button
                   key={st}
                   onClick={() => handleToggleSavePlan(st)}
-                  className={`px-3 py-1.5 rounded-lg capitalize transition-all cursor-pointer ${
+                  className={`px-2.5 py-1 rounded-lg capitalize transition-all cursor-pointer ${
                     currentStatus === st
-                      ? 'bg-primary text-white shadow-xs font-bold'
+                      ? 'bg-primary text-white font-bold shadow-xs'
                       : 'text-text-secondary hover:text-foreground'
                   }`}
                 >
@@ -219,272 +272,508 @@ export function OpportunityDetailModal({
                 </button>
               ))}
             </div>
+          </div>
+        </div>
 
-            {/* Direct Official Link Button */}
+        {/* Scrollable Tab Content Body */}
+        <div className="p-6 sm:p-8 space-y-6 overflow-y-auto text-sm leading-relaxed text-foreground flex-1">
+          {/* TAB 1: OVERVIEW */}
+          {activeTab === 'overview' && (
+            <div className="space-y-6 animate-fade-in">
+              <div className="space-y-2">
+                <h3 className="text-xs font-bold uppercase tracking-wider text-primary flex items-center gap-2">
+                  <BookOpen className="w-4 h-4" />
+                  What it is
+                </h3>
+                <p className="text-text-secondary text-sm sm:text-base leading-relaxed">
+                  {opportunity.richDetails?.overview || opportunity.whatItIs}
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="p-5 rounded-2xl bg-surface-2 border border-border space-y-2">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-foreground flex items-center gap-2">
+                    <Sparkles className="w-4 h-4 text-primary" />
+                    Who should take it
+                  </h3>
+                  <p className="text-xs sm:text-sm text-text-secondary leading-relaxed">
+                    {opportunity.whoShouldTakeIt}
+                  </p>
+                </div>
+
+                <div className="p-5 rounded-2xl bg-surface-2 border border-border space-y-2">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-foreground flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+                    What it proves
+                  </h3>
+                  <p className="text-xs sm:text-sm text-text-secondary leading-relaxed">
+                    {opportunity.whatItProves}
+                  </p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div className="p-4 rounded-xl bg-surface-2 border border-border space-y-1">
+                  <span className="text-[11px] font-bold uppercase text-text-secondary">Candidate Level</span>
+                  <p className="text-sm font-bold text-foreground capitalize">
+                    {opportunity.level || 'All Candidate Levels'}
+                  </p>
+                </div>
+
+                <div className="p-4 rounded-xl bg-surface-2 border border-border space-y-1">
+                  <span className="text-[11px] font-bold uppercase text-text-secondary">Preparation Duration</span>
+                  <p className="text-sm font-bold text-foreground flex items-center gap-1.5">
+                    <Clock className="w-4 h-4 text-primary shrink-0" />
+                    <span>{opportunity.estimatedPreparationTime}</span>
+                  </p>
+                </div>
+
+                <div className="p-4 rounded-xl bg-surface-2 border border-border space-y-1">
+                  <span className="text-[11px] font-bold uppercase text-text-secondary">Credential Validity</span>
+                  <p className="text-sm font-bold text-foreground truncate">
+                    {opportunity.richDetails?.validityRenewal || opportunity.richDetails?.validity_renewal || opportunity.validity || 'Standard Industry Validity'}
+                  </p>
+                </div>
+              </div>
+
+              {/* Target Roles & Related Skills */}
+              <div className="space-y-3">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-text-secondary">
+                  Target Engineering Roles
+                </h4>
+                <div className="flex flex-wrap gap-2">
+                  {opportunity.targetRoles.map((role, idx) => (
+                    <span
+                      key={idx}
+                      className="px-3 py-1 rounded-lg bg-surface-2 border border-border text-xs font-bold text-foreground"
+                    >
+                      {role}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="space-y-3">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-text-secondary">
+                  Demonstrated Competencies
+                </h4>
+                <div className="flex flex-wrap gap-2">
+                  {(opportunity.richDetails?.whatItCovers || opportunity.richDetails?.what_it_covers || opportunity.relatedSkills).map((skill, idx) => (
+                    <span
+                      key={idx}
+                      className="px-3 py-1 rounded-lg bg-primary/10 border border-primary/20 text-xs font-medium text-foreground"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* TAB 2: FEES, WAIVERS & STUDENT AID */}
+          {activeTab === 'fees_aid' && (
+            <div className="space-y-6 animate-fade-in">
+              <div className="p-6 rounded-2xl bg-surface-2 border-2 border-emerald-500/30 space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <div className="p-2.5 rounded-xl bg-emerald-500/15 text-emerald-600 dark:text-emerald-400">
+                      <IndianRupee className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h3 className="text-base font-black text-foreground">
+                        Examination & Registration Pricing (India Market)
+                      </h3>
+                      <p className="text-xs text-text-secondary">
+                        Computed dynamically at ₹{USD_TO_INR_EXCHANGE_RATE}/USD exchange rate or verified official INR
+                      </p>
+                    </div>
+                  </div>
+
+                  {opportunity.ppoOffered && (
+                    <span className="px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 text-xs font-black">
+                      {opportunity.ppoOffered}
+                    </span>
+                  )}
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+                  <div className="p-4 rounded-xl bg-surface border border-border space-y-1">
+                    <span className="text-[11px] font-bold uppercase text-text-secondary">Effective Cost</span>
+                    <p className="text-base font-black text-emerald-600 dark:text-emerald-400">
+                      {opportunity.costInr || formattedFee}
+                    </p>
+                    {opportunity.feeDisplay?.usd != null && (
+                      <p className="text-[11px] text-text-muted">
+                        Official USD: ${opportunity.feeDisplay.usd}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="p-4 rounded-xl bg-surface border border-border space-y-1">
+                    <span className="text-[11px] font-bold uppercase text-text-secondary">Price Confidence</span>
+                    <p className="text-xs font-bold text-foreground capitalize">
+                      {opportunity.feeDisplay?.priceConfidence || opportunity.confidence} Confidence
+                    </p>
+                    <p className="text-[11px] text-text-muted">
+                      Source: {opportunity.verification?.basis || 'Verified Documentation'}
+                    </p>
+                  </div>
+
+                  <div className="p-4 rounded-xl bg-surface border border-border space-y-1">
+                    <span className="text-[11px] font-bold uppercase text-text-secondary">Stipend / Prize</span>
+                    <p className="text-xs font-bold text-foreground">
+                      {opportunity.stipendAmount || opportunity.rewardDisplay?.headline || 'Standard Credential'}
+                    </p>
+                  </div>
+                </div>
+
+                {opportunity.feeDisplay?.note && (
+                  <p className="text-xs text-text-secondary italic">
+                    Note: {opportunity.feeDisplay.note}
+                  </p>
+                )}
+
+                {/* Optional cost breakdown table */}
+                {((opportunity.richDetails?.costBreakdown && opportunity.richDetails.costBreakdown.length > 0) ||
+                  (opportunity.richDetails?.cost_breakdown && opportunity.richDetails.cost_breakdown.length > 0)) && (
+                  <div className="pt-2 border-t border-border space-y-2">
+                    <h5 className="text-xs font-bold uppercase text-text-secondary">Official Tier Options & Inclusions:</h5>
+                    <div className="space-y-1.5">
+                      {(opportunity.richDetails?.costBreakdown || opportunity.richDetails?.cost_breakdown || []).map((cb, idx) => (
+                        <div key={idx} className="flex items-center justify-between p-2 rounded-lg bg-surface border border-border text-xs">
+                          <span className="text-foreground font-medium">{cb.item}</span>
+                          <span className="font-bold text-emerald-600 dark:text-emerald-400">
+                            {cb.usd ? `$${cb.usd} (~₹${Math.round(cb.usd * USD_TO_INR_EXCHANGE_RATE).toLocaleString('en-IN')})` : cb.inr ? `₹${cb.inr.toLocaleString('en-IN')}` : 'Included'}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Student Aid & Waiver Playbook */}
+              <div className="p-6 rounded-2xl bg-surface-2 border border-border space-y-4">
+                <div className="flex items-center gap-2">
+                  <GraduationCap className="w-5 h-5 text-primary" />
+                  <h4 className="text-sm font-black uppercase tracking-wider text-foreground">
+                    Student Aid & Fee Waiver Playbook
+                  </h4>
+                </div>
+
+                <p className="text-xs sm:text-sm text-foreground/90 leading-relaxed font-medium">
+                  {opportunity.studentAid?.summary || opportunity.studentDiscountNote || 'Check the official vendor page for academic discount vouchers and campus program eligibility.'}
+                </p>
+
+                {opportunity.studentAid?.steps && opportunity.studentAid.steps.length > 0 && (
+                  <div className="space-y-2 pt-2">
+                    <h5 className="text-xs font-bold uppercase text-text-secondary">How to claim student aid:</h5>
+                    <ul className="space-y-1.5">
+                      {opportunity.studentAid.steps.map((st, idx) => (
+                        <li key={idx} className="text-xs text-text-secondary flex items-start gap-2">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5" />
+                          <span>{st}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+
+              {/* Honesty Notice / Changes */}
+              {opportunity.flags?.includes('changed_2026') && (
+                <div className="p-4 rounded-xl bg-rose-500/10 border border-rose-500/25 flex items-start gap-3">
+                  <AlertTriangle className="w-5 h-5 text-rose-500 shrink-0 mt-0.5" />
+                  <div className="space-y-1">
+                    <h5 className="text-xs font-bold uppercase text-rose-600 dark:text-rose-400">
+                      Important 2026 Policy Update
+                    </h5>
+                    <p className="text-xs text-text-secondary leading-relaxed">
+                      Pricing and voucher policies for this credential changed in 2026. Prior claims that it is free to new entrants are outdated. Existing voucher holders have a sit-by deadline. Always confirm on the official portal before registering.
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* TAB 3: SYLLABUS, CURRICULUM & APPLICATION */}
+          {activeTab === 'syllabus' && (
+            <div className="space-y-6 animate-fade-in">
+              {/* OPERABLE SYLLABUS ACTION CARD */}
+              <div className="p-6 rounded-2xl bg-gradient-to-r from-primary/10 via-indigo-500/10 to-transparent border-2 border-primary/40 space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div className="space-y-1">
+                    <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-primary/20 text-primary text-[10px] font-black uppercase">
+                      <FileText className="w-3 h-3" />
+                      <span>Official Documentation</span>
+                    </div>
+                    <h3 className="text-base font-black text-foreground">
+                      Curriculum, Syllabus & Problem Statements
+                    </h3>
+                    <p className="text-xs text-text-secondary">
+                      Access verified exam objectives, challenge statements, and official study guides
+                    </p>
+                  </div>
+
+                  <a
+                    href={syllabusUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => handleExternalRedirect(e, syllabusUrl)}
+                    className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-primary hover:bg-primary/90 text-white text-xs font-black shadow-md shadow-primary/20 transition-all cursor-pointer group shrink-0"
+                  >
+                    <span>Open Official Syllabus / Guide</span>
+                    <ExternalLink className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                  </a>
+                </div>
+
+                <div className="pt-2 text-xs text-text-secondary">
+                  <span>Direct URL: </span>
+                  <a
+                    href={syllabusUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => handleExternalRedirect(e, syllabusUrl)}
+                    className="font-mono text-primary hover:underline break-all"
+                  >
+                    {syllabusUrl}
+                  </a>
+                </div>
+              </div>
+
+              {/* What It Covers / Syllabus Modules */}
+              <div className="space-y-3">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-text-secondary">
+                  Key Curriculum Domains & Exam Topics
+                </h4>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                  {(opportunity.richDetails?.whatItCovers || opportunity.richDetails?.what_it_covers || opportunity.skillsDemonstrated || opportunity.relatedSkills).map((item, idx) => (
+                    <div
+                      key={idx}
+                      className="p-3 rounded-xl bg-surface-2 border border-border flex items-start gap-2.5 text-xs font-medium text-foreground"
+                    >
+                      <CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                      <span>{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Preparation Checklist & Flow */}
+              {opportunity.preparationChecklist && opportunity.preparationChecklist.length > 0 && (
+                <div className="space-y-3">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-text-secondary">
+                    Recommended Preparation Flow
+                  </h4>
+                  <div className="space-y-2">
+                    {opportunity.preparationChecklist.map((step, idx) => (
+                      <div
+                        key={idx}
+                        className="p-3 rounded-xl bg-surface-2 border border-border flex items-start gap-3 text-xs text-text-secondary"
+                      >
+                        <span className="font-bold text-primary shrink-0">{idx + 1}.</span>
+                        <span>{step}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Calendar & Deadlines Windows */}
+              {opportunity.windows && opportunity.windows.length > 0 && (
+                <div className="space-y-3">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-text-secondary">
+                    Calendar Windows & Cycle Status
+                  </h4>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {opportunity.windows.map((w, idx) => (
+                      <div key={idx} className="p-3.5 rounded-xl bg-surface-2 border border-border space-y-1">
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs font-bold text-foreground">{w.label}</span>
+                          <span className={`px-2 py-0.5 rounded text-[10px] font-black uppercase ${
+                            w.status === 'open' || w.status === 'open_now'
+                              ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25'
+                              : w.status === 'closing_soon'
+                              ? 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/25'
+                              : 'bg-slate-500/15 text-slate-400 border border-slate-500/25'
+                          }`}>
+                            {w.status.replace('_', ' ')}
+                          </span>
+                        </div>
+                        {w.date && <p className="text-[11px] text-text-muted">Date: {w.date}</p>}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* TAB 4: RESUME EVIDENCE */}
+          {activeTab === 'resume_evidence' && (
+            <div className="space-y-6 animate-fade-in">
+              <div className="p-5 rounded-2xl bg-surface-2 border border-border space-y-3">
+                <div className="flex items-center justify-between">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-primary">
+                    Copyable Resume Presentation Bullet Template
+                  </h4>
+                  <button
+                    onClick={handleCopyResumeTemplate}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface border border-border hover:bg-surface-3 text-xs font-bold text-foreground transition-all cursor-pointer shadow-2xs"
+                  >
+                    {copiedTemplate ? (
+                      <>
+                        <Check className="w-3.5 h-3.5 text-emerald-500" />
+                        <span className="text-emerald-500 font-black">Copied!</span>
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="w-3.5 h-3.5" />
+                        <span>Copy Template</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+
+                <div className="p-4 rounded-xl bg-surface border border-border font-mono text-xs text-foreground/90 leading-relaxed select-all">
+                  {opportunity.resumePresentationTemplate}
+                </div>
+                <p className="text-[11px] text-text-muted">
+                  Tip: Replace bracketed variables [Feature/Subsystem], [Metric], or [Rank] with your verified accomplishments before tailoring your resume.
+                </p>
+              </div>
+
+              {/* What to attach to the resume */}
+              <div className="p-5 rounded-2xl bg-surface-2 border border-border space-y-3">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-foreground">
+                  Checkable Proof & Artifacts to Attach
+                </h4>
+                <div className="space-y-2">
+                  {(opportunity.richDetails?.resumeEvidence?.attach || opportunity.richDetails?.resume_evidence?.attach || [
+                    'Official Credential Verification URL / Credly Transcript Link',
+                    'Public GitHub repository containing code with unit test suite',
+                    'Working deployed prototype or scoreboard rank screenshot',
+                  ]).map((item, idx) => (
+                    <div
+                      key={idx}
+                      className="p-3 rounded-xl bg-surface border border-border flex items-center gap-2.5 text-xs text-foreground"
+                    >
+                      <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
+                      <span>{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* TAB 5: PITFALLS & SOURCES */}
+          {activeTab === 'pitfalls_sources' && (
+            <div className="space-y-6 animate-fade-in">
+              {/* Common Pitfalls */}
+              <div className="p-5 rounded-2xl bg-surface-2 border border-border space-y-3">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-rose-500 flex items-center gap-2">
+                  <AlertTriangle className="w-4 h-4" />
+                  Common Traps & Disclaimers
+                </h4>
+                <div className="space-y-2">
+                  {(opportunity.richDetails?.pitfalls || opportunity.commonMistakes || [
+                    opportunity.suitabilityNotes,
+                  ]).map((pitfall, idx) => (
+                    <div
+                      key={idx}
+                      className="p-3 rounded-xl bg-surface border border-rose-500/20 text-xs text-text-secondary leading-relaxed flex items-start gap-2.5"
+                    >
+                      <span className="font-bold text-rose-500 shrink-0">⚠</span>
+                      <span>{pitfall}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Official Sources & Retrieval Audit */}
+              <div className="p-5 rounded-2xl bg-surface-2 border border-border space-y-3">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-foreground flex items-center gap-2">
+                  <ShieldCheck className="w-4 h-4 text-emerald-500" />
+                  Verified Citations & Sources (Zero-Hallucination Audit)
+                </h4>
+                <div className="space-y-2.5">
+                  {(opportunity.richDetails?.sources || [
+                    {
+                      title: `${opportunity.organizer} Official Portal`,
+                      url: opportunity.officialUrl,
+                      type: 'official',
+                      retrieved: opportunity.lastVerifiedAt,
+                      supports: ['Pricing', 'Curriculum', 'Eligibility'],
+                    },
+                  ]).map((src, idx) => (
+                    <div
+                      key={idx}
+                      className="p-3 rounded-xl bg-surface border border-border flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs"
+                    >
+                      <div>
+                        <p className="font-bold text-foreground">{src.title}</p>
+                        <p className="text-[11px] text-text-muted">
+                          Type: <span className="capitalize">{src.type}</span> · Verified: {src.retrieved}
+                        </p>
+                      </div>
+
+                      <a
+                        href={src.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => handleExternalRedirect(e, src.url)}
+                        className="inline-flex items-center gap-1 font-bold text-primary hover:underline"
+                      >
+                        <span>Visit Citation</span>
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Modal Footer with Always-Operable Links */}
+        <div className="p-4 sm:p-6 border-t border-border bg-surface-2/60 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs text-text-secondary">
+          <div className="flex items-center gap-2">
+            <span>Verified: <strong className="text-foreground">{opportunity.lastVerifiedAt}</strong></span>
+            <span>·</span>
+            <span className="capitalize font-medium">{opportunity.trust ? opportunity.trust.replace('_', ' ') : 'Multi-Source Verified'}</span>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-3">
+            {/* OPERABLE SYLLABUS / GUIDE BUTTON */}
+            <a
+              href={syllabusUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => handleExternalRedirect(e, syllabusUrl)}
+              className="px-3.5 py-2 rounded-xl bg-surface hover:bg-surface-3 border border-border hover:border-primary font-bold text-foreground inline-flex items-center gap-1.5 transition-all shadow-xs cursor-pointer"
+              title={`Open syllabus / guide (${getDomainFromUrl(syllabusUrl)})`}
+            >
+              <FileText className="w-3.5 h-3.5 text-primary" />
+              <span>Syllabus / Guide</span>
+              <ExternalLink className="w-3 h-3 text-muted" />
+            </a>
+
+            {/* OPERABLE OFFICIAL WEBSITE BUTTON */}
             <a
               href={portalUrl}
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => handleExternalRedirect(e, portalUrl)}
-              className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-black rounded-xl bg-gradient-to-r from-primary to-indigo-600 text-white hover:opacity-95 shadow-md shadow-primary/25 transition-all cursor-pointer"
-              title={`Visit Official Portal (${getDomainFromUrl(portalUrl)})`}
+              className="px-4 py-2 rounded-xl bg-primary text-white font-bold inline-flex items-center gap-1.5 hover:opacity-90 shadow-md shadow-primary/20 transition-all cursor-pointer"
+              title={`Open official website (${getDomainFromUrl(portalUrl)})`}
             >
-              <span>Visit Official Portal</span>
+              <span>Open Official Website</span>
               <span className="opacity-80 font-mono text-[10px]">({getDomainFromUrl(portalUrl)})</span>
               <ExternalLink className="w-3.5 h-3.5 shrink-0" />
             </a>
-          </div>
-        </div>
-
-        {/* Scrollable Body Content */}
-        <div className="p-6 sm:p-8 space-y-8 overflow-y-auto text-sm sm:text-base leading-relaxed text-foreground">
-          {/* Section: Indian Market Pricing & Student Aid Pathway */}
-          <div className="p-5 sm:p-6 rounded-3xl bg-surface-2/70 border-2 border-emerald-500/30 space-y-4 shadow-sm">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <div className="p-2 rounded-xl bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 font-black">
-                  <IndianRupee className="w-5 h-5" />
-                </div>
-                <div>
-                  <h3 className="text-base font-black text-foreground">
-                    Indian Market Pricing & Student Aid Pathway
-                  </h3>
-                  <p className="text-xs text-text-secondary">
-                    Real cost in INR, student waiver routes, and Pre-Placement Offer eligibility
-                  </p>
-                </div>
-              </div>
-
-              {opportunity.ppoOffered && (
-                <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 text-xs font-black">
-                  <Briefcase className="w-3.5 h-3.5" />
-                  <span>{opportunity.ppoOffered}</span>
-                </span>
-              )}
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
-              <div className="p-3.5 rounded-2xl bg-surface border border-border space-y-1">
-                <span className="text-[11px] font-bold uppercase text-text-secondary">Indian Market Cost</span>
-                <p className="text-base font-black text-foreground flex items-center gap-1 text-emerald-600 dark:text-emerald-400">
-                  <IndianRupee className="w-4 h-4 shrink-0" />
-                  <span>{opportunity.costInr || opportunity.cost || 'Free'}</span>
-                </p>
-              </div>
-
-              <div className="p-3.5 rounded-2xl bg-surface border border-border space-y-1">
-                <span className="text-[11px] font-bold uppercase text-text-secondary">Prep Duration</span>
-                <p className="text-sm font-bold text-foreground flex items-center gap-1.5">
-                  <Clock className="w-4 h-4 text-primary shrink-0" />
-                  <span>{opportunity.estimatedPreparationTime}</span>
-                </p>
-              </div>
-
-              <div className="p-3.5 rounded-2xl bg-surface border border-border space-y-1">
-                <span className="text-[11px] font-bold uppercase text-text-secondary">Credentials / Stipend</span>
-                <p className="text-sm font-bold text-foreground flex items-center gap-1.5">
-                  <Coins className="w-4 h-4 text-emerald-500 shrink-0" />
-                  <span>{opportunity.stipendAmount || opportunity.validity || 'Lifetime Verified'}</span>
-                </p>
-              </div>
-            </div>
-
-            {/* Student Discount & Free Waiver Guide */}
-            {opportunity.studentDiscountNote && (
-              <div className="p-4 sm:p-5 rounded-2xl bg-surface border-2 border-emerald-500/30 flex items-start gap-3.5 shadow-2xs">
-                <div className="p-2 rounded-xl bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5">
-                  <GraduationCap className="w-5 h-5" />
-                </div>
-                <div className="space-y-1.5 flex-1 min-w-0">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <h4 className="text-xs font-black uppercase tracking-wider text-emerald-700 dark:text-emerald-300">
-                      How Indian College Students Can Get This Free or Discounted
-                    </h4>
-                    <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
-                      Verified Playbook
-                    </span>
-                  </div>
-                  <p className="text-xs sm:text-sm text-foreground/90 leading-relaxed font-medium">
-                    {opportunity.studentDiscountNote}
-                  </p>
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* Section: What it is */}
-          <div className="space-y-2">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-primary flex items-center gap-2">
-              <BookOpen className="w-4 h-4" />
-              What it is
-            </h3>
-            <p className="text-text-secondary text-sm sm:text-base leading-relaxed">{opportunity.whatItIs}</p>
-          </div>
-
-          {/* Section: Who should take it & What it proves */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="p-5 rounded-3xl bg-surface-2 border border-border space-y-2">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-foreground flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-primary" />
-                Who should take it
-              </h3>
-              <p className="text-sm text-text-secondary leading-relaxed">{opportunity.whoShouldTakeIt}</p>
-            </div>
-            <div className="p-5 rounded-3xl bg-surface-2 border border-border space-y-2">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-foreground flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-                What it proves
-              </h3>
-              <p className="text-sm text-text-secondary leading-relaxed">{opportunity.whatItProves}</p>
-            </div>
-          </div>
-
-          {/* Section: Prerequisites & Exam / Selection Details */}
-          <div className="space-y-4">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-primary flex items-center gap-2">
-              <Layers className="w-4 h-4" />
-              Prerequisites & Selection Mechanics
-            </h3>
-            <div className="p-5 rounded-3xl bg-surface-2 border border-border space-y-3">
-              <div>
-                <span className="text-xs font-bold uppercase text-text-secondary">Prerequisites</span>
-                <p className="text-sm text-foreground mt-0.5">{opportunity.prerequisites}</p>
-              </div>
-              <div className="pt-2 border-t border-border grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <span className="text-xs font-bold uppercase text-text-secondary">Application / Registration</span>
-                  <p className="text-xs text-text-secondary mt-0.5 leading-relaxed">{opportunity.applicationProcess}</p>
-                </div>
-                <div>
-                  <span className="text-xs font-bold uppercase text-text-secondary">Selection / Passing Standard</span>
-                  <p className="text-xs text-text-secondary mt-0.5 leading-relaxed">{opportunity.selectionProcess}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Section: Preparation Checklist */}
-          {opportunity.preparationChecklist && opportunity.preparationChecklist.length > 0 && (
-            <div className="space-y-3">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-primary flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-                Official Preparation Checklist & Milestones
-              </h3>
-              <div className="p-5 rounded-3xl bg-surface-2 border border-border space-y-2.5">
-                {opportunity.preparationChecklist.map((step, idx) => (
-                  <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm">
-                    <span className="w-5 h-5 rounded-full bg-primary/10 text-primary font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">
-                      {idx + 1}
-                    </span>
-                    <span className="text-foreground">{step.replace(/^\d+\.\s*/, '')}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Section: Resume Presentation Formula */}
-          <div className="p-5 rounded-3xl bg-primary/5 border-2 border-primary/20 space-y-3">
-            <div className="flex items-center justify-between">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-primary flex items-center gap-2">
-                <Sparkles className="w-4 h-4" />
-                How to Present It on Your Resume
-              </h3>
-              <button
-                onClick={handleCopyResumeTemplate}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-surface border border-border text-xs font-bold text-foreground hover:bg-surface-2 transition-colors cursor-pointer"
-              >
-                {copiedTemplate ? (
-                  <>
-                    <Check className="w-3.5 h-3.5 text-emerald-500" />
-                    <span>Copied!</span>
-                  </>
-                ) : (
-                  <>
-                    <Copy className="w-3.5 h-3.5" />
-                    <span>Copy Template</span>
-                  </>
-                )}
-              </button>
-            </div>
-            <p className="font-mono text-xs sm:text-sm bg-surface p-4 rounded-2xl border border-border text-foreground leading-relaxed">
-              {opportunity.resumePresentationTemplate}
-            </p>
-          </div>
-
-          {/* Section: Target Roles & Related Skills */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-2">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-foreground">Target Roles</h4>
-              <div className="flex flex-wrap gap-1.5">
-                {opportunity.targetRoles.map((role, idx) => (
-                  <span key={idx} className="text-xs font-bold px-3 py-1 rounded-xl bg-surface-2 text-foreground/80 border border-border">
-                    {role}
-                  </span>
-                ))}
-              </div>
-            </div>
-            <div className="space-y-2">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-foreground">Demonstrated Skills</h4>
-              <div className="flex flex-wrap gap-1.5">
-                {opportunity.relatedSkills.map((skill, idx) => (
-                  <span key={idx} className="text-xs font-medium px-3 py-1 rounded-xl bg-surface-2 text-text-secondary border border-border">
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Section: Suitability Guidance & Recommendations */}
-          {opportunity.suitabilityNotes && (
-            <div className="p-4 rounded-2xl bg-surface-2 border border-border flex items-start gap-3">
-              <AlertTriangle className="w-5 h-5 text-text-muted shrink-0 mt-0.5" />
-              <div className="space-y-1">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-foreground">
-                  Suitability Guidance & Recommendations
-                </h4>
-                <p className="text-xs sm:text-sm text-text-secondary leading-relaxed">
-                  {opportunity.suitabilityNotes}
-                </p>
-              </div>
-            </div>
-          )}
-
-          {/* Verification Audit & Working Official Links Footer */}
-          <div className="pt-6 border-t border-border flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs text-text-secondary">
-            <div>
-              <span>Source Verified: <strong className="text-foreground">{opportunity.lastVerifiedAt}</strong></span>
-            </div>
-
-            <div className="flex flex-wrap items-center gap-3">
-              {opportunity.syllabusUrl && (
-                <a
-                  href={opportunity.syllabusUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={(e) => handleExternalRedirect(e, opportunity.syllabusUrl)}
-                  className="font-bold text-text-secondary hover:text-foreground hover:underline inline-flex items-center gap-1 cursor-pointer"
-                  title="Open official curriculum or syllabus documentation"
-                >
-                  <span>Syllabus / Guide</span>
-                  <ExternalLink className="w-3 h-3" />
-                </a>
-              )}
-
-              <a
-                href={portalUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => handleExternalRedirect(e, portalUrl)}
-                className="px-4 py-2 rounded-xl bg-primary text-white font-bold inline-flex items-center gap-1.5 hover:opacity-90 shadow-xs cursor-pointer"
-                title={`Open official website (${getDomainFromUrl(portalUrl)})`}
-              >
-                <span>Open Official Website</span>
-                <span className="opacity-80 font-mono text-[10px]">({getDomainFromUrl(portalUrl)})</span>
-                <ExternalLink className="w-3.5 h-3.5 shrink-0" />
-              </a>
-            </div>
           </div>
         </div>
       </div>

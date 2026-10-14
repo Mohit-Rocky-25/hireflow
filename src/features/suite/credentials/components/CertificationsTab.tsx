@@ -1,6 +1,7 @@
 // ============================================================
 // Credential & Opportunity Engine — Certifications Tab
 // Luminous, filterable catalog of industry certifications with Indian INR pricing
+// Schema 2.0: Trust levels, branch edge, live FX rate, and verified student waivers
 // ============================================================
 
 import React, { useState, useMemo } from 'react';
@@ -16,9 +17,20 @@ import {
   CheckCircle2,
   GraduationCap,
   IndianRupee,
+  ShieldCheck,
+  AlertTriangle,
+  Flame,
+  Check,
 } from 'lucide-react';
 import { ALL_OPPORTUNITIES } from '../data/opportunitiesData';
-import { OpportunityRecord } from '../types';
+import {
+  OpportunityRecord,
+  TrustLevel,
+  OpportunityFlag,
+  EngineeringBranch,
+  formatComputedInr,
+  USD_TO_INR_EXCHANGE_RATE,
+} from '../types';
 import { CredentialsStorage } from '../storage';
 
 interface CertificationsTabProps {
@@ -36,9 +48,9 @@ export function CertificationsTab({
   const [selectedLevel, setSelectedLevel] = useState<string>('All');
   const [selectedBudget, setSelectedBudget] = useState<string>('All');
   const [selectedTime, setSelectedTime] = useState<string>('All');
-  const [selectedResumeVal, setSelectedResumeVal] = useState<string>('All');
-  const [selectedEvidenceVal, setSelectedEvidenceVal] = useState<string>('All');
-  const [selectedIssuer, setSelectedIssuer] = useState<string>('All');
+  const [selectedBranch, setSelectedBranch] = useState<string>('All');
+  const [selectedTrust, setSelectedTrust] = useState<string>('All');
+  const [selectedFlag, setSelectedFlag] = useState<string>('All');
   const [selectedTier, setSelectedTier] = useState<string>('All');
   const [savedIds, setSavedIds] = useState<Set<string>>(() => {
     const items = CredentialsStorage.loadPlanItems();
@@ -48,15 +60,6 @@ export function CertificationsTab({
   const allCerts = useMemo(() => {
     return ALL_OPPORTUNITIES.filter((o) => o.kind === 'certification');
   }, []);
-
-  const issuers = useMemo(() => {
-    const set = new Set<string>();
-    allCerts.forEach((c) => {
-      if (c.issuer) set.add(c.issuer);
-      else set.add(c.organizer);
-    });
-    return Array.from(set).sort();
-  }, [allCerts]);
 
   const roles = useMemo(() => {
     const set = new Set<string>();
@@ -91,20 +94,28 @@ export function CertificationsTab({
         return false;
       }
 
-      // Resume Value
-      if (selectedResumeVal !== 'All' && cert.resumeValue !== selectedResumeVal) {
-        return false;
+      // Branch filter
+      if (selectedBranch !== 'All') {
+        const certBranches = cert.branches || ['ALL'];
+        if (!certBranches.includes('ALL') && !certBranches.includes(selectedBranch as any)) {
+          return false;
+        }
       }
 
-      // Evidence Value
-      if (selectedEvidenceVal !== 'All' && cert.evidenceValue !== selectedEvidenceVal) {
-        return false;
+      // Trust level filter
+      if (selectedTrust !== 'All') {
+        const certTrust = cert.trust || (cert.confidence === 'high' ? 'verified_official' : 'reported_single_source');
+        if (certTrust !== selectedTrust) {
+          return false;
+        }
       }
 
-      // Issuer filter
-      if (selectedIssuer !== 'All') {
-        const issuerName = cert.issuer || cert.organizer;
-        if (issuerName !== selectedIssuer) return false;
+      // Flag filter
+      if (selectedFlag !== 'All') {
+        const certFlags = cert.flags || [];
+        if (!certFlags.includes(selectedFlag as OpportunityFlag)) {
+          return false;
+        }
       }
 
       // Tier filter
@@ -112,22 +123,55 @@ export function CertificationsTab({
         return false;
       }
 
-      // Budget filter supporting both INR and USD
+      // Budget filter supporting INR and USD
       if (selectedBudget === 'Free' || selectedBudget === '₹0 Free / 100% Aid') {
-        const hasFree = cert.cost?.toLowerCase().includes('free') || cert.costInr?.toLowerCase().includes('free');
+        const hasFree =
+          cert.flags?.includes('free') ||
+          cert.cost?.toLowerCase().includes('free') ||
+          cert.costInr?.toLowerCase().includes('free') ||
+          (cert.feeDisplay?.usd === 0 && cert.feeDisplay?.inrOfficial === 0);
         if (!hasFree) return false;
       }
       if (selectedBudget === 'Under ₹5,000 / $60' || selectedBudget === 'Under $100') {
-        const isFree = cert.cost?.toLowerCase().includes('free') || cert.costInr?.toLowerCase().includes('free');
-        const isUnder5k = cert.costInr?.includes('₹4,800') || cert.costInr?.includes('₹3,200') || cert.cost?.includes('$99') || cert.cost?.includes('$100');
+        const isFree =
+          cert.flags?.includes('free') ||
+          cert.cost?.toLowerCase().includes('free') ||
+          cert.costInr?.toLowerCase().includes('free');
+        const usdCost = cert.feeDisplay?.usd ?? (cert.cost?.includes('$') ? parseFloat(cert.cost.replace(/[^0-9.]/g, '')) : null);
+        const inrCost = cert.feeDisplay?.inrOfficial ?? (cert.costInr?.includes('₹') ? parseFloat(cert.costInr.replace(/[^0-9.]/g, '')) : null);
+        const isUnder5k =
+          (usdCost != null && usdCost <= 60) ||
+          (inrCost != null && inrCost <= 5000) ||
+          cert.costInr?.includes('₹4,865') ||
+          cert.costInr?.includes('₹1,000') ||
+          cert.costInr?.includes('₹4,800') ||
+          cert.costInr?.includes('₹3,200') ||
+          cert.cost?.includes('$59') ||
+          cert.cost?.includes('$70') ||
+          cert.cost?.includes('$99');
         if (!isFree && !isUnder5k) return false;
       }
       if (selectedBudget === '₹5,000 – ₹15,000') {
-        const isMid = cert.costInr?.includes('₹8,200') || cert.costInr?.includes('₹10,400') || cert.costInr?.includes('₹12,500');
+        const isMid =
+          cert.costInr?.includes('₹8,200') ||
+          cert.costInr?.includes('₹10,400') ||
+          cert.costInr?.includes('₹12,500') ||
+          cert.cost?.includes('$165') ||
+          cert.cost?.includes('$199') ||
+          cert.cost?.includes('$200');
         if (!isMid) return false;
       }
       if (selectedBudget === '₹15,000+' || selectedBudget === '$150+') {
-        const isHigh = cert.costInr?.includes('₹16,600') || cert.costInr?.includes('₹18,500') || cert.cost?.includes('$200') || cert.cost?.includes('$404');
+        const isHigh =
+          cert.flags?.includes('high_cost') ||
+          cert.costInr?.includes('₹16,600') ||
+          cert.costInr?.includes('₹18,500') ||
+          cert.costInr?.includes('₹38,') ||
+          cert.cost?.includes('$249') ||
+          cert.cost?.includes('$295') ||
+          cert.cost?.includes('$300') ||
+          cert.cost?.includes('$445') ||
+          cert.cost?.includes('$499');
         if (!isHigh) return false;
       }
 
@@ -151,11 +195,11 @@ export function CertificationsTab({
     selectedCategory,
     selectedRole,
     selectedLevel,
+    selectedBranch,
+    selectedTrust,
+    selectedFlag,
     selectedBudget,
     selectedTime,
-    selectedResumeVal,
-    selectedEvidenceVal,
-    selectedIssuer,
     selectedTier,
   ]);
 
@@ -175,7 +219,7 @@ export function CertificationsTab({
           targetTimeline: '30_day',
           priority: 'high',
           reasonForRecommendation: `Directly saved from Certifications catalog: ${opp.name}`,
-          evidenceCreated: `Official Credly verification for ${opp.targetRoles[0] || 'Target Role'}`,
+          evidenceCreated: `Official credential verification for ${opp.targetRoles[0] || 'Target Role'}`,
           resumeImprovementSupported: `Verifiable proof of ${opp.relatedSkills.slice(0, 3).join(', ')}`,
           estimatedEffort: opp.estimatedPreparationTime,
           completionCondition: 'Pass examination or complete course labs.',
@@ -207,9 +251,33 @@ export function CertificationsTab({
     }
   };
 
-  // Provider visual theme mapping for rich glowing aesthetics
+  // Provider visual theme mapping
   const getProviderTheme = (issuer: string) => {
     const lower = issuer.toLowerCase();
+    if (lower.includes('cncf') || lower.includes('linux foundation')) {
+      return {
+        accent: 'from-blue-600 via-sky-500 to-transparent',
+        border: 'hover:border-blue-500/50 hover:shadow-lg',
+        badge: 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/25',
+        brand: 'CNCF / LF',
+      };
+    }
+    if (lower.includes('hashicorp')) {
+      return {
+        accent: 'from-indigo-600 via-primary to-transparent',
+        border: 'hover:border-indigo-500/50 hover:shadow-lg',
+        badge: 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border-indigo-500/25',
+        brand: 'HashiCorp',
+      };
+    }
+    if (lower.includes('nptel') || lower.includes('swayam') || lower.includes('iit')) {
+      return {
+        accent: 'from-orange-500 via-amber-400 to-transparent',
+        border: 'hover:border-orange-500/50 hover:shadow-lg',
+        badge: 'bg-orange-500/10 text-orange-600 dark:text-orange-400 border-orange-500/25',
+        brand: 'NPTEL / IIT',
+      };
+    }
     if (lower.includes('amazon') || lower.includes('aws')) {
       return {
         accent: 'from-orange-500/30 via-primary/10 to-transparent',
@@ -218,7 +286,7 @@ export function CertificationsTab({
         brand: 'AWS',
       };
     }
-    if (lower.includes('google') || lower.includes('gcp') || lower.includes('tensorflow')) {
+    if (lower.includes('google') || lower.includes('gcp')) {
       return {
         accent: 'from-blue-500/30 via-cyan-500/10 to-transparent',
         border: 'hover:border-blue-500/50 hover:shadow-lg',
@@ -234,20 +302,20 @@ export function CertificationsTab({
         brand: 'Microsoft',
       };
     }
-    if (lower.includes('meta')) {
+    if (lower.includes('cisco')) {
       return {
-        accent: 'from-purple-500/30 via-pink-500/10 to-transparent',
-        border: 'hover:border-purple-500/50 hover:shadow-lg',
-        badge: 'bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/25',
-        brand: 'Meta',
+        accent: 'from-cyan-500/30 via-blue-500/10 to-transparent',
+        border: 'hover:border-cyan-500/50 hover:shadow-lg',
+        badge: 'bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border-cyan-500/25',
+        brand: 'Cisco',
       };
     }
-    if (lower.includes('comptia')) {
+    if (lower.includes('isc2') || lower.includes('tcm') || lower.includes('ine') || lower.includes('comptia')) {
       return {
         accent: 'from-rose-500/30 via-red-500/10 to-transparent',
         border: 'hover:border-rose-500/50 hover:shadow-lg',
         badge: 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/25',
-        brand: 'CompTIA',
+        brand: 'Security',
       };
     }
     return {
@@ -258,8 +326,60 @@ export function CertificationsTab({
     };
   };
 
+  const renderTrustBadge = (cert: OpportunityRecord) => {
+    const trust = cert.trust || (cert.confidence === 'high' ? 'verified_official' : 'reported_single_source');
+    switch (trust) {
+      case 'verified_official':
+        return (
+          <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-bold rounded-md bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
+            <Check className="w-3 h-3" />
+            <span>Verified Official</span>
+          </span>
+        );
+      case 'verified_multi_source':
+        return (
+          <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-bold rounded-md bg-sky-500/15 text-sky-600 dark:text-sky-400 border border-sky-500/30">
+            <ShieldCheck className="w-3 h-3" />
+            <span>Multi-Source Verified</span>
+          </span>
+        );
+      case 'reported_single_source':
+        return (
+          <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-bold rounded-md bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30">
+            <span>ℹ Reported · Check Official</span>
+          </span>
+        );
+      case 'unverified_recurring':
+        return (
+          <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-bold rounded-md bg-slate-500/15 text-slate-400 border border-slate-500/30">
+            <AlertTriangle className="w-3 h-3" />
+            <span>Unverified Recurring</span>
+          </span>
+        );
+      default:
+        return null;
+    }
+  };
+
+  const getPriceDisplay = (cert: OpportunityRecord) => {
+    if (cert.feeDisplay?.inrOfficial != null && cert.feeDisplay.inrOfficial > 0) {
+      return `₹${cert.feeDisplay.inrOfficial.toLocaleString('en-IN')} (Official INR)`;
+    }
+    if (cert.feeDisplay?.usd != null && cert.feeDisplay.usd > 0) {
+      const computed = Math.round(cert.feeDisplay.usd * USD_TO_INR_EXCHANGE_RATE);
+      return `$${cert.feeDisplay.usd} (~₹${computed.toLocaleString('en-IN')})`;
+    }
+    if (cert.costInr) {
+      return cert.costInr;
+    }
+    if (cert.cost) {
+      return cert.cost;
+    }
+    return 'Free to Learn';
+  };
+
   return (
-    <div className="space-y-8 animate-fade-in">
+    <div className="space-y-6 animate-fade-in">
       {/* Category Tabs */}
       <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
         {[
@@ -274,7 +394,7 @@ export function CertificationsTab({
           <button
             key={cat}
             onClick={() => setSelectedCategory(cat)}
-            className={`px-4 py-2.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all border ${
+            className={`px-4 py-2.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all border cursor-pointer ${
               selectedCategory === cat
                 ? 'bg-gradient-to-r from-primary to-indigo-600 text-white border-primary/50 shadow-md shadow-primary/25 scale-[1.02]'
                 : 'bg-surface border-border text-text-secondary hover:text-foreground hover:bg-surface-2'
@@ -286,16 +406,16 @@ export function CertificationsTab({
       </div>
 
       {/* Search & Comprehensive Filters Bar */}
-      <div className="p-6 rounded-2xl bg-surface/80 backdrop-blur-md border border-border space-y-4 shadow-sm relative overflow-hidden">
+      <div className="p-5 sm:p-6 rounded-2xl bg-surface/80 backdrop-blur-md border border-border space-y-4 shadow-sm relative overflow-hidden">
         <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none -mr-32 -mt-32" />
-        
+
         <div className="relative">
           <Search className="w-5 h-5 text-primary absolute left-4 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search certifications by name, skill, issuer (e.g. AWS SAA, React, Security+, Azure AI, Power BI)..."
+            placeholder="Search credentials by name, skill, issuer (e.g. CKA Kubernetes, Terraform 004, AZ-104, NPTEL, ISC2 CC, eJPT)..."
             className="w-full pl-11 pr-4 py-3 rounded-xl bg-surface-2 border border-border text-sm text-foreground placeholder:text-muted focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all shadow-inner"
           />
         </div>
@@ -303,7 +423,9 @@ export function CertificationsTab({
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
           {/* Target Role */}
           <div className="space-y-1">
-            <label className="text-[11px] font-bold uppercase tracking-wider text-text-secondary">Target Role</label>
+            <label className="text-[11px] font-bold uppercase tracking-wider text-text-secondary">
+              Target Role
+            </label>
             <select
               value={selectedRole}
               onChange={(e) => setSelectedRole(e.target.value)}
@@ -311,14 +433,35 @@ export function CertificationsTab({
             >
               <option value="All">All Roles</option>
               {roles.map((r) => (
-                <option key={r} value={r}>{r}</option>
+                <option key={r} value={r}>
+                  {r}
+                </option>
               ))}
+            </select>
+          </div>
+
+          {/* Branch Edge Filter */}
+          <div className="space-y-1">
+            <label className="text-[11px] font-bold uppercase tracking-wider text-text-secondary">
+              College Branch
+            </label>
+            <select
+              value={selectedBranch}
+              onChange={(e) => setSelectedBranch(e.target.value)}
+              className="w-full px-2.5 py-2 rounded-lg bg-surface-2 border border-border text-xs text-foreground focus:outline-none focus:border-primary font-medium"
+            >
+              <option value="All">All Branches</option>
+              <option value="CSE">CSE / IT</option>
+              <option value="ECE">ECE / EEE Edge</option>
+              <option value="MECH">Mechanical / Civil</option>
             </select>
           </div>
 
           {/* Level */}
           <div className="space-y-1">
-            <label className="text-[11px] font-bold uppercase tracking-wider text-text-secondary">Exam Level</label>
+            <label className="text-[11px] font-bold uppercase tracking-wider text-text-secondary">
+              Exam Level
+            </label>
             <select
               value={selectedLevel}
               onChange={(e) => setSelectedLevel(e.target.value)}
@@ -331,64 +474,58 @@ export function CertificationsTab({
             </select>
           </div>
 
-          {/* Release Tier */}
+          {/* Trust Level */}
           <div className="space-y-1">
-            <label className="text-[11px] font-bold uppercase tracking-wider text-text-secondary">Release Tier</label>
+            <label className="text-[11px] font-bold uppercase tracking-wider text-text-secondary">
+              Verification Trust
+            </label>
             <select
-              value={selectedTier}
-              onChange={(e) => setSelectedTier(e.target.value)}
+              value={selectedTrust}
+              onChange={(e) => setSelectedTrust(e.target.value)}
               className="w-full px-2.5 py-2 rounded-lg bg-surface-2 border border-border text-xs text-foreground focus:outline-none focus:border-primary font-medium"
             >
-              <option value="All">All Tiers</option>
-              <option value="tier1">Tier 1 · Build First</option>
-              <option value="tier2">Tier 2 · Build Next</option>
-              <option value="tier3">Tier 3 · Post-Core</option>
+              <option value="All">All Trust Levels</option>
+              <option value="verified_official">Verified Official</option>
+              <option value="verified_multi_source">Multi-Source Verified</option>
+              <option value="reported_single_source">Single-Source Reported</option>
+              <option value="unverified_recurring">Unverified Recurring</option>
             </select>
           </div>
 
           {/* Budget */}
           <div className="space-y-1">
-            <label className="text-[11px] font-bold uppercase tracking-wider text-text-secondary">Indian Market Fee</label>
+            <label className="text-[11px] font-bold uppercase tracking-wider text-text-secondary">
+              Indian Market Fee
+            </label>
             <select
               value={selectedBudget}
               onChange={(e) => setSelectedBudget(e.target.value)}
               className="w-full px-2.5 py-2 rounded-lg bg-surface-2 border border-border text-xs text-foreground focus:outline-none focus:border-primary font-medium"
             >
               <option value="All">All Budgets (INR)</option>
-              <option value="₹0 Free / 100% Aid">₹0 Free / 100% Aid</option>
-              <option value="Under ₹5,000 / $60">Under ₹5,000</option>
+              <option value="₹0 Free / 100% Aid">₹0 Free / Coursework</option>
+              <option value="Under ₹5,000 / $60">Under ₹5,000 (NPTEL, PCEP, AZ India)</option>
               <option value="₹5,000 – ₹15,000">₹5,000 – ₹15,000</option>
-              <option value="₹15,000+">₹15,000+ (High-Yield)</option>
+              <option value="₹15,000+">₹15,000+ (CKA, PNPT, CCNA)</option>
             </select>
           </div>
 
-          {/* Prep Effort */}
+          {/* Flag filter */}
           <div className="space-y-1">
-            <label className="text-[11px] font-bold uppercase tracking-wider text-text-secondary">Prep Effort</label>
+            <label className="text-[11px] font-bold uppercase tracking-wider text-text-secondary">
+              Special Attribute
+            </label>
             <select
-              value={selectedTime}
-              onChange={(e) => setSelectedTime(e.target.value)}
+              value={selectedFlag}
+              onChange={(e) => setSelectedFlag(e.target.value)}
               className="w-full px-2.5 py-2 rounded-lg bg-surface-2 border border-border text-xs text-foreground focus:outline-none focus:border-primary font-medium"
             >
-              <option value="All">All Durations</option>
-              <option value="< 50 hours">&lt; 50 Hours (Fast)</option>
-              <option value="50-100 hours">50 – 100 Hours</option>
-              <option value="100+ hours">100+ Hours (In-depth)</option>
-            </select>
-          </div>
-
-          {/* Issuer */}
-          <div className="space-y-1">
-            <label className="text-[11px] font-bold uppercase tracking-wider text-text-secondary">Vendor / Issuer</label>
-            <select
-              value={selectedIssuer}
-              onChange={(e) => setSelectedIssuer(e.target.value)}
-              className="w-full px-2.5 py-2 rounded-lg bg-surface-2 border border-border text-xs text-foreground focus:outline-none focus:border-primary font-medium"
-            >
-              <option value="All">All Issuers</option>
-              {issuers.map((iss) => (
-                <option key={iss} value={iss}>{iss}</option>
-              ))}
+              <option value="All">All Attributes</option>
+              <option value="best_value">Best Value per Rupee</option>
+              <option value="hands_on">Hands-On Practical Exam</option>
+              <option value="hidden_gem">Hidden Gem (High Signal)</option>
+              <option value="branch_edge_ece">Strong ECE / EEE Fit</option>
+              <option value="changed_2026">Terms Changed in 2026</option>
             </select>
           </div>
         </div>
@@ -397,24 +534,28 @@ export function CertificationsTab({
         {(selectedCategory !== 'All' ||
           selectedRole !== 'All' ||
           selectedLevel !== 'All' ||
+          selectedBranch !== 'All' ||
+          selectedTrust !== 'All' ||
+          selectedFlag !== 'All' ||
           selectedBudget !== 'All' ||
           selectedTime !== 'All' ||
-          selectedIssuer !== 'All' ||
           selectedTier !== 'All' ||
           searchQuery) && (
           <div className="pt-2 flex items-center justify-between text-xs text-text-secondary border-t border-border">
-            <span>Showing <strong>{filteredCerts.length}</strong> of {allCerts.length} certifications</span>
+            <span>
+              Showing <strong>{filteredCerts.length}</strong> of {allCerts.length} certifications
+            </span>
             <button
               onClick={() => {
                 setSearchQuery('');
                 setSelectedCategory('All');
                 setSelectedRole('All');
                 setSelectedLevel('All');
+                setSelectedBranch('All');
+                setSelectedTrust('All');
+                setSelectedFlag('All');
                 setSelectedBudget('All');
                 setSelectedTime('All');
-                setSelectedResumeVal('All');
-                setSelectedEvidenceVal('All');
-                setSelectedIssuer('All');
                 setSelectedTier('All');
               }}
               className="font-bold text-primary hover:underline cursor-pointer"
@@ -425,12 +566,13 @@ export function CertificationsTab({
         )}
       </div>
 
-      {/* Certifications Grid with Effulgent Aesthetic */}
+      {/* Certifications Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredCerts.map((cert) => {
           const isSaved = savedIds.has(cert.id);
           const theme = getProviderTheme(cert.issuer || cert.organizer);
           const portalUrl = cert.directPortalUrl || cert.officialUrl;
+          const priceDisplay = getPriceDisplay(cert);
 
           return (
             <div
@@ -459,11 +601,12 @@ export function CertificationsTab({
                     <span className={`px-2 py-0.5 text-[10px] font-bold rounded-md border ${theme.badge}`}>
                       {theme.brand}
                     </span>
+                    {renderTrustBadge(cert)}
                   </div>
 
                   <button
                     onClick={(e) => handleTogglePlan(e, cert.id)}
-                    className={`p-2 rounded-xl border transition-all ${
+                    className={`p-2 rounded-xl border transition-all shrink-0 ${
                       isSaved
                         ? 'bg-primary text-white border-primary shadow-sm shadow-primary/30'
                         : 'bg-surface-2 border-border text-text-secondary hover:text-foreground hover:bg-surface-2/80'
@@ -486,20 +629,54 @@ export function CertificationsTab({
                   </p>
                 </div>
 
+                {/* Branch and Special Attribute Badges */}
+                <div className="flex flex-wrap items-center gap-1.5">
+                  {cert.flags?.includes('branch_edge_ece') && (
+                    <span className="px-2 py-0.5 text-[10px] font-bold rounded-md bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/25">
+                      ⚡ High ECE/EEE Fit
+                    </span>
+                  )}
+                  {cert.flags?.includes('branch_edge_mech') && (
+                    <span className="px-2 py-0.5 text-[10px] font-bold rounded-md bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/25">
+                      ⚙ Mech/Civil Core
+                    </span>
+                  )}
+                  {cert.flags?.includes('branch_edge_noncs') && (
+                    <span className="px-2 py-0.5 text-[10px] font-bold rounded-md bg-teal-500/10 text-teal-600 dark:text-teal-400 border border-teal-500/25">
+                      🌐 Non-CS Edge
+                    </span>
+                  )}
+                  {cert.flags?.includes('best_value') && (
+                    <span className="px-2 py-0.5 text-[10px] font-bold rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25 flex items-center gap-0.5">
+                      <Sparkles className="w-2.5 h-2.5" /> Best Value
+                    </span>
+                  )}
+                  {cert.flags?.includes('hands_on') && (
+                    <span className="px-2 py-0.5 text-[10px] font-bold rounded-md bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/25">
+                      Hands-On Practical
+                    </span>
+                  )}
+                  {cert.flags?.includes('changed_2026') && (
+                    <span className="px-2 py-0.5 text-[10px] font-bold rounded-md bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/25">
+                      2026 Terms Updated
+                    </span>
+                  )}
+                </div>
+
                 {/* What it proves */}
-                <p className="text-xs text-text-secondary line-clamp-3 leading-relaxed">
+                <p className="text-xs text-text-secondary line-clamp-2 leading-relaxed">
                   {cert.whatItProves}
                 </p>
 
-                {/* TalentLens-Style Dimension Widgets Grid */}
+                {/* Fee & Prep Duration Grid */}
                 <div className="grid grid-cols-2 gap-2 pt-1">
                   <div className="bg-surface-2/70 border border-border/80 rounded-xl p-2.5">
                     <p className="text-[10px] font-bold text-text-muted uppercase tracking-wider mb-1">
                       Fee / Student Aid
                     </p>
-                    <p className="text-xs font-black text-emerald-600 dark:text-emerald-400 flex items-center gap-1 truncate">
+                    <p className="text-xs font-black text-emerald-600 dark:text-emerald-400 flex items-center gap-1 truncate" title={priceDisplay}>
                       <IndianRupee className="w-3.5 h-3.5 shrink-0" />
-                      <span>{cert.costInr || cert.cost}</span>
+                      <span>{priceDisplay}</span>
                     </p>
                   </div>
 
@@ -514,11 +691,11 @@ export function CertificationsTab({
                   </div>
                 </div>
 
-                {/* TalentLens-Style Interactive Student Waiver & Playbook Widget */}
-                {cert.studentDiscountNote && (
+                {/* Student Aid Callout */}
+                {(cert.studentDiscountNote || cert.studentAid?.summary) && (
                   <div
                     className="group/waiver p-2.5 rounded-xl bg-surface-2/80 hover:bg-primary/5 border border-border hover:border-primary/40 flex items-center justify-between text-xs transition-colors shadow-2xs"
-                    title="Click card to unlock full voucher codes, fee waivers, and academic lab routes"
+                    title={cert.studentDiscountNote || cert.studentAid?.summary || ''}
                   >
                     <div className="flex items-center gap-2.5 min-w-0">
                       <div className="p-1.5 rounded-lg bg-primary/10 text-primary group-hover/waiver:bg-primary group-hover/waiver:text-white transition-colors shrink-0">
@@ -527,14 +704,14 @@ export function CertificationsTab({
                       <div className="min-w-0">
                         <div className="flex items-center gap-1.5">
                           <p className="text-[11px] font-bold text-foreground truncate">
-                            Student Aid & Waiver Playbook
+                            Student Aid & Waiver Pathway
                           </p>
                           <span className="px-1.5 py-0.2 rounded text-[9px] font-extrabold uppercase bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25">
-                            Guide
+                            Playbook
                           </span>
                         </div>
                         <p className="text-[10px] text-text-muted truncate">
-                          Vouchers, free labs & discount application steps
+                          {cert.studentAid?.summary || cert.studentDiscountNote}
                         </p>
                       </div>
                     </div>
@@ -563,7 +740,7 @@ export function CertificationsTab({
               </div>
 
               {/* Bottom Dual Action Bar */}
-              <div className="mt-6 pt-4 border-t border-border flex items-center justify-between gap-2 text-xs">
+              <div className="mt-5 pt-4 border-t border-border flex items-center justify-between gap-2 text-xs">
                 {/* Working Direct Website Portal Link */}
                 <a
                   href={portalUrl}
@@ -571,11 +748,10 @@ export function CertificationsTab({
                   rel="noopener noreferrer"
                   onClick={(e) => handleExternalRedirect(e, portalUrl)}
                   className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-surface-2 hover:bg-primary hover:text-white border border-border hover:border-primary font-bold text-foreground transition-all duration-200 group/btn shadow-xs cursor-pointer"
-                  title={`Open official portal for ${cert.name} (${getDomainFromUrl(portalUrl)})`}
+                  title={`Open official portal (${getDomainFromUrl(portalUrl)})`}
                 >
                   <span>Official Portal</span>
-                  <span className="text-[10px] font-mono opacity-60 hidden sm:inline">({getDomainFromUrl(portalUrl)})</span>
-                  <ExternalLink className="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform text-primary group-hover/btn:text-white shrink-0" />
+                  <ExternalLink className="w-3.5 h-3.5 text-primary group-hover/btn:text-white shrink-0" />
                 </a>
 
                 {/* Modal View Details Trigger */}
@@ -594,7 +770,7 @@ export function CertificationsTab({
           <Award className="w-10 h-10 text-muted mx-auto" />
           <h3 className="text-lg font-bold text-foreground">No certifications match your active filters</h3>
           <p className="text-sm text-text-secondary max-w-md mx-auto">
-            Try adjusting your role, budget, or level filters to view certifications from the catalog.
+            Try adjusting your role, branch, or budget filters to explore credentials from the catalog.
           </p>
         </div>
       )}

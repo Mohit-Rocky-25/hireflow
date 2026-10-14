@@ -12,7 +12,7 @@ import { OpportunityRecord, RoleRecommendationPath } from '../types';
 export interface PlanRecommendation {
   opportunity: OpportunityRecord;
   opportunityKind: 'certification' | 'event' | 'open_source';
-  targetTimeline: '30_day' | '90_day';
+  targetTimeline: '30_day' | '60_day' | '90_day';
   reason: string;
   evidenceCreated: string;
   resumeImprovement: string;
@@ -26,6 +26,7 @@ export interface GeneratedPlanResult {
   roleDisplayName: string;
   recommendationPath: RoleRecommendationPath | null;
   thirtyDayPlan: PlanRecommendation[];
+  sixtyDayPlan: PlanRecommendation[];
   ninetyDayPlan: PlanRecommendation[];
   totalRecommendedCount: number;
   overloadWarning: string | null;
@@ -39,6 +40,9 @@ export interface PlanGenerationInput {
   missingGaps?: string[];
   tierGaps?: string[];
   existingCertifications?: string[];
+  weeklyHours?: number;
+  budgetLimit?: string;
+  branch?: string;
 }
 
 /**
@@ -198,6 +202,22 @@ export function generateOpportunityPlan(input: PlanGenerationInput): GeneratedPl
   // Ensure total recommendations count is strictly 3–5 items total
   const totalCount = thirtyDayPlan.length + ninetyDayPlan.length;
 
+  // 60-day intermediate milestone roadmap items
+  const sixtyDayPlan: PlanRecommendation[] = [];
+  if (thirtyDayPlan[1]) {
+    sixtyDayPlan.push({
+      ...thirtyDayPlan[1],
+      targetTimeline: '60_day',
+      reason: `Intermediate phase: team sprint and working prototype delivery for ${path.roleDisplayName}.`,
+    });
+  } else if (ninetyDayPlan[0]) {
+    sixtyDayPlan.push({
+      ...ninetyDayPlan[0],
+      targetTimeline: '60_day',
+      reason: `Bridge phase: prepare submission artifacts and codebase exploration for ${path.roleDisplayName}.`,
+    });
+  }
+
   const contextSummary = `Target role: ${path.roleDisplayName}. Generated prioritized 30-day and 90-day plan recommending ${totalCount} high-yield opportunities focused on building verifiable resume evidence.`;
 
   return {
@@ -205,6 +225,7 @@ export function generateOpportunityPlan(input: PlanGenerationInput): GeneratedPl
     roleDisplayName: path.roleDisplayName,
     recommendationPath: path,
     thirtyDayPlan,
+    sixtyDayPlan,
     ninetyDayPlan,
     totalRecommendedCount: totalCount,
     overloadWarning,

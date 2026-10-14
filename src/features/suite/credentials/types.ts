@@ -213,12 +213,173 @@ export interface OpportunityRecord {
   ppoOffered?: string;
   stipendAmount?: string;
   directPortalUrl?: string;
+
+  // ── Schema 2.0 Rich Extensions ──
+  trust?: TrustLevel;
+  flags?: OpportunityFlag[];
+  branches?: EngineeringBranch[];
+  feeDisplay?: FeeDisplay;
+  rewardDisplay?: RewardDisplay;
+  stipendDisplay?: StipendDisplay;
+  studentAid?: StudentAidInfo;
+  windows?: OpportunityWindow[];
+  richDetails?: OpportunityRichDetails;
+  editorialScore?: {
+    signal: number;
+    competition: 'low' | 'medium' | 'high';
+    effortWeeks?: [number, number];
+    note?: string;
+  };
+  verification?: {
+    status: TrustLevel;
+    lastChecked: string;
+    basis: string;
+    notes?: string;
+  };
+}
+
+// ── Schema 2.0 Types & Flags ──
+
+export type TrustLevel =
+  | 'verified_official'
+  | 'verified_multi_source'
+  | 'reported_single_source'
+  | 'unverified_recurring';
+
+export type OpportunityFlag =
+  | 'open_now'
+  | 'deadline_soon'
+  | 'free'
+  | 'paid_stipend'
+  | 'hiring_pipeline'
+  | 'best_value'
+  | 'hidden_gem'
+  | 'changed_2026'
+  | 'closed_this_year'
+  | 'branch_edge_ece'
+  | 'branch_edge_mech'
+  | 'branch_edge_noncs'
+  | 'start_now'
+  | 'evidence_builder'
+  | 'hands_on'
+  | 'high_cost'
+  | 'coursework_only'
+  | 'college_route'
+  | 'women_track'
+  | 'hr_filter_signal'
+  | 'core_industry';
+
+export type EngineeringBranch =
+  | 'ALL'
+  | 'CSE'
+  | 'IT'
+  | 'ECE'
+  | 'EEE'
+  | 'MECH'
+  | 'CIVIL';
+
+export interface FeeDisplay {
+  usd: number | null;
+  inrOfficial?: number | null;
+  inr_official?: number | null;
+  priceConfidence?: 'verified' | 'reported' | 'tier_inferred' | 'unknown';
+  note?: string;
+}
+
+export interface RewardDisplay {
+  headline?: string;
+  note?: string;
+  confidence?: 'verified' | 'reported' | 'conflicting' | 'low' | 'medium' | 'unknown';
+}
+
+export interface StipendDisplay {
+  headline?: string;
+  note?: string;
+  confidence?: 'verified' | 'reported' | 'low' | 'unknown';
+}
+
+export interface StudentAidInfo {
+  available: boolean;
+  summary: string | null;
+  steps: string[];
+}
+
+export interface OpportunityWindow {
+  label: string;
+  opens?: string | null;
+  closes?: string | null;
+  status:
+    | 'open'
+    | 'open_now'
+    | 'closing_soon'
+    | 'closed'
+    | 'expected'
+    | 'upcoming'
+    | 'upcoming_for_shortlisted'
+    | 'exams_in_progress'
+    | 'in_progress'
+    | 'check_official'
+    | 'info'
+    | 'past';
+  confidence?: 'high' | 'medium' | 'low';
+  date?: string | null;
+}
+
+export interface OfficialSourceCitation {
+  title: string;
+  url: string;
+  type: 'official' | 'secondary';
+  retrieved: string;
+  supports: string[];
+}
+
+export interface OpportunityRichEvidence {
+  attach?: string[];
+  lineTemplate?: string;
+  line_template?: string;
+}
+
+export interface OpportunityRichDetails {
+  overview?: string;
+  whatItCovers?: string[];
+  what_it_covers?: string[];
+  format?: Record<string, any>;
+  costBreakdown?: Array<{ item: string; usd?: number; inr?: number }>;
+  cost_breakdown?: Array<{ item: string; usd?: number; inr?: number }>;
+  validityRenewal?: string | null;
+  validity_renewal?: string | null;
+  prerequisites?: string;
+  eligibility?: string;
+  howToApply?: string[];
+  how_to_apply?: string[];
+  timeline?: OpportunityWindow[];
+  studentAidSteps?: string[];
+  student_aid_steps?: string[];
+  resumeEvidence?: OpportunityRichEvidence;
+  resume_evidence?: OpportunityRichEvidence;
+  pitfalls?: string[];
+  alternatives?: string[];
+  sources?: OfficialSourceCitation[];
+}
+
+// Live exchange rate reference (October 2026 baseline: 1 USD = 86.8 INR)
+export const USD_TO_INR_EXCHANGE_RATE = 86.8;
+
+export function formatComputedInr(usd: number | null, inrOfficial?: number | null): string {
+  if (inrOfficial != null && inrOfficial > 0) {
+    return `₹${inrOfficial.toLocaleString('en-IN')}`;
+  }
+  if (usd != null && usd > 0) {
+    const computed = Math.round(usd * USD_TO_INR_EXCHANGE_RATE);
+    return `~₹${computed.toLocaleString('en-IN')} ($${usd})`;
+  }
+  return 'Free';
 }
 
 // ── Opportunity Plan & Recommendation Models ──
 
 export type OpportunityPlanStatus = 'interested' | 'in_progress' | 'completed' | 'not_relevant';
-export type OpportunityPlanTimeline = '30_day' | '90_day' | 'later';
+export type OpportunityPlanTimeline = '30_day' | '60_day' | '90_day' | 'later';
 
 export interface OpportunityPlanItem {
   opportunityId: string;
@@ -271,4 +432,7 @@ export interface OpportunityFilterState {
   teamSize: string;
   eligibility: string;
   showOnlyTop30: boolean;
+  branch?: string;
+  trustLevel?: string;
+  flag?: string;
 }

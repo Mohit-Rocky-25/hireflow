@@ -83,7 +83,7 @@ export function Top30DirectoryModal({
               </h2>
             </div>
             <p className="text-xs text-text-secondary mt-1">
-              Curated, verified benchmark catalog of 42 high-value certifications, Indian hackathons, and open-source programs.
+              Curated, verified benchmark catalog of {ALL_OPPORTUNITIES.length} high-value certifications, Indian hackathons, and open-source programs.
             </p>
           </div>
           <button
@@ -190,17 +190,32 @@ export function Top30DirectoryModal({
                     <td className="py-3 px-3 capitalize font-semibold text-foreground">{opp.resumeValue}</td>
                     <td className="py-3 px-3 truncate max-w-[150px]">{opp.typicalWindow.replace('Typical window: ', '')}</td>
                     <td className="py-3 px-3" onClick={(e) => e.stopPropagation()}>
-                      <a
-                        href={portalUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => handleExternalRedirect(e, portalUrl)}
-                        className="p-1.5 rounded-lg text-primary hover:bg-primary/10 inline-flex items-center gap-1 font-bold cursor-pointer"
-                        title={`Open official portal for ${opp.name} (${getDomainFromUrl(portalUrl)})`}
-                      >
-                        <span>Portal</span>
-                        <ExternalLink className="w-3 h-3" />
-                      </a>
+                      <div className="flex items-center gap-2">
+                        <a
+                          href={portalUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => handleExternalRedirect(e, portalUrl)}
+                          className="p-1 rounded-md text-primary hover:bg-primary/10 inline-flex items-center gap-1 font-bold cursor-pointer"
+                          title={`Open official portal for ${opp.name} (${getDomainFromUrl(portalUrl)})`}
+                        >
+                          <span>Portal</span>
+                          <ExternalLink className="w-3 h-3" />
+                        </a>
+                        {(opp.syllabusUrl || opp.officialUrl) && (
+                          <a
+                            href={opp.syllabusUrl || opp.officialUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => handleExternalRedirect(e, opp.syllabusUrl || opp.officialUrl)}
+                            className="p-1 rounded-md text-text-secondary hover:text-foreground hover:bg-surface transition-colors inline-flex items-center gap-0.5 text-[11px] font-medium cursor-pointer"
+                            title="Open curriculum / syllabus"
+                          >
+                            <span>Syllabus</span>
+                            <ExternalLink className="w-2.5 h-2.5" />
+                          </a>
+                        )}
+                      </div>
                     </td>
                     <td className="py-3 px-3">
                       <span className="text-primary font-bold group-hover:underline inline-flex items-center gap-0.5">

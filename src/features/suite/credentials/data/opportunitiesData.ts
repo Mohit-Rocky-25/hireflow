@@ -6,8 +6,9 @@
 
 import { OpportunityRecord } from '../types';
 import { INDIAN_FLAGSHIP_OPPORTUNITIES } from './indianOpportunitiesData';
+import { RESEARCHED_MARKET_OPPORTUNITIES } from './researchedOpportunitiesData';
 
-export { INDIAN_FLAGSHIP_OPPORTUNITIES };
+export { INDIAN_FLAGSHIP_OPPORTUNITIES, RESEARCHED_MARKET_OPPORTUNITIES };
 
 export const TOP_30_OPPORTUNITIES: OpportunityRecord[] = [
   // =========================================================================
@@ -1963,10 +1964,11 @@ export const TOP_30_OPPORTUNITIES: OpportunityRecord[] = [
 ];
 
 
-// Combined catalog: Core Top 30 + Indian Flagship Competitions & Fellowships
+// Combined catalog: Core Top 30 + Indian Flagship Competitions & Fellowships + Researched Market Opportunities
 export const ALL_OPPORTUNITIES: OpportunityRecord[] = [
   ...TOP_30_OPPORTUNITIES,
   ...INDIAN_FLAGSHIP_OPPORTUNITIES,
+  ...RESEARCHED_MARKET_OPPORTUNITIES,
 ];
 
 export function getAllOpportunities(): OpportunityRecord[] {

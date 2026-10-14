@@ -1,6 +1,7 @@
 // ============================================================
 // Credential & Opportunity Engine — Competitions & Events Tab
 // Deeply structured catalog of Indian & global hackathons, codathons, & CTFs
+// Schema 2.0: Trust levels, branch edge, PPO pipelines, & official syllabus/problem links
 // ============================================================
 
 import React, { useState, useMemo } from 'react';
@@ -18,9 +19,13 @@ import {
   ExternalLink,
   Briefcase,
   Gift,
+  ShieldCheck,
+  AlertTriangle,
+  Building2,
+  FileText,
 } from 'lucide-react';
 import { ALL_OPPORTUNITIES } from '../data/opportunitiesData';
-import { OpportunityRecord } from '../types';
+import { OpportunityRecord, OpportunityFlag, EngineeringBranch, TrustLevel } from '../types';
 import { CredentialsStorage } from '../storage';
 
 interface EventsTabProps {
@@ -79,9 +84,10 @@ export function EventsTab({
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedType, setSelectedType] = useState<string>('All');
   const [selectedRole, setSelectedRole] = useState<string>('All');
-  const [selectedMode, setSelectedMode] = useState<string>('All');
-  const [selectedScope, setSelectedScope] = useState<string>('All');
-  const [selectedTier, setSelectedTier] = useState<string>('All');
+  const [selectedBranch, setSelectedBranch] = useState<string>('All');
+  const [selectedTrust, setSelectedTrust] = useState<string>('All');
+  const [selectedFlag, setSelectedFlag] = useState<string>('All');
+  const [onlyHiringPipeline, setOnlyHiringPipeline] = useState(false);
   const [onlyIndianFlagships, setOnlyIndianFlagships] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [savedIds, setSavedIds] = useState<Set<string>>(() => {
@@ -99,26 +105,31 @@ export function EventsTab({
         o.type === 'datathon' ||
         o.type === 'ctf' ||
         o.type === 'ai_challenge' ||
-        o.id === 'opp-sih' ||
-        o.id === 'opp-kaggle-comp' ||
-        o.id === 'opp-mlh-hackathons' ||
-        o.id === 'opp-hacktoberfest' ||
-        o.id === 'opp-flipkart-grid' ||
-        o.id === 'opp-tcs-codevita' ||
-        o.id === 'opp-tcs-hackquest' ||
-        o.id === 'opp-amazon-ml' ||
-        o.id === 'opp-jpmc-cfg' ||
-        o.id === 'opp-walmart-spark' ||
-        o.id === 'opp-google-girl-hack' ||
-        o.id === 'opp-cisco-ideathon' ||
-        o.id === 'opp-imagine-cup'
+        o.type === 'case_competition' ||
+        o.type === 'robotics'
     );
   }, []);
 
+  const roles = useMemo(() => {
+    const set = new Set<string>();
+    eventOpportunities.forEach((e) => e.targetRoles.forEach((r) => set.add(r)));
+    return Array.from(set).sort();
+  }, [eventOpportunities]);
+
   const filteredEvents = useMemo(() => {
     return eventOpportunities.filter((event) => {
-      if (onlyIndianFlagships && !event.isIndianFlagship && event.id !== 'opp-sih') {
+      if (onlyIndianFlagships && !event.isIndianFlagship && event.id !== 'opp-sih' && !event.id.includes('sih') && !event.id.includes('grid')) {
         return false;
+      }
+
+      if (onlyHiringPipeline) {
+        const hasPipeline =
+          event.flags?.includes('hiring_pipeline') ||
+          Boolean(event.ppoOffered) ||
+          event.rewardDisplay?.headline?.toLowerCase().includes('ppi') ||
+          event.rewardDisplay?.headline?.toLowerCase().includes('ppo') ||
+          event.suitabilityNotes?.toLowerCase().includes('ppo');
+        if (!hasPipeline) return false;
       }
 
       if (searchQuery.trim()) {
@@ -138,16 +149,21 @@ export function EventsTab({
         return false;
       }
 
-      if (selectedMode !== 'All' && event.mode !== selectedMode) {
-        return false;
+      if (selectedBranch !== 'All') {
+        const branches = event.branches || ['ALL'];
+        if (!branches.includes('ALL') && !branches.includes(selectedBranch as EngineeringBranch)) {
+          return false;
+        }
       }
 
-      if (selectedScope !== 'All' && event.scope !== selectedScope) {
-        return false;
+      if (selectedTrust !== 'All') {
+        const trust = event.trust || (event.confidence === 'high' ? 'verified_official' : 'reported_single_source');
+        if (trust !== selectedTrust) return false;
       }
 
-      if (selectedTier !== 'All' && event.releaseTier !== selectedTier) {
-        return false;
+      if (selectedFlag !== 'All') {
+        const flags = event.flags || [];
+        if (!flags.includes(selectedFlag as OpportunityFlag)) return false;
       }
 
       return true;
@@ -155,12 +171,13 @@ export function EventsTab({
   }, [
     eventOpportunities,
     onlyIndianFlagships,
+    onlyHiringPipeline,
     searchQuery,
     selectedType,
     selectedRole,
-    selectedMode,
-    selectedScope,
-    selectedTier,
+    selectedBranch,
+    selectedTrust,
+    selectedFlag,
   ]);
 
   const handleCopyTemplate = (e: React.MouseEvent, event: OpportunityRecord) => {
@@ -218,146 +235,216 @@ export function EventsTab({
     }
   };
 
+  const renderTrustBadge = (event: OpportunityRecord) => {
+    const trust = event.trust || (event.confidence === 'high' ? 'verified_official' : 'reported_single_source');
+    switch (trust) {
+      case 'verified_official':
+        return (
+          <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-bold rounded-md bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
+            <Check className="w-3 h-3" />
+            <span>Verified Official</span>
+          </span>
+        );
+      case 'verified_multi_source':
+        return (
+          <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-bold rounded-md bg-sky-500/15 text-sky-600 dark:text-sky-400 border border-sky-500/30">
+            <ShieldCheck className="w-3 h-3" />
+            <span>Multi-Source Verified</span>
+          </span>
+        );
+      case 'reported_single_source':
+        return (
+          <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-bold rounded-md bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30">
+            <span>ℹ Single-Source Reported</span>
+          </span>
+        );
+      case 'unverified_recurring':
+        return (
+          <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-bold rounded-md bg-slate-500/15 text-slate-400 border border-slate-500/30">
+            <AlertTriangle className="w-3 h-3" />
+            <span>Unverified Recurring</span>
+          </span>
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
-    <div className="space-y-8 animate-fade-in">
+    <div className="space-y-6 animate-fade-in">
       {/* Category Definitions Showcase Banner */}
-      <div className="p-6 rounded-3xl bg-gradient-to-r from-orange-500/10 via-primary/10 to-indigo-500/10 border border-orange-500/25 shadow-sm relative overflow-hidden">
+      <div className="p-5 sm:p-6 rounded-3xl bg-gradient-to-r from-orange-500/10 via-primary/10 to-indigo-500/10 border border-orange-500/25 shadow-sm relative overflow-hidden">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="space-y-1.5 max-w-2xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/15 border border-orange-500/30 text-orange-600 dark:text-orange-400 text-xs font-black uppercase tracking-wider">
-              <span>🇮🇳 Indian Collegiate Flagship Hub</span>
+              <span>🇮🇳 National & Collegiate Flagship Hub</span>
             </div>
             <h2 className="text-xl sm:text-2xl font-black text-foreground tracking-tight">
-              Premier Hackathons, Codathons & Direct PPO Challenges
+              Premier Hackathons, Codathons & Direct Hiring Pathways
             </h2>
             <p className="text-xs sm:text-sm text-text-secondary leading-relaxed">
-              Target high-impact Indian campus challenges like <strong>Flipkart GRiD</strong>, <strong>TCS CodeVita</strong>, <strong>Smart India Hackathon</strong>, <strong>Amazon ML Challenge</strong>, and <strong>JPMorgan CFG</strong> that offer direct Pre-Placement Offers (PPOs) up to ₹32 LPA.
+              Target premier campus challenges like <strong>Smart India Hackathon</strong>, <strong>Flipkart GRiD</strong>, <strong>Goldman Sachs India Hackathon</strong>, <strong>Tata Steel AI</strong>, and <strong>TCS CodeVita</strong> offering direct Pre-Placement Interviews (PPIs) and verifiable project evidence.
             </p>
           </div>
 
           <div className="flex flex-wrap items-center gap-2 shrink-0">
             <button
+              onClick={() => setOnlyHiringPipeline(!onlyHiringPipeline)}
+              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all border flex items-center gap-1.5 cursor-pointer ${
+                onlyHiringPipeline
+                  ? 'bg-emerald-500 text-white border-emerald-500 shadow-md shadow-emerald-500/20'
+                  : 'bg-surface border-border text-foreground hover:bg-surface-2'
+              }`}
+            >
+              <Briefcase className="w-3.5 h-3.5" />
+              <span>{onlyHiringPipeline ? 'Showing PPO/PPI Routes Only' : 'Filter Direct Hiring Routes'}</span>
+            </button>
+
+            <button
               onClick={() => setOnlyIndianFlagships(!onlyIndianFlagships)}
-              className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all border flex items-center gap-2 shadow-xs cursor-pointer ${
+              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all border flex items-center gap-1.5 cursor-pointer ${
                 onlyIndianFlagships
-                  ? 'bg-gradient-to-r from-orange-500 to-amber-600 text-white border-orange-500 shadow-orange-500/25 scale-[1.03]'
+                  ? 'bg-gradient-to-r from-orange-500 to-amber-600 text-white border-orange-500 shadow-md shadow-orange-500/20'
                   : 'bg-surface border-border text-foreground hover:bg-surface-2'
               }`}
             >
               <span>🇮🇳</span>
-              <span>{onlyIndianFlagships ? 'Showing Indian Flagships' : 'Filter Indian Flagships Only'}</span>
+              <span>{onlyIndianFlagships ? 'Showing Indian Flagships' : 'Filter Indian Only'}</span>
             </button>
           </div>
         </div>
       </div>
 
-      {/* Filter Chips Bar */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
-        {['All', 'hackathon', 'codathon', 'datathon', 'ctf', 'ideathon', 'ai_challenge'].map((type) => (
-          <button
-            key={type}
-            onClick={() => setSelectedType(type)}
-            className={`px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all border capitalize ${
-              selectedType === type
-                ? 'bg-primary text-white border-primary shadow-xs scale-[1.02]'
-                : 'bg-surface border-border text-text-secondary hover:text-foreground hover:bg-surface-2'
-            }`}
-          >
-            {type === 'All' ? 'All Competition Types' : type.replace('_', ' ')}
-          </button>
-        ))}
-      </div>
-
-      {/* Search & Logistics Filter Bar */}
-      <div className="p-6 rounded-2xl bg-surface/80 backdrop-blur-md border border-border space-y-4 shadow-sm">
+      {/* Filter and Search Bar */}
+      <div className="p-5 sm:p-6 rounded-2xl bg-surface/80 backdrop-blur-md border border-border space-y-4 shadow-sm relative overflow-hidden">
         <div className="relative">
           <Search className="w-5 h-5 text-primary absolute left-4 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search by challenge name, tech stack, company (e.g. Flipkart GRiD, TCS, Amazon ML, Python, AI)..."
+            placeholder="Search hackathons by name, company, or domain (e.g. SIH, Flipkart GRiD, Goldman Sachs, CTF, AI Challenge, ISRO)..."
             className="w-full pl-11 pr-4 py-3 rounded-xl bg-surface-2 border border-border text-sm text-foreground placeholder:text-muted focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all shadow-inner"
           />
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+          {/* Event Type */}
           <div className="space-y-1">
-            <label className="text-[11px] font-bold uppercase tracking-wider text-text-secondary">Target Role</label>
+            <label className="text-[11px] font-bold uppercase tracking-wider text-text-secondary">
+              Event Type
+            </label>
+            <select
+              value={selectedType}
+              onChange={(e) => setSelectedType(e.target.value)}
+              className="w-full px-2.5 py-2 rounded-lg bg-surface-2 border border-border text-xs text-foreground focus:outline-none focus:border-primary font-medium"
+            >
+              <option value="All">All Formats</option>
+              <option value="hackathon">Hackathon (Prototype MVP)</option>
+              <option value="codathon">Codathon (Algorithms & DSA)</option>
+              <option value="ai_challenge">AI / ML Challenge</option>
+              <option value="ctf">Cybersecurity CTF</option>
+              <option value="datathon">Datathon</option>
+              <option value="ideathon">Ideathon</option>
+            </select>
+          </div>
+
+          {/* College Branch */}
+          <div className="space-y-1">
+            <label className="text-[11px] font-bold uppercase tracking-wider text-text-secondary">
+              College Branch
+            </label>
+            <select
+              value={selectedBranch}
+              onChange={(e) => setSelectedBranch(e.target.value)}
+              className="w-full px-2.5 py-2 rounded-lg bg-surface-2 border border-border text-xs text-foreground focus:outline-none focus:border-primary font-medium"
+            >
+              <option value="All">All Branches</option>
+              <option value="CSE">CSE / IT</option>
+              <option value="ECE">ECE / EEE Edge</option>
+              <option value="MECH">Mechanical / Civil</option>
+            </select>
+          </div>
+
+          {/* Target Role */}
+          <div className="space-y-1">
+            <label className="text-[11px] font-bold uppercase tracking-wider text-text-secondary">
+              Target Role
+            </label>
             <select
               value={selectedRole}
               onChange={(e) => setSelectedRole(e.target.value)}
               className="w-full px-2.5 py-2 rounded-lg bg-surface-2 border border-border text-xs text-foreground focus:outline-none focus:border-primary font-medium"
             >
               <option value="All">All Roles</option>
-              <option value="Full-Stack Developer">Full-Stack Developer</option>
-              <option value="Backend Developer">Backend Developer</option>
-              <option value="AI/ML Engineer">AI/ML Engineer</option>
-              <option value="Cybersecurity Analyst">Cybersecurity Analyst</option>
-              <option value="Cloud/DevOps Engineer">Cloud/DevOps Engineer</option>
+              {roles.map((r) => (
+                <option key={r} value={r}>
+                  {r}
+                </option>
+              ))}
             </select>
           </div>
 
+          {/* Verification Trust */}
           <div className="space-y-1">
-            <label className="text-[11px] font-bold uppercase tracking-wider text-text-secondary">Competition Mode</label>
+            <label className="text-[11px] font-bold uppercase tracking-wider text-text-secondary">
+              Trust Level
+            </label>
             <select
-              value={selectedMode}
-              onChange={(e) => setSelectedMode(e.target.value)}
+              value={selectedTrust}
+              onChange={(e) => setSelectedTrust(e.target.value)}
               className="w-full px-2.5 py-2 rounded-lg bg-surface-2 border border-border text-xs text-foreground focus:outline-none focus:border-primary font-medium"
             >
-              <option value="All">All Modes</option>
-              <option value="online">Online Sprint</option>
-              <option value="hybrid">Hybrid (Online + Finale)</option>
-              <option value="offline">In-Person</option>
+              <option value="All">All Trust Levels</option>
+              <option value="verified_official">Verified Official</option>
+              <option value="verified_multi_source">Multi-Source Verified</option>
+              <option value="reported_single_source">Single-Source Reported</option>
+              <option value="unverified_recurring">Unverified Recurring</option>
             </select>
           </div>
 
+          {/* Special Flag */}
           <div className="space-y-1">
-            <label className="text-[11px] font-bold uppercase tracking-wider text-text-secondary">Scope</label>
+            <label className="text-[11px] font-bold uppercase tracking-wider text-text-secondary">
+              Attribute / Flag
+            </label>
             <select
-              value={selectedScope}
-              onChange={(e) => setSelectedScope(e.target.value)}
+              value={selectedFlag}
+              onChange={(e) => setSelectedFlag(e.target.value)}
               className="w-full px-2.5 py-2 rounded-lg bg-surface-2 border border-border text-xs text-foreground focus:outline-none focus:border-primary font-medium"
             >
-              <option value="All">All Scopes</option>
-              <option value="national">National (India)</option>
-              <option value="international">Global / International</option>
-            </select>
-          </div>
-
-          <div className="space-y-1">
-            <label className="text-[11px] font-bold uppercase tracking-wider text-text-secondary">Tier Structure</label>
-            <select
-              value={selectedTier}
-              onChange={(e) => setSelectedTier(e.target.value)}
-              className="w-full px-2.5 py-2 rounded-lg bg-surface-2 border border-border text-xs text-foreground focus:outline-none focus:border-primary font-medium"
-            >
-              <option value="All">All Tiers</option>
-              <option value="tier1">Tier 1 · Build First</option>
-              <option value="tier2">Tier 2 · Build Next</option>
-              <option value="tier3">Tier 3 · Extended</option>
+              <option value="All">All Flags</option>
+              <option value="hiring_pipeline">PPO / PPI Pipeline</option>
+              <option value="college_route">College Route (SPOC Required)</option>
+              <option value="women_track">Women in Tech Track</option>
+              <option value="core_industry">Core Industry / Non-Web</option>
+              <option value="closed_this_year">Next Cycle Expected</option>
             </select>
           </div>
         </div>
 
-        {/* Filter reset indicator */}
+        {/* Reset active filters */}
         {(selectedType !== 'All' ||
           selectedRole !== 'All' ||
-          selectedMode !== 'All' ||
-          selectedScope !== 'All' ||
-          selectedTier !== 'All' ||
+          selectedBranch !== 'All' ||
+          selectedTrust !== 'All' ||
+          selectedFlag !== 'All' ||
+          onlyHiringPipeline ||
           onlyIndianFlagships ||
           searchQuery) && (
           <div className="pt-2 flex items-center justify-between text-xs text-text-secondary border-t border-border">
-            <span>Showing <strong>{filteredEvents.length}</strong> of {eventOpportunities.length} competitions</span>
+            <span>
+              Showing <strong>{filteredEvents.length}</strong> of {eventOpportunities.length} competitions & hackathons
+            </span>
             <button
               onClick={() => {
                 setSearchQuery('');
                 setSelectedType('All');
                 setSelectedRole('All');
-                setSelectedMode('All');
-                setSelectedScope('All');
-                setSelectedTier('All');
+                setSelectedBranch('All');
+                setSelectedTrust('All');
+                setSelectedFlag('All');
+                setOnlyHiringPipeline(false);
                 setOnlyIndianFlagships(false);
               }}
               className="font-bold text-primary hover:underline cursor-pointer"
@@ -368,67 +455,50 @@ export function EventsTab({
         )}
       </div>
 
-      {/* Events Grid with Effulgent Cards */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      {/* Events Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredEvents.map((event) => {
           const isSaved = savedIds.has(event.id);
           const portalUrl = event.directPortalUrl || event.officialUrl;
-          const isIndian = event.isIndianFlagship || event.id === 'opp-sih';
+          const syllabusUrl = event.syllabusUrl || portalUrl;
+          const isPPO =
+            event.flags?.includes('hiring_pipeline') ||
+            Boolean(event.ppoOffered) ||
+            event.rewardDisplay?.headline?.toLowerCase().includes('ppi') ||
+            event.rewardDisplay?.headline?.toLowerCase().includes('ppo');
 
           return (
             <div
               key={event.id}
               onClick={() => onSelectOpportunity(event)}
-              className={`group bg-surface rounded-3xl border-2 ${
-                isIndian
-                  ? 'border-orange-500/30 hover:border-orange-500/80 hover:shadow-[0_16px_40px_rgba(249,115,22,0.18)]'
-                  : 'border-border hover:border-primary/70 hover:shadow-[0_16px_40px_rgba(99,102,241,0.18)]'
-              } p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer shadow-sm hover:-translate-y-1 relative overflow-hidden`}
+              className="group bg-surface rounded-2xl border-2 border-border/80 p-6 flex flex-col justify-between hover:border-orange-500/50 hover:shadow-lg transition-all duration-300 cursor-pointer shadow-sm hover:-translate-y-1 relative overflow-hidden"
             >
-              {/* Luminous Top Accent Bar */}
-              <div
-                className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${
-                  isIndian
-                    ? 'from-orange-500 via-amber-400 to-emerald-500'
-                    : 'from-primary via-indigo-400 to-sky-400'
-                }`}
-              />
+              <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-orange-500 via-amber-400 to-transparent" />
 
-              <div className="space-y-5">
+              <div className="space-y-4">
                 {/* Header row */}
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex flex-wrap items-center gap-1.5">
-                    {isIndian ? (
-                      <span className="px-2.5 py-1 text-[11px] font-black rounded-lg bg-orange-500/15 text-orange-600 dark:text-orange-400 border border-orange-500/30 flex items-center gap-1">
-                        <span>🇮🇳</span>
-                        <span>National Flagship</span>
-                      </span>
-                    ) : (
-                      <span className="px-2.5 py-1 text-[11px] font-mono font-bold rounded-lg bg-primary/10 text-primary border border-primary/20">
-                        #{event.rank}
-                      </span>
-                    )}
-
-                    <span className="px-2.5 py-1 text-[11px] font-bold rounded-lg bg-surface-2 text-text-secondary border border-border capitalize">
+                    <span className="px-2 py-0.5 text-[10px] font-mono font-black rounded-md bg-orange-500/10 text-orange-600 dark:text-orange-400 border border-orange-500/20 capitalize">
                       {event.type.replace('_', ' ')}
                     </span>
-
                     {event.scope && (
-                      <span className="px-2.5 py-1 text-[11px] font-bold rounded-lg bg-surface-2 text-text-secondary border border-border capitalize">
+                      <span className="px-2 py-0.5 text-[10px] font-bold rounded-md bg-surface-2 text-text-secondary border border-border capitalize">
                         {event.scope}
                       </span>
                     )}
+                    {renderTrustBadge(event)}
                   </div>
 
                   <button
                     onClick={(e) => handleTogglePlan(e, event.id)}
-                    className={`p-2 rounded-xl border transition-all ${
+                    className={`p-2 rounded-xl border transition-all shrink-0 ${
                       isSaved
-                        ? 'bg-primary text-white border-primary shadow-xs'
-                        : 'bg-surface-2 border-border text-text-secondary hover:text-foreground'
+                        ? 'bg-orange-500 text-white border-orange-500 shadow-sm shadow-orange-500/30'
+                        : 'bg-surface-2 border-border text-text-secondary hover:text-foreground hover:bg-surface-2/80'
                     }`}
-                    title={isSaved ? 'In your plan' : 'Save to My Opportunity Plan'}
-                    aria-label={isSaved ? 'In your plan' : 'Save to My Opportunity Plan'}
+                    title={isSaved ? 'Saved in My Opportunity Plan' : 'Save to Opportunity Plan'}
+                    aria-label={isSaved ? 'Saved in My Opportunity Plan' : 'Save to Opportunity Plan'}
                   >
                     {isSaved ? <BookmarkCheck className="w-4 h-4" /> : <Bookmark className="w-4 h-4" />}
                   </button>
@@ -436,102 +506,142 @@ export function EventsTab({
 
                 {/* Title & Organizer */}
                 <div>
-                  <h3 className="text-xl sm:text-2xl font-black text-foreground group-hover:text-primary transition-colors tracking-tight leading-snug">
+                  <h3 className="text-lg font-black text-foreground group-hover:text-orange-500 transition-colors leading-snug tracking-tight">
                     {event.name}
                   </h3>
                   <p className="text-xs text-text-secondary font-medium mt-1 flex items-center gap-1.5">
-                    <Trophy className="w-3.5 h-3.5 text-primary shrink-0" />
-                    <span>Organizer: <strong className="text-foreground">{event.organizer}</strong></span>
+                    <Building2 className="w-3.5 h-3.5 text-orange-500 shrink-0" />
+                    <span>{event.organizer}</span>
                   </p>
                 </div>
 
-                {/* What it is overview */}
-                <p className="text-xs sm:text-sm text-text-secondary leading-relaxed line-clamp-2">
-                  {event.whatItIs}
+                {/* Badges: PPO, Branch Edge, Flags */}
+                <div className="flex flex-wrap items-center gap-1.5">
+                  {isPPO && (
+                    <span className="px-2 py-0.5 text-[10px] font-black rounded-md bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 flex items-center gap-1">
+                      <Briefcase className="w-3 h-3" />
+                      <span>{event.ppoOffered || event.rewardDisplay?.headline || 'Direct PPO Route'}</span>
+                    </span>
+                  )}
+                  {event.flags?.includes('college_route') && (
+                    <span className="px-2 py-0.5 text-[10px] font-bold rounded-md bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/25">
+                      College SPOC Route
+                    </span>
+                  )}
+                  {event.flags?.includes('women_track') && (
+                    <span className="px-2 py-0.5 text-[10px] font-bold rounded-md bg-pink-500/10 text-pink-600 dark:text-pink-400 border border-pink-500/25">
+                      Women in Tech Track
+                    </span>
+                  )}
+                  {event.flags?.includes('branch_edge_ece') && (
+                    <span className="px-2 py-0.5 text-[10px] font-bold rounded-md bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/25">
+                      ⚡ ECE / Hardware Edge
+                    </span>
+                  )}
+                  {event.flags?.includes('core_industry') && (
+                    <span className="px-2 py-0.5 text-[10px] font-bold rounded-md bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/25">
+                      Core Industry Track
+                    </span>
+                  )}
+                  {event.flags?.includes('closed_this_year') && (
+                    <span className="px-2 py-0.5 text-[10px] font-bold rounded-md bg-slate-500/10 text-slate-400 border border-slate-500/25">
+                      Next Cycle Expected
+                    </span>
+                  )}
+                </div>
+
+                {/* What it proves */}
+                <p className="text-xs text-text-secondary line-clamp-2 leading-relaxed">
+                  {event.whatItProves}
                 </p>
 
-                {/* High-Value Highlights: PPO / Prize Badges */}
-                <div className="flex flex-wrap gap-2 pt-1">
-                  {event.ppoOffered && (
-                    <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-500/15 border border-emerald-500/35 text-emerald-600 dark:text-emerald-400 font-bold text-xs shadow-xs">
-                      <Briefcase className="w-3.5 h-3.5 shrink-0" />
-                      <span>{event.ppoOffered}</span>
-                    </div>
-                  )}
-
-                  {event.costInr && (
-                    <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-indigo-500/10 border border-indigo-500/25 text-indigo-600 dark:text-indigo-400 font-bold text-xs shadow-xs">
-                      <Gift className="w-3.5 h-3.5 shrink-0" />
-                      <span>{event.costInr}</span>
-                    </div>
-                  )}
-                </div>
-
-                {/* Key logistics row */}
-                <div className="grid grid-cols-3 gap-2 text-xs text-text-secondary">
-                  <div className="p-2.5 rounded-xl bg-surface-2 border border-border">
-                    <span className="text-[10px] text-muted block uppercase font-bold">Duration</span>
-                    <strong className="text-foreground truncate block">{event.duration}</strong>
+                {/* Team & Window Quick Grid */}
+                <div className="grid grid-cols-2 gap-2 pt-1">
+                  <div className="bg-surface-2/70 border border-border/80 rounded-xl p-2.5">
+                    <p className="text-[10px] font-bold text-text-muted uppercase tracking-wider mb-1">
+                      Team Format
+                    </p>
+                    <p className="text-xs font-bold text-foreground flex items-center gap-1 truncate">
+                      <Users className="w-3.5 h-3.5 text-orange-500 shrink-0" />
+                      <span>{event.teamSize || 'Individual or Team'}</span>
+                    </p>
                   </div>
-                  <div className="p-2.5 rounded-xl bg-surface-2 border border-border">
-                    <span className="text-[10px] text-muted block uppercase font-bold">Team Size</span>
-                    <strong className="text-foreground truncate block">{event.teamSize || 'Solo / Squad'}</strong>
-                  </div>
-                  <div className="p-2.5 rounded-xl bg-surface-2 border border-border">
-                    <span className="text-[10px] text-muted block uppercase font-bold">Window</span>
-                    <strong className="text-foreground truncate block">{event.typicalWindow.replace('Typical window: ', '')}</strong>
+
+                  <div className="bg-surface-2/70 border border-border/80 rounded-xl p-2.5">
+                    <p className="text-[10px] font-bold text-text-muted uppercase tracking-wider mb-1">
+                      Next Window
+                    </p>
+                    <p className="text-xs font-bold text-foreground flex items-center gap-1.5 truncate" title={event.typicalWindow}>
+                      <Calendar className="w-3.5 h-3.5 text-primary shrink-0" />
+                      <span>{event.typicalWindow}</span>
+                    </p>
                   </div>
                 </div>
 
-                {/* Resume bullet formula preview card */}
-                <div className="p-3.5 rounded-2xl bg-primary/5 border border-primary/20 space-y-2">
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="font-bold text-primary flex items-center gap-1.5">
-                      <Sparkles className="w-3.5 h-3.5" />
-                      Resume Presentation Bullet
-                    </span>
-                    <button
-                      onClick={(e) => handleCopyTemplate(e, event)}
-                      className="text-[11px] font-bold text-foreground hover:text-primary transition-colors flex items-center gap-1 cursor-pointer"
+                {/* Reward / Prize Notice */}
+                {(event.rewardDisplay?.headline || event.rewardDisplay?.note || event.costInr) && (
+                  <div className="p-2.5 rounded-xl bg-surface-2/80 border border-border flex items-center gap-2 text-xs">
+                    <Gift className="w-4 h-4 text-orange-500 shrink-0" />
+                    <p className="text-[11px] text-text-secondary truncate">
+                      <strong className="text-foreground">Prizes: </strong>
+                      {event.rewardDisplay?.headline || event.rewardDisplay?.note || 'Prizes, recognition & PPI routes'}
+                    </p>
+                  </div>
+                )}
+
+                {/* Target Roles */}
+                <div className="flex flex-wrap gap-1.5 pt-1">
+                  {event.targetRoles.slice(0, 2).map((role, idx) => (
+                    <span
+                      key={idx}
+                      className="text-[11px] font-bold px-2.5 py-1 rounded-md bg-surface-2 text-foreground/80 border border-border"
                     >
-                      {copiedId === event.id ? (
-                        <>
-                          <Check className="w-3 h-3 text-emerald-500" />
-                          <span>Copied</span>
-                        </>
-                      ) : (
-                        <>
-                          <Copy className="w-3 h-3" />
-                          <span>Copy Formula</span>
-                        </>
-                      )}
-                    </button>
-                  </div>
-                  <p className="font-mono text-xs text-foreground bg-surface p-2.5 rounded-xl border border-border line-clamp-2 leading-relaxed">
-                    {event.resumePresentationTemplate}
-                  </p>
+                      {role}
+                    </span>
+                  ))}
+                  {event.targetRoles.length > 2 && (
+                    <span className="text-[10px] text-muted self-center font-bold">
+                      +{event.targetRoles.length - 2} more
+                    </span>
+                  )}
                 </div>
               </div>
 
               {/* Bottom Dual Action Bar */}
-              <div className="mt-6 pt-4 border-t border-border flex items-center justify-between gap-3 text-xs">
-                {/* Working Direct Registration Portal Link */}
-                <a
-                  href={portalUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={(e) => handleExternalRedirect(e, portalUrl)}
-                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-surface-2 hover:bg-primary hover:text-white border border-border hover:border-primary font-black text-foreground transition-all duration-200 group/btn shadow-xs cursor-pointer"
-                  title={`Open official registration portal for ${event.name} (${getDomainFromUrl(portalUrl)})`}
-                >
-                  <span>Register on Portal</span>
-                  <span className="text-[10px] font-mono opacity-60 hidden sm:inline">({getDomainFromUrl(portalUrl)})</span>
-                  <ExternalLink className="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform text-primary group-hover/btn:text-white shrink-0" />
-                </a>
+              <div className="mt-5 pt-4 border-t border-border flex flex-wrap items-center justify-between gap-2 text-xs">
+                <div className="flex items-center gap-2">
+                  {/* Working Direct Website Portal Link */}
+                  <a
+                    href={portalUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => handleExternalRedirect(e, portalUrl)}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-surface-2 hover:bg-orange-500 hover:text-white border border-border hover:border-orange-500 font-bold text-foreground transition-all duration-200 group/btn shadow-xs cursor-pointer"
+                    title={`Open portal (${getDomainFromUrl(portalUrl)})`}
+                  >
+                    <span>Portal</span>
+                    <ExternalLink className="w-3 h-3 text-orange-500 group-hover/btn:text-white shrink-0" />
+                  </a>
 
-                {/* Details Trigger */}
-                <span className="inline-flex items-center gap-1 font-bold text-primary group-hover:translate-x-1 transition-transform">
-                  <span>Strategy & Checklist</span>
+                  {/* Operable Syllabus / Problem Statements Link */}
+                  {syllabusUrl && (
+                    <a
+                      href={syllabusUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => handleExternalRedirect(e, syllabusUrl)}
+                      className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-surface-2 hover:bg-surface-3 border border-border font-medium text-text-secondary hover:text-foreground transition-all cursor-pointer"
+                      title="Open problem statements, syllabus, or challenge rules"
+                    >
+                      <FileText className="w-3 h-3 text-primary" />
+                      <span>Syllabus</span>
+                    </a>
+                  )}
+                </div>
+
+                {/* Modal View Details Trigger */}
+                <span className="inline-flex items-center gap-1 font-bold text-orange-500 group-hover:translate-x-1 transition-transform">
+                  <span>View Details</span>
                   <ChevronRight className="w-4 h-4" />
                 </span>
               </div>
@@ -543,9 +653,9 @@ export function EventsTab({
       {filteredEvents.length === 0 && (
         <div className="p-12 text-center rounded-2xl bg-surface border-2 border-dashed border-border space-y-3">
           <Trophy className="w-10 h-10 text-muted mx-auto" />
-          <h3 className="text-lg font-bold text-foreground">No events match your active filters</h3>
+          <h3 className="text-lg font-bold text-foreground">No competitions match your active filters</h3>
           <p className="text-sm text-text-secondary max-w-md mx-auto">
-            Try adjusting your role or mode filters to view hackathons and competitions.
+            Try clearing specific format or branch filters to explore campus hackathons and algorithmic contests.
           </p>
         </div>
       )}
