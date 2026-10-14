@@ -5,11 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc && vitest run src/navigation/__tests__/navigationValidator.test.ts && vite build",
     "preview": "vite preview",
     "test": "vitest run",
     "verify": "vitest run",
     "validate:data": "vitest run src/data/__tests__/validateData.test.ts",
+    "validate:nav": "vitest run src/navigation/__tests__/navigationValidator.test.ts",
     "security:secrets": "node scripts/security/scan-secrets.mjs",
     "security:audit": "node scripts/security/audit-deps.mjs",
     "security:bundle": "node scripts/security/scan-bundle.mjs",
