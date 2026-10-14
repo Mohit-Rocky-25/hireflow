@@ -4,7 +4,7 @@
 // student waivers, timeline windows, verifiable resume evidence, & official citations.
 // ============================================================
 
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState, useMemo } from 'react';
 import {
   X,
   ExternalLink,
@@ -56,13 +56,50 @@ export function OpportunityDetailModal({
   const [copiedTemplate, setCopiedTemplate] = useState(false);
   const [currentStatus, setCurrentStatus] = useState<OpportunityPlanStatus | null>(null);
 
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const topAnchorRef = useRef<HTMLDivElement>(null);
+
+  // Synchronously reset scroll to top before browser paint
+  useLayoutEffect(() => {
+    if (!opportunity) return;
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTop = 0;
+    }
+  }, [opportunity?.id]);
+
   useEffect(() => {
     if (!opportunity) return;
     setActiveTab('overview');
     const items = CredentialsStorage.loadPlanItems();
     const existing = items.find((i) => i.opportunityId === opportunity.id);
     setCurrentStatus(existing ? existing.status : null);
-  }, [opportunity]);
+
+    // Guaranteed scroll-to-top on open
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTop = 0;
+      scrollContainerRef.current.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    }
+    topAnchorRef.current?.scrollIntoView({ block: 'start', behavior: 'instant' });
+    topAnchorRef.current?.focus({ preventScroll: true });
+
+    // Handle asynchronous layout shifts & ensure top position
+    const rafId = requestAnimationFrame(() => {
+      if (scrollContainerRef.current) {
+        scrollContainerRef.current.scrollTop = 0;
+      }
+    });
+
+    return () => cancelAnimationFrame(rafId);
+  }, [opportunity?.id]);
+
+  // Reset scroll to top whenever the user switches modal tabs
+  useEffect(() => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTop = 0;
+      scrollContainerRef.current.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    }
+    topAnchorRef.current?.scrollIntoView({ block: 'start', behavior: 'instant' });
+  }, [activeTab]);
 
   useEffect(() => {
     if (!opportunity) return;
@@ -139,10 +176,20 @@ export function OpportunityDetailModal({
 
   return (
     <div
+      ref={scrollContainerRef}
+      key={opportunity.id}
       className="fixed inset-0 z-50 bg-bg text-foreground overflow-y-auto animate-fade-in flex flex-col"
       role="dialog"
       aria-modal="true"
     >
+      {/* Invisible Top Anchor for instant scroll & focus management */}
+      <div
+        ref={topAnchorRef}
+        tabIndex={-1}
+        className="w-0 h-0 overflow-hidden outline-hidden pointer-events-none absolute top-0 left-0"
+        aria-hidden="true"
+      />
+
       {/* Top Accent Gradient Bar */}
       <div
         className={`h-2 w-full shrink-0 bg-gradient-to-r ${

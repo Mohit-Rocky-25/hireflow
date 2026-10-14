@@ -266,11 +266,14 @@ export function CredentialOpportunityEnginePage() {
         </div>
 
         {/* Deep Opportunity Detail Modal */}
-        <OpportunityDetailModal
-          opportunity={selectedOpportunity}
-          onClose={() => setSelectedOpportunity(null)}
-          onPlanUpdated={refreshPlanCount}
-        />
+        {selectedOpportunity && (
+          <OpportunityDetailModal
+            key={selectedOpportunity.id}
+            opportunity={selectedOpportunity}
+            onClose={() => setSelectedOpportunity(null)}
+            onPlanUpdated={refreshPlanCount}
+          />
+        )}
 
         {/* Top 30 Directory Index Modal */}
         <Top30DirectoryModal

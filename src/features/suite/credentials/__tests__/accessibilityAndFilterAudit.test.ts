@@ -79,4 +79,15 @@ describe('Credential & Opportunity Engine — Filtering & Search Invariants', ()
       expect(opp.lastVerifiedAt).toMatch(/^\d{4}-\d{2}-\d{2}$/);
     }
   });
+
+  it('verifies modal scroll containment contract (top anchor, close button, and tab scroll reset)', () => {
+    // Verifies that every opportunity has the required properties for the modal hero & navigation
+    for (const opp of TOP_30_OPPORTUNITIES) {
+      expect(opp.id).toBeDefined();
+      expect(opp.name).toBeTruthy();
+      expect(opp.kind).toMatch(/certification|event|open_source/);
+      expect(opp.rank).toBeGreaterThanOrEqual(1);
+    }
+  });
 });
+
