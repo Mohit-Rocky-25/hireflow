@@ -82,6 +82,7 @@ import { ToastContainer } from './components/ui/Toast';
 
 import { ProfileProvider } from './features/suite/profile/ProfileContext';
 import { ProfileDrawer } from './features/suite/profile/components/ProfileDrawer';
+import { LocalhostNavigator } from './components/common/LocalhostNavigator';
 
 export default function App() {
   const { initDemoData, _initialized } = useStore();
@@ -194,6 +195,7 @@ export default function App() {
       </Routes>
       <ProfileDrawer />
       <ToastContainer />
+      <LocalhostNavigator />
     </BrowserRouter>
     </ProfileProvider>
     </>
