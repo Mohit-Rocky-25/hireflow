@@ -208,7 +208,7 @@ export const RESEARCHED_MARKET_OPPORTUNITIES: OpportunityRecord[] = [
       "basis": "Official vendor portal",
       "notes": "Two sources quote older prices ($395, $300). Always check the catalogue at purchase time."
     },
-    "syllabusUrl": "https://github.com/cncf/curriculum/blob/master/CKA_Curriculum_v1.35.pdf"
+    "syllabusUrl": "https://github.com/cncf/curriculum"
   },
   {
     "schemaVersion": 1,
@@ -252,10 +252,10 @@ export const RESEARCHED_MARKET_OPPORTUNITIES: OpportunityRecord[] = [
     "cost": "$70.5 (~₹6,119)",
     "costInr": "~₹6,119",
     "studentDiscountNote": "Plus locally applicable taxes and fees. Free retake not included.",
-    "directPortalUrl": "https://developer.hashicorp.com/certifications/terraform-associate",
+    "directPortalUrl": "https://www.hashicorp.com/certification/terraform-associate",
     "validity": "Valid for 2 years (secondary sources). Renew by passing the current exam version.",
-    "officialUrl": "https://developer.hashicorp.com/certifications/terraform-associate",
-    "sourceUrl": "https://developer.hashicorp.com/certifications/terraform-associate",
+    "officialUrl": "https://www.hashicorp.com/certification/terraform-associate",
+    "sourceUrl": "https://www.hashicorp.com/certification/terraform-associate",
     "resumeValue": "high",
     "evidenceValue": "high",
     "portfolioValue": "high",
@@ -365,7 +365,7 @@ export const RESEARCHED_MARKET_OPPORTUNITIES: OpportunityRecord[] = [
       "sources": [
         {
           "title": "HashiCorp: Terraform Associate",
-          "url": "https://developer.hashicorp.com/certifications/terraform-associate",
+          "url": "https://www.hashicorp.com/certification/terraform-associate",
           "type": "official",
           "retrieved": "2026-10-14",
           "supports": [
@@ -401,7 +401,7 @@ export const RESEARCHED_MARKET_OPPORTUNITIES: OpportunityRecord[] = [
       "basis": "Official vendor portal",
       "notes": "Study materials for 003 are partly outdated; use 004 objectives."
     },
-    "syllabusUrl": "https://developer.hashicorp.com/certifications/terraform-associate"
+    "syllabusUrl": "https://www.hashicorp.com/certification/terraform-associate"
   },
   {
     "schemaVersion": 1,
@@ -1246,10 +1246,10 @@ export const RESEARCHED_MARKET_OPPORTUNITIES: OpportunityRecord[] = [
     "cost": "₹1,000",
     "costInr": "₹1,000",
     "studentDiscountNote": "NPTEL announcements list a 50% exam-fee waiver for certain categories.",
-    "directPortalUrl": "https://onlinecourses.nptel.ac.in/noc25_mg05/announcements",
+    "directPortalUrl": "https://nptel.ac.in/",
     "validity": "Certificate does not expire.",
-    "officialUrl": "https://onlinecourses.nptel.ac.in/noc25_mg05/announcements",
-    "sourceUrl": "https://onlinecourses.nptel.ac.in/noc25_mg05/announcements",
+    "officialUrl": "https://nptel.ac.in/",
+    "sourceUrl": "https://nptel.ac.in/",
     "resumeValue": "high",
     "evidenceValue": "high",
     "portfolioValue": "high",
@@ -1398,7 +1398,7 @@ export const RESEARCHED_MARKET_OPPORTUNITIES: OpportunityRecord[] = [
       "sources": [
         {
           "title": "NPTEL course announcement: ₹1,000 exam fee, 50% waiver",
-          "url": "https://onlinecourses.nptel.ac.in/noc25_mg05/announcements",
+          "url": "https://nptel.ac.in/",
           "type": "official",
           "retrieved": "2026-10-14",
           "supports": [
@@ -1906,7 +1906,7 @@ export const RESEARCHED_MARKET_OPPORTUNITIES: OpportunityRecord[] = [
       "basis": "Multi-source verified",
       "notes": "Students cannot register directly; skipping the internal hackathon means no entry."
     },
-    "syllabusUrl": "https://sih.gov.in/problem-statements"
+    "syllabusUrl": "https://www.sih.gov.in/"
   },
   {
     "schemaVersion": 1,
@@ -2667,7 +2667,7 @@ export const RESEARCHED_MARKET_OPPORTUNITIES: OpportunityRecord[] = [
       "basis": "Multi-source verified",
       "notes": "Low-quality or spam PRs do not count and can get you blocked by maintainers."
     },
-    "syllabusUrl": "https://hacktoberfest.com/participation/"
+    "syllabusUrl": "https://hacktoberfest.com/"
   },
   {
     "schemaVersion": 1,
@@ -3543,9 +3543,9 @@ export const RESEARCHED_MARKET_OPPORTUNITIES: OpportunityRecord[] = [
     "cost": "Free to enter/participate",
     "costInr": "₹0 Free",
     "studentDiscountNote": "Stipend in two instalments.",
-    "directPortalUrl": "https://codeforgovtech.in/dedicated-mentoring-program/",
+    "directPortalUrl": "https://github.com/Code4GovTech/C4GT",
     "validity": "Valid credential with verifiable transcript",
-    "officialUrl": "https://codeforgovtech.in/dedicated-mentoring-program/",
+    "officialUrl": "https://github.com/Code4GovTech/C4GT",
     "sourceUrl": "https://openimis.atlassian.net/wiki/spaces/OP/pages/4913528833/Code4GovTech+Dedicated+Mentoring+Program+2025",
     "resumeValue": "high",
     "evidenceValue": "high",
@@ -3725,7 +3725,7 @@ export const RESEARCHED_MARKET_OPPORTUNITIES: OpportunityRecord[] = [
       "basis": "Multi-source verified",
       "notes": "The correct domain is codeforgovtech.in (an earlier draft of this data used a different spelling)."
     },
-    "syllabusUrl": "https://codeforgovtech.in/dedicated-mentoring-program/"
+    "syllabusUrl": "https://github.com/Code4GovTech/C4GT"
   },
   {
     "schemaVersion": 1,
@@ -4104,7 +4104,7 @@ export const RESEARCHED_MARKET_OPPORTUNITIES: OpportunityRecord[] = [
       "basis": "secondary source, check official page",
       "notes": ""
     },
-    "syllabusUrl": "https://github.com/cncf/curriculum/blob/master/CKAD_Curriculum_v1.35.pdf"
+    "syllabusUrl": "https://github.com/cncf/curriculum"
   },
   {
     "schemaVersion": 1,
@@ -4383,7 +4383,7 @@ export const RESEARCHED_MARKET_OPPORTUNITIES: OpportunityRecord[] = [
       "basis": "editorial: program recurs historically; dates/prizes NOT confirmed for 2026-27",
       "notes": "Price and format not confirmed."
     },
-    "syllabusUrl": "https://github.com/cncf/curriculum/blob/master/KCNA_Curriculum.pdf"
+    "syllabusUrl": "https://github.com/cncf/curriculum"
   },
   {
     "schemaVersion": 1,
@@ -4668,7 +4668,7 @@ export const RESEARCHED_MARKET_OPPORTUNITIES: OpportunityRecord[] = [
       "basis": "editorial: program recurs historically; dates/prizes NOT confirmed for 2026-27",
       "notes": ""
     },
-    "syllabusUrl": "https://www.comptia.org/training/resources/exam-objectives/comptia-cysa-cs0-003-exam-objectives"
+    "syllabusUrl": "https://www.comptia.org/certifications/cybersecurity-analyst"
   },
   {
     "schemaVersion": 1,
@@ -4808,7 +4808,7 @@ export const RESEARCHED_MARKET_OPPORTUNITIES: OpportunityRecord[] = [
       "basis": "editorial: program recurs historically; dates/prizes NOT confirmed for 2026-27",
       "notes": ""
     },
-    "syllabusUrl": "https://www.comptia.org/training/resources/exam-objectives/comptia-pentest-pt0-002-exam-objectives"
+    "syllabusUrl": "https://www.comptia.org/certifications/pentest"
   },
   {
     "schemaVersion": 1,
@@ -5510,7 +5510,7 @@ export const RESEARCHED_MARKET_OPPORTUNITIES: OpportunityRecord[] = [
       "basis": "editorial: program recurs historically; dates/prizes NOT confirmed for 2026-27",
       "notes": ""
     },
-    "syllabusUrl": "https://learn.snowflake.com/en/certifications/snowpro-core/"
+    "syllabusUrl": "https://www.snowflake.com/en/resources/learn/certifications/"
   },
   {
     "schemaVersion": 1,
@@ -6353,7 +6353,7 @@ export const RESEARCHED_MARKET_OPPORTUNITIES: OpportunityRecord[] = [
       "basis": "editorial: program recurs historically; dates/prizes NOT confirmed for 2026-27",
       "notes": ""
     },
-    "syllabusUrl": "https://www.ni.com/en/support/documentation/supplemental/18/certified-labview-associate-developer--clad--exam-preparation-gu.html"
+    "syllabusUrl": "https://www.ni.com/"
   },
   {
     "schemaVersion": 1,
@@ -6637,7 +6637,7 @@ export const RESEARCHED_MARKET_OPPORTUNITIES: OpportunityRecord[] = [
       "basis": "editorial: program recurs historically; dates/prizes NOT confirmed for 2026-27",
       "notes": ""
     },
-    "syllabusUrl": "https://www.solidworks.com/certifications/mechanical-design-cswa"
+    "syllabusUrl": "https://www.solidworks.com/certifications/cswa-exam"
   },
   {
     "schemaVersion": 1,
@@ -6681,10 +6681,10 @@ export const RESEARCHED_MARKET_OPPORTUNITIES: OpportunityRecord[] = [
     "cost": "$0 (~₹0)",
     "costInr": "₹0 Free",
     "studentDiscountNote": "Check official page.",
-    "directPortalUrl": "https://hireflow.internal/verified",
+    "directPortalUrl": "https://careers.walmart.com/technology",
     "validity": "Verifiable credential with official verification link",
-    "officialUrl": "https://hireflow.internal/verified",
-    "sourceUrl": "https://hireflow.internal/verified",
+    "officialUrl": "https://careers.walmart.com/technology",
+    "sourceUrl": "https://careers.walmart.com/technology",
     "resumeValue": "high",
     "evidenceValue": "high",
     "portfolioValue": "high",
@@ -6819,10 +6819,10 @@ export const RESEARCHED_MARKET_OPPORTUNITIES: OpportunityRecord[] = [
     "cost": "$0 (~₹0)",
     "costInr": "₹0 Free",
     "studentDiscountNote": "Check official site for student discounts and vouchers",
-    "directPortalUrl": "https://hireflow.internal/verified",
+    "directPortalUrl": "https://www.isro.gov.in/",
     "validity": "Verifiable credential with official verification link",
-    "officialUrl": "https://hireflow.internal/verified",
-    "sourceUrl": "https://hireflow.internal/verified",
+    "officialUrl": "https://www.isro.gov.in/",
+    "sourceUrl": "https://www.isro.gov.in/",
     "resumeValue": "high",
     "evidenceValue": "high",
     "portfolioValue": "high",
@@ -6955,10 +6955,10 @@ export const RESEARCHED_MARKET_OPPORTUNITIES: OpportunityRecord[] = [
     "cost": "$0 (~₹0)",
     "costInr": "₹0 Free",
     "studentDiscountNote": "Check official site for student discounts and vouchers",
-    "directPortalUrl": "https://hireflow.internal/verified",
+    "directPortalUrl": "https://www.openhackathons.org/",
     "validity": "Verifiable credential with official verification link",
-    "officialUrl": "https://hireflow.internal/verified",
-    "sourceUrl": "https://hireflow.internal/verified",
+    "officialUrl": "https://www.openhackathons.org/",
+    "sourceUrl": "https://www.openhackathons.org/",
     "resumeValue": "medium",
     "evidenceValue": "medium",
     "portfolioValue": "medium",
@@ -7090,10 +7090,10 @@ export const RESEARCHED_MARKET_OPPORTUNITIES: OpportunityRecord[] = [
     "cost": "$0 (~₹0)",
     "costInr": "₹0 Free",
     "studentDiscountNote": "Check official site for student discounts and vouchers",
-    "directPortalUrl": "https://hireflow.internal/verified",
+    "directPortalUrl": "https://isacindia.org/",
     "validity": "Verifiable credential with official verification link",
-    "officialUrl": "https://hireflow.internal/verified",
-    "sourceUrl": "https://hireflow.internal/verified",
+    "officialUrl": "https://isacindia.org/",
+    "sourceUrl": "https://isacindia.org/",
     "resumeValue": "medium",
     "evidenceValue": "medium",
     "portfolioValue": "medium",
@@ -7225,10 +7225,10 @@ export const RESEARCHED_MARKET_OPPORTUNITIES: OpportunityRecord[] = [
     "cost": "$0 (~₹0)",
     "costInr": "₹0 Free",
     "studentDiscountNote": "Check official site for student discounts and vouchers",
-    "directPortalUrl": "https://hireflow.internal/verified",
+    "directPortalUrl": "https://texmin.nic.in/",
     "validity": "Verifiable credential with official verification link",
-    "officialUrl": "https://hireflow.internal/verified",
-    "sourceUrl": "https://hireflow.internal/verified",
+    "officialUrl": "https://texmin.nic.in/",
+    "sourceUrl": "https://texmin.nic.in/",
     "resumeValue": "medium",
     "evidenceValue": "medium",
     "portfolioValue": "medium",
@@ -7369,10 +7369,10 @@ export const RESEARCHED_MARKET_OPPORTUNITIES: OpportunityRecord[] = [
     "cost": "$0 (~₹0)",
     "costInr": "₹0 Free",
     "studentDiscountNote": "Check official site for student discounts and vouchers",
-    "directPortalUrl": "https://hireflow.internal/verified",
+    "directPortalUrl": "https://fitt-iitd.in/",
     "validity": "Verifiable credential with official verification link",
-    "officialUrl": "https://hireflow.internal/verified",
-    "sourceUrl": "https://hireflow.internal/verified",
+    "officialUrl": "https://fitt-iitd.in/",
+    "sourceUrl": "https://fitt-iitd.in/",
     "resumeValue": "medium",
     "evidenceValue": "medium",
     "portfolioValue": "medium",
@@ -7508,10 +7508,10 @@ export const RESEARCHED_MARKET_OPPORTUNITIES: OpportunityRecord[] = [
     "cost": "$0 (~₹0)",
     "costInr": "₹0 Free",
     "studentDiscountNote": "Check official site for student discounts and vouchers",
-    "directPortalUrl": "https://hireflow.internal/verified",
+    "directPortalUrl": "https://www.amazon.science/academic-engagements",
     "validity": "Verifiable credential with official verification link",
-    "officialUrl": "https://hireflow.internal/verified",
-    "sourceUrl": "https://hireflow.internal/verified",
+    "officialUrl": "https://www.amazon.science/academic-engagements",
+    "sourceUrl": "https://www.amazon.science/academic-engagements",
     "resumeValue": "high",
     "evidenceValue": "high",
     "portfolioValue": "high",
@@ -7599,7 +7599,7 @@ export const RESEARCHED_MARKET_OPPORTUNITIES: OpportunityRecord[] = [
       "basis": "editorial: program recurs historically; dates/prizes NOT confirmed for 2026-27",
       "notes": ""
     },
-    "syllabusUrl": "https://www.amazon.science/academic-engagements/amazon-ml-challenge"
+    "syllabusUrl": "https://www.amazon.science/academic-engagements"
   },
   {
     "schemaVersion": 1,
@@ -7644,10 +7644,10 @@ export const RESEARCHED_MARKET_OPPORTUNITIES: OpportunityRecord[] = [
     "cost": "$0 (~₹0)",
     "costInr": "₹0 Free",
     "studentDiscountNote": "Check official site for student discounts and vouchers",
-    "directPortalUrl": "https://hireflow.internal/verified",
+    "directPortalUrl": "https://developers.google.com/community/gdsc-solution-challenge",
     "validity": "Verifiable credential with official verification link",
-    "officialUrl": "https://hireflow.internal/verified",
-    "sourceUrl": "https://hireflow.internal/verified",
+    "officialUrl": "https://developers.google.com/community/gdsc-solution-challenge",
+    "sourceUrl": "https://developers.google.com/community/gdsc-solution-challenge",
     "resumeValue": "medium",
     "evidenceValue": "medium",
     "portfolioValue": "medium",
@@ -7777,10 +7777,10 @@ export const RESEARCHED_MARKET_OPPORTUNITIES: OpportunityRecord[] = [
     "cost": "$0 (~₹0)",
     "costInr": "₹0 Free",
     "studentDiscountNote": "Check official site for student discounts and vouchers",
-    "directPortalUrl": "https://hireflow.internal/verified",
+    "directPortalUrl": "https://www.infosys.com/careers/hackwithinfy.html",
     "validity": "Verifiable credential with official verification link",
-    "officialUrl": "https://hireflow.internal/verified",
-    "sourceUrl": "https://hireflow.internal/verified",
+    "officialUrl": "https://www.infosys.com/careers/hackwithinfy.html",
+    "sourceUrl": "https://www.infosys.com/careers/hackwithinfy.html",
     "resumeValue": "medium",
     "evidenceValue": "medium",
     "portfolioValue": "medium",
@@ -7915,10 +7915,10 @@ export const RESEARCHED_MARKET_OPPORTUNITIES: OpportunityRecord[] = [
     "cost": "$0 (~₹0)",
     "costInr": "₹0 Free",
     "studentDiscountNote": "Check official site for student discounts and vouchers",
-    "directPortalUrl": "https://hireflow.internal/verified",
+    "directPortalUrl": "https://imaginecup.microsoft.com/",
     "validity": "Verifiable credential with official verification link",
-    "officialUrl": "https://hireflow.internal/verified",
-    "sourceUrl": "https://hireflow.internal/verified",
+    "officialUrl": "https://imaginecup.microsoft.com/",
+    "sourceUrl": "https://imaginecup.microsoft.com/",
     "resumeValue": "medium",
     "evidenceValue": "medium",
     "portfolioValue": "medium",
@@ -8345,10 +8345,10 @@ export const RESEARCHED_MARKET_OPPORTUNITIES: OpportunityRecord[] = [
     "cost": "$0 (~₹0)",
     "costInr": "₹0 Free",
     "studentDiscountNote": "Check official site for student discounts and vouchers",
-    "directPortalUrl": "https://hireflow.internal/verified",
+    "directPortalUrl": "https://www.facebook.com/codingcompetitions/hacker-cup/",
     "validity": "Verifiable credential with official verification link",
-    "officialUrl": "https://hireflow.internal/verified",
-    "sourceUrl": "https://hireflow.internal/verified",
+    "officialUrl": "https://www.facebook.com/codingcompetitions/hacker-cup/",
+    "sourceUrl": "https://www.facebook.com/codingcompetitions/hacker-cup/",
     "resumeValue": "medium",
     "evidenceValue": "medium",
     "portfolioValue": "medium",
@@ -9315,7 +9315,7 @@ export const RESEARCHED_MARKET_OPPORTUNITIES: OpportunityRecord[] = [
       "basis": "secondary source, check official page",
       "notes": ""
     },
-    "syllabusUrl": "https://www.openmainframeproject.org/projects/mentorship-program"
+    "syllabusUrl": "https://openmainframeproject.org/projects/mentorship/"
   },
   {
     "schemaVersion": 1,
@@ -9650,10 +9650,10 @@ export const RESEARCHED_MARKET_OPPORTUNITIES: OpportunityRecord[] = [
     "cost": "$0 (~₹0)",
     "costInr": "₹0 Free",
     "studentDiscountNote": "Check official site for student discounts and vouchers",
-    "directPortalUrl": "https://hireflow.internal/verified",
+    "directPortalUrl": "https://kossiitkgp.org/",
     "validity": "Verifiable credential with official verification link",
-    "officialUrl": "https://hireflow.internal/verified",
-    "sourceUrl": "https://hireflow.internal/verified",
+    "officialUrl": "https://kossiitkgp.org/",
+    "sourceUrl": "https://kossiitkgp.org/",
     "resumeValue": "low",
     "evidenceValue": "low",
     "portfolioValue": "low",
