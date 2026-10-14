@@ -27,6 +27,7 @@ import {
   Users,
   Building2,
   ArrowRight,
+  ArrowLeft,
   BookmarkCheck,
   Info,
 } from 'lucide-react';
@@ -64,12 +65,20 @@ export function OpportunityDetailModal({
   }, [opportunity]);
 
   useEffect(() => {
+    if (!opportunity) return;
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
     };
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [onClose]);
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [opportunity, onClose]);
 
   if (!opportunity) return null;
 
@@ -130,156 +139,200 @@ export function OpportunityDetailModal({
 
   return (
     <div
-      onClick={onClose}
-      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/40 backdrop-blur-xs animate-fade-in cursor-pointer"
+      className="fixed inset-0 z-50 bg-bg text-foreground overflow-y-auto animate-fade-in flex flex-col"
+      role="dialog"
+      aria-modal="true"
     >
+      {/* Top Accent Gradient Bar */}
       <div
-        className="bg-surface border-2 border-border/80 rounded-3xl w-full max-w-4xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden animate-scale-in relative cursor-default"
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* Top Accent Gradient Bar */}
-        <div
-          className={`h-2 w-full bg-gradient-to-r ${
-            isIndian
-              ? 'from-orange-500 via-amber-400 to-emerald-500'
-              : 'from-primary via-indigo-500 to-cyan-400'
-          }`}
-        />
+        className={`h-2 w-full shrink-0 bg-gradient-to-r ${
+          isIndian
+            ? 'from-orange-500 via-amber-400 to-emerald-500'
+            : 'from-primary via-indigo-500 to-cyan-400'
+        }`}
+      />
 
-        {/* Modal Header */}
-        <div className="p-6 sm:p-8 border-b border-border bg-surface-2/60 flex items-start justify-between gap-4">
-          <div className="space-y-2">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="px-2.5 py-1 text-xs font-mono font-black rounded-md bg-primary/10 text-primary border border-primary/20">
-                #{opportunity.rank} in Engine
-              </span>
+      {/* Sticky Top Navigation Bar */}
+      <div className="sticky top-0 z-40 bg-surface/95 backdrop-blur-md border-b border-border shadow-xs">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between gap-4">
+          <div className="flex items-center gap-3 min-w-0">
+            <button
+              onClick={onClose}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-surface-2 hover:bg-surface-3 border border-border text-xs sm:text-sm font-bold text-foreground transition-all cursor-pointer group shrink-0"
+              title="Return to opportunities catalog"
+            >
+              <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
+              <span className="hidden sm:inline">Back</span>
+            </button>
 
-              {opportunity.releaseTier === 'tier1' && (
-                <span className="px-2.5 py-1 text-xs font-black rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
-                  Tier 1 Core
+            <div className="min-w-0">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="px-2 py-0.5 text-[10px] font-mono font-black rounded-md bg-primary/10 text-primary border border-primary/20">
+                  #{opportunity.rank} in Engine
                 </span>
-              )}
-
-              <span className="px-2.5 py-1 text-xs font-bold rounded-md bg-surface text-text-secondary border border-border capitalize">
-                {opportunity.kind.replace('_', ' ')}
-              </span>
-
-              {opportunity.trust && (
-                <span className="px-2.5 py-1 text-xs font-bold rounded-md bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 flex items-center gap-1">
-                  <ShieldCheck className="w-3.5 h-3.5" />
-                  <span className="capitalize">{opportunity.trust.replace('_', ' ')}</span>
+                <span className="text-xs text-text-muted hidden md:inline">·</span>
+                <span className="text-xs font-bold text-text-secondary truncate hidden md:inline">
+                  {opportunity.organizer}
                 </span>
-              )}
+              </div>
+              <h2 className="text-sm sm:text-lg font-black text-foreground truncate">
+                {opportunity.name}
+              </h2>
+            </div>
+          </div>
 
-              {opportunity.branches && !opportunity.branches.includes('ALL') && (
-                <span className="px-2.5 py-1 text-xs font-bold rounded-md bg-purple-500/15 text-purple-600 dark:text-purple-400 border border-purple-500/30">
-                  {opportunity.branches.join(', ')} Fit
-                </span>
-              )}
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+            {/* Direct Official Link */}
+            <a
+              href={portalUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => handleExternalRedirect(e, portalUrl)}
+              className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-primary text-white text-xs font-bold hover:opacity-90 shadow-xs transition-all cursor-pointer"
+            >
+              <span>Official Site</span>
+              <ExternalLink className="w-3.5 h-3.5" />
+            </a>
+
+            {/* Prominent Cross Button on Top Edge to Go Back */}
+            <button
+              onClick={onClose}
+              className="p-2 sm:p-2.5 rounded-xl bg-surface-2 hover:bg-rose-500/10 hover:text-rose-600 border border-border hover:border-rose-500/30 text-text-secondary transition-all cursor-pointer shrink-0 shadow-xs flex items-center gap-1.5"
+              aria-label="Close detail view"
+              title="Close details (Esc)"
+            >
+              <X className="w-5 h-5" />
+              <span className="text-xs font-bold hidden md:inline">Close</span>
+            </button>
+          </div>
+        </div>
+
+        {/* 5 Tab Navigation Bar inside Sticky Bar */}
+        <div className="border-t border-border/80 bg-surface-2/40">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex flex-wrap items-center justify-between gap-3">
+            <div className="flex items-center gap-1 sm:gap-2 overflow-x-auto pb-1 scrollbar-none">
+              <button
+                onClick={() => setActiveTab('overview')}
+                className={`px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+                  activeTab === 'overview'
+                    ? 'bg-primary text-white shadow-xs'
+                    : 'text-text-secondary hover:text-foreground hover:bg-surface-2'
+                }`}
+              >
+                1. Overview
+              </button>
+              <button
+                onClick={() => setActiveTab('fees_aid')}
+                className={`px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer flex items-center gap-1 ${
+                  activeTab === 'fees_aid'
+                    ? 'bg-emerald-600 text-white shadow-xs'
+                    : 'text-text-secondary hover:text-foreground hover:bg-surface-2'
+                }`}
+              >
+                <IndianRupee className="w-3.5 h-3.5" />
+                <span>2. Fees & Waivers</span>
+              </button>
+              <button
+                onClick={() => setActiveTab('syllabus')}
+                className={`px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer flex items-center gap-1 ${
+                  activeTab === 'syllabus'
+                    ? 'bg-indigo-600 text-white shadow-xs'
+                    : 'text-text-secondary hover:text-foreground hover:bg-surface-2'
+                }`}
+              >
+                <FileText className="w-3.5 h-3.5" />
+                <span>3. Syllabus & Guide</span>
+              </button>
+              <button
+                onClick={() => setActiveTab('resume_evidence')}
+                className={`px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+                  activeTab === 'resume_evidence'
+                    ? 'bg-primary text-white shadow-xs'
+                    : 'text-text-secondary hover:text-foreground hover:bg-surface-2'
+                }`}
+              >
+                4. Resume Evidence
+              </button>
+              <button
+                onClick={() => setActiveTab('pitfalls_sources')}
+                className={`px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+                  activeTab === 'pitfalls_sources'
+                    ? 'bg-primary text-white shadow-xs'
+                    : 'text-text-secondary hover:text-foreground hover:bg-surface-2'
+                }`}
+              >
+                5. Pitfalls & Sources
+              </button>
             </div>
 
-            <h2 className="text-2xl sm:text-3xl font-black text-foreground tracking-tight leading-snug">
-              {opportunity.name}
-            </h2>
+            {/* Quick Status Planner Switch */}
+            <div className="flex items-center gap-2">
+              <span className="text-[11px] font-bold text-text-muted uppercase">Plan Status:</span>
+              <div className="inline-flex rounded-xl border border-border bg-surface p-0.5 text-xs font-semibold">
+                {(['interested', 'in_progress', 'completed'] as OpportunityPlanStatus[]).map((st) => (
+                  <button
+                    key={st}
+                    onClick={() => handleToggleSavePlan(st)}
+                    className={`px-2.5 py-1 rounded-lg capitalize transition-all cursor-pointer ${
+                      currentStatus === st
+                        ? 'bg-primary text-white font-bold shadow-xs'
+                        : 'text-text-secondary hover:text-foreground'
+                    }`}
+                  >
+                    {st.replace('_', ' ')}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-            <p className="text-sm sm:text-base text-text-secondary font-medium">
-              Organizer / Issuer: <span className="text-foreground font-bold">{opportunity.organizer}</span>
+      {/* Main Full-Page Content Container */}
+      <div className="max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 flex-1 space-y-8">
+        {/* Hero Card */}
+        <div className="p-6 sm:p-8 rounded-3xl bg-surface border-2 border-border/80 shadow-sm space-y-4">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="px-2.5 py-1 text-xs font-mono font-black rounded-md bg-primary/10 text-primary border border-primary/20">
+              #{opportunity.rank} in Engine
+            </span>
+
+            {opportunity.releaseTier === 'tier1' && (
+              <span className="px-2.5 py-1 text-xs font-black rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
+                Tier 1 Core
+              </span>
+            )}
+
+            <span className="px-2.5 py-1 text-xs font-bold rounded-md bg-surface-2 text-text-secondary border border-border capitalize">
+              {opportunity.kind.replace('_', ' ')}
+            </span>
+
+            {opportunity.trust && (
+              <span className="px-2.5 py-1 text-xs font-bold rounded-md bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 flex items-center gap-1">
+                <ShieldCheck className="w-3.5 h-3.5" />
+                <span className="capitalize">{opportunity.trust.replace('_', ' ')}</span>
+              </span>
+            )}
+
+            {opportunity.branches && !opportunity.branches.includes('ALL') && (
+              <span className="px-2.5 py-1 text-xs font-bold rounded-md bg-purple-500/15 text-purple-600 dark:text-purple-400 border border-purple-500/30">
+                {opportunity.branches.join(', ')} Fit
+              </span>
+            )}
+          </div>
+
+          <div>
+            <h1 className="text-2xl sm:text-4xl font-black text-foreground tracking-tight leading-snug">
+              {opportunity.name}
+            </h1>
+            <p className="text-sm sm:text-base text-text-secondary font-medium mt-1">
+              Organizer / Issuer: <strong className="text-foreground">{opportunity.organizer}</strong>
             </p>
           </div>
-
-          <button
-            onClick={onClose}
-            className="p-2.5 rounded-2xl bg-surface border border-border hover:bg-surface-2 text-text-secondary hover:text-foreground transition-colors shrink-0 shadow-xs cursor-pointer"
-            aria-label="Close modal"
-          >
-            <X className="w-5 h-5" />
-          </button>
         </div>
 
-        {/* Action Quick Bar */}
-        <div className="px-6 sm:px-8 py-3 bg-surface border-b border-border flex flex-wrap items-center justify-between gap-3">
-          {/* 5 Deep Tabs Navigation */}
-          <div className="flex items-center gap-1 sm:gap-2 overflow-x-auto pb-1 scrollbar-none">
-            <button
-              onClick={() => setActiveTab('overview')}
-              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                activeTab === 'overview'
-                  ? 'bg-primary text-white shadow-xs'
-                  : 'text-text-secondary hover:text-foreground hover:bg-surface-2'
-              }`}
-            >
-              1. Overview
-            </button>
-
-            <button
-              onClick={() => setActiveTab('fees_aid')}
-              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1 ${
-                activeTab === 'fees_aid'
-                  ? 'bg-emerald-600 text-white shadow-xs'
-                  : 'text-text-secondary hover:text-foreground hover:bg-surface-2'
-              }`}
-            >
-              <IndianRupee className="w-3.5 h-3.5" />
-              <span>2. Fees & Waivers</span>
-            </button>
-
-            <button
-              onClick={() => setActiveTab('syllabus')}
-              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1 ${
-                activeTab === 'syllabus'
-                  ? 'bg-indigo-600 text-white shadow-xs'
-                  : 'text-text-secondary hover:text-foreground hover:bg-surface-2'
-              }`}
-            >
-              <FileText className="w-3.5 h-3.5" />
-              <span>3. Syllabus & Guide</span>
-            </button>
-
-            <button
-              onClick={() => setActiveTab('resume_evidence')}
-              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                activeTab === 'resume_evidence'
-                  ? 'bg-primary text-white shadow-xs'
-                  : 'text-text-secondary hover:text-foreground hover:bg-surface-2'
-              }`}
-            >
-              4. Resume Evidence
-            </button>
-
-            <button
-              onClick={() => setActiveTab('pitfalls_sources')}
-              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                activeTab === 'pitfalls_sources'
-                  ? 'bg-primary text-white shadow-xs'
-                  : 'text-text-secondary hover:text-foreground hover:bg-surface-2'
-              }`}
-            >
-              5. Pitfalls & Sources
-            </button>
-          </div>
-
-          <div className="flex items-center gap-2">
-            {/* Save to Plan Quick Switch */}
-            <div className="inline-flex rounded-xl border border-border bg-surface-2 p-0.5 text-xs font-semibold">
-              {(['interested', 'in_progress', 'completed'] as OpportunityPlanStatus[]).map((st) => (
-                <button
-                  key={st}
-                  onClick={() => handleToggleSavePlan(st)}
-                  className={`px-2.5 py-1 rounded-lg capitalize transition-all cursor-pointer ${
-                    currentStatus === st
-                      ? 'bg-primary text-white font-bold shadow-xs'
-                      : 'text-text-secondary hover:text-foreground'
-                  }`}
-                >
-                  {st.replace('_', ' ')}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Scrollable Tab Content Body */}
-        <div className="p-6 sm:p-8 space-y-6 overflow-y-auto text-sm leading-relaxed text-foreground flex-1">
+        {/* Tab Content Body (Single, natural page scrolling) */}
+        <div className="space-y-6 text-sm leading-relaxed text-foreground">
           {/* TAB 1: OVERVIEW */}
           {activeTab === 'overview' && (
             <div className="space-y-6 animate-fade-in">
@@ -740,9 +793,11 @@ export function OpportunityDetailModal({
             </div>
           )}
         </div>
+      </div>
 
-        {/* Modal Footer with Always-Operable Links */}
-        <div className="p-4 sm:p-6 border-t border-border bg-surface-2/60 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs text-text-secondary">
+      {/* Page Footer with Back & Action Links */}
+      <div className="border-t border-border bg-surface-2/60 mt-auto">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs text-text-secondary">
           <div className="flex items-center gap-2">
             <span>Verified: <strong className="text-foreground">{opportunity.lastVerifiedAt}</strong></span>
             <span>·</span>
@@ -750,27 +805,34 @@ export function OpportunityDetailModal({
           </div>
 
           <div className="flex flex-wrap items-center gap-3">
-            {/* OPERABLE SYLLABUS / GUIDE BUTTON */}
-            <a
-              href={syllabusUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={(e) => handleExternalRedirect(e, syllabusUrl)}
-              className="px-3.5 py-2 rounded-xl bg-surface hover:bg-surface-3 border border-border hover:border-primary font-bold text-foreground inline-flex items-center gap-1.5 transition-all shadow-xs cursor-pointer"
-              title={`Open syllabus / guide (${getDomainFromUrl(syllabusUrl)})`}
+            <button
+              onClick={onClose}
+              className="px-4 py-2 rounded-xl bg-surface hover:bg-surface-3 border border-border font-bold text-foreground cursor-pointer transition-all"
             >
-              <FileText className="w-3.5 h-3.5 text-primary" />
-              <span>Syllabus / Guide</span>
-              <ExternalLink className="w-3 h-3 text-muted" />
-            </a>
+              Back to Catalog
+            </button>
 
-            {/* OPERABLE OFFICIAL WEBSITE BUTTON */}
+            {syllabusUrl && (
+              <a
+                href={syllabusUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => handleExternalRedirect(e, syllabusUrl)}
+                className="px-4 py-2 rounded-xl bg-surface hover:bg-surface-3 border border-border hover:border-primary font-bold text-foreground inline-flex items-center gap-1.5 transition-all shadow-xs cursor-pointer"
+                title={`Open syllabus / guide (${getDomainFromUrl(syllabusUrl)})`}
+              >
+                <FileText className="w-3.5 h-3.5 text-primary" />
+                <span>Syllabus / Guide</span>
+                <ExternalLink className="w-3 h-3 text-muted" />
+              </a>
+            )}
+
             <a
               href={portalUrl}
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => handleExternalRedirect(e, portalUrl)}
-              className="px-4 py-2 rounded-xl bg-primary text-white font-bold inline-flex items-center gap-1.5 hover:opacity-90 shadow-md shadow-primary/20 transition-all cursor-pointer"
+              className="px-5 py-2 rounded-xl bg-primary text-white font-bold inline-flex items-center gap-1.5 hover:opacity-90 shadow-md shadow-primary/20 transition-all cursor-pointer"
               title={`Open official website (${getDomainFromUrl(portalUrl)})`}
             >
               <span>Open Official Website</span>

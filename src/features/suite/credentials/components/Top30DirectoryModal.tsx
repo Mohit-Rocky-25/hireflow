@@ -3,7 +3,7 @@
 // Complete searchable table view of all 42 opportunities with INR pricing & links
 // ============================================================
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import {
   X,
   Search,
@@ -30,6 +30,20 @@ export function Top30DirectoryModal({
   const [tierFilter, setTierFilter] = useState<string>('All');
   const [kindFilter, setKindFilter] = useState<string>('All');
   const [onlyIndian, setOnlyIndian] = useState(false);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const orig = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = orig;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isOpen, onClose]);
 
   const filtered = useMemo(() => {
     return ALL_OPPORTUNITIES.filter((opp) => {
@@ -91,10 +105,12 @@ export function Top30DirectoryModal({
           </div>
           <button
             onClick={onClose}
-            className="p-2.5 rounded-xl bg-surface border border-border text-text-secondary hover:text-foreground transition-colors cursor-pointer"
+            className="p-2 sm:p-2.5 rounded-xl bg-surface-2 hover:bg-rose-500/10 hover:text-rose-600 border border-border hover:border-rose-500/30 text-text-secondary transition-all cursor-pointer shrink-0 shadow-xs flex items-center gap-1.5"
             aria-label="Close modal"
+            title="Close directory (Esc)"
           >
             <X className="w-5 h-5" />
+            <span className="text-xs font-bold hidden sm:inline">Close</span>
           </button>
         </div>
 
