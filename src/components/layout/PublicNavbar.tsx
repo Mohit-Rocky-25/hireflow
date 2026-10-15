@@ -86,12 +86,30 @@ export function PublicNavbar() {
 
         {/* Right Action Buttons */}
         <div className="flex items-center gap-[10px]">
-          {isAuthenticated ? (
-            <Link to={getDashboardLink()}>
-              <Button variant="header" className="h-[40px] px-[18px] text-[14px] font-semibold rounded-md">
-                Go to Dashboard <ArrowRight className="w-4 h-4 stroke-[1.5px]" />
-              </Button>
-            </Link>
+          {isAuthenticated && currentUser ? (
+            currentUser.role !== 'CANDIDATE' ? (
+              <Link to={getDashboardLink()}>
+                <Button variant="header" className="h-[40px] px-[18px] text-[14px] font-semibold rounded-md">
+                  Portal <ArrowRight className="w-4 h-4 stroke-[1.5px]" />
+                </Button>
+              </Link>
+            ) : (
+              <div className="flex items-center gap-[10px]">
+                <span className="text-[13px] font-semibold text-text hidden sm:inline px-3 py-1 rounded-full bg-surface-2 border border-border">
+                  {currentUser.displayName}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    useStore.getState().logout();
+                    navigate('/');
+                  }}
+                  className="px-[14px] py-[7px] rounded-md text-[13px] font-semibold text-text-secondary hover:text-text hover:bg-surface-2 border border-border transition-all cursor-pointer"
+                >
+                  Sign Out
+                </button>
+              </div>
+            )
           ) : (
             <div className="hidden sm:flex items-center gap-[8px]">
               <Link

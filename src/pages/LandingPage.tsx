@@ -96,16 +96,6 @@ const TOOLS = [
 export function LandingPage() {
   const { isAuthenticated, currentUser } = useStore();
 
-  const getDashboardLink = () => {
-    if (!currentUser) return "/login";
-    switch (currentUser.role) {
-      case "BHR_MANAGER": case "HR_RECRUITER": return "/company/dashboard";
-      case "INTERVIEWER": return "/interviewer/dashboard";
-      case "CANDIDATE": return "/tools";
-      case "PLATFORM_ADMIN": return "/admin/dashboard";
-      default: return "/login";
-    }
-  };
 
   return (
     <div className="min-h-screen bg-bg font-sans text-text overflow-x-hidden">

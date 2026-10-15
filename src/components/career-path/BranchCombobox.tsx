@@ -105,8 +105,8 @@ export function BranchCombobox({ value, onChange, className = '' }: BranchCombob
 
   return (
     <div className={`relative ${className}`} ref={containerRef}>
-      <div className="h-5 flex items-center mb-1.5">
-        <label className="text-xs font-black text-foreground">Degree &amp; Branch</label>
+      <div className="h-6 flex items-center mb-2">
+        <label className="text-sm font-bold text-white">Degree &amp; Branch</label>
       </div>
 
       {/* Trigger Button */}
@@ -118,25 +118,25 @@ export function BranchCombobox({ value, onChange, className = '' }: BranchCombob
         }}
         aria-expanded={isOpen}
         aria-controls={listboxId}
-        className="w-full min-h-[44px] h-[44px] bg-surface-2 border border-border rounded-xl px-3 py-1.5 text-left text-xs font-bold text-foreground focus:ring-2 focus:ring-primary outline-none flex items-center justify-between gap-2 cursor-pointer transition-all hover:border-primary/40"
+        className="w-full min-h-[52px] h-[52px] bg-neutral-800 border-2 border-neutral-700 rounded-xl px-4 py-2.5 text-left text-sm font-bold text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none flex items-center justify-between gap-2 cursor-pointer transition-all hover:border-blue-500/60 shadow-sm"
       >
         <span
-          className="line-clamp-2 leading-tight text-xs font-bold text-foreground flex-1"
+          className="line-clamp-1 leading-normal text-sm font-bold text-white flex-1"
           title={selectedOption ? selectedOption.label : value || 'Select Degree & Branch'}
         >
           {selectedOption ? selectedOption.label : value || 'Select Degree & Branch'}
         </span>
-        <ChevronDown className={`w-4 h-4 text-muted shrink-0 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+        <ChevronDown className={`w-5 h-5 text-neutral-400 shrink-0 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
       </button>
 
       {/* Helper chip below field */}
-      <div className="h-6 flex items-center gap-1.5 mt-1.5">
+      <div className="h-7 flex items-center gap-2 mt-2">
         {selectedOption && (
-          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-primary/15 text-primary border border-primary/30 truncate max-w-[150px]">
+          <span className="text-xs font-bold px-3 py-1 rounded-full bg-blue-500/15 text-blue-300 border border-blue-500/30 truncate max-w-[200px]">
             {selectedOption.familyLabel}
           </span>
         )}
-        <span className="text-[11px] text-muted truncate">Specialization</span>
+        <span className="text-xs text-neutral-300 font-medium truncate">Specialization</span>
       </div>
 
       {/* Dropdown Popover */}
@@ -144,31 +144,31 @@ export function BranchCombobox({ value, onChange, className = '' }: BranchCombob
         <div
           id={listboxId}
           role="listbox"
-          className="absolute z-50 left-0 right-0 mt-2 bg-surface border border-border rounded-2xl shadow-2xl p-2.5 space-y-2 max-h-[380px] overflow-hidden flex flex-col animate-fade-in"
+          className="absolute z-50 left-0 right-0 mt-2 bg-neutral-900 border border-neutral-700 rounded-2xl shadow-2xl p-3 space-y-2.5 max-h-[420px] overflow-hidden flex flex-col animate-fade-in"
         >
           {/* Search Box */}
           <div className="relative">
-            <Search className="w-3.5 h-3.5 text-muted absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+            <Search className="w-4 h-4 text-neutral-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
             <input
               ref={inputRef}
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search branch e.g. Mechanical, ECE, AI, MCA..."
-              className="w-full bg-surface-2 border border-border rounded-xl pl-9 pr-3 py-2 text-xs font-semibold text-foreground placeholder:text-muted focus:ring-2 focus:ring-primary outline-none"
+              placeholder="Search branch e.g. Computer Science, Mechanical, ECE, AI, MCA..."
+              className="w-full bg-neutral-800 border border-neutral-700 rounded-xl pl-10 pr-4 py-2.5 text-sm font-semibold text-white placeholder:text-neutral-400 focus:ring-2 focus:ring-blue-500 outline-none"
             />
           </div>
 
           {/* Grouped Options List */}
-          <div className="overflow-y-auto flex-1 space-y-3 pr-1 text-xs">
+          <div className="overflow-y-auto flex-1 space-y-3.5 pr-1 text-sm">
             {Object.entries(groupedFiltered).map(([groupTitle, items]) => {
               if (items.length === 0) return null;
               return (
-                <div key={groupTitle} className="space-y-1">
-                  <div className="text-[10px] font-black uppercase text-muted tracking-wider px-2 py-1 sticky top-0 bg-surface/90 backdrop-blur-xs">
+                <div key={groupTitle} className="space-y-1.5">
+                  <div className="text-xs font-black uppercase text-neutral-400 tracking-wider px-2 py-1 sticky top-0 bg-neutral-900/95 backdrop-blur-xs">
                     {groupTitle} ({items.length})
                   </div>
-                  <div className="space-y-0.5">
+                  <div className="space-y-1">
                     {items.map((item) => {
                       const isSelected = selectedOption?.id === item.id;
                       return (
@@ -178,23 +178,23 @@ export function BranchCombobox({ value, onChange, className = '' }: BranchCombob
                           role="option"
                           aria-selected={isSelected}
                           onClick={() => handleSelect(item)}
-                          className={`w-full min-h-[38px] text-left px-2.5 py-1.5 rounded-lg flex items-center justify-between gap-2 transition-colors cursor-pointer ${
+                          className={`w-full min-h-[44px] text-left px-3.5 py-2.5 rounded-xl flex items-center justify-between gap-3 transition-colors cursor-pointer ${
                             isSelected
-                              ? 'bg-primary text-white font-bold'
-                              : 'hover:bg-surface-2 text-foreground font-medium'
+                              ? 'bg-blue-600 text-white font-bold'
+                              : 'hover:bg-neutral-800 text-neutral-200 hover:text-white font-medium'
                           }`}
                         >
                           <div className="truncate">
-                            <span className="block truncate">{item.branchName}</span>
+                            <span className="block truncate text-sm font-bold">{item.branchName}</span>
                             <span
-                              className={`text-[10px] block truncate ${
-                                isSelected ? 'text-white/80' : 'text-muted'
+                              className={`text-xs block truncate mt-0.5 ${
+                                isSelected ? 'text-white/80' : 'text-neutral-400'
                               }`}
                             >
                               {item.familyLabel} • {item.programLength} Years
                             </span>
                           </div>
-                          {isSelected && <Check className="w-3.5 h-3.5 shrink-0" />}
+                          {isSelected && <Check className="w-4 h-4 shrink-0" />}
                         </button>
                       );
                     })}
