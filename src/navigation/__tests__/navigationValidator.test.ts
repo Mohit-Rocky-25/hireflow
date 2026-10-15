@@ -33,14 +33,15 @@ describe('HireFlow Extensible Navigation System — Registry Integrity', () => {
     const adminSections = getSectionsForRole('PLATFORM_ADMIN');
 
     // Candidate should see candidate-specific and tool sections
-    expect(candidateSections.some((s) => s.id === 'fix-resume')).toBe(true);
-    expect(candidateSections.some((s) => s.id === 'candidate-account')).toBe(true);
+    expect(candidateSections.some((s) => s.id === 'core-simulators')).toBe(true);
+    expect(candidateSections.some((s) => s.id === 'decision-suite')).toBe(true);
+    expect(candidateSections.some((s) => s.id === 'candidate-system')).toBe(true);
     expect(candidateSections.some((s) => s.id === 'admin-tenants')).toBe(false);
 
     // BHR Manager should see company sections
     expect(bhrSections.some((s) => s.id === 'company-postings')).toBe(true);
     expect(bhrSections.some((s) => s.id === 'company-pipeline')).toBe(true);
-    expect(bhrSections.some((s) => s.id === 'candidate-account')).toBe(false);
+    expect(bhrSections.some((s) => s.id === 'candidate-system')).toBe(false);
 
     // Interviewer should see evaluations and tools
     expect(interviewerSections.some((s) => s.id === 'interviewer-rounds')).toBe(true);
@@ -55,7 +56,7 @@ describe('HireFlow Extensible Navigation System — Registry Integrity', () => {
     const toolBreadcrumbs = getBreadcrumbs('/tools/resume-checker');
     expect(toolBreadcrumbs.length).toBeGreaterThanOrEqual(2);
     expect(toolBreadcrumbs[0].label).toBe('HireFlow');
-    expect(toolBreadcrumbs[toolBreadcrumbs.length - 1].label).toBe('Resume Scanner');
+    expect(toolBreadcrumbs[toolBreadcrumbs.length - 1].label).toBe('ATS Roaster');
 
     const deepProfileBreadcrumb = getBreadcrumbs('/candidate/profile');
     expect(deepProfileBreadcrumb.some((b) => b.label.includes('Profile'))).toBe(true);
