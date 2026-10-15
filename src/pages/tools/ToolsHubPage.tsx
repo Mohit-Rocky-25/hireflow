@@ -195,7 +195,8 @@ export function ToolsHubPage() {
 
   return (
     <div className="min-h-screen bg-bg">
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-16 animate-fade-in relative">
+      <PublicNavbar />
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 space-y-20 animate-fade-in relative">
         <PageNav />
         {/* Hero Header */}
         <div className="text-center max-w-4xl mx-auto space-y-6">

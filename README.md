@@ -134,13 +134,10 @@ npm run dev
 ```
 Open [http://localhost:5173](http://localhost:5173) in your browser.
 
-### 4. Run automated test suites & navigation validator
+### 4. Run automated test suites
 ```bash
 # Run all unit tests
 npm run test
-
-# Run navigation registry validator
-npm run validate:nav
 
 # Run security and compliance checks
 npm run security:check
@@ -151,17 +148,6 @@ npm run security:check
 npm run build
 ```
 The optimized static build will be in the `dist/` folder, ready for immediate $0 deployment to Vercel, Netlify, or Cloudflare Pages.
-
----
-
-## 🧭 Extensible Navigation Architecture
-
-HireFlow features a decentralized, zero-edit navigation system:
-- **Persistent Left-Edge Sidebar**: ~272px expanded, ~72px collapsed icon rail with keyboard shortcut (<kbd>Ctrl</kbd> + <kbd>B</kbd>).
-- **Global Command Palette**: Instant modal search (<kbd>Ctrl</kbd> + <kbd>K</kbd>) across tools, sections, and keywords.
-- **Zero Central Edits**: Features declare a `*.manifest.ts` file discovered via Vite `import.meta.glob`.
-- **Automated Validation**: `npm run validate:nav` guarantees 0 dead routes, 0 broken links, and full role isolation.
-- For complete details, see [NAV_GUIDE.md](NAV_GUIDE.md) and [NAV_TESTREPORT.md](NAV_TESTREPORT.md).
 
 ---
 

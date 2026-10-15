@@ -25,6 +25,5 @@ export function resetDemoData() {
   localStorage.removeItem("hireflow-storage-v2");
   localStorage.removeItem("hireflow-storage-v3");
   localStorage.removeItem("hireflow-storage-v4");
-  localStorage.removeItem("hireflow-storage-v5");
   window.location.href = "/";
 }

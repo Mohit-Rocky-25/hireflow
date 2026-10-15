@@ -298,7 +298,9 @@ export function ResumeChecker() {
   }, [engineResult, profile]);
 
   return (
-    <div className="min-h-screen bg-bg text-text py-10 px-4 sm:px-6 md:px-8 relative">
+    <div className="min-h-screen bg-bg text-text pt-28 pb-20 px-4 sm:px-6 md:px-8 relative">
+      <PublicNavbar />
+
       <div className="max-w-6xl mx-auto space-y-8 animate-fade-in">
         {/* In-Flow Navigation Bar */}
         <div className="flex items-center justify-between pb-2 print:hidden">

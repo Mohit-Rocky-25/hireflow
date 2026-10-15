@@ -1,11 +1,11 @@
 import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useStore } from '../../store/useStore';
-import { Search, MapPin, Briefcase, DollarSign, Building2, Filter, Heart, ArrowDownUp, Brain, Send, Check } from 'lucide-react';
+import { Search, MapPin, Briefcase, DollarSign, Building2, Filter, Heart, ArrowDownUp, Brain } from 'lucide-react';
 import { toast } from '../../components/ui/Toast';
 
 export function CandidateJobs() {
-  const { jobs, companies, applications, currentUser, candidateMatches, createApplication } = useStore();
+  const { jobs, companies, applications, currentUser, candidateMatches } = useStore();
   const [search, setSearch] = useState('');
   const [department, setDepartment] = useState('ALL');
   const [workMode, setWorkMode] = useState('ALL');
@@ -197,49 +197,23 @@ export function CandidateJobs() {
                   <p className="text-[13px] text-secondary line-clamp-2">{job.summary}</p>
                 </div>
 
-                <div className="px-5 py-3 bg-surface-2 border-t border-border flex items-center justify-between gap-3">
+                <div className="px-5 py-3 bg-surface-2 border-t border-border flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <div className={`flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-bold border ${matchScore >= 80 ? 'bg-ai-light/50 text-ai border-ai/20' : matchScore >= 60 ? 'bg-orange-50 text-orange-600 border-orange-200' : 'bg-red-50 text-red-600 border-red-200'}`}>
                       <Brain className="w-3.5 h-3.5" /> {matchScore}% Match
                     </div>
                     {hasApplied && (
-                      <span className="px-2 py-1 bg-success-bg text-success text-[11px] font-bold rounded-md border border-success/20 flex items-center gap-1">
-                        <Check className="w-3 h-3" /> Applied
+                      <span className="px-2 py-1 bg-success-bg text-success text-[11px] font-bold rounded-md border border-success/20">
+                        Applied
                       </span>
                     )}
                   </div>
-                  <div className="flex items-center gap-3">
-                    <Link
-                      to={`/jobs/${job.id}`}
-                      className="text-[12px] font-semibold text-text-secondary hover:text-text transition-colors"
-                    >
-                      View Details
-                    </Link>
-                    {!hasApplied ? (
-                      <button
-                        onClick={() => {
-                          if (!currentUser) return;
-                          createApplication({
-                            jobId: job.id,
-                            candidateId: currentUser.id,
-                            companyId: job.companyId,
-                            status: 'APPLIED',
-                          });
-                          toast('success', `Applied to ${job.title} at ${comp?.name || 'Company'}!`);
-                        }}
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white text-xs font-semibold rounded-lg hover:bg-primary-hover shadow-sm active:scale-95 transition-all"
-                      >
-                        <Send className="w-3 h-3" /> 1-Click Apply
-                      </button>
-                    ) : (
-                      <Link
-                        to="/candidate/applications"
-                        className="text-[12px] font-semibold text-primary hover:underline"
-                      >
-                        Track Status →
-                      </Link>
-                    )}
-                  </div>
+                  <Link
+                    to={`/jobs/${job.id}`}
+                    className="text-[12px] font-semibold text-primary hover:underline flex items-center gap-1"
+                  >
+                    View Details
+                  </Link>
                 </div>
               </div>
             );
