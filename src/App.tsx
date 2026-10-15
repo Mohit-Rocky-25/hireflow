@@ -174,15 +174,16 @@ export default function App() {
               <Route path="/candidate" element={<ProtectedRoute roles={['CANDIDATE']}><Outlet /></ProtectedRoute>}>
                 <Route index element={<Navigate to="dashboard" replace />} />
                 <Route path="dashboard" element={<CandidateDashboard />} />
-                <Route path="jobs" element={<CandidateJobs />} />
-                <Route path="jobs/:id" element={<PublicJobDetail />} />
-                <Route path="applications" element={<CandidateApplications />} />
-                <Route path="applications/:id" element={<CandidateApplicationDetail />} />
-                <Route path="interviews" element={<CandidateInterviews />} />
-                <Route path="resume" element={<CandidateResume />} />
-                <Route path="company-match" element={<CompanyMatch />} />
                 <Route path="profile" element={<CandidateProfilePage />} />
+                <Route path="resume" element={<CandidateResume />} />
                 <Route path="notifications" element={<NotificationsPage />} />
+                {/* Purged application & interview tracking routes redirect to candidate overview */}
+                <Route path="applications" element={<Navigate to="/candidate/dashboard" replace />} />
+                <Route path="applications/:id" element={<Navigate to="/candidate/dashboard" replace />} />
+                <Route path="interviews" element={<Navigate to="/candidate/dashboard" replace />} />
+                <Route path="jobs" element={<Navigate to="/demo" replace />} />
+                <Route path="jobs/:id" element={<Navigate to="/demo" replace />} />
+                <Route path="company-match" element={<Navigate to="/demo" replace />} />
               </Route>
 
               {/* Platform Administration Console */}

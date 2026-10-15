@@ -34,13 +34,13 @@ describe('HireFlow Extensible Navigation System — Registry Integrity', () => {
 
     // Candidate should see candidate-specific and tool sections
     expect(candidateSections.some((s) => s.id === 'fix-resume')).toBe(true);
-    expect(candidateSections.some((s) => s.id === 'candidate-jobs-apps')).toBe(true);
+    expect(candidateSections.some((s) => s.id === 'candidate-account')).toBe(true);
     expect(candidateSections.some((s) => s.id === 'admin-tenants')).toBe(false);
 
     // BHR Manager should see company sections
     expect(bhrSections.some((s) => s.id === 'company-postings')).toBe(true);
     expect(bhrSections.some((s) => s.id === 'company-pipeline')).toBe(true);
-    expect(bhrSections.some((s) => s.id === 'candidate-jobs-apps')).toBe(false);
+    expect(bhrSections.some((s) => s.id === 'candidate-account')).toBe(false);
 
     // Interviewer should see evaluations and tools
     expect(interviewerSections.some((s) => s.id === 'interviewer-rounds')).toBe(true);
@@ -57,8 +57,8 @@ describe('HireFlow Extensible Navigation System — Registry Integrity', () => {
     expect(toolBreadcrumbs[0].label).toBe('HireFlow');
     expect(toolBreadcrumbs[toolBreadcrumbs.length - 1].label).toBe('Resume Scanner');
 
-    const deepJobBreadcrumb = getBreadcrumbs('/candidate/jobs/123');
-    expect(deepJobBreadcrumb.some((b) => b.label.includes('Job'))).toBe(true);
+    const deepProfileBreadcrumb = getBreadcrumbs('/candidate/profile');
+    expect(deepProfileBreadcrumb.some((b) => b.label.includes('Profile'))).toBe(true);
   });
 
   it('indexes keywords and provides instant command palette search results', () => {

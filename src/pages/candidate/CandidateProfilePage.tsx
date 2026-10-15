@@ -15,16 +15,12 @@ import {
 } from 'lucide-react';
 import { toast } from '../../components/ui/Toast';
 
-type Tab = 'overview' | 'experience' | 'projects' | 'education' | 'applications' | 'edit';
+type Tab = 'overview' | 'experience' | 'projects' | 'education' | 'edit';
 
 export function CandidateProfilePage() {
   const {
     currentUser,
     candidateProfiles,
-    applications,
-    jobs,
-    companies,
-    interviews,
     updateProfile,
     updateCandidateProfile,
   } = useStore();
@@ -57,10 +53,6 @@ export function CandidateProfilePage() {
   const [skillInput, setSkillInput] = useState('');
 
   if (!currentUser) return null;
-
-  // Real store applications & interviews for this candidate
-  const myApplications = applications.filter((a) => a.candidateId === currentUser.id);
-  const myInterviews = interviews.filter((i) => i.candidateId === currentUser.id);
 
   const handleAddSkill = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && skillInput.trim()) {
@@ -258,15 +250,10 @@ export function CandidateProfilePage() {
         {/* Tab Navigation Ribbon */}
         <div className="px-6 border-t border-border bg-surface-2/30 flex items-center gap-2 overflow-x-auto scrollbar-none">
           {[
-            { id: 'overview', label: 'AI Dossier & Overview', icon: BarChart3 },
+            { id: 'overview', label: 'Engineering Dossier & Overview', icon: BarChart3 },
             { id: 'experience', label: 'Work Experience', icon: Briefcase },
             { id: 'projects', label: 'Projects & Repos', icon: Code2 },
-            { id: 'education', label: 'Education & Badges', icon: GraduationCap },
-            {
-              id: 'applications',
-              label: `Active Pipeline (${myApplications.length})`,
-              icon: ListTodo,
-            },
+            { id: 'education', label: 'Education & Credentials', icon: GraduationCap },
             { id: 'edit', label: 'Edit Profile Settings', icon: Settings2 },
           ].map((tab) => {
             const Icon = tab.icon;
@@ -665,131 +652,7 @@ export function CandidateProfilePage() {
           </div>
         )}
 
-        {/* ── TAB 5: ACTIVE PIPELINE & INTERVIEWS ── */}
-        {activeTab === 'applications' && (
-          <div className="space-y-6 animate-fade-in">
-            {/* Live Applications */}
-            <div className="bg-surface rounded-3xl border border-border p-6 sm:p-8 shadow-sm space-y-6">
-              <div className="flex items-center justify-between pb-4 border-b border-border">
-                <div>
-                  <h2 className="text-lg font-bold text-foreground flex items-center gap-2">
-                    <ListTodo className="w-5 h-5 text-primary" /> Active Job Applications ({myApplications.length})
-                  </h2>
-                  <p className="text-xs text-text-muted mt-0.5">Real-time recruitment tracking synced directly from employers.</p>
-                </div>
-                <Link
-                  to="/candidate/jobs"
-                  className="px-3.5 py-1.5 rounded-xl bg-primary text-white text-xs font-bold hover:bg-primary-hover transition-colors shadow-xs"
-                >
-                  Browse More Jobs
-                </Link>
-              </div>
-
-              {myApplications.length === 0 ? (
-                <div className="text-center py-12 text-text-muted space-y-2">
-                  <p className="text-sm font-semibold">No applications yet</p>
-                  <Link to="/candidate/jobs" className="text-xs font-bold text-primary hover:underline">
-                    Find and apply to matching roles →
-                  </Link>
-                </div>
-              ) : (
-                <div className="space-y-3">
-                  {myApplications.map((app) => {
-                    const job = jobs.find((j) => j.id === app.jobId);
-                    const comp = companies.find((c) => c.id === app.companyId);
-
-                    const statusBadgeColors = {
-                      OFFER: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30',
-                      HIRED: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30',
-                      INTERVIEW: 'bg-purple-500/15 text-purple-400 border-purple-500/30',
-                      SHORTLISTED: 'bg-blue-500/15 text-blue-400 border-blue-500/30',
-                      SCREENING: 'bg-sky-500/15 text-sky-400 border-sky-500/30',
-                      REVIEW: 'bg-amber-500/15 text-amber-400 border-amber-500/30',
-                      APPLIED: 'bg-surface-3 text-text-secondary border-border',
-                      REJECTED: 'bg-rose-500/15 text-rose-400 border-rose-500/30',
-                      WITHDRAWN: 'bg-surface-3 text-text-muted border-border',
-                      FINAL_REVIEW: 'bg-indigo-500/15 text-indigo-400 border-indigo-500/30',
-                      ON_HOLD: 'bg-amber-500/15 text-amber-400 border-amber-500/30',
-                    }[app.status] || 'bg-surface-3 text-text-secondary border-border';
-
-                    return (
-                      <Link
-                        key={app.id}
-                        to={`/candidate/applications/${app.id}`}
-                        className="p-5 rounded-2xl bg-surface-2 border border-border hover:border-primary/40 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-4 block group"
-                      >
-                        <div className="space-y-1">
-                          <h3 className="text-base font-bold text-foreground group-hover:text-primary transition-colors">
-                            {job?.title || 'Engineering Role'}
-                          </h3>
-                          <div className="flex flex-wrap items-center gap-3 text-xs text-text-muted">
-                            <span className="flex items-center gap-1 font-semibold text-foreground">
-                              <Building2 className="w-3.5 h-3.5 text-primary" /> {comp?.name || 'Company'}
-                            </span>
-                            <span>•</span>
-                            <span className="flex items-center gap-1">
-                              <Calendar className="w-3.5 h-3.5" /> Applied on {new Date(app.appliedAt).toLocaleDateString()}
-                            </span>
-                          </div>
-                        </div>
-
-                        <div className="flex items-center gap-3 shrink-0">
-                          <span className={`px-3 py-1 rounded-full text-xs font-bold border ${statusBadgeColors}`}>
-                            {app.status}
-                          </span>
-                          <span className="text-xs font-semibold text-primary group-hover:translate-x-0.5 transition-transform">
-                            View Pipeline →
-                          </span>
-                        </div>
-                      </Link>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
-
-            {/* Scheduled Interviews Preview */}
-            <div className="bg-surface rounded-3xl border border-border p-6 sm:p-8 shadow-sm space-y-4">
-              <h2 className="text-lg font-bold text-foreground flex items-center gap-2 pb-3 border-b border-border">
-                <Calendar className="w-5 h-5 text-purple-400" /> Scheduled Interview Rounds ({myInterviews.length})
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {myInterviews.map((intv) => {
-                  const job = jobs.find((j) => j.id === intv.jobId);
-                  const comp = companies.find((c) => c.id === intv.companyId);
-                  return (
-                    <div key={intv.id} className="p-4 rounded-2xl bg-surface-2 border border-border space-y-2">
-                      <div className="flex justify-between items-start">
-                        <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-purple-500/15 text-purple-400 border border-purple-500/30">
-                          {intv.stage}
-                        </span>
-                        <span className="text-xs font-semibold text-text-muted">
-                          {intv.scheduledDate} at {intv.scheduledTime}
-                        </span>
-                      </div>
-                      <div className="text-sm font-bold text-foreground">{job?.title || 'Job Interview'}</div>
-                      <div className="text-xs text-text-muted flex items-center gap-1">
-                        <Building2 className="w-3.5 h-3.5" /> {comp?.name}
-                      </div>
-                      {intv.meetingLink && intv.status !== 'completed' && (
-                        <a
-                          href={intv.meetingLink}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="mt-2 inline-flex items-center gap-1.5 text-xs font-bold text-primary hover:underline"
-                        >
-                          Join Google Meet →
-                        </a>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* ── TAB 6: EDIT PROFILE SETTINGS ── */}
+        {/* ── TAB 5: EDIT PROFILE SETTINGS ── */}
         {activeTab === 'edit' && (
           <form onSubmit={handleSubmit} className="bg-surface rounded-3xl border border-border p-6 sm:p-8 shadow-sm space-y-6 animate-fade-in">
             <div className="pb-4 border-b border-border">
