@@ -56,15 +56,6 @@ import { InterviewerInterviews } from './pages/interviewer/InterviewerInterviews
 import { InterviewDetail } from './pages/interviewer/InterviewDetail';
 import { InterviewerProfile } from './pages/interviewer/InterviewerProfile';
 
-// Candidate Pages
-import { CandidateDashboard } from './pages/candidate/CandidateDashboard';
-import { CandidateJobs } from './pages/candidate/CandidateJobs';
-import { CandidateApplications } from './pages/candidate/CandidateApplications';
-import { CandidateApplicationDetail } from './pages/candidate/CandidateApplicationDetail';
-import { CandidateInterviews } from './pages/candidate/CandidateInterviews';
-import { CandidateResume } from './pages/candidate/CandidateResume';
-import { CandidateProfilePage } from './pages/candidate/CandidateProfilePage';
-import { CompanyMatch } from './pages/candidate/CompanyMatch';
 
 // Admin Pages
 import { AdminDashboard } from './pages/admin/AdminDashboard';
@@ -162,20 +153,9 @@ export default function App() {
           <Route path="notifications" element={<NotificationsPage />} />
         </Route>
 
-        {/* Candidate Routes */}
-        <Route path="/candidate" element={<ProtectedRoute roles={['CANDIDATE']}><AppShell /></ProtectedRoute>}>
-          <Route index element={<Navigate to="dashboard" replace />} />
-          <Route path="dashboard" element={<CandidateDashboard />} />
-          <Route path="jobs" element={<CandidateJobs />} />
-          <Route path="jobs/:id" element={<PublicJobDetail />} />
-          <Route path="applications" element={<CandidateApplications />} />
-          <Route path="applications/:id" element={<CandidateApplicationDetail />} />
-          <Route path="interviews" element={<CandidateInterviews />} />
-          <Route path="resume" element={<CandidateResume />} />
-          <Route path="company-match" element={<CompanyMatch />} />
-          <Route path="profile" element={<CandidateProfilePage />} />
-          <Route path="notifications" element={<NotificationsPage />} />
-        </Route>
+        {/* Candidate Routes - Omitted candidate dashboard/profile; redirect directly to Career Decision Suite */}
+        <Route path="/candidate/*" element={<Navigate to="/tools" replace />} />
+        <Route path="/candidate" element={<Navigate to="/tools" replace />} />
 
         {/* Admin Routes */}
         <Route path="/admin" element={<ProtectedRoute roles={['PLATFORM_ADMIN']}><AppShell /></ProtectedRoute>}>

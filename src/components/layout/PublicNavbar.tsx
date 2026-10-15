@@ -18,7 +18,7 @@ export function PublicNavbar() {
       case 'INTERVIEWER':
         return '/interviewer/dashboard';
       case 'CANDIDATE':
-        return '/candidate/dashboard';
+        return '/tools';
       case 'PLATFORM_ADMIN':
         return '/admin/dashboard';
       default:

@@ -13,7 +13,7 @@ export function RegisterPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     login('demo-candidate@example.com', password); 
-    navigate('/candidate/dashboard');
+    navigate('/tools');
   };
 
   return (

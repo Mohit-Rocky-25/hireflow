@@ -30,7 +30,7 @@ export function evaluateRouteGuard(
       BHR_MANAGER: '/company/dashboard',
       HR_RECRUITER: '/company/dashboard',
       INTERVIEWER: '/interviewer/dashboard',
-      CANDIDATE: '/candidate/dashboard',
+      CANDIDATE: '/tools',
     };
     return { allowed: false, redirect: roleRedirects[currentUser.role] || '/' };
   }

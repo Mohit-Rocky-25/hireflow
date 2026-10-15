@@ -52,7 +52,7 @@ export function TopHeader({ onMenuClick }: TopHeaderProps) {
     if (currentUser.role === 'PLATFORM_ADMIN') return '/admin/settings';
     if (['BHR_MANAGER', 'HR_RECRUITER'].includes(currentUser.role)) return '/company/settings';
     if (currentUser.role === 'INTERVIEWER') return '/interviewer/profile';
-    return '/candidate/profile';
+    return '/tools';
   };
 
   const getSettingsLink = () => {
@@ -225,19 +225,21 @@ export function TopHeader({ onMenuClick }: TopHeaderProps) {
 
               {/* Menu items */}
               <div className="py-[6px]">
-                <Link
-                  to={getProfileLink()}
-                  onClick={() => setProfileOpen(false)}
-                  className="w-full flex items-center gap-[12px] px-[18px] py-[11px] transition-colors"
-                  style={{ color: 'rgba(255,255,255,0.75)' }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.06)'; (e.currentTarget as HTMLElement).style.color = '#ffffff'; }}
-                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = 'transparent'; (e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.75)'; }}
-                >
-                  <div className="w-[30px] h-[30px] rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(255,255,255,0.06)' }}>
-                    <User className="w-[14px] h-[14px] stroke-[1.5px]" />
-                  </div>
-                  <span className="text-[13px] font-medium">My Profile</span>
-                </Link>
+                {currentUser.role !== 'CANDIDATE' && (
+                  <Link
+                    to={getProfileLink()}
+                    onClick={() => setProfileOpen(false)}
+                    className="w-full flex items-center gap-[12px] px-[18px] py-[11px] transition-colors"
+                    style={{ color: 'rgba(255,255,255,0.75)' }}
+                    onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.06)'; (e.currentTarget as HTMLElement).style.color = '#ffffff'; }}
+                    onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = 'transparent'; (e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.75)'; }}
+                  >
+                    <div className="w-[30px] h-[30px] rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(255,255,255,0.06)' }}>
+                      <User className="w-[14px] h-[14px] stroke-[1.5px]" />
+                    </div>
+                    <span className="text-[13px] font-medium">My Profile</span>
+                  </Link>
+                )}
 
                 <Link
                   to={getSettingsLink()}

@@ -222,15 +222,6 @@ export function LocalhostNavigator() {
       icon: UserCheck,
     },
     {
-      id: 'candidate-dashboard',
-      name: 'Candidate Dashboard',
-      path: '/candidate/dashboard',
-      category: 'Dashboards & Admin',
-      badge: 'Protected',
-      description: 'Candidate application tracking, resumes, and interview schedule',
-      icon: UserCheck,
-    },
-    {
       id: 'admin-dashboard',
       name: 'Admin Dashboard',
       path: '/admin/dashboard',

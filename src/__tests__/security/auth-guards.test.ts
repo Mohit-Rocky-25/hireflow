@@ -56,11 +56,11 @@ describe('Authentication & Route Guard Security (Phase 5)', () => {
       expect(decision.allowed).toBe(true);
     });
 
-    it('blocks CANDIDATE from accessing PLATFORM_ADMIN routes and redirects to candidate dashboard', () => {
+    it('blocks CANDIDATE from accessing PLATFORM_ADMIN routes and redirects to tools suite', () => {
       const decision = evaluateRouteGuard(true, { role: 'CANDIDATE' }, ['PLATFORM_ADMIN']);
       expect(decision.allowed).toBe(false);
       if (!decision.allowed) {
-        expect(decision.redirect).toBe('/candidate/dashboard');
+        expect(decision.redirect).toBe('/tools');
       }
     });
 
@@ -68,7 +68,7 @@ describe('Authentication & Route Guard Security (Phase 5)', () => {
       const decision = evaluateRouteGuard(true, { role: 'CANDIDATE' }, ['BHR_MANAGER', 'HR_RECRUITER']);
       expect(decision.allowed).toBe(false);
       if (!decision.allowed) {
-        expect(decision.redirect).toBe('/candidate/dashboard');
+        expect(decision.redirect).toBe('/tools');
       }
     });
 

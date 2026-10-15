@@ -101,7 +101,7 @@ export function LandingPage() {
     switch (currentUser.role) {
       case "BHR_MANAGER": case "HR_RECRUITER": return "/company/dashboard";
       case "INTERVIEWER": return "/interviewer/dashboard";
-      case "CANDIDATE": return "/candidate/dashboard";
+      case "CANDIDATE": return "/tools";
       case "PLATFORM_ADMIN": return "/admin/dashboard";
       default: return "/login";
     }

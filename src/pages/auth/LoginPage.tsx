@@ -19,7 +19,7 @@ export function LoginPage() {
         navigate('/interviewer/dashboard');
         break;
       case 'CANDIDATE':
-        navigate('/candidate/dashboard');
+        navigate('/tools');
         break;
       case 'PLATFORM_ADMIN':
         navigate('/admin/dashboard');

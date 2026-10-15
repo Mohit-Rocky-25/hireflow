@@ -48,15 +48,12 @@ const NAV_ITEMS: Record<UserRole, NavItem[]> = {
     { label: 'Notifications', path: '/interviewer/notifications', icon: <Bell className="w-5 h-5 stroke-[1.5px]" /> },
   ],
   CANDIDATE: [
-    { label: 'Home', path: '/candidate/dashboard', icon: <Home className="w-5 h-5 stroke-[1.5px]" /> },
     { label: 'Decision Suite', path: '/tools', icon: <Sparkles className="w-5 h-5 stroke-[1.5px]" /> },
-    { label: 'Find Jobs', path: '/candidate/jobs', icon: <Search className="w-5 h-5 stroke-[1.5px]" /> },
-    { label: 'My Applications', path: '/candidate/applications', icon: <ClipboardList className="w-5 h-5 stroke-[1.5px]" /> },
-    { label: 'Interviews', path: '/candidate/interviews', icon: <Calendar className="w-5 h-5 stroke-[1.5px]" /> },
-    { label: 'Resume & AI Match', path: '/candidate/resume', icon: <FileText className="w-5 h-5 stroke-[1.5px]" /> },
-    { label: 'Company Match', path: '/candidate/company-match', icon: <Building2 className="w-5 h-5 stroke-[1.5px]" /> },
-    { label: 'Profile', path: '/candidate/profile', icon: <User className="w-5 h-5 stroke-[1.5px]" /> },
-    { label: 'Notifications', path: '/candidate/notifications', icon: <Bell className="w-5 h-5 stroke-[1.5px]" /> },
+    { label: 'TalentLens™ Simulator', path: '/demo', icon: <Cpu className="w-5 h-5 stroke-[1.5px]" /> },
+    { label: 'ATS Resume Roaster', path: '/tools/resume-checker', icon: <FileText className="w-5 h-5 stroke-[1.5px]" /> },
+    { label: 'Compare JDs', path: '/tools/compare', icon: <ListChecks className="w-5 h-5 stroke-[1.5px]" /> },
+    { label: 'Tailor Resume', path: '/tools/tailor', icon: <FileText className="w-5 h-5 stroke-[1.5px]" /> },
+    { label: 'Career Paths & Ladders', path: '/tools/career-paths', icon: <Briefcase className="w-5 h-5 stroke-[1.5px]" /> },
   ],
   PLATFORM_ADMIN: [
     { label: 'Dashboard', path: '/admin/dashboard', icon: <LayoutDashboard className="w-5 h-5 stroke-[1.5px]" /> },
@@ -98,8 +95,8 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
           const isActive = location.pathname === item.path ||
             (item.path !== '/company/dashboard' &&
              item.path !== '/interviewer/dashboard' &&
-             item.path !== '/candidate/dashboard' &&
              item.path !== '/admin/dashboard' &&
+             item.path !== '/tools' &&
              location.pathname.startsWith(item.path));
 
           return (
