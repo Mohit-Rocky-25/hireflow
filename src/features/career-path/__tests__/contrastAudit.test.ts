@@ -115,4 +115,28 @@ describe('Career Trajectory Scoped Dark Design System Contrast Audit', () => {
     const axisTextRatio = getContrastRatio('#94a3b8', surfaces.surface1);
     expect(axisTextRatio, 'Axis labels on surface').toBeGreaterThanOrEqual(4.5);
   });
+
+  it('verifies custom Dropdown portal panel and options satisfy WCAG AA contrast', () => {
+    const dropdownBg = '#0F172A'; // Slate 900 dark panel
+    const optionText = '#F1F5F9'; // Slate 100 near-white
+    const optionSublabel = '#CBD5E1'; // Slate 300 readable grey
+    const mutedSublabel = '#94A3B8'; // Slate 400 minimum grey
+    const checkIcon = '#60A5FA'; // Blue 400
+
+    // Option text contrast >= 7:1 (AAA level)
+    const textRatio = getContrastRatio(optionText, dropdownBg);
+    expect(textRatio, 'Dropdown option text contrast').toBeGreaterThanOrEqual(7.0);
+
+    // Option sublabel contrast >= 4.5:1 (AA level)
+    const sublabelRatio = getContrastRatio(optionSublabel, dropdownBg);
+    expect(sublabelRatio, 'Dropdown sublabel contrast').toBeGreaterThanOrEqual(4.5);
+
+    const mutedRatio = getContrastRatio(mutedSublabel, dropdownBg);
+    expect(mutedRatio, 'Dropdown muted minimum sublabel contrast').toBeGreaterThanOrEqual(4.5);
+
+    // Check icon contrast
+    const checkRatio = getContrastRatio(checkIcon, dropdownBg);
+    expect(checkRatio, 'Dropdown selected check icon contrast').toBeGreaterThanOrEqual(4.5);
+  });
 });
+

@@ -8,6 +8,7 @@ import React, { useState, useMemo, useRef, useEffect, useLayoutEffect } from 're
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { CareerPathBackButton } from '../../components/career-path/CareerPathBackButton';
 import { BranchCombobox } from '../../components/career-path/BranchCombobox';
+import { Dropdown } from '../../components/career-path/Dropdown';
 import { sanitizeUrl } from '@/utils/security';
 import {
   DEGREE_BRANCH_CATALOG,
@@ -544,14 +545,16 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                 {/* Track Selector */}
                 <div className="flex items-center gap-2">
                   <span className="text-xs font-bold text-muted uppercase">Track:</span>
-                  <select
-                    value={selectedTrack}
-                    onChange={(e) => setSelectedTrack(e.target.value as CareerTrack)}
-                    className="bg-surface-2 border border-border rounded-lg px-3 py-1.5 text-xs font-bold text-foreground focus:ring-2 focus:ring-primary outline-none"
-                  >
-                    <option value="SWE">Software Engineering (SWE)</option>
-                    <option value="EM">Engineering Management (EM)</option>
-                  </select>
+                  <div className="w-60">
+                    <Dropdown
+                      value={selectedTrack}
+                      onChange={(val) => setSelectedTrack(val as CareerTrack)}
+                      options={[
+                        { value: 'SWE', label: 'Software Engineering (SWE)', sublabel: 'IC Engineering track' },
+                        { value: 'EM', label: 'Engineering Management (EM)', sublabel: 'People management track' },
+                      ]}
+                    />
+                  </div>
                 </div>
               </div>
 
@@ -591,21 +594,24 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
               {/* Company Picker Dropdown */}
               <div className="pt-2">
                 <label className="text-xs font-bold text-foreground block mb-1.5">Select Company:</label>
-                <select
-                  value={selectedCompanyId}
-                  onChange={(e) => {
-                    setSelectedCompanyId(e.target.value);
-                    const firstLvl = getLevelsForCompanyAndTrack(e.target.value, selectedTrack)[0];
-                    if (firstLvl) setSelectedLevelCode(firstLvl.levelCode);
-                  }}
-                  className="w-full sm:w-80 bg-surface-2 border border-border rounded-xl px-4 py-2.5 text-sm font-black text-foreground focus:ring-2 focus:ring-primary outline-none"
-                >
-                  {filteredCompanies.map((c) => (
-                    <option key={c.id} value={c.id}>
-                      {c.name} ({c.marketSegment})
-                    </option>
-                  ))}
-                </select>
+                <div className="w-full sm:w-80">
+                  <Dropdown
+                    searchable={true}
+                    value={selectedCompanyId}
+                    onChange={(val) => {
+                      setSelectedCompanyId(val);
+                      const firstLvl = getLevelsForCompanyAndTrack(val, selectedTrack)[0];
+                      if (firstLvl) setSelectedLevelCode(firstLvl.levelCode);
+                    }}
+                    options={filteredCompanies.map((c) => ({
+                      value: c.id,
+                      label: c.name,
+                      sublabel: c.marketSegment,
+                      category: c.marketSegment,
+                    }))}
+                    placeholder="Select company..."
+                  />
+                </div>
               </div>
             </div>
 
@@ -1031,14 +1037,25 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                       </p>
                     </div>
 
-                    {/* Degree & Branch Combobox */}
+                    {/* Degree & Branch Dropdown */}
                     <div className="w-full md:w-80 shrink-0">
                       <label className="text-xs font-bold text-neutral-400 block mb-1.5">
                         Your Branch / Discipline:
                       </label>
-                      <BranchCombobox
+                      <Dropdown
+                        searchable={true}
                         value={selectedBranchOption.id}
-                        onChange={handleBranchChange}
+                        onChange={(val) => {
+                          const opt = DEGREE_BRANCH_CATALOG.find((d) => d.id === val);
+                          if (opt) handleBranchChange(opt);
+                        }}
+                        options={DEGREE_BRANCH_CATALOG.map((item) => ({
+                          value: item.id,
+                          label: item.branchName,
+                          sublabel: `${item.familyLabel} • ${item.degreeName} (${item.programLength} Years)`,
+                          category: item.degreeGroup,
+                        }))}
+                        placeholder="Select branch..."
                       />
                     </div>
                   </div>
@@ -1257,16 +1274,16 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                     <div className="h-6 flex items-center mb-2">
                       <label className="text-sm font-bold text-white">College Tier</label>
                     </div>
-                    <select
+                    <Dropdown
                       value={studentTier}
-                      onChange={(e) => setStudentTier(e.target.value as StudentProfile['collegeTier'])}
-                      className="w-full min-h-[52px] h-[52px] bg-neutral-800 border-2 border-neutral-700 rounded-xl px-4 py-2.5 text-sm font-bold text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none shadow-sm cursor-pointer"
-                    >
-                      <option value="Tier 1">Tier 1 (IIT, NIT, IIIT, BITS)</option>
-                      <option value="Tier 2">Tier 2 (VIT, Manipal, Thapar, RVCE, etc.)</option>
-                      <option value="Tier 3">Tier 3 (State / Private Colleges)</option>
-                      <option value="Other">Other University</option>
-                    </select>
+                      onChange={(val) => setStudentTier(val as StudentProfile['collegeTier'])}
+                      options={[
+                        { value: 'Tier 1', label: 'Tier 1 (IIT, NIT, IIIT, BITS)', sublabel: 'Direct Day 1 & Day 2 slotting' },
+                        { value: 'Tier 2', label: 'Tier 2 (VIT, Manipal, Thapar, RVCE, etc.)', sublabel: 'National product drive cutoffs' },
+                        { value: 'Tier 3', label: 'Tier 3 (State / Private Colleges)', sublabel: 'Mass campus + off-campus challenges' },
+                        { value: 'Other', label: 'Other University', sublabel: 'Autonomous / distance / non-traditional' },
+                      ]}
+                    />
                     <div className="h-7 flex items-center gap-2 mt-2">
                       <span className="text-xs font-bold px-3 py-1 rounded-full bg-blue-500/15 text-blue-300 border border-blue-500/30">
                         {studentTier}
@@ -1275,12 +1292,34 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                     </div>
                   </div>
 
-                  {/* Degree & Branch Combobox */}
+                  {/* Degree & Branch Dropdown */}
                   <div>
-                    <BranchCombobox
+                    <div className="h-6 flex items-center mb-2">
+                      <label className="text-sm font-bold text-white">Degree &amp; Branch</label>
+                    </div>
+                    <Dropdown
+                      searchable={true}
                       value={selectedBranchOption.id}
-                      onChange={handleBranchChange}
+                      onChange={(val) => {
+                        const opt = DEGREE_BRANCH_CATALOG.find((d) => d.id === val);
+                        if (opt) handleBranchChange(opt);
+                      }}
+                      options={DEGREE_BRANCH_CATALOG.map((item) => ({
+                        value: item.id,
+                        label: item.branchName,
+                        sublabel: `${item.familyLabel} • ${item.degreeName} (${item.programLength} Years)`,
+                        category: item.degreeGroup,
+                      }))}
+                      placeholder="Select Degree & Branch"
                     />
+                    <div className="h-7 flex items-center gap-2 mt-2">
+                      {selectedBranchOption && (
+                        <span className="text-xs font-bold px-3 py-1 rounded-full bg-blue-500/15 text-blue-300 border border-blue-500/30 truncate max-w-[200px]">
+                          {selectedBranchOption.familyLabel}
+                        </span>
+                      )}
+                      <span className="text-xs text-neutral-300 font-medium truncate">Specialization</span>
+                    </div>
                   </div>
 
                   {/* Current Year & Expected Grad Year */}
@@ -1288,17 +1327,15 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                     <div className="h-6 flex items-center mb-2">
                       <label className="text-sm font-bold text-white">Graduation Year</label>
                     </div>
-                    <select
+                    <Dropdown
                       value={studentGradYear}
-                      onChange={(e) => setStudentGradYear(parseInt(e.target.value, 10))}
-                      className="w-full min-h-[52px] h-[52px] bg-neutral-800 border-2 border-neutral-700 rounded-xl px-4 py-2.5 text-sm font-bold text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none shadow-sm cursor-pointer"
-                    >
-                      {gradYearOptions.map((opt) => (
-                        <option key={opt.gradYear} value={opt.gradYear}>
-                          {opt.label}
-                        </option>
-                      ))}
-                    </select>
+                      onChange={(val) => setStudentGradYear(parseInt(String(val), 10))}
+                      options={gradYearOptions.map((opt) => ({
+                        value: opt.gradYear,
+                        label: opt.label,
+                        sublabel: opt.shortLabel,
+                      }))}
+                    />
                     <div className="h-7 flex items-center gap-2 mt-2">
                       {selectedGradYearOption && (
                         <span className="text-xs font-bold px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
@@ -1316,16 +1353,16 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                     <div className="h-6 flex items-center justify-between mb-2">
                       <label className="text-sm font-bold text-white">CGPA Bracket</label>
                     </div>
-                    <select
+                    <Dropdown
                       value={studentCgpa}
-                      onChange={(e) => setStudentCgpa(e.target.value as StudentProfile['cgpaBracket'])}
-                      className="w-full min-h-[52px] h-[52px] bg-neutral-800 border-2 border-neutral-700 rounded-xl px-4 py-2.5 text-sm font-bold text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none shadow-sm cursor-pointer"
-                    >
-                      <option value="above_8">Above 8.0 CGPA (Eligible for all drives)</option>
-                      <option value="7_to_8">7.0 to 8.0 CGPA (Meets most cutoffs)</option>
-                      <option value="6_to_7">6.0 to 7.0 CGPA (Eligible for select drives)</option>
-                      <option value="below_6">Below 6.0 CGPA (Requires hackathons/off-campus)</option>
-                    </select>
+                      onChange={(val) => setStudentCgpa(val as StudentProfile['cgpaBracket'])}
+                      options={[
+                        { value: 'above_8', label: 'Above 8.0 CGPA', sublabel: 'Eligible for all drives' },
+                        { value: '7_to_8', label: '7.0 to 8.0 CGPA', sublabel: 'Meets most cutoffs' },
+                        { value: '6_to_7', label: '6.0 to 7.0 CGPA', sublabel: 'Eligible for select drives' },
+                        { value: 'below_6', label: 'Below 6.0 CGPA', sublabel: 'Requires hackathons/off-campus' },
+                      ]}
+                    />
                   </div>
 
                   {/* Internship Status */}
@@ -1333,15 +1370,15 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                     <div className="h-6 flex items-center justify-between mb-2">
                       <label className="text-sm font-bold text-white">Internship Status</label>
                     </div>
-                    <select
+                    <Dropdown
                       value={studentInternship}
-                      onChange={(e) => setStudentInternship(e.target.value as StudentProfile['internshipStatus'])}
-                      className="w-full min-h-[52px] h-[52px] bg-neutral-800 border-2 border-neutral-700 rounded-xl px-4 py-2.5 text-sm font-bold text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none shadow-sm cursor-pointer"
-                    >
-                      <option value="none">No Internship Yet</option>
-                      <option value="completed">Completed Summer Internship</option>
-                      <option value="ppo">Have Pre-Placement Offer (PPO)</option>
-                    </select>
+                      onChange={(val) => setStudentInternship(val as StudentProfile['internshipStatus'])}
+                      options={[
+                        { value: 'none', label: 'No Internship Yet', sublabel: 'Focus on projects & DSA portfolio' },
+                        { value: 'completed', label: 'Completed Summer Internship', sublabel: 'Verified industry experience' },
+                        { value: 'ppo', label: 'Have Pre-Placement Offer (PPO)', sublabel: 'Targeting upgrade or dream tier' },
+                      ]}
+                    />
                   </div>
                 </div>
 
@@ -1439,32 +1476,38 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-3 border-t border-neutral-700">
                     <div>
                       <span className="text-xs font-bold text-neutral-300 uppercase tracking-wide block mb-2">Dream Company</span>
-                      <select
+                      <Dropdown
+                        searchable={true}
                         value={studentDreamCompanyId}
-                        onChange={(e) => {
-                          setStudentDreamCompanyId(e.target.value);
-                          const firstLvl = getLevelsForCompanyAndTrack(e.target.value, studentTrack)[0];
+                        onChange={(val) => {
+                          setStudentDreamCompanyId(val);
+                          const firstLvl = getLevelsForCompanyAndTrack(val, studentTrack)[0];
                           if (firstLvl) setStudentDreamLevelCode(firstLvl.levelCode);
                         }}
-                        className="w-full min-h-[52px] h-[52px] bg-neutral-900 border-2 border-neutral-700 rounded-xl px-4 py-2.5 text-sm font-bold text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none cursor-pointer"
-                      >
-                        {getAllCompanies().map((c) => (
-                          <option key={c.id} value={c.id}>{c.name}</option>
-                        ))}
-                      </select>
+                        options={getAllCompanies().map((c) => ({
+                          value: c.id,
+                          label: c.name,
+                          sublabel: `${c.marketSegment} • India Engineering Hub`,
+                          category: c.marketSegment,
+                        }))}
+                        placeholder="Select dream company..."
+                      />
                     </div>
 
                     <div>
                       <span className="text-xs font-bold text-neutral-300 uppercase tracking-wide block mb-2">Dream Target Level</span>
-                      <select
+                      <Dropdown
+                        searchable={true}
                         value={studentDreamLevelCode}
-                        onChange={(e) => setStudentDreamLevelCode(e.target.value)}
-                        className="w-full min-h-[52px] h-[52px] bg-neutral-900 border-2 border-neutral-700 rounded-xl px-4 py-2.5 text-sm font-bold text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none cursor-pointer"
-                      >
-                        {studentDreamLevels.map((l) => (
-                          <option key={l.levelCode} value={l.levelCode}>{l.levelCode} • {l.title}</option>
-                        ))}
-                      </select>
+                        onChange={(val) => setStudentDreamLevelCode(val)}
+                        options={studentDreamLevels.map((l) => ({
+                          value: l.levelCode,
+                          label: `${l.levelCode} • ${l.title}`,
+                          sublabel: `${getEquivalenceHumanLabel(l.equivalenceGroup)} • Min ${l.yoeTypicalMin}+ YOE`,
+                          badge: l.levelCode,
+                        }))}
+                        placeholder="Select target level..."
+                      />
                     </div>
                   </div>
                 </div>
@@ -2110,35 +2153,41 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                       )}
                     </div>
 
-                    <div className="grid grid-cols-2 gap-2 pt-1 border-t border-border/60">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1 border-t border-border/60">
                       <div>
                         <span className="text-[10px] text-muted font-bold block mb-1">Company</span>
-                        <select
+                        <Dropdown
+                          searchable={true}
                           value={profSourceCompanyId}
-                          onChange={(e) => {
-                            setProfSourceCompanyId(e.target.value);
-                            const firstLvl = getLevelsForCompanyAndTrack(e.target.value, profTrack)[0];
+                          onChange={(val) => {
+                            setProfSourceCompanyId(val);
+                            const firstLvl = getLevelsForCompanyAndTrack(val, profTrack)[0];
                             if (firstLvl) setProfSourceLevelCode(firstLvl.levelCode);
                           }}
-                          className="w-full bg-surface border border-border rounded-lg px-2.5 py-1.5 text-xs font-semibold text-foreground focus:ring-2 focus:ring-primary outline-none"
-                        >
-                          {getAllCompanies().map((c) => (
-                            <option key={c.id} value={c.id}>{c.name}</option>
-                          ))}
-                        </select>
+                          options={getAllCompanies().map((c) => ({
+                            value: c.id,
+                            label: c.name,
+                            sublabel: c.marketSegment,
+                            category: c.marketSegment,
+                          }))}
+                          placeholder="Select current company..."
+                        />
                       </div>
 
                       <div>
                         <span className="text-[10px] text-muted font-bold block mb-1">Level</span>
-                        <select
+                        <Dropdown
+                          searchable={true}
                           value={profSourceLevelCode}
-                          onChange={(e) => setProfSourceLevelCode(e.target.value)}
-                          className="w-full bg-surface border border-border rounded-lg px-2.5 py-1.5 text-xs font-semibold text-foreground focus:ring-2 focus:ring-primary outline-none"
-                        >
-                          {profSourceLevels.map((l) => (
-                            <option key={l.levelCode} value={l.levelCode}>{l.levelCode} • {l.title}</option>
-                          ))}
-                        </select>
+                          onChange={(val) => setProfSourceLevelCode(val)}
+                          options={profSourceLevels.map((l) => ({
+                            value: l.levelCode,
+                            label: `${l.levelCode} • ${l.title}`,
+                            sublabel: `${getEquivalenceHumanLabel(l.equivalenceGroup)} • Min ${l.yoeTypicalMin}+ YOE`,
+                            badge: l.levelCode,
+                          }))}
+                          placeholder="Select current level..."
+                        />
                       </div>
                     </div>
                   </div>
@@ -2233,35 +2282,41 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                       )}
                     </div>
 
-                    <div className="grid grid-cols-2 gap-2 pt-1 border-t border-border/60">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1 border-t border-border/60">
                       <div>
                         <span className="text-[10px] text-muted font-bold block mb-1">Company</span>
-                        <select
+                        <Dropdown
+                          searchable={true}
                           value={profTargetCompanyId}
-                          onChange={(e) => {
-                            setProfTargetCompanyId(e.target.value);
-                            const firstLvl = getLevelsForCompanyAndTrack(e.target.value, profTargetTrack)[0];
+                          onChange={(val) => {
+                            setProfTargetCompanyId(val);
+                            const firstLvl = getLevelsForCompanyAndTrack(val, profTargetTrack)[0];
                             if (firstLvl) setProfTargetLevelCode(firstLvl.levelCode);
                           }}
-                          className="w-full bg-surface border border-border rounded-lg px-2.5 py-1.5 text-xs font-semibold text-foreground focus:ring-2 focus:ring-primary outline-none"
-                        >
-                          {getAllCompanies().map((c) => (
-                            <option key={c.id} value={c.id}>{c.name}</option>
-                          ))}
-                        </select>
+                          options={getAllCompanies().map((c) => ({
+                            value: c.id,
+                            label: c.name,
+                            sublabel: c.marketSegment,
+                            category: c.marketSegment,
+                          }))}
+                          placeholder="Select target company..."
+                        />
                       </div>
 
                       <div>
                         <span className="text-[10px] text-muted font-bold block mb-1">Level</span>
-                        <select
+                        <Dropdown
+                          searchable={true}
                           value={profTargetLevelCode}
-                          onChange={(e) => setProfTargetLevelCode(e.target.value)}
-                          className="w-full bg-surface border border-border rounded-lg px-2.5 py-1.5 text-xs font-semibold text-foreground focus:ring-2 focus:ring-primary outline-none"
-                        >
-                          {profTargetLevels.map((l) => (
-                            <option key={l.levelCode} value={l.levelCode}>{l.levelCode} • {l.title}</option>
-                          ))}
-                        </select>
+                          onChange={(val) => setProfTargetLevelCode(val)}
+                          options={profTargetLevels.map((l) => ({
+                            value: l.levelCode,
+                            label: `${l.levelCode} • ${l.title}`,
+                            sublabel: `${getEquivalenceHumanLabel(l.equivalenceGroup)} • Min ${l.yoeTypicalMin}+ YOE`,
+                            badge: l.levelCode,
+                          }))}
+                          placeholder="Select target level..."
+                        />
                       </div>
                     </div>
                   </div>
@@ -2273,15 +2328,15 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                     <div className="h-5 flex items-center mb-1.5">
                       <label className="text-xs font-black text-foreground">Performance Rating</label>
                     </div>
-                    <select
+                    <Dropdown
                       value={profPerformance}
-                      onChange={(e) => setProfPerformance(e.target.value as PerformanceBracket)}
-                      className="w-full min-h-[44px] h-[44px] bg-surface-2 border border-border rounded-xl px-3 py-2 text-xs font-bold text-foreground focus:ring-2 focus:ring-primary outline-none"
-                    >
-                      <option value="MEETS">Meets Expectations (Median)</option>
-                      <option value="EXCEEDS">Exceeds Expectations (~p25)</option>
-                      <option value="CONSISTENTLY_EXCEEDS">Consistently Exceeds (Top 10%)</option>
-                    </select>
+                      onChange={(val) => setProfPerformance(val as PerformanceBracket)}
+                      options={[
+                        { value: 'MEETS', label: 'Meets Expectations', sublabel: 'Median standard band' },
+                        { value: 'EXCEEDS', label: 'Exceeds Expectations', sublabel: 'Fast-track trajectory (~p25)' },
+                        { value: 'CONSISTENTLY_EXCEEDS', label: 'Consistently Exceeds', sublabel: 'Top 10% highest velocity' },
+                      ]}
+                    />
                   </div>
 
                   <div>
