@@ -1970,8 +1970,8 @@ export const TOP_30_OPPORTUNITIES: OpportunityRecord[] =
 // Combined catalog: Core Top 30 + Indian Flagship Competitions & Fellowships + Researched Market Opportunities
 export const ALL_OPPORTUNITIES: OpportunityRecord[] = [
   ...TOP_30_OPPORTUNITIES,
-  ...INDIAN_FLAGSHIP_OPPORTUNITIES,
-  ...RESEARCHED_MARKET_OPPORTUNITIES,
+  ...INDIAN_FLAGSHIP_OPPORTUNITIES.map(enrichOpportunityWithCuratedBrief),
+  ...RESEARCHED_MARKET_OPPORTUNITIES.map(enrichOpportunityWithCuratedBrief),
 ];
 
 export function getAllOpportunities(): OpportunityRecord[] {

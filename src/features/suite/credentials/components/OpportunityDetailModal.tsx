@@ -30,6 +30,15 @@ import {
   ArrowLeft,
   BookmarkCheck,
   Info,
+  Target,
+  Zap,
+  Terminal,
+  FileCode,
+  CheckSquare,
+  Square,
+  HelpCircle,
+  ChevronDown,
+  ChevronUp,
 } from 'lucide-react';
 import {
   OpportunityRecord,
@@ -38,6 +47,7 @@ import {
   USD_TO_INR_EXCHANGE_RATE,
 } from '../types';
 import { CredentialsStorage } from '../storage';
+import { getPerformativeEvidence, ResumeFormatItem } from '../engine/resumeEvidenceEngine';
 
 interface OpportunityDetailModalProps {
   opportunity: OpportunityRecord | null;
@@ -55,6 +65,15 @@ export function OpportunityDetailModal({
   const [activeTab, setActiveTab] = useState<ModalTab>('overview');
   const [copiedTemplate, setCopiedTemplate] = useState(false);
   const [currentStatus, setCurrentStatus] = useState<OpportunityPlanStatus | null>(null);
+  const [selectedFormatId, setSelectedFormatId] = useState<'xyz_bullet' | 'project_entry' | 'cert_line' | 'summary_hook'>('xyz_bullet');
+  const [showCompletedExample, setShowCompletedExample] = useState(false);
+  const [copiedFormatId, setCopiedFormatId] = useState<string | null>(null);
+  const [checkedArtifacts, setCheckedArtifacts] = useState<Set<string>>(new Set());
+  const [expandedInterviewIdx, setExpandedInterviewIdx] = useState<number | null>(0);
+
+  const evidencePkg = useMemo(() => {
+    return opportunity ? getPerformativeEvidence(opportunity) : null;
+  }, [opportunity]);
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const topAnchorRef = useRef<HTMLDivElement>(null);
@@ -123,6 +142,41 @@ export function OpportunityDetailModal({
     navigator.clipboard.writeText(opportunity.resumePresentationTemplate);
     setCopiedTemplate(true);
     setTimeout(() => setCopiedTemplate(false), 2000);
+  };
+
+  const handleCopyFormat = (text: string, formatId: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedFormatId(formatId);
+    setTimeout(() => setCopiedFormatId(null), 2000);
+  };
+
+  const handleToggleArtifact = (artifactTitle: string) => {
+    setCheckedArtifacts((prev) => {
+      const next = new Set(prev);
+      if (next.has(artifactTitle)) {
+        next.delete(artifactTitle);
+      } else {
+        next.add(artifactTitle);
+      }
+      return next;
+    });
+  };
+
+  const renderHighlightedTemplate = (text: string) => {
+    const parts = text.split(/(\[[^\]]+\])/g);
+    return parts.map((part, idx) => {
+      if (part.startsWith('[') && part.endsWith(']')) {
+        return (
+          <span
+            key={idx}
+            className="inline-block px-1.5 py-0.5 mx-0.5 rounded-md bg-amber-500/15 text-amber-700 dark:text-amber-300 font-bold border border-amber-500/30 font-mono text-[11px] sm:text-xs"
+          >
+            {part}
+          </span>
+        );
+      }
+      return <span key={idx}>{part}</span>;
+    });
   };
 
   const handleToggleSavePlan = (status: OpportunityPlanStatus = 'interested') => {
@@ -292,13 +346,14 @@ export function OpportunityDetailModal({
               </button>
               <button
                 onClick={() => setActiveTab('resume_evidence')}
-                className={`px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+                className={`px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
                   activeTab === 'resume_evidence'
                     ? 'bg-primary text-white shadow-xs'
                     : 'text-text-secondary hover:text-foreground hover:bg-surface-2'
                 }`}
               >
-                4. Resume Evidence
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>4. Resume Evidence</span>
               </button>
               <button
                 onClick={() => setActiveTab('pitfalls_sources')}
@@ -714,61 +769,407 @@ export function OpportunityDetailModal({
             </div>
           )}
 
-          {/* TAB 4: RESUME EVIDENCE */}
-          {activeTab === 'resume_evidence' && (
+          {/* TAB 4: PERFORMATIVE RESUME EVIDENCE TOOLKIT */}
+          {activeTab === 'resume_evidence' && evidencePkg && (
             <div className="space-y-6 animate-fade-in">
-              <div className="p-5 rounded-2xl bg-surface-2 border border-border space-y-3">
-                <div className="flex items-center justify-between">
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-primary">
-                    Copyable Resume Presentation Bullet Template
-                  </h4>
-                  <button
-                    onClick={handleCopyResumeTemplate}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface border border-border hover:bg-surface-3 text-xs font-bold text-foreground transition-all cursor-pointer shadow-2xs"
-                  >
-                    {copiedTemplate ? (
-                      <>
-                        <Check className="w-3.5 h-3.5 text-emerald-500" />
-                        <span className="text-emerald-500 font-black">Copied!</span>
-                      </>
-                    ) : (
-                      <>
-                        <Copy className="w-3.5 h-3.5" />
-                        <span>Copy Template</span>
-                      </>
-                    )}
-                  </button>
+              {/* Header Hero Banner */}
+              <div className="p-6 rounded-2xl bg-gradient-to-br from-primary/10 via-surface-2 to-surface border border-primary/25 space-y-2 relative overflow-hidden shadow-xs">
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <div className="flex items-center gap-2">
+                    <span className="p-1.5 rounded-lg bg-primary text-white shadow-2xs">
+                      <Sparkles className="w-4 h-4" />
+                    </span>
+                    <h3 className="text-sm sm:text-base font-black text-foreground tracking-tight">
+                      Performative Resume Evidence & Verifiable Proof Toolkit
+                    </h3>
+                  </div>
+                  <span className="px-2.5 py-1 rounded-md text-[11px] font-black uppercase tracking-wider bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
+                    Tier-1 Calibrated
+                  </span>
                 </div>
-
-                <div className="p-4 rounded-xl bg-surface border border-border font-mono text-xs text-foreground/90 leading-relaxed select-all">
-                  {opportunity.resumePresentationTemplate}
-                </div>
-                <p className="text-[11px] text-text-muted">
-                  Tip: Replace bracketed variables [Feature/Subsystem], [Metric], or [Rank] with your verified accomplishments before tailoring your resume.
+                <p className="text-xs text-text-secondary leading-relaxed max-w-3xl">
+                  Calibrated against top engineering hiring bars (FAANG, Unicorns, Tier-1 Product). Choose from four section-specific formats below, customize the bracketed placeholders with your genuine metrics, and attach verified proof artifacts.
                 </p>
               </div>
 
-              {/* What to attach to the resume */}
-              <div className="p-5 rounded-2xl bg-surface-2 border border-border space-y-3">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-foreground">
-                  Checkable Proof & Artifacts to Attach
-                </h4>
-                <div className="space-y-2">
-                  {(opportunity.richDetails?.resumeEvidence?.attach || opportunity.richDetails?.resume_evidence?.attach || [
-                    'Official Credential Verification URL / Credly Transcript Link',
-                    'Public GitHub repository containing code with unit test suite',
-                    'Working deployed prototype or scoreboard rank screenshot',
-                  ]).map((item, idx) => (
-                    <div
-                      key={idx}
-                      className="p-3 rounded-xl bg-surface border border-border flex items-center gap-2.5 text-xs text-foreground"
+              {/* Sub-section Format Switcher Tabs */}
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-black uppercase tracking-wider text-text-secondary flex items-center gap-1.5">
+                    <Layers className="w-3.5 h-3.5 text-primary" />
+                    <span>Select Resume Presentation Format</span>
+                  </span>
+                  <span className="text-[11px] text-text-muted hidden sm:inline">
+                    Click to switch format preview
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
+                  {evidencePkg.formats.map((fmt) => (
+                    <button
+                      key={fmt.id}
+                      onClick={() => {
+                        setSelectedFormatId(fmt.id);
+                        setShowCompletedExample(false);
+                      }}
+                      className={`p-3 rounded-xl border text-left transition-all cursor-pointer flex flex-col justify-between space-y-1.5 ${
+                        selectedFormatId === fmt.id
+                          ? 'bg-primary/10 border-primary text-primary shadow-2xs'
+                          : 'bg-surface-2 hover:bg-surface border-border text-foreground hover:border-primary/40'
+                      }`}
                     >
-                      <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
-                      <span>{item}</span>
-                    </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-[10px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded bg-surface border border-border">
+                          {fmt.badge}
+                        </span>
+                        {selectedFormatId === fmt.id && (
+                          <CheckCircle2 className="w-3.5 h-3.5 text-primary" />
+                        )}
+                      </div>
+                      <div className="text-xs font-bold leading-tight line-clamp-1">
+                        {fmt.title}
+                      </div>
+                      <div className="text-[10px] text-text-muted line-clamp-1">
+                        {fmt.section}
+                      </div>
+                    </button>
                   ))}
                 </div>
               </div>
+
+              {/* Active Format Detail Card */}
+              {(() => {
+                const activeFmt = evidencePkg.formats.find((f) => f.id === selectedFormatId) || evidencePkg.formats[0];
+                const contentToDisplay = showCompletedExample ? activeFmt.exampleCompleted : activeFmt.template;
+                const isCopied = copiedFormatId === activeFmt.id;
+
+                return (
+                  <div className="p-5 sm:p-6 rounded-2xl bg-surface-2 border border-border space-y-4 shadow-xs">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-border/80">
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <h4 className="text-sm font-black text-foreground">
+                            {activeFmt.title}
+                          </h4>
+                          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-primary/15 text-primary border border-primary/20">
+                            {activeFmt.section}
+                          </span>
+                        </div>
+                        <p className="text-xs text-text-secondary mt-0.5">
+                          {activeFmt.description}
+                        </p>
+                      </div>
+
+                      <div className="flex items-center gap-2 shrink-0">
+                        {/* Toggle between Fillable Template and 10/10 Example */}
+                        <button
+                          type="button"
+                          onClick={() => setShowCompletedExample(!showCompletedExample)}
+                          className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-bold transition-all cursor-pointer shadow-2xs ${
+                            showCompletedExample
+                              ? 'bg-amber-500/15 border-amber-500/40 text-amber-700 dark:text-amber-300'
+                              : 'bg-surface border-border hover:bg-surface-3 text-text-secondary hover:text-foreground'
+                          }`}
+                          title="Toggle between fillable template with brackets and verified completed example"
+                        >
+                          <Zap className="w-3.5 h-3.5" />
+                          <span>{showCompletedExample ? 'Showing 10/10 Example' : 'Preview 10/10 Example'}</span>
+                        </button>
+
+                        {/* Copy Button */}
+                        <button
+                          type="button"
+                          onClick={() => handleCopyFormat(contentToDisplay, activeFmt.id)}
+                          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-primary text-white hover:bg-primary/90 text-xs font-bold transition-all cursor-pointer shadow-xs"
+                          title="Copy template to clipboard"
+                        >
+                          {isCopied ? (
+                            <>
+                              <Check className="w-3.5 h-3.5 text-white" />
+                              <span className="font-black">Copied!</span>
+                            </>
+                          ) : (
+                            <>
+                              <Copy className="w-3.5 h-3.5" />
+                              <span>Copy Format</span>
+                            </>
+                          )}
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Template Code/Display Block */}
+                    <div className="p-4 sm:p-5 rounded-xl bg-surface border border-border font-mono text-xs text-foreground/95 leading-relaxed select-all shadow-inner overflow-x-auto whitespace-pre-wrap">
+                      {showCompletedExample ? contentToDisplay : renderHighlightedTemplate(contentToDisplay)}
+                    </div>
+
+                    {/* Quick Guidance Note */}
+                    <div className="flex items-start gap-2 text-xs text-text-muted bg-surface/50 p-3 rounded-xl border border-border/60">
+                      <Info className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                      <div>
+                        <strong className="text-foreground">Pro-Tip for Candidates:</strong> Highlighted bracketed variables{' '}
+                        <span className="font-mono text-[11px] bg-amber-500/20 text-amber-700 dark:text-amber-300 px-1 py-0.5 rounded border border-amber-500/30 font-bold">
+                          [Placeholder]
+                        </span>{' '}
+                        must be filled with your verified metrics before submission. Never invent metrics — cite actual throughput, test coverage, or cost reductions.
+                      </div>
+                    </div>
+                  </div>
+                );
+              })()}
+
+              {/* Sub-Section 2: Recommended Real-World Metric Benchmarks */}
+              {evidencePkg.metricSuggestions.length > 0 && (
+                <div className="p-5 sm:p-6 rounded-2xl bg-surface-2 border border-border space-y-4 shadow-xs">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <Target className="w-4 h-4 text-primary" />
+                      <h4 className="text-xs font-black uppercase tracking-wider text-foreground">
+                        Recommended Quantifiable Metric Benchmarks
+                      </h4>
+                    </div>
+                    <span className="text-[11px] text-text-muted">
+                      Click metric chips to copy
+                    </span>
+                  </div>
+
+                  <p className="text-xs text-text-secondary leading-relaxed">
+                    Recruiters look for high-signal numbers to separate claimed knowledge from hands-on execution. Use these benchmark ranges when tailoring your bullets:
+                  </p>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                    {evidencePkg.metricSuggestions.map((m, idx) => (
+                      <div
+                        key={idx}
+                        className="p-3.5 rounded-xl bg-surface border border-border space-y-2 flex flex-col justify-between"
+                      >
+                        <div>
+                          <div className="flex items-center justify-between">
+                            <span className="text-xs font-bold text-foreground">
+                              {m.label}
+                            </span>
+                            <span className="text-[10px] uppercase font-black px-1.5 py-0.5 rounded bg-primary/10 text-primary">
+                              {m.metricType}
+                            </span>
+                          </div>
+                          <p className="text-[11px] text-text-muted mt-1 leading-normal">
+                            {m.hint}
+                          </p>
+                        </div>
+
+                        <div className="flex flex-wrap gap-1.5 pt-1">
+                          {m.examples.map((ex, exIdx) => (
+                            <button
+                              key={exIdx}
+                              type="button"
+                              onClick={() => handleCopyFormat(ex, `metric-${idx}-${exIdx}`)}
+                              className="text-[11px] font-mono font-medium px-2 py-1 rounded-lg bg-surface-2 hover:bg-primary hover:text-white border border-border hover:border-primary text-foreground transition-all cursor-pointer flex items-center gap-1 group"
+                              title="Click to copy metric"
+                            >
+                              <span>{ex}</span>
+                              {copiedFormatId === `metric-${idx}-${exIdx}` ? (
+                                <Check className="w-3 h-3 text-emerald-500 group-hover:text-white" />
+                              ) : (
+                                <Copy className="w-3 h-3 opacity-40 group-hover:opacity-100" />
+                              )}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Sub-Section 3: Checkable Verifiable Proof & Artifact Checklist */}
+              <div className="p-5 sm:p-6 rounded-2xl bg-surface-2 border border-border space-y-4 shadow-xs">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <ShieldCheck className="w-4 h-4 text-emerald-500" />
+                    <h4 className="text-xs font-black uppercase tracking-wider text-foreground">
+                      Checkable Proof & Artifacts to Attach
+                    </h4>
+                  </div>
+                  <span className="text-[11px] font-bold text-text-muted">
+                    {checkedArtifacts.size} of {evidencePkg.artifactsChecklist.length} built
+                  </span>
+                </div>
+
+                <p className="text-xs text-text-secondary leading-relaxed">
+                  Never leave a credential unproven. Attach at least two of the following verification artifacts to your resume, LinkedIn, or portfolio:
+                </p>
+
+                <div className="space-y-2.5">
+                  {evidencePkg.artifactsChecklist.map((item, idx) => {
+                    const isChecked = checkedArtifacts.has(item.title);
+                    return (
+                      <div
+                        key={idx}
+                        onClick={() => handleToggleArtifact(item.title)}
+                        className={`p-3.5 rounded-xl border transition-all cursor-pointer flex items-start gap-3 select-none ${
+                          isChecked
+                            ? 'bg-emerald-500/10 border-emerald-500/40 text-foreground'
+                            : 'bg-surface hover:bg-surface-3 border-border text-foreground'
+                        }`}
+                      >
+                        <button
+                          type="button"
+                          className="mt-0.5 text-primary shrink-0 focus:outline-none"
+                        >
+                          {isChecked ? (
+                            <CheckSquare className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                          ) : (
+                            <Square className="w-4 h-4 text-text-muted" />
+                          )}
+                        </button>
+
+                        <div className="space-y-1 min-w-0 flex-1">
+                          <div className="flex flex-wrap items-center justify-between gap-1">
+                            <span className={`text-xs font-bold ${isChecked ? 'line-through text-text-muted' : 'text-foreground'}`}>
+                              {item.title}
+                            </span>
+                            <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-surface-2 border border-border text-text-muted uppercase">
+                              {item.type.replace('_', ' ')}
+                            </span>
+                          </div>
+                          <p className="text-xs text-text-secondary leading-normal">
+                            {item.description}
+                          </p>
+                          <p className="text-[11px] text-primary/90 font-medium">
+                            Recommendation: {item.recommendation}
+                          </p>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Sub-Section 4: ATS Matching Keywords Grid */}
+              <div className="p-5 sm:p-6 rounded-2xl bg-surface-2 border border-border space-y-4 shadow-xs">
+                <div className="flex items-center gap-2">
+                  <Terminal className="w-4 h-4 text-indigo-500" />
+                  <h4 className="text-xs font-black uppercase tracking-wider text-foreground">
+                    ATS Keyword Optimization Matrix
+                  </h4>
+                </div>
+
+                <p className="text-xs text-text-secondary leading-relaxed">
+                  ATS parsers scan for exact technical terms associated with this credential. Ensure these primary keywords appear in both your Skills list and project descriptions:
+                </p>
+
+                <div className="space-y-3">
+                  <div>
+                    <span className="text-[11px] font-black uppercase tracking-wider text-text-muted block mb-1.5">
+                      Primary Core Competencies (Must-Match)
+                    </span>
+                    <div className="flex flex-wrap gap-1.5">
+                      {evidencePkg.atsKeywords.primarySkills.map((k, i) => (
+                        <span
+                          key={i}
+                          className="px-2.5 py-1 rounded-lg text-xs font-mono font-bold bg-primary/10 text-primary border border-primary/20"
+                        >
+                          {k}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    <span className="text-[11px] font-black uppercase tracking-wider text-text-muted block mb-1.5">
+                      Secondary Role & Engineering Keywords
+                    </span>
+                    <div className="flex flex-wrap gap-1.5">
+                      {evidencePkg.atsKeywords.secondarySkills.map((k, i) => (
+                        <span
+                          key={i}
+                          className="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-surface text-foreground border border-border"
+                        >
+                          {k}
+                        </span>
+                      ))}
+                      {evidencePkg.atsKeywords.roleAlignmentKeywords.map((k, i) => (
+                        <span
+                          key={`role-${i}`}
+                          className="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-surface text-text-secondary border border-border"
+                        >
+                          {k}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Sub-Section 5: Technical Interview Talking Points & Defense */}
+              {evidencePkg.interviewDefense.length > 0 && (
+                <div className="p-5 sm:p-6 rounded-2xl bg-surface-2 border border-border space-y-4 shadow-xs">
+                  <div className="flex items-center gap-2">
+                    <HelpCircle className="w-4 h-4 text-amber-500" />
+                    <h4 className="text-xs font-black uppercase tracking-wider text-foreground">
+                      Technical Interview Defense Guide
+                    </h4>
+                  </div>
+
+                  <p className="text-xs text-text-secondary leading-relaxed">
+                    Hiring managers use credentials as jumping-off points for technical depth checks. Prepare structured STAR-method responses:
+                  </p>
+
+                  <div className="space-y-3">
+                    {evidencePkg.interviewDefense.map((item, idx) => {
+                      const isExpanded = expandedInterviewIdx === idx;
+                      return (
+                        <div
+                          key={idx}
+                          className="rounded-xl border border-border bg-surface overflow-hidden shadow-2xs transition-all"
+                        >
+                          <button
+                            type="button"
+                            onClick={() => setExpandedInterviewIdx(isExpanded ? null : idx)}
+                            className="w-full p-4 text-left flex items-center justify-between gap-3 hover:bg-surface-2 transition-colors cursor-pointer"
+                          >
+                            <span className="text-xs font-bold text-foreground">
+                              Q: {item.question}
+                            </span>
+                            {isExpanded ? (
+                              <ChevronUp className="w-4 h-4 text-primary shrink-0" />
+                            ) : (
+                              <ChevronDown className="w-4 h-4 text-text-muted shrink-0" />
+                            )}
+                          </button>
+
+                          {isExpanded && (
+                            <div className="p-4 pt-2 border-t border-border/80 space-y-3 text-xs animate-fade-in bg-surface/50">
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-text-secondary">
+                                <div className="p-2.5 rounded-lg bg-surface-2 border border-border">
+                                  <strong className="text-primary block mb-0.5">Situation & Task:</strong>
+                                  {item.starAnswerOutline.situation} {item.starAnswerOutline.task}
+                                </div>
+                                <div className="p-2.5 rounded-lg bg-surface-2 border border-border">
+                                  <strong className="text-emerald-600 dark:text-emerald-400 block mb-0.5">Action & Result:</strong>
+                                  {item.starAnswerOutline.action} {item.starAnswerOutline.result}
+                                </div>
+                              </div>
+
+                              <div className="flex flex-wrap items-center gap-1.5 pt-1">
+                                <span className="text-[11px] font-bold text-text-muted">Key Vocabulary:</span>
+                                {item.keyVocabulary.map((voc, vIdx) => (
+                                  <span
+                                    key={vIdx}
+                                    className="px-2 py-0.5 rounded text-[11px] font-mono bg-surface-2 border border-border text-foreground"
+                                  >
+                                    {voc}
+                                  </span>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
             </div>
           )}
 
