@@ -136,16 +136,48 @@ ${(jdText || '').slice(0, 2000)}`;
   };
 }
 
+function portBridgePlugin(): Plugin {
+  return {
+    name: 'port-bridge',
+    configureServer(server) {
+      import('node:http').then(({ default: http }) => {
+        const bridge = http.createServer((req, res) => {
+          res.writeHead(302, {
+            Location: `http://localhost:5173${req.url || '/'}`,
+          });
+          res.end();
+        });
+        bridge.on('error', (err: any) => {
+          if (err.code !== 'EADDRINUSE') {
+            console.warn('[port-bridge] error:', err.message);
+          }
+        });
+        bridge.listen(5176, '0.0.0.0', () => {
+          console.log('⚡ Localhost Bridge listening on http://localhost:5176 -> redirecting to http://localhost:5173');
+        });
+        server.httpServer?.on('close', () => {
+          try {
+            bridge.close();
+          } catch {
+            // ignore
+          }
+        });
+      });
+    }
+  };
+}
+
 export default defineConfig({
-  plugins: [react(), tailwindcss(), atsApiPlugin()],
+  plugins: [react(), tailwindcss(), atsApiPlugin(), portBridgePlugin()],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
   server: {
+    host: true,
     port: 5173,
-    open: true,
+    open: false,
   },
   build: {
     sourcemap: false, // Security: Never leak TypeScript source maps in production build

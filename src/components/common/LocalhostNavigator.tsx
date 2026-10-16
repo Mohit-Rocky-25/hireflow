@@ -59,8 +59,8 @@ export function LocalhostNavigator() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen]);
 
-  const origin = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:5176';
-  const currentPort = typeof window !== 'undefined' ? window.location.port || '80' : '5176';
+  const origin = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:5173';
+  const currentPort = typeof window !== 'undefined' ? window.location.port || '80' : '5173';
 
   const routes: RouteItem[] = [
     {
