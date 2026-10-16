@@ -57,6 +57,7 @@ export function ReachOutPage() {
   // Slot inputs
   const [targetCompany, setTargetCompany] = useState<string>('Razorpay');
   const [targetRole, setTargetRole] = useState<string>('Backend Engineer');
+  const [candidateName, setCandidateName] = useState<string>(profile?.identity?.name || '');
   const [recipientName, setRecipientName] = useState<string>('');
   const [recipientRole, setRecipientRole] = useState<RecipientType>('Recruiter');
   const [recipientTitle, setRecipientTitle] = useState<string>('Technical Recruiter');
@@ -72,11 +73,13 @@ export function ReachOutPage() {
 
   // Copy toast state: templateId -> boolean
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [blockedCopyId, setBlockedCopyId] = useState<string | null>(null);
 
   // Initialize from CandidateProfile if available
   useEffect(() => {
     if (profile) {
       const extracted = extractSlotsFromProfile(profile, targetCompany, targetRole);
+      if (extracted.candidateName) setCandidateName(extracted.candidateName);
       if (extracted.primarySkill) setPrimarySkill(extracted.primarySkill);
       if (extracted.proofPoint) setProofPoint(extracted.proofPoint);
       if (extracted.collegeName) setCollegeName(extracted.collegeName);
@@ -113,7 +116,7 @@ export function ReachOutPage() {
       collegeName: collegeName || undefined,
       admiredProject: admiredProject || undefined,
       portfolioLink: portfolioLink || undefined,
-      candidateName: profile?.identity?.name || undefined,
+      candidateName: candidateName.trim() || profile?.identity?.name || undefined,
       candidateEmail: profile?.identity?.email || undefined,
       researchTopic: researchTopic || undefined,
       mastersProgram: mastersProgram || undefined,
@@ -121,6 +124,7 @@ export function ReachOutPage() {
   }, [
     targetCompany,
     targetRole,
+    candidateName,
     recipientName,
     recipientRole,
     recipientTitle,
@@ -139,9 +143,15 @@ export function ReachOutPage() {
     return generateOutreach(currentSlots, activeChannel);
   }, [currentSlots, activeChannel]);
 
-  const handleCopy = (id: string, text: string) => {
-    navigator.clipboard.writeText(text);
-    setCopiedId(id);
+  const handleCopy = (msg: GeneratedMessage) => {
+    if (msg.placeholdersCount > 0) {
+      setBlockedCopyId(msg.templateId);
+      setTimeout(() => setBlockedCopyId(null), 3500);
+      return;
+    }
+    const fullText = msg.subject ? `Subject: ${msg.subject}\n\n${msg.body}` : msg.body;
+    navigator.clipboard.writeText(fullText);
+    setCopiedId(msg.templateId);
     setTimeout(() => setCopiedId(null), 2000);
   };
 
@@ -251,6 +261,18 @@ export function ReachOutPage() {
                 <option value="Professor">Professor / Faculty (Academic)</option>
                 <option value="Admissions">Admissions Office / Program Director</option>
               </select>
+            </div>
+
+            {/* Your Name */}
+            <div>
+              <label className="block text-xs font-semibold text-text-secondary mb-1">Your Name</label>
+              <input
+                type="text"
+                value={candidateName}
+                onChange={(e) => setCandidateName(e.target.value)}
+                placeholder="e.g. Rahul Sharma / leave empty for [Your Name]"
+                className="w-full bg-surface-2 border border-border rounded-xl px-3 py-2 text-xs text-text focus:outline-none focus:border-primary"
+              />
             </div>
 
             {/* Recipient Name */}
@@ -392,7 +414,7 @@ export function ReachOutPage() {
               >
                 <div>
                   {/* Card Header */}
-                  <div className="flex items-start justify-between gap-3 mb-3">
+                  <div className="flex items-start justify-between gap-3 mb-2">
                     <div>
                       <h3 className="text-sm font-bold text-text">{msg.name}</h3>
                       <div className="text-[11px] text-text-muted mt-0.5">
@@ -401,7 +423,7 @@ export function ReachOutPage() {
                     </div>
 
                     <span
-                      className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider border ${
+                      className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider border shrink-0 ${
                         msg.channel === 'linkedin_connect'
                           ? 'bg-blue-500/10 text-blue-400 border-blue-500/20'
                           : msg.channel === 'linkedin_inmail'
@@ -418,6 +440,13 @@ export function ReachOutPage() {
                       {msg.channel === 'academic_outreach' ? '🎓 Academic' : msg.channel.replace(/_/g, ' ')}
                     </span>
                   </div>
+
+                  {/* Template Strategy / Description */}
+                  {msg.description && (
+                    <p className="text-[11px] text-text-secondary leading-normal mb-3 pb-2 border-b border-border/60">
+                      {msg.description}
+                    </p>
+                  )}
 
                   {/* Character / Word count bar */}
                   <div className="flex items-center justify-between text-[11px] text-text-muted mb-3 pb-2 border-b border-border/80">
@@ -459,7 +488,7 @@ export function ReachOutPage() {
                   )}
 
                   {/* Body Text */}
-                  <div className="p-3.5 rounded-xl bg-surface-2 border border-border/80 text-xs text-text font-mono leading-relaxed whitespace-pre-wrap mb-4">
+                  <div className="p-3.5 rounded-xl bg-surface-2 border border-border/80 text-[13px] text-text font-sans leading-relaxed whitespace-pre-wrap mb-4">
                     {msg.body}
                   </div>
 
@@ -494,31 +523,61 @@ export function ReachOutPage() {
                 </div>
 
                 {/* Card Action Footer */}
-                <div className="pt-3 border-t border-border flex items-center justify-between gap-2">
-                  <Link
-                    to="/tools/tracker"
-                    className="text-xs font-semibold text-text-secondary hover:text-text flex items-center gap-1"
-                  >
-                    <Briefcase className="w-3 h-3 text-primary" />
-                    Log in Tracker
-                  </Link>
+                <div className="pt-3 border-t border-border flex flex-col gap-2">
+                  <div className="flex items-center justify-between gap-2">
+                    <Link
+                      to="/tools/tracker"
+                      className="text-xs font-semibold text-text-secondary hover:text-text flex items-center gap-1"
+                    >
+                      <Briefcase className="w-3 h-3 text-primary" />
+                      Log in Tracker
+                    </Link>
 
-                  <button
-                    onClick={() =>
-                      handleCopy(
-                        msg.templateId,
-                        msg.subject ? `Subject: ${msg.subject}\n\n${msg.body}` : msg.body
-                      )
-                    }
-                    className="px-3.5 py-1.5 rounded-xl bg-primary text-white text-xs font-bold hover:bg-primary/90 transition-colors cursor-pointer shadow-xs inline-flex items-center gap-1.5"
-                  >
-                    {copiedId === msg.templateId ? (
-                      <Check className="w-3.5 h-3.5" />
-                    ) : (
-                      <Copy className="w-3.5 h-3.5" />
-                    )}
-                    {copiedId === msg.templateId ? 'Copied!' : 'Copy to Clipboard'}
-                  </button>
+                    <button
+                      type="button"
+                      onClick={() => handleCopy(msg)}
+                      title={
+                        msg.placeholdersCount > 0
+                          ? `Resolve ${msg.placeholdersCount} placeholder${msg.placeholdersCount > 1 ? 's' : ''} in the left sidebar to copy`
+                          : 'Copy email subject and body to clipboard'
+                      }
+                      className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer shadow-xs inline-flex items-center gap-1.5 ${
+                        copiedId === msg.templateId
+                          ? 'bg-emerald-600 text-white'
+                          : blockedCopyId === msg.templateId
+                          ? 'bg-amber-600 text-white ring-2 ring-amber-400/50'
+                          : msg.placeholdersCount > 0
+                          ? 'bg-surface-2 hover:bg-surface-3 text-text-secondary border border-border hover:border-amber-500/50'
+                          : 'bg-primary text-white hover:bg-primary/90'
+                      }`}
+                    >
+                      {copiedId === msg.templateId ? (
+                        <>
+                          <Check className="w-3.5 h-3.5" />
+                          Copied!
+                        </>
+                      ) : blockedCopyId === msg.templateId ? (
+                        <>
+                          <AlertTriangle className="w-3.5 h-3.5" />
+                          Fill Placeholders First
+                        </>
+                      ) : (
+                        <>
+                          <Copy className="w-3.5 h-3.5" />
+                          Copy to Clipboard
+                        </>
+                      )}
+                    </button>
+                  </div>
+
+                  {blockedCopyId === msg.templateId && (
+                    <div className="p-2 rounded-lg bg-amber-500/10 border border-amber-500/30 text-[11px] text-amber-300 flex items-start gap-1.5">
+                      <AlertTriangle className="w-3.5 h-3.5 shrink-0 mt-0.5" />
+                      <span>
+                        Copy blocked to protect you: please fill <strong>{msg.placeholders.join(', ')}</strong> in the left sidebar before copying.
+                      </span>
+                    </div>
+                  )}
                 </div>
               </div>
             );

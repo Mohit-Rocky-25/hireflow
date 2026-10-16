@@ -52,6 +52,7 @@ export interface GeneratedMessage {
   name: string;
   channel: OutreachChannel;
   targetAudience: string;
+  description?: string;
   subject?: string;
   body: string;
   charCount: number;
@@ -216,6 +217,7 @@ export function generateOutreach(
       name: item.name,
       channel: item.channel,
       targetAudience: item.targetAudience,
+      description: item.description,
       subject,
       body,
       charCount,
