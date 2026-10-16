@@ -5,6 +5,7 @@
 
 import { RankedFix, rankFixes, SimulationFacts } from './simulateFix';
 import { CandidateProfile } from '../profile/types';
+import { getVerdictBand } from '../../ats/engine/reportState';
 
 export interface CompanyEligibilityRules {
   minCgpa?: number;
@@ -14,7 +15,7 @@ export interface CompanyEligibilityRules {
 }
 
 export interface QuickSummary {
-  verdict: 'Strong fit' | 'Close' | 'Stretch' | 'Insufficient input';
+  verdict: 'Strong fit' | 'Competitive' | 'Close' | 'Needs work' | 'Stretch' | 'Weak match' | 'Insufficient input';
   verdictReason: string;
   eligibility: {
     status: 'eligible' | 'ineligible' | 'unknown';
@@ -86,27 +87,31 @@ export function buildQuickSummary(
   const mustMet = mustSkills.filter((s) => s.found).length;
   const mustTotal = mustSkills.length;
 
-  // 5. Verdict thresholds calibrated against golden baseline:
-  // Base score from facts or compute
-  const score = facts.baseScore || 0;
-  let verdict: QuickSummary['verdict'] = 'Stretch';
+  // 5. Verdict thresholds calibrated against single source of truth (Stage 1 / P5):
+  const score = facts.baseScore !== undefined ? facts.baseScore : 0;
+  const band = getVerdictBand(score);
+  let verdict: QuickSummary['verdict'] = 'Weak match';
   let verdictReason = '';
   let nextStep = '';
 
-  if (score >= 70 && (mustTotal === 0 || mustMet / mustTotal >= 0.75)) {
+  if (band === 'Strong') {
     verdict = 'Strong fit';
     verdictReason = `Meets ${mustMet} of ${mustTotal || totalSkills} must-have competencies with verified evidence.`;
     nextStep = topFixes.length > 0
       ? `Apply directly, or perform ${topFixes[0].gapClass === 'wording' ? '1 quick wording fix' : 'minor tailoring'} for +${topFixes[0].gain}% gain.`
       : 'Resume is aligned and ready to submit.';
-  } else if (score >= 50 || (mustTotal > 0 && mustMet / mustTotal >= 0.5)) {
-    verdict = 'Close';
-    verdictReason = `Meets ${mustMet} of ${mustTotal || totalSkills} must-haves; ${wordingCount} quick wording fix(es) available.`;
+  } else if (band === 'Competitive') {
+    verdict = 'Competitive';
+    verdictReason = `Meets ${mustMet} of ${mustTotal || totalSkills} must-haves; competitive candidate with ${wordingCount} wording fix(es) available.`;
     nextStep = wordingCount > 0
       ? `Align terminology on ${topFixes.filter((f) => f.gapClass === 'wording').map((f) => f.skillName).join(', ')} to boost score.`
       : `Close highest-impact skill gap: ${topFixes[0]?.skillName || 'missing competency'}.`;
+  } else if (band === 'Needs work') {
+    verdict = 'Needs work';
+    verdictReason = `Meets ${mustMet} of ${mustTotal || totalSkills} must-haves; notable gaps requiring targeted preparation.`;
+    nextStep = `Close highest-impact skill gap: ${topFixes[0]?.skillName || 'core requirements'} before applying.`;
   } else {
-    verdict = 'Stretch';
+    verdict = 'Weak match';
     verdictReason = `Missing ${mustTotal - mustMet} must-have competencies; ${learnCount} technical depth gap(s) identified.`;
     nextStep = `Review Build Briefs for ${topFixes[0]?.skillName || 'core requirements'} before applying.`;
   }

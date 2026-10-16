@@ -3,6 +3,7 @@
 // Infers total experience tenure and maps to candidate level
 // ============================================================
 
+import { getSeniorityLevel, inferSeniorityLevelFromYears } from '../../../config/atsConfig';
 import { ExperienceEntry, ExperienceLevelId } from './types';
 
 export interface SeniorityEstimate {
@@ -52,35 +53,17 @@ export function estimateCandidateExperience(
 
   const candidateYears = Math.round((totalMonths / 12) * 10) / 10;
 
-  // Inferred Level
-  let inferredLevel: ExperienceLevelId = 'fresher';
-  if (candidateYears >= 6) {
-    inferredLevel = '6+';
-  } else if (candidateYears >= 3) {
-    inferredLevel = '3-6';
-  } else if (candidateYears >= 1) {
-    inferredLevel = '1-3';
-  } else {
-    inferredLevel = 'fresher';
-  }
+  // Resolve profile from config (pure data-driven, P1)
+  const isUserOverride = Boolean(selectedLevel && selectedLevel !== 'auto');
+  const levelProfile = isUserOverride
+    ? getSeniorityLevel(selectedLevel).level
+    : inferSeniorityLevelFromYears(candidateYears);
 
-  // Final level resolution (if user selected explicitly, use that; else inferred)
-  const finalLevel = selectedLevel === 'auto' ? inferredLevel : selectedLevel;
-
-  let explanation = '';
-  if (finalLevel === 'fresher') {
-    explanation = `Fresher / Early Career (~${candidateYears} years formal experience detected). Strong emphasis placed on foundational projects and DSA.`;
-  } else if (finalLevel === '1-3') {
-    explanation = `Junior Engineer (~${candidateYears} years experience). Evaluated on core framework execution and independent bullet ownership.`;
-  } else if (finalLevel === '3-6') {
-    explanation = `Mid-Level Engineer (~${candidateYears} years experience). Evaluated on end-to-end delivery, architectural decisions, and quantifiable impact.`;
-  } else {
-    explanation = `Senior / Staff Engineer (~${candidateYears} years experience). High expectations for system design, distributed scaling, and organization-wide metrics.`;
-  }
+  const explanation = `${levelProfile.displayName} (~${candidateYears} years formal experience detected). ${levelProfile.typicalBarText}`;
 
   return {
     candidateYears,
-    inferredLevel: finalLevel,
+    inferredLevel: levelProfile.id as ExperienceLevelId,
     explanation,
   };
 }

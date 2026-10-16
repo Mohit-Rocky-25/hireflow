@@ -242,12 +242,12 @@ export function generateLearningPath(params: GenerateLearningPathParams): Learni
     item.stageOrder = idx + 1;
   });
 
-  // 4. Generate Resume Rewrites for 3 Weakest Real Bullets
+  // 4. Generate Resume Rewrites only for underperforming bullets (score < 60)
   const realBullets = (params.bullets || []).filter((b) => b.rawText && b.rawText.trim().length > 15);
   realBullets.sort((a, b) => a.score - b.score);
-  const weakestThree = realBullets.slice(0, 3);
+  const underperformingBullets = realBullets.filter((b) => b.score < 60);
 
-  const rewrites: WeakBulletRewrite[] = weakestThree.map((bullet) => {
+  const rewrites: WeakBulletRewrite[] = underperformingBullets.map((bullet) => {
     const verb = selectStrongVerb(bullet.rawText);
     const cleaned = stripWeakPrefix(bullet.rawText);
 

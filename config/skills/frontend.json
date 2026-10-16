@@ -1,0 +1,92 @@
+[
+  {
+    "id": "react",
+    "canonicalName": "React",
+    "aliases": ["React", "React.js", "Reactjs"],
+    "category": "Frontend",
+    "related": ["JavaScript", "TypeScript", "Next.js", "Redux"],
+    "prerequisites": ["JavaScript"],
+    "ambiguousWith": ["React Native"],
+    "matchMode": "exact-token"
+  },
+  {
+    "id": "nextjs",
+    "canonicalName": "Next.js",
+    "aliases": ["Next.js", "Nextjs", "Next JS"],
+    "category": "Frontend",
+    "related": ["React", "SSR", "Vercel", "TypeScript"],
+    "prerequisites": ["React"],
+    "ambiguousWith": [],
+    "matchMode": "exact-token"
+  },
+  {
+    "id": "vue",
+    "canonicalName": "Vue",
+    "aliases": ["Vue", "Vue.js", "Vuejs", "Vue 3"],
+    "category": "Frontend",
+    "related": ["JavaScript", "Nuxt.js", "Pinia", "HTML5"],
+    "prerequisites": ["JavaScript"],
+    "ambiguousWith": [],
+    "matchMode": "exact-token"
+  },
+  {
+    "id": "angular",
+    "canonicalName": "Angular",
+    "aliases": ["Angular", "Angular 2+", "AngularJS"],
+    "category": "Frontend",
+    "related": ["TypeScript", "RxJS", "Frontend Architecture"],
+    "prerequisites": ["TypeScript"],
+    "ambiguousWith": [],
+    "matchMode": "exact-token"
+  },
+  {
+    "id": "html5",
+    "canonicalName": "HTML5",
+    "aliases": ["HTML5", "HTML"],
+    "category": "Frontend",
+    "related": ["CSS3", "JavaScript", "Web Fundamentals"],
+    "prerequisites": [],
+    "ambiguousWith": [],
+    "matchMode": "exact-token"
+  },
+  {
+    "id": "css3",
+    "canonicalName": "CSS3",
+    "aliases": ["CSS3", "CSS", "SCSS", "Sass"],
+    "category": "Frontend",
+    "related": ["HTML5", "Tailwind CSS", "Responsive Design"],
+    "prerequisites": [],
+    "ambiguousWith": [],
+    "matchMode": "exact-token"
+  },
+  {
+    "id": "tailwind-css",
+    "canonicalName": "Tailwind CSS",
+    "aliases": ["Tailwind CSS", "Tailwind", "TailwindCSS"],
+    "category": "Frontend",
+    "related": ["CSS3", "HTML5", "React"],
+    "prerequisites": ["CSS3"],
+    "ambiguousWith": [],
+    "matchMode": "exact-token"
+  },
+  {
+    "id": "redux",
+    "canonicalName": "Redux",
+    "aliases": ["Redux", "Redux Toolkit", "RTK"],
+    "category": "Frontend",
+    "related": ["React", "State Management", "JavaScript"],
+    "prerequisites": ["React"],
+    "ambiguousWith": [],
+    "matchMode": "exact-token"
+  },
+  {
+    "id": "graphql",
+    "canonicalName": "GraphQL",
+    "aliases": ["GraphQL", "Apollo GraphQL", "Apollo Client"],
+    "category": "Frontend",
+    "related": ["REST APIs", "API Design", "Node.js"],
+    "prerequisites": ["REST APIs"],
+    "ambiguousWith": [],
+    "matchMode": "exact-token"
+  }
+]

@@ -151,7 +151,7 @@ describe('Stage 5 — Prerequisite-Ordered Learning Path & Bullet Rewrites', () 
     if (res.success) {
       const rewrites = res.result.learningPath.rewrites;
       expect(rewrites.length).toBeGreaterThan(0);
-      expect(rewrites.length).toBeLessThanOrEqual(3);
+      expect(rewrites.length).toBe(res.result.audit.weakBulletsCount);
 
       for (const rw of rewrites) {
         expect(rw.originalBullet.length).toBeGreaterThan(15);

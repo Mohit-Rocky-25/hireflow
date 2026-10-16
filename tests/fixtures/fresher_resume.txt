@@ -1,0 +1,37 @@
+Rahul Sharma
+rahul.sharma@example.com | 9030403525
+
+CAREER OBJECTIVE
+Seeking an entry-level software role to leverage web development, Java, and IoT to build impactful software solutions within a dynamic tech team.
+
+PROFILE / SUMMARY
+Enthusiastic and motivated Electronics and Communication Engineering graduate with strong analytical capabilities, foundational programming knowledge, disciplined engineering mindset, and active campus software project experience across undergraduate studies.
+
+AREAS OF EXPERTISE
+PYTHON
+
+PROJECTS
+UniSync
+- UniSync campus collaboration platform synchronizing class timetables, examination schedules, and project milestone notifications across academic departments.
+- Developed intuitive schedule dashboard assisting peer study cohorts coordinate weekly revision sessions without administrative friction.
+
+LocalPro
+- LocalPro neighbourhood directory connecting verified independent local service providers with nearby residential clients through organized service category listings.
+
+Tourly
+- Tourly interactive travel recommendation web system assisting university student backpackers discover regional tourist destinations and organize custom travel itineraries.
+
+LostAndFound
+- Built campus lost and found portal tracking misplaced student belongings across academic blocks and administrative halls.
+- Implemented category search and claim verification workflows for university security desk to return lost items safely.
+
+EDUCATION
+B.Tech in Electronics and Communication Engineering (ECE)
+National Institute of Technology
+Graduation Year: 2026
+Cumulative Grade Point Average: 8.6 / 10
+
+TECHNICAL SKILLS
+Core Competencies: Data Structures and Algorithms (DSA), Object-Oriented Programming (OOP), Database Systems, System Design
+Web Technologies: HTML5, REST APIs
+Developer Tools: Git, Linux

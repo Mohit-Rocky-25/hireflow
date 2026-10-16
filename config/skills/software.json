@@ -1,0 +1,152 @@
+[
+  {
+    "id": "python",
+    "canonicalName": "Python",
+    "aliases": ["Python", "Python3", "Py", "Python 3"],
+    "category": "Languages",
+    "related": ["Django", "FastAPI", "Flask", "Pandas", "NumPy"],
+    "prerequisites": ["Programming Fundamentals"],
+    "ambiguousWith": [],
+    "matchMode": "exact-token"
+  },
+  {
+    "id": "java",
+    "canonicalName": "Java",
+    "aliases": ["Java", "Core Java", "J2EE", "Java 8", "Java 11", "Java 17", "Java 21"],
+    "category": "Languages",
+    "related": ["Spring Boot", "Hibernate", "JVM", "Maven", "Gradle"],
+    "prerequisites": ["Programming Fundamentals", "Object-Oriented Programming"],
+    "ambiguousWith": ["JavaScript"],
+    "matchMode": "exact-token"
+  },
+  {
+    "id": "cpp",
+    "canonicalName": "C++",
+    "aliases": ["C++", "CPP", "C/C++", "Modern C++", "C++11", "C++14", "C++17", "C++20"],
+    "category": "Languages",
+    "related": ["C", "Data Structures", "Algorithms", "STL"],
+    "prerequisites": ["C", "Object-Oriented Programming"],
+    "ambiguousWith": ["C"],
+    "matchMode": "exact-token"
+  },
+  {
+    "id": "c",
+    "canonicalName": "C",
+    "aliases": ["C", "C Programming", "ANSI C", "C language"],
+    "category": "Languages",
+    "related": ["C++", "Embedded Systems", "Linux", "Pointers"],
+    "prerequisites": ["Programming Fundamentals"],
+    "ambiguousWith": ["C++", "C#", "Objective-C", "CA"],
+    "matchMode": "case-sensitive"
+  },
+  {
+    "id": "csharp",
+    "canonicalName": "C#",
+    "aliases": ["C#", "CSharp", "C#.NET"],
+    "category": "Languages",
+    "related": [".NET", ".NET Core", "ASP.NET Core", "Entity Framework"],
+    "prerequisites": ["Programming Fundamentals", "Object-Oriented Programming"],
+    "ambiguousWith": ["C"],
+    "matchMode": "exact-token"
+  },
+  {
+    "id": "go",
+    "canonicalName": "Go",
+    "aliases": ["Go", "Golang"],
+    "category": "Languages",
+    "related": ["Goroutines", "Docker", "Kubernetes", "gRPC", "Microservices"],
+    "prerequisites": ["Programming Fundamentals"],
+    "ambiguousWith": ["Google", "going"],
+    "matchMode": "context-required"
+  },
+  {
+    "id": "rust",
+    "canonicalName": "Rust",
+    "aliases": ["Rust", "Rustlang"],
+    "category": "Languages",
+    "related": ["Cargo", "WebAssembly", "Systems Programming"],
+    "prerequisites": ["Systems Programming Fundamentals"],
+    "ambiguousWith": [],
+    "matchMode": "context-required"
+  },
+  {
+    "id": "typescript",
+    "canonicalName": "TypeScript",
+    "aliases": ["TypeScript", "TS"],
+    "category": "Languages",
+    "related": ["JavaScript", "Node.js", "React", "Next.js"],
+    "prerequisites": ["JavaScript"],
+    "ambiguousWith": [],
+    "matchMode": "exact-token"
+  },
+  {
+    "id": "javascript",
+    "canonicalName": "JavaScript",
+    "aliases": ["JavaScript", "JS", "Vanilla JS", "ES6", "ES2015+", "ECMAScript"],
+    "category": "Languages",
+    "related": ["TypeScript", "Node.js", "HTML5", "CSS3", "React"],
+    "prerequisites": ["Web Fundamentals"],
+    "ambiguousWith": ["Java"],
+    "matchMode": "exact-token"
+  },
+  {
+    "id": "nodejs",
+    "canonicalName": "Node.js",
+    "aliases": ["Node.js", "Nodejs", "Node JS", "Node"],
+    "category": "Backend Frameworks",
+    "related": ["Express.js", "NestJS", "JavaScript", "TypeScript"],
+    "prerequisites": ["JavaScript"],
+    "ambiguousWith": [],
+    "matchMode": "exact-token"
+  },
+  {
+    "id": "spring-boot",
+    "canonicalName": "Spring Boot",
+    "aliases": ["Spring Boot", "SpringBoot", "Spring Framework", "Spring MVC"],
+    "category": "Backend Frameworks",
+    "related": ["Java", "Hibernate", "Microservices", "Maven"],
+    "prerequisites": ["Java"],
+    "ambiguousWith": [],
+    "matchMode": "phrase"
+  },
+  {
+    "id": "django",
+    "canonicalName": "Django",
+    "aliases": ["Django", "Django REST Framework", "DRF"],
+    "category": "Backend Frameworks",
+    "related": ["Python", "PostgreSQL", "ORM", "REST APIs"],
+    "prerequisites": ["Python"],
+    "ambiguousWith": [],
+    "matchMode": "exact-token"
+  },
+  {
+    "id": "fastapi",
+    "canonicalName": "FastAPI",
+    "aliases": ["FastAPI", "Fast API"],
+    "category": "Backend Frameworks",
+    "related": ["Python", "Pydantic", "Uvicorn", "AsyncIO"],
+    "prerequisites": ["Python"],
+    "ambiguousWith": [],
+    "matchMode": "exact-token"
+  },
+  {
+    "id": "dotnet-core",
+    "canonicalName": ".NET Core",
+    "aliases": [".NET Core", ".NET", "ASP.NET Core", "ASP.NET"],
+    "category": "Backend Frameworks",
+    "related": ["C#", "Entity Framework", "LINQ", "Azure"],
+    "prerequisites": ["C#"],
+    "ambiguousWith": [],
+    "matchMode": "exact-token"
+  },
+  {
+    "id": "expressjs",
+    "canonicalName": "Express.js",
+    "aliases": ["Express.js", "Expressjs", "Express JS", "Express"],
+    "category": "Backend Frameworks",
+    "related": ["Node.js", "REST APIs", "JavaScript"],
+    "prerequisites": ["Node.js"],
+    "ambiguousWith": [],
+    "matchMode": "exact-token"
+  }
+]

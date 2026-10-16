@@ -1,0 +1,42 @@
+[
+  {
+    "id": "rtos",
+    "canonicalName": "RTOS",
+    "aliases": ["RTOS", "FreeRTOS", "Real-Time Operating System"],
+    "category": "Embedded Systems",
+    "related": ["C", "C++", "Microcontrollers", "Embedded Systems"],
+    "prerequisites": ["C", "Operating Systems Basics"],
+    "ambiguousWith": [],
+    "matchMode": "exact-token"
+  },
+  {
+    "id": "microcontrollers",
+    "canonicalName": "Microcontrollers",
+    "aliases": ["Microcontrollers", "MCU", "ARM Cortex", "STM32", "ESP32", "Arduino", "PIC"],
+    "category": "Embedded Systems",
+    "related": ["Embedded C", "Hardware Protocols", "Firmware"],
+    "prerequisites": ["Digital Electronics"],
+    "ambiguousWith": [],
+    "matchMode": "exact-token"
+  },
+  {
+    "id": "firmware",
+    "canonicalName": "Firmware Development",
+    "aliases": ["Firmware", "Firmware Development", "Embedded Software"],
+    "category": "Embedded Systems",
+    "related": ["C", "C++", "Device Drivers", "Hardware Debugging"],
+    "prerequisites": ["C", "Microcontrollers"],
+    "ambiguousWith": [],
+    "matchMode": "phrase"
+  },
+  {
+    "id": "hardware-protocols",
+    "canonicalName": "Hardware Protocols",
+    "aliases": ["I2C", "SPI", "UART", "CAN Bus"],
+    "category": "Embedded Systems",
+    "related": ["Embedded Systems", "Microcontrollers", "Firmware"],
+    "prerequisites": ["Digital Electronics"],
+    "ambiguousWith": [],
+    "matchMode": "exact-token"
+  }
+]

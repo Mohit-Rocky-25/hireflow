@@ -1,0 +1,383 @@
+{
+  "$schema": "./schema/learning-skills.schema.json",
+  "skills": {
+    "python": {
+      "skillId": "python",
+      "canonicalName": "Python",
+      "whyItMatters": "Python serves as the primary language for automation, backend services, scripting, and machine learning pipelines across modern tech teams.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Master Core Idiomatic Python and Typing",
+          "action": "Complete exercises covering generators, context managers, list comprehensions, and type annotations using Python 3.11+."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Build a Concurrent Data Ingestion Script",
+          "action": "Develop a script utilizing AsyncIO and aiohttp to fetch, validate with Pydantic, and store external API data."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Package and Test the Module with PyTest",
+          "action": "Add automated test coverage using PyTest, mock network requests, and publish as an installable package."
+        }
+      ],
+      "miniProject": {
+        "title": "Async API Data Pipeline with Pydantic Validation",
+        "acceptanceCriteria": [
+          "Asynchronous ingestion of at least 500 records from a public API",
+          "Strict data schema validation and error logging via Pydantic",
+          "PyTest unit suite with >= 85% branch coverage"
+        ]
+      },
+      "exampleBullet": "Engineered an asynchronous Python ingestion pipeline validating 500+ daily records with Pydantic and 88% PyTest branch coverage.",
+      "evidenceOfDone": [
+        "Repository with clear README and pyproject.toml",
+        "Green CI test suite passing on Python 3.11+",
+        "Clean docstrings and full type hints"
+      ],
+      "estimatedHours": 18,
+      "resources": [
+        "Official Python Documentation",
+        "Fluent Python by Luciano Ramalho",
+        "Pydantic Documentation"
+      ]
+    },
+    "java": {
+      "skillId": "java",
+      "canonicalName": "Java",
+      "whyItMatters": "Java underpins enterprise backend architectures, high-throughput microservices, and distributed systems at scale.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Modern Java Fundamentals and Concurrency",
+          "action": "Implement multithreaded workers leveraging CompletableFuture, virtual threads (Java 21), and the Java Collections Framework."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Develop RESTful Services with Spring Boot",
+          "action": "Create a Spring Boot 3 service with Spring Data JPA, connection pooling (HikariCP), and Flyway database migrations."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Automated Unit and Integration Testing",
+          "action": "Author unit tests with JUnit 5 and Mockito, accompanied by integration tests using Testcontainers."
+        }
+      ],
+      "miniProject": {
+        "title": "Spring Boot 3 Resilient Order Processing Service",
+        "acceptanceCriteria": [
+          "Idempotent REST API endpoints with request validation",
+          "PostgreSQL persistence managed via Spring Data JPA and Flyway migrations",
+          "Integration tests with Testcontainers verifying end-to-end transaction rollback"
+        ]
+      },
+      "exampleBullet": "Developed a Spring Boot 3 order microservice handling 450+ concurrent transactions with JPA and Testcontainers integration tests.",
+      "evidenceOfDone": [
+        "Maven or Gradle build configuration with zero compilation warnings",
+        "Automated JUnit 5 test suite with Testcontainers",
+        "Clean separation of controller, service, repository, and DTO layers"
+      ],
+      "estimatedHours": 24,
+      "resources": [
+        "Effective Java by Joshua Bloch",
+        "Spring Framework Documentation",
+        "Baeldung Java Tutorials"
+      ]
+    },
+    "cpp": {
+      "skillId": "cpp",
+      "canonicalName": "C++",
+      "whyItMatters": "C++ is crucial for systems programming, high-frequency trading engines, game engines, and resource-constrained embedded platforms.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Modern C++ Idioms and RAII",
+          "action": "Practice memory safety using smart pointers (std::unique_ptr, std::shared_ptr), move semantics, and RAII principles."
+        },
+        {
+          "stepNumber": 2,
+          "title": "STL Algorithms and Concurrency",
+          "action": "Implement custom data structures, thread-safe queues with std::mutex and std::condition_variable, and benchmark execution time."
+        },
+        {
+          "stepNumber": 3,
+          "title": "CMake Build and Valgrind Sanitization",
+          "action": "Configure a modular CMake build, run AddressSanitizer and Valgrind to ensure zero memory leaks."
+        }
+      ],
+      "miniProject": {
+        "title": "High-Performance Thread-Safe Memory Cache",
+        "acceptanceCriteria": [
+          "Thread-safe LRU cache supporting concurrent read/write operations",
+          "Zero memory leaks verified by AddressSanitizer under stress test",
+          "CMake build supporting modern C++20 standard"
+        ]
+      },
+      "exampleBullet": "Engineered a thread-safe C++20 LRU cache supporting concurrent lookups with zero memory leaks verified via AddressSanitizer.",
+      "evidenceOfDone": [
+        "CMakeLists.txt with strict compiler warning flags (-Wall -Wextra -Werror)",
+        "AddressSanitizer and UndefinedBehaviorSanitizer clean runs",
+        "Benchmark suite demonstrating throughput under load"
+      ],
+      "estimatedHours": 26,
+      "resources": [
+        "Effective Modern C++ by Scott Meyers",
+        "cppreference.com",
+        "C++ Core Guidelines"
+      ]
+    },
+    "c": {
+      "skillId": "c",
+      "canonicalName": "C",
+      "whyItMatters": "C provides fundamental mastery of operating systems, pointer arithmetic, hardware-level memory layouts, and kernel drivers.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Pointers, Structs, and Dynamic Allocation",
+          "action": "Construct low-level linked lists and hash tables with explicit malloc/free memory management."
+        },
+        {
+          "stepNumber": 2,
+          "title": "POSIX Systems Programming",
+          "action": "Build a CLI utility utilizing POSIX system calls (fork, exec, pipe, poll) for process coordination."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Memory Debugging with Valgrind",
+          "action": "Execute rigorous memory checks ensuring absence of buffer overflows, dangling pointers, or leaks."
+        }
+      ],
+      "miniProject": {
+        "title": "POSIX-Compliant Shell Command Pipeline",
+        "acceptanceCriteria": [
+          "Parsing user commands supporting I/O redirection (<, >) and pipes (|)",
+          "Proper process creation and zombie process reaping with waitpid",
+          "Zero Valgrind memory leak errors"
+        ]
+      },
+      "exampleBullet": "Constructed a POSIX-compliant C shell pipeline supporting command chaining, redirection, and clean process lifecycle management.",
+      "evidenceOfDone": [
+        "Clean Makefile with modular compilation targets",
+        "Zero memory leak report from Valgrind",
+        "Robust error checking on all system calls"
+      ],
+      "estimatedHours": 22,
+      "resources": [
+        "The C Programming Language by Kernighan and Ritchie",
+        "Advanced Programming in the UNIX Environment by W. Richard Stevens",
+        "POSIX Standard Documentation"
+      ]
+    },
+    "csharp": {
+      "skillId": "csharp",
+      "canonicalName": "C#",
+      "whyItMatters": "C# and .NET power robust cloud backends, enterprise web applications, and cross-platform desktop and game services.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Modern C# Features and LINQ",
+          "action": "Utilize pattern matching, records, async/await streams, and LINQ queries for high-readability business logic."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Build Web APIs with ASP.NET Core",
+          "action": "Implement a RESTful API leveraging dependency injection, middleware pipelines, and Entity Framework Core."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Automated Testing with xUnit and Moq",
+          "action": "Author unit tests and WebApplicationFactory integration tests to validate API responses."
+        }
+      ],
+      "miniProject": {
+        "title": "ASP.NET Core Clean Architecture API",
+        "acceptanceCriteria": [
+          "RESTful endpoints following Clean Architecture patterns",
+          "Entity Framework Core integration with database migrations",
+          "Integration test suite with WebApplicationFactory"
+        ]
+      },
+      "exampleBullet": "Developed an ASP.NET Core REST API with Entity Framework Core migrations and automated xUnit integration test coverage.",
+      "evidenceOfDone": [
+        "Solution (.sln) with layered projects (Domain, Application, Infrastructure, API)",
+        "Automated CI build script",
+        "Swagger/OpenAPI documentation configured"
+      ],
+      "estimatedHours": 20,
+      "resources": [
+        "Microsoft Learn .NET Documentation",
+        "C# in Depth by Jon Skeet",
+        "ASP.NET Core Architecture Guides"
+      ]
+    },
+    "react": {
+      "skillId": "react",
+      "canonicalName": "React",
+      "whyItMatters": "React is the standard component-based UI framework for building responsive, maintainable frontend applications.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Component Design and Custom Hooks",
+          "action": "Create accessible component trees, extracting reusable logic into custom React hooks with clean state management."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Async State and API Integration",
+          "action": "Integrate asynchronous data fetching with optimistic updates, caching (e.g. TanStack Query), and error boundaries."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Testing and Performance Profiling",
+          "action": "Author unit and interaction tests using React Testing Library, and optimize re-renders using React DevTools profiler."
+        }
+      ],
+      "miniProject": {
+        "title": "Interactive Analytics Dashboard with Custom Hooks",
+        "acceptanceCriteria": [
+          "Debounced search filtering and pagination over 1,000+ data rows",
+          "Accessible modal dialogues and keyboard navigation support",
+          "React Testing Library suite verifying key user workflows"
+        ]
+      },
+      "exampleBullet": "Built an interactive React dashboard with debounced search, custom state hooks, and 90% React Testing Library coverage.",
+      "evidenceOfDone": [
+        "Clean component directory structure with TypeScript prop interfaces",
+        "Automated unit and component test suite",
+        "Production build with zero console warnings"
+      ],
+      "estimatedHours": 18,
+      "resources": [
+        "React Official Documentation (react.dev)",
+        "Epic React by Kent C. Dodds",
+        "TanStack Query Documentation"
+      ]
+    },
+    "docker": {
+      "skillId": "docker",
+      "canonicalName": "Docker",
+      "whyItMatters": "Docker standardizes application environments, ensuring parity between local development and production deployments.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Multi-Stage Dockerfile Optimization",
+          "action": "Author multi-stage Dockerfiles that minimize layer sizes and exclude dev dependencies from final production images."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Multi-Container Orchestration with Docker Compose",
+          "action": "Compose backend, database, and caching services into an orchestrated local development environment with volume mounts."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Container Security and Vulnerability Scanning",
+          "action": "Scan images with Docker Scout or Trivy, ensuring non-root user execution and minimal base images."
+        }
+      ],
+      "miniProject": {
+        "title": "Hardened Multi-Stage Service Container",
+        "acceptanceCriteria": [
+          "Multi-stage Dockerfile producing an image under 100MB",
+          "Non-root container user execution",
+          "Docker Compose configuration bootstrapping service, PostgreSQL, and Redis with healthchecks"
+        ]
+      },
+      "exampleBullet": "Constructed multi-stage Dockerfiles reducing image size by 65% and orchestrated local microservice dependencies via Docker Compose.",
+      "evidenceOfDone": [
+        "Validated Dockerfile with non-root security context",
+        "docker-compose.yml with defined service healthchecks",
+        "Trivy vulnerability scan report showing zero critical CVEs"
+      ],
+      "estimatedHours": 14,
+      "resources": [
+        "Docker Official Documentation",
+        "Docker Deep Dive by Nigel Poulton",
+        "OWASP Docker Security Cheat Sheet"
+      ]
+    },
+    "kubernetes": {
+      "skillId": "kubernetes",
+      "canonicalName": "Kubernetes",
+      "whyItMatters": "Kubernetes provides declarative container orchestration, automated scaling, and self-healing resilience for cloud infrastructure.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Core Workload Manifests",
+          "action": "Write declarative manifests for Deployments, Services, ConfigMaps, Secrets, and Ingress resources."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Configuring Healthchecks and Probes",
+          "action": "Implement liveness, readiness, and startup probes alongside resource requests and limits."
+        },
+        {
+          "stepNumber": 3,
+          "title": "Local Cluster Deployment with Minikube / Kind",
+          "action": "Deploy and test zero-downtime rolling updates on a local Kind or Minikube cluster."
+        }
+      ],
+      "miniProject": {
+        "title": "Resilient Microservice Deployment Manifests",
+        "acceptanceCriteria": [
+          "Deployment manifest with resource limits and rolling update strategy",
+          "Liveness and readiness probe configuration",
+          "ConfigMap and Secret injection for external configuration"
+        ]
+      },
+      "exampleBullet": "Authored Kubernetes deployment manifests configuring zero-downtime rolling updates, resource quotas, and readiness probes on Kind.",
+      "evidenceOfDone": [
+        "YAML manifests validating cleanly against kubeval/kubeconform",
+        "Successful deployment verified on local Minikube/Kind cluster",
+        "Zero-downtime rolling update demonstration"
+      ],
+      "estimatedHours": 20,
+      "resources": [
+        "Kubernetes Documentation (kubernetes.io)",
+        "Kubernetes Up & Running by Kelsey Hightower",
+        "The Linux Foundation K8s Tutorials"
+      ]
+    },
+    "sql": {
+      "skillId": "sql",
+      "canonicalName": "SQL",
+      "whyItMatters": "SQL is the foundational standard for relational querying, schema integrity, indexing strategies, and transactional data analysis.",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "title": "Advanced Joins, Aggregations, and Window Functions",
+          "action": "Write complex analytical queries utilizing CTEs (Common Table Expressions) and window functions (ROW_NUMBER, RANK, LEAD)."
+        },
+        {
+          "stepNumber": 2,
+          "title": "Indexing and Query Optimization",
+          "action": "Analyze EXPLAIN ANALYZE execution plans to eliminate sequential scans and create composite B-tree indexes."
+        },
+        {
+          "stepNumber": 3,
+          "title": "ACID Transactions and Isolation Levels",
+          "action": "Practice transaction management, row-level locking, and dead-lock prevention strategies."
+        }
+      ],
+      "miniProject": {
+        "title": "E-Commerce Relational Schema and Optimized Query Suite",
+        "acceptanceCriteria": [
+          "Normalized 3NF relational schema with foreign key constraints",
+          "Analytical reporting queries using window functions and CTEs",
+          "Query optimization benchmark demonstrating sub-10ms execution via index tuning"
+        ]
+      },
+      "exampleBullet": "Engineered an indexed PostgreSQL relational schema and optimized complex window queries to achieve sub-10ms analytical reporting.",
+      "evidenceOfDone": [
+        "SQL DDL script with constraints and indexes",
+        "EXPLAIN ANALYZE comparison report showing cost reduction",
+        "Automated schema migration script"
+      ],
+      "estimatedHours": 16,
+      "resources": [
+        "Use The Index, Luke! by Markus Winand",
+        "PostgreSQL Official Documentation",
+        "SQL Antipatterns by Bill Karwin"
+      ]
+    }
+  }
+}

@@ -1,0 +1,82 @@
+[
+  {
+    "id": "aws",
+    "canonicalName": "AWS",
+    "aliases": ["AWS", "Amazon Web Services", "EC2", "S3", "AWS Lambda", "ECS"],
+    "category": "Cloud & DevOps",
+    "related": ["Cloud Computing", "Docker", "Terraform"],
+    "prerequisites": ["Networking Fundamentals"],
+    "ambiguousWith": [],
+    "matchMode": "exact-token"
+  },
+  {
+    "id": "azure",
+    "canonicalName": "Azure",
+    "aliases": ["Azure", "Microsoft Azure"],
+    "category": "Cloud & DevOps",
+    "related": ["Cloud Computing", "Active Directory", ".NET"],
+    "prerequisites": ["Networking Fundamentals"],
+    "ambiguousWith": [],
+    "matchMode": "exact-token"
+  },
+  {
+    "id": "gcp",
+    "canonicalName": "GCP",
+    "aliases": ["GCP", "Google Cloud", "Google Cloud Platform"],
+    "category": "Cloud & DevOps",
+    "related": ["Cloud Computing", "Kubernetes", "BigQuery"],
+    "prerequisites": ["Networking Fundamentals"],
+    "ambiguousWith": [],
+    "matchMode": "exact-token"
+  },
+  {
+    "id": "docker",
+    "canonicalName": "Docker",
+    "aliases": ["Docker", "Containerization", "Containers", "Dockerfile", "Docker Compose"],
+    "category": "Cloud & DevOps",
+    "related": ["Kubernetes", "CI/CD", "Linux"],
+    "prerequisites": ["Linux Basics"],
+    "ambiguousWith": [],
+    "matchMode": "exact-token"
+  },
+  {
+    "id": "kubernetes",
+    "canonicalName": "Kubernetes",
+    "aliases": ["Kubernetes", "K8s", "EKS", "GKE", "AKS"],
+    "category": "Cloud & DevOps",
+    "related": ["Docker", "Helm", "Cloud Architecture", "Microservices"],
+    "prerequisites": ["Docker"],
+    "ambiguousWith": [],
+    "matchMode": "exact-token"
+  },
+  {
+    "id": "terraform",
+    "canonicalName": "Terraform",
+    "aliases": ["Terraform", "IaC", "Infrastructure as Code"],
+    "category": "Cloud & DevOps",
+    "related": ["AWS", "Cloud Architecture", "HCL"],
+    "prerequisites": ["Cloud Computing"],
+    "ambiguousWith": [],
+    "matchMode": "exact-token"
+  },
+  {
+    "id": "ci-cd",
+    "canonicalName": "CI/CD",
+    "aliases": ["CI/CD", "CI / CD", "Continuous Integration", "Continuous Delivery", "GitHub Actions", "GitLab CI", "Jenkins"],
+    "category": "Cloud & DevOps",
+    "related": ["Git", "Docker", "DevOps"],
+    "prerequisites": ["Git"],
+    "ambiguousWith": [],
+    "matchMode": "exact-token"
+  },
+  {
+    "id": "linux",
+    "canonicalName": "Linux",
+    "aliases": ["Linux", "Ubuntu", "Debian", "CentOS", "RHEL", "Bash", "Shell Scripting"],
+    "category": "Cloud & DevOps",
+    "related": ["Operating Systems", "Networking", "DevOps"],
+    "prerequisites": ["Computer Fundamentals"],
+    "ambiguousWith": [],
+    "matchMode": "exact-token"
+  }
+]

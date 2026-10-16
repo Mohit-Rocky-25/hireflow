@@ -1,0 +1,78 @@
+{
+  "$schema": "./schema/tiers.schema.json",
+  "defaultTier": "generic",
+  "tiers": {
+    "generic": {
+      "id": "generic",
+      "displayName": "Standard / General Market",
+      "marketBarText": "Balanced screening assessing core competency alignment, clear communication, and demonstrated project execution.",
+      "expectationChecklist": [
+        "Verifiable core skill evidence in either professional experience or personal projects",
+        "Standard clear formatting without dense unreadable styling",
+        "Relevant degree or demonstrable equivalent experience"
+      ],
+      "weightAdjustments": {
+        "mustHaveCoverage": 0,
+        "evidenceDepth": 0,
+        "impactMetrics": 0,
+        "projectsAndArtifacts": 0,
+        "senioritySignals": 0,
+        "formatAndParse": 0
+      }
+    },
+    "top_product": {
+      "id": "top_product",
+      "displayName": "Top Product & Big Tech",
+      "marketBarText": "Ruthless evaluation focusing on algorithmic depth, distributed systems, scale metrics (latency, QPS, volume), and high-agency engineering.",
+      "expectationChecklist": [
+        "Algorithmic competence and CS fundamentals",
+        "Concrete scale metrics (e.g., QPS, latency p99, data volume)",
+        "High subsystem ownership and deep architectural trade-off awareness"
+      ],
+      "weightAdjustments": {
+        "mustHaveCoverage": -5,
+        "evidenceDepth": 5,
+        "impactMetrics": 5,
+        "projectsAndArtifacts": 0,
+        "senioritySignals": 0,
+        "formatAndParse": -5
+      }
+    },
+    "startup": {
+      "id": "startup",
+      "displayName": "High-Growth Startup & Scale-Up",
+      "marketBarText": "Bias towards rapid zero-to-one delivery, full-stack product versatility, pragmatism, and high autonomy.",
+      "expectationChecklist": [
+        "Demonstrated 0-to-1 feature delivery or greenfield project execution",
+        "Product velocity and full-stack problem solving",
+        "Business metrics impact (growth, adoption, conversion)"
+      ],
+      "weightAdjustments": {
+        "mustHaveCoverage": 0,
+        "evidenceDepth": 0,
+        "impactMetrics": 5,
+        "projectsAndArtifacts": 5,
+        "senioritySignals": -5,
+        "formatAndParse": -5
+      }
+    },
+    "service_mnc": {
+      "id": "service_mnc",
+      "displayName": "Enterprise Services & Mass Hiring",
+      "marketBarText": "Focus on exact keyword compliance, certifications, client delivery methodology, and reliable execution within structured processes.",
+      "expectationChecklist": [
+        "Exact keyword alignment with client requirements",
+        "Certifications and structured framework compliance",
+        "Clear tenure and project documentation"
+      ],
+      "weightAdjustments": {
+        "mustHaveCoverage": 5,
+        "evidenceDepth": -5,
+        "impactMetrics": -5,
+        "projectsAndArtifacts": 0,
+        "senioritySignals": 5,
+        "formatAndParse": 0
+      }
+    }
+  }
+}

@@ -32,64 +32,93 @@ export const OverviewTab: React.FC<Props> = ({ result }) => {
     : 'top_product';
   const tierConfig = (tiersData.tiers as Record<string, any>)[tierKey] || (tiersData.tiers as Record<string, any>)['top_product'];
 
-  const categoryConfigs = [
-    {
-      id: 'mustHaveCoverage',
-      name: 'Must-Have Coverage',
-      score: subscores.mustHaveCoverage,
-      max: weights.mustHaveCoverage,
-      color: 'bg-emerald-600',
-      description: 'Proportion of mandatory skills with verified proof vs target role job description.',
-    },
-    {
-      id: 'evidenceDepth',
-      name: 'Evidence Depth & Context',
-      score: subscores.evidenceDepth,
-      max: weights.evidenceDepth,
-      color: 'bg-blue-600',
-      description: 'Skills demonstrated in project or experience bullets versus isolated in a skills list.',
-    },
-    {
-      id: 'impactMetrics',
-      name: 'Quantified Impact Metrics',
-      score: subscores.impactMetrics,
-      max: weights.impactMetrics,
-      color: 'bg-indigo-600',
-      description: 'Bullets containing tangible numbers, latency reductions, scale, or business revenue.',
-    },
-    {
-      id: 'projectsAndOss',
-      name: 'Projects & Engineering Artifacts',
-      score: subscores.projectsAndOss,
-      max: weights.projectsAndOss,
-      color: 'bg-purple-600',
-      description: 'Production systems, live deployed web applications, or open source repositories.',
-    },
-    {
-      id: 'seniorityFit',
-      name: 'Seniority & Track Record',
-      score: subscores.seniorityFit,
-      max: weights.seniorityFit,
-      color: 'bg-amber-600',
-      description: 'Candidate experience span and depth calibrated against position level requirements.',
-    },
-    {
-      id: 'formatAndParse',
-      name: 'Format Safety & Parse Integrity',
-      score: subscores.formatAndParse,
-      max: weights.formatAndParse,
-      color: 'bg-teal-600',
-      description: 'Standard semantic section headers, clear dates, contact info, and token readability.',
-    },
-    {
-      id: 'tierFit',
-      name: 'Tier Competency Fit',
-      score: subscores.tierFit,
-      max: weights.tierFit,
-      color: 'bg-slate-700',
-      description: `Alignment against the hiring bar and artifact expectations for ${tierConfig.name}.`,
-    },
-  ];
+  const categoryConfigs = result.reportState
+    ? result.reportState.scoreLedger.lines.map((line) => {
+        const colorMap: Record<string, string> = {
+          mustHaveCoverage: 'bg-emerald-600',
+          evidenceDepth: 'bg-blue-600',
+          impactMetrics: 'bg-indigo-600',
+          projectsAndArtifacts: 'bg-purple-600',
+          senioritySignals: 'bg-amber-600',
+          formatAndParse: 'bg-teal-600',
+          tierFit: 'bg-slate-700',
+        };
+        const descMap: Record<string, string> = {
+          mustHaveCoverage: 'Proportion of mandatory skills with verified proof vs target role job description.',
+          evidenceDepth: 'Skills demonstrated in project or experience bullets versus isolated in a skills list.',
+          impactMetrics: 'Bullets containing tangible numbers, latency reductions, scale, or business revenue.',
+          projectsAndArtifacts: 'Production systems, live deployed web applications, or open source repositories.',
+          senioritySignals: 'Candidate experience span and depth calibrated against position level requirements.',
+          formatAndParse: 'Standard semantic section headers, clear dates, contact info, and token readability.',
+          tierFit: `Alignment against the hiring bar and artifact expectations for ${tierConfig?.name || 'target tier'}.`,
+        };
+        return {
+          id: line.factor,
+          name: line.factorLabel,
+          score: line.earned,
+          max: line.max,
+          color: colorMap[line.factor] || 'bg-primary',
+          description: descMap[line.factor] || line.formula,
+        };
+      })
+    : [
+        {
+          id: 'mustHaveCoverage',
+          name: 'Must-Have Coverage',
+          score: subscores.mustHaveCoverage,
+          max: weights.mustHaveCoverage,
+          color: 'bg-emerald-600',
+          description: 'Proportion of mandatory skills with verified proof vs target role job description.',
+        },
+        {
+          id: 'evidenceDepth',
+          name: 'Evidence Depth & Context',
+          score: subscores.evidenceDepth,
+          max: weights.evidenceDepth,
+          color: 'bg-blue-600',
+          description: 'Skills demonstrated in project or experience bullets versus isolated in a skills list.',
+        },
+        {
+          id: 'impactMetrics',
+          name: 'Quantified Impact Metrics',
+          score: subscores.impactMetrics,
+          max: weights.impactMetrics,
+          color: 'bg-indigo-600',
+          description: 'Bullets containing tangible numbers, latency reductions, scale, or business revenue.',
+        },
+        {
+          id: 'projectsAndOss',
+          name: 'Projects & Engineering Artifacts',
+          score: subscores.projectsAndOss,
+          max: weights.projectsAndOss,
+          color: 'bg-purple-600',
+          description: 'Production systems, live deployed web applications, or open source repositories.',
+        },
+        {
+          id: 'seniorityFit',
+          name: 'Seniority & Track Record',
+          score: subscores.seniorityFit,
+          max: weights.seniorityFit,
+          color: 'bg-amber-600',
+          description: 'Candidate experience span and depth calibrated against position level requirements.',
+        },
+        {
+          id: 'formatAndParse',
+          name: 'Format Safety & Parse Integrity',
+          score: subscores.formatAndParse,
+          max: weights.formatAndParse,
+          color: 'bg-teal-600',
+          description: 'Standard semantic section headers, clear dates, contact info, and token readability.',
+        },
+        {
+          id: 'tierFit',
+          name: 'Tier Competency Fit',
+          score: subscores.tierFit,
+          max: weights.tierFit,
+          color: 'bg-slate-700',
+          description: `Alignment against the hiring bar and artifact expectations for ${tierConfig.name}.`,
+        },
+      ];
 
   return (
     <div className="space-y-6">

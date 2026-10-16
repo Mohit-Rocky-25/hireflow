@@ -1,0 +1,42 @@
+[
+  {
+    "id": "appsec",
+    "canonicalName": "Application Security",
+    "aliases": ["Application Security", "AppSec", "Web Application Security"],
+    "category": "Security",
+    "related": ["OWASP", "Penetration Testing", "Vulnerability Management"],
+    "prerequisites": ["Web Fundamentals", "Networking"],
+    "ambiguousWith": [],
+    "matchMode": "phrase"
+  },
+  {
+    "id": "owasp",
+    "canonicalName": "OWASP",
+    "aliases": ["OWASP", "OWASP Top 10"],
+    "category": "Security",
+    "related": ["Application Security", "XSS", "SQL Injection"],
+    "prerequisites": ["Web Fundamentals"],
+    "ambiguousWith": [],
+    "matchMode": "exact-token"
+  },
+  {
+    "id": "oauth2",
+    "canonicalName": "OAuth2 / IAM",
+    "aliases": ["OAuth2", "OAuth 2.0", "OIDC", "JWT", "IAM", "Identity and Access Management"],
+    "category": "Security",
+    "related": ["Authentication", "Authorization", "Security Architecture"],
+    "prerequisites": ["Web Fundamentals"],
+    "ambiguousWith": [],
+    "matchMode": "exact-token"
+  },
+  {
+    "id": "cryptography",
+    "canonicalName": "Cryptography",
+    "aliases": ["Cryptography", "PKI", "TLS/SSL", "Encryption"],
+    "category": "Security",
+    "related": ["Information Security", "Network Protocols"],
+    "prerequisites": ["Discrete Math Basics"],
+    "ambiguousWith": [],
+    "matchMode": "exact-token"
+  }
+]

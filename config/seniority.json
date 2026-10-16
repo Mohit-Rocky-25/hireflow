@@ -1,0 +1,781 @@
+{
+  "$schema": "./schema/seniority.schema.json",
+  "defaultLevel": "mid",
+  "levels": {
+    "entry": {
+      "id": "entry",
+      "displayName": "Entry-Level / Fresher",
+      "typicalBarText": "Early-career intake bar focuses on core CS fundamentals, data structures & algorithms problem-solving track record, competitive coding profiles (LeetCode/Codeforces), academic consistency (CGPA), and demonstrable projects or internship exposure. Non-CS candidates are expected to bridge core operating systems and networks coursework.",
+      "aliases": ["fresher", "0-1", "early-career", "graduate"],
+      "keywords": [
+        "fresher",
+        "fresh graduate",
+        "university graduate",
+        "campus",
+        "campus intake",
+        "intern",
+        "internship",
+        "entry level",
+        "entry-level",
+        "graduate",
+        "college",
+        "trainee",
+        "associate",
+        "new grad",
+        "batch of",
+        "class of",
+        "0-1 year",
+        "0 year",
+        "no experience required"
+      ],
+      "yearsRange": {
+        "min": 0,
+        "max": 1
+      },
+      "scoringWeights": {
+        "mustHaveCoverage": 35,
+        "evidenceDepth": 15,
+        "impactMetrics": 10,
+        "projectsAndArtifacts": 25,
+        "senioritySignals": 5,
+        "formatAndParse": 10
+      },
+      "penaltyRules": {
+        "missingExperience": false,
+        "briefWordCountThreshold": 180,
+        "longWordCountThreshold": 800
+      },
+      "wordCountRange": {
+        "min": 180,
+        "max": 700,
+        "idealMin": 220,
+        "idealMax": 500
+      },
+      "expectedSignals": [
+        "Core CS fundamentals or degree coursework",
+        "At least 2 substantial technical projects",
+        "Clear programming language proficiency with code samples or links",
+        "Problem-solving or competitive coding foundations"
+      ],
+      "scoredSignals": [
+        {
+          "id": "internships",
+          "label": "Internships & Practical Training",
+          "description": "Formal internship, co-op, or industry training experience demonstrating collaborative codebase work.",
+          "weight": 25,
+          "detectionMode": "internships",
+          "patterns": [
+            "intern",
+            "internship",
+            "summer intern",
+            "co-op",
+            "trainee",
+            "apprentice",
+            "fellow",
+            "research assistant"
+          ]
+        },
+        {
+          "id": "coding_profiles",
+          "label": "Competitive Coding & Platform Profiles",
+          "description": "Active coding profiles (LeetCode, Codeforces, HackerRank, GitHub) demonstrating problem-solving persistence.",
+          "weight": 30,
+          "detectionMode": "coding_profiles",
+          "patterns": [
+            "leetcode",
+            "codeforces",
+            "hackerrank",
+            "codechef",
+            "github.com",
+            "kaggle",
+            "geeksforgeeks",
+            "gfg",
+            "hacker earth",
+            "atcoder"
+          ]
+        },
+        {
+          "id": "cgpa",
+          "label": "Academic Performance & Coursework Consistency",
+          "description": "Documented CGPA, GPA, percentage, or academic honors reflecting academic rigor.",
+          "weight": 20,
+          "detectionMode": "cgpa",
+          "patterns": [
+            "cgpa",
+            "gpa",
+            "percentage",
+            "aggregate",
+            "pointer",
+            "distinction",
+            "honors",
+            "dean's list",
+            "rank"
+          ]
+        },
+        {
+          "id": "branch_fundamentals",
+          "label": "Core CS Fundamentals & Branch Alignment",
+          "description": "Degree coursework or explicit coverage of Data Structures, Algorithms, OS, DBMS, and Computer Networks.",
+          "weight": 25,
+          "detectionMode": "branch_fundamentals",
+          "nonCsBranches": [
+            "electronics and communication",
+            "electronics & communication",
+            "electrical and electronics",
+            "electrical & electronics",
+            "electronics",
+            "ece",
+            "eee",
+            "mechanical",
+            "civil",
+            "chemical",
+            "aerospace",
+            "biotech",
+            "biotechnology",
+            "metallurgy",
+            "instrumentation",
+            "production"
+          ],
+          "csBranches": [
+            "computer science",
+            "computer engineering",
+            "information technology",
+            "software engineering",
+            "cs",
+            "cse",
+            "it"
+          ],
+          "patterns": [
+            "data structures",
+            "algorithms",
+            "operating systems",
+            "dbms",
+            "database management",
+            "computer networks",
+            "oops",
+            "object oriented"
+          ]
+        }
+      ],
+      "adviceCards": [
+        {
+          "id": "missing_internships",
+          "title": "Add Formal Internship or Open-Source Experience",
+          "condition": "missing_signal",
+          "signalId": "internships",
+          "recommendation": "Add formal internships, co-ops, or open-source fellowship contributions to validate collaborative delivery in production teams.",
+          "priority": "high"
+        },
+        {
+          "id": "missing_coding_profiles",
+          "title": "Link Verified Coding Profiles",
+          "condition": "missing_signal",
+          "signalId": "coding_profiles",
+          "recommendation": "Link active competitive coding profiles (LeetCode, Codeforces, HackerRank) or GitHub with solved DSA problems to prove algorithmic mastery.",
+          "priority": "high"
+        },
+        {
+          "id": "branch_gap_notice",
+          "title": "Highlight Core CS Fundamentals Coursework",
+          "condition": "missing_signal",
+          "signalId": "branch_fundamentals",
+          "recommendation": "Non-CS engineering backgrounds must explicitly highlight core CS coursework (Data Structures, Algorithms, OS, DBMS, Networks) to pass technical screening.",
+          "priority": "high"
+        },
+        {
+          "id": "missing_cgpa",
+          "title": "Include Academic Record or Distinction",
+          "condition": "missing_signal",
+          "signalId": "cgpa",
+          "recommendation": "List degree CGPA / aggregate percentage if above 7.0/10 (or 3.0/4.0); otherwise emphasize high-impact open source repositories and contest rankings.",
+          "priority": "medium"
+        }
+      ]
+    },
+    "junior": {
+      "id": "junior",
+      "displayName": "Junior Developer (1-2 YOE)",
+      "typicalBarText": "Junior developer bar requires proven ability to contribute clean, tested code to production repositories, actively participate in code reviews, debug incidents with supervision, and operate basic CI/CD automation.",
+      "aliases": ["1-3", "1-2", "junior developer", "sde-1"],
+      "keywords": [
+        "junior",
+        "jr",
+        "jr.",
+        "1-2 years",
+        "1-3 years",
+        "1+ year",
+        "associate engineer",
+        "junior developer",
+        "software engineer i",
+        "sde i",
+        "swe i"
+      ],
+      "yearsRange": {
+        "min": 1,
+        "max": 3
+      },
+      "scoringWeights": {
+        "mustHaveCoverage": 30,
+        "evidenceDepth": 20,
+        "impactMetrics": 15,
+        "projectsAndArtifacts": 15,
+        "senioritySignals": 10,
+        "formatAndParse": 10
+      },
+      "penaltyRules": {
+        "missingExperience": true,
+        "briefWordCountThreshold": 250,
+        "longWordCountThreshold": 1000
+      },
+      "wordCountRange": {
+        "min": 250,
+        "max": 900,
+        "idealMin": 350,
+        "idealMax": 700
+      },
+      "expectedSignals": [
+        "Production codebase contributions",
+        "Code review participation and debugging skills",
+        "Automated testing and CI/CD awareness"
+      ],
+      "scoredSignals": [
+        {
+          "id": "production_codebase",
+          "label": "Production Codebase Contributions",
+          "description": "Shipped features, merged pull requests, and production deployment lifecycle contributions.",
+          "weight": 30,
+          "detectionMode": "pattern",
+          "patterns": [
+            "production",
+            "shipped",
+            "deployed",
+            "release",
+            "merged",
+            "pull request",
+            "feature delivery",
+            "master branch",
+            "main branch"
+          ]
+        },
+        {
+          "id": "code_review_debugging",
+          "label": "Code Review & Root Cause Debugging",
+          "description": "Active participation in peer reviews, debugging defects, and resolving technical debt.",
+          "weight": 25,
+          "detectionMode": "pattern",
+          "patterns": [
+            "code review",
+            "peer review",
+            "debugging",
+            "bug fix",
+            "triage",
+            "git",
+            "branching",
+            "root cause",
+            "refactor"
+          ]
+        },
+        {
+          "id": "ci_cd_testing",
+          "label": "Automated Testing & CI/CD Pipelines",
+          "description": "Unit testing suites and continuous integration pipeline automation.",
+          "weight": 25,
+          "detectionMode": "pattern",
+          "patterns": [
+            "unit test",
+            "integration test",
+            "jest",
+            "pytest",
+            "junit",
+            "ci/cd",
+            "github actions",
+            "jenkins",
+            "test coverage",
+            "vitest"
+          ]
+        },
+        {
+          "id": "agile_collaboration",
+          "label": "Agile Delivery & Team Collaboration",
+          "description": "Cross-functional sprint cadence, backlog prioritization, and iterative shipping.",
+          "weight": 20,
+          "detectionMode": "pattern",
+          "patterns": [
+            "scrum",
+            "agile",
+            "sprint",
+            "jira",
+            "standup",
+            "cross-functional",
+            "backlog",
+            "kanban"
+          ]
+        }
+      ],
+      "adviceCards": [
+        {
+          "id": "missing_ci_cd_testing",
+          "title": "Highlight Automated Test Coverage & CI/CD",
+          "condition": "missing_signal",
+          "signalId": "ci_cd_testing",
+          "recommendation": "Highlight automated test coverage percentages and automated deployment pipeline experience in your bullets.",
+          "priority": "high"
+        },
+        {
+          "id": "missing_production_codebase",
+          "title": "Cite Production Releases & Pull Requests",
+          "condition": "missing_signal",
+          "signalId": "production_codebase",
+          "recommendation": "Quantify features merged into production and release cycles to prove independent code contribution.",
+          "priority": "high"
+        },
+        {
+          "id": "missing_debugging_signal",
+          "title": "Document Defect Triage & Peer Reviews",
+          "condition": "missing_signal",
+          "signalId": "code_review_debugging",
+          "recommendation": "Include bullet points detailing how you diagnosed and resolved critical bugs or participated in peer code reviews.",
+          "priority": "medium"
+        }
+      ]
+    },
+    "mid": {
+      "id": "mid",
+      "displayName": "Mid-Level Engineer (3-5 YOE)",
+      "typicalBarText": "Mid-level hiring bar requires independent subsystem ownership, proven track record scaling services or databases under load, operational on-call rotation experience, and proactive code mentorship for peers.",
+      "aliases": ["3-6", "3-5", "sde-2", "mid-level"],
+      "keywords": [
+        "mid-level",
+        "intermediate",
+        "software engineer ii",
+        "sde ii",
+        "swe ii",
+        "3-5 years",
+        "3+ years",
+        "4+ years",
+        "experienced engineer"
+      ],
+      "yearsRange": {
+        "min": 3,
+        "max": 6
+      },
+      "scoringWeights": {
+        "mustHaveCoverage": 25,
+        "evidenceDepth": 25,
+        "impactMetrics": 20,
+        "projectsAndArtifacts": 10,
+        "senioritySignals": 10,
+        "formatAndParse": 10
+      },
+      "penaltyRules": {
+        "missingExperience": true,
+        "briefWordCountThreshold": 350,
+        "longWordCountThreshold": 1200
+      },
+      "wordCountRange": {
+        "min": 350,
+        "max": 1100,
+        "idealMin": 450,
+        "idealMax": 900
+      },
+      "expectedSignals": [
+        "Independent feature delivery and subsystem ownership",
+        "Measurable performance or business impact",
+        "API design and database schema design"
+      ],
+      "scoredSignals": [
+        {
+          "id": "ownership",
+          "label": "Subsystem & Feature Ownership",
+          "description": "End-to-end design, implementation, and maintenance of critical business modules.",
+          "weight": 30,
+          "detectionMode": "pattern",
+          "patterns": [
+            "owned",
+            "spearheaded",
+            "designed and built",
+            "subsystem",
+            "module",
+            "end-to-end",
+            "autonomous",
+            "led development"
+          ]
+        },
+        {
+          "id": "scale",
+          "label": "Scalability, Concurrency & Data Volume",
+          "description": "Architecting for high QPS, low latency, caching strategies, and efficient database indexing.",
+          "weight": 25,
+          "detectionMode": "pattern",
+          "patterns": [
+            "scale",
+            "throughput",
+            "qps",
+            "concurrent",
+            "caching",
+            "redis",
+            "kafka",
+            "latency",
+            "optimization",
+            "sharding",
+            "partitioning"
+          ]
+        },
+        {
+          "id": "on_call",
+          "label": "On-Call Rotations & Operational Reliability",
+          "description": "Production telemetry, incident response, monitoring dashboards, and SLA compliance.",
+          "weight": 25,
+          "detectionMode": "pattern",
+          "patterns": [
+            "on-call",
+            "on call",
+            "incident",
+            "datadog",
+            "prometheus",
+            "grafana",
+            "slo",
+            "sla",
+            "uptime",
+            "pagerduty",
+            "monitoring",
+            "alerting"
+          ]
+        },
+        {
+          "id": "mentoring",
+          "label": "Technical Mentorship & Design Docs",
+          "description": "Authoring RFCs/design docs and mentoring junior developers on engineering practices.",
+          "weight": 20,
+          "detectionMode": "pattern",
+          "patterns": [
+            "mentored",
+            "onboarded",
+            "guided",
+            "code review standards",
+            "rfc",
+            "design doc",
+            "knowledge sharing"
+          ]
+        }
+      ],
+      "adviceCards": [
+        {
+          "id": "missing_ownership",
+          "title": "Demonstrate End-to-End Subsystem Ownership",
+          "condition": "missing_signal",
+          "signalId": "ownership",
+          "recommendation": "Demonstrate autonomous end-to-end subsystem ownership rather than peripheral task-oriented ticket completion.",
+          "priority": "high"
+        },
+        {
+          "id": "missing_scale",
+          "title": "Quantify Scale, Throughput, and Concurrency",
+          "condition": "missing_signal",
+          "signalId": "scale",
+          "recommendation": "Provide specific scale metrics (concurrent users, requests per second, database table sizes, cache hit ratios).",
+          "priority": "high"
+        },
+        {
+          "id": "missing_on_call",
+          "title": "Highlight Operational Telemetry & On-Call",
+          "condition": "missing_signal",
+          "signalId": "on_call",
+          "recommendation": "Cite on-call responsibilities, system observability tools, or production incident recovery metrics to demonstrate operational maturity.",
+          "priority": "medium"
+        },
+        {
+          "id": "missing_mentoring",
+          "title": "Showcase Peer Mentorship & RFC Authoring",
+          "condition": "missing_signal",
+          "signalId": "mentoring",
+          "recommendation": "Highlight mentorship of junior peers or authoring engineering design docs (RFCs) to prove organizational value.",
+          "priority": "medium"
+        }
+      ]
+    },
+    "senior": {
+      "id": "senior",
+      "displayName": "Senior Engineer (5-8 YOE)",
+      "typicalBarText": "Senior engineer hiring bar demands comprehensive system architecture expertise, cross-team impact, active hiring loop participation, and direct alignment of technical deliverables with measurable business revenue or cost reduction.",
+      "aliases": ["6+", "5-8", "sde-3", "senior engineer", "staff"],
+      "keywords": [
+        "senior",
+        "sr.",
+        "sr ",
+        "sde iii",
+        "swe iii",
+        "senior software engineer",
+        "5-8 years",
+        "5+ years",
+        "6+ years",
+        "7+ years"
+      ],
+      "yearsRange": {
+        "min": 5,
+        "max": 9
+      },
+      "scoringWeights": {
+        "mustHaveCoverage": 25,
+        "evidenceDepth": 25,
+        "impactMetrics": 20,
+        "projectsAndArtifacts": 5,
+        "senioritySignals": 15,
+        "formatAndParse": 10
+      },
+      "penaltyRules": {
+        "missingExperience": true,
+        "briefWordCountThreshold": 450,
+        "longWordCountThreshold": 1500
+      },
+      "wordCountRange": {
+        "min": 450,
+        "max": 1400,
+        "idealMin": 550,
+        "idealMax": 1100
+      },
+      "expectedSignals": [
+        "End-to-end system architecture and technical leadership",
+        "Cross-functional mentorship and design review standards",
+        "Operational excellence, scalability (QPS/p99), and reliability SLAs"
+      ],
+      "scoredSignals": [
+        {
+          "id": "system_scope",
+          "label": "Distributed System Scope & Architecture",
+          "description": "High-level architecture, microservice boundaries, distributed data consistency, and zero-downtime migrations.",
+          "weight": 30,
+          "detectionMode": "pattern",
+          "patterns": [
+            "architecture",
+            "system design",
+            "distributed systems",
+            "microservices",
+            "event-driven",
+            "fault-tolerant",
+            "high availability",
+            "zero-downtime"
+          ]
+        },
+        {
+          "id": "cross_team_impact",
+          "label": "Cross-Team Technical Influence",
+          "description": "Directing multi-team technical standards, shared internal platforms, and organizational engineering guidelines.",
+          "weight": 25,
+          "detectionMode": "pattern",
+          "patterns": [
+            "cross-team",
+            "cross functional",
+            "organization-wide",
+            "platform library",
+            "rfc",
+            "architectural guidelines",
+            "company-wide"
+          ]
+        },
+        {
+          "id": "hiring_mentoring",
+          "label": "Engineering Hiring & Talent Mentorship",
+          "description": "Conducting technical interview loops, training interviewers, and mentoring mid-level engineers toward promotion.",
+          "weight": 25,
+          "detectionMode": "pattern",
+          "patterns": [
+            "interview loop",
+            "hiring panel",
+            "coached",
+            "promoted",
+            "engineering guild",
+            "technical leadership"
+          ]
+        },
+        {
+          "id": "business_outcomes",
+          "label": "Business Outcomes & Cost Optimization",
+          "description": "Driving cloud infrastructure cost reductions, customer retention, revenue enablement, and corporate SLAs.",
+          "weight": 20,
+          "detectionMode": "pattern",
+          "patterns": [
+            "revenue",
+            "cost savings",
+            "cloud spend",
+            "margin",
+            "customer retention",
+            "roi",
+            "strategic initiative",
+            "churn"
+          ]
+        }
+      ],
+      "adviceCards": [
+        {
+          "id": "missing_system_scope",
+          "title": "Document Multi-Service Architectural Trade-offs",
+          "condition": "missing_signal",
+          "signalId": "system_scope",
+          "recommendation": "Detail multi-service architectural trade-offs, fault tolerance mechanisms, and distributed consistency models you designed.",
+          "priority": "high"
+        },
+        {
+          "id": "missing_cross_team",
+          "title": "Highlight Cross-Team Technical Influence",
+          "condition": "missing_signal",
+          "signalId": "cross_team_impact",
+          "recommendation": "Showcase initiatives that influenced multiple engineering squads, platform libraries, or department standards.",
+          "priority": "high"
+        },
+        {
+          "id": "missing_business_outcomes",
+          "title": "Tie Architecture Directly to Business ROI",
+          "condition": "missing_signal",
+          "signalId": "business_outcomes",
+          "recommendation": "Tie your engineering systems directly to executive metrics ($Xk saved in cloud infrastructure, conversion uplift, SLA guarantees).",
+          "priority": "medium"
+        },
+        {
+          "id": "missing_hiring",
+          "title": "Mention Hiring Loops & Team Growth",
+          "condition": "missing_signal",
+          "signalId": "hiring_mentoring",
+          "recommendation": "Mention contributions to technical recruiting loops, hiring rubrics, and scaling high-performing engineering teams.",
+          "priority": "medium"
+        }
+      ]
+    },
+    "lead": {
+      "id": "lead",
+      "displayName": "Lead / Staff / Principal (8+ YOE)",
+      "typicalBarText": "Lead and staff bar requires multi-team technical vision, company-wide architecture governance, strategic technology roadmaps, and direct partnership with executive leadership to de-risk high-stakes initiatives.",
+      "aliases": ["principal", "architect", "engineering manager", "director"],
+      "keywords": [
+        "lead",
+        "tech lead",
+        "staff",
+        "principal",
+        "architect",
+        "engineering manager",
+        "director",
+        "8+ years",
+        "10+ years"
+      ],
+      "yearsRange": {
+        "min": 8,
+        "max": 30
+      },
+      "scoringWeights": {
+        "mustHaveCoverage": 20,
+        "evidenceDepth": 25,
+        "impactMetrics": 20,
+        "projectsAndArtifacts": 5,
+        "senioritySignals": 20,
+        "formatAndParse": 10
+      },
+      "penaltyRules": {
+        "missingExperience": true,
+        "briefWordCountThreshold": 500,
+        "longWordCountThreshold": 1800
+      },
+      "wordCountRange": {
+        "min": 500,
+        "max": 1600,
+        "idealMin": 600,
+        "idealMax": 1300
+      },
+      "expectedSignals": [
+        "Multi-team technical vision and strategic roadmapping",
+        "High-stakes organizational engineering impact and mentorship",
+        "Enterprise-scale distributed architecture and governance"
+      ],
+      "scoredSignals": [
+        {
+          "id": "multi_team_vision",
+          "label": "Multi-Team Technical Vision & Roadmaps",
+          "description": "Multi-quarter architectural vision aligning multiple engineering squads with company strategic goals.",
+          "weight": 30,
+          "detectionMode": "pattern",
+          "patterns": [
+            "technical roadmap",
+            "multi-year",
+            "vision",
+            "strategic roadmap",
+            "architectural runway",
+            "multi-team direction"
+          ]
+        },
+        {
+          "id": "organizational_governance",
+          "label": "Architecture Governance & Risk Management",
+          "description": "Leading Architecture Review Boards (ARB), technology radar decisions, security postures, and disaster recovery.",
+          "weight": 25,
+          "detectionMode": "pattern",
+          "patterns": [
+            "architecture review board",
+            "governance",
+            "standardization",
+            "security baseline",
+            "compliance",
+            "disaster recovery"
+          ]
+        },
+        {
+          "id": "executive_alignment",
+          "label": "Executive Leadership & Business Translation",
+          "description": "Partnering with VP/CTO/C-Suite leaders to align technology investments with business strategy and capital allocation.",
+          "weight": 25,
+          "detectionMode": "pattern",
+          "patterns": [
+            "cto",
+            "vp of engineering",
+            "executive stakeholders",
+            "c-suite",
+            "board",
+            "business translation",
+            "budget"
+          ]
+        },
+        {
+          "id": "enterprise_scale",
+          "label": "Enterprise-Scale High-Availability Infrastructure",
+          "description": "Five-nines (99.999%) multi-region infrastructure reliability, latency SLAs, and mission-critical platform stability.",
+          "weight": 20,
+          "detectionMode": "pattern",
+          "patterns": [
+            "enterprise-scale",
+            "millions of users",
+            "petabytes",
+            "99.999%",
+            "five nines",
+            "core platform",
+            "multi-region",
+            "foundational"
+          ]
+        }
+      ],
+      "adviceCards": [
+        {
+          "id": "missing_multi_team_vision",
+          "title": "Articulate Multi-Team Strategic Roadmaps",
+          "condition": "missing_signal",
+          "signalId": "multi_team_vision",
+          "recommendation": "Demonstrate how your technical roadmaps guided 3+ engineering teams across multi-quarter strategic horizons.",
+          "priority": "high"
+        },
+        {
+          "id": "missing_executive_alignment",
+          "title": "Highlight C-Suite & Executive Alignment",
+          "condition": "missing_signal",
+          "signalId": "executive_alignment",
+          "recommendation": "Highlight regular alignment with CTO/VP leadership on technology investments, organizational risk, and capital allocation.",
+          "priority": "high"
+        },
+        {
+          "id": "missing_governance",
+          "title": "Document Architectural Governance & ARB Leadership",
+          "condition": "missing_signal",
+          "signalId": "organizational_governance",
+          "recommendation": "Document leadership of architecture review boards, engineering standards, or company-wide security postures.",
+          "priority": "medium"
+        }
+      ]
+    }
+  }
+}

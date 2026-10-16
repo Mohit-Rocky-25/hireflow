@@ -1,0 +1,62 @@
+[
+  {
+    "id": "react-native",
+    "canonicalName": "React Native",
+    "aliases": ["React Native", "RN"],
+    "category": "Mobile",
+    "related": ["React", "Mobile Development", "JavaScript", "Expo"],
+    "prerequisites": ["React"],
+    "ambiguousWith": ["React"],
+    "matchMode": "phrase"
+  },
+  {
+    "id": "flutter",
+    "canonicalName": "Flutter",
+    "aliases": ["Flutter", "Dart"],
+    "category": "Mobile",
+    "related": ["Mobile Development", "Cross-Platform", "Dart"],
+    "prerequisites": ["Object-Oriented Programming"],
+    "ambiguousWith": [],
+    "matchMode": "exact-token"
+  },
+  {
+    "id": "swift",
+    "canonicalName": "Swift",
+    "aliases": ["Swift", "SwiftUI"],
+    "category": "Mobile",
+    "related": ["iOS", "Apple SDK", "Objective-C"],
+    "prerequisites": ["Object-Oriented Programming"],
+    "ambiguousWith": [],
+    "matchMode": "context-required"
+  },
+  {
+    "id": "kotlin",
+    "canonicalName": "Kotlin",
+    "aliases": ["Kotlin", "Android Kotlin", "Jetpack Compose"],
+    "category": "Mobile",
+    "related": ["Android", "Java", "Mobile Development"],
+    "prerequisites": ["Java"],
+    "ambiguousWith": [],
+    "matchMode": "exact-token"
+  },
+  {
+    "id": "ios",
+    "canonicalName": "iOS",
+    "aliases": ["iOS", "iOS Development", "Apple iOS"],
+    "category": "Mobile",
+    "related": ["Swift", "SwiftUI", "Xcode"],
+    "prerequisites": ["Swift"],
+    "ambiguousWith": [],
+    "matchMode": "exact-token"
+  },
+  {
+    "id": "android",
+    "canonicalName": "Android",
+    "aliases": ["Android", "Android SDK", "Android Development"],
+    "category": "Mobile",
+    "related": ["Kotlin", "Java", "Jetpack Compose"],
+    "prerequisites": ["Kotlin"],
+    "ambiguousWith": [],
+    "matchMode": "exact-token"
+  }
+]

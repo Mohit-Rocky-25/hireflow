@@ -1,0 +1,16 @@
+Microsoft — Software Engineer
+Role: Software Engineer (SWE)
+Campus Drive: SUPER-DREAM campus intake
+Experience Level: Fresher / University Graduate (2026-2027 Batch)
+Location: Hyderabad / Bengaluru / Redmond
+
+About the Role:
+As a Software Engineer at Microsoft, you will design, code, and test scalable distributed software services. You will collaborate with dynamic engineering teams across the world to build high-impact cloud platforms, intelligent client applications, and developer ecosystems.
+
+Requirements:
+- Bachelor's or Master's degree in Computer Science, Electronics, or related engineering discipline (2026-2027 graduating batch, 4+ years of undergraduate coursework and project experience).
+- Solid foundational knowledge of Data Structures and Algorithms (DSA).
+- Strong understanding of Object-Oriented Programming (OOP) concepts and design principles.
+- Working familiarity with System Design, distributed system architectures, and reliable microservices.
+- Demonstrated programming proficiency in at least one of Python/Java/C++/C#.
+- Passion for problem-solving, clean code craftsmanship, and team collaboration.

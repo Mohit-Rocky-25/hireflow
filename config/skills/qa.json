@@ -1,0 +1,72 @@
+[
+  {
+    "id": "selenium",
+    "canonicalName": "Selenium",
+    "aliases": ["Selenium", "Selenium WebDriver"],
+    "category": "QA & Testing",
+    "related": ["Test Automation", "Java", "Python", "WebDriver"],
+    "prerequisites": ["HTML Basics", "Programming Fundamentals"],
+    "ambiguousWith": [],
+    "matchMode": "exact-token"
+  },
+  {
+    "id": "cypress",
+    "canonicalName": "Cypress",
+    "aliases": ["Cypress", "Cypress.io"],
+    "category": "QA & Testing",
+    "related": ["E2E Testing", "JavaScript", "Frontend Testing"],
+    "prerequisites": ["JavaScript"],
+    "ambiguousWith": [],
+    "matchMode": "exact-token"
+  },
+  {
+    "id": "playwright",
+    "canonicalName": "Playwright",
+    "aliases": ["Playwright"],
+    "category": "QA & Testing",
+    "related": ["E2E Testing", "Test Automation", "TypeScript"],
+    "prerequisites": ["TypeScript"],
+    "ambiguousWith": [],
+    "matchMode": "exact-token"
+  },
+  {
+    "id": "jest",
+    "canonicalName": "Jest",
+    "aliases": ["Jest"],
+    "category": "QA & Testing",
+    "related": ["Unit Testing", "React", "JavaScript", "Vitest"],
+    "prerequisites": ["JavaScript"],
+    "ambiguousWith": [],
+    "matchMode": "exact-token"
+  },
+  {
+    "id": "junit",
+    "canonicalName": "JUnit",
+    "aliases": ["JUnit", "JUnit 5", "JUnit 4"],
+    "category": "QA & Testing",
+    "related": ["Unit Testing", "Java", "Mocking", "Mockito"],
+    "prerequisites": ["Java"],
+    "ambiguousWith": [],
+    "matchMode": "exact-token"
+  },
+  {
+    "id": "pytest",
+    "canonicalName": "PyTest",
+    "aliases": ["PyTest", "pytest"],
+    "category": "QA & Testing",
+    "related": ["Unit Testing", "Python", "Test Fixtures"],
+    "prerequisites": ["Python"],
+    "ambiguousWith": [],
+    "matchMode": "exact-token"
+  },
+  {
+    "id": "postman",
+    "canonicalName": "Postman",
+    "aliases": ["Postman", "Newman", "API Testing"],
+    "category": "QA & Testing",
+    "related": ["REST APIs", "Integration Testing", "Swagger"],
+    "prerequisites": ["REST APIs"],
+    "ambiguousWith": [],
+    "matchMode": "exact-token"
+  }
+]

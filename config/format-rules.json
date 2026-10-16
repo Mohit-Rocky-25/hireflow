@@ -1,0 +1,165 @@
+{
+  "$schema": "./schema/format-rules.schema.json",
+  "maxHeaderLinesToScanForContactBlock": 6,
+  "scoringThresholds": {
+    "strong": 80,
+    "competitive": 65,
+    "needsWork": 45
+  },
+  "sectionSynonyms": {
+    "contact": [
+      "contact",
+      "contact information",
+      "contact info",
+      "personal info",
+      "personal details",
+      "contacts",
+      "get in touch",
+      "address"
+    ],
+    "summary": [
+      "summary",
+      "professional summary",
+      "about me",
+      "profile",
+      "executive summary",
+      "career objective",
+      "objective",
+      "personal profile",
+      "overview",
+      "bio"
+    ],
+    "skills": [
+      "skills",
+      "technical skills",
+      "skills & tools",
+      "technologies",
+      "core competencies",
+      "tech stack",
+      "skills summary",
+      "areas of expertise",
+      "key skills",
+      "proficiencies",
+      "competencies",
+      "tools & technologies",
+      "technical proficiencies",
+      "programming skills"
+    ],
+    "experience": [
+      "experience",
+      "work experience",
+      "employment history",
+      "professional experience",
+      "internships",
+      "work history",
+      "career history",
+      "industry experience",
+      "practical experience"
+    ],
+    "projects": [
+      "projects",
+      "technical projects",
+      "academic projects",
+      "key projects",
+      "personal projects",
+      "open source projects",
+      "coursework projects",
+      "notable projects",
+      "selected projects",
+      "portfolio projects"
+    ],
+    "education": [
+      "education",
+      "academic background",
+      "educational qualifications",
+      "academics",
+      "education & credentials",
+      "academic credentials",
+      "degrees",
+      "university education"
+    ],
+    "certifications": [
+      "certifications",
+      "licenses & certifications",
+      "certificates",
+      "credentials",
+      "professional certifications",
+      "accreditations"
+    ],
+    "achievements": [
+      "achievements",
+      "awards",
+      "honors",
+      "accomplishments",
+      "awards & achievements",
+      "honors & awards",
+      "extracurricular",
+      "extracurricular activities"
+    ],
+    "publications": [
+      "publications",
+      "patents",
+      "research papers",
+      "talks",
+      "presentations"
+    ]
+  },
+  "penaltyRules": [
+    {
+      "id": "missing_experience_section",
+      "label": "Missing Work Experience Section",
+      "severity": "high",
+      "points": 8,
+      "reason": "Resume lacks an identifiable work experience section. (Applicable to junior/mid/senior candidates; waived for entry-level/fresher).",
+      "applicableLevels": ["junior", "mid", "senior", "lead"]
+    },
+    {
+      "id": "missing_skills_section",
+      "label": "Missing Skills Section",
+      "severity": "medium",
+      "points": 4,
+      "reason": "No dedicated skills or competencies section detected, making machine keyword indexing slower.",
+      "applicableLevels": ["entry", "junior", "mid", "senior", "lead"]
+    },
+    {
+      "id": "missing_contact_info",
+      "label": "Incomplete Contact Info",
+      "severity": "high",
+      "points": 5,
+      "reason": "Missing both email and phone number, preventing recruiter outreach.",
+      "applicableLevels": ["entry", "junior", "mid", "senior", "lead"]
+    },
+    {
+      "id": "severe_brevity",
+      "label": "Resume Too Brief",
+      "severity": "high",
+      "points": 7,
+      "reason": "Resume word count is below minimum expected threshold for this seniority level.",
+      "applicableLevels": ["junior", "mid", "senior", "lead"]
+    },
+    {
+      "id": "extreme_brevity_entry",
+      "label": "Resume Too Brief for Entry Level",
+      "severity": "medium",
+      "points": 4,
+      "reason": "Resume is under 180 words, leaving insufficient detail to evaluate project or technical depth.",
+      "applicableLevels": ["entry"]
+    },
+    {
+      "id": "excessive_length",
+      "label": "Excessive Resume Length",
+      "severity": "low",
+      "points": 3,
+      "reason": "Resume length significantly exceeds standard multi-page limits for target seniority tier.",
+      "applicableLevels": ["entry", "junior", "mid", "senior", "lead"]
+    },
+    {
+      "id": "multi_column_table_artifacts",
+      "label": "Multi-Column / Complex Table Artifacts",
+      "severity": "medium",
+      "points": 4,
+      "reason": "Interleaved columns or table structure detected, risking parse corruption in traditional ATS systems.",
+      "applicableLevels": ["entry", "junior", "mid", "senior", "lead"]
+    }
+  ]
+}

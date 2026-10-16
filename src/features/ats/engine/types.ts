@@ -4,7 +4,7 @@
 // ============================================================
 
 export type TargetTierId = 'top_product' | 'startup_unicorn' | 'service_mnc' | 'auto';
-export type ExperienceLevelId = 'fresher' | '1-3' | '3-6' | '6+' | 'auto';
+export type ExperienceLevelId = 'entry' | 'junior' | 'mid' | 'senior' | 'lead' | 'fresher' | '1-3' | '3-6' | '6+' | 'auto';
 
 export interface EvidenceQuote {
   quote: string;
@@ -155,6 +155,7 @@ export interface AtsEngineResult {
     level: string;
     fitExplanation: string;
   };
+  seniorityMode?: import('./senioritySignals').SeniorityModeResult;
   parseQuality: 'High' | 'Medium' | 'Poor';
   fixFirst: FixFirstItem[];
   audit: {
@@ -171,6 +172,7 @@ export interface AtsEngineResult {
     stuffedSkills: string[];
   };
   learningPath: LearningPathResult;
+  reportState?: import('./reportState').ReportState;
   canonicalResult?: import('../../../lib/ats/canonicalAnalysis').CanonicalAnalysis;
   quickRoast?: import('../../../lib/ats/canonicalAnalysis').CanonicalAnalysis['quickRoast'];
   talentLensReadiness?: import('../../../lib/ats/canonicalAnalysis').CanonicalAnalysis['talentLensReadiness'];

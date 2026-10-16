@@ -1,0 +1,213 @@
+{
+  "$schema": "./schema/work-types.schema.json",
+  "defaultWorkType": "generic",
+  "workTypes": {
+    "api_service": {
+      "id": "api_service",
+      "displayName": "Backend API / Microservice",
+      "keywords": [
+        "api", "rest", "endpoint", "microservice", "service", "grpc", 
+        "backend", "server", "controller", "handler", "express", "fastapi", "spring boot"
+      ],
+      "allowedPlaceholders": [
+        "[X ms p99 latency]",
+        "[Y req/sec throughput]",
+        "[Z concurrent requests]",
+        "[N% error rate reduction]"
+      ],
+      "metricExamples": [
+        "reduced p99 response latency from 320ms to 68ms",
+        "supported 2,500 requests per second under peak load",
+        "decreased endpoint 5xx error rate from 2.1% to 0.05%"
+      ],
+      "allowedNeutralVerbs": [
+        "Implemented", "Built", "Developed", "Engineered", "Created", "Constructed"
+      ]
+    },
+    "web_app": {
+      "id": "web_app",
+      "displayName": "Web Application / User Interface",
+      "keywords": [
+        "frontend", "ui", "ux", "web app", "dashboard", "portal", 
+        "client", "react", "vue", "angular", "next.js", "tailwind", "responsive"
+      ],
+      "allowedPlaceholders": [
+        "[X daily active users]",
+        "[Y% page load time improvement]",
+        "[Z% user engagement increase]",
+        "[N Lighthouse score]"
+      ],
+      "metricExamples": [
+        "serving 12,000 monthly active users across desktop and mobile",
+        "improved initial page load time by 42% via code splitting",
+        "increased form completion conversion rate by 18%"
+      ],
+      "allowedNeutralVerbs": [
+        "Built", "Developed", "Implemented", "Designed", "Created"
+      ]
+    },
+    "mobile_app": {
+      "id": "mobile_app",
+      "displayName": "Mobile Application",
+      "keywords": [
+        "mobile", "android", "ios", "react native", "flutter", "swift", 
+        "kotlin", "play store", "app store"
+      ],
+      "allowedPlaceholders": [
+        "[X app downloads]",
+        "[Y star rating]",
+        "[Z% crash-free sessions]",
+        "[N MB APK size reduction]"
+      ],
+      "metricExamples": [
+        "achieved 99.8% crash-free user sessions across 5,000+ active installs",
+        "reduced app bundle size by 35% through asset tree-shaking"
+      ],
+      "allowedNeutralVerbs": [
+        "Built", "Developed", "Implemented", "Published", "Created"
+      ]
+    },
+    "data_pipeline": {
+      "id": "data_pipeline",
+      "displayName": "Data Pipeline / ETL",
+      "keywords": [
+        "pipeline", "etl", "batch", "streaming", "spark", "kafka", 
+        "airflow", "warehouse", "ingestion", "lakehouse", "snowflake"
+      ],
+      "allowedPlaceholders": [
+        "[X GB/TB data volume processed]",
+        "[Y hour batch processing SLA]",
+        "[Z records per minute]",
+        "[N% pipeline execution time reduction]"
+      ],
+      "metricExamples": [
+        "processing 450 GB of daily transactional logs under a 30-minute SLA",
+        "ingested 150,000 telemetry events per minute with zero message loss"
+      ],
+      "allowedNeutralVerbs": [
+        "Constructed", "Engineered", "Implemented", "Built", "Developed"
+      ]
+    },
+    "ml_model": {
+      "id": "ml_model",
+      "displayName": "Machine Learning / AI Model",
+      "keywords": [
+        "model", "dataset", "accuracy", "f1-score", "training", "inference", 
+        "pytorch", "tensorflow", "classifier", "neural", "llm", "nlp"
+      ],
+      "allowedPlaceholders": [
+        "[X% validation accuracy/F1-score]",
+        "[Y inference latency per query]",
+        "[Z training epochs/samples]",
+        "[N% false positive reduction]"
+      ],
+      "metricExamples": [
+        "achieved 92.4% validation F1-score across 85,000 labeled samples",
+        "reduced model inference latency to 24ms per query via quantization"
+      ],
+      "allowedNeutralVerbs": [
+        "Trained", "Developed", "Implemented", "Evaluated", "Built"
+      ]
+    },
+    "infra_devops": {
+      "id": "infra_devops",
+      "displayName": "Cloud Infrastructure & DevOps",
+      "keywords": [
+        "infrastructure", "terraform", "kubernetes", "k8s", "docker", 
+        "ci/cd", "deployment", "aws", "gcp", "azure", "monitoring", "alerting"
+      ],
+      "allowedPlaceholders": [
+        "[X minute deployment cycle]",
+        "[Y% infrastructure cost reduction]",
+        "[99.9X% service availability uptime]",
+        "[N microservices deployed]"
+      ],
+      "metricExamples": [
+        "shortened CI/CD deployment cycle from 45 minutes to 7 minutes",
+        "maintained 99.95% system uptime across 14 containerized microservices"
+      ],
+      "allowedNeutralVerbs": [
+        "Configured", "Automated", "Deployed", "Implemented", "Provisioned"
+      ]
+    },
+    "tracking_inventory": {
+      "id": "tracking_inventory",
+      "displayName": "Tracking, Catalog & Inventory System",
+      "keywords": [
+        "inventory", "tracking", "lost and found", "catalog", "management system", 
+        "directory", "asset tracker", "records", "claim"
+      ],
+      "allowedPlaceholders": [
+        "[X items tracked/cataloged]",
+        "[Y items matched/resolved]",
+        "[Z active users]",
+        "[N% search speedup]"
+      ],
+      "metricExamples": [
+        "cataloged 1,200+ campus items with a 78% successful return match rate",
+        "reduced manual item search query time by 60% with indexed relational search"
+      ],
+      "allowedNeutralVerbs": [
+        "Built", "Developed", "Implemented", "Created", "Designed"
+      ]
+    },
+    "internal_tool": {
+      "id": "internal_tool",
+      "displayName": "Internal Tool / Automation Script",
+      "keywords": [
+        "internal tool", "automation", "script", "cli", "admin panel", 
+        "backoffice", "scraping", "utility"
+      ],
+      "allowedPlaceholders": [
+        "[X hours/week saved]",
+        "[Y manual steps automated]",
+        "[Z internal team members served]"
+      ],
+      "metricExamples": [
+        "automated recurring sync tasks saving 8 engineering hours weekly",
+        "consolidated 5 manual review steps into a single verified admin workflow"
+      ],
+      "allowedNeutralVerbs": [
+        "Automated", "Built", "Developed", "Created", "Scripted"
+      ]
+    },
+    "marketplace": {
+      "id": "marketplace",
+      "displayName": "Marketplace / E-Commerce Platform",
+      "keywords": [
+        "marketplace", "e-commerce", "cart", "checkout", "payment", 
+        "orders", "transactions", "buyer", "seller"
+      ],
+      "allowedPlaceholders": [
+        "[X completed transactions]",
+        "[Y gross volume]",
+        "[Z% conversion rate]",
+        "[N merchant accounts]"
+      ],
+      "metricExamples": [
+        "processed 3,400+ test and live transactions with Stripe integration",
+        "improved cart-to-checkout conversion by 14% via streamlined modal flow"
+      ],
+      "allowedNeutralVerbs": [
+        "Built", "Developed", "Implemented", "Integrated", "Created"
+      ]
+    },
+    "generic": {
+      "id": "generic",
+      "displayName": "General Technical Project",
+      "keywords": [],
+      "allowedPlaceholders": [
+        "[X users/records impacted]",
+        "[Y% efficiency improvement]",
+        "[Z automated test coverage]"
+      ],
+      "metricExamples": [
+        "validated against 1,000+ test inputs with 85% automated test coverage",
+        "streamlined project delivery workflow improving overall turnaround time by 20%"
+      ],
+      "allowedNeutralVerbs": [
+        "Developed", "Built", "Implemented", "Created", "Engineered"
+      ]
+    }
+  }
+}

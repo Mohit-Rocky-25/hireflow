@@ -1,0 +1,142 @@
+[
+  {
+    "id": "machine-learning",
+    "canonicalName": "Machine Learning",
+    "aliases": ["Machine Learning", "ML"],
+    "category": "Data & ML",
+    "related": ["Deep Learning", "Scikit-Learn", "Python", "Data Science"],
+    "prerequisites": ["Python", "Linear Algebra", "Statistics"],
+    "ambiguousWith": [],
+    "matchMode": "phrase"
+  },
+  {
+    "id": "deep-learning",
+    "canonicalName": "Deep Learning",
+    "aliases": ["Deep Learning", "Neural Networks"],
+    "category": "Data & ML",
+    "related": ["PyTorch", "TensorFlow", "Computer Vision", "NLP"],
+    "prerequisites": ["Machine Learning"],
+    "ambiguousWith": [],
+    "matchMode": "phrase"
+  },
+  {
+    "id": "pytorch",
+    "canonicalName": "PyTorch",
+    "aliases": ["PyTorch", "Torch"],
+    "category": "Data & ML",
+    "related": ["Python", "Deep Learning", "CUDA", "TensorFlow"],
+    "prerequisites": ["Python", "Deep Learning"],
+    "ambiguousWith": [],
+    "matchMode": "exact-token"
+  },
+  {
+    "id": "tensorflow",
+    "canonicalName": "TensorFlow",
+    "aliases": ["TensorFlow", "TF", "Keras"],
+    "category": "Data & ML",
+    "related": ["Python", "Deep Learning", "PyTorch"],
+    "prerequisites": ["Python", "Deep Learning"],
+    "ambiguousWith": [],
+    "matchMode": "exact-token"
+  },
+  {
+    "id": "pandas",
+    "canonicalName": "Pandas",
+    "aliases": ["Pandas"],
+    "category": "Data & ML",
+    "related": ["NumPy", "Python", "Data Analysis"],
+    "prerequisites": ["Python"],
+    "ambiguousWith": [],
+    "matchMode": "exact-token"
+  },
+  {
+    "id": "numpy",
+    "canonicalName": "NumPy",
+    "aliases": ["NumPy", "Numpy"],
+    "category": "Data & ML",
+    "related": ["Pandas", "SciPy", "Python"],
+    "prerequisites": ["Python"],
+    "ambiguousWith": [],
+    "matchMode": "exact-token"
+  },
+  {
+    "id": "scikit-learn",
+    "canonicalName": "Scikit-Learn",
+    "aliases": ["Scikit-Learn", "Scikit Learn", "Sklearn"],
+    "category": "Data & ML",
+    "related": ["Python", "Machine Learning", "Pandas"],
+    "prerequisites": ["Python", "Machine Learning"],
+    "ambiguousWith": [],
+    "matchMode": "exact-token"
+  },
+  {
+    "id": "sql",
+    "canonicalName": "SQL",
+    "aliases": ["SQL", "Structured Query Language"],
+    "category": "Databases",
+    "related": ["PostgreSQL", "MySQL", "Database Design"],
+    "prerequisites": ["Relational Data Fundamentals"],
+    "ambiguousWith": ["NoSQL"],
+    "matchMode": "exact-token"
+  },
+  {
+    "id": "postgresql",
+    "canonicalName": "PostgreSQL",
+    "aliases": ["PostgreSQL", "Postgres", "Postgre SQL"],
+    "category": "Databases",
+    "related": ["SQL", "Relational Databases", "Database Optimization"],
+    "prerequisites": ["SQL"],
+    "ambiguousWith": [],
+    "matchMode": "exact-token"
+  },
+  {
+    "id": "mysql",
+    "canonicalName": "MySQL",
+    "aliases": ["MySQL", "My SQL"],
+    "category": "Databases",
+    "related": ["SQL", "Relational Databases"],
+    "prerequisites": ["SQL"],
+    "ambiguousWith": [],
+    "matchMode": "exact-token"
+  },
+  {
+    "id": "mongodb",
+    "canonicalName": "MongoDB",
+    "aliases": ["MongoDB", "Mongo"],
+    "category": "Databases",
+    "related": ["NoSQL", "Document Database", "Mongoose"],
+    "prerequisites": ["JSON Fundamentals"],
+    "ambiguousWith": [],
+    "matchMode": "exact-token"
+  },
+  {
+    "id": "redis",
+    "canonicalName": "Redis",
+    "aliases": ["Redis", "In-Memory Cache"],
+    "category": "Databases",
+    "related": ["Caching", "Key-Value Store", "Pub/Sub"],
+    "prerequisites": ["Data Structures"],
+    "ambiguousWith": [],
+    "matchMode": "exact-token"
+  },
+  {
+    "id": "apache-spark",
+    "canonicalName": "Apache Spark",
+    "aliases": ["Apache Spark", "Spark", "PySpark"],
+    "category": "Data & ML",
+    "related": ["Big Data", "Hadoop", "Scala", "Python"],
+    "prerequisites": ["Distributed Computing Basics"],
+    "ambiguousWith": [],
+    "matchMode": "exact-token"
+  },
+  {
+    "id": "apache-kafka",
+    "canonicalName": "Apache Kafka",
+    "aliases": ["Apache Kafka", "Kafka"],
+    "category": "Data & ML",
+    "related": ["Event Streaming", "Distributed Systems", "Pub/Sub"],
+    "prerequisites": ["Distributed Systems Basics"],
+    "ambiguousWith": [],
+    "matchMode": "exact-token"
+  }
+]

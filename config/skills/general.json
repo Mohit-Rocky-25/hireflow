@@ -1,0 +1,62 @@
+[
+  {
+    "id": "data-structures",
+    "canonicalName": "Data Structures",
+    "aliases": ["Data Structures", "DSA", "Data Structures & Algorithms", "Algorithms"],
+    "category": "Core Engineering",
+    "related": ["Problem Solving", "Time Complexity", "Algorithms"],
+    "prerequisites": ["Programming Fundamentals"],
+    "ambiguousWith": [],
+    "matchMode": "phrase"
+  },
+  {
+    "id": "system-design",
+    "canonicalName": "System Design",
+    "aliases": ["System Design", "Distributed Systems", "High Level Design", "HLD", "Low Level Design", "LLD", "Software Architecture"],
+    "category": "Core Engineering",
+    "related": ["Microservices", "Scalability", "Caching", "Database Sharding"],
+    "prerequisites": ["Data Structures", "Databases", "Networking"],
+    "ambiguousWith": [],
+    "matchMode": "phrase"
+  },
+  {
+    "id": "oop",
+    "canonicalName": "Object-Oriented Programming",
+    "aliases": ["Object-Oriented Programming", "OOP", "OOPS", "Object Oriented Design"],
+    "category": "Core Engineering",
+    "related": ["Design Patterns", "SOLID Principles"],
+    "prerequisites": ["Programming Fundamentals"],
+    "ambiguousWith": [],
+    "matchMode": "phrase"
+  },
+  {
+    "id": "git",
+    "canonicalName": "Git",
+    "aliases": ["Git", "GitHub", "GitLab", "Version Control"],
+    "category": "Core Engineering",
+    "related": ["CI/CD", "Collaboration"],
+    "prerequisites": [],
+    "ambiguousWith": [],
+    "matchMode": "exact-token"
+  },
+  {
+    "id": "rest-apis",
+    "canonicalName": "REST APIs",
+    "aliases": ["REST APIs", "REST API", "RESTful", "RESTful APIs", "Web APIs"],
+    "category": "Core Engineering",
+    "related": ["HTTP", "JSON", "API Design", "Postman"],
+    "prerequisites": ["Web Fundamentals"],
+    "ambiguousWith": [],
+    "matchMode": "phrase"
+  },
+  {
+    "id": "microservices",
+    "canonicalName": "Microservices",
+    "aliases": ["Microservices", "Microservices Architecture", "Service-Oriented Architecture"],
+    "category": "Core Engineering",
+    "related": ["Distributed Systems", "Docker", "Kubernetes", "gRPC"],
+    "prerequisites": ["REST APIs", "System Design"],
+    "ambiguousWith": [],
+    "matchMode": "exact-token"
+  }
+]
