@@ -5,19 +5,30 @@ import { ArrowLeft, Home } from 'lucide-react';
 interface PageNavProps {
   onBack?: () => void;
   fallbackRoute?: string;
+  preferFallback?: boolean;
 }
 
-export function PageNav({ onBack, fallbackRoute = '/tools' }: PageNavProps) {
+export function PageNav({ onBack, fallbackRoute = '/tools', preferFallback = true }: PageNavProps) {
   const navigate = useNavigate();
   const location = useLocation();
 
   const handleBack = () => {
     if (onBack) {
       onBack();
-    } else if (window.history.length > 2) {
+      return;
+    }
+    
+    // If a fallbackRoute is defined and preferFallback is true (or when on a sub-tool page),
+    // navigate directly to fallbackRoute so we don't jump to unrelated history like /tools/career-path.
+    if (fallbackRoute && (preferFallback || location.pathname !== fallbackRoute)) {
+      navigate(fallbackRoute);
+      return;
+    }
+
+    if (window.history.length > 2) {
       navigate(-1);
     } else {
-      navigate(fallbackRoute);
+      navigate(fallbackRoute || '/');
     }
   };
 

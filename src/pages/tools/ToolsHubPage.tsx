@@ -197,7 +197,7 @@ export function ToolsHubPage() {
     <div className="min-h-screen bg-bg">
       <PublicNavbar />
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 space-y-20 animate-fade-in relative">
-        <PageNav />
+        <PageNav fallbackRoute="/" />
         {/* Hero Header */}
         <div className="text-center max-w-4xl mx-auto space-y-6">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-[#4F46E5] to-[#7C3AED] text-white text-sm font-bold tracking-wide uppercase shadow-sm shadow-indigo-500/20">

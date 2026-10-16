@@ -135,7 +135,7 @@ export function CompareJDsPage() {
 
   return (
     <div className="min-h-screen bg-bg text-text pt-24 pb-16 px-4 sm:px-6 md:px-8 relative">
-      <PageNav onBack={result ? () => setResult(null) : undefined} />
+      <PageNav onBack={result ? () => setResult(null) : undefined} fallbackRoute="/tools" preferFallback={true} />
       {/* Top Navigation */}
       <div className="max-w-6xl mx-auto mb-6 flex items-center justify-end">
         <ProfileStatusChip />

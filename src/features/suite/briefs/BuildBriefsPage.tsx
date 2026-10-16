@@ -9,10 +9,11 @@
 // ============================================================
 
 import React, { useState, useMemo, useEffect, useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { PageNav } from '../../../components/common/PageNav';
 import {
   ArrowLeft,
+  Home,
   Hammer,
   Sparkles,
   CheckCircle2,
@@ -137,6 +138,7 @@ function BriefDetailModal({
   isSaved: boolean;
   onToggleSave: (id: string) => void;
 }) {
+  const navigate = useNavigate();
   const [copiedBullet, setCopiedBullet] = useState(false);
   const [copiedFull, setCopiedFull]     = useState(false);
   const dc = domainColor(brief.domain);
@@ -194,15 +196,36 @@ function BriefDetailModal({
               </div>
               <h2 className="text-xl font-bold text-text leading-snug">{brief.title}</h2>
             </div>
-            {/* ── X Close Button ── */}
-            <button
-              id={`modal-close-${brief.id}`}
-              onClick={onClose}
-              className="shrink-0 w-9 h-9 rounded-xl flex items-center justify-center bg-surface border border-border text-text-muted hover:text-text hover:border-primary/40 hover:bg-surface-elevated transition-all"
-              title="Close (Esc)"
-            >
-              <X className="w-4.5 h-4.5" />
-            </button>
+
+            {/* Navigation & Close Controls */}
+            <div className="flex items-center gap-2 shrink-0">
+              <button
+                type="button"
+                onClick={onClose}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-surface border border-border text-text hover:border-primary/40 hover:bg-surface-elevated transition-all cursor-pointer shadow-xs"
+                title="Back to all briefs"
+              >
+                <ArrowLeft className="w-3.5 h-3.5" />
+                <span>Back</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => { onClose(); navigate('/'); }}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-surface border border-border text-text hover:border-primary/40 hover:bg-surface-elevated transition-all cursor-pointer shadow-xs"
+                title="Go Home"
+              >
+                <Home className="w-3.5 h-3.5" />
+                <span>Home</span>
+              </button>
+              <button
+                id={`modal-close-${brief.id}`}
+                onClick={onClose}
+                className="w-8 h-8 rounded-lg flex items-center justify-center bg-surface border border-border text-text-muted hover:text-text hover:border-primary/40 hover:bg-surface-elevated transition-all cursor-pointer"
+                title="Close (Esc)"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
           </div>
 
           {/* Action buttons row */}
@@ -369,12 +392,20 @@ function BriefDetailModal({
 
         {/* ── Modal Footer ── */}
         <div className="p-5 border-t border-border flex items-center justify-between gap-3 rounded-b-2xl bg-surface">
-          <button
-            onClick={onClose}
-            className="px-4 py-2 text-xs font-semibold rounded-xl border border-border bg-surface-elevated hover:bg-border text-text transition-colors"
-          >
-            ← Back to Library
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={onClose}
+              className="px-4 py-2 text-xs font-semibold rounded-xl border border-border bg-surface-elevated hover:bg-border text-text transition-colors flex items-center gap-1.5 cursor-pointer"
+            >
+              <ArrowLeft className="w-3.5 h-3.5" /> Back to Project Briefs
+            </button>
+            <button
+              onClick={() => { onClose(); navigate('/'); }}
+              className="px-3 py-2 text-xs font-semibold rounded-xl border border-border bg-surface-elevated hover:bg-border text-text transition-colors flex items-center gap-1.5 cursor-pointer"
+            >
+              <Home className="w-3.5 h-3.5" /> Home
+            </button>
+          </div>
           <div className="flex items-center gap-2">
             <button
               onClick={handleDownload}
@@ -600,14 +631,21 @@ export function BuildBriefsPage() {
   }, []);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-12 space-y-8 animate-fade-in relative">
+      {/* Navigation */}
+      <PageNav
+        onBack={activeBrief ? () => setActiveBrief(null) : undefined}
+        fallbackRoute="/tools"
+        preferFallback={true}
+      />
+
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-border pb-6">
         <div>
           <div className="flex items-center gap-2 mb-2 text-xs text-text-muted">
-            <PageNav />
+            <Link to="/tools" className="hover:text-text transition-colors">Tools</Link>
             <span>/</span>
-            <span className="font-medium">Build Briefs</span>
+            <span className="font-medium text-text">Project Build Briefs</span>
           </div>
           <div className="flex items-center gap-3 flex-wrap">
             <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-text">

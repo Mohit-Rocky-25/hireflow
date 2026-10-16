@@ -78,9 +78,9 @@ export function CredentialOpportunityEnginePage() {
       {/* Background ambient radial gradients */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[340px] bg-gradient-to-b from-primary/10 via-amber-500/5 to-transparent blur-3xl pointer-events-none -z-10" />
 
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 animate-fade-in relative">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-12 space-y-8 animate-fade-in relative">
         {/* Navigation */}
-        <PageNav fallbackRoute="/tools" />
+        <PageNav fallbackRoute="/tools" preferFallback={true} />
 
         {/* Refined Executive Hero Section */}
         <div className="border border-border/80 bg-surface/70 backdrop-blur-md rounded-3xl p-6 sm:p-8 shadow-xs relative overflow-hidden">
