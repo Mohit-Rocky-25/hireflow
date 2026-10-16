@@ -1,0 +1,77 @@
+{
+  "$schema": "./schema/profile.schema.json",
+  "id": "generic",
+  "displayName": "General Professional / Unknown Seniority",
+  "typicalBarText": "General hiring baseline expects consistent technical execution, clear bullet point ownership, and verified core competencies aligned with job requirements.",
+  "aliases": ["unknown", "default", "standard"],
+  "keywords": ["engineer", "developer", "specialist", "analyst"],
+  "yearsRange": {
+    "min": 0,
+    "max": 30
+  },
+  "scoringWeights": {
+    "mustHaveCoverage": 30,
+    "evidenceDepth": 20,
+    "impactMetrics": 15,
+    "projectsAndArtifacts": 15,
+    "senioritySignals": 10,
+    "formatAndParse": 10
+  },
+  "penaltyRules": {
+    "missingExperience": false,
+    "briefWordCountThreshold": 200,
+    "longWordCountThreshold": 1200
+  },
+  "wordCountRange": {
+    "min": 200,
+    "max": 1000,
+    "idealMin": 300,
+    "idealMax": 800
+  },
+  "checklistItems": [
+    "Verified core competencies with concrete project or work experience context",
+    "Quantified outcome metrics demonstrating personal ownership and impact",
+    "Clean resume structure with standard sections parsable by automated ATS systems"
+  ],
+  "weightAdjustments": {
+    "mustHaveCoverage": 0,
+    "evidenceDepth": 0,
+    "impactMetrics": 0,
+    "projectsAndArtifacts": 0,
+    "senioritySignals": 0,
+    "formatAndParse": 0
+  },
+  "priorityModules": ["skills", "experience", "projects", "education"],
+  "expectedSignals": [
+    "Core professional competencies verified in context",
+    "Measurable performance or project contributions"
+  ],
+  "scoredSignals": [
+    {
+      "id": "verified_competencies",
+      "label": "Verified Competencies in Context",
+      "description": "Skills demonstrated with concrete actions in work or project descriptions.",
+      "weight": 50,
+      "detectionMode": "pattern",
+      "patterns": ["developed", "built", "implemented", "engineered", "created", "delivered"]
+    },
+    {
+      "id": "impact_evidence",
+      "label": "Quantifiable Impact Evidence",
+      "description": "Evidence of metrics, outcomes, or completed milestones.",
+      "weight": 50,
+      "detectionMode": "pattern",
+      "patterns": ["improved", "reduced", "increased", "optimized", "achieved", "launched"]
+    }
+  ],
+  "adviceCards": [
+    {
+      "id": "generic_add_metrics",
+      "title": "Add Quantified Metrics to Bullets",
+      "condition": "missing_signal",
+      "signalId": "impact_evidence",
+      "recommendation": "Incorporate measurable numbers (%, $, time saved, user volume) to establish concrete impact.",
+      "priority": "medium"
+    }
+  ]
+}

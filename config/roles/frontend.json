@@ -1,0 +1,44 @@
+{
+  "$schema": "./schema/role-pack.schema.json",
+  "id": "frontend",
+  "displayName": "Frontend / Web Engineering",
+  "description": "Client-side web applications, design systems, performance optimization, and accessibility.",
+  "expectedArtifacts": [
+    "Live production web application URLs",
+    "Reusable UI component libraries & Storybook docs",
+    "Lighthouse web vitals audit reports",
+    "State management architecture (Redux, Zustand, React Query)",
+    "WCAG AA/AAA accessibility compliance verifications"
+  ],
+  "typicalEvidenceKinds": [
+    "web_vitals_lcp_fid_cls",
+    "bundle_size_reduction",
+    "accessibility_audit",
+    "design_system_adoption",
+    "responsive_cross_browser"
+  ],
+  "commonMetricPlaceholders": [
+    "improved Lighthouse performance score from [A] to [B] (+[X] pts)",
+    "reduced initial JS bundle size by [Y]% via code-splitting and dynamic imports",
+    "lowered Largest Contentful Paint (LCP) from [Z]s to [W]s",
+    "scaled shared design system across [N] internal product squads"
+  ],
+  "coreFundamentals": [
+    "JavaScript ES6+, TypeScript & Browser Execution Context",
+    "DOM Lifecycle, Virtual DOM & Rendering Engine Pipelines",
+    "CSS Architecture, Responsive Layouts & Design Tokens",
+    "Web Performance, Caching & Core Web Vitals",
+    "Web Accessibility (WCAG, ARIA, Keyboard Navigation)"
+  ],
+  "rejectionPitfalls": [
+    "Toy projects with static mock data and no real network/API interaction or state management",
+    "No live links or deployed previews for frontend projects",
+    "Ignoring web performance metrics, bundle size, or accessibility considerations"
+  ],
+  "hiringSignals": [
+    "Engineering robust client-side caching and offline-first capabilities",
+    "Building reusable design systems adopted by multiple squads",
+    "Deep expertise diagnosing rendering bottlenecks and authoring comprehensive E2E tests"
+  ],
+  "defaultProofSources": ["github", "npm", "figma_portfolio"]
+}

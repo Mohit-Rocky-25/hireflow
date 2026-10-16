@@ -1,0 +1,44 @@
+{
+  "$schema": "./schema/role-pack.schema.json",
+  "id": "mobile",
+  "displayName": "Mobile Application Engineering",
+  "description": "iOS, Android, React Native, and Flutter mobile applications.",
+  "expectedArtifacts": [
+    "App Store / Google Play live app store listings",
+    "Mobile automated UI test suites (XCTest, Espresso, Maestro)",
+    "Crash-free user rate analytics (Crashlytics/Sentry)",
+    "Modular mobile architectural patterns (MVVM, Clean Architecture)",
+    "CI/CD build pipelines (Fastlane, Bitrise, Xcode Cloud)"
+  ],
+  "typicalEvidenceKinds": [
+    "app_store_rating_gain",
+    "crash_free_sessions_rate",
+    "cold_start_time_reduction",
+    "memory_leak_battery_optimization",
+    "offline_storage_sync"
+  ],
+  "commonMetricPlaceholders": [
+    "maintained [99.8]% crash-free session rate across [N]k active devices",
+    "reduced app cold launch time by [X]% from [A]s to [B]s",
+    "shipped app reaching [Y]+ active daily users with [Z]-star App Store rating",
+    "reduced overall APK/IPA binary download size by [W]%"
+  ],
+  "coreFundamentals": [
+    "Native Platform Lifecycles (iOS UIKit/SwiftUI or Android View/Jetpack Compose)",
+    "Mobile Memory Management, Threading & Concurrency",
+    "Offline Storage, Data Synchronization & Background Tasks",
+    "Mobile Networking, Caching & Secure Keystore Storage",
+    "App Store Release Automation & Code Signing"
+  ],
+  "rejectionPitfalls": [
+    "No deployed apps or verifiable app store links",
+    "Ignoring memory leaks, battery consumption, and offline edge cases",
+    "Lack of automated mobile testing"
+  ],
+  "hiringSignals": [
+    "Experience shipping apps with hundreds of thousands of active users",
+    "Complex local database caching with conflict-free replication algorithms",
+    "Deep native bridging experience in cross-platform codebases"
+  ],
+  "defaultProofSources": ["github", "gitlab"]
+}

@@ -1,0 +1,103 @@
+{
+  "$schema": "./schema/profile.schema.json",
+  "id": "junior",
+  "displayName": "Junior Developer (1-2 YOE)",
+  "typicalBarText": "Junior developer bar requires proven ability to contribute clean, tested code to production repositories, actively participate in code reviews, debug incidents with supervision, and operate basic CI/CD automation.",
+  "aliases": ["1-3", "1-2", "junior developer", "sde-1"],
+  "keywords": ["junior", "jr", "1-2 years", "1-3 years", "associate engineer", "sde i", "swe i"],
+  "yearsRange": {
+    "min": 1,
+    "max": 3
+  },
+  "scoringWeights": {
+    "mustHaveCoverage": 30,
+    "evidenceDepth": 20,
+    "impactMetrics": 15,
+    "projectsAndArtifacts": 15,
+    "senioritySignals": 10,
+    "formatAndParse": 10
+  },
+  "penaltyRules": {
+    "missingExperience": true,
+    "briefWordCountThreshold": 250,
+    "longWordCountThreshold": 1000
+  },
+  "wordCountRange": {
+    "min": 250,
+    "max": 900,
+    "idealMin": 350,
+    "idealMax": 700
+  },
+  "checklistItems": [
+    "Production code contributions and shipped release pull requests",
+    "Automated unit testing suites (Jest, PyTest, JUnit) and CI/CD awareness",
+    "Defect debugging, issue triage, and collaborative code reviews",
+    "Agile sprint delivery participation"
+  ],
+  "weightAdjustments": {
+    "mustHaveCoverage": 0,
+    "evidenceDepth": 0,
+    "impactMetrics": 0,
+    "projectsAndArtifacts": 5,
+    "senioritySignals": 0,
+    "formatAndParse": 0
+  },
+  "priorityModules": ["experience", "projects", "skills", "education"],
+  "expectedSignals": [
+    "Production codebase contributions",
+    "Code review participation and debugging skills",
+    "Automated testing and CI/CD awareness"
+  ],
+  "scoredSignals": [
+    {
+      "id": "production_codebase",
+      "label": "Production Codebase Contributions",
+      "description": "Shipped features, merged pull requests, and production deployment lifecycle contributions.",
+      "weight": 30,
+      "detectionMode": "pattern",
+      "patterns": ["production", "shipped", "deployed", "release", "merged", "pull request", "feature delivery"]
+    },
+    {
+      "id": "code_review_debugging",
+      "label": "Code Review & Root Cause Debugging",
+      "description": "Active participation in peer reviews, debugging defects, and resolving technical debt.",
+      "weight": 25,
+      "detectionMode": "pattern",
+      "patterns": ["code review", "peer review", "debugging", "bug fix", "triage", "git", "root cause", "refactor"]
+    },
+    {
+      "id": "ci_cd_testing",
+      "label": "Automated Testing & CI/CD Pipelines",
+      "description": "Unit testing suites and continuous integration pipeline automation.",
+      "weight": 25,
+      "detectionMode": "pattern",
+      "patterns": ["unit test", "integration test", "jest", "pytest", "junit", "ci/cd", "github actions", "jenkins"]
+    },
+    {
+      "id": "agile_collaboration",
+      "label": "Agile Delivery & Team Collaboration",
+      "description": "Cross-functional sprint cadence, backlog prioritization, and iterative shipping.",
+      "weight": 20,
+      "detectionMode": "pattern",
+      "patterns": ["scrum", "agile", "sprint", "jira", "standup", "cross-functional", "kanban"]
+    }
+  ],
+  "adviceCards": [
+    {
+      "id": "missing_ci_cd_testing",
+      "title": "Highlight Automated Test Coverage & CI/CD",
+      "condition": "missing_signal",
+      "signalId": "ci_cd_testing",
+      "recommendation": "Highlight automated test coverage percentages and automated deployment pipeline experience in your bullets.",
+      "priority": "high"
+    },
+    {
+      "id": "missing_production_codebase",
+      "title": "Cite Production Releases & Pull Requests",
+      "condition": "missing_signal",
+      "signalId": "production_codebase",
+      "recommendation": "Quantify features merged into production and release cycles to prove independent code contribution.",
+      "priority": "high"
+    }
+  ]
+}

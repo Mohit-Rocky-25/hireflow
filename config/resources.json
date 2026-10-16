@@ -1,0 +1,102 @@
+{
+  "$schema": "./schema/resources.schema.json",
+  "version": "1.0.0",
+  "resources": [
+    {
+      "id": "mdn_web_docs",
+      "name": "MDN Web Docs",
+      "platform": "Mozilla",
+      "url": "https://developer.mozilla.org",
+      "topics": ["JavaScript", "HTML", "CSS", "Web APIs", "Frontend"],
+      "free": true
+    },
+    {
+      "id": "typescript_handbook",
+      "name": "TypeScript Handbook",
+      "platform": "Microsoft",
+      "url": "https://www.typescriptlang.org/docs/handbook/intro.html",
+      "topics": ["TypeScript", "Type Systems", "JavaScript"],
+      "free": true
+    },
+    {
+      "id": "react_docs",
+      "name": "React Official Documentation",
+      "platform": "React Foundation",
+      "url": "https://react.dev",
+      "topics": ["React", "UI Components", "State Management", "Frontend"],
+      "free": true
+    },
+    {
+      "id": "python_docs",
+      "name": "Python 3 Documentation",
+      "platform": "Python Software Foundation",
+      "url": "https://docs.python.org/3/",
+      "topics": ["Python", "Backend", "Scripting", "Data Science"],
+      "free": true
+    },
+    {
+      "id": "fastapi_tutorial",
+      "name": "FastAPI Official Tutorial",
+      "platform": "FastAPI",
+      "url": "https://fastapi.tiangolo.com/tutorial/",
+      "topics": ["FastAPI", "Python", "REST APIs", "Async"],
+      "free": true
+    },
+    {
+      "id": "docker_get_started",
+      "name": "Docker Get Started Guide",
+      "platform": "Docker Inc.",
+      "url": "https://docs.docker.com/get-started/",
+      "topics": ["Docker", "Containers", "DevOps", "Cloud"],
+      "free": true
+    },
+    {
+      "id": "kubernetes_basics",
+      "name": "Kubernetes Basics Interactive Tutorial",
+      "platform": "CNCF",
+      "url": "https://kubernetes.io/docs/tutorials/kubernetes-basics/",
+      "topics": ["Kubernetes", "Orchestration", "Cloud", "DevOps"],
+      "free": true
+    },
+    {
+      "id": "postgresql_tutorial",
+      "name": "PostgreSQL Tutorial & Reference",
+      "platform": "PostgreSQL Global Development Group",
+      "url": "https://www.postgresql.org/docs/current/tutorial.html",
+      "topics": ["PostgreSQL", "SQL", "Relational Databases", "Databases"],
+      "free": true
+    },
+    {
+      "id": "redis_university",
+      "name": "Redis University",
+      "platform": "Redis Ltd.",
+      "url": "https://redis.io/learn",
+      "topics": ["Redis", "Caching", "In-Memory Datastores", "System Design"],
+      "free": true
+    },
+    {
+      "id": "system_design_primer",
+      "name": "The System Design Primer",
+      "platform": "GitHub Open Source",
+      "url": "https://github.com/donnemartin/system-design-primer",
+      "topics": ["System Design", "Distributed Systems", "Scalability", "Architecture"],
+      "free": true
+    },
+    {
+      "id": "huggingface_nlp_course",
+      "name": "Hugging Face NLP & Transformers Course",
+      "platform": "Hugging Face",
+      "url": "https://huggingface.co/learn/nlp-course",
+      "topics": ["Machine Learning", "Transformers", "NLP", "PyTorch"],
+      "free": true
+    },
+    {
+      "id": "owasp_top_ten",
+      "name": "OWASP Top Ten Web Application Security Risks",
+      "platform": "OWASP Foundation",
+      "url": "https://owasp.org/www-project-top-ten/",
+      "topics": ["Security", "Application Security", "Vulnerabilities", "DevSecOps"],
+      "free": true
+    }
+  ]
+}

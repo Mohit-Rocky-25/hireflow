@@ -1,0 +1,103 @@
+{
+  "$schema": "./schema/profile.schema.json",
+  "id": "mid",
+  "displayName": "Mid-Level Engineer (3-5 YOE)",
+  "typicalBarText": "Mid-level hiring bar requires independent subsystem ownership, proven track record scaling services or databases under load, operational on-call rotation experience, and proactive code mentorship for peers.",
+  "aliases": ["3-6", "3-5", "sde-2", "mid-level"],
+  "keywords": ["mid-level", "intermediate", "software engineer ii", "sde ii", "swe ii", "3-5 years"],
+  "yearsRange": {
+    "min": 3,
+    "max": 6
+  },
+  "scoringWeights": {
+    "mustHaveCoverage": 25,
+    "evidenceDepth": 25,
+    "impactMetrics": 20,
+    "projectsAndArtifacts": 10,
+    "senioritySignals": 10,
+    "formatAndParse": 10
+  },
+  "penaltyRules": {
+    "missingExperience": true,
+    "briefWordCountThreshold": 350,
+    "longWordCountThreshold": 1200
+  },
+  "wordCountRange": {
+    "min": 350,
+    "max": 1100,
+    "idealMin": 450,
+    "idealMax": 900
+  },
+  "checklistItems": [
+    "Autonomous end-to-end subsystem and module ownership",
+    "Quantified scalability and performance metrics (latency, QPS, data volume)",
+    "Production operational telemetry, monitoring alerts, and on-call rotation participation",
+    "Technical mentorship of junior peers and engineering design docs (RFCs)"
+  ],
+  "weightAdjustments": {
+    "mustHaveCoverage": 0,
+    "evidenceDepth": 0,
+    "impactMetrics": 0,
+    "projectsAndArtifacts": 0,
+    "senioritySignals": 0,
+    "formatAndParse": 0
+  },
+  "priorityModules": ["experience", "skills", "projects", "education"],
+  "expectedSignals": [
+    "Independent feature delivery and subsystem ownership",
+    "Measurable performance or business impact",
+    "API design and database schema design"
+  ],
+  "scoredSignals": [
+    {
+      "id": "ownership",
+      "label": "Subsystem & Feature Ownership",
+      "description": "End-to-end design, implementation, and maintenance of critical business modules.",
+      "weight": 30,
+      "detectionMode": "pattern",
+      "patterns": ["owned", "spearheaded", "designed and built", "subsystem", "module", "end-to-end", "autonomous"]
+    },
+    {
+      "id": "scale",
+      "label": "Scalability, Concurrency & Data Volume",
+      "description": "Architecting for high QPS, low latency, caching strategies, and efficient database indexing.",
+      "weight": 25,
+      "detectionMode": "pattern",
+      "patterns": ["scale", "throughput", "qps", "concurrent", "caching", "redis", "kafka", "latency", "optimization"]
+    },
+    {
+      "id": "on_call",
+      "label": "On-Call Rotations & Operational Reliability",
+      "description": "Production telemetry, incident response, monitoring dashboards, and SLA compliance.",
+      "weight": 25,
+      "detectionMode": "pattern",
+      "patterns": ["on-call", "on call", "incident", "datadog", "prometheus", "grafana", "slo", "sla", "pagerduty"]
+    },
+    {
+      "id": "mentoring",
+      "label": "Technical Mentorship & Design Docs",
+      "description": "Authoring RFCs/design docs and mentoring junior developers on engineering practices.",
+      "weight": 20,
+      "detectionMode": "pattern",
+      "patterns": ["mentored", "onboarded", "guided", "code review standards", "rfc", "design doc"]
+    }
+  ],
+  "adviceCards": [
+    {
+      "id": "missing_ownership",
+      "title": "Demonstrate End-to-End Subsystem Ownership",
+      "condition": "missing_signal",
+      "signalId": "ownership",
+      "recommendation": "Demonstrate autonomous end-to-end subsystem ownership rather than peripheral task-oriented ticket completion.",
+      "priority": "high"
+    },
+    {
+      "id": "missing_scale",
+      "title": "Quantify Scale, Throughput, and Concurrency",
+      "condition": "missing_signal",
+      "signalId": "scale",
+      "recommendation": "Provide specific scale metrics (concurrent users, requests per second, database table sizes, cache hit ratios).",
+      "priority": "high"
+    }
+  ]
+}

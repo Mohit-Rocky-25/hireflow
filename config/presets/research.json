@@ -1,0 +1,28 @@
+{
+  "$schema": "./schema/preset.schema.json",
+  "id": "research",
+  "displayName": "Research / Deep Tech / Academia",
+  "description": "R&D laboratories, academic institutes, and deep technology teams building novel intellectual property.",
+  "disclaimer": "General guide, not company data.",
+  "expectationChecklist": [
+    "Peer-reviewed publications, technical whitepapers, or patent disclosures",
+    "Rigorous experimental methodology with baseline benchmarks and statistical validation",
+    "Reproducible codebases with open-source datasets and mathematical proofs",
+    "Novel algorithmic contributions advancing beyond state-of-the-art"
+  ],
+  "expectedEvidence": [
+    "published research citations",
+    "novel algorithmic design",
+    "benchmark improvements over state-of-the-art",
+    "open-source research implementations"
+  ],
+  "weightAdjustments": {
+    "mustHaveCoverage": 0,
+    "evidenceDepth": 5,
+    "impactMetrics": 0,
+    "projectsAndArtifacts": 5,
+    "senioritySignals": 0,
+    "formatAndParse": 0
+  },
+  "minMetricRatio": 0.4
+}

@@ -1,0 +1,42 @@
+{
+  "$schema": "./schema/role-pack.schema.json",
+  "id": "general",
+  "displayName": "General Technical & Engineering",
+  "description": "Cross-disciplinary engineering, technical operations, and general technology roles.",
+  "expectedArtifacts": [
+    "Project documentation and system requirements",
+    "Technical workflow automation scripts",
+    "Process improvement reports and operational guides",
+    "Quality checklists and standard operating procedures (SOPs)"
+  ],
+  "typicalEvidenceKinds": [
+    "operational_efficiency_gain",
+    "process_automation_time_savings",
+    "cross_team_collaboration",
+    "customer_support_sla_achievement"
+  ],
+  "commonMetricPlaceholders": [
+    "automated manual reporting workflows saving [X] engineering hours per week",
+    "improved team operational efficiency by [Y]%",
+    "delivered [N] cross-functional initiatives on time and within budget",
+    "maintained [99]% customer SLA compliance rate"
+  ],
+  "coreFundamentals": [
+    "Problem Solving & Analytical Thinking",
+    "Technical Communication & Documentation",
+    "Basic Scripting & Data Handling",
+    "Project Execution & Agile Principles",
+    "Continuous Process Improvement"
+  ],
+  "rejectionPitfalls": [
+    "Passive responsibility language without clear personal contribution",
+    "Zero quantifiable metrics across work experience bullets",
+    "Lack of tangible project or operational artifacts"
+  ],
+  "hiringSignals": [
+    "Clear, structured thinking backed by measurable operational efficiency gains",
+    "Demonstrated ability to quickly master new domain tools and frameworks",
+    "Strong stakeholder management and cross-functional execution"
+  ],
+  "defaultProofSources": ["github"]
+}

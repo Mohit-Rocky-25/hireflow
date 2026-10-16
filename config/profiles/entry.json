@@ -1,0 +1,128 @@
+{
+  "$schema": "./schema/profile.schema.json",
+  "id": "entry",
+  "displayName": "Entry-Level / Fresher (0-1 YOE)",
+  "typicalBarText": "Early-career intake bar focuses on core CS fundamentals, data structures & algorithms problem-solving track record, competitive coding profiles (LeetCode/Codeforces), academic consistency (CGPA), and demonstrable projects or internship exposure. Non-CS candidates are expected to bridge core operating systems and networks coursework.",
+  "aliases": ["fresher", "0-1", "early-career", "graduate"],
+  "keywords": ["fresher", "graduate", "intern", "internship", "entry level", "new grad", "trainee", "associate"],
+  "yearsRange": {
+    "min": 0,
+    "max": 1
+  },
+  "scoringWeights": {
+    "mustHaveCoverage": 35,
+    "evidenceDepth": 15,
+    "impactMetrics": 10,
+    "projectsAndArtifacts": 25,
+    "senioritySignals": 5,
+    "formatAndParse": 10
+  },
+  "penaltyRules": {
+    "missingExperience": false,
+    "briefWordCountThreshold": 180,
+    "longWordCountThreshold": 800
+  },
+  "wordCountRange": {
+    "min": 180,
+    "max": 700,
+    "idealMin": 220,
+    "idealMax": 500
+  },
+  "checklistItems": [
+    "Core CS fundamentals or degree coursework in algorithms and operating systems",
+    "At least 2 substantial technical projects with public code repositories or live links",
+    "Active competitive coding profile (LeetCode, Codeforces, HackerRank) or GitHub presence",
+    "Documented degree CGPA / academic honors"
+  ],
+  "weightAdjustments": {
+    "mustHaveCoverage": 5,
+    "evidenceDepth": -5,
+    "impactMetrics": -5,
+    "projectsAndArtifacts": 15,
+    "senioritySignals": -5,
+    "formatAndParse": 0
+  },
+  "priorityModules": ["projects", "skills", "education", "experience"],
+  "expectedSignals": [
+    "Core CS fundamentals or degree coursework",
+    "At least 2 substantial technical projects",
+    "Clear programming language proficiency with code samples or links",
+    "Problem-solving or competitive coding foundations"
+  ],
+  "scoredSignals": [
+    {
+      "id": "internships",
+      "label": "Internships & Practical Training",
+      "description": "Formal internship, co-op, or industry training experience demonstrating collaborative codebase work.",
+      "weight": 25,
+      "detectionMode": "internships",
+      "patterns": ["intern", "internship", "summer intern", "co-op", "trainee", "apprentice", "fellow"]
+    },
+    {
+      "id": "coding_profiles",
+      "label": "Competitive Coding & Platform Profiles",
+      "description": "Active coding profiles (LeetCode, Codeforces, HackerRank, GitHub) demonstrating problem-solving persistence.",
+      "weight": 30,
+      "detectionMode": "coding_profiles",
+      "patterns": ["leetcode", "codeforces", "hackerrank", "codechef", "github.com", "kaggle", "geeksforgeeks", "gfg"]
+    },
+    {
+      "id": "cgpa",
+      "label": "Academic Performance & Coursework Consistency",
+      "description": "Documented CGPA, GPA, percentage, or academic honors reflecting academic rigor.",
+      "weight": 20,
+      "detectionMode": "cgpa",
+      "patterns": ["cgpa", "gpa", "percentage", "aggregate", "pointer", "distinction", "honors", "dean's list"]
+    },
+    {
+      "id": "branch_fundamentals",
+      "label": "Core CS Fundamentals & Branch Alignment",
+      "description": "Degree coursework or explicit coverage of Data Structures, Algorithms, OS, DBMS, and Computer Networks.",
+      "weight": 25,
+      "detectionMode": "branch_fundamentals",
+      "nonCsBranches": [
+        "electronics and communication", "electronics & communication", "electrical and electronics",
+        "electrical & electronics", "electronics", "ece", "eee", "mechanical", "civil", "chemical",
+        "aerospace", "biotech", "biotechnology", "metallurgy", "instrumentation", "production"
+      ],
+      "csBranches": [
+        "computer science", "computer engineering", "information technology", "software engineering", "cs", "cse", "it"
+      ],
+      "patterns": ["data structures", "algorithms", "operating systems", "dbms", "database management", "computer networks", "oops", "object oriented"]
+    }
+  ],
+  "adviceCards": [
+    {
+      "id": "missing_internships",
+      "title": "Add Formal Internship or Open-Source Experience",
+      "condition": "missing_signal",
+      "signalId": "internships",
+      "recommendation": "Add formal internships, co-ops, or open-source fellowship contributions to validate collaborative delivery in production teams.",
+      "priority": "high"
+    },
+    {
+      "id": "missing_coding_profiles",
+      "title": "Link Verified Coding Profiles",
+      "condition": "missing_signal",
+      "signalId": "coding_profiles",
+      "recommendation": "Link active competitive coding profiles (LeetCode, Codeforces, HackerRank) or GitHub with solved DSA problems to prove algorithmic mastery.",
+      "priority": "high"
+    },
+    {
+      "id": "branch_gap_notice",
+      "title": "Highlight Core CS Fundamentals Coursework",
+      "condition": "missing_signal",
+      "signalId": "branch_fundamentals",
+      "recommendation": "Non-CS engineering backgrounds must explicitly highlight core CS coursework (Data Structures, Algorithms, OS, DBMS, Networks) to pass technical screening.",
+      "priority": "high"
+    },
+    {
+      "id": "missing_cgpa",
+      "title": "Include Academic Record or Distinction",
+      "condition": "missing_signal",
+      "signalId": "cgpa",
+      "recommendation": "List degree CGPA / aggregate percentage if above 7.0/10 (or 3.0/4.0); otherwise emphasize high-impact open source repositories and contest rankings.",
+      "priority": "medium"
+    }
+  ]
+}

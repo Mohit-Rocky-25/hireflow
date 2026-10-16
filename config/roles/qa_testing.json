@@ -1,0 +1,44 @@
+{
+  "$schema": "./schema/role-pack.schema.json",
+  "id": "qa_testing",
+  "displayName": "QA / Automation / SDET",
+  "description": "Software development engineer in test, quality assurance automation, and testing frameworks.",
+  "expectedArtifacts": [
+    "Automated E2E test repositories (Playwright, Cypress, Selenium)",
+    "API integration test collections (Postman, Newman, RestAssured)",
+    "Performance & load testing scripts (k6, JMeter, Locust)",
+    "Quality test strategy documents & coverage dashboards",
+    "CI/CD test stage orchestration scripts"
+  ],
+  "typicalEvidenceKinds": [
+    "bug_escape_rate_reduction",
+    "test_suite_execution_acceleration",
+    "automation_coverage_expansion",
+    "flaky_test_elimination",
+    "performance_bottleneck_detection"
+  ],
+  "commonMetricPlaceholders": [
+    "increased automated test coverage from [A]% to [B]%, covering [N] critical user flows",
+    "reduced regression testing cycle time from [X] days to [Y] hours in CI/CD pipeline",
+    "cut post-release production defect escape rate by [Z]%",
+    "eliminated flaky test failures by [W]% across [M] daily automated builds"
+  ],
+  "coreFundamentals": [
+    "Test Automation Design Patterns (Page Object Model, Factory Pattern)",
+    "API Testing & Contract Verification",
+    "Load, Stress & Performance Testing",
+    "Continuous Integration Pipeline Test Gates",
+    "Defect Lifecycle Management & Root Cause Triage"
+  ],
+  "rejectionPitfalls": [
+    "Pure manual testing execution without any automated scripting or test framework engineering",
+    "Absence of metrics showing cycle time reduction or defect escape prevention",
+    "Lack of API or performance testing experience"
+  ],
+  "hiringSignals": [
+    "Authoring custom test automation frameworks from scratch",
+    "Integrating performance testing gates into CI/CD deployment pipelines",
+    "Proactive defect prevention through early architectural design reviews"
+  ],
+  "defaultProofSources": ["github", "gitlab"]
+}

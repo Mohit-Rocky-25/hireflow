@@ -1,0 +1,103 @@
+{
+  "$schema": "./schema/profile.schema.json",
+  "id": "lead",
+  "displayName": "Lead / Staff / Principal (8+ YOE)",
+  "typicalBarText": "Lead and staff bar requires multi-team technical vision, company-wide architecture governance, strategic technology roadmaps, and direct partnership with executive leadership to de-risk high-stakes initiatives.",
+  "aliases": ["principal", "architect", "engineering manager", "director", "8+"],
+  "keywords": ["lead", "tech lead", "staff", "principal", "architect", "engineering manager", "director", "8+ years"],
+  "yearsRange": {
+    "min": 8,
+    "max": 30
+  },
+  "scoringWeights": {
+    "mustHaveCoverage": 20,
+    "evidenceDepth": 25,
+    "impactMetrics": 20,
+    "projectsAndArtifacts": 5,
+    "senioritySignals": 20,
+    "formatAndParse": 10
+  },
+  "penaltyRules": {
+    "missingExperience": true,
+    "briefWordCountThreshold": 500,
+    "longWordCountThreshold": 1800
+  },
+  "wordCountRange": {
+    "min": 500,
+    "max": 1600,
+    "idealMin": 600,
+    "idealMax": 1300
+  },
+  "checklistItems": [
+    "Multi-year technical roadmaps aligning multiple squads with company goals",
+    "Architecture review board (ARB) leadership and security/compliance governance",
+    "Direct executive alignment with VP/CTO on technology investments",
+    "Enterprise-scale multi-region high availability and platform reliability"
+  ],
+  "weightAdjustments": {
+    "mustHaveCoverage": -5,
+    "evidenceDepth": 0,
+    "impactMetrics": 5,
+    "projectsAndArtifacts": -5,
+    "senioritySignals": 5,
+    "formatAndParse": 0
+  },
+  "priorityModules": ["experience", "audit", "skills", "projects"],
+  "expectedSignals": [
+    "Multi-team technical vision and strategic roadmapping",
+    "High-stakes organizational engineering impact and mentorship",
+    "Enterprise-scale distributed architecture and governance"
+  ],
+  "scoredSignals": [
+    {
+      "id": "multi_team_vision",
+      "label": "Multi-Team Technical Vision & Roadmaps",
+      "description": "Multi-quarter architectural vision aligning multiple engineering squads with company strategic goals.",
+      "weight": 30,
+      "detectionMode": "pattern",
+      "patterns": ["technical roadmap", "multi-year", "vision", "strategic roadmap", "architectural runway"]
+    },
+    {
+      "id": "organizational_governance",
+      "label": "Architecture Governance & Risk Management",
+      "description": "Leading Architecture Review Boards (ARB), technology radar decisions, security postures, and disaster recovery.",
+      "weight": 25,
+      "detectionMode": "pattern",
+      "patterns": ["architecture review board", "governance", "standardization", "security baseline", "compliance"]
+    },
+    {
+      "id": "executive_alignment",
+      "label": "Executive Leadership & Business Translation",
+      "description": "Partnering with VP/CTO/C-Suite leaders to align technology investments with business strategy and capital allocation.",
+      "weight": 25,
+      "detectionMode": "pattern",
+      "patterns": ["cto", "vp of engineering", "executive stakeholders", "c-suite", "board", "business translation"]
+    },
+    {
+      "id": "enterprise_scale",
+      "label": "Enterprise-Scale High-Availability Infrastructure",
+      "description": "Five-nines (99.999%) multi-region infrastructure reliability, latency SLAs, and mission-critical platform stability.",
+      "weight": 20,
+      "detectionMode": "pattern",
+      "patterns": ["enterprise-scale", "millions of users", "petabytes", "99.999%", "five nines", "core platform"]
+    }
+  ],
+  "adviceCards": [
+    {
+      "id": "missing_multi_team_vision",
+      "title": "Articulate Multi-Team Strategic Roadmaps",
+      "condition": "missing_signal",
+      "signalId": "multi_team_vision",
+      "recommendation": "Demonstrate how your technical roadmaps guided 3+ engineering teams across multi-quarter strategic horizons.",
+      "priority": "high"
+    },
+    {
+      "id": "missing_executive_alignment",
+      "title": "Highlight C-Suite & Executive Alignment",
+      "condition": "missing_signal",
+      "signalId": "executive_alignment",
+      "recommendation": "Highlight regular alignment with CTO/VP leadership on technology investments, organizational risk, and capital allocation.",
+      "priority": "high"
+    }
+  ]
+}

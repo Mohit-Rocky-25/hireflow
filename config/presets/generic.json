@@ -1,0 +1,28 @@
+{
+  "$schema": "./schema/preset.schema.json",
+  "id": "generic",
+  "displayName": "Generic Employer Baseline",
+  "description": "Balanced market evaluation suitable for diverse tech companies and general roles.",
+  "disclaimer": "General guide, not company data.",
+  "expectationChecklist": [
+    "Core must-have technical skills verified with concrete project or work experience context",
+    "Quantified outcome metrics demonstrating personal ownership and business or technical gain",
+    "Clean resume structure with standard sections parsable by automated ATS systems",
+    "Verifiable links to code repositories, deployed demonstrations, or portfolio artifacts"
+  ],
+  "expectedEvidence": [
+    "verified skills in context",
+    "quantifiable bullet point metrics",
+    "relevant project artifacts",
+    "chronological work experience"
+  ],
+  "weightAdjustments": {
+    "mustHaveCoverage": 0,
+    "evidenceDepth": 0,
+    "impactMetrics": 0,
+    "projectsAndArtifacts": 0,
+    "senioritySignals": 0,
+    "formatAndParse": 0
+  },
+  "minMetricRatio": 0.35
+}

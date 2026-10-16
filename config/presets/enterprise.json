@@ -1,0 +1,28 @@
+{
+  "$schema": "./schema/preset.schema.json",
+  "id": "enterprise",
+  "displayName": "Enterprise / Fortune 500 / Corporate",
+  "description": "Large-scale corporate enterprises prioritizing stability, compliance, security, and governance.",
+  "disclaimer": "General guide, not company data.",
+  "expectationChecklist": [
+    "Enterprise-grade reliability, data consistency, and SOC 2 / GDPR compliance awareness",
+    "Cross-functional alignment across architecture review boards, security, and operations",
+    "Proven track record modernizing legacy systems without service disruption",
+    "Documented change management and release train discipline"
+  ],
+  "expectedEvidence": [
+    "enterprise system migration",
+    "governance and compliance alignment",
+    "infrastructure stability metrics",
+    "cross-department leadership"
+  ],
+  "weightAdjustments": {
+    "mustHaveCoverage": 0,
+    "evidenceDepth": 5,
+    "impactMetrics": 0,
+    "projectsAndArtifacts": 0,
+    "senioritySignals": 5,
+    "formatAndParse": 0
+  },
+  "minMetricRatio": 0.35
+}

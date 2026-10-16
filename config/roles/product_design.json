@@ -1,0 +1,44 @@
+{
+  "$schema": "./schema/role-pack.schema.json",
+  "id": "product_design",
+  "displayName": "Product Management & UX Design",
+  "description": "Product management, product ownership, user experience, and product design.",
+  "expectedArtifacts": [
+    "Product Requirements Documents (PRDs) & strategic roadmaps",
+    "Interactive Figma prototypes & user journey flows",
+    "Design system component libraries",
+    "Customer discovery interview summaries & persona maps",
+    "A/B test experimentation results & conversion funnel metrics"
+  ],
+  "typicalEvidenceKinds": [
+    "conversion_funnel_uplift",
+    "user_retention_improvement",
+    "feature_adoption_rate",
+    "customer_satisfaction_nps",
+    "cross_functional_alignment"
+  ],
+  "commonMetricPlaceholders": [
+    "drove [X]% increase in checkout conversion rate through redesigned onboarding flow",
+    "increased 30-day user retention from [A]% to [B]% across [N]k active users",
+    "authored PRDs and delivered [M] major product releases on schedule",
+    "conducted [Y] qualitative user interviews identifying core friction points"
+  ],
+  "coreFundamentals": [
+    "User Research Methodologies & Usability Testing",
+    "Wireframing, High-Fidelity Prototyping & Design Systems",
+    "Data-Driven Decision Making & Product Analytics",
+    "Agile Product Lifecycle & Prioritization Frameworks (RICE, MoSCoW)",
+    "Cross-Functional Leadership (Engineering, Design, Marketing, Sales)"
+  ],
+  "rejectionPitfalls": [
+    "Failing to provide a live design portfolio or case study links",
+    "Describing feature aesthetics without any user feedback or business conversion metrics",
+    "Task-oriented project management bullets lacking product strategic vision"
+  ],
+  "hiringSignals": [
+    "Strong portfolio demonstrating end-to-end user research to shipped business outcomes",
+    "Experience partnering with engineering to make pragmatic technical trade-offs",
+    "Measurable commercial impact on key north-star product metrics"
+  ],
+  "defaultProofSources": ["figma_portfolio", "github"]
+}

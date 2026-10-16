@@ -9,12 +9,16 @@ import { extractContactInfo } from './contactExtractor';
 import { parseExperienceSection } from './experienceParser';
 import { parseProjectSection } from './projectParser';
 import { estimateCandidateExperience } from './experienceEstimator';
+import { evaluateSenioritySignals, normalizeSeniorityLevel } from './senioritySignals';
 import { analyzeJobDescription } from './jdAnalyzer';
 import { matchRequiredSkills } from './skillMatcher';
 import { computeAtsScore } from './scorer';
 import { generateLearningPath } from './learningPath';
+import { rankFixes } from '../../suite/engine/simulateFix';
+import { buildReportState, assertReportConsistency, ReportState } from './reportState';
 import {
   AtsEngineResult,
+  FixFirstItem,
   TargetTierId,
   ExperienceLevelId,
 } from './types';
@@ -22,12 +26,15 @@ import { analyzeCanonical } from '../../../lib/ats/canonicalAnalysis';
 import { getMinWords, WordLimitSource } from '../../../config/limits';
 
 export * from './types';
+export * from './reportState';
+export * from './senioritySignals';
 export { splitResumeSections } from './sectionSplitter';
 export { extractContactInfo } from './contactExtractor';
 export { analyzeBullet } from './bulletAnalyzer';
 export { parseExperienceSection } from './experienceParser';
 export { parseProjectSection } from './projectParser';
 export { estimateCandidateExperience } from './experienceEstimator';
+export { evaluateSenioritySignals, normalizeSeniorityLevel } from './senioritySignals';
 export { analyzeJobDescription } from './jdAnalyzer';
 export { matchRequiredSkills } from './skillMatcher';
 export { computeAtsScore } from './scorer';
@@ -36,6 +43,12 @@ export { generateLearningPath } from './learningPath';
 export interface AtsEngineOptions {
   tier?: TargetTierId;
   level?: ExperienceLevelId;
+  roleFamily?: string;
+  preset?: string;
+  region?: string;
+  language?: string;
+  scanId?: string;
+  parentScanId?: string | null;
   resumeSource?: WordLimitSource;
   jdSource?: WordLimitSource;
 }
@@ -84,8 +97,20 @@ export function runAtsEngine(
   const experienceEntries = parseExperienceSection(expSection);
   const projectEntries = parseProjectSection(projSection);
 
-  // 4. Estimate Experience Tenure
+  const allBullets = [
+    ...experienceEntries.flatMap(e => e.bullets),
+    ...projectEntries.flatMap(p => p.bullets),
+  ];
+
+  // 4. Estimate Experience Tenure & Level-Aware Seniority Mode (Stage D)
   const seniority = estimateCandidateExperience(experienceEntries, selectedLevel);
+  const seniorityMode = evaluateSenioritySignals({
+    resumeText,
+    sections,
+    bullets: allBullets,
+    candidateYears: seniority.candidateYears,
+    levelOverride: selectedLevel,
+  });
 
   // 5. Analyze Job Description
   const jdAnalysis = analyzeJobDescription(jdText);
@@ -106,11 +131,6 @@ export function runAtsEngine(
     targetTier,
   });
 
-  const allBullets = [
-    ...experienceEntries.flatMap(e => e.bullets),
-    ...projectEntries.flatMap(p => p.bullets),
-  ];
-
   const learningPath = generateLearningPath({
     skillResults,
     roleTitle: jdAnalysis.roleTitle,
@@ -119,13 +139,68 @@ export function runAtsEngine(
     bullets: allBullets,
   });
 
+  const rankedFixes = rankFixes({
+    wordCount,
+    skillResults,
+    experience: experienceEntries,
+    projects: projectEntries,
+    contactInfo,
+    sections,
+    candidateYears: seniority.candidateYears,
+    requiredYears: jdAnalysis.detectedYears,
+    targetTier,
+    baseScore: scoring.score,
+  });
+
+  const fixFirstItems: FixFirstItem[] = rankedFixes.slice(0, 3).map((rf) => ({
+    title: rf.gapClass === 'wording' ? `Align Evidence for ${rf.skillName}` : `Add Verifiable Evidence for ${rf.skillName}`,
+    reason: rf.gapClass === 'wording'
+      ? `Skill "${rf.skillName}" is mentioned but lacks depth or metric evidence.`
+      : `Missing requirement: ${rf.skillName}. Add a concrete project or work experience bullet.`,
+    expectedScoreGain: rf.gain,
+    type: 'missing_must_have',
+    skillId: rf.skillId,
+  }));
+
+  const reportState = buildReportState({
+    rawText: resumeText,
+    wordCount,
+    sections,
+    contactInfo,
+    requiredSkills: jdAnalysis.requiredSkills,
+    skillResults,
+    scoring: {
+      score: scoring.score,
+      band: scoring.band,
+      headline: scoring.headline,
+      subscores: scoring.subscores,
+      penalties: scoring.penalties,
+    },
+    fixes: fixFirstItems,
+    bullets: allBullets,
+    learningPathItems: learningPath.items,
+    rewrites: learningPath.rewrites,
+    seniority,
+    seniorityMode,
+    detectedYears: jdAnalysis.detectedYears,
+    targetTier,
+    roleTitle: jdAnalysis.roleTitle,
+    parseQuality: scoring.parseQuality,
+    roleFamily: options?.roleFamily,
+    preset: options?.preset || targetTier,
+    region: options?.region,
+    language: options?.language,
+    scanId: options?.scanId,
+    parentScanId: options?.parentScanId,
+  });
+
   const result: AtsEngineResult = {
     score: scoring.score,
     band: scoring.band,
     confidence: scoring.confidence,
     confidenceReason: scoring.confidenceReason,
     headline: scoring.headline,
-    oneParagraphSummary: `Evaluation against target ${jdAnalysis.roleTitle} role: Candidate achieves a ${scoring.score}% fit score in the ${scoring.band} band with ${scoring.mustHavesMet} must-have competencies verified. ${seniority.explanation}`,
+    oneParagraphSummary: `Evaluation against target ${jdAnalysis.roleTitle} role: Candidate achieves a ${scoring.score}% fit score in the ${scoring.band} band with ${scoring.mustHavesMet} must-have competencies verified. ${seniorityMode.explanation}`,
     subscores: scoring.subscores,
     penalties: scoring.penalties,
     skillResults,
@@ -136,11 +211,13 @@ export function runAtsEngine(
     seniorityFit: {
       candidateYears: seniority.candidateYears,
       requiredYears: jdAnalysis.detectedYears || 2,
-      level: seniority.inferredLevel,
-      fitExplanation: seniority.explanation,
+      level: seniorityMode.detectedLevel,
+      fitExplanation: seniorityMode.explanation,
     },
+    seniorityMode,
     parseQuality: scoring.parseQuality,
-    fixFirst: scoring.fixFirst,
+    fixFirst: fixFirstItems.length > 0 ? fixFirstItems : scoring.fixFirst,
+    reportState,
     audit: {
       wordCount,
       experienceEntriesCount: experienceEntries.length,

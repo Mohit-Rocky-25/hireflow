@@ -1,0 +1,44 @@
+{
+  "$schema": "./schema/role-pack.schema.json",
+  "id": "security",
+  "displayName": "Cybersecurity / AppSec / InfoSec",
+  "description": "Application security, penetration testing, vulnerability management, and cloud security architecture.",
+  "expectedArtifacts": [
+    "Security vulnerability assessment reports & CVE disclosures",
+    "Threat modeling diagrams & STRIDE analysis docs",
+    "Static & Dynamic security scanning rules (Semgrep, Snyk, SonarQube)",
+    "Identity & Access Management (IAM) governance policies",
+    "Security incident response playbooks"
+  ],
+  "typicalEvidenceKinds": [
+    "vulnerability_mitigation_cve",
+    "security_scan_automation",
+    "compliance_audit_soc2_iso",
+    "penetration_testing_findings",
+    "zero_trust_implementation"
+  ],
+  "commonMetricPlaceholders": [
+    "remediated [N] high/critical vulnerabilities across [M] microservices within SLA",
+    "automated SAST/DAST pipeline scanning reducing triage time by [X]%",
+    "led company-wide SOC 2 Type II / ISO 27001 certification audit with 0 non-conformities",
+    "architected Zero-Trust network access covering [Y] internal production systems"
+  ],
+  "coreFundamentals": [
+    "Cryptography, Key Management & Secure Protocols (TLS, SSH, HMAC)",
+    "OWASP Top 10 Web & API Vulnerabilities and Exploitation Mechanisms",
+    "Cloud Security Architecture (IAM, Security Groups, KMS)",
+    "Threat Modeling & Secure Software Development Lifecycle (SSDLC)",
+    "Identity Standards (OAuth 2.0, OIDC, SAML, JWT)"
+  ],
+  "rejectionPitfalls": [
+    "Listing security compliance checklists without technical understanding of exploit mechanics",
+    "No demonstrable scripting or code audit capabilities",
+    "Lack of metric evidence on vulnerability remediation or pipeline automation"
+  ],
+  "hiringSignals": [
+    "Recognized CVE discoveries or responsible disclosure bug bounty track record",
+    "Integrating automated security guardrails directly into developer CI/CD workflows",
+    "Authoring technical incident response playbooks for zero-day vulnerabilities"
+  ],
+  "defaultProofSources": ["github", "google_scholar"]
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "./schema/preset.schema.json",
+  "id": "service_mnc",
+  "displayName": "Service MNC / Consulting / Global Delivery",
+  "description": "Global IT services, consulting, and systems integration companies managing multi-client delivery.",
+  "disclaimer": "General guide, not company data.",
+  "expectationChecklist": [
+    "Strict alignment with required technology stack keywords and certification credentials",
+    "Client project delivery within agreed timeline and SLA quality parameters",
+    "Agile sprint execution, defect tracking, and client stakeholder reporting",
+    "Clean format parsability ensuring automated routing to appropriate client accounts"
+  ],
+  "expectedEvidence": [
+    "client project deliverables",
+    "technology stack certifications",
+    "SLA adherence and defect resolution",
+    "migration of legacy systems"
+  ],
+  "weightAdjustments": {
+    "mustHaveCoverage": 5,
+    "evidenceDepth": 0,
+    "impactMetrics": 0,
+    "projectsAndArtifacts": 0,
+    "senioritySignals": 0,
+    "formatAndParse": 5
+  },
+  "minMetricRatio": 0.3
+}

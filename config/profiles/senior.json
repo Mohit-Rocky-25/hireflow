@@ -1,0 +1,103 @@
+{
+  "$schema": "./schema/profile.schema.json",
+  "id": "senior",
+  "displayName": "Senior Engineer (5-8 YOE)",
+  "typicalBarText": "Senior engineer hiring bar demands comprehensive system architecture expertise, cross-team impact, active hiring loop participation, and direct alignment of technical deliverables with measurable business revenue or cost reduction.",
+  "aliases": ["6+", "5-8", "sde-3", "senior engineer", "staff"],
+  "keywords": ["senior", "sr.", "sde iii", "swe iii", "5-8 years", "6+ years", "senior software engineer"],
+  "yearsRange": {
+    "min": 5,
+    "max": 9
+  },
+  "scoringWeights": {
+    "mustHaveCoverage": 25,
+    "evidenceDepth": 25,
+    "impactMetrics": 20,
+    "projectsAndArtifacts": 5,
+    "senioritySignals": 15,
+    "formatAndParse": 10
+  },
+  "penaltyRules": {
+    "missingExperience": true,
+    "briefWordCountThreshold": 450,
+    "longWordCountThreshold": 1500
+  },
+  "wordCountRange": {
+    "min": 450,
+    "max": 1400,
+    "idealMin": 550,
+    "idealMax": 1100
+  },
+  "checklistItems": [
+    "Distributed system architecture design and fault-tolerant service decomposition",
+    "Cross-team technical leadership and organizational engineering guidelines",
+    "Active participation in hiring interview loops and talent coaching",
+    "Direct business revenue uplift or substantial cloud infrastructure cost savings"
+  ],
+  "weightAdjustments": {
+    "mustHaveCoverage": 0,
+    "evidenceDepth": 0,
+    "impactMetrics": 5,
+    "projectsAndArtifacts": -5,
+    "senioritySignals": 5,
+    "formatAndParse": 0
+  },
+  "priorityModules": ["experience", "skills", "audit", "projects"],
+  "expectedSignals": [
+    "End-to-end system architecture and technical leadership",
+    "Cross-functional mentorship and design review standards",
+    "Operational excellence, scalability (QPS/p99), and reliability SLAs"
+  ],
+  "scoredSignals": [
+    {
+      "id": "system_scope",
+      "label": "Distributed System Scope & Architecture",
+      "description": "High-level architecture, microservice boundaries, distributed data consistency, and zero-downtime migrations.",
+      "weight": 30,
+      "detectionMode": "pattern",
+      "patterns": ["architecture", "system design", "distributed systems", "microservices", "event-driven", "fault-tolerant"]
+    },
+    {
+      "id": "cross_team_impact",
+      "label": "Cross-Team Technical Influence",
+      "description": "Directing multi-team technical standards, shared internal platforms, and organizational engineering guidelines.",
+      "weight": 25,
+      "detectionMode": "pattern",
+      "patterns": ["cross-team", "cross functional", "organization-wide", "platform library", "rfc", "company-wide"]
+    },
+    {
+      "id": "hiring_mentoring",
+      "label": "Engineering Hiring & Talent Mentorship",
+      "description": "Conducting technical interview loops, training interviewers, and mentoring mid-level engineers toward promotion.",
+      "weight": 25,
+      "detectionMode": "pattern",
+      "patterns": ["interview loop", "hiring panel", "coached", "promoted", "engineering guild", "technical leadership"]
+    },
+    {
+      "id": "business_outcomes",
+      "label": "Business Outcomes & Cost Optimization",
+      "description": "Driving cloud infrastructure cost reductions, customer retention, revenue enablement, and corporate SLAs.",
+      "weight": 20,
+      "detectionMode": "pattern",
+      "patterns": ["revenue", "cost savings", "cloud spend", "margin", "customer retention", "roi", "churn"]
+    }
+  ],
+  "adviceCards": [
+    {
+      "id": "missing_system_scope",
+      "title": "Document Multi-Service Architectural Trade-offs",
+      "condition": "missing_signal",
+      "signalId": "system_scope",
+      "recommendation": "Detail multi-service architectural trade-offs, fault tolerance mechanisms, and distributed consistency models you designed.",
+      "priority": "high"
+    },
+    {
+      "id": "missing_business_outcomes",
+      "title": "Tie Architecture Directly to Business ROI",
+      "condition": "missing_signal",
+      "signalId": "business_outcomes",
+      "recommendation": "Tie your engineering systems directly to executive metrics ($Xk saved in cloud infrastructure, conversion uplift, SLA guarantees).",
+      "priority": "medium"
+    }
+  ]
+}

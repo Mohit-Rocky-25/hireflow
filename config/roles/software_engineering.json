@@ -1,0 +1,46 @@
+{
+  "$schema": "./schema/role-pack.schema.json",
+  "id": "software_engineering",
+  "displayName": "Software Engineering / Systems",
+  "description": "Backend, distributed systems, full-stack, and general software development roles.",
+  "expectedArtifacts": [
+    "Public code repositories (GitHub/GitLab)",
+    "API contracts / OpenAPI specifications",
+    "Automated unit & integration test suites",
+    "Architecture RFCs or design documents",
+    "Production release deployments"
+  ],
+  "typicalEvidenceKinds": [
+    "latency_optimization",
+    "qps_throughput_scale",
+    "database_schema_indexing",
+    "api_design",
+    "incident_recovery"
+  ],
+  "commonMetricPlaceholders": [
+    "reduced p99 latency by [X]%",
+    "scaled service to handle [Y] QPS / [N] concurrent requests",
+    "decreased AWS/GCP cloud infrastructure costs by $[Z]k/yr",
+    "improved automated test coverage from [A]% to [B]%"
+  ],
+  "coreFundamentals": [
+    "Data Structures & Algorithms",
+    "System Design & Distributed Architectures",
+    "Relational & NoSQL Database Storage",
+    "Operating Systems & Concurrency",
+    "Networking Protocols & REST/gRPC APIs"
+  ],
+  "rejectionPitfalls": [
+    "Listing technologies in skills block without any supporting bullet point evidence",
+    "Tutorial clone projects lacking custom architecture, unit tests, or live deployments",
+    "Vague responsibility verbs ('worked on', 'assisted with') lacking quantifiable ownership",
+    "Absence of metrics showing scale, latency, or business impact"
+  ],
+  "hiringSignals": [
+    "Demonstrated autonomous ownership of core subsystems end-to-end",
+    "Experience operating in on-call rotations and resolving production telemetry alerts",
+    "Authoring technical design documents (RFCs) and conducting rigorous code reviews",
+    "Active contributions to public open-source libraries or package registries"
+  ],
+  "defaultProofSources": ["github", "gitlab", "leetcode", "npm", "pypi"]
+}

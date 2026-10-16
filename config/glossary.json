@@ -1,0 +1,16 @@
+{
+  "$schema": "./schema/glossary.schema.json",
+  "version": "1.0.0",
+  "terms": {
+    "ATS": "Applicant Tracking System — Automated software used by employers to parse resumes, filter mandatory competencies, and rank candidate fit against job requirements.",
+    "BM25": "Best Matching 25 — A probabilistic ranking function used in information retrieval and search engines to score relevance between search keywords and text documents.",
+    "Verbatim Citation": "An exact character-for-character snippet extracted directly from the candidate's resume, proving that a required skill is present in the text without LLM hallucination.",
+    "OR-group": "A requirement group where satisfying ANY one of several interchangeable skills (such as React OR Vue OR Angular) meets the employer's bar without penalizing missing alternatives.",
+    "Score Ledger": "A transparent line-item mathematical breakdown showing exact points earned, max weight, calculation formula, and inputs for every scoring factor in the evaluation.",
+    "Evidence Depth": "A measure of how strongly a skill is supported in your bullet points (e.g. simple mention vs quantifiable production usage vs multi-project architectural leadership).",
+    "Parse Quality": "An assessment of how cleanly automated ATS software can parse your resume's sections, dates, contact details, and text formatting without corruption.",
+    "Keyword Stuffing": "The bad practice of listing dozens of skill keywords in an isolated skills list without demonstrating their practical application in work experience or projects.",
+    "Transferable Skills": "Competencies acquired in one domain or tech stack (e.g. C++ multi-threading or SQL database tuning) that readily apply to another target domain or framework.",
+    "Typical Bar": "The expected hiring criteria and proof standard (projects, scale metrics, system ownership, on-call experience) typically expected for candidates at a given seniority tier."
+  }
+}

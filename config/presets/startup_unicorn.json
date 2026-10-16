@@ -1,0 +1,28 @@
+{
+  "$schema": "./schema/preset.schema.json",
+  "id": "startup_unicorn",
+  "displayName": "High-Growth Startup / Unicorn",
+  "description": "Fast-paced, venture-backed startups emphasizing rapid shipping, pragmatic execution, and end-to-end ownership.",
+  "disclaimer": "General guide, not company data.",
+  "expectationChecklist": [
+    "Rapid end-to-end feature delivery from database schema to user-facing frontend",
+    "Pragmatic architectural choices de-risking user growth and product-market fit",
+    "Full-stack versatility and ability to debug production incidents autonomously",
+    "Customer-centric metrics (activation, conversion uplift, user retention)"
+  ],
+  "expectedEvidence": [
+    "shipped user-facing features",
+    "rapid prototyping with production stability",
+    "business metric growth",
+    "cross-functional collaboration"
+  ],
+  "weightAdjustments": {
+    "mustHaveCoverage": 0,
+    "evidenceDepth": 0,
+    "impactMetrics": 5,
+    "projectsAndArtifacts": 5,
+    "senioritySignals": 0,
+    "formatAndParse": 0
+  },
+  "minMetricRatio": 0.4
+}

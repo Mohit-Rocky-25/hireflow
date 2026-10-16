@@ -1,0 +1,44 @@
+{
+  "$schema": "./schema/role-pack.schema.json",
+  "id": "data_ml",
+  "displayName": "Data Science / Machine Learning / AI",
+  "description": "Data engineering, machine learning, AI model development, and analytics roles.",
+  "expectedArtifacts": [
+    "Reproducible Jupyter/Colab notebooks",
+    "Model evaluation metrics & confusion matrices",
+    "ETL / Data pipelines (dbt, Airflow, Spark)",
+    "Hugging Face Spaces or deployed inference endpoints",
+    "Kaggle kernels or research papers"
+  ],
+  "typicalEvidenceKinds": [
+    "model_accuracy_f1_gain",
+    "data_pipeline_throughput",
+    "inference_latency_optimization",
+    "ab_test_significance",
+    "feature_engineering"
+  ],
+  "commonMetricPlaceholders": [
+    "improved model F1-score / AUC by [X]%",
+    "processed [Y] TB/day data stream with Apache Spark / Airflow",
+    "optimized GPU inference latency by [Z]ms via ONNX/TensorRT",
+    "increased conversion rate by [A]% in production A/B experiment"
+  ],
+  "coreFundamentals": [
+    "Probability, Statistics & Hypothesis Testing",
+    "Linear Algebra & Multivariable Calculus",
+    "Machine Learning & Deep Learning Architectures",
+    "SQL, Data Warehousing & Distributed Query Engines",
+    "Model Serving, MLOps & Experiment Tracking"
+  ],
+  "rejectionPitfalls": [
+    "Trivial dataset projects (Titanic, Iris, MNIST) with zero custom data pipelines",
+    "Reporting raw accuracy without baseline comparison, class imbalance checks, or validation sets",
+    "Lack of production deployment context (model left as offline exploratory script)"
+  ],
+  "hiringSignals": [
+    "Experience taking models from experimentation to production serving with monitoring for data drift",
+    "High-throughput distributed feature engineering experience on large-scale datasets",
+    "Proven track record designing and evaluating rigorous A/B experiments"
+  ],
+  "defaultProofSources": ["github", "kaggle", "huggingface", "google_scholar"]
+}

@@ -1,0 +1,96 @@
+{
+  "$schema": "./schema/proof-sources.schema.json",
+  "version": "1.0.0",
+  "sources": [
+    {
+      "id": "github",
+      "displayName": "GitHub",
+      "category": "code_hosting",
+      "roleFamilies": ["software_engineering", "frontend", "mobile", "data_ml", "devops_cloud", "qa_testing", "security", "general"],
+      "urlPatterns": ["github\\.com\\/[a-zA-Z0-9_-]+(?:\\/[a-zA-Z0-9_.-]+)?"],
+      "exampleUrl": "github.com/candidate-username",
+      "actionHint": "Add links to public repositories demonstrating clean architecture, unit tests, and CI/CD automation."
+    },
+    {
+      "id": "gitlab",
+      "displayName": "GitLab",
+      "category": "code_hosting",
+      "roleFamilies": ["software_engineering", "devops_cloud", "qa_testing"],
+      "urlPatterns": ["gitlab\\.com\\/[a-zA-Z0-9_-]+(?:\\/[a-zA-Z0-9_.-]+)?"],
+      "exampleUrl": "gitlab.com/candidate-username",
+      "actionHint": "Include GitLab project links demonstrating GitLab CI YAML pipeline workflows and container deployments."
+    },
+    {
+      "id": "leetcode",
+      "displayName": "LeetCode",
+      "category": "competitive_coding",
+      "roleFamilies": ["software_engineering", "general"],
+      "urlPatterns": ["leetcode\\.com\\/(?:u\\/)?[a-zA-Z0-9_-]+"],
+      "exampleUrl": "leetcode.com/candidate-handle",
+      "actionHint": "Link your LeetCode profile showing contest ratings or consistent algorithmic problem-solving persistence."
+    },
+    {
+      "id": "codeforces",
+      "displayName": "Codeforces",
+      "category": "competitive_coding",
+      "roleFamilies": ["software_engineering"],
+      "urlPatterns": ["codeforces\\.com\\/profile\\/[a-zA-Z0-9_-]+"],
+      "exampleUrl": "codeforces.com/profile/candidate-handle",
+      "actionHint": "Highlight your Codeforces competitive coding rank or contest achievements."
+    },
+    {
+      "id": "kaggle",
+      "displayName": "Kaggle",
+      "category": "notebook_competition",
+      "roleFamilies": ["data_ml"],
+      "urlPatterns": ["kaggle\\.com\\/[a-zA-Z0-9_-]+"],
+      "exampleUrl": "kaggle.com/candidate-handle",
+      "actionHint": "Link Kaggle kernels or competition submissions demonstrating real-world feature engineering and modeling."
+    },
+    {
+      "id": "huggingface",
+      "displayName": "Hugging Face",
+      "category": "notebook_competition",
+      "roleFamilies": ["data_ml"],
+      "urlPatterns": ["huggingface\\.co\\/[a-zA-Z0-9_-]+"],
+      "exampleUrl": "huggingface.co/candidate-handle",
+      "actionHint": "Showcase deployed Hugging Face models, spaces, or curated fine-tuned datasets."
+    },
+    {
+      "id": "npm",
+      "displayName": "npm Package Registry",
+      "category": "package_registry",
+      "roleFamilies": ["frontend", "software_engineering"],
+      "urlPatterns": ["npmjs\\.com\\/(?:package|~)[a-zA-Z0-9_.-]+"],
+      "exampleUrl": "npmjs.com/package/candidate-package",
+      "actionHint": "Cite published npm libraries or CLI tools with active weekly download figures."
+    },
+    {
+      "id": "pypi",
+      "displayName": "PyPI Package Index",
+      "category": "package_registry",
+      "roleFamilies": ["data_ml", "software_engineering", "devops_cloud"],
+      "urlPatterns": ["pypi\\.org\\/project\\/[a-zA-Z0-9_.-]+"],
+      "exampleUrl": "pypi.org/project/candidate-package",
+      "actionHint": "Show published Python modules with documentation and automated wheel builds."
+    },
+    {
+      "id": "figma_portfolio",
+      "displayName": "Figma Portfolio / Behance",
+      "category": "design_portfolio",
+      "roleFamilies": ["product_design", "frontend"],
+      "urlPatterns": ["figma\\.com\\/@[a-zA-Z0-9_-]+", "behance\\.net\\/[a-zA-Z0-9_-]+", "dribbble\\.com\\/[a-zA-Z0-9_-]+"],
+      "exampleUrl": "behance.net/candidate-portfolio",
+      "actionHint": "Provide direct links to design case studies, design system tokens, or interactive user flow prototypes."
+    },
+    {
+      "id": "google_scholar",
+      "displayName": "Google Scholar / ArXiv",
+      "category": "academic_publications",
+      "roleFamilies": ["data_ml", "software_engineering", "security"],
+      "urlPatterns": ["scholar\\.google\\.com\\/citations\\?user=[a-zA-Z0-9_-]+", "arxiv\\.org\\/(?:abs|pdf)\\/[0-9.]+(?:v[0-9]+)?"],
+      "exampleUrl": "scholar.google.com/citations?user=candidate-id",
+      "actionHint": "Cite peer-reviewed conference or journal publications with citation counts and research abstracts."
+    }
+  ]
+}

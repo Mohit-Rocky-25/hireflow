@@ -1,0 +1,44 @@
+{
+  "$schema": "./schema/role-pack.schema.json",
+  "id": "devops_cloud",
+  "displayName": "DevOps / SRE / Cloud Platform",
+  "description": "Cloud infrastructure, site reliability, CI/CD automation, and platform engineering roles.",
+  "expectedArtifacts": [
+    "Terraform / OpenTofu Infrastructure-as-Code modules",
+    "Kubernetes Helm charts and manifest configurations",
+    "CI/CD workflow definitions (GitHub Actions, GitLab CI, Jenkins)",
+    "Grafana dashboards, Prometheus alert rules, Datadog monitors",
+    "Post-mortem incident reports and disaster recovery drills"
+  ],
+  "typicalEvidenceKinds": [
+    "uptime_sla_achievement",
+    "deployment_frequency_acceleration",
+    "cloud_cost_reduction",
+    "mean_time_to_recovery_mttr",
+    "zero_downtime_migration"
+  ],
+  "commonMetricPlaceholders": [
+    "maintained [99.99]% uptime SLA across [N] production microservices",
+    "reduced deployment build times by [X]% from [A] mins to [B] mins",
+    "cut annual cloud expenditure by $[Y]k through spot instances and rightsizing",
+    "reduced MTTR from [Z] hours to [W] minutes via automated canary rollbacks"
+  ],
+  "coreFundamentals": [
+    "Linux Systems Administration & Kernel Tuning",
+    "Networking, DNS, Load Balancing & TLS/Certificates",
+    "Infrastructure as Code & GitOps Principles",
+    "Containerization & Cluster Orchestration",
+    "Observability, Distributed Tracing & Chaos Engineering"
+  ],
+  "rejectionPitfalls": [
+    "Listing cloud buzzwords without specifying concrete infrastructure automation or architectures",
+    "Lack of metrics reflecting availability, MTTR, build speed, or cloud spend optimization",
+    "No evidence of operational incident response or post-incident root cause prevention"
+  ],
+  "hiringSignals": [
+    "Multi-region high availability architectures and automated disaster recovery execution",
+    "Authoring internal developer platform tooling that accelerates engineering team velocity",
+    "Production experience managing complex database migrations with zero downtime"
+  ],
+  "defaultProofSources": ["github", "gitlab", "dockerhub"]
+}

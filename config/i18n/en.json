@@ -1,0 +1,30 @@
+{
+  "$schema": "./schema/i18n.schema.json",
+  "language": "en",
+  "displayName": "English (US)",
+  "strings": {
+    "verdict_strong": "Strong",
+    "verdict_competitive": "Competitive",
+    "verdict_needs_work": "Needs work",
+    "verdict_weak_match": "Weak match",
+    "score_header_title": "ATS Fit Score",
+    "must_haves_label": "Must-Haves Met",
+    "typical_bar_title": "Typical Bar for this Profile",
+    "evidence_map_title": "Evidence Map",
+    "score_ledger_title": "Deterministic Score Ledger",
+    "fix_first_title": "Fix These First",
+    "learning_path_title": "Learning & Verification Path",
+    "audit_tab_title": "Audit & Parsability",
+    "what_the_ats_sees": "What the ATS Sees",
+    "report_wrong_finding": "Report Wrong Finding",
+    "disclaimer_text": "General guide, not company data."
+  },
+  "sectionSynonyms": {
+    "experience": ["experience", "work experience", "employment history", "professional experience", "internships", "work history"],
+    "education": ["education", "academic background", "qualifications", "academics", "educational qualifications", "degrees"],
+    "projects": ["projects", "personal projects", "academic projects", "key projects", "technical projects", "open source contributions"],
+    "skills": ["skills", "technical skills", "core competencies", "technologies", "tools & technologies", "competencies", "skills & tools"],
+    "summary": ["summary", "professional summary", "career objective", "objective", "about me", "profile"],
+    "certifications": ["certifications", "licenses", "certificates", "courses", "professional credentials"]
+  }
+}

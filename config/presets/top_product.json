@@ -1,0 +1,28 @@
+{
+  "$schema": "./schema/preset.schema.json",
+  "id": "top_product",
+  "displayName": "Top Product / High-Bar Engineering",
+  "description": "High-selectivity product engineering companies (FAANG, tier-1 software companies, global tech leaders).",
+  "disclaimer": "General guide, not company data.",
+  "expectationChecklist": [
+    "Clean code craftsmanship with modular architecture and rigorous automated test coverage",
+    "Quantified scale metrics (latency p99, throughput QPS, concurrent users, data volume)",
+    "Deep technical trade-off articulation in bullet points (why a specific technology or design pattern was chosen)",
+    "Public code artifacts, verified competitive coding persistence, or open-source visibility"
+  ],
+  "expectedEvidence": [
+    "p99 latency optimization",
+    "high-throughput concurrency",
+    "autonomous subsystem ownership",
+    "distributed systems consistency"
+  ],
+  "weightAdjustments": {
+    "mustHaveCoverage": 0,
+    "evidenceDepth": 5,
+    "impactMetrics": 5,
+    "projectsAndArtifacts": 0,
+    "senioritySignals": 0,
+    "formatAndParse": 0
+  },
+  "minMetricRatio": 0.5
+}
