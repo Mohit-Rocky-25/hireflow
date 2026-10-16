@@ -1,0 +1,503 @@
+[
+  {
+    "id": "brief-ab-experimentation",
+    "type": "project_brief",
+    "status": "completed",
+    "score": 5.13,
+    "band": "D",
+    "attempts": 1,
+    "completed_at": "2026-10-16T19:32:00Z"
+  },
+  {
+    "id": "brief-analytics-clickhouse",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-api-gateway-scratch",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-api-sdk-design",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-blockchain-defi",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-canary-deployment",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-cdc-pipeline",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-ci-cd-from-scratch",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-compiler-interpreter",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-computer-vision-api",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-container-runtime",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-credit-risk-model",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-data-quality-framework",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-database-engine",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-devsecops-pipeline",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-dist-cache-rust",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-dist-rate-limiter",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-embedding-search-engine",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-event-driven-saas",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-event-recon",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-event-sourcing",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-feature-flag-platform",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-fraud-detection-ml",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-fullstack-ecommerce",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-genai-code-reviewer",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-gitignore-lsp",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-gitops-registry",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-gpu-accelerated-inference",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-graph-analysis",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-graphql-federation",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-graphql-to-sql-compiler",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-high-throughput-logging",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-homomorphic-encryption",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-interview-prep-ai",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-knowledge-graph",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-kubernetes-operator",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-llm-agent-workflow",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-llm-evaluation-framework",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-llm-finetuning-peft",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-llm-finetuning-rlhf",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-llm-gateway",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-load-balancer",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-message-queue",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-micro-frontend-shell",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-mlops-platform",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-mobile-flutter-prod",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-multimodal-ai-app",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-notification-service",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-observability-sdk",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-offline-first-sync",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-opentelemetry-observability",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-osint-data-platform",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-peer-to-peer",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-personalization-engine",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-privacy-preserving-ml",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-progressive-web-app",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-raft-consensus",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-rag-vector-search",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-react-native-offline",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-realtime-analytics-dashboard",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-realtime-code-execution",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-realtime-collab",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-realtime-stock-platform",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-recommendation-engine",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-schema-registry",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-search-engine",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-semantic-kernel-agent",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-serverless-backend",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-service-mesh",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-streaming-data-pipeline",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-supply-chain-optimization",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-terraform-cloud-infra",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-time-series-forecasting",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-tls-certificate-manager",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-upi-payment-gateway",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-vector-db-from-scratch",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-workflow-engine",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "brief-zero-trust-proxy",
+    "type": "project_brief",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "cert-aws-ccp",
+    "type": "certification_page",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "cert-aws-saa",
+    "type": "certification_page",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "cert-ckad",
+    "type": "certification_page",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "cert-comptia-sec",
+    "type": "certification_page",
+    "status": "pending",
+    "attempts": 0
+  },
+  {
+    "id": "cert-gcp-ace",
+    "type": "certification_page",
+    "status": "pending",
+    "attempts": 0
+  }
+]

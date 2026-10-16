@@ -1,0 +1,162 @@
+{
+  "totalBriefsScanned": 83,
+  "countsByType": {
+    "project_brief": 78,
+    "certification_page": 5
+  },
+  "countsByDomain": {
+    "ML Engineering": 8,
+    "Data Engineering": 7,
+    "Distributed Systems": 9,
+    "Full-Stack Web": 11,
+    "Blockchain & Web3": 1,
+    "Platform & DevOps": 10,
+    "Computer Science Fundamentals": 3,
+    "AI/ML Applications": 5,
+    "Systems Programming": 2,
+    "FinTech Engineering": 4,
+    "Security & Platform": 5,
+    "GenAI & LLM Engineering": 9,
+    "Mobile Engineering": 3,
+    "Algorithms & Applied Math": 1,
+    "Cloud Architecture & DevOps": 2,
+    "Cloud Native & Containers": 1,
+    "Cybersecurity & Defense": 1,
+    "Cloud Infrastructure & Kubernetes": 1
+  },
+  "missingHeadingsCount": 0,
+  "missingHeadingsDetails": [],
+  "allDistinctHeadingsFound": [
+    "PROBLEM STATEMENT",
+    "USE CASES IN THE REAL WORLD",
+    "WHY THIS IS HARD (COMPETENCY REDUCER)",
+    "RECRUITER SHORTLIST SIGNAL",
+    "ARCHITECTURE & DATA FLOW",
+    "SCALE & PERFORMANCE TARGETS",
+    "SKILLS COVERED",
+    "SCREENER VERIFICATION RUBRIC",
+    "RESUME BULLET FORMULA",
+    "OVERVIEW & VALUE PROPOSITION",
+    "EXAM FORMAT & PREREQUISITES",
+    "FEES & OFFICIAL PRICING",
+    "STUDENT AID & FEE WAIVER",
+    "SYLLABUS & CORE DOMAINS",
+    "VALIDITY & RENEWAL POLICY",
+    "VERIFICATION METHOD"
+  ],
+  "nearDuplicatesCount": 7,
+  "nearDuplicates": [
+    {
+      "projectA": "brief-api-gateway-scratch",
+      "projectB": "brief-load-balancer",
+      "domain": "Distributed Systems",
+      "overlapPercentage": 83,
+      "commonStack": [
+        "Go",
+        "HTTP",
+        "Prometheus",
+        "Docker",
+        "Concurrency"
+      ]
+    },
+    {
+      "projectA": "brief-feature-flag-platform",
+      "projectB": "brief-graphql-federation",
+      "domain": "Full-Stack Web",
+      "overlapPercentage": 71,
+      "commonStack": [
+        "TypeScript",
+        "Node.js",
+        "React",
+        "PostgreSQL",
+        "Redis"
+      ]
+    },
+    {
+      "projectA": "brief-feature-flag-platform",
+      "projectB": "brief-realtime-analytics-dashboard",
+      "domain": "Full-Stack Web",
+      "overlapPercentage": 100,
+      "commonStack": [
+        "TypeScript",
+        "Node.js",
+        "React",
+        "PostgreSQL",
+        "Redis",
+        "WebSockets"
+      ]
+    },
+    {
+      "projectA": "brief-genai-code-reviewer",
+      "projectB": "brief-llm-agent-workflow",
+      "domain": "GenAI & LLM Engineering",
+      "overlapPercentage": 71,
+      "commonStack": [
+        "Python",
+        "FastAPI",
+        "LangChain",
+        "Pydantic",
+        "Docker"
+      ]
+    },
+    {
+      "projectA": "brief-gitops-registry",
+      "projectB": "brief-kubernetes-operator",
+      "domain": "Platform & DevOps",
+      "overlapPercentage": 71,
+      "commonStack": [
+        "Kubernetes",
+        "Docker",
+        "Go",
+        "GitHub Actions",
+        "Helm"
+      ]
+    },
+    {
+      "projectA": "brief-graphql-federation",
+      "projectB": "brief-realtime-analytics-dashboard",
+      "domain": "Full-Stack Web",
+      "overlapPercentage": 71,
+      "commonStack": [
+        "TypeScript",
+        "Node.js",
+        "PostgreSQL",
+        "Redis",
+        "React"
+      ]
+    },
+    {
+      "projectA": "cert-aws-ccp",
+      "projectB": "cert-aws-saa",
+      "domain": "Cloud Architecture & DevOps",
+      "overlapPercentage": 100,
+      "commonStack": []
+    }
+  ],
+  "difficultyVsHours": {
+    "INTERMEDIATE": {
+      "count": 44,
+      "totalHours": 1125,
+      "minHours": 15,
+      "maxHours": 90,
+      "avgHours": 25.6,
+      "medianHours": 20
+    },
+    "ADVANCED": {
+      "count": 38,
+      "totalHours": 1190,
+      "minHours": 25,
+      "maxHours": 100,
+      "avgHours": 31.3,
+      "medianHours": 30
+    },
+    "BEGINNER": {
+      "count": 1,
+      "totalHours": 40,
+      "minHours": 40,
+      "maxHours": 40,
+      "avgHours": 40,
+      "medianHours": 40
+    }
+  }
+}
