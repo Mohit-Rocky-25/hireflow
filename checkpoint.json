@@ -11,8 +11,11 @@
   {
     "id": "brief-analytics-clickhouse",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "score": 5.38,
+    "band": "D",
+    "attempts": 1,
+    "completed_at": "2026-10-16T21:27:00Z"
   },
   {
     "id": "brief-api-gateway-scratch",

@@ -1,0 +1,132 @@
+PROJECT BRIEF — Multi-Tenant B2B Event Analytics Engine
+======================================================================
+
+Domain    : Data Engineering
+Difficulty: INTERMEDIATE
+Est. Time : 30 hours (Core Path); +6 hours (Extended Path)
+Tech Stack: ClickHouse [columnar OLAP database for fast analytical aggregation; Requires: Docker Engine], Apache Kafka [distributed streaming buffer for ingestion decoupling; Requires: Docker Engine], Node.js [HTTP beacon receiver and Kafka producer], TypeScript [typed schemas and service implementation], Docker [multi-container orchestration for Kafka, Zookeeper/KRaft, and ClickHouse; Requires: Docker Desktop/daemon], SQL [ClickHouse analytical queries, materialized views, and DDL]
+
+PROBLEM STATEMENT
+----------------------------------------
+SaaS telemetry platforms process millions of interaction events daily from web and mobile clients, but querying aggregate funnel conversions, retention cohorts, and time-series metrics on traditional row-oriented OLTP databases results in excessive query latency and timeouts once tables exceed tens of millions of rows. Analytical systems require columnar storage, data compression, and partitioned indexing to scan billions of values per second. This project builds a multi-tenant telemetry ingestion and analytical engine that streams event beacons through Kafka into a partitioned ClickHouse cluster, maintaining sub-second aggregation latencies across multi-million row datasets.
+
+USE CASES IN THE REAL WORLD
+----------------------------------------
+Product analytics platforms ingest high-throughput user clickstreams to generate real-time behavioral metrics. Neutral architectural reference points include open-source and commercial product analytics systems such as PostHog, Mixpanel, and Amplitude.
+
+WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------
+Implementing a robust ClickHouse analytical pipeline involves three critical systems challenges:
+1. Preventing Part Explosion: ClickHouse creates immutable physical directory parts for every write transaction. Ingesting high-frequency single records directly triggers the `Too many parts in all data in table` exception. The ingestion pipeline must enforce batch buffering (e.g., minimum 10,000 events or 5-second flushes) before persisting to disk.
+2. Multi-Tenant Sort Key Design: To ensure fast per-customer queries without full-table scans, the MergeTree primary ordering tuple must lead with tenant isolation keys (`ORDER BY (tenant_id, toDate(timestamp), event_name, user_id)`), balancing tenant data locality with compression efficiency.
+3. Complex Funnel and Cohort Aggregation: Writing standard SQL joins over millions of telemetry rows is inefficient; the query layer must leverage specialized ClickHouse aggregate functions (such as `windowFunnel` and `retention`) to compute multi-step user conversions in a single pass.
+
+RECRUITER SHORTLIST SIGNAL
+----------------------------------------
+Demonstrates mastery of the OLTP vs. OLAP boundary, columnar database internals (sparse primary keys, column encoding, merge policies), and high-throughput streaming architecture. Directly maps to Data Platform Engineer, Analytics Engineer, and Backend Data Infrastructure roles.
+
+ARCHITECTURE & DATA FLOW
+----------------------------------------
+1. Ingestion Layer: A lightweight Node.js/TypeScript HTTP service receives JSON telemetry beacons from client applications, validates payload structure against a strict schema, and publishes messages to partitioned Kafka topics keyed by `tenant_id`.
+2. Streaming Decoupling: Kafka buffers event spikes and guarantees at-least-once message delivery.
+3. Batch Persister / Kafka Engine: ClickHouse consumes events from Kafka topics via a Kafka Engine table and flushes columnar batches into an underlying `ReplacingMergeTree` table via Materialized Views, buffering in blocks of 10,000+ records.
+4. Storage Layer: The primary `events` table uses `ORDER BY (tenant_id, toDate(timestamp), event_name, user_id)` with `ZSTD` column compression.
+5. Query Service: A REST/query interface executes analytical queries (funnel conversions, 30-day cohort retention matrix, and time-bucketed event counts) against ClickHouse and returns JSON results to client dashboards.
+
+SCALE & PERFORMANCE TARGETS
+----------------------------------------
+- Ingestion Throughput | Method: k6 or Locust load test pushing concurrent HTTP beacons | Input: 100,000 synthetic JSON beacons across 10 distinct tenants | Reference environment: Local 4-core CPU, 8 GB RAM, Docker Compose | Minimum pass: > 5,000 events/sec sustained | Target: > 10,000 events/sec sustained | Report format: k6 terminal summary report.
+- Analytical Query Latency | Method: Benchmark script timing 50 consecutive funnel queries on a 10M-row populated table | Input: 3-step conversion funnel query over 30-day window for a single tenant | Reference environment: ClickHouse 23+ via Docker, local SSD storage | Minimum pass: p95 latency < 250ms | Target: p95 latency < 100ms | Report format: ClickHouse `system.query_log` execution time table.
+- Storage Compression Ratio | Method: SQL query comparing uncompressed raw byte size vs. compressed column size on disk | Input: 10,000,000 ingested synthetic telemetry events | Reference environment: Local SSD filesystem | Minimum pass: Compression ratio ≥ [X:1] (minimum 4:1) | Target: Compression ratio ≥ [X:1] (target 8:1) | Report format: Markdown storage audit table querying `system.parts`.
+
+SKILLS COVERED
+----------------------------------------
+ClickHouse, Kafka, Node.js, SQL, Docker, TypeScript, Data Pipelines
+
+TARGET APPLICATION / STARTER INPUT
+----------------------------------------
+- Standard Telemetry Schema: JSON beacon structure:
+  ```json
+  {
+    "tenant_id": "tenant_abc123",
+    "event_id": "uuid-v4",
+    "event_name": "page_view | button_click | checkout_completed",
+    "user_id": "usr_9988",
+    "timestamp": "2026-10-16T12:00:00Z",
+    "properties": {
+      "path": "/pricing",
+      "referrer": "google.com",
+      "revenue": 49.00
+    }
+  }
+  ```
+- Seed Data Generator: A TypeScript script (`scripts/seed_telemetry.ts`) capable of generating deterministic synthetic user sessions (funnel flows: landing -> sign_up -> checkout) parameterized by tenant count and total volume (1M to 10M rows).
+- Schema Definition: ClickHouse DDL creating `events_raw`, `events_mv`, and `events_partitioned` tables with ZSTD compression and date-based partitioning.
+
+MILESTONES
+----------------------------------------
+- Milestone 1: Environment & Container Orchestration (4 hours)
+  - Configure `docker-compose.yml` orchestrating Kafka, Zookeeper/KRaft, and ClickHouse server with health checks and network definitions.
+  - Done criterion: Containers start cleanly and ClickHouse CLI connects successfully.
+- Milestone 2: Schema Design & ClickHouse Engine DDL (6 hours)
+  - Design partition keys, `ReplacingMergeTree` storage table, Kafka Engine consumer table, and materialized view connecting the stream.
+  - Done criterion: Automated test script pushes 1,000 rows to Kafka and verifies records land in ClickHouse within 5 seconds.
+- Milestone 3: Ingestion HTTP Service & Batch Producer (6 hours)
+  - Implement Node.js/TypeScript HTTP receiver with JSON schema validation and batched Kafka publishing.
+  - Done criterion: k6 load test validates zero dropped HTTP requests across 10,000 consecutive POSTs.
+- Milestone 4: Analytical Query Suite (6 hours)
+  - Write optimized SQL queries for 4 core analytical views: 3-step conversion funnel (`windowFunnel`), 30-day cohort retention (`retention`), DAU/MAU time-series, and top property breakdown.
+  - Done criterion: Query test suite verifies mathematical accuracy of funnel conversion percentages across deterministic seed data.
+- Milestone 5: Scale Benchmarks & Compression Audit (4 hours)
+  - Execute 1M-10M row synthetic ingestion run. Measure disk compression via `system.parts` and query p95 latency.
+  - Done criterion: Generated Markdown report documenting ingestion throughput, query latency, and compression ratio.
+- Milestone 6: Documentation, Architecture Diagrams & Verification (4 hours)
+  - Complete README, architecture sequence diagrams (Mermaid), screener verification walkthrough script, and known limitations file.
+  - Done criterion: Clean execution of end-to-end verification script from a fresh shell.
+
+PREREQUISITES, ENVIRONMENT AND ACCOUNTS
+----------------------------------------
+- Prerequisites: Familiarity with SQL fundamentals, Node.js/TypeScript backend development, and container basics (Docker).
+- Environment: Local development machine (Linux, macOS, or Windows WSL2) with minimum 4 CPU cores, 8 GB RAM, and 10 GB free disk space.
+- Accounts & Costs: Zero cloud accounts or API keys required. Entire stack runs locally on open-source Docker images (ClickHouse and Apache Kafka).
+
+DELIVERABLES
+----------------------------------------
+1. Git repository with modular structure (`ingestion/`, `clickhouse/`, `queries/`, `scripts/`).
+2. Complete `docker-compose.yml` for local 1-command startup (`docker compose up -d`).
+3. ClickHouse DDL migration files containing schema definitions, indexes, and materialized views.
+4. Analytical SQL query collection (`queries/funnels.sql`, `queries/retention.sql`).
+5. Synthetic seed generator script (`scripts/seed_telemetry.ts`).
+6. Benchmarking report (`BENCHMARK.md`) detailing measured ingestion RPS, p95 query latency, and disk compression ratios.
+7. Screener verification script (`verify.sh` or `verify.ps1`).
+
+OUT OF SCOPE AND EXTENDED PATH
+----------------------------------------
+- Out of Scope for Core Path: Multi-node distributed ClickHouse sharding with ZooKeeper distributed DDL, real-time alerting engines, and frontend analytics charts.
+- Extended Path (+6 hours): Full-stack analytics dashboard built in React/Next.js featuring interactive conversion funnel graphs and retention heatmaps connected to the query API.
+
+SAFETY AND ETHICS NOTE
+----------------------------------------
+Telemetry systems capture user behavior data across applications. Production implementations must strip or hash Personally Identifiable Information (PII) before publishing to event topics. The starter schema includes only pseudonymized identifiers (`user_id`, `tenant_id`).
+
+LEARNING RESOURCES
+----------------------------------------
+- ClickHouse Official Documentation: "MergeTree Family Engines" and "Kafka Table Engine".
+- PostHog Engineering Blog: "ClickHouse performance tuning for product analytics".
+- Apache Kafka Documentation: Producer batching configurations (`linger.ms`, `batch.size`).
+
+SCREENER VERIFICATION RUBRIC
+----------------------------------------
+1. Environment Health Check: Run `docker compose up -d` followed by `./verify.sh --health`. Passes when Kafka and ClickHouse containers report healthy status and client connections succeed within 30 seconds.
+2. Ingestion Pipeline Verification: Stream 5,000 synthetic telemetry events using `npm run seed -- --count 5000`. Passes when ClickHouse table `events` reflects exactly 5,000 rows within 10 seconds of script completion.
+3. Funnel Query Execution: Execute `npm run query:funnel -- --tenant tenant_1`. Passes when ClickHouse computes multi-step conversion counts using `windowFunnel` and returns results in < [M ms] (target < 100ms).
+4. Retention Matrix Verification: Execute `npm run query:retention -- --tenant tenant_1`. Passes when query generates a 30-day weekly retention cohort matrix with correct user retention percentages matching synthetic ground truth.
+5. Storage Compression Verification: Run `npm run audit:compression`. Passes when script queries `system.parts` and outputs disk compression ratio demonstrating ≥ [X:1] compression (target ≥ 6:1).
+
+RESUME BULLET FORMULA
+----------------------------------------
+"Architected multi-tenant telemetry ingestion pipeline streaming event beacons through Kafka into ClickHouse; achieved [N] events/sec ingestion throughput and sub-[M ms] aggregate dashboard queries over [K] million events with [X:1] columnar compression."
+
+Do not claim: sub-100ms query latency or 8x compression without measuring on populated tables; do not claim real-time streaming without verifying batch flush parameters; do not claim distributed sharding without implementing a multi-node cluster.
+
+Generated by HireFlow — hireflow.io

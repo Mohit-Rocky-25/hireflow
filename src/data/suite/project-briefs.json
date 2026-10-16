@@ -95,24 +95,24 @@
     "id": "brief-analytics-clickhouse",
     "title": "Multi-Tenant B2B Event Analytics Engine",
     "domain": "Data Engineering",
-    "estimatedHours": 25,
+    "estimatedHours": 30,
     "difficulty": "intermediate",
-    "coveredSkills": ["Kafka", "ClickHouse", "Node.js", "SQL", "Docker", "Data Pipelines"],
-    "problemStatement": "SaaS analytics products struggle to query billions of clickstream events in real-time without costly batch compute. Traditional OLTP databases like PostgreSQL time out on analytical queries above 50M rows. Build an analytical ingestion pipeline that streams client telemetry into ClickHouse with instant aggregations.",
-    "useCases": "Mixpanel, Amplitude, Clevertap, and MoEngage all solve this. In India, companies like WebEngage and CleverTap are building exactly this infrastructure. Any B2B SaaS company with a product analytics offering needs this at scale.",
-    "problemItSolves": "The gap between OLTP (operational) and OLAP (analytical) databases is one of the most important architectural decisions in data engineering. This project proves you understand columnar storage, data ingestion pipelines, and query optimization — three pillars of data engineering interviews.",
-    "recruiterSignal": "ClickHouse is the database of choice for real-time analytics at Uber, Cloudflare, and ByteDance. Knowledge of its internals (MergeTree, primary key ordering, compression) is a strong differentiator for Data Engineering roles at scale-up companies.",
-    "architecture": "HTTP telemetry ingestion worker queues JSON beacons into Kafka topics. Kafka-ClickHouse engine tables batch write columnar rows into partition-backed MergeTree tables. A GraphQL/REST API queries funnels, retention cohorts, and time-series aggregations in real time.",
-    "scaleTargets": "Ingest 10,000 events/sec while serving 95% of aggregate dashboard queries in < 100ms over 10M+ recorded events.",
+    "coveredSkills": ["ClickHouse", "Kafka", "Node.js", "SQL", "Docker", "TypeScript", "Data Pipelines"],
+    "problemStatement": "SaaS telemetry platforms process millions of interaction events daily from web and mobile clients, but querying aggregate funnel conversions, retention cohorts, and time-series metrics on traditional row-oriented OLTP databases results in excessive query latency and timeouts once tables exceed tens of millions of rows. Analytical systems require columnar storage, data compression, and partitioned indexing to scan billions of values per second. This project builds a multi-tenant telemetry ingestion and analytical engine that streams event beacons through Kafka into a partitioned ClickHouse cluster, maintaining sub-second aggregation latencies across multi-million row datasets.",
+    "useCases": "Product analytics platforms ingest high-throughput user clickstreams to generate real-time behavioral metrics. Neutral architectural reference points include open-source and commercial product analytics systems such as PostHog, Mixpanel, and Amplitude.",
+    "problemItSolves": "Preventing Part Explosion: ClickHouse creates immutable physical directory parts for every write transaction. Ingesting high-frequency single records directly triggers the 'Too many parts in all data in table' exception. The ingestion pipeline must enforce batch buffering (minimum 10,000 events or 5-second flushes) before persisting to disk.",
+    "recruiterSignal": "Demonstrates mastery of the OLTP vs. OLAP boundary, columnar database internals (sparse primary keys, column encoding, merge policies), and high-throughput streaming architecture. Directly maps to Data Platform Engineer, Analytics Engineer, and Backend Data Infrastructure roles.",
+    "architecture": "Node.js/TypeScript HTTP receiver validates incoming JSON beacons against strict schemas and publishes to partitioned Kafka topics keyed by tenant_id. ClickHouse consumes from Kafka via Kafka Engine and buffers columnar batches of 10,000+ records into a ReplacingMergeTree table partitioned by toDate(timestamp) with ZSTD compression. Analytical query layer exposes REST endpoints for funnel conversions, retention cohorts, and time-series metrics.",
+    "scaleTargets": "Ingestion Throughput: > 10,000 events/sec sustained over 100k test events | Query Latency: p95 < 100ms for 3-step conversion funnel over 10M rows | Storage Compression: Disk compression ratio ≥ [X:1] (target ≥ 6:1) verified via system.parts.",
     "techStack": ["ClickHouse", "Kafka", "Node.js", "Docker", "SQL", "TypeScript"],
     "verificationRubric": [
-      "ClickHouse MergeTree schema with primary keys tuned for date-partitioning",
-      "Simulated traffic generator streaming 1M events into the ingestion pipeline",
-      "SQL query suite demonstrating funnel conversion and 30-day cohort retention",
-      "Docker compose bundle orchestrating ClickHouse, Kafka, and API services",
-      "Architecture benchmark documenting read/write IOPS and compression ratios"
+      "Environment Health Check: Verify docker compose up -d launches Kafka and ClickHouse with healthy connection status in < 30s.",
+      "Ingestion Pipeline Verification: Stream 5,000 synthetic events via npm run seed; verify ClickHouse events table reflects exactly 5,000 rows within 10s.",
+      "Funnel Query Execution: Execute npm run query:funnel; verify ClickHouse computes multi-step conversion counts using windowFunnel in < [M ms] (target < 100ms).",
+      "Retention Matrix Verification: Execute npm run query:retention; verify query generates 30-day weekly retention cohort matrix matching ground truth.",
+      "Storage Compression Verification: Run npm run audit:compression; verify system.parts reports columnar compression ratio ≥ [X:1] (target ≥ 6:1)."
     ],
-    "portfolioBulletFormula": "Implemented multi-tenant telemetry pipeline using Kafka and ClickHouse; delivered sub-100ms dashboard aggregations over 10M+ events with an 8x data compression ratio."
+    "portfolioBulletFormula": "Architected multi-tenant telemetry ingestion pipeline streaming event beacons through Kafka into ClickHouse; achieved [N] events/sec ingestion throughput and sub-[M ms] aggregate dashboard queries over [K] million events with [X:1] columnar compression."
   },
   {
     "id": "brief-fullstack-ecommerce",
