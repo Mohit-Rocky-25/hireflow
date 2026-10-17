@@ -1,165 +1,131 @@
-# HireFlow AI — The Candidate-First AI Career & ATS Super-Platform
+# HireFlow
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Security Hardened](https://img.shields.io/badge/Security-Audit_Passed_(100%25)-emerald.svg)](docs/security/AUDIT_LOG.md)
-[![Privacy First](https://img.shields.io/badge/Privacy-Zero_Data_Egress-cyan.svg)](docs/security/PRIVACY_AUDIT.md)
-[![Tests Passing](https://img.shields.io/badge/Tests-Vitest_Passing-brightgreen.svg)](docs/BUILD_REPORT.md)
-
-> **Empowering job seekers with an uncompromising, private, and deterministic Career & ATS Intelligence Suite.**  
-> *Zero cloud API bills. Zero resume data leakage. Zero black-box rejections.*
+HireFlow is a privacy-first, client-side career intelligence platform and deterministic Applicant Tracking System (ATS) evaluation engine.
 
 ---
 
-## 🎯 The Motive: Why HireFlow AI Exists
+## Features
 
-The modern hiring process is broken for job seekers:
+### 1. ATS Resume Roaster (`/tools/resume-checker`)
+- Deterministic ATS evidence scoring across Hard Skills, Writing Quality, Seniority Alignment, and Format Safety.
+- Verbatim resume evidence citations with exact match, alias, implied, and related skill detection.
+- Actionable harsh truths identifying keyword stuffing, missing metrics, and structural risks.
 
-1. **The Black-Box ATS Wall**: Over 75% of qualified resumes are filtered out by automated Applicant Tracking Systems (ATS) before any human recruiter ever sees them. Candidates are left wondering why they were rejected.
-2. **Predatory & Unreliable Tools**: Most commercial resume tools charge expensive per-scan subscriptions, send your sensitive personal data to remote cloud servers, or use generic LLMs that hallucinate fake skills and experiences—getting candidates disqualified during interviews.
-3. **Compensation & CTC Confusion**: Job offers and CTCs (especially in India and global tech hubs) hide massive disparities between inflated headline figures and actual in-hand monthly pay. Candidates lack transparent tools to model tax implications, bonuses, and ESOPs.
-4. **The Directionless Search**: Job seekers apply blindly to hundreds of postings without knowing which jobs match their strengths, what specific skills they are missing, or what projects would actually bridge the gap.
+### 2. Dual-Role Job Description Comparison (`/tools/jd-compare`)
+- Aligned head-to-head comparison between competing job postings.
+- Synchronized metric rings (Fit Score, Must-Haves, Callback Probability, Readiness Tier).
+- Architectural divergence analysis isolating shared core technologies versus role-exclusive requirements.
+- 3-step actionable bridge preparation plan.
 
-### Our Mission
-**HireFlow AI flips the power dynamic in favor of the candidate.** 
+### 3. Resume Tailor Engine (`/tools/tailor`)
+- Evidence-grounded tailoring that prevents hallucinated skills or unearned credentials.
+- Real-time dark paper preview and Word `.docx` download.
+- Sentence-level rewrite suggestions backed by quantifiable metrics.
 
-We provide every job seeker with a free, state-of-the-art career super-suite running **100% locally in your browser**. Your resumes, personal info, and compensation data never leave your machine. You get deterministic, explainable scoring with zero guesswork and zero recurring cost.
+### 4. Career Trajectory & Roadmaps (`/tools/career-path`)
+- Interactive career ladder simulator across major engineering levels and compensation tiers.
+- Dream job roadmap generator identifying technical stepping stones and promotion timelines.
+- Company levels comparison across Big Tech and Indian flagships.
 
----
+### 5. TalentLens Intelligence (`/tools/talent-lens`)
+- Deep company profiles, interview stage breakdowns, and culture insights.
+- Glassdoor-calibrated ratings, engineering compensation bands, and technical interview rubrics.
 
-## 🌟 Architecture & Core Guarantees
+### 6. Outreach Generator (`/tools/reach-out`)
+- Tailored recruiter and hiring manager cold outreach message generator.
+- Multi-channel templates (LinkedIn InMail, Referral Request, Cold Email).
 
-```
-┌──────────────────────────────────────────────────────────────────────────────────┐
-│                                 HIREFLOW AI CORE                                 │
-├────────────────────────────────────────┬─────────────────────────────────────────┤
-│ 🛡️ 100% Privacy & Zero Egress           │ ⚡ Deterministic Edge Engine             │
-│ • Runs entirely in the client browser  │ • Pure TypeScript parsing & scoring     │
-│ • No resume upload to external servers │ • Sub-50ms execution latency            │
-│ • DPDP Act 2023 & GDPR aligned         │ • Zero external AI API keys required    │
-├────────────────────────────────────────┼─────────────────────────────────────────┤
-│ 🔍 TruthCheck & Verbatim Citations     │ 📊 Comprehensive Career Intelligence    │
-│ • Every score backed by exact quotes   │ • Real Indian & global compensation data│
-│ • Zero hallucinated skills or claims   │ • Verified promotion ladders & blockers │
-└────────────────────────────────────────┴─────────────────────────────────────────┘
-```
+### 7. Project Briefs Builder (`/tools/build-briefs`)
+- Tailored project specifications designed to close specific technical resume gaps.
+- Includes architectural blueprints, database schemas, and resume bullet point templates.
 
-- **Client-Side Edge Execution**: All resume parsing (PDF/DOCX), keyword extraction, JD analysis, and scoring run completely in-browser via Web APIs and deterministic algorithms.
-- **Explainable & Verbatim**: The engine doesn't produce random numbers. Every score includes a transparent breakdown: Matched Skills, Missing Prerequisites, Writing Quality, and Structure.
-- **Anti-Hallucination TruthCheck**: Tailoring suggestions are strictly cross-verified against your actual background—ensuring you never misrepresent your credentials.
-- **Zero Cost & Offline-Ready**: Works out-of-the-box on static hosting (Vercel, Cloudflare Pages, Netlify) with **$0 cloud maintenance costs**.
-
----
-
-## 🛠️ Complete Feature Suite
-
-HireFlow AI provides 9 integrated modules designed to support candidates at every stage of their career journey:
-
-### 1. 🎯 Deterministic ATS Resume Scanner & Scorer
-- Multi-dimensional scoring across **Hard Skills**, **Domain Competencies**, **Measurable Impact**, and **Formatting / ATS Readability**.
-- Real-time feedback identifying exact keyword gaps, weak action verbs, and structural issues.
-- Verbatim citation highlighting showing where in your resume each requirement was discovered.
-
-### 2. ⚖️ Compare Job Descriptions (JD Comparator)
-- Paste two or more target job descriptions side-by-side.
-- Instantly compare required tech stacks, seniority expectations, and responsibilities.
-- Prioritize applications where your current profile gives you the highest competitive advantage.
-
-### 3. 💰 Offer Decoder & Indian Tax Engine
-- **In-Hand Pay Calculator**: Converts inflated CTC packages into accurate monthly bank credits.
-- **Tax Modeling**: Full calculation under the Indian New Tax Regime (FY 2026-27), including standard deduction, slab calculations, and **Section 87A rebate & marginal relief** logic.
-- **Equity & Bonus Breakdown**: Models joining bonuses, performance incentives, and multi-year ESOP/RSU vesting schedules.
-
-### 4. 📈 Tech Career Ladders & Progression Hub
-- Comprehensive benchmarks covering:
-  - **Big Tech India** (Google, Microsoft, Amazon, Meta, Uber, etc.)
-  - **Indian Product Unicorns** (Flipkart, Swiggy, Zomato, Razorpay, Zepto, CRED, etc.)
-  - **GCCs & Global Finance** (Goldman Sachs, Morgan Stanley, Walmart Global Tech, etc.)
-  - **IT Services** (TCS, Infosys, Wipro, Accenture, etc.)
-- Real promotion timelines, level equivalences (L3 Entry to L7+ Principal), and documented **structured promotion blockers** to help you break through career plateaus.
-
-### 5. ✍️ TruthCheck Resume Tailor
-- Intelligently align your resume against specific target roles without lying.
-- Identifies transferable skills and phrasing enhancements while warning against unearned claims.
-
-### 6. 🛠️ Project Briefs & Skill Gap Bundler
-- Discovers missing core technologies from target JDs and uses a **set-cover algorithm** to bundle them into concrete, portfolio-ready project specifications.
-- Gives you complete project architectures, tech stacks, and step-by-step implementation milestones.
-
-### 7. 📬 Strategic Cold Outreach Generator
-- Generates 15+ personalized, high-converting outreach messages for recruiters, engineering managers, and alumni.
-- Tailors tone, highlights your verified match points, and avoids spammy generic phrases.
-
-### 8. 📋 Candidate Pipeline & Application Tracker
-- Private, local Kanban board to track your active applications from *Saved* and *Applied* to *Interview* and *Offer*.
-- Add custom notes, interview dates, referral contacts, and round-by-round debriefs.
-
-### 9. 🧪 TalentLens Competency Assessments
-- Interactive technical assessments and coding challenges to test your core engineering knowledge before walking into real interviews.
+### 8. Enterprise Role Dashboards
+- Multi-persona platform supporting Business HR Managers (`/company/dashboard`), HR Recruiters, Interviewers (`/interviewer/dashboard`), and Platform Administrators (`/admin/dashboard`).
 
 ---
 
-## 💻 Tech Stack
+## Tech Stack
 
-- **Framework**: [React 19](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/)
-- **Build Tool**: [Vite 8](https://vitejs.dev/)
-- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
-- **State Management**: [Zustand v5](https://github.com/pmndrs/zustand) with local storage persistence
-- **Visualizations**: [Recharts](https://recharts.org/)
-- **Document Parsers**: `pdfjs-dist` (in-browser canvas PDF parsing) & `mammoth` (DOCX extraction)
-- **Testing**: [Vitest](https://vitest.dev/) (Unit, Integration & Security test suites)
-- **Icons**: [Lucide React](https://lucide.dev/)
+- **Core**: React 19, TypeScript, Vite
+- **Styling**: Tailwind CSS, PostCSS
+- **State Management**: Zustand with persistent storage
+- **Routing**: React Router v7
+- **Document Processing**: `pdfjs-dist`, `docx`, `mammoth`
+- **Charts & Visualization**: Recharts, Lucide React
+- **Validation**: Zod
+- **Testing**: Vitest
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
-- Node.js (v18 or higher recommended)
+- Node.js 18+
 - npm or pnpm
 
-### 1. Clone the repository
+### Installation
 ```bash
 git clone https://github.com/Mohit-Rocky-25/hireflow.git
 cd hireflow
-```
-
-### 2. Install dependencies
-```bash
 npm install
 ```
 
-### 3. Run the development server
+### Running Locally
 ```bash
 npm run dev
 ```
-Open [http://localhost:5173](http://localhost:5173) in your browser.
+Open `http://localhost:5173` in your browser.
 
-### 4. Run automated test suites
+### Running Tests
 ```bash
-# Run all unit tests
 npm run test
-
-# Run security and compliance checks
-npm run security:check
 ```
 
-### 5. Build for production
+### Building for Production
 ```bash
 npm run build
+npm run preview
 ```
-The optimized static build will be in the `dist/` folder, ready for immediate $0 deployment to Vercel, Netlify, or Cloudflare Pages.
 
 ---
 
-## 🔒 Security & Privacy Commitments
+## Folder Structure
 
-- **Zero Data Collection**: We do not collect, track, or sell your resumes, personal contact information, or search history.
-- **Hardened Credential Storage**: All client credentials and session tokens utilize NIST FIPS 180-4 standard salted SHA-256 hashes (`SEC-001`).
-- **Strict Content Security**: Enforced Content Security Policy (CSP), anti-clickjacking (`X-Frame-Options: DENY`), and anti-MIME sniffing headers (`X-Content-Type-Options: nosniff`).
-- For complete audit reports, see [SECURITY.md](SECURITY.md) and [docs/security/AUDIT_LOG.md](docs/security/AUDIT_LOG.md).
+```
+hireflow/
+├── public/                # Static assets, SVG sprites, and security headers
+├── docs/                  # Architecture reference and security specifications
+├── scripts/               # Automation, secret scanners, and synthetic fixtures
+├── src/
+│   ├── app/               # Shell layout, navigation, and protected route guards
+│   ├── pages/             # Route-level page components
+│   ├── features/          # Core modules (ats, career-path, suite, roles, auth)
+│   ├── components/        # Shared reusable UI primitives
+│   ├── data/              # Canonical shared datasets (companies, skills, taxonomy)
+│   ├── lib/               # Pure helpers, security validators, and word counters
+│   ├── store/             # Zustand state store and demo fixtures
+│   ├── types/             # Global TypeScript type definitions
+│   ├── App.tsx            # Application router and provider tree
+│   └── main.tsx           # React DOM root entry point
+├── package.json           # Dependencies and project scripts
+├── tsconfig.json          # TypeScript compiler configuration
+└── vite.config.ts         # Vite bundler configuration and dev plugins
+```
 
 ---
 
-## 📄 License
+## Environment Variables
 
-This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
+Copy `.env.example` to `.env` to configure optional server-side enhancements:
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `GEMINI_API_KEY` | Optional Google Gemini API key for hybrid AI commentary | `""` (runs pure deterministic) |
+| `VITE_APP_ENV` | Application environment mode | `development` |
+| `MAX_UPLOAD_SIZE_BYTES` | Maximum allowed document upload size | `5242880` (5 MB) |
+
+---
+
+## License
+
+MIT License. Open source for candidates and developers.

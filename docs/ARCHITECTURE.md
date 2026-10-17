@@ -1,79 +1,40 @@
-# HireFlow Resume Tailor Engine — 7-Stage Pipeline Architecture
+# HireFlow Architecture Reference
 
 ## Overview
-The Resume Tailor Engine transforms raw resume input (plain text, PDF, DOCX, or JSON) into top-tier, recruiter-grade, ATS-safe, mathematically formatted resumes for any professional domain. The pipeline is strictly deterministic, modular, and unit-testable across 7 sequential stages.
+HireFlow is an enterprise candidate career intelligence and ATS evaluation platform built with React 19, TypeScript, Vite, Tailwind CSS, and Zustand.
 
-```
-+-----------------------------------------------------------------------------------+
-|                                  INPUT RESUME                                     |
-+-----------------------------------------------------------------------------------+
-                                         |
-                                         v
- [Stage 1: PARSE]       Raw Input (Text/PDF/DOCX) -> Segmented Structural Blocks
-                                         |
-                                         v
- [Stage 2: NORMALIZE]   Raw Blocks -> Canonical Typed AST (Validated via Zod)
-                                         |
-                                         v
- [Stage 3: ROUTE]       Confidence-based Block Routing -> Section Assignment (>=0.7)
-                        Low-confidence blocks (<0.7) -> Needs-Review List (Zero Silent Loss)
-                                         |
-                                         v
- [Stage 4: POLISH]      Deterministic Grammar/Style/Date Harmonizer (LLM-Optional with Faithfulness Guard)
-                                         |
-                                         v
- [Stage 5: LAYOUT]      Design Tokens + Preset Ordering + Dynamic Page-Fit Iterative Loop
-                                         |
-                                         v
- [Stage 6: VALIDATE]    ATS Compatibility, Lint Rules, Quality Scorer (0-100) & Non-Blocking Suggestions
-                                         |
-                                         v
- [Stage 7: EXPORT]      Render Engine: Live Preview, Clean Print CSS/PDF, DOCX
-```
+## Folder Directory (One Line Per Folder)
+- **`src/app/`**: Application shell, top header, sidebar navigation, public navbar, and role-based route guards.
+- **`src/pages/`**: Thin route-level page components for public routes, company portals, interviewer workflows, and admin portals.
+- **`src/features/ats/`**: Deterministic ATS resume evaluation engine, evidence scorer, format auditor, and benchmark tests.
+- **`src/features/career-path/`**: Career trajectory simulator, dream job roadmap generator, and company leveling explorer.
+- **`src/features/suite/`**: Candidate Decision Suite tools (Compare JDs, Resume Tailor, Outreach Generator, Project Briefs, Credentials Engine, Profile Drawer).
+- **`src/components/`**: Shared reusable UI primitives (PageNav, buttons, modals, badges, cards, charts, icons).
+- **`src/data/`**: Central shared data layer containing company databases, role competencies, academic calendars, and knowledge taxonomies.
+- **`src/lib/`**: Shared pure libraries, security hashing, file parsers, word counters, and deterministic AI scoring providers.
+- **`src/store/`**: Global state management with Zustand, seed datasets, demo fixtures, and local storage persistence.
+- **`src/types/`**: Global TypeScript definitions for users, companies, jobs, applications, interviews, and audits.
+- **`public/`**: Static production assets, favicons, SVG sprite icons, and HTTP security headers.
+- **`scripts/`**: Automation tools for security scanning, credential checks, and synthetic dataset generation.
+- **`docs/`**: Production specifications, security reports, and architectural blueprints.
 
----
+## Shared Data Layer
+- All domain datasets live strictly under `src/data/` (or `src/careers-core/data/`).
+- Features import from the shared data layer via `@/data/...` — no component maintains private duplicated copies.
+- Heavy datasets (>500 KB) are loaded lazily or dynamically streamed to optimize client bundle size.
 
-## The 7 Pipeline Stages
+## Routing System
+- Client routing is orchestrated in `src/App.tsx` using `react-router-dom` v7.
+- Route protection is enforced through `src/app/ProtectedRoute.tsx`, gating views by role: `BHR_MANAGER`, `HR_RECRUITER`, `INTERVIEWER`, `PLATFORM_ADMIN`.
+- Candidate navigation is centralized under `/tools` (Decision Suite) with automatic backwards-compatible redirects for legacy candidate paths.
 
-### Stage 1: PARSE (`/engine/parse`)
-- Accepts raw text, PDF layout streams, DOCX XML, or structured JSON.
-- Extracts lines, indentations, bullets, and section boundaries without discarding punctuation or tokens.
-- Emits raw `ParsedBlock[]` with line indexes and boundary flags.
+## How to Add a Feature
+1. Create a focused directory under `src/features/<feature-name>/`.
+2. Encapsulate business logic, subcomponents, and feature-specific tests within that directory.
+3. Expose a route entry page in `src/pages/` (or under `src/features/<feature-name>/`) and register the path in `src/App.tsx`.
+4. If reusable cross-feature utilities are required, place them in `src/lib/` or `src/components/`.
 
-### Stage 2: NORMALIZE (`/engine/normalize`)
-- Converts raw blocks into the canonical `ResumeSchema` backed by Zod.
-- Enforces atomic typing: skills items are atomic token strings, bullets are isolated array elements.
-- Strips malformed delimiters (`.,`, `..`, orphan colons) while preserving user content verbatim.
-
-### Stage 3: ROUTE (`/engine/route`)
-- Classifies each block into its true section (`header`, `summary`, `education`, `experience`, `projects`, `skills`, `achievements`, `leadership`, `certifications`, `custom`).
-- Assigns a confidence score ($0.0 \le c \le 1.0$) to each classification.
-- **Invariants**:
-  - Blocks with action verbs + titles route to `projects` or `experience`, never `skills`.
-  - Blocks with score $< 0.70$ route to `needs_review` list (Zero Silent Loss).
-  - Merges single-item skill orphan categories into neighboring domain categories.
-
-### Stage 4: POLISH (`/engine/polish`)
-- Purely deterministic text cleanup:
-  - Bullets capitalized, begin with action verbs, end with uniform period.
-  - Fixes double punctuation, trims stray whitespace.
-  - Normalizes date ranges to uniform en-dash format (e.g., `Jan 2026 – Present`).
-  - Bullet length checked (12–28 words ideal); flags fragments or excessive run-ons.
-- **Optional LLM Boundary**: LLM may only rephrase bullets/summary; must pass token-containment Faithfulness Check. Never fabricates metrics or tools.
-
-### Stage 5: LAYOUT (`/engine/layout`)
-- Driven by `tokens.ts` (single sans-serif typography, unified font sizes, 0.6in margins).
-- Implements balanced header contact wrapping to prevent orphan links.
-- Emits layout tree with measurable heights and section orders.
-- Runs dynamic Page-Fit loop: shrinks spacing, then font to 9.5pt, then margins to 0.5in before dropping bullets with flags.
-
-### Stage 6: VALIDATE (`/engine/validate`)
-- Runs rule-based linter and ATS scanner.
-- Computes comprehensive Resume Quality Score (0–100) with category breakdown.
-- Emits non-blocking actionable suggestions (e.g., missing metrics, missing education dates).
-
-### Stage 7: EXPORT (`/engine/export`)
-- Unified single-render path:
-  - React/DOM Live Preview.
-  - Exact A4/Letter Print CSS.
-  - True Microsoft Word `.docx` generator via docx.js.
+## How to Add a Dataset
+1. Place the canonical JSON or TypeScript data model in `src/data/<dataset-name>/`.
+2. Add corresponding Zod schema validation under `src/data/__tests__/` to guarantee data integrity.
+3. Export the typed dataset through a clean entry point in `src/data/index.ts` or directly via `@/data/<dataset-name>`.
