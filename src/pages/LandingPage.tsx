@@ -41,6 +41,23 @@ const FEATURES = [
 
 const TOOLS = [
   {
+    icon: Brain,
+    title: "TalentLens Simulator",
+    badge: `${TOTAL_COMPANIES}+ Employers & Recruiters · 6-Layer AI`,
+    badgeStyle: "bg-sky-50 text-sky-700 border-sky-200/80 group-hover:bg-sky-100",
+    iconBoxStyle: "bg-sky-500/10 border-sky-500/20 text-sky-600 group-hover:bg-sky-500 group-hover:text-white",
+    cardHoverStyle: "hover:border-sky-400/90 hover:ring-2 hover:ring-sky-400/15",
+    accentGrad: "from-sky-500 to-indigo-500",
+    buttonStyle: "group-hover:bg-sky-500 group-hover:text-white group-hover:border-sky-500",
+    points: [
+      "Experience our proprietary B2B AI matching engine",
+      "See how recruiters evaluate your profile behind the scenes",
+      "Understand semantic gap analysis & evidence extraction"
+    ],
+    cta: "Launch Simulator",
+    link: "/demo",
+  },
+  {
     icon: Flame,
     title: "ATS Resume Roaster",
     badge: "Hot · Instant Audit",
@@ -73,23 +90,6 @@ const TOOLS = [
     ],
     cta: "Plan My Trajectory",
     link: "/tools/career-path",
-  },
-  {
-    icon: Brain,
-    title: "TalentLens Simulator",
-    badge: `${TOTAL_COMPANIES}+ Employers & Recruiters · 6-Layer AI`,
-    badgeStyle: "bg-sky-50 text-sky-700 border-sky-200/80 group-hover:bg-sky-100",
-    iconBoxStyle: "bg-sky-500/10 border-sky-500/20 text-sky-600 group-hover:bg-sky-500 group-hover:text-white",
-    cardHoverStyle: "hover:border-sky-400/90 hover:ring-2 hover:ring-sky-400/15",
-    accentGrad: "from-sky-500 to-indigo-500",
-    buttonStyle: "group-hover:bg-sky-500 group-hover:text-white group-hover:border-sky-500",
-    points: [
-      "Experience our proprietary B2B AI matching engine",
-      "See how recruiters evaluate your profile behind the scenes",
-      "Understand semantic gap analysis & evidence extraction"
-    ],
-    cta: "Launch Simulator",
-    link: "/demo",
   },
 ];
 
