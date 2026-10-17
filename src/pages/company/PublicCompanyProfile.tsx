@@ -5,7 +5,7 @@
 import { useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useStore } from '../../store/useStore';
-import { PublicNavbar } from '../../components/layout/PublicNavbar';
+import { PublicNavbar } from '../../app/layout/PublicNavbar';
 import { 
   MapPin, Globe, Users, TrendingUp, Building2, ChevronRight, 
   Briefcase, Star, ChevronLeft, ArrowRight, CheckCircle2,

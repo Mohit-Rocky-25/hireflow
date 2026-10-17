@@ -15,7 +15,7 @@ import {
   Eye, Search, Star, ExternalLink, AlertCircle
 } from "lucide-react";
 import { Button, Badge } from "../../components/ui/Components";
-import { PublicNavbar } from "../../components/layout/PublicNavbar";
+import { PublicNavbar } from "../../app/layout/PublicNavbar";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 type StatusKey = "APPLIED" | "SCREENING" | "REVIEW" | "SHORTLISTED" | "INTERVIEW" | "OFFER" | "HIRED" | "REJECTED";

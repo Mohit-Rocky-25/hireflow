@@ -14,7 +14,7 @@ import {
   Award,
 } from 'lucide-react';
 import { PageNav } from '../../components/common/PageNav';
-import { PublicNavbar } from '../../components/layout/PublicNavbar';
+import { PublicNavbar } from '../../app/layout/PublicNavbar';
 import { careers } from '../../careers-core';
 import { COMPANIES } from '../demo/talentLensData';
 

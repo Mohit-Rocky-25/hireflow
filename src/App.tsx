@@ -7,7 +7,7 @@ import { useStore } from './store/useStore';
 import { CinematicLoader } from './components/Loader/CinematicLoader';
 
 // Layouts
-import { AppShell } from './components/layout/AppShell';
+import { AppShell } from './app/layout/AppShell';
 
 // Public Pages
 import { LandingPage } from './pages/LandingPage';
@@ -65,7 +65,7 @@ import { AdminSettings } from './pages/admin/AdminSettings';
 import { NotificationsPage } from './pages/NotificationsPage';
 
 // Guards
-import { ProtectedRoute } from './components/auth/ProtectedRoute';
+import { ProtectedRoute } from './app/ProtectedRoute';
 import { ToastContainer } from './components/ui/Toast';
 
 import { ProfileProvider } from './features/suite/profile/ProfileContext';

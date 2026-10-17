@@ -22,7 +22,7 @@ import {
   X,
 } from 'lucide-react';
 import { Link, useSearchParams, useNavigate } from 'react-router-dom';
-import { PublicNavbar } from '../../components/layout/PublicNavbar';
+import { PublicNavbar } from '../../app/layout/PublicNavbar';
 import { useProfile } from '../../features/suite/profile/ProfileContext';
 import { QuickSummaryCard } from '../../features/suite/components/QuickSummaryCard';
 import { buildQuickSummary } from '../../features/suite/engine/quickSummary';

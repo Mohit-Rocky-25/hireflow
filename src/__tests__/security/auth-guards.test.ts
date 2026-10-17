@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { evaluateRouteGuard } from '@/components/auth/ProtectedRoute';
+import { evaluateRouteGuard } from '@/app/ProtectedRoute';
 import type { UserRole } from '@/types';
 
 class StorageMock implements Storage {
