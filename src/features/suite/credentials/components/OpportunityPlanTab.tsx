@@ -43,9 +43,11 @@ import { CredentialsStorage } from '../storage';
 import { useTalentLensStore } from '../../../../pages/demo/useTalentLensStore';
 import { useProfile } from '../../profile/ProfileContext';
 import { getCandidateTierStatus } from '../../integration/trajectory';
+import { getVerifiedTimeline } from '../engine/timelineEngine';
+import { ModalTab } from './OpportunityDetailModal';
 
 interface OpportunityPlanTabProps {
-  onSelectOpportunity: (opportunity: OpportunityRecord) => void;
+  onSelectOpportunity: (opportunity: OpportunityRecord, tab?: ModalTab) => void;
   onPlanChanged?: () => void;
 }
 
@@ -396,76 +398,115 @@ export function OpportunityPlanTab({
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {planResult.thirtyDayPlan.map((rec, idx) => (
-                <div
-                  key={idx}
-                  className="p-6 rounded-3xl bg-surface border-2 border-border shadow-xs hover:border-emerald-500/60 transition-all flex flex-col justify-between space-y-4 relative overflow-hidden"
-                >
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-emerald-500/80" />
+              {planResult.thirtyDayPlan.map((rec, idx) => {
+                const timeline = getVerifiedTimeline(rec.opportunity);
+                return (
+                  <div
+                    key={idx}
+                    className="p-6 rounded-3xl bg-surface border-2 border-border shadow-xs hover:border-emerald-500/60 transition-all flex flex-col justify-between space-y-4 relative overflow-hidden"
+                  >
+                    <div className="absolute top-0 left-0 right-0 h-1 bg-emerald-500/80" />
 
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between">
-                      <span className="px-2.5 py-1 text-xs font-mono font-bold rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
-                        Priority: {rec.priority.toUpperCase()}
-                      </span>
-                      <span className="text-xs text-text-secondary font-medium flex items-center gap-1">
-                        <Clock className="w-3.5 h-3.5 text-primary" />
-                        <span>{rec.estimatedEffort}</span>
-                      </span>
-                    </div>
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between">
+                        <span className="px-2.5 py-1 text-xs font-mono font-bold rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                          Priority: {rec.priority.toUpperCase()}
+                        </span>
+                        <span className="text-xs text-text-secondary font-medium flex items-center gap-1">
+                          <Clock className="w-3.5 h-3.5 text-primary" />
+                          <span>{rec.estimatedEffort}</span>
+                        </span>
+                      </div>
 
-                    <h4
-                      onClick={() => {
-                        const url = rec.opportunity.directPortalUrl || rec.opportunity.officialUrl || rec.opportunity.syllabusUrl;
-                        if (url) window.open(url, '_blank', 'noopener,noreferrer');
-                      }}
-                      title={`Open official site for ${rec.opportunity.name}`}
-                      className="text-lg font-bold text-foreground hover:text-primary transition-colors cursor-pointer"
-                    >
-                      {rec.opportunity.name}
-                    </h4>
-
-                    <div className="space-y-2 text-xs text-text-secondary leading-relaxed">
-                      <p><strong className="text-foreground">Why Recommended:</strong> {rec.reason}</p>
-                      <p><strong className="text-foreground">Evidence Created:</strong> {rec.evidenceCreated}</p>
-                      <p><strong className="text-foreground">Resume Improvement:</strong> {rec.resumeImprovement}</p>
-                      <p><strong className="text-foreground">Completion Milestone:</strong> {rec.completionCondition}</p>
-                    </div>
-                  </div>
-
-                  <div className="pt-4 border-t border-border flex items-center justify-between gap-2">
-                    <div className="flex items-center gap-3">
-                      <button
-                        onClick={() => onSelectOpportunity(rec.opportunity)}
-                        className="text-xs font-bold text-primary hover:underline cursor-pointer"
+                      <h4
+                        onClick={() => onSelectOpportunity(rec.opportunity, 'overview')}
+                        title={`Click to view brief for ${rec.opportunity.name}`}
+                        className="text-lg font-bold text-foreground hover:text-primary transition-colors cursor-pointer"
                       >
-                        View Details →
-                      </button>
-                      {(rec.opportunity.syllabusUrl || rec.opportunity.officialUrl) && (
-                        <a
-                          href={rec.opportunity.syllabusUrl || rec.opportunity.officialUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={(e) => handleExternalRedirect(e, rec.opportunity.syllabusUrl || rec.opportunity.officialUrl)}
-                          className="text-xs font-medium text-text-secondary hover:text-foreground inline-flex items-center gap-1 cursor-pointer"
-                        >
-                          <FileText className="w-3 h-3 text-primary" />
-                          <span>Syllabus</span>
-                        </a>
-                      )}
+                        {rec.opportunity.name}
+                      </h4>
+
+                      {/* Interactive Verified Timeline & Year Placement */}
+                      <div
+                        onClick={() => onSelectOpportunity(rec.opportunity, 'timeline')}
+                        className="p-3 rounded-2xl bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 transition-all cursor-pointer group/time"
+                        title="Click to view verified timeline schedule and official data sources"
+                      >
+                        <div className="flex items-center justify-between gap-1 mb-1">
+                          <span className="text-[10px] font-black uppercase tracking-wider text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                            <span>Verified Schedule ↗</span>
+                          </span>
+                          <span className="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 flex items-center group-hover/time:translate-x-0.5 transition-transform">
+                            Timeline & Sources <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
+                          </span>
+                        </div>
+                        <p className="text-xs font-black text-foreground flex items-center gap-1.5">
+                          <Calendar className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                          <span>{timeline.seasonLabel}</span>
+                        </p>
+                        <div className="flex items-center justify-between text-[10px] text-text-secondary mt-1">
+                          <span>Target: <strong>{timeline.academicYearFit}</strong></span>
+                          <span className="text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1">
+                            <ShieldCheck className="w-3 h-3" />
+                            Audited {timeline.verifiedAuditDate}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="space-y-2 text-xs text-text-secondary leading-relaxed">
+                        <p><strong className="text-foreground">Why Recommended:</strong> {rec.reason}</p>
+                        <p><strong className="text-foreground">Evidence Created:</strong> {rec.evidenceCreated}</p>
+                        <p><strong className="text-foreground">Resume Improvement:</strong> {rec.resumeImprovement}</p>
+                        <p><strong className="text-foreground">Completion Milestone:</strong> {rec.completionCondition}</p>
+                        <p className="text-[11px] text-text-muted pt-1 border-t border-border/40">
+                          Official Authority: <strong className="text-foreground/80">{timeline.sources[0]?.name || rec.opportunity.organizer}</strong>
+                        </p>
+                      </div>
                     </div>
 
-                    <button
-                      onClick={() => handleAddRecommendationToPlan(rec.opportunity, '30_day')}
-                      className="px-3 py-1.5 rounded-lg bg-emerald-600 text-white text-xs font-bold hover:bg-emerald-700 transition-colors cursor-pointer shrink-0"
-                    >
-                      {savedItems.some((s) => s.opportunityId === rec.opportunity.id)
-                        ? 'Saved in Plan'
-                        : '+ Add to 30D Plan'}
-                    </button>
+                    <div className="pt-4 border-t border-border flex items-center justify-between gap-2">
+                      <div className="flex items-center gap-3">
+                        <button
+                          onClick={() => onSelectOpportunity(rec.opportunity, 'overview')}
+                          className="text-xs font-bold text-primary hover:underline cursor-pointer"
+                        >
+                          View Details →
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => onSelectOpportunity(rec.opportunity, 'timeline')}
+                          className="text-xs font-bold text-emerald-600 dark:text-emerald-400 hover:underline flex items-center gap-1 cursor-pointer"
+                        >
+                          <Calendar className="w-3 h-3" />
+                          <span>Timeline</span>
+                        </button>
+                        {(rec.opportunity.syllabusUrl || rec.opportunity.officialUrl) && (
+                          <a
+                            href={rec.opportunity.syllabusUrl || rec.opportunity.officialUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => handleExternalRedirect(e, rec.opportunity.syllabusUrl || rec.opportunity.officialUrl)}
+                            className="text-xs font-medium text-text-secondary hover:text-foreground inline-flex items-center gap-1 cursor-pointer"
+                          >
+                            <FileText className="w-3 h-3 text-primary" />
+                            <span>Syllabus</span>
+                          </a>
+                        )}
+                      </div>
+
+                      <button
+                        onClick={() => handleAddRecommendationToPlan(rec.opportunity, '30_day')}
+                        className="px-3 py-1.5 rounded-lg bg-emerald-600 text-white text-xs font-bold hover:bg-emerald-700 transition-colors cursor-pointer shrink-0"
+                      >
+                        {savedItems.some((s) => s.opportunityId === rec.opportunity.id)
+                          ? 'Saved in Plan'
+                          : '+ Add to 30D Plan'}
+                      </button>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
 
@@ -488,76 +529,115 @@ export function OpportunityPlanTab({
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {planResult.sixtyDayPlan.map((rec, idx) => (
-                <div
-                  key={idx}
-                  className="p-6 rounded-3xl bg-surface border-2 border-border shadow-xs hover:border-indigo-500/60 transition-all flex flex-col justify-between space-y-4 relative overflow-hidden"
-                >
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-indigo-500/80" />
+              {planResult.sixtyDayPlan.map((rec, idx) => {
+                const timeline = getVerifiedTimeline(rec.opportunity);
+                return (
+                  <div
+                    key={idx}
+                    className="p-6 rounded-3xl bg-surface border-2 border-border shadow-xs hover:border-indigo-500/60 transition-all flex flex-col justify-between space-y-4 relative overflow-hidden"
+                  >
+                    <div className="absolute top-0 left-0 right-0 h-1 bg-indigo-500/80" />
 
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between">
-                      <span className="px-2.5 py-1 text-xs font-mono font-bold rounded-md bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20">
-                        Priority: {rec.priority.toUpperCase()}
-                      </span>
-                      <span className="text-xs text-text-secondary font-medium flex items-center gap-1">
-                        <Clock className="w-3.5 h-3.5 text-primary" />
-                        <span>{rec.estimatedEffort}</span>
-                      </span>
-                    </div>
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between">
+                        <span className="px-2.5 py-1 text-xs font-mono font-bold rounded-md bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20">
+                          Priority: {rec.priority.toUpperCase()}
+                        </span>
+                        <span className="text-xs text-text-secondary font-medium flex items-center gap-1">
+                          <Clock className="w-3.5 h-3.5 text-primary" />
+                          <span>{rec.estimatedEffort}</span>
+                        </span>
+                      </div>
 
-                    <h4
-                      onClick={() => {
-                        const url = rec.opportunity.directPortalUrl || rec.opportunity.officialUrl || rec.opportunity.syllabusUrl;
-                        if (url) window.open(url, '_blank', 'noopener,noreferrer');
-                      }}
-                      title={`Open official site for ${rec.opportunity.name}`}
-                      className="text-lg font-bold text-foreground hover:text-primary transition-colors cursor-pointer"
-                    >
-                      {rec.opportunity.name}
-                    </h4>
-
-                    <div className="space-y-2 text-xs text-text-secondary leading-relaxed">
-                      <p><strong className="text-foreground">Why Recommended:</strong> {rec.reason}</p>
-                      <p><strong className="text-foreground">Evidence Created:</strong> {rec.evidenceCreated}</p>
-                      <p><strong className="text-foreground">Resume Improvement:</strong> {rec.resumeImprovement}</p>
-                      <p><strong className="text-foreground">Completion Milestone:</strong> {rec.completionCondition}</p>
-                    </div>
-                  </div>
-
-                  <div className="pt-4 border-t border-border flex items-center justify-between gap-2">
-                    <div className="flex items-center gap-3">
-                      <button
-                        onClick={() => onSelectOpportunity(rec.opportunity)}
-                        className="text-xs font-bold text-primary hover:underline cursor-pointer"
+                      <h4
+                        onClick={() => onSelectOpportunity(rec.opportunity, 'overview')}
+                        title={`Click to view brief for ${rec.opportunity.name}`}
+                        className="text-lg font-bold text-foreground hover:text-primary transition-colors cursor-pointer"
                       >
-                        View Details →
-                      </button>
-                      {(rec.opportunity.syllabusUrl || rec.opportunity.officialUrl) && (
-                        <a
-                          href={rec.opportunity.syllabusUrl || rec.opportunity.officialUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={(e) => handleExternalRedirect(e, rec.opportunity.syllabusUrl || rec.opportunity.officialUrl)}
-                          className="text-xs font-medium text-text-secondary hover:text-foreground inline-flex items-center gap-1 cursor-pointer"
-                        >
-                          <FileText className="w-3 h-3 text-primary" />
-                          <span>Syllabus</span>
-                        </a>
-                      )}
+                        {rec.opportunity.name}
+                      </h4>
+
+                      {/* Interactive Verified Timeline & Year Placement */}
+                      <div
+                        onClick={() => onSelectOpportunity(rec.opportunity, 'timeline')}
+                        className="p-3 rounded-2xl bg-indigo-500/10 hover:bg-indigo-500/20 border border-indigo-500/30 transition-all cursor-pointer group/time"
+                        title="Click to view verified timeline schedule and official data sources"
+                      >
+                        <div className="flex items-center justify-between gap-1 mb-1">
+                          <span className="text-[10px] font-black uppercase tracking-wider text-indigo-600 dark:text-indigo-400 flex items-center gap-1.5">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                            <span>Verified Schedule ↗</span>
+                          </span>
+                          <span className="text-[11px] font-bold text-indigo-600 dark:text-indigo-400 flex items-center group-hover/time:translate-x-0.5 transition-transform">
+                            Timeline & Sources <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
+                          </span>
+                        </div>
+                        <p className="text-xs font-black text-foreground flex items-center gap-1.5">
+                          <Calendar className="w-3.5 h-3.5 text-indigo-500 shrink-0" />
+                          <span>{timeline.seasonLabel}</span>
+                        </p>
+                        <div className="flex items-center justify-between text-[10px] text-text-secondary mt-1">
+                          <span>Target: <strong>{timeline.academicYearFit}</strong></span>
+                          <span className="text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1">
+                            <ShieldCheck className="w-3 h-3" />
+                            Audited {timeline.verifiedAuditDate}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="space-y-2 text-xs text-text-secondary leading-relaxed">
+                        <p><strong className="text-foreground">Why Recommended:</strong> {rec.reason}</p>
+                        <p><strong className="text-foreground">Evidence Created:</strong> {rec.evidenceCreated}</p>
+                        <p><strong className="text-foreground">Resume Improvement:</strong> {rec.resumeImprovement}</p>
+                        <p><strong className="text-foreground">Completion Milestone:</strong> {rec.completionCondition}</p>
+                        <p className="text-[11px] text-text-muted pt-1 border-t border-border/40">
+                          Official Authority: <strong className="text-foreground/80">{timeline.sources[0]?.name || rec.opportunity.organizer}</strong>
+                        </p>
+                      </div>
                     </div>
 
-                    <button
-                      onClick={() => handleAddRecommendationToPlan(rec.opportunity, '60_day')}
-                      className="px-3 py-1.5 rounded-lg bg-indigo-600 text-white text-xs font-bold hover:bg-indigo-700 transition-colors cursor-pointer shrink-0"
-                    >
-                      {savedItems.some((s) => s.opportunityId === rec.opportunity.id)
-                        ? 'Saved in Plan'
-                        : '+ Add to 60D Plan'}
-                    </button>
+                    <div className="pt-4 border-t border-border flex items-center justify-between gap-2">
+                      <div className="flex items-center gap-3">
+                        <button
+                          onClick={() => onSelectOpportunity(rec.opportunity, 'overview')}
+                          className="text-xs font-bold text-primary hover:underline cursor-pointer"
+                        >
+                          View Details →
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => onSelectOpportunity(rec.opportunity, 'timeline')}
+                          className="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1 cursor-pointer"
+                        >
+                          <Calendar className="w-3 h-3" />
+                          <span>Timeline</span>
+                        </button>
+                        {(rec.opportunity.syllabusUrl || rec.opportunity.officialUrl) && (
+                          <a
+                            href={rec.opportunity.syllabusUrl || rec.opportunity.officialUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => handleExternalRedirect(e, rec.opportunity.syllabusUrl || rec.opportunity.officialUrl)}
+                            className="text-xs font-medium text-text-secondary hover:text-foreground inline-flex items-center gap-1 cursor-pointer"
+                          >
+                            <FileText className="w-3 h-3 text-primary" />
+                            <span>Syllabus</span>
+                          </a>
+                        )}
+                      </div>
+
+                      <button
+                        onClick={() => handleAddRecommendationToPlan(rec.opportunity, '60_day')}
+                        className="px-3 py-1.5 rounded-lg bg-indigo-600 text-white text-xs font-bold hover:bg-indigo-700 transition-colors cursor-pointer shrink-0"
+                      >
+                        {savedItems.some((s) => s.opportunityId === rec.opportunity.id)
+                          ? 'Saved in Plan'
+                          : '+ Add to 60D Plan'}
+                      </button>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
 
@@ -580,76 +660,115 @@ export function OpportunityPlanTab({
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {planResult.ninetyDayPlan.map((rec, idx) => (
-                <div
-                  key={idx}
-                  className="p-6 rounded-3xl bg-surface border-2 border-border shadow-xs hover:border-blue-500/60 transition-all flex flex-col justify-between space-y-4 relative overflow-hidden"
-                >
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-blue-500/80" />
+              {planResult.ninetyDayPlan.map((rec, idx) => {
+                const timeline = getVerifiedTimeline(rec.opportunity);
+                return (
+                  <div
+                    key={idx}
+                    className="p-6 rounded-3xl bg-surface border-2 border-border shadow-xs hover:border-blue-500/60 transition-all flex flex-col justify-between space-y-4 relative overflow-hidden"
+                  >
+                    <div className="absolute top-0 left-0 right-0 h-1 bg-blue-500/80" />
 
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between">
-                      <span className="px-2.5 py-1 text-xs font-mono font-bold rounded-md bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
-                        Priority: {rec.priority.toUpperCase()}
-                      </span>
-                      <span className="text-xs text-text-secondary font-medium flex items-center gap-1">
-                        <Clock className="w-3.5 h-3.5 text-primary" />
-                        <span>{rec.estimatedEffort}</span>
-                      </span>
-                    </div>
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between">
+                        <span className="px-2.5 py-1 text-xs font-mono font-bold rounded-md bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
+                          Priority: {rec.priority.toUpperCase()}
+                        </span>
+                        <span className="text-xs text-text-secondary font-medium flex items-center gap-1">
+                          <Clock className="w-3.5 h-3.5 text-primary" />
+                          <span>{rec.estimatedEffort}</span>
+                        </span>
+                      </div>
 
-                    <h4
-                      onClick={() => {
-                        const url = rec.opportunity.directPortalUrl || rec.opportunity.officialUrl || rec.opportunity.syllabusUrl;
-                        if (url) window.open(url, '_blank', 'noopener,noreferrer');
-                      }}
-                      title={`Open official site for ${rec.opportunity.name}`}
-                      className="text-lg font-bold text-foreground hover:text-primary transition-colors cursor-pointer"
-                    >
-                      {rec.opportunity.name}
-                    </h4>
-
-                    <div className="space-y-2 text-xs text-text-secondary leading-relaxed">
-                      <p><strong className="text-foreground">Why Recommended:</strong> {rec.reason}</p>
-                      <p><strong className="text-foreground">Evidence Created:</strong> {rec.evidenceCreated}</p>
-                      <p><strong className="text-foreground">Resume Improvement:</strong> {rec.resumeImprovement}</p>
-                      <p><strong className="text-foreground">Completion Milestone:</strong> {rec.completionCondition}</p>
-                    </div>
-                  </div>
-
-                  <div className="pt-4 border-t border-border flex items-center justify-between gap-2">
-                    <div className="flex items-center gap-3">
-                      <button
-                        onClick={() => onSelectOpportunity(rec.opportunity)}
-                        className="text-xs font-bold text-primary hover:underline cursor-pointer"
+                      <h4
+                        onClick={() => onSelectOpportunity(rec.opportunity, 'overview')}
+                        title={`Click to view brief for ${rec.opportunity.name}`}
+                        className="text-lg font-bold text-foreground hover:text-primary transition-colors cursor-pointer"
                       >
-                        View Details →
-                      </button>
-                      {(rec.opportunity.syllabusUrl || rec.opportunity.officialUrl) && (
-                        <a
-                          href={rec.opportunity.syllabusUrl || rec.opportunity.officialUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={(e) => handleExternalRedirect(e, rec.opportunity.syllabusUrl || rec.opportunity.officialUrl)}
-                          className="text-xs font-medium text-text-secondary hover:text-foreground inline-flex items-center gap-1 cursor-pointer"
-                        >
-                          <FileText className="w-3 h-3 text-primary" />
-                          <span>Syllabus</span>
-                        </a>
-                      )}
+                        {rec.opportunity.name}
+                      </h4>
+
+                      {/* Interactive Verified Timeline & Year Placement */}
+                      <div
+                        onClick={() => onSelectOpportunity(rec.opportunity, 'timeline')}
+                        className="p-3 rounded-2xl bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/30 transition-all cursor-pointer group/time"
+                        title="Click to view verified timeline schedule and official data sources"
+                      >
+                        <div className="flex items-center justify-between gap-1 mb-1">
+                          <span className="text-[10px] font-black uppercase tracking-wider text-blue-600 dark:text-blue-400 flex items-center gap-1.5">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                            <span>Verified Schedule ↗</span>
+                          </span>
+                          <span className="text-[11px] font-bold text-blue-600 dark:text-blue-400 flex items-center group-hover/time:translate-x-0.5 transition-transform">
+                            Timeline & Sources <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
+                          </span>
+                        </div>
+                        <p className="text-xs font-black text-foreground flex items-center gap-1.5">
+                          <Calendar className="w-3.5 h-3.5 text-blue-500 shrink-0" />
+                          <span>{timeline.seasonLabel}</span>
+                        </p>
+                        <div className="flex items-center justify-between text-[10px] text-text-secondary mt-1">
+                          <span>Target: <strong>{timeline.academicYearFit}</strong></span>
+                          <span className="text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1">
+                            <ShieldCheck className="w-3 h-3" />
+                            Audited {timeline.verifiedAuditDate}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="space-y-2 text-xs text-text-secondary leading-relaxed">
+                        <p><strong className="text-foreground">Why Recommended:</strong> {rec.reason}</p>
+                        <p><strong className="text-foreground">Evidence Created:</strong> {rec.evidenceCreated}</p>
+                        <p><strong className="text-foreground">Resume Improvement:</strong> {rec.resumeImprovement}</p>
+                        <p><strong className="text-foreground">Completion Milestone:</strong> {rec.completionCondition}</p>
+                        <p className="text-[11px] text-text-muted pt-1 border-t border-border/40">
+                          Official Authority: <strong className="text-foreground/80">{timeline.sources[0]?.name || rec.opportunity.organizer}</strong>
+                        </p>
+                      </div>
                     </div>
 
-                    <button
-                      onClick={() => handleAddRecommendationToPlan(rec.opportunity, '90_day')}
-                      className="px-3 py-1.5 rounded-lg bg-blue-600 text-white text-xs font-bold hover:bg-blue-700 transition-colors cursor-pointer shrink-0"
-                    >
-                      {savedItems.some((s) => s.opportunityId === rec.opportunity.id)
-                        ? 'Saved in Plan'
-                        : '+ Add to 90D Plan'}
-                    </button>
+                    <div className="pt-4 border-t border-border flex items-center justify-between gap-2">
+                      <div className="flex items-center gap-3">
+                        <button
+                          onClick={() => onSelectOpportunity(rec.opportunity, 'overview')}
+                          className="text-xs font-bold text-primary hover:underline cursor-pointer"
+                        >
+                          View Details →
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => onSelectOpportunity(rec.opportunity, 'timeline')}
+                          className="text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1 cursor-pointer"
+                        >
+                          <Calendar className="w-3 h-3" />
+                          <span>Timeline</span>
+                        </button>
+                        {(rec.opportunity.syllabusUrl || rec.opportunity.officialUrl) && (
+                          <a
+                            href={rec.opportunity.syllabusUrl || rec.opportunity.officialUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => handleExternalRedirect(e, rec.opportunity.syllabusUrl || rec.opportunity.officialUrl)}
+                            className="text-xs font-medium text-text-secondary hover:text-foreground inline-flex items-center gap-1 cursor-pointer"
+                          >
+                            <FileText className="w-3 h-3 text-primary" />
+                            <span>Syllabus</span>
+                          </a>
+                        )}
+                      </div>
+
+                      <button
+                        onClick={() => handleAddRecommendationToPlan(rec.opportunity, '90_day')}
+                        className="px-3 py-1.5 rounded-lg bg-blue-600 text-white text-xs font-bold hover:bg-blue-700 transition-colors cursor-pointer shrink-0"
+                      >
+                        {savedItems.some((s) => s.opportunityId === rec.opportunity.id)
+                          ? 'Saved in Plan'
+                          : '+ Add to 90D Plan'}
+                      </button>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>
@@ -698,6 +817,7 @@ export function OpportunityPlanTab({
                 if (!opp) return null;
                 const portalUrl = opp.directPortalUrl || opp.officialUrl;
                 const syllabusUrl = opp.syllabusUrl || portalUrl;
+                const timeline = getVerifiedTimeline(opp);
 
                 return (
                   <div
@@ -708,11 +828,8 @@ export function OpportunityPlanTab({
                       <div className="flex items-center gap-2 flex-wrap">
                         <span className="text-xs font-mono font-bold text-primary">#{opp.rank}</span>
                         <h4
-                          onClick={() => {
-                            const url = opp.directPortalUrl || opp.officialUrl || opp.syllabusUrl;
-                            if (url) window.open(url, '_blank', 'noopener,noreferrer');
-                          }}
-                          title={`Open official site for ${opp.name}`}
+                          onClick={() => onSelectOpportunity(opp, 'overview')}
+                          title={`Click to view brief for ${opp.name}`}
                           className="text-base font-bold text-foreground hover:text-primary cursor-pointer truncate"
                         >
                           {opp.name}
@@ -724,7 +841,26 @@ export function OpportunityPlanTab({
 
                       <p className="text-xs text-text-secondary line-clamp-1">{item.reasonForRecommendation}</p>
 
-                      <div className="flex items-center gap-3 text-xs pt-1">
+                      {/* Verified Schedule & Source Row */}
+                      <div className="flex flex-wrap items-center gap-2 pt-1 text-[11px]">
+                        <span
+                          onClick={() => onSelectOpportunity(opp, 'timeline')}
+                          className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25 font-bold cursor-pointer hover:bg-emerald-500/20"
+                          title="Click to view verified timeline schedule"
+                        >
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                          <Calendar className="w-3 h-3" />
+                          <span>{timeline.seasonLabel}</span>
+                        </span>
+                        <span className="text-text-secondary">
+                          Target: <strong>{timeline.academicYearFit}</strong>
+                        </span>
+                        <span className="text-text-muted">
+                          Source: <strong className="text-foreground/80">{timeline.sources[0]?.name || opp.organizer}</strong>
+                        </span>
+                      </div>
+
+                      <div className="flex items-center gap-3 text-xs pt-1 flex-wrap">
                         <span className="text-text-muted">Target Timeline:</span>
                         <select
                           value={item.targetTimeline}
@@ -751,7 +887,15 @@ export function OpportunityPlanTab({
                         )}
                         <button
                           type="button"
-                          onClick={() => onSelectOpportunity(opp)}
+                          onClick={() => onSelectOpportunity(opp, 'timeline')}
+                          className="text-xs font-bold text-emerald-600 dark:text-emerald-400 hover:underline cursor-pointer flex items-center gap-1"
+                        >
+                          <Calendar className="w-3 h-3" />
+                          <span>Timeline</span>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => onSelectOpportunity(opp, 'overview')}
                           className="text-xs font-semibold text-text-secondary hover:text-foreground hover:underline cursor-pointer"
                         >
                           View Details
@@ -837,6 +981,7 @@ export function OpportunityPlanTab({
                   {currentPath.pathSteps.map((step) => {
                     const opp = opportunitiesMap.get(step.opportunityId);
                     if (!opp) return null;
+                    const timeline = getVerifiedTimeline(opp);
 
                     return (
                       <div
@@ -849,11 +994,8 @@ export function OpportunityPlanTab({
                           </span>
                           <div className="space-y-1">
                             <h5
-                              onClick={() => {
-                                const url = opp.directPortalUrl || opp.officialUrl || opp.syllabusUrl;
-                                if (url) window.open(url, '_blank', 'noopener,noreferrer');
-                              }}
-                              title={`Open official site for ${opp.name}`}
+                              onClick={() => onSelectOpportunity(opp, 'overview')}
+                              title={`Click to view brief for ${opp.name}`}
                               className="text-sm font-bold text-foreground hover:text-primary cursor-pointer"
                             >
                               {opp.name}
@@ -862,13 +1004,42 @@ export function OpportunityPlanTab({
                             <p className="text-[11px] text-text-muted">
                               Evidence created: <strong className="text-foreground">{step.evidenceCreated}</strong>
                             </p>
-                            <button
-                              type="button"
-                              onClick={() => onSelectOpportunity(opp)}
-                              className="text-xs font-bold text-primary hover:underline cursor-pointer pt-0.5 inline-block"
-                            >
-                              View Details →
-                            </button>
+
+                            {/* Verified Schedule & Source */}
+                            <div className="flex flex-wrap items-center gap-2 pt-0.5 text-[11px]">
+                              <span
+                                onClick={() => onSelectOpportunity(opp, 'timeline')}
+                                className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25 font-bold cursor-pointer hover:bg-emerald-500/20"
+                                title="Click to view verified timeline schedule"
+                              >
+                                <Calendar className="w-3 h-3" />
+                                <span>{timeline.seasonLabel}</span>
+                              </span>
+                              <span className="text-text-secondary">
+                                Target: <strong>{timeline.academicYearFit}</strong>
+                              </span>
+                              <span className="text-text-muted">
+                                Source: <strong className="text-foreground/80">{timeline.sources[0]?.name || opp.organizer}</strong>
+                              </span>
+                            </div>
+
+                            <div className="flex items-center gap-3 pt-1">
+                              <button
+                                type="button"
+                                onClick={() => onSelectOpportunity(opp, 'overview')}
+                                className="text-xs font-bold text-primary hover:underline cursor-pointer"
+                              >
+                                View Details →
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => onSelectOpportunity(opp, 'timeline')}
+                                className="text-xs font-bold text-emerald-600 dark:text-emerald-400 hover:underline cursor-pointer flex items-center gap-1"
+                              >
+                                <Calendar className="w-3 h-3" />
+                                <span>Timeline</span>
+                              </button>
+                            </div>
                           </div>
                         </div>
 
