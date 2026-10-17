@@ -25,6 +25,7 @@ import {
   FileText,
   X,
   Filter,
+  Calendar,
 } from 'lucide-react';
 import { ALL_OPPORTUNITIES } from '../data/opportunitiesData';
 import {
@@ -36,9 +37,11 @@ import {
   USD_TO_INR_EXCHANGE_RATE,
 } from '../types';
 import { CredentialsStorage } from '../storage';
+import { getVerifiedTimeline } from '../engine/timelineEngine';
+import { ModalTab } from './OpportunityDetailModal';
 
 interface CertificationsTabProps {
-  onSelectOpportunity: (opportunity: OpportunityRecord) => void;
+  onSelectOpportunity: (opportunity: OpportunityRecord, tab?: ModalTab) => void;
   onPlanUpdated?: () => void;
 }
 
@@ -658,6 +661,7 @@ export function CertificationsTab({
           const theme = getProviderTheme(cert.issuer || cert.organizer);
           const portalUrl = cert.directPortalUrl || cert.officialUrl;
           const priceDisplay = getPriceDisplay(cert);
+          const timeline = getVerifiedTimeline(cert);
 
           return (
             <div
@@ -777,6 +781,35 @@ export function CertificationsTab({
                   </div>
                 </div>
 
+                {/* Clickable Verified Exam Schedule & Provenance */}
+                <div
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onSelectOpportunity(cert, 'timeline');
+                  }}
+                  className="p-3 rounded-xl bg-primary/10 hover:bg-primary/20 border-2 border-primary/30 transition-all cursor-pointer group/sched shadow-2xs"
+                  title="Click to view verified exam schedule, academic year targeting, and official data sources"
+                >
+                  <div className="flex items-center justify-between gap-1 mb-1">
+                    <span className="text-[11px] font-black uppercase tracking-wider text-primary flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                      <span>Verified Exam Schedule ↗</span>
+                    </span>
+                    <span className="text-xs font-black text-primary flex items-center group-hover/sched:translate-x-0.5 transition-transform">
+                      Schedule Details <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
+                    </span>
+                  </div>
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-xs">
+                    <div className="flex items-center gap-1.5 font-black text-foreground">
+                      <Calendar className="w-4 h-4 text-primary shrink-0" />
+                      <span>{timeline.seasonLabel}</span>
+                    </div>
+                    <div className="text-text-secondary font-bold text-[11px]">
+                      Target: {timeline.academicYearFit}
+                    </div>
+                  </div>
+                </div>
+
                 {/* Student Aid Callout */}
                 {(cert.studentDiscountNote || cert.studentAid?.summary) && (
                   <div
@@ -807,8 +840,19 @@ export function CertificationsTab({
                   </div>
                 )}
 
+                {/* Data Provenance Footnote */}
+                <div className="flex items-center justify-between text-[11px] text-text-muted px-1 pt-1 border-t border-border/50">
+                  <span className="truncate">
+                    Official Blueprint: <strong className="text-foreground">{timeline.sources[0]?.name || cert.issuer}</strong>
+                  </span>
+                  <span className="text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1 shrink-0 ml-2">
+                    <ShieldCheck className="w-3.5 h-3.5" />
+                    Audited {timeline.verifiedAuditDate}
+                  </span>
+                </div>
+
                 {/* Target Roles */}
-                <div className="flex flex-wrap gap-1.5 pt-1">
+                <div className="flex flex-wrap gap-1.5 pt-0.5">
                   {cert.targetRoles.slice(0, 3).map((role, idx) => (
                     <span
                       key={idx}
@@ -855,6 +899,20 @@ export function CertificationsTab({
                       <span>Syllabus</span>
                     </a>
                   )}
+
+                  {/* Interactive Timeline Tab Shortcut */}
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onSelectOpportunity(cert, 'timeline');
+                    }}
+                    className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-primary/10 hover:bg-primary/20 border border-primary/30 font-bold text-xs sm:text-sm text-primary transition-all cursor-pointer"
+                    title="View verified exam cycle, phases, and official citations"
+                  >
+                    <Calendar className="w-3.5 h-3.5 text-primary" />
+                    <span>Timeline</span>
+                  </button>
                 </div>
 
                 {/* Modal View Brief Trigger */}
@@ -862,7 +920,7 @@ export function CertificationsTab({
                   type="button"
                   onClick={(e) => {
                     e.stopPropagation();
-                    onSelectOpportunity(cert);
+                    onSelectOpportunity(cert, 'overview');
                   }}
                   className="inline-flex items-center gap-1 font-black text-xs sm:text-sm text-primary hover:underline group-hover:translate-x-1 transition-transform cursor-pointer"
                   title="Open preparation brief, curriculum & financial aid roadmap"
