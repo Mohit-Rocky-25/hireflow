@@ -1,0 +1,324 @@
+{
+  "id": "brief-computer-vision-api",
+  "title": "Production Computer Vision API (Object Detection & OCR)",
+  "domain": "AI/ML Applications",
+  "difficulty": "INTERMEDIATE",
+  "project_types": [
+    "ML serving/vision/NLP/LLM/RAG",
+    "API/backend"
+  ],
+  "problem": "Deploying deep learning computer vision models directly from research notebooks into production web services frequently results in high latency, memory starvation, and severe concurrency bottlenecks. Naive per-request inference under Python locks the interpreter and fails to utilize batching opportunities. This project builds an asynchronous model serving API in FastAPI that executes object detection and optical character recognition using ONNX Runtime, featuring dynamic request batching, pre-allocated tensor memory, image validation and resizing pipelines, and structured bounding box JSON output formatting.",
+  "use_cases": [
+    "Automated document and invoice processing with bounding box OCR coordinate extraction",
+    "Digital identity verification and visual quality assessment for automated user onboarding",
+    "Real-time object detection and safety equipment verification for industrial site cameras"
+  ],
+  "hard_parts": [
+    "Coordinating dynamic request batching across asynchronous HTTP workers without introducing latency penalties on single requests",
+    "Optimizing image preprocessing (letterboxing, color normalization) to avoid becoming the primary throughput bottleneck",
+    "Managing ONNX Runtime session execution providers and CPU thread pool allocations to prevent host thrashing",
+    "Parsing and filtering multi-class bounding box coordinates with Non-Maximum Suppression (NMS) within sub-millisecond budgets"
+  ],
+  "screener_signals": [
+    "FastAPI service with ONNX Runtime model inference decoupled from HTTP worker threads",
+    "Automated benchmarking harness establishing CPU inference latency and batch throughput",
+    "Anti-fake verification script evaluating dynamically transformed image inputs and asserting bounding box accuracy"
+  ],
+  "job_families": [
+    "Computer Vision Engineer",
+    "Machine Learning Serving Engineer",
+    "AI Platform Engineer"
+  ],
+  "stack": [
+    {
+      "tool": "Python",
+      "role": "service implementation language and image preprocessing pipeline logic"
+    },
+    {
+      "tool": "FastAPI",
+      "role": "high-performance asynchronous HTTP API framework exposing prediction routes"
+    },
+    {
+      "tool": "ONNX Runtime",
+      "role": "optimized cross-platform inference engine executing quantized vision models on CPU"
+    },
+    {
+      "tool": "Docker",
+      "role": "containerized environment packaging runtime dependencies and pre-trained weights"
+    },
+    {
+      "tool": "Pillow",
+      "role": "image manipulation library for decoding, resizing, and letterboxing"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "Image Preprocessing Pipeline",
+        "tools_used": [
+          "Python",
+          "Pillow"
+        ],
+        "purpose": "Decodes raw image bytes, validates dimensions, normalizes pixels, and applies letterbox resizing"
+      },
+      {
+        "name": "Dynamic Batching Ingress Queue",
+        "tools_used": [
+          "Python"
+        ],
+        "purpose": "Aggregates concurrent incoming inference requests into batches of up to 8 images within 15ms windows"
+      },
+      {
+        "name": "ONNX Runtime Inference Engine",
+        "tools_used": [
+          "ONNX Runtime"
+        ],
+        "purpose": "Executes quantized object detection model on CPU using multi-threaded execution providers"
+      },
+      {
+        "name": "NMS Post-Processing Filter",
+        "tools_used": [
+          "Python"
+        ],
+        "purpose": "Applies Non-Maximum Suppression and confidence thresholding to generate clean bounding boxes"
+      },
+      {
+        "name": "Async Prediction Gateway",
+        "tools_used": [
+          "Python",
+          "FastAPI"
+        ],
+        "purpose": "Exposes multipart/form-data upload endpoints and streams JSON detection coordinates"
+      },
+      {
+        "name": "Containerized Service Package",
+        "tools_used": [
+          "Docker"
+        ],
+        "purpose": "Encapsulates model weights and runtime dependencies for consistent cross-platform execution"
+      }
+    ],
+    "data_flow": "Clients upload image files via HTTP POST to FastAPI; the Preprocessing Pipeline decodes and resizes images to 640x640 tensors; requests enter the Dynamic Batching Ingress Queue; when the batch fills or timeout expires, ONNX Runtime executes inference; the Post-Processing Filter applies Non-Maximum Suppression; individual prediction results resolve to client response futures and return formatted bounding boxes.",
+    "enforcement_mechanism": "Image dimension and format validation rejecting corrupted files; timeout enforcement on inference queue preventing client connection hangs."
+  },
+  "targets": [
+    {
+      "metric": "CPU Single-Image Inference Latency",
+      "method": "Benchmark measuring model execution duration for a single 640x640 image on CPU",
+      "input": "Single synthetic 640x640 JPEG image passed to ONNX Runtime session",
+      "environment": "Standard 4-core local CPU, ONNX Runtime 1.16+, warm model session",
+      "minimum_pass": "Inference latency < 120ms per image on CPU",
+      "target": "Inference latency < 75ms per image on CPU",
+      "report": "Benchmark execution timing log with 50-run mean and p95 percentiles"
+    },
+    {
+      "metric": "Dynamic Batching Processing Throughput",
+      "method": "Autocannon load benchmark sending 20 concurrent image prediction requests",
+      "input": "Continuous stream of 200 synthetic JPEG images sent across 10 concurrent HTTP clients",
+      "environment": "Standard 4-core local CPU, Docker container, local loopback",
+      "minimum_pass": "Sustained inference throughput > 15 images/sec",
+      "target": "Sustained inference throughput > 28 images/sec",
+      "report": "Autocannon summary report reporting requests per second and latency distribution"
+    },
+    {
+      "metric": "Mean Average Precision (mAP@50) on Evaluation Set",
+      "method": "Evaluation of object detection bounding boxes against ground-truth annotations",
+      "input": "Labelled held-out test split of 200 synthetic evaluation images with 600 annotated objects",
+      "environment": "Standard 4-core local CPU, Python 3.11+",
+      "minimum_pass": "mAP@50 score >= 0.60 on evaluation test split",
+      "target": "mAP@50 score >= 0.72 on evaluation test split",
+      "report": "Evaluation script summary report reporting mAP@50, precision, and recall metrics"
+    }
+  ],
+  "skills": [
+    "Python",
+    "FastAPI",
+    "ONNX Runtime",
+    "Docker",
+    "Pillow",
+    "Computer Vision",
+    "REST APIs"
+  ],
+  "starter_input": {
+    "spec": "Pre-trained quantized YOLOv8n ONNX model weights and labelled synthetic test image dataset.",
+    "size": "1 quantized ONNX model file (approx 12MB) and 200 synthetic test images with JSON bounding box labels",
+    "seeded_cases": "Varying image aspect ratios (square, portrait, landscape), low-contrast images, overlapping objects, and corrupted image bytes",
+    "label_source": "Public synthetic evaluation dataset annotated with deterministic COCO-format bounding boxes",
+    "personal_data_policy": "Strictly synthetic and public domain object images; zero real personal faces or private documents used"
+  },
+  "components": [
+    {
+      "name": "PyTorch Export & ONNX Runtime Setup",
+      "task_type": "model train + evaluate cycle",
+      "hours": 5.0
+    },
+    {
+      "name": "Dynamic Batching Ingress Queue",
+      "task_type": "concurrency/consistency mechanism with tests",
+      "hours": 5.0
+    },
+    {
+      "name": "FastAPI Vision Prediction Endpoints",
+      "task_type": "API endpoint group with tests",
+      "hours": 4.0
+    },
+    {
+      "name": "Model Evaluation & Accuracy Benchmark",
+      "task_type": "evaluation dataset creation + scoring script",
+      "hours": 4.0
+    },
+    {
+      "name": "Load Testing & Throughput Benchmark",
+      "task_type": "load or performance test harness + report",
+      "hours": 4.0
+    },
+    {
+      "name": "Documentation, Architecture Diagram & Buffer",
+      "task_type": "docs + architecture diagram",
+      "hours": 3.0
+    }
+  ],
+  "extended_path": {
+    "items": [
+      "GPU-accelerated TensorRT inference pipeline using NVIDIA Container Toolkit",
+      "Optical Character Recognition (OCR) text extraction pipeline using Tesseract or CRNN"
+    ],
+    "hours": 14
+  },
+  "milestones": [
+    {
+      "name": "Model Conversion, Preprocessing & ONNX Runtime Pipeline for Computer Vision",
+      "hours": 8,
+      "done_criterion": "ONNX Runtime loads quantized vision model; preprocessing pipeline converts images to 640x640 tensors."
+    },
+    {
+      "name": "Dynamic Ingress Batching & FastAPI Vision Endpoints for REST APIs",
+      "hours": 7,
+      "done_criterion": "FastAPI exposes prediction routes; background queue batches concurrent requests into tensor matrices."
+    },
+    {
+      "name": "NMS Post-Processing & Model Evaluation Benchmark",
+      "hours": 8,
+      "done_criterion": "NMS filters redundant boxes; evaluation script confirms mAP@50 >= 0.60 across 200 test images."
+    },
+    {
+      "name": "Concurrency Benchmark, Anti-Fake Test, Docs & Buffer",
+      "hours": 6,
+      "done_criterion": "Load tests verify > 15 images/sec throughput; anti-fake test validates dynamic image; docs complete."
+    }
+  ],
+  "prerequisites": [
+    "Intermediate Python programming (asyncio, type hints, pytest)",
+    "Fundamental computer vision concepts (tensors, bounding boxes, IoU, mAP, NMS)",
+    "Familiarity with REST APIs and multipart file upload handling"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (purely CPU-bound ONNX Runtime inference)",
+    "cost": "$0 (fully open-source software stack)",
+    "accounts_keys_quotas": "No external cloud accounts, paid GPUs, or API keys required",
+    "reference_environment": "Local 4-core CPU with Python 3.11 and Docker installed",
+    "fallback_path": "Local Python virtual environment without Docker using PyTorch CPU model weights"
+  },
+  "riskiest_component": {
+    "name": "Inference Latency Spike Under Heavy Concurrency on CPU",
+    "fallback": "Set strict concurrency limits in uvicorn and bound dynamic batch size to 4 images max on 4-core machines"
+  },
+  "deliverables": [
+    "Git repository containing FastAPI service, ONNX inference pipeline, and Dockerfile",
+    "Quantized ONNX model weight files and preprocessing utility modules",
+    "Accuracy evaluation script and exported mAP summary report",
+    "Screener verification script executing predictions and dynamic validation in under 2 minutes"
+  ],
+  "out_of_scope": [
+    "Fine-tuning foundational vision models from scratch",
+    "Distributed multi-node GPU inference clusters",
+    "Video stream frame extraction and RTSP streaming"
+  ],
+  "safety_note": null,
+  "resources": [
+    "ONNX Runtime Python API reference documentation",
+    "FastAPI multipart form data and streaming response tutorial",
+    "Ultralytics YOLOv8 export and inference guides"
+  ],
+  "rubric": [
+    {
+      "input": "fixtures/test_image.jpg input image file",
+      "action": "Execute curl -X POST -F 'file=@fixtures/test_image.jpg' http://localhost:8000/predict",
+      "expected_result": "API responds with HTTP 200 and JSON payload containing detected classes and coordinates",
+      "evidence_location": "Terminal HTTP response headers and JSON body",
+      "pass_criterion": "HTTP status 200 with valid bounding box coordinates and confidence score > 0.5",
+      "kind": "normal"
+    },
+    {
+      "input": "Benchmark evaluation test script python scripts/evaluate_model.py",
+      "action": "Run evaluation across 200 labelled test images",
+      "expected_result": "Script computes mAP@50 score against ground truth annotations",
+      "evidence_location": "Evaluation summary report log file",
+      "pass_criterion": "Reported mAP@50 score is >= 0.60 across the 200 evaluation images",
+      "kind": "normal"
+    },
+    {
+      "input": "Autocannon load test simulating 10 concurrent users uploading images",
+      "action": "Run npm run test:load",
+      "expected_result": "API maintains batching queue and responds without dropping requests",
+      "evidence_location": "Autocannon benchmark output console table",
+      "pass_criterion": "Average throughput exceeds 15 images/sec with 0 socket errors",
+      "kind": "normal"
+    },
+    {
+      "input": "Corrupted non-image file uploaded to /predict endpoint",
+      "action": "Send text file as image upload to test validation",
+      "expected_result": "API rejects invalid payload with structured HTTP 422 error response",
+      "evidence_location": "Terminal HTTP response status code",
+      "pass_criterion": "HTTP status 422 returned with clear validation error message",
+      "kind": "normal"
+    },
+    {
+      "input": "Dynamic synthetic image with random colored rectangle drawn at specific coordinates",
+      "action": "Run python scripts/verify_dynamic_vision.py --box 100,100,200,200",
+      "expected_result": "Script posts image, asserts returned bounding box overlaps target coordinates with IoU > 0.7",
+      "evidence_location": "Dynamic verification console execution output",
+      "pass_criterion": "Returned bounding box matches injected rectangle coordinates with exit code 0",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected asynchronous computer vision inference API in Python and FastAPI using ONNX Runtime; achieved [CPU_LATENCY] per-image inference latency on CPU, sustained [BATCH_THROUGHPUT] images/sec batch throughput, and attained [MAP_SCORE] mean average precision across a labelled [IMAGE_COUNT] evaluation test split.",
+    "claims": [
+      {
+        "text": "achieved [CPU_LATENCY] per-image inference latency on CPU",
+        "rubric_indexes": [
+          0
+        ]
+      },
+      {
+        "text": "sustained [BATCH_THROUGHPUT] images/sec batch throughput",
+        "rubric_indexes": [
+          2
+        ]
+      },
+      {
+        "text": "attained [MAP_SCORE] mean average precision across a labelled [IMAGE_COUNT] evaluation test split",
+        "rubric_indexes": [
+          1
+        ]
+      }
+    ],
+    "do_not_claim": "GPU-accelerated TensorRT cluster throughput or real-time 4K video processing without committed hardware benchmark logs"
+  },
+  "verify": [],
+  "worksheet": {
+    "q1": "The student builds an asynchronous computer vision model serving API in FastAPI that executes object detection on CPU using ONNX Runtime, dynamic request batching, and NMS post-processing.",
+    "q2": "Core path: ONNX model conversion, FastAPI inference endpoints, dynamic batching queue, and mAP evaluation (29h). Extended path: GPU TensorRT acceleration and OCR pipeline (+14h).",
+    "q3": "Components: Model Setup (5h), Dynamic Queue (5h), FastAPI API (4h), Evaluation Benchmark (4h), Load Testing (4h), Docs & Buffer (3h). Total 25h x 1.15 = 29h.",
+    "q4": "Project types: ML serving/vision/NLP/LLM/RAG, API/backend. Metrics: Single-Image Inference Latency, Batch Processing Throughput, mAP@50. Rejected: training loss convergence (serving project).",
+    "q5": "Hard parts: dynamic batching without queue starvation, letterbox preprocessing performance, ONNX thread allocation, and NMS post-processing.",
+    "q6": "Starter input: pre-trained quantized YOLOv8n ONNX model (12MB) and 200 synthetic test images with COCO labels. No personal data.",
+    "q7": "Hardware: Linux/macOS/Windows, 8GB RAM, CPU only, $0 cost, zero cloud accounts. Fallback: local venv without Docker.",
+    "q8": "Riskiest component: CPU inference latency under load. Fallback: bound batch size to 4 items max.",
+    "q9": "Potential faking: static JSON responses. Anti-fake check 5 generates a dynamic synthetic image with colored rectangles at random coordinates and asserts returned IoU > 0.7.",
+    "q10": "Safety/ethics: Safe; synthetic and public domain object images only; no face identification."
+  }
+}

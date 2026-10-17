@@ -1,0 +1,354 @@
+{
+  "id": "cert-ckad",
+  "title": "Certified Kubernetes Application Developer (CKAD) Performance-Based Lab & Container Architecture",
+  "domain": "Cloud Native & Containers",
+  "difficulty": "ADVANCED",
+  "project_types": [
+    "Certification / exam pages",
+    "Cloud architecture"
+  ],
+  "problem": "Kubernetes developers preparing for the 100% performance-based Linux Foundation / CNCF Certified Kubernetes Application Developer (CKAD) exam frequently struggle with the fast-paced terminal environment and real-time troubleshooting under the 120-minute time constraint. Traditional courses teach conceptual theory, but the exam requires lightning-fast imperative `kubectl` command mastery, multi-container pod design (sidecar, adapter, init), rolling deployment rollouts, NetworkPolicy traffic firewalls, and liveness probe debugging. This guide delivers a comprehensive, hands-on terminal laboratory and reproducible Kubernetes application suite. The engineer builds multi-container pods with shared emptyDir volumes, executes zero-downtime rolling updates with automatic rollbacks, enforces zero-trust NetworkPolicies across namespaces, configures ConfigMaps and Secrets, and completes timed exam lab scenarios under realistic cluster conditions.",
+  "use_cases": [
+    {
+      "title": "Multi-Container Pod Logging & Metric Sidecar Pattern",
+      "first_sentence": "Legacy enterprise microservices generating unformatted plain text logs to stdout must be transformed into structured JSON for centralized observability.",
+      "second_sentence": "The engineer configures a multi-container Pod with an init container database migrator and a Fluent-bit logging sidecar sharing a local emptyDir volume."
+    },
+    {
+      "title": "Zero-Downtime Rolling Deployment Updates & Automated Rollback",
+      "first_sentence": "Production web applications undergoing frequent daily microservice updates cannot drop user sessions or produce HTTP 502 bad gateway errors during deploys.",
+      "second_sentence": "The Kubernetes Deployment defines rolling update parameters (`maxSurge=25%`, `maxUnavailable=0`), validating readiness probes before terminating older pod generations."
+    },
+    {
+      "title": "Multi-Namespace Pod Network Security & Isolation Firewall",
+      "first_sentence": "Multi-tenant Kubernetes clusters running payment processing workloads must prevent unauthorized pods from connecting to internal database tiers.",
+      "second_sentence": "The system applies ingress and egress NetworkPolicies that restrict traffic by podSelector and namespaceSelector, rejecting unauthorized cross-namespace requests."
+    }
+  ],
+  "hard_parts": [
+    "Executing fast imperative `kubectl` commands (`kubectl run`, `kubectl create deployment --dry-run=client -o yaml`) under strict 120-minute timed conditions",
+    "Configuring multi-container Pod communication via local loopback interfaces and shared emptyDir storage volumes",
+    "Writing precise Kubernetes NetworkPolicy specifications combining podSelector, namespaceSelector, and ipBlock CIDR rules",
+    "Diagnosing and resolving pod crash loops (CrashLoopBackOff) caused by misconfigured liveness probes, missing Secrets, or entrypoint errors"
+  ],
+  "screener_signals": [
+    "Clean Git repository containing complete CKAD manifest templates, Helm charts, imperative command cheatsheets, and lab validation scripts",
+    "Terminal benchmark report proving 100% success across 15 automated CKAD lab tasks completed within 90 minutes",
+    "Anti-fake verification script launching an unauthorized rogue curl pod in a foreign namespace and confirming NetworkPolicy packet drops with timeout"
+  ],
+  "job_families": [
+    "Kubernetes Platform Engineer",
+    "Cloud Native Software Developer",
+    "Site Reliability Engineer (SRE)"
+  ],
+  "stack": [
+    {
+      "tool": "Kubernetes",
+      "role": "container orchestration engine managing pods, deployments, services, and network policies"
+    },
+    {
+      "tool": "Docker",
+      "role": "container runtime packaging sample microservices, sidecars, and init container images"
+    },
+    {
+      "tool": "Helm",
+      "role": "package manager templating Kubernetes manifests and managing versioned release rollbacks"
+    },
+    {
+      "tool": "Kubectl",
+      "role": "command line interface executing fast imperative cluster management and manifest generation"
+    },
+    {
+      "tool": "Minikube",
+      "role": "lightweight local Kubernetes cluster providing a multi-node simulation environment for lab testing"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "Multi-Container Pod Design (Sidecar & Init Containers)",
+        "tools_used": [
+          "Kubernetes",
+          "Docker"
+        ],
+        "purpose": "Constructs multi-container pods with init containers for pre-flight checks and sidecar containers for log processing"
+      },
+      {
+        "name": "Deployment Rollouts, Rolling Updates & Canary Controller",
+        "tools_used": [
+          "Kubernetes",
+          "Kubectl"
+        ],
+        "purpose": "Configures rolling update strategies, tracks revision histories, and executes automated rollbacks upon failure"
+      },
+      {
+        "name": "ConfigMaps, Secrets & RBAC Security Context Hardening",
+        "tools_used": [
+          "Kubernetes",
+          "Kubectl"
+        ],
+        "purpose": "Injects environment variables, mounts secret volumes, and enforces non-root container security contexts"
+      },
+      {
+        "name": "Services, Ingress Routing & NetworkPolicy Firewall",
+        "tools_used": [
+          "Kubernetes",
+          "Minikube"
+        ],
+        "purpose": "Configures ClusterIP/NodePort services, Ingress fanout paths, and zero-trust NetworkPolicy isolation rules"
+      },
+      {
+        "name": "Liveness, Readiness Probes & Pod Observability Harness",
+        "tools_used": [
+          "Kubernetes",
+          "Docker"
+        ],
+        "purpose": "Instruments HTTP and TCP socket probes to monitor container health and automatically restart failed processes"
+      },
+      {
+        "name": "CKAD Timed Lab Automation & Concurrency Test Runner",
+        "tools_used": [
+          "Kubectl",
+          "Minikube",
+          "Helm"
+        ],
+        "purpose": "Automates 15 performance-based lab scenarios, verifies pod state criteria, and grades pass/fail metrics"
+      },
+      {
+        "name": "CKAD Exam Blueprint Guide & Kubernetes Command Manual",
+        "tools_used": [
+          "Kubernetes",
+          "Helm"
+        ],
+        "purpose": "Documents CNCF CKAD curriculum domains, killer.sh exam tips, and vim/tmux terminal speed optimization guides"
+      }
+    ],
+    "data_flow": "An engineer executes imperative `kubectl` commands to generate manifest YAMLs; the Kubernetes API server validates and applies resources; an init container runs database schema setup and terminates; the main application container boots alongside a logging sidecar sharing an emptyDir volume; a ClusterIP service routes internal traffic to healthy pod endpoints verified by readiness probes; an Ingress controller routes external traffic into the service; an ingress NetworkPolicy blocks all traffic except from pods matching the authorized frontend label; when an updated image is deployed, Kubernetes executes a rolling update with zero dropped requests; Helm manages package releases.",
+    "enforcement_mechanism": "Kubernetes API schema validation, admission controllers, and Linux CNI iptables/eBPF NetworkPolicy kernel enforcement."
+  },
+  "targets": [
+    {
+      "metric": "Zero-Downtime Rolling Deployment Update Availability",
+      "method": "Percentage of HTTP requests returning 200 OK during a live Deployment image update from v1 to v2 under continuous load",
+      "input": "1,000 continuous HTTP GET requests issued at 50 RPS while `kubectl set image` executes rolling update",
+      "environment": "Minikube multi-node cluster with 3-replica Deployment and readiness probes configured",
+      "minimum_pass": "1,000 of 1,000 requests succeed with 0 dropped sockets and p95 latency < 35 milliseconds",
+      "target": "1,000 of 1,000 requests succeed with 0 dropped sockets and p95 latency < 15 milliseconds",
+      "report": "Rolling update benchmark report and deployment rollout status log"
+    },
+    {
+      "metric": "NetworkPolicy Pod Traffic Isolation Enforcement Rate",
+      "method": "Percentage of unauthorized connection attempts blocked by Kubernetes NetworkPolicy between isolated namespaces",
+      "input": "50 simulated connection attempts from unauthorized pods targeting a protected database service",
+      "environment": "Kubernetes cluster with CNI plugin supporting NetworkPolicies (Calico / Cilium enabled in Minikube)",
+      "minimum_pass": "50 of 50 unauthorized connection attempts dropped with connection timeout",
+      "target": "50 of 50 unauthorized connection attempts dropped with connection timeout",
+      "report": "NetworkPolicy security audit log and packet drop trace"
+    },
+    {
+      "metric": "Liveness Probe Automatic Pod Restart Recovery Latency",
+      "method": "Elapsed time from injected HTTP 500 server freeze to Kubernetes kubelet killing and restarting the unhealthy container",
+      "input": "Simulated dead-lock fault injected into container `/healthz` endpoint returning HTTP 500",
+      "environment": "Kubernetes Pod configured with `livenessProbe` periodSeconds=5, failureThreshold=2",
+      "minimum_pass": "Pod restart triggers within 20 seconds with container state restored to Running",
+      "target": "Pod restart triggers within 12 seconds with container state restored to Running",
+      "report": "Kubelet pod event log and liveness restart timestamp trace"
+    }
+  ],
+  "skills": [
+    "Kubernetes",
+    "Docker",
+    "Helm",
+    "Kubectl",
+    "Minikube",
+    "DevOps",
+    "Cloud Native",
+    "Containers"
+  ],
+  "starter_input": {
+    "spec": "Directory containing Minikube setup scripts, CKAD practice scenario manifests, Helm templates, and automated grader.",
+    "size": "18 Kubernetes YAML manifests, 4 sample Dockerfiles, Helm chart skeleton, and bash automated lab evaluation runner",
+    "seeded_cases": "Failing liveness probes, misnamed Secret keys, broken NetworkPolicy CIDR blocks, and missing pod readiness endpoints",
+    "label_source": "Deterministic `kubectl get` JSON status fields, pod restartCount integers, and CNI packet filter drop logs",
+    "personal_data_policy": "Strictly mock synthetic microservices and simulated customer order payloads; no real personal data used"
+  },
+  "components": [
+    {
+      "name": "Multi-Container Pod Design (Sidecar & Init Containers)",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "Deployment Rollouts, Rolling Updates & Canary Controller",
+      "task_type": "concurrency/consistency mechanism with tests",
+      "hours": 6.0
+    },
+    {
+      "name": "ConfigMaps, Secrets & RBAC Security Context Hardening",
+      "task_type": "security hardening checks",
+      "hours": 6.0
+    },
+    {
+      "name": "Services, Ingress Routing & NetworkPolicy Firewall",
+      "task_type": "infra component (broker, DB, orchestrator, cluster service)",
+      "hours": 5.0
+    },
+    {
+      "name": "Liveness, Readiness Probes & Pod Observability Harness",
+      "task_type": "observability",
+      "hours": 5.0
+    },
+    {
+      "name": "CKAD Timed Lab Automation & Concurrency Test Runner",
+      "task_type": "load or performance test harness + report",
+      "hours": 4.0
+    },
+    {
+      "name": "CKAD Exam Blueprint Guide & Kubernetes Command Manual",
+      "task_type": "docs + architecture diagram",
+      "hours": 3.0
+    }
+  ],
+  "extended_path": {
+    "features": [
+      "Two complete 120-minute simulated killer.sh mock exams with 22 live scenario tasks each",
+      "Advanced Custom Resource Definition (CRD) and Operator SDK controller development",
+      "Automated canary deployments using Flagger and Prometheus metric threshold gates"
+    ],
+    "hours": 60
+  },
+  "milestones": [
+    {
+      "name": "Minikube Multi-Node Cluster & Pod Architecture in Kubernetes and Docker",
+      "hours": 10,
+      "done_criterion": "Minikube boots with Calico CNI; multi-container pods deploy with init containers and shared emptyDir."
+    },
+    {
+      "name": "Deployment Rollouts, Ingress Routing & NetworkPolicy in Kubectl and Containers",
+      "hours": 10,
+      "done_criterion": "Rolling update achieves 100% HTTP 200 uptime; NetworkPolicy blocks 50 of 50 unauthorized attempts."
+    },
+    {
+      "name": "ConfigMaps, Secrets, RBAC & Liveness Probes in Helm and Cloud Native",
+      "hours": 10,
+      "done_criterion": "ConfigMaps/Secrets mount cleanly; liveness probe restarts failed container in < 20 seconds."
+    },
+    {
+      "name": "Timed Lab Grader, Anti-Fake Rogue Pod Test & Docs in Minikube and DevOps",
+      "hours": 10,
+      "done_criterion": "All 15 CKAD scenario tests pass grader; anti-fake test blocks rogue pod; documentation complete."
+    }
+  ],
+  "prerequisites": [
+    "Proficiency in Linux terminal commands (bash, curl, grep, sed, vim), Docker container concepts, and YAML syntax",
+    "Understanding of Kubernetes architectural primitives: Pods, Deployments, Services, ConfigMaps, and Namespaces"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (purely container orchestration and local virtual networking)",
+    "cost": "$0 (fully open-source stack using local Minikube in Docker Desktop; $0 cloud fee)",
+    "accounts_keys_quotas": "No external cloud Kubernetes clusters (EKS/GKE), paid cloud subscriptions, or commercial tools required",
+    "reference_environment": "Local 4-core CPU, 8GB RAM, Docker Desktop, Minikube 1.32+, kubectl 1.28+, Helm 3.12+",
+    "fallback_path": "Kind (Kubernetes in Docker) or K3s lightweight cluster if Minikube cannot be provisioned"
+  },
+  "riskiest_component": {
+    "name": "Cluster Instability or Memory Exhaustion from Misconfigured Pod Resources",
+    "mitigation": "Set explicit LimitRange and ResourceQuota objects on lab namespaces capping CPU and memory allocations.",
+    "fallback": "Automated script `minikube delete && minikube start` resetting cluster to pristine baseline in 2 minutes."
+  },
+  "deliverables": [
+    "Git repository containing 15 hands-on CKAD scenario lab exercises, solutions, and automated grader script",
+    "Helm chart and manifest templates for multi-container pods, Ingress controllers, and NetworkPolicies",
+    "Comprehensive CKAD terminal survival guide covering imperative `kubectl` shortcuts, vim configs, and exam strategies",
+    "Screener verification script testing rolling updates, NetworkPolicy isolation, and anti-fake rogue pod blocking in under 3 minutes"
+  ],
+  "out_of_scope": [
+    "Kubernetes control plane etcd manual cluster bootstrapping (covered in CKA / CKS exams)",
+    "Custom Linux kernel eBPF driver development",
+    "Multi-cloud production AWS EKS / Azure AKS cluster provisioning"
+  ],
+  "safety_note": null,
+  "resources": [
+    "CNCF / Linux Foundation Certified Kubernetes Application Developer (CKAD) Official Blueprint",
+    "Kubernetes Official Documentation: Tasks, Tutorials, and Imperative Commands",
+    "Killer.sh CKAD Simulator Preparation Guide & Cheatsheet"
+  ],
+  "rubric": [
+    {
+      "input": "1,000 HTTP requests issued during live Deployment rolling update",
+      "action": "python ./scripts/test_rolling_update.py --deploy web-app --image nginx:1.25",
+      "expected_result": "1,000 of 1,000 requests return HTTP 200 with 0 dropped sockets",
+      "evidence_location": "Rollout benchmark report in reports/rollout_benchmark.json",
+      "pass_criterion": "1,000 of 1,000 requests succeed with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "50 connection attempts from unauthorized pod in `test` namespace to `secure-db`",
+      "action": "python ./scripts/test_network_policy.py --source test --target secure-db",
+      "expected_result": "NetworkPolicy drops all 50 connection attempts with connection timeout",
+      "evidence_location": "NetworkPolicy audit log in reports/netpol_audit.json",
+      "pass_criterion": "50 of 50 unauthorized attempts dropped with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Liveness probe health failure injected into running pod container",
+      "action": "python ./scripts/test_liveness_recovery.py --pod payment-pod",
+      "expected_result": "Kubelet detects failure and restarts container within 20 seconds",
+      "evidence_location": "Probe audit log in reports/liveness_audit.json",
+      "pass_criterion": "Container restarts and recovers in < 20s with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Automated grading of all 15 CKAD scenario lab tasks across cluster",
+      "action": "./scripts/grade_ckad_labs.sh",
+      "expected_result": "Grader asserts all 15 tasks meet done criteria with 15/15 passed checks",
+      "evidence_location": "Grader scorecard in reports/ckad_scorecard.txt",
+      "pass_criterion": "Score 15 of 15 tasks passed with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Launching rogue curl pod in `finance` namespace targeting isolated `backend-db`",
+      "action": "kubectl run rogue-probe -n finance --image=curlimages/curl --rm -it --restart=Never -- curl --connect-timeout 3 http://backend-db.default:5432",
+      "expected_result": "Connection terminates with timeout due to NetworkPolicy default deny",
+      "evidence_location": "Dynamic verification console execution output log",
+      "pass_criterion": "Console confirms command timed out with exit code 28",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Developed cloud-native Kubernetes applications fulfilling CKAD curriculum; executed rolling deployment updates with [ROLLOUT_UPTIME] request availability, and enforced least-privilege pod network isolation across [NAMESPACE_COUNT] namespaces via NetworkPolicies.",
+    "claims": [
+      {
+        "text": "executed rolling deployment updates with [ROLLOUT_UPTIME] request availability",
+        "rubric_indexes": [
+          0
+        ]
+      },
+      {
+        "text": "enforced least-privilege pod network isolation across [NAMESPACE_COUNT] namespaces via NetworkPolicies",
+        "rubric_indexes": [
+          1
+        ]
+      }
+    ],
+    "do_not_claim": "etcd manual cluster control plane recovery or proprietary enterprise operator development"
+  },
+  "verify": [
+    "Run `kubectl get nodes` to confirm Minikube cluster is operational.",
+    "Execute `./scripts/grade_ckad_labs.sh` to verify all 15 CKAD laboratory scenarios pass.",
+    "Run `kubectl run rogue-probe` to assert NetworkPolicy blocks unauthorized cross-namespace traffic."
+  ],
+  "worksheet": {
+    "q1": "Core deliverable: a CKAD performance-based lab suite with 15 scenarios, multi-container pods, rolling updates, and NetworkPolicies.",
+    "q2": "Target users: Kubernetes platform engineers, cloud-native developers, and SREs preparing for the CKAD exam.",
+    "q3": "3 use cases: multi-container logging sidecars, zero-downtime rolling updates, and multi-namespace network isolation firewalls.",
+    "q4": "Stated hours: 40 hours. Calculated bottom-up: 35 component hours * 1.15 buffer = 40.25 -> 40 hours. Advanced level (band 30-60h). Extended path: +60h.",
+    "q5": "Hard parts: imperative kubectl terminal speed, multi-container pod storage sharing, NetworkPolicy syntax, and probe debugging.",
+    "q6": "Starter input: Minikube scripts, CKAD practice manifests, Helm templates, and automated grader. Synthetic microservices only.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU/container bound, $0 cost using Minikube in Docker Desktop. Zero cloud fees.",
+    "q8": "Riskiest component: cluster instability from misconfigured pods. Fallback: namespace ResourceQuotas and 2-minute baseline reset scripts.",
+    "q9": "Potential faking: static manifest writing without cluster execution. Anti-fake check 5 spawns a rogue pod and asserts NetworkPolicy timeout.",
+    "q10": "Safe; synthetic microservice workloads and isolated local cluster containers only."
+  }
+}

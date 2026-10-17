@@ -1,122 +1,156 @@
-PROJECT BRIEF — Domain-Specific LLM Fine-Tuning with LoRA/PEFT
+PROJECT BRIEF — Domain-Specific LLM Fine-Tuning Pipeline with QLoRA, Token Packing & Automated Evaluation
 ======================================================================
 
 Domain    : GenAI & LLM Engineering
-Difficulty: advanced
-Est. Time : 38 hours (Core Path) | Extended Path: +6 hours
-Tech Stack: Python [core programming language and algorithmic runtime], PyTorch [deep learning tensor framework], HuggingFace [huggingface component], PEFT [peft component], LoRA [lora component], Weights & Biases [weights & biases component] (Requires: Local CPU inference or optional free-tier API token)
+Difficulty: ADVANCED
+Est. Time : 40 hours (core path, estimate). Extended path: +16 hours
+Tech Stack: Python (primary language implementing dataset tokenization, training scripts, and evaluation suites), PyTorch (deep learning framework providing tensor computations, autograd, and CUDA execution primitives), HuggingFace (library ecosystem providing transformer architectures, tokenizers, and dataset loaders), PEFT (parameter-efficient fine-tuning library managing LoRA adapter initialization and weight merging), LoRA (low-rank adaptation technique parameterizing attention weight updates into low-rank matrices), Weights & Biases (experiment tracking platform recording training loss, learning rate schedules, and GPU metrics)
 
 PROBLEM STATEMENT
-----------------------------------------
-General-purpose LLMs perform poorly on specialized domains (medical, legal, code, finance) without domain adaptation. Full fine-tuning requires 100s of GPUs and millions of dollars. Build a parameter-efficient fine-tuning (PEFT) pipeline using LoRA that adapts a base model to a specific domain using consumer-grade hardware.
+----------------------------------------------------------------------
+General-purpose language models perform unreliably on specialized domain tasks involving legal statute interpretation, clinical terminology, and proprietary API code generation. Full parameter fine-tuning is computationally prohibitive, requiring multi-node GPU clusters and millions of dollars. This project builds a parameter-efficient fine-tuning (PEFT) pipeline in Python and PyTorch. The system ingests structured domain corpora, quantizes base open-source transformer models to 4-bit precision via bitsandbytes, injects Low-Rank Adaptation (LoRA) matrices into attention and feed-forward layers, trains models with sequence packing and gradient checkpointing, tracks loss curves in Weights & Biases, and evaluates domain accuracy improvements against base zero-shot models.
 
 USE CASES IN THE REAL WORLD
-----------------------------------------
-Medical AI (Apollo, Manipal hospitals), Legal tech (IndiaFilings, LegalWiz), EdTech (BYJU's custom tutors), FinTech (HDFC credit risk models). Any company with domain-specific knowledge that needs an AI that actually understands their context needs fine-tuning.
+----------------------------------------------------------------------
+- {'title': 'Clinical Terminology and Pathology Report Extraction', 'first_sentence': 'Healthcare research institutions require language models that extract structured disease codes and laboratory findings from unstructured pathology text.', 'second_sentence': 'The pipeline fine-tunes a base 7B parameter open-source model on clinical datasets, increasing biomedical entity extraction accuracy without exposing training data to third-party APIs.'}
+- {'title': 'Corporate Regulatory Compliance & Statutory Q&A', 'first_sentence': 'Corporate legal teams need specialized models capable of answering queries regarding cross-jurisdictional data privacy regulations and corporate bylaws.', 'second_sentence': 'The engine trains LoRA adapters on statutory corpora, enabling localized legal question answering with precise section citations and low hallucination rates.'}
+- {'title': 'Internal Proprietary Software Framework Code Generation', 'first_sentence': 'Software engineering organizations with proprietary internal SDKs and private libraries require code assistance tools tailored to their non-public APIs.', 'second_sentence': 'The system fine-tunes base coding models on internal repository functions, generating syntactically valid code completions that respect internal abstractions.'}
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Fine-tuning is the dividing line between ML engineers who use APIs and those who actually understand model internals. LoRA/PEFT specifically represents the state-of-the-art technique for adapting large models efficiently — knowledge that is explicitly required in LLM Engineer JDs at AI-first companies.
+WHY THIS IS HARD
+----------------------------------------------------------------------
+- Configuring 4-bit NormalFloat (NF4) quantization and double quantization to fit 7B parameter models within consumer GPU VRAM limits
+- Implementing sequence packing algorithms that concatenate short training samples to maximize compute utilization without cross-sample attention leakage
+- Selecting optimal LoRA rank (r) and alpha hyperparameters across attention projections to prevent catastrophic forgetting
+- Benchmarking fine-tuned adapter weights against zero-shot base baselines to verify genuine domain generalization
 
 RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-LoRA, QLoRA, and PEFT are the most explicitly mentioned techniques in LLM Engineer job descriptions in India right now. A working fine-tuned model with evaluation metrics immediately demonstrates you can operate at the model layer, not just the application layer.
+----------------------------------------------------------------------
+- Clean Python codebase separating dataset tokenization scripts, LoRA configuration modules, and evaluation harnesses
+- Reproducible training pipeline with public Weights & Biases run logs demonstrating smooth loss convergence and gradient norm stability
+- Anti-fake verification script loading merged LoRA adapter weights and verifying domain-specific terminology generation on unseen prompts
+Relevant Job Families: LLM Fine-Tuning Engineer, Applied Machine Learning Scientist, GenAI Platform Architect
 
 ARCHITECTURE & DATA FLOW
-----------------------------------------
-HuggingFace Transformers with PEFT library loading a base open-source model (LLaMA-2, Mistral, or Falcon). LoRA adapter matrices injected into attention layers. Dataset preprocessing pipeline with tokenization and packing. Training loop with Weights & Biases experiment tracking. GGUF quantization for efficient inference.
+----------------------------------------------------------------------
+Components:
+- Dataset Preprocessing & Token Packing Engine (Tools: Python, HuggingFace): Tokenizes instruction-response pairs and packs sequences to max context length with attention masking
+- 4-Bit QLoRA Model Quantizer & Adapter Injector (Tools: Python, PyTorch, PEFT, LoRA): Loads base weights in 4-bit precision, enables gradient checkpointing, and attaches trainable LoRA adapters
+- Trainer Loop & Weights & Biases Tracker (Tools: Python, PyTorch, Weights & Biases): Executes mixed-precision training steps, calculates loss, and logs telemetry to experiment dashboards
+- Weight Merger & GGUF Quantization Exporter (Tools: Python, PEFT): Fuses trained LoRA adapter weights into base model layers and exports GGUF binaries for local inference
+- Domain Benchmark Evaluation Harness (Tools: Python, HuggingFace): Scores model predictions against held-out domain benchmark questions, comparing zero-shot and fine-tuned results
+- Training Throughput & VRAM Profiling Harness (Tools: PyTorch): Profiles GPU memory allocation and measures token processing throughput per second during training
+- Model Card & LoRA Hyperparameter Documentation (Tools: HuggingFace): Documents training hyperparameters, dataset distributions, intended use, and evaluation limitations
+
+Data Flow:
+Domain instruction datasets enter the tokenization engine; sequences pack into dense context blocks with appropriate masking; the base model loads in 4-bit precision using bitsandbytes; LoRA adapter matrices inject into target query, key, value, and projection layers; PyTorch executes mixed-precision training steps with AdamW optimizer and cosine learning rate schedules; training metrics stream to Weights & Biases; upon completion, adapter weights merge into the base checkpoint; the evaluation harness scores generation accuracy across held-out domain test sets.
+
+Enforcement Mechanism:
+Gradient clipping at 1.0 preventing exploding gradients; sequence length truncation preventing out-of-memory GPU crashes.
 
 SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Target 1:
-- Metric: End-to-End Inference / Retrieval Latency (p95)
-- Method: Automated evaluation script measuring warm-state query-to-response duration
-- Input/dataset: Labelled benchmark evaluation set of 100 representative queries
-- Reference environment: Local CPU runtime (Ollama / ONNX / PyTorch) or stated free-tier API
-- Minimum pass: p95 inference latency < [M ms] on reference device
-- Target: p95 inference latency < [M ms] with zero token truncation
-- Report format: Latency histogram table exported from evaluation script
-
-Target 2:
-- Metric: Retrieval Hit Rate & Groundedness Accuracy
-- Method: Grounded evaluation script comparing model output against labelled ground-truth answers
-- Input/dataset: Curated evaluation set of 50 query-document pairs with ground-truth citations
-- Reference environment: Fixed random seed (42), single evaluation worker
-- Minimum pass: Retrieval hit rate (Recall@3) ≥ [X%] (minimum ≥ 75%)
-- Target: Retrieval hit rate (Recall@3) ≥ [X%] (target ≥ 90%)
-- Report format: Evaluation CSV table with per-query precision, recall, and hallucination flags
-
-Target 3:
-- Metric: Guardrail & Adversarial Payload Detection Rate
-- Method: Adversarial test suite evaluating security and validation boundary filters
-- Input/dataset: Benchmark suite of 30 adversarial injection and edge-case payloads
-- Reference environment: Automated test runner
-- Minimum pass: [X of Y] adversarial attempts blocked (minimum ≥ 25 of 30)
-- Target: [X of Y] adversarial attempts blocked (target 30 of 30) with 0 false positives on benign queries
-- Report format: Security test report logging prompt, rule triggered, and pass/fail status
+----------------------------------------------------------------------
+Metric | Method | Input/Dataset | Reference Environment | Minimum Pass | Target | Report Format
+Domain Benchmark Evaluation Accuracy Improvement | Percentage point improvement on 300 domain-specific multiple choice and extraction questions over baseline unadapted model | 300 domain-specific evaluation question-answer pairs spanning medical and legal technical terminology | Standard GPU instance (NVIDIA T4 / RTX 3060 / A10G with 12GB+ VRAM) or CPU simulation harness | Fine-tuned model achieves >= 14.0 percentage point accuracy improvement over baseline unadapted model | Fine-tuned model achieves >= 22.5 percentage point accuracy improvement over baseline unadapted model | Domain evaluation accuracy comparison report and benchmark score table
+Peak Training VRAM Consumption Ceiling | Maximum allocated GPU memory measured via torch.cuda.max_memory_allocated during QLoRA training | Batch size of 4 with sequence length 1024 tokens on 7B parameter base model with 4-bit quantization | Single 16GB GPU or local simulated PyTorch memory tracker | Peak VRAM allocation during training step is < 12.0 gigabytes | Peak VRAM allocation during training step is < 8.5 gigabytes | GPU memory allocation profile and VRAM benchmark trace
+Training Token Processing Throughput | Sustained tokens processed per second across active training epochs with sequence packing | 1,000,000 training tokens packed into 1024-token sequence blocks | Single consumer/cloud GPU running PyTorch 2.1+ with FlashAttention-2 or SDPA | Training throughput is >= 650 tokens per second | Training throughput is >= 1,450 tokens per second | Training execution timing log and token throughput summary
 
 SKILLS COVERED
-----------------------------------------
-Python, PyTorch, HuggingFace, LLM Fine-tuning, PEFT, CUDA
+----------------------------------------------------------------------
+Python, PyTorch, HuggingFace, PEFT, LoRA, Weights & Biases, LLM Fine-tuning, CUDA
 
 TARGET APPLICATION / STARTER INPUT
-----------------------------------------
-The project provides a self-contained test environment and fixture generator located in `scripts/` or `fixtures/`. It deterministically generates representative input records or mock client traffic for automated validation. No third-party proprietary data or real personal identifiers (PII) are required; all test datasets use synthetic tokens and deterministic random seeds.
+----------------------------------------------------------------------
+- Specification: Directory of 5,000 domain instruction-response pairs in JSONL format, training configuration YAMLs, and evaluation splits.
+- Dataset / Traffic Size: 5,000 instruction pairs (approx 8MB text), 300 benchmark evaluation records, and tokenizer configs
+- Seeded Edge Cases: Malformed multi-line JSON records, out-of-vocabulary domain abbreviations, and truncated context blocks
+- Label / Verification Source: Expert domain curated instruction-response pairs and standardized legal/clinical benchmark questions
+- Personal Data Policy: Strictly public technical QA pairs and synthetic clinical vignettes; zero real personal data used
 
 MILESTONES
-----------------------------------------
-- Milestone 1: Environment Setup & Core Foundations (8h)
-  Configure repository, tooling, container dependencies, and foundational data structures. Done when foundational test suite passes with clean linting.
-- Milestone 2: Core Processing & Architecture Implementation (11h)
-  Implement primary operational workflows, database models or state transitions, and API endpoints. Done when integration tests verify end-to-end data flow under normal operating conditions.
-- Milestone 3: Concurrency, Reliability & Error Guardrails (11h)
-  Implement defensive controls: rate limiting, retries with exponential backoff, transaction boundaries, and failure isolation. Done when chaos or stress tests verify graceful degradation under fault injection.
-- Milestone 4: Verification, Benchmarking & Documentation (8h)
-  Execute performance benchmark harness, compile measurement tables, generate architectural diagrams, and document screener verification steps. Done when `scripts/verify_all` passes completely.
+----------------------------------------------------------------------
+M1: Dataset Tokenization & Sequence Packing in Python and HuggingFace (10h) — Done when: Preprocessing pipeline packs 5,000 instruction pairs with attention masks and zero cross-sample leakage.
+M2: 4-Bit QLoRA Adapter Injection & CUDA Training in PyTorch and PEFT (10h) — Done when: QLoRA loads model in 4-bit NF4; training completes with peak VRAM < 12GB on CUDA.
+M3: Weights & Biases Tracking & Model Evaluation in LLM Fine-tuning (10h) — Done when: Fine-tuned model achieves >= 14 percentage point accuracy improvement on 300 test questions.
+M4: Weight Merging, Anti-Fake Dynamic Generation Test & Docs (10h) — Done when: LoRA merges into base weights; anti-fake test validates dynamic generation; docs complete.
+Total: 40 hours (estimate)
 
 PREREQUISITES, ENVIRONMENT AND ACCOUNTS
-----------------------------------------
-- Prerequisites: Familiarity with Python and PyTorch, standard command-line tools, and fundamental testing principles.
-- Hardware / OS: Standard modern computer (macOS, Linux, or Windows with WSL2) with at least 8GB RAM.
-- Accounts & Services: None required. Designed to run completely on free, open-source local software.
-- Fallback Path: In-memory mock drivers or SQLite/local files provided if external database or message broker containers cannot be run.
+----------------------------------------------------------------------
+Prerequisites: Proficiency in Python programming, PyTorch tensor manipulation, and HuggingFace transformers library, Understanding of transformer self-attention mechanisms, parameter-efficient fine-tuning (LoRA), and quantization
+
+Environment & Hardware:
+- OS: Linux / macOS / Windows with WSL2
+- Memory: 16GB RAM
+- Compute / GPU: 12GB+ VRAM GPU recommended (Google Colab T4 / Kaggle free GPU tier / local NVIDIA GPU)
+- Estimated Cost: $0 (fully executable on free Google Colab / Kaggle GPU tiers or local hardware)
+- Accounts & Quotas: Free HuggingFace account for base model downloads and free Weights & Biases account
+- Reference Environment: Ubuntu 22.04 with NVIDIA GPU (12GB+ VRAM), PyTorch 2.1+, CUDA 12.1, and HuggingFace transformers
+- Fallback Path: CPU training with TinyLlama (1.1B) using bitsandbytes CPU quantization or mock forward-pass runner
+
+Riskiest Component & Fallback:
+- Riskiest Component: GPU Out-of-Memory (OOM) Errors During Attention Backward Passes
+- Simpler Fallback: Reduce sequence length to 512 tokens and use LoRA rank r=8 instead of r=16.
 
 DELIVERABLES
-----------------------------------------
-1. Clean Git repository with structured commit history, README, and reproducible setup commands.
-2. Production-quality core codebase with automated test suite achieving verified pass rates.
-3. Performance benchmark report (`results/benchmark_report.md`) documenting measured latency, throughput, and resource utilization.
-4. Screener verification script (`scripts/verify_all.sh` or equivalent) validating the full system in < 3 minutes.
-5. Architecture diagram (Mermaid/ASCII) and known limitations document explaining architectural trade-offs.
+----------------------------------------------------------------------
+- Git repository containing dataset tokenization scripts, QLoRA training loop, and evaluation harnesses
+- Trained LoRA adapter weights checkpoint and merged model export script
+- Public Weights & Biases experiment dashboard tracking loss, learning rate, and GPU memory
+- Screener verification script evaluating model accuracy on domain test benchmark in under 5 minutes
 
 OUT OF SCOPE AND EXTENDED PATH
-----------------------------------------
-- Out of Scope for Core Path: Distributed multi-region clustering, enterprise SSO integrations, complex third-party SaaS dependencies.
-- Extended Path (+6 hours): Advanced telemetry dashboard, distributed persistence cluster extension, or automated canary release pipeline.
+----------------------------------------------------------------------
+Out of Scope:
+- Full-parameter pre-training from scratch on trillion-token web corpora
+- Distributed 3D-parallelism (Megatron-LM tensor and pipeline parallelism across GPU clusters)
+- Hardware custom ASIC accelerator driver authoring
 
-SAFETY AND ETHICS NOTE
-----------------------------------------
-All data processed, generated, and benchmarked by this project consists exclusively of synthetic fixtures. No personal identifiable information (PII), proprietary credentials, or live external endpoints are used.
+Extended Path: None (self-contained core scope)
 
 LEARNING RESOURCES
-----------------------------------------
-- Official Documentation for Python, PyTorch, HuggingFace
-- Architectural Reference Patterns and RFC Standards [VERIFY URL]
-- Systems & Distributed Reliability Principles
+----------------------------------------------------------------------
+- QLoRA: Efficient Finetuning of Quantized LLMs (Dettmers et al.)
+- HuggingFace PEFT Documentation: Low-Rank Adaptation (LoRA) Guide
+- PyTorch Gradient Checkpointing and Memory Optimization Guide
 
 SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Check 1: Verify training script running on consumer GPU (colab/kaggle) with reproducible config; Pass when automated test script prints 0 errors and logs verified status code.
-2. Check 2: Verify before/after evaluation: zero-shot baseline vs fine-tuned model on domain-specific benchmark; Pass when automated test script prints 0 errors and logs verified status code.
-3. Check 3: Verify weights & Biases training curves showing loss, learning rate, and gradient norms; Pass when automated test script prints 0 errors and logs verified status code.
-4. Check 4: Verify gGUF quantization enabling CPU inference for deployment without GPU; Pass when automated test script prints 0 errors and logs verified status code.
-5. Check 5: Verify model card documenting training data, hyperparameters, evaluation methodology, and limitations; Pass when automated test script prints 0 errors and logs verified status code.
-6. Check 6: 6. Anti-Fake Verification Check: Inspect committed execution logs and re-run verification script against seeded test fixtures; pass when runtime metrics dynamically reflect test execution rather than static mocked responses.
+----------------------------------------------------------------------
+1. Check
+   Input: 300 domain-specific evaluation question-answer pairs evaluated against base vs fine-tuned model
+   Action: python -m peft_pipeline.evaluate_domain --model-dir output/merged_model --test-file test_data/domain_eval.json
+   Result: Fine-tuned model achieves >= 14.0 percentage point accuracy improvement over base zero-shot model
+   Evidence: Terminal test execution output log and reports/domain_accuracy_report.json
+   Pass: Evaluation report confirms >= 14.0 point accuracy improvement with exit code 0
+2. Check
+   Input: Training step execution monitoring GPU memory allocation
+   Action: python scripts/profile_vram.py --config configs/qlora_7b.yaml
+   Result: Peak memory allocated during active forward and backward pass is < 12.0 gigabytes
+   Evidence: VRAM allocation profile log
+   Pass: Peak memory allocation is < 12.0GB with exit code 0
+3. Check
+   Input: Weights & Biases training run telemetry log
+   Action: python -m peft_pipeline.verify_wandb_run --run-id latest
+   Result: Telemetry confirms smooth training loss decrease, learning rate warmup, and zero NaN gradients
+   Evidence: W&B run verification log in reports/wandb_audit.json
+   Pass: Verification confirms monotonic loss trend and 0 NaN occurrences
+4. Check
+   Input: Merged model directory and configuration files
+   Action: python -m peft_pipeline.verify_model_artifacts --model-dir output/merged_model
+   Result: Directory contains valid safetensors weights, tokenizer configs, and generation config
+   Evidence: Model artifact inspection log
+   Pass: All required model weight files exist and load successfully in Python
+5. Check [anti_fake]
+   Input: Dynamic unobserved domain prompt testing specialized statutory terminology
+   Action: python scripts/verify_dynamic_generation.py --prompt 'Under Section 42 of the Corporate Privacy Act, what constitutes a qualifying data controller?'
+   Result: Model generates answer correctly citing statutory criteria while base model gives generic refusal
+   Evidence: Dynamic verification console execution output log
+   Pass: Generation contains required statutory keywords and passes domain rubric checks with exit code 0
 
 RESUME BULLET FORMULA
-----------------------------------------
-"Engineered fine-tuned 7B LLM using LoRA/PEFT on domain-specific dataset; achieved [N]% improvement on benchmark evaluation metrics using consumer GPU within [N] hours of training compute.; achieved [N] throughput with < [M ms] latency overhead across [K] test transactions."
-Do not claim: scale, latency, or throughput figures without committing benchmark run logs; do not claim production deployment unless deployed to a verifiable live environment.
+----------------------------------------------------------------------
+"Architected parameter-efficient domain fine-tuning pipeline in Python and PyTorch using QLoRA; increased domain evaluation accuracy by [ACCURACY_DELTA] points over baseline, and maintained training memory consumption below [VRAM_CEILING] gigabytes."
+
+Do not claim: full pre-training from scratch on multi-node GPU superclusters or commercial medical diagnosis licensure
 
 ======================================================================
 Generated by HireFlow — hireflow.io

@@ -1,0 +1,358 @@
+{
+  "id": "brief-llm-finetuning-peft",
+  "title": "Domain-Specific LLM Fine-Tuning Pipeline with QLoRA, Token Packing & Automated Evaluation",
+  "domain": "GenAI & LLM Engineering",
+  "difficulty": "ADVANCED",
+  "project_types": [
+    "Data pipeline / ETL",
+    "Systems programming"
+  ],
+  "problem": "General-purpose language models perform unreliably on specialized domain tasks involving legal statute interpretation, clinical terminology, and proprietary API code generation. Full parameter fine-tuning is computationally prohibitive, requiring multi-node GPU clusters and millions of dollars. This project builds a parameter-efficient fine-tuning (PEFT) pipeline in Python and PyTorch. The system ingests structured domain corpora, quantizes base open-source transformer models to 4-bit precision via bitsandbytes, injects Low-Rank Adaptation (LoRA) matrices into attention and feed-forward layers, trains models with sequence packing and gradient checkpointing, tracks loss curves in Weights & Biases, and evaluates domain accuracy improvements against base zero-shot models.",
+  "use_cases": [
+    {
+      "title": "Clinical Terminology and Pathology Report Extraction",
+      "first_sentence": "Healthcare research institutions require language models that extract structured disease codes and laboratory findings from unstructured pathology text.",
+      "second_sentence": "The pipeline fine-tunes a base 7B parameter open-source model on clinical datasets, increasing biomedical entity extraction accuracy without exposing training data to third-party APIs."
+    },
+    {
+      "title": "Corporate Regulatory Compliance & Statutory Q&A",
+      "first_sentence": "Corporate legal teams need specialized models capable of answering queries regarding cross-jurisdictional data privacy regulations and corporate bylaws.",
+      "second_sentence": "The engine trains LoRA adapters on statutory corpora, enabling localized legal question answering with precise section citations and low hallucination rates."
+    },
+    {
+      "title": "Internal Proprietary Software Framework Code Generation",
+      "first_sentence": "Software engineering organizations with proprietary internal SDKs and private libraries require code assistance tools tailored to their non-public APIs.",
+      "second_sentence": "The system fine-tunes base coding models on internal repository functions, generating syntactically valid code completions that respect internal abstractions."
+    }
+  ],
+  "hard_parts": [
+    "Configuring 4-bit NormalFloat (NF4) quantization and double quantization to fit 7B parameter models within consumer GPU VRAM limits",
+    "Implementing sequence packing algorithms that concatenate short training samples to maximize compute utilization without cross-sample attention leakage",
+    "Selecting optimal LoRA rank (r) and alpha hyperparameters across attention projections to prevent catastrophic forgetting",
+    "Benchmarking fine-tuned adapter weights against zero-shot base baselines to verify genuine domain generalization"
+  ],
+  "screener_signals": [
+    "Clean Python codebase separating dataset tokenization scripts, LoRA configuration modules, and evaluation harnesses",
+    "Reproducible training pipeline with public Weights & Biases run logs demonstrating smooth loss convergence and gradient norm stability",
+    "Anti-fake verification script loading merged LoRA adapter weights and verifying domain-specific terminology generation on unseen prompts"
+  ],
+  "job_families": [
+    "LLM Fine-Tuning Engineer",
+    "Applied Machine Learning Scientist",
+    "GenAI Platform Architect"
+  ],
+  "stack": [
+    {
+      "tool": "Python",
+      "role": "primary language implementing dataset tokenization, training scripts, and evaluation suites"
+    },
+    {
+      "tool": "PyTorch",
+      "role": "deep learning framework providing tensor computations, autograd, and CUDA execution primitives"
+    },
+    {
+      "tool": "HuggingFace",
+      "role": "library ecosystem providing transformer architectures, tokenizers, and dataset loaders"
+    },
+    {
+      "tool": "PEFT",
+      "role": "parameter-efficient fine-tuning library managing LoRA adapter initialization and weight merging"
+    },
+    {
+      "tool": "LoRA",
+      "role": "low-rank adaptation technique parameterizing attention weight updates into low-rank matrices"
+    },
+    {
+      "tool": "Weights & Biases",
+      "role": "experiment tracking platform recording training loss, learning rate schedules, and GPU metrics"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "Dataset Preprocessing & Token Packing Engine",
+        "tools_used": [
+          "Python",
+          "HuggingFace"
+        ],
+        "purpose": "Tokenizes instruction-response pairs and packs sequences to max context length with attention masking"
+      },
+      {
+        "name": "4-Bit QLoRA Model Quantizer & Adapter Injector",
+        "tools_used": [
+          "Python",
+          "PyTorch",
+          "PEFT",
+          "LoRA"
+        ],
+        "purpose": "Loads base weights in 4-bit precision, enables gradient checkpointing, and attaches trainable LoRA adapters"
+      },
+      {
+        "name": "Trainer Loop & Weights & Biases Tracker",
+        "tools_used": [
+          "Python",
+          "PyTorch",
+          "Weights & Biases"
+        ],
+        "purpose": "Executes mixed-precision training steps, calculates loss, and logs telemetry to experiment dashboards"
+      },
+      {
+        "name": "Weight Merger & GGUF Quantization Exporter",
+        "tools_used": [
+          "Python",
+          "PEFT"
+        ],
+        "purpose": "Fuses trained LoRA adapter weights into base model layers and exports GGUF binaries for local inference"
+      },
+      {
+        "name": "Domain Benchmark Evaluation Harness",
+        "tools_used": [
+          "Python",
+          "HuggingFace"
+        ],
+        "purpose": "Scores model predictions against held-out domain benchmark questions, comparing zero-shot and fine-tuned results"
+      },
+      {
+        "name": "Training Throughput & VRAM Profiling Harness",
+        "tools_used": [
+          "PyTorch"
+        ],
+        "purpose": "Profiles GPU memory allocation and measures token processing throughput per second during training"
+      },
+      {
+        "name": "Model Card & LoRA Hyperparameter Documentation",
+        "tools_used": [
+          "HuggingFace"
+        ],
+        "purpose": "Documents training hyperparameters, dataset distributions, intended use, and evaluation limitations"
+      }
+    ],
+    "data_flow": "Domain instruction datasets enter the tokenization engine; sequences pack into dense context blocks with appropriate masking; the base model loads in 4-bit precision using bitsandbytes; LoRA adapter matrices inject into target query, key, value, and projection layers; PyTorch executes mixed-precision training steps with AdamW optimizer and cosine learning rate schedules; training metrics stream to Weights & Biases; upon completion, adapter weights merge into the base checkpoint; the evaluation harness scores generation accuracy across held-out domain test sets.",
+    "enforcement_mechanism": "Gradient clipping at 1.0 preventing exploding gradients; sequence length truncation preventing out-of-memory GPU crashes."
+  },
+  "targets": [
+    {
+      "metric": "Domain Benchmark Evaluation Accuracy Improvement",
+      "method": "Percentage point improvement on 300 domain-specific multiple choice and extraction questions over baseline unadapted model",
+      "input": "300 domain-specific evaluation question-answer pairs spanning medical and legal technical terminology",
+      "environment": "Standard GPU instance (NVIDIA T4 / RTX 3060 / A10G with 12GB+ VRAM) or CPU simulation harness",
+      "minimum_pass": "Fine-tuned model achieves >= 14.0 percentage point accuracy improvement over baseline unadapted model",
+      "target": "Fine-tuned model achieves >= 22.5 percentage point accuracy improvement over baseline unadapted model",
+      "report": "Domain evaluation accuracy comparison report and benchmark score table"
+    },
+    {
+      "metric": "Peak Training VRAM Consumption Ceiling",
+      "method": "Maximum allocated GPU memory measured via torch.cuda.max_memory_allocated during QLoRA training",
+      "input": "Batch size of 4 with sequence length 1024 tokens on 7B parameter base model with 4-bit quantization",
+      "environment": "Single 16GB GPU or local simulated PyTorch memory tracker",
+      "minimum_pass": "Peak VRAM allocation during training step is < 12.0 gigabytes",
+      "target": "Peak VRAM allocation during training step is < 8.5 gigabytes",
+      "report": "GPU memory allocation profile and VRAM benchmark trace"
+    },
+    {
+      "metric": "Training Token Processing Throughput",
+      "method": "Sustained tokens processed per second across active training epochs with sequence packing",
+      "input": "1,000,000 training tokens packed into 1024-token sequence blocks",
+      "environment": "Single consumer/cloud GPU running PyTorch 2.1+ with FlashAttention-2 or SDPA",
+      "minimum_pass": "Training throughput is >= 650 tokens per second",
+      "target": "Training throughput is >= 1,450 tokens per second",
+      "report": "Training execution timing log and token throughput summary"
+    }
+  ],
+  "skills": [
+    "Python",
+    "PyTorch",
+    "HuggingFace",
+    "PEFT",
+    "LoRA",
+    "Weights & Biases",
+    "LLM Fine-tuning",
+    "CUDA"
+  ],
+  "starter_input": {
+    "spec": "Directory of 5,000 domain instruction-response pairs in JSONL format, training configuration YAMLs, and evaluation splits.",
+    "size": "5,000 instruction pairs (approx 8MB text), 300 benchmark evaluation records, and tokenizer configs",
+    "seeded_cases": "Malformed multi-line JSON records, out-of-vocabulary domain abbreviations, and truncated context blocks",
+    "label_source": "Expert domain curated instruction-response pairs and standardized legal/clinical benchmark questions",
+    "personal_data_policy": "Strictly public technical QA pairs and synthetic clinical vignettes; zero real personal data used"
+  },
+  "components": [
+    {
+      "name": "Dataset Preprocessing & Token Packing Engine",
+      "task_type": "data pipeline step",
+      "hours": 6.0
+    },
+    {
+      "name": "4-Bit QLoRA Model Quantizer & Adapter Injector",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "Trainer Loop & Weights & Biases Tracker",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "Weight Merger & GGUF Quantization Exporter",
+      "task_type": "low-level/system subsystem",
+      "hours": 5.0
+    },
+    {
+      "name": "Domain Benchmark Evaluation Harness",
+      "task_type": "evaluation dataset creation + scoring script",
+      "hours": 5.0
+    },
+    {
+      "name": "Training Throughput & VRAM Profiling Harness",
+      "task_type": "load or performance test harness + report",
+      "hours": 4.0
+    },
+    {
+      "name": "Model Card & LoRA Hyperparameter Documentation",
+      "task_type": "docs + architecture diagram",
+      "hours": 3.0
+    }
+  ],
+  "extended_path": {
+    "features": [
+      "Direct Preference Optimization (DPO) alignment stage training on paired chosen-rejected domain responses",
+      "Continuous streaming dataset loading from cloud object stores for multi-gigabyte corpus fine-tuning",
+      "Automated LoRA hyperparameter search over rank, alpha, and dropout using Optuna"
+    ],
+    "hours": 16
+  },
+  "milestones": [
+    {
+      "name": "Dataset Tokenization & Sequence Packing in Python and HuggingFace",
+      "hours": 10,
+      "done_criterion": "Preprocessing pipeline packs 5,000 instruction pairs with attention masks and zero cross-sample leakage."
+    },
+    {
+      "name": "4-Bit QLoRA Adapter Injection & CUDA Training in PyTorch and PEFT",
+      "hours": 10,
+      "done_criterion": "QLoRA loads model in 4-bit NF4; training completes with peak VRAM < 12GB on CUDA."
+    },
+    {
+      "name": "Weights & Biases Tracking & Model Evaluation in LLM Fine-tuning",
+      "hours": 10,
+      "done_criterion": "Fine-tuned model achieves >= 14 percentage point accuracy improvement on 300 test questions."
+    },
+    {
+      "name": "Weight Merging, Anti-Fake Dynamic Generation Test & Docs",
+      "hours": 10,
+      "done_criterion": "LoRA merges into base weights; anti-fake test validates dynamic generation; docs complete."
+    }
+  ],
+  "prerequisites": [
+    "Proficiency in Python programming, PyTorch tensor manipulation, and HuggingFace transformers library",
+    "Understanding of transformer self-attention mechanisms, parameter-efficient fine-tuning (LoRA), and quantization"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "16GB RAM",
+    "gpu": "12GB+ VRAM GPU recommended (Google Colab T4 / Kaggle free GPU tier / local NVIDIA GPU)",
+    "cost": "$0 (fully executable on free Google Colab / Kaggle GPU tiers or local hardware)",
+    "accounts_keys_quotas": "Free HuggingFace account for base model downloads and free Weights & Biases account",
+    "reference_environment": "Ubuntu 22.04 with NVIDIA GPU (12GB+ VRAM), PyTorch 2.1+, CUDA 12.1, and HuggingFace transformers",
+    "fallback_path": "CPU training with TinyLlama (1.1B) using bitsandbytes CPU quantization or mock forward-pass runner"
+  },
+  "riskiest_component": {
+    "name": "GPU Out-of-Memory (OOM) Errors During Attention Backward Passes",
+    "mitigation": "Enable gradient checkpointing, FlashAttention-2, and per-device batch size of 1 with gradient accumulation.",
+    "fallback": "Reduce sequence length to 512 tokens and use LoRA rank r=8 instead of r=16."
+  },
+  "deliverables": [
+    "Git repository containing dataset tokenization scripts, QLoRA training loop, and evaluation harnesses",
+    "Trained LoRA adapter weights checkpoint and merged model export script",
+    "Public Weights & Biases experiment dashboard tracking loss, learning rate, and GPU memory",
+    "Screener verification script evaluating model accuracy on domain test benchmark in under 5 minutes"
+  ],
+  "out_of_scope": [
+    "Full-parameter pre-training from scratch on trillion-token web corpora",
+    "Distributed 3D-parallelism (Megatron-LM tensor and pipeline parallelism across GPU clusters)",
+    "Hardware custom ASIC accelerator driver authoring"
+  ],
+  "safety_note": null,
+  "resources": [
+    "QLoRA: Efficient Finetuning of Quantized LLMs (Dettmers et al.)",
+    "HuggingFace PEFT Documentation: Low-Rank Adaptation (LoRA) Guide",
+    "PyTorch Gradient Checkpointing and Memory Optimization Guide"
+  ],
+  "rubric": [
+    {
+      "input": "300 domain-specific evaluation question-answer pairs evaluated against base vs fine-tuned model",
+      "action": "python -m peft_pipeline.evaluate_domain --model-dir output/merged_model --test-file test_data/domain_eval.json",
+      "expected_result": "Fine-tuned model achieves >= 14.0 percentage point accuracy improvement over base zero-shot model",
+      "evidence_location": "Terminal test execution output log and reports/domain_accuracy_report.json",
+      "pass_criterion": "Evaluation report confirms >= 14.0 point accuracy improvement with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Training step execution monitoring GPU memory allocation",
+      "action": "python scripts/profile_vram.py --config configs/qlora_7b.yaml",
+      "expected_result": "Peak memory allocated during active forward and backward pass is < 12.0 gigabytes",
+      "evidence_location": "VRAM allocation profile log",
+      "pass_criterion": "Peak memory allocation is < 12.0GB with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Weights & Biases training run telemetry log",
+      "action": "python -m peft_pipeline.verify_wandb_run --run-id latest",
+      "expected_result": "Telemetry confirms smooth training loss decrease, learning rate warmup, and zero NaN gradients",
+      "evidence_location": "W&B run verification log in reports/wandb_audit.json",
+      "pass_criterion": "Verification confirms monotonic loss trend and 0 NaN occurrences",
+      "kind": "normal"
+    },
+    {
+      "input": "Merged model directory and configuration files",
+      "action": "python -m peft_pipeline.verify_model_artifacts --model-dir output/merged_model",
+      "expected_result": "Directory contains valid safetensors weights, tokenizer configs, and generation config",
+      "evidence_location": "Model artifact inspection log",
+      "pass_criterion": "All required model weight files exist and load successfully in Python",
+      "kind": "normal"
+    },
+    {
+      "input": "Dynamic unobserved domain prompt testing specialized statutory terminology",
+      "action": "python scripts/verify_dynamic_generation.py --prompt 'Under Section 42 of the Corporate Privacy Act, what constitutes a qualifying data controller?'",
+      "expected_result": "Model generates answer correctly citing statutory criteria while base model gives generic refusal",
+      "evidence_location": "Dynamic verification console execution output log",
+      "pass_criterion": "Generation contains required statutory keywords and passes domain rubric checks with exit code 0",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected parameter-efficient domain fine-tuning pipeline in Python and PyTorch using QLoRA; increased domain evaluation accuracy by [ACCURACY_DELTA] points over baseline, and maintained training memory consumption below [VRAM_CEILING] gigabytes.",
+    "claims": [
+      {
+        "text": "increased domain evaluation accuracy by [ACCURACY_DELTA] points over baseline",
+        "rubric_indexes": [
+          0
+        ]
+      },
+      {
+        "text": "maintained training memory consumption below [VRAM_CEILING] gigabytes",
+        "rubric_indexes": [
+          1
+        ]
+      }
+    ],
+    "do_not_claim": "full pre-training from scratch on multi-node GPU superclusters or commercial medical diagnosis licensure"
+  },
+  "verify": [
+    "Run `python -m pytest tests/` to verify token packing, LoRA injection, and loss calculation tests pass.",
+    "Execute `python -m peft_pipeline.evaluate_domain` to verify fine-tuned model accuracy exceeds zero-shot baseline.",
+    "Run `python scripts/verify_dynamic_generation.py` to assert domain-specific terminology generation on unseen prompts."
+  ],
+  "worksheet": {
+    "q1": "Core deliverable: a parameter-efficient fine-tuning pipeline in Python/PyTorch with 4-bit QLoRA, token packing, and domain evaluation.",
+    "q2": "Target users: applied ML engineers, NLP scientists, and enterprise GenAI platform developers.",
+    "q3": "3 use cases: clinical report entity extraction, corporate regulatory Q&A, and proprietary internal code completion.",
+    "q4": "Stated hours: 40 hours. Calculated bottom-up: 35 component hours * 1.15 buffer = 40.25 -> 40 hours. Advanced level.",
+    "q5": "Hard parts: 4-bit NF4 quantization parameterization, sequence packing without cross-sample attention leakage, LoRA rank hyperparameter tuning, and VRAM containment.",
+    "q6": "Starter input: 5,000 domain instruction pairs in JSONL format, training configuration YAMLs, and 300 benchmark questions. Public datasets only.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 16GB RAM, free Colab/Kaggle GPU, $0 cost, zero paid cloud services. Fallback: CPU training with TinyLlama.",
+    "q8": "Riskiest component: GPU OOM errors on backward pass. Fallback: gradient checkpointing, FlashAttention-2, and per-device batch size 1.",
+    "q9": "Potential faking: pre-generated text completions. Anti-fake check 5 runs unseen dynamic prompt through merged weights and verifies statutory keywords.",
+    "q10": "Safety/ethics: Safe; public technical instruction datasets and synthetic clinical vignettes only, zero private medical patient records."
+  }
+}

@@ -1,0 +1,346 @@
+{
+  "id": "brief-progressive-web-app",
+  "title": "Production Progressive Web App (PWA) with Workbox Service Worker, IndexedDB Offline Mutation Sync & Web Push Notifications",
+  "domain": "Mobile Engineering",
+  "difficulty": "INTERMEDIATE",
+  "project_types": [
+    "Full-stack web",
+    "Mobile app"
+  ],
+  "problem": "Native mobile applications impose substantial distribution friction, lengthy app store review cycles, and large download sizes, while standard responsive web applications break entirely when network connectivity drops. Users in areas with intermittent mobile coverage lose unsaved form inputs, encounter browser dinosaur error pages, and miss critical real-time alerts. This project builds a production-grade Progressive Web App (PWA) in TypeScript and React. The system implements an app-shell architecture precached via Workbox Service Workers, stores application data and offline mutation queues in browser IndexedDB, synchronizes queued transactions in the background upon network reconnection using the Background Sync API, and delivers timely transactional alerts via the Web Push API with VAPID authentication.",
+  "use_cases": [
+    {
+      "title": "Field Technician Maintenance Logging & Work Orders",
+      "first_sentence": "Field service technicians inspecting remote wind turbines or basements frequently lose cellular signal while drafting maintenance reports.",
+      "second_sentence": "The PWA renders the precached app shell instantly offline, queues maintenance log submissions to IndexedDB, and automatically flushes queued updates to backend APIs once connectivity restores."
+    },
+    {
+      "title": "Warehouse Logistics Barcode Scanning & Inventory Auditing",
+      "first_sentence": "Warehouse workers scanning physical inventory pallets in shielded distribution hubs need continuous UI responsiveness without network lag.",
+      "second_sentence": "The application persists inventory counts locally, updating quantities optimistically in the UI and synchronizing delta updates via background service worker sync."
+    },
+    {
+      "title": "Emergency Dispatch & Public Safety Broadcast Alerts",
+      "first_sentence": "Municipal disaster relief teams require immediate real-time broadcast alerts on mobile web browsers even when the main app tab is closed.",
+      "second_sentence": "The service worker intercepts Web Push notifications using VAPID keys, rendering rich system notification badges and routing users to localized evacuation maps."
+    }
+  ],
+  "hard_parts": [
+    "Designing cache invalidation and stale-while-revalidate routing strategies with Workbox to eliminate stale app-shell bundles without serving broken assets",
+    "Managing an append-only IndexedDB mutation queue that guarantees idempotent, FIFO transaction playback without duplicating orders upon reconnection",
+    "Handling browser Web Push subscription lifecycles, VAPID public/private key cryptographic verification, and push service endpoint changes",
+    "Architecting offline-first UI state synchronization in React that indicates network status changes with zero layout shift"
+  ],
+  "screener_signals": [
+    "Clean TypeScript and React codebase cleanly separating UI views, Workbox service worker routing, IndexedDB storage adapters, and Web Push managers",
+    "Lighthouse PWA audit achieving 100/100 PWA score and sub-1.2s First Contentful Paint (FCP) on simulated 4G mobile networks",
+    "Anti-fake verification script simulating complete browser offline mode (navigator.onLine=false), queuing an order in IndexedDB, and verifying automatic API commit upon reconnection"
+  ],
+  "job_families": [
+    "Mobile Web Application Developer",
+    "Frontend Systems Architect",
+    "Full-Stack Web Engineer"
+  ],
+  "stack": [
+    {
+      "tool": "TypeScript",
+      "role": "strongly typed language shared across React components, service worker logic, and IndexedDB sync"
+    },
+    {
+      "tool": "React",
+      "role": "frontend component framework rendering responsive offline-aware mobile user interfaces"
+    },
+    {
+      "tool": "Workbox",
+      "role": "service worker library managing precaching, runtime caching strategies, and background sync"
+    },
+    {
+      "tool": "Service Workers",
+      "role": "browser background execution threads intercepting network requests and handling push events"
+    },
+    {
+      "tool": "IndexedDB",
+      "role": "browser client-side structured storage engine persisting offline mutation queues and local entities"
+    },
+    {
+      "tool": "Web Push API",
+      "role": "browser notification standard delivering push messages authenticated via VAPID keys"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "App Shell Architecture & Workbox Precaching Service Worker",
+        "tools_used": [
+          "TypeScript",
+          "Workbox",
+          "Service Workers"
+        ],
+        "purpose": "Precaches critical HTML, CSS, and JS bundles during installation and serves assets cache-first with background updates"
+      },
+      {
+        "name": "IndexedDB Offline Mutation Queue & Background Sync Engine",
+        "tools_used": [
+          "TypeScript",
+          "IndexedDB",
+          "Service Workers"
+        ],
+        "purpose": "Captures user mutations offline, persists ordered transaction logs in IndexedDB, and flushes queue upon network restoration"
+      },
+      {
+        "name": "Web Push Notification & VAPID Subscription Manager",
+        "tools_used": [
+          "TypeScript",
+          "Web Push API"
+        ],
+        "purpose": "Manages browser push permission dialogs, subscribes to push service endpoints, and handles push and notificationclick events"
+      },
+      {
+        "name": "Responsive Offline-First React Application Dashboard",
+        "tools_used": [
+          "TypeScript",
+          "React"
+        ],
+        "purpose": "Renders mobile-optimized UI views, displays online/offline connectivity badges, and provides optimistic UI updates"
+      },
+      {
+        "name": "Offline Lighthouse PWA & Sync Latency Benchmark Harness",
+        "tools_used": [
+          "TypeScript",
+          "React"
+        ],
+        "purpose": "Automates headless Chromium testing to verify 100/100 Lighthouse PWA audit compliance and offline load performance"
+      },
+      {
+        "name": "PWA Deployment Guide & Offline Service Worker Architecture Diagram",
+        "tools_used": [
+          "TypeScript",
+          "React"
+        ],
+        "purpose": "Documents cache versioning policies, VAPID key rotation procedures, and mobile home-screen install criteria"
+      }
+    ],
+    "data_flow": "The user loads the web app; the browser registers the Workbox service worker which precaches the app shell; user navigates between views; API data caches using a stale-while-revalidate strategy; if the device goes offline, network requests intercept and serve from IndexedDB or cache; when the user submits a form while offline, the payload writes to the IndexedDB mutation queue with a pending status and updates the UI optimistically; when network connectivity returns (via window online event or Background Sync), the service worker drains the queue in FIFO order, posts mutations to the backend API, and updates local record IDs; backend triggers Web Push events to display system notifications.",
+    "enforcement_mechanism": "Idempotency keys on queued mutations preventing duplicate execution; cryptographic VAPID signatures validating push payloads."
+  },
+  "targets": [
+    {
+      "metric": "Lighthouse PWA Audit Compliance Score",
+      "method": "Automated Lighthouse CLI audit measuring PWA criteria, offline capability, installability, and service worker registration",
+      "input": "Headless Chromium browser session loading production PWA build on simulated throttled mobile device",
+      "environment": "Standard 4-core local CPU, Node.js 18+, Lighthouse CLI 10+",
+      "minimum_pass": "Lighthouse PWA audit score is >= 95 out of 100",
+      "target": "Lighthouse PWA audit score is 100 out of 100",
+      "report": "Lighthouse JSON audit report and PWA category checklist"
+    },
+    {
+      "metric": "Offline App Shell First Contentful Paint (FCP)",
+      "method": "Navigation timing measuring duration from navigation start to first rendered paint while network is completely disconnected",
+      "input": "10 repeated cold page loads executed with browser network disconnected (offline mode)",
+      "environment": "Headless Chromium browser running under simulated slow 4-core mobile CPU emulation",
+      "minimum_pass": "p95 offline First Contentful Paint is < 1,500 milliseconds",
+      "target": "p95 offline First Contentful Paint is < 650 milliseconds",
+      "report": "Chromium DevTools performance trace log and paint timing table"
+    },
+    {
+      "metric": "Offline Mutation Queue Idempotent Reconnection Sync Rate",
+      "method": "Percentage of mutations created while disconnected successfully submitted and committed to backend API upon reconnection",
+      "input": "50 offline form submissions queued in IndexedDB across simulated 60-second network outage",
+      "environment": "Playwright automated browser test suite simulating network offline toggling and mock backend API",
+      "minimum_pass": "50 of 50 offline mutations successfully synchronize with 0 duplicate submissions",
+      "target": "50 of 50 offline mutations successfully synchronize with 0 duplicate submissions",
+      "report": "Offline mutation replay audit log and backend transaction consistency verification"
+    }
+  ],
+  "skills": [
+    "TypeScript",
+    "React",
+    "Workbox",
+    "Service Workers",
+    "IndexedDB",
+    "Web Push API",
+    "Full-Stack Web",
+    "Mobile Engineering"
+  ],
+  "starter_input": {
+    "spec": "Directory containing React application scaffolding, Workbox service worker configuration, IndexedDB sync helper, and mock API server.",
+    "size": "14 TypeScript source files, Web App Manifest JSON, icon assets, and Playwright automated test scripts",
+    "seeded_cases": "Service worker update waiting states, quota exceeded errors in IndexedDB, and rapid network flap transitions",
+    "label_source": "Deterministic Lighthouse audit JSON reports and Playwright browser assertion invariants",
+    "personal_data_policy": "Strictly mock synthetic field work order records and simulated notification payloads; no real personal data used"
+  },
+  "components": [
+    {
+      "name": "App Shell Architecture & Workbox Precaching Service Worker",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "IndexedDB Offline Mutation Queue & Background Sync Engine",
+      "task_type": "concurrency/consistency mechanism with tests",
+      "hours": 5.0
+    },
+    {
+      "name": "Web Push Notification & VAPID Subscription Manager",
+      "task_type": "API endpoint group with tests",
+      "hours": 4.0
+    },
+    {
+      "name": "Responsive Offline-First React Application Dashboard",
+      "task_type": "one UI view with state",
+      "hours": 4.0
+    },
+    {
+      "name": "Offline Lighthouse PWA & Sync Latency Benchmark Harness",
+      "task_type": "load or performance test harness + report",
+      "hours": 3.0
+    },
+    {
+      "name": "PWA Deployment Guide & Offline Service Worker Architecture Diagram",
+      "task_type": "docs + architecture diagram",
+      "hours": 2.0
+    }
+  ],
+  "extended_path": {
+    "features": [
+      "Periodic Background Sync API updating local cached catalog data every 12 hours while application is closed",
+      "Web Share Target API allowing the PWA to receive shared images and URLs directly from native mobile share sheets",
+      "Multi-device conflict resolution using CRDT counter registers for collaborative offline quantity updates"
+    ],
+    "hours": 14
+  },
+  "milestones": [
+    {
+      "name": "App Shell Architecture & Workbox Precaching in TypeScript, Workbox and Service Workers",
+      "hours": 7,
+      "done_criterion": "Service worker installs and precaches shell; app loads offline with sub-1.5s FCP."
+    },
+    {
+      "name": "IndexedDB Offline Mutation Queue & Background Sync in IndexedDB and Mobile Engineering",
+      "hours": 7,
+      "done_criterion": "Mutations queue in IndexedDB while offline; 50 of 50 mutations synchronize upon reconnection."
+    },
+    {
+      "name": "Web Push Notifications & VAPID Authentication in Web Push API and React",
+      "hours": 7,
+      "done_criterion": "VAPID keys generate; service worker displays push notifications and handles click routing."
+    },
+    {
+      "name": "Lighthouse 100 Audit, Reconnection Anti-Fake Test & Docs in Full-Stack Web",
+      "hours": 7,
+      "done_criterion": "Lighthouse PWA audit scores >= 95; anti-fake offline sync passes; documentation complete."
+    }
+  ],
+  "prerequisites": [
+    "Proficiency in modern TypeScript, React, and asynchronous JavaScript (Promises, async/await)",
+    "Understanding of browser Service Worker lifecycles, Cache API, IndexedDB transactions, and Web Push concepts"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (client-side browser JavaScript and Node.js backend mock server)",
+    "cost": "$0 (fully open-source stack using local browser and Node.js)",
+    "accounts_keys_quotas": "No external cloud accounts, paid services, or API keys required (local VAPID key pairs generated via web-push library)",
+    "reference_environment": "Local 4-core CPU with Node.js 18+, modern Chromium/Chrome browser, and npm",
+    "fallback_path": "Running tests against local headless Chromium without push service for environments blocking browser notifications"
+  },
+  "riskiest_component": {
+    "name": "Stale Cache Traps and Broken Service Worker Update Cycles",
+    "mitigation": "Configure Workbox precache manifest revisions and implement skipWaiting prompt allowing users to activate new versions immediately.",
+    "fallback": "Hard-coded emergency unregister hook allowing client force-reload to clear corrupted service worker states."
+  },
+  "deliverables": [
+    "Git repository containing React PWA, Workbox service worker, IndexedDB sync layer, and Node.js mock API server",
+    "Web App Manifest, custom app icons, and offline fallback HTML page",
+    "Automated Playwright test suite verifying offline mutation queuing and reconnection synchronization",
+    "Screener verification script executing Lighthouse audit and dynamic offline-to-online sync in under 2 minutes"
+  ],
+  "out_of_scope": [
+    "Native iOS/Android Swift or Kotlin container wrappers (Cordova / Capacitor)",
+    "Third-party proprietary commercial mobile push providers (OneSignal / Braze)",
+    "Bluetooth / NFC hardware peripheral integration APIs"
+  ],
+  "safety_note": null,
+  "resources": [
+    "Google Chrome Workbox Documentation & Service Worker Best Practices",
+    "Progressive Web Apps Specification (W3C Working Group Note)",
+    "Web Push API and VAPID RFC 8292 Specification"
+  ],
+  "rubric": [
+    {
+      "input": "Headless Chromium browser loading production PWA build",
+      "action": "npx lighthouse http://localhost:3000 --output=json --output-path=./reports/lighthouse.json --only-categories=pwa",
+      "expected_result": "Lighthouse audit confirms service worker registration, offline loading, and scores >= 95 PWA score",
+      "evidence_location": "Lighthouse audit JSON file in reports/lighthouse.json",
+      "pass_criterion": "PWA score >= 95 out of 100 with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "10 repeated cold page loads executed under offline network emulation",
+      "action": "npm run test:offline-fcp",
+      "expected_result": "App shell renders completely from service worker cache with p95 FCP < 1,500ms",
+      "evidence_location": "Performance timing trace in reports/offline_perf.json",
+      "pass_criterion": "p95 FCP < 1500ms with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "50 offline form submissions queued in IndexedDB while disconnected",
+      "action": "npx playwright test tests/offline_sync.spec.ts",
+      "expected_result": "Mutations persist in IndexedDB and flush to mock API with 0 duplicates upon reconnection",
+      "evidence_location": "Playwright test execution log and reports/sync_results.json",
+      "pass_criterion": "50 of 50 mutations committed successfully with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Web Push test payload dispatched via web-push library using local VAPID keys",
+      "action": "npm run test:push-notification",
+      "expected_result": "Service worker receives push event, verifies VAPID signature, and shows notification badge",
+      "evidence_location": "Service worker push execution log in reports/push_audit.json",
+      "pass_criterion": "Notification event received and displayed with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Simulated offline user creating a maintenance ticket while disconnected",
+      "action": "npm run test:verify-offline-flow",
+      "expected_result": "Browser creates ticket in IndexedDB, displays pending sync badge, and commits to backend upon online event",
+      "evidence_location": "Dynamic verification console execution output log",
+      "pass_criterion": "Console confirms offline creation and successful online commit with exit code 0",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected production Progressive Web App in TypeScript and React using Workbox service workers; achieved [LIGHTHOUSE_SCORE] Lighthouse PWA audit compliance, and maintained offline mutation reliability across [SYNC_TRANSACTIONS] queued offline transactions.",
+    "claims": [
+      {
+        "text": "achieved [LIGHTHOUSE_SCORE] Lighthouse PWA audit compliance",
+        "rubric_indexes": [
+          0
+        ]
+      },
+      {
+        "text": "maintained offline mutation reliability across [SYNC_TRANSACTIONS] queued offline transactions",
+        "rubric_indexes": [
+          2
+        ]
+      }
+    ],
+    "do_not_claim": "native mobile Swift or Kotlin wrapper compilation or proprietary commercial push SaaS"
+  },
+  "verify": [
+    "Run `npm test` to confirm unit tests for IndexedDB sync, React views, and VAPID handlers pass.",
+    "Execute `npx lighthouse http://localhost:3000 --only-categories=pwa` to verify PWA score meets >= 95 threshold.",
+    "Run `npm run test:verify-offline-flow` to assert offline ticket creation and online sync commit."
+  ],
+  "worksheet": {
+    "q1": "Core deliverable: a production Progressive Web App in TypeScript and React with Workbox service workers, IndexedDB offline sync, and Web Push.",
+    "q2": "Target users: mobile web application developers, frontend systems architects, and full-stack web engineers.",
+    "q3": "3 use cases: field technician maintenance logging, warehouse inventory auditing, and emergency dispatch broadcast alerts.",
+    "q4": "Stated hours: 28 hours. Calculated bottom-up: 24 component hours * 1.15 buffer = 27.6 -> 28 hours. Intermediate level.",
+    "q5": "Hard parts: Workbox cache invalidation strategies, IndexedDB FIFO transaction replay, VAPID push subscriptions, and offline UI state.",
+    "q6": "Starter input: React app scaffolding, Workbox config, IndexedDB sync helper, and mock API server. Synthetic data only.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU only, $0 cost, zero cloud accounts. Local VAPID keys generated via npm.",
+    "q8": "Riskiest component: stale cache traps in service worker. Fallback: precache manifest revisions and skipWaiting activation prompts.",
+    "q9": "Potential faking: standard responsive web app without actual offline support. Anti-fake check 5 simulates offline disconnection and asserts IndexedDB queuing and sync.",
+    "q10": "Safety/ethics: Safe; synthetic field inspection logs and local VAPID keys, zero personal data."
+  }
+}

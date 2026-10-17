@@ -1,0 +1,352 @@
+{
+  "id": "brief-search-engine",
+  "title": "Full-Text Search Engine from Scratch in Go with Inverted Index, BM25 Scoring & Concurrent Segment Merging",
+  "domain": "Distributed Systems",
+  "difficulty": "ADVANCED",
+  "project_types": [
+    "Systems programming",
+    "Distributed systems"
+  ],
+  "problem": "Engineering teams building search interfaces often treat full-text search as an opaque black box provided by managed Elasticsearch or Solr clusters, leaving them unable to diagnose high heap memory churn, segment merge storm freezes, or unexpected relevance ranking degradation. Commercial search engines incur high infrastructure costs and severe memory overhead for small-to-medium embedded datasets. This project builds a production-grade full-text search engine from scratch in Go inspired by the Lucene architecture. The engine implements a custom text tokenizer with stop-word removal and Porter stemming, constructs memory-efficient inverted indexes with compressed posting lists using Roaring Bitmaps, executes the BM25 probabilistic relevance ranking algorithm, coordinates concurrent multi-segment memory flushes and background merges, and exposes a high-throughput HTTP search API delivering sub-15ms queries across 100,000 documents.",
+  "use_cases": [
+    {
+      "title": "Enterprise Knowledge Base Documentation Search",
+      "first_sentence": "Internal developer portals hosting hundreds of thousands of engineering design docs and markdown pages need fast keyword and phrase search.",
+      "second_sentence": "The engine indexes markdown content into inverted posting lists, ranking documentation snippets with BM25 relevance scores and serving search queries in under 12 milliseconds."
+    },
+    {
+      "title": "E-Commerce Product Catalog Multi-Field Search",
+      "first_sentence": "Online retail platforms require accurate product discovery across title, description, and brand attributes with boolean query operators.",
+      "second_sentence": "The search engine parses multi-field boolean queries (AND, OR, NOT), computes disjunctive union and conjunctive intersection over compressed bitmaps, and returns ranked product IDs."
+    },
+    {
+      "title": "High-Throughput Application Log Inspection Search",
+      "first_sentence": "Site reliability engineers troubleshooting production incidents need to grep and filter through gigabytes of structured server log lines in real time.",
+      "second_sentence": "The engine streams incoming log lines into memory segments, flushing immutable disk segments and enabling instant sub-second text queries across millions of log events."
+    }
+  ],
+  "hard_parts": [
+    "Implementing compressed posting lists using Roaring Bitmaps or Variable-Byte integer encoding to minimize RAM residency across high-cardinality vocabularies",
+    "Implementing the Okapi BM25 relevance scoring formula with term frequency (TF), inverse document frequency (IDF), and document length normalization (k1=1.2, b=0.75)",
+    "Designing a concurrent LSM-like segment architecture where mutable memory buffers flush to immutable on-disk segment files with background merge routines",
+    "Constructing an Abstract Syntax Tree (AST) query parser supporting complex boolean expressions (AND, OR, NOT, phrase queries, and field prefixes)"
+  ],
+  "screener_signals": [
+    "Clean Go codebase cleanly separating the text analysis pipeline, inverted index structures, BM25 scoring modules, segment merge workers, and HTTP query handlers",
+    "Search performance benchmark proving sub-15ms p95 query latency across an indexed corpus of 100,000 documents with memory consumption under 250MB",
+    "Anti-fake verification script indexing 3 documents with subtle term frequency differences and asserting the BM25 score ranking matches exact mathematical calculation"
+  ],
+  "job_families": [
+    "Search Infrastructure Software Engineer",
+    "Distributed Systems Developer",
+    "Core Systems Software Engineer"
+  ],
+  "stack": [
+    {
+      "tool": "Go",
+      "role": "primary systems language implementing text analysis, inverted indexes, segment flushes, and HTTP APIs"
+    },
+    {
+      "tool": "Concurrency",
+      "role": "goroutines, mutexes, and channels orchestrating non-blocking background segment flushes and disk merges"
+    },
+    {
+      "tool": "Algorithms",
+      "role": "Okapi BM25 probabilistic relevance ranking, Porter stemmer, and roaring bitmap set operations"
+    },
+    {
+      "tool": "Data Structures",
+      "role": "inverted posting lists, term dictionary tries, skip lists, and immutable disk segment files"
+    },
+    {
+      "tool": "HTTP",
+      "role": "RESTful web API server accepting document ingestion batches and executing structured search queries"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "Text Tokenizer, Stemmer & Normalization Pipeline",
+        "tools_used": [
+          "Go",
+          "Algorithms"
+        ],
+        "purpose": "Splits text streams into normalized tokens, filters stop-words, and applies the Porter stemming algorithm"
+      },
+      {
+        "name": "Inverted Index Memory Buffer & Posting List Store",
+        "tools_used": [
+          "Go",
+          "Data Structures"
+        ],
+        "purpose": "Maps terms to compressed posting lists (docID, term frequency, position offsets) using Roaring Bitmaps"
+      },
+      {
+        "name": "Okapi BM25 Relevance Scoring & Ranking Engine",
+        "tools_used": [
+          "Go",
+          "Algorithms"
+        ],
+        "purpose": "Calculates BM25 relevance scores across matched document sets, normalizing by document length and term frequency"
+      },
+      {
+        "name": "Concurrent Disk Segment Flusher & Merge Controller",
+        "tools_used": [
+          "Go",
+          "Concurrency"
+        ],
+        "purpose": "Flushes full in-memory index buffers to immutable disk files and merges multiple small segments into unified segments"
+      },
+      {
+        "name": "Boolean AST Query Parser & Execution Coordinator",
+        "tools_used": [
+          "Go",
+          "Data Structures"
+        ],
+        "purpose": "Parses boolean search queries (AND, OR, NOT) into AST execution plans and evaluates posting list intersections"
+      },
+      {
+        "name": "Search Engine Query Latency & Throughput Benchmark Harness",
+        "tools_used": [
+          "Go",
+          "HTTP"
+        ],
+        "purpose": "Benchmarks query throughput, memory usage, and p95 retrieval latency across 100,000 indexed documents"
+      },
+      {
+        "name": "Search Engine Architecture Guide & Inverted Index Manual",
+        "tools_used": [
+          "Go",
+          "Algorithms"
+        ],
+        "purpose": "Documents BM25 parameter tuning, posting list compression schemes, and segment merge policies"
+      }
+    ],
+    "data_flow": "Documents post to the `/api/v1/index` HTTP endpoint; the text analysis pipeline tokenizes, normalizes, and stems the text; tokens and position offsets insert into the active in-memory index segment; when the memory buffer reaches 10MB, a background goroutine flushes the segment to an immutable disk file; when a search query arrives at `/api/v1/search`, the boolean parser tokenizes the query into an AST; the query engine fetches posting lists for each term across all active disk segments, computes set intersections/unions, evaluates the BM25 relevance score for each matching document, sorts top-K results, and returns the JSON payload; periodically, the merge controller merges disk segments.",
+    "enforcement_mechanism": "Thread-safe read-write mutex locks isolating active write buffers from read segments; document length bounds preventing score skew."
+  },
+  "targets": [
+    {
+      "metric": "p95 Full-Text Search Query Latency",
+      "method": "Wall-clock timing from HTTP query arrival to JSON response dispatch across 100,000 indexed documents",
+      "input": "10,000 multi-word boolean queries issued at 500 queries per second against corpus of 100,000 documents",
+      "environment": "Standard 4-core local CPU, Go 1.21+ release binary running on Linux / Windows WSL2",
+      "minimum_pass": "p95 full-text query latency is < 25.0 milliseconds",
+      "target": "p95 full-text query latency is < 9.5 milliseconds",
+      "report": "Search engine query latency benchmark report and percentile response table"
+    },
+    {
+      "metric": "Document Ingestion & Indexing Throughput",
+      "method": "Documents per second tokenized, indexed into posting lists, and persisted across 100,000 documents",
+      "input": "100,000 text documents (average length 500 words) ingested in batches of 1,000",
+      "environment": "Local Go search engine binary utilizing 4 concurrent worker goroutines",
+      "minimum_pass": "Sustained document indexing throughput is >= 4,000 documents per second",
+      "target": "Sustained document indexing throughput is >= 12,000 documents per second",
+      "report": "Ingestion throughput profiling log and memory allocation trace"
+    },
+    {
+      "metric": "BM25 Scoring Mathematical Parity Rate",
+      "method": "Percentage of test document ranking queries matching exact analytical BM25 ground-truth calculation to 4 decimal places",
+      "input": "50 multi-term evaluation queries tested across synthetic document sets with varied term frequencies",
+      "environment": "Deterministic mathematical scoring test harness comparing Go output against reference Python script",
+      "minimum_pass": "50 of 50 query evaluations match reference BM25 calculations exactly",
+      "target": "50 of 50 query evaluations match reference BM25 calculations exactly",
+      "report": "BM25 scoring verification audit log and numerical precision table"
+    }
+  ],
+  "skills": [
+    "Go",
+    "Concurrency",
+    "Algorithms",
+    "Data Structures",
+    "HTTP",
+    "Distributed Systems",
+    "Systems Programming"
+  ],
+  "starter_input": {
+    "spec": "Directory containing Go search engine scaffolding, Porter stemmer package, Roaring Bitmap wrapper, and 100,000 synthetic text docs.",
+    "size": "10 Go source packages, sample test corpus, and automated benchmark load testing suite",
+    "seeded_cases": "Hyphenated technical terms, stop-word edge cases, empty search queries, and concurrent read/write segment merge contention",
+    "label_source": "Deterministic BM25 analytical reference calculations and exact word frequency assertion matrices",
+    "personal_data_policy": "Strictly mock synthetic technical articles and simulated public domain documents; no real personal data used"
+  },
+  "components": [
+    {
+      "name": "Text Tokenizer, Stemmer & Normalization Pipeline",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "Inverted Index Memory Buffer & Posting List Store",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "Okapi BM25 Relevance Scoring & Ranking Engine",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "Concurrent Disk Segment Flusher & Merge Controller",
+      "task_type": "concurrency/consistency mechanism with tests",
+      "hours": 5.0
+    },
+    {
+      "name": "Boolean AST Query Parser & Execution Coordinator",
+      "task_type": "API endpoint group with tests",
+      "hours": 5.0
+    },
+    {
+      "name": "Search Engine Query Latency & Throughput Benchmark Harness",
+      "task_type": "load or performance test harness + report",
+      "hours": 4.0
+    },
+    {
+      "name": "Search Engine Architecture Guide & Inverted Index Manual",
+      "task_type": "docs + architecture diagram",
+      "hours": 3.0
+    }
+  ],
+  "extended_path": {
+    "features": [
+      "Fuzzy search with Levenshtein automaton supporting typo-tolerant fuzzy matching within edit distance 2",
+      "Distributed sharding routing search queries across 3 independent search engine shard nodes over gRPC",
+      "Faceted aggregation counts calculating category and author bucket distributions on search results"
+    ],
+    "hours": 16
+  },
+  "milestones": [
+    {
+      "name": "Text Analysis Pipeline & Inverted Index in Go, Algorithms and Data Structures",
+      "hours": 10,
+      "done_criterion": "Tokenizer and stemmer process text; inverted index stores posting lists with Roaring Bitmaps."
+    },
+    {
+      "name": "BM25 Relevance Scoring & Boolean Query Parser in Algorithms and Systems Programming",
+      "hours": 10,
+      "done_criterion": "Parser evaluates AND/OR/NOT queries; BM25 ranks results matching reference math across 50 trials."
+    },
+    {
+      "name": "Concurrent Segment Flushing & HTTP Search API in Concurrency and HTTP",
+      "hours": 10,
+      "done_criterion": "Memory segments flush to disk without blocking reads; HTTP API serves queries with p95 < 25ms."
+    },
+    {
+      "name": "Throughput Benchmark, Relevance Anti-Fake Test & Docs in Distributed Systems",
+      "hours": 10,
+      "done_criterion": "Ingestion sustains >= 4,000 docs/sec; anti-fake test validates exact BM25 ranking; docs complete."
+    }
+  ],
+  "prerequisites": [
+    "Proficiency in Go systems programming, goroutines, mutex synchronization, and file I/O",
+    "Understanding of information retrieval concepts (inverted indices, posting lists, BM25 scoring) and data structures"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (purely CPU, memory, and disk I/O bound systems software)",
+    "cost": "$0 (fully open-source Go codebase)",
+    "accounts_keys_quotas": "No external cloud accounts, paid services, or API keys required",
+    "reference_environment": "Local 4-core CPU with Go 1.21+ compiler and standard Linux/macOS/WSL2 terminal",
+    "fallback_path": "In-memory mock filesystem if local disk write permissions are restricted"
+  },
+  "riskiest_component": {
+    "name": "Memory Churn During Large Segment Merges and Posting List Decompression",
+    "mitigation": "Use fixed memory buffer pools (`sync.Pool`) for roaring bitmap decompression and stream disk merges in sorted chunks.",
+    "fallback": "Limit maximum open segments to 10 and throttle background merge concurrency during peak query traffic."
+  },
+  "deliverables": [
+    "Git repository containing Go search engine source code, HTTP server, index builders, and CLI tools",
+    "Automated unit test suite verifying tokenization, BM25 scoring accuracy, and boolean query parsing",
+    "Load testing benchmark harness profiling query latency and indexing throughput across 100,000 documents",
+    "Screener verification script executing automated benchmark and dynamic BM25 ranking validation in under 3 minutes"
+  ],
+  "out_of_scope": [
+    "Managed Elasticsearch / Solr / OpenSearch cluster wrappers",
+    "Multi-node distributed consensus replication (Raft sharding)",
+    "Deep learning semantic neural vector search models"
+  ],
+  "safety_note": null,
+  "resources": [
+    "Information Retrieval: Implementing and Evaluating Search Engines (B\u00fcttcher, Clarke, Cormack)",
+    "The Anatomy of a Large-Scale Hypertextual Web Search Engine (Brin and Page)",
+    "Roaring Bitmaps: Implementation and Evaluation of Fast Compressed Bitmaps (Lemire et al.)"
+  ],
+  "rubric": [
+    {
+      "input": "10,000 multi-word boolean queries issued against 100,000 indexed documents",
+      "action": "go run ./cmd/bench_search --queries 10000 --concurrency 20",
+      "expected_result": "Search engine serves queries with p95 query latency < 25.0ms and 0 HTTP errors",
+      "evidence_location": "Terminal output log and reports/query_latency.json",
+      "pass_criterion": "p95 latency < 25.0ms with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "100,000 text documents ingested in batches of 1,000",
+      "action": "go run ./cmd/bench_indexing --docs 100000 --batch-size 1000",
+      "expected_result": "Engine indexes corpus with sustained throughput >= 4,000 docs/sec and memory < 250MB",
+      "evidence_location": "Indexing throughput report in reports/indexing_perf.json",
+      "pass_criterion": "Throughput >= 4000 docs/sec with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Complex boolean query `(database AND distributed) NOT relational`",
+      "action": "go test -v ./query/... -run TestBooleanASTExecution",
+      "expected_result": "AST parser evaluates query correctly; all returned documents match boolean constraints",
+      "evidence_location": "Boolean query test log in reports/boolean_audit.json",
+      "pass_criterion": "All returned documents satisfy boolean logic with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "In-memory segment reaching 10MB threshold during active read traffic",
+      "action": "go test -v ./segment/... -run TestConcurrentSegmentFlush",
+      "expected_result": "Buffer flushes to disk segment file cleanly without dropping in-flight search queries",
+      "evidence_location": "Segment flush audit report in reports/segment_audit.json",
+      "pass_criterion": "Flush completes without read errors and exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "3 documents indexed with term counts: DocA(term=5), DocB(term=2), DocC(term=0)",
+      "action": "go run ./scripts/verify_bm25_ranking.go --query 'search' --expected-order 'DocA,DocB'",
+      "expected_result": "Engine ranks DocA higher than DocB with BM25 score difference matching reference formula",
+      "evidence_location": "Dynamic relevance verification console execution output log",
+      "pass_criterion": "Console confirms DocA rank 1 and DocB rank 2 with exit code 0",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected full-text search engine from scratch in Go with inverted indexing and probabilistic relevance scoring; achieved sub-[QUERY_LATENCY] millisecond search latency across [DOC_COUNT] documents, and sustained [INDEX_THROUGHPUT] documents per second indexing throughput.",
+    "claims": [
+      {
+        "text": "achieved sub-[QUERY_LATENCY] millisecond search latency across [DOC_COUNT] documents",
+        "rubric_indexes": [
+          0
+        ]
+      },
+      {
+        "text": "sustained [INDEX_THROUGHPUT] documents per second indexing throughput",
+        "rubric_indexes": [
+          1
+        ]
+      }
+    ],
+    "do_not_claim": "managed Elasticsearch cluster deployment or distributed cross-region consensus sharding"
+  },
+  "verify": [
+    "Run `go test -v ./...` to confirm tokenization, BM25 ranking, and segment merging pass.",
+    "Execute `go run ./cmd/bench_search` to verify query latency remains < 25ms under load.",
+    "Run `go run ./scripts/verify_bm25_ranking.go` to assert exact BM25 mathematical ranking order."
+  ],
+  "worksheet": {
+    "q1": "Core deliverable: a full-text search engine from scratch in Go with inverted index, BM25 scoring, and concurrent segment merges.",
+    "q2": "Target users: search infrastructure software engineers, distributed systems developers, and core systems engineers.",
+    "q3": "3 use cases: enterprise doc search, e-commerce catalog multi-field search, and high-throughput application log search.",
+    "q4": "Stated hours: 40 hours. Calculated bottom-up: 35 component hours * 1.15 buffer = 40.25 -> 40 hours. Advanced level.",
+    "q5": "Hard parts: compressed posting lists with Roaring Bitmaps, BM25 mathematical scoring, concurrent segment flushing, and boolean AST parsing.",
+    "q6": "Starter input: Go search engine scaffolding, Porter stemmer, bitmap wrapper, and 100k synthetic documents. Synthetic text only.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU/disk bound, $0 cost, zero cloud accounts. Fallback: in-memory mock filesystem.",
+    "q8": "Riskiest component: memory churn during posting list decompression. Fallback: sync.Pool buffer reuse and limiting open segments to 10.",
+    "q9": "Potential faking: brute-force grep pretending to be an inverted index. Anti-fake check 5 indexes 3 docs with exact term counts and verifies mathematical BM25 ranking.",
+    "q10": "Safe; synthetic documentation and simulated public domain text only, zero personal data."
+  }
+}

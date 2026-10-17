@@ -1,0 +1,344 @@
+{
+  "id": "brief-time-series-forecasting",
+  "title": "Production Time-Series Forecasting Platform with Prophet, XGBoost Ensembles & FastAPI",
+  "domain": "ML Engineering",
+  "difficulty": "INTERMEDIATE",
+  "project_types": [
+    "ML/data pipeline",
+    "Full-stack web"
+  ],
+  "problem": "Enterprises forecasting demand, retail inventory depletion, cloud infrastructure capacity, and financial cash flows suffer from severe forecast errors when relying on single-model architectures or naive statistical moving averages. Isolated models fail to capture composite time-series dynamics: classical statistical methods miss complex nonlinear exogenous covariates, while deep neural networks overfit on short historical datasets and struggle with abrupt holiday shocks. This project builds a production-grade time-series forecasting platform in Python. The system engineers rolling lag features, trains an ensemble combining additive trend/seasonality decomposition (Facebook Prophet) and gradient-boosted decision trees (XGBoost), serves multi-horizon forecasts via FastAPI with sub-25ms inference latency, caches predictions in Redis, and continuously evaluates accuracy using rolling backtests with Weighted Absolute Percentage Error (WAPE).",
+  "use_cases": [
+    {
+      "title": "Retail Omnichannel Product Demand Forecasting",
+      "first_sentence": "Retail merchandising directors need 14-day demand forecasts across thousands of store SKUs to prevent stockouts while avoiding excess inventory holding costs.",
+      "second_sentence": "The ensemble model captures day-of-week seasonality and holiday sales promotions, outputting item-level demand forecasts that reduce inventory variance by 18%."
+    },
+    {
+      "title": "Cloud Compute Capacity & Autoscaling Prediction",
+      "first_sentence": "Cloud infrastructure platform engineers need to anticipate server cluster CPU and memory loads 2 hours in advance to pre-warm container nodes.",
+      "second_sentence": "The time-series engine forecasts rolling workload metrics, triggering predictive scaling events before traffic surges cause service degradation."
+    },
+    {
+      "title": "Corporate Cash Flow & Treasury Forecasting",
+      "first_sentence": "Corporate financial officers requiring 30-day liquidity projections must forecast daily accounts receivable cash collections.",
+      "second_sentence": "The system combines historical recurring invoice payment cycles with calendar month-end effects, generating probabilistic cash flow confidence intervals."
+    }
+  ],
+  "hard_parts": [
+    "Engineering robust temporal lag, rolling window statistics, and cyclical calendar features without creating target data leakage across train/validation splits",
+    "Combining statistical decomposition (Prophet) and gradient boosting (XGBoost) into a weighted ensemble that minimizes out-of-sample Weighted Absolute Percentage Error (WAPE)",
+    "Designing rolling-origin cross-validation backtesting pipelines that evaluate forecast stability across 10 distinct historical time horizons",
+    "Serving low-latency multi-horizon forecast requests in FastAPI while caching precomputed predictions and feature matrices in Redis"
+  ],
+  "screener_signals": [
+    "Clean Python codebase cleanly separating feature engineering pipelines, Prophet/XGBoost model trainers, FastAPI forecast routers, and Redis caching layers",
+    "Backtesting benchmark report proving out-of-sample WAPE <= 12.5% and sub-25ms p95 forecast inference latency across 1,000 time series",
+    "Anti-fake verification script simulating an unexpected sudden demand spike shock and asserting the model widens its forecast confidence interval bounds appropriately"
+  ],
+  "job_families": [
+    "Time-Series Machine Learning Engineer",
+    "Quantitative Data Scientist",
+    "Applied Machine Learning Developer"
+  ],
+  "stack": [
+    {
+      "tool": "Python",
+      "role": "primary language implementing feature engineering, ensemble modeling, and inference APIs"
+    },
+    {
+      "tool": "Prophet",
+      "role": "additive time-series forecasting library modeling non-linear trends, yearly/weekly seasonality, and holidays"
+    },
+    {
+      "tool": "XGBoost",
+      "role": "gradient-boosted decision tree algorithm training on autoregressive lag and rolling window features"
+    },
+    {
+      "tool": "FastAPI",
+      "role": "asynchronous web framework serving multi-horizon forecast endpoints and backtest metrics"
+    },
+    {
+      "tool": "Redis",
+      "role": "in-memory key-value cache storing latest forecast predictions and rolling feature state"
+    },
+    {
+      "tool": "Docker",
+      "role": "container runtime hosting Redis cache and orchestrating isolated test environments"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "Time-Series Rolling Window Feature Engineering Pipeline",
+        "tools_used": [
+          "Python"
+        ],
+        "purpose": "Computes rolling mean/std features, exponential moving averages, and cyclical date encodings without data leakage"
+      },
+      {
+        "name": "Prophet Trend, Seasonality & Holiday Decomposition Engine",
+        "tools_used": [
+          "Python",
+          "Prophet"
+        ],
+        "purpose": "Fits Bayesian additive models decomposing time-series into trend changepoints, seasonalities, and holiday effects"
+      },
+      {
+        "name": "XGBoost Autoregressive Lag & Gradient Boosting Regressor",
+        "tools_used": [
+          "Python",
+          "XGBoost"
+        ],
+        "purpose": "Trains gradient-boosted trees on engineered lag features and exogenous regressors to predict residual variations"
+      },
+      {
+        "name": "FastAPI Multi-Horizon Forecast Inference & Redis Cache Service",
+        "tools_used": [
+          "Python",
+          "FastAPI",
+          "Redis"
+        ],
+        "purpose": "Exposes forecast generation endpoints, blends ensemble predictions, and caches results in Redis"
+      },
+      {
+        "name": "Time-Series Backtesting & WAPE Accuracy Benchmark Harness",
+        "tools_used": [
+          "Python",
+          "Docker"
+        ],
+        "purpose": "Executes rolling-origin cross-validation, evaluates WAPE and SMAPE metrics, and profiles inference latency"
+      },
+      {
+        "name": "Forecasting Architecture Guide & Rolling Backtest Manual",
+        "tools_used": [
+          "Python",
+          "Prophet"
+        ],
+        "purpose": "Documents feature leakage prevention guidelines, ensemble weighting math, and uncertainty interval calculations"
+      }
+    ],
+    "data_flow": "Historical time-series metrics ingest into the feature pipeline; the pipeline computes rolling lag windows and cyclical features using strict temporal splits; the Prophet model fits trend and seasonality curves, generating baseline predictions and uncertainty intervals; the XGBoost model trains on residual errors and exogenous regressors; the ensemble engine combines predictions using inverse-variance weights; when an API client requests a 14-day forecast for a series, FastAPI checks Redis for precomputed predictions in < 2ms; if missing, it computes the ensemble inference in < 20ms, caches the payload in Redis, and returns the point forecast and 80%/95% confidence intervals; periodic rolling backtests monitor WAPE drift.",
+    "enforcement_mechanism": "Temporal cross-validation blocking future data leakage; clipping bounds preventing negative value predictions."
+  },
+  "targets": [
+    {
+      "metric": "Out-of-Sample Forecast Accuracy (WAPE)",
+      "method": "Weighted Absolute Percentage Error evaluated across 1,000 time series over a 14-day rolling test horizon",
+      "input": "1,000 synthetic retail and cloud demand time series covering 2 years of daily observations",
+      "environment": "Standard 4-core local CPU, Python 3.11 with Prophet and XGBoost",
+      "minimum_pass": "Out-of-sample WAPE is <= 14.5% across the 14-day test horizon",
+      "target": "Out-of-sample WAPE is <= 10.8% across the 14-day test horizon",
+      "report": "Time-series forecasting accuracy benchmark report and WAPE error distribution"
+    },
+    {
+      "metric": "p95 Forecast Generation Inference Latency",
+      "method": "Wall-clock timing from FastAPI request arrival to response dispatch for a 30-day forecast horizon",
+      "input": "2,000 forecast queries issued across 50 concurrent client connections",
+      "environment": "Standard 4-core local CPU, Redis 7+ in Docker, Python 3.11 with Uvicorn workers",
+      "minimum_pass": "p95 forecast inference latency is < 35.0 milliseconds",
+      "target": "p95 forecast inference latency is < 14.5 milliseconds",
+      "report": "FastAPI forecast latency profiling log and response percentile table"
+    },
+    {
+      "metric": "Uncertainty Interval Coverage Parity Rate",
+      "method": "Percentage of actual test observations falling within the model's predicted 90% confidence interval band",
+      "input": "10,000 actual test data points evaluated against predicted 90% confidence interval bounds",
+      "environment": "Deterministic uncertainty evaluation test suite in Python",
+      "minimum_pass": "Observed test coverage is between 87.0% and 93.0% across 10,000 test observations",
+      "target": "Observed test coverage is between 89.0% and 91.5% across 10,000 test observations",
+      "report": "Confidence interval calibration audit log and empirical coverage curve"
+    }
+  ],
+  "skills": [
+    "Python",
+    "Prophet",
+    "XGBoost",
+    "FastAPI",
+    "Redis",
+    "Docker",
+    "ML Engineering",
+    "Time-Series Forecasting"
+  ],
+  "starter_input": {
+    "spec": "Directory containing feature pipeline code, Prophet/XGBoost ensemble trainers, FastAPI service, and backtest runner.",
+    "size": "8 Python source modules, Docker Compose manifest for Redis, and 1,000 synthetic daily time-series datasets",
+    "seeded_cases": "Missing dates and irregular intervals, sudden regime change level shifts, extreme outlier demand spikes, and negative inventory values",
+    "label_source": "Deterministic synthetic time-series generation formulas and held-out rolling test splits",
+    "personal_data_policy": "Strictly mock synthetic product sales numbers and simulated cloud CPU utilization metrics; no real personal data used"
+  },
+  "components": [
+    {
+      "name": "Time-Series Rolling Window Feature Engineering Pipeline",
+      "task_type": "data pipeline step",
+      "hours": 4.0
+    },
+    {
+      "name": "Prophet Trend, Seasonality & Holiday Decomposition Engine",
+      "task_type": "model train + evaluate cycle",
+      "hours": 5.0
+    },
+    {
+      "name": "XGBoost Autoregressive Lag & Gradient Boosting Regressor",
+      "task_type": "model train + evaluate cycle",
+      "hours": 5.0
+    },
+    {
+      "name": "FastAPI Multi-Horizon Forecast Inference & Redis Cache Service",
+      "task_type": "API endpoint group with tests",
+      "hours": 4.0
+    },
+    {
+      "name": "Time-Series Backtesting & WAPE Accuracy Benchmark Harness",
+      "task_type": "load or performance test harness + report",
+      "hours": 3.0
+    },
+    {
+      "name": "Forecasting Architecture Guide & Rolling Backtest Manual",
+      "task_type": "docs + architecture diagram",
+      "hours": 3.0
+    }
+  ],
+  "extended_path": {
+    "features": [
+      "Deep learning neural forecasting architecture (N-BEATS or PatchTST) implemented in PyTorch Forecasting",
+      "Hierarchical time-series reconciliation using MinT (Minimum Trace) algorithm across store and category trees",
+      "Automated automated changepoint and anomaly detection alerting when recent trend slopes deviate significantly"
+    ],
+    "hours": 14
+  },
+  "milestones": [
+    {
+      "name": "Rolling Feature Pipeline & Prophet Modeling in Python and Prophet",
+      "hours": 7,
+      "done_criterion": "Feature pipeline computes lag windows; Prophet models trend, seasonality, and holidays."
+    },
+    {
+      "name": "XGBoost Gradient Boosting & Ensemble Weighting in XGBoost and ML Engineering",
+      "hours": 7,
+      "done_criterion": "XGBoost trains on residuals; weighted ensemble achieves out-of-sample WAPE <= 14.5%."
+    },
+    {
+      "name": "FastAPI Forecast Inference & Redis Caching in FastAPI, Redis and Docker",
+      "hours": 7,
+      "done_criterion": "FastAPI serves 14-day forecasts; Redis caches predictions with p95 latency < 35ms."
+    },
+    {
+      "name": "Rolling Backtest Benchmark, Shock Anti-Fake Test & Docs in Time-Series Forecasting",
+      "hours": 7,
+      "done_criterion": "Backtest confirms WAPE <= 14.5%; anti-fake test widens bounds on shock; docs complete."
+    }
+  ],
+  "prerequisites": [
+    "Proficiency in Python data science libraries (Pandas, NumPy, Scikit-learn) and machine learning workflows",
+    "Understanding of time-series analysis concepts (seasonality, stationarity, autocorrelation) and ensemble methods (Prophet, XGBoost)"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (Prophet and XGBoost CPU training runs efficiently on local CPU)",
+    "cost": "$0 (fully open-source stack using local Python and Docker Redis)",
+    "accounts_keys_quotas": "No external cloud accounts, paid services, or commercial API keys required",
+    "reference_environment": "Local 4-core CPU with Docker Desktop (Redis container) and Python 3.11 with Prophet and XGBoost installed",
+    "fallback_path": "In-memory Python dictionary cache if Docker Redis container is unavailable"
+  },
+  "riskiest_component": {
+    "name": "Data Leakage Across Time Splits and Overfitting on Non-Stationary Trends",
+    "mitigation": "Enforce strict temporal rolling-origin cross-validation and apply first-order differencing on non-stationary series.",
+    "fallback": "Constrain XGBoost max_depth to 4 and apply L2 regularization on leaf weights."
+  },
+  "deliverables": [
+    "Git repository containing feature engineering pipeline, Prophet/XGBoost ensemble code, and FastAPI server",
+    "Docker Compose file launching local Redis instance with persistent caching configuration",
+    "Automated backtesting benchmark script evaluating WAPE, SMAPE, and prediction intervals",
+    "Screener verification script executing automated 14-day forecast and dynamic shock adaptation test in under 2 minutes"
+  ],
+  "out_of_scope": [
+    "Multi-billion parameter foundation time-series transformer models",
+    "High-frequency microsecond algorithmic trading market making",
+    "Proprietary cloud automated ML forecasting suites (AWS Forecast)"
+  ],
+  "safety_note": null,
+  "resources": [
+    "Forecasting: Principles and Practice (Hyndman and Athanasopoulos - 3rd Edition)",
+    "Forecasting at Scale (Taylor and Letham - Facebook Prophet Paper)",
+    "XGBoost: A Scalable Tree Boosting System (Chen and Guestrin)"
+  ],
+  "rubric": [
+    {
+      "input": "1,000 time-series evaluated across a 14-day rolling test horizon",
+      "action": "python ./evaluation/eval_wape.py --series 1000 --horizon 14",
+      "expected_result": "Ensemble model achieves out-of-sample WAPE <= 14.5% across test series",
+      "evidence_location": "Terminal output log and reports/wape_evaluation.json",
+      "pass_criterion": "WAPE <= 14.5% with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "2,000 forecast requests issued to FastAPI service across 50 concurrent connections",
+      "action": "python ./benchmarks/bench_inference.py --requests 2000 --concurrency 50",
+      "expected_result": "FastAPI returns 30-day forecast predictions with p95 latency < 35.0ms",
+      "evidence_location": "Inference benchmark report in reports/inference_perf.json",
+      "pass_criterion": "p95 latency < 35.0ms with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "10,000 test observations evaluated against predicted 90% confidence intervals",
+      "action": "python ./evaluation/eval_intervals.py --points 10000 --level 90",
+      "expected_result": "Empirical interval coverage is between 87.0% and 93.0%",
+      "evidence_location": "Interval calibration audit log in reports/calibration_audit.json",
+      "pass_criterion": "Coverage between 87.0% and 93.0% with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "FastAPI request asking for 14-day demand forecast for series 'sku_retail_101'",
+      "action": "curl -X POST http://localhost:8000/api/v1/forecast -H 'Content-Type: application/json' -d '{\"series_id\":\"sku_retail_101\",\"horizon\":14}'",
+      "expected_result": "API responds with 14 daily point predictions, 80% bounds, and 95% bounds",
+      "evidence_location": "HTTP response JSON and forecast payload",
+      "pass_criterion": "Response status 200 with 14 daily forecast points and exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Simulated sudden demand shock of +300% injected into historical series",
+      "action": "python ./scripts/verify_shock_adaptation.py --shock-pct 300",
+      "expected_result": "Ensemble detects elevated variance and widens 95% confidence interval width by at least 40%",
+      "evidence_location": "Dynamic verification console execution output log",
+      "pass_criterion": "Console confirms interval width widened by >= 40% with exit code 0",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected time-series forecasting platform in Python with Prophet and XGBoost ensembles; achieved [MODEL_WAPE] WAPE on multi-horizon demand forecasting across [SERIES_COUNT] time series, and delivered sub-[FORECAST_LATENCY] millisecond inference latency with Redis caching.",
+    "claims": [
+      {
+        "text": "achieved [MODEL_WAPE] WAPE on multi-horizon demand forecasting across [SERIES_COUNT] time series",
+        "rubric_indexes": [
+          0
+        ]
+      },
+      {
+        "text": "delivered sub-[FORECAST_LATENCY] millisecond inference latency with Redis caching",
+        "rubric_indexes": [
+          1
+        ]
+      }
+    ],
+    "do_not_claim": "commercial automated cloud forecasting SaaS or microsecond high-frequency trading models"
+  },
+  "verify": [
+    "Run `pytest tests/` to confirm feature engineering pipelines, Prophet/XGBoost ensembles, and FastAPI pass.",
+    "Execute `python ./evaluation/eval_wape.py` to verify out-of-sample WAPE meets <= 14.5% benchmark.",
+    "Run `python ./scripts/verify_shock_adaptation.py` to assert uncertainty intervals widen appropriately upon shock."
+  ],
+  "worksheet": {
+    "q1": "Core deliverable: a production time-series forecasting platform in Python with Prophet, XGBoost ensembles, FastAPI, and Redis.",
+    "q2": "Target users: time-series machine learning engineers, quantitative data scientists, and applied ML developers.",
+    "q3": "3 use cases: retail demand forecasting, cloud compute capacity prediction, and corporate cash flow forecasting.",
+    "q4": "Stated hours: 28 hours. Calculated bottom-up: 24 component hours * 1.15 buffer = 27.6 -> 28 hours. Intermediate level.",
+    "q5": "Hard parts: rolling lag feature engineering without leakage, Prophet/XGBoost ensemble weighting, rolling-origin backtesting, and sub-25ms inference.",
+    "q6": "Starter input: feature pipeline code, Prophet/XGBoost models, FastAPI service, and 1,000 synthetic daily series. Synthetic data only.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU bound, $0 cost using Docker Redis and open-source packages.",
+    "q8": "Riskiest component: data leakage across temporal splits. Fallback: strict rolling-origin cross-validation and first-order differencing.",
+    "q9": "Potential faking: returning simple moving average pretending to be ensemble. Anti-fake check 5 injects +300% shock and verifies interval width widens by >= 40%.",
+    "q10": "Safe; synthetic demand numbers and simulated CPU utilization metrics only, zero personal data."
+  }
+}

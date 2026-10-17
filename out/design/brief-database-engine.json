@@ -1,0 +1,297 @@
+{
+  "id": "brief-database-engine",
+  "title": "Embedded Relational Database Engine with Slotted-Page B-Tree & WAL",
+  "domain": "Computer Science Fundamentals",
+  "difficulty": "ADVANCED",
+  "project_types": [
+    "Systems/low-level/networking",
+    "CLI/tools/libraries"
+  ],
+  "problem": "Software engineers interact with relational databases daily through high-level SQL queries, yet the underlying execution mechanisms\u2014slotted page on-disk record serialization, buffer pool frame eviction, B-tree balance maintenance through page splits, and Write-Ahead Logging (WAL) for crash recovery\u2014remain opaque black boxes. Building an embedded storage engine from first principles demystifies how relational data survives unexpected system crashes without page corruption. This project implements a self-contained embedded database engine in C++ featuring a slotted-page disk manager, an LRU-K buffer pool, a B-tree clustered index, a Volcano-style iterator query executor, and ARIES-style write-ahead logging.",
+  "use_cases": [
+    "Embedded edge persistence for Internet of Things gateways and autonomous devices",
+    "High-reliability local transaction logs for financial point-of-sale terminals",
+    "Specialized telemetry storage engines requiring deterministic crash recovery"
+  ],
+  "hard_parts": [
+    "Managing slotted-page layout with variable-length tuple offsets and in-place fragment compaction",
+    "Implementing thread-safe B-tree node splits, merges, and root page re-allocations during concurrency",
+    "Synchronizing buffer pool dirty frame flushing with Write-Ahead Log sequence numbers (WAL protocol)",
+    "Executing ARIES crash recovery phases (Analysis, Redo, and Undo) to restore ACID consistency"
+  ],
+  "screener_signals": [
+    "Modular C++ implementation cleanly separating storage, buffer pool, indexing, parser, and recovery",
+    "Automated crash-kill test verifying zero committed transaction loss across 10 unexpected SIGKILL terminations",
+    "Anti-fake verification script inserting dynamic nonces, terminating process mid-write, and asserting recovery"
+  ],
+  "job_families": [
+    "Database Internals Engineer",
+    "Systems Software Engineer",
+    "Infrastructure Storage Engineer"
+  ],
+  "stack": [
+    {
+      "tool": "C++",
+      "role": "systems programming language for disk manager, buffer pool, B-tree index, and WAL"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "Slotted Page Disk Manager",
+        "tools_used": [
+          "C++"
+        ],
+        "purpose": "Manages 4KB database page allocation on disk, tuple offset arrays, and free space compaction"
+      },
+      {
+        "name": "LRU-K Buffer Pool Manager",
+        "tools_used": [
+          "C++"
+        ],
+        "purpose": "Pins frequently accessed pages in memory and evicts unpinned frames using backward k-distance"
+      },
+      {
+        "name": "B-Tree Index Manager",
+        "tools_used": [
+          "C++"
+        ],
+        "purpose": "Provides logarithmic search, leaf insertion, and node splitting for indexed primary keys"
+      },
+      {
+        "name": "Volcano Query Executor",
+        "tools_used": [
+          "C++"
+        ],
+        "purpose": "Executes SELECT, INSERT, and WHERE filter query plans using open-next-close iterator models"
+      },
+      {
+        "name": "Write-Ahead Log & Recovery Manager",
+        "tools_used": [
+          "C++"
+        ],
+        "purpose": "Appends transaction log records before writing dirty pages and performs crash recovery"
+      }
+    ],
+    "data_flow": "SQL queries enter the Volcano Query Executor; the executor requests index scans from the B-Tree Index Manager; the B-Tree manager requests page IDs from the LRU-K Buffer Pool; the buffer pool fetches unpinned 4KB frames from the Slotted Page Disk Manager; updates append transaction records to the Write-Ahead Log before dirty pages are flushed to disk; on unexpected crash, the Recovery Manager reads WAL records sequentially to reconstruct uncommitted transactions and restore consistency.",
+    "enforcement_mechanism": "Page latch pins preventing buffer eviction during active access; WAL sequence numbers strictly enforced prior to flushing dirty memory frames."
+  },
+  "targets": [
+    {
+      "metric": "Single-Key Point Lookup Latency",
+      "method": "Direct B-tree point lookup timing across 100,000 indexed records stored in 4KB slotted pages",
+      "input": "100,000 indexed integer keys stored on disk with a warm 256-frame buffer pool",
+      "environment": "Standard 4-core local CPU, C++ 17 compiled with -O3, SSD storage",
+      "minimum_pass": "Average point lookup latency is < 150 microseconds",
+      "target": "Average point lookup latency is < 50 microseconds",
+      "report": "Storage engine microbenchmark summary log detailing p50, p95, and p99 lookup latencies"
+    },
+    {
+      "metric": "Sequential Table Scan Throughput",
+      "method": "Full table scan execution timing across 50,000 multi-column records using Volcano iterator",
+      "input": "50,000 records totaling 20MB of slotted page data evaluated with predicate filtering",
+      "environment": "Standard 4-core local CPU, C++ 17 compiled with -O3, SSD storage",
+      "minimum_pass": "Scan throughput exceeds 25,000 records/sec",
+      "target": "Scan throughput exceeds 60,000 records/sec",
+      "report": "Volcano iterator scan benchmark report reporting records scanned per second"
+    },
+    {
+      "metric": "Crash Recovery Transaction Integrity Rate",
+      "method": "Automated kill -9 crash injection during active transaction batch followed by recovery verification",
+      "input": "5,000 concurrent transactions with 20 injected mid-commit process terminations",
+      "environment": "Standard 4-core local CPU, Linux filesystem with POSIX fsync",
+      "minimum_pass": "Recovery reconstructs 20 of 20 committed batches with 0 corrupted slotted pages",
+      "target": "Recovery reconstructs 20 of 20 committed batches with 0 corrupted slotted pages",
+      "report": "ARIES recovery validation log verifying analysis, redo, and undo log state"
+    }
+  ],
+  "skills": [
+    "C++",
+    "Systems Programming",
+    "B-Tree",
+    "Buffer Pool",
+    "SQL Parsing",
+    "WAL",
+    "Concurrency"
+  ],
+  "starter_input": {
+    "spec": "Slotted page binary layout specification (4096-byte pages, header, slot directory, cell storage) and benchmark schema.",
+    "size": "Synthetic dataset generator producing 100,000 structured relational rows with integer keys and string attributes",
+    "seeded_cases": "Corrupted log record headers, uncommitted in-flight transactions, and page boundary boundary overflow rows",
+    "label_source": "Deterministic CSV fixture containing primary keys and expected point query lookup payloads",
+    "personal_data_policy": "Strictly mock synthetic relational schemas; no real user credentials or personal data used"
+  },
+  "components": [
+    {
+      "name": "Slotted Page & Disk Storage Manager",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "Buffer Pool Manager with LRU-K Eviction",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "B-Tree Node Index Manager with Node Splits",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "SQL Parser & Volcano Execution Engine",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "Write-Ahead Logging & ARIES Crash Recovery",
+      "task_type": "low-level/system subsystem",
+      "hours": 5.0
+    },
+    {
+      "name": "Performance Benchmark & Chaos Crash Harness",
+      "task_type": "load or performance test harness + report",
+      "hours": 4.0
+    },
+    {
+      "name": "Architecture Documentation & Slotted Page Layout Diagram",
+      "task_type": "docs + architecture diagram",
+      "hours": 3.0
+    }
+  ],
+  "extended_path": {
+    "items": [
+      "Two-phase locking concurrency control with dynamic wait-for deadlock detection graphs",
+      "Cost-based query optimizer selecting index scan versus sequential scan based on table statistics"
+    ],
+    "hours": 16
+  },
+  "milestones": [
+    {
+      "name": "Slotted-Page Disk Storage & LRU-K Buffer Pool in C++ Systems Programming",
+      "hours": 10,
+      "done_criterion": "Disk manager allocates 4KB pages; buffer pool pins frames and evicts pages via LRU-K algorithm."
+    },
+    {
+      "name": "B-Tree Index Traversal, Insert & Leaf Splitting with Concurrency",
+      "hours": 10,
+      "done_criterion": "B-tree manages internal and leaf nodes, handles page splits, and performs point lookups in O(log N)."
+    },
+    {
+      "name": "SQL Parsing, Lexer & Volcano Query Execution Engine",
+      "hours": 11,
+      "done_criterion": "Parser converts SQL strings into query trees; Volcano iterator executes scans and predicate filters."
+    },
+    {
+      "name": "Write-Ahead Logging, Crash Recovery Verification & Docs",
+      "hours": 10,
+      "done_criterion": "WAL protocol appends log records; recovery recovers 20 of 20 crash scenarios; docs and benchmarks pass."
+    }
+  ],
+  "prerequisites": [
+    "Proficiency in modern C++ (pointers, memory management, RAII, std::unique_ptr)",
+    "Understanding of operating system paging, POSIX file I/O (open, lseek, fsync), and binary byte buffers"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (purely CPU-bound storage operations)",
+    "cost": "$0 (fully open-source software stack)",
+    "accounts_keys_quotas": "No external cloud accounts, paid services, or API keys required",
+    "reference_environment": "Local 4-core CPU with GCC 11+ or Clang 13+ installed",
+    "fallback_path": "Standard POSIX file operations with in-memory page simulation if direct disk fsync encounters permission limits"
+  },
+  "riskiest_component": {
+    "name": "Page Corruption During Incomplete B-Tree Node Splits",
+    "fallback": "Implement shadow-page copy-on-write during leaf split before atomically publishing parent pointer"
+  },
+  "deliverables": [
+    "Git repository containing C++ database engine source code, unit tests, and Makefile/CMake build system",
+    "Interactive CLI database shell supporting CREATE TABLE, INSERT, and SELECT queries",
+    "Automated crash recovery test harness executing process termination during active transactions",
+    "Screener verification script executing automated benchmark and recovery validation in under 2 minutes"
+  ],
+  "out_of_scope": [
+    "Distributed consensus replication or multi-node clustering",
+    "Complex nested SQL joins and window function analytical expressions",
+    "Network wire protocol compatibility with PostgreSQL or MySQL drivers"
+  ],
+  "safety_note": null,
+  "resources": [
+    "Architecture of a Database System (Hellerstein, Stonebraker, Hamilton paper)",
+    "Database Internals: A Deep Dive into How Distributed Data Systems Work (Alex Petrov)",
+    "CMU Database Group Database Systems Course Lecture Notes and Buffer Pool Specifications"
+  ],
+  "rubric": [
+    {
+      "input": "Database file populated with 100,000 records and primary key B-tree index",
+      "action": "Run ./build/db_bench --benchmark point_lookup --keys 100000",
+      "expected_result": "Engine executes 10,000 random key queries with average latency < 150 microseconds",
+      "evidence_location": "Benchmark summary console output table",
+      "pass_criterion": "Average point lookup latency is < 150 microseconds with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Table containing 50,000 multi-column records",
+      "action": "Run ./build/db_bench --benchmark table_scan --table accounts",
+      "expected_result": "Volcano query iterator scans records and evaluates predicates at > 25,000 records/sec",
+      "evidence_location": "Scan throughput console output log",
+      "pass_criterion": "Measured scan throughput exceeds 25,000 records/sec",
+      "kind": "normal"
+    },
+    {
+      "input": "Active transaction workload with 20 injected SIGKILL terminations during WAL write",
+      "action": "Run ./scripts/test_crash_recovery.sh --crashes 20",
+      "expected_result": "Recovery manager processes WAL, rolls forward committed transactions, and restores slotted page integrity",
+      "evidence_location": "Recovery test summary log and consistency check report",
+      "pass_criterion": "All 20 crash scenarios recover successfully with 0 corrupt pages and exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Buffer pool configured to 64 frames with 500 distinct requested pages",
+      "action": "Run ./build/test_buffer_pool --frames 64 --accesses 5000",
+      "expected_result": "LRU-K eviction algorithm evicts unpinned frames without memory leaks or page pin corruption",
+      "evidence_location": "Buffer pool test execution log",
+      "pass_criterion": "Test passes with 0 memory errors reported by Valgrind/ASan",
+      "kind": "normal"
+    },
+    {
+      "input": "Dynamic verification token inserted into uncommitted transaction followed by abrupt abort",
+      "action": "Run ./scripts/verify_dynamic_storage.sh --nonce 0xDEADBEEF --action abort",
+      "expected_result": "Recovery manager rolls back transaction; dynamic nonce does not appear in subsequent table scans",
+      "evidence_location": "Dynamic verification stdout output log",
+      "pass_criterion": "Dynamic verification confirms zero uncommitted nonce leakage with exit code 0",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected embedded relational database engine in C++ featuring slotted-page disk layout and LRU-K buffer pool; implemented B-tree indexing with sub-[LOOKUP_LATENCY] point lookups across [RECORD_COUNT] records, and achieved [RECOVERY_RATE] crash recovery through Write-Ahead Logging.",
+    "claims": [
+      {
+        "text": "implemented B-tree indexing with sub-[LOOKUP_LATENCY] point lookups across [RECORD_COUNT] records",
+        "rubric_indexes": [
+          0
+        ]
+      },
+      {
+        "text": "achieved [RECOVERY_RATE] crash recovery through Write-Ahead Logging",
+        "rubric_indexes": [
+          2
+        ]
+      }
+    ],
+    "do_not_claim": "distributed multi-node consensus replication or full ANSI SQL-92 standard query coverage"
+  },
+  "verify": [],
+  "worksheet": {
+    "q1": "Core deliverable: an embedded C++ relational storage engine with slotted-page layout, LRU-K buffer pool, B-tree index, Volcano query engine, and WAL crash recovery.",
+    "q2": "Target users: systems software engineers, edge runtime developers, and database infrastructure specialists.",
+    "q3": "3 use cases: edge device persistence, point-of-sale transaction logs, and telemetry storage engines.",
+    "q4": "Stated hours: 41 hours. Calculated bottom-up: 36 component hours * 1.15 buffer = 41.4 -> 41 hours. Advanced level.",
+    "q5": "Hard parts: slotted page tuple compaction, thread-safe B-tree node splits, WAL dirty frame flushing synchronization, and ARIES recovery phases.",
+    "q6": "Starter input: 100,000 structured relational rows with integer keys. No personal data.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU only, $0 cost, zero cloud accounts. Fallback: POSIX file I/O with in-memory page simulation.",
+    "q8": "Riskiest component: Page corruption during incomplete B-tree leaf splits. Fallback: shadow-page copy-on-write during split.",
+    "q9": "Potential faking: mock query returns without disk access. Anti-fake check 5 inserts dynamic uncommitted nonce, aborts, and asserts zero leakage.",
+    "q10": "Safety/ethics: Safe; synthetic relational test records only."
+  }
+}

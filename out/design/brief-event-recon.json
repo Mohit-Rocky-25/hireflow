@@ -1,0 +1,314 @@
+{
+  "id": "brief-event-recon",
+  "title": "Event-Driven Payment Reconciliation Engine with Double-Entry Ledger",
+  "domain": "FinTech Engineering",
+  "difficulty": "ADVANCED",
+  "project_types": [
+    "Distributed systems",
+    "Data pipeline/ETL"
+  ],
+  "problem": "Financial platforms process millions of money movements across payment gateways, banking settlement rails, and merchant accounts. Webhook packet loss, bank batch file settlement delays, currency rounding, and timezone drift cause constant transaction discrepancies. Manual reconciliation is slow and prone to errors. This project builds an automated, event-driven payment reconciliation engine in Python and FastAPI. The system processes payment gateway webhook streams from Kafka, parses daily bank settlement CSV files, enforces double-entry ledger accounting invariants in PostgreSQL, executes three-way match algorithms across transactions, classifies breaks into distinct categories (unmatched settlement, fee drift, timing discrepancy), and generates audit-ready financial break reports.",
+  "use_cases": [
+    "FinTech payment processor daily settlement reconciliation against banking partner clearing files",
+    "E-commerce merchant multi-gateway audit verifying Stripe, Adyen, and PayPal payout accuracy",
+    "Lending platform loan disbursement and repayment tracking with automated discrepancy detection"
+  ],
+  "hard_parts": [
+    "Enforcing immutable double-entry ledger accounting invariants (Assets = Liabilities + Equity) across high concurrency",
+    "Resolving three-way matching between asynchronous gateway webhooks, internal ledger entries, and delayed bank clearing files",
+    "Classifying financial discrepancies into actionable break buckets (unmatched settlement, fee mismatch, timing drift)",
+    "Ensuring idempotent event ingestion so replayed Kafka webhooks never create duplicate ledger journal postings"
+  ],
+  "screener_signals": [
+    "Clean Python implementation separating double-entry ledger, Kafka consumers, reconciliation matchers, and break reporters",
+    "Automated reconciliation test suite with 25 intentionally seeded financial break scenarios verifying 100% detection",
+    "Anti-fake verification script injecting a dynamic unrecorded settlement row and asserting exact discrepancy flag generation"
+  ],
+  "job_families": [
+    "FinTech Software Engineer",
+    "Core Ledger Backend Engineer",
+    "Financial Data Engineer"
+  ],
+  "stack": [
+    {
+      "tool": "Python",
+      "role": "primary programming language for ledger logic, settlement parsing, and reconciliation"
+    },
+    {
+      "tool": "Kafka",
+      "role": "event streaming platform delivering gateway payment event webhooks"
+    },
+    {
+      "tool": "PostgreSQL",
+      "role": "relational database storing immutable double-entry ledger journals and transactions"
+    },
+    {
+      "tool": "FastAPI",
+      "role": "web framework serving reconciliation status APIs and audit report endpoints"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "Double-Entry General Ledger Core",
+        "tools_used": [
+          "Python",
+          "PostgreSQL"
+        ],
+        "purpose": "Enforces immutable debit/credit journal entries and guarantees ledger balance invariant integrity"
+      },
+      {
+        "name": "Kafka Webhook Ingestion Consumer",
+        "tools_used": [
+          "Python",
+          "Kafka"
+        ],
+        "purpose": "Consumes gateway payment webhooks idempotently, preventing duplicate transaction recordings"
+      },
+      {
+        "name": "Bank Settlement File Parser",
+        "tools_used": [
+          "Python"
+        ],
+        "purpose": "Parses structured daily bank clearing CSV/BAI2 settlement records and normalizes payout line items"
+      },
+      {
+        "name": "Three-Way Reconciliation Matcher",
+        "tools_used": [
+          "Python",
+          "PostgreSQL"
+        ],
+        "purpose": "Executes rule-based matching across gateway events, internal orders, and bank settlement deposits"
+      },
+      {
+        "name": "Financial Break Classifier & Reporter",
+        "tools_used": [
+          "Python",
+          "FastAPI"
+        ],
+        "purpose": "Categorizes unmatched records into fee, timing, and missing break buckets, exposing audit endpoints"
+      }
+    ],
+    "data_flow": "Payment gateway webhooks arrive via Kafka; the Ingestion Consumer validates idempotency and posts balanced debit/credit entries to the Double-Entry General Ledger; daily bank settlement CSV files are ingested by the Settlement Parser; the Three-Way Reconciliation Matcher links internal order IDs, gateway transaction references, and bank settlement lines; matching records are marked RECONCILED; mismatched records are categorized by the Break Classifier into fee variances, timing delays, or missing settlements; audit reports and summary metrics are exposed via FastAPI.",
+    "enforcement_mechanism": "PostgreSQL database check constraints guaranteeing zero debit/credit imbalance per journal transaction; idempotent event keys preventing double posting."
+  },
+  "targets": [
+    {
+      "metric": "Seeded Financial Break Detection Rate",
+      "method": "Reconciliation engine execution against historical financial batch with 25 seeded monetary discrepancies",
+      "input": "Batch of 50,000 transactions containing 25 seeded breaks (10 fee drifts, 10 missing settlements, 5 duplicate webhooks)",
+      "environment": "Standard 4-core local CPU, Python 3.11, PostgreSQL 15+",
+      "minimum_pass": "Detection of 25 of 25 seeded breaks with 0 false negatives",
+      "target": "Detection of 25 of 25 seeded breaks with 0 false negatives",
+      "report": "Financial reconciliation audit log detailing detected break categories and transaction references"
+    },
+    {
+      "metric": "Batch Reconciliation Execution Throughput",
+      "method": "Processing throughput to ingest, normalize, and reconcile three-way financial transactions",
+      "input": "100,000 transactions evaluated against 100,000 bank settlement records",
+      "environment": "Standard 4-core local CPU, Python 3.11, PostgreSQL 15+",
+      "minimum_pass": "Throughput exceeds 5,000 transactions/sec",
+      "target": "Throughput exceeds 12,000 transactions/sec",
+      "report": "Reconciliation benchmark performance report"
+    },
+    {
+      "metric": "Double-Entry Ledger Balance Invariant Violation Rate",
+      "method": "Integrity validation verifying total debits equal total credits across all posted journal entries",
+      "input": "100,000 posted financial journal entries evaluated after heavy concurrent execution",
+      "environment": "Standard 4-core local CPU, PostgreSQL 15+",
+      "minimum_pass": "0 ledger balance invariant violations across journal transactions",
+      "target": "0 ledger balance invariant violations across journal transactions",
+      "report": "Trial balance accounting verification report confirming zero variance"
+    }
+  ],
+  "skills": [
+    "Python",
+    "Kafka",
+    "PostgreSQL",
+    "FastAPI",
+    "FinTech",
+    "Distributed Systems",
+    "Data Pipelines"
+  ],
+  "starter_input": {
+    "spec": "Sample gateway webhook event schema, bank clearing settlement CSV specification, and double-entry ledger chart of accounts.",
+    "size": "50,000 synthetic transaction records, 48,000 bank settlement lines, and 25 intentionally seeded discrepancies",
+    "seeded_cases": "Uncaptured gateway authorisations, foreign exchange fee variances, missing bank settlement lines, and replay webhooks",
+    "label_source": "Deterministic reconciliation ground truth manifest mapping transaction IDs to expected break classifications",
+    "personal_data_policy": "Strictly mock synthetic financial records and simulated account numbers; zero real banking or cardholder data used"
+  },
+  "components": [
+    {
+      "name": "Double-Entry General Ledger Core & Invariant Validator",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "Kafka Gateway Webhook Ingestion & Idempotent Consumer",
+      "task_type": "data pipeline step",
+      "hours": 5.0
+    },
+    {
+      "name": "Bank Settlement Batch Parser & Normalizer",
+      "task_type": "data pipeline step",
+      "hours": 5.0
+    },
+    {
+      "name": "Three-Way Reconciliation Matching Engine",
+      "task_type": "data pipeline step",
+      "hours": 6.0
+    },
+    {
+      "name": "Break Classifier & Financial Exception Manager",
+      "task_type": "API endpoint group with tests",
+      "hours": 5.0
+    },
+    {
+      "name": "Discrepancy Injection Test Harness & Audit Benchmark",
+      "task_type": "load or performance test harness + report",
+      "hours": 4.0
+    },
+    {
+      "name": "Ledger State Flow Diagram & Accounting Runbook",
+      "task_type": "docs + architecture diagram",
+      "hours": 3.0
+    }
+  ],
+  "extended_path": {
+    "items": [
+      "Automated dispute resolution and chargeback adjustment workflow with refund ledger reversal",
+      "High-throughput parallel reconciliation worker using DuckDB for multi-million row settlement files"
+    ],
+    "hours": 16
+  },
+  "milestones": [
+    {
+      "name": "Double-Entry Ledger Engine & Invariant Enforcement in Python FinTech",
+      "hours": 10,
+      "done_criterion": "General ledger stores balanced entries; database constraints reject any unbalanced transaction."
+    },
+    {
+      "name": "Kafka Payment Webhook Consumer & Bank Settlement File Parser in Data Pipelines",
+      "hours": 10,
+      "done_criterion": "Consumer ingests webhooks idempotently; parser normalizes daily bank CSV settlement records."
+    },
+    {
+      "name": "Three-Way Reconciliation Algorithm & Discrepancy Break Classifier in Distributed Systems",
+      "hours": 10,
+      "done_criterion": "Matching engine executes 3-way match, classifying unmatched rows into fee, timing, and missing breaks."
+    },
+    {
+      "name": "Injected Break Detection Benchmark, Audit Reports & Docs",
+      "hours": 9,
+      "done_criterion": "Engine detects 25 of 25 seeded breaks at > 5,000 tx/s; zero ledger violations; audit docs complete."
+    }
+  ],
+  "prerequisites": [
+    "Proficiency in Python, SQL relational databases, and data manipulation libraries (Pandas)",
+    "Understanding of double-entry accounting fundamentals (debits, credits, trial balance) and event-driven patterns"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (purely CPU-bound data processing and SQL execution)",
+    "cost": "$0 (fully open-source software stack)",
+    "accounts_keys_quotas": "No external cloud accounts, paid services, or API keys required",
+    "reference_environment": "Local 4-core CPU with Python 3.11 and PostgreSQL 15+ installed",
+    "fallback_path": "SQLite in-memory database with POSIX CSV file simulation if Docker/Kafka cannot be started"
+  },
+  "riskiest_component": {
+    "name": "Floating Point Rounding Errors Causing False Ledger Break Alerts",
+    "fallback": "Enforce integer minor currency units (cents/paise) or Python Decimal throughout all calculations"
+  },
+  "deliverables": [
+    "Git repository containing Python reconciliation engine, double-entry ledger models, and FastAPI app",
+    "Deterministic financial discrepancy test generator injecting known break scenarios",
+    "Automated reconciliation audit harness outputting trial balance and break summaries",
+    "Screener verification script executing automated benchmark and dynamic break test in under 2 minutes"
+  ],
+  "out_of_scope": [
+    "Direct SWIFT MT101 / ISO 20022 inter-bank wire clearing integration",
+    "Automated banking credit underwriting and loan origination decisioning",
+    "Live physical cash vault counting and ATM network reconciliation"
+  ],
+  "safety_note": "This project processes synthetic financial records and mock transaction identifiers for educational testing. It does not interface with live banking payment rails, initiate real fund transfers, or process sensitive cardholder payment details.",
+  "resources": [
+    "Martin Fowler: Accounting Patterns and Double-Entry Ledger Principles",
+    "Financial Data Reconciliation Architecture and Break Management Standards",
+    "FastAPI and PostgreSQL High-Performance Ledger Design Documentation"
+  ],
+  "rubric": [
+    {
+      "input": "Financial dataset of 50,000 transactions with 25 seeded discrepancy breaks",
+      "action": "python -m recon_engine.reconcile --transactions data/tx.json --bank data/settlement.csv",
+      "expected_result": "Engine detects all 25 seeded breaks and outputs categorized discrepancy breakdown",
+      "evidence_location": "Terminal execution output log and reports/recon_summary.json",
+      "pass_criterion": "25 of 25 seeded breaks detected with zero false negatives and exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "100,000 transactions evaluated against 100,000 settlement records",
+      "action": "python scripts/benchmark_recon_speed.py --count 100000",
+      "expected_result": "Reconciliation engine achieves throughput exceeding 5,000 transactions/sec",
+      "evidence_location": "Throughput benchmark console table",
+      "pass_criterion": "Measured throughput exceeds 5,000 transactions/sec",
+      "kind": "normal"
+    },
+    {
+      "input": "Trial balance accounting verification across all posted transactions",
+      "action": "python -m recon_engine.audit_ledger",
+      "expected_result": "Sum of all debits equals sum of all credits with zero balance variance",
+      "evidence_location": "Audit ledger console output log",
+      "pass_criterion": "Total debits minus total credits equals 0.00 with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "FastAPI audit report request for discrepancy summary",
+      "action": "curl http://localhost:8000/api/reports/breaks",
+      "expected_result": "API returns JSON detailing break buckets (fee_variance, missing_settlement, timing_delay)",
+      "evidence_location": "HTTP response payload",
+      "pass_criterion": "Response status is 200 with break categories matching seeded counts",
+      "kind": "normal"
+    },
+    {
+      "input": "Dynamic unrecorded bank deposit line item ($12,345.67) injected into clearing file at runtime",
+      "action": "python scripts/verify_dynamic_recon.py --amount 12345.67 --bank-ref DYNAMIC_REF_77",
+      "expected_result": "Reconciliation engine flags unrecorded deposit as UNMATCHED_BANK_SETTLEMENT break",
+      "evidence_location": "Dynamic verification console output log",
+      "pass_criterion": "Engine creates break record with reference DYNAMIC_REF_77 and exit code 0",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected event-driven payment reconciliation engine in Python and FastAPI with PostgreSQL double-entry ledger; detected [BREAK_COUNT] of [TOTAL_BREAKS] seeded financial discrepancies with verified ledger balance invariant integrity, and achieved [RECON_THROUGHPUT] reconciliation throughput.",
+    "claims": [
+      {
+        "text": "detected [BREAK_COUNT] of [TOTAL_BREAKS] seeded financial discrepancies with verified ledger balance invariant integrity",
+        "rubric_indexes": [
+          0,
+          2
+        ]
+      },
+      {
+        "text": "achieved [RECON_THROUGHPUT] reconciliation throughput",
+        "rubric_indexes": [
+          1
+        ]
+      }
+    ],
+    "do_not_claim": "direct live SWIFT inter-bank clearing integration or real-money banking custody"
+  },
+  "verify": [],
+  "worksheet": {
+    "q1": "Core deliverable: an automated event-driven payment reconciliation engine in Python with double-entry ledger, Kafka webhook consumer, and break classifier.",
+    "q2": "Target users: FinTech engineers, core banking platform developers, and financial data engineers.",
+    "q3": "3 use cases: daily payment gateway settlement reconciliation, multi-gateway merchant audit, and lending repayment reconciliation.",
+    "q4": "Stated hours: 39 hours. Calculated bottom-up: 34 component hours * 1.15 buffer = 39.1 -> 39 hours. Advanced level.",
+    "q5": "Hard parts: double-entry ledger accounting invariants, three-way matching logic, financial break classification, and idempotent webhook ingestion.",
+    "q6": "Starter input: 50,000 transactions, 48,000 settlement lines, and 25 seeded breaks. Synthetic records only.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU only, $0 cost, zero cloud accounts. Fallback: SQLite in-memory mode.",
+    "q8": "Riskiest component: Floating-point currency rounding errors. Fallback: integer cents/paise or Python Decimal throughout.",
+    "q9": "Potential faking: hardcoded break reports. Anti-fake check 5 injects dynamic deposit line at runtime and asserts UNMATCHED break flag.",
+    "q10": "Safety/ethics: Safe; synthetic financial records only, no live banking rails or real funds."
+  }
+}

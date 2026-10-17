@@ -1,170 +1,77 @@
-# Technical Audit: API Gateway from Scratch with Plugin Architecture
-**Brief ID:** `brief-api-gateway-scratch`  
-**Domain:** Distributed Systems  
-**Reviewer:** Senior Engineering Educator & Technical Reviewer  
+# Audit & Diagnosis: brief-api-gateway-scratch
+
+## 1. Old Brief Diagnosis
+- **Old Title**: API Gateway from Scratch with Plugin Architecture
+- **Domain**: Distributed Systems
+- **Old Difficulty**: ADVANCED
+- **Old Stated Hours**: 38 hours
+- **True Effort Estimate of Old Scope**: ~24-26 hours of implementation, but inflated with unverified scale claims ("10k concurrent requests", "25k req/sec" on local laptop).
+
+### Old Scores (Part 2 Dimensions)
+- Topic Value: 9.5 / 10
+- Verification Rubric: 4.5 / 10 (missing 5 fields, no anti-fake check)
+- Technical Accuracy: 5.5 / 10 (10k concurrent requests causes ephemeral port exhaustion on laptop loopback; targets lack 7 fields)
+- Scope Realism: 5.0 / 10 (no bottom-up breakdown)
+- Completeness: 4.0 / 10 (capped at 5.0 due to missing starter input, milestones, deliverables, environment)
+- Honesty: 6.5 / 10 (exaggerated local concurrency numbers)
+- Resume Bullet Safety: 6.0 / 10 (missing "Do not claim" line, placeholder mismatch)
+- **Old Weighted Score**: 5.68 / 10 (Band C)
+
+### Problems Found (with exact quotes)
+1. **Unrealistic local concurrency claims**:
+   > "Proxy Latency Overhead: p99 overhead < 5ms under 10k concurrent requests | Sustained Throughput: > [N] req/sec sustained (target 25k req/sec)"
+   *Flaw*: Spawning 10,000 concurrent TCP sockets over localhost loopback on macOS or Windows WSL2 rapidly exhausts default ulimits (typically 1024 or 4096 file descriptors) and triggers ephemeral port exhaustion. A realistic benchmark targets 200-500 concurrent connections sustaining 2,000 to 5,000 req/sec.
+2. **Missing operational sections**:
+   *Flaw*: Missing `TARGET APPLICATION / STARTER INPUT`, `MILESTONES`, `DELIVERABLES`, `PREREQUISITES, ENVIRONMENT AND ACCOUNTS`, `OUT OF SCOPE`, and `LEARNING RESOURCES`.
+3. **Only one technical challenge listed**:
+   > "WHY THIS IS HARD (COMPETENCY REDUCER): TCP Connection Pooling & File Descriptor Leaks: Default HTTP transports restrict concurrent connections per upstream host (MaxIdleConnsPerHost = 2)..."
+   *Flaw*: Connection pooling is essential, but lock-free hot reload without dropping in-flight requests, memory recycling with `sync.Pool`, and health check flapping mitigation are equally critical systems challenges.
+4. **Vulnerable to mocked rubric checks**:
+   *Flaw*: Checks like "Verify HTTP GET /api/users proxies successfully and returns HTTP 200 with X-Gateway-Proxy: true" could be faked by a static Go server that returns hardcoded headers without actual proxying or load balancing.
+
+### Hidden Hard Parts
+1. **Socket reuse and TIME_WAIT saturation**: High-throughput reverse proxying without connection pool tuning creates thousands of short-lived sockets in TIME_WAIT state, exhausting local ports within seconds.
+2. **Lock-free route hot-reloading**: Updating route tables during live traffic without mutex contention or memory races requires atomic snapshot swapping with `sync/atomic.Pointer`.
+3. **Garbage collection pause reduction**: Allocating new byte buffers and header maps per request causes GC latency spikes; high-performance proxies reuse buffers via `sync.Pool`.
+4. **Upstream health flapping**: Network jitter or temporary timeouts can cause rapid oscillation between healthy and dead states unless hysteresis thresholds are enforced.
+
+### 3 Interviewer Questions a Student Following the Old Brief Could Not Answer
+1. *"How did you implement route table hot-reloading so that in-flight requests were not dropped or corrupted when the configuration changed?"*
+2. *"Why did your reverse proxy use `sync.Pool`, and how did you verify that byte buffers were safely returned without memory corruption?"*
+3. *"What happens to TCP connections when an upstream server abruptly crashes, and how did your gateway prevent cascading client timeouts?"*
 
 ---
 
-### A. Score Table
+## 2. Reviewer Pass & Audit of Redesigned Brief
 
-| Dimension | Score (0-10) | Reason & Direct Quotation |
-| :--- | :---: | :--- |
-| **Topic Value** | 9.0 | High-signal systems programming project; implements core networking primitives (reverse proxy, transport pooling, dynamic middleware chain). |
-| **Verification Rubric** | 5.0 | Rubric items lack reproducible pass criteria and baselines: *"5. Benchmark showing < 5ms overhead vs direct upstream connection at 10k concurrent requests"* omits payload size, CPU environment, and measurement tool. |
-| **Technical Accuracy** | 6.0 | Capped at 6.0: omits Go `http.Transport` connection pooling tuning (`MaxIdleConnsPerHost`) and memory boundaries on body transformations, which are fatal gotchas under high concurrent RPS. |
-| **Scope Realism** | 5.0 | Capped at 5.0: Stated Est. Time was 25 hours, but Difficulty is ADVANCED (band is 30-60h). Honest true effort is 38h for a production-grade multi-plugin gateway. |
-| **Completeness** | 4.0 | Capped at 5.0 (no deliverables AND no milestones). Lacks mock upstream test servers, seed route configurations, and hardware references. |
-| **Honesty of Claims** | 4.0 | Capped at 4.0 due to subjective market disparagement: *"Commercial API gateways (Kong, AWS API Gateway) are expensive and opaque"*, plus unsourced claims. |
-| **Resume Bullet Safety** | 3.5 | Capped at 4.0 for pre-filled outcome claims: *"handling 30k req/sec with < 5ms proxy overhead"* and *"zero-downtime configuration reload"*. |
+### Part 8 Reviewer Questions (with text evidence)
+1. **Could a student finish in Est. Time on a normal laptop / free tier?** YES. Core path is 34 hours (ADVANCED band); environment requires only local 4-core CPU, 8GB RAM, and Go with Docker at $0 cost.
+2. **Does each performance target name its bottleneck and is reachable?** YES. Latency overhead measured under 2,000 req/sec over loopback; hot-reload stability measured across 10,000 consecutive requests.
+3. **Is there a CPU/local/free fallback?** YES. "Run mock upstreams directly as background Go processes on localhost ports without Docker".
+4. **Can test data be created in minutes?** YES. Multi-instance mock Go backend server with 10 synthetic endpoints.
+5. **Can screener check rubric in under 10 minutes?** YES. Screener verification script runs full test suite and dynamic upstream verification in under 3 minutes.
+6. **Are targets and rubric project-specific?** YES. Reverse proxy tail latency overhead, atomic hot-reload stability, and failover convergence time are specific to API gateway infrastructure.
+7. **Is every bullet claim verified by rubric?** YES. Proxy throughput verified by Check 1 & benchmark; hot-reload verified by Check 2; failover verified by Check 4.
+8. **Is there an anti-fake check?** YES. Check 5 [anti_fake] starts a dynamic mock upstream on a random port at runtime and verifies routing registration and header mutation.
+9. **Are all terms accurate?** YES. Accurately details atomic pointers, sync.Pool buffer recycling, connection pooling, and health check flapping without buzzwords.
+10. **Does problem statement promise only what is verified?** YES. Reverse proxying, atomic routing, middleware plugin pipeline, and active load balancing are all built and measured.
+11. **Are privacy and safety notes addressed?** YES. Strict synthetic token and mock payload entity policy forbidding real credentials.
+12. **Are all hard parts technical?** YES. 4 detailed technical challenges covering socket exhaustion, atomic pointer swapping, buffer recycling, and upstream flapping.
 
-#### Arithmetic & Overall Score
-- **Weights:** Topic (10%), Rubric (15%), Tech Accuracy (20%), Scope Realism (15%), Completeness (15%), Honesty (15%), Resume Safety (10%)
-- **Calculation:**
-  $$\text{Weighted Score} = (9.0 \times 0.10) + (5.0 \times 0.15) + (6.0 \times 0.20) + (5.0 \times 0.15) + (4.0 \times 0.15) + (4.0 \times 0.15) + (3.5 \times 0.10)$$
-  $$\text{Weighted Score} = 0.90 + 0.75 + 1.20 + 0.75 + 0.60 + 0.60 + 0.35 = 5.15 / 10$$
-- **Overall Score:** **5.15 / 10**
-- **Band:** **D (< 5.5)**
+### New Scores (Part 2 Dimensions)
+- Topic Value: 9.5 / 10
+- Verification Rubric: 9.5 / 10
+- Technical Accuracy: 9.5 / 10
+- Scope Realism: 9.0 / 10
+- Completeness: 9.5 / 10
+- Honesty: 9.5 / 10
+- Resume Bullet Safety: 9.5 / 10
+- **New Weighted Score**: 9.42 / 10 (Band A)
 
----
-
-### B. Serious Problems
-
-1. **Pre-filled Metrics and Unverified Performance Claims**
-   - *Quote:* `"Built plugin-based API Gateway in Go handling 30k req/sec with < 5ms proxy overhead; implemented dynamic plugin chain ... with zero-downtime configuration reload."`
-   - *Why it matters:* Throughput and latency overhead depend on CPU core counts, network interface cards, and payload sizes. Claiming 30k RPS and < 5ms overhead before running local benchmarks on the student's hardware is indefensible.
-   - *Fix:* Replace all fixed performance outcomes with standardized placeholders: `[N] req/sec`, `[M ms] overhead`, and `[X of Y]`. Add strict "Do not claim" line.
-
-2. **Subjective Commercial Market Disparagement**
-   - *Quote:* `"Commercial API gateways (Kong, AWS API Gateway) are expensive and opaque."`
-   - *Why it matters:* Violates the strict zero-marketing rule. Technical briefs should neutrally explain the architectural problem rather than making value judgments about commercial SaaS pricing.
-   - *Fix:* Remove the disparaging commentary; state the technical objective objectively (decoupling cross-cutting networking concerns like authentication, routing, and rate-limiting from backend microservices).
-
-3. **Inconsistent Difficulty Band vs. Estimated Time**
-   - *Quote:* Difficulty: `ADVANCED`, Est. Time: `25 hours`.
-   - *Why it matters:* The standardized effort band for ADVANCED projects is 30–60 hours. Implementing a low-level reverse proxy, dynamic atomic route reloading, token bucket rate limiting, weighted round-robin load balancing, and active health checks in 25 hours is severely under-scoped.
-   - *Fix:* Recalculate true effort using the standardized effort model and adjust Core Path to 38 hours.
-
-4. **Missing Starter Mock Upstreams and Test Fixtures**
-   - *Quote:* `"distribute requests across 3 upstreams and auto-remove failed one"`
-   - *Why it matters:* Students need deterministic mock upstreams with configurable latency and error injection to test failover and load balancing reliably.
-   - *Fix:* Add a mandatory `TARGET APPLICATION / STARTER INPUT` specifying a lightweight mock upstream HTTP service with chaos endpoints (`/health`, `/slow`, `/fault`).
-
----
-
-### C. Hidden Hard Parts
-
-1. **Go `http.Transport` Socket Exhaustion:** The default `http.DefaultTransport` in Go sets `MaxIdleConnsPerHost = 2`. When routing thousands of concurrent requests to an upstream, Go opens a new TCP connection for every request and immediately closes it, creating thousands of sockets in `TIME_WAIT` status and crashing the gateway with `connection reset by peer` or `too many open files`.
-2. **Atomic Hot-Reloading Without Race Conditions:** Modifying route tables or plugin pipelines while hundreds of worker goroutines are actively routing requests will trigger Go runtime data races unless protected by an atomic pointer swap (`atomic.Pointer[RouteTable]`) or copy-on-write `sync.RWMutex`.
-3. **Memory Exhaustion on Unbounded Request Transformation:** If a transformation plugin reads the entire request body (`io.ReadAll(req.Body)`) without enforcing `http.MaxBytesReader`, malicious or oversized requests will cause out-of-memory (OOM) crashes.
-
----
-
-### D. Interviewer Probes
-
-1. *"How did you configure your Go `http.Transport` (`MaxIdleConns`, `MaxIdleConnsPerHost`, `IdleConnTimeout`) to prevent socket exhaustion under high load?"*
-2. *"How does your configuration reloader ensure zero race conditions when thousands of goroutines are simultaneously reading route rules?"*
-3. *"What happens if an upstream service takes 30 seconds to respond? How does your gateway handle request cancellation when the downstream client disconnects?"*
-
----
-
-### E. What's Good
-
-- Excellent systems architecture scope: combines reverse proxying, load balancing, dynamic middleware, and metrics.
-- Idiomatic Go problem space: Go's lightweight goroutines and standard `net/http/httputil.ReverseProxy` make it the ideal language for understanding gateway internals.
-- Active health checking and weighted round-robin: directly mirrors Envoy and Nginx routing patterns.
-
----
-
-### F. Estimated True Effort
-
-Applying the standardized Effort Model:
-- Repository setup, Go tooling, and mock upstream cluster (Docker Compose): **4.0h**
-- Core reverse proxy engine with custom `http.RoundTripper` and connection pool tuning: **7.0h**
-- Extensible plugin pipeline interface with Token Bucket rate limiter & auth plugin: **7.0h**
-- Admin REST API with atomic pointer hot-reloading: **6.0h**
-- Upstream pool management with weighted round-robin and active background health checker: **5.0h**
-- Prometheus metrics exporter (`latency_seconds`, `requests_total`) and benchmark harness: **5.0h**
-- Documentation, architecture diagrams, and screener verification script: **4.0h**
-- **Subtotal:** **38.0h**
-- **Total Core Path Effort:** **38.0 hours** (fits Advanced band: 30–60h).
-
----
-
-### G. Feasibility Check
-
-1. **Can a student with stated prerequisites finish CORE PATH in Est. Time on a normal personal laptop or free cloud tier?**  
-   **YES.** Go compiles to native standalone binaries in seconds; mock upstreams and gateway run locally with minimal memory footprint (< 100MB RAM).
-2. **Does each performance target name its bottleneck and is it reachable on reference environment?**  
-   **YES.** Bottlenecks are OS ephemeral port availability and CPU context switching. Tuned connection pooling reaches 10k-25k RPS on a modern 4-core CPU over loopback.
-3. **Does the project need paid services, licensed data, restricted APIs, GPU, root access, or specific OS?**  
-   **NO.** Built exclusively using Go standard library (`net/http`) and open-source Docker/Prometheus.
-4. **Can the student create test data or starter input in minutes?**  
-   **YES.** Provided via a lightweight Go mock upstream server (`cmd/mock_upstream/main.go`) with configurable latency and error routes.
-5. **Can a screener check every rubric item in under 10 minutes without student machine access?**  
-   **YES.** Screener runs `go test -v ./...` and `bash scripts/verify_gateway.sh` which executes route tests, hot-reload PUT, and failover validation in < 2 minutes.
-6. **Which one component is most likely to blow the budget, and what is the written fallback?**  
-   **Component:** Complex dynamic shared-library (`.so`) plugin loading.  
-   **Fallback:** Implement plugins as compile-time Go interfaces chained in request pipeline; avoid OS CGO `.so` dynamic loading complexity.
-7. **Could the result be faked?**  
-   **YES.** Student could hardcode a 200 OK proxy response without actually proxying upstream.  
-   **Countermeasure:** Rubric requires injecting dynamic header `X-Upstream-Instance-ID` from mock backend and verifying round-robin distribution.
-8. **Do licenses, terms of service, data protection, or safety matter?**  
-   **YES.** Clear warning that gateway must run only on loopback (`127.0.0.1`) during testing to prevent exposing open proxies to public networks.
-
----
-
-### H. Change Log
-
-- **Header:** Difficulty retained as ADVANCED; Est. Time upgraded from 25h to 38h (Core Path) to honestly reflect Advanced band standards. Extended path (+6h) noted for distributed Redis cluster plugin.
-- **Tech Stack:** Annotated Go, net/http, Prometheus, Docker, JSON, and Concurrency with precise functional roles.
-- **Problem Statement:** Removed subjective commercial SaaS pricing critique; focused on networking cross-cutting concerns, proxy latency, and connection reuse.
-- **Use Cases:** Replaced claims with 3 neutral architectural examples (Envoy, Apache APISIX, Traefik).
-- **Why This Is Hard:** Added specific technical coverage of Go `http.Transport` connection exhaustion (`TIME_WAIT` saturation) and atomic pointer hot-reload race prevention.
-- **Recruiter Signal:** Replaced vague assertions with specific systems engineering job families (Platform Engineer, Cloud Infrastructure Engineer).
-- **Architecture:** Documented `atomic.Pointer` swap mechanism for zero-downtime routing table mutation, along with tuned pool constants (`MaxIdleConns: 1000, MaxIdleConnsPerHost: 200`).
-- **Scale & Performance Targets:** Converted to the mandatory 7-field table format covering Proxy Latency Overhead, Sustained Throughput, and Failover Duration.
-- **Added Required Sections:** TARGET APPLICATION / STARTER INPUT, MILESTONES (38h sum), PREREQUISITES, ENVIRONMENT AND ACCOUNTS, DELIVERABLES, OUT OF SCOPE AND EXTENDED PATH, SAFETY AND ETHICS NOTE, LEARNING RESOURCES.
-- **Verification Rubric:** Overhauled into 5 distinct, single-check verifiable items with exact curl commands and anti-fake round-robin assertions.
-- **Resume Bullet:** Replaced hardcoded numbers with standard Google XYZ bracketed placeholders (`[N]`, `< [M ms]`, `[S]`) and added "Do not claim" line.
-- **Verification Tagged Items:** `[VERIFY]` Go standard library `httputil.ReverseProxy.ErrorHandler` cancellation propagation semantics in Go 1.21+.
-
----
-
-### I. Self-Check
-
-- [x] All original headings present, in order; footer present; clean text with no casing glitches, duplicated words, or stray punctuation: **PASS**
-- [x] Resume bullet: one sentence; no digits, percent signs, or outcome words outside placeholders; "Do not claim" line present: **PASS**
-- [x] Every tool is in Tech Stack with a role; every Tech Stack item is used somewhere; concepts in Skills: **PASS**
-- [x] Every Skills item is exercised in architecture, milestones, or rubric: **PASS**
-- [x] Milestone hours sum exactly to Est. Time (38h); fits Advanced band (30-60h); Extended path specified (+6h): **PASS**
-- [x] Every target has all seven fields, is specific to this project, and has no absolute claims: **PASS**
-- [x] Same numbers in Targets, Rubric, and Bullet placeholders: **PASS**
-- [x] Rubric has 5 single-check items with input, action, expected result, evidence location, and concrete pass criterion: **PASS**
-- [x] Every claim in the bullet is verified by a rubric item; anti-fake round-robin header check included: **PASS**
-- [x] No statistics, salaries, growth claims, employer claims, or invented URLs: **PASS**
-- [x] A reference environment and fallback path are stated: **PASS**
-- [x] A starter application/dataset spec exists; deliverables and milestones exist: **PASS**
-- [x] Terms are accurate; problem statement promises only what is built and verified: **PASS**
-- [x] Core idea and domain unchanged: **PASS**
-- [x] Every [VERIFY] is listed in the change log: **PASS**
-
----
-
-### J. Re-Score of Improved Brief
-
-| Dimension | Score (0-10) | Evaluation of Improved Brief |
-| :--- | :---: | :--- |
-| **Topic Value** | 9.2 | High-leverage systems and distributed networking project. |
-| **Verification Rubric** | 9.2 | 5 single-check items testing proxying, hot-reload, rate limiting, upstream failover, and latency overhead. |
-| **Technical Accuracy** | 9.2 | Fully details `http.Transport` connection reuse, `atomic.Pointer` swap, and body memory ceilings. |
-| **Scope Realism** | 9.0 | Upgraded to honest 38h effort band with precise milestone breakdown. |
-| **Completeness** | 9.5 | All 14 standard sections populated with mock upstream specs, fallbacks, and deliverables. |
-| **Honesty of Claims** | 9.5 | Zero market disparagement, zero salary claims, all numbers properly bracketed. |
-| **Resume Bullet Safety** | 9.5 | Single sentence, strict placeholders only, explicit "Do not claim" boundaries. |
-
-#### Re-Score Arithmetic
-$$\text{Weighted Score} = (9.2 \times 0.10) + (9.2 \times 0.15) + (9.2 \times 0.20) + (9.0 \times 0.15) + (9.5 \times 0.15) + (9.5 \times 0.15) + (9.5 \times 0.10)$$
-$$\text{Weighted Score} = 0.92 + 1.38 + 1.84 + 1.35 + 1.425 + 1.425 + 0.95 = 9.29 / 10$$
-- **Improved Score:** **9.29 / 10**
-- **Band:** **A (>= 8.5)**
-- *Note: This re-score is a structured self-assessment against the standardized technical review rubric.*
+### Change Log
+- **Scope & Hours**: Recalculated bottom-up using effort model (30 component hours * 1.15 buffer = 34 hours). Split distributed Redis cluster rate limiting, automated ACME/TLS, and WebAssembly plugin engine to Extended Path (+15h).
+- **Feasible Scale Targets**: Calibrated targets to 2,000 req/sec on local hardware, replacing unfeasible 10k/25k claims that exhaust OS socket descriptors.
+- **Verification**: Added 5 concrete rubric checks including dynamic upstream anti-fake check.
+- **Completeness**: Added complete Starter Input specification, 4 milestones summing to 34h, hardware specs, riskiest component fallback, and learning resources.
+- **Resume Formula**: Structured with Google X-Y-Z formula using measured placeholders `[PROXY_THROUGHPUT]`, `[P99_OVERHEAD]`, and `[FAILOVER_TIME]` with strict "Do not claim" boundaries.
+- **Unverified items ([VERIFY])**: None. All dependencies are open-source and run locally.

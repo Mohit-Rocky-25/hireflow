@@ -1,122 +1,156 @@
-PROJECT BRIEF — Language Server Protocol (LSP) Implementation
+PROJECT BRIEF — Language Server Protocol (LSP) Engine with AST Parsing & Glob Diagnostics
 ======================================================================
 
 Domain    : Computer Science Fundamentals
-Difficulty: advanced
-Est. Time : 38 hours (Core Path) | Extended Path: +6 hours
-Tech Stack: TypeScript [strictly-typed programming language], vscode-languageserver [vscode-languageserver component], Node.js [backend JavaScript execution environment], AST Parsing [ast parsing component]
+Difficulty: ADVANCED
+Est. Time : 39 hours (core path, estimate). Extended path: +16 hours
+Tech Stack: TypeScript (strongly typed language for LSP protocol framing, AST parsing, and diagnostic algorithms), Node.js (runtime environment hosting language server process and stdio stream communication)
 
 PROBLEM STATEMENT
-----------------------------------------
-Code editors provide features like autocomplete, go-to-definition, and syntax highlighting through a protocol (LSP) that any language can implement. Build an LSP server for a custom DSL or configuration language, enabling VS Code to provide rich editing features: syntax validation, hover documentation, and completions.
+----------------------------------------------------------------------
+Software engineers rely on Language Server Protocol (LSP) capabilities daily in modern code editors (e.g., Neovim, VS Code) for instant diagnostics, symbol autocompletion, and hover explanations, yet the underlying language server mechanics—JSON-RPC 2.0 streaming, incremental document synchronization, abstract syntax tree (AST) evaluation, and path resolution—remain misunderstood. Configuration DSLs like .gitignore frequently contain subtle rule shadowing bugs and syntax conflicts that lead to accidental commits of sensitive files. This project constructs an LSP-compliant language server from first principles in TypeScript and Node.js. The engine handles JSON-RPC 2.0 message framing over stdio, parses gitignore glob patterns into AST nodes, detects syntax errors and conflicting negation rules in real-time, provides filesystem autocompletion, and serves contextual hover explanations.
 
 USE CASES IN THE REAL WORLD
-----------------------------------------
-Any custom DSL or configuration language (Terraform HCL, Kride-hailing dispatch networksnetes YAML validation, GitHub Actions workflow validation) benefits from an LSP server. Companies with internal DSLs improve developer experience dramatically with LSP support. JetBrains, VS Code, and Neovim all support LSP.
+----------------------------------------------------------------------
+- IDE extensions providing real-time syntax checking and negation conflict warnings for gitignore files
+- Enterprise developer tooling preventing accidental commits of secret keys and local build artifacts
+- Domain-specific configuration language servers for proprietary infrastructure rule files
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Building an LSP server requires understanding JSON-RPC protocol, incremental document synchronization, AST parsing with error recovery, and editor integration — the complete developer tooling stack. Engineers who can build language servers can improve developer experience for any proprietary language or DSL.
+WHY THIS IS HARD
+----------------------------------------------------------------------
+- Framing and parsing asynchronous JSON-RPC 2.0 messages over standard input/output streams with Content-Length headers
+- Implementing an AST parser for gitignore glob semantics supporting wildcard matching, character classes, and negation prefixes
+- Detecting rule shadowing and redundant patterns in real-time without stalling keystroke latency
+- Providing sub-20 millisecond filesystem path autocompletion across deep workspace directory trees
 
 RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Developer tooling companies (JetBrains, Microsoft VS Code team, GitHub), language design teams, and companies with internal DSLs value LSP engineering. Understanding the Language Server Protocol positions you to contribute to any language tooling project — an unusual and impressive portfolio item.
+----------------------------------------------------------------------
+- Modular TypeScript implementation separating JSON-RPC framing, AST tokenization, diagnostic engines, and LSP handlers
+- Automated protocol conformance test suite verifying 50 distinct LSP client-server interaction scenarios
+- Anti-fake verification script sending dynamic unclosed glob brackets via stdio and asserting exact diagnostic publication
+Relevant Job Families: Developer Tooling Engineer, Systems Software Engineer, IDE & Compiler Infrastructure Engineer
 
 ARCHITECTURE & DATA FLOW
-----------------------------------------
-TypeScript LSP server communicating via JSON-RPC over stdio. Document synchronization (open, change, close events). Incremental parsing maintaining AST for each open document. Completion providers using document symbols and schema definitions. Hover documentation from inline comments. Diagnostic publisher checking schema validation on every change.
+----------------------------------------------------------------------
+Components:
+- JSON-RPC 2.0 Transport Framer (Tools: TypeScript, Node.js): Frames and decodes raw byte streams over stdio adhering to LSP Content-Length header specifications
+- Gitignore Glob AST Parser (Tools: TypeScript): Tokenizes patterns, evaluates glob syntax, and constructs AST representations of active ignore rules
+- Real-Time Diagnostics & Negation Engine (Tools: TypeScript): Identifies invalid regex/glob syntax, unreachable rule shadows, and contradictory negation patterns
+- Workspace Path Autocompletion Provider (Tools: TypeScript, Node.js): Scans workspace directory tree to provide contextual directory and file path completion candidates
+- Hover Documentation Resolver (Tools: TypeScript): Resolves matched file explanations and official gitignore specification documentation on hover
+
+Data Flow:
+LSP client (e.g. editor) connects via stdio; the JSON-RPC Transport Framer parses Content-Length headers and emits typed RPC notifications; textDocument/didOpen and didChange events pass to the Gitignore Glob AST Parser; the parser tokenizes rule lines and builds an AST; the Diagnostics Engine analyzes the tree for syntax errors or rule conflicts and publishes textDocument/publishDiagnostics back to client; textDocument/completion requests trigger the Workspace Path Provider to scan matching files; hover requests return markdown rule explanations.
+
+Enforcement Mechanism:
+LSP 3.17 protocol schema validation rejecting malformed RPC envelopes; AST bounds checking preventing parser crashes on invalid globs.
 
 SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Target 1:
-- Metric: Core Operation Execution Time
-- Method: Automated benchmark executing core engine operation across varying workload sizes
-- Input/dataset: Standard test project or fixture payload (~500KB)
-- Reference environment: Local development environment, 4-core CPU, 8GB RAM
-- Minimum pass: Operation execution time < [M s] (minimum < 8s)
-- Target: Operation execution time < [M s] (target < 2.5s)
-- Report format: Benchmark execution report showing duration and memory usage
-
-Target 2:
-- Metric: Test Suite Coverage & Verification Pass Rate
-- Method: Automated test runner executing comprehensive unit and integration test suites
-- Input/dataset: Full project test fixture directory
-- Reference environment: Local test environment, clean checkout
-- Minimum pass: [X of Y] unit and integration tests passing (100% pass on core test set)
-- Target: [X of Y] tests passing with strict type-checking and 0 lint warnings
-- Report format: Test runner coverage report and exit status log
-
-Target 3:
-- Metric: Client Load / Response Latency (p95)
-- Method: Concurrent API benchmark testing simulated client requests
-- Input/dataset: 1,000 simulated client requests over 10 concurrent connections
-- Reference environment: Local Docker or Node/Python process
-- Minimum pass: p95 response latency < [M ms] (pass < 100ms) with 0 dropped requests
-- Target: p95 response latency < [M ms] (target < 30ms) with 0 dropped requests
-- Report format: Benchmark latency percentile report
+----------------------------------------------------------------------
+Metric | Method | Input/Dataset | Reference Environment | Minimum Pass | Target | Report Format
+Keystroke Diagnostic Publication Latency (p99) | Wall-clock timing from didChange notification receipt to publishDiagnostics emission on 1,000-line gitignore file | 1,000-line gitignore file with 50 intentional rule syntax errors and negation conflicts | Standard 4-core local CPU, Node.js 18+, stdio communication | p99 diagnostic latency is < 30 milliseconds | p99 diagnostic latency is < 12 milliseconds | LSP latency microbenchmark report detailing p50, p95, and p99 durations
+Workspace Path Autocompletion Latency | Response timing for textDocument/completion across deep workspace containing 10,000 files | Completion query triggered at nested path prefix (e.g. 'src/components/') in 10,000-file repository | Standard 4-core local CPU, Node.js 18+ | Average completion latency is < 20 milliseconds | Average completion latency is < 8 milliseconds | Autocompletion benchmark timing log
+Glob Syntax Parsing Accuracy Rate | Parser evaluation across 50 complex gitignore glob syntax edge cases | 50 challenging glob patterns (character ranges, escaping, trailing slashes, leading double-asterisks) | Standard 4-core local CPU, Node.js 18+ | 50 of 50 complex glob pattern fixtures parsed with 0 syntax misclassifications | 50 of 50 complex glob pattern fixtures parsed with 0 syntax misclassifications | Glob parser conformance verification log
 
 SKILLS COVERED
-----------------------------------------
-TypeScript, Parsing, LSP Protocol, Language Design, VS Code APIs, AST
+----------------------------------------------------------------------
+TypeScript, Node.js, Language Server Protocol, AST Parsing, Systems Programming, Compilers
 
 TARGET APPLICATION / STARTER INPUT
-----------------------------------------
-The project provides a self-contained test environment and fixture generator located in `scripts/` or `fixtures/`. It deterministically generates representative input records or mock client traffic for automated validation. No third-party proprietary data or real personal identifiers (PII) are required; all test datasets use synthetic tokens and deterministic random seeds.
+----------------------------------------------------------------------
+- Specification: Language Server Protocol 3.17 specification, gitignore pattern syntax reference, and mock workspace directory.
+- Dataset / Traffic Size: Mock repository with 10,000 files across 400 nested directories and 50 benchmark gitignore test files
+- Seeded Edge Cases: Unclosed character brackets, conflicting negation rules, redundant rule shadows, and malformed Content-Length headers
+- Label / Verification Source: Deterministic test fixture mapping gitignore lines to expected LSP diagnostic severity, range, and message
+- Personal Data Policy: Strictly mock synthetic workspace repositories and file paths; zero personal data used
 
 MILESTONES
-----------------------------------------
-- Milestone 1: Environment Setup & Core Foundations (8h)
-  Configure repository, tooling, container dependencies, and foundational data structures. Done when foundational test suite passes with clean linting.
-- Milestone 2: Core Processing & Architecture Implementation (11h)
-  Implement primary operational workflows, database models or state transitions, and API endpoints. Done when integration tests verify end-to-end data flow under normal operating conditions.
-- Milestone 3: Concurrency, Reliability & Error Guardrails (11h)
-  Implement defensive controls: rate limiting, retries with exponential backoff, transaction boundaries, and failure isolation. Done when chaos or stress tests verify graceful degradation under fault injection.
-- Milestone 4: Verification, Benchmarking & Documentation (8h)
-  Execute performance benchmark harness, compile measurement tables, generate architectural diagrams, and document screener verification steps. Done when `scripts/verify_all` passes completely.
+----------------------------------------------------------------------
+M1: JSON-RPC 2.0 Transport Framing & LSP Handshake in TypeScript Systems Programming (10h) — Done when: Framer decodes Content-Length headers over stdio; handles initialize and shutdown handshakes.
+M2: Gitignore Glob AST Parsing & Diagnostic Engine in Compilers (10h) — Done when: AST parser evaluates glob patterns; diagnostic engine flags unclosed brackets and rule conflicts.
+M3: Autocompletion Provider & Hover Definition Resolver in Language Server Protocol (10h) — Done when: Server returns matching directory paths in < 20ms and resolves markdown documentation on hover.
+M4: High-Frequency Typing Benchmark, Anti-Fake Test & Docs (9h) — Done when: Benchmark verifies < 30ms p99 diagnostic latency on 1,000 lines; anti-fake test passes; docs complete.
+Total: 39 hours (estimate)
 
 PREREQUISITES, ENVIRONMENT AND ACCOUNTS
-----------------------------------------
-- Prerequisites: Familiarity with TypeScript and vscode-languageserver, standard command-line tools, and fundamental testing principles.
-- Hardware / OS: Standard modern computer (macOS, Linux, or Windows with WSL2) with at least 8GB RAM.
-- Accounts & Services: None required. Designed to run completely on free, open-source local software.
-- Fallback Path: In-memory mock drivers or SQLite/local files provided if external database or message broker containers cannot be run.
+----------------------------------------------------------------------
+Prerequisites: Proficiency in TypeScript, asynchronous Node.js streams (stdin/stdout), and binary buffer manipulation, Understanding of lexical tokenization, abstract syntax trees, and client-server protocols (JSON-RPC)
+
+Environment & Hardware:
+- OS: Linux / macOS / Windows with WSL2
+- Memory: 8GB RAM
+- Compute / GPU: None required (purely CPU and memory bound language server operations)
+- Estimated Cost: $0 (fully open-source software stack)
+- Accounts & Quotas: No external cloud accounts, paid services, or API keys required
+- Reference Environment: Local 4-core CPU with Node.js 18+ and npm installed
+- Fallback Path: In-memory string stream test harness without external editor integration
+
+Riskiest Component & Fallback:
+- Riskiest Component: Stdio Stream Chunk Fragmentation Breaking Content-Length Framing
+- Simpler Fallback: Accumulate incoming bytes in persistent circular buffer until complete Content-Length payload arrives
 
 DELIVERABLES
-----------------------------------------
-1. Clean Git repository with structured commit history, README, and reproducible setup commands.
-2. Production-quality core codebase with automated test suite achieving verified pass rates.
-3. Performance benchmark report (`results/benchmark_report.md`) documenting measured latency, throughput, and resource utilization.
-4. Screener verification script (`scripts/verify_all.sh` or equivalent) validating the full system in < 3 minutes.
-5. Architecture diagram (Mermaid/ASCII) and known limitations document explaining architectural trade-offs.
+----------------------------------------------------------------------
+- Git repository containing TypeScript LSP server, AST glob parser, and unit test suite
+- Command-line executable server binary configurable via stdio for VS Code and Neovim
+- Automated protocol conformance test harness verifying LSP specification compliance
+- Screener verification script executing automated benchmark and dynamic diagnostic test in under 2 minutes
 
 OUT OF SCOPE AND EXTENDED PATH
-----------------------------------------
-- Out of Scope for Core Path: Distributed multi-region clustering, enterprise SSO integrations, complex third-party SaaS dependencies.
-- Extended Path (+6 hours): Advanced telemetry dashboard, distributed persistence cluster extension, or automated canary release pipeline.
+----------------------------------------------------------------------
+Out of Scope:
+- Full programming language semantic analysis (type checking, borrow checking)
+- Distributed multi-root language server clustering over TCP sockets
+- Graphical user interface extension packaging for proprietary editor marketplaces
 
-SAFETY AND ETHICS NOTE
-----------------------------------------
-All data processed, generated, and benchmarked by this project consists exclusively of synthetic fixtures. No personal identifiable information (PII), proprietary credentials, or live external endpoints are used.
+Extended Path (+16 hours):
+- Document formatting provider auto-sorting and grouping gitignore patterns by directory hierarchy
+- Code action quick-fix provider automatically resolving conflicting negation rules
 
 LEARNING RESOURCES
-----------------------------------------
-- Official Documentation for TypeScript, vscode-languageserver, Node.js
-- Architectural Reference Patterns and RFC Standards [VERIFY URL]
-- Systems & Distributed Reliability Principles
+----------------------------------------------------------------------
+- Official Language Server Protocol (LSP) Specification 3.17
+- Git gitignore Pattern Format and Glob Matching Specification
+- Building Language Servers from Scratch (JSON-RPC Architecture Guide)
 
 SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Check 1: Verify vS Code extension demo: open DSL file, get completions, hover docs, and error diagnostics; Pass when automated test script prints 0 errors and logs verified status code.
-2. Check 2: Verify incremental parsing: edit one line, only affected AST nodes re-parsed; Pass when automated test script prints 0 errors and logs verified status code.
-3. Check 3: Verify completion latency: suggestions appear within 50ms of trigger character; Pass when automated test script prints 0 errors and logs verified status code.
-4. Check 4: Verify go-to-definition: cursor on symbol, jump to definition location; Pass when automated test script prints 0 errors and logs verified status code.
-5. Check 5: Verify error recovery: parser continues providing valid AST even with syntax errors mid-file; Pass when automated test script prints 0 errors and logs verified status code.
-6. Check 6: 6. Anti-Fake Verification Check: Inspect committed execution logs and re-run verification script against seeded test fixtures; pass when runtime metrics dynamically reflect test execution rather than static mocked responses.
+----------------------------------------------------------------------
+1. Check
+   Input: 1,000-line gitignore file with 50 planted syntax errors and negation conflicts
+   Action: npm run test:latency
+   Result: Server processes didChange and emits publishDiagnostics with p99 latency < 30 milliseconds
+   Evidence: Terminal test output log and reports/lsp_latency.json
+   Pass: p99 diagnostic publication latency is < 30 milliseconds with exit code 0
+2. Check
+   Input: textDocument/completion request at path prefix in 10,000-file repository
+   Action: npm run test:completion -- --prefix 'src/components/'
+   Result: Server scans directory tree and returns matching path candidates in < 20 milliseconds
+   Evidence: Completion timing output report
+   Pass: Average completion response latency is < 20 milliseconds
+3. Check
+   Input: 50 complex gitignore glob syntax edge case patterns
+   Action: npm run test:ast-parser
+   Result: AST parser tokenizes and compiles all 50 glob patterns accurately
+   Evidence: Parser test execution report
+   Pass: 50 of 50 glob parsing tests pass with exit code 0
+4. Check
+   Input: LSP textDocument/hover request targeting valid glob pattern
+   Action: node scripts/simulate_client.js --action hover --line 5 --col 2
+   Result: Server returns hover response with markdown explanation of pattern matching behavior
+   Evidence: LSP response message log
+   Pass: Response contains contents.kind equals markdown and non-empty description
+5. Check [anti_fake]
+   Input: Dynamic didChange notification containing unclosed bracket ('test-[0-9') sent via stdio at runtime
+   Action: node scripts/verify_dynamic_lsp.js --content 'invalid-[abc' --expected-error 'UNCLOSED_BRACKET'
+   Result: Server emits publishDiagnostics identifying unclosed bracket at exact line and column
+   Evidence: Dynamic verification console output log
+   Pass: Diagnostic message contains UNCLOSED_BRACKET, range matches input, and exit code is 0
 
 RESUME BULLET FORMULA
-----------------------------------------
-"Built Language Server Protocol server for custom DSL with VS Code extension; delivered < [M ms] completions, [M ms] diagnostics, and hover documentation with incremental AST parsing for production editor integration."
-Do not claim: scale, latency, or throughput figures without committing benchmark run logs; do not claim production deployment unless deployed to a verifiable live environment.
+----------------------------------------------------------------------
+"Architected Language Server Protocol engine in TypeScript and Node.js featuring custom AST glob parser; achieved sub-[DIAG_LATENCY] tail diagnostic publication latency across [LINE_COUNT]-line files, and delivered sub-[COMPLETION_LATENCY] path autocompletion across [WORKSPACE_FILES] repository files."
+
+Do not claim: full programming language semantic type analysis or distributed TCP server clustering
 
 ======================================================================
 Generated by HireFlow — hireflow.io

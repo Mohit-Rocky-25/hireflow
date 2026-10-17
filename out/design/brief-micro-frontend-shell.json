@@ -1,0 +1,325 @@
+{
+  "id": "brief-micro-frontend-shell",
+  "title": "Federated Micro-Frontend Host Shell with Module Federation, Shared Runtime State & Error Boundaries",
+  "domain": "Full-Stack Web",
+  "difficulty": "INTERMEDIATE",
+  "project_types": [
+    "Full-stack web",
+    "Frontend application"
+  ],
+  "problem": "Monolithic enterprise frontend applications suffer from slow continuous integration build cycles, coupled release cadences, and brittle global state dependencies across distributed product teams. Standard iframe-based embedding creates degraded user experiences with clunky cross-window communication and duplicated vendor bundles. This project builds a federated micro-frontend host architecture in React, TypeScript, and Webpack 5 Module Federation. The host shell dynamically loads isolated remote micro-applications at runtime, coordinates shared singleton dependencies to prevent duplicate bundle downloads, implements a typed cross-app event bus for decoupled state synchronization, and isolates remote crashes using React error boundaries.",
+  "use_cases": [
+    {
+      "title": "Enterprise Cloud Console Multi-Team Dashboard",
+      "first_sentence": "Enterprise SaaS companies with autonomous product teams need a centralized administrative console where teams deploy services independently without rebuilding the host shell.",
+      "second_sentence": "The host shell dynamically imports remote micro-apps for billing, usage analytics, and identity management, rendering a unified user interface while maintaining decoupled release pipelines."
+    },
+    {
+      "title": "Digital Banking Customer Self-Service Portal",
+      "first_sentence": "Financial institutions with strict compliance boundaries require isolated deployment surfaces for payment processing, loan applications, and investment accounts.",
+      "second_sentence": "The shell manages user authentication and global layout tokens, delegating account workflows to independent remote applications that load on-demand without cross-domain iframe issues."
+    },
+    {
+      "title": "Healthcare Provider Clinic Management Platform",
+      "first_sentence": "Hospital networks deploying patient scheduling, clinical charting, and pharmacy modules need resilient frontends where failures in auxiliary modules do not crash critical patient care views.",
+      "second_sentence": "The architecture isolates remote child applications behind resilient error boundary fallbacks, ensuring clinicians can record vitals even if an external billing micro-frontend fails to load."
+    }
+  ],
+  "hard_parts": [
+    "Configuring Webpack 5 Module Federation with shared singleton runtime dependencies (React, React-DOM, UI tokens) to eliminate bundle duplication",
+    "Designing a typed, framework-agnostic custom event bus allowing bidirectional communication between micro-frontends without tight coupling",
+    "Implementing resilient error boundaries and skeleton placeholders that prevent unresponsive remote bundles from blank-screening the host application",
+    "Isolating CSS namespaces using Tailwind prefixing and CSS modules to prevent remote child styles from overriding host design systems"
+  ],
+  "screener_signals": [
+    "Clean TypeScript codebase cleanly separating the host shell container, remote micro-apps, and shared contracts library",
+    "Automated bundle analysis report confirming shared vendor chunk singletons and sub-120KB initial host shell payload size",
+    "Anti-fake verification script dynamically registering a novel remote micro-app at runtime and verifying the host shell imports and renders it without rebuilding"
+  ],
+  "job_families": [
+    "Senior Frontend Engineer",
+    "Frontend Platform Architect",
+    "Full-Stack Web Developer"
+  ],
+  "stack": [
+    {
+      "tool": "React",
+      "role": "UI library powering host shell navigation and remote micro-application components"
+    },
+    {
+      "tool": "TypeScript",
+      "role": "strongly typed language enforcing shared API contracts and event bus message payloads"
+    },
+    {
+      "tool": "Webpack",
+      "role": "bundler configuring Module Federation runtime chunk loading and shared dependency singletons"
+    },
+    {
+      "tool": "Module Federation",
+      "role": "architectural protocol enabling dynamic runtime sharing of remote ECMAScript modules"
+    },
+    {
+      "tool": "Tailwind CSS",
+      "role": "utility-first styling framework configured with scoped namespace prefixes to isolate child styles"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "Host Shell Container & App Router",
+        "tools_used": [
+          "React",
+          "TypeScript",
+          "Webpack"
+        ],
+        "purpose": "Manages core navigation, authentication state, global header/footer, and dynamic remote route resolution"
+      },
+      {
+        "name": "Module Federation Remote Loader & Fallback Guard",
+        "tools_used": [
+          "Webpack",
+          "Module Federation"
+        ],
+        "purpose": "Dynamically fetches remoteEntry.js files, tracks network timeouts, and wraps remotes in React error boundaries"
+      },
+      {
+        "name": "Cross-App Typed Event Bus & State Coordinator",
+        "tools_used": [
+          "TypeScript"
+        ],
+        "purpose": "Facilitates decoupled pub/sub messaging and state synchronization across isolated micro-frontend boundaries"
+      },
+      {
+        "name": "Analytics & Billing Remote Micro-Applications",
+        "tools_used": [
+          "React",
+          "Tailwind CSS"
+        ],
+        "purpose": "Sample independently deployable remote applications exposing federated component manifests"
+      },
+      {
+        "name": "Bundle Analyzer & Federation Stress Test Suite",
+        "tools_used": [
+          "Webpack"
+        ],
+        "purpose": "Measures gzipped bundle payloads, validates vendor singletons, and benchmarks remote load latencies"
+      }
+    ],
+    "data_flow": "The user loads the host shell in the browser; the shell initialises the shared React singleton and global theme context; as the user navigates to an application route, the Module Federation runtime requests the target remoteEntry.js script from its CDN endpoint; if the network call succeeds, the remote component mounts seamlessly inside the shell layout; cross-app interactions (such as updating active workspace or currency) publish typed events through the shared event bus; if a remote fails to load or encounters a runtime exception, the error boundary renders a fallback retry card while maintaining full host shell operability.",
+    "enforcement_mechanism": "Webpack singleton sharing configuration throwing strict version mismatch warnings; TypeScript interface contracts validating event bus payloads."
+  },
+  "targets": [
+    {
+      "metric": "Initial Host Shell Gzipped Bundle Size",
+      "method": "Webpack Bundle Analyzer calculation of host shell production build assets excluding shared vendor singletons",
+      "input": "Production Webpack build of host shell with authentication, navigation, and layout components",
+      "environment": "Standard Node.js 18+ build environment, Webpack 5 production mode with Terser minification",
+      "minimum_pass": "Gzipped host shell entry bundle size is < 120.0 kilobytes",
+      "target": "Gzipped host shell entry bundle size is < 68.0 kilobytes",
+      "report": "Webpack bundle analysis asset report and compressed payload breakdown"
+    },
+    {
+      "metric": "Remote Micro-Frontend Dynamic Load Latency",
+      "method": "Browser performance timing from route navigation click to remote component mount across simulated 3G network throttle",
+      "input": "100 automated navigation transitions importing remote Billing and Analytics modules under 1.5 Mbps network throttle",
+      "environment": "Chromium headless browser with Chrome DevTools Protocol network throttling",
+      "minimum_pass": "p95 remote micro-frontend load latency is < 650 milliseconds",
+      "target": "p95 remote micro-frontend load latency is < 320 milliseconds",
+      "report": "Dynamic module loading benchmark summary log"
+    },
+    {
+      "metric": "Error Boundary Host Shell Survival Rate",
+      "method": "Percentage of simulated remote micro-app fatal crashes where the host shell retains uninterrupted navigation and session state",
+      "input": "50 simulated fatal JavaScript runtime errors injected into remote component render cycles",
+      "environment": "Jest and React Testing Library automated component test harness",
+      "minimum_pass": "50 of 50 fatal crash simulations handled by error boundaries with 0 host shell crashes",
+      "target": "50 of 50 fatal crash simulations handled by error boundaries with 0 host shell crashes",
+      "report": "Error boundary isolation test summary and resilience audit log"
+    }
+  ],
+  "skills": [
+    "React",
+    "TypeScript",
+    "Webpack",
+    "Module Federation",
+    "Tailwind CSS",
+    "Frontend Architecture",
+    "Performance"
+  ],
+  "starter_input": {
+    "spec": "Directory containing host shell Webpack 5 configuration, 2 remote micro-app source trees (Analytics and Billing), and shared event contracts.",
+    "size": "3 independent Node.js project directories, 15 TypeScript components, and automated test fixtures",
+    "seeded_cases": "Remote HTTP 404 bundle failure, React version mismatch conflict, unhandled component exceptions, and CSS specificity clashing",
+    "label_source": "Deterministic component mount assertions and Webpack stats.json bundle manifests",
+    "personal_data_policy": "Strictly mock synthetic user accounts and simulated analytics telemetry; no real personal data used"
+  },
+  "components": [
+    {
+      "name": "Host Shell Container & App Router",
+      "task_type": "one UI view with state",
+      "hours": 6.0
+    },
+    {
+      "name": "Module Federation Remote Loader & Fallback Guard",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "Cross-App Typed Event Bus & State Coordinator",
+      "task_type": "low-level/system subsystem",
+      "hours": 5.0
+    },
+    {
+      "name": "Analytics & Billing Remote Micro-Applications",
+      "task_type": "one UI view with state",
+      "hours": 4.0
+    },
+    {
+      "name": "Bundle Analyzer & Federation Stress Test Suite",
+      "task_type": "load or performance test harness + report",
+      "hours": 3.0
+    }
+  ],
+  "extended_path": {
+    "features": [
+      "Dynamic remote discovery service resolving micro-frontend CDN URLs from a centralized JSON registry API",
+      "Server-side rendering (SSR) for federated components using Next.js and @module-federation/nextjs-mf",
+      "Automated canary deployments routing a percentage of host traffic to updated remote micro-app versions"
+    ],
+    "hours": 14
+  },
+  "milestones": [
+    {
+      "name": "Host Shell & Webpack Module Federation Scaffolding in React and TypeScript",
+      "hours": 7,
+      "done_criterion": "Host shell builds with Webpack 5 and successfully imports remote components at runtime."
+    },
+    {
+      "name": "Cross-App Event Bus & Shared Singleton State in Frontend Architecture",
+      "hours": 7,
+      "done_criterion": "Event bus coordinates pub/sub messages; React runs as a verified single runtime instance."
+    },
+    {
+      "name": "Resilient Error Boundaries & CSS Namespace Scoping in Tailwind CSS",
+      "hours": 7,
+      "done_criterion": "Error boundary catches 50 of 50 remote crashes; Tailwind prefixes isolate component styles."
+    },
+    {
+      "name": "Bundle Optimization Benchmarking, Anti-Fake Test & Docs in Performance",
+      "hours": 7,
+      "done_criterion": "Host bundle size is < 120KB; anti-fake test validates dynamic remote mount; docs complete."
+    }
+  ],
+  "prerequisites": [
+    "Proficiency in modern React (hooks, context, error boundaries) and TypeScript",
+    "Deep understanding of Webpack bundling mechanics, code splitting, and browser module execution"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (purely CPU-bound JavaScript bundling and web serving)",
+    "cost": "$0 (fully open-source software stack)",
+    "accounts_keys_quotas": "No external cloud accounts, paid services, or API keys required",
+    "reference_environment": "Local 4-core CPU with Node.js 18+ and modern Chromium browser installed",
+    "fallback_path": "Static local HTTP servers hosting remote bundles without external CDNs"
+  },
+  "riskiest_component": {
+    "name": "React Runtime Version Conflicts Between Host and Remotes",
+    "mitigation": "Configure Webpack ModuleFederationPlugin shared configuration with singleton: true and strictVersion: false.",
+    "fallback": "Enforce peerDependencies lockfile pinning identical React versions across all micro-app packages."
+  },
+  "deliverables": [
+    "Git repository containing host shell, 2 remote micro-applications, and shared contracts library",
+    "Production Webpack 5 build configurations with Module Federation, code splitting, and bundle analyzer",
+    "Automated testing suite covering error boundary fallbacks, event bus communication, and bundle sizes",
+    "Screener verification script executing automated benchmark and dynamic remote injection in under 2 minutes"
+  ],
+  "out_of_scope": [
+    "Multi-cloud Kubernetes cluster infrastructure orchestration for micro-frontend CDNs",
+    "Legacy Internet Explorer 11 polyfilling or ECMAScript 5 transpilation targets",
+    "Payment gateway credit card processing compliance certification"
+  ],
+  "safety_note": null,
+  "resources": [
+    "Webpack 5 Module Federation Architecture and Concept Guide",
+    "Micro Frontends: In-Depth Guide to Architecture and Patterns (Martin Fowler)",
+    "Tailwind CSS Namespace Configuration and CSS Isolation Manual"
+  ],
+  "rubric": [
+    {
+      "input": "Production Webpack build assets of host shell container",
+      "action": "npm run build --workspace=host && node scripts/analyze_bundles.js",
+      "expected_result": "Webpack bundle analyzer confirms gzipped host shell bundle size is < 120.0 kilobytes",
+      "evidence_location": "Terminal build output log and reports/bundle_analysis.json",
+      "pass_criterion": "Compressed host bundle size is < 120KB with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "100 automated route transitions importing remote modules under network throttling",
+      "action": "node scripts/benchmark_load_latency.js --runs 100 --throttle 3g",
+      "expected_result": "Remote micro-frontends resolve and mount with p95 load latency < 650 milliseconds",
+      "evidence_location": "Module load latency benchmark table",
+      "pass_criterion": "p95 load latency is < 650ms with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "50 simulated fatal JavaScript exceptions injected into remote components",
+      "action": "npm test -- --testPathPattern=error_boundary",
+      "expected_result": "Error boundary catches all 50 component crashes, rendering fallback UI while host shell remains active",
+      "evidence_location": "Test runner execution output log",
+      "pass_criterion": "50 of 50 crash simulations pass error boundary assertions with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Cross-microfrontend event dispatched over shared event bus",
+      "action": "npm test -- --testPathPattern=event_bus",
+      "expected_result": "Event bus transmits typed payload across micro-frontend boundaries with verified subscriber notification",
+      "evidence_location": "Event bus unit test trace",
+      "pass_criterion": "All event pub/sub assertions pass with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Dynamic unobserved remote micro-app component served on local test port at runtime",
+      "action": "node scripts/verify_dynamic_remote.js --port 8089 --name DynamicPromoRemote",
+      "expected_result": "Host shell dynamically injects remote entry script, resolves federated export, and mounts component",
+      "evidence_location": "Dynamic verification console execution output log",
+      "pass_criterion": "Headless browser DOM confirms DynamicPromoRemote mounted inside host layout with exit code 0",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected federated micro-frontend host platform in React and TypeScript using Webpack Module Federation; maintained sub-[BUNDLE_SIZE] kilobyte initial host payload size, and achieved sub-[LOAD_LATENCY] remote component mount latency across throttled connections.",
+    "claims": [
+      {
+        "text": "maintained sub-[BUNDLE_SIZE] kilobyte initial host payload size",
+        "rubric_indexes": [
+          0
+        ]
+      },
+      {
+        "text": "achieved sub-[LOAD_LATENCY] remote component mount latency across throttled connections",
+        "rubric_indexes": [
+          1
+        ]
+      }
+    ],
+    "do_not_claim": "automated cross-cloud CDN edge routing or legacy ECMAScript five browser compilation"
+  },
+  "verify": [
+    "Run `npm test` across all workspaces to confirm unit, event bus, and error boundary tests pass.",
+    "Execute `npm run build && node scripts/analyze_bundles.js` to verify host bundle size is below 120KB.",
+    "Run `node scripts/verify_dynamic_remote.js` to assert runtime injection and mounting of unobserved remote apps."
+  ],
+  "worksheet": {
+    "q1": "Core deliverable: a federated micro-frontend host shell in React/TypeScript with Webpack 5 Module Federation, shared singletons, and error boundaries.",
+    "q2": "Target users: frontend platform engineers, web architects, and enterprise UI developers.",
+    "q3": "3 use cases: enterprise cloud console dashboards, digital banking portals, and clinical hospital management platforms.",
+    "q4": "Stated hours: 28 hours. Calculated bottom-up: 24 component hours * 1.15 buffer = 27.6 -> 28 hours. Intermediate level.",
+    "q5": "Hard parts: Webpack Module Federation singleton sharing, cross-app typed event bus coordination, error boundary isolation, and CSS namespace encapsulation.",
+    "q6": "Starter input: host shell Webpack config, 2 remote micro-app source trees, and event contract schemas. Synthetic mock data only.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU only, $0 cost, zero cloud accounts. Fallback: local static HTTP servers.",
+    "q8": "Riskiest component: React runtime version conflicts. Fallback: singleton: true in ModuleFederationPlugin and peerDependencies lockfile.",
+    "q9": "Potential faking: static hardcoded component imports. Anti-fake check 5 serves dynamic unobserved remote on local port, asserts runtime mount.",
+    "q10": "Safety/ethics: Safe; local development servers and mock telemetry only, zero sensitive enterprise data."
+  }
+}

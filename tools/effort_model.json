@@ -1,0 +1,27 @@
+{
+  "tasks": {
+    "repo + tooling setup": 2.0,
+    "one third-party integration": 3.0,
+    "one CI/CD job": 2.0,
+    "API endpoint group with tests": 4.0,
+    "one UI view with state": 4.0,
+    "data pipeline step": 4.0,
+    "model train + evaluate cycle": 5.0,
+    "infra component (broker, DB, orchestrator, cluster service)": 5.0,
+    "concurrency/consistency mechanism with tests": 5.0,
+    "low-level/system subsystem": 8.0,
+    "load or performance test harness + report": 4.0,
+    "observability": 3.0,
+    "security hardening checks": 3.0,
+    "evaluation dataset creation + scoring script": 4.0,
+    "local multi-service environment setup": 3.0,
+    "docs + architecture diagram": 3.0,
+    "demo recording": 1.5
+  },
+  "buffer_percentage": 0.15,
+  "difficulty_bands": {
+    "BEGINNER": { "min": 8, "max": 20 },
+    "INTERMEDIATE": { "min": 15, "max": 40 },
+    "ADVANCED": { "min": 30, "max": 60 }
+  }
+}

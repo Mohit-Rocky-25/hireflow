@@ -1,0 +1,367 @@
+{
+  "id": "brief-upi-payment-gateway",
+  "title": "UPI-Style Real-Time Payment Gateway with VPA Resolution, Dynamic Bank Routing & T+1 Settlement",
+  "domain": "FinTech Engineering",
+  "difficulty": "ADVANCED",
+  "project_types": [
+    "API/backend",
+    "Security projects"
+  ],
+  "problem": "Large-scale real-time payment infrastructures like UPI process billions of monthly peer-to-peer and merchant transactions, requiring sub-second response times, multi-bank failover routing, and ironclad financial consistency. Naive payment gateways suffer from double-debiting during network timeouts, race conditions across concurrent wallet balances, and ledger desynchronization during batch settlement failures. This project builds a high-throughput UPI-style payment gateway in Java and Spring Boot with Redis VPA (Virtual Payment Address) resolution, dynamic bank switching heuristics based on live latency and error rates, idempotent payment authorization, PostgreSQL double-entry bookkeeping, and an asynchronous Kafka T+1 net settlement engine.",
+  "use_cases": [
+    {
+      "title": "High-Volume Peer-to-Merchant (P2M) QR Code Checkout",
+      "first_sentence": "Retail merchants accepting dynamic QR code payments require instant payment authorization and immediate customer notification without pending state lockups.",
+      "second_sentence": "The Spring Boot payment gateway authorizes inbound UPI requests in under 65ms, verifies account balance limits, and publishes payment success events to Kafka."
+    },
+    {
+      "title": "Multi-Bank Dynamic Failover Routing during Bank Outages",
+      "first_sentence": "When a major partner bank experiences sudden core banking timeouts, payment success rates across all connected merchant checkouts drop precipitously.",
+      "second_sentence": "The gateway monitors rolling 60-second bank health metrics in Redis and automatically shifts transaction volume to secondary partner bank switches."
+    },
+    {
+      "title": "Automated T+1 Merchant Position Netting & Ledger Reconciliation",
+      "first_sentence": "Acquiring banks must compute aggregate gross processing volume, deduct interchange fees, and generate net settlement payout batches every 24 hours.",
+      "second_sentence": "A Kafka streaming batch worker processes daily payment ledger entries, calculates net clearing positions across all merchants, and generates double-entry payout journals."
+    }
+  ],
+  "hard_parts": [
+    "Enforcing strict idempotency across distributed payment requests using atomic Redis locks and PostgreSQL unique constraint ledgers to prevent double-debits",
+    "Implementing an automated double-entry bookkeeping ledger guaranteeing asset-liability equality across all financial state transitions",
+    "Designing dynamic multi-bank routing algorithms with circuit breakers shifting traffic away from degraded bank simulator switches",
+    "Executing asynchronous T+1 net settlement batch processing with exact financial reconciliation across millions of transaction records"
+  ],
+  "screener_signals": [
+    "Clean Java / Spring Boot microservice repository cleanly separating VPA resolution, bank adapter interfaces, double-entry ledger services, and Kafka batchers",
+    "High-concurrency benchmark report proving sustained processing of 3,500+ transactions per second with p95 latency under 65ms",
+    "Anti-fake verification script issuing concurrent duplicate requests with identical idempotency keys and asserting exactly 1 debit and matching ledger entries"
+  ],
+  "job_families": [
+    "FinTech Backend Engineer",
+    "Core Payment Infrastructure Engineer",
+    "Senior Distributed Systems Developer"
+  ],
+  "stack": [
+    {
+      "tool": "Java",
+      "role": "primary backend programming language implementing core payment microservices and concurrency control"
+    },
+    {
+      "tool": "Spring Boot",
+      "role": "application framework managing REST endpoints, dependency injection, and transaction boundaries"
+    },
+    {
+      "tool": "PostgreSQL",
+      "role": "relational database maintaining ACID double-entry bookkeeping ledgers and transaction audit history"
+    },
+    {
+      "tool": "Kafka",
+      "role": "distributed event streaming platform decoupling transaction authorization from asynchronous settlement batching"
+    },
+    {
+      "tool": "Redis",
+      "role": "in-memory data store caching VPA directory mappings, idempotency locks, and live bank health scores"
+    },
+    {
+      "tool": "Docker",
+      "role": "container runtime orchestrating local PostgreSQL, Kafka, Redis, and mock bank switch containers"
+    },
+    {
+      "tool": "Prometheus",
+      "role": "observability platform scraping payment throughput, bank success rates, and authorization latency"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "VPA Directory Resolver & Virtual Payment Address Service",
+        "tools_used": [
+          "Java",
+          "Spring Boot",
+          "Redis"
+        ],
+        "purpose": "Resolves user virtual payment addresses (e.g. user@bank) to underlying bank account numbers and IFSC routing codes"
+      },
+      {
+        "name": "Dynamic Bank Switch Router & Circuit Breaker Engine",
+        "tools_used": [
+          "Java",
+          "Spring Boot",
+          "Redis"
+        ],
+        "purpose": "Evaluates live bank switch error rates and routes payment requests to the highest-performing banking rail"
+      },
+      {
+        "name": "Double-Entry Bookkeeping Ledger & Idempotency Controller",
+        "tools_used": [
+          "Java",
+          "Spring Boot",
+          "PostgreSQL"
+        ],
+        "purpose": "Enforces distributed idempotency locks and executes atomic double-entry debit-credit accounting journals"
+      },
+      {
+        "name": "Asynchronous Kafka T+1 Settlement & Netting Engine",
+        "tools_used": [
+          "Java",
+          "Kafka",
+          "PostgreSQL"
+        ],
+        "purpose": "Aggregates daily transaction logs from Kafka, nets multi-merchant positions, and generates clearing batches"
+      },
+      {
+        "name": "Payment Gateway Concurrency & Failover Benchmark Suite",
+        "tools_used": [
+          "Java",
+          "Docker"
+        ],
+        "purpose": "Benchmarks 3,500+ TPS payment throughput and verifies bank failover under simulated 504 gateway timeouts"
+      },
+      {
+        "name": "Bank Switch Health Monitoring & Prometheus Telemetry",
+        "tools_used": [
+          "Prometheus",
+          "Docker"
+        ],
+        "purpose": "Exposes real-time payment success rates, bank switch latency histograms, and settlement lag metrics"
+      },
+      {
+        "name": "UPI Payment Architecture Guide & Reconciliation Manual",
+        "tools_used": [
+          "Java",
+          "Spring Boot"
+        ],
+        "purpose": "Documents double-entry accounting schemas, idempotency token lifecycles, and NPCI protocol integration patterns"
+      }
+    ],
+    "data_flow": "A client initiates a payment request with an Idempotency-Key; the gateway validates the key against Redis; the VPA resolver looks up payer and payee bank routing details from Redis cache; the dynamic bank switch router evaluates rolling bank health scores and selects the optimal bank rail; the gateway dispatches payment authorization to the mock bank switch; upon bank confirmation, the double-entry ledger writes an atomic debit-credit transaction in PostgreSQL; an event is emitted to Kafka; the T+1 settlement engine consumes Kafka events to net merchant clearing positions; Prometheus tracks payment latency and bank error rates.",
+    "enforcement_mechanism": "Redis SETNX distributed locking combined with PostgreSQL unique constraints on idempotency keys and strict double-entry balance constraints."
+  },
+  "targets": [
+    {
+      "metric": "Sustained Payment Authorization Throughput & Latency",
+      "method": "Transactions per second processed with full ACID double-entry ledger persistence and bank simulator authorization",
+      "input": "20,000 synthetic payment requests streamed at 3,500 requests per second across 50 concurrent worker threads",
+      "environment": "Standard 4-core local CPU, Docker Desktop (PostgreSQL, Kafka, Redis, Bank Simulators), Java 17",
+      "minimum_pass": "Sustained throughput is >= 2,500 transactions/sec with p95 latency < 90 milliseconds",
+      "target": "Sustained throughput is >= 4,200 transactions/sec with p95 latency < 55 milliseconds",
+      "report": "Payment throughput benchmark report and transaction latency distribution table"
+    },
+    {
+      "metric": "Idempotent Payment Authorization & Double-Debit Protection",
+      "method": "Percentage of duplicate payment requests with identical idempotency keys resolved to exactly 1 debit and identical response",
+      "input": "100 duplicate payment requests issued concurrently with the same idempotency key targeting a single user balance",
+      "environment": "Spring Boot payment service with Redis distributed locks and PostgreSQL ledger constraints",
+      "minimum_pass": "100 of 100 duplicate requests resolve with exactly 1 database debit and 0 balance discrepancies",
+      "target": "100 of 100 duplicate requests resolve with exactly 1 database debit and 0 balance discrepancies",
+      "report": "Idempotency audit log and double-entry ledger balance verification report"
+    },
+    {
+      "metric": "Dynamic Bank Switching Failover Recovery Latency",
+      "method": "Elapsed time to detect bank simulator degradation (> 15% error rate) and shift 100% of subsequent traffic to healthy rail",
+      "input": "Injected 20% timeout fault into primary bank switch during continuous 500 RPS payment stream",
+      "environment": "Local payment router evaluating rolling 60-second Redis health metrics across Bank A and Bank B",
+      "minimum_pass": "Failover triggers within 2.5 seconds with 50 of 50 subsequent transactions routed to Bank B",
+      "target": "Failover triggers within 1.1 seconds with 50 of 50 subsequent transactions routed to Bank B",
+      "report": "Bank switch failover event log and route selection latency trace"
+    }
+  ],
+  "skills": [
+    "Java",
+    "Spring Boot",
+    "PostgreSQL",
+    "Kafka",
+    "Redis",
+    "Docker",
+    "Prometheus",
+    "FinTech",
+    "Distributed Systems"
+  ],
+  "starter_input": {
+    "spec": "Directory containing Spring Boot multi-module skeleton, PostgreSQL schema migrations, mock bank switch servers, and Kafka configs.",
+    "size": "16 Java source files, SQL DDL migrations, Docker Compose manifest, and 20,000 synthetic transaction test payloads",
+    "seeded_cases": "Simulated bank switch 504 timeouts, duplicate idempotency keys, insufficient account balances, and corrupted VPA strings",
+    "label_source": "Deterministic PostgreSQL double-entry ledger balances, bank switch transaction IDs, and Kafka offset commits",
+    "personal_data_policy": "Strictly mock synthetic Indian phone numbers and simulated VPA identifiers; no real personal data used"
+  },
+  "components": [
+    {
+      "name": "VPA Directory Resolver & Virtual Payment Address Service",
+      "task_type": "API endpoint group with tests",
+      "hours": 6.0
+    },
+    {
+      "name": "Dynamic Bank Switch Router & Circuit Breaker Engine",
+      "task_type": "concurrency/consistency mechanism with tests",
+      "hours": 6.0
+    },
+    {
+      "name": "Double-Entry Bookkeeping Ledger & Idempotency Controller",
+      "task_type": "infra component (broker, DB, orchestrator, cluster service)",
+      "hours": 6.0
+    },
+    {
+      "name": "Asynchronous Kafka T+1 Settlement & Netting Engine",
+      "task_type": "data pipeline step",
+      "hours": 5.0
+    },
+    {
+      "name": "Payment Gateway Concurrency & Failover Benchmark Suite",
+      "task_type": "load or performance test harness + report",
+      "hours": 5.0
+    },
+    {
+      "name": "Bank Switch Health Monitoring & Prometheus Telemetry",
+      "task_type": "observability",
+      "hours": 4.0
+    },
+    {
+      "name": "UPI Payment Architecture Guide & Reconciliation Manual",
+      "task_type": "docs + architecture diagram",
+      "hours": 3.0
+    }
+  ],
+  "extended_path": {
+    "features": [
+      "Fraud anomaly detection engine using Redis probabilistic Bloom filters and sliding window velocity checks",
+      "Hardware-security PIN validation module simulating HSM ISO 8583 payment message packaging",
+      "Multi-currency cross-border payment settlement engine supporting FX rate lookups and currency conversion"
+    ],
+    "hours": 16
+  },
+  "milestones": [
+    {
+      "name": "Spring Boot Payment Architecture & VPA Resolution in Java and Spring Boot",
+      "hours": 10,
+      "done_criterion": "VPA resolution service caches virtual payment addresses in Redis; tests pass."
+    },
+    {
+      "name": "Double-Entry Bookkeeping Ledger & Idempotency Locks in PostgreSQL and Redis",
+      "hours": 10,
+      "done_criterion": "PostgreSQL double-entry ledger enforces balanced debits and credits; duplicate keys reject double-debit."
+    },
+    {
+      "name": "Dynamic Bank Switching & Asynchronous T+1 Settlement in Kafka, Docker and Distributed Systems",
+      "hours": 10,
+      "done_criterion": "Router shifts traffic to secondary bank during simulated timeouts; Kafka nets T+1 settlement batches."
+    },
+    {
+      "name": "Concurrency Benchmark, Anti-Fake Duplicate Request Test & Docs in Prometheus and FinTech",
+      "hours": 10,
+      "done_criterion": "System sustains 3,500+ TPS; anti-fake duplicate test prevents double debit; documentation complete."
+    }
+  ],
+  "prerequisites": [
+    "Proficiency in Java and Spring Boot (Spring Data JPA, Spring Web, Spring Kafka), and SQL transactions",
+    "Understanding of distributed systems principles: idempotency, ACID guarantees, message queues, and caching"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (purely CPU, in-memory caching, and relational database bound)",
+    "cost": "$0 (fully open-source stack using local PostgreSQL, Kafka, and Redis in Docker Desktop)",
+    "accounts_keys_quotas": "No external bank API keys, merchant merchant IDs, or paid cloud services required",
+    "reference_environment": "Local 4-core CPU, Docker Desktop (PostgreSQL 15, Redis 7, Kafka 3.4), Java 17+, Maven 3.8+",
+    "fallback_path": "H2 in-memory database and embedded Redis mock if Docker containers cannot be provisioned"
+  },
+  "riskiest_component": {
+    "name": "Double-Debit Accounting Inconsistencies from Race Conditions during Bank Timeouts",
+    "mitigation": "Wrap ledger mutations in SERIALIZABLE database transactions and enforce distributed Redis locks on idempotency keys.",
+    "fallback": "Automated reversal reconciliation daemon scanning pending transactions and issuing offsetting credits."
+  },
+  "deliverables": [
+    "Java Spring Boot microservice repository containing payment gateway, VPA resolver, and bank router",
+    "Docker Compose environment orchestrating PostgreSQL, Redis, Kafka, and mock bank switch containers",
+    "Prometheus dashboard configuration and Grafana JSON for real-time payment transaction monitoring",
+    "Screener verification script executing automated benchmark, bank failover, and anti-fake duplicate tests in under 3 minutes"
+  ],
+  "out_of_scope": [
+    "Live NPCI UPI production switch certification and proprietary XML envelope signatures",
+    "Real customer bank account verification with Indian commercial banks",
+    "Card network (Visa/Mastercard) ISO 8583 hardware switch terminal integration"
+  ],
+  "safety_note": null,
+  "resources": [
+    "NPCI Unified Payments Interface (UPI) Procedural Guidelines & API Specs",
+    "Martin Fowler: Accounting Patterns & Double-Entry Bookkeeping Architecture",
+    "Spring Boot & Spring Kafka Distributed Systems Documentation"
+  ],
+  "rubric": [
+    {
+      "input": "20,000 synthetic payment requests sent across 50 worker threads",
+      "action": "mvn test -Dtest=PaymentGatewayThroughputBenchmark",
+      "expected_result": "Gateway sustains >= 2,500 TPS with p95 authorization latency < 90ms",
+      "evidence_location": "Benchmark report in reports/throughput_benchmark.json",
+      "pass_criterion": "Sustained throughput >= 2,500 TPS with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "100 concurrent duplicate requests with identical idempotency key",
+      "action": "python ./scripts/test_idempotency.py --key dup_test_888 --requests 100",
+      "expected_result": "100 requests return identical transaction ID; ledger shows exactly 1 debit entry",
+      "evidence_location": "Ledger audit log in reports/idempotency_audit.json",
+      "pass_criterion": "Exactly 1 debit recorded across 100 requests with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Injected 20% timeout fault into primary bank switch during 500 RPS stream",
+      "action": "python ./scripts/test_bank_failover.py --fault timeout --rate 0.2",
+      "expected_result": "Router detects degradation within 2.5s and switches 50 of 50 subsequent transactions to Bank B",
+      "evidence_location": "Failover audit log in reports/failover_audit.json",
+      "pass_criterion": "50 of 50 subsequent transactions route to Bank B with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Kafka T+1 settlement batch job executing over 10,000 daily transaction events",
+      "action": "python ./scripts/run_settlement_batch.py --date 2026-10-17",
+      "expected_result": "Settlement engine nets merchant balances with exact debit-credit reconciliation matching zero ledger delta",
+      "evidence_location": "Settlement report in reports/settlement_audit.json",
+      "pass_criterion": "Settlement nets positions with 0 reconciliation discrepancies and exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Simulated double-spend attack sending concurrent debit requests on low-balance wallet",
+      "action": "python ./scripts/test_double_spend.py --account acc_user_123 --amount 500 --balance 500",
+      "expected_result": "First request authorizes successfully; second concurrent request is rejected with HTTP 402 Insufficient Funds",
+      "evidence_location": "Dynamic verification console execution output log",
+      "pass_criterion": "Console confirms exactly 1 authorization and 1 insufficient funds rejection with exit code 0",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected UPI payment gateway in Java and Spring Boot with Redis VPA resolution; sustained [PAYMENT_TPS] transactions per second with sub-[AUTH_LATENCY] millisecond authorization latency, and enforced double-debit protection across multi-bank routing.",
+    "claims": [
+      {
+        "text": "sustained [PAYMENT_TPS] transactions per second with sub-[AUTH_LATENCY] millisecond authorization latency",
+        "rubric_indexes": [
+          0
+        ]
+      },
+      {
+        "text": "enforced double-debit protection across multi-bank routing",
+        "rubric_indexes": [
+          1,
+          2
+        ]
+      }
+    ],
+    "do_not_claim": "live NPCI production switch network access or real customer bank account integrations"
+  },
+  "verify": [
+    "Run `mvn test` to confirm VPA resolution, bank routing, and double-entry ledger tests pass.",
+    "Execute `python ./scripts/test_idempotency.py` to verify duplicate payments do not trigger double-debiting.",
+    "Run `python ./scripts/test_double_spend.py` to assert wallet balance concurrency protection."
+  ],
+  "worksheet": {
+    "q1": "Core deliverable: a high-throughput UPI-style payment gateway in Java and Spring Boot with VPA resolution, bank routing, and settlement.",
+    "q2": "Target users: fintech backend engineers, payment infrastructure engineers, and senior distributed systems developers.",
+    "q3": "3 use cases: high-volume P2M QR checkouts, dynamic bank failover during outages, and automated T+1 merchant position netting.",
+    "q4": "Stated hours: 40 hours. Calculated bottom-up: 35 component hours * 1.15 buffer = 40.25 -> 40 hours. Advanced level.",
+    "q5": "Hard parts: strict idempotency across distributed nodes, atomic double-entry bookkeeping, dynamic bank failover, and T+1 netting.",
+    "q6": "Starter input: Spring Boot multi-module skeleton, PostgreSQL migrations, mock bank switch servers, and transaction test payloads.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU/cache bound, $0 cost using Docker containers. Zero cloud fees.",
+    "q8": "Riskiest component: double-debiting from race conditions during bank timeouts. Fallback: SERIALIZABLE ledger mutations and Redis distributed locks.",
+    "q9": "Potential faking: basic CRUD app pretending to be payment gateway. Anti-fake check 5 executes concurrent double-spend attack and asserts 1 rejection.",
+    "q10": "Safe; synthetic Indian phone numbers and mock banking accounts only."
+  }
+}

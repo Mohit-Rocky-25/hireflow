@@ -1,0 +1,318 @@
+{
+  "id": "brief-api-sdk-design",
+  "title": "Developer-First API SDK with Type Safety & Auto-Generation",
+  "domain": "Full-Stack Web",
+  "difficulty": "INTERMEDIATE",
+  "project_types": [
+    "CLI/tools/libraries",
+    "API/backend"
+  ],
+  "problem": "Integrating REST APIs without strongly-typed client libraries forces engineering teams to write repetitive HTTP boilerplate, maintain fragile interface declarations, and handle network failures in an ad-hoc manner. When backend API schemas evolve, unsynchronized frontend and backend codebases fail silently at runtime rather than at compile time. This project builds a code-generation pipeline and runtime SDK engine that parses OpenAPI 3.0 specifications into idiomatic TypeScript client packages, featuring request authentication, exponential retry logic with jitter, local sandbox mocking, and dual CommonJS and ECMAScript module distribution bundles.",
+  "use_cases": [
+    "Enterprise developer platforms publishing typed client packages for public REST APIs",
+    "Internal microservice communication libraries ensuring synchronized API contract types",
+    "Offline-capable developer testing sandboxes using schema-compliant mock responses"
+  ],
+  "hard_parts": [
+    "Resolving recursive schema references and circular dependencies in OpenAPI documents without stack overflow errors",
+    "Translating complex schema compositions into idiomatic TypeScript discriminated unions without falling back to any types",
+    "Ensuring dual CommonJS and ECMAScript module compatibility with clean declaration maps across different bundlers",
+    "Implementing exponential backoff with full jitter to avoid thundering herd retry storms against rate-limited backends"
+  ],
+  "screener_signals": [
+    "Clean CLI tool parsing OpenAPI specifications and emitting modular TypeScript source files",
+    "Zero compile-time errors under tsc strict mode with zero occurrences of the any type keyword",
+    "Vitest test suite validating automated retries, mock interceptors, and dual-module resolution"
+  ],
+  "job_families": [
+    "Developer Experience Engineer",
+    "API Platform Engineer",
+    "Full-Stack Software Engineer"
+  ],
+  "stack": [
+    {
+      "tool": "TypeScript",
+      "role": "strongly typed language for code generation AST and emitted client library"
+    },
+    {
+      "tool": "Node.js",
+      "role": "runtime environment executing the CLI generator and test harnesses"
+    },
+    {
+      "tool": "tsup",
+      "role": "esbuild-powered bundler producing dual CommonJS and ESM artifacts with types"
+    },
+    {
+      "tool": "Vitest",
+      "role": "fast unit test framework verifying client runtime behavior and mocking"
+    },
+    {
+      "tool": "MSW",
+      "role": "Mock Service Worker simulating upstream HTTP error codes and latency in tests"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "Spec Parser & AST Normalizer",
+        "tools_used": [
+          "TypeScript",
+          "Node.js"
+        ],
+        "purpose": "Parses YAML and JSON OpenAPI specifications, dereferences pointers, and builds an intermediate representation"
+      },
+      {
+        "name": "TypeScript Code Generator",
+        "tools_used": [
+          "TypeScript"
+        ],
+        "purpose": "Emits strongly-typed API client classes, parameter interfaces, and discriminated union response types"
+      },
+      {
+        "name": "Resilient Runtime Client",
+        "tools_used": [
+          "TypeScript",
+          "Vitest"
+        ],
+        "purpose": "Executes HTTP requests with interceptors for authentication, idempotency keys, and exponential backoff retry"
+      },
+      {
+        "name": "Offline Mock Sandbox",
+        "tools_used": [
+          "TypeScript",
+          "MSW"
+        ],
+        "purpose": "Intercepts outbound SDK calls and returns schema-compliant mock payloads during local development"
+      },
+      {
+        "name": "Library Packaging Pipeline",
+        "tools_used": [
+          "tsup"
+        ],
+        "purpose": "Compiles generated TypeScript files into tree-shakeable CJS and ESM distributions with sourcemaps"
+      }
+    ],
+    "data_flow": "The CLI parses OpenAPI specifications into an intermediate model; the code generator emits TypeScript interfaces and client classes; developers initialize the SDK client; runtime interceptors attach authorization headers and telemetry; native fetch executes HTTP requests; if a transient error occurs, exponential backoff retries the request; responses deserialize into validated typed objects.",
+    "enforcement_mechanism": "Strict compile-time type verification via tsc --noEmit; runtime response status checks that throw structured API exceptions."
+  },
+  "targets": [
+    {
+      "metric": "SDK Code Generation Latency",
+      "method": "Benchmark measuring wall-clock duration to parse specification and emit full client source files",
+      "input": "Petstore OpenAPI 3.0 specification fixture containing 30 REST endpoints and 20 schema models",
+      "environment": "Standard 4-core local CPU, Node.js 18+",
+      "minimum_pass": "Generation completes in < 8.0 seconds",
+      "target": "Generation completes in < 3.5 seconds",
+      "report": "Console benchmark timing summary log"
+    },
+    {
+      "metric": "Type System Strictness Verification",
+      "method": "Execution of tsc --noEmit --strict on emitted client source code",
+      "input": "Entire generated client codebase across all endpoints, models, and union types",
+      "environment": "Standard local CPU, TypeScript 5.0+",
+      "minimum_pass": "Passes with 0 type diagnostics and 0 occurrences of any keyword",
+      "target": "Passes with 0 type diagnostics and 0 occurrences of any keyword",
+      "report": "tsc compiler output log confirming clean compilation"
+    },
+    {
+      "metric": "Transient Fault Retry Recovery Rate",
+      "method": "Vitest test suite executing simulated requests against MSW injecting transient 429 and 503 status codes",
+      "input": "50 consecutive requests with injected 40% transient failure rate on initial attempts",
+      "environment": "Standard 4-core local CPU, Vitest test runner",
+      "minimum_pass": "Recovery rate >= 90% across 50 test requests with exponential backoff",
+      "target": "Recovery rate >= 98% across 50 test requests with exponential backoff",
+      "report": "Vitest test execution report with retry timing trace logs"
+    }
+  ],
+  "skills": [
+    "TypeScript",
+    "Node.js",
+    "tsup",
+    "Vitest",
+    "MSW",
+    "REST APIs",
+    "Packaging"
+  ],
+  "starter_input": {
+    "spec": "Collection of OpenAPI 3.0 specification files containing path items, parameters, request bodies, and polymorphic responses.",
+    "size": "3 specification files ranging from small (5 endpoints) to comprehensive (30 endpoints and 25 schema models)",
+    "seeded_cases": "Circular reference pointers, allOf inheritance schemas, optional query parameters, and 429 rate limit responses",
+    "label_source": "Standardized OpenAPI 3.0 test fixtures validated via official swagger-parser",
+    "personal_data_policy": "Strictly mock synthetic API models (synthetic products and users); zero real personal data used"
+  },
+  "components": [
+    {
+      "name": "OpenAPI Parser & AST Normalizer",
+      "task_type": "data pipeline step",
+      "hours": 5.0
+    },
+    {
+      "name": "TypeScript Code Generator Engine",
+      "task_type": "API endpoint group with tests",
+      "hours": 4.0
+    },
+    {
+      "name": "Resilient Runtime Client & Retries",
+      "task_type": "API endpoint group with tests",
+      "hours": 4.0
+    },
+    {
+      "name": "Offline Mock Sandbox & MSW Setup",
+      "task_type": "one third-party integration",
+      "hours": 4.0
+    },
+    {
+      "name": "Dual CJS and ESM Packaging Pipeline",
+      "task_type": "repo + tooling setup",
+      "hours": 4.0
+    },
+    {
+      "name": "Documentation, Schema Diagrams & Buffer",
+      "task_type": "docs + architecture diagram",
+      "hours": 4.0
+    }
+  ],
+  "extended_path": {
+    "items": [
+      "Automated SDK release workflow publishing versioned packages to private npm registry",
+      "Server-Sent Events streaming client generation for real-time AI and webhook event streams"
+    ],
+    "hours": 12
+  },
+  "milestones": [
+    {
+      "name": "Spec Parser & Intermediate AST Normalization for REST APIs",
+      "hours": 8,
+      "done_criterion": "CLI tool loads YAML and JSON OpenAPI specs, dereferences pointers, and validates AST structure in unit tests."
+    },
+    {
+      "name": "TypeScript Client Code Generator",
+      "hours": 7,
+      "done_criterion": "Generator outputs TypeScript client code passing tsc --strict with zero any escape hatches."
+    },
+    {
+      "name": "Resilient Runtime Client & Mock Sandbox with Vitest",
+      "hours": 8,
+      "done_criterion": "Runtime wraps fetch with exponential jitter retries and passes MSW offline mock integration tests in Vitest."
+    },
+    {
+      "name": "Packaging Pipeline, Anti-Fake Test, Docs & Buffer",
+      "hours": 6,
+      "done_criterion": "tsup builds working CJS and ESM packages; anti-fake test validates dynamic spec generation; documentation complete."
+    }
+  ],
+  "prerequisites": [
+    "Advanced TypeScript concepts (generics, template literals, discriminated unions)",
+    "Familiarity with REST APIs and HTTP specifications",
+    "Basic knowledge of Node.js package bundling and npm module formats"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (purely CPU-bound code generation)",
+    "cost": "$0 (fully open-source toolchain)",
+    "accounts_keys_quotas": "No external cloud accounts or paid API keys required",
+    "reference_environment": "Local 4-core CPU with Node.js 18+ and npm installed",
+    "fallback_path": "Standard tsc compile mode without tsup bundling if local build tools encounter native binding issues"
+  },
+  "riskiest_component": {
+    "name": "Circular Reference Dereferencing in Nested Schemas",
+    "fallback": "Implement lazy type reference getters using TypeScript type alias indirection rather than inlining schemas"
+  },
+  "deliverables": [
+    "Git repository containing CLI generator, runtime core, and test fixture suites",
+    "Emitted client package demonstrating CJS and ESM import compatibility",
+    "Vitest test suite covering schema compilation, retry resilience, and mock interceptors",
+    "Screener verification script executing generation and validation in under 2 minutes"
+  ],
+  "out_of_scope": [
+    "GraphQL client code generation",
+    "gRPC protobuf code generation",
+    "Native mobile iOS and Android SDK generation"
+  ],
+  "safety_note": null,
+  "resources": [
+    "OpenAPI 3.0.3 specification standard reference documentation",
+    "TypeScript official handbook on conditional and template literal types",
+    "tsup bundling documentation for dual-module library authors"
+  ],
+  "rubric": [
+    {
+      "input": "fixtures/petstore.json specification file",
+      "action": "Run npm run generate -- --input fixtures/petstore.json --output ./generated",
+      "expected_result": "CLI parses spec and writes complete TypeScript client files without error",
+      "evidence_location": "Terminal output and generated directory file tree",
+      "pass_criterion": "Exit code 0 and presence of generated index.ts and api.ts files",
+      "kind": "normal"
+    },
+    {
+      "input": "Generated client codebase in ./generated directory",
+      "action": "Run npx tsc --noEmit --project ./generated/tsconfig.json",
+      "expected_result": "TypeScript compiler validates all declarations with zero errors",
+      "evidence_location": "Terminal compilation log output",
+      "pass_criterion": "Exit code 0 with zero type diagnostics reported",
+      "kind": "normal"
+    },
+    {
+      "input": "MSW mock handler injecting consecutive 429 status codes",
+      "action": "Run npm run test:retries",
+      "expected_result": "SDK executes retry loop with exponential backoff and succeeds on 3rd attempt",
+      "evidence_location": "Vitest test execution console log",
+      "pass_criterion": "Retry assertions pass confirming 3 attempts made before resolution",
+      "kind": "normal"
+    },
+    {
+      "input": "Dual module import test script testing CJS require and ESM import",
+      "action": "Run npm run test:packaging",
+      "expected_result": "Both node require('./dist/index.cjs') and import('./dist/index.js') resolve correctly",
+      "evidence_location": "Packaging test execution log",
+      "pass_criterion": "Both import methods instantiate client instance with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Dynamic OpenAPI specification with random endpoint path and custom model created at runtime",
+      "action": "Run npm run test:anti-fake -- --seed 7712",
+      "expected_result": "Generator parses dynamic spec, produces typed endpoint method, and executes successful mock call",
+      "evidence_location": "Anti-fake test console output log",
+      "pass_criterion": "Dynamic method invocation compiles and returns expected mock data with exit code 0",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected schema-driven TypeScript API SDK generator from OpenAPI specifications; achieved strict compile-time type safety across [OPERATION_COUNT] operations, sub-[GENERATION_TIME] generation speed, and resilient runtime client with jittered retries.",
+    "claims": [
+      {
+        "text": "strict compile-time type safety across [OPERATION_COUNT] operations",
+        "rubric_indexes": [
+          1
+        ]
+      },
+      {
+        "text": "sub-[GENERATION_TIME] generation speed",
+        "rubric_indexes": [
+          0
+        ]
+      },
+      {
+        "text": "resilient runtime client with jittered retries",
+        "rubric_indexes": [
+          2
+        ]
+      }
+    ],
+    "do_not_claim": "universal protocol code generation or automated breaking change resolution without committed AST test logs"
+  },
+  "verify": [],
+  "worksheet": {
+    "q1": "The student builds a TypeScript code generator that transforms OpenAPI specs into typed client packages featuring retry interceptors, mock sandboxing, and dual CJS/ESM bundling.",
+    "q2": "Core path: AST normalizer, TypeScript code generator, resilient runtime client, mock sandbox, and tsup packaging (29h). Extended path: automated npm publish workflow and SSE streaming client (+12h).",
+    "q3": "Components: Parser (5h), Generator (4h), Runtime Client (4h), Mock Sandbox (4h), Packaging (4h), Docs & Buffer (4h). Total 25h x 1.15 = 29h.",
+    "q4": "Project types: CLI/tools/libraries, API/backend. Metrics: Code Generation Latency, Type System Strictness, Transient Fault Retry Recovery. Rejected: high-concurrency gateway throughput (it's a client SDK generator, not a proxy server).",
+    "q5": "Hard parts: circular $ref dereferencing, discriminated union synthesis, dual CJS/ESM module compatibility, and exponential jitter retry calibration.",
+    "q6": "Starter input: 3 OpenAPI specification files (5 to 30 endpoints) containing recursive references, inheritance schemas, and rate limit definitions. No personal data.",
+    "q7": "Hardware: Linux/macOS/Windows, 8GB RAM, CPU only, $0 cost, zero cloud accounts. Fallback: standard tsc compiler mode without tsup.",
+    "q8": "Riskiest component: Circular schema dereferencing. Fallback: lazy type reference indirection.",
+    "q9": "Potential faking: pre-generated static TypeScript files. Anti-fake check 5 accepts dynamic OpenAPI spec at runtime and compiles and executes custom typed methods on the fly.",
+    "q10": "Safety/ethics: Not required for client SDK code generation."
+  }
+}

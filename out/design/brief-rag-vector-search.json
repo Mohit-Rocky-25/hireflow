@@ -1,0 +1,344 @@
+{
+  "id": "brief-rag-vector-search",
+  "title": "Enterprise RAG Semantic Search & Hallucination Verification Engine with FastAPI, pgvector & Sentence-Transformers",
+  "domain": "AI/ML Applications",
+  "difficulty": "INTERMEDIATE",
+  "project_types": [
+    "ML/data pipeline",
+    "Full-stack web"
+  ],
+  "problem": "Enterprise retrieval-augmented generation (RAG) applications frequently generate plausible-sounding hallucinations, quote non-existent policy clauses, and expose internal knowledge bases to context-stuffing vulnerabilities. Naive vector retrieval relying solely on dense similarity returns irrelevant chunks when users query specific entity IDs, keyword codes, or acronyms, degrading answer quality. This project builds a production-grade enterprise RAG semantic search and verification engine in Python. The system ingests technical documentation, generates dense vector representations with open-source Sentence-Transformers, stores and indexes chunks using PostgreSQL with the pgvector extension (HNSW indexing), performs hybrid dense-sparse semantic retrieval with Reciprocal Rank Fusion (RRF), synthesizes answers with local LLMs, and verifies generated claims using automated citation verification.",
+  "use_cases": [
+    {
+      "title": "Enterprise IT Policy & Compliance QA Assistant",
+      "first_sentence": "Enterprise employees querying internal security policy handbooks need exact policy answers with verifiable paragraph citations rather than generic advice.",
+      "second_sentence": "The engine retrieves top relevant policy chunks using hybrid vector search, synthesizes a grounded response via FastAPI, and highlights exact sentence citations matching source documents."
+    },
+    {
+      "title": "Engineering Technical Architecture Specification Retrieval",
+      "first_sentence": "Software engineering teams navigating large system architecture repositories need to query API contract specifications and database schemas.",
+      "second_sentence": "The RAG backend combines pgvector semantic similarity with keyword matching to retrieve accurate technical snippets, reducing developer search time from hours to seconds."
+    },
+    {
+      "title": "Customer Support Agent Troubleshooting Copilot",
+      "first_sentence": "Support engineers handling complex hardware troubleshooting tickets require fast access to relevant diagnostic flowcharts and error resolution manuals.",
+      "second_sentence": "The system matches incoming customer error logs to service manual chunks, generating step-by-step diagnostic workflows verified against official manuals."
+    }
+  ],
+  "hard_parts": [
+    "Implementing hybrid dense-sparse retrieval combining pgvector HNSW cosine similarity with PostgreSQL full-text search (tsvector) using Reciprocal Rank Fusion",
+    "Designing semantic chunking pipelines that preserve document hierarchical context without fragmenting code blocks or structured tables",
+    "Building an automated claim-level hallucination verification module that cross-checks generated sentences against retrieved source chunk spans",
+    "Optimizing pgvector HNSW index parameters (m, ef_construction, ef_search) to achieve sub-25ms retrieval latency across 100,000 document chunks"
+  ],
+  "screener_signals": [
+    "Clean Python codebase cleanly separating document chunkers, pgvector database adapters, embedding generators, and verification endpoints",
+    "Search latency and accuracy report proving sub-25ms p95 vector retrieval and >= 88% Mean Reciprocal Rank (MRR@10) on technical queries",
+    "Anti-fake verification script submitting an adversarial ungrounded question (querying non-existent policy XYZ-999) and asserting the engine responds with 'INSUFFICIENT_CONTEXT' rather than hallucinating"
+  ],
+  "job_families": [
+    "AI Systems Engineer",
+    "RAG / NLP Software Developer",
+    "Full-Stack Machine Learning Engineer"
+  ],
+  "stack": [
+    {
+      "tool": "Python",
+      "role": "primary backend language powering chunking pipelines, embedding generation, and retrieval APIs"
+    },
+    {
+      "tool": "FastAPI",
+      "role": "asynchronous web framework serving vector search queries, RAG synthesis, and citation verification"
+    },
+    {
+      "tool": "pgvector",
+      "role": "PostgreSQL vector extension providing HNSW indexing and low-latency cosine distance calculations"
+    },
+    {
+      "tool": "PostgreSQL",
+      "role": "relational database storing document metadata, chunk text, full-text tsvectors, and query audit logs"
+    },
+    {
+      "tool": "Docker",
+      "role": "containerization runtime hosting local PostgreSQL with pgvector extension pre-installed"
+    },
+    {
+      "tool": "Sentence-Transformers",
+      "role": "open-source embedding model generating 384-dimensional dense semantic vectors (all-MiniLM-L6-v2)"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "Document Ingestion, Cleaning & Recursive Text Chunking Pipeline",
+        "tools_used": [
+          "Python"
+        ],
+        "purpose": "Parses markdown and text files, cleans formatting, and generates overlapping semantic chunks with metadata headers"
+      },
+      {
+        "name": "Sentence-Transformers Dense Embedding Generation Worker",
+        "tools_used": [
+          "Python",
+          "Sentence-Transformers"
+        ],
+        "purpose": "Computes 384-dimensional dense semantic vector representations for document chunks in batched inference loops"
+      },
+      {
+        "name": "pgvector Columnar Indexing & Hybrid Cosine Retrieval Engine",
+        "tools_used": [
+          "Python",
+          "PostgreSQL",
+          "pgvector"
+        ],
+        "purpose": "Stores chunk embeddings, manages HNSW index, executes hybrid dense-sparse queries, and ranks with RRF"
+      },
+      {
+        "name": "FastAPI Grounded Generation & Hallucination Citation Verifier",
+        "tools_used": [
+          "Python",
+          "FastAPI"
+        ],
+        "purpose": "Constructs grounded context prompts, generates answers, and verifies that every output claim references a valid chunk"
+      },
+      {
+        "name": "Retrieval Accuracy & Latency Evaluation Benchmark Harness",
+        "tools_used": [
+          "Python",
+          "Docker"
+        ],
+        "purpose": "Evaluates MRR@10, Hit Rate@5, and p95 retrieval latencies across 500 enterprise evaluation queries"
+      },
+      {
+        "name": "Enterprise RAG Architecture Guide & pgvector Schema Manual",
+        "tools_used": [
+          "Python",
+          "PostgreSQL"
+        ],
+        "purpose": "Documents HNSW tuning benchmarks, chunk size trade-offs, and hallucination guardrail mechanisms"
+      }
+    ],
+    "data_flow": "Documents ingest into the pipeline; the chunker splits content into 500-token chunks with 50-token overlap; Sentence-Transformers computes 384-d embeddings; chunks and vectors insert into PostgreSQL; pgvector maintains the HNSW index; a user submits a query via FastAPI; the query converts to an embedding and a tsquery; pgvector executes hybrid dense-sparse search and merges results using Reciprocal Rank Fusion; top-5 chunks assemble into a prompt context; the generation module synthesizes an answer; the citation verifier validates extracted claim spans against source chunk text; the response returns with verified citation badges.",
+    "enforcement_mechanism": "Strict cosine distance similarity thresholds and citation verification algorithms rejecting ungrounded claims."
+  },
+  "targets": [
+    {
+      "metric": "p95 Hybrid Vector Retrieval Latency",
+      "method": "Wall-clock timing to generate query embedding, execute pgvector HNSW search, and merge RRF results across 100,000 chunks",
+      "input": "1,000 benchmark queries issued against PostgreSQL database containing 100,000 indexed document chunks",
+      "environment": "Standard 4-core local CPU, PostgreSQL 15+ with pgvector in Docker, Python 3.11",
+      "minimum_pass": "p95 hybrid retrieval latency is < 40.0 milliseconds",
+      "target": "p95 hybrid retrieval latency is < 18.5 milliseconds",
+      "report": "pgvector query latency benchmark report and HNSW index scan timing"
+    },
+    {
+      "metric": "Retrieval Mean Reciprocal Rank (MRR@10)",
+      "method": "Mean Reciprocal Rank evaluated against ground-truth question-chunk matching dataset of 500 technical queries",
+      "input": "500 enterprise technical questions with human-annotated relevant document chunk IDs",
+      "environment": "Deterministic evaluation harness executing hybrid dense-sparse retrieval",
+      "minimum_pass": "Mean Reciprocal Rank (MRR@10) is >= 0.82",
+      "target": "Mean Reciprocal Rank (MRR@10) is >= 0.91",
+      "report": "Information retrieval benchmark evaluation log and recall/precision curves"
+    },
+    {
+      "metric": "Hallucination Rejection on Out-of-Domain Queries",
+      "method": "Percentage of intentionally adversarial or out-of-domain queries correctly answered with 'INSUFFICIENT_CONTEXT' rather than fabricated text",
+      "input": "50 adversarial queries asking about fictitious corporate policies, nonexistent product codes, or fabricated employees",
+      "environment": "FastAPI RAG testing pipeline running citation verification guardrails",
+      "minimum_pass": "50 of 50 adversarial queries trigger INSUFFICIENT_CONTEXT with 0 fabricated claims",
+      "target": "50 of 50 adversarial queries trigger INSUFFICIENT_CONTEXT with 0 fabricated claims",
+      "report": "Hallucination guardrail evaluation log and citation verification audit"
+    }
+  ],
+  "skills": [
+    "Python",
+    "FastAPI",
+    "pgvector",
+    "PostgreSQL",
+    "Docker",
+    "Sentence-Transformers",
+    "RAG",
+    "AI/ML Applications"
+  ],
+  "starter_input": {
+    "spec": "Directory containing document chunking scripts, pgvector database migrations, Sentence-Transformers embedding pipeline, and FastAPI app.",
+    "size": "7 Python source modules, SQL migration scripts, Docker Compose file for pgvector, and 500 synthetic enterprise policy docs",
+    "seeded_cases": "Tables split across chunk boundaries, acronym disambiguation queries, and adversarial ungrounded prompts",
+    "label_source": "Deterministic question-to-chunk ground truth mappings and synthetic enterprise policy corpus",
+    "personal_data_policy": "Strictly mock synthetic corporate policy guidelines and simulated technical documentation; no real personal data used"
+  },
+  "components": [
+    {
+      "name": "Document Ingestion, Cleaning & Recursive Text Chunking Pipeline",
+      "task_type": "data pipeline step",
+      "hours": 4.0
+    },
+    {
+      "name": "Sentence-Transformers Dense Embedding Generation Worker",
+      "task_type": "model train + evaluate cycle",
+      "hours": 5.0
+    },
+    {
+      "name": "pgvector Columnar Indexing & Hybrid Cosine Retrieval Engine",
+      "task_type": "infra component (broker, DB, orchestrator, cluster service)",
+      "hours": 5.0
+    },
+    {
+      "name": "FastAPI Grounded Generation & Hallucination Citation Verifier",
+      "task_type": "API endpoint group with tests",
+      "hours": 4.0
+    },
+    {
+      "name": "Retrieval Accuracy & Latency Evaluation Benchmark Harness",
+      "task_type": "load or performance test harness + report",
+      "hours": 3.0
+    },
+    {
+      "name": "Enterprise RAG Architecture Guide & pgvector Schema Manual",
+      "task_type": "docs + architecture diagram",
+      "hours": 3.0
+    }
+  ],
+  "extended_path": {
+    "features": [
+      "Cross-encoder reranking model (e.g. bge-reranker-base) scoring top-20 retrieved candidates before prompt assembly",
+      "Parent-document retrieval storing small chunks for vector search while returning full parent sections to the LLM",
+      "Automated evaluation pipeline calculating RAGAS metrics (Faithfulness, Answer Relevance, Context Recall)"
+    ],
+    "hours": 14
+  },
+  "milestones": [
+    {
+      "name": "Document Chunking & Sentence-Transformers Embeddings in Python and Sentence-Transformers",
+      "hours": 7,
+      "done_criterion": "Ingestion pipeline chunks documents and generates 384-d embeddings in batched loops."
+    },
+    {
+      "name": "pgvector Storage & Hybrid Cosine Retrieval in pgvector, PostgreSQL and Docker",
+      "hours": 7,
+      "done_criterion": "pgvector stores vectors with HNSW index; hybrid retrieval achieves MRR@10 >= 0.82."
+    },
+    {
+      "name": "FastAPI Grounded QA & Citation Verifier in FastAPI and RAG",
+      "hours": 7,
+      "done_criterion": "FastAPI endpoint serves grounded answers; citation verifier validates source text spans."
+    },
+    {
+      "name": "Hallucination Rejection Anti-Fake Test & Docs in AI/ML Applications",
+      "hours": 7,
+      "done_criterion": "50 of 50 adversarial queries trigger INSUFFICIENT_CONTEXT; docs and schema guides complete."
+    }
+  ],
+  "prerequisites": [
+    "Proficiency in Python backend development, FastAPI, and relational database interactions (SQLAlchemy / asyncpg)",
+    "Understanding of vector search concepts (embeddings, cosine similarity, HNSW indexing) and RAG architecture principles"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (compact Sentence-Transformers all-MiniLM-L6-v2 embedding model runs efficiently on CPU)",
+    "cost": "$0 (fully open-source stack using local PostgreSQL with pgvector in Docker)",
+    "accounts_keys_quotas": "No external cloud accounts, paid services, or API keys required (uses open-source local embeddings and local QA synthesis)",
+    "reference_environment": "Local 4-core CPU with Docker Desktop (pgvector container) and Python 3.11 with PyTorch CPU",
+    "fallback_path": "Local SQLite vector extension or in-memory NumPy cosine similarity matrix if Docker pgvector is unavailable"
+  },
+  "riskiest_component": {
+    "name": "HNSW Vector Index Saturation and Out-of-Domain Hallucinations",
+    "mitigation": "Tune HNSW ef_construction and m parameters for high recall, and enforce similarity distance cutoffs that trigger INSUFFICIENT_CONTEXT.",
+    "fallback": "Exact flat cosine distance scan (ivfflat or sequential scan) for datasets under 20,000 chunks."
+  },
+  "deliverables": [
+    "Git repository containing document chunking scripts, pgvector migrations, embedding pipeline, and FastAPI app",
+    "Docker Compose configuration launching PostgreSQL with pgvector extension pre-installed",
+    "Automated evaluation benchmark script measuring MRR@10, Hit Rate@5, and p95 retrieval latency",
+    "Screener verification script executing automated hybrid search and adversarial hallucination rejection in under 2 minutes"
+  ],
+  "out_of_scope": [
+    "Commercial vector SaaS databases (Pinecone / Weaviate Cloud / Qdrant Cloud)",
+    "Proprietary OpenAI or Anthropic paid API key integrations",
+    "Complex multi-modal image and video embedding processing pipelines"
+  ],
+  "safety_note": null,
+  "resources": [
+    "pgvector Open-Source Extension Documentation & HNSW Indexing Guidelines",
+    "Sentence-Transformers: Multilingual Sentence Embeddings (Reimers and Gurevych)",
+    "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks (Lewis et al., NeurIPS 2020)"
+  ],
+  "rubric": [
+    {
+      "input": "1,000 benchmark queries against pgvector database with 100,000 chunks",
+      "action": "python ./benchmarks/bench_retrieval.py --queries 1000 --concurrency 10",
+      "expected_result": "pgvector returns top-5 chunks with p95 hybrid latency < 40.0ms",
+      "evidence_location": "Retrieval benchmark execution log and reports/retrieval_latency.json",
+      "pass_criterion": "p95 latency < 40.0ms with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "500 technical queries evaluated against ground-truth chunk labels",
+      "action": "python ./evaluation/eval_mrr.py --queries 500",
+      "expected_result": "Hybrid dense-sparse retrieval achieves MRR@10 >= 0.82 and Hit Rate@5 >= 0.90",
+      "evidence_location": "Information retrieval evaluation report in reports/mrr_eval.json",
+      "pass_criterion": "MRR@10 >= 0.82 with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Document chunking pipeline processing 100 markdown documents",
+      "action": "python ./ingestion/chunk_documents.py --input-dir ./docs/sample",
+      "expected_result": "Chunks preserve code block integrity and generate valid 384-d vector embeddings",
+      "evidence_location": "Ingestion processing log in reports/chunking_audit.json",
+      "pass_criterion": "100 of 100 documents chunked and embedded with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "FastAPI request asking valid question present in technical documentation",
+      "action": "curl -X POST http://localhost:8000/api/v1/query -H 'Content-Type: application/json' -d '{\"question\":\"What is the database connection timeout?\"}'",
+      "expected_result": "FastAPI returns grounded answer with verified source chunk ID and text citation span",
+      "evidence_location": "HTTP response JSON and citation audit log",
+      "pass_criterion": "Response status 200 with non-empty citation list and exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Adversarial ungrounded query asking about fictitious policy clause XYZ-999",
+      "action": "python ./scripts/verify_hallucination_rejection.py --query 'What are the penalties under policy XYZ-999?'",
+      "expected_result": "System detects low similarity scores and returns 'INSUFFICIENT_CONTEXT' with 0 fabricated text",
+      "evidence_location": "Dynamic verification console execution output log",
+      "pass_criterion": "Console confirms response is 'INSUFFICIENT_CONTEXT' with exit code 0",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected enterprise RAG semantic search engine in Python using FastAPI, PostgreSQL, and pgvector; achieved [RETRIEVAL_MRR] ranking accuracy on technical documentation retrieval, and maintained sub-[QUERY_LATENCY] millisecond hybrid vector search latency.",
+    "claims": [
+      {
+        "text": "achieved [RETRIEVAL_MRR] ranking accuracy on technical documentation retrieval",
+        "rubric_indexes": [
+          1
+        ]
+      },
+      {
+        "text": "maintained sub-[QUERY_LATENCY] millisecond hybrid vector search latency",
+        "rubric_indexes": [
+          0
+        ]
+      }
+    ],
+    "do_not_claim": "proprietary commercial OpenAI API fine-tuning or closed-source vector cloud infrastructure"
+  },
+  "verify": [
+    "Run `pytest tests/` to confirm chunking, pgvector HNSW querying, and citation verification pass.",
+    "Execute `python ./evaluation/eval_mrr.py` to confirm MRR@10 meets the >= 0.82 benchmark.",
+    "Run `python ./scripts/verify_hallucination_rejection.py` to assert adversarial queries trigger INSUFFICIENT_CONTEXT."
+  ],
+  "worksheet": {
+    "q1": "Core deliverable: an enterprise RAG semantic search and verification engine in Python with FastAPI, pgvector, and Sentence-Transformers.",
+    "q2": "Target users: AI systems engineers, RAG/NLP software developers, and full-stack machine learning engineers.",
+    "q3": "3 use cases: enterprise IT policy QA, engineering technical spec retrieval, and customer support troubleshooting.",
+    "q4": "Stated hours: 28 hours. Calculated bottom-up: 24 component hours * 1.15 buffer = 27.6 -> 28 hours. Intermediate level.",
+    "q5": "Hard parts: hybrid dense-sparse retrieval with RRF, semantic chunking preserving hierarchy, claim-level citation verification, and HNSW index tuning.",
+    "q6": "Starter input: document chunking scripts, pgvector migrations, embedding pipeline, and synthetic policy corpus. Synthetic data only.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU bound, $0 cost using Docker pgvector and Sentence-Transformers. Zero cloud API keys.",
+    "q8": "Riskiest component: HNSW index saturation and out-of-domain hallucinations. Fallback: similarity distance cutoffs returning INSUFFICIENT_CONTEXT.",
+    "q9": "Potential faking: ungrounded LLM completions claiming to be RAG. Anti-fake check 5 queries fictitious policy XYZ-999 and asserts INSUFFICIENT_CONTEXT is returned.",
+    "q10": "Safe; synthetic corporate policy documents and private local database only."
+  }
+}

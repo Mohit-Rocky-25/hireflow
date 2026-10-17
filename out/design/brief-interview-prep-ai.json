@@ -1,0 +1,332 @@
+{
+  "id": "brief-interview-prep-ai",
+  "title": "Voice-Enabled Technical Interview Simulation Engine with Asynchronous Speech Processing & Evaluation",
+  "domain": "GenAI & LLM Engineering",
+  "difficulty": "INTERMEDIATE",
+  "project_types": [
+    "Full-stack web",
+    "API/backend service"
+  ],
+  "problem": "Technical mock interview platforms struggle with high speech-to-text latency, conversational interruptions, and subjective, uncalibrated feedback scoring. Relying on synchronous, single-turn LLM calls produces unrealistic dialog pacing and hallucinatory performance rubrics. This project builds an asynchronous voice-enabled interview simulation platform in Python and FastAPI. The engine accepts spoken audio streams, transcribes candidate responses using faster-whisper, evaluates technical depth and behavioral STAR structure using DSPy metric pipelines with LangChain, and returns structured feedback with actionable code corrections across WebSockets.",
+  "use_cases": [
+    {
+      "title": "Automated Candidate Screenings for Engineering Teams",
+      "first_sentence": "Recruiting teams at high-volume software agencies require consistent initial technical screenings without consuming senior engineering hours.",
+      "second_sentence": "The engine conducts automated 15-minute technical question drills, generating structured scoring reports and code diff suggestions for hiring managers."
+    },
+    {
+      "title": "Interactive University Career Placement Labs",
+      "first_sentence": "Computer science departments need scalable interview preparation laboratories where graduating students practice algorithmic problem explanation under time constraints.",
+      "second_sentence": "Students verbalize design trade-offs and code logic into browser microphones, receiving immediate latency-calibrated evaluation on communication clarity and algorithmic soundness."
+    },
+    {
+      "title": "Corporate Lateral Hiring Preparation Portals",
+      "first_sentence": "Enterprise internal mobility programs require standardized assessment environments for junior engineers seeking promotion to mid-level engineering tiers.",
+      "second_sentence": "The system runs targeted system design and coding mock interviews, evaluating structural responses against standardized competency rubrics without human bias."
+    }
+  ],
+  "hard_parts": [
+    "Minimizing audio chunk streaming latency across WebSockets while maintaining Whisper transcription word accuracy",
+    "Constructing deterministic, calibrated scoring rubrics with DSPy assertion pipelines that prevent LLM hallucination and grade inflation",
+    "Managing conversational state, interruption handling, and turn-taking without race conditions in asynchronous asyncio queues",
+    "Synthesizing structured candidate feedback containing precise syntactic corrections and rubric-grounded improvement suggestions"
+  ],
+  "screener_signals": [
+    "Clean Python codebase separating WebSocket transport, Whisper transcription pipelines, and DSPy evaluation runners",
+    "Rigorous speech-to-text benchmark measuring word error rate and transcription latency across diverse synthetic accent datasets",
+    "Anti-fake verification script streaming raw audio chunks and verifying real-time WebSocket token dispatch and structured JSON rubric emission"
+  ],
+  "job_families": [
+    "Applied AI Engineer",
+    "Speech & Audio ML Engineer",
+    "Full-Stack AI Platform Engineer"
+  ],
+  "stack": [
+    {
+      "tool": "Python",
+      "role": "primary backend language implementing asynchronous WebSocket servers and evaluation pipelines"
+    },
+    {
+      "tool": "FastAPI",
+      "role": "high-performance asynchronous framework exposing REST APIs and bi-directional WebSocket endpoints"
+    },
+    {
+      "tool": "Whisper",
+      "role": "local faster-whisper acoustic model transcribing streamed speech audio chunks into text"
+    },
+    {
+      "tool": "LangChain",
+      "role": "orchestration library structuring LLM prompt templates and chaining evaluation workflows"
+    },
+    {
+      "tool": "React",
+      "role": "frontend browser dashboard managing WebSocket audio streams and rendering live feedback visualizers"
+    },
+    {
+      "tool": "WebSockets",
+      "role": "low-latency bi-directional transport protocol streaming audio bytes and candidate transcripts"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "WebSocket Audio Streaming & Chunk Ingestion Gateway",
+        "tools_used": [
+          "FastAPI",
+          "WebSockets"
+        ],
+        "purpose": "Ingests continuous 16kHz PCM audio buffers from client browsers with backpressure and sequence tracking"
+      },
+      {
+        "name": "Asynchronous Whisper Speech Transcription Pipeline",
+        "tools_used": [
+          "Python",
+          "Whisper"
+        ],
+        "purpose": "Transcribes candidate spoken audio chunks using quantized local models with punctuation recovery"
+      },
+      {
+        "name": "Conversational Dialogue & Turn-Taking Manager",
+        "tools_used": [
+          "Python",
+          "FastAPI"
+        ],
+        "purpose": "Maintains interview conversation history, tracks question progress, and detects pause thresholds"
+      },
+      {
+        "name": "DSPy Rubric Evaluation & Feedback Engine",
+        "tools_used": [
+          "Python",
+          "LangChain"
+        ],
+        "purpose": "Evaluates candidate responses across technical depth, correctness, and STAR structure with calibrated metrics"
+      },
+      {
+        "name": "Live Feedback & Audio Visualizer React Dashboard",
+        "tools_used": [
+          "React",
+          "WebSockets"
+        ],
+        "purpose": "Renders audio waveform visualizer, live transcription stream, and interactive score breakdown charts"
+      }
+    ],
+    "data_flow": "The candidate speaks into the browser microphone; the React frontend captures 16kHz PCM audio frames and streams them over WebSockets to FastAPI; the streaming gateway buffers frames into temporal chunks; the Whisper pipeline transcribes speech into text segments; the dialogue manager appends transcript tokens to the active interview session state; once candidate turn completion is detected, the DSPy evaluation engine runs calibrated scoring pipelines against standardized technical rubrics; structured evaluation JSON and synthesized audio responses stream back over WebSockets to update the React UI.",
+    "enforcement_mechanism": "Strict schema validation using Pydantic models on evaluation output; hard audio buffer bounds preventing memory bloat during candidate speech."
+  },
+  "targets": [
+    {
+      "metric": "Whisper Transcription Word Error Rate (WER)",
+      "method": "Levenshtein distance calculation between Whisper transcribed outputs and verified ground-truth transcripts across audio benchmark",
+      "input": "50 synthetic mock interview audio recordings (16kHz WAV format, 2 to 5 minutes duration each, technical terminology)",
+      "environment": "Standard 4-core local CPU, 8GB RAM, Whisper small/base CPU quantization",
+      "minimum_pass": "Average Word Error Rate across 50 audio recordings is < 12.0%",
+      "target": "Average Word Error Rate across 50 audio recordings is < 6.5%",
+      "report": "Whisper ASR accuracy and Word Error Rate evaluation summary report"
+    },
+    {
+      "metric": "Audio Chunk End-to-End Transcription Latency",
+      "method": "Wall-clock timing from client WebSocket audio chunk dispatch to initial transcription text emission",
+      "input": "100 distinct 3-second audio test packets streamed across local loopback WebSocket connection",
+      "environment": "Standard 4-core local CPU, Python 3.11 asynchronous runtime",
+      "minimum_pass": "p95 transcription latency per 3-second chunk is < 850 milliseconds",
+      "target": "p95 transcription latency per 3-second chunk is < 420 milliseconds",
+      "report": "WebSocket streaming latency and audio processing timing log"
+    },
+    {
+      "metric": "Evaluation Rubric Score Consistency with Human Baseline",
+      "method": "Pearson correlation coefficient between automated DSPy evaluation scores and calibrated senior interviewer ratings",
+      "input": "40 paired candidate interview responses with curated 5-point technical rubric ratings",
+      "environment": "Standard 4-core local CPU, DSPy assertion pipeline with Ollama or local mock LLM",
+      "minimum_pass": "Pearson correlation coefficient r >= 0.78 across 40 responses",
+      "target": "Pearson correlation coefficient r >= 0.89 across 40 responses",
+      "report": "Automated evaluation calibration and human rating correlation matrix"
+    }
+  ],
+  "skills": [
+    "Python",
+    "FastAPI",
+    "Whisper",
+    "LangChain",
+    "React",
+    "WebSockets",
+    "GenAI",
+    "Speech Recognition",
+    "AsyncIO"
+  ],
+  "starter_input": {
+    "spec": "Directory of 50 synthetic 16kHz WAV interview recordings, ground truth transcript JSON manifests, and technical rubric definitions.",
+    "size": "50 audio files (approx 120MB total), 50 reference transcripts, and 10 technical question rubric schemas",
+    "seeded_cases": "Heavy background acoustic hum, fast technical jargon recitation, conversational stuttering, and intentional algorithmic errors",
+    "label_source": "Expert-annotated interview transcripts and multi-evaluator consensus scoring rubrics",
+    "personal_data_policy": "Strictly mock synthetic audio generated by open-source TTS and volunteer actors; zero real candidate personal data used"
+  },
+  "components": [
+    {
+      "name": "WebSocket Audio Streaming & Chunk Ingestion Gateway",
+      "task_type": "API endpoint group with tests",
+      "hours": 5.0
+    },
+    {
+      "name": "Asynchronous Whisper Speech Transcription Pipeline",
+      "task_type": "low-level/system subsystem",
+      "hours": 5.0
+    },
+    {
+      "name": "Conversational Dialogue & Turn-Taking Manager",
+      "task_type": "low-level/system subsystem",
+      "hours": 5.0
+    },
+    {
+      "name": "DSPy Rubric Evaluation & Feedback Engine",
+      "task_type": "data pipeline step",
+      "hours": 5.0
+    },
+    {
+      "name": "Audio Pipeline Latency & WER Benchmark Suite",
+      "task_type": "load or performance test harness + report",
+      "hours": 4.0
+    }
+  ],
+  "extended_path": {
+    "features": [
+      "Real-time text-to-speech voice synthesis using Kokoro or Piper TTS returning streamed candidate question audio",
+      "Multi-modal video facial engagement and posture analysis using OpenCV and MediaPipe mesh tracking",
+      "Dynamic follow-up question generation adapting difficulty based on candidate conceptual weaknesses"
+    ],
+    "hours": 14
+  },
+  "milestones": [
+    {
+      "name": "WebSocket Audio Streaming & Session Protocol in FastAPI and React",
+      "hours": 7,
+      "done_criterion": "WebSocket handles binary audio streaming with client session state and sequence tracking."
+    },
+    {
+      "name": "Speech Recognition & AsyncIO Audio Chunking in Python and Whisper",
+      "hours": 7,
+      "done_criterion": "Transcription pipeline converts 3s audio chunks to text in < 850ms with < 12% WER."
+    },
+    {
+      "name": "DSPy Interview Rubric Evaluation Pipeline in LangChain and GenAI",
+      "hours": 7,
+      "done_criterion": "Evaluation pipeline grades 40 responses with Pearson r >= 0.78 against human ratings."
+    },
+    {
+      "name": "Latency Benchmarking, WebSocket Anti-Fake Test & Docs",
+      "hours": 7,
+      "done_criterion": "Benchmark confirms latency; anti-fake test processes streamed audio; documentation complete."
+    }
+  ],
+  "prerequisites": [
+    "Proficiency in Python asynchronous programming (asyncio, WebSockets) and FastAPI",
+    "Familiarity with speech-to-text models (Whisper) and structured prompt chaining with LangChain or DSPy"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM (16GB recommended for local Whisper medium models)",
+    "gpu": "None strictly required (quantized faster-whisper CPU inference supported)",
+    "cost": "$0 (fully open-source local models via faster-whisper and Ollama)",
+    "accounts_keys_quotas": "No external cloud accounts, paid services, or API keys required",
+    "reference_environment": "Local 4-core CPU with Python 3.11, faster-whisper CPU release, and modern Chromium browser",
+    "fallback_path": "Local pre-recorded audio file playback through REST API if browser microphone input is disabled"
+  },
+  "riskiest_component": {
+    "name": "Whisper CPU Transcription Latency on Continuous Audio Buffers",
+    "mitigation": "Utilize faster-whisper with INT8 quantization, 3-second minimum chunk windows, and VAD (Voice Activity Detection) silences.",
+    "fallback": "Whisper-tiny model or local wav2vec2 lightweight acoustic model for ultra-low CPU footprint."
+  },
+  "deliverables": [
+    "Git repository containing FastAPI WebSocket backend, faster-whisper pipeline, and DSPy evaluation harness",
+    "Interactive React frontend dashboard with real-time audio streaming visualizer",
+    "Automated ASR accuracy and evaluation benchmark reporting WER and Pearson correlation",
+    "Screener verification script executing automated benchmark and dynamic audio stream test in under 2 minutes"
+  ],
+  "out_of_scope": [
+    "Automated psychological emotional profiling or polygraph deception detection",
+    "Direct hardware DSP firmware flashing or embedded microphone array DSP calibration",
+    "Live multi-party group video conference switching"
+  ],
+  "safety_note": null,
+  "resources": [
+    "faster-whisper Documentation and Model Quantization Guide",
+    "DSPy Declarative Language Model Programming Framework Guide",
+    "FastAPI WebSocket Streaming and Asynchronous Concurrency Patterns"
+  ],
+  "rubric": [
+    {
+      "input": "50 synthetic mock interview audio recordings (16kHz WAV format)",
+      "action": "python -m interview_sim.benchmark_asr --audio-dir test_data/audio --manifest test_data/transcripts.json",
+      "expected_result": "faster-whisper transcribes all files with average Word Error Rate < 12.0%",
+      "evidence_location": "Terminal test execution output log and reports/asr_wer_report.json",
+      "pass_criterion": "Report records average WER < 12.0% with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "100 distinct 3-second audio test packets sent over WebSockets",
+      "action": "python scripts/benchmark_latency.py --chunks 100 --duration 3",
+      "expected_result": "WebSocket audio transcription pipeline records p95 chunk latency < 850 milliseconds",
+      "evidence_location": "WebSocket streaming benchmark timing summary table",
+      "pass_criterion": "p95 latency is < 850ms and zero packets dropped",
+      "kind": "normal"
+    },
+    {
+      "input": "40 paired candidate interview responses evaluated against technical rubrics",
+      "action": "python -m interview_sim.evaluate_calibration --eval-set test_data/calibration_evals.json",
+      "expected_result": "DSPy evaluation engine produces scoring outputs achieving Pearson correlation r >= 0.78",
+      "evidence_location": "Evaluation calibration report in reports/rubric_calibration.json",
+      "pass_criterion": "Pearson correlation coefficient r >= 0.78 with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Complete mock interview session containing 3 technical questions and candidate responses",
+      "action": "curl -X POST http://localhost:8000/api/interview/session/report -H 'Content-Type: application/json' -d @test_data/sample_session.json",
+      "expected_result": "API returns structured feedback JSON with category scores, STAR breakdown, and specific code improvements",
+      "evidence_location": "HTTP response payload",
+      "pass_criterion": "Response status is 200 and JSON contains technical_score, behavioral_score, and actionable_feedback",
+      "kind": "normal"
+    },
+    {
+      "input": "Dynamic audio test buffer containing synthetic technical response streamed over WebSocket",
+      "action": "python scripts/verify_dynamic_stream.py --audio test_data/dynamic_prompt.wav",
+      "expected_result": "WebSocket server transcribes speech, evaluates response against question criteria, and streams structured feedback tokens",
+      "evidence_location": "Dynamic verification console execution output log",
+      "pass_criterion": "Server returns transcript matching prompt and valid rubric evaluation JSON with exit code 0",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected asynchronous voice-enabled interview simulation platform in Python and FastAPI using faster-whisper; achieved sub-[STREAMING_LATENCY] transcription latency across [STREAMED_CHUNKS] audio chunks, and delivered [CORRELATION_SCORE] rubric scoring correlation with expert evaluations.",
+    "claims": [
+      {
+        "text": "achieved sub-[STREAMING_LATENCY] transcription latency across [STREAMED_CHUNKS] audio chunks",
+        "rubric_indexes": [
+          1
+        ]
+      },
+      {
+        "text": "delivered [CORRELATION_SCORE] rubric scoring correlation with expert evaluations",
+        "rubric_indexes": [
+          2
+        ]
+      }
+    ],
+    "do_not_claim": "automated emotional psychological profiling or live facial micro-expression polygraph detection"
+  },
+  "verify": [
+    "Run `python -m pytest tests/` to confirm audio streaming, transcription, and evaluation test suites pass with exit code 0.",
+    "Execute `python -m interview_sim.benchmark_asr` to verify Whisper transcription Word Error Rate meets the target threshold.",
+    "Launch FastAPI backend and run `python scripts/verify_dynamic_stream.py` to assert live WebSocket audio processing and feedback emission."
+  ],
+  "worksheet": {
+    "q1": "Core deliverable: an asynchronous voice interview simulation platform in Python/FastAPI with faster-whisper ASR, DSPy evaluation pipelines, and WebSockets.",
+    "q2": "Target users: engineering hiring teams, career development centers, and software engineers practicing technical communication.",
+    "q3": "3 use cases: automated candidate pre-screening, university placement laboratories, and internal engineering promotion assessments.",
+    "q4": "Stated hours: 28 hours. Calculated bottom-up: 24 component hours * 1.15 buffer = 27.6 -> 28 hours. Intermediate level.",
+    "q5": "Hard parts: streaming audio chunk buffering over WebSockets, minimizing Whisper transcription latency on CPU, DSPy assertion calibration, and turn-taking state machines.",
+    "q6": "Starter input: 50 synthetic 16kHz WAV recordings, reference transcript manifests, and rubric schemas. Synthetic recordings only.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU only, $0 cost, zero cloud accounts. Fallback: local REST audio file upload.",
+    "q8": "Riskiest component: Whisper CPU transcription latency. Fallback: INT8 quantized faster-whisper with Voice Activity Detection.",
+    "q9": "Potential faking: pre-canned transcript returns. Anti-fake check 5 streams dynamic WAV file, asserts real-time transcription and rubric emission.",
+    "q10": "Safety/ethics: Safe; synthetic voice recordings only, zero real candidate personal identifiable information."
+  }
+}

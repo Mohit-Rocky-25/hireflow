@@ -1,0 +1,332 @@
+{
+  "id": "brief-mobile-flutter-prod",
+  "title": "Cross-Platform Mobile Application in Flutter with BLoC State Management, Offline SQLite Sync & CI/CD Fastlane Pipeline",
+  "domain": "Mobile Engineering",
+  "difficulty": "INTERMEDIATE",
+  "project_types": [
+    "Mobile application",
+    "Frontend application"
+  ],
+  "problem": "Cross-platform mobile applications frequently suffer from janky UI frame drops, fragile state synchronizations when network connectivity fluctuates, and chaotic manual application store release processes. Mixing business logic with widget trees produces untestable code and memory leaks during frequent device configuration changes. This project builds a production-grade cross-platform mobile application in Flutter and Dart. The system implements the BLoC (Business Logic Component) pattern for unidirectional state management, persists offline mutations to local SQLite databases with optimistic UI rendering, executes bidirectional delta synchronization with backend REST APIs, and automates testing, code signing, and release artifact generation using Fastlane and GitHub Actions.",
+  "use_cases": [
+    {
+      "title": "Field Service Technician Offline Asset Inspection",
+      "first_sentence": "Industrial maintenance technicians inspect remote oil pipelines and wind turbines in remote locations without cellular reception.",
+      "second_sentence": "The mobile app enables technicians to log equipment checklists and photo attachments to local SQLite storage, automatically syncing pending audits when reconnected to network coverage."
+    },
+    {
+      "title": "Last-Mile Delivery Driver Route & Package Tracking",
+      "first_sentence": "Logistics delivery drivers require high-performance mobile interfaces that maintain 60fps rendering during fast barcode scanning and list flinging.",
+      "second_sentence": "The application manages package status transitions via BLoC state streams, executing optimistic local updates while streaming background GPS coordinates and delivery confirmations."
+    },
+    {
+      "title": "Personal Healthcare Medication & Symptom Diary",
+      "first_sentence": "Patients tracking chronic medical symptoms need instant app responsiveness and guaranteed data capture even in hospital basements with poor connectivity.",
+      "second_sentence": "The Flutter app captures daily symptom logs locally with zero input latency, reconciling conflict-free timestamps against backend medical records upon connection restoration."
+    }
+  ],
+  "hard_parts": [
+    "Architecting clean BLoC state machines that decouple business events, state transitions, and UI widget rebuilds",
+    "Implementing offline-first data synchronization with SQLite mutation queues and idempotent server reconciliation",
+    "Optimizing Flutter widget trees and list view builders to eliminate frame drops and sustain 60fps scrolling under load",
+    "Automating multi-flavor code signing and build artifact generation (APK / App Bundle) using Fastlane in CI/CD"
+  ],
+  "screener_signals": [
+    "Clean Dart codebase adhering to clean architecture with clear separation between data sources, repositories, BLoCs, and UI widgets",
+    "Automated Flutter driver integration test suite verifying offline mutation queuing and reconciliation upon network restoration",
+    "Anti-fake verification script simulating sudden airplane mode disconnection during item creation and verifying zero data loss upon reconnection"
+  ],
+  "job_families": [
+    "Senior Flutter Mobile Engineer",
+    "Mobile Platform Developer",
+    "Cross-Platform Application Architect"
+  ],
+  "stack": [
+    {
+      "tool": "Flutter",
+      "role": "cross-platform UI toolkit compiling native Android and iOS mobile applications"
+    },
+    {
+      "tool": "Dart",
+      "role": "strongly typed language providing asynchronous streams and null-safety for mobile logic"
+    },
+    {
+      "tool": "BLoC",
+      "role": "state management library implementing predictable event-driven unidirectional data flow"
+    },
+    {
+      "tool": "Fastlane",
+      "role": "automation toolchain handling screenshot generation, code signing, and release packaging"
+    },
+    {
+      "tool": "Firebase",
+      "role": "backend platform providing cloud messaging, authentication, and remote test crashlytics"
+    },
+    {
+      "tool": "GitHub Actions",
+      "role": "continuous integration platform executing automated linting, tests, and Fastlane builds"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "BLoC State Management & Event Orchestrator",
+        "tools_used": [
+          "Flutter",
+          "Dart",
+          "BLoC"
+        ],
+        "purpose": "Manages unidirectional state streams, receives user UI events, and emits immutable view states"
+      },
+      {
+        "name": "Local SQLite Mutation Queue & Persistence Layer",
+        "tools_used": [
+          "Dart",
+          "Flutter"
+        ],
+        "purpose": "Persists offline records to local SQLite tables and tracks uncommitted mutation operation queues"
+      },
+      {
+        "name": "Bidirectional Delta Sync & Network Monitor",
+        "tools_used": [
+          "Dart",
+          "Firebase"
+        ],
+        "purpose": "Monitors connectivity status, flushes queued offline mutations, and reconciles conflict-free timestamps"
+      },
+      {
+        "name": "Responsive Widget UI & Animation Controller",
+        "tools_used": [
+          "Flutter"
+        ],
+        "purpose": "Renders responsive mobile layouts, manages theme modes, and drives smooth 60fps list interactions"
+      },
+      {
+        "name": "Fastlane Release Automation & CI/CD Pipeline",
+        "tools_used": [
+          "Fastlane",
+          "GitHub Actions"
+        ],
+        "purpose": "Automates flutter analyze, unit/widget test execution, version tagging, and unsigned APK generation"
+      }
+    ],
+    "data_flow": "The user interacts with a Flutter screen widget; the widget dispatches a strongly-typed event to the BLoC; the BLoC invokes the repository layer; the repository immediately writes the mutation to the local SQLite database and emits an optimistic state to update the UI; if the network monitor confirms connectivity, the sync worker transmits the payload to backend REST endpoints; on successful server acknowledgement, the local record marks as synchronized; if offline, the mutation queues in SQLite; when connectivity restores, the sync service flushes pending queues with exponential backoff.",
+    "enforcement_mechanism": "Immutable state emissions in BLoC preventing uncontrolled side-effects; database foreign key constraints ensuring relational integrity."
+  },
+  "targets": [
+    {
+      "metric": "Application Cold Start Duration",
+      "method": "Wall-clock timing from application process launch to initial interactive Flutter widget render",
+      "input": "10 cold start launches executed on standard Android emulator / physical reference device",
+      "environment": "Standard 4-core local CPU with Android Emulator (API level 33) or connected Android phone",
+      "minimum_pass": "Average cold start launch duration is < 1,800 milliseconds",
+      "target": "Average cold start launch duration is < 950 milliseconds",
+      "report": "Flutter performance profiling report and cold start trace log"
+    },
+    {
+      "metric": "UI Scrolling Frame Rate Rendering Stability",
+      "method": "Flutter driver performance profiling measuring dropped frames during 1,000-item list flinging",
+      "input": "1,000 complex list items with images and state badges scrolled vigorously via automated test driver",
+      "environment": "Flutter profile mode build running on Android emulator with 60Hz display refresh",
+      "minimum_pass": "0 jank occurrences with < 4 dropped frames across 1,000-item scroll test",
+      "target": "0 jank occurrences with 0 dropped frames across 1,000-item scroll test",
+      "report": "Flutter frame rendering summary and performance timeline JSON"
+    },
+    {
+      "metric": "Offline Mutation Synchronization Latency",
+      "method": "Duration from network reconnection event to complete reconciliation of 50 queued offline records",
+      "input": "50 queued local offline mutations created while network connectivity is disabled",
+      "environment": "Local mock REST API backend running on loopback interface",
+      "minimum_pass": "Average sync reconciliation time is < 650 milliseconds across 50 records",
+      "target": "Average sync reconciliation time is < 250 milliseconds across 50 records",
+      "report": "Offline sync timing audit log and network reconciliation summary"
+    }
+  ],
+  "skills": [
+    "Flutter",
+    "Dart",
+    "BLoC",
+    "Fastlane",
+    "Firebase",
+    "GitHub Actions",
+    "Mobile Engineering",
+    "Offline Sync",
+    "CI/CD"
+  ],
+  "starter_input": {
+    "spec": "Directory containing Flutter project scaffolding, mock REST backend server, Fastlane configurations, and BLoC templates.",
+    "size": "Flutter project repository, 15 Dart component files, 4 mock backend scripts, and GitHub Actions workflow YAMLs",
+    "seeded_cases": "Network drop during active multipart upload, conflicting server-client record timestamps, and rapid screen orientation shifts",
+    "label_source": "Deterministic mock API response fixtures and Flutter widget test driver assertions",
+    "personal_data_policy": "Strictly mock synthetic field technician records and simulated audit checklists; no real personal data used"
+  },
+  "components": [
+    {
+      "name": "BLoC State Management & Event Orchestrator",
+      "task_type": "one UI view with state",
+      "hours": 6.0
+    },
+    {
+      "name": "Local SQLite Mutation Queue & Persistence Layer",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "Bidirectional Delta Sync & Network Monitor",
+      "task_type": "low-level/system subsystem",
+      "hours": 5.0
+    },
+    {
+      "name": "Responsive Widget UI & Animation Controller",
+      "task_type": "one UI view with state",
+      "hours": 4.0
+    },
+    {
+      "name": "Fastlane Release Automation & CI/CD Pipeline",
+      "task_type": "infra component (broker, DB, orchestrator, cluster service)",
+      "hours": 3.0
+    }
+  ],
+  "extended_path": {
+    "features": [
+      "Dynamic background geolocation tracking with geofence entry and exit alerts using flutter_background_geolocation",
+      "Biometric authentication (fingerprint and FaceID) integration with encrypted secure hardware keystore storage",
+      "Multi-language internationalization (i18n) supporting dynamic runtime locale switching"
+    ],
+    "hours": 14
+  },
+  "milestones": [
+    {
+      "name": "Flutter Project Architecture & BLoC Event Core in Dart and Flutter",
+      "hours": 7,
+      "done_criterion": "Flutter project compiles; BLoC manages unidirectional event streams with test coverage."
+    },
+    {
+      "name": "Offline SQLite Persistence & Mutation Queue in Mobile Engineering",
+      "hours": 7,
+      "done_criterion": "App writes mutations to SQLite locally when offline; UI updates optimistically."
+    },
+    {
+      "name": "Network Sync & Fastlane CI/CD in Fastlane, Firebase and GitHub Actions",
+      "hours": 7,
+      "done_criterion": "Queued mutations sync upon reconnect; Fastlane script builds unsigned release APK in CI."
+    },
+    {
+      "name": "60fps Performance Profiling, Anti-Fake Test & Docs",
+      "hours": 7,
+      "done_criterion": "Performance profiling verifies 60fps; anti-fake test validates offline sync; docs complete."
+    }
+  ],
+  "prerequisites": [
+    "Proficiency in Dart programming (streams, futures, null safety) and Flutter widget lifecycle",
+    "Understanding of mobile state management (BLoC/Cubit) and local database persistence (sqflite)"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM (16GB recommended for running Android Studio and emulator)",
+    "gpu": "None required (Android emulator can run with software rendering or connected physical phone)",
+    "cost": "$0 (fully open-source Flutter SDK and local mock backend)",
+    "accounts_keys_quotas": "No external cloud accounts or paid developer licenses required (builds unsigned test APKs)",
+    "reference_environment": "Local 4-core CPU with Flutter 3.16+, Dart 3.2+, and Android SDK command-line tools installed",
+    "fallback_path": "Running Flutter Web or desktop Linux/Windows targets if Android emulator cannot be launched"
+  },
+  "riskiest_component": {
+    "name": "Jank and Stuttering Frame Drops During Complex List Scrolling",
+    "mitigation": "Utilize ListView.builder with automaticKeepAlive, avoid heavy computations in build methods, and cache image decodes.",
+    "fallback": "Paginate list rendering into 20-item batches and simplify widget tree nesting depth."
+  },
+  "deliverables": [
+    "Git repository containing Flutter mobile codebase, BLoC components, and SQLite repositories",
+    "Fastlane configuration scripts automating build flavor management and release compilation",
+    "Automated Flutter driver integration test suite verifying offline queuing and synchronization",
+    "Screener verification script validating offline state transitions and test suite execution in under 2 minutes"
+  ],
+  "out_of_scope": [
+    "Commercial Apple App Store and Google Play Store live developer account publishing",
+    "Direct in-app purchase payment processing integration with real credit cards",
+    "Custom Bluetooth hardware peripheral device firmware flashing"
+  ],
+  "safety_note": null,
+  "resources": [
+    "Flutter Architecture Documentation: BLoC State Management Pattern",
+    "Fastlane for Flutter Automation Manual: Code Signing and Build Automation",
+    "sqflite Local Database Integration and Migration Guide for Flutter"
+  ],
+  "rubric": [
+    {
+      "input": "10 cold start application launches measured via Flutter driver",
+      "action": "flutter drive --driver=test_driver/perf_driver.dart --target=integration_test/cold_start_test.dart",
+      "expected_result": "Application renders initial interactive screen with average cold start latency < 1,800 milliseconds",
+      "evidence_location": "Terminal execution output log and build/cold_start_summary.json",
+      "pass_criterion": "Average cold start is < 1,800ms with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "1,000-item list scrolling performance benchmark in Flutter profile mode",
+      "action": "flutter drive --driver=test_driver/perf_driver.dart --target=integration_test/scrolling_test.dart --profile",
+      "expected_result": "Flutter timeline summary records steady 60fps rendering with < 4 dropped frames across test",
+      "evidence_location": "Flutter timeline performance summary JSON",
+      "pass_criterion": "Dropped frame count is < 4 and exit code is 0",
+      "kind": "normal"
+    },
+    {
+      "input": "50 queued local offline mutations reconciled upon network reconnection",
+      "action": "dart test test/sync_reconciliation_test.dart",
+      "expected_result": "Sync service flushes all 50 mutations to backend with average reconciliation time < 650 milliseconds",
+      "evidence_location": "Sync reconciliation timing report in build/sync_report.json",
+      "pass_criterion": "Average sync time < 650ms and 50 of 50 records confirmed with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Fastlane release build execution in CI environment",
+      "action": "bundle exec fastlane build_release_apk",
+      "expected_result": "Fastlane executes flutter analyze, runs test suite, and outputs release APK artifact",
+      "evidence_location": "Fastlane build execution log and build/app/outputs/flutter-apk/app-release.apk",
+      "pass_criterion": "Build succeeds with exit code 0 and release APK file exists",
+      "kind": "normal"
+    },
+    {
+      "input": "Dynamic offline item creation followed by network reconnection trigger",
+      "action": "dart test test/dynamic_offline_test.dart --item-title 'Inspection Asset 4099'",
+      "expected_result": "BLoC creates item locally in SQLite while offline, emits optimistic UI state, and syncs upon reconnect",
+      "evidence_location": "Dynamic verification console execution output log",
+      "pass_criterion": "Backend receives Inspection Asset 4099 and local database marks sync_status=1 with exit code 0",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected cross-platform Flutter application using BLoC state management and SQLite offline sync; maintained sub-[COLD_START_TIME] millisecond cold start launch duration, and achieved sub-[SYNC_LATENCY] millisecond offline reconciliation across [RECORD_COUNT] queued mutations.",
+    "claims": [
+      {
+        "text": "maintained sub-[COLD_START_TIME] millisecond cold start launch duration",
+        "rubric_indexes": [
+          0
+        ]
+      },
+      {
+        "text": "achieved sub-[SYNC_LATENCY] millisecond offline reconciliation across [RECORD_COUNT] queued mutations",
+        "rubric_indexes": [
+          2
+        ]
+      }
+    ],
+    "do_not_claim": "live app store production publisher account management or direct Bluetooth peripheral firmware flashing"
+  },
+  "verify": [
+    "Run `flutter test` to verify BLoC state transitions, offline repositories, and widget tests pass.",
+    "Execute `flutter drive --target=integration_test/scrolling_test.dart --profile` to verify 60fps rendering.",
+    "Run `dart test test/dynamic_offline_test.dart` to assert dynamic offline queuing and automatic synchronization."
+  ],
+  "worksheet": {
+    "q1": "Core deliverable: a cross-platform mobile app in Flutter/Dart with BLoC state management, offline SQLite syncing, and Fastlane CI/CD automation.",
+    "q2": "Target users: mobile application engineers, cross-platform developers, and enterprise field tool architects.",
+    "q3": "3 use cases: field technician offline asset inspections, delivery driver route tracking, and personal healthcare diaries.",
+    "q4": "Stated hours: 28 hours. Calculated bottom-up: 24 component hours * 1.15 buffer = 27.6 -> 28 hours. Intermediate level.",
+    "q5": "Hard parts: BLoC event-driven state decoupling, offline SQLite mutation queues with idempotent syncing, 60fps rendering optimization, and Fastlane build pipelines.",
+    "q6": "Starter input: Flutter scaffolding, mock REST backend, Fastlane configs, and BLoC templates. Synthetic mock data only.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU only, $0 cost, zero cloud accounts. Fallback: Flutter Web or desktop Linux/Windows targets.",
+    "q8": "Riskiest component: frame drops during complex list scrolling. Fallback: ListView.builder with automaticKeepAlive and pagination.",
+    "q9": "Potential faking: mock sync flags without real SQLite. Anti-fake check 5 injects offline state, verifies SQLite record, restores network, asserts server reception.",
+    "q10": "Safety/ethics: Safe; simulated equipment inspections and synthetic data only, zero private user records."
+  }
+}

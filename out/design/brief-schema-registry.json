@@ -1,0 +1,345 @@
+{
+  "id": "brief-schema-registry",
+  "title": "Event Schema Registry & Contract Testing Platform with Python, Kafka, Apache Avro & FastAPI",
+  "domain": "Data Engineering",
+  "difficulty": "INTERMEDIATE",
+  "project_types": [
+    "Platform/infra tool",
+    "Data pipeline"
+  ],
+  "problem": "Microservice topologies publishing and consuming high-velocity streaming events over Apache Kafka experience catastrophic silent pipeline failures, downstream consumer crashes, and data lake corruption when producer services deploy schema modifications without coordinating changes. Lack of centralized schema governance results in breaking field deletions, incompatible data type mutations, and untraceable payload drift across polyglot service teams. This project builds a production-grade centralized schema registry and event contract testing platform in Python. The system registers and versions Apache Avro schemas, enforces strict compatibility validation rules (BACKWARD, FORWARD, FULL, NONE), assigns global monotonically increasing schema IDs, persists schema definitions in PostgreSQL, provides a high-throughput REST API in FastAPI, and supplies serializer/deserializer interceptors for Kafka producers and consumers.",
+  "use_cases": [
+    {
+      "title": "Financial Transaction Payment Event Governance",
+      "first_sentence": "Core banking microservices streaming debit card authorization events must ensure downstream fraud detection engines never receive malformed payloads.",
+      "second_sentence": "The schema registry intercepts outgoing payment messages, validating Avro schemas against registered contract versions before publishing to production Kafka topics."
+    },
+    {
+      "title": "Continuous Delivery Pipeline Contract Compatibility Gate",
+      "first_sentence": "Platform CI/CD pipelines need automated contract verification to block deployments of producer microservices that introduce breaking schema modifications.",
+      "second_sentence": "The registry CLI runs pre-deployment compatibility checks against existing consumer versions, failing CI jobs with detailed diffs when non-backward-compatible changes are detected."
+    },
+    {
+      "title": "Enterprise Data Lake Analytics Ingestion Parity",
+      "first_sentence": "Data engineering teams consuming Kafka topics into analytical warehouses require consistent schema history to maintain partition evolution without table re-writes.",
+      "second_sentence": "The registry assigns unique 4-byte schema IDs embedded in message wire framing, allowing warehouse loaders to parse diverse event versions deterministically."
+    }
+  ],
+  "hard_parts": [
+    "Implementing comprehensive Apache Avro schema compatibility validation algorithms (BACKWARD, FORWARD, FULL, and transitive variants) according to the Avro specification",
+    "Designing confluent-wire-format binary serializers and deserializers that encode a magic byte and 4-byte global schema ID prefix with sub-millisecond serialization overhead",
+    "Managing concurrent schema registration race conditions in PostgreSQL to guarantee unique version numbers and avoid duplicate schema fingerprint allocations",
+    "Building an automated contract testing suite in Python that simulates evolving producer/consumer deployments across 10 distinct schema lifecycle iterations"
+  ],
+  "screener_signals": [
+    "Clean Python codebase cleanly separating Avro compatibility algorithms, REST API routers, PostgreSQL storage repositories, and Kafka serializer interceptors",
+    "High-throughput benchmark report proving sub-10ms schema validation and registration latency under 500 concurrent registration requests per second",
+    "Anti-fake verification script attempting to register an incompatible breaking schema (removing a required field without default value) under BACKWARD mode and asserting HTTP 409 Conflict with detailed field diff"
+  ],
+  "job_families": [
+    "Data Platform Engineer",
+    "Distributed Systems Developer",
+    "Enterprise Infrastructure Architect"
+  ],
+  "stack": [
+    {
+      "tool": "Python",
+      "role": "primary language implementing compatibility algorithms, serializer interceptors, and REST services"
+    },
+    {
+      "tool": "Kafka",
+      "role": "distributed streaming broker transporting binary Avro events encoded with schema registry wire framing"
+    },
+    {
+      "tool": "Avro",
+      "role": "data serialization system defining compact binary event schemas, record structures, and data types"
+    },
+    {
+      "tool": "FastAPI",
+      "role": "asynchronous web framework serving schema registration, lookup, and compatibility verification endpoints"
+    },
+    {
+      "tool": "PostgreSQL",
+      "role": "relational database storing immutable schema definitions, versions, subject mappings, and global IDs"
+    },
+    {
+      "tool": "Docker",
+      "role": "container runtime orchestrating local single-node Kafka, Zookeeper/KRaft, and PostgreSQL instances"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "Avro Schema Compatibility & Diff Validator Engine",
+        "tools_used": [
+          "Python",
+          "Avro"
+        ],
+        "purpose": "Evaluates candidate schemas against existing versions enforcing BACKWARD, FORWARD, and FULL rules"
+      },
+      {
+        "name": "FastAPI Schema Management & Versioning REST API",
+        "tools_used": [
+          "Python",
+          "FastAPI"
+        ],
+        "purpose": "Exposes endpoints to register subjects, fetch schema versions by ID, configure compatibility modes, and test diffs"
+      },
+      {
+        "name": "PostgreSQL Authoritative Schema & Subject Repository",
+        "tools_used": [
+          "Python",
+          "PostgreSQL"
+        ],
+        "purpose": "Stores immutable canonical schema JSONs, calculates SHA-256 fingerprints, and assigns global sequential IDs"
+      },
+      {
+        "name": "Kafka Avro Producer & Consumer Wire Serializer Interceptor",
+        "tools_used": [
+          "Python",
+          "Kafka",
+          "Avro"
+        ],
+        "purpose": "Prepends 5-byte Confluent wire framing (magic byte + 4-byte ID) and serializes/deserializes binary payloads"
+      },
+      {
+        "name": "Schema Registry Throughput & Compatibility Benchmark Harness",
+        "tools_used": [
+          "Python",
+          "Docker"
+        ],
+        "purpose": "Profiles schema validation throughput, serialization latency, and database query performance under concurrent load"
+      },
+      {
+        "name": "Event Governance Architecture Guide & Schema Evolution Manual",
+        "tools_used": [
+          "Python",
+          "Avro"
+        ],
+        "purpose": "Documents Avro evolution best practices, default value rules, and CI/CD contract testing workflows"
+      }
+    ],
+    "data_flow": "A producer prepares to emit a Kafka event; the serializer checks its local schema cache; if missing, it calls FastAPI `POST /subjects/{subject}/versions` with the Avro schema; the registry queries PostgreSQL for the latest version; the compatibility engine validates that the candidate complies with the subject's mode (e.g. BACKWARD); if valid, it assigns a global schema ID (or returns the existing ID) and persists to PostgreSQL; the producer encodes the magic byte and 4-byte schema ID followed by the Avro binary payload and sends to Kafka; consumer interceptors read the 4-byte ID from the header, fetch the schema from the registry, and deserialize the payload safely.",
+    "enforcement_mechanism": "Transactional unique constraints on (subject, version) and schema fingerprint hashes in PostgreSQL preventing duplicate registrations."
+  },
+  "targets": [
+    {
+      "metric": "Schema Registration & Compatibility Validation Latency",
+      "method": "Wall-clock timing to receive schema JSON, execute full Avro compatibility check against historical versions, and commit to PostgreSQL",
+      "input": "1,000 sequential schema registration requests issued against subjects containing 10 historical versions",
+      "environment": "Standard 4-core local CPU, PostgreSQL 15+ in Docker, Python 3.11 with asyncpg",
+      "minimum_pass": "p95 registration and validation latency is < 25.0 milliseconds",
+      "target": "p95 registration and validation latency is < 9.5 milliseconds",
+      "report": "Schema registry registration latency benchmark report and database write timing"
+    },
+    {
+      "metric": "Kafka Avro Wire Serialization & Deserialization Overhead",
+      "method": "Average duration added to Kafka message publishing and consumption pipelines by schema lookup and Avro binary encoding",
+      "input": "50,000 synthetic transaction events serialized and deserialized using cached schema IDs",
+      "environment": "Local Python Kafka producer/consumer client with in-memory schema LRU cache",
+      "minimum_pass": "p95 serialization and deserialization overhead is < 2.0 milliseconds per event",
+      "target": "p95 serialization and deserialization overhead is < 0.65 milliseconds per event",
+      "report": "Wire serializer profiling benchmark log and event throughput distribution"
+    },
+    {
+      "metric": "Incompatible Breaking Schema Rejection Parity Rate",
+      "method": "Percentage of intentionally incompatible schema evolution mutations correctly detected and rejected with HTTP 409 Conflict",
+      "input": "50 breaking schema mutations (deleting required fields, altering primitive types, reordering union records without defaults)",
+      "environment": "Automated contract testing harness running compatibility validation suite",
+      "minimum_pass": "50 of 50 breaking schema mutations rejected with detailed field conflict reasons",
+      "target": "50 of 50 breaking schema mutations rejected with detailed field conflict reasons",
+      "report": "Schema compatibility test audit log and rejection verification report"
+    }
+  ],
+  "skills": [
+    "Python",
+    "Kafka",
+    "Avro",
+    "FastAPI",
+    "PostgreSQL",
+    "Docker",
+    "Data Engineering",
+    "Event-Driven Architecture"
+  ],
+  "starter_input": {
+    "spec": "Directory containing FastAPI schema registry service, Avro compatibility validator, Kafka serializer interceptor, and contract tests.",
+    "size": "8 Python source modules, PostgreSQL SQL DDL schema, Docker Compose manifest, and 50 sample Avro schema definitions",
+    "seeded_cases": "Missing field default values, incompatible union type expansions, concurrent duplicate registrations, and malformed wire format headers",
+    "label_source": "Deterministic Apache Avro specification test suites and PostgreSQL relational schema constraint assertions",
+    "personal_data_policy": "Strictly mock synthetic financial event schemas and simulated customer account attributes; no real personal data used"
+  },
+  "components": [
+    {
+      "name": "Avro Schema Compatibility & Diff Validator Engine",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "FastAPI Schema Management & Versioning REST API",
+      "task_type": "API endpoint group with tests",
+      "hours": 5.0
+    },
+    {
+      "name": "PostgreSQL Authoritative Schema & Subject Repository",
+      "task_type": "infra component (broker, DB, orchestrator, cluster service)",
+      "hours": 5.0
+    },
+    {
+      "name": "Kafka Avro Producer & Consumer Wire Serializer Interceptor",
+      "task_type": "concurrency/consistency mechanism with tests",
+      "hours": 5.0
+    },
+    {
+      "name": "Schema Registry Throughput & Compatibility Benchmark Harness",
+      "task_type": "load or performance test harness + report",
+      "hours": 2.0
+    },
+    {
+      "name": "Event Governance Architecture Guide & Schema Evolution Manual",
+      "task_type": "docs + architecture diagram",
+      "hours": 1.0
+    }
+  ],
+  "extended_path": {
+    "features": [
+      "Protobuf and JSON Schema multi-format serializer support extending wire protocol beyond Apache Avro",
+      "GitOps webhook integration executing automated pull request schema contract validation directly in GitHub Actions",
+      "Data lineage graph generator mapping producer and consumer dependencies across registered subject topics"
+    ],
+    "hours": 14
+  },
+  "milestones": [
+    {
+      "name": "Avro Compatibility Engine & PostgreSQL Storage in Python, Avro and PostgreSQL",
+      "hours": 7,
+      "done_criterion": "Compatibility validator enforces BACKWARD/FORWARD rules; PostgreSQL persists schema versions and IDs."
+    },
+    {
+      "name": "FastAPI REST API & Subject Management in FastAPI and Data Engineering",
+      "hours": 7,
+      "done_criterion": "FastAPI endpoints serve schema lookups and registrations with p95 latency < 25ms."
+    },
+    {
+      "name": "Kafka Wire Serializer & Deserializer Interceptors in Kafka and Docker",
+      "hours": 7,
+      "done_criterion": "Producer/consumer interceptors encode 5-byte wire format; overhead remains < 2.0ms per event."
+    },
+    {
+      "name": "Breaking Schema Rejection Anti-Fake Test & Docs in Event-Driven Architecture",
+      "hours": 7,
+      "done_criterion": "Anti-fake test confirms breaking schema is rejected with 409; documentation and diagrams complete."
+    }
+  ],
+  "prerequisites": [
+    "Proficiency in Python backend development, asynchronous programming (FastAPI), and SQL database interactions",
+    "Understanding of event-driven architectures, Apache Kafka messaging patterns, and serialization formats (Apache Avro)"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (purely CPU, network, and storage I/O bound data platform software)",
+    "cost": "$0 (fully open-source stack using local Python and Docker Desktop for Kafka and PostgreSQL)",
+    "accounts_keys_quotas": "No external cloud accounts, paid services, or commercial Confluent licenses required",
+    "reference_environment": "Local 4-core CPU with Docker Desktop (Kafka and PostgreSQL containers) and Python 3.11+",
+    "fallback_path": "Local SQLite database and in-memory mock Kafka event bus if Docker containers are unavailable"
+  },
+  "riskiest_component": {
+    "name": "Incomplete Avro Specification Support and False-Positive Incompatibility Rejections",
+    "mitigation": "Test against the official Apache Avro specification compliance suite and implement configurable compatibility modes.",
+    "fallback": "Manual compatibility override endpoint allowing authorized platform administrators to force-register emergency schemas."
+  },
+  "deliverables": [
+    "Git repository containing FastAPI schema registry, Avro validator, Kafka serializer library, and CLI contract test tool",
+    "Docker Compose file launching local Kafka, Zookeeper/KRaft, and PostgreSQL instances",
+    "Automated benchmark harness verifying registration throughput, wire serialization latency, and compatibility parity",
+    "Screener verification script executing automated compatibility test and dynamic breaking change rejection in under 2 minutes"
+  ],
+  "out_of_scope": [
+    "Commercial Confluent Schema Registry proprietary enterprise security plugins (RBAC / audit logs)",
+    "Multi-datacenter active-active Kafka cluster schema replication across cloud regions",
+    "Real-time event streaming transformation engines (Kafka Streams / Apache Flink)"
+  ],
+  "safety_note": null,
+  "resources": [
+    "Apache Avro Specification (Official Apache Avro Document)",
+    "Confluent Schema Registry Wire Format and Evolution Rules",
+    "Designing Data-Intensive Applications: Chapter on Formats and Schemas (Martin Kleppmann)"
+  ],
+  "rubric": [
+    {
+      "input": "1,000 sequential schema registration requests across 10 subject versions",
+      "action": "python ./benchmarks/bench_registry.py --requests 1000 --concurrency 10",
+      "expected_result": "Registry validates and commits schemas with p95 latency < 25.0ms and 0 HTTP errors",
+      "evidence_location": "Terminal output log and reports/registry_latency.json",
+      "pass_criterion": "p95 latency < 25.0ms with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "50,000 synthetic transaction events serialized and deserialized with cached schema IDs",
+      "action": "python ./benchmarks/bench_wire_serializer.py --events 50000",
+      "expected_result": "Serializer encodes and decodes wire payloads with average overhead < 2.0ms per event",
+      "evidence_location": "Wire serializer benchmark report in reports/serializer_perf.json",
+      "pass_criterion": "Average overhead < 2.0ms with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "50 breaking schema evolution mutations evaluated under BACKWARD mode",
+      "action": "python ./tests/test_compatibility_matrix.py --mode BACKWARD",
+      "expected_result": "Validator rejects all 50 breaking schemas and outputs specific conflicting field names",
+      "evidence_location": "Compatibility audit log in reports/compatibility_audit.json",
+      "pass_criterion": "50 of 50 breaking schemas rejected with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "CLI contract validation command executed against valid backward-compatible schema update",
+      "action": "python ./cli/schema_ctl.py validate --subject payment-events --schema ./schemas/payment_v2.avsc",
+      "expected_result": "CLI outputs 'COMPATIBLE: Schema satisfies BACKWARD compatibility' with exit code 0",
+      "evidence_location": "CLI stdout terminal output",
+      "pass_criterion": "Output displays COMPATIBLE status with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Candidate schema removing required field 'account_id' without default value under BACKWARD mode",
+      "action": "python ./scripts/verify_breaking_rejection.py --subject user-events --schema-diff remove_account_id",
+      "expected_result": "API responds with HTTP 409 Conflict, stating 'Field account_id was removed without default value'",
+      "evidence_location": "Dynamic verification console execution output log",
+      "pass_criterion": "Console confirms HTTP 409 and specific field diff error with exit code 0",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected event schema registry in Python using FastAPI, Apache Avro, and Kafka; delivered sub-[REGISTRATION_LATENCY] millisecond schema validation latency, and eliminated breaking downstream events across [TEST_MUTATIONS] contract compatibility mutations.",
+    "claims": [
+      {
+        "text": "delivered sub-[REGISTRATION_LATENCY] millisecond schema validation latency",
+        "rubric_indexes": [
+          0
+        ]
+      },
+      {
+        "text": "eliminated breaking downstream events across [TEST_MUTATIONS] contract compatibility mutations",
+        "rubric_indexes": [
+          2
+        ]
+      }
+    ],
+    "do_not_claim": "commercial Confluent enterprise cloud deployment or multi-datacenter active-active cluster replication"
+  },
+  "verify": [
+    "Run `pytest tests/` to confirm Avro compatibility rules, REST API routers, and wire serializers pass.",
+    "Execute `python ./benchmarks/bench_registry.py` to verify p95 latency remains < 25ms under load.",
+    "Run `python ./scripts/verify_breaking_rejection.py` to assert breaking schemas are rejected with HTTP 409."
+  ],
+  "worksheet": {
+    "q1": "Core deliverable: a centralized event schema registry and contract testing platform in Python with Apache Avro, Kafka, and FastAPI.",
+    "q2": "Target users: data platform engineers, distributed systems software developers, and enterprise infrastructure architects.",
+    "q3": "3 use cases: financial transaction payment event governance, CI/CD pipeline contract gate, and data lake ingestion parity.",
+    "q4": "Stated hours: 28 hours. Calculated bottom-up: 24 component hours * 1.15 buffer = 27.6 -> 28 hours. Intermediate level.",
+    "q5": "Hard parts: Avro compatibility evaluation algorithms, Confluent 5-byte wire framing, PostgreSQL concurrent version locking, and contract tests.",
+    "q6": "Starter input: FastAPI schema registry code, Avro validator, Kafka serializer interceptor, and sample schemas. Synthetic schema data only.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU bound, $0 cost using Docker Kafka and PostgreSQL.",
+    "q8": "Riskiest component: incomplete Avro spec support causing false rejections. Fallback: official Apache Avro test suites and manual override endpoints.",
+    "q9": "Potential faking: accepting all schemas without actual compatibility validation. Anti-fake check 5 submits a breaking schema removing a required field and asserts HTTP 409.",
+    "q10": "Safe; synthetic financial event schemas and simulated customer attributes only, zero personal data."
+  }
+}

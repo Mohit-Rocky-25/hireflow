@@ -3,123 +3,153 @@ PROJECT BRIEF — Bayesian A/B Experimentation Engine
 
 Domain    : ML Engineering
 Difficulty: INTERMEDIATE
-Est. Time : 32 hours (Core Path) | Extended Path: +6 hours
-Tech Stack: Python [statistical computation and API runtime], NumPy [vectorized array math], SciPy [numerical quadrature and statistical distributions], FastAPI [REST service framework], PostgreSQL [append-only event store and experiment metadata], Docker [containerized local environment]
+Est. Time : 29 hours (core path, estimate). Extended path: +12 hours
+Tech Stack: Python (core mathematical computing and API implementation), NumPy (vectorized array calculations and random sampling), SciPy (beta distributions, quadrature integration, and incomplete beta functions), FastAPI (HTTP API for experiment lifecycle and telemetry), SQLite (ACID persistence for experiment metadata and aggregate counts), Docker (containerized local execution and reproducible testing)
 
 PROBLEM STATEMENT
-----------------------------------------
-Fixed-horizon frequentist A/B testing requires accumulating a predetermined sample size before evaluating outcomes, prolonging exposure to suboptimal variants and encouraging premature stopping errors (peeking). When engineering teams inspect p-values continuously without formal alpha-spending adjustments, false positive discovery rates escalate significantly. A Bayesian experimentation engine addresses this by maintaining continuous posterior probability distributions over conversion rates, calculating the exact probability that a candidate variant outperforms the baseline and quantifying the expected metric loss of selecting that variant, enabling automated early stopping decisions while mathematically bounding decision risk.
+----------------------------------------------------------------------
+Fixed-horizon frequentist experiment evaluation forces product teams to wait for arbitrary precalculated sample thresholds before taking business actions, prolonging exposure to inferior variants and encouraging ad-hoc peeking that inflates false discovery rates. Continuous inspection under frequentist methods invalidates standard p-values unless complex alpha-spending functions are maintained. A Bayesian sequential experimentation engine continuously models parameter posteriors, computing the exact probability of variant superiority and quantifying bounded expected loss to automate candidate variant promotion or termination while strictly controlling decision risk.
 
 USE CASES IN THE REAL WORLD
-----------------------------------------
-Digital platforms utilize sequential experimentation engines to evaluate user interface variants, checkout funnels, and algorithmic ranking models. Neutral architectural reference points include open-source and commercial experimentation platforms such as Optimizely, Statsig, and GrowthBook.
+----------------------------------------------------------------------
+- Continuous feature-flag variant evaluation for web and mobile customer checkout workflows
+- Pricing tier optimization with automated risk-bounded stopping thresholds
+- Recommendation model candidate comparison without fixed sample horizon delays
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Preventing False Positive Inflation Under Continuous Inspection: While Bayesian updating is logically coherent under sequential data arrivals, naive early stopping upon reaching uncalibrated tail probabilities (P(B > A) > 0.95) during low-sample cold starts (N < 200) causes severe discovery bias due to early random walk fluctuations. The engine must enforce minimum statistical sample boundaries (N_min) and evaluate Expected Loss thresholds (loss < ε) rather than relying purely on posterior tail probabilities. Furthermore, computing continuous updates across concurrent event streams requires vectorized closed-form conjugate updating rather than expensive Monte Carlo sampling.
+WHY THIS IS HARD
+----------------------------------------------------------------------
+- Preventing discovery bias during small-sample cold starts where high variance can trigger premature stopping without minimum sample guards
+- Computing two-dimensional numerical quadrature for expected loss integrals within sub-20ms HTTP API response constraints
+- Handling concurrent atomic increment transactions on experiment arms under SQLite without database lock contention
+- Calibrating sequential stopping boundaries via Monte Carlo simulations to maintain Type I error rates under null conditions
 
 RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Demonstrates capability in applied probability, numerical computing, and concurrent backend architecture. Proves the engineer can translate mathematical statistics into a tested production service rather than relying on black-box modeling libraries. Directly maps to roles in Growth Engineering, Machine Learning Engineering, and Data Platform Infrastructure.
+----------------------------------------------------------------------
+- Deterministic pytest test suite comparing closed-form posterior probabilities against SciPy numerical quadrature
+- Automated Monte Carlo simulation script reproducing bounded false positive rates across 500 null experiment runs
+- Standalone reproducible FastAPI service with SQLite transactional persistence and benchmark reports
+Relevant Job Families: Machine Learning Engineer, Data Platform Engineer, Growth Infrastructure Engineer
 
 ARCHITECTURE & DATA FLOW
-----------------------------------------
-1. Ingestion: Client conversion events arrive via FastAPI POST endpoints and append to a write-optimized PostgreSQL log with atomic sequence counters.
-2. Inference Engine: An analytical statistical worker evaluates Beta-Binomial conjugate posteriors Beta(α0 + k, β0 + n - k) using exact numerical quadrature via SciPy for 2-arm variants.
-3. Decision Logic: For active experiments where sample size exceeds N_min, the engine evaluates Expected Loss: L(B) = ∫ max(θA - θB, 0) p(θA, θB) dθ. If P(B > A) > threshold and Expected Loss < ε, state transitions automatically to STOPPED_WINNER; if Expected Loss for both arms is < ε, state transitions to STOPPED_INCONCLUSIVE.
-4. Reporting: REST endpoints expose experiment states, credible intervals (95% HDI), posterior densities, and decision histories.
+----------------------------------------------------------------------
+Components:
+- Posterior Evaluation Engine (Tools: Python, NumPy, SciPy): Calculates Beta-Binomial conjugate posteriors, analytical probability of superiority, and expected loss quadrature integrals
+- Experiment State Store (Tools: SQLite): Maintains persistent experiment configuration, arm assignments, and atomic exposure/conversion aggregates
+- Ingestion & Decision Gateway (Tools: Python, FastAPI): Exposes HTTP endpoints for event ingestion, dynamic arm allocation, and sequential decision evaluation
+- Containerized Runtime (Tools: Docker): Packages reproducible multi-platform environment with pinned mathematical dependencies
+
+Data Flow:
+Client telemetry emits exposure and conversion events to FastAPI; API writes atomic increment transactions to SQLite; Decision Gateway triggers Posterior Evaluation Engine; SciPy computes Beta conjugate updates and Expected Loss; engine returns continue, promote, or terminate status based on calibrated decision thresholds.
+
+Enforcement Mechanism:
+Automated status transitions to STOPPED_WINNER or STOPPED_INCONCLUSIVE when sample size exceeds minimum threshold and expected loss drops below target epsilon.
 
 SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Target 1:
-- Metric: Ingestion API Latency (p99)
-- Method: Concurrent HTTP load test using Locust / k6 over 60 seconds
-- Input/dataset: Synthetic conversion event payload (JSON, ~250 bytes)
-- Reference environment: Local Docker, 4-core CPU, 8GB RAM, PostgreSQL 15
-- Minimum pass: p99 latency < 50ms at 500 requests/sec with 0% dropped events
-- Target: p99 latency < 20ms at 2,000 requests/sec with 0% dropped events
-- Report format: Locust CSV export and terminal summary log
-
-Target 2:
-- Metric: Posterior Inference Computation Throughput
-- Method: Direct Python execution benchmark evaluating 2-arm conjugate updates and Expected Loss integrals
-- Input/dataset: Vectorized batch of 1,000 simulated experiment states (α, β pairs)
-- Reference environment: Python 3.11+ on standard x86_64 / ARM64 laptop CPU
-- Minimum pass: > 500 evaluations/sec (wall-clock time < 2.0s per batch)
-- Target: > 2,000 evaluations/sec (wall-clock time < 0.5s per batch)
-- Report format: pytest-benchmark JSON output table
-
-Target 3:
-- Metric: Sample Size Duration Reduction vs. Fixed-Horizon Baseline
-- Method: Monte Carlo simulation harness executing 500 simulated A/B trials comparing Bayesian early stopping against fixed-horizon sample size
-- Input/dataset: Synthetic event generator with ground-truth conversion rates (pA = 0.05, pB = 0.07)
-- Reference environment: Local runner, single process, fixed random seed (42)
-- Minimum pass: Median sample reduction ≥ [X%] with empirical false positive rate ≤ [Y%] under null (A = B)
-- Target: Median sample reduction ≥ [X%] (target ≥ 20%) with empirical false positive rate ≤ 5.0% under null
-- Report format: Markdown summary table with histogram of sample sizes at stopping
+----------------------------------------------------------------------
+Metric | Method | Input/Dataset | Reference Environment | Minimum Pass | Target | Report Format
+Expected Loss Quadrature Numerical Precision | Vectorized 2D numerical quadrature comparison against closed-form incomplete beta function | 15 deterministic synthetic test parameter pairs covering extreme and balanced beta distributions | Standard 4-core local CPU, Python 3.11+ | Absolute error < 1e-4 across 15 of 15 test parameter pairs | Absolute error < 1e-5 across 15 of 15 test parameter pairs | Pytest numerical tolerance test log file with residual errors
+Empirical Type I Error under Null Distribution | Monte Carlo sequential experiment simulation over identical arms with conversion rate 0.05 | 500 simulated experiment trajectories with minimum sample threshold of 200 observations per arm | Standard 4-core local CPU, Python 3.11+ | Empirical false stopping rate <= 5.0% across 500 simulated null trials | Empirical false stopping rate <= 4.2% across 500 simulated null trials | CSV simulation summary table and empirical cumulative distribution plot
+Decision Endpoint Latency (p95) | Locust load benchmark simulating concurrent decision requests against running FastAPI service | 1,000 synthetic HTTP GET requests across 50 concurrent active experiment states | Standard 4-core local CPU, SQLite WAL mode, local loopback | p95 latency < 35ms under 100 requests per second | p95 latency < 18ms under 100 requests per second | Locust HTML execution summary report and CSV percentile export
 
 SKILLS COVERED
-----------------------------------------
-Python, Applied Probability, Numerical Integration, FastAPI, PostgreSQL, Test-Driven Development, Docker
+----------------------------------------------------------------------
+Python, NumPy, SciPy, FastAPI, SQLite, Docker, Statistics, Bayesian Methods
 
 TARGET APPLICATION / STARTER INPUT
-----------------------------------------
-The project includes a self-contained synthetic traffic generator (`scripts/generate_traffic.py`) producing simulated conversion events with configurable ground-truth parameters (baseline conversion rate pA, lift Δ, arrival rate λ). The seed dataset contains 50,000 synthetic conversion events partitioned across 10 independent experiments. No third-party API accounts or real user personal data are used; all identifiers are synthetic UUIDs.
+----------------------------------------------------------------------
+- Specification: Deterministic synthetic traffic generator creating exposure events and binary conversion events with configurable ground-truth arm probabilities.
+- Dataset / Traffic Size: 10,000 synthetic event records across 4 test experiments with seeded conversion rates
+- Seeded Edge Cases: Extreme low-conversion rate (0.001 vs 0.002), high-traffic parity null (0.05 vs 0.05), and early high-variance noise bursts
+- Label / Verification Source: Deterministic pseudorandom generator with fixed random seed 42
+- Personal Data Policy: Strictly synthetic user identifiers (random UUIDs); no personal or real user tracking data used
 
 MILESTONES
-----------------------------------------
-- Milestone 1: Environment & Mathematical Core (8h)
-  Setup repository, Docker Compose for PostgreSQL, and implement Beta-Binomial conjugate updating with exact Expected Loss calculation in SciPy. Done when unit test suite validates analytical integrals against numerical quadrature within ±1e-4 tolerance.
-- Milestone 2: Persistence & Ingestion API (8h)
-  Implement PostgreSQL schemas, migration scripts, and FastAPI ingestion endpoints with atomic counter updates. Done when automated integration test ingests 1,000 concurrent events with zero lost updates.
-- Milestone 3: Decision Logic & Simulation Harness (8h)
-  Build state machine handling automated stopping rules (N_min boundary, Expected Loss threshold) and create the comparative simulation harness running 500 trials against fixed-horizon testing. Done when simulation outputs verified sample size reduction and false positive metrics.
-- Milestone 4: Verification, Benchmarking & Documentation (8h)
-  Execute load tests, generate benchmark reports, create architecture diagrams, and compile screener verification artifacts. Done when all test suites pass and README provides single-command reproduction.
+----------------------------------------------------------------------
+M1: Closed-Form Posterior & Numerical Quadrature Engine using Bayesian Methods and Statistics (7h) — Done when: Unit tests pass verifying analytical P(B > A) and numerical quadrature Expected Loss match SciPy reference values within 1e-4 tolerance across 15 test cases.
+M2: FastAPI Experiment State Service & SQLite Persistence (7h) — Done when: FastAPI service implements exposure/conversion ingestion and returns Bayesian decision states backed by SQLite transactions.
+M3: Monte Carlo Null Simulator & Stopping Boundary Harness (8h) — Done when: Monte Carlo harness simulates 500 null A/A trials and verifies empirical Type I error does not exceed 5.0%.
+M4: Performance Benchmark, Anti-Fake Test Suite, Docs & Buffer (7h) — Done when: Locust load benchmark verifies p95 latency < 35ms; anti-fake verification script confirms dynamic seed evaluation; documentation and architecture diagram complete.
+Total: 29 hours (estimate)
 
 PREREQUISITES, ENVIRONMENT AND ACCOUNTS
-----------------------------------------
-- Prerequisites: Python intermediate proficiency (classes, typing, pytest), basic probability concepts (Beta distribution, expected value, hypothesis testing).
-- Hardware / OS: Standard x86_64 or ARM64 laptop (Windows, macOS, Linux) with at least 8GB RAM.
-- Accounts & Services: None required. Fully self-contained local stack running in open-source Docker and Python 3.11+.
-- Fallback Path: If Docker is unavailable, PostgreSQL can be installed natively or SQLite with WAL mode can be used for local testing.
+----------------------------------------------------------------------
+Prerequisites: Intermediate Python programming (type annotations, pytest), Applied probability concepts (Bayesian probability, Beta distributions, Type I error), Basic relational database transactions and REST API principles
+
+Environment & Hardware:
+- OS: Linux / macOS / Windows with WSL2
+- Memory: 8GB RAM
+- Compute / GPU: None required (CPU-only mathematical computation)
+- Estimated Cost: $0 (fully open-source software stack)
+- Accounts & Quotas: No external accounts, API keys, or cloud quotas required
+- Reference Environment: Local 4-core x86_64 or ARM64 CPU with Python 3.11 and Docker installed
+- Fallback Path: Local Python virtual environment (venv) without Docker using SQLite in-memory database
+
+Riskiest Component & Fallback:
+- Riskiest Component: 2D Numerical Quadrature Latency in Expected Loss Function
+- Simpler Fallback: Pre-vectorized 1D quadrature approximation with cached lookup tables for standard alpha/beta grid increments
 
 DELIVERABLES
-----------------------------------------
-1. Git repository with clean commit history, architecture diagram (Mermaid/ASCII), and setup instructions.
-2. Core engine package with unit and integration test suite passing with 100% success.
-3. Benchmark report (`results/simulation_benchmark.md`) containing sample size distribution, empirical error rates, and throughput numbers.
-4. Screener verification script (`scripts/verify_all.sh` or `verify_all.py`) executing mathematical tests and simulation runs in < 3 minutes.
-5. Known limitations document detailing edge cases (prior sensitivity, multi-arm scaling limits).
+----------------------------------------------------------------------
+- Git repository containing mathematical library, FastAPI application, and SQLite migration scripts
+- Monte Carlo evaluation harness script and exported CSV/plot demonstrating Type I error boundaries
+- Locust benchmark script and exported latency percentiles report
+- Screener verification script running end-to-end tests and dynamic seed validation in under 3 minutes
 
 OUT OF SCOPE AND EXTENDED PATH
-----------------------------------------
-- Out of Scope for Core Path: React frontend dashboard, multi-armed bandit dynamic traffic allocation (Thompson Sampling), distributed Kafka streaming.
-- Extended Path (+6 hours): Interactive React/Tailwind web dashboard visualizing real-time posterior probability density curves and live experiment stopping indicators via WebSocket updates.
+----------------------------------------------------------------------
+Out of Scope:
+- Multi-armed contextual bandits with continuous policy training
+- Distributed multi-region PostgreSQL replication
+- Real-time Kafka streaming ingress clusters
 
-SAFETY AND ETHICS NOTE
-----------------------------------------
-All data generated, stored, and processed by this engine consists entirely of synthetic mathematical test events. No personally identifiable information (PII), browser fingerprinting, or unauthorized user tracking cookies are utilized.
+Extended Path (+12 hours):
+- Hierarchical Bayesian shrinkage priors across multi-variant product categories
+- Continuous Gaussian reward models for revenue-per-visitor metric evaluation
 
 LEARNING RESOURCES
-----------------------------------------
-- SciPy Statistical Distributions: scipy.stats.beta documentation
-- FastAPI Official Tutorial and Concurrency Guide
-- "Bayesian Methods for Hackers" (Probabilistic Programming concepts)
-- PostgreSQL Documentation: Append-Only Tables and Concurrency Control [VERIFY URL]
+----------------------------------------------------------------------
+- SciPy statistical functions documentation (scipy.stats.beta)
+- FastAPI official tutorial and concurrency documentation
+- John K. Kruschke - Doing Bayesian Data Analysis reference principles
 
 SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Mathematical Precision: Run `pytest tests/test_math.py`. Pass when all test cases match analytical Expected Loss and P(B > A) within ±1e-4 tolerance across 10 deterministic reference fixtures. Evidence in test runner console output.
-2. Ingestion Concurrency Integrity: Run `python scripts/test_concurrency.py --events 500 --workers 10`. Pass when PostgreSQL records exactly 500 distinct event records with zero duplicates or connection timeouts. Evidence in database row count log.
-3. Automated Decision Triggering: Run `python scripts/test_decision.py --variant-lift 0.04`. Pass when engine transitions status to `STOPPED_WINNER` once P(B > A) > 0.95 and Expected Loss < 0.001 after N_min is reached. Evidence in JSON event log.
-4. False Discovery Control (Anti-Fake Verification): Run `python scripts/run_null_simulation.py --trials 200 --seed 42`. Pass when empirical false positive rate under null hypothesis (pA = pB = 0.05) is observed ≤ [Y%] (target ≤ 5.0%). Evidence in generated simulation results table.
-5. Benchmark Sample Reduction: Run `python scripts/benchmark_comparison.py --seed 42`. Pass when median sample size across 100 trials shows a measured reduction of ≥ [X%] vs. fixed-sample baseline. Evidence in generated benchmark markdown summary.
+----------------------------------------------------------------------
+1. Check
+   Input: 15 deterministic (alpha, beta) parameter pairs in test fixture file
+   Action: Run pytest tests/test_math.py
+   Result: All test assertions pass with absolute difference between analytical and quadrature calculations < 1e-4
+   Evidence: Terminal test output log and tests/test_math.py
+   Pass: Exit code 0 with 15 passing mathematical assertions and zero calculation errors
+2. Check
+   Input: 100 concurrent HTTP POST events sent via asyncio test client
+   Action: Execute ingestion integration test script
+   Result: All 100 events recorded in SQLite with correct aggregate arm counts and zero transaction collisions
+   Evidence: SQLite database query output and test log
+   Pass: Database count equals 100 with zero dropped events and HTTP 200 responses
+3. Check
+   Input: Synthetic event stream with true conversion rates pA=0.05 and pB=0.07
+   Action: Run sequential experiment simulator
+   Result: Engine transitions experiment status from RUNNING to STOPPED_WINNER once expected loss drops below 0.001 after minimum sample threshold
+   Evidence: Experiment status JSON log output
+   Pass: Status correctly set to STOPPED_WINNER with winning variant identified as arm B
+4. Check
+   Input: 500 simulated A/A null experiment runs with pA=0.05, pB=0.05
+   Action: Execute python scripts/simulate_null.py
+   Result: Empirical false positive stopping rate measured across all 500 completed trajectories
+   Evidence: Output file reports/null_simulation_summary.csv
+   Pass: Reported empirical false positive rate is <= 5.0% across all 500 trials
+5. Check [anti_fake]
+   Input: Dynamic random seed passed via command-line argument to verification script
+   Action: Run python scripts/verify_reproducibility.py --seed 98765
+   Result: Script dynamically computes posteriors for freshly generated data and matches mathematical invariants without using static fixture files
+   Evidence: Verification execution console output and generated verification report
+   Pass: Script completes with exit code 0 confirming dynamic evaluation matches mathematical bounds
 
 RESUME BULLET FORMULA
-----------------------------------------
-"Architected Bayesian A/B experimentation engine in Python and FastAPI backed by PostgreSQL; implemented Beta-Binomial conjugate updating and expected loss calculations to reduce experiment duration by [X%] while bounding false discoveries below [Y%] across [N] simulated trials."
-Do not claim: duration reduction or error rate boundaries without committing benchmark run logs; do not claim production scale without running concurrent load testing.
+----------------------------------------------------------------------
+"Architected Bayesian sequential A/B experimentation engine in Python and FastAPI backed by SQLite; implemented Beta conjugate updating and numerical expected loss quadrature to bound empirical false discoveries below [TYPE_I_ERROR] across [SIMULATION_TRIALS] simulated trials with tail decision latency under [P95_LATENCY]."
+
+Do not claim: unbounded real-time throughput or production-grade distributed scalability without committed load test logs
 
 ======================================================================
 Generated by HireFlow — hireflow.io

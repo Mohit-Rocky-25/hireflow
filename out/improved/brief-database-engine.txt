@@ -1,122 +1,156 @@
-PROJECT BRIEF — Mini Relational Database Engine with B-Tree Storage
+PROJECT BRIEF — Embedded Relational Database Engine with Slotted-Page B-Tree & WAL
 ======================================================================
 
 Domain    : Computer Science Fundamentals
-Difficulty: advanced
-Est. Time : 40 hours (Core Path) | Extended Path: +6 hours
-Tech Stack: C++ [high-performance systems language], B-Tree [b-tree component], File I/O [file i/o component], WAL [wal component], SQL Parsing [sql parsing component], Buffer Pool [buffer pool component] (Requires: GCC / Clang toolchain or Rust cargo)
+Difficulty: ADVANCED
+Est. Time : 41 hours (core path, estimate). Extended path: +16 hours
+Tech Stack: C++ (systems programming language for disk manager, buffer pool, B-tree index, and WAL)
 
 PROBLEM STATEMENT
-----------------------------------------
-Every engineer uses databases but almost none understand how data is actually stored on disk. Build a minimal relational database engine that implements B-Tree page storage, SQL parsing, query planning, buffer pool management, and WAL (Write-Ahead Logging) for crash recovery.
+----------------------------------------------------------------------
+Software engineers interact with relational databases daily through high-level SQL queries, yet the underlying execution mechanisms—slotted page on-disk record serialization, buffer pool frame eviction, B-tree balance maintenance through page splits, and Write-Ahead Logging (WAL) for crash recovery—remain opaque black boxes. Building an embedded storage engine from first principles demystifies how relational data survives unexpected system crashes without page corruption. This project implements a self-contained embedded database engine in C++ featuring a slotted-page disk manager, an LRU-K buffer pool, a B-tree clustered index, a Volcano-style iterator query executor, and ARIES-style write-ahead logging.
 
 USE CASES IN THE REAL WORLD
-----------------------------------------
-Understanding database internals is essential for any engineer who works with databases at scale — query optimization, index design, transaction isolation, and locking strategies all require this knowledge. Directly applicable to roles at database companies (PlanetScale, Neon, CockroachDB) and database-heavy domains.
+----------------------------------------------------------------------
+- Embedded edge persistence for Internet of Things gateways and autonomous devices
+- High-reliability local transaction logs for financial point-of-sale terminals
+- Specialized telemetry storage engines requiring deterministic crash recovery
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Database internals represent the summit of systems programming knowledge. Engineers who can implement B-Trees, buffer pools, and WAL can debug database performance issues, design optimal schemas, and contribute to open-source database projects — capabilities that separate top 1% engineers from the rest.
+WHY THIS IS HARD
+----------------------------------------------------------------------
+- Managing slotted-page layout with variable-length tuple offsets and in-place fragment compaction
+- Implementing thread-safe B-tree node splits, merges, and root page re-allocations during concurrency
+- Synchronizing buffer pool dirty frame flushing with Write-Ahead Log sequence numbers (WAL protocol)
+- Executing ARIES crash recovery phases (Analysis, Redo, and Undo) to restore ACID consistency
 
 RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Database internals knowledge is explicitly required in Staff/Principal Engineer production systems design interviews. SQLite, LevelDB, and RocksDB contributors all started by building mini database engines. This project signals you're operating at the deepest technical level.
+----------------------------------------------------------------------
+- Modular C++ implementation cleanly separating storage, buffer pool, indexing, parser, and recovery
+- Automated crash-kill test verifying zero committed transaction loss across 10 unexpected SIGKILL terminations
+- Anti-fake verification script inserting dynamic nonces, terminating process mid-write, and asserting recovery
+Relevant Job Families: Database Internals Engineer, Systems Software Engineer, Infrastructure Storage Engineer
 
 ARCHITECTURE & DATA FLOW
-----------------------------------------
-B-Tree data structure with page-based disk storage and buffer pool manager. SQL parser and query planner for SELECT, INSERT, UPDATE, DELETE. Row-level locking with read/write lock separation. WAL journal with checkpointing for durability. REPL interface accepting SQL commands.
+----------------------------------------------------------------------
+Components:
+- Slotted Page Disk Manager (Tools: C++): Manages 4KB database page allocation on disk, tuple offset arrays, and free space compaction
+- LRU-K Buffer Pool Manager (Tools: C++): Pins frequently accessed pages in memory and evicts unpinned frames using backward k-distance
+- B-Tree Index Manager (Tools: C++): Provides logarithmic search, leaf insertion, and node splitting for indexed primary keys
+- Volcano Query Executor (Tools: C++): Executes SELECT, INSERT, and WHERE filter query plans using open-next-close iterator models
+- Write-Ahead Log & Recovery Manager (Tools: C++): Appends transaction log records before writing dirty pages and performs crash recovery
+
+Data Flow:
+SQL queries enter the Volcano Query Executor; the executor requests index scans from the B-Tree Index Manager; the B-Tree manager requests page IDs from the LRU-K Buffer Pool; the buffer pool fetches unpinned 4KB frames from the Slotted Page Disk Manager; updates append transaction records to the Write-Ahead Log before dirty pages are flushed to disk; on unexpected crash, the Recovery Manager reads WAL records sequentially to reconstruct uncommitted transactions and restore consistency.
+
+Enforcement Mechanism:
+Page latch pins preventing buffer eviction during active access; WAL sequence numbers strictly enforced prior to flushing dirty memory frames.
 
 SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Target 1:
-- Metric: Core Operation Execution Time
-- Method: Automated benchmark executing core engine operation across varying workload sizes
-- Input/dataset: Standard test project or fixture payload (~500KB)
-- Reference environment: Local development environment, 4-core CPU, 8GB RAM
-- Minimum pass: Operation execution time < [M s] (minimum < 8s)
-- Target: Operation execution time < [M s] (target < 2.5s)
-- Report format: Benchmark execution report showing duration and memory usage
-
-Target 2:
-- Metric: Test Suite Coverage & Verification Pass Rate
-- Method: Automated test runner executing comprehensive unit and integration test suites
-- Input/dataset: Full project test fixture directory
-- Reference environment: Local test environment, clean checkout
-- Minimum pass: [X of Y] unit and integration tests passing (100% pass on core test set)
-- Target: [X of Y] tests passing with strict type-checking and 0 lint warnings
-- Report format: Test runner coverage report and exit status log
-
-Target 3:
-- Metric: Client Load / Response Latency (p95)
-- Method: Concurrent API benchmark testing simulated client requests
-- Input/dataset: 1,000 simulated client requests over 10 concurrent connections
-- Reference environment: Local Docker or Node/Python process
-- Minimum pass: p95 response latency < [M ms] (pass < 100ms) with 0 dropped requests
-- Target: p95 response latency < [M ms] (target < 30ms) with 0 dropped requests
-- Report format: Benchmark latency percentile report
+----------------------------------------------------------------------
+Metric | Method | Input/Dataset | Reference Environment | Minimum Pass | Target | Report Format
+Single-Key Point Lookup Latency | Direct B-tree point lookup timing across 100,000 indexed records stored in 4KB slotted pages | 100,000 indexed integer keys stored on disk with a warm 256-frame buffer pool | Standard 4-core local CPU, C++ 17 compiled with -O3, SSD storage | Average point lookup latency is < 150 microseconds | Average point lookup latency is < 50 microseconds | Storage engine microbenchmark summary log detailing p50, p95, and p99 lookup latencies
+Sequential Table Scan Throughput | Full table scan execution timing across 50,000 multi-column records using Volcano iterator | 50,000 records totaling 20MB of slotted page data evaluated with predicate filtering | Standard 4-core local CPU, C++ 17 compiled with -O3, SSD storage | Scan throughput exceeds 25,000 records/sec | Scan throughput exceeds 60,000 records/sec | Volcano iterator scan benchmark report reporting records scanned per second
+Crash Recovery Transaction Integrity Rate | Automated kill -9 crash injection during active transaction batch followed by recovery verification | 5,000 concurrent transactions with 20 injected mid-commit process terminations | Standard 4-core local CPU, Linux filesystem with POSIX fsync | Recovery reconstructs 20 of 20 committed batches with 0 corrupted slotted pages | Recovery reconstructs 20 of 20 committed batches with 0 corrupted slotted pages | ARIES recovery validation log verifying analysis, redo, and undo log state
 
 SKILLS COVERED
-----------------------------------------
-C++, Data Structures, Algorithms, Systems Programming, Linux, File I/O
+----------------------------------------------------------------------
+C++, Systems Programming, B-Tree, Buffer Pool, SQL Parsing, WAL, Concurrency
 
 TARGET APPLICATION / STARTER INPUT
-----------------------------------------
-The project provides a self-contained test environment and fixture generator located in `scripts/` or `fixtures/`. It deterministically generates representative input records or mock client traffic for automated validation. No third-party proprietary data or real personal identifiers (PII) are required; all test datasets use synthetic tokens and deterministic random seeds.
+----------------------------------------------------------------------
+- Specification: Slotted page binary layout specification (4096-byte pages, header, slot directory, cell storage) and benchmark schema.
+- Dataset / Traffic Size: Synthetic dataset generator producing 100,000 structured relational rows with integer keys and string attributes
+- Seeded Edge Cases: Corrupted log record headers, uncommitted in-flight transactions, and page boundary boundary overflow rows
+- Label / Verification Source: Deterministic CSV fixture containing primary keys and expected point query lookup payloads
+- Personal Data Policy: Strictly mock synthetic relational schemas; no real user credentials or personal data used
 
 MILESTONES
-----------------------------------------
-- Milestone 1: Environment Setup & Core Foundations (9h)
-  Configure repository, tooling, container dependencies, and foundational data structures. Done when foundational test suite passes with clean linting.
-- Milestone 2: Core Processing & Architecture Implementation (11h)
-  Implement primary operational workflows, database models or state transitions, and API endpoints. Done when integration tests verify end-to-end data flow under normal operating conditions.
-- Milestone 3: Concurrency, Reliability & Error Guardrails (11h)
-  Implement defensive controls: rate limiting, retries with exponential backoff, transaction boundaries, and failure isolation. Done when chaos or stress tests verify graceful degradation under fault injection.
-- Milestone 4: Verification, Benchmarking & Documentation (9h)
-  Execute performance benchmark harness, compile measurement tables, generate architectural diagrams, and document screener verification steps. Done when `scripts/verify_all` passes completely.
+----------------------------------------------------------------------
+M1: Slotted-Page Disk Storage & LRU-K Buffer Pool in C++ Systems Programming (10h) — Done when: Disk manager allocates 4KB pages; buffer pool pins frames and evicts pages via LRU-K algorithm.
+M2: B-Tree Index Traversal, Insert & Leaf Splitting with Concurrency (10h) — Done when: B-tree manages internal and leaf nodes, handles page splits, and performs point lookups in O(log N).
+M3: SQL Parsing, Lexer & Volcano Query Execution Engine (11h) — Done when: Parser converts SQL strings into query trees; Volcano iterator executes scans and predicate filters.
+M4: Write-Ahead Logging, Crash Recovery Verification & Docs (10h) — Done when: WAL protocol appends log records; recovery recovers 20 of 20 crash scenarios; docs and benchmarks pass.
+Total: 41 hours (estimate)
 
 PREREQUISITES, ENVIRONMENT AND ACCOUNTS
-----------------------------------------
-- Prerequisites: Familiarity with C++ and B-Tree, standard command-line tools, and fundamental testing principles.
-- Hardware / OS: Standard modern computer (macOS, Linux, or Windows with WSL2) with at least 8GB RAM.
-- Accounts & Services: None required. Designed to run completely on free, open-source local software.
-- Fallback Path: In-memory mock drivers or SQLite/local files provided if external database or message broker containers cannot be run.
+----------------------------------------------------------------------
+Prerequisites: Proficiency in modern C++ (pointers, memory management, RAII, std::unique_ptr), Understanding of operating system paging, POSIX file I/O (open, lseek, fsync), and binary byte buffers
+
+Environment & Hardware:
+- OS: Linux / macOS / Windows with WSL2
+- Memory: 8GB RAM
+- Compute / GPU: None required (purely CPU-bound storage operations)
+- Estimated Cost: $0 (fully open-source software stack)
+- Accounts & Quotas: No external cloud accounts, paid services, or API keys required
+- Reference Environment: Local 4-core CPU with GCC 11+ or Clang 13+ installed
+- Fallback Path: Standard POSIX file operations with in-memory page simulation if direct disk fsync encounters permission limits
+
+Riskiest Component & Fallback:
+- Riskiest Component: Page Corruption During Incomplete B-Tree Node Splits
+- Simpler Fallback: Implement shadow-page copy-on-write during leaf split before atomically publishing parent pointer
 
 DELIVERABLES
-----------------------------------------
-1. Clean Git repository with structured commit history, README, and reproducible setup commands.
-2. Production-quality core codebase with automated test suite achieving verified pass rates.
-3. Performance benchmark report (`results/benchmark_report.md`) documenting measured latency, throughput, and resource utilization.
-4. Screener verification script (`scripts/verify_all.sh` or equivalent) validating the full system in < 3 minutes.
-5. Architecture diagram (Mermaid/ASCII) and known limitations document explaining architectural trade-offs.
+----------------------------------------------------------------------
+- Git repository containing C++ database engine source code, unit tests, and Makefile/CMake build system
+- Interactive CLI database shell supporting CREATE TABLE, INSERT, and SELECT queries
+- Automated crash recovery test harness executing process termination during active transactions
+- Screener verification script executing automated benchmark and recovery validation in under 2 minutes
 
 OUT OF SCOPE AND EXTENDED PATH
-----------------------------------------
-- Out of Scope for Core Path: Distributed multi-region clustering, enterprise SSO integrations, complex third-party SaaS dependencies.
-- Extended Path (+6 hours): Advanced telemetry dashboard, distributed persistence cluster extension, or automated canary release pipeline.
+----------------------------------------------------------------------
+Out of Scope:
+- Distributed consensus replication or multi-node clustering
+- Complex nested SQL joins and window function analytical expressions
+- Network wire protocol compatibility with PostgreSQL or MySQL drivers
 
-SAFETY AND ETHICS NOTE
-----------------------------------------
-All data processed, generated, and benchmarked by this project consists exclusively of synthetic fixtures. No personal identifiable information (PII), proprietary credentials, or live external endpoints are used.
+Extended Path (+16 hours):
+- Two-phase locking concurrency control with dynamic wait-for deadlock detection graphs
+- Cost-based query optimizer selecting index scan versus sequential scan based on table statistics
 
 LEARNING RESOURCES
-----------------------------------------
-- Official Documentation for C++, B-Tree, File I/O
-- Architectural Reference Patterns and RFC Standards [VERIFY URL]
-- Systems & Distributed Reliability Principles
+----------------------------------------------------------------------
+- Architecture of a Database System (Hellerstein, Stonebraker, Hamilton paper)
+- Database Internals: A Deep Dive into How Distributed Data Systems Work (Alex Petrov)
+- CMU Database Group Database Systems Course Lecture Notes and Buffer Pool Specifications
 
 SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Check 1: Verify b-Tree insertion, deletion, and range scan with correct split/merge behavior; Pass when automated test script prints 0 errors and logs verified status code.
-2. Check 2: Verify wAL crash recovery test: kill process mid-write, restart, verify data integrity; Pass when automated test script prints 0 errors and logs verified status code.
-3. Check 3: Verify buffer pool eviction test: working set exceeding memory with correct LRU eviction; Pass when automated test script prints 0 errors and logs verified status code.
-4. Check 4: Verify sQL REPL executing SELECT, INSERT, UPDATE, DELETE with WHERE clauses; Pass when automated test script prints 0 errors and logs verified status code.
-5. Check 5: Verify benchmark showing B-Tree read performance vs linear scan on 1M rows; Pass when automated test script prints 0 errors and logs verified status code.
-6. Check 6: 6. Anti-Fake Verification Check: Inspect committed execution logs and re-run verification script against seeded test fixtures; pass when runtime metrics dynamically reflect test execution rather than static mocked responses.
+----------------------------------------------------------------------
+1. Check
+   Input: Database file populated with 100,000 records and primary key B-tree index
+   Action: Run ./build/db_bench --benchmark point_lookup --keys 100000
+   Result: Engine executes 10,000 random key queries with average latency < 150 microseconds
+   Evidence: Benchmark summary console output table
+   Pass: Average point lookup latency is < 150 microseconds with exit code 0
+2. Check
+   Input: Table containing 50,000 multi-column records
+   Action: Run ./build/db_bench --benchmark table_scan --table accounts
+   Result: Volcano query iterator scans records and evaluates predicates at > 25,000 records/sec
+   Evidence: Scan throughput console output log
+   Pass: Measured scan throughput exceeds 25,000 records/sec
+3. Check
+   Input: Active transaction workload with 20 injected SIGKILL terminations during WAL write
+   Action: Run ./scripts/test_crash_recovery.sh --crashes 20
+   Result: Recovery manager processes WAL, rolls forward committed transactions, and restores slotted page integrity
+   Evidence: Recovery test summary log and consistency check report
+   Pass: All 20 crash scenarios recover successfully with 0 corrupt pages and exit code 0
+4. Check
+   Input: Buffer pool configured to 64 frames with 500 distinct requested pages
+   Action: Run ./build/test_buffer_pool --frames 64 --accesses 5000
+   Result: LRU-K eviction algorithm evicts unpinned frames without memory leaks or page pin corruption
+   Evidence: Buffer pool test execution log
+   Pass: Test passes with 0 memory errors reported by Valgrind/ASan
+5. Check [anti_fake]
+   Input: Dynamic verification token inserted into uncommitted transaction followed by abrupt abort
+   Action: Run ./scripts/verify_dynamic_storage.sh --nonce 0xDEADBEEF --action abort
+   Result: Recovery manager rolls back transaction; dynamic nonce does not appear in subsequent table scans
+   Evidence: Dynamic verification stdout output log
+   Pass: Dynamic verification confirms zero uncommitted nonce leakage with exit code 0
 
 RESUME BULLET FORMULA
-----------------------------------------
-"Built mini relational database engine in C++ with B-Tree page storage and WAL crash recovery; achieved [X:[N]] read performance over linear scan and passed ACID correctness tests on [N] req/sec concurrent operations."
-Do not claim: scale, latency, or throughput figures without committing benchmark run logs; do not claim production deployment unless deployed to a verifiable live environment.
+----------------------------------------------------------------------
+"Architected embedded relational database engine in C++ featuring slotted-page disk layout and LRU-K buffer pool; implemented B-tree indexing with sub-[LOOKUP_LATENCY] point lookups across [RECORD_COUNT] records, and achieved [RECOVERY_RATE] crash recovery through Write-Ahead Logging."
+
+Do not claim: distributed multi-node consensus replication or full ANSI SQL-92 standard query coverage
 
 ======================================================================
 Generated by HireFlow — hireflow.io

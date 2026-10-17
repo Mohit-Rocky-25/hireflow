@@ -1,0 +1,318 @@
+{
+  "id": "brief-data-quality-framework",
+  "title": "Automated Data Quality Monitoring & Anomaly Detection",
+  "domain": "Data Engineering",
+  "difficulty": "INTERMEDIATE",
+  "project_types": [
+    "Data pipeline/ETL/streaming",
+    "CLI/tools/libraries"
+  ],
+  "problem": "Modern analytical and machine learning data pipelines suffer from silent data corruption when upstream schemas drift, values violate business domain constraints, or statistical distributions shift unexpectedly. Undetected corrupted data propagates through downstream warehouses and dashboards, producing flawed metrics and erroneous automated business decisions. This project implements an automated, declarative data quality monitoring and anomaly detection engine in Python and DuckDB that validates dataset contracts, checks referential integrity, detects statistical outliers and distribution shifts, and enforces automated blocking gates before pipeline loading.",
+  "use_cases": [
+    "Automated data contract enforcement on daily batch data warehouse ingestion tables",
+    "Pre-training data validation for machine learning feature stores preventing corrupt inputs",
+    "Continuous schema drift and anomaly detection on third-party API data sync pipelines"
+  ],
+  "hard_parts": [
+    "Executing complex declarative validation rules across hundreds of thousands of rows within sub-second execution limits",
+    "Calculating statistical distribution drift metrics (Wasserstein distance, z-scores) without loading entire datasets into memory",
+    "Preventing false positive alerts on legitimate seasonal or high-variance data spikes",
+    "Designing fail-fast blocking ingestion gates that halt downstream jobs while outputting actionable failure diagnostics"
+  ],
+  "screener_signals": [
+    "Declarative YAML contract parser validating column types, nullability, uniqueness, and custom SQL expressions",
+    "High-speed analytical validation engine executing inside DuckDB without external database dependencies",
+    "Anti-fake verification script injecting dynamic anomalous rows at runtime and asserting automated gate blockage"
+  ],
+  "job_families": [
+    "Data Reliability Engineer",
+    "Data Platform Engineer",
+    "Analytics Engineer"
+  ],
+  "stack": [
+    {
+      "tool": "Python",
+      "role": "core framework implementation language, CLI runner, and statistical profiling logic"
+    },
+    {
+      "tool": "DuckDB",
+      "role": "in-process vectorized SQL analytical engine executing high-speed quality checks"
+    },
+    {
+      "tool": "Pandas",
+      "role": "tabular data manipulation and statistical metric calculation framework"
+    },
+    {
+      "tool": "SQL",
+      "role": "declarative rule formulation language checking domain invariants and aggregates"
+    },
+    {
+      "tool": "Docker",
+      "role": "containerized environment packaging runtime dependencies and test datasets"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "Contract Specification Parser",
+        "tools_used": [
+          "Python"
+        ],
+        "purpose": "Parses YAML data contract definitions, validating column constraints, rules, and alert thresholds"
+      },
+      {
+        "name": "DuckDB Validation Engine",
+        "tools_used": [
+          "DuckDB",
+          "SQL"
+        ],
+        "purpose": "Executes vectorized SQL queries evaluating completeness, freshness, uniqueness, and referential checks"
+      },
+      {
+        "name": "Statistical Anomaly Profiler",
+        "tools_used": [
+          "Python",
+          "Pandas"
+        ],
+        "purpose": "Computes historical baseline metrics, z-score outlier bounds, and distribution drift distances"
+      },
+      {
+        "name": "Pipeline Ingestion Blocking Gate",
+        "tools_used": [
+          "Python"
+        ],
+        "purpose": "Evaluates contract results, emits exit codes, and blocks downstream pipeline execution on severe breaches"
+      },
+      {
+        "name": "Diagnostics & Alert Dispatcher",
+        "tools_used": [
+          "Python"
+        ],
+        "purpose": "Generates structured JSON and markdown reports detailing failing row samples and column summaries"
+      }
+    ],
+    "data_flow": "Data pipeline triggers the validation CLI passing a dataset path and a YAML contract; the Contract Parser loads rule definitions; DuckDB scans the target Parquet or CSV file directly; vectorized SQL assertions execute in parallel; the Statistical Profiler compares current summary statistics against historical baselines; if all checks pass, the CLI returns exit code 0; if any critical rule fails, the Blocking Gate returns exit code 1 and outputs failing row diagnostics.",
+    "enforcement_mechanism": "CLI non-zero exit codes halting orchestrator pipelines; strict schema assertions rejecting unmapped or invalidly typed columns."
+  },
+  "targets": [
+    {
+      "metric": "Seeded Quality Defect Detection Rate",
+      "method": "Execution of validation suite across benchmark dataset with 20 intentionally injected data defects",
+      "input": "Dataset of 200,000 rows containing 20 injected defects (nulls, range violations, regex mismatch, duplicates)",
+      "environment": "Standard 4-core local CPU, Python 3.11+",
+      "minimum_pass": "Detection of 20 of 20 injected defects with 0 false negatives",
+      "target": "Detection of 20 of 20 injected defects with 0 false negatives",
+      "report": "Validation execution report listing detected rule breaches and row indexes"
+    },
+    {
+      "metric": "Dataset Validation Execution Latency",
+      "method": "Wall-clock execution duration to run 15 comprehensive quality checks on tabular dataset",
+      "input": "250,000 tabular records stored in Parquet format evaluated with 15 SQL contract rules",
+      "environment": "Standard 4-core local CPU, DuckDB in-memory execution",
+      "minimum_pass": "Execution completes in < 4.5 seconds across 250,000 rows",
+      "target": "Execution completes in < 2.2 seconds across 250,000 rows",
+      "report": "Benchmark execution timing log reporting per-rule execution durations"
+    },
+    {
+      "metric": "False Positive Violation Rate on Clean Baseline",
+      "method": "Validation of verified clean historical baseline dataset against configured quality contract",
+      "input": "50,000 verified clean tabular rows matching expected production distributions",
+      "environment": "Standard 4-core local CPU, Python 3.11+",
+      "minimum_pass": "0 false positive rule violations reported on verified clean dataset",
+      "target": "0 false positive rule violations reported on verified clean dataset",
+      "report": "Validation output summary confirming clean pass"
+    }
+  ],
+  "skills": [
+    "Python",
+    "DuckDB",
+    "Pandas",
+    "SQL",
+    "Docker",
+    "Data Quality",
+    "Data Engineering"
+  ],
+  "starter_input": {
+    "spec": "YAML data contract specification file and e-commerce transactions dataset in CSV/Parquet format.",
+    "size": "250,000 transaction rows with 12 columns (transaction_id, customer_id, amount, timestamp, status, country)",
+    "seeded_cases": "Negative transaction amounts, future timestamps, null customer IDs, invalid country codes, and duplicate transaction IDs",
+    "label_source": "Deterministic test fixture generation script injecting exact defect rows at known indices",
+    "personal_data_policy": "Strictly mock synthetic e-commerce transaction data; zero real customer or financial details used"
+  },
+  "components": [
+    {
+      "name": "YAML Contract Parser & Rule Engine",
+      "task_type": "data pipeline step",
+      "hours": 5.0
+    },
+    {
+      "name": "DuckDB SQL Validation Engine",
+      "task_type": "API endpoint group with tests",
+      "hours": 4.0
+    },
+    {
+      "name": "Statistical Anomaly & Drift Profiler",
+      "task_type": "evaluation dataset creation + scoring script",
+      "hours": 5.0
+    },
+    {
+      "name": "Blocking Ingestion Gate & Reporter",
+      "task_type": "infra component (broker, DB, orchestrator, cluster service)",
+      "hours": 4.0
+    },
+    {
+      "name": "Benchmark Harness with Dirty Data",
+      "task_type": "load or performance test harness + report",
+      "hours": 4.0
+    },
+    {
+      "name": "Documentation, Architecture Diagram & Buffer",
+      "task_type": "docs + architecture diagram",
+      "hours": 3.0
+    }
+  ],
+  "extended_path": {
+    "items": [
+      "Automated Slack and PagerDuty notification integration with interactive alert acknowledge buttons",
+      "Automated Great Expectations and dbt-expectations contract importer and exporter"
+    ],
+    "hours": 14
+  },
+  "milestones": [
+    {
+      "name": "Declarative Schema Contracts & DuckDB Rule Engine for Data Quality",
+      "hours": 8,
+      "done_criterion": "Parser loads YAML contracts; DuckDB executes null, range, uniqueness, and regex checks."
+    },
+    {
+      "name": "Statistical Profiling & Distributional Drift Detection in Data Engineering",
+      "hours": 7,
+      "done_criterion": "Profiler computes summary statistics and flags z-score outliers and distribution shifts."
+    },
+    {
+      "name": "Automated Blocking Gate, Docker Setup & Alert Dispatcher",
+      "hours": 8,
+      "done_criterion": "CLI returns exit code 1 and outputs failed row samples when quality rules are violated."
+    },
+    {
+      "name": "Dirty Data Invariant Testing, Anti-Fake Check & Buffer",
+      "hours": 6,
+      "done_criterion": "Benchmark confirms 20 of 20 defects detected in < 4.5s; anti-fake test validates dynamic row injection; docs complete."
+    }
+  ],
+  "prerequisites": [
+    "Intermediate Python programming (Pandas, type hints, pytest)",
+    "Strong SQL aggregation and analytical querying skills",
+    "Familiarity with data pipeline orchestration principles (DAGs, tasks, exit codes)"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (purely CPU-bound in-process SQL execution)",
+    "cost": "$0 (fully open-source software stack)",
+    "accounts_keys_quotas": "No external cloud accounts, paid services, or API keys required",
+    "reference_environment": "Local 4-core CPU with Python 3.11 and DuckDB installed",
+    "fallback_path": "In-memory SQLite execution engine without DuckDB if local DuckDB binaries encounter architecture issues"
+  },
+  "riskiest_component": {
+    "name": "Memory Exhaustion During In-Memory Parquet Scans",
+    "fallback": "Leverage DuckDB streaming chunk execution (PRAGMA memory_limit) to bound RAM consumption to 1GB"
+  },
+  "deliverables": [
+    "Git repository containing Python data quality framework, CLI executable, and DuckDB runner",
+    "Sample declarative YAML contracts defining rules for tabular datasets",
+    "Benchmark script verifying defect detection rate and execution speed across 250,000 rows",
+    "Screener verification script executing automated validation in under 2 minutes"
+  ],
+  "out_of_scope": [
+    "Distributed Apache Spark cluster execution",
+    "Real-time streaming quality validation on Kafka topics",
+    "Automated data cleaning and synthetic value imputation"
+  ],
+  "safety_note": null,
+  "resources": [
+    "DuckDB SQL documentation and analytical query performance guide",
+    "Data Contracts architecture principles and specification guidelines",
+    "Scipy statistical distances and drift detection documentation"
+  ],
+  "rubric": [
+    {
+      "input": "data/dirty_transactions.parquet with 20 injected defects",
+      "action": "Run python -m dq_framework check --contract contracts/ecommerce.yaml --data data/dirty_transactions.parquet",
+      "expected_result": "Validation engine halts execution, returns exit code 1, and reports all 20 failing rule assertions",
+      "evidence_location": "Terminal execution output log and reports/dq_run.json",
+      "pass_criterion": "Exit code 1 with exactly 20 distinct failure records reported",
+      "kind": "normal"
+    },
+    {
+      "input": "Benchmark test running 15 quality checks across 250,000 rows",
+      "action": "Run python scripts/benchmark_speed.py",
+      "expected_result": "DuckDB executes all 15 checks in < 4.5 seconds",
+      "evidence_location": "Benchmark summary console table",
+      "pass_criterion": "Total execution latency is < 4.5 seconds on local machine",
+      "kind": "normal"
+    },
+    {
+      "input": "data/clean_transactions.parquet baseline dataset",
+      "action": "Run python -m dq_framework check --contract contracts/ecommerce.yaml --data data/clean_transactions.parquet",
+      "expected_result": "Validation engine confirms all rules pass with zero violations",
+      "evidence_location": "Terminal stdout execution log",
+      "pass_criterion": "Exit code 0 with 0 rule violations reported",
+      "kind": "normal"
+    },
+    {
+      "input": "Synthetically skewed dataset with shifted amount distribution",
+      "action": "Run python -m dq_framework drift --baseline data/clean.parquet --target data/skewed.parquet",
+      "expected_result": "Profiler flags significant distribution drift on amount column",
+      "evidence_location": "Drift analysis output report",
+      "pass_criterion": "Drift detected with calculated distance exceeding configured threshold and warning logged",
+      "kind": "normal"
+    },
+    {
+      "input": "Dynamic anomalous row with negative order amount (-999.00) injected at runtime by verification script",
+      "action": "Run python scripts/verify_dynamic_quality.py --amount -999.00",
+      "expected_result": "Engine detects injected negative amount, triggers rule NEGATIVE_AMOUNT_VIOLATION, and blocks ingestion",
+      "evidence_location": "Dynamic verification console execution output log",
+      "pass_criterion": "Exit code 1 with report pinpointing dynamic row index and rule violation",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected automated data quality monitoring engine in Python and DuckDB; executed declarative schema contracts across [ROW_COUNT] rows in under [VALIDATION_TIME], detected [DEFECT_COUNT] of [TOTAL_DEFECTS] injected quality defects, and enforced automated pipeline ingestion blocking gates.",
+    "claims": [
+      {
+        "text": "executed declarative schema contracts across [ROW_COUNT] rows in under [VALIDATION_TIME]",
+        "rubric_indexes": [
+          1
+        ]
+      },
+      {
+        "text": "detected [DEFECT_COUNT] of [TOTAL_DEFECTS] injected quality defects",
+        "rubric_indexes": [
+          0
+        ]
+      },
+      {
+        "text": "enforced automated pipeline ingestion blocking gates",
+        "rubric_indexes": [
+          0,
+          4
+        ]
+      }
+    ],
+    "do_not_claim": "petabyte streaming data observability or universal enterprise metadata governance without committed cluster benchmarks"
+  },
+  "verify": [],
+  "worksheet": {
+    "q1": "The student builds an automated declarative data quality engine in Python and DuckDB that validates dataset contracts, checks referential integrity, detects statistical drift, and enforces automated pipeline blocking gates.",
+    "q2": "Core path: YAML contract parser, DuckDB SQL validation runner, statistical drift profiler, and blocking ingestion gate (29h). Extended path: Slack/PagerDuty alerts and Great Expectations importer/exporter (+14h).",
+    "q3": "Components: Contract Parser (5h), DuckDB Engine (4h), Drift Profiler (5h), Blocking Gate (4h), Dirty Data Benchmark (4h), Docs & Buffer (3h). Total 25h x 1.15 = 29h.",
+    "q4": "Project types: Data pipeline/ETL/streaming, CLI/tools/libraries. Metrics: Seeded Quality Defect Detection Rate, Dataset Validation Execution Latency, False Positive Rate on Clean Baseline. Rejected: model prediction accuracy.",
+    "q5": "Hard parts: executing complex declarative SQL across large files efficiently, distribution drift calculation without memory bloat, tuning outlier thresholds, and fail-fast pipeline gating.",
+    "q6": "Starter input: 250,000 transaction rows with 12 columns and 20 injected defects at known row indices. No personal data.",
+    "q7": "Hardware: Linux/macOS/Windows, 8GB RAM, CPU only, $0 cost, zero cloud accounts. Fallback: in-memory SQLite if DuckDB encounters issues.",
+    "q8": "Riskiest component: Memory bloat on large Parquet scans. Fallback: DuckDB PRAGMA memory_limit.",
+    "q9": "Potential faking: hardcoded pass/fail reports. Anti-fake check 5 appends a dynamic row with negative order amount at runtime and asserts blocking gate failure.",
+    "q10": "Safety/ethics: Safe; synthetic e-commerce transaction data only."
+  }
+}

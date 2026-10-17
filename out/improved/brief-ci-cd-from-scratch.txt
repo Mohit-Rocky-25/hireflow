@@ -2,121 +2,154 @@ PROJECT BRIEF — Minimal CI/CD System from Scratch with Build Agents
 ======================================================================
 
 Domain    : Platform & DevOps
-Difficulty: advanced
-Est. Time : 38 hours (Core Path) | Extended Path: +6 hours
-Tech Stack: Go [compiled systems runtime and networking implementation], Docker [containerization and local multi-service orchestration], PostgreSQL [relational database management system], WebSockets [websockets component], GitHub API [github api component] (Requires: Docker Engine / Desktop)
+Difficulty: ADVANCED
+Est. Time : 34 hours (core path, estimate). Extended path: +15 hours
+Tech Stack: Go (core implementation language for scheduler server, agent daemon, and CLI tool), Docker (container engine providing hermetic process isolation for build job steps), SQLite (lightweight transactional database storing pipeline runs, stages, and agent states), WebSockets (bidirectional real-time protocol for task dispatch and live terminal log streaming)
 
 PROBLEM STATEMENT
-----------------------------------------
-GitHub Actions, Jenkins, and CircleCI are all custom-built CI/CD systems. Understanding how they work requires building one: a master controller that receives webhook events, queues build jobs, distributes them to worker agents, streams build logs, and reports status back to GitHub.
+----------------------------------------------------------------------
+Relying on black-box hosted CI/CD services obscures the fundamental distributed systems principles required to build scalable, secure continuous integration infrastructure. Multi-tenant build systems must parse pipeline definitions, schedule directed acyclic graph (DAG) tasks across worker pools, enforce process isolation between untrusted build jobs, stream live terminal logs without memory leaks, and persist artifacts securely. This project implements a custom containerized CI/CD engine in Go consisting of a central job scheduler server and autonomous worker agents that execute pipeline stages in isolated Docker containers with live WebSocket log streaming.
 
 USE CASES IN THE REAL WORLD
-----------------------------------------
-Self-hosted CI/CD is common in air-gapped environments (defense, banking) and companies with custom build requirements. Understanding CI/CD internals enables optimization of existing systems and contribution to open-source CI tools like Drone, Woodpecker CI, and Concourse.
+----------------------------------------------------------------------
+- Air-gapped and self-hosted build automation for regulated enterprise environments
+- High-performance continuous integration runner with localized Docker layer caching
+- Lightweight task orchestration engine for automated test execution and artifact bundling
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-CI/CD systems require solving distributed job scheduling, build log streaming, GitHub webhook integration, Docker build isolation, and worker lifecycle management — a rich distributed systems exercise. Engineers who understand CI/CD internals can optimize build pipelines for speed, cost, and reliability.
+WHY THIS IS HARD
+----------------------------------------------------------------------
+- Parsing pipeline definitions into directed acyclic graphs and scheduling parallel tasks without deadlock
+- Managing Docker container lifecycles safely on worker nodes to prevent zombie containers upon job cancellation
+- Streaming high-volume stdout and stderr terminal logs over WebSockets without unbounded memory buffers
+- Enforcing secure agent-to-server communication and mutual authentication across untrusted networks
 
 RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Platform engineering teams that own CI/CD infrastructure need engineers who understand its internals. Companies with self-hosted runners (enterprise, regulated industries) and teams optimizing CI costs value this deeply. GitHub Actions and Jenkins administration is listed in nearly every DevOps JD.
+----------------------------------------------------------------------
+- Modular Go architecture cleanly separating controller scheduler from worker execution daemons
+- Deterministic DAG scheduler executing parallel stages with topological sort verification
+- Anti-fake verification script running dynamic job specifications and validating live log output streams
+Relevant Job Families: Platform Engineer, DevOps Infrastructure Engineer, Systems Software Engineer
 
 ARCHITECTURE & DATA FLOW
-----------------------------------------
-Go controller receiving GitHub webhook on push events. Build queue storing pending jobs in PostgreSQL. Docker container-based agents pulling jobs from queue, executing build steps in isolated containers, streaming stdout via WebSocket to controller. Status check API reporting pass/fail to GitHub Checks API.
+----------------------------------------------------------------------
+Components:
+- Pipeline DAG Engine (Tools: Go): Parses YAML pipeline specifications into dependency graphs and validates topological execution order
+- Central Scheduler Server (Tools: Go, SQLite): Manages job queues, persists pipeline execution history, and assigns ready tasks to available agents
+- Worker Execution Agent (Tools: Go, Docker): Pulls assigned tasks, spawns isolated Docker worker containers, and monitors container exit status
+- Log Streaming Daemon (Tools: Go, WebSockets): Captures container stdout and stderr streams and broadcasts live chunks to connected clients
+
+Data Flow:
+Users submit a pipeline YAML file via CLI; the DAG Engine resolves task dependencies; the Scheduler persists stages in SQLite and enqueues root tasks; an available Worker Agent claims the task via WebSockets; the agent spawns an isolated Docker container with the specified image; container logs stream in real-time over WebSockets to the server; upon container exit, the agent reports exit codes, triggering subsequent dependent tasks.
+
+Enforcement Mechanism:
+Container resource limits enforce CPU and memory boundaries; timeout watchdog terminates hung containers after configured duration.
 
 SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Target 1:
-- Metric: Request Processing Latency Overhead (p99)
-- Method: Concurrent HTTP load test using k6 / vegeta over 60s sustained run
-- Input/dataset: Standard synthetic JSON payload (~1KB) over 5,000 concurrent requests
-- Reference environment: Local 4-core CPU, 8GB RAM, loopback network interface
-- Minimum pass: p99 latency overhead < 25ms under 1,000 req/sec
-- Target: p99 latency overhead < 5ms under 5,000 req/sec
-- Report format: k6 terminal summary report and CSV latency distribution
-
-Target 2:
-- Metric: Sustained Concurrency & Correctness
-- Method: Continuous load test simulating concurrent client connections with idempotency checks
-- Input/dataset: Synthetic benchmark traffic across 50 concurrent worker threads
-- Reference environment: Local Docker Compose or native runtime
-- Minimum pass: Sustained throughput > [N] req/sec with 0 lost writes in [K] attempts
-- Target: Sustained throughput > [N] req/sec (target > 5,000 req/sec) with 0 lost writes in [K] attempts
-- Report format: Benchmark throughput table and error rate summary
-
-Target 3:
-- Metric: Fault Recovery / Failover Duration
-- Method: Injected worker process termination during active continuous request stream
-- Input/dataset: SIGKILL or chaos fault injection on worker process
-- Reference environment: Local multi-process or containerized cluster
-- Minimum pass: Service detects failure and reroutes traffic with recovery time < [S] seconds (pass < 5s)
-- Target: Service detects failure and recovers state with recovery time < [S] seconds (target < 2s)
-- Report format: System log timestamps comparing failure injection to state recovery
+----------------------------------------------------------------------
+Metric | Method | Input/Dataset | Reference Environment | Minimum Pass | Target | Report Format
+DAG Stage Execution Dependency Adherence | Verification of topological stage execution order across complex dependency graphs | 20 test pipeline specifications with parallel branches, join stages, and sequential dependencies | Standard 4-core local CPU, Go 1.21+ | 20 of 20 test pipelines execute stages in strict dependency order with 0 race conditions | 20 of 20 test pipelines execute stages in strict dependency order with 0 race conditions | Unit test execution output and stage execution timestamp logs
+Worker Container Cancellation Cleanup Duration | Measurement of time elapsed between pipeline cancellation command and container destruction | Running build job executing infinite loop inside Docker worker container | Standard 4-core local CPU, Docker Engine 24+ | Worker container stopped and removed within 4.0 seconds of cancellation signal | Worker container stopped and removed within 1.5 seconds of cancellation signal | Docker daemon event log confirming container kill and rm events
+Terminal Log Streaming Transmission Latency | Measurement of latency from container stdout write to WebSocket client delivery | Synthetic build job emitting 5,000 log lines at 500 lines per second | Standard 4-core local CPU, local loopback network | p95 log transmission latency < 80ms without dropped lines | p95 log transmission latency < 35ms without dropped lines | Benchmark log analyzer reporting packet send and receive timestamps
 
 SKILLS COVERED
-----------------------------------------
-Go, Docker, Networking, GitHub API, System Design, DevOps
+----------------------------------------------------------------------
+Go, Docker, SQLite, WebSockets, CI/CD, DevOps
 
 TARGET APPLICATION / STARTER INPUT
-----------------------------------------
-The project provides a self-contained test environment and fixture generator located in `scripts/` or `fixtures/`. It deterministically generates representative input records or mock client traffic for automated validation. No third-party proprietary data or real personal identifiers (PII) are required; all test datasets use synthetic tokens and deterministic random seeds.
+----------------------------------------------------------------------
+- Specification: YAML pipeline schema specification and collection of test build definitions covering lint, test, and build stages.
+- Dataset / Traffic Size: 5 test pipeline definitions ranging from simple single-step jobs to complex multi-stage fan-out/fan-in DAGs
+- Seeded Edge Cases: Cyclic dependency graphs, failing intermediate stages, runaway memory jobs, and abrupt agent disconnects
+- Label / Verification Source: Deterministic Go test fixtures and expected exit status assertions
+- Personal Data Policy: Strictly synthetic build commands (echo, test mocks, sleep); zero real credentials or repository code used
 
 MILESTONES
-----------------------------------------
-- Milestone 1: Environment Setup & Core Foundations (8h)
-  Configure repository, tooling, container dependencies, and foundational data structures. Done when foundational test suite passes with clean linting.
-- Milestone 2: Core Processing & Architecture Implementation (11h)
-  Implement primary operational workflows, database models or state transitions, and API endpoints. Done when integration tests verify end-to-end data flow under normal operating conditions.
-- Milestone 3: Concurrency, Reliability & Error Guardrails (11h)
-  Implement defensive controls: rate limiting, retries with exponential backoff, transaction boundaries, and failure isolation. Done when chaos or stress tests verify graceful degradation under fault injection.
-- Milestone 4: Verification, Benchmarking & Documentation (8h)
-  Execute performance benchmark harness, compile measurement tables, generate architectural diagrams, and document screener verification steps. Done when `scripts/verify_all` passes completely.
+----------------------------------------------------------------------
+M1: Pipeline Parser, DAG Scheduling & Concurrency Setup for CI/CD and DevOps Workflows (9h) — Done when: Parser resolves pipeline YAML into DAG; unit tests verify topological sorting and cycle rejection.
+M2: Docker Worker Isolation & Container Lifecycle Runner (9h) — Done when: Worker daemon spawns isolated Docker containers, executes commands, and enforces memory limits.
+M3: WebSocket Agent Protocol & Real-Time Log Streaming (9h) — Done when: Server dispatches jobs over WebSockets; agent streams stdout/stderr chunks with sub-80ms latency.
+M4: Cancellation Cleanup, Anti-Fake Test, Docs & Buffer (7h) — Done when: Cancellation cleanly removes containers in < 4s; anti-fake test validates dynamic pipeline; docs complete.
+Total: 34 hours (estimate)
 
 PREREQUISITES, ENVIRONMENT AND ACCOUNTS
-----------------------------------------
-- Prerequisites: Familiarity with Go and Docker, standard command-line tools, and fundamental testing principles.
-- Hardware / OS: Standard modern computer (macOS, Linux, or Windows with WSL2) with at least 8GB RAM.
-- Accounts & Services: None required. Designed to run completely on free, open-source local software.
-- Fallback Path: In-memory mock drivers or SQLite/local files provided if external database or message broker containers cannot be run.
+----------------------------------------------------------------------
+Prerequisites: Intermediate Go programming (goroutines, channels, network sockets, context cancellation), Familiarity with Docker container APIs and volume mounts, Basic understanding of graph algorithms (directed acyclic graphs, topological sorting)
+
+Environment & Hardware:
+- OS: Linux / macOS / Windows with WSL2
+- Memory: 8GB RAM
+- Compute / GPU: None required (purely CPU-bound build job execution)
+- Estimated Cost: $0 (fully open-source software stack)
+- Accounts & Quotas: No external cloud accounts, paid services, or API keys required
+- Reference Environment: Local 4-core CPU with Go 1.21+ and Docker Engine installed
+- Fallback Path: Local shell execution runner without Docker if Docker socket permissions are restricted
+
+Riskiest Component & Fallback:
+- Riskiest Component: Dangling Zombie Docker Containers upon Abrupt Agent Termination
+- Simpler Fallback: Implement an automated reaper process on server startup that labels and prunes orphaned runner containers
 
 DELIVERABLES
-----------------------------------------
-1. Clean Git repository with structured commit history, README, and reproducible setup commands.
-2. Production-quality core codebase with automated test suite achieving verified pass rates.
-3. Performance benchmark report (`results/benchmark_report.md`) documenting measured latency, throughput, and resource utilization.
-4. Screener verification script (`scripts/verify_all.sh` or equivalent) validating the full system in < 3 minutes.
-5. Architecture diagram (Mermaid/ASCII) and known limitations document explaining architectural trade-offs.
+----------------------------------------------------------------------
+- Git repository containing Go server, agent daemon, CLI tool, and SQLite schema
+- Sample pipeline YAML definitions demonstrating parallel and sequential stages
+- Benchmark script verifying log streaming transmission latency
+- Screener verification script executing pipeline runs and dynamic validation in under 3 minutes
 
 OUT OF SCOPE AND EXTENDED PATH
-----------------------------------------
-- Out of Scope for Core Path: Distributed multi-region clustering, enterprise SSO integrations, complex third-party SaaS dependencies.
-- Extended Path (+6 hours): Advanced telemetry dashboard, distributed persistence cluster extension, or automated canary release pipeline.
+----------------------------------------------------------------------
+Out of Scope:
+- Kubernetes pod-based runner autoscaling
+- Windows container execution support
+- Hardware-assisted virtual machine isolation (Firecracker microVMs)
 
-SAFETY AND ETHICS NOTE
-----------------------------------------
-All data processed, generated, and benchmarked by this project consists exclusively of synthetic fixtures. No personal identifiable information (PII), proprietary credentials, or live external endpoints are used.
+Extended Path (+15 hours):
+- Distributed artifact storage using local MinIO S3-compatible object store
+- GitHub Webhook receiver validating HMAC SHA-256 signatures and reporting commit statuses
 
 LEARNING RESOURCES
-----------------------------------------
-- Official Documentation for Go, Docker, PostgreSQL
-- Architectural Reference Patterns and RFC Standards [VERIFY URL]
-- Systems & Distributed Reliability Principles
+----------------------------------------------------------------------
+- Docker Engine API SDK for Go official reference
+- Gorilla WebSocket package documentation and connection lifecycle patterns
+- Directed Acyclic Graph topological sorting algorithms in Go
 
 SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Check 1: Verify end-to-end: git push triggers webhook, job queued, agent runs build, GitHub status updated; Pass when automated test script prints 0 errors and logs verified status code.
-2. Check 2: Verify build isolation: each job runs in fresh Docker container, no state leaks between builds; Pass when automated test script prints 0 errors and logs verified status code.
-3. Check 3: Verify log streaming: sub-second build output visible in web UI within 200ms of stdout write; Pass when automated test script prints 0 errors and logs verified status code.
-4. Check 4: Verify agent failure recovery: build re-queued when agent disconnects mid-execution; Pass when automated test script prints 0 errors and logs verified status code.
-5. Check 5: Verify gitHub Checks API: PR shows pass/fail status with logs link; Pass when automated test script prints 0 errors and logs verified status code.
-6. Check 6: 6. Anti-Fake Verification Check: Inspect committed execution logs and re-run verification script against seeded test fixtures; pass when runtime metrics dynamically reflect test execution rather than static mocked responses.
+----------------------------------------------------------------------
+1. Check
+   Input: fixtures/pipeline_valid.yaml file
+   Action: Run go test ./pkg/scheduler -v
+   Result: DAG scheduler parses steps and outputs valid topological execution plan
+   Evidence: Terminal test output log
+   Pass: All scheduler unit tests pass with exit code 0
+2. Check
+   Input: Pipeline run execution via CLI ./bin/ci run fixtures/build_job.yaml
+   Action: Inspect Docker container lifecycle on worker host
+   Result: Worker spawns container, runs commands, captures stdout, and removes container on completion
+   Evidence: CLI terminal output and docker ps -a log
+   Pass: Build completes successfully with exit code 0 and container removed from host
+3. Check
+   Input: Active running build job canceled via ./bin/ci cancel <job-id>
+   Action: Verify worker container termination
+   Result: Worker intercepts cancellation and forcibly destroys container within 4 seconds
+   Evidence: Agent log file and Docker daemon event stream
+   Pass: Container state transitions to destroyed within 4 seconds with 0 leftover containers
+4. Check
+   Input: 5,000 log lines emitted by worker container
+   Action: Run python scripts/verify_log_stream.py
+   Result: Log streaming client receives all lines in sequential order with p95 latency < 80ms
+   Evidence: Verification summary report file
+   Pass: Total received line count equals 5,000 with 0 dropped lines
+5. Check [anti_fake]
+   Input: Dynamic echo token generated at runtime by verification script
+   Action: Run ./scripts/verify_dynamic_job.sh --token DYN-TOKEN-9941
+   Result: Server schedules job, agent executes echo command in clean container, and returns matching token in log stream
+   Evidence: Verification execution console output log
+   Pass: Execution log matches dynamic token with exit status 0
 
 RESUME BULLET FORMULA
-----------------------------------------
-"Built minimal CI/CD system in Go with Docker-isolated build agents; processed [N] concurrent builds with < [S] seconds pickup latency, real-time log streaming, and automated GitHub Checks status reporting.; achieved [N] throughput with < [M ms] latency overhead across [K] test transactions."
-Do not claim: scale, latency, or throughput figures without committing benchmark run logs; do not claim production deployment unless deployed to a verifiable live environment.
+----------------------------------------------------------------------
+"Architected containerized CI/CD pipeline engine in Go using Docker and WebSockets; executed parallel task DAGs with topological dependency scheduling, live terminal log streaming under [STREAM_LATENCY] latency, and automated container teardown within [TEARDOWN_TIME] seconds."
+
+Do not claim: carrier-grade enterprise runner scale or multi-tenant kernel sandbox security without microVM isolation
 
 ======================================================================
 Generated by HireFlow — hireflow.io

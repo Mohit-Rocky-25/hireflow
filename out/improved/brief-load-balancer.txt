@@ -1,122 +1,154 @@
-PROJECT BRIEF — Layer 7 Load Balancer with Health Checks & Adaptive Routing
+PROJECT BRIEF — Layer Seven HTTP Reverse Proxy & Load Balancer in Go with Active Health Checks, Least-Connections & Circuit Breaking
 ======================================================================
 
 Domain    : Distributed Systems
-Difficulty: intermediate
-Est. Time : 28 hours (Core Path) | Extended Path: +6 hours
-Tech Stack: Go [compiled systems runtime and networking implementation], HTTP [http component], Concurrency [concurrency component], Docker [containerization and local multi-service orchestration], Prometheus [metrics collection and time-series monitoring] (Requires: Docker Engine / Desktop)
+Difficulty: INTERMEDIATE
+Est. Time : 28 hours (core path, estimate). Extended path: +14 hours
+Tech Stack: Go (primary systems programming language implementing reverse proxy logic, routing strategies, and health probes), HTTP (application layer protocol parsed, routed, and forwarded between clients and upstream servers), Concurrency (Go goroutines, mutexes, and sync/atomic primitives coordinating connection pools), Docker (containerization engine orchestrating multi-node backend clusters for testing), Prometheus (monitoring system scraping exposed proxy metrics on request rates, latencies, and backend health)
 
 PROBLEM STATEMENT
-----------------------------------------
-Cloud load balancers are expensive black boxes. Build an L7 (application layer) HTTP load balancer in Go that implements multiple load balancing algorithms (round-robin, weighted, least-connections, IP-hash), active health checks, circuit breaking, and zero-downtime upstream rotation.
+----------------------------------------------------------------------
+Relying on opaque cloud provider load balancers obscures proxy-level concurrency bottlenecks, connection pool starvation, and subtle routing misconfigurations. Naive round-robin reverse proxies route traffic into dead sockets during upstream server crashes, lack connection draining during deployments, and fail to balance heterogeneous backend workloads. This project builds a high-performance Layer Seven application load balancer and reverse proxy from scratch in Go. The system implements multiple load balancing algorithms (round-robin, weighted round-robin, least-connections, and IP-hash), conducts active health checks with circuit breaking, performs graceful upstream draining during rotation, and exports Prometheus metrics.
 
 USE CASES IN THE REAL WORLD
-----------------------------------------
-HAProxy, Nginx, and Envoy are all implementations of this. Internal microservices routing, API gateway backends, and custom traffic management scenarios. Any company running self-hosted infrastructure needs load balancing knowledge.
+----------------------------------------------------------------------
+- {'title': 'Internal Microservice RPC Traffic Balancing', 'first_sentence': 'Platform engineering teams running private microservice meshes need lightweight, customizable L7 reverse proxies to distribute incoming traffic across backend service instances.', 'second_sentence': 'The load balancer balances requests using least-connections to ensure long-running computational queries do not overwhelm individual backend pods.'}
+- {'title': 'Zero-Downtime Rolling Upstream Deployment Draining', 'first_sentence': 'Site reliability engineers require automated connection draining when deploying new application versions to prevent terminating active in-flight HTTP requests.', 'second_sentence': 'The proxy marks graduating upstreams as draining, completing pending transactions while routing all new client requests to active backend nodes.'}
+- {'title': 'Session-Affinity E-Commerce Checkout Routing', 'first_sentence': 'E-commerce platforms maintaining in-memory shopping session state need deterministic client routing based on client IP addresses.', 'second_sentence': 'The proxy implements consistent IP-hashing, mapping identical client IP addresses to dedicated backend instances while gracefully remapping upon backend changes.'}
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Load balancing algorithms and health check design are systems design interview topics at every tech company. Building one from scratch proves you understand connection pools, health check semantics, graceful draining, and traffic splitting — all topics explicitly discussed in system design production systems design interviews.
+WHY THIS IS HARD
+----------------------------------------------------------------------
+- Managing high-concurrency Go connection pools with mutex-free atomic counters for least-connections tracking
+- Designing active asynchronous health check loops that rapidly detect upstream unresponsiveness without overwhelming backends
+- Implementing graceful upstream draining that awaits in-flight request completions while rejecting new incoming connections
+- Handling client HTTP keep-alive connection reuse and TCP socket timeouts cleanly under high throughput
 
 RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Every systems design interview eventually covers load balancers. An engineer who has implemented one can discuss algorithms, health check edge cases, and sticky session trade-offs with authority that interviewers immediately recognize. Unlocks senior backend and platform engineering roles.
+----------------------------------------------------------------------
+- Clean idiomatic Go codebase using standard library net/http/httputil primitives, sync/atomic counters, and structured logging
+- Comprehensive k6 or vegeta load benchmark report validating sub-millisecond proxy latency overhead under 5,000 requests per second
+- Anti-fake verification script killing a backend upstream during active traffic load and verifying zero dropped requests and immediate route diversion
+Relevant Job Families: Systems Software Engineer, Infrastructure / Network Platform Engineer, Site Reliability Engineer (SRE)
 
 ARCHITECTURE & DATA FLOW
-----------------------------------------
-Go HTTP reverse proxy with pluggable algorithm strategies (round-robin, weighted, least-connections, IP-hash). Background goroutine performs active health checks via GET /health. Unhealthy upstreams removed and re-added upon recovery. Graceful upstream drain: new connections to old upstream blocked while existing ones complete.
+----------------------------------------------------------------------
+Components:
+- Reverse Proxy Engine & Connection Pool Manager (Tools: Go, HTTP): Terminates incoming client connections, manages persistent upstream connection pools, and forwards requests
+- Pluggable Algorithm Strategy Selector (Tools: Go, Concurrency): Implements round-robin, weighted round-robin, least-connections, and IP-hash routing interfaces
+- Active Health Check & Circuit Breaker Engine (Tools: Go, HTTP): Polls backend /health endpoints periodically, detects failures, and trips circuits to isolate dead nodes
+- Graceful Upstream Drain Controller (Tools: Go, Concurrency): Tracks active in-flight requests per upstream and coordinates zero-downtime draining before server removal
+- Prometheus Metrics Exporter & Telemetry Server (Tools: Go, Prometheus): Exposes HTTP endpoints serving metrics on active connections, request counts, and upstream response times
+
+Data Flow:
+Client HTTP requests connect to the Go proxy server; the algorithm selector determines the target upstream server based on the configured strategy (e.g., least-connections); the proxy forwards the request over pooled TCP sockets; in parallel, background health checker goroutines poll each upstream's health endpoint every 2 seconds; if an upstream fails 3 consecutive probes, the circuit breaker removes it from the active pool; when an administrator signals a backend drain, the proxy ceases routing new traffic to that backend while waiting for in-flight requests to finish before closing connections; telemetry metrics update atomically and expose to Prometheus.
+
+Enforcement Mechanism:
+sync/atomic integer counters tracking active connections per upstream; HTTP connection read and write timeouts preventing slowloris socket exhaustion.
 
 SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Target 1:
-- Metric: Request Processing Latency Overhead (p99)
-- Method: Concurrent HTTP load test using k6 / vegeta over 60s sustained run
-- Input/dataset: Standard synthetic JSON payload (~1KB) over 5,000 concurrent requests
-- Reference environment: Local 4-core CPU, 8GB RAM, loopback network interface
-- Minimum pass: p99 latency overhead < 25ms under 1,000 req/sec
-- Target: p99 latency overhead < 5ms under 5,000 req/sec
-- Report format: k6 terminal summary report and CSV latency distribution
-
-Target 2:
-- Metric: Sustained Concurrency & Correctness
-- Method: Continuous load test simulating concurrent client connections with idempotency checks
-- Input/dataset: Synthetic benchmark traffic across 50 concurrent worker threads
-- Reference environment: Local Docker Compose or native runtime
-- Minimum pass: Sustained throughput > [N] req/sec with 0 lost writes in [K] attempts
-- Target: Sustained throughput > [N] req/sec (target > 5,000 req/sec) with 0 lost writes in [K] attempts
-- Report format: Benchmark throughput table and error rate summary
-
-Target 3:
-- Metric: Fault Recovery / Failover Duration
-- Method: Injected worker process termination during active continuous request stream
-- Input/dataset: SIGKILL or chaos fault injection on worker process
-- Reference environment: Local multi-process or containerized cluster
-- Minimum pass: Service detects failure and reroutes traffic with recovery time < [S] seconds (pass < 5s)
-- Target: Service detects failure and recovers state with recovery time < [S] seconds (target < 2s)
-- Report format: System log timestamps comparing failure injection to state recovery
+----------------------------------------------------------------------
+Metric | Method | Input/Dataset | Reference Environment | Minimum Pass | Target | Report Format
+Proxy Latency Overhead at Concurrency | Wall-clock delta comparing direct upstream latency against proxy-forwarded latency under 5,000 requests per second load | 5,000 requests per second sustained HTTP GET workload generated by k6 load tester across 4 upstream servers | Standard 4-core local CPU, Go 1.21+ release binary, Docker local bridge network | p95 proxy latency overhead is < 2.0 milliseconds under 5,000 req/sec | p95 proxy latency overhead is < 0.85 milliseconds under 5,000 req/sec | Proxy benchmark report and k6 latency distribution output
+Unhealthy Upstream Detection & Removal Duration | Duration from upstream server crash injection to complete removal from active routing table | 20 simulated upstream process termination chaos scenarios during active traffic streaming | 4 backend mock HTTP servers running in local Docker containers or background processes | Average removal duration is < 3.0 seconds with 0 failed requests routed to dead node after removal | Average removal duration is < 1.2 seconds with 0 failed requests routed to dead node after removal | Active health check timing log and failover verification summary
+Least-Connections Traffic Distribution Balance Ratio | Variance ratio of active concurrent connections across heterogeneous backend nodes with variable processing delays | 1,000 simulated requests with variable processing durations (10ms to 200ms) distributed across 4 backends | Standard 4-core local CPU, Go test suite | Traffic distribution balance ratio variance is < 15.0% across backends | Traffic distribution balance ratio variance is < 6.0% across backends | Routing algorithm distribution test log and balance ratio report
 
 SKILLS COVERED
-----------------------------------------
-Go, Networking, Concurrency, HTTP, System Design, Linux
+----------------------------------------------------------------------
+Go, HTTP, Concurrency, Docker, Prometheus, Networking, System Design, Linux
 
 TARGET APPLICATION / STARTER INPUT
-----------------------------------------
-The project provides a self-contained test environment and fixture generator located in `scripts/` or `fixtures/`. It deterministically generates representative input records or mock client traffic for automated validation. No third-party proprietary data or real personal identifiers (PII) are required; all test datasets use synthetic tokens and deterministic random seeds.
+----------------------------------------------------------------------
+- Specification: Directory of Go reverse proxy scaffolding, 4 backend HTTP mock servers with configurable latency and error injection, and k6 test scripts.
+- Dataset / Traffic Size: 5 Go source packages, 4 mock server scripts, and automated vegeta/k6 load testing configurations
+- Seeded Edge Cases: Sudden upstream SIGKILL, slowloris partial HTTP headers, flapping health checks, and connection reset spikes
+- Label / Verification Source: Deterministic mock upstream response payloads and Prometheus metric assertions
+- Personal Data Policy: Strictly mock synthetic HTTP transactions and simulated network traffic; zero real personal data used
 
 MILESTONES
-----------------------------------------
-- Milestone 1: Environment Setup & Core Foundations (6h)
-  Configure repository, tooling, container dependencies, and foundational data structures. Done when foundational test suite passes with clean linting.
-- Milestone 2: Core Processing & Architecture Implementation (8h)
-  Implement primary operational workflows, database models or state transitions, and API endpoints. Done when integration tests verify end-to-end data flow under normal operating conditions.
-- Milestone 3: Concurrency, Reliability & Error Guardrails (8h)
-  Implement defensive controls: rate limiting, retries with exponential backoff, transaction boundaries, and failure isolation. Done when chaos or stress tests verify graceful degradation under fault injection.
-- Milestone 4: Verification, Benchmarking & Documentation (6h)
-  Execute performance benchmark harness, compile measurement tables, generate architectural diagrams, and document screener verification steps. Done when `scripts/verify_all` passes completely.
+----------------------------------------------------------------------
+M1: Reverse Proxy Core & Pluggable Algorithms in Go and HTTP (7h) — Done when: Proxy implements round-robin and least-connections routing across backend pools.
+M2: Active Health Checks & Circuit Breaker in Concurrency and Networking (7h) — Done when: Health probe detects upstream crashes and removes dead servers within 3 seconds.
+M3: Graceful Draining & Prometheus Metrics in Docker and Prometheus (7h) — Done when: Draining completes in-flight requests; Prometheus exposes connection metrics in Linux.
+M4: Load Benchmarking, Anti-Fake Test & Docs in System Design (7h) — Done when: Benchmark confirms < 2ms proxy overhead; anti-fake test validates zero dropped requests; docs complete.
+Total: 28 hours (estimate)
 
 PREREQUISITES, ENVIRONMENT AND ACCOUNTS
-----------------------------------------
-- Prerequisites: Familiarity with Go and HTTP, standard command-line tools, and fundamental testing principles.
-- Hardware / OS: Standard modern computer (macOS, Linux, or Windows with WSL2) with at least 8GB RAM.
-- Accounts & Services: None required. Designed to run completely on free, open-source local software.
-- Fallback Path: In-memory mock drivers or SQLite/local files provided if external database or message broker containers cannot be run.
+----------------------------------------------------------------------
+Prerequisites: Proficiency in Go programming, goroutines, channels, and sync synchronization primitives, Understanding of HTTP/1.1 protocol mechanics, reverse proxies, and socket networking
+
+Environment & Hardware:
+- OS: Linux / macOS / Windows with WSL2
+- Memory: 8GB RAM
+- Compute / GPU: None required (purely CPU and network I/O bound systems software)
+- Estimated Cost: $0 (fully open-source stack using Go and Docker)
+- Accounts & Quotas: No external cloud accounts, paid services, or API keys required
+- Reference Environment: Local 4-core CPU with Go 1.21+ and Docker Desktop installed
+- Fallback Path: Running backend mock servers as local background OS processes without Docker
+
+Riskiest Component & Fallback:
+- Riskiest Component: Socket File Descriptor Exhaustion Under High Concurrency Load
+- Simpler Fallback: Enable aggressive TCP keep-alive probe intervals and limit maximum concurrent client connections.
 
 DELIVERABLES
-----------------------------------------
-1. Clean Git repository with structured commit history, README, and reproducible setup commands.
-2. Production-quality core codebase with automated test suite achieving verified pass rates.
-3. Performance benchmark report (`results/benchmark_report.md`) documenting measured latency, throughput, and resource utilization.
-4. Screener verification script (`scripts/verify_all.sh` or equivalent) validating the full system in < 3 minutes.
-5. Architecture diagram (Mermaid/ASCII) and known limitations document explaining architectural trade-offs.
+----------------------------------------------------------------------
+- Git repository containing Go reverse proxy codebase, algorithm implementations, and Prometheus exporter
+- Mock backend server suite capable of configurable latency simulation and failure injection
+- Automated load testing harness with k6 scripts measuring latency overhead under 5,000 req/sec
+- Screener verification script validating active failover and dynamic upstream draining in under 2 minutes
 
 OUT OF SCOPE AND EXTENDED PATH
-----------------------------------------
-- Out of Scope for Core Path: Distributed multi-region clustering, enterprise SSO integrations, complex third-party SaaS dependencies.
-- Extended Path (+6 hours): Advanced telemetry dashboard, distributed persistence cluster extension, or automated canary release pipeline.
+----------------------------------------------------------------------
+Out of Scope:
+- Layer 4 TCP/UDP SYN packet-level routing with BPF or DPDK kernel bypass
+- Hardware network switch ASIC programming or BGP routing table advertisement
+- WAF (Web Application Firewall) SQL injection regex deep packet inspection
 
-SAFETY AND ETHICS NOTE
-----------------------------------------
-All data processed, generated, and benchmarked by this project consists exclusively of synthetic fixtures. No personal identifiable information (PII), proprietary credentials, or live external endpoints are used.
+Extended Path: None (self-contained core scope)
 
 LEARNING RESOURCES
-----------------------------------------
-- Official Documentation for Go, HTTP, Concurrency
-- Architectural Reference Patterns and RFC Standards [VERIFY URL]
-- Systems & Distributed Reliability Principles
+----------------------------------------------------------------------
+- Go net/http/httputil ReverseProxy Implementation and Source Code
+- HAProxy Architecture Guide: Load Balancing Algorithms and Health Checking
+- Prometheus Go Client Library Guidelines for Instrumenting HTTP Applications
 
 SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Check 1: Verify algorithm test: verify even distribution across 3 upstreams with round-robin; Pass when automated test script prints 0 errors and logs verified status code.
-2. Check 2: Verify health check test: kill one upstream and verify no requests routed to it within 3s; Pass when automated test script prints 0 errors and logs verified status code.
-3. Check 3: Verify graceful drain test: in-flight requests complete before upstream removed from pool; Pass when automated test script prints 0 errors and logs verified status code.
-4. Check 4: Verify iP-hash sticky session test: same source IP always routes to same upstream; Pass when automated test script prints 0 errors and logs verified status code.
-5. Check 5: Verify prometheus metrics showing per-upstream request count and error rate; Pass when automated test script prints 0 errors and logs verified status code.
-6. Check 6: 6. Anti-Fake Verification Check: Inspect committed execution logs and re-run verification script against seeded test fixtures; pass when runtime metrics dynamically reflect test execution rather than static mocked responses.
+----------------------------------------------------------------------
+1. Check
+   Input: 5,000 requests per second sustained load generated by k6 across 4 backends
+   Action: go run ./cmd/benchmarker --rps 5000 --duration 30s
+   Result: Proxy successfully routes traffic with p95 latency overhead < 2.0 milliseconds
+   Evidence: Terminal test execution output log and reports/proxy_benchmark.json
+   Pass: p95 proxy overhead < 2.0ms and error rate < 0.01% with exit code 0
+2. Check
+   Input: 20 simulated upstream process termination chaos events during active traffic
+   Action: go test -v ./proxy/... -run TestUpstreamCrashDetection
+   Result: Health checker removes terminated upstream within average duration < 3.0 seconds
+   Evidence: Health check audit log in reports/health_check_report.json
+   Pass: Average detection time < 3.0s with exit code 0
+3. Check
+   Input: 1,000 requests with variable processing durations distributed across 4 backends
+   Action: go test -v ./proxy/... -run TestLeastConnectionsBalancing
+   Result: Least-connections algorithm balances load with connection variance ratio < 15.0%
+   Evidence: Least-connections balance evaluation log
+   Pass: Connection variance ratio < 15.0% with exit code 0
+4. Check
+   Input: Prometheus scrape request sent to proxy metrics port
+   Action: curl http://localhost:9090/metrics
+   Result: Endpoint returns standard Prometheus format metrics including proxy_requests_total and proxy_upstream_health
+   Evidence: HTTP response payload
+   Pass: Response status is 200 and metrics contain proxy_requests_total and proxy_upstream_health
+5. Check [anti_fake]
+   Input: Dynamic upstream termination injected while continuous client request stream is active
+   Action: go run ./scripts/verify_dynamic_failover.go --target-backend http://localhost:8081
+   Result: Proxy immediately redirects in-flight and incoming traffic to remaining 3 healthy backends with 0 dropped requests
+   Evidence: Dynamic verification console execution output log
+   Pass: Verification log confirms 0 failed requests (100% success rate) and backend 8081 marked down with exit code 0
 
 RESUME BULLET FORMULA
-----------------------------------------
-"Built L7 HTTP load balancer in Go with [N] routing algorithms; handled [N] req/sec req/sec with < [M ms] overhead and automated unhealthy upstream removal within [N] health check intervals."
-Do not claim: scale, latency, or throughput figures without committing benchmark run logs; do not claim production deployment unless deployed to a verifiable live environment.
+----------------------------------------------------------------------
+"Architected Layer Seven HTTP load balancer in Go with active health checking; maintained sub-[PROXY_OVERHEAD] proxy latency overhead under [THROUGHPUT_RPS] sustained throughput, and removed crashed upstreams within [REMOVAL_TIME] seconds."
+
+Do not claim: hardware ASIC switch programming or global BGP anycast IP network routing
 
 ======================================================================
 Generated by HireFlow — hireflow.io

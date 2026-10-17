@@ -1,0 +1,359 @@
+{
+  "id": "brief-semantic-kernel-agent",
+  "title": "Hierarchical Multi-Agent Orchestration Framework in Python with Semantic Kernel, Qdrant & FastAPI",
+  "domain": "GenAI & LLM Engineering",
+  "difficulty": "ADVANCED",
+  "project_types": [
+    "AI/ML Applications",
+    "Full-stack web"
+  ],
+  "problem": "Single-prompt LLM applications and monolithic prompt chains fail when tasked with multi-step enterprise workflows requiring information retrieval, data validation, iterative code execution, and peer critique. Naive agent implementations suffer from compounding hallucination loops, runaway token expenditures, fragile tool invocation parsing, and lack of deterministic state recovery when intermediate steps fail. This project builds a production-grade hierarchical multi-agent orchestration framework in Python inspired by Microsoft Semantic Kernel. The framework implements a director agent decomposing high-level user goals into structured DAG plans, specialized worker agents (Researcher, Coder, Critic) executing sandboxed steps with Pydantic contract validation, semantic long-term memory powered by Qdrant vector database, and reflective critique-retry loops guaranteeing deterministic goal completion.",
+  "use_cases": [
+    {
+      "title": "Automated Financial Due Diligence & Market Analysis",
+      "first_sentence": "Investment analysis teams need automated synthesis of corporate SEC filings, earnings call transcripts, and market news into comprehensive investment memos.",
+      "second_sentence": "The director agent delegates filing parsing to the researcher, numerical ratio calculations to the coder, and risk assessment to the critic, assembling a verified audit memo."
+    },
+    {
+      "title": "Autonomous Software Bug Diagnosis & Patch Synthesis",
+      "first_sentence": "DevOps engineering teams investigating production exceptions require automated diagnosis, reproduction script synthesis, and candidate code patches.",
+      "second_sentence": "Worker agents retrieve stack traces, generate localized reproduction tests, verify patches in sandboxes, and submit peer-reviewed pull request summaries."
+    },
+    {
+      "title": "Enterprise Compliance Regulatory Audit QA",
+      "first_sentence": "Compliance officers reviewing vendor contracts against strict corporate security standards need automated clause verification and deviation analysis.",
+      "second_sentence": "The multi-agent system cross-references contract text against Qdrant policy memory, highlighting non-compliant liability clauses and suggesting remediation wording."
+    }
+  ],
+  "hard_parts": [
+    "Designing hierarchical goal decomposition algorithms that construct executable, acyclic dependency graphs (DAGs) from underspecified natural language user prompts",
+    "Implementing strict Pydantic JSON schema function-calling filters that eliminate invalid tool invocations and parse errors",
+    "Structuring semantic long-term memory in Qdrant with hybrid dense-sparse vector indexing to preserve agent cross-session context without token explosion",
+    "Managing cyclic reflection loops where the Critic agent evaluates intermediate worker outputs against objective rubric criteria and triggers bounded auto-remediation"
+  ],
+  "screener_signals": [
+    "Clean Python codebase cleanly separating the DAG planner, worker agent implementations, Qdrant memory adapters, and FastAPI orchestration endpoints",
+    "Autonomous multi-step execution report proving >= 92% goal completion rate across 50 complex multi-agent workflows with zero infinite loop traps",
+    "Anti-fake verification script submitting an adversarial flawed research task and asserting the Critic agent rejects the first draft and forces the Coder agent to remediate within 2 retry cycles"
+  ],
+  "job_families": [
+    "AI Systems Engineer",
+    "LLM Platform Developer",
+    "Autonomous Agent Architect"
+  ],
+  "stack": [
+    {
+      "tool": "Python",
+      "role": "primary backend language powering the agent orchestration runtime, planner, and evaluation harness"
+    },
+    {
+      "tool": "FastAPI",
+      "role": "asynchronous web framework serving workflow execution APIs, agent streaming status, and metrics"
+    },
+    {
+      "tool": "Pydantic",
+      "role": "data validation library enforcing strict structured tool call contracts and agent state schemas"
+    },
+    {
+      "tool": "Qdrant",
+      "role": "vector search engine providing long-term semantic memory storage and fast context retrieval"
+    },
+    {
+      "tool": "Docker",
+      "role": "container runtime hosting local Qdrant vector database and isolated tool execution sandboxes"
+    },
+    {
+      "tool": "Sentence-Transformers",
+      "role": "embedding model generating 384-dimensional dense semantic vectors for memory storage"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "Hierarchical DAG Planner & Goal Decomposition Engine",
+        "tools_used": [
+          "Python",
+          "Pydantic"
+        ],
+        "purpose": "Decomposes user prompts into dependency graphs, assigns tasks to specialized agents, and validates state"
+      },
+      {
+        "name": "Specialized Worker Agent Pool (Researcher, Coder, Critic)",
+        "tools_used": [
+          "Python",
+          "FastAPI"
+        ],
+        "purpose": "Executes domain-specific workflow steps with sandboxed tool access and generates structured intermediate outputs"
+      },
+      {
+        "name": "Qdrant Semantic Long-Term Memory & Context Adapter",
+        "tools_used": [
+          "Python",
+          "Qdrant",
+          "Sentence-Transformers"
+        ],
+        "purpose": "Stores agent episodic memories and technical guidelines as 384-d vectors, executing hybrid semantic recall"
+      },
+      {
+        "name": "Reflective Critique & Auto-Remediation Loop Controller",
+        "tools_used": [
+          "Python",
+          "Pydantic"
+        ],
+        "purpose": "Evaluates worker outputs against objective quality rubrics and routes back to workers upon critique failure"
+      },
+      {
+        "name": "Multi-Agent Workflow Execution API & Streaming Gateway",
+        "tools_used": [
+          "Python",
+          "FastAPI",
+          "Docker"
+        ],
+        "purpose": "Exposes workflow submission endpoints, streams agent reasoning steps via Server-Sent Events, and records telemetry"
+      },
+      {
+        "name": "Agent Autonomous Task Completion & Token Benchmark Harness",
+        "tools_used": [
+          "Python",
+          "Docker"
+        ],
+        "purpose": "Benchmarks multi-agent goal completion rate, execution latency, and token efficiency across 50 complex tasks"
+      },
+      {
+        "name": "Semantic Kernel Agent Architecture Guide & Memory Manual",
+        "tools_used": [
+          "Python",
+          "Qdrant"
+        ],
+        "purpose": "Documents DAG orchestration algorithms, reflection guardrails, and Qdrant memory collection schemas"
+      }
+    ],
+    "data_flow": "A user submits a complex task to FastAPI; the Hierarchical Planner calls an LLM with Pydantic schema enforcement to generate a step-by-step DAG; task 1 assigns to the Researcher agent, which queries Qdrant for historical context and extracts relevant facts; task 2 routes to the Coder agent to synthesize a solution; output forwards to the Critic agent; the Critic evaluates the output against defined constraints; if flawed, the Critic emits concrete remediation feedback and re-queues task 2 (up to a max of 3 retries); if approved, the planner marks the step complete and routes to subsequent DAG nodes; final verified results stream to the client via FastAPI SSE.",
+    "enforcement_mechanism": "Bounded reflection retry counters (max 3 loops) preventing infinite agent cycles; Pydantic model validation on all tool parameters."
+  },
+  "targets": [
+    {
+      "metric": "Complex Multi-Step Task Completion Rate",
+      "method": "Percentage of complex multi-agent workflows completed successfully with all rubric constraints verified and 0 unhandled failures",
+      "input": "50 multi-step enterprise tasks requiring web search, data transformation, code execution, and verification",
+      "environment": "Standard 4-core local CPU, Qdrant in Docker, Python 3.11 with local open-source models / mock LLM client",
+      "minimum_pass": "Multi-step task completion rate is >= 88.0%",
+      "target": "Multi-step task completion rate is >= 94.0%",
+      "report": "Multi-agent evaluation benchmark report and task execution trajectory log"
+    },
+    {
+      "metric": "p95 Agent Step Execution Latency",
+      "method": "Wall-clock timing per intermediate agent reasoning and tool invocation step (excluding external LLM generation token time)",
+      "input": "500 intermediate agent execution steps across 50 workflows",
+      "environment": "Local FastAPI agent runtime with Qdrant vector memory lookup",
+      "minimum_pass": "p95 agent orchestration and tool execution overhead is < 250 milliseconds per step",
+      "target": "p95 agent orchestration and tool execution overhead is < 95 milliseconds per step",
+      "report": "Agent step latency breakdown log and tool execution timing distribution"
+    },
+    {
+      "metric": "Critic Reflection & Flaw Remediation Parity Rate",
+      "method": "Percentage of intentionally flawed worker drafts successfully caught by the Critic agent and remediated on retry",
+      "input": "20 flawed draft solutions (containing calculation errors, schema violations, or missing citations) injected into workflows",
+      "environment": "Automated multi-agent test harness running reflection critique controllers",
+      "minimum_pass": "20 of 20 flawed drafts detected by Critic and successfully corrected within 2 retry cycles",
+      "target": "20 of 20 flawed drafts detected by Critic and successfully corrected within 2 retry cycles",
+      "report": "Critic reflection audit log and remediation verification report"
+    }
+  ],
+  "skills": [
+    "Python",
+    "FastAPI",
+    "Pydantic",
+    "Qdrant",
+    "Docker",
+    "Sentence-Transformers",
+    "AI Agents",
+    "GenAI Engineering"
+  ],
+  "starter_input": {
+    "spec": "Directory containing hierarchical agent planner, specialized worker implementations, Qdrant memory adapter, and test tasks.",
+    "size": "12 Python source modules, Qdrant collection setup script, Docker Compose manifest, and 50 benchmark enterprise task definitions",
+    "seeded_cases": "Cyclic DAG dependencies, tool argument schema mismatches, context token limit overflows, and adversarial unanswerable goals",
+    "label_source": "Deterministic task rubric verification functions and synthetic enterprise task evaluation manifests",
+    "personal_data_policy": "Strictly mock synthetic financial statements and simulated corporate memos; no real personal data used"
+  },
+  "components": [
+    {
+      "name": "Hierarchical DAG Planner & Goal Decomposition Engine",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "Specialized Worker Agent Pool (Researcher, Coder, Critic)",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "Qdrant Semantic Long-Term Memory & Context Adapter",
+      "task_type": "infra component (broker, DB, orchestrator, cluster service)",
+      "hours": 6.0
+    },
+    {
+      "name": "Reflective Critique & Auto-Remediation Loop Controller",
+      "task_type": "concurrency/consistency mechanism with tests",
+      "hours": 5.0
+    },
+    {
+      "name": "Multi-Agent Workflow Execution API & Streaming Gateway",
+      "task_type": "API endpoint group with tests",
+      "hours": 5.0
+    },
+    {
+      "name": "Agent Autonomous Task Completion & Token Benchmark Harness",
+      "task_type": "load or performance test harness + report",
+      "hours": 4.0
+    },
+    {
+      "name": "Semantic Kernel Agent Architecture Guide & Memory Manual",
+      "task_type": "docs + architecture diagram",
+      "hours": 3.0
+    }
+  ],
+  "extended_path": {
+    "features": [
+      "Human-in-the-loop approval breakpoint pausing execution when agent plans high-impact file deletions or external API mutations",
+      "Dynamic agent skill discovery enabling agents to dynamically register new Python functions into the tool catalog",
+      "Multi-modal vision agent analyzing system architecture diagrams and generating code scaffolds directly"
+    ],
+    "hours": 16
+  },
+  "milestones": [
+    {
+      "name": "Hierarchical DAG Planner & Pydantic Tool Schemas in Python, Pydantic and AI Agents",
+      "hours": 10,
+      "done_criterion": "Planner decomposes goals into executable DAGs; Pydantic validates tool inputs with 0 parse errors."
+    },
+    {
+      "name": "Qdrant Semantic Memory & Context Retrieval in Qdrant, Docker and Sentence-Transformers",
+      "hours": 10,
+      "done_criterion": "Qdrant stores episodic agent memory; hybrid search retrieves relevant context in < 25ms."
+    },
+    {
+      "name": "Worker Pool & Reflective Critique Loops in FastAPI and GenAI Engineering",
+      "hours": 10,
+      "done_criterion": "Researcher, Coder, and Critic collaborate; Critic catches and remediates flawed drafts within 2 retries."
+    },
+    {
+      "name": "Completion Benchmark, Reflection Anti-Fake Test & Docs in GenAI & LLM Engineering",
+      "hours": 10,
+      "done_criterion": "Benchmark confirms >= 88% task completion; anti-fake test validates forced remediation; docs complete."
+    }
+  ],
+  "prerequisites": [
+    "Proficiency in Python backend development, asynchronous programming (FastAPI), and Pydantic validation",
+    "Understanding of LLM agent architectures (ReAct, plan-and-solve, reflection), tool-use schemas, and vector memory systems (Qdrant)"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (uses lightweight local Sentence-Transformers embeddings and mock/local LLM endpoints)",
+    "cost": "$0 (fully open-source stack using local Qdrant in Docker and local test models)",
+    "accounts_keys_quotas": "No external cloud accounts, paid services, or commercial OpenAI/Anthropic API keys required",
+    "reference_environment": "Local 4-core CPU with Docker Desktop (Qdrant container) and Python 3.11 with PyTorch CPU",
+    "fallback_path": "In-memory mock vector dictionary if Docker Qdrant container is unavailable"
+  },
+  "riskiest_component": {
+    "name": "Infinite Reflection Loops and Token Budget Exhaustion",
+    "mitigation": "Enforce strict hard-coded iteration caps (max 3 retries per step) and token budget monitors terminating runaway loops.",
+    "fallback": "Escalate to user approval or terminate workflow with partial execution state preserved."
+  },
+  "deliverables": [
+    "Git repository containing agent planner, worker pool, Qdrant memory adapter, and FastAPI orchestration server",
+    "Docker Compose file launching local Qdrant instance with pre-configured memory collections",
+    "Automated benchmark harness evaluating multi-step goal completion rates, latency, and critique accuracy",
+    "Screener verification script executing automated 3-agent collaboration and forced flaw remediation in under 3 minutes"
+  ],
+  "out_of_scope": [
+    "Commercial multi-agent SaaS platforms (CrewAI Enterprise / LangChain LangGraph Cloud)",
+    "Paid proprietary foundation LLM fine-tuning API integrations",
+    "Physical robotics or hardware actuator control systems"
+  ],
+  "safety_note": null,
+  "resources": [
+    "Semantic Kernel Framework Architecture Documentation (Microsoft Learn)",
+    "Reflexion: Language Agents with Verbal Reinforcement Learning (Shinn et al., NeurIPS 2023)",
+    "Toolformer: Language Models Can Teach Themselves to Use Tools (Schick et al., NeurIPS 2023)"
+  ],
+  "rubric": [
+    {
+      "input": "50 multi-step enterprise workflows requiring research, coding, and critique",
+      "action": "python ./benchmarks/bench_completion.py --tasks 50",
+      "expected_result": "Multi-agent framework successfully completes >= 88.0% of workflows with all criteria satisfied",
+      "evidence_location": "Terminal output log and reports/task_completion.json",
+      "pass_criterion": "Task completion rate >= 88.0% with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "500 intermediate agent reasoning and tool invocation steps",
+      "action": "python ./benchmarks/bench_step_latency.py --steps 500",
+      "expected_result": "Orchestration and tool execution overhead exhibits p95 latency < 250ms per step",
+      "evidence_location": "Step latency benchmark report in reports/step_latency.json",
+      "pass_criterion": "p95 latency < 250ms with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "20 flawed draft solutions injected into worker execution pipeline",
+      "action": "python ./tests/test_critic_reflection.py --flawed-drafts 20",
+      "expected_result": "Critic agent detects flaws in all 20 drafts and forces worker auto-remediation within 2 cycles",
+      "evidence_location": "Critic reflection audit log in reports/critic_audit.json",
+      "pass_criterion": "20 of 20 flawed drafts caught and remediated with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "User request querying cross-session agent memory stored in Qdrant",
+      "action": "curl -X POST http://localhost:8000/api/v1/memory/recall -H 'Content-Type: application/json' -d '{\"query\":\"What was the database schema discussed earlier?\"}'",
+      "expected_result": "API retrieves relevant episodic memory chunks from Qdrant with similarity score >= 0.80",
+      "evidence_location": "HTTP response JSON and memory audit log",
+      "pass_criterion": "Response status 200 with non-empty relevant memories and exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Adversarial flawed calculation task designed to trick Coder into syntax error",
+      "action": "python ./scripts/verify_forced_remediation.py --task 'divide_by_zero_recovery'",
+      "expected_result": "Coder generates flawed code; Critic rejects; Coder remediates with try/except; Critic approves",
+      "evidence_location": "Dynamic verification console execution output log",
+      "pass_criterion": "Console confirms rejection of draft 1 and approval of draft 2 with exit code 0",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected hierarchical multi-agent orchestration framework in Python with Semantic Kernel and Qdrant; achieved [COMPLETION_RATE] task completion rate across multi-step enterprise workflows, and eliminated execution loops with reflective critique cycles.",
+    "claims": [
+      {
+        "text": "achieved [COMPLETION_RATE] task completion rate across multi-step enterprise workflows",
+        "rubric_indexes": [
+          0
+        ]
+      },
+      {
+        "text": "eliminated execution loops with reflective critique cycles",
+        "rubric_indexes": [
+          2
+        ]
+      }
+    ],
+    "do_not_claim": "commercial agent cloud SaaS deployment or proprietary foundation model pretraining"
+  },
+  "verify": [
+    "Run `pytest tests/` to confirm DAG planner, Pydantic schemas, Qdrant memory, and Critic reflection pass.",
+    "Execute `python ./benchmarks/bench_completion.py` to verify completion rate meets >= 88% threshold.",
+    "Run `python ./scripts/verify_forced_remediation.py` to assert Critic catches and remediates flawed drafts."
+  ],
+  "worksheet": {
+    "q1": "Core deliverable: a hierarchical multi-agent orchestration framework in Python with Semantic Kernel, Qdrant vector memory, and FastAPI.",
+    "q2": "Target users: AI systems engineers, LLM platform developers, and autonomous agent architects.",
+    "q3": "3 use cases: automated financial due diligence, autonomous bug diagnosis/patching, and regulatory compliance audits.",
+    "q4": "Stated hours: 40 hours. Calculated bottom-up: 35 component hours * 1.15 buffer = 40.25 -> 40 hours. Advanced level.",
+    "q5": "Hard parts: hierarchical DAG goal decomposition, Pydantic function-calling validation, Qdrant episodic memory, and bounded reflection loops.",
+    "q6": "Starter input: DAG planner, specialized worker agents, Qdrant memory adapter, and 50 benchmark tasks. Synthetic data only.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU bound, $0 cost using Docker Qdrant and local models.",
+    "q8": "Riskiest component: infinite reflection loops and token exhaustion. Fallback: hard-coded max 3 retries and automatic circuit breakers.",
+    "q9": "Potential faking: mock agent outputting canned text without actual multi-step reasoning. Anti-fake check 5 injects flawed code, verifies Critic rejection, and confirms remediation.",
+    "q10": "Safe; synthetic corporate documents and private local container sandboxes only."
+  }
+}

@@ -1,0 +1,308 @@
+{
+  "id": "brief-devsecops-pipeline",
+  "title": "DevSecOps CI/CD Pipeline with SAST, SCA & Container Admission Gates",
+  "domain": "Security & Platform",
+  "difficulty": "INTERMEDIATE",
+  "project_types": [
+    "CLI/tools/libraries",
+    "Systems/low-level/networking"
+  ],
+  "problem": "Software vulnerabilities introduced during feature development become exponentially costlier to remediate once deployed into production environments. Modern software engineering requires automated security gates embedded directly into CI/CD pipelines to intercept security flaws before code merge. This project constructs an automated DevSecOps pipeline using GitHub Actions, Semgrep, Trivy, and Cosign. The system enforces strict static application security testing (SAST), software composition analysis (SCA) for known CVEs, secrets leakage detection, container image vulnerability scanning, and cryptographic artifact signing with automated build failure policies.",
+  "use_cases": [
+    "Enterprise CI/CD quality gates enforcing SOC2 and PCI-DSS application security standards",
+    "Automated dependency audit workflows blocking vulnerable open-source packages in pull requests",
+    "Supply chain security pipelines cryptographically signing container images prior to production deployment"
+  ],
+  "hard_parts": [
+    "Tuning SAST rules to eliminate developer false positives while maintaining high recall on critical flaws",
+    "Managing software composition analysis vulnerability thresholds across transitive dependency trees",
+    "Implementing cryptographic container signing with Cosign keyless infrastructure and admission verification",
+    "Designing fail-fast pipeline gating logic that delivers actionable remediation reports without stalling build velocity"
+  ],
+  "screener_signals": [
+    "Modular GitHub Actions workflow configurations cleanly separating SAST, SCA, container scanning, and signing",
+    "Automated vulnerability test suite with intentional defect fixtures confirming pipeline blocking enforcement",
+    "Anti-fake verification script injecting dynamic secret tokens and high-severity CVEs into test PRs to assert blocking"
+  ],
+  "job_families": [
+    "DevSecOps Engineer",
+    "Security Software Engineer",
+    "Platform Infrastructure Engineer"
+  ],
+  "stack": [
+    {
+      "tool": "GitHub Actions",
+      "role": "CI/CD orchestration platform executing multi-stage security quality gates"
+    },
+    {
+      "tool": "Semgrep",
+      "role": "static application security testing engine analyzing source code for vulnerabilities"
+    },
+    {
+      "tool": "Trivy",
+      "role": "security scanner auditing dependencies, SBOMs, and container filesystem vulnerabilities"
+    },
+    {
+      "tool": "Docker",
+      "role": "containerization engine building application images for scanning and admission"
+    },
+    {
+      "tool": "Cosign",
+      "role": "cryptographic tool signing container images and verifying signatures prior to admission"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "SAST DevSecOps Static Code Scanner",
+        "tools_used": [
+          "Semgrep",
+          "GitHub Actions"
+        ],
+        "purpose": "Scans application source code for injection vulnerabilities, insecure cryptosystems, and leaked tokens"
+      },
+      {
+        "name": "SCA Dependency & Secrets Auditor",
+        "tools_used": [
+          "Trivy",
+          "GitHub Actions"
+        ],
+        "purpose": "Audits third-party dependency manifests against known CVE databases and generates CycloneDX SBOMs"
+      },
+      {
+        "name": "Container Vulnerability Scanner",
+        "tools_used": [
+          "Trivy",
+          "Docker",
+          "GitHub Actions"
+        ],
+        "purpose": "Inspects container base images and filesystem packages for high and critical CVE vulnerabilities"
+      },
+      {
+        "name": "Cryptographic Image Signer & Policy Gate",
+        "tools_used": [
+          "Cosign",
+          "GitHub Actions"
+        ],
+        "purpose": "Signs clean container digests cryptographically and rejects unsigned or vulnerable container artifacts"
+      }
+    ],
+    "data_flow": "Pull requests trigger GitHub Actions; Semgrep parses source files for code vulnerabilities and secret keys; Trivy analyzes project lockfiles for known dependency CVEs and generates an SBOM; Docker builds the container image; Trivy executes a deep filesystem scan on the container; if critical CVEs or secrets are detected, the pipeline terminates with exit code 1; if clean, Cosign cryptographically signs the image digest and generates an attestation log.",
+    "enforcement_mechanism": "GitHub Actions status checks blocking branch merges; Cosign signature verification rejecting unsigned container admission."
+  },
+  "targets": [
+    {
+      "metric": "Injected Critical Security Flaw Interception Rate",
+      "method": "Pipeline execution against security benchmark repo containing 15 intentionally planted vulnerabilities",
+      "input": "Test repository containing 15 planted security flaws (5 SQLi/XSS, 5 CVE dependencies, 5 leaked secrets)",
+      "environment": "GitHub Actions runner or local Act runner, 2-core CPU, Ubuntu 22.04",
+      "minimum_pass": "Detection and blocking of 15 of 15 planted vulnerabilities with 0 pipeline escapes",
+      "target": "Detection and blocking of 15 of 15 planted vulnerabilities with 0 pipeline escapes",
+      "report": "DevSecOps security gate summary log detailing detected flaw IDs and blocking exit status"
+    },
+    {
+      "metric": "Pipeline End-to-End Execution Latency",
+      "method": "Full execution duration of all security stages (SAST, SCA, container scan, and signing) on standard codebase",
+      "input": "Sample 10,000 LOC microservice repository with 25 third-party dependencies and Dockerfile",
+      "environment": "Standard 2-core virtual CPU, 4GB RAM, Linux container runner",
+      "minimum_pass": "Execution across security stages finishes in < 240 seconds",
+      "target": "Execution across security stages finishes in < 120 seconds",
+      "report": "CI/CD execution step timing summary output"
+    },
+    {
+      "metric": "Clean Codebase False Positive Blocking Rate",
+      "method": "Pipeline execution across verified clean production repository baseline",
+      "input": "Verified clean repository of 10,000 LOC without security flaws or high-severity CVEs",
+      "environment": "Standard 2-core virtual CPU, 4GB RAM, Linux container runner",
+      "minimum_pass": "0 false positive blocking alerts; pipeline terminates with exit code 0",
+      "target": "0 false positive blocking alerts; pipeline terminates with exit code 0",
+      "report": "Pipeline run log confirming green build status on clean code"
+    }
+  ],
+  "skills": [
+    "DevSecOps",
+    "GitHub Actions",
+    "Semgrep",
+    "Trivy",
+    "Docker",
+    "Cosign",
+    "Security Engineering"
+  ],
+  "starter_input": {
+    "spec": "Sample Python/Node.js web microservice with vulnerable package manifests, insecure SQL patterns, and Dockerfile.",
+    "size": "Source codebase of 10,000 LOC across 45 files with 25 package dependencies",
+    "seeded_cases": "Hardcoded AWS secret keys, SQL string concatenation, unpinned base images, and dependencies with known critical CVEs",
+    "label_source": "Curated security test fixture manifest mapping planted vulnerability lines to expected scanner rule IDs",
+    "personal_data_policy": "Strictly mock synthetic API tokens and fake credentials; zero real private keys used"
+  },
+  "components": [
+    {
+      "name": "SAST & Secret Detection Engine",
+      "task_type": "data pipeline step",
+      "hours": 4.0
+    },
+    {
+      "name": "SCA Dependency Vulnerability Scanner",
+      "task_type": "data pipeline step",
+      "hours": 4.0
+    },
+    {
+      "name": "Trivy Container Image Scanner & SBOM Generator",
+      "task_type": "data pipeline step",
+      "hours": 4.0
+    },
+    {
+      "name": "Cosign Cryptographic Image Signing & Policy Gate",
+      "task_type": "infra component (broker, DB, orchestrator, cluster service)",
+      "hours": 4.0
+    },
+    {
+      "name": "Vulnerability Injection Harness & Pipeline Benchmark",
+      "task_type": "load or performance test harness + report",
+      "hours": 4.0
+    },
+    {
+      "name": "Threat Model Diagram & CI/CD Documentation",
+      "task_type": "docs + architecture diagram",
+      "hours": 4.0
+    }
+  ],
+  "extended_path": {
+    "items": [
+      "Kyverno Kubernetes admission controller enforcing Cosign signature verification on cluster pods",
+      "Automated GitHub pull request vulnerability commenting bot with remediation guidance"
+    ],
+    "hours": 12
+  },
+  "milestones": [
+    {
+      "name": "SAST Static Code Analysis & Secret Scanning Gate with Semgrep",
+      "hours": 7,
+      "done_criterion": "Semgrep scans source files, detects code injection and secrets, and emits SARIF reports."
+    },
+    {
+      "name": "SCA Dependency Auditing & SBOM Generation",
+      "hours": 7,
+      "done_criterion": "Trivy scans dependency manifests, flags CVEs above CVSS 7.0, and outputs CycloneDX SBOM."
+    },
+    {
+      "name": "Container Vulnerability Scanning with Trivy & Cosign Signature Verification",
+      "hours": 7,
+      "done_criterion": "Docker builds container image; Trivy scans image; Cosign signs image digest if vulnerability-free."
+    },
+    {
+      "name": "Insecure Build Blocking Verification, Security Engineering Harness & Docs",
+      "hours": 7,
+      "done_criterion": "Harness verifies 15 of 15 flaws intercepted; anti-fake test validates dynamic secret rejection; docs complete."
+    }
+  ],
+  "prerequisites": [
+    "Familiarity with Git branching, pull request workflows, and CI/CD concepts",
+    "Basic knowledge of Docker containerization, shell scripting, and application security principles (OWASP Top 10)"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (purely CPU-bound scanner execution)",
+    "cost": "$0 (fully open-source software stack on free GitHub public repositories or local runners)",
+    "accounts_keys_quotas": "Free GitHub account for Actions, or local Act runner without cloud dependencies",
+    "reference_environment": "Ubuntu 22.04 with Docker 24+, Semgrep CLI, and Trivy CLI installed",
+    "fallback_path": "Local command-line script running Semgrep and Trivy directly without GitHub Actions"
+  },
+  "riskiest_component": {
+    "name": "Pipeline Flakiness from Upstream CVE Database Rate Limiting",
+    "fallback": "Cache Trivy vulnerability database locally in runner cache to decouple scanning from network rate limits"
+  },
+  "deliverables": [
+    "Git repository containing GitHub Actions workflow definitions (.github/workflows/sec-pipeline.yml)",
+    "Custom Semgrep rule configuration YAML files targeting insecure application patterns",
+    "Automated vulnerability test harness verifying pipeline failure on dirty code branches",
+    "Screener verification script executing security scanners and dynamic defect check in under 2 minutes"
+  ],
+  "out_of_scope": [
+    "Dynamic Application Security Testing (DAST) with active network fuzzing",
+    "Full-scale runtime cloud security posture management (CSPM)",
+    "Manual penetration testing reporting and remediation consulting"
+  ],
+  "safety_note": "This project executes automated security vulnerability scanners and static analysis tools on local test repositories. It does not perform active network penetration, unauthorized port scanning, or malicious exploitation against external computing systems.",
+  "resources": [
+    "Semgrep Rule Writing Tutorial and Official Security Registry",
+    "Trivy Vulnerability Scanner and SBOM Generation Documentation",
+    "Sigstore Cosign Container Signing and Verification Architecture Guide"
+  ],
+  "rubric": [
+    {
+      "input": "Dirty branch containing 5 planted SQL injection and hardcoded secret flaws",
+      "action": "Run semgrep scan --config .semgrep/rules.yml --error",
+      "expected_result": "Semgrep intercepts all 5 flaws and terminates with exit code 1",
+      "evidence_location": "Terminal stdout output and reports/sast_report.sarif",
+      "pass_criterion": "Exit code 1 with exactly 5 vulnerability violations reported",
+      "kind": "normal"
+    },
+    {
+      "input": "Dependency manifest package.json containing outdated library with known CVE-2023-XXXX",
+      "action": "Run trivy fs --severity HIGH,CRITICAL --exit-code 1 .",
+      "expected_result": "Trivy flags high-severity dependency CVEs and terminates with exit code 1",
+      "evidence_location": "Terminal output log and trivy_sca.json",
+      "pass_criterion": "Exit code 1 with identified CVE IDs matching planted test fixtures",
+      "kind": "normal"
+    },
+    {
+      "input": "Docker image built from clean verified application codebase",
+      "action": "Run cosign sign-blob --yes /tmp/image_digest.txt",
+      "expected_result": "Cosign creates cryptographic signature and attestation log for clean artifact",
+      "evidence_location": "Generated signature file /tmp/image.sig",
+      "pass_criterion": "Cosign verification command returns exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Full pipeline execution on standard 10,000 LOC microservice repository",
+      "action": "Run bash scripts/benchmark_pipeline_speed.sh",
+      "expected_result": "All security stages (SAST, SCA, container scan) finish in < 240 seconds",
+      "evidence_location": "Benchmark timing report log",
+      "pass_criterion": "Total pipeline execution latency is < 240 seconds",
+      "kind": "normal"
+    },
+    {
+      "input": "Dynamic high-entropy secret token injected into source file by screener script at runtime",
+      "action": "Run python scripts/verify_dynamic_secrets.sh --secret MOCK_AWS_ACCESS_KEY_ID",
+      "expected_result": "Security gate detects injected AWS credential pattern, logs rule breach, and halts build",
+      "evidence_location": "Dynamic verification console output log",
+      "pass_criterion": "Exit code 1 with secret scanner pinpointing injected credential string",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected DevSecOps CI/CD security pipeline in GitHub Actions with Semgrep, Trivy, and Cosign; intercepted [VULN_COUNT] of [TOTAL_VULNS] planted security vulnerabilities across SAST and SCA stages, and achieved sub-[PIPELINE_LATENCY] scan execution latency with cryptographic container signing.",
+    "claims": [
+      {
+        "text": "intercepted [VULN_COUNT] of [TOTAL_VULNS] planted security vulnerabilities across SAST and SCA stages",
+        "rubric_indexes": [
+          0,
+          1
+        ]
+      },
+      {
+        "text": "achieved sub-[PIPELINE_LATENCY] scan execution latency with cryptographic container signing",
+        "rubric_indexes": [
+          2,
+          3
+        ]
+      }
+    ],
+    "do_not_claim": "enterprise runtime intrusion detection or zero-day kernel exploit immunity"
+  },
+  "verify": [],
+  "worksheet": {
+    "q1": "Core deliverable: an automated DevSecOps CI/CD pipeline with Semgrep SAST, Trivy SCA and container scanning, Cosign signing, and blocking gates.",
+    "q2": "Target users: DevSecOps engineers, security platform architects, and CI/CD infrastructure teams.",
+    "q3": "3 use cases: enterprise SOC2 compliance gates, automated dependency CVE audits, and container supply chain signing.",
+    "q4": "Stated hours: 28 hours. Calculated bottom-up: 24 component hours * 1.15 buffer = 27.6 -> 28 hours. Intermediate level.",
+    "q5": "Hard parts: SAST rule false-positive tuning, SCA transitive dependency management, Cosign keyless container signing, and fail-fast pipeline gating.",
+    "q6": "Starter input: 10,000 LOC microservice with planted vulnerabilities. Mock synthetic credentials only.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU only, $0 cost, free GitHub public repo. Fallback: local CLI scanning without GitHub Actions.",
+    "q8": "Riskiest component: Upstream CVE database rate limiting. Fallback: local runner caching of vulnerability databases.",
+    "q9": "Potential faking: hardcoded green build logs. Anti-fake check 5 injects dynamic secret at runtime and asserts blocking gate failure.",
+    "q10": "Safety/ethics: Safe; automated local vulnerability scanners only, no unauthorized external network penetration."
+  }
+}

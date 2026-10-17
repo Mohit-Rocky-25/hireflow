@@ -1,0 +1,313 @@
+{
+  "id": "brief-canary-deployment",
+  "title": "Canary Deployment Controller with Automated Rollback",
+  "domain": "Platform & DevOps",
+  "difficulty": "INTERMEDIATE",
+  "project_types": [
+    "CI/CD/DevOps/security pipelines",
+    "IaC/cloud"
+  ],
+  "problem": "Deploying software updates to production instances without gradual traffic shifting risks catastrophic outages when defect-laden releases escape staging environments. Progressive delivery mitigates deployment blast radiuses by routing a small fraction of real user requests to canary replicas while monitoring reliability metrics. This project implements a custom Kubernetes operator in Go that reconciles declarative CanaryDeployment resources, coordinates traffic shifting across service meshes, evaluates Prometheus service-level indicators, and triggers automated rollbacks when error rate or latency thresholds are breached.",
+  "use_cases": [
+    "Progressive release management for microservices with automated error rate rollback gates",
+    "Canary latency regression detection during cloud service upgrades",
+    "Automated traffic migration across Blue-Green and canary service endpoints"
+  ],
+  "hard_parts": [
+    "Managing Kubernetes reconciliation loops with exponential backoff and idempotency without state desynchronization",
+    "Translating dynamic traffic weight distributions across service mesh routing objects without connection drops",
+    "Querying Prometheus metrics reliably across sliding inspection windows while handling sparse or delayed samples",
+    "Enforcing safe automated rollback state transitions during active deployments without human intervention"
+  ],
+  "screener_signals": [
+    "Custom Resource Definition and Go operator built using client-go and controller-runtime",
+    "Automated progressive traffic shifting verified across 4 distinct step percentages",
+    "End-to-end chaos integration test demonstrating automated rollback within 30 seconds of an injected fault"
+  ],
+  "job_families": [
+    "Site Reliability Engineer",
+    "Platform Engineer",
+    "DevOps Engineer"
+  ],
+  "stack": [
+    {
+      "tool": "Go",
+      "role": "operator reconciliation logic and Kubernetes API client implementation"
+    },
+    {
+      "tool": "Kubernetes",
+      "role": "container orchestration platform hosting pods, services, and custom resources"
+    },
+    {
+      "tool": "Prometheus",
+      "role": "time-series monitoring database scraped for error rate and latency metrics"
+    },
+    {
+      "tool": "Docker",
+      "role": "local container runtime packaging the operator image and mock applications"
+    },
+    {
+      "tool": "Helm",
+      "role": "chart packaging for operator CRDs, RBAC roles, and deployment manifests"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "Canary Controller",
+        "tools_used": [
+          "Go",
+          "Kubernetes"
+        ],
+        "purpose": "Reconciles CanaryDeployment CRDs, tracking rollout phases and updating target pod replica counts"
+      },
+      {
+        "name": "Traffic Routing Manager",
+        "tools_used": [
+          "Go",
+          "Kubernetes"
+        ],
+        "purpose": "Updates traffic split weights between primary and canary services via service mesh virtual routers"
+      },
+      {
+        "name": "Metric Analyzer",
+        "tools_used": [
+          "Go",
+          "Prometheus"
+        ],
+        "purpose": "Queries Prometheus HTTP API to compute error rates and p99 latency against configured SLO thresholds"
+      },
+      {
+        "name": "Automated Rollback Engine",
+        "tools_used": [
+          "Go"
+        ],
+        "purpose": "Shifts traffic weights back to primary version and scales canary to zero upon threshold violation"
+      },
+      {
+        "name": "Cluster Manifest Package",
+        "tools_used": [
+          "Helm",
+          "Docker"
+        ],
+        "purpose": "Packages operator container and manifests for local execution on Minikube or Kind clusters"
+      }
+    ],
+    "data_flow": "Developers apply a CanaryDeployment manifest; the controller detects the spec change and creates a canary deployment; traffic shifts incrementally (10%, 25%, 50%, 100%) across scheduled intervals; the Metric Analyzer queries Prometheus every 15 seconds; if error rates remain below threshold, rollout advances; if SLOs are violated, the Rollback Engine immediately shifts 100% traffic to stable pods and marks status FAILED.",
+    "enforcement_mechanism": "Reconciliation loop terminates canary rollout and restores stable routing weights if error rate exceeds 5% or p99 latency exceeds 200ms."
+  },
+  "targets": [
+    {
+      "metric": "Traffic Shift Progression Accuracy",
+      "method": "Measurement of request routing distribution across primary and canary pods at each progression step",
+      "input": "1,000 synthetic HTTP requests routed through proxy at 10%, 25%, and 50% target weights",
+      "environment": "Local Kubernetes cluster (Kind/Minikube), single node, 4-core CPU",
+      "minimum_pass": "Observed traffic percentage within 4.0% of target weight at each progression stage",
+      "target": "Observed traffic percentage within 1.5% of target weight at each progression stage",
+      "report": "Traffic distribution summary log table from curl benchmarking client"
+    },
+    {
+      "metric": "Automated Rollback Detection & Convergence Duration",
+      "method": "Injection of 10% HTTP 500 error rate into canary pods during 50% traffic stage",
+      "input": "Continuous background load of 100 requests per second across active pods",
+      "environment": "Local Kubernetes cluster (Kind/Minikube) with local Prometheus instance",
+      "minimum_pass": "Detection of breach and full traffic restoration to stable version in < 45 seconds",
+      "target": "Detection of breach and full traffic restoration to stable version in < 25 seconds",
+      "report": "Controller event log and Prometheus metric series showing rollback timeline"
+    },
+    {
+      "metric": "Controller Memory Footprint Under Reconciliation",
+      "method": "Continuous resource monitoring of operator pod during repeated deployment reconciliations",
+      "input": "5 concurrent CanaryDeployment objects under continuous metric evaluation",
+      "environment": "Local Kubernetes cluster (Kind/Minikube), Go 1.21+",
+      "minimum_pass": "Operator pod resident memory consumption < 65MB",
+      "target": "Operator pod resident memory consumption < 40MB",
+      "report": "kubectl top pod output log and Prometheus container memory metric"
+    }
+  ],
+  "skills": [
+    "Go",
+    "Kubernetes",
+    "Prometheus",
+    "Docker",
+    "Helm",
+    "CI/CD",
+    "DevOps"
+  ],
+  "starter_input": {
+    "spec": "Mock microservice application container image in Go exposing /version, /healthz, and /inject-fault endpoints.",
+    "size": "2 application versions (v1 stable, v2 candidate) with configurable latency and error rates",
+    "seeded_cases": "Healthy 4-stage progression, immediate crash-loop backoff on v2, 8% HTTP 500 error injection, and Prometheus scrape timeout",
+    "label_source": "Deterministic chaos test execution scripts and Kubernetes event streams",
+    "personal_data_policy": "Strictly mock synthetic microservices and telemetry; no personal data or live production traffic used"
+  },
+  "components": [
+    {
+      "name": "CRD Definition & Operator Skeleton",
+      "task_type": "infra component (broker, DB, orchestrator, cluster service)",
+      "hours": 5.0
+    },
+    {
+      "name": "Traffic Routing Splitter Integration",
+      "task_type": "one third-party integration",
+      "hours": 4.0
+    },
+    {
+      "name": "Prometheus Metric Scraper & Analyzer",
+      "task_type": "observability",
+      "hours": 4.0
+    },
+    {
+      "name": "Automated Rollback State Machine",
+      "task_type": "concurrency/consistency mechanism with tests",
+      "hours": 4.0
+    },
+    {
+      "name": "Chaos Test Harness & Helm Charts",
+      "task_type": "load or performance test harness + report",
+      "hours": 4.0
+    },
+    {
+      "name": "Documentation, Architecture Diagram & Buffer",
+      "task_type": "docs + architecture diagram",
+      "hours": 4.0
+    }
+  ],
+  "extended_path": {
+    "items": [
+      "Dynamic webhook notifications sending deployment failure summaries to Slack",
+      "Multi-cluster traffic shifting using Istio multi-primary deployment topologies"
+    ],
+    "hours": 14
+  },
+  "milestones": [
+    {
+      "name": "Custom Resource Definition & Controller Reconciliation",
+      "hours": 8,
+      "done_criterion": "Operator watches CanaryDeployment CRDs and manages canary pod deployment lifecycles."
+    },
+    {
+      "name": "Traffic Splitting & Service Mesh Integration",
+      "hours": 7,
+      "done_criterion": "Controller shifts traffic weights between stable and canary pods according to step schedule."
+    },
+    {
+      "name": "Prometheus Metric Analysis & Automated Rollback",
+      "hours": 8,
+      "done_criterion": "Controller queries Prometheus metrics and reverts traffic to stable version on error threshold breach."
+    },
+    {
+      "name": "Chaos Testing, Helm Packaging, CI/CD Pipeline Automation, DevOps Docs & Buffer",
+      "hours": 6,
+      "done_criterion": "Helm chart deploys operator cleanly on local Kind cluster; chaos test confirms automated rollback; docs complete."
+    }
+  ],
+  "prerequisites": [
+    "Intermediate Go programming (goroutines, channels, interfaces)",
+    "Familiarity with Kubernetes core objects (Deployments, Services, CRDs)",
+    "Basic understanding of Prometheus PromQL queries and time-series metrics"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM (minimum 4GB allocated to Docker)",
+    "gpu": "None required (purely CPU-bound operator and mock pods)",
+    "cost": "$0 (fully open-source software stack)",
+    "accounts_keys_quotas": "No external cloud accounts or paid services required",
+    "reference_environment": "Local 4-core CPU with Docker, Kind or Minikube, and kubectl installed",
+    "fallback_path": "Kubernetes controller tests running against envtest (API server + etcd binary) without requiring full cluster"
+  },
+  "riskiest_component": {
+    "name": "Prometheus Metrics Delay Causing Rollback Decision Latency",
+    "fallback": "Configure short scrape intervals (5s) in local Prometheus config and enforce minimum evaluation window count"
+  },
+  "deliverables": [
+    "Git repository containing Go operator source code, CRD YAML manifests, and Helm charts",
+    "Mock microservice with programmable error and latency injection endpoints",
+    "Automated chaos test script demonstrating traffic progression and rollback",
+    "Screener verification script executing end-to-end deployment verification in under 3 minutes"
+  ],
+  "out_of_scope": [
+    "Multi-cloud federation across distinct cloud providers",
+    "Automated canary analysis using Bayesian statistical models",
+    "Production ingress TLS certificate management"
+  ],
+  "safety_note": null,
+  "resources": [
+    "Kubernetes client-go and controller-runtime official documentation",
+    "Prometheus HTTP API query specification and PromQL tutorial",
+    "Kubernetes Custom Resource Definition official design guidelines"
+  ],
+  "rubric": [
+    {
+      "input": "kubectl apply -f config/samples/canary_v1.yaml command",
+      "action": "Inspect operator pod logs and Kubernetes deployment objects",
+      "expected_result": "Operator initializes CanaryDeployment object and creates corresponding primary deployment",
+      "evidence_location": "kubectl get canarydeployments output and operator logs",
+      "pass_criterion": "CanaryDeployment status transitions to Initialized with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Trigger canary update to version v2 via kubectl apply",
+      "action": "Run traffic monitoring script while progression advances",
+      "expected_result": "Traffic weights step through configured percentages without connection drops",
+      "evidence_location": "Traffic monitor output log file",
+      "pass_criterion": "Observed request routing matches target weights within 4% tolerance across all steps",
+      "kind": "normal"
+    },
+    {
+      "input": "Fault injection script triggering 10% HTTP 500 responses on canary pods",
+      "action": "Execute chaos test during 50% traffic rollout stage",
+      "expected_result": "Prometheus metric analyzer detects SLO violation and triggers immediate rollback",
+      "evidence_location": "Operator event log and kubectl get canarydeployments status field",
+      "pass_criterion": "Traffic immediately shifted 100% to stable pods and canary status marked Failed",
+      "kind": "normal"
+    },
+    {
+      "input": "helm install canary-operator ./charts/canary-operator on empty Kind cluster",
+      "action": "Inspect installed pods and CRD registration",
+      "expected_result": "Operator pod starts running with 1/1 ready status and CRDs established",
+      "evidence_location": "kubectl get pods -n canary-system output",
+      "pass_criterion": "Pod is in Running state and ready probe returns HTTP 200",
+      "kind": "normal"
+    },
+    {
+      "input": "Dynamic error rate threshold and unique test namespace injected at runtime by verification script",
+      "action": "Run ./scripts/verify_operator.sh --dynamic-threshold 3.5",
+      "expected_result": "Script deploys canary, injects controlled errors, and confirms automated rollback at dynamic threshold",
+      "evidence_location": "Verification execution console output log",
+      "pass_criterion": "Operator successfully halts deployment and logs matching dynamic threshold with exit code 0",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected Kubernetes canary deployment controller in Go using Prometheus metrics; automated progressive traffic shifting across [TRAFFIC_STAGES] stages and implemented automated rollback within [ROLLBACK_TIME] seconds of SLO error rate breach.",
+    "claims": [
+      {
+        "text": "automated progressive traffic shifting across [TRAFFIC_STAGES] stages",
+        "rubric_indexes": [
+          1
+        ]
+      },
+      {
+        "text": "implemented automated rollback within [ROLLBACK_TIME] seconds of SLO error rate breach",
+        "rubric_indexes": [
+          2
+        ]
+      }
+    ],
+    "do_not_claim": "managing multi-region production clusters or zero-downtime database schema migrations without committed controller logs"
+  },
+  "verify": [],
+  "worksheet": {
+    "q1": "The student builds a Kubernetes operator in Go that reconciles custom CanaryDeployment resources, progressively shifts traffic via service routers, queries Prometheus metrics, and rolls back on SLO breach.",
+    "q2": "Core path: CRD definition, client-go operator, traffic routing manager, Prometheus analyzer, automated rollback, and Helm chart (29h). Extended path: Slack webhook alerts and multi-cluster traffic shifting (+14h).",
+    "q3": "Components: CRD & Operator (5h), Routing Integration (4h), Metric Analyzer (4h), Rollback Engine (4h), Chaos Test & Helm (4h), Docs & Buffer (4h). Total 25h x 1.15 = 29h.",
+    "q4": "Project types: CI/CD/DevOps/security pipelines, IaC/cloud. Metrics: Traffic Shift Progression Accuracy, Automated Rollback Duration, Controller Memory Footprint. Rejected: storage disk compression (not an OLAP project).",
+    "q5": "Hard parts: client-go reconciliation idempotency, traffic weight synchronicity, Prometheus scrape window lag, and fail-safe rollback state transitions.",
+    "q6": "Starter input: mock microservice image in Go with /version, /healthz, and /inject-fault endpoints. 2 versions. No personal data.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU only, $0 cost, zero cloud accounts. Fallback: controller-runtime envtest mode without full Kubernetes cluster.",
+    "q8": "Riskiest component: Prometheus scrape lag delaying rollback. Fallback: configure 5s local scrape interval.",
+    "q9": "Potential faking: hardcoded mock logs. Anti-fake check 5 accepts dynamic error threshold at runtime and asserts live operator controller event log mutation.",
+    "q10": "Safety/ethics: Safe; local Kind/Minikube cluster only."
+  }
+}

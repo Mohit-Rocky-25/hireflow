@@ -1,0 +1,348 @@
+{
+  "id": "brief-serverless-backend",
+  "title": "Serverless Event-Driven Order Processing Backend with AWS Lambda, DynamoDB, SQS & LocalStack",
+  "domain": "Platform & DevOps",
+  "difficulty": "INTERMEDIATE",
+  "project_types": [
+    "Cloud architecture",
+    "Platform/infra tool"
+  ],
+  "problem": "Traditional monolithic servers running continuously for variable or seasonal business workloads waste thousands of dollars in idle cloud compute costs, require complex auto-scaling group management, and suffer from single-point-of-failure bottlenecks during sudden traffic spikes. Naive serverless deployments experience crippling cold-start latency spikes, duplicate transaction executions from unhandled SQS retries, and silent message loss when downstream APIs fail. This project builds a production-grade serverless event-driven order processing backend in Python. The system deploys AWS Lambda functions emulated entirely on LocalStack, ingests order submissions via API Gateway, buffers asynchronous transactional workflows through Amazon SQS with Dead Letter Queues (DLQ), enforces idempotent ACID order state updates in Amazon DynamoDB, and achieves sub-100ms execution latency with zero external cloud expenses.",
+  "use_cases": [
+    {
+      "title": "E-Commerce Flash-Sale Order Intake & Inventory Decrement",
+      "first_sentence": "Retail web applications processing sudden flash-sale traffic spikes need to accept thousands of order submissions without web server crashes.",
+      "second_sentence": "API Gateway immediately buffers orders into an SQS queue, returning a tracking ID to the buyer, while Lambda workers process inventory decrements asynchronously."
+    },
+    {
+      "title": "Subscription Billing Webhook Processing Pipeline",
+      "first_sentence": "SaaS platforms receiving third-party payment gateway webhooks (e.g. Stripe, PayPal) need resilient ingestion that survives intermittent backend outages.",
+      "second_sentence": "Lambda functions validate webhook signatures and queue events to SQS; DLQs isolate failing webhooks for automated retry without dropping payment events."
+    },
+    {
+      "title": "IoT Telemetry Batch Processing & State Storage",
+      "first_sentence": "Smart building sensor networks emitting periodic temperature and energy telemetry require scalable serverless ingestion that scales to zero overnight.",
+      "second_sentence": "Incoming telemetry bursts buffer through SQS and trigger batch Lambda executions, writing summarized device readings to DynamoDB with automated TTL expiry."
+    }
+  ],
+  "hard_parts": [
+    "Configuring LocalStack container environments to emulate AWS Lambda, API Gateway, SQS, and DynamoDB with 100% API fidelity",
+    "Designing idempotent Lambda handlers using DynamoDB conditional writes (`attribute_not_exists`) to prevent duplicate charge transactions from SQS at-least-once delivery",
+    "Implementing exponential backoff retry policies and Dead Letter Queue (DLQ) redrive mechanisms to handle poison pill payloads cleanly",
+    "Optimizing Python Lambda function packaging and cold-start execution latency to achieve sub-100ms warm invocation durations"
+  ],
+  "screener_signals": [
+    "Clean Python codebase cleanly separating Lambda entrypoint handlers, SQS queue publishers, DynamoDB data access layers, and LocalStack deployment scripts",
+    "High-throughput benchmark report proving sustained processing of 1,000 asynchronous orders per minute with sub-100ms Lambda execution latency",
+    "Anti-fake verification script publishing duplicate order messages with the same idempotency key and asserting DynamoDB rejects the duplicate with zero duplicate charges"
+  ],
+  "job_families": [
+    "Cloud Infrastructure Engineer",
+    "Serverless Backend Developer",
+    "DevOps / Platform Architect"
+  ],
+  "stack": [
+    {
+      "tool": "Python",
+      "role": "primary backend language implementing Lambda serverless handlers and data access layers"
+    },
+    {
+      "tool": "LocalStack",
+      "role": "local cloud emulator providing fully functional offline AWS Lambda, DynamoDB, SQS, and API Gateway"
+    },
+    {
+      "tool": "AWS Lambda",
+      "role": "event-driven serverless compute runtime executing order ingestion, validation, and fulfillment logic"
+    },
+    {
+      "tool": "DynamoDB",
+      "role": "NoSQL key-value database persisting order states with conditional writes and TTL attributes"
+    },
+    {
+      "tool": "SQS",
+      "role": "distributed message queuing service buffering incoming order events and managing DLQ retry policies"
+    },
+    {
+      "tool": "API Gateway",
+      "role": "HTTP entrypoint routing client REST requests to Lambda functions and SQS direct integrations"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "API Gateway Order Submission Endpoint & Request Validator",
+        "tools_used": [
+          "Python",
+          "API Gateway",
+          "LocalStack"
+        ],
+        "purpose": "Terminates client HTTP POST orders, validates payload schemas, and proxies messages directly to Amazon SQS"
+      },
+      {
+        "name": "Amazon SQS Order Buffer & Dead Letter Queue (DLQ) Manager",
+        "tools_used": [
+          "Python",
+          "SQS",
+          "LocalStack"
+        ],
+        "purpose": "Buffers order messages, manages visibility timeouts, and routes persistently failing messages to a dead letter queue"
+      },
+      {
+        "name": "AWS Lambda Idempotent Order Processing & Fulfillment Worker",
+        "tools_used": [
+          "Python",
+          "AWS Lambda",
+          "LocalStack"
+        ],
+        "purpose": "Consumes batches of SQS messages, verifies idempotency keys, and triggers order fulfillment status changes"
+      },
+      {
+        "name": "Amazon DynamoDB Order State Table & Conditional Writer",
+        "tools_used": [
+          "Python",
+          "DynamoDB",
+          "LocalStack"
+        ],
+        "purpose": "Stores order records with composite primary keys (CustomerID, OrderID) and enforces atomic conditional updates"
+      },
+      {
+        "name": "Serverless Order Throughput & Concurrency Benchmark Harness",
+        "tools_used": [
+          "Python",
+          "LocalStack"
+        ],
+        "purpose": "Simulates 1,000 concurrent order submissions and measures end-to-end processing latencies and DLQ routing"
+      },
+      {
+        "name": "Serverless Architecture Guide & LocalStack Infrastructure Manual",
+        "tools_used": [
+          "Python",
+          "LocalStack"
+        ],
+        "purpose": "Documents serverless deployment automation, IAM least-privilege policies, and DynamoDB single-table design"
+      }
+    ],
+    "data_flow": "A client sends an order JSON via HTTP POST to API Gateway; API Gateway validates the schema and enqueues the message directly into Amazon SQS, returning an order receipt ID to the client in < 25ms; SQS triggers the Order Processing Lambda function in batches of 10 messages; the Lambda function extracts the idempotency key and executes a conditional PutItem on DynamoDB (`attribute_not_exists(order_id)`); if the order already exists, it ignores duplicate processing; if new, it writes the order with status 'CONFIRMED' and updates inventory; if an unhandled error occurs, SQS retries the message 3 times before moving the payload to the DLQ; clients query order status via a secondary API Gateway endpoint.",
+    "enforcement_mechanism": "DynamoDB conditional expressions (`attribute_not_exists(order_id)`) preventing duplicate transactions; SQS maxReceiveCount=3 bounding retries."
+  },
+  "targets": [
+    {
+      "metric": "End-to-End Serverless Order Processing Latency",
+      "method": "Wall-clock timing from API Gateway POST arrival to DynamoDB order confirmation write across 1,000 orders",
+      "input": "1,000 orders submitted at 50 requests per second to API Gateway endpoint",
+      "environment": "Standard 4-core local CPU, LocalStack 3+ in Docker, Python 3.11 runtime",
+      "minimum_pass": "p95 end-to-end order processing latency is < 250 milliseconds",
+      "target": "p95 end-to-end order processing latency is < 85 milliseconds",
+      "report": "Serverless order processing latency report and CloudWatch log timing trace"
+    },
+    {
+      "metric": "Idempotent Duplicate Message Rejection Rate",
+      "method": "Percentage of duplicate SQS messages with identical order IDs rejected without duplicate DynamoDB writes or multiple charges",
+      "input": "100 duplicate order messages injected into SQS queue simulating network retries",
+      "environment": "LocalStack DynamoDB instance with conditional write checks enabled",
+      "minimum_pass": "100 of 100 duplicate order messages detected with 0 duplicate records created in DynamoDB",
+      "target": "100 of 100 duplicate order messages detected with 0 duplicate records created in DynamoDB",
+      "report": "Idempotency verification audit log and DynamoDB record count parity report"
+    },
+    {
+      "metric": "Dead Letter Queue (DLQ) Poison Pill Isolation",
+      "method": "Verification of automatic dead-letter queue routing for malformed payloads after 3 failed Lambda execution attempts",
+      "input": "20 intentionally malformed order payloads with invalid payment tokens injected into primary SQS queue",
+      "environment": "SQS queue with maxReceiveCount=3 linked to dead-letter queue in LocalStack",
+      "minimum_pass": "20 of 20 poison pill messages routed to DLQ with 0 impact on healthy message processing",
+      "target": "20 of 20 poison pill messages routed to DLQ with 0 impact on healthy message processing",
+      "report": "DLQ isolation test audit log and SQS queue depth monitoring report"
+    }
+  ],
+  "skills": [
+    "Python",
+    "LocalStack",
+    "AWS Lambda",
+    "DynamoDB",
+    "SQS",
+    "API Gateway",
+    "Platform & DevOps",
+    "Serverless"
+  ],
+  "starter_input": {
+    "spec": "Directory containing Lambda handler functions, LocalStack setup scripts, DynamoDB table DDLs, and automated test runners.",
+    "size": "7 Python source modules, CloudFormation / SAM template YAML, Docker Compose manifest, and 1,000 synthetic order payloads",
+    "seeded_cases": "Duplicate order idempotency keys, malformed JSON bodies, SQS timeout race conditions, and DynamoDB transaction contention",
+    "label_source": "Deterministic DynamoDB table item counts and SQS queue attribute message counters in LocalStack",
+    "personal_data_policy": "Strictly mock synthetic customer account IDs and simulated retail order line items; no real personal data used"
+  },
+  "components": [
+    {
+      "name": "API Gateway Order Submission Endpoint & Request Validator",
+      "task_type": "API endpoint group with tests",
+      "hours": 4.0
+    },
+    {
+      "name": "Amazon SQS Order Buffer & Dead Letter Queue (DLQ) Manager",
+      "task_type": "infra component (broker, DB, orchestrator, cluster service)",
+      "hours": 5.0
+    },
+    {
+      "name": "AWS Lambda Idempotent Order Processing & Fulfillment Worker",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "Amazon DynamoDB Order State Table & Conditional Writer",
+      "task_type": "infra component (broker, DB, orchestrator, cluster service)",
+      "hours": 5.0
+    },
+    {
+      "name": "Serverless Order Throughput & Concurrency Benchmark Harness",
+      "task_type": "load or performance test harness + report",
+      "hours": 3.0
+    },
+    {
+      "name": "Serverless Architecture Guide & LocalStack Infrastructure Manual",
+      "task_type": "docs + architecture diagram",
+      "hours": 1.0
+    }
+  ],
+  "extended_path": {
+    "features": [
+      "AWS Step Functions state machine orchestrating multi-step saga compensation transactions (payment, inventory, shipping)",
+      "DynamoDB Streams integration triggering downstream notification lambdas upon order status transitions",
+      "Automated infrastructure-as-code deployment pipeline using AWS CDK / Terraform"
+    ],
+    "hours": 14
+  },
+  "milestones": [
+    {
+      "name": "LocalStack Setup & DynamoDB Order Schema in LocalStack and DynamoDB",
+      "hours": 7,
+      "done_criterion": "LocalStack initializes; DynamoDB creates order tables with composite keys and conditional writes."
+    },
+    {
+      "name": "SQS Queue & Dead Letter Queue Routing in SQS and Platform & DevOps",
+      "hours": 7,
+      "done_criterion": "SQS queue buffers messages; poison pills route to DLQ after 3 failed attempts."
+    },
+    {
+      "name": "Lambda Processing & Idempotency Enforcement in AWS Lambda and Python",
+      "hours": 7,
+      "done_criterion": "Lambda consumes SQS batches; conditional writes reject duplicate orders with 0 duplicates."
+    },
+    {
+      "name": "End-to-End Benchmark, Duplicate Anti-Fake Test & Docs in API Gateway and Serverless",
+      "hours": 7,
+      "done_criterion": "Benchmark verifies p95 latency < 250ms; anti-fake test confirms duplicate rejection; docs complete."
+    }
+  ],
+  "prerequisites": [
+    "Proficiency in Python backend development and asynchronous AWS SDK interactions (boto3 / aioboto3)",
+    "Understanding of serverless architecture principles (Lambda, API Gateway), NoSQL databases (DynamoDB), and message queues (SQS)"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (purely CPU and local container bound cloud emulator software)",
+    "cost": "$0 (fully open-source stack using local LocalStack container and Python)",
+    "accounts_keys_quotas": "No external AWS cloud accounts, credit cards, or paid service quotas required (runs 100% offline via LocalStack)",
+    "reference_environment": "Local 4-core CPU with Docker Desktop (LocalStack 3+ container) and Python 3.11 with boto3",
+    "fallback_path": "Mock Python in-memory queues and dictionaries mimicking SQS and DynamoDB APIs if LocalStack container is unavailable"
+  },
+  "riskiest_component": {
+    "name": "Duplicate Transaction Execution Under SQS At-Least-Once Delivery Retries",
+    "mitigation": "Enforce strict conditional writes on DynamoDB using unique idempotency keys (`attribute_not_exists(order_id)`).",
+    "fallback": "Secondary DynamoDB idempotency ledger table tracking processed message IDs."
+  },
+  "deliverables": [
+    "Git repository containing Lambda handlers, LocalStack initialization scripts, DynamoDB schemas, and test suites",
+    "Docker Compose file launching LocalStack with pre-provisioned Lambda, DynamoDB, SQS, and API Gateway services",
+    "Automated load testing harness measuring end-to-end order processing latency and DLQ routing accuracy",
+    "Screener verification script executing automated order flow and dynamic duplicate rejection in under 2 minutes"
+  ],
+  "out_of_scope": [
+    "Live AWS commercial production account deployments or route 53 public DNS domain routing",
+    "Complex multi-account AWS Organization IAM role federations",
+    "Real credit card merchant processing gateways (Stripe live keys)"
+  ],
+  "safety_note": null,
+  "resources": [
+    "AWS Serverless Multi-Tier Architectures (AWS Whitepaper)",
+    "LocalStack Documentation: Emulating AWS Serverless Services Locally",
+    "DynamoDB Developer Guide: Conditional Writes and Single-Table Design"
+  ],
+  "rubric": [
+    {
+      "input": "1,000 orders submitted at 50 requests per second to API Gateway endpoint",
+      "action": "python ./benchmarks/bench_orders.py --orders 1000 --rate 50",
+      "expected_result": "Pipeline processes orders into DynamoDB with p95 end-to-end latency < 250.0ms",
+      "evidence_location": "Terminal output log and reports/order_latency.json",
+      "pass_criterion": "p95 latency < 250.0ms with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "100 duplicate order messages with identical order IDs sent to SQS",
+      "action": "python ./tests/test_idempotency.py --duplicates 100",
+      "expected_result": "Lambda conditional writes reject duplicate messages; exactly 1 record created per order ID",
+      "evidence_location": "Idempotency test log in reports/idempotency_audit.json",
+      "pass_criterion": "100 of 100 duplicate messages rejected with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "20 malformed poison pill payloads injected into primary SQS queue",
+      "action": "python ./tests/test_dlq_redrive.py --poison-pills 20",
+      "expected_result": "SQS retries 3 times, fails cleanly, and routes all 20 messages to Dead Letter Queue",
+      "evidence_location": "DLQ isolation test report in reports/dlq_audit.json",
+      "pass_criterion": "20 of 20 messages verified in DLQ with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "CLI request querying order status by ID via API Gateway endpoint",
+      "action": "curl -X GET http://localhost:4566/restapis/order-api/orders/order_test_101",
+      "expected_result": "API returns order details from DynamoDB with status 'CONFIRMED' and timestamp",
+      "evidence_location": "HTTP response JSON and CloudWatch logs",
+      "pass_criterion": "Response status 200 with valid order body and exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Simulated concurrent network retry posting identical order ID 'order_dup_999' simultaneously",
+      "action": "python ./scripts/verify_concurrent_idempotency.py --order-id order_dup_999 --attempts 5",
+      "expected_result": "First request writes record; subsequent 4 requests receive ConditionalCheckFailedException and succeed idempotently",
+      "evidence_location": "Dynamic verification console execution output log",
+      "pass_criterion": "Console confirms exactly 1 DynamoDB write and 4 idempotent skips with exit code 0",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected serverless event-driven backend in Python using AWS Lambda, DynamoDB, and SQS; achieved sub-[PROCESSING_LATENCY] millisecond end-to-end order processing latency, and prevented duplicate transactions across [DUPLICATE_EVENTS] duplicate SQS event retries.",
+    "claims": [
+      {
+        "text": "achieved sub-[PROCESSING_LATENCY] millisecond end-to-end order processing latency",
+        "rubric_indexes": [
+          0
+        ]
+      },
+      {
+        "text": "prevented duplicate transactions across [DUPLICATE_EVENTS] duplicate SQS event retries",
+        "rubric_indexes": [
+          1
+        ]
+      }
+    ],
+    "do_not_claim": "live commercial AWS account deployment or multi-account IAM role federation"
+  },
+  "verify": [
+    "Run `pytest tests/` to confirm Lambda handlers, SQS queue logic, and DynamoDB conditional writes pass.",
+    "Execute `python ./benchmarks/bench_orders.py` to verify p95 latency remains < 250ms under load.",
+    "Run `python ./scripts/verify_concurrent_idempotency.py` to assert duplicate order rejection."
+  ],
+  "worksheet": {
+    "q1": "Core deliverable: a serverless event-driven order processing backend in Python with AWS Lambda, DynamoDB, SQS, and LocalStack.",
+    "q2": "Target users: cloud infrastructure engineers, serverless backend developers, and platform architects.",
+    "q3": "3 use cases: e-commerce flash-sale order intake, subscription billing webhook processing, and IoT telemetry batch processing.",
+    "q4": "Stated hours: 28 hours. Calculated bottom-up: 24 component hours * 1.15 buffer = 27.6 -> 28 hours. Intermediate level.",
+    "q5": "Hard parts: LocalStack offline emulation, DynamoDB conditional write idempotency, SQS DLQ redrive policies, and Lambda cold-start optimizations.",
+    "q6": "Starter input: Lambda handlers, LocalStack setup scripts, DynamoDB schemas, and synthetic order payloads. Synthetic data only.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU bound, $0 cost using Docker LocalStack. Zero AWS charges.",
+    "q8": "Riskiest component: duplicate order execution under SQS retries. Fallback: DynamoDB conditional writes with unique idempotency keys.",
+    "q9": "Potential faking: synchronous Flask app pretending to be serverless. Anti-fake check 5 fires 5 concurrent identical order requests and verifies exactly 1 write.",
+    "q10": "Safe; synthetic customer IDs and simulated retail order line items only, zero personal data."
+  }
+}

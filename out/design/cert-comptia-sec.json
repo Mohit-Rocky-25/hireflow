@@ -1,0 +1,340 @@
+{
+  "id": "cert-comptia-sec",
+  "title": "CompTIA Security+ (SY0-701) Cybersecurity Defense Lab & Threat Analysis Framework",
+  "domain": "Cybersecurity & Defense",
+  "difficulty": "INTERMEDIATE",
+  "project_types": [
+    "Certification / exam pages",
+    "Security projects"
+  ],
+  "problem": "Security analysts and engineers preparing for the CompTIA Security+ (SY0-701) certification often memorize theoretical acronyms (CIA triad, NIST CSF, CVE, SIEM) without ever executing concrete vulnerability scans, analyzing network intrusion detection pcaps, or configuring role-based access control firewalls. Consequently, they lack practical capability when tasked with triaging Common Vulnerabilities and Exposures (CVEs), configuring Suricata intrusion detection signatures, or enforcing zero-trust authentication policies in enterprise Linux environments. This guide delivers a hands-on cybersecurity laboratory and defensive engineering suite. The engineer deploys a NIST CSF vulnerability scanning pipeline, configures Suricata IDS threat detection rules for real-time traffic analysis, enforces zero-trust Linux access controls, executes PKI cryptographic certificate verification, and triages simulated security incident alerts.",
+  "use_cases": [
+    {
+      "title": "Automated Enterprise Vulnerability Assessment & CVE Triage",
+      "first_sentence": "Corporate IT security teams must continuously scan software package inventories and operating system dependencies for newly disclosed vulnerabilities.",
+      "second_sentence": "The Python vulnerability scanner parses system package manifests against the NIST NVD database, calculating CVSS v3 severity scores and prioritizing critical patches."
+    },
+    {
+      "title": "Network Intrusion Detection & Malicious Traffic Signature Analysis",
+      "first_sentence": "Security Operations Center (SOC) analysts monitoring enterprise perimeter networks need automated alert generation upon detecting malicious packet payloads.",
+      "second_sentence": "The Suricata IDS engine inspects network packet streams, matching traffic signatures against known attack rules (e.g. port scans, SQLi) and logging structured EVE JSON events."
+    },
+    {
+      "title": "Zero-Trust Role-Based Access Control & Linux Hardening",
+      "first_sentence": "Financial compliance environments must prevent lateral movement and privilege escalation by enforcing strict least-privilege user authorization.",
+      "second_sentence": "The system applies Linux PAM (Pluggable Authentication Modules), strict sudoer permission matrices, and cryptographic SSH key-only authentication across server nodes."
+    }
+  ],
+  "hard_parts": [
+    "Mapping the 5 core NIST Cybersecurity Framework (CSF) functions (Identify, Protect, Detect, Respond, Recover) to operational software tools",
+    "Writing and tuning Suricata IDS signature rules to detect exploit patterns without producing flood-inducing false positive alerts",
+    "Calculating CVSS v3.1 base score vectors and prioritizing remediation workflows against Common Weakness Enumerations (CWE)",
+    "Hardening Linux operating system environments using non-root container contexts, iptables network firewalls, and auditd logging"
+  ],
+  "screener_signals": [
+    "Clean cybersecurity repository containing vulnerability scanner scripts, Suricata IDS rule sets, NIST CSF compliance matrices, and incident response runbooks",
+    "Automated security assessment report identifying 10 of 10 seeded critical CVEs across synthetic software dependencies with exact CVSS score matching",
+    "Anti-fake verification script replaying a malicious SQL injection payload and confirming Suricata IDS generates an alert in `fast.log` within 500ms"
+  ],
+  "job_families": [
+    "Security Analyst / SOC Analyst",
+    "Junior Penetration Tester",
+    "Information Security Specialist"
+  ],
+  "stack": [
+    {
+      "tool": "Linux",
+      "role": "secure operating system environment enforcing file permissions, ACLs, PAM, and kernel audit logs"
+    },
+    {
+      "tool": "OpenSSL",
+      "role": "cryptographic toolkit generating X.509 PKI certificates, verifying digital signatures, and inspecting TLS ciphers"
+    },
+    {
+      "tool": "Suricata",
+      "role": "high-performance intrusion detection and prevention system inspecting network packets against signature rules"
+    },
+    {
+      "tool": "Docker",
+      "role": "container runtime hosting isolated vulnerability testing environments and simulated attack nodes"
+    },
+    {
+      "tool": "Python",
+      "role": "scripting language implementing the CVE vulnerability scanner, NIST compliance checks, and log parsers"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "NIST CSF Vulnerability Scanner & CVE Assessment Engine",
+        "tools_used": [
+          "Python",
+          "Linux"
+        ],
+        "purpose": "Parses software dependencies, queries NIST NVD API schemas, and computes CVSS v3 risk severity rankings"
+      },
+      {
+        "name": "Zero Trust Role-Based Access Control (RBAC) & Linux Hardening",
+        "tools_used": [
+          "Linux",
+          "OpenSSL"
+        ],
+        "purpose": "Enforces least-privilege PAM configurations, SSH public key policies, and cryptographic password hashing"
+      },
+      {
+        "name": "Suricata IDS Log Analysis & Threat Detection Pipeline",
+        "tools_used": [
+          "Suricata",
+          "Docker"
+        ],
+        "purpose": "Captures raw packet streams, evaluates IDS signature rules, and streams structured alerts to EVE JSON logs"
+      },
+      {
+        "name": "PKI Certificate Authority & TLS Cipher Suite Auditor",
+        "tools_used": [
+          "OpenSSL",
+          "Linux"
+        ],
+        "purpose": "Constructs a two-tier PKI CA hierarchy, issues client certificates, and audits TLS 1.3 cipher suite compliance"
+      },
+      {
+        "name": "Security Incident Response & DevOps Attack Simulation Harness",
+        "tools_used": [
+          "Python",
+          "Docker"
+        ],
+        "purpose": "Replays pcap attack traffic (port scanning, brute force, SQL injection) and benchmarks detection latencies"
+      },
+      {
+        "name": "CompTIA Security+ Blueprint & NIST Defense Manual",
+        "tools_used": [
+          "Linux",
+          "Python"
+        ],
+        "purpose": "Documents SY0-701 exam domain mappings, incident response playbooks, and Credly digital credential badges"
+      }
+    ],
+    "data_flow": "An auditor initiates the vulnerability scanning pipeline; the Python scanner ingests package manifests and queries CVE databases; vulnerabilities are prioritized by CVSS score; simultaneously, an attack simulation script injects synthetic malicious packets into a Docker network bridge; Suricata monitors the interface in real time; when a packet matches a threat signature, Suricata writes an alert to EVE JSON and fast.log; the security response harness parses the alert, correlates IP endpoints, and executes automated iptables firewall block rules; OpenSSL validates PKI certificate chains; documentation links results to NIST CSF controls.",
+    "enforcement_mechanism": "Suricata signature rule evaluation engine and Linux iptables kernel packet filtering rejecting malicious flows."
+  },
+  "targets": [
+    {
+      "metric": "Automated CVE Vulnerability Scanning & Risk Scoring Accuracy",
+      "method": "Percentage of seeded vulnerable packages correctly identified and scored according to official NIST CVSS v3.1 base scores",
+      "input": "50 synthetic software package dependencies containing 10 known critical CVE vulnerabilities",
+      "environment": "Local Python scanning engine querying cached NIST NVD vulnerability database",
+      "minimum_pass": "10 of 10 critical CVEs identified with CVSS base scores matching ground truth within 0.2 points",
+      "target": "10 of 10 critical CVEs identified with exact CVSS base score parity and remediation guidance",
+      "report": "Vulnerability scanning assessment report and CVE severity classification summary"
+    },
+    {
+      "metric": "Intrusion Detection System (IDS) Attack Signature Detection Rate",
+      "method": "Percentage of simulated malicious network attack packets flagged with corresponding alert signatures in Suricata logs",
+      "input": "50 malicious packets (SYN scan, SQL injection, directory traversal) injected across network bridge",
+      "environment": "Docker container running Suricata IDS with custom emerging threats ruleset",
+      "minimum_pass": "50 of 50 malicious attack packets detected with alert generation in < 500 milliseconds",
+      "target": "50 of 50 malicious attack packets detected with alert generation in < 150 milliseconds",
+      "report": "Suricata IDS alert log analysis and threat signature detection matrix"
+    },
+    {
+      "metric": "Zero-Trust RBAC Privilege Escalation Mitigation Rate",
+      "method": "Percentage of unauthorized sudo commands or privilege escalation attempts rejected by Linux access controls",
+      "input": "50 simulated privilege escalation commands executed under unprivileged test user context",
+      "environment": "Hardened Linux container with restricted PAM and sudoers configuration",
+      "minimum_pass": "50 of 50 unauthorized escalation attempts blocked with security audit log entry",
+      "target": "50 of 50 unauthorized escalation attempts blocked with security audit log entry",
+      "report": "Privilege escalation audit log and Linux auth.log inspection summary"
+    }
+  ],
+  "skills": [
+    "Linux",
+    "OpenSSL",
+    "Suricata",
+    "Docker",
+    "Python",
+    "Cybersecurity",
+    "Network Security",
+    "DevOps"
+  ],
+  "starter_input": {
+    "spec": "Directory containing Python vulnerability scanner, Suricata rules, Docker Compose security lab, and attack pcap files.",
+    "size": "6 Python modules, 12 Suricata signature rules, Docker Compose manifest, sample pcap files, and SY0-701 practice questions",
+    "seeded_cases": "Log4j CVE-2021-44228 payloads, weak MD5 certificates, unauthorized sudo attempts, and malformed X.509 chains",
+    "label_source": "Deterministic NIST CVSS base score vectors, Suricata alert SIDs in fast.log, and OpenSSL verify status codes",
+    "personal_data_policy": "Strictly mock synthetic IP addresses and simulated test employee accounts; no real personal data used"
+  },
+  "components": [
+    {
+      "name": "NIST CSF Vulnerability Scanner & CVE Assessment Engine",
+      "task_type": "security hardening checks",
+      "hours": 5.0
+    },
+    {
+      "name": "Zero Trust Role-Based Access Control (RBAC) & Linux Hardening",
+      "task_type": "concurrency/consistency mechanism with tests",
+      "hours": 5.0
+    },
+    {
+      "name": "Suricata IDS Log Analysis & Threat Detection Pipeline",
+      "task_type": "data pipeline step",
+      "hours": 4.0
+    },
+    {
+      "name": "PKI Certificate Authority & TLS Cipher Suite Auditor",
+      "task_type": "infra component (broker, DB, orchestrator, cluster service)",
+      "hours": 4.0
+    },
+    {
+      "name": "Security Incident Response & DevOps Attack Simulation Harness",
+      "task_type": "load or performance test harness + report",
+      "hours": 3.0
+    },
+    {
+      "name": "CompTIA Security+ Blueprint & NIST Defense Manual",
+      "task_type": "docs + architecture diagram",
+      "hours": 3.0
+    }
+  ],
+  "extended_path": {
+    "features": [
+      "Full 320-question CompTIA Security+ SY0-701 practice examination simulator with PBQ scenarios",
+      "SIEM integration streaming Suricata alerts to Elasticsearch and Grafana threat intelligence dashboards",
+      "Automated incident containment script isolating compromised hosts via dynamic iptables rules"
+    ],
+    "hours": 62
+  },
+  "milestones": [
+    {
+      "name": "NIST CSF Vulnerability Scanner & CVSS Scoring in Python and Linux",
+      "hours": 7,
+      "done_criterion": "Python scanner evaluates package manifests; 10 of 10 critical CVEs identify with accurate CVSS scores."
+    },
+    {
+      "name": "Zero Trust Access Control & Linux Hardening in Linux and OpenSSL",
+      "hours": 7,
+      "done_criterion": "Linux PAM and sudoers rules enforce least privilege; 50 of 50 privilege escalations reject."
+    },
+    {
+      "name": "Suricata IDS Deployment & Network Threat Detection in Suricata and Docker",
+      "hours": 7,
+      "done_criterion": "Suricata monitors packet interface; flags 50 of 50 malicious attack payloads in < 500ms."
+    },
+    {
+      "name": "Incident Response Harness, Anti-Fake SQLi Test & Docs in Cybersecurity and Network Security",
+      "hours": 7,
+      "done_criterion": "Attack replay harness passes; anti-fake test flags SQL injection in fast.log; documentation complete."
+    }
+  ],
+  "prerequisites": [
+    "Proficiency in basic Linux operating system administration (permissions, users, processes, bash)",
+    "Understanding of fundamental cybersecurity concepts: CIA triad, symmetric/asymmetric encryption, and networking protocols (TCP/IP, HTTP, DNS)"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (purely CPU packet inspection, scripting, and cryptography)",
+    "cost": "$0 (fully open-source stack using local Suricata and Docker Desktop; $0 cloud fee)",
+    "accounts_keys_quotas": "No paid security feeds, commercial vulnerability scanners, or external cloud accounts required",
+    "reference_environment": "Local 4-core CPU, 8GB RAM, Docker Desktop, Python 3.11, OpenSSL 3.0+, Suricata 6.0+",
+    "fallback_path": "Offline pcap analysis mode if live packet capture interface is restricted"
+  },
+  "riskiest_component": {
+    "name": "Performance Degradation or Packet Drops during High-Rate IDS Deep Packet Inspection",
+    "mitigation": "Tune Suricata worker threads and restrict inspection to relevant TCP/UDP application ports with optimized rulesets.",
+    "fallback": "Multi-threaded AF_PACKET packet acquisition with bypass filters for known high-bandwidth flows."
+  },
+  "deliverables": [
+    "Cybersecurity repository containing Python vulnerability scanner, Suricata rules, and Linux hardening scripts",
+    "Docker Compose security testbed orchestrating Suricata IDS, target microservices, and attack replay harness",
+    "Incident response documentation linking defensive controls to the 5 NIST Cybersecurity Framework functions",
+    "Screener verification script executing CVE scan, attack replay, and anti-fake SQLi detection in under 3 minutes"
+  ],
+  "out_of_scope": [
+    "Nation-state APT advanced persistent threat malware reverse engineering",
+    "Hardware security module (HSM) physical cryptographic chip soldering",
+    "Large-scale enterprise SIEM cluster deployment (multi-terabyte Splunk / QRadar clusters)"
+  ],
+  "safety_note": null,
+  "resources": [
+    "CompTIA Security+ (SY0-701) Official Certification Exam Objectives",
+    "NIST Cybersecurity Framework (CSF 2.0): Core Controls and Implementation Guide",
+    "Suricata User Guide & Emerging Threats Open Ruleset Documentation"
+  ],
+  "rubric": [
+    {
+      "input": "50 software package dependencies evaluated against vulnerability database",
+      "action": "python ./scripts/scan_vulnerabilities.py --manifest ./fixtures/packages.json",
+      "expected_result": "Scanner identifies 10 of 10 critical CVEs with CVSS base scores matching NIST ground truth",
+      "evidence_location": "Vulnerability report in reports/vulnerability_scan.json",
+      "pass_criterion": "10 of 10 critical CVEs identified with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "50 simulated attack packets injected across Suricata monitored interface",
+      "action": "python ./scripts/replay_attack_pcap.py --pcap ./fixtures/attacks.pcap",
+      "expected_result": "Suricata detects 50 of 50 attacks and writes alert entries to fast.log in < 500ms",
+      "evidence_location": "Suricata alert log in reports/suricata_alerts.json",
+      "pass_criterion": "50 of 50 attacks detected with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "50 privilege escalation commands executed under restricted user context",
+      "action": "./scripts/test_privilege_escalation.sh",
+      "expected_result": "Linux security configuration blocks 50 of 50 escalation attempts with audit log record",
+      "evidence_location": "Access control log in reports/escalation_audit.json",
+      "pass_criterion": "50 of 50 attempts blocked with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "PKI certificate hierarchy verified against OpenSSL validation rules",
+      "action": "openssl verify -CAfile ./pki/ca_chain.pem ./pki/server_cert.pem",
+      "expected_result": "OpenSSL confirms certificate chain validity with OK status",
+      "evidence_location": "OpenSSL verify output in reports/pki_verify.txt",
+      "pass_criterion": "Verification returns OK with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Injecting simulated SQL injection exploit payload 'UNION SELECT username, password' across network",
+      "action": "python ./scripts/inject_payload.py --payload 'UNION SELECT username, password' --target http://localhost:8080",
+      "expected_result": "Suricata IDS detects pattern and writes alert SID 2010018 to fast.log within 500ms",
+      "evidence_location": "Dynamic verification console execution output log",
+      "pass_criterion": "Console confirms alert SID 2010018 detected with exit code 0",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Implemented cybersecurity defense labs aligning with CompTIA Security+ standards; automated NIST CSF vulnerability assessments identifying [CVE_DETECTION_RATE] critical vulnerabilities, and deployed Suricata IDS detecting [ATTACK_DETECTION] of simulated network attacks.",
+    "claims": [
+      {
+        "text": "automated NIST CSF vulnerability assessments identifying [CVE_DETECTION_RATE] critical vulnerabilities",
+        "rubric_indexes": [
+          0
+        ]
+      },
+      {
+        "text": "deployed Suricata IDS detecting [ATTACK_DETECTION] of simulated network attacks",
+        "rubric_indexes": [
+          1
+        ]
+      }
+    ],
+    "do_not_claim": "nation-state malware reverse engineering or enterprise multi-terabyte Splunk clustering"
+  },
+  "verify": [
+    "Run `python ./scripts/scan_vulnerabilities.py` to confirm CVE parsing and CVSS risk calculations pass.",
+    "Execute `python ./scripts/replay_attack_pcap.py` to verify Suricata IDS threat signature detection.",
+    "Run `python ./scripts/inject_payload.py` to assert real-time anti-fake SQL injection alert generation."
+  ],
+  "worksheet": {
+    "q1": "Core deliverable: a CompTIA Security+ practical cybersecurity lab with vulnerability scanning, Suricata IDS, and Linux hardening.",
+    "q2": "Target users: security analysts, SOC analysts, and information security specialists preparing for SY0-701.",
+    "q3": "3 use cases: automated CVE vulnerability assessments, Suricata network intrusion detection, and zero-trust Linux access controls.",
+    "q4": "Stated hours: 28 hours. Calculated bottom-up: 24 component hours * 1.15 buffer = 27.6 -> 28 hours. Intermediate level. Extended path: +62h.",
+    "q5": "Hard parts: NIST CSF mapping, Suricata signature tuning without false positives, CVSS base score vectors, and Linux PAM hardening.",
+    "q6": "Starter input: Python vulnerability scanner, Suricata rules, Docker Compose lab, and attack pcaps. Synthetic IPs only.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU bound, $0 cost using local Suricata and Docker Desktop. Zero cloud fees.",
+    "q8": "Riskiest component: packet drops during deep packet inspection. Fallback: port filtering and AF_PACKET multi-threading.",
+    "q9": "Potential faking: memorizing terms without running detection labs. Anti-fake check 5 injects SQLi and verifies Suricata SID alert in fast.log.",
+    "q10": "Safe; synthetic IP addresses and simulated test accounts only."
+  }
+}

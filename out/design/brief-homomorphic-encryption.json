@@ -1,0 +1,305 @@
+{
+  "id": "brief-homomorphic-encryption",
+  "title": "Confidential Database Query Engine with Homomorphic Encryption",
+  "domain": "Security & Platform",
+  "difficulty": "ADVANCED",
+  "project_types": [
+    "Systems/low-level/networking",
+    "CLI/tools/libraries"
+  ],
+  "problem": "Traditional database encryption-at-rest models protect files on disk but force database servers to decrypt data into plaintext memory during query execution, exposing sensitive financial and healthcare records to rogue database administrators, memory-scraping malware, and cloud hypervisor compromises. Homomorphic Encryption (HE) solves this by enabling mathematical operations directly on ciphertexts without decryption. This project builds a confidential database query prototype in Python, TenSEAL, PostgreSQL, and Cryptography. The system encrypts sensitive numerical records client-side using BFV and CKKS homomorphic schemes, stores encrypted vector blobs in PostgreSQL, executes homomorphic SUM and AVG aggregations entirely on the server without plaintext access, and monitors ciphertext noise budgets to guarantee mathematical correctness upon client decryption.",
+  "use_cases": [
+    "Healthcare research platforms aggregating encrypted patient clinical metrics across hospitals without HIPAA disclosures",
+    "Financial banking compliance audits verifying aggregate capital reserves without viewing individual customer balances",
+    "Confidential cloud database services offering zero-knowledge query processing on untrusted cloud infrastructure"
+  ],
+  "hard_parts": [
+    "Selecting and parameterizing BFV and CKKS homomorphic encryption polynomial modulus degrees and coefficient sizes",
+    "Tracking and managing ciphertext noise budget consumption across successive multiplication and addition operations",
+    "Executing homomorphic arithmetic operations across PostgreSQL bytea ciphertext vectors without memory exhaustion",
+    "Guaranteeing zero plaintext information leakage in database query logs, execution buffers, and temporary storage"
+  ],
+  "screener_signals": [
+    "Clean Python codebase separating client cryptographic key managers, homomorphic arithmetic engines, and PostgreSQL storage handlers",
+    "Zero-knowledge audit verifying that database query logs and server memory contain zero plaintext numerical records",
+    "Anti-fake verification script inserting dynamic encrypted payroll records and verifying exact decrypted mathematical sum parity"
+  ],
+  "job_families": [
+    "Applied Cryptography Engineer",
+    "Security Platform Engineer",
+    "Privacy-Preserving Systems Developer"
+  ],
+  "stack": [
+    {
+      "tool": "Python",
+      "role": "programming language implementing client encryption wrappers and server query routines"
+    },
+    {
+      "tool": "PostgreSQL",
+      "role": "relational database storing encrypted ciphertext byte buffers and metadata"
+    },
+    {
+      "tool": "Cryptography",
+      "role": "library generating underlying key material and public-private keypairs"
+    },
+    {
+      "tool": "Docker",
+      "role": "container runtime packaging confidential database environment and dependencies"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "Homomorphic Cryptosystem Context & Key Manager",
+        "tools_used": [
+          "Python",
+          "Cryptography"
+        ],
+        "purpose": "Generates BFV/CKKS public evaluation keys, secret keys, and Galois rotation keys with configurable parameters"
+      },
+      {
+        "name": "Client Encryption & Decryption Module",
+        "tools_used": [
+          "Python"
+        ],
+        "purpose": "Encrypts client plaintext vectors before transmission and decrypts aggregated server response ciphertexts"
+      },
+      {
+        "name": "PostgreSQL Ciphertext Storage Layer",
+        "tools_used": [
+          "PostgreSQL",
+          "Docker"
+        ],
+        "purpose": "Stores serialized homomorphic ciphertext bytea arrays and associated non-sensitive relational attributes"
+      },
+      {
+        "name": "Confidential Homomorphic Evaluation Engine",
+        "tools_used": [
+          "Python"
+        ],
+        "purpose": "Executes homomorphic vector additions, multiplications, and scalar scalings directly on server ciphertexts"
+      }
+    ],
+    "data_flow": "The client Key Manager initializes BFV/CKKS cryptographic context parameters; public evaluation keys serialize and transmit to the server while private secret keys remain on the client; the client encrypts numerical records (e.g. salaries) and uploads ciphertext bytes to PostgreSQL; when an analytical query (e.g. SUM or AVG) arrives, the Confidential Evaluation Engine loads ciphertext byte arrays into memory; the engine performs homomorphic additions directly on ciphertexts without decryption; the resulting aggregated ciphertext byte buffer returns to the client; the client decrypts the payload using its private secret key, verifying noise budget and recovering the exact mathematical result.",
+    "enforcement_mechanism": "Cryptographic zero-knowledge guarantee: secret keys never leave the client; database server possesses only evaluation keys capable of arithmetic but incapable of decryption."
+  },
+  "targets": [
+    {
+      "metric": "Zero-Knowledge Plaintext Confidentiality Rate",
+      "method": "Memory dump inspection and database query log audit searching for plaintext numerical fragments during active query execution",
+      "input": "1,000 encrypted financial records processed through server aggregation queries",
+      "environment": "Standard 4-core local CPU, PostgreSQL 15+, Python 3.11",
+      "minimum_pass": "0 plaintext values discovered in database query logs or server memory buffers",
+      "target": "0 plaintext values discovered in database query logs or server memory buffers",
+      "report": "Confidential computing memory inspection and audit verification report"
+    },
+    {
+      "metric": "Homomorphic Vector Addition Execution Latency",
+      "method": "Wall-clock timing to execute homomorphic vector addition across 1,000 encrypted ciphertext records",
+      "input": "1,000 encrypted BFV ciphertext vectors evaluated on server CPU",
+      "environment": "Standard 4-core local CPU, Python 3.11, TenSEAL release build",
+      "minimum_pass": "Execution completes in < 2.5 milliseconds per record pair",
+      "target": "Execution completes in < 0.8 milliseconds per record pair",
+      "report": "Homomorphic arithmetic benchmark timing log"
+    },
+    {
+      "metric": "Decrypted Result Mathematical Precision Parity Rate",
+      "method": "Comparison between decrypted homomorphic aggregation result and canonical plaintext floating-point sum",
+      "input": "100 distinct batch aggregations evaluated across varying dataset sizes and numerical scales",
+      "environment": "Standard 4-core local CPU, Python 3.11",
+      "minimum_pass": "100 of 100 batch aggregations match plaintext mathematical sum within 1e-4 tolerance",
+      "target": "100 of 100 batch aggregations match plaintext mathematical sum within 1e-4 tolerance",
+      "report": "Decrypted mathematical precision verification output log"
+    }
+  ],
+  "skills": [
+    "Python",
+    "PostgreSQL",
+    "Cryptography",
+    "Docker",
+    "Homomorphic Encryption",
+    "Security Engineering",
+    "Systems Programming"
+  ],
+  "starter_input": {
+    "spec": "Homomorphic encryption parameter specification (poly_modulus_degree=8192, coeff_mod_bit_sizes), database DDL, and sample financial batch.",
+    "size": "5,000 numerical financial records with simulated account attributes and benchmark test queries",
+    "seeded_cases": "Ciphertext noise budget exhaustion, scale factor mismatch during CKKS multiplication, and serialization corruption",
+    "label_source": "Deterministic plaintext calculation manifest mapping test batches to exact expected mathematical sums and averages",
+    "personal_data_policy": "Strictly mock synthetic financial records and simulated payroll values; zero real personal data used"
+  },
+  "components": [
+    {
+      "name": "BFV/CKKS Cryptosystem Key Generator & Encryptor",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "Homomorphic Arithmetic Engine (Add, Multiply, Rescale)",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "PostgreSQL Encrypted Vector Store & Ciphertext Tables",
+      "task_type": "infra component (broker, DB, orchestrator, cluster service)",
+      "hours": 6.0
+    },
+    {
+      "name": "Encrypted Aggregation & Equality Evaluation Service",
+      "task_type": "API endpoint group with tests",
+      "hours": 5.0
+    },
+    {
+      "name": "Client Decryption & Noise Budget Monitor",
+      "task_type": "low-level/system subsystem",
+      "hours": 5.0
+    },
+    {
+      "name": "Encrypted Query Latency & Ciphertext Expansion Benchmark",
+      "task_type": "load or performance test harness + report",
+      "hours": 4.0
+    },
+    {
+      "name": "Cryptographic Threat Model & Zero-Trust Database Guide",
+      "task_type": "docs + architecture diagram",
+      "hours": 3.0
+    }
+  ],
+  "extended_path": {
+    "items": [
+      "Encrypted inner product vector similarity search for private semantic retrieval",
+      "Bounded multi-party threshold decryption where multiple keys are required to decrypt query results"
+    ],
+    "hours": 16
+  },
+  "milestones": [
+    {
+      "name": "TenSEAL Context Setup & Homomorphic Key Generation in Python Security Engineering",
+      "hours": 10,
+      "done_criterion": "Context generates BFV/CKKS keys; public evaluation keys separate safely from secret keys."
+    },
+    {
+      "name": "Encrypted Arithmetic Operations & Noise Budget Tracking in Cryptography Systems Programming",
+      "hours": 10,
+      "done_criterion": "Engine executes encrypted additions and multiplications; noise budget monitor tracks consumption."
+    },
+    {
+      "name": "PostgreSQL Ciphertext Persistence & Encrypted Aggregations in Homomorphic Encryption",
+      "hours": 10,
+      "done_criterion": "PostgreSQL stores ciphertext bytea arrays; server computes SUM and AVG without plaintext access."
+    },
+    {
+      "name": "Zero-Knowledge Query Benchmark, Docker Anti-Fake Test & Docs",
+      "hours": 10,
+      "done_criterion": "Benchmark verifies 0 plaintext leakage; decrypted sum matches ground truth; docs complete."
+    }
+  ],
+  "prerequisites": [
+    "Proficiency in Python programming, binary byte serialization, and SQL database operations",
+    "Understanding of applied cryptography concepts (public-key encryption, lattice cryptography, homomorphic properties)"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (purely CPU-bound polynomial arithmetic)",
+    "cost": "$0 (fully open-source software stack via Docker Compose)",
+    "accounts_keys_quotas": "No external cloud accounts, paid services, or API keys required",
+    "reference_environment": "Local 4-core CPU with Python 3.11 and PostgreSQL 15+ installed",
+    "fallback_path": "In-memory simulated Paillier or basic additively homomorphic cryptosystem if TenSEAL C-libraries encounter build issues"
+  },
+  "riskiest_component": {
+    "name": "Ciphertext Noise Budget Exhaustion Corrupting Decrypted Results",
+    "fallback": "Parameterize polynomial modulus degree to 8192 or 16384 to provide sufficient noise headroom for required arithmetic depth"
+  },
+  "deliverables": [
+    "Git repository containing Python confidential query engine, TenSEAL wrappers, and PostgreSQL schema",
+    "Docker Compose file hosting PostgreSQL database with ciphertext tables",
+    "Automated confidentiality audit and mathematical precision verification test harness",
+    "Screener verification script executing automated benchmark and dynamic encrypted aggregation test in under 2 minutes"
+  ],
+  "out_of_scope": [
+    "Fully Homomorphic Encryption (FHE) with arbitrary deep circuit bootstrapping",
+    "Custom lattice cryptography assembly optimizations for AVX-512 vector units",
+    "Hardware security module (HSM) PKCS#11 hardware token integration"
+  ],
+  "safety_note": "This project processes mock financial records and synthetic numerical vectors to demonstrate privacy-preserving database encryption. It does not handle real personal health information or live commercial banking assets.",
+  "resources": [
+    "A Full (R)Homomorphic Encryption Scheme (Brakerski, Gentry, Vaikuntanathan BGV/BFV paper)",
+    "TenSEAL: A Library for Doing Homomorphic Encryption on Tensors (OpenMined)",
+    "Microsoft SEAL Architecture and Homomorphic Encryption Parameter Selection Manual"
+  ],
+  "rubric": [
+    {
+      "input": "1,000 encrypted financial records processed through server aggregation query",
+      "action": "python -m confidential_db.audit_leakage",
+      "expected_result": "Inspection confirms zero plaintext numeric values exist in server query logs or memory dumps",
+      "evidence_location": "Terminal execution output log and reports/confidentiality_audit.json",
+      "pass_criterion": "0 plaintext values discovered with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "1,000 encrypted BFV ciphertext vectors evaluated on server",
+      "action": "python scripts/benchmark_he_speed.py --records 1000 --op add",
+      "expected_result": "Homomorphic addition execution completes in < 2.5 milliseconds per record pair",
+      "evidence_location": "Arithmetic benchmark timing summary table",
+      "pass_criterion": "Average operation latency is < 2.5 milliseconds",
+      "kind": "normal"
+    },
+    {
+      "input": "100 distinct batch aggregations evaluated for mathematical precision",
+      "action": "python -m confidential_db.test_precision",
+      "expected_result": "Decrypted client sums match exact plaintext mathematical calculations within 1e-4 tolerance",
+      "evidence_location": "Precision verification log",
+      "pass_criterion": "100 of 100 batch precision tests pass within tolerance with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Encrypted aggregation query dispatched to confidential database service",
+      "action": "curl http://localhost:8000/api/query/encrypted_sum?column=payroll",
+      "expected_result": "Server returns serialized ciphertext byte buffer without possessing decryption keys",
+      "evidence_location": "HTTP response payload",
+      "pass_criterion": "Response status is 200 and ciphertext bytes field is non-empty",
+      "kind": "normal"
+    },
+    {
+      "input": "Dynamic batch of 5 encrypted numerical values ($1,000 to $5,000) inserted at runtime",
+      "action": "python scripts/verify_dynamic_he.py --values 1000,2000,3000,4000,5000",
+      "expected_result": "Server computes encrypted sum; client decrypts payload to exactly $15,000.00 while server logs show only ciphertext",
+      "evidence_location": "Dynamic verification console execution output log",
+      "pass_criterion": "Decrypted sum equals 15000.00, server log contains zero plaintext, exit code 0",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected confidential database query engine in Python and PostgreSQL using Homomorphic Encryption; executed encrypted aggregations without plaintext leakage across [RECORD_COUNT] records, and delivered sub-[ADDITION_LATENCY] encrypted addition latency with verified mathematical precision.",
+    "claims": [
+      {
+        "text": "executed encrypted aggregations without plaintext leakage across [RECORD_COUNT] records",
+        "rubric_indexes": [
+          0
+        ]
+      },
+      {
+        "text": "delivered sub-[ADDITION_LATENCY] encrypted addition latency with verified mathematical precision",
+        "rubric_indexes": [
+          1,
+          2
+        ]
+      }
+    ],
+    "do_not_claim": "arbitrary circuit FHE bootstrapping or hardware security module PKCS token integration"
+  },
+  "verify": [],
+  "worksheet": {
+    "q1": "Core deliverable: a confidential database query engine in Python with TenSEAL, PostgreSQL ciphertext tables, and client-side key management.",
+    "q2": "Target users: applied cryptography engineers, security platform architects, and privacy-preserving developers.",
+    "q3": "3 use cases: HIPAA-compliant healthcare analytics, zero-knowledge financial audits, and confidential cloud databases.",
+    "q4": "Stated hours: 40 hours. Calculated bottom-up: 35 component hours * 1.15 buffer = 40.25 -> 40 hours. Advanced level.",
+    "q5": "Hard parts: BFV/CKKS parameterization, noise budget management, ciphertext vector operations in PostgreSQL, and zero-leakage verification.",
+    "q6": "Starter input: 5,000 numerical records with simulated account attributes and test queries. Synthetic records only.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU only, $0 cost, zero cloud accounts. Fallback: in-memory Paillier simulation.",
+    "q8": "Riskiest component: Noise budget exhaustion. Fallback: poly_modulus_degree=8192 or 16384 for noise headroom.",
+    "q9": "Potential faking: server plaintext calculations. Anti-fake check 5 inserts 5 dynamic encrypted values, asserts server computes sum, client decrypts to 15,000.",
+    "q10": "Safety/ethics: Safe; synthetic records only, no real medical or banking assets."
+  }
+}

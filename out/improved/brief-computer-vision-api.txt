@@ -2,121 +2,156 @@ PROJECT BRIEF — Production Computer Vision API (Object Detection & OCR)
 ======================================================================
 
 Domain    : AI/ML Applications
-Difficulty: intermediate
-Est. Time : 28 hours (Core Path) | Extended Path: +6 hours
-Tech Stack: Python [core programming language and algorithmic runtime], PyTorch [deep learning tensor framework], FastAPI [high-performance asynchronous REST API framework], YOLOv8 [yolov8 component], TensorRT [tensorrt component], Redis [in-memory data structure store and cache], Docker [containerization and local multi-service orchestration] (Requires: Docker Engine / Desktop, Local CPU inference or optional free-tier API token)
+Difficulty: INTERMEDIATE
+Est. Time : 29 hours (core path, estimate). Extended path: +14 hours
+Tech Stack: Python (service implementation language and image preprocessing pipeline logic), FastAPI (high-performance asynchronous HTTP API framework exposing prediction routes), ONNX Runtime (optimized cross-platform inference engine executing quantized vision models on CPU), Docker (containerized environment packaging runtime dependencies and pre-trained weights), Pillow (image manipulation library for decoding, resizing, and letterboxing)
 
 PROBLEM STATEMENT
-----------------------------------------
-Businesses manually process millions of documents, invoices, and images annually. Build a tested and observable computer vision API that performs sub-second object detection, document OCR, and image classification — deployable via REST API with GPU-optimized inference and batch processing support.
+----------------------------------------------------------------------
+Deploying deep learning computer vision models directly from research notebooks into production web services frequently results in high latency, memory starvation, and severe concurrency bottlenecks. Naive per-request inference under Python locks the interpreter and fails to utilize batching opportunities. This project builds an asynchronous model serving API in FastAPI that executes object detection and optical character recognition using ONNX Runtime, featuring dynamic request batching, pre-allocated tensor memory, image validation and resizing pipelines, and structured bounding box JSON output formatting.
 
 USE CASES IN THE REAL WORLD
-----------------------------------------
-Invoice processing (top tech platforms, Zoho Books), ID verification (KYC at banks/telecom), defect detection in manufacturing, medical imaging analysis, and traffic surveillance. India's digital KYC market is growing 40% annually and requires exactly this capability.
+----------------------------------------------------------------------
+- Automated document and invoice processing with bounding box OCR coordinate extraction
+- Digital identity verification and visual quality assessment for automated user onboarding
+- Real-time object detection and safety equipment verification for industrial site cameras
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Computer Vision is increasingly moving from research to production. Building a CV API with proper model serving (not just a Jupyter notebook) — including batch processing, async inference, and deployment optimization — demonstrates ML engineering skills at production scale.
+WHY THIS IS HARD
+----------------------------------------------------------------------
+- Coordinating dynamic request batching across asynchronous HTTP workers without introducing latency penalties on single requests
+- Optimizing image preprocessing (letterboxing, color normalization) to avoid becoming the primary throughput bottleneck
+- Managing ONNX Runtime session execution providers and CPU thread pool allocations to prevent host thrashing
+- Parsing and filtering multi-class bounding box coordinates with Non-Maximum Suppression (NMS) within sub-millisecond budgets
 
 RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Vision AI APIs, YOLOv8, TensorRT optimization, and production model serving are explicitly required in Computer Vision Engineer JDs at startups like Sarvam AI, Jio GenAI, and AI-first companies. A live API endpoint beats any Kaggle notebook in a portfolio review.
+----------------------------------------------------------------------
+- FastAPI service with ONNX Runtime model inference decoupled from HTTP worker threads
+- Automated benchmarking harness establishing CPU inference latency and batch throughput
+- Anti-fake verification script evaluating dynamically transformed image inputs and asserting bounding box accuracy
+Relevant Job Families: Computer Vision Engineer, Machine Learning Serving Engineer, AI Platform Engineer
 
 ARCHITECTURE & DATA FLOW
-----------------------------------------
-YOLOv8 / EfficientDet for object detection, TrOCR / PaddleOCR for document text extraction. FastAPI async service with queue-based batch inference. TensorRT or ONNX runtime optimization for GPU inference. S3/MinIO for image storage. Redis for inference result caching. Celery for async processing of large image batches.
+----------------------------------------------------------------------
+Components:
+- Image Preprocessing Pipeline (Tools: Python, Pillow): Decodes raw image bytes, validates dimensions, normalizes pixels, and applies letterbox resizing
+- Dynamic Batching Ingress Queue (Tools: Python): Aggregates concurrent incoming inference requests into batches of up to 8 images within 15ms windows
+- ONNX Runtime Inference Engine (Tools: ONNX Runtime): Executes quantized object detection model on CPU using multi-threaded execution providers
+- NMS Post-Processing Filter (Tools: Python): Applies Non-Maximum Suppression and confidence thresholding to generate clean bounding boxes
+- Async Prediction Gateway (Tools: Python, FastAPI): Exposes multipart/form-data upload endpoints and streams JSON detection coordinates
+- Containerized Service Package (Tools: Docker): Encapsulates model weights and runtime dependencies for consistent cross-platform execution
+
+Data Flow:
+Clients upload image files via HTTP POST to FastAPI; the Preprocessing Pipeline decodes and resizes images to 640x640 tensors; requests enter the Dynamic Batching Ingress Queue; when the batch fills or timeout expires, ONNX Runtime executes inference; the Post-Processing Filter applies Non-Maximum Suppression; individual prediction results resolve to client response futures and return formatted bounding boxes.
+
+Enforcement Mechanism:
+Image dimension and format validation rejecting corrupted files; timeout enforcement on inference queue preventing client connection hangs.
 
 SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Target 1:
-- Metric: End-to-End Inference / Retrieval Latency (p95)
-- Method: Automated evaluation script measuring warm-state query-to-response duration
-- Input/dataset: Labelled benchmark evaluation set of 100 representative queries
-- Reference environment: Local CPU runtime (Ollama / ONNX / PyTorch) or stated free-tier API
-- Minimum pass: p95 inference latency < [M ms] on reference device
-- Target: p95 inference latency < [M ms] with zero token truncation
-- Report format: Latency histogram table exported from evaluation script
-
-Target 2:
-- Metric: Retrieval Hit Rate & Groundedness Accuracy
-- Method: Grounded evaluation script comparing model output against labelled ground-truth answers
-- Input/dataset: Curated evaluation set of 50 query-document pairs with ground-truth citations
-- Reference environment: Fixed random seed (42), single evaluation worker
-- Minimum pass: Retrieval hit rate (Recall@3) ≥ [X%] (minimum ≥ 75%)
-- Target: Retrieval hit rate (Recall@3) ≥ [X%] (target ≥ 90%)
-- Report format: Evaluation CSV table with per-query precision, recall, and hallucination flags
-
-Target 3:
-- Metric: Guardrail & Adversarial Payload Detection Rate
-- Method: Adversarial test suite evaluating security and validation boundary filters
-- Input/dataset: Benchmark suite of 30 adversarial injection and edge-case payloads
-- Reference environment: Automated test runner
-- Minimum pass: [X of Y] adversarial attempts blocked (minimum ≥ 25 of 30)
-- Target: [X of Y] adversarial attempts blocked (target 30 of 30) with 0 false positives on benign queries
-- Report format: Security test report logging prompt, rule triggered, and pass/fail status
+----------------------------------------------------------------------
+Metric | Method | Input/Dataset | Reference Environment | Minimum Pass | Target | Report Format
+CPU Single-Image Inference Latency | Benchmark measuring model execution duration for a single 640x640 image on CPU | Single synthetic 640x640 JPEG image passed to ONNX Runtime session | Standard 4-core local CPU, ONNX Runtime 1.16+, warm model session | Inference latency < 120ms per image on CPU | Inference latency < 75ms per image on CPU | Benchmark execution timing log with 50-run mean and p95 percentiles
+Dynamic Batching Processing Throughput | Autocannon load benchmark sending 20 concurrent image prediction requests | Continuous stream of 200 synthetic JPEG images sent across 10 concurrent HTTP clients | Standard 4-core local CPU, Docker container, local loopback | Sustained inference throughput > 15 images/sec | Sustained inference throughput > 28 images/sec | Autocannon summary report reporting requests per second and latency distribution
+Mean Average Precision (mAP@50) on Evaluation Set | Evaluation of object detection bounding boxes against ground-truth annotations | Labelled held-out test split of 200 synthetic evaluation images with 600 annotated objects | Standard 4-core local CPU, Python 3.11+ | mAP@50 score >= 0.60 on evaluation test split | mAP@50 score >= 0.72 on evaluation test split | Evaluation script summary report reporting mAP@50, precision, and recall metrics
 
 SKILLS COVERED
-----------------------------------------
-Python, PyTorch, FastAPI, Docker, Computer Vision, Cloud
+----------------------------------------------------------------------
+Python, FastAPI, ONNX Runtime, Docker, Pillow, Computer Vision, REST APIs
 
 TARGET APPLICATION / STARTER INPUT
-----------------------------------------
-The project provides a self-contained test environment and fixture generator located in `scripts/` or `fixtures/`. It deterministically generates representative input records or mock client traffic for automated validation. No third-party proprietary data or real personal identifiers (PII) are required; all test datasets use synthetic tokens and deterministic random seeds.
+----------------------------------------------------------------------
+- Specification: Pre-trained quantized YOLOv8n ONNX model weights and labelled synthetic test image dataset.
+- Dataset / Traffic Size: 1 quantized ONNX model file (approx 12MB) and 200 synthetic test images with JSON bounding box labels
+- Seeded Edge Cases: Varying image aspect ratios (square, portrait, landscape), low-contrast images, overlapping objects, and corrupted image bytes
+- Label / Verification Source: Public synthetic evaluation dataset annotated with deterministic COCO-format bounding boxes
+- Personal Data Policy: Strictly synthetic and public domain object images; zero real personal faces or private documents used
 
 MILESTONES
-----------------------------------------
-- Milestone 1: Environment Setup & Core Foundations (6h)
-  Configure repository, tooling, container dependencies, and foundational data structures. Done when foundational test suite passes with clean linting.
-- Milestone 2: Core Processing & Architecture Implementation (8h)
-  Implement primary operational workflows, database models or state transitions, and API endpoints. Done when integration tests verify end-to-end data flow under normal operating conditions.
-- Milestone 3: Concurrency, Reliability & Error Guardrails (8h)
-  Implement defensive controls: rate limiting, retries with exponential backoff, transaction boundaries, and failure isolation. Done when chaos or stress tests verify graceful degradation under fault injection.
-- Milestone 4: Verification, Benchmarking & Documentation (6h)
-  Execute performance benchmark harness, compile measurement tables, generate architectural diagrams, and document screener verification steps. Done when `scripts/verify_all` passes completely.
+----------------------------------------------------------------------
+M1: Model Conversion, Preprocessing & ONNX Runtime Pipeline for Computer Vision (8h) — Done when: ONNX Runtime loads quantized vision model; preprocessing pipeline converts images to 640x640 tensors.
+M2: Dynamic Ingress Batching & FastAPI Vision Endpoints for REST APIs (7h) — Done when: FastAPI exposes prediction routes; background queue batches concurrent requests into tensor matrices.
+M3: NMS Post-Processing & Model Evaluation Benchmark (8h) — Done when: NMS filters redundant boxes; evaluation script confirms mAP@50 >= 0.60 across 200 test images.
+M4: Concurrency Benchmark, Anti-Fake Test, Docs & Buffer (6h) — Done when: Load tests verify > 15 images/sec throughput; anti-fake test validates dynamic image; docs complete.
+Total: 29 hours (estimate)
 
 PREREQUISITES, ENVIRONMENT AND ACCOUNTS
-----------------------------------------
-- Prerequisites: Familiarity with Python and PyTorch, standard command-line tools, and fundamental testing principles.
-- Hardware / OS: Standard modern computer (macOS, Linux, or Windows with WSL2) with at least 8GB RAM.
-- Accounts & Services: None required. Designed to run completely on free, open-source local software.
-- Fallback Path: In-memory mock drivers or SQLite/local files provided if external database or message broker containers cannot be run.
+----------------------------------------------------------------------
+Prerequisites: Intermediate Python programming (asyncio, type hints, pytest), Fundamental computer vision concepts (tensors, bounding boxes, IoU, mAP, NMS), Familiarity with REST APIs and multipart file upload handling
+
+Environment & Hardware:
+- OS: Linux / macOS / Windows with WSL2
+- Memory: 8GB RAM
+- Compute / GPU: None required (purely CPU-bound ONNX Runtime inference)
+- Estimated Cost: $0 (fully open-source software stack)
+- Accounts & Quotas: No external cloud accounts, paid GPUs, or API keys required
+- Reference Environment: Local 4-core CPU with Python 3.11 and Docker installed
+- Fallback Path: Local Python virtual environment without Docker using PyTorch CPU model weights
+
+Riskiest Component & Fallback:
+- Riskiest Component: Inference Latency Spike Under Heavy Concurrency on CPU
+- Simpler Fallback: Set strict concurrency limits in uvicorn and bound dynamic batch size to 4 images max on 4-core machines
 
 DELIVERABLES
-----------------------------------------
-1. Clean Git repository with structured commit history, README, and reproducible setup commands.
-2. Production-quality core codebase with automated test suite achieving verified pass rates.
-3. Performance benchmark report (`results/benchmark_report.md`) documenting measured latency, throughput, and resource utilization.
-4. Screener verification script (`scripts/verify_all.sh` or equivalent) validating the full system in < 3 minutes.
-5. Architecture diagram (Mermaid/ASCII) and known limitations document explaining architectural trade-offs.
+----------------------------------------------------------------------
+- Git repository containing FastAPI service, ONNX inference pipeline, and Dockerfile
+- Quantized ONNX model weight files and preprocessing utility modules
+- Accuracy evaluation script and exported mAP summary report
+- Screener verification script executing predictions and dynamic validation in under 2 minutes
 
 OUT OF SCOPE AND EXTENDED PATH
-----------------------------------------
-- Out of Scope for Core Path: Distributed multi-region clustering, enterprise SSO integrations, complex third-party SaaS dependencies.
-- Extended Path (+6 hours): Advanced telemetry dashboard, distributed persistence cluster extension, or automated canary release pipeline.
+----------------------------------------------------------------------
+Out of Scope:
+- Fine-tuning foundational vision models from scratch
+- Distributed multi-node GPU inference clusters
+- Video stream frame extraction and RTSP streaming
 
-SAFETY AND ETHICS NOTE
-----------------------------------------
-All data processed, generated, and benchmarked by this project consists exclusively of synthetic fixtures. No personal identifiable information (PII), proprietary credentials, or live external endpoints are used.
+Extended Path (+14 hours):
+- GPU-accelerated TensorRT inference pipeline using NVIDIA Container Toolkit
+- Optical Character Recognition (OCR) text extraction pipeline using Tesseract or CRNN
 
 LEARNING RESOURCES
-----------------------------------------
-- Official Documentation for Python, PyTorch, FastAPI
-- Architectural Reference Patterns and RFC Standards [VERIFY URL]
-- Systems & Distributed Reliability Principles
+----------------------------------------------------------------------
+- ONNX Runtime Python API reference documentation
+- FastAPI multipart form data and streaming response tutorial
+- Ultralytics YOLOv8 export and inference guides
 
 SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Check 1: Verify rEST API endpoint returning bounding boxes, labels, and confidence scores; Pass when automated test script prints 0 errors and logs verified status code.
-2. Check 2: Verify oCR accuracy test on 100 sample invoices/IDs measured against ground truth; Pass when automated test script prints 0 errors and logs verified status code.
-3. Check 3: Verify tensorRT optimization benchmark showing 3x+ speedup vs PyTorch CPU baseline; Pass when automated test script prints 0 errors and logs verified status code.
-4. Check 4: Verify batch processing endpoint handling 100 images concurrently via Celery workers; Pass when automated test script prints 0 errors and logs verified status code.
-5. Check 5: Verify aPI health endpoint and Swagger docs with sample request/response examples; Pass when automated test script prints 0 errors and logs verified status code.
-6. Check 6: 6. Anti-Fake Verification Check: Inspect committed execution logs and re-run verification script against seeded test fixtures; pass when runtime metrics dynamically reflect test execution rather than static mocked responses.
+----------------------------------------------------------------------
+1. Check
+   Input: fixtures/test_image.jpg input image file
+   Action: Execute curl -X POST -F 'file=@fixtures/test_image.jpg' http://localhost:8000/predict
+   Result: API responds with HTTP 200 and JSON payload containing detected classes and coordinates
+   Evidence: Terminal HTTP response headers and JSON body
+   Pass: HTTP status 200 with valid bounding box coordinates and confidence score > 0.5
+2. Check
+   Input: Benchmark evaluation test script python scripts/evaluate_model.py
+   Action: Run evaluation across 200 labelled test images
+   Result: Script computes mAP@50 score against ground truth annotations
+   Evidence: Evaluation summary report log file
+   Pass: Reported mAP@50 score is >= 0.60 across the 200 evaluation images
+3. Check
+   Input: Autocannon load test simulating 10 concurrent users uploading images
+   Action: Run npm run test:load
+   Result: API maintains batching queue and responds without dropping requests
+   Evidence: Autocannon benchmark output console table
+   Pass: Average throughput exceeds 15 images/sec with 0 socket errors
+4. Check
+   Input: Corrupted non-image file uploaded to /predict endpoint
+   Action: Send text file as image upload to test validation
+   Result: API rejects invalid payload with structured HTTP 422 error response
+   Evidence: Terminal HTTP response status code
+   Pass: HTTP status 422 returned with clear validation error message
+5. Check [anti_fake]
+   Input: Dynamic synthetic image with random colored rectangle drawn at specific coordinates
+   Action: Run python scripts/verify_dynamic_vision.py --box 100,100,200,200
+   Result: Script posts image, asserts returned bounding box overlaps target coordinates with IoU > 0.7
+   Evidence: Dynamic verification console execution output
+   Pass: Returned bounding box matches injected rectangle coordinates with exit code 0
 
 RESUME BULLET FORMULA
-----------------------------------------
-"Built production CV API using YOLOv8 and TrOCR with TensorRT optimization; served [N] images/sec at < [M ms] p99 latency with [N]% OCR accuracy across document types."
-Do not claim: scale, latency, or throughput figures without committing benchmark run logs; do not claim production deployment unless deployed to a verifiable live environment.
+----------------------------------------------------------------------
+"Architected asynchronous computer vision inference API in Python and FastAPI using ONNX Runtime; achieved [CPU_LATENCY] per-image inference latency on CPU, sustained [BATCH_THROUGHPUT] images/sec batch throughput, and attained [MAP_SCORE] mean average precision across a labelled [IMAGE_COUNT] evaluation test split."
+
+Do not claim: GPU-accelerated TensorRT cluster throughput or real-time 4K video processing without committed hardware benchmark logs
 
 ======================================================================
 Generated by HireFlow — hireflow.io

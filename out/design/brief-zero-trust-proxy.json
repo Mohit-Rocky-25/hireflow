@@ -1,0 +1,351 @@
+{
+  "id": "brief-zero-trust-proxy",
+  "title": "Least-Privilege API Security Gateway with RS256 JWT Rotation, Redis Bloom Filter & Device Fingerprinting",
+  "domain": "Security & Platform",
+  "difficulty": "INTERMEDIATE",
+  "project_types": [
+    "Security projects",
+    "Systems/low-level/networking"
+  ],
+  "problem": "Modern cloud-native microservices exposed to public networks face credential theft, token replay attacks, and compromised session hijacking when relying on static API keys or long-lived bearer tokens without instant revocation. Standard API gateways either incur severe latency bottlenecks by performing blocking database queries on every HTTP request or fail to invalidate stolen session tokens across distributed microservices. This project builds a high-performance least-privilege API security gateway in Node.js and Express. The gateway enforces asymmetric RS256 JWT validation with automated JWKS keypair rotation, checks token revocation via an in-memory Redis Bloom filter in sub-millisecond time, verifies cryptographic client device fingerprints, mitigates OWASP Top 10 API vulnerabilities, and signs downstream service-to-service requests with under 3.5ms proxy latency overhead.",
+  "use_cases": [
+    {
+      "title": "High-Security Open Banking API Gateway Authorization",
+      "first_sentence": "Financial microservices serving third-party fintech applications must validate asymmetric client signatures without exposing sensitive internal network endpoints.",
+      "second_sentence": "The Node.js gateway validates incoming RS256 JWT tokens against published JWKS key endpoints and forwards authenticated requests to internal banking services."
+    },
+    {
+      "title": "Instantaneous Compromised Session Revocation for Enterprise SSO",
+      "first_sentence": "When a security incident detects compromised user credentials, security operations teams must invalidate active sessions immediately across all edge nodes.",
+      "second_sentence": "The gateway blacklists revoked token IDs in a Redis Bloom filter within 25ms, instantly rejecting subsequent requests without waiting for JWT TTL expiry."
+    },
+    {
+      "title": "Edge Microservice Layer 7 Threat Filtering & Fingerprint Verification",
+      "first_sentence": "Public customer portals are targeted by automated credential stuffing bots replaying captured authorization tokens from novel IP addresses.",
+      "second_sentence": "The gateway computes SHA-256 client device fingerprints (User-Agent, TLS ciphers, IP subnets) and terminates replayed requests with mismatched fingerprints."
+    }
+  ],
+  "hard_parts": [
+    "Implementing automated RS256 asymmetric keypair rotation with zero-downtime JWKS cache invalidation across distributed edge gateway instances",
+    "Designing an in-memory Redis Bloom filter token revocation registry supporting sub-millisecond membership checks and 0 false negatives",
+    "Constructing cryptographic device fingerprint hashes resistant to token hijacking and header spoofing without impacting legitimate mobile clients",
+    "Achieving sub-3.5ms proxy latency overhead while executing cryptographic signature verification and rate limiting under 2,000 RPS"
+  ],
+  "screener_signals": [
+    "Clean Node.js / Express codebase cleanly separating JWT verification middleware, JWKS rotation handlers, Redis Bloom filter clients, and rate limiters",
+    "Performance benchmark report proving sustained validation throughput of 2,000+ requests per second with p95 proxy latency under 3.5ms",
+    "Anti-fake verification script revoking an active session token via API and confirming immediate rejection across subsequent requests within 50ms"
+  ],
+  "job_families": [
+    "Security Software Engineer",
+    "API Gateway Platform Developer",
+    "Backend Infrastructure Engineer"
+  ],
+  "stack": [
+    {
+      "tool": "Node.js",
+      "role": "asynchronous JavaScript runtime executing high-concurrency edge proxy middleware and HTTP routing"
+    },
+    {
+      "tool": "Express",
+      "role": "web framework routing inbound API requests through security validation pipelines and proxy dispatchers"
+    },
+    {
+      "tool": "Redis",
+      "role": "in-memory data store hosting fast Bloom filters for instant token revocation and distributed rate limit counters"
+    },
+    {
+      "tool": "Docker",
+      "role": "container runtime packaging the Node.js gateway, Redis container, mock backend services, and test harness"
+    },
+    {
+      "tool": "JWT",
+      "role": "JSON Web Token standard providing cryptographically signed RS256 authentication and authorization claims"
+    },
+    {
+      "tool": "Security",
+      "role": "cryptographic utilities implementing SHA-256 device fingerprinting and OWASP Top 10 API hardening"
+    },
+    {
+      "tool": "Jest",
+      "role": "testing framework executing unit security tests, replay attack suites, and revocation latency benchmarks"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "RS256 JWT Verification & JWKS Keypair Rotation Engine",
+        "tools_used": [
+          "Node.js",
+          "Express",
+          "JWT"
+        ],
+        "purpose": "Verifies incoming asymmetric JWT signatures against cached public keys and rotates keypairs automatically on schedule"
+      },
+      {
+        "name": "Redis Bloom Filter Instant Token Revocation Registry",
+        "tools_used": [
+          "Node.js",
+          "Redis"
+        ],
+        "purpose": "Executes sub-millisecond membership queries against Redis Bloom filters to reject blacklisted session tokens"
+      },
+      {
+        "name": "Cryptographic Device Fingerprint & Replay Defense Middleware",
+        "tools_used": [
+          "Node.js",
+          "Security"
+        ],
+        "purpose": "Computes SHA-256 client fingerprint hashes and rejects replayed tokens presented from unauthorized device contexts"
+      },
+      {
+        "name": "Edge Reverse Proxy & Downstream Microservice Dispatcher",
+        "tools_used": [
+          "Node.js",
+          "Express",
+          "Docker"
+        ],
+        "purpose": "Forwards validated requests to downstream microservices with injected security identity headers and mTLS tokens"
+      },
+      {
+        "name": "Security Gateway Concurrency & Replay Attack Benchmark Harness",
+        "tools_used": [
+          "Node.js",
+          "Docker",
+          "Jest"
+        ],
+        "purpose": "Simulates 2,000 RPS request volume, measures proxy latency overhead, and tests replay attack mitigation"
+      },
+      {
+        "name": "API Security Gateway Architecture Guide & OWASP Hardening Manual",
+        "tools_used": [
+          "Node.js",
+          "Security"
+        ],
+        "purpose": "Documents RS256 token rotation patterns, Bloom filter scaling calculations, and OWASP API Top 10 mitigations"
+      }
+    ],
+    "data_flow": "An external client issues an HTTPS request with an Authorization Bearer JWT; the Express gateway extracts the token header to locate the `kid` (key ID); the JWT engine validates the RS256 signature against local cached JWKS public keys; the token's `jti` (JWT ID) is checked against the Redis Bloom filter in < 1ms; if found in the blacklist, the request is rejected with HTTP 401 Unauthorized; the security middleware computes the client device fingerprint and compares it to claims embedded in the token; if valid, the request is proxied to the backend microservice with downstream identity headers; Prometheus tracks latency and rejection counts.",
+    "enforcement_mechanism": "Cryptographic RS256 asymmetric signature verification combined with Redis Bloom filter membership checks."
+  },
+  "targets": [
+    {
+      "metric": "Edge Token Verification & Proxy Latency Overhead",
+      "method": "Wall-clock latency added by JWT RS256 cryptographic verification and Redis Bloom filter check under 2,000 RPS",
+      "input": "10,000 requests issued through security proxy at 2,000 requests per second across 20 concurrent connections",
+      "environment": "Standard 4-core local CPU, Docker Desktop (Node.js 20, Redis 7), Node cluster with 2 workers",
+      "minimum_pass": "p95 proxy latency overhead is < 4.5 milliseconds per request",
+      "target": "p95 proxy latency overhead is < 2.2 milliseconds per request",
+      "report": "Gateway latency benchmark report and latency percentile breakdown"
+    },
+    {
+      "metric": "Compromised Token Revocation Propagation & Interception Rate",
+      "method": "Percentage of requests using revoked tokens rejected with HTTP 401 Unauthorized within 25ms of revocation event",
+      "input": "50 active session tokens revoked via admin API and immediately queried across 50 simulated client requests",
+      "environment": "Local Node.js gateway connected to local Redis Bloom filter instance",
+      "minimum_pass": "50 of 50 revoked token requests rejected with HTTP 401 within 25ms",
+      "target": "50 of 50 revoked token requests rejected with HTTP 401 within 25ms",
+      "report": "Token revocation audit log and Redis Bloom filter latency trace"
+    },
+    {
+      "metric": "Client Device Fingerprint Replay Attack Mitigation Rate",
+      "method": "Percentage of stolen token replay attempts with mismatched client fingerprint headers terminated with HTTP 403 Forbidden",
+      "input": "50 replayed requests presenting valid JWT signatures but altered IP subnets or User-Agent headers",
+      "environment": "Express gateway running cryptographic device fingerprint verification middleware",
+      "minimum_pass": "50 of 50 mismatched fingerprint requests rejected with HTTP 403",
+      "target": "50 of 50 mismatched fingerprint requests rejected with HTTP 403",
+      "report": "Replay attack mitigation audit log and security event trace"
+    }
+  ],
+  "skills": [
+    "Node.js",
+    "Express",
+    "Redis",
+    "Docker",
+    "JWT",
+    "Security",
+    "Jest",
+    "DevOps"
+  ],
+  "starter_input": {
+    "spec": "Directory containing Express gateway skeleton, RS256 key generator, Redis Bloom filter wrapper, and test suite.",
+    "size": "9 JavaScript modules, Docker Compose manifest, Jest test suites, and mock backend microservice",
+    "seeded_cases": "Expired tokens, forged signatures, tampered payloads, blacklisted token IDs, and mismatched device fingerprints",
+    "label_source": "Deterministic HTTP status codes (200, 401, 403), Redis Bloom filter BITCOUNT responses, and Jest test outputs",
+    "personal_data_policy": "Strictly mock synthetic user IDs and simulated device fingerprints; no real personal data used"
+  },
+  "components": [
+    {
+      "name": "RS256 JWT Verification & JWKS Keypair Rotation Engine",
+      "task_type": "security hardening checks",
+      "hours": 5.0
+    },
+    {
+      "name": "Redis Bloom Filter Instant Token Revocation Registry",
+      "task_type": "infra component (broker, DB, orchestrator, cluster service)",
+      "hours": 5.0
+    },
+    {
+      "name": "Cryptographic Device Fingerprint & Replay Defense Middleware",
+      "task_type": "concurrency/consistency mechanism with tests",
+      "hours": 4.0
+    },
+    {
+      "name": "Edge Reverse Proxy & Downstream Microservice Dispatcher",
+      "task_type": "API endpoint group with tests",
+      "hours": 4.0
+    },
+    {
+      "name": "Security Gateway Concurrency & Replay Attack Benchmark Harness",
+      "task_type": "load or performance test harness + report",
+      "hours": 3.0
+    },
+    {
+      "name": "API Security Gateway Architecture Guide & OWASP Hardening Manual",
+      "task_type": "docs + architecture diagram",
+      "hours": 3.0
+    }
+  ],
+  "extended_path": {
+    "features": [
+      "Dynamic token bucket rate limiting with Redis sliding logs and client tier quotas",
+      "Mutual TLS (mTLS) client certificate authentication terminating at the edge proxy",
+      "Automated WebAssembly (Wasm) threat detection filter inspecting JSON request payloads for SQLi and XSS"
+    ],
+    "hours": 14
+  },
+  "milestones": [
+    {
+      "name": "Express Gateway Architecture & RS256 JWKS Keypair Rotation in Node.js and Express",
+      "hours": 7,
+      "done_criterion": "Express gateway verifies RS256 JWTs against JWKS public key endpoint; rotation works."
+    },
+    {
+      "name": "Redis Bloom Filter Token Revocation & Edge Interception in Redis and Docker",
+      "hours": 7,
+      "done_criterion": "Redis Bloom filter blacklists token IDs in < 1ms; 50 of 50 revoked tokens reject with HTTP 401."
+    },
+    {
+      "name": "Device Fingerprinting, Replay Defense & Downstream Dispatch in JWT and Security",
+      "hours": 7,
+      "done_criterion": "Fingerprint middleware blocks 50 of 50 replayed tokens; valid requests proxy to backend."
+    },
+    {
+      "name": "Concurrency Benchmark, Anti-Fake Revoked Session Test & Docs in Jest and DevOps",
+      "hours": 7,
+      "done_criterion": "System sustains 2,000+ RPS with sub-4.5ms p95 latency; anti-fake test blocks revoked token; docs complete."
+    }
+  ],
+  "prerequisites": [
+    "Proficiency in JavaScript / Node.js (async/await, HTTP middleware, streams), and basic Linux networking",
+    "Understanding of cryptography fundamentals: asymmetric keypairs (RSA/ECDSA), JSON Web Tokens (JWT), and hashing (SHA-256)"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (purely CPU and network I/O bound)",
+    "cost": "$0 (fully open-source stack using local Node.js and Redis in Docker Desktop)",
+    "accounts_keys_quotas": "No external cloud accounts, paid API gateway licenses (Kong/Apigee), or commercial SSO fees required",
+    "reference_environment": "Local 4-core CPU, Node.js 20+, Docker Desktop (Redis 7), npm 10+",
+    "fallback_path": "In-memory JavaScript Set fallback if Docker Redis container is unavailable"
+  },
+  "riskiest_component": {
+    "name": "False Positives in Bloom Filter Token Revocation causing Legitimate User Logouts",
+    "mitigation": "Size Bloom filter capacity with 0.001 error probability and perform secondary exact Redis SET check on positive matches.",
+    "fallback": "Secondary exact key check eliminating false positives before rejecting requests."
+  },
+  "deliverables": [
+    "Node.js repository containing security gateway, JWT verification pipeline, and Redis Bloom filter client",
+    "Docker Compose environment orchestrating Node.js proxy, Redis container, and mock upstream microservice",
+    "Automated security attack test suite evaluating replay attacks, tampered signatures, and expired tokens",
+    "Screener verification script executing automated benchmark, replay test, and anti-fake token revocation in under 3 minutes"
+  ],
+  "out_of_scope": [
+    "Commercial enterprise Identity Provider (Okta, Auth0 paid cloud tenant) integrations",
+    "Hardware Security Module (HSM) key storage hardware appliances",
+    "Distributed BGP routing or physical DDoS mitigation appliances"
+  ],
+  "safety_note": null,
+  "resources": [
+    "RFC 7519: JSON Web Token (JWT) Standard Specification",
+    "OWASP API Security Top 10 Vulnerabilities & Mitigation Guidelines",
+    "RedisBloom: Scalable Bloom and Cuckoo Filters for Redis Documentation"
+  ],
+  "rubric": [
+    {
+      "input": "10,000 requests issued at 2,000 RPS through security gateway",
+      "action": "npm run bench:latency -- --rps 2000 --requests 10000",
+      "expected_result": "Gateway processes requests with p95 proxy latency overhead < 4.5ms",
+      "evidence_location": "Latency benchmark report in reports/latency_benchmark.json",
+      "pass_criterion": "p95 proxy latency < 4.5ms with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "50 active session tokens revoked via `/api/auth/revoke`",
+      "action": "npm test -- -t 'revocation propagation'",
+      "expected_result": "50 of 50 requests using revoked tokens rejected with HTTP 401 within 25ms",
+      "evidence_location": "Revocation audit log in reports/revocation_audit.json",
+      "pass_criterion": "50 of 50 revoked requests rejected with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "50 replayed requests presenting valid JWT signatures but altered client fingerprints",
+      "action": "npm test -- -t 'device fingerprint replay'",
+      "expected_result": "50 of 50 replayed requests rejected with HTTP 403 Forbidden",
+      "evidence_location": "Replay audit report in reports/replay_audit.json",
+      "pass_criterion": "50 of 50 mismatched requests rejected with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "RS256 keypair rotation triggered via JWKS manager",
+      "action": "npm test -- -t 'keypair rotation'",
+      "expected_result": "Gateway fetches updated public key and verifies subsequent tokens without downtime",
+      "evidence_location": "Rotation audit log in reports/rotation_audit.json",
+      "pass_criterion": "Keypair rotation completes with 0 verification errors and exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Actively authenticated token 'tok_active_77' revoked via admin API and immediately re-queried",
+      "action": "node ./scripts/verify_revocation_lock.js --token tok_active_77",
+      "expected_result": "Gateway consults Redis Bloom filter and returns HTTP 401 Unauthorized with error code TOKEN_REVOKED",
+      "evidence_location": "Dynamic verification console execution output log",
+      "pass_criterion": "Console confirms HTTP 401 and TOKEN_REVOKED rejection with exit code 0",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected least-privilege API security gateway in Node.js with asymmetric JWT rotation; delivered sub-[PROXY_OVERHEAD] millisecond proxy latency under [REQUEST_RPS] throughput, and enforced [REVOCATION_SUCCESS] session revocation via Redis Bloom filters.",
+    "claims": [
+      {
+        "text": "delivered sub-[PROXY_OVERHEAD] millisecond proxy latency under [REQUEST_RPS] throughput",
+        "rubric_indexes": [
+          0
+        ]
+      },
+      {
+        "text": "enforced [REVOCATION_SUCCESS] session revocation via Redis Bloom filters",
+        "rubric_indexes": [
+          1
+        ]
+      }
+    ],
+    "do_not_claim": "managed Okta enterprise cloud tenant or physical hardware HSM appliance integrations"
+  },
+  "verify": [
+    "Run `npm test` to confirm JWT verification, Redis Bloom filter, and fingerprint middleware pass.",
+    "Execute `npm run bench:latency` to verify proxy latency remains under 4.5ms under load.",
+    "Run `node ./scripts/verify_revocation_lock.js` to assert immediate rejection of revoked tokens."
+  ],
+  "worksheet": {
+    "q1": "Core deliverable: a least-privilege API security gateway in Node.js with RS256 JWT rotation, Redis Bloom filters, and device fingerprinting.",
+    "q2": "Target users: security software engineers, API gateway platform developers, and backend infrastructure engineers.",
+    "q3": "3 use cases: open banking API authorization, instant enterprise session revocation, and edge fingerprint threat defense.",
+    "q4": "Stated hours: 28 hours. Calculated bottom-up: 24 component hours * 1.15 buffer = 27.6 -> 28 hours. Intermediate level.",
+    "q5": "Hard parts: RS256 JWKS rotation with 0 downtime, Redis Bloom filter with sub-ms checks, cryptographic device fingerprinting, and sub-3.5ms latency.",
+    "q6": "Starter input: Express gateway skeleton, RS256 key generator, Redis Bloom filter wrapper, and Jest tests. Synthetic tokens only.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU/network bound, $0 cost using local Docker containers. Zero cloud fees.",
+    "q8": "Riskiest component: Bloom filter false positives. Fallback: size filter with 0.001 error rate and secondary exact Redis check.",
+    "q9": "Potential faking: simple static JWT decoder without revocation. Anti-fake check 5 blacklists active token and asserts HTTP 401 TOKEN_REVOKED.",
+    "q10": "Safe; synthetic user IDs and mock device fingerprints only."
+  }
+}

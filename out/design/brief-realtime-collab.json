@@ -1,0 +1,360 @@
+{
+  "id": "brief-realtime-collab",
+  "title": "Real-Time Collaborative Document Canvas in TypeScript with Yjs CRDTs, WebSockets & IndexedDB Offline Sync",
+  "domain": "Full-Stack Web",
+  "difficulty": "ADVANCED",
+  "project_types": [
+    "Full-stack web",
+    "Distributed systems"
+  ],
+  "problem": "Collaborative web applications (digital whiteboards, multi-cursor document editors, and design canvases) suffer from text jumping, cursor desynchronization, and silent data loss when multiple users edit concurrently over high-latency or intermittent networks. Centralized lock-based synchronization introduces unacceptable UI freezes, while naive operational transformation (OT) engines require complex central coordination servers that fail when network connections drop. This project builds a production-grade real-time collaborative document and canvas editor in TypeScript and React. The system resolves concurrent character and geometric mutations deterministically using Yjs Conflict-Free Replicated Data Types (CRDTs), streams binary update vectors over WebSockets with sub-25ms latency, stores local document snapshots and uncommitted deltas in IndexedDB, and renders multi-peer awareness presence cursors with zero layout stutter.",
+  "use_cases": [
+    {
+      "title": "Cross-Functional Digital Architecture Whiteboard",
+      "first_sentence": "Distributed engineering and design teams sketching system architecture diagrams need to co-edit geometric nodes and connectors simultaneously without locking.",
+      "second_sentence": "The canvas syncs Yjs shared map data structures over WebSockets, converging node positions deterministically even when two engineers move the same node concurrently."
+    },
+    {
+      "title": "Multi-Author Collaborative Rich-Text Policy Drafting",
+      "first_sentence": "Legal counsel and compliance officers co-drafting regulatory compliance policies need seamless real-time typing with character-level attribution.",
+      "second_sentence": "The editor binds Yjs shared text types to rich-text views, rendering peer presence cursors and merging concurrent typing deltas without character transposition."
+    },
+    {
+      "title": "Offline-to-Online Field Operations Report Collaboration",
+      "first_sentence": "Emergency response coordinators drafting incident mitigation plans frequently lose Wi-Fi connectivity while walking between disaster command centers.",
+      "second_sentence": "The web app persists document updates locally in IndexedDB, automatically synchronizing state vectors and converging with remote edits upon network reconnection."
+    }
+  ],
+  "hard_parts": [
+    "Integrating Yjs binary CRDT state vector encoding with custom React state hooks without causing excessive DOM re-renders during high-frequency typing",
+    "Managing ephemeral user awareness states (cursor coordinates, active selection spans, user profile avatars) over WebSockets with automatic timeout cleanup",
+    "Designing an IndexedDB storage adapter that caches compact document snapshots and replays uncommitted CRDT delta buffers upon browser reload",
+    "Handling complex concurrent editing conflicts (simultaneous text insertions, deletions, and block repositioning) while maintaining mathematical convergence across 50 simulated clients"
+  ],
+  "screener_signals": [
+    "Clean TypeScript codebase cleanly separating React canvas UI components, Yjs CRDT state bindings, WebSocket room synchronizers, and IndexedDB storage adapters",
+    "Multi-client concurrent chaos test report proving 100 of 100 simulated conflicting edits converge to mathematically identical document state across 5 concurrent peers",
+    "Anti-fake verification script simulating two partitioned clients concurrently inserting conflicting words at index 0, reconnecting, and asserting identical converged text across both browser instances"
+  ],
+  "job_families": [
+    "Frontend Systems Architect",
+    "Full-Stack Web Developer",
+    "Distributed Collaborative Systems Engineer"
+  ],
+  "stack": [
+    {
+      "tool": "TypeScript",
+      "role": "strongly typed language shared across frontend React views, CRDT state logic, and backend room coordinators"
+    },
+    {
+      "tool": "React",
+      "role": "frontend component framework rendering collaborative rich-text canvas and peer presence cursors"
+    },
+    {
+      "tool": "WebSockets",
+      "role": "bi-directional binary protocol streaming Yjs document update vectors and awareness frames"
+    },
+    {
+      "tool": "Node.js",
+      "role": "runtime hosting the collaborative room coordinator, binary relays, and persistence adapters"
+    },
+    {
+      "tool": "Yjs",
+      "role": "shared data type CRDT library resolving concurrent text and canvas mutations deterministically"
+    },
+    {
+      "tool": "IndexedDB",
+      "role": "browser client-side storage persisting offline document state and local uncommitted delta logs"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "Yjs CRDT Document State Machine & Conflict Resolution Core",
+        "tools_used": [
+          "TypeScript",
+          "Yjs"
+        ],
+        "purpose": "Manages Y.Doc instances, shared text/maps, binary state vectors, and deterministic concurrent conflict merges"
+      },
+      {
+        "name": "IndexedDB Local Persistence & Offline Delta Sync Adapter",
+        "tools_used": [
+          "TypeScript",
+          "IndexedDB",
+          "Yjs"
+        ],
+        "purpose": "Persists binary document state updates to IndexedDB and reloads cached documents instantly upon browser restart"
+      },
+      {
+        "name": "WebSocket Room Coordinator & Binary Awareness Protocol",
+        "tools_used": [
+          "TypeScript",
+          "Node.js",
+          "WebSockets"
+        ],
+        "purpose": "Routes binary CRDT updates between active room peers and broadcasts client cursor awareness coordinates"
+      },
+      {
+        "name": "Collaborative Canvas UI with Multi-User Presence Cursors in React",
+        "tools_used": [
+          "TypeScript",
+          "React"
+        ],
+        "purpose": "Renders real-time document editor, animated peer cursors, selection highlights, and online/offline status banners"
+      },
+      {
+        "name": "Server Document Snapshot & LevelDB Log Store",
+        "tools_used": [
+          "TypeScript",
+          "Node.js"
+        ],
+        "purpose": "Compacts document updates into authoritative snapshots and persists immutable transaction logs for recovery"
+      },
+      {
+        "name": "Concurrent Multi-User Chaos Editing Benchmark Harness",
+        "tools_used": [
+          "TypeScript",
+          "Node.js",
+          "Yjs"
+        ],
+        "purpose": "Simulates 50 concurrent virtual users issuing 5,000 conflicting edits and asserts mathematical state parity"
+      },
+      {
+        "name": "Collaborative CRDT Protocol Guide & Sync Architecture Diagram",
+        "tools_used": [
+          "TypeScript",
+          "React"
+        ],
+        "purpose": "Documents state vector exchanges, awareness heartbeat protocols, and IndexedDB compaction strategies"
+      }
+    ],
+    "data_flow": "A user types a character in the React editor; the local Yjs binding generates a compact binary update vector and writes it to IndexedDB in < 10ms; the WebSocket synchronizer streams the binary payload over WebSockets; the Node.js room coordinator verifies the frame, saves it to the document update log, and broadcasts the frame to all other peers in the room; remote peers apply the update to their local Y.Doc instances, which deterministically merges the change and updates the React DOM via Yjs event listeners; simultaneously, mouse movements stream awareness updates (x, y coordinates) to render animated peer cursor flags.",
+    "enforcement_mechanism": "Mathematically proven commutative, associative, and idempotent CRDT merge operations eliminating conflict resolution ordering dependencies."
+  },
+  "targets": [
+    {
+      "metric": "Cross-Client Real-Time Delta Propagation Latency",
+      "method": "Wall-clock timing from peer A keystroke dispatch over WebSocket to peer B DOM update rendering across simulated local network",
+      "input": "1,000 sequential typing and canvas mutations streamed between 2 connected browser client sessions",
+      "environment": "Standard 4-core local CPU with Node.js WebSocket server and 2 automated headless Chromium sessions",
+      "minimum_pass": "p95 cross-client update propagation latency is < 45.0 milliseconds",
+      "target": "p95 cross-client update propagation latency is < 18.0 milliseconds",
+      "report": "WebSocket delta propagation timing report and latency distribution table"
+    },
+    {
+      "metric": "Concurrent Conflict Resolution Convergence Rate",
+      "method": "Percentage of simulated multi-client concurrent editing trials resulting in mathematically identical document state",
+      "input": "50 concurrent conflict trials where 5 simulated clients issue 100 overlapping edits while partitioned",
+      "environment": "Node.js CRDT chaos test runner simulating network packet delays and out-of-order frame delivery",
+      "minimum_pass": "50 of 50 conflict trials achieve identical converged state across each of 5 clients",
+      "target": "50 of 50 conflict trials achieve identical converged state across each of 5 clients",
+      "report": "CRDT convergence audit log and document content hash verification"
+    },
+    {
+      "metric": "Offline Cold-Start Document Reload Latency",
+      "method": "Wall-clock timing to restore complete document state from IndexedDB cache during browser cold reload with network disconnected",
+      "input": "Document containing 5,000 words and 200 geometric canvas elements restored from local storage",
+      "environment": "Headless Chromium browser session running under offline network emulation",
+      "minimum_pass": "p95 offline document restoration latency is < 50.0 milliseconds",
+      "target": "p95 offline document restoration latency is < 16.5 milliseconds",
+      "report": "IndexedDB document reload benchmark log and state reconstruction timing"
+    }
+  ],
+  "skills": [
+    "TypeScript",
+    "React",
+    "WebSockets",
+    "Node.js",
+    "Yjs",
+    "IndexedDB",
+    "Full-Stack Web",
+    "CRDTs"
+  ],
+  "starter_input": {
+    "spec": "Directory containing React collaborative canvas scaffolding, Yjs CRDT binding, Node.js WebSocket server, and chaos test runner.",
+    "size": "14 TypeScript source files, 2 HTML test fixture pages, and automated multi-client chaos test scripts",
+    "seeded_cases": "Simultaneous character insertions at same string index, out-of-order binary WebSocket frames, and mid-session network disconnects",
+    "label_source": "Deterministic Yjs mathematical state invariants and SHA-256 document content checksum assertions",
+    "personal_data_policy": "Strictly mock synthetic document text and simulated canvas shapes; no real personal data used"
+  },
+  "components": [
+    {
+      "name": "Yjs CRDT Document State Machine & Conflict Resolution Core",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "IndexedDB Local Persistence & Offline Delta Sync Adapter",
+      "task_type": "concurrency/consistency mechanism with tests",
+      "hours": 6.0
+    },
+    {
+      "name": "WebSocket Room Coordinator & Binary Awareness Protocol",
+      "task_type": "infra component (broker, DB, orchestrator, cluster service)",
+      "hours": 6.0
+    },
+    {
+      "name": "Collaborative Canvas UI with Multi-User Presence Cursors in React",
+      "task_type": "one UI view with state",
+      "hours": 5.0
+    },
+    {
+      "name": "Server Document Snapshot & LevelDB Log Store",
+      "task_type": "API endpoint group with tests",
+      "hours": 5.0
+    },
+    {
+      "name": "Concurrent Multi-User Chaos Editing Benchmark Harness",
+      "task_type": "load or performance test harness + report",
+      "hours": 4.0
+    },
+    {
+      "name": "Collaborative CRDT Protocol Guide & Sync Architecture Diagram",
+      "task_type": "docs + architecture diagram",
+      "hours": 3.0
+    }
+  ],
+  "extended_path": {
+    "features": [
+      "Undo/redo history manager with multi-user selective attribution tracking local mutations without reverting peer edits",
+      "WebRTC peer-to-peer mesh fallback allowing direct browser-to-browser synchronization during server outages",
+      "End-to-end document encryption encrypting Yjs binary updates with client-side AES-GCM keys"
+    ],
+    "hours": 16
+  },
+  "milestones": [
+    {
+      "name": "Yjs CRDT Core & WebSocket Room Coordinator in TypeScript, Yjs and Node.js",
+      "hours": 10,
+      "done_criterion": "WebSocket server coordinates rooms; Yjs binary updates stream and merge deterministically."
+    },
+    {
+      "name": "IndexedDB Offline Delta Sync & Local Storage in IndexedDB and WebSockets",
+      "hours": 10,
+      "done_criterion": "Document updates persist in IndexedDB; offline reload restores document in < 50ms."
+    },
+    {
+      "name": "Collaborative Canvas UI & Presence Awareness in React and Full-Stack Web",
+      "hours": 10,
+      "done_criterion": "React UI renders multi-user presence cursors; typing deltas propagate with p95 latency < 45ms."
+    },
+    {
+      "name": "Concurrent Chaos Convergence Anti-Fake Test & Docs in CRDTs",
+      "hours": 10,
+      "done_criterion": "Anti-fake test confirms 50 of 50 concurrent conflict trials converge identically; docs complete."
+    }
+  ],
+  "prerequisites": [
+    "Proficiency in modern TypeScript, React, and asynchronous JavaScript programming",
+    "Understanding of CRDT mathematical principles (Yjs), binary WebSocket framing, and browser storage (IndexedDB)"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (purely CPU and browser event loop bound web applications)",
+    "cost": "$0 (fully open-source stack using local Node.js and browser)",
+    "accounts_keys_quotas": "No external cloud accounts, paid services, or API keys required",
+    "reference_environment": "Local 4-core CPU with Node.js 18+, modern Chromium/Chrome browser, and npm",
+    "fallback_path": "Running tests in headless Chromium or automated Node.js virtual clients without GUI"
+  },
+  "riskiest_component": {
+    "name": "Memory Leaks and Tombstone Bloat in CRDT History Logs",
+    "mitigation": "Execute periodic server-side Yjs document compaction and snapshotting to prune unreferenced deletion tombstones.",
+    "fallback": "Client-side state vector catch-up discarding delta history older than 7 days."
+  },
+  "deliverables": [
+    "Git repository containing React collaborative canvas, Yjs CRDT binding, Node.js WebSocket server, and tests",
+    "Automated Playwright multi-client test suite verifying real-time sync and peer cursor rendering",
+    "Chaos testing harness simulating concurrent editing conflicts and network partitions",
+    "Screener verification script executing automated 50-trial conflict convergence test in under 2 minutes"
+  ],
+  "out_of_scope": [
+    "Commercial cloud whiteboard SaaS integrations (Miro / Figma plugins)",
+    "Complex 3D graphics rendering or CAD geometry solids",
+    "Native mobile app compilation"
+  ],
+  "safety_note": null,
+  "resources": [
+    "Yjs Architecture and CRDT Theory Documentation (Kevin Jahns)",
+    "Conflict-Free Replicated Data Types (Shapiro et al., Inria Research Report)",
+    "Real-Time Collaboration with WebSockets and CRDTs (Martin Kleppmann)"
+  ],
+  "rubric": [
+    {
+      "input": "1,000 typing mutations streamed between 2 connected browser clients",
+      "action": "npm run bench:delta-latency -- --mutations 1000",
+      "expected_result": "WebSocket streams deltas with p95 cross-client update latency < 45.0ms",
+      "evidence_location": "Terminal output log and reports/delta_latency.json",
+      "pass_criterion": "p95 latency < 45.0ms with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "50 concurrent conflict trials where 5 clients edit overlapping text simultaneously",
+      "action": "npm run test:chaos-convergence -- --trials 50 --clients 5",
+      "expected_result": "50 of 50 trials achieve identical converged document content across each of 5 clients",
+      "evidence_location": "Chaos convergence audit log in reports/convergence_audit.json",
+      "pass_criterion": "50 of 50 trials converge with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Document containing 5,000 words restored from IndexedDB during offline reload",
+      "action": "npm run test:offline-reload",
+      "expected_result": "IndexedDB adapter loads and parses cached Y.Doc binary state in < 50.0ms",
+      "evidence_location": "Offline reload benchmark report in reports/reload_perf.json",
+      "pass_criterion": "Reload latency < 50.0ms with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Active mouse movements streamed across 5 connected client canvas sessions",
+      "action": "npm run test:presence-cursors -- --clients 5",
+      "expected_result": "WebSocket broadcasts awareness state; all 5 clients render active peer cursor coordinates",
+      "evidence_location": "Presence awareness test log in reports/awareness_audit.json",
+      "pass_criterion": "5 active cursor positions verified with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Two partitioned clients inserting conflicting words at index 0 concurrently",
+      "action": "node ./scripts/verify_dynamic_crdt.js --clientA-text 'Alpha ' --clientB-text 'Beta '",
+      "expected_result": "Upon reconnection, both clients converge to mathematically identical string (e.g. 'Alpha Beta ')",
+      "evidence_location": "Dynamic CRDT verification console execution output log",
+      "pass_criterion": "Console confirms identical text on both clients with exit code 0",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected collaborative canvas application in TypeScript and React using Yjs CRDTs; delivered sub-[PROPAGATION_LATENCY] millisecond cross-client update propagation, and maintained document convergence across [CONFLICT_TRIALS] concurrent editing trials.",
+    "claims": [
+      {
+        "text": "delivered sub-[PROPAGATION_LATENCY] millisecond cross-client update propagation",
+        "rubric_indexes": [
+          0
+        ]
+      },
+      {
+        "text": "maintained document convergence across [CONFLICT_TRIALS] concurrent editing trials",
+        "rubric_indexes": [
+          1
+        ]
+      }
+    ],
+    "do_not_claim": "commercial cloud whiteboard SaaS integrations or CAD geometry solids"
+  },
+  "verify": [
+    "Run `npm test` to confirm Yjs CRDT bindings, WebSocket room coordinator, and React canvas views pass.",
+    "Execute `npm run test:chaos-convergence` to verify mathematical convergence across multi-client conflict trials.",
+    "Run `node ./scripts/verify_dynamic_crdt.js` to assert deterministic conflict resolution upon reconnection."
+  ],
+  "worksheet": {
+    "q1": "Core deliverable: a real-time collaborative document and canvas editor in TypeScript and React with Yjs CRDTs, WebSockets, and IndexedDB.",
+    "q2": "Target users: frontend systems architects, full-stack web developers, and distributed collaborative systems engineers.",
+    "q3": "3 use cases: digital architecture whiteboard, multi-author rich-text policy drafting, and offline-to-online field report collaboration.",
+    "q4": "Stated hours: 40 hours. Calculated bottom-up: 35 component hours * 1.15 buffer = 40.25 -> 40 hours. Advanced level.",
+    "q5": "Hard parts: Yjs binary state vector integration with React, ephemeral awareness presence cursors, IndexedDB offline snapshot caching, and concurrent chaos convergence.",
+    "q6": "Starter input: React canvas scaffolding, Yjs CRDT bindings, Node.js WebSocket server, and chaos test scripts. Synthetic document data only.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU bound, $0 cost using local Node.js and browser.",
+    "q8": "Riskiest component: memory leaks and tombstone bloat in CRDT logs. Fallback: server-side snapshot compaction and pruning.",
+    "q9": "Potential faking: lock-based server synchronization pretending to be CRDTs. Anti-fake check 5 simulates two partitioned clients inserting conflicting text at index 0 and asserts mathematical convergence.",
+    "q10": "Safe; synthetic canvas shapes and document text only, zero personal data."
+  }
+}

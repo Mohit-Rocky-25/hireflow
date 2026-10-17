@@ -1,0 +1,296 @@
+{
+  "id": "brief-dist-rate-limiter",
+  "title": "Distributed Sliding-Window Rate Limiting Gateway in Go & Redis",
+  "domain": "Distributed Systems",
+  "difficulty": "INTERMEDIATE",
+  "project_types": [
+    "Systems/low-level/networking",
+    "API/backend service"
+  ],
+  "problem": "Public APIs and multi-tenant cloud platforms frequently experience abusive traffic spikes, credential stuffing attacks, and noisy-neighbor service degradation. Simple in-memory rate limiting fails across horizontally autoscaled service instances because local nodes lack shared global state. This project builds a distributed, low-latency API rate limiting proxy gateway in Go coordinated via Redis. The system implements atomic sliding-window counter and token bucket algorithms via Lua scripts to eliminate race conditions, supports multi-tier tenant quotas, returns standard RFC 6585 rate limiting headers, and provides an in-memory circuit breaker that gracefully degrades to local limits during Redis cluster outages.",
+  "use_cases": [
+    "API gateway ingress protecting backend microservices from denial-of-service traffic surges",
+    "Multi-tenant SaaS tier enforcement (free tier 60 req/min vs enterprise tier 5,000 req/min)",
+    "Authentication endpoint brute-force protection throttling failed login attempts per client IP"
+  ],
+  "hard_parts": [
+    "Writing atomic Redis Lua scripts for sliding-window log and token bucket algorithms with zero race conditions",
+    "Achieving sub-3 millisecond gateway proxy overhead under heavy multi-tenant request loads",
+    "Designing circuit-breaker fallback to localized in-memory token buckets when Redis nodes fail",
+    "Accurately computing and propagating HTTP rate limit headers (X-RateLimit-Limit, Remaining, Reset)"
+  ],
+  "screener_signals": [
+    "Clean Go implementation separating reverse proxy, Redis Lua scripts, configuration, and metrics",
+    "High-concurrency benchmark demonstrating strict rate enforcement under 20,000 concurrent requests",
+    "Anti-fake verification script sending dynamic client bursts across threshold and asserting exact 429 status transitions"
+  ],
+  "job_families": [
+    "API Platform Engineer",
+    "Backend Systems Engineer",
+    "Infrastructure Platform Engineer"
+  ],
+  "stack": [
+    {
+      "tool": "Go",
+      "role": "systems language powering the high-throughput HTTP reverse proxy gateway"
+    },
+    {
+      "tool": "Redis",
+      "role": "in-memory data store maintaining shared sliding window counters atomically via Lua"
+    },
+    {
+      "tool": "Docker",
+      "role": "container runtime packaging gateway and Redis for local evaluation"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "HTTP Reverse Proxy Gateway",
+        "tools_used": [
+          "Go"
+        ],
+        "purpose": "Intercepts inbound HTTP requests, extracts tenant API keys or client IPs, and proxies valid traffic"
+      },
+      {
+        "name": "Atomic Redis Lua Limiter",
+        "tools_used": [
+          "Go",
+          "Redis"
+        ],
+        "purpose": "Executes atomic sliding-window counter and token bucket evaluation inside Redis without race conditions"
+      },
+      {
+        "name": "Multi-Tenant Quota Matcher",
+        "tools_used": [
+          "Go"
+        ],
+        "purpose": "Resolves client identity to tier limits (e.g. Bronze 100/min, Gold 5000/min) from dynamic configuration"
+      },
+      {
+        "name": "Circuit Breaker Fallback Engine",
+        "tools_used": [
+          "Go",
+          "Docker"
+        ],
+        "purpose": "Detects Redis health degradation and switches to local in-memory token buckets to keep proxy operational"
+      }
+    ],
+    "data_flow": "Inbound HTTP requests arrive at the Go reverse proxy; the Quota Matcher identifies client identity and rate quota rules; the proxy executes an atomic Lua script in Redis passing client key and time window; Redis calculates remaining capacity and updates sliding window counters atomically; if within quota, the proxy forwards the request to upstream backends with rate limit headers; if exceeded, the proxy terminates the request with HTTP 429 Too Many Requests; if Redis is unresponsive, the Circuit Breaker diverts evaluation to local in-memory buckets.",
+    "enforcement_mechanism": "HTTP 429 status code returns with RFC 6585 Retry-After headers; Redis Lua script atomicity preventing concurrent race exploits."
+  },
+  "targets": [
+    {
+      "metric": "Gateway Processing Overhead Latency (p99)",
+      "method": "Proxy round-trip latency overhead benchmark excluding upstream backend execution duration",
+      "input": "50,000 requests processed through rate limiter proxy to mock zero-latency upstream server",
+      "environment": "Standard 4-core local CPU, Go 1.21+, local Redis 7 instance over Unix socket or TCP",
+      "minimum_pass": "p99 proxy overhead latency is < 3.0 milliseconds",
+      "target": "p99 proxy overhead latency is < 1.2 milliseconds",
+      "report": "Latency benchmark summary output reporting p50, p95, and p99 percentiles"
+    },
+    {
+      "metric": "Sliding-Window Limit Enforcement Accuracy",
+      "method": "Bursted traffic test sending 1,000 requests against a configured limit of 500 requests per minute",
+      "input": "1,000 concurrent HTTP requests dispatched by 20 worker threads within a 5-second window",
+      "environment": "Standard 4-core local CPU, Go 1.21+, Redis 7",
+      "minimum_pass": "Gateway permits exactly 500 requests and rejects exactly 500 requests with HTTP 429",
+      "target": "Gateway permits exactly 500 requests and rejects exactly 500 requests with HTTP 429",
+      "report": "Traffic enforcement verification log reporting HTTP status code counts"
+    },
+    {
+      "metric": "Circuit Breaker Failover Availability",
+      "method": "Automated SIGSTOP/kill chaos injection against Redis during active proxy request stream",
+      "input": "5,000 continuous requests during simulated Redis downtime event",
+      "environment": "Standard 4-core local CPU, Go 1.21+, Docker",
+      "minimum_pass": "Gateway fails over to local in-memory limiting within 100ms with 0 unhandled 500 errors",
+      "target": "Gateway fails over to local in-memory limiting within 100ms with 0 unhandled 500 errors",
+      "report": "Chaos resilience log detailing circuit breaker state transition and request error rates"
+    }
+  ],
+  "skills": [
+    "Go",
+    "Redis",
+    "Docker",
+    "Distributed Systems",
+    "Rate Limiting",
+    "API Gateway",
+    "Concurrency"
+  ],
+  "starter_input": {
+    "spec": "YAML configuration defining tenant tiers, rate limits, burst multipliers, and upstream backend endpoints.",
+    "size": "500 simulated tenant configurations across 3 service tiers (Free, Professional, Enterprise)",
+    "seeded_cases": "Simultaneous request bursts across window boundaries, Redis network latency timeouts, and invalid API keys",
+    "label_source": "Deterministic load generator script asserting exact accepted versus throttled request counts",
+    "personal_data_policy": "Strictly mock synthetic API keys and simulated client IPs; no real credentials used"
+  },
+  "components": [
+    {
+      "name": "Sliding Window Counter & Token Bucket Redis Lua Algorithms",
+      "task_type": "low-level/system subsystem",
+      "hours": 5.0
+    },
+    {
+      "name": "High-Performance HTTP Reverse Proxy Middleware in Go",
+      "task_type": "API endpoint group with tests",
+      "hours": 5.0
+    },
+    {
+      "name": "Multi-Tenant Quota & Dynamic Tier Configuration Engine",
+      "task_type": "infra component (broker, DB, orchestrator, cluster service)",
+      "hours": 4.0
+    },
+    {
+      "name": "In-Memory Local Cache Fallback & Graceful Degradation",
+      "task_type": "low-level/system subsystem",
+      "hours": 3.0
+    },
+    {
+      "name": "Distributed Concurrency & Burst Load Benchmark Harness",
+      "task_type": "load or performance test harness + report",
+      "hours": 4.0
+    },
+    {
+      "name": "System Architecture Diagram & Quota Runbook",
+      "task_type": "docs + architecture diagram",
+      "hours": 3.0
+    }
+  ],
+  "extended_path": {
+    "items": [
+      "Distributed sliding log with Redis cluster hash slot routing and replica-safe script execution",
+      "gRPC interceptor integration with Prometheus metrics exporter and Grafana dashboard"
+    ],
+    "hours": 12
+  },
+  "milestones": [
+    {
+      "name": "Atomic Redis Lua Scripts for Sliding-Window and Token Bucket in Go Distributed Systems",
+      "hours": 7,
+      "done_criterion": "Lua scripts execute atomically in Redis, returning remaining quota and reset timestamps."
+    },
+    {
+      "name": "HTTP API Gateway Proxy Middleware & Multi-Tenant Quota Matching",
+      "hours": 7,
+      "done_criterion": "Go proxy intercepts requests, matches tenant tiers, and returns 429 with Retry-After headers."
+    },
+    {
+      "name": "In-Memory Fallback Circuit Breaker & Redis Outage Resilience",
+      "hours": 7,
+      "done_criterion": "Proxy detects Redis disconnection and falls back to local in-memory token bucket within 100ms."
+    },
+    {
+      "name": "High-Concurrency Burst Benchmark, Docker Anti-Fake Test & Docs",
+      "hours": 7,
+      "done_criterion": "Benchmark verifies 500 of 1000 requests throttled with p99 < 3ms; anti-fake test passes; docs complete."
+    }
+  ],
+  "prerequisites": [
+    "Proficiency in Go (goroutines, channels, net/http, sync primitives)",
+    "Familiarity with Redis data structures (strings, sorted sets, hashes) and basic Lua scripting"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (purely CPU-bound gateway proxy operations)",
+    "cost": "$0 (fully open-source software stack)",
+    "accounts_keys_quotas": "No external cloud accounts, paid services, or API keys required",
+    "reference_environment": "Local 4-core CPU with Go 1.21+ and Redis 7 installed",
+    "fallback_path": "Miniredis in-memory mock Redis server if local Docker or Redis daemon cannot be started"
+  },
+  "riskiest_component": {
+    "name": "Redis Network Latency Increasing API Gateway Overhead",
+    "fallback": "Leverage Redis connection pooling and local pipeline batching to minimize TCP handshake overhead"
+  },
+  "deliverables": [
+    "Git repository containing Go reverse proxy gateway source code, Lua scripts, and unit tests",
+    "Docker Compose file orchestrating Redis server and rate limiter gateway",
+    "Automated load testing harness measuring latency overhead and sliding-window limit accuracy",
+    "Screener verification script executing automated benchmark and dynamic burst check in under 2 minutes"
+  ],
+  "out_of_scope": [
+    "Web Application Firewall (WAF) SQL injection and payload inspection",
+    "Global BGP Anycast routing and distributed edge DNS routing",
+    "Billing payment processor integration for quota overage invoices"
+  ],
+  "safety_note": null,
+  "resources": [
+    "RFC 6585: Additional HTTP Status Codes (Status 429 Too Many Requests)",
+    "Redis Lua Scripting Documentation and Atomicity Guidelines",
+    "High-Performance Go HTTP Reverse Proxy Patterns and Connection Pooling"
+  ],
+  "rubric": [
+    {
+      "input": "1,000 rapid requests dispatched to tenant with 500 request/minute quota",
+      "action": "Run go run ./cmd/bench --requests 1000 --limit 500",
+      "expected_result": "Proxy permits exactly 500 requests and returns HTTP 429 for remaining 500 requests",
+      "evidence_location": "Terminal test summary log and reports/status_distribution.json",
+      "pass_criterion": "Exactly 500 HTTP 200 and 500 HTTP 429 responses recorded with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "50,000 request benchmark measuring gateway latency overhead",
+      "action": "Run go run ./cmd/bench --benchmark latency --requests 50000",
+      "expected_result": "Measured p99 latency overhead added by rate limiting proxy is < 3.0 milliseconds",
+      "evidence_location": "Latency distribution console output table",
+      "pass_criterion": "p99 latency overhead is < 3.0 milliseconds",
+      "kind": "normal"
+    },
+    {
+      "input": "Redis process termination during active 5,000 request stream",
+      "action": "Run ./scripts/test_redis_outage.sh",
+      "expected_result": "Circuit breaker trips to local in-memory token bucket; proxy returns 0 HTTP 500 errors",
+      "evidence_location": "Outage test execution log",
+      "pass_criterion": "Test passes with 0 HTTP 500 responses and circuit breaker state reported as OPEN",
+      "kind": "normal"
+    },
+    {
+      "input": "Request exceeding rate quota threshold",
+      "action": "curl -i http://localhost:8080/api/data -H 'X-API-Key: test_key'",
+      "expected_result": "Response contains HTTP 429 status and X-RateLimit-Limit, Remaining, and Retry-After headers",
+      "evidence_location": "HTTP response header output",
+      "pass_criterion": "Response status is 429 and Retry-After header is present with positive integer value",
+      "kind": "normal"
+    },
+    {
+      "input": "Dynamic API key configured with dynamic limit of 10 requests injected at runtime",
+      "action": "python scripts/verify_dynamic_quota.py --key DYNAMIC_KEY_99 --limit 10 --burst 15",
+      "expected_result": "Gateway allows first 10 requests and transitions to HTTP 429 on exactly the 11th request",
+      "evidence_location": "Dynamic verification output log",
+      "pass_criterion": "Request 10 returns 200, request 11 returns 429, and exit code is 0",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected distributed sliding-window rate limiting gateway in Go and Redis; enforced multi-tenant request quotas with sub-[P99_OVERHEAD] proxy overhead across [REQUEST_COUNT] requests, and ensured continuous availability through in-memory circuit breaker failover.",
+    "claims": [
+      {
+        "text": "enforced multi-tenant request quotas with sub-[P99_OVERHEAD] proxy overhead across [REQUEST_COUNT] requests",
+        "rubric_indexes": [
+          0,
+          1
+        ]
+      },
+      {
+        "text": "ensured continuous availability through in-memory circuit breaker failover",
+        "rubric_indexes": [
+          2
+        ]
+      }
+    ],
+    "do_not_claim": "global multi-region BGP Anycast routing or enterprise WAF payload inspection"
+  },
+  "verify": [],
+  "worksheet": {
+    "q1": "Core deliverable: a distributed Go reverse proxy rate limiting gateway using Redis Lua scripts, multi-tenant tiers, and circuit breaker fallback.",
+    "q2": "Target users: API platform engineers, backend infrastructure engineers, and systems architects.",
+    "q3": "3 use cases: API gateway ingress protection, multi-tenant tier quota enforcement, and login endpoint brute-force throttling.",
+    "q4": "Stated hours: 28 hours. Calculated bottom-up: 24 component hours * 1.15 buffer = 27.6 -> 28 hours. Intermediate level.",
+    "q5": "Hard parts: atomic Redis Lua sliding-window logic, sub-3ms gateway latency overhead, circuit breaker local fallback, and RFC 6585 header handling.",
+    "q6": "Starter input: 500 simulated tenant configurations across 3 service tiers. Synthetic mock credentials only.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU only, $0 cost, zero cloud accounts. Fallback: Miniredis in-memory mock.",
+    "q8": "Riskiest component: Redis network latency overhead. Fallback: connection pooling and pipeline batching.",
+    "q9": "Potential faking: hardcoded 200/429 alternating responses. Anti-fake check 5 configures dynamic key with limit 10 and asserts transition on exactly request 11.",
+    "q10": "Safety/ethics: Safe; synthetic API keys and simulated HTTP workloads only."
+  }
+}

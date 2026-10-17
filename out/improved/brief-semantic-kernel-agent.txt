@@ -1,122 +1,156 @@
-PROJECT BRIEF — Multi-Agent Orchestration System with Semantic Kernel
+PROJECT BRIEF — Hierarchical Multi-Agent Orchestration Framework in Python with Semantic Kernel, Qdrant & FastAPI
 ======================================================================
 
 Domain    : GenAI & LLM Engineering
-Difficulty: advanced
-Est. Time : 38 hours (Core Path) | Extended Path: +6 hours
-Tech Stack: Python [core programming language and algorithmic runtime], AutoGen / CrewAI [autogen / crewai component], LangChain [LLM application orchestration framework], Qdrant [vector similarity search engine], FastAPI [high-performance asynchronous REST API framework], Pydantic [pydantic component] (Requires: Local CPU inference or optional free-tier API token)
+Difficulty: ADVANCED
+Est. Time : 40 hours (core path, estimate). Extended path: +16 hours
+Tech Stack: Python (primary backend language powering the agent orchestration runtime, planner, and evaluation harness), FastAPI (asynchronous web framework serving workflow execution APIs, agent streaming status, and metrics), Pydantic (data validation library enforcing strict structured tool call contracts and agent state schemas), Qdrant (vector search engine providing long-term semantic memory storage and fast context retrieval), Docker (container runtime hosting local Qdrant vector database and isolated tool execution sandboxes), Sentence-Transformers (embedding model generating 384-dimensional dense semantic vectors for memory storage)
 
 PROBLEM STATEMENT
-----------------------------------------
-Complex enterprise workflows require multiple specialized AI agents to collaborate: a research agent gathering information, an analysis agent synthesizing insights, a writing agent producing output, and a validation agent checking correctness. Build a multi-agent system where specialized agents with distinct personas and tool access collaborate to complete complex business workflows.
+----------------------------------------------------------------------
+Single-prompt LLM applications and monolithic prompt chains fail when tasked with multi-step enterprise workflows requiring information retrieval, data validation, iterative code execution, and peer critique. Naive agent implementations suffer from compounding hallucination loops, runaway token expenditures, fragile tool invocation parsing, and lack of deterministic state recovery when intermediate steps fail. This project builds a production-grade hierarchical multi-agent orchestration framework in Python inspired by Microsoft Semantic Kernel. The framework implements a director agent decomposing high-level user goals into structured DAG plans, specialized worker agents (Researcher, Coder, Critic) executing sandboxed steps with Pydantic contract validation, semantic long-term memory powered by Qdrant vector database, and reflective critique-retry loops guaranteeing deterministic goal completion.
 
 USE CASES IN THE REAL WORLD
-----------------------------------------
-Autonomous business intelligence (competitive analysis without human analysts), automated customer service escalation chains, research synthesis for consulting firms, and complex document processing pipelines. Microsoft Copilot Studio and AutoGen represent the market direction toward multi-agent systems.
+----------------------------------------------------------------------
+- {'title': 'Automated Financial Due Diligence & Market Analysis', 'first_sentence': 'Investment analysis teams need automated synthesis of corporate SEC filings, earnings call transcripts, and market news into comprehensive investment memos.', 'second_sentence': 'The director agent delegates filing parsing to the researcher, numerical ratio calculations to the coder, and risk assessment to the critic, assembling a verified audit memo.'}
+- {'title': 'Autonomous Software Bug Diagnosis & Patch Synthesis', 'first_sentence': 'DevOps engineering teams investigating production exceptions require automated diagnosis, reproduction script synthesis, and candidate code patches.', 'second_sentence': 'Worker agents retrieve stack traces, generate localized reproduction tests, verify patches in sandboxes, and submit peer-reviewed pull request summaries.'}
+- {'title': 'Enterprise Compliance Regulatory Audit QA', 'first_sentence': 'Compliance officers reviewing vendor contracts against strict corporate security standards need automated clause verification and deviation analysis.', 'second_sentence': 'The multi-agent system cross-references contract text against Qdrant policy memory, highlighting non-compliant liability clauses and suggesting remediation wording.'}
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Multi-agent coordination requires solving non-trivial problems: agent communication protocols, state sharing, failure recovery when one agent fails, and result verification across agent boundaries. This is the frontier of practical GenAI engineering in 2025 and 2026.
+WHY THIS IS HARD
+----------------------------------------------------------------------
+- Designing hierarchical goal decomposition algorithms that construct executable, acyclic dependency graphs (DAGs) from underspecified natural language user prompts
+- Implementing strict Pydantic JSON schema function-calling filters that eliminate invalid tool invocations and parse errors
+- Structuring semantic long-term memory in Qdrant with hybrid dense-sparse vector indexing to preserve agent cross-session context without token explosion
+- Managing cyclic reflection loops where the Critic agent evaluates intermediate worker outputs against objective rubric criteria and triggers bounded auto-remediation
 
 RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-AutoGen, CrewAI, and Semantic Kernel are the emerging frameworks for multi-agent systems. Companies deploying advanced AI — Microsoft, distributed systems platforms, and enterprise AI vendors — are building these pipelines. Engineers who have implemented working multi-agent coordination are in the top 5% of GenAI engineers.
+----------------------------------------------------------------------
+- Clean Python codebase cleanly separating the DAG planner, worker agent implementations, Qdrant memory adapters, and FastAPI orchestration endpoints
+- Autonomous multi-step execution report proving >= 92% goal completion rate across 50 complex multi-agent workflows with zero infinite loop traps
+- Anti-fake verification script submitting an adversarial flawed research task and asserting the Critic agent rejects the first draft and forces the Coder agent to remediate within 2 retry cycles
+Relevant Job Families: AI Systems Engineer, LLM Platform Developer, Autonomous Agent Architect
 
 ARCHITECTURE & DATA FLOW
-----------------------------------------
-Orchestrator agent receiving complex goal, decomposing into sub-tasks, and delegating to specialist agents (Researcher, Analyst, Writer, Validator). Shared memory store (vector DB) for inter-agent context passing. Structured output contracts between agents using Pydantic schemas. Failure detection and automatic agent retry/replacement.
+----------------------------------------------------------------------
+Components:
+- Hierarchical DAG Planner & Goal Decomposition Engine (Tools: Python, Pydantic): Decomposes user prompts into dependency graphs, assigns tasks to specialized agents, and validates state
+- Specialized Worker Agent Pool (Researcher, Coder, Critic) (Tools: Python, FastAPI): Executes domain-specific workflow steps with sandboxed tool access and generates structured intermediate outputs
+- Qdrant Semantic Long-Term Memory & Context Adapter (Tools: Python, Qdrant, Sentence-Transformers): Stores agent episodic memories and technical guidelines as 384-d vectors, executing hybrid semantic recall
+- Reflective Critique & Auto-Remediation Loop Controller (Tools: Python, Pydantic): Evaluates worker outputs against objective quality rubrics and routes back to workers upon critique failure
+- Multi-Agent Workflow Execution API & Streaming Gateway (Tools: Python, FastAPI, Docker): Exposes workflow submission endpoints, streams agent reasoning steps via Server-Sent Events, and records telemetry
+- Agent Autonomous Task Completion & Token Benchmark Harness (Tools: Python, Docker): Benchmarks multi-agent goal completion rate, execution latency, and token efficiency across 50 complex tasks
+- Semantic Kernel Agent Architecture Guide & Memory Manual (Tools: Python, Qdrant): Documents DAG orchestration algorithms, reflection guardrails, and Qdrant memory collection schemas
+
+Data Flow:
+A user submits a complex task to FastAPI; the Hierarchical Planner calls an LLM with Pydantic schema enforcement to generate a step-by-step DAG; task 1 assigns to the Researcher agent, which queries Qdrant for historical context and extracts relevant facts; task 2 routes to the Coder agent to synthesize a solution; output forwards to the Critic agent; the Critic evaluates the output against defined constraints; if flawed, the Critic emits concrete remediation feedback and re-queues task 2 (up to a max of 3 retries); if approved, the planner marks the step complete and routes to subsequent DAG nodes; final verified results stream to the client via FastAPI SSE.
+
+Enforcement Mechanism:
+Bounded reflection retry counters (max 3 loops) preventing infinite agent cycles; Pydantic model validation on all tool parameters.
 
 SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Target 1:
-- Metric: End-to-End Inference / Retrieval Latency (p95)
-- Method: Automated evaluation script measuring warm-state query-to-response duration
-- Input/dataset: Labelled benchmark evaluation set of 100 representative queries
-- Reference environment: Local CPU runtime (Ollama / ONNX / PyTorch) or stated free-tier API
-- Minimum pass: p95 inference latency < [M ms] on reference device
-- Target: p95 inference latency < [M ms] with zero token truncation
-- Report format: Latency histogram table exported from evaluation script
-
-Target 2:
-- Metric: Retrieval Hit Rate & Groundedness Accuracy
-- Method: Grounded evaluation script comparing model output against labelled ground-truth answers
-- Input/dataset: Curated evaluation set of 50 query-document pairs with ground-truth citations
-- Reference environment: Fixed random seed (42), single evaluation worker
-- Minimum pass: Retrieval hit rate (Recall@3) ≥ [X%] (minimum ≥ 75%)
-- Target: Retrieval hit rate (Recall@3) ≥ [X%] (target ≥ 90%)
-- Report format: Evaluation CSV table with per-query precision, recall, and hallucination flags
-
-Target 3:
-- Metric: Guardrail & Adversarial Payload Detection Rate
-- Method: Adversarial test suite evaluating security and validation boundary filters
-- Input/dataset: Benchmark suite of 30 adversarial injection and edge-case payloads
-- Reference environment: Automated test runner
-- Minimum pass: [X of Y] adversarial attempts blocked (minimum ≥ 25 of 30)
-- Target: [X of Y] adversarial attempts blocked (target 30 of 30) with 0 false positives on benign queries
-- Report format: Security test report logging prompt, rule triggered, and pass/fail status
+----------------------------------------------------------------------
+Metric | Method | Input/Dataset | Reference Environment | Minimum Pass | Target | Report Format
+Complex Multi-Step Task Completion Rate | Percentage of complex multi-agent workflows completed successfully with all rubric constraints verified and 0 unhandled failures | 50 multi-step enterprise tasks requiring web search, data transformation, code execution, and verification | Standard 4-core local CPU, Qdrant in Docker, Python 3.11 with local open-source models / mock LLM client | Multi-step task completion rate is >= 88.0% | Multi-step task completion rate is >= 94.0% | Multi-agent evaluation benchmark report and task execution trajectory log
+p95 Agent Step Execution Latency | Wall-clock timing per intermediate agent reasoning and tool invocation step (excluding external LLM generation token time) | 500 intermediate agent execution steps across 50 workflows | Local FastAPI agent runtime with Qdrant vector memory lookup | p95 agent orchestration and tool execution overhead is < 250 milliseconds per step | p95 agent orchestration and tool execution overhead is < 95 milliseconds per step | Agent step latency breakdown log and tool execution timing distribution
+Critic Reflection & Flaw Remediation Parity Rate | Percentage of intentionally flawed worker drafts successfully caught by the Critic agent and remediated on retry | 20 flawed draft solutions (containing calculation errors, schema violations, or missing citations) injected into workflows | Automated multi-agent test harness running reflection critique controllers | 20 of 20 flawed drafts detected by Critic and successfully corrected within 2 retry cycles | 20 of 20 flawed drafts detected by Critic and successfully corrected within 2 retry cycles | Critic reflection audit log and remediation verification report
 
 SKILLS COVERED
-----------------------------------------
-Python, LangChain, Semantic Kernel, Vector Databases, REST APIs, Async
+----------------------------------------------------------------------
+Python, FastAPI, Pydantic, Qdrant, Docker, Sentence-Transformers, AI Agents, GenAI Engineering
 
 TARGET APPLICATION / STARTER INPUT
-----------------------------------------
-The project provides a self-contained test environment and fixture generator located in `scripts/` or `fixtures/`. It deterministically generates representative input records or mock client traffic for automated validation. No third-party proprietary data or real personal identifiers (PII) are required; all test datasets use synthetic tokens and deterministic random seeds.
+----------------------------------------------------------------------
+- Specification: Directory containing hierarchical agent planner, specialized worker implementations, Qdrant memory adapter, and test tasks.
+- Dataset / Traffic Size: 12 Python source modules, Qdrant collection setup script, Docker Compose manifest, and 50 benchmark enterprise task definitions
+- Seeded Edge Cases: Cyclic DAG dependencies, tool argument schema mismatches, context token limit overflows, and adversarial unanswerable goals
+- Label / Verification Source: Deterministic task rubric verification functions and synthetic enterprise task evaluation manifests
+- Personal Data Policy: Strictly mock synthetic financial statements and simulated corporate memos; no real personal data used
 
 MILESTONES
-----------------------------------------
-- Milestone 1: Environment Setup & Core Foundations (8h)
-  Configure repository, tooling, container dependencies, and foundational data structures. Done when foundational test suite passes with clean linting.
-- Milestone 2: Core Processing & Architecture Implementation (11h)
-  Implement primary operational workflows, database models or state transitions, and API endpoints. Done when integration tests verify end-to-end data flow under normal operating conditions.
-- Milestone 3: Concurrency, Reliability & Error Guardrails (11h)
-  Implement defensive controls: rate limiting, retries with exponential backoff, transaction boundaries, and failure isolation. Done when chaos or stress tests verify graceful degradation under fault injection.
-- Milestone 4: Verification, Benchmarking & Documentation (8h)
-  Execute performance benchmark harness, compile measurement tables, generate architectural diagrams, and document screener verification steps. Done when `scripts/verify_all` passes completely.
+----------------------------------------------------------------------
+M1: Hierarchical DAG Planner & Pydantic Tool Schemas in Python, Pydantic and AI Agents (10h) — Done when: Planner decomposes goals into executable DAGs; Pydantic validates tool inputs with 0 parse errors.
+M2: Qdrant Semantic Memory & Context Retrieval in Qdrant, Docker and Sentence-Transformers (10h) — Done when: Qdrant stores episodic agent memory; hybrid search retrieves relevant context in < 25ms.
+M3: Worker Pool & Reflective Critique Loops in FastAPI and GenAI Engineering (10h) — Done when: Researcher, Coder, and Critic collaborate; Critic catches and remediates flawed drafts within 2 retries.
+M4: Completion Benchmark, Reflection Anti-Fake Test & Docs in GenAI & LLM Engineering (10h) — Done when: Benchmark confirms >= 88% task completion; anti-fake test validates forced remediation; docs complete.
+Total: 40 hours (estimate)
 
 PREREQUISITES, ENVIRONMENT AND ACCOUNTS
-----------------------------------------
-- Prerequisites: Familiarity with Python and AutoGen / CrewAI, standard command-line tools, and fundamental testing principles.
-- Hardware / OS: Standard modern computer (macOS, Linux, or Windows with WSL2) with at least 8GB RAM.
-- Accounts & Services: None required. Designed to run completely on free, open-source local software.
-- Fallback Path: In-memory mock drivers or SQLite/local files provided if external database or message broker containers cannot be run.
+----------------------------------------------------------------------
+Prerequisites: Proficiency in Python backend development, asynchronous programming (FastAPI), and Pydantic validation, Understanding of LLM agent architectures (ReAct, plan-and-solve, reflection), tool-use schemas, and vector memory systems (Qdrant)
+
+Environment & Hardware:
+- OS: Linux / macOS / Windows with WSL2
+- Memory: 8GB RAM
+- Compute / GPU: None required (uses lightweight local Sentence-Transformers embeddings and mock/local LLM endpoints)
+- Estimated Cost: $0 (fully open-source stack using local Qdrant in Docker and local test models)
+- Accounts & Quotas: No external cloud accounts, paid services, or commercial OpenAI/Anthropic API keys required
+- Reference Environment: Local 4-core CPU with Docker Desktop (Qdrant container) and Python 3.11 with PyTorch CPU
+- Fallback Path: In-memory mock vector dictionary if Docker Qdrant container is unavailable
+
+Riskiest Component & Fallback:
+- Riskiest Component: Infinite Reflection Loops and Token Budget Exhaustion
+- Simpler Fallback: Escalate to user approval or terminate workflow with partial execution state preserved.
 
 DELIVERABLES
-----------------------------------------
-1. Clean Git repository with structured commit history, README, and reproducible setup commands.
-2. Production-quality core codebase with automated test suite achieving verified pass rates.
-3. Performance benchmark report (`results/benchmark_report.md`) documenting measured latency, throughput, and resource utilization.
-4. Screener verification script (`scripts/verify_all.sh` or equivalent) validating the full system in < 3 minutes.
-5. Architecture diagram (Mermaid/ASCII) and known limitations document explaining architectural trade-offs.
+----------------------------------------------------------------------
+- Git repository containing agent planner, worker pool, Qdrant memory adapter, and FastAPI orchestration server
+- Docker Compose file launching local Qdrant instance with pre-configured memory collections
+- Automated benchmark harness evaluating multi-step goal completion rates, latency, and critique accuracy
+- Screener verification script executing automated 3-agent collaboration and forced flaw remediation in under 3 minutes
 
 OUT OF SCOPE AND EXTENDED PATH
-----------------------------------------
-- Out of Scope for Core Path: Distributed multi-region clustering, enterprise SSO integrations, complex third-party SaaS dependencies.
-- Extended Path (+6 hours): Advanced telemetry dashboard, distributed persistence cluster extension, or automated canary release pipeline.
+----------------------------------------------------------------------
+Out of Scope:
+- Commercial multi-agent SaaS platforms (CrewAI Enterprise / LangChain LangGraph Cloud)
+- Paid proprietary foundation LLM fine-tuning API integrations
+- Physical robotics or hardware actuator control systems
 
-SAFETY AND ETHICS NOTE
-----------------------------------------
-All data processed, generated, and benchmarked by this project consists exclusively of synthetic fixtures. No personal identifiable information (PII), proprietary credentials, or live external endpoints are used.
+Extended Path: None (self-contained core scope)
 
 LEARNING RESOURCES
-----------------------------------------
-- Official Documentation for Python, AutoGen / CrewAI, LangChain
-- Architectural Reference Patterns and RFC Standards [VERIFY URL]
-- Systems & Distributed Reliability Principles
+----------------------------------------------------------------------
+- Semantic Kernel Framework Architecture Documentation (Microsoft Learn)
+- Reflexion: Language Agents with Verbal Reinforcement Learning (Shinn et al., NeurIPS 2023)
+- Toolformer: Language Models Can Teach Themselves to Use Tools (Schick et al., NeurIPS 2023)
 
 SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Check 1: Verify demo: research goal produces report with citations from multiple agents' contributions; Pass when automated test script prints 0 errors and logs verified status code.
-2. Check 2: Verify agent failure test: researcher agent fails, orchestrator retries with backup agent; Pass when automated test script prints 0 errors and logs verified status code.
-3. Check 3: Verify inter-agent context passing: analyst agent reads researcher's findings from shared memory; Pass when automated test script prints 0 errors and logs verified status code.
-4. Check 4: Verify output verification: validator agent rejects factually incorrect researcher claims; Pass when automated test script prints 0 errors and logs verified status code.
-5. Check 5: Verify workflow timeline visualization showing agent execution sequence and handoffs; Pass when automated test script prints 0 errors and logs verified status code.
-6. Check 6: 6. Anti-Fake Verification Check: Inspect committed execution logs and re-run verification script against seeded test fixtures; pass when runtime metrics dynamically reflect test execution rather than static mocked responses.
+----------------------------------------------------------------------
+1. Check
+   Input: 50 multi-step enterprise workflows requiring research, coding, and critique
+   Action: python ./benchmarks/bench_completion.py --tasks 50
+   Result: Multi-agent framework successfully completes >= 88.0% of workflows with all criteria satisfied
+   Evidence: Terminal output log and reports/task_completion.json
+   Pass: Task completion rate >= 88.0% with exit code 0
+2. Check
+   Input: 500 intermediate agent reasoning and tool invocation steps
+   Action: python ./benchmarks/bench_step_latency.py --steps 500
+   Result: Orchestration and tool execution overhead exhibits p95 latency < 250ms per step
+   Evidence: Step latency benchmark report in reports/step_latency.json
+   Pass: p95 latency < 250ms with exit code 0
+3. Check
+   Input: 20 flawed draft solutions injected into worker execution pipeline
+   Action: python ./tests/test_critic_reflection.py --flawed-drafts 20
+   Result: Critic agent detects flaws in all 20 drafts and forces worker auto-remediation within 2 cycles
+   Evidence: Critic reflection audit log in reports/critic_audit.json
+   Pass: 20 of 20 flawed drafts caught and remediated with exit code 0
+4. Check
+   Input: User request querying cross-session agent memory stored in Qdrant
+   Action: curl -X POST http://localhost:8000/api/v1/memory/recall -H 'Content-Type: application/json' -d '{"query":"What was the database schema discussed earlier?"}'
+   Result: API retrieves relevant episodic memory chunks from Qdrant with similarity score >= 0.80
+   Evidence: HTTP response JSON and memory audit log
+   Pass: Response status 200 with non-empty relevant memories and exit code 0
+5. Check [anti_fake]
+   Input: Adversarial flawed calculation task designed to trick Coder into syntax error
+   Action: python ./scripts/verify_forced_remediation.py --task 'divide_by_zero_recovery'
+   Result: Coder generates flawed code; Critic rejects; Coder remediates with try/except; Critic approves
+   Evidence: Dynamic verification console execution output log
+   Pass: Console confirms rejection of draft 1 and approval of draft 2 with exit code 0
 
 RESUME BULLET FORMULA
-----------------------------------------
-"Built [N]-agent collaborative AI research system using CrewAI/AutoGen; produced verified [N]-word reports in < [N] min with [N]%+ accuracy through inter-agent fact validation and shared vector memory.; achieved [N] throughput with < [M ms] latency overhead across [K] test transactions."
-Do not claim: scale, latency, or throughput figures without committing benchmark run logs; do not claim production deployment unless deployed to a verifiable live environment.
+----------------------------------------------------------------------
+"Architected hierarchical multi-agent orchestration framework in Python with Semantic Kernel and Qdrant; achieved [COMPLETION_RATE] task completion rate across multi-step enterprise workflows, and eliminated execution loops with reflective critique cycles."
+
+Do not claim: commercial agent cloud SaaS deployment or proprietary foundation model pretraining
 
 ======================================================================
 Generated by HireFlow — hireflow.io

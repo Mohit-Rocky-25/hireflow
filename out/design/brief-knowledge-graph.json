@@ -1,0 +1,349 @@
+{
+  "id": "brief-knowledge-graph",
+  "title": "Domain Knowledge Graph Construction Pipeline with Relation Extraction & Cypher Graph Reasoning Engine",
+  "domain": "AI/ML Applications",
+  "difficulty": "ADVANCED",
+  "project_types": [
+    "Data pipeline / ETL",
+    "API/backend service"
+  ],
+  "problem": "Unstructured technical and biomedical literature contains deeply interconnected entities that cannot be queried through keyword search or basic vector retrieval without losing relational context. Naive information extraction pipelines produce noisy entity boundaries, unresolved synonyms, and disconnected graph fragments. This project builds an automated knowledge graph construction and reasoning pipeline in Python. The system processes unstructured corpora using spaCy and BERT relation extractors, normalizes entities against canonical ontologies, persists nodes and directed edges in Neo4j, and executes Cypher reasoning queries over multi-hop relationships with interactive D3.js topology visualization.",
+  "use_cases": [
+    {
+      "title": "Biomedical Literature Target Discovery Engines",
+      "first_sentence": "Life sciences research laboratories need to uncover latent connections between molecular compounds, target proteins, and clinical adverse reactions from thousands of published papers.",
+      "second_sentence": "The pipeline ingests biomedical abstract batches, extracts normalized gene-disease associations, and enables researchers to execute 3-hop traversal queries identifying drug repurposing candidates."
+    },
+    {
+      "title": "Regulatory Compliance & Corporate Ownership Auditing",
+      "first_sentence": "Financial risk analysts must detect undisclosed beneficial ownership chains and conflicts of interest across thousands of corporate filings and legal contracts.",
+      "second_sentence": "The system constructs an entity-relationship graph linking holding companies, subsidiaries, and executive board members, evaluating structural circular ownership loops."
+    },
+    {
+      "title": "Technical Architecture Dependency & Incident Mapping",
+      "first_sentence": "Cloud infrastructure platform teams need clear visual and programmatic representations of distributed service dependencies, APIs, and shared datastores.",
+      "second_sentence": "The engine parses post-mortem incident documentation and architecture RFCs, synthesizing a queryable dependency graph that highlights cascading single points of failure."
+    }
+  ],
+  "hard_parts": [
+    "Extracting complex overlapping relation triplets from dense academic literature with high precision",
+    "Resolving entity aliases and polysemy to canonical ontology identifiers without introducing duplicate entity nodes",
+    "Modeling high-performance property graph schemas in Neo4j with optimized indexes for recursive multi-hop traversals",
+    "Designing deterministic graph reasoning queries that infer hidden transitive links and circular path anomalies"
+  ],
+  "screener_signals": [
+    "Clean Python codebase separating text extraction pipelines, entity resolution modules, and Neo4j graph access layers",
+    "Quantitative extraction benchmark reporting precision, recall, and F1 scores against human-annotated entity relationship datasets",
+    "Anti-fake verification script inserting unseen dynamic text passages and asserting automated creation of verified canonical nodes and edges in Neo4j"
+  ],
+  "job_families": [
+    "Knowledge Graph Engineer",
+    "NLP / Information Extraction Engineer",
+    "Graph Data Platform Architect"
+  ],
+  "stack": [
+    {
+      "tool": "Python",
+      "role": "primary programming language implementing NLP extraction pipelines and database loaders"
+    },
+    {
+      "tool": "spaCy",
+      "role": "NLP library performing sentence boundary detection, tokenization, and dependency parsing"
+    },
+    {
+      "tool": "BERT",
+      "role": "transformer model performing contextual token classification and relation triplet extraction"
+    },
+    {
+      "tool": "Neo4j",
+      "role": "native property graph database storing entity nodes, relationship edges, and indexing traversals"
+    },
+    {
+      "tool": "Wikidata API",
+      "role": "canonical ontology source providing entity identifiers and taxonomic entity types"
+    },
+    {
+      "tool": "D3.js",
+      "role": "visualization library rendering force-directed interactive graph topologies in web interface"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "Corpus Ingestion & spaCy Linguistic Parser",
+        "tools_used": [
+          "Python",
+          "spaCy"
+        ],
+        "purpose": "Ingests raw text documents, segments sentences, and extracts syntactic dependency trees"
+      },
+      {
+        "name": "Transformer Entity & Relation Extraction Engine",
+        "tools_used": [
+          "Python",
+          "BERT"
+        ],
+        "purpose": "Classifies named entity spans and predicts directed relationship predicates between entity pairs"
+      },
+      {
+        "name": "Entity Resolution & Ontology Linker",
+        "tools_used": [
+          "Python",
+          "Wikidata API"
+        ],
+        "purpose": "Normalizes textual mentions to canonical ontology concepts using string similarity and taxonomic entity lookups"
+      },
+      {
+        "name": "Neo4j Property Graph Persistence Layer",
+        "tools_used": [
+          "Python",
+          "Neo4j"
+        ],
+        "purpose": "Batches entity and relationship insertions using Cypher statements with uniqueness constraints and indexes"
+      },
+      {
+        "name": "Multi-Hop Graph Reasoning & Cypher Query Engine",
+        "tools_used": [
+          "Python",
+          "Neo4j"
+        ],
+        "purpose": "Executes declarative graph traversal queries inferring transitive relationships and structural anomalies"
+      },
+      {
+        "name": "Interactive D3.js Graph Topology Visualizer",
+        "tools_used": [
+          "D3.js"
+        ],
+        "purpose": "Renders browser-based interactive force-directed graph diagrams with node filtering and neighborhood zoom"
+      }
+    ],
+    "data_flow": "Unstructured text documents enter the ingestion parser; spaCy extracts sentences and linguistic dependency features; the BERT relation extractor identifies entity spans and predicts semantic relationships; the entity resolver maps entity strings to canonical ontology identifiers via the Wikidata API; resolved nodes and relationship edges stream to the Neo4j persistence layer in batched Cypher transactions; the reasoning engine executes multi-hop traversals over the constructed property graph; the results stream to the D3.js frontend for interactive visual analysis.",
+    "enforcement_mechanism": "Neo4j schema constraints enforcing uniqueness on canonical entity IDs; relation confidence thresholds filtering low-probability extraction predictions."
+  },
+  "targets": [
+    {
+      "metric": "Named Entity Recognition and Relation Extraction F1 Score",
+      "method": "Micro-averaged F1 score evaluated against gold-standard annotated relation extraction evaluation corpus",
+      "input": "500 annotated scientific abstract sentences containing 1,500 ground-truth entity relation triplets",
+      "environment": "Standard 4-core local CPU, Python 3.11 with HuggingFace transformers pipeline",
+      "minimum_pass": "Relation extraction micro-F1 score is >= 0.74 across 500 test sentences",
+      "target": "Relation extraction micro-F1 score is >= 0.84 across 500 test sentences",
+      "report": "Information extraction precision, recall, and F1 score evaluation report"
+    },
+    {
+      "metric": "Neo4j Knowledge Graph Multi-Hop Query Latency",
+      "method": "Execution timing for recursive 3-hop traversal Cypher queries discovering indirect relationships between entities",
+      "input": "100 benchmark multi-hop graph queries executed against constructed 50,000-node property graph",
+      "environment": "Standard 4-core local CPU, 8GB RAM, Neo4j Community Edition in Docker",
+      "minimum_pass": "p95 query response time for 3-hop graph traversals is < 45 milliseconds",
+      "target": "p95 query response time for 3-hop graph traversals is < 18 milliseconds",
+      "report": "Neo4j Cypher query latency profiling and execution timing log"
+    },
+    {
+      "metric": "Entity Disambiguation & Canonical Linking Precision",
+      "method": "Accuracy of linking text surface mentions to correct canonical Wikidata identifiers",
+      "input": "300 polysemous and abbreviated entity mentions across clinical and technical text",
+      "environment": "Standard 4-core local CPU, local offline ontology index or Wikidata API mock cache",
+      "minimum_pass": "Linking precision is >= 82.0% across 300 entity mentions",
+      "target": "Linking precision is >= 91.5% across 300 entity mentions",
+      "report": "Entity resolution evaluation summary and disambiguation accuracy report"
+    }
+  ],
+  "skills": [
+    "Python",
+    "spaCy",
+    "Neo4j",
+    "BERT",
+    "Wikidata API",
+    "D3.js",
+    "Knowledge Graphs",
+    "Cypher",
+    "NLP"
+  ],
+  "starter_input": {
+    "spec": "Corpus of 5,000 domain scientific abstracts, gold-standard annotated relation evaluation JSON, and Neo4j schema definitions.",
+    "size": "5,000 text abstracts (approx 15MB plain text), 500 annotated benchmark sentences, and canonical ontology dictionary",
+    "seeded_cases": "Polysemous acronyms, passive voice relations, nested entity mentions, and circular cross-citations",
+    "label_source": "Expert linguist annotated entity-relation manifests and curated Wikidata concept mappings",
+    "personal_data_policy": "Strictly public scientific literature abstracts and synthetic entity records; zero real personal data used"
+  },
+  "components": [
+    {
+      "name": "Corpus Ingestion & spaCy Linguistic Parser",
+      "task_type": "data pipeline step",
+      "hours": 6.0
+    },
+    {
+      "name": "Transformer Entity & Relation Extraction Engine",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "Entity Resolution & Ontology Linker",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "Neo4j Property Graph Persistence Layer",
+      "task_type": "infra component (broker, DB, orchestrator, cluster service)",
+      "hours": 6.0
+    },
+    {
+      "name": "Multi-Hop Graph Reasoning & Cypher Query Engine",
+      "task_type": "API endpoint group with tests",
+      "hours": 5.0
+    },
+    {
+      "name": "Extraction Accuracy & Graph Traversal Benchmark Harness",
+      "task_type": "load or performance test harness + report",
+      "hours": 4.0
+    },
+    {
+      "name": "Ontology Schema Documentation & D3 Topology Guide",
+      "task_type": "docs + architecture diagram",
+      "hours": 2.0
+    }
+  ],
+  "extended_path": {
+    "features": [
+      "Graph Neural Network (GNN) link prediction using PyTorch Geometric to forecast unobserved edges",
+      "Temporal knowledge graph versioning tracking entity state changes over time",
+      "Natural language to Cypher semantic translation using fine-tuned open-source LLMs"
+    ],
+    "hours": 16
+  },
+  "milestones": [
+    {
+      "name": "Corpus Ingestion & NLP Relation Extraction in Python and spaCy",
+      "hours": 10,
+      "done_criterion": "spaCy and BERT pipelines extract entity spans and relation triplets from 5,000 abstracts."
+    },
+    {
+      "name": "Entity Resolution & Ontology Linking in Wikidata API",
+      "hours": 10,
+      "done_criterion": "Entity resolution engine maps mentions to canonical ontology IDs with >= 82% precision."
+    },
+    {
+      "name": "Knowledge Graphs Persistence & Multi-Hop Cypher Reasoning in Neo4j",
+      "hours": 10,
+      "done_criterion": "Neo4j stores 50,000 nodes; 3-hop traversal reasoning queries execute in < 45ms."
+    },
+    {
+      "name": "Interactive D3.js Visualization, Anti-Fake Test & Docs",
+      "hours": 10,
+      "done_criterion": "D3.js visualizes subgraphs; anti-fake test creates dynamic graph triplet; docs complete."
+    }
+  ],
+  "prerequisites": [
+    "Proficiency in Python programming, transformer NLP models (HuggingFace/BERT), and spaCy linguistic parsing",
+    "Understanding of graph databases (Neo4j, Cypher query syntax) and relational knowledge representation"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM (16GB recommended for running local Neo4j Docker container and BERT inference)",
+    "gpu": "None required (quantized DistilBERT or lightweight relation extraction models run on CPU)",
+    "cost": "$0 (fully open-source stack using Neo4j Community Edition and HuggingFace models)",
+    "accounts_keys_quotas": "No external cloud accounts, paid services, or API keys required",
+    "reference_environment": "Local 4-core CPU with Docker Desktop (Neo4j 5 Community container) and Python 3.11",
+    "fallback_path": "NetworkX in-memory graph representation with JSON persistence if Docker or Neo4j is unavailable"
+  },
+  "riskiest_component": {
+    "name": "Relation Extraction Precision Degradation on Complex Sentence Structures",
+    "mitigation": "Utilize dependency parse path filtering alongside transformer relation heads, applying probability cutoff thresholds.",
+    "fallback": "Rule-based Hearst pattern and dependency tree extractors for high-confidence relation subsets."
+  },
+  "deliverables": [
+    "Git repository containing spaCy/BERT relation extraction pipeline and Neo4j graph loaders",
+    "Cypher query reasoning engine executing 3-hop graph traversals with microsecond latency",
+    "Interactive D3.js force-directed topology visualizer with entity inspection drawer",
+    "Screener verification script extracting novel dynamic sentence and asserting Neo4j persistence"
+  ],
+  "out_of_scope": [
+    "Statutory legal compliance certification or clinical medical diagnosis decision systems",
+    "Distributed multi-graph partitioning across heterogeneous cloud database clusters",
+    "Real-time automated PDF OCR extraction from degraded historical paper scans"
+  ],
+  "safety_note": null,
+  "resources": [
+    "spaCy Linguistic Feature Extraction and Entity Recognition Guide",
+    "Neo4j Cypher Manual: Graph Traversal and Index Optimization",
+    "HuggingFace Transformers Relation Extraction and Token Classification Guide"
+  ],
+  "rubric": [
+    {
+      "input": "500 annotated scientific abstract sentences containing 1,500 relation triplets",
+      "action": "python -m kg_engine.evaluate_extraction --test-data test_data/gold_relations.json",
+      "expected_result": "BERT and spaCy extraction pipeline achieves relation extraction micro-F1 score >= 0.74",
+      "evidence_location": "Terminal test execution output log and reports/extraction_f1_report.json",
+      "pass_criterion": "Report records micro-F1 >= 0.74 with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "300 polysemous entity mentions evaluated against canonical ontology mappings",
+      "action": "python -m kg_engine.evaluate_linker --mentions-file test_data/entity_mentions.json",
+      "expected_result": "Entity resolution engine achieves canonical linking precision >= 82.0%",
+      "evidence_location": "Entity linking precision summary log",
+      "pass_criterion": "Linking precision >= 82.0% with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "100 benchmark 3-hop traversal Cypher queries executed against 50,000-node graph",
+      "action": "python scripts/benchmark_traversal.py --queries test_data/traversal_queries.cql --runs 100",
+      "expected_result": "Neo4j graph database executes multi-hop traversals with p95 response time < 45 milliseconds",
+      "evidence_location": "Cypher benchmark timing summary table",
+      "pass_criterion": "p95 latency is < 45ms and query success rate is 100%",
+      "kind": "normal"
+    },
+    {
+      "input": "GraphQL or REST query requesting 2-hop neighborhood of canonical entity node",
+      "action": "curl http://localhost:8000/api/graph/subgraph?entity_id=Q12345&depth=2",
+      "expected_result": "Server returns structured JSON payload containing nodes array, edges array, and predicate metadata",
+      "evidence_location": "HTTP response payload",
+      "pass_criterion": "Response status is 200 and JSON contains non-empty nodes and edges lists",
+      "kind": "normal"
+    },
+    {
+      "input": "Dynamic unobserved sentence containing novel entity triplet inserted at runtime",
+      "action": "python scripts/verify_dynamic_kg.py --sentence 'Alpha-7 inhibits kinase-9 expression in renal tissues'",
+      "expected_result": "Pipeline extracts (Alpha-7, INHIBITS, kinase-9), resolves entities, and asserts new nodes and edge exist in Neo4j",
+      "evidence_location": "Dynamic verification console execution output log",
+      "pass_criterion": "Neo4j query verifies created edge INHIBITS between Alpha-7 and kinase-9 with exit code 0",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected automated knowledge graph construction pipeline in Python with property graph database using spaCy and BERT; extracted [TRIPLET_COUNT] relational triplets with [EXTRACTION_SCORE] extraction score, and achieved sub-[TRAVERSAL_LATENCY] response times on recursive multi-hop Cypher traversals.",
+    "claims": [
+      {
+        "text": "extracted [TRIPLET_COUNT] relational triplets with [EXTRACTION_SCORE] extraction score",
+        "rubric_indexes": [
+          0
+        ]
+      },
+      {
+        "text": "achieved sub-[TRAVERSAL_LATENCY] response times on recursive multi-hop Cypher traversals",
+        "rubric_indexes": [
+          2
+        ]
+      }
+    ],
+    "do_not_claim": "automated legal statutory compliance verification or medical diagnosis certification"
+  },
+  "verify": [
+    "Run `python -m pytest tests/` to verify text preprocessing, relation extraction, and Neo4j connector tests pass.",
+    "Execute `python -m kg_engine.evaluate_extraction` to confirm information extraction F1 score meets the target benchmark.",
+    "Run `python scripts/verify_dynamic_kg.py` to assert that novel input text generates verified entities and directed relationships in Neo4j."
+  ],
+  "worksheet": {
+    "q1": "Core deliverable: an automated knowledge graph construction pipeline in Python with spaCy/BERT relation extraction, Neo4j persistence, and D3.js visualization.",
+    "q2": "Target users: life science researchers, compliance auditors, and data platform engineers.",
+    "q3": "3 use cases: biomedical literature discovery, regulatory ownership auditing, and technical architecture dependency mapping.",
+    "q4": "Stated hours: 40 hours. Calculated bottom-up: 35 component hours * 1.15 buffer = 40.25 -> 40 hours. Advanced level.",
+    "q5": "Hard parts: overlapping relation extraction, entity alias resolution to Wikidata ontologies, high-performance Cypher property graph modeling, and sub-45ms multi-hop traversals.",
+    "q6": "Starter input: 5,000 scientific abstracts, gold-standard annotated benchmark relations, and ontology dictionaries. Public scientific abstracts only.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU only, $0 cost, zero cloud accounts. Fallback: NetworkX in-memory graph representation.",
+    "q8": "Riskiest component: relation extraction precision on complex syntax. Fallback: dependency parse path filtering and rule-based heuristics.",
+    "q9": "Potential faking: hardcoded graph databases. Anti-fake check 5 extracts dynamic sentence, asserts newly created relationship edge in Neo4j.",
+    "q10": "Safety/ethics: Safe; public scientific abstracts only, zero private biomedical patient data."
+  }
+}

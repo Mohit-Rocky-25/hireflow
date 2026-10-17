@@ -1,0 +1,324 @@
+{
+  "id": "brief-credit-risk-model",
+  "title": "Credit Risk Scoring & Loan Underwriting ML System",
+  "domain": "FinTech Engineering",
+  "difficulty": "INTERMEDIATE",
+  "project_types": [
+    "ML training",
+    "Data analysis/BI"
+  ],
+  "problem": "Traditional financial underwriting relies heavily on static credit bureau scores that systematically exclude populations lacking extensive formal credit histories. Machine learning credit risk models overcome this barrier by synthesizing transactional banking patterns, behavioral repayment indicators, and alternative cashflow features. Deploying machine learning in credit risk requires rigorous probability calibration, feature monotonicity enforcement to satisfy regulatory fair-lending requirements, automated adverse action factor attribution using SHAP values, and real-time inference latency guarantees.",
+  "use_cases": [
+    "Automated loan default risk assessment for digital consumer lending platforms",
+    "Instant credit line underwriting for point-of-sale buy-now-pay-later checkouts",
+    "Regulatory adverse action notice generation explaining top negative scoring factors"
+  ],
+  "hard_parts": [
+    "Handling severe class imbalance (typically < 3% default rates) without inflating false positive rejections",
+    "Enforcing monotonic feature constraints in gradient boosting models to satisfy fair lending and financial audit rules",
+    "Calibrating raw model logits into empirical probabilities of default using isotonic regression or Platt scaling",
+    "Extracting real-time SHAP tree values for adverse action explanation within sub-30ms API response windows"
+  ],
+  "screener_signals": [
+    "Reproducible ML training pipeline with monotonic feature transformations and cross-validation reports",
+    "Calibrated default probability curve verified via Brier score and reliability calibration plots",
+    "FastAPI serving endpoint returning default probability and top-3 negative contributing SHAP factors"
+  ],
+  "job_families": [
+    "Machine Learning Engineer",
+    "Credit Risk Modeling Analyst",
+    "FinTech Data Scientist"
+  ],
+  "stack": [
+    {
+      "tool": "Python",
+      "role": "model training pipeline, feature engineering, and inference API implementation"
+    },
+    {
+      "tool": "XGBoost",
+      "role": "gradient boosted decision tree framework with monotonic constraint support"
+    },
+    {
+      "tool": "Scikit-learn",
+      "role": "data preprocessing, probability calibration, and ROC-AUC evaluation metrics"
+    },
+    {
+      "tool": "SHAP",
+      "role": "explainability library computing TreeSHAP values for adverse factor extraction"
+    },
+    {
+      "tool": "FastAPI",
+      "role": "asynchronous REST API serving real-time credit scoring decisions"
+    },
+    {
+      "tool": "Pandas",
+      "role": "tabular data manipulation and feature aggregation framework"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "Feature Engineering Pipeline",
+        "tools_used": [
+          "Python",
+          "Pandas"
+        ],
+        "purpose": "Computes debt-to-income, cashflow volatility, and Weight of Evidence (WoE) monotonic binnings"
+      },
+      {
+        "name": "Monotonic XGBoost Model",
+        "tools_used": [
+          "Python",
+          "XGBoost"
+        ],
+        "purpose": "Trains gradient boosted trees enforcing positive and negative monotonic risk constraints"
+      },
+      {
+        "name": "Probability Calibration Layer",
+        "tools_used": [
+          "Python",
+          "Scikit-learn"
+        ],
+        "purpose": "Transforms raw model margins into well-calibrated default probabilities using Platt scaling"
+      },
+      {
+        "name": "Adverse Action SHAP Explainer",
+        "tools_used": [
+          "Python",
+          "SHAP"
+        ],
+        "purpose": "Extracts top-3 features increasing applicant default probability for regulatory disclosure notices"
+      },
+      {
+        "name": "Real-Time Underwriting Gateway",
+        "tools_used": [
+          "Python",
+          "FastAPI"
+        ],
+        "purpose": "Exposes HTTP scoring route returning credit decisions, default probabilities, and reason codes"
+      }
+    ],
+    "data_flow": "Applicant financial attributes enter via HTTP POST to FastAPI; Feature Pipeline calculates WoE transformed vectors; XGBoost scores risk margins with monotonic constraints; Probability Calibration Layer maps margin to default probability; SHAP Explainer extracts top adverse contributing features; Gateway returns decision (APPROVE, REVIEW, DECLINE) with calibrated probability and top-3 reason codes.",
+    "enforcement_mechanism": "Monotonic constraints enforced during tree building preventing higher income from increasing default probability; automated decision cutoffs routing high-risk applications to manual review."
+  },
+  "targets": [
+    {
+      "metric": "Model Discrimination Power (ROC-AUC)",
+      "method": "5-fold stratified cross-validation evaluated on held-out test split with zero feature leakage",
+      "input": "Labelled synthetic dataset of 10,000 credit applicant profiles with 2.8% historical default rate",
+      "environment": "Standard 4-core local CPU, Python 3.11+",
+      "minimum_pass": "ROC-AUC >= 0.74 on held-out test split",
+      "target": "ROC-AUC >= 0.81 on held-out test split",
+      "report": "Scikit-learn classification report and ROC curve plot export"
+    },
+    {
+      "metric": "Probability Calibration Reliability (Brier Score)",
+      "method": "Brier score calculation comparing calibrated predicted default probabilities against true outcomes",
+      "input": "Held-out test split of 2,000 credit applications across all score deciles",
+      "environment": "Standard 4-core local CPU, Scikit-learn CalibratedClassifierCV",
+      "minimum_pass": "Brier score <= 0.14 across evaluation dataset",
+      "target": "Brier score <= 0.09 across evaluation dataset",
+      "report": "Reliability calibration curve plot and decile calibration table"
+    },
+    {
+      "metric": "Real-Time Underwriting Decision Latency",
+      "method": "Autocannon benchmark measuring duration of feature preprocessing, model scoring, and SHAP extraction",
+      "input": "1,000 synthetic applicant requests sent across 10 concurrent HTTP clients",
+      "environment": "Standard 4-core local CPU, local loopback network",
+      "minimum_pass": "p95 decision latency < 45ms per applicant request",
+      "target": "p95 decision latency < 22ms per applicant request",
+      "report": "Benchmark latency distribution log and Locust percentile export"
+    }
+  ],
+  "skills": [
+    "Python",
+    "XGBoost",
+    "Scikit-learn",
+    "SHAP",
+    "FastAPI",
+    "FinTech",
+    "Machine Learning"
+  ],
+  "starter_input": {
+    "spec": "Tabular credit application dataset with financial attributes (income, debt-to-income, delinquencies, utilization) and default label.",
+    "size": "10,000 synthetic applicant rows with 18 financial feature columns and binary default flag",
+    "seeded_cases": "Extreme low debt applicants with delinquencies, zero-income outliers, missing credit utilization entries, and high-income applicants",
+    "label_source": "Deterministic synthetic data generator using fixed seed 9912 modeling realistic credit distributions",
+    "personal_data_policy": "Strictly synthetic financial attributes; zero real personal identifiable information, bank accounts, or SSNs used"
+  },
+  "components": [
+    {
+      "name": "Feature Engineering & Monotonic WoE Binning",
+      "task_type": "data pipeline step",
+      "hours": 5.0
+    },
+    {
+      "name": "XGBoost Model Training & Calibration",
+      "task_type": "model train + evaluate cycle",
+      "hours": 5.0
+    },
+    {
+      "name": "SHAP Explainability & Attribution Engine",
+      "task_type": "evaluation dataset creation + scoring script",
+      "hours": 4.0
+    },
+    {
+      "name": "FastAPI Underwriting Decision API",
+      "task_type": "API endpoint group with tests",
+      "hours": 4.0
+    },
+    {
+      "name": "Fairness & Disparity Verification Script",
+      "task_type": "security hardening checks",
+      "hours": 3.0
+    },
+    {
+      "name": "Documentation, Fairness Report & Buffer",
+      "task_type": "docs + architecture diagram",
+      "hours": 4.0
+    }
+  ],
+  "extended_path": {
+    "items": [
+      "Dynamic population stability index (PSI) monitoring tracking feature drift over consecutive monthly batches",
+      "Alternative cashflow time-series feature extractor analyzing simulated bank transaction streams"
+    ],
+    "hours": 14
+  },
+  "milestones": [
+    {
+      "name": "Feature Engineering & Monotonic WoE Binning Pipeline",
+      "hours": 8,
+      "done_criterion": "Feature pipeline computes WoE transformations and enforces monotonic risk relationships."
+    },
+    {
+      "name": "XGBoost Training, Machine Learning Calibration & Evaluation",
+      "hours": 7,
+      "done_criterion": "XGBoost model trains with monotonic constraints; Platt calibration achieves Brier score <= 0.14."
+    },
+    {
+      "name": "SHAP Explainability & FastAPI FinTech Decision Gateway",
+      "hours": 8,
+      "done_criterion": "API endpoint scores applicants and returns top-3 SHAP adverse factor codes in < 45ms."
+    },
+    {
+      "name": "Fairness Audit, Anti-Fake Test, Docs & Buffer",
+      "hours": 6,
+      "done_criterion": "Disparity audit verifies fairness metrics; anti-fake test validates dynamic applicant; docs complete."
+    }
+  ],
+  "prerequisites": [
+    "Intermediate Python programming (Pandas, NumPy, Scikit-learn)",
+    "Applied machine learning concepts (gradient boosting, cross-validation, ROC-AUC, calibration)",
+    "Basic knowledge of credit underwriting metrics (debt-to-income, probability of default)"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (purely CPU-bound tabular machine learning)",
+    "cost": "$0 (fully open-source software stack)",
+    "accounts_keys_quotas": "No external cloud accounts, paid services, or API keys required",
+    "reference_environment": "Local 4-core CPU with Python 3.11 installed",
+    "fallback_path": "Logistic Regression with statsmodels if XGBoost installation encounters platform compiler issues"
+  },
+  "riskiest_component": {
+    "name": "TreeSHAP Computation Latency on Complex Ensembles",
+    "fallback": "Constrain XGBoost max_depth to 4 trees and evaluate fast TreeExplainer approximations"
+  },
+  "deliverables": [
+    "Git repository containing training pipelines, calibrated model artifact, and FastAPI application",
+    "Synthetic 10,000-applicant training and validation datasets",
+    "Model card and explainability report documenting ROC-AUC, calibration curves, and SHAP distributions",
+    "Screener verification script running scoring and dynamic applicant evaluation in under 2 minutes"
+  ],
+  "out_of_scope": [
+    "Real-money credit underwriting or live credit card issuance",
+    "Integration with licensed credit reporting bureaus",
+    "Core banking payment ledger integration"
+  ],
+  "safety_note": null,
+  "resources": [
+    "XGBoost official documentation on monotonic constraints",
+    "Scikit-learn probability calibration guide and Brier score documentation",
+    "SHAP Python documentation for tree explainers and local attribution"
+  ],
+  "rubric": [
+    {
+      "input": "Synthetic dataset of 10,000 credit applicant profiles",
+      "action": "Run python scripts/train_model.py",
+      "expected_result": "Model trains with monotonic constraints and reports validation metrics",
+      "evidence_location": "Training console execution log and artifacts/model.json",
+      "pass_criterion": "Validation ROC-AUC is >= 0.74 with Platt calibration applied",
+      "kind": "normal"
+    },
+    {
+      "input": "Calibrated model artifact evaluated on held-out test split",
+      "action": "Run python scripts/evaluate_calibration.py",
+      "expected_result": "Script computes Brier score and generates reliability calibration curve",
+      "evidence_location": "reports/calibration_summary.json and reliability_curve.png",
+      "pass_criterion": "Calculated Brier score is <= 0.14 across all test deciles",
+      "kind": "normal"
+    },
+    {
+      "input": "Sample loan application payload POSTed to /underwrite endpoint",
+      "action": "Execute curl -X POST -H 'Content-Type: application/json' -d @fixtures/applicant.json http://localhost:8000/underwrite",
+      "expected_result": "API returns decision, calibrated default probability, and top-3 SHAP adverse factor codes in < 45ms",
+      "evidence_location": "Terminal HTTP response payload",
+      "pass_criterion": "HTTP status 200 with valid probability float and 3 distinct adverse factor reasons",
+      "kind": "normal"
+    },
+    {
+      "input": "Monotonicity verification script python scripts/verify_monotonicity.py",
+      "action": "Evaluate risk predictions across synthetic applicant pairs with increasing debt-to-income",
+      "expected_result": "Predicted probability of default monotonically increases as debt-to-income increases",
+      "evidence_location": "Monotonicity verification report log",
+      "pass_criterion": "0 monotonicity constraint violations detected across 1,000 synthetic test pairs",
+      "kind": "normal"
+    },
+    {
+      "input": "Dynamic applicant profile with heavily elevated revolving credit utilization generated at runtime",
+      "action": "Run python scripts/verify_dynamic_applicant.py --utilization 95.5",
+      "expected_result": "API evaluates applicant dynamically and identifies credit utilization as the #1 adverse factor",
+      "evidence_location": "Dynamic verification console output log",
+      "pass_criterion": "Primary adverse reason code equals HIGH_REVOLVING_UTILIZATION with exit code 0",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected credit risk underwriting ML system in Python and FastAPI using XGBoost and SHAP; achieved [MODEL_AUC] ROC-AUC on a [TEST_SET_SIZE] applicant test split, calibrated default probabilities to [BRIER_SCORE] Brier score, and delivered top adverse factors with sub-[DECISION_LATENCY] decision latency.",
+    "claims": [
+      {
+        "text": "achieved [MODEL_AUC] ROC-AUC on a [TEST_SET_SIZE] applicant test split",
+        "rubric_indexes": [
+          0
+        ]
+      },
+      {
+        "text": "calibrated default probabilities to [BRIER_SCORE] Brier score",
+        "rubric_indexes": [
+          1
+        ]
+      },
+      {
+        "text": "delivered top adverse factors with sub-[DECISION_LATENCY] decision latency",
+        "rubric_indexes": [
+          2
+        ]
+      }
+    ],
+    "do_not_claim": "compliance with specific sovereign financial regulations or real-money lending decisions without licensed financial underwriting data"
+  },
+  "verify": [],
+  "worksheet": {
+    "q1": "The student builds a credit risk underwriting ML system using XGBoost with monotonic constraints, Platt probability calibration, and SHAP explainability served via FastAPI.",
+    "q2": "Core path: WoE feature engineering, monotonic XGBoost model, probability calibration, SHAP adverse factors, and FastAPI underwriting endpoint (29h). Extended path: population stability index (PSI) and cashflow time-series models (+14h).",
+    "q3": "Components: Feature Pipeline (5h), XGBoost Training (5h), SHAP Explainability (4h), FastAPI API (4h), Fairness Audit (3h), Docs & Buffer (4h). Total 25h x 1.15 = 29h.",
+    "q4": "Project types: ML training, Data analysis/BI. Metrics: ROC-AUC, Brier Score, Underwriting Decision Latency. Rejected: search recall at k (not a recommendation system).",
+    "q5": "Hard parts: class imbalance handling, monotonic constraint enforcement, probability calibration, and fast TreeSHAP extraction.",
+    "q6": "Starter input: 10,000 synthetic credit applicant records with 18 financial features and binary default labels with seed 9912. No real PII.",
+    "q7": "Hardware: Linux/macOS/Windows, 8GB RAM, CPU only, $0 cost, zero cloud accounts. Fallback: Logistic Regression with statsmodels.",
+    "q8": "Riskiest component: TreeSHAP calculation latency. Fallback: constrain tree depth to 4.",
+    "q9": "Potential faking: hardcoded mock reason codes. Anti-fake check 5 injects an applicant with 95.5% utilization at runtime and asserts utilization is identified as top adverse factor.",
+    "q10": "Safety/ethics: Safe; synthetic credit application data only; includes disclaimer forbidding real-money underwriting without regulatory compliance."
+  }
+}

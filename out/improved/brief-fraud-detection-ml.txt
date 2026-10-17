@@ -1,122 +1,160 @@
-PROJECT BRIEF — Real-Time Fraud Detection ML Pipeline
+PROJECT BRIEF — Real-Time Fraud Detection ML Pipeline with Sliding-Window Feature Store
 ======================================================================
 
 Domain    : ML Engineering
-Difficulty: advanced
-Est. Time : 38 hours (Core Path) | Extended Path: +6 hours
-Tech Stack: Python [core programming language and algorithmic runtime], XGBoost [xgboost component], Kafka [distributed event streaming broker], Redis [in-memory data structure store and cache], FastAPI [high-performance asynchronous REST API framework], MLflow [mlflow component], Docker [containerization and local multi-service orchestration] (Requires: Docker Engine / Desktop, Local CPU inference or optional free-tier API token)
+Difficulty: ADVANCED
+Est. Time : 39 hours (core path, estimate). Extended path: +16 hours
+Tech Stack: Python (primary language for feature engineering, model training, and inference serving), FastAPI (asynchronous web framework serving sub-15ms fraud scoring endpoints), LightGBM (gradient boosting framework trained on tabular transaction and velocity features), Kafka (distributed streaming broker ingesting high-throughput payment transaction events), Redis (in-memory feature store managing sliding-window transaction counters and rolling sums), MLflow (experiment tracking registry versioning model artifacts, ROC curves, and parameters), Docker (containerization engine packaging scoring microservice, Kafka, and Redis)
 
 PROBLEM STATEMENT
-----------------------------------------
-Payment fraud costs Indian companies ₹100+ crore annually, with traditional rule-based systems failing to adapt to evolving fraud patterns. Build a sub-second fraud detection system using gradient boosting and neural network ensemble models served with sub-10ms latency for streaming payment transactions.
+----------------------------------------------------------------------
+Financial payment networks process credit card transactions in under 50 milliseconds, creating a strict latency envelope to intercept fraudulent operations before approval. Batch scoring algorithms cannot detect rapid card-testing spikes or immediate velocity surges, while raw ML models lacking real-time feature context produce unacceptable false positive declines that alienate legitimate users. This project implements a real-time fraud detection pipeline in Python, FastAPI, LightGBM, Kafka, and Redis. The system streams transactions through Kafka, aggregates velocity and historical spending patterns into a Redis sliding-window feature store across 10-minute and 24-hour windows, evaluates transactions in under 15 milliseconds using a calibrated LightGBM classifier, provides explainable decision attributions via TreeSHAP, and tracks experiments and metrics in MLflow.
 
 USE CASES IN THE REAL WORLD
-----------------------------------------
-top tech platforms, top tech platforms, BankBazaar, HDFC, and every payment processor in India. UPI transaction fraud specifically is one of the largest technology problems in Indian fintech. The Reserve Bank of India's guidelines require sub-second fraud detection for digital payment processors.
+----------------------------------------------------------------------
+- Credit card payment gateway ingress blocking fraudulent authorization attempts before issuing bank approval
+- Digital wallet peer-to-peer transfer fraud prevention intercepting account takeover fund siphoning
+- E-commerce merchant checkout risk scoring detecting automated card-testing bots and stolen credentials
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Fraud detection requires understanding class imbalance handling, feature engineering for tabular data, model serving with strict latency requirements, and model drift monitoring — the complete production ML lifecycle. This demonstrates ML Engineering maturity, not just notebook data science.
+WHY THIS IS HARD
+----------------------------------------------------------------------
+- Maintaining sliding-window aggregation features (transaction velocity, rolling sum, distinct merchants) in Redis under sub-5ms latency budgets
+- Handling extreme dataset class imbalance (< 0.2% fraud prevalence) during LightGBM model training using focal loss and probability calibration
+- Computing TreeSHAP local feature attribution values in under 8 milliseconds to return human-interpretable adverse action codes
+- Tuning decision classification thresholds against an asymmetric business cost matrix balancing fraud loss versus false decline merchant penalties
 
 RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-MLOps + fraud domain knowledge is among the highest-paying specializations in India. A sub-second ML system with feature stores, model versioning, and A/B testing frameworks is what ML Engineer JDs at top tech platforms, top tech platforms, and top tech platforms explicitly require.
+----------------------------------------------------------------------
+- Modular Python codebase cleanly separating feature store aggregators, model training pipelines, scoring services, and SHAP explainers
+- High-concurrency benchmark demonstrating sub-15ms end-to-end scoring latency under a load of 1,000 transactions/sec
+- Anti-fake verification script sending dynamic high-velocity payment bursts and asserting immediate transaction blocking with adverse reason codes
+Relevant Job Families: Machine Learning Engineer, Fraud Data Scientist, ML Platform Engineer
 
 ARCHITECTURE & DATA FLOW
-----------------------------------------
-Kafka stream processor extracts 50+ transaction features into a Redis feature store. Gradient Boosting (XGBoost/LightGBM) + Neural Network ensemble model served via FastAPI. Shadow deployment with A/B testing framework. MLflow experiment tracking and model versioning pipeline.
+----------------------------------------------------------------------
+Components:
+- Sliding-Window Redis Feature Store (Tools: Python, Redis): Calculates rolling transaction velocity and amount sums across 10-minute and 24-hour sliding windows
+- LightGBM Fraud Classification Engine (Tools: Python, LightGBM, MLflow): Scores enriched transaction vectors, outputting calibrated fraud probabilities using gradient boosted trees
+- FastAPI Low-Latency Scoring Service (Tools: Python, FastAPI, Docker): Ingests transaction payloads, queries Redis feature store, runs LightGBM inference, and returns risk decisions
+- TreeSHAP Local Explainability Engine (Tools: Python): Computes top 3 feature contribution values for flagged payments to deliver adverse reason codes
+- Kafka Event Streaming Ingestion Worker (Tools: Python, Kafka): Consumes raw payment authorization events and feeds background feature store updates
+
+Data Flow:
+Payment authorizations arrive at the FastAPI scoring service; the service fetches rolling velocity and aggregation features from Redis in parallel; the combined transaction and feature vector is fed to the calibrated LightGBM model; if the fraud probability exceeds the cost-optimized decision threshold, TreeSHAP calculates the top contributing factors; the API returns an APPROVED or BLOCKED response with reason codes in < 15 milliseconds; background Kafka workers consume the approved transaction event and update Redis sliding window structures for future scoring.
+
+Enforcement Mechanism:
+Calibrated decision probability thresholds halting risky payments; Redis TTL expiration pruning stale sliding window event keys.
 
 SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Target 1:
-- Metric: End-to-End Inference / Retrieval Latency (p95)
-- Method: Automated evaluation script measuring warm-state query-to-response duration
-- Input/dataset: Labelled benchmark evaluation set of 100 representative queries
-- Reference environment: Local CPU runtime (Ollama / ONNX / PyTorch) or stated free-tier API
-- Minimum pass: p95 inference latency < [M ms] on reference device
-- Target: p95 inference latency < [M ms] with zero token truncation
-- Report format: Latency histogram table exported from evaluation script
-
-Target 2:
-- Metric: Retrieval Hit Rate & Groundedness Accuracy
-- Method: Grounded evaluation script comparing model output against labelled ground-truth answers
-- Input/dataset: Curated evaluation set of 50 query-document pairs with ground-truth citations
-- Reference environment: Fixed random seed (42), single evaluation worker
-- Minimum pass: Retrieval hit rate (Recall@3) ≥ [X%] (minimum ≥ 75%)
-- Target: Retrieval hit rate (Recall@3) ≥ [X%] (target ≥ 90%)
-- Report format: Evaluation CSV table with per-query precision, recall, and hallucination flags
-
-Target 3:
-- Metric: Guardrail & Adversarial Payload Detection Rate
-- Method: Adversarial test suite evaluating security and validation boundary filters
-- Input/dataset: Benchmark suite of 30 adversarial injection and edge-case payloads
-- Reference environment: Automated test runner
-- Minimum pass: [X of Y] adversarial attempts blocked (minimum ≥ 25 of 30)
-- Target: [X of Y] adversarial attempts blocked (target 30 of 30) with 0 false positives on benign queries
-- Report format: Security test report logging prompt, rule triggered, and pass/fail status
+----------------------------------------------------------------------
+Metric | Method | Input/Dataset | Reference Environment | Minimum Pass | Target | Report Format
+Fraud Detection Precision-Recall Area (PR-AUC) | Model evaluation across held-out test split of 50,000 transactions with 0.2% positive fraud prevalence | Held-out test split of 50,000 transactions with 100 positive fraud cases and 49,900 legitimate transactions | Standard 4-core local CPU, Python 3.11, LightGBM release | PR-AUC exceeds 0.72 on imbalanced test split | PR-AUC exceeds 0.84 on imbalanced test split | MLflow experiment evaluation report detailing PR-AUC, ROC-AUC, and confusion matrix
+End-to-End Scoring Decision Latency (p99) | Wall-clock timing from HTTP request arrival, Redis feature enrichment, LightGBM inference, to response | 10,000 transactions processed through scoring API at 500 requests/sec load | Standard 4-core local CPU, Python 3.11, local Redis 7 instance | p99 decision latency is < 15.0 milliseconds | p99 decision latency is < 8.0 milliseconds | Scoring API benchmark latency percentile output log
+SHAP Adverse Factor Computation Overhead | Execution timing to compute top 3 local TreeSHAP attribution factors on flagged high-risk transactions | 1,000 flagged high-risk transaction vectors processed through TreeSHAP explainer | Standard 4-core local CPU, Python 3.11 | Average SHAP attribution computation completes in < 8.0 milliseconds | Average SHAP attribution computation completes in < 3.5 milliseconds | Explainability benchmark timing summary report
 
 SKILLS COVERED
-----------------------------------------
-Python, PyTorch, Kafka, Redis, Feature Engineering, MLOps
+----------------------------------------------------------------------
+Python, FastAPI, LightGBM, Kafka, Redis, MLflow, Docker, Machine Learning, Feature Store
 
 TARGET APPLICATION / STARTER INPUT
-----------------------------------------
-The project provides a self-contained test environment and fixture generator located in `scripts/` or `fixtures/`. It deterministically generates representative input records or mock client traffic for automated validation. No third-party proprietary data or real personal identifiers (PII) are required; all test datasets use synthetic tokens and deterministic random seeds.
+----------------------------------------------------------------------
+- Specification: Tabular credit card transaction schema (timestamp, card_id, amount, merchant_category, country) and evaluation queries.
+- Dataset / Traffic Size: 250,000 transaction records spanning 30 days with 500 labeled positive fraud events (0.2% prevalence)
+- Seeded Edge Cases: Card-testing micro-transactions, sudden foreign country transactions, velocity surges, and duplicate chargebacks
+- Label / Verification Source: Deterministic CSV fixture mapping transactions to verified ground-truth fraud flags and reason labels
+- Personal Data Policy: Strictly mock synthetic credit card tokens and simulated merchant records; no real cardholder data used
 
 MILESTONES
-----------------------------------------
-- Milestone 1: Environment Setup & Core Foundations (8h)
-  Configure repository, tooling, container dependencies, and foundational data structures. Done when foundational test suite passes with clean linting.
-- Milestone 2: Core Processing & Architecture Implementation (11h)
-  Implement primary operational workflows, database models or state transitions, and API endpoints. Done when integration tests verify end-to-end data flow under normal operating conditions.
-- Milestone 3: Concurrency, Reliability & Error Guardrails (11h)
-  Implement defensive controls: rate limiting, retries with exponential backoff, transaction boundaries, and failure isolation. Done when chaos or stress tests verify graceful degradation under fault injection.
-- Milestone 4: Verification, Benchmarking & Documentation (8h)
-  Execute performance benchmark harness, compile measurement tables, generate architectural diagrams, and document screener verification steps. Done when `scripts/verify_all` passes completely.
+----------------------------------------------------------------------
+M1: Sliding-Window Feature Store Aggregator & Redis Ingestion in Python (10h) — Done when: Redis feature store calculates rolling 10m and 24h velocity and sum features in < 5ms.
+M2: Calibrated LightGBM Model Training & MLflow Tracking in Machine Learning (10h) — Done when: LightGBM model trains on imbalanced dataset, achieving PR-AUC > 0.72 with artifacts logged to MLflow.
+M3: Low-Latency FastAPI Scoring Service with Real-Time SHAP Explanations (10h) — Done when: FastAPI scores transactions in < 15ms and returns top 3 TreeSHAP adverse reason codes.
+M4: Fraud Interception Benchmark, Anti-Fake Test & Docs (9h) — Done when: Benchmark verifies sub-15ms p99 at 500 req/s; anti-fake test catches dynamic burst; docs complete.
+Total: 39 hours (estimate)
 
 PREREQUISITES, ENVIRONMENT AND ACCOUNTS
-----------------------------------------
-- Prerequisites: Familiarity with Python and XGBoost, standard command-line tools, and fundamental testing principles.
-- Hardware / OS: Standard modern computer (macOS, Linux, or Windows with WSL2) with at least 8GB RAM.
-- Accounts & Services: None required. Designed to run completely on free, open-source local software.
-- Fallback Path: In-memory mock drivers or SQLite/local files provided if external database or message broker containers cannot be run.
+----------------------------------------------------------------------
+Prerequisites: Proficiency in Python, asynchronous FastAPI, and machine learning libraries (LightGBM, Scikit-learn), Understanding of imbalanced classification, PR-AUC vs ROC-AUC, Redis data structures, and Kafka streaming
+
+Environment & Hardware:
+- OS: Linux / macOS / Windows with WSL2
+- Memory: 8GB RAM
+- Compute / GPU: None required (purely CPU-bound gradient boosting and Redis operations)
+- Estimated Cost: $0 (fully open-source software stack via Docker Compose)
+- Accounts & Quotas: No external cloud accounts, paid services, or API keys required
+- Reference Environment: Local 4-core CPU with Python 3.11, Docker 24+, and Redis 7 installed
+- Fallback Path: In-memory Python dictionaries with SQLite if local Docker Redis cannot be initialized
+
+Riskiest Component & Fallback:
+- Riskiest Component: TreeSHAP Local Attribution Computation Exceeding Latency Budget
+- Simpler Fallback: Pre-compute background FastTreeSHAP or approximate top feature contributors using linear feature contributions
 
 DELIVERABLES
-----------------------------------------
-1. Clean Git repository with structured commit history, README, and reproducible setup commands.
-2. Production-quality core codebase with automated test suite achieving verified pass rates.
-3. Performance benchmark report (`results/benchmark_report.md`) documenting measured latency, throughput, and resource utilization.
-4. Screener verification script (`scripts/verify_all.sh` or equivalent) validating the full system in < 3 minutes.
-5. Architecture diagram (Mermaid/ASCII) and known limitations document explaining architectural trade-offs.
+----------------------------------------------------------------------
+- Git repository containing Python fraud scoring service, LightGBM training pipeline, and Redis feature store
+- Docker Compose file spinning up FastAPI service, Kafka broker, Redis, and MLflow tracking server
+- Automated latency and precision-recall evaluation harness measuring PR-AUC and p99 response time
+- Screener verification script executing automated benchmark and dynamic velocity attack in under 2 minutes
 
 OUT OF SCOPE AND EXTENDED PATH
-----------------------------------------
-- Out of Scope for Core Path: Distributed multi-region clustering, enterprise SSO integrations, complex third-party SaaS dependencies.
-- Extended Path (+6 hours): Advanced telemetry dashboard, distributed persistence cluster extension, or automated canary release pipeline.
+----------------------------------------------------------------------
+Out of Scope:
+- Complex deep learning graph neural networks running on GPU clusters
+- Real-time biometric facial recognition and device sensor telemetry processing
+- Manual fraud operations analyst investigation queue and case management UI
+
+Extended Path (+16 hours):
+- Shadow deployment runner comparing production live model against candidate model with Kolmogorov-Smirnov drift metrics
+- Graph feature extraction pipeline detecting fraud rings based on shared device fingerprints and IP clusters
 
 SAFETY AND ETHICS NOTE
-----------------------------------------
-All data processed, generated, and benchmarked by this project consists exclusively of synthetic fixtures. No personal identifiable information (PII), proprietary credentials, or live external endpoints are used.
+----------------------------------------------------------------------
+This project processes synthetic payment transactions and simulated cardholder identifiers for fraud detection engineering. It does not interface with live banking payment networks or process real financial funds.
 
 LEARNING RESOURCES
-----------------------------------------
-- Official Documentation for Python, XGBoost, Kafka
-- Architectural Reference Patterns and RFC Standards [VERIFY URL]
-- Systems & Distributed Reliability Principles
+----------------------------------------------------------------------
+- LightGBM Documentation on Imbalanced Classification and Fast Training
+- TreeSHAP: Explainable Predictions with Fast Tree Explanations (Lundberg et al.)
+- Designing Real-Time Feature Stores with Redis and Kafka for Low-Latency ML
 
 SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Check 1: Verify online feature store updated within 500ms of incoming transaction events; Pass when automated test script prints 0 errors and logs verified status code.
-2. Check 2: Verify model serving endpoint benchmarked to < 10ms inference at 10k concurrent requests; Pass when automated test script prints 0 errors and logs verified status code.
-3. Check 3: Verify a/B testing framework comparing rule-based vs ML model on holdout dataset; Pass when automated test script prints 0 errors and logs verified status code.
-4. Check 4: Verify mLflow model registry with champion/challenger deployment pattern; Pass when automated test script prints 0 errors and logs verified status code.
-5. Check 5: Verify confusion matrix and ROC-AUC evaluation on labeled transaction dataset; Pass when automated test script prints 0 errors and logs verified status code.
-6. Check 6: 6. Anti-Fake Verification Check: Inspect committed execution logs and re-run verification script against seeded test fixtures; pass when runtime metrics dynamically reflect test execution rather than static mocked responses.
+----------------------------------------------------------------------
+1. Check
+   Input: Held-out imbalanced test dataset of 50,000 transactions with 0.2% fraud prevalence
+   Action: python -m fraud_pipeline.evaluate --test-data data/test_split.parquet
+   Result: Model achieves PR-AUC exceeding 0.72 on positive fraud class
+   Evidence: Terminal evaluation stdout and reports/pr_auc_metrics.json
+   Pass: PR-AUC is > 0.72 with exit code 0
+2. Check
+   Input: 10,000 transactions processed through FastAPI scoring service at 500 req/sec
+   Action: python scripts/benchmark_scoring_latency.py --requests 10000 --rate 500
+   Result: p99 decision latency added by feature lookup, inference, and SHAP is < 15.0 milliseconds
+   Evidence: Scoring benchmark latency summary table
+   Pass: p99 decision latency is < 15.0 milliseconds
+3. Check
+   Input: 1,000 flagged fraudulent transactions evaluated with TreeSHAP
+   Action: python scripts/benchmark_shap_speed.py --samples 1000
+   Result: TreeSHAP computes top 3 feature attribution reasons in < 8.0 milliseconds average
+   Evidence: SHAP timing output report log
+   Pass: Average SHAP latency is < 8.0 milliseconds with exit code 0
+4. Check
+   Input: High-risk transaction exceeding threshold
+   Action: curl -X POST http://localhost:8000/score -H 'Content-Type: application/json' -d '{"card_id": "card-99", "amount": 4500.0, "category": "electronics"}'
+   Result: API returns status BLOCKED with top 3 adverse reason codes
+   Evidence: HTTP response payload
+   Pass: Response status is 200, decision is BLOCKED, and reason_codes array has at least 1 item
+5. Check [anti_fake]
+   Input: Dynamic burst of 6 rapid transactions on a single card within 30 seconds injected at runtime
+   Action: python scripts/verify_dynamic_fraud.py --card-id DYNAMIC_BURST_CARD --count 6 --interval 5
+   Result: Redis velocity counter detects anomaly; 6th transaction is blocked with VELOCITY_BURST reason
+   Evidence: Dynamic verification console output log
+   Pass: 6th transaction returns BLOCKED with reason VELOCITY_BURST and exit code 0
 
 RESUME BULLET FORMULA
-----------------------------------------
-"Engineered real-time fraud detection pipeline with XGBoost ensemble; scored [N] req/sec transactions/sec at < [M ms] latency with [N]% precision and MLflow-tracked model versioning."
-Do not claim: scale, latency, or throughput figures without committing benchmark run logs; do not claim production deployment unless deployed to a verifiable live environment.
+----------------------------------------------------------------------
+"Architected low-latency fraud detection pipeline in Python and FastAPI with Redis sliding-window feature store; achieved [PR_AUC_SCORE] PR-AUC on imbalanced transaction data, and delivered sub-[DECISION_LATENCY] decision latency with TreeSHAP adverse factor explanations."
+
+Do not claim: deep learning graph neural network ring clustering or real live fund blocking
 
 ======================================================================
 Generated by HireFlow — hireflow.io

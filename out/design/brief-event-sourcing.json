@@ -1,0 +1,314 @@
+{
+  "id": "brief-event-sourcing",
+  "title": "Event Sourcing & CQRS Core Engine with Optimistic Concurrency Control",
+  "domain": "Distributed Systems",
+  "difficulty": "ADVANCED",
+  "project_types": [
+    "Distributed systems",
+    "Systems/low-level/networking"
+  ],
+  "problem": "Traditional relational CRUD architectures mutate state in-place, permanently discarding historical context regarding how and why data changed. Debugging concurrency race conditions, proving complete regulatory audit trails, and executing temporal queries become impossible once previous states are overwritten. This project implements a production Event Sourcing and Command Query Responsibility Segregation (CQRS) framework in TypeScript and Node.js with PostgreSQL and Kafka. The system records all domain state changes as an immutable append-only sequence of domain events, enforces optimistic concurrency control via sequence revision checking, creates periodic aggregate snapshots to bound replay time, projects domain events into query-optimized read models, and exposes a temporal query engine capable of replaying entity state to any historical millisecond.",
+  "use_cases": [
+    "Financial banking systems requiring immutable audit trails of every balance-impacting event",
+    "Supply chain logistics platforms tracking historical ownership transfers and custody changes",
+    "Complex domain-driven design applications requiring historical time-travel state reconstruction"
+  ],
+  "hard_parts": [
+    "Enforcing optimistic concurrency control in the append-only event store to prevent concurrent write split-brain",
+    "Maintaining exactly-once projection updates from asynchronous Kafka event streams into query read models",
+    "Designing aggregate snapshotting and event replay mechanisms that reconstruct state in sub-10 milliseconds",
+    "Handling temporal time-travel queries by projecting domain events up to an arbitrary historical timestamp"
+  ],
+  "screener_signals": [
+    "Clean TypeScript codebase cleanly separating event store, aggregate roots, projections, and CQRS commands",
+    "Automated concurrency race test asserting 100% collision rejection when two writes target identical aggregate revisions",
+    "Anti-fake verification script appending dynamic events, executing historical replay, and asserting exact state reconstruction"
+  ],
+  "job_families": [
+    "Distributed Systems Engineer",
+    "Senior Backend Architect",
+    "Core Platform Engineer"
+  ],
+  "stack": [
+    {
+      "tool": "TypeScript",
+      "role": "strongly typed language for aggregate models, event definitions, and command handlers"
+    },
+    {
+      "tool": "Node.js",
+      "role": "runtime hosting CQRS command API and background projection workers"
+    },
+    {
+      "tool": "PostgreSQL",
+      "role": "append-only immutable event store and read-model projection relational database"
+    },
+    {
+      "tool": "Kafka",
+      "role": "distributed event streaming broker transmitting domain events to projection subscribers"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "Append-Only Event Store",
+        "tools_used": [
+          "PostgreSQL",
+          "TypeScript"
+        ],
+        "purpose": "Persists immutable domain events with unique sequence revisions, enforcing optimistic concurrency"
+      },
+      {
+        "name": "Aggregate Root Base & Concurrency Guard",
+        "tools_used": [
+          "TypeScript"
+        ],
+        "purpose": "Encapsulates business domain invariants, handles command dispatch, and applies internal event handlers"
+      },
+      {
+        "name": "Kafka Event Streaming Dispatcher",
+        "tools_used": [
+          "Kafka",
+          "TypeScript"
+        ],
+        "purpose": "Publishes newly appended domain events from event store to Kafka topics in strict sequence order"
+      },
+      {
+        "name": "Read-Model Projection Worker",
+        "tools_used": [
+          "Node.js",
+          "PostgreSQL",
+          "Kafka"
+        ],
+        "purpose": "Consumes domain events from Kafka and builds materialized, denormalized read views for fast queries"
+      },
+      {
+        "name": "Snapshot & Temporal Replay Engine",
+        "tools_used": [
+          "TypeScript",
+          "PostgreSQL"
+        ],
+        "purpose": "Creates aggregate state snapshots every 100 events and reconstructs entity state at any point in time"
+      }
+    ],
+    "data_flow": "Commands arrive at the CQRS Command Gateway; the target Aggregate Root loads its latest snapshot and replays subsequent events from the Append-Only Event Store; the aggregate validates business invariants and produces new domain events; the Event Store attempts to commit events with the expected aggregate version; if a concurrent write modified the version, an OptimisticConcurrencyError terminates the transaction; on success, the Kafka Dispatcher publishes committed events; the Read-Model Projection Worker updates denormalized tables; temporal queries reconstruct historical state by replaying events up to the requested timestamp.",
+    "enforcement_mechanism": "Unique compound database constraint on (aggregate_id, version) rejecting concurrent race writes; immutable event tables preventing updates or deletes."
+  },
+  "targets": [
+    {
+      "metric": "Optimistic Concurrency Collision Interception Rate",
+      "method": "Stress test issuing 100 concurrent competing mutation commands against an identical aggregate instance",
+      "input": "100 concurrent HTTP commands issued simultaneously to append mutations to a single entity instance",
+      "environment": "Standard 4-core local CPU, PostgreSQL 15+, Node.js 18+",
+      "minimum_pass": "Exactly 1 command succeeds and exactly 99 commands fail with OptimisticConcurrencyError",
+      "target": "Exactly 1 command succeeds and exactly 99 commands fail with OptimisticConcurrencyError",
+      "report": "Concurrency conflict benchmark log verifying exact version increment count"
+    },
+    {
+      "metric": "Aggregate State Rehydration Latency",
+      "method": "Duration to load snapshot and replay remaining events to restore active aggregate state in memory",
+      "input": "Aggregate entity with 1,000 historical events and periodic snapshot taken at event 900",
+      "environment": "Standard 4-core local CPU, PostgreSQL 15+, Node.js 18+",
+      "minimum_pass": "Average rehydration latency is < 15 milliseconds",
+      "target": "Average rehydration latency is < 4 milliseconds",
+      "report": "Rehydration timing summary log detailing snapshot load versus event replay durations"
+    },
+    {
+      "metric": "Read-Model Projection Eventual Consistency Lag",
+      "method": "Duration from event store commit confirmation until read-model projection table reflects updated state",
+      "input": "5,000 sequential domain events processed through Kafka projection pipeline",
+      "environment": "Standard 4-core local CPU, local Kafka broker and PostgreSQL instance",
+      "minimum_pass": "Average projection lag is < 150 milliseconds",
+      "target": "Average projection lag is < 50 milliseconds",
+      "report": "CQRS projection lag benchmark report"
+    }
+  ],
+  "skills": [
+    "TypeScript",
+    "Node.js",
+    "PostgreSQL",
+    "Kafka",
+    "Event Sourcing",
+    "CQRS",
+    "Distributed Systems"
+  ],
+  "starter_input": {
+    "spec": "Event sourcing schema specification (events table, snapshots table, read projections), and sample bank account domain aggregate.",
+    "size": "500 simulated aggregate entities with 50,000 historical domain events across 5 domain event types",
+    "seeded_cases": "Simultaneous write collisions on identical version, corrupted event payload schemas, and temporal replay timestamp boundaries",
+    "label_source": "Deterministic aggregate event history fixture mapping expected balance states to specific timestamp points",
+    "personal_data_policy": "Strictly mock synthetic financial aggregates and fake account numbers; no real personal data used"
+  },
+  "components": [
+    {
+      "name": "Append-Only Event Store & Revision Manager",
+      "task_type": "infra component (broker, DB, orchestrator, cluster service)",
+      "hours": 6.0
+    },
+    {
+      "name": "Aggregate Root Base & Optimistic Concurrency Guard",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "Asynchronous Read-Model Projection Worker",
+      "task_type": "data pipeline step",
+      "hours": 5.0
+    },
+    {
+      "name": "Event Snapshotting & Replay Engine",
+      "task_type": "low-level/system subsystem",
+      "hours": 5.0
+    },
+    {
+      "name": "CQRS Command Gateway & Temporal Query API",
+      "task_type": "API endpoint group with tests",
+      "hours": 5.0
+    },
+    {
+      "name": "Concurrency Conflict & Event Replay Benchmark Harness",
+      "task_type": "load or performance test harness + report",
+      "hours": 4.0
+    },
+    {
+      "name": "Event Sourcing Architecture Diagram & CQRS Protocol Docs",
+      "task_type": "docs + architecture diagram",
+      "hours": 3.0
+    }
+  ],
+  "extended_path": {
+    "items": [
+      "Distributed event store replication with multi-partition Kafka ordering guarantees",
+      "Schema evolution upcasting engine transforming legacy event payloads into current domain versions"
+    ],
+    "hours": 16
+  },
+  "milestones": [
+    {
+      "name": "Append-Only Event Store & Optimistic Concurrency in TypeScript Distributed Systems",
+      "hours": 10,
+      "done_criterion": "PostgreSQL event store enforces unique version constraints; concurrency conflicts throw cleanly."
+    },
+    {
+      "name": "Aggregate Rehydration, Event Replay & Snapshot Engine in Event Sourcing",
+      "hours": 10,
+      "done_criterion": "Aggregate snapshots save every 100 events; state rehydrates in < 15ms by replaying subsequent events."
+    },
+    {
+      "name": "CQRS Read-Model Projections & Temporal Query API",
+      "hours": 10,
+      "done_criterion": "Kafka worker projects events into read tables with < 150ms lag; temporal query reconstructs past state."
+    },
+    {
+      "name": "High-Concurrency Conflict Benchmark, Anti-Fake Test & Docs",
+      "hours": 9,
+      "done_criterion": "Benchmark confirms 99 of 100 concurrent race writes rejected; anti-fake test validates dynamic replay; docs complete."
+    }
+  ],
+  "prerequisites": [
+    "Proficiency in TypeScript, asynchronous Node.js, and SQL relational databases",
+    "Understanding of Domain-Driven Design concepts (aggregates, domain events), optimistic concurrency, and CQRS"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (purely CPU and disk bound operations)",
+    "cost": "$0 (fully open-source software stack via Docker Compose)",
+    "accounts_keys_quotas": "No external cloud accounts, paid services, or API keys required",
+    "reference_environment": "Local 4-core CPU with Node.js 18+, Docker 24+, and Docker Compose installed",
+    "fallback_path": "SQLite in-memory append-only event table and Node.js EventEmitter if Docker Kafka cannot run"
+  },
+  "riskiest_component": {
+    "name": "Long Aggregate Replay Latency on Entities with Many Events",
+    "fallback": "Enforce automatic snapshot generation every 100 events to cap maximum replay length to 100 items"
+  },
+  "deliverables": [
+    "Git repository containing TypeScript Event Sourcing framework, aggregate models, and CQRS API",
+    "Docker Compose environment hosting PostgreSQL database and Kafka event broker",
+    "Automated concurrency race test harness verifying optimistic concurrency collision rejection",
+    "Screener verification script executing automated benchmark and dynamic temporal replay test in under 2 minutes"
+  ],
+  "out_of_scope": [
+    "Distributed multi-cluster event replication across wide-area networks",
+    "Complex event processing (CEP) state machine engines like Apache Flink",
+    "Automated natural language aggregate command generation"
+  ],
+  "safety_note": null,
+  "resources": [
+    "Martin Fowler: Event Sourcing Architecture Patterns and Best Practices",
+    "Greg Young: CQRS Documents and Event Store Implementation Guidelines",
+    "Microsoft Cloud Design Patterns: Command and Query Responsibility Segregation (CQRS)"
+  ],
+  "rubric": [
+    {
+      "input": "100 concurrent competing mutation commands dispatched to identical aggregate instance",
+      "action": "npm run test:concurrency",
+      "expected_result": "Optimistic concurrency guard permits exactly 1 write and rejects 99 competing attempts",
+      "evidence_location": "Terminal execution output log and reports/concurrency_results.json",
+      "pass_criterion": "Exactly 1 success and 99 OptimisticConcurrencyError rejections with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Aggregate instance with 1,000 historical events and snapshot at event 900",
+      "action": "npm run bench:rehydrate -- --aggregate-id acct-1234",
+      "expected_result": "Aggregate rehydration loads snapshot, replays 100 events, and completes in < 15 milliseconds",
+      "evidence_location": "Benchmark timing console output",
+      "pass_criterion": "Rehydration latency is < 15 milliseconds on local machine",
+      "kind": "normal"
+    },
+    {
+      "input": "5,000 domain events dispatched through Kafka projection worker",
+      "action": "npm run bench:projections",
+      "expected_result": "Denormalized read-model projection tables reflect committed state with < 150ms average lag",
+      "evidence_location": "Projection lag summary report log",
+      "pass_criterion": "Average projection lag is < 150 milliseconds",
+      "kind": "normal"
+    },
+    {
+      "input": "Temporal time-travel query requesting entity state at historical timestamp T-minus-2-hours",
+      "action": "curl http://localhost:3000/api/accounts/acct-1234/history?timestamp=1697500000",
+      "expected_result": "API reconstructs and returns exact entity balance and status as of historical timestamp",
+      "evidence_location": "HTTP response payload",
+      "pass_criterion": "Returned state matches expected historical balance at specified timestamp with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Dynamic series of 5 deposit and withdrawal events appended to a new entity at runtime",
+      "action": "node scripts/verify_dynamic_eventsourcing.js --entity DYNAMIC_ENTITY_88 --events 5",
+      "expected_result": "Engine reconstructs state at event 3 and compares against event 5, proving temporal accuracy",
+      "evidence_location": "Dynamic verification console output log",
+      "pass_criterion": "Historical state at event 3 exactly matches intermediate balance, final matches event 5, exit code 0",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected Event Sourcing and CQRS framework in TypeScript and Node.js with PostgreSQL and Kafka; eliminated race conditions via optimistic concurrency control across [CONCURRENT_WRITES] competing writes, and achieved sub-[REHYDRATION_LATENCY] aggregate rehydration across [EVENT_COUNT] historical events.",
+    "claims": [
+      {
+        "text": "eliminated race conditions via optimistic concurrency control across [CONCURRENT_WRITES] competing writes",
+        "rubric_indexes": [
+          0
+        ]
+      },
+      {
+        "text": "achieved sub-[REHYDRATION_LATENCY] aggregate rehydration across [EVENT_COUNT] historical events",
+        "rubric_indexes": [
+          1
+        ]
+      }
+    ],
+    "do_not_claim": "global multi-region active-active event clustering or distributed Apache Flink streaming"
+  },
+  "verify": [],
+  "worksheet": {
+    "q1": "Core deliverable: an Event Sourcing and CQRS engine in TypeScript with append-only event store, optimistic concurrency, snapshots, and temporal queries.",
+    "q2": "Target users: distributed systems engineers, backend architects, and enterprise platform developers.",
+    "q3": "3 use cases: banking immutable audit trails, supply chain custody tracking, and DDD domain state reconstruction.",
+    "q4": "Stated hours: 39 hours. Calculated bottom-up: 34 component hours * 1.15 buffer = 39.1 -> 39 hours. Advanced level.",
+    "q5": "Hard parts: optimistic concurrency control in event store, exactly-once read projections, sub-15ms aggregate rehydration, and temporal replay.",
+    "q6": "Starter input: 500 aggregate entities, 50,000 historical events across 5 domain event types. Synthetic records only.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU only, $0 cost, zero cloud accounts. Fallback: SQLite in-memory mode.",
+    "q8": "Riskiest component: Long replay latency on entities with many events. Fallback: snapshot every 100 events to bound replay to 100 items.",
+    "q9": "Potential faking: mock state storage. Anti-fake check 5 appends 5 dynamic events at runtime and asserts temporal state match at step 3 vs step 5.",
+    "q10": "Safety/ethics: Safe; synthetic business aggregates only."
+  }
+}

@@ -1,122 +1,154 @@
-PROJECT BRIEF — Multi-Channel Notification Orchestration Service
+PROJECT BRIEF — High-Throughput Multi-Channel Notification Orchestration Service with Deduplication, Rate Limiting & Channel Fallback
 ======================================================================
 
 Domain    : Full-Stack Web
-Difficulty: intermediate
-Est. Time : 28 hours (Core Path) | Extended Path: +6 hours
-Tech Stack: Node.js [backend JavaScript execution environment], TypeScript [strictly-typed programming language], Kafka [distributed event streaming broker], Redis [in-memory data structure store and cache], FCM [fcm component], Twilio [twilio component], PostgreSQL [relational database management system]
+Difficulty: INTERMEDIATE
+Est. Time : 28 hours (core path, estimate). Extended path: +14 hours
+Tech Stack: Node.js (runtime hosting the asynchronous event consumers, preference resolvers, and provider dispatch workers), TypeScript (strongly typed language shared across notification contracts, queue messages, and database models), RabbitMQ (message broker managing topic exchanges, priority delivery queues, and dead-letter channels), Redis (in-memory store managing event deduplication fingerprints and sliding-window rate limit counters), PostgreSQL (relational database maintaining user preferences, channel credentials, and immutable audit logs), Docker (containerization engine hosting local RabbitMQ, Redis, and PostgreSQL instances for development)
 
 PROBLEM STATEMENT
-----------------------------------------
-Modern applications send notifications across email, SMS, push, WhatsApp, and in-app channels with complex routing logic: preference-based channel selection, deduplication, throttling, and delivery tracking. Build a notification orchestration service that abstracts provider complexity and ensures reliable delivery.
+----------------------------------------------------------------------
+Modern applications communicating across email, SMS, mobile push, and chat channels suffer from duplicate message dispatches, uncoordinated user notification fatigue, and complete delivery failure when third-party gateway providers encounter outages. Tight coupling between business logic and downstream provider APIs creates brittle architectures without centralized delivery tracking or retry backoff. This project builds a high-throughput notification orchestration service in Node.js and TypeScript. The system buffers incoming events using RabbitMQ message queues, deduplicates messages using Redis sliding-window hashes, resolves user channel preferences, enforces per-user rate limits, routes to mock delivery providers with automatic fallback, and maintains an immutable delivery audit log in PostgreSQL.
 
 USE CASES IN THE REAL WORLD
-----------------------------------------
-Every consumer app in India sends notifications — top tech platforms, Zomato, top tech platforms, HDFC Bank. WhatsApp Business API, FCM, and SMS providers (Twilio, MSG91) all need orchestration. This is core infrastructure at scale.
+----------------------------------------------------------------------
+- {'title': 'E-Commerce Transactional Order & Delivery Notifications', 'first_sentence': 'Consumer retail platforms need to dispatch order confirmations, shipping updates, and one-time authentication codes reliably across multiple communication channels.', 'second_sentence': 'The service deduplicates rapid checkout triggers, routes critical delivery updates to mobile push notifications, and automatically falls back to SMS if push tokens are invalid.'}
+- {'title': 'Digital Banking Security & Fraud Alert Dispatch', 'first_sentence': 'Financial services platforms require immediate, guaranteed delivery of suspicious debit alerts and transaction verification prompts to customer devices.', 'second_sentence': 'The platform prioritizes critical security alerts through high-priority message queues, tracking delivery confirmations and recording immutable timestamps for compliance audits.'}
+- {'title': 'Enterprise Collaboration Team Notification Digests', 'first_sentence': 'Project management platforms serving thousands of corporate users need to prevent notification fatigue caused by rapid successive comment notifications.', 'second_sentence': 'The engine enforces per-user rate limiting and temporal batching, aggregating conversational mentions into formatted email and in-app digest summaries.'}
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Notification systems have complex requirements: idempotency (don't send the same notification twice), user preference routing (send to email if push disabled), rate limiting per channel, retry logic, and delivery analytics. Building this end-to-end demonstrates tested and observable distributed systems thinking.
+WHY THIS IS HARD
+----------------------------------------------------------------------
+- Guaranteeing exactly-once notification delivery semantics across distributed workers using atomic Redis deduplication hashes
+- Designing resilient priority queue topologies in RabbitMQ that prevent high-volume marketing batches from delaying critical authentication alerts
+- Implementing dynamic channel fallback logic that detects third-party provider timeouts and re-routes messages without losing delivery context
+- Managing per-user sliding-window rate limiters that prevent alert spam while preserving critical security notification overrides
 
 RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Notification infrastructure is a core backend system at every consumer tech company. Understanding provider abstraction, delivery tracking, and deduplication patterns demonstrates backend maturity relevant to senior backend roles at top tech platforms, Zomato, top tech platforms, and any company with push notification requirements.
+----------------------------------------------------------------------
+- Clean TypeScript codebase cleanly separating queue consumers, channel provider adapters, user preference resolvers, and audit repositories
+- High-throughput load benchmark report verifying 2,500+ notifications per second sustained processing with sub-350ms channel fallback
+- Anti-fake verification script issuing duplicate notification payloads concurrently and verifying exactly one message is dispatched while the duplicate is suppressed
+Relevant Job Families: Backend Infrastructure Engineer, Distributed Systems Developer, Core Platform Architect
 
 ARCHITECTURE & DATA FLOW
-----------------------------------------
-Node.js orchestrator receiving notification requests from internal services via Kafka. User preference resolver selecting optimal channel. Provider plugins (FCM, Twilio SMS, WhatsApp Business API, SMTP). Redis deduplication using event fingerprints. PostgreSQL delivery audit log. Retry queue with exponential backoff.
+----------------------------------------------------------------------
+Components:
+- Notification Ingestion API & Priority RabbitMQ Producer (Tools: Node.js, TypeScript, RabbitMQ): Ingests notification requests, assigns priority classes, and publishes messages to RabbitMQ topic exchanges
+- Redis Event Deduplicator & Rate Limit Guard (Tools: Node.js, Redis): Checks SHA-256 event fingerprints to eliminate duplicate dispatches and enforces per-user rate limits
+- User Channel Preference & Routing Resolver (Tools: Node.js, PostgreSQL): Queries recipient preferences, quiet hours, and channel opt-outs to determine the optimal delivery channel
+- Multi-Channel Provider Dispatcher & Fallback Engine (Tools: Node.js, TypeScript): Dispatches payloads to mock email, SMS, and push providers, automatically failing over to secondary channels
+- Delivery Audit Logger & Benchmark Harness (Tools: PostgreSQL, Docker): Records delivery status transitions (Queued, Sent, Delivered, Failed) and benchmarks ingestion throughput
+
+Data Flow:
+An upstream service dispatches a notification request over REST; the ingestion API computes a SHA-256 event fingerprint; Redis checks whether the fingerprint was processed within the sliding window; if unique, the message publishes to RabbitMQ with a priority header; queue workers consume the message, check user channel preferences and rate limits in PostgreSQL; the worker dispatches the notification to the primary channel adapter (e.g. Push); if the provider times out or fails, the fallback engine re-routes the message to the secondary channel (e.g. SMS); delivery status updates commit to PostgreSQL.
+
+Enforcement Mechanism:
+Redis SETNX with TTL for atomic idempotency; RabbitMQ dead-letter exchanges (DLX) isolating poisoned messages after 3 retries.
 
 SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Target 1:
-- Metric: Core Operation Execution Time
-- Method: Automated benchmark executing core engine operation across varying workload sizes
-- Input/dataset: Standard test project or fixture payload (~500KB)
-- Reference environment: Local development environment, 4-core CPU, 8GB RAM
-- Minimum pass: Operation execution time < [M s] (minimum < 8s)
-- Target: Operation execution time < [M s] (target < 2.5s)
-- Report format: Benchmark execution report showing duration and memory usage
-
-Target 2:
-- Metric: Test Suite Coverage & Verification Pass Rate
-- Method: Automated test runner executing comprehensive unit and integration test suites
-- Input/dataset: Full project test fixture directory
-- Reference environment: Local test environment, clean checkout
-- Minimum pass: [X of Y] unit and integration tests passing (100% pass on core test set)
-- Target: [X of Y] tests passing with strict type-checking and 0 lint warnings
-- Report format: Test runner coverage report and exit status log
-
-Target 3:
-- Metric: Client Load / Response Latency (p95)
-- Method: Concurrent API benchmark testing simulated client requests
-- Input/dataset: 1,000 simulated client requests over 10 concurrent connections
-- Reference environment: Local Docker or Node/Python process
-- Minimum pass: p95 response latency < [M ms] (pass < 100ms) with 0 dropped requests
-- Target: p95 response latency < [M ms] (target < 30ms) with 0 dropped requests
-- Report format: Benchmark latency percentile report
+----------------------------------------------------------------------
+Metric | Method | Input/Dataset | Reference Environment | Minimum Pass | Target | Report Format
+Notification Deduplication Accuracy Rate | Percentage of intentionally duplicated notification payloads correctly suppressed within sliding time window | 1,000 paired duplicate notification requests issued simultaneously across 10 concurrent worker threads | Standard 4-core local CPU, Redis 7 in Docker, Node.js 18+ runtime | 1,000 of 1,000 duplicate payloads suppressed with 0 duplicate delivery executions | 1,000 of 1,000 duplicate payloads suppressed with 0 duplicate delivery executions | Deduplication benchmark audit log and Redis idempotency verification summary
+Sustained Message Ingestion and Routing Throughput | Sustained notification requests ingested, deduplicated, and queued per second across RabbitMQ topic exchange | 20,000 synthetic notification events published across high and normal priority topics | Standard 4-core local CPU, RabbitMQ 3.12+ in Docker, local network loopback | Publish throughput is >= 2,500 notifications per second | Publish throughput is >= 5,500 notifications per second | RabbitMQ ingestion throughput log and performance summary table
+Automated Channel Fallback Routing Duration | Duration from primary channel provider timeout detection to successful delivery dispatch via secondary channel | 30 simulated primary channel provider failure chaos scenarios during active message processing | Mock provider simulator with configurable latency and error injection (HTTP 500 / timeout) | Average channel fallback duration is < 350 milliseconds across 30 trials | Average channel fallback duration is < 120 milliseconds across 30 trials | Provider failover timing report and delivery audit verification
 
 SKILLS COVERED
-----------------------------------------
-Node.js, TypeScript, Kafka, Redis, PostgreSQL, REST APIs
+----------------------------------------------------------------------
+Node.js, TypeScript, RabbitMQ, Redis, PostgreSQL, Docker, Distributed Systems, Full-Stack Web, API Design
 
 TARGET APPLICATION / STARTER INPUT
-----------------------------------------
-The project provides a self-contained test environment and fixture generator located in `scripts/` or `fixtures/`. It deterministically generates representative input records or mock client traffic for automated validation. No third-party proprietary data or real personal identifiers (PII) are required; all test datasets use synthetic tokens and deterministic random seeds.
+----------------------------------------------------------------------
+- Specification: Directory of notification schemas, mock provider simulator scripts (email, SMS, push webhook stubs), and PostgreSQL migrations.
+- Dataset / Traffic Size: 5 TypeScript interface definitions, 3 mock provider servers, and 20,000 synthetic event JSON manifests
+- Seeded Edge Cases: Identical event fingerprints sent concurrently, invalid phone number formats, upstream 503 gateway drops, and quiet hour boundaries
+- Label / Verification Source: Deterministic mock provider delivery logs and PostgreSQL audit status manifests
+- Personal Data Policy: Strictly mock synthetic phone numbers and simulated email addresses; zero real personal data used
 
 MILESTONES
-----------------------------------------
-- Milestone 1: Environment Setup & Core Foundations (6h)
-  Configure repository, tooling, container dependencies, and foundational data structures. Done when foundational test suite passes with clean linting.
-- Milestone 2: Core Processing & Architecture Implementation (8h)
-  Implement primary operational workflows, database models or state transitions, and API endpoints. Done when integration tests verify end-to-end data flow under normal operating conditions.
-- Milestone 3: Concurrency, Reliability & Error Guardrails (8h)
-  Implement defensive controls: rate limiting, retries with exponential backoff, transaction boundaries, and failure isolation. Done when chaos or stress tests verify graceful degradation under fault injection.
-- Milestone 4: Verification, Benchmarking & Documentation (6h)
-  Execute performance benchmark harness, compile measurement tables, generate architectural diagrams, and document screener verification steps. Done when `scripts/verify_all` passes completely.
+----------------------------------------------------------------------
+M1: RabbitMQ Ingestion & Priority Topic Exchanges in Node.js and TypeScript (7h) — Done when: Ingestion API accepts notifications and queues messages to priority RabbitMQ exchanges.
+M2: Redis Event Deduplication & Rate Limiting in Redis and Docker (7h) — Done when: Redis deduplicates 1,000 duplicate events; sliding-window limiter blocks excess requests.
+M3: Multi-Channel Fallback & Distributed Systems Audit in PostgreSQL and Full-Stack Web (7h) — Done when: Worker executes fallback from Push to SMS in < 350ms; audit log records transitions.
+M4: High-Throughput Benchmarking, Anti-Fake Test & Docs in API Design (7h) — Done when: Benchmark verifies 2,500 msg/sec; anti-fake test validates deduplication; docs complete.
+Total: 28 hours (estimate)
 
 PREREQUISITES, ENVIRONMENT AND ACCOUNTS
-----------------------------------------
-- Prerequisites: Familiarity with Node.js and TypeScript, standard command-line tools, and fundamental testing principles.
-- Hardware / OS: Standard modern computer (macOS, Linux, or Windows with WSL2) with at least 8GB RAM.
-- Accounts & Services: None required. Designed to run completely on free, open-source local software.
-- Fallback Path: In-memory mock drivers or SQLite/local files provided if external database or message broker containers cannot be run.
+----------------------------------------------------------------------
+Prerequisites: Proficiency in Node.js asynchronous programming (Promises, async/await, event loops) and TypeScript, Familiarity with message brokers (RabbitMQ/AMQP), Redis key-value structures, and PostgreSQL relational design
+
+Environment & Hardware:
+- OS: Linux / macOS / Windows with WSL2
+- Memory: 8GB RAM
+- Compute / GPU: None required (purely CPU and network I/O bound backend service)
+- Estimated Cost: $0 (fully open-source software stack using Docker Desktop)
+- Accounts & Quotas: No external cloud accounts, paid services, or API keys required (uses local mock providers)
+- Reference Environment: Local 4-core CPU with Docker Desktop (RabbitMQ 3.12, Redis 7, PostgreSQL 15 containers) and Node.js 18+
+- Fallback Path: In-memory mock queues and dictionary stores if Docker daemon is unavailable
+
+Riskiest Component & Fallback:
+- Riskiest Component: RabbitMQ Memory Pressure and Connection Starvation Under Sudden Event Bursts
+- Simpler Fallback: Spill excess messages to durable disk-backed dead-letter queues.
 
 DELIVERABLES
-----------------------------------------
-1. Clean Git repository with structured commit history, README, and reproducible setup commands.
-2. Production-quality core codebase with automated test suite achieving verified pass rates.
-3. Performance benchmark report (`results/benchmark_report.md`) documenting measured latency, throughput, and resource utilization.
-4. Screener verification script (`scripts/verify_all.sh` or equivalent) validating the full system in < 3 minutes.
-5. Architecture diagram (Mermaid/ASCII) and known limitations document explaining architectural trade-offs.
+----------------------------------------------------------------------
+- Git repository containing Node.js notification orchestration service, TypeScript models, and migrations
+- Mock provider simulation suite with configurable latency and error injection (email, SMS, push)
+- Automated performance test harness measuring publish throughput and channel fallback durations
+- Screener verification script executing automated benchmark and dynamic duplicate suppression test in under 2 minutes
 
 OUT OF SCOPE AND EXTENDED PATH
-----------------------------------------
-- Out of Scope for Core Path: Distributed multi-region clustering, enterprise SSO integrations, complex third-party SaaS dependencies.
-- Extended Path (+6 hours): Advanced telemetry dashboard, distributed persistence cluster extension, or automated canary release pipeline.
+----------------------------------------------------------------------
+Out of Scope:
+- Commercial telecom carrier SMPP protocol direct gateway trunk connections
+- Direct Apple APNs and Google FCM production push certificate provisioning
+- Marketing campaign drag-and-drop visual email builder user interfaces
 
-SAFETY AND ETHICS NOTE
-----------------------------------------
-All data processed, generated, and benchmarked by this project consists exclusively of synthetic fixtures. No personal identifiable information (PII), proprietary credentials, or live external endpoints are used.
+Extended Path: None (self-contained core scope)
 
 LEARNING RESOURCES
-----------------------------------------
-- Official Documentation for Node.js, TypeScript, Kafka
-- Architectural Reference Patterns and RFC Standards [VERIFY URL]
-- Systems & Distributed Reliability Principles
+----------------------------------------------------------------------
+- RabbitMQ AMQP 0-9-1 Protocol and Priority Queue Architecture Guide
+- Redis Documentation: Atomic Idempotency with SETNX and Sliding Window Limits
+- Enterprise Integration Patterns: Message Router and Dead Letter Channel Patterns
 
 SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Check 1: Verify deduplication test: send same notification ID twice, second delivery suppressed; Pass when automated test script prints 0 errors and logs verified status code.
-2. Check 2: Verify channel fallback: email fails, system retries via SMS automatically; Pass when automated test script prints 0 errors and logs verified status code.
-3. Check 3: Verify rate limiting: per-user notification throttle enforced (max 10/hour); Pass when automated test script prints 0 errors and logs verified status code.
-4. Check 4: Verify delivery tracking: each notification has status (queued, sent, delivered, failed); Pass when automated test script prints 0 errors and logs verified status code.
-5. Check 5: Verify load test: 50k notifications/min throughput with 99%+ delivery confirmation; Pass when automated test script prints 0 errors and logs verified status code.
-6. Check 6: 6. Anti-Fake Verification Check: Inspect committed execution logs and re-run verification script against seeded test fixtures; pass when runtime metrics dynamically reflect test execution rather than static mocked responses.
+----------------------------------------------------------------------
+1. Check
+   Input: 1,000 paired duplicate notification requests issued simultaneously
+   Action: npm run test:dedup -- --samples 1000
+   Result: Redis deduplication engine suppresses all 1,000 duplicates with 0 redundant deliveries
+   Evidence: Terminal test execution output log and reports/dedup_report.json
+   Pass: 1,000 of 1,000 duplicate payloads suppressed with exit code 0
+2. Check
+   Input: 20,000 synthetic notification events published across topic exchanges
+   Action: node scripts/benchmark_throughput.js --events 20000 --concurrency 50
+   Result: Service sustains publish throughput >= 2,500 notifications per second with zero message loss
+   Evidence: Throughput benchmark profiling report in reports/throughput_summary.json
+   Pass: Measured throughput is >= 2,500 msg/sec with exit code 0
+3. Check
+   Input: 30 simulated primary channel provider timeout failure injections
+   Action: node scripts/test_channel_fallback.js --trials 30 --timeout-ms 200
+   Result: Worker catches timeout and completes delivery via secondary channel in average duration < 350ms
+   Evidence: Channel fallback timing log in reports/fallback_audit.json
+   Pass: Average fallback duration < 350ms across 30 trials with exit code 0
+4. Check
+   Input: REST request querying notification status delivery history by event ID
+   Action: curl http://localhost:3000/api/v1/notifications/evt_test_12345/status
+   Result: Server returns structured JSON payload showing timeline: QUEUED, PRIMARY_FAILED, FALLBACK_DELIVERED
+   Evidence: HTTP response payload
+   Pass: Response status is 200 and JSON contains delivery_timeline array with exit code 0
+5. Check [anti_fake]
+   Input: Dynamic notification dispatch with duplicate event ID sent concurrently
+   Action: node scripts/verify_dynamic_dedup.js --event-id evt_dynamic_9872
+   Result: First request routes to provider; second duplicate request suppressed with cached status return
+   Evidence: Dynamic verification console execution output log
+   Pass: Verification confirms provider called exactly once and second call logged 'DUPLICATE_SUPPRESSED' with exit code 0
 
 RESUME BULLET FORMULA
-----------------------------------------
-"Built multi-channel notification service handling [N] req/sec/sec across FCM, SMS, and email; achieved [N]% delivery with Redis deduplication, user preference routing, and automatic channel fallback."
-Do not claim: scale, latency, or throughput figures without committing benchmark run logs; do not claim production deployment unless deployed to a verifiable live environment.
+----------------------------------------------------------------------
+"Architected multi-channel notification orchestration platform in Node.js and TypeScript using RabbitMQ and Redis; achieved sub-[FALLBACK_LATENCY] millisecond channel fallback diversion across [TRIAL_COUNT] chaos trials, and sustained [THROUGHPUT_MSG_SEC] message ingestion throughput."
+
+Do not claim: direct telecom carrier SMPP trunk connections or live commercial Apple APNs certificate hosting
 
 ======================================================================
 Generated by HireFlow — hireflow.io

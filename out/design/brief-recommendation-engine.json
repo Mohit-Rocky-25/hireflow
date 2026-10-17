@@ -1,0 +1,352 @@
+{
+  "id": "brief-recommendation-engine",
+  "title": "Hybrid Recommendation Engine with PyTorch Two-Tower NCF, FAISS Vector Retrieval & FastAPI Scoring",
+  "domain": "ML Engineering",
+  "difficulty": "INTERMEDIATE",
+  "project_types": [
+    "ML/data pipeline",
+    "Full-stack web"
+  ],
+  "problem": "Modern e-commerce and media platforms suffer from significant conversion drop-offs, user churn, and cold-start attrition when recommendation systems rely solely on static heuristic ranking or unindexed collaborative filtering. Traditional matrix factorization approaches fail to capture multi-modal item metadata, while brute-force cosine distance calculations over millions of catalog items introduce multi-second inference latencies that overwhelm web servers during peak traffic surges. This project builds a production-grade hybrid recommendation engine in Python. The system trains a two-tower Neural Collaborative Filtering (NCF) model in PyTorch combining user interaction histories and item metadata, indexes dense 128-dimensional item embeddings in FAISS using an Inverted File with Flat Quantization (IVF-Flat) index for sub-12ms candidate retrieval, serves personalized ranking predictions via FastAPI, and caches active session feature vectors in Redis.",
+  "use_cases": [
+    {
+      "title": "E-Commerce Personalized Product Discovery",
+      "first_sentence": "Online retail platforms need to display personalized product recommendations on homepages and category checkout funnels based on browsing history.",
+      "second_sentence": "The engine matches active user embeddings against FAISS vector indices, retrieving top-50 candidate items and re-ranking them via FastAPI in under 15 milliseconds."
+    },
+    {
+      "title": "Digital Streaming Media Next-Up Content Suggestions",
+      "first_sentence": "Video and audio streaming services must keep users engaged by recommending relevant content tracks and podcasts as previous media ends.",
+      "second_sentence": "The hybrid recommender combines user watch history embeddings with audio/genre metadata tags, generating fresh personalized queues with zero recommendation lag."
+    },
+    {
+      "title": "Subscription Box Catalog Cross-Sell Bundling",
+      "first_sentence": "Direct-to-consumer subscription platforms need to recommend complementary add-on products during monthly checkout renewal windows.",
+      "second_sentence": "The model uses collaborative embeddings to identify products frequently co-purchased across peer segments, lifting average order values without manual merchandising."
+    }
+  ],
+  "hard_parts": [
+    "Training a two-tower neural network in PyTorch that maps disparate user interactions and item categorical features into a shared 128-dimensional embedding space",
+    "Tuning FAISS IVF-Flat index hyperparameters (nlist clusters, nprobe search depth) to achieve >= 90% recall while sustaining sub-12ms candidate retrieval latency",
+    "Designing an asynchronous Redis caching layer that maintains rolling user session vectors and prevents redundant neural network embedding recomputations",
+    "Handling the item cold-start problem by falling back to content-based attribute similarities when newly introduced items lack collaborative interaction history"
+  ],
+  "screener_signals": [
+    "Clean Python codebase cleanly separating PyTorch model definitions, FAISS index builders, Redis feature stores, and FastAPI inference routers",
+    "Benchmark report proving sub-15ms p95 recommendation inference latency across 100,000 candidate catalog items",
+    "Anti-fake verification script passing a novel user interaction vector and asserting the top-5 recommended items dynamically align with the selected category within 50 milliseconds"
+  ],
+  "job_families": [
+    "Machine Learning Engineer",
+    "Recommendation Systems Developer",
+    "Applied AI Software Engineer"
+  ],
+  "stack": [
+    {
+      "tool": "Python",
+      "role": "primary language implementing neural network training, vector indexing, and inference endpoints"
+    },
+    {
+      "tool": "PyTorch",
+      "role": "deep learning framework implementing two-tower neural collaborative filtering architecture and loss functions"
+    },
+    {
+      "tool": "FAISS",
+      "role": "vector similarity library powering high-speed approximate nearest neighbor search over item embeddings"
+    },
+    {
+      "tool": "Redis",
+      "role": "in-memory cache serving user interaction histories, session vectors, and precomputed popular fallback items"
+    },
+    {
+      "tool": "FastAPI",
+      "role": "asynchronous web framework serving real-time personalized item recommendation requests"
+    },
+    {
+      "tool": "PostgreSQL",
+      "role": "relational database storing historical interaction logs, product catalogs, and evaluation metrics"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "PyTorch Two-Tower NCF Training Pipeline & Loss Engine",
+        "tools_used": [
+          "Python",
+          "PyTorch"
+        ],
+        "purpose": "Trains user and item neural towers with binary cross-entropy and Triplet Margin loss on interaction datasets"
+      },
+      {
+        "name": "FAISS IVF-Flat Vector Indexing & Candidate Generator",
+        "tools_used": [
+          "Python",
+          "FAISS"
+        ],
+        "purpose": "Builds and queries 128-d vector index over 100,000 items, executing sub-10ms approximate nearest neighbor search"
+      },
+      {
+        "name": "Redis Real-Time Feature Store & Cold-Start Cache Layer",
+        "tools_used": [
+          "Python",
+          "Redis"
+        ],
+        "purpose": "Maintains recent user interaction sequences and caches global popular items for cold-start fallbacks"
+      },
+      {
+        "name": "FastAPI Low-Latency Recommendation Inference Service",
+        "tools_used": [
+          "Python",
+          "FastAPI"
+        ],
+        "purpose": "Accepts user recommendation requests, queries FAISS and Redis, applies ranking filters, and returns scored IDs"
+      },
+      {
+        "name": "PostgreSQL Interaction Log & Catalog Persistence Store",
+        "tools_used": [
+          "Python",
+          "PostgreSQL"
+        ],
+        "purpose": "Stores permanent product metadata, user purchase transactions, and evaluation ranking ground truth datasets"
+      },
+      {
+        "name": "Recommendation Retrieval Accuracy & Latency Benchmark Harness",
+        "tools_used": [
+          "Python",
+          "FastAPI"
+        ],
+        "purpose": "Evaluates NDCG@10, HitRate@10, and p95 inference latencies across 10,000 synthetic test queries"
+      },
+      {
+        "name": "Hybrid Recommender Architecture Guide & FAISS Tuning Manual",
+        "tools_used": [
+          "Python",
+          "FAISS"
+        ],
+        "purpose": "Documents embedding dimensionality trade-offs, IVF cluster tuning, and cold-start heuristics"
+      }
+    ],
+    "data_flow": "A user opens the application and requests recommendations; FastAPI receives the user ID and queries Redis to fetch the user's recent interaction history in < 2ms; the user tower computes a 128-dimensional query vector; the FAISS IVF-Flat index executes approximate nearest neighbor search using nprobe=10 to retrieve top-50 item candidates in < 8ms; the ranking module scores candidates against the user vector, filters previously purchased item IDs, applies cold-start popularity blending if necessary, and returns the top-10 recommended items with confidence scores; background jobs sync interaction logs from PostgreSQL to retrain PyTorch models.",
+    "enforcement_mechanism": "L2 normalization on user and item embedding vectors bounding dot products to [-1, 1]; similarity thresholds filtering irrelevant candidates."
+  },
+  "targets": [
+    {
+      "metric": "p95 Hybrid Recommendation Inference Latency",
+      "method": "Wall-clock timing from FastAPI request arrival to response dispatch under 200 concurrent queries per second across 100,000 items",
+      "input": "5,000 recommendation requests issued against catalog of 100,000 items indexed in FAISS",
+      "environment": "Standard 4-core local CPU, Redis 7+ and PostgreSQL 15+ in Docker, Python 3.11 with PyTorch CPU",
+      "minimum_pass": "p95 recommendation inference latency is < 25.0 milliseconds",
+      "target": "p95 recommendation inference latency is < 11.5 milliseconds",
+      "report": "FastAPI recommendation latency profiling log and response percentile table"
+    },
+    {
+      "metric": "Top-10 Ranking Accuracy (NDCG@10)",
+      "method": "Normalized Discounted Cumulative Gain evaluated against held-out user interaction test split across 2,000 test users",
+      "input": "Held-out test dataset of 2,000 users with positive click and purchase interaction ground truth",
+      "environment": "Deterministic evaluation script executing PyTorch and FAISS candidate retrieval",
+      "minimum_pass": "NDCG@10 ranking score is >= 0.72",
+      "target": "NDCG@10 ranking score is >= 0.84",
+      "report": "Recommendation quality evaluation report and NDCG/HitRate curves"
+    },
+    {
+      "metric": "Candidate Retrieval Recall (HitRate@50)",
+      "method": "Percentage of relevant ground-truth test items present within top-50 candidates returned by FAISS approximate search",
+      "input": "2,000 test user interaction vectors evaluated against 100,000 candidate item embeddings",
+      "environment": "FAISS IVF-Flat index with nlist=256 and nprobe=16 running on CPU",
+      "minimum_pass": "HitRate@50 candidate retrieval recall is >= 85.0%",
+      "target": "HitRate@50 candidate retrieval recall is >= 93.5%",
+      "report": "FAISS approximate search recall benchmark log and cluster parameter table"
+    }
+  ],
+  "skills": [
+    "Python",
+    "PyTorch",
+    "FAISS",
+    "Redis",
+    "FastAPI",
+    "PostgreSQL",
+    "Recommendation Systems",
+    "ML Engineering"
+  ],
+  "starter_input": {
+    "spec": "Directory containing PyTorch two-tower model code, FAISS index builder, synthetic user-item interaction generator, and FastAPI service.",
+    "size": "9 Python source modules, SQL migration schema, Docker Compose manifest, and 100,000 synthetic product item catalog",
+    "seeded_cases": "Cold-start users with empty interaction histories, newly introduced items without ratings, and extreme catalog popularity skews",
+    "label_source": "Deterministic synthetic user preference matrices and held-out collaborative filtering ground truth splits",
+    "personal_data_policy": "Strictly mock synthetic user IDs and simulated product metadata; no real personal data used"
+  },
+  "components": [
+    {
+      "name": "PyTorch Two-Tower NCF Training Pipeline & Loss Engine",
+      "task_type": "model train + evaluate cycle",
+      "hours": 5.0
+    },
+    {
+      "name": "FAISS IVF-Flat Vector Indexing & Candidate Generator",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "Redis Real-Time Feature Store & Cold-Start Cache Layer",
+      "task_type": "infra component (broker, DB, orchestrator, cluster service)",
+      "hours": 5.0
+    },
+    {
+      "name": "FastAPI Low-Latency Recommendation Inference Service",
+      "task_type": "API endpoint group with tests",
+      "hours": 4.0
+    },
+    {
+      "name": "PostgreSQL Interaction Log & Catalog Persistence Store",
+      "task_type": "data pipeline step",
+      "hours": 3.0
+    },
+    {
+      "name": "Hybrid Recommender Architecture Guide & FAISS Tuning Manual",
+      "task_type": "docs + architecture diagram",
+      "hours": 1.0
+    }
+  ],
+  "extended_path": {
+    "features": [
+      "Multi-task learning head predicting both click-through rate (CTR) and conversion rate (CVR) simultaneously",
+      "Graph neural network (LightGCN) user-item bipartite graph embedding generator in PyTorch Geometric",
+      "Online contextual bandit re-ranking layer dynamically balancing exploitation and exploration"
+    ],
+    "hours": 14
+  },
+  "milestones": [
+    {
+      "name": "PyTorch Two-Tower Model & Offline Training in Python, PyTorch and ML Engineering",
+      "hours": 7,
+      "done_criterion": "Two-tower model trains on interaction dataset; NDCG@10 achieves >= 0.72 on held-out test split."
+    },
+    {
+      "name": "FAISS IVF-Flat Indexing & Candidate Generation in FAISS and PostgreSQL",
+      "hours": 7,
+      "done_criterion": "FAISS indexes 100,000 item vectors; candidate retrieval achieves HitRate@50 >= 85% in < 12ms."
+    },
+    {
+      "name": "Redis Feature Store & FastAPI Inference API in FastAPI and Redis",
+      "hours": 7,
+      "done_criterion": "FastAPI endpoint serves recommendations with p95 latency < 25ms under 200 RPS."
+    },
+    {
+      "name": "Dynamic Preference Shift Anti-Fake Test & Docs in Recommendation Systems",
+      "hours": 7,
+      "done_criterion": "Anti-fake test confirms top-5 recommendation shift upon preference update; docs and schemas complete."
+    }
+  ],
+  "prerequisites": [
+    "Proficiency in Python machine learning development, PyTorch tensor mechanics, and FastAPI",
+    "Understanding of recommendation algorithms (collaborative filtering, two-tower models) and vector search concepts (FAISS, IVF indices)"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (compact two-tower MLP embedding models and FAISS CPU index run efficiently on CPU)",
+    "cost": "$0 (fully open-source stack using local Python and Docker containers for PostgreSQL and Redis)",
+    "accounts_keys_quotas": "No external cloud accounts, paid services, or API keys required",
+    "reference_environment": "Local 4-core CPU with Docker Desktop (PostgreSQL 15+ and Redis 7+ containers) and Python 3.11 with PyTorch CPU",
+    "fallback_path": "Local SQLite database and in-memory cosine similarity matrix if Docker containers are unavailable"
+  },
+  "riskiest_component": {
+    "name": "FAISS Vector Index Memory Bloat and Cold-Start Latency Degradation",
+    "mitigation": "Quantize embeddings with IVF-Flat and enforce fixed 128-d vectors; precompute global trending items in Redis for cold-start users.",
+    "fallback": "Exact flat scan for smaller catalog subsets (< 10,000 items) or metadata-based category fallbacks."
+  },
+  "deliverables": [
+    "Git repository containing PyTorch training script, FAISS index builder, Redis feature store, and FastAPI service",
+    "Docker Compose file launching PostgreSQL and Redis containers with persistent volume mappings",
+    "Automated evaluation benchmark script measuring NDCG@10, HitRate@50, and p95 inference latency",
+    "Screener verification script executing automated candidate retrieval and dynamic preference adaptation in under 2 minutes"
+  ],
+  "out_of_scope": [
+    "Commercial recommendation SaaS APIs (AWS Personalize / Algolia Recommend)",
+    "Multi-billion parameter foundation vision/text LLM encoders",
+    "Real-time streaming distributed graph neural network training on Spark clusters"
+  ],
+  "safety_note": null,
+  "resources": [
+    "Neural Collaborative Filtering (He et al., WWW 2017)",
+    "FAISS: A Library for Efficient Similarity Search (Johnson, Douze, J\u00e9gou - IEEE Big Data)",
+    "Deep Neural Networks for YouTube Recommendations (Covington, Adams, Sargin)"
+  ],
+  "rubric": [
+    {
+      "input": "5,000 recommendation requests issued across 100,000 candidate items in FAISS",
+      "action": "python ./benchmarks/bench_inference.py --requests 5000 --concurrency 20",
+      "expected_result": "FastAPI returns top-10 recommendations with p95 inference latency < 25.0ms",
+      "evidence_location": "Terminal output log and reports/inference_latency.json",
+      "pass_criterion": "p95 latency < 25.0ms with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Held-out test split of 2,000 user interaction profiles",
+      "action": "python ./evaluation/eval_metrics.py --test-split ./data/test_interactions.csv",
+      "expected_result": "Recommender achieves NDCG@10 >= 0.72 and HitRate@50 >= 85.0%",
+      "evidence_location": "Recommendation evaluation report in reports/eval_results.json",
+      "pass_criterion": "NDCG@10 >= 0.72 with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Catalog of 100,000 items indexed using FAISS IVF-Flat index builder",
+      "action": "python ./indexing/build_index.py --items 100000 --nlist 256",
+      "expected_result": "Index builds successfully and persists to disk with memory footprint < 150MB",
+      "evidence_location": "Index generation audit log in reports/index_build.json",
+      "pass_criterion": "100 of 100 clusters initialized with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Cold-start user profile with zero historical interactions queried via API",
+      "action": "curl -X POST http://localhost:8000/api/v1/recommend -H 'Content-Type: application/json' -d '{\"user_id\":\"cold_user_999\"}'",
+      "expected_result": "API falls back to popular trending items cached in Redis and returns 10 valid item recommendations",
+      "evidence_location": "HTTP response JSON and fallback audit log",
+      "pass_criterion": "Response status 200 with 10 non-empty recommendations and exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "User adding 3 electronics items to browsing history in rapid succession",
+      "action": "python ./scripts/verify_dynamic_preference.py --user test_user_01 --add-items 'elec_1,elec_2,elec_3'",
+      "expected_result": "Recommender updates user representation and returns top-5 items containing at least 4 electronics items",
+      "evidence_location": "Dynamic verification console execution output log",
+      "pass_criterion": "Console confirms top recommendations shift to electronics category with exit code 0",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected hybrid recommendation engine in Python with PyTorch two-tower embeddings and FAISS; achieved [MODEL_NDCG] ranking accuracy across [CATALOG_SIZE] items, and delivered sub-[INFERENCE_LATENCY] millisecond inference latency.",
+    "claims": [
+      {
+        "text": "achieved [MODEL_NDCG] ranking accuracy across [CATALOG_SIZE] items",
+        "rubric_indexes": [
+          1
+        ]
+      },
+      {
+        "text": "delivered sub-[INFERENCE_LATENCY] millisecond inference latency",
+        "rubric_indexes": [
+          0
+        ]
+      }
+    ],
+    "do_not_claim": "commercial recommendation cloud SaaS or billion-parameter transformer foundation models"
+  },
+  "verify": [
+    "Run `pytest tests/` to confirm two-tower neural architectures, FAISS indexing, and FastAPI endpoints pass.",
+    "Execute `python ./benchmarks/bench_inference.py` to verify p95 latency remains < 25ms under load.",
+    "Run `python ./scripts/verify_dynamic_preference.py` to confirm real-time category recommendation shifts."
+  ],
+  "worksheet": {
+    "q1": "Core deliverable: a hybrid recommendation engine in Python with PyTorch two-tower NCF, FAISS vector retrieval, and FastAPI scoring.",
+    "q2": "Target users: machine learning engineers, recommendation systems developers, and applied AI software engineers.",
+    "q3": "3 use cases: e-commerce product discovery, digital media next-up suggestions, and subscription box catalog cross-sell bundling.",
+    "q4": "Stated hours: 28 hours. Calculated bottom-up: 24 component hours * 1.15 buffer = 27.6 -> 28 hours. Intermediate level.",
+    "q5": "Hard parts: PyTorch two-tower 128-d mapping, FAISS IVF-Flat hyperparameter tuning (nlist, nprobe), Redis session caching, and cold-start fallback heuristics.",
+    "q6": "Starter input: PyTorch model code, FAISS builder, synthetic interaction generator, and 100k item catalog. Synthetic data only.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU bound, $0 cost using Docker PostgreSQL and Redis.",
+    "q8": "Riskiest component: FAISS memory bloat and cold-start latency spikes. Fallback: IVF quantization and Redis trending item precomputations.",
+    "q9": "Potential faking: static unpersonalized item list. Anti-fake check 5 simulates adding 3 electronics items and verifies top-5 recommendations shift to electronics.",
+    "q10": "Safe; synthetic product catalog and simulated user interactions only, zero personal data."
+  }
+}

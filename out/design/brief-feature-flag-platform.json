@@ -1,0 +1,300 @@
+{
+  "id": "brief-feature-flag-platform",
+  "title": "Feature Flag & Progressive Rollout Platform with MurmurHash3 Bucketing",
+  "domain": "Full-Stack Web",
+  "difficulty": "INTERMEDIATE",
+  "project_types": [
+    "Full-stack web",
+    "API/backend service"
+  ],
+  "problem": "Software engineering teams must decouple code deployment from feature release to minimize production blast radiuses and perform gradual canary validations. Deploying features directly to all users simultaneously risks widespread service degradation, while coordinating rollouts via manual code releases slows engineering velocity. This project builds a high-performance feature flag and progressive rollout platform in Go, React, PostgreSQL, and Redis. The system supports percentage rollouts using deterministic MurmurHash3 user bucketing, complex attribute targeting rules (e.g., country, subscription tier, beta tag), sub-millisecond local in-memory flag evaluation, Server-Sent Events (SSE) for real-time flag push propagation without polling, and an administrative React dashboard with real-time audit logs and instant kill-switches.",
+  "use_cases": [
+    "Continuous delivery pipelines executing progressive percentage canary rollouts (1% to 10% to 100%)",
+    "Targeted beta feature releases restricted to specific customer subscription tiers and internal employee emails",
+    "Emergency kill-switch activation instantly disabling broken third-party integrations across clusters without redeployment"
+  ],
+  "hard_parts": [
+    "Implementing deterministic MurmurHash3 user bucketing so a user remains consistently assigned to the same variant",
+    "Propagating flag configuration updates in real-time across distributed client instances via Server-Sent Events (SSE)",
+    "Achieving sub-millisecond evaluation latency in local SDK memory while guaranteeing dynamic rule synchronization",
+    "Building an atomic administrative audit trail in PostgreSQL that records every rule change, variant shift, and kill-switch toggle"
+  ],
+  "screener_signals": [
+    "Clean full-stack implementation separating Go evaluation engine, SSE streamer, React admin dashboard, and Redis pub/sub",
+    "Deterministic uniform distribution benchmark proving MurmurHash3 distributes 100,000 users evenly within 1.5% variance",
+    "Anti-fake verification script toggling an emergency kill-switch and asserting that client evaluation flips instantly within 50ms"
+  ],
+  "job_families": [
+    "Platform Software Engineer",
+    "Full-Stack Web Engineer",
+    "Developer Infrastructure Engineer"
+  ],
+  "stack": [
+    {
+      "tool": "Go",
+      "role": "systems language powering the high-performance flag evaluation engine and SSE streaming server"
+    },
+    {
+      "tool": "React",
+      "role": "frontend library powering the administrative flag management dashboard and audit UI"
+    },
+    {
+      "tool": "PostgreSQL",
+      "role": "relational database storing flag definitions, targeting rules, and audit logs"
+    },
+    {
+      "tool": "Redis",
+      "role": "in-memory pub/sub broker distributing real-time flag invalidation events to connected servers"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "MurmurHash3 User Bucketing Engine",
+        "tools_used": [
+          "Go"
+        ],
+        "purpose": "Calculates deterministic 32-bit hash integers for user keys to ensure consistent percentage rollout assignment"
+      },
+      {
+        "name": "Targeting Rule Evaluation Engine",
+        "tools_used": [
+          "Go",
+          "PostgreSQL"
+        ],
+        "purpose": "Evaluates user attributes (country, tier, email regex) against declarative boolean rule criteria"
+      },
+      {
+        "name": "SSE Real-Time Push Streamer",
+        "tools_used": [
+          "Go",
+          "Redis"
+        ],
+        "purpose": "Pushes instantaneous flag configuration diffs to connected client SDKs via Server-Sent Events"
+      },
+      {
+        "name": "React Administration Dashboard",
+        "tools_used": [
+          "React"
+        ],
+        "purpose": "Provides user interface for creating flags, configuring rollout percentages, and toggling emergency kill-switches"
+      }
+    ],
+    "data_flow": "Administrators create or modify flags in the React Dashboard; the Go API validates changes, appends an entry to PostgreSQL audit logs, and commits updated rules; the server publishes an invalidation event to Redis Pub/Sub; the SSE Push Streamer broadcasts the new configuration to connected client applications over persistent HTTP streams; client SDKs update their local in-memory flag caches; incoming evaluation requests compute MurmurHash3 hashes across user ID and flag key to determine variant assignment locally in sub-millisecond time.",
+    "enforcement_mechanism": "Deterministic hashing preventing user bucket flapping; atomic PostgreSQL transactions recording audit records before publishing updates."
+  },
+  "targets": [
+    {
+      "metric": "Local In-Memory Evaluation Latency (p99)",
+      "method": "Microbenchmark measuring SDK in-memory flag evaluation duration across complex multi-rule flags",
+      "input": "100,000 evaluation calls evaluated against 50 active flags with compound attribute targeting rules",
+      "environment": "Standard 4-core local CPU, Go 1.21+",
+      "minimum_pass": "p99 evaluation latency is < 1.0 milliseconds",
+      "target": "p99 evaluation latency is < 0.25 milliseconds",
+      "report": "Evaluation latency benchmark summary output reporting p50, p95, and p99 percentiles"
+    },
+    {
+      "metric": "Percentage Rollout Uniform Distribution Variance",
+      "method": "Statistical distribution test bucketing 100,000 distinct user identifiers across a 50% rollout flag",
+      "input": "100,000 synthetic UUID user identifiers hashed via MurmurHash3 against a configured 50% rollout",
+      "environment": "Standard 4-core local CPU, Go 1.21+",
+      "minimum_pass": "Observed percentage allocation falls between 48.5% and 51.5% (variance <= 1.5%)",
+      "target": "Observed percentage allocation falls between 49.2% and 50.8% (variance <= 0.8%)",
+      "report": "Statistical distribution uniformity verification log"
+    },
+    {
+      "metric": "Real-Time Flag Propagation Latency",
+      "method": "Duration from administrative dashboard kill-switch toggle until connected SSE client SDK updates local state",
+      "input": "Emergency kill-switch toggle dispatched across 1,000 active simulated SSE client connections",
+      "environment": "Standard 4-core local CPU, Go 1.21+, Redis 7",
+      "minimum_pass": "Connected clients update local evaluation within 150 milliseconds",
+      "target": "Connected clients update local evaluation within 50 milliseconds",
+      "report": "SSE real-time propagation timing summary log"
+    }
+  ],
+  "skills": [
+    "Go",
+    "React",
+    "PostgreSQL",
+    "Redis",
+    "Feature Flags",
+    "Distributed Systems",
+    "Full-Stack Web"
+  ],
+  "starter_input": {
+    "spec": "YAML/JSON specification defining flag schema, targeting rules, rollout percentages, and sample user profiles.",
+    "size": "50 active feature flags, 1,000 user profiles with attributes, and 100,000 evaluation request benchmark scripts",
+    "seeded_cases": "Evaluation of non-existent flags, malformed user attribute types, rapid toggle flapping, and SSE disconnection retries",
+    "label_source": "Deterministic evaluation test fixture mapping specific user IDs and attributes to expected variant outputs",
+    "personal_data_policy": "Strictly mock synthetic user IDs and fake demographic attributes; no personal data used"
+  },
+  "components": [
+    {
+      "name": "Deterministic MurmurHash3 User Bucketing Engine",
+      "task_type": "low-level/system subsystem",
+      "hours": 5.0
+    },
+    {
+      "name": "Rule Evaluation & Target Matching Engine",
+      "task_type": "API endpoint group with tests",
+      "hours": 4.0
+    },
+    {
+      "name": "Server-Sent Events (SSE) Real-Time Flag Streamer",
+      "task_type": "infra component (broker, DB, orchestrator, cluster service)",
+      "hours": 4.0
+    },
+    {
+      "name": "React Management Dashboard with Kill-Switch",
+      "task_type": "one UI view with state",
+      "hours": 4.0
+    },
+    {
+      "name": "Evaluation Latency & Uniform Distribution Benchmark",
+      "task_type": "load or performance test harness + report",
+      "hours": 4.0
+    },
+    {
+      "name": "System Architecture Diagram & Flag Lifecycle Runbook",
+      "task_type": "docs + architecture diagram",
+      "hours": 3.0
+    }
+  ],
+  "extended_path": {
+    "items": [
+      "Automated statistical experimentation engine calculating sample size and p-values for A/B conversion events",
+      "OpenFeature specification compliant SDK client for Node.js and Go"
+    ],
+    "hours": 12
+  },
+  "milestones": [
+    {
+      "name": "MurmurHash3 Bucketing & Rule Evaluation Engine in Go Feature Flags",
+      "hours": 7,
+      "done_criterion": "Go engine hashes user keys, evaluates attribute rules, and returns variant in < 1ms."
+    },
+    {
+      "name": "Server-Sent Events Real-Time Flag Propagation with Redis in Distributed Systems",
+      "hours": 7,
+      "done_criterion": "Redis pub/sub dispatches invalidations; SSE streamer broadcasts updates to clients in < 150ms."
+    },
+    {
+      "name": "React Admin Dashboard, Audit Log & Instant Kill-Switch in Full-Stack Web",
+      "hours": 7,
+      "done_criterion": "React UI creates flags, edits percentages, toggles kill-switch, and renders PostgreSQL audit logs."
+    },
+    {
+      "name": "Uniform Distribution Benchmark, Anti-Fake Test & Docs",
+      "hours": 7,
+      "done_criterion": "Benchmark confirms 50% rollout has < 1.5% variance across 100,000 users; anti-fake test passes; docs complete."
+    }
+  ],
+  "prerequisites": [
+    "Proficiency in Go programming, HTTP web servers, and concurrent goroutines",
+    "Experience with React state management, PostgreSQL relational modeling, and Redis pub/sub"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (purely CPU-bound evaluation and web UI)",
+    "cost": "$0 (fully open-source software stack via Docker Compose)",
+    "accounts_keys_quotas": "No external cloud accounts, paid services, or API keys required",
+    "reference_environment": "Local 4-core CPU with Go 1.21+, Node.js 18+, and Redis 7 installed",
+    "fallback_path": "In-memory mock store and polling fallback if Docker Redis pub/sub cannot be run"
+  },
+  "riskiest_component": {
+    "name": "SSE Connection Dropping Causing Stale Client Flag States",
+    "fallback": "Implement automatic client reconnection with Last-Event-ID header and periodic 30-second polling fallback"
+  },
+  "deliverables": [
+    "Git repository containing Go backend API, SSE streaming service, and React admin frontend",
+    "Docker Compose file running Go server, React dashboard, PostgreSQL, and Redis",
+    "Automated load testing harness verifying MurmurHash3 distribution uniformity and p99 evaluation latency",
+    "Screener verification script executing automated benchmark and dynamic kill-switch test in under 2 minutes"
+  ],
+  "out_of_scope": [
+    "Machine learning multi-armed bandit automated traffic reallocation algorithms",
+    "Full-scale session recording or frontend user telemetry heatmaps",
+    "Native mobile iOS and Android SDK library packaging"
+  ],
+  "safety_note": null,
+  "resources": [
+    "MurmurHash3 32-bit Algorithm Specification and Distribution Properties",
+    "Server-Sent Events (SSE) W3C Standard and High-Concurrency Go Patterns",
+    "OpenFeature Standard Specification for Feature Flag Management"
+  ],
+  "rubric": [
+    {
+      "input": "100,000 evaluation queries issued to local in-memory Go SDK",
+      "action": "go test -bench=BenchmarkEvaluate -benchmem ./pkg/evaluator",
+      "expected_result": "Evaluator achieves p99 latency under 1.0 milliseconds",
+      "evidence_location": "Go benchmark stdout output log",
+      "pass_criterion": "p99 evaluation latency is < 1.0 milliseconds with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "100,000 synthetic user IDs evaluated against 50% rollout flag",
+      "action": "go run ./cmd/distribution_test --users 100000 --rollout 50",
+      "expected_result": "Allocation percentage falls between 48.5% and 51.5%",
+      "evidence_location": "Terminal test execution output report",
+      "pass_criterion": "Calculated percentage is between 48.5% and 51.5% with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Admin toggles emergency kill-switch via React API endpoint",
+      "action": "curl -X POST http://localhost:8080/api/flags/payment-v2/kill",
+      "expected_result": "Flag status updates in PostgreSQL and broadcasts invalidation to connected clients",
+      "evidence_location": "HTTP response payload and PostgreSQL audit log table",
+      "pass_criterion": "Response status is 200 and audit table contains entry with action KILL_SWITCH",
+      "kind": "normal"
+    },
+    {
+      "input": "1,000 simulated client connections receiving SSE flag update broadcast",
+      "action": "go run ./cmd/bench_sse --clients 1000",
+      "expected_result": "Clients receive invalidation event within 150 milliseconds of toggle",
+      "evidence_location": "SSE timing summary log",
+      "pass_criterion": "All 1,000 clients confirm state update in < 150 milliseconds",
+      "kind": "normal"
+    },
+    {
+      "input": "Dynamic flag created with dynamic percentage rollout (37%) at runtime",
+      "action": "python scripts/verify_dynamic_rollout.py --flag DYNAMIC_ROLLOUT_37 --percent 37 --users 10000",
+      "expected_result": "Engine allocates users consistently matching 37% target (+/- 1.5%)",
+      "evidence_location": "Dynamic verification console output log",
+      "pass_criterion": "Allocated percentage falls between 35.5% and 38.5% with exit code 0",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected feature flag and rollout platform in Go and React using MurmurHash bucketing; achieved sub-[EVAL_LATENCY] in-memory evaluation latency, and delivered instantaneous flag push propagation across [CLIENT_COUNT] connected clients with sub-[PROPAGATION_TIME] latency.",
+    "claims": [
+      {
+        "text": "achieved sub-[EVAL_LATENCY] in-memory evaluation latency",
+        "rubric_indexes": [
+          0
+        ]
+      },
+      {
+        "text": "delivered instantaneous flag push propagation across [CLIENT_COUNT] connected clients with sub-[PROPAGATION_TIME] latency",
+        "rubric_indexes": [
+          2,
+          3
+        ]
+      }
+    ],
+    "do_not_claim": "automated ML multi-armed bandit traffic allocation or native mobile SDK packaging"
+  },
+  "verify": [],
+  "worksheet": {
+    "q1": "Core deliverable: a feature flag and progressive rollout platform in Go/React with MurmurHash3 bucketing, SSE propagation, and admin audit dashboard.",
+    "q2": "Target users: platform software engineers, full-stack developers, and DevOps teams.",
+    "q3": "3 use cases: progressive percentage canary rollouts, targeted subscription tier beta releases, and emergency kill-switch activation.",
+    "q4": "Stated hours: 28 hours. Calculated bottom-up: 24 component hours * 1.15 buffer = 27.6 -> 28 hours. Intermediate level.",
+    "q5": "Hard parts: deterministic MurmurHash3 bucketing, real-time SSE propagation via Redis pub/sub, sub-millisecond evaluation, and atomic audit logging.",
+    "q6": "Starter input: 50 active flags, 1,000 user profiles, and 100,000 evaluation request test scripts. Synthetic profiles only.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU only, $0 cost, zero cloud accounts. Fallback: in-memory mock store and polling.",
+    "q8": "Riskiest component: SSE connection dropping causing stale client states. Fallback: automatic client reconnect with Last-Event-ID header.",
+    "q9": "Potential faking: hardcoded 50% split. Anti-fake check 5 creates dynamic flag with 37% rollout at runtime and asserts 37% allocation across 10,000 users.",
+    "q10": "Safety/ethics: Safe; synthetic user profiles only."
+  }
+}

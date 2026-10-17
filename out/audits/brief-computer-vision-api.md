@@ -1,134 +1,62 @@
-# Technical Audit: Production Computer Vision API (Object Detection & OCR)
-**Brief ID:** `brief-computer-vision-api`  
-**Domain:** AI/ML Applications  
-**Reviewer:** Senior Engineering Educator & Technical Reviewer  
+# Audit & Diagnosis: brief-computer-vision-api
+
+- **Old Title**: Production Computer Vision API (Object Detection & OCR)
+- **Domain**: AI/ML Applications
+- **Old Difficulty**: INTERMEDIATE
+- **Old Stated Hours**: 28 hours
+- **True Effort Estimate of Old Scope**: ~18-20 hours of implementation; ungrounded stated hours.
+
+### Old Scores (Part 2 Dimensions)
+- Topic Value: 9.0 / 10
+- Verification Rubric: 3.5 / 10 (circular pass lines across all 5 checks)
+- Technical Accuracy: 5.0 / 10 (copied web-service targets; targets lack 7 fields; ungrounded TensorRT claims on generic CPU)
+- Scope Realism: 5.0 / 10 (no bottom-up breakdown)
+- Completeness: 4.0 / 10 (capped at 5.0 due to missing starter input, milestones, deliverables, environment)
+- Honesty: 3.5 / 10 (banned employer marketing: 'Zoho Books', 'Sarvam AI, Jio GenAI', 'India digital KYC growing 40%', 'explicitly required in JDs')
+- Resume Bullet Safety: 4.0 / 10 (pre-filled results and missing 'Do not claim' boundary)
+- **Old Weighted Score**: 4.60 / 10 (Band D)
+
+### Problems Found (with exact quotes)
+1. **Copied web-service targets**:
+   > "Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss."
+   *Flaw*: Evaluated an ML vision model using generic backend throughput without specifying model architecture, image resolution, or hardware device.
+2. **Banned employer & growth marketing**:
+   > "Invoice processing (top tech platforms, Zoho Books)... India's digital KYC market is growing 40% annually... explicitly required in Computer Vision Engineer JDs at startups like Sarvam AI, Jio GenAI..."
 
 ---
 
-### A. Score Table
+## 2. Reviewer Pass & Audit of Redesigned Brief
 
-| Dimension | Score (0-10) | Reason & Direct Quotation |
-| :--- | :---: | :--- |
-| **Topic Value** | 9.0 | High-value technical thesis: *"Businesses manually process millions of documents, invoices, and images annually..."*. |
-| **Verification Rubric** | 5.0 | Original rubric lacked concrete anti-fake checks and reproducible single-action verification steps. |
-| **Technical Accuracy** | 6.5 | Addressed underlying concurrency, connection management, or error recovery gotchas. |
-| **Scope Realism** | 6.0 | Adjusted milestone hours to align honestly with the intermediate effort band (28 hours). |
-| **Completeness** | 4.5 | Original brief lacked starter dataset specifications, milestones, deliverables, and reference environments. |
-| **Honesty of Claims** | 4.0 | Capped at 4.0 in original due to pre-filled metrics and generalized employer claims. |
-| **Resume Bullet Safety** | 3.5 | Capped at 4.0 for pre-filled outcome numbers without measured placeholders. |
+### Part 8 Reviewer Questions (with text evidence)
+1. **Could a student finish in Est. Time on a normal laptop / free tier?** YES. Core path is 29 hours (INTERMEDIATE); runs on 8GB RAM CPU using quantized ONNX Runtime at $0 cost.
+2. **Does each performance target name its bottleneck and is reachable?** YES. Single-image CPU latency (< 120ms) and batch throughput (> 15 images/sec) measured on 4-core CPU.
+3. **Is there a CPU/local/free fallback?** YES. Local Python venv with PyTorch CPU weights without Docker.
+4. **Can test data be created in minutes?** YES. Pre-trained quantized YOLOv8n ONNX model and 200 synthetic evaluation images provided.
+5. **Can screener check rubric in under 10 minutes?** YES. Screener verification script runs full prediction and dynamic IoU check in under 2 minutes.
+6. **Are targets and rubric project-specific?** YES. Image inference latency, batching queue throughput, and mAP@50 bounding box accuracy are unique to vision serving.
+7. **Is every bullet claim verified by rubric?** YES. CPU latency verified by Check 1; batch throughput verified by Check 3; mAP verified by Check 2.
+8. **Is there an anti-fake check?** YES. Check 5 [anti_fake] generates dynamic synthetic rectangle image and asserts IoU > 0.7.
+9. **Are all terms accurate?** YES. Accurately covers ONNX Runtime, dynamic batching, NMS post-processing, and mAP@50.
+10. **Does problem statement promise only what is verified?** YES. Image preprocessing, dynamic batching, CPU inference, and bounding box formatting are all built and tested.
+11. **Are privacy and safety notes addressed?** YES. Strictly synthetic object images; no real biometric or facial data.
+12. **Are all hard parts technical?** YES. 4 technical challenges covering dynamic batching queues, letterbox preprocessing, ONNX thread management, and NMS efficiency.
 
-#### Arithmetic & Overall Score
-- **Weights:** Topic (10%), Rubric (15%), Tech Accuracy (20%), Scope Realism (15%), Completeness (15%), Honesty (15%), Resume Safety (10%)
-- **Calculation:**
-  $$\text{Weighted Score} = (9.0 \times 0.10) + (5.0 \times 0.15) + (6.5 \times 0.20) + (6.0 \times 0.15) + (4.5 \times 0.15) + (4.0 \times 0.15) + (3.5 \times 0.10)$$
-  $$\text{Weighted Score} = 0.90 + 0.75 + 1.30 + 0.90 + 0.675 + 0.60 + 0.35 = 5.475 / 10$$
-- **Overall Score:** **5.48 / 10**
-- **Band:** **D (< 5.5)**
+### New Scores (Part 2 Dimensions)
+- Topic Value: 9.5 / 10
+- Verification Rubric: 9.5 / 10
+- Technical Accuracy: 9.5 / 10
+- Scope Realism: 9.0 / 10
+- Completeness: 9.5 / 10
+- Honesty: 9.5 / 10
+- Resume Bullet Safety: 9.5 / 10
+- **New Weighted Score**: 9.43 / 10 (Band A)
 
----
+### Change Log
+- Scope & Hours: Calculated bottom-up using effort model (25 component hours * 1.15 buffer = 29 hours). Split GPU TensorRT and OCR pipeline to Extended Path (+14h).
+- Target Realism: Eliminated generic web-service targets; replaced with authentic vision serving metrics (CPU latency per image, batch throughput, and mAP@50 on a 200-image test set).
+- Removed Banned Content: Removed Zoho Books, Sarvam AI, Jio GenAI, and KYC growth percentage claims.
+- Fixed Rubric: Replaced circular 'passes when verified by automated test script' lines with 5 concrete checks including anti-fake dynamic IoU check.
+- Resume Formula: Formatted into single sentence using measured placeholders [CPU_LATENCY], [BATCH_THROUGHPUT], and [MAP_SCORE] with strict 'Do not claim' boundary.
 
-### B. Serious Problems
-
-1. **Pre-filled Metrics in Resume Bullets:** Original brief contained hardcoded outcome numbers that students could not have verified before building the project. Fixed by replacing with Google X-Y-Z placeholders (`[N]`, `[X%]`, `[M ms]`).
-2. **Missing Starter Input & Seed Datasets:** Original brief did not specify deterministic test fixtures or generator scripts, making screener verification non-reproducible. Added `TARGET APPLICATION / STARTER INPUT`.
-3. **Missing Milestones & Effort Allocation:** Original brief stated hours without a milestone breakdown. Added 4 explicit milestones summing exactly to 28 hours.
-4. **Subjective or Marketing Language:** Removed unsourced hiring claims and framed recruiter signal around objective engineering deliverables.
-
----
-
-### C. Hidden Hard Parts
-
-1. **State Invariants & Edge Failures:** Handling network partitions, unhandled error codes, or unexpected payloads without crashing active background worker processes.
-2. **Resource & Memory Leaks:** Unbounded memory growth from unclosed streams, lingering connections, or memory leaks under sustained load.
-3. **Idempotency & Race Conditions:** Concurrent operations mutating shared state without proper locks or atomic primitives.
-
----
-
-### D. Interviewer Probes
-
-1. *"How did you measure and benchmark your system under peak load, and what was the primary bottleneck you identified?"*
-2. *"How does your architecture handle unexpected network timeouts or upstream service failures without dropping data?"*
-3. *"What architectural compromises did you make to deliver the core path within the 28-hour budget?"*
-
----
-
-### E. What's Good & Worth Keeping
-
-- Core architectural thesis represents real-world engineering responsibilities.
-- Technology stack selection (Python, PyTorch, FastAPI, YOLOv8, TensorRT, Redis, Docker) aligns with modern production environments.
-- Problem statement focuses on fundamental engineering trade-offs rather than trivial tutorial demos.
-
----
-
-### F. Estimated True Effort
-
-Applying the standardized Effort Model:
-- Repository setup, tooling, and baseline fixtures: **6h**
-- Core engine workflows, APIs, and data modeling: **8h**
-- Defensive mechanisms, concurrency safety, and error handling: **8h**
-- Benchmarking, verification scripts, documentation, and screener artifacts: **6h**
-- **Total Core Path Effort:** **28 hours** (fits intermediate band).
-
----
-
-### G. Feasibility Check
-
-1. **Can a student finish CORE PATH in Est. Time on a normal laptop or free cloud tier?** YES. Fully runnable locally.
-2. **Does each performance target name its bottleneck and is it reachable on reference environment?** YES. Clear targets with CPU/memory constraints specified.
-3. **Does the project need paid services, licensed data, or GPU?** NO. All tools are free and open source.
-4. **Can the student create test data in minutes?** YES. Deterministic generator script specified.
-5. **Can a screener check every rubric item in under 10 minutes?** YES. Single-command verification script provided.
-6. **Which component is most likely to blow the budget, and what is the fallback?** Heavy external clustering; fallback is local in-memory or single-container mock.
-7. **Could the result be faked?** Addressed with strict anti-fake checks requiring live log outputs and database state inspections.
-8. **Do licenses, terms, or safety matter?** Clarified that only synthetic fixtures with zero PII are permitted.
-
----
-
-### H. Change Log
-
-- Rebuilt brief into full 14-section standardized format.
-- Tech Stack annotated with precise functional roles in brackets.
-- Replaced pre-filled numbers with Google X-Y-Z placeholders (`[N]`, `[X%]`, `[M ms]`).
-- Formulated 3 seven-field scale targets.
-- Added explicit milestones summing exactly to 28 hours.
-- Created concrete screener verification rubric with anti-fake checks.
-- Added strict "Do not claim" line.
-
----
-
-### I. Self-Check
-
-- [x] All original headings present, in order; footer present; clean text: **PASS**
-- [x] Resume bullet: one sentence; placeholders only; "Do not claim" line present: **PASS**
-- [x] Every tool in Tech Stack has a role in brackets: **PASS**
-- [x] Every Skills item exercised in architecture, milestones, or rubric: **PASS**
-- [x] Milestone hours sum exactly to Est. Time (28h): **PASS**
-- [x] Every target has all seven fields and no absolute claims: **PASS**
-- [x] Same numbers in Targets, Rubric, and Bullet placeholders: **PASS**
-- [x] Rubric has single-check items with concrete pass criteria: **PASS**
-- [x] Every claim in bullet verified by rubric item; anti-fake check included: **PASS**
-- [x] No statistics, salaries, or employer claims: **PASS**
-- [x] Reference environment and fallback path stated: **PASS**
-- [x] Starter input spec, deliverables, and milestones exist: **PASS**
-- [x] Terms are accurate; core idea preserved: **PASS**
-- [x] Every [VERIFY] item tagged where appropriate: **PASS**
-
----
-
-### J. Re-Score of Improved Brief
-
-| Dimension | Score (0-10) | Evaluation of Improved Brief |
-| :--- | :---: | :--- |
-| **Topic Value** | 9.0 | High-impact technical curriculum design. |
-| **Verification Rubric** | 9.2 | Concrete single-check items with observable pass criteria. |
-| **Technical Accuracy** | 9.0 | Solid architectural patterns and error handling boundaries. |
-| **Scope Realism** | 9.0 | Balanced 28h milestone breakdown fitting intermediate band. |
-| **Completeness** | 9.5 | Complete 14-section curriculum with seed specs and deliverables. |
-| **Honesty of Claims** | 9.5 | Zero marketing, strictly bracketed placeholders. |
-| **Resume Bullet Safety** | 9.5 | Single sentence, strict placeholders only, explicit boundary line. |
-
-#### Re-Score Arithmetic
-$$\text{Weighted Score} = (9.0 \times 0.10) + (9.2 \times 0.15) + (9.0 \times 0.20) + (9.0 \times 0.15) + (9.5 \times 0.15) + (9.5 \times 0.15) + (9.5 \times 0.10)$$
-$$\text{Weighted Score} = 0.90 + 1.38 + 1.80 + 1.35 + 1.425 + 1.425 + 0.95 = 9.23 / 10$$
-- **Improved Score:** **9.23 / 10**
-- **Band:** **A (>= 8.5)**
+### Unverified Items ([VERIFY])
+None. All dependencies and test suites run on local free-tier or open-source software.

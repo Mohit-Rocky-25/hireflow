@@ -1,0 +1,357 @@
+{
+  "id": "brief-mlops-platform",
+  "title": "End-to-End MLOps Pipeline Platform with Automated Experiment Tracking, Model Registry & Drift Detection",
+  "domain": "ML Engineering",
+  "difficulty": "ADVANCED",
+  "project_types": [
+    "Data pipeline / ETL",
+    "Platform/infra tool"
+  ],
+  "problem": "Machine learning teams struggle with reproducible model training, ad-hoc versioning stored on local disks, and silent performance degradation when real-world data distributions drift from training sets. Manually packaging models into Docker containers introduces deployment discrepancies and untracked dependencies. This project builds a production-grade MLOps platform in Python. The platform orchestrates automated training pipelines, tracks model parameters, metrics, and artifacts in MLflow, gates model stage transitions in a central Model Registry, packages champion models into containerized FastAPI inference microservices via Docker, and detects covariate feature drift using statistical tests in automated CI/CD workflows.",
+  "use_cases": [
+    {
+      "title": "Predictive Maintenance Fleet Monitoring",
+      "first_sentence": "Manufacturing operations engineering teams need automated model retraining pipelines to forecast industrial turbine failures based on sensor telemetry.",
+      "second_sentence": "The platform ingests streaming sensor data, tracks model hyperparameter runs in MLflow, and automatically promotes newly trained models if validation metrics surpass current production thresholds."
+    },
+    {
+      "title": "E-Commerce Customer Churn Prediction Engine",
+      "first_sentence": "Growth analytics teams require reproducible customer churn prediction models that automatically retrain as quarterly consumer purchasing habits evolve.",
+      "second_sentence": "The system monitors feature distributions for covariate shift, triggering automated retraining pipelines and posting model registry evaluation reports before deployment."
+    },
+    {
+      "title": "Credit Risk Scoring & Financial Model Governance",
+      "first_sentence": "Fintech lending platforms subject to strict auditing regulations must maintain immutable audit trails of every model artifact, dataset version, and training script.",
+      "second_sentence": "The platform enforces strict model registry gating where models progress from Staging to Production only after passing automated bias and drift validation tests."
+    }
+  ],
+  "hard_parts": [
+    "Establishing deterministic MLflow experiment tracking and artifact lineage linking git commits to model weights",
+    "Implementing Kolmogorov-Smirnov and Population Stability Index (PSI) algorithms to detect subtle tabular feature drift",
+    "Designing automated model promotion criteria that evaluate candidate models against challenger benchmarks before registry tagging",
+    "Containerizing model inference servers with FastAPI and Docker ensuring minimal cold-start times and deterministic dependency isolation"
+  ],
+  "screener_signals": [
+    "Clean Python codebase cleanly separating data ingestion pipelines, MLflow tracking utilities, inference APIs, and drift analyzers",
+    "Comprehensive test suite verifying automated model promotion, inference endpoint latency, and statistical drift alerts",
+    "Anti-fake verification script submitting an intentionally drifted feature batch and verifying the platform detects covariate shift and flags retraining alerts"
+  ],
+  "job_families": [
+    "MLOps Engineer",
+    "Machine Learning Infrastructure Engineer",
+    "Data Platform Architect"
+  ],
+  "stack": [
+    {
+      "tool": "Python",
+      "role": "primary language implementing training pipelines, drift detection algorithms, and API servers"
+    },
+    {
+      "tool": "MLflow",
+      "role": "platform managing experiment tracking, parameter logging, and model registry lifecycle gating"
+    },
+    {
+      "tool": "Docker",
+      "role": "containerization engine building immutable model serving images for production deployment"
+    },
+    {
+      "tool": "FastAPI",
+      "role": "high-performance asynchronous framework exposing real-time model inference REST endpoints"
+    },
+    {
+      "tool": "GitHub Actions",
+      "role": "CI/CD orchestration engine executing automated model evaluation and container build workflows"
+    },
+    {
+      "tool": "PostgreSQL",
+      "role": "relational database serving as the persistent backend store for MLflow tracking metadata"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "Pipeline Ingestion & Preprocessing Runner",
+        "tools_used": [
+          "Python",
+          "PostgreSQL"
+        ],
+        "purpose": "Ingests raw feature datasets, computes transformations, and saves reproducible train/test splits"
+      },
+      {
+        "name": "MLflow Experiment Tracker & Model Registry",
+        "tools_used": [
+          "Python",
+          "MLflow",
+          "PostgreSQL"
+        ],
+        "purpose": "Logs hyperparameters, training metrics, and model artifacts while managing Staging/Production stage tags"
+      },
+      {
+        "name": "Automated Model Packaging & Docker Serving Container",
+        "tools_used": [
+          "Docker",
+          "FastAPI"
+        ],
+        "purpose": "Packages registered models into lightweight container images serving prediction requests over HTTP"
+      },
+      {
+        "name": "Statistical Feature Drift & Data Quality Monitor",
+        "tools_used": [
+          "Python"
+        ],
+        "purpose": "Executes Kolmogorov-Smirnov tests and PSI checks on incoming inference batches to flag distribution shifts"
+      },
+      {
+        "name": "CI/CD Model Validation & Automated Retraining Workflow",
+        "tools_used": [
+          "GitHub Actions",
+          "Docker"
+        ],
+        "purpose": "Runs automated validation suites on candidate models and triggers container rebuilds upon promotion"
+      },
+      {
+        "name": "Inference Latency & Throughput Benchmark Suite",
+        "tools_used": [
+          "Python",
+          "FastAPI"
+        ],
+        "purpose": "Benchmarks REST inference server latency, memory usage, and throughput under concurrent request loads"
+      },
+      {
+        "name": "MLOps Runbook & Architecture Documentation",
+        "tools_used": [
+          "MLflow"
+        ],
+        "purpose": "Documents pipeline DAGs, registry promotion criteria, drift monitoring thresholds, and deployment SOPs"
+      }
+    ],
+    "data_flow": "Feature datasets enter the preprocessing pipeline; the training script trains model candidates (e.g., LightGBM / XGBoost) and logs parameters, metrics, and serialized artifacts to MLflow; the registry compares the candidate against the current production baseline; if accuracy improves and passes safety gates, the model is tagged as Staging; GitHub Actions builds a Docker container embedding the model and FastAPI server; during active serving, input payloads stream to the drift monitor; when statistical feature divergence exceeds defined p-value thresholds (p < 0.05), a drift alert triggers and logs a retraining event.",
+    "enforcement_mechanism": "Model registry promotion checks asserting test accuracy > baseline before stage updates; strict schema validation on inference input payloads."
+  },
+  "targets": [
+    {
+      "metric": "Automated Model Training & Registration Pipeline Cycle Time",
+      "method": "Wall-clock timing from pipeline trigger to completed model training, artifact logging, and MLflow registry entry",
+      "input": "50,000 tabular records with 30 numeric and categorical features trained on standard classification model",
+      "environment": "Standard 4-core local CPU, 8GB RAM, local MLflow server with SQLite/PostgreSQL backend",
+      "minimum_pass": "End-to-end training and registration pipeline cycle time is < 8.0 minutes",
+      "target": "End-to-end training and registration pipeline cycle time is < 3.5 minutes",
+      "report": "MLOps pipeline execution timing log and MLflow run manifest"
+    },
+    {
+      "metric": "Containerized Model Inference p95 Latency",
+      "method": "Wall-clock timing for single-record prediction requests sent to containerized FastAPI inference endpoint",
+      "input": "1,000 sequential prediction requests issued over local HTTP connection",
+      "environment": "Standard 4-core local CPU, Docker container runtime with FastAPI and Uvicorn",
+      "minimum_pass": "p95 model inference response latency is < 25.0 milliseconds",
+      "target": "p95 model inference response latency is < 9.5 milliseconds",
+      "report": "FastAPI inference latency profiling report and summary table"
+    },
+    {
+      "metric": "Covariate Feature Drift Detection Recall",
+      "method": "Percentage of intentionally drifted feature batches correctly flagged by Kolmogorov-Smirnov statistical tests",
+      "input": "50 drifted feature test batches with simulated distribution shifts (mean shift, variance scale) alongside 50 control batches",
+      "environment": "Python 3.11 with SciPy statistical testing suite",
+      "minimum_pass": "Feature drift detection recall is >= 90.0% with false positive rate < 5.0%",
+      "target": "Feature drift detection recall is >= 98.0% with false positive rate < 2.0%",
+      "report": "Drift detection validation report and statistical p-value audit log"
+    }
+  ],
+  "skills": [
+    "Python",
+    "MLflow",
+    "Docker",
+    "FastAPI",
+    "GitHub Actions",
+    "PostgreSQL",
+    "ML Engineering",
+    "Data Pipelines",
+    "MLOps"
+  ],
+  "starter_input": {
+    "spec": "Directory containing 50,000 tabular feature records in CSV format, MLflow pipeline scaffolding, and Dockerfiles.",
+    "size": "50,000 tabular rows (approx 12MB CSV), 5 training configuration YAMLs, and drift evaluation scripts",
+    "seeded_cases": "Sudden mean shifts in continuous features, missing categorical levels in inference payloads, and model artifact serialization corruption",
+    "label_source": "Deterministic ground-truth target labels and pre-calculated feature statistical baseline profiles",
+    "personal_data_policy": "Strictly mock synthetic industrial sensor readings and simulated customer features; no real personal data used"
+  },
+  "components": [
+    {
+      "name": "Pipeline Ingestion & Preprocessing Runner",
+      "task_type": "data pipeline step",
+      "hours": 6.0
+    },
+    {
+      "name": "MLflow Experiment Tracker & Model Registry",
+      "task_type": "infra component (broker, DB, orchestrator, cluster service)",
+      "hours": 6.0
+    },
+    {
+      "name": "Automated Model Packaging & Docker Serving Container",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "Statistical Feature Drift & Data Quality Monitor",
+      "task_type": "data pipeline step",
+      "hours": 5.0
+    },
+    {
+      "name": "CI/CD Model Validation & Automated Retraining Workflow",
+      "task_type": "API endpoint group with tests",
+      "hours": 5.0
+    },
+    {
+      "name": "Inference Latency & Throughput Benchmark Suite",
+      "task_type": "load or performance test harness + report",
+      "hours": 4.0
+    },
+    {
+      "name": "MLOps Runbook & Architecture Documentation",
+      "task_type": "docs + architecture diagram",
+      "hours": 3.0
+    }
+  ],
+  "extended_path": {
+    "features": [
+      "Real-time A/B shadow deployment routing traffic between Production and Staging models via Envoy proxy",
+      "Automated hyperparameter tuning sweeps using Ray Tune or Optuna with MLflow tracking integration",
+      "Prometheus and Evidently AI metrics integration streaming data quality metrics to Grafana dashboards"
+    ],
+    "hours": 16
+  },
+  "milestones": [
+    {
+      "name": "Data Pipelines Ingestion & ML Engineering Tracking in Python and MLflow",
+      "hours": 10,
+      "done_criterion": "Preprocessing runs; MLflow logs hyperparameters, metrics, and models with artifact lineage."
+    },
+    {
+      "name": "Model Registry Gating & Docker Packaging in Docker and FastAPI",
+      "hours": 10,
+      "done_criterion": "Model promotes from Staging to Production; Docker packages model into working FastAPI service."
+    },
+    {
+      "name": "Statistical Drift Detection & CI/CD Validation in GitHub Actions and PostgreSQL",
+      "hours": 10,
+      "done_criterion": "Drift monitor detects >= 90% of drifted batches; GitHub Actions runs validation suite."
+    },
+    {
+      "name": "Inference Benchmarking, Anti-Fake Drift Test & Docs in MLOps",
+      "hours": 10,
+      "done_criterion": "Inference latency is < 25ms; anti-fake test catches dynamic drift; documentation complete."
+    }
+  ],
+  "prerequisites": [
+    "Proficiency in Python programming, machine learning libraries (scikit-learn, LightGBM/XGBoost), and pandas",
+    "Familiarity with containerization (Docker), API design with FastAPI, and experiment tracking concepts"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (purely CPU-bound tabular machine learning and model serving)",
+    "cost": "$0 (fully open-source stack using local MLflow, Docker, and Python)",
+    "accounts_keys_quotas": "No external cloud accounts, paid services, or API keys required",
+    "reference_environment": "Local 4-core CPU with Docker Desktop, Python 3.11, and MLflow installed",
+    "fallback_path": "Local SQLite database and filesystem artifact store without running dedicated database servers"
+  },
+  "riskiest_component": {
+    "name": "Silent Model Performance Degradation Due to Undetected Feature Drift",
+    "mitigation": "Combine Kolmogorov-Smirnov non-parametric tests for numerical features with Chi-Square tests for categorical features.",
+    "fallback": "Automated daily scheduled retraining jobs on recent time-windowed feature snapshots."
+  },
+  "deliverables": [
+    "Git repository containing end-to-end MLOps pipeline scripts, MLflow wrappers, and drift detectors",
+    "Production Dockerfile building containerized FastAPI model serving image with health check probes",
+    "Automated drift detection test suite validating statistical shift detection on simulated test batches",
+    "Screener verification script executing pipeline execution and dynamic drift alert validation in under 3 minutes"
+  ],
+  "out_of_scope": [
+    "Multi-node GPU distributed deep learning pre-training clusters",
+    "Commercial cloud platform billing account provisioning (AWS SageMaker, GCP Vertex AI)",
+    "Hardware edge embedded TPU firmware authoring"
+  ],
+  "safety_note": null,
+  "resources": [
+    "MLflow Documentation: Tracking, Model Registry, and Deployment Guides",
+    "Evidently AI / SciPy Statistical Drift Detection Architecture Guidelines",
+    "FastAPI Production Machine Learning Serving Design Patterns"
+  ],
+  "rubric": [
+    {
+      "input": "50,000 tabular feature records processed through automated training pipeline",
+      "action": "python -m mlops_pipeline.train_and_register --config configs/train_config.yaml",
+      "expected_result": "Pipeline trains model, logs metrics to MLflow, and registers candidate in under 8.0 minutes",
+      "evidence_location": "Terminal execution output log and reports/pipeline_timing.json",
+      "pass_criterion": "Cycle time is < 8.0 minutes and MLflow run status is FINISHED with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "1,000 prediction requests sent to containerized FastAPI model service",
+      "action": "python scripts/benchmark_inference.py --endpoint http://localhost:8000/predict --requests 1000",
+      "expected_result": "Inference server fulfills requests with p95 response latency < 25.0 milliseconds",
+      "evidence_location": "Inference latency profiling summary table",
+      "pass_criterion": "p95 latency is < 25.0ms with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "50 drifted feature test batches and 50 control feature test batches",
+      "action": "python -m mlops_pipeline.evaluate_drift --data-dir test_data/drift_batches",
+      "expected_result": "Drift monitor correctly flags >= 90.0% of drifted batches with false positive rate < 5.0%",
+      "evidence_location": "Drift evaluation audit report in reports/drift_evaluation.json",
+      "pass_criterion": "Detection recall is >= 90.0% and exit code is 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Model candidate meeting promotion criteria evaluated against production baseline",
+      "action": "python -m mlops_pipeline.promote_model --model-name CustomerModel --metric-threshold 0.85",
+      "expected_result": "MLflow model registry updates stage tag to 'Production' and logs transition event",
+      "evidence_location": "MLflow registry status output",
+      "pass_criterion": "Model stage equals 'Production' with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Dynamic feature batch with injected artificial mean shift submitted to monitoring endpoint",
+      "action": "python scripts/verify_dynamic_drift.py --batch-file test_data/dynamic_drift.csv",
+      "expected_result": "Monitor computes Kolmogorov-Smirnov test (p < 0.01), flags feature drift, and logs retraining alert",
+      "evidence_location": "Dynamic verification console execution output log",
+      "pass_criterion": "Console output logs 'DRIFT_DETECTED: Feature X p-value < 0.01' with exit code 0",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected end-to-end MLOps platform in Python and Docker using MLflow and FastAPI; automated model registry gating with sub-[CYCLE_MINUTES] minute pipeline cycles, and achieved [DRIFT_RECALL] drift detection recall across [BATCH_COUNT] evaluation batches.",
+    "claims": [
+      {
+        "text": "automated model registry gating with sub-[CYCLE_MINUTES] minute pipeline cycles",
+        "rubric_indexes": [
+          0
+        ]
+      },
+      {
+        "text": "achieved [DRIFT_RECALL] drift detection recall across [BATCH_COUNT] evaluation batches",
+        "rubric_indexes": [
+          2
+        ]
+      }
+    ],
+    "do_not_claim": "multi-node GPU distributed deep learning pre-training clusters or commercial cloud billing account management"
+  },
+  "verify": [
+    "Run `python -m pytest tests/` to confirm data preprocessing, MLflow tracking, and drift detection pass.",
+    "Execute `python -m mlops_pipeline.train_and_register` to verify automated model training and registration.",
+    "Run `python scripts/verify_dynamic_drift.py` to assert that dynamic drifted feature batches trigger verified alerts."
+  ],
+  "worksheet": {
+    "q1": "Core deliverable: an end-to-end MLOps platform in Python with MLflow tracking, model registry gating, Docker serving, and drift detection.",
+    "q2": "Target users: MLOps engineers, machine learning platform developers, and enterprise data architects.",
+    "q3": "3 use cases: predictive maintenance fleet monitoring, customer churn prediction, and regulated credit risk scoring.",
+    "q4": "Stated hours: 40 hours. Calculated bottom-up: 35 component hours * 1.15 buffer = 40.25 -> 40 hours. Advanced level.",
+    "q5": "Hard parts: MLflow experiment lineage linking code to weights, Kolmogorov-Smirnov drift detection, automated challenger-champion gating, and lightweight Docker inference packaging.",
+    "q6": "Starter input: 50,000 tabular feature records in CSV format, MLflow pipeline scaffolding, and Dockerfiles. Synthetic sensor data only.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU only, $0 cost, zero cloud accounts. Fallback: local SQLite and filesystem MLflow backend.",
+    "q8": "Riskiest component: silent drift causing performance degradation. Fallback: non-parametric Kolmogorov-Smirnov tests and scheduled retraining.",
+    "q9": "Potential faking: mock hardcoded drift logs. Anti-fake check 5 generates dynamically shifted feature distributions, asserts p-value < 0.01 flag.",
+    "q10": "Safety/ethics: Safe; synthetic sensor telemetry and customer records only, zero private enterprise data."
+  }
+}

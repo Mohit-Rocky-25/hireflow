@@ -2,121 +2,155 @@ PROJECT BRIEF — Credit Risk Scoring & Loan Underwriting ML System
 ======================================================================
 
 Domain    : FinTech Engineering
-Difficulty: intermediate
-Est. Time : 28 hours (Core Path) | Extended Path: +6 hours
-Tech Stack: Python [core programming language and algorithmic runtime], XGBoost [xgboost component], SHAP [shap component], FastAPI [high-performance asynchronous REST API framework], PostgreSQL [relational database management system], Scikit-learn [scikit-learn component]
+Difficulty: INTERMEDIATE
+Est. Time : 29 hours (core path, estimate). Extended path: +14 hours
+Tech Stack: Python (model training pipeline, feature engineering, and inference API implementation), XGBoost (gradient boosted decision tree framework with monotonic constraint support), Scikit-learn (data preprocessing, probability calibration, and ROC-AUC evaluation metrics), SHAP (explainability library computing TreeSHAP values for adverse factor extraction), FastAPI (asynchronous REST API serving real-time credit scoring decisions), Pandas (tabular data manipulation and feature aggregation framework)
 
 PROBLEM STATEMENT
-----------------------------------------
-Traditional credit scoring (CIBIL) excludes 400M+ Indians who lack formal credit history. Alternative data sources (mobile usage, UPI transaction patterns, social signals) can accurately predict creditworthiness. Build an ML credit scoring model using alternative data with regulatory model explainability (SHAP).
+----------------------------------------------------------------------
+Traditional financial underwriting relies heavily on static credit bureau scores that systematically exclude populations lacking extensive formal credit histories. Machine learning credit risk models overcome this barrier by synthesizing transactional banking patterns, behavioral repayment indicators, and alternative cashflow features. Deploying machine learning in credit risk requires rigorous probability calibration, feature monotonicity enforcement to satisfy regulatory fair-lending requirements, automated adverse action factor attribution using SHAP values, and real-time inference latency guarantees.
 
 USE CASES IN THE REAL WORLD
-----------------------------------------
-Slice, KreditBee, EarlySalary, Navi, and MoneyTap are all building alternative credit models in India. RBI guidelines require explainable AI for credit decisions. BNPL companies (LazyPay, Simpl) need this for instant credit line assignment.
+----------------------------------------------------------------------
+- Automated loan default risk assessment for digital consumer lending platforms
+- Instant credit line underwriting for point-of-sale buy-now-pay-later checkouts
+- Regulatory adverse action notice generation explaining top negative scoring factors
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Credit risk modeling requires domain-specific knowledge of financial data, model explainability for regulatory compliance, and understanding of class imbalance handling — skills that combine ML engineering with FinTech domain expertise. This combination is extremely valuable and rare.
+WHY THIS IS HARD
+----------------------------------------------------------------------
+- Handling severe class imbalance (typically < 3% default rates) without inflating false positive rejections
+- Enforcing monotonic feature constraints in gradient boosting models to satisfy fair lending and financial audit rules
+- Calibrating raw model logits into empirical probabilities of default using isotonic regression or Platt scaling
+- Extracting real-time SHAP tree values for adverse action explanation within sub-30ms API response windows
 
 RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-FinTech ML roles at Slice, Navi, top tech platforms, and top tech platforms explicitly require credit scoring experience. SHAP-based explainability for regulatory compliance (RBI requirement) is a specific and demonstrable skill that sets you apart from generic ML engineers.
+----------------------------------------------------------------------
+- Reproducible ML training pipeline with monotonic feature transformations and cross-validation reports
+- Calibrated default probability curve verified via Brier score and reliability calibration plots
+- FastAPI serving endpoint returning default probability and top-3 negative contributing SHAP factors
+Relevant Job Families: Machine Learning Engineer, Credit Risk Modeling Analyst, FinTech Data Scientist
 
 ARCHITECTURE & DATA FLOW
-----------------------------------------
-Feature engineering pipeline extracting 80+ features from alternative data (transaction frequency, merchant categories, timing patterns). XGBoost gradient boosting model with SHAP explainability. Model scorecard interface. FastAPI serving endpoint with < 100ms scoring latency. PostgreSQL audit trail for regulatory compliance.
+----------------------------------------------------------------------
+Components:
+- Feature Engineering Pipeline (Tools: Python, Pandas): Computes debt-to-income, cashflow volatility, and Weight of Evidence (WoE) monotonic binnings
+- Monotonic XGBoost Model (Tools: Python, XGBoost): Trains gradient boosted trees enforcing positive and negative monotonic risk constraints
+- Probability Calibration Layer (Tools: Python, Scikit-learn): Transforms raw model margins into well-calibrated default probabilities using Platt scaling
+- Adverse Action SHAP Explainer (Tools: Python, SHAP): Extracts top-3 features increasing applicant default probability for regulatory disclosure notices
+- Real-Time Underwriting Gateway (Tools: Python, FastAPI): Exposes HTTP scoring route returning credit decisions, default probabilities, and reason codes
+
+Data Flow:
+Applicant financial attributes enter via HTTP POST to FastAPI; Feature Pipeline calculates WoE transformed vectors; XGBoost scores risk margins with monotonic constraints; Probability Calibration Layer maps margin to default probability; SHAP Explainer extracts top adverse contributing features; Gateway returns decision (APPROVE, REVIEW, DECLINE) with calibrated probability and top-3 reason codes.
+
+Enforcement Mechanism:
+Monotonic constraints enforced during tree building preventing higher income from increasing default probability; automated decision cutoffs routing high-risk applications to manual review.
 
 SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Target 1:
-- Metric: Ingestion & Transformation Throughput
-- Method: Continuous ingestion benchmark streaming synthetic records from seed file
-- Input/dataset: 100,000 structured synthetic records (~250 bytes each)
-- Reference environment: Local workstation with 8GB RAM and SSD storage
-- Minimum pass: Ingestion rate > [N] records/sec (minimum > 1,500 records/sec)
-- Target: Ingestion rate > [N] records/sec (target > 6,000 records/sec)
-- Report format: Pipeline execution log showing total records, wall-clock time, and records/sec
-
-Target 2:
-- Metric: Analytical Aggregation Latency (p95)
-- Method: Analytical query execution over seeded historical dataset
-- Input/dataset: Seeded database table with 1,000,000 historical rows
-- Reference environment: Local database engine in Docker with 2GB memory ceiling
-- Minimum pass: p95 query latency < [M ms] (minimum < 400ms)
-- Target: p95 query latency < [M ms] (target < 100ms)
-- Report format: Database query analyzer output showing execution time and scanned rows
-
-Target 3:
-- Metric: Data Quality & Reconciliation Precision
-- Method: End-to-end reconciliation check comparing ingested ledger vs. source stream
-- Input/dataset: Injected discrepancy dataset with [X] intentional duplicate and corrupted records
-- Reference environment: Local automated test runner
-- Minimum pass: [X of Y] discrepancies correctly identified and quarantined (100% pass on test set)
-- Target: [X of Y] discrepancies identified with 0 false positives
-- Report format: Markdown reconciliation report with discrepancy breakdown
+----------------------------------------------------------------------
+Metric | Method | Input/Dataset | Reference Environment | Minimum Pass | Target | Report Format
+Model Discrimination Power (ROC-AUC) | 5-fold stratified cross-validation evaluated on held-out test split with zero feature leakage | Labelled synthetic dataset of 10,000 credit applicant profiles with 2.8% historical default rate | Standard 4-core local CPU, Python 3.11+ | ROC-AUC >= 0.74 on held-out test split | ROC-AUC >= 0.81 on held-out test split | Scikit-learn classification report and ROC curve plot export
+Probability Calibration Reliability (Brier Score) | Brier score calculation comparing calibrated predicted default probabilities against true outcomes | Held-out test split of 2,000 credit applications across all score deciles | Standard 4-core local CPU, Scikit-learn CalibratedClassifierCV | Brier score <= 0.14 across evaluation dataset | Brier score <= 0.09 across evaluation dataset | Reliability calibration curve plot and decile calibration table
+Real-Time Underwriting Decision Latency | Autocannon benchmark measuring duration of feature preprocessing, model scoring, and SHAP extraction | 1,000 synthetic applicant requests sent across 10 concurrent HTTP clients | Standard 4-core local CPU, local loopback network | p95 decision latency < 45ms per applicant request | p95 decision latency < 22ms per applicant request | Benchmark latency distribution log and Locust percentile export
 
 SKILLS COVERED
-----------------------------------------
-Python, Scikit-learn, XGBoost, FastAPI, PostgreSQL, Feature Engineering
+----------------------------------------------------------------------
+Python, XGBoost, Scikit-learn, SHAP, FastAPI, FinTech, Machine Learning
 
 TARGET APPLICATION / STARTER INPUT
-----------------------------------------
-The project provides a self-contained test environment and fixture generator located in `scripts/` or `fixtures/`. It deterministically generates representative input records or mock client traffic for automated validation. No third-party proprietary data or real personal identifiers (PII) are required; all test datasets use synthetic tokens and deterministic random seeds.
+----------------------------------------------------------------------
+- Specification: Tabular credit application dataset with financial attributes (income, debt-to-income, delinquencies, utilization) and default label.
+- Dataset / Traffic Size: 10,000 synthetic applicant rows with 18 financial feature columns and binary default flag
+- Seeded Edge Cases: Extreme low debt applicants with delinquencies, zero-income outliers, missing credit utilization entries, and high-income applicants
+- Label / Verification Source: Deterministic synthetic data generator using fixed seed 9912 modeling realistic credit distributions
+- Personal Data Policy: Strictly synthetic financial attributes; zero real personal identifiable information, bank accounts, or SSNs used
 
 MILESTONES
-----------------------------------------
-- Milestone 1: Environment Setup & Core Foundations (6h)
-  Configure repository, tooling, container dependencies, and foundational data structures. Done when foundational test suite passes with clean linting.
-- Milestone 2: Core Processing & Architecture Implementation (8h)
-  Implement primary operational workflows, database models or state transitions, and API endpoints. Done when integration tests verify end-to-end data flow under normal operating conditions.
-- Milestone 3: Concurrency, Reliability & Error Guardrails (8h)
-  Implement defensive controls: rate limiting, retries with exponential backoff, transaction boundaries, and failure isolation. Done when chaos or stress tests verify graceful degradation under fault injection.
-- Milestone 4: Verification, Benchmarking & Documentation (6h)
-  Execute performance benchmark harness, compile measurement tables, generate architectural diagrams, and document screener verification steps. Done when `scripts/verify_all` passes completely.
+----------------------------------------------------------------------
+M1: Feature Engineering & Monotonic WoE Binning Pipeline (8h) — Done when: Feature pipeline computes WoE transformations and enforces monotonic risk relationships.
+M2: XGBoost Training, Machine Learning Calibration & Evaluation (7h) — Done when: XGBoost model trains with monotonic constraints; Platt calibration achieves Brier score <= 0.14.
+M3: SHAP Explainability & FastAPI FinTech Decision Gateway (8h) — Done when: API endpoint scores applicants and returns top-3 SHAP adverse factor codes in < 45ms.
+M4: Fairness Audit, Anti-Fake Test, Docs & Buffer (6h) — Done when: Disparity audit verifies fairness metrics; anti-fake test validates dynamic applicant; docs complete.
+Total: 29 hours (estimate)
 
 PREREQUISITES, ENVIRONMENT AND ACCOUNTS
-----------------------------------------
-- Prerequisites: Familiarity with Python and XGBoost, standard command-line tools, and fundamental testing principles.
-- Hardware / OS: Standard modern computer (macOS, Linux, or Windows with WSL2) with at least 8GB RAM.
-- Accounts & Services: None required. Designed to run completely on free, open-source local software.
-- Fallback Path: In-memory mock drivers or SQLite/local files provided if external database or message broker containers cannot be run.
+----------------------------------------------------------------------
+Prerequisites: Intermediate Python programming (Pandas, NumPy, Scikit-learn), Applied machine learning concepts (gradient boosting, cross-validation, ROC-AUC, calibration), Basic knowledge of credit underwriting metrics (debt-to-income, probability of default)
+
+Environment & Hardware:
+- OS: Linux / macOS / Windows with WSL2
+- Memory: 8GB RAM
+- Compute / GPU: None required (purely CPU-bound tabular machine learning)
+- Estimated Cost: $0 (fully open-source software stack)
+- Accounts & Quotas: No external cloud accounts, paid services, or API keys required
+- Reference Environment: Local 4-core CPU with Python 3.11 installed
+- Fallback Path: Logistic Regression with statsmodels if XGBoost installation encounters platform compiler issues
+
+Riskiest Component & Fallback:
+- Riskiest Component: TreeSHAP Computation Latency on Complex Ensembles
+- Simpler Fallback: Constrain XGBoost max_depth to 4 trees and evaluate fast TreeExplainer approximations
 
 DELIVERABLES
-----------------------------------------
-1. Clean Git repository with structured commit history, README, and reproducible setup commands.
-2. Production-quality core codebase with automated test suite achieving verified pass rates.
-3. Performance benchmark report (`results/benchmark_report.md`) documenting measured latency, throughput, and resource utilization.
-4. Screener verification script (`scripts/verify_all.sh` or equivalent) validating the full system in < 3 minutes.
-5. Architecture diagram (Mermaid/ASCII) and known limitations document explaining architectural trade-offs.
+----------------------------------------------------------------------
+- Git repository containing training pipelines, calibrated model artifact, and FastAPI application
+- Synthetic 10,000-applicant training and validation datasets
+- Model card and explainability report documenting ROC-AUC, calibration curves, and SHAP distributions
+- Screener verification script running scoring and dynamic applicant evaluation in under 2 minutes
 
 OUT OF SCOPE AND EXTENDED PATH
-----------------------------------------
-- Out of Scope for Core Path: Distributed multi-region clustering, enterprise SSO integrations, complex third-party SaaS dependencies.
-- Extended Path (+6 hours): Advanced telemetry dashboard, distributed persistence cluster extension, or automated canary release pipeline.
+----------------------------------------------------------------------
+Out of Scope:
+- Real-money credit underwriting or live credit card issuance
+- Integration with licensed credit reporting bureaus
+- Core banking payment ledger integration
 
-SAFETY AND ETHICS NOTE
-----------------------------------------
-All data processed, generated, and benchmarked by this project consists exclusively of synthetic fixtures. No personal identifiable information (PII), proprietary credentials, or live external endpoints are used.
+Extended Path (+14 hours):
+- Dynamic population stability index (PSI) monitoring tracking feature drift over consecutive monthly batches
+- Alternative cashflow time-series feature extractor analyzing simulated bank transaction streams
 
 LEARNING RESOURCES
-----------------------------------------
-- Official Documentation for Python, XGBoost, SHAP
-- Architectural Reference Patterns and RFC Standards [VERIFY URL]
-- Systems & Distributed Reliability Principles
+----------------------------------------------------------------------
+- XGBoost official documentation on monotonic constraints
+- Scikit-learn probability calibration guide and Brier score documentation
+- SHAP Python documentation for tree explainers and local attribution
 
 SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Check 1: Verify sHAP waterfall charts providing human-readable explanation for each credit decision; Pass when automated test script prints 0 errors and logs verified status code.
-2. Check 2: Verify gini coefficient and KS statistic evaluation on holdout test dataset; Pass when automated test script prints 0 errors and logs verified status code.
-3. Check 3: Verify fairness audit checking model does not discriminate by gender/geography; Pass when automated test script prints 0 errors and logs verified status code.
-4. Check 4: Verify model monitoring dashboard tracking PSI (Population Stability Index) over time; Pass when automated test script prints 0 errors and logs verified status code.
-5. Check 5: Verify aPI endpoint with Swagger docs tested at 100k applications/hour throughput; Pass when automated test script prints 0 errors and logs verified status code.
-6. Check 6: 6. Anti-Fake Verification Check: Inspect committed execution logs and re-run verification script against seeded test fixtures; pass when runtime metrics dynamically reflect test execution rather than static mocked responses.
+----------------------------------------------------------------------
+1. Check
+   Input: Synthetic dataset of 10,000 credit applicant profiles
+   Action: Run python scripts/train_model.py
+   Result: Model trains with monotonic constraints and reports validation metrics
+   Evidence: Training console execution log and artifacts/model.json
+   Pass: Validation ROC-AUC is >= 0.74 with Platt calibration applied
+2. Check
+   Input: Calibrated model artifact evaluated on held-out test split
+   Action: Run python scripts/evaluate_calibration.py
+   Result: Script computes Brier score and generates reliability calibration curve
+   Evidence: reports/calibration_summary.json and reliability_curve.png
+   Pass: Calculated Brier score is <= 0.14 across all test deciles
+3. Check
+   Input: Sample loan application payload POSTed to /underwrite endpoint
+   Action: Execute curl -X POST -H 'Content-Type: application/json' -d @fixtures/applicant.json http://localhost:8000/underwrite
+   Result: API returns decision, calibrated default probability, and top-3 SHAP adverse factor codes in < 45ms
+   Evidence: Terminal HTTP response payload
+   Pass: HTTP status 200 with valid probability float and 3 distinct adverse factor reasons
+4. Check
+   Input: Monotonicity verification script python scripts/verify_monotonicity.py
+   Action: Evaluate risk predictions across synthetic applicant pairs with increasing debt-to-income
+   Result: Predicted probability of default monotonically increases as debt-to-income increases
+   Evidence: Monotonicity verification report log
+   Pass: 0 monotonicity constraint violations detected across 1,000 synthetic test pairs
+5. Check [anti_fake]
+   Input: Dynamic applicant profile with heavily elevated revolving credit utilization generated at runtime
+   Action: Run python scripts/verify_dynamic_applicant.py --utilization 95.5
+   Result: API evaluates applicant dynamically and identifies credit utilization as the #1 adverse factor
+   Evidence: Dynamic verification console output log
+   Pass: Primary adverse reason code equals HIGH_REVOLVING_UTILIZATION with exit code 0
 
 RESUME BULLET FORMULA
-----------------------------------------
-"Developed alternative credit scoring model using XGBoost and SHAP; achieved [N] Gini coefficient on alternative data with full regulatory explainability for [N] req/sec applications/hour."
-Do not claim: scale, latency, or throughput figures without committing benchmark run logs; do not claim production deployment unless deployed to a verifiable live environment.
+----------------------------------------------------------------------
+"Architected credit risk underwriting ML system in Python and FastAPI using XGBoost and SHAP; achieved [MODEL_AUC] ROC-AUC on a [TEST_SET_SIZE] applicant test split, calibrated default probabilities to [BRIER_SCORE] Brier score, and delivered top adverse factors with sub-[DECISION_LATENCY] decision latency."
+
+Do not claim: compliance with specific sovereign financial regulations or real-money lending decisions without licensed financial underwriting data
 
 ======================================================================
 Generated by HireFlow — hireflow.io

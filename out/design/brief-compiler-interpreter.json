@@ -1,0 +1,298 @@
+{
+  "id": "brief-compiler-interpreter",
+  "title": "Custom Programming Language Interpreter & AST Evaluator",
+  "domain": "Computer Science Fundamentals",
+  "difficulty": "ADVANCED",
+  "project_types": [
+    "Systems/low-level/networking",
+    "CLI/tools/libraries"
+  ],
+  "problem": "Software engineers interact with high-level programming languages daily, yet the underlying execution mechanisms\u2014lexical tokenization, recursive descent parsing, abstract syntax tree construction, scope resolution, and virtual machine bytecode evaluation\u2014remain opaque black boxes. Building an interpreter from first principles clarifies runtime language mechanics and domain-specific language design. This project implements a complete programming language engine in Go comprising a lexical scanner, a Pratt operator-precedence parser, an AST tree-walking evaluator with lexical closures, and an alternative stack-based bytecode compiler and virtual machine.",
+  "use_cases": [
+    "Domain-specific configuration languages for enterprise rule evaluation engines",
+    "Sandboxed scripting runtimes for game development and plugin extensions",
+    "Interactive command-line query parsers for proprietary data structures"
+  ],
+  "hard_parts": [
+    "Implementing Pratt operator precedence parsing to handle complex infix, prefix, and postfix expressions cleanly",
+    "Preserving lexical closure state across first-class and higher-order functions without leaking scope bindings",
+    "Compiling nested control flow structures into linear bytecode instructions with relative jump address resolution",
+    "Optimizing virtual machine stack operations to minimize garbage collection allocations in hot execution loops"
+  ],
+  "screener_signals": [
+    "Modular Go implementation cleanly separating lexer, parser, AST nodes, compiler, and VM modules",
+    "Deterministic language test suite verifying 120 distinct syntax programs and edge cases",
+    "Anti-fake verification script accepting dynamic arithmetic and closure scripts via stdin and asserting output"
+  ],
+  "job_families": [
+    "Language Infrastructure Engineer",
+    "Systems Software Engineer",
+    "Developer Tooling Engineer"
+  ],
+  "stack": [
+    {
+      "tool": "Go",
+      "role": "systems programming language for compiler, AST evaluator, and bytecode virtual machine"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "Lexical Scanner",
+        "tools_used": [
+          "Go"
+        ],
+        "purpose": "Converts raw source code text into a structured stream of typed language tokens"
+      },
+      {
+        "name": "Pratt AST Parser",
+        "tools_used": [
+          "Go"
+        ],
+        "purpose": "Constructs an abstract syntax tree using top-down operator precedence parsing algorithms"
+      },
+      {
+        "name": "AST Tree-Walking Evaluator",
+        "tools_used": [
+          "Go"
+        ],
+        "purpose": "Evaluates AST nodes directly while managing lexical scope environments and closure captures"
+      },
+      {
+        "name": "Bytecode Compiler & Stack VM",
+        "tools_used": [
+          "Go"
+        ],
+        "purpose": "Translates AST into bytecode instructions and executes opcodes on an efficient stack virtual machine"
+      },
+      {
+        "name": "Interactive REPL Interface",
+        "tools_used": [
+          "Go"
+        ],
+        "purpose": "Provides interactive read-eval-print-loop shell for real-time expression evaluation and debugging"
+      }
+    ],
+    "data_flow": "Source code text enters the Lexical Scanner; tokens are emitted to the Pratt Parser; the parser constructs an Abstract Syntax Tree; for interpreted mode, the Tree-Walking Evaluator executes nodes within an Environment scope frame; for compiled mode, the Bytecode Compiler emits instructions and constant pools; the Stack Virtual Machine executes opcodes, manipulating the operand stack and returning output values.",
+    "enforcement_mechanism": "Parser syntax error reporting halting execution upon invalid token sequences; runtime type assertions checking operand compatibility."
+  },
+  "targets": [
+    {
+      "metric": "Language Spec Compliance Test Coverage",
+      "method": "Automated execution of language test suite covering expressions, statements, closures, and recursion",
+      "input": "120 deterministic test programs validating all grammar rules and error conditions",
+      "environment": "Standard 4-core local CPU, Go 1.21+",
+      "minimum_pass": "120 of 120 test programs pass with expected output and 0 runtime crashes",
+      "target": "120 of 120 test programs pass with expected output and 0 runtime crashes",
+      "report": "go test ./... execution summary log report"
+    },
+    {
+      "metric": "Recursive Function Execution Latency",
+      "method": "Benchmark measuring execution duration of recursive Fibonacci(25) algorithm",
+      "input": "Script program computing 25th Fibonacci number via recursive function calls",
+      "environment": "Standard 4-core local CPU, Go 1.21+",
+      "minimum_pass": "Execution completes in < 2.0s on AST evaluator and < 450ms on Bytecode VM",
+      "target": "Execution completes in < 1.2s on AST evaluator and < 250ms on Bytecode VM",
+      "report": "Benchmark execution timing log comparing evaluator modes"
+    },
+    {
+      "metric": "Lexical Scope Isolation Invariant",
+      "method": "Test suite evaluating inner block variable shadowing and closure state encapsulation",
+      "input": "30 test fixtures with deeply nested scopes, closures, and variable shadowing",
+      "environment": "Standard 4-core local CPU, Go 1.21+",
+      "minimum_pass": "30 of 30 test fixtures confirm inner variables do not mutate outer bindings",
+      "target": "30 of 30 test fixtures confirm inner variables do not mutate outer bindings",
+      "report": "Unit test assertions log for environment scope frames"
+    }
+  ],
+  "skills": [
+    "Go",
+    "Algorithms",
+    "Parsing",
+    "Compilers",
+    "Data Structures"
+  ],
+  "starter_input": {
+    "spec": "Formal language grammar specification (EBNF) describing tokens, expressions, statements, and function syntax.",
+    "size": "Formal grammar definition document and 15 sample scripts demonstrating language features",
+    "seeded_cases": "Operator precedence edge cases (e.g., 2 + 3 * 4), nested closures mutating outer counters, and deeply nested blocks",
+    "label_source": "Deterministic language specification reference test suite with expected terminal outputs",
+    "personal_data_policy": "Strictly code text and synthetic language programs; no personal data used"
+  },
+  "components": [
+    {
+      "name": "Lexical Scanner & Tokenizer",
+      "task_type": "low-level/system subsystem",
+      "hours": 5.0
+    },
+    {
+      "name": "Pratt Recursive Descent Parser",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "Environment Scope & Closure Evaluator",
+      "task_type": "concurrency/consistency mechanism with tests",
+      "hours": 5.0
+    },
+    {
+      "name": "Bytecode Compiler & Stack VM",
+      "task_type": "low-level/system subsystem",
+      "hours": 8.0
+    },
+    {
+      "name": "Interactive REPL & Standard Library",
+      "task_type": "API endpoint group with tests",
+      "hours": 3.0
+    },
+    {
+      "name": "Documentation, Grammar Specs & Buffer",
+      "task_type": "docs + architecture diagram",
+      "hours": 3.0
+    }
+  ],
+  "extended_path": {
+    "items": [
+      "Mark-and-sweep garbage collector tracking dynamic object allocations and heap cleanup",
+      "Custom macro expansion system executing code transformations during AST compilation"
+    ],
+    "hours": 15
+  },
+  "milestones": [
+    {
+      "name": "Lexer, Tokenizer & Pratt Parsing Engine with AST Data Structures",
+      "hours": 9,
+      "done_criterion": "Lexer tokenizes source code; Pratt parser builds AST nodes with correct operator precedence."
+    },
+    {
+      "name": "Tree-Walking AST Evaluator, Scope & Closures",
+      "hours": 9,
+      "done_criterion": "Evaluator handles functions, closures, environment scopes, and control flow in unit tests."
+    },
+    {
+      "name": "Bytecode Compilers Architecture & Stack Virtual Machine",
+      "hours": 9,
+      "done_criterion": "Compiler emits bytecodes; VM executes opcodes on operand stack with 3x speedup over AST evaluator."
+    },
+    {
+      "name": "REPL, Standard Library, Anti-Fake Test & Docs Buffer",
+      "hours": 7,
+      "done_criterion": "Interactive REPL functional; anti-fake test validates dynamic script input; documentation complete."
+    }
+  ],
+  "prerequisites": [
+    "Intermediate Go programming (structs, interfaces, recursion, memory pointers)",
+    "Familiarity with fundamental data structures (stacks, hash maps, trees)",
+    "Basic knowledge of BNF or EBNF grammar notation"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (purely CPU-bound compilation and interpretation)",
+    "cost": "$0 (fully open-source software stack)",
+    "accounts_keys_quotas": "No external accounts, cloud dependencies, or API keys required",
+    "reference_environment": "Local 4-core CPU with Go 1.21+ installed",
+    "fallback_path": "AST tree-walking evaluator only if bytecode virtual machine module encounters platform-specific issues"
+  },
+  "riskiest_component": {
+    "name": "Lexical Closure Memory Leaks and Scope Mutation Races",
+    "fallback": "Implement immutable environment frames that copy outer references explicitly rather than sharing pointer references"
+  },
+  "deliverables": [
+    "Git repository containing lexer, parser, evaluator, bytecode compiler, and VM source files",
+    "Interactive REPL executable allowing immediate language experimentation",
+    "Comprehensive test suite covering 120 language specification test cases",
+    "Screener verification script running full test suite in under 2 minutes"
+  ],
+  "out_of_scope": [
+    "JIT compilation to native x86_64 or ARM64 assembly",
+    "Multi-threaded parallel runtime with preemptive goroutines",
+    "Foreign Function Interface (FFI) bindings to C libraries"
+  ],
+  "safety_note": null,
+  "resources": [
+    "Thorsten Ball - Writing An Interpreter In Go reference principles",
+    "Vaughan Pratt - Top Down Operator Precedence original research paper",
+    "Crafting Interpreters by Robert Nystrom architecture patterns"
+  ],
+  "rubric": [
+    {
+      "input": "120 language test programs in ./tests/fixtures directory",
+      "action": "Run go test ./pkg/... -v",
+      "expected_result": "Lexer, parser, evaluator, and VM pass all specification tests",
+      "evidence_location": "Terminal test execution output log",
+      "pass_criterion": "120 of 120 tests pass with exit code 0 and 0 failures",
+      "kind": "normal"
+    },
+    {
+      "input": "Recursive Fibonacci script benchmark file",
+      "action": "Run go test -bench=. ./pkg/vm",
+      "expected_result": "Bytecode VM evaluates Fibonacci(25) in < 450ms with correct output 75025",
+      "evidence_location": "Benchmark console output log",
+      "pass_criterion": "Execution latency < 450ms and calculated integer equals 75025",
+      "kind": "normal"
+    },
+    {
+      "input": "Nested scope test script with variable shadowing",
+      "action": "Execute ./bin/lang run fixtures/scoping.lang",
+      "expected_result": "Evaluator maintains separate environment frames for inner and outer variables",
+      "evidence_location": "Terminal execution output log",
+      "pass_criterion": "Output confirms outer variable unchanged with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Interactive REPL launch command ./bin/lang repl",
+      "action": "Pipe arithmetic expression 'let x = 10; let y = 20; x * y;' into stdin",
+      "expected_result": "REPL evaluates expression and prints integer 200 to stdout",
+      "evidence_location": "REPL output log",
+      "pass_criterion": "Evaluated result equals 200 and REPL exits cleanly",
+      "kind": "normal"
+    },
+    {
+      "input": "Dynamic script with closure counter and unique randomized multiplier passed via stdin",
+      "action": "Execute ./scripts/verify_dynamic_eval.sh --factor 17",
+      "expected_result": "Interpreter dynamically parses, builds closure, and evaluates correct calculated product",
+      "evidence_location": "Dynamic verification console output log",
+      "pass_criterion": "Calculated value matches expected mathematical output with exit code 0",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected custom programming language compiler and stack virtual machine in Go; executed [TEST_CASES_PASSED] language specification test programs with lexical closure support, recursive Fibonacci evaluation in under [VM_EVAL_TIME] on bytecode VM, and isolated lexical environment frames.",
+    "claims": [
+      {
+        "text": "executed [TEST_CASES_PASSED] language specification test programs with lexical closure support",
+        "rubric_indexes": [
+          0,
+          2
+        ]
+      },
+      {
+        "text": "recursive Fibonacci evaluation in under [VM_EVAL_TIME] on bytecode VM",
+        "rubric_indexes": [
+          1
+        ]
+      },
+      {
+        "text": "isolated lexical environment frames",
+        "rubric_indexes": [
+          2
+        ]
+      }
+    ],
+    "do_not_claim": "JIT compilation to native machine code or production compiler optimization without committed bytecode disassembly logs"
+  },
+  "verify": [],
+  "worksheet": {
+    "q1": "The student builds a complete programming language engine in Go comprising a lexical scanner, a Pratt operator-precedence parser, an AST tree-walking evaluator with lexical closures, and an alternative stack-based bytecode compiler and VM.",
+    "q2": "Core path: lexer, Pratt parser, AST evaluator with closures, bytecode compiler, stack VM, and REPL (34h). Extended path: mark-and-sweep garbage collector and macro system (+15h).",
+    "q3": "Components: Lexer (5h), Parser (6h), Scope & Closures (5h), Compiler & VM (8h), REPL (3h), Docs & Buffer (3h). Total 30h x 1.15 = 34.5 -> 34h.",
+    "q4": "Project types: Systems/low-level/networking, CLI/tools/libraries. Metrics: Language Spec Compliance, Recursive Function Latency, Lexical Scope Isolation. Rejected: distributed consensus latency.",
+    "q5": "Hard parts: Pratt operator precedence parsing, lexical closure environment capture, bytecode jump target resolution, and VM stack recycling.",
+    "q6": "Starter input: formal EBNF language grammar and 15 sample scripts covering arithmetic, functions, and closures. No personal data.",
+    "q7": "Hardware: Linux/macOS/Windows, 8GB RAM, CPU only, $0 cost, zero cloud accounts. Fallback: AST evaluator mode only.",
+    "q8": "Riskiest component: Closure memory leaks and scope pointer races. Fallback: immutable environment frames.",
+    "q9": "Potential faking: hardcoded output for known scripts. Anti-fake check 5 feeds dynamic randomized multiplication script via stdin and asserts computed value.",
+    "q10": "Safety/ethics: Safe; local language interpreter execution only."
+  }
+}

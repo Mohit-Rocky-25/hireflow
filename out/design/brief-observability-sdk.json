@@ -1,0 +1,326 @@
+{
+  "id": "brief-observability-sdk",
+  "title": "In-Process Observability Telemetry SDK & Auto-Instrumentation Library in Go with OTLP Exporters",
+  "domain": "Platform & DevOps",
+  "difficulty": "INTERMEDIATE",
+  "project_types": [
+    "Systems programming",
+    "Platform/infra tool"
+  ],
+  "problem": "Integrating third-party observability libraries into high-throughput microservices often introduces unacceptable CPU profiling overhead, lock contention in shared metric registries, and memory leaks when upstream collector endpoints experience network partitions. Heavy reflection-based SDKs degrade service p99 latencies and lack backpressure controls. This project builds a lightweight, zero-allocation observability SDK and auto-instrumentation middleware library from scratch in Go. The SDK intercepts HTTP and gRPC traffic, propagates W3C TraceContext headers across process boundaries, aggregates metrics using lock-free atomic counters and sliding-window histograms, and exports batched OpenTelemetry (OTLP) payloads over gRPC with bounded memory queues.",
+  "use_cases": [
+    {
+      "title": "Core Banking Transaction Gateway Latency Tracing",
+      "first_sentence": "Financial core transaction gateways processing thousands of credit authorization queries per second require microsecond-accurate distributed tracing without adding request latency.",
+      "second_sentence": "The SDK instruments incoming HTTP handler chains, creating child span contexts and streaming OTLP trace bundles over gRPC without blocking transactional worker threads."
+    },
+    {
+      "title": "Microservice Service Mesh Distributed Context Propagation",
+      "first_sentence": "Platform engineering teams maintaining complex microservice topologies need standardized distributed trace headers to track requests across polyglot backend tiers.",
+      "second_sentence": "The library automatically extracts and injects standard W3C traceparent headers across outgoing client requests, preserving end-to-end trace causality across microservice hops."
+    },
+    {
+      "title": "High-Volume Telemetry Metric Counter Aggregation",
+      "first_sentence": "Cloud infrastructure daemons monitoring container network sockets need to aggregate millions of metric data points per second with minimal memory overhead.",
+      "second_sentence": "The SDK uses lock-free atomic ring buffers to aggregate request rates and error status codes in-memory, flushing compressed delta batches to central collectors at regular intervals."
+    }
+  ],
+  "hard_parts": [
+    "Designing lock-free atomic ring buffers for span collection and metric recording to eliminate mutex contention under high concurrency",
+    "Parsing, validating, and injecting W3C TraceContext and baggage headers with zero heap allocations in critical request paths",
+    "Implementing memory-bounded queueing with configurable drop-oldest backpressure to protect host services during collector outages",
+    "Encoding binary Protocol Buffer OTLP payloads and managing persistent gRPC streaming channels with automatic reconnection"
+  ],
+  "screener_signals": [
+    "Clean idiomatic Go codebase using sync/atomic primitives, minimal allocations, and standard OpenTelemetry semantic conventions",
+    "Microbenchmark report demonstrating sub-250 nanosecond span creation overhead and zero heap allocations in core tracer paths",
+    "Anti-fake verification script issuing a live HTTP request with a custom traceparent header and verifying the SDK creates a correlated child span"
+  ],
+  "job_families": [
+    "Platform Software Engineer",
+    "Observability & SRE Specialist",
+    "Distributed Systems Developer"
+  ],
+  "stack": [
+    {
+      "tool": "Go",
+      "role": "primary systems programming language implementing SDK interfaces, ring buffers, and middleware handlers"
+    },
+    {
+      "tool": "OpenTelemetry",
+      "role": "industry standard telemetry specification defining span data models and semantic attributes"
+    },
+    {
+      "tool": "HTTP",
+      "role": "protocol instrumented via middleware wrappers extracting headers and timing request durations"
+    },
+    {
+      "tool": "Concurrency",
+      "role": "goroutines, sync/atomic primitives, and channels managing asynchronous batch exports"
+    },
+    {
+      "tool": "gRPC",
+      "role": "high-performance binary RPC protocol streaming serialized OTLP protobuf spans to collectors"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "W3C TraceContext Propagator & Header Parser",
+        "tools_used": [
+          "Go",
+          "HTTP"
+        ],
+        "purpose": "Parses and injects traceparent and tracestate headers according to W3C distributed tracing standards"
+      },
+      {
+        "name": "Lock-Free Span Tracer & Ring Buffer Store",
+        "tools_used": [
+          "Go",
+          "Concurrency"
+        ],
+        "purpose": "Records span lifecycle events (start, annotate, end) with sub-microsecond latency using atomic buffers"
+      },
+      {
+        "name": "Atomic Metric Aggregator & Histogram Collector",
+        "tools_used": [
+          "Go",
+          "Concurrency"
+        ],
+        "purpose": "Maintains low-overhead counters, gauges, and explicit bucket histograms for service request telemetry"
+      },
+      {
+        "name": "OTLP Binary Protobuf Serializer & gRPC Exporter",
+        "tools_used": [
+          "Go",
+          "gRPC",
+          "OpenTelemetry"
+        ],
+        "purpose": "Serializes trace and metric batches into OTLP protobuf format and streams payloads over persistent gRPC links"
+      },
+      {
+        "name": "SDK Overhead Microbenchmark & Memory Profiling Suite",
+        "tools_used": [
+          "Go"
+        ],
+        "purpose": "Profiles CPU nanoseconds per operation, heap allocation bytes, and memory residency under continuous loads"
+      }
+    ],
+    "data_flow": "An incoming HTTP request enters the instrumented middleware; the propagator extracts the W3C traceparent header and creates a child SpanContext; the handler executes business logic while recording attribute key-values; upon request completion, the span ends and enqueues into a lock-free ring buffer; background exporter goroutines poll the buffer, serialize spans into OTLP protobuf messages, and transmit batches over gRPC to OpenTelemetry collectors; if the collector is unreachable, the exporter drops oldest spans once the buffer reaches its capacity limit (e.g. 10,000 spans) to prevent memory ballooning.",
+    "enforcement_mechanism": "Bounded ring buffer capacities preventing memory leaks; atomic operations preventing race conditions without mutex locks."
+  },
+  "targets": [
+    {
+      "metric": "Tracer Middleware Added Latency Overhead",
+      "method": "Benchmarking CPU time and latency added per HTTP request when instrumentation middleware is enabled versus disabled",
+      "input": "100,000 benchmark HTTP requests passed through instrumented middleware pipeline under high concurrency",
+      "environment": "Standard 4-core local CPU, Go 1.21+ benchmark runner with -benchmem flag",
+      "minimum_pass": "Average added latency overhead per request is < 0.25 milliseconds with < 3 heap allocations",
+      "target": "Average added latency overhead per request is < 0.08 milliseconds with 0 heap allocations",
+      "report": "Tracer microbenchmark profiling output and memory allocation log"
+    },
+    {
+      "metric": "OTLP Batch Exporter Throughput",
+      "method": "Sustained number of completed telemetry spans serialized and exported per second over local gRPC connection",
+      "input": "50,000 synthetic span records flushed to mock OpenTelemetry collector receiver",
+      "environment": "Standard 4-core local CPU, local gRPC loopback connection",
+      "minimum_pass": "Sustained export throughput is >= 15,000 spans per second",
+      "target": "Sustained export throughput is >= 35,000 spans per second",
+      "report": "OTLP exporter throughput summary table and benchmark report"
+    },
+    {
+      "metric": "Memory Residency Ceiling Under Collector Outage",
+      "method": "Maximum resident set size (RSS) memory consumed by SDK when upstream collector is disconnected and traffic continues",
+      "input": "Continuous 5,000 spans per second generation for 60 seconds with collector endpoint intentionally blocked",
+      "environment": "Go process monitored via runtime.ReadMemStats under simulated network partition",
+      "minimum_pass": "Peak SDK heap allocation is < 35.0 megabytes with drop-oldest policy engaged",
+      "target": "Peak SDK heap allocation is < 18.0 megabytes with drop-oldest policy engaged",
+      "report": "Memory residency audit log and backpressure queue verification"
+    }
+  ],
+  "skills": [
+    "Go",
+    "OpenTelemetry",
+    "HTTP",
+    "Concurrency",
+    "gRPC",
+    "Observability",
+    "Systems Programming"
+  ],
+  "starter_input": {
+    "spec": "Directory containing Go SDK package scaffolding, mock OpenTelemetry collector receiver, and microservice traffic test scripts.",
+    "size": "6 Go source packages, mock OTLP gRPC collector server, and automated benchmark runners",
+    "seeded_cases": "Malformed W3C traceparent headers, collector gRPC connection drops, bursty metric increments, and circular baggage contexts",
+    "label_source": "Deterministic OTLP protobuf specification assertions and Go benchmark timing metrics",
+    "personal_data_policy": "Strictly synthetic mock telemetry spans and simulated HTTP headers; no real personal data used"
+  },
+  "components": [
+    {
+      "name": "W3C TraceContext Propagator & Header Parser",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "Lock-Free Span Tracer & Ring Buffer Store",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "Atomic Metric Aggregator & Histogram Collector",
+      "task_type": "low-level/system subsystem",
+      "hours": 5.0
+    },
+    {
+      "name": "OTLP Binary Protobuf Serializer & gRPC Exporter",
+      "task_type": "infra component (broker, DB, orchestrator, cluster service)",
+      "hours": 4.0
+    },
+    {
+      "name": "SDK Overhead Microbenchmark & Memory Profiling Suite",
+      "task_type": "load or performance test harness + report",
+      "hours": 3.0
+    }
+  ],
+  "extended_path": {
+    "features": [
+      "Dynamic tail-based sampling engine running in-process to filter high-volume HTTP 200 health checks while retaining errors",
+      "Auto-instrumentation for database drivers wrapping database/sql with query duration metrics and sanitized SQL statements",
+      "eBPF socket tracing integration capturing outbound TCP connections without manual code changes"
+    ],
+    "hours": 14
+  },
+  "milestones": [
+    {
+      "name": "W3C TraceContext & HTTP Middleware in Go and OpenTelemetry",
+      "hours": 7,
+      "done_criterion": "Middleware extracts traceparent headers and initializes span contexts with zero errors."
+    },
+    {
+      "name": "Lock-Free Ring Buffers & Atomic Metrics in Concurrency and Systems Programming",
+      "hours": 7,
+      "done_criterion": "Spans record to ring buffer in < 0.25ms; atomic counters aggregate telemetry without mutexes."
+    },
+    {
+      "name": "OTLP gRPC Exporter & Backpressure in gRPC and Observability",
+      "hours": 7,
+      "done_criterion": "Exporter streams spans to collector over gRPC; memory stays < 35MB during collector outage."
+    },
+    {
+      "name": "Throughput Benchmarking, Anti-Fake Test & Docs",
+      "hours": 7,
+      "done_criterion": "Benchmark confirms 15k spans/sec; anti-fake test validates parent-child span linkage; docs complete."
+    }
+  ],
+  "prerequisites": [
+    "Proficiency in Go systems programming, pointer mechanics, and synchronization (sync/atomic, channels)",
+    "Understanding of distributed tracing concepts (W3C TraceContext, spans, parentage) and gRPC streaming"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (purely CPU and memory bound systems software)",
+    "cost": "$0 (fully open-source Go codebase)",
+    "accounts_keys_quotas": "No external cloud accounts, paid services, or API keys required",
+    "reference_environment": "Local 4-core CPU with Go 1.21+ installed",
+    "fallback_path": "Local in-memory mock collector receiver running as a background goroutine"
+  },
+  "riskiest_component": {
+    "name": "Memory Leaks and Garbage Collection Pressure from Excessive Span Allocations",
+    "mitigation": "Use sync.Pool for span object recycling, pre-allocate buffer slices, and enforce strict queue drop-oldest limits.",
+    "fallback": "Fixed-capacity static array ring buffer dropping new spans when capacity is reached."
+  },
+  "deliverables": [
+    "Git repository containing Go telemetry SDK library, HTTP/gRPC middleware, and OTLP exporters",
+    "Mock OpenTelemetry collector server binary recording received spans and metrics for verification",
+    "Automated microbenchmark suite testing latency overhead, allocations per op, and memory caps",
+    "Screener verification script validating span parentage and dynamic header propagation in under 2 minutes"
+  ],
+  "out_of_scope": [
+    "Distributed database storage engine backend implementation (ClickHouse/Cassandra)",
+    "Web frontend flamegraph visualization UI authoring outside test logs",
+    "Kernel-level hypervisor VM guest introspection"
+  ],
+  "safety_note": null,
+  "resources": [
+    "W3C TraceContext Specification: HTTP Headers and Binary Format Standards",
+    "OpenTelemetry Protocol (OTLP) Specification: Protobuf Definitions",
+    "High Performance Go: Memory Allocation Optimization and Profiling (Dave Cheney)"
+  ],
+  "rubric": [
+    {
+      "input": "100,000 HTTP requests passed through instrumented middleware pipeline",
+      "action": "go test -bench=BenchmarkMiddlewareOverhead -benchmem ./sdk/...",
+      "expected_result": "Microbenchmark confirms added latency overhead is < 0.25 milliseconds per request",
+      "evidence_location": "Terminal test execution output log and reports/overhead_benchmark.json",
+      "pass_criterion": "Overhead is < 0.25ms/op with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "50,000 synthetic telemetry spans exported to local mock collector",
+      "action": "go run ./cmd/bench_exporter --spans 50000",
+      "expected_result": "SDK achieves sustained export throughput >= 15,000 spans per second over gRPC",
+      "evidence_location": "OTLP exporter throughput summary report",
+      "pass_criterion": "Export throughput is >= 15,000 spans/sec with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Collector endpoint disconnected while 5,000 spans/sec generate for 60 seconds",
+      "action": "go test -v ./sdk/... -run TestMemoryResidencyUnderOutage",
+      "expected_result": "Drop-oldest backpressure engages and peak SDK heap memory remains < 35.0 megabytes",
+      "evidence_location": "Memory residency audit log in reports/memory_audit.json",
+      "pass_criterion": "Peak heap memory < 35.0MB and exit code is 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Sample microservice endpoint invoked with HTTP GET",
+      "action": "curl -i http://localhost:8080/api/users/123",
+      "expected_result": "Response headers contain traceparent header matching emitted span trace ID",
+      "evidence_location": "HTTP response header output",
+      "pass_criterion": "traceparent header is present and valid format with status 200",
+      "kind": "normal"
+    },
+    {
+      "input": "Dynamic HTTP request with custom incoming traceparent '00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01'",
+      "action": "go run ./scripts/verify_dynamic_trace.go --traceparent '00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01'",
+      "expected_result": "SDK extracts parent ID, creates child span with parent '00f067aa0ba902b7', and flushes to collector",
+      "evidence_location": "Dynamic verification console execution output log",
+      "pass_criterion": "Collector verifies span has ParentSpanID '00f067aa0ba902b7' and TraceID '4bf92f3577b34da6a3ce929d0e0e4736' with exit code 0",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected in-process observability telemetry SDK in Go with OpenTelemetry gRPC exporting; maintained sub-[PROXY_OVERHEAD] microsecond middleware latency overhead, and sustained [INGESTION_THROUGHPUT] spans per second batch export throughput.",
+    "claims": [
+      {
+        "text": "maintained sub-[PROXY_OVERHEAD] microsecond middleware latency overhead",
+        "rubric_indexes": [
+          0
+        ]
+      },
+      {
+        "text": "sustained [INGESTION_THROUGHPUT] spans per second batch export throughput",
+        "rubric_indexes": [
+          1
+        ]
+      }
+    ],
+    "do_not_claim": "distributed storage engine database clustering or kernel-level hypervisor VM guest introspection"
+  },
+  "verify": [
+    "Run `go test -v ./...` to verify trace propagation, atomic metrics, and OTLP serialization pass.",
+    "Execute `go test -bench=. -benchmem ./sdk/...` to verify latency overhead and zero allocation targets.",
+    "Run `go run ./scripts/verify_dynamic_trace.go` to assert parent-child span linkage across W3C headers."
+  ],
+  "worksheet": {
+    "q1": "Core deliverable: an in-process observability telemetry SDK in Go with W3C propagation, lock-free ring buffers, and OTLP gRPC exporters.",
+    "q2": "Target users: platform software engineers, SRE specialists, and distributed systems developers.",
+    "q3": "3 use cases: banking gateway latency tracing, service mesh context propagation, and high-volume metric counter aggregation.",
+    "q4": "Stated hours: 28 hours. Calculated bottom-up: 24 component hours * 1.15 buffer = 27.6 -> 28 hours. Intermediate level.",
+    "q5": "Hard parts: lock-free ring buffers without mutexes, zero-allocation W3C header parsing, bounded memory queues with drop-oldest, and binary Protobuf OTLP serialization.",
+    "q6": "Starter input: Go SDK package scaffolding, mock OTLP collector server, and microservice traffic test scripts. Synthetic telemetry only.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU only, $0 cost, zero cloud accounts. Fallback: local in-memory collector goroutine.",
+    "q8": "Riskiest component: memory leaks and GC pressure. Fallback: sync.Pool object recycling and fixed-capacity static ring buffers.",
+    "q9": "Potential faking: mock hardcoded trace headers. Anti-fake check 5 feeds dynamic traceparent, asserts collector receives linked child span with exact parent ID.",
+    "q10": "Safety/ethics: Safe; local loopback gRPC and synthetic telemetry only, zero production system risk."
+  }
+}

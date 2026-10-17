@@ -1,122 +1,155 @@
-PROJECT BRIEF — GraphQL to SQL Compiler & Query Optimizer
+PROJECT BRIEF — GraphQL-to-SQL AST Compiler & Query Optimizer with LATERAL Joins
 ======================================================================
 
 Domain    : Full-Stack Web
-Difficulty: advanced
-Est. Time : 38 hours (Core Path) | Extended Path: +6 hours
-Tech Stack: TypeScript [strictly-typed programming language], GraphQL [schema-driven query language API layer], SQL [sql component], Parsing [parsing component], Node.js [backend JavaScript execution environment]
+Difficulty: ADVANCED
+Est. Time : 40 hours (core path, estimate). Extended path: +16 hours
+Tech Stack: TypeScript (strongly typed language for AST visitors, SQL expression generators, and schema mappers), Node.js (runtime hosting the compiler library, CLI benchmarking tool, and test suites), GraphQL (parser and type system library providing AST tokens and validation rules), PostgreSQL (target relational database executing compiled SQL queries and validating execution plans)
 
 PROBLEM STATEMENT
-----------------------------------------
-GraphQL resolvers with naive database access produce catastrophic N+1 query patterns that can execute 1000+ SQL queries for a single API request. Build a GraphQL-to-SQL compiler that analyzes incoming GraphQL queries and generates a single optimized SQL query using JOIN inference.
+----------------------------------------------------------------------
+GraphQL APIs built with traditional ORM resolver models suffer from the devastating N+1 query problem, triggering hundreds of sequential database queries to fulfill a single nested API request. Application-level caching and DataLoaders patch the symptom but fail to optimize database execution plans. This project builds a production-grade GraphQL-to-SQL compiler in TypeScript and Node.js. The compiler traverses GraphQL abstract syntax trees (ASTs), maps selection sets to relational schemas, infers table relationships, and transpiles deeply nested GraphQL queries into a single, highly-optimized SQL query utilizing PostgreSQL JOINs and LATERAL subqueries with parameterized prepared statements.
 
 USE CASES IN THE REAL WORLD
-----------------------------------------
-Hasura, PostGraphile, and Prisma all solve this at scale. Any company building a data-intensive GraphQL API needs query optimization. Understanding this unlocks contributions to ORM internals, GraphQL framework development, and backend query optimization.
+----------------------------------------------------------------------
+- High-performance backend database gateways eliminating N+1 database queries at the compiler level
+- Data-intensive enterprise analytics APIs serving deeply nested relational data in a single database round-trip
+- Open-source ORM and GraphQL engine internals optimizing query execution pipelines
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-The N+1 problem is one of the most common performance disasters in GraphQL APIs. A compiler that automatically generates optimized SQL from GraphQL queries demonstrates deep understanding of query planning, AST traversal, and SQL semantics — topics covered in systems and database internals interviews.
+WHY THIS IS HARD
+----------------------------------------------------------------------
+- Traversing arbitrary GraphQL AST selection sets and generating corresponding relational SQL JOIN and LATERAL expressions
+- Resolving complex nested pagination (e.g. first: 5, offset: 10) inside SQL LATERAL subqueries without multiplying result sets
+- Parameterizing all user filter arguments securely to guarantee complete SQL injection immunity
+- Calculating static query complexity scores during compilation to reject computationally abusive queries
 
 RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Hasura has built a billion-dollar business on this exact problem. Engineers who understand GraphQL query planning and SQL optimization are extremely valuable at data-intensive product companies. This project shows you can reason about query plans, which is rare among application engineers.
+----------------------------------------------------------------------
+- Clean TypeScript codebase cleanly separating AST visitors, schema mappers, SQL expression builders, and complexity guards
+- Automated compiler test suite verifying that a 4-level nested query compiles into exactly 1 parameterized SQL query
+- Anti-fake verification script submitting dynamic nested queries and asserting exact single-statement SQL generation
+Relevant Job Families: Database Systems Engineer, Compiler & Tooling Engineer, Backend Infrastructure Architect
 
 ARCHITECTURE & DATA FLOW
-----------------------------------------
-GraphQL schema parser building a field dependency graph. Incoming query AST traversal identifying required fields and their relationships. JOIN inference engine generating a single SQL query with all required table joins, column selections, and WHERE clauses. Benchmark comparing N+1 vs compiled query on a 10k-row dataset.
+----------------------------------------------------------------------
+Components:
+- GraphQL AST Visitor & Schema Mapper (Tools: TypeScript, GraphQL): Traverses GraphQL query ASTs, validates selections against schema metadata, and builds intermediate IR trees
+- SQL Join & LATERAL Expression Generator (Tools: TypeScript, PostgreSQL): Transpiles intermediate representation trees into unified SQL SELECT statements using JOIN and LATERAL subqueries
+- Parameterized Predicate & Pagination Transpiler (Tools: TypeScript): Transforms GraphQL where filters and pagination arguments into parameterized SQL clauses ($1, $2)
+- Query Complexity Analyzer & Guard (Tools: TypeScript, Node.js): Computes static query cost based on field depth and multipliers, rejecting queries exceeding safety budgets
+
+Data Flow:
+Incoming GraphQL query strings enter the compiler; the GraphQL parser generates an AST; the Complexity Analyzer calculates static query depth and multiplier costs, terminating execution if safety thresholds are breached; the AST Visitor traverses selection sets, mapping fields to relational table columns; the Join Generator constructs a single unified SQL query using LATERAL subqueries for one-to-many relationships; all filter values extract into parameterized arrays; the final single SQL statement dispatches to PostgreSQL in exactly one database round-trip.
+
+Enforcement Mechanism:
+Static complexity thresholds rejecting queries exceeding maximum cost budgets; strict parameterization preventing SQL injection.
 
 SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Target 1:
-- Metric: Core Operation Execution Time
-- Method: Automated benchmark executing core engine operation across varying workload sizes
-- Input/dataset: Standard test project or fixture payload (~500KB)
-- Reference environment: Local development environment, 4-core CPU, 8GB RAM
-- Minimum pass: Operation execution time < [M s] (minimum < 8s)
-- Target: Operation execution time < [M s] (target < 2.5s)
-- Report format: Benchmark execution report showing duration and memory usage
-
-Target 2:
-- Metric: Test Suite Coverage & Verification Pass Rate
-- Method: Automated test runner executing comprehensive unit and integration test suites
-- Input/dataset: Full project test fixture directory
-- Reference environment: Local test environment, clean checkout
-- Minimum pass: [X of Y] unit and integration tests passing (100% pass on core test set)
-- Target: [X of Y] tests passing with strict type-checking and 0 lint warnings
-- Report format: Test runner coverage report and exit status log
-
-Target 3:
-- Metric: Client Load / Response Latency (p95)
-- Method: Concurrent API benchmark testing simulated client requests
-- Input/dataset: 1,000 simulated client requests over 10 concurrent connections
-- Reference environment: Local Docker or Node/Python process
-- Minimum pass: p95 response latency < [M ms] (pass < 100ms) with 0 dropped requests
-- Target: p95 response latency < [M ms] (target < 30ms) with 0 dropped requests
-- Report format: Benchmark latency percentile report
+----------------------------------------------------------------------
+Metric | Method | Input/Dataset | Reference Environment | Minimum Pass | Target | Report Format
+AST Compilation Latency per Document | Wall-clock compilation timing to transform a complex 4-level nested GraphQL query into optimized SQL | 1,000 compilation runs on complex GraphQL query (Users -> Orders -> Items -> Product) with filters and pagination | Standard 4-core local CPU, Node.js 18+, TypeScript release | Average compilation latency is < 2.5 milliseconds | Average compilation latency is < 0.8 milliseconds | Compiler microbenchmark timing summary log
+Database Query Execution Round-Trip Reduction | Comparison of database round-trip count between naive resolver execution and compiled single-statement SQL | Query requesting 20 users with 5 orders each and 3 items per order (100 orders, 300 items total) | Standard 4-core local CPU, PostgreSQL 15+ | Exactly 1 single SQL round-trip executed; 0 secondary resolver queries | Exactly 1 single SQL round-trip executed; 0 secondary resolver queries | PostgreSQL query execution trace and round-trip verification report
+SQL Parameterization Security Rate | Adversarial test suite injecting 50 malicious SQL payload strings via GraphQL filter arguments | 50 adversarial GraphQL queries containing SQL injection patterns (e.g. "' OR '1'='1; DROP TABLE users;--") | Standard 4-core local CPU, Node.js 18+ | 0 unparameterized literals; 50 of 50 values emitted strictly as positional SQL parameters ($1, $2) | 0 unparameterized literals; 50 of 50 values emitted strictly as positional SQL parameters ($1, $2) | SQL parameterization and security verification log
 
 SKILLS COVERED
-----------------------------------------
-TypeScript, GraphQL, SQL, Algorithms, Node.js, Parsing
+----------------------------------------------------------------------
+TypeScript, Node.js, GraphQL, PostgreSQL, Compilers, SQL, AST Parsing, Query Optimization
 
 TARGET APPLICATION / STARTER INPUT
-----------------------------------------
-The project provides a self-contained test environment and fixture generator located in `scripts/` or `fixtures/`. It deterministically generates representative input records or mock client traffic for automated validation. No third-party proprietary data or real personal identifiers (PII) are required; all test datasets use synthetic tokens and deterministic random seeds.
+----------------------------------------------------------------------
+- Specification: GraphQL schema definition, matching PostgreSQL relational DDL schema (users, orders, products, reviews), and query suite.
+- Dataset / Traffic Size: Relational schema with 8 tables, 40 columns, and 50 benchmark GraphQL test queries of varying nesting depth
+- Seeded Edge Cases: Deeply nested 5-level queries, cyclic relation traversals, SQL injection attempt literals, and pagination offset edge cases
+- Label / Verification Source: Deterministic SQL ground-truth fixture mapping input GraphQL documents to verified canonical SQL statements
+- Personal Data Policy: Strictly mock synthetic e-commerce relational schemas; zero personal data used
 
 MILESTONES
-----------------------------------------
-- Milestone 1: Environment Setup & Core Foundations (8h)
-  Configure repository, tooling, container dependencies, and foundational data structures. Done when foundational test suite passes with clean linting.
-- Milestone 2: Core Processing & Architecture Implementation (11h)
-  Implement primary operational workflows, database models or state transitions, and API endpoints. Done when integration tests verify end-to-end data flow under normal operating conditions.
-- Milestone 3: Concurrency, Reliability & Error Guardrails (11h)
-  Implement defensive controls: rate limiting, retries with exponential backoff, transaction boundaries, and failure isolation. Done when chaos or stress tests verify graceful degradation under fault injection.
-- Milestone 4: Verification, Benchmarking & Documentation (8h)
-  Execute performance benchmark harness, compile measurement tables, generate architectural diagrams, and document screener verification steps. Done when `scripts/verify_all` passes completely.
+----------------------------------------------------------------------
+M1: GraphQL AST Tokenization & Schema Table Mapper in TypeScript and Compilers (10h) — Done when: Parser tokenizes GraphQL queries; mapper binds selection fields to relational table metadata.
+M2: SQL JOIN Tree & LATERAL Subquery Generation in Systems Programming and AST Parsing (10h) — Done when: Compiler generates single SQL queries with JOIN and LATERAL clauses for nested 1-to-many fields.
+M3: Filter Transpiler, Pagination & Complexity Guard in PostgreSQL and SQL (10h) — Done when: Compiler parameterizes filters ($1, $2); complexity guard terminates abusive nested queries.
+M4: Single-Query Execution Benchmark, Anti-Fake Test & Docs in Query Optimization (10h) — Done when: Benchmark confirms 1 single SQL round-trip in < 2.5ms; anti-fake test validates dynamic query; docs complete.
+Total: 40 hours (estimate)
 
 PREREQUISITES, ENVIRONMENT AND ACCOUNTS
-----------------------------------------
-- Prerequisites: Familiarity with TypeScript and GraphQL, standard command-line tools, and fundamental testing principles.
-- Hardware / OS: Standard modern computer (macOS, Linux, or Windows with WSL2) with at least 8GB RAM.
-- Accounts & Services: None required. Designed to run completely on free, open-source local software.
-- Fallback Path: In-memory mock drivers or SQLite/local files provided if external database or message broker containers cannot be run.
+----------------------------------------------------------------------
+Prerequisites: Proficiency in TypeScript, AST traversal algorithms, and visitor patterns, Deep understanding of advanced SQL (JOINs, LATERAL subqueries, window functions, prepared statements)
+
+Environment & Hardware:
+- OS: Linux / macOS / Windows with WSL2
+- Memory: 8GB RAM
+- Compute / GPU: None required (purely CPU-bound compiler and database execution)
+- Estimated Cost: $0 (fully open-source software stack)
+- Accounts & Quotas: No external cloud accounts, paid services, or API keys required
+- Reference Environment: Local 4-core CPU with Node.js 18+ and PostgreSQL 15+ installed
+- Fallback Path: SQLite dialect compiler output with in-memory execution if PostgreSQL is unavailable
+
+Riskiest Component & Fallback:
+- Riskiest Component: Cartesian Product Blowup on Multiple Nested One-to-Many Relationships
+- Simpler Fallback: Generate independent JSON-aggregated LATERAL subqueries rather than direct Cartesian JOINs
 
 DELIVERABLES
-----------------------------------------
-1. Clean Git repository with structured commit history, README, and reproducible setup commands.
-2. Production-quality core codebase with automated test suite achieving verified pass rates.
-3. Performance benchmark report (`results/benchmark_report.md`) documenting measured latency, throughput, and resource utilization.
-4. Screener verification script (`scripts/verify_all.sh` or equivalent) validating the full system in < 3 minutes.
-5. Architecture diagram (Mermaid/ASCII) and known limitations document explaining architectural trade-offs.
+----------------------------------------------------------------------
+- Git repository containing TypeScript GraphQL-to-SQL compiler library and CLI test runner
+- Interactive test playground compiling input GraphQL queries to visual SQL with explain plans
+- Automated SQL injection and round-trip reduction benchmark test harness
+- Screener verification script executing automated benchmark and dynamic query compilation in under 2 minutes
 
 OUT OF SCOPE AND EXTENDED PATH
-----------------------------------------
-- Out of Scope for Core Path: Distributed multi-region clustering, enterprise SSO integrations, complex third-party SaaS dependencies.
-- Extended Path (+6 hours): Advanced telemetry dashboard, distributed persistence cluster extension, or automated canary release pipeline.
+----------------------------------------------------------------------
+Out of Scope:
+- Dynamic GraphQL schema stitching across remote third-party web services
+- Direct distributed transaction coordination across multi-database shards
+- Automatic database schema migration DDL generation from GraphQL types
 
-SAFETY AND ETHICS NOTE
-----------------------------------------
-All data processed, generated, and benchmarked by this project consists exclusively of synthetic fixtures. No personal identifiable information (PII), proprietary credentials, or live external endpoints are used.
+Extended Path (+16 hours):
+- Dynamic SQL view materialization and query result fingerprint caching
+- Multi-dialect SQL compiler supporting PostgreSQL, SQLite, and MySQL
 
 LEARNING RESOURCES
-----------------------------------------
-- Official Documentation for TypeScript, GraphQL, SQL
-- Architectural Reference Patterns and RFC Standards [VERIFY URL]
-- Systems & Distributed Reliability Principles
+----------------------------------------------------------------------
+- GraphQL AST Specification and Visitor Architecture Documentation
+- PostgreSQL LATERAL Joins and JSON Aggregation Performance Guide
+- Hasura and PostGraphile Architecture: Compiling GraphQL to Single SQL Queries
 
 SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Check 1: Verify 5-level nested query resolved in 1 SQL statement with correct JOINs; Pass when automated test script prints 0 errors and logs verified status code.
-2. Check 2: Verify n+1 benchmark: naive resolver makes 100 DB calls, compiler makes 1 for same data; Pass when automated test script prints 0 errors and logs verified status code.
-3. Check 3: Verify circular query detection preventing infinite query compilation loops; Pass when automated test script prints 0 errors and logs verified status code.
-4. Check 4: Verify query result correctly maps SQL rows back to GraphQL nested object structure; Pass when automated test script prints 0 errors and logs verified status code.
-5. Check 5: Verify performance test: compiler overhead < 5ms for queries up to 10 nested fields; Pass when automated test script prints 0 errors and logs verified status code.
-6. Check 6: 6. Anti-Fake Verification Check: Inspect committed execution logs and re-run verification script against seeded test fixtures; pass when runtime metrics dynamically reflect test execution rather than static mocked responses.
+----------------------------------------------------------------------
+1. Check
+   Input: Complex 4-level nested GraphQL query with filtering and pagination
+   Action: npm run test:compile -- --query samples/nested_orders.graphql
+   Result: Compiler outputs a single unified SQL query with compilation latency < 2.5 milliseconds
+   Evidence: Terminal output log and reports/compiler_bench.json
+   Pass: Output contains exactly 1 SELECT statement, compilation latency < 2.5ms, exit code 0
+2. Check
+   Input: Query requesting 20 users and their 100 orders executed against PostgreSQL
+   Action: npm run test:round-trip
+   Result: Database executes exactly 1 single SQL round-trip instead of 100+ sequential queries
+   Evidence: PostgreSQL query execution trace log
+   Pass: Recorded SQL statement count equals 1 with exit code 0
+3. Check
+   Input: 50 adversarial GraphQL filter payloads containing SQL injection strings
+   Action: npm run test:security
+   Result: All 50 filter values are emitted as positional parameters ($1, $2) with zero string concatenation
+   Evidence: Security parameterization audit report
+   Pass: 50 of 50 filter inputs safely parameterized with 0 injection escapes
+4. Check
+   Input: Deeply nested query exceeding configured complexity budget of 500 points
+   Action: npm run test:complexity -- --depth 6
+   Result: Complexity analyzer rejects query during compilation and throws QueryTooComplexError
+   Evidence: Compiler error stdout output
+   Pass: Compiler rejects query with QueryTooComplexError and exit code 0
+5. Check [anti_fake]
+   Input: Dynamic 3-level GraphQL query constructed with dynamic alias fields at runtime
+   Action: node scripts/verify_dynamic_compiler.js --query '{ user { id dynamic_order: orders { total } } }'
+   Result: Compiler transpiles aliased query into single SQL statement using exact alias in LATERAL json_build_object
+   Evidence: Dynamic verification console execution output log
+   Pass: Generated SQL contains dynamic_order alias inside LATERAL subquery and exit code is 0
 
 RESUME BULLET FORMULA
-----------------------------------------
-"Built GraphQL-to-SQL compiler resolving [N]-level nested queries in [N] SQL statement; eliminated N+[N] pattern reducing database round trips from [N]+ to [N] per request with < [M ms] compilation overhead."
-Do not claim: scale, latency, or throughput figures without committing benchmark run logs; do not claim production deployment unless deployed to a verifiable live environment.
+----------------------------------------------------------------------
+"Architected GraphQL-to-SQL AST compiler in TypeScript and Node.js with PostgreSQL; replaced cascading iterative database queries with [ROUNDTRIP_COUNT] single SQL statement via LATERAL joins, and achieved sub-[COMPILATION_LATENCY] compilation latency with parameterized security."
+
+Do not claim: distributed multi-database sharding coordination or automated DDL schema migrations
 
 ======================================================================
 Generated by HireFlow — hireflow.io

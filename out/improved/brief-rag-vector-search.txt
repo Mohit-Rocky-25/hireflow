@@ -1,122 +1,155 @@
-PROJECT BRIEF — Enterprise RAG Semantic Search & Verification Engine
+PROJECT BRIEF — Enterprise RAG Semantic Search & Hallucination Verification Engine with FastAPI, pgvector & Sentence-Transformers
 ======================================================================
 
 Domain    : AI/ML Applications
-Difficulty: intermediate
-Est. Time : 28 hours (Core Path) | Extended Path: +6 hours
-Tech Stack: Python [core programming language and algorithmic runtime], FastAPI [high-performance asynchronous REST API framework], pgvector [pgvector component], PostgreSQL [relational database management system], Docker [containerization and local multi-service orchestration], LangChain [LLM application orchestration framework] (Requires: Docker Engine / Desktop, Local CPU inference or optional free-tier API token)
+Difficulty: INTERMEDIATE
+Est. Time : 28 hours (core path, estimate). Extended path: +14 hours
+Tech Stack: Python (primary backend language powering chunking pipelines, embedding generation, and retrieval APIs), FastAPI (asynchronous web framework serving vector search queries, RAG synthesis, and citation verification), pgvector (PostgreSQL vector extension providing HNSW indexing and low-latency cosine distance calculations), PostgreSQL (relational database storing document metadata, chunk text, full-text tsvectors, and query audit logs), Docker (containerization runtime hosting local PostgreSQL with pgvector extension pre-installed), Sentence-Transformers (open-source embedding model generating 384-dimensional dense semantic vectors (all-MiniLM-L6-v2))
 
 PROBLEM STATEMENT
-----------------------------------------
-LLM applications hallucinate when answering questions from internal company documentation. Build a Retrieval-Augmented Generation (RAG) backend with deterministic hybrid search (dense embeddings + BM25 sparse keyword search) and citation attribution.
+----------------------------------------------------------------------
+Enterprise retrieval-augmented generation (RAG) applications frequently generate plausible-sounding hallucinations, quote non-existent policy clauses, and expose internal knowledge bases to context-stuffing vulnerabilities. Naive vector retrieval relying solely on dense similarity returns irrelevant chunks when users query specific entity IDs, keyword codes, or acronyms, degrading answer quality. This project builds a production-grade enterprise RAG semantic search and verification engine in Python. The system ingests technical documentation, generates dense vector representations with open-source Sentence-Transformers, stores and indexes chunks using PostgreSQL with the pgvector extension (HNSW indexing), performs hybrid dense-sparse semantic retrieval with Reciprocal Rank Fusion (RRF), synthesizes answers with local LLMs, and verifies generated claims using automated citation verification.
 
 USE CASES IN THE REAL WORLD
-----------------------------------------
-Enterprise knowledge management, legal document Q&A, HR policy bots, and technical documentation search. Used by companies like Freshdesk, Salesforce, and ServiceNow for internal knowledge bases. Rapidly becoming a mandatory component of every AI-enabled product.
+----------------------------------------------------------------------
+- {'title': 'Enterprise IT Policy & Compliance QA Assistant', 'first_sentence': 'Enterprise employees querying internal security policy handbooks need exact policy answers with verifiable paragraph citations rather than generic advice.', 'second_sentence': 'The engine retrieves top relevant policy chunks using hybrid vector search, synthesizes a grounded response via FastAPI, and highlights exact sentence citations matching source documents.'}
+- {'title': 'Engineering Technical Architecture Specification Retrieval', 'first_sentence': 'Software engineering teams navigating large system architecture repositories need to query API contract specifications and database schemas.', 'second_sentence': 'The RAG backend combines pgvector semantic similarity with keyword matching to retrieve accurate technical snippets, reducing developer search time from hours to seconds.'}
+- {'title': 'Customer Support Agent Troubleshooting Copilot', 'first_sentence': 'Support engineers handling complex hardware troubleshooting tickets require fast access to relevant diagnostic flowcharts and error resolution manuals.', 'second_sentence': 'The system matches incoming customer error logs to service manual chunks, generating step-by-step diagnostic workflows verified against official manuals.'}
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-RAG is the #1 architecture pattern being deployed across Indian tech companies in 2025. Understanding it at an implementation level (not just wrapping LangChain) is what separates GenAI engineers from prompt engineers. Demonstrates you understand retrieval theory, embedding models, and evaluation metrics.
+WHY THIS IS HARD
+----------------------------------------------------------------------
+- Implementing hybrid dense-sparse retrieval combining pgvector HNSW cosine similarity with PostgreSQL full-text search (tsvector) using Reciprocal Rank Fusion
+- Designing semantic chunking pipelines that preserve document hierarchical context without fragmenting code blocks or structured tables
+- Building an automated claim-level hallucination verification module that cross-checks generated sentences against retrieved source chunk spans
+- Optimizing pgvector HNSW index parameters (m, ef_construction, ef_search) to achieve sub-25ms retrieval latency across 100,000 document chunks
 
 RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Every company with AI on its roadmap (which is 80%+ of tech companies in India right now) is hiring for this. A working RAG system with hybrid search is the single most in-demand portfolio project for Applied AI/GenAI Engineer roles in 2025.
+----------------------------------------------------------------------
+- Clean Python codebase cleanly separating document chunkers, pgvector database adapters, embedding generators, and verification endpoints
+- Search latency and accuracy report proving sub-25ms p95 vector retrieval and >= 88% Mean Reciprocal Rank (MRR@10) on technical queries
+- Anti-fake verification script submitting an adversarial ungrounded question (querying non-existent policy XYZ-999) and asserting the engine responds with 'INSUFFICIENT_CONTEXT' rather than hallucinating
+Relevant Job Families: AI Systems Engineer, RAG / NLP Software Developer, Full-Stack Machine Learning Engineer
 
 ARCHITECTURE & DATA FLOW
-----------------------------------------
-FastAPI service that chunks PDF/Markdown documents, generates embeddings with sentence-transformers/language model, and stores vectors in pgvector / Qdrant. Answers user prompts with verbatim citation chunks and calculates hallucination confidence scores.
+----------------------------------------------------------------------
+Components:
+- Document Ingestion, Cleaning & Recursive Text Chunking Pipeline (Tools: Python): Parses markdown and text files, cleans formatting, and generates overlapping semantic chunks with metadata headers
+- Sentence-Transformers Dense Embedding Generation Worker (Tools: Python, Sentence-Transformers): Computes 384-dimensional dense semantic vector representations for document chunks in batched inference loops
+- pgvector Columnar Indexing & Hybrid Cosine Retrieval Engine (Tools: Python, PostgreSQL, pgvector): Stores chunk embeddings, manages HNSW index, executes hybrid dense-sparse queries, and ranks with RRF
+- FastAPI Grounded Generation & Hallucination Citation Verifier (Tools: Python, FastAPI): Constructs grounded context prompts, generates answers, and verifies that every output claim references a valid chunk
+- Retrieval Accuracy & Latency Evaluation Benchmark Harness (Tools: Python, Docker): Evaluates MRR@10, Hit Rate@5, and p95 retrieval latencies across 500 enterprise evaluation queries
+- Enterprise RAG Architecture Guide & pgvector Schema Manual (Tools: Python, PostgreSQL): Documents HNSW tuning benchmarks, chunk size trade-offs, and hallucination guardrail mechanisms
+
+Data Flow:
+Documents ingest into the pipeline; the chunker splits content into 500-token chunks with 50-token overlap; Sentence-Transformers computes 384-d embeddings; chunks and vectors insert into PostgreSQL; pgvector maintains the HNSW index; a user submits a query via FastAPI; the query converts to an embedding and a tsquery; pgvector executes hybrid dense-sparse search and merges results using Reciprocal Rank Fusion; top-5 chunks assemble into a prompt context; the generation module synthesizes an answer; the citation verifier validates extracted claim spans against source chunk text; the response returns with verified citation badges.
+
+Enforcement Mechanism:
+Strict cosine distance similarity thresholds and citation verification algorithms rejecting ungrounded claims.
 
 SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Target 1:
-- Metric: End-to-End Inference / Retrieval Latency (p95)
-- Method: Automated evaluation script measuring warm-state query-to-response duration
-- Input/dataset: Labelled benchmark evaluation set of 100 representative queries
-- Reference environment: Local CPU runtime (Ollama / ONNX / PyTorch) or stated free-tier API
-- Minimum pass: p95 inference latency < [M ms] on reference device
-- Target: p95 inference latency < [M ms] with zero token truncation
-- Report format: Latency histogram table exported from evaluation script
-
-Target 2:
-- Metric: Retrieval Hit Rate & Groundedness Accuracy
-- Method: Grounded evaluation script comparing model output against labelled ground-truth answers
-- Input/dataset: Curated evaluation set of 50 query-document pairs with ground-truth citations
-- Reference environment: Fixed random seed (42), single evaluation worker
-- Minimum pass: Retrieval hit rate (Recall@3) ≥ [X%] (minimum ≥ 75%)
-- Target: Retrieval hit rate (Recall@3) ≥ [X%] (target ≥ 90%)
-- Report format: Evaluation CSV table with per-query precision, recall, and hallucination flags
-
-Target 3:
-- Metric: Guardrail & Adversarial Payload Detection Rate
-- Method: Adversarial test suite evaluating security and validation boundary filters
-- Input/dataset: Benchmark suite of 30 adversarial injection and edge-case payloads
-- Reference environment: Automated test runner
-- Minimum pass: [X of Y] adversarial attempts blocked (minimum ≥ 25 of 30)
-- Target: [X of Y] adversarial attempts blocked (target 30 of 30) with 0 false positives on benign queries
-- Report format: Security test report logging prompt, rule triggered, and pass/fail status
+----------------------------------------------------------------------
+Metric | Method | Input/Dataset | Reference Environment | Minimum Pass | Target | Report Format
+p95 Hybrid Vector Retrieval Latency | Wall-clock timing to generate query embedding, execute pgvector HNSW search, and merge RRF results across 100,000 chunks | 1,000 benchmark queries issued against PostgreSQL database containing 100,000 indexed document chunks | Standard 4-core local CPU, PostgreSQL 15+ with pgvector in Docker, Python 3.11 | p95 hybrid retrieval latency is < 40.0 milliseconds | p95 hybrid retrieval latency is < 18.5 milliseconds | pgvector query latency benchmark report and HNSW index scan timing
+Retrieval Mean Reciprocal Rank (MRR@10) | Mean Reciprocal Rank evaluated against ground-truth question-chunk matching dataset of 500 technical queries | 500 enterprise technical questions with human-annotated relevant document chunk IDs | Deterministic evaluation harness executing hybrid dense-sparse retrieval | Mean Reciprocal Rank (MRR@10) is >= 0.82 | Mean Reciprocal Rank (MRR@10) is >= 0.91 | Information retrieval benchmark evaluation log and recall/precision curves
+Hallucination Rejection on Out-of-Domain Queries | Percentage of intentionally adversarial or out-of-domain queries correctly answered with 'INSUFFICIENT_CONTEXT' rather than fabricated text | 50 adversarial queries asking about fictitious corporate policies, nonexistent product codes, or fabricated employees | FastAPI RAG testing pipeline running citation verification guardrails | 50 of 50 adversarial queries trigger INSUFFICIENT_CONTEXT with 0 fabricated claims | 50 of 50 adversarial queries trigger INSUFFICIENT_CONTEXT with 0 fabricated claims | Hallucination guardrail evaluation log and citation verification audit
 
 SKILLS COVERED
-----------------------------------------
-Python, FastAPI, Vector Databases, Embeddings, PostgreSQL, Docker
+----------------------------------------------------------------------
+Python, FastAPI, pgvector, PostgreSQL, Docker, Sentence-Transformers, RAG, AI/ML Applications
 
 TARGET APPLICATION / STARTER INPUT
-----------------------------------------
-The project provides a self-contained test environment and fixture generator located in `scripts/` or `fixtures/`. It deterministically generates representative input records or mock client traffic for automated validation. No third-party proprietary data or real personal identifiers (PII) are required; all test datasets use synthetic tokens and deterministic random seeds.
+----------------------------------------------------------------------
+- Specification: Directory containing document chunking scripts, pgvector database migrations, Sentence-Transformers embedding pipeline, and FastAPI app.
+- Dataset / Traffic Size: 7 Python source modules, SQL migration scripts, Docker Compose file for pgvector, and 500 synthetic enterprise policy docs
+- Seeded Edge Cases: Tables split across chunk boundaries, acronym disambiguation queries, and adversarial ungrounded prompts
+- Label / Verification Source: Deterministic question-to-chunk ground truth mappings and synthetic enterprise policy corpus
+- Personal Data Policy: Strictly mock synthetic corporate policy guidelines and simulated technical documentation; no real personal data used
 
 MILESTONES
-----------------------------------------
-- Milestone 1: Environment Setup & Core Foundations (6h)
-  Configure repository, tooling, container dependencies, and foundational data structures. Done when foundational test suite passes with clean linting.
-- Milestone 2: Core Processing & Architecture Implementation (8h)
-  Implement primary operational workflows, database models or state transitions, and API endpoints. Done when integration tests verify end-to-end data flow under normal operating conditions.
-- Milestone 3: Concurrency, Reliability & Error Guardrails (8h)
-  Implement defensive controls: rate limiting, retries with exponential backoff, transaction boundaries, and failure isolation. Done when chaos or stress tests verify graceful degradation under fault injection.
-- Milestone 4: Verification, Benchmarking & Documentation (6h)
-  Execute performance benchmark harness, compile measurement tables, generate architectural diagrams, and document screener verification steps. Done when `scripts/verify_all` passes completely.
+----------------------------------------------------------------------
+M1: Document Chunking & Sentence-Transformers Embeddings in Python and Sentence-Transformers (7h) — Done when: Ingestion pipeline chunks documents and generates 384-d embeddings in batched loops.
+M2: pgvector Storage & Hybrid Cosine Retrieval in pgvector, PostgreSQL and Docker (7h) — Done when: pgvector stores vectors with HNSW index; hybrid retrieval achieves MRR@10 >= 0.82.
+M3: FastAPI Grounded QA & Citation Verifier in FastAPI and RAG (7h) — Done when: FastAPI endpoint serves grounded answers; citation verifier validates source text spans.
+M4: Hallucination Rejection Anti-Fake Test & Docs in AI/ML Applications (7h) — Done when: 50 of 50 adversarial queries trigger INSUFFICIENT_CONTEXT; docs and schema guides complete.
+Total: 28 hours (estimate)
 
 PREREQUISITES, ENVIRONMENT AND ACCOUNTS
-----------------------------------------
-- Prerequisites: Familiarity with Python and FastAPI, standard command-line tools, and fundamental testing principles.
-- Hardware / OS: Standard modern computer (macOS, Linux, or Windows with WSL2) with at least 8GB RAM.
-- Accounts & Services: None required. Designed to run completely on free, open-source local software.
-- Fallback Path: In-memory mock drivers or SQLite/local files provided if external database or message broker containers cannot be run.
+----------------------------------------------------------------------
+Prerequisites: Proficiency in Python backend development, FastAPI, and relational database interactions (SQLAlchemy / asyncpg), Understanding of vector search concepts (embeddings, cosine similarity, HNSW indexing) and RAG architecture principles
+
+Environment & Hardware:
+- OS: Linux / macOS / Windows with WSL2
+- Memory: 8GB RAM
+- Compute / GPU: None required (compact Sentence-Transformers all-MiniLM-L6-v2 embedding model runs efficiently on CPU)
+- Estimated Cost: $0 (fully open-source stack using local PostgreSQL with pgvector in Docker)
+- Accounts & Quotas: No external cloud accounts, paid services, or API keys required (uses open-source local embeddings and local QA synthesis)
+- Reference Environment: Local 4-core CPU with Docker Desktop (pgvector container) and Python 3.11 with PyTorch CPU
+- Fallback Path: Local SQLite vector extension or in-memory NumPy cosine similarity matrix if Docker pgvector is unavailable
+
+Riskiest Component & Fallback:
+- Riskiest Component: HNSW Vector Index Saturation and Out-of-Domain Hallucinations
+- Simpler Fallback: Exact flat cosine distance scan (ivfflat or sequential scan) for datasets under 20,000 chunks.
 
 DELIVERABLES
-----------------------------------------
-1. Clean Git repository with structured commit history, README, and reproducible setup commands.
-2. Production-quality core codebase with automated test suite achieving verified pass rates.
-3. Performance benchmark report (`results/benchmark_report.md`) documenting measured latency, throughput, and resource utilization.
-4. Screener verification script (`scripts/verify_all.sh` or equivalent) validating the full system in < 3 minutes.
-5. Architecture diagram (Mermaid/ASCII) and known limitations document explaining architectural trade-offs.
+----------------------------------------------------------------------
+- Git repository containing document chunking scripts, pgvector migrations, embedding pipeline, and FastAPI app
+- Docker Compose configuration launching PostgreSQL with pgvector extension pre-installed
+- Automated evaluation benchmark script measuring MRR@10, Hit Rate@5, and p95 retrieval latency
+- Screener verification script executing automated hybrid search and adversarial hallucination rejection in under 2 minutes
 
 OUT OF SCOPE AND EXTENDED PATH
-----------------------------------------
-- Out of Scope for Core Path: Distributed multi-region clustering, enterprise SSO integrations, complex third-party SaaS dependencies.
-- Extended Path (+6 hours): Advanced telemetry dashboard, distributed persistence cluster extension, or automated canary release pipeline.
+----------------------------------------------------------------------
+Out of Scope:
+- Commercial vector SaaS databases (Pinecone / Weaviate Cloud / Qdrant Cloud)
+- Proprietary OpenAI or Anthropic paid API key integrations
+- Complex multi-modal image and video embedding processing pipelines
 
-SAFETY AND ETHICS NOTE
-----------------------------------------
-All data processed, generated, and benchmarked by this project consists exclusively of synthetic fixtures. No personal identifiable information (PII), proprietary credentials, or live external endpoints are used.
+Extended Path: None (self-contained core scope)
 
 LEARNING RESOURCES
-----------------------------------------
-- Official Documentation for Python, FastAPI, pgvector
-- Architectural Reference Patterns and RFC Standards [VERIFY URL]
-- Systems & Distributed Reliability Principles
+----------------------------------------------------------------------
+- pgvector Open-Source Extension Documentation & HNSW Indexing Guidelines
+- Sentence-Transformers: Multilingual Sentence Embeddings (Reimers and Gurevych)
+- Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks (Lewis et al., NeurIPS 2020)
 
 SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Check 1: Verify hybrid search implementation blending BM25 lexical search with cosine vector similarity; Pass when automated test script prints 0 errors and logs verified status code.
-2. Check 2: Verify exact source citation highlights showing exact page and paragraph references; Pass when automated test script prints 0 errors and logs verified status code.
-3. Check 3: Verify evaluation benchmark script checking retrieval precision and MRR (Mean Reciprocal Rank); Pass when automated test script prints 0 errors and logs verified status code.
-4. Check 4: Verify docker container running local embeddings without requiring external API keys; Pass when automated test script prints 0 errors and logs verified status code.
-5. Check 5: Verify swagger API documentation with interactive testing endpoints; Pass when automated test script prints 0 errors and logs verified status code.
-6. Check 6: 6. Anti-Fake Verification Check: Inspect committed execution logs and re-run verification script against seeded test fixtures; pass when runtime metrics dynamically reflect test execution rather than static mocked responses.
+----------------------------------------------------------------------
+1. Check
+   Input: 1,000 benchmark queries against pgvector database with 100,000 chunks
+   Action: python ./benchmarks/bench_retrieval.py --queries 1000 --concurrency 10
+   Result: pgvector returns top-5 chunks with p95 hybrid latency < 40.0ms
+   Evidence: Retrieval benchmark execution log and reports/retrieval_latency.json
+   Pass: p95 latency < 40.0ms with exit code 0
+2. Check
+   Input: 500 technical queries evaluated against ground-truth chunk labels
+   Action: python ./evaluation/eval_mrr.py --queries 500
+   Result: Hybrid dense-sparse retrieval achieves MRR@10 >= 0.82 and Hit Rate@5 >= 0.90
+   Evidence: Information retrieval evaluation report in reports/mrr_eval.json
+   Pass: MRR@10 >= 0.82 with exit code 0
+3. Check
+   Input: Document chunking pipeline processing 100 markdown documents
+   Action: python ./ingestion/chunk_documents.py --input-dir ./docs/sample
+   Result: Chunks preserve code block integrity and generate valid 384-d vector embeddings
+   Evidence: Ingestion processing log in reports/chunking_audit.json
+   Pass: 100 of 100 documents chunked and embedded with exit code 0
+4. Check
+   Input: FastAPI request asking valid question present in technical documentation
+   Action: curl -X POST http://localhost:8000/api/v1/query -H 'Content-Type: application/json' -d '{"question":"What is the database connection timeout?"}'
+   Result: FastAPI returns grounded answer with verified source chunk ID and text citation span
+   Evidence: HTTP response JSON and citation audit log
+   Pass: Response status 200 with non-empty citation list and exit code 0
+5. Check [anti_fake]
+   Input: Adversarial ungrounded query asking about fictitious policy clause XYZ-999
+   Action: python ./scripts/verify_hallucination_rejection.py --query 'What are the penalties under policy XYZ-999?'
+   Result: System detects low similarity scores and returns 'INSUFFICIENT_CONTEXT' with 0 fabricated text
+   Evidence: Dynamic verification console execution output log
+   Pass: Console confirms response is 'INSUFFICIENT_CONTEXT' with exit code 0
 
 RESUME BULLET FORMULA
-----------------------------------------
-"Engineered created enterprise RAG engine in Python & pgvector with hybrid BM25/dense vector retrieval; achieved [N]% citation attribution accuracy across [N] req/sec document chunks in < [M ms]."
-Do not claim: scale, latency, or throughput figures without committing benchmark run logs; do not claim production deployment unless deployed to a verifiable live environment.
+----------------------------------------------------------------------
+"Architected enterprise RAG semantic search engine in Python using FastAPI, PostgreSQL, and pgvector; achieved [RETRIEVAL_MRR] ranking accuracy on technical documentation retrieval, and maintained sub-[QUERY_LATENCY] millisecond hybrid vector search latency."
+
+Do not claim: proprietary commercial OpenAI API fine-tuning or closed-source vector cloud infrastructure
 
 ======================================================================
 Generated by HireFlow — hireflow.io

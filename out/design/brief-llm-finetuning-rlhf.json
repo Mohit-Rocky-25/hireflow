@@ -1,0 +1,352 @@
+{
+  "id": "brief-llm-finetuning-rlhf",
+  "title": "LLM Preference Alignment Pipeline with Bradley-Terry Reward Modeling & Direct Preference Optimization",
+  "domain": "GenAI & LLM Engineering",
+  "difficulty": "ADVANCED",
+  "project_types": [
+    "Data pipeline / ETL",
+    "Systems programming"
+  ],
+  "problem": "Supervised fine-tuning teaches language models task formats but fails to align generation tone, safety boundaries, and nuanced human preferences. Reinforcement Learning from Human Feedback (RLHF) using traditional PPO is notoriously unstable, suffering from hyperparameter sensitivity, value network divergence, and reward hacking. This project builds a direct preference alignment pipeline in Python and PyTorch using the TRL library. The system trains a Bradley-Terry pairwise reward model on human preference datasets, optimizes model policies using Direct Preference Optimization (DPO) with implicit reward formulations and KL divergence penalties, prevents catastrophic forgetting, and evaluates alignment win rates against baseline supervised models.",
+  "use_cases": [
+    {
+      "title": "Conversational Safety & Hate Speech Refusal Alignment",
+      "first_sentence": "Consumer AI application developers need conversational assistants that politely refuse harmful instructions while remaining helpful on benign queries.",
+      "second_sentence": "The alignment pipeline trains a reward model on safety preference pairs, optimizing model weights via DPO to eliminate toxic outputs without over-refusal."
+    },
+    {
+      "title": "Executive Summary Conciseness and Tone Calibration",
+      "first_sentence": "Enterprise business intelligence tools require summarization models that consistently produce concise, bulleted executive briefings rather than verbose narrative text.",
+      "second_sentence": "The system aligns an open-source model against executive preference pairs, ensuring generated summaries strictly prioritize key quantitative takeaways."
+    },
+    {
+      "title": "Code Review Tone & Constructive Feedback Alignment",
+      "first_sentence": "Engineering organizations deploying automated code review bots need comments that provide constructive architectural suggestions rather than dismissive remarks.",
+      "second_sentence": "The engine trains on paired senior engineer feedback demonstrations, aligning review bots to suggest specific refactoring diffs with polite explanatory notes."
+    }
+  ],
+  "hard_parts": [
+    "Training a robust Bradley-Terry reward model that scores preference margins accurately without overfitting to response length bias",
+    "Deriving and optimizing the closed-form DPO objective without requiring unstable actor-critic reinforcement learning loops",
+    "Calibrating the KL divergence reference model constraint beta parameter to prevent policy collapse into degenerate repetitive strings",
+    "Evaluating win rates using automated LLM-as-a-judge protocols with position-bias counterbalancing"
+  ],
+  "screener_signals": [
+    "Clean Python codebase separating preference dataset loaders, reward model training scripts, and DPO trainers",
+    "Comprehensive training curves in Weights & Biases showing margin growth, policy reward increase, and KL divergence stabilization",
+    "Anti-fake verification script presenting an unseen paired preference test and verifying reward model assigns correct higher score to preferred text"
+  ],
+  "job_families": [
+    "AI Alignment & Safety Engineer",
+    "Reinforcement Learning Specialist",
+    "Applied Machine Learning Scientist"
+  ],
+  "stack": [
+    {
+      "tool": "Python",
+      "role": "primary programming language implementing preference dataset loaders and DPO training loops"
+    },
+    {
+      "tool": "PyTorch",
+      "role": "deep learning framework providing tensor operations and autograd execution"
+    },
+    {
+      "tool": "HuggingFace",
+      "role": "model hub and tokenization ecosystem providing base models and datasets"
+    },
+    {
+      "tool": "TRL",
+      "role": "transformer reinforcement learning library implementing DPO and reward model trainers"
+    },
+    {
+      "tool": "LoRA",
+      "role": "parameter-efficient adapter technique constraining trainable weights during preference alignment"
+    },
+    {
+      "tool": "Weights & Biases",
+      "role": "experiment tracking tool logging reward margins, KL penalties, and loss metrics"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "Preference Pair Ingestion & Length-Normalization Pipeline",
+        "tools_used": [
+          "Python",
+          "HuggingFace"
+        ],
+        "purpose": "Loads chosen-rejected response pairs, normalizes response lengths, and constructs tokenized tensors"
+      },
+      {
+        "name": "Bradley-Terry Pairwise Reward Model Trainer",
+        "tools_used": [
+          "Python",
+          "PyTorch",
+          "TRL"
+        ],
+        "purpose": "Trains a scalar reward head on top of transformer backbone using binary cross-entropy preference loss"
+      },
+      {
+        "name": "Direct Preference Optimization (DPO) Trainer",
+        "tools_used": [
+          "Python",
+          "PyTorch",
+          "TRL",
+          "LoRA"
+        ],
+        "purpose": "Optimizes policy weights directly from preference pairs with reference model KL divergence regularization"
+      },
+      {
+        "name": "Reward Score Distribution & Margin Evaluator",
+        "tools_used": [
+          "Python",
+          "PyTorch"
+        ],
+        "purpose": "Computes reward score histograms and validates margin separation between chosen and rejected candidates"
+      },
+      {
+        "name": "Win-Rate & Catastrophic Forgetting Benchmark Suite",
+        "tools_used": [
+          "Python",
+          "HuggingFace"
+        ],
+        "purpose": "Measures pairwise win-rate against SFT baseline and asserts retention of core knowledge benchmarks"
+      },
+      {
+        "name": "Alignment Experiment Telemetry & Runbook Documentation",
+        "tools_used": [
+          "Weights & Biases"
+        ],
+        "purpose": "Documents hyperparameter configurations, beta sweep findings, and preference data curation guides"
+      }
+    ],
+    "data_flow": "Chosen and rejected prompt-response pairs enter the ingestion pipeline; text sequences tokenize and pad with uniform formatting; the reward model trains to predict higher scalar values for chosen completions; the DPO training loop loads the base SFT model alongside frozen reference weights; DPO updates LoRA policy parameters by maximizing the log-likelihood of chosen completions relative to rejected completions penalizing KL divergence; evaluation harnesses score aligned outputs against held-out preference prompts; telemetry logs to Weights & Biases.",
+    "enforcement_mechanism": "KL penalty coefficient (beta=0.1) preventing policy drift from reference model; gradient norm clipping at 1.0."
+  },
+  "targets": [
+    {
+      "metric": "Pairwise Reward Model Classification Accuracy",
+      "method": "Percentage of held-out preference test pairs where the reward model scores the chosen response higher than the rejected response",
+      "input": "500 held-out pairwise preference test samples spanning helpfulness, conciseness, and safety domains",
+      "environment": "Standard GPU instance (12GB+ VRAM) or CPU evaluation harness",
+      "minimum_pass": "Reward classification accuracy is >= 72.0% across 500 test pairs",
+      "target": "Reward classification accuracy is >= 81.5% across 500 test pairs",
+      "report": "Reward model accuracy and margin distribution evaluation report"
+    },
+    {
+      "metric": "DPO Aligned Policy Win-Rate Over SFT Baseline",
+      "method": "Pairwise win-rate evaluated across 200 held-out evaluation prompts judged by automated evaluator with position swapping",
+      "input": "200 test prompts evaluated for response helpfulness, safety, and conciseness",
+      "environment": "Standard 4-core local CPU with PyTorch inference runtime",
+      "minimum_pass": "Aligned model achieves >= 65.0% win-rate over unaligned SFT baseline across 200 prompts",
+      "target": "Aligned model achieves >= 78.0% win-rate over unaligned SFT baseline across 200 prompts",
+      "report": "Pairwise alignment win-rate evaluation summary table"
+    },
+    {
+      "metric": "KL Divergence Penalty Stability Ceiling",
+      "method": "Average per-token KL divergence between aligned policy and frozen SFT reference model across training epochs",
+      "input": "Training trajectory across 1,000 DPO optimization steps with beta=0.1",
+      "environment": "PyTorch training loop with CUDA execution",
+      "minimum_pass": "Average per-token KL divergence is < 0.15 across training epochs",
+      "target": "Average per-token KL divergence is < 0.08 across training epochs",
+      "report": "Training KL divergence trajectory and policy stability log"
+    }
+  ],
+  "skills": [
+    "Python",
+    "PyTorch",
+    "HuggingFace",
+    "RLHF",
+    "Reward Modeling",
+    "PEFT",
+    "TRL",
+    "Weights & Biases",
+    "Alignment"
+  ],
+  "starter_input": {
+    "spec": "Directory of 3,000 preference pairs in JSONL format, DPO configuration YAMLs, and evaluation prompt manifests.",
+    "size": "3,000 chosen-rejected text pairs (approx 6MB text), 500 test preference pairs, and 200 evaluation prompts",
+    "seeded_cases": "Identical length ties, subtle patronizing tone in rejected responses, and adversarial trick questions",
+    "label_source": "Expert human annotator consensus preference ratings and standardized Anthropic HH-RLHF open dataset subsets",
+    "personal_data_policy": "Strictly synthetic and public preference datasets; no real personal data used"
+  },
+  "components": [
+    {
+      "name": "Preference Pair Ingestion & Length-Normalization Pipeline",
+      "task_type": "data pipeline step",
+      "hours": 6.0
+    },
+    {
+      "name": "Bradley-Terry Pairwise Reward Model Trainer",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "Direct Preference Optimization (DPO) Trainer",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "Reward Score Distribution & Margin Evaluator",
+      "task_type": "evaluation dataset creation + scoring script",
+      "hours": 5.0
+    },
+    {
+      "name": "Win-Rate & Catastrophic Forgetting Benchmark Suite",
+      "task_type": "load or performance test harness + report",
+      "hours": 6.0
+    },
+    {
+      "name": "Alignment Experiment Telemetry & Runbook Documentation",
+      "task_type": "docs + architecture diagram",
+      "hours": 3.0
+    },
+    {
+      "name": "DPO Architecture Diagram & Hyperparameter Guide",
+      "task_type": "docs + architecture diagram",
+      "hours": 3.0
+    }
+  ],
+  "extended_path": {
+    "features": [
+      "Online iterative DPO with dynamic synthetic generation and reward model re-ranking in the training loop",
+      "KTO (Kahneman-Tversky Optimization) alignment requiring only binary feedback (up/down) rather than preference pairs",
+      "Automated length-bias debiasing using length-penalized margin formulations"
+    ],
+    "hours": 16
+  },
+  "milestones": [
+    {
+      "name": "Preference Pair Preprocessing & Reward Modeling in PyTorch and TRL",
+      "hours": 10,
+      "done_criterion": "Reward model trains on 3,000 preference pairs and achieves >= 72% accuracy on 500 test pairs."
+    },
+    {
+      "name": "Direct Preference Optimization Training in HuggingFace, PEFT and LoRA",
+      "hours": 10,
+      "done_criterion": "DPO trainer updates LoRA adapters while maintaining KL divergence < 0.15."
+    },
+    {
+      "name": "Alignment Win-Rate Benchmarking & RLHF Evaluation",
+      "hours": 10,
+      "done_criterion": "Aligned model achieves >= 65% win rate over unaligned SFT baseline across 200 prompts."
+    },
+    {
+      "name": "Weights & Biases Telemetry, Anti-Fake Test & Docs",
+      "hours": 10,
+      "done_criterion": "Telemetry verifies stable training; anti-fake test validates preference margin; docs complete."
+    }
+  ],
+  "prerequisites": [
+    "Proficiency in Python programming, PyTorch deep learning, and transformer architectures",
+    "Understanding of preference alignment principles (Bradley-Terry models, DPO loss formulation, KL divergence)"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "16GB RAM",
+    "gpu": "12GB+ VRAM GPU recommended (Google Colab T4 / Kaggle free GPU / local NVIDIA GPU)",
+    "cost": "$0 (fully executable on free Google Colab or Kaggle GPU tiers)",
+    "accounts_keys_quotas": "Free HuggingFace account for model downloads and free Weights & Biases account",
+    "reference_environment": "Ubuntu 22.04 with NVIDIA GPU (12GB+ VRAM), PyTorch 2.1+, TRL 0.7+, and HuggingFace transformers",
+    "fallback_path": "CPU training mode using Qwen-0.5B or TinyLlama with small batch sizes and gradient accumulation"
+  },
+  "riskiest_component": {
+    "name": "Policy Degeneration and Repetitive Output Collapse During DPO",
+    "mitigation": "Tune beta coefficient between 0.05 and 0.2 and evaluate token diversity metrics during training.",
+    "fallback": "Increase beta to 0.25 to tightly anchor policy to reference model."
+  },
+  "deliverables": [
+    "Git repository containing preference preprocessing, reward modeling, and DPO training pipelines",
+    "Trained DPO adapter weights checkpoint and inference evaluation scripts",
+    "Weights & Biases training dashboard tracking reward margin, KL divergence, and loss curves",
+    "Screener verification script running preference pair scoring and win-rate assertions in under 5 minutes"
+  ],
+  "out_of_scope": [
+    "Multi-turn conversational PPO with real-time value network critic rollouts",
+    "Human annotator workforce management platforms and crowdsourcing payment systems",
+    "Full-scale pre-training of base foundation models"
+  ],
+  "safety_note": null,
+  "resources": [
+    "Direct Preference Optimization: Your Language Model is Secretly a Reward Model (Rafailov et al.)",
+    "HuggingFace TRL Documentation: DPO and Reward Model Training Guides",
+    "Anthropic: Training a Helpful and Harmless Assistant with Reinforcement Learning from Human Feedback"
+  ],
+  "rubric": [
+    {
+      "input": "500 held-out pairwise preference test samples",
+      "action": "python -m rlhf_pipeline.evaluate_reward --model-dir output/reward_model --test-file test_data/test_pairs.json",
+      "expected_result": "Reward model scores chosen response higher than rejected response in >= 72.0% of test pairs",
+      "evidence_location": "Terminal test execution output log and reports/reward_accuracy_report.json",
+      "pass_criterion": "Report records preference classification accuracy >= 72.0% with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "200 evaluation prompts comparing DPO aligned model vs SFT baseline",
+      "action": "python -m rlhf_pipeline.benchmark_win_rate --prompts test_data/eval_prompts.json",
+      "expected_result": "Aligned model achieves >= 65.0% win-rate over baseline with position bias balanced",
+      "evidence_location": "Win-rate evaluation report in reports/win_rate_summary.json",
+      "pass_criterion": "Win-rate is >= 65.0% with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Weights & Biases DPO training telemetry log",
+      "action": "python -m rlhf_pipeline.verify_training_stability --run-id latest",
+      "expected_result": "Verification confirms average per-token KL divergence remains < 0.15 across all steps",
+      "evidence_location": "Training stability audit log",
+      "pass_criterion": "Average KL divergence < 0.15 and exit code is 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Trained DPO adapter checkpoint files",
+      "action": "python -m rlhf_pipeline.verify_checkpoint --adapter-dir output/dpo_adapter",
+      "expected_result": "Directory contains adapter_model.safetensors, adapter_config.json, and valid metadata",
+      "evidence_location": "Checkpoint inspection output",
+      "pass_criterion": "All adapter files exist and load into TRL pipeline without errors",
+      "kind": "normal"
+    },
+    {
+      "input": "Dynamic unseen preference pair testing polite constructive refusal vs unsafe toxic completion",
+      "action": "python scripts/verify_dynamic_preference.py --prompt 'How do I bypass software activation keys?'",
+      "expected_result": "Reward model evaluates safety response with higher score (margin > 1.5 logits) and DPO policy chooses refusal",
+      "evidence_location": "Dynamic verification console execution output log",
+      "pass_criterion": "Reward margin > 1.5 logits and generated response politely declines with exit code 0",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected direct preference optimization alignment pipeline in Python and PyTorch using TRL; achieved [PREFERENCE_ACCURACY] pairwise preference accuracy on reward classification, and delivered [WIN_RATE] win-rate improvement over baseline supervised policies.",
+    "claims": [
+      {
+        "text": "achieved [PREFERENCE_ACCURACY] pairwise preference accuracy on reward classification",
+        "rubric_indexes": [
+          0
+        ]
+      },
+      {
+        "text": "delivered [WIN_RATE] win-rate improvement over baseline supervised policies",
+        "rubric_indexes": [
+          1
+        ]
+      }
+    ],
+    "do_not_claim": "general artificial moral alignment or absolute immunity to toxic prompt generation"
+  },
+  "verify": [
+    "Run `python -m pytest tests/` to confirm preference pair loading, loss formulations, and KL penalty logic pass.",
+    "Execute `python -m rlhf_pipeline.evaluate_reward` to verify reward model preference classification accuracy.",
+    "Run `python scripts/verify_dynamic_preference.py` to assert correct preference margin scoring on dynamic prompts."
+  ],
+  "worksheet": {
+    "q1": "Core deliverable: an LLM preference alignment pipeline in Python/PyTorch using Bradley-Terry reward modeling and Direct Preference Optimization (DPO).",
+    "q2": "Target users: AI alignment engineers, safety researchers, and enterprise LLM developers.",
+    "q3": "3 use cases: conversational safety refusal alignment, executive summary tone calibration, and constructive code review feedback.",
+    "q4": "Stated hours: 40 hours. Calculated bottom-up: 35 component hours * 1.15 buffer = 40.25 -> 40 hours. Advanced level.",
+    "q5": "Hard parts: Bradley-Terry reward modeling without length bias, DPO closed-form optimization, KL divergence penalty calibration, and position-bias counterbalancing in win-rate evals.",
+    "q6": "Starter input: 3,000 preference pairs in JSONL format, DPO configuration YAMLs, and 200 evaluation prompts. Public preference data only.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 16GB RAM, free Colab/Kaggle GPU, $0 cost, zero paid cloud services. Fallback: CPU training with Qwen-0.5B.",
+    "q8": "Riskiest component: policy degeneration during DPO. Fallback: beta hyperparameter sweeps and token diversity monitoring.",
+    "q9": "Potential faking: pre-canned reward scores. Anti-fake check 5 scores dynamic unseen safety prompt and asserts reward margin > 1.5 logits.",
+    "q10": "Safety/ethics: Safe; public open-source preference datasets only, zero private or sensitive user personal data."
+  }
+}

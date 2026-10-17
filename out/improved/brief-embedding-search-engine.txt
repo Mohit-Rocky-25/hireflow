@@ -1,122 +1,155 @@
-PROJECT BRIEF — Semantic Code Search Engine using AST + Embeddings
+PROJECT BRIEF — Semantic Code Search Engine with Tree-Sitter AST Chunking & Vector Retrieval
 ======================================================================
 
 Domain    : AI/ML Applications
-Difficulty: intermediate
-Est. Time : 28 hours (Core Path) | Extended Path: +6 hours
-Tech Stack: Python [core programming language and algorithmic runtime], Tree-sitter [tree-sitter component], CodeBERT [codebert component], Qdrant [vector similarity search engine], FastAPI [high-performance asynchronous REST API framework], React [frontend UI component library] (Requires: Local CPU inference or optional free-tier API token)
+Difficulty: INTERMEDIATE
+Est. Time : 28 hours (core path, estimate). Extended path: +12 hours
+Tech Stack: Python (primary language for AST extraction, embedding generation, and API services), Tree-sitter (parser library extracting language syntax trees and structured function blocks), Qdrant (vector search database storing and indexing dense embeddings locally via HNSW), FastAPI (web framework serving semantic search endpoints and hybrid ranking queries)
 
 PROBLEM STATEMENT
-----------------------------------------
-Developers search codebases with grep and regex, missing semantically related code. Build a semantic code search engine that parses source code into AST-based chunks, embeds them into vector space, and returns semantically similar code functions in response to natural language queries.
+----------------------------------------------------------------------
+Software engineers frequently navigate large unfamiliar codebases using literal string searches or regex queries, which consistently fail to discover code with differing naming conventions or abstract conceptual implementations. Traditional lexical search cannot capture syntactic structures or natural language semantic intent. This project builds an intelligent semantic code search engine in Python. The system parses source code files into structural abstract syntax tree (AST) chunks using Tree-sitter, computes dense vector representations using open-source code embedding models, stores vectors in a local Qdrant vector database, and serves natural language search queries through a FastAPI backend combining dense semantic retrieval with sparse BM25 keyword matching via Reciprocal Rank Fusion.
 
 USE CASES IN THE REAL WORLD
-----------------------------------------
-GitHub Copilot's code search, Sourcegraph's intelligence platform, and Phind's code search all solve this. Developer tools are a hot market and code search is a foundational component. Any large codebase (>100k LOC) benefits from semantic code search for onboarding and refactoring.
+----------------------------------------------------------------------
+- Developer onboarding tools enabling natural language discovery of repository business logic
+- Automated duplicate and near-duplicate function identification across enterprise monorepositories
+- IDE contextual code discovery plugins matching user task descriptions to existing library utilities
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Code-specific embeddings (CodeBERT, UniXCoder) and AST-based chunking are specialized applications of embedding search. Building this demonstrates you understand how to apply semantic search to non-textual domains — a transferable skill applicable to any specialized search problem.
+WHY THIS IS HARD
+----------------------------------------------------------------------
+- Extracting structurally coherent function and class blocks across multiple programming languages using Tree-sitter AST queries
+- Selecting and quantizing code embedding models to execute inference within standard CPU RAM limits
+- Implementing hybrid retrieval combining dense vector similarity with sparse BM25 scoring via Reciprocal Rank Fusion
+- Maintaining sub-200 millisecond end-to-end search query latency across indexed repositories exceeding 25,000 code functions
 
 RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Developer tooling companies (JetBrains, Sourcegraph, GitHub, GitLab) and AI code tools (Tabnine, Cursor, Codeium) are hiring for exactly this. Also directly relevant for platform teams building internal code search for large engineering organizations.
+----------------------------------------------------------------------
+- Clean Python implementation separating AST parsing, embedding inference, vector indexing, and FastAPI endpoints
+- Evaluation benchmark evaluating Recall@10 and Mean Reciprocal Rank (MRR) across 100 natural language query test pairs
+- Anti-fake verification script indexing a dynamic code snippet with unique variable names and retrieving it via pure semantic intent
+Relevant Job Families: AI Platform Engineer, Machine Learning Engineer, Developer Tooling Engineer
 
 ARCHITECTURE & DATA FLOW
-----------------------------------------
-Tree-sitter AST parser extracting function-level chunks from Python/JavaScript/TypeScript code. CodeBERT/language model embeddings for each chunk. Qdrant/ChromaDB vector store with social infrastructure platformsdata (file path, language, function name). FastAPI semantic search endpoint. React UI with syntax-highlighted results.
+----------------------------------------------------------------------
+Components:
+- Tree-Sitter AST Extractor (Tools: Python, Tree-sitter): Parses Python, Go, and JavaScript source files into clean function and class AST nodes with metadata
+- Code Embedding Pipeline (Tools: Python): Transforms structural code chunks and docstrings into 384-dimensional dense vectors using all-MiniLM-L6-v2
+- Qdrant Hybrid Vector Index (Tools: Python, Qdrant): Stores dense embeddings and BM25 sparse payloads, executing cosine similarity search via HNSW graphs
+- FastAPI Semantic Search Gateway (Tools: Python, FastAPI): Exposes search REST endpoints, combines dense and sparse ranks via Reciprocal Rank Fusion, and returns formatted code snippets
+
+Data Flow:
+Source code repositories are scanned by the Tree-Sitter AST Extractor; function definitions, parameters, and docstrings are extracted into structured code chunks; the Code Embedding Pipeline generates dense embeddings for each chunk; embeddings and text metadata are indexed into local Qdrant collections; client natural language queries enter FastAPI; the query is embedded and evaluated against Qdrant dense vectors and BM25 keywords; Reciprocal Rank Fusion merges ranked results; ranked code snippets with syntax highlighting return to the user.
+
+Enforcement Mechanism:
+Structural AST node boundaries preventing arbitrary line truncation; cosine similarity distance thresholds filtering low-relevance results.
 
 SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Target 1:
-- Metric: End-to-End Inference / Retrieval Latency (p95)
-- Method: Automated evaluation script measuring warm-state query-to-response duration
-- Input/dataset: Labelled benchmark evaluation set of 100 representative queries
-- Reference environment: Local CPU runtime (Ollama / ONNX / PyTorch) or stated free-tier API
-- Minimum pass: p95 inference latency < [M ms] on reference device
-- Target: p95 inference latency < [M ms] with zero token truncation
-- Report format: Latency histogram table exported from evaluation script
-
-Target 2:
-- Metric: Retrieval Hit Rate & Groundedness Accuracy
-- Method: Grounded evaluation script comparing model output against labelled ground-truth answers
-- Input/dataset: Curated evaluation set of 50 query-document pairs with ground-truth citations
-- Reference environment: Fixed random seed (42), single evaluation worker
-- Minimum pass: Retrieval hit rate (Recall@3) ≥ [X%] (minimum ≥ 75%)
-- Target: Retrieval hit rate (Recall@3) ≥ [X%] (target ≥ 90%)
-- Report format: Evaluation CSV table with per-query precision, recall, and hallucination flags
-
-Target 3:
-- Metric: Guardrail & Adversarial Payload Detection Rate
-- Method: Adversarial test suite evaluating security and validation boundary filters
-- Input/dataset: Benchmark suite of 30 adversarial injection and edge-case payloads
-- Reference environment: Automated test runner
-- Minimum pass: [X of Y] adversarial attempts blocked (minimum ≥ 25 of 30)
-- Target: [X of Y] adversarial attempts blocked (target 30 of 30) with 0 false positives on benign queries
-- Report format: Security test report logging prompt, rule triggered, and pass/fail status
+----------------------------------------------------------------------
+Metric | Method | Input/Dataset | Reference Environment | Minimum Pass | Target | Report Format
+Code Retrieval Relevance (Recall@10) | Evaluation of top 10 returned code snippets across 100 natural language technical queries against gold-standard labels | 100 technical queries evaluated against repository of 5,000 indexed functions with annotated target functions | Standard 4-core local CPU, Python 3.11, CPU-only embedding inference | Recall@10 exceeds 75% on technical query benchmark | Recall@10 exceeds 88% on technical query benchmark | Information retrieval evaluation report reporting MRR, Recall@5, and Recall@10
+End-to-End Query Retrieval Latency | Wall-clock timing from query arrival to final hybrid ranked response output across 25,000 indexed functions | 500 consecutive natural language search queries issued against populated Qdrant vector index | Standard 4-core local CPU, Qdrant in-memory or Docker instance, Python 3.11 | Average query latency is < 200 milliseconds | Average query latency is < 85 milliseconds | Query benchmark latency percentile log detailing p50, p95, and p99 durations
+AST Function Extraction Accuracy Rate | Automated comparison of Tree-sitter parsed function boundaries against reference AST ground truth | 50 multi-language source files containing nested closures, decorators, and multi-line docstrings | Standard 4-core local CPU, Python 3.11 | Accurate extraction of 50 of 50 function boundaries with 0 syntax parse errors | Accurate extraction of 50 of 50 function boundaries with 0 syntax parse errors | AST parser boundary accuracy verification log
 
 SKILLS COVERED
-----------------------------------------
-Python, Embeddings, Vector Databases, FastAPI, Parsing, React
+----------------------------------------------------------------------
+Python, Tree-sitter, Qdrant, FastAPI, Vector Search, Information Retrieval, NLP
 
 TARGET APPLICATION / STARTER INPUT
-----------------------------------------
-The project provides a self-contained test environment and fixture generator located in `scripts/` or `fixtures/`. It deterministically generates representative input records or mock client traffic for automated validation. No third-party proprietary data or real personal identifiers (PII) are required; all test datasets use synthetic tokens and deterministic random seeds.
+----------------------------------------------------------------------
+- Specification: Curated multi-language code repository (Python, Go, JavaScript) with 5,000 function definitions and query evaluation benchmark dataset.
+- Dataset / Traffic Size: Repository of 5,000 functions totaling 120,000 LOC across 350 files with 100 natural language evaluation queries
+- Seeded Edge Cases: Functions with obfuscated variable names, nested lambda expressions, empty docstrings, and syntax errors
+- Label / Verification Source: Deterministic evaluation dataset mapping 100 natural language intent queries to exact target function signatures
+- Personal Data Policy: Strictly public open-source code repositories with permissive Apache/MIT licenses; no private code used
 
 MILESTONES
-----------------------------------------
-- Milestone 1: Environment Setup & Core Foundations (6h)
-  Configure repository, tooling, container dependencies, and foundational data structures. Done when foundational test suite passes with clean linting.
-- Milestone 2: Core Processing & Architecture Implementation (8h)
-  Implement primary operational workflows, database models or state transitions, and API endpoints. Done when integration tests verify end-to-end data flow under normal operating conditions.
-- Milestone 3: Concurrency, Reliability & Error Guardrails (8h)
-  Implement defensive controls: rate limiting, retries with exponential backoff, transaction boundaries, and failure isolation. Done when chaos or stress tests verify graceful degradation under fault injection.
-- Milestone 4: Verification, Benchmarking & Documentation (6h)
-  Execute performance benchmark harness, compile measurement tables, generate architectural diagrams, and document screener verification steps. Done when `scripts/verify_all` passes completely.
+----------------------------------------------------------------------
+M1: Tree-Sitter AST Extraction & Structural Code Chunking in Python (7h) — Done when: Tree-sitter extracts function boundaries and docstrings from Python, Go, and JS without errors.
+M2: Hugging Face Embedding Generation & Qdrant Vector Indexing (7h) — Done when: Embedding model encodes code chunks into vectors and stores them in Qdrant with HNSW indexing.
+M3: Hybrid BM25 and Vector Search with Reciprocal Rank Fusion in FastAPI for Information Retrieval (7h) — Done when: FastAPI serves search queries, executing hybrid vector + BM25 search and merging ranks via RRF.
+M4: NLP Semantic Search Evaluation Benchmark, Anti-Fake Verification & Docs (7h) — Done when: Benchmark confirms Recall@10 > 75% in < 200ms; anti-fake test validates dynamic function retrieval; docs complete.
+Total: 28 hours (estimate)
 
 PREREQUISITES, ENVIRONMENT AND ACCOUNTS
-----------------------------------------
-- Prerequisites: Familiarity with Python and Tree-sitter, standard command-line tools, and fundamental testing principles.
-- Hardware / OS: Standard modern computer (macOS, Linux, or Windows with WSL2) with at least 8GB RAM.
-- Accounts & Services: None required. Designed to run completely on free, open-source local software.
-- Fallback Path: In-memory mock drivers or SQLite/local files provided if external database or message broker containers cannot be run.
+----------------------------------------------------------------------
+Prerequisites: Proficiency in Python programming, type annotations, and asynchronous FastAPI development, Understanding of vector embeddings, cosine distance, vector search databases, and text chunking
+
+Environment & Hardware:
+- OS: Linux / macOS / Windows with WSL2
+- Memory: 8GB RAM
+- Compute / GPU: None required (purely CPU-bound quantized model inference)
+- Estimated Cost: $0 (fully open-source software stack and local embedding weights)
+- Accounts & Quotas: No external cloud accounts, paid services, or API keys required
+- Reference Environment: Local 4-core CPU with Python 3.11 and Qdrant local storage or Docker installed
+- Fallback Path: In-memory FAISS or Numpy cosine similarity matrix if Qdrant binary cannot be initialized
+
+Riskiest Component & Fallback:
+- Riskiest Component: High Embedding Inference Latency on Local CPU
+- Simpler Fallback: Leverage quantized ONNX runtime for embedding models (e.g. all-MiniLM-L6-v2 ONNX) to cut CPU latency by 3x
 
 DELIVERABLES
-----------------------------------------
-1. Clean Git repository with structured commit history, README, and reproducible setup commands.
-2. Production-quality core codebase with automated test suite achieving verified pass rates.
-3. Performance benchmark report (`results/benchmark_report.md`) documenting measured latency, throughput, and resource utilization.
-4. Screener verification script (`scripts/verify_all.sh` or equivalent) validating the full system in < 3 minutes.
-5. Architecture diagram (Mermaid/ASCII) and known limitations document explaining architectural trade-offs.
+----------------------------------------------------------------------
+- Git repository containing Python code search engine, AST extractors, Qdrant indexing pipeline, and FastAPI app
+- Interactive CLI search command line and API documentation at /docs
+- Automated IR evaluation harness calculating Recall@10 and MRR across query benchmarks
+- Screener verification script executing automated benchmark and dynamic semantic query in under 2 minutes
 
 OUT OF SCOPE AND EXTENDED PATH
-----------------------------------------
-- Out of Scope for Core Path: Distributed multi-region clustering, enterprise SSO integrations, complex third-party SaaS dependencies.
-- Extended Path (+6 hours): Advanced telemetry dashboard, distributed persistence cluster extension, or automated canary release pipeline.
+----------------------------------------------------------------------
+Out of Scope:
+- Fine-tuning large 70B parameter code foundation models from scratch
+- Automated code generation, program repair, or synthetic unit test synthesis
+- Enterprise SSO authentication and role-based repository access controls
 
-SAFETY AND ETHICS NOTE
-----------------------------------------
-All data processed, generated, and benchmarked by this project consists exclusively of synthetic fixtures. No personal identifiable information (PII), proprietary credentials, or live external endpoints are used.
+Extended Path (+12 hours):
+- Cross-encoder reranking stage using BGE-reranker-base to refine top 10 retrieval candidates
+- Real-time Git webhook indexing worker processing diff commits and invalidating stale vector embeddings
 
 LEARNING RESOURCES
-----------------------------------------
-- Official Documentation for Python, Tree-sitter, CodeBERT
-- Architectural Reference Patterns and RFC Standards [VERIFY URL]
-- Systems & Distributed Reliability Principles
+----------------------------------------------------------------------
+- Tree-sitter Official Grammar Guide and Query Syntax Reference
+- Qdrant Hybrid Search and Reciprocal Rank Fusion Architecture Documentation
+- Dense Passage Retrieval and Semantic Code Search Benchmark Literature
 
 SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Check 1: Verify natural language query returns syntactically relevant code (e.g., 'sort a list' finds quicksort)
-2. Check 2: Verify language-agnostic: returns results across Python, JS, and TypeScript codebases
-3. Check 3: Verify aST chunking: functions extracted correctly without string splitting; Pass when automated test script prints 0 errors and logs verified status code.
-4. Check 4: Verify index 1M lines benchmark (< 10 min) and query latency benchmark (< 200ms); Pass when automated test script prints 0 errors and logs verified status code.
-5. Check 5: Verify re-ranking: combine BM25 keyword score with semantic score for hybrid ranking; Pass when automated test script prints 0 errors and logs verified status code.
-6. Check 6: 6. Anti-Fake Verification Check: Inspect committed execution logs and re-run verification script against seeded test fixtures; pass when runtime metrics dynamically reflect test execution rather than static mocked responses.
+----------------------------------------------------------------------
+1. Check
+   Input: Benchmark dataset of 100 technical queries evaluated against 5,000 indexed functions
+   Action: python -m search_engine.evaluate --queries data/eval_queries.json
+   Result: Search engine achieves Recall@10 exceeding 75% and MRR exceeding 0.65
+   Evidence: Terminal stdout output and reports/ir_metrics.json
+   Pass: Recall@10 is > 0.75 and MRR is > 0.65 with exit code 0
+2. Check
+   Input: 500 consecutive search queries issued to FastAPI search endpoint
+   Action: python scripts/benchmark_latency.py --queries 500
+   Result: Average end-to-end query retrieval latency is < 200 milliseconds on local CPU
+   Evidence: Latency benchmark summary output log
+   Pass: Average search latency is < 200 milliseconds
+3. Check
+   Input: 50 source code files containing nested classes and decorated functions
+   Action: pytest tests/test_ast_parser.py
+   Result: Tree-sitter parser extracts all 50 function boundaries accurately
+   Evidence: Pytest console execution report
+   Pass: 50 of 50 function boundary extraction tests pass with exit code 0
+4. Check
+   Input: Hybrid search query combining dense vector similarity and BM25 keywords
+   Action: curl -X POST http://localhost:8000/search -H 'Content-Type: application/json' -d '{"query": "parse json payload"}'
+   Result: FastAPI returns structured JSON with top ranked code functions, file paths, and confidence scores
+   Evidence: HTTP response payload
+   Pass: Response status is 200 and results array contains at least 5 matching candidates
+5. Check [anti_fake]
+   Input: Dynamic synthetic code function with obscure identifiers ('xyz_calc_total_amortization') indexed at runtime
+   Action: python scripts/verify_dynamic_semantic.py --code 'def xyz_calc_total(p, r, n): ...' --query 'calculate monthly mortgage payment breakdown'
+   Result: Engine embeds query and retrieves dynamic function in top 3 results despite zero lexical token overlap
+   Evidence: Dynamic verification console output log
+   Pass: Dynamic function appears in top 3 retrieved results with exit code 0
 
 RESUME BULLET FORMULA
-----------------------------------------
-"Built semantic code search engine using CodeBERT and AST chunking; indexed [K] LOC in < 10min and returned sub-[M ms] natural language query results with hybrid BM25 + semantic re-ranking."
-Do not claim: scale, latency, or throughput figures without committing benchmark run logs; do not claim production deployment unless deployed to a verifiable live environment.
+----------------------------------------------------------------------
+"Architected semantic code search engine in Python and FastAPI using Tree-sitter and Qdrant; extracted AST function chunks across [FUNCTION_COUNT] functions, achieved [RECALL_SCORE] top-ten recall on technical query benchmarks, and delivered hybrid retrieval with sub-[QUERY_LATENCY] latency."
+
+Do not claim: 70B parameter generative code repair or enterprise multi-tenant IAM authorization
 
 ======================================================================
 Generated by HireFlow — hireflow.io

@@ -1,0 +1,314 @@
+{
+  "id": "brief-gpu-accelerated-inference",
+  "title": "GPU & CPU Accelerated ML Inference Server with Dynamic Batching",
+  "domain": "ML Engineering",
+  "difficulty": "ADVANCED",
+  "project_types": [
+    "AI/ML pipeline/model",
+    "Systems/low-level/networking"
+  ],
+  "problem": "Serving machine learning models in production under heavy concurrent traffic creates severe hardware bottlenecks and spiraling infrastructure costs. Sequential request evaluation underutilizes parallel compute cores, while naive batching introduces prohibitive latency penalties for single requests. This project constructs an accelerated machine learning inference server in Python, PyTorch, CUDA, and FastAPI. The engine implements a dynamic batching queue with configurable microsecond timeout windows, INT8 and FP16 quantization to reduce memory bandwidth demands, asynchronous request worker pools, and an automatic CPU fallback engine using ONNX Runtime for hardware portability on standard developer laptops.",
+  "use_cases": [
+    "High-throughput microservice backends serving deep learning embedding models under strict latency SLAs",
+    "Cost-optimized inference infrastructure maximizing throughput per compute core or GPU instance",
+    "Edge deployment platforms executing quantized neural networks across heterogeneous CPU/GPU hardware"
+  ],
+  "hard_parts": [
+    "Coalescing asynchronous concurrent HTTP requests into unified dynamic batch tensors within microsecond timeout windows",
+    "Calibrating post-training INT8 quantization to compress model size without degrading classification accuracy",
+    "Managing GPU device memory buffers and host-to-device transfers to prevent out-of-memory crashes during traffic surges",
+    "Architecting seamless CPU fallback using ONNX Runtime execution providers when CUDA devices are absent"
+  ],
+  "screener_signals": [
+    "Modular Python codebase separating dynamic batching schedulers, quantization pipelines, and FastAPI serving endpoints",
+    "High-concurrency load benchmark demonstrating greater than 2.8x throughput increase via dynamic batching over sequential execution",
+    "Anti-fake verification script issuing concurrent bursts and proving tensor dimension batching inside model forward execution"
+  ],
+  "job_families": [
+    "Machine Learning Systems Engineer",
+    "AI Inference Platform Engineer",
+    "Performance Software Engineer"
+  ],
+  "stack": [
+    {
+      "tool": "Python",
+      "role": "programming language for model loading, batch scheduling, and inference server runtime"
+    },
+    {
+      "tool": "PyTorch",
+      "role": "deep learning framework powering tensor computations and dynamic batching operations"
+    },
+    {
+      "tool": "CUDA",
+      "role": "parallel computing platform accelerating tensor matrix operations on GPU hardware"
+    },
+    {
+      "tool": "FastAPI",
+      "role": "high-performance asynchronous web framework serving inference REST endpoints"
+    },
+    {
+      "tool": "Docker",
+      "role": "containerization engine packaging inference server and runtime dependencies"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "Dynamic Batching Queue & Scheduler",
+        "tools_used": [
+          "Python",
+          "PyTorch"
+        ],
+        "purpose": "Accumulates incoming requests across microsecond timeout windows and coalesces them into single tensor batches"
+      },
+      {
+        "name": "Model Quantization & Optimization Engine",
+        "tools_used": [
+          "Python",
+          "PyTorch"
+        ],
+        "purpose": "Quantizes neural network weights to INT8 and FP16 precision, reducing memory footprint and latency"
+      },
+      {
+        "name": "Hardware Execution & CPU Fallback Engine",
+        "tools_used": [
+          "Python",
+          "CUDA",
+          "PyTorch"
+        ],
+        "purpose": "Dispatches tensor batches to CUDA streams when available, falling back seamlessly to ONNX CPU execution"
+      },
+      {
+        "name": "FastAPI High-Concurrency Inference Gateway",
+        "tools_used": [
+          "FastAPI",
+          "Python",
+          "Docker"
+        ],
+        "purpose": "Accepts client inference requests asynchronously, dispatching promises that resolve upon batch completion"
+      }
+    ],
+    "data_flow": "Client inference requests arrive at the FastAPI gateway; requests enter the Dynamic Batching Queue; the scheduler monitors batch size and timeout windows; once threshold or timeout triggers, inputs concatenate into a single batch tensor; the Hardware Execution Engine runs model forward pass on CUDA or CPU; the batch tensor slices into individual output responses; FastAPI resolves promises and returns individual prediction payloads to clients in under 25 milliseconds.",
+    "enforcement_mechanism": "Bounded queue capacities preventing out-of-memory exhaustion during traffic surges; timeout thresholds capping individual request latency."
+  },
+  "targets": [
+    {
+      "metric": "Dynamic Batching Throughput Improvement",
+      "method": "Throughput comparison between sequential non-batched inference and dynamic batching under 100 concurrent requests",
+      "input": "10,000 inference requests issued by 100 concurrent worker threads to image/text embedding model",
+      "environment": "Standard 4-core local CPU (or GPU if available), Python 3.11, PyTorch 2.1+",
+      "minimum_pass": "Throughput improvement exceeds 2.8x compared to sequential baseline",
+      "target": "Throughput improvement exceeds 4.2x compared to sequential baseline",
+      "report": "Inference benchmark throughput comparison summary report"
+    },
+    {
+      "metric": "End-to-End Batched Inference Latency (p95)",
+      "method": "Wall-clock timing from HTTP request receipt to response delivery under sustained 50 requests/sec load",
+      "input": "2,500 inference requests processed through dynamic batching gateway at 50 req/sec",
+      "environment": "Standard 4-core local CPU (or GPU if available), Python 3.11",
+      "minimum_pass": "p95 response latency is < 25.0 milliseconds",
+      "target": "p95 response latency is < 12.0 milliseconds",
+      "report": "Latency percentile distribution summary log"
+    },
+    {
+      "metric": "Post-Training Quantization Accuracy Retention",
+      "method": "Accuracy evaluation of INT8 quantized model compared to FP32 baseline across standard evaluation test split",
+      "input": "1,000 labeled test split samples evaluated across FP32 and INT8 quantized models",
+      "environment": "Standard 4-core local CPU, Python 3.11, PyTorch",
+      "minimum_pass": "Accuracy retention exceeds 98.5% of baseline FP32 performance",
+      "target": "Accuracy retention exceeds 99.2% of baseline FP32 performance",
+      "report": "Model quantization evaluation and accuracy comparison report"
+    }
+  ],
+  "skills": [
+    "Python",
+    "PyTorch",
+    "CUDA",
+    "FastAPI",
+    "Docker",
+    "Machine Learning",
+    "Systems Programming",
+    "Inference Optimization"
+  ],
+  "starter_input": {
+    "spec": "Pretrained PyTorch model (e.g. ResNet-18 or MiniLM text encoder), sample input tensors, and evaluation dataset.",
+    "size": "Pretrained model weights (~45MB) with 1,000 labeled test samples and synthetic load generation script",
+    "seeded_cases": "Simultaneous burst spikes exceeding batch capacity, malformed input tensor shapes, and GPU memory exhaustion",
+    "label_source": "Deterministic evaluation dataset with verified ground truth predictions and latency benchmarks",
+    "personal_data_policy": "Strictly public open-source model weights and synthetic benchmark tensors; zero personal data used"
+  },
+  "components": [
+    {
+      "name": "Dynamic Batching Request Queue & Timeout Scheduler",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "Model Quantization Engine (INT8 / FP16)",
+      "task_type": "model train + evaluate cycle",
+      "hours": 6.0
+    },
+    {
+      "name": "Asynchronous Inference Worker & Memory Pool",
+      "task_type": "infra component (broker, DB, orchestrator, cluster service)",
+      "hours": 5.0
+    },
+    {
+      "name": "FastAPI High-Concurrency Serving Gateway",
+      "task_type": "API endpoint group with tests",
+      "hours": 5.0
+    },
+    {
+      "name": "CPU Fallback Engine with ONNX Runtime",
+      "task_type": "low-level/system subsystem",
+      "hours": 5.0
+    },
+    {
+      "name": "Concurrency Throughput & Latency Profiling Harness",
+      "task_type": "load or performance test harness + report",
+      "hours": 4.0
+    },
+    {
+      "name": "Tensor Pipeline Architecture Diagram & Hardware Profiling Guide",
+      "task_type": "docs + architecture diagram",
+      "hours": 3.0
+    }
+  ],
+  "extended_path": {
+    "items": [
+      "Multi-stream CUDA asynchronous kernel execution with pinned host memory buffers",
+      "Speculative decoding engine for autoregressive language model token generation"
+    ],
+    "hours": 16
+  },
+  "milestones": [
+    {
+      "name": "Dynamic Batching Scheduler & Request Queue in Python Systems Programming",
+      "hours": 10,
+      "done_criterion": "Scheduler accumulates requests across timeout window and coalesces inputs into batch tensors."
+    },
+    {
+      "name": "PyTorch Quantization Pipeline (INT8/FP16) & Memory Optimization in ML Engineering",
+      "hours": 10,
+      "done_criterion": "Quantization compresses model size by 2x+ with > 98.5% accuracy retention against FP32 baseline."
+    },
+    {
+      "name": "High-Concurrency FastAPI Serving Engine with CUDA and CPU Fallback in Inference Optimization",
+      "hours": 10,
+      "done_criterion": "FastAPI gateway serves concurrent requests, achieving sub-25ms p95 latency on batched inputs."
+    },
+    {
+      "name": "Throughput Benchmark, Docker Anti-Fake Verification & Docs in Machine Learning",
+      "hours": 9,
+      "done_criterion": "Benchmark proves > 2.8x throughput gain; anti-fake test validates batched execution; docs complete."
+    }
+  ],
+  "prerequisites": [
+    "Proficiency in Python, PyTorch tensor manipulation, and asynchronous programming (asyncio)",
+    "Understanding of neural network forward passes, model quantization, and parallel computing principles"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (runs on CPU via ONNX Runtime fallback; optional NVIDIA GPU supported)",
+    "cost": "$0 (fully open-source software stack with local model weights)",
+    "accounts_keys_quotas": "No external cloud accounts, paid services, or API keys required",
+    "reference_environment": "Local 4-core CPU with Python 3.11 and PyTorch installed",
+    "fallback_path": "Pure CPU execution using PyTorch CPU tensors or ONNX Runtime if CUDA is absent"
+  },
+  "riskiest_component": {
+    "name": "Latency Spikes on Individual Requests Under Low Traffic (Batch Starvation)",
+    "fallback": "Enforce strict microsecond timeout (e.g. 5ms) triggering partial batch dispatch immediately"
+  },
+  "deliverables": [
+    "Git repository containing Python dynamic batching server, quantization scripts, and FastAPI app",
+    "Docker container file packaging inference runtime and benchmark tools",
+    "Automated performance harness comparing sequential vs batched throughput and latency",
+    "Screener verification script executing automated benchmark and dynamic batch test in under 2 minutes"
+  ],
+  "out_of_scope": [
+    "Custom GPU kernel compilation via inline assembly or PTX instructions",
+    "Distributed tensor parallelism across multi-node GPU clusters (Megatron-LM)",
+    "Real-time video transcoding and computer vision decoding pipelines"
+  ],
+  "safety_note": null,
+  "resources": [
+    "PyTorch Quantization Documentation and Best Practices Guide",
+    "Dynamic Batching Architecture Patterns for Low-Latency Deep Learning Serving",
+    "ONNX Runtime Execution Providers and CPU Acceleration Guidelines"
+  ],
+  "rubric": [
+    {
+      "input": "10,000 requests issued to inference server under 100 concurrent workers",
+      "action": "python scripts/benchmark_batching.py --mode dynamic --requests 10000",
+      "expected_result": "Dynamic batching achieves throughput increase exceeding 2.8x over sequential baseline",
+      "evidence_location": "Throughput benchmark output table and reports/throughput_comparison.json",
+      "pass_criterion": "Throughput ratio (dynamic / sequential) is > 2.8 with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "2,500 inference requests dispatched at 50 requests/sec load",
+      "action": "python scripts/benchmark_latency.py --rate 50 --requests 2500",
+      "expected_result": "p95 end-to-end response latency is < 25.0 milliseconds",
+      "evidence_location": "Latency distribution console report",
+      "pass_criterion": "p95 latency is < 25.0 milliseconds",
+      "kind": "normal"
+    },
+    {
+      "input": "1,000 test split samples evaluated across FP32 and INT8 models",
+      "action": "python -m inference_server.evaluate_quantization",
+      "expected_result": "INT8 quantized model achieves > 98.5% accuracy retention compared to FP32 baseline",
+      "evidence_location": "Quantization evaluation summary log",
+      "pass_criterion": "Quantized accuracy divided by baseline accuracy is > 0.985 with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Inference request issued to FastAPI endpoint",
+      "action": "curl -X POST http://localhost:8000/predict -H 'Content-Type: application/json' -d '{\"inputs\": [1.0, 2.0, 3.0]}'",
+      "expected_result": "API returns prediction tensor and execution metadata with HTTP 200",
+      "evidence_location": "HTTP response payload",
+      "pass_criterion": "Response status is 200 and predictions array has non-zero length",
+      "kind": "normal"
+    },
+    {
+      "input": "Dynamic burst of 8 concurrent requests dispatched simultaneously within 2 milliseconds",
+      "action": "python scripts/verify_dynamic_batching.py --burst 8 --timeout-ms 5",
+      "expected_result": "Server scheduler coalesces all 8 inputs into exactly 1 model forward tensor call",
+      "evidence_location": "Dynamic verification console execution output log",
+      "pass_criterion": "Batch size logged inside forward execution equals 8 with exit code 0",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected accelerated machine learning inference server in Python and PyTorch with dynamic batching; achieved [THROUGHPUT_GAIN] throughput improvement over sequential execution across [CONCURRENT_CLIENTS] concurrent clients, and delivered sub-[INFERENCE_LATENCY] tail latency with low-bit quantization.",
+    "claims": [
+      {
+        "text": "achieved [THROUGHPUT_GAIN] throughput improvement over sequential execution across [CONCURRENT_CLIENTS] concurrent clients",
+        "rubric_indexes": [
+          0
+        ]
+      },
+      {
+        "text": "delivered sub-[INFERENCE_LATENCY] tail latency with low-bit quantization",
+        "rubric_indexes": [
+          1,
+          2
+        ]
+      }
+    ],
+    "do_not_claim": "custom GPU PTX assembly kernel compilation or multi-node tensor cluster parallelism"
+  },
+  "verify": [],
+  "worksheet": {
+    "q1": "Core deliverable: an accelerated ML inference server in Python/PyTorch with dynamic batching, INT8 quantization, and CPU fallback.",
+    "q2": "Target users: ML systems engineers, AI platform architects, and performance engineers.",
+    "q3": "3 use cases: deep learning embedding services, cost-optimized inference clusters, and edge neural network serving.",
+    "q4": "Stated hours: 39 hours. Calculated bottom-up: 34 component hours * 1.15 buffer = 39.1 -> 39 hours. Advanced level.",
+    "q5": "Hard parts: microsecond dynamic batch scheduling, INT8 quantization calibration, GPU memory buffer management, and seamless ONNX CPU fallback.",
+    "q6": "Starter input: pretrained PyTorch model weights (~45MB) with 1,000 labeled test samples. Open-source weights only.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU only (GPU optional), $0 cost, zero cloud accounts. Fallback: ONNX Runtime CPU mode.",
+    "q8": "Riskiest component: Latency spikes on low traffic from batch starvation. Fallback: 5ms microsecond timeout dispatch.",
+    "q9": "Potential faking: sequential loops masquerading as batching. Anti-fake check 5 sends 8 concurrent requests and asserts forward batch size equals 8.",
+    "q10": "Safety/ethics: Safe; standard open-source vision/text models only."
+  }
+}

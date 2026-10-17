@@ -1,122 +1,156 @@
-PROJECT BRIEF — Apache Spark Streaming ETL with Delta Lake
+PROJECT BRIEF — Real-Time Lakehouse Streaming ETL Pipeline with Apache Spark, Delta Lake, Kafka & MinIO
 ======================================================================
 
 Domain    : Data Engineering
-Difficulty: advanced
-Est. Time : 38 hours (Core Path) | Extended Path: +6 hours
-Tech Stack: Python [core programming language and algorithmic runtime], Apache Spark [apache spark component], Delta Lake [delta lake component], Kafka [distributed event streaming broker], AWS S3 [aws s3 component], SQL [sql component]
+Difficulty: ADVANCED
+Est. Time : 40 hours (core path, estimate). Extended path: +16 hours
+Tech Stack: Python (primary language implementing Spark streaming jobs, PySpark transforms, and test harnesses), Apache Spark (distributed compute engine executing Structured Streaming micro-batches and stateful transformations), Delta Lake (storage layer providing ACID transactions, time travel, schema enforcement, and compaction), Kafka (distributed streaming broker capturing raw high-velocity event streams from producer sources), MinIO (S3-compatible high-performance object storage hosting underlying Parquet and Delta log files), SQL (declarative query language executing analytical continuous aggregations and Gold table validations)
 
 PROBLEM STATEMENT
-----------------------------------------
-Data warehouses accumulate data in nightly batch jobs, creating a 24-hour information lag that prevents sub-second business intelligence. Build a sub-second streaming ETL pipeline using Spark Structured Streaming that ingests Kafka events, transforms them, and writes to Delta Lake tables with ACID guarantees.
+----------------------------------------------------------------------
+Traditional corporate data platforms relying on overnight batch ETL jobs inflict a 24-hour analytical lag on decision makers, preventing fraud detection, inventory rebalancing, and live operational monitoring. Naive streaming architectures built on raw object storage suffer from dirty reads, duplicate event writes, corrupt file fragmentation (the small-file problem), and lack of ACID transactional guarantees when streaming jobs fail mid-microbatch. This project builds a production-grade real-time lakehouse streaming ETL pipeline in Python using Apache Spark Structured Streaming, Delta Lake, and Apache Kafka. The pipeline ingests high-velocity events into a Medallion architecture (Bronze raw, Silver cleaned/deduplicated, Gold aggregated business marts), enforces ACID transactions with Delta Lake write-ahead logs, executes stateful stream-stream joins with event-time watermarking, and stores Parquet datasets in MinIO (S3-compatible) object storage with sub-5s end-to-end latency.
 
 USE CASES IN THE REAL WORLD
-----------------------------------------
-Every company with a data warehouse moving from batch to sub-second: top tech platforms's analytics, top tech platforms's demand forecasting, Ola's driver supply optimization. Delta Lake is standard at Databricks customers, which includes 50%+ of Fortune 500 companies and most large Indian tech companies.
+----------------------------------------------------------------------
+- {'title': 'FinTech Fraud Detection & Live Transaction Scoring', 'first_sentence': 'Credit card networks processing thousands of point-of-sale swipes per second must detect fraudulent spending bursts across merchant categories.', 'second_sentence': 'The streaming pipeline consumes transaction events from Kafka, dedupes events using watermarks in Spark, and updates rolling user spending profiles in Delta Lake tables within 4 seconds.'}
+- {'title': 'Ride-Hailing Dynamic Surge Pricing & Supply Balancing', 'first_sentence': 'Urban ride-hailing platforms need to match passenger ride requests with available driver locations in localized geographic zones.', 'second_sentence': 'The Spark engine executes stateful stream-stream joins between passenger requests and driver GPS pings, computing localized supply-demand ratios in real time.'}
+- {'title': 'E-Commerce Real-Time Inventory Ledger Reconciliation', 'first_sentence': 'Retail fulfillment systems distributing orders across multiple regional warehouses need an immutable audit ledger of stock decrements.', 'second_sentence': 'The system writes ACID micro-batches to Delta Lake, guaranteeing exactly-once semantics and supporting historical time-travel audit queries for financial compliance.'}
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-The Lakehouse architecture (Delta Lake) is replacing traditional data warehouses industry-wide. Understanding Spark Structured Streaming, schema evolution, upserts, and time travel queries positions you at the cutting edge of modern data engineering — skills that command ₹25-60 LPA in India.
+WHY THIS IS HARD
+----------------------------------------------------------------------
+- Configuring Apache Spark Structured Streaming watermarks and event-time stateful operations to handle late-arriving events without unbounded memory leaks
+- Enforcing Delta Lake ACID transaction guarantees with optimistic concurrency control and idempotent checkpointing during simulated node crashes
+- Implementing automatic small-file compaction (OPTIMIZE / bin-packing) on streaming Delta tables to prevent query degradation over millions of Parquet files
+- Structuring the Medallion architecture (Bronze raw ingestion, Silver deduplicated data cleaning, Gold continuous aggregate rollups) with Delta schema evolution
 
 RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Databricks, Delta Lake, and Spark Structured Streaming are the exact keywords in top Data Engineering JDs at Myntra, top tech platforms, InMobi, and most large tech companies. A working streaming pipeline with ACID guarantees and schema evolution immediately signals senior Data Engineer readiness.
+----------------------------------------------------------------------
+- Clean Python codebase cleanly separating Kafka ingestion schemas, Spark Structured Streaming jobs, Delta Lake table definitions, and MinIO storage configs
+- Streaming benchmark proving sustained ingestion of 15,000+ events per second with sub-5s end-to-end processing latency from Kafka to Delta Gold
+- Anti-fake verification script injecting 10 duplicate events with identical transaction IDs and 5 late-arriving events, asserting exactly-once deduplication in the Silver table
+Relevant Job Families: Senior Data Engineer, Big Data Platform Architect, Distributed Systems Developer
 
 ARCHITECTURE & DATA FLOW
-----------------------------------------
-Kafka source streaming events into Spark Structured Streaming jobs. Schema evolution handling with Delta Lake schema merge. Incremental ETL with watermarking for late-arriving data. Delta table time-travel queries for point-in-time recovery. Databricks or local Spark cluster deployment.
+----------------------------------------------------------------------
+Components:
+- Kafka Streaming Ingestion & Bronze Raw Event Lakehouse Layer (Tools: Python, Kafka, Delta Lake): Consumes raw JSON event streams from Kafka and appends unparsed payloads to Bronze Delta table with ingestion timestamps
+- Spark Structured Streaming Deduplication & Silver Cleaning Engine (Tools: Python, Apache Spark): Parses JSON payloads, applies watermarking (10m), drops duplicate transaction IDs, and writes to Silver Delta table
+- Delta Lake ACID Transaction Log & Parquet Compaction Worker (Tools: Delta Lake, MinIO): Manages Delta transaction logs, enforces schema validity, and executes background OPTIMIZE compaction
+- Gold Dimension Aggregations & Analytical SQL Data Mart (Tools: Python, Apache Spark, SQL): Computes rolling 5-minute sliding window aggregations and writes business-ready analytical metrics to Gold Delta table
+- MinIO Object Storage & S3-Compatible Cloud Lakehouse Store (Tools: MinIO): Stores immutable Parquet files and Delta transaction logs with S3 API compatibility and bucket lifecycle policies
+- Streaming Lakehouse Throughput & Watermark Lag Benchmark Harness (Tools: Python, Apache Spark): Generates 15,000 events/sec and benchmarks end-to-end streaming latency, checkpoint recovery, and deduplication
+- Lakehouse Architecture Guide & Medallion Schema Manual (Tools: Python, Delta Lake): Documents watermarking strategies, Delta Lake time-travel queries, and small-file compaction schedules
+
+Data Flow:
+Producers publish transaction events to Kafka; Spark Structured Streaming consumes events and writes raw payloads to the Bronze Delta table in MinIO; a secondary streaming query reads Bronze, applies a 10-minute watermark on event_time, deduplicates transactions by transaction_id, validates schemas, and appends to the Silver Delta table; a third streaming query computes 5-minute sliding window aggregations (total volume, merchant counts), writing to the Gold Delta table; downstream analytical BI dashboards query Gold Delta tables using Spark SQL; if a worker fails, Spark resumes from the S3 checkpoint with zero duplicate records.
+
+Enforcement Mechanism:
+Delta Lake ACID write-ahead transaction logs (`_delta_log/`) and Spark Structured Streaming WAL checkpoints ensuring exactly-once delivery.
 
 SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Target 1:
-- Metric: Ingestion & Transformation Throughput
-- Method: Continuous ingestion benchmark streaming synthetic records from seed file
-- Input/dataset: 100,000 structured synthetic records (~250 bytes each)
-- Reference environment: Local workstation with 8GB RAM and SSD storage
-- Minimum pass: Ingestion rate > [N] records/sec (minimum > 1,500 records/sec)
-- Target: Ingestion rate > [N] records/sec (target > 6,000 records/sec)
-- Report format: Pipeline execution log showing total records, wall-clock time, and records/sec
-
-Target 2:
-- Metric: Analytical Aggregation Latency (p95)
-- Method: Analytical query execution over seeded historical dataset
-- Input/dataset: Seeded database table with 1,000,000 historical rows
-- Reference environment: Local database engine in Docker with 2GB memory ceiling
-- Minimum pass: p95 query latency < [M ms] (minimum < 400ms)
-- Target: p95 query latency < [M ms] (target < 100ms)
-- Report format: Database query analyzer output showing execution time and scanned rows
-
-Target 3:
-- Metric: Data Quality & Reconciliation Precision
-- Method: End-to-end reconciliation check comparing ingested ledger vs. source stream
-- Input/dataset: Injected discrepancy dataset with [X] intentional duplicate and corrupted records
-- Reference environment: Local automated test runner
-- Minimum pass: [X of Y] discrepancies correctly identified and quarantined (100% pass on test set)
-- Target: [X of Y] discrepancies identified with 0 false positives
-- Report format: Markdown reconciliation report with discrepancy breakdown
+----------------------------------------------------------------------
+Metric | Method | Input/Dataset | Reference Environment | Minimum Pass | Target | Report Format
+Sustained Streaming Event Ingestion Throughput | Events per second ingested through Kafka, transformed in Spark, and committed to Delta Lake across 100,000 events | 100,000 synthetic transaction events streamed at 15,000 events per second across 4 Kafka partitions | Standard 4-core local CPU, Docker Desktop (Kafka, Spark standalone master/worker, MinIO), Python 3.11 | Sustained streaming throughput is >= 10,000 events per second | Sustained streaming throughput is >= 22,000 events per second | Spark Structured Streaming throughput benchmark report and micro-batch timing log
+End-to-End Event-to-Gold Commit Latency | Wall-clock duration from Kafka message publish timestamp to availability in Gold Delta table query | 5,000 continuous transaction events streamed under 2-second microbatch trigger intervals | Local PySpark streaming pipeline writing Parquet files to local MinIO bucket | p95 end-to-end processing latency is < 6.0 seconds | p95 end-to-end processing latency is < 3.2 seconds | Streaming latency breakdown log and micro-batch processing duration table
+Event-Time Watermark Deduplication Parity Rate | Percentage of duplicate events within watermark window successfully discarded without contaminating Silver table | 50 duplicate event pairs injected with staggered arrival times inside 10-minute watermark window | Spark Structured Streaming job running `dropDuplicates(['transaction_id', 'event_time'])` | 50 of 50 duplicate events successfully dropped with exactly 1 record per transaction in Silver table | 50 of 50 duplicate events successfully dropped with exactly 1 record per transaction in Silver table | Watermark deduplication audit log and Silver table count verification report
 
 SKILLS COVERED
-----------------------------------------
-Python, Spark, Delta Lake, Kafka, SQL, Cloud
+----------------------------------------------------------------------
+Python, Apache Spark, Delta Lake, Kafka, MinIO, SQL, Data Engineering, Streaming Systems
 
 TARGET APPLICATION / STARTER INPUT
-----------------------------------------
-The project provides a self-contained test environment and fixture generator located in `scripts/` or `fixtures/`. It deterministically generates representative input records or mock client traffic for automated validation. No third-party proprietary data or real personal identifiers (PII) are required; all test datasets use synthetic tokens and deterministic random seeds.
+----------------------------------------------------------------------
+- Specification: Directory containing PySpark streaming jobs, Kafka event producers, Delta Lake schemas, and MinIO setup scripts.
+- Dataset / Traffic Size: 9 Python source modules, SQL DDL schema scripts, Docker Compose manifest, and 100,000 synthetic financial transaction events
+- Seeded Edge Cases: Late-arriving events outside watermark, schema mismatch fields, out-of-order timestamps, and worker abrupt kill mid-microbatch
+- Label / Verification Source: Deterministic transaction ID manifests and Delta Lake transaction log version commit counts
+- Personal Data Policy: Strictly mock synthetic credit card transactions and simulated merchant IDs; no real personal data used
 
 MILESTONES
-----------------------------------------
-- Milestone 1: Environment Setup & Core Foundations (8h)
-  Configure repository, tooling, container dependencies, and foundational data structures. Done when foundational test suite passes with clean linting.
-- Milestone 2: Core Processing & Architecture Implementation (11h)
-  Implement primary operational workflows, database models or state transitions, and API endpoints. Done when integration tests verify end-to-end data flow under normal operating conditions.
-- Milestone 3: Concurrency, Reliability & Error Guardrails (11h)
-  Implement defensive controls: rate limiting, retries with exponential backoff, transaction boundaries, and failure isolation. Done when chaos or stress tests verify graceful degradation under fault injection.
-- Milestone 4: Verification, Benchmarking & Documentation (8h)
-  Execute performance benchmark harness, compile measurement tables, generate architectural diagrams, and document screener verification steps. Done when `scripts/verify_all` passes completely.
+----------------------------------------------------------------------
+M1: Kafka & MinIO Infrastructure Setup in Kafka and MinIO (10h) — Done when: Docker Compose launches Kafka and MinIO; test events publish and read successfully.
+M2: Bronze Ingestion & Silver Deduplication in Python, Apache Spark and Delta Lake (10h) — Done when: Spark streams to Bronze; Silver cleans and drops duplicates within 10-minute watermark.
+M3: Gold Analytical Aggregations & Delta Time Travel in SQL and Data Engineering (10h) — Done when: Gold table computes 5-minute sliding metrics; Delta time travel queries historical snapshots.
+M4: Streaming Benchmark, Deduplication Anti-Fake Test & Docs in Streaming Systems (10h) — Done when: Ingestion sustains >= 10,000 events/sec; anti-fake test validates deduplication; docs complete.
+Total: 40 hours (estimate)
 
 PREREQUISITES, ENVIRONMENT AND ACCOUNTS
-----------------------------------------
-- Prerequisites: Familiarity with Python and Apache Spark, standard command-line tools, and fundamental testing principles.
-- Hardware / OS: Standard modern computer (macOS, Linux, or Windows with WSL2) with at least 8GB RAM.
-- Accounts & Services: None required. Designed to run completely on free, open-source local software.
-- Fallback Path: In-memory mock drivers or SQLite/local files provided if external database or message broker containers cannot be run.
+----------------------------------------------------------------------
+Prerequisites: Proficiency in Python, PySpark Structured Streaming APIs, and SQL data transformations, Understanding of distributed lakehouse concepts (Delta Lake, ACID transactions), Kafka streaming, and object storage (S3/MinIO)
+
+Environment & Hardware:
+- OS: Linux / macOS / Windows with WSL2
+- Memory: 8GB RAM
+- Compute / GPU: None required (purely CPU, memory, and disk I/O bound data pipeline software)
+- Estimated Cost: $0 (fully open-source stack using local Docker Desktop for Kafka, Spark, and MinIO)
+- Accounts & Quotas: No external AWS cloud accounts, Databricks licenses, or paid S3 quotas required
+- Reference Environment: Local 4-core CPU with Docker Desktop (Kafka, Spark standalone master, and MinIO containers) and Python 3.11
+- Fallback Path: Running PySpark in local mode (`spark.master=local[*]`) writing to local filesystem directory if MinIO container is unavailable
+
+Riskiest Component & Fallback:
+- Riskiest Component: Small File Problem and Out-of-Memory Errors in Stateful Streaming Aggregations
+- Simpler Fallback: Increase micro-batch trigger interval to 5 seconds to reduce generated Parquet file frequency.
 
 DELIVERABLES
-----------------------------------------
-1. Clean Git repository with structured commit history, README, and reproducible setup commands.
-2. Production-quality core codebase with automated test suite achieving verified pass rates.
-3. Performance benchmark report (`results/benchmark_report.md`) documenting measured latency, throughput, and resource utilization.
-4. Screener verification script (`scripts/verify_all.sh` or equivalent) validating the full system in < 3 minutes.
-5. Architecture diagram (Mermaid/ASCII) and known limitations document explaining architectural trade-offs.
+----------------------------------------------------------------------
+- Git repository containing PySpark streaming jobs, Kafka event producers, Delta Lake schemas, and MinIO scripts
+- Docker Compose file launching local Kafka, Spark standalone cluster, and MinIO instances
+- Automated benchmark harness profiling streaming throughput, end-to-end latency, and checkpoint recovery
+- Screener verification script executing automated streaming pipeline and dynamic deduplication validation in under 3 minutes
 
 OUT OF SCOPE AND EXTENDED PATH
-----------------------------------------
-- Out of Scope for Core Path: Distributed multi-region clustering, enterprise SSO integrations, complex third-party SaaS dependencies.
-- Extended Path (+6 hours): Advanced telemetry dashboard, distributed persistence cluster extension, or automated canary release pipeline.
+----------------------------------------------------------------------
+Out of Scope:
+- Commercial Databricks Lakehouse Platform or AWS EMR multi-node cluster deployment
+- Multi-terabyte distributed machine learning model training on Spark
+- Complex real-time CDC extraction from physical production Oracle databases
 
-SAFETY AND ETHICS NOTE
-----------------------------------------
-All data processed, generated, and benchmarked by this project consists exclusively of synthetic fixtures. No personal identifiable information (PII), proprietary credentials, or live external endpoints are used.
+Extended Path: None (self-contained core scope)
 
 LEARNING RESOURCES
-----------------------------------------
-- Official Documentation for Python, Apache Spark, Delta Lake
-- Architectural Reference Patterns and RFC Standards [VERIFY URL]
-- Systems & Distributed Reliability Principles
+----------------------------------------------------------------------
+- Delta Lake: High-Performance ACID Table Storage over Cloud Object Stores (Armbrust et al., VLDB 2020)
+- Apache Spark Structured Streaming Programming Guide (Official Apache Spark Documentation)
+- The Log-Structured Merge-Tree and Modern Lakehouse Storage (Martin Kleppmann)
 
 SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Check 1: Verify spark streaming job handling late-arriving events via watermarking (up to 10 min delay); Pass when automated test script prints 0 errors and logs verified status code.
-2. Check 2: Verify delta Lake MERGE operation implementing upsert (insert or update) semantics; Pass when automated test script prints 0 errors and logs verified status code.
-3. Check 3: Verify schema evolution test: add new column to Kafka event schema without breaking pipeline; Pass when automated test script prints 0 errors and logs verified status code.
-4. Check 4: Verify time travel query recovering data state from 1 hour ago via Delta table versioning; Pass when automated test script prints 0 errors and logs verified status code.
-5. Check 5: Verify end-to-end latency benchmark from Kafka produce to Delta table availability; Pass when automated test script prints 0 errors and logs verified status code.
-6. Check 6: 6. Anti-Fake Verification Check: Inspect committed execution logs and re-run verification script against seeded test fixtures; pass when runtime metrics dynamically reflect test execution rather than static mocked responses.
+----------------------------------------------------------------------
+1. Check
+   Input: 100,000 synthetic transaction events streamed at 15,000 events per second
+   Action: python ./benchmarks/bench_streaming.py --events 100000 --rate 15000
+   Result: Pipeline processes events with sustained throughput >= 10,000 events/sec into Delta Lake
+   Evidence: Terminal output log and reports/streaming_throughput.json
+   Pass: Throughput >= 10000 events/sec with exit code 0
+2. Check
+   Input: 5,000 continuous transaction events streamed under 2-second microbatch trigger
+   Action: python ./benchmarks/bench_latency.py --events 5000 --trigger-interval 2s
+   Result: Events appear in Gold Delta table with p95 end-to-end latency < 6.0 seconds
+   Evidence: Latency timing report in reports/e2e_latency.json
+   Pass: p95 latency < 6.0s with exit code 0
+3. Check
+   Input: 50 duplicate event pairs published to Kafka within 10-minute watermark window
+   Action: python ./tests/test_watermark_dedup.py --duplicates 50
+   Result: Silver Delta table contains exactly 50 records; all duplicates dropped by Spark Structured Streaming
+   Evidence: Deduplication audit report in reports/dedup_audit.json
+   Pass: Silver table record count matches ground truth with exit code 0
+4. Check
+   Input: Abrupt SIGKILL termination of Spark worker process mid-streaming microbatch
+   Action: python ./tests/test_checkpoint_recovery.py --kill-worker
+   Result: Spark restarts from MinIO checkpoint with 0 missing records and 0 duplicate records committed
+   Evidence: Checkpoint recovery test log in reports/recovery_audit.json
+   Pass: Pipeline recovers cleanly with valid transaction logs and exit code 0
+5. Check [anti_fake]
+   Input: Simulated transaction 'tx_test_999' published twice to Kafka topic with 5-second interval
+   Action: python ./scripts/verify_exact_dedup.py --tx-id tx_test_999 --delay 5
+   Result: Bronze table records 2 raw rows; Silver table contains exactly 1 deduplicated row
+   Evidence: Dynamic verification console execution output log
+   Pass: Console confirms exactly 1 row in Silver for tx_test_999 with exit code 0
 
 RESUME BULLET FORMULA
-----------------------------------------
-"Built Spark Structured Streaming ETL pipeline with Delta Lake ACID guarantees; processed [N] req/sec events/sec with [S] seconds latency and schema-evolution-safe upserts supporting time-travel queries."
-Do not claim: scale, latency, or throughput figures without committing benchmark run logs; do not claim production deployment unless deployed to a verifiable live environment.
+----------------------------------------------------------------------
+"Architected continuous lakehouse streaming ETL pipeline in Python with Apache Spark, Delta Lake, and Kafka; sustained [STREAM_THROUGHPUT] events per second ingestion throughput, and delivered sub-[STREAM_LATENCY] second end-to-end processing latency."
+
+Do not claim: managed Databricks cloud platform deployment or commercial AWS EMR clustering
 
 ======================================================================
 Generated by HireFlow — hireflow.io

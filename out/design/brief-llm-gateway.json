@@ -1,0 +1,334 @@
+{
+  "id": "brief-llm-gateway",
+  "title": "High-Throughput Multi-Provider LLM Gateway with Semantic Prompt Caching, Automatic Failover & Token Rate Limiting",
+  "domain": "GenAI & LLM Engineering",
+  "difficulty": "INTERMEDIATE",
+  "project_types": [
+    "API/backend service",
+    "Platform/infra tool"
+  ],
+  "problem": "Applications relying directly on single LLM provider APIs suffer catastrophic outages during vendor downtime, waste budget repeatedly recalculating identical prompt completions, and face uncoordinated quota exhaustion across distributed microservices. Building ad-hoc client-side retries leads to stampeding herds and unpredictable billing spikes. This project builds a production-grade multi-provider LLM gateway in Python and FastAPI. The gateway unifies access across heterogeneous providers with automatic fallback routing, reduces inference expenditures through semantic vector prompt caching in Redis, enforces token-bucket rate limits per tenant, and exports real-time spend telemetry.",
+  "use_cases": [
+    {
+      "title": "Multi-Tenant Enterprise AI API Cost Optimization",
+      "first_sentence": "Enterprise software platforms serving thousands of internal corporate users need centralized billing control and spend limits across engineering teams.",
+      "second_sentence": "The gateway intercepts all model completion requests, checks semantic caches to return instant cached responses for repetitive queries, and tracks usage per project."
+    },
+    {
+      "title": "Zero-Downtime Provider Failover for Mission-Critical APIs",
+      "first_sentence": "Production SaaS products relying on LLM backends must maintain continuous uptime even when a primary commercial provider encounters service degradation.",
+      "second_sentence": "The gateway monitors provider response latency and HTTP error rates, automatically routing traffic to secondary providers or open-source fallback models within 450ms."
+    },
+    {
+      "title": "Distributed Rate Limiting and Quota Enforcement",
+      "first_sentence": "Cloud services offering LLM features to tiered subscription customers need deterministic token-per-minute and request-per-minute enforcement.",
+      "second_sentence": "The system applies distributed token-bucket rate limiting in Redis, smoothly queuing requests and rejecting abusive bursts with standard HTTP 429 status codes."
+    }
+  ],
+  "hard_parts": [
+    "Implementing semantic prompt caching using vector cosine similarity that reliably detects semantic matches without returning stale or irrelevant completions",
+    "Designing circuit-breaking failover policies that detect degraded upstream providers without causing cascading request timeouts",
+    "Executing atomic distributed token-bucket rate limiting in Redis under high-concurrency client request bursts",
+    "Normalizing disparate multi-vendor streaming response schemas into a unified server-sent events (SSE) protocol"
+  ],
+  "screener_signals": [
+    "Clean Python codebase separating provider adapters, semantic caching managers, rate limiting interceptors, and telemetry routers",
+    "High-throughput benchmark report measuring proxy latency overhead, cache hit response speed, and failover diversion timings",
+    "Anti-fake verification script issuing a novel prompt followed by a semantically equivalent variant, asserting sub-15ms cached return and zero provider token usage"
+  ],
+  "job_families": [
+    "LLM Platform Engineer",
+    "Backend Infrastructure Engineer",
+    "API Gateway Architect"
+  ],
+  "stack": [
+    {
+      "tool": "Python",
+      "role": "primary backend language implementing asynchronous proxy logic and caching pipelines"
+    },
+    {
+      "tool": "FastAPI",
+      "role": "high-performance asynchronous framework exposing unified OpenAI-compatible REST endpoints"
+    },
+    {
+      "tool": "Redis",
+      "role": "in-memory cache storing semantic vector embeddings and distributed token-bucket counters"
+    },
+    {
+      "tool": "LangChain",
+      "role": "library managing prompt template standardizations and provider interface abstractions"
+    },
+    {
+      "tool": "OpenAI API",
+      "role": "primary commercial LLM provider interface supported through unified client adapter"
+    },
+    {
+      "tool": "Anthropic API",
+      "role": "secondary commercial LLM provider interface configured for automatic fallback routing"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "Unified API Gateway & OpenAI Schema Adapter",
+        "tools_used": [
+          "FastAPI",
+          "Python"
+        ],
+        "purpose": "Ingests standard OpenAI-formatted completion and chat requests, normalizing payloads across providers"
+      },
+      {
+        "name": "Semantic Prompt Cache & Vector Similarity Engine",
+        "tools_used": [
+          "Python",
+          "Redis",
+          "LangChain"
+        ],
+        "purpose": "Embeds incoming prompt strings, searches Redis vector index, and serves cached responses for cosine similarity > 0.92"
+      },
+      {
+        "name": "Distributed Token-Bucket Rate Limiter & Quota Guard",
+        "tools_used": [
+          "Python",
+          "Redis"
+        ],
+        "purpose": "Enforces tenant-level requests-per-minute and tokens-per-minute constraints using atomic Redis Lua scripts"
+      },
+      {
+        "name": "Circuit Breaker & Multi-Provider Failover Router",
+        "tools_used": [
+          "FastAPI",
+          "OpenAI API",
+          "Anthropic API"
+        ],
+        "purpose": "Tracks upstream health, trips circuits on consecutive timeouts, and seamlessly routes requests to backup providers"
+      },
+      {
+        "name": "Gateway Throughput & Cache Latency Benchmark Suite",
+        "tools_used": [
+          "Python",
+          "FastAPI"
+        ],
+        "purpose": "Executes concurrent synthetic traffic drills measuring proxy overhead, cache hit latencies, and failover behavior"
+      }
+    ],
+    "data_flow": "A client application dispatches a standard chat completion request to the FastAPI gateway; the rate limiter evaluates the tenant token budget in Redis, rejecting requests that exceed quotas; the semantic cache computes prompt embeddings and queries Redis; if a semantic match exceeding similarity threshold 0.92 exists, the cached completion returns immediately; on a cache miss, the failover router forwards the request to the primary provider; if the primary provider times out or returns HTTP 5xx, the circuit breaker triggers fallback routing to the secondary provider; the response streams back to the client while writing to the cache and telemetry logs.",
+    "enforcement_mechanism": "Redis Lua scripts atomically decrementing tenant token allowances; circuit breakers opening after 3 consecutive provider failures."
+  },
+  "targets": [
+    {
+      "metric": "Semantic Cache Hit Response Latency",
+      "method": "Wall-clock timing from client request receipt to cached completion dispatch for semantically matching prompts",
+      "input": "100 semantically varied prompts querying previously cached knowledge completion payloads",
+      "environment": "Standard 4-core local CPU, local Redis container, Python 3.11 asynchronous runtime",
+      "minimum_pass": "p95 semantic cache response latency is < 25.0 milliseconds",
+      "target": "p95 semantic cache response latency is < 12.0 milliseconds",
+      "report": "Semantic cache latency profiling log and benchmark summary table"
+    },
+    {
+      "metric": "Gateway Proxy Latency Overhead",
+      "method": "Additional latency introduced by gateway processing (rate limiting, authentication, payload parsing) excluding provider time",
+      "input": "500 concurrent mock completion requests streamed through gateway to local mock provider",
+      "environment": "Standard 4-core local CPU, 8GB RAM, FastAPI asynchronous server",
+      "minimum_pass": "Average gateway proxy overhead is < 4.5 milliseconds per request",
+      "target": "Average gateway proxy overhead is < 1.8 milliseconds per request",
+      "report": "Gateway proxy latency overhead report and k6 benchmark output"
+    },
+    {
+      "metric": "Automated Provider Failover Recovery Duration",
+      "method": "Duration from primary provider timeout injection to successful completion fulfillment via secondary fallback provider",
+      "input": "20 simulated primary provider crash and timeout chaos scenarios during live traffic",
+      "environment": "FastAPI gateway connected to primary mock provider (with 500ms timeout injection) and secondary backup provider",
+      "minimum_pass": "Average failover recovery duration is < 650 milliseconds across 20 trials",
+      "target": "Average failover recovery duration is < 320 milliseconds across 20 trials",
+      "report": "Circuit breaker and provider failover chaos audit log"
+    }
+  ],
+  "skills": [
+    "Python",
+    "FastAPI",
+    "Redis",
+    "LangChain",
+    "OpenAI API",
+    "Anthropic API",
+    "API Gateway",
+    "Semantic Caching",
+    "Rate Limiting"
+  ],
+  "starter_input": {
+    "spec": "Directory of 200 benchmark prompt payloads, semantic similarity vector test pairs, mock provider server stubs, and Redis schemas.",
+    "size": "200 prompt JSON manifests, 2 mock provider service scripts, and k6 traffic drill configurations",
+    "seeded_cases": "Paraphrased duplicate prompts, sudden rate-limit bursts, simulated upstream 503 errors, and corrupted streaming chunks",
+    "label_source": "Deterministic mock provider responses and curated semantic similarity equivalence datasets",
+    "personal_data_policy": "Strictly mock synthetic prompts and simulated business queries; zero real personal data used"
+  },
+  "components": [
+    {
+      "name": "Unified API Gateway & OpenAI Schema Adapter",
+      "task_type": "API endpoint group with tests",
+      "hours": 5.0
+    },
+    {
+      "name": "Semantic Prompt Cache & Vector Similarity Engine",
+      "task_type": "low-level/system subsystem",
+      "hours": 5.0
+    },
+    {
+      "name": "Distributed Token-Bucket Rate Limiter & Quota Guard",
+      "task_type": "infra component (broker, DB, orchestrator, cluster service)",
+      "hours": 5.0
+    },
+    {
+      "name": "Circuit Breaker & Multi-Provider Failover Router",
+      "task_type": "low-level/system subsystem",
+      "hours": 5.0
+    },
+    {
+      "name": "Gateway Throughput & Cache Latency Benchmark Suite",
+      "task_type": "load or performance test harness + report",
+      "hours": 4.0
+    }
+  ],
+  "extended_path": {
+    "features": [
+      "Dynamic cost-aware routing sending simple classification queries to cheap 8B models and complex queries to frontier models",
+      "Real-time PII redacting middleware stripping phone numbers, emails, and SSNs before provider dispatch",
+      "Distributed OpenTelemetry tracing propagating span contexts across upstream providers"
+    ],
+    "hours": 14
+  },
+  "milestones": [
+    {
+      "name": "API Gateway Scaffolding & Multi-Provider Routing in FastAPI and Python",
+      "hours": 7,
+      "done_criterion": "Gateway routes requests to OpenAI and Anthropic adapters with unified schema formatting."
+    },
+    {
+      "name": "Semantic Caching & Rate Limiting in Redis and LangChain",
+      "hours": 7,
+      "done_criterion": "Redis semantic cache resolves matching prompts in < 25ms; token-bucket limiter enforces quotas."
+    },
+    {
+      "name": "Circuit Breaker & Failover Recovery in API Gateway and Rate Limiting",
+      "hours": 7,
+      "done_criterion": "Circuit breaker catches primary timeouts and diverts traffic to backup provider in < 650ms."
+    },
+    {
+      "name": "Latency Benchmarking, Anti-Fake Test & Docs",
+      "hours": 7,
+      "done_criterion": "Benchmark confirms proxy overhead; anti-fake test validates semantic cache hit; docs complete."
+    }
+  ],
+  "prerequisites": [
+    "Proficiency in Python asynchronous programming, FastAPI endpoints, and Redis data structures",
+    "Familiarity with LLM API schemas, embedding models, and distributed rate limiting patterns"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (uses lightweight local embedding model or mock vector endpoints)",
+    "cost": "$0 (fully testable using provided local mock provider endpoints without external API charges)",
+    "accounts_keys_quotas": "No external paid API keys required (mock provider server included in test harness)",
+    "reference_environment": "Local 4-core CPU with Docker Desktop (Redis 7 container) and Python 3.11",
+    "fallback_path": "In-memory dictionary cache with mock hash similarity if Redis is unavailable"
+  },
+  "riskiest_component": {
+    "name": "Semantic Cache False Positives Returning Irrelevant Completions",
+    "mitigation": "Enforce high cosine similarity threshold (>= 0.92) and combine vector similarity with exact system prompt matching.",
+    "fallback": "Exact SHA-256 prompt string hash matching mode bypassing vector similarity."
+  },
+  "deliverables": [
+    "Git repository containing FastAPI gateway service, Redis semantic caching layer, and provider adapters",
+    "Local mock provider testing suite simulating OpenAI and Anthropic upstream endpoints with latency injection",
+    "Automated performance test harness measuring proxy overhead, cache hit rate, and failover timing",
+    "Screener verification script executing automated benchmark and dynamic semantic cache validation"
+  ],
+  "out_of_scope": [
+    "Direct fine-tuning of provider foundation models",
+    "Credit card payment billing merchant integration outside usage telemetry meters",
+    "Physical telecom SMS gateway delivery protocols"
+  ],
+  "safety_note": null,
+  "resources": [
+    "FastAPI Asynchronous Routing and Streaming Response Documentation",
+    "Redis Vector Similarity Search (RediSearch) Manual",
+    "Martin Fowler: Circuit Breaker Pattern Architecture and Implementation"
+  ],
+  "rubric": [
+    {
+      "input": "100 semantically varied prompt requests matching previously cached completions",
+      "action": "python -m gateway.benchmark_cache --requests test_data/semantic_prompts.json",
+      "expected_result": "Semantic cache serves responses with p95 latency < 25.0 milliseconds and zero upstream calls",
+      "evidence_location": "Terminal test execution output log and reports/cache_benchmark.json",
+      "pass_criterion": "p95 latency is < 25.0ms with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "500 concurrent requests processed through gateway to local mock provider",
+      "action": "python scripts/benchmark_overhead.py --concurrency 50 --total 500",
+      "expected_result": "Gateway introduces average proxy processing overhead < 4.5 milliseconds",
+      "evidence_location": "Gateway overhead profiling report in reports/overhead_summary.json",
+      "pass_criterion": "Average overhead is < 4.5ms with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "20 simulated primary provider timeout failure injections",
+      "action": "python scripts/run_failover_chaos.py --trials 20 --timeout-ms 500",
+      "expected_result": "Circuit breaker trips and routes requests to secondary provider within average duration < 650ms",
+      "evidence_location": "Chaos failover report in reports/failover_chaos.json",
+      "pass_criterion": "Average failover recovery < 650ms and 100% request fulfillment across 20 trials",
+      "kind": "normal"
+    },
+    {
+      "input": "Tenant request burst exceeding token-per-minute quota",
+      "action": "curl -X POST http://localhost:8000/v1/chat/completions -H 'X-Tenant-ID: abusive-tenant' -d @test_data/burst_payload.json",
+      "expected_result": "Gateway rejects request with HTTP 429 Too Many Requests and Retry-After header",
+      "evidence_location": "HTTP response header and body log",
+      "pass_criterion": "Response status is 429 and response body contains rate limit exceeded error",
+      "kind": "normal"
+    },
+    {
+      "input": "Dynamic prompt followed by semantically paraphrased query submitted to gateway",
+      "action": "python scripts/verify_dynamic_cache.py --prompt 'Summarize quarterly net revenue for Acme Corp'",
+      "expected_result": "First call queries provider and populates cache; second paraphrased query returns cached response in < 15ms",
+      "evidence_location": "Dynamic verification console execution output log",
+      "pass_criterion": "Second query logs cache_hit=true, latency < 15ms, and provider token usage equals 0",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected resilient multi-provider LLM gateway in Python and FastAPI with Redis semantic caching; achieved sub-[CACHE_LATENCY] cached response times with [CACHE_HIT_RATE] hit rate, and cut downstream token expenditures across [PROMPT_COUNT] production queries.",
+    "claims": [
+      {
+        "text": "achieved sub-[CACHE_LATENCY] cached response times with [CACHE_HIT_RATE] hit rate",
+        "rubric_indexes": [
+          0
+        ]
+      },
+      {
+        "text": "cut downstream token expenditures across [PROMPT_COUNT] production queries",
+        "rubric_indexes": [
+          4
+        ]
+      }
+    ],
+    "do_not_claim": "proprietary frontier model weights hosting or global CDN anycast routing network operations"
+  },
+  "verify": [
+    "Run `python -m pytest tests/` to confirm provider adapters, rate limiting, and cache hashing pass.",
+    "Execute `python -m gateway.benchmark_cache` to verify semantic cache response latency meets target benchmark.",
+    "Run `python scripts/verify_dynamic_cache.py` to assert that paraphrased prompts trigger verified cache hits."
+  ],
+  "worksheet": {
+    "q1": "Core deliverable: a multi-provider LLM gateway in Python/FastAPI with semantic prompt caching, automated failover, and Redis rate limiting.",
+    "q2": "Target users: backend platform engineers, AI infrastructure developers, and enterprise cloud architects.",
+    "q3": "3 use cases: enterprise AI API cost optimization, zero-downtime provider failover, and multi-tenant rate limiting.",
+    "q4": "Stated hours: 28 hours. Calculated bottom-up: 24 component hours * 1.15 buffer = 27.6 -> 28 hours. Intermediate level.",
+    "q5": "Hard parts: semantic vector caching with cosine threshold calibration, circuit-breaking without stampedes, atomic Redis Lua token budgeting, and multi-vendor stream normalization.",
+    "q6": "Starter input: 200 prompt payloads, vector similarity fixtures, mock provider servers, and k6 traffic scripts. Mock queries only.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU only, $0 cost, zero cloud accounts. Fallback: in-memory dictionary cache.",
+    "q8": "Riskiest component: semantic cache false positives. Fallback: cosine threshold >= 0.92 and exact SHA-256 hash fallback.",
+    "q9": "Potential faking: static cached strings. Anti-fake check 5 passes dynamic prompt and paraphrase, asserts second call hits cache in < 15ms with 0 provider tokens.",
+    "q10": "Safety/ethics: Safe; mock prompt inputs and synthetic test telemetry only, zero real user personal data."
+  }
+}

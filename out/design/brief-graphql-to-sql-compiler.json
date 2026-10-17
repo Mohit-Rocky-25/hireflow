@@ -1,0 +1,307 @@
+{
+  "id": "brief-graphql-to-sql-compiler",
+  "title": "GraphQL-to-SQL AST Compiler & Query Optimizer with LATERAL Joins",
+  "domain": "Full-Stack Web",
+  "difficulty": "ADVANCED",
+  "project_types": [
+    "Systems/low-level/networking",
+    "CLI/tools/libraries"
+  ],
+  "problem": "GraphQL APIs built with traditional ORM resolver models suffer from the devastating N+1 query problem, triggering hundreds of sequential database queries to fulfill a single nested API request. Application-level caching and DataLoaders patch the symptom but fail to optimize database execution plans. This project builds a production-grade GraphQL-to-SQL compiler in TypeScript and Node.js. The compiler traverses GraphQL abstract syntax trees (ASTs), maps selection sets to relational schemas, infers table relationships, and transpiles deeply nested GraphQL queries into a single, highly-optimized SQL query utilizing PostgreSQL JOINs and LATERAL subqueries with parameterized prepared statements.",
+  "use_cases": [
+    "High-performance backend database gateways eliminating N+1 database queries at the compiler level",
+    "Data-intensive enterprise analytics APIs serving deeply nested relational data in a single database round-trip",
+    "Open-source ORM and GraphQL engine internals optimizing query execution pipelines"
+  ],
+  "hard_parts": [
+    "Traversing arbitrary GraphQL AST selection sets and generating corresponding relational SQL JOIN and LATERAL expressions",
+    "Resolving complex nested pagination (e.g. first: 5, offset: 10) inside SQL LATERAL subqueries without multiplying result sets",
+    "Parameterizing all user filter arguments securely to guarantee complete SQL injection immunity",
+    "Calculating static query complexity scores during compilation to reject computationally abusive queries"
+  ],
+  "screener_signals": [
+    "Clean TypeScript codebase cleanly separating AST visitors, schema mappers, SQL expression builders, and complexity guards",
+    "Automated compiler test suite verifying that a 4-level nested query compiles into exactly 1 parameterized SQL query",
+    "Anti-fake verification script submitting dynamic nested queries and asserting exact single-statement SQL generation"
+  ],
+  "job_families": [
+    "Database Systems Engineer",
+    "Compiler & Tooling Engineer",
+    "Backend Infrastructure Architect"
+  ],
+  "stack": [
+    {
+      "tool": "TypeScript",
+      "role": "strongly typed language for AST visitors, SQL expression generators, and schema mappers"
+    },
+    {
+      "tool": "Node.js",
+      "role": "runtime hosting the compiler library, CLI benchmarking tool, and test suites"
+    },
+    {
+      "tool": "GraphQL",
+      "role": "parser and type system library providing AST tokens and validation rules"
+    },
+    {
+      "tool": "PostgreSQL",
+      "role": "target relational database executing compiled SQL queries and validating execution plans"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "GraphQL AST Visitor & Schema Mapper",
+        "tools_used": [
+          "TypeScript",
+          "GraphQL"
+        ],
+        "purpose": "Traverses GraphQL query ASTs, validates selections against schema metadata, and builds intermediate IR trees"
+      },
+      {
+        "name": "SQL Join & LATERAL Expression Generator",
+        "tools_used": [
+          "TypeScript",
+          "PostgreSQL"
+        ],
+        "purpose": "Transpiles intermediate representation trees into unified SQL SELECT statements using JOIN and LATERAL subqueries"
+      },
+      {
+        "name": "Parameterized Predicate & Pagination Transpiler",
+        "tools_used": [
+          "TypeScript"
+        ],
+        "purpose": "Transforms GraphQL where filters and pagination arguments into parameterized SQL clauses ($1, $2)"
+      },
+      {
+        "name": "Query Complexity Analyzer & Guard",
+        "tools_used": [
+          "TypeScript",
+          "Node.js"
+        ],
+        "purpose": "Computes static query cost based on field depth and multipliers, rejecting queries exceeding safety budgets"
+      }
+    ],
+    "data_flow": "Incoming GraphQL query strings enter the compiler; the GraphQL parser generates an AST; the Complexity Analyzer calculates static query depth and multiplier costs, terminating execution if safety thresholds are breached; the AST Visitor traverses selection sets, mapping fields to relational table columns; the Join Generator constructs a single unified SQL query using LATERAL subqueries for one-to-many relationships; all filter values extract into parameterized arrays; the final single SQL statement dispatches to PostgreSQL in exactly one database round-trip.",
+    "enforcement_mechanism": "Static complexity thresholds rejecting queries exceeding maximum cost budgets; strict parameterization preventing SQL injection."
+  },
+  "targets": [
+    {
+      "metric": "AST Compilation Latency per Document",
+      "method": "Wall-clock compilation timing to transform a complex 4-level nested GraphQL query into optimized SQL",
+      "input": "1,000 compilation runs on complex GraphQL query (Users -> Orders -> Items -> Product) with filters and pagination",
+      "environment": "Standard 4-core local CPU, Node.js 18+, TypeScript release",
+      "minimum_pass": "Average compilation latency is < 2.5 milliseconds",
+      "target": "Average compilation latency is < 0.8 milliseconds",
+      "report": "Compiler microbenchmark timing summary log"
+    },
+    {
+      "metric": "Database Query Execution Round-Trip Reduction",
+      "method": "Comparison of database round-trip count between naive resolver execution and compiled single-statement SQL",
+      "input": "Query requesting 20 users with 5 orders each and 3 items per order (100 orders, 300 items total)",
+      "environment": "Standard 4-core local CPU, PostgreSQL 15+",
+      "minimum_pass": "Exactly 1 single SQL round-trip executed; 0 secondary resolver queries",
+      "target": "Exactly 1 single SQL round-trip executed; 0 secondary resolver queries",
+      "report": "PostgreSQL query execution trace and round-trip verification report"
+    },
+    {
+      "metric": "SQL Parameterization Security Rate",
+      "method": "Adversarial test suite injecting 50 malicious SQL payload strings via GraphQL filter arguments",
+      "input": "50 adversarial GraphQL queries containing SQL injection patterns (e.g. \"' OR '1'='1; DROP TABLE users;--\")",
+      "environment": "Standard 4-core local CPU, Node.js 18+",
+      "minimum_pass": "0 unparameterized literals; 50 of 50 values emitted strictly as positional SQL parameters ($1, $2)",
+      "target": "0 unparameterized literals; 50 of 50 values emitted strictly as positional SQL parameters ($1, $2)",
+      "report": "SQL parameterization and security verification log"
+    }
+  ],
+  "skills": [
+    "TypeScript",
+    "Node.js",
+    "GraphQL",
+    "PostgreSQL",
+    "Compilers",
+    "SQL",
+    "AST Parsing",
+    "Query Optimization"
+  ],
+  "starter_input": {
+    "spec": "GraphQL schema definition, matching PostgreSQL relational DDL schema (users, orders, products, reviews), and query suite.",
+    "size": "Relational schema with 8 tables, 40 columns, and 50 benchmark GraphQL test queries of varying nesting depth",
+    "seeded_cases": "Deeply nested 5-level queries, cyclic relation traversals, SQL injection attempt literals, and pagination offset edge cases",
+    "label_source": "Deterministic SQL ground-truth fixture mapping input GraphQL documents to verified canonical SQL statements",
+    "personal_data_policy": "Strictly mock synthetic e-commerce relational schemas; zero personal data used"
+  },
+  "components": [
+    {
+      "name": "GraphQL AST Visitor & Schema Mapping Engine",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "SQL Join Tree & LATERAL Subquery Generator",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "Filter Predicate & Pagination SQL Transpiler",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "Query Cost Analyzer & Complexity Guard",
+      "task_type": "API endpoint group with tests",
+      "hours": 5.0
+    },
+    {
+      "name": "SQL Dialect Output Formatter & Parameter Binder",
+      "task_type": "low-level/system subsystem",
+      "hours": 5.0
+    },
+    {
+      "name": "Query Optimization & Compilation Benchmark Harness",
+      "task_type": "load or performance test harness + report",
+      "hours": 4.0
+    },
+    {
+      "name": "Compiler Pipeline Architecture Diagram & AST Grammar Guide",
+      "task_type": "docs + architecture diagram",
+      "hours": 3.0
+    }
+  ],
+  "extended_path": {
+    "items": [
+      "Dynamic SQL view materialization and query result fingerprint caching",
+      "Multi-dialect SQL compiler supporting PostgreSQL, SQLite, and MySQL"
+    ],
+    "hours": 16
+  },
+  "milestones": [
+    {
+      "name": "GraphQL AST Tokenization & Schema Table Mapper in TypeScript and Compilers",
+      "hours": 10,
+      "done_criterion": "Parser tokenizes GraphQL queries; mapper binds selection fields to relational table metadata."
+    },
+    {
+      "name": "SQL JOIN Tree & LATERAL Subquery Generation in Systems Programming and AST Parsing",
+      "hours": 10,
+      "done_criterion": "Compiler generates single SQL queries with JOIN and LATERAL clauses for nested 1-to-many fields."
+    },
+    {
+      "name": "Filter Transpiler, Pagination & Complexity Guard in PostgreSQL and SQL",
+      "hours": 10,
+      "done_criterion": "Compiler parameterizes filters ($1, $2); complexity guard terminates abusive nested queries."
+    },
+    {
+      "name": "Single-Query Execution Benchmark, Anti-Fake Test & Docs in Query Optimization",
+      "hours": 10,
+      "done_criterion": "Benchmark confirms 1 single SQL round-trip in < 2.5ms; anti-fake test validates dynamic query; docs complete."
+    }
+  ],
+  "prerequisites": [
+    "Proficiency in TypeScript, AST traversal algorithms, and visitor patterns",
+    "Deep understanding of advanced SQL (JOINs, LATERAL subqueries, window functions, prepared statements)"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (purely CPU-bound compiler and database execution)",
+    "cost": "$0 (fully open-source software stack)",
+    "accounts_keys_quotas": "No external cloud accounts, paid services, or API keys required",
+    "reference_environment": "Local 4-core CPU with Node.js 18+ and PostgreSQL 15+ installed",
+    "fallback_path": "SQLite dialect compiler output with in-memory execution if PostgreSQL is unavailable"
+  },
+  "riskiest_component": {
+    "name": "Cartesian Product Blowup on Multiple Nested One-to-Many Relationships",
+    "fallback": "Generate independent JSON-aggregated LATERAL subqueries rather than direct Cartesian JOINs"
+  },
+  "deliverables": [
+    "Git repository containing TypeScript GraphQL-to-SQL compiler library and CLI test runner",
+    "Interactive test playground compiling input GraphQL queries to visual SQL with explain plans",
+    "Automated SQL injection and round-trip reduction benchmark test harness",
+    "Screener verification script executing automated benchmark and dynamic query compilation in under 2 minutes"
+  ],
+  "out_of_scope": [
+    "Dynamic GraphQL schema stitching across remote third-party web services",
+    "Direct distributed transaction coordination across multi-database shards",
+    "Automatic database schema migration DDL generation from GraphQL types"
+  ],
+  "safety_note": null,
+  "resources": [
+    "GraphQL AST Specification and Visitor Architecture Documentation",
+    "PostgreSQL LATERAL Joins and JSON Aggregation Performance Guide",
+    "Hasura and PostGraphile Architecture: Compiling GraphQL to Single SQL Queries"
+  ],
+  "rubric": [
+    {
+      "input": "Complex 4-level nested GraphQL query with filtering and pagination",
+      "action": "npm run test:compile -- --query samples/nested_orders.graphql",
+      "expected_result": "Compiler outputs a single unified SQL query with compilation latency < 2.5 milliseconds",
+      "evidence_location": "Terminal output log and reports/compiler_bench.json",
+      "pass_criterion": "Output contains exactly 1 SELECT statement, compilation latency < 2.5ms, exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Query requesting 20 users and their 100 orders executed against PostgreSQL",
+      "action": "npm run test:round-trip",
+      "expected_result": "Database executes exactly 1 single SQL round-trip instead of 100+ sequential queries",
+      "evidence_location": "PostgreSQL query execution trace log",
+      "pass_criterion": "Recorded SQL statement count equals 1 with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "50 adversarial GraphQL filter payloads containing SQL injection strings",
+      "action": "npm run test:security",
+      "expected_result": "All 50 filter values are emitted as positional parameters ($1, $2) with zero string concatenation",
+      "evidence_location": "Security parameterization audit report",
+      "pass_criterion": "50 of 50 filter inputs safely parameterized with 0 injection escapes",
+      "kind": "normal"
+    },
+    {
+      "input": "Deeply nested query exceeding configured complexity budget of 500 points",
+      "action": "npm run test:complexity -- --depth 6",
+      "expected_result": "Complexity analyzer rejects query during compilation and throws QueryTooComplexError",
+      "evidence_location": "Compiler error stdout output",
+      "pass_criterion": "Compiler rejects query with QueryTooComplexError and exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Dynamic 3-level GraphQL query constructed with dynamic alias fields at runtime",
+      "action": "node scripts/verify_dynamic_compiler.js --query '{ user { id dynamic_order: orders { total } } }'",
+      "expected_result": "Compiler transpiles aliased query into single SQL statement using exact alias in LATERAL json_build_object",
+      "evidence_location": "Dynamic verification console execution output log",
+      "pass_criterion": "Generated SQL contains dynamic_order alias inside LATERAL subquery and exit code is 0",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected GraphQL-to-SQL AST compiler in TypeScript and Node.js with PostgreSQL; replaced cascading iterative database queries with [ROUNDTRIP_COUNT] single SQL statement via LATERAL joins, and achieved sub-[COMPILATION_LATENCY] compilation latency with parameterized security.",
+    "claims": [
+      {
+        "text": "replaced cascading iterative database queries with [ROUNDTRIP_COUNT] single SQL statement via LATERAL joins",
+        "rubric_indexes": [
+          1
+        ]
+      },
+      {
+        "text": "achieved sub-[COMPILATION_LATENCY] compilation latency with parameterized security",
+        "rubric_indexes": [
+          0,
+          2
+        ]
+      }
+    ],
+    "do_not_claim": "distributed multi-database sharding coordination or automated DDL schema migrations"
+  },
+  "verify": [],
+  "worksheet": {
+    "q1": "Core deliverable: a GraphQL-to-SQL compiler in TypeScript that transpiles nested queries into a single SQL statement using LATERAL subqueries.",
+    "q2": "Target users: database engineers, compiler developers, and backend platform architects.",
+    "q3": "3 use cases: high-performance database gateways, analytics APIs, and ORM internals.",
+    "q4": "Stated hours: 40 hours. Calculated bottom-up: 35 component hours * 1.15 buffer = 40.25 -> 40 hours. Advanced level.",
+    "q5": "Hard parts: AST selection set traversal, LATERAL subquery generation, parameterized filter extraction, and static query complexity scoring.",
+    "q6": "Starter input: 8-table relational schema with 40 columns and 50 benchmark queries. Synthetic schemas only.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU only, $0 cost, zero cloud accounts. Fallback: SQLite dialect mode.",
+    "q8": "Riskiest component: Cartesian product explosion. Fallback: JSON-aggregated LATERAL subqueries.",
+    "q9": "Potential faking: static SQL strings. Anti-fake check 5 constructs dynamic aliased query at runtime and asserts alias appears in generated LATERAL SQL.",
+    "q10": "Safety/ethics: Safe; local relational schema transpilation only."
+  }
+}

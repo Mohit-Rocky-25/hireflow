@@ -1,122 +1,155 @@
-PROJECT BRIEF — Production AWS Infrastructure as Code with Terraform & Modules
+PROJECT BRIEF — Production Infrastructure as Code with Modular Terraform, TFLint & LocalStack Cloud Emulation
 ======================================================================
 
 Domain    : Platform & DevOps
-Difficulty: intermediate
-Est. Time : 28 hours (Core Path) | Extended Path: +6 hours
-Tech Stack: Terraform [infrastructure as code provisioning engine], AWS ECS [aws ecs component], AWS RDS [aws rds component], CloudWatch [cloudwatch component], GitHub Actions [CI/CD pipeline automation runner]
+Difficulty: INTERMEDIATE
+Est. Time : 28 hours (core path, estimate). Extended path: +14 hours
+Tech Stack: Terraform (declarative infrastructure as code tool defining cloud resources, modules, and state backends), LocalStack (local cloud emulator providing offline AWS VPC, ECS, RDS, and CloudWatch APIs at $0 cost), Docker (container runtime hosting LocalStack and testing containerized application deployments), TFLint (Terraform linter checking for syntax errors, deprecated syntax, and provider-specific best practices), GitHub Actions (continuous integration workflow engine executing automated plan, security scan, and apply stages)
 
 PROBLEM STATEMENT
-----------------------------------------
-Manual cloud infrastructure creates configuration drift, security vulnerabilities, and undocumented complexity. Build a complete production AWS infrastructure using Terraform: VPC networking, ECS containers, RDS databases, load balancers, auto-scaling, CloudWatch monitoring, and IAM least-privilege policies — all as reusable modules.
+----------------------------------------------------------------------
+Software engineering teams managing cloud resources through ad-hoc manual console clicking or monolithic copy-pasted configuration files suffer from severe configuration drift, untracked security misconfigurations, and catastrophic accidental resource destructions. Furthermore, practicing Infrastructure as Code (IaC) against live cloud provider environments incurs unpredictable monthly billing, risks accidental credential leakage, and creates slow feedback cycles. This project builds a production-grade infrastructure-as-code automation platform in Terraform. The system provisions a multi-tier cloud topology (VPC, public/private subnets, ECS Fargate containers, Application Load Balancers, RDS PostgreSQL, and CloudWatch alarms) using reusable Terraform modules, enforces strict static linting and security scanning with TFLint and Checkov, validates state deployments offline on LocalStack, and executes automated plan/apply CI/CD workflows with zero cloud expenses.
 
 USE CASES IN THE REAL WORLD
-----------------------------------------
-Every company migrating to or born on AWS needs IaC. Terraform is the industry-standard tool used by 70%+ of companies with cloud infrastructure. Directly applicable to DevOps, Cloud Engineering, and SRE roles at any AWS customer.
+----------------------------------------------------------------------
+- {'title': 'Multi-Environment Staging and Production Parity', 'first_sentence': 'Enterprise software platform teams require identical infrastructure topology across staging, QA, and production environments.', 'second_sentence': 'Parameterized Terraform modules deploy environment tiers with variable sizing while maintaining identical networking and security group topologies.'}
+- {'title': 'Automated Pull Request Infrastructure Drift Detection', 'first_sentence': 'DevOps teams need continuous verification that cloud resource states match declared Git repositories without out-of-band manual drift.', 'second_sentence': 'Scheduled GitHub Actions workflows execute `terraform plan -detailed-exitcode` against LocalStack, alerting engineers immediately upon drift detection.'}
+- {'title': 'Automated Security Compliance Policy Gate', 'first_sentence': 'Security operations teams must ensure no S3 buckets are public and all database storage volumes are encrypted before infrastructure commits.', 'second_sentence': 'Pre-commit Checkov and TFLint static analysis hooks inspect Terraform HCL code, automatically blocking commits that violate defined security standards.'}
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Infrastructure as Code requires understanding networking (VPC, subnets, routing), security (IAM, security groups, VPC endpoints), and cloud service composition — skills that only come from actually provisioning and managing cloud infrastructure. Terraform specifically is the #1 IaC tool in every DevOps JD.
+WHY THIS IS HARD
+----------------------------------------------------------------------
+- Structuring reusable, composable Terraform modules (networking, compute, database, monitoring) with strict input type constraints and sensible default variables
+- Configuring LocalStack Docker container environments to emulate AWS VPC, ECS, RDS, and CloudWatch APIs with accurate resource attribute mappings
+- Integrating static analysis scanners (TFLint and Checkov) into pre-commit and CI/CD pipelines to catch security violations prior to deployment
+- Designing atomic remote state management strategies with S3 backend locking simulation and sensitive variable isolation
 
 RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-AWS + Terraform is the most common technology combination in DevOps and Cloud Engineer JDs. A working, documented IaC repository deploying a complete production environment from scratch is the definitive credential for these roles. Shows infrastructure engineering maturity at the same level as cloud-certified professionals.
+----------------------------------------------------------------------
+- Clean Terraform codebase cleanly separating root environment entrypoints, reusable `/modules/` subdirectories, TFLint rules, and Checkov policy configs
+- Automated deployment benchmark report proving complete multi-tier infrastructure provisioning and verification in under 90 seconds on LocalStack
+- Anti-fake verification script attempting to commit an unencrypted RDS database and public ingress security group and asserting Checkov fails with exit code 1
+Relevant Job Families: DevOps Engineer, Cloud Infrastructure Architect, Platform Systems Software Engineer
 
 ARCHITECTURE & DATA FLOW
-----------------------------------------
-Terraform modules: networking (VPC, public/private subnets, NAT gateway), compute (ECS Fargate with auto-scaling), database (RDS PostgreSQL with Multi-AZ), load balancing (ALB with SSL termination), monitoring (CloudWatch dashboards, alerts, log groups), and security (IAM roles, KMS encryption, VPC endpoints).
+----------------------------------------------------------------------
+Components:
+- Modular Terraform VPC & Network Foundation Architecture (Tools: Terraform, LocalStack): Provisions custom VPC with public and private subnets across 2 availability zones, route tables, and NAT gateways
+- Terraform ECS Fargate Application & Load Balancer Module (Tools: Terraform, LocalStack, Docker): Configures ECS cluster, task definitions, Fargate services, Application Load Balancers, and target groups
+- Terraform RDS Database & CloudWatch Observability Module (Tools: Terraform, LocalStack): Deploys PostgreSQL RDS database with storage encryption and provisions CloudWatch metric alarms
+- TFLint Static Analysis, Checkov Security & Policy Enforcement Layer (Tools: Terraform, TFLint): Executes static linting and security scanning against HCL modules to enforce encryption and tagging policies
+- LocalStack Automated Plan, Apply & Drift Detection Benchmark Harness (Tools: Terraform, LocalStack, GitHub Actions): Executes automated end-to-end plan, apply, and destroy lifecycles and measures provisioning latency
+- Infrastructure as Code Modular Architecture Guide & Runbook (Tools: Terraform, LocalStack): Documents module inputs/outputs, state file locking procedures, and LocalStack endpoint override configs
+
+Data Flow:
+An engineer modifies an infrastructure parameter in `environments/staging/`; GitHub Actions triggers a CI workflow; TFLint and Checkov scan the Terraform code for syntax errors and security policy violations; if clean, the workflow initializes Terraform pointing provider endpoints to LocalStack at `http://localhost:4566`; `terraform plan` executes, generating an execution plan artifact; `terraform apply` applies the plan, creating the VPC, subnets, ECS Fargate cluster, RDS database, and CloudWatch alarms in LocalStack; automated verification scripts run health checks against the provisioned ALB endpoint; `terraform plan -detailed-exitcode` verifies zero drift.
+
+Enforcement Mechanism:
+Checkov policy rules blocking insecure HCL configurations; Terraform state locking preventing concurrent execution races.
 
 SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Target 1:
-- Metric: Request Processing Latency Overhead (p99)
-- Method: Concurrent HTTP load test using k6 / vegeta over 60s sustained run
-- Input/dataset: Standard synthetic JSON payload (~1KB) over 5,000 concurrent requests
-- Reference environment: Local 4-core CPU, 8GB RAM, loopback network interface
-- Minimum pass: p99 latency overhead < 25ms under 1,000 req/sec
-- Target: p99 latency overhead < 5ms under 5,000 req/sec
-- Report format: k6 terminal summary report and CSV latency distribution
-
-Target 2:
-- Metric: Sustained Concurrency & Correctness
-- Method: Continuous load test simulating concurrent client connections with idempotency checks
-- Input/dataset: Synthetic benchmark traffic across 50 concurrent worker threads
-- Reference environment: Local Docker Compose or native runtime
-- Minimum pass: Sustained throughput > [N] req/sec with 0 lost writes in [K] attempts
-- Target: Sustained throughput > [N] req/sec (target > 5,000 req/sec) with 0 lost writes in [K] attempts
-- Report format: Benchmark throughput table and error rate summary
-
-Target 3:
-- Metric: Fault Recovery / Failover Duration
-- Method: Injected worker process termination during active continuous request stream
-- Input/dataset: SIGKILL or chaos fault injection on worker process
-- Reference environment: Local multi-process or containerized cluster
-- Minimum pass: Service detects failure and reroutes traffic with recovery time < [S] seconds (pass < 5s)
-- Target: Service detects failure and recovers state with recovery time < [S] seconds (target < 2s)
-- Report format: System log timestamps comparing failure injection to state recovery
+----------------------------------------------------------------------
+Metric | Method | Input/Dataset | Reference Environment | Minimum Pass | Target | Report Format
+End-to-End Infrastructure Provisioning Latency | Wall-clock timing to execute `terraform apply` across multi-tier modular architecture (VPC, ECS, RDS, CloudWatch) on LocalStack | Complete production infrastructure stack containing 25 distinct cloud resources | Standard 4-core local CPU, LocalStack 3+ in Docker, Terraform 1.5+ | Full infrastructure deployment completes in < 90.0 seconds | Full infrastructure deployment completes in < 42.0 seconds | Terraform apply timing trace log and resource creation breakdown table
+Static Security & Compliance Policy Enforcement Rate | Percentage of introduced security misconfigurations (e.g. unencrypted storage, open ingress) caught and blocked by Checkov/TFLint | 20 intentional security flaws injected into Terraform HCL modules | Checkov security scanner and TFLint CLI running in automated test suite | 20 of 20 security violations detected and blocked with exit code 1 | 20 of 20 security violations detected and blocked with exit code 1 | Checkov security scan report and policy violation summary
+Post-Apply Configuration Drift Detection Rate | Verification of zero drift detected by `terraform plan -detailed-exitcode` following successful apply | Applied 25-resource infrastructure state tested across 10 repeated drift detection checks | LocalStack local cloud emulator with simulated S3 state backend | 10 of 10 drift checks return exit code 0 confirming perfect infrastructure parity | 10 of 10 drift checks return exit code 0 confirming perfect infrastructure parity | Drift detection audit log and Terraform plan exit code report
 
 SKILLS COVERED
-----------------------------------------
-Terraform, AWS, Docker, DevOps, Cloud, Security
+----------------------------------------------------------------------
+Terraform, LocalStack, Docker, TFLint, GitHub Actions, Platform & DevOps, Cloud Architecture, IaC
 
 TARGET APPLICATION / STARTER INPUT
-----------------------------------------
-The project provides a self-contained test environment and fixture generator located in `scripts/` or `fixtures/`. It deterministically generates representative input records or mock client traffic for automated validation. No third-party proprietary data or real personal identifiers (PII) are required; all test datasets use synthetic tokens and deterministic random seeds.
+----------------------------------------------------------------------
+- Specification: Directory containing modular Terraform code (VPC, ECS, RDS, CloudWatch), LocalStack overrides, TFLint rules, and test scripts.
+- Dataset / Traffic Size: 15 Terraform HCL files, TFLint configuration file, Checkov policy config, and automated test runner
+- Seeded Edge Cases: Unencrypted RDS storage volumes, public security groups (0.0.0.0/0 on port 22), missing resource tags, and circular module references
+- Label / Verification Source: Deterministic Terraform state JSON schemas and TFLint/Checkov violation exit codes
+- Personal Data Policy: Strictly mock synthetic infrastructure configurations and simulated AWS account IDs; no real personal data used
 
 MILESTONES
-----------------------------------------
-- Milestone 1: Environment Setup & Core Foundations (6h)
-  Configure repository, tooling, container dependencies, and foundational data structures. Done when foundational test suite passes with clean linting.
-- Milestone 2: Core Processing & Architecture Implementation (8h)
-  Implement primary operational workflows, database models or state transitions, and API endpoints. Done when integration tests verify end-to-end data flow under normal operating conditions.
-- Milestone 3: Concurrency, Reliability & Error Guardrails (8h)
-  Implement defensive controls: rate limiting, retries with exponential backoff, transaction boundaries, and failure isolation. Done when chaos or stress tests verify graceful degradation under fault injection.
-- Milestone 4: Verification, Benchmarking & Documentation (6h)
-  Execute performance benchmark harness, compile measurement tables, generate architectural diagrams, and document screener verification steps. Done when `scripts/verify_all` passes completely.
+----------------------------------------------------------------------
+M1: Modular VPC & Network Foundation in Terraform and LocalStack (7h) — Done when: VPC module provisions public/private subnets and route tables in LocalStack.
+M2: ECS Fargate & RDS Database Modules in Docker and Cloud Architecture (7h) — Done when: ECS cluster, Fargate service, and RDS PostgreSQL deploy with storage encryption.
+M3: TFLint & Checkov Security Policy Enforcement in TFLint and IaC (7h) — Done when: TFLint and Checkov validate HCL; 20 of 20 injected security flaws block with exit code 1.
+M4: CI/CD Plan/Apply Pipeline, Anti-Fake Test & Docs in GitHub Actions and Platform & DevOps (7h) — Done when: Deployment completes in < 90s with 0 drift; anti-fake blocks unencrypted RDS; docs complete.
+Total: 28 hours (estimate)
 
 PREREQUISITES, ENVIRONMENT AND ACCOUNTS
-----------------------------------------
-- Prerequisites: Familiarity with Terraform and AWS ECS, standard command-line tools, and fundamental testing principles.
-- Hardware / OS: Standard modern computer (macOS, Linux, or Windows with WSL2) with at least 8GB RAM.
-- Accounts & Services: None required. Designed to run completely on free, open-source local software.
-- Fallback Path: In-memory mock drivers or SQLite/local files provided if external database or message broker containers cannot be run.
+----------------------------------------------------------------------
+Prerequisites: Proficiency in Terraform HCL syntax, module composition, input/output variables, and state management, Understanding of cloud networking (VPC, subnets, routing), container platforms (ECS Fargate), and CI/CD pipelines
+
+Environment & Hardware:
+- OS: Linux / macOS / Windows with WSL2
+- Memory: 8GB RAM
+- Compute / GPU: None required (purely CPU and local container bound IaC toolchains)
+- Estimated Cost: $0 (fully open-source stack using local Terraform CLI and Docker LocalStack)
+- Accounts & Quotas: No external AWS cloud accounts, credit cards, or paid service quotas required (runs 100% offline via LocalStack)
+- Reference Environment: Local 4-core CPU with Docker Desktop (LocalStack 3+ container), Terraform 1.5+, TFLint, and checkov installed
+- Fallback Path: Running `terraform validate` and `terraform plan` with mock provider credentials if Docker is unavailable
+
+Riskiest Component & Fallback:
+- Riskiest Component: State File Corruption and Concurrency Race Conditions
+- Simpler Fallback: Versioned state backup files enabling automatic state rollback.
 
 DELIVERABLES
-----------------------------------------
-1. Clean Git repository with structured commit history, README, and reproducible setup commands.
-2. Production-quality core codebase with automated test suite achieving verified pass rates.
-3. Performance benchmark report (`results/benchmark_report.md`) documenting measured latency, throughput, and resource utilization.
-4. Screener verification script (`scripts/verify_all.sh` or equivalent) validating the full system in < 3 minutes.
-5. Architecture diagram (Mermaid/ASCII) and known limitations document explaining architectural trade-offs.
+----------------------------------------------------------------------
+- Git repository containing modular Terraform code (VPC, ECS, RDS, CloudWatch), LocalStack overrides, and CI configs
+- TFLint and Checkov security scanning policy files and automated validation scripts
+- Automated deployment benchmark harness profiling plan, apply, and drift detection latencies
+- Screener verification script executing automated LocalStack deployment and dynamic security violation rejection in under 2 minutes
 
 OUT OF SCOPE AND EXTENDED PATH
-----------------------------------------
-- Out of Scope for Core Path: Distributed multi-region clustering, enterprise SSO integrations, complex third-party SaaS dependencies.
-- Extended Path (+6 hours): Advanced telemetry dashboard, distributed persistence cluster extension, or automated canary release pipeline.
+----------------------------------------------------------------------
+Out of Scope:
+- Live commercial AWS production account resource deployment
+- Production domain DNS registration with public Route 53 zones
+- Multi-cloud provider orchestration (Azure / GCP simultaneously)
 
-SAFETY AND ETHICS NOTE
-----------------------------------------
-All data processed, generated, and benchmarked by this project consists exclusively of synthetic fixtures. No personal identifiable information (PII), proprietary credentials, or live external endpoints are used.
+Extended Path: None (self-contained core scope)
 
 LEARNING RESOURCES
-----------------------------------------
-- Official Documentation for Terraform, AWS ECS, AWS RDS
-- Architectural Reference Patterns and RFC Standards [VERIFY URL]
-- Systems & Distributed Reliability Principles
+----------------------------------------------------------------------
+- Terraform Up & Running: Writing Infrastructure as Code (Yevgeniy Brikman)
+- LocalStack Documentation: Emulating AWS Infrastructure Locally
+- TFLint and Checkov Documentation on Infrastructure Security Scanning
 
 SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Check 1: Verify single `terraform apply` deploys all resources from scratch in a new AWS account; Pass when automated test script prints 0 errors and logs verified status code.
-2. Check 2: Verify auto-scaling test: load test triggers scale-out within 3 minutes and scale-in after; Pass when automated test script prints 0 errors and logs verified status code.
-3. Check 3: Verify security audit: no resources publicly accessible without explicit intent (no 0.0.0.0/0 ingress); Pass when automated test script prints 0 errors and logs verified status code.
-4. Check 4: Verify disaster recovery test: RDS failover to standby in Multi-AZ within 60 seconds; Pass when automated test script prints 0 errors and logs verified status code.
-5. Check 5: Verify cost estimation report using `infracost` showing monthly AWS spend projection; Pass when automated test script prints 0 errors and logs verified status code.
-6. Check 6: 6. Anti-Fake Verification Check: Inspect committed execution logs and re-run verification script against seeded test fixtures; pass when runtime metrics dynamically reflect test execution rather than static mocked responses.
+----------------------------------------------------------------------
+1. Check
+   Input: Complete 25-resource multi-tier Terraform stack deployed to LocalStack
+   Action: terraform apply -auto-approve
+   Result: Terraform creates VPC, subnets, ECS, RDS, and CloudWatch alarms in < 90.0 seconds
+   Evidence: Terminal output log and reports/terraform_apply.json
+   Pass: Deployment duration < 90.0s with exit code 0
+2. Check
+   Input: 20 intentional security misconfigurations evaluated by Checkov scanner
+   Action: checkov -d ./modules --framework terraform
+   Result: Checkov catches all 20 security violations (unencrypted volumes, open ingress) and exits with code 1
+   Evidence: Checkov security report in reports/checkov_audit.json
+   Pass: 20 of 20 violations detected with exit code 1
+3. Check
+   Input: Post-deployment drift inspection executed against LocalStack resources
+   Action: terraform plan -detailed-exitcode
+   Result: Terraform confirms no changes required; infrastructure state matches configuration with exit code 0
+   Evidence: Drift detection audit report in reports/drift_audit.json
+   Pass: Exit code 0 confirming perfect infrastructure parity
+4. Check
+   Input: TFLint static analysis check across all reusable module subdirectories
+   Action: tflint --recursive
+   Result: TFLint verifies HCL syntax, provider constraints, and deprecated attributes with 0 errors
+   Evidence: TFLint execution log in reports/tflint_audit.json
+   Pass: 0 lint errors with exit code 0
+5. Check [anti_fake]
+   Input: PR branch adding unencrypted RDS storage volume (`storage_encrypted = false`)
+   Action: python ./scripts/verify_policy_gate.py --violation unencrypted_rds
+   Result: Security policy gate blocks deployment and outputs 'FAILED: RDS storage must be encrypted'
+   Evidence: Dynamic verification console execution output log
+   Pass: Console confirms security policy violation and blocked deployment with exit code 1
 
 RESUME BULLET FORMULA
-----------------------------------------
-"Designed production AWS infrastructure as Terraform modules (VPC, ECS, RDS, ALB); provisioned complete environment from zero in < [N] min with auto-scaling and Multi-AZ failover with zero manual steps.; achieved [N] throughput with < [M ms] latency overhead across [K] test transactions."
-Do not claim: scale, latency, or throughput figures without committing benchmark run logs; do not claim production deployment unless deployed to a verifiable live environment.
+----------------------------------------------------------------------
+"Architected modular infrastructure as code platform in Terraform with LocalStack and TFLint; provisioned [RESOURCE_COUNT] multi-tier cloud resources in sub-[PROVISION_LATENCY] seconds, and eliminated security regressions with Checkov automated policy enforcement."
+
+Do not claim: live commercial AWS account deployment or multi-cloud simultaneous orchestration
 
 ======================================================================
 Generated by HireFlow — hireflow.io

@@ -2,121 +2,155 @@ PROJECT BRIEF — Custom Programming Language Interpreter & AST Evaluator
 ======================================================================
 
 Domain    : Computer Science Fundamentals
-Difficulty: advanced
-Est. Time : 38 hours (Core Path) | Extended Path: +6 hours
-Tech Stack: Go [compiled systems runtime and networking implementation], Algorithms [algorithms component], Parsing [parsing component], Compilers [compilers component], Data Structures [data structures component]
+Difficulty: ADVANCED
+Est. Time : 34 hours (core path, estimate). Extended path: +15 hours
+Tech Stack: Go (systems programming language for compiler, AST evaluator, and bytecode virtual machine)
 
 PROBLEM STATEMENT
-----------------------------------------
-Building an interpreter from scratch is the ultimate demonstration of computer science fundamentals. Most engineers use programming languages daily but have no idea how parsing, AST construction, scope resolution, or garbage collection work. Build a working interpreter for a custom scripting language with closures, higher-order functions, and a REPL.
+----------------------------------------------------------------------
+Software engineers interact with high-level programming languages daily, yet the underlying execution mechanisms—lexical tokenization, recursive descent parsing, abstract syntax tree construction, scope resolution, and virtual machine bytecode evaluation—remain opaque black boxes. Building an interpreter from first principles clarifies runtime language mechanics and domain-specific language design. This project implements a complete programming language engine in Go comprising a lexical scanner, a Pratt operator-precedence parser, an AST tree-walking evaluator with lexical closures, and an alternative stack-based bytecode compiler and virtual machine.
 
 USE CASES IN THE REAL WORLD
-----------------------------------------
-DSL (Domain-Specific Language) design for configuration, scripting in games, workflow automation engines, query language design. Understanding interpreter design unlocks contribution to language runtimes (V8, CPython, GraalVM), compilers, and developer tools.
+----------------------------------------------------------------------
+- Domain-specific configuration languages for enterprise rule evaluation engines
+- Sandboxed scripting runtimes for game development and plugin extensions
+- Interactive command-line query parsers for proprietary data structures
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Building an interpreter exercises the deepest computer science knowledge: lexical analysis, recursive descent parsing, scope chain resolution, environment frames, closure capture, and memory management. Engineers who have done this can discuss runtime internals in any language — a massive advantage in senior technical interviews.
+WHY THIS IS HARD
+----------------------------------------------------------------------
+- Implementing Pratt operator precedence parsing to handle complex infix, prefix, and postfix expressions cleanly
+- Preserving lexical closure state across first-class and higher-order functions without leaking scope bindings
+- Compiling nested control flow structures into linear bytecode instructions with relative jump address resolution
+- Optimizing virtual machine stack operations to minimize garbage collection allocations in hot execution loops
 
 RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Interpreter/compiler projects are the most impressive computer science demonstrations on a resume. They signal you can think at the language level rather than just the library level. Any company working on developer tools, runtime systems, or DSL design will immediately elevate your candidacy.
+----------------------------------------------------------------------
+- Modular Go implementation cleanly separating lexer, parser, AST nodes, compiler, and VM modules
+- Deterministic language test suite verifying 120 distinct syntax programs and edge cases
+- Anti-fake verification script accepting dynamic arithmetic and closure scripts via stdin and asserting output
+Relevant Job Families: Language Infrastructure Engineer, Systems Software Engineer, Developer Tooling Engineer
 
 ARCHITECTURE & DATA FLOW
-----------------------------------------
-Lexer (tokenizer) → Pratt parser → Abstract Syntax Tree (AST) → Tree-walking evaluator. Implements: variables, closures, higher-order functions, conditionals, loops, arrays, hash maps, and built-in functions. REPL for interactive evaluation. Error recovery for useful error messages.
+----------------------------------------------------------------------
+Components:
+- Lexical Scanner (Tools: Go): Converts raw source code text into a structured stream of typed language tokens
+- Pratt AST Parser (Tools: Go): Constructs an abstract syntax tree using top-down operator precedence parsing algorithms
+- AST Tree-Walking Evaluator (Tools: Go): Evaluates AST nodes directly while managing lexical scope environments and closure captures
+- Bytecode Compiler & Stack VM (Tools: Go): Translates AST into bytecode instructions and executes opcodes on an efficient stack virtual machine
+- Interactive REPL Interface (Tools: Go): Provides interactive read-eval-print-loop shell for real-time expression evaluation and debugging
+
+Data Flow:
+Source code text enters the Lexical Scanner; tokens are emitted to the Pratt Parser; the parser constructs an Abstract Syntax Tree; for interpreted mode, the Tree-Walking Evaluator executes nodes within an Environment scope frame; for compiled mode, the Bytecode Compiler emits instructions and constant pools; the Stack Virtual Machine executes opcodes, manipulating the operand stack and returning output values.
+
+Enforcement Mechanism:
+Parser syntax error reporting halting execution upon invalid token sequences; runtime type assertions checking operand compatibility.
 
 SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Target 1:
-- Metric: Core Operation Execution Time
-- Method: Automated benchmark executing core engine operation across varying workload sizes
-- Input/dataset: Standard test project or fixture payload (~500KB)
-- Reference environment: Local development environment, 4-core CPU, 8GB RAM
-- Minimum pass: Operation execution time < [M s] (minimum < 8s)
-- Target: Operation execution time < [M s] (target < 2.5s)
-- Report format: Benchmark execution report showing duration and memory usage
-
-Target 2:
-- Metric: Test Suite Coverage & Verification Pass Rate
-- Method: Automated test runner executing comprehensive unit and integration test suites
-- Input/dataset: Full project test fixture directory
-- Reference environment: Local test environment, clean checkout
-- Minimum pass: [X of Y] unit and integration tests passing (100% pass on core test set)
-- Target: [X of Y] tests passing with strict type-checking and 0 lint warnings
-- Report format: Test runner coverage report and exit status log
-
-Target 3:
-- Metric: Client Load / Response Latency (p95)
-- Method: Concurrent API benchmark testing simulated client requests
-- Input/dataset: 1,000 simulated client requests over 10 concurrent connections
-- Reference environment: Local Docker or Node/Python process
-- Minimum pass: p95 response latency < [M ms] (pass < 100ms) with 0 dropped requests
-- Target: p95 response latency < [M ms] (target < 30ms) with 0 dropped requests
-- Report format: Benchmark latency percentile report
+----------------------------------------------------------------------
+Metric | Method | Input/Dataset | Reference Environment | Minimum Pass | Target | Report Format
+Language Spec Compliance Test Coverage | Automated execution of language test suite covering expressions, statements, closures, and recursion | 120 deterministic test programs validating all grammar rules and error conditions | Standard 4-core local CPU, Go 1.21+ | 120 of 120 test programs pass with expected output and 0 runtime crashes | 120 of 120 test programs pass with expected output and 0 runtime crashes | go test ./... execution summary log report
+Recursive Function Execution Latency | Benchmark measuring execution duration of recursive Fibonacci(25) algorithm | Script program computing 25th Fibonacci number via recursive function calls | Standard 4-core local CPU, Go 1.21+ | Execution completes in < 2.0s on AST evaluator and < 450ms on Bytecode VM | Execution completes in < 1.2s on AST evaluator and < 250ms on Bytecode VM | Benchmark execution timing log comparing evaluator modes
+Lexical Scope Isolation Invariant | Test suite evaluating inner block variable shadowing and closure state encapsulation | 30 test fixtures with deeply nested scopes, closures, and variable shadowing | Standard 4-core local CPU, Go 1.21+ | 30 of 30 test fixtures confirm inner variables do not mutate outer bindings | 30 of 30 test fixtures confirm inner variables do not mutate outer bindings | Unit test assertions log for environment scope frames
 
 SKILLS COVERED
-----------------------------------------
-Go, Algorithms, Compilers, Data Structures, Parsing, Language Design
+----------------------------------------------------------------------
+Go, Algorithms, Parsing, Compilers, Data Structures
 
 TARGET APPLICATION / STARTER INPUT
-----------------------------------------
-The project provides a self-contained test environment and fixture generator located in `scripts/` or `fixtures/`. It deterministically generates representative input records or mock client traffic for automated validation. No third-party proprietary data or real personal identifiers (PII) are required; all test datasets use synthetic tokens and deterministic random seeds.
+----------------------------------------------------------------------
+- Specification: Formal language grammar specification (EBNF) describing tokens, expressions, statements, and function syntax.
+- Dataset / Traffic Size: Formal grammar definition document and 15 sample scripts demonstrating language features
+- Seeded Edge Cases: Operator precedence edge cases (e.g., 2 + 3 * 4), nested closures mutating outer counters, and deeply nested blocks
+- Label / Verification Source: Deterministic language specification reference test suite with expected terminal outputs
+- Personal Data Policy: Strictly code text and synthetic language programs; no personal data used
 
 MILESTONES
-----------------------------------------
-- Milestone 1: Environment Setup & Core Foundations (8h)
-  Configure repository, tooling, container dependencies, and foundational data structures. Done when foundational test suite passes with clean linting.
-- Milestone 2: Core Processing & Architecture Implementation (11h)
-  Implement primary operational workflows, database models or state transitions, and API endpoints. Done when integration tests verify end-to-end data flow under normal operating conditions.
-- Milestone 3: Concurrency, Reliability & Error Guardrails (11h)
-  Implement defensive controls: rate limiting, retries with exponential backoff, transaction boundaries, and failure isolation. Done when chaos or stress tests verify graceful degradation under fault injection.
-- Milestone 4: Verification, Benchmarking & Documentation (8h)
-  Execute performance benchmark harness, compile measurement tables, generate architectural diagrams, and document screener verification steps. Done when `scripts/verify_all` passes completely.
+----------------------------------------------------------------------
+M1: Lexer, Tokenizer & Pratt Parsing Engine with AST Data Structures (9h) — Done when: Lexer tokenizes source code; Pratt parser builds AST nodes with correct operator precedence.
+M2: Tree-Walking AST Evaluator, Scope & Closures (9h) — Done when: Evaluator handles functions, closures, environment scopes, and control flow in unit tests.
+M3: Bytecode Compilers Architecture & Stack Virtual Machine (9h) — Done when: Compiler emits bytecodes; VM executes opcodes on operand stack with 3x speedup over AST evaluator.
+M4: REPL, Standard Library, Anti-Fake Test & Docs Buffer (7h) — Done when: Interactive REPL functional; anti-fake test validates dynamic script input; documentation complete.
+Total: 34 hours (estimate)
 
 PREREQUISITES, ENVIRONMENT AND ACCOUNTS
-----------------------------------------
-- Prerequisites: Familiarity with Go and Algorithms, standard command-line tools, and fundamental testing principles.
-- Hardware / OS: Standard modern computer (macOS, Linux, or Windows with WSL2) with at least 8GB RAM.
-- Accounts & Services: None required. Designed to run completely on free, open-source local software.
-- Fallback Path: In-memory mock drivers or SQLite/local files provided if external database or message broker containers cannot be run.
+----------------------------------------------------------------------
+Prerequisites: Intermediate Go programming (structs, interfaces, recursion, memory pointers), Familiarity with fundamental data structures (stacks, hash maps, trees), Basic knowledge of BNF or EBNF grammar notation
+
+Environment & Hardware:
+- OS: Linux / macOS / Windows with WSL2
+- Memory: 8GB RAM
+- Compute / GPU: None required (purely CPU-bound compilation and interpretation)
+- Estimated Cost: $0 (fully open-source software stack)
+- Accounts & Quotas: No external accounts, cloud dependencies, or API keys required
+- Reference Environment: Local 4-core CPU with Go 1.21+ installed
+- Fallback Path: AST tree-walking evaluator only if bytecode virtual machine module encounters platform-specific issues
+
+Riskiest Component & Fallback:
+- Riskiest Component: Lexical Closure Memory Leaks and Scope Mutation Races
+- Simpler Fallback: Implement immutable environment frames that copy outer references explicitly rather than sharing pointer references
 
 DELIVERABLES
-----------------------------------------
-1. Clean Git repository with structured commit history, README, and reproducible setup commands.
-2. Production-quality core codebase with automated test suite achieving verified pass rates.
-3. Performance benchmark report (`results/benchmark_report.md`) documenting measured latency, throughput, and resource utilization.
-4. Screener verification script (`scripts/verify_all.sh` or equivalent) validating the full system in < 3 minutes.
-5. Architecture diagram (Mermaid/ASCII) and known limitations document explaining architectural trade-offs.
+----------------------------------------------------------------------
+- Git repository containing lexer, parser, evaluator, bytecode compiler, and VM source files
+- Interactive REPL executable allowing immediate language experimentation
+- Comprehensive test suite covering 120 language specification test cases
+- Screener verification script running full test suite in under 2 minutes
 
 OUT OF SCOPE AND EXTENDED PATH
-----------------------------------------
-- Out of Scope for Core Path: Distributed multi-region clustering, enterprise SSO integrations, complex third-party SaaS dependencies.
-- Extended Path (+6 hours): Advanced telemetry dashboard, distributed persistence cluster extension, or automated canary release pipeline.
+----------------------------------------------------------------------
+Out of Scope:
+- JIT compilation to native x86_64 or ARM64 assembly
+- Multi-threaded parallel runtime with preemptive goroutines
+- Foreign Function Interface (FFI) bindings to C libraries
 
-SAFETY AND ETHICS NOTE
-----------------------------------------
-All data processed, generated, and benchmarked by this project consists exclusively of synthetic fixtures. No personal identifiable information (PII), proprietary credentials, or live external endpoints are used.
+Extended Path (+15 hours):
+- Mark-and-sweep garbage collector tracking dynamic object allocations and heap cleanup
+- Custom macro expansion system executing code transformations during AST compilation
 
 LEARNING RESOURCES
-----------------------------------------
-- Official Documentation for Go, Algorithms, Parsing
-- Architectural Reference Patterns and RFC Standards [VERIFY URL]
-- Systems & Distributed Reliability Principles
+----------------------------------------------------------------------
+- Thorsten Ball - Writing An Interpreter In Go reference principles
+- Vaughan Pratt - Top Down Operator Precedence original research paper
+- Crafting Interpreters by Robert Nystrom architecture patterns
 
 SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Check 1: Verify working REPL supporting variable declarations, closures, and recursive functions; Pass when automated test script prints 0 errors and logs verified status code.
-2. Check 2: Verify fibonacci(35) computed correctly via recursive function definition; Pass when automated test script prints 0 errors and logs verified status code.
-3. Check 3: Verify closure correctness test: inner function capturing outer scope variable correctly; Pass when automated test script prints 0 errors and logs verified status code.
-4. Check 4: Verify error recovery: syntax errors report line number and helpful message; Pass when automated test script prints 0 errors and logs verified status code.
-5. Check 5: Verify 200+ unit tests covering edge cases in parsing, evaluation, and scope resolution; Pass when automated test script prints 0 errors and logs verified status code.
-6. Check 6: 6. Anti-Fake Verification Check: Inspect committed execution logs and re-run verification script against seeded test fixtures; pass when runtime metrics dynamically reflect test execution rather than static mocked responses.
+----------------------------------------------------------------------
+1. Check
+   Input: 120 language test programs in ./tests/fixtures directory
+   Action: Run go test ./pkg/... -v
+   Result: Lexer, parser, evaluator, and VM pass all specification tests
+   Evidence: Terminal test execution output log
+   Pass: 120 of 120 tests pass with exit code 0 and 0 failures
+2. Check
+   Input: Recursive Fibonacci script benchmark file
+   Action: Run go test -bench=. ./pkg/vm
+   Result: Bytecode VM evaluates Fibonacci(25) in < 450ms with correct output 75025
+   Evidence: Benchmark console output log
+   Pass: Execution latency < 450ms and calculated integer equals 75025
+3. Check
+   Input: Nested scope test script with variable shadowing
+   Action: Execute ./bin/lang run fixtures/scoping.lang
+   Result: Evaluator maintains separate environment frames for inner and outer variables
+   Evidence: Terminal execution output log
+   Pass: Output confirms outer variable unchanged with exit code 0
+4. Check
+   Input: Interactive REPL launch command ./bin/lang repl
+   Action: Pipe arithmetic expression 'let x = 10; let y = 20; x * y;' into stdin
+   Result: REPL evaluates expression and prints integer 200 to stdout
+   Evidence: REPL output log
+   Pass: Evaluated result equals 200 and REPL exits cleanly
+5. Check [anti_fake]
+   Input: Dynamic script with closure counter and unique randomized multiplier passed via stdin
+   Action: Execute ./scripts/verify_dynamic_eval.sh --factor 17
+   Result: Interpreter dynamically parses, builds closure, and evaluates correct calculated product
+   Evidence: Dynamic verification console output log
+   Pass: Calculated value matches expected mathematical output with exit code 0
 
 RESUME BULLET FORMULA
-----------------------------------------
-"Built custom scripting language interpreter in Go with Pratt parser and tree-walking evaluator; implemented closures, higher-order functions, and REPL — passing [N]+ correctness tests including recursive mutual functions.; achieved [N] throughput with < [M ms] latency overhead across [K] test transactions."
-Do not claim: scale, latency, or throughput figures without committing benchmark run logs; do not claim production deployment unless deployed to a verifiable live environment.
+----------------------------------------------------------------------
+"Architected custom programming language compiler and stack virtual machine in Go; executed [TEST_CASES_PASSED] language specification test programs with lexical closure support, recursive Fibonacci evaluation in under [VM_EVAL_TIME] on bytecode VM, and isolated lexical environment frames."
+
+Do not claim: JIT compilation to native machine code or production compiler optimization without committed bytecode disassembly logs
 
 ======================================================================
 Generated by HireFlow — hireflow.io

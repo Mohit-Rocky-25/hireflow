@@ -1,0 +1,311 @@
+{
+  "id": "brief-graph-analysis",
+  "title": "Large-Scale Social Graph Analytics Platform with PageRank & Community Detection",
+  "domain": "Data Engineering",
+  "difficulty": "ADVANCED",
+  "project_types": [
+    "Data pipeline/ETL",
+    "Systems/low-level/networking"
+  ],
+  "problem": "Modern social networks, financial transaction webs, and logistics supply chains contain deep relationship networks that traditional relational database SQL joins cannot analyze efficiently at scale. Calculating graph centrality, identifying dense community clusters, and locating anomalous cycles require specialized graph storage layouts and iterative graph algorithms. This project implements a high-performance graph analytics engine in Python, DuckDB, NetworkX, and FastAPI. The platform ingests million-edge datasets into compressed sparse row (CSR) memory structures, executes multi-threaded PageRank and Louvain community detection algorithms, evaluates multi-hop subgraph paths, and serves analytical graph queries through a FastAPI backend.",
+  "use_cases": [
+    "Social network influence scoring calculating user centrality across large follower graphs",
+    "Anti-money laundering financial intelligence detecting circular fund transfer rings",
+    "Supply chain dependency analysis identifying single-point-of-failure bottlenecks"
+  ],
+  "hard_parts": [
+    "Optimizing graph memory layout using Compressed Sparse Row (CSR) matrices to prevent RAM bloat on million-edge graphs",
+    "Parallelizing iterative PageRank matrix computations across multi-core CPUs with strict convergence bounds",
+    "Implementing modularity-optimizing Louvain community partitioning across densely connected subgraphs",
+    "Executing sub-15 millisecond K-hop neighborhood traversals without combinatorial path explosion"
+  ],
+  "screener_signals": [
+    "Modular Python codebase separating CSR graph loaders, parallel iterative algorithms, and FastAPI endpoints",
+    "Deterministic benchmark demonstrating PageRank convergence on 1,000,000 edges in under 4.5 seconds on local CPU",
+    "Anti-fake verification script generating a dynamic star-hub topology and asserting exact centrality rankings"
+  ],
+  "job_families": [
+    "Graph Data Engineer",
+    "Distributed Systems Data Engineer",
+    "High-Performance Computing Engineer"
+  ],
+  "stack": [
+    {
+      "tool": "Python",
+      "role": "primary programming language for graph data structures and algorithm pipelines"
+    },
+    {
+      "tool": "DuckDB",
+      "role": "analytical in-process database staging raw edge lists and attribute tables"
+    },
+    {
+      "tool": "NetworkX",
+      "role": "graph library providing reference baseline implementations and topological verifications"
+    },
+    {
+      "tool": "FastAPI",
+      "role": "web framework exposing graph traversal and centrality analytics endpoints"
+    },
+    {
+      "tool": "Docker",
+      "role": "containerization engine packaging analytics engine and local dependencies"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "Compressed Sparse Row (CSR) Graph Loader",
+        "tools_used": [
+          "Python",
+          "DuckDB"
+        ],
+        "purpose": "Ingests raw edge lists from DuckDB and constructs memory-efficient CSR adjacency structures"
+      },
+      {
+        "name": "Parallel PageRank Centrality Engine",
+        "tools_used": [
+          "Python"
+        ],
+        "purpose": "Executes power-iteration PageRank across node matrices to measure influence and authority"
+      },
+      {
+        "name": "Louvain Community Detection Partitioning",
+        "tools_used": [
+          "Python",
+          "NetworkX"
+        ],
+        "purpose": "Partitions graph nodes into modular communities through iterative local modularity optimization"
+      },
+      {
+        "name": "FastAPI Graph Analytics Gateway",
+        "tools_used": [
+          "FastAPI",
+          "Python",
+          "Docker"
+        ],
+        "purpose": "Serves multi-hop neighborhood queries, community membership looks, and centrality rankings"
+      }
+    ],
+    "data_flow": "Raw CSV/Parquet edge lists load into DuckDB tables; the CSR Graph Loader extracts directed edge pairs into compressed index pointers and column arrays; the PageRank Centrality Engine executes iterative vector updates until the L1 norm delta falls below 1e-6; the Louvain Engine assigns nodes to community clusters maximizing modularity Q; client analytical queries enter FastAPI; the gateway performs multi-hop neighbor lookups in CSR arrays and returns structured graph JSON in under 15 milliseconds.",
+    "enforcement_mechanism": "Matrix convergence tolerance thresholds guaranteeing mathematical accuracy; bounded search depths preventing recursive traversal loops."
+  },
+  "targets": [
+    {
+      "metric": "Million-Edge PageRank Convergence Latency",
+      "method": "Wall-clock timing to execute power-iteration PageRank until tolerance threshold (1e-6) on 1,000,000 edges",
+      "input": "Directed benchmark graph containing 100,000 nodes and 1,000,000 edges with power-law degree distribution",
+      "environment": "Standard 4-core local CPU, Python 3.11 with NumPy/SciPy",
+      "minimum_pass": "Execution converges in < 4.5 seconds across 1,000,000 edges",
+      "target": "Execution converges in < 2.0 seconds across 1,000,000 edges",
+      "report": "PageRank algorithm performance and convergence iteration log"
+    },
+    {
+      "metric": "Louvain Community Detection Modularity Score",
+      "method": "Modularity metric Q calculation across benchmark social network graph with known community clusters",
+      "input": "Synthetic social graph containing 25,000 nodes partitioned into 10 ground-truth clusters",
+      "environment": "Standard 4-core local CPU, Python 3.11",
+      "minimum_pass": "Calculated modularity Q exceeds 0.65",
+      "target": "Calculated modularity Q exceeds 0.78",
+      "report": "Community detection modularity score verification output"
+    },
+    {
+      "metric": "Multi-Hop Neighborhood Traversal Latency",
+      "method": "Response timing for 3-hop breadth-first neighborhood expansion across indexed graph",
+      "input": "500 random node seed queries requesting 3-hop ego network subgraphs",
+      "environment": "Standard 4-core local CPU, Python 3.11, CSR memory structures",
+      "minimum_pass": "Average 3-hop traversal latency is < 15.0 milliseconds",
+      "target": "Average 3-hop traversal latency is < 6.0 milliseconds",
+      "report": "Graph traversal microbenchmark latency report"
+    }
+  ],
+  "skills": [
+    "Python",
+    "NetworkX",
+    "DuckDB",
+    "FastAPI",
+    "Docker",
+    "Graph Analysis",
+    "Data Engineering",
+    "Distributed Systems"
+  ],
+  "starter_input": {
+    "spec": "Graph edge list dataset (source_id, target_id, weight) and node metadata schema in CSV/Parquet format.",
+    "size": "Synthetic social graph of 100,000 nodes and 1,000,000 edges following power-law degree distribution",
+    "seeded_cases": "Isolated disconnected nodes, cyclic sink nodes with zero outbound edges, and dense clique clusters",
+    "label_source": "Deterministic ground truth manifest with verified PageRank scores and community cluster IDs",
+    "personal_data_policy": "Strictly mock synthetic graph node identifiers and simulated edge weights; no personal data used"
+  },
+  "components": [
+    {
+      "name": "Graph Ingestion & Adjacency CSR Matrix Loader",
+      "task_type": "data pipeline step",
+      "hours": 6.0
+    },
+    {
+      "name": "Parallel PageRank & Centrality Scoring Engine",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "Louvain Community Detection & Modular Partitioning",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "Graph Traversal & Subgraph Anomaly Extraction",
+      "task_type": "data pipeline step",
+      "hours": 5.0
+    },
+    {
+      "name": "FastAPI Graph Query & Visualization API",
+      "task_type": "API endpoint group with tests",
+      "hours": 5.0
+    },
+    {
+      "name": "Graph Algorithm Convergence & Scale Benchmark",
+      "task_type": "load or performance test harness + report",
+      "hours": 4.0
+    },
+    {
+      "name": "Graph Topology Architecture Diagram & Partitioning Runbook",
+      "task_type": "docs + architecture diagram",
+      "hours": 3.0
+    }
+  ],
+  "extended_path": {
+    "items": [
+      "Distributed GraphX / GraphFrames cluster execution across multi-node Apache Spark workers",
+      "Dynamic temporal edge streaming with incremental PageRank recalculation"
+    ],
+    "hours": 16
+  },
+  "milestones": [
+    {
+      "name": "CSR Graph Adjacency Ingestion & DuckDB Storage in Python",
+      "hours": 10,
+      "done_criterion": "Ingestion loads 1,000,000 edges into CSR arrays; DuckDB stores node attributes efficiently."
+    },
+    {
+      "name": "Parallel PageRank & Centrality in Data Engineering and Graph Analysis",
+      "hours": 10,
+      "done_criterion": "PageRank converges in < 4.5s on 1M edges; betweenness centrality evaluates accurately."
+    },
+    {
+      "name": "Louvain Community Detection & Subgraph Extraction in FastAPI Distributed Systems",
+      "hours": 10,
+      "done_criterion": "Louvain achieves modularity Q > 0.65; FastAPI serves 3-hop subgraph queries in < 15ms."
+    },
+    {
+      "name": "Million-Edge Algorithm Benchmark, Docker Anti-Fake Test & Docs",
+      "hours": 10,
+      "done_criterion": "Benchmark verifies convergence latency; anti-fake test identifies star hub; docs complete."
+    }
+  ],
+  "prerequisites": [
+    "Proficiency in Python programming, NumPy matrix operations, and asynchronous FastAPI",
+    "Understanding of graph theory fundamentals (adjacency representations, PageRank, community modularity)"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (purely CPU-bound sparse matrix computations)",
+    "cost": "$0 (fully open-source software stack)",
+    "accounts_keys_quotas": "No external cloud accounts, paid services, or API keys required",
+    "reference_environment": "Local 4-core CPU with Python 3.11 and DuckDB installed",
+    "fallback_path": "In-memory Python dictionaries with NetworkX if native CSR C-extensions encounter build errors"
+  },
+  "riskiest_component": {
+    "name": "Memory Exhaustion from Storing Dense Adjacency Matrices",
+    "fallback": "Enforce Compressed Sparse Row (CSR) representation using 32-bit integer index arrays"
+  },
+  "deliverables": [
+    "Git repository containing Python graph analytics engine, CSR data structures, and FastAPI service",
+    "Synthetic million-edge graph generation script with power-law degree distribution",
+    "Automated performance evaluation harness measuring convergence speed and modularity scores",
+    "Screener verification script executing automated benchmark and dynamic graph test in under 2 minutes"
+  ],
+  "out_of_scope": [
+    "Distributed multi-terabyte graph computing on 100-node supercomputer clusters",
+    "Deep graph neural network (GNN) model training using PyTorch Geometric on GPUs",
+    "Commercial frontend interactive graph canvas WebGL rendering engine"
+  ],
+  "safety_note": null,
+  "resources": [
+    "The PageRank Citation Ranking: Bringing Order to the Web (Page et al. paper)",
+    "Fast Unfolding of Communities in Large Networks (Blondel et al. Louvain paper)",
+    "Compressed Sparse Graph Representations and Scipy Sparse Matrix Architecture"
+  ],
+  "rubric": [
+    {
+      "input": "1,000,000 edge benchmark graph with power-law degree distribution",
+      "action": "python -m graph_engine.bench_pagerank --edges data/graph_1m.parquet",
+      "expected_result": "PageRank algorithm converges within tolerance threshold in < 4.5 seconds",
+      "evidence_location": "Terminal execution output log and reports/pagerank_timing.json",
+      "pass_criterion": "Convergence time is < 4.5 seconds with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Synthetic social graph containing 25,000 nodes with known community structure",
+      "action": "python -m graph_engine.test_louvain --graph data/communities.parquet",
+      "expected_result": "Louvain algorithm partitions graph with modularity score Q exceeding 0.65",
+      "evidence_location": "Modularity report log",
+      "pass_criterion": "Modularity score Q is > 0.65 with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "500 multi-hop neighborhood traversal requests issued to FastAPI endpoint",
+      "action": "python scripts/benchmark_traversal.py --requests 500 --hops 3",
+      "expected_result": "Average 3-hop ego network extraction completes in < 15.0 milliseconds",
+      "evidence_location": "Traversal timing summary table",
+      "pass_criterion": "Average traversal latency is < 15.0 milliseconds",
+      "kind": "normal"
+    },
+    {
+      "input": "FastAPI request requesting top 10 central nodes in graph",
+      "action": "curl http://localhost:8000/api/centrality/top?k=10",
+      "expected_result": "API returns JSON list of top 10 nodes with computed PageRank scores",
+      "evidence_location": "HTTP response payload",
+      "pass_criterion": "Response status is 200 and results array has exactly 10 ranked items",
+      "kind": "normal"
+    },
+    {
+      "input": "Dynamic star graph topology generated at runtime (1 central hub node connected to 50 peripheral leaves)",
+      "action": "python scripts/verify_dynamic_graph.py --hub-id DYNAMIC_HUB_99 --leaves 50",
+      "expected_result": "PageRank algorithm identifies hub node as highest ranked node with score exceeding 0.15",
+      "evidence_location": "Dynamic verification console output log",
+      "pass_criterion": "Top ranked node equals DYNAMIC_HUB_99 with score > 0.15 and exit code 0",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected large-scale social graph analytics platform in Python and DuckDB with Compressed Sparse Row indexing; achieved sub-[CONVERGENCE_TIME] PageRank convergence across [EDGE_COUNT] edges, and delivered multi-hop subgraph traversals with sub-[TRAVERSAL_LATENCY] latency.",
+    "claims": [
+      {
+        "text": "achieved sub-[CONVERGENCE_TIME] PageRank convergence across [EDGE_COUNT] edges",
+        "rubric_indexes": [
+          0
+        ]
+      },
+      {
+        "text": "delivered multi-hop subgraph traversals with sub-[TRAVERSAL_LATENCY] latency",
+        "rubric_indexes": [
+          2
+        ]
+      }
+    ],
+    "do_not_claim": "multi-node supercomputer cluster parallelism or deep graph neural network GPU training"
+  },
+  "verify": [],
+  "worksheet": {
+    "q1": "Core deliverable: a graph analytics platform in Python/DuckDB with CSR indexing, parallel PageRank, Louvain community detection, and FastAPI.",
+    "q2": "Target users: graph data engineers, distributed systems developers, and analytics architects.",
+    "q3": "3 use cases: social network influence scoring, anti-money laundering ring detection, and supply chain bottleneck analysis.",
+    "q4": "Stated hours: 40 hours. Calculated bottom-up: 35 component hours * 1.15 buffer = 40.25 -> 40 hours. Advanced level.",
+    "q5": "Hard parts: Compressed Sparse Row memory optimization, parallel PageRank convergence, Louvain community modularity, and sub-15ms K-hop traversal.",
+    "q6": "Starter input: 100,000 nodes and 1,000,000 edges following power-law degree distribution. Synthetic graph data only.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU only, $0 cost, zero cloud accounts. Fallback: Python dicts and NetworkX.",
+    "q8": "Riskiest component: Memory exhaustion from dense adjacency storage. Fallback: 32-bit CSR sparse representation.",
+    "q9": "Potential faking: mock centrality returns. Anti-fake check 5 constructs dynamic star-hub topology at runtime and asserts hub receives top PageRank.",
+    "q10": "Safety/ethics: Safe; synthetic topology records only."
+  }
+}

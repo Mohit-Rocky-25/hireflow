@@ -1,0 +1,307 @@
+{
+  "id": "brief-gitops-registry",
+  "title": "GitOps Continuous Deployment Controller with Automated Drift Self-Healing",
+  "domain": "Platform & DevOps",
+  "difficulty": "ADVANCED",
+  "project_types": [
+    "CLI/tools/libraries",
+    "Systems/low-level/networking"
+  ],
+  "problem": "Kubernetes cluster state frequently diverges from intended Git configuration due to manual emergency kubectl interventions, failing CI/CD pipeline synchronizations, and unrecorded environment adjustments. When production state is not immutably committed to version control, disaster recovery becomes impossible and infrastructure security degrades. This project implements a lightweight GitOps continuous deployment controller from first principles in Go. The controller watches target Git manifest repositories, renders Helm templates and plain YAML manifests, applies declarative state via the Kubernetes dynamic client, detects live out-of-band cluster drift in real-time, executes automated self-healing reconciliation loops, and spins up isolated ephemeral preview namespaces for incoming pull requests.",
+  "use_cases": [
+    "Enterprise platform engineering teams enforcing declarative infrastructure-as-code state across Kubernetes clusters",
+    "Automated drift detection and self-healing systems reverting unauthorized manual cluster mutations",
+    "Continuous preview environment controllers provisioning ephemeral pull request testing namespaces"
+  ],
+  "hard_parts": [
+    "Managing three-way declarative merge patch calculations between Git desired state, live cluster state, and last-applied annotations",
+    "Implementing efficient non-blocking reconciliation worker queues with exponential backoff and rate-limiting",
+    "Detecting out-of-band live resource drift and executing safe self-healing mutations without service disruption",
+    "Managing ephemeral Kubernetes namespace lifecycles with automated TTL expiration and garbage collection"
+  ],
+  "screener_signals": [
+    "Modular Go implementation cleanly separating Git pollers, Helm template renderers, dynamic K8s clients, and drift reconcilers",
+    "Automated chaos test injecting manual cluster modifications and verifying automated self-healing restoration within 15 seconds",
+    "Anti-fake verification script committing dynamic deployment manifests to Git and asserting exact Kubernetes replica convergence"
+  ],
+  "job_families": [
+    "Platform Engineer",
+    "Kubernetes Infrastructure Engineer",
+    "Site Reliability Engineer"
+  ],
+  "stack": [
+    {
+      "tool": "Go",
+      "role": "systems language powering the GitOps reconciliation daemon and Kubernetes dynamic controller"
+    },
+    {
+      "tool": "Kubernetes",
+      "role": "target container orchestration platform hosting application resources and namespaces"
+    },
+    {
+      "tool": "Docker",
+      "role": "containerization engine packaging GitOps controller binary and running local test cluster"
+    },
+    {
+      "tool": "Helm",
+      "role": "package manager templating complex Kubernetes application charts into raw manifests"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "Git Manifest Repository Poller",
+        "tools_used": [
+          "Go"
+        ],
+        "purpose": "Polls target Git repositories, detects branch commit changes, and fetches declarative resource manifests"
+      },
+      {
+        "name": "Helm Template Expansion Engine",
+        "tools_used": [
+          "Go",
+          "Helm"
+        ],
+        "purpose": "Renders Helm charts and values files into validated raw Kubernetes declarative YAML specifications"
+      },
+      {
+        "name": "Kubernetes Dynamic Resource Reconciler",
+        "tools_used": [
+          "Go",
+          "Kubernetes"
+        ],
+        "purpose": "Applies manifests using Kubernetes dynamic client and three-way strategic merge patch algorithms"
+      },
+      {
+        "name": "Drift Detection & Self-Healing Watcher",
+        "tools_used": [
+          "Go",
+          "Kubernetes",
+          "Docker"
+        ],
+        "purpose": "Listens to Kubernetes informers, detects live state deviations from Git, and triggers restorative reconciliations"
+      }
+    ],
+    "data_flow": "The Git Poller watches designated Git branches for commit updates; when a commit arrives, the Helm Expansion Engine renders chart templates into concrete manifests; the Dynamic Resource Reconciler compares desired manifests with live cluster state; resources are created or updated using three-way strategic merge patching; Kubernetes Informers continuously monitor live cluster state; if manual kubectl changes alter replicas or configurations out-of-band, the Drift Watcher flags state divergence and re-applies Git truth within 15 seconds.",
+    "enforcement_mechanism": "Continuous reconciliation loops overriding unauthorized out-of-band mutations; admission webhooks verifying signed Git commit SHAs."
+  },
+  "targets": [
+    {
+      "metric": "Cluster State Drift Self-Healing Latency",
+      "method": "Timing from out-of-band manual kubectl replica alteration to automated GitOps self-healing restoration",
+      "input": "10 consecutive manual drift injection events altering replica counts from 3 to 1 across active cluster deployments",
+      "environment": "Standard 4-core local CPU, local Kind/K3s cluster, Go 1.21+",
+      "minimum_pass": "Average drift detection and healing latency is < 15.0 seconds",
+      "target": "Average drift detection and healing latency is < 5.0 seconds",
+      "report": "Drift reconciliation benchmark timing summary report"
+    },
+    {
+      "metric": "Declarative Manifest Sync Accuracy Rate",
+      "method": "Synchronization test applying complex Kubernetes manifests containing 25 distinct resource kinds",
+      "input": "Manifest repository containing 25 distinct Kubernetes resources (Deployments, Services, ConfigMaps, Secrets, Ingress, CRDs)",
+      "environment": "Standard 4-core local CPU, local Kind/K3s cluster",
+      "minimum_pass": "25 of 25 distinct Kubernetes resource types synced with 0 manifest errors",
+      "target": "25 of 25 distinct Kubernetes resource types synced with 0 manifest errors",
+      "report": "Manifest synchronization verification log"
+    },
+    {
+      "metric": "Controller Memory Consumption Footprint",
+      "method": "Resident Set Size (RSS) memory measurement of GitOps controller daemon managing 50 continuous resources",
+      "input": "50 active Kubernetes resources subjected to continuous 5-second polling and reconciliation cycles",
+      "environment": "Standard 4-core local CPU, Go 1.21+ compiled binary, Linux container",
+      "minimum_pass": "Resident memory consumption remains < 95 Megabytes",
+      "target": "Resident memory consumption remains < 45 Megabytes",
+      "report": "Controller daemon memory profiling summary log"
+    }
+  ],
+  "skills": [
+    "Go",
+    "Kubernetes",
+    "Docker",
+    "Helm",
+    "GitOps",
+    "Platform Engineering",
+    "DevOps"
+  ],
+  "starter_input": {
+    "spec": "Sample GitOps manifest repository (Helm charts, kustomize overlays, raw YAML) and Kind local cluster configuration.",
+    "size": "50 Kubernetes resource manifests across 5 application stacks with simulated deployment configurations",
+    "seeded_cases": "Manual out-of-band kubectl scale mutations, invalid YAML syntax commits, and Helm values type mismatches",
+    "label_source": "Deterministic cluster verification script checking live Kubernetes API object specs against Git source files",
+    "personal_data_policy": "Strictly mock synthetic deployment manifests and fake domain names; zero private credentials used"
+  },
+  "components": [
+    {
+      "name": "Git Repository Poller & Reconciler Loop",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "Kubernetes Dynamic Client & Manifest Applier",
+      "task_type": "infra component (broker, DB, orchestrator, cluster service)",
+      "hours": 6.0
+    },
+    {
+      "name": "Helm Template Engine & Secret Decryption Gate",
+      "task_type": "infra component (broker, DB, orchestrator, cluster service)",
+      "hours": 5.0
+    },
+    {
+      "name": "Ephemeral Preview Environment Provisioner",
+      "task_type": "API endpoint group with tests",
+      "hours": 5.0
+    },
+    {
+      "name": "Drift Detection & Self-Healing Controller",
+      "task_type": "low-level/system subsystem",
+      "hours": 5.0
+    },
+    {
+      "name": "Chaos Drift Injection & Reconciliation Benchmark Harness",
+      "task_type": "load or performance test harness + report",
+      "hours": 4.0
+    },
+    {
+      "name": "GitOps Controller State Machine Diagram & Architecture Runbook",
+      "task_type": "docs + architecture diagram",
+      "hours": 3.0
+    }
+  ],
+  "extended_path": {
+    "items": [
+      "Automated canary progressive deployment with Prometheus metric analysis",
+      "OIDC authentication and role-based access control for preview environments"
+    ],
+    "hours": 16
+  },
+  "milestones": [
+    {
+      "name": "Git Manifest Repository Synchronizer & State Poller in Go Platform Engineering",
+      "hours": 10,
+      "done_criterion": "Poller clones and watches Git repos, detecting new commit hashes and loading manifests."
+    },
+    {
+      "name": "Kubernetes Dynamic Client & Declarative Resource Reconciliation in DevOps",
+      "hours": 10,
+      "done_criterion": "Dynamic client applies 25 of 25 Kubernetes resource kinds via 3-way strategic merge patch."
+    },
+    {
+      "name": "Helm Template Expansion & Drift Detection Controller in GitOps",
+      "hours": 10,
+      "done_criterion": "Helm engine renders charts; drift controller detects out-of-band cluster alterations in < 15s."
+    },
+    {
+      "name": "Chaos Drift Self-Healing Benchmark, Docker Anti-Fake Test & Docs",
+      "hours": 9,
+      "done_criterion": "Benchmark verifies automated drift restoration; memory stays < 95MB; anti-fake test passes; docs complete."
+    }
+  ],
+  "prerequisites": [
+    "Proficiency in Go (goroutines, channels, interfaces, client-go)",
+    "Strong understanding of Kubernetes primitives (Deployments, Services, CRDs, controllers) and Git workflows"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (purely CPU-bound controller daemon and local Kubernetes)",
+    "cost": "$0 (fully open-source software stack with local Kind/K3s cluster)",
+    "accounts_keys_quotas": "No external cloud accounts, paid services, or API keys required",
+    "reference_environment": "Local 4-core CPU with Go 1.21+, Docker 24+, and Kind/K3s installed",
+    "fallback_path": "Mock Kubernetes API server and in-memory resource store if local Kind cannot be initialized"
+  },
+  "riskiest_component": {
+    "name": "Infinite Reconciliation Loops on Dynamic Kubernetes Fields (e.g. status, timestamps)",
+    "fallback": "Filter out managed dynamic fields (metadata.resourceVersion, status) during three-way diff calculation"
+  },
+  "deliverables": [
+    "Git repository containing Go GitOps controller daemon, Helm renderer, and Kubernetes dynamic client",
+    "Dockerfile and Kind cluster deployment manifests for local evaluation",
+    "Automated drift injection and self-healing test harness verifying declarative restoration",
+    "Screener verification script executing automated benchmark and dynamic manifest test in under 2 minutes"
+  ],
+  "out_of_scope": [
+    "Multi-cloud federation across 50 geographical AWS/GCP regions",
+    "Enterprise SSO identity provider integration with hardware security keys",
+    "Full-featured web UI portal replicating ArgoCD or Flux dashboards"
+  ],
+  "safety_note": null,
+  "resources": [
+    "Kubernetes API Machinery and Dynamic Client Documentation",
+    "GitOps Principles and OpenGitOps Standard Specification",
+    "Building Kubernetes Controllers in Go (Writing Custom Reconcilers)"
+  ],
+  "rubric": [
+    {
+      "input": "Manual out-of-band kubectl scale command reducing deployment replicas from 3 to 1",
+      "action": "bash scripts/inject_drift.sh --deployment web-app --replicas 1",
+      "expected_result": "GitOps controller detects drift and restores replica count to 3 within 15 seconds",
+      "evidence_location": "Controller stdout log and kubectl get deployment output",
+      "pass_criterion": "Live deployment replicas restored to 3 within 15 seconds with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Manifest repository containing 25 distinct Kubernetes resource kinds",
+      "action": "go run ./cmd/gitops-agent --sync-all",
+      "expected_result": "Controller applies all 25 resources without errors via dynamic client",
+      "evidence_location": "Sync execution report log",
+      "pass_criterion": "All 25 resources report status SYNCHRONIZED with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Controller daemon executing continuous reconciliation for 5 minutes",
+      "action": "python scripts/measure_memory.py --process gitops-agent --duration 300",
+      "expected_result": "Resident memory consumption remains bounded below 95 Megabytes",
+      "evidence_location": "Memory profiling summary table",
+      "pass_criterion": "Peak RSS memory is < 95MB with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Helm chart with customized values.yaml committed to Git branch",
+      "action": "go test ./pkg/helm -run TestHelmRender",
+      "expected_result": "Engine renders templates into valid Kubernetes YAML specifications",
+      "evidence_location": "Test execution stdout",
+      "pass_criterion": "Rendered manifest passes kubeval validation with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Dynamic ConfigMap manifest with dynamic key-value committed to Git at runtime",
+      "action": "python scripts/verify_dynamic_gitops.py --key DYNAMIC_KEY_42 --value DYNAMIC_VALUE_99",
+      "expected_result": "Controller synchronizes commit and live cluster ConfigMap reflects exact dynamic key-value",
+      "evidence_location": "Dynamic verification console output log",
+      "pass_criterion": "Live ConfigMap data matches dynamic key-value within 15 seconds and exit code is 0",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected GitOps continuous deployment controller in Go for Kubernetes; achieved sub-[DRIFT_LATENCY] automated drift self-healing across cluster deployments, and synchronized [RESOURCE_COUNT] distinct Kubernetes resource kinds within a [MEMORY_FOOTPRINT] memory footprint.",
+    "claims": [
+      {
+        "text": "achieved sub-[DRIFT_LATENCY] automated drift self-healing across cluster deployments",
+        "rubric_indexes": [
+          0
+        ]
+      },
+      {
+        "text": "synchronized [RESOURCE_COUNT] distinct Kubernetes resource kinds within a [MEMORY_FOOTPRINT] memory footprint",
+        "rubric_indexes": [
+          1,
+          2
+        ]
+      }
+    ],
+    "do_not_claim": "multi-region global cloud federation or complete ArgoCD web dashboard replication"
+  },
+  "verify": [],
+  "worksheet": {
+    "q1": "Core deliverable: a GitOps continuous deployment controller in Go with Git poller, Helm renderer, dynamic K8s client, and drift self-healing.",
+    "q2": "Target users: platform engineers, Kubernetes infrastructure specialists, and SREs.",
+    "q3": "3 use cases: declarative cluster state enforcement, automated drift self-healing, and ephemeral PR preview environments.",
+    "q4": "Stated hours: 39 hours. Calculated bottom-up: 34 component hours * 1.15 buffer = 39.1 -> 39 hours. Advanced level.",
+    "q5": "Hard parts: three-way merge patch calculations, non-blocking reconciler worker queues, real-time drift detection, and namespace lifecycle GC.",
+    "q6": "Starter input: 50 Kubernetes resource manifests across 5 application stacks with Helm charts. Synthetic configurations only.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU only, $0 cost, zero cloud accounts. Fallback: mock Kubernetes API server.",
+    "q8": "Riskiest component: Infinite reconciliation loops on dynamic fields. Fallback: filter managed dynamic fields during diff calculation.",
+    "q9": "Potential faking: static reconciliation logs. Anti-fake check 5 commits dynamic ConfigMap to Git at runtime and asserts live cluster convergence.",
+    "q10": "Safety/ethics: Safe; local Kind/K3s container cluster only, no cloud production credentials."
+  }
+}

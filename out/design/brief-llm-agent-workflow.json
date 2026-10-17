@@ -1,0 +1,357 @@
+{
+  "id": "brief-llm-agent-workflow",
+  "title": "Autonomous LLM Agent Orchestration Engine with ReAct Loop, Deterministic Tool Calling & State Checkpointing",
+  "domain": "GenAI & LLM Engineering",
+  "difficulty": "ADVANCED",
+  "project_types": [
+    "API/backend service",
+    "Systems programming"
+  ],
+  "problem": "Uncontrolled LLM agents deployed with naive prompt loops suffer from infinite execution cycles, hallucinatory tool parameterization, and total loss of state upon downstream API failures. Relying on opaque framework abstractions obscures tool invocation errors and prevents deterministic workflow resumption. This project builds an autonomous agent orchestration engine in Python. The engine implements a stateful ReAct (Reasoning and Acting) loop, enforces structured tool calling schemas via Pydantic, tracks execution graphs with cycle detection, persists step-by-step workflow state in Redis, and guarantees graceful fallback handling when external tools fail or timeout.",
+  "use_cases": [
+    {
+      "title": "Automated IT Incident Diagnosis and Remediation",
+      "first_sentence": "Enterprise DevOps teams need autonomous agents that investigate cloud infrastructure alarms by querying metric APIs, reading server logs, and executing read-only diagnostics.",
+      "second_sentence": "The agent breaks down incident alerts into multi-step investigative plans, executes diagnostic CLI stubs, and synthesizes root-cause summaries without human intervention."
+    },
+    {
+      "title": "Automated Customer Support Case Resolution",
+      "first_sentence": "E-commerce customer service platforms require autonomous agents capable of resolving order tracking inquiries, processing authorized refunds, and updating shipping records.",
+      "second_sentence": "The engine authenticates customer intents, queries order databases via structured tool calls, verifies business logic guardrails, and returns resolved case statuses."
+    },
+    {
+      "title": "Financial Research & SEC Filing Information Extraction",
+      "first_sentence": "Equity research analysts need automated research agents that search financial repositories, calculate accounting ratios, and verify contradictory data across company disclosures.",
+      "second_sentence": "The agent searches document stores, invokes calculator tools for ratio analysis, checks citation validity, and generates structured comparative investment memos."
+    }
+  ],
+  "hard_parts": [
+    "Preventing infinite reasoning loops and hallucinated circular plans through dynamic depth budgets and cycle detection",
+    "Enforcing strict JSON parameter schemas on non-deterministic LLM tool-calling outputs using Pydantic validators",
+    "Managing atomic state checkpoints in Redis to enable pause, resume, and rollback capabilities upon tool exceptions",
+    "Implementing graceful degradation and alternative tool selection when primary third-party APIs encounter rate limits or timeouts"
+  ],
+  "screener_signals": [
+    "Clean Python codebase separating ReAct loop controllers, tool plugin registries, and Redis state checkpoint managers",
+    "Comprehensive benchmark suite measuring task completion rate, tool call precision, and recovery latency on injected failures",
+    "Anti-fake verification script presenting an unseen multi-step problem with an injected broken tool, verifying autonomous fallback to secondary tool"
+  ],
+  "job_families": [
+    "Applied AI Engineer",
+    "Agentic AI Systems Architect",
+    "GenAI Platform Engineer"
+  ],
+  "stack": [
+    {
+      "tool": "Python",
+      "role": "primary backend language implementing ReAct orchestrator and tool dispatch logic"
+    },
+    {
+      "tool": "LangChain",
+      "role": "prompt composition and message history library structuring conversational turns"
+    },
+    {
+      "tool": "FastAPI",
+      "role": "asynchronous REST API framework exposing workflow execution and status endpoints"
+    },
+    {
+      "tool": "Pydantic",
+      "role": "data validation library enforcing strict typing on tool inputs and agent plan outputs"
+    },
+    {
+      "tool": "Redis",
+      "role": "in-memory data store persisting session checkpoint state, step logs, and rate limits"
+    },
+    {
+      "tool": "Docker",
+      "role": "containerization engine hosting Redis and providing isolated sandbox environments"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "ReAct Reasoning & Planning Loop Controller",
+        "tools_used": [
+          "Python",
+          "LangChain"
+        ],
+        "purpose": "Orchestrates Thought-Action-Observation cycles, evaluates goal completion, and detects infinite plan loops"
+      },
+      {
+        "name": "Deterministic Tool Registry & Dispatch Gateway",
+        "tools_used": [
+          "Python",
+          "Pydantic"
+        ],
+        "purpose": "Registers tool plugins, validates input parameters against Pydantic schemas, and manages timeouts"
+      },
+      {
+        "name": "Redis State Checkpoint & Rollback Store",
+        "tools_used": [
+          "Python",
+          "Redis"
+        ],
+        "purpose": "Persists execution history, tool outputs, and variable contexts after every intermediate workflow step"
+      },
+      {
+        "name": "Exception Handling & Tool Fallback Manager",
+        "tools_used": [
+          "Python",
+          "FastAPI"
+        ],
+        "purpose": "Catches tool errors, injects explanatory feedback into agent context, and routes to alternate tools"
+      },
+      {
+        "name": "Agent Execution Graph & Trace API",
+        "tools_used": [
+          "FastAPI",
+          "Pydantic"
+        ],
+        "purpose": "Exposes real-time execution trace endpoints, step telemetry, and workflow cancellation hooks"
+      },
+      {
+        "name": "Task Completion & Chaos Failure Benchmark Suite",
+        "tools_used": [
+          "Python",
+          "Docker"
+        ],
+        "purpose": "Executes 100 benchmark multi-step goals with chaos tool failure injections, measuring completion metrics"
+      },
+      {
+        "name": "Agent Architecture Guide & Plugin Protocol Documentation",
+        "tools_used": [
+          "Docker"
+        ],
+        "purpose": "Documents tool registration interface, execution safety bounds, and state checkpoint schema"
+      }
+    ],
+    "data_flow": "A user request enters the FastAPI execution gateway; the planning controller prompts the LLM to generate an initial Thought and Action; the tool dispatcher validates parameter arguments against the tool's Pydantic schema; if valid, the tool executes within its timeout budget; the Observation result writes to the Redis checkpoint store; if the tool fails, the fallback manager injects error details into the prompt context for replanning; the controller iterates through subsequent Thought-Action-Observation turns until a final answer synthesizes or the step budget exhausts.",
+    "enforcement_mechanism": "Maximum step budget (default 10 iterations) terminating runaway loops; Pydantic argument parsing rejecting malformed tool parameters before execution."
+  },
+  "targets": [
+    {
+      "metric": "Multi-Step Goal Completion Rate",
+      "method": "Percentage of complex multi-step reasoning goals autonomously completed without human intervention",
+      "input": "100 standardized multi-step agent benchmark tasks requiring between 2 and 5 coordinated tool calls",
+      "environment": "Standard 4-core local CPU, Python 3.11 with Ollama or local mock LLM provider",
+      "minimum_pass": "Task completion rate is >= 82.0% across 100 benchmark tasks",
+      "target": "Task completion rate is >= 93.0% across 100 benchmark tasks",
+      "report": "Agent benchmark task completion and step efficiency summary report"
+    },
+    {
+      "metric": "Tool Parameter Schema Validation Compliance Rate",
+      "method": "Percentage of generated tool call arguments that conform strictly to defined Pydantic JSON schemas",
+      "input": "500 sequential tool call actions generated during multi-step agent execution",
+      "environment": "Standard 4-core local CPU, Pydantic v2 runtime validation",
+      "minimum_pass": "Schema compliance rate is >= 95.0% across 500 generated tool calls",
+      "target": "Schema compliance rate is >= 99.2% across 500 generated tool calls",
+      "report": "Tool calling schema compliance and validation rejection log"
+    },
+    {
+      "metric": "Tool Failure Autonomous Recovery Rate",
+      "method": "Percentage of simulated tool failure scenarios where the agent autonomously recovers using fallback tools or alternative parameters",
+      "input": "30 injected tool failure chaos scenarios (HTTP 500, network timeouts, invalid database responses)",
+      "environment": "Standard 4-core local CPU, local Redis 7 container",
+      "minimum_pass": "Autonomous recovery rate is >= 80.0% across 30 failure scenarios",
+      "target": "Autonomous recovery rate is >= 93.3% across 30 failure scenarios",
+      "report": "Chaos tool failure injection and recovery audit log"
+    }
+  ],
+  "skills": [
+    "Python",
+    "LangChain",
+    "FastAPI",
+    "Pydantic",
+    "Redis",
+    "Docker",
+    "Agentic AI",
+    "Distributed Systems",
+    "API Design"
+  ],
+  "starter_input": {
+    "spec": "Directory of 100 multi-step task definitions, mock tool plugins (SQL sandbox, web search stub, calculator, file reader), and Redis schemas.",
+    "size": "100 task specification JSONs, 6 mock tool plugins, and automated evaluation driver scripts",
+    "seeded_cases": "Tool timeout exceptions, contradictory search results, cyclical dependencies, and missing parameters",
+    "label_source": "Deterministic ground-truth solution manifests specifying expected final answers and valid tool trajectories",
+    "personal_data_policy": "Strictly mock synthetic corporate operations tasks and simulated search indexes; zero real user or personal data used"
+  },
+  "components": [
+    {
+      "name": "ReAct Reasoning & Planning Loop Controller",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "Deterministic Tool Registry & Dispatch Gateway",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "Redis State Checkpoint & Rollback Store",
+      "task_type": "infra component (broker, DB, orchestrator, cluster service)",
+      "hours": 6.0
+    },
+    {
+      "name": "Exception Handling & Tool Fallback Manager",
+      "task_type": "low-level/system subsystem",
+      "hours": 5.0
+    },
+    {
+      "name": "Agent Execution Graph & Trace API",
+      "task_type": "API endpoint group with tests",
+      "hours": 5.0
+    },
+    {
+      "name": "Task Completion & Chaos Failure Benchmark Suite",
+      "task_type": "load or performance test harness + report",
+      "hours": 4.0
+    },
+    {
+      "name": "Agent Architecture Guide & Plugin Protocol Documentation",
+      "task_type": "docs + architecture diagram",
+      "hours": 3.0
+    }
+  ],
+  "extended_path": {
+    "features": [
+      "Multi-agent hierarchical coordination with supervisor agent delegating sub-tasks to specialized domain workers",
+      "Long-term vector memory integration using ChromaDB for episodic past-experience retrieval",
+      "Human-in-the-loop approval checkpoints for high-risk write actions using Webhook signatures"
+    ],
+    "hours": 16
+  },
+  "milestones": [
+    {
+      "name": "ReAct Loop Controller & Agentic AI Tool Registry in Python and LangChain",
+      "hours": 10,
+      "done_criterion": "Agent executes ReAct cycles and validates tool parameters against Pydantic schemas."
+    },
+    {
+      "name": "Redis State Checkpoint & Rollback Mechanism in Redis and Docker",
+      "hours": 10,
+      "done_criterion": "Intermediate step state persists to Redis; agent resumes interrupted workflows."
+    },
+    {
+      "name": "Distributed Systems Chaos Failure & API Design Fallback Routing in FastAPI",
+      "hours": 10,
+      "done_criterion": "Agent autonomously recovers from >= 80% of injected tool failures across 30 scenarios."
+    },
+    {
+      "name": "100-Task Benchmark Suite, Anti-Fake Test & Docs",
+      "hours": 10,
+      "done_criterion": "Benchmark verifies >= 82% task completion; anti-fake test validates fallback; docs complete."
+    }
+  ],
+  "prerequisites": [
+    "Proficiency in Python programming, Pydantic data validation, and asynchronous API design with FastAPI",
+    "Understanding of LLM reasoning architectures (ReAct, Chain-of-Thought, function calling) and Redis state persistence"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM (16GB recommended for running local LLMs via Ollama)",
+    "gpu": "None strictly required (compatible with local mock LLM provider or quantized 7B model on CPU)",
+    "cost": "$0 (fully open-source stack using local mock LLM or Ollama and local Redis)",
+    "accounts_keys_quotas": "No external cloud accounts, paid services, or API keys required",
+    "reference_environment": "Local 4-core CPU with Docker Desktop (Redis 7 container) and Python 3.11",
+    "fallback_path": "In-memory dictionary state store if Redis container is unavailable"
+  },
+  "riskiest_component": {
+    "name": "Runaway Reasoning Cycles on Ambiguous Tool Feedback",
+    "mitigation": "Enforce hard step iteration counters (max 10) and similarity hashing on recent Thought sequences to detect repeating loops.",
+    "fallback": "Abort workflow and emit partial execution trace if repeating loop is detected."
+  },
+  "deliverables": [
+    "Git repository containing Python ReAct loop engine, Pydantic tool plugins, and Redis checkpoint store",
+    "Asynchronous FastAPI execution gateway with real-time step streaming and trace APIs",
+    "Chaos tool failure benchmark suite measuring autonomous recovery across 30 failure scenarios",
+    "Screener verification script running dynamic task with broken primary tool asserting fallback recovery"
+  ],
+  "out_of_scope": [
+    "Unsandboxed arbitrary shell command execution with root host permissions",
+    "Autonomous financial currency transactions or direct payment card authorizations",
+    "General artificial intelligence artificial consciousness or open-ended self-replication"
+  ],
+  "safety_note": null,
+  "resources": [
+    "ReAct: Synergizing Reasoning and Acting in Language Models (Yao et al.)",
+    "Pydantic V2 Documentation: Validation and Dynamic Schema Generation",
+    "Redis Data Structures: Reliable Queues and Session State Checkpoints"
+  ],
+  "rubric": [
+    {
+      "input": "100 standardized multi-step agent benchmark tasks",
+      "action": "python -m agent_engine.benchmark_tasks --tasks test_data/benchmark_tasks.json",
+      "expected_result": "Agent successfully completes >= 82.0% of multi-step goals producing verified outputs",
+      "evidence_location": "Terminal test execution output log and reports/agent_benchmark_report.json",
+      "pass_criterion": "Report records completion rate >= 82.0% with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "500 generated tool calling payloads evaluated against Pydantic schemas",
+      "action": "python -m agent_engine.evaluate_schemas --traces test_data/execution_traces.json",
+      "expected_result": "Tool parameter validation passes with >= 95.0% compliance",
+      "evidence_location": "Schema validation compliance report",
+      "pass_criterion": "Compliance rate >= 95.0% with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "30 injected tool failure chaos scenarios (timeouts, 500 errors)",
+      "action": "python scripts/run_chaos_failures.py --trials 30",
+      "expected_result": "Agent catches tool failure, replans, and achieves >= 80.0% autonomous recovery",
+      "evidence_location": "Chaos failure recovery log in reports/chaos_recovery.json",
+      "pass_criterion": "Autonomous recovery rate >= 80.0% with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "REST request initiating multi-step task execution",
+      "action": "curl -X POST http://localhost:8000/api/agent/run -H 'Content-Type: application/json' -d '{\"goal\": \"Calculate operating margin for Company X\"}'",
+      "expected_result": "Server executes agent loop, persists state to Redis, and returns structured result with execution trace",
+      "evidence_location": "HTTP response payload",
+      "pass_criterion": "Response status is 200 and JSON contains final_answer, steps_taken, and trace_id",
+      "kind": "normal"
+    },
+    {
+      "input": "Dynamic task requesting metric calculation with primary database tool intentionally broken at runtime",
+      "action": "python scripts/verify_dynamic_agent.py --goal 'Fetch inventory count' --inject-tool-error primary_db",
+      "expected_result": "Agent detects primary_db failure, reads error in context, invokes fallback secondary_db, and completes task",
+      "evidence_location": "Dynamic verification console execution output log",
+      "pass_criterion": "Trace confirms primary_db error handled and secondary_db used to fulfill goal with exit code 0",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected autonomous LLM agent workflow engine in Python and FastAPI with Redis state checkpointing; achieved [COMPLETION_RATE] task completion across [BENCHMARK_TASKS] multi-step goals, and delivered [RECOVERY_RATE] autonomous recovery on injected tool failures.",
+    "claims": [
+      {
+        "text": "achieved [COMPLETION_RATE] task completion across [BENCHMARK_TASKS] multi-step goals",
+        "rubric_indexes": [
+          0
+        ]
+      },
+      {
+        "text": "delivered [RECOVERY_RATE] autonomous recovery on injected tool failures",
+        "rubric_indexes": [
+          2
+        ]
+      }
+    ],
+    "do_not_claim": "general artificial intelligence reasoning or arbitrary autonomous code execution without sandboxing"
+  },
+  "verify": [
+    "Run `python -m pytest tests/` to confirm ReAct loop, tool registry, and Redis checkpointing tests pass with exit code 0.",
+    "Execute `python -m agent_engine.benchmark_tasks` to verify multi-step task completion rate meets the target threshold.",
+    "Run `python scripts/verify_dynamic_agent.py` to assert autonomous fallback routing when a primary tool fails."
+  ],
+  "worksheet": {
+    "q1": "Core deliverable: an autonomous LLM agent orchestration engine in Python with ReAct planning, Pydantic tool calling, and Redis state checkpointing.",
+    "q2": "Target users: applied AI engineers, automation platform developers, and enterprise backend architects.",
+    "q3": "3 use cases: IT incident diagnosis, automated customer support resolution, and financial SEC filing extraction.",
+    "q4": "Stated hours: 40 hours. Calculated bottom-up: 35 component hours * 1.15 buffer = 40.25 -> 40 hours. Advanced level.",
+    "q5": "Hard parts: runaway reasoning cycle detection, strict Pydantic tool parameter enforcement, atomic Redis checkpoint persistence, and dynamic tool failure recovery.",
+    "q6": "Starter input: 100 multi-step task definitions, 6 mock tool plugins, and Redis schemas. Synthetic tasks only.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU only, $0 cost, zero cloud accounts. Fallback: in-memory state dictionary.",
+    "q8": "Riskiest component: infinite reasoning cycles. Fallback: hard step budgets and Thought sequence hash deduplication.",
+    "q9": "Potential faking: mock hardcoded tool sequences. Anti-fake check 5 breaks primary tool at runtime, asserts agent detects error and uses secondary tool.",
+    "q10": "Safety/ethics: Safe; sandboxed mock tool plugins only, no live unrestricted shell or financial execution."
+  }
+}

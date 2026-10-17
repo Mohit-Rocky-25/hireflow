@@ -1,122 +1,155 @@
-PROJECT BRIEF — Feature Flag & A/B Testing Platform
+PROJECT BRIEF — Feature Flag & Progressive Rollout Platform with MurmurHash3 Bucketing
 ======================================================================
 
 Domain    : Full-Stack Web
-Difficulty: intermediate
-Est. Time : 28 hours (Core Path) | Extended Path: +6 hours
-Tech Stack: TypeScript [strictly-typed programming language], Node.js [backend JavaScript execution environment], React [frontend UI component library], PostgreSQL [relational database management system], Redis [in-memory data structure store and cache], WebSockets [websockets component]
+Difficulty: INTERMEDIATE
+Est. Time : 28 hours (core path, estimate). Extended path: +12 hours
+Tech Stack: Go (systems language powering the high-performance flag evaluation engine and SSE streaming server), React (frontend library powering the administrative flag management dashboard and audit UI), PostgreSQL (relational database storing flag definitions, targeting rules, and audit logs), Redis (in-memory pub/sub broker distributing real-time flag invalidation events to connected servers)
 
 PROBLEM STATEMENT
-----------------------------------------
-Engineering teams need to safely deploy features to specific user segments without full rollouts, enabling A/B testing and instant rollback. Build a feature flag management platform with percentage-based rollouts, user targeting rules, and sub-second configuration updates without service restarts.
+----------------------------------------------------------------------
+Software engineering teams must decouple code deployment from feature release to minimize production blast radiuses and perform gradual canary validations. Deploying features directly to all users simultaneously risks widespread service degradation, while coordinating rollouts via manual code releases slows engineering velocity. This project builds a high-performance feature flag and progressive rollout platform in Go, React, PostgreSQL, and Redis. The system supports percentage rollouts using deterministic MurmurHash3 user bucketing, complex attribute targeting rules (e.g., country, subscription tier, beta tag), sub-millisecond local in-memory flag evaluation, Server-Sent Events (SSE) for real-time flag push propagation without polling, and an administrative React dashboard with real-time audit logs and instant kill-switches.
 
 USE CASES IN THE REAL WORLD
-----------------------------------------
-LaunchDarkly and Split.io are billion-dollar companies built on this problem. Every engineering team deploying at scale uses feature flags. top tech platforms, Zomato, and top tech platforms run extensive A/B experiments to optimize UX and conversion rates. This is table-stakes infrastructure for any mature engineering organization.
+----------------------------------------------------------------------
+- Continuous delivery pipelines executing progressive percentage canary rollouts (1% to 10% to 100%)
+- Targeted beta feature releases restricted to specific customer subscription tiers and internal employee emails
+- Emergency kill-switch activation instantly disabling broken third-party integrations across clusters without redeployment
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Feature flags require understanding of consistent hashing for user bucketing, sub-second config propagation via WebSockets/SSE, and statistical significance for A/B test results — a combination of backend, distributed systems, and data concepts that few engineers have worked with end-to-end.
+WHY THIS IS HARD
+----------------------------------------------------------------------
+- Implementing deterministic MurmurHash3 user bucketing so a user remains consistently assigned to the same variant
+- Propagating flag configuration updates in real-time across distributed client instances via Server-Sent Events (SSE)
+- Achieving sub-millisecond evaluation latency in local SDK memory while guaranteeing dynamic rule synchronization
+- Building an atomic administrative audit trail in PostgreSQL that records every rule change, variant shift, and kill-switch toggle
 
 RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Growth engineering, experimentation platforms, and A/B testing infrastructure are high-value specializations. Companies like top tech platforms, top tech platforms, and any large consumer tech company run thousands of concurrent experiments. Engineers who understand this infrastructure are extremely valuable.
+----------------------------------------------------------------------
+- Clean full-stack implementation separating Go evaluation engine, SSE streamer, React admin dashboard, and Redis pub/sub
+- Deterministic uniform distribution benchmark proving MurmurHash3 distributes 100,000 users evenly within 1.5% variance
+- Anti-fake verification script toggling an emergency kill-switch and asserting that client evaluation flips instantly within 50ms
+Relevant Job Families: Platform Software Engineer, Full-Stack Web Engineer, Developer Infrastructure Engineer
 
 ARCHITECTURE & DATA FLOW
-----------------------------------------
-PostgreSQL flag definitions with user targeting rules (percentage rollout, user attribute targeting). Node.js API server with Redis cache for sub-millisecond flag evaluation. WebSocket/SSE push for sub-second flag updates to client SDKs. React admin dashboard for flag management and experiment setup. Statistical significance calculator for A/B result evaluation.
+----------------------------------------------------------------------
+Components:
+- MurmurHash3 User Bucketing Engine (Tools: Go): Calculates deterministic 32-bit hash integers for user keys to ensure consistent percentage rollout assignment
+- Targeting Rule Evaluation Engine (Tools: Go, PostgreSQL): Evaluates user attributes (country, tier, email regex) against declarative boolean rule criteria
+- SSE Real-Time Push Streamer (Tools: Go, Redis): Pushes instantaneous flag configuration diffs to connected client SDKs via Server-Sent Events
+- React Administration Dashboard (Tools: React): Provides user interface for creating flags, configuring rollout percentages, and toggling emergency kill-switches
+
+Data Flow:
+Administrators create or modify flags in the React Dashboard; the Go API validates changes, appends an entry to PostgreSQL audit logs, and commits updated rules; the server publishes an invalidation event to Redis Pub/Sub; the SSE Push Streamer broadcasts the new configuration to connected client applications over persistent HTTP streams; client SDKs update their local in-memory flag caches; incoming evaluation requests compute MurmurHash3 hashes across user ID and flag key to determine variant assignment locally in sub-millisecond time.
+
+Enforcement Mechanism:
+Deterministic hashing preventing user bucket flapping; atomic PostgreSQL transactions recording audit records before publishing updates.
 
 SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Target 1:
-- Metric: Core Operation Execution Time
-- Method: Automated benchmark executing core engine operation across varying workload sizes
-- Input/dataset: Standard test project or fixture payload (~500KB)
-- Reference environment: Local development environment, 4-core CPU, 8GB RAM
-- Minimum pass: Operation execution time < [M s] (minimum < 8s)
-- Target: Operation execution time < [M s] (target < 2.5s)
-- Report format: Benchmark execution report showing duration and memory usage
-
-Target 2:
-- Metric: Test Suite Coverage & Verification Pass Rate
-- Method: Automated test runner executing comprehensive unit and integration test suites
-- Input/dataset: Full project test fixture directory
-- Reference environment: Local test environment, clean checkout
-- Minimum pass: [X of Y] unit and integration tests passing (100% pass on core test set)
-- Target: [X of Y] tests passing with strict type-checking and 0 lint warnings
-- Report format: Test runner coverage report and exit status log
-
-Target 3:
-- Metric: Client Load / Response Latency (p95)
-- Method: Concurrent API benchmark testing simulated client requests
-- Input/dataset: 1,000 simulated client requests over 10 concurrent connections
-- Reference environment: Local Docker or Node/Python process
-- Minimum pass: p95 response latency < [M ms] (pass < 100ms) with 0 dropped requests
-- Target: p95 response latency < [M ms] (target < 30ms) with 0 dropped requests
-- Report format: Benchmark latency percentile report
+----------------------------------------------------------------------
+Metric | Method | Input/Dataset | Reference Environment | Minimum Pass | Target | Report Format
+Local In-Memory Evaluation Latency (p99) | Microbenchmark measuring SDK in-memory flag evaluation duration across complex multi-rule flags | 100,000 evaluation calls evaluated against 50 active flags with compound attribute targeting rules | Standard 4-core local CPU, Go 1.21+ | p99 evaluation latency is < 1.0 milliseconds | p99 evaluation latency is < 0.25 milliseconds | Evaluation latency benchmark summary output reporting p50, p95, and p99 percentiles
+Percentage Rollout Uniform Distribution Variance | Statistical distribution test bucketing 100,000 distinct user identifiers across a 50% rollout flag | 100,000 synthetic UUID user identifiers hashed via MurmurHash3 against a configured 50% rollout | Standard 4-core local CPU, Go 1.21+ | Observed percentage allocation falls between 48.5% and 51.5% (variance <= 1.5%) | Observed percentage allocation falls between 49.2% and 50.8% (variance <= 0.8%) | Statistical distribution uniformity verification log
+Real-Time Flag Propagation Latency | Duration from administrative dashboard kill-switch toggle until connected SSE client SDK updates local state | Emergency kill-switch toggle dispatched across 1,000 active simulated SSE client connections | Standard 4-core local CPU, Go 1.21+, Redis 7 | Connected clients update local evaluation within 150 milliseconds | Connected clients update local evaluation within 50 milliseconds | SSE real-time propagation timing summary log
 
 SKILLS COVERED
-----------------------------------------
-TypeScript, React, Node.js, PostgreSQL, Redis, REST APIs
+----------------------------------------------------------------------
+Go, React, PostgreSQL, Redis, Feature Flags, Distributed Systems, Full-Stack Web
 
 TARGET APPLICATION / STARTER INPUT
-----------------------------------------
-The project provides a self-contained test environment and fixture generator located in `scripts/` or `fixtures/`. It deterministically generates representative input records or mock client traffic for automated validation. No third-party proprietary data or real personal identifiers (PII) are required; all test datasets use synthetic tokens and deterministic random seeds.
+----------------------------------------------------------------------
+- Specification: YAML/JSON specification defining flag schema, targeting rules, rollout percentages, and sample user profiles.
+- Dataset / Traffic Size: 50 active feature flags, 1,000 user profiles with attributes, and 100,000 evaluation request benchmark scripts
+- Seeded Edge Cases: Evaluation of non-existent flags, malformed user attribute types, rapid toggle flapping, and SSE disconnection retries
+- Label / Verification Source: Deterministic evaluation test fixture mapping specific user IDs and attributes to expected variant outputs
+- Personal Data Policy: Strictly mock synthetic user IDs and fake demographic attributes; no personal data used
 
 MILESTONES
-----------------------------------------
-- Milestone 1: Environment Setup & Core Foundations (6h)
-  Configure repository, tooling, container dependencies, and foundational data structures. Done when foundational test suite passes with clean linting.
-- Milestone 2: Core Processing & Architecture Implementation (8h)
-  Implement primary operational workflows, database models or state transitions, and API endpoints. Done when integration tests verify end-to-end data flow under normal operating conditions.
-- Milestone 3: Concurrency, Reliability & Error Guardrails (8h)
-  Implement defensive controls: rate limiting, retries with exponential backoff, transaction boundaries, and failure isolation. Done when chaos or stress tests verify graceful degradation under fault injection.
-- Milestone 4: Verification, Benchmarking & Documentation (6h)
-  Execute performance benchmark harness, compile measurement tables, generate architectural diagrams, and document screener verification steps. Done when `scripts/verify_all` passes completely.
+----------------------------------------------------------------------
+M1: MurmurHash3 Bucketing & Rule Evaluation Engine in Go Feature Flags (7h) — Done when: Go engine hashes user keys, evaluates attribute rules, and returns variant in < 1ms.
+M2: Server-Sent Events Real-Time Flag Propagation with Redis in Distributed Systems (7h) — Done when: Redis pub/sub dispatches invalidations; SSE streamer broadcasts updates to clients in < 150ms.
+M3: React Admin Dashboard, Audit Log & Instant Kill-Switch in Full-Stack Web (7h) — Done when: React UI creates flags, edits percentages, toggles kill-switch, and renders PostgreSQL audit logs.
+M4: Uniform Distribution Benchmark, Anti-Fake Test & Docs (7h) — Done when: Benchmark confirms 50% rollout has < 1.5% variance across 100,000 users; anti-fake test passes; docs complete.
+Total: 28 hours (estimate)
 
 PREREQUISITES, ENVIRONMENT AND ACCOUNTS
-----------------------------------------
-- Prerequisites: Familiarity with TypeScript and Node.js, standard command-line tools, and fundamental testing principles.
-- Hardware / OS: Standard modern computer (macOS, Linux, or Windows with WSL2) with at least 8GB RAM.
-- Accounts & Services: None required. Designed to run completely on free, open-source local software.
-- Fallback Path: In-memory mock drivers or SQLite/local files provided if external database or message broker containers cannot be run.
+----------------------------------------------------------------------
+Prerequisites: Proficiency in Go programming, HTTP web servers, and concurrent goroutines, Experience with React state management, PostgreSQL relational modeling, and Redis pub/sub
+
+Environment & Hardware:
+- OS: Linux / macOS / Windows with WSL2
+- Memory: 8GB RAM
+- Compute / GPU: None required (purely CPU-bound evaluation and web UI)
+- Estimated Cost: $0 (fully open-source software stack via Docker Compose)
+- Accounts & Quotas: No external cloud accounts, paid services, or API keys required
+- Reference Environment: Local 4-core CPU with Go 1.21+, Node.js 18+, and Redis 7 installed
+- Fallback Path: In-memory mock store and polling fallback if Docker Redis pub/sub cannot be run
+
+Riskiest Component & Fallback:
+- Riskiest Component: SSE Connection Dropping Causing Stale Client Flag States
+- Simpler Fallback: Implement automatic client reconnection with Last-Event-ID header and periodic 30-second polling fallback
 
 DELIVERABLES
-----------------------------------------
-1. Clean Git repository with structured commit history, README, and reproducible setup commands.
-2. Production-quality core codebase with automated test suite achieving verified pass rates.
-3. Performance benchmark report (`results/benchmark_report.md`) documenting measured latency, throughput, and resource utilization.
-4. Screener verification script (`scripts/verify_all.sh` or equivalent) validating the full system in < 3 minutes.
-5. Architecture diagram (Mermaid/ASCII) and known limitations document explaining architectural trade-offs.
+----------------------------------------------------------------------
+- Git repository containing Go backend API, SSE streaming service, and React admin frontend
+- Docker Compose file running Go server, React dashboard, PostgreSQL, and Redis
+- Automated load testing harness verifying MurmurHash3 distribution uniformity and p99 evaluation latency
+- Screener verification script executing automated benchmark and dynamic kill-switch test in under 2 minutes
 
 OUT OF SCOPE AND EXTENDED PATH
-----------------------------------------
-- Out of Scope for Core Path: Distributed multi-region clustering, enterprise SSO integrations, complex third-party SaaS dependencies.
-- Extended Path (+6 hours): Advanced telemetry dashboard, distributed persistence cluster extension, or automated canary release pipeline.
+----------------------------------------------------------------------
+Out of Scope:
+- Machine learning multi-armed bandit automated traffic reallocation algorithms
+- Full-scale session recording or frontend user telemetry heatmaps
+- Native mobile iOS and Android SDK library packaging
 
-SAFETY AND ETHICS NOTE
-----------------------------------------
-All data processed, generated, and benchmarked by this project consists exclusively of synthetic fixtures. No personal identifiable information (PII), proprietary credentials, or live external endpoints are used.
+Extended Path (+12 hours):
+- Automated statistical experimentation engine calculating sample size and p-values for A/B conversion events
+- OpenFeature specification compliant SDK client for Node.js and Go
 
 LEARNING RESOURCES
-----------------------------------------
-- Official Documentation for TypeScript, Node.js, React
-- Architectural Reference Patterns and RFC Standards [VERIFY URL]
-- Systems & Distributed Reliability Principles
+----------------------------------------------------------------------
+- MurmurHash3 32-bit Algorithm Specification and Distribution Properties
+- Server-Sent Events (SSE) W3C Standard and High-Concurrency Go Patterns
+- OpenFeature Standard Specification for Feature Flag Management
 
 SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Check 1: Verify percentage rollout: exactly N% of users consistently see flag=true across requests; Pass when automated test script prints 0 errors and logs verified status code.
-2. Check 2: Verify user attribute targeting: flag enabled only for users in specific city/plan tier; Pass when automated test script prints 0 errors and logs verified status code.
-3. Check 3: Verify sub-second update: toggle flag in UI and verify all connected clients update within 500ms; Pass when automated test script prints 0 errors and logs verified status code.
-4. Check 4: Verify javaScript SDK with < 1ms local flag evaluation from cached config; Pass when automated test script prints 0 errors and logs verified status code.
-5. Check 5: Verify a/B result dashboard showing statistical significance and conversion rates per variant; Pass when automated test script prints 0 errors and logs verified status code.
-6. Check 6: 6. Anti-Fake Verification Check: Inspect committed execution logs and re-run verification script against seeded test fixtures; pass when runtime metrics dynamically reflect test execution rather than static mocked responses.
+----------------------------------------------------------------------
+1. Check
+   Input: 100,000 evaluation queries issued to local in-memory Go SDK
+   Action: go test -bench=BenchmarkEvaluate -benchmem ./pkg/evaluator
+   Result: Evaluator achieves p99 latency under 1.0 milliseconds
+   Evidence: Go benchmark stdout output log
+   Pass: p99 evaluation latency is < 1.0 milliseconds with exit code 0
+2. Check
+   Input: 100,000 synthetic user IDs evaluated against 50% rollout flag
+   Action: go run ./cmd/distribution_test --users 100000 --rollout 50
+   Result: Allocation percentage falls between 48.5% and 51.5%
+   Evidence: Terminal test execution output report
+   Pass: Calculated percentage is between 48.5% and 51.5% with exit code 0
+3. Check
+   Input: Admin toggles emergency kill-switch via React API endpoint
+   Action: curl -X POST http://localhost:8080/api/flags/payment-v2/kill
+   Result: Flag status updates in PostgreSQL and broadcasts invalidation to connected clients
+   Evidence: HTTP response payload and PostgreSQL audit log table
+   Pass: Response status is 200 and audit table contains entry with action KILL_SWITCH
+4. Check
+   Input: 1,000 simulated client connections receiving SSE flag update broadcast
+   Action: go run ./cmd/bench_sse --clients 1000
+   Result: Clients receive invalidation event within 150 milliseconds of toggle
+   Evidence: SSE timing summary log
+   Pass: All 1,000 clients confirm state update in < 150 milliseconds
+5. Check [anti_fake]
+   Input: Dynamic flag created with dynamic percentage rollout (37%) at runtime
+   Action: python scripts/verify_dynamic_rollout.py --flag DYNAMIC_ROLLOUT_37 --percent 37 --users 10000
+   Result: Engine allocates users consistently matching 37% target (+/- 1.5%)
+   Evidence: Dynamic verification console output log
+   Pass: Allocated percentage falls between 35.5% and 38.5% with exit code 0
 
 RESUME BULLET FORMULA
-----------------------------------------
-"Built feature flag and A/B testing platform with PostgreSQL, Redis, and WebSockets; evaluated [N] req/sec flag checks/sec at < [M ms] latency with real-time config propagation to [N] req/sec connected client SDKs."
-Do not claim: scale, latency, or throughput figures without committing benchmark run logs; do not claim production deployment unless deployed to a verifiable live environment.
+----------------------------------------------------------------------
+"Architected feature flag and rollout platform in Go and React using MurmurHash bucketing; achieved sub-[EVAL_LATENCY] in-memory evaluation latency, and delivered instantaneous flag push propagation across [CLIENT_COUNT] connected clients with sub-[PROPAGATION_TIME] latency."
+
+Do not claim: automated ML multi-armed bandit traffic allocation or native mobile SDK packaging
 
 ======================================================================
 Generated by HireFlow — hireflow.io

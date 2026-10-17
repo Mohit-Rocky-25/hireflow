@@ -1,0 +1,346 @@
+{
+  "id": "brief-react-native-offline",
+  "title": "Offline-First Mobile Inspection Engine in React Native with WatermelonDB SQLite & Idempotent Delta Sync",
+  "domain": "Mobile Engineering",
+  "difficulty": "INTERMEDIATE",
+  "project_types": [
+    "Mobile app",
+    "Full-stack web"
+  ],
+  "problem": "Mobile applications for field agents (insurance surveyors, equipment inspectors, and logistics personnel) suffer from frozen user interfaces and catastrophic data loss when operating in basements, rural regions, or cellular dead zones. Standard mobile architectures relying on synchronous REST calls fail completely without internet access, while naive local caching strategies overwrite remote changes during bulk reconnection syncs. This project builds a production-grade offline-first mobile inspection engine in TypeScript using React Native and WatermelonDB. The system persists complex relational inspection records locally in SQLite, executes optimistic UI mutations with sub-15ms local commit times, synchronizes differential delta vectors with a Node.js backend using idempotent transactions, and deterministically resolves concurrent field edits using column-level Last-Write-Wins (LWW) timestamps.",
+  "use_cases": [
+    {
+      "title": "Aviation Runway & Aircraft Maintenance Logging",
+      "first_sentence": "Aircraft maintenance engineers conducting pre-flight checks inside shielded airport hangars frequently lose cellular and Wi-Fi connectivity.",
+      "second_sentence": "The mobile app records structural component wear measurements locally in SQLite, synchronizing delta updates to airline maintenance servers once the tablet reconnects."
+    },
+    {
+      "title": "Insurance Property Damage Claims Assessment",
+      "first_sentence": "Insurance field claims adjusters assessing remote flood or hurricane damage sites must log detailed property estimates without active cell towers.",
+      "second_sentence": "The surveyor captures inspection items and estimated repair costs locally, automatically queuing updates that flush to the claims processing backend upon network reconnection."
+    },
+    {
+      "title": "Commercial Cold-Storage Logistics Inventory Auditing",
+      "first_sentence": "Warehouse auditors working inside heavily insulated refrigerated facilities need continuous mobile checklist performance without network latency.",
+      "second_sentence": "The mobile client provides instantaneous UI state transitions using local WatermelonDB queries, synchronizing inventory count reconciliations upon exiting the refrigerated vault."
+    }
+  ],
+  "hard_parts": [
+    "Configuring WatermelonDB reactive observable queries over SQLite to maintain 60 FPS scrolling across 5,000 cached records on mobile devices",
+    "Designing an idempotent differential synchronization protocol that tracks created, updated, and deleted record IDs with server-assigned sync timestamps",
+    "Resolving concurrent multi-device editing conflicts deterministically without overwriting unrelated fields in the same inspection entity",
+    "Managing background sync retries with exponential backoff and jitter to prevent thundering herd spikes during intermittent connection flapping"
+  ],
+  "screener_signals": [
+    "Clean TypeScript codebase cleanly separating React Native UI views, WatermelonDB SQLite schema models, sync protocol clients, and Redux state slices",
+    "Mobile performance report proving sub-15ms local SQLite write latency and zero UI freeze across 5,000 local records",
+    "Anti-fake verification script simulating an airplane mode network cutoff, editing an inspection record locally, modifying the same record on the backend, reconnecting, and asserting non-conflicting field merge"
+  ],
+  "job_families": [
+    "Mobile Software Engineer (React Native)",
+    "Frontend Systems Architect",
+    "Full-Stack Mobile Engineer"
+  ],
+  "stack": [
+    {
+      "tool": "TypeScript",
+      "role": "strongly typed language shared across React Native components, database models, and sync handlers"
+    },
+    {
+      "tool": "React Native",
+      "role": "mobile framework rendering performant native UI components across iOS and Android"
+    },
+    {
+      "tool": "SQLite",
+      "role": "embedded relational database engine persisting offline mobile application records on disk"
+    },
+    {
+      "tool": "WatermelonDB",
+      "role": "high-performance reactive database framework bridging React Native to native SQLite"
+    },
+    {
+      "tool": "Node.js",
+      "role": "backend API server orchestrating sync transactions, database persistence, and conflict resolution"
+    },
+    {
+      "tool": "Redux Toolkit",
+      "role": "state management library tracking network connectivity status and sync progress indicators"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "WatermelonDB & SQLite Local Persistent Storage Schema",
+        "tools_used": [
+          "TypeScript",
+          "WatermelonDB",
+          "SQLite"
+        ],
+        "purpose": "Defines relational schema tables, columns, and indices; executes lazy queries and transactional mutations"
+      },
+      {
+        "name": "Differential Sync Protocol & Idempotent Mutation Queue",
+        "tools_used": [
+          "TypeScript",
+          "WatermelonDB"
+        ],
+        "purpose": "Tracks created, updated, and deleted records using sync status flags; prepares delta payload batches"
+      },
+      {
+        "name": "Node.js Authoritative Sync API & Conflict Resolver",
+        "tools_used": [
+          "TypeScript",
+          "Node.js"
+        ],
+        "purpose": "Processes incoming push/pull sync requests, verifies timestamps, and executes column-level LWW merge logic"
+      },
+      {
+        "name": "Offline-First Mobile Field Inspection React Native UI",
+        "tools_used": [
+          "TypeScript",
+          "React Native",
+          "Redux Toolkit"
+        ],
+        "purpose": "Renders inspection checklists, displays offline connectivity badges, and provides instant optimistic UI updates"
+      },
+      {
+        "name": "Offline Sync Latency & Data Parity Benchmark Harness",
+        "tools_used": [
+          "TypeScript",
+          "Node.js"
+        ],
+        "purpose": "Profiles local SQLite write latencies, network payload sizes, and verifies record parity across 1,000 entities"
+      },
+      {
+        "name": "Mobile Architecture Guide & SQLite Migration Manual",
+        "tools_used": [
+          "TypeScript",
+          "React Native"
+        ],
+        "purpose": "Documents SQLite schema migration steps, WatermelonDB indexing rules, and conflict resolution policies"
+      }
+    ],
+    "data_flow": "The field agent updates an inspection item on the React Native UI; WatermelonDB writes the mutation to SQLite in < 15ms and sets the record sync_status to 'updated'; the UI updates instantly via reactive observables; Redux Toolkit monitors NetInfo network status; when network connectivity is detected, the sync manager triggers a push/pull transaction with Node.js; the client sends local deltas since last_pulled_at; the Node.js server applies non-conflicting fields, resolves concurrent edits using column-level timestamps, commits to database, and returns server changes; the client applies server deltas to SQLite and updates last_pulled_at.",
+    "enforcement_mechanism": "Server-side monotonically increasing sync sequence numbers and UUID v4 idempotency keys preventing duplicate record creation."
+  },
+  "targets": [
+    {
+      "metric": "Local SQLite Mutation Persistence Latency",
+      "method": "Wall-clock timing from UI form submission to completed WatermelonDB SQLite transaction commit",
+      "input": "1,000 sequential inspection record updates executed on simulated mobile device runtime",
+      "environment": "Standard 4-core local CPU with headless Node.js mobile runtime / React Native test harness",
+      "minimum_pass": "p95 local mutation persistence latency is < 20.0 milliseconds",
+      "target": "p95 local mutation persistence latency is < 9.5 milliseconds",
+      "report": "WatermelonDB SQLite write latency profiling log and transaction duration histogram"
+    },
+    {
+      "metric": "Differential Reconnection Synchronization Throughput",
+      "method": "Total duration to serialize, upload, resolve conflicts, and apply 500 queued offline changes upon reconnection",
+      "input": "500 offline inspection records queued during simulated 30-minute network outage",
+      "environment": "Local Node.js sync server communicating with React Native mobile client over throttled loopback network",
+      "minimum_pass": "p95 sync duration for 500 records is < 2,500 milliseconds",
+      "target": "p95 sync duration for 500 records is < 950 milliseconds",
+      "report": "Differential sync performance report and network bandwidth breakdown"
+    },
+    {
+      "metric": "Concurrent Multi-Device Field Conflict Merge Parity Rate",
+      "method": "Percentage of simulated multi-device concurrent conflict trials resulting in correct non-conflicting field merges",
+      "input": "50 concurrent editing trials where device A and device B edit different fields of the same record simultaneously while offline",
+      "environment": "Automated sync conflict test runner simulating two partitioned mobile clients and central Node.js server",
+      "minimum_pass": "50 of 50 conflict trials successfully merge without overwriting peer edits",
+      "target": "50 of 50 conflict trials successfully merge without overwriting peer edits",
+      "report": "Conflict resolution audit log and entity field consistency report"
+    }
+  ],
+  "skills": [
+    "TypeScript",
+    "React Native",
+    "SQLite",
+    "WatermelonDB",
+    "Node.js",
+    "Redux Toolkit",
+    "Mobile Engineering",
+    "Offline Sync"
+  ],
+  "starter_input": {
+    "spec": "Directory containing React Native mobile scaffolding, WatermelonDB SQLite schema models, Node.js sync server, and automated tests.",
+    "size": "12 TypeScript source files, SQLite migration definitions, and automated multi-client offline sync test suite",
+    "seeded_cases": "Simultaneous field edits on same record, network disconnect mid-sync, and foreign key constraint validations on orphaned records",
+    "label_source": "Deterministic SQLite table checksums and automated JSON field assertion manifests",
+    "personal_data_policy": "Strictly mock synthetic equipment inspection records and simulated surveyor IDs; no real personal data used"
+  },
+  "components": [
+    {
+      "name": "WatermelonDB & SQLite Local Persistent Storage Schema",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "Differential Sync Protocol & Idempotent Mutation Queue",
+      "task_type": "concurrency/consistency mechanism with tests",
+      "hours": 5.0
+    },
+    {
+      "name": "Node.js Authoritative Sync API & Conflict Resolver",
+      "task_type": "API endpoint group with tests",
+      "hours": 4.0
+    },
+    {
+      "name": "Offline-First Mobile Field Inspection React Native UI",
+      "task_type": "one UI view with state",
+      "hours": 4.0
+    },
+    {
+      "name": "Offline Sync Latency & Data Parity Benchmark Harness",
+      "task_type": "load or performance test harness + report",
+      "hours": 3.0
+    },
+    {
+      "name": "Mobile Architecture Guide & SQLite Migration Manual",
+      "task_type": "docs + architecture diagram",
+      "hours": 2.0
+    }
+  ],
+  "extended_path": {
+    "features": [
+      "Binary media attachment offline sync compressing photos locally before uploading via multipart streaming",
+      "Background Fetch API scheduling periodic silent database synchronizations when device connects to Wi-Fi",
+      "End-to-end encrypted SQLite database using SQLCipher cryptographic extension"
+    ],
+    "hours": 14
+  },
+  "milestones": [
+    {
+      "name": "WatermelonDB & SQLite Local Schema Setup in TypeScript and SQLite",
+      "hours": 7,
+      "done_criterion": "Relational schema initializes; WatermelonDB executes CRUD queries in SQLite with sub-20ms latency."
+    },
+    {
+      "name": "Differential Sync Protocol & Idempotent Queue in WatermelonDB and Node.js",
+      "hours": 7,
+      "done_criterion": "Local changes track in mutation queue; differential push/pull synchronizes with Node.js backend."
+    },
+    {
+      "name": "React Native Mobile UI & Redux State in React Native and Redux Toolkit",
+      "hours": 7,
+      "done_criterion": "UI renders inspection checklists; Redux tracks connectivity; offline mutations apply optimistically."
+    },
+    {
+      "name": "Conflict Merge Anti-Fake Test & Docs in Mobile Engineering and Offline Sync",
+      "hours": 7,
+      "done_criterion": "Anti-fake test confirms non-conflicting field merge across 2 offline devices; documentation complete."
+    }
+  ],
+  "prerequisites": [
+    "Proficiency in TypeScript, React Native, and asynchronous JavaScript state management (Redux Toolkit)",
+    "Understanding of relational database concepts (SQLite), schema migrations, and differential synchronization protocols"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (runs on local CPU via headless Node.js mobile test harnesses or React Native CLI)",
+    "cost": "$0 (fully open-source stack using local Node.js and SQLite)",
+    "accounts_keys_quotas": "No external cloud accounts, paid services, or mobile app store licenses required",
+    "reference_environment": "Local 4-core CPU with Node.js 18+, npm/yarn, and SQLite3 installed",
+    "fallback_path": "Running mobile tests against simulated in-memory SQLite store if native iOS/Android simulators are unavailable"
+  },
+  "riskiest_component": {
+    "name": "Database Schema Desynchronization and Unresolvable Merge Conflicts",
+    "mitigation": "Enforce strict schema migration version numbers and isolate conflict resolution logic into deterministic column-level merge reducers.",
+    "fallback": "Server-side conflict archive table preserving conflicting payloads for manual auditor review."
+  },
+  "deliverables": [
+    "Git repository containing React Native mobile app, WatermelonDB SQLite models, Node.js sync server, and test suites",
+    "SQLite migration scripts, sample seed datasets, and schema documentation",
+    "Automated benchmark harness verifying local SQLite write latencies and sync throughput",
+    "Screener verification script executing automated 2-device offline conflict resolution in under 2 minutes"
+  ],
+  "out_of_scope": [
+    "Native iOS/Android App Store release pipeline provisioning",
+    "Proprietary cloud mobile databases (Firebase Firestore / AWS AppSync)",
+    "Complex AR camera scanning or 3D point cloud rendering"
+  ],
+  "safety_note": null,
+  "resources": [
+    "WatermelonDB Official Documentation & Architecture Guide",
+    "Designing Data-Intensive Applications: Chapter on Multi-Leader & Offline Replication (Martin Kleppmann)",
+    "Offline-First Web and Mobile Architecture Patterns (Martin Fowler)"
+  ],
+  "rubric": [
+    {
+      "input": "1,000 sequential inspection record updates executed against WatermelonDB SQLite",
+      "action": "npm run bench:sqlite-writes -- --records 1000",
+      "expected_result": "Database commits mutations with p95 write latency < 20.0ms and 0 disk errors",
+      "evidence_location": "Terminal output log and reports/sqlite_latency.json",
+      "pass_criterion": "p95 latency < 20.0ms with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "500 offline inspection records queued during simulated network outage",
+      "action": "npm run test:sync-throughput -- --records 500",
+      "expected_result": "Sync manager synchronizes 500 records with Node.js backend in < 2,500ms total elapsed time",
+      "evidence_location": "Sync throughput benchmark report in reports/sync_perf.json",
+      "pass_criterion": "Sync duration < 2500ms with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "WatermelonDB schema migration executing table alter and column additions",
+      "action": "npm run test:migrations",
+      "expected_result": "Migrations upgrade schema version cleanly without data corruption across 1,000 pre-existing records",
+      "evidence_location": "Migration test report in reports/migration_audit.json",
+      "pass_criterion": "All migration steps pass with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Redux Toolkit network state transition from online to offline to online",
+      "action": "npm run test:network-state",
+      "expected_result": "App updates connectivity banner and optimistic mutation queue indicator with 0 UI drops",
+      "evidence_location": "State transition test log in reports/state_audit.json",
+      "pass_criterion": "State assertions verify valid status flags with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Two offline devices editing different fields of inspection record 101 simultaneously",
+      "action": "node ./scripts/verify_offline_merge.js --record 101 --devA-field notes='Passed' --devB-field status='Approved'",
+      "expected_result": "Backend merges updates deterministically; both notes='Passed' and status='Approved' persist without data loss",
+      "evidence_location": "Dynamic conflict verification console execution output log",
+      "pass_criterion": "Console confirms merged record contains both edits with exit code 0",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected offline-first mobile inspection engine in TypeScript using React Native and WatermelonDB; achieved sub-[WRITE_LATENCY] millisecond local SQLite write latency, and synchronized [SYNC_RECORDS] queued offline records in under [SYNC_DURATION] seconds upon reconnection.",
+    "claims": [
+      {
+        "text": "achieved sub-[WRITE_LATENCY] millisecond local SQLite write latency",
+        "rubric_indexes": [
+          0
+        ]
+      },
+      {
+        "text": "synchronized [SYNC_RECORDS] queued offline records in under [SYNC_DURATION] seconds upon reconnection",
+        "rubric_indexes": [
+          1
+        ]
+      }
+    ],
+    "do_not_claim": "native mobile app store deployment or proprietary cloud database replication"
+  },
+  "verify": [
+    "Run `npm test` to confirm WatermelonDB schemas, sync protocol handlers, and UI components pass.",
+    "Execute `npm run bench:sqlite-writes` to verify local write latency remains < 20ms.",
+    "Run `node ./scripts/verify_offline_merge.js` to assert multi-device concurrent conflict resolution."
+  ],
+  "worksheet": {
+    "q1": "Core deliverable: an offline-first mobile inspection engine in TypeScript with React Native, WatermelonDB SQLite, and Node.js differential sync.",
+    "q2": "Target users: mobile software engineers (React Native), frontend systems architects, and full-stack mobile developers.",
+    "q3": "3 use cases: aviation runway maintenance logging, insurance property claims assessment, and cold-storage logistics auditing.",
+    "q4": "Stated hours: 28 hours. Calculated bottom-up: 24 component hours * 1.15 buffer = 27.6 -> 28 hours. Intermediate level.",
+    "q5": "Hard parts: WatermelonDB SQLite reactive queries, idempotent differential delta sync, multi-device column-level conflict resolution, and network retry backoff.",
+    "q6": "Starter input: React Native scaffolding, WatermelonDB models, Node.js sync server, and multi-client test suite. Synthetic inspection records only.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU only, $0 cost, zero app store licenses. Fallback: in-memory SQLite store.",
+    "q8": "Riskiest component: database schema desynchronization and unresolvable merge conflicts. Fallback: strict migration versions and conflict audit archives.",
+    "q9": "Potential faking: standard mobile app without real offline persistence. Anti-fake check 5 simulates two partitioned offline clients editing the same record and asserts deterministic merge.",
+    "q10": "Safe; synthetic equipment inspection data and local test servers only, zero personal data."
+  }
+}

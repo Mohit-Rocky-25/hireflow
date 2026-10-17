@@ -1,0 +1,322 @@
+{
+  "id": "brief-event-driven-saas",
+  "title": "Multi-Tenant B2B SaaS Backend with Row-Level Security & Outbox Messaging",
+  "domain": "Full-Stack Web",
+  "difficulty": "ADVANCED",
+  "project_types": [
+    "API/backend service",
+    "Distributed systems"
+  ],
+  "problem": "Modern enterprise B2B SaaS platforms must enforce strict data isolation between rival corporate tenants, support asynchronous inter-service communication without data loss, and deliver outbound customer webhooks reliably. Naive application-level WHERE tenant_id filtering risks catastrophic data leakage if a single developer forgets a clause, and direct HTTP calls between microservices introduce cascading downtime. This project constructs an enterprise multi-tenant backend in TypeScript and Node.js using PostgreSQL Row-Level Security (RLS) to enforce database-level tenant isolation, Kafka event streaming with the Transactional Outbox pattern to guarantee at-least-once message delivery, Redis for tenant rate quotas, and an idempotent webhook delivery worker with exponential backoff retries.",
+  "use_cases": [
+    "Enterprise B2B SaaS products requiring strict compliance-certified tenant data boundaries",
+    "Usage-metered cloud platforms aggregating customer API consumption for billing pipelines",
+    "Developer webhook delivery backends guaranteeing reliable event delivery to external customer systems"
+  ],
+  "hard_parts": [
+    "Enforcing PostgreSQL Row-Level Security policies dynamically bound to active connection tenant session variables",
+    "Implementing the Transactional Outbox pattern to atomically commit database changes and publish Kafka events without distributed transactions",
+    "Preventing cross-tenant noisy-neighbor starvation through fair-share Redis rate limiting and concurrency throttling",
+    "Managing reliable webhook dispatching with HMAC signature verification, exponential backoff, and dead-letter queue routing"
+  ],
+  "screener_signals": [
+    "Clean TypeScript codebase cleanly separating tenant middleware, outbox workers, Kafka consumers, and webhook dispatchers",
+    "Automated cross-tenant penetration test asserting zero cross-tenant row leakage across 1,000 concurrent database queries",
+    "Anti-fake verification script creating dynamic tenant accounts, dispatching outbox messages, and asserting strict boundary isolation"
+  ],
+  "job_families": [
+    "Backend SaaS Engineer",
+    "Platform Architect",
+    "Distributed Systems Engineer"
+  ],
+  "stack": [
+    {
+      "tool": "TypeScript",
+      "role": "strongly typed language for SaaS API handlers, outbox workers, and event schemas"
+    },
+    {
+      "tool": "Node.js",
+      "role": "asynchronous JavaScript runtime hosting API server and background consumers"
+    },
+    {
+      "tool": "PostgreSQL",
+      "role": "relational database enforcing multi-tenant isolation via Row-Level Security and storing outbox tables"
+    },
+    {
+      "tool": "Kafka",
+      "role": "distributed event streaming broker transmitting domain events between services"
+    },
+    {
+      "tool": "Redis",
+      "role": "in-memory data store managing tenant rate quotas and webhook retry deduplication"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "PostgreSQL Multi-Tenant RLS Store",
+        "tools_used": [
+          "PostgreSQL",
+          "TypeScript"
+        ],
+        "purpose": "Enforces tenant data boundaries via database-level Row-Level Security policies and session variables"
+      },
+      {
+        "name": "Transactional Outbox Publisher",
+        "tools_used": [
+          "PostgreSQL",
+          "Kafka",
+          "TypeScript"
+        ],
+        "purpose": "Atomically polls outbox table rows within database transactions and publishes domain events to Kafka topics"
+      },
+      {
+        "name": "Tenant Context & Ingress Middleware",
+        "tools_used": [
+          "Node.js",
+          "TypeScript",
+          "Redis"
+        ],
+        "purpose": "Validates tenant JWT claims, sets database session variables, and enforces per-tenant Redis rate quotas"
+      },
+      {
+        "name": "Metered Usage Aggregator",
+        "tools_used": [
+          "Kafka",
+          "PostgreSQL",
+          "TypeScript"
+        ],
+        "purpose": "Consumes domain events from Kafka and aggregates customer resource consumption into billing ledgers"
+      },
+      {
+        "name": "Reliable Webhook Dispatcher",
+        "tools_used": [
+          "Node.js",
+          "Redis",
+          "TypeScript"
+        ],
+        "purpose": "Signs and dispatches customer webhooks with HMAC-SHA256, handling retries and routing failures to DLQ"
+      }
+    ],
+    "data_flow": "Incoming client HTTP requests pass through Tenant Ingress Middleware; tenant ID is validated and injected into PostgreSQL session config via SET LOCAL app.current_tenant_id; CRUD queries execute with RLS automatically restricting rows to active tenant; mutations atomically insert domain events into an outbox table within the same transaction; the Transactional Outbox Publisher polls pending outbox entries and publishes them to Kafka; the Metered Usage Aggregator consumes Kafka events to calculate usage; the Webhook Dispatcher signs and posts payloads to customer endpoints with exponential backoff.",
+    "enforcement_mechanism": "PostgreSQL Row-Level Security policies rejecting queries lacking valid tenant context; Redis token buckets throttling noisy-neighbor tenant spikes."
+  },
+  "targets": [
+    {
+      "metric": "Cross-Tenant Data Leakage Rate",
+      "method": "Penetration test suite executing 1,000 unauthorized cross-tenant queries against active database session",
+      "input": "1,000 cross-tenant read/write queries dispatched using tenant A credentials targeting tenant B records",
+      "environment": "Standard 4-core local CPU, PostgreSQL 15+, Node.js 18+",
+      "minimum_pass": "0 unauthorized records accessed across 1,000 test requests with 0 security escapes",
+      "target": "0 unauthorized records accessed across 1,000 test requests with 0 security escapes",
+      "report": "Cross-tenant security penetration test summary report"
+    },
+    {
+      "metric": "Transactional Outbox Publishing Latency",
+      "method": "Duration between database transaction commit and message publication confirmation in Kafka",
+      "input": "5,000 database mutations processed through transactional outbox polling loop",
+      "environment": "Standard 4-core local CPU, local Kafka broker and PostgreSQL instance",
+      "minimum_pass": "Average outbox-to-broker latency is < 250 milliseconds",
+      "target": "Average outbox-to-broker latency is < 95 milliseconds",
+      "report": "Outbox pipeline latency benchmark log"
+    },
+    {
+      "metric": "Webhook Dispatch Delivery Success Rate",
+      "method": "Automated delivery benchmark across 1,000 customer webhook payloads with 10% injected endpoint dropouts",
+      "input": "1,000 webhook payloads dispatched to mock customer endpoints with injected intermittent 503 errors",
+      "environment": "Standard 4-core local CPU, Node.js 18+, Redis 7",
+      "minimum_pass": "Delivery success rate exceeds 95% following exponential backoff retries",
+      "target": "Delivery success rate exceeds 99% following exponential backoff retries",
+      "report": "Webhook dispatcher execution report detailing delivery attempts and DLQ transfers"
+    }
+  ],
+  "skills": [
+    "TypeScript",
+    "Node.js",
+    "PostgreSQL",
+    "Kafka",
+    "Redis",
+    "Multi-Tenancy",
+    "Distributed Systems"
+  ],
+  "starter_input": {
+    "spec": "Multi-tenant database schema with RLS policies, sample tenant profiles, and domain event JSON schema.",
+    "size": "50 tenant accounts with 25,000 customer records and 5,000 simulated domain events",
+    "seeded_cases": "Cross-tenant SQL injection attempts, outbox polling crash scenarios, and dead-letter webhook endpoints",
+    "label_source": "Deterministic penetration test suite asserting exact HTTP 403 / empty result sets on cross-tenant probes",
+    "personal_data_policy": "Strictly mock synthetic enterprise tenant profiles and fake business entities; no real personal data used"
+  },
+  "components": [
+    {
+      "name": "PostgreSQL Multi-Tenant Schema & RLS Policy Manager",
+      "task_type": "infra component (broker, DB, orchestrator, cluster service)",
+      "hours": 6.0
+    },
+    {
+      "name": "Transactional Outbox Engine & Kafka Event Publisher",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "Multi-Tenant JWT Context & Ingress Middleware",
+      "task_type": "API endpoint group with tests",
+      "hours": 5.0
+    },
+    {
+      "name": "Metered Billing & Usage Aggregation Worker",
+      "task_type": "data pipeline step",
+      "hours": 5.0
+    },
+    {
+      "name": "Reliable Webhook Dispatcher with Dead Letter Queue",
+      "task_type": "API endpoint group with tests",
+      "hours": 5.0
+    },
+    {
+      "name": "High-Throughput Ingestion & Multi-Tenant Isolation Benchmark",
+      "task_type": "load or performance test harness + report",
+      "hours": 4.0
+    },
+    {
+      "name": "SaaS Security Model & Outbox Architecture Diagram",
+      "task_type": "docs + architecture diagram",
+      "hours": 3.0
+    }
+  ],
+  "extended_path": {
+    "items": [
+      "Stripe usage-based billing meter event ingestion and automatic customer invoice generation",
+      "Dynamic tenant schema migration worker with zero-downtime Blue-Green database deployments"
+    ],
+    "hours": 16
+  },
+  "milestones": [
+    {
+      "name": "PostgreSQL Row-Level Security & Multi-Tenancy Context Ingress in TypeScript",
+      "hours": 10,
+      "done_criterion": "PostgreSQL RLS policies enforce tenant boundaries; middleware binds tenant context from JWT claims."
+    },
+    {
+      "name": "Transactional Outbox Pattern & Kafka Event Streaming in Distributed Systems",
+      "hours": 10,
+      "done_criterion": "Mutations write outbox records atomically; publisher streams events to Kafka in < 250ms."
+    },
+    {
+      "name": "Metered Usage Aggregation & Reliable Webhook Delivery Engine",
+      "hours": 10,
+      "done_criterion": "Worker aggregates usage from Kafka; webhook dispatcher delivers payloads with HMAC signatures and retries."
+    },
+    {
+      "name": "Cross-Tenant Isolation Verification, Load Benchmark & Docs",
+      "hours": 9,
+      "done_criterion": "Security test confirms 0 cross-tenant leaks across 1,000 queries; benchmark passes; architecture docs complete."
+    }
+  ],
+  "prerequisites": [
+    "Proficiency in TypeScript, asynchronous Node.js, and relational database modeling",
+    "Understanding of PostgreSQL row-level security, event streaming concepts, and REST API architectures"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (purely CPU and I/O bound application services)",
+    "cost": "$0 (fully open-source software stack via Docker Compose)",
+    "accounts_keys_quotas": "No external cloud accounts, paid services, or API keys required",
+    "reference_environment": "Local 4-core CPU with Node.js 18+, Docker 24+, and Docker Compose installed",
+    "fallback_path": "SQLite with schema-level tenant tables and in-memory event bus if Docker Kafka/Postgres cannot run"
+  },
+  "riskiest_component": {
+    "name": "Database Connection Pool Exhaustion from Unset RLS Session Variables",
+    "fallback": "Enforce automated connection checkout hooks resetting session variables upon connection return"
+  },
+  "deliverables": [
+    "Git repository containing TypeScript SaaS backend, database migrations, and Kafka outbox publisher",
+    "Docker Compose environment spinning up PostgreSQL, Kafka, and Redis services",
+    "Automated cross-tenant penetration test suite verifying Row-Level Security boundary enforcement",
+    "Screener verification script executing automated benchmark and dynamic tenant isolation test in under 2 minutes"
+  ],
+  "out_of_scope": [
+    "Complex frontend micro-frontend single-spa portal implementations",
+    "Multi-region geo-replicated active-active database clusters",
+    "PCI-DSS Level 1 direct credit card vaulting infrastructure"
+  ],
+  "safety_note": null,
+  "resources": [
+    "PostgreSQL Documentation on Row Security Policies and Session Variables",
+    "Transactional Outbox Pattern Architecture Specification (Chris Richardson)",
+    "Standard Webhooks Security and HMAC-SHA256 Signing Specification"
+  ],
+  "rubric": [
+    {
+      "input": "Penetration test suite attempting 1,000 cross-tenant unauthorized reads",
+      "action": "npm run test:penetration",
+      "expected_result": "PostgreSQL Row-Level Security blocks all unauthorized tenant access queries",
+      "evidence_location": "Terminal test execution output log",
+      "pass_criterion": "1,000 of 1,000 penetration checks pass with 0 unauthorized records exposed and exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "5,000 database mutations processed through outbox worker loop",
+      "action": "npm run bench:outbox",
+      "expected_result": "Transactional outbox publishes events to Kafka with average latency < 250 milliseconds",
+      "evidence_location": "Outbox benchmark summary table and reports/outbox_latency.json",
+      "pass_criterion": "Average outbox latency is < 250 milliseconds",
+      "kind": "normal"
+    },
+    {
+      "input": "1,000 webhooks dispatched to simulated unstable customer endpoints",
+      "action": "npm run test:webhooks",
+      "expected_result": "Dispatcher retries failed deliveries using exponential backoff, achieving > 95% success",
+      "evidence_location": "Webhook execution report log",
+      "pass_criterion": "Delivery success rate exceeds 95% with failed items placed into DLQ",
+      "kind": "normal"
+    },
+    {
+      "input": "Rapid burst of 100 requests from single tenant exceeding quota limit",
+      "action": "npm run test:ratelimit -- --tenant tenant-abc --requests 100",
+      "expected_result": "Redis rate limiter throttles excess requests and returns HTTP 429",
+      "evidence_location": "HTTP response status log",
+      "pass_criterion": "Responses transition to HTTP 429 once tenant quota threshold is reached",
+      "kind": "normal"
+    },
+    {
+      "input": "Two dynamic tenant accounts (Tenant-Dynamic-X and Tenant-Dynamic-Y) provisioned at runtime",
+      "action": "node scripts/verify_dynamic_multitenancy.js --tenantA Tenant-Dynamic-X --tenantB Tenant-Dynamic-Y",
+      "expected_result": "Tenant X creates private resource; Tenant Y attempts direct query by ID and receives empty result set",
+      "evidence_location": "Dynamic verification console output log",
+      "pass_criterion": "Query by Tenant Y returns null/404 and exit code is 0",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected multi-tenant enterprise SaaS backend in TypeScript and Node.js with PostgreSQL Row-Level Security; enforced strict tenant isolation without data leakage across [QUERY_COUNT] penetration queries, and guaranteed event delivery via transactional outbox messaging with sub-[OUTBOX_LATENCY] latency.",
+    "claims": [
+      {
+        "text": "enforced strict tenant isolation without data leakage across [QUERY_COUNT] penetration queries",
+        "rubric_indexes": [
+          0
+        ]
+      },
+      {
+        "text": "guaranteed event delivery via transactional outbox messaging with sub-[OUTBOX_LATENCY] latency",
+        "rubric_indexes": [
+          1
+        ]
+      }
+    ],
+    "do_not_claim": "global multi-region active-active database clustering or direct PCI-DSS card vaulting"
+  },
+  "verify": [],
+  "worksheet": {
+    "q1": "Core deliverable: a multi-tenant B2B SaaS backend in TypeScript/Node.js with PostgreSQL RLS, transactional outbox to Kafka, and reliable webhooks.",
+    "q2": "Target users: SaaS backend engineers, platform architects, and cloud infrastructure developers.",
+    "q3": "3 use cases: enterprise B2B SaaS data isolation, metered cloud usage billing, and customer webhook delivery backends.",
+    "q4": "Stated hours: 39 hours. Calculated bottom-up: 34 component hours * 1.15 buffer = 39.1 -> 39 hours. Advanced level.",
+    "q5": "Hard parts: dynamic PostgreSQL RLS session configuration, transactional outbox atomicity, fair-share rate limiting, and reliable webhook backoff.",
+    "q6": "Starter input: 50 tenant profiles, 25,000 customer records, and 5,000 simulated events. Synthetic profiles only.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU only, $0 cost, zero cloud accounts. Fallback: SQLite and in-memory event bus.",
+    "q8": "Riskiest component: Connection pool exhaustion from unset RLS session variables. Fallback: automated connection checkout/reset hooks.",
+    "q9": "Potential faking: hardcoded tenant query filtering. Anti-fake check 5 provisions two dynamic tenants at runtime and asserts boundary rejection.",
+    "q10": "Safety/ethics: Safe; synthetic business profiles and mock customer accounts only."
+  }
+}

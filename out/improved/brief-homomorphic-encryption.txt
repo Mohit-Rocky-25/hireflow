@@ -1,122 +1,159 @@
-PROJECT BRIEF — Encrypted Database Queries with Homomorphic Encryption
+PROJECT BRIEF — Confidential Database Query Engine with Homomorphic Encryption
 ======================================================================
 
 Domain    : Security & Platform
-Difficulty: advanced
-Est. Time : 38 hours (Core Path) | Extended Path: +6 hours
-Tech Stack: Python [core programming language and algorithmic runtime], Microsoft SEAL [microsoft seal component], TenSEAL [tenseal component], PostgreSQL [relational database management system], Cryptography [cryptography component]
+Difficulty: ADVANCED
+Est. Time : 40 hours (core path, estimate). Extended path: +16 hours
+Tech Stack: Python (programming language implementing client encryption wrappers and server query routines), PostgreSQL (relational database storing encrypted ciphertext byte buffers and metadata), Cryptography (library generating underlying key material and public-private keypairs), Docker (container runtime packaging confidential database environment and dependencies)
 
 PROBLEM STATEMENT
-----------------------------------------
-Database administrators with access to production databases can read all user data. Homomorphic Encryption (HE) allows computations on encrypted data without decryption. Build a prototype system demonstrating encrypted database aggregations (SUM, AVG) where the database server never sees plaintext values.
+----------------------------------------------------------------------
+Traditional database encryption-at-rest models protect files on disk but force database servers to decrypt data into plaintext memory during query execution, exposing sensitive financial and healthcare records to rogue database administrators, memory-scraping malware, and cloud hypervisor compromises. Homomorphic Encryption (HE) solves this by enabling mathematical operations directly on ciphertexts without decryption. This project builds a confidential database query prototype in Python, TenSEAL, PostgreSQL, and Cryptography. The system encrypts sensitive numerical records client-side using BFV and CKKS homomorphic schemes, stores encrypted vector blobs in PostgreSQL, executes homomorphic SUM and AVG aggregations entirely on the server without plaintext access, and monitors ciphertext noise budgets to guarantee mathematical correctness upon client decryption.
 
 USE CASES IN THE REAL WORLD
-----------------------------------------
-Healthcare data analytics (compute statistics over encrypted patient data), financial regulators (audit bank data without seeing individual transactions), cloud database providers offering confidential computing, and privacy-preserving ML training on sensitive datasets.
+----------------------------------------------------------------------
+- Healthcare research platforms aggregating encrypted patient clinical metrics across hospitals without HIPAA disclosures
+- Financial banking compliance audits verifying aggregate capital reserves without viewing individual customer balances
+- Confidential cloud database services offering zero-knowledge query processing on untrusted cloud infrastructure
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Homomorphic Encryption is at the frontier of applied cryptography. While fully practical HE is still emerging, understanding its properties, limitations, and use cases positions you at the intersection of cryptography and database engineering — a research-level skill that very few engineers possess.
+WHY THIS IS HARD
+----------------------------------------------------------------------
+- Selecting and parameterizing BFV and CKKS homomorphic encryption polynomial modulus degrees and coefficient sizes
+- Tracking and managing ciphertext noise budget consumption across successive multiplication and addition operations
+- Executing homomorphic arithmetic operations across PostgreSQL bytea ciphertext vectors without memory exhaustion
+- Guaranteeing zero plaintext information leakage in database query logs, execution buffers, and temporary storage
 
 RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Confidential computing, privacy-preserving computation, and applied cryptography are emerging specializations at companies like Intel (SGX), distributed systems platforms (Confidential VMs), and security startups. Understanding HE demonstrates cryptographic sophistication beyond standard TLS/JWT knowledge — immediately impressive to security and research engineering teams.
+----------------------------------------------------------------------
+- Clean Python codebase separating client cryptographic key managers, homomorphic arithmetic engines, and PostgreSQL storage handlers
+- Zero-knowledge audit verifying that database query logs and server memory contain zero plaintext numerical records
+- Anti-fake verification script inserting dynamic encrypted payroll records and verifying exact decrypted mathematical sum parity
+Relevant Job Families: Applied Cryptography Engineer, Security Platform Engineer, Privacy-Preserving Systems Developer
 
 ARCHITECTURE & DATA FLOW
-----------------------------------------
-Microsoft SEAL or TenSEAL (Python) implementing BFV/CKKS homomorphic encryption scheme. Encrypted integer database storing BFV-encrypted values. Server-side addition and multiplication on ciphertexts. Trusted client decrypting results. Performance benchmarking comparing HE overhead vs plaintext operations.
+----------------------------------------------------------------------
+Components:
+- Homomorphic Cryptosystem Context & Key Manager (Tools: Python, Cryptography): Generates BFV/CKKS public evaluation keys, secret keys, and Galois rotation keys with configurable parameters
+- Client Encryption & Decryption Module (Tools: Python): Encrypts client plaintext vectors before transmission and decrypts aggregated server response ciphertexts
+- PostgreSQL Ciphertext Storage Layer (Tools: PostgreSQL, Docker): Stores serialized homomorphic ciphertext bytea arrays and associated non-sensitive relational attributes
+- Confidential Homomorphic Evaluation Engine (Tools: Python): Executes homomorphic vector additions, multiplications, and scalar scalings directly on server ciphertexts
+
+Data Flow:
+The client Key Manager initializes BFV/CKKS cryptographic context parameters; public evaluation keys serialize and transmit to the server while private secret keys remain on the client; the client encrypts numerical records (e.g. salaries) and uploads ciphertext bytes to PostgreSQL; when an analytical query (e.g. SUM or AVG) arrives, the Confidential Evaluation Engine loads ciphertext byte arrays into memory; the engine performs homomorphic additions directly on ciphertexts without decryption; the resulting aggregated ciphertext byte buffer returns to the client; the client decrypts the payload using its private secret key, verifying noise budget and recovering the exact mathematical result.
+
+Enforcement Mechanism:
+Cryptographic zero-knowledge guarantee: secret keys never leave the client; database server possesses only evaluation keys capable of arithmetic but incapable of decryption.
 
 SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Target 1:
-- Metric: Request Processing Latency Overhead (p99)
-- Method: Concurrent HTTP load test using k6 / vegeta over 60s sustained run
-- Input/dataset: Standard synthetic JSON payload (~1KB) over 5,000 concurrent requests
-- Reference environment: Local 4-core CPU, 8GB RAM, loopback network interface
-- Minimum pass: p99 latency overhead < 25ms under 1,000 req/sec
-- Target: p99 latency overhead < 5ms under 5,000 req/sec
-- Report format: k6 terminal summary report and CSV latency distribution
-
-Target 2:
-- Metric: Sustained Concurrency & Correctness
-- Method: Continuous load test simulating concurrent client connections with idempotency checks
-- Input/dataset: Synthetic benchmark traffic across 50 concurrent worker threads
-- Reference environment: Local Docker Compose or native runtime
-- Minimum pass: Sustained throughput > [N] req/sec with 0 lost writes in [K] attempts
-- Target: Sustained throughput > [N] req/sec (target > 5,000 req/sec) with 0 lost writes in [K] attempts
-- Report format: Benchmark throughput table and error rate summary
-
-Target 3:
-- Metric: Fault Recovery / Failover Duration
-- Method: Injected worker process termination during active continuous request stream
-- Input/dataset: SIGKILL or chaos fault injection on worker process
-- Reference environment: Local multi-process or containerized cluster
-- Minimum pass: Service detects failure and reroutes traffic with recovery time < [S] seconds (pass < 5s)
-- Target: Service detects failure and recovers state with recovery time < [S] seconds (target < 2s)
-- Report format: System log timestamps comparing failure injection to state recovery
+----------------------------------------------------------------------
+Metric | Method | Input/Dataset | Reference Environment | Minimum Pass | Target | Report Format
+Zero-Knowledge Plaintext Confidentiality Rate | Memory dump inspection and database query log audit searching for plaintext numerical fragments during active query execution | 1,000 encrypted financial records processed through server aggregation queries | Standard 4-core local CPU, PostgreSQL 15+, Python 3.11 | 0 plaintext values discovered in database query logs or server memory buffers | 0 plaintext values discovered in database query logs or server memory buffers | Confidential computing memory inspection and audit verification report
+Homomorphic Vector Addition Execution Latency | Wall-clock timing to execute homomorphic vector addition across 1,000 encrypted ciphertext records | 1,000 encrypted BFV ciphertext vectors evaluated on server CPU | Standard 4-core local CPU, Python 3.11, TenSEAL release build | Execution completes in < 2.5 milliseconds per record pair | Execution completes in < 0.8 milliseconds per record pair | Homomorphic arithmetic benchmark timing log
+Decrypted Result Mathematical Precision Parity Rate | Comparison between decrypted homomorphic aggregation result and canonical plaintext floating-point sum | 100 distinct batch aggregations evaluated across varying dataset sizes and numerical scales | Standard 4-core local CPU, Python 3.11 | 100 of 100 batch aggregations match plaintext mathematical sum within 1e-4 tolerance | 100 of 100 batch aggregations match plaintext mathematical sum within 1e-4 tolerance | Decrypted mathematical precision verification output log
 
 SKILLS COVERED
-----------------------------------------
-Python, Cryptography, Privacy, Algorithms, Security, PostgreSQL
+----------------------------------------------------------------------
+Python, PostgreSQL, Cryptography, Docker, Homomorphic Encryption, Security Engineering, Systems Programming
 
 TARGET APPLICATION / STARTER INPUT
-----------------------------------------
-The project provides a self-contained test environment and fixture generator located in `scripts/` or `fixtures/`. It deterministically generates representative input records or mock client traffic for automated validation. No third-party proprietary data or real personal identifiers (PII) are required; all test datasets use synthetic tokens and deterministic random seeds.
+----------------------------------------------------------------------
+- Specification: Homomorphic encryption parameter specification (poly_modulus_degree=8192, coeff_mod_bit_sizes), database DDL, and sample financial batch.
+- Dataset / Traffic Size: 5,000 numerical financial records with simulated account attributes and benchmark test queries
+- Seeded Edge Cases: Ciphertext noise budget exhaustion, scale factor mismatch during CKKS multiplication, and serialization corruption
+- Label / Verification Source: Deterministic plaintext calculation manifest mapping test batches to exact expected mathematical sums and averages
+- Personal Data Policy: Strictly mock synthetic financial records and simulated payroll values; zero real personal data used
 
 MILESTONES
-----------------------------------------
-- Milestone 1: Environment Setup & Core Foundations (8h)
-  Configure repository, tooling, container dependencies, and foundational data structures. Done when foundational test suite passes with clean linting.
-- Milestone 2: Core Processing & Architecture Implementation (11h)
-  Implement primary operational workflows, database models or state transitions, and API endpoints. Done when integration tests verify end-to-end data flow under normal operating conditions.
-- Milestone 3: Concurrency, Reliability & Error Guardrails (11h)
-  Implement defensive controls: rate limiting, retries with exponential backoff, transaction boundaries, and failure isolation. Done when chaos or stress tests verify graceful degradation under fault injection.
-- Milestone 4: Verification, Benchmarking & Documentation (8h)
-  Execute performance benchmark harness, compile measurement tables, generate architectural diagrams, and document screener verification steps. Done when `scripts/verify_all` passes completely.
+----------------------------------------------------------------------
+M1: TenSEAL Context Setup & Homomorphic Key Generation in Python Security Engineering (10h) — Done when: Context generates BFV/CKKS keys; public evaluation keys separate safely from secret keys.
+M2: Encrypted Arithmetic Operations & Noise Budget Tracking in Cryptography Systems Programming (10h) — Done when: Engine executes encrypted additions and multiplications; noise budget monitor tracks consumption.
+M3: PostgreSQL Ciphertext Persistence & Encrypted Aggregations in Homomorphic Encryption (10h) — Done when: PostgreSQL stores ciphertext bytea arrays; server computes SUM and AVG without plaintext access.
+M4: Zero-Knowledge Query Benchmark, Docker Anti-Fake Test & Docs (10h) — Done when: Benchmark verifies 0 plaintext leakage; decrypted sum matches ground truth; docs complete.
+Total: 40 hours (estimate)
 
 PREREQUISITES, ENVIRONMENT AND ACCOUNTS
-----------------------------------------
-- Prerequisites: Familiarity with Python and Microsoft SEAL, standard command-line tools, and fundamental testing principles.
-- Hardware / OS: Standard modern computer (macOS, Linux, or Windows with WSL2) with at least 8GB RAM.
-- Accounts & Services: None required. Designed to run completely on free, open-source local software.
-- Fallback Path: In-memory mock drivers or SQLite/local files provided if external database or message broker containers cannot be run.
+----------------------------------------------------------------------
+Prerequisites: Proficiency in Python programming, binary byte serialization, and SQL database operations, Understanding of applied cryptography concepts (public-key encryption, lattice cryptography, homomorphic properties)
+
+Environment & Hardware:
+- OS: Linux / macOS / Windows with WSL2
+- Memory: 8GB RAM
+- Compute / GPU: None required (purely CPU-bound polynomial arithmetic)
+- Estimated Cost: $0 (fully open-source software stack via Docker Compose)
+- Accounts & Quotas: No external cloud accounts, paid services, or API keys required
+- Reference Environment: Local 4-core CPU with Python 3.11 and PostgreSQL 15+ installed
+- Fallback Path: In-memory simulated Paillier or basic additively homomorphic cryptosystem if TenSEAL C-libraries encounter build issues
+
+Riskiest Component & Fallback:
+- Riskiest Component: Ciphertext Noise Budget Exhaustion Corrupting Decrypted Results
+- Simpler Fallback: Parameterize polynomial modulus degree to 8192 or 16384 to provide sufficient noise headroom for required arithmetic depth
 
 DELIVERABLES
-----------------------------------------
-1. Clean Git repository with structured commit history, README, and reproducible setup commands.
-2. Production-quality core codebase with automated test suite achieving verified pass rates.
-3. Performance benchmark report (`results/benchmark_report.md`) documenting measured latency, throughput, and resource utilization.
-4. Screener verification script (`scripts/verify_all.sh` or equivalent) validating the full system in < 3 minutes.
-5. Architecture diagram (Mermaid/ASCII) and known limitations document explaining architectural trade-offs.
+----------------------------------------------------------------------
+- Git repository containing Python confidential query engine, TenSEAL wrappers, and PostgreSQL schema
+- Docker Compose file hosting PostgreSQL database with ciphertext tables
+- Automated confidentiality audit and mathematical precision verification test harness
+- Screener verification script executing automated benchmark and dynamic encrypted aggregation test in under 2 minutes
 
 OUT OF SCOPE AND EXTENDED PATH
-----------------------------------------
-- Out of Scope for Core Path: Distributed multi-region clustering, enterprise SSO integrations, complex third-party SaaS dependencies.
-- Extended Path (+6 hours): Advanced telemetry dashboard, distributed persistence cluster extension, or automated canary release pipeline.
+----------------------------------------------------------------------
+Out of Scope:
+- Fully Homomorphic Encryption (FHE) with arbitrary deep circuit bootstrapping
+- Custom lattice cryptography assembly optimizations for AVX-512 vector units
+- Hardware security module (HSM) PKCS#11 hardware token integration
+
+Extended Path (+16 hours):
+- Encrypted inner product vector similarity search for private semantic retrieval
+- Bounded multi-party threshold decryption where multiple keys are required to decrypt query results
 
 SAFETY AND ETHICS NOTE
-----------------------------------------
-All data processed, generated, and benchmarked by this project consists exclusively of synthetic fixtures. No personal identifiable information (PII), proprietary credentials, or live external endpoints are used.
+----------------------------------------------------------------------
+This project processes mock financial records and synthetic numerical vectors to demonstrate privacy-preserving database encryption. It does not handle real personal health information or live commercial banking assets.
 
 LEARNING RESOURCES
-----------------------------------------
-- Official Documentation for Python, Microsoft SEAL, TenSEAL
-- Architectural Reference Patterns and RFC Standards [VERIFY URL]
-- Systems & Distributed Reliability Principles
+----------------------------------------------------------------------
+- A Full (R)Homomorphic Encryption Scheme (Brakerski, Gentry, Vaikuntanathan BGV/BFV paper)
+- TenSEAL: A Library for Doing Homomorphic Encryption on Tensors (OpenMined)
+- Microsoft SEAL Architecture and Homomorphic Encryption Parameter Selection Manual
 
 SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Check 1: Verify sum of 1000 encrypted values equals sum computed on plaintext values; Pass when automated test script prints 0 errors and logs verified status code.
-2. Check 2: Verify server-side computation: database never accesses decryption key; Pass when automated test script prints 0 errors and logs verified status code.
-3. Check 3: Verify performance benchmark documenting 1000x overhead with analysis of when HE is practical; Pass when automated test script prints 0 errors and logs verified status code.
-4. Check 4: Verify cKKS scheme demonstration for approximate arithmetic on floating-point encrypted data; Pass when automated test script prints 0 errors and logs verified status code.
-5. Check 5: Verify architectural writeup documenting current HE limitations and use case guidelines; Pass when automated test script prints 0 errors and logs verified status code.
-6. Check 6: 6. Anti-Fake Verification Check: Inspect committed execution logs and re-run verification script against seeded test fixtures; pass when runtime metrics dynamically reflect test execution rather than static mocked responses.
+----------------------------------------------------------------------
+1. Check
+   Input: 1,000 encrypted financial records processed through server aggregation query
+   Action: python -m confidential_db.audit_leakage
+   Result: Inspection confirms zero plaintext numeric values exist in server query logs or memory dumps
+   Evidence: Terminal execution output log and reports/confidentiality_audit.json
+   Pass: 0 plaintext values discovered with exit code 0
+2. Check
+   Input: 1,000 encrypted BFV ciphertext vectors evaluated on server
+   Action: python scripts/benchmark_he_speed.py --records 1000 --op add
+   Result: Homomorphic addition execution completes in < 2.5 milliseconds per record pair
+   Evidence: Arithmetic benchmark timing summary table
+   Pass: Average operation latency is < 2.5 milliseconds
+3. Check
+   Input: 100 distinct batch aggregations evaluated for mathematical precision
+   Action: python -m confidential_db.test_precision
+   Result: Decrypted client sums match exact plaintext mathematical calculations within 1e-4 tolerance
+   Evidence: Precision verification log
+   Pass: 100 of 100 batch precision tests pass within tolerance with exit code 0
+4. Check
+   Input: Encrypted aggregation query dispatched to confidential database service
+   Action: curl http://localhost:8000/api/query/encrypted_sum?column=payroll
+   Result: Server returns serialized ciphertext byte buffer without possessing decryption keys
+   Evidence: HTTP response payload
+   Pass: Response status is 200 and ciphertext bytes field is non-empty
+5. Check [anti_fake]
+   Input: Dynamic batch of 5 encrypted numerical values ($1,000 to $5,000) inserted at runtime
+   Action: python scripts/verify_dynamic_he.py --values 1000,2000,3000,4000,5000
+   Result: Server computes encrypted sum; client decrypts payload to exactly $15,000.00 while server logs show only ciphertext
+   Evidence: Dynamic verification console execution output log
+   Pass: Decrypted sum equals 15000.00, server log contains zero plaintext, exit code 0
 
 RESUME BULLET FORMULA
-----------------------------------------
-"Engineered prototyped homomorphic encryption system using Microsoft SEAL/TenSEAL; demonstrated encrypted database SUM across [N] req/sec ciphertexts with provably correct results and documented HE performance tradeoffs for practical use case selection."
-Do not claim: scale, latency, or throughput figures without committing benchmark run logs; do not claim production deployment unless deployed to a verifiable live environment.
+----------------------------------------------------------------------
+"Architected confidential database query engine in Python and PostgreSQL using Homomorphic Encryption; executed encrypted aggregations without plaintext leakage across [RECORD_COUNT] records, and delivered sub-[ADDITION_LATENCY] encrypted addition latency with verified mathematical precision."
+
+Do not claim: arbitrary circuit FHE bootstrapping or hardware security module PKCS token integration
 
 ======================================================================
 Generated by HireFlow — hireflow.io

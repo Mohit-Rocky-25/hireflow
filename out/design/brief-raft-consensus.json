@@ -1,0 +1,353 @@
+{
+  "id": "brief-raft-consensus",
+  "title": "Distributed Replicated Key-Value Store from Scratch in Go with Raft Consensus, LevelDB WAL & gRPC Cluster Transport",
+  "domain": "Distributed Systems",
+  "difficulty": "ADVANCED",
+  "project_types": [
+    "Systems programming",
+    "Distributed systems"
+  ],
+  "problem": "Single-point-of-failure database architectures suffer from catastrophic outages, data corruption, and prolonged downtime when server hardware fails or network partitions isolate data centers. Off-the-shelf distributed stores obscure consensus mechanics, leaving software engineers unprepared to diagnose split-brain anomalies, phantom reads, and cascading leader failover storms. This project builds a production-grade distributed replicated key-value storage engine from scratch in Go implementing the Raft consensus algorithm. The engine implements randomized election timers, leader heartbeats, persistent write-ahead logging (WAL) using LevelDB, gRPC peer-to-peer RPC transport, cluster membership changes, log compaction via snapshotting, and linearizable read/write request semantics.",
+  "use_cases": [
+    {
+      "title": "Mission-Critical Distributed Configuration Management",
+      "first_sentence": "Cloud infrastructure control planes require a distributed configuration registry to coordinate microservice routing tables and database connection strings.",
+      "second_sentence": "The Raft cluster replicates configuration key-value pairs across 5 server nodes, guaranteeing linearizable reads and continuous availability even if 2 nodes fail."
+    },
+    {
+      "title": "Distributed Lock Manager & Leader Election Coordinator",
+      "first_sentence": "High-throughput message processing workers require mutual exclusion distributed locks to prevent multiple worker nodes from processing the same queue partition.",
+      "second_sentence": "The key-value engine manages atomic compare-and-swap lease keys with TTL expirations, electing single active partition masters with zero split-brain risk."
+    },
+    {
+      "title": "Distributed Service Discovery Registry & Health Tracker",
+      "first_sentence": "Dynamic container platforms need a resilient service discovery catalog that updates service instance IP endpoints as pods spawn and terminate.",
+      "second_sentence": "Service agents register ephemeral keys via gRPC client sessions, automatically replicating instance state across the Raft consensus quorum with low commit latency."
+    }
+  ],
+  "hard_parts": [
+    "Implementing the Raft state machine transitions (Follower, Candidate, Leader) with thread-safe goroutine channels and randomized election timeouts",
+    "Enforcing the Raft Log Matching and Leader Completeness safety invariants during out-of-order AppendEntries RPC retries",
+    "Implementing LevelDB write-ahead log persistence and state snapshotting to truncate committed logs and prevent disk saturation",
+    "Handling complex cluster network partitions (minority vs majority split-brain) while guaranteeing linearizability and client request redirection"
+  ],
+  "screener_signals": [
+    "Clean Go codebase cleanly separating the Raft consensus state machine, gRPC RPC transport, LevelDB storage engine, and client API handlers",
+    "Chaos network partition benchmark report demonstrating automatic leader re-election in < 350ms upon primary leader termination",
+    "Anti-fake verification script partitioning 2 nodes of a 5-node cluster, writing 20 key-value pairs to the majority partition, healing the partition, and asserting the minority catches up with identical log state"
+  ],
+  "job_families": [
+    "Distributed Systems Engineer",
+    "Infrastructure Core Software Developer",
+    "Database Systems Architect"
+  ],
+  "stack": [
+    {
+      "tool": "Go",
+      "role": "primary systems programming language implementing concurrent state machines and networking"
+    },
+    {
+      "tool": "Raft",
+      "role": "distributed consensus protocol governing leader election, log replication, and safety"
+    },
+    {
+      "tool": "gRPC",
+      "role": "remote procedure call framework powering peer-to-peer AppendEntries and RequestVote RPCs"
+    },
+    {
+      "tool": "Concurrency",
+      "role": "goroutines, sync primitives, and atomic channels orchestrating non-blocking state loops"
+    },
+    {
+      "tool": "LevelDB",
+      "role": "embedded key-value storage engine persisting Raft write-ahead logs and state snapshots"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "Raft Core State Machine & Randomized Election Timer",
+        "tools_used": [
+          "Go",
+          "Raft",
+          "Concurrency"
+        ],
+        "purpose": "Manages Follower/Candidate/Leader roles, term increments, randomized election timeouts (150-300ms), and voting logic"
+      },
+      {
+        "name": "Raft Log Replication Engine & Commit Safety Verifier",
+        "tools_used": [
+          "Go",
+          "Raft"
+        ],
+        "purpose": "Coordinates AppendEntries RPCs, verifies term and index matches, commits entries upon majority quorum, and applies to state"
+      },
+      {
+        "name": "LevelDB Persistent Write-Ahead Log & Snapshot Manager",
+        "tools_used": [
+          "Go",
+          "LevelDB"
+        ],
+        "purpose": "Persists currentTerm, votedFor, and log entries to LevelDB before replying to RPCs; generates and installs compact snapshots"
+      },
+      {
+        "name": "Peer gRPC Cluster RPC Transport & Heartbeat Coordinator",
+        "tools_used": [
+          "Go",
+          "gRPC"
+        ],
+        "purpose": "Implements RequestVote, AppendEntries, and InstallSnapshot RPC handlers and client connection connection pools"
+      },
+      {
+        "name": "Client Key-Value State Machine & Linearizable Read Handler",
+        "tools_used": [
+          "Go",
+          "Concurrency"
+        ],
+        "purpose": "Executes Get, Put, and Delete operations against in-memory state machine; routes client requests to active leader"
+      },
+      {
+        "name": "Cluster Partition Chaos & Throughput Benchmark Harness",
+        "tools_used": [
+          "Go",
+          "Concurrency"
+        ],
+        "purpose": "Simulates network partitions, measures election failover latency, and benchmarks write throughput across 5 nodes"
+      },
+      {
+        "name": "Raft Protocol Implementation Guide & Architecture Diagram",
+        "tools_used": [
+          "Go",
+          "Raft"
+        ],
+        "purpose": "Documents state machine transition invariants, election timeout calculations, and LevelDB log encoding layouts"
+      }
+    ],
+    "data_flow": "A client sends a Put(key, value) request to node 1; if node 1 is a follower, it returns the current leader's gRPC address; client redirects request to leader node 2; leader appends the command to its local log and persists to LevelDB; leader sends AppendEntries RPCs containing the new entry to all followers over gRPC; once a majority (3 of 5 nodes) acknowledge replication, the leader advances its commitIndex, applies the entry to the state machine, and replies success to the client; during subsequent heartbeats, followers learn of the new commitIndex and apply the entry to their local state machines.",
+    "enforcement_mechanism": "Raft Election Safety invariant ensuring at most one leader per term; strict quorum write replication (majority = N/2 + 1)."
+  },
+  "targets": [
+    {
+      "metric": "Leader Election Failover Latency",
+      "method": "Wall-clock timing from abrupt leader termination (SIGKILL) to successful election of new cluster leader across 5 nodes",
+      "input": "10 repeated leader termination trials injected during active client traffic",
+      "environment": "Standard 4-core local CPU, Go 1.21+ release binary, 5-node local cluster communicating over loopback ports",
+      "minimum_pass": "p95 leader election failover latency is < 450 milliseconds",
+      "target": "p95 leader election failover latency is < 220 milliseconds",
+      "report": "Leader election failover latency summary and cluster transition log"
+    },
+    {
+      "metric": "Sustained Linearizable Write Throughput",
+      "method": "Committed key-value write transactions per second replicated across majority quorum and persisted to LevelDB",
+      "input": "10,000 sequential Put requests issued across 20 concurrent client worker goroutines",
+      "environment": "5-node local Raft cluster with LevelDB synchronous write options enabled",
+      "minimum_pass": "Sustained write throughput is >= 1,500 operations per second",
+      "target": "Sustained write throughput is >= 4,200 operations per second",
+      "report": "Raft cluster write throughput benchmark report and latency distribution"
+    },
+    {
+      "metric": "Network Partition Recovery Log Consistency Rate",
+      "method": "Verification of identical log entry sequences and state machine key-value pairs across all nodes after partition healing",
+      "input": "Network partition isolating 2 nodes for 30 seconds while 100 writes are committed to the 3-node majority partition",
+      "environment": "Automated network chaos test runner injecting TCP connection drop filters between cluster nodes",
+      "minimum_pass": "5 of 5 nodes achieve identical state machine hash and log parity after partition healing",
+      "target": "5 of 5 nodes achieve identical state machine hash and log parity after partition healing",
+      "report": "Network partition chaos test log and state checksum verification report"
+    }
+  ],
+  "skills": [
+    "Go",
+    "Raft",
+    "gRPC",
+    "Concurrency",
+    "LevelDB",
+    "Distributed Systems",
+    "Systems Programming"
+  ],
+  "starter_input": {
+    "spec": "Directory containing Raft state machine interface, gRPC protobuf schemas, LevelDB storage wrapper, and test harness.",
+    "size": "9 Go source packages, protobuf definition file, and automated cluster chaos test suite",
+    "seeded_cases": "Split-vote election ties, delayed out-of-order AppendEntries frames, and abrupt SIGKILL node terminations",
+    "label_source": "Deterministic Raft paper TLA+ safety invariants and SHA-256 state machine checksum assertions",
+    "personal_data_policy": "Strictly mock synthetic configuration keys and simulated cluster node IDs; no real personal data used"
+  },
+  "components": [
+    {
+      "name": "Raft Core State Machine & Randomized Election Timer",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "Raft Log Replication Engine & Commit Safety Verifier",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "LevelDB Persistent Write-Ahead Log & Snapshot Manager",
+      "task_type": "infra component (broker, DB, orchestrator, cluster service)",
+      "hours": 6.0
+    },
+    {
+      "name": "Peer gRPC Cluster RPC Transport & Heartbeat Coordinator",
+      "task_type": "API endpoint group with tests",
+      "hours": 5.0
+    },
+    {
+      "name": "Client Key-Value State Machine & Linearizable Read Handler",
+      "task_type": "concurrency/consistency mechanism with tests",
+      "hours": 5.0
+    },
+    {
+      "name": "Cluster Partition Chaos & Throughput Benchmark Harness",
+      "task_type": "load or performance test harness + report",
+      "hours": 4.0
+    },
+    {
+      "name": "Raft Protocol Implementation Guide & Architecture Diagram",
+      "task_type": "docs + architecture diagram",
+      "hours": 3.0
+    }
+  ],
+  "extended_path": {
+    "features": [
+      "Dynamic cluster membership changes via Joint Consensus (C_old -> C_old,new -> C_new) configuration transitions",
+      "ReadIndex / LeaseRead optimization servicing linearizable reads without executing AppendEntries disk logging",
+      "Pre-Vote protocol extension preventing partitioned stale nodes from disrupting active cluster leaders upon reconnection"
+    ],
+    "hours": 16
+  },
+  "milestones": [
+    {
+      "name": "Raft Core State Machine & gRPC Election Protocol in Go, Raft and gRPC",
+      "hours": 10,
+      "done_criterion": "Randomized timers trigger elections; candidate gathers majority votes and becomes leader."
+    },
+    {
+      "name": "Log Replication & LevelDB Write-Ahead Logging in LevelDB and Concurrency",
+      "hours": 10,
+      "done_criterion": "Leader replicates log entries across nodes; LevelDB persists WAL; commitIndex advances."
+    },
+    {
+      "name": "Linearizable Key-Value State Machine & Throughput in Distributed Systems",
+      "hours": 10,
+      "done_criterion": "Client executes Get/Put requests; sustained throughput achieves >= 1,500 operations/sec."
+    },
+    {
+      "name": "Network Partition Recovery Anti-Fake Test & Docs in Systems Programming",
+      "hours": 10,
+      "done_criterion": "Partition chaos test confirms majority commits and minority heals; docs and diagrams complete."
+    }
+  ],
+  "prerequisites": [
+    "Proficiency in Go systems programming, goroutines, mutex synchronization, and channel communication",
+    "Deep understanding of distributed consensus concepts, state machine replication, and gRPC/Protobuf protocols"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (purely CPU, memory, and disk I/O bound systems software)",
+    "cost": "$0 (fully open-source Go codebase)",
+    "accounts_keys_quotas": "No external cloud accounts, paid services, or API keys required",
+    "reference_environment": "Local 4-core CPU with Go 1.21+ release compiler and LevelDB dependencies installed",
+    "fallback_path": "In-memory append-only slice persistence if LevelDB CGO bindings encounter compilation hurdles"
+  },
+  "riskiest_component": {
+    "name": "Deadlocks in Concurrent State Transitions and Split-Brain Split-Votes",
+    "mitigation": "Enforce strict lock acquisition hierarchies, randomized election timeouts (150-300ms), and buffered event channels.",
+    "fallback": "Watchdog supervisor goroutine detecting lock stalls exceeding 1 second and dumping goroutine stack traces."
+  },
+  "deliverables": [
+    "Git repository containing Go Raft implementation, gRPC cluster server, LevelDB storage driver, and CLI client",
+    "Automated unit test suite verifying election safety, log matching invariants, and commit progression",
+    "Cluster chaos test harness simulating network partitions and measuring failover latency percentiles",
+    "Screener verification script executing automated 5-node cluster election and partition healing in under 3 minutes"
+  ],
+  "out_of_scope": [
+    "Multi-Raft sharding or distributed range partition architectures (CockroachDB style)",
+    "Byzantine Fault Tolerance (BFT) algorithms handling malicious adversarial nodes",
+    "Cross-WAN geo-distributed consensus optimization"
+  ],
+  "safety_note": null,
+  "resources": [
+    "In Search of an Understandable Consensus Algorithm (Ongaro and Ousterhout - Raft Paper)",
+    "Raft Protocol Interactive Visualization (The Secret Lives of Data)",
+    "Students' Guide to Raft (Jon Gjengset Architecture Reference)"
+  ],
+  "rubric": [
+    {
+      "input": "10 repeated leader kill trials across 5-node local Raft cluster",
+      "action": "go run ./cmd/bench_election --trials 10 --nodes 5",
+      "expected_result": "Cluster detects leader death and successfully elects new leader with p95 latency < 450ms",
+      "evidence_location": "Terminal execution output log and reports/election_failover.json",
+      "pass_criterion": "p95 failover latency < 450ms and 0 split-brain leaders with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "10,000 sequential Put requests across 20 concurrent client goroutines",
+      "action": "go run ./cmd/bench_throughput --requests 10000 --concurrency 20",
+      "expected_result": "Cluster commits transactions across majority and achieves throughput >= 1,500 ops/sec",
+      "evidence_location": "Throughput benchmark report in reports/write_throughput.json",
+      "pass_criterion": "Throughput >= 1500 ops/sec with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "LevelDB persistent WAL recovery test after unexpected cluster process kill",
+      "action": "go test -v ./storage/... -run TestLevelDBWALRecovery",
+      "expected_result": "Node restores currentTerm, votedFor, and all uncompacted log entries from LevelDB with 0 data loss",
+      "evidence_location": "Storage recovery audit log in reports/wal_recovery.json",
+      "pass_criterion": "100 of 100 persisted log entries restored with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "CLI request querying cluster membership and node status via gRPC",
+      "action": "go run ./cmd/raft_cli status --endpoint localhost:5001",
+      "expected_result": "CLI outputs current leader ID, term, active follower addresses, and commitIndex",
+      "evidence_location": "CLI stdout terminal output",
+      "pass_criterion": "Output displays valid leader and 4 connected followers with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Network partition isolating 2 nodes while 20 writes commit to majority",
+      "action": "go test -v ./chaos/... -run TestPartitionHealingConvergence",
+      "expected_result": "Majority commits writes; after partition heals, minority catches up to identical SHA-256 state hash",
+      "evidence_location": "Dynamic partition verification console log and reports/chaos_parity.json",
+      "pass_criterion": "Console confirms identical SHA-256 state hash across all 5 nodes with exit code 0",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected distributed replicated key-value store in Go implementing Raft consensus; achieved sub-[FAILOVER_LATENCY] millisecond leader election failover, and sustained [WRITE_THROUGHPUT] write operations per second with LevelDB persistence.",
+    "claims": [
+      {
+        "text": "achieved sub-[FAILOVER_LATENCY] millisecond leader election failover",
+        "rubric_indexes": [
+          0
+        ]
+      },
+      {
+        "text": "sustained [WRITE_THROUGHPUT] write operations per second with LevelDB persistence",
+        "rubric_indexes": [
+          1
+        ]
+      }
+    ],
+    "do_not_claim": "byzantine fault tolerance or multi-raft sharded transaction coordination"
+  },
+  "verify": [
+    "Run `go test -v ./raft/...` to confirm election safety, log replication, and snapshot tests pass.",
+    "Execute `go run ./cmd/bench_election` to verify failover latency remains < 450ms.",
+    "Run `go test -v ./chaos/... -run TestPartitionHealingConvergence` to confirm partition recovery."
+  ],
+  "worksheet": {
+    "q1": "Core deliverable: a distributed replicated key-value storage engine in Go implementing Raft consensus, LevelDB WAL, and gRPC transport.",
+    "q2": "Target users: distributed systems engineers, infrastructure software developers, and database architects.",
+    "q3": "3 use cases: distributed configuration management, distributed lock manager/leader coordinator, and dynamic service discovery.",
+    "q4": "Stated hours: 40 hours. Calculated bottom-up: 35 component hours * 1.15 buffer = 40.25 -> 40 hours. Advanced level.",
+    "q5": "Hard parts: thread-safe Raft state transitions, AppendEntries safety invariants, LevelDB log compaction/snapshots, and partition chaos.",
+    "q6": "Starter input: Raft interfaces, gRPC protobufs, LevelDB wrapper, and cluster chaos runner. Synthetic test data only.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU/disk bound, $0 cost, zero cloud keys. Fallback: in-memory slice store.",
+    "q8": "Riskiest component: state transition deadlocks and split-vote ties. Fallback: randomized 150-300ms timers and deadlock watchdog.",
+    "q9": "Potential faking: single-node key-value store pretending to be Raft. Anti-fake check 5 partitions 2 nodes, commits 20 writes to majority, heals, and asserts identical state hash.",
+    "q10": "Safe; synthetic configuration keys and private loopback network ports only."
+  }
+}

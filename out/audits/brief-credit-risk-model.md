@@ -1,134 +1,62 @@
-# Technical Audit: Credit Risk Scoring & Loan Underwriting ML System
-**Brief ID:** `brief-credit-risk-model`  
-**Domain:** FinTech Engineering  
-**Reviewer:** Senior Engineering Educator & Technical Reviewer  
+# Audit & Diagnosis: brief-credit-risk-model
+
+- **Old Title**: Credit Risk Scoring & Loan Underwriting ML System
+- **Domain**: FinTech Engineering
+- **Old Difficulty**: INTERMEDIATE
+- **Old Stated Hours**: 28 hours
+- **True Effort Estimate of Old Scope**: ~18-20 hours of implementation; ungrounded stated hours.
+
+### Old Scores (Part 2 Dimensions)
+- Topic Value: 9.0 / 10
+- Verification Rubric: 3.5 / 10 (circular pass lines across all 5 checks)
+- Technical Accuracy: 5.0 / 10 (copied web-service targets; targets lack 7 fields)
+- Scope Realism: 5.0 / 10 (no bottom-up breakdown)
+- Completeness: 4.0 / 10 (capped at 5.0 due to missing starter input, milestones, deliverables, environment)
+- Honesty: 3.5 / 10 (banned employer marketing: 'Slice, KreditBee, EarlySalary, Navi, and MoneyTap', 'BNPL companies (LazyPay, Simpl)', 'FinTech ML roles at Slice, Navi, top tech platforms')
+- Resume Bullet Safety: 4.0 / 10 (pre-filled results and missing 'Do not claim' boundary)
+- **Old Weighted Score**: 4.60 / 10 (Band D)
+
+### Problems Found (with exact quotes)
+1. **Copied web-service targets**:
+   > "Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss."
+   *Flaw*: Evaluated an ML financial risk model with generic web-service throughput targets.
+2. **Heavy employer marketing list**:
+   > "Slice, KreditBee, EarlySalary, Navi, and MoneyTap are all building alternative credit models in India. RBI guidelines require explainable AI for credit decisions. BNPL companies (LazyPay, Simpl) need this..."
 
 ---
 
-### A. Score Table
+## 2. Reviewer Pass & Audit of Redesigned Brief
 
-| Dimension | Score (0-10) | Reason & Direct Quotation |
-| :--- | :---: | :--- |
-| **Topic Value** | 9.0 | High-value technical thesis: *"Traditional credit scoring (CIBIL) excludes 400M+ Indians who lack formal credit..."*. |
-| **Verification Rubric** | 5.0 | Original rubric lacked concrete anti-fake checks and reproducible single-action verification steps. |
-| **Technical Accuracy** | 6.5 | Addressed underlying concurrency, connection management, or error recovery gotchas. |
-| **Scope Realism** | 6.0 | Adjusted milestone hours to align honestly with the intermediate effort band (28 hours). |
-| **Completeness** | 4.5 | Original brief lacked starter dataset specifications, milestones, deliverables, and reference environments. |
-| **Honesty of Claims** | 4.0 | Capped at 4.0 in original due to pre-filled metrics and generalized employer claims. |
-| **Resume Bullet Safety** | 3.5 | Capped at 4.0 for pre-filled outcome numbers without measured placeholders. |
+### Part 8 Reviewer Questions (with text evidence)
+1. **Could a student finish in Est. Time on a normal laptop / free tier?** YES. Core path is 29 hours (INTERMEDIATE); runs locally on 8GB RAM CPU using Scikit-learn and XGBoost at $0 cost.
+2. **Does each performance target name its bottleneck and is reachable?** YES. ROC-AUC (>= 0.74) and Brier score (<= 0.14) evaluated directly on held-out test split.
+3. **Is there a CPU/local/free fallback?** YES. Logistic regression with statsmodels if XGBoost installation encounters issues.
+4. **Can test data be created in minutes?** YES. Synthetic 10,000-applicant financial dataset provided with fixed seed 9912.
+5. **Can screener check rubric in under 10 minutes?** YES. Screener verification script runs full model evaluation and dynamic applicant check in under 2 minutes.
+6. **Are targets and rubric project-specific?** YES. ROC-AUC discrimination, Brier score calibration, and monotonicity constraint verification are unique to credit risk ML.
+7. **Is every bullet claim verified by rubric?** YES. ROC-AUC verified by Check 1; Brier score verified by Check 2; decision latency verified by Check 3.
+8. **Is there an anti-fake check?** YES. Check 5 [anti_fake] generates dynamic applicant with 95.5% utilization and asserts adverse reason code.
+9. **Are all terms accurate?** YES. Accurately covers monotonic constraints, Platt scaling, Brier score, and TreeSHAP attribution.
+10. **Does problem statement promise only what is verified?** YES. Feature engineering, monotonic tree training, probability calibration, and SHAP explainability are all built and tested.
+11. **Are privacy and safety notes addressed?** YES. Strictly synthetic financial attributes; disclaimer forbidding real-money underwriting without compliance.
+12. **Are all hard parts technical?** YES. 4 technical challenges covering class imbalance, monotonic constraints, probability calibration, and TreeSHAP latency.
 
-#### Arithmetic & Overall Score
-- **Weights:** Topic (10%), Rubric (15%), Tech Accuracy (20%), Scope Realism (15%), Completeness (15%), Honesty (15%), Resume Safety (10%)
-- **Calculation:**
-  $$\text{Weighted Score} = (9.0 \times 0.10) + (5.0 \times 0.15) + (6.5 \times 0.20) + (6.0 \times 0.15) + (4.5 \times 0.15) + (4.0 \times 0.15) + (3.5 \times 0.10)$$
-  $$\text{Weighted Score} = 0.90 + 0.75 + 1.30 + 0.90 + 0.675 + 0.60 + 0.35 = 5.475 / 10$$
-- **Overall Score:** **5.48 / 10**
-- **Band:** **D (< 5.5)**
+### New Scores (Part 2 Dimensions)
+- Topic Value: 9.5 / 10
+- Verification Rubric: 9.5 / 10
+- Technical Accuracy: 9.5 / 10
+- Scope Realism: 9.0 / 10
+- Completeness: 9.5 / 10
+- Honesty: 9.5 / 10
+- Resume Bullet Safety: 9.5 / 10
+- **New Weighted Score**: 9.43 / 10 (Band A)
 
----
+### Change Log
+- Scope & Hours: Calculated bottom-up using effort model (25 component hours * 1.15 buffer = 29 hours). Split population stability index (PSI) and cashflow time-series to Extended Path (+14h).
+- Target Realism: Eliminated generic web-service targets; replaced with authentic credit scoring metrics (ROC-AUC discrimination, Brier score calibration, and real-time decision latency).
+- Removed Banned Content: Removed all mentions of Slice, KreditBee, EarlySalary, Navi, MoneyTap, LazyPay, and Simpl.
+- Fixed Rubric: Replaced circular 'passes when verified by automated test script' lines with 5 concrete checks including anti-fake dynamic applicant test.
+- Resume Formula: Formatted into clean single sentence using measured placeholders [MODEL_AUC], [TEST_SET_SIZE], [BRIER_SCORE], and [DECISION_LATENCY] with strict 'Do not claim' boundary.
 
-### B. Serious Problems
-
-1. **Pre-filled Metrics in Resume Bullets:** Original brief contained hardcoded outcome numbers that students could not have verified before building the project. Fixed by replacing with Google X-Y-Z placeholders (`[N]`, `[X%]`, `[M ms]`).
-2. **Missing Starter Input & Seed Datasets:** Original brief did not specify deterministic test fixtures or generator scripts, making screener verification non-reproducible. Added `TARGET APPLICATION / STARTER INPUT`.
-3. **Missing Milestones & Effort Allocation:** Original brief stated hours without a milestone breakdown. Added 4 explicit milestones summing exactly to 28 hours.
-4. **Subjective or Marketing Language:** Removed unsourced hiring claims and framed recruiter signal around objective engineering deliverables.
-
----
-
-### C. Hidden Hard Parts
-
-1. **State Invariants & Edge Failures:** Handling network partitions, unhandled error codes, or unexpected payloads without crashing active background worker processes.
-2. **Resource & Memory Leaks:** Unbounded memory growth from unclosed streams, lingering connections, or memory leaks under sustained load.
-3. **Idempotency & Race Conditions:** Concurrent operations mutating shared state without proper locks or atomic primitives.
-
----
-
-### D. Interviewer Probes
-
-1. *"How did you measure and benchmark your system under peak load, and what was the primary bottleneck you identified?"*
-2. *"How does your architecture handle unexpected network timeouts or upstream service failures without dropping data?"*
-3. *"What architectural compromises did you make to deliver the core path within the 28-hour budget?"*
-
----
-
-### E. What's Good & Worth Keeping
-
-- Core architectural thesis represents real-world engineering responsibilities.
-- Technology stack selection (Python, XGBoost, SHAP, FastAPI, PostgreSQL, Scikit-learn) aligns with modern production environments.
-- Problem statement focuses on fundamental engineering trade-offs rather than trivial tutorial demos.
-
----
-
-### F. Estimated True Effort
-
-Applying the standardized Effort Model:
-- Repository setup, tooling, and baseline fixtures: **6h**
-- Core engine workflows, APIs, and data modeling: **8h**
-- Defensive mechanisms, concurrency safety, and error handling: **8h**
-- Benchmarking, verification scripts, documentation, and screener artifacts: **6h**
-- **Total Core Path Effort:** **28 hours** (fits intermediate band).
-
----
-
-### G. Feasibility Check
-
-1. **Can a student finish CORE PATH in Est. Time on a normal laptop or free cloud tier?** YES. Fully runnable locally.
-2. **Does each performance target name its bottleneck and is it reachable on reference environment?** YES. Clear targets with CPU/memory constraints specified.
-3. **Does the project need paid services, licensed data, or GPU?** NO. All tools are free and open source.
-4. **Can the student create test data in minutes?** YES. Deterministic generator script specified.
-5. **Can a screener check every rubric item in under 10 minutes?** YES. Single-command verification script provided.
-6. **Which component is most likely to blow the budget, and what is the fallback?** Heavy external clustering; fallback is local in-memory or single-container mock.
-7. **Could the result be faked?** Addressed with strict anti-fake checks requiring live log outputs and database state inspections.
-8. **Do licenses, terms, or safety matter?** Clarified that only synthetic fixtures with zero PII are permitted.
-
----
-
-### H. Change Log
-
-- Rebuilt brief into full 14-section standardized format.
-- Tech Stack annotated with precise functional roles in brackets.
-- Replaced pre-filled numbers with Google X-Y-Z placeholders (`[N]`, `[X%]`, `[M ms]`).
-- Formulated 3 seven-field scale targets.
-- Added explicit milestones summing exactly to 28 hours.
-- Created concrete screener verification rubric with anti-fake checks.
-- Added strict "Do not claim" line.
-
----
-
-### I. Self-Check
-
-- [x] All original headings present, in order; footer present; clean text: **PASS**
-- [x] Resume bullet: one sentence; placeholders only; "Do not claim" line present: **PASS**
-- [x] Every tool in Tech Stack has a role in brackets: **PASS**
-- [x] Every Skills item exercised in architecture, milestones, or rubric: **PASS**
-- [x] Milestone hours sum exactly to Est. Time (28h): **PASS**
-- [x] Every target has all seven fields and no absolute claims: **PASS**
-- [x] Same numbers in Targets, Rubric, and Bullet placeholders: **PASS**
-- [x] Rubric has single-check items with concrete pass criteria: **PASS**
-- [x] Every claim in bullet verified by rubric item; anti-fake check included: **PASS**
-- [x] No statistics, salaries, or employer claims: **PASS**
-- [x] Reference environment and fallback path stated: **PASS**
-- [x] Starter input spec, deliverables, and milestones exist: **PASS**
-- [x] Terms are accurate; core idea preserved: **PASS**
-- [x] Every [VERIFY] item tagged where appropriate: **PASS**
-
----
-
-### J. Re-Score of Improved Brief
-
-| Dimension | Score (0-10) | Evaluation of Improved Brief |
-| :--- | :---: | :--- |
-| **Topic Value** | 9.0 | High-impact technical curriculum design. |
-| **Verification Rubric** | 9.2 | Concrete single-check items with observable pass criteria. |
-| **Technical Accuracy** | 9.0 | Solid architectural patterns and error handling boundaries. |
-| **Scope Realism** | 9.0 | Balanced 28h milestone breakdown fitting intermediate band. |
-| **Completeness** | 9.5 | Complete 14-section curriculum with seed specs and deliverables. |
-| **Honesty of Claims** | 9.5 | Zero marketing, strictly bracketed placeholders. |
-| **Resume Bullet Safety** | 9.5 | Single sentence, strict placeholders only, explicit boundary line. |
-
-#### Re-Score Arithmetic
-$$\text{Weighted Score} = (9.0 \times 0.10) + (9.2 \times 0.15) + (9.0 \times 0.20) + (9.0 \times 0.15) + (9.5 \times 0.15) + (9.5 \times 0.15) + (9.5 \times 0.10)$$
-$$\text{Weighted Score} = 0.90 + 1.38 + 1.80 + 1.35 + 1.425 + 1.425 + 0.95 = 9.23 / 10$$
-- **Improved Score:** **9.23 / 10**
-- **Band:** **A (>= 8.5)**
+### Unverified Items ([VERIFY])
+None. All dependencies and test suites run on local free-tier or open-source software.

@@ -1,0 +1,300 @@
+{
+  "id": "brief-container-runtime",
+  "title": "Minimal Container Runtime (Docker-like) in Go",
+  "domain": "Systems Programming",
+  "difficulty": "ADVANCED",
+  "project_types": [
+    "Systems/low-level/networking"
+  ],
+  "problem": "Container management platforms like Docker and Kubernetes rely fundamentally on standard Linux kernel primitives\u2014namespaces, control groups (cgroups v2), and chroot/pivot_root filesystem mounts\u2014wrapped beneath friendly command-line utilities. Operating containers without understanding these low-level abstractions obscures critical boundaries regarding isolation guarantees, memory leak remediation, resource limit enforcement, and root escape vectors. This project implements a minimal OCI-compliant container runtime from scratch in Go that forks child processes into isolated PID, mount, UTS, and network namespaces, configures cgroups v2 memory and CPU ceilings, and pivots into an isolated root filesystem.",
+  "use_cases": [
+    "Secure sandbox process execution for untrusted multi-tenant code runners",
+    "Lightweight edge container execution environments with minimal memory footprint",
+    "Container security research and kernel-level isolation vulnerability assessment"
+  ],
+  "hard_parts": [
+    "Executing Linux system calls (clone, setns, unshare, pivot_root) cleanly in Go without runtime thread corruption",
+    "Interfacing with cgroups v2 unified filesystem hierarchy across memory.max, cpu.max, and pids.max controllers",
+    "Safely unmounting host filesystems and isolating device nodes (/dev, /proc, /sys) to prevent container breakouts",
+    "Managing process synchronization across parent and child processes prior to namespace activation"
+  ],
+  "screener_signals": [
+    "Clean systems-level Go codebase making direct syscalls to Linux kernel primitives",
+    "Demonstrated PID 1 isolation inside the container with 0 host processes visible via ps",
+    "Kernel-enforced cgroups v2 memory limit verification triggering the Linux OOM killer on rogue allocations"
+  ],
+  "job_families": [
+    "Systems Software Engineer",
+    "Infrastructure Security Engineer",
+    "Kernel and Runtime Platform Engineer"
+  ],
+  "stack": [
+    {
+      "tool": "Go",
+      "role": "systems programming language executing low-level Linux syscalls and CLI mechanics"
+    },
+    {
+      "tool": "Linux",
+      "role": "host operating system providing kernel namespaces, cgroups v2, and VFS isolation"
+    },
+    {
+      "tool": "cgroups v2",
+      "role": "kernel resource management hierarchy enforcing memory and CPU limits"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "Process Namespace Isolator",
+        "tools_used": [
+          "Go",
+          "Linux"
+        ],
+        "purpose": "Invokes clone and unshare syscalls to establish isolated PID, UTS, IPC, and mount namespaces"
+      },
+      {
+        "name": "cgroups v2 Controller",
+        "tools_used": [
+          "Go",
+          "cgroups v2"
+        ],
+        "purpose": "Creates unified control group directories and writes memory.max, cpu.max, and pids.max limits"
+      },
+      {
+        "name": "Rootfs Mount & Pivot Engine",
+        "tools_used": [
+          "Go",
+          "Linux"
+        ],
+        "purpose": "Mounts private proc/sys filesystems and executes pivot_root into an isolated rootfs directory"
+      },
+      {
+        "name": "Container Lifecycle CLI",
+        "tools_used": [
+          "Go"
+        ],
+        "purpose": "Provides run, exec, and ps subcommands managing container execution and exit codes"
+      }
+    ],
+    "data_flow": "User invokes the runtime CLI passing an Alpine rootfs and a command; the runtime creates a new cgroups v2 group with configured resource ceilings; the Go runtime re-executes itself via /proc/self/exe with clone flags (CLONE_NEWPID, CLONE_NEWNS, CLONE_NEWUTS); child process assigns its PID to cgroup.procs; the child pivots rootfs into target directory; procfs mounts to /proc; the target command executes as PID 1.",
+    "enforcement_mechanism": "Linux kernel cgroups v2 kills processes exceeding memory.max; PID namespace restricts signal dispatch to container child processes."
+  },
+  "targets": [
+    {
+      "metric": "PID Namespace Process Isolation Invariant",
+      "method": "Inspection of process table (/proc) from inside container versus host process table",
+      "input": "Containerized execution of ps -ef inside isolated Alpine rootfs",
+      "environment": "Linux kernel 5.15+ (Ubuntu 22.04 LTS / Debian 12 / WSL2 with cgroups v2), root/sudo permissions",
+      "minimum_pass": "Target process observes PID 1 and can view 0 host processes from inside namespace",
+      "target": "Target process observes PID 1 and can view 0 host processes from inside namespace",
+      "report": "Container terminal output log comparing internal and external ps results"
+    },
+    {
+      "metric": "cgroups v2 Memory Limit Kernel Enforcement",
+      "method": "Execution of memory allocation program allocating 100MB against a 64MB memory.max limit",
+      "input": "Compiled Go memory-eater script allocating slices in an infinite loop",
+      "environment": "Linux kernel 5.15+ with unified cgroups v2 hierarchy",
+      "minimum_pass": "Container process terminated by kernel OOM killer within 500ms of exceeding limit",
+      "target": "Container process terminated by kernel OOM killer within 150ms of exceeding limit",
+      "report": "Kernel dmesg log and cgroup memory.events file showing oom_kill counter increment"
+    },
+    {
+      "metric": "Container Shell Boot Latency",
+      "method": "Measurement of wall-clock time from CLI invocation to interactive shell prompt readiness",
+      "input": "CLI run command launching /bin/sh inside minimal Alpine Linux rootfs",
+      "environment": "Standard 4-core local CPU, local ext4 filesystem",
+      "minimum_pass": "Container shell boots and responds to command in < 250ms",
+      "target": "Container shell boots and responds to command in < 120ms",
+      "report": "Benchmark execution timing log averaging 20 consecutive container launches"
+    }
+  ],
+  "skills": [
+    "Go",
+    "Linux",
+    "cgroups v2",
+    "System Calls",
+    "Systems Programming"
+  ],
+  "starter_input": {
+    "spec": "Minimal Alpine Linux root filesystem archive (rootfs.tar.gz) and memory stress-testing Go script.",
+    "size": "Alpine Linux base rootfs (approx 5MB unpacked) and memory stress test binary",
+    "seeded_cases": "Fork bomb script testing pids.max, memory exhaustion testing memory.max, and hostname mutation testing UTS isolation",
+    "label_source": "Deterministic kernel event inspection scripts and dmesg log assertions",
+    "personal_data_policy": "Strictly base operating system binaries and synthetic test scripts; no personal user data used"
+  },
+  "components": [
+    {
+      "name": "Linux Namespaces & Process Isolation",
+      "task_type": "low-level/system subsystem",
+      "hours": 8.0
+    },
+    {
+      "name": "cgroups v2 Resource Controllers",
+      "task_type": "low-level/system subsystem",
+      "hours": 5.0
+    },
+    {
+      "name": "Rootfs Mount & pivot_root Isolation",
+      "task_type": "low-level/system subsystem",
+      "hours": 5.0
+    },
+    {
+      "name": "Container Lifecycle CLI & Signal Handling",
+      "task_type": "low-level/system subsystem",
+      "hours": 5.0
+    },
+    {
+      "name": "Integration Test Suite & Kernel Assertions",
+      "task_type": "load or performance test harness + report",
+      "hours": 4.0
+    },
+    {
+      "name": "Documentation, Architecture Diagram & Buffer",
+      "task_type": "docs + architecture diagram",
+      "hours": 3.0
+    }
+  ],
+  "extended_path": {
+    "items": [
+      "Network namespace virtual ethernet (veth) pair setup with bridge routing and NAT iptables rules",
+      "Rootless container execution using user namespaces (CLONE_NEWUSER) and uid/gid mapping"
+    ],
+    "hours": 15
+  },
+  "milestones": [
+    {
+      "name": "Linux Namespaces & Process Isolation Core for Systems Programming",
+      "hours": 9,
+      "done_criterion": "CLI runs child process in isolated PID and UTS namespaces; child observes PID 1."
+    },
+    {
+      "name": "cgroups v2 Memory & CPU Resource Controllers with System Calls",
+      "hours": 9,
+      "done_criterion": "Runtime creates cgroups v2 hierarchy and enforces memory.max and pids.max in tests."
+    },
+    {
+      "name": "Rootfs Mount Isolation, pivot_root & CLI Runner",
+      "hours": 8,
+      "done_criterion": "Runtime pivots into Alpine rootfs and mounts private /proc without host visibility."
+    },
+    {
+      "name": "Security Invariant Tests, Anti-Fake Check & Docs Buffer",
+      "hours": 8,
+      "done_criterion": "OOM killer tests pass; anti-fake test validates dynamic hostname isolation; docs complete."
+    }
+  ],
+  "prerequisites": [
+    "Intermediate Go programming (syscall package, os/exec, process handling)",
+    "Familiarity with Linux operating system concepts (file descriptors, signals, procfs)",
+    "Access to a Linux environment (native Linux, WSL2, or a Linux virtual machine)"
+  ],
+  "environment": {
+    "os": "Linux (native Ubuntu/Debian/Fedora or Windows WSL2 with cgroups v2 enabled)",
+    "ram": "8GB RAM",
+    "gpu": "None required (purely CPU and kernel systems programming)",
+    "cost": "$0 (fully open-source software stack)",
+    "accounts_keys_quotas": "Root or sudo privileges required on local Linux machine to manage namespaces and cgroups",
+    "reference_environment": "Ubuntu 22.04 LTS x86_64 or ARM64 with Go 1.21+ and sudo privileges",
+    "fallback_path": "Local disposable Linux VM using Multipass, Vagrant, or VirtualBox if host OS does not support native namespaces"
+  },
+  "riskiest_component": {
+    "name": "pivot_root System Call Failure on Shared Mount Points",
+    "fallback": "Execute mount make-rprivate on the host root mount before invoking pivot_root to eliminate shared mount propagation errors"
+  },
+  "deliverables": [
+    "Git repository containing Go runtime source code, syscall wrappers, and CLI subcommands",
+    "Minimal Alpine Linux rootfs provisioning script",
+    "Automated test suite verifying PID isolation, cgroups memory caps, and pivot_root security",
+    "Screener verification script running end-to-end container execution in under 2 minutes"
+  ],
+  "out_of_scope": [
+    "Docker Image tarball layer downloading and OCI image registry pulling",
+    "Multi-host overlay networking across distributed nodes",
+    "Seccomp BPF syscall filtering profiles"
+  ],
+  "safety_note": "Requires root or sudo privileges to invoke Linux namespace and cgroup system calls. Execute inside a virtual machine or disposable developer environment.",
+  "resources": [
+    "Linux Programmer's Manual namespaces(7) and cgroups(7) documentation",
+    "Liz Rice - Building a Container from Scratch in Go architecture reference",
+    "Open Container Initiative (OCI) Runtime Specification standard"
+  ],
+  "rubric": [
+    {
+      "input": "sudo ./bin/minidocker run /alpine /bin/ps -ef",
+      "action": "Execute command and inspect process table output",
+      "expected_result": "ps command shows only PID 1 (/bin/ps) and no host background processes",
+      "evidence_location": "Terminal stdout output log",
+      "pass_criterion": "Output contains only 1 running process with PID 1 and returns exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "sudo ./bin/minidocker run --memory 64m /alpine /bin/stress_memory",
+      "action": "Execute memory stress program that attempts to allocate 100MB",
+      "expected_result": "Kernel cgroups v2 detects limit breach and sends SIGKILL to process",
+      "evidence_location": "Terminal output reporting 'Killed' and cgroup memory.events log",
+      "pass_criterion": "Process terminates with exit code 137 and memory.events reports oom_kill count >= 1",
+      "kind": "normal"
+    },
+    {
+      "input": "sudo ./bin/minidocker run /alpine /bin/cat /proc/mounts",
+      "action": "Inspect mounts visible inside container root filesystem",
+      "expected_result": "Only private container mounts are listed; host root filesystem is unmounted and inaccessible",
+      "evidence_location": "Terminal output log of container mounts",
+      "pass_criterion": "Host root mount absent from list and exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Timing benchmark running 20 consecutive container invocations",
+      "action": "Execute python scripts/benchmark_startup.py",
+      "expected_result": "Benchmark calculates mean container startup latency from invocation to exit",
+      "evidence_location": "Benchmark summary console output table",
+      "pass_criterion": "Average startup latency is < 250ms across 20 consecutive runs",
+      "kind": "normal"
+    },
+    {
+      "input": "Dynamic custom hostname generated at runtime by verification script",
+      "action": "sudo ./scripts/verify_dynamic_runtime.sh --hostname dyn-host-8819",
+      "expected_result": "Container sets hostname in isolated UTS namespace; host hostname remains untouched",
+      "evidence_location": "Verification console output comparing host and container hostnames",
+      "pass_criterion": "Container reports dynamic hostname and host reports original hostname with exit code 0",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected minimal OCI-compliant container runtime in Go leveraging Linux namespaces and cgroups unified hierarchy; enforced strict PID namespace isolation, kernel OOM termination under [OOM_MEMORY] memory limits, and sub-[STARTUP_LATENCY] shell startup latency.",
+    "claims": [
+      {
+        "text": "enforced strict PID namespace isolation",
+        "rubric_indexes": [
+          0
+        ]
+      },
+      {
+        "text": "kernel OOM termination under [OOM_MEMORY] memory limits",
+        "rubric_indexes": [
+          1
+        ]
+      },
+      {
+        "text": "sub-[STARTUP_LATENCY] shell startup latency",
+        "rubric_indexes": [
+          3
+        ]
+      }
+    ],
+    "do_not_claim": "production OCI compatibility or multi-tenant kernel sandbox security without committed seccomp and AppArmor profiles"
+  },
+  "verify": [],
+  "worksheet": {
+    "q1": "The student builds a minimal container runtime in Go using Linux namespaces (PID, mount, UTS), cgroups v2 unified resource limits, and rootfs pivot_root isolation.",
+    "q2": "Core path: namespace isolation, cgroups v2 memory/CPU limits, pivot_root mount isolation, and lifecycle CLI (34h). Extended path: veth network pairs and rootless user namespaces (+15h).",
+    "q3": "Components: Namespaces (8h), cgroups v2 (5h), pivot_root (5h), CLI (5h), Integration Tests (4h), Docs & Buffer (3h). Total 30h x 1.15 = 34.5 -> 34h.",
+    "q4": "Project types: Systems/low-level/networking. Metrics: PID Namespace Isolation, Memory Limit Enforcement, Shell Boot Latency. Rejected: web-service RPS throughput.",
+    "q5": "Hard parts: Linux syscall execution in Go, cgroups v2 unified controller hierarchy, pivot_root shared mount traps, and process synchronization.",
+    "q6": "Starter input: minimal Alpine Linux rootfs (5MB) and memory stress-test binary. No personal data.",
+    "q7": "Hardware: Linux with cgroups v2, 8GB RAM, CPU only, $0 cost. Requires sudo. Fallback: disposable Linux VM (Multipass/VirtualBox).",
+    "q8": "Riskiest component: pivot_root shared mount failure. Fallback: make host mount rprivate before pivot.",
+    "q9": "Potential faking: mocked shell script. Anti-fake check 5 validates dynamic hostname setting inside UTS namespace while confirming host hostname is unmodified.",
+    "q10": "Safety/ethics: Requires sudo privileges. Safety note warns users to execute inside disposable VM."
+  }
+}

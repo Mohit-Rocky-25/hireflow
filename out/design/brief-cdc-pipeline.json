@@ -1,0 +1,322 @@
+{
+  "id": "brief-cdc-pipeline",
+  "title": "Change Data Capture (CDC) & Event Sourcing Pipeline",
+  "domain": "Data Engineering",
+  "difficulty": "INTERMEDIATE",
+  "project_types": [
+    "Data pipeline/ETL/streaming",
+    "Distributed systems"
+  ],
+  "problem": "Maintaining consistency between primary transactional databases and downstream search indexes, caches, and analytical stores using batch polling generates excessive database load and introduces unacceptable propagation latency. Polling-based architectures fail to capture intermediate updates and cannot provide reliable audit trails. A Change Data Capture pipeline overcomes these limitations by streaming row-level mutations directly from the database write-ahead log into a partitioned event broker, enabling real-time event dissemination across downstream consumers with low latency and idempotent deduplication guarantees.",
+  "use_cases": [
+    "Synchronizing search indexes with transactional relational databases in real time",
+    "Invalidating distributed application cache layers immediately upon database row mutation",
+    "Streaming transactional events to audit stores and downstream analytical warehouses"
+  ],
+  "hard_parts": [
+    "Configuring PostgreSQL logical decoding and write-ahead log slot management without causing disk saturation during consumer downtime",
+    "Enforcing idempotent consumer writes to prevent duplicate record processing during network partitions and consumer rebalances",
+    "Handling upstream database schema migrations without terminating active Kafka Connect streaming connectors",
+    "Maintaining event ordering across horizontal consumer instances when processing multi-row transactions"
+  ],
+  "screener_signals": [
+    "Reproducible Docker Compose environment running PostgreSQL with wal_level=logical, Kafka, and Debezium",
+    "Demonstrated sub-second end-to-end synchronization from PostgreSQL mutations to Elasticsearch search documents",
+    "Anti-fake verification script validating dynamic column mutations and live search index reflections"
+  ],
+  "job_families": [
+    "Data Platform Engineer",
+    "Data Engineer",
+    "Backend Infrastructure Engineer"
+  ],
+  "stack": [
+    {
+      "tool": "Debezium",
+      "role": "distributed change data capture connector reading PostgreSQL logical replication streams"
+    },
+    {
+      "tool": "Kafka",
+      "role": "distributed event streaming broker buffering row mutation events into partitioned topics"
+    },
+    {
+      "tool": "PostgreSQL",
+      "role": "source relational database configured with logical write-ahead logging"
+    },
+    {
+      "tool": "Python",
+      "role": "consumer service implementation transforming CDC payloads and updating downstream stores"
+    },
+    {
+      "tool": "Docker",
+      "role": "containerized multi-service orchestration for local pipeline testing"
+    },
+    {
+      "tool": "Elasticsearch",
+      "role": "downstream search engine receiving synchronized document updates"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "Transactional Source Database",
+        "tools_used": [
+          "PostgreSQL"
+        ],
+        "purpose": "Stores application entities and writes row-level mutations to the logical replication write-ahead log"
+      },
+      {
+        "name": "CDC Connector Engine",
+        "tools_used": [
+          "Debezium",
+          "Kafka"
+        ],
+        "purpose": "Streams WAL changes as structured JSON event messages into partitioned Kafka topics"
+      },
+      {
+        "name": "Streaming Event Broker",
+        "tools_used": [
+          "Kafka"
+        ],
+        "purpose": "Buffers database change events with key-based partitioning ensuring order per entity ID"
+      },
+      {
+        "name": "Search Synchronization Consumer",
+        "tools_used": [
+          "Python",
+          "Elasticsearch"
+        ],
+        "purpose": "Consumes CDC events, deduplicates records, and updates search index documents idempotently"
+      },
+      {
+        "name": "Containerized Infrastructure",
+        "tools_used": [
+          "Docker"
+        ],
+        "purpose": "Orchestrates PostgreSQL, Kafka broker, Debezium Connect, and Elasticsearch containers"
+      }
+    ],
+    "data_flow": "An application executes INSERT, UPDATE, or DELETE operations in PostgreSQL; the PostgreSQL WAL records the transaction; the Debezium connector captures the mutation and produces a structured event to Kafka; Python consumer processes read the topic; consumers enforce idempotent upserts into Elasticsearch using entity IDs as document identifiers; search queries immediately reflect the latest database state.",
+    "enforcement_mechanism": "Idempotent consumer upserts using PostgreSQL primary keys as Elasticsearch document IDs; Kafka key partitioning ensuring strict per-record ordering."
+  },
+  "targets": [
+    {
+      "metric": "End-to-End Change Propagation Latency",
+      "method": "Timestamp delta measurement between PostgreSQL commit and Elasticsearch document indexing",
+      "input": "1,000 synthetic database mutation transactions streamed at 100 operations per second",
+      "environment": "Standard 4-core local CPU, 8GB RAM, Docker Compose",
+      "minimum_pass": "p95 end-to-end propagation latency < 1,500ms",
+      "target": "p95 end-to-end propagation latency < 750ms",
+      "report": "Latency benchmark summary table and timestamp difference histogram"
+    },
+    {
+      "metric": "Idempotent Deduplication Invariant",
+      "method": "Injection of 500 duplicate Kafka message offsets into consumer group",
+      "input": "1,000 unique entity mutations with 500 deliberately redelivered duplicate payloads",
+      "environment": "Standard 4-core local CPU, Docker Compose environment",
+      "minimum_pass": "Downstream Elasticsearch document count equals exactly 1,000 with 0 duplicate records",
+      "target": "Downstream Elasticsearch document count equals exactly 1,000 with 0 duplicate records",
+      "report": "Verification script report comparing source table count with index count"
+    },
+    {
+      "metric": "CDC Pipeline Ingestion Throughput",
+      "method": "High-volume batch insertion load test measuring processed CDC events per second",
+      "input": "20,000 synthetic row insertions executed via bulk transaction script",
+      "environment": "Standard 4-core local CPU, 8GB RAM, local SSD storage",
+      "minimum_pass": "Sustained pipeline capture throughput > 1,000 events/sec without connector lag buildup",
+      "target": "Sustained pipeline capture throughput > 2,500 events/sec without connector lag buildup",
+      "report": "Debezium metrics log reporting source-record-poll-rate and consumer lag"
+    }
+  ],
+  "skills": [
+    "Debezium",
+    "Kafka",
+    "PostgreSQL",
+    "Python",
+    "Docker",
+    "Elasticsearch",
+    "Data Pipelines"
+  ],
+  "starter_input": {
+    "spec": "E-commerce product catalog schema in PostgreSQL with products, inventory, and categories tables.",
+    "size": "5,000 initial product records and synthetic mutation generator producing 20,000 updates",
+    "seeded_cases": "Rapid multi-column updates, out-of-order event arrivals, schema column addition (ALTER TABLE), and transaction aborts",
+    "label_source": "Deterministic SQL migration scripts and Python test generators with fixed seed 8821",
+    "personal_data_policy": "Strictly mock synthetic product catalog and inventory data; no personal user information used"
+  },
+  "components": [
+    {
+      "name": "PostgreSQL WAL Replication & Schema Setup",
+      "task_type": "infra component (broker, DB, orchestrator, cluster service)",
+      "hours": 4.0
+    },
+    {
+      "name": "Debezium Kafka Connect Configuration",
+      "task_type": "data pipeline step",
+      "hours": 5.0
+    },
+    {
+      "name": "Idempotent Python Consumer & Sync Logic",
+      "task_type": "API endpoint group with tests",
+      "hours": 4.0
+    },
+    {
+      "name": "Elasticsearch Sync & Schema Evolution",
+      "task_type": "one third-party integration",
+      "hours": 4.0
+    },
+    {
+      "name": "Benchmark Harness & Chaos Duplicate Tests",
+      "task_type": "load or performance test harness + report",
+      "hours": 4.0
+    },
+    {
+      "name": "Documentation, Schema Diagram & Buffer",
+      "task_type": "docs + architecture diagram",
+      "hours": 4.0
+    }
+  ],
+  "extended_path": {
+    "items": [
+      "Transactional Outbox pattern implementation using Debezium Outbox Event Router",
+      "Schema Registry integration enforcing Avro or JSON Schema compatibility checks"
+    ],
+    "hours": 14
+  },
+  "milestones": [
+    {
+      "name": "PostgreSQL Logical Replication & Kafka Connect Setup",
+      "hours": 8,
+      "done_criterion": "PostgreSQL wal_level=logical configured; Debezium connector captures row mutations to Kafka topics."
+    },
+    {
+      "name": "Python Consumer & Idempotent Elasticsearch Sync for Data Pipelines",
+      "hours": 7,
+      "done_criterion": "Python consumer ingests CDC events from Kafka and synchronizes documents into Elasticsearch."
+    },
+    {
+      "name": "Deduplication Testing & Schema Evolution Verification",
+      "hours": 8,
+      "done_criterion": "Test suite verifies 0 duplicate index documents on injected redeliveries and handles ALTER TABLE changes."
+    },
+    {
+      "name": "Latency Benchmarks, Anti-Fake Test, Docs & Buffer",
+      "hours": 6,
+      "done_criterion": "Benchmark verifies p95 sync latency < 1,500ms; anti-fake test validates dynamic record sync; docs complete."
+    }
+  ],
+  "prerequisites": [
+    "Intermediate Python programming and async IO concepts",
+    "Relational database administration basics (PostgreSQL WAL, replication slots)",
+    "Familiarity with event streaming concepts (Kafka topics, partitions, consumer groups)"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM (minimum 4GB allocated to Docker)",
+    "gpu": "None required (purely CPU-bound event streaming)",
+    "cost": "$0 (fully open-source software stack)",
+    "accounts_keys_quotas": "No external cloud accounts or paid API keys required",
+    "reference_environment": "Local 4-core CPU with Docker Engine 24+ and Docker Compose installed",
+    "fallback_path": "Local SQLite WAL polling mock pipeline without Docker if container resources are constrained"
+  },
+  "riskiest_component": {
+    "name": "PostgreSQL Replication Slot Disk Saturation during Consumer Inactivity",
+    "fallback": "Configure max_slot_wal_keep_size in postgresql.conf to bound WAL retention on local disk"
+  },
+  "deliverables": [
+    "Git repository containing Docker Compose files, Debezium connector configurations, and Python consumers",
+    "SQL migration scripts creating source schemas and test transaction generators",
+    "Benchmark script measuring end-to-end synchronization latency and throughput",
+    "Screener verification script executing pipeline tests and dynamic record validation in under 3 minutes"
+  ],
+  "out_of_scope": [
+    "Bi-directional active-active database replication",
+    "Heterogeneous cross-cloud CDC synchronization",
+    "Real-time stream processing with Apache Flink"
+  ],
+  "safety_note": null,
+  "resources": [
+    "Debezium PostgreSQL Connector official documentation",
+    "Apache Kafka consumer group and partition rebalancing architecture guide",
+    "PostgreSQL documentation on logical decoding and write-ahead logging"
+  ],
+  "rubric": [
+    {
+      "input": "docker compose up -d command execution",
+      "action": "Check health of PostgreSQL, Kafka, and Debezium containers",
+      "expected_result": "All containers report healthy and Debezium connector status shows RUNNING",
+      "evidence_location": "Docker status output and curl http://localhost:8083/connectors/postgres-cdc/status",
+      "pass_criterion": "Connector state equals RUNNING with 1/1 tasks running and exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "SQL INSERT statement executed in PostgreSQL products table",
+      "action": "Query Elasticsearch products index for newly inserted record",
+      "expected_result": "Elasticsearch returns matching document within 1,500ms of database commit",
+      "evidence_location": "Elasticsearch search response JSON payload",
+      "pass_criterion": "Document matches PostgreSQL row fields with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Injection of 500 duplicate Kafka messages into product CDC topic",
+      "action": "Execute deduplication verification test script",
+      "expected_result": "Consumer idempotently handles duplicates without creating duplicate Elasticsearch documents",
+      "evidence_location": "Elasticsearch index count API output",
+      "pass_criterion": "Final document count exactly equals source table count with 0 duplicates",
+      "kind": "normal"
+    },
+    {
+      "input": "High-volume batch load of 1,000 mutations across 10 seconds",
+      "action": "Run python scripts/benchmark_latency.py",
+      "expected_result": "Benchmark script measures end-to-end latency for each transaction",
+      "evidence_location": "Benchmark summary console report",
+      "pass_criterion": "Measured p95 end-to-end sync latency is < 1,500ms across all mutations",
+      "kind": "normal"
+    },
+    {
+      "input": "Dynamic product SKU and randomized price generated at runtime by verification script",
+      "action": "Run python scripts/verify_dynamic_mutation.py --sku DYN-7890",
+      "expected_result": "Script executes SQL update, monitors Kafka offset, and confirms dynamic SKU in Elasticsearch",
+      "evidence_location": "Verification execution console output log",
+      "pass_criterion": "Script confirms dynamic record reflected in search index within 2 seconds with exit code 0",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected Change Data Capture pipeline using Debezium and Kafka streaming PostgreSQL write-ahead logs to Elasticsearch; achieved [P95_LATENCY] tail sync freshness and sustained [THROUGHPUT_RATE] events/sec throughput with idempotent deduplication across [EVENT_COUNT] event mutations.",
+    "claims": [
+      {
+        "text": "achieved [P95_LATENCY] tail sync freshness",
+        "rubric_indexes": [
+          1,
+          3
+        ]
+      },
+      {
+        "text": "sustained [THROUGHPUT_RATE] events/sec throughput",
+        "rubric_indexes": [
+          3
+        ]
+      },
+      {
+        "text": "idempotent deduplication across [EVENT_COUNT] event mutations",
+        "rubric_indexes": [
+          2
+        ]
+      }
+    ],
+    "do_not_claim": "zero-lag replication across global regions or multi-master conflict resolution without committed cluster logs"
+  },
+  "verify": [],
+  "worksheet": {
+    "q1": "The student builds a Change Data Capture pipeline using Debezium to stream PostgreSQL write-ahead log mutations into Kafka, synchronizing a downstream Elasticsearch search index idempotently.",
+    "q2": "Core path: PostgreSQL logical replication, Debezium connector, Kafka streaming, Python idempotent consumer, and Elasticsearch sync (29h). Extended path: Transactional outbox router and Schema Registry integration (+14h).",
+    "q3": "Components: PostgreSQL WAL (4h), Debezium Connect (5h), Python Consumer (4h), Elasticsearch Sync (4h), Benchmark & Chaos (4h), Docs & Buffer (4h). Total 25h x 1.15 = 29h.",
+    "q4": "Project types: Data pipeline/ETL/streaming, Distributed systems. Metrics: End-to-End Change Propagation Latency, Idempotent Deduplication Invariant, Ingestion Throughput. Rejected: GPU inference throughput.",
+    "q5": "Hard parts: PostgreSQL replication slot disk retention, consumer duplicate handling, schema evolution handling, and event ordering across partitions.",
+    "q6": "Starter input: synthetic product catalog schema with 5,000 initial records and update script producing 20,000 mutations. No personal data.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU only, $0 cost, zero cloud accounts. Fallback: SQLite WAL mock without Docker.",
+    "q8": "Riskiest component: Replication slot WAL disk buildup. Fallback: configure max_slot_wal_keep_size.",
+    "q9": "Potential faking: pre-populated Elasticsearch index. Anti-fake check 5 inserts a dynamic random product SKU at runtime and verifies live end-to-end synchronization.",
+    "q10": "Safety/ethics: Safe; synthetic e-commerce catalog data only."
+  }
+}

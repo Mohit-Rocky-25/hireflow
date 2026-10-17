@@ -1,122 +1,156 @@
-PROJECT BRIEF — Automated TLS Certificate Manager with ACME Protocol
+PROJECT BRIEF — Automated TLS Certificate Manager with ACME Protocol (DNS-01 / HTTP-01 Challenges) & Dynamic Reload
 ======================================================================
 
 Domain    : Security & Platform
-Difficulty: intermediate
-Est. Time : 28 hours (Core Path) | Extended Path: +6 hours
-Tech Stack: Go [compiled systems runtime and networking implementation], ACME Protocol [acme protocol component], TLS [tls component], PostgreSQL [relational database management system], Prometheus [metrics collection and time-series monitoring]
+Difficulty: INTERMEDIATE
+Est. Time : 28 hours (core path, estimate). Extended path: +14 hours
+Tech Stack: Go (primary systems programming language implementing the ACME protocol client, challenge engine, and reload daemon), ACME Protocol (RFC 8555 standard automated certificate management protocol specification for domain validation), TLS (transport layer security cryptographic protocol providing encrypted communication and X.509 certificate validation), PostgreSQL (relational database storing domain metadata, encrypted private keys, challenge statuses, and expiry logs), Prometheus (metrics monitoring system scraping certificate expiration dates, renewal latencies, and challenge error counters), Nginx (reverse proxy edge server dynamically reloading rotated TLS certificates without dropping active connections), Docker (container runtime packaging the local Pebble ACME test server, PostgreSQL, Nginx, and manager service)
 
 PROBLEM STATEMENT
-----------------------------------------
-Manual TLS certificate management causes production outages when certificates expire unexpectedly. Build an automated certificate manager that implements the ACME protocol (used by Let's Encrypt), automatically renews certificates, distributes them across services, and monitors expiry.
+----------------------------------------------------------------------
+Manual TLS certificate management and ad-hoc renewal scripts cause production outages when domain certificates expire unexpectedly, producing disruptive browser trust warnings and breaking critical API gateways. Furthermore, multi-tenant SaaS platforms hosting thousands of customer subdomains cannot rely on manual DNS or HTTP challenge responses without exposing DNS credentials or incurring edge server downtime during certificate reloads. This project builds a production-grade automated TLS certificate manager in Go implementing RFC 8555 ACME protocol client workflows. The daemon automatically fulfills DNS-01 and HTTP-01 validation challenges against Let's Encrypt and Pebble ACME servers, securely encrypts private keys at rest in PostgreSQL, schedules proactive renewals 30 days prior to certificate expiration, executes zero-downtime hot reloads of Nginx edge proxies, and exports certificate lifecycle metrics to Prometheus.
 
 USE CASES IN THE REAL WORLD
-----------------------------------------
-Cert-manager (Kride-hailing dispatch networksnetes), Caddy server, and Traefik all implement ACME automatically. Every website serving HTTPS needs certificate management. Understanding ACME and TLS certificate lifecycle is essential for security and platform engineering roles.
+----------------------------------------------------------------------
+- {'title': 'Multi-Tenant SaaS Custom Domain TLS Automation', 'first_sentence': 'Enterprise SaaS platforms hosting custom branded domains for business clients must provision trusted HTTPS endpoints automatically upon domain verification.', 'second_sentence': 'The Go certificate manager completes automated DNS-01 challenges via cloud DNS APIs, receives signed X.509 certificates, and binds them to edge reverse proxies without human intervention.'}
+- {'title': 'Zero-Downtime Edge Ingress Certificate Rotation', 'first_sentence': 'E-commerce web gateways serving high volumes of active shopping carts cannot drop inflight TCP connections during monthly certificate renewals.', 'second_sentence': 'The daemon pushes newly issued TLS bundles to Nginx via atomic configuration symlinks and sends SIGHUP signals, executing seamless zero-downtime reloads.'}
+- {'title': 'Internal Microservice mTLS Certificate Lifecycle Management', 'first_sentence': 'Platform engineering teams operating internal microservices need automated rotation of internal CA certificates before strict expiry windows.', 'second_sentence': 'The system monitors certificate expiry timers in PostgreSQL, tracks remaining validity in Prometheus, and fires alerts 14 days before certificate retirement.'}
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-TLS certificates, ACME protocol, DNS-01/HTTP-01 challenge types, and certificate distribution are topics that appear in security and platform engineering interviews. A working ACME client demonstrates cryptographic knowledge and security system design capability.
+WHY THIS IS HARD
+----------------------------------------------------------------------
+- Implementing the RFC 8555 ACME state machine in Go, including account key generation, order authorization, challenge polling, and CSR finalization
+- Fulfilling DNS-01 challenge propagation checks and HTTP-01 ephemeral token routing through reverse proxies without exposing infrastructure DNS keys
+- Executing atomic certificate file updates and zero-downtime Nginx hot reloads while maintaining active persistent TLS connections
+- Designing proactive renewal cron workers with exponential backoff and jitter to prevent thundering herd failures against ACME rate limits
 
 RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-TLS internals, certificate lifecycle management, and cryptographic protocol implementation are explicitly valued in security engineering and platform roles. Engineers who understand how Let's Encrypt works at the protocol level can contribute to security infrastructure at any company.
+----------------------------------------------------------------------
+- Clean Go codebase cleanly separating ACME protocol client logic, challenge handlers, encrypted certificate storage, and proxy reload drivers
+- Automated integration test report proving successful order fulfillment, DNS-01 verification, and X.509 certificate issuance against local Pebble ACME server
+- Anti-fake verification script presenting an expired certificate or invalid ACME signature and confirming immediate handshake failure and validation rejection
+Relevant Job Families: Security Engineer, Site Reliability Engineer (SRE), Cloud Infrastructure Engineer
 
 ARCHITECTURE & DATA FLOW
-----------------------------------------
-Go ACME client implementing DNS-01 challenge for domain validation. Certificate store (PostgreSQL or file system) with expiry tracking. Background goroutine checking expiry and triggering renewal 30 days before. Distribution mechanism pushing renewed certificates to Nginx/HAProxy. Monitoring dashboard with expiry calendar.
+----------------------------------------------------------------------
+Components:
+- ACME Protocol Client & Order State Machine in Go (Tools: Go, ACME Protocol): Manages ACME account keys, orders certificates, signs cryptographic nonces, and retrieves finalized X.509 certificate chains
+- DNS-01 & HTTP-01 Validation Challenge Engine (Tools: Go, ACME Protocol, TLS): Solves challenge tokens by serving HTTP-01 key authorizations or injecting DNS TXT validation records
+- Encrypted Certificate Store & Postgres Repository (Tools: Go, PostgreSQL): Encrypts RSA/ECDSA private keys with AES-256-GCM, stores certificate chains, and indexes domain renewal timestamps
+- Nginx Zero-Downtime Reload Controller & Hot Swapper (Tools: Go, Nginx, Docker): Atomically updates TLS bundle symlinks on disk and executes graceful Nginx reloads via SIGHUP signals
+- Renewal Scheduler & Prometheus Expiry Monitor (Tools: Go, Prometheus): Runs background ticker querying expiring certificates (< 30 days) and exports certificate_expiry_timestamp_seconds metrics
+- ACME Certificate Manager Benchmark & Challenge Test Suite (Tools: Go, Docker): Tests concurrent challenge fulfillment against Pebble server and measures reload latency overhead under synthetic load
+- Certificate Manager Security Guide & Architecture Diagram (Tools: Go, TLS): Documents RFC 8555 cryptographic workflows, AES-GCM key storage schemas, and automated disaster recovery procedures
+
+Data Flow:
+The renewal scheduler identifies domains with certificates expiring within 30 days from PostgreSQL; the ACME client initiates an order request with the ACME server; the server returns challenge URLs; the challenge engine creates an ephemeral HTTP-01 token endpoint or publishes a DNS-01 TXT record; the ACME server validates the challenge and issues authorization; the Go client generates an ECDSA keypair, signs a Certificate Signing Request (CSR), and finalizes the order; the signed X.509 certificate chain is downloaded, encrypted, and saved to PostgreSQL; the reload controller atomically swaps the certificate file on disk and signals Nginx; Nginx hot-reloads TLS contexts without dropping in-flight requests; Prometheus scrapes remaining validity metrics.
+
+Enforcement Mechanism:
+Cryptographic ECDSA/RSA key signing and ACME SHA-256 token authorizations validated by RFC 8555 conformance checks.
 
 SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Target 1:
-- Metric: Request Processing Latency Overhead (p99)
-- Method: Concurrent HTTP load test using k6 / vegeta over 60s sustained run
-- Input/dataset: Standard synthetic JSON payload (~1KB) over 5,000 concurrent requests
-- Reference environment: Local 4-core CPU, 8GB RAM, loopback network interface
-- Minimum pass: p99 latency overhead < 25ms under 1,000 req/sec
-- Target: p99 latency overhead < 5ms under 5,000 req/sec
-- Report format: k6 terminal summary report and CSV latency distribution
-
-Target 2:
-- Metric: Sustained Concurrency & Correctness
-- Method: Continuous load test simulating concurrent client connections with idempotency checks
-- Input/dataset: Synthetic benchmark traffic across 50 concurrent worker threads
-- Reference environment: Local Docker Compose or native runtime
-- Minimum pass: Sustained throughput > [N] req/sec with 0 lost writes in [K] attempts
-- Target: Sustained throughput > [N] req/sec (target > 5,000 req/sec) with 0 lost writes in [K] attempts
-- Report format: Benchmark throughput table and error rate summary
-
-Target 3:
-- Metric: Fault Recovery / Failover Duration
-- Method: Injected worker process termination during active continuous request stream
-- Input/dataset: SIGKILL or chaos fault injection on worker process
-- Reference environment: Local multi-process or containerized cluster
-- Minimum pass: Service detects failure and reroutes traffic with recovery time < [S] seconds (pass < 5s)
-- Target: Service detects failure and recovers state with recovery time < [S] seconds (target < 2s)
-- Report format: System log timestamps comparing failure injection to state recovery
+----------------------------------------------------------------------
+Metric | Method | Input/Dataset | Reference Environment | Minimum Pass | Target | Report Format
+Automated ACME Challenge Completion & Issuance Latency | Wall-clock duration from initial ACME order creation to final X.509 certificate download and verification against Pebble ACME server | 20 sequential certificate orders issued across synthetic local domain names | Standard 4-core local CPU, Docker Desktop running Pebble ACME test server and Go manager daemon | p95 certificate issuance duration is < 4.5 seconds per domain | p95 certificate issuance duration is < 2.1 seconds per domain | ACME issuance benchmark log and challenge timing distribution summary
+Proactive Expiry Rotation Scheduling Reliability | Percentage of mock certificates expiring within 30 days identified and queued for renewal without operator intervention | 50 mock domain certificates seeded with varying expiry dates (10 expiring in 15 days, 40 expiring in 90 days) | PostgreSQL database instance containing 50 simulated domain certificate records | 10 of 10 expiring certificates scheduled and 40 of 40 non-expiring certificates ignored | 10 of 10 expiring certificates scheduled and 40 of 40 non-expiring certificates ignored | Renewal scheduler audit log and PostgreSQL queue status export
+Zero-Downtime Nginx Edge Gateway TLS Reload Availability | Percentage of HTTP GET requests returning 200 OK without dropped TCP connections during Nginx TLS certificate hot reload | 1,000 continuous HTTP GET requests issued at 100 RPS while SIGHUP reload executes mid-stream | Local Docker container running Nginx reverse proxy with active client curl benchmark | 1,000 of 1,000 requests succeed with 0 connection resets and p95 latency < 25 milliseconds | 1,000 of 1,000 requests succeed with 0 connection resets and p95 latency < 12 milliseconds | Nginx hot reload traffic benchmark report and error log audit
 
 SKILLS COVERED
-----------------------------------------
-Go, TLS, Security, Cryptography, DevOps, Networking
+----------------------------------------------------------------------
+Go, ACME Protocol, TLS, PostgreSQL, Prometheus, Nginx, Docker, Security, DevOps
 
 TARGET APPLICATION / STARTER INPUT
-----------------------------------------
-The project provides a self-contained test environment and fixture generator located in `scripts/` or `fixtures/`. It deterministically generates representative input records or mock client traffic for automated validation. No third-party proprietary data or real personal identifiers (PII) are required; all test datasets use synthetic tokens and deterministic random seeds.
+----------------------------------------------------------------------
+- Specification: Directory containing Go ACME daemon skeleton, Pebble ACME server Docker Compose, PostgreSQL schema, and mock Nginx configs.
+- Dataset / Traffic Size: 10 Go source files, SQL migrations, Docker Compose manifest, Nginx configuration templates, and automated verification scripts
+- Seeded Edge Cases: Expired X.509 certificates, invalid DNS challenge tokens, revoked intermediate CAs, and abrupt proxy termination mid-reload
+- Label / Verification Source: Deterministic OpenSSL x509 verification outputs, Pebble server challenge logs, and PostgreSQL transaction commits
+- Personal Data Policy: Strictly mock synthetic domain names and simulated organization identifiers; no real personal data used
 
 MILESTONES
-----------------------------------------
-- Milestone 1: Environment Setup & Core Foundations (6h)
-  Configure repository, tooling, container dependencies, and foundational data structures. Done when foundational test suite passes with clean linting.
-- Milestone 2: Core Processing & Architecture Implementation (8h)
-  Implement primary operational workflows, database models or state transitions, and API endpoints. Done when integration tests verify end-to-end data flow under normal operating conditions.
-- Milestone 3: Concurrency, Reliability & Error Guardrails (8h)
-  Implement defensive controls: rate limiting, retries with exponential backoff, transaction boundaries, and failure isolation. Done when chaos or stress tests verify graceful degradation under fault injection.
-- Milestone 4: Verification, Benchmarking & Documentation (6h)
-  Execute performance benchmark harness, compile measurement tables, generate architectural diagrams, and document screener verification steps. Done when `scripts/verify_all` passes completely.
+----------------------------------------------------------------------
+M1: ACME RFC 8555 Protocol State Machine & Pebble Testbed in Go and ACME Protocol (7h) — Done when: Pebble ACME server boots in Docker; Go client registers account key and opens certificate order.
+M2: DNS-01 / HTTP-01 Challenge Validation & X.509 Issuance in TLS and Docker (7h) — Done when: HTTP-01 token handler completes verification; Pebble issues cryptographically valid X.509 certificate.
+M3: Encrypted Storage, Renewal Cron & Nginx Dynamic Reload in PostgreSQL, Nginx and DevOps (7h) — Done when: Private keys encrypt at rest in PostgreSQL; Nginx reloads new certificates with 0 dropped requests.
+M4: Prometheus Metrics, Anti-Fake Tampered Signature Test & Docs in Prometheus and Security (7h) — Done when: Prometheus scrapes expiry timestamps; anti-fake test blocks forged certificate; documentation complete.
+Total: 28 hours (estimate)
 
 PREREQUISITES, ENVIRONMENT AND ACCOUNTS
-----------------------------------------
-- Prerequisites: Familiarity with Go and ACME Protocol, standard command-line tools, and fundamental testing principles.
-- Hardware / OS: Standard modern computer (macOS, Linux, or Windows with WSL2) with at least 8GB RAM.
-- Accounts & Services: None required. Designed to run completely on free, open-source local software.
-- Fallback Path: In-memory mock drivers or SQLite/local files provided if external database or message broker containers cannot be run.
+----------------------------------------------------------------------
+Prerequisites: Proficiency in Go programming, goroutines, channels, and standard networking libraries (net/http, crypto/tls), Understanding of Public Key Infrastructure (PKI), X.509 certificates, TLS handshakes, and DNS record management
+
+Environment & Hardware:
+- OS: Linux / macOS / Windows with WSL2
+- Memory: 8GB RAM
+- Compute / GPU: None required (purely CPU and cryptographic operations)
+- Estimated Cost: $0 (fully open-source stack using local Pebble ACME server in Docker Desktop)
+- Accounts & Quotas: No paid cloud accounts, commercial DNS providers, or public Let's Encrypt production rate limits required
+- Reference Environment: Local 4-core CPU, Docker Desktop (Pebble ACME, Pebble-Challtestsrv, PostgreSQL), Go 1.21+
+- Fallback Path: Self-signed mock CA simulator if Docker Pebble container cannot be provisioned
+
+Riskiest Component & Fallback:
+- Riskiest Component: Outages from Defective Certificate Symlink Swapping or Failed Nginx Reloads
+- Simpler Fallback: Automated rollback hook restoring previous verified certificate bundle upon SIGHUP failure.
 
 DELIVERABLES
-----------------------------------------
-1. Clean Git repository with structured commit history, README, and reproducible setup commands.
-2. Production-quality core codebase with automated test suite achieving verified pass rates.
-3. Performance benchmark report (`results/benchmark_report.md`) documenting measured latency, throughput, and resource utilization.
-4. Screener verification script (`scripts/verify_all.sh` or equivalent) validating the full system in < 3 minutes.
-5. Architecture diagram (Mermaid/ASCII) and known limitations document explaining architectural trade-offs.
+----------------------------------------------------------------------
+- Go source repository containing ACME client daemon, challenge fulfillment handlers, and Nginx reload controller
+- Docker Compose harness provisioning local Pebble ACME testbed, challenge server, PostgreSQL, and Nginx
+- Prometheus alert rules monitoring certificate expiration thresholds and ACME challenge failure rates
+- Screener verification script executing end-to-end issuance, reload test, and anti-fake validation in under 3 minutes
 
 OUT OF SCOPE AND EXTENDED PATH
-----------------------------------------
-- Out of Scope for Core Path: Distributed multi-region clustering, enterprise SSO integrations, complex third-party SaaS dependencies.
-- Extended Path (+6 hours): Advanced telemetry dashboard, distributed persistence cluster extension, or automated canary release pipeline.
+----------------------------------------------------------------------
+Out of Scope:
+- Commercial certificate authority integration (DigiCert, Sectigo paid APIs)
+- Public DNS registrar domain purchase automation
+- Physical HSM appliance hardware driver configuration
 
-SAFETY AND ETHICS NOTE
-----------------------------------------
-All data processed, generated, and benchmarked by this project consists exclusively of synthetic fixtures. No personal identifiable information (PII), proprietary credentials, or live external endpoints are used.
+Extended Path: None (self-contained core scope)
 
 LEARNING RESOURCES
-----------------------------------------
-- Official Documentation for Go, ACME Protocol, TLS
-- Architectural Reference Patterns and RFC Standards [VERIFY URL]
-- Systems & Distributed Reliability Principles
+----------------------------------------------------------------------
+- RFC 8555: Automatic Certificate Management Environment (ACME) Specification
+- Let's Encrypt Pebble: Lightweight ACME Test Server for Local Testing
+- Go crypto/x509 and crypto/tls Standard Library Documentation
 
 SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Check 1: Verify aCME client completing DNS-01 challenge and obtaining valid Let's Encrypt certificate; Pass when automated test script prints 0 errors and logs verified status code.
-2. Check 2: Verify automatic renewal triggered exactly 30 days before expiry; Pass when automated test script prints 0 errors and logs verified status code.
-3. Check 3: Verify certificate distribution push to Nginx configuration with zero-downtime reload; Pass when automated test script prints 0 errors and logs verified status code.
-4. Check 4: Verify expiry monitoring: Prometheus metric and alert for certificates expiring < 14 days; Pass when automated test script prints 0 errors and logs verified status code.
-5. Check 5: Verify revocation handling: OCSP stapling and CRL checking implementation; Pass when automated test script prints 0 errors and logs verified status code.
-6. Check 6: 6. Anti-Fake Verification Check: Inspect committed execution logs and re-run verification script against seeded test fixtures; pass when runtime metrics dynamically reflect test execution rather than static mocked responses.
+----------------------------------------------------------------------
+1. Check
+   Input: 20 sequential certificate order requests targeting local Pebble ACME server
+   Action: go run ./cmd/certmgr --domains test.local --issue-all
+   Result: ACME state machine fulfills challenges and downloads valid X.509 certs in < 4.5s p95
+   Evidence: Terminal output log and reports/acme_issuance.json
+   Pass: 20 of 20 certificates issued with exit code 0
+2. Check
+   Input: 50 mock database records with 10 certificates expiring in 15 days
+   Action: go test ./pkg/scheduler -v -run TestProactiveRenewalQueue
+   Result: Scheduler queues exactly 10 expiring certificates for rotation and ignores 40 healthy ones
+   Evidence: Test log output in reports/scheduler_audit.json
+   Pass: 10 of 10 expiring certificates queued with exit code 0
+3. Check
+   Input: 1,000 HTTP requests issued while SIGHUP reload executes on Nginx container
+   Action: python ./scripts/test_nginx_reload.py --requests 1000 --rps 100
+   Result: 1,000 of 1,000 requests return HTTP 200 OK with 0 dropped sockets and p95 latency < 25ms
+   Evidence: Nginx benchmark report in reports/reload_benchmark.json
+   Pass: 1,000 of 1,000 requests succeed with exit code 0
+4. Check
+   Input: Prometheus scrape targeting certmgr metrics endpoint `/metrics`
+   Action: curl -s http://localhost:9090/metrics | grep cert_expiry_days
+   Result: Prometheus metric displays valid integer days remaining for all managed certificates
+   Evidence: Prometheus metric output in reports/metrics_dump.txt
+   Pass: Metric reports valid certificate expiry integer with exit code 0
+5. Check [anti_fake]
+   Input: Forged certificate with tampered RSA signature injected into reload directory
+   Action: go run ./cmd/certmgr --verify-cert ./fixtures/tampered_cert.pem
+   Result: Verification engine rejects tampered signature immediately and refuses Nginx reload
+   Evidence: Dynamic verification console execution output log
+   Pass: Console confirms cryptographic signature verification failure with exit code 1
 
 RESUME BULLET FORMULA
-----------------------------------------
-"Built ACME certificate manager in Go managing [N] req/sec TLS certificates; automated DNS-[N] challenge renewal with [N]-day proactive rotation and fault-tolerant Nginx distribution — eliminating all manual certificate operations."
-Do not claim: scale, latency, or throughput figures without committing benchmark run logs; do not claim production deployment unless deployed to a verifiable live environment.
+----------------------------------------------------------------------
+"Architected automated TLS certificate manager in Go with ACME protocol standards; delivered sub-[ISSUANCE_LATENCY] second certificate issuance via Pebble, and achieved [RELOAD_UPTIME] request success across Nginx dynamic reloads."
+
+Do not claim: commercial DigiCert enterprise portal integration or physical HSM driver configuration
 
 ======================================================================
 Generated by HireFlow — hireflow.io

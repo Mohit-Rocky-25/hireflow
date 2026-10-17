@@ -1,0 +1,345 @@
+{
+  "id": "brief-realtime-stock-platform",
+  "title": "Real-Time Stock Market Data Platform & Alert Engine with Python, Kafka, TimescaleDB & Redis",
+  "domain": "FinTech Engineering",
+  "difficulty": "INTERMEDIATE",
+  "project_types": [
+    "Full-stack web",
+    "Data pipeline"
+  ],
+  "problem": "Retail investors and quantitative traders miss lucrative market opportunities and risk severe losses during flash crashes when trading platforms suffer from delayed quote updates, sluggish chart rendering, and unresponsive price alerts. Polling relational databases for market ticks introduces multi-second staleness and database lock contention under high-frequency tick volume. This project builds a production-grade real-time stock market data platform and alert engine in Python. The system ingests streaming trade ticks over Apache Kafka at 10,000+ ticks per second, generates 1-minute and 5-minute OHLCV candlestick bars in TimescaleDB hypertables, caches live ticker prices and trigger thresholds in Redis, evaluates dynamic price alerts with sub-12ms latency, and streams real-time market updates to React trading dashboards over WebSockets.",
+  "use_cases": [
+    {
+      "title": "Algorithmic Day-Trading Price Spike Alerts",
+      "first_sentence": "Active day traders monitoring volatile equities need instant notifications when a stock crosses a moving average or breaks out of a price range.",
+      "second_sentence": "The alert engine evaluates incoming price ticks against Redis threshold sets in memory, pushing an alert to the trader's dashboard within 10 milliseconds of trigger."
+    },
+    {
+      "title": "Real-Time Multi-Asset Portfolio Valuation",
+      "first_sentence": "FinTech investment platforms managing customer equity portfolios require continuous net asset value (NAV) recalculations as asset prices fluctuate.",
+      "second_sentence": "The system streams live price ticks over WebSockets, updating portfolio valuation totals and sector allocation charts in real time without screen reloads."
+    },
+    {
+      "title": "Quantitative Backtesting & Historical OHLCV Analysis",
+      "first_sentence": "Quantitative analysts designing automated trading strategies need fast access to historical multi-year candlestick bars for technical indicator calculations.",
+      "second_sentence": "TimescaleDB continuous aggregates compute rolling 1-minute and 1-hour OHLCV candles, serving multi-year chart lookups in sub-30ms analytical query response times."
+    }
+  ],
+  "hard_parts": [
+    "Ingesting and aggregating high-velocity market tick streams in Kafka into 1-minute OHLCV candlestick bars without dropping out-of-order ticks",
+    "Designing TimescaleDB hypertables with optimal chunk time intervals and continuous aggregate policies for fast analytical charting",
+    "Evaluating thousands of active user price threshold alerts in Redis using sorted sets (ZREVRANGEBYSCORE) with sub-12ms evaluation latency",
+    "Streaming real-time ticker quotes and candlestick updates over WebSockets to React trading dashboards with zero UI jank"
+  ],
+  "screener_signals": [
+    "Clean Python codebase cleanly separating Kafka tick consumers, TimescaleDB hypertable managers, Redis alert engines, and WebSocket push services",
+    "Throughput benchmark proving sustained ingestion of 10,000+ market ticks per second with sub-12ms alert evaluation latency",
+    "Anti-fake verification script setting an alert for 'AAPL >= 195.00', emitting a synthetic Kafka tick for AAPL at $195.50, and asserting the alert trigger notification fires in under 50 milliseconds"
+  ],
+  "job_families": [
+    "FinTech Software Engineer",
+    "Quantitative Platform Developer",
+    "Real-Time Data Platform Architect"
+  ],
+  "stack": [
+    {
+      "tool": "Python",
+      "role": "primary backend language powering Kafka stream consumers, alert evaluators, and API endpoints"
+    },
+    {
+      "tool": "Kafka",
+      "role": "distributed streaming broker capturing high-velocity market trade ticks and order book events"
+    },
+    {
+      "tool": "TimescaleDB",
+      "role": "time-series relational database storing hypertable candlestick bars and historical trades"
+    },
+    {
+      "tool": "Redis",
+      "role": "in-memory cache maintaining latest ticker prices and sorted set alert trigger registries"
+    },
+    {
+      "tool": "React",
+      "role": "frontend dashboard framework rendering live candlestick charts and real-time alert notifications"
+    },
+    {
+      "tool": "WebSockets",
+      "role": "streaming transport pushing live price quotes and candlestick bar updates to browser clients"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "Kafka Market Tick Ingestion & OHLCV Bar Aggregator",
+        "tools_used": [
+          "Python",
+          "Kafka"
+        ],
+        "purpose": "Consumes raw trade tick streams from Kafka, aggregates ticks into rolling 1-minute OHLCV bars, and flushes to database"
+      },
+      {
+        "name": "TimescaleDB Hypertable Storage & Continuous Aggregates Worker",
+        "tools_used": [
+          "Python",
+          "TimescaleDB"
+        ],
+        "purpose": "Manages time-series hypertables, defines retention policies, and computes multi-interval continuous aggregates"
+      },
+      {
+        "name": "Redis Real-Time Price Cache & Dynamic Alert Evaluation Engine",
+        "tools_used": [
+          "Python",
+          "Redis"
+        ],
+        "purpose": "Caches current prices, indexes user price alerts in sorted sets, and evaluates triggers upon each incoming tick"
+      },
+      {
+        "name": "WebSocket Streaming Gateway & Subscription Manager in Python",
+        "tools_used": [
+          "Python",
+          "WebSockets"
+        ],
+        "purpose": "Maintains client WebSocket connections, manages ticker symbol subscriptions, and streams quote updates"
+      },
+      {
+        "name": "Market Feed Throughput & Alert Latency Benchmark Harness",
+        "tools_used": [
+          "Python",
+          "Kafka",
+          "TimescaleDB"
+        ],
+        "purpose": "Generates 10,000 ticks/sec and benchmarks ingestion throughput, alert trigger latency, and database write performance"
+      },
+      {
+        "name": "Stock Platform Architecture Guide & Hypertable Schema Manual",
+        "tools_used": [
+          "Python",
+          "React"
+        ],
+        "purpose": "Documents hypertable chunk sizing, Redis alert indexing algorithms, and React candlestick chart optimizations"
+      }
+    ],
+    "data_flow": "Market data sources publish trade ticks to the Kafka 'stock-ticks' topic; the Python streaming worker consumes ticks, updates the latest price in Redis, and pushes price updates to the WebSocket gateway; the alert engine queries Redis sorted sets to identify triggered price alerts and emits alert events; simultaneously, the worker aggregates ticks into 1-minute OHLCV candlestick records and batches inserts into TimescaleDB; connected React clients receive real-time ticker updates over WebSockets, re-rendering candlestick charts and displaying alert notification modals; historical chart requests query TimescaleDB continuous aggregates via REST API.",
+    "enforcement_mechanism": "Redis sorted set atomic score lookups preventing missed alert triggers; TimescaleDB hypertable constraints enforcing trade time validity."
+  },
+  "targets": [
+    {
+      "metric": "Sustained Market Tick Ingestion Throughput",
+      "method": "Market ticks per second ingested, aggregated into OHLCV bars, and persisted across 100,000 benchmark ticks",
+      "input": "100,000 synthetic market trade ticks streamed at 10,000 ticks per second across 50 simulated equity symbols",
+      "environment": "Standard 4-core local CPU, Kafka and TimescaleDB in Docker, Python 3.11 with async workers",
+      "minimum_pass": "Sustained ingestion throughput is >= 8,000 ticks per second",
+      "target": "Sustained ingestion throughput is >= 18,500 ticks per second",
+      "report": "Market data ingestion throughput benchmark report and write latency table"
+    },
+    {
+      "metric": "Price Alert Evaluation & Trigger Latency",
+      "method": "Wall-clock timing from price tick ingestion to alert dispatch notification across 1,000 active registered alerts",
+      "input": "1,000 active price threshold alerts registered in Redis across 50 equity ticker symbols",
+      "environment": "Redis 7+ in Docker with local Python alert evaluation worker",
+      "minimum_pass": "p95 alert evaluation latency is < 20.0 milliseconds",
+      "target": "p95 alert evaluation latency is < 8.5 milliseconds",
+      "report": "Alert evaluation timing report and notification dispatch log"
+    },
+    {
+      "metric": "TimescaleDB Historical Candlestick Query Latency",
+      "method": "Execution timing to query and return 30-day 1-hour OHLCV candlestick chart data across 1,000,000 historical ticks",
+      "input": "100 repeated historical chart queries issued against TimescaleDB continuous aggregate hypertable",
+      "environment": "Local TimescaleDB instance with compression policies enabled",
+      "minimum_pass": "p95 candlestick query execution latency is < 40.0 milliseconds",
+      "target": "p95 candlestick query execution latency is < 15.0 milliseconds",
+      "report": "TimescaleDB query benchmark report and continuous aggregate performance table"
+    }
+  ],
+  "skills": [
+    "Python",
+    "Kafka",
+    "TimescaleDB",
+    "Redis",
+    "React",
+    "WebSockets",
+    "FinTech Engineering",
+    "Time-Series Data"
+  ],
+  "starter_input": {
+    "spec": "Directory containing market tick generator, Kafka stream consumers, TimescaleDB migrations, and React trading dashboard.",
+    "size": "11 Python source modules, TimescaleDB SQL DDL scripts, Docker Compose manifest, and automated tick feed simulator",
+    "seeded_cases": "Out-of-order trade timestamps, market open/close volume surges, and rapid duplicate alert trigger conditions",
+    "label_source": "Deterministic synthetic market price trajectories and TimescaleDB hypertable aggregation assertions",
+    "personal_data_policy": "Strictly mock synthetic market trade ticks and simulated trading account IDs; no real personal data used"
+  },
+  "components": [
+    {
+      "name": "Kafka Market Tick Ingestion & OHLCV Bar Aggregator",
+      "task_type": "infra component (broker, DB, orchestrator, cluster service)",
+      "hours": 5.0
+    },
+    {
+      "name": "TimescaleDB Hypertable Storage & Continuous Aggregates Worker",
+      "task_type": "infra component (broker, DB, orchestrator, cluster service)",
+      "hours": 5.0
+    },
+    {
+      "name": "Redis Real-Time Price Cache & Dynamic Alert Evaluation Engine",
+      "task_type": "concurrency/consistency mechanism with tests",
+      "hours": 5.0
+    },
+    {
+      "name": "WebSocket Streaming Gateway & Subscription Manager in Python",
+      "task_type": "API endpoint group with tests",
+      "hours": 4.0
+    },
+    {
+      "name": "Market Feed Throughput & Alert Latency Benchmark Harness",
+      "task_type": "load or performance test harness + report",
+      "hours": 3.0
+    },
+    {
+      "name": "Stock Platform Architecture Guide & Hypertable Schema Manual",
+      "task_type": "docs + architecture diagram",
+      "hours": 2.0
+    }
+  ],
+  "extended_path": {
+    "features": [
+      "Technical indicator calculation engine computing live RSI, MACD, and Bollinger Bands on streaming 1-minute bars",
+      "Level 2 order book depth visualization rendering live bid/ask ladder queues over WebSockets",
+      "Automated paper trading simulator executing simulated limit and market orders with slippage models"
+    ],
+    "hours": 14
+  },
+  "milestones": [
+    {
+      "name": "Kafka Ingestion & TimescaleDB Hypertables in Python, Kafka and TimescaleDB",
+      "hours": 7,
+      "done_criterion": "Kafka worker consumes ticks; TimescaleDB aggregates 1-minute OHLCV candles in hypertables."
+    },
+    {
+      "name": "Redis Price Cache & Dynamic Alert Engine in Redis and FinTech Engineering",
+      "hours": 7,
+      "done_criterion": "Redis caches latest quotes; alert engine evaluates thresholds with p95 latency < 20ms."
+    },
+    {
+      "name": "WebSocket Streaming Gateway & React Charts in WebSockets, React and Full-Stack Web",
+      "hours": 7,
+      "done_criterion": "Gateway streams real-time quotes; React dashboard renders live candlestick charts."
+    },
+    {
+      "name": "Throughput Benchmark, Dynamic Alert Anti-Fake Test & Docs in Time-Series Data",
+      "hours": 7,
+      "done_criterion": "Ingestion sustains >= 8,000 ticks/sec; anti-fake test triggers AAPL alert; docs complete."
+    }
+  ],
+  "prerequisites": [
+    "Proficiency in Python asynchronous programming, streaming architectures (Kafka), and database interactions",
+    "Understanding of time-series databases (TimescaleDB / PostgreSQL), in-memory caching (Redis), and WebSocket streaming"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (purely CPU, network, and storage I/O bound data pipeline software)",
+    "cost": "$0 (fully open-source stack using local Docker Desktop for Kafka, TimescaleDB, and Redis)",
+    "accounts_keys_quotas": "No external cloud accounts, paid services, or real stock brokerage API keys required",
+    "reference_environment": "Local 4-core CPU with Docker Desktop (Kafka, TimescaleDB, and Redis containers) and Python 3.11+",
+    "fallback_path": "In-memory Python queue and SQLite database fallback if Docker containers are unavailable"
+  },
+  "riskiest_component": {
+    "name": "TimescaleDB Write Amplification and Alert Trigger Stampedes",
+    "mitigation": "Buffer tick insertions in memory and execute bulk COPY commands into TimescaleDB, and rate-limit duplicate alert notifications.",
+    "fallback": "Tiered downsampling aggregating ticks into 5-second summary batches before database persistence."
+  },
+  "deliverables": [
+    "Git repository containing Kafka tick consumer, TimescaleDB migrations, Redis alert engine, and React dashboard",
+    "Docker Compose configuration launching Kafka, TimescaleDB, and Redis containers",
+    "Automated load testing harness generating 10,000 ticks/sec and measuring alert latency percentiles",
+    "Screener verification script executing automated benchmark and dynamic alert trigger verification in under 2 minutes"
+  ],
+  "out_of_scope": [
+    "Real money trading order routing to live brokerage exchanges (Interactive Brokers / Alpaca live)",
+    "Direct market data feed connections to NASDAQ/NYSE ITCH/FIX protocols",
+    "Machine learning stock price prediction models"
+  ],
+  "safety_note": null,
+  "resources": [
+    "TimescaleDB Documentation on Hypertables and Continuous Aggregates",
+    "Designing Data-Intensive Applications: Chapter on Stream Processing (Martin Kleppmann)",
+    "Building Real-Time Financial Data Pipelines with Apache Kafka"
+  ],
+  "rubric": [
+    {
+      "input": "100,000 synthetic market ticks streamed at 10,000 ticks per second",
+      "action": "python ./benchmarks/bench_ingestion.py --ticks 100000 --rate 10000",
+      "expected_result": "Pipeline ingests and persists ticks with sustained throughput >= 8,000 ticks/sec",
+      "evidence_location": "Terminal output log and reports/ingestion_throughput.json",
+      "pass_criterion": "Throughput >= 8000 ticks/sec with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "1,000 active price threshold alerts registered in Redis",
+      "action": "python ./alerts/eval_alerts.py --alerts 1000",
+      "expected_result": "Alert engine evaluates incoming ticks against Redis sets with p95 latency < 20.0ms",
+      "evidence_location": "Alert evaluation benchmark report in reports/alert_perf.json",
+      "pass_criterion": "p95 latency < 20.0ms with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "100 repeated 30-day hourly OHLCV candlestick queries on 1,000,000 historical rows",
+      "action": "python ./benchmarks/bench_timescale.py --queries 100",
+      "expected_result": "TimescaleDB returns candlestick data with p95 query latency < 40.0ms",
+      "evidence_location": "TimescaleDB query benchmark report in reports/timescale_perf.json",
+      "pass_criterion": "p95 latency < 40.0ms with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "WebSocket quote subscription request for 10 equity ticker symbols",
+      "action": "python ./scripts/test_websocket_stream.py --symbols AAPL,MSFT,GOOGL,AMZN,TSLA",
+      "expected_result": "WebSocket streams real-time quote frames with sub-50ms inter-message interval",
+      "evidence_location": "WebSocket streaming test log in reports/ws_stream.json",
+      "pass_criterion": "Quotes received continuously with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Registration of alert 'AAPL >= 195.00' followed by synthetic tick at $195.50",
+      "action": "python ./scripts/verify_dynamic_alert.py --symbol AAPL --threshold 195.00 --tick-price 195.50",
+      "expected_result": "Alert engine detects threshold violation and emits trigger notification within 50ms",
+      "evidence_location": "Dynamic verification console execution output log",
+      "pass_criterion": "Console confirms alert triggered for AAPL with exit code 0",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected stock market data platform in Python with Kafka, TimescaleDB, and Redis; sustained [TICK_THROUGHPUT] market ticks per second ingestion throughput, and delivered sub-[ALERT_LATENCY] millisecond price alert evaluation latency.",
+    "claims": [
+      {
+        "text": "sustained [TICK_THROUGHPUT] market ticks per second ingestion throughput",
+        "rubric_indexes": [
+          0
+        ]
+      },
+      {
+        "text": "delivered sub-[ALERT_LATENCY] millisecond price alert evaluation latency",
+        "rubric_indexes": [
+          1
+        ]
+      }
+    ],
+    "do_not_claim": "live brokerage exchange order execution or machine learning price prediction"
+  },
+  "verify": [
+    "Run `pytest tests/` to confirm Kafka consumers, TimescaleDB hypertables, and Redis alert engines pass.",
+    "Execute `python ./benchmarks/bench_ingestion.py` to verify ingestion throughput exceeds 8,000 ticks/sec.",
+    "Run `python ./scripts/verify_dynamic_alert.py` to assert real-time price alert triggering."
+  ],
+  "worksheet": {
+    "q1": "Core deliverable: a real-time stock market data platform and alert engine in Python with Kafka, TimescaleDB, Redis, and WebSockets.",
+    "q2": "Target users: fintech software engineers, quantitative platform developers, and real-time data architects.",
+    "q3": "3 use cases: day-trading price spike alerts, multi-asset portfolio valuation, and quantitative historical backtesting.",
+    "q4": "Stated hours: 28 hours. Calculated bottom-up: 24 component hours * 1.15 buffer = 27.6 -> 28 hours. Intermediate level.",
+    "q5": "Hard parts: Kafka tick ingestion without drops, TimescaleDB continuous aggregates, sub-12ms Redis alert evaluations, and WebSocket streaming.",
+    "q6": "Starter input: market tick simulator, Kafka consumers, TimescaleDB migrations, and React trading dashboard. Synthetic market data only.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU/network bound, $0 cost using Docker containers. Zero live brokerage keys.",
+    "q8": "Riskiest component: TimescaleDB write amplification and alert trigger stampedes. Fallback: in-memory bulk COPY and duplicate rate-limiting.",
+    "q9": "Potential faking: mock price display without actual stream processing. Anti-fake check 5 registers an alert for AAPL at $195, emits a $195.50 tick, and asserts alert fires in < 50ms.",
+    "q10": "Safe; synthetic stock trade ticks and local private Docker containers only."
+  }
+}

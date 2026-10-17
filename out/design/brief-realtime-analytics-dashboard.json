@@ -1,0 +1,345 @@
+{
+  "id": "brief-realtime-analytics-dashboard",
+  "title": "Real-Time Business Intelligence Analytics Dashboard with Node.js WebSockets, Redis Pub/Sub & PostgreSQL Rollups",
+  "domain": "Full-Stack Web",
+  "difficulty": "INTERMEDIATE",
+  "project_types": [
+    "Full-stack web",
+    "Data pipeline"
+  ],
+  "problem": "Executive and operational teams relying on periodic page refreshes to monitor critical business KPIs suffer from stale metrics, uncoordinated decision-making, and heavy database load from repetitive analytical queries. Polling REST APIs every few seconds exhausts server connection pools and introduces significant latency lag during rapid traffic surges. This project builds a production-grade real-time business intelligence (BI) dashboard in TypeScript and React. The system ingests business transaction events in Node.js, distributes live metric mutations horizontally across worker processes using Redis Pub/Sub, pushes delta updates to thousands of browser clients over WebSockets with sub-35ms broadcast latency, computes historical multi-dimensional rollups in PostgreSQL, and renders interactive SVG/Canvas charts with zero UI stutter.",
+  "use_cases": [
+    {
+      "title": "E-Commerce Black Friday Flash-Sale Monitoring",
+      "first_sentence": "Retail merchandise directors need to monitor live revenue, order volume, and inventory depletion velocity across product categories during flash sales.",
+      "second_sentence": "The dashboard displays real-time ticker updates and conversion rate heatmaps, streaming purchase deltas over WebSockets within 25 milliseconds of order placement."
+    },
+    {
+      "title": "FinTech Payment Gateway Transaction & Anomaly Operations",
+      "first_sentence": "Payment platform reliability teams require immediate visualization of payment authorization success rates and fraud decline spikes across banking partners.",
+      "second_sentence": "The streaming dashboard graphs rolling authorization percentages in real time, triggering visual alert banners when gateway error rates exceed defined thresholds."
+    },
+    {
+      "title": "SaaS Platform User Activity & Subscription ARR Metrics",
+      "first_sentence": "Executive leadership needs an operational display tracking active user concurrency, plan upgrades, and recurring revenue metrics updated continuously.",
+      "second_sentence": "The system aggregates live billing and activity events in Redis, streaming live ARR and user count updates to executive browser sessions without requiring manual page reloads."
+    }
+  ],
+  "hard_parts": [
+    "Designing high-throughput WebSocket connection management in Node.js supporting 2,000 concurrent browser sessions with heartbeats and auto-reconnection",
+    "Implementing horizontal multi-worker broadcast fan-out using Redis Pub/Sub channels to distribute events across clustered Node.js processes",
+    "Writing efficient SQL window functions and continuous aggregate rollups in PostgreSQL to support fast historical interval slicing (1m, 5m, 1h, 24h)",
+    "Rendering dynamic 60 FPS live charts and animated metric counters in React without triggering unnecessary component re-renders or layout reflows"
+  ],
+  "screener_signals": [
+    "Clean TypeScript codebase cleanly separating React dashboard views, Node.js WebSocket socket gateways, Redis Pub/Sub distributors, and PostgreSQL queries",
+    "High-concurrency benchmark report validating 2,000 concurrent WebSocket client connections receiving 1,000 event broadcasts per second with sub-35ms latency",
+    "Anti-fake verification script publishing a synthetic $10,000 transaction event and asserting the connected browser UI increments the total revenue counter within 100 milliseconds"
+  ],
+  "job_families": [
+    "Full-Stack Web Developer",
+    "Frontend Systems Architect",
+    "Real-Time Data Platform Engineer"
+  ],
+  "stack": [
+    {
+      "tool": "TypeScript",
+      "role": "strongly typed language shared across frontend React components and backend Node.js services"
+    },
+    {
+      "tool": "React",
+      "role": "frontend component framework rendering dynamic KPI cards, SVG charts, and live activity streams"
+    },
+    {
+      "tool": "Node.js",
+      "role": "high-concurrency event-driven runtime hosting the WebSocket server and ingestion API"
+    },
+    {
+      "tool": "WebSockets",
+      "role": "bi-directional streaming transport pushing real-time metric updates to connected clients"
+    },
+    {
+      "tool": "PostgreSQL",
+      "role": "relational database storing persistent transaction events, audit trails, and analytical rollups"
+    },
+    {
+      "tool": "Redis",
+      "role": "in-memory Pub/Sub message broker broadcasting events across Node.js cluster processes"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "WebSocket Subscription Server & Connection Manager",
+        "tools_used": [
+          "TypeScript",
+          "Node.js",
+          "WebSockets"
+        ],
+        "purpose": "Manages client WebSocket lifecycles, authenticates sessions, handles topic subscriptions, and streams delta updates"
+      },
+      {
+        "name": "Redis Pub/Sub Fan-Out & Metric Aggregation Engine",
+        "tools_used": [
+          "TypeScript",
+          "Redis"
+        ],
+        "purpose": "Subscribes to internal event channels, fans out broadcasts across server nodes, and caches rolling 60-second metrics"
+      },
+      {
+        "name": "PostgreSQL Analytical Rollup & Historical Query API",
+        "tools_used": [
+          "TypeScript",
+          "PostgreSQL"
+        ],
+        "purpose": "Executes optimized SQL aggregation queries for historical time buckets and stores permanent event records"
+      },
+      {
+        "name": "Dynamic Live Analytics Dashboard with SVG/Canvas Charts",
+        "tools_used": [
+          "TypeScript",
+          "React"
+        ],
+        "purpose": "Renders real-time KPI metric counters, live line charts, and event activity logs with optimized React memoization"
+      },
+      {
+        "name": "WebSocket Concurrency & Broadcast Latency Benchmark Harness",
+        "tools_used": [
+          "TypeScript",
+          "Node.js"
+        ],
+        "purpose": "Simulates 2,000 concurrent WebSocket clients and benchmarks broadcast fan-out latencies and server memory overhead"
+      },
+      {
+        "name": "Real-Time BI Architecture Guide & Pub/Sub Topology Diagram",
+        "tools_used": [
+          "TypeScript",
+          "React"
+        ],
+        "purpose": "Documents Redis Pub/Sub scaling topology, client reconnection exponential backoff, and PostgreSQL query tuning"
+      }
+    ],
+    "data_flow": "A transaction event posts to the ingestion API; Node.js writes the raw event to PostgreSQL; simultaneously, the server publishes a lightweight delta payload to the Redis 'metrics:updates' channel; all active Node.js worker processes receive the Redis message; each worker identifies connected WebSocket clients subscribed to that metric room; the worker serializes the JSON frame and broadcasts it over WebSockets in < 35ms; the React client receives the WebSocket message, updates its local state store, and smoothly re-renders the KPI card and live chart; when the user changes historical date ranges, the client fetches aggregated buckets from the PostgreSQL REST API.",
+    "enforcement_mechanism": "Bounded WebSocket send buffers and client-side throttled requestAnimationFrame animation loops preventing UI freezes."
+  },
+  "targets": [
+    {
+      "metric": "p95 Event-to-Client Broadcast Latency",
+      "method": "Wall-clock timing from event ingestion POST request arrival to WebSocket frame delivery across 2,000 connected clients",
+      "input": "10,000 events streamed at 500 events per second across 2,000 active WebSocket client connections",
+      "environment": "Standard 4-core local CPU, Redis 7+ and PostgreSQL 15+ in Docker, Node.js 18+ runtime",
+      "minimum_pass": "p95 broadcast latency across connected clients is < 50.0 milliseconds",
+      "target": "p95 broadcast latency across connected clients is < 22.5 milliseconds",
+      "report": "WebSocket broadcast latency benchmark report and delivery percentile table"
+    },
+    {
+      "metric": "PostgreSQL Historical Aggregate Query Latency",
+      "method": "Execution timing to query and assemble 24-hour hourly metric rollups across 1,000,000 historical records",
+      "input": "100 repeated analytical SQL aggregation queries issued against database with 1,000,000 event rows",
+      "environment": "Local PostgreSQL 15+ instance with indexed timestamp and category columns",
+      "minimum_pass": "p95 historical query execution latency is < 65.0 milliseconds",
+      "target": "p95 historical query execution latency is < 24.0 milliseconds",
+      "report": "PostgreSQL query plan EXPLAIN ANALYZE log and execution duration table"
+    },
+    {
+      "metric": "Concurrent Client Connection Capacity",
+      "method": "Sustained simultaneous WebSocket connections maintained without socket drops or memory exhaustion",
+      "input": "2,000 headless WebSocket client connections established and maintained for 10 continuous minutes",
+      "environment": "Node.js WebSocket cluster on standard 4-core local CPU with 8GB RAM",
+      "minimum_pass": "Cluster sustains >= 2,000 active connections with 0 socket drops and RSS memory < 250MB",
+      "target": "Cluster sustains >= 3,500 active connections with 0 socket drops and RSS memory < 320MB",
+      "report": "WebSocket concurrency stress test report and memory usage trajectory"
+    }
+  ],
+  "skills": [
+    "TypeScript",
+    "React",
+    "Node.js",
+    "WebSockets",
+    "PostgreSQL",
+    "Redis",
+    "Full-Stack Web",
+    "Real-Time Analytics"
+  ],
+  "starter_input": {
+    "spec": "Directory containing React dashboard scaffolding, Node.js WebSocket gateway, Redis Pub/Sub wrapper, and PostgreSQL schema DDLs.",
+    "size": "15 TypeScript source files, SQL migration scripts, Docker Compose manifest, and automated WebSocket load generator",
+    "seeded_cases": "WebSocket abrupt client disconnects, slow consumer backpressure saturation, and concurrent multi-node Redis message delivery",
+    "label_source": "Deterministic PostgreSQL aggregate query assertions and WebSocket message sequence counters",
+    "personal_data_policy": "Strictly mock synthetic financial transaction records and simulated merchant IDs; no real personal data used"
+  },
+  "components": [
+    {
+      "name": "WebSocket Subscription Server & Connection Manager",
+      "task_type": "infra component (broker, DB, orchestrator, cluster service)",
+      "hours": 5.0
+    },
+    {
+      "name": "Redis Pub/Sub Fan-Out & Metric Aggregation Engine",
+      "task_type": "infra component (broker, DB, orchestrator, cluster service)",
+      "hours": 5.0
+    },
+    {
+      "name": "PostgreSQL Analytical Rollup & Historical Query API",
+      "task_type": "API endpoint group with tests",
+      "hours": 4.0
+    },
+    {
+      "name": "Dynamic Live Analytics Dashboard with SVG/Canvas Charts",
+      "task_type": "one UI view with state",
+      "hours": 4.0
+    },
+    {
+      "name": "WebSocket Concurrency & Broadcast Latency Benchmark Harness",
+      "task_type": "load or performance test harness + report",
+      "hours": 3.0
+    },
+    {
+      "name": "Real-Time BI Architecture Guide & Pub/Sub Topology Diagram",
+      "task_type": "docs + architecture diagram",
+      "hours": 3.0
+    }
+  ],
+  "extended_path": {
+    "features": [
+      "Custom user-configurable dashboard layout builder with drag-and-drop grid repositioning and persistent layout state",
+      "Automated metric anomaly detection triggering webhook notifications when transaction rates deviate by > 3 standard deviations",
+      "Distributed tracing integration linking slow WebSocket broadcast loops to OpenTelemetry spans"
+    ],
+    "hours": 14
+  },
+  "milestones": [
+    {
+      "name": "WebSocket Gateway & Redis Pub/Sub Infrastructure in Node.js, WebSockets and Redis",
+      "hours": 7,
+      "done_criterion": "WebSocket server connects clients; Redis Pub/Sub broadcasts messages across worker instances."
+    },
+    {
+      "name": "PostgreSQL Analytical Rollups & Historical API in PostgreSQL and TypeScript",
+      "hours": 7,
+      "done_criterion": "PostgreSQL persists events; SQL rollup queries execute with p95 latency < 65ms on 1M rows."
+    },
+    {
+      "name": "React Live Analytics Dashboard UI & SVG Charts in React and Full-Stack Web",
+      "hours": 7,
+      "done_criterion": "Dashboard renders live KPI cards and SVG charts; updates stream smoothly over WebSockets."
+    },
+    {
+      "name": "Concurrency Benchmark, Anti-Fake Live Event Test & Docs in Real-Time Analytics",
+      "hours": 7,
+      "done_criterion": "Benchmark verifies 2,000 connections; anti-fake test validates real-time revenue update; docs complete."
+    }
+  ],
+  "prerequisites": [
+    "Proficiency in modern TypeScript, React, Node.js asynchronous I/O, and relational SQL queries",
+    "Understanding of WebSocket protocols, Redis Pub/Sub patterns, and high-concurrency client connection management"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (purely CPU and network I/O bound web services and database software)",
+    "cost": "$0 (fully open-source stack using local Node.js and Docker Desktop)",
+    "accounts_keys_quotas": "No external cloud accounts, paid services, or API keys required",
+    "reference_environment": "Local 4-core CPU with Docker Desktop (PostgreSQL 15+ and Redis 7+ containers) and Node.js 18+",
+    "fallback_path": "Local SQLite database and in-memory event emitter if Docker containers are unavailable"
+  },
+  "riskiest_component": {
+    "name": "WebSocket Slow-Consumer Buffer Bloat and Memory Leaks",
+    "mitigation": "Implement bounded client-side socket send buffers and automatically drop unacknowledged telemetry frames for lagging clients.",
+    "fallback": "Rate-limit broadcast frequencies to max 10 updates per second per client room."
+  },
+  "deliverables": [
+    "Git repository containing React dashboard app, Node.js WebSocket server, Redis distributor, and PostgreSQL migrations",
+    "Docker Compose file launching PostgreSQL and Redis containers with persistent volume mounts",
+    "Automated load testing harness measuring broadcast latency percentiles and client concurrency limits",
+    "Screener verification script executing automated 2,000-client load test and dynamic transaction verification in under 2 minutes"
+  ],
+  "out_of_scope": [
+    "Commercial BI cloud platforms (Tableau / Looker / PowerBI)",
+    "Multi-petabyte data warehouse infrastructure (Snowflake / BigQuery)",
+    "Complex 3D WebGL spatial visualization engines"
+  ],
+  "safety_note": null,
+  "resources": [
+    "High Performance Browser Networking: Chapter on WebSockets (Ilya Grigorik)",
+    "Redis Documentation on Pub/Sub Messaging Patterns",
+    "PostgreSQL Documentation on Window Functions and Aggregate Queries"
+  ],
+  "rubric": [
+    {
+      "input": "10,000 events streamed at 500 events per second across 2,000 connected clients",
+      "action": "npm run bench:websocket -- --clients 2000 --rate 500 --events 10000",
+      "expected_result": "WebSocket server broadcasts frames to all clients with p95 delivery latency < 50.0ms",
+      "evidence_location": "Terminal output log and reports/broadcast_latency.json",
+      "pass_criterion": "p95 latency < 50.0ms with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "100 repeated 24-hour hourly aggregation queries on 1,000,000 historical rows",
+      "action": "npm run bench:postgres-query -- --queries 100",
+      "expected_result": "PostgreSQL executes analytical rollup queries with p95 execution latency < 65.0ms",
+      "evidence_location": "Query execution timing report in reports/query_perf.json",
+      "pass_criterion": "p95 latency < 65.0ms with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "2,000 concurrent WebSocket clients connected continuously for 10 minutes",
+      "action": "npm run test:concurrency-soak -- --clients 2000 --duration 600",
+      "expected_result": "Node.js server maintains all 2,000 connections with 0 socket disconnects and memory < 250MB",
+      "evidence_location": "Concurrency soak test log in reports/concurrency_audit.json",
+      "pass_criterion": "2,000 active connections maintained with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Simulated multi-process horizontal fan-out across 2 Node.js cluster workers",
+      "action": "npm run test:cluster-fanout",
+      "expected_result": "Redis Pub/Sub successfully routes messages to clients connected across both worker processes",
+      "evidence_location": "Cluster routing audit report in reports/cluster_audit.json",
+      "pass_criterion": "All messages received across worker partitions with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Single synthetic $10,000 transaction event published to ingestion API",
+      "action": "node ./scripts/verify_live_update.js --amount 10000",
+      "expected_result": "Connected browser client receives WebSocket update and increments total revenue display within 100ms",
+      "evidence_location": "Dynamic verification console execution output log",
+      "pass_criterion": "Console confirms revenue counter incremented by 10000 with exit code 0",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected analytics dashboard in TypeScript and React using Node.js and WebSockets; achieved sub-[BROADCAST_LATENCY] millisecond broadcast latency across [CONCURRENT_CLIENTS] concurrent clients, and sustained sub-[QUERY_LATENCY] millisecond analytical query rollups.",
+    "claims": [
+      {
+        "text": "achieved sub-[BROADCAST_LATENCY] millisecond broadcast latency across [CONCURRENT_CLIENTS] concurrent clients",
+        "rubric_indexes": [
+          0
+        ]
+      },
+      {
+        "text": "sustained sub-[QUERY_LATENCY] millisecond analytical query rollups",
+        "rubric_indexes": [
+          1
+        ]
+      }
+    ],
+    "do_not_claim": "commercial data warehouse deployment or multi-petabyte analytics clustering"
+  },
+  "verify": [
+    "Run `npm test` to confirm WebSocket routing, Redis Pub/Sub handlers, and React components pass.",
+    "Execute `npm run bench:websocket` to verify broadcast latency remains < 50ms across 2,000 clients.",
+    "Run `node ./scripts/verify_live_update.js` to assert real-time transaction counter updates."
+  ],
+  "worksheet": {
+    "q1": "Core deliverable: a real-time business intelligence dashboard in TypeScript and React with Node.js WebSockets, Redis Pub/Sub, and PostgreSQL.",
+    "q2": "Target users: full-stack web developers, frontend systems architects, and real-time data platform engineers.",
+    "q3": "3 use cases: e-commerce flash-sale monitoring, fintech payment gateway anomaly ops, and SaaS ARR subscription metrics.",
+    "q4": "Stated hours: 28 hours. Calculated bottom-up: 24 component hours * 1.15 buffer = 27.6 -> 28 hours. Intermediate level.",
+    "q5": "Hard parts: 2,000 concurrent WebSocket connections, Redis Pub/Sub horizontal fan-out, fast PostgreSQL window rollups, and 60 FPS live rendering.",
+    "q6": "Starter input: React dashboard scaffolding, Node.js WebSocket gateway, Redis Pub/Sub wrapper, and PostgreSQL DDLs. Synthetic transaction data only.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU bound, $0 cost using Docker PostgreSQL and Redis.",
+    "q8": "Riskiest component: slow-consumer buffer bloat in WebSockets. Fallback: bounded send buffers and frame dropping for lagging clients.",
+    "q9": "Potential faking: polling REST APIs pretending to be real-time. Anti-fake check 5 publishes a $10,000 event and asserts WebSocket counter increment within 100ms.",
+    "q10": "Safe; synthetic financial records and private local Docker containers only."
+  }
+}

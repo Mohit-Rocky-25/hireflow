@@ -1,0 +1,350 @@
+{
+  "id": "cert-aws-saa",
+  "title": "AWS Certified Solutions Architect \u2013 Associate (SAA-C03) High-Availability & Disaster Recovery Architecture",
+  "domain": "Cloud Architecture & DevOps",
+  "difficulty": "INTERMEDIATE",
+  "project_types": [
+    "Certification / exam pages",
+    "Cloud architecture"
+  ],
+  "problem": "Software engineers and architects preparing for the AWS Solutions Architect \u2013 Associate (SAA-C03) certification frequently memorize theoretical architecture diagrams and high-level service definitions without ever constructing a resilient, multi-AZ cloud architecture from code. When faced with production system designs, they struggle to implement automated multi-AZ load balancer failovers, configure asynchronous SQS decoupling, enforce KMS envelope encryption, or automate S3 lifecycle archival policies. This guide delivers a rigorous hands-on lab curriculum and reproducible architecture implementation in Terraform and LocalStack/AWS. The engineer architects an Application Load Balancer across multi-AZ subnets, implements an auto-scaling compute tier, decouples message processing via Amazon SQS, secures data with AWS KMS envelope encryption, automates S3 lifecycle tiering, and verifies 99.9% uptime during simulated availability zone outages.",
+  "use_cases": [
+    {
+      "title": "Multi-AZ High-Availability Web Application Resiliency",
+      "first_sentence": "Enterprise customer portals requiring 99.99% operational availability must survive sudden hardware failures or complete availability zone data center blackouts.",
+      "second_sentence": "The architecture deploys redundant compute instances across multiple availability zones behind an Application Load Balancer, executing sub-5s automatic failover routing."
+    },
+    {
+      "title": "Asynchronous Decoupled Message Processing with Amazon SQS",
+      "first_sentence": "E-commerce order intake services experience extreme traffic spikes during promotional flash sales that threaten to overwhelm downstream billing databases.",
+      "second_sentence": "The system buffers incoming orders in an Amazon SQS distributed queue, allowing background worker pools to consume messages at a sustainable processing rate."
+    },
+    {
+      "title": "Automated S3 Storage Cost Optimization & KMS Envelope Encryption",
+      "first_sentence": "Healthcare compliance architectures storing petabytes of patient audit logs must enforce cryptographic encryption at rest while minimizing storage costs.",
+      "second_sentence": "The pipeline encrypts object payloads with customer-managed AWS KMS keys and schedules lifecycle policies that transition inactive data to S3 Glacier after 30 days."
+    }
+  ],
+  "hard_parts": [
+    "Architecting resilient multi-AZ network topologies with private subnet NAT gateways and resilient ALB target group health checks",
+    "Implementing automated worker auto-scaling policies driven by Amazon SQS queue depth metrics (`ApproximateNumberOfMessagesVisible`)",
+    "Configuring AWS KMS envelope encryption with customer managed keys (CMK) and key rotation policies across object storage",
+    "Simulating availability zone failure scenarios and verifying zero dropped connections and automated health check recovery"
+  ],
+  "screener_signals": [
+    "Clean Terraform infrastructure repository cleanly defining multi-AZ VPC, ALB target groups, SQS queues, and KMS encryption keys",
+    "High-availability failover benchmark report proving 100% request survival when an entire availability zone is taken offline",
+    "Anti-fake verification script terminating an active EC2 instance in AZ 1 and confirming ALB redirects 100 of 100 requests to AZ 2 in < 5 seconds"
+  ],
+  "job_families": [
+    "Cloud Solutions Architect",
+    "Senior DevOps Engineer",
+    "Site Reliability Engineer (SRE)"
+  ],
+  "stack": [
+    {
+      "tool": "AWS VPC",
+      "role": "multi-AZ virtual private cloud providing public and private subnet network isolation across two zones"
+    },
+    {
+      "tool": "ALB",
+      "role": "Application Load Balancer distributing HTTP traffic across target instance groups with health checks"
+    },
+    {
+      "tool": "Amazon SQS",
+      "role": "distributed message queuing service decoupling web ingestion tiers from asynchronous background workers"
+    },
+    {
+      "tool": "Amazon S3",
+      "role": "scalable object storage with intelligent tiering and automated Glacier archival lifecycle rules"
+    },
+    {
+      "tool": "AWS KMS",
+      "role": "key management service providing symmetric customer master keys and envelope encryption"
+    },
+    {
+      "tool": "LocalStack",
+      "role": "local AWS cloud emulator executing VPC, ALB, SQS, and KMS services without cloud charges"
+    },
+    {
+      "tool": "Terraform",
+      "role": "declarative infrastructure-as-code tool automating reproducible multi-AZ cloud architecture provisioning"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "Multi-AZ VPC Network Topology & Private Subnet Bastion",
+        "tools_used": [
+          "AWS VPC",
+          "Terraform"
+        ],
+        "purpose": "Provisions redundant public and private subnets across 2 availability zones with NAT gateways and routing tables"
+      },
+      {
+        "name": "Application Load Balancer & Auto Scaling Group Controller",
+        "tools_used": [
+          "ALB",
+          "Terraform",
+          "LocalStack"
+        ],
+        "purpose": "Configures ALB target groups, path-based routing rules, and dynamic instance scaling based on CPU utilization"
+      },
+      {
+        "name": "Decoupled Asynchronous Processing with SQS & Lambda",
+        "tools_used": [
+          "Amazon SQS",
+          "Terraform"
+        ],
+        "purpose": "Establishes standard and dead-letter queues (DLQ) for asynchronous workload buffering and worker dispatch"
+      },
+      {
+        "name": "S3 Lifecycle Tiering & KMS Envelope Encryption Module",
+        "tools_used": [
+          "Amazon S3",
+          "AWS KMS"
+        ],
+        "purpose": "Implements automated transition of objects to Glacier archival storage and enforces AES-256 KMS encryption"
+      },
+      {
+        "name": "Multi-AZ High-Availability Cloud Architecture Failover & Load Test Harness",
+        "tools_used": [
+          "LocalStack",
+          "Terraform"
+        ],
+        "purpose": "Simulates 1,000 RPS traffic, injects single-zone outages, and measures failover latency and packet loss"
+      },
+      {
+        "name": "AWS SAA-C03 Architecture Blueprint & Exam Defense Manual",
+        "tools_used": [
+          "AWS VPC",
+          "ALB"
+        ],
+        "purpose": "Documents disaster recovery RTO/RPO strategies, multi-tier decoupling patterns, and SAA-C03 exam domain mappings"
+      }
+    ],
+    "data_flow": "Inbound client traffic arrives at the Application Load Balancer across multi-AZ public subnets; ALB evaluates target group health and routes requests to compute instances in private subnets; compute instances receive requests and publish asynchronous processing jobs to Amazon SQS; background workers poll SQS and process jobs; processed results and media are encrypted with AWS KMS customer managed keys and saved to Amazon S3; S3 lifecycle rules automatically move objects older than 30 days to S3 Glacier; if an entire availability zone suffers an outage, ALB detects failed targets within 5 seconds and shifts 100% of traffic to healthy AZ instances; Terraform defines the entire topology.",
+    "enforcement_mechanism": "Automated ALB active health checks (`/healthz`) removing unhealthy targets from connection pools within 2 consecutive failed probes."
+  },
+  "targets": [
+    {
+      "metric": "Multi-AZ Load Balancer Outage Failover Resiliency",
+      "method": "Percentage of requests successfully routed to secondary availability zone when primary zone is abruptly severed",
+      "input": "1,000 continuous HTTP requests issued at 100 RPS while Availability Zone 1 is marked offline",
+      "environment": "Multi-AZ architecture deployed in LocalStack / AWS environment via Terraform",
+      "minimum_pass": "1,000 of 1,000 requests succeed with 0 dropped sockets and failover rerouting in < 5.0 seconds",
+      "target": "1,000 of 1,000 requests succeed with 0 dropped sockets and failover rerouting in < 2.2 seconds",
+      "report": "ALB failover benchmark report and target group health check event log"
+    },
+    {
+      "metric": "Asynchronous SQS Queue Processing Throughput",
+      "method": "Messages per second ingested into SQS queue and consumed by background workers without message loss or duplicates",
+      "input": "10,000 synthetic order messages sent in burst across 10 concurrent producer threads",
+      "environment": "Standard SQS queue with dead-letter queue (DLQ) redrive policy enabled",
+      "minimum_pass": "Sustained throughput is >= 800 messages per second with 0 messages routed to DLQ",
+      "target": "Sustained throughput is >= 1,800 messages per second with 0 messages routed to DLQ",
+      "report": "SQS queue depth benchmark log and worker consumer throughput table"
+    },
+    {
+      "metric": "S3 Storage Cost Optimization via Automated Lifecycle Transition",
+      "method": "Percentage of objects older than 30 days successfully transitioned from S3 Standard to S3 Glacier tier",
+      "input": "50 test objects uploaded with simulated historical creation timestamps (> 30 days old)",
+      "environment": "Amazon S3 bucket configured with automated lifecycle transition rules",
+      "minimum_pass": "50 of 50 qualifying objects transition to GLACIER storage class with 0 data loss",
+      "target": "50 of 50 qualifying objects transition to GLACIER storage class with 0 data loss",
+      "report": "S3 lifecycle transition audit report and storage class inventory summary"
+    }
+  ],
+  "skills": [
+    "AWS VPC",
+    "ALB",
+    "Amazon SQS",
+    "Amazon S3",
+    "AWS KMS",
+    "LocalStack",
+    "Terraform",
+    "DevOps",
+    "Cloud Architecture"
+  ],
+  "starter_input": {
+    "spec": "Directory containing Terraform HCL modules for multi-AZ VPC, ALB, SQS queues, S3 lifecycle policies, and test harness.",
+    "size": "8 Terraform modules, Docker Compose LocalStack manifest, Python load test runner, and SAA-C03 domain study blueprint",
+    "seeded_cases": "Unhealthy ALB targets, poison-pill SQS messages, expired KMS key permissions, and misconfigured private NAT routes",
+    "label_source": "Deterministic Terraform state files, ALB HTTP access logs, and SQS queue attribute message counts",
+    "personal_data_policy": "Strictly mock synthetic e-commerce orders and simulated transaction IDs; no real personal data used"
+  },
+  "components": [
+    {
+      "name": "Multi-AZ VPC Network Topology & Private Subnet Bastion",
+      "task_type": "infra component (broker, DB, orchestrator, cluster service)",
+      "hours": 5.0
+    },
+    {
+      "name": "Application Load Balancer & Auto Scaling Group Controller",
+      "task_type": "concurrency/consistency mechanism with tests",
+      "hours": 5.0
+    },
+    {
+      "name": "Decoupled Asynchronous Processing with SQS & Lambda",
+      "task_type": "data pipeline step",
+      "hours": 4.0
+    },
+    {
+      "name": "S3 Lifecycle Tiering & KMS Envelope Encryption Module",
+      "task_type": "security hardening checks",
+      "hours": 4.0
+    },
+    {
+      "name": "Multi-AZ High-Availability Cloud Architecture Failover & Load Test Harness",
+      "task_type": "load or performance test harness + report",
+      "hours": 3.0
+    },
+    {
+      "name": "AWS SAA-C03 Architecture Blueprint & Exam Defense Manual",
+      "task_type": "docs + architecture diagram",
+      "hours": 3.0
+    }
+  ],
+  "extended_path": {
+    "features": [
+      "Cross-region disaster recovery replication using AWS Aurora Global Databases and Route 53 latency routing",
+      "AWS Web Application Firewall (WAF) rule automation blocking SQL injection and rate-limiting abusive IP addresses",
+      "Comprehensive SAA-C03 390-question scenario exam simulator with domain-level diagnostic scoring"
+    ],
+    "hours": 52
+  },
+  "milestones": [
+    {
+      "name": "Terraform Multi-AZ VPC & Application Load Balancer in AWS VPC and ALB",
+      "hours": 7,
+      "done_criterion": "Terraform provisions multi-AZ subnets; ALB distributes traffic across healthy compute instances."
+    },
+    {
+      "name": "Decoupled SQS Message Queue & Background Workers in Amazon SQS and LocalStack",
+      "hours": 7,
+      "done_criterion": "SQS queue buffers messages; workers process 800+ msgs/sec with DLQ redrive configured."
+    },
+    {
+      "name": "KMS Envelope Encryption & S3 Glacier Lifecycle Tiering in Amazon S3 and AWS KMS",
+      "hours": 7,
+      "done_criterion": "S3 bucket enforces KMS encryption; automated lifecycle transitions 50 of 50 test objects to Glacier."
+    },
+    {
+      "name": "Disaster Recovery Benchmark, Anti-Fake Outage Test & Docs in Terraform and DevOps",
+      "hours": 7,
+      "done_criterion": "ALB failover succeeds in < 5s; anti-fake test redirects around dead AZ; documentation complete."
+    }
+  ],
+  "prerequisites": [
+    "Proficiency in basic cloud networking (IP subnets, CIDR, DNS, routing), and infrastructure-as-code (Terraform or OpenTofu)",
+    "Understanding of distributed system availability principles: load balancing, queuing, asynchronous workers, and encryption"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (purely cloud infrastructure automation and load testing)",
+    "cost": "$0 (fully open-source stack using LocalStack in Docker Desktop; $0 cloud fee)",
+    "accounts_keys_quotas": "No external cloud billing accounts, commercial licenses, or credit cards required",
+    "reference_environment": "Local 4-core CPU, Docker Desktop (LocalStack 3.0+), Terraform 1.5+, Python 3.11",
+    "fallback_path": "AWS Free Tier account or offline mock JSON API server if Docker LocalStack cannot be provisioned"
+  },
+  "riskiest_component": {
+    "name": "Split-Brain Inconsistencies or Cascading Timeouts during Availability Zone Failover",
+    "mitigation": "Configure aggressive health check probe intervals (2 probes * 2s) and pre-warm secondary AZ instance pools.",
+    "fallback": "Automated ALB DNS shift via Route 53 health check alarms."
+  },
+  "deliverables": [
+    "Terraform infrastructure repository containing multi-AZ VPC, ALB, SQS, and S3 lifecycle configurations",
+    "Docker Compose environment orchestrating LocalStack local cloud emulation and automated benchmark runners",
+    "Disaster recovery evaluation report documenting RTO/RPO metrics under simulated single-zone outages",
+    "Screener verification script validating multi-AZ failover, SQS throughput, and anti-fake failover in under 3 minutes"
+  ],
+  "out_of_scope": [
+    "Commercial multi-region AWS Direct Connect dedicated fiber circuit deployments",
+    "On-premises VMware vSphere to AWS Outposts hybrid cloud physical extensions",
+    "Enterprise SAP HANA cluster migration architectures"
+  ],
+  "safety_note": null,
+  "resources": [
+    "AWS Certified Solutions Architect \u2013 Associate (SAA-C03) Official Exam Blueprint",
+    "AWS Well-Architected Framework: Reliability Pillar & Disaster Recovery Whitepaper",
+    "Terraform AWS Provider Documentation for Multi-AZ VPC and ALB Architectures"
+  ],
+  "rubric": [
+    {
+      "input": "1,000 HTTP requests issued while Availability Zone 1 is forcefully severed",
+      "action": "python ./scripts/test_az_failover.py --requests 1000 --sever-az us-east-1a",
+      "expected_result": "1,000 of 1,000 requests succeed; ALB reroutes to healthy zone in < 5.0 seconds",
+      "evidence_location": "Failover benchmark report in reports/failover_audit.json",
+      "pass_criterion": "1,000 of 1,000 requests succeed with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "10,000 synthetic order messages sent in burst to SQS queue",
+      "action": "python ./scripts/test_sqs_throughput.py --messages 10000 --concurrency 10",
+      "expected_result": "System sustains >= 800 messages/sec with 0 messages delivered to DLQ",
+      "evidence_location": "SQS throughput log in reports/sqs_throughput.json",
+      "pass_criterion": "Sustained throughput >= 800 msgs/sec with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "50 test objects with simulated timestamps older than 30 days in S3",
+      "action": "python ./scripts/verify_glacier_transition.py --bucket test-archive-bucket",
+      "expected_result": "50 of 50 objects report storage class GLACIER with valid KMS encryption headers",
+      "evidence_location": "S3 lifecycle audit report in reports/lifecycle_audit.json",
+      "pass_criterion": "50 of 50 objects transitioned with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Terraform code evaluation against AWS Well-Architected security best practices",
+      "action": "terraform plan -out=tfplan.binary && tfsec .",
+      "expected_result": "Tfsec security scanner reports zero CRITICAL or HIGH compliance violations",
+      "evidence_location": "Security scan log in reports/tfsec_report.txt",
+      "pass_criterion": "Zero high/critical security findings with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Severing Availability Zone 1 and verifying ALB immediately drops dead targets from routing table",
+      "action": "python ./scripts/verify_alb_target_drop.py --dead-az us-east-1a",
+      "expected_result": "ALB detects dead instance health check failure and directs 100% of new traffic to healthy zone",
+      "evidence_location": "Dynamic verification console execution output log",
+      "pass_criterion": "Console confirms 100% traffic shifted away from dead AZ with exit code 0",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Engineered multi-AZ cloud architecture aligning with AWS Solutions Architect Associate guidelines; achieved [FAILOVER_UPTIME] request availability during availability zone failover, and decoupled asynchronous workloads via SQS at [MESSAGE_THROUGHPUT] messages per second.",
+    "claims": [
+      {
+        "text": "achieved [FAILOVER_UPTIME] request availability during availability zone failover",
+        "rubric_indexes": [
+          0
+        ]
+      },
+      {
+        "text": "decoupled asynchronous workloads via SQS at [MESSAGE_THROUGHPUT] messages per second",
+        "rubric_indexes": [
+          1
+        ]
+      }
+    ],
+    "do_not_claim": "managed multi-region Direct Connect fiber links or enterprise on-premises SAP migrations"
+  },
+  "verify": [
+    "Run `terraform validate` and `tfsec .` to confirm infrastructure code syntax and security posture.",
+    "Execute `python ./scripts/test_az_failover.py` to verify multi-AZ failover availability under load.",
+    "Run `python ./scripts/verify_alb_target_drop.py` to assert automated dead target removal."
+  ],
+  "worksheet": {
+    "q1": "Core deliverable: an AWS SAA-C03 high-availability cloud architecture with multi-AZ ALB, SQS decoupling, KMS encryption, and Terraform.",
+    "q2": "Target users: cloud solutions architects, senior DevOps engineers, and SREs preparing for SAA-C03.",
+    "q3": "3 use cases: multi-AZ high-availability web portals, asynchronous SQS order processing, and automated S3 Glacier lifecycle tiering.",
+    "q4": "Stated hours: 28 hours. Calculated bottom-up: 24 component hours * 1.15 buffer = 27.6 -> 28 hours. Intermediate level. Extended path: +52h.",
+    "q5": "Hard parts: multi-AZ subnet routing, queue-depth worker auto-scaling, KMS envelope encryption, and sub-5s ALB failover.",
+    "q6": "Starter input: Terraform modules, LocalStack Docker Compose, load test runner, and SAA-C03 study blueprint. Synthetic orders only.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU bound, $0 cost using LocalStack in Docker Desktop. Zero cloud fees.",
+    "q8": "Riskiest component: cascading timeouts during availability zone failover. Fallback: aggressive health checks and pre-warmed standby capacity.",
+    "q9": "Potential faking: theoretical architecture diagram without running failover tests. Anti-fake check 5 severs AZ 1 and verifies 100% traffic shift.",
+    "q10": "Safe; synthetic order messages and simulated transaction IDs only."
+  }
+}

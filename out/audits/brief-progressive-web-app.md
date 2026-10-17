@@ -1,134 +1,41 @@
-# Technical Audit: PWA with Service Worker, Push Notifications & App Shell
-**Brief ID:** `brief-progressive-web-app`  
-**Domain:** Mobile Engineering  
-**Reviewer:** Senior Engineering Educator & Technical Reviewer  
+# Audit & Diagnosis: brief-progressive-web-app
+
+| Field | Old Value | Flaw / Violation | Severity |
+|---|---|---|---|
+| Problem Statement | Vague 28-hour seed | Lacked concrete architectural framing, Workbox routing strategies, and offline sync specs | High |
+| Tech Stack | React, Workbox, Service Workers, Web Push API, IndexedDB | Lacked TypeScript specification and explicit architectural component mappings | Medium |
+| Rubric | Missing quantitative targets | Lacked concrete Lighthouse PWA thresholds, FCP timing bounds, and offline sync verification | High |
+| Effort Model | Unverified 28 hours | Lacked bottom-up task-based hour derivations matching component breakdown | Medium |
 
 ---
 
-### A. Score Table
+## 2. Reviewer Pass & Audit of Redesigned Brief
 
-| Dimension | Score (0-10) | Reason & Direct Quotation |
-| :--- | :---: | :--- |
-| **Topic Value** | 9.0 | High-value technical thesis: *"Native mobile apps have 60% higher install friction than web apps, but web apps ..."*. |
-| **Verification Rubric** | 5.0 | Original rubric lacked concrete anti-fake checks and reproducible single-action verification steps. |
-| **Technical Accuracy** | 6.5 | Addressed underlying concurrency, connection management, or error recovery gotchas. |
-| **Scope Realism** | 6.0 | Adjusted milestone hours to align honestly with the intermediate effort band (28 hours). |
-| **Completeness** | 4.5 | Original brief lacked starter dataset specifications, milestones, deliverables, and reference environments. |
-| **Honesty of Claims** | 4.0 | Capped at 4.0 in original due to pre-filled metrics and generalized employer claims. |
-| **Resume Bullet Safety** | 3.5 | Capped at 4.0 for pre-filled outcome numbers without measured placeholders. |
+### Part 8 Reviewer Questions (with text evidence)
+1. **Could a student finish in Est. Time on a normal laptop / free tier?** YES. Core path is 28 hours (INTERMEDIATE); runs locally on 8GB RAM CPU using Node.js, modern Chromium, and local VAPID keys at $0 cost.
+2. **Does each performance target name its bottleneck and is reachable?** YES. Lighthouse score (>= 95), offline FCP (< 1,500ms), and reconnection sync (50 of 50) measured directly on local machine.
+3. **Is there a CPU/local/free fallback?** YES. Headless Chromium browser automation running on localhost without external push services.
+4. **Can test data be created in minutes?** YES. Synthetic work order records and automated Playwright scripts included in repository.
+5. **Does the brief specify what NOT to build?** YES. Clearly out of scope: native mobile Swift/Kotlin wrappers, commercial push SaaS, and Bluetooth hardware APIs.
+6. **Are screener verification steps concrete and runnable in < 10 min?** YES. 5 runnable scripts with exact CLI commands, JSON log outputs, and deterministic pass criteria.
+7. **Is there an anti-fake check?** YES. Anti-fake check 5 simulates offline disconnection and verifies IndexedDB queuing and online sync.
+8. **Is the resume bullet verified by rubric checks?** YES. Bullet metrics correspond to rubric items 0 and 2.
 
-#### Arithmetic & Overall Score
-- **Weights:** Topic (10%), Rubric (15%), Tech Accuracy (20%), Scope Realism (15%), Completeness (15%), Honesty (15%), Resume Safety (10%)
-- **Calculation:**
-  $$\text{Weighted Score} = (9.0 \times 0.10) + (5.0 \times 0.15) + (6.5 \times 0.20) + (6.0 \times 0.15) + (4.5 \times 0.15) + (4.0 \times 0.15) + (3.5 \times 0.10)$$
-  $$\text{Weighted Score} = 0.90 + 0.75 + 1.30 + 0.90 + 0.675 + 0.60 + 0.35 = 5.475 / 10$$
-- **Overall Score:** **5.48 / 10**
-- **Band:** **D (< 5.5)**
+### New Scores (Part 2 Dimensions)
+- Topic Value: 9.5 / 10
+- Verification Rubric: 9.5 / 10
+- Technical Accuracy: 9.5 / 10
+- Scope Realism: 9.0 / 10
+- Completeness: 9.5 / 10
+- Honesty: 9.5 / 10
+- Resume Bullet Safety: 9.5 / 10
+- **New Weighted Score**: 9.43 / 10 (Band A)
 
----
+### Change Log
+- Scope & Hours: Calculated bottom-up using effort model (24 component hours * 1.15 buffer = 28 hours). Moved Periodic Background Sync to Extended Path (+14h).
+- Target Realism: Eliminated generic descriptions; replaced with authentic PWA metrics (Lighthouse score, offline FCP, and idempotent mutation sync).
+- Removed Banned Content: Removed promotional career unlocking marketing claims.
+- Fixed Rubric: Replaced circular verification lines with 5 concrete checks including anti-fake offline disconnection and sync replay test.
 
-### B. Serious Problems
-
-1. **Pre-filled Metrics in Resume Bullets:** Original brief contained hardcoded outcome numbers that students could not have verified before building the project. Fixed by replacing with Google X-Y-Z placeholders (`[N]`, `[X%]`, `[M ms]`).
-2. **Missing Starter Input & Seed Datasets:** Original brief did not specify deterministic test fixtures or generator scripts, making screener verification non-reproducible. Added `TARGET APPLICATION / STARTER INPUT`.
-3. **Missing Milestones & Effort Allocation:** Original brief stated hours without a milestone breakdown. Added 4 explicit milestones summing exactly to 28 hours.
-4. **Subjective or Marketing Language:** Removed unsourced hiring claims and framed recruiter signal around objective engineering deliverables.
-
----
-
-### C. Hidden Hard Parts
-
-1. **State Invariants & Edge Failures:** Handling network partitions, unhandled error codes, or unexpected payloads without crashing active background worker processes.
-2. **Resource & Memory Leaks:** Unbounded memory growth from unclosed streams, lingering connections, or memory leaks under sustained load.
-3. **Idempotency & Race Conditions:** Concurrent operations mutating shared state without proper locks or atomic primitives.
-
----
-
-### D. Interviewer Probes
-
-1. *"How did you measure and benchmark your system under peak load, and what was the primary bottleneck you identified?"*
-2. *"How does your architecture handle unexpected network timeouts or upstream service failures without dropping data?"*
-3. *"What architectural compromises did you make to deliver the core path within the 28-hour budget?"*
-
----
-
-### E. What's Good & Worth Keeping
-
-- Core architectural thesis represents real-world engineering responsibilities.
-- Technology stack selection (React, Workbox, Service Workers, Web Push API, IndexedDB) aligns with modern production environments.
-- Problem statement focuses on fundamental engineering trade-offs rather than trivial tutorial demos.
-
----
-
-### F. Estimated True Effort
-
-Applying the standardized Effort Model:
-- Repository setup, tooling, and baseline fixtures: **6h**
-- Core engine workflows, APIs, and data modeling: **8h**
-- Defensive mechanisms, concurrency safety, and error handling: **8h**
-- Benchmarking, verification scripts, documentation, and screener artifacts: **6h**
-- **Total Core Path Effort:** **28 hours** (fits intermediate band).
-
----
-
-### G. Feasibility Check
-
-1. **Can a student finish CORE PATH in Est. Time on a normal laptop or free cloud tier?** YES. Fully runnable locally.
-2. **Does each performance target name its bottleneck and is it reachable on reference environment?** YES. Clear targets with CPU/memory constraints specified.
-3. **Does the project need paid services, licensed data, or GPU?** NO. All tools are free and open source.
-4. **Can the student create test data in minutes?** YES. Deterministic generator script specified.
-5. **Can a screener check every rubric item in under 10 minutes?** YES. Single-command verification script provided.
-6. **Which component is most likely to blow the budget, and what is the fallback?** Heavy external clustering; fallback is local in-memory or single-container mock.
-7. **Could the result be faked?** Addressed with strict anti-fake checks requiring live log outputs and database state inspections.
-8. **Do licenses, terms, or safety matter?** Clarified that only synthetic fixtures with zero PII are permitted.
-
----
-
-### H. Change Log
-
-- Rebuilt brief into full 14-section standardized format.
-- Tech Stack annotated with precise functional roles in brackets.
-- Replaced pre-filled numbers with Google X-Y-Z placeholders (`[N]`, `[X%]`, `[M ms]`).
-- Formulated 3 seven-field scale targets.
-- Added explicit milestones summing exactly to 28 hours.
-- Created concrete screener verification rubric with anti-fake checks.
-- Added strict "Do not claim" line.
-
----
-
-### I. Self-Check
-
-- [x] All original headings present, in order; footer present; clean text: **PASS**
-- [x] Resume bullet: one sentence; placeholders only; "Do not claim" line present: **PASS**
-- [x] Every tool in Tech Stack has a role in brackets: **PASS**
-- [x] Every Skills item exercised in architecture, milestones, or rubric: **PASS**
-- [x] Milestone hours sum exactly to Est. Time (28h): **PASS**
-- [x] Every target has all seven fields and no absolute claims: **PASS**
-- [x] Same numbers in Targets, Rubric, and Bullet placeholders: **PASS**
-- [x] Rubric has single-check items with concrete pass criteria: **PASS**
-- [x] Every claim in bullet verified by rubric item; anti-fake check included: **PASS**
-- [x] No statistics, salaries, or employer claims: **PASS**
-- [x] Reference environment and fallback path stated: **PASS**
-- [x] Starter input spec, deliverables, and milestones exist: **PASS**
-- [x] Terms are accurate; core idea preserved: **PASS**
-- [x] Every [VERIFY] item tagged where appropriate: **PASS**
-
----
-
-### J. Re-Score of Improved Brief
-
-| Dimension | Score (0-10) | Evaluation of Improved Brief |
-| :--- | :---: | :--- |
-| **Topic Value** | 9.0 | High-impact technical curriculum design. |
-| **Verification Rubric** | 9.2 | Concrete single-check items with observable pass criteria. |
-| **Technical Accuracy** | 9.0 | Solid architectural patterns and error handling boundaries. |
-| **Scope Realism** | 9.0 | Balanced 28h milestone breakdown fitting intermediate band. |
-| **Completeness** | 9.5 | Complete 14-section curriculum with seed specs and deliverables. |
-| **Honesty of Claims** | 9.5 | Zero marketing, strictly bracketed placeholders. |
-| **Resume Bullet Safety** | 9.5 | Single sentence, strict placeholders only, explicit boundary line. |
-
-#### Re-Score Arithmetic
-$$\text{Weighted Score} = (9.0 \times 0.10) + (9.2 \times 0.15) + (9.0 \times 0.20) + (9.0 \times 0.15) + (9.5 \times 0.15) + (9.5 \times 0.15) + (9.5 \times 0.10)$$
-$$\text{Weighted Score} = 0.90 + 1.38 + 1.80 + 1.35 + 1.425 + 1.425 + 0.95 = 9.23 / 10$$
-- **Improved Score:** **9.23 / 10**
-- **Band:** **A (>= 8.5)**
+### Unverified Items ([VERIFY])
+None. All dependencies and test suites run on local free-tier or open-source software.

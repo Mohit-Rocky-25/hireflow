@@ -1,0 +1,304 @@
+{
+  "id": "brief-dist-cache-rust",
+  "title": "Distributed In-Memory Key-Value Cache Engine in Rust with Consistent Hashing",
+  "domain": "Systems Programming",
+  "difficulty": "ADVANCED",
+  "project_types": [
+    "Systems/low-level/networking",
+    "Distributed systems"
+  ],
+  "problem": "High-throughput distributed web applications exhaust relational database connection pools and disk I/O when handling read-heavy request spikes. Production caching systems mitigate this bottleneck, yet relying solely on prebuilt tools hides critical systems engineering concepts\u2014lock-free concurrent memory management, cache replacement policies, thread contention mitigation, and network protocol framing. This project implements a high-throughput, distributed in-memory key-value cache engine from first principles in Rust. The system features a lock-free sharded storage map, segmented LRU and TinyLFU eviction, consistent hashing with virtual nodes for multi-node partitioning, an asynchronous Tokio TCP protocol parser, and request coalescing (singleflight) to prevent cache stampedes.",
+  "use_cases": [
+    "Sub-millisecond session and authentication token caching for horizontally scaled APIs",
+    "Distributed database query result caching with automatic invalidation and stampede protection",
+    "High-frequency algorithmic trading feature store caching low-latency market state"
+  ],
+  "hard_parts": [
+    "Implementing lock-free sharded cache storage to eliminate mutex contention across high thread counts",
+    "Designing adaptive eviction combining frequency sketch (TinyLFU) and recency queues without lock contention",
+    "Distributing keys evenly across nodes using consistent hashing with virtual nodes and minimal key churn on node joins",
+    "Coalescing concurrent identical cache misses through singleflight synchronizers to eliminate database dogpiling"
+  ],
+  "screener_signals": [
+    "Idiomatic Rust implementation utilizing Tokio, parking_lot synchronization, and zero unsafe memory violations",
+    "Deterministic load test achieving over 100,000 requests/sec with p99 latency under 2 milliseconds on local hardware",
+    "Anti-fake verification script sending dynamic high-concurrency key bursts and asserting singleflight deduplication"
+  ],
+  "job_families": [
+    "Systems Software Engineer",
+    "Distributed Systems Engineer",
+    "Infrastructure Platform Engineer"
+  ],
+  "stack": [
+    {
+      "tool": "Rust",
+      "role": "systems programming language providing memory safety without garbage collection"
+    },
+    {
+      "tool": "Tokio",
+      "role": "asynchronous runtime powering non-blocking TCP network I/O and task scheduling"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "Sharded Memory Cache Engine",
+        "tools_used": [
+          "Rust"
+        ],
+        "purpose": "Provides concurrent in-memory key-value storage partitioned across 32 stripes to minimize lock contention"
+      },
+      {
+        "name": "TinyLFU Eviction Manager",
+        "tools_used": [
+          "Rust"
+        ],
+        "purpose": "Tracks key access frequencies with Count-Min sketches and evicts low-utility keys when memory limits trigger"
+      },
+      {
+        "name": "Tokio Asynchronous TCP Server",
+        "tools_used": [
+          "Rust",
+          "Tokio"
+        ],
+        "purpose": "Handles concurrent client TCP connections, parsing binary protocol frames and dispatching commands"
+      },
+      {
+        "name": "Consistent Hashing Ring Router",
+        "tools_used": [
+          "Rust"
+        ],
+        "purpose": "Maps keys across cluster nodes using a 32-bit hash ring with 128 virtual nodes per physical instance"
+      },
+      {
+        "name": "Singleflight Request Coalescer",
+        "tools_used": [
+          "Rust",
+          "Tokio"
+        ],
+        "purpose": "Suppresses redundant upstream fetch operations by merging concurrent misses for identical keys"
+      }
+    ],
+    "data_flow": "Clients connect over TCP to the Tokio server; binary protocol frames are parsed into GET/SET commands; the Consistent Hashing Router determines target node ownership; the target node checks its Sharded Memory Cache; on hit, value bytes return immediately and TinyLFU frequency sketches update; on miss, the Singleflight Coalescer ensures only one upstream fetch executes while other concurrent requests await the shared result; returned data writes to memory and evicts candidates if memory limits are exceeded.",
+    "enforcement_mechanism": "Strict memory quota bounds triggering TinyLFU eviction; read-write lock sharding preventing thread starvation."
+  },
+  "targets": [
+    {
+      "metric": "Sustained GET Throughput on Multi-Core CPU",
+      "method": "Multi-threaded benchmark client issuing 250,000 pipelined GET operations across warm cache",
+      "input": "250,000 read operations across 10,000 pre-loaded key-value pairs (1KB value size)",
+      "environment": "Standard 4-core local CPU, Rust release build, localhost TCP loopback",
+      "minimum_pass": "Sustained throughput exceeds 60,000 requests/sec",
+      "target": "Sustained throughput exceeds 120,000 requests/sec",
+      "report": "Cache benchmark client throughput summary log"
+    },
+    {
+      "metric": "Tail Read Latency (p99)",
+      "method": "High-frequency latency benchmarking recording per-request response time distribution",
+      "input": "50,000 requests executed at 50,000 req/sec target load",
+      "environment": "Standard 4-core local CPU, Rust release build, localhost TCP loopback",
+      "minimum_pass": "p99 latency is < 3.5 milliseconds",
+      "target": "p99 latency is < 1.5 milliseconds",
+      "report": "HDRHistogram latency percentiles output file"
+    },
+    {
+      "metric": "Consistent Hashing Virtual Node Distribution Skew",
+      "method": "Key allocation distribution measurement across 3 cluster nodes with 128 virtual nodes each",
+      "input": "100,000 random keys mapped to 3 cache nodes via hash ring",
+      "environment": "Standard 4-core local CPU, Rust release build",
+      "minimum_pass": "Coefficient of variation between node key allocations is < 15%",
+      "target": "Coefficient of variation between node key allocations is < 8%",
+      "report": "Cluster node key partition balance summary report"
+    }
+  ],
+  "skills": [
+    "Rust",
+    "Tokio",
+    "Distributed Systems",
+    "Consistent Hashing",
+    "Cache Eviction",
+    "Systems Programming",
+    "Concurrency"
+  ],
+  "starter_input": {
+    "spec": "Binary protocol specification (magic byte, opcode, key length, value length, body) and cluster topology configuration.",
+    "size": "Workload dataset of 100,000 synthetic key-value pairs with Zipfian access distribution",
+    "seeded_cases": "Simultaneous cache stampede spikes, corrupted protocol header frames, and out-of-memory key allocations",
+    "label_source": "Deterministic benchmark client script generating synthetic keys with known frequency distributions",
+    "personal_data_policy": "Strictly mock synthetic cache keys and payloads; no personal data used"
+  },
+  "components": [
+    {
+      "name": "Concurrent Sharded In-Memory Hash Table",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "Adaptive W-TinyLFU and Segmented LRU Eviction Manager",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "Asynchronous Tokio TCP Server & Binary Protocol Parser",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "Consistent Hashing Ring with Virtual Nodes",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "Cache Stampede Mitigation via Singleflight",
+      "task_type": "low-level/system subsystem",
+      "hours": 4.0
+    },
+    {
+      "name": "High-Concurrency Throughput & Latency Benchmark Harness",
+      "task_type": "load or performance test harness + report",
+      "hours": 4.0
+    },
+    {
+      "name": "Memory Layout & Distributed Sharding Documentation",
+      "task_type": "docs + architecture diagram",
+      "hours": 3.0
+    }
+  ],
+  "extended_path": {
+    "items": [
+      "SWIM gossip protocol peer failure detection and automatic ring topology rebalancing",
+      "Append-only log (AOF) disk persistence engine with background snapshot compaction"
+    ],
+    "hours": 16
+  },
+  "milestones": [
+    {
+      "name": "Lock-Free Sharded Storage & Cache Eviction in Rust Systems Programming",
+      "hours": 10,
+      "done_criterion": "Sharded map stores key-values; TinyLFU Count-Min sketch tracks frequency and evicts on memory limits."
+    },
+    {
+      "name": "Asynchronous Tokio TCP Protocol Server",
+      "hours": 10,
+      "done_criterion": "Tokio event loop handles 1,000 concurrent client connections, parsing and responding to binary frames."
+    },
+    {
+      "name": "Distributed Systems Consistent Hashing Cluster Router & Virtual Node Rebalancing",
+      "hours": 10,
+      "done_criterion": "Hash ring routes keys across 3 nodes; adding a node relocates < 35% of total keys."
+    },
+    {
+      "name": "Singleflight Request Coalescing, Chaos Benchmarking & Docs",
+      "hours": 10,
+      "done_criterion": "Singleflight coalesces 100 concurrent misses into 1 fetch; benchmark hits > 60k req/s; docs complete."
+    }
+  ],
+  "prerequisites": [
+    "Proficiency in Rust fundamentals (ownership, borrowing, lifetimes, traits, pattern matching)",
+    "Understanding of concurrency primitives (Mutex, RwLock, channels, atomic operations) and network sockets"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (purely CPU and memory bound operations)",
+    "cost": "$0 (fully open-source software stack)",
+    "accounts_keys_quotas": "No external cloud accounts, paid services, or API keys required",
+    "reference_environment": "Local 4-core CPU with Rust 1.70+ and Cargo installed",
+    "fallback_path": "Standard single-node in-process channel mode without distributed TCP networking"
+  },
+  "riskiest_component": {
+    "name": "Memory Leaks or Deadlocks in Concurrent Eviction Ring",
+    "fallback": "Enforce bounded lock acquisitions with try_write and fallback to opportunistic round-robin eviction"
+  },
+  "deliverables": [
+    "Git repository containing Rust cache engine source code, unit tests, and Cargo manifest",
+    "Standalone TCP server binary and lightweight client library with connection pooling",
+    "Automated benchmark test harness measuring throughput, p99 latency, and singleflight deduplication",
+    "Screener verification script executing automated benchmark and dynamic test in under 2 minutes"
+  ],
+  "out_of_scope": [
+    "Multi-master distributed transactions and Raft consensus replication",
+    "Complex nested data structures like Redis Streams or Geospatial indexes",
+    "Cross-datacenter WAN replication and conflict resolution"
+  ],
+  "safety_note": null,
+  "resources": [
+    "TinyLFU: A Highly Efficient Cache Admission Policy (Einziger, Friedman, Manes paper)",
+    "Consistent Hashing and Random Trees (Karger et al. paper)",
+    "Tokio Asynchronous Networking and Protocol Framing Architecture Guide"
+  ],
+  "rubric": [
+    {
+      "input": "Cache populated with 10,000 keys queried by multi-threaded client",
+      "action": "cargo run --release --bin cache_bench -- --clients 32 --requests 250000",
+      "expected_result": "Server processes requests with sustained throughput exceeding 60,000 requests/sec",
+      "evidence_location": "Terminal execution benchmark summary log",
+      "pass_criterion": "Measured throughput is > 60,000 req/sec with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "50,000 continuous requests benchmark measuring latency distribution",
+      "action": "cargo run --release --bin latency_profile",
+      "expected_result": "Engine delivers p99 latency under 3.5 milliseconds on local loopback",
+      "evidence_location": "Latency distribution console table and reports/latency.json",
+      "pass_criterion": "p99 latency is < 3.5 milliseconds",
+      "kind": "normal"
+    },
+    {
+      "input": "100,000 keys distributed across 3 simulated cache nodes with 128 virtual nodes each",
+      "action": "cargo test --release test_consistent_hashing_distribution",
+      "expected_result": "Ring balances keys with coefficient of variation under 15%",
+      "evidence_location": "Cargo test stdout report",
+      "pass_criterion": "Test passes with coefficient of variation < 15%",
+      "kind": "normal"
+    },
+    {
+      "input": "Cache instance configured with 10MB memory limit subjected to 25MB of random writes",
+      "action": "cargo test --release test_tinylfu_eviction_limits",
+      "expected_result": "TinyLFU evicts low-frequency items; memory stays bounded under 10MB",
+      "evidence_location": "Eviction test execution output log",
+      "pass_criterion": "Memory consumption remains <= 10.5MB with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Dynamic cache miss storm of 100 concurrent requests for an identical uncached key",
+      "action": "python scripts/verify_dynamic_singleflight.py --key DYNAMIC_KEY_BURST --concurrency 100",
+      "expected_result": "Singleflight coalescer intercepts storm and executes exactly 1 upstream fetch call",
+      "evidence_location": "Dynamic verification execution log",
+      "pass_criterion": "Upstream fetch counter equals 1 with all 100 clients receiving identical payload",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected distributed in-memory key-value cache engine in Rust and Tokio; achieved [THROUGHPUT] sustained GET throughput with sub-[P99_LATENCY] tail latency across [CLIENT_COUNT] concurrent connections, and eliminated cache stampedes via singleflight request coalescing.",
+    "claims": [
+      {
+        "text": "achieved [THROUGHPUT] sustained GET throughput with sub-[P99_LATENCY] tail latency",
+        "rubric_indexes": [
+          0,
+          1
+        ]
+      },
+      {
+        "text": "eliminated cache stampedes via singleflight request coalescing",
+        "rubric_indexes": [
+          4
+        ]
+      }
+    ],
+    "do_not_claim": "distributed multi-master Raft consensus replication or cross-datacenter WAN persistence"
+  },
+  "verify": [],
+  "worksheet": {
+    "q1": "Core deliverable: a high-throughput distributed in-memory cache in Rust with Tokio TCP server, TinyLFU eviction, consistent hashing, and singleflight coalescing.",
+    "q2": "Target users: systems software engineers, backend infrastructure engineers, and high-performance computing developers.",
+    "q3": "3 use cases: sub-millisecond API session caching, database query result caching, and algorithmic trading feature store caching.",
+    "q4": "Stated hours: 40 hours. Calculated bottom-up: 35 component hours * 1.15 buffer = 40.25 -> 40 hours. Advanced level.",
+    "q5": "Hard parts: lock-free sharded cache storage, adaptive TinyLFU eviction without lock contention, consistent hashing virtual node distribution, and singleflight stampede coalescing.",
+    "q6": "Starter input: 100,000 synthetic key-value pairs with Zipfian distribution. No personal data.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU only, $0 cost, zero cloud accounts. Fallback: single-node in-process channel mode.",
+    "q8": "Riskiest component: Memory leaks or deadlocks in concurrent eviction. Fallback: bounded try_write lock acquisition with round-robin eviction fallback.",
+    "q9": "Potential faking: mock cache responses bypassing storage. Anti-fake check 5 sends 100 concurrent misses for a dynamic key and asserts exactly 1 upstream fetch.",
+    "q10": "Safety/ethics: Safe; synthetic key-value pairs only."
+  }
+}

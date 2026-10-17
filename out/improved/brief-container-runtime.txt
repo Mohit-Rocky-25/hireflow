@@ -2,121 +2,158 @@ PROJECT BRIEF — Minimal Container Runtime (Docker-like) in Go
 ======================================================================
 
 Domain    : Systems Programming
-Difficulty: advanced
-Est. Time : 38 hours (Core Path) | Extended Path: +6 hours
-Tech Stack: Go [compiled systems runtime and networking implementation], Linux Namespaces [linux namespaces component], cgroups [cgroups component], OverlayFS [overlayfs component], System Calls [system calls component] (Requires: GCC / Clang toolchain or Rust cargo)
+Difficulty: ADVANCED
+Est. Time : 34 hours (core path, estimate). Extended path: +15 hours
+Tech Stack: Go (systems programming language executing low-level Linux syscalls and CLI mechanics), Linux (host operating system providing kernel namespaces, cgroups v2, and VFS isolation), cgroups v2 (kernel resource management hierarchy enforcing memory and CPU limits)
 
 PROBLEM STATEMENT
-----------------------------------------
-Docker is fundamentally a collection of Linux primitives (namespaces, cgroups, overlayfs) wrapped in a user-friendly CLI. Build a minimal container runtime from scratch using Linux namespaces, cgroups, and chroot — demonstrating how Docker works at the OS level without Docker itself.
+----------------------------------------------------------------------
+Container management platforms like Docker and Kubernetes rely fundamentally on standard Linux kernel primitives—namespaces, control groups (cgroups v2), and chroot/pivot_root filesystem mounts—wrapped beneath friendly command-line utilities. Operating containers without understanding these low-level abstractions obscures critical boundaries regarding isolation guarantees, memory leak remediation, resource limit enforcement, and root escape vectors. This project implements a minimal OCI-compliant container runtime from scratch in Go that forks child processes into isolated PID, mount, UTS, and network namespaces, configures cgroups v2 memory and CPU ceilings, and pivots into an isolated root filesystem.
 
 USE CASES IN THE REAL WORLD
-----------------------------------------
-Understanding container runtime internals is essential for Kride-hailing dispatch networksnetes cluster operators, container security engineers, and anyone building cloud infrastructure. Companies like Kata Containers, gVisor (distributed systems platforms), and Firecracker (AWS) all build on these primitives.
+----------------------------------------------------------------------
+- Secure sandbox process execution for untrusted multi-tenant code runners
+- Lightweight edge container execution environments with minimal memory footprint
+- Container security research and kernel-level isolation vulnerability assessment
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Most engineers use Docker without understanding the Linux primitives beneath it. Building a container runtime from scratch demonstrates kernel-level systems programming knowledge that is extremely rare and highly valued in platform engineering, Kride-hailing dispatch networksnetes development, and infrastructure security roles.
+WHY THIS IS HARD
+----------------------------------------------------------------------
+- Executing Linux system calls (clone, setns, unshare, pivot_root) cleanly in Go without runtime thread corruption
+- Interfacing with cgroups v2 unified filesystem hierarchy across memory.max, cpu.max, and pids.max controllers
+- Safely unmounting host filesystems and isolating device nodes (/dev, /proc, /sys) to prevent container breakouts
+- Managing process synchronization across parent and child processes prior to namespace activation
 
 RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Container runtime knowledge is the deepest level of Kride-hailing dispatch networksnetes and cloud infrastructure expertise. Engineers at CNCF projects (containerd, CRI-O), cloud providers (AWS, GCP, Azure), and security companies (Aqua Security, Sysdig) actively seek this knowledge. Immediately signals principal-level platform engineering capability.
+----------------------------------------------------------------------
+- Clean systems-level Go codebase making direct syscalls to Linux kernel primitives
+- Demonstrated PID 1 isolation inside the container with 0 host processes visible via ps
+- Kernel-enforced cgroups v2 memory limit verification triggering the Linux OOM killer on rogue allocations
+Relevant Job Families: Systems Software Engineer, Infrastructure Security Engineer, Kernel and Runtime Platform Engineer
 
 ARCHITECTURE & DATA FLOW
-----------------------------------------
-Go program using Linux syscalls: UTS namespace (hostname isolation), PID namespace (process isolation), Network namespace (network isolation), Mount namespace (filesystem isolation). cgroups v2 for resource limits (CPU, memory). OverlayFS for container layers. pivot_root for filesystem isolation.
+----------------------------------------------------------------------
+Components:
+- Process Namespace Isolator (Tools: Go, Linux): Invokes clone and unshare syscalls to establish isolated PID, UTS, IPC, and mount namespaces
+- cgroups v2 Controller (Tools: Go, cgroups v2): Creates unified control group directories and writes memory.max, cpu.max, and pids.max limits
+- Rootfs Mount & Pivot Engine (Tools: Go, Linux): Mounts private proc/sys filesystems and executes pivot_root into an isolated rootfs directory
+- Container Lifecycle CLI (Tools: Go): Provides run, exec, and ps subcommands managing container execution and exit codes
+
+Data Flow:
+User invokes the runtime CLI passing an Alpine rootfs and a command; the runtime creates a new cgroups v2 group with configured resource ceilings; the Go runtime re-executes itself via /proc/self/exe with clone flags (CLONE_NEWPID, CLONE_NEWNS, CLONE_NEWUTS); child process assigns its PID to cgroup.procs; the child pivots rootfs into target directory; procfs mounts to /proc; the target command executes as PID 1.
+
+Enforcement Mechanism:
+Linux kernel cgroups v2 kills processes exceeding memory.max; PID namespace restricts signal dispatch to container child processes.
 
 SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Target 1:
-- Metric: Request Processing Latency Overhead (p99)
-- Method: Concurrent HTTP load test using k6 / vegeta over 60s sustained run
-- Input/dataset: Standard synthetic JSON payload (~1KB) over 5,000 concurrent requests
-- Reference environment: Local 4-core CPU, 8GB RAM, loopback network interface
-- Minimum pass: p99 latency overhead < 25ms under 1,000 req/sec
-- Target: p99 latency overhead < 5ms under 5,000 req/sec
-- Report format: k6 terminal summary report and CSV latency distribution
-
-Target 2:
-- Metric: Sustained Concurrency & Correctness
-- Method: Continuous load test simulating concurrent client connections with idempotency checks
-- Input/dataset: Synthetic benchmark traffic across 50 concurrent worker threads
-- Reference environment: Local Docker Compose or native runtime
-- Minimum pass: Sustained throughput > [N] req/sec with 0 lost writes in [K] attempts
-- Target: Sustained throughput > [N] req/sec (target > 5,000 req/sec) with 0 lost writes in [K] attempts
-- Report format: Benchmark throughput table and error rate summary
-
-Target 3:
-- Metric: Fault Recovery / Failover Duration
-- Method: Injected worker process termination during active continuous request stream
-- Input/dataset: SIGKILL or chaos fault injection on worker process
-- Reference environment: Local multi-process or containerized cluster
-- Minimum pass: Service detects failure and reroutes traffic with recovery time < [S] seconds (pass < 5s)
-- Target: Service detects failure and recovers state with recovery time < [S] seconds (target < 2s)
-- Report format: System log timestamps comparing failure injection to state recovery
+----------------------------------------------------------------------
+Metric | Method | Input/Dataset | Reference Environment | Minimum Pass | Target | Report Format
+PID Namespace Process Isolation Invariant | Inspection of process table (/proc) from inside container versus host process table | Containerized execution of ps -ef inside isolated Alpine rootfs | Linux kernel 5.15+ (Ubuntu 22.04 LTS / Debian 12 / WSL2 with cgroups v2), root/sudo permissions | Target process observes PID 1 and can view 0 host processes from inside namespace | Target process observes PID 1 and can view 0 host processes from inside namespace | Container terminal output log comparing internal and external ps results
+cgroups v2 Memory Limit Kernel Enforcement | Execution of memory allocation program allocating 100MB against a 64MB memory.max limit | Compiled Go memory-eater script allocating slices in an infinite loop | Linux kernel 5.15+ with unified cgroups v2 hierarchy | Container process terminated by kernel OOM killer within 500ms of exceeding limit | Container process terminated by kernel OOM killer within 150ms of exceeding limit | Kernel dmesg log and cgroup memory.events file showing oom_kill counter increment
+Container Shell Boot Latency | Measurement of wall-clock time from CLI invocation to interactive shell prompt readiness | CLI run command launching /bin/sh inside minimal Alpine Linux rootfs | Standard 4-core local CPU, local ext4 filesystem | Container shell boots and responds to command in < 250ms | Container shell boots and responds to command in < 120ms | Benchmark execution timing log averaging 20 consecutive container launches
 
 SKILLS COVERED
-----------------------------------------
-Go, Linux, System Calls, Namespaces, cgroups, Networking
+----------------------------------------------------------------------
+Go, Linux, cgroups v2, System Calls, Systems Programming
 
 TARGET APPLICATION / STARTER INPUT
-----------------------------------------
-The project provides a self-contained test environment and fixture generator located in `scripts/` or `fixtures/`. It deterministically generates representative input records or mock client traffic for automated validation. No third-party proprietary data or real personal identifiers (PII) are required; all test datasets use synthetic tokens and deterministic random seeds.
+----------------------------------------------------------------------
+- Specification: Minimal Alpine Linux root filesystem archive (rootfs.tar.gz) and memory stress-testing Go script.
+- Dataset / Traffic Size: Alpine Linux base rootfs (approx 5MB unpacked) and memory stress test binary
+- Seeded Edge Cases: Fork bomb script testing pids.max, memory exhaustion testing memory.max, and hostname mutation testing UTS isolation
+- Label / Verification Source: Deterministic kernel event inspection scripts and dmesg log assertions
+- Personal Data Policy: Strictly base operating system binaries and synthetic test scripts; no personal user data used
 
 MILESTONES
-----------------------------------------
-- Milestone 1: Environment Setup & Core Foundations (8h)
-  Configure repository, tooling, container dependencies, and foundational data structures. Done when foundational test suite passes with clean linting.
-- Milestone 2: Core Processing & Architecture Implementation (11h)
-  Implement primary operational workflows, database models or state transitions, and API endpoints. Done when integration tests verify end-to-end data flow under normal operating conditions.
-- Milestone 3: Concurrency, Reliability & Error Guardrails (11h)
-  Implement defensive controls: rate limiting, retries with exponential backoff, transaction boundaries, and failure isolation. Done when chaos or stress tests verify graceful degradation under fault injection.
-- Milestone 4: Verification, Benchmarking & Documentation (8h)
-  Execute performance benchmark harness, compile measurement tables, generate architectural diagrams, and document screener verification steps. Done when `scripts/verify_all` passes completely.
+----------------------------------------------------------------------
+M1: Linux Namespaces & Process Isolation Core for Systems Programming (9h) — Done when: CLI runs child process in isolated PID and UTS namespaces; child observes PID 1.
+M2: cgroups v2 Memory & CPU Resource Controllers with System Calls (9h) — Done when: Runtime creates cgroups v2 hierarchy and enforces memory.max and pids.max in tests.
+M3: Rootfs Mount Isolation, pivot_root & CLI Runner (8h) — Done when: Runtime pivots into Alpine rootfs and mounts private /proc without host visibility.
+M4: Security Invariant Tests, Anti-Fake Check & Docs Buffer (8h) — Done when: OOM killer tests pass; anti-fake test validates dynamic hostname isolation; docs complete.
+Total: 34 hours (estimate)
 
 PREREQUISITES, ENVIRONMENT AND ACCOUNTS
-----------------------------------------
-- Prerequisites: Familiarity with Go and Linux Namespaces, standard command-line tools, and fundamental testing principles.
-- Hardware / OS: Standard modern computer (macOS, Linux, or Windows with WSL2) with at least 8GB RAM.
-- Accounts & Services: None required. Designed to run completely on free, open-source local software.
-- Fallback Path: In-memory mock drivers or SQLite/local files provided if external database or message broker containers cannot be run.
+----------------------------------------------------------------------
+Prerequisites: Intermediate Go programming (syscall package, os/exec, process handling), Familiarity with Linux operating system concepts (file descriptors, signals, procfs), Access to a Linux environment (native Linux, WSL2, or a Linux virtual machine)
+
+Environment & Hardware:
+- OS: Linux (native Ubuntu/Debian/Fedora or Windows WSL2 with cgroups v2 enabled)
+- Memory: 8GB RAM
+- Compute / GPU: None required (purely CPU and kernel systems programming)
+- Estimated Cost: $0 (fully open-source software stack)
+- Accounts & Quotas: Root or sudo privileges required on local Linux machine to manage namespaces and cgroups
+- Reference Environment: Ubuntu 22.04 LTS x86_64 or ARM64 with Go 1.21+ and sudo privileges
+- Fallback Path: Local disposable Linux VM using Multipass, Vagrant, or VirtualBox if host OS does not support native namespaces
+
+Riskiest Component & Fallback:
+- Riskiest Component: pivot_root System Call Failure on Shared Mount Points
+- Simpler Fallback: Execute mount make-rprivate on the host root mount before invoking pivot_root to eliminate shared mount propagation errors
 
 DELIVERABLES
-----------------------------------------
-1. Clean Git repository with structured commit history, README, and reproducible setup commands.
-2. Production-quality core codebase with automated test suite achieving verified pass rates.
-3. Performance benchmark report (`results/benchmark_report.md`) documenting measured latency, throughput, and resource utilization.
-4. Screener verification script (`scripts/verify_all.sh` or equivalent) validating the full system in < 3 minutes.
-5. Architecture diagram (Mermaid/ASCII) and known limitations document explaining architectural trade-offs.
+----------------------------------------------------------------------
+- Git repository containing Go runtime source code, syscall wrappers, and CLI subcommands
+- Minimal Alpine Linux rootfs provisioning script
+- Automated test suite verifying PID isolation, cgroups memory caps, and pivot_root security
+- Screener verification script running end-to-end container execution in under 2 minutes
 
 OUT OF SCOPE AND EXTENDED PATH
-----------------------------------------
-- Out of Scope for Core Path: Distributed multi-region clustering, enterprise SSO integrations, complex third-party SaaS dependencies.
-- Extended Path (+6 hours): Advanced telemetry dashboard, distributed persistence cluster extension, or automated canary release pipeline.
+----------------------------------------------------------------------
+Out of Scope:
+- Docker Image tarball layer downloading and OCI image registry pulling
+- Multi-host overlay networking across distributed nodes
+- Seccomp BPF syscall filtering profiles
+
+Extended Path (+15 hours):
+- Network namespace virtual ethernet (veth) pair setup with bridge routing and NAT iptables rules
+- Rootless container execution using user namespaces (CLONE_NEWUSER) and uid/gid mapping
 
 SAFETY AND ETHICS NOTE
-----------------------------------------
-All data processed, generated, and benchmarked by this project consists exclusively of synthetic fixtures. No personal identifiable information (PII), proprietary credentials, or live external endpoints are used.
+----------------------------------------------------------------------
+Requires root or sudo privileges to invoke Linux namespace and cgroup system calls. Execute inside a virtual machine or disposable developer environment.
 
 LEARNING RESOURCES
-----------------------------------------
-- Official Documentation for Go, Linux Namespaces, cgroups
-- Architectural Reference Patterns and RFC Standards [VERIFY URL]
-- Systems & Distributed Reliability Principles
+----------------------------------------------------------------------
+- Linux Programmer's Manual namespaces(7) and cgroups(7) documentation
+- Liz Rice - Building a Container from Scratch in Go architecture reference
+- Open Container Initiative (OCI) Runtime Specification standard
 
 SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Check 1: Verify process isolation: container process can't see host processes in `ps aux`; Pass when automated test script prints 0 errors and logs verified status code.
-2. Check 2: Verify filesystem isolation: container has separate root filesystem from host; Pass when automated test script prints 0 errors and logs verified status code.
-3. Check 3: Verify network isolation: container has separate network interface from host; Pass when automated test script prints 0 errors and logs verified status code.
-4. Check 4: Verify cgroup memory limit: process OOM-killed when exceeding configured memory limit; Pass when automated test script prints 0 errors and logs verified status code.
-5. Check 5: Verify cold start benchmark: container running /bin/bash starts in < 200ms; Pass when automated test script prints 0 errors and logs verified status code.
-6. Check 6: 6. Anti-Fake Verification Check: Inspect committed execution logs and re-run verification script against seeded test fixtures; pass when runtime metrics dynamically reflect test execution rather than static mocked responses.
+----------------------------------------------------------------------
+1. Check
+   Input: sudo ./bin/minidocker run /alpine /bin/ps -ef
+   Action: Execute command and inspect process table output
+   Result: ps command shows only PID 1 (/bin/ps) and no host background processes
+   Evidence: Terminal stdout output log
+   Pass: Output contains only 1 running process with PID 1 and returns exit code 0
+2. Check
+   Input: sudo ./bin/minidocker run --memory 64m /alpine /bin/stress_memory
+   Action: Execute memory stress program that attempts to allocate 100MB
+   Result: Kernel cgroups v2 detects limit breach and sends SIGKILL to process
+   Evidence: Terminal output reporting 'Killed' and cgroup memory.events log
+   Pass: Process terminates with exit code 137 and memory.events reports oom_kill count >= 1
+3. Check
+   Input: sudo ./bin/minidocker run /alpine /bin/cat /proc/mounts
+   Action: Inspect mounts visible inside container root filesystem
+   Result: Only private container mounts are listed; host root filesystem is unmounted and inaccessible
+   Evidence: Terminal output log of container mounts
+   Pass: Host root mount absent from list and exit code 0
+4. Check
+   Input: Timing benchmark running 20 consecutive container invocations
+   Action: Execute python scripts/benchmark_startup.py
+   Result: Benchmark calculates mean container startup latency from invocation to exit
+   Evidence: Benchmark summary console output table
+   Pass: Average startup latency is < 250ms across 20 consecutive runs
+5. Check [anti_fake]
+   Input: Dynamic custom hostname generated at runtime by verification script
+   Action: sudo ./scripts/verify_dynamic_runtime.sh --hostname dyn-host-8819
+   Result: Container sets hostname in isolated UTS namespace; host hostname remains untouched
+   Evidence: Verification console output comparing host and container hostnames
+   Pass: Container reports dynamic hostname and host reports original hostname with exit code 0
 
 RESUME BULLET FORMULA
-----------------------------------------
-"Built minimal container runtime in Go using Linux namespaces, cgroups, and OverlayFS; demonstrated complete PID, network, and filesystem isolation with < [M ms] cold start and enforced CPU/memory resource limits."
-Do not claim: scale, latency, or throughput figures without committing benchmark run logs; do not claim production deployment unless deployed to a verifiable live environment.
+----------------------------------------------------------------------
+"Architected minimal OCI-compliant container runtime in Go leveraging Linux namespaces and cgroups unified hierarchy; enforced strict PID namespace isolation, kernel OOM termination under [OOM_MEMORY] memory limits, and sub-[STARTUP_LATENCY] shell startup latency."
+
+Do not claim: production OCI compatibility or multi-tenant kernel sandbox security without committed seccomp and AppArmor profiles
 
 ======================================================================
 Generated by HireFlow — hireflow.io

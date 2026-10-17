@@ -1,0 +1,350 @@
+{
+  "id": "cert-gcp-ace",
+  "title": "Google Cloud Associate Cloud Engineer (ACE) Infrastructure & Kubernetes Deployment Lab",
+  "domain": "Cloud Infrastructure & Kubernetes",
+  "difficulty": "INTERMEDIATE",
+  "project_types": [
+    "Certification / exam pages",
+    "Cloud architecture"
+  ],
+  "problem": "Engineers preparing for the Google Cloud Associate Cloud Engineer (ACE) certification often practice solely in the graphical Cloud Console, failing to acquire the necessary proficiency in declarative Terraform infrastructure-as-code and the `gcloud` command-line interface. Consequently, when deploying containerized applications to Google Kubernetes Engine (GKE) or Cloud Run, they struggle with configuring least-privilege IAM service accounts, managing multi-project resource hierarchies, or automating Cloud Monitoring alert policies. This guide delivers a hands-on cloud engineering lab curriculum and reproducible deployment project in Google Cloud / local container environments. The engineer provisions Google Kubernetes Engine (GKE) clusters with autoscaling, deploys stateless microservices to Cloud Run, configures least-privilege IAM service account bindings, manages Cloud Storage bucket lifecycles, and automates Cloud Monitoring uptime alerts.",
+  "use_cases": [
+    {
+      "title": "Scalable Containerized Microservice Hosting on Google Kubernetes Engine",
+      "first_sentence": "Enterprise organizations running high-throughput APIs on Google Cloud need managed Kubernetes clusters that scale compute capacity automatically with load.",
+      "second_sentence": "The engineer provisions a GKE cluster with cluster autoscaling and node auto-provisioning, deploying containerized applications with ingress load balancing."
+    },
+    {
+      "title": "Serverless Container Workload Deployment on Cloud Run",
+      "first_sentence": "Fast-growing digital platforms processing event webhooks require serverless execution that scales to zero during idle periods to eliminate unnecessary compute costs.",
+      "second_sentence": "The project packages microservice containers into Google Artifact Registry and deploys them to Cloud Run with automatic concurrency scaling and sub-2s cold starts."
+    },
+    {
+      "title": "Enterprise Cloud IAM Governance & Least-Privilege Access Control",
+      "first_sentence": "Multi-team organizations sharing Google Cloud projects must isolate developer permissions and prevent cross-environment resource tampering.",
+      "second_sentence": "The system configures IAM custom roles, binds service accounts to specific resources with predefined permissions, and logs audit access events in Cloud Logging."
+    }
+  ],
+  "hard_parts": [
+    "Mastering the `gcloud` CLI syntax across resource hierarchies (Organizations, Folders, Projects) for rapid declarative and imperative execution",
+    "Configuring Google Kubernetes Engine (GKE) cluster autoscaler parameters and horizontal pod autoscalers (HPA) for efficient resource bin-packing",
+    "Binding least-privilege IAM roles to compute service accounts while avoiding overly permissive primitive roles (Viewer, Editor, Owner)",
+    "Designing Cloud Storage lifecycle management rules and Cloud Monitoring alert policies with automated notification delivery"
+  ],
+  "screener_signals": [
+    "Clean infrastructure repository containing Terraform HCL modules, `gcloud` deployment scripts, GKE manifests, and Cloud Monitoring alert rules",
+    "Autoscaling benchmark report proving GKE cluster scales compute nodes from 2 to 5 nodes under simulated traffic load in under 180 seconds",
+    "Anti-fake verification script attempting to access a restricted Cloud Storage bucket using an unauthorized service account and asserting HTTP 403 Forbidden"
+  ],
+  "job_families": [
+    "Google Cloud Platform Engineer",
+    "Cloud DevOps Specialist",
+    "Site Reliability Engineer (SRE)"
+  ],
+  "stack": [
+    {
+      "tool": "GCP",
+      "role": "Google Cloud Platform enterprise public cloud infrastructure and resource management hierarchy"
+    },
+    {
+      "tool": "GKE",
+      "role": "Google Kubernetes Engine managed container orchestration service managing cluster nodes and pods"
+    },
+    {
+      "tool": "Cloud Run",
+      "role": "serverless execution platform running stateless containerized HTTP services with scale-to-zero"
+    },
+    {
+      "tool": "Cloud Storage",
+      "role": "unified object storage service providing durable bucket storage with automated lifecycle transitions"
+    },
+    {
+      "tool": "Cloud Monitoring",
+      "role": "observability platform tracking resource health metrics, uptime checks, and incident alerting"
+    },
+    {
+      "tool": "Terraform",
+      "role": "declarative infrastructure-as-code tool automating reproducible Google Cloud Platform resource provisioning"
+    },
+    {
+      "tool": "Docker",
+      "role": "container runtime packaging application images pushed to Google Artifact Registry and deployed to GKE"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "Google Cloud Project, IAM Least-Privilege & Service Account Setup",
+        "tools_used": [
+          "GCP",
+          "Terraform"
+        ],
+        "purpose": "Configures project hierarchies, creates dedicated service accounts, and binds least-privilege IAM roles"
+      },
+      {
+        "name": "Google Kubernetes Engine (GKE) Cluster Provisioning & Autoscaling",
+        "tools_used": [
+          "GKE",
+          "Terraform",
+          "Docker"
+        ],
+        "purpose": "Provisions managed GKE clusters with horizontal pod autoscaling and automated node pool expansion"
+      },
+      {
+        "name": "Cloud Run Serverless Cloud Architecture Deployment & Traffic Shifting",
+        "tools_used": [
+          "Cloud Run",
+          "Docker"
+        ],
+        "purpose": "Deploys stateless containers to Cloud Run, configures revision traffic splitting, and tests cold-start performance"
+      },
+      {
+        "name": "Cloud Storage Bucket Lifecycle & IAM Access Control Policy",
+        "tools_used": [
+          "Cloud Storage",
+          "GCP"
+        ],
+        "purpose": "Manages regional and nearline storage buckets, applies lifecycle deletion/archival rules, and enforces bucket-level IAM"
+      },
+      {
+        "name": "Cloud Monitoring Metrics, Uptime Checks & Alerting Suite",
+        "tools_used": [
+          "Cloud Monitoring",
+          "GCP"
+        ],
+        "purpose": "Configures synthetic uptime checks, creates latency threshold alerts, and routes incident notifications to webhook channels"
+      },
+      {
+        "name": "GCP Associate Cloud Engineer Architecture Guide & Lab Manual",
+        "tools_used": [
+          "GCP",
+          "GKE"
+        ],
+        "purpose": "Documents official ACE exam blueprint domains, gcloud CLI imperative commands, and Credly badge verification"
+      }
+    ],
+    "data_flow": "An operator authenticates via `gcloud auth`; Terraform provisions Google Cloud project resources and service accounts; container images are built via Docker and published to Artifact Registry; GKE pulls images to deploy microservices behind a Cloud Load Balancer; Cloud Run receives asynchronous webhooks with auto-scaling; static data uploads to Cloud Storage with automated lifecycle policies; Cloud Monitoring scrapes metrics across GKE, Cloud Run, and storage buckets; when an uptime check fails, Cloud Monitoring generates an incident alert; IAM policies enforce that service accounts only possess least-privilege permissions.",
+    "enforcement_mechanism": "Google Cloud IAM policy evaluation and OAuth 2.0 bearer token validation returning HTTP 403 on permission violations."
+  },
+  "targets": [
+    {
+      "metric": "Cloud Run Serverless Cold Start & Request Latency",
+      "method": "Wall-clock round-trip duration for a scaled-to-zero Cloud Run container to initialize and return HTTP 200 response",
+      "input": "20 sequential cold-start requests issued after container scale-to-zero idle period",
+      "environment": "Google Cloud Run service environment running lightweight Python container",
+      "minimum_pass": "p95 container cold start latency is < 2.5 seconds with p95 warm latency < 45ms",
+      "target": "p95 container cold start latency is < 1.4 seconds with p95 warm latency < 22ms",
+      "report": "Cloud Run latency benchmark report and cold start distribution log"
+    },
+    {
+      "metric": "GKE Cluster Node Autoscaling Expansion Duration",
+      "method": "Elapsed time for GKE cluster autoscaler to detect pending unschedulable pods and add 3 compute nodes to node pool",
+      "input": "High-concurrency batch workload creating 30 compute-heavy pods exceeding baseline cluster capacity",
+      "environment": "GKE cluster configured with cluster autoscaler (min 2, max 5 nodes)",
+      "minimum_pass": "Cluster scales from 2 to 5 nodes and schedules 30 of 30 pods in < 210 seconds",
+      "target": "Cluster scales from 2 to 5 nodes and schedules 30 of 30 pods in < 140 seconds",
+      "report": "GKE autoscaling event log and node provisioning timing trace"
+    },
+    {
+      "metric": "Cloud Storage IAM Least-Privilege Access Enforcement Rate",
+      "method": "Percentage of unauthorized bucket read/write operations rejected with HTTP 403 Forbidden across restricted service accounts",
+      "input": "50 simulated storage API operations executed using unauthorized service account credentials",
+      "environment": "Google Cloud Storage bucket configured with uniform bucket-level access and restricted IAM bindings",
+      "minimum_pass": "50 of 50 unauthorized storage operations rejected with HTTP 403",
+      "target": "50 of 50 unauthorized storage operations rejected with HTTP 403",
+      "report": "Cloud Storage IAM security audit log and permission denial trace"
+    }
+  ],
+  "skills": [
+    "GCP",
+    "GKE",
+    "Cloud Run",
+    "Cloud Storage",
+    "Cloud Monitoring",
+    "Terraform",
+    "Docker",
+    "DevOps",
+    "Cloud Architecture"
+  ],
+  "starter_input": {
+    "spec": "Directory containing Terraform GCP modules, sample Dockerfiles, GKE Kubernetes manifests, and gcloud CLI lab scripts.",
+    "size": "9 Terraform files, 4 Kubernetes manifests, Dockerfile, and automated ACE scenario validation runner",
+    "seeded_cases": "Over-privileged primitive IAM roles, unschedulable GKE pod resource requests, failing Cloud Run health checks, and unencrypted buckets",
+    "label_source": "Deterministic Google Cloud API JSON responses, gcloud command exit codes, and Cloud Monitoring incident states",
+    "personal_data_policy": "Strictly mock synthetic Google Cloud project IDs and simulated customer records; no real personal data used"
+  },
+  "components": [
+    {
+      "name": "Google Cloud Project, IAM Least-Privilege & Service Account Setup",
+      "task_type": "security hardening checks",
+      "hours": 5.0
+    },
+    {
+      "name": "Google Kubernetes Engine (GKE) Cluster Provisioning & Autoscaling",
+      "task_type": "infra component (broker, DB, orchestrator, cluster service)",
+      "hours": 5.0
+    },
+    {
+      "name": "Cloud Run Serverless Cloud Architecture Deployment & Traffic Shifting",
+      "task_type": "concurrency/consistency mechanism with tests",
+      "hours": 4.0
+    },
+    {
+      "name": "Cloud Storage Bucket Lifecycle & IAM Access Control Policy",
+      "task_type": "API endpoint group with tests",
+      "hours": 4.0
+    },
+    {
+      "name": "Cloud Monitoring Metrics, Uptime Checks & Alerting Suite",
+      "task_type": "observability",
+      "hours": 3.0
+    },
+    {
+      "name": "GCP Associate Cloud Engineer Architecture Guide & Lab Manual",
+      "task_type": "docs + architecture diagram",
+      "hours": 3.0
+    }
+  ],
+  "extended_path": {
+    "features": [
+      "Cross-region VPC peering and Cloud Interconnect hybrid networking architecture",
+      "Full 280-question Google Cloud Associate Cloud Engineer practice exam simulator",
+      "Cloud Spanner globally distributed relational database provisioning with multi-region replication"
+    ],
+    "hours": 47
+  },
+  "milestones": [
+    {
+      "name": "Google Cloud IAM Governance & Service Accounts in GCP and Terraform",
+      "hours": 7,
+      "done_criterion": "Terraform creates project hierarchy; IAM service accounts configure with least-privilege roles."
+    },
+    {
+      "name": "GKE Cluster Provisioning & Autoscaling Nodes in GKE and Docker",
+      "hours": 7,
+      "done_criterion": "GKE cluster provisions with autoscaler; scales node pool under simulated pod demand in < 210s."
+    },
+    {
+      "name": "Cloud Run Serverless Cloud Architecture in Cloud Run and Cloud Storage",
+      "hours": 7,
+      "done_criterion": "Cloud Run deploys container with sub-2.5s cold start; Cloud Storage enforces lifecycle rules."
+    },
+    {
+      "name": "Cloud Monitoring Alerts, Anti-Fake IAM Test & Docs in Cloud Monitoring and DevOps",
+      "hours": 7,
+      "done_criterion": "Uptime alert triggers; anti-fake test blocks unauthorized storage access; documentation complete."
+    }
+  ],
+  "prerequisites": [
+    "Proficiency in basic command-line tooling (gcloud CLI, curl, bash), Docker container workflows, and basic networking (VPC, CIDR, DNS)",
+    "Understanding of cloud computing architectures: serverless execution (Cloud Run), Kubernetes (GKE), and object storage"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (purely cloud CLI interactions, container builds, and infrastructure automation)",
+    "cost": "$0 (runs within Google Cloud Free Tier / 90-day $300 trial credits, or local container emulation)",
+    "accounts_keys_quotas": "Standard Google Cloud account (Free Tier / $300 credit tier) or local mock cloud emulator required",
+    "reference_environment": "Local 4-core CPU, Google Cloud SDK (gcloud CLI 450+), Terraform 1.5+, Docker Desktop",
+    "fallback_path": "Local Docker container emulation and mock GCP API responses if GCP cloud account is unavailable"
+  },
+  "riskiest_component": {
+    "name": "Exceeding Cloud Free Tier Quotas or Incurring Charges on Unused GKE Clusters",
+    "mitigation": "Automate tear-down scripts (`terraform destroy`) and set hard budget billing caps in the GCP Console.",
+    "fallback": "Billing alert budget hard caps triggering automated Cloud Function cluster teardowns."
+  },
+  "deliverables": [
+    "Terraform infrastructure repository containing GKE, Cloud Run, Cloud Storage, and IAM configurations",
+    "Shell automation scripts for gcloud CLI deployment, cluster management, and service account key rotations",
+    "Complete Google Cloud Associate Cloud Engineer study guide and command manual mapped to official exam domains",
+    "Screener verification script testing Cloud Run latency, storage IAM restrictions, and anti-fake access denial in under 3 minutes"
+  ],
+  "out_of_scope": [
+    "Dedicated Cloud Interconnect physical 10Gbps cross-connect provisioning",
+    "Google Cloud Anthos hybrid multi-cloud management plane federation",
+    "Complex big data processing pipelines (Dataflow / Dataproc Apache Beam clusters)"
+  ],
+  "safety_note": null,
+  "resources": [
+    "Google Cloud Associate Cloud Engineer Official Examination Blueprint",
+    "Google Cloud Architecture Framework: System Design, Reliability, and Security",
+    "Terraform Google Cloud Platform Provider Documentation"
+  ],
+  "rubric": [
+    {
+      "input": "20 sequential requests issued to scaled-to-zero Cloud Run service",
+      "action": "python ./scripts/test_cloud_run_latency.py --service api-gateway",
+      "expected_result": "Cloud Run starts and responds with p95 cold start latency < 2.5s",
+      "evidence_location": "Cloud Run latency report in reports/cloud_run_latency.json",
+      "pass_criterion": "p95 cold start < 2.5s with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Batch workload creating 30 pods exceeding GKE baseline capacity",
+      "action": "python ./scripts/test_gke_autoscaling.py --pods 30",
+      "expected_result": "GKE cluster autoscaler adds nodes and schedules all pods in < 210 seconds",
+      "evidence_location": "Autoscaling event log in reports/gke_autoscaling.json",
+      "pass_criterion": "Cluster scales nodes and schedules pods in < 210s with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "50 simulated storage operations using unauthorized service account credentials",
+      "action": "./scripts/test_storage_iam.sh",
+      "expected_result": "Google Cloud Storage rejects 50 of 50 unauthorized operations with HTTP 403",
+      "evidence_location": "Storage IAM audit report in reports/storage_iam_audit.json",
+      "pass_criterion": "50 of 50 unauthorized operations rejected with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Synthetic HTTP uptime check monitoring Cloud Run service endpoint",
+      "action": "python ./scripts/verify_monitoring_alert.py --check-id uptime-check-1",
+      "expected_result": "Cloud Monitoring logs successful uptime probe with 100% availability status",
+      "evidence_location": "Monitoring probe dump in reports/uptime_check.json",
+      "pass_criterion": "Uptime probe reports healthy status with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Restricted service account attempting to download object from private bucket",
+      "action": "gcloud storage cp gs://private-test-bucket/secret.txt ./secret.txt --impersonate-service-account=unauthorized-sa@project.iam.gserviceaccount.com",
+      "expected_result": "API terminates immediately with 403 Access Denied error message",
+      "evidence_location": "Dynamic verification console execution output log",
+      "pass_criterion": "Console confirms 403 Access Denied or permission denied with exit code 1",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Engineered scalable cloud infrastructure on Google Cloud Platform aligned with GCP Associate Cloud Engineer objectives; deployed containerized workloads to GKE with [AUTOSCALE_LATENCY] node autoscaling, and established least-privilege IAM service accounts across [PROJECT_COUNT] cloud projects.",
+    "claims": [
+      {
+        "text": "deployed containerized workloads to GKE with [AUTOSCALE_LATENCY] node autoscaling",
+        "rubric_indexes": [
+          1
+        ]
+      },
+      {
+        "text": "established least-privilege IAM service accounts across [PROJECT_COUNT] cloud projects",
+        "rubric_indexes": [
+          2
+        ]
+      }
+    ],
+    "do_not_claim": "physical 10Gbps Cloud Interconnect provisioning or Google Cloud Anthos multi-cloud federation"
+  },
+  "verify": [
+    "Run `terraform plan` to confirm GCP infrastructure definitions are valid and reproducible.",
+    "Execute `python ./scripts/test_cloud_run_latency.py` to verify serverless container responsiveness.",
+    "Run `gcloud storage cp` with restricted service account to assert anti-fake 403 permission denial."
+  ],
+  "worksheet": {
+    "q1": "Core deliverable: a GCP Associate Cloud Engineer hands-on lab suite with GKE autoscaling, Cloud Run, and IAM governance.",
+    "q2": "Target users: Google Cloud platform engineers, cloud DevOps specialists, and SREs preparing for the ACE exam.",
+    "q3": "3 use cases: scalable GKE microservice hosting, Cloud Run serverless webhooks, and enterprise IAM governance.",
+    "q4": "Stated hours: 28 hours. Calculated bottom-up: 24 component hours * 1.15 buffer = 27.6 -> 28 hours. Intermediate level. Extended path: +47h.",
+    "q5": "Hard parts: gcloud CLI syntax across hierarchies, GKE cluster autoscaler tuning, least-privilege service account bindings, and Cloud Monitoring.",
+    "q6": "Starter input: Terraform GCP modules, Dockerfiles, GKE manifests, and gcloud lab scripts. Synthetic project IDs only.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU/network bound, $0 cost using Free Tier / local emulation. Zero unnecessary cloud fees.",
+    "q8": "Riskiest component: incurring cloud billing charges on orphaned clusters. Fallback: automated `terraform destroy` and billing hard budget caps.",
+    "q9": "Potential faking: GUI console clicking without automated code. Anti-fake check 5 impersonates restricted SA and verifies 403 Access Denied.",
+    "q10": "Safe; synthetic Google Cloud project IDs and simulated customer records only."
+  }
+}

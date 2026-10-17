@@ -1,0 +1,359 @@
+{
+  "id": "brief-privacy-preserving-ml",
+  "title": "Federated Learning System for Privacy-Preserving ML with PyTorch, Differential Privacy DP-SGD & gRPC Aggregation",
+  "domain": "ML Engineering",
+  "difficulty": "ADVANCED",
+  "project_types": [
+    "ML/data pipeline",
+    "Security tool"
+  ],
+  "problem": "Strict data privacy regulations (GDPR, HIPAA, and DPDP) forbid pooling sensitive customer records, financial transactions, or medical telemetry into centralized cloud servers for machine learning training. Centralized model training risks catastrophic data exposure during transit and storage. Federated Learning allows edge nodes to train models locally and share only encrypted weight updates. However, naive federated averaging is vulnerable to gradient inversion attacks, model poisoning by Byzantine clients, and non-IID data distribution divergence. This project builds a production-grade federated learning platform in Python with PyTorch and gRPC. The system orchestrates distributed edge training across isolated nodes, enforces Differential Privacy with DP-SGD clipping and Gaussian noise addition, tracks cumulative privacy loss (epsilon-delta) via R\u00e9nyi differential privacy accountants, and aggregates robust model weights using secure Federated Averaging (FedAvg).",
+  "use_cases": [
+    {
+      "title": "Cross-Hospital Diagnostic Predictive Modeling",
+      "first_sentence": "Consortiums of regional hospitals need to collaboratively train medical diagnostic classifiers on patient electronic health records without transferring protected patient data.",
+      "second_sentence": "Hospital nodes train local PyTorch models on on-premise clinical data, add calibrated differential privacy noise, and stream parameter updates over gRPC to a central aggregator."
+    },
+    {
+      "title": "Multi-Bank Fraud Pattern Detection Collaboration",
+      "first_sentence": "Competing financial institutions require shared fraud detection models to detect emerging syndicated money laundering rings without disclosing proprietary customer transactions.",
+      "second_sentence": "Each bank trains localized neural network anomaly detectors, uploading clipped gradient updates that aggregate into a joint global fraud detection model while preserving bank privacy."
+    },
+    {
+      "title": "Edge Mobile Keyboard Next-Word Prediction",
+      "first_sentence": "Mobile device manufacturers need to train next-token language models on user typing habits without uploading sensitive text inputs or passwords to cloud backends.",
+      "second_sentence": "Mobile client workers compute local gradient updates overnight during charging cycles, applying differential privacy to ensure zero individual keystrokes can be reconstructed."
+    }
+  ],
+  "hard_parts": [
+    "Implementing differential privacy DP-SGD in PyTorch with per-sample gradient clipping and calibrated Gaussian noise injection",
+    "Tracking cumulative privacy loss (epsilon, delta) across multiple federated training rounds using R\u00e9nyi Differential Privacy (RDP) accounting",
+    "Managing non-IID (non-identically distributed) client data partitions that cause local gradient drift and slow global model convergence",
+    "Securing gRPC parameter exchange pipelines against gradient inversion and reconstruction attacks with Byzantine-resilient aggregation (e.g. Coordinate-wise Median)"
+  ],
+  "screener_signals": [
+    "Clean Python codebase cleanly separating the central FedAvg aggregator, gRPC communication stubs, PyTorch local worker trainers, and DP privacy accountants",
+    "Empirical privacy-utility trade-off report demonstrating >= 85% model accuracy while maintaining provable differential privacy epsilon <= 3.0",
+    "Anti-fake verification script running a gradient inversion attack against an aggregated model update and proving individual training sample pixels/tokens cannot be reconstructed"
+  ],
+  "job_families": [
+    "Privacy-Preserving ML Engineer",
+    "Federated Learning Researcher",
+    "ML Infrastructure & Security Architect"
+  ],
+  "stack": [
+    {
+      "tool": "Python",
+      "role": "primary systems language implementing server aggregation, client training routines, and privacy math"
+    },
+    {
+      "tool": "PyTorch",
+      "role": "deep learning framework implementing neural network models, loss functions, and per-sample gradient clipping"
+    },
+    {
+      "tool": "gRPC",
+      "role": "high-performance binary RPC protocol streaming serialized model weights and gradients between clients and coordinator"
+    },
+    {
+      "tool": "Differential Privacy",
+      "role": "mathematical framework providing formal privacy guarantees via Gaussian noise and RDP accountants"
+    },
+    {
+      "tool": "Docker",
+      "role": "containerization engine isolating simulated hospital and banking client nodes in independent network sandboxes"
+    },
+    {
+      "tool": "NumPy",
+      "role": "numerical computation library executing tensor weight averaging, coordinate-wise median, and metrics analysis"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "Federated Coordination Server & FedAvg Aggregator",
+        "tools_used": [
+          "Python",
+          "NumPy"
+        ],
+        "purpose": "Coordinates training rounds, selects participating client nodes, and averages model weights using Federated Averaging"
+      },
+      {
+        "name": "Local Client PyTorch Training Engine & Worker Node",
+        "tools_used": [
+          "Python",
+          "PyTorch"
+        ],
+        "purpose": "Executes localized backpropagation training loops on private client data slices and computes parameter updates"
+      },
+      {
+        "name": "Differential Privacy Gaussian Noise & Gradient Clipping Layer",
+        "tools_used": [
+          "Python",
+          "Differential Privacy",
+          "PyTorch"
+        ],
+        "purpose": "Clips per-sample gradient L2 norms to threshold C and injects calibrated Gaussian noise scaled to noise multiplier sigma"
+      },
+      {
+        "name": "gRPC Model Gradient Streaming Protocol & RPC Layer",
+        "tools_used": [
+          "Python",
+          "gRPC"
+        ],
+        "purpose": "Streams protobuf-encoded model weights and gradient deltas between worker nodes and the central aggregation server"
+      },
+      {
+        "name": "Privacy Budget (Epsilon-Delta) Accountant & Tracker",
+        "tools_used": [
+          "Python",
+          "Differential Privacy"
+        ],
+        "purpose": "Calculates cumulative privacy budget consumption across rounds using R\u00e9nyi Differential Privacy composition theorems"
+      },
+      {
+        "name": "Federated Convergence & Epsilon Privacy Benchmark Harness",
+        "tools_used": [
+          "Python",
+          "PyTorch",
+          "Docker"
+        ],
+        "purpose": "Benchmarks federated global accuracy on non-IID test data across 20 rounds under varying differential privacy budgets"
+      },
+      {
+        "name": "Federated ML Security Guide & System Architecture Diagram",
+        "tools_used": [
+          "Python",
+          "Differential Privacy"
+        ],
+        "purpose": "Documents DP-SGD hyperparameter guidelines, non-IID Dirichlet distribution handling, and threat models"
+      }
+    ],
+    "data_flow": "The central coordinator initializes global model weights and announces round 1 over gRPC; 5 simulated client nodes in Docker containers download the global model; each client executes 3 local epochs on private non-IID data using PyTorch; the DP-SGD hook clips per-sample gradients to maximum norm C=1.0 and injects calibrated Gaussian noise; clients stream updated weights back over gRPC; the coordinator aggregates weights using Federated Averaging (or trimmed mean), updates the global model, and logs privacy budget expenditure from the RDP accountant; the updated global model distributes to clients for evaluation.",
+    "enforcement_mechanism": "Strict gradient L2 clipping and calibrated Gaussian perturbation bounding sensitivity; RDP accountant halting training if epsilon exceeds target threshold."
+  },
+  "targets": [
+    {
+      "metric": "Global Model Accuracy Under Differential Privacy",
+      "method": "Classification accuracy on held-out global validation test set (10,000 samples) after 20 federated training rounds",
+      "input": "10,000 synthetic multi-class tabular/image test records distributed non-IID (Dirichlet alpha=0.5) across 5 client nodes",
+      "environment": "Standard 4-core local CPU, PyTorch 2.0+ CPU tensor runtime, 5 Docker container worker sandboxes",
+      "minimum_pass": "Global model validation accuracy is >= 78.0% while cumulative epsilon is <= 4.0",
+      "target": "Global model validation accuracy is >= 86.5% while cumulative epsilon is <= 2.5",
+      "report": "Federated training convergence report and accuracy progression curve"
+    },
+    {
+      "metric": "Differential Privacy Budget Enforcement",
+      "method": "Audited cumulative epsilon calculation from RDP accountant compared to pre-configured training budget",
+      "input": "20 federated training rounds with per-sample clipping C=1.0, noise multiplier sigma=1.2, and delta=1e-5",
+      "environment": "Analytical RDP accountant test script executing composition across 10,000 total client batch steps",
+      "minimum_pass": "Audited cumulative epsilon is <= 3.0 at delta=1e-5 across 20 completed rounds",
+      "target": "Audited cumulative epsilon is <= 2.2 at delta=1e-5 across 20 completed rounds",
+      "report": "Privacy budget audit log and epsilon-delta consumption trajectory"
+    },
+    {
+      "metric": "Gradient Inversion Reconstruction Defense Rate",
+      "method": "Mean Squared Error (MSE) of sample reconstruction using DLG (Deep Leakage from Gradients) optimization attack against privatized gradients",
+      "input": "50 simulated gradient inversion attack attempts on privatized client model updates",
+      "environment": "DLG optimization attacker script running 300 gradient descent iterations in PyTorch",
+      "minimum_pass": "Reconstruction MSE is >= 0.45 across 50 of 50 attack attempts, preventing raw input reconstruction",
+      "target": "Reconstruction MSE is >= 0.75 across 50 of 50 attack attempts, completely obfuscating input features",
+      "report": "Gradient inversion security evaluation log and image/feature reconstruction error summary"
+    }
+  ],
+  "skills": [
+    "Python",
+    "PyTorch",
+    "gRPC",
+    "Differential Privacy",
+    "Docker",
+    "NumPy",
+    "Federated Learning",
+    "ML Engineering"
+  ],
+  "starter_input": {
+    "spec": "Directory containing federated coordinator server, PyTorch worker training script, gRPC proto definitions, and DP-SGD hooks.",
+    "size": "7 Python source modules, 1 protobuf definition file, Docker Compose multi-node manifest, and non-IID data partitioner",
+    "seeded_cases": "Non-IID Dirichlet label skew, unresponsive client timeouts during aggregation, and malicious Byzantine gradient poisoning",
+    "label_source": "Deterministic synthetic classification benchmark dataset and mathematical privacy accounting proofs",
+    "personal_data_policy": "Strictly mock synthetic diagnostic records and simulated transaction features; no real personal data used"
+  },
+  "components": [
+    {
+      "name": "Federated Coordination Server & FedAvg Aggregator",
+      "task_type": "infra component (broker, DB, orchestrator, cluster service)",
+      "hours": 6.0
+    },
+    {
+      "name": "Local Client PyTorch Training Engine & Worker Node",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "Differential Privacy Gaussian Noise & Gradient Clipping Layer",
+      "task_type": "concurrency/consistency mechanism with tests",
+      "hours": 6.0
+    },
+    {
+      "name": "gRPC Model Gradient Streaming Protocol & RPC Layer",
+      "task_type": "API endpoint group with tests",
+      "hours": 5.0
+    },
+    {
+      "name": "Privacy Budget (Epsilon-Delta) Accountant & Tracker",
+      "task_type": "security hardening checks",
+      "hours": 5.0
+    },
+    {
+      "name": "Federated Convergence & Epsilon Privacy Benchmark Harness",
+      "task_type": "load or performance test harness + report",
+      "hours": 4.0
+    },
+    {
+      "name": "Federated ML Security Guide & System Architecture Diagram",
+      "task_type": "docs + architecture diagram",
+      "hours": 3.0
+    }
+  ],
+  "extended_path": {
+    "features": [
+      "Secure Multi-Party Computation (SMPC) additive secret sharing protocol encrypting client updates prior to aggregation",
+      "Adaptive clipping mechanism dynamically adjusting L2 norm thresholds without user intervention",
+      "Asynchronous federated optimization (FedAsync) supporting straggler clients with staleness penalization weights"
+    ],
+    "hours": 16
+  },
+  "milestones": [
+    {
+      "name": "gRPC Client-Server Protocol & Local PyTorch Training in Python, PyTorch and gRPC",
+      "hours": 10,
+      "done_criterion": "gRPC server coordinates rounds; client workers train local PyTorch models and return updates."
+    },
+    {
+      "name": "Differential Privacy DP-SGD & RDP Accountant in Differential Privacy and NumPy",
+      "hours": 10,
+      "done_criterion": "DP-SGD clips gradients and injects Gaussian noise; RDP accountant tracks cumulative epsilon."
+    },
+    {
+      "name": "FedAvg Aggregation & Convergence Benchmarks in Federated Learning and Docker",
+      "hours": 10,
+      "done_criterion": "Global model achieves >= 78% accuracy on non-IID data across 5 Docker clients under epsilon <= 3.0."
+    },
+    {
+      "name": "Gradient Inversion Defense Anti-Fake Test & Docs in ML Engineering",
+      "hours": 10,
+      "done_criterion": "Anti-fake DLG attack confirms sample reconstruction is blocked (MSE >= 0.45); docs complete."
+    }
+  ],
+  "prerequisites": [
+    "Proficiency in PyTorch deep learning development, tensor operations, and backpropagation mechanics",
+    "Understanding of distributed systems networking (gRPC/Protobuf) and mathematical privacy concepts (Differential Privacy, DP-SGD)"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (CPU-only PyTorch training on compact neural architectures like 3-layer MLPs or small CNNs)",
+    "cost": "$0 (fully open-source stack using local Python and Docker Desktop)",
+    "accounts_keys_quotas": "No external cloud accounts, paid services, or API keys required",
+    "reference_environment": "Local 4-core CPU with Docker Desktop (5 client containers) and Python 3.11 with PyTorch CPU",
+    "fallback_path": "Running 5 client workers as local Python subprocesses communicating over localhost loopback ports"
+  },
+  "riskiest_component": {
+    "name": "Gradient Inversion Leakage and Privacy Budget Exhaustion",
+    "mitigation": "Enforce per-sample gradient clipping before noise addition and integrate automated training termination when epsilon hits target threshold.",
+    "fallback": "Coordinate-wise trimmed mean aggregator discarding extreme outlier updates from suspected Byzantine nodes."
+  },
+  "deliverables": [
+    "Git repository containing federated coordination server, PyTorch training worker, gRPC protos, and DP-SGD hooks",
+    "Docker Compose test environment orchestrating 5 isolated client containers and 1 central coordinator",
+    "Automated benchmark harness evaluating non-IID convergence, epsilon tracking, and communication latency",
+    "Screener verification script executing automated 3-round federated training and DLG attack defense in under 3 minutes"
+  ],
+  "out_of_scope": [
+    "Hardware trusted execution environments (Intel SGX / ARM TrustZone)",
+    "Fully Homomorphic Encryption (FHE) with multi-hour ciphertext evaluation times",
+    "Multi-billion parameter LLM pre-training across thousands of physical mobile devices"
+  ],
+  "safety_note": null,
+  "resources": [
+    "Communication-Efficient Learning of Deep Networks from Decentralized Data (McMahan et al., FedAvg Paper)",
+    "Deep Learning with Differential Privacy (Abadi et al., CCS 2016 - DP-SGD)",
+    "Deep Leakage from Gradients (Zhu et al., NeurIPS 2019 - Gradient Inversion Attacks)"
+  ],
+  "rubric": [
+    {
+      "input": "20 federated training rounds on non-IID split dataset with 5 client nodes",
+      "action": "python ./federated/coordinator.py --rounds 20 --clients 5 --dp-noise 1.2",
+      "expected_result": "Global model reaches validation accuracy >= 78.0% while cumulative epsilon remains <= 3.0",
+      "evidence_location": "Terminal output log and reports/federated_convergence.json",
+      "pass_criterion": "Accuracy >= 78.0% and epsilon <= 3.0 with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Audited RDP privacy budget evaluation across 10,000 training batch steps",
+      "action": "python ./privacy/eval_budget.py --steps 10000 --batch-size 32 --noise-multiplier 1.2",
+      "expected_result": "Accountant calculates cumulative epsilon <= 3.0 at delta=1e-5",
+      "evidence_location": "Privacy expenditure audit log in reports/privacy_audit.json",
+      "pass_criterion": "Calculated epsilon <= 3.0 with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Simulated Byzantine malicious client sending poisoned gradient vectors",
+      "action": "python ./tests/test_byzantine_resilience.py --poisoned-clients 1",
+      "expected_result": "Trimmed mean / median aggregation filters poisoned updates without degrading global accuracy by > 3%",
+      "evidence_location": "Byzantine resilience test report in reports/byzantine_test.json",
+      "pass_criterion": "Global accuracy drop <= 3.0% with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "gRPC parameter exchange serialization and network bandwidth audit",
+      "action": "python ./benchmarks/bench_grpc_streaming.py --payload-size 5MB",
+      "expected_result": "gRPC streams compressed model weights with p95 transfer latency < 120ms per client",
+      "evidence_location": "Streaming benchmark log in reports/grpc_throughput.json",
+      "pass_criterion": "p95 latency < 120ms with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "DLG gradient inversion attack running 300 iterations against privatized client update",
+      "action": "python ./scripts/verify_dlg_defense.py --iterations 300",
+      "expected_result": "Attacker fails to reconstruct private sample; reconstruction MSE is >= 0.45",
+      "evidence_location": "DLG defense verification terminal log and reports/dlg_reconstruction.json",
+      "pass_criterion": "Reconstruction MSE is >= 0.45 with exit code 0",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected federated learning system in Python using PyTorch, gRPC, and Differential Privacy; achieved [MODEL_ACCURACY] global accuracy on non-IID data under provable epsilon [PRIVACY_EPSILON], and prevented gradient inversion attacks with reconstruction error above [INVERSION_MSE].",
+    "claims": [
+      {
+        "text": "achieved [MODEL_ACCURACY] global accuracy on non-IID data under provable epsilon [PRIVACY_EPSILON]",
+        "rubric_indexes": [
+          0
+        ]
+      },
+      {
+        "text": "prevented gradient inversion attacks with reconstruction error above [INVERSION_MSE]",
+        "rubric_indexes": [
+          4
+        ]
+      }
+    ],
+    "do_not_claim": "hardware enclave trusted execution or multi-thousand node production mobile deployments"
+  },
+  "verify": [
+    "Run `pytest tests/` to confirm gRPC protobuf serialization, FedAvg aggregation, and DP-SGD hooks pass.",
+    "Execute `python ./federated/coordinator.py` to confirm model achieves >= 78% accuracy with epsilon <= 3.0.",
+    "Run `python ./scripts/verify_dlg_defense.py` to verify gradient inversion reconstruction attacks are thwarted."
+  ],
+  "worksheet": {
+    "q1": "Core deliverable: a federated learning platform in Python with PyTorch local training, gRPC streaming, DP-SGD clipping, and FedAvg aggregation.",
+    "q2": "Target users: privacy-preserving ML engineers, federated learning researchers, and ML infrastructure architects.",
+    "q3": "3 use cases: cross-hospital diagnostic modeling, multi-bank fraud pattern detection, and edge mobile keyboard prediction.",
+    "q4": "Stated hours: 40 hours. Calculated bottom-up: 35 component hours * 1.15 buffer = 40.25 -> 40 hours. Advanced level.",
+    "q5": "Hard parts: DP-SGD per-sample gradient clipping, R\u00e9nyi privacy accounting across rounds, non-IID drift handling, and DLG defense.",
+    "q6": "Starter input: federated coordinator, PyTorch worker, gRPC protobufs, DP-SGD hooks, and synthetic data generator. Synthetic data only.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU only, $0 cost, zero cloud accounts. Fallback: local subprocesses.",
+    "q8": "Riskiest component: gradient inversion leakage and privacy budget exhaustion. Fallback: per-sample L2 clipping and automatic budget cutoffs.",
+    "q9": "Potential faking: mock averaging without actual differential privacy. Anti-fake check 5 executes real DLG attack and asserts sample reconstruction MSE >= 0.45.",
+    "q10": "Safety/ethics: Safe; strictly synthetic health/fraud records and private Docker sandboxes, zero personal data."
+  }
+}

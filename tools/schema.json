@@ -1,0 +1,210 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ProjectBriefDesign",
+  "type": "object",
+  "required": [
+    "id",
+    "title",
+    "domain",
+    "difficulty",
+    "project_types",
+    "problem",
+    "use_cases",
+    "hard_parts",
+    "screener_signals",
+    "job_families",
+    "stack",
+    "architecture",
+    "targets",
+    "skills",
+    "starter_input",
+    "components",
+    "extended_path",
+    "milestones",
+    "prerequisites",
+    "environment",
+    "riskiest_component",
+    "deliverables",
+    "out_of_scope",
+    "resources",
+    "rubric",
+    "bullet",
+    "verify",
+    "worksheet"
+  ],
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "title": { "type": "string", "minLength": 5 },
+    "domain": { "type": "string", "minLength": 3 },
+    "difficulty": { "type": "string", "enum": ["BEGINNER", "INTERMEDIATE", "ADVANCED"] },
+    "project_types": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "problem": { "type": "string", "minLength": 50 },
+    "use_cases": { "type": "array", "items": { "type": "string" }, "minItems": 1, "maxItems": 3 },
+    "hard_parts": { "type": "array", "items": { "type": "string" }, "minItems": 4 },
+    "screener_signals": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "job_families": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "stack": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["tool", "role"],
+        "properties": {
+          "tool": { "type": "string" },
+          "role": { "type": "string" },
+          "requires": { "type": "string" },
+          "free_or_local_alternative": { "type": "string" }
+        }
+      }
+    },
+    "architecture": {
+      "type": "object",
+      "required": ["components", "data_flow", "enforcement_mechanism"],
+      "properties": {
+        "components": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["name", "tools_used", "purpose"],
+            "properties": {
+              "name": { "type": "string" },
+              "tools_used": { "type": "array", "items": { "type": "string" } },
+              "purpose": { "type": "string" }
+            }
+          }
+        },
+        "data_flow": { "type": "string", "minLength": 30 },
+        "enforcement_mechanism": { "type": "string", "minLength": 20 }
+      }
+    },
+    "targets": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["metric", "method", "input", "environment", "minimum_pass", "target", "report"],
+        "properties": {
+          "metric": { "type": "string" },
+          "method": { "type": "string" },
+          "input": { "type": "string" },
+          "environment": { "type": "string" },
+          "minimum_pass": { "type": "string" },
+          "target": { "type": "string" },
+          "report": { "type": "string" }
+        }
+      }
+    },
+    "skills": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "starter_input": {
+      "type": "object",
+      "required": ["spec", "size", "seeded_cases", "label_source", "personal_data_policy"],
+      "properties": {
+        "spec": { "type": "string" },
+        "size": { "type": "string" },
+        "seeded_cases": { "type": "string" },
+        "label_source": { "type": "string" },
+        "personal_data_policy": { "type": "string" }
+      }
+    },
+    "components": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["name", "task_type", "hours"],
+        "properties": {
+          "name": { "type": "string" },
+          "task_type": { "type": "string" },
+          "hours": { "type": "number", "minimum": 0.5 }
+        }
+      }
+    },
+    "extended_path": {
+      "type": "object",
+      "required": ["items", "hours"],
+      "properties": {
+        "items": { "type": "array", "items": { "type": "string" } },
+        "hours": { "type": "number", "minimum": 0 }
+      }
+    },
+    "milestones": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 7,
+      "items": {
+        "type": "object",
+        "required": ["name", "hours", "done_criterion"],
+        "properties": {
+          "name": { "type": "string" },
+          "hours": { "type": "number", "minimum": 1 },
+          "done_criterion": { "type": "string" }
+        }
+      }
+    },
+    "prerequisites": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "environment": {
+      "type": "object",
+      "required": ["os", "ram", "gpu", "cost", "accounts_keys_quotas", "reference_environment", "fallback_path"],
+      "properties": {
+        "os": { "type": "string" },
+        "ram": { "type": "string" },
+        "gpu": { "type": "string" },
+        "cost": { "type": "string" },
+        "accounts_keys_quotas": { "type": "string" },
+        "reference_environment": { "type": "string" },
+        "fallback_path": { "type": "string" }
+      }
+    },
+    "riskiest_component": {
+      "type": "object",
+      "required": ["name", "fallback"],
+      "properties": {
+        "name": { "type": "string" },
+        "fallback": { "type": "string" }
+      }
+    },
+    "deliverables": { "type": "array", "items": { "type": "string" }, "minItems": 3 },
+    "out_of_scope": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "safety_note": { "type": ["string", "null"] },
+    "resources": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "rubric": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 7,
+      "items": {
+        "type": "object",
+        "required": ["input", "action", "expected_result", "evidence_location", "pass_criterion", "kind"],
+        "properties": {
+          "input": { "type": "string" },
+          "action": { "type": "string" },
+          "expected_result": { "type": "string" },
+          "evidence_location": { "type": "string" },
+          "pass_criterion": { "type": "string" },
+          "kind": { "type": "string", "enum": ["normal", "anti_fake"] }
+        }
+      }
+    },
+    "bullet": {
+      "type": "object",
+      "required": ["template", "claims", "do_not_claim"],
+      "properties": {
+        "template": { "type": "string" },
+        "claims": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["text", "rubric_indexes"],
+            "properties": {
+              "text": { "type": "string" },
+              "rubric_indexes": { "type": "array", "items": { "type": "integer" } }
+            }
+          }
+        },
+        "do_not_claim": { "type": "string" }
+      }
+    },
+    "verify": { "type": "array", "items": { "type": "string" } },
+    "worksheet": { "type": "object" }
+  }
+}

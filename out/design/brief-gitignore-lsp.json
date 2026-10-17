@@ -1,0 +1,302 @@
+{
+  "id": "brief-gitignore-lsp",
+  "title": "Language Server Protocol (LSP) Engine with AST Parsing & Glob Diagnostics",
+  "domain": "Computer Science Fundamentals",
+  "difficulty": "ADVANCED",
+  "project_types": [
+    "CLI/tools/libraries",
+    "Systems/low-level/networking"
+  ],
+  "problem": "Software engineers rely on Language Server Protocol (LSP) capabilities daily in modern code editors (e.g., Neovim, VS Code) for instant diagnostics, symbol autocompletion, and hover explanations, yet the underlying language server mechanics\u2014JSON-RPC 2.0 streaming, incremental document synchronization, abstract syntax tree (AST) evaluation, and path resolution\u2014remain misunderstood. Configuration DSLs like .gitignore frequently contain subtle rule shadowing bugs and syntax conflicts that lead to accidental commits of sensitive files. This project constructs an LSP-compliant language server from first principles in TypeScript and Node.js. The engine handles JSON-RPC 2.0 message framing over stdio, parses gitignore glob patterns into AST nodes, detects syntax errors and conflicting negation rules in real-time, provides filesystem autocompletion, and serves contextual hover explanations.",
+  "use_cases": [
+    "IDE extensions providing real-time syntax checking and negation conflict warnings for gitignore files",
+    "Enterprise developer tooling preventing accidental commits of secret keys and local build artifacts",
+    "Domain-specific configuration language servers for proprietary infrastructure rule files"
+  ],
+  "hard_parts": [
+    "Framing and parsing asynchronous JSON-RPC 2.0 messages over standard input/output streams with Content-Length headers",
+    "Implementing an AST parser for gitignore glob semantics supporting wildcard matching, character classes, and negation prefixes",
+    "Detecting rule shadowing and redundant patterns in real-time without stalling keystroke latency",
+    "Providing sub-20 millisecond filesystem path autocompletion across deep workspace directory trees"
+  ],
+  "screener_signals": [
+    "Modular TypeScript implementation separating JSON-RPC framing, AST tokenization, diagnostic engines, and LSP handlers",
+    "Automated protocol conformance test suite verifying 50 distinct LSP client-server interaction scenarios",
+    "Anti-fake verification script sending dynamic unclosed glob brackets via stdio and asserting exact diagnostic publication"
+  ],
+  "job_families": [
+    "Developer Tooling Engineer",
+    "Systems Software Engineer",
+    "IDE & Compiler Infrastructure Engineer"
+  ],
+  "stack": [
+    {
+      "tool": "TypeScript",
+      "role": "strongly typed language for LSP protocol framing, AST parsing, and diagnostic algorithms"
+    },
+    {
+      "tool": "Node.js",
+      "role": "runtime environment hosting language server process and stdio stream communication"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "JSON-RPC 2.0 Transport Framer",
+        "tools_used": [
+          "TypeScript",
+          "Node.js"
+        ],
+        "purpose": "Frames and decodes raw byte streams over stdio adhering to LSP Content-Length header specifications"
+      },
+      {
+        "name": "Gitignore Glob AST Parser",
+        "tools_used": [
+          "TypeScript"
+        ],
+        "purpose": "Tokenizes patterns, evaluates glob syntax, and constructs AST representations of active ignore rules"
+      },
+      {
+        "name": "Real-Time Diagnostics & Negation Engine",
+        "tools_used": [
+          "TypeScript"
+        ],
+        "purpose": "Identifies invalid regex/glob syntax, unreachable rule shadows, and contradictory negation patterns"
+      },
+      {
+        "name": "Workspace Path Autocompletion Provider",
+        "tools_used": [
+          "TypeScript",
+          "Node.js"
+        ],
+        "purpose": "Scans workspace directory tree to provide contextual directory and file path completion candidates"
+      },
+      {
+        "name": "Hover Documentation Resolver",
+        "tools_used": [
+          "TypeScript"
+        ],
+        "purpose": "Resolves matched file explanations and official gitignore specification documentation on hover"
+      }
+    ],
+    "data_flow": "LSP client (e.g. editor) connects via stdio; the JSON-RPC Transport Framer parses Content-Length headers and emits typed RPC notifications; textDocument/didOpen and didChange events pass to the Gitignore Glob AST Parser; the parser tokenizes rule lines and builds an AST; the Diagnostics Engine analyzes the tree for syntax errors or rule conflicts and publishes textDocument/publishDiagnostics back to client; textDocument/completion requests trigger the Workspace Path Provider to scan matching files; hover requests return markdown rule explanations.",
+    "enforcement_mechanism": "LSP 3.17 protocol schema validation rejecting malformed RPC envelopes; AST bounds checking preventing parser crashes on invalid globs."
+  },
+  "targets": [
+    {
+      "metric": "Keystroke Diagnostic Publication Latency (p99)",
+      "method": "Wall-clock timing from didChange notification receipt to publishDiagnostics emission on 1,000-line gitignore file",
+      "input": "1,000-line gitignore file with 50 intentional rule syntax errors and negation conflicts",
+      "environment": "Standard 4-core local CPU, Node.js 18+, stdio communication",
+      "minimum_pass": "p99 diagnostic latency is < 30 milliseconds",
+      "target": "p99 diagnostic latency is < 12 milliseconds",
+      "report": "LSP latency microbenchmark report detailing p50, p95, and p99 durations"
+    },
+    {
+      "metric": "Workspace Path Autocompletion Latency",
+      "method": "Response timing for textDocument/completion across deep workspace containing 10,000 files",
+      "input": "Completion query triggered at nested path prefix (e.g. 'src/components/') in 10,000-file repository",
+      "environment": "Standard 4-core local CPU, Node.js 18+",
+      "minimum_pass": "Average completion latency is < 20 milliseconds",
+      "target": "Average completion latency is < 8 milliseconds",
+      "report": "Autocompletion benchmark timing log"
+    },
+    {
+      "metric": "Glob Syntax Parsing Accuracy Rate",
+      "method": "Parser evaluation across 50 complex gitignore glob syntax edge cases",
+      "input": "50 challenging glob patterns (character ranges, escaping, trailing slashes, leading double-asterisks)",
+      "environment": "Standard 4-core local CPU, Node.js 18+",
+      "minimum_pass": "50 of 50 complex glob pattern fixtures parsed with 0 syntax misclassifications",
+      "target": "50 of 50 complex glob pattern fixtures parsed with 0 syntax misclassifications",
+      "report": "Glob parser conformance verification log"
+    }
+  ],
+  "skills": [
+    "TypeScript",
+    "Node.js",
+    "Language Server Protocol",
+    "AST Parsing",
+    "Systems Programming",
+    "Compilers"
+  ],
+  "starter_input": {
+    "spec": "Language Server Protocol 3.17 specification, gitignore pattern syntax reference, and mock workspace directory.",
+    "size": "Mock repository with 10,000 files across 400 nested directories and 50 benchmark gitignore test files",
+    "seeded_cases": "Unclosed character brackets, conflicting negation rules, redundant rule shadows, and malformed Content-Length headers",
+    "label_source": "Deterministic test fixture mapping gitignore lines to expected LSP diagnostic severity, range, and message",
+    "personal_data_policy": "Strictly mock synthetic workspace repositories and file paths; zero personal data used"
+  },
+  "components": [
+    {
+      "name": "LSP JSON-RPC 2.0 Base Protocol & Transport Framer",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "Glob Pattern AST Lexer, Parser & Syntax Validator",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "Real-Time Diagnostics & Negation Conflict Engine",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "Workspace Filesystem Path Autocompletion Provider",
+      "task_type": "API endpoint group with tests",
+      "hours": 5.0
+    },
+    {
+      "name": "Hover Documentation & Rule Explanation Provider",
+      "task_type": "API endpoint group with tests",
+      "hours": 4.0
+    },
+    {
+      "name": "High-Frequency Typing & Protocol Latency Benchmark Harness",
+      "task_type": "load or performance test harness + report",
+      "hours": 4.0
+    },
+    {
+      "name": "LSP Message Flow Diagram & Specification Document",
+      "task_type": "docs + architecture diagram",
+      "hours": 3.0
+    }
+  ],
+  "extended_path": {
+    "items": [
+      "Document formatting provider auto-sorting and grouping gitignore patterns by directory hierarchy",
+      "Code action quick-fix provider automatically resolving conflicting negation rules"
+    ],
+    "hours": 16
+  },
+  "milestones": [
+    {
+      "name": "JSON-RPC 2.0 Transport Framing & LSP Handshake in TypeScript Systems Programming",
+      "hours": 10,
+      "done_criterion": "Framer decodes Content-Length headers over stdio; handles initialize and shutdown handshakes."
+    },
+    {
+      "name": "Gitignore Glob AST Parsing & Diagnostic Engine in Compilers",
+      "hours": 10,
+      "done_criterion": "AST parser evaluates glob patterns; diagnostic engine flags unclosed brackets and rule conflicts."
+    },
+    {
+      "name": "Autocompletion Provider & Hover Definition Resolver in Language Server Protocol",
+      "hours": 10,
+      "done_criterion": "Server returns matching directory paths in < 20ms and resolves markdown documentation on hover."
+    },
+    {
+      "name": "High-Frequency Typing Benchmark, Anti-Fake Test & Docs",
+      "hours": 9,
+      "done_criterion": "Benchmark verifies < 30ms p99 diagnostic latency on 1,000 lines; anti-fake test passes; docs complete."
+    }
+  ],
+  "prerequisites": [
+    "Proficiency in TypeScript, asynchronous Node.js streams (stdin/stdout), and binary buffer manipulation",
+    "Understanding of lexical tokenization, abstract syntax trees, and client-server protocols (JSON-RPC)"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (purely CPU and memory bound language server operations)",
+    "cost": "$0 (fully open-source software stack)",
+    "accounts_keys_quotas": "No external cloud accounts, paid services, or API keys required",
+    "reference_environment": "Local 4-core CPU with Node.js 18+ and npm installed",
+    "fallback_path": "In-memory string stream test harness without external editor integration"
+  },
+  "riskiest_component": {
+    "name": "Stdio Stream Chunk Fragmentation Breaking Content-Length Framing",
+    "fallback": "Accumulate incoming bytes in persistent circular buffer until complete Content-Length payload arrives"
+  },
+  "deliverables": [
+    "Git repository containing TypeScript LSP server, AST glob parser, and unit test suite",
+    "Command-line executable server binary configurable via stdio for VS Code and Neovim",
+    "Automated protocol conformance test harness verifying LSP specification compliance",
+    "Screener verification script executing automated benchmark and dynamic diagnostic test in under 2 minutes"
+  ],
+  "out_of_scope": [
+    "Full programming language semantic analysis (type checking, borrow checking)",
+    "Distributed multi-root language server clustering over TCP sockets",
+    "Graphical user interface extension packaging for proprietary editor marketplaces"
+  ],
+  "safety_note": null,
+  "resources": [
+    "Official Language Server Protocol (LSP) Specification 3.17",
+    "Git gitignore Pattern Format and Glob Matching Specification",
+    "Building Language Servers from Scratch (JSON-RPC Architecture Guide)"
+  ],
+  "rubric": [
+    {
+      "input": "1,000-line gitignore file with 50 planted syntax errors and negation conflicts",
+      "action": "npm run test:latency",
+      "expected_result": "Server processes didChange and emits publishDiagnostics with p99 latency < 30 milliseconds",
+      "evidence_location": "Terminal test output log and reports/lsp_latency.json",
+      "pass_criterion": "p99 diagnostic publication latency is < 30 milliseconds with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "textDocument/completion request at path prefix in 10,000-file repository",
+      "action": "npm run test:completion -- --prefix 'src/components/'",
+      "expected_result": "Server scans directory tree and returns matching path candidates in < 20 milliseconds",
+      "evidence_location": "Completion timing output report",
+      "pass_criterion": "Average completion response latency is < 20 milliseconds",
+      "kind": "normal"
+    },
+    {
+      "input": "50 complex gitignore glob syntax edge case patterns",
+      "action": "npm run test:ast-parser",
+      "expected_result": "AST parser tokenizes and compiles all 50 glob patterns accurately",
+      "evidence_location": "Parser test execution report",
+      "pass_criterion": "50 of 50 glob parsing tests pass with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "LSP textDocument/hover request targeting valid glob pattern",
+      "action": "node scripts/simulate_client.js --action hover --line 5 --col 2",
+      "expected_result": "Server returns hover response with markdown explanation of pattern matching behavior",
+      "evidence_location": "LSP response message log",
+      "pass_criterion": "Response contains contents.kind equals markdown and non-empty description",
+      "kind": "normal"
+    },
+    {
+      "input": "Dynamic didChange notification containing unclosed bracket ('test-[0-9') sent via stdio at runtime",
+      "action": "node scripts/verify_dynamic_lsp.js --content 'invalid-[abc' --expected-error 'UNCLOSED_BRACKET'",
+      "expected_result": "Server emits publishDiagnostics identifying unclosed bracket at exact line and column",
+      "evidence_location": "Dynamic verification console output log",
+      "pass_criterion": "Diagnostic message contains UNCLOSED_BRACKET, range matches input, and exit code is 0",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected Language Server Protocol engine in TypeScript and Node.js featuring custom AST glob parser; achieved sub-[DIAG_LATENCY] tail diagnostic publication latency across [LINE_COUNT]-line files, and delivered sub-[COMPLETION_LATENCY] path autocompletion across [WORKSPACE_FILES] repository files.",
+    "claims": [
+      {
+        "text": "achieved sub-[DIAG_LATENCY] tail diagnostic publication latency across [LINE_COUNT]-line files",
+        "rubric_indexes": [
+          0
+        ]
+      },
+      {
+        "text": "delivered sub-[COMPLETION_LATENCY] path autocompletion across [WORKSPACE_FILES] repository files",
+        "rubric_indexes": [
+          1
+        ]
+      }
+    ],
+    "do_not_claim": "full programming language semantic type analysis or distributed TCP server clustering"
+  },
+  "verify": [],
+  "worksheet": {
+    "q1": "Core deliverable: an LSP 3.17 compliant language server in TypeScript/Node.js with AST glob parsing, diagnostics, autocompletion, and hover.",
+    "q2": "Target users: developer tooling engineers, IDE developers, and systems architects.",
+    "q3": "3 use cases: IDE gitignore diagnostics, enterprise secret commit prevention, and domain-specific configuration tooling.",
+    "q4": "Stated hours: 39 hours. Calculated bottom-up: 34 component hours * 1.15 buffer = 39.1 -> 39 hours. Advanced level.",
+    "q5": "Hard parts: JSON-RPC 2.0 streaming framing over stdio, gitignore glob AST parsing, real-time diagnostic evaluation, and sub-20ms path completion.",
+    "q6": "Starter input: mock repo with 10,000 files across 400 directories and 50 benchmark gitignore test files. Synthetic fixtures only.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU only, $0 cost, zero cloud accounts. Fallback: in-memory string stream harness.",
+    "q8": "Riskiest component: Stdio chunk fragmentation breaking Content-Length framing. Fallback: circular buffer accumulator.",
+    "q9": "Potential faking: static diagnostic responses. Anti-fake check 5 sends dynamic unclosed bracket via stdio and asserts exact diagnostic range.",
+    "q10": "Safety/ethics: Safe; local static text processing only."
+  }
+}

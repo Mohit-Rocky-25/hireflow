@@ -1,0 +1,353 @@
+{
+  "id": "brief-personalization-engine",
+  "title": "Real-Time User Personalization & Contextual Bandit Recommendation Engine with Kafka Streaming, Redis Feature Store & Scikit-learn",
+  "domain": "ML Engineering",
+  "difficulty": "INTERMEDIATE",
+  "project_types": [
+    "ML/data pipeline",
+    "Full-stack web"
+  ],
+  "problem": "Generic static UI interfaces deliver lower user engagement, subpar conversion rates, and elevated bounce rates compared to dynamic personalized digital experiences. However, traditional batch-recomputed recommendation pipelines suffer from multi-hour stale recommendations, inability to capture intra-session user intent shifts, and crippling cold-start latency for newly launched items. This project builds a production-grade real-time personalization and contextual bandit recommendation engine in Python. The system ingests user interaction event streams over Apache Kafka, aggregates real-time session feature vectors in Redis with sub-millisecond retrieval, trains LinUCB and Thompson Sampling contextual bandit models with Scikit-learn, and serves personalized ranking recommendations via FastAPI with sub-18ms p95 latency.",
+  "use_cases": [
+    {
+      "title": "E-Commerce Dynamic Product Listing Ranking",
+      "first_sentence": "Retail platforms need to re-rank search results and category listing carousels based on real-time item views and cart additions within the user's active session.",
+      "second_sentence": "The engine consumes clickstream events via Kafka, updates the user's affinity vector in Redis, and computes personalized product re-rankings via FastAPI in under 15 milliseconds."
+    },
+    {
+      "title": "Digital Media & News Feed Article Personalization",
+      "first_sentence": "Online news publishers need to balance showing trending breaking news articles against exploring newly published editorial pieces to discover reader preferences.",
+      "second_sentence": "The contextual bandit engine balances exploitation of known topic affinities with exploration of fresh content, maximizing long-term reader retention while avoiding stale filter bubbles."
+    },
+    {
+      "title": "SaaS Onboarding Feature Discovery Recommendations",
+      "first_sentence": "Software product teams need to recommend relevant workflow templates and product tours to newly onboarded users based on their initial setup clicks.",
+      "second_sentence": "The system matches incoming user metadata with bandit feature vectors to recommend optimal onboarding actions, elevating free-to-paid activation rates."
+    }
+  ],
+  "hard_parts": [
+    "Balancing exploitation of high-affinity items with algorithmic exploration of unvisited items using LinUCB upper confidence bounds",
+    "Maintaining low-latency sliding-window feature aggregation in Redis while consuming thousands of concurrent Kafka clickstream events",
+    "Managing cold-start penalties for new items with zero interaction history through feature fallback embeddings",
+    "Designing asynchronous offline batch model retraining in Celery that safely deploys updated bandit weight matrices to FastAPI without dropping live inference traffic"
+  ],
+  "screener_signals": [
+    "Clean Python codebase cleanly separating Kafka stream processors, Redis feature extractors, bandit math models, and FastAPI inference routers",
+    "Real-time benchmark proving sub-18ms p95 recommendation inference latency under 500 concurrent recommendation requests per second",
+    "Anti-fake verification script simulating an active user clicking 5 technology articles and asserting the recommendation distribution shifts toward technology within 300 milliseconds"
+  ],
+  "job_families": [
+    "Machine Learning Engineer",
+    "Recommendation Systems Developer",
+    "Real-Time Data Platform Engineer"
+  ],
+  "stack": [
+    {
+      "tool": "Python",
+      "role": "primary language implementing streaming processors, feature stores, and inference endpoints"
+    },
+    {
+      "tool": "Kafka",
+      "role": "distributed message streaming broker capturing high-velocity user clickstream and conversion events"
+    },
+    {
+      "tool": "Redis",
+      "role": "in-memory key-value store serving user session feature vectors and item affinity state"
+    },
+    {
+      "tool": "FastAPI",
+      "role": "asynchronous web framework serving real-time personalized item recommendation requests"
+    },
+    {
+      "tool": "Scikit-learn",
+      "role": "machine learning library powering linear reward regressions and contextual bandit models"
+    },
+    {
+      "tool": "Celery",
+      "role": "asynchronous task queue executing scheduled batch model retraining and evaluation jobs"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "Kafka Clickstream Ingestion & Event Processing Worker",
+        "tools_used": [
+          "Python",
+          "Kafka"
+        ],
+        "purpose": "Consumes user interaction events (views, clicks, purchases) from Kafka topics and normalizes event payloads"
+      },
+      {
+        "name": "Redis Real-Time Session Feature Store & Aggregator",
+        "tools_used": [
+          "Python",
+          "Redis"
+        ],
+        "purpose": "Updates rolling category interaction counters and maintains low-latency user session feature vectors in Redis"
+      },
+      {
+        "name": "Contextual Bandit & Thompson Sampling Model Engine",
+        "tools_used": [
+          "Python",
+          "Scikit-learn"
+        ],
+        "purpose": "Implements LinUCB and Thompson Sampling algorithms balancing exploration and exploitation across candidate items"
+      },
+      {
+        "name": "FastAPI Low-Latency Recommendation Inference Service",
+        "tools_used": [
+          "Python",
+          "FastAPI"
+        ],
+        "purpose": "Accepts user recommendation requests, fetches session features from Redis, scores candidates, and returns ranked IDs"
+      },
+      {
+        "name": "Celery Batch Retraining & Offline Evaluation Pipeline",
+        "tools_used": [
+          "Python",
+          "Celery",
+          "Scikit-learn"
+        ],
+        "purpose": "Executes background batch retraining of bandit inverse covariance matrices and logs cumulative regret metrics"
+      },
+      {
+        "name": "Recommendation Throughput & Latency Benchmark Harness",
+        "tools_used": [
+          "Python",
+          "FastAPI"
+        ],
+        "purpose": "Simulates 500 concurrent recommendation requests per second and profiles Redis lookup and scoring latencies"
+      },
+      {
+        "name": "Personalization Architecture Guide & Feature Store Schema",
+        "tools_used": [
+          "Python",
+          "Redis"
+        ],
+        "purpose": "Documents feature vector TTL strategies, cold-start fallback heuristics, and contextual bandit math proofs"
+      }
+    ],
+    "data_flow": "A user clicks an item on the client UI; an engagement event publishes to the Kafka 'user-clicks' topic; the Kafka worker consumes the event and updates category view counters in Redis with a 30-minute sliding TTL; when the client requests personalized recommendations, FastAPI receives the user ID, executes an MGET against Redis to retrieve active session features in < 2ms, feeds the features into the LinUCB bandit scoring model, computes confidence bound scores for candidate items, filters previously viewed items, and returns top-K ranked item IDs; Celery periodically pulls historical conversion logs to retrain offline models.",
+    "enforcement_mechanism": "Linear algebra ridge regression matrix inversion updates with L2 regularization preventing numerical divergence; bounded Redis memory TTLs."
+  },
+  "targets": [
+    {
+      "metric": "p95 Recommendation Inference Latency",
+      "method": "Wall-clock timing from FastAPI HTTP request arrival to JSON response dispatch under concurrent load",
+      "input": "10,000 recommendation requests issued at 500 queries per second across 1,000 candidate items",
+      "environment": "Standard 4-core local CPU, Redis 7+ in Docker, Python 3.11 with Uvicorn ASGI workers",
+      "minimum_pass": "p95 recommendation latency is < 30.0 milliseconds",
+      "target": "p95 recommendation latency is < 14.5 milliseconds",
+      "report": "FastAPI recommendation latency profiling log and response percentile table"
+    },
+    {
+      "metric": "Clickstream-to-Feature Update Propagation Latency",
+      "method": "Duration from Kafka event publication to updated session feature availability in Redis MGET lookup",
+      "input": "5,000 synthetic click events published in bursts of 500 events per second",
+      "environment": "Local Kafka broker with single partition and automated Redis verification consumer",
+      "minimum_pass": "p95 event-to-feature update latency is < 250 milliseconds",
+      "target": "p95 event-to-feature update latency is < 85 milliseconds",
+      "report": "Streaming feature propagation latency benchmark log"
+    },
+    {
+      "metric": "Contextual Bandit Cumulative Regret Reduction",
+      "method": "Cumulative regret reduction of LinUCB bandit compared to random exploration baseline across 10,000 simulated rounds",
+      "input": "10,000 simulated user interaction rounds with 10 arms and 5-dimensional context vectors",
+      "environment": "Deterministic synthetic bandit simulation test bench in Scikit-learn",
+      "minimum_pass": "LinUCB cumulative regret is >= 40% lower than random exploration baseline",
+      "target": "LinUCB cumulative regret is >= 65% lower than random exploration baseline",
+      "report": "Bandit regret comparison audit log and cumulative reward curves"
+    }
+  ],
+  "skills": [
+    "Python",
+    "Kafka",
+    "Redis",
+    "FastAPI",
+    "Scikit-learn",
+    "Celery",
+    "Recommendation Systems",
+    "ML Engineering"
+  ],
+  "starter_input": {
+    "spec": "Directory containing Kafka event schema definitions, Redis feature store client, LinUCB bandit implementation, and FastAPI service.",
+    "size": "8 Python modules, Docker Compose file for Kafka and Redis, and simulated user clickstream generator",
+    "seeded_cases": "Cold-start users with empty Redis session keys, expired session TTLs, and rapid duplicate clickstream bursts",
+    "label_source": "Deterministic synthetic user preference reward functions and Scikit-learn offline test dataset",
+    "personal_data_policy": "Strictly mock synthetic user IDs and simulated product categories; no real personal data used"
+  },
+  "components": [
+    {
+      "name": "Kafka Clickstream Ingestion & Event Processing Worker",
+      "task_type": "infra component (broker, DB, orchestrator, cluster service)",
+      "hours": 5.0
+    },
+    {
+      "name": "Redis Real-Time Session Feature Store & Aggregator",
+      "task_type": "infra component (broker, DB, orchestrator, cluster service)",
+      "hours": 5.0
+    },
+    {
+      "name": "Contextual Bandit & Thompson Sampling Model Engine",
+      "task_type": "model train + evaluate cycle",
+      "hours": 5.0
+    },
+    {
+      "name": "FastAPI Low-Latency Recommendation Inference Service",
+      "task_type": "API endpoint group with tests",
+      "hours": 4.0
+    },
+    {
+      "name": "Celery Batch Retraining & Offline Evaluation Pipeline",
+      "task_type": "data pipeline step",
+      "hours": 4.0
+    },
+    {
+      "name": "Personalization Architecture Guide & Feature Store Schema",
+      "task_type": "docs + architecture diagram",
+      "hours": 1.0
+    }
+  ],
+  "extended_path": {
+    "features": [
+      "Two-tower deep neural network candidate retrieval model in PyTorch generating 64-dimensional user and item embeddings",
+      "Real-time A/B experimentation routing layer partitioning traffic between Thompson Sampling and LinUCB variants",
+      "Drift detection monitor calculating Kolmogorov-Smirnov statistics across feature distributions"
+    ],
+    "hours": 14
+  },
+  "milestones": [
+    {
+      "name": "Kafka Ingestion & Redis Session Feature Store in Python, Kafka and Redis",
+      "hours": 7,
+      "done_criterion": "Kafka worker consumes clickstream events; Redis aggregates rolling user session vectors in < 2ms."
+    },
+    {
+      "name": "Contextual Bandit Models & Offline Evaluation in Scikit-learn and Celery",
+      "hours": 7,
+      "done_criterion": "LinUCB model trains on context vectors; cumulative regret achieves >= 40% reduction over baseline."
+    },
+    {
+      "name": "FastAPI Recommendation Service & Latency Benchmarks in FastAPI and ML Engineering",
+      "hours": 7,
+      "done_criterion": "Inference endpoint serves top-K recommendations with p95 latency < 30ms under 500 RPS."
+    },
+    {
+      "name": "Dynamic Session Shift Anti-Fake Test, Docs & Architecture in Recommendation Systems",
+      "hours": 7,
+      "done_criterion": "Anti-fake test confirms real-time recommendation shift upon 5 clicks; docs and schemas complete."
+    }
+  ],
+  "prerequisites": [
+    "Proficiency in Python asynchronous programming, FastAPI, and Scikit-learn",
+    "Understanding of message queues (Kafka), in-memory stores (Redis), and reinforcement learning / multi-armed bandit concepts"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (purely CPU-based tabular bandit models and in-memory caches)",
+    "cost": "$0 (fully open-source stack using local Docker containers for Kafka and Redis)",
+    "accounts_keys_quotas": "No external cloud accounts, paid services, or API keys required",
+    "reference_environment": "Local 4-core CPU with Docker Desktop (Kafka and Redis containers) and Python 3.11+",
+    "fallback_path": "In-memory Python queue and dictionary fallback store if Docker containers are unavailable"
+  },
+  "riskiest_component": {
+    "name": "Redis Memory Exhaustion and Cold-Start Latency Spikes",
+    "mitigation": "Enforce strict key expiration TTLs (30 minutes) on session vectors and pre-cache global popular item fallback lists.",
+    "fallback": "Tiered fallback returning top trending items when user session key is missing or Redis is unreachable."
+  },
+  "deliverables": [
+    "Git repository containing Kafka stream worker, Redis feature store client, LinUCB bandit engine, and FastAPI app",
+    "Docker Compose configuration launching single-node Kafka, Zookeeper/KRaft, and Redis instances",
+    "Automated benchmark harness measuring recommendation throughput, latency percentiles, and regret reduction",
+    "Screener verification script validating real-time preference adaptation and cold-start handling in under 2 minutes"
+  ],
+  "out_of_scope": [
+    "Large-scale distributed Hadoop/Spark cluster deployment",
+    "Third-party commercial CDPs or customer tracking cookies",
+    "Complex multi-billion parameter foundation LLM recommendation rankers"
+  ],
+  "safety_note": null,
+  "resources": [
+    "A Contextual-Bandit Approach to Personalized News Recommendation (Li et al., WWW 2010)",
+    "Designing Machine Learning Systems: An Iterative Process for Production-Ready Applications (Chip Huyen)",
+    "Redis Documentation on Hashes, Sorted Sets, and Real-Time Feature Stores"
+  ],
+  "rubric": [
+    {
+      "input": "10,000 recommendation requests dispatched at 500 queries per second",
+      "action": "python ./benchmarks/bench_inference.py --concurrency 50 --requests 10000",
+      "expected_result": "FastAPI returns top-5 recommendations with p95 latency < 30.0ms and 0 HTTP errors",
+      "evidence_location": "Terminal output log and reports/inference_latency.json",
+      "pass_criterion": "p95 latency is < 30.0ms with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "5,000 synthetic click events published to Kafka user-clicks topic",
+      "action": "python ./scripts/test_feature_pipeline.py --events 5000",
+      "expected_result": "Worker processes all events and updates Redis session vectors with p95 lag < 250ms",
+      "evidence_location": "Feature store update audit log in reports/feature_sync.json",
+      "pass_criterion": "p95 lag < 250ms and 0 unhandled exceptions with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "10,000 simulated rounds comparing LinUCB bandit against random baseline",
+      "action": "python ./models/eval_regret.py --rounds 10000",
+      "expected_result": "LinUCB achieves >= 40% cumulative regret reduction compared to random policy",
+      "evidence_location": "Regret analysis summary in reports/bandit_regret.json",
+      "pass_criterion": "Regret reduction >= 40% with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Celery scheduled offline model retraining task execution",
+      "action": "celery -A tasks.retrain worker --loglevel=info --concurrency=2 & python ./tasks/trigger_retrain.py",
+      "expected_result": "Celery worker updates inverse covariance matrices and persists weights without service interruption",
+      "evidence_location": "Celery execution log and model weight checksum file",
+      "pass_criterion": "Retraining task status completes with SUCCESS and exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Simulated user clicking 5 technology articles in rapid succession",
+      "action": "python ./scripts/verify_dynamic_personalization.py --clicks tech,tech,tech,tech,tech",
+      "expected_result": "FastAPI recommendation distribution shifts to technology items with top-3 rank within 300ms",
+      "evidence_location": "Dynamic verification console execution output log",
+      "pass_criterion": "Console confirms top-3 recommendations belong to technology category with exit code 0",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected user personalization engine in Python with Kafka and Redis; delivered sub-[INFERENCE_LATENCY] millisecond recommendation latency, and reduced cumulative regret by [REGRET_REDUCTION] compared to baseline exploration.",
+    "claims": [
+      {
+        "text": "delivered sub-[INFERENCE_LATENCY] millisecond recommendation latency",
+        "rubric_indexes": [
+          0
+        ]
+      },
+      {
+        "text": "reduced cumulative regret by [REGRET_REDUCTION] compared to baseline exploration",
+        "rubric_indexes": [
+          2
+        ]
+      }
+    ],
+    "do_not_claim": "multi-billion parameter transformer models or production ad-tech click-fraud detection"
+  },
+  "verify": [
+    "Run `pytest tests/` to confirm Kafka event schemas, Redis feature store, and bandit algorithms pass.",
+    "Execute `python ./benchmarks/bench_inference.py` to verify p95 latency remains < 30ms under load.",
+    "Run `python ./scripts/verify_dynamic_personalization.py` to confirm real-time dynamic recommendation shifts."
+  ],
+  "worksheet": {
+    "q1": "Core deliverable: a real-time personalization engine with Kafka clickstream ingestion, Redis feature store, LinUCB bandit ranker, and FastAPI inference.",
+    "q2": "Target users: machine learning engineers, recommendation systems developers, and real-time data platform engineers.",
+    "q3": "3 use cases: e-commerce product re-ranking, digital news article personalization, and SaaS onboarding feature recommendations.",
+    "q4": "Stated hours: 28 hours. Calculated bottom-up: 24 component hours * 1.15 buffer = 27.6 -> 28 hours. Intermediate level.",
+    "q5": "Hard parts: exploration vs exploitation balance with LinUCB, sub-millisecond Redis session feature updates, cold-start handling, and non-blocking model retraining.",
+    "q6": "Starter input: Kafka event schemas, Redis feature store client, LinUCB implementation, and simulated clickstream generator. Synthetic data only.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU only, $0 cost, zero paid cloud keys. Fallback: in-memory queues and dictionaries.",
+    "q8": "Riskiest component: Redis memory exhaustion and cold-start latency spikes. Fallback: 30-min key TTLs and tiered trending item fallbacks.",
+    "q9": "Potential faking: returning hardcoded static recommendations. Anti-fake check 5 simulates 5 tech clicks and verifies top-3 output shifts to tech.",
+    "q10": "Safety/ethics: Safe; strictly synthetic user interaction logs and simulated product IDs, zero personal data."
+  }
+}

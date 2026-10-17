@@ -2,121 +2,155 @@ PROJECT BRIEF — Automated Data Quality Monitoring & Anomaly Detection
 ======================================================================
 
 Domain    : Data Engineering
-Difficulty: intermediate
-Est. Time : 28 hours (Core Path) | Extended Path: +6 hours
-Tech Stack: Python [core programming language and algorithmic runtime], dbt [dbt component], Great Expectations [great expectations component], Airflow [airflow component], PostgreSQL [relational database management system], Slack API [slack api component]
+Difficulty: INTERMEDIATE
+Est. Time : 29 hours (core path, estimate). Extended path: +14 hours
+Tech Stack: Python (core framework implementation language, CLI runner, and statistical profiling logic), DuckDB (in-process vectorized SQL analytical engine executing high-speed quality checks), Pandas (tabular data manipulation and statistical metric calculation framework), SQL (declarative rule formulation language checking domain invariants and aggregates), Docker (containerized environment packaging runtime dependencies and test datasets)
 
 PROBLEM STATEMENT
-----------------------------------------
-Data pipelines silently corrupt downstream analytics when source data quality degrades — wrong schema, null values, outlier ranges, referential integrity violations. Build a data quality framework that automatically validates data contracts, detects anomalies, and blocks bad data from reaching dashboards.
+----------------------------------------------------------------------
+Modern analytical and machine learning data pipelines suffer from silent data corruption when upstream schemas drift, values violate business domain constraints, or statistical distributions shift unexpectedly. Undetected corrupted data propagates through downstream warehouses and dashboards, producing flawed metrics and erroneous automated business decisions. This project implements an automated, declarative data quality monitoring and anomaly detection engine in Python and DuckDB that validates dataset contracts, checks referential integrity, detects statistical outliers and distribution shifts, and enforces automated blocking gates before pipeline loading.
 
 USE CASES IN THE REAL WORLD
-----------------------------------------
-Monte Carlo, Great Expectations, and dbt are companies building around this exact problem. Every data team at a mature tech company (top tech platforms, top tech platforms, top tech platforms) runs data quality checks. Bad data causes incorrect business decisions that can cost companies millions.
+----------------------------------------------------------------------
+- Automated data contract enforcement on daily batch data warehouse ingestion tables
+- Pre-training data validation for machine learning feature stores preventing corrupt inputs
+- Continuous schema drift and anomaly detection on third-party API data sync pipelines
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Data quality engineering is a growing specialty that bridges data engineering and reliability engineering. Understanding data contracts, statistical anomaly detection, and automated validation pipelines positions you as a data reliability engineer — a highly paid and in-demand role.
+WHY THIS IS HARD
+----------------------------------------------------------------------
+- Executing complex declarative validation rules across hundreds of thousands of rows within sub-second execution limits
+- Calculating statistical distribution drift metrics (Wasserstein distance, z-scores) without loading entire datasets into memory
+- Preventing false positive alerts on legitimate seasonal or high-variance data spikes
+- Designing fail-fast blocking ingestion gates that halt downstream jobs while outputting actionable failure diagnostics
 
 RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-dbt, Great Expectations, and automated data quality are standard requirements in Senior Data Engineer JDs. Showing you can build a data quality framework that blocks bad data before it reaches production signals data engineering maturity that most junior engineers lack.
+----------------------------------------------------------------------
+- Declarative YAML contract parser validating column types, nullability, uniqueness, and custom SQL expressions
+- High-speed analytical validation engine executing inside DuckDB without external database dependencies
+- Anti-fake verification script injecting dynamic anomalous rows at runtime and asserting automated gate blockage
+Relevant Job Families: Data Reliability Engineer, Data Platform Engineer, Analytics Engineer
 
 ARCHITECTURE & DATA FLOW
-----------------------------------------
-dbt models for data transformation with Great Expectations test suites attached. Airflow DAG running quality checks before and after each pipeline stage. Statistical anomaly detection (Z-score, IQR) on numeric columns for out-of-range detection. Alert system with PagerDuty/Slack integration. Quarantine table for failed records.
+----------------------------------------------------------------------
+Components:
+- Contract Specification Parser (Tools: Python): Parses YAML data contract definitions, validating column constraints, rules, and alert thresholds
+- DuckDB Validation Engine (Tools: DuckDB, SQL): Executes vectorized SQL queries evaluating completeness, freshness, uniqueness, and referential checks
+- Statistical Anomaly Profiler (Tools: Python, Pandas): Computes historical baseline metrics, z-score outlier bounds, and distribution drift distances
+- Pipeline Ingestion Blocking Gate (Tools: Python): Evaluates contract results, emits exit codes, and blocks downstream pipeline execution on severe breaches
+- Diagnostics & Alert Dispatcher (Tools: Python): Generates structured JSON and markdown reports detailing failing row samples and column summaries
+
+Data Flow:
+Data pipeline triggers the validation CLI passing a dataset path and a YAML contract; the Contract Parser loads rule definitions; DuckDB scans the target Parquet or CSV file directly; vectorized SQL assertions execute in parallel; the Statistical Profiler compares current summary statistics against historical baselines; if all checks pass, the CLI returns exit code 0; if any critical rule fails, the Blocking Gate returns exit code 1 and outputs failing row diagnostics.
+
+Enforcement Mechanism:
+CLI non-zero exit codes halting orchestrator pipelines; strict schema assertions rejecting unmapped or invalidly typed columns.
 
 SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Target 1:
-- Metric: Ingestion & Transformation Throughput
-- Method: Continuous ingestion benchmark streaming synthetic records from seed file
-- Input/dataset: 100,000 structured synthetic records (~250 bytes each)
-- Reference environment: Local workstation with 8GB RAM and SSD storage
-- Minimum pass: Ingestion rate > [N] records/sec (minimum > 1,500 records/sec)
-- Target: Ingestion rate > [N] records/sec (target > 6,000 records/sec)
-- Report format: Pipeline execution log showing total records, wall-clock time, and records/sec
-
-Target 2:
-- Metric: Analytical Aggregation Latency (p95)
-- Method: Analytical query execution over seeded historical dataset
-- Input/dataset: Seeded database table with 1,000,000 historical rows
-- Reference environment: Local database engine in Docker with 2GB memory ceiling
-- Minimum pass: p95 query latency < [M ms] (minimum < 400ms)
-- Target: p95 query latency < [M ms] (target < 100ms)
-- Report format: Database query analyzer output showing execution time and scanned rows
-
-Target 3:
-- Metric: Data Quality & Reconciliation Precision
-- Method: End-to-end reconciliation check comparing ingested ledger vs. source stream
-- Input/dataset: Injected discrepancy dataset with [X] intentional duplicate and corrupted records
-- Reference environment: Local automated test runner
-- Minimum pass: [X of Y] discrepancies correctly identified and quarantined (100% pass on test set)
-- Target: [X of Y] discrepancies identified with 0 false positives
-- Report format: Markdown reconciliation report with discrepancy breakdown
+----------------------------------------------------------------------
+Metric | Method | Input/Dataset | Reference Environment | Minimum Pass | Target | Report Format
+Seeded Quality Defect Detection Rate | Execution of validation suite across benchmark dataset with 20 intentionally injected data defects | Dataset of 200,000 rows containing 20 injected defects (nulls, range violations, regex mismatch, duplicates) | Standard 4-core local CPU, Python 3.11+ | Detection of 20 of 20 injected defects with 0 false negatives | Detection of 20 of 20 injected defects with 0 false negatives | Validation execution report listing detected rule breaches and row indexes
+Dataset Validation Execution Latency | Wall-clock execution duration to run 15 comprehensive quality checks on tabular dataset | 250,000 tabular records stored in Parquet format evaluated with 15 SQL contract rules | Standard 4-core local CPU, DuckDB in-memory execution | Execution completes in < 4.5 seconds across 250,000 rows | Execution completes in < 2.2 seconds across 250,000 rows | Benchmark execution timing log reporting per-rule execution durations
+False Positive Violation Rate on Clean Baseline | Validation of verified clean historical baseline dataset against configured quality contract | 50,000 verified clean tabular rows matching expected production distributions | Standard 4-core local CPU, Python 3.11+ | 0 false positive rule violations reported on verified clean dataset | 0 false positive rule violations reported on verified clean dataset | Validation output summary confirming clean pass
 
 SKILLS COVERED
-----------------------------------------
-Python, dbt, Great Expectations, Airflow, PostgreSQL, Monitoring
+----------------------------------------------------------------------
+Python, DuckDB, Pandas, SQL, Docker, Data Quality, Data Engineering
 
 TARGET APPLICATION / STARTER INPUT
-----------------------------------------
-The project provides a self-contained test environment and fixture generator located in `scripts/` or `fixtures/`. It deterministically generates representative input records or mock client traffic for automated validation. No third-party proprietary data or real personal identifiers (PII) are required; all test datasets use synthetic tokens and deterministic random seeds.
+----------------------------------------------------------------------
+- Specification: YAML data contract specification file and e-commerce transactions dataset in CSV/Parquet format.
+- Dataset / Traffic Size: 250,000 transaction rows with 12 columns (transaction_id, customer_id, amount, timestamp, status, country)
+- Seeded Edge Cases: Negative transaction amounts, future timestamps, null customer IDs, invalid country codes, and duplicate transaction IDs
+- Label / Verification Source: Deterministic test fixture generation script injecting exact defect rows at known indices
+- Personal Data Policy: Strictly mock synthetic e-commerce transaction data; zero real customer or financial details used
 
 MILESTONES
-----------------------------------------
-- Milestone 1: Environment Setup & Core Foundations (6h)
-  Configure repository, tooling, container dependencies, and foundational data structures. Done when foundational test suite passes with clean linting.
-- Milestone 2: Core Processing & Architecture Implementation (8h)
-  Implement primary operational workflows, database models or state transitions, and API endpoints. Done when integration tests verify end-to-end data flow under normal operating conditions.
-- Milestone 3: Concurrency, Reliability & Error Guardrails (8h)
-  Implement defensive controls: rate limiting, retries with exponential backoff, transaction boundaries, and failure isolation. Done when chaos or stress tests verify graceful degradation under fault injection.
-- Milestone 4: Verification, Benchmarking & Documentation (6h)
-  Execute performance benchmark harness, compile measurement tables, generate architectural diagrams, and document screener verification steps. Done when `scripts/verify_all` passes completely.
+----------------------------------------------------------------------
+M1: Declarative Schema Contracts & DuckDB Rule Engine for Data Quality (8h) — Done when: Parser loads YAML contracts; DuckDB executes null, range, uniqueness, and regex checks.
+M2: Statistical Profiling & Distributional Drift Detection in Data Engineering (7h) — Done when: Profiler computes summary statistics and flags z-score outliers and distribution shifts.
+M3: Automated Blocking Gate, Docker Setup & Alert Dispatcher (8h) — Done when: CLI returns exit code 1 and outputs failed row samples when quality rules are violated.
+M4: Dirty Data Invariant Testing, Anti-Fake Check & Buffer (6h) — Done when: Benchmark confirms 20 of 20 defects detected in < 4.5s; anti-fake test validates dynamic row injection; docs complete.
+Total: 29 hours (estimate)
 
 PREREQUISITES, ENVIRONMENT AND ACCOUNTS
-----------------------------------------
-- Prerequisites: Familiarity with Python and dbt, standard command-line tools, and fundamental testing principles.
-- Hardware / OS: Standard modern computer (macOS, Linux, or Windows with WSL2) with at least 8GB RAM.
-- Accounts & Services: None required. Designed to run completely on free, open-source local software.
-- Fallback Path: In-memory mock drivers or SQLite/local files provided if external database or message broker containers cannot be run.
+----------------------------------------------------------------------
+Prerequisites: Intermediate Python programming (Pandas, type hints, pytest), Strong SQL aggregation and analytical querying skills, Familiarity with data pipeline orchestration principles (DAGs, tasks, exit codes)
+
+Environment & Hardware:
+- OS: Linux / macOS / Windows with WSL2
+- Memory: 8GB RAM
+- Compute / GPU: None required (purely CPU-bound in-process SQL execution)
+- Estimated Cost: $0 (fully open-source software stack)
+- Accounts & Quotas: No external cloud accounts, paid services, or API keys required
+- Reference Environment: Local 4-core CPU with Python 3.11 and DuckDB installed
+- Fallback Path: In-memory SQLite execution engine without DuckDB if local DuckDB binaries encounter architecture issues
+
+Riskiest Component & Fallback:
+- Riskiest Component: Memory Exhaustion During In-Memory Parquet Scans
+- Simpler Fallback: Leverage DuckDB streaming chunk execution (PRAGMA memory_limit) to bound RAM consumption to 1GB
 
 DELIVERABLES
-----------------------------------------
-1. Clean Git repository with structured commit history, README, and reproducible setup commands.
-2. Production-quality core codebase with automated test suite achieving verified pass rates.
-3. Performance benchmark report (`results/benchmark_report.md`) documenting measured latency, throughput, and resource utilization.
-4. Screener verification script (`scripts/verify_all.sh` or equivalent) validating the full system in < 3 minutes.
-5. Architecture diagram (Mermaid/ASCII) and known limitations document explaining architectural trade-offs.
+----------------------------------------------------------------------
+- Git repository containing Python data quality framework, CLI executable, and DuckDB runner
+- Sample declarative YAML contracts defining rules for tabular datasets
+- Benchmark script verifying defect detection rate and execution speed across 250,000 rows
+- Screener verification script executing automated validation in under 2 minutes
 
 OUT OF SCOPE AND EXTENDED PATH
-----------------------------------------
-- Out of Scope for Core Path: Distributed multi-region clustering, enterprise SSO integrations, complex third-party SaaS dependencies.
-- Extended Path (+6 hours): Advanced telemetry dashboard, distributed persistence cluster extension, or automated canary release pipeline.
+----------------------------------------------------------------------
+Out of Scope:
+- Distributed Apache Spark cluster execution
+- Real-time streaming quality validation on Kafka topics
+- Automated data cleaning and synthetic value imputation
 
-SAFETY AND ETHICS NOTE
-----------------------------------------
-All data processed, generated, and benchmarked by this project consists exclusively of synthetic fixtures. No personal identifiable information (PII), proprietary credentials, or live external endpoints are used.
+Extended Path (+14 hours):
+- Automated Slack and PagerDuty notification integration with interactive alert acknowledge buttons
+- Automated Great Expectations and dbt-expectations contract importer and exporter
 
 LEARNING RESOURCES
-----------------------------------------
-- Official Documentation for Python, dbt, Great Expectations
-- Architectural Reference Patterns and RFC Standards [VERIFY URL]
-- Systems & Distributed Reliability Principles
+----------------------------------------------------------------------
+- DuckDB SQL documentation and analytical query performance guide
+- Data Contracts architecture principles and specification guidelines
+- Scipy statistical distances and drift detection documentation
 
 SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Check 1: Verify great Expectations checkpoint suite with 20+ column-level expectations; Pass when automated test script prints 0 errors and logs verified status code.
-2. Check 2: Verify dbt test integration running on every model refresh with failure blocking; Pass when automated test script prints 0 errors and logs verified status code.
-3. Check 3: Verify statistical anomaly detection flagging volume drop > 20% or null rate increase; Pass when automated test script prints 0 errors and logs verified status code.
-4. Check 4: Verify quarantine table routing failed records for manual review; Pass when automated test script prints 0 errors and logs verified status code.
-5. Check 5: Verify weekly data quality report auto-generated and sent to Slack channel; Pass when automated test script prints 0 errors and logs verified status code.
-6. Check 6: 6. Anti-Fake Verification Check: Inspect committed execution logs and re-run verification script against seeded test fixtures; pass when runtime metrics dynamically reflect test execution rather than static mocked responses.
+----------------------------------------------------------------------
+1. Check
+   Input: data/dirty_transactions.parquet with 20 injected defects
+   Action: Run python -m dq_framework check --contract contracts/ecommerce.yaml --data data/dirty_transactions.parquet
+   Result: Validation engine halts execution, returns exit code 1, and reports all 20 failing rule assertions
+   Evidence: Terminal execution output log and reports/dq_run.json
+   Pass: Exit code 1 with exactly 20 distinct failure records reported
+2. Check
+   Input: Benchmark test running 15 quality checks across 250,000 rows
+   Action: Run python scripts/benchmark_speed.py
+   Result: DuckDB executes all 15 checks in < 4.5 seconds
+   Evidence: Benchmark summary console table
+   Pass: Total execution latency is < 4.5 seconds on local machine
+3. Check
+   Input: data/clean_transactions.parquet baseline dataset
+   Action: Run python -m dq_framework check --contract contracts/ecommerce.yaml --data data/clean_transactions.parquet
+   Result: Validation engine confirms all rules pass with zero violations
+   Evidence: Terminal stdout execution log
+   Pass: Exit code 0 with 0 rule violations reported
+4. Check
+   Input: Synthetically skewed dataset with shifted amount distribution
+   Action: Run python -m dq_framework drift --baseline data/clean.parquet --target data/skewed.parquet
+   Result: Profiler flags significant distribution drift on amount column
+   Evidence: Drift analysis output report
+   Pass: Drift detected with calculated distance exceeding configured threshold and warning logged
+5. Check [anti_fake]
+   Input: Dynamic anomalous row with negative order amount (-999.00) injected at runtime by verification script
+   Action: Run python scripts/verify_dynamic_quality.py --amount -999.00
+   Result: Engine detects injected negative amount, triggers rule NEGATIVE_AMOUNT_VIOLATION, and blocks ingestion
+   Evidence: Dynamic verification console execution output log
+   Pass: Exit code 1 with report pinpointing dynamic row index and rule violation
 
 RESUME BULLET FORMULA
-----------------------------------------
-"Built automated data quality framework using dbt and Great Expectations; validated 50M rows/run with statistical anomaly detection, reducing data quality incidents by [N]% with zero silent failures.; achieved [N] throughput with < [M ms] latency overhead across [K] test transactions."
-Do not claim: scale, latency, or throughput figures without committing benchmark run logs; do not claim production deployment unless deployed to a verifiable live environment.
+----------------------------------------------------------------------
+"Architected automated data quality monitoring engine in Python and DuckDB; executed declarative schema contracts across [ROW_COUNT] rows in under [VALIDATION_TIME], detected [DEFECT_COUNT] of [TOTAL_DEFECTS] injected quality defects, and enforced automated pipeline ingestion blocking gates."
+
+Do not claim: petabyte streaming data observability or universal enterprise metadata governance without committed cluster benchmarks
 
 ======================================================================
 Generated by HireFlow — hireflow.io

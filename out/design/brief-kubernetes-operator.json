@@ -1,0 +1,353 @@
+{
+  "id": "brief-kubernetes-operator",
+  "title": "Custom Kubernetes Operator in Go with CRD Lifecycle Reconciler, Automated Failover & Backup Controller",
+  "domain": "Platform & DevOps",
+  "difficulty": "ADVANCED",
+  "project_types": [
+    "Platform/infra tool",
+    "Systems programming"
+  ],
+  "problem": "Running stateful distributed applications on Kubernetes using standard StatefulSets leads to uncoordinated leader elections, unmonitored replication lag, and manual, error-prone disaster recovery. Generic controllers lack application-specific operational knowledge required for safe failover and automated point-in-time snapshots. This project builds a production-grade Kubernetes Operator in Go using the controller-runtime framework. The operator defines custom resource definitions (CRDs) for stateful database clusters, executes declarative reconciliation loops managing primary-replica topologies, performs automated health checks with split-brain prevention, and orchestrates zero-downtime rolling upgrades and scheduled cloud storage backups.",
+  "use_cases": [
+    {
+      "title": "Self-Service Internal Database Platform for Engineering Teams",
+      "first_sentence": "Enterprise platform engineering teams need to provide software developers with self-service, highly available database clusters without ticketing delays.",
+      "second_sentence": "Developers declare desired database topology in simple YAML manifests, and the operator automatically provisions StatefulSets, Services, and replication secrets."
+    },
+    {
+      "title": "Automated Primary Node Failover & Disaster Recovery",
+      "first_sentence": "Site reliability engineers require automated remediation when a database primary node suffers hardware failure or network isolation.",
+      "second_sentence": "The operator detects primary unresponsiveness within 10 seconds, selects the most up-to-date replica, promotes it to primary, and reconfigures downstream nodes."
+    },
+    {
+      "title": "Zero-Downtime Rolling Database Engine Upgrades",
+      "first_sentence": "Database administrators need to apply security patches and minor version engine upgrades across hundreds of production instances without service interruption.",
+      "second_sentence": "The operator coordinates an ordered rolling update, upgrading replicas first before executing a controlled switchover of the primary node."
+    }
+  ],
+  "hard_parts": [
+    "Implementing idempotent reconciliation loops with controller-runtime that handle out-of-order Kubernetes API events",
+    "Preventing split-brain scenarios during network partitions through distributed quorum checks and fencing mechanisms",
+    "Orchestrating safe rolling updates on stateful workloads without data corruption or dropped client connections",
+    "Managing point-in-time backup snapshots and restore workflows with atomic state verification"
+  ],
+  "screener_signals": [
+    "Clean Go codebase adhering to standard controller-runtime patterns, status subresource updates, and reconciler interfaces",
+    "Comprehensive test suite using envtest and KinD verifying CRD schema validation, reconciliation cycles, and event generation",
+    "Anti-fake verification script creating a dynamic cluster CRD with custom replica parameters and asserting controller reconciliation to target state"
+  ],
+  "job_families": [
+    "Kubernetes Platform Engineer",
+    "Site Reliability Engineer (SRE)",
+    "Cloud Infrastructure Architect"
+  ],
+  "stack": [
+    {
+      "tool": "Go",
+      "role": "primary systems programming language implementing custom controller logic and reconciliation loops"
+    },
+    {
+      "tool": "Kubernetes",
+      "role": "container orchestration platform providing API server, CRD registry, and workload primitives"
+    },
+    {
+      "tool": "controller-runtime",
+      "role": "Kubernetes framework providing client caching, event predicates, and reconciliation scaffolding"
+    },
+    {
+      "tool": "Docker",
+      "role": "containerization engine packaging the operator binary and local testing environments"
+    },
+    {
+      "tool": "Helm",
+      "role": "package manager templating and deploying operator CRD manifests and RBAC roles"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "Cluster CRD Schema & API Definition",
+        "tools_used": [
+          "Go",
+          "Kubernetes"
+        ],
+        "purpose": "Defines custom resource specifications, status subresources, and OpenAPI validation rules"
+      },
+      {
+        "name": "Stateful Cluster Reconciliation Controller",
+        "tools_used": [
+          "Go",
+          "controller-runtime"
+        ],
+        "purpose": "Observes actual cluster state, computes delta against desired state, and applies corrective actions"
+      },
+      {
+        "name": "Health Monitor & Automated Failover Engine",
+        "tools_used": [
+          "Go",
+          "Kubernetes"
+        ],
+        "purpose": "Continuously polls node health, detects primary failure, and promotes the most synchronized replica"
+      },
+      {
+        "name": "Backup & Point-in-Time Snapshot Orchestrator",
+        "tools_used": [
+          "Go",
+          "controller-runtime"
+        ],
+        "purpose": "Schedules cron backups, triggers database flush operations, and streams snapshots to object storage"
+      },
+      {
+        "name": "Rolling Upgrade & Configuration Sync Manager",
+        "tools_used": [
+          "Go",
+          "Kubernetes"
+        ],
+        "purpose": "Coordinates ordered pod restarts during configuration changes and engine version upgrades"
+      },
+      {
+        "name": "Reconciliation Latency & Chaos Failover Benchmark Harness",
+        "tools_used": [
+          "Go",
+          "Docker"
+        ],
+        "purpose": "Simulates pod failures and measures time-to-recovery and reconciliation loop execution timings"
+      },
+      {
+        "name": "Operator Architecture Diagram & CRD Deployment Guide",
+        "tools_used": [
+          "Helm",
+          "Kubernetes"
+        ],
+        "purpose": "Documents controller reconciliation lifecycle, RBAC security profiles, and Helm charts"
+      }
+    ],
+    "data_flow": "Users submit Custom Resource manifests (DatabaseCluster) to the Kubernetes API server; the API server stores the resource in etcd and emits an event; the controller-runtime informer detects the event and enqueues a reconciliation request; the reconciler evaluates current child resources (Pods, PVCs, Services, Secrets); if state diverges, the reconciler issues atomic Create/Update/Delete calls; the health monitor periodically checks primary availability; upon failure, the failover engine promotes an eligible replica and updates DNS endpoints; backup controllers trigger point-in-time snapshots according to defined schedules.",
+    "enforcement_mechanism": "CRD OpenAPI schema validation rejecting invalid manifests; leader election locking ensuring only one active operator instance executes reconciliations."
+  },
+  "targets": [
+    {
+      "metric": "Reconciliation Loop Execution Latency",
+      "method": "Wall-clock timing from Kubernetes watch event dispatch to successful reconciliation completion",
+      "input": "100 synthetic CRD update events across 10 active managed cluster resources in envtest",
+      "environment": "Standard 4-core local CPU, Go 1.21+, Kubernetes envtest test suite",
+      "minimum_pass": "p95 reconciliation execution latency is < 650 milliseconds",
+      "target": "p95 reconciliation execution latency is < 220 milliseconds",
+      "report": "Controller-runtime reconciler latency and execution profiling log"
+    },
+    {
+      "metric": "Automated Primary Failover Detection & Promotion Time",
+      "method": "Duration from primary pod termination injection to new primary election, readiness probe pass, and traffic route update",
+      "input": "20 simulated primary pod termination and network partition chaos scenarios in KinD cluster",
+      "environment": "Standard 4-core local CPU, KinD (Kubernetes in Docker) local cluster with 3 worker nodes",
+      "minimum_pass": "Average failover time across 20 trials is < 25.0 seconds with 0 split-brain incidents",
+      "target": "Average failover time across 20 trials is < 12.0 seconds with 0 split-brain incidents",
+      "report": "Failover timing and split-brain chaos verification report"
+    },
+    {
+      "metric": "CRD Schema Validation Error Rejection Rate",
+      "method": "Percentage of intentionally malformed or out-of-range CRD manifests rejected at admission time",
+      "input": "50 invalid CRD manifests (negative replica counts, invalid storage sizes, unparseable cron strings)",
+      "environment": "Kubernetes API server with custom CRD OpenAPI v3 schema validation enabled",
+      "minimum_pass": "50 of 50 malformed manifests rejected with descriptive admission errors",
+      "target": "50 of 50 malformed manifests rejected with descriptive admission errors",
+      "report": "Admission controller and OpenAPI schema validation test log"
+    }
+  ],
+  "skills": [
+    "Go",
+    "Kubernetes",
+    "controller-runtime",
+    "Docker",
+    "Helm",
+    "Platform Engineering",
+    "Distributed Systems",
+    "SRE"
+  ],
+  "starter_input": {
+    "spec": "Directory of CustomResourceDefinition manifests, sample cluster CRs, and simulated stateful database mock containers.",
+    "size": "5 CRD OpenAPI manifests, 10 sample deployment YAMLs, and envtest bootstrap test scripts",
+    "seeded_cases": "Primary pod kill during active write traffic, network partition isolating primary, and out-of-disk PVC exhaustion",
+    "label_source": "Deterministic state expectations defined in test manifests and envtest assertions",
+    "personal_data_policy": "Strictly synthetic mock infrastructure configuration manifests; no real personal data used"
+  },
+  "components": [
+    {
+      "name": "Cluster CRD Schema & API Definition",
+      "task_type": "infra component (broker, DB, orchestrator, cluster service)",
+      "hours": 6.0
+    },
+    {
+      "name": "Stateful Cluster Reconciliation Controller",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "Health Monitor & Automated Failover Engine",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "Backup & Point-in-Time Snapshot Orchestrator",
+      "task_type": "infra component (broker, DB, orchestrator, cluster service)",
+      "hours": 5.0
+    },
+    {
+      "name": "Rolling Upgrade & Configuration Sync Manager",
+      "task_type": "low-level/system subsystem",
+      "hours": 5.0
+    },
+    {
+      "name": "Reconciliation Latency & Chaos Failover Benchmark Harness",
+      "task_type": "load or performance test harness + report",
+      "hours": 4.0
+    },
+    {
+      "name": "Operator Architecture Diagram & CRD Deployment Guide",
+      "task_type": "docs + architecture diagram",
+      "hours": 3.0
+    }
+  ],
+  "extended_path": {
+    "features": [
+      "Dynamic cross-region replica synchronization and automated traffic rerouting across multiple Kubernetes clusters",
+      "Admission Webhook server providing dynamic mutating defaults and fine-grained authorization checks",
+      "Prometheus metrics exporter exposing operator reconciliation duration and replication lag histograms"
+    ],
+    "hours": 16
+  },
+  "milestones": [
+    {
+      "name": "CRD Schema & Platform Engineering Controller Scaffolding in Go and Kubernetes",
+      "hours": 10,
+      "done_criterion": "CRD manifests register in Kubernetes; controller-runtime initializes with leader election."
+    },
+    {
+      "name": "Stateful Reconciliation & Primary-Replica Topology in controller-runtime",
+      "hours": 10,
+      "done_criterion": "Reconciler provisions StatefulSet, Headless Service, and replication secrets in < 650ms."
+    },
+    {
+      "name": "Automated Failover & Distributed Systems SRE Engine in Go",
+      "hours": 10,
+      "done_criterion": "Health monitor detects primary crash and promotes replica within 25 seconds in KinD."
+    },
+    {
+      "name": "Chaos Testing Suite, KinD Anti-Fake Test & Docs in Docker and Helm",
+      "hours": 10,
+      "done_criterion": "Chaos suite validates 20 failovers; anti-fake test reconciles dynamic CRD; docs complete."
+    }
+  ],
+  "prerequisites": [
+    "Proficiency in Go programming, concurrency primitives, and Kubernetes architecture concepts",
+    "Familiarity with Custom Resource Definitions, controller patterns, and containerized testing via Docker/KinD"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM (16GB recommended for running multi-node KinD clusters)",
+    "gpu": "None required (purely CPU-bound systems software and controller runtime)",
+    "cost": "$0 (fully open-source stack using Go, KinD, and Docker)",
+    "accounts_keys_quotas": "No external cloud accounts, paid services, or API keys required",
+    "reference_environment": "Local 4-core CPU with Go 1.21+, Docker Desktop, and KinD installed",
+    "fallback_path": "Kubernetes envtest control plane binary testing (does not require Docker daemon)"
+  },
+  "riskiest_component": {
+    "name": "Split-Brain Primary Election During Ephemeral Network Partitions",
+    "mitigation": "Enforce strict lease locks in etcd and double-check replication log offsets before replica promotion.",
+    "fallback": "Manual operator intervention mode requiring administrator approval if quorum cannot be validated."
+  },
+  "deliverables": [
+    "Git repository containing Go operator codebase, controller-runtime reconcilers, and CRD OpenAPI specs",
+    "Automated primary failover and split-brain prevention controller with leader election",
+    "Chaos testing test harness simulating primary node terminations in KinD cluster",
+    "Screener verification script applying dynamic CRD and asserting automated replica reconciliation"
+  ],
+  "out_of_scope": [
+    "Multi-tenant cloud billing metering and subscription invoicing integration",
+    "Physical storage array SAN fiber-channel volume provisioning outside Kubernetes CSI",
+    "In-kernel eBPF packet manipulation or custom Linux network driver authoring"
+  ],
+  "safety_note": null,
+  "resources": [
+    "Kubebuilder Book: Developing Kubernetes APIs with controller-runtime",
+    "Kubernetes Custom Resource Definitions (CRD) OpenAPI Schema Specification",
+    "KinD (Kubernetes in Docker) Cluster Testing and Chaos Engineering Patterns"
+  ],
+  "rubric": [
+    {
+      "input": "50 invalid CRD manifests with schema violations and malformed parameters",
+      "action": "go test -v ./controllers/... -run TestCRDSchemaValidation",
+      "expected_result": "Kubernetes API validation rejects all 50 manifests with descriptive 400 Bad Request errors",
+      "evidence_location": "Terminal test execution output log and reports/crd_validation_report.json",
+      "pass_criterion": "All 50 invalid manifests rejected with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "100 synthetic CRD update events processed in envtest test harness",
+      "action": "go test -v ./controllers/... -run TestReconciliationLatency -bench=.",
+      "expected_result": "Controller executes reconciliation loop with p95 latency < 650 milliseconds",
+      "evidence_location": "Reconciler benchmark output log",
+      "pass_criterion": "p95 latency is < 650ms with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "20 primary pod termination chaos tests executed in KinD cluster",
+      "action": "go run ./cmd/chaos_tester --trials 20 --cluster-name test-db-cluster",
+      "expected_result": "Operator detects primary failure, promotes healthy replica, and restores cluster health in < 25s",
+      "evidence_location": "Chaos failover timing summary report in reports/failover_benchmark.json",
+      "pass_criterion": "Average failover duration < 25s and zero split-brain occurrences across 20 trials",
+      "kind": "normal"
+    },
+    {
+      "input": "DatabaseCluster custom resource deployed to local Kubernetes namespace",
+      "action": "kubectl get databasecluster test-cluster -o json",
+      "expected_result": "Resource status displays Ready phase, healthy primary endpoint, and synchronized replica list",
+      "evidence_location": "Kubernetes API status output",
+      "pass_criterion": "status.phase equals 'Ready' and status.healthyReplicas equals 2",
+      "kind": "normal"
+    },
+    {
+      "input": "Dynamic CRD manifest specifying custom cluster name and replica count applied at runtime",
+      "action": "go run ./scripts/verify_dynamic_operator.go --name dynamic-db-99 --replicas 3",
+      "expected_result": "Operator creates corresponding StatefulSet with 3 replicas, provisions Services, and updates CRD status",
+      "evidence_location": "Dynamic verification console execution output log",
+      "pass_criterion": "StatefulSet dynamic-db-99 exists with 3 ready replicas and operator logs show successful reconciliation",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected custom Kubernetes Operator in Go using controller-runtime with declarative CRDs; automated primary failover with sub-[FAILOVER_DURATION] recovery time across [CHAOS_TRIALS] chaos trials, and achieved sub-[RECONCILE_LATENCY] reconciliation latency.",
+    "claims": [
+      {
+        "text": "automated primary failover with sub-[FAILOVER_DURATION] recovery time across [CHAOS_TRIALS] chaos trials",
+        "rubric_indexes": [
+          2
+        ]
+      },
+      {
+        "text": "achieved sub-[RECONCILE_LATENCY] reconciliation latency",
+        "rubric_indexes": [
+          1
+        ]
+      }
+    ],
+    "do_not_claim": "managed multi-tenant cloud control plane billing or hardware SAN storage array management"
+  },
+  "verify": [
+    "Run `go test -v ./...` to confirm CRD schema validation, reconciler logic, and controller unit tests pass.",
+    "Execute `go run ./cmd/chaos_tester` against local KinD cluster to assert primary failover latency and zero split-brain status.",
+    "Run `go run ./scripts/verify_dynamic_operator.go` to verify dynamic CRD reconciliation and child resource creation."
+  ],
+  "worksheet": {
+    "q1": "Core deliverable: a custom Kubernetes Operator in Go with CRD lifecycle reconciliation, automated primary failover, and backup orchestration.",
+    "q2": "Target users: platform engineers, site reliability engineers, and infrastructure architects.",
+    "q3": "3 use cases: self-service internal database provisioning, automated primary failover, and zero-downtime engine upgrades.",
+    "q4": "Stated hours: 40 hours. Calculated bottom-up: 35 component hours * 1.15 buffer = 40.25 -> 40 hours. Advanced level.",
+    "q5": "Hard parts: idempotent controller reconciliation, split-brain prevention with lease locking, safe stateful rolling upgrades, and point-in-time backup snapshots.",
+    "q6": "Starter input: 5 CRD OpenAPI manifests, sample deployment manifests, and envtest test fixtures. Mock infrastructure configurations only.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU only, $0 cost, zero cloud accounts. Fallback: envtest local control plane binaries.",
+    "q8": "Riskiest component: split-brain during network partition. Fallback: distributed lease locking and offset checks.",
+    "q9": "Potential faking: mock status returns without real resources. Anti-fake check 5 applies dynamic CRD and inspects created StatefulSet pods.",
+    "q10": "Safety/ethics: Safe; simulated database mock containers and local clusters only, zero production infrastructure risk."
+  }
+}

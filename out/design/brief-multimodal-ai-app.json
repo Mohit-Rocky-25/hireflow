@@ -1,0 +1,362 @@
+{
+  "id": "brief-multimodal-ai-app",
+  "title": "Cross-Modal Multimodal AI Reasoning Platform Fusing Vision, Speech Audio & Text in PyTorch and FastAPI",
+  "domain": "GenAI & LLM Engineering",
+  "difficulty": "ADVANCED",
+  "project_types": [
+    "API/backend service",
+    "Data pipeline / ETL"
+  ],
+  "problem": "Single-modal language and vision models fail catastrophically on tasks requiring joint understanding across disparate sensory inputs, such as visual anomaly inspection guided by spoken technical audio queries. Naively daisy-chaining independent monolithic models produces extreme end-to-end latency, out-of-sync multi-modal context buffers, and cascading transcription errors. This project builds a unified multimodal AI reasoning and retrieval platform in Python and PyTorch. The platform transcribes spoken audio queries using faster-whisper, extracts visual semantics and object embeddings via CLIP, fuses cross-modal representations into unified context vectors, performs multimodal question answering using local quantized vision-language models (LLaVA), and exposes real-time inference endpoints via asynchronous FastAPI.",
+  "use_cases": [
+    {
+      "title": "Industrial Equipment Maintenance & Visual Inspection",
+      "first_sentence": "Field maintenance engineers inspecting complex factory machinery need to photograph mechanical components while speaking diagnostic questions into headsets.",
+      "second_sentence": "The system fuses the machine photograph with the spoken audio query, identifying equipment wear and returning step-by-step repair guidance within seconds."
+    },
+    {
+      "title": "Retail Catalog Product Search & Verification",
+      "first_sentence": "E-commerce shoppers frequently search for products by snapping mobile photos while verbally describing desired color, material, or brand preferences.",
+      "second_sentence": "The engine aligns image embeddings with audio transcripts using joint vector projection, searching catalog databases and generating comparative product descriptions."
+    },
+    {
+      "title": "Accessibility Assistant for Impaired Document Reading",
+      "first_sentence": "Visually impaired users require assistive tools that process photographed printed documents and answer spoken questions regarding specific passages.",
+      "second_sentence": "The platform analyzes document photos, interprets verbal questions, and synthesizes localized natural language answers grounded strictly in the visual text."
+    }
+  ],
+  "hard_parts": [
+    "Aligning heterogeneous cross-modal embedding spaces between dense image feature maps (CLIP) and sequential text tokens",
+    "Minimizing composite inference pipeline latency across sequential ASR, vision encoding, and autoregressive language generation stages",
+    "Implementing graceful degradation and modality dropout handling when image or audio inputs are corrupted or missing",
+    "Running multi-model quantized inference (Whisper + CLIP + LLaVA) within 12GB to 16GB consumer GPU VRAM bounds"
+  ],
+  "screener_signals": [
+    "Clean Python codebase cleanly separating modality encoders, cross-modal attention projection layers, and FastAPI serving endpoints",
+    "Comprehensive ablation benchmark demonstrating that joint multimodal reasoning outperforms single-modal vision or text baselines",
+    "Anti-fake verification script presenting an unobserved image with an embedded synthetic alphanumeric code and a spoken audio query, verifying correct fused answer generation"
+  ],
+  "job_families": [
+    "Multimodal AI Engineer",
+    "Computer Vision & NLP Scientist",
+    "GenAI Systems Architect"
+  ],
+  "stack": [
+    {
+      "tool": "Python",
+      "role": "primary language implementing modality pipelines, tensor fusion logic, and FastAPI web services"
+    },
+    {
+      "tool": "FastAPI",
+      "role": "high-performance asynchronous framework exposing multi-part audio/image ingestion endpoints"
+    },
+    {
+      "tool": "PyTorch",
+      "role": "deep learning framework orchestrating tensor operations and model execution"
+    },
+    {
+      "tool": "CLIP",
+      "role": "vision-language embedding model providing zero-shot visual feature encoding and semantic alignment"
+    },
+    {
+      "tool": "Whisper",
+      "role": "speech recognition model converting candidate spoken audio queries into synchronized text tokens"
+    },
+    {
+      "tool": "LLaVA",
+      "role": "open-source vision-language foundation model generating textual reasoning from visual and text inputs"
+    },
+    {
+      "tool": "Docker",
+      "role": "containerization engine packaging multi-model dependencies and CUDA runtime environments"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "Multipart Ingestion & Modality Validator Gateway",
+        "tools_used": [
+          "FastAPI",
+          "Python"
+        ],
+        "purpose": "Ingests concurrent binary image buffers and audio WAV streams, validating mime-types and dimensions"
+      },
+      {
+        "name": "Acoustic Speech Transcription Pipeline",
+        "tools_used": [
+          "Python",
+          "Whisper"
+        ],
+        "purpose": "Transcribes incoming spoken audio queries into text tokens with normalized confidence scores"
+      },
+      {
+        "name": "Visual Feature & Semantic Embedding Extractor",
+        "tools_used": [
+          "PyTorch",
+          "CLIP"
+        ],
+        "purpose": "Processes input images through vision transformers to generate dense semantic visual embeddings"
+      },
+      {
+        "name": "Cross-Modal Reasoning & LLaVA Generation Engine",
+        "tools_used": [
+          "PyTorch",
+          "LLaVA"
+        ],
+        "purpose": "Fuses visual tokens with transcribed question prompts to autoregressively synthesize grounded answers"
+      },
+      {
+        "name": "Multimodal Accuracy & Ablation Benchmark Suite",
+        "tools_used": [
+          "Python",
+          "PyTorch"
+        ],
+        "purpose": "Benchmarks multimodal reasoning accuracy against unimodal vision-only and text-only baselines"
+      },
+      {
+        "name": "Inference Latency & VRAM Profiling Harness",
+        "tools_used": [
+          "PyTorch",
+          "Docker"
+        ],
+        "purpose": "Measures per-modality latency contributions and monitors peak GPU VRAM allocation under load"
+      },
+      {
+        "name": "Multimodal Architecture Diagram & Fusion Protocol Guide",
+        "tools_used": [
+          "Docker"
+        ],
+        "purpose": "Documents tensor projection layers, modality dropout handling, and serving deployment configurations"
+      }
+    ],
+    "data_flow": "The client dispatches an HTTP multipart request containing an image file (JPEG/PNG) and a spoken audio query (WAV); the FastAPI gateway validates file headers and routes payloads in parallel; the Whisper pipeline transcribes the audio into a normalized question string; concurrently, CLIP processes the image into visual feature vectors; the fused context (visual tokens concatenated with prompt text) feeds into the quantized LLaVA vision-language model; LLaVA autoregressively decodes the response, grounding its reasoning in visual evidence; the structured JSON response streams back over HTTP.",
+    "enforcement_mechanism": "Strict image resolution normalization (e.g. 336x336) and audio duration limits (max 30s) preventing out-of-memory GPU panics."
+  },
+  "targets": [
+    {
+      "metric": "Multimodal Cross-Modal Reasoning Accuracy",
+      "method": "Percentage of 300 held-out multimodal test samples correctly answered requiring joint image and audio comprehension",
+      "input": "300 multimodal test cases (image + audio query) where neither modality alone contains sufficient information",
+      "environment": "Standard GPU instance (12GB+ VRAM) or local CPU evaluation harness",
+      "minimum_pass": "Multimodal reasoning accuracy is >= 78.0% across 300 test samples",
+      "target": "Multimodal reasoning accuracy is >= 88.5% across 300 test samples",
+      "report": "Multimodal reasoning accuracy evaluation report and ablation comparison table"
+    },
+    {
+      "metric": "End-to-End Multimodal Inference Latency",
+      "method": "Wall-clock timing from HTTP request receipt to completed answer return across all three inference stages",
+      "input": "100 sequential requests containing 512x512 images and 5-second audio query clips",
+      "environment": "Single NVIDIA GPU (T4 / RTX 3060 / A10G) running PyTorch 2.1+ with 4-bit / 8-bit model quantization",
+      "minimum_pass": "p95 end-to-end inference latency is < 6.5 seconds",
+      "target": "p95 end-to-end inference latency is < 3.2 seconds",
+      "report": "Multimodal inference latency profiling summary table"
+    },
+    {
+      "metric": "Ablation Superiority Margin Over Single Modality",
+      "method": "Accuracy margin of joint multimodal model over vision-only and text-only baseline models on paired evaluation set",
+      "input": "200 paired ablation queries evaluated across unimodal vs multimodal configurations",
+      "environment": "Standard 4-core local CPU or GPU evaluation harness",
+      "minimum_pass": "Multimodal model demonstrates >= 18.0 percentage point accuracy margin over unimodal baselines",
+      "target": "Multimodal model demonstrates >= 28.5 percentage point accuracy margin over unimodal baselines",
+      "report": "Ablation study accuracy audit log and modality contribution matrix"
+    }
+  ],
+  "skills": [
+    "Python",
+    "FastAPI",
+    "PyTorch",
+    "CLIP",
+    "Whisper",
+    "LLaVA",
+    "Docker",
+    "Computer Vision",
+    "Speech Processing",
+    "GenAI"
+  ],
+  "starter_input": {
+    "spec": "Directory of 1,000 paired image-audio-text benchmark samples (JPEG images, 16kHz WAV audio, JSON labels) and evaluation manifests.",
+    "size": "1,000 image files (approx 45MB), 1,000 audio clips (approx 80MB), and benchmark evaluation ground truth JSON",
+    "seeded_cases": "Corrupted audio header files, blank/black images, low-volume mumbled speech, and contradictory image-audio pairs",
+    "label_source": "Expert annotated cross-modal question-answer pairs and standardized ScienceQA multimodal test subsets",
+    "personal_data_policy": "Strictly public technical equipment diagrams and synthetic voice recordings; no real personal data used"
+  },
+  "components": [
+    {
+      "name": "Multipart Ingestion & Modality Validator Gateway",
+      "task_type": "API endpoint group with tests",
+      "hours": 5.0
+    },
+    {
+      "name": "Acoustic Speech Transcription Pipeline",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "Visual Feature & Semantic Embedding Extractor",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "Cross-Modal Reasoning & LLaVA Generation Engine",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "Multimodal Accuracy & Ablation Benchmark Suite",
+      "task_type": "load or performance test harness + report",
+      "hours": 5.0
+    },
+    {
+      "name": "Inference Latency & VRAM Profiling Harness",
+      "task_type": "load or performance test harness + report",
+      "hours": 4.0
+    },
+    {
+      "name": "Multimodal Architecture Diagram & Fusion Protocol Guide",
+      "task_type": "docs + architecture diagram",
+      "hours": 3.0
+    }
+  ],
+  "extended_path": {
+    "features": [
+      "Dynamic cross-attention projection layers fine-tuned on custom domain triplets using LoRA",
+      "Real-time streaming text generation over WebSockets while vision encoding completes asynchronously",
+      "Multi-image temporal sequence fusion processing video keyframes with synchronized audio"
+    ],
+    "hours": 16
+  },
+  "milestones": [
+    {
+      "name": "Multipart Gateway & Speech Transcription in FastAPI, Python and Whisper",
+      "hours": 10,
+      "done_criterion": "FastAPI accepts multipart image/audio payloads; Whisper transcribes audio in < 800ms."
+    },
+    {
+      "name": "Visual Embedding Extraction & LLaVA Reasoning in PyTorch, CLIP and LLaVA",
+      "hours": 10,
+      "done_criterion": "CLIP extracts visual embeddings; LLaVA generates answers grounded in visual tokens."
+    },
+    {
+      "name": "Multimodal Accuracy & Ablation Benchmarking in Computer Vision and Speech Processing",
+      "hours": 10,
+      "done_criterion": "Multimodal model achieves >= 78% accuracy with >= 18 point margin over unimodal baselines."
+    },
+    {
+      "name": "Inference Latency Profiling, Anti-Fake Test & Docs in Docker and GenAI",
+      "hours": 10,
+      "done_criterion": "Inference latency is < 6.5s; anti-fake test validates dynamic cross-modal reasoning; docs complete."
+    }
+  ],
+  "prerequisites": [
+    "Proficiency in Python programming, PyTorch tensor manipulation, and asynchronous API design with FastAPI",
+    "Understanding of vision transformers (CLIP), automatic speech recognition (Whisper), and vision-language models"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "16GB RAM",
+    "gpu": "12GB+ VRAM GPU recommended (Google Colab T4 / Kaggle free GPU / local NVIDIA GPU)",
+    "cost": "$0 (fully executable on free Google Colab or Kaggle GPU tiers)",
+    "accounts_keys_quotas": "Free HuggingFace account for downloading open weights (CLIP, Whisper, LLaVA)",
+    "reference_environment": "Ubuntu 22.04 with NVIDIA GPU (12GB+ VRAM), PyTorch 2.1+, CUDA 12.1, and HuggingFace transformers",
+    "fallback_path": "CPU inference mode using quantized smaller models (faster-whisper-tiny, CLIP-base, and Moondream/SmolVLM)"
+  },
+  "riskiest_component": {
+    "name": "High Cumulative Latency and GPU VRAM Exhaustion Across Sequential Models",
+    "mitigation": "Quantize LLaVA weights to 4-bit NF4, execute Whisper and CLIP sequentially to share peak VRAM buffers, and use torch.inference_mode.",
+    "fallback": "Offload Whisper speech transcription to CPU and reserve GPU memory exclusively for LLaVA visual generation."
+  },
+  "deliverables": [
+    "Git repository containing multimodal ingestion gateway, Whisper pipeline, CLIP extractor, and LLaVA engine",
+    "Docker container packaging multi-model dependencies with GPU acceleration support",
+    "Automated ablation evaluation suite comparing unimodal vs multimodal accuracy",
+    "Screener verification script executing cross-modal inference and dynamic barcode verification in under 3 minutes"
+  ],
+  "out_of_scope": [
+    "Training foundation multimodal vision-language models from scratch",
+    "Medical diagnostic regulatory certification or clinical diagnostic deployment",
+    "High-framerate 4K 60fps real-time video stream surveillance tracking"
+  ],
+  "safety_note": null,
+  "resources": [
+    "Visual Instruction Tuning (LLaVA Architecture and Weight Formats)",
+    "CLIP: Connecting Text and Images (Radford et al., OpenAI)",
+    "faster-whisper: High-Performance Speech Recognition Implementation Guide"
+  ],
+  "rubric": [
+    {
+      "input": "300 multimodal test cases requiring joint image and audio comprehension",
+      "action": "python -m multimodal_app.evaluate_multimodal --test-file test_data/multimodal_eval.json",
+      "expected_result": "Multimodal reasoning system achieves accuracy >= 78.0% across 300 test cases",
+      "evidence_location": "Terminal test execution output log and reports/multimodal_accuracy.json",
+      "pass_criterion": "Measured accuracy is >= 78.0% with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "100 sequential requests containing 512x512 images and 5s audio clips",
+      "action": "python scripts/benchmark_latency.py --samples 100",
+      "expected_result": "System fulfills multimodal requests with p95 end-to-end latency < 6.5 seconds",
+      "evidence_location": "Multimodal latency profiling report in reports/latency_summary.json",
+      "pass_criterion": "p95 latency is < 6.5s with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "200 paired ablation queries evaluated across unimodal vs multimodal configurations",
+      "action": "python -m multimodal_app.evaluate_ablation --data test_data/ablation_queries.json",
+      "expected_result": "Multimodal configuration achieves >= 18.0 percentage point accuracy margin over vision-only and text-only baselines",
+      "evidence_location": "Ablation superiority matrix in reports/ablation_report.json",
+      "pass_criterion": "Accuracy margin >= 18.0 points with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "HTTP multipart request containing image file and audio WAV file",
+      "action": "curl -X POST http://localhost:8000/api/v1/reason -F 'image=@test_data/sample.jpg' -F 'audio=@test_data/query.wav'",
+      "expected_result": "Server returns structured JSON containing transcript, visual_tokens, and grounded natural language answer",
+      "evidence_location": "HTTP response payload",
+      "pass_criterion": "Response status is 200 and JSON contains non-empty answer and transcript fields",
+      "kind": "normal"
+    },
+    {
+      "input": "Dynamic unobserved test image with embedded synthetic barcode 'SN-9821' and spoken query 'Read the serial number'",
+      "action": "python scripts/verify_dynamic_multimodal.py --image test_data/dynamic_barcode.png --audio test_data/audio_serial.wav",
+      "expected_result": "Pipeline transcribes audio question, extracts visual patch from barcode, and synthesizes answer containing 'SN-9821'",
+      "evidence_location": "Dynamic verification console execution output log",
+      "pass_criterion": "Answer string contains exact serial number 'SN-9821' with exit code 0",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected cross-modal reasoning platform in Python and PyTorch fusing Whisper audio and CLIP visual embeddings into LLaVA; achieved [MULTIMODAL_ACCURACY] accuracy across [TEST_SAMPLES] cross-modal queries, and delivered [ABLATION_MARGIN] percentage point superiority over unimodal baselines.",
+    "claims": [
+      {
+        "text": "achieved [MULTIMODAL_ACCURACY] accuracy across [TEST_SAMPLES] cross-modal queries",
+        "rubric_indexes": [
+          0
+        ]
+      },
+      {
+        "text": "delivered [ABLATION_MARGIN] percentage point superiority over unimodal baselines",
+        "rubric_indexes": [
+          2
+        ]
+      }
+    ],
+    "do_not_claim": "foundation vision-language pre-training from scratch or clinical medical diagnosis certification"
+  },
+  "verify": [
+    "Run `python -m pytest tests/` to verify audio transcription, image feature extraction, and generation logic pass.",
+    "Execute `python -m multimodal_app.evaluate_multimodal` to verify cross-modal accuracy meets the 78% benchmark.",
+    "Run `python scripts/verify_dynamic_multimodal.py` to assert dynamic visual and audio reasoning on unseen inputs."
+  ],
+  "worksheet": {
+    "q1": "Core deliverable: a multimodal reasoning platform in Python/PyTorch fusing Whisper audio and CLIP image embeddings into LLaVA generation with FastAPI.",
+    "q2": "Target users: multimodal AI engineers, computer vision scientists, and applied GenAI platform architects.",
+    "q3": "3 use cases: industrial equipment visual maintenance, retail product catalog search, and accessibility reading assistants.",
+    "q4": "Stated hours: 40 hours. Calculated bottom-up: 35 component hours * 1.15 buffer = 40.25 -> 40 hours. Advanced level.",
+    "q5": "Hard parts: cross-modal embedding alignment between CLIP and text tokens, pipeline latency minimization across 3 heavy models, modality dropout resilience, and VRAM management.",
+    "q6": "Starter input: 1,000 paired image-audio-text benchmark samples (JPEG images, 16kHz WAV audio, JSON manifests). Public and synthetic data only.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 16GB RAM, free Colab/Kaggle GPU, $0 cost, zero cloud accounts. Fallback: lightweight CPU models (Moondream/SmolVLM).",
+    "q8": "Riskiest component: cumulative latency and VRAM exhaustion. Fallback: 4-bit quantization and sequential execution.",
+    "q9": "Potential faking: pre-canned answer lookup. Anti-fake check 5 passes dynamic synthetic barcode image and audio query, asserts exact serial 'SN-9821' in answer.",
+    "q10": "Safety/ethics: Safe; public technical equipment photos and synthetic audio recordings only, zero private or biometric data."
+  }
+}

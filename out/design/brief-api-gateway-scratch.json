@@ -1,0 +1,254 @@
+{
+  "id": "brief-api-gateway-scratch",
+  "title": "API Gateway from Scratch with Plugin Architecture",
+  "domain": "Distributed Systems",
+  "difficulty": "ADVANCED",
+  "project_types": ["API/backend", "Systems/low-level/networking"],
+  "problem": "Modern microservice topologies require centralized networking ingress points to enforce cross-cutting concerns including transport-level security, authentication verification, request rate limiting, and dynamic traffic routing without duplicating boilerplate across individual services. Operating reverse proxies under sustained traffic introduces challenging failure modes such as connection pool exhaustion, file descriptor leaks, thread contention, and dropped requests during configuration changes. An engineered API gateway addresses these operational challenges by implementing tuned socket pooling, lock-free route table hot-reloading, active upstream health checking with automated failover, and an extensible pipeline for custom middleware plugins.",
+  "use_cases": [
+    "Edge ingress routing and token authentication for heterogeneous microservice clusters",
+    "Dynamic traffic shifting and canary release management across upstream service versions",
+    "Centralized rate limiting and telemetry metering for external partner API access"
+  ],
+  "hard_parts": [
+    "Eliminating socket exhaustion and TIME_WAIT saturation under high concurrency through tuned connection reuse and response body drain policies",
+    "Executing zero-downtime route table hot-reloading via atomic pointer swapping without dropping in-flight client requests",
+    "Minimizing garbage collection pause overhead in the proxy data path by recycling byte buffers with sync pools",
+    "Mitigating upstream server flapping through hysteresis counters in active background health check loops"
+  ],
+  "screener_signals": [
+    "Standalone Go codebase implementing custom reverse proxying without high-level gateway frameworks",
+    "Concurrency-safe route hot-reloading demonstrated under active automated load without connection drops",
+    "Anti-fake verification script validating dynamic upstream registration and live header transformation"
+  ],
+  "job_families": [
+    "Platform Engineer",
+    "Systems Software Engineer",
+    "Cloud Infrastructure Engineer"
+  ],
+  "stack": [
+    {"tool": "Go", "role": "core systems programming language and concurrency runtime"},
+    {"tool": "Docker", "role": "containerized multi-instance upstream simulation environment"},
+    {"tool": "Prometheus", "role": "telemetry metrics exposition for gateway throughput and latency"},
+    {"tool": "JSON", "role": "dynamic routing configuration format and admin management payloads"}
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "Proxy Core Engine",
+        "tools_used": ["Go"],
+        "purpose": "Intercepts client HTTP requests, recycles byte buffers using sync pools, and forwards requests via tuned HTTP transports"
+      },
+      {
+        "name": "Atomic Route Registry",
+        "tools_used": ["Go", "JSON"],
+        "purpose": "Stores dynamic routing rules using atomic pointers to allow lock-free hot-reloading via an Admin REST API"
+      },
+      {
+        "name": "Middleware Plugin Pipeline",
+        "tools_used": ["Go"],
+        "purpose": "Executes sequential plugin stages including authentication token validation, sliding window rate limiting, and header transformation"
+      },
+      {
+        "name": "Upstream Health Balancer",
+        "tools_used": ["Go"],
+        "purpose": "Performs background health checks every second and distributes traffic across healthy upstreams via weighted round-robin"
+      },
+      {
+        "name": "Metrics & Telemetry Exporter",
+        "tools_used": ["Go", "Prometheus"],
+        "purpose": "Exposes standard Prometheus metrics tracking request durations, active connections, and upstream error statuses"
+      },
+      {
+        "name": "Upstream Cluster Simulator",
+        "tools_used": ["Docker"],
+        "purpose": "Runs multi-instance backend mock services with configurable chaos endpoints for failover validation"
+      }
+    ],
+    "data_flow": "Client HTTP requests reach the Go proxy engine; the router reads an atomic snapshot of current routes; the request traverses the middleware plugin chain (Auth -> RateLimiter -> HeaderMutator); the load balancer selects an active upstream replica from healthy nodes; the request is forwarded via pooled TCP connections; upstream response streams back to the client while Prometheus metrics increment.",
+    "enforcement_mechanism": "Rate limiting plugin returns HTTP 429 when client exceeds window quotas; health checker evicts failing upstream replicas after two consecutive health check timeouts."
+  },
+  "targets": [
+    {
+      "metric": "Proxy Tail Latency Overhead (p99)",
+      "method": "Comparative load test measuring direct upstream response latency delta versus proxied path",
+      "input": "2,000 requests per second across 200 concurrent HTTP client connections",
+      "environment": "Standard 4-core local CPU, Go 1.21+, local loopback interface",
+      "minimum_pass": "p99 latency overhead < 15ms under 1,000 requests per second",
+      "target": "p99 latency overhead < 8ms under 2,000 requests per second",
+      "report": "k6 benchmark summary report with percentile breakdown table"
+    },
+    {
+      "metric": "Hot-Reload Traffic Stability",
+      "method": "Continuous client traffic benchmark while updating route rules via Admin API",
+      "input": "10,000 consecutive HTTP GET requests sent during concurrent route table update",
+      "environment": "Standard 4-core local CPU, Go 1.21+",
+      "minimum_pass": "10,000 of 10,000 requests return HTTP 200 status code",
+      "target": "10,000 of 10,000 requests return HTTP 200 status code",
+      "report": "Test execution log verifying zero connection drops or 5xx server responses"
+    },
+    {
+      "metric": "Upstream Failover Convergence Duration",
+      "method": "Automated chaos test terminating active upstream instance during sustained traffic load",
+      "input": "500 requests per second background traffic across 3 simulated upstream instances",
+      "environment": "Local Docker bridge network with 3 mock upstream containers",
+      "minimum_pass": "Traffic convergence to healthy replicas within 3.0 seconds of upstream termination",
+      "target": "Traffic convergence to healthy replicas within 1.5 seconds of upstream termination",
+      "report": "Timestamped gateway error log and access metrics export"
+    }
+  ],
+  "skills": ["Go", "Networking", "HTTP", "Concurrency", "System Design", "Docker"],
+  "starter_input": {
+    "spec": "Multi-instance mock HTTP backend server in Go providing configurable response delays, error rate injection, and a kill endpoint.",
+    "size": "3 mock upstream backend instances exposing 10 synthetic REST API endpoints",
+    "seeded_cases": "Bursts exceeding rate quotas, sudden TCP socket resets, route reconfigurations during live requests, and node termination",
+    "label_source": "Deterministic test harness assertions and mock server verification logs",
+    "personal_data_policy": "Strictly synthetic tokens and mock payload entities; no real user credentials or production keys used"
+  },
+  "components": [
+    {"name": "Reverse Proxy Engine & HTTP Transport Tuning", "task_type": "low-level/system subsystem", "hours": 8.0},
+    {"name": "Atomic Hot-Reload Routing Engine", "task_type": "concurrency/consistency mechanism with tests", "hours": 5.0},
+    {"name": "Middleware Plugin Architecture", "task_type": "API endpoint group with tests", "hours": 4.0},
+    {"name": "Upstream Health Checker & Load Balancer", "task_type": "infra component (broker, DB, orchestrator, cluster service)", "hours": 5.0},
+    {"name": "Load Testing Harness & Prometheus Metrics", "task_type": "load or performance test harness + report", "hours": 4.0},
+    {"name": "Documentation, Architecture Diagram & Debug Buffer", "task_type": "docs + architecture diagram", "hours": 4.0}
+  ],
+  "extended_path": {
+    "items": [
+      "Distributed token bucket rate limiting using Redis cluster and Lua scripts",
+      "Automatic TLS certificate provisioning via ACME protocol and Let's Encrypt integration",
+      "WebAssembly plugin runtime allowing dynamic filter compilation via wazero"
+    ],
+    "hours": 15
+  },
+  "milestones": [
+    {
+      "name": "Custom Reverse Proxy Core & HTTP Networking Tuning",
+      "hours": 9,
+      "done_criterion": "Reverse proxy forwards HTTP requests to upstream instances with verified connection reuse and zero socket leaks under concurrency."
+    },
+    {
+      "name": "Lock-Free Atomic Route Hot-Reloading & Concurrency Engine",
+      "hours": 8,
+      "done_criterion": "Admin API registers new route endpoints using atomic pointers without dropping requests during continuous traffic."
+    },
+    {
+      "name": "Extensible Middleware Plugins & System Design Load Balancing",
+      "hours": 9,
+      "done_criterion": "Auth and rate limiting plugins enforce rules; active health checker evicts terminated upstreams within 2 seconds."
+    },
+    {
+      "name": "Benchmark Harness, Prometheus Metrics, Anti-Fake Test, Docker Setup & Buffer",
+      "hours": 8,
+      "done_criterion": "k6 benchmark verifies p99 proxy overhead < 15ms; anti-fake test validates dynamic registration; documentation and architecture diagram complete."
+    }
+  ],
+  "prerequisites": [
+    "Intermediate Go programming (goroutines, channels, interfaces, sync package)",
+    "Fundamental networking knowledge (TCP handshakes, HTTP/1.1 protocol, status codes)",
+    "Basic Docker usage for running multi-container mock services"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (purely CPU-bound networking proxy)",
+    "cost": "$0 (fully open-source software stack)",
+    "accounts_keys_quotas": "No external accounts, paid API keys, or cloud quotas required",
+    "reference_environment": "Local 4-core CPU with Go 1.21+ and Docker installed",
+    "fallback_path": "Run mock upstreams directly as background Go processes on localhost ports without Docker"
+  },
+  "riskiest_component": {
+    "name": "TCP Socket Exhaustion under Concurrent Load Benchmark",
+    "fallback": "Configure explicit client keep-alive connection reuse and tune local operating system file descriptor limits"
+  },
+  "deliverables": [
+    "Git repository containing Go reverse proxy, plugin interface implementations, and mock upstream server",
+    "Admin REST API for dynamic route registration and configuration updates",
+    "k6 or wrk performance benchmark suite with latency distribution reports",
+    "Screener verification script running end-to-end tests and dynamic upstream verification in under 3 minutes"
+  ],
+  "out_of_scope": [
+    "HTTP/3 and QUIC transport protocol implementations",
+    "Hardware security module integration for private key storage",
+    "Distributed multi-region service mesh coordination"
+  ],
+  "safety_note": null,
+  "resources": [
+    "Go net/http/httputil standard library reverse proxy documentation",
+    "Go sync/atomic package pointer operations guide",
+    "Prometheus client_golang instrumentation best practices"
+  ],
+  "rubric": [
+    {
+      "input": "HTTP GET /api/users request through running gateway",
+      "action": "Inspect response status code and headers",
+      "expected_result": "Request proxies to mock upstream and returns HTTP 200 with X-Gateway-Proxy header",
+      "evidence_location": "Terminal HTTP response headers and proxy console log",
+      "pass_criterion": "Response status 200 OK received with gateway proxy header present",
+      "kind": "normal"
+    },
+    {
+      "input": "PUT request to /admin/routes registering /api/orders during active traffic",
+      "action": "Execute dynamic hot-reload test script",
+      "expected_result": "New route takes effect immediately without restart and active requests continue without error",
+      "evidence_location": "Admin API response payload and client traffic log",
+      "pass_criterion": "10,000 of 10,000 requests complete with HTTP 200 and zero connection resets",
+      "kind": "normal"
+    },
+    {
+      "input": "Burst of 20 rapid HTTP requests to route with 10 req/min limit",
+      "action": "Run rate limit verification script",
+      "expected_result": "First 10 requests succeed; 11th request receives HTTP 429 Too Many Requests with Retry-After header",
+      "evidence_location": "Rate limiter test summary log",
+      "pass_criterion": "HTTP status 429 returned on 11th request with valid Retry-After duration",
+      "kind": "normal"
+    },
+    {
+      "input": "Chaos signal sent to /chaos/kill terminating upstream replica 2",
+      "action": "Execute upstream failover test script",
+      "expected_result": "Health checker detects failure and evicts node, routing subsequent traffic to healthy replicas",
+      "evidence_location": "Gateway access log and Prometheus metric proxy_upstream_health_status",
+      "pass_criterion": "Traffic rerouted within 3 seconds of termination with healthy replicas serving traffic",
+      "kind": "normal"
+    },
+    {
+      "input": "Dynamic random port and secret header token generated at runtime by verification script",
+      "action": "Run go test ./tests/anti_fake_test.go -v",
+      "expected_result": "Test spawns fresh mock upstream, registers it dynamically via Admin API, and confirms response token validation",
+      "evidence_location": "Go test execution console output",
+      "pass_criterion": "Test passes with exit code 0 confirming dynamic proxy routing and header mutation",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected high-throughput API gateway in Go with extensible middleware plugin architecture; achieved [PROXY_THROUGHPUT] req/sec with < [P99_OVERHEAD] proxy latency overhead and implemented dynamic atomic configuration reloading with failover convergence under [FAILOVER_TIME] seconds.",
+    "claims": [
+      {
+        "text": "achieved [PROXY_THROUGHPUT] req/sec with < [P99_OVERHEAD] proxy latency overhead",
+        "rubric_indexes": [0]
+      },
+      {
+        "text": "dynamic atomic configuration reloading",
+        "rubric_indexes": [1]
+      },
+      {
+        "text": "failover convergence under [FAILOVER_TIME] seconds",
+        "rubric_indexes": [3]
+      }
+    ],
+    "do_not_claim": "carrier-grade telecommunications scale or distributed cluster coordination without committed multi-node benchmarks"
+  },
+  "verify": [],
+  "worksheet": {
+    "q1": "The student builds a high-performance reverse proxy and API Gateway in Go featuring an extensible middleware plugin chain, lock-free route table hot-reloading using atomic pointers, active health checking with weighted load balancing, and Prometheus metrics.",
+    "q2": "Core path: Go reverse proxy with tuned connection pooling, atomic route registry with Admin API, Auth and Rate Limiter plugins, active health balancer, and benchmark suite. Extended path: distributed Redis rate limiting, automatic ACME/TLS certificates, and WebAssembly plugin engine (+15h).",
+    "q3": "Components: Proxy Core Engine (8h), Atomic Route Registry (5h), Middleware Plugins (4h), Health Balancer (5h), Load Testing & Metrics (4h), Docs & Buffer (4h). Subtotal 30h x 1.15 = 35h.",
+    "q4": "Project types: API/backend, Systems/low-level/networking. Metrics built: Proxy Tail Latency Overhead, Hot-Reload Traffic Stability, Upstream Failover Convergence Duration. Rejected: multi-datacenter consensus latency (not building Raft cluster for edge proxy).",
+    "q5": "Hard parts: connection pooling and socket leaks, atomic lock-free hot reloading without race conditions, sync.Pool buffer recycling, and upstream health flapping mitigation.",
+    "q6": "Starter input: multi-instance mock upstream Go HTTP server exposing 10 synthetic endpoints with configurable delay and error injection. No real user data.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU only, $0 cost, zero cloud accounts. Fallback: run mock upstreams directly as background Go processes on localhost.",
+    "q8": "Riskiest component: TCP socket exhaustion during load test. Fallback: configure explicit HTTP keep-alive reuse and tune benchmark concurrency.",
+    "q9": "Potential faking: static Go server returning fake proxy headers. Anti-fake rubric item 5 creates a dynamic mock upstream on a random port at runtime and verifies proxy registration and token mutation.",
+    "q10": "Safety/ethics: Not required for local reverse proxy testing."
+  }
+}

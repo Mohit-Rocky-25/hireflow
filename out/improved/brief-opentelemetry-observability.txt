@@ -1,122 +1,155 @@
-PROJECT BRIEF — Full-Stack Distributed Tracing & APM Platform
+PROJECT BRIEF — High-Throughput Distributed Tracing & APM Platform in Go with ClickHouse Columnar Storage & Grafana Flamegraphs
 ======================================================================
 
 Domain    : Platform & DevOps
-Difficulty: intermediate
-Est. Time : 28 hours (Core Path) | Extended Path: +6 hours
-Tech Stack: OpenTelemetry [distributed tracing and telemetry instrumentation], Prometheus [metrics collection and time-series monitoring], Grafana [observability dashboard visualization], Jaeger [jaeger component], Docker [containerization and local multi-service orchestration], React [frontend UI component library] (Requires: Docker Engine / Desktop)
+Difficulty: INTERMEDIATE
+Est. Time : 28 hours (core path, estimate). Extended path: +14 hours
+Tech Stack: OpenTelemetry (telemetry data standard defining trace, span, and resource attribute formats), Go (primary systems language implementing the ingestion receiver, sampling engine, and query API), ClickHouse (high-performance columnar database storing compressed trace spans and powering fast analytical aggregations), Grafana (visualization platform rendering distributed trace flamegraphs and APM performance dashboards), Docker (containerization engine orchestrating local ClickHouse, Grafana, and test microservice containers)
 
 PROBLEM STATEMENT
-----------------------------------------
-Debugging distributed microservice errors without centralized tracing leads to hours of guesswork and finger-pointing during incidents. Build an end-to-end observability stack integrating OpenTelemetry auto-instrumentation, metrics, and trace flamegraphs.
+----------------------------------------------------------------------
+Commercial Application Performance Monitoring (APM) SaaS platforms charge exorbitant rates for high-volume distributed trace ingestion, forcing engineering teams to drop trace fidelity or pay unpredictable bills. Ingesting millions of OpenTelemetry spans into relational or document databases causes severe disk write saturation and sluggish multi-hop trace retrieval queries. This project builds a production-grade distributed tracing and APM platform in Go and ClickHouse. The system ingests OpenTelemetry (OTLP) traces over gRPC and HTTP, stores span hierarchies in optimized ClickHouse columnar tables, implements tail-based sampling to retain error traces while filtering routine telemetry, and exposes query APIs powering interactive trace flamegraphs in Grafana.
 
 USE CASES IN THE REAL WORLD
-----------------------------------------
-Every company running microservices needs APM. Datadog charges $50+/host/month — companies building internal observability save millions. Applies to startups and enterprises alike. The 'build your own Datadog lite' project is immediately recognizable to any SRE or platform engineer.
+----------------------------------------------------------------------
+- {'title': 'Microservice Distributed Bottleneck Diagnosis', 'first_sentence': 'Platform engineering teams maintaining hundreds of microservices need to pinpoint the exact downstream RPC service causing latency spikes in user-facing checkout flows.', 'second_sentence': 'The platform aggregates distributed trace spans across services, rendering end-to-end waterfall flamegraphs in Grafana that highlight slow database queries and queuing delays.'}
+- {'title': 'Automated Error Trace Retention & Anomaly Filtering', 'first_sentence': 'Site reliability engineers require 100% capture of failed transactions and exceptions without drowning in gigabytes of mundane health check telemetry.', 'second_sentence': 'The engine applies tail-based sampling rules, retaining all spans associated with HTTP 5xx errors or exceptions while sampling down healthy traces to sustainable storage volumes.'}
+- {'title': 'SLA & SLO Service Latency Percentile Compliance Auditing', 'first_sentence': 'Cloud infrastructure architects must audit third-party API service level agreements by calculating p95 and p99 latency percentiles across millions of daily API transactions.', 'second_sentence': 'The ClickHouse columnar engine executes analytical aggregation queries across billions of spans in milliseconds, generating real-time SLO latency compliance reports.'}
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Observability (logs + metrics + traces) is the #1 operational skill gap among backend engineers. Demonstrating that you can instrument, collect, and visualize distributed trace data proves you understand production operations — the bridge between development and reliability engineering.
+WHY THIS IS HARD
+----------------------------------------------------------------------
+- Designing high-throughput ClickHouse columnar table schemas with optimal sorting keys (ServiceName, StartTime, TraceId) for sub-second span queries
+- Implementing tail-based sampling buffers in Go that hold trace spans in memory until trace completion before deciding retention
+- Streaming OTLP binary protobuf payloads over gRPC with high-concurrency worker pools and batched database inserts
+- Constructing parent-child tree reconstruction algorithms that assemble distributed span waterfall graphs from out-of-order span chunks
 
 RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-OpenTelemetry is the CNCF standard being adopted everywhere. A working observability stack is the definitive portfolio project for SRE, Platform Engineering, and DevOps roles. It shows you think about systems holistically, not just individual service health.
+----------------------------------------------------------------------
+- Clean Go codebase cleanly separating OTLP ingestion receivers, tail-based sampling buffers, and ClickHouse repository layers
+- High-throughput benchmark report validating 25,000+ spans per second sustained ingestion into ClickHouse with sub-45ms trace retrieval
+- Anti-fake verification script emitting a synthetic distributed trace with a novel span attribute and asserting the complete tree is reconstructible via API
+Relevant Job Families: Observability Platform Engineer, Infrastructure & SRE Architect, Distributed Systems Software Engineer
 
 ARCHITECTURE & DATA FLOW
-----------------------------------------
-OpenTelemetry Collector orchestrates incoming traces from multiple sample polyglot microservices, exports metrics to Prometheus, traces to Jaeger/Tempo, and displays contextual Grafana dashboards and custom React timeline cards.
+----------------------------------------------------------------------
+Components:
+- OTLP Ingestion Receiver (gRPC & HTTP) (Tools: Go, OpenTelemetry): Terminates standard OpenTelemetry protocol connections, decodes protobuf spans, and routes to sampling buffers
+- Tail-Based Sampling & Anomaly Buffer Engine (Tools: Go): Buffers in-flight trace spans, evaluates error statuses, and filters traces according to defined sampling policies
+- ClickHouse Columnar Trace Persistence Layer (Tools: ClickHouse, Go): Batches span insertions using native ClickHouse client with ZSTD compression and optimized partitioning
+- Trace Query API & Flamegraph Assembler (Tools: Go, ClickHouse): Executes trace lookup queries, reconstructs parent-child span trees, and formats payloads for Grafana
+- Ingestion Throughput & Query Latency Benchmark Harness (Tools: Go, Docker): Measures sustained span ingestion throughput, database write latencies, and trace query lookup speeds
+- Observability & APM Architecture Guide & Grafana Dashboard Manual (Tools: Grafana): Documents Observability ClickHouse schema design, sampling configuration strategies, and Grafana data source setup
+
+Data Flow:
+Microservices emit OTLP trace spans over gRPC to the Go receiver; the receiver pushes spans into the tail-based sampling engine; the sampling engine buffers spans for a temporal window (e.g. 5 seconds) to observe the complete trace lifecycle; if any span in the trace contains an error status or latency exceeding thresholds, the entire trace is marked for retention; accepted traces flush in batches of 5,000 spans to ClickHouse; the trace query API queries ClickHouse by TraceID, sorts spans by timestamp, resolves parent-child relationships, and serves the waterfall flamegraph payload to Grafana.
+
+Enforcement Mechanism:
+ClickHouse primary keys on (ServiceName, toStartOfHour(StartTime), TraceId) ensuring fast scan pruning; bounded buffer sizes preventing memory leaks.
 
 SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Target 1:
-- Metric: Request Processing Latency Overhead (p99)
-- Method: Concurrent HTTP load test using k6 / vegeta over 60s sustained run
-- Input/dataset: Standard synthetic JSON payload (~1KB) over 5,000 concurrent requests
-- Reference environment: Local 4-core CPU, 8GB RAM, loopback network interface
-- Minimum pass: p99 latency overhead < 25ms under 1,000 req/sec
-- Target: p99 latency overhead < 5ms under 5,000 req/sec
-- Report format: k6 terminal summary report and CSV latency distribution
-
-Target 2:
-- Metric: Sustained Concurrency & Correctness
-- Method: Continuous load test simulating concurrent client connections with idempotency checks
-- Input/dataset: Synthetic benchmark traffic across 50 concurrent worker threads
-- Reference environment: Local Docker Compose or native runtime
-- Minimum pass: Sustained throughput > [N] req/sec with 0 lost writes in [K] attempts
-- Target: Sustained throughput > [N] req/sec (target > 5,000 req/sec) with 0 lost writes in [K] attempts
-- Report format: Benchmark throughput table and error rate summary
-
-Target 3:
-- Metric: Fault Recovery / Failover Duration
-- Method: Injected worker process termination during active continuous request stream
-- Input/dataset: SIGKILL or chaos fault injection on worker process
-- Reference environment: Local multi-process or containerized cluster
-- Minimum pass: Service detects failure and reroutes traffic with recovery time < [S] seconds (pass < 5s)
-- Target: Service detects failure and recovers state with recovery time < [S] seconds (target < 2s)
-- Report format: System log timestamps comparing failure injection to state recovery
+----------------------------------------------------------------------
+Metric | Method | Input/Dataset | Reference Environment | Minimum Pass | Target | Report Format
+Sustained Span Ingestion Throughput | Publish throughput measured in spans per second ingested, sampled, and persisted to ClickHouse across 100,000 spans | 100,000 synthetic OpenTelemetry trace spans generated across 10 concurrent microservice simulated callers | Standard 4-core local CPU, ClickHouse 23+ in Docker, Go 1.21+ release binary | Sustained span ingestion throughput is >= 25,000 spans per second | Sustained span ingestion throughput is >= 60,000 spans per second | ClickHouse ingestion throughput benchmark report and write latency table
+Distributed Trace Waterfall Query Latency | Wall-clock timing to query, reconstruct, and assemble a 10-span distributed trace tree by TraceID | 100 benchmark TraceID queries issued against ClickHouse database containing 1,000,000 historical spans | Standard 4-core local CPU, ClickHouse columnar store with memory cache | p95 trace retrieval and assembly latency is < 45.0 milliseconds | p95 trace retrieval and assembly latency is < 16.0 milliseconds | Trace query response timing log and flamegraph assembly summary
+Tail-Based Error Trace Retention Rate | Percentage of traces containing HTTP 5xx errors or unhandled exceptions retained by sampling engine | 1,000 synthetic traces where 100 traces contain error status codes mixed among 900 healthy traces under 10% sampling | Tail-based sampling test harness in Go with simulated trace completion delays | 100 of 100 error traces successfully retained while healthy traces sample at target 10% rate | 100 of 100 error traces successfully retained while healthy traces sample at target 10% rate | Tail-based sampling audit log and retention accuracy verification
 
 SKILLS COVERED
-----------------------------------------
-Docker, Prometheus, Grafana, OpenTelemetry, React, DevOps
+----------------------------------------------------------------------
+OpenTelemetry, Go, ClickHouse, Grafana, Docker, Distributed Tracing, Observability, APM
 
 TARGET APPLICATION / STARTER INPUT
-----------------------------------------
-The project provides a self-contained test environment and fixture generator located in `scripts/` or `fixtures/`. It deterministically generates representative input records or mock client traffic for automated validation. No third-party proprietary data or real personal identifiers (PII) are required; all test datasets use synthetic tokens and deterministic random seeds.
+----------------------------------------------------------------------
+- Specification: Directory of OpenTelemetry collector configuration YAMLs, ClickHouse trace schema DDLs, and synthetic microservice trace generators.
+- Dataset / Traffic Size: 5 Go source packages, ClickHouse migration SQL scripts, and automated benchmark generator
+- Seeded Edge Cases: Out-of-order child spans arriving before root spans, trace buffer timeout expirations, and missing parent span references
+- Label / Verification Source: Deterministic synthetic trace DAG manifests and ClickHouse system.parts storage verification
+- Personal Data Policy: Strictly mock synthetic distributed trace attributes and simulated system metrics; no real personal data used
 
 MILESTONES
-----------------------------------------
-- Milestone 1: Environment Setup & Core Foundations (6h)
-  Configure repository, tooling, container dependencies, and foundational data structures. Done when foundational test suite passes with clean linting.
-- Milestone 2: Core Processing & Architecture Implementation (8h)
-  Implement primary operational workflows, database models or state transitions, and API endpoints. Done when integration tests verify end-to-end data flow under normal operating conditions.
-- Milestone 3: Concurrency, Reliability & Error Guardrails (8h)
-  Implement defensive controls: rate limiting, retries with exponential backoff, transaction boundaries, and failure isolation. Done when chaos or stress tests verify graceful degradation under fault injection.
-- Milestone 4: Verification, Benchmarking & Documentation (6h)
-  Execute performance benchmark harness, compile measurement tables, generate architectural diagrams, and document screener verification steps. Done when `scripts/verify_all` passes completely.
+----------------------------------------------------------------------
+M1: OTLP Receiver & ClickHouse Trace Persistence in Go and ClickHouse (7h) — Done when: Receiver accepts OTLP spans over gRPC; ClickHouse persists spans in columnar tables.
+M2: Tail-Based Sampling Engine & Buffer Management in OpenTelemetry and APM (7h) — Done when: Tail-based engine retains 100 of 100 error traces while sampling healthy traffic.
+M3: Trace Query API & Grafana Flamegraph Visualizer in Grafana and Docker (7h) — Done when: Query API assembles span trees in < 45ms; Grafana renders trace flamegraphs in Docker.
+M4: High-Throughput Benchmarking, Anti-Fake Test & Docs in Distributed Tracing and Observability (7h) — Done when: Benchmark confirms 25k spans/sec; anti-fake test validates dynamic trace DAG; docs complete.
+Total: 28 hours (estimate)
 
 PREREQUISITES, ENVIRONMENT AND ACCOUNTS
-----------------------------------------
-- Prerequisites: Familiarity with OpenTelemetry and Prometheus, standard command-line tools, and fundamental testing principles.
-- Hardware / OS: Standard modern computer (macOS, Linux, or Windows with WSL2) with at least 8GB RAM.
-- Accounts & Services: None required. Designed to run completely on free, open-source local software.
-- Fallback Path: In-memory mock drivers or SQLite/local files provided if external database or message broker containers cannot be run.
+----------------------------------------------------------------------
+Prerequisites: Proficiency in Go systems programming, concurrency, and database client interactions, Understanding of OpenTelemetry specifications, columnar database architectures (ClickHouse), and distributed tracing
+
+Environment & Hardware:
+- OS: Linux / macOS / Windows with WSL2
+- Memory: 8GB RAM
+- Compute / GPU: None required (purely CPU and storage I/O bound database and systems software)
+- Estimated Cost: $0 (fully open-source stack using Go, ClickHouse, and Grafana in Docker)
+- Accounts & Quotas: No external cloud accounts, paid services, or API keys required
+- Reference Environment: Local 4-core CPU with Docker Desktop (ClickHouse 23+ and Grafana containers) and Go 1.21+
+- Fallback Path: Local SQLite database or in-memory columnar slice store if ClickHouse container is unavailable
+
+Riskiest Component & Fallback:
+- Riskiest Component: ClickHouse Write Amplification from Too-Frequent Small Batch Inserts
+- Simpler Fallback: ClickHouse asynchronous inserts feature (async_insert=1) with in-database buffering.
 
 DELIVERABLES
-----------------------------------------
-1. Clean Git repository with structured commit history, README, and reproducible setup commands.
-2. Production-quality core codebase with automated test suite achieving verified pass rates.
-3. Performance benchmark report (`results/benchmark_report.md`) documenting measured latency, throughput, and resource utilization.
-4. Screener verification script (`scripts/verify_all.sh` or equivalent) validating the full system in < 3 minutes.
-5. Architecture diagram (Mermaid/ASCII) and known limitations document explaining architectural trade-offs.
+----------------------------------------------------------------------
+- Git repository containing Go APM ingestion service, ClickHouse DDL migrations, and query API
+- Docker Compose environment orchestrating ClickHouse, Grafana with pre-configured OTLP data source, and APM receiver
+- Automated load testing harness measuring ingestion throughput and trace query response latency
+- Screener verification script executing automated benchmark and dynamic trace tree validation in under 2 minutes
 
 OUT OF SCOPE AND EXTENDED PATH
-----------------------------------------
-- Out of Scope for Core Path: Distributed multi-region clustering, enterprise SSO integrations, complex third-party SaaS dependencies.
-- Extended Path (+6 hours): Advanced telemetry dashboard, distributed persistence cluster extension, or automated canary release pipeline.
+----------------------------------------------------------------------
+Out of Scope:
+- Commercial multi-tenant billing metering infrastructure
+- Proprietary APM byte-code runtime agent instrumentation authoring for JVM or .NET
+- Physical hardware network switch sFlow packet capturing
 
-SAFETY AND ETHICS NOTE
-----------------------------------------
-All data processed, generated, and benchmarked by this project consists exclusively of synthetic fixtures. No personal identifiable information (PII), proprietary credentials, or live external endpoints are used.
+Extended Path: None (self-contained core scope)
 
 LEARNING RESOURCES
-----------------------------------------
-- Official Documentation for OpenTelemetry, Prometheus, Grafana
-- Architectural Reference Patterns and RFC Standards [VERIFY URL]
-- Systems & Distributed Reliability Principles
+----------------------------------------------------------------------
+- ClickHouse Documentation: Columnar Data Storage and Optimizing Large Ingestions
+- OpenTelemetry Tracing Data Model and Semantic Conventions Manual
+- Grafana Tracing Datasource: Jaeger and Zipkin Compatible Protocol Guide
 
 SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Check 1: Verify 1-click Docker Compose environment launching sample microservices + observability stack; Pass when automated test script prints 0 errors and logs verified status code.
-2. Check 2: Verify distributed trace flamegraph showing correlated span IDs across 3 service hops; Pass when automated test script prints 0 errors and logs verified status code.
-3. Check 3: Verify grafana dashboard JSON export tracking Golden Signals: Latency, Traffic, Errors, Saturation; Pass when automated test script prints 0 errors and logs verified status code.
-4. Check 4: Verify chaos injection script generating synthetic latency and verifying anomaly alerting; Pass when automated test script prints 0 errors and logs verified status code.
-5. Check 5: Verify architecture documentation explaining sampling strategies (head vs tail-based); Pass when automated test script prints 0 errors and logs verified status code.
-6. Check 6: 6. Anti-Fake Verification Check: Inspect committed execution logs and re-run verification script against seeded test fixtures; pass when runtime metrics dynamically reflect test execution rather than static mocked responses.
+----------------------------------------------------------------------
+1. Check
+   Input: 100,000 synthetic OpenTelemetry trace spans published to ingestion receiver
+   Action: go run ./cmd/benchmarker --spans 100000 --batch-size 5000
+   Result: System sustains ingestion throughput >= 25,000 spans per second into ClickHouse
+   Evidence: Terminal execution output log and reports/ingestion_benchmark.json
+   Pass: Ingestion throughput >= 25,000 spans/sec with exit code 0
+2. Check
+   Input: 100 benchmark TraceID lookup queries issued against 1,000,000 span database
+   Action: go run ./cmd/bench_query --queries 100
+   Result: Trace query API retrieves and reconstructs complete span trees with p95 latency < 45.0 milliseconds
+   Evidence: Query latency benchmark profiling report
+   Pass: p95 query latency is < 45.0ms with exit code 0
+3. Check
+   Input: 1,000 synthetic traces containing 100 error traces under tail-based sampling
+   Action: go test -v ./sampler/... -run TestTailBasedSampling
+   Result: Sampling engine retains 100 of 100 error traces while sampling healthy traces at target 10% rate
+   Evidence: Sampling audit report in reports/sampling_audit.json
+   Pass: 100 of 100 error traces retained with exit code 0
+4. Check
+   Input: REST request querying trace details by TraceID
+   Action: curl http://localhost:8080/api/v1/traces/trace_test_4892
+   Result: Server returns structured JSON payload containing ordered spans with parent_span_id relationships
+   Evidence: HTTP response payload
+   Pass: Response status is 200 and JSON contains non-empty spans array with exit code 0
+5. Check [anti_fake]
+   Input: Dynamic synthetic trace with novel attribute 'tenant_id=dyn_client_991' and injected error status emitted at runtime
+   Action: go run ./scripts/verify_dynamic_trace.go --attribute 'tenant_id=dyn_client_991' --error
+   Result: Sampling engine retains trace; ClickHouse query confirms complete trace DAG with error flag persisted
+   Evidence: Dynamic verification console execution output log
+   Pass: Trace verified in ClickHouse with attribute 'tenant_id=dyn_client_991' and status=ERROR with exit code 0
 
 RESUME BULLET FORMULA
-----------------------------------------
-"Architected full-stack distributed observability system using OpenTelemetry, Prometheus, and Grafana; reduced mean-time-to-detection (MTTD) by providing end-to-end trace flamegraphs across [N] nodes."
-Do not claim: scale, latency, or throughput figures without committing benchmark run logs; do not claim production deployment unless deployed to a verifiable live environment.
+----------------------------------------------------------------------
+"Architected distributed tracing storage and APM engine in Go using ClickHouse and OpenTelemetry; achieved sub-[QUERY_LATENCY] millisecond trace retrieval latency, and sustained [INGESTION_THROUGHPUT] spans per second ingestion throughput."
+
+Do not claim: commercial multi-tenant SaaS billing metering or proprietary JVM byte-code runtime instrumentation
 
 ======================================================================
 Generated by HireFlow — hireflow.io

@@ -1,0 +1,307 @@
+{
+  "id": "brief-ci-cd-from-scratch",
+  "title": "Minimal CI/CD System from Scratch with Build Agents",
+  "domain": "Platform & DevOps",
+  "difficulty": "ADVANCED",
+  "project_types": [
+    "CI/CD/DevOps/security pipelines",
+    "CLI/tools/libraries"
+  ],
+  "problem": "Relying on black-box hosted CI/CD services obscures the fundamental distributed systems principles required to build scalable, secure continuous integration infrastructure. Multi-tenant build systems must parse pipeline definitions, schedule directed acyclic graph (DAG) tasks across worker pools, enforce process isolation between untrusted build jobs, stream live terminal logs without memory leaks, and persist artifacts securely. This project implements a custom containerized CI/CD engine in Go consisting of a central job scheduler server and autonomous worker agents that execute pipeline stages in isolated Docker containers with live WebSocket log streaming.",
+  "use_cases": [
+    "Air-gapped and self-hosted build automation for regulated enterprise environments",
+    "High-performance continuous integration runner with localized Docker layer caching",
+    "Lightweight task orchestration engine for automated test execution and artifact bundling"
+  ],
+  "hard_parts": [
+    "Parsing pipeline definitions into directed acyclic graphs and scheduling parallel tasks without deadlock",
+    "Managing Docker container lifecycles safely on worker nodes to prevent zombie containers upon job cancellation",
+    "Streaming high-volume stdout and stderr terminal logs over WebSockets without unbounded memory buffers",
+    "Enforcing secure agent-to-server communication and mutual authentication across untrusted networks"
+  ],
+  "screener_signals": [
+    "Modular Go architecture cleanly separating controller scheduler from worker execution daemons",
+    "Deterministic DAG scheduler executing parallel stages with topological sort verification",
+    "Anti-fake verification script running dynamic job specifications and validating live log output streams"
+  ],
+  "job_families": [
+    "Platform Engineer",
+    "DevOps Infrastructure Engineer",
+    "Systems Software Engineer"
+  ],
+  "stack": [
+    {
+      "tool": "Go",
+      "role": "core implementation language for scheduler server, agent daemon, and CLI tool"
+    },
+    {
+      "tool": "Docker",
+      "role": "container engine providing hermetic process isolation for build job steps"
+    },
+    {
+      "tool": "SQLite",
+      "role": "lightweight transactional database storing pipeline runs, stages, and agent states"
+    },
+    {
+      "tool": "WebSockets",
+      "role": "bidirectional real-time protocol for task dispatch and live terminal log streaming"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "Pipeline DAG Engine",
+        "tools_used": [
+          "Go"
+        ],
+        "purpose": "Parses YAML pipeline specifications into dependency graphs and validates topological execution order"
+      },
+      {
+        "name": "Central Scheduler Server",
+        "tools_used": [
+          "Go",
+          "SQLite"
+        ],
+        "purpose": "Manages job queues, persists pipeline execution history, and assigns ready tasks to available agents"
+      },
+      {
+        "name": "Worker Execution Agent",
+        "tools_used": [
+          "Go",
+          "Docker"
+        ],
+        "purpose": "Pulls assigned tasks, spawns isolated Docker worker containers, and monitors container exit status"
+      },
+      {
+        "name": "Log Streaming Daemon",
+        "tools_used": [
+          "Go",
+          "WebSockets"
+        ],
+        "purpose": "Captures container stdout and stderr streams and broadcasts live chunks to connected clients"
+      }
+    ],
+    "data_flow": "Users submit a pipeline YAML file via CLI; the DAG Engine resolves task dependencies; the Scheduler persists stages in SQLite and enqueues root tasks; an available Worker Agent claims the task via WebSockets; the agent spawns an isolated Docker container with the specified image; container logs stream in real-time over WebSockets to the server; upon container exit, the agent reports exit codes, triggering subsequent dependent tasks.",
+    "enforcement_mechanism": "Container resource limits enforce CPU and memory boundaries; timeout watchdog terminates hung containers after configured duration."
+  },
+  "targets": [
+    {
+      "metric": "DAG Stage Execution Dependency Adherence",
+      "method": "Verification of topological stage execution order across complex dependency graphs",
+      "input": "20 test pipeline specifications with parallel branches, join stages, and sequential dependencies",
+      "environment": "Standard 4-core local CPU, Go 1.21+",
+      "minimum_pass": "20 of 20 test pipelines execute stages in strict dependency order with 0 race conditions",
+      "target": "20 of 20 test pipelines execute stages in strict dependency order with 0 race conditions",
+      "report": "Unit test execution output and stage execution timestamp logs"
+    },
+    {
+      "metric": "Worker Container Cancellation Cleanup Duration",
+      "method": "Measurement of time elapsed between pipeline cancellation command and container destruction",
+      "input": "Running build job executing infinite loop inside Docker worker container",
+      "environment": "Standard 4-core local CPU, Docker Engine 24+",
+      "minimum_pass": "Worker container stopped and removed within 4.0 seconds of cancellation signal",
+      "target": "Worker container stopped and removed within 1.5 seconds of cancellation signal",
+      "report": "Docker daemon event log confirming container kill and rm events"
+    },
+    {
+      "metric": "Terminal Log Streaming Transmission Latency",
+      "method": "Measurement of latency from container stdout write to WebSocket client delivery",
+      "input": "Synthetic build job emitting 5,000 log lines at 500 lines per second",
+      "environment": "Standard 4-core local CPU, local loopback network",
+      "minimum_pass": "p95 log transmission latency < 80ms without dropped lines",
+      "target": "p95 log transmission latency < 35ms without dropped lines",
+      "report": "Benchmark log analyzer reporting packet send and receive timestamps"
+    }
+  ],
+  "skills": [
+    "Go",
+    "Docker",
+    "SQLite",
+    "WebSockets",
+    "CI/CD",
+    "DevOps"
+  ],
+  "starter_input": {
+    "spec": "YAML pipeline schema specification and collection of test build definitions covering lint, test, and build stages.",
+    "size": "5 test pipeline definitions ranging from simple single-step jobs to complex multi-stage fan-out/fan-in DAGs",
+    "seeded_cases": "Cyclic dependency graphs, failing intermediate stages, runaway memory jobs, and abrupt agent disconnects",
+    "label_source": "Deterministic Go test fixtures and expected exit status assertions",
+    "personal_data_policy": "Strictly synthetic build commands (echo, test mocks, sleep); zero real credentials or repository code used"
+  },
+  "components": [
+    {
+      "name": "YAML Parser & DAG Topological Scheduler",
+      "task_type": "concurrency/consistency mechanism with tests",
+      "hours": 5.0
+    },
+    {
+      "name": "Docker Isolation Runner & Lifecycle Manager",
+      "task_type": "low-level/system subsystem",
+      "hours": 8.0
+    },
+    {
+      "name": "WebSocket Dispatch & Communication Protocol",
+      "task_type": "concurrency/consistency mechanism with tests",
+      "hours": 5.0
+    },
+    {
+      "name": "SQLite State Persistence & Job Queuing",
+      "task_type": "API endpoint group with tests",
+      "hours": 4.0
+    },
+    {
+      "name": "Log Streaming Daemon & Benchmark Harness",
+      "task_type": "load or performance test harness + report",
+      "hours": 4.0
+    },
+    {
+      "name": "Documentation, Architecture Diagram & Buffer",
+      "task_type": "docs + architecture diagram",
+      "hours": 4.0
+    }
+  ],
+  "extended_path": {
+    "items": [
+      "Distributed artifact storage using local MinIO S3-compatible object store",
+      "GitHub Webhook receiver validating HMAC SHA-256 signatures and reporting commit statuses"
+    ],
+    "hours": 15
+  },
+  "milestones": [
+    {
+      "name": "Pipeline Parser, DAG Scheduling & Concurrency Setup for CI/CD and DevOps Workflows",
+      "hours": 9,
+      "done_criterion": "Parser resolves pipeline YAML into DAG; unit tests verify topological sorting and cycle rejection."
+    },
+    {
+      "name": "Docker Worker Isolation & Container Lifecycle Runner",
+      "hours": 9,
+      "done_criterion": "Worker daemon spawns isolated Docker containers, executes commands, and enforces memory limits."
+    },
+    {
+      "name": "WebSocket Agent Protocol & Real-Time Log Streaming",
+      "hours": 9,
+      "done_criterion": "Server dispatches jobs over WebSockets; agent streams stdout/stderr chunks with sub-80ms latency."
+    },
+    {
+      "name": "Cancellation Cleanup, Anti-Fake Test, Docs & Buffer",
+      "hours": 7,
+      "done_criterion": "Cancellation cleanly removes containers in < 4s; anti-fake test validates dynamic pipeline; docs complete."
+    }
+  ],
+  "prerequisites": [
+    "Intermediate Go programming (goroutines, channels, network sockets, context cancellation)",
+    "Familiarity with Docker container APIs and volume mounts",
+    "Basic understanding of graph algorithms (directed acyclic graphs, topological sorting)"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (purely CPU-bound build job execution)",
+    "cost": "$0 (fully open-source software stack)",
+    "accounts_keys_quotas": "No external cloud accounts, paid services, or API keys required",
+    "reference_environment": "Local 4-core CPU with Go 1.21+ and Docker Engine installed",
+    "fallback_path": "Local shell execution runner without Docker if Docker socket permissions are restricted"
+  },
+  "riskiest_component": {
+    "name": "Dangling Zombie Docker Containers upon Abrupt Agent Termination",
+    "fallback": "Implement an automated reaper process on server startup that labels and prunes orphaned runner containers"
+  },
+  "deliverables": [
+    "Git repository containing Go server, agent daemon, CLI tool, and SQLite schema",
+    "Sample pipeline YAML definitions demonstrating parallel and sequential stages",
+    "Benchmark script verifying log streaming transmission latency",
+    "Screener verification script executing pipeline runs and dynamic validation in under 3 minutes"
+  ],
+  "out_of_scope": [
+    "Kubernetes pod-based runner autoscaling",
+    "Windows container execution support",
+    "Hardware-assisted virtual machine isolation (Firecracker microVMs)"
+  ],
+  "safety_note": null,
+  "resources": [
+    "Docker Engine API SDK for Go official reference",
+    "Gorilla WebSocket package documentation and connection lifecycle patterns",
+    "Directed Acyclic Graph topological sorting algorithms in Go"
+  ],
+  "rubric": [
+    {
+      "input": "fixtures/pipeline_valid.yaml file",
+      "action": "Run go test ./pkg/scheduler -v",
+      "expected_result": "DAG scheduler parses steps and outputs valid topological execution plan",
+      "evidence_location": "Terminal test output log",
+      "pass_criterion": "All scheduler unit tests pass with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Pipeline run execution via CLI ./bin/ci run fixtures/build_job.yaml",
+      "action": "Inspect Docker container lifecycle on worker host",
+      "expected_result": "Worker spawns container, runs commands, captures stdout, and removes container on completion",
+      "evidence_location": "CLI terminal output and docker ps -a log",
+      "pass_criterion": "Build completes successfully with exit code 0 and container removed from host",
+      "kind": "normal"
+    },
+    {
+      "input": "Active running build job canceled via ./bin/ci cancel <job-id>",
+      "action": "Verify worker container termination",
+      "expected_result": "Worker intercepts cancellation and forcibly destroys container within 4 seconds",
+      "evidence_location": "Agent log file and Docker daemon event stream",
+      "pass_criterion": "Container state transitions to destroyed within 4 seconds with 0 leftover containers",
+      "kind": "normal"
+    },
+    {
+      "input": "5,000 log lines emitted by worker container",
+      "action": "Run python scripts/verify_log_stream.py",
+      "expected_result": "Log streaming client receives all lines in sequential order with p95 latency < 80ms",
+      "evidence_location": "Verification summary report file",
+      "pass_criterion": "Total received line count equals 5,000 with 0 dropped lines",
+      "kind": "normal"
+    },
+    {
+      "input": "Dynamic echo token generated at runtime by verification script",
+      "action": "Run ./scripts/verify_dynamic_job.sh --token DYN-TOKEN-9941",
+      "expected_result": "Server schedules job, agent executes echo command in clean container, and returns matching token in log stream",
+      "evidence_location": "Verification execution console output log",
+      "pass_criterion": "Execution log matches dynamic token with exit status 0",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected containerized CI/CD pipeline engine in Go using Docker and WebSockets; executed parallel task DAGs with topological dependency scheduling, live terminal log streaming under [STREAM_LATENCY] latency, and automated container teardown within [TEARDOWN_TIME] seconds.",
+    "claims": [
+      {
+        "text": "executed parallel task DAGs with topological dependency scheduling",
+        "rubric_indexes": [
+          0,
+          1
+        ]
+      },
+      {
+        "text": "live terminal log streaming under [STREAM_LATENCY] latency",
+        "rubric_indexes": [
+          3
+        ]
+      },
+      {
+        "text": "automated container teardown within [TEARDOWN_TIME] seconds",
+        "rubric_indexes": [
+          2
+        ]
+      }
+    ],
+    "do_not_claim": "carrier-grade enterprise runner scale or multi-tenant kernel sandbox security without microVM isolation"
+  },
+  "verify": [],
+  "worksheet": {
+    "q1": "The student builds a containerized CI/CD system in Go consisting of a DAG task scheduler, a worker agent daemon executing steps in isolated Docker containers, and WebSocket log streaming.",
+    "q2": "Core path: YAML parser, DAG scheduler, Docker worker isolation, WebSocket log streaming, and cancellation cleanup (34h). Extended path: S3 artifact store and GitHub webhook receiver (+15h).",
+    "q3": "Components: DAG Parser (5h), Docker Runner (8h), WebSocket Protocol (5h), SQLite Queuing (4h), Log Streaming (4h), Docs & Buffer (4h). Total 30h x 1.15 = 34.5 -> 34h.",
+    "q4": "Project types: CI/CD/DevOps/security pipelines, CLI/tools/libraries. Metrics: DAG Execution Adherence, Container Cleanup Duration, Log Streaming Latency. Rejected: SQL query execution plans (not an analytical database).",
+    "q5": "Hard parts: DAG cycle detection and topological sorting, Docker container cleanup on cancellation, WebSocket memory buffering, and agent authentication.",
+    "q6": "Starter input: 5 YAML pipeline definitions covering parallel stages, cyclic errors, and failing tests. No real user data.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU only, $0 cost, zero cloud accounts. Fallback: local shell runner without Docker.",
+    "q8": "Riskiest component: Dangling zombie Docker containers. Fallback: startup container reaper process.",
+    "q9": "Potential faking: static mocked logs. Anti-fake check 5 passes a dynamic token at runtime and asserts live container execution and token logging.",
+    "q10": "Safety/ethics: Safe; local Docker container execution only."
+  }
+}

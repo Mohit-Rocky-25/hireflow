@@ -1,0 +1,357 @@
+{
+  "id": "brief-service-mesh",
+  "title": "Service Mesh Zero-Trust Architecture with Istio, Envoy Sidecars, mTLS & SPIFFE Identity",
+  "domain": "Platform & DevOps",
+  "difficulty": "ADVANCED",
+  "project_types": [
+    "Cloud architecture",
+    "Platform/infra tool"
+  ],
+  "problem": "Microservice topologies operating on Kubernetes clusters leave east-west (service-to-service) network traffic unencrypted and unauthenticated by default. In the event of a single pod breach, lateral attacker movement across internal cluster networks is trivial due to cleartext HTTP communications, static IP trust assumptions, and absence of granular Layer 7 authorization policies. Furthermore, lack of unified traffic management makes progressive canary rollouts risky and creates blind spots in distributed service latency tracing. This project builds a production-grade zero-trust service mesh architecture on Kubernetes using Istio and Envoy. The platform enforces strict mutual TLS (mTLS) with cryptographically verified SPIFFE identities, implements fine-grained authorization policies and Layer 7 traffic routing (canary splits, circuit breaking), exports telemetry to Prometheus, and visualizes live dependency topologies via Kiali with under 3.5ms proxy latency overhead.",
+  "use_cases": [
+    {
+      "title": "FinTech Core Banking Microservice East-West Encryption",
+      "first_sentence": "Financial microservices transferring customer fund balances across internal payment and ledger services must comply with zero-trust regulatory mandates.",
+      "second_sentence": "Istio sidecars automatically enforce mutual TLS across all inter-service connections, ensuring encrypted data in transit with rotated X.509 certificates and SPIFFE IDs."
+    },
+    {
+      "title": "Progressive Canary Traffic Shifting for High-Volume APIs",
+      "first_sentence": "Platform engineering teams releasing new versions of customer-facing recommendation services need automated canary deployments without traffic disruption.",
+      "second_sentence": "The service mesh splits production traffic dynamically (e.g. 90% v1, 10% v2) using Istio VirtualService weights, monitoring error rates before promoting releases."
+    },
+    {
+      "title": "Resilient Microservice Cascading Failure Prevention",
+      "first_sentence": "E-commerce checkout pipelines relying on downstream inventory microservices risk cascading cluster failure during inventory database connection stalls.",
+      "second_sentence": "Envoy circuit breakers trip when consecutive 5xx errors exceed thresholds, failing fast with cached responses and isolating failing pods from healthy cluster tiers."
+    }
+  ],
+  "hard_parts": [
+    "Configuring Istio mutual TLS (mTLS) in STRICT mode across multi-namespace Kubernetes clusters with automated SPIFFE certificate issuance and rotation",
+    "Writing fine-grained Istio AuthorizationPolicy resources restricting pod-to-pod RPC communication using authenticated SPIFFE identities and HTTP method rules",
+    "Implementing advanced traffic management with VirtualServices and DestinationRules governing canary percentage splits and outlier detection circuit breaking",
+    "Minimizing Envoy proxy latency overhead and CPU utilization under high-throughput microservice request volumes using optimized filter chains"
+  ],
+  "screener_signals": [
+    "Clean Kubernetes and Istio configuration repository cleanly separating namespace manifests, VirtualService routes, AuthorizationPolicies, and Prometheus dashboards",
+    "Security penetration benchmark report proving 100 of 100 unauthorized inter-service plaintext connection attempts are blocked by strict mTLS",
+    "Anti-fake verification script sending an unauthenticated HTTP request from a rogue curl pod to an internal payment service and asserting connection termination via SSL handshake failure"
+  ],
+  "job_families": [
+    "Site Reliability Engineer (SRE)",
+    "Cloud Platform Architect",
+    "DevSecOps / Infrastructure Engineer"
+  ],
+  "stack": [
+    {
+      "tool": "Kubernetes",
+      "role": "container orchestration platform managing microservice deployments, services, and namespace isolation"
+    },
+    {
+      "tool": "Istio",
+      "role": "service mesh control plane distributing cryptographic certificates, routing rules, and security policies"
+    },
+    {
+      "tool": "Envoy",
+      "role": "high-performance L7 sidecar proxy intercepting inbound and outbound network traffic across pods"
+    },
+    {
+      "tool": "Docker",
+      "role": "container runtime packaging sample microservice applications and test traffic generators"
+    },
+    {
+      "tool": "Prometheus",
+      "role": "monitoring system scraping Envoy proxy telemetry metrics including request rates and latency"
+    },
+    {
+      "tool": "Kiali",
+      "role": "service mesh management console visualizing live microservice topology graphs and mTLS encryption status"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "Kubernetes Microservice Mesh & Istio Control Plane",
+        "tools_used": [
+          "Kubernetes",
+          "Istio"
+        ],
+        "purpose": "Provisions Istiod control plane, manages sidecar auto-injection, and establishes cluster service namespaces"
+      },
+      {
+        "name": "Envoy Sidecar mTLS & SPIFFE Identity Enforcement Engine",
+        "tools_used": [
+          "Istio",
+          "Envoy"
+        ],
+        "purpose": "Enforces STRICT mutual TLS, validates SPIFFE identity URIs, and rotates X.509 client certificates"
+      },
+      {
+        "name": "Traffic Shifting, Canary Routing & Circuit Breaker Controller",
+        "tools_used": [
+          "Kubernetes",
+          "Istio"
+        ],
+        "purpose": "Configures VirtualServices and DestinationRules for canary weight distributions and consecutive error tripping"
+      },
+      {
+        "name": "Prometheus Telemetry Scraping & Kiali Topology Visualizer",
+        "tools_used": [
+          "Prometheus",
+          "Kiali"
+        ],
+        "purpose": "Scrapes Envoy sidecar metrics, visualizes live service traffic graphs, and validates mTLS lock badge statuses"
+      },
+      {
+        "name": "Chaos Latency Injection & Fault Tolerance Test Suite",
+        "tools_used": [
+          "Kubernetes",
+          "Docker"
+        ],
+        "purpose": "Injects synthetic HTTP 503 faults and latency spikes to test circuit breaking and timeout recovery"
+      },
+      {
+        "name": "Service Mesh Concurrency & Proxy Overhead Benchmark Harness",
+        "tools_used": [
+          "Kubernetes",
+          "Envoy"
+        ],
+        "purpose": "Measures sidecar latency overhead and sustained request throughput across 5 microservice tiers"
+      },
+      {
+        "name": "Zero-Trust Service Mesh Security Guide & Architecture Diagram",
+        "tools_used": [
+          "Kubernetes",
+          "Istio"
+        ],
+        "purpose": "Documents STRICT mTLS policies, SPIFFE identity structures, and Envoy filter chain optimization guides"
+      }
+    ],
+    "data_flow": "A user request enters via the Istio Ingress Gateway; the gateway verifies TLS and routes to the frontend microservice; the frontend Envoy sidecar establishes an mTLS connection to the backend payment service Envoy sidecar; sidecars exchange and validate SPIFFE X.509 certificates issued by Istiod; the payment service's Istio AuthorizationPolicy evaluates the client SPIFFE ID; if authorized, the request forwards to the local application container over localhost; Envoy streams access metrics to Prometheus; Kiali queries Prometheus to render real-time service dependency graphs; when a canary deployment triggers, VirtualService routing splits 10% of traffic to the v2 payment pod.",
+    "enforcement_mechanism": "Cryptographic TLS handshake verification rejecting non-SPIFFE certificates; Envoy L7 filter chain evaluating RBAC policies at kernel socket boundaries."
+  },
+  "targets": [
+    {
+      "metric": "Envoy Sidecar Proxy Latency Overhead",
+      "method": "Wall-clock round-trip latency added by Envoy sidecar proxy interception compared to direct pod-to-pod baseline under 1,000 RPS",
+      "input": "10,000 requests issued through 3 microservice mesh hops at 1,000 requests per second",
+      "environment": "Standard 4-core local CPU, Minikube / Kind local Kubernetes cluster with Istio 1.18+",
+      "minimum_pass": "p95 proxy latency overhead per hop is < 5.0 milliseconds",
+      "target": "p95 proxy latency overhead per hop is < 2.2 milliseconds",
+      "report": "Envoy proxy latency benchmark report and latency percentile table"
+    },
+    {
+      "metric": "STRICT mTLS Unauthorized Connection Block Rate",
+      "method": "Percentage of unauthorized plaintext or invalid-certificate connection attempts rejected by Envoy sidecars",
+      "input": "50 connection attempts from non-mesh pods or pods with forged certificates targeting internal services",
+      "environment": "Local Kubernetes cluster with PeerAuthentication mode set to STRICT across all namespaces",
+      "minimum_pass": "50 of 50 unauthorized connection attempts terminated with SSL handshake failure",
+      "target": "50 of 50 unauthorized connection attempts terminated with SSL handshake failure",
+      "report": "mTLS security enforcement audit log and TLS handshake rejection trace"
+    },
+    {
+      "metric": "Canary Traffic Shift Distribution Accuracy",
+      "method": "Observed percentage of requests routed to canary v2 deployment compared to configured VirtualService weight (10%)",
+      "input": "5,000 synthetic HTTP GET requests issued to canary-instrumented service endpoint",
+      "environment": "Istio VirtualService configured with 90% weight to v1 and 10% weight to v2",
+      "minimum_pass": "Observed canary traffic split is within 9.0% to 11.0% across 5,000 requests",
+      "target": "Observed canary traffic split is within 9.5% to 10.5% across 5,000 requests",
+      "report": "Canary traffic routing distribution log and Prometheus metrics export"
+    }
+  ],
+  "skills": [
+    "Kubernetes",
+    "Istio",
+    "Envoy",
+    "Docker",
+    "Prometheus",
+    "Kiali",
+    "DevOps",
+    "Service Mesh"
+  ],
+  "starter_input": {
+    "spec": "Directory containing Kubernetes manifests for sample microservices, Istio Gateway/VirtualService YAMLs, and test runner.",
+    "size": "14 YAML configuration manifests, 3 sample microservice Dockerfiles, and automated mesh verification scripts",
+    "seeded_cases": "Plaintext bypass attempts, expired SPIFFE certificates, misconfigured service port names, and missing destination rules",
+    "label_source": "Deterministic Prometheus istio_requests_total counters and Envoy proxy access log status codes",
+    "personal_data_policy": "Strictly mock synthetic financial transactions and simulated user IDs; no real personal data used"
+  },
+  "components": [
+    {
+      "name": "Kubernetes Microservice Mesh & Istio Control Plane",
+      "task_type": "infra component (broker, DB, orchestrator, cluster service)",
+      "hours": 6.0
+    },
+    {
+      "name": "Envoy Sidecar mTLS & SPIFFE Identity Enforcement Engine",
+      "task_type": "security hardening checks",
+      "hours": 6.0
+    },
+    {
+      "name": "Traffic Shifting, Canary Routing & Circuit Breaker Controller",
+      "task_type": "concurrency/consistency mechanism with tests",
+      "hours": 6.0
+    },
+    {
+      "name": "Prometheus Telemetry Scraping & Kiali Topology Visualizer",
+      "task_type": "observability",
+      "hours": 5.0
+    },
+    {
+      "name": "Chaos Latency Injection & Fault Tolerance Test Suite",
+      "task_type": "API endpoint group with tests",
+      "hours": 5.0
+    },
+    {
+      "name": "Service Mesh Concurrency & Proxy Overhead Benchmark Harness",
+      "task_type": "load or performance test harness + report",
+      "hours": 4.0
+    },
+    {
+      "name": "Zero-Trust Service Mesh Security Guide & Architecture Diagram",
+      "task_type": "docs + architecture diagram",
+      "hours": 3.0
+    }
+  ],
+  "extended_path": {
+    "features": [
+      "Multi-cluster mesh expansion connecting two independent Kubernetes clusters with cross-cluster service discovery",
+      "Wasm (WebAssembly) custom Envoy filter injecting corporate compliance headers into HTTP request streams",
+      "Automated canary analysis using Flagger to automatically promote releases based on Prometheus error rates"
+    ],
+    "hours": 16
+  },
+  "milestones": [
+    {
+      "name": "Kubernetes Microservice Deployment & Istio Mesh in Kubernetes and Istio",
+      "hours": 10,
+      "done_criterion": "Istiod installs in cluster; sidecars auto-inject into sample microservice pods."
+    },
+    {
+      "name": "STRICT mTLS & SPIFFE Authorization Policies in Envoy and Service Mesh",
+      "hours": 10,
+      "done_criterion": "PeerAuthentication STRICT mode activates; 50 of 50 plaintext requests reject with SSL failure."
+    },
+    {
+      "name": "Canary Traffic Shifting & Circuit Breaking in Docker and DevOps",
+      "hours": 10,
+      "done_criterion": "VirtualService routes 10% traffic to canary v2; circuit breakers trip upon injected 503 errors."
+    },
+    {
+      "name": "Observability Dashboard, Anti-Fake Rogue Pod Test & Docs in Prometheus and Kiali",
+      "hours": 10,
+      "done_criterion": "Kiali renders mTLS graph; anti-fake test blocks unauthenticated pod; documentation complete."
+    }
+  ],
+  "prerequisites": [
+    "Proficiency in Kubernetes administration, container orchestration concepts (Pods, Services, Namespaces), and YAML",
+    "Understanding of service mesh architectures (Istio, Envoy), mutual TLS (mTLS), and network traffic management"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (purely CPU and network proxy bound container orchestration software)",
+    "cost": "$0 (fully open-source stack using local Minikube / Kind in Docker Desktop)",
+    "accounts_keys_quotas": "No external cloud accounts, paid services, or managed cloud Kubernetes clusters required",
+    "reference_environment": "Local 4-core CPU with Docker Desktop, Minikube / Kind (Kubernetes 1.26+), kubectl, and Istioctl installed",
+    "fallback_path": "Docker Compose multi-container Envoy proxy mesh if local Kubernetes cluster cannot be provisioned"
+  },
+  "riskiest_component": {
+    "name": "Cluster-Wide Outages from Misconfigured STRICT mTLS Policies",
+    "mitigation": "Deploy mTLS initially in PERMISSIVE mode while verifying Prometheus mTLS telemetry, then transition to STRICT.",
+    "fallback": "Emergency Istio PeerAuthentication patch reverting namespace to PERMISSIVE mode."
+  },
+  "deliverables": [
+    "Git repository containing Kubernetes manifests, Istio routing rules, AuthorizationPolicies, and sample microservices",
+    "Automated bash/python test harness verifying mTLS enforcement, canary traffic splits, and circuit breaker tripping",
+    "Prometheus alert rules and Kiali configuration guides for service mesh visualization",
+    "Screener verification script executing automated benchmark and dynamic rogue pod rejection in under 3 minutes"
+  ],
+  "out_of_scope": [
+    "Multi-cloud production AWS EKS / GCP GKE cluster provisioning",
+    "Complex hardware security module (HSM) certificate authority integration",
+    "BGP route reflector networking or physical hardware switch configurations"
+  ],
+  "safety_note": null,
+  "resources": [
+    "Istio Documentation: Security, mTLS, and Traffic Management Architecture",
+    "Envoy Proxy Architecture & Filter Chain Documentation",
+    "SPIFFE/SPIRE Specification: Secure Production Identity Framework for Everyone"
+  ],
+  "rubric": [
+    {
+      "input": "10,000 requests sent across 3 microservice hops at 1,000 RPS",
+      "action": "kubectl exec -it deploy/traffic-gen -- ./bench_mesh.sh --rps 1000 --requests 10000",
+      "expected_result": "Envoy proxy intercepts requests with p95 latency overhead < 5.0ms per hop",
+      "evidence_location": "Terminal output log and reports/mesh_latency.json",
+      "pass_criterion": "p95 latency overhead < 5.0ms with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "50 unauthorized plaintext connection attempts to payment microservice",
+      "action": "python ./scripts/test_mtls_enforcement.py --attempts 50",
+      "expected_result": "STRICT mTLS policy rejects all 50 attempts; 0 plaintext bytes delivered",
+      "evidence_location": "mTLS enforcement audit log in reports/mtls_audit.json",
+      "pass_criterion": "50 of 50 connections rejected with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "5,000 requests issued to canary-configured service endpoint",
+      "action": "python ./scripts/verify_canary_split.py --requests 5000 --target-split 10",
+      "expected_result": "Traffic distributes with observed canary share between 9.0% and 11.0%",
+      "evidence_location": "Canary distribution report in reports/canary_audit.json",
+      "pass_criterion": "Canary traffic split within 9.0% - 11.0% with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Consecutive HTTP 503 errors injected into backend service pod",
+      "action": "python ./scripts/test_circuit_breaker.py --fault 503 --count 5",
+      "expected_result": "DestinationRule outlier detection trips circuit breaker; subsequent requests fail fast in < 2ms",
+      "evidence_location": "Circuit breaker audit log in reports/breaker_audit.json",
+      "pass_criterion": "Circuit breaker trips and fails fast with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Unauthenticated rogue pod attempting to bypass sidecar and curl payment service",
+      "action": "kubectl run rogue-pod --rm -i --restart=Never --image=curlimages/curl -- curl -v http://payment-service:8080/pay",
+      "expected_result": "Connection terminates immediately with SSL handshake error or HTTP 403 RBAC denied",
+      "evidence_location": "Dynamic verification console execution output log",
+      "pass_criterion": "Console confirms connection reset / handshake failure with exit code 35 or 56",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected mutual-trust service mesh on Kubernetes using Istio and Envoy sidecars; enforced mutual TLS across microservices with sub-[PROXY_OVERHEAD] millisecond proxy latency overhead, and executed traffic canary shifts within [CANARY_MARGIN] of target ratios.",
+    "claims": [
+      {
+        "text": "enforced mutual TLS across microservices with sub-[PROXY_OVERHEAD] millisecond proxy latency overhead",
+        "rubric_indexes": [
+          0
+        ]
+      },
+      {
+        "text": "executed traffic canary shifts within [CANARY_MARGIN] of target ratios",
+        "rubric_indexes": [
+          2
+        ]
+      }
+    ],
+    "do_not_claim": "managed cloud EKS production multi-cluster peering or hardware HSM certificate integrations"
+  },
+  "verify": [
+    "Run `kubectl get pods -n istio-system` to confirm Istiod control plane is operational.",
+    "Execute `python ./scripts/test_mtls_enforcement.py` to verify peer authentication rejects plaintext requests.",
+    "Run `kubectl run rogue-pod` to assert rogue pods cannot bypass mTLS or call protected services."
+  ],
+  "worksheet": {
+    "q1": "Core deliverable: a zero-trust service mesh on Kubernetes with Istio, Envoy sidecar proxies, STRICT mTLS, and traffic shifting.",
+    "q2": "Target users: site reliability engineers, cloud platform architects, and DevSecOps engineers.",
+    "q3": "3 use cases: fintech east-west microservice encryption, progressive canary traffic shifts, and cascading failure circuit breaking.",
+    "q4": "Stated hours: 40 hours. Calculated bottom-up: 35 component hours * 1.15 buffer = 40.25 -> 40 hours. Advanced level.",
+    "q5": "Hard parts: STRICT mTLS configuration across namespaces, SPIFFE X.509 certificate validation, canary routing rules, and sub-3.5ms proxy latency.",
+    "q6": "Starter input: Kubernetes manifests, Istio routing YAMLs, sample microservice Dockerfiles, and test scripts. Synthetic test data only.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU bound, $0 cost using local Minikube / Kind. Zero cloud fees.",
+    "q8": "Riskiest component: cluster-wide outages from misconfigured mTLS. Fallback: deploy initially in PERMISSIVE mode before locking to STRICT.",
+    "q9": "Potential faking: standard Kubernetes cluster without actual service mesh proxy interception. Anti-fake check 5 spawns a rogue pod and verifies SSL handshake failure.",
+    "q10": "Safe; synthetic microservice workloads and isolated local cluster containers only."
+  }
+}

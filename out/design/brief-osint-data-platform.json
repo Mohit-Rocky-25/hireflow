@@ -1,0 +1,332 @@
+{
+  "id": "brief-osint-data-platform",
+  "title": "Distributed Web Intelligence Crawling & Change Detection Platform with Playwright, Celery & Redis Bloom Filters",
+  "domain": "Data Engineering",
+  "difficulty": "INTERMEDIATE",
+  "project_types": [
+    "Data pipeline / ETL",
+    "API/backend service"
+  ],
+  "problem": "Manual competitive market monitoring is error-prone, unscalable, and blind to dynamic client-side DOM mutations. Naive HTTP scrapers fail completely on modern Single Page Applications (SPAs) that require JavaScript execution, trigger immediate IP bans due to uncoordinated request rates, and repeatedly re-crawl identical URLs wasting network bandwidth. This project builds a distributed web intelligence crawling and change detection platform in Python. The system coordinates headless browser scraping using Playwright and Celery worker queues, prevents duplicate URL crawls using Redis Bloom filters, stores structured page entity snapshots in PostgreSQL, computes content and structural DOM diffs, and sends automated webhook alerts upon detecting significant changes.",
+  "use_cases": [
+    {
+      "title": "E-Commerce Competitor Price & Stock Monitoring",
+      "first_sentence": "Retail pricing intelligence teams need to monitor thousands of competitor product listings daily to adjust promotional pricing dynamically.",
+      "second_sentence": "The crawler executes headless browser sessions, extracts live pricing and stock availability from dynamic JavaScript storefronts, and flags price changes in PostgreSQL."
+    },
+    {
+      "title": "Technology Job Market Skill Trend Intelligence",
+      "first_sentence": "Workforce planning analysts require structured insights into evolving technical requirements across corporate career portals and job boards.",
+      "second_sentence": "The platform schedules periodic crawls of designated employer domains, parses required engineering competencies, and aggregates monthly technology demand trends."
+    },
+    {
+      "title": "Corporate Regulatory Disclosure & Policy Tracking",
+      "first_sentence": "Compliance auditing teams must track updates across governmental regulatory portal announcements and corporate privacy policy terms.",
+      "second_sentence": "The engine computes structural semantic diffs across crawled policy page snapshots, dispatching immediate notification summaries when legal clauses are revised."
+    }
+  ],
+  "hard_parts": [
+    "Orchestrating headless Playwright browser contexts in Celery worker processes with strict memory recycling to prevent browser zombie leaks",
+    "Implementing scalable URL deduplication using space-efficient Redis Bloom filters across millions of discovered web hyperlinks",
+    "Designing semantic DOM diffing algorithms that ignore dynamic ad trackers and timestamps while accurately detecting substantive text/price changes",
+    "Enforcing per-domain rate limiting and polite crawl delays with exponential backoff to avoid IP blocks"
+  ],
+  "screener_signals": [
+    "Clean Python codebase cleanly separating crawler task queues, Playwright browser managers, Bloom filter utilities, and diff engines",
+    "Automated load benchmark report verifying 120+ pages per minute extraction throughput across headless JavaScript workers",
+    "Anti-fake verification script dynamically modifying a target mock SPA product price and verifying the platform detects the delta and emits a change event"
+  ],
+  "job_families": [
+    "Data Pipeline Engineer",
+    "Web Scraping & Intelligence Specialist",
+    "Backend Infrastructure Developer"
+  ],
+  "stack": [
+    {
+      "tool": "Python",
+      "role": "primary language implementing Celery worker tasks, Playwright scripts, and diffing engines"
+    },
+    {
+      "tool": "Playwright",
+      "role": "browser automation library rendering client-side JavaScript Single Page Applications"
+    },
+    {
+      "tool": "PostgreSQL",
+      "role": "relational database storing structured product snapshots, crawl histories, and change logs"
+    },
+    {
+      "tool": "FastAPI",
+      "role": "REST API framework exposing crawl job dispatch, target registration, and diff query endpoints"
+    },
+    {
+      "tool": "Celery",
+      "role": "distributed task queue coordinating asynchronous crawling workers across concurrency pools"
+    },
+    {
+      "tool": "Redis",
+      "role": "in-memory message broker and Bloom filter store tracking visited URLs and worker job states"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "Target URL Ingestion & Crawl Scheduler API",
+        "tools_used": [
+          "FastAPI",
+          "Python"
+        ],
+        "purpose": "Registers target domain crawl schedules, manages priority queues, and exposes extraction query endpoints"
+      },
+      {
+        "name": "Redis Bloom Filter URL Deduplicator",
+        "tools_used": [
+          "Python",
+          "Redis"
+        ],
+        "purpose": "Maintains space-efficient probabilistic set of visited URLs with sub-millisecond lookup and low false-positive rate"
+      },
+      {
+        "name": "Headless Playwright Browser Worker Pool",
+        "tools_used": [
+          "Python",
+          "Playwright",
+          "Celery"
+        ],
+        "purpose": "Spawns isolated Chromium contexts, waits for selector hydration, and extracts structured DOM elements"
+      },
+      {
+        "name": "Content Hashing & Semantic DOM Diff Engine",
+        "tools_used": [
+          "Python",
+          "PostgreSQL"
+        ],
+        "purpose": "Calculates content hashes, identifies structural deltas against prior snapshots, and flags significant revisions"
+      },
+      {
+        "name": "Crawl Throughput & Deduplication Benchmark Suite",
+        "tools_used": [
+          "Python",
+          "PostgreSQL"
+        ],
+        "purpose": "Measures pages crawled per minute, verifies Bloom filter suppression, and tests webhook alert timings"
+      }
+    ],
+    "data_flow": "Users register target URLs via the FastAPI endpoint; the scheduler checks the Redis Bloom filter; if the URL has not been crawled in the current cycle, a task dispatches to the Celery queue; a Celery worker launches a Playwright Chromium context, navigates to the target page, waits for network idle, and extracts structured JSON attributes; the worker writes the raw snapshot to PostgreSQL; the diff engine computes a SHA-256 hash and compares with the previous crawl; if changes are detected, a semantic diff generates and triggers a notification webhook.",
+    "enforcement_mechanism": "Redis Bloom filter capacity checks preventing duplicate crawl dispatches; Playwright navigation timeout limits (max 15s) killing hung browser contexts."
+  },
+  "targets": [
+    {
+      "metric": "Dynamic JavaScript Page Extraction Throughput",
+      "method": "Sustained number of complex JavaScript-rendered web pages fully rendered, scraped, and persisted per minute across 4 workers",
+      "input": "500 target SPA product pages served by local mock React storefront with client-side hydration delays",
+      "environment": "Standard 4-core local CPU, 8GB RAM, 4 concurrent Celery worker processes with Playwright Chromium",
+      "minimum_pass": "Crawling extraction throughput is >= 120 pages per minute",
+      "target": "Crawling extraction throughput is >= 280 pages per minute",
+      "report": "Crawl throughput benchmark profiling report and worker timing log"
+    },
+    {
+      "metric": "Redis Bloom Filter URL Deduplication Accuracy",
+      "method": "Percentage of duplicate URL crawl requests correctly identified and suppressed by the Bloom filter",
+      "input": "5,000 crawl requests containing 1,000 distinct URLs repeated 5 times across randomized queue submissions",
+      "environment": "Local Redis 7 container with redis-bloom module or pybloom_live Python library",
+      "minimum_pass": "Deduplication accuracy is >= 99.0% with false positive suppression < 1.0%",
+      "target": "Deduplication accuracy is >= 99.8% with false positive suppression < 0.2%",
+      "report": "Bloom filter deduplication audit log and false positive analysis"
+    },
+    {
+      "metric": "Change Detection Webhook Notification Latency",
+      "method": "Duration from target page DOM mutation detection to outgoing alert webhook dispatch",
+      "input": "20 simulated product price update events injected into target mock web application",
+      "environment": "FastAPI change detection engine connected to local mock webhook receiver",
+      "minimum_pass": "Average notification dispatch latency is < 10.0 seconds across 20 trials",
+      "target": "Average notification dispatch latency is < 3.2 seconds across 20 trials",
+      "report": "Change detection timing summary table and webhook audit report"
+    }
+  ],
+  "skills": [
+    "Python",
+    "Playwright",
+    "PostgreSQL",
+    "FastAPI",
+    "Celery",
+    "Redis",
+    "Data Pipelines",
+    "Web Scraping"
+  ],
+  "starter_input": {
+    "spec": "Directory containing mock e-commerce SPA target web application, Celery worker configurations, and 500 test URL seed manifests.",
+    "size": "Mock React SPA codebase, 5 Celery task modules, and automated crawl runner scripts",
+    "seeded_cases": "Infinite scrolling product lists, anti-bot Cloudflare challenge mock pages, fluctuating dynamic pricing, and unparseable DOM nodes",
+    "label_source": "Deterministic mock SPA database records and pre-calculated ground-truth product price catalogs",
+    "personal_data_policy": "Strictly mock synthetic e-commerce storefront listings and simulated product prices; no real personal data used"
+  },
+  "components": [
+    {
+      "name": "Target URL Ingestion & Crawl Scheduler API",
+      "task_type": "API endpoint group with tests",
+      "hours": 5.0
+    },
+    {
+      "name": "Redis Bloom Filter URL Deduplicator",
+      "task_type": "infra component (broker, DB, orchestrator, cluster service)",
+      "hours": 5.0
+    },
+    {
+      "name": "Headless Playwright Browser Worker Pool",
+      "task_type": "data pipeline step",
+      "hours": 6.0
+    },
+    {
+      "name": "Content Hashing & Semantic DOM Diff Engine",
+      "task_type": "low-level/system subsystem",
+      "hours": 5.0
+    },
+    {
+      "name": "Crawl Throughput & Deduplication Benchmark Suite",
+      "task_type": "load or performance test harness + report",
+      "hours": 3.0
+    }
+  ],
+  "extended_path": {
+    "features": [
+      "Dynamic rotating proxy pool integration with automated ban detection and IP pool health scoring",
+      "Automated CAPTCHA detection and solving workflow integration using vision models or mock solver stubs",
+      "Visual regression screenshot diffing using pixel-level perceptual hashing (SSIM / perceptual hash)"
+    ],
+    "hours": 14
+  },
+  "milestones": [
+    {
+      "name": "Target Ingestion API & Redis Bloom Filter in Python, FastAPI and Redis",
+      "hours": 7,
+      "done_criterion": "FastAPI registers crawl targets; Redis Bloom filter deduplicates 5,000 URLs with > 99% accuracy."
+    },
+    {
+      "name": "Headless Playwright Crawling Workers in Playwright, Celery and Web Scraping",
+      "hours": 7,
+      "done_criterion": "Celery workers scrape dynamic React SPAs at >= 120 pages/min without zombie memory leaks."
+    },
+    {
+      "name": "DOM Semantic Diffing & Change Webhooks in PostgreSQL and Data Pipelines",
+      "hours": 7,
+      "done_criterion": "Diff engine detects price updates and dispatches alerts in < 10 seconds."
+    },
+    {
+      "name": "Throughput Benchmarking, Anti-Fake Test & Docs",
+      "hours": 7,
+      "done_criterion": "Benchmark verifies crawl throughput; anti-fake test validates dynamic price change; docs complete."
+    }
+  ],
+  "prerequisites": [
+    "Proficiency in Python programming, asynchronous task queues (Celery/RabbitMQ/Redis), and SQL databases",
+    "Understanding of browser automation (Playwright/Puppeteer), DOM manipulation, and HTTP scraping ethics"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (purely CPU and network I/O bound web scraping and data processing)",
+    "cost": "$0 (fully open-source stack using local mock SPA and Docker containers)",
+    "accounts_keys_quotas": "No external cloud accounts, paid services, or proxy subscriptions required",
+    "reference_environment": "Local 4-core CPU with Docker Desktop (Redis, PostgreSQL containers), Python 3.11, and Playwright Chromium",
+    "fallback_path": "Local static HTML file scraping with BeautifulSoup if Playwright browser dependencies fail to install"
+  },
+  "riskiest_component": {
+    "name": "Browser Process Zombie Leaks and Memory Exhaustion in Celery Workers",
+    "mitigation": "Configure Celery worker_max_tasks_per_child (e.g. 50 tasks) to recycle worker processes and close browser contexts explicitly in finally blocks.",
+    "fallback": "Run browser contexts inside lightweight ephemeral Docker containers."
+  },
+  "deliverables": [
+    "Git repository containing Celery crawler tasks, Playwright scraping modules, and diffing engines",
+    "Local mock React e-commerce application serving dynamic pages for reproducible testing",
+    "Automated load testing harness measuring crawling throughput and deduplication accuracy",
+    "Screener verification script executing automated benchmark and dynamic price change alert in under 2 minutes"
+  ],
+  "out_of_scope": [
+    "Commercial paid residential proxy network subscription management",
+    "Illegitimate circumvention of authenticated paywalls or copyrighted content extraction",
+    "Real-time high-frequency financial exchange order routing"
+  ],
+  "safety_note": null,
+  "resources": [
+    "Playwright for Python Documentation: Browser Contexts and Page Automation",
+    "Celery Distributed Task Queue Architecture and Worker Memory Management Manual",
+    "RedisBloom: Probabilistic Data Structures and Bloom Filter Implementation Guide"
+  ],
+  "rubric": [
+    {
+      "input": "500 target SPA product pages rendered by local mock React application",
+      "action": "python -m crawler.benchmark_throughput --pages 500 --workers 4",
+      "expected_result": "Celery workers scrape and persist pages with throughput >= 120 pages per minute",
+      "evidence_location": "Terminal execution output log and reports/crawl_throughput.json",
+      "pass_criterion": "Extraction throughput >= 120 pages/min with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "5,000 crawl requests containing 1,000 distinct URLs repeated 5 times",
+      "action": "python -m crawler.test_bloom_filter --total 5000 --distinct 1000",
+      "expected_result": "Bloom filter suppresses duplicate URLs with deduplication accuracy >= 99.0%",
+      "evidence_location": "Deduplication audit report in reports/bloom_audit.json",
+      "pass_criterion": "Deduplication accuracy >= 99.0% with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "20 simulated product price update events injected into mock web store",
+      "action": "python scripts/test_change_alerts.py --trials 20",
+      "expected_result": "System detects DOM price changes and dispatches webhook alerts with average latency < 10.0s",
+      "evidence_location": "Change detection timing log in reports/change_audit.json",
+      "pass_criterion": "Average alert latency < 10.0s across 20 trials with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "REST request querying latest scraped product snapshot by URL",
+      "action": "curl http://localhost:8000/api/v1/snapshots?url=http://mock-store.local/item/42",
+      "expected_result": "Server returns structured JSON payload containing title, price, currency, and timestamp",
+      "evidence_location": "HTTP response payload",
+      "pass_criterion": "Response status is 200 and JSON contains non-empty price and title fields",
+      "kind": "normal"
+    },
+    {
+      "input": "Dynamic product price update applied on mock store at runtime ($49.99 to $29.99)",
+      "action": "python scripts/verify_dynamic_scrape.py --item-id 882 --new-price 29.99",
+      "expected_result": "Worker crawls page, diff engine computes $20 price drop, and emits alert webhook payload",
+      "evidence_location": "Dynamic verification console execution output log",
+      "pass_criterion": "Alert webhook confirms price change from 49.99 to 29.99 detected with exit code 0",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected distributed web intelligence crawling platform in Python using Playwright and Celery; achieved [CRAWL_THROUGHPUT] pages per minute extraction throughput across dynamic pages, and delivered sub-[ALERT_LATENCY] second change detection notification latency.",
+    "claims": [
+      {
+        "text": "achieved [CRAWL_THROUGHPUT] pages per minute extraction throughput across dynamic pages",
+        "rubric_indexes": [
+          0
+        ]
+      },
+      {
+        "text": "delivered sub-[ALERT_LATENCY] second change detection notification latency",
+        "rubric_indexes": [
+          2
+        ]
+      }
+    ],
+    "do_not_claim": "commercial paid residential proxy network management or circumvention of authenticated paywalls"
+  },
+  "verify": [
+    "Run `python -m pytest tests/` to confirm Playwright scrapers, Bloom filter logic, and diff algorithms pass.",
+    "Execute `python -m crawler.benchmark_throughput` to verify page extraction throughput meets the 120 pages/min benchmark.",
+    "Run `python scripts/verify_dynamic_scrape.py` to assert dynamic price change detection and alert webhook emission."
+  ],
+  "worksheet": {
+    "q1": "Core deliverable: a distributed web crawling platform in Python with Playwright headless browsers, Celery task workers, Redis Bloom filters, and PostgreSQL diff storage.",
+    "q2": "Target users: data pipeline engineers, web scraping specialists, and market intelligence developers.",
+    "q3": "3 use cases: e-commerce price monitoring, job market skill trend intelligence, and corporate regulatory policy tracking.",
+    "q4": "Stated hours: 28 hours. Calculated bottom-up: 24 component hours * 1.15 buffer = 27.6 -> 28 hours. Intermediate level.",
+    "q5": "Hard parts: headless Playwright browser context recycling in Celery without memory leaks, Redis Bloom filter deduplication, DOM semantic diffing, and polite crawl rate limits.",
+    "q6": "Starter input: mock React e-commerce application, Celery configurations, and 500 test URL seed manifests. Synthetic mock data only.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU only, $0 cost, zero cloud accounts. Fallback: local static HTML scraping with BeautifulSoup.",
+    "q8": "Riskiest component: browser zombie memory leaks in Celery. Fallback: worker_max_tasks_per_child=50 and explicit context closing in finally blocks.",
+    "q9": "Potential faking: mock hardcoded diff logs. Anti-fake check 5 updates dynamic mock store price, asserts crawler detects exact price drop to $29.99.",
+    "q10": "Safety/ethics: Safe; local loopback mock web applications and synthetic listings only, zero unauthorized third-party site crawling."
+  }
+}

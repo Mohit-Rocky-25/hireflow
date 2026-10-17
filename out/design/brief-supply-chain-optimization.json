@@ -1,0 +1,339 @@
+{
+  "id": "brief-supply-chain-optimization",
+  "title": "Supply Chain Vehicle Routing Optimizer with Google OR-Tools, OpenStreetMap & FastAPI",
+  "domain": "Algorithms & Applied Math",
+  "difficulty": "INTERMEDIATE",
+  "project_types": [
+    "ML/data pipeline",
+    "Full-stack web"
+  ],
+  "problem": "Last-mile delivery and supply chain logistics fleets waste thousands of fuel hours, fail strict delivery appointment windows, and incur excessive driver overtime costs when route dispatchers rely on manual scheduling or naive greedy distance heuristics. The Vehicle Routing Problem with Time Windows (VRPTW) and capacity constraints is an NP-hard combinatorial optimization challenge where adding even 20 delivery stops creates factorial search spaces that overwhelm standard computing pipelines. This project builds a production-grade supply chain route optimization engine in Python using Google OR-Tools. The system models multi-vehicle capacity limits, customer delivery time windows, and driver shift constraints, calculates real-world distance matrices using OpenStreetMap, solves routes using Guided Local Search metaheuristics in under 15 seconds for 100 stops, and visualizes turn-by-turn routes on interactive React map dashboards.",
+  "use_cases": [
+    {
+      "title": "E-Commerce Urban Last-Mile Parcel Delivery",
+      "first_sentence": "Urban courier delivery fleets dispatching 500 packages daily across 20 vans need optimal delivery sequencing to minimize total transit miles.",
+      "second_sentence": "The solver ingests delivery coordinates and parcel weight packages, generating turn-by-turn routes that reduce fleet vehicle mileage by over 22%."
+    },
+    {
+      "title": "Grocery Cold-Chain Delivery with Strict Time Windows",
+      "first_sentence": "Fresh grocery delivery platforms promising 1-hour customer delivery windows must balance vehicle refrigeration capacities against customer arrival commitments.",
+      "second_sentence": "The OR-Tools routing model enforces strict time window boundaries, ensuring refrigerated delivery vans arrive within designated customer windows without perishable spoilage."
+    },
+    {
+      "title": "Medical Specimen Hospital Pickup Fleet Dispatch",
+      "first_sentence": "Clinical diagnostic laboratories picking up laboratory specimens from regional clinics must guarantee sample pickup within 2 hours of collection.",
+      "second_sentence": "The optimization engine schedules on-demand hospital pickup dispatches, assigning couriers to priority clinic stops while respecting vehicle specimen volume caps."
+    }
+  ],
+  "hard_parts": [
+    "Formulating the multi-vehicle routing problem (VRPTW) in Google OR-Tools with heterogeneous fleet capacities, drop-off service times, and penalty dropped-node costs",
+    "Configuring metaheuristic search strategies (Guided Local Search, Tabu Search) to escape local minima and converge to high-quality solutions within 15 seconds",
+    "Constructing and caching real-world distance and travel-time matrices using OpenStreetMap road network graphs without hitting external API rate limits",
+    "Handling dynamic route recalculations when emergency priority pickup orders are inserted into an active dispatch schedule mid-shift"
+  ],
+  "screener_signals": [
+    "Clean Python codebase cleanly separating the OR-Tools mathematical model, OpenStreetMap matrix calculators, FastAPI optimization routers, and React map views",
+    "Optimization benchmark proving >= 20% total route mileage reduction compared to nearest-neighbor greedy heuristics across 100 delivery stops",
+    "Anti-fake verification script adding an impossible constraint (stop demanding 500kg when max van capacity is 200kg) and asserting the solver drops the node with a penalty violation rather than crashing"
+  ],
+  "job_families": [
+    "Operations Research Engineer",
+    "Logistics Platform Software Developer",
+    "Applied Math / Algorithm Engineer"
+  ],
+  "stack": [
+    {
+      "tool": "Python",
+      "role": "primary backend language implementing mathematical routing models, distance caches, and REST services"
+    },
+    {
+      "tool": "OR-Tools",
+      "role": "Google operations research constraint programming and vehicle routing solver library"
+    },
+    {
+      "tool": "OpenStreetMap",
+      "role": "open-source geospatial road network dataset providing routing coordinates and travel time graphs"
+    },
+    {
+      "tool": "FastAPI",
+      "role": "asynchronous web framework serving optimization submission endpoints and solution payloads"
+    },
+    {
+      "tool": "React",
+      "role": "frontend dashboard framework rendering interactive route polylines and delivery stop markers"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "OR-Tools Constraint Programming & Vehicle Routing Solver",
+        "tools_used": [
+          "Python",
+          "OR-Tools"
+        ],
+        "purpose": "Constructs routing index managers, registers transit callbacks, sets vehicle capacity dimensions, and executes Guided Local Search"
+      },
+      {
+        "name": "OpenStreetMap Geocoding & Distance Matrix Cache Worker",
+        "tools_used": [
+          "Python",
+          "OpenStreetMap"
+        ],
+        "purpose": "Calculates pairwise travel duration and distance matrices from road network coordinates and caches matrices in SQLite"
+      },
+      {
+        "name": "FastAPI Route Optimization API & Dispatch Fleet Scheduler",
+        "tools_used": [
+          "Python",
+          "FastAPI"
+        ],
+        "purpose": "Validates fleet dispatch requests, triggers asynchronous solver jobs, and formats turn-by-turn route itineraries"
+      },
+      {
+        "name": "Interactive Fleet Route Map & Turn-by-Turn React Dashboard",
+        "tools_used": [
+          "Python",
+          "React"
+        ],
+        "purpose": "Renders delivery stops, color-coded vehicle path polylines, customer time window badges, and vehicle capacity meters"
+      },
+      {
+        "name": "Routing Solver Efficiency & Solution Cost Benchmark Harness",
+        "tools_used": [
+          "Python",
+          "OR-Tools"
+        ],
+        "purpose": "Benchmarks solver convergence speed, mileage savings over greedy baselines, and time window violation penalties"
+      },
+      {
+        "name": "Supply Chain Optimization Guide & Vehicle Routing Manual",
+        "tools_used": [
+          "Python",
+          "OR-Tools"
+        ],
+        "purpose": "Documents VRPTW mathematical formulations, metaheuristic tuning parameters, and OpenStreetMap graph setups"
+      }
+    ],
+    "data_flow": "A dispatcher submits 100 delivery orders with customer coordinates, package weights, and delivery windows to FastAPI; the distance matrix worker checks its local SQLite cache for pairwise travel times (or computes Haversine/OSM routes) and returns a 100x100 matrix; the OR-Tools model creates the RoutingIndexManager, adds vehicle capacity constraints (max 1,000kg per van across 5 vans), and defines time window dimensions; the solver executes Guided Local Search with a 15-second time limit; the optimal route sequence, arrival times, and vehicle assignments return via JSON; the React dashboard renders delivery polylines and stop markers on an interactive map.",
+    "enforcement_mechanism": "Hard constraint dimensions on vehicle capacities and time windows rejecting infeasible assignment combinations."
+  },
+  "targets": [
+    {
+      "metric": "Mileage Reduction Over Greedy Baseline",
+      "method": "Total fleet transit mileage reduction achieved by Guided Local Search compared to nearest-neighbor greedy heuristic across 100 stops",
+      "input": "100 benchmark delivery stops distributed across a 50km urban radius with 5 delivery vehicles",
+      "environment": "Standard 4-core local CPU, Python 3.11 with Google OR-Tools 9.7+",
+      "minimum_pass": "Total fleet mileage reduction is >= 18.0% over greedy baseline",
+      "target": "Total fleet mileage reduction is >= 24.5% over greedy baseline",
+      "report": "Route optimization cost comparison report and mileage reduction breakdown"
+    },
+    {
+      "metric": "100-Stop Solver Convergence Execution Latency",
+      "method": "Wall-clock timing from optimization initiation to solution extraction for a 100-stop multi-vehicle VRPTW problem",
+      "input": "100 customer delivery stops with time windows and 5 capacity-constrained delivery vans",
+      "environment": "Standard 4-core local CPU, OR-Tools solver with 15-second search time limit",
+      "minimum_pass": "Solver returns feasible high-quality solution in < 15.0 seconds",
+      "target": "Solver returns feasible high-quality solution in < 7.5 seconds",
+      "report": "Solver convergence profiling log and objective function progression curve"
+    },
+    {
+      "metric": "Delivery Time Window & Capacity Violation Parity Rate",
+      "method": "Percentage of generated vehicle routes satisfying 100% of defined customer delivery time windows and capacity caps",
+      "input": "50 simulated delivery dispatch runs with strict 1-hour customer arrival windows and 500kg vehicle caps",
+      "environment": "Deterministic mathematical constraint validation test suite in Python",
+      "minimum_pass": "50 of 50 delivery dispatch runs exhibit 0 time window and 0 capacity constraint violations",
+      "target": "50 of 50 delivery dispatch runs exhibit 0 time window and 0 capacity constraint violations",
+      "report": "Constraint satisfaction audit log and schedule feasibility verification"
+    }
+  ],
+  "skills": [
+    "Python",
+    "OR-Tools",
+    "OpenStreetMap",
+    "FastAPI",
+    "React",
+    "Algorithms",
+    "Operations Research"
+  ],
+  "starter_input": {
+    "spec": "Directory containing OR-Tools VRPTW solver code, OpenStreetMap distance calculator, FastAPI service, and React map viewer.",
+    "size": "8 Python source modules, React map component, sample 100-stop urban coordinate dataset, and automated benchmark harness",
+    "seeded_cases": "Overlapping customer time windows, tight vehicle capacity bottlenecks, unreachable road coordinates, and isolated outlier stops",
+    "label_source": "Deterministic OR-Tools objective values and mathematical constraint validation assertions",
+    "personal_data_policy": "Strictly mock synthetic customer delivery addresses and simulated package weights; no real personal data used"
+  },
+  "components": [
+    {
+      "name": "OR-Tools Constraint Programming & Vehicle Routing Solver",
+      "task_type": "low-level/system subsystem",
+      "hours": 6.0
+    },
+    {
+      "name": "OpenStreetMap Geocoding & Distance Matrix Cache Worker",
+      "task_type": "data pipeline step",
+      "hours": 5.0
+    },
+    {
+      "name": "FastAPI Route Optimization API & Dispatch Fleet Scheduler",
+      "task_type": "API endpoint group with tests",
+      "hours": 4.0
+    },
+    {
+      "name": "Interactive Fleet Route Map & Turn-by-Turn React Dashboard",
+      "task_type": "one UI view with state",
+      "hours": 4.0
+    },
+    {
+      "name": "Routing Solver Efficiency & Solution Cost Benchmark Harness",
+      "task_type": "load or performance test harness + report",
+      "hours": 3.0
+    },
+    {
+      "name": "Supply Chain Optimization Guide & Vehicle Routing Manual",
+      "task_type": "docs + architecture diagram",
+      "hours": 2.0
+    }
+  ],
+  "extended_path": {
+    "features": [
+      "Dynamic real-time traffic congestion factor integration scaling travel times based on time of day",
+      "Electric vehicle (EV) charging station detour scheduling considering battery range and charging duration",
+      "Pickup-and-delivery paired constraints (PDPTW) ensuring items are picked up before corresponding deliveries"
+    ],
+    "hours": 14
+  },
+  "milestones": [
+    {
+      "name": "OR-Tools VRPTW Formulation & Constraints in Python and OR-Tools",
+      "hours": 7,
+      "done_criterion": "Solver models capacity and time windows; Guided Local Search converges to feasible routes."
+    },
+    {
+      "name": "OpenStreetMap Distance Matrix & Geocoding in OpenStreetMap and Algorithms",
+      "hours": 7,
+      "done_criterion": "Distance matrix worker calculates pairwise times; SQLite caches road network distances."
+    },
+    {
+      "name": "FastAPI Solver API & React Route Map Dashboard in FastAPI and React",
+      "hours": 7,
+      "done_criterion": "FastAPI serves optimization jobs; React UI renders interactive vehicle routes and stop markers."
+    },
+    {
+      "name": "Mileage Reduction Benchmark, Infeasible Drop Anti-Fake Test & Docs in Operations Research",
+      "hours": 7,
+      "done_criterion": "Benchmark confirms >= 18% mileage reduction; anti-fake test drops overweight stop; docs complete."
+    }
+  ],
+  "prerequisites": [
+    "Proficiency in Python programming, combinatorial optimization algorithms, and FastAPI",
+    "Understanding of Operations Research principles (linear programming, constraint satisfaction, vehicle routing problems)"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (purely CPU bound constraint programming algorithms and local web servers)",
+    "cost": "$0 (fully open-source stack using local Python, OR-Tools, and open geospatial datasets)",
+    "accounts_keys_quotas": "No external Google Maps paid API keys required (uses open-source OpenStreetMap / Haversine matrices)",
+    "reference_environment": "Local 4-core CPU with Python 3.11, Google OR-Tools 9.7+, and Node.js (for React map viewer)",
+    "fallback_path": "Calculated geometric Euclidean/Haversine distance matrices if local OpenStreetMap server is unavailable"
+  },
+  "riskiest_component": {
+    "name": "Combinatorial Explosion Causing Solver Timeout on Complex Time Windows",
+    "mitigation": "Set strict solver time limits (15 seconds) and use initial greedy heuristic solutions (PATH_CHEAPEST_ARC) before metaheuristic refinement.",
+    "fallback": "Cluster stops into geographical zones using K-Means and solve smaller sub-problems independently."
+  },
+  "deliverables": [
+    "Git repository containing OR-Tools routing engine, distance matrix calculator, FastAPI service, and React map viewer",
+    "Sample 100-stop benchmark dataset with customer time windows and parcel weight attributes",
+    "Automated evaluation benchmark script comparing Guided Local Search mileage against greedy heuristics",
+    "Screener verification script executing automated 100-stop optimization and dynamic constraint violation test in under 2 minutes"
+  ],
+  "out_of_scope": [
+    "Commercial Google Maps Route Optimization paid API integrations",
+    "Turn-by-turn mobile GPS turn navigation audio synthesis",
+    "Autonomous drone flight path 3D aerodynamic routing"
+  ],
+  "safety_note": null,
+  "resources": [
+    "Google OR-Tools Vehicle Routing Problem Documentation & Guides",
+    "The Vehicle Routing Problem with Time Windows (Solomon, Transportation Science)",
+    "OpenStreetMap OSRM Routing Engine Documentation"
+  ],
+  "rubric": [
+    {
+      "input": "100 benchmark delivery stops solved using Guided Local Search vs greedy heuristic",
+      "action": "python ./benchmarks/bench_mileage.py --stops 100 --vehicles 5",
+      "expected_result": "OR-Tools Guided Local Search achieves >= 18.0% mileage reduction compared to greedy baseline",
+      "evidence_location": "Terminal output log and reports/mileage_comparison.json",
+      "pass_criterion": "Mileage reduction >= 18.0% with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "100-stop multi-vehicle VRPTW problem submitted to optimization solver",
+      "action": "python ./solver/run_vrptw.py --stops 100 --timeout 15",
+      "expected_result": "Solver converges to feasible schedule with 0 constraint violations in < 15.0 seconds",
+      "evidence_location": "Optimization execution log in reports/solver_timing.json",
+      "pass_criterion": "Execution latency < 15.0s with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "50 simulated dispatch runs with strict 1-hour customer delivery windows",
+      "action": "python ./tests/test_time_windows.py --runs 50",
+      "expected_result": "All 50 runs satisfy time windows with 0 arrival violations across all delivery stops",
+      "evidence_location": "Constraint satisfaction test log in reports/window_audit.json",
+      "pass_criterion": "0 arrival violations with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "FastAPI request submitting 20 delivery stops and requesting route GeoJSON",
+      "action": "curl -X POST http://localhost:8000/api/v1/optimize -H 'Content-Type: application/json' -d @data/sample_stops.json",
+      "expected_result": "API responds with vehicle routes, stop sequences, and GeoJSON polylines in < 5 seconds",
+      "evidence_location": "HTTP response JSON and route itinerary file",
+      "pass_criterion": "Response status 200 with non-empty route polylines and exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Impossible delivery request with 500kg parcel where all available vehicles have 200kg capacity",
+      "action": "python ./scripts/verify_unfeasible_drop.py --overweight-kg 500 --max-capacity-kg 200",
+      "expected_result": "Solver detects capacity violation, drops the unfeasible stop with penalty, and solves remaining stops",
+      "evidence_location": "Dynamic verification console execution output log",
+      "pass_criterion": "Console confirms unfeasible node dropped with penalty and remaining solved with exit code 0",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected supply chain vehicle routing optimizer in Python using Google OR-Tools and OpenStreetMap; reduced fleet transit mileage by [MILEAGE_REDUCTION] over heuristic baselines, and converged multi-vehicle schedules across [STOP_COUNT] stops in sub-[SOLVER_LATENCY] seconds.",
+    "claims": [
+      {
+        "text": "reduced fleet transit mileage by [MILEAGE_REDUCTION] over heuristic baselines",
+        "rubric_indexes": [
+          0
+        ]
+      },
+      {
+        "text": "converged multi-vehicle schedules across [STOP_COUNT] stops in sub-[SOLVER_LATENCY] seconds",
+        "rubric_indexes": [
+          1
+        ]
+      }
+    ],
+    "do_not_claim": "paid Google Maps commercial API usage or autonomous drone aerodynamic pathing"
+  },
+  "verify": [
+    "Run `pytest tests/` to confirm OR-Tools model formulations, distance matrix caching, and FastAPI endpoints pass.",
+    "Execute `python ./benchmarks/bench_mileage.py` to verify mileage reduction exceeds 18% threshold.",
+    "Run `python ./scripts/verify_unfeasible_drop.py` to assert unfeasible stops are dropped gracefully."
+  ],
+  "worksheet": {
+    "q1": "Core deliverable: a supply chain vehicle routing optimizer in Python using Google OR-Tools, OpenStreetMap, and FastAPI.",
+    "q2": "Target users: operations research engineers, logistics platform developers, and algorithm engineers.",
+    "q3": "3 use cases: e-commerce urban parcel delivery, grocery cold-chain delivery with time windows, and medical specimen hospital pickups.",
+    "q4": "Stated hours: 28 hours. Calculated bottom-up: 24 component hours * 1.15 buffer = 27.6 -> 28 hours. Intermediate level.",
+    "q5": "Hard parts: VRPTW capacity and time window constraint formulations, Guided Local Search convergence, OpenStreetMap distance caching, and dynamic re-routing.",
+    "q6": "Starter input: OR-Tools solver code, distance matrix calculator, FastAPI service, and 100-stop urban coordinate dataset. Synthetic data only.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU bound, $0 cost using open-source OR-Tools and OpenStreetMap. Zero paid Google keys.",
+    "q8": "Riskiest component: combinatorial explosion causing solver timeouts. Fallback: 15-second time limits and initial PATH_CHEAPEST_ARC solutions.",
+    "q9": "Potential faking: returning simple straight-line order without solving constraints. Anti-fake check 5 injects an impossible 500kg stop into 200kg vans and asserts penalty node dropping.",
+    "q10": "Safe; synthetic delivery coordinates and simulated parcel weights only, zero personal data."
+  }
+}

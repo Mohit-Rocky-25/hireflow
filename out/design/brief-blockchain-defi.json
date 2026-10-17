@@ -1,0 +1,317 @@
+{
+  "id": "brief-blockchain-defi",
+  "title": "DeFi Lending Protocol Smart Contract on Ethereum",
+  "domain": "Blockchain & Web3",
+  "difficulty": "ADVANCED",
+  "project_types": [
+    "Blockchain/smart contracts"
+  ],
+  "problem": "Traditional financial lending requires credit scoring intermediaries, physical collateral appraisals, and centralized custody. Decentralized finance protocols enable permissionless overcollateralized lending through autonomous smart contracts that adjust borrowing interest rates algorithmically and enforce liquidations when collateral valuations drop. Developing robust lending protocols requires mitigating critical vulnerabilities such as reentrancy exploits, flash loan price manipulation, rounding errors, and gas exhaustion while maintaining deterministic financial invariants.",
+  "use_cases": [
+    "Algorithmic crypto-asset lending with dynamic supply and borrow interest rate curves",
+    "Overcollateralized stablecoin borrowing against cryptocurrency reserve assets",
+    "Automated collateral liquidation bots monitoring position health factors via price oracles"
+  ],
+  "hard_parts": [
+    "Preventing reentrancy vulnerabilities across state mutations and external token transfers using the checks-effects-interactions pattern",
+    "Formulating the Jump Rate interest model using integer fixed-point arithmetic without precision loss or overflow",
+    "Securing liquidation transactions against oracle manipulation and front-running via staleness threshold checks",
+    "Minimizing gas consumption across high-frequency deposit, borrow, and liquidation execution paths"
+  ],
+  "screener_signals": [
+    "Comprehensive Hardhat test suite with mainnet fork tests simulating price drop liquidations",
+    "Automated Slither static analysis report confirming zero high or critical security vulnerabilities",
+    "Gas consumption report generated via hardhat-gas-reporter establishing bounded execution costs"
+  ],
+  "job_families": [
+    "Smart Contract Engineer",
+    "Blockchain Security Engineer",
+    "Web3 Protocol Developer"
+  ],
+  "stack": [
+    {
+      "tool": "Solidity",
+      "role": "smart contract implementation language enforcing EVM state transitions"
+    },
+    {
+      "tool": "Hardhat",
+      "role": "local Ethereum development environment, compiler, and test runner"
+    },
+    {
+      "tool": "Ethers.js",
+      "role": "client library for interacting with deployed EVM contracts in tests"
+    },
+    {
+      "tool": "OpenZeppelin",
+      "role": "audited base contracts providing ReentrancyGuard and ERC20 interfaces"
+    },
+    {
+      "tool": "Slither",
+      "role": "static analysis framework detecting common smart contract security flaws"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "Lending Pool Core Contract",
+        "tools_used": [
+          "Solidity",
+          "OpenZeppelin"
+        ],
+        "purpose": "Manages collateral deposits, borrow balances, and reserves with reentrancy guards"
+      },
+      {
+        "name": "Jump Rate Interest Model",
+        "tools_used": [
+          "Solidity"
+        ],
+        "purpose": "Computes dynamic borrow and supply interest rates based on pool utilization ratio"
+      },
+      {
+        "name": "Price Oracle Adapter",
+        "tools_used": [
+          "Solidity"
+        ],
+        "purpose": "Interfaces with Chainlink price feeds with heartbeat and deviation threshold validation"
+      },
+      {
+        "name": "Liquidation Engine",
+        "tools_used": [
+          "Solidity"
+        ],
+        "purpose": "Allows external liquidators to repay underwater loans in exchange for discounted collateral"
+      },
+      {
+        "name": "Hardhat Fork Simulation Suite",
+        "tools_used": [
+          "Hardhat",
+          "Ethers.js"
+        ],
+        "purpose": "Executes integration scenarios including oracle crashes and liquidation cascades"
+      }
+    ],
+    "data_flow": "Users deposit ERC20 collateral into the lending pool; borrowers draw loans against collateral up to maximum loan-to-value limits; interest accrues algorithmically each second based on pool utilization; price feeds update asset values; if an account health factor drops below 1.0, third-party liquidators repay up to 50% of the debt and seize collateral with a liquidation incentive bonus.",
+    "enforcement_mechanism": "ReentrancyGuard prevents reentrant state modifications; pool checks require health factor >= 1.0 prior to borrow and withdrawal completion."
+  },
+  "targets": [
+    {
+      "metric": "Deposit and Borrow Gas Consumption Ceiling",
+      "method": "Measurement via hardhat-gas-reporter on standard EVM execution trace",
+      "input": "Simulated ERC20 deposit and borrow function calls under standard pool state",
+      "environment": "Hardhat local EVM node with London/Cancun EVM rules",
+      "minimum_pass": "deposit() gas < 95,000 and borrow() gas < 160,000",
+      "target": "deposit() gas < 80,000 and borrow() gas < 135,000",
+      "report": "hardhat-gas-reporter execution summary table"
+    },
+    {
+      "metric": "Liquidation Invariant Verification",
+      "method": "Hardhat simulation test simulating 30% collateral asset price crash via mock oracle",
+      "input": "100 distinct borrower positions with varying loan-to-value ratios between 60% and 90%",
+      "environment": "Hardhat local test network, Node.js 18+",
+      "minimum_pass": "100 of 100 underwater positions liquidated without pool insolvency",
+      "target": "100 of 100 underwater positions liquidated without pool insolvency",
+      "report": "Hardhat test execution log reporting position health factors and recovered collateral"
+    },
+    {
+      "metric": "Static Security Vulnerability Count",
+      "method": "Slither static analysis scan executed across all smart contract source files",
+      "input": "Complete Solidity codebase including pool, interest rate model, and oracle adapters",
+      "environment": "Standard local CPU, Python Slither 0.10+",
+      "minimum_pass": "0 high and 0 medium severity issues reported by Slither",
+      "target": "0 high, 0 medium, and 0 low severity issues reported by Slither",
+      "report": "Slither JSON output report summarizing detector results"
+    }
+  ],
+  "skills": [
+    "Solidity",
+    "Hardhat",
+    "Ethers.js",
+    "OpenZeppelin",
+    "Slither",
+    "Smart Contracts",
+    "Security"
+  ],
+  "starter_input": {
+    "spec": "Standard mock ERC20 token contracts and mock price oracle contracts with programmable prices.",
+    "size": "2 mock ERC20 tokens (WETH and USDC) and 1 mock Chainlink price feed aggregator",
+    "seeded_cases": "Zero-utilization cold pool, 99% utilization pool, oracle price drop of 40%, and reentrancy attack callback tokens",
+    "label_source": "Deterministic Hardhat test fixtures and mathematical spreadsheet interest models",
+    "personal_data_policy": "Strictly local EVM mock accounts; no personal data or live private keys used"
+  },
+  "components": [
+    {
+      "name": "Lending Pool Core & Accounting",
+      "task_type": "concurrency/consistency mechanism with tests",
+      "hours": 5.0
+    },
+    {
+      "name": "Jump Rate Model Fixed-Point Math",
+      "task_type": "model train + evaluate cycle",
+      "hours": 5.0
+    },
+    {
+      "name": "Oracle Integration & Liquidation Logic",
+      "task_type": "one third-party integration",
+      "hours": 5.0
+    },
+    {
+      "name": "Hardhat Fork & Chaos Test Harness",
+      "task_type": "load or performance test harness + report",
+      "hours": 5.0
+    },
+    {
+      "name": "Security Hardening & Slither Audits",
+      "task_type": "security hardening checks",
+      "hours": 3.0
+    },
+    {
+      "name": "Test Dashboard, Diagrams & Buffer",
+      "task_type": "docs + architecture diagram",
+      "hours": 7.0
+    }
+  ],
+  "extended_path": {
+    "items": [
+      "Flash loan borrowing facility with EIP-3156 standard interface and fee collection",
+      "Multi-collateral risk parameters allowing isolated lending markets for volatile tokens"
+    ],
+    "hours": 15
+  },
+  "milestones": [
+    {
+      "name": "Pool Core Accounting & ERC20 Smart Contracts Vault",
+      "hours": 9,
+      "done_criterion": "Smart contracts compile with solc; unit tests confirm deposit, borrow, and interest accrual mechanics."
+    },
+    {
+      "name": "Jump Rate Model & Oracle Integration",
+      "hours": 8,
+      "done_criterion": "Fixed-point interest rates update based on utilization; Chainlink oracle adapter validates price freshness."
+    },
+    {
+      "name": "Liquidation Engine & Hardhat Fork Invariant Tests",
+      "hours": 9,
+      "done_criterion": "Liquidation tests confirm debt repayment and collateral seizure when health factor drops below 1.0."
+    },
+    {
+      "name": "Slither Security Audit, Gas Benchmarks & Docs Buffer",
+      "hours": 8,
+      "done_criterion": "Slither scan passes with zero high/medium issues; gas reporter benchmarks pass; architecture docs complete."
+    }
+  ],
+  "prerequisites": [
+    "Intermediate Solidity programming (inheritance, modifiers, memory vs storage)",
+    "Familiarity with ERC-20 token standards and EVM execution mechanics",
+    "Basic knowledge of DeFi lending primitives (LTV, collateralization ratio, oracles)"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (purely CPU-bound EVM emulation)",
+    "cost": "$0 (local Hardhat network and public testnets)",
+    "accounts_keys_quotas": "No paid RPC keys or mainnet ETH required; uses local Hardhat accounts",
+    "reference_environment": "Local 4-core CPU with Node.js 18+ and Python 3.10+ (for Slither)",
+    "fallback_path": "Solidity compiler built-in tests without Slither if Python environment is restricted"
+  },
+  "riskiest_component": {
+    "name": "Fixed-Point Arithmetic Rounding Errors in Debt Accrual",
+    "fallback": "Adopt OpenZeppelin Math library for multiplication and division with explicit rounding direction"
+  },
+  "deliverables": [
+    "Git repository containing Solidity contracts, Hardhat test scripts, and deployment configurations",
+    "Slither security analysis log file demonstrating zero critical/high findings",
+    "Hardhat gas consumption report detailing gas metrics across all public entrypoints",
+    "Screener verification script executing automated test suites in under 3 minutes"
+  ],
+  "out_of_scope": [
+    "Mainnet contract deployment with real capital",
+    "Automated decentralized governance voting modules",
+    "Cross-chain bridge integrations"
+  ],
+  "safety_note": null,
+  "resources": [
+    "Ethereum Improvement Proposal EIP-20 Token Standard specification",
+    "OpenZeppelin Contracts security documentation and ReentrancyGuard",
+    "Slither Static Analysis Framework documentation and detector list"
+  ],
+  "rubric": [
+    {
+      "input": "npx hardhat test command execution",
+      "action": "Run complete unit test suite across pool and interest rate model",
+      "expected_result": "All test assertions pass verifying deposit, borrow, repay, and withdrawal balances",
+      "evidence_location": "Hardhat test console execution log",
+      "pass_criterion": "Exit code 0 with 25 passing test cases and zero assertion failures",
+      "kind": "normal"
+    },
+    {
+      "input": "Mock price crash scenario dropping collateral asset price by 30%",
+      "action": "Execute npx hardhat test test/liquidation.test.js",
+      "expected_result": "Liquidator successfully calls liquidate(), receiving seized collateral and discount incentive",
+      "evidence_location": "Liquidation test execution summary output",
+      "pass_criterion": "Account health factor restored to >= 1.0 and transaction succeeds with event LiquidationCall emitted",
+      "kind": "normal"
+    },
+    {
+      "input": "Slither static security analysis execution",
+      "action": "Run slither . --exclude-dependencies",
+      "expected_result": "Slither scans all contract files and outputs vulnerability summary",
+      "evidence_location": "slither_report.json or terminal output log",
+      "pass_criterion": "Zero high and zero medium severity security issues detected",
+      "kind": "normal"
+    },
+    {
+      "input": "hardhat-gas-reporter plugin enabled in hardhat.config.js",
+      "action": "Run REPORT_GAS=true npx hardhat test",
+      "expected_result": "Gas report generates table of average gas costs per method call",
+      "evidence_location": "Gas reporter console output table",
+      "pass_criterion": "deposit() method consumes < 95,000 gas and borrow() consumes < 160,000 gas",
+      "kind": "normal"
+    },
+    {
+      "input": "Malicious reentrant attacker contract attempting recursive borrow drain",
+      "action": "Run npx hardhat test test/reentrancy_attack.test.js",
+      "expected_result": "Lending pool detects reentrancy and reverts transaction with custom error",
+      "evidence_location": "Terminal test output log",
+      "pass_criterion": "Attack transaction fails with revert error ReentrancyGuardReentrantCall",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected decentralized overcollateralized lending protocol in Solidity using Hardhat and OpenZeppelin; implemented Jump Rate dynamic interest curves, automated liquidation engine, and verified gas ceilings under [DEPOSIT_GAS] gas per deposit with [AUDIT_ISSUES] critical vulnerabilities on Slither static audit.",
+    "claims": [
+      {
+        "text": "implemented Jump Rate dynamic interest curves, automated liquidation engine",
+        "rubric_indexes": [
+          0,
+          1
+        ]
+      },
+      {
+        "text": "verified gas ceilings under [DEPOSIT_GAS] gas per deposit",
+        "rubric_indexes": [
+          3
+        ]
+      },
+      {
+        "text": "[AUDIT_ISSUES] critical vulnerabilities on Slither static audit",
+        "rubric_indexes": [
+          2
+        ]
+      }
+    ],
+    "do_not_claim": "managing live mainnet total value locked or audited production security without professional third-party certification"
+  },
+  "verify": [],
+  "worksheet": {
+    "q1": "The student builds an overcollateralized DeFi lending protocol in Solidity featuring dynamic Jump Rate interest calculations, Chainlink oracle adapters, liquidation mechanics, and Slither security hardening.",
+    "q2": "Core path: lending pool vault, Jump Rate math, oracle adapter, liquidation engine, and Slither audit (34h). Extended path: flash loans and multi-collateral risk parameters (+15h).",
+    "q3": "Components: Pool Core (5h), Jump Rate Math (5h), Liquidation Logic (5h), Fork Test Harness (5h), Security Hardening (3h), Docs & Buffer (7h). Total 30h x 1.15 = 34.5 -> 34h.",
+    "q4": "Project types: Blockchain/smart contracts. Metrics: Gas Consumption Ceilings, Liquidation Invariants, Static Vulnerability Count. Rejected: web-service RPS throughput (inappropriate for smart contracts).",
+    "q5": "Hard parts: reentrancy prevention, fixed-point interest rate math, oracle manipulation resistance, and EVM gas minimization.",
+    "q6": "Starter input: mock ERC20 tokens and mock price aggregator contracts with deterministic seed scenarios. No personal data.",
+    "q7": "Hardware: Linux/macOS/Windows, 8GB RAM, CPU only, $0 cost, zero real ETH. Fallback: local Hardhat node without external RPCs.",
+    "q8": "Riskiest component: Fixed-point math precision loss. Fallback: OpenZeppelin Math library.",
+    "q9": "Potential faking: mocked test scripts. Anti-fake check 5 executes an actual reentrancy exploit contract and asserts EVM revert with exact guard error.",
+    "q10": "Safety/ethics: Safe; local testnet execution with mock tokens; no real funds at risk."
+  }
+}

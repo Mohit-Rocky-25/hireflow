@@ -1,0 +1,342 @@
+{
+  "id": "brief-terraform-cloud-infra",
+  "title": "Production Infrastructure as Code with Modular Terraform, TFLint & LocalStack Cloud Emulation",
+  "domain": "Platform & DevOps",
+  "difficulty": "INTERMEDIATE",
+  "project_types": [
+    "Cloud architecture",
+    "Platform/infra tool"
+  ],
+  "problem": "Software engineering teams managing cloud resources through ad-hoc manual console clicking or monolithic copy-pasted configuration files suffer from severe configuration drift, untracked security misconfigurations, and catastrophic accidental resource destructions. Furthermore, practicing Infrastructure as Code (IaC) against live cloud provider environments incurs unpredictable monthly billing, risks accidental credential leakage, and creates slow feedback cycles. This project builds a production-grade infrastructure-as-code automation platform in Terraform. The system provisions a multi-tier cloud topology (VPC, public/private subnets, ECS Fargate containers, Application Load Balancers, RDS PostgreSQL, and CloudWatch alarms) using reusable Terraform modules, enforces strict static linting and security scanning with TFLint and Checkov, validates state deployments offline on LocalStack, and executes automated plan/apply CI/CD workflows with zero cloud expenses.",
+  "use_cases": [
+    {
+      "title": "Multi-Environment Staging and Production Parity",
+      "first_sentence": "Enterprise software platform teams require identical infrastructure topology across staging, QA, and production environments.",
+      "second_sentence": "Parameterized Terraform modules deploy environment tiers with variable sizing while maintaining identical networking and security group topologies."
+    },
+    {
+      "title": "Automated Pull Request Infrastructure Drift Detection",
+      "first_sentence": "DevOps teams need continuous verification that cloud resource states match declared Git repositories without out-of-band manual drift.",
+      "second_sentence": "Scheduled GitHub Actions workflows execute `terraform plan -detailed-exitcode` against LocalStack, alerting engineers immediately upon drift detection."
+    },
+    {
+      "title": "Automated Security Compliance Policy Gate",
+      "first_sentence": "Security operations teams must ensure no S3 buckets are public and all database storage volumes are encrypted before infrastructure commits.",
+      "second_sentence": "Pre-commit Checkov and TFLint static analysis hooks inspect Terraform HCL code, automatically blocking commits that violate defined security standards."
+    }
+  ],
+  "hard_parts": [
+    "Structuring reusable, composable Terraform modules (networking, compute, database, monitoring) with strict input type constraints and sensible default variables",
+    "Configuring LocalStack Docker container environments to emulate AWS VPC, ECS, RDS, and CloudWatch APIs with accurate resource attribute mappings",
+    "Integrating static analysis scanners (TFLint and Checkov) into pre-commit and CI/CD pipelines to catch security violations prior to deployment",
+    "Designing atomic remote state management strategies with S3 backend locking simulation and sensitive variable isolation"
+  ],
+  "screener_signals": [
+    "Clean Terraform codebase cleanly separating root environment entrypoints, reusable `/modules/` subdirectories, TFLint rules, and Checkov policy configs",
+    "Automated deployment benchmark report proving complete multi-tier infrastructure provisioning and verification in under 90 seconds on LocalStack",
+    "Anti-fake verification script attempting to commit an unencrypted RDS database and public ingress security group and asserting Checkov fails with exit code 1"
+  ],
+  "job_families": [
+    "DevOps Engineer",
+    "Cloud Infrastructure Architect",
+    "Platform Systems Software Engineer"
+  ],
+  "stack": [
+    {
+      "tool": "Terraform",
+      "role": "declarative infrastructure as code tool defining cloud resources, modules, and state backends"
+    },
+    {
+      "tool": "LocalStack",
+      "role": "local cloud emulator providing offline AWS VPC, ECS, RDS, and CloudWatch APIs at $0 cost"
+    },
+    {
+      "tool": "Docker",
+      "role": "container runtime hosting LocalStack and testing containerized application deployments"
+    },
+    {
+      "tool": "TFLint",
+      "role": "Terraform linter checking for syntax errors, deprecated syntax, and provider-specific best practices"
+    },
+    {
+      "tool": "GitHub Actions",
+      "role": "continuous integration workflow engine executing automated plan, security scan, and apply stages"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "Modular Terraform VPC & Network Foundation Architecture",
+        "tools_used": [
+          "Terraform",
+          "LocalStack"
+        ],
+        "purpose": "Provisions custom VPC with public and private subnets across 2 availability zones, route tables, and NAT gateways"
+      },
+      {
+        "name": "Terraform ECS Fargate Application & Load Balancer Module",
+        "tools_used": [
+          "Terraform",
+          "LocalStack",
+          "Docker"
+        ],
+        "purpose": "Configures ECS cluster, task definitions, Fargate services, Application Load Balancers, and target groups"
+      },
+      {
+        "name": "Terraform RDS Database & CloudWatch Observability Module",
+        "tools_used": [
+          "Terraform",
+          "LocalStack"
+        ],
+        "purpose": "Deploys PostgreSQL RDS database with storage encryption and provisions CloudWatch metric alarms"
+      },
+      {
+        "name": "TFLint Static Analysis, Checkov Security & Policy Enforcement Layer",
+        "tools_used": [
+          "Terraform",
+          "TFLint"
+        ],
+        "purpose": "Executes static linting and security scanning against HCL modules to enforce encryption and tagging policies"
+      },
+      {
+        "name": "LocalStack Automated Plan, Apply & Drift Detection Benchmark Harness",
+        "tools_used": [
+          "Terraform",
+          "LocalStack",
+          "GitHub Actions"
+        ],
+        "purpose": "Executes automated end-to-end plan, apply, and destroy lifecycles and measures provisioning latency"
+      },
+      {
+        "name": "Infrastructure as Code Modular Architecture Guide & Runbook",
+        "tools_used": [
+          "Terraform",
+          "LocalStack"
+        ],
+        "purpose": "Documents module inputs/outputs, state file locking procedures, and LocalStack endpoint override configs"
+      }
+    ],
+    "data_flow": "An engineer modifies an infrastructure parameter in `environments/staging/`; GitHub Actions triggers a CI workflow; TFLint and Checkov scan the Terraform code for syntax errors and security policy violations; if clean, the workflow initializes Terraform pointing provider endpoints to LocalStack at `http://localhost:4566`; `terraform plan` executes, generating an execution plan artifact; `terraform apply` applies the plan, creating the VPC, subnets, ECS Fargate cluster, RDS database, and CloudWatch alarms in LocalStack; automated verification scripts run health checks against the provisioned ALB endpoint; `terraform plan -detailed-exitcode` verifies zero drift.",
+    "enforcement_mechanism": "Checkov policy rules blocking insecure HCL configurations; Terraform state locking preventing concurrent execution races."
+  },
+  "targets": [
+    {
+      "metric": "End-to-End Infrastructure Provisioning Latency",
+      "method": "Wall-clock timing to execute `terraform apply` across multi-tier modular architecture (VPC, ECS, RDS, CloudWatch) on LocalStack",
+      "input": "Complete production infrastructure stack containing 25 distinct cloud resources",
+      "environment": "Standard 4-core local CPU, LocalStack 3+ in Docker, Terraform 1.5+",
+      "minimum_pass": "Full infrastructure deployment completes in < 90.0 seconds",
+      "target": "Full infrastructure deployment completes in < 42.0 seconds",
+      "report": "Terraform apply timing trace log and resource creation breakdown table"
+    },
+    {
+      "metric": "Static Security & Compliance Policy Enforcement Rate",
+      "method": "Percentage of introduced security misconfigurations (e.g. unencrypted storage, open ingress) caught and blocked by Checkov/TFLint",
+      "input": "20 intentional security flaws injected into Terraform HCL modules",
+      "environment": "Checkov security scanner and TFLint CLI running in automated test suite",
+      "minimum_pass": "20 of 20 security violations detected and blocked with exit code 1",
+      "target": "20 of 20 security violations detected and blocked with exit code 1",
+      "report": "Checkov security scan report and policy violation summary"
+    },
+    {
+      "metric": "Post-Apply Configuration Drift Detection Rate",
+      "method": "Verification of zero drift detected by `terraform plan -detailed-exitcode` following successful apply",
+      "input": "Applied 25-resource infrastructure state tested across 10 repeated drift detection checks",
+      "environment": "LocalStack local cloud emulator with simulated S3 state backend",
+      "minimum_pass": "10 of 10 drift checks return exit code 0 confirming perfect infrastructure parity",
+      "target": "10 of 10 drift checks return exit code 0 confirming perfect infrastructure parity",
+      "report": "Drift detection audit log and Terraform plan exit code report"
+    }
+  ],
+  "skills": [
+    "Terraform",
+    "LocalStack",
+    "Docker",
+    "TFLint",
+    "GitHub Actions",
+    "Platform & DevOps",
+    "Cloud Architecture",
+    "IaC"
+  ],
+  "starter_input": {
+    "spec": "Directory containing modular Terraform code (VPC, ECS, RDS, CloudWatch), LocalStack overrides, TFLint rules, and test scripts.",
+    "size": "15 Terraform HCL files, TFLint configuration file, Checkov policy config, and automated test runner",
+    "seeded_cases": "Unencrypted RDS storage volumes, public security groups (0.0.0.0/0 on port 22), missing resource tags, and circular module references",
+    "label_source": "Deterministic Terraform state JSON schemas and TFLint/Checkov violation exit codes",
+    "personal_data_policy": "Strictly mock synthetic infrastructure configurations and simulated AWS account IDs; no real personal data used"
+  },
+  "components": [
+    {
+      "name": "Modular Terraform VPC & Network Foundation Architecture",
+      "task_type": "infra component (broker, DB, orchestrator, cluster service)",
+      "hours": 5.0
+    },
+    {
+      "name": "Terraform ECS Fargate Application & Load Balancer Module",
+      "task_type": "infra component (broker, DB, orchestrator, cluster service)",
+      "hours": 5.0
+    },
+    {
+      "name": "Terraform RDS Database & CloudWatch Observability Module",
+      "task_type": "infra component (broker, DB, orchestrator, cluster service)",
+      "hours": 5.0
+    },
+    {
+      "name": "TFLint Static Analysis, Checkov Security & Policy Enforcement Layer",
+      "task_type": "security hardening checks",
+      "hours": 4.0
+    },
+    {
+      "name": "LocalStack Automated Plan, Apply & Drift Detection Benchmark Harness",
+      "task_type": "load or performance test harness + report",
+      "hours": 3.0
+    },
+    {
+      "name": "Infrastructure as Code Modular Architecture Guide & Runbook",
+      "task_type": "docs + architecture diagram",
+      "hours": 2.0
+    }
+  ],
+  "extended_path": {
+    "features": [
+      "Terragrunt DRY architecture orchestration managing multi-account and multi-region module hierarchies",
+      "Automated cost estimation using Infracost CLI calculating simulated monthly expenditure diffs in pull requests",
+      "Terraform custom provider plugin written in Go managing proprietary local internal service resources"
+    ],
+    "hours": 14
+  },
+  "milestones": [
+    {
+      "name": "Modular VPC & Network Foundation in Terraform and LocalStack",
+      "hours": 7,
+      "done_criterion": "VPC module provisions public/private subnets and route tables in LocalStack."
+    },
+    {
+      "name": "ECS Fargate & RDS Database Modules in Docker and Cloud Architecture",
+      "hours": 7,
+      "done_criterion": "ECS cluster, Fargate service, and RDS PostgreSQL deploy with storage encryption."
+    },
+    {
+      "name": "TFLint & Checkov Security Policy Enforcement in TFLint and IaC",
+      "hours": 7,
+      "done_criterion": "TFLint and Checkov validate HCL; 20 of 20 injected security flaws block with exit code 1."
+    },
+    {
+      "name": "CI/CD Plan/Apply Pipeline, Anti-Fake Test & Docs in GitHub Actions and Platform & DevOps",
+      "hours": 7,
+      "done_criterion": "Deployment completes in < 90s with 0 drift; anti-fake blocks unencrypted RDS; docs complete."
+    }
+  ],
+  "prerequisites": [
+    "Proficiency in Terraform HCL syntax, module composition, input/output variables, and state management",
+    "Understanding of cloud networking (VPC, subnets, routing), container platforms (ECS Fargate), and CI/CD pipelines"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (purely CPU and local container bound IaC toolchains)",
+    "cost": "$0 (fully open-source stack using local Terraform CLI and Docker LocalStack)",
+    "accounts_keys_quotas": "No external AWS cloud accounts, credit cards, or paid service quotas required (runs 100% offline via LocalStack)",
+    "reference_environment": "Local 4-core CPU with Docker Desktop (LocalStack 3+ container), Terraform 1.5+, TFLint, and checkov installed",
+    "fallback_path": "Running `terraform validate` and `terraform plan` with mock provider credentials if Docker is unavailable"
+  },
+  "riskiest_component": {
+    "name": "State File Corruption and Concurrency Race Conditions",
+    "mitigation": "Configure S3 remote state storage with DynamoDB state locking simulation in LocalStack and enforce atomic apply workflows.",
+    "fallback": "Versioned state backup files enabling automatic state rollback."
+  },
+  "deliverables": [
+    "Git repository containing modular Terraform code (VPC, ECS, RDS, CloudWatch), LocalStack overrides, and CI configs",
+    "TFLint and Checkov security scanning policy files and automated validation scripts",
+    "Automated deployment benchmark harness profiling plan, apply, and drift detection latencies",
+    "Screener verification script executing automated LocalStack deployment and dynamic security violation rejection in under 2 minutes"
+  ],
+  "out_of_scope": [
+    "Live commercial AWS production account resource deployment",
+    "Production domain DNS registration with public Route 53 zones",
+    "Multi-cloud provider orchestration (Azure / GCP simultaneously)"
+  ],
+  "safety_note": null,
+  "resources": [
+    "Terraform Up & Running: Writing Infrastructure as Code (Yevgeniy Brikman)",
+    "LocalStack Documentation: Emulating AWS Infrastructure Locally",
+    "TFLint and Checkov Documentation on Infrastructure Security Scanning"
+  ],
+  "rubric": [
+    {
+      "input": "Complete 25-resource multi-tier Terraform stack deployed to LocalStack",
+      "action": "terraform apply -auto-approve",
+      "expected_result": "Terraform creates VPC, subnets, ECS, RDS, and CloudWatch alarms in < 90.0 seconds",
+      "evidence_location": "Terminal output log and reports/terraform_apply.json",
+      "pass_criterion": "Deployment duration < 90.0s with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "20 intentional security misconfigurations evaluated by Checkov scanner",
+      "action": "checkov -d ./modules --framework terraform",
+      "expected_result": "Checkov catches all 20 security violations (unencrypted volumes, open ingress) and exits with code 1",
+      "evidence_location": "Checkov security report in reports/checkov_audit.json",
+      "pass_criterion": "20 of 20 violations detected with exit code 1",
+      "kind": "normal"
+    },
+    {
+      "input": "Post-deployment drift inspection executed against LocalStack resources",
+      "action": "terraform plan -detailed-exitcode",
+      "expected_result": "Terraform confirms no changes required; infrastructure state matches configuration with exit code 0",
+      "evidence_location": "Drift detection audit report in reports/drift_audit.json",
+      "pass_criterion": "Exit code 0 confirming perfect infrastructure parity",
+      "kind": "normal"
+    },
+    {
+      "input": "TFLint static analysis check across all reusable module subdirectories",
+      "action": "tflint --recursive",
+      "expected_result": "TFLint verifies HCL syntax, provider constraints, and deprecated attributes with 0 errors",
+      "evidence_location": "TFLint execution log in reports/tflint_audit.json",
+      "pass_criterion": "0 lint errors with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "PR branch adding unencrypted RDS storage volume (`storage_encrypted = false`)",
+      "action": "python ./scripts/verify_policy_gate.py --violation unencrypted_rds",
+      "expected_result": "Security policy gate blocks deployment and outputs 'FAILED: RDS storage must be encrypted'",
+      "evidence_location": "Dynamic verification console execution output log",
+      "pass_criterion": "Console confirms security policy violation and blocked deployment with exit code 1",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected modular infrastructure as code platform in Terraform with LocalStack and TFLint; provisioned [RESOURCE_COUNT] multi-tier cloud resources in sub-[PROVISION_LATENCY] seconds, and eliminated security regressions with Checkov automated policy enforcement.",
+    "claims": [
+      {
+        "text": "provisioned [RESOURCE_COUNT] multi-tier cloud resources in sub-[PROVISION_LATENCY] seconds",
+        "rubric_indexes": [
+          0
+        ]
+      },
+      {
+        "text": "eliminated security regressions with Checkov automated policy enforcement",
+        "rubric_indexes": [
+          1
+        ]
+      }
+    ],
+    "do_not_claim": "live commercial AWS account deployment or multi-cloud simultaneous orchestration"
+  },
+  "verify": [
+    "Run `terraform validate` and `tflint --recursive` to confirm modular HCL syntax passes.",
+    "Execute `terraform apply -auto-approve` to verify resources deploy to LocalStack in < 90s.",
+    "Run `python ./scripts/verify_policy_gate.py` to assert Checkov security gates block unencrypted storage."
+  ],
+  "worksheet": {
+    "q1": "Core deliverable: a modular infrastructure as code platform in Terraform with LocalStack cloud emulation, TFLint, and Checkov.",
+    "q2": "Target users: DevOps engineers, cloud infrastructure architects, and platform systems software developers.",
+    "q3": "3 use cases: multi-environment staging/production parity, automated pull request drift detection, and security policy gates.",
+    "q4": "Stated hours: 28 hours. Calculated bottom-up: 24 component hours * 1.15 buffer = 27.6 -> 28 hours. Intermediate level.",
+    "q5": "Hard parts: reusable module composition, LocalStack API emulation configuration, TFLint/Checkov static policy gates, and drift detection.",
+    "q6": "Starter input: Terraform modules (VPC, ECS, RDS, CloudWatch), LocalStack overrides, TFLint rules, and test scripts. Synthetic data only.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU bound, $0 cost using Docker LocalStack. Zero AWS charges.",
+    "q8": "Riskiest component: state file corruption and concurrency races. Fallback: S3 state backend with DynamoDB locking simulation.",
+    "q9": "Potential faking: manual AWS console clicking pretending to be IaC. Anti-fake check 5 commits unencrypted RDS and asserts Checkov blocks deployment.",
+    "q10": "Safe; synthetic infrastructure configurations and local LocalStack containers only, zero personal data."
+  }
+}

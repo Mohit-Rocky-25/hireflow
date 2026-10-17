@@ -1,122 +1,155 @@
-PROJECT BRIEF — Peer-to-Peer File Sharing Network (BitTorrent-like)
+PROJECT BRIEF — Decentralized Peer-to-Peer File Distribution Engine in Go with Kademlia DHT & Rarest-First Swarm Scheduling
 ======================================================================
 
 Domain    : Distributed Systems
-Difficulty: advanced
-Est. Time : 38 hours (Core Path) | Extended Path: +6 hours
-Tech Stack: Go [compiled systems runtime and networking implementation], TCP [tcp component], DHT [dht component], Concurrency [concurrency component], Cryptography [cryptography component], Networking [networking component]
+Difficulty: ADVANCED
+Est. Time : 40 hours (core path, estimate). Extended path: +16 hours
+Tech Stack: Go (primary systems programming language implementing network protocol framing, state machines, and concurrency), TCP (reliable transport protocol powering peer-to-peer data block transfers and wire protocol state exchanges), UDP (transport protocol powering low-latency Kademlia DHT RPC queries (ping, find_node, get_peers, announce)), BitTorrent Protocol (architectural protocol standard defining metainfo parsing, rarest-first scheduling, and choking), Concurrency (goroutines, sync primitives, and channels coordinating concurrent peer downloads and disk I/O), SHA-1 (cryptographic hash function generating 20-byte piece hashes verifying block data integrity)
 
 PROBLEM STATEMENT
-----------------------------------------
-Centralized file distribution creates single points of failure and bandwidth bottlenecks. Build a peer-to-peer file sharing protocol where files are split into pieces, distributed across peers, and each peer simultaneously downloads and uploads pieces to maximize network throughput.
+----------------------------------------------------------------------
+Centralized file distribution architectures suffer from bandwidth exhaustion, single-point-of-failure bottlenecks, and exponential egress bandwidth costs when distributing large software packages to thousands of clients. Naive peer-to-peer implementations experience severe swarm churn when peers disconnect mid-download, choke on corrupted binary blocks due to lack of cryptographic verification, and fail to discover peers when central tracker servers are unreachable. This project builds a decentralized peer-to-peer (P2P) file distribution engine in Go inspired by the BitTorrent protocol. The engine splits files into piece-level SHA-1 hashed blocks, implements a Kademlia Distributed Hash Table (DHT) over UDP for decentralized peer discovery, executes rarest-first piece downloading over concurrent TCP connections, and enforces tit-for-tat choking algorithms to incentivize reciprocal bandwidth sharing.
 
 USE CASES IN THE REAL WORLD
-----------------------------------------
-BitTorrent protocol powers 40% of internet traffic. IPFS (InterPlanetary File System) uses similar principles for decentralized web. CDN edge cache distribution, software update distribution (Linux packages, game patches), and decentralized storage all use P2P principles.
+----------------------------------------------------------------------
+- {'title': 'Large-Scale Container Image & Software Update Distribution', 'first_sentence': 'Enterprise infrastructure teams deploying multi-gigabyte container images across thousands of bare-metal server nodes need to avoid saturating central container registries.', 'second_sentence': 'The engine distributes images peer-to-peer across cluster nodes, enabling servers to download pieces from neighboring rack servers and reducing central registry egress bandwidth by over 80%.'}
+- {'title': 'Decentralized Open-Source Dataset Distribution', 'first_sentence': 'Machine learning research consortiums sharing multi-terabyte scientific datasets require resilient distribution channels that do not depend on expensive cloud bucket hosting.', 'second_sentence': 'Researchers share dataset torrent manifests, discovering peers via Kademlia DHT and transferring verified data blocks across distributed academic nodes with cryptographic integrity.'}
+- {'title': 'Edge CDN Cache Re-Seeding & Bandwidth Offloading', 'first_sentence': 'Content delivery network operators distributing high-demand video chunks to regional edge Points of Presence (PoPs) face heavy transit backhaul costs.', 'second_sentence': 'The P2P network allows regional edge servers to re-seed and exchange cached video blocks horizontally across local fiber interconnects without fetching redundant copies from origin storage.'}
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-P2P networking requires understanding peer discovery (DHT), data integrity (Merkle trees), choking/unchoking algorithms, and concurrent piece downloads — deep networking and distributed systems knowledge. Engineers who have implemented P2P protocols understand distributed coordination at a fundamental level.
+WHY THIS IS HARD
+----------------------------------------------------------------------
+- Implementing the Kademlia DHT routing table with 160-bit XOR distance metrics and iterative node lookup algorithms over UDP
+- Designing concurrent TCP peer wire protocol state machines managing handshake, bitfield, request, piece, and keep-alive frames
+- Implementing rarest-first piece scheduling algorithms that optimize piece availability across the swarm without duplicate downloads
+- Enforcing reciprocal choking/unchoking algorithms (tit-for-tat) to maximize upload and download bandwidth efficiency while preventing free-riding
 
 RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-P2P networking knowledge is valued at companies building decentralized systems (Web3, IPFS), CDN infrastructure, and large-scale file distribution. The BitTorrent-like implementation demonstrates complete networking engineering at the protocol design level — rare and impressive to any systems-oriented interviewer.
+----------------------------------------------------------------------
+- Clean Go codebase adhering to systems design best practices, separating DHT routing, TCP peer state machines, and disk block managers
+- Swarm benchmark report demonstrating >= 2.4x download speedup across a 5-node swarm compared to single-source HTTP transfers
+- Anti-fake verification script injecting an intentionally corrupted binary piece from peer B and verifying the client detects hash failure and re-downloads from peer C
+Relevant Job Families: Distributed Systems Engineer, Network Protocol Software Developer, Core Infrastructure Architect
 
 ARCHITECTURE & DATA FLOW
-----------------------------------------
-Files chunked into fixed-size pieces with SHA1 hash verification. DHT-based peer discovery or central tracker. TCP connections to multiple peers for parallel piece downloading. Piece selection algorithm (rarest-first). Choking/unchoking algorithm managing upload bandwidth allocation. Merkle tree verification of received pieces.
+----------------------------------------------------------------------
+Components:
+- Metainfo Torrent Parser & Block Storage Manager (Tools: Go, SHA-1): Parses bencoded .torrent files, allocates target disk files, and verifies piece SHA-1 hashes
+- Kademlia DHT Peer Discovery Engine (Tools: Go, UDP): Maintains k-buckets indexed by XOR distance and executes iterative node lookups to discover swarm peers
+- TCP Peer Wire Protocol State Machine (Tools: Go, TCP, BitTorrent Protocol): Manages peer connections, parses binary wire framing, and handles choke/unchoke and interested states
+- Rarest-First Piece Scheduler & Choking Controller (Tools: Go, Concurrency): Calculates swarm piece frequency, schedules rarest piece downloads, and prioritizes unchoked peers
+- Swarm Speedup & Churn Benchmark Harness (Tools: Go, Concurrency): Benchmarks multi-peer download acceleration and verifies file integrity across simulated peer churn
+- P2P Network Protocol Guide & Architecture Diagram (Tools: Go, BitTorrent Protocol): Documents binary wire frame structures, Kademlia XOR routing mechanics, and swarm state machines
+
+Data Flow:
+The client loads a metainfo .torrent file, extracts the 20-byte infohash and piece hashes, and allocates disk space; the Kademlia DHT module queries neighboring nodes over UDP to find peers announcing the target infohash; the client establishes concurrent TCP connections to discovered peers, exchanges handshakes and bitfields; the rarest-first scheduler identifies pieces with the lowest frequency across connected peers and requests 16KB sub-blocks; received blocks write to disk; upon receiving all sub-blocks for a piece, the SHA-1 hasher validates integrity; if valid, the client updates its bitfield and announces piece availability to the swarm; when a peer disconnects, the scheduler transparently reassigns pending blocks.
+
+Enforcement Mechanism:
+Cryptographic SHA-1 verification on every piece discarding corrupted bytes; Kademlia k-bucket replacement rules keeping active nodes.
 
 SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Target 1:
-- Metric: Request Processing Latency Overhead (p99)
-- Method: Concurrent HTTP load test using k6 / vegeta over 60s sustained run
-- Input/dataset: Standard synthetic JSON payload (~1KB) over 5,000 concurrent requests
-- Reference environment: Local 4-core CPU, 8GB RAM, loopback network interface
-- Minimum pass: p99 latency overhead < 25ms under 1,000 req/sec
-- Target: p99 latency overhead < 5ms under 5,000 req/sec
-- Report format: k6 terminal summary report and CSV latency distribution
-
-Target 2:
-- Metric: Sustained Concurrency & Correctness
-- Method: Continuous load test simulating concurrent client connections with idempotency checks
-- Input/dataset: Synthetic benchmark traffic across 50 concurrent worker threads
-- Reference environment: Local Docker Compose or native runtime
-- Minimum pass: Sustained throughput > [N] req/sec with 0 lost writes in [K] attempts
-- Target: Sustained throughput > [N] req/sec (target > 5,000 req/sec) with 0 lost writes in [K] attempts
-- Report format: Benchmark throughput table and error rate summary
-
-Target 3:
-- Metric: Fault Recovery / Failover Duration
-- Method: Injected worker process termination during active continuous request stream
-- Input/dataset: SIGKILL or chaos fault injection on worker process
-- Reference environment: Local multi-process or containerized cluster
-- Minimum pass: Service detects failure and reroutes traffic with recovery time < [S] seconds (pass < 5s)
-- Target: Service detects failure and recovers state with recovery time < [S] seconds (target < 2s)
-- Report format: System log timestamps comparing failure injection to state recovery
+----------------------------------------------------------------------
+Metric | Method | Input/Dataset | Reference Environment | Minimum Pass | Target | Report Format
+Swarm Download Acceleration Speedup Factor | Transfer speedup comparing 5-peer concurrent swarm download against single-source HTTP baseline for 100MB test file | 100MB synthetic test payload split into 512KB pieces distributed across 5 seeding peers on local Docker bridge network | Standard 4-core local CPU, Go 1.21+ release binary, Docker multi-container bridge network with 100Mbps link throttling | 5-peer swarm download speedup is >= 2.4x over single-source download | 5-peer swarm download speedup is >= 3.8x over single-source download | P2P swarm transfer acceleration report and download timing log
+Corrupted Block Detection & Re-Request Rate | Percentage of intentionally corrupted binary piece blocks detected and successfully re-downloaded from alternate peers | 20 corrupted piece blocks (flipped bytes) injected into peer download streams across 100MB transfer | Go test harness simulating Byzantine peer injecting corrupted byte payloads | 20 of 20 corrupted pieces detected by SHA-1 hash and re-downloaded with 0 corrupted bytes in final file | 20 of 20 corrupted pieces detected by SHA-1 hash and re-downloaded with 0 corrupted bytes in final file | Cryptographic piece verification audit log and corruption recovery report
+Peer Disconnection Churn Transfer Survival | Verification of complete file transfer when 2 of 5 seeding peers suddenly terminate connections mid-download | 100MB file download with sudden peer SIGKILL disconnection injected at 50% download progress | 5 simulated Docker peer containers with random network kill scripts | File transfer reaches verified data integrity confirmed by SHA-1 hash across the piece set | File transfer reaches verified data integrity confirmed by SHA-1 hash across the piece set | Peer churn recovery log and final file checksum verification
 
 SKILLS COVERED
-----------------------------------------
-Go, Networking, Distributed Systems, Protocols, Algorithms, Concurrency
+----------------------------------------------------------------------
+Go, TCP, UDP, BitTorrent Protocol, Concurrency, SHA-1, Distributed Systems, Networking, P2P
 
 TARGET APPLICATION / STARTER INPUT
-----------------------------------------
-The project provides a self-contained test environment and fixture generator located in `scripts/` or `fixtures/`. It deterministically generates representative input records or mock client traffic for automated validation. No third-party proprietary data or real personal identifiers (PII) are required; all test datasets use synthetic tokens and deterministic random seeds.
+----------------------------------------------------------------------
+- Specification: Directory containing .torrent bencode parser, simulated 5-node local network swarm in Docker, and 100MB synthetic test payload.
+- Dataset / Traffic Size: 6 Go source packages, sample .torrent manifest, and Docker Compose multi-peer test swarm
+- Seeded Edge Cases: Corrupted piece hashes, unchoked peer sudden socket closure, Kademlia bucket dead node timeouts, and duplicate block delivery
+- Label / Verification Source: Deterministic SHA-1 piece checksum manifests and ground-truth binary payload files
+- Personal Data Policy: Strictly mock synthetic binary data files and simulated peer IP addresses; no real personal data used
 
 MILESTONES
-----------------------------------------
-- Milestone 1: Environment Setup & Core Foundations (8h)
-  Configure repository, tooling, container dependencies, and foundational data structures. Done when foundational test suite passes with clean linting.
-- Milestone 2: Core Processing & Architecture Implementation (11h)
-  Implement primary operational workflows, database models or state transitions, and API endpoints. Done when integration tests verify end-to-end data flow under normal operating conditions.
-- Milestone 3: Concurrency, Reliability & Error Guardrails (11h)
-  Implement defensive controls: rate limiting, retries with exponential backoff, transaction boundaries, and failure isolation. Done when chaos or stress tests verify graceful degradation under fault injection.
-- Milestone 4: Verification, Benchmarking & Documentation (8h)
-  Execute performance benchmark harness, compile measurement tables, generate architectural diagrams, and document screener verification steps. Done when `scripts/verify_all` passes completely.
+----------------------------------------------------------------------
+M1: Torrent Parser & Kademlia DHT Discovery in Go, UDP and SHA-1 (10h) — Done when: Parser decodes .torrent bencode files; Kademlia DHT discovers peers over UDP.
+M2: TCP Wire Protocol & Rarest-First Scheduling in TCP, BitTorrent Protocol and Concurrency (10h) — Done when: Client connects to peers over TCP; rarest-first scheduler downloads verified pieces.
+M3: Swarm Acceleration & Churn Recovery in Distributed Systems and Networking (10h) — Done when: 5-peer swarm achieves >= 2.4x speedup; client survives mid-transfer peer disconnects.
+M4: Piece Corruption Anti-Fake Test & Docs in P2P (10h) — Done when: Corrupted piece triggers SHA-1 rejection; client re-downloads valid piece; docs complete.
+Total: 40 hours (estimate)
 
 PREREQUISITES, ENVIRONMENT AND ACCOUNTS
-----------------------------------------
-- Prerequisites: Familiarity with Go and TCP, standard command-line tools, and fundamental testing principles.
-- Hardware / OS: Standard modern computer (macOS, Linux, or Windows with WSL2) with at least 8GB RAM.
-- Accounts & Services: None required. Designed to run completely on free, open-source local software.
-- Fallback Path: In-memory mock drivers or SQLite/local files provided if external database or message broker containers cannot be run.
+----------------------------------------------------------------------
+Prerequisites: Proficiency in Go systems programming, socket networking (net.Conn, net.PacketConn), and goroutines, Understanding of P2P network architectures, BitTorrent wire specifications, and cryptographic hashing
+
+Environment & Hardware:
+- OS: Linux / macOS / Windows with WSL2
+- Memory: 8GB RAM
+- Compute / GPU: None required (purely CPU and network I/O bound systems software)
+- Estimated Cost: $0 (fully open-source Go codebase)
+- Accounts & Quotas: No external cloud accounts, paid services, or API keys required
+- Reference Environment: Local 4-core CPU with Go 1.21+ and Docker Desktop (for multi-peer swarm) installed
+- Fallback Path: Running 5 peer instances as local OS background processes communicating across loopback ports
+
+Riskiest Component & Fallback:
+- Riskiest Component: Deadlocks and Goroutine Leaks in Peer State Machine Sockets
+- Simpler Fallback: Centralized supervisor goroutine terminating unresponsive peer connections after 30-second silence.
 
 DELIVERABLES
-----------------------------------------
-1. Clean Git repository with structured commit history, README, and reproducible setup commands.
-2. Production-quality core codebase with automated test suite achieving verified pass rates.
-3. Performance benchmark report (`results/benchmark_report.md`) documenting measured latency, throughput, and resource utilization.
-4. Screener verification script (`scripts/verify_all.sh` or equivalent) validating the full system in < 3 minutes.
-5. Architecture diagram (Mermaid/ASCII) and known limitations document explaining architectural trade-offs.
+----------------------------------------------------------------------
+- Git repository containing Go P2P engine, Kademlia DHT node, peer wire protocol client, and CLI tools
+- Docker Compose test environment orchestrating 5 seeding peers and 1 client peer on throttled bridge network
+- Automated benchmark harness verifying swarm acceleration and cryptographic block recovery
+- Screener verification script executing automated benchmark and dynamic corrupted piece recovery in under 3 minutes
 
 OUT OF SCOPE AND EXTENDED PATH
-----------------------------------------
-- Out of Scope for Core Path: Distributed multi-region clustering, enterprise SSO integrations, complex third-party SaaS dependencies.
-- Extended Path (+6 hours): Advanced telemetry dashboard, distributed persistence cluster extension, or automated canary release pipeline.
+----------------------------------------------------------------------
+Out of Scope:
+- Copyrighted media indexing, tracker torrent search engines, or public swarm scraping
+- NAT traversal using UPnP / NAT-PMP port forwarding protocols on physical residential routers
+- Custom video player streaming playback codecs
 
-SAFETY AND ETHICS NOTE
-----------------------------------------
-All data processed, generated, and benchmarked by this project consists exclusively of synthetic fixtures. No personal identifiable information (PII), proprietary credentials, or live external endpoints are used.
+Extended Path: None (self-contained core scope)
 
 LEARNING RESOURCES
-----------------------------------------
-- Official Documentation for Go, TCP, DHT
-- Architectural Reference Patterns and RFC Standards [VERIFY URL]
-- Systems & Distributed Reliability Principles
+----------------------------------------------------------------------
+- The BitTorrent Protocol Specification (BEP 0003) and DHT Protocol (BEP 0005)
+- Kademlia: A Peer-to-Peer Information System Based on the XOR Metric (Maymounkov and Mazières)
+- Building a BitTorrent Client from Scratch in Go (Jesse Li Architecture Guide)
 
 SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Check 1: Verify speed test: 5-peer download 2x faster than single-source for 1GB test file; Pass when automated test script prints 0 errors and logs verified status code.
-2. Check 2: Verify integrity verification: corrupted piece detected and re-requested from different peer; Pass when automated test script prints 0 errors and logs verified status code.
-3. Check 3: Verify peer failure recovery: 2 peers disconnect mid-download, file completes from remaining peers; Pass when automated test script prints 0 errors and logs verified status code.
-4. Check 4: Verify rarest-first piece selection reduces piece redundancy compared to random selection; Pass when automated test script prints 0 errors and logs verified status code.
-5. Check 5: Verify dHT peer discovery without central tracker server; Pass when automated test script prints 0 errors and logs verified status code.
-6. Check 6: 6. Anti-Fake Verification Check: Inspect committed execution logs and re-run verification script against seeded test fixtures; pass when runtime metrics dynamically reflect test execution rather than static mocked responses.
+----------------------------------------------------------------------
+1. Check
+   Input: 100MB synthetic test payload downloaded across 5-peer Docker swarm
+   Action: go run ./cmd/bench_swarm --peers 5 --file-size 100MB
+   Result: 5-peer swarm achieves download speedup >= 2.4x compared to single-source baseline
+   Evidence: Terminal execution output log and reports/swarm_speedup.json
+   Pass: Speedup factor >= 2.4x with exit code 0
+2. Check
+   Input: 20 corrupted piece blocks injected into incoming peer data streams
+   Action: go test -v ./peer/... -run TestPieceCorruptionRecovery
+   Result: SHA-1 hasher detects all 20 corrupted pieces, discards bytes, and re-downloads valid pieces
+   Evidence: Piece integrity audit log in reports/integrity_audit.json
+   Pass: 20 of 20 corrupted pieces rejected and final file SHA-1 matches ground truth with exit code 0
+3. Check
+   Input: Sudden termination of 2 seeding peers at 50% download progress
+   Action: go run ./scripts/test_peer_churn.go --kill-peers 2
+   Result: Engine reassigns missing piece blocks to remaining peers and completes 100% of download
+   Evidence: Peer churn recovery report
+   Pass: File transfer completes with valid SHA-1 checksum and exit code 0
+4. Check
+   Input: CLI request querying active peer swarm status and bitfield progress
+   Action: go run ./cmd/p2p_cli status --infohash f4b9c1d8...
+   Result: CLI outputs connected peer list, download rate, upload rate, and bitfield completion percentage
+   Evidence: CLI stdout terminal output
+   Pass: Output displays active peer count >= 3 and valid completion progress with exit code 0
+5. Check [anti_fake]
+   Input: Dynamic corrupted piece injected from peer 2 while piece 3 is transferring
+   Action: go run ./scripts/verify_dynamic_corruption.go --corrupt-piece 3
+   Result: Client logs 'SHA1_MISMATCH: Piece 3 corrupted', requests piece from peer 3, and verifies valid hash
+   Evidence: Dynamic verification console execution output log
+   Pass: Console confirms piece 3 rejected from peer 2, re-downloaded from peer 3, with exit code 0
 
 RESUME BULLET FORMULA
-----------------------------------------
-"Built BitTorrent-like P2P file sharing in Go with DHT peer discovery and rarest-first selection; achieved [N].[X:[N]] download speedup over single-source with [N]% integrity verification via piece-level SHA1 hashing.; achieved [N] throughput with < [M ms] latency overhead across [K] test transactions."
-Do not claim: scale, latency, or throughput figures without committing benchmark run logs; do not claim production deployment unless deployed to a verifiable live environment.
+----------------------------------------------------------------------
+"Architected decentralized peer-to-peer file sharing protocol in Go with Kademlia DHT peer discovery; achieved [SWARM_SPEEDUP] speedup factor over single-source transfers, and maintained verified payload integrity across multi-peer network swarms."
+
+Do not claim: public copyrighted media torrent indexing or residential router UPnP NAT traversal
 
 ======================================================================
 Generated by HireFlow — hireflow.io

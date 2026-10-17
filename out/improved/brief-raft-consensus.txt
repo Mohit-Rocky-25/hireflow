@@ -1,122 +1,156 @@
-PROJECT BRIEF — Distributed Key-Value Store with Raft Consensus
+PROJECT BRIEF — Distributed Replicated Key-Value Store from Scratch in Go with Raft Consensus, LevelDB WAL & gRPC Cluster Transport
 ======================================================================
 
 Domain    : Distributed Systems
-Difficulty: advanced
-Est. Time : 40 hours (Core Path) | Extended Path: +6 hours
-Tech Stack: Go [compiled systems runtime and networking implementation], Distributed Systems [distributed systems component], Raft [raft component], gRPC [high-performance RPC transport protocol], Concurrency [concurrency component]
+Difficulty: ADVANCED
+Est. Time : 40 hours (core path, estimate). Extended path: +16 hours
+Tech Stack: Go (primary systems programming language implementing concurrent state machines and networking), Raft (distributed consensus protocol governing leader election, log replication, and safety), gRPC (remote procedure call framework powering peer-to-peer AppendEntries and RequestVote RPCs), Concurrency (goroutines, sync primitives, and atomic channels orchestrating non-blocking state loops), LevelDB (embedded key-value storage engine persisting Raft write-ahead logs and state snapshots)
 
 PROBLEM STATEMENT
-----------------------------------------
-Single-point-of-failure storage solutions cannot survive node partitions in mission-critical environments. Build a replicated distributed key-value cluster from scratch implementing the Raft consensus algorithm.
+----------------------------------------------------------------------
+Single-point-of-failure database architectures suffer from catastrophic outages, data corruption, and prolonged downtime when server hardware fails or network partitions isolate data centers. Off-the-shelf distributed stores obscure consensus mechanics, leaving software engineers unprepared to diagnose split-brain anomalies, phantom reads, and cascading leader failover storms. This project builds a production-grade distributed replicated key-value storage engine from scratch in Go implementing the Raft consensus algorithm. The engine implements randomized election timers, leader heartbeats, persistent write-ahead logging (WAL) using LevelDB, gRPC peer-to-peer RPC transport, cluster membership changes, log compaction via snapshotting, and linearizable read/write request semantics.
 
 USE CASES IN THE REAL WORLD
-----------------------------------------
-etcd (used by Kride-hailing dispatch networksnetes), CockroachDB, and TiKV all run Raft consensus. Any system requiring high availability without single points of failure (banking, healthcare, infrastructure) needs this. Directly applicable to distributed database internals interviews.
+----------------------------------------------------------------------
+- {'title': 'Mission-Critical Distributed Configuration Management', 'first_sentence': 'Cloud infrastructure control planes require a distributed configuration registry to coordinate microservice routing tables and database connection strings.', 'second_sentence': 'The Raft cluster replicates configuration key-value pairs across 5 server nodes, guaranteeing linearizable reads and continuous availability even if 2 nodes fail.'}
+- {'title': 'Distributed Lock Manager & Leader Election Coordinator', 'first_sentence': 'High-throughput message processing workers require mutual exclusion distributed locks to prevent multiple worker nodes from processing the same queue partition.', 'second_sentence': 'The key-value engine manages atomic compare-and-swap lease keys with TTL expirations, electing single active partition masters with zero split-brain risk.'}
+- {'title': 'Distributed Service Discovery Registry & Health Tracker', 'first_sentence': 'Dynamic container platforms need a resilient service discovery catalog that updates service instance IP endpoints as pods spawn and terminate.', 'second_sentence': 'Service agents register ephemeral keys via gRPC client sessions, automatically replicating instance state across the Raft consensus quorum with low commit latency.'}
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Implementing Raft from scratch is the pinnacle of distributed systems projects. It requires understanding leader election, log replication, network partition handling, and linearizable consistency — topics that separate principal/staff engineers from senior engineers in large company interviews.
+WHY THIS IS HARD
+----------------------------------------------------------------------
+- Implementing the Raft state machine transitions (Follower, Candidate, Leader) with thread-safe goroutine channels and randomized election timeouts
+- Enforcing the Raft Log Matching and Leader Completeness safety invariants during out-of-order AppendEntries RPC retries
+- Implementing LevelDB write-ahead log persistence and state snapshotting to truncate committed logs and prevent disk saturation
+- Handling complex cluster network partitions (minority vs majority split-brain) while guaranteeing linearizability and client request redirection
 
 RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-The most technically impressive distributed systems project a candidate can show. Immediately triggers deep technical conversations in production systems design interviews. A Raft implementation tells a hiring manager you understand how etcd and Kride-hailing dispatch networksnetes coordination works internally.
+----------------------------------------------------------------------
+- Clean Go codebase cleanly separating the Raft consensus state machine, gRPC RPC transport, LevelDB storage engine, and client API handlers
+- Chaos network partition benchmark report demonstrating automatic leader re-election in < 350ms upon primary leader termination
+- Anti-fake verification script partitioning 2 nodes of a 5-node cluster, writing 20 key-value pairs to the majority partition, healing the partition, and asserting the minority catches up with identical log state
+Relevant Job Families: Distributed Systems Engineer, Infrastructure Core Software Developer, Database Systems Architect
 
 ARCHITECTURE & DATA FLOW
-----------------------------------------
-Pure Go implementation of the Raft consensus protocol: Leader Election (heartbeats, term increments, split-vote resolution), Log Replication (entries committed across majority quorum), and Safety invariants. Features persistent state storage on disk.
+----------------------------------------------------------------------
+Components:
+- Raft Core State Machine & Randomized Election Timer (Tools: Go, Raft, Concurrency): Manages Follower/Candidate/Leader roles, term increments, randomized election timeouts (150-300ms), and voting logic
+- Raft Log Replication Engine & Commit Safety Verifier (Tools: Go, Raft): Coordinates AppendEntries RPCs, verifies term and index matches, commits entries upon majority quorum, and applies to state
+- LevelDB Persistent Write-Ahead Log & Snapshot Manager (Tools: Go, LevelDB): Persists currentTerm, votedFor, and log entries to LevelDB before replying to RPCs; generates and installs compact snapshots
+- Peer gRPC Cluster RPC Transport & Heartbeat Coordinator (Tools: Go, gRPC): Implements RequestVote, AppendEntries, and InstallSnapshot RPC handlers and client connection connection pools
+- Client Key-Value State Machine & Linearizable Read Handler (Tools: Go, Concurrency): Executes Get, Put, and Delete operations against in-memory state machine; routes client requests to active leader
+- Cluster Partition Chaos & Throughput Benchmark Harness (Tools: Go, Concurrency): Simulates network partitions, measures election failover latency, and benchmarks write throughput across 5 nodes
+- Raft Protocol Implementation Guide & Architecture Diagram (Tools: Go, Raft): Documents state machine transition invariants, election timeout calculations, and LevelDB log encoding layouts
+
+Data Flow:
+A client sends a Put(key, value) request to node 1; if node 1 is a follower, it returns the current leader's gRPC address; client redirects request to leader node 2; leader appends the command to its local log and persists to LevelDB; leader sends AppendEntries RPCs containing the new entry to all followers over gRPC; once a majority (3 of 5 nodes) acknowledge replication, the leader advances its commitIndex, applies the entry to the state machine, and replies success to the client; during subsequent heartbeats, followers learn of the new commitIndex and apply the entry to their local state machines.
+
+Enforcement Mechanism:
+Raft Election Safety invariant ensuring at most one leader per term; strict quorum write replication (majority = N/2 + 1).
 
 SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Target 1:
-- Metric: Request Processing Latency Overhead (p99)
-- Method: Concurrent HTTP load test using k6 / vegeta over 60s sustained run
-- Input/dataset: Standard synthetic JSON payload (~1KB) over 5,000 concurrent requests
-- Reference environment: Local 4-core CPU, 8GB RAM, loopback network interface
-- Minimum pass: p99 latency overhead < 25ms under 1,000 req/sec
-- Target: p99 latency overhead < 5ms under 5,000 req/sec
-- Report format: k6 terminal summary report and CSV latency distribution
-
-Target 2:
-- Metric: Sustained Concurrency & Correctness
-- Method: Continuous load test simulating concurrent client connections with idempotency checks
-- Input/dataset: Synthetic benchmark traffic across 50 concurrent worker threads
-- Reference environment: Local Docker Compose or native runtime
-- Minimum pass: Sustained throughput > [N] req/sec with 0 lost writes in [K] attempts
-- Target: Sustained throughput > [N] req/sec (target > 5,000 req/sec) with 0 lost writes in [K] attempts
-- Report format: Benchmark throughput table and error rate summary
-
-Target 3:
-- Metric: Fault Recovery / Failover Duration
-- Method: Injected worker process termination during active continuous request stream
-- Input/dataset: SIGKILL or chaos fault injection on worker process
-- Reference environment: Local multi-process or containerized cluster
-- Minimum pass: Service detects failure and reroutes traffic with recovery time < [S] seconds (pass < 5s)
-- Target: Service detects failure and recovers state with recovery time < [S] seconds (target < 2s)
-- Report format: System log timestamps comparing failure injection to state recovery
+----------------------------------------------------------------------
+Metric | Method | Input/Dataset | Reference Environment | Minimum Pass | Target | Report Format
+Leader Election Failover Latency | Wall-clock timing from abrupt leader termination (SIGKILL) to successful election of new cluster leader across 5 nodes | 10 repeated leader termination trials injected during active client traffic | Standard 4-core local CPU, Go 1.21+ release binary, 5-node local cluster communicating over loopback ports | p95 leader election failover latency is < 450 milliseconds | p95 leader election failover latency is < 220 milliseconds | Leader election failover latency summary and cluster transition log
+Sustained Linearizable Write Throughput | Committed key-value write transactions per second replicated across majority quorum and persisted to LevelDB | 10,000 sequential Put requests issued across 20 concurrent client worker goroutines | 5-node local Raft cluster with LevelDB synchronous write options enabled | Sustained write throughput is >= 1,500 operations per second | Sustained write throughput is >= 4,200 operations per second | Raft cluster write throughput benchmark report and latency distribution
+Network Partition Recovery Log Consistency Rate | Verification of identical log entry sequences and state machine key-value pairs across all nodes after partition healing | Network partition isolating 2 nodes for 30 seconds while 100 writes are committed to the 3-node majority partition | Automated network chaos test runner injecting TCP connection drop filters between cluster nodes | 5 of 5 nodes achieve identical state machine hash and log parity after partition healing | 5 of 5 nodes achieve identical state machine hash and log parity after partition healing | Network partition chaos test log and state checksum verification report
 
 SKILLS COVERED
-----------------------------------------
-Go, Distributed Systems, Networking, Concurrency, Algorithms
+----------------------------------------------------------------------
+Go, Raft, gRPC, Concurrency, LevelDB, Distributed Systems, Systems Programming
 
 TARGET APPLICATION / STARTER INPUT
-----------------------------------------
-The project provides a self-contained test environment and fixture generator located in `scripts/` or `fixtures/`. It deterministically generates representative input records or mock client traffic for automated validation. No third-party proprietary data or real personal identifiers (PII) are required; all test datasets use synthetic tokens and deterministic random seeds.
+----------------------------------------------------------------------
+- Specification: Directory containing Raft state machine interface, gRPC protobuf schemas, LevelDB storage wrapper, and test harness.
+- Dataset / Traffic Size: 9 Go source packages, protobuf definition file, and automated cluster chaos test suite
+- Seeded Edge Cases: Split-vote election ties, delayed out-of-order AppendEntries frames, and abrupt SIGKILL node terminations
+- Label / Verification Source: Deterministic Raft paper TLA+ safety invariants and SHA-256 state machine checksum assertions
+- Personal Data Policy: Strictly mock synthetic configuration keys and simulated cluster node IDs; no real personal data used
 
 MILESTONES
-----------------------------------------
-- Milestone 1: Environment Setup & Core Foundations (9h)
-  Configure repository, tooling, container dependencies, and foundational data structures. Done when foundational test suite passes with clean linting.
-- Milestone 2: Core Processing & Architecture Implementation (11h)
-  Implement primary operational workflows, database models or state transitions, and API endpoints. Done when integration tests verify end-to-end data flow under normal operating conditions.
-- Milestone 3: Concurrency, Reliability & Error Guardrails (11h)
-  Implement defensive controls: rate limiting, retries with exponential backoff, transaction boundaries, and failure isolation. Done when chaos or stress tests verify graceful degradation under fault injection.
-- Milestone 4: Verification, Benchmarking & Documentation (9h)
-  Execute performance benchmark harness, compile measurement tables, generate architectural diagrams, and document screener verification steps. Done when `scripts/verify_all` passes completely.
+----------------------------------------------------------------------
+M1: Raft Core State Machine & gRPC Election Protocol in Go, Raft and gRPC (10h) — Done when: Randomized timers trigger elections; candidate gathers majority votes and becomes leader.
+M2: Log Replication & LevelDB Write-Ahead Logging in LevelDB and Concurrency (10h) — Done when: Leader replicates log entries across nodes; LevelDB persists WAL; commitIndex advances.
+M3: Linearizable Key-Value State Machine & Throughput in Distributed Systems (10h) — Done when: Client executes Get/Put requests; sustained throughput achieves >= 1,500 operations/sec.
+M4: Network Partition Recovery Anti-Fake Test & Docs in Systems Programming (10h) — Done when: Partition chaos test confirms majority commits and minority heals; docs and diagrams complete.
+Total: 40 hours (estimate)
 
 PREREQUISITES, ENVIRONMENT AND ACCOUNTS
-----------------------------------------
-- Prerequisites: Familiarity with Go and Distributed Systems, standard command-line tools, and fundamental testing principles.
-- Hardware / OS: Standard modern computer (macOS, Linux, or Windows with WSL2) with at least 8GB RAM.
-- Accounts & Services: None required. Designed to run completely on free, open-source local software.
-- Fallback Path: In-memory mock drivers or SQLite/local files provided if external database or message broker containers cannot be run.
+----------------------------------------------------------------------
+Prerequisites: Proficiency in Go systems programming, goroutines, mutex synchronization, and channel communication, Deep understanding of distributed consensus concepts, state machine replication, and gRPC/Protobuf protocols
+
+Environment & Hardware:
+- OS: Linux / macOS / Windows with WSL2
+- Memory: 8GB RAM
+- Compute / GPU: None required (purely CPU, memory, and disk I/O bound systems software)
+- Estimated Cost: $0 (fully open-source Go codebase)
+- Accounts & Quotas: No external cloud accounts, paid services, or API keys required
+- Reference Environment: Local 4-core CPU with Go 1.21+ release compiler and LevelDB dependencies installed
+- Fallback Path: In-memory append-only slice persistence if LevelDB CGO bindings encounter compilation hurdles
+
+Riskiest Component & Fallback:
+- Riskiest Component: Deadlocks in Concurrent State Transitions and Split-Brain Split-Votes
+- Simpler Fallback: Watchdog supervisor goroutine detecting lock stalls exceeding 1 second and dumping goroutine stack traces.
 
 DELIVERABLES
-----------------------------------------
-1. Clean Git repository with structured commit history, README, and reproducible setup commands.
-2. Production-quality core codebase with automated test suite achieving verified pass rates.
-3. Performance benchmark report (`results/benchmark_report.md`) documenting measured latency, throughput, and resource utilization.
-4. Screener verification script (`scripts/verify_all.sh` or equivalent) validating the full system in < 3 minutes.
-5. Architecture diagram (Mermaid/ASCII) and known limitations document explaining architectural trade-offs.
+----------------------------------------------------------------------
+- Git repository containing Go Raft implementation, gRPC cluster server, LevelDB storage driver, and CLI client
+- Automated unit test suite verifying election safety, log matching invariants, and commit progression
+- Cluster chaos test harness simulating network partitions and measuring failover latency percentiles
+- Screener verification script executing automated 5-node cluster election and partition healing in under 3 minutes
 
 OUT OF SCOPE AND EXTENDED PATH
-----------------------------------------
-- Out of Scope for Core Path: Distributed multi-region clustering, enterprise SSO integrations, complex third-party SaaS dependencies.
-- Extended Path (+6 hours): Advanced telemetry dashboard, distributed persistence cluster extension, or automated canary release pipeline.
+----------------------------------------------------------------------
+Out of Scope:
+- Multi-Raft sharding or distributed range partition architectures (CockroachDB style)
+- Byzantine Fault Tolerance (BFT) algorithms handling malicious adversarial nodes
+- Cross-WAN geo-distributed consensus optimization
 
-SAFETY AND ETHICS NOTE
-----------------------------------------
-All data processed, generated, and benchmarked by this project consists exclusively of synthetic fixtures. No personal identifiable information (PII), proprietary credentials, or live external endpoints are used.
+Extended Path: None (self-contained core scope)
 
 LEARNING RESOURCES
-----------------------------------------
-- Official Documentation for Go, Distributed Systems, Raft
-- Architectural Reference Patterns and RFC Standards [VERIFY URL]
-- Systems & Distributed Reliability Principles
+----------------------------------------------------------------------
+- In Search of an Understandable Consensus Algorithm (Ongaro and Ousterhout - Raft Paper)
+- Raft Protocol Interactive Visualization (The Secret Lives of Data)
+- Students' Guide to Raft (Jon Gjengset Architecture Reference)
 
 SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Check 1: Verify jepsen-style automated partition chaos test simulating network split-brain; Pass when automated test script prints 0 errors and logs verified status code.
-2. Check 2: Verify leader election unit test demonstrating automatic failover within 300ms; Pass when automated test script prints 0 errors and logs verified status code.
-3. Check 3: Verify write-ahead log (WAL) persistence ensuring recovery after crash restarts; Pass when automated test script prints 0 errors and logs verified status code.
-4. Check 4: Verify visual CLI terminal monitor showing cluster heartbeats and node roles; Pass when automated test script prints 0 errors and logs verified status code.
-5. Check 5: Verify detailed architectural specification comparing Raft against Paxos trade-offs; Pass when automated test script prints 0 errors and logs verified status code.
-6. Check 6: 6. Anti-Fake Verification Check: Inspect committed execution logs and re-run verification script against seeded test fixtures; pass when runtime metrics dynamically reflect test execution rather than static mocked responses.
+----------------------------------------------------------------------
+1. Check
+   Input: 10 repeated leader kill trials across 5-node local Raft cluster
+   Action: go run ./cmd/bench_election --trials 10 --nodes 5
+   Result: Cluster detects leader death and successfully elects new leader with p95 latency < 450ms
+   Evidence: Terminal execution output log and reports/election_failover.json
+   Pass: p95 failover latency < 450ms and 0 split-brain leaders with exit code 0
+2. Check
+   Input: 10,000 sequential Put requests across 20 concurrent client goroutines
+   Action: go run ./cmd/bench_throughput --requests 10000 --concurrency 20
+   Result: Cluster commits transactions across majority and achieves throughput >= 1,500 ops/sec
+   Evidence: Throughput benchmark report in reports/write_throughput.json
+   Pass: Throughput >= 1500 ops/sec with exit code 0
+3. Check
+   Input: LevelDB persistent WAL recovery test after unexpected cluster process kill
+   Action: go test -v ./storage/... -run TestLevelDBWALRecovery
+   Result: Node restores currentTerm, votedFor, and all uncompacted log entries from LevelDB with 0 data loss
+   Evidence: Storage recovery audit log in reports/wal_recovery.json
+   Pass: 100 of 100 persisted log entries restored with exit code 0
+4. Check
+   Input: CLI request querying cluster membership and node status via gRPC
+   Action: go run ./cmd/raft_cli status --endpoint localhost:5001
+   Result: CLI outputs current leader ID, term, active follower addresses, and commitIndex
+   Evidence: CLI stdout terminal output
+   Pass: Output displays valid leader and 4 connected followers with exit code 0
+5. Check [anti_fake]
+   Input: Network partition isolating 2 nodes while 20 writes commit to majority
+   Action: go test -v ./chaos/... -run TestPartitionHealingConvergence
+   Result: Majority commits writes; after partition heals, minority catches up to identical SHA-256 state hash
+   Evidence: Dynamic partition verification console log and reports/chaos_parity.json
+   Pass: Console confirms identical SHA-256 state hash across all 5 nodes with exit code 0
 
 RESUME BULLET FORMULA
-----------------------------------------
-"Implemented distributed Raft consensus state machine in Go from scratch; achieved linearizable consistency and sub-[M ms] leader election failover during simulated network partitions."
-Do not claim: scale, latency, or throughput figures without committing benchmark run logs; do not claim production deployment unless deployed to a verifiable live environment.
+----------------------------------------------------------------------
+"Architected distributed replicated key-value store in Go implementing Raft consensus; achieved sub-[FAILOVER_LATENCY] millisecond leader election failover, and sustained [WRITE_THROUGHPUT] write operations per second with LevelDB persistence."
+
+Do not claim: byzantine fault tolerance or multi-raft sharded transaction coordination
 
 ======================================================================
 Generated by HireFlow — hireflow.io

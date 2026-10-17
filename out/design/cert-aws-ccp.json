@@ -1,0 +1,338 @@
+{
+  "id": "cert-aws-ccp",
+  "title": "AWS Certified Cloud Practitioner (CLF-C02) Hands-On Lab & Cloud Foundation Architecture",
+  "domain": "Cloud Architecture & DevOps",
+  "difficulty": "BEGINNER",
+  "project_types": [
+    "Certification / exam pages",
+    "Cloud architecture"
+  ],
+  "problem": "Aspiring cloud engineers and developers studying for the AWS Certified Cloud Practitioner (CLF-C02) exam often rely on passive flashcard memorization and rote multiple-choice dumps without understanding how core AWS infrastructure operates in code. Consequently, while they may pass an introductory exam, they remain unable to configure secure IAM least-privilege permission boundaries, architect multi-tier VPC network isolation, or implement cost-optimization alerts on cloud infrastructure. This guide delivers a hands-on lab preparation curriculum and reproducible infrastructure project in LocalStack and AWS. The engineer constructs an IAM least-privilege role matrix, provisions a multi-tier VPC with public and private subnets hosting EC2 and S3 static assets, configures automated CloudWatch billing alarms, and verifies architectural best practices against the AWS Well-Architected Framework.",
+  "use_cases": [
+    {
+      "title": "IAM Least-Privilege Identity & Access Management Governance",
+      "first_sentence": "Enterprise organizations migrating workloads to the public cloud must enforce role-based access control and prevent root account credential usage.",
+      "second_sentence": "The engineer configures granular IAM policies with permission boundaries, enforces Multi-Factor Authentication (MFA), and verifies programmatic access restriction across administrative roles."
+    },
+    {
+      "title": "Multi-Tier Web Architecture with S3 Static Hosting & EC2 Compute",
+      "first_sentence": "Companies hosting customer-facing digital web portals need scalable, highly available web tiers isolated from public database tiers.",
+      "second_sentence": "The lab provisions an isolated VPC with public subnets for Application Load Balancers and private subnets for compute instances, serving static assets via Amazon S3."
+    },
+    {
+      "title": "Cloud Financial Management & Automated Cost Budget Alerting",
+      "first_sentence": "Startups and corporate teams running on cloud infrastructure must prevent unexpected billing overruns caused by orphaned resources or traffic spikes.",
+      "second_sentence": "The project sets up AWS Budgets and CloudWatch alarm metrics that trigger notification alerts when simulated monthly spending exceeds configured monetary thresholds."
+    }
+  ],
+  "hard_parts": [
+    "Translating the AWS Shared Responsibility Model into concrete IAM JSON policies and security group inbound/outbound rules",
+    "Designing multi-tier VPC network routing tables, Internet Gateways (IGW), and CIDR block allocations in software-defined networks",
+    "Configuring CloudWatch billing alarm metrics and AWS Budget triggers with automated notification delivery mechanisms",
+    "Executing local cloud emulation via LocalStack to validate AWS CLI commands and API operations without incurring cloud billing costs"
+  ],
+  "screener_signals": [
+    "Clean infrastructure repository containing documented IAM policies, VPC network configuration templates, and CloudWatch alarm scripts",
+    "Security verification report proving 50 of 50 unauthorized IAM API actions are blocked with AccessDenied exceptions",
+    "Anti-fake verification script creating an IAM user without S3 permissions and asserting immediate HTTP 403 AccessDenied rejection upon bucket access"
+  ],
+  "job_families": [
+    "Junior Cloud Engineer",
+    "DevOps Associate",
+    "Cloud Support Specialist"
+  ],
+  "stack": [
+    {
+      "tool": "AWS IAM",
+      "role": "identity and access management service governing role-based least-privilege permissions and MFA enforcement"
+    },
+    {
+      "tool": "Amazon EC2",
+      "role": "elastic compute cloud virtual machine instances hosting application tiers in private subnets"
+    },
+    {
+      "tool": "Amazon S3",
+      "role": "scalable object storage service hosting static website assets and backup archives"
+    },
+    {
+      "tool": "AWS VPC",
+      "role": "virtual private cloud providing isolated software-defined network topologies and subnet routing tables"
+    },
+    {
+      "tool": "CloudWatch",
+      "role": "observability service collecting cloud infrastructure metrics and triggering billing budget alerts"
+    },
+    {
+      "tool": "LocalStack",
+      "role": "local cloud emulator running mock AWS services for zero-cost hands-on lab development"
+    },
+    {
+      "tool": "AWS CLI",
+      "role": "command line interface executing cloud management operations and verification test scripts"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "IAM Least-Privilege Policy & Multi-Factor Authentication Lab",
+        "tools_used": [
+          "AWS IAM",
+          "AWS CLI"
+        ],
+        "purpose": "Configures granular JSON IAM policies, defines permission boundaries, and enforces MFA across simulated developer roles"
+      },
+      {
+        "name": "Multi-Tier Cloud Foundation (VPC, EC2 & S3 Static Hosting)",
+        "tools_used": [
+          "AWS VPC",
+          "Amazon EC2",
+          "Amazon S3"
+        ],
+        "purpose": "Provisions public/private subnets, Internet Gateways, EC2 compute instances, and S3 static bucket hosting"
+      },
+      {
+        "name": "AWS Cost Optimization & CloudWatch Billing Alarm Harness",
+        "tools_used": [
+          "CloudWatch",
+          "LocalStack"
+        ],
+        "purpose": "Simulates resource consumption metrics and triggers automated CloudWatch alarms when budget limits are breached"
+      },
+      {
+        "name": "Core Cloud Services DevOps Integration Test Suite",
+        "tools_used": [
+          "AWS CLI",
+          "LocalStack"
+        ],
+        "purpose": "Executes automated AWS CLI verification suites against LocalStack checking IAM, VPC, and storage endpoints"
+      },
+      {
+        "name": "AWS Certified Cloud Practitioner Study Manual & Exam Guide",
+        "tools_used": [
+          "AWS IAM",
+          "AWS VPC"
+        ],
+        "purpose": "Documents CLF-C02 domain breakdowns, billing economics, security governance, and official Credly badge verification"
+      }
+    ],
+    "data_flow": "An administrator authenticates via AWS CLI with role credentials; the IAM engine evaluates permission boundaries; upon authorization, the operator provisions an AWS VPC with public and private subnets; static assets are synced to Amazon S3 with restricted bucket policies; compute workloads launch in private subnets behind security groups; CloudWatch continuously collects metric logs; when a simulated billing event exceeds the budget threshold, CloudWatch fires an alarm notification; LocalStack emulates all AWS API interactions locally for zero-cost verification.",
+    "enforcement_mechanism": "Cryptographic AWS Signature Version 4 (SigV4) authentication and strict JSON policy evaluation returning HTTP 403 on violations."
+  },
+  "targets": [
+    {
+      "metric": "IAM Least-Privilege Permission Boundary Enforcement Rate",
+      "method": "Percentage of unauthorized API requests blocked with AccessDenied when executed by restricted IAM role",
+      "input": "50 simulated AWS CLI API calls targeting unauthorized S3 and EC2 actions across restricted roles",
+      "environment": "LocalStack local AWS emulation container running IAM service emulator",
+      "minimum_pass": "50 of 50 unauthorized API calls rejected with HTTP 403 AccessDenied",
+      "target": "50 of 50 unauthorized API calls rejected with HTTP 403 AccessDenied",
+      "report": "IAM security evaluation report and access rejection audit log"
+    },
+    {
+      "metric": "Multi-Tier Subnet Network Routing Latency",
+      "method": "Round-trip network ping latency between public subnet gateway and private subnet compute instance",
+      "input": "100 ICMP network packets transmitted across virtual subnet boundaries",
+      "environment": "Local software-defined VPC network topology in LocalStack / Docker",
+      "minimum_pass": "Average packet latency is < 20 milliseconds with 0 packet loss",
+      "target": "Average packet latency is < 8 milliseconds with 0 packet loss",
+      "report": "VPC network routing latency report and routing table configuration trace"
+    },
+    {
+      "metric": "Automated CloudWatch Billing Budget Threshold Alert Latency",
+      "method": "Elapsed time from simulated budget overrun event injection to CloudWatch alarm state transition and notification dispatch",
+      "input": "Simulated $15 spend metric injected into CloudWatch metric stream with $10 budget threshold",
+      "environment": "LocalStack CloudWatch and SNS mock service environment",
+      "minimum_pass": "Alarm triggers and dispatches notification within 60 seconds",
+      "target": "Alarm triggers and dispatches notification within 25 seconds",
+      "report": "CloudWatch alarm event log and notification delivery timestamp summary"
+    }
+  ],
+  "skills": [
+    "AWS IAM",
+    "Amazon EC2",
+    "Amazon S3",
+    "AWS VPC",
+    "CloudWatch",
+    "LocalStack",
+    "AWS CLI",
+    "DevOps",
+    "Cloud Architecture"
+  ],
+  "starter_input": {
+    "spec": "Directory containing LocalStack setup, IAM policy JSON templates, VPC network creation scripts, and verification tests.",
+    "size": "7 shell scripts, 6 IAM JSON policy documents, Docker Compose manifest, and automated CLF-C02 practice evaluation quizzes",
+    "seeded_cases": "Over-permissive wildcard IAM policies, exposed public S3 buckets, misconfigured subnet route tables, and unattached IGWs",
+    "label_source": "Deterministic AWS CLI JSON outputs, CloudWatch metric alarm state strings, and LocalStack API response codes",
+    "personal_data_policy": "Strictly mock synthetic AWS account IDs and simulated test company names; no real personal data used"
+  },
+  "components": [
+    {
+      "name": "IAM Least-Privilege Policy & Multi-Factor Authentication Lab",
+      "task_type": "security hardening checks",
+      "hours": 3.0
+    },
+    {
+      "name": "Multi-Tier Cloud Foundation (VPC, EC2 & S3 Static Hosting)",
+      "task_type": "infra component (broker, DB, orchestrator, cluster service)",
+      "hours": 3.0
+    },
+    {
+      "name": "AWS Cost Optimization & CloudWatch Billing Alarm Harness",
+      "task_type": "observability",
+      "hours": 3.0
+    },
+    {
+      "name": "Core Cloud Services DevOps Integration Test Suite",
+      "task_type": "API endpoint group with tests",
+      "hours": 3.0
+    },
+    {
+      "name": "AWS Certified Cloud Practitioner Study Manual & Exam Guide",
+      "task_type": "docs + architecture diagram",
+      "hours": 2.0
+    }
+  ],
+  "extended_path": {
+    "features": [
+      "Official CLF-C02 comprehensive practice exam simulator with 260 question domain breakdown",
+      "AWS Well-Architected Tool review matrix evaluating reliability, performance, security, and cost pillars",
+      "Terraform automation scripts declaring the complete foundational architecture in reproducible HCL code"
+    ],
+    "hours": 24
+  },
+  "milestones": [
+    {
+      "name": "LocalStack Lab Setup & IAM Least-Privilege Governance in AWS IAM and LocalStack",
+      "hours": 4,
+      "done_criterion": "LocalStack initializes in Docker; IAM roles configure with permission boundaries; unauthorized actions reject."
+    },
+    {
+      "name": "VPC Network Topologies, Subnet Routing & S3 Hosting in AWS VPC and Amazon S3",
+      "hours": 4,
+      "done_criterion": "VPC provisions public/private subnets; S3 static hosting activates with restricted bucket policies."
+    },
+    {
+      "name": "CloudWatch Billing Alarms, AWS Budgeting & CLI Automation in CloudWatch and AWS CLI",
+      "hours": 4,
+      "done_criterion": "CloudWatch alarm monitors simulated spend; budget breach triggers notification in under 60 seconds."
+    },
+    {
+      "name": "Screener Verification, Anti-Fake AccessDenied Test & Exam Guide in Cloud Architecture",
+      "hours": 4,
+      "done_criterion": "Integration test suite passes; anti-fake test blocks unauthorized user; documentation and study manual complete."
+    }
+  ],
+  "prerequisites": [
+    "Basic familiarity with command-line interfaces (bash / zsh / PowerShell) and JSON data formats",
+    "Basic conceptual understanding of client-server networking, web hosting, and cloud computing principles"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (purely lightweight local cloud emulation and shell scripting)",
+    "cost": "$0 (fully open-source stack using LocalStack in Docker Desktop; $0 cloud fee)",
+    "accounts_keys_quotas": "No paid AWS account, commercial cloud credit cards, or public cloud subscription required",
+    "reference_environment": "Local 4-core CPU, Docker Desktop (LocalStack 3.0+), AWS CLI v2, Python 3.11",
+    "fallback_path": "AWS Free Tier account or offline mock JSON API server if Docker LocalStack cannot be run"
+  },
+  "riskiest_component": {
+    "name": "Accidental Cloud Billing Incurred during Cloud Resource Exploration",
+    "mitigation": "Conduct all practical lab exercises entirely within LocalStack local emulation containers at zero financial cost.",
+    "fallback": "Zero-spend AWS Budget hard cap with immediate automated SNS SMS/email alerts."
+  },
+  "deliverables": [
+    "Infrastructure repository containing IAM policy templates, VPC provisioning scripts, and S3 bucket definitions",
+    "Docker Compose environment orchestrating LocalStack local AWS emulation and automated test runners",
+    "Comprehensive CLF-C02 certification study guide covering cloud economics, shared responsibility, and core AWS services",
+    "Screener verification script validating IAM permissions, VPC routing, and anti-fake access denial in under 2 minutes"
+  ],
+  "out_of_scope": [
+    "Production multi-region active-active database clustering (Aurora Global Databases)",
+    "Advanced enterprise Direct Connect dedicated physical fiber circuit provisioning",
+    "Machine learning model training or SageMaker hyperparameter tuning"
+  ],
+  "safety_note": null,
+  "resources": [
+    "AWS Certified Cloud Practitioner (CLF-C02) Official Exam Guide & Blueprint",
+    "AWS Well-Architected Framework: Reliability, Security, Cost Optimization Whitepapers",
+    "LocalStack Documentation: Local AWS Cloud Emulator for Hands-On Practice"
+  ],
+  "rubric": [
+    {
+      "input": "50 simulated AWS CLI requests testing restricted IAM permission boundaries",
+      "action": "./scripts/test_iam_boundaries.sh",
+      "expected_result": "IAM policy blocks 50 of 50 unauthorized calls with HTTP 403 AccessDenied",
+      "evidence_location": "Security audit report in reports/iam_audit.json",
+      "pass_criterion": "50 of 50 unauthorized requests blocked with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "100 network packets routed across public and private subnet gateways",
+      "action": "./scripts/verify_vpc_routing.sh",
+      "expected_result": "Packets route with average latency < 20ms and 0 packet loss",
+      "evidence_location": "VPC routing report in reports/vpc_latency.json",
+      "pass_criterion": "Latency < 20ms and zero packet loss with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Simulated spend metric of $15 injected into CloudWatch billing stream",
+      "action": "./scripts/test_billing_alarm.sh --spend 15 --threshold 10",
+      "expected_result": "CloudWatch transitions alarm to ALARM state and dispatches notification within 60s",
+      "evidence_location": "Alarm event log in reports/alarm_event.json",
+      "pass_criterion": "Alarm triggers and dispatches alert in < 60s with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "CLF-C02 core knowledge diagnostic evaluation across 65 exam questions",
+      "action": "python ./scripts/run_exam_eval.py --questions 65",
+      "expected_result": "Scorer evaluates domain answers with score >= 700 / 1000 scaled points",
+      "evidence_location": "Diagnostic score sheet in reports/exam_eval.json",
+      "pass_criterion": "Score >= 700 with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Test IAM user without S3 permissions attempting to list buckets via AWS CLI",
+      "action": "aws --endpoint-url=http://localhost:4566 s3 ls --profile restricted-user",
+      "expected_result": "API terminates immediately with AccessDenied error message",
+      "evidence_location": "Dynamic verification console execution output log",
+      "pass_criterion": "Console confirms AccessDenied exception with exit code 255 or 1",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Prepared for AWS Cloud Practitioner certification via hands-on cloud labs; deployed multi-tier VPC infrastructure in LocalStack with [IAM_COMPLIANCE] least-privilege policy enforcement, and established automated billing alert triggers within [ALERT_LATENCY] seconds.",
+    "claims": [
+      {
+        "text": "deployed multi-tier VPC infrastructure in LocalStack with [IAM_COMPLIANCE] least-privilege policy enforcement",
+        "rubric_indexes": [
+          0,
+          1
+        ]
+      },
+      {
+        "text": "established automated billing alert triggers within [ALERT_LATENCY] seconds",
+        "rubric_indexes": [
+          2
+        ]
+      }
+    ],
+    "do_not_claim": "managed multi-region Aurora enterprise deployment or production Direct Connect physical fiber circuits"
+  },
+  "verify": [
+    "Run `./scripts/test_iam_boundaries.sh` to confirm IAM least-privilege policies block unauthorized actions.",
+    "Execute `./scripts/test_billing_alarm.sh` to verify CloudWatch billing alarm automation.",
+    "Run `aws --endpoint-url=http://localhost:4566 s3 ls --profile restricted-user` to assert AccessDenied anti-fake rejection."
+  ],
+  "worksheet": {
+    "q1": "Core deliverable: an AWS Certified Cloud Practitioner hands-on lab curriculum and reproducible LocalStack infrastructure repository.",
+    "q2": "Target users: junior cloud engineers, DevOps associates, and cloud support specialists preparing for CLF-C02.",
+    "q3": "3 use cases: IAM least-privilege governance, multi-tier VPC web architectures, and automated cloud financial billing management.",
+    "q4": "Stated hours: 16 hours. Calculated bottom-up: 14 component hours * 1.15 buffer = 16.1 -> 16 hours. Beginner level (band 8-20h). Extended path: +24h.",
+    "q5": "Hard parts: Shared Responsibility Model implementation, multi-tier VPC subnet routing, CloudWatch billing triggers, and LocalStack setup.",
+    "q6": "Starter input: LocalStack Docker configs, IAM policy JSON templates, VPC setup scripts, and practice quizzes. Synthetic accounts only.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU bound, $0 cost using LocalStack in Docker Desktop. Zero cloud fees.",
+    "q8": "Riskiest component: accidental cloud billing incurred during learning. Fallback: 100% local emulation in LocalStack with zero cloud charges.",
+    "q9": "Potential faking: memorizing answers without hands-on lab execution. Anti-fake check 5 attempts unauthorized S3 call and asserts AccessDenied.",
+    "q10": "Safe; synthetic AWS account IDs and simulated test company names only."
+  }
+}

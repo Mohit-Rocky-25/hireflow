@@ -1,0 +1,313 @@
+{
+  "id": "brief-fullstack-ecommerce",
+  "title": "Headless E-Commerce Platform with Optimistic UI & Atomic Inventory Locks",
+  "domain": "Full-Stack Web",
+  "difficulty": "INTERMEDIATE",
+  "project_types": [
+    "Full-stack web",
+    "API/backend service"
+  ],
+  "problem": "Modern e-commerce web applications must deliver instantaneous client-side interactions while guaranteeing strict backend data consistency during high-concurrency flash sales. Naive implementations suffer from sluggish shopping cart state synchronizations and inventory overselling when multiple shoppers purchase the final item simultaneously. This project builds a high-performance headless e-commerce platform in Next.js, React, TypeScript, PostgreSQL, Prisma, and Stripe. The system implements optimistic client-side UI updates for seamless cart interactions, transactional database row locking to prevent overselling, resilient Stripe checkout session creation with idempotent webhook fulfillment, and server-side rendered (SSR) catalog pages with stale-while-revalidate caching.",
+  "use_cases": [
+    "High-volume consumer retail storefronts requiring zero overselling during limited product drops",
+    "Digital goods marketplaces delivering instant checkout workflows with automated webhook fulfillment",
+    "Headless commerce frontends decoupling customized customer experiences from backend catalog databases"
+  ],
+  "hard_parts": [
+    "Preventing inventory overselling race conditions across concurrent checkouts via PostgreSQL SELECT FOR UPDATE locks",
+    "Managing optimistic shopping cart UI updates with automatic rollback when backend validation rejects changes",
+    "Processing asynchronous Stripe payment webhooks idempotently to eliminate duplicate order creation",
+    "Coordinating server-side catalog caching and on-demand revalidation to ensure price accuracy"
+  ],
+  "screener_signals": [
+    "Clean TypeScript codebase cleanly separating Next.js app routes, Prisma schemas, cart state machines, and Stripe webhooks",
+    "Automated flash-sale stress test simulating 100 concurrent checkouts on a single inventory item without overselling",
+    "Anti-fake verification script creating dynamic product SKUs, launching concurrent purchase requests, and asserting lock integrity"
+  ],
+  "job_families": [
+    "Full-Stack Web Engineer",
+    "Frontend Platform Engineer",
+    "E-Commerce Backend Developer"
+  ],
+  "stack": [
+    {
+      "tool": "Next.js",
+      "role": "React framework providing server-side rendering, routing, and server action endpoints"
+    },
+    {
+      "tool": "React",
+      "role": "UI library powering optimistic shopping cart components and responsive checkout interfaces"
+    },
+    {
+      "tool": "TypeScript",
+      "role": "strongly typed language shared across client UI and backend database handlers"
+    },
+    {
+      "tool": "PostgreSQL",
+      "role": "relational database enforcing transactional inventory locks and order persistence"
+    },
+    {
+      "tool": "Prisma",
+      "role": "type-safe ORM managing database migrations and transactional queries"
+    },
+    {
+      "tool": "Stripe",
+      "role": "payment processing platform handling checkout sessions and webhook notifications"
+    }
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "Headless Catalog & SSR Storefront",
+        "tools_used": [
+          "Next.js",
+          "React",
+          "TypeScript"
+        ],
+        "purpose": "Renders product catalogs via server-side rendering with incremental static regeneration"
+      },
+      {
+        "name": "Optimistic Cart State Manager",
+        "tools_used": [
+          "React",
+          "TypeScript"
+        ],
+        "purpose": "Updates client UI immediately upon cart additions and synchronizes with localStorage and backend"
+      },
+      {
+        "name": "Atomic Inventory Reservation Lock",
+        "tools_used": [
+          "Prisma",
+          "PostgreSQL"
+        ],
+        "purpose": "Locks inventory rows within database transactions (SELECT FOR UPDATE) to eliminate race conditions"
+      },
+      {
+        "name": "Stripe Payment & Idempotent Webhook Handler",
+        "tools_used": [
+          "Next.js",
+          "Stripe",
+          "Prisma"
+        ],
+        "purpose": "Initializes Stripe checkout sessions and processes charge.succeeded webhooks idempotently"
+      }
+    ],
+    "data_flow": "Shoppers browse SSR product pages served by Next.js; adding items immediately triggers optimistic React state updates; upon proceeding to checkout, the backend executes an atomic Prisma transaction that locks inventory rows using PostgreSQL SELECT FOR UPDATE; if stock is available, inventory reserves and a Stripe checkout session is generated; customer completes payment on Stripe; Stripe posts a webhook event to Next.js API; the webhook handler checks event idempotency in PostgreSQL, marks the order PAID, and finalizes stock deduction.",
+    "enforcement_mechanism": "PostgreSQL transactional row-level locks preventing simultaneous double-allocation of limited stock; Stripe webhook signature verification."
+  },
+  "targets": [
+    {
+      "metric": "Inventory Race Condition Overselling Rate",
+      "method": "Stress testing 500 concurrent checkout requests attempting to purchase a product with only 10 available stock",
+      "input": "500 concurrent HTTP checkout attempts targeting a limited inventory pool of 10 items",
+      "environment": "Standard 4-core local CPU, PostgreSQL 15+, Node.js 18+",
+      "minimum_pass": "0 oversold items; exactly 10 orders succeed and 490 requests receive OUT_OF_STOCK error",
+      "target": "0 oversold items; exactly 10 orders succeed and 490 requests receive OUT_OF_STOCK error",
+      "report": "Concurrency stress test log verifying final inventory count equals 0"
+    },
+    {
+      "metric": "Cart UI Optimistic Update Latency",
+      "method": "Client-side interaction timing from add-to-cart click until DOM renders updated cart badge",
+      "input": "100 consecutive add-to-cart user interaction events in browser environment",
+      "environment": "Standard 4-core local CPU, Next.js production build, headless Chrome",
+      "minimum_pass": "Average optimistic UI update latency is < 40 milliseconds",
+      "target": "Average optimistic UI update latency is < 15 milliseconds",
+      "report": "Browser performance interaction log detailing render timing"
+    },
+    {
+      "metric": "Stripe Webhook Idempotency Duplication Rate",
+      "method": "Automated replay of 50 identical Stripe payment webhook event payloads",
+      "input": "50 replayed webhook deliveries carrying identical event ID and payment intent payload",
+      "environment": "Standard 4-core local CPU, Next.js API route, PostgreSQL 15+",
+      "minimum_pass": "0 duplicate order records created; exactly 1 successful database processing confirmation",
+      "target": "0 duplicate order records created; exactly 1 successful database processing confirmation",
+      "report": "Webhook idempotency verification output log"
+    }
+  ],
+  "skills": [
+    "TypeScript",
+    "Next.js",
+    "React",
+    "PostgreSQL",
+    "Prisma",
+    "Stripe",
+    "E-Commerce",
+    "Full-Stack Web"
+  ],
+  "starter_input": {
+    "spec": "E-commerce database schema (products, inventory, orders, line_items), sample product catalog, and Stripe test credentials.",
+    "size": "250 product SKUs across 10 categories with 10,000 synthetic inventory stock units",
+    "seeded_cases": "Simultaneous flash-sale checkout spikes, out-of-stock cart additions, and duplicate webhook replay attempts",
+    "label_source": "Deterministic checkout test suite asserting exact inventory counts and HTTP response codes",
+    "personal_data_policy": "Strictly mock synthetic customer names and Stripe test card tokens (4242...); no real personal data used"
+  },
+  "components": [
+    {
+      "name": "Headless Product Catalog & SSR Cache",
+      "task_type": "one UI view with state",
+      "hours": 4.0
+    },
+    {
+      "name": "Optimistic Cart State & Local Storage Sync",
+      "task_type": "one UI view with state",
+      "hours": 4.0
+    },
+    {
+      "name": "Prisma Schema & Atomic Inventory Lock Engine",
+      "task_type": "infra component (broker, DB, orchestrator, cluster service)",
+      "hours": 4.0
+    },
+    {
+      "name": "Stripe Checkout & Idempotent Webhook Handler",
+      "task_type": "API endpoint group with tests",
+      "hours": 4.0
+    },
+    {
+      "name": "Checkout Concurrency & Cart Invariant Benchmark",
+      "task_type": "load or performance test harness + report",
+      "hours": 4.0
+    },
+    {
+      "name": "E-Commerce System Architecture Diagram & Order Runbook",
+      "task_type": "docs + architecture diagram",
+      "hours": 4.0
+    }
+  ],
+  "extended_path": {
+    "items": [
+      "Algolia instant search integration with faceted filtering and debounce indexing",
+      "Abandoned cart recovery email worker with signed discount token generation"
+    ],
+    "hours": 12
+  },
+  "milestones": [
+    {
+      "name": "Next.js SSR Product Catalog & Optimistic React Cart in TypeScript Full-Stack Web",
+      "hours": 7,
+      "done_criterion": "Catalog renders via SSR; cart adds items optimistically in < 40ms with localStorage sync."
+    },
+    {
+      "name": "Prisma PostgreSQL Schema & Row-Lock Inventory Reservation in E-Commerce",
+      "hours": 7,
+      "done_criterion": "Prisma schema models products and stock; transactional row locking eliminates race conditions."
+    },
+    {
+      "name": "Stripe Checkout Session & Idempotent Webhook Processing",
+      "hours": 7,
+      "done_criterion": "Stripe session initializes; webhook handler verifies signatures and processes events idempotently."
+    },
+    {
+      "name": "Overselling Prevention Benchmark, Anti-Fake Test & Docs",
+      "hours": 7,
+      "done_criterion": "Stress test confirms 0 oversold items on 500 concurrent checkouts; anti-fake test passes; docs complete."
+    }
+  ],
+  "prerequisites": [
+    "Proficiency in TypeScript, modern React (hooks, context, state machines), and Next.js app directory",
+    "Familiarity with SQL database transactions, ORM patterns (Prisma), and payment gateway flows"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (purely CPU-bound web serving and database operations)",
+    "cost": "$0 (fully open-source software stack with free Stripe test mode)",
+    "accounts_keys_quotas": "Free Stripe developer account for test mode API keys",
+    "reference_environment": "Local 4-core CPU with Node.js 18+ and PostgreSQL 15+ installed",
+    "fallback_path": "SQLite in-memory database with local mock payment gateway if PostgreSQL or Stripe is inaccessible"
+  },
+  "riskiest_component": {
+    "name": "Deadlocks Under High-Concurrency Inventory Row Locking",
+    "fallback": "Sort inventory item IDs consistently before acquiring row locks in multi-item transactions"
+  },
+  "deliverables": [
+    "Git repository containing Next.js storefront, Prisma models, and Stripe webhook endpoints",
+    "Interactive responsive web application with product browsing, cart drawer, and checkout",
+    "Automated concurrency test harness verifying zero overselling across competing checkouts",
+    "Screener verification script executing automated benchmark and dynamic SKU purchase test in under 2 minutes"
+  ],
+  "out_of_scope": [
+    "Complex warehouse logistics and physical barcode scanner integrations",
+    "Multi-vendor seller marketplace commission splits and tax remittance calculation",
+    "PCI-DSS direct card data iframe hosting outside Stripe Checkout"
+  ],
+  "safety_note": null,
+  "resources": [
+    "Next.js App Router Documentation and Server Action Patterns",
+    "PostgreSQL Row-Level Locking (SELECT FOR UPDATE) Concurrency Guide",
+    "Stripe Checkout and Webhook Signature Verification Documentation"
+  ],
+  "rubric": [
+    {
+      "input": "500 concurrent checkout attempts targeting single product with 10 available stock",
+      "action": "npm run test:concurrency",
+      "expected_result": "Prisma transactional row lock permits exactly 10 checkouts and rejects 490 attempts",
+      "evidence_location": "Terminal test output log and reports/concurrency_results.json",
+      "pass_criterion": "Exactly 10 successful orders created and 0 inventory overselling with exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Client click interaction adding item to shopping cart",
+      "action": "npm run test:cart-latency",
+      "expected_result": "Optimistic UI updates DOM badge and drawer state in < 40 milliseconds",
+      "evidence_location": "Browser benchmark timing report",
+      "pass_criterion": "Average optimistic cart update latency is < 40 milliseconds",
+      "kind": "normal"
+    },
+    {
+      "input": "50 duplicate Stripe webhook events replayed to webhook endpoint",
+      "action": "npm run test:webhook-idempotency",
+      "expected_result": "Webhook handler detects duplicate event IDs and avoids duplicate order generation",
+      "evidence_location": "Webhook processing log and database order table",
+      "pass_criterion": "Exactly 1 order record created with 0 duplicate entries and exit code 0",
+      "kind": "normal"
+    },
+    {
+      "input": "Product catalog SSR page request",
+      "action": "curl -I http://localhost:3000/products",
+      "expected_result": "Next.js returns HTTP 200 with HTML payload and caching headers",
+      "evidence_location": "HTTP response header log",
+      "pass_criterion": "HTTP status is 200 and Content-Type contains text/html",
+      "kind": "normal"
+    },
+    {
+      "input": "Dynamic SKU provisioned with exactly 1 unit of stock at runtime",
+      "action": "node scripts/verify_dynamic_checkout.js --sku DYNAMIC_FLASH_SKU --stock 1 --concurrent 10",
+      "expected_result": "Exactly 1 checkout succeeds, 9 fail with OUT_OF_STOCK, and database stock equals 0",
+      "evidence_location": "Dynamic verification console output log",
+      "pass_criterion": "Successful count equals 1, failure count equals 9, remaining stock equals 0, exit code 0",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected headless e-commerce platform in Next.js and React with Prisma and PostgreSQL; eliminated inventory overselling via transactional row locks across [CONCURRENT_REQUESTS] concurrent checkouts, and achieved sub-[CART_LATENCY] optimistic cart interaction latency with idempotent Stripe fulfillment.",
+    "claims": [
+      {
+        "text": "eliminated inventory overselling via transactional row locks across [CONCURRENT_REQUESTS] concurrent checkouts",
+        "rubric_indexes": [
+          0
+        ]
+      },
+      {
+        "text": "achieved sub-[CART_LATENCY] optimistic cart interaction latency with idempotent Stripe fulfillment",
+        "rubric_indexes": [
+          1,
+          2
+        ]
+      }
+    ],
+    "do_not_claim": "multi-vendor marketplace commission splits or direct PCI-DSS credit card custody"
+  },
+  "verify": [],
+  "worksheet": {
+    "q1": "Core deliverable: a headless e-commerce platform in Next.js/React with Prisma, PostgreSQL row locks, and idempotent Stripe webhooks.",
+    "q2": "Target users: full-stack developers, frontend platform engineers, and e-commerce architects.",
+    "q3": "3 use cases: flash sale consumer retail, digital goods marketplaces, and headless commerce frontends.",
+    "q4": "Stated hours: 28 hours. Calculated bottom-up: 24 component hours * 1.15 buffer = 27.6 -> 28 hours. Intermediate level.",
+    "q5": "Hard parts: transactional row locking with SELECT FOR UPDATE, optimistic cart rollbacks, idempotent Stripe webhooks, and SSR catalog caching.",
+    "q6": "Starter input: 250 product SKUs across 10 categories with 10,000 synthetic inventory stock units. Mock test data only.",
+    "q7": "Hardware: Linux/macOS/Windows WSL2, 8GB RAM, CPU only, $0 cost, free Stripe test account. Fallback: SQLite and mock payment gateway.",
+    "q8": "Riskiest component: Deadlocks under high-concurrency locking. Fallback: consistent ascending SKU sorting before acquiring locks.",
+    "q9": "Potential faking: mock cart returns without database locking. Anti-fake check 5 provisions dynamic SKU with 1 stock, runs 10 concurrent checkouts, and asserts exactly 1 succeeds.",
+    "q10": "Safety/ethics: Safe; synthetic products and Stripe test credit card tokens only."
+  }
+}

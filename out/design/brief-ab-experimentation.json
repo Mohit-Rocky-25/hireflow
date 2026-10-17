@@ -1,0 +1,241 @@
+{
+  "id": "brief-ab-experimentation",
+  "title": "Bayesian A/B Experimentation Engine",
+  "domain": "ML Engineering",
+  "difficulty": "INTERMEDIATE",
+  "project_types": ["ML training", "API/backend"],
+  "problem": "Fixed-horizon frequentist experiment evaluation forces product teams to wait for arbitrary precalculated sample thresholds before taking business actions, prolonging exposure to inferior variants and encouraging ad-hoc peeking that inflates false discovery rates. Continuous inspection under frequentist methods invalidates standard p-values unless complex alpha-spending functions are maintained. A Bayesian sequential experimentation engine continuously models parameter posteriors, computing the exact probability of variant superiority and quantifying bounded expected loss to automate candidate variant promotion or termination while strictly controlling decision risk.",
+  "use_cases": [
+    "Continuous feature-flag variant evaluation for web and mobile customer checkout workflows",
+    "Pricing tier optimization with automated risk-bounded stopping thresholds",
+    "Recommendation model candidate comparison without fixed sample horizon delays"
+  ],
+  "hard_parts": [
+    "Preventing discovery bias during small-sample cold starts where high variance can trigger premature stopping without minimum sample guards",
+    "Computing two-dimensional numerical quadrature for expected loss integrals within sub-20ms HTTP API response constraints",
+    "Handling concurrent atomic increment transactions on experiment arms under SQLite without database lock contention",
+    "Calibrating sequential stopping boundaries via Monte Carlo simulations to maintain Type I error rates under null conditions"
+  ],
+  "screener_signals": [
+    "Deterministic pytest test suite comparing closed-form posterior probabilities against SciPy numerical quadrature",
+    "Automated Monte Carlo simulation script reproducing bounded false positive rates across 500 null experiment runs",
+    "Standalone reproducible FastAPI service with SQLite transactional persistence and benchmark reports"
+  ],
+  "job_families": [
+    "Machine Learning Engineer",
+    "Data Platform Engineer",
+    "Growth Infrastructure Engineer"
+  ],
+  "stack": [
+    {"tool": "Python", "role": "core mathematical computing and API implementation"},
+    {"tool": "NumPy", "role": "vectorized array calculations and random sampling"},
+    {"tool": "SciPy", "role": "beta distributions, quadrature integration, and incomplete beta functions"},
+    {"tool": "FastAPI", "role": "HTTP API for experiment lifecycle and telemetry"},
+    {"tool": "SQLite", "role": "ACID persistence for experiment metadata and aggregate counts"},
+    {"tool": "Docker", "role": "containerized local execution and reproducible testing"}
+  ],
+  "architecture": {
+    "components": [
+      {
+        "name": "Posterior Evaluation Engine",
+        "tools_used": ["Python", "NumPy", "SciPy"],
+        "purpose": "Calculates Beta-Binomial conjugate posteriors, analytical probability of superiority, and expected loss quadrature integrals"
+      },
+      {
+        "name": "Experiment State Store",
+        "tools_used": ["SQLite"],
+        "purpose": "Maintains persistent experiment configuration, arm assignments, and atomic exposure/conversion aggregates"
+      },
+      {
+        "name": "Ingestion & Decision Gateway",
+        "tools_used": ["Python", "FastAPI"],
+        "purpose": "Exposes HTTP endpoints for event ingestion, dynamic arm allocation, and sequential decision evaluation"
+      },
+      {
+        "name": "Containerized Runtime",
+        "tools_used": ["Docker"],
+        "purpose": "Packages reproducible multi-platform environment with pinned mathematical dependencies"
+      }
+    ],
+    "data_flow": "Client telemetry emits exposure and conversion events to FastAPI; API writes atomic increment transactions to SQLite; Decision Gateway triggers Posterior Evaluation Engine; SciPy computes Beta conjugate updates and Expected Loss; engine returns continue, promote, or terminate status based on calibrated decision thresholds.",
+    "enforcement_mechanism": "Automated status transitions to STOPPED_WINNER or STOPPED_INCONCLUSIVE when sample size exceeds minimum threshold and expected loss drops below target epsilon."
+  },
+  "targets": [
+    {
+      "metric": "Expected Loss Quadrature Numerical Precision",
+      "method": "Vectorized 2D numerical quadrature comparison against closed-form incomplete beta function",
+      "input": "15 deterministic synthetic test parameter pairs covering extreme and balanced beta distributions",
+      "environment": "Standard 4-core local CPU, Python 3.11+",
+      "minimum_pass": "Absolute error < 1e-4 across 15 of 15 test parameter pairs",
+      "target": "Absolute error < 1e-5 across 15 of 15 test parameter pairs",
+      "report": "Pytest numerical tolerance test log file with residual errors"
+    },
+    {
+      "metric": "Empirical Type I Error under Null Distribution",
+      "method": "Monte Carlo sequential experiment simulation over identical arms with conversion rate 0.05",
+      "input": "500 simulated experiment trajectories with minimum sample threshold of 200 observations per arm",
+      "environment": "Standard 4-core local CPU, Python 3.11+",
+      "minimum_pass": "Empirical false stopping rate <= 5.0% across 500 simulated null trials",
+      "target": "Empirical false stopping rate <= 4.2% across 500 simulated null trials",
+      "report": "CSV simulation summary table and empirical cumulative distribution plot"
+    },
+    {
+      "metric": "Decision Endpoint Latency (p95)",
+      "method": "Locust load benchmark simulating concurrent decision requests against running FastAPI service",
+      "input": "1,000 synthetic HTTP GET requests across 50 concurrent active experiment states",
+      "environment": "Standard 4-core local CPU, SQLite WAL mode, local loopback",
+      "minimum_pass": "p95 latency < 35ms under 100 requests per second",
+      "target": "p95 latency < 18ms under 100 requests per second",
+      "report": "Locust HTML execution summary report and CSV percentile export"
+    }
+  ],
+  "skills": ["Python", "NumPy", "SciPy", "FastAPI", "SQLite", "Docker", "Statistics", "Bayesian Methods"],
+  "starter_input": {
+    "spec": "Deterministic synthetic traffic generator creating exposure events and binary conversion events with configurable ground-truth arm probabilities.",
+    "size": "10,000 synthetic event records across 4 test experiments with seeded conversion rates",
+    "seeded_cases": "Extreme low-conversion rate (0.001 vs 0.002), high-traffic parity null (0.05 vs 0.05), and early high-variance noise bursts",
+    "label_source": "Deterministic pseudorandom generator with fixed random seed 42",
+    "personal_data_policy": "Strictly synthetic user identifiers (random UUIDs); no personal or real user tracking data used"
+  },
+  "components": [
+    {"name": "Posterior Mathematics & Numerical Quadrature Engine", "task_type": "model train + evaluate cycle", "hours": 5.0},
+    {"name": "Sequential Stopping Logic & Threshold Calibration", "task_type": "concurrency/consistency mechanism with tests", "hours": 5.0},
+    {"name": "FastAPI Experiment State API", "task_type": "API endpoint group with tests", "hours": 4.0},
+    {"name": "Monte Carlo Evaluation Harness & Null Simulation", "task_type": "evaluation dataset creation + scoring script", "hours": 4.0},
+    {"name": "Load & Latency Benchmark Harness", "task_type": "load or performance test harness + report", "hours": 4.0},
+    {"name": "Documentation, Schema Diagram & Debug Buffer", "task_type": "docs + architecture diagram", "hours": 3.0}
+  ],
+  "extended_path": {
+    "items": [
+      "Hierarchical Bayesian shrinkage priors across multi-variant product categories",
+      "Continuous Gaussian reward models for revenue-per-visitor metric evaluation"
+    ],
+    "hours": 12
+  },
+  "milestones": [
+    {
+      "name": "Closed-Form Posterior & Numerical Quadrature Engine using Bayesian Methods and Statistics",
+      "hours": 7,
+      "done_criterion": "Unit tests pass verifying analytical P(B > A) and numerical quadrature Expected Loss match SciPy reference values within 1e-4 tolerance across 15 test cases."
+    },
+    {
+      "name": "FastAPI Experiment State Service & SQLite Persistence",
+      "hours": 7,
+      "done_criterion": "FastAPI service implements exposure/conversion ingestion and returns Bayesian decision states backed by SQLite transactions."
+    },
+    {
+      "name": "Monte Carlo Null Simulator & Stopping Boundary Harness",
+      "hours": 8,
+      "done_criterion": "Monte Carlo harness simulates 500 null A/A trials and verifies empirical Type I error does not exceed 5.0%."
+    },
+    {
+      "name": "Performance Benchmark, Anti-Fake Test Suite, Docs & Buffer",
+      "hours": 7,
+      "done_criterion": "Locust load benchmark verifies p95 latency < 35ms; anti-fake verification script confirms dynamic seed evaluation; documentation and architecture diagram complete."
+    }
+  ],
+  "prerequisites": [
+    "Intermediate Python programming (type annotations, pytest)",
+    "Applied probability concepts (Bayesian probability, Beta distributions, Type I error)",
+    "Basic relational database transactions and REST API principles"
+  ],
+  "environment": {
+    "os": "Linux / macOS / Windows with WSL2",
+    "ram": "8GB RAM",
+    "gpu": "None required (CPU-only mathematical computation)",
+    "cost": "$0 (fully open-source software stack)",
+    "accounts_keys_quotas": "No external accounts, API keys, or cloud quotas required",
+    "reference_environment": "Local 4-core x86_64 or ARM64 CPU with Python 3.11 and Docker installed",
+    "fallback_path": "Local Python virtual environment (venv) without Docker using SQLite in-memory database"
+  },
+  "riskiest_component": {
+    "name": "2D Numerical Quadrature Latency in Expected Loss Function",
+    "fallback": "Pre-vectorized 1D quadrature approximation with cached lookup tables for standard alpha/beta grid increments"
+  },
+  "deliverables": [
+    "Git repository containing mathematical library, FastAPI application, and SQLite migration scripts",
+    "Monte Carlo evaluation harness script and exported CSV/plot demonstrating Type I error boundaries",
+    "Locust benchmark script and exported latency percentiles report",
+    "Screener verification script running end-to-end tests and dynamic seed validation in under 3 minutes"
+  ],
+  "out_of_scope": [
+    "Multi-armed contextual bandits with continuous policy training",
+    "Distributed multi-region PostgreSQL replication",
+    "Real-time Kafka streaming ingress clusters"
+  ],
+  "safety_note": null,
+  "resources": [
+    "SciPy statistical functions documentation (scipy.stats.beta)",
+    "FastAPI official tutorial and concurrency documentation",
+    "John K. Kruschke - Doing Bayesian Data Analysis reference principles"
+  ],
+  "rubric": [
+    {
+      "input": "15 deterministic (alpha, beta) parameter pairs in test fixture file",
+      "action": "Run pytest tests/test_math.py",
+      "expected_result": "All test assertions pass with absolute difference between analytical and quadrature calculations < 1e-4",
+      "evidence_location": "Terminal test output log and tests/test_math.py",
+      "pass_criterion": "Exit code 0 with 15 passing mathematical assertions and zero calculation errors",
+      "kind": "normal"
+    },
+    {
+      "input": "100 concurrent HTTP POST events sent via asyncio test client",
+      "action": "Execute ingestion integration test script",
+      "expected_result": "All 100 events recorded in SQLite with correct aggregate arm counts and zero transaction collisions",
+      "evidence_location": "SQLite database query output and test log",
+      "pass_criterion": "Database count equals 100 with zero dropped events and HTTP 200 responses",
+      "kind": "normal"
+    },
+    {
+      "input": "Synthetic event stream with true conversion rates pA=0.05 and pB=0.07",
+      "action": "Run sequential experiment simulator",
+      "expected_result": "Engine transitions experiment status from RUNNING to STOPPED_WINNER once expected loss drops below 0.001 after minimum sample threshold",
+      "evidence_location": "Experiment status JSON log output",
+      "pass_criterion": "Status correctly set to STOPPED_WINNER with winning variant identified as arm B",
+      "kind": "normal"
+    },
+    {
+      "input": "500 simulated A/A null experiment runs with pA=0.05, pB=0.05",
+      "action": "Execute python scripts/simulate_null.py",
+      "expected_result": "Empirical false positive stopping rate measured across all 500 completed trajectories",
+      "evidence_location": "Output file reports/null_simulation_summary.csv",
+      "pass_criterion": "Reported empirical false positive rate is <= 5.0% across all 500 trials",
+      "kind": "normal"
+    },
+    {
+      "input": "Dynamic random seed passed via command-line argument to verification script",
+      "action": "Run python scripts/verify_reproducibility.py --seed 98765",
+      "expected_result": "Script dynamically computes posteriors for freshly generated data and matches mathematical invariants without using static fixture files",
+      "evidence_location": "Verification execution console output and generated verification report",
+      "pass_criterion": "Script completes with exit code 0 confirming dynamic evaluation matches mathematical bounds",
+      "kind": "anti_fake"
+    }
+  ],
+  "bullet": {
+    "template": "Architected Bayesian sequential A/B experimentation engine in Python and FastAPI backed by SQLite; implemented Beta conjugate updating and numerical expected loss quadrature to bound empirical false discoveries below [TYPE_I_ERROR] across [SIMULATION_TRIALS] simulated trials with tail decision latency under [P95_LATENCY].",
+    "claims": [
+      {
+        "text": "bound empirical false discoveries below [TYPE_I_ERROR] across [SIMULATION_TRIALS] simulated trials",
+        "rubric_indexes": [2, 3]
+      },
+      {
+        "text": "tail decision latency under [P95_LATENCY]",
+        "rubric_indexes": [0, 1]
+      }
+    ],
+    "do_not_claim": "unbounded real-time throughput or production-grade distributed scalability without committed load test logs"
+  },
+  "verify": [],
+  "worksheet": {
+    "q1": "The student builds a self-contained Bayesian sequential A/B experimentation service that processes event streams, continuously computes Beta-Binomial conjugate posteriors and expected loss quadrature, and automates early stopping decisions.",
+    "q2": "Core path: analytical Beta-Binomial posterior, expected loss quadrature, SQLite state persistence, FastAPI endpoints, Monte Carlo null simulator, and anti-fake verification. Extended path: hierarchical shrinkage priors and continuous Gaussian reward metrics (+12h).",
+    "q3": "Components: Posterior Math (5h), Stopping Logic (5h), FastAPI API (4h), Monte Carlo Harness (4h), Benchmark Harness (4h), Docs & Buffer (3h). Subtotal 25h x 1.15 = 29h.",
+    "q4": "Project types: ML training, API/backend. Metrics built: Expected Loss Quadrature Accuracy, Empirical Type I Error under Null, Decision Endpoint Latency. Rejected: live streaming cluster lag (no Kafka/Flink required for core Bayesian engine).",
+    "q5": "Hard parts: quadrature latency under concurrency, discovery bias on small sample cold starts, SQLite locking under concurrent writes, calibrating epsilon stopping thresholds.",
+    "q6": "Starter input: synthetic exposure and binary conversion generator with fixed RNG seed (NumPy PCG64, seed 42), 10,000 synthetic records, extreme skew edge cases, no personal data.",
+    "q7": "Hardware & Environment: Linux/macOS/Windows WSL2, 8GB RAM, CPU only, $0 cost, no external cloud accounts or quotas. Fallback: local venv with in-memory SQLite.",
+    "q8": "Riskiest component: 2D numerical quadrature latency in expected loss. Fallback: 1D vectorized quadrature approximation with precomputed lookup grids.",
+    "q9": "Potential faking: hardcoded JSON responses for posterior or false positive rates. Rubric item 5 (anti-fake) accepts a dynamic random seed from screener and recomputes all mathematical distributions on the fly.",
+    "q10": "Safety/ethics: Not required for purely synthetic simulated A/B testing data; synthetic user IDs only."
+  }
+}
