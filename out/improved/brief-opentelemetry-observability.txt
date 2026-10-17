@@ -2,9 +2,9 @@ PROJECT BRIEF — Full-Stack Distributed Tracing & APM Platform
 ======================================================================
 
 Domain    : Platform & DevOps
-Difficulty: INTERMEDIATE
-Est. Time : 28 hours
-Tech Stack: OpenTelemetry, Prometheus, Grafana, Jaeger, Docker, React
+Difficulty: intermediate
+Est. Time : 28 hours (Core Path) | Extended Path: +6 hours
+Tech Stack: OpenTelemetry [opentelemetry component for project domain], Prometheus [metrics collection and time-series monitoring], Grafana [observability dashboard visualization], Jaeger [jaeger component for project domain], Docker [containerization and local multi-service orchestration], React [frontend UI component library] (Requires: Docker Engine / Desktop)
 
 PROBLEM STATEMENT
 ----------------------------------------
@@ -28,22 +28,94 @@ OpenTelemetry Collector orchestrates incoming traces from multiple sample polygl
 
 SCALE & PERFORMANCE TARGETS
 ----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+Target 1:
+- Metric: Request Processing Overhead / Latency (p99)
+- Method: Concurrent HTTP load test using k6 / vegeta over 60s sustained run
+- Input/dataset: Standard synthetic JSON payload (~1KB) over 5,000 concurrent requests
+- Reference environment: Local 4-core CPU, 8GB RAM, loopback network interface
+- Minimum pass: p99 latency overhead < 20ms under 1,000 req/sec
+- Target: p99 latency overhead < 5ms under 5,000 req/sec
+- Report format: k6 terminal summary report and CSV percentile log
+
+Target 2:
+- Metric: Sustained Throughput Under Concurrency
+- Method: Continuous load test simulating concurrent client connections
+- Input/dataset: Synthetic benchmark traffic across 50 concurrent worker threads
+- Reference environment: Local Docker Compose or native runtime
+- Minimum pass: Sustained throughput > [N] req/sec (minimum > 1,500 req/sec) with zero socket leaks
+- Target: Sustained throughput > [N] req/sec (target > 5,000 req/sec) with zero socket leaks
+- Report format: Benchmark throughput table and error rate summary
+
+Target 3:
+- Metric: Fault Recovery / Failover Duration
+- Method: Injected process failure during continuous active traffic stream
+- Input/dataset: Chaos fault injection endpoint or SIGKILL on worker process
+- Reference environment: Local multi-process or containerized cluster
+- Minimum pass: Service detects failure and reroutes traffic with recovery time < [S] seconds (pass < 5s)
+- Target: Service detects failure and recovers state with recovery time < [S] seconds (target < 2s)
+- Report format: System log timestamps comparing failure injection to state recovery
 
 SKILLS COVERED
 ----------------------------------------
 Docker, Prometheus, Grafana, OpenTelemetry, React, DevOps
 
+TARGET APPLICATION / STARTER INPUT
+----------------------------------------
+The project provides a self-contained test environment and fixture generator located in `scripts/` or `fixtures/`. It deterministically generates representative input records or mock client traffic for automated validation. No third-party proprietary data or real personal identifiers (PII) are required; all test datasets use synthetic tokens and deterministic random seeds.
+
+MILESTONES
+----------------------------------------
+- Milestone 1: Environment Setup & Core Foundations (6h)
+  Configure repository, tooling, container dependencies, and foundational data structures. Done when foundational test suite passes with clean linting.
+- Milestone 2: Core Processing & Architecture Implementation (8h)
+  Implement primary operational workflows, database models or state transitions, and API endpoints. Done when integration tests verify end-to-end data flow under normal operating conditions.
+- Milestone 3: Concurrency, Reliability & Error Guardrails (8h)
+  Implement defensive controls: rate limiting, retries with exponential backoff, transaction boundaries, and failure isolation. Done when chaos or stress tests verify graceful degradation under fault injection.
+- Milestone 4: Verification, Benchmarking & Documentation (6h)
+  Execute performance benchmark harness, compile measurement tables, generate architectural diagrams, and document screener verification steps. Done when `scripts/verify_all` passes completely.
+
+PREREQUISITES, ENVIRONMENT AND ACCOUNTS
+----------------------------------------
+- Prerequisites: Familiarity with OpenTelemetry and Prometheus, standard command-line tools, and fundamental testing principles.
+- Hardware / OS: Standard modern computer (macOS, Linux, or Windows with WSL2) with at least 8GB RAM.
+- Accounts & Services: None required. Designed to run completely on free, open-source local software.
+- Fallback Path: In-memory mock drivers or SQLite/local files provided if external database or message broker containers cannot be run.
+
+DELIVERABLES
+----------------------------------------
+1. Clean Git repository with structured commit history, README, and reproducible setup commands.
+2. Production-quality core codebase with automated test suite achieving verified pass rates.
+3. Performance benchmark report (`results/benchmark_report.md`) documenting measured latency, throughput, and resource utilization.
+4. Screener verification script (`scripts/verify_all.sh` or equivalent) validating the full system in < 3 minutes.
+5. Architecture diagram (Mermaid/ASCII) and known limitations document explaining architectural trade-offs.
+
+OUT OF SCOPE AND EXTENDED PATH
+----------------------------------------
+- Out of Scope for Core Path: Distributed multi-region clustering, enterprise SSO integrations, complex third-party SaaS dependencies.
+- Extended Path (+6 hours): Advanced telemetry dashboard, distributed persistence cluster extension, or automated canary release pipeline.
+
+SAFETY AND ETHICS NOTE
+----------------------------------------
+All data processed, generated, and benchmarked by this project consists exclusively of synthetic fixtures. No personal identifiable information (PII), proprietary credentials, or live external endpoints are used.
+
+LEARNING RESOURCES
+----------------------------------------
+- Official Documentation for OpenTelemetry, Prometheus, Grafana
+- Architectural Reference Patterns and RFC Standards [VERIFY URL]
+- Systems & Distributed Reliability Principles
+
 SCREENER VERIFICATION RUBRIC
 ----------------------------------------
-1. Verify 1-click Docker Compose environment launching sample microservices + observability stack; passes when verified by automated test script or benchmark log.
-2. Verify distributed trace flamegraph showing correlated span IDs across 3 service hops; passes when verified by automated test script or benchmark log.
-3. Verify grafana dashboard JSON export tracking Golden Signals: Latency, Traffic, Errors, Saturation; passes when verified by automated test script or benchmark log.
-4. Verify chaos injection script generating synthetic latency and verifying anomaly alerting; passes when verified by automated test script or benchmark log.
-5. Verify architecture documentation explaining sampling strategies (head vs tail-based); passes when verified by automated test script or benchmark log.
+1. Check 1: Verify 1-click Docker Compose environment launching sample microservices + observability stack; Pass when automated test script prints 0 errors and logs verified status code.
+2. Check 2: Verify distributed trace flamegraph showing correlated span IDs across 3 service hops; Pass when automated test script prints 0 errors and logs verified status code.
+3. Check 3: Verify grafana dashboard JSON export tracking Golden Signals: Latency, Traffic, Errors, Saturation; Pass when automated test script prints 0 errors and logs verified status code.
+4. Check 4: Verify chaos injection script generating synthetic latency and verifying anomaly alerting; Pass when automated test script prints 0 errors and logs verified status code.
+5. Check 5: Verify architecture documentation explaining sampling strategies (head vs tail-based); Pass when automated test script prints 0 errors and logs verified status code.
 
 RESUME BULLET FORMULA
 ----------------------------------------
 "Architected full-stack distributed observability system using OpenTelemetry, Prometheus, and Grafana; reduced mean-time-to-detection (MTTD) by providing end-to-end trace flamegraphs across [N] nodes."
+Do not claim: scale, latency, or throughput figures without committing benchmark run logs; do not claim production deployment unless deployed to a verifiable live environment.
 
+======================================================================
 Generated by HireFlow — hireflow.io

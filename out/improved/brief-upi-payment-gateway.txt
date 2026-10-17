@@ -2,9 +2,9 @@ PROJECT BRIEF — UPI-Style Payment Gateway with Settlement Engine
 ======================================================================
 
 Domain    : FinTech Engineering
-Difficulty: ADVANCED
-Est. Time : 38 hours
-Tech Stack: Java, Spring Boot, PostgreSQL, Kafka, Redis, Docker
+Difficulty: advanced
+Est. Time : 38 hours (Core Path) | Extended Path: +6 hours
+Tech Stack: Java [java component for project domain], Spring Boot [spring boot component for project domain], PostgreSQL [relational database management system], Kafka [distributed event streaming broker], Redis [in-memory data structure store and cache], Docker [containerization and local multi-service orchestration] (Requires: Docker Engine / Desktop)
 
 PROBLEM STATEMENT
 ----------------------------------------
@@ -28,22 +28,94 @@ Spring Boot microservices: VPA Resolver (maps @phonepe addresses to bank account
 
 SCALE & PERFORMANCE TARGETS
 ----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+Target 1:
+- Metric: Batch Ingestion & Processing Throughput
+- Method: Continuous ingestion benchmark streaming synthetic records from seed file
+- Input/dataset: 100,000 structured synthetic transaction records (~250 bytes each)
+- Reference environment: Local workstation with 8GB RAM and SSD storage
+- Minimum pass: Ingestion rate > [N] records/sec (minimum > 1,000 records/sec)
+- Target: Ingestion rate > [N] records/sec (target > 5,000 records/sec)
+- Report format: Pipeline execution log showing total records, wall-clock time, and records/sec
+
+Target 2:
+- Metric: Query Aggregation Latency (p95)
+- Method: Analytical query execution over seeded historical dataset
+- Input/dataset: Seeded database table with 1,000,000 historical records
+- Reference environment: Local database engine in Docker with 2GB memory ceiling
+- Minimum pass: p95 query latency < [M ms] (minimum < 500ms)
+- Target: p95 query latency < [M ms] (target < 150ms)
+- Report format: Database query analyzer output showing execution time and scanned rows
+
+Target 3:
+- Metric: Data Quality & Reconciliation Accuracy
+- Method: End-to-end reconciliation check comparing ingested ledger vs. source stream
+- Input/dataset: Injected discrepancy dataset with [X] intentional duplicate and corrupted records
+- Reference environment: Local automated test runner
+- Minimum pass: [X of Y] discrepancies correctly identified and quarantined (100% pass on test set)
+- Target: [X of Y] discrepancies identified with 0 false positives
+- Report format: Markdown reconciliation report with discrepancy breakdown
 
 SKILLS COVERED
 ----------------------------------------
 Java, Spring Boot, PostgreSQL, Redis, Kafka, Microservices
 
+TARGET APPLICATION / STARTER INPUT
+----------------------------------------
+The project provides a self-contained test environment and fixture generator located in `scripts/` or `fixtures/`. It deterministically generates representative input records or mock client traffic for automated validation. No third-party proprietary data or real personal identifiers (PII) are required; all test datasets use synthetic tokens and deterministic random seeds.
+
+MILESTONES
+----------------------------------------
+- Milestone 1: Environment Setup & Core Foundations (8h)
+  Configure repository, tooling, container dependencies, and foundational data structures. Done when foundational test suite passes with clean linting.
+- Milestone 2: Core Processing & Architecture Implementation (11h)
+  Implement primary operational workflows, database models or state transitions, and API endpoints. Done when integration tests verify end-to-end data flow under normal operating conditions.
+- Milestone 3: Concurrency, Reliability & Error Guardrails (11h)
+  Implement defensive controls: rate limiting, retries with exponential backoff, transaction boundaries, and failure isolation. Done when chaos or stress tests verify graceful degradation under fault injection.
+- Milestone 4: Verification, Benchmarking & Documentation (8h)
+  Execute performance benchmark harness, compile measurement tables, generate architectural diagrams, and document screener verification steps. Done when `scripts/verify_all` passes completely.
+
+PREREQUISITES, ENVIRONMENT AND ACCOUNTS
+----------------------------------------
+- Prerequisites: Familiarity with Java and Spring Boot, standard command-line tools, and fundamental testing principles.
+- Hardware / OS: Standard modern computer (macOS, Linux, or Windows with WSL2) with at least 8GB RAM.
+- Accounts & Services: None required. Designed to run completely on free, open-source local software.
+- Fallback Path: In-memory mock drivers or SQLite/local files provided if external database or message broker containers cannot be run.
+
+DELIVERABLES
+----------------------------------------
+1. Clean Git repository with structured commit history, README, and reproducible setup commands.
+2. Production-quality core codebase with automated test suite achieving verified pass rates.
+3. Performance benchmark report (`results/benchmark_report.md`) documenting measured latency, throughput, and resource utilization.
+4. Screener verification script (`scripts/verify_all.sh` or equivalent) validating the full system in < 3 minutes.
+5. Architecture diagram (Mermaid/ASCII) and known limitations document explaining architectural trade-offs.
+
+OUT OF SCOPE AND EXTENDED PATH
+----------------------------------------
+- Out of Scope for Core Path: Distributed multi-region clustering, enterprise SSO integrations, complex third-party SaaS dependencies.
+- Extended Path (+6 hours): Advanced telemetry dashboard, distributed persistence cluster extension, or automated canary release pipeline.
+
+SAFETY AND ETHICS NOTE
+----------------------------------------
+All data processed, generated, and benchmarked by this project consists exclusively of synthetic fixtures. No personal identifiable information (PII), proprietary credentials, or live external endpoints are used.
+
+LEARNING RESOURCES
+----------------------------------------
+- Official Documentation for Java, Spring Boot, PostgreSQL
+- Architectural Reference Patterns and RFC Standards [VERIFY URL]
+- Systems & Distributed Reliability Principles
+
 SCREENER VERIFICATION RUBRIC
 ----------------------------------------
-1. Verify vPA resolution service mapping virtual addresses to bank routing info; passes when verified by automated test script or benchmark log.
-2. Verify double-entry bookkeeping ledger preventing debit without matching credit; passes when verified by automated test script or benchmark log.
-3. Verify idempotency key test: duplicate payment request returns same transaction ID, no double debit
-4. Verify settlement batch job aggregating and netting positions across all merchants; passes when verified by automated test script or benchmark log.
-5. Verify failure scenario tests: bank timeout, insufficient funds, invalid VPA handling; passes when verified by automated test script or benchmark log.
+1. Check 1: Verify vPA resolution service mapping virtual addresses to bank routing info; Pass when automated test script prints 0 errors and logs verified status code.
+2. Check 2: Verify double-entry bookkeeping ledger preventing debit without matching credit; Pass when automated test script prints 0 errors and logs verified status code.
+3. Check 3: Verify idempotency key test: duplicate payment request returns same transaction ID, no double debit
+4. Check 4: Verify settlement batch job aggregating and netting positions across all merchants; Pass when automated test script prints 0 errors and logs verified status code.
+5. Check 5: Verify failure scenario tests: bank timeout, insufficient funds, invalid VPA handling; Pass when automated test script prints 0 errors and logs verified status code.
 
 RESUME BULLET FORMULA
 ----------------------------------------
-"Built UPI-style payment gateway in Java & Spring Boot; processed [N] req/sec transactions/sec with guaranteed idempotency and T+1 settlement batching across simulated multi-bank routing."
+"Built UPI-style payment gateway in Java & Spring Boot; processed [N] req/sec transactions/sec with guaranteed idempotency and T+[N] settlement batching across simulated multi-bank routing."
+Do not claim: scale, latency, or throughput figures without committing benchmark run logs; do not claim production deployment unless deployed to a verifiable live environment.
 
+======================================================================
 Generated by HireFlow — hireflow.io

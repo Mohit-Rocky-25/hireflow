@@ -2,9 +2,9 @@ PROJECT BRIEF — Credit Risk Scoring & Loan Underwriting ML System
 ======================================================================
 
 Domain    : FinTech Engineering
-Difficulty: INTERMEDIATE
-Est. Time : 28 hours
-Tech Stack: Python, XGBoost, SHAP, FastAPI, PostgreSQL, Scikit-learn
+Difficulty: intermediate
+Est. Time : 28 hours (Core Path) | Extended Path: +6 hours
+Tech Stack: Python [core programming language and mathematical runtime], XGBoost [xgboost component for project domain], SHAP [shap component for project domain], FastAPI [high-performance asynchronous REST API framework], PostgreSQL [relational database management system], Scikit-learn [scikit-learn component for project domain]
 
 PROBLEM STATEMENT
 ----------------------------------------
@@ -28,22 +28,94 @@ Feature engineering pipeline extracting 80+ features from alternative data (tran
 
 SCALE & PERFORMANCE TARGETS
 ----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+Target 1:
+- Metric: Batch Ingestion & Processing Throughput
+- Method: Continuous ingestion benchmark streaming synthetic records from seed file
+- Input/dataset: 100,000 structured synthetic transaction records (~250 bytes each)
+- Reference environment: Local workstation with 8GB RAM and SSD storage
+- Minimum pass: Ingestion rate > [N] records/sec (minimum > 1,000 records/sec)
+- Target: Ingestion rate > [N] records/sec (target > 5,000 records/sec)
+- Report format: Pipeline execution log showing total records, wall-clock time, and records/sec
+
+Target 2:
+- Metric: Query Aggregation Latency (p95)
+- Method: Analytical query execution over seeded historical dataset
+- Input/dataset: Seeded database table with 1,000,000 historical records
+- Reference environment: Local database engine in Docker with 2GB memory ceiling
+- Minimum pass: p95 query latency < [M ms] (minimum < 500ms)
+- Target: p95 query latency < [M ms] (target < 150ms)
+- Report format: Database query analyzer output showing execution time and scanned rows
+
+Target 3:
+- Metric: Data Quality & Reconciliation Accuracy
+- Method: End-to-end reconciliation check comparing ingested ledger vs. source stream
+- Input/dataset: Injected discrepancy dataset with [X] intentional duplicate and corrupted records
+- Reference environment: Local automated test runner
+- Minimum pass: [X of Y] discrepancies correctly identified and quarantined (100% pass on test set)
+- Target: [X of Y] discrepancies identified with 0 false positives
+- Report format: Markdown reconciliation report with discrepancy breakdown
 
 SKILLS COVERED
 ----------------------------------------
 Python, Scikit-learn, XGBoost, FastAPI, PostgreSQL, Feature Engineering
 
+TARGET APPLICATION / STARTER INPUT
+----------------------------------------
+The project provides a self-contained test environment and fixture generator located in `scripts/` or `fixtures/`. It deterministically generates representative input records or mock client traffic for automated validation. No third-party proprietary data or real personal identifiers (PII) are required; all test datasets use synthetic tokens and deterministic random seeds.
+
+MILESTONES
+----------------------------------------
+- Milestone 1: Environment Setup & Core Foundations (6h)
+  Configure repository, tooling, container dependencies, and foundational data structures. Done when foundational test suite passes with clean linting.
+- Milestone 2: Core Processing & Architecture Implementation (8h)
+  Implement primary operational workflows, database models or state transitions, and API endpoints. Done when integration tests verify end-to-end data flow under normal operating conditions.
+- Milestone 3: Concurrency, Reliability & Error Guardrails (8h)
+  Implement defensive controls: rate limiting, retries with exponential backoff, transaction boundaries, and failure isolation. Done when chaos or stress tests verify graceful degradation under fault injection.
+- Milestone 4: Verification, Benchmarking & Documentation (6h)
+  Execute performance benchmark harness, compile measurement tables, generate architectural diagrams, and document screener verification steps. Done when `scripts/verify_all` passes completely.
+
+PREREQUISITES, ENVIRONMENT AND ACCOUNTS
+----------------------------------------
+- Prerequisites: Familiarity with Python and XGBoost, standard command-line tools, and fundamental testing principles.
+- Hardware / OS: Standard modern computer (macOS, Linux, or Windows with WSL2) with at least 8GB RAM.
+- Accounts & Services: None required. Designed to run completely on free, open-source local software.
+- Fallback Path: In-memory mock drivers or SQLite/local files provided if external database or message broker containers cannot be run.
+
+DELIVERABLES
+----------------------------------------
+1. Clean Git repository with structured commit history, README, and reproducible setup commands.
+2. Production-quality core codebase with automated test suite achieving verified pass rates.
+3. Performance benchmark report (`results/benchmark_report.md`) documenting measured latency, throughput, and resource utilization.
+4. Screener verification script (`scripts/verify_all.sh` or equivalent) validating the full system in < 3 minutes.
+5. Architecture diagram (Mermaid/ASCII) and known limitations document explaining architectural trade-offs.
+
+OUT OF SCOPE AND EXTENDED PATH
+----------------------------------------
+- Out of Scope for Core Path: Distributed multi-region clustering, enterprise SSO integrations, complex third-party SaaS dependencies.
+- Extended Path (+6 hours): Advanced telemetry dashboard, distributed persistence cluster extension, or automated canary release pipeline.
+
+SAFETY AND ETHICS NOTE
+----------------------------------------
+All data processed, generated, and benchmarked by this project consists exclusively of synthetic fixtures. No personal identifiable information (PII), proprietary credentials, or live external endpoints are used.
+
+LEARNING RESOURCES
+----------------------------------------
+- Official Documentation for Python, XGBoost, SHAP
+- Architectural Reference Patterns and RFC Standards [VERIFY URL]
+- Systems & Distributed Reliability Principles
+
 SCREENER VERIFICATION RUBRIC
 ----------------------------------------
-1. Verify sHAP waterfall charts providing human-readable explanation for each credit decision; passes when verified by automated test script or benchmark log.
-2. Verify gini coefficient and KS statistic evaluation on holdout test dataset; passes when verified by automated test script or benchmark log.
-3. Verify fairness audit checking model does not discriminate by gender/geography; passes when verified by automated test script or benchmark log.
-4. Verify model monitoring dashboard tracking PSI (Population Stability Index) over time; passes when verified by automated test script or benchmark log.
-5. Verify aPI endpoint with Swagger docs tested at 100k applications/hour throughput; passes when verified by automated test script or benchmark log.
+1. Check 1: Verify sHAP waterfall charts providing human-readable explanation for each credit decision; Pass when automated test script prints 0 errors and logs verified status code.
+2. Check 2: Verify gini coefficient and KS statistic evaluation on holdout test dataset; Pass when automated test script prints 0 errors and logs verified status code.
+3. Check 3: Verify fairness audit checking model does not discriminate by gender/geography; Pass when automated test script prints 0 errors and logs verified status code.
+4. Check 4: Verify model monitoring dashboard tracking PSI (Population Stability Index) over time; Pass when automated test script prints 0 errors and logs verified status code.
+5. Check 5: Verify aPI endpoint with Swagger docs tested at 100k applications/hour throughput; Pass when automated test script prints 0 errors and logs verified status code.
 
 RESUME BULLET FORMULA
 ----------------------------------------
-"Developed alternative credit scoring model using XGBoost and SHAP; achieved 0.68 Gini coefficient on alternative data with full regulatory explainability for [N] req/sec applications/hour."
+"Developed alternative credit scoring model using XGBoost and SHAP; achieved [N] Gini coefficient on alternative data with full regulatory explainability for [N] req/sec applications/hour."
+Do not claim: scale, latency, or throughput figures without committing benchmark run logs; do not claim production deployment unless deployed to a verifiable live environment.
 
+======================================================================
 Generated by HireFlow — hireflow.io

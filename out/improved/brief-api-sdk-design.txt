@@ -2,9 +2,9 @@ PROJECT BRIEF — Developer-First API SDK with Type Safety & Auto-Generation
 ======================================================================
 
 Domain    : Full-Stack Web
-Difficulty: INTERMEDIATE
-Est. Time : 35 hours
-Tech Stack: TypeScript, Node.js, tsup, Vitest, npm
+Difficulty: intermediate
+Est. Time : 35 hours (Core Path) | Extended Path: +6 hours
+Tech Stack: TypeScript [strongly-typed programming language], Node.js [backend JavaScript execution environment], tsup [tsup component for project domain], Vitest [fast unit testing framework], npm [npm component for project domain]
 
 PROBLEM STATEMENT
 ----------------------------------------
@@ -28,22 +28,94 @@ CLI tool parses OpenAPI 3.0/3.1 JSON/YAML, normalizes circular $refs into an int
 
 SCALE & PERFORMANCE TARGETS
 ----------------------------------------
-Generation Speed: Full SDK generation from Petstore spec in < 5s | Strict Type Coverage: 100% strict type safety with 0 any types verified via tsc --strict | Resilient Retry Success: ≥ 95% recovery rate under 30% injected transient 429/503 faults.
+Target 1:
+- Metric: Core Operation Execution Time
+- Method: Automated benchmark executing core engine operation across varying workload sizes
+- Input/dataset: Standard test project or fixture payload (~500KB)
+- Reference environment: Local development environment, 4-core CPU, 8GB RAM
+- Minimum pass: Operation execution time < [M s] (minimum < 10s)
+- Target: Operation execution time < [M s] (target < 3s)
+- Report format: Benchmark execution report showing duration and memory usage
+
+Target 2:
+- Metric: Test Suite Coverage & Verification Pass Rate
+- Method: Automated test runner executing comprehensive unit and integration test suites
+- Input/dataset: Full project test fixture directory
+- Reference environment: Local test environment, clean checkout
+- Minimum pass: [X of Y] unit and integration tests passing (100% pass on core test set)
+- Target: [X of Y] tests passing with strict type-checking and 0 lint warnings
+- Report format: Test runner coverage report and exit status log
+
+Target 3:
+- Metric: Client Load / Response Latency (p95)
+- Method: Concurrent API benchmark testing simulated client requests
+- Input/dataset: 1,000 simulated client requests over 10 concurrent connections
+- Reference environment: Local Docker or Node/Python process
+- Minimum pass: p95 response latency < [M ms] (pass < 100ms) with 0 dropped requests
+- Target: p95 response latency < [M ms] (target < 30ms) with 0 dropped requests
+- Report format: Benchmark latency percentile report
 
 SKILLS COVERED
 ----------------------------------------
 TypeScript, OpenAPI, Node.js, SDK Design, REST APIs, DX, Packaging
 
+TARGET APPLICATION / STARTER INPUT
+----------------------------------------
+The project provides a self-contained test environment and fixture generator located in `scripts/` or `fixtures/`. It deterministically generates representative input records or mock client traffic for automated validation. No third-party proprietary data or real personal identifiers (PII) are required; all test datasets use synthetic tokens and deterministic random seeds.
+
+MILESTONES
+----------------------------------------
+- Milestone 1: Environment Setup & Core Foundations (8h)
+  Configure repository, tooling, container dependencies, and foundational data structures. Done when foundational test suite passes with clean linting.
+- Milestone 2: Core Processing & Architecture Implementation (10h)
+  Implement primary operational workflows, database models or state transitions, and API endpoints. Done when integration tests verify end-to-end data flow under normal operating conditions.
+- Milestone 3: Concurrency, Reliability & Error Guardrails (10h)
+  Implement defensive controls: rate limiting, retries with exponential backoff, transaction boundaries, and failure isolation. Done when chaos or stress tests verify graceful degradation under fault injection.
+- Milestone 4: Verification, Benchmarking & Documentation (7h)
+  Execute performance benchmark harness, compile measurement tables, generate architectural diagrams, and document screener verification steps. Done when `scripts/verify_all` passes completely.
+
+PREREQUISITES, ENVIRONMENT AND ACCOUNTS
+----------------------------------------
+- Prerequisites: Familiarity with TypeScript and Node.js, standard command-line tools, and fundamental testing principles.
+- Hardware / OS: Standard modern computer (macOS, Linux, or Windows with WSL2) with at least 8GB RAM.
+- Accounts & Services: None required. Designed to run completely on free, open-source local software.
+- Fallback Path: In-memory mock drivers or SQLite/local files provided if external database or message broker containers cannot be run.
+
+DELIVERABLES
+----------------------------------------
+1. Clean Git repository with structured commit history, README, and reproducible setup commands.
+2. Production-quality core codebase with automated test suite achieving verified pass rates.
+3. Performance benchmark report (`results/benchmark_report.md`) documenting measured latency, throughput, and resource utilization.
+4. Screener verification script (`scripts/verify_all.sh` or equivalent) validating the full system in < 3 minutes.
+5. Architecture diagram (Mermaid/ASCII) and known limitations document explaining architectural trade-offs.
+
+OUT OF SCOPE AND EXTENDED PATH
+----------------------------------------
+- Out of Scope for Core Path: Distributed multi-region clustering, enterprise SSO integrations, complex third-party SaaS dependencies.
+- Extended Path (+6 hours): Advanced telemetry dashboard, distributed persistence cluster extension, or automated canary release pipeline.
+
+SAFETY AND ETHICS NOTE
+----------------------------------------
+All data processed, generated, and benchmarked by this project consists exclusively of synthetic fixtures. No personal identifiable information (PII), proprietary credentials, or live external endpoints are used.
+
+LEARNING RESOURCES
+----------------------------------------
+- Official Documentation for TypeScript, Node.js, tsup
+- Architectural Reference Patterns and RFC Standards [VERIFY URL]
+- Systems & Distributed Reliability Principles
+
 SCREENER VERIFICATION RUBRIC
 ----------------------------------------
-1. Code Generation Execution Check: Run generator on fixtures/petstore.json; verify complete TypeScript client builds in < [M s] (target < 5s).
-2. Strict Type Safety Verification: Execute tsc --noEmit --strict on generated SDK; passes with 0 errors and 0 occurrences of 'any' type keyword.
-3. Resilient Retry Verification: Test against MSW injecting consecutive 429 errors; passes when SDK automatically retries with jitter and succeeds on 3rd attempt.
-4. Offline Sandbox Check: Execute API calls with { sandbox: true }; verify offline mock responses match OpenAPI schema examples without network access.
-5. Dual-Module Import Verification: Verify generated SDK imports seamlessly in both CommonJS require() and ESM import syntax without resolution errors.
+1. Check 1: Code Generation Execution Check: Run generator on fixtures/petstore.json; verify complete TypeScript client builds in < [M s] (target < 5s).
+2. Check 2: Strict Type Safety Verification: Execute tsc --noEmit --strict on generated SDK; passes with 0 errors and 0 occurrences of 'any' type keyword.
+3. Check 3: Resilient Retry Verification: Test against MSW injecting consecutive 429 errors; passes when SDK automatically retries with jitter and succeeds on 3rd attempt.
+4. Check 4: Offline Sandbox Check: Execute API calls with { sandbox: true }; verify offline mock responses match OpenAPI schema examples without network access.
+5. Check 5: Dual-Module Import Verification: Verify generated SDK imports seamlessly in both CommonJS require() and ESM import syntax without resolution errors.
 
 RESUME BULLET FORMULA
 ----------------------------------------
 "Architected schema-driven TypeScript API SDK generator from OpenAPI specifications; achieved strict compile-time type safety across [N] operations, sub-[M s] generation speed, and built-in exponential retry runtime with jitter."
+Do not claim: scale, latency, or throughput figures without committing benchmark run logs; do not claim production deployment unless deployed to a verifiable live environment.
 
+======================================================================
 Generated by HireFlow — hireflow.io

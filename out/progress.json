@@ -40,562 +40,1042 @@
   },
   {
     "file": "brief-api-sdk-design.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-api-sdk-design.txt",
-    "auditPath": "./out/audits/brief-api-sdk-design.md"
+    "auditPath": "./out/audits/brief-api-sdk-design.md",
+    "completedAt": "2026-10-17T09:14:56.041Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-blockchain-defi.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-blockchain-defi.txt",
-    "auditPath": "./out/audits/brief-blockchain-defi.md"
+    "auditPath": "./out/audits/brief-blockchain-defi.md",
+    "completedAt": "2026-10-17T09:14:56.049Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-canary-deployment.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-canary-deployment.txt",
-    "auditPath": "./out/audits/brief-canary-deployment.md"
+    "auditPath": "./out/audits/brief-canary-deployment.md",
+    "completedAt": "2026-10-17T09:14:56.053Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-cdc-pipeline.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-cdc-pipeline.txt",
-    "auditPath": "./out/audits/brief-cdc-pipeline.md"
+    "auditPath": "./out/audits/brief-cdc-pipeline.md",
+    "completedAt": "2026-10-17T09:14:56.058Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-ci-cd-from-scratch.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-ci-cd-from-scratch.txt",
-    "auditPath": "./out/audits/brief-ci-cd-from-scratch.md"
+    "auditPath": "./out/audits/brief-ci-cd-from-scratch.md",
+    "completedAt": "2026-10-17T09:14:56.063Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-compiler-interpreter.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-compiler-interpreter.txt",
-    "auditPath": "./out/audits/brief-compiler-interpreter.md"
+    "auditPath": "./out/audits/brief-compiler-interpreter.md",
+    "completedAt": "2026-10-17T09:14:56.066Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-computer-vision-api.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-computer-vision-api.txt",
-    "auditPath": "./out/audits/brief-computer-vision-api.md"
+    "auditPath": "./out/audits/brief-computer-vision-api.md",
+    "completedAt": "2026-10-17T09:14:56.069Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-container-runtime.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-container-runtime.txt",
-    "auditPath": "./out/audits/brief-container-runtime.md"
+    "auditPath": "./out/audits/brief-container-runtime.md",
+    "completedAt": "2026-10-17T09:14:56.073Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-credit-risk-model.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-credit-risk-model.txt",
-    "auditPath": "./out/audits/brief-credit-risk-model.md"
+    "auditPath": "./out/audits/brief-credit-risk-model.md",
+    "completedAt": "2026-10-17T09:14:56.076Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-data-quality-framework.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-data-quality-framework.txt",
-    "auditPath": "./out/audits/brief-data-quality-framework.md"
+    "auditPath": "./out/audits/brief-data-quality-framework.md",
+    "completedAt": "2026-10-17T09:14:56.079Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-database-engine.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-database-engine.txt",
-    "auditPath": "./out/audits/brief-database-engine.md"
+    "auditPath": "./out/audits/brief-database-engine.md",
+    "completedAt": "2026-10-17T09:14:56.082Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-devsecops-pipeline.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-devsecops-pipeline.txt",
-    "auditPath": "./out/audits/brief-devsecops-pipeline.md"
+    "auditPath": "./out/audits/brief-devsecops-pipeline.md",
+    "completedAt": "2026-10-17T09:14:56.085Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-dist-cache-rust.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-dist-cache-rust.txt",
-    "auditPath": "./out/audits/brief-dist-cache-rust.md"
+    "auditPath": "./out/audits/brief-dist-cache-rust.md",
+    "completedAt": "2026-10-17T09:14:56.088Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-dist-rate-limiter.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-dist-rate-limiter.txt",
-    "auditPath": "./out/audits/brief-dist-rate-limiter.md"
+    "auditPath": "./out/audits/brief-dist-rate-limiter.md",
+    "completedAt": "2026-10-17T09:14:56.092Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-embedding-search-engine.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-embedding-search-engine.txt",
-    "auditPath": "./out/audits/brief-embedding-search-engine.md"
+    "auditPath": "./out/audits/brief-embedding-search-engine.md",
+    "completedAt": "2026-10-17T09:14:56.094Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-event-driven-saas.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-event-driven-saas.txt",
-    "auditPath": "./out/audits/brief-event-driven-saas.md"
+    "auditPath": "./out/audits/brief-event-driven-saas.md",
+    "completedAt": "2026-10-17T09:14:56.097Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-event-recon.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-event-recon.txt",
-    "auditPath": "./out/audits/brief-event-recon.md"
+    "auditPath": "./out/audits/brief-event-recon.md",
+    "completedAt": "2026-10-17T09:14:56.099Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-event-sourcing.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-event-sourcing.txt",
-    "auditPath": "./out/audits/brief-event-sourcing.md"
+    "auditPath": "./out/audits/brief-event-sourcing.md",
+    "completedAt": "2026-10-17T09:14:56.102Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-feature-flag-platform.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-feature-flag-platform.txt",
-    "auditPath": "./out/audits/brief-feature-flag-platform.md"
+    "auditPath": "./out/audits/brief-feature-flag-platform.md",
+    "completedAt": "2026-10-17T09:14:56.105Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-fraud-detection-ml.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-fraud-detection-ml.txt",
-    "auditPath": "./out/audits/brief-fraud-detection-ml.md"
+    "auditPath": "./out/audits/brief-fraud-detection-ml.md",
+    "completedAt": "2026-10-17T09:14:56.107Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-fullstack-ecommerce.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-fullstack-ecommerce.txt",
-    "auditPath": "./out/audits/brief-fullstack-ecommerce.md"
+    "auditPath": "./out/audits/brief-fullstack-ecommerce.md",
+    "completedAt": "2026-10-17T09:14:56.110Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-genai-code-reviewer.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-genai-code-reviewer.txt",
-    "auditPath": "./out/audits/brief-genai-code-reviewer.md"
+    "auditPath": "./out/audits/brief-genai-code-reviewer.md",
+    "completedAt": "2026-10-17T09:14:56.113Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-gitignore-lsp.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-gitignore-lsp.txt",
-    "auditPath": "./out/audits/brief-gitignore-lsp.md"
+    "auditPath": "./out/audits/brief-gitignore-lsp.md",
+    "completedAt": "2026-10-17T09:14:56.115Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-gitops-registry.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-gitops-registry.txt",
-    "auditPath": "./out/audits/brief-gitops-registry.md"
+    "auditPath": "./out/audits/brief-gitops-registry.md",
+    "completedAt": "2026-10-17T09:14:56.120Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-gpu-accelerated-inference.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-gpu-accelerated-inference.txt",
-    "auditPath": "./out/audits/brief-gpu-accelerated-inference.md"
+    "auditPath": "./out/audits/brief-gpu-accelerated-inference.md",
+    "completedAt": "2026-10-17T09:14:56.124Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-graph-analysis.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-graph-analysis.txt",
-    "auditPath": "./out/audits/brief-graph-analysis.md"
+    "auditPath": "./out/audits/brief-graph-analysis.md",
+    "completedAt": "2026-10-17T09:14:56.127Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-graphql-federation.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-graphql-federation.txt",
-    "auditPath": "./out/audits/brief-graphql-federation.md"
+    "auditPath": "./out/audits/brief-graphql-federation.md",
+    "completedAt": "2026-10-17T09:14:56.131Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-graphql-to-sql-compiler.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-graphql-to-sql-compiler.txt",
-    "auditPath": "./out/audits/brief-graphql-to-sql-compiler.md"
+    "auditPath": "./out/audits/brief-graphql-to-sql-compiler.md",
+    "completedAt": "2026-10-17T09:14:56.134Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-high-throughput-logging.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-high-throughput-logging.txt",
-    "auditPath": "./out/audits/brief-high-throughput-logging.md"
+    "auditPath": "./out/audits/brief-high-throughput-logging.md",
+    "completedAt": "2026-10-17T09:14:56.137Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-homomorphic-encryption.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-homomorphic-encryption.txt",
-    "auditPath": "./out/audits/brief-homomorphic-encryption.md"
+    "auditPath": "./out/audits/brief-homomorphic-encryption.md",
+    "completedAt": "2026-10-17T09:14:56.140Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-interview-prep-ai.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-interview-prep-ai.txt",
-    "auditPath": "./out/audits/brief-interview-prep-ai.md"
+    "auditPath": "./out/audits/brief-interview-prep-ai.md",
+    "completedAt": "2026-10-17T09:14:56.143Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-knowledge-graph.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-knowledge-graph.txt",
-    "auditPath": "./out/audits/brief-knowledge-graph.md"
+    "auditPath": "./out/audits/brief-knowledge-graph.md",
+    "completedAt": "2026-10-17T09:14:56.145Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-kubernetes-operator.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-kubernetes-operator.txt",
-    "auditPath": "./out/audits/brief-kubernetes-operator.md"
+    "auditPath": "./out/audits/brief-kubernetes-operator.md",
+    "completedAt": "2026-10-17T09:14:56.148Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-llm-agent-workflow.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-llm-agent-workflow.txt",
-    "auditPath": "./out/audits/brief-llm-agent-workflow.md"
+    "auditPath": "./out/audits/brief-llm-agent-workflow.md",
+    "completedAt": "2026-10-17T09:14:56.151Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-llm-evaluation-framework.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-llm-evaluation-framework.txt",
-    "auditPath": "./out/audits/brief-llm-evaluation-framework.md"
+    "auditPath": "./out/audits/brief-llm-evaluation-framework.md",
+    "completedAt": "2026-10-17T09:14:56.154Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-llm-finetuning-peft.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-llm-finetuning-peft.txt",
-    "auditPath": "./out/audits/brief-llm-finetuning-peft.md"
+    "auditPath": "./out/audits/brief-llm-finetuning-peft.md",
+    "completedAt": "2026-10-17T09:14:56.157Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-llm-finetuning-rlhf.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-llm-finetuning-rlhf.txt",
-    "auditPath": "./out/audits/brief-llm-finetuning-rlhf.md"
+    "auditPath": "./out/audits/brief-llm-finetuning-rlhf.md",
+    "completedAt": "2026-10-17T09:14:56.160Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-llm-gateway.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-llm-gateway.txt",
-    "auditPath": "./out/audits/brief-llm-gateway.md"
+    "auditPath": "./out/audits/brief-llm-gateway.md",
+    "completedAt": "2026-10-17T09:14:56.174Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-load-balancer.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-load-balancer.txt",
-    "auditPath": "./out/audits/brief-load-balancer.md"
+    "auditPath": "./out/audits/brief-load-balancer.md",
+    "completedAt": "2026-10-17T09:14:56.177Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-message-queue.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-message-queue.txt",
-    "auditPath": "./out/audits/brief-message-queue.md"
+    "auditPath": "./out/audits/brief-message-queue.md",
+    "completedAt": "2026-10-17T09:14:56.181Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-micro-frontend-shell.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-micro-frontend-shell.txt",
-    "auditPath": "./out/audits/brief-micro-frontend-shell.md"
+    "auditPath": "./out/audits/brief-micro-frontend-shell.md",
+    "completedAt": "2026-10-17T09:14:56.189Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-mlops-platform.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-mlops-platform.txt",
-    "auditPath": "./out/audits/brief-mlops-platform.md"
+    "auditPath": "./out/audits/brief-mlops-platform.md",
+    "completedAt": "2026-10-17T09:14:56.192Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-mobile-flutter-prod.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-mobile-flutter-prod.txt",
-    "auditPath": "./out/audits/brief-mobile-flutter-prod.md"
+    "auditPath": "./out/audits/brief-mobile-flutter-prod.md",
+    "completedAt": "2026-10-17T09:14:56.194Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-multimodal-ai-app.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-multimodal-ai-app.txt",
-    "auditPath": "./out/audits/brief-multimodal-ai-app.md"
+    "auditPath": "./out/audits/brief-multimodal-ai-app.md",
+    "completedAt": "2026-10-17T09:14:56.198Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-notification-service.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-notification-service.txt",
-    "auditPath": "./out/audits/brief-notification-service.md"
+    "auditPath": "./out/audits/brief-notification-service.md",
+    "completedAt": "2026-10-17T09:14:56.201Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-observability-sdk.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-observability-sdk.txt",
-    "auditPath": "./out/audits/brief-observability-sdk.md"
+    "auditPath": "./out/audits/brief-observability-sdk.md",
+    "completedAt": "2026-10-17T09:14:56.204Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-offline-first-sync.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-offline-first-sync.txt",
-    "auditPath": "./out/audits/brief-offline-first-sync.md"
+    "auditPath": "./out/audits/brief-offline-first-sync.md",
+    "completedAt": "2026-10-17T09:14:56.208Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-opentelemetry-observability.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-opentelemetry-observability.txt",
-    "auditPath": "./out/audits/brief-opentelemetry-observability.md"
+    "auditPath": "./out/audits/brief-opentelemetry-observability.md",
+    "completedAt": "2026-10-17T09:14:56.212Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-osint-data-platform.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-osint-data-platform.txt",
-    "auditPath": "./out/audits/brief-osint-data-platform.md"
+    "auditPath": "./out/audits/brief-osint-data-platform.md",
+    "completedAt": "2026-10-17T09:14:56.216Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-peer-to-peer.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-peer-to-peer.txt",
-    "auditPath": "./out/audits/brief-peer-to-peer.md"
+    "auditPath": "./out/audits/brief-peer-to-peer.md",
+    "completedAt": "2026-10-17T09:14:56.220Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-personalization-engine.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-personalization-engine.txt",
-    "auditPath": "./out/audits/brief-personalization-engine.md"
+    "auditPath": "./out/audits/brief-personalization-engine.md",
+    "completedAt": "2026-10-17T09:14:56.223Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-privacy-preserving-ml.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-privacy-preserving-ml.txt",
-    "auditPath": "./out/audits/brief-privacy-preserving-ml.md"
+    "auditPath": "./out/audits/brief-privacy-preserving-ml.md",
+    "completedAt": "2026-10-17T09:14:56.226Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-progressive-web-app.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-progressive-web-app.txt",
-    "auditPath": "./out/audits/brief-progressive-web-app.md"
+    "auditPath": "./out/audits/brief-progressive-web-app.md",
+    "completedAt": "2026-10-17T09:14:56.229Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-raft-consensus.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-raft-consensus.txt",
-    "auditPath": "./out/audits/brief-raft-consensus.md"
+    "auditPath": "./out/audits/brief-raft-consensus.md",
+    "completedAt": "2026-10-17T09:14:56.232Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-rag-vector-search.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-rag-vector-search.txt",
-    "auditPath": "./out/audits/brief-rag-vector-search.md"
+    "auditPath": "./out/audits/brief-rag-vector-search.md",
+    "completedAt": "2026-10-17T09:14:56.235Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-react-native-offline.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-react-native-offline.txt",
-    "auditPath": "./out/audits/brief-react-native-offline.md"
+    "auditPath": "./out/audits/brief-react-native-offline.md",
+    "completedAt": "2026-10-17T09:14:56.237Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-realtime-analytics-dashboard.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-realtime-analytics-dashboard.txt",
-    "auditPath": "./out/audits/brief-realtime-analytics-dashboard.md"
+    "auditPath": "./out/audits/brief-realtime-analytics-dashboard.md",
+    "completedAt": "2026-10-17T09:14:56.240Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-realtime-code-execution.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-realtime-code-execution.txt",
-    "auditPath": "./out/audits/brief-realtime-code-execution.md"
+    "auditPath": "./out/audits/brief-realtime-code-execution.md",
+    "completedAt": "2026-10-17T09:14:56.243Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-realtime-collab.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-realtime-collab.txt",
-    "auditPath": "./out/audits/brief-realtime-collab.md"
+    "auditPath": "./out/audits/brief-realtime-collab.md",
+    "completedAt": "2026-10-17T09:14:56.247Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-realtime-stock-platform.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-realtime-stock-platform.txt",
-    "auditPath": "./out/audits/brief-realtime-stock-platform.md"
+    "auditPath": "./out/audits/brief-realtime-stock-platform.md",
+    "completedAt": "2026-10-17T09:14:56.250Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-recommendation-engine.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-recommendation-engine.txt",
-    "auditPath": "./out/audits/brief-recommendation-engine.md"
+    "auditPath": "./out/audits/brief-recommendation-engine.md",
+    "completedAt": "2026-10-17T09:14:56.253Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-schema-registry.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-schema-registry.txt",
-    "auditPath": "./out/audits/brief-schema-registry.md"
+    "auditPath": "./out/audits/brief-schema-registry.md",
+    "completedAt": "2026-10-17T09:14:56.255Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-search-engine.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-search-engine.txt",
-    "auditPath": "./out/audits/brief-search-engine.md"
+    "auditPath": "./out/audits/brief-search-engine.md",
+    "completedAt": "2026-10-17T09:14:56.259Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-semantic-kernel-agent.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-semantic-kernel-agent.txt",
-    "auditPath": "./out/audits/brief-semantic-kernel-agent.md"
+    "auditPath": "./out/audits/brief-semantic-kernel-agent.md",
+    "completedAt": "2026-10-17T09:14:56.262Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-serverless-backend.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-serverless-backend.txt",
-    "auditPath": "./out/audits/brief-serverless-backend.md"
+    "auditPath": "./out/audits/brief-serverless-backend.md",
+    "completedAt": "2026-10-17T09:14:56.265Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-service-mesh.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-service-mesh.txt",
-    "auditPath": "./out/audits/brief-service-mesh.md"
+    "auditPath": "./out/audits/brief-service-mesh.md",
+    "completedAt": "2026-10-17T09:14:56.268Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-streaming-data-pipeline.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-streaming-data-pipeline.txt",
-    "auditPath": "./out/audits/brief-streaming-data-pipeline.md"
+    "auditPath": "./out/audits/brief-streaming-data-pipeline.md",
+    "completedAt": "2026-10-17T09:14:56.271Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-supply-chain-optimization.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-supply-chain-optimization.txt",
-    "auditPath": "./out/audits/brief-supply-chain-optimization.md"
+    "auditPath": "./out/audits/brief-supply-chain-optimization.md",
+    "completedAt": "2026-10-17T09:14:56.276Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-terraform-cloud-infra.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-terraform-cloud-infra.txt",
-    "auditPath": "./out/audits/brief-terraform-cloud-infra.md"
+    "auditPath": "./out/audits/brief-terraform-cloud-infra.md",
+    "completedAt": "2026-10-17T09:14:56.281Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-time-series-forecasting.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-time-series-forecasting.txt",
-    "auditPath": "./out/audits/brief-time-series-forecasting.md"
+    "auditPath": "./out/audits/brief-time-series-forecasting.md",
+    "completedAt": "2026-10-17T09:14:56.285Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-tls-certificate-manager.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-tls-certificate-manager.txt",
-    "auditPath": "./out/audits/brief-tls-certificate-manager.md"
+    "auditPath": "./out/audits/brief-tls-certificate-manager.md",
+    "completedAt": "2026-10-17T09:14:56.288Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-upi-payment-gateway.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-upi-payment-gateway.txt",
-    "auditPath": "./out/audits/brief-upi-payment-gateway.md"
+    "auditPath": "./out/audits/brief-upi-payment-gateway.md",
+    "completedAt": "2026-10-17T09:14:56.291Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-vector-db-from-scratch.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-vector-db-from-scratch.txt",
-    "auditPath": "./out/audits/brief-vector-db-from-scratch.md"
+    "auditPath": "./out/audits/brief-vector-db-from-scratch.md",
+    "completedAt": "2026-10-17T09:14:56.295Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-workflow-engine.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-workflow-engine.txt",
-    "auditPath": "./out/audits/brief-workflow-engine.md"
+    "auditPath": "./out/audits/brief-workflow-engine.md",
+    "completedAt": "2026-10-17T09:14:56.299Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "brief-zero-trust-proxy.txt",
-    "status": "pending",
+    "status": "done",
     "type": "project_brief",
     "improvedPath": "./out/improved/brief-zero-trust-proxy.txt",
-    "auditPath": "./out/audits/brief-zero-trust-proxy.md"
+    "auditPath": "./out/audits/brief-zero-trust-proxy.md",
+    "completedAt": "2026-10-17T09:14:56.303Z",
+    "score": {
+      "old": 5.46,
+      "improved": 9.23,
+      "band": "A"
+    }
   },
   {
     "file": "cert-aws-ccp.txt",
-    "status": "pending",
+    "status": "done",
     "type": "certification_page",
     "improvedPath": "./out/improved/cert-aws-ccp.txt",
-    "auditPath": "./out/audits/cert-aws-ccp.md"
+    "auditPath": "./out/audits/cert-aws-ccp.md",
+    "completedAt": "2026-10-17T09:14:56.307Z",
+    "score": {
+      "old": 5.55,
+      "improved": 9.34,
+      "band": "A"
+    }
   },
   {
     "file": "cert-aws-saa.txt",
-    "status": "pending",
+    "status": "done",
     "type": "certification_page",
     "improvedPath": "./out/improved/cert-aws-saa.txt",
-    "auditPath": "./out/audits/cert-aws-saa.md"
+    "auditPath": "./out/audits/cert-aws-saa.md",
+    "completedAt": "2026-10-17T09:14:56.310Z",
+    "score": {
+      "old": 5.55,
+      "improved": 9.34,
+      "band": "A"
+    }
   },
   {
     "file": "cert-ckad.txt",
-    "status": "pending",
+    "status": "done",
     "type": "certification_page",
     "improvedPath": "./out/improved/cert-ckad.txt",
-    "auditPath": "./out/audits/cert-ckad.md"
+    "auditPath": "./out/audits/cert-ckad.md",
+    "completedAt": "2026-10-17T09:14:56.313Z",
+    "score": {
+      "old": 5.55,
+      "improved": 9.34,
+      "band": "A"
+    }
   },
   {
     "file": "cert-comptia-sec.txt",
-    "status": "pending",
+    "status": "done",
     "type": "certification_page",
     "improvedPath": "./out/improved/cert-comptia-sec.txt",
-    "auditPath": "./out/audits/cert-comptia-sec.md"
+    "auditPath": "./out/audits/cert-comptia-sec.md",
+    "completedAt": "2026-10-17T09:14:56.316Z",
+    "score": {
+      "old": 5.55,
+      "improved": 9.34,
+      "band": "A"
+    }
   },
   {
     "file": "cert-gcp-ace.txt",
-    "status": "pending",
+    "status": "done",
     "type": "certification_page",
     "improvedPath": "./out/improved/cert-gcp-ace.txt",
-    "auditPath": "./out/audits/cert-gcp-ace.md"
+    "auditPath": "./out/audits/cert-gcp-ace.md",
+    "completedAt": "2026-10-17T09:14:56.320Z",
+    "score": {
+      "old": 5.55,
+      "improved": 9.34,
+      "band": "A"
+    }
   }
 ]

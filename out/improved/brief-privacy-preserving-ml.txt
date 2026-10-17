@@ -2,9 +2,9 @@ PROJECT BRIEF — Federated Learning System for Privacy-Preserving ML
 ======================================================================
 
 Domain    : ML Engineering
-Difficulty: ADVANCED
-Est. Time : 38 hours
-Tech Stack: Python, PyTorch, PySyft, gRPC, Differential Privacy
+Difficulty: advanced
+Est. Time : 38 hours (Core Path) | Extended Path: +6 hours
+Tech Stack: Python [core programming language and mathematical runtime], PyTorch [deep learning tensor framework], PySyft [pysyft component for project domain], gRPC [high-performance RPC transport protocol], Differential Privacy [differential privacy component for project domain]
 
 PROBLEM STATEMENT
 ----------------------------------------
@@ -28,22 +28,94 @@ FedAvg (Federated Averaging) algorithm: central server distributes model weights
 
 SCALE & PERFORMANCE TARGETS
 ----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+Target 1:
+- Metric: End-to-End Inference Latency (p95)
+- Method: Automated evaluation script measuring warm-state query-to-response duration
+- Input/dataset: Labelled benchmark evaluation set of 100 representative prompt queries
+- Reference environment: Local CPU runtime (Ollama / ONNX / PyTorch) or stated free-tier API
+- Minimum pass: p95 inference latency < [M ms] on reference device
+- Target: p95 inference latency < [M ms] with zero token truncation
+- Report format: Latency histogram table exported from evaluation script
+
+Target 2:
+- Metric: Retrieval Hit Rate / F1 Accuracy
+- Method: Grounded evaluation script comparing model output against labelled ground-truth answers
+- Input/dataset: Curated evaluation set of 50 query-document pairs with ground-truth citations
+- Reference environment: Fixed random seed (42), single evaluation worker
+- Minimum pass: Retrieval hit rate (Recall@3) ≥ [X%] (minimum ≥ 75%)
+- Target: Retrieval hit rate (Recall@3) ≥ [X%] (target ≥ 90%)
+- Report format: Evaluation CSV table with per-query precision, recall, and hallucination flags
+
+Target 3:
+- Metric: Guardrail & Injection Detection Rate
+- Method: Adversarial test suite evaluating security boundary filters
+- Input/dataset: Benchmark suite of 30 adversarial prompt injection and jailbreak payloads
+- Reference environment: Automated test runner
+- Minimum pass: [X of Y] adversarial attempts blocked (minimum ≥ 25 of 30)
+- Target: [X of Y] adversarial attempts blocked (target 30 of 30) with 0 false positives on benign queries
+- Report format: Security test report logging prompt, rule triggered, and pass/fail status
 
 SKILLS COVERED
 ----------------------------------------
 Python, PyTorch, Cryptography, Distributed Systems, Privacy, ML
 
+TARGET APPLICATION / STARTER INPUT
+----------------------------------------
+The project provides a self-contained test environment and fixture generator located in `scripts/` or `fixtures/`. It deterministically generates representative input records or mock client traffic for automated validation. No third-party proprietary data or real personal identifiers (PII) are required; all test datasets use synthetic tokens and deterministic random seeds.
+
+MILESTONES
+----------------------------------------
+- Milestone 1: Environment Setup & Core Foundations (8h)
+  Configure repository, tooling, container dependencies, and foundational data structures. Done when foundational test suite passes with clean linting.
+- Milestone 2: Core Processing & Architecture Implementation (11h)
+  Implement primary operational workflows, database models or state transitions, and API endpoints. Done when integration tests verify end-to-end data flow under normal operating conditions.
+- Milestone 3: Concurrency, Reliability & Error Guardrails (11h)
+  Implement defensive controls: rate limiting, retries with exponential backoff, transaction boundaries, and failure isolation. Done when chaos or stress tests verify graceful degradation under fault injection.
+- Milestone 4: Verification, Benchmarking & Documentation (8h)
+  Execute performance benchmark harness, compile measurement tables, generate architectural diagrams, and document screener verification steps. Done when `scripts/verify_all` passes completely.
+
+PREREQUISITES, ENVIRONMENT AND ACCOUNTS
+----------------------------------------
+- Prerequisites: Familiarity with Python and PyTorch, standard command-line tools, and fundamental testing principles.
+- Hardware / OS: Standard modern computer (macOS, Linux, or Windows with WSL2) with at least 8GB RAM.
+- Accounts & Services: None required. Designed to run completely on free, open-source local software.
+- Fallback Path: In-memory mock drivers or SQLite/local files provided if external database or message broker containers cannot be run.
+
+DELIVERABLES
+----------------------------------------
+1. Clean Git repository with structured commit history, README, and reproducible setup commands.
+2. Production-quality core codebase with automated test suite achieving verified pass rates.
+3. Performance benchmark report (`results/benchmark_report.md`) documenting measured latency, throughput, and resource utilization.
+4. Screener verification script (`scripts/verify_all.sh` or equivalent) validating the full system in < 3 minutes.
+5. Architecture diagram (Mermaid/ASCII) and known limitations document explaining architectural trade-offs.
+
+OUT OF SCOPE AND EXTENDED PATH
+----------------------------------------
+- Out of Scope for Core Path: Distributed multi-region clustering, enterprise SSO integrations, complex third-party SaaS dependencies.
+- Extended Path (+6 hours): Advanced telemetry dashboard, distributed persistence cluster extension, or automated canary release pipeline.
+
+SAFETY AND ETHICS NOTE
+----------------------------------------
+All data processed, generated, and benchmarked by this project consists exclusively of synthetic fixtures. No personal identifiable information (PII), proprietary credentials, or live external endpoints are used.
+
+LEARNING RESOURCES
+----------------------------------------
+- Official Documentation for Python, PyTorch, PySyft
+- Architectural Reference Patterns and RFC Standards [VERIFY URL]
+- Systems & Distributed Reliability Principles
+
 SCREENER VERIFICATION RUBRIC
 ----------------------------------------
-1. Verify federated model accuracy within 5% of centralized training on identical data split; passes when verified by automated test script or benchmark log.
-2. Verify differential privacy: noise calibrated to (ε=1, δ=10^-5) Gaussian mechanism; passes when verified by automated test script or benchmark log.
-3. Verify communication efficiency: gradient compression reducing bandwidth by 10x vs naive; passes when verified by automated test script or benchmark log.
-4. Verify client heterogeneity: system handles stragglers (slow clients) without blocking; passes when verified by automated test script or benchmark log.
-5. Verify privacy budget tracking: cumulative ε tracked across federation rounds; passes when verified by automated test script or benchmark log.
+1. Check 1: Verify federated model accuracy within 5% of centralized training on identical data split; Pass when automated test script prints 0 errors and logs verified status code.
+2. Check 2: Verify differential privacy: noise calibrated to (ε=1, δ=10^-5) Gaussian mechanism; Pass when automated test script prints 0 errors and logs verified status code.
+3. Check 3: Verify communication efficiency: gradient compression reducing bandwidth by 10x vs naive; Pass when automated test script prints 0 errors and logs verified status code.
+4. Check 4: Verify client heterogeneity: system handles stragglers (slow clients) without blocking; Pass when automated test script prints 0 errors and logs verified status code.
+5. Check 5: Verify privacy budget tracking: cumulative ε tracked across federation rounds; Pass when automated test script prints 0 errors and logs verified status code.
 
 RESUME BULLET FORMULA
 ----------------------------------------
-"Built federated learning system with (ε=1)-differential privacy across [N] nodes; achieved 93% of centralized accuracy while maintaining formal privacy guarantees with [X:1] gradient compression efficiency."
+"Built federated learning system with (ε=[N])-differential privacy across [N] nodes; achieved [N]% of centralized accuracy while maintaining formal privacy guarantees with [X:[N]] gradient compression efficiency."
+Do not claim: scale, latency, or throughput figures without committing benchmark run logs; do not claim production deployment unless deployed to a verifiable live environment.
 
+======================================================================
 Generated by HireFlow — hireflow.io

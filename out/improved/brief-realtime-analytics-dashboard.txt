@@ -2,9 +2,9 @@ PROJECT BRIEF — Real-Time Business Intelligence Dashboard with WebSocket Push
 ======================================================================
 
 Domain    : Full-Stack Web
-Difficulty: INTERMEDIATE
-Est. Time : 28 hours
-Tech Stack: React, TypeScript, Node.js, WebSockets, PostgreSQL, Redis
+Difficulty: intermediate
+Est. Time : 28 hours (Core Path) | Extended Path: +6 hours
+Tech Stack: React [frontend UI component library], TypeScript [strongly-typed programming language], Node.js [backend JavaScript execution environment], WebSockets [websockets component for project domain], PostgreSQL [relational database management system], Redis [in-memory data structure store and cache]
 
 PROBLEM STATEMENT
 ----------------------------------------
@@ -28,22 +28,94 @@ PostgreSQL trigger or polling service detecting metric changes. Node.js WebSocke
 
 SCALE & PERFORMANCE TARGETS
 ----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+Target 1:
+- Metric: Core Operation Execution Time
+- Method: Automated benchmark executing core engine operation across varying workload sizes
+- Input/dataset: Standard test project or fixture payload (~500KB)
+- Reference environment: Local development environment, 4-core CPU, 8GB RAM
+- Minimum pass: Operation execution time < [M s] (minimum < 10s)
+- Target: Operation execution time < [M s] (target < 3s)
+- Report format: Benchmark execution report showing duration and memory usage
+
+Target 2:
+- Metric: Test Suite Coverage & Verification Pass Rate
+- Method: Automated test runner executing comprehensive unit and integration test suites
+- Input/dataset: Full project test fixture directory
+- Reference environment: Local test environment, clean checkout
+- Minimum pass: [X of Y] unit and integration tests passing (100% pass on core test set)
+- Target: [X of Y] tests passing with strict type-checking and 0 lint warnings
+- Report format: Test runner coverage report and exit status log
+
+Target 3:
+- Metric: Client Load / Response Latency (p95)
+- Method: Concurrent API benchmark testing simulated client requests
+- Input/dataset: 1,000 simulated client requests over 10 concurrent connections
+- Reference environment: Local Docker or Node/Python process
+- Minimum pass: p95 response latency < [M ms] (pass < 100ms) with 0 dropped requests
+- Target: p95 response latency < [M ms] (target < 30ms) with 0 dropped requests
+- Report format: Benchmark latency percentile report
 
 SKILLS COVERED
 ----------------------------------------
 React, TypeScript, WebSockets, PostgreSQL, Node.js, Data Visualization
 
+TARGET APPLICATION / STARTER INPUT
+----------------------------------------
+The project provides a self-contained test environment and fixture generator located in `scripts/` or `fixtures/`. It deterministically generates representative input records or mock client traffic for automated validation. No third-party proprietary data or real personal identifiers (PII) are required; all test datasets use synthetic tokens and deterministic random seeds.
+
+MILESTONES
+----------------------------------------
+- Milestone 1: Environment Setup & Core Foundations (6h)
+  Configure repository, tooling, container dependencies, and foundational data structures. Done when foundational test suite passes with clean linting.
+- Milestone 2: Core Processing & Architecture Implementation (8h)
+  Implement primary operational workflows, database models or state transitions, and API endpoints. Done when integration tests verify end-to-end data flow under normal operating conditions.
+- Milestone 3: Concurrency, Reliability & Error Guardrails (8h)
+  Implement defensive controls: rate limiting, retries with exponential backoff, transaction boundaries, and failure isolation. Done when chaos or stress tests verify graceful degradation under fault injection.
+- Milestone 4: Verification, Benchmarking & Documentation (6h)
+  Execute performance benchmark harness, compile measurement tables, generate architectural diagrams, and document screener verification steps. Done when `scripts/verify_all` passes completely.
+
+PREREQUISITES, ENVIRONMENT AND ACCOUNTS
+----------------------------------------
+- Prerequisites: Familiarity with React and TypeScript, standard command-line tools, and fundamental testing principles.
+- Hardware / OS: Standard modern computer (macOS, Linux, or Windows with WSL2) with at least 8GB RAM.
+- Accounts & Services: None required. Designed to run completely on free, open-source local software.
+- Fallback Path: In-memory mock drivers or SQLite/local files provided if external database or message broker containers cannot be run.
+
+DELIVERABLES
+----------------------------------------
+1. Clean Git repository with structured commit history, README, and reproducible setup commands.
+2. Production-quality core codebase with automated test suite achieving verified pass rates.
+3. Performance benchmark report (`results/benchmark_report.md`) documenting measured latency, throughput, and resource utilization.
+4. Screener verification script (`scripts/verify_all.sh` or equivalent) validating the full system in < 3 minutes.
+5. Architecture diagram (Mermaid/ASCII) and known limitations document explaining architectural trade-offs.
+
+OUT OF SCOPE AND EXTENDED PATH
+----------------------------------------
+- Out of Scope for Core Path: Distributed multi-region clustering, enterprise SSO integrations, complex third-party SaaS dependencies.
+- Extended Path (+6 hours): Advanced telemetry dashboard, distributed persistence cluster extension, or automated canary release pipeline.
+
+SAFETY AND ETHICS NOTE
+----------------------------------------
+All data processed, generated, and benchmarked by this project consists exclusively of synthetic fixtures. No personal identifiable information (PII), proprietary credentials, or live external endpoints are used.
+
+LEARNING RESOURCES
+----------------------------------------
+- Official Documentation for React, TypeScript, Node.js
+- Architectural Reference Patterns and RFC Standards [VERIFY URL]
+- Systems & Distributed Reliability Principles
+
 SCREENER VERIFICATION RUBRIC
 ----------------------------------------
-1. Verify webSocket push: database metric change reflected on dashboard within 500ms; passes when verified by automated test script or benchmark log.
-2. Verify selective subscription: client only receives updates for charts currently displayed; passes when verified by automated test script or benchmark log.
-3. Verify backpressure handling: slow client receives latest value, not every intermediate value; passes when verified by automated test script or benchmark log.
-4. Verify multi-server: second WebSocket server instance receives same updates via Redis pub/sub; passes when verified by automated test script or benchmark log.
-5. Verify alert notification: browser notification fired when metric crosses configured threshold; passes when verified by automated test script or benchmark log.
+1. Check 1: Verify webSocket push: database metric change reflected on dashboard within 500ms; Pass when automated test script prints 0 errors and logs verified status code.
+2. Check 2: Verify selective subscription: client only receives updates for charts currently displayed; Pass when automated test script prints 0 errors and logs verified status code.
+3. Check 3: Verify backpressure handling: slow client receives latest value, not every intermediate value; Pass when automated test script prints 0 errors and logs verified status code.
+4. Check 4: Verify multi-server: second WebSocket server instance receives same updates via Redis pub/sub; Pass when automated test script prints 0 errors and logs verified status code.
+5. Check 5: Verify alert notification: browser notification fired when metric crosses configured threshold; Pass when automated test script prints 0 errors and logs verified status code.
 
 RESUME BULLET FORMULA
 ----------------------------------------
 "Built real-time BI dashboard with WebSocket push delivering metric updates to [N] req/sec concurrent clients within [M ms] of data change; implemented selective subscription and backpressure handling with Redis multi-server pub/sub."
+Do not claim: scale, latency, or throughput figures without committing benchmark run logs; do not claim production deployment unless deployed to a verifiable live environment.
 
+======================================================================
 Generated by HireFlow — hireflow.io
