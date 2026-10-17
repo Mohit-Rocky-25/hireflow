@@ -22,7 +22,7 @@ import { CertificationsTab } from './components/CertificationsTab';
 import { EventsTab } from './components/EventsTab';
 import { OpenSourceTab } from './components/OpenSourceTab';
 import { OpportunityPlanTab } from './components/OpportunityPlanTab';
-import { OpportunityDetailModal } from './components/OpportunityDetailModal';
+import { OpportunityDetailModal, ModalTab } from './components/OpportunityDetailModal';
 import { Top30DirectoryModal } from './components/Top30DirectoryModal';
 import { OpportunityRecord, USD_TO_INR_EXCHANGE_RATE } from './types';
 import { CredentialsStorage } from './storage';
@@ -33,10 +33,16 @@ export type EngineTab = 'certifications' | 'events' | 'open_source' | 'opportuni
 export function CredentialOpportunityEnginePage() {
   const [activeTab, setActiveTab] = useState<EngineTab>('certifications');
   const [selectedOpportunity, setSelectedOpportunity] = useState<OpportunityRecord | null>(null);
+  const [modalInitialTab, setModalInitialTab] = useState<ModalTab>('overview');
   const [isDirectoryOpen, setIsDirectoryOpen] = useState(false);
   const [savedCount, setSavedCount] = useState<number>(() => {
     return CredentialsStorage.loadPlanItems().length;
   });
+
+  const handleOpenOpportunity = (opp: OpportunityRecord, tab: ModalTab = 'overview') => {
+    setSelectedOpportunity(opp);
+    setModalInitialTab(tab);
+  };
 
   const refreshPlanCount = () => {
     setSavedCount(CredentialsStorage.loadPlanItems().length);
@@ -238,28 +244,28 @@ export function CredentialOpportunityEnginePage() {
         <div className="pt-2">
           {activeTab === 'certifications' && (
             <CertificationsTab
-              onSelectOpportunity={(opp) => setSelectedOpportunity(opp)}
+              onSelectOpportunity={handleOpenOpportunity}
               onPlanUpdated={refreshPlanCount}
             />
           )}
 
           {activeTab === 'events' && (
             <EventsTab
-              onSelectOpportunity={(opp) => setSelectedOpportunity(opp)}
+              onSelectOpportunity={handleOpenOpportunity}
               onPlanUpdated={refreshPlanCount}
             />
           )}
 
           {activeTab === 'open_source' && (
             <OpenSourceTab
-              onSelectOpportunity={(opp) => setSelectedOpportunity(opp)}
+              onSelectOpportunity={handleOpenOpportunity}
               onPlanUpdated={refreshPlanCount}
             />
           )}
 
           {activeTab === 'opportunity_plan' && (
             <OpportunityPlanTab
-              onSelectOpportunity={(opp) => setSelectedOpportunity(opp)}
+              onSelectOpportunity={handleOpenOpportunity}
               onPlanChanged={refreshPlanCount}
             />
           )}
@@ -270,6 +276,7 @@ export function CredentialOpportunityEnginePage() {
           <OpportunityDetailModal
             key={selectedOpportunity.id}
             opportunity={selectedOpportunity}
+            initialTab={modalInitialTab}
             onClose={() => setSelectedOpportunity(null)}
             onPlanUpdated={refreshPlanCount}
           />
@@ -279,7 +286,7 @@ export function CredentialOpportunityEnginePage() {
         <Top30DirectoryModal
           isOpen={isDirectoryOpen}
           onClose={() => setIsDirectoryOpen(false)}
-          onSelectOpportunity={(opp) => setSelectedOpportunity(opp)}
+          onSelectOpportunity={(opp) => handleOpenOpportunity(opp, 'overview')}
         />
       </div>
     </div>
