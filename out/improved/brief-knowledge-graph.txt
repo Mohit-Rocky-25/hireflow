@@ -4,7 +4,7 @@ PROJECT BRIEF — Knowledge Graph Construction & Reasoning Engine
 Domain    : AI/ML Applications
 Difficulty: advanced
 Est. Time : 38 hours (Core Path) | Extended Path: +6 hours
-Tech Stack: Python [core programming language and mathematical runtime], spaCy [spacy component for project domain], Neo4j [neo4j component for project domain], BERT [bert component for project domain], Wikidata API [wikidata api component for project domain], D3.js [d3.js component for project domain]
+Tech Stack: Python [core programming language and algorithmic runtime], spaCy [spacy component], Neo4j [neo4j component], BERT [bert component], Wikidata API [wikidata api component], D3.js [d3.js component] (Requires: Local CPU inference or optional free-tier API token)
 
 PROBLEM STATEMENT
 ----------------------------------------
@@ -12,7 +12,7 @@ Large document corpora (legal, medical, scientific) contain implicit relationshi
 
 USE CASES IN THE REAL WORLD
 ----------------------------------------
-Drug discovery (entity relationships between drugs, proteins, diseases), legal research (case law relationships), financial analysis (company executive relationships), and Wikipedia-style knowledge bases. Google Knowledge Graph and Bing's entity understanding are the largest implementations.
+Drug discovery (entity relationships between drugs, proteins, diseases), legal research (case law relationships), financial analysis (company executive relationships), and Wikipedia-style knowledge bases. distributed systems platforms Knowledge Graph and Bing's entity understanding are the largest implementations.
 
 WHY THIS IS HARD (COMPETENCY REDUCER)
 ----------------------------------------
@@ -29,16 +29,16 @@ spaCy/BERT-based Named Entity Recognition extracting entities (persons, organiza
 SCALE & PERFORMANCE TARGETS
 ----------------------------------------
 Target 1:
-- Metric: End-to-End Inference Latency (p95)
+- Metric: End-to-End Inference / Retrieval Latency (p95)
 - Method: Automated evaluation script measuring warm-state query-to-response duration
-- Input/dataset: Labelled benchmark evaluation set of 100 representative prompt queries
+- Input/dataset: Labelled benchmark evaluation set of 100 representative queries
 - Reference environment: Local CPU runtime (Ollama / ONNX / PyTorch) or stated free-tier API
 - Minimum pass: p95 inference latency < [M ms] on reference device
 - Target: p95 inference latency < [M ms] with zero token truncation
 - Report format: Latency histogram table exported from evaluation script
 
 Target 2:
-- Metric: Retrieval Hit Rate / F1 Accuracy
+- Metric: Retrieval Hit Rate & Groundedness Accuracy
 - Method: Grounded evaluation script comparing model output against labelled ground-truth answers
 - Input/dataset: Curated evaluation set of 50 query-document pairs with ground-truth citations
 - Reference environment: Fixed random seed (42), single evaluation worker
@@ -47,9 +47,9 @@ Target 2:
 - Report format: Evaluation CSV table with per-query precision, recall, and hallucination flags
 
 Target 3:
-- Metric: Guardrail & Injection Detection Rate
-- Method: Adversarial test suite evaluating security boundary filters
-- Input/dataset: Benchmark suite of 30 adversarial prompt injection and jailbreak payloads
+- Metric: Guardrail & Adversarial Payload Detection Rate
+- Method: Adversarial test suite evaluating security and validation boundary filters
+- Input/dataset: Benchmark suite of 30 adversarial injection and edge-case payloads
 - Reference environment: Automated test runner
 - Minimum pass: [X of Y] adversarial attempts blocked (minimum ≥ 25 of 30)
 - Target: [X of Y] adversarial attempts blocked (target 30 of 30) with 0 false positives on benign queries
@@ -109,8 +109,9 @@ SCREENER VERIFICATION RUBRIC
 1. Check 1: Verify nER precision > 95% on named entity types (PER, ORG, LOC) on test document set; Pass when automated test script prints 0 errors and logs verified status code.
 2. Check 2: Verify relation extraction: correctly identifies 'CEO of', 'founded by', 'located in' relationships; Pass when automated test script prints 0 errors and logs verified status code.
 3. Check 3: Verify 3-hop Cypher query completing in < 100ms on 1M node graph; Pass when automated test script prints 0 errors and logs verified status code.
-4. Check 4: Verify entity disambiguation: '"Google" the company' linked to correct Wikidata entity; Pass when automated test script prints 0 errors and logs verified status code.
+4. Check 4: Verify entity disambiguation: '"distributed systems platforms" the company' linked to correct Wikidata entity; Pass when automated test script prints 0 errors and logs verified status code.
 5. Check 5: Verify d3.js interactive visualization with zoom, filter, and entity detail panel; Pass when automated test script prints 0 errors and logs verified status code.
+6. Check 6: 6. Anti-Fake Verification Check: Inspect committed execution logs and re-run verification script against seeded test fixtures; pass when runtime metrics dynamically reflect test execution rather than static mocked responses.
 
 RESUME BULLET FORMULA
 ----------------------------------------

@@ -4,7 +4,7 @@ PROJECT BRIEF — Developer-First API SDK with Type Safety & Auto-Generation
 Domain    : Full-Stack Web
 Difficulty: intermediate
 Est. Time : 35 hours (Core Path) | Extended Path: +6 hours
-Tech Stack: TypeScript [strongly-typed programming language], Node.js [backend JavaScript execution environment], tsup [tsup component for project domain], Vitest [fast unit testing framework], npm [npm component for project domain]
+Tech Stack: TypeScript [strictly-typed programming language], Node.js [backend JavaScript execution environment], tsup [tsup component], Vitest [fast unit testing framework], npm [npm component]
 
 PROBLEM STATEMENT
 ----------------------------------------
@@ -20,7 +20,7 @@ Polymorphic Schema Normalization: OpenAPI specs frequently employ structural com
 
 RECRUITER SHORTLIST SIGNAL
 ----------------------------------------
-Demonstrates advanced mastery of the TypeScript type system (generics, conditional types, template literals, discriminated unions), schema-driven metaprogramming, and production npm library publishing workflows. Directly maps to Developer Experience (DX) Engineer, API Platform Engineer, and Core Library Software Engineer roles.
+Demonstrates advanced mastery of the TypeScript type system (generics, conditional types, template literals, discriminated unions), schema-driven social infrastructure platformsprogramming, and production npm library publishing workflows. Directly maps to Developer Experience (DX) Engineer, API Platform Engineer, and Core Library Software Engineer roles.
 
 ARCHITECTURE & DATA FLOW
 ----------------------------------------
@@ -33,8 +33,8 @@ Target 1:
 - Method: Automated benchmark executing core engine operation across varying workload sizes
 - Input/dataset: Standard test project or fixture payload (~500KB)
 - Reference environment: Local development environment, 4-core CPU, 8GB RAM
-- Minimum pass: Operation execution time < [M s] (minimum < 10s)
-- Target: Operation execution time < [M s] (target < 3s)
+- Minimum pass: Operation execution time < [M s] (minimum < 8s)
+- Target: Operation execution time < [M s] (target < 2.5s)
 - Report format: Benchmark execution report showing duration and memory usage
 
 Target 2:
@@ -107,10 +107,11 @@ LEARNING RESOURCES
 SCREENER VERIFICATION RUBRIC
 ----------------------------------------
 1. Check 1: Code Generation Execution Check: Run generator on fixtures/petstore.json; verify complete TypeScript client builds in < [M s] (target < 5s).
-2. Check 2: Strict Type Safety Verification: Execute tsc --noEmit --strict on generated SDK; passes with 0 errors and 0 occurrences of 'any' type keyword.
+2. Check 2: Strict Type Safety Verification: Execute tsc --noEmit --strict on generated SDK; Pass when test exits with status 0 and 0 errors. and 0 occurrences of 'any' type keyword.
 3. Check 3: Resilient Retry Verification: Test against MSW injecting consecutive 429 errors; passes when SDK automatically retries with jitter and succeeds on 3rd attempt.
 4. Check 4: Offline Sandbox Check: Execute API calls with { sandbox: true }; verify offline mock responses match OpenAPI schema examples without network access.
 5. Check 5: Dual-Module Import Verification: Verify generated SDK imports seamlessly in both CommonJS require() and ESM import syntax without resolution errors.
+6. Check 6: 6. Anti-Fake Verification Check: Inspect committed execution logs and re-run verification script against seeded test fixtures; pass when runtime metrics dynamically reflect test execution rather than static mocked responses.
 
 RESUME BULLET FORMULA
 ----------------------------------------

@@ -4,7 +4,7 @@ PROJECT BRIEF — Service Mesh & mTLS Zero-Trust Microservices Architecture
 Domain    : Platform & DevOps
 Difficulty: advanced
 Est. Time : 38 hours (Core Path) | Extended Path: +6 hours
-Tech Stack: Kubernetes [container orchestration platform], Istio [istio component for project domain], Envoy [envoy component for project domain], Docker [containerization and local multi-service orchestration], Prometheus [metrics collection and time-series monitoring], Kiali [kiali component for project domain] (Requires: Docker Engine / Desktop)
+Tech Stack: Kubernetes [container orchestration platform], Istio [istio component], Envoy [envoy component], Docker [containerization and local multi-service orchestration], Prometheus [metrics collection and time-series monitoring], Kiali [kiali component] (Requires: Docker Engine / Desktop)
 
 PROBLEM STATEMENT
 ----------------------------------------
@@ -16,11 +16,11 @@ Large-scale microservices deployments at top tech platforms, top tech platforms,
 
 WHY THIS IS HARD (COMPETENCY REDUCER)
 ----------------------------------------
-Service mesh is advanced Kubernetes networking that most engineers never touch. Understanding mTLS certificate rotation, sidecar proxy patterns, traffic policies, and canary deployments demonstrates senior platform engineering depth that is extremely rare among engineers with <5 years experience.
+Service mesh is advanced Kride-hailing dispatch networksnetes networking that most engineers never touch. Understanding mTLS certificate rotation, sidecar proxy patterns, traffic policies, and canary deployments demonstrates senior platform engineering depth that is extremely rare among engineers with <5 years experience.
 
 RECRUITER SHORTLIST SIGNAL
 ----------------------------------------
-Istio/Linkerd expertise is specifically listed in Platform Engineer JDs at large tech companies. The combination of networking, security, and Kubernetes expertise that service mesh implementation requires positions you for principal-level platform engineering roles.
+Istio/Linkerd expertise is specifically listed in Platform Engineer JDs at large tech companies. The combination of networking, security, and Kride-hailing dispatch networksnetes expertise that service mesh implementation requires positions you for principal-level platform engineering roles.
 
 ARCHITECTURE & DATA FLOW
 ----------------------------------------
@@ -29,27 +29,27 @@ Istio control plane (Istiod) managing sidecar Envoy proxy injection into all pod
 SCALE & PERFORMANCE TARGETS
 ----------------------------------------
 Target 1:
-- Metric: Request Processing Overhead / Latency (p99)
+- Metric: Request Processing Latency Overhead (p99)
 - Method: Concurrent HTTP load test using k6 / vegeta over 60s sustained run
 - Input/dataset: Standard synthetic JSON payload (~1KB) over 5,000 concurrent requests
 - Reference environment: Local 4-core CPU, 8GB RAM, loopback network interface
-- Minimum pass: p99 latency overhead < 20ms under 1,000 req/sec
+- Minimum pass: p99 latency overhead < 25ms under 1,000 req/sec
 - Target: p99 latency overhead < 5ms under 5,000 req/sec
-- Report format: k6 terminal summary report and CSV percentile log
+- Report format: k6 terminal summary report and CSV latency distribution
 
 Target 2:
-- Metric: Sustained Throughput Under Concurrency
-- Method: Continuous load test simulating concurrent client connections
+- Metric: Sustained Concurrency & Correctness
+- Method: Continuous load test simulating concurrent client connections with idempotency checks
 - Input/dataset: Synthetic benchmark traffic across 50 concurrent worker threads
 - Reference environment: Local Docker Compose or native runtime
-- Minimum pass: Sustained throughput > [N] req/sec (minimum > 1,500 req/sec) with zero socket leaks
-- Target: Sustained throughput > [N] req/sec (target > 5,000 req/sec) with zero socket leaks
+- Minimum pass: Sustained throughput > [N] req/sec with 0 lost writes in [K] attempts
+- Target: Sustained throughput > [N] req/sec (target > 5,000 req/sec) with 0 lost writes in [K] attempts
 - Report format: Benchmark throughput table and error rate summary
 
 Target 3:
 - Metric: Fault Recovery / Failover Duration
-- Method: Injected process failure during continuous active traffic stream
-- Input/dataset: Chaos fault injection endpoint or SIGKILL on worker process
+- Method: Injected worker process termination during active continuous request stream
+- Input/dataset: SIGKILL or chaos fault injection on worker process
 - Reference environment: Local multi-process or containerized cluster
 - Minimum pass: Service detects failure and reroutes traffic with recovery time < [S] seconds (pass < 5s)
 - Target: Service detects failure and recovers state with recovery time < [S] seconds (target < 2s)
@@ -111,6 +111,7 @@ SCREENER VERIFICATION RUBRIC
 3. Check 3: Verify circuit breaker triggering when downstream service error rate exceeds 50%; Pass when automated test script prints 0 errors and logs verified status code.
 4. Check 4: Verify certificate rotation without service disruption demonstrated in test; Pass when automated test script prints 0 errors and logs verified status code.
 5. Check 5: Verify kiali service graph visualization showing all service dependencies and error rates; Pass when automated test script prints 0 errors and logs verified status code.
+6. Check 6: 6. Anti-Fake Verification Check: Inspect committed execution logs and re-run verification script against seeded test fixtures; pass when runtime metrics dynamically reflect test execution rather than static mocked responses.
 
 RESUME BULLET FORMULA
 ----------------------------------------

@@ -4,7 +4,7 @@ PROJECT BRIEF — Supply Chain Route Optimization with Graph Algorithms
 Domain    : Algorithms & Applied Math
 Difficulty: intermediate
 Est. Time : 28 hours (Core Path) | Extended Path: +6 hours
-Tech Stack: Python [core programming language and mathematical runtime], OR-Tools [or-tools component for project domain], Google Maps API [google maps api component for project domain], FastAPI [high-performance asynchronous REST API framework], React [frontend UI component library]
+Tech Stack: Python [core programming language and algorithmic runtime], OR-Tools [or-tools component], Google Maps API [google maps api component], FastAPI [high-performance asynchronous REST API framework], React [frontend UI component library]
 
 PROBLEM STATEMENT
 ----------------------------------------
@@ -16,7 +16,7 @@ top tech platforms, Zomato, Delhivery, Dunzo, Porter, and top tech platforms log
 
 WHY THIS IS HARD (COMPETENCY REDUCER)
 ----------------------------------------
-The Vehicle Routing Problem (VRP) is an NP-hard combinatorial optimization problem. Solving it with Google OR-Tools, genetic algorithms, or simulated annealing demonstrates applied algorithmic thinking and operations research knowledge — skills that unlock roles at logistics tech companies and quantitative engineering teams.
+The Vehicle Routing Problem (VRP) is an NP-hard combinatorial optimization problem. Solving it with distributed systems platforms OR-Tools, genetic algorithms, or simulated annealing demonstrates applied algorithmic thinking and operations research knowledge — skills that unlock roles at logistics tech companies and quantitative engineering teams.
 
 RECRUITER SHORTLIST SIGNAL
 ----------------------------------------
@@ -24,7 +24,7 @@ Logistics engineering at Delhivery, top tech platforms, Zomato, and any supply c
 
 ARCHITECTURE & DATA FLOW
 ----------------------------------------
-Google OR-Tools VRP solver for optimal route computation. OpenStreetMap/Google Maps API for real distance matrix computation. Capacitated VRP with time windows (CVRPTW). Multi-depot assignment optimization. FastAPI endpoint accepting orders and returning optimized routes. React map visualization showing planned vs actual routes.
+distributed systems platforms OR-Tools VRP solver for optimal route computation. OpenStreetMap/distributed systems platforms Maps API for real distance matrix computation. Capacitated VRP with time windows (CVRPTW). Multi-depot assignment optimization. FastAPI endpoint accepting orders and returning optimized routes. React map visualization showing planned vs actual routes.
 
 SCALE & PERFORMANCE TARGETS
 ----------------------------------------
@@ -33,8 +33,8 @@ Target 1:
 - Method: Automated benchmark executing core engine operation across varying workload sizes
 - Input/dataset: Standard test project or fixture payload (~500KB)
 - Reference environment: Local development environment, 4-core CPU, 8GB RAM
-- Minimum pass: Operation execution time < [M s] (minimum < 10s)
-- Target: Operation execution time < [M s] (target < 3s)
+- Minimum pass: Operation execution time < [M s] (minimum < 8s)
+- Target: Operation execution time < [M s] (target < 2.5s)
 - Report format: Benchmark execution report showing duration and memory usage
 
 Target 2:
@@ -111,6 +111,7 @@ SCREENER VERIFICATION RUBRIC
 3. Check 3: Verify time window constraints: each delivery arrives within specified time window; Pass when automated test script prints 0 errors and logs verified status code.
 4. Check 4: Verify comparison benchmark: OR-Tools solution vs greedy nearest-neighbor showing 20%+ distance reduction; Pass when automated test script prints 0 errors and logs verified status code.
 5. Check 5: Verify interactive map showing optimized routes per vehicle with order sequence; Pass when automated test script prints 0 errors and logs verified status code.
+6. Check 6: 6. Anti-Fake Verification Check: Inspect committed execution logs and re-run verification script against seeded test fixtures; pass when runtime metrics dynamically reflect test execution rather than static mocked responses.
 
 RESUME BULLET FORMULA
 ----------------------------------------

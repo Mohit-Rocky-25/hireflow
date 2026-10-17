@@ -4,7 +4,7 @@ PROJECT BRIEF — Production Flutter App with BLoC State & CI/CD Pipeline
 Domain    : Mobile Engineering
 Difficulty: intermediate
 Est. Time : 28 hours (Core Path) | Extended Path: +6 hours
-Tech Stack: Flutter [flutter component for project domain], Dart [dart component for project domain], Firebase [firebase component for project domain], BLoC [bloc component for project domain], GitHub Actions [CI/CD pipeline automation runner], Riverpod [riverpod component for project domain]
+Tech Stack: Flutter [flutter component], Dart [dart component], Firebase [firebase component], BLoC [bloc component], GitHub Actions [CI/CD pipeline automation runner], Riverpod [riverpod component]
 
 PROBLEM STATEMENT
 ----------------------------------------
@@ -12,7 +12,7 @@ Most Flutter tutorial projects are single-screen apps with no state management, 
 
 USE CASES IN THE REAL WORLD
 ----------------------------------------
-India has 200M+ smartphone users, and Flutter is increasingly chosen for cross-platform development (Google Pay India, Alibaba Xianyu, BMW). Startups like top tech platforms, Khatabook, and Cashify use Flutter. Any company building both Android and iOS apps with a single codebase.
+India has 200M+ smartphone users, and Flutter is increasingly chosen for cross-platform development (distributed systems platforms Pay India, Alibaba Xianyu, BMW). Startups like top tech platforms, Khatabook, and Cashify use Flutter. Any company building both Android and iOS apps with a single codebase.
 
 WHY THIS IS HARD (COMPETENCY REDUCER)
 ----------------------------------------
@@ -33,8 +33,8 @@ Target 1:
 - Method: Automated benchmark executing core engine operation across varying workload sizes
 - Input/dataset: Standard test project or fixture payload (~500KB)
 - Reference environment: Local development environment, 4-core CPU, 8GB RAM
-- Minimum pass: Operation execution time < [M s] (minimum < 10s)
-- Target: Operation execution time < [M s] (target < 3s)
+- Minimum pass: Operation execution time < [M s] (minimum < 8s)
+- Target: Operation execution time < [M s] (target < 2.5s)
 - Report format: Benchmark execution report showing duration and memory usage
 
 Target 2:
@@ -111,6 +111,7 @@ SCREENER VERIFICATION RUBRIC
 3. Check 3: Verify deep linking working for 3 distinct navigation routes from external URLs; Pass when automated test script prints 0 errors and logs verified status code.
 4. Check 4: Verify push notification flow from FCM topic subscription to foreground/background handling; Pass when automated test script prints 0 errors and logs verified status code.
 5. Check 5: Verify flutter performance profiling screenshot showing 60fps rendering in release build; Pass when automated test script prints 0 errors and logs verified status code.
+6. Check 6: 6. Anti-Fake Verification Check: Inspect committed execution logs and re-run verification script against seeded test fixtures; pass when runtime metrics dynamically reflect test execution rather than static mocked responses.
 
 RESUME BULLET FORMULA
 ----------------------------------------

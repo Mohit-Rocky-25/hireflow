@@ -4,19 +4,19 @@ PROJECT BRIEF — Real-Time Stock Market Data Platform & Alert Engine
 Domain    : FinTech Engineering
 Difficulty: intermediate
 Est. Time : 28 hours (Core Path) | Extended Path: +6 hours
-Tech Stack: Python [core programming language and mathematical runtime], Kafka [distributed event streaming broker], TimescaleDB [timescaledb component for project domain], Redis [in-memory data structure store and cache], React [frontend UI component library], WebSockets [websockets component for project domain]
+Tech Stack: Python [core programming language and algorithmic runtime], Kafka [distributed event streaming broker], TimescaleDB [timescaledb component], Redis [in-memory data structure store and cache], React [frontend UI component library], WebSockets [websockets component]
 
 PROBLEM STATEMENT
 ----------------------------------------
-Retail investors miss trading opportunities because they lack real-time price alerts and portfolio monitoring. Build a scalable stock market data platform that ingests live tick data, runs configurable alert rules, and pushes real-time notifications to a trading dashboard.
+Retail investors miss trading opportunities because they lack sub-second price alerts and portfolio monitoring. Build a scalable stock market data platform that ingests live tick data, runs configurable alert rules, and pushes sub-second notifications to a trading dashboard.
 
 USE CASES IN THE REAL WORLD
 ----------------------------------------
-top tech platforms (Kite), top tech platforms, Upstox, Angel One, and ET Money all solve this. With SEBI's push for retail investor participation, real-time market data platforms are critical infrastructure. Also applicable to algo-trading, risk management, and portfolio analytics.
+top tech platforms (Kite), top tech platforms, Upstox, Angel One, and ET Money all solve this. With SEBI's push for retail investor participation, sub-second market data platforms are critical infrastructure. Also applicable to algo-trading, risk management, and portfolio analytics.
 
 WHY THIS IS HARD (COMPETENCY REDUCER)
 ----------------------------------------
-Time-series data management, WebSocket push architecture, and real-time alerting are core skills for FinTech backend roles. This project demonstrates you understand the unique constraints of financial data (tick precision, ordering guarantees, regulatory timestamp requirements).
+Time-series data management, WebSocket push architecture, and sub-second alerting are core skills for FinTech backend roles. This project demonstrates you understand the unique constraints of financial data (tick precision, ordering guarantees, regulatory timestamp requirements).
 
 RECRUITER SHORTLIST SIGNAL
 ----------------------------------------
@@ -29,25 +29,25 @@ WebSocket data ingester consuming market tick feeds (NSE/BSE mock data). Kafka d
 SCALE & PERFORMANCE TARGETS
 ----------------------------------------
 Target 1:
-- Metric: Batch Ingestion & Processing Throughput
+- Metric: Ingestion & Transformation Throughput
 - Method: Continuous ingestion benchmark streaming synthetic records from seed file
-- Input/dataset: 100,000 structured synthetic transaction records (~250 bytes each)
+- Input/dataset: 100,000 structured synthetic records (~250 bytes each)
 - Reference environment: Local workstation with 8GB RAM and SSD storage
-- Minimum pass: Ingestion rate > [N] records/sec (minimum > 1,000 records/sec)
-- Target: Ingestion rate > [N] records/sec (target > 5,000 records/sec)
+- Minimum pass: Ingestion rate > [N] records/sec (minimum > 1,500 records/sec)
+- Target: Ingestion rate > [N] records/sec (target > 6,000 records/sec)
 - Report format: Pipeline execution log showing total records, wall-clock time, and records/sec
 
 Target 2:
-- Metric: Query Aggregation Latency (p95)
+- Metric: Analytical Aggregation Latency (p95)
 - Method: Analytical query execution over seeded historical dataset
-- Input/dataset: Seeded database table with 1,000,000 historical records
+- Input/dataset: Seeded database table with 1,000,000 historical rows
 - Reference environment: Local database engine in Docker with 2GB memory ceiling
-- Minimum pass: p95 query latency < [M ms] (minimum < 500ms)
-- Target: p95 query latency < [M ms] (target < 150ms)
+- Minimum pass: p95 query latency < [M ms] (minimum < 400ms)
+- Target: p95 query latency < [M ms] (target < 100ms)
 - Report format: Database query analyzer output showing execution time and scanned rows
 
 Target 3:
-- Metric: Data Quality & Reconciliation Accuracy
+- Metric: Data Quality & Reconciliation Precision
 - Method: End-to-end reconciliation check comparing ingested ledger vs. source stream
 - Input/dataset: Injected discrepancy dataset with [X] intentional duplicate and corrupted records
 - Reference environment: Local automated test runner
@@ -108,9 +108,10 @@ SCREENER VERIFICATION RUBRIC
 ----------------------------------------
 1. Check 1: Verify mock NSE/BSE tick data generator producing realistic OHLCV streams; Pass when automated test script prints 0 errors and logs verified status code.
 2. Check 2: Verify alert engine evaluating price, volume, and moving average conditions within 20ms; Pass when automated test script prints 0 errors and logs verified status code.
-3. Check 3: Verify webSocket dashboard with real-time candlestick charts updating on each tick; Pass when automated test script prints 0 errors and logs verified status code.
+3. Check 3: Verify webSocket dashboard with sub-second candlestick charts updating on each tick; Pass when automated test script prints 0 errors and logs verified status code.
 4. Check 4: Verify timescaleDB continuous aggregates precomputing 1m, 5m, 15m OHLCV candles; Pass when automated test script prints 0 errors and logs verified status code.
-5. Check 5: Verify load test demonstrating 50k events/sec ingestion with zero data loss; Pass when automated test script prints 0 errors and logs verified status code.
+5. Check 5: Verify load test demonstrating 50k events/sec ingestion with recovery with zero uncommitted transactions; Pass when automated test script prints 0 errors and logs verified status code.
+6. Check 6: 6. Anti-Fake Verification Check: Inspect committed execution logs and re-run verification script against seeded test fixtures; pass when runtime metrics dynamically reflect test execution rather than static mocked responses.
 
 RESUME BULLET FORMULA
 ----------------------------------------

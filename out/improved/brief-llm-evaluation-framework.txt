@@ -4,7 +4,7 @@ PROJECT BRIEF — LLM Output Evaluation & Red-Teaming Framework
 Domain    : GenAI & LLM Engineering
 Difficulty: intermediate
 Est. Time : 28 hours (Core Path) | Extended Path: +6 hours
-Tech Stack: Python [core programming language and mathematical runtime], LangChain [LLM application orchestration framework], Ragas [ragas component for project domain], BERTScore [bertscore component for project domain], FastAPI [high-performance asynchronous REST API framework], Streamlit [streamlit component for project domain] (Requires: Local CPU inference or optional free-tier API key / Ollama runtime)
+Tech Stack: Python [core programming language and algorithmic runtime], LangChain [LLM application orchestration framework], Ragas [ragas component], BERTScore [bertscore component], FastAPI [high-performance asynchronous REST API framework], Streamlit [streamlit component] (Requires: Local CPU inference or optional free-tier API token)
 
 PROBLEM STATEMENT
 ----------------------------------------
@@ -12,7 +12,7 @@ LLM outputs are notoriously difficult to evaluate at scale. Manual review is exp
 
 USE CASES IN THE REAL WORLD
 ----------------------------------------
-Every company deploying LLMs needs evaluation infrastructure before and after deployment. Anthropic, OpenAI, and Google all have massive internal eval teams. In India, AI-first companies like Sarvam AI, Krutrim, and enterprise AI vendors are building these capabilities.
+Every company deploying LLMs needs evaluation infrastructure before and after deployment. model provider, language model, and distributed systems platforms all have massive internal eval teams. In India, AI-first companies like Sarvam AI, Krutrim, and enterprise AI vendors are building these capabilities.
 
 WHY THIS IS HARD (COMPETENCY REDUCER)
 ----------------------------------------
@@ -29,16 +29,16 @@ Python evaluation harness that runs LLM completions through multiple evaluator j
 SCALE & PERFORMANCE TARGETS
 ----------------------------------------
 Target 1:
-- Metric: End-to-End Inference Latency (p95)
+- Metric: End-to-End Inference / Retrieval Latency (p95)
 - Method: Automated evaluation script measuring warm-state query-to-response duration
-- Input/dataset: Labelled benchmark evaluation set of 100 representative prompt queries
+- Input/dataset: Labelled benchmark evaluation set of 100 representative queries
 - Reference environment: Local CPU runtime (Ollama / ONNX / PyTorch) or stated free-tier API
 - Minimum pass: p95 inference latency < [M ms] on reference device
 - Target: p95 inference latency < [M ms] with zero token truncation
 - Report format: Latency histogram table exported from evaluation script
 
 Target 2:
-- Metric: Retrieval Hit Rate / F1 Accuracy
+- Metric: Retrieval Hit Rate & Groundedness Accuracy
 - Method: Grounded evaluation script comparing model output against labelled ground-truth answers
 - Input/dataset: Curated evaluation set of 50 query-document pairs with ground-truth citations
 - Reference environment: Fixed random seed (42), single evaluation worker
@@ -47,9 +47,9 @@ Target 2:
 - Report format: Evaluation CSV table with per-query precision, recall, and hallucination flags
 
 Target 3:
-- Metric: Guardrail & Injection Detection Rate
-- Method: Adversarial test suite evaluating security boundary filters
-- Input/dataset: Benchmark suite of 30 adversarial prompt injection and jailbreak payloads
+- Metric: Guardrail & Adversarial Payload Detection Rate
+- Method: Adversarial test suite evaluating security and validation boundary filters
+- Input/dataset: Benchmark suite of 30 adversarial injection and edge-case payloads
 - Reference environment: Automated test runner
 - Minimum pass: [X of Y] adversarial attempts blocked (minimum ≥ 25 of 30)
 - Target: [X of Y] adversarial attempts blocked (target 30 of 30) with 0 false positives on benign queries
@@ -111,6 +111,7 @@ SCREENER VERIFICATION RUBRIC
 3. Check 3: Verify benchmark comparing evaluation results vs human annotations (correlation coefficient); Pass when automated test script prints 0 errors and logs verified status code.
 4. Check 4: Verify regression test suite ensuring model updates don't degrade existing eval scores; Pass when automated test script prints 0 errors and logs verified status code.
 5. Check 5: Verify streamlit dashboard visualizing evaluation results with drill-down per metric; Pass when automated test script prints 0 errors and logs verified status code.
+6. Check 6: 6. Anti-Fake Verification Check: Inspect committed execution logs and re-run verification script against seeded test fixtures; pass when runtime metrics dynamically reflect test execution rather than static mocked responses.
 
 RESUME BULLET FORMULA
 ----------------------------------------

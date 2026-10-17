@@ -4,11 +4,11 @@ PROJECT BRIEF — Production Computer Vision API (Object Detection & OCR)
 Domain    : AI/ML Applications
 Difficulty: intermediate
 Est. Time : 28 hours (Core Path) | Extended Path: +6 hours
-Tech Stack: Python [core programming language and mathematical runtime], PyTorch [deep learning tensor framework], FastAPI [high-performance asynchronous REST API framework], YOLOv8 [yolov8 component for project domain], TensorRT [tensorrt component for project domain], Redis [in-memory data structure store and cache], Docker [containerization and local multi-service orchestration] (Requires: Docker Engine / Desktop)
+Tech Stack: Python [core programming language and algorithmic runtime], PyTorch [deep learning tensor framework], FastAPI [high-performance asynchronous REST API framework], YOLOv8 [yolov8 component], TensorRT [tensorrt component], Redis [in-memory data structure store and cache], Docker [containerization and local multi-service orchestration] (Requires: Docker Engine / Desktop, Local CPU inference or optional free-tier API token)
 
 PROBLEM STATEMENT
 ----------------------------------------
-Businesses manually process millions of documents, invoices, and images annually. Build a production-grade computer vision API that performs real-time object detection, document OCR, and image classification — deployable via REST API with GPU-optimized inference and batch processing support.
+Businesses manually process millions of documents, invoices, and images annually. Build a tested and observable computer vision API that performs sub-second object detection, document OCR, and image classification — deployable via REST API with GPU-optimized inference and batch processing support.
 
 USE CASES IN THE REAL WORLD
 ----------------------------------------
@@ -29,16 +29,16 @@ YOLOv8 / EfficientDet for object detection, TrOCR / PaddleOCR for document text 
 SCALE & PERFORMANCE TARGETS
 ----------------------------------------
 Target 1:
-- Metric: End-to-End Inference Latency (p95)
+- Metric: End-to-End Inference / Retrieval Latency (p95)
 - Method: Automated evaluation script measuring warm-state query-to-response duration
-- Input/dataset: Labelled benchmark evaluation set of 100 representative prompt queries
+- Input/dataset: Labelled benchmark evaluation set of 100 representative queries
 - Reference environment: Local CPU runtime (Ollama / ONNX / PyTorch) or stated free-tier API
 - Minimum pass: p95 inference latency < [M ms] on reference device
 - Target: p95 inference latency < [M ms] with zero token truncation
 - Report format: Latency histogram table exported from evaluation script
 
 Target 2:
-- Metric: Retrieval Hit Rate / F1 Accuracy
+- Metric: Retrieval Hit Rate & Groundedness Accuracy
 - Method: Grounded evaluation script comparing model output against labelled ground-truth answers
 - Input/dataset: Curated evaluation set of 50 query-document pairs with ground-truth citations
 - Reference environment: Fixed random seed (42), single evaluation worker
@@ -47,9 +47,9 @@ Target 2:
 - Report format: Evaluation CSV table with per-query precision, recall, and hallucination flags
 
 Target 3:
-- Metric: Guardrail & Injection Detection Rate
-- Method: Adversarial test suite evaluating security boundary filters
-- Input/dataset: Benchmark suite of 30 adversarial prompt injection and jailbreak payloads
+- Metric: Guardrail & Adversarial Payload Detection Rate
+- Method: Adversarial test suite evaluating security and validation boundary filters
+- Input/dataset: Benchmark suite of 30 adversarial injection and edge-case payloads
 - Reference environment: Automated test runner
 - Minimum pass: [X of Y] adversarial attempts blocked (minimum ≥ 25 of 30)
 - Target: [X of Y] adversarial attempts blocked (target 30 of 30) with 0 false positives on benign queries
@@ -111,6 +111,7 @@ SCREENER VERIFICATION RUBRIC
 3. Check 3: Verify tensorRT optimization benchmark showing 3x+ speedup vs PyTorch CPU baseline; Pass when automated test script prints 0 errors and logs verified status code.
 4. Check 4: Verify batch processing endpoint handling 100 images concurrently via Celery workers; Pass when automated test script prints 0 errors and logs verified status code.
 5. Check 5: Verify aPI health endpoint and Swagger docs with sample request/response examples; Pass when automated test script prints 0 errors and logs verified status code.
+6. Check 6: 6. Anti-Fake Verification Check: Inspect committed execution logs and re-run verification script against seeded test fixtures; pass when runtime metrics dynamically reflect test execution rather than static mocked responses.
 
 RESUME BULLET FORMULA
 ----------------------------------------

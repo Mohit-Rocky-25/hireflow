@@ -4,7 +4,7 @@ PROJECT BRIEF — GraphQL to SQL Compiler & Query Optimizer
 Domain    : Full-Stack Web
 Difficulty: advanced
 Est. Time : 38 hours (Core Path) | Extended Path: +6 hours
-Tech Stack: TypeScript [strongly-typed programming language], GraphQL [graphql component for project domain], SQL [sql component for project domain], Parsing [parsing component for project domain], Node.js [backend JavaScript execution environment]
+Tech Stack: TypeScript [strictly-typed programming language], GraphQL [schema-driven query language API layer], SQL [sql component], Parsing [parsing component], Node.js [backend JavaScript execution environment]
 
 PROBLEM STATEMENT
 ----------------------------------------
@@ -33,8 +33,8 @@ Target 1:
 - Method: Automated benchmark executing core engine operation across varying workload sizes
 - Input/dataset: Standard test project or fixture payload (~500KB)
 - Reference environment: Local development environment, 4-core CPU, 8GB RAM
-- Minimum pass: Operation execution time < [M s] (minimum < 10s)
-- Target: Operation execution time < [M s] (target < 3s)
+- Minimum pass: Operation execution time < [M s] (minimum < 8s)
+- Target: Operation execution time < [M s] (target < 2.5s)
 - Report format: Benchmark execution report showing duration and memory usage
 
 Target 2:
@@ -111,6 +111,7 @@ SCREENER VERIFICATION RUBRIC
 3. Check 3: Verify circular query detection preventing infinite query compilation loops; Pass when automated test script prints 0 errors and logs verified status code.
 4. Check 4: Verify query result correctly maps SQL rows back to GraphQL nested object structure; Pass when automated test script prints 0 errors and logs verified status code.
 5. Check 5: Verify performance test: compiler overhead < 5ms for queries up to 10 nested fields; Pass when automated test script prints 0 errors and logs verified status code.
+6. Check 6: 6. Anti-Fake Verification Check: Inspect committed execution logs and re-run verification script against seeded test fixtures; pass when runtime metrics dynamically reflect test execution rather than static mocked responses.
 
 RESUME BULLET FORMULA
 ----------------------------------------

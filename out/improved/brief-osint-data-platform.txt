@@ -4,11 +4,11 @@ PROJECT BRIEF — Competitive Intelligence Web Scraping & Analysis Platform
 Domain    : Data Engineering
 Difficulty: intermediate
 Est. Time : 28 hours (Core Path) | Extended Path: +6 hours
-Tech Stack: Python [core programming language and mathematical runtime], Scrapy [scrapy component for project domain], Playwright [playwright component for project domain], Kafka [distributed event streaming broker], Redis [in-memory data structure store and cache], PostgreSQL [relational database management system]
+Tech Stack: Python [core programming language and algorithmic runtime], Scrapy [scrapy component], Playwright [playwright component], Kafka [distributed event streaming broker], Redis [in-memory data structure store and cache], PostgreSQL [relational database management system]
 
 PROBLEM STATEMENT
 ----------------------------------------
-Businesses manually monitor competitor pricing, job postings, and product changes — a time-consuming and error-prone process. Build a distributed web scraping and intelligence platform that monitors target websites for changes, extracts structured data, and sends real-time alerts on significant changes.
+Businesses manually monitor competitor pricing, job postings, and product changes — a time-consuming and error-prone process. Build a distributed web scraping and intelligence platform that monitors target websites for changes, extracts structured data, and sends sub-second alerts on significant changes.
 
 USE CASES IN THE REAL WORLD
 ----------------------------------------
@@ -29,25 +29,25 @@ Scrapy-based distributed crawler with Playwright for JavaScript-rendered pages. 
 SCALE & PERFORMANCE TARGETS
 ----------------------------------------
 Target 1:
-- Metric: Batch Ingestion & Processing Throughput
+- Metric: Ingestion & Transformation Throughput
 - Method: Continuous ingestion benchmark streaming synthetic records from seed file
-- Input/dataset: 100,000 structured synthetic transaction records (~250 bytes each)
+- Input/dataset: 100,000 structured synthetic records (~250 bytes each)
 - Reference environment: Local workstation with 8GB RAM and SSD storage
-- Minimum pass: Ingestion rate > [N] records/sec (minimum > 1,000 records/sec)
-- Target: Ingestion rate > [N] records/sec (target > 5,000 records/sec)
+- Minimum pass: Ingestion rate > [N] records/sec (minimum > 1,500 records/sec)
+- Target: Ingestion rate > [N] records/sec (target > 6,000 records/sec)
 - Report format: Pipeline execution log showing total records, wall-clock time, and records/sec
 
 Target 2:
-- Metric: Query Aggregation Latency (p95)
+- Metric: Analytical Aggregation Latency (p95)
 - Method: Analytical query execution over seeded historical dataset
-- Input/dataset: Seeded database table with 1,000,000 historical records
+- Input/dataset: Seeded database table with 1,000,000 historical rows
 - Reference environment: Local database engine in Docker with 2GB memory ceiling
-- Minimum pass: p95 query latency < [M ms] (minimum < 500ms)
-- Target: p95 query latency < [M ms] (target < 150ms)
+- Minimum pass: p95 query latency < [M ms] (minimum < 400ms)
+- Target: p95 query latency < [M ms] (target < 100ms)
 - Report format: Database query analyzer output showing execution time and scanned rows
 
 Target 3:
-- Metric: Data Quality & Reconciliation Accuracy
+- Metric: Data Quality & Reconciliation Precision
 - Method: End-to-end reconciliation check comparing ingested ledger vs. source stream
 - Input/dataset: Injected discrepancy dataset with [X] intentional duplicate and corrupted records
 - Reference environment: Local automated test runner
@@ -111,6 +111,7 @@ SCREENER VERIFICATION RUBRIC
 3. Check 3: Verify change detection: diff between yesterday and today's content with semantic diff; Pass when automated test script prints 0 errors and logs verified status code.
 4. Check 4: Verify structured data extraction: product name, price, and availability from 3 e-commerce sites; Pass when automated test script prints 0 errors and logs verified status code.
 5. Check 5: Verify alert notification within 15 minutes of target page content change; Pass when automated test script prints 0 errors and logs verified status code.
+6. Check 6: 6. Anti-Fake Verification Check: Inspect committed execution logs and re-run verification script against seeded test fixtures; pass when runtime metrics dynamically reflect test execution rather than static mocked responses.
 
 RESUME BULLET FORMULA
 ----------------------------------------

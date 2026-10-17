@@ -4,7 +4,7 @@ PROJECT BRIEF — Multi-Channel Notification Orchestration Service
 Domain    : Full-Stack Web
 Difficulty: intermediate
 Est. Time : 28 hours (Core Path) | Extended Path: +6 hours
-Tech Stack: Node.js [backend JavaScript execution environment], TypeScript [strongly-typed programming language], Kafka [distributed event streaming broker], Redis [in-memory data structure store and cache], FCM [fcm component for project domain], Twilio [twilio component for project domain], PostgreSQL [relational database management system]
+Tech Stack: Node.js [backend JavaScript execution environment], TypeScript [strictly-typed programming language], Kafka [distributed event streaming broker], Redis [in-memory data structure store and cache], FCM [fcm component], Twilio [twilio component], PostgreSQL [relational database management system]
 
 PROBLEM STATEMENT
 ----------------------------------------
@@ -16,7 +16,7 @@ Every consumer app in India sends notifications — top tech platforms, Zomato, 
 
 WHY THIS IS HARD (COMPETENCY REDUCER)
 ----------------------------------------
-Notification systems have complex requirements: idempotency (don't send the same notification twice), user preference routing (send to email if push disabled), rate limiting per channel, retry logic, and delivery analytics. Building this end-to-end demonstrates production-grade distributed systems thinking.
+Notification systems have complex requirements: idempotency (don't send the same notification twice), user preference routing (send to email if push disabled), rate limiting per channel, retry logic, and delivery analytics. Building this end-to-end demonstrates tested and observable distributed systems thinking.
 
 RECRUITER SHORTLIST SIGNAL
 ----------------------------------------
@@ -33,8 +33,8 @@ Target 1:
 - Method: Automated benchmark executing core engine operation across varying workload sizes
 - Input/dataset: Standard test project or fixture payload (~500KB)
 - Reference environment: Local development environment, 4-core CPU, 8GB RAM
-- Minimum pass: Operation execution time < [M s] (minimum < 10s)
-- Target: Operation execution time < [M s] (target < 3s)
+- Minimum pass: Operation execution time < [M s] (minimum < 8s)
+- Target: Operation execution time < [M s] (target < 2.5s)
 - Report format: Benchmark execution report showing duration and memory usage
 
 Target 2:
@@ -111,6 +111,7 @@ SCREENER VERIFICATION RUBRIC
 3. Check 3: Verify rate limiting: per-user notification throttle enforced (max 10/hour); Pass when automated test script prints 0 errors and logs verified status code.
 4. Check 4: Verify delivery tracking: each notification has status (queued, sent, delivered, failed); Pass when automated test script prints 0 errors and logs verified status code.
 5. Check 5: Verify load test: 50k notifications/min throughput with 99%+ delivery confirmation; Pass when automated test script prints 0 errors and logs verified status code.
+6. Check 6: 6. Anti-Fake Verification Check: Inspect committed execution logs and re-run verification script against seeded test fixtures; pass when runtime metrics dynamically reflect test execution rather than static mocked responses.
 
 RESUME BULLET FORMULA
 ----------------------------------------

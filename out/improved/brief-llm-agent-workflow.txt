@@ -4,7 +4,7 @@ PROJECT BRIEF — Autonomous LLM Agent Workflow Engine with Tool Calling
 Domain    : GenAI & LLM Engineering
 Difficulty: advanced
 Est. Time : 38 hours (Core Path) | Extended Path: +6 hours
-Tech Stack: Python [core programming language and mathematical runtime], LangChain [LLM application orchestration framework], FastAPI [high-performance asynchronous REST API framework], Pydantic [pydantic component for project domain], Redis [in-memory data structure store and cache], Docker [containerization and local multi-service orchestration] (Requires: Docker Engine / Desktop, Local CPU inference or optional free-tier API key / Ollama runtime)
+Tech Stack: Python [core programming language and algorithmic runtime], LangChain [LLM application orchestration framework], FastAPI [high-performance asynchronous REST API framework], Pydantic [pydantic component], Redis [in-memory data structure store and cache], Docker [containerization and local multi-service orchestration] (Requires: Docker Engine / Desktop, Local CPU inference or optional free-tier API token)
 
 PROBLEM STATEMENT
 ----------------------------------------
@@ -29,16 +29,16 @@ ReAct (Reasoning + Acting) loop implemented with LangChain/custom Python. Agent 
 SCALE & PERFORMANCE TARGETS
 ----------------------------------------
 Target 1:
-- Metric: End-to-End Inference Latency (p95)
+- Metric: End-to-End Inference / Retrieval Latency (p95)
 - Method: Automated evaluation script measuring warm-state query-to-response duration
-- Input/dataset: Labelled benchmark evaluation set of 100 representative prompt queries
+- Input/dataset: Labelled benchmark evaluation set of 100 representative queries
 - Reference environment: Local CPU runtime (Ollama / ONNX / PyTorch) or stated free-tier API
 - Minimum pass: p95 inference latency < [M ms] on reference device
 - Target: p95 inference latency < [M ms] with zero token truncation
 - Report format: Latency histogram table exported from evaluation script
 
 Target 2:
-- Metric: Retrieval Hit Rate / F1 Accuracy
+- Metric: Retrieval Hit Rate & Groundedness Accuracy
 - Method: Grounded evaluation script comparing model output against labelled ground-truth answers
 - Input/dataset: Curated evaluation set of 50 query-document pairs with ground-truth citations
 - Reference environment: Fixed random seed (42), single evaluation worker
@@ -47,9 +47,9 @@ Target 2:
 - Report format: Evaluation CSV table with per-query precision, recall, and hallucination flags
 
 Target 3:
-- Metric: Guardrail & Injection Detection Rate
-- Method: Adversarial test suite evaluating security boundary filters
-- Input/dataset: Benchmark suite of 30 adversarial prompt injection and jailbreak payloads
+- Metric: Guardrail & Adversarial Payload Detection Rate
+- Method: Adversarial test suite evaluating security and validation boundary filters
+- Input/dataset: Benchmark suite of 30 adversarial injection and edge-case payloads
 - Reference environment: Automated test runner
 - Minimum pass: [X of Y] adversarial attempts blocked (minimum ≥ 25 of 30)
 - Target: [X of Y] adversarial attempts blocked (target 30 of 30) with 0 false positives on benign queries
@@ -111,6 +111,7 @@ SCREENER VERIFICATION RUBRIC
 3. Check 3: Verify structured output validation using Pydantic schemas with hallucination detection; Pass when automated test script prints 0 errors and logs verified status code.
 4. Check 4: Verify conversation memory management: agent maintains context across multi-turn interactions; Pass when automated test script prints 0 errors and logs verified status code.
 5. Check 5: Verify evaluation suite measuring task completion rate, tool call accuracy, and response quality; Pass when automated test script prints 0 errors and logs verified status code.
+6. Check 6: 6. Anti-Fake Verification Check: Inspect committed execution logs and re-run verification script against seeded test fixtures; pass when runtime metrics dynamically reflect test execution rather than static mocked responses.
 
 RESUME BULLET FORMULA
 ----------------------------------------

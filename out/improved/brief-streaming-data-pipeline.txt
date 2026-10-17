@@ -4,15 +4,15 @@ PROJECT BRIEF — Apache Spark Streaming ETL with Delta Lake
 Domain    : Data Engineering
 Difficulty: advanced
 Est. Time : 38 hours (Core Path) | Extended Path: +6 hours
-Tech Stack: Python [core programming language and mathematical runtime], Apache Spark [apache spark component for project domain], Delta Lake [delta lake component for project domain], Kafka [distributed event streaming broker], AWS S3 [aws s3 component for project domain], SQL [sql component for project domain]
+Tech Stack: Python [core programming language and algorithmic runtime], Apache Spark [apache spark component], Delta Lake [delta lake component], Kafka [distributed event streaming broker], AWS S3 [aws s3 component], SQL [sql component]
 
 PROBLEM STATEMENT
 ----------------------------------------
-Data warehouses accumulate data in nightly batch jobs, creating a 24-hour information lag that prevents real-time business intelligence. Build a real-time streaming ETL pipeline using Spark Structured Streaming that ingests Kafka events, transforms them, and writes to Delta Lake tables with ACID guarantees.
+Data warehouses accumulate data in nightly batch jobs, creating a 24-hour information lag that prevents sub-second business intelligence. Build a sub-second streaming ETL pipeline using Spark Structured Streaming that ingests Kafka events, transforms them, and writes to Delta Lake tables with ACID guarantees.
 
 USE CASES IN THE REAL WORLD
 ----------------------------------------
-Every company with a data warehouse moving from batch to real-time: top tech platforms's analytics, top tech platforms's demand forecasting, Ola's driver supply optimization. Delta Lake is standard at Databricks customers, which includes 50%+ of Fortune 500 companies and most large Indian tech companies.
+Every company with a data warehouse moving from batch to sub-second: top tech platforms's analytics, top tech platforms's demand forecasting, Ola's driver supply optimization. Delta Lake is standard at Databricks customers, which includes 50%+ of Fortune 500 companies and most large Indian tech companies.
 
 WHY THIS IS HARD (COMPETENCY REDUCER)
 ----------------------------------------
@@ -29,25 +29,25 @@ Kafka source streaming events into Spark Structured Streaming jobs. Schema evolu
 SCALE & PERFORMANCE TARGETS
 ----------------------------------------
 Target 1:
-- Metric: Batch Ingestion & Processing Throughput
+- Metric: Ingestion & Transformation Throughput
 - Method: Continuous ingestion benchmark streaming synthetic records from seed file
-- Input/dataset: 100,000 structured synthetic transaction records (~250 bytes each)
+- Input/dataset: 100,000 structured synthetic records (~250 bytes each)
 - Reference environment: Local workstation with 8GB RAM and SSD storage
-- Minimum pass: Ingestion rate > [N] records/sec (minimum > 1,000 records/sec)
-- Target: Ingestion rate > [N] records/sec (target > 5,000 records/sec)
+- Minimum pass: Ingestion rate > [N] records/sec (minimum > 1,500 records/sec)
+- Target: Ingestion rate > [N] records/sec (target > 6,000 records/sec)
 - Report format: Pipeline execution log showing total records, wall-clock time, and records/sec
 
 Target 2:
-- Metric: Query Aggregation Latency (p95)
+- Metric: Analytical Aggregation Latency (p95)
 - Method: Analytical query execution over seeded historical dataset
-- Input/dataset: Seeded database table with 1,000,000 historical records
+- Input/dataset: Seeded database table with 1,000,000 historical rows
 - Reference environment: Local database engine in Docker with 2GB memory ceiling
-- Minimum pass: p95 query latency < [M ms] (minimum < 500ms)
-- Target: p95 query latency < [M ms] (target < 150ms)
+- Minimum pass: p95 query latency < [M ms] (minimum < 400ms)
+- Target: p95 query latency < [M ms] (target < 100ms)
 - Report format: Database query analyzer output showing execution time and scanned rows
 
 Target 3:
-- Metric: Data Quality & Reconciliation Accuracy
+- Metric: Data Quality & Reconciliation Precision
 - Method: End-to-end reconciliation check comparing ingested ledger vs. source stream
 - Input/dataset: Injected discrepancy dataset with [X] intentional duplicate and corrupted records
 - Reference environment: Local automated test runner
@@ -111,6 +111,7 @@ SCREENER VERIFICATION RUBRIC
 3. Check 3: Verify schema evolution test: add new column to Kafka event schema without breaking pipeline; Pass when automated test script prints 0 errors and logs verified status code.
 4. Check 4: Verify time travel query recovering data state from 1 hour ago via Delta table versioning; Pass when automated test script prints 0 errors and logs verified status code.
 5. Check 5: Verify end-to-end latency benchmark from Kafka produce to Delta table availability; Pass when automated test script prints 0 errors and logs verified status code.
+6. Check 6: 6. Anti-Fake Verification Check: Inspect committed execution logs and re-run verification script against seeded test fixtures; pass when runtime metrics dynamically reflect test execution rather than static mocked responses.
 
 RESUME BULLET FORMULA
 ----------------------------------------

@@ -4,23 +4,23 @@ PROJECT BRIEF — Custom Kubernetes Operator with CRD Lifecycle Management
 Domain    : Platform & DevOps
 Difficulty: advanced
 Est. Time : 38 hours (Core Path) | Extended Path: +6 hours
-Tech Stack: Go [compiled systems runtime and networking implementation], Kubernetes [container orchestration platform], controller-runtime [controller-runtime component for project domain], Docker [containerization and local multi-service orchestration], Helm [helm component for project domain], GitHub Actions [CI/CD pipeline automation runner] (Requires: Docker Engine / Desktop)
+Tech Stack: Go [compiled systems runtime and networking implementation], Kubernetes [container orchestration platform], controller-runtime [controller-runtime component], Docker [containerization and local multi-service orchestration], Helm [helm component], GitHub Actions [CI/CD pipeline automation runner] (Requires: Docker Engine / Desktop)
 
 PROBLEM STATEMENT
 ----------------------------------------
-Running stateful applications (databases, message brokers) on Kubernetes requires expert manual management of complex operational tasks like backups, failovers, and schema migrations. Build a custom Kubernetes Operator that automates the full lifecycle of a stateful application using Custom Resource Definitions.
+Running stateful applications (databases, message brokers) on Kride-hailing dispatch networksnetes requires expert manual management of complex operational tasks like backups, failovers, and schema migrations. Build a custom Kride-hailing dispatch networksnetes Operator that automates the full lifecycle of a stateful application using Custom Resource Definitions.
 
 USE CASES IN THE REAL WORLD
 ----------------------------------------
-Every company running databases on Kubernetes needs operators: PostgreSQL Operator, Redis Operator, Kafka Operator, and Elasticsearch Operator are all widely deployed. Cloud providers (AWS, GCP, Azure) run their managed services using operator patterns internally.
+Every company running databases on Kride-hailing dispatch networksnetes needs operators: PostgreSQL Operator, Redis Operator, Kafka Operator, and Elasticsearch Operator are all widely deployed. Cloud providers (AWS, GCP, Azure) run their managed services using operator patterns internally.
 
 WHY THIS IS HARD (COMPETENCY REDUCER)
 ----------------------------------------
-Kubernetes Operators represent the highest level of Kubernetes expertise — understanding of the controller pattern, reconciliation loops, CRD schema design, and Kubernetes API. This separates Kubernetes users from Kubernetes platform engineers, who command 50-100% higher salaries.
+Kride-hailing dispatch networksnetes Operators represent the highest level of Kride-hailing dispatch networksnetes expertise — understanding of the controller pattern, reconciliation loops, CRD schema design, and Kride-hailing dispatch networksnetes API. This separates Kride-hailing dispatch networksnetes users from Kride-hailing dispatch networksnetes platform engineers, who command 50-100% higher salaries.
 
 RECRUITER SHORTLIST SIGNAL
 ----------------------------------------
-Custom Operator development is a specific skill that only senior platform/SRE engineers possess. Platform teams at Google, top tech platforms, and infrastructure companies value this extremely highly. It demonstrates you understand Kubernetes at the control plane level, not just the application deployment level.
+Custom Operator development is a specific skill that only senior platform/SRE engineers possess. Platform teams at distributed systems platforms, top tech platforms, and infrastructure companies value this extremely highly. It demonstrates you understand Kride-hailing dispatch networksnetes at the control plane level, not just the application deployment level.
 
 ARCHITECTURE & DATA FLOW
 ----------------------------------------
@@ -29,27 +29,27 @@ Go controller using controller-runtime library. Custom Resource Definition (CRD)
 SCALE & PERFORMANCE TARGETS
 ----------------------------------------
 Target 1:
-- Metric: Request Processing Overhead / Latency (p99)
+- Metric: Request Processing Latency Overhead (p99)
 - Method: Concurrent HTTP load test using k6 / vegeta over 60s sustained run
 - Input/dataset: Standard synthetic JSON payload (~1KB) over 5,000 concurrent requests
 - Reference environment: Local 4-core CPU, 8GB RAM, loopback network interface
-- Minimum pass: p99 latency overhead < 20ms under 1,000 req/sec
+- Minimum pass: p99 latency overhead < 25ms under 1,000 req/sec
 - Target: p99 latency overhead < 5ms under 5,000 req/sec
-- Report format: k6 terminal summary report and CSV percentile log
+- Report format: k6 terminal summary report and CSV latency distribution
 
 Target 2:
-- Metric: Sustained Throughput Under Concurrency
-- Method: Continuous load test simulating concurrent client connections
+- Metric: Sustained Concurrency & Correctness
+- Method: Continuous load test simulating concurrent client connections with idempotency checks
 - Input/dataset: Synthetic benchmark traffic across 50 concurrent worker threads
 - Reference environment: Local Docker Compose or native runtime
-- Minimum pass: Sustained throughput > [N] req/sec (minimum > 1,500 req/sec) with zero socket leaks
-- Target: Sustained throughput > [N] req/sec (target > 5,000 req/sec) with zero socket leaks
+- Minimum pass: Sustained throughput > [N] req/sec with 0 lost writes in [K] attempts
+- Target: Sustained throughput > [N] req/sec (target > 5,000 req/sec) with 0 lost writes in [K] attempts
 - Report format: Benchmark throughput table and error rate summary
 
 Target 3:
 - Metric: Fault Recovery / Failover Duration
-- Method: Injected process failure during continuous active traffic stream
-- Input/dataset: Chaos fault injection endpoint or SIGKILL on worker process
+- Method: Injected worker process termination during active continuous request stream
+- Input/dataset: SIGKILL or chaos fault injection on worker process
 - Reference environment: Local multi-process or containerized cluster
 - Minimum pass: Service detects failure and reroutes traffic with recovery time < [S] seconds (pass < 5s)
 - Target: Service detects failure and recovers state with recovery time < [S] seconds (target < 2s)
@@ -110,7 +110,8 @@ SCREENER VERIFICATION RUBRIC
 2. Check 2: Verify reconciliation test: delete managed pod and verify operator restores it within 10s; Pass when automated test script prints 0 errors and logs verified status code.
 3. Check 3: Verify automated backup CronJob created/updated when CRD spec changes; Pass when automated test script prints 0 errors and logs verified status code.
 4. Check 4: Verify finalizer ensuring clean resource deletion order across all owned objects; Pass when automated test script prints 0 errors and logs verified status code.
-5. Check 5: Verify end-to-end e2e test suite using envtest or KinD (Kubernetes in Docker); Pass when automated test script prints 0 errors and logs verified status code.
+5. Check 5: Verify end-to-end e2e test suite using envtest or KinD (Kride-hailing dispatch networksnetes in Docker); Pass when automated test script prints 0 errors and logs verified status code.
+6. Check 6: 6. Anti-Fake Verification Check: Inspect committed execution logs and re-run verification script against seeded test fixtures; pass when runtime metrics dynamically reflect test execution rather than static mocked responses.
 
 RESUME BULLET FORMULA
 ----------------------------------------

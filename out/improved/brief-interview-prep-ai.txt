@@ -4,11 +4,11 @@ PROJECT BRIEF — AI-Powered Mock Interview Platform with DSP Feedback
 Domain    : GenAI & LLM Engineering
 Difficulty: intermediate
 Est. Time : 28 hours (Core Path) | Extended Path: +6 hours
-Tech Stack: Python [core programming language and mathematical runtime], FastAPI [high-performance asynchronous REST API framework], Whisper [whisper component for project domain], LangChain [LLM application orchestration framework], React [frontend UI component library], WebSockets [websockets component for project domain] (Requires: Local CPU inference or optional free-tier API key / Ollama runtime)
+Tech Stack: Python [core programming language and algorithmic runtime], FastAPI [high-performance asynchronous REST API framework], Whisper [whisper component], LangChain [LLM application orchestration framework], React [frontend UI component library], WebSockets [websockets component] (Requires: Local CPU inference or optional free-tier API token)
 
 PROBLEM STATEMENT
 ----------------------------------------
-Interview preparation requires realistic practice with immediate feedback, but human mock interviews are expensive and scheduling-dependent. Build an AI interview platform that conducts role-appropriate technical/behavioral interviews, evaluates responses in real-time, and provides structured feedback with specific improvement suggestions.
+Interview preparation requires realistic practice with immediate feedback, but human mock interviews are expensive and scheduling-dependent. Build an AI interview platform that conducts role-appropriate technical/behavioral interviews, evaluates responses in sub-second, and provides structured feedback with specific improvement suggestions.
 
 USE CASES IN THE REAL WORLD
 ----------------------------------------
@@ -16,29 +16,29 @@ Pramp, Interviewing.io, and Exponent all operate in this space. HireFlow itself 
 
 WHY THIS IS HARD (COMPETENCY REDUCER)
 ----------------------------------------
-Building a real-time interview simulation requires combining speech-to-text, LLM evaluation, structured feedback generation, and WebSocket-based conversational turns — a genuinely complex multi-component system. It demonstrates you can integrate multiple AI services into a coherent product experience.
+Building a sub-second interview simulation requires combining speech-to-text, LLM evaluation, structured feedback generation, and WebSocket-based conversational turns — a genuinely complex multi-component system. It demonstrates you can integrate multiple AI services into a coherent product experience.
 
 RECRUITER SHORTLIST SIGNAL
 ----------------------------------------
-Real-time AI applications with voice integration are a growing category. Companies building AI tutors, AI coaching tools, and AI hiring platforms (HireVue, Paradox AI) are hiring engineers who can build these systems. Shows full-stack AI product engineering capability.
+sub-second AI applications with voice integration are a growing category. Companies building AI tutors, AI coaching tools, and AI hiring platforms (HireVue, Paradox AI) are hiring engineers who can build these systems. Shows full-stack AI product engineering capability.
 
 ARCHITECTURE & DATA FLOW
 ----------------------------------------
-React frontend with MediaRecorder capturing audio, streamed to backend via WebSocket. Whisper real-time transcription. GPT-4/Claude evaluating response against role-specific rubric using structured output. Follow-up question generation based on answer quality. Feedback report aggregated at session end.
+React frontend with MediaRecorder capturing audio, streamed to backend via WebSocket. Whisper sub-second transcription. a local or hosted language model evaluating response against role-specific rubric using structured output. Follow-up question generation based on answer quality. Feedback report aggregated at session end.
 
 SCALE & PERFORMANCE TARGETS
 ----------------------------------------
 Target 1:
-- Metric: End-to-End Inference Latency (p95)
+- Metric: End-to-End Inference / Retrieval Latency (p95)
 - Method: Automated evaluation script measuring warm-state query-to-response duration
-- Input/dataset: Labelled benchmark evaluation set of 100 representative prompt queries
+- Input/dataset: Labelled benchmark evaluation set of 100 representative queries
 - Reference environment: Local CPU runtime (Ollama / ONNX / PyTorch) or stated free-tier API
 - Minimum pass: p95 inference latency < [M ms] on reference device
 - Target: p95 inference latency < [M ms] with zero token truncation
 - Report format: Latency histogram table exported from evaluation script
 
 Target 2:
-- Metric: Retrieval Hit Rate / F1 Accuracy
+- Metric: Retrieval Hit Rate & Groundedness Accuracy
 - Method: Grounded evaluation script comparing model output against labelled ground-truth answers
 - Input/dataset: Curated evaluation set of 50 query-document pairs with ground-truth citations
 - Reference environment: Fixed random seed (42), single evaluation worker
@@ -47,9 +47,9 @@ Target 2:
 - Report format: Evaluation CSV table with per-query precision, recall, and hallucination flags
 
 Target 3:
-- Metric: Guardrail & Injection Detection Rate
-- Method: Adversarial test suite evaluating security boundary filters
-- Input/dataset: Benchmark suite of 30 adversarial prompt injection and jailbreak payloads
+- Metric: Guardrail & Adversarial Payload Detection Rate
+- Method: Adversarial test suite evaluating security and validation boundary filters
+- Input/dataset: Benchmark suite of 30 adversarial injection and edge-case payloads
 - Reference environment: Automated test runner
 - Minimum pass: [X of Y] adversarial attempts blocked (minimum ≥ 25 of 30)
 - Target: [X of Y] adversarial attempts blocked (target 30 of 30) with 0 false positives on benign queries
@@ -111,6 +111,7 @@ SCREENER VERIFICATION RUBRIC
 3. Check 3: Verify role-specific question bank for SDE, PM, and Data Analyst interviews; Pass when automated test script prints 0 errors and logs verified status code.
 4. Check 4: Verify session report: summary of strengths, weaknesses, and improvement suggestions; Pass when automated test script prints 0 errors and logs verified status code.
 5. Check 5: Verify webSocket latency benchmark: audio-to-response round trip < 5 seconds; Pass when automated test script prints 0 errors and logs verified status code.
+6. Check 6: 6. Anti-Fake Verification Check: Inspect committed execution logs and re-run verification script against seeded test fixtures; pass when runtime metrics dynamically reflect test execution rather than static mocked responses.
 
 RESUME BULLET FORMULA
 ----------------------------------------

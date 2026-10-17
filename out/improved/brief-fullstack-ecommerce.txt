@@ -4,7 +4,7 @@ PROJECT BRIEF — Full-Stack Headless E-Commerce with Optimistic UI
 Domain    : Full-Stack Web
 Difficulty: intermediate
 Est. Time : 28 hours (Core Path) | Extended Path: +6 hours
-Tech Stack: Next.js [full-stack React application framework], React [frontend UI component library], TypeScript [strongly-typed programming language], PostgreSQL [relational database management system], Prisma [prisma component for project domain], Stripe [stripe component for project domain]
+Tech Stack: Next.js [full-stack React application framework], React [frontend UI component library], TypeScript [strictly-typed programming language], PostgreSQL [relational database management system], Prisma [prisma component], Stripe [stripe component]
 
 PROBLEM STATEMENT
 ----------------------------------------
@@ -33,8 +33,8 @@ Target 1:
 - Method: Automated benchmark executing core engine operation across varying workload sizes
 - Input/dataset: Standard test project or fixture payload (~500KB)
 - Reference environment: Local development environment, 4-core CPU, 8GB RAM
-- Minimum pass: Operation execution time < [M s] (minimum < 10s)
-- Target: Operation execution time < [M s] (target < 3s)
+- Minimum pass: Operation execution time < [M s] (minimum < 8s)
+- Target: Operation execution time < [M s] (target < 2.5s)
 - Report format: Benchmark execution report showing duration and memory usage
 
 Target 2:
@@ -111,6 +111,7 @@ SCREENER VERIFICATION RUBRIC
 3. Check 3: Verify stripe webhook handler with signature verification and idempotency keys; Pass when automated test script prints 0 errors and logs verified status code.
 4. Check 4: Verify optimistic cart state providing instant UI feedback on poor connections; Pass when automated test script prints 0 errors and logs verified status code.
 5. Check 5: Verify responsive design with dark mode and WCAG 2.1 AA accessibility compliance; Pass when automated test script prints 0 errors and logs verified status code.
+6. Check 6: 6. Anti-Fake Verification Check: Inspect committed execution logs and re-run verification script against seeded test fixtures; pass when runtime metrics dynamically reflect test execution rather than static mocked responses.
 
 RESUME BULLET FORMULA
 ----------------------------------------

@@ -4,15 +4,15 @@ PROJECT BRIEF — Real-Time Fraud Detection ML Pipeline
 Domain    : ML Engineering
 Difficulty: advanced
 Est. Time : 38 hours (Core Path) | Extended Path: +6 hours
-Tech Stack: Python [core programming language and mathematical runtime], XGBoost [xgboost component for project domain], Kafka [distributed event streaming broker], Redis [in-memory data structure store and cache], FastAPI [high-performance asynchronous REST API framework], MLflow [mlflow component for project domain], Docker [containerization and local multi-service orchestration] (Requires: Docker Engine / Desktop)
+Tech Stack: Python [core programming language and algorithmic runtime], XGBoost [xgboost component], Kafka [distributed event streaming broker], Redis [in-memory data structure store and cache], FastAPI [high-performance asynchronous REST API framework], MLflow [mlflow component], Docker [containerization and local multi-service orchestration] (Requires: Docker Engine / Desktop, Local CPU inference or optional free-tier API token)
 
 PROBLEM STATEMENT
 ----------------------------------------
-Payment fraud costs Indian companies ₹100+ crore annually, with traditional rule-based systems failing to adapt to evolving fraud patterns. Build a real-time fraud detection system using gradient boosting and neural network ensemble models served with sub-10ms latency for streaming payment transactions.
+Payment fraud costs Indian companies ₹100+ crore annually, with traditional rule-based systems failing to adapt to evolving fraud patterns. Build a sub-second fraud detection system using gradient boosting and neural network ensemble models served with sub-10ms latency for streaming payment transactions.
 
 USE CASES IN THE REAL WORLD
 ----------------------------------------
-top tech platforms, top tech platforms, BankBazaar, HDFC, and every payment processor in India. UPI transaction fraud specifically is one of the largest technology problems in Indian fintech. The Reserve Bank of India's guidelines require real-time fraud detection for digital payment processors.
+top tech platforms, top tech platforms, BankBazaar, HDFC, and every payment processor in India. UPI transaction fraud specifically is one of the largest technology problems in Indian fintech. The Reserve Bank of India's guidelines require sub-second fraud detection for digital payment processors.
 
 WHY THIS IS HARD (COMPETENCY REDUCER)
 ----------------------------------------
@@ -20,7 +20,7 @@ Fraud detection requires understanding class imbalance handling, feature enginee
 
 RECRUITER SHORTLIST SIGNAL
 ----------------------------------------
-MLOps + fraud domain knowledge is among the highest-paying specializations in India. A real-time ML system with feature stores, model versioning, and A/B testing frameworks is what ML Engineer JDs at top tech platforms, top tech platforms, and top tech platforms explicitly require.
+MLOps + fraud domain knowledge is among the highest-paying specializations in India. A sub-second ML system with feature stores, model versioning, and A/B testing frameworks is what ML Engineer JDs at top tech platforms, top tech platforms, and top tech platforms explicitly require.
 
 ARCHITECTURE & DATA FLOW
 ----------------------------------------
@@ -29,16 +29,16 @@ Kafka stream processor extracts 50+ transaction features into a Redis feature st
 SCALE & PERFORMANCE TARGETS
 ----------------------------------------
 Target 1:
-- Metric: End-to-End Inference Latency (p95)
+- Metric: End-to-End Inference / Retrieval Latency (p95)
 - Method: Automated evaluation script measuring warm-state query-to-response duration
-- Input/dataset: Labelled benchmark evaluation set of 100 representative prompt queries
+- Input/dataset: Labelled benchmark evaluation set of 100 representative queries
 - Reference environment: Local CPU runtime (Ollama / ONNX / PyTorch) or stated free-tier API
 - Minimum pass: p95 inference latency < [M ms] on reference device
 - Target: p95 inference latency < [M ms] with zero token truncation
 - Report format: Latency histogram table exported from evaluation script
 
 Target 2:
-- Metric: Retrieval Hit Rate / F1 Accuracy
+- Metric: Retrieval Hit Rate & Groundedness Accuracy
 - Method: Grounded evaluation script comparing model output against labelled ground-truth answers
 - Input/dataset: Curated evaluation set of 50 query-document pairs with ground-truth citations
 - Reference environment: Fixed random seed (42), single evaluation worker
@@ -47,9 +47,9 @@ Target 2:
 - Report format: Evaluation CSV table with per-query precision, recall, and hallucination flags
 
 Target 3:
-- Metric: Guardrail & Injection Detection Rate
-- Method: Adversarial test suite evaluating security boundary filters
-- Input/dataset: Benchmark suite of 30 adversarial prompt injection and jailbreak payloads
+- Metric: Guardrail & Adversarial Payload Detection Rate
+- Method: Adversarial test suite evaluating security and validation boundary filters
+- Input/dataset: Benchmark suite of 30 adversarial injection and edge-case payloads
 - Reference environment: Automated test runner
 - Minimum pass: [X of Y] adversarial attempts blocked (minimum ≥ 25 of 30)
 - Target: [X of Y] adversarial attempts blocked (target 30 of 30) with 0 false positives on benign queries
@@ -111,6 +111,7 @@ SCREENER VERIFICATION RUBRIC
 3. Check 3: Verify a/B testing framework comparing rule-based vs ML model on holdout dataset; Pass when automated test script prints 0 errors and logs verified status code.
 4. Check 4: Verify mLflow model registry with champion/challenger deployment pattern; Pass when automated test script prints 0 errors and logs verified status code.
 5. Check 5: Verify confusion matrix and ROC-AUC evaluation on labeled transaction dataset; Pass when automated test script prints 0 errors and logs verified status code.
+6. Check 6: 6. Anti-Fake Verification Check: Inspect committed execution logs and re-run verification script against seeded test fixtures; pass when runtime metrics dynamically reflect test execution rather than static mocked responses.
 
 RESUME BULLET FORMULA
 ----------------------------------------

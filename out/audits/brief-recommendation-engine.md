@@ -9,20 +9,20 @@
 
 | Dimension | Score (0-10) | Reason & Direct Quotation |
 | :--- | :---: | :--- |
-| **Topic Value** | 8.8 | Strong industry and architectural value: *"E-commerce and content platforms lose 30-40% of potential revenue from poor prod..."*. |
+| **Topic Value** | 9.0 | High-value technical thesis: *"E-commerce and content platforms lose 30-40% of potential revenue from poor prod..."*. |
 | **Verification Rubric** | 5.0 | Original rubric lacked concrete anti-fake checks and reproducible single-action verification steps. |
 | **Technical Accuracy** | 6.5 | Addressed underlying concurrency, connection management, or error recovery gotchas. |
 | **Scope Realism** | 6.0 | Adjusted milestone hours to align honestly with the intermediate effort band (28 hours). |
 | **Completeness** | 4.5 | Original brief lacked starter dataset specifications, milestones, deliverables, and reference environments. |
-| **Honesty of Claims** | 4.0 | Capped at 4.0 in original due to pre-filled metrics and generalized employer/salary claims. |
+| **Honesty of Claims** | 4.0 | Capped at 4.0 in original due to pre-filled metrics and generalized employer claims. |
 | **Resume Bullet Safety** | 3.5 | Capped at 4.0 for pre-filled outcome numbers without measured placeholders. |
 
 #### Arithmetic & Overall Score
 - **Weights:** Topic (10%), Rubric (15%), Tech Accuracy (20%), Scope Realism (15%), Completeness (15%), Honesty (15%), Resume Safety (10%)
 - **Calculation:**
-  $$\text{Weighted Score} = (8.8 \times 0.10) + (5.0 \times 0.15) + (6.5 \times 0.20) + (6.0 \times 0.15) + (4.5 \times 0.15) + (4.0 \times 0.15) + (3.5 \times 0.10)$$
-  $$\text{Weighted Score} = 0.88 + 0.75 + 1.30 + 0.90 + 0.675 + 0.60 + 0.35 = 5.455 / 10$$
-- **Overall Score:** **5.46 / 10**
+  $$\text{Weighted Score} = (9.0 \times 0.10) + (5.0 \times 0.15) + (6.5 \times 0.20) + (6.0 \times 0.15) + (4.5 \times 0.15) + (4.0 \times 0.15) + (3.5 \times 0.10)$$
+  $$\text{Weighted Score} = 0.90 + 0.75 + 1.30 + 0.90 + 0.675 + 0.60 + 0.35 = 5.475 / 10$$
+- **Overall Score:** **5.48 / 10**
 - **Band:** **D (< 5.5)**
 
 ---
@@ -91,7 +91,7 @@ Applying the standardized Effort Model:
 - Replaced pre-filled numbers with Google X-Y-Z placeholders (`[N]`, `[X%]`, `[M ms]`).
 - Formulated 3 seven-field scale targets.
 - Added explicit milestones summing exactly to 28 hours.
-- Created concrete 5-item screener verification rubric.
+- Created concrete screener verification rubric with anti-fake checks.
 - Added strict "Do not claim" line.
 
 ---
@@ -120,7 +120,7 @@ Applying the standardized Effort Model:
 | Dimension | Score (0-10) | Evaluation of Improved Brief |
 | :--- | :---: | :--- |
 | **Topic Value** | 9.0 | High-impact technical curriculum design. |
-| **Verification Rubric** | 9.2 | 5 single-check items with concrete observable pass criteria. |
+| **Verification Rubric** | 9.2 | Concrete single-check items with observable pass criteria. |
 | **Technical Accuracy** | 9.0 | Solid architectural patterns and error handling boundaries. |
 | **Scope Realism** | 9.0 | Balanced 28h milestone breakdown fitting intermediate band. |
 | **Completeness** | 9.5 | Complete 14-section curriculum with seed specs and deliverables. |

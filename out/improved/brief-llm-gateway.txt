@@ -4,11 +4,11 @@ PROJECT BRIEF — Multi-Provider LLM Gateway with Cost Optimization
 Domain    : GenAI & LLM Engineering
 Difficulty: intermediate
 Est. Time : 28 hours (Core Path) | Extended Path: +6 hours
-Tech Stack: Python [core programming language and mathematical runtime], FastAPI [high-performance asynchronous REST API framework], Redis [in-memory data structure store and cache], LangChain [LLM application orchestration framework], OpenAI API [openai api component for project domain], Anthropic API [anthropic api component for project domain] (Requires: Local CPU inference or optional free-tier API key / Ollama runtime)
+Tech Stack: Python [core programming language and algorithmic runtime], FastAPI [high-performance asynchronous REST API framework], Redis [in-memory data structure store and cache], LangChain [LLM application orchestration framework], Commercial API Client [hosted model provider interface], Local Model Server [self-hosted inference runtime (Ollama/vLLM)] (Requires: Local CPU inference or optional free-tier API token)
 
 PROBLEM STATEMENT
 ----------------------------------------
-Companies using multiple LLM providers (OpenAI, Anthropic, Google Gemini, open-source models) need unified access with cost optimization, automatic failover, prompt caching, and usage tracking. Build an LLM gateway that abstracts provider differences and minimizes inference costs through intelligent routing.
+Companies using multiple LLM providers (language model, model provider, multimodal foundation models, open-source models) need unified access with cost optimization, automatic failover, prompt caching, and usage tracking. Build an LLM gateway that abstracts provider differences and minimizes inference costs through intelligent routing.
 
 USE CASES IN THE REAL WORLD
 ----------------------------------------
@@ -24,21 +24,21 @@ LLM infrastructure engineering is a growing specialty. Any company deploying AI 
 
 ARCHITECTURE & DATA FLOW
 ----------------------------------------
-FastAPI gateway normalizing OpenAI-compatible requests. Semantic prompt cache using embedding similarity (RedisSearch vector search) — return cached responses for semantically similar prompts. Complexity classifier routing simple prompts to GPT-3.5, complex to GPT-4. Provider failover with automatic fallback. Cost tracking per model per tenant.
+FastAPI gateway normalizing language model-compatible requests. Semantic prompt cache using embedding similarity (RedisSearch vector search) — return cached responses for semantically similar prompts. Complexity classifier routing simple prompts to GPT-3.5, complex to GPT-4. Provider failover with automatic fallback. Cost tracking per model per tenant.
 
 SCALE & PERFORMANCE TARGETS
 ----------------------------------------
 Target 1:
-- Metric: End-to-End Inference Latency (p95)
+- Metric: End-to-End Inference / Retrieval Latency (p95)
 - Method: Automated evaluation script measuring warm-state query-to-response duration
-- Input/dataset: Labelled benchmark evaluation set of 100 representative prompt queries
+- Input/dataset: Labelled benchmark evaluation set of 100 representative queries
 - Reference environment: Local CPU runtime (Ollama / ONNX / PyTorch) or stated free-tier API
 - Minimum pass: p95 inference latency < [M ms] on reference device
 - Target: p95 inference latency < [M ms] with zero token truncation
 - Report format: Latency histogram table exported from evaluation script
 
 Target 2:
-- Metric: Retrieval Hit Rate / F1 Accuracy
+- Metric: Retrieval Hit Rate & Groundedness Accuracy
 - Method: Grounded evaluation script comparing model output against labelled ground-truth answers
 - Input/dataset: Curated evaluation set of 50 query-document pairs with ground-truth citations
 - Reference environment: Fixed random seed (42), single evaluation worker
@@ -47,9 +47,9 @@ Target 2:
 - Report format: Evaluation CSV table with per-query precision, recall, and hallucination flags
 
 Target 3:
-- Metric: Guardrail & Injection Detection Rate
-- Method: Adversarial test suite evaluating security boundary filters
-- Input/dataset: Benchmark suite of 30 adversarial prompt injection and jailbreak payloads
+- Metric: Guardrail & Adversarial Payload Detection Rate
+- Method: Adversarial test suite evaluating security and validation boundary filters
+- Input/dataset: Benchmark suite of 30 adversarial injection and edge-case payloads
 - Reference environment: Automated test runner
 - Minimum pass: [X of Y] adversarial attempts blocked (minimum ≥ 25 of 30)
 - Target: [X of Y] adversarial attempts blocked (target 30 of 30) with 0 false positives on benign queries
@@ -111,10 +111,11 @@ SCREENER VERIFICATION RUBRIC
 3. Check 3: Verify provider failover: primary provider 500 error triggers automatic switch to backup; Pass when automated test script prints 0 errors and logs verified status code.
 4. Check 4: Verify cost dashboard: per-tenant token usage and estimated cost by model; Pass when automated test script prints 0 errors and logs verified status code.
 5. Check 5: Verify cache hit rate benchmark: 60%+ cache hits on 100 sample queries with variations; Pass when automated test script prints 0 errors and logs verified status code.
+6. Check 6: 6. Anti-Fake Verification Check: Inspect committed execution logs and re-run verification script against seeded test fixtures; pass when runtime metrics dynamically reflect test execution rather than static mocked responses.
 
 RESUME BULLET FORMULA
 ----------------------------------------
-"Built multi-provider LLM gateway with semantic prompt caching and cost-optimized routing; achieved [N]% cache hit rate and [N]% cost reduction via automatic model selection across OpenAI, Anthropic, and open-source providers.; achieved [N] throughput with < [M ms] latency overhead across [K] test transactions."
+"Built multi-provider LLM gateway with semantic prompt caching and cost-optimized routing; achieved [N]% cache hit rate and [N]% cost reduction via automatic model selection across tiered commercial and open-source inference backends; achieved [N] throughput with < [M ms] latency overhead across [K] test transactions."
 Do not claim: scale, latency, or throughput figures without committing benchmark run logs; do not claim production deployment unless deployed to a verifiable live environment.
 
 ======================================================================

@@ -4,7 +4,7 @@ PROJECT BRIEF — Full-Text Search Engine from Scratch (Inverted Index)
 Domain    : Distributed Systems
 Difficulty: advanced
 Est. Time : 38 hours (Core Path) | Extended Path: +6 hours
-Tech Stack: Go [compiled systems runtime and networking implementation], Algorithms [algorithms component for project domain], Data Structures [data structures component for project domain], HTTP [http component for project domain], Concurrency [concurrency component for project domain]
+Tech Stack: Go [compiled systems runtime and networking implementation], Algorithms [algorithms component], Data Structures [data structures component], HTTP [http component], Concurrency [concurrency component]
 
 PROBLEM STATEMENT
 ----------------------------------------
@@ -12,7 +12,7 @@ Search is foundational to every product yet very few engineers understand how se
 
 USE CASES IN THE REAL WORLD
 ----------------------------------------
-Every website with a search bar is running some variant of this. Internal search (Slack, Notion, Jira), e-commerce product search (top tech platforms, top tech platforms), and document search (Google Docs) all build on these fundamentals. Understanding these internals unlocks contribution to Elasticsearch, Meilisearch, or Typesense.
+Every website with a search bar is running some variant of this. Internal search (Slack, Notion, Jira), e-commerce product search (top tech platforms, top tech platforms), and document search (distributed systems platforms Docs) all build on these fundamentals. Understanding these internals unlocks contribution to Elasticsearch, Meilisearch, or Typesense.
 
 WHY THIS IS HARD (COMPETENCY REDUCER)
 ----------------------------------------
@@ -29,27 +29,27 @@ Go implementation with an inverted index stored as a sorted map of term → post
 SCALE & PERFORMANCE TARGETS
 ----------------------------------------
 Target 1:
-- Metric: Request Processing Overhead / Latency (p99)
+- Metric: Request Processing Latency Overhead (p99)
 - Method: Concurrent HTTP load test using k6 / vegeta over 60s sustained run
 - Input/dataset: Standard synthetic JSON payload (~1KB) over 5,000 concurrent requests
 - Reference environment: Local 4-core CPU, 8GB RAM, loopback network interface
-- Minimum pass: p99 latency overhead < 20ms under 1,000 req/sec
+- Minimum pass: p99 latency overhead < 25ms under 1,000 req/sec
 - Target: p99 latency overhead < 5ms under 5,000 req/sec
-- Report format: k6 terminal summary report and CSV percentile log
+- Report format: k6 terminal summary report and CSV latency distribution
 
 Target 2:
-- Metric: Sustained Throughput Under Concurrency
-- Method: Continuous load test simulating concurrent client connections
+- Metric: Sustained Concurrency & Correctness
+- Method: Continuous load test simulating concurrent client connections with idempotency checks
 - Input/dataset: Synthetic benchmark traffic across 50 concurrent worker threads
 - Reference environment: Local Docker Compose or native runtime
-- Minimum pass: Sustained throughput > [N] req/sec (minimum > 1,500 req/sec) with zero socket leaks
-- Target: Sustained throughput > [N] req/sec (target > 5,000 req/sec) with zero socket leaks
+- Minimum pass: Sustained throughput > [N] req/sec with 0 lost writes in [K] attempts
+- Target: Sustained throughput > [N] req/sec (target > 5,000 req/sec) with 0 lost writes in [K] attempts
 - Report format: Benchmark throughput table and error rate summary
 
 Target 3:
 - Metric: Fault Recovery / Failover Duration
-- Method: Injected process failure during continuous active traffic stream
-- Input/dataset: Chaos fault injection endpoint or SIGKILL on worker process
+- Method: Injected worker process termination during active continuous request stream
+- Input/dataset: SIGKILL or chaos fault injection on worker process
 - Reference environment: Local multi-process or containerized cluster
 - Minimum pass: Service detects failure and reroutes traffic with recovery time < [S] seconds (pass < 5s)
 - Target: Service detects failure and recovers state with recovery time < [S] seconds (target < 2s)
@@ -111,6 +111,7 @@ SCREENER VERIFICATION RUBRIC
 3. Check 3: Verify boolean query parser supporting AND, OR, NOT, and phrase queries; Pass when automated test script prints 0 errors and logs verified status code.
 4. Check 4: Verify concurrent indexing benchmark showing linear throughput scaling with goroutines; Pass when automated test script prints 0 errors and logs verified status code.
 5. Check 5: Verify architectural writeup comparing design decisions to Lucene/Elasticsearch; Pass when automated test script prints 0 errors and logs verified status code.
+6. Check 6: 6. Anti-Fake Verification Check: Inspect committed execution logs and re-run verification script against seeded test fixtures; pass when runtime metrics dynamically reflect test execution rather than static mocked responses.
 
 RESUME BULLET FORMULA
 ----------------------------------------

@@ -4,7 +4,7 @@ PROJECT BRIEF — Federated GraphQL Gateway with Schema Stitching
 Domain    : Full-Stack Web
 Difficulty: intermediate
 Est. Time : 28 hours (Core Path) | Extended Path: +6 hours
-Tech Stack: TypeScript [strongly-typed programming language], Apollo Federation [apollo federation component for project domain], Node.js [backend JavaScript execution environment], PostgreSQL [relational database management system], Redis [in-memory data structure store and cache], React [frontend UI component library]
+Tech Stack: TypeScript [strictly-typed programming language], Apollo Federation [apollo federation component], Node.js [backend JavaScript execution environment], PostgreSQL [relational database management system], Redis [in-memory data structure store and cache], React [frontend UI component library]
 
 PROBLEM STATEMENT
 ----------------------------------------
@@ -33,8 +33,8 @@ Target 1:
 - Method: Automated benchmark executing core engine operation across varying workload sizes
 - Input/dataset: Standard test project or fixture payload (~500KB)
 - Reference environment: Local development environment, 4-core CPU, 8GB RAM
-- Minimum pass: Operation execution time < [M s] (minimum < 10s)
-- Target: Operation execution time < [M s] (target < 3s)
+- Minimum pass: Operation execution time < [M s] (minimum < 8s)
+- Target: Operation execution time < [M s] (target < 2.5s)
 - Report format: Benchmark execution report showing duration and memory usage
 
 Target 2:
@@ -111,6 +111,7 @@ SCREENER VERIFICATION RUBRIC
 3. Check 3: Verify schema evolution test: add field to subgraph without breaking existing clients; Pass when automated test script prints 0 errors and logs verified status code.
 4. Check 4: Verify performance trace showing per-subgraph query timing in Apollo Studio; Pass when automated test script prints 0 errors and logs verified status code.
 5. Check 5: Verify react client using Apollo Client hooks with normalized cache and optimistic updates; Pass when automated test script prints 0 errors and logs verified status code.
+6. Check 6: 6. Anti-Fake Verification Check: Inspect committed execution logs and re-run verification script against seeded test fixtures; pass when runtime metrics dynamically reflect test execution rather than static mocked responses.
 
 RESUME BULLET FORMULA
 ----------------------------------------

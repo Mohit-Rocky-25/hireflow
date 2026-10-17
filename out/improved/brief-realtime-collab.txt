@@ -4,7 +4,7 @@ PROJECT BRIEF — Real-Time Collaborative Document Canvas
 Domain    : Full-Stack Web
 Difficulty: advanced
 Est. Time : 38 hours (Core Path) | Extended Path: +6 hours
-Tech Stack: TypeScript [strongly-typed programming language], React [frontend UI component library], WebSockets [websockets component for project domain], Node.js [backend JavaScript execution environment], Yjs [yjs component for project domain], IndexedDB [indexeddb component for project domain]
+Tech Stack: TypeScript [strictly-typed programming language], React [frontend UI component library], WebSockets [websockets component], Node.js [backend JavaScript execution environment], Yjs [yjs component], IndexedDB [indexeddb component]
 
 PROBLEM STATEMENT
 ----------------------------------------
@@ -12,7 +12,7 @@ Concurrent document editors suffer from conflict desynchronization and high late
 
 USE CASES IN THE REAL WORLD
 ----------------------------------------
-Notion, Figma, Google Docs, and Miro all solve this exact problem at scale. In the Indian market, startups like Springworks and Leena AI are building collaborative HR tools that need real-time sync. Any B2B SaaS product with collaboration features faces this challenge.
+Notion, Figma, distributed systems platforms Docs, and Miro all solve this exact problem at scale. In the Indian market, startups like Springworks and Leena AI are building collaborative HR tools that need sub-second sync. Any B2B SaaS product with collaboration features faces this challenge.
 
 WHY THIS IS HARD (COMPETENCY REDUCER)
 ----------------------------------------
@@ -20,7 +20,7 @@ Most developers can build a chat app — very few can build a system where concu
 
 RECRUITER SHORTLIST SIGNAL
 ----------------------------------------
-Shows understanding of distributed data structures, WebSocket protocols, and offline-first architecture. This is what separates frontend engineers from frontend architects. Directly relevant to Notion, Linear, Figma, and any real-time SaaS product interview.
+Shows understanding of distributed data structures, WebSocket protocols, and offline-first architecture. This is what separates frontend engineers from frontend architects. Directly relevant to Notion, Linear, Figma, and any sub-second SaaS product interview.
 
 ARCHITECTURE & DATA FLOW
 ----------------------------------------
@@ -33,8 +33,8 @@ Target 1:
 - Method: Automated benchmark executing core engine operation across varying workload sizes
 - Input/dataset: Standard test project or fixture payload (~500KB)
 - Reference environment: Local development environment, 4-core CPU, 8GB RAM
-- Minimum pass: Operation execution time < [M s] (minimum < 10s)
-- Target: Operation execution time < [M s] (target < 3s)
+- Minimum pass: Operation execution time < [M s] (minimum < 8s)
+- Target: Operation execution time < [M s] (target < 2.5s)
 - Report format: Benchmark execution report showing duration and memory usage
 
 Target 2:
@@ -111,6 +111,7 @@ SCREENER VERIFICATION RUBRIC
 3. Check 3: Verify cursor broadcast with smooth interpolation and color-coded user badges; Pass when automated test script prints 0 errors and logs verified status code.
 4. Check 4: Verify test suite verifying CRDT convergence across out-of-order packet delivery; Pass when automated test script prints 0 errors and logs verified status code.
 5. Check 5: Verify architecture document explaining operational transformation vs CRDT tradeoffs; Pass when automated test script prints 0 errors and logs verified status code.
+6. Check 6: 6. Anti-Fake Verification Check: Inspect committed execution logs and re-run verification script against seeded test fixtures; pass when runtime metrics dynamically reflect test execution rather than static mocked responses.
 
 RESUME BULLET FORMULA
 ----------------------------------------

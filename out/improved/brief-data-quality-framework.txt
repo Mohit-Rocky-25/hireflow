@@ -4,7 +4,7 @@ PROJECT BRIEF — Automated Data Quality Monitoring & Anomaly Detection
 Domain    : Data Engineering
 Difficulty: intermediate
 Est. Time : 28 hours (Core Path) | Extended Path: +6 hours
-Tech Stack: Python [core programming language and mathematical runtime], dbt [dbt component for project domain], Great Expectations [great expectations component for project domain], Airflow [airflow component for project domain], PostgreSQL [relational database management system], Slack API [slack api component for project domain]
+Tech Stack: Python [core programming language and algorithmic runtime], dbt [dbt component], Great Expectations [great expectations component], Airflow [airflow component], PostgreSQL [relational database management system], Slack API [slack api component]
 
 PROBLEM STATEMENT
 ----------------------------------------
@@ -29,25 +29,25 @@ dbt models for data transformation with Great Expectations test suites attached.
 SCALE & PERFORMANCE TARGETS
 ----------------------------------------
 Target 1:
-- Metric: Batch Ingestion & Processing Throughput
+- Metric: Ingestion & Transformation Throughput
 - Method: Continuous ingestion benchmark streaming synthetic records from seed file
-- Input/dataset: 100,000 structured synthetic transaction records (~250 bytes each)
+- Input/dataset: 100,000 structured synthetic records (~250 bytes each)
 - Reference environment: Local workstation with 8GB RAM and SSD storage
-- Minimum pass: Ingestion rate > [N] records/sec (minimum > 1,000 records/sec)
-- Target: Ingestion rate > [N] records/sec (target > 5,000 records/sec)
+- Minimum pass: Ingestion rate > [N] records/sec (minimum > 1,500 records/sec)
+- Target: Ingestion rate > [N] records/sec (target > 6,000 records/sec)
 - Report format: Pipeline execution log showing total records, wall-clock time, and records/sec
 
 Target 2:
-- Metric: Query Aggregation Latency (p95)
+- Metric: Analytical Aggregation Latency (p95)
 - Method: Analytical query execution over seeded historical dataset
-- Input/dataset: Seeded database table with 1,000,000 historical records
+- Input/dataset: Seeded database table with 1,000,000 historical rows
 - Reference environment: Local database engine in Docker with 2GB memory ceiling
-- Minimum pass: p95 query latency < [M ms] (minimum < 500ms)
-- Target: p95 query latency < [M ms] (target < 150ms)
+- Minimum pass: p95 query latency < [M ms] (minimum < 400ms)
+- Target: p95 query latency < [M ms] (target < 100ms)
 - Report format: Database query analyzer output showing execution time and scanned rows
 
 Target 3:
-- Metric: Data Quality & Reconciliation Accuracy
+- Metric: Data Quality & Reconciliation Precision
 - Method: End-to-end reconciliation check comparing ingested ledger vs. source stream
 - Input/dataset: Injected discrepancy dataset with [X] intentional duplicate and corrupted records
 - Reference environment: Local automated test runner
@@ -111,6 +111,7 @@ SCREENER VERIFICATION RUBRIC
 3. Check 3: Verify statistical anomaly detection flagging volume drop > 20% or null rate increase; Pass when automated test script prints 0 errors and logs verified status code.
 4. Check 4: Verify quarantine table routing failed records for manual review; Pass when automated test script prints 0 errors and logs verified status code.
 5. Check 5: Verify weekly data quality report auto-generated and sent to Slack channel; Pass when automated test script prints 0 errors and logs verified status code.
+6. Check 6: 6. Anti-Fake Verification Check: Inspect committed execution logs and re-run verification script against seeded test fixtures; pass when runtime metrics dynamically reflect test execution rather than static mocked responses.
 
 RESUME BULLET FORMULA
 ----------------------------------------

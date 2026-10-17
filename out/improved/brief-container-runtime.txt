@@ -4,7 +4,7 @@ PROJECT BRIEF — Minimal Container Runtime (Docker-like) in Go
 Domain    : Systems Programming
 Difficulty: advanced
 Est. Time : 38 hours (Core Path) | Extended Path: +6 hours
-Tech Stack: Go [compiled systems runtime and networking implementation], Linux Namespaces [linux namespaces component for project domain], cgroups [cgroups component for project domain], OverlayFS [overlayfs component for project domain], System Calls [system calls component for project domain]
+Tech Stack: Go [compiled systems runtime and networking implementation], Linux Namespaces [linux namespaces component], cgroups [cgroups component], OverlayFS [overlayfs component], System Calls [system calls component] (Requires: GCC / Clang toolchain or Rust cargo)
 
 PROBLEM STATEMENT
 ----------------------------------------
@@ -12,15 +12,15 @@ Docker is fundamentally a collection of Linux primitives (namespaces, cgroups, o
 
 USE CASES IN THE REAL WORLD
 ----------------------------------------
-Understanding container runtime internals is essential for Kubernetes cluster operators, container security engineers, and anyone building cloud infrastructure. Companies like Kata Containers, gVisor (Google), and Firecracker (AWS) all build on these primitives.
+Understanding container runtime internals is essential for Kride-hailing dispatch networksnetes cluster operators, container security engineers, and anyone building cloud infrastructure. Companies like Kata Containers, gVisor (distributed systems platforms), and Firecracker (AWS) all build on these primitives.
 
 WHY THIS IS HARD (COMPETENCY REDUCER)
 ----------------------------------------
-Most engineers use Docker without understanding the Linux primitives beneath it. Building a container runtime from scratch demonstrates kernel-level systems programming knowledge that is extremely rare and highly valued in platform engineering, Kubernetes development, and infrastructure security roles.
+Most engineers use Docker without understanding the Linux primitives beneath it. Building a container runtime from scratch demonstrates kernel-level systems programming knowledge that is extremely rare and highly valued in platform engineering, Kride-hailing dispatch networksnetes development, and infrastructure security roles.
 
 RECRUITER SHORTLIST SIGNAL
 ----------------------------------------
-Container runtime knowledge is the deepest level of Kubernetes and cloud infrastructure expertise. Engineers at CNCF projects (containerd, CRI-O), cloud providers (AWS, GCP, Azure), and security companies (Aqua Security, Sysdig) actively seek this knowledge. Immediately signals principal-level platform engineering capability.
+Container runtime knowledge is the deepest level of Kride-hailing dispatch networksnetes and cloud infrastructure expertise. Engineers at CNCF projects (containerd, CRI-O), cloud providers (AWS, GCP, Azure), and security companies (Aqua Security, Sysdig) actively seek this knowledge. Immediately signals principal-level platform engineering capability.
 
 ARCHITECTURE & DATA FLOW
 ----------------------------------------
@@ -29,27 +29,27 @@ Go program using Linux syscalls: UTS namespace (hostname isolation), PID namespa
 SCALE & PERFORMANCE TARGETS
 ----------------------------------------
 Target 1:
-- Metric: Request Processing Overhead / Latency (p99)
+- Metric: Request Processing Latency Overhead (p99)
 - Method: Concurrent HTTP load test using k6 / vegeta over 60s sustained run
 - Input/dataset: Standard synthetic JSON payload (~1KB) over 5,000 concurrent requests
 - Reference environment: Local 4-core CPU, 8GB RAM, loopback network interface
-- Minimum pass: p99 latency overhead < 20ms under 1,000 req/sec
+- Minimum pass: p99 latency overhead < 25ms under 1,000 req/sec
 - Target: p99 latency overhead < 5ms under 5,000 req/sec
-- Report format: k6 terminal summary report and CSV percentile log
+- Report format: k6 terminal summary report and CSV latency distribution
 
 Target 2:
-- Metric: Sustained Throughput Under Concurrency
-- Method: Continuous load test simulating concurrent client connections
+- Metric: Sustained Concurrency & Correctness
+- Method: Continuous load test simulating concurrent client connections with idempotency checks
 - Input/dataset: Synthetic benchmark traffic across 50 concurrent worker threads
 - Reference environment: Local Docker Compose or native runtime
-- Minimum pass: Sustained throughput > [N] req/sec (minimum > 1,500 req/sec) with zero socket leaks
-- Target: Sustained throughput > [N] req/sec (target > 5,000 req/sec) with zero socket leaks
+- Minimum pass: Sustained throughput > [N] req/sec with 0 lost writes in [K] attempts
+- Target: Sustained throughput > [N] req/sec (target > 5,000 req/sec) with 0 lost writes in [K] attempts
 - Report format: Benchmark throughput table and error rate summary
 
 Target 3:
 - Metric: Fault Recovery / Failover Duration
-- Method: Injected process failure during continuous active traffic stream
-- Input/dataset: Chaos fault injection endpoint or SIGKILL on worker process
+- Method: Injected worker process termination during active continuous request stream
+- Input/dataset: SIGKILL or chaos fault injection on worker process
 - Reference environment: Local multi-process or containerized cluster
 - Minimum pass: Service detects failure and reroutes traffic with recovery time < [S] seconds (pass < 5s)
 - Target: Service detects failure and recovers state with recovery time < [S] seconds (target < 2s)
@@ -111,6 +111,7 @@ SCREENER VERIFICATION RUBRIC
 3. Check 3: Verify network isolation: container has separate network interface from host; Pass when automated test script prints 0 errors and logs verified status code.
 4. Check 4: Verify cgroup memory limit: process OOM-killed when exceeding configured memory limit; Pass when automated test script prints 0 errors and logs verified status code.
 5. Check 5: Verify cold start benchmark: container running /bin/bash starts in < 200ms; Pass when automated test script prints 0 errors and logs verified status code.
+6. Check 6: 6. Anti-Fake Verification Check: Inspect committed execution logs and re-run verification script against seeded test fixtures; pass when runtime metrics dynamically reflect test execution rather than static mocked responses.
 
 RESUME BULLET FORMULA
 ----------------------------------------

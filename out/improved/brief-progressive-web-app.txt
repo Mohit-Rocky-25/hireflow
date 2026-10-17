@@ -4,7 +4,7 @@ PROJECT BRIEF — PWA with Service Worker, Push Notifications & App Shell
 Domain    : Mobile Engineering
 Difficulty: intermediate
 Est. Time : 28 hours (Core Path) | Extended Path: +6 hours
-Tech Stack: React [frontend UI component library], Workbox [workbox component for project domain], Service Workers [service workers component for project domain], Web Push API [web push api component for project domain], IndexedDB [indexeddb component for project domain]
+Tech Stack: React [frontend UI component library], Workbox [workbox component], Service Workers [service workers component], Web Push API [web push api component], IndexedDB [indexeddb component]
 
 PROBLEM STATEMENT
 ----------------------------------------
@@ -33,8 +33,8 @@ Target 1:
 - Method: Automated benchmark executing core engine operation across varying workload sizes
 - Input/dataset: Standard test project or fixture payload (~500KB)
 - Reference environment: Local development environment, 4-core CPU, 8GB RAM
-- Minimum pass: Operation execution time < [M s] (minimum < 10s)
-- Target: Operation execution time < [M s] (target < 3s)
+- Minimum pass: Operation execution time < [M s] (minimum < 8s)
+- Target: Operation execution time < [M s] (target < 2.5s)
 - Report format: Benchmark execution report showing duration and memory usage
 
 Target 2:
@@ -111,6 +111,7 @@ SCREENER VERIFICATION RUBRIC
 3. Check 3: Verify install prompt: browser shows 'Add to Home Screen' prompt on second visit; Pass when automated test script prints 0 errors and logs verified status code.
 4. Check 4: Verify push notification received on device within 5 seconds of server-triggered push; Pass when automated test script prints 0 errors and logs verified status code.
 5. Check 5: Verify background sync: form submission queued offline, submitted when connection restored; Pass when automated test script prints 0 errors and logs verified status code.
+6. Check 6: 6. Anti-Fake Verification Check: Inspect committed execution logs and re-run verification script against seeded test fixtures; pass when runtime metrics dynamically reflect test execution rather than static mocked responses.
 
 RESUME BULLET FORMULA
 ----------------------------------------
