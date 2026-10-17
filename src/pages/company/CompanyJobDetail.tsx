@@ -10,7 +10,7 @@ import {
   Plus, X, Send
 } from 'lucide-react';
 import { toast } from '../../components/ui/Toast';
-import { sanitizeUrl } from '@/utils/security';
+import { sanitizeUrl } from '@/lib/security';
 
 // ── Schedule Interview Modal ───────────────────────────────
 function ScheduleInterviewModal({

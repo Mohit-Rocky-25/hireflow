@@ -8,7 +8,7 @@ import {
   Bell, Shield, Palette, CheckCircle, Zap
 } from 'lucide-react';
 import { toast } from '../../components/ui/Toast';
-import { sanitizeUrl } from '@/utils/security';
+import { sanitizeUrl } from '@/lib/security';
 
 const SECTIONS = [
   { id: 'profile', label: 'Company Profile', icon: Building2 },

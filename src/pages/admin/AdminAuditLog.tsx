@@ -4,7 +4,7 @@
 import { useState } from 'react';
 import { useStore } from '../../store/useStore';
 import { Shield, Search, Filter, Download, Clock, User, Building2, FileText, RefreshCw } from 'lucide-react';
-import { sanitizeCsvCell } from '@/utils/security';
+import { sanitizeCsvCell } from '@/lib/security';
 
 const ACTION_COLORS: Record<string, string> = {
   created_job: 'bg-blue-50 text-blue-700',

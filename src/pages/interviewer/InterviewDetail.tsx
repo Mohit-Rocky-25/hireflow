@@ -7,7 +7,7 @@ import { useStore } from '../../store/useStore';
 import { ArrowLeft, Calendar, Clock, Video, CheckCircle, Star, User, Briefcase, FileText } from 'lucide-react';
 import { toast } from '../../components/ui/Toast';
 import { InterviewEvidenceChecklistPanel } from './components/InterviewEvidenceChecklistPanel';
-import { sanitizeUrl } from '@/utils/security';
+import { sanitizeUrl } from '@/lib/security';
 
 export function InterviewDetail() {
   const { id } = useParams();

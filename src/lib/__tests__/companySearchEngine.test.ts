@@ -5,7 +5,7 @@ import {
   jaroWinkler,
   deduplicateCompanies,
   SearchableCompany,
-} from '../companySearchEngine';
+} from '../../lib/companySearchEngine';
 
 const SAMPLE_COMPANIES: SearchableCompany[] = [
   {

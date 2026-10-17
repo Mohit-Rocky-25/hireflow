@@ -31,8 +31,8 @@ export interface FileParseResult {
 
 const MAX_FILE_SIZE_BYTES = 5 * 1024 * 1024; // 5 MB
 
-import { countWords } from '../../utils/wordCount';
-import { verifyMagicBytes, withParserTimeout } from '../../utils/secureFileValidator';
+import { countWords } from '../../lib/wordCount';
+import { verifyMagicBytes, withParserTimeout } from '../../lib/secureFileValidator';
 export { countWords };
 
 /**

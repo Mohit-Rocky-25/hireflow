@@ -4,7 +4,7 @@
 import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useStore } from '../../store/useStore';
-import { sanitizeUrl } from '@/utils/security';
+import { sanitizeUrl } from '@/lib/security';
 import {
   Calendar, ArrowRight, CheckCircle, Clock, Search,
   Video, Briefcase, User, ClipboardList, AlertCircle,

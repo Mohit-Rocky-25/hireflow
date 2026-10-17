@@ -21,7 +21,7 @@ import {
 } from "./talentLensData";
 import { useTalentLensStore } from "./useTalentLensStore";
 import { parseResumeFile } from "../../features/ats/fileParser";
-import { searchCompanies, deduplicateCompanies } from "../../utils/companySearchEngine";
+import { searchCompanies, deduplicateCompanies } from "../../lib/companySearchEngine";
 
 export function MatchingDemo() {
   const navigate = useNavigate();

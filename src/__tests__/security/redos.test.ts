@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { normalizeExtractedText, isGarbageOrBinary } from '@/features/ats/fileParser';
-import { countWords } from '@/utils/wordCount';
+import { countWords } from '@/lib/wordCount';
 import { parseResume } from '@/lib/ats/parseResume';
 import { parseJD } from '@/lib/ats/parseJD';
 import { matchSkills } from '@/lib/ats/matchSkills';

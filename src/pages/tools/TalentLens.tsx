@@ -13,7 +13,7 @@ import {
   MessageSquare, Target, Shield, TrendingUp, Eye, Clock,
   Briefcase, Award, Star, ChevronRight, Sparkles, Bookmark, Building2
 } from 'lucide-react';
-import { analyzeCandidate } from '../../ai/matching';
+import { analyzeCandidate } from '../../lib/ai/matching';
 import type { CandidateMatch, RequirementAssessment } from '../../types';
 import { useProfile } from '../../features/suite/profile/ProfileContext';
 import { QuickSummaryCard } from '../../features/suite/components/QuickSummaryCard';

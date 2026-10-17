@@ -3,7 +3,7 @@
 // Single source of truth for resume & JD input limits
 // ============================================================
 
-import { countWords } from '../utils/wordCount';
+import { countWords } from '../lib/wordCount';
 
 export const WORD_LIMITS = {
   resume: { min: 30, max: 1500 },

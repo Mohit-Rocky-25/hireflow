@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { runHybridAnalysis } from '@/lib/ats/pipeline';
 import { enforceInvariants, isQuoteVerbatimInResume } from '@/lib/ats/invariants';
-import { escapeHtml, sanitizeUrl } from '@/utils/security';
+import { escapeHtml, sanitizeUrl } from '@/lib/security';
 import { MAX_INPUT_CHARS } from '@/config/limits';
 
 describe('Adversarial AI Security & Red-Team Test Suite (Phase 6)', () => {

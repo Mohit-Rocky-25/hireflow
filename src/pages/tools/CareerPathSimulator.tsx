@@ -9,7 +9,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { CareerPathBackButton } from '../../components/career-path/CareerPathBackButton';
 import { BranchCombobox } from '../../components/career-path/BranchCombobox';
 import { Dropdown } from '../../components/career-path/Dropdown';
-import { sanitizeUrl } from '@/utils/security';
+import { sanitizeUrl } from '@/lib/security';
 import {
   DEGREE_BRANCH_CATALOG,
   type DegreeBranchOption,

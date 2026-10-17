@@ -4,7 +4,7 @@
 // ============================================================
 
 import { describe, it, expect } from 'vitest';
-import { countWords, cleanText } from '../wordCount';
+import { countWords, cleanText } from '../../lib/wordCount';
 import {
   WORD_LIMITS,
   PREFILLED_MIN_WORDS,

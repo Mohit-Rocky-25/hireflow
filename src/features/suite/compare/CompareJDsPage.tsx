@@ -50,7 +50,7 @@ import {
   ComparisonPreset,
   CandidatePersona,
 } from './comparePresets';
-import { sanitizeCsvCell } from '../../../utils/security';
+import { sanitizeCsvCell } from '../../../lib/security';
 
 export function CompareJDsPage() {
   const { profile } = useProfile();

@@ -5,7 +5,7 @@
 // ============================================================
 
 import { EvidenceLevel } from '../profile/types';
-import { safeJsonParse } from '@/utils/security';
+import { safeJsonParse } from '@/lib/security';
 
 export interface CardSkillEntry {
   name: string;

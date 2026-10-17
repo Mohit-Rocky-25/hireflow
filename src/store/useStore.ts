@@ -8,7 +8,7 @@ import type {
   CandidateProfile, CandidateMatch, Interview, Notification, AuditLog
 } from '../types';
 import { generateDemoData } from './demoData';
-import { hashPassword, verifyPassword } from '../utils/security';
+import { hashPassword, verifyPassword } from '../lib/security';
 
 export interface AppState {
   // Auth

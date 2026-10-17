@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { verifyMagicBytes, withParserTimeout } from '@/utils/secureFileValidator';
+import { verifyMagicBytes, withParserTimeout } from '@/lib/secureFileValidator';
 
 describe('Untrusted File Handling & Magic Byte Security (Rule 4.2)', () => {
   it('rejects an executable disguised as a PDF (e.g. MZ header with .pdf extension)', () => {

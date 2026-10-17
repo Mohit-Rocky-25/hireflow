@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { sanitizeUrl, sanitizeCsvCell, escapeHtml, safeJsonParse, sanitizeFilename, sha256Sync, hashPassword, verifyPassword } from '@/utils/security';
+import { sanitizeUrl, sanitizeCsvCell, escapeHtml, safeJsonParse, sanitizeFilename, sha256Sync, hashPassword, verifyPassword } from '@/lib/security';
 
 describe('Application Security Utilities (src/utils/security.ts)', () => {
   describe('sanitizeUrl', () => {

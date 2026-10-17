@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useStore } from '../../store/useStore';
 import { Building2, Search, Plus, MapPin, Globe, Users, Briefcase } from 'lucide-react';
 import { toast } from '../../components/ui/Toast';
-import { sanitizeUrl } from '@/utils/security';
+import { sanitizeUrl } from '@/lib/security';
 
 export function AdminCompanies() {
   const { companies, jobs, companyMembers, createCompany } = useStore();
