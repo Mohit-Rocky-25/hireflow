@@ -30,9 +30,11 @@ import {
 import { ALL_OPPORTUNITIES } from '../data/opportunitiesData';
 import { OpportunityRecord, OpportunityFlag, EngineeringBranch, TrustLevel } from '../types';
 import { CredentialsStorage } from '../storage';
+import { getVerifiedTimeline } from '../engine/timelineEngine';
+import { ModalTab } from './OpportunityDetailModal';
 
 interface EventsTabProps {
-  onSelectOpportunity: (opportunity: OpportunityRecord) => void;
+  onSelectOpportunity: (opportunity: OpportunityRecord, tab?: ModalTab) => void;
   onPlanUpdated?: () => void;
 }
 
@@ -539,6 +541,7 @@ export function EventsTab({
             Boolean(event.ppoOffered) ||
             event.rewardDisplay?.headline?.toLowerCase().includes('ppi') ||
             event.rewardDisplay?.headline?.toLowerCase().includes('ppo');
+          const timeline = getVerifiedTimeline(event);
 
           return (
             <div
@@ -629,9 +632,9 @@ export function EventsTab({
                   {event.whatItProves}
                 </p>
 
-                {/* Team & Window Quick Grid */}
-                <div className="grid grid-cols-2 gap-2 pt-1">
-                  <div className="bg-surface-2/70 border border-border/80 rounded-xl p-2.5">
+                {/* Team & Verified Interactive Window Quick Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+                  <div className="bg-surface-2/70 border border-border/80 rounded-xl p-2.5 flex flex-col justify-between">
                     <p className="text-[10px] font-bold text-text-muted uppercase tracking-wider mb-1">
                       Team Format
                     </p>
@@ -641,13 +644,28 @@ export function EventsTab({
                     </p>
                   </div>
 
-                  <div className="bg-surface-2/70 border border-border/80 rounded-xl p-2.5">
-                    <p className="text-[10px] font-bold text-text-muted uppercase tracking-wider mb-1">
-                      Next Window
+                  {/* Clickable Verified Timeline Box */}
+                  <div
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onSelectOpportunity(event, 'timeline');
+                    }}
+                    className="bg-orange-500/10 hover:bg-orange-500/20 border border-orange-500/30 rounded-xl p-2.5 transition-all cursor-pointer group/win"
+                    title="Click to view verified timeline schedule, phases, and official data sources"
+                  >
+                    <div className="flex items-center justify-between gap-1 mb-1">
+                      <p className="text-[10px] font-black text-orange-600 dark:text-orange-400 uppercase tracking-wider flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                        <span>Verified Schedule ↗</span>
+                      </p>
+                      <ChevronRight className="w-3 h-3 text-orange-500 group-hover/win:translate-x-0.5 transition-transform" />
+                    </div>
+                    <p className="text-xs font-black text-foreground flex items-center gap-1.5 truncate" title={timeline.seasonLabel}>
+                      <Calendar className="w-3.5 h-3.5 text-orange-500 shrink-0" />
+                      <span>{timeline.seasonLabel}</span>
                     </p>
-                    <p className="text-xs font-bold text-foreground flex items-center gap-1.5 truncate" title={event.typicalWindow}>
-                      <Calendar className="w-3.5 h-3.5 text-primary shrink-0" />
-                      <span>{event.typicalWindow}</span>
+                    <p className="text-[10px] text-text-secondary font-medium truncate mt-0.5">
+                      {timeline.academicYearFit}
                     </p>
                   </div>
                 </div>
@@ -663,8 +681,19 @@ export function EventsTab({
                   </div>
                 )}
 
+                {/* Data Provenance Footnote */}
+                <div className="flex items-center justify-between text-[10px] text-text-muted px-1 pt-0.5 border-t border-border/40">
+                  <span className="truncate">
+                    Source: <strong className="text-foreground/80">{timeline.sources[0]?.name || event.organizer}</strong>
+                  </span>
+                  <span className="text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1 shrink-0 ml-2">
+                    <ShieldCheck className="w-3 h-3" />
+                    Audited {timeline.verifiedAuditDate}
+                  </span>
+                </div>
+
                 {/* Target Roles */}
-                <div className="flex flex-wrap gap-1.5 pt-1">
+                <div className="flex flex-wrap gap-1.5 pt-0.5">
                   {event.targetRoles.slice(0, 2).map((role, idx) => (
                     <span
                       key={idx}
@@ -711,6 +740,20 @@ export function EventsTab({
                       <span>Syllabus</span>
                     </a>
                   )}
+
+                  {/* Interactive Timeline Tab Shortcut */}
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onSelectOpportunity(event, 'timeline');
+                    }}
+                    className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-orange-500/10 hover:bg-orange-500/20 border border-orange-500/30 font-bold text-orange-600 dark:text-orange-400 text-xs transition-all cursor-pointer"
+                    title="View full verified schedule, phases, and official citations"
+                  >
+                    <Calendar className="w-3 h-3 text-orange-500" />
+                    <span>Timeline</span>
+                  </button>
                 </div>
 
                 {/* Modal View Brief Trigger */}
@@ -718,7 +761,7 @@ export function EventsTab({
                   type="button"
                   onClick={(e) => {
                     e.stopPropagation();
-                    onSelectOpportunity(event);
+                    onSelectOpportunity(event, 'overview');
                   }}
                   className="inline-flex items-center gap-1 font-black text-xs sm:text-sm text-orange-500 hover:text-orange-600 dark:hover:text-orange-400 group-hover:translate-x-0.5 transition-all cursor-pointer hover:underline"
                   title="Open in-depth competition rules, dates & breakdown brief"
