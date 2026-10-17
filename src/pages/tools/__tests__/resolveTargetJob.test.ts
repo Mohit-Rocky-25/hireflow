@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { resolveTargetJob, buildJobDescriptionFromFresherProgram } from '../resolveTargetJob';
+import { resolveTargetJob, buildJobDescriptionFromFresherProgram } from '../../../features/career-path/resolveTargetJob';
 
 describe('resolveTargetJob', () => {
   it('resolves Microsoft Software Engineer (Level 59) fresher campus role with full JD', () => {

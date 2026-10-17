@@ -3,7 +3,7 @@
 // ============================================================
 
 import React from 'react';
-import { CareerPathSimulator } from '../CareerPathSimulator';
+import { CareerPathSimulator } from '../../../features/career-path/CareerPathSimulator';
 
 export function CompanyLevelsPage() {
   return <CareerPathSimulator fixedTab="explorer" />;
