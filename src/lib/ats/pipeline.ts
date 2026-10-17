@@ -17,7 +17,7 @@ import {
   PassCNarrative,
   ScoreBreakdown,
 } from './types';
-import { analyzeDeterministic } from './index';
+import { analyzeDeterministic } from './analyzeDeterministic';
 import { enforceInvariants, isQuoteVerbatimInResume } from './invariants';
 
 // ============================================================

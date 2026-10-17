@@ -1,4 +1,4 @@
-import type { AppState } from "./useStore";
+import type { AppState } from "./types";
 import { users, companies, companyMembers } from "./seedUsers";
 import { jobs } from "./seedJobs";
 import { candidateProfiles } from "./seedCandidates";
