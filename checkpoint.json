@@ -29,8 +29,11 @@
   {
     "id": "brief-api-sdk-design",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "score": 5.25,
+    "band": "D",
+    "attempts": 1,
+    "completed_at": "2026-10-17T13:52:00Z"
   },
   {
     "id": "brief-blockchain-defi",
