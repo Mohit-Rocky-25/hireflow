@@ -831,24 +831,24 @@
     "id": "brief-api-gateway-scratch",
     "title": "API Gateway from Scratch with Plugin Architecture",
     "domain": "Distributed Systems",
-    "estimatedHours": 25,
+    "estimatedHours": 38,
     "difficulty": "advanced",
     "coveredSkills": ["Go", "Networking", "HTTP", "Concurrency", "System Design", "Docker"],
-    "problemStatement": "Commercial API gateways (Kong, AWS API Gateway) are expensive and opaque. Understanding how they work requires building one. Create a plugin-based API Gateway in Go that handles request routing, load balancing, authentication, rate limiting, request transformation, and health-based failover.",
-    "useCases": "Every microservices architecture needs an API gateway. Building your own demonstrates understanding of Kong, AWS API Gateway, and Nginx internals. Directly applicable to platform engineering roles at companies running their own infrastructure rather than fully managed cloud services.",
-    "problemItSolves": "An API Gateway combines reverse proxy, load balancer, authentication server, and plugin runtime into a single system. Building it requires understanding HTTP protocol internals, connection pooling, plugin isolation, and concurrent request handling — a complete systems engineering exercise.",
-    "recruiterSignal": "Kong, Nginx, Envoy, and APISIX knowledge is directly tied to this project. Platform engineers at Cloudflare, FastAPI framework contributors, and any infrastructure team value engineers who understand gateway internals. This is one of the most comprehensive systems projects you can build.",
-    "architecture": "Go HTTP reverse proxy with a plugin chain architecture. Each plugin (auth, rate limit, transform, log) implements a common interface and is applied in order. Upstream pool with health checking and weighted round-robin load balancing. Admin REST API for dynamic configuration without restart. Prometheus metrics exporter.",
-    "scaleTargets": "Handle 30,000 req/sec with < 5ms proxy overhead, dynamic plugin configuration with zero-downtime reload, and upstream failover within 2 seconds of health check failure.",
-    "techStack": ["Go", "HTTP", "Prometheus", "Docker", "JSON", "Concurrency"],
+    "problemStatement": "Microservice architectures require centralized ingress points to manage cross-cutting networking concerns—such as TLS termination, request authentication, rate limiting, and dynamic traffic routing—without duplicating logic across individual backend services. In horizontally-scaled environments, an ingress gateway must maintain low proxy overhead, support hot-reloading of routing rules without connection drops, balance traffic across upstream replicas using health checks, and execute extensible middleware plugins without introducing unbounded memory allocations or TCP socket leaks.",
+    "useCases": "Modern cloud platforms and Kubernetes clusters rely on edge gateways to safely expose internal services to external clients. Neutral architectural reference points include open-source gateways such as Envoy, Apache APISIX, and Traefik.",
+    "problemItSolves": "TCP Connection Pooling & File Descriptor Leaks: Default HTTP transports restrict concurrent connections per upstream host (MaxIdleConnsPerHost = 2), causing excessive socket creation and TIME_WAIT saturation under high concurrency. The proxy must implement a tuned custom http.Transport with aggressive connection reuse and leak-free response body consumption.",
+    "recruiterSignal": "Demonstrates deep capability in systems programming, networking protocols (HTTP/1.1, TCP connection lifecycles), concurrent synchronization, and infrastructure reliability engineering. Directly maps to Platform Engineer, Systems Software Engineer, and Cloud Infrastructure Engineer roles.",
+    "architecture": "Custom Go reverse proxy utilizing net/http/httputil with tuned connection pools (MaxIdleConns: 1000, MaxIdleConnsPerHost: 200). Extensible plugin chain interface (Auth -> RateLimit -> Transform) executing in sequence. Dynamic route table managed via atomic.Pointer for lock-free hot-reloading via Admin REST API. Active background health checker polling upstream /healthz every 1s with weighted round-robin failover.",
+    "scaleTargets": "Proxy Latency Overhead: p99 overhead < 5ms under 10k concurrent requests | Sustained Throughput: > [N] req/sec sustained (target 25k req/sec) | Failover Duration: Evicts dead node and converges traffic within < 2s of health check failure.",
+    "techStack": ["Go", "net/http", "Prometheus", "Docker", "JSON", "Concurrency"],
     "verificationRubric": [
-      "Plugin system: load/unload authentication plugin without restarting gateway",
-      "Load balancer test: distribute requests across 3 upstreams and auto-remove failed one",
-      "Request transformation plugin modifying headers and body before upstream forward",
-      "Admin API accepting new route configuration and applying within 1 second",
-      "Benchmark showing < 5ms overhead vs direct upstream connection at 10k concurrent requests"
+      "Gateway Startup & Direct Route Check: Verify HTTP GET /api/users proxies successfully to mock upstream and returns HTTP 200 with X-Gateway-Proxy: true.",
+      "Dynamic Hot-Reload Verification: Send PUT request to Admin API :8081/admin/routes registering /api/orders; verify routing takes effect in < 1s without process restart.",
+      "Rate Limiter Plugin Enforcement: Send 20 rapid requests to rate-limited route (threshold 10 req/min); verify 11th request returns HTTP 429 with Retry-After header.",
+      "Upstream Failover Resilience: Terminate upstream replica 2 via chaos endpoint /chaos/kill; verify gateway evicts node and reroutes subsequent traffic to healthy replicas in < 2s.",
+      "Proxy Overhead Benchmark Check: Execute benchmark comparing direct upstream vs proxied path; verify measured p99 latency overhead < [M ms] (target < 5ms)."
     ],
-    "portfolioBulletFormula": "Built plugin-based API Gateway in Go handling 30k req/sec with < 5ms proxy overhead; implemented dynamic plugin chain (auth, rate limit, transform) with zero-downtime configuration reload."
+    "portfolioBulletFormula": "Architected high-throughput API Gateway in Go with extensible plugin pipeline; achieved [N] req/sec with < [M ms] proxy latency overhead and implemented dynamic atomic configuration reloading with failover convergence under [S] seconds."
   },
   {
     "id": "brief-compiler-interpreter",
