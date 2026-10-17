@@ -556,31 +556,36 @@
   {
     "id": "cert-aws-ccp",
     "type": "certification_page",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 0,
+    "completedAt": "2026-10-17T08:50:46.980Z"
   },
   {
     "id": "cert-aws-saa",
     "type": "certification_page",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 0,
+    "completedAt": "2026-10-17T08:50:46.982Z"
   },
   {
     "id": "cert-ckad",
     "type": "certification_page",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 0,
+    "completedAt": "2026-10-17T08:50:46.982Z"
   },
   {
     "id": "cert-comptia-sec",
     "type": "certification_page",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 0,
+    "completedAt": "2026-10-17T08:50:46.982Z"
   },
   {
     "id": "cert-gcp-ace",
     "type": "certification_page",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 0,
+    "completedAt": "2026-10-17T08:50:46.982Z"
   }
 ]
