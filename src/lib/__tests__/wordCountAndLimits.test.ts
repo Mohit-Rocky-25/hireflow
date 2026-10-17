@@ -10,7 +10,7 @@ import {
   PREFILLED_MIN_WORDS,
   getMinWords,
   validateAtsInputs,
-} from '../../config/limits';
+} from '../config/limits';
 
 describe('Word Count & Validation Logic', () => {
   describe('countWords & cleanText', () => {

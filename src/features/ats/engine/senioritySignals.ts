@@ -9,7 +9,7 @@ import {
   inferSeniorityLevelFromYears,
   SeniorityLevelConfig,
   AdviceCardConfig,
-} from '../../../config/atsConfig';
+} from '../../../lib/config/atsConfig';
 import { ParsedSection } from './types';
 
 export interface EvaluatedSignal {

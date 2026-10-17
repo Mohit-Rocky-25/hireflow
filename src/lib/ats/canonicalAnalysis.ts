@@ -22,7 +22,7 @@ import { formatAuditor } from './formatAuditor';
 import { isQuoteVerbatimInResume, normalizeWhitespace } from './invariants';
 import { AtsEngineResult } from '../../features/ats/engine/types';
 import { SKILL_TAXONOMY } from './matchSkills';
-import { WORD_LIMITS } from '../../config/limits';
+import { WORD_LIMITS } from '../config/limits';
 
 export const TAXONOMY_VERSION = '1.2.0';
 export const SCORING_VERSION = '2.4.0';

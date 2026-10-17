@@ -10,7 +10,7 @@ import {
   getRolePack,
   getPreset,
   getRegion,
-} from '../../../config/atsConfig';
+} from '../../../lib/config/atsConfig';
 
 export type SkillProficiencyLevel = 0 | 1 | 2 | 3 | 4 | 5;
 export type SkillStatusCode = 'missing' | 'claimed' | 'verified' | 'strong';

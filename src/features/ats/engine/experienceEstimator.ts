@@ -3,7 +3,7 @@
 // Infers total experience tenure and maps to candidate level
 // ============================================================
 
-import { getSeniorityLevel, inferSeniorityLevelFromYears } from '../../../config/atsConfig';
+import { getSeniorityLevel, inferSeniorityLevelFromYears } from '../../../lib/config/atsConfig';
 import { ExperienceEntry, ExperienceLevelId } from './types';
 
 export interface SeniorityEstimate {

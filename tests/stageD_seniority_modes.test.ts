@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { getAtsConfigs, inferSeniorityLevelFromYears } from '../src/config/atsConfig';
+import { getAtsConfigs, inferSeniorityLevelFromYears } from '../src/lib/config/atsConfig';
 import { evaluateSenioritySignals, normalizeSeniorityLevel } from '../src/features/ats/engine/senioritySignals';
 import { runAtsEngine } from '../src/features/ats/engine';
 import { splitResumeSections } from '../src/features/ats/engine/sectionSplitter';

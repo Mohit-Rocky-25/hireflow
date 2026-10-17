@@ -8,7 +8,7 @@ import {
   getGlossaryTerm,
   getVerifiedResourcesForTopics,
   getProofSourcesForRole,
-} from '../src/config/atsConfig';
+} from '../src/lib/config/atsConfig';
 import {
   runAtsEngine,
   computeFindingId,

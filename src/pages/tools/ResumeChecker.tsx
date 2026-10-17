@@ -43,7 +43,7 @@ import { AuditTab } from '../../features/ats/components/AuditTab';
 import { LearningPathTab } from '../../features/ats/components/LearningPathTab';
 import { DebugDrawer } from '../../features/ats/components/DebugDrawer';
 import { useTalentLensStore, DEMO_TALENTLENS_RESUME } from '../demo/useTalentLensStore';
-import { WordLimitSource } from '../../config/limits';
+import { WordLimitSource } from '../../lib/config/limits';
 import { resolveTargetJob } from './resolveTargetJob';
 
 const STAGED_MESSAGES = [

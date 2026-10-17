@@ -12,7 +12,7 @@ import {
   ExclusionsSchema,
   WorkTypesConfigSchema,
   LearningSkillsConfigSchema,
-} from '../src/config/atsConfig';
+} from '../src/lib/config/atsConfig';
 
 describe('Stage 1 — Configuration Layer & Schema Validation', () => {
   it('loads and validates all configurations at startup without throwing', () => {

@@ -8,7 +8,7 @@ import { FileText, Search, ScanLine, AlertCircle, Sparkles, ArrowRight, ShieldCh
 import { SegmentedSelectors, TargetTier, ExperienceLevel } from './SegmentedSelectors';
 import { FileDropzone } from './FileDropzone';
 import { useTalentLensStore } from '../../../pages/demo/useTalentLensStore';
-import { validateAtsInputs, WordLimitSource } from '../../../config/limits';
+import { validateAtsInputs, WordLimitSource } from '../../../lib/config/limits';
 
 export type { TargetTier, ExperienceLevel };
 

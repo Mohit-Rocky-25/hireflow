@@ -23,7 +23,7 @@ import {
   ExperienceLevelId,
 } from './types';
 import { analyzeCanonical } from '../../../lib/ats/canonicalAnalysis';
-import { getMinWords, WordLimitSource } from '../../../config/limits';
+import { getMinWords, WordLimitSource } from '../../../lib/config/limits';
 
 export * from './types';
 export * from './reportState';
