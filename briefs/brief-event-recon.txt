@@ -3,24 +3,24 @@ PROJECT BRIEF — Event-Driven Payment Reconciliation Engine
 
 Domain    : FinTech Engineering
 Difficulty: ADVANCED
-Est. Time : 30 hours
+Est. Time : 38 hours
 Tech Stack: Python, Kafka, PostgreSQL, SQLAlchemy, Docker, FastAPI
 
 PROBLEM STATEMENT
 ----------------------------------------
-Fintech platforms process millions of transaction events across third-party gateways (Stripe, Razorpay, Bank APIs) that often mismatch due to webhook dropped packets, bank settlements, and timezone drift. Manual reconciliation teams cost millions of rupees annually. Build an automated reconciliation engine with idempotent ledger tracking.
+Fintech platforms process millions of transaction events across third-party gateways (Stripe, top tech platforms, Bank APIs) that often mismatch due to webhook dropped packets, bank settlements, and timezone drift. Manual reconciliation teams high-signal core competencies. Build an automated reconciliation engine with idempotent ledger tracking.
 
 USE CASES IN THE REAL WORLD
 ----------------------------------------
-Every payment company in India — Razorpay, PayU, BillDesk, Paytm — runs reconciliation systems. Banks, NBFCs, and lending platforms reconcile millions of transactions daily. This is a core infrastructure component for any company processing real money.
+Every payment company in India — top tech platforms, top tech platforms, top tech platforms, top tech platforms — runs reconciliation systems. Banks, NBFCs, and lending platforms reconcile millions of transactions daily. This is a core infrastructure component for any company processing real money.
 
 WHY THIS IS HARD (COMPETENCY REDUCER)
 ----------------------------------------
-Financial mismatches expose companies to regulatory penalties, fraud losses, and customer trust damage. This project demonstrates you can build mission-critical, audit-compliant systems — a massive differentiation signal for FinTech roles at Groww, Zerodha, CRED, and PhonePe.
+Financial mismatches expose companies to regulatory penalties, fraud losses, and customer trust damage. This project demonstrates you can build mission-critical, audit-compliant systems — a massive differentiation signal for FinTech roles at top tech platforms, top tech platforms, top tech platforms, and top tech platforms.
 
 RECRUITER SHORTLIST SIGNAL
 ----------------------------------------
-Demonstrates Kafka event sourcing, double-entry bookkeeping principles, idempotency — all non-negotiable knowledge in FinTech backend interviews. Any interviewer from Razorpay or PhonePe will immediately recognize the domain depth.
+Demonstrates Kafka event sourcing, double-entry bookkeeping principles, idempotency — all non-negotiable knowledge in FinTech backend interviews. Any interviewer from top tech platforms or top tech platforms will immediately recognize the domain depth.
 
 ARCHITECTURE & DATA FLOW
 ----------------------------------------
@@ -28,7 +28,7 @@ Kafka consumers ingest raw gateway webhooks into an append-only transaction ledg
 
 SCALE & PERFORMANCE TARGETS
 ----------------------------------------
-Reconcile 500,000 transaction pairs in under 3 minutes with exactly-once idempotency and 100% discrepancy detection precision.
+Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
 
 SKILLS COVERED
 ----------------------------------------
@@ -36,14 +36,14 @@ Python, Kafka, PostgreSQL, Docker, Microservices, SQL
 
 SCREENER VERIFICATION RUBRIC
 ----------------------------------------
-1. Dockerized test environment with simulated mock banking settlement feeds
-2. Idempotency key enforcement preventing double-credit on retried webhooks
-3. Automated discrepancy reporting generating downloadable CSV/PDF audit trails
-4. Unit tests with 90%+ branch coverage validating out-of-order webhook ingest
-5. PostgreSQL schema designed with double-entry bookkeeping constraints
+1. Verify dockerized test environment with simulated mock banking settlement feeds; passes when verified by automated test script or benchmark log.
+2. Verify idempotency key enforcement preventing double-credit on retried webhooks; passes when verified by automated test script or benchmark log.
+3. Verify automated discrepancy reporting generating downloadable CSV/PDF audit trails; passes when verified by automated test script or benchmark log.
+4. Verify unit tests with 90%+ branch coverage validating out-of-order webhook ingest; passes when verified by automated test script or benchmark log.
+5. Verify postgreSQL schema designed with double-entry bookkeeping constraints; passes when verified by automated test script or benchmark log.
 
 RESUME BULLET FORMULA
 ----------------------------------------
-"Built event-driven payment reconciliation system in Python & Kafka backed by PostgreSQL; matched 500k daily transaction events with 100% precision and zero-loss idempotency."
+"Built event-driven payment reconciliation system in Python & Kafka backed by PostgreSQL; matched [N] req/sec daily transaction events with 100% precision and fault-tolerant idempotency."
 
 Generated by HireFlow — hireflow.io

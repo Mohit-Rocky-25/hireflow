@@ -6,7 +6,7 @@
     "score": 5.13,
     "band": "D",
     "attempts": 1,
-    "completed_at": "2026-10-16T19:32:00Z"
+    "completed_at": "2026-10-17T08:25:28.041Z"
   },
   {
     "id": "brief-analytics-clickhouse",
@@ -15,7 +15,7 @@
     "score": 5.38,
     "band": "D",
     "attempts": 1,
-    "completed_at": "2026-10-16T21:27:00Z"
+    "completed_at": "2026-10-17T08:25:27.931Z"
   },
   {
     "id": "brief-api-gateway-scratch",
@@ -24,7 +24,7 @@
     "score": 5.15,
     "band": "D",
     "attempts": 1,
-    "completed_at": "2026-10-17T13:50:00Z"
+    "completed_at": "2026-10-17T08:25:27.997Z"
   },
   {
     "id": "brief-api-sdk-design",
@@ -33,451 +33,525 @@
     "score": 5.25,
     "band": "D",
     "attempts": 1,
-    "completed_at": "2026-10-17T13:52:00Z"
+    "completed_at": "2026-10-17T08:25:28.063Z"
   },
   {
     "id": "brief-blockchain-defi",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:27.996Z"
   },
   {
     "id": "brief-canary-deployment",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:28.036Z"
   },
   {
     "id": "brief-cdc-pipeline",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:27.983Z"
   },
   {
     "id": "brief-ci-cd-from-scratch",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:28.053Z"
   },
   {
     "id": "brief-compiler-interpreter",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:27.999Z"
   },
   {
     "id": "brief-computer-vision-api",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:27.985Z"
   },
   {
     "id": "brief-container-runtime",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:28.023Z"
   },
   {
     "id": "brief-credit-risk-model",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:27.971Z"
   },
   {
     "id": "brief-data-quality-framework",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:27.978Z"
   },
   {
     "id": "brief-database-engine",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:28.001Z"
   },
   {
     "id": "brief-devsecops-pipeline",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:28.050Z"
   },
   {
     "id": "brief-dist-cache-rust",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:27.929Z"
   },
   {
     "id": "brief-dist-rate-limiter",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:27.921Z"
   },
   {
     "id": "brief-embedding-search-engine",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:28.012Z"
   },
   {
     "id": "brief-event-driven-saas",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:28.046Z"
   },
   {
     "id": "brief-event-recon",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:27.927Z"
   },
   {
     "id": "brief-event-sourcing",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:28.062Z"
   },
   {
     "id": "brief-feature-flag-platform",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:28.003Z"
   },
   {
     "id": "brief-fraud-detection-ml",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:27.962Z"
   },
   {
     "id": "brief-fullstack-ecommerce",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:27.933Z"
   },
   {
     "id": "brief-genai-code-reviewer",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:27.959Z"
   },
   {
     "id": "brief-gitignore-lsp",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:28.075Z"
   },
   {
     "id": "brief-gitops-registry",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:27.935Z"
   },
   {
     "id": "brief-gpu-accelerated-inference",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:28.048Z"
   },
   {
     "id": "brief-graph-analysis",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:28.045Z"
   },
   {
     "id": "brief-graphql-federation",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:27.987Z"
   },
   {
     "id": "brief-graphql-to-sql-compiler",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:28.019Z"
   },
   {
     "id": "brief-high-throughput-logging",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:27.943Z"
   },
   {
     "id": "brief-homomorphic-encryption",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:28.077Z"
   },
   {
     "id": "brief-interview-prep-ai",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:28.032Z"
   },
   {
     "id": "brief-knowledge-graph",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:28.058Z"
   },
   {
     "id": "brief-kubernetes-operator",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:27.980Z"
   },
   {
     "id": "brief-llm-agent-workflow",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:27.955Z"
   },
   {
     "id": "brief-llm-evaluation-framework",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:27.992Z"
   },
   {
     "id": "brief-llm-finetuning-peft",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:27.958Z"
   },
   {
     "id": "brief-llm-finetuning-rlhf",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:28.016Z"
   },
   {
     "id": "brief-llm-gateway",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:28.071Z"
   },
   {
     "id": "brief-load-balancer",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:28.009Z"
   },
   {
     "id": "brief-message-queue",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:28.011Z"
   },
   {
     "id": "brief-micro-frontend-shell",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:27.941Z"
   },
   {
     "id": "brief-mlops-platform",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:27.963Z"
   },
   {
     "id": "brief-mobile-flutter-prod",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:27.989Z"
   },
   {
     "id": "brief-multimodal-ai-app",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:27.994Z"
   },
   {
     "id": "brief-notification-service",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:28.014Z"
   },
   {
     "id": "brief-observability-sdk",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:28.030Z"
   },
   {
     "id": "brief-offline-first-sync",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:27.952Z"
   },
   {
     "id": "brief-opentelemetry-observability",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:27.950Z"
   },
   {
     "id": "brief-osint-data-platform",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:28.039Z"
   },
   {
     "id": "brief-peer-to-peer",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:28.065Z"
   },
   {
     "id": "brief-personalization-engine",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:28.028Z"
   },
   {
     "id": "brief-privacy-preserving-ml",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:28.055Z"
   },
   {
     "id": "brief-progressive-web-app",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:28.069Z"
   },
   {
     "id": "brief-raft-consensus",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:27.945Z"
   },
   {
     "id": "brief-rag-vector-search",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:27.938Z"
   },
   {
     "id": "brief-react-native-offline",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:27.991Z"
   },
   {
     "id": "brief-realtime-analytics-dashboard",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:28.052Z"
   },
   {
     "id": "brief-realtime-code-execution",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:28.060Z"
   },
   {
     "id": "brief-realtime-collab",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:27.925Z"
   },
   {
     "id": "brief-realtime-stock-platform",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:27.967Z"
   },
   {
     "id": "brief-recommendation-engine",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:27.965Z"
   },
   {
     "id": "brief-schema-registry",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:28.034Z"
   },
   {
     "id": "brief-search-engine",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:27.973Z"
   },
   {
     "id": "brief-semantic-kernel-agent",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:28.007Z"
   },
   {
     "id": "brief-serverless-backend",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:28.073Z"
   },
   {
     "id": "brief-service-mesh",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:27.982Z"
   },
   {
     "id": "brief-streaming-data-pipeline",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:27.976Z"
   },
   {
     "id": "brief-supply-chain-optimization",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:28.067Z"
   },
   {
     "id": "brief-terraform-cloud-infra",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:28.005Z"
   },
   {
     "id": "brief-time-series-forecasting",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:28.017Z"
   },
   {
     "id": "brief-tls-certificate-manager",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:28.043Z"
   },
   {
     "id": "brief-upi-payment-gateway",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:27.969Z"
   },
   {
     "id": "brief-vector-db-from-scratch",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:28.021Z"
   },
   {
     "id": "brief-workflow-engine",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:28.025Z"
   },
   {
     "id": "brief-zero-trust-proxy",
     "type": "project_brief",
-    "status": "pending",
-    "attempts": 0
+    "status": "completed",
+    "attempts": 1,
+    "completed_at": "2026-10-17T08:25:27.947Z"
   },
   {
     "id": "cert-aws-ccp",

@@ -3,47 +3,47 @@ PROJECT BRIEF — Bayesian A/B Experimentation Engine
 
 Domain    : ML Engineering
 Difficulty: INTERMEDIATE
-Est. Time : 20 hours
-Tech Stack: Python, NumPy, SciPy, FastAPI, PostgreSQL, React
+Est. Time : 32 hours
+Tech Stack: Python, NumPy, SciPy, FastAPI, PostgreSQL, Docker
 
 PROBLEM STATEMENT
 ----------------------------------------
-Traditional frequentist A/B testing requires waiting for statistical significance while causing unnecessary user harm in losing variants. Build a Bayesian experimentation engine that continuously updates posterior probability distributions and allows early stopping when winning variant probability exceeds threshold.
+Fixed-horizon frequentist A/B testing requires accumulating a predetermined sample size before evaluating outcomes, prolonging exposure to suboptimal variants and encouraging premature stopping errors (peeking). When teams inspect p-values continuously without formal alpha-spending adjustments, false positive rates escalate significantly. A Bayesian experimentation engine addresses this by maintaining continuous posterior probability distributions over conversion rates, calculating the exact probability that a candidate variant outperforms the baseline and quantifying the expected financial or metric loss of selecting that variant, enabling automated stopping decisions while bounding decision risk.
 
 USE CASES IN THE REAL WORLD
 ----------------------------------------
-Booking.com, Netflix, and Etsy run thousands of simultaneous experiments using Bayesian methods. Every product company running A/B tests faces the 'peeking problem' (stopping early when results look good). Bayesian testing solves this principled fashion.
+Online experimentation platforms evaluate user interface changes, pricing tiers, and checkout workflow variants across high-traffic digital applications. Neutral architectural reference points include web and mobile experimentation platforms such as Optimizely, Statsig, and GrowthBook.
 
 WHY THIS IS HARD (COMPETENCY REDUCER)
 ----------------------------------------
-Bayesian A/B testing requires understanding probability theory, conjugate priors (Beta-Binomial for conversion), posterior simulation, and expected loss computation — applied statistics at a production level. This demonstrates quantitative and engineering skills that are rare and highly valued in growth engineering roles.
+Preventing False Positive Inflation Under Continuous Inspection: While Bayesian updating is logically coherent under sequential data arrivals, naive early stopping on uncalibrated thresholds (P(B > A) > 0.95) during low-sample cold starts (N < 200) causes severe discovery bias. The engine enforces minimum statistical power thresholds and computes Expected Loss thresholds rather than relying purely on tail probabilities.
 
 RECRUITER SHORTLIST SIGNAL
 ----------------------------------------
-Growth engineers and experimentation platform builders at companies like Flipkart, Amazon, and Swiggy need this exact knowledge. The Bayesian vs frequentist debate is a specific topic in data science and growth engineering interviews. A working Bayesian engine signals sophisticated statistical engineering.
+Demonstrates capability in applied probability, numerical computing, and concurrent backend architecture. Proves the engineer can translate mathematical statistics into a tested production service rather than relying on black-box modeling libraries. Directly maps to roles in Growth Engineering, Machine Learning Engineering, and Data Platform Infrastructure.
 
 ARCHITECTURE & DATA FLOW
 ----------------------------------------
-Beta-Binomial conjugate prior model updated with real-time conversion data. Monte Carlo simulation computing P(A > B) at each event. Expected Loss computation for deciding when to stop. FastAPI backend with PostgreSQL experiment tracking. React dashboard with posterior distribution visualization and stopping recommendation.
+Event Ingestion via FastAPI into append-only PostgreSQL log. Beta-Binomial conjugate posterior Beta(α + k, β + n - k) evaluated via numerical quadrature or exact closed-form integral for two arms. Expected Loss computed as joint probability integral over loss function. Automated transition to STOPPED_WINNER or STOPPED_INCONCLUSIVE once n ≥ N_min and Expected Loss < ε.
 
 SCALE & PERFORMANCE TARGETS
 ----------------------------------------
-Update experiment posteriors within 1 second of conversion event, process 1,000 experiments simultaneously, and demonstrate 20% reduction in experiment duration vs frequentist approach on simulated data.
+Ingestion Latency: p99 < 20ms under 10k concurrent synthetic events | Inference Throughput: > 2,000 evaluations/sec on Python 3.11+ | Duration Reduction: Median sample reduction ≥ [X%] vs fixed-sample baseline with empirical false positive rate ≤ [Y%] under A=B null.
 
 SKILLS COVERED
 ----------------------------------------
-Python, Statistics, FastAPI, React, PostgreSQL, Algorithms
+Python, Statistics, FastAPI, PostgreSQL, Algorithms, Docker
 
 SCREENER VERIFICATION RUBRIC
 ----------------------------------------
-1. Beta distribution visualization updating in real-time as conversions arrive
-2. Early stopping decision: experiment stops when P(B>A) > 95% correctly
-3. Expected loss computation ensuring stopping decision accounts for remaining uncertainty
-4. Simulation comparison: Bayesian vs frequentist duration on identical datasets
-5. Multi-variant support: A/B/C/D testing with per-variant posterior tracking
+1. Mathematical Correctness: Run pytest verifying analytical P(B > A) and Expected Loss match SciPy numerical integration within ±1e-4 tolerance across 10 deterministic test fixtures.
+2. Ingestion Verification: Submit 100 concurrent HTTP POST events to API; verify PostgreSQL records exactly 100 logged events with zero lost updates.
+3. Early Stopping Trigger: Ingest synthetic event stream (pA=0.05, pB=0.07); verify engine transitions status to STOPPED_WINNER once P(B > A) > 0.95 and Expected Loss < ε after N_min threshold.
+4. False Positive Boundary: Execute simulation benchmark over 500 null iterations (A=B); verify empirical false stopping rate does not exceed [X%] (target ≤ 5%).
+5. Benchmark Comparison: Execute benchmark comparing Bayesian early-stopping vs fixed-horizon baseline; report median sample size reduction of [X%].
 
 RESUME BULLET FORMULA
 ----------------------------------------
-"Built Bayesian A/B experimentation engine with Beta-Binomial conjugate model; reduced experiment duration 22% vs frequentist while maintaining 95% decision confidence with real-time posterior visualization."
+"Architected Bayesian A/B experimentation engine in Python and FastAPI backed by PostgreSQL; implemented Beta-Binomial conjugate updating and expected loss calculations to reduce experiment duration by [X%] while bounding false discoveries below [Y%] across [N] simulated trials."
 
 Generated by HireFlow — hireflow.io

@@ -3,8 +3,8 @@ PROJECT BRIEF — API Gateway from Scratch with Plugin Architecture
 
 Domain    : Distributed Systems
 Difficulty: ADVANCED
-Est. Time : 38 hours (Core Path); +8 hours (Extended Path)
-Tech Stack: Go [core gateway daemon, reverse proxy, and plugin runtime; Requires: Go 1.22+], net/http [HTTP protocol handling and connection pooling], Prometheus [metrics exposition endpoint for scrape scrapers], Docker [containerization of gateway and mock upstream backends; Requires: Docker Desktop/daemon], JSON [route configuration schema and admin API payloads], Concurrency [goroutines, sync.RWMutex, and atomic.Pointer for lock-free routing]
+Est. Time : 38 hours
+Tech Stack: Go, net/http, Prometheus, Docker, JSON, Concurrency
 
 PROBLEM STATEMENT
 ----------------------------------------
@@ -16,10 +16,7 @@ Modern cloud platforms and Kubernetes clusters rely on edge gateways to safely e
 
 WHY THIS IS HARD (COMPETENCY REDUCER)
 ----------------------------------------
-Building a performant, extensible gateway in Go presents three formidable systems challenges:
-1. TCP Connection Pooling & File Descriptor Leaks: Default HTTP transports restrict concurrent connections per upstream host (`MaxIdleConnsPerHost = 2`), causing excessive socket creation and `TIME_WAIT` saturation under high concurrency. The proxy must implement a tuned custom `http.Transport` with aggressive connection reuse and leak-free response body consumption.
-2. Race-Free Dynamic Configuration Reloading: Updating routes and plugin chains via an administrative API while thousands of concurrent requests are executing requires lock-free or copy-on-write atomic memory swapping (`atomic.Pointer`) to prevent data races and dropped client connections.
-3. Memory Safety Under Body Transformations: Inspecting and rewriting request or response bodies in middleware plugins breaks HTTP streaming and risks Out-Of-Memory (OOM) crashes unless bounded by explicit memory limiters (`http.MaxBytesReader`).
+TCP Connection Pooling & File Descriptor Leaks: Default HTTP transports restrict concurrent connections per upstream host (MaxIdleConnsPerHost = 2), causing excessive socket creation and TIME_WAIT saturation under high concurrency. The proxy must implement a tuned custom http.Transport with aggressive connection reuse and leak-free response body consumption.
 
 RECRUITER SHORTLIST SIGNAL
 ----------------------------------------
@@ -27,98 +24,26 @@ Demonstrates deep capability in systems programming, networking protocols (HTTP/
 
 ARCHITECTURE & DATA FLOW
 ----------------------------------------
-1. Client Request Arrival: Downstream client opens HTTP connection to the gateway entry port (e.g. `:8080`).
-2. Route Matching: The request path, method, and host headers are matched against an in-memory radix tree or hash table of active routes.
-3. Plugin Chain Execution: The matched route defines an ordered pipeline of plugins (`AuthPlugin` -> `RateLimitPlugin` -> `TransformPlugin`). Each plugin executes sequentially; a rejection aborts the request with appropriate status headers.
-4. Upstream Resolution & Load Balancing: The gateway selects an active upstream server from the route's target pool using weighted round-robin or least-connections algorithms, filtering out unhealthy instances identified by background health checks.
-5. Reverse Proxy Forwarding: The custom `httputil.ReverseProxy` forwards the request, injecting tracing headers (`X-Forwarded-For`, `X-Request-ID`) and utilizing pooled persistent connections.
-6. Response Streaming: Upstream response headers and body stream back to the downstream client with recorded latency metrics exported to Prometheus.
-7. Admin Plane: An independent HTTP endpoint (`:8081/admin/routes`) accepts JSON configuration updates, validating and atomically swapping the global routing pointer.
+Custom Go reverse proxy utilizing net/http/httputil with tuned connection pools (MaxIdleConns: 1000, MaxIdleConnsPerHost: 200). Extensible plugin chain interface (Auth -> RateLimit -> Transform) executing in sequence. Dynamic route table managed via atomic.Pointer for lock-free hot-reloading via Admin REST API. Active background health checker polling upstream /healthz every 1s with weighted round-robin failover.
 
 SCALE & PERFORMANCE TARGETS
 ----------------------------------------
-- Proxy Latency Overhead | Method: Benchmark harness (e.g., hey or k6) measuring p99 latency delta between direct upstream vs. proxied path | Input: 10,000 concurrent requests sending 1KB payloads | Reference environment: Local 4-core CPU, 8 GB RAM, Linux/WSL2 or macOS | Minimum pass: p99 latency overhead < 10ms | Target: p99 latency overhead < 5ms | Report format: CSV latency breakdown comparing direct vs proxied p50, p95, and p99.
-- Sustained Throughput | Method: Automated load test running for 60 seconds against a 3-node mock upstream cluster | Input: Synthetic HTTP GET and POST requests across 5 distinct routes | Reference environment: Single local machine, Go 1.22+ binary | Minimum pass: > 10,000 req/sec sustained with 0% socket errors | Target: > [N] req/sec sustained (target 25,000 req/sec) | Report format: k6 summary report output.
-- Failover Convergence Duration | Method: Fault injection test terminating an active upstream during continuous traffic | Input: Continuous 1,000 RPS load | Reference environment: 3 containerized upstream replicas | Minimum pass: Failed node evicted and traffic 100% rerouted within < 5s | Target: Traffic rerouted within < 2s with < [X of Y] 502 Bad Gateway responses | Report format: Log timestamp analysis report.
+Proxy Latency Overhead: p99 overhead < 5ms under 10k concurrent requests | Sustained Throughput: > [N] req/sec sustained (target 25k req/sec) | Failover Duration: Evicts dead node and converges traffic within < 2s of health check failure.
 
 SKILLS COVERED
 ----------------------------------------
 Go, Networking, HTTP, Concurrency, System Design, Docker
 
-TARGET APPLICATION / STARTER INPUT
-----------------------------------------
-- Mock Upstream Cluster: A minimal containerized Go server (`test/mock_upstream.go`) that simulates microservice endpoints:
-  - `/api/users`: Returns JSON payload with configurable artificial latency (`?sleep=50ms`).
-  - `/api/orders`: Returns static order records.
-  - `/healthz`: Responds with HTTP 200 or HTTP 500 when toggled via POST to `/chaos/kill`.
-- Seed Route Configuration: A JSON specification (`config/routes.json`) configuring 3 routes, weighted upstreams, rate limit rules (e.g. 100 req/min per IP), and header transformation rules.
-
-MILESTONES
-----------------------------------------
-- Milestone 1: Environment Setup & Mock Upstream Suite (4 hours)
-  - Initialize Go module, define project layout (`cmd/gateway`, `pkg/proxy`, `pkg/plugins`, `pkg/balancer`), and create mock upstream test cluster with Docker Compose.
-  - Done criterion: Automated script starts 3 mock upstreams and confirms health endpoints respond.
-- Milestone 2: Core Reverse Proxy & Connection Pool Tuning (7 hours)
-  - Implement reverse proxy handler using custom `http.Transport` with tuned pool sizes (`MaxIdleConns: 1000`, `MaxIdleConnsPerHost: 200`, `IdleConnTimeout: 90s`). Ensure full body drainage to prevent socket leaks.
-  - Done criterion: Benchmark demonstrates zero `connection reset by peer` errors under 5,000 concurrent connections.
-- Milestone 3: Extensible Plugin Interface & Built-In Plugins (7 hours)
-  - Define `Plugin` interface (`ProcessRequest`, `ProcessResponse`). Implement Token Bucket rate limiter (IP-based) and API Key Authentication plugin.
-  - Done criterion: Unit test suite verifies 429 Too Many Requests response once token bucket empties, and 401 Unauthorized on missing credentials.
-- Milestone 4: Dynamic Admin API & Atomic Route Hot-Reload (6 hours)
-  - Implement admin REST API (`POST /admin/routes`). Store route table in an `atomic.Pointer` or read-copy-update structure to guarantee zero-downtime hot-reloading.
-  - Done criterion: Integration test reloads routing configuration during active traffic; validates new routes take effect within 1s without dropped requests.
-- Milestone 5: Upstream Pool Management & Active Health Checking (5 hours)
-  - Implement weighted round-robin balancer and background health prober that queries `/healthz` on all upstreams every 1 second, automatically marking unhealthy nodes offline.
-  - Done criterion: Chaos test kills one upstream; balancer stops forwarding traffic to the dead node within 2 seconds.
-- Milestone 6: Observability Metrics & Performance Benchmark (5 hours)
-  - Integrate Prometheus metrics exporter (`gateway_requests_total`, `gateway_request_duration_seconds`, `gateway_upstream_status`). Run automated load test comparing proxy vs direct upstream.
-  - Done criterion: Generated benchmark report detailing measured throughput and latency overhead.
-- Milestone 7: Documentation, Architecture Diagrams & Verification (4 hours)
-  - Write comprehensive README, Mermaid sequence diagram detailing plugin chain execution, known limitations file, and screener verification script.
-  - Done criterion: Screener verification script runs end-to-end and exits with status 0.
-
-PREREQUISITES, ENVIRONMENT AND ACCOUNTS
-----------------------------------------
-- Prerequisites: Solid understanding of Go syntax (goroutines, channels, interfaces), HTTP protocol basics (headers, status codes, keep-alive), and basic command-line utilities.
-- Environment: Local development machine (Linux, macOS, or Windows WSL2) with Go 1.22+ and Docker Engine installed.
-- Accounts & Costs: Zero paid accounts, cloud services, or external API keys required. Entire stack executes completely offline on localhost.
-
-DELIVERABLES
-----------------------------------------
-1. Clean Git repository with modular Go architecture (`cmd/`, `pkg/proxy/`, `pkg/plugins/`, `pkg/balancer/`, `pkg/admin/`).
-2. Architecture sequence diagram (Mermaid format in README) showing request interception and plugin lifecycle.
-3. Complete `docker-compose.yml` spinning up the gateway alongside 3 mock upstream backend instances.
-4. Reproducible load benchmark script (`scripts/run_benchmark.sh`) using hey or k6.
-5. Known limitations document (`LIMITATIONS.md`) detailing HTTP/2 multiplexing boundaries and distributed rate-limiting tradeoffs.
-6. Automated screener verification test script (`verify.sh` or `verify.ps1`).
-
-OUT OF SCOPE AND EXTENDED PATH
-----------------------------------------
-- Out of Scope for Core Path: Distributed cluster-wide rate limiting using Redis, automated TLS certificate provisioning (Let's Encrypt ACME), and gRPC transcoding.
-- Extended Path (+8 hours): Distributed rate-limiting plugin backed by Redis Lua scripts and WebAssembly (Wasm) plugin execution runtime via wazero.
-
-SAFETY AND ETHICS NOTE
-----------------------------------------
-API Gateways are the front gate to application infrastructure. Vulnerabilities in header sanitization or connection pooling can expose backends to HTTP Request Smuggling, denial-of-service, or authentication bypass. The implementation enforces strict header cleaning (`X-Forwarded-*` validation) and bounds maximum request headers and body sizes.
-
-LEARNING RESOURCES
-----------------------------------------
-- Go Standard Library Documentation: `net/http/httputil` ReverseProxy implementation reference.
-- Cloudflare Blog: "How we built the Cloudflare API Gateway".
-- Envoy Architecture Overview: "Connection Pooling and Upstream Health Checking".
-
 SCREENER VERIFICATION RUBRIC
 ----------------------------------------
-1. Gateway Startup & Direct Route Check: Launch system with `docker compose up -d` and run `./verify.sh --step-1`. Passes when HTTP GET to gateway `/api/users` proxies successfully to upstream and returns HTTP 200 with response header `X-Gateway-Proxy: true`.
-2. Dynamic Hot-Reload Verification: Send PUT request to Admin API `:8081/admin/routes` registering a new route `/api/orders`. Passes when gateway immediately begins routing `/api/orders` to target upstream in < 1s without service restart.
-3. Rate Limiter Plugin Enforcement: Send 20 rapid consecutive requests from a single client to a rate-limited route (threshold 10 req/min). Passes when the 11th request returns HTTP 429 with header `Retry-After`.
-4. Upstream Failover Resilience: Terminate upstream replica 2 via chaos endpoint `/chaos/kill`. Passes when gateway detects failure via health probe, evicts node, and reroutes subsequent traffic to healthy replicas within < 2 seconds.
-5. Proxy Overhead Benchmark Check: Execute `scripts/run_benchmark.sh --compare`. Passes when benchmark report measures p99 latency overhead < [M ms] (target < 5ms) across 5,000 sample requests.
+1. Gateway Startup & Direct Route Check: Verify HTTP GET /api/users proxies successfully to mock upstream and returns HTTP 200 with X-Gateway-Proxy: true.
+2. Dynamic Hot-Reload Verification: Send PUT request to Admin API :8081/admin/routes registering /api/orders; verify routing takes effect in < 1s without process restart.
+3. Rate Limiter Plugin Enforcement: Send 20 rapid requests to rate-limited route (threshold 10 req/min); verify 11th request returns HTTP 429 with Retry-After header.
+4. Upstream Failover Resilience: Terminate upstream replica 2 via chaos endpoint /chaos/kill; verify gateway evicts node and reroutes subsequent traffic to healthy replicas in < 2s.
+5. Proxy Overhead Benchmark Check: Execute benchmark comparing direct upstream vs proxied path; verify measured p99 latency overhead < [M ms] (target < 5ms).
 
 RESUME BULLET FORMULA
 ----------------------------------------
 "Architected high-throughput API Gateway in Go with extensible plugin pipeline; achieved [N] req/sec with < [M ms] proxy latency overhead and implemented dynamic atomic configuration reloading with failover convergence under [S] seconds."
-
-Do not claim: 30,000 req/sec or sub-5ms latency without running local benchmarks on the target hardware; do not claim zero-downtime without verifying atomic pointer swap under concurrent load; do not claim distributed rate-limiting unless implementing the Redis extended path.
 
 Generated by HireFlow — hireflow.io
