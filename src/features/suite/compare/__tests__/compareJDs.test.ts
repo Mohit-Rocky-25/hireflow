@@ -125,4 +125,23 @@ describe('Stage 3.1 — Compare Job Descriptions', () => {
     expect(result.matrix.cells['react']).toBeDefined();
     expect(result.matrix.cells['react']['jd-1']).toBe('exact');
   });
+
+  it('builds head-to-head comparison with divergence and actionable bridge plan for dual roles', async () => {
+    const result = await compareJDs(SAMPLE_RESUME, [JD_A, JD_B]);
+
+    expect(result.headToHead).toBeDefined();
+    expect(result.headToHead).not.toBeNull();
+    const h2h = result.headToHead!;
+
+    expect(h2h.jdA.id).toBe('jd-1');
+    expect(h2h.jdB.id).toBe('jd-2');
+    expect(h2h.winnerId).toBeDefined();
+    expect(h2h.executiveRecommendation).toContain('Prioritize');
+    expect(h2h.commonCoreSkills.length).toBeGreaterThan(0);
+    expect(h2h.bridgePlan.length).toBe(3);
+    expect(h2h.bridgePlan[0].stepNumber).toBe(1);
+    expect(h2h.divergence.roleAExclusive).toBeDefined();
+    expect(h2h.divergence.roleBExclusive).toBeDefined();
+  });
 });
+
