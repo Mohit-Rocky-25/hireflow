@@ -47,3 +47,6 @@ config.local.*
 __pycache__/
 *.py[cod]
 *$py.class
+
+# Refactoring workspace
+.refactor/
