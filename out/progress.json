@@ -1,0 +1,601 @@
+[
+  {
+    "file": "brief-ab-experimentation.txt",
+    "status": "done",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-ab-experimentation.txt",
+    "auditPath": "./out/audits/brief-ab-experimentation.md",
+    "completedAt": "2026-10-17T09:06:26.057Z",
+    "score": {
+      "old": 5.13,
+      "improved": 9.23,
+      "band": "A"
+    }
+  },
+  {
+    "file": "brief-analytics-clickhouse.txt",
+    "status": "done",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-analytics-clickhouse.txt",
+    "auditPath": "./out/audits/brief-analytics-clickhouse.md",
+    "completedAt": "2026-10-17T09:07:42.670Z",
+    "score": {
+      "old": 5.38,
+      "improved": 9.27,
+      "band": "A"
+    }
+  },
+  {
+    "file": "brief-api-gateway-scratch.txt",
+    "status": "done",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-api-gateway-scratch.txt",
+    "auditPath": "./out/audits/brief-api-gateway-scratch.md",
+    "completedAt": "2026-10-17T09:08:50.644Z",
+    "score": {
+      "old": 5.15,
+      "improved": 9.29,
+      "band": "A"
+    }
+  },
+  {
+    "file": "brief-api-sdk-design.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-api-sdk-design.txt",
+    "auditPath": "./out/audits/brief-api-sdk-design.md"
+  },
+  {
+    "file": "brief-blockchain-defi.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-blockchain-defi.txt",
+    "auditPath": "./out/audits/brief-blockchain-defi.md"
+  },
+  {
+    "file": "brief-canary-deployment.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-canary-deployment.txt",
+    "auditPath": "./out/audits/brief-canary-deployment.md"
+  },
+  {
+    "file": "brief-cdc-pipeline.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-cdc-pipeline.txt",
+    "auditPath": "./out/audits/brief-cdc-pipeline.md"
+  },
+  {
+    "file": "brief-ci-cd-from-scratch.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-ci-cd-from-scratch.txt",
+    "auditPath": "./out/audits/brief-ci-cd-from-scratch.md"
+  },
+  {
+    "file": "brief-compiler-interpreter.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-compiler-interpreter.txt",
+    "auditPath": "./out/audits/brief-compiler-interpreter.md"
+  },
+  {
+    "file": "brief-computer-vision-api.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-computer-vision-api.txt",
+    "auditPath": "./out/audits/brief-computer-vision-api.md"
+  },
+  {
+    "file": "brief-container-runtime.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-container-runtime.txt",
+    "auditPath": "./out/audits/brief-container-runtime.md"
+  },
+  {
+    "file": "brief-credit-risk-model.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-credit-risk-model.txt",
+    "auditPath": "./out/audits/brief-credit-risk-model.md"
+  },
+  {
+    "file": "brief-data-quality-framework.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-data-quality-framework.txt",
+    "auditPath": "./out/audits/brief-data-quality-framework.md"
+  },
+  {
+    "file": "brief-database-engine.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-database-engine.txt",
+    "auditPath": "./out/audits/brief-database-engine.md"
+  },
+  {
+    "file": "brief-devsecops-pipeline.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-devsecops-pipeline.txt",
+    "auditPath": "./out/audits/brief-devsecops-pipeline.md"
+  },
+  {
+    "file": "brief-dist-cache-rust.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-dist-cache-rust.txt",
+    "auditPath": "./out/audits/brief-dist-cache-rust.md"
+  },
+  {
+    "file": "brief-dist-rate-limiter.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-dist-rate-limiter.txt",
+    "auditPath": "./out/audits/brief-dist-rate-limiter.md"
+  },
+  {
+    "file": "brief-embedding-search-engine.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-embedding-search-engine.txt",
+    "auditPath": "./out/audits/brief-embedding-search-engine.md"
+  },
+  {
+    "file": "brief-event-driven-saas.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-event-driven-saas.txt",
+    "auditPath": "./out/audits/brief-event-driven-saas.md"
+  },
+  {
+    "file": "brief-event-recon.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-event-recon.txt",
+    "auditPath": "./out/audits/brief-event-recon.md"
+  },
+  {
+    "file": "brief-event-sourcing.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-event-sourcing.txt",
+    "auditPath": "./out/audits/brief-event-sourcing.md"
+  },
+  {
+    "file": "brief-feature-flag-platform.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-feature-flag-platform.txt",
+    "auditPath": "./out/audits/brief-feature-flag-platform.md"
+  },
+  {
+    "file": "brief-fraud-detection-ml.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-fraud-detection-ml.txt",
+    "auditPath": "./out/audits/brief-fraud-detection-ml.md"
+  },
+  {
+    "file": "brief-fullstack-ecommerce.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-fullstack-ecommerce.txt",
+    "auditPath": "./out/audits/brief-fullstack-ecommerce.md"
+  },
+  {
+    "file": "brief-genai-code-reviewer.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-genai-code-reviewer.txt",
+    "auditPath": "./out/audits/brief-genai-code-reviewer.md"
+  },
+  {
+    "file": "brief-gitignore-lsp.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-gitignore-lsp.txt",
+    "auditPath": "./out/audits/brief-gitignore-lsp.md"
+  },
+  {
+    "file": "brief-gitops-registry.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-gitops-registry.txt",
+    "auditPath": "./out/audits/brief-gitops-registry.md"
+  },
+  {
+    "file": "brief-gpu-accelerated-inference.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-gpu-accelerated-inference.txt",
+    "auditPath": "./out/audits/brief-gpu-accelerated-inference.md"
+  },
+  {
+    "file": "brief-graph-analysis.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-graph-analysis.txt",
+    "auditPath": "./out/audits/brief-graph-analysis.md"
+  },
+  {
+    "file": "brief-graphql-federation.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-graphql-federation.txt",
+    "auditPath": "./out/audits/brief-graphql-federation.md"
+  },
+  {
+    "file": "brief-graphql-to-sql-compiler.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-graphql-to-sql-compiler.txt",
+    "auditPath": "./out/audits/brief-graphql-to-sql-compiler.md"
+  },
+  {
+    "file": "brief-high-throughput-logging.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-high-throughput-logging.txt",
+    "auditPath": "./out/audits/brief-high-throughput-logging.md"
+  },
+  {
+    "file": "brief-homomorphic-encryption.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-homomorphic-encryption.txt",
+    "auditPath": "./out/audits/brief-homomorphic-encryption.md"
+  },
+  {
+    "file": "brief-interview-prep-ai.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-interview-prep-ai.txt",
+    "auditPath": "./out/audits/brief-interview-prep-ai.md"
+  },
+  {
+    "file": "brief-knowledge-graph.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-knowledge-graph.txt",
+    "auditPath": "./out/audits/brief-knowledge-graph.md"
+  },
+  {
+    "file": "brief-kubernetes-operator.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-kubernetes-operator.txt",
+    "auditPath": "./out/audits/brief-kubernetes-operator.md"
+  },
+  {
+    "file": "brief-llm-agent-workflow.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-llm-agent-workflow.txt",
+    "auditPath": "./out/audits/brief-llm-agent-workflow.md"
+  },
+  {
+    "file": "brief-llm-evaluation-framework.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-llm-evaluation-framework.txt",
+    "auditPath": "./out/audits/brief-llm-evaluation-framework.md"
+  },
+  {
+    "file": "brief-llm-finetuning-peft.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-llm-finetuning-peft.txt",
+    "auditPath": "./out/audits/brief-llm-finetuning-peft.md"
+  },
+  {
+    "file": "brief-llm-finetuning-rlhf.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-llm-finetuning-rlhf.txt",
+    "auditPath": "./out/audits/brief-llm-finetuning-rlhf.md"
+  },
+  {
+    "file": "brief-llm-gateway.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-llm-gateway.txt",
+    "auditPath": "./out/audits/brief-llm-gateway.md"
+  },
+  {
+    "file": "brief-load-balancer.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-load-balancer.txt",
+    "auditPath": "./out/audits/brief-load-balancer.md"
+  },
+  {
+    "file": "brief-message-queue.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-message-queue.txt",
+    "auditPath": "./out/audits/brief-message-queue.md"
+  },
+  {
+    "file": "brief-micro-frontend-shell.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-micro-frontend-shell.txt",
+    "auditPath": "./out/audits/brief-micro-frontend-shell.md"
+  },
+  {
+    "file": "brief-mlops-platform.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-mlops-platform.txt",
+    "auditPath": "./out/audits/brief-mlops-platform.md"
+  },
+  {
+    "file": "brief-mobile-flutter-prod.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-mobile-flutter-prod.txt",
+    "auditPath": "./out/audits/brief-mobile-flutter-prod.md"
+  },
+  {
+    "file": "brief-multimodal-ai-app.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-multimodal-ai-app.txt",
+    "auditPath": "./out/audits/brief-multimodal-ai-app.md"
+  },
+  {
+    "file": "brief-notification-service.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-notification-service.txt",
+    "auditPath": "./out/audits/brief-notification-service.md"
+  },
+  {
+    "file": "brief-observability-sdk.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-observability-sdk.txt",
+    "auditPath": "./out/audits/brief-observability-sdk.md"
+  },
+  {
+    "file": "brief-offline-first-sync.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-offline-first-sync.txt",
+    "auditPath": "./out/audits/brief-offline-first-sync.md"
+  },
+  {
+    "file": "brief-opentelemetry-observability.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-opentelemetry-observability.txt",
+    "auditPath": "./out/audits/brief-opentelemetry-observability.md"
+  },
+  {
+    "file": "brief-osint-data-platform.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-osint-data-platform.txt",
+    "auditPath": "./out/audits/brief-osint-data-platform.md"
+  },
+  {
+    "file": "brief-peer-to-peer.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-peer-to-peer.txt",
+    "auditPath": "./out/audits/brief-peer-to-peer.md"
+  },
+  {
+    "file": "brief-personalization-engine.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-personalization-engine.txt",
+    "auditPath": "./out/audits/brief-personalization-engine.md"
+  },
+  {
+    "file": "brief-privacy-preserving-ml.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-privacy-preserving-ml.txt",
+    "auditPath": "./out/audits/brief-privacy-preserving-ml.md"
+  },
+  {
+    "file": "brief-progressive-web-app.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-progressive-web-app.txt",
+    "auditPath": "./out/audits/brief-progressive-web-app.md"
+  },
+  {
+    "file": "brief-raft-consensus.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-raft-consensus.txt",
+    "auditPath": "./out/audits/brief-raft-consensus.md"
+  },
+  {
+    "file": "brief-rag-vector-search.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-rag-vector-search.txt",
+    "auditPath": "./out/audits/brief-rag-vector-search.md"
+  },
+  {
+    "file": "brief-react-native-offline.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-react-native-offline.txt",
+    "auditPath": "./out/audits/brief-react-native-offline.md"
+  },
+  {
+    "file": "brief-realtime-analytics-dashboard.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-realtime-analytics-dashboard.txt",
+    "auditPath": "./out/audits/brief-realtime-analytics-dashboard.md"
+  },
+  {
+    "file": "brief-realtime-code-execution.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-realtime-code-execution.txt",
+    "auditPath": "./out/audits/brief-realtime-code-execution.md"
+  },
+  {
+    "file": "brief-realtime-collab.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-realtime-collab.txt",
+    "auditPath": "./out/audits/brief-realtime-collab.md"
+  },
+  {
+    "file": "brief-realtime-stock-platform.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-realtime-stock-platform.txt",
+    "auditPath": "./out/audits/brief-realtime-stock-platform.md"
+  },
+  {
+    "file": "brief-recommendation-engine.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-recommendation-engine.txt",
+    "auditPath": "./out/audits/brief-recommendation-engine.md"
+  },
+  {
+    "file": "brief-schema-registry.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-schema-registry.txt",
+    "auditPath": "./out/audits/brief-schema-registry.md"
+  },
+  {
+    "file": "brief-search-engine.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-search-engine.txt",
+    "auditPath": "./out/audits/brief-search-engine.md"
+  },
+  {
+    "file": "brief-semantic-kernel-agent.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-semantic-kernel-agent.txt",
+    "auditPath": "./out/audits/brief-semantic-kernel-agent.md"
+  },
+  {
+    "file": "brief-serverless-backend.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-serverless-backend.txt",
+    "auditPath": "./out/audits/brief-serverless-backend.md"
+  },
+  {
+    "file": "brief-service-mesh.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-service-mesh.txt",
+    "auditPath": "./out/audits/brief-service-mesh.md"
+  },
+  {
+    "file": "brief-streaming-data-pipeline.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-streaming-data-pipeline.txt",
+    "auditPath": "./out/audits/brief-streaming-data-pipeline.md"
+  },
+  {
+    "file": "brief-supply-chain-optimization.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-supply-chain-optimization.txt",
+    "auditPath": "./out/audits/brief-supply-chain-optimization.md"
+  },
+  {
+    "file": "brief-terraform-cloud-infra.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-terraform-cloud-infra.txt",
+    "auditPath": "./out/audits/brief-terraform-cloud-infra.md"
+  },
+  {
+    "file": "brief-time-series-forecasting.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-time-series-forecasting.txt",
+    "auditPath": "./out/audits/brief-time-series-forecasting.md"
+  },
+  {
+    "file": "brief-tls-certificate-manager.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-tls-certificate-manager.txt",
+    "auditPath": "./out/audits/brief-tls-certificate-manager.md"
+  },
+  {
+    "file": "brief-upi-payment-gateway.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-upi-payment-gateway.txt",
+    "auditPath": "./out/audits/brief-upi-payment-gateway.md"
+  },
+  {
+    "file": "brief-vector-db-from-scratch.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-vector-db-from-scratch.txt",
+    "auditPath": "./out/audits/brief-vector-db-from-scratch.md"
+  },
+  {
+    "file": "brief-workflow-engine.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-workflow-engine.txt",
+    "auditPath": "./out/audits/brief-workflow-engine.md"
+  },
+  {
+    "file": "brief-zero-trust-proxy.txt",
+    "status": "pending",
+    "type": "project_brief",
+    "improvedPath": "./out/improved/brief-zero-trust-proxy.txt",
+    "auditPath": "./out/audits/brief-zero-trust-proxy.md"
+  },
+  {
+    "file": "cert-aws-ccp.txt",
+    "status": "pending",
+    "type": "certification_page",
+    "improvedPath": "./out/improved/cert-aws-ccp.txt",
+    "auditPath": "./out/audits/cert-aws-ccp.md"
+  },
+  {
+    "file": "cert-aws-saa.txt",
+    "status": "pending",
+    "type": "certification_page",
+    "improvedPath": "./out/improved/cert-aws-saa.txt",
+    "auditPath": "./out/audits/cert-aws-saa.md"
+  },
+  {
+    "file": "cert-ckad.txt",
+    "status": "pending",
+    "type": "certification_page",
+    "improvedPath": "./out/improved/cert-ckad.txt",
+    "auditPath": "./out/audits/cert-ckad.md"
+  },
+  {
+    "file": "cert-comptia-sec.txt",
+    "status": "pending",
+    "type": "certification_page",
+    "improvedPath": "./out/improved/cert-comptia-sec.txt",
+    "auditPath": "./out/audits/cert-comptia-sec.md"
+  },
+  {
+    "file": "cert-gcp-ace.txt",
+    "status": "pending",
+    "type": "certification_page",
+    "improvedPath": "./out/improved/cert-gcp-ace.txt",
+    "auditPath": "./out/audits/cert-gcp-ace.md"
+  }
+]

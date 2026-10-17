@@ -3,20 +3,20 @@ PROJECT BRIEF — API Gateway from Scratch with Plugin Architecture
 
 Domain    : Distributed Systems
 Difficulty: ADVANCED
-Est. Time : 38 hours
-Tech Stack: Go, net/http, Prometheus, Docker, JSON, Concurrency
+Est. Time : 38 hours (Core Path) | Extended Path: +6 hours
+Tech Stack: Go [proxy runtime and networking implementation], net/http [standard networking primitives and reverse proxying], Prometheus [metrics instrumentation and exposition], Docker [multi-container local test network], JSON [configuration and route interchange], Concurrency [goroutines, channels, and atomic memory operations]
 
 PROBLEM STATEMENT
 ----------------------------------------
-Microservice architectures require centralized ingress points to manage cross-cutting networking concerns—such as TLS termination, request authentication, rate limiting, and dynamic traffic routing—without duplicating logic across individual backend services. In horizontally-scaled environments, an ingress gateway must maintain low proxy overhead, support hot-reloading of routing rules without connection drops, balance traffic across upstream replicas using health checks, and execute extensible middleware plugins without introducing unbounded memory allocations or TCP socket leaks.
+Microservice architectures require centralized ingress points to manage cross-cutting networking concerns—such as request authentication, rate limiting, and dynamic traffic routing—without duplicating logic across individual backend services. In horizontally-scaled environments, an ingress gateway must maintain low proxy overhead, support hot-reloading of routing rules without connection drops or race conditions, balance traffic across upstream replicas using health checks, and execute extensible middleware plugins without introducing unbounded memory allocations or TCP socket leaks.
 
 USE CASES IN THE REAL WORLD
 ----------------------------------------
-Modern cloud platforms and Kubernetes clusters rely on edge gateways to safely expose internal services to external clients. Neutral architectural reference points include open-source gateways such as Envoy, Apache APISIX, and Traefik.
+Cloud platforms and container orchestrators rely on edge gateways to route external traffic to internal microservices. Neutral architectural reference points include open-source reverse proxies and gateways such as Envoy, Apache APISIX, and Traefik.
 
 WHY THIS IS HARD (COMPETENCY REDUCER)
 ----------------------------------------
-TCP Connection Pooling & File Descriptor Leaks: Default HTTP transports restrict concurrent connections per upstream host (MaxIdleConnsPerHost = 2), causing excessive socket creation and TIME_WAIT saturation under high concurrency. The proxy must implement a tuned custom http.Transport with aggressive connection reuse and leak-free response body consumption.
+TCP Connection Pooling & File Descriptor Leaks: Default HTTP transports restrict concurrent connections per upstream host (MaxIdleConnsPerHost = 2), causing rapid socket churn and TIME_WAIT saturation under high concurrency. The proxy must implement a tuned custom http.Transport with aggressive connection reuse and leak-free response body consumption. Furthermore, hot-reloading routing configurations without downtime requires atomic pointer swaps (atomic.Pointer[RouteTable]) to prevent Go data races during concurrent read operations.
 
 RECRUITER SHORTLIST SIGNAL
 ----------------------------------------
@@ -24,26 +24,106 @@ Demonstrates deep capability in systems programming, networking protocols (HTTP/
 
 ARCHITECTURE & DATA FLOW
 ----------------------------------------
-Custom Go reverse proxy utilizing net/http/httputil with tuned connection pools (MaxIdleConns: 1000, MaxIdleConnsPerHost: 200). Extensible plugin chain interface (Auth -> RateLimit -> Transform) executing in sequence. Dynamic route table managed via atomic.Pointer for lock-free hot-reloading via Admin REST API. Active background health checker polling upstream /healthz every 1s with weighted round-robin failover.
+1. Ingress Listener: Go HTTP server accepts incoming client TCP connections, binds request contexts with timeouts, and forwards requests to the core gateway handler.
+2. Route Matching: Incoming request paths and HTTP methods match against an in-memory route table accessed via an atomic pointer.
+3. Plugin Pipeline: Middleware plugins execute sequentially: Authentication (header validation) -> Rate Limiter (token bucket algorithm) -> Header/Path Transformation.
+4. Reverse Proxying & Load Balancing: Matched requests route to an upstream pool evaluated via Weighted Round-Robin. Traffic forwards via net/http/httputil.ReverseProxy backed by a tuned http.Transport (MaxIdleConns: 1000, MaxIdleConnsPerHost: 200).
+5. Background Health Checker: A dedicated goroutine polls upstream /healthz endpoints at 1s intervals. Failed nodes are dynamically evicted from the active pool without gateway restarts.
+6. Admin API: An isolated administrative HTTP server accepts route mutations and atomically swaps the active routing table pointer.
 
 SCALE & PERFORMANCE TARGETS
 ----------------------------------------
-Proxy Latency Overhead: p99 overhead < 5ms under 10k concurrent requests | Sustained Throughput: > [N] req/sec sustained (target 25k req/sec) | Failover Duration: Evicts dead node and converges traffic within < 2s of health check failure.
+Target 1:
+- Metric: Proxy Latency Overhead (p99)
+- Method: Comparative HTTP benchmark measuring direct upstream latency vs. proxied path latency using k6 / vegeta
+- Input/dataset: HTTP GET request with 1KB payload over 10,000 concurrent requests
+- Reference environment: Local machine, 4-core CPU, 8GB RAM, loopback interface
+- Minimum pass: p99 latency overhead added by gateway < 10ms
+- Target: p99 latency overhead added by gateway < 5ms
+- Report format: k6 terminal summary report and CSV latency distribution
+
+Target 2:
+- Metric: Sustained Throughput Under Concurrency
+- Method: High-concurrency load generation through rate-limiting middleware pipeline
+- Input/dataset: Sustained burst of HTTP requests across 100 concurrent worker threads
+- Reference environment: Go 1.21+ running natively on local OS
+- Minimum pass: Sustained throughput > [N] req/sec (minimum > 5,000 req/sec) with zero socket leak crashes
+- Target: Sustained throughput > [N] req/sec (target > 20,000 req/sec) with zero socket leak crashes
+- Report format: Vegeta text report with error rate and throughput summary
+
+Target 3:
+- Metric: Failover Convergence Duration
+- Method: Active health-check probe failure detection during continuous traffic injection
+- Input/dataset: Traffic split evenly across 3 mock upstreams, followed by abrupt termination of 1 instance
+- Reference environment: Local Docker Compose multi-container test cluster
+- Minimum pass: Upstream evicted and traffic 100% rerouted to healthy replicas in < 5.0 seconds
+- Target: Upstream evicted and traffic 100% rerouted to healthy replicas in < 2.0 seconds
+- Report format: Gateway log timestamps comparing upstream termination event to final 502/503 drop
 
 SKILLS COVERED
 ----------------------------------------
-Go, Networking, HTTP, Concurrency, System Design, Docker
+Go, Networking, HTTP/1.1, Concurrency, System Design, Docker, Reverse Proxying, Load Balancing
+
+TARGET APPLICATION / STARTER INPUT
+----------------------------------------
+The project includes a standalone mock upstream service (`cmd/mock_upstream/main.go`) that starts multiple independent HTTP servers on distinct ports. The mock server provides controllable endpoints: `/api/users` (returns JSON), `/slow` (delays response by N ms), `/chaos/kill` (causes the instance to fail health checks), and `/healthz`. A default `routes.json` configuration file specifies 3 upstream routes and rate-limiting thresholds. No third-party cloud accounts or external internet access are required.
+
+MILESTONES
+----------------------------------------
+- Milestone 1: Core Reverse Proxy & Transport Tuning (8h)
+  Implement base reverse proxy in Go using `httputil.ReverseProxy` and configure custom `http.Transport` connection pools. Done when gateway proxies GET requests with connection reuse verified in netstat/ss.
+- Milestone 2: Extensible Plugin Engine & Rate Limiter (8h)
+  Build the middleware plugin interface and implement an in-memory Token Bucket rate limiter. Done when automated unit tests verify token replenishment and 429 status enforcement under concurrent calls.
+- Milestone 3: Route Management & Atomic Hot-Reload (8h)
+  Implement Admin API for route mutations and `atomic.Pointer` swap mechanism. Done when integration test confirms routes can be updated during active traffic with zero dropped requests.
+- Milestone 4: Upstream Pool, Health Checking & Failover (8h)
+  Implement Weighted Round-Robin load balancer and background health checking goroutine. Done when terminating an upstream node results in automated eviction and rerouting in < 2 seconds.
+- Milestone 5: Metrics, Benchmarking & Documentation (6h)
+  Expose Prometheus `/metrics` endpoint, execute comparative latency overhead benchmarks, record demo walkthrough, and create setup documentation. Done when all test suites pass and README allows single-command startup.
+
+PREREQUISITES, ENVIRONMENT AND ACCOUNTS
+----------------------------------------
+- Prerequisites: Go intermediate proficiency (goroutines, channels, interfaces, pointers), basic networking knowledge (HTTP headers, status codes, TCP connection states).
+- Hardware / OS: Standard x86_64 or ARM64 computer (macOS, Linux, Windows with Go 1.21+ installed).
+- Accounts & Services: None required. 100% local Go standard library and open-source tooling.
+- Fallback Path: If load testing tools (vegeta/k6) are unavailable, Go standard library benchmark tests (`go test -bench`) can be used to measure proxy throughput and memory allocations.
+
+DELIVERABLES
+----------------------------------------
+1. Clean Git repository containing Go source code with zero external framework dependencies (standard library core).
+2. Mock upstream cluster and test runner script (`scripts/run_cluster.sh`).
+3. Benchmark report (`results/gateway_benchmark.md`) containing p99 latency overhead and throughput tables.
+4. Screener verification script (`scripts/verify_gateway.sh`) testing proxying, hot-reload, rate limiting, and failover in < 2 minutes.
+5. Architecture diagram and known limitations document (detailing in-memory vs. distributed rate-limiting trade-offs).
+
+OUT OF SCOPE AND EXTENDED PATH
+----------------------------------------
+- Out of Scope for Core Path: Distributed Redis-backed rate limiting, TLS certificate auto-renewal (ACME/Let's Encrypt), WebSockets proxying.
+- Extended Path (+6 hours): Distributed Redis cluster rate-limiting plugin utilizing atomic Lua scripts to coordinate rate quotas across multiple gateway instances.
+
+SAFETY AND ETHICS NOTE
+----------------------------------------
+The gateway binds strictly to loopback interfaces (`127.0.0.1` / `localhost`) during testing. It must not be deployed to public internet interfaces without TLS termination and administrative authentication enabled.
+
+LEARNING RESOURCES
+----------------------------------------
+- Go Documentation: net/http and net/http/httputil standard packages
+- Go Package sync/atomic: atomic.Pointer specifications
+- "Effective Go" (Concurrency and Memory Models)
+- Prometheus Go Client Library Documentation [VERIFY URL]
 
 SCREENER VERIFICATION RUBRIC
 ----------------------------------------
-1. Gateway Startup & Direct Route Check: Verify HTTP GET /api/users proxies successfully to mock upstream and returns HTTP 200 with X-Gateway-Proxy: true.
-2. Dynamic Hot-Reload Verification: Send PUT request to Admin API :8081/admin/routes registering /api/orders; verify routing takes effect in < 1s without process restart.
-3. Rate Limiter Plugin Enforcement: Send 20 rapid requests to rate-limited route (threshold 10 req/min); verify 11th request returns HTTP 429 with Retry-After header.
-4. Upstream Failover Resilience: Terminate upstream replica 2 via chaos endpoint /chaos/kill; verify gateway evicts node and reroutes subsequent traffic to healthy replicas in < 2s.
-5. Proxy Overhead Benchmark Check: Execute benchmark comparing direct upstream vs proxied path; verify measured p99 latency overhead < [M ms] (target < 5ms).
+1. Gateway Proxy Routing Check: Run `curl -i http://localhost:8080/api/users`. Pass when gateway routes request to mock upstream, returning HTTP 200 with response payload and header `X-Gateway-Proxy: true`. Evidence in HTTP response header dump.
+2. Dynamic Hot-Reload Verification: Send PUT request to Admin API `curl -X PUT http://localhost:8081/admin/routes -d @new_route.json`. Pass when new route `/api/orders` becomes routable in < 1 second with zero failed requests and zero process restarts. Evidence in gateway audit log.
+3. Rate Limiter Plugin Enforcement: Send 20 rapid requests to rate-limited route (threshold 10 req/min). Pass when requests 1-10 return HTTP 200 and request 11 immediately returns HTTP 429 with `Retry-After` header. Evidence in curl loop response codes.
+4. Upstream Failover Resilience: Terminate upstream replica 2 via `curl http://localhost:9002/chaos/kill`. Pass when gateway health checker detects failure, evicts node, and reroutes 100% of subsequent traffic to healthy replicas in < [S] seconds (target < 2s). Evidence in health checker log.
+5. Proxy Overhead Benchmark Check (Anti-Fake Verification): Run `bash scripts/benchmark_overhead.sh`. Pass when measured p99 latency overhead between direct upstream and proxied route is confirmed < [M ms] (target < 5ms) across 5,000 iterations. Evidence in generated benchmark comparison table.
 
 RESUME BULLET FORMULA
 ----------------------------------------
 "Architected high-throughput API Gateway in Go with extensible plugin pipeline; achieved [N] req/sec with < [M ms] proxy latency overhead and implemented dynamic atomic configuration reloading with failover convergence under [S] seconds."
+Do not claim: sub-millisecond overhead or tens of thousands of requests per second without committing vegeta/k6 load test output logs; do not claim distributed rate limiting unless Redis cluster extension is built.
 
+======================================================================
 Generated by HireFlow — hireflow.io
