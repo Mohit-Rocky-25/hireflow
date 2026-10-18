@@ -166,7 +166,7 @@ export function CompareJDsPage() {
       'Company',
       'Fit Score',
       'Verdict',
-      'Callback Probability',
+      'Match Confidence',
       'Must-Have Coverage',
       'Readiness',
       'Top Gaps',
@@ -177,7 +177,7 @@ export function CompareJDsPage() {
       sanitizeCsvCell(jd.company || 'N/A'),
       sanitizeCsvCell(`${jd.score}%`),
       sanitizeCsvCell(jd.verdict),
-      sanitizeCsvCell(`${jd.interviewProbability}%`),
+      sanitizeCsvCell(jd.mustHaveCoverage >= 0.75 ? 'High' : jd.mustHaveCoverage >= 0.45 ? 'Medium' : 'Low'),
       sanitizeCsvCell(`${Math.round(jd.mustHaveCoverage * 100)}% (${jd.mustHaveMet}/${jd.mustHaveTotal})`),
       sanitizeCsvCell(jd.readinessAssessment),
       sanitizeCsvCell(jd.missingMustHaves.concat(jd.missingPreferred).slice(0, 4).join(', ')),
@@ -201,8 +201,8 @@ export function CompareJDsPage() {
       text = `=== HIREFLOW JOB COMPARISON REPORT ===\n` +
         `Executive Recommendation: ${h2h.executiveRecommendation}\n` +
         `Strategic Rationale: ${h2h.strategicRationale}\n\n` +
-        `ROLE A: ${h2h.jdA.label} — ${h2h.jdA.score}% (Must-Haves: ${Math.round(h2h.jdA.mustHaveCoverage * 100)}%, Est. Callback: ${h2h.jdA.interviewProbability}%)\n` +
-        `ROLE B: ${h2h.jdB.label} — ${h2h.jdB.score}% (Must-Haves: ${Math.round(h2h.jdB.mustHaveCoverage * 100)}%, Est. Callback: ${h2h.jdB.interviewProbability}%)\n\n` +
+        `ROLE A: ${h2h.jdA.label} — ${h2h.jdA.score}% (Must-Haves: ${Math.round(h2h.jdA.mustHaveCoverage * 100)}%, Match Confidence: ${h2h.jdA.mustHaveCoverage >= 0.75 ? 'High' : 'Medium'})\n` +
+        `ROLE B: ${h2h.jdB.label} — ${h2h.jdB.score}% (Must-Haves: ${Math.round(h2h.jdB.mustHaveCoverage * 100)}%, Match Confidence: ${h2h.jdB.mustHaveCoverage >= 0.75 ? 'High' : 'Medium'})\n\n` +
         `Common Core Skills: ${h2h.commonCoreSkills.map((s) => s.name).join(', ')}\n` +
         `Role A Unique: ${h2h.divergence.roleAExclusive.map((s) => s.name).join(', ')}\n` +
         `Role B Unique: ${h2h.divergence.roleBExclusive.map((s) => s.name).join(', ')}\n\n` +
@@ -601,7 +601,7 @@ export function CompareJDsPage() {
                 )}
               </button>
               <p className="text-xs text-text-muted">
-                Calculates ATS evidence scores, callback probability deltas, and divergence points
+                Calculates JD Match evidence scores, match confidence factors, and divergence points
               </p>
             </div>
           </div>
@@ -769,13 +769,13 @@ export function CompareJDsPage() {
 
                             <div className="p-3 rounded-2xl bg-surface-2 border border-border/80">
                               <span className="block text-[10px] text-text-muted font-bold uppercase mb-1">
-                                Callback Odds
+                                Match Confidence
                               </span>
                               <span className="text-base font-black font-mono text-emerald-400">
-                                ~{jdA.interviewProbability}%
+                                {jdA.mustHaveCoverage >= 0.75 ? 'High' : jdA.mustHaveCoverage >= 0.45 ? 'Medium' : 'Low'}
                               </span>
                               <span className="block text-[10px] text-text-tertiary mt-0.5">
-                                Estimated
+                                Evidence-backed
                               </span>
                             </div>
 
@@ -924,13 +924,13 @@ export function CompareJDsPage() {
 
                             <div className="p-3 rounded-2xl bg-surface-2 border border-border/80">
                               <span className="block text-[10px] text-text-muted font-bold uppercase mb-1">
-                                Callback Odds
+                                Match Confidence
                               </span>
                               <span className="text-base font-black font-mono text-indigo-400">
-                                ~{jdB.interviewProbability}%
+                                {jdB.mustHaveCoverage >= 0.75 ? 'High' : jdB.mustHaveCoverage >= 0.45 ? 'Medium' : 'Low'}
                               </span>
                               <span className="block text-[10px] text-text-tertiary mt-0.5">
-                                Estimated
+                                Evidence-backed
                               </span>
                             </div>
 
@@ -1300,8 +1300,10 @@ export function CompareJDsPage() {
                         </strong>
                       </div>
                       <div>
-                        <span className="text-text-muted">Estimated Callback:</span>{' '}
-                        <strong className="text-emerald-400 font-bold">~{jd.interviewProbability}%</strong>
+                        <span className="text-text-muted">Match Confidence:</span>{' '}
+                        <strong className="text-emerald-400 font-bold">
+                          {jd.mustHaveCoverage >= 0.75 ? 'High' : jd.mustHaveCoverage >= 0.45 ? 'Medium' : 'Low'}
+                        </strong>
                       </div>
                       <div>
                         <span className="text-text-muted">Readiness Assessment:</span>{' '}

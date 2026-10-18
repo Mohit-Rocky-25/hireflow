@@ -367,8 +367,8 @@ export function LandingPage() {
                     <span className="bg-red-50 text-red-700 border border-red-200 px-[10px] py-[2px] rounded-full text-[11px] font-bold uppercase">Missing</span>
                   </div>
                   <div className="bg-red-50/50 border border-red-100 rounded-lg px-[12px] py-[10px]">
-                    <p className="text-[13px] text-red-800 mb-[6px] font-medium">Auto-Reject Triggered</p>
-                    <p className="text-[13px] text-text-secondary">The job description mentions Webpack 5 times. You have exactly zero mentions of bundlers in your resume. ATS systems will auto-filter you immediately.</p>
+                    <p className="text-[13px] text-red-800 mb-[6px] font-medium">Critical Must-Have Gap Identified</p>
+                    <p className="text-[13px] text-text-secondary">The job description highlights Webpack 5 times as a core requirement, but no bundler evidence was found in your resume. Recruiters skimming applications will likely notice this gap immediately.</p>
                   </div>
                 </div>
 

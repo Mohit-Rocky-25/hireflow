@@ -777,7 +777,7 @@ export function runHybridAnalysis(
       { day: 3, task: 'Deploy project to cloud platform (Vercel, Render, or AWS) with live demo link', outcome: 'Working public URL in resume header' },
       { day: 4, task: 'Refactor skills section into categorized groups (Languages, Frameworks, Cloud, Databases)', outcome: 'Higher ATS parse readability' },
       { day: 5, task: 'Conduct mock technical interview practicing 2-minute STAR stories for top 3 bullets', outcome: 'Smooth verbal delivery without hesitation' },
-      { day: 6, task: 'Verify all quoted citations in resume exist verbatim and match proof repos', outcome: 'Zero hallucination risk in recruiter screen' },
+      { day: 6, task: 'Verify all quoted citations in resume exist verbatim and match proof repos', outcome: 'Never invents facts in recruiter screen' },
       { day: 7, task: 'Re-scan refined resume in HireFlow ATS Roaster to confirm improved score', outcome: 'Target match score >= 80%' },
     ],
     plan30Days: [

@@ -9,6 +9,7 @@ function atsApiPlugin(): Plugin {
   return {
     name: 'ats-api-server',
     configureServer(server) {
+      if (process.env.VITEST) return;
       server.middlewares.use(async (req: any, res: any, next: any) => {
         if (req.method === 'POST' && req.url === '/api/ats/analyze') {
           let body = '';
@@ -140,6 +141,7 @@ function portBridgePlugin(): Plugin {
   return {
     name: 'port-bridge',
     configureServer(server) {
+      if (process.env.VITEST) return;
       import('node:http').then(({ default: http }) => {
         const bridge = http.createServer((req, res) => {
           res.writeHead(302, {
@@ -153,6 +155,7 @@ function portBridgePlugin(): Plugin {
           }
         });
         bridge.listen(5176, '0.0.0.0', () => {
+          bridge.unref();
           console.log('⚡ Localhost Bridge listening on http://localhost:5176 -> redirecting to http://localhost:5173');
         });
         server.httpServer?.on('close', () => {

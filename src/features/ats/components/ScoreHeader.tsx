@@ -105,7 +105,7 @@ export const ScoreHeader: React.FC<Props> = ({ result, headerRef }) => {
                 {score}
               </span>
               <span className="text-xs uppercase font-extrabold tracking-wider text-slate-500 mt-1">
-                ATS Score
+                Resume Strength
               </span>
               <div
                 className={`mt-2 px-3 py-0.5 rounded-full text-xs font-bold border ${bandStyles.badgeBg}`}
@@ -127,6 +127,16 @@ export const ScoreHeader: React.FC<Props> = ({ result, headerRef }) => {
               <p className="text-[16px] text-slate-600 mt-2 leading-relaxed">
                 {result.oneParagraphSummary}
               </p>
+              <details className="mt-3 group cursor-pointer text-xs text-slate-500">
+                <summary className="font-medium text-slate-600 hover:text-slate-800 list-none flex items-center gap-1.5 select-none">
+                  <span className="text-primary font-bold">ℹ️</span>
+                  <span>How is this estimated?</span>
+                  <span className="text-[10px] text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+                </summary>
+                <div className="mt-2 p-3 bg-slate-50 border border-slate-200 rounded-lg text-slate-600 leading-relaxed text-left">
+                  This is HireFlow's own estimate of resume quality and job match. Different companies use different systems and humans make the final call.
+                </div>
+              </details>
             </div>
 
             {/* 4 Stat Tiles */}

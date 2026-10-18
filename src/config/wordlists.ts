@@ -82,6 +82,7 @@ export const BANNED_COPY_PHRASES = [
   '75% of resumes',
   'auto-reject',
   'auto-rejected',
+  'rejected by ATS',
   'Callback Probability',
   'guaranteed interview',
   'guarantee an interview',

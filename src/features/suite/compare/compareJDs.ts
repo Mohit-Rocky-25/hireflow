@@ -144,7 +144,7 @@ function getMatchTier(skill: SkillResult): 'exact' | 'alias' | 'implied' | 'rela
 }
 
 /**
- * Computes estimated interview callback probability (5% - 95%)
+ * Computes estimated match strength score (5 - 95)
  */
 function calculateInterviewProbability(score: number, mustHaveCoverage: number): number {
   let prob = score * 0.65 + mustHaveCoverage * 100 * 0.35;

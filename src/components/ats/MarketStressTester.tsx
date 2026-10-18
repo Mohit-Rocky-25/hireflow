@@ -135,7 +135,7 @@ export const MarketStressTester: React.FC<Props> = ({ facts }) => {
 
             <div className="flex items-center gap-2 self-start sm:self-auto">
               <span className="px-3 py-1 bg-surface border border-border text-xs font-mono font-bold rounded-lg text-text">
-                Your ATS Score: {userScore}%
+                Your Resume Strength: {userScore}%
               </span>
             </div>
           </div>

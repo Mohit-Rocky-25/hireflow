@@ -11,30 +11,30 @@ Traceability table mapping every requirement ID to its stage, acceptance test/va
 | **0.5** | Stage 0 | Create traceability matrix `docs/requirements.md` | `docs/requirements.md` | **DONE** |
 | **0.6** | Stage 0 | Baseline 6 synthetic resumes + 6 JDs in `tests/fixtures/` & `docs/baseline.md` | `tests/fixtures/synthetic/`, `docs/baseline.md` | **IN PROGRESS** |
 | **0.7** | Stage 0 | Record baseline counts for datasets & test suite | `docs/baseline.md` | **DONE** |
-| **R1.1** | Stage 1 | Flat structure `src/features/`, `src/engine/`, `src/config/`, `src/data/` | Build passes, `docs/structure.md` | PENDING |
-| **R1.2** | Stage 1 | Config extraction of weights, thresholds, word lists | `tests/config-lint.test.ts` | PENDING |
-| **R1.3** | Stage 1 | Clock injection (`today` parameter) & pure deterministic test | `tests/deterministic.test.ts` | PENDING |
-| **R1.4** | Stage 1 | Dataset provenance types + Zod schemas + `npm run validate:data` | `src/data/__tests__/validateData.test.ts` | PENDING |
-| **R1.5** | Stage 1 | Resume Fact Ledger v2 with education, 10th/12th, coding profiles | `src/engine/ledger/__tests__/ledger.test.ts` | PENDING |
-| **R1.6** | Stage 1 | Dark theme design tokens & automated WCAG contrast tests | `src/__tests__/a11y/contrast.test.ts` | PENDING |
-| **R1.7** | Stage 1 | Shared UI primitives: ProvenanceBadge, ConfidenceChip, EvidenceQuote | Unit tests & visual inspection | PENDING |
-| **R1.8** | Stage 1 | ErrorBoundary per tool route with recovery nav | Route crash tests | PENDING |
-| **R2.1** | Stage 2 | Copy audit against banned hype/fabrication phrases | `tests/copy-audit.test.ts` | PENDING |
-| **R2.2** | Stage 2 | Honest problem framing for freshers on landing / hub | Copy inspection | PENDING |
-| **R2.3** | Stage 2 | Rename ATS Score -> Resume Strength, JD score -> JD Match | Text & display-name inspection | PENDING |
-| **R2.4** | Stage 2 | Replace Callback Probability with Match Confidence factors | Engine & UI inspection | PENDING |
-| **R2.5** | Stage 2 | Remove or relabel unverifiable recruiter/Glassdoor claims | UI inspection | PENDING |
-| **R2.6** | Stage 2 | Rewrite README and `docs/CONTEXT_BRIEF.md` for honesty | Documentation review | PENDING |
-| **R3.1** | Stage 3 | PDF text layer normalisation & baseline clustering | `tests/ingestion/pdf.test.ts` | PENDING |
-| **R3.2** | Stage 3 | Multi-column & sidebar-aware reading order detection | Synthetic layout fidelity tests | PENDING |
-| **R3.3** | Stage 3 | Header/footer repetition removal | Ingestion pipeline tests | PENDING |
-| **R3.4** | Stage 3 | Human-friendly failure detection (scanned, PDF code, caps) | `tests/ingestion/failures.test.ts` | PENDING |
-| **R3.5** | Stage 3 | DOCX flattening via mammoth with warnings | Mammoth DOCX tests | PENDING |
-| **R3.6** | Stage 3 | Normalisation of messy pasted text | 12 paste fixtures test | PENDING |
-| **R3.7** | Stage 3 | Section segmentation with Indian heading variants | Section parser tests | PENDING |
-| **R3.8** | Stage 3 | Non-fabricating entity extraction (degrees, CGPA, links) | Entity parser tests | PENDING |
-| **R3.9** | Stage 3 | Ingestion diagnostics object & "What a parser sees" preview | UI component & engine test | PENDING |
-| **R3.10**| Stage 3 | Layout test kit (single, two-col, sidebar, grid, RTL glyphs) | `tests/ingestion/layout-kit.test.ts` | PENDING |
+| **R1.1** | Stage 1 | Flat structure `src/features/`, `src/engine/`, `src/config/`, `src/data/` | Build passes, `docs/structure.md` | **DONE** |
+| **R1.2** | Stage 1 | Config extraction of weights, thresholds, word lists | `tests/config-lint.test.ts` | **DONE** |
+| **R1.3** | Stage 1 | Clock injection (`today` parameter) & pure deterministic test | `tests/determinism.test.ts` | **DONE** |
+| **R1.4** | Stage 1 | Dataset provenance types + Zod schemas + `npm run validate:data` | `src/data/__tests__/validateData.test.ts` | **DONE** |
+| **R1.5** | Stage 1 | Resume Fact Ledger v2 with education, 10th/12th, coding profiles | `src/engine/ledger/__tests__/ledger.test.ts` | **DONE** |
+| **R1.6** | Stage 1 | Dark theme design tokens & automated WCAG contrast tests | `src/__tests__/a11y/contrast.test.ts` | **DONE** |
+| **R1.7** | Stage 1 | Shared UI primitives: ProvenanceBadge, ConfidenceChip, EvidenceQuote | Unit tests & visual inspection | **DONE** |
+| **R1.8** | Stage 1 | ErrorBoundary per tool route with recovery nav | Route crash tests (`tests/unit/toolErrorBoundary.test.tsx`) | **DONE** |
+| **R2.1** | Stage 2 | Copy audit against banned hype/fabrication phrases | `tests/copy-audit.test.ts` | **DONE** |
+| **R2.2** | Stage 2 | Honest problem framing for freshers on landing / hub | Copy inspection | **DONE** |
+| **R2.3** | Stage 2 | Rename ATS Score -> Resume Strength, JD score -> JD Match | Text & display-name inspection (`ScoreHeader.tsx`) | **DONE** |
+| **R2.4** | Stage 2 | Replace Callback Probability with Match Confidence factors | Engine & UI inspection (`CompareJDsPage.tsx`) | **DONE** |
+| **R2.5** | Stage 2 | Remove or relabel unverifiable recruiter/Glassdoor claims | UI inspection | **DONE** |
+| **R2.6** | Stage 2 | Rewrite README and `docs/CONTEXT_BRIEF.md` for honesty | Documentation review | **DONE** |
+| **R3.1** | Stage 3 | PDF text layer normalisation & baseline clustering | `tests/ingestion/layout-kit.test.ts` | **DONE** |
+| **R3.2** | Stage 3 | Multi-column & sidebar-aware reading order detection | Synthetic layout fidelity tests | **DONE** |
+| **R3.3** | Stage 3 | Header/footer repetition removal | `tests/ingestion/layout-kit.test.ts` | **DONE** |
+| **R3.4** | Stage 3 | Human-friendly failure detection (scanned, PDF code, caps) | `tests/ingestion/layout-kit.test.ts` | **DONE** |
+| **R3.5** | Stage 3 | DOCX flattening via mammoth with warnings | `src/engine/ingestion/` & `docs/ingestion.md` | **DONE** |
+| **R3.6** | Stage 3 | Normalisation of messy pasted text | 12 paste fixtures test (`layout-kit.test.ts`) | **DONE** |
+| **R3.7** | Stage 3 | Section segmentation with Indian heading variants | `src/engine/ingestion/sectionSegmenter.ts` | **DONE** |
+| **R3.8** | Stage 3 | Non-fabricating entity extraction (degrees, CGPA, links) | `src/engine/ingestion/entityExtractor.ts` | **DONE** |
+| **R3.9** | Stage 3 | Ingestion diagnostics object & "What a parser sees" preview | `tests/ingestion/layout-kit.test.ts` | **DONE** |
+| **R3.10**| Stage 3 | Layout test kit (single, two-col, sidebar, grid, RTL glyphs) | `tests/ingestion/layout-kit.test.ts` | **DONE** |
 | **R4.1** | Stage 4 | Canonical skill dictionary in `src/data/skills/` | Skill registry tests | PENDING |
 | **R4.2** | Stage 4 | Optional open-taxonomy import script (ESCO / O*NET CC-BY-4.0) | `scripts/import-taxonomy.ts` | PENDING |
 | **R4.3** | Stage 4 | Tokeniser with alias resolution & span offsets | Tokeniser unit tests | PENDING |

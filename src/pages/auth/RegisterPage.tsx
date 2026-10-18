@@ -70,7 +70,7 @@ export function RegisterPage() {
                 
                 {/* Hover Tooltip */}
                 <div className="absolute top-[110%] right-0 w-[240px] p-[12px] rounded-lg bg-text text-bg text-[12px] font-medium opacity-0 group-hover/item:opacity-100 group-hover/item:translate-y-[4px] pointer-events-none transition-all duration-200 z-20 shadow-xl">
-                  The Job Description mentions "System Design" 3 times. Your resume mentions it 0 times. Auto-reject highly probable.
+                  The Job Description mentions "System Design" 3 times. Your resume mentions it 0 times. Reviewers are likely to note this as an unmet requirement.
                 </div>
               </div>
             </div>

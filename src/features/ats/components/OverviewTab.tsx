@@ -126,7 +126,7 @@ export const OverviewTab: React.FC<Props> = ({ result }) => {
       <div className="bg-surface rounded-[16px] p-6 sm:p-8 border border-border shadow-xs space-y-6">
         <div>
           <h3 className="text-[24px] sm:text-[26px] font-extrabold text-slate-900 tracking-tight flex items-center gap-2.5">
-            <Layers className="w-6 h-6 text-primary" /> 7-Factor Weighted ATS Score Breakdown
+            <Layers className="w-6 h-6 text-primary" /> Weighted Resume Strength Breakdown
           </h3>
           <p className="text-[16px] text-slate-600 mt-1">
             Every point is deterministically calculated against industry recruiter benchmarks (sum: 100 points).

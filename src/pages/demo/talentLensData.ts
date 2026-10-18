@@ -154802,9 +154802,9 @@ export function generateImprovementPlan(
   plans.push({
     priority: "medium",
     title: `${company.name} Interview Preparation Roadmap`,
-    detail: tierAdvice[company.tier] || `Research ${company.name}'s engineering blog and Glassdoor reviews to understand culture fit expectations. Current TalentLens™ score: ${score}% — ${score >= 75 ? "strong position, polish interview narrative" : score >= 50 ? "competitive with targeted skill improvements" : "structured preparation plan recommended"}.`,
+    detail: tierAdvice[company.tier] || `Research ${company.name}'s engineering blog and public interview reports to understand culture fit expectations. Current TalentLens™ score: ${score}% — ${score >= 75 ? "strong position, polish interview narrative" : score >= 50 ? "competitive with targeted skill improvements" : "structured preparation plan recommended"}.`,
     timeframe: "2-4 weeks of targeted company-specific prep",
-    resources: [`"${company.name} engineering" blog (Google search)`, `Glassdoor: Interview reports specifically for "${role.title}" at ${company.name}`, `LinkedIn: message 2-3 current ${company.name} engineers — "I'm preparing for [role], could we connect for 20 min?"`]
+    resources: [`"${company.name} engineering" blog (Google search)`, `Public interview reports specifically for "${role.title}" at ${company.name}`, `LinkedIn: message 2-3 current ${company.name} engineers — "I'm preparing for [role], could we connect for 20 min?"`]
   });
 
   return plans.slice(0, 7);

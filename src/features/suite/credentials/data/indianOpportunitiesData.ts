@@ -143,7 +143,7 @@ const RAW_INDIAN_FLAGSHIP_OPPORTUNITIES: RawOpportunityRecord[] = [
     sourceUrl: 'https://codevita.tcsapps.com/',
     releaseTier: 'tier1',
     whatItIs: 'TCS CodeVita is the world’s largest computer programming competition, held annually by Tata Consultancy Services to discover the sharpest coding minds in colleges worldwide.',
-    whoShouldTakeIt: 'Indian college students looking for guaranteed interview fast-tracks into high-package tech roles.',
+    whoShouldTakeIt: 'Indian college students looking for direct technical interview fast-tracks into high-package tech roles.',
     whatItProves: 'Proves high-level algorithmic speed, clean debugging, and deep mastery of data structures and algorithms.',
   },
 

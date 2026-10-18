@@ -77,7 +77,7 @@ export function ToolsHubPage() {
           id: 'tailor',
           title: 'Tailor My Resume',
           badge: 'Truth-Checked Suggestions',
-          description: 'Reorder, rephrase, and context-enhance resume bullets with zero hallucinated skills and required metric placeholders.',
+          description: 'Reorder, rephrase, and context-enhance resume bullets with strictly verified skills and required metric placeholders.',
           link: '/tools/tailor',
           cta: 'Tailor Bullets',
           icon: FileEdit,
