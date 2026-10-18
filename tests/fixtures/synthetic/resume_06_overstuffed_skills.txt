@@ -1,0 +1,29 @@
+# SYNTHETIC FRESHER RESUME 06 — Overstuffed Skills & Buzzword Heavy
+# Label: SYNTHETIC TEST FIXTURE (NOT A REAL PERSON)
+
+SNEHA PATEL
+Ahmedabad, Gujarat, India | +91 92345 67890 | sneha.patel.synth@example.com
+LinkedIn: linkedin.com/in/sneha-patel-synth | GitHub: github.com/sneha-codes-synth
+
+EDUCATION
+Gujarat Technological University (GTU)
+B.Tech in Computer Engineering | 2021 – 2025
+CGPA: 8.10 / 10
+
+TECHNICAL SKILLS & COMPETENCIES
+Languages: C, C++, Java, Python, Go, Rust, Ruby, PHP, JavaScript, TypeScript, Kotlin, Swift, Scala, R, Dart, SQL, Bash
+Web Frameworks: React, Angular, Vue.js, Svelte, Next.js, Nuxt.js, Node.js, Express, Django, Flask, FastAPI, Spring Boot, ASP.NET Core, Laravel
+Cloud & DevOps: AWS, GCP, Microsoft Azure, Docker, Kubernetes, Terraform, Ansible, Jenkins, CI/CD, Kafka, RabbitMQ, Redis, Elasticsearch
+Databases: PostgreSQL, MySQL, MongoDB, Cassandra, DynamoDB, Oracle, SQLite, Neo4j
+Machine Learning & AI: PyTorch, TensorFlow, Scikit-learn, OpenCV, NLP, LLMs, LangChain, Deep Learning
+
+PROJECTS
+Personal Portfolio & Blog Website
+Technologies: HTML, CSS, JavaScript, React, Node.js
+• Created responsive personal developer portfolio website hosted on Netlify.
+• Implemented dark mode toggle switch and contact form sending messages via Formspree API.
+• Displayed list of personal coding projects and social media links.
+
+CERTIFICATIONS & WEBINARS
+• Attended 2-day Workshop on Cloud Computing and Artificial Intelligence (2023).
+• Completed Python Basics Certificate from Udemy.

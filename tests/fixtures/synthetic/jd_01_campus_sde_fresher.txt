@@ -1,0 +1,33 @@
+# SYNTHETIC JOB DESCRIPTION 01 — Campus SDE Fresher Drive
+# Label: SYNTHETIC TEST FIXTURE (NOT A REAL JOB POSTING)
+
+Role: Associate Software Engineer (Fresher 2025 Batch)
+Company: Infotech Solutions India Pvt Ltd
+Location: Bengaluru / Hyderabad / Pune (Hybrid)
+Compensation: ₹4.5 LPA - ₹7.0 LPA
+
+About the Role:
+We are seeking enthusiastic and driven engineering graduates from the 2025 passing out batch to join our core digital engineering team. As an Associate Software Engineer, you will undergo intensive product engineering training and contribute to enterprise application development for global clients.
+
+Eligibility Criteria:
+• B.E. / B.Tech in Computer Science, Information Technology, or allied engineering branches (ECE/EEE).
+• Minimum 60% or 6.5 CGPA throughout 10th, 12th, and undergraduate engineering degree.
+• No active backlogs at the time of joining.
+
+Mandatory Requirements:
+• Strong programming fundamentals in at least one object-oriented language: Java or C++ or Python.
+• Clear understanding of Data Structures & Algorithms (Arrays, Linked Lists, Trees, HashMaps, Sorting, Searching).
+• Solid foundation in Relational Database Management Systems (RDBMS) and writing SQL queries.
+• Knowledge of Object-Oriented Programming (OOP) concepts, abstraction, inheritance, and encapsulation.
+• Familiarity with Git version control and basic Linux commands.
+
+Preferred Qualifications (Good to Have):
+• Experience with web technologies: HTML5, CSS3, JavaScript, or React.
+• Exposure to REST API design principles or Spring Boot / Node.js.
+• Prior internship experience or competitive programming participation on LeetCode/CodeChef.
+
+Hiring Process:
+1. Online Aptitude & Coding Assessment (DSA + MCQs)
+2. Technical Interview Round 1 (Data Structures, OOPs, SQL)
+3. Technical Interview Round 2 (System Concepts & Project Discussion)
+4. HR & Culture Fit Interview

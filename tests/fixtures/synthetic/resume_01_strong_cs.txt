@@ -1,0 +1,44 @@
+# SYNTHETIC FRESHER RESUME 01 — Strong CS Graduate (Single Column)
+# Label: SYNTHETIC TEST FIXTURE (NOT A REAL PERSON)
+
+AARAV SHARMA
+Bengaluru, Karnataka, India | +91 98765 43210 | aarav.sharma@example.com
+LinkedIn: linkedin.com/in/aarav-sharma-synthetic | GitHub: github.com/aarav-dev-synthetic | LeetCode: leetcode.com/u/aarav_code
+
+EDUCATION
+Vellore Institute of Technology, Vellore
+Bachelor of Technology (B.Tech) in Computer Science and Engineering
+CGPA: 8.64 / 10.0 | Expected Graduation: June 2025
+Coursework: Data Structures & Algorithms, Database Systems, Computer Networks, Operating Systems, System Design
+
+TECHNICAL SKILLS
+Languages: Java, TypeScript, JavaScript, Python, C++, SQL
+Frameworks & Libraries: React, Node.js, Express.js, Next.js, Tailwind CSS, Spring Boot
+Databases & Cloud: PostgreSQL, MongoDB, Redis, Docker, AWS (S3, EC2), Git, Linux
+
+EXPERIENCE / INTERNSHIPS
+NexusPay India — Backend Engineering Intern
+Bengaluru, India | May 2024 – July 2024
+• Designed and deployed 4 RESTful microservices in Node.js and TypeScript handling automated invoice reconciliation for 12,000+ monthly transactions.
+• Optimized PostgreSQL query execution plans by introducing composite indexes, reducing average API response latency from 320ms to 85ms.
+• Built asynchronous webhook notification queue using Redis and BullMQ, achieving 99.8% delivery reliability under burst loads.
+• Authored comprehensive unit and integration test suites using Vitest and Supertest, boosting code coverage from 62% to 89%.
+
+PROJECTS
+CareConnect — Distributed Hospital Resource Allocation Platform
+Tech Stack: React, TypeScript, Node.js, PostgreSQL, Docker, Redis
+GitHub: https://github.com/aarav-dev-synthetic/care-connect
+• Built full-stack healthcare bed tracking platform serving real-time updates via WebSockets across 14 simulated hospital wards.
+• Implemented role-based access control (RBAC) with JWT authentication and bcrypt password hashing.
+• Containerized frontend, backend, and PostgreSQL database using Docker Compose for reproducible local deployment in under 2 minutes.
+
+DevSprint — Collaborative Markdown Knowledge Base
+Tech Stack: Next.js, Tailwind CSS, MongoDB, Prisma ORM
+GitHub: https://github.com/aarav-dev-synthetic/dev-sprint
+• Developed real-time document editor with live markdown rendering and syntax highlighting for 15+ programming languages.
+• Engineered client-side search indexing with debounced filtering, achieving sub-20ms search results over 500+ documentation entries.
+
+ACHIEVEMENTS & CERTIFICATIONS
+• Solved 450+ algorithmic problems across LeetCode and CodeChef (Peak rating 1680 on CodeChef).
+• Finalist (Top 10 among 350 teams) at Smart India Hackathon internal campus selection (2023).
+• HackerRank Certified: Problem Solving (Intermediate) and SQL (Advanced).

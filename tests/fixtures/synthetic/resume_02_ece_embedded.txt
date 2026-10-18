@@ -1,0 +1,36 @@
+# SYNTHETIC FRESHER RESUME 02 — Electronics & Embedded Systems Fresher
+# Label: SYNTHETIC TEST FIXTURE (NOT A REAL PERSON)
+
+PRIYA VENKATESH
+Chennai, Tamil Nadu, India | +91 91234 56789 | priya.v.synth@example.com
+GitHub: github.com/priyav-embedded-synth | LinkedIn: linkedin.com/in/priya-venkatesh-synth
+
+ACADEMIC QUALIFICATIONS
+PSG College of Technology, Coimbatore
+Bachelor of Engineering (B.E.) in Electronics and Communication Engineering
+CGPA: 7.82 / 10.0 | 2021 – 2025
+Higher Secondary Certificate (HSC) — State Board: 91.4% (2021)
+Secondary School Certificate (SSLC) — State Board: 94.2% (2019)
+
+AREAS OF EXPERTISE
+Programming: Embedded C, C++, Python, Assembly (ARM Cortex-M)
+Protocols & Buses: UART, I2C, SPI, CAN, BLE, MQTT, TCP/IP
+Hardware & Tools: STM32, ESP32, Arduino Uno, Keil uVision, FreeRTOS, Saleae Logic Analyzer, Oscilloscope, Git, Linux
+
+ACADEMIC PROJECTS
+Smart Grid IoT Energy Monitoring Node
+Technologies: Embedded C, ESP32, FreeRTOS, MQTT, AWS IoT Core
+• Architected low-power firmware on ESP32 microcontroller reading voltage and current sensors via ADC at 100Hz sampling rate.
+• Implemented FreeRTOS preemptive multitasking with separate tasks for sensor acquisition, telemetry queue, and WiFi transmission.
+• Integrated MQTT over TLS sending packet payloads to AWS IoT Core with deep-sleep power management, reducing power consumption by 40%.
+
+CAN Bus Engine Telemetry Diagnostic Logger
+Technologies: C++, STM32F407, CAN 2.0B, FreeRTOS
+• Designed firmware for STM32 communicating over CAN 2.0B interface at 500 kbps to log standard OBD-II diagnostic parameters.
+• Implemented circular ring buffer for zero data loss during high bus saturation up to 80% bus load.
+• Filtered and saved sensor readings to on-board SPI Flash memory module with CRC32 integrity verification.
+
+CO-CURRICULAR & WORKSHOPS
+• Completed 4-week Hands-on Training on ARM Cortex-M Architecture at NIELIT Chennai.
+• Member of IEEE Robotics and Automation Society Student Branch (PSG Tech).
+• Published technical paper on "Low Cost Edge Monitoring for Rural Microgrids" in College Symposium 2024.

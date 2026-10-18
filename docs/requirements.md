@@ -1,0 +1,91 @@
+# Requirements Traceability Matrix — HireFlow v3
+
+Traceability table mapping every requirement ID to its stage, acceptance test/validation method, and current implementation status.
+
+| Req ID | Stage | Description | Acceptance Test / Artifact | Status |
+| :--- | :--- | :--- | :--- | :--- |
+| **0.1** | Stage 0 | Map repo in-scope files & dead/duplicate candidates | `docs/repo-map.md` | **DONE** |
+| **0.2** | Stage 0 | Detect already done vs partial vs missing work | Stage 0 Audit Report (`docs/audit.md`) | **DONE** |
+| **0.3** | Stage 0 | Create `.agent/rules/hireflow.md` with P-1..P-10 | `.agent/rules/hireflow.md` | **DONE** |
+| **0.4** | Stage 0 | Create `.agent/workflows/verify.md` (/verify) | `.agent/workflows/verify.md` | **DONE** |
+| **0.5** | Stage 0 | Create traceability matrix `docs/requirements.md` | `docs/requirements.md` | **DONE** |
+| **0.6** | Stage 0 | Baseline 6 synthetic resumes + 6 JDs in `tests/fixtures/` & `docs/baseline.md` | `tests/fixtures/synthetic/`, `docs/baseline.md` | **IN PROGRESS** |
+| **0.7** | Stage 0 | Record baseline counts for datasets & test suite | `docs/baseline.md` | **DONE** |
+| **R1.1** | Stage 1 | Flat structure `src/features/`, `src/engine/`, `src/config/`, `src/data/` | Build passes, `docs/structure.md` | PENDING |
+| **R1.2** | Stage 1 | Config extraction of weights, thresholds, word lists | `tests/config-lint.test.ts` | PENDING |
+| **R1.3** | Stage 1 | Clock injection (`today` parameter) & pure deterministic test | `tests/deterministic.test.ts` | PENDING |
+| **R1.4** | Stage 1 | Dataset provenance types + Zod schemas + `npm run validate:data` | `src/data/__tests__/validateData.test.ts` | PENDING |
+| **R1.5** | Stage 1 | Resume Fact Ledger v2 with education, 10th/12th, coding profiles | `src/engine/ledger/__tests__/ledger.test.ts` | PENDING |
+| **R1.6** | Stage 1 | Dark theme design tokens & automated WCAG contrast tests | `src/__tests__/a11y/contrast.test.ts` | PENDING |
+| **R1.7** | Stage 1 | Shared UI primitives: ProvenanceBadge, ConfidenceChip, EvidenceQuote | Unit tests & visual inspection | PENDING |
+| **R1.8** | Stage 1 | ErrorBoundary per tool route with recovery nav | Route crash tests | PENDING |
+| **R2.1** | Stage 2 | Copy audit against banned hype/fabrication phrases | `tests/copy-audit.test.ts` | PENDING |
+| **R2.2** | Stage 2 | Honest problem framing for freshers on landing / hub | Copy inspection | PENDING |
+| **R2.3** | Stage 2 | Rename ATS Score -> Resume Strength, JD score -> JD Match | Text & display-name inspection | PENDING |
+| **R2.4** | Stage 2 | Replace Callback Probability with Match Confidence factors | Engine & UI inspection | PENDING |
+| **R2.5** | Stage 2 | Remove or relabel unverifiable recruiter/Glassdoor claims | UI inspection | PENDING |
+| **R2.6** | Stage 2 | Rewrite README and `docs/CONTEXT_BRIEF.md` for honesty | Documentation review | PENDING |
+| **R3.1** | Stage 3 | PDF text layer normalisation & baseline clustering | `tests/ingestion/pdf.test.ts` | PENDING |
+| **R3.2** | Stage 3 | Multi-column & sidebar-aware reading order detection | Synthetic layout fidelity tests | PENDING |
+| **R3.3** | Stage 3 | Header/footer repetition removal | Ingestion pipeline tests | PENDING |
+| **R3.4** | Stage 3 | Human-friendly failure detection (scanned, PDF code, caps) | `tests/ingestion/failures.test.ts` | PENDING |
+| **R3.5** | Stage 3 | DOCX flattening via mammoth with warnings | Mammoth DOCX tests | PENDING |
+| **R3.6** | Stage 3 | Normalisation of messy pasted text | 12 paste fixtures test | PENDING |
+| **R3.7** | Stage 3 | Section segmentation with Indian heading variants | Section parser tests | PENDING |
+| **R3.8** | Stage 3 | Non-fabricating entity extraction (degrees, CGPA, links) | Entity parser tests | PENDING |
+| **R3.9** | Stage 3 | Ingestion diagnostics object & "What a parser sees" preview | UI component & engine test | PENDING |
+| **R3.10**| Stage 3 | Layout test kit (single, two-col, sidebar, grid, RTL glyphs) | `tests/ingestion/layout-kit.test.ts` | PENDING |
+| **R4.1** | Stage 4 | Canonical skill dictionary in `src/data/skills/` | Skill registry tests | PENDING |
+| **R4.2** | Stage 4 | Optional open-taxonomy import script (ESCO / O*NET CC-BY-4.0) | `scripts/import-taxonomy.ts` | PENDING |
+| **R4.3** | Stage 4 | Tokeniser with alias resolution & span offsets | Tokeniser unit tests | PENDING |
+| **R4.4** | Stage 4 | Context & negation classifier (negated, weak, planned, strong)| Negation tests | PENDING |
+| **R4.5** | Stage 4 | Evidence levels L0 (listed) to L3 (metric outcome) | Evidence classifier tests | PENDING |
+| **R4.6** | Stage 4 | JD segmentation & mandatory vs preferred classification | JD parser tests | PENDING |
+| **R4.7** | Stage 4 | Match classification: DIRECT, TRANSFERABLE, PARTIAL, MISSING | Matcher tests | PENDING |
+| **R4.8** | Stage 4 | Configurable hard-skill weighted coverage | Score engine tests | PENDING |
+| **R4.9** | Stage 4 | 60+ matcher test cases & comparison against baseline | `docs/engine-delta.md` | PENDING |
+| **R5.1** | Stage 5 | 4 calibrated scoring pillars (Hard skills, Evidence, Fresher, Format) | Scorer unit tests | PENDING |
+| **R5.2** | Stage 5 | Writing & evidence rules with question-based fixes | `tests/writing-rules.test.ts` | PENDING |
+| **R5.3** | Stage 5 | Indian fresher readiness heuristics (projects, GitHub, CGPA note)| Readiness tests | PENDING |
+| **R5.4** | Stage 5 | Format & parse safety score + raw text preview | Parse safety tests | PENDING |
+| **R5.5** | Stage 5 | Verbatim evidence citations & highlighted spans | UI citation components | PENDING |
+| **R5.6** | Stage 5 | Harsh truths gated to >= Medium confidence | Confidence gate tests | PENDING |
+| **R5.7** | Stage 5 | Clean 4-tab results view with actionable Next Steps | UI inspection | PENDING |
+| **R5.8** | Stage 5 | Calibration harness & confusion matrix | `scripts/calibrate.ts`, `docs/calibration-report.md` | PENDING |
+| **R5.9** | Stage 5 | Sub-1.5s scan performance & memoisation | Benchmark test | PENDING |
+| **R6.1** | Stage 6 | JD Compare fit ring & Match Confidence | Compare component tests | PENDING |
+| **R6.2** | Stage 6 | Venn diagram (Shared / Role A only / Role B only) | Venn component inspection | PENDING |
+| **R6.3** | Stage 6 | Bridge plan linking gaps to Build Briefs & Credentials | Bridge generator tests | PENDING |
+| **R6.4** | Stage 6 | JD input with extraction explanation summary | Parser explanation test | PENDING |
+| **R6.5** | Stage 6 | Resume Fact Ledger review & non-destructive edit form | Ledger UI tests | PENDING |
+| **R6.6** | Stage 6 | Requirement analysis view in plain English | UI review | PENDING |
+| **R6.7** | Stage 6 | Truth map with "Add context" question fields | Truth map tests | PENDING |
+| **R6.8** | Stage 6 | Configurable fresher section ordering (A4 default) | Layout engine tests | PENDING |
+| **R6.9** | Stage 6 | Truth Gate: 25 adversarial cases blocked & 10 legitimate pass | `tests/truth-gate.test.ts` | PENDING |
+| **R6.10**| Stage 6 | Content parity across HTML, TXT, and DOCX via LayoutTree | `tests/content-parity.test.ts` | PENDING |
+| **R6.11**| Stage 6 | Zero silent loss drawer for omitted ledger items | Silent loss test | PENDING |
+| **R7.1** | Stage 7 | Credential Engine freshness badges & yearly change notices | `tests/credentialsFreshnessSchema.test.ts` | **DONE** (Stage 0 check) |
+| **R7.2** | Stage 7 | Student eligibility, fee waivers, and next window notes | Data & UI tests | PENDING |
+| **R7.3** | Stage 7 | Placeholder bullets ([CREDENTIAL_ID], [DATE_EARNED]) & copy lock | `tests/credentialsTruthGate.test.ts` | **DONE** (Stage 0 check) |
+| **R7.4** | Stage 7 | Project Briefs validation & difficulty contradiction check | `validateData.test.ts` | PENDING |
+| **R7.5** | Stage 7 | Hour ranges with assumptions (+/-25% estimate) | Briefs data tests | PENDING |
+| **R7.6** | Stage 7 | Replace recruiter claims with "What this project demonstrates" | UI & data audit | PENDING |
+| **R7.7** | Stage 7 | Greedy set cover bundle generator with unit tests | `tests/briefs-bundler.test.ts` | PENDING |
+| **R7.8** | Stage 7 | Career Trajectory compensation ranges in LPA with INR formatting | Ladder data tests | PENDING |
+| **R7.9** | Stage 7 | Fresher 2-year view without "Promotion Simulator" wording | UI inspection | PENDING |
+| **R7.10**| Stage 7 | "Skills to close" panel connected to latest ATS scan | Store integration test | PENDING |
+| **R7.11**| Stage 7 | TalentLens company provenance & duplicate removal | `validateData.test.ts` | PENDING |
+| **R7.12**| Stage 7 | Company cards search, filters, roles page, Deep Analysis | UI inspection | PENDING |
+| **R7.13**| Stage 7 | JD completeness audit & compiled data disclosure | `docs/jd-gaps.md` | PENDING |
+| **R7.14**| Stage 7 | Deterministic `generateOutreach` with 3 formats & 2 variants | `tests/generateOutreach.test.ts` | **DONE** (Stage 0 check) |
+| **R8.1** | Stage 8 | A11y: keyboard reachability, visible focus, ARIA labels | `tests/a11y/` | PENDING |
+| **R8.2** | Stage 8 | Privacy: zero-egress static check & local data storage drawer | `scripts/check-privacy.ts` | PENDING |
+| **R8.3** | Stage 8 | Robustness: empty, huge, Devanagari, emoji, limits | Robustness test suite | PENDING |
+| **R8.4** | Stage 8 | Navigation consistency: Back/Home, scroll-to-top, pressed state | UI audit | PENDING |
+| **R9.1** | Stage 9 | `docs/invariants.md`: 1:1 mapping of principles to test cases | `docs/invariants.md` | PENDING |
+| **R9.2** | Stage 9 | Test inventory scripts before/after | `package.json` | PENDING |
+| **R9.3** | Stage 9 | Complete documentation suite (ingestion, scoring, data-policy) | `docs/` | PENDING |
+| **10.1** | Stage 10| Run `/verify` and capture walkthrough screenshots | Browser test & screenshots | PENDING |
+| **10.2** | Stage 10| Confirm zero out-of-scope files altered | Git diff audit | PENDING |
+| **10.3** | Stage 10| Final quality report & owner action checklist | Final report artifact | PENDING |
+| **10.4** | Stage 10| Checkpoint commit on `hireflow-v3` branch | Git commit hash | PENDING |

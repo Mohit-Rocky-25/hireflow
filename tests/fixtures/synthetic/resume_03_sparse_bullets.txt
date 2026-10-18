@@ -1,0 +1,41 @@
+# SYNTHETIC FRESHER RESUME 03 — Tier-3 College with Weak/Sparse Bullets
+# Label: SYNTHETIC TEST FIXTURE (NOT A REAL PERSON)
+
+ROHIT KUMAR
+Patna, Bihar, India | +91 97890 12345 | rohit.kumar.synth@example.com
+LinkedIn: linkedin.com/in/rohit-kumar-synth
+
+OBJECTIVE
+Hard-working and passionate Computer Science student looking for an entry-level software engineering role in a prestigious organization where I can apply my skills and grow professionally as a dynamic team player.
+
+EDUCATION
+Techno International Engineering College
+B.Tech in Computer Science & Engineering
+CGPA: 7.15 / 10 | 2021 - 2025
+CBSE Class XII: 74% | 2021
+CBSE Class X: 81% | 2019
+
+TECHNICAL SKILLS
+Languages: Core Java, C, Python, SQL, HTML, CSS, JavaScript
+Database: MySQL
+Operating Systems: Windows, Linux Basics
+Tools: Eclipse, VS Code, Git
+
+PROJECTS
+Online Bookstore Website
+Technologies: HTML, CSS, JavaScript, PHP, MySQL
+• Worked on developing an e-commerce website for purchasing books online.
+• Responsible for designing frontend pages and creating login forms.
+• Helped in connecting the MySQL database with PHP backend scripts.
+• Tested website functionality to ensure users can add books to the shopping cart.
+
+Student Management System
+Technologies: Core Java, Swing, MySQL
+• Built a desktop application for college staff to keep track of student records.
+• Involved in creating GUI forms using Java Swing components.
+• Handled database operations for inserting and updating student marks and attendance.
+
+EXTRA-CURRICULAR ACTIVITIES
+• Participated in college annual coding contest.
+• Volunteer in College Tech Fest Organizing Committee (2023).
+• Active member of National Service Scheme (NSS).

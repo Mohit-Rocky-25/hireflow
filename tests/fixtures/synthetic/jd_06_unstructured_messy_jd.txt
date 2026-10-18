@@ -1,0 +1,14 @@
+# SYNTHETIC JOB DESCRIPTION 06 — Unstructured & Messy Startup Post
+# Label: SYNTHETIC TEST FIXTURE (NOT A REAL JOB POSTING)
+
+Hey folks! We're stealth fintech builders backed by top angels in Bangalore. Looking for an energetic developer or coder to join our founding engineer pod. You'll wear 10 hats. Need someone who can write clean Python or Go code, knows how Docker works, and isn't afraid to dive into AWS when things catch fire.
+
+What we need from you:
+- You should have built something real on the side. Not just college assignments.
+- Hands on skills with Python or Golang, PostgreSQL or MongoDB.
+- Solid understanding of REST APIs and microservices.
+- Docker and Linux terminal shouldn't scare you.
+- Good communication and ownership mentality.
+- Degree doesn't matter as long as you can ship code that works. Freshers with great GitHub repos welcome.
+
+Perks: Unlimited coffee, flexible hours, competitive stipend/salary, high growth equity. Ping us with your GitHub profile!

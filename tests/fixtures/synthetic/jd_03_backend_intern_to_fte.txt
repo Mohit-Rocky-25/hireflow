@@ -1,0 +1,29 @@
+# SYNTHETIC JOB DESCRIPTION 03 — Fintech Backend Engineer (Intern to FTE)
+# Label: SYNTHETIC TEST FIXTURE (NOT A REAL JOB POSTING)
+
+Position: Backend Software Development Engineer 1
+Company: PayVault Financial Technologies
+Location: Mumbai / Pune / Remote (India)
+Package: ₹9 LPA – ₹14 LPA
+
+Overview:
+PayVault processes secure digital payments and merchant settlements across India. We are looking for talented entry-level backend engineers who care about transactional integrity, latency, and clean API design.
+
+Core Responsibilities:
+• Implement secure, reliable REST microservices in Node.js (TypeScript) or Python (FastAPI/Django).
+• Write optimized SQL queries and manage migrations in PostgreSQL.
+• Design caching strategies using Redis to reduce database read pressure.
+• Containerize microservices using Docker and assist in deployment pipeline management on AWS.
+• Monitor application error rates and telemetry logs.
+
+Mandatory Qualifications:
+• B.Tech/B.E. in Computer Science, IT, or related technical disciplines.
+• Strong foundation in backend development using Node.js or Python.
+• Hands-on proficiency with relational databases (PostgreSQL or MySQL) and query optimization.
+• Solid understanding of REST APIs, HTTP status codes, and authentication mechanisms (JWT, OAuth2).
+• Experience with Git, Linux terminal, and Docker basics.
+
+Bonus Points:
+• Experience with message queues (Kafka, RabbitMQ, or BullMQ).
+• Familiarity with AWS services (EC2, S3, RDS).
+• Participation in hackathons or open-source software contributions.

@@ -1,0 +1,27 @@
+# SYNTHETIC FRESHER RESUME 04 — Two-Column Interleaved Raw Paste
+# Label: SYNTHETIC TEST FIXTURE (NOT A REAL PERSON)
+
+ANANYA DESHMUKH                                  WORK EXPERIENCE & PROJECTS
+Pune, Maharashtra | +91 94567 89012              Full Stack Developer Intern — FinTech Labs Pune
+ananya.deshmukh.synth@example.com                January 2024 – June 2024
+github.com/ananya-dev-synth                      • Developed REST APIs in Express.js and TypeScript
+linkedin.com/in/ananya-synth                     for automated KYC document verification pipelines.
+                                                 • Integrated Razorpay payment gateway handling ₹15L
+EDUCATION                                        in simulated daily test transactions.
+Pune Institute of Computer Technology            • Authored unit tests with Vitest achieving 82% coverage.
+B.E. Information Technology                      
+CGPA: 8.42 / 10 | 2021 – 2025                    PROJECTS
+                                                 TaskFlow — Kanban Productivity Web App
+SKILLS                                           React, Node.js, MongoDB, Tailwind CSS
+Languages: JavaScript, TypeScript, Python, SQL   • Built drag-and-drop Kanban task board with optimistic UI
+Frameworks: React, Express, Node.js, Next.js     updates using TanStack Query.
+Databases: MongoDB, PostgreSQL                   • Deployed containerized backend service to AWS EC2
+Tools: Git, Postman, Docker, Linux               with Nginx reverse proxy and SSL certificates.
+
+CODING PROFILES                                  EventPulse — Campus Event Ticketing Portal
+LeetCode: 280+ problems solved                   Next.js, Prisma, PostgreSQL
+GeeksforGeeks: 150+ score                        • Designed relational schema with ACID transaction isolation
+                                                 to prevent double-booking across 2,000 ticket sales.
+ACHIEVEMENTS
+Winner — Smart Pune Hackathon 2023               POSITIONS OF RESPONSIBILITY
+Runner Up — TechFest Webathon 2024               Technical Lead, College ACM Student Chapter (2023-2024)

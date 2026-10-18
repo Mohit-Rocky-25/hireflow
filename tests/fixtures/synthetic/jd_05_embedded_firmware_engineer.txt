@@ -1,0 +1,28 @@
+# SYNTHETIC JOB DESCRIPTION 05 — Embedded Systems & Firmware Engineer
+# Label: SYNTHETIC TEST FIXTURE (NOT A REAL JOB POSTING)
+
+Role: Graduate Engineer Trainee — Embedded Systems (GET)
+Company: VoltMobility Smart EV Solutions
+Location: Coimbatore / Chennai, India
+Salary: ₹5.0 LPA - ₹7.5 LPA
+
+Role Overview:
+VoltMobility manufactures smart telematics and battery management electronics for commercial electric vehicles in India. We are recruiting fresh electronics graduates eager to write bare-metal and RTOS firmware for automotive IoT controllers.
+
+Core Duties:
+• Develop embedded software for ARM Cortex-M microcontrollers (STM32 / NXP) in Embedded C.
+• Write low-level device drivers for communication peripherals (CAN bus, SPI, I2C, UART).
+• Debug hardware-firmware integration issues using oscilloscopes, logic analyzers, and JTAG/SWD probes.
+• Integrate FreeRTOS scheduling tasks, semaphores, and inter-task message queues.
+
+Must Have Requirements:
+• B.E. / B.Tech in Electronics & Communication (ECE), Electrical Engineering (EEE), or Embedded Systems.
+• Fluent in Embedded C and basic C++ programming.
+• Understanding of microcontroller hardware architecture (interrupts, timers, ADC, GPIOs).
+• Knowledge of serial protocols: UART, SPI, I2C.
+• Practical laboratory experience with breadboarding, oscilloscopes, and multimeter testing.
+
+Nice to Have:
+• Familiarity with FreeRTOS or similar real-time operating systems.
+• Understanding of CAN protocol (CAN 2.0B / CAN FD).
+• Basic Python scripting for automated hardware test jigs.

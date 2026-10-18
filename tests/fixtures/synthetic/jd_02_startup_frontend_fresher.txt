@@ -1,0 +1,29 @@
+# SYNTHETIC JOB DESCRIPTION 02 — Fast-Growing Startup Frontend Engineer
+# Label: SYNTHETIC TEST FIXTURE (NOT A REAL JOB POSTING)
+
+Job Title: Junior Frontend Engineer (0-1 Years Experience / Fresher)
+Company: QuikCart Technologies
+Location: Bengaluru, India (On-site)
+Salary: ₹8.0 - ₹12.0 LPA + ESOPs
+
+About Us:
+QuikCart is building next-generation quick commerce infrastructure for hyper-local retail in tier-1 Indian cities. We love fast shipping, clean code, and delightful user experiences.
+
+Responsibilities:
+• Build modular, accessible, and responsive user interfaces using React, TypeScript, and Tailwind CSS.
+• Integrate with backend GraphQL and REST APIs, managing client cache with TanStack Query.
+• Collaborate with UI/UX designers to translate Figma prototypes into pixel-perfect components.
+• Write automated component tests using Vitest and React Testing Library.
+• Optimize web application performance, Core Web Vitals, and load times under 3G network conditions.
+
+Required Skills & Qualifications:
+• Demonstrated proficiency in modern JavaScript (ES6+), TypeScript, and React.
+• Hands-on mastery of HTML5, CSS3, modern layout techniques (Flexbox, Grid), and Tailwind CSS.
+• Working knowledge of state management (Zustand, Redux Toolkit, or React Context).
+• Experience consuming RESTful APIs and handling asynchronous data streams.
+• Active GitHub profile demonstrating at least 2 polished web applications with live deployment links.
+
+Nice to Have:
+• Familiarity with Next.js (App Router) and Server-Side Rendering (SSR).
+• Experience with frontend bundling tools (Vite) and Docker containers.
+• Understanding of web accessibility (WCAG AA) standards.

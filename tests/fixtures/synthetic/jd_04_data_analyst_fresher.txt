@@ -1,0 +1,28 @@
+# SYNTHETIC JOB DESCRIPTION 04 — Junior Data & Business Analyst
+# Label: SYNTHETIC TEST FIXTURE (NOT A REAL JOB POSTING)
+
+Job Title: Associate Data Analyst (Fresher)
+Company: RetailMetrics Analytics Group
+Location: Gurugram, Haryana, India (Hybrid)
+Compensation: ₹5.5 LPA - ₹8.0 LPA
+
+Role Description:
+RetailMetrics partners with leading global consumer brands to transform raw transactional data into actionable commercial insights. We are looking for entry-level data analysts with sharp analytical reasoning, SQL expertise, and dashboarding abilities.
+
+Key Deliverables:
+• Query, clean, and aggregate multi-million record transactional datasets using PostgreSQL and Snowflake.
+• Develop interactive business intelligence reports and KPI dashboards using Power BI or Tableau.
+• Write Python automation scripts (Pandas, NumPy) to streamline weekly executive ETL pipelines.
+• Conduct exploratory data analysis (EDA) and synthesize findings into concise stakeholder decks.
+
+Candidate Requirements:
+• Degree in Engineering, Mathematics, Statistics, Data Science, or Economics.
+• Strong practical proficiency in SQL (Joins, Window Functions, CTEs, Aggregations).
+• Working knowledge of Python for data manipulation using Pandas and NumPy.
+• Demonstrated ability building dashboards in Power BI, Tableau, or Metabase.
+• Advanced Microsoft Excel capabilities (Pivot tables, VLOOKUP/XLOOKUP, formulas).
+
+Desirable Skills:
+• Understanding of statistical hypothesis testing and A/B test analysis.
+• Exposure to Git and cloud data warehouses (BigQuery, Snowflake).
+• Good communication skills to present findings to non-technical partners.

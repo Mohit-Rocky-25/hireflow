@@ -1,0 +1,42 @@
+# SYNTHETIC FRESHER RESUME 05 — Non-CS Career Switcher (Mechanical to Software)
+# Label: SYNTHETIC TEST FIXTURE (NOT A REAL PERSON)
+
+VIKRAMADITYA SINGH
+Noida, Uttar Pradesh, India | +91 93456 78901 | vikram.singh.synth@example.com
+GitHub: github.com/vikram-codes-synth | LinkedIn: linkedin.com/in/vikram-singh-synth
+
+PROFESSIONAL SUMMARY
+Motivated Mechanical Engineering graduate transitioning into Full-Stack Software Engineering. Self-taught software developer with strong foundation in Python, Django, JavaScript, and relational databases. Completed 600+ hours of hands-on software development and built 3 production-deployed web applications.
+
+EDUCATION
+National Institute of Technology, Kurukshetra
+Bachelor of Technology (B.Tech) in Mechanical Engineering
+CGPA: 7.60 / 10.0 | 2020 – 2024
+Core Engineering Foundation: Engineering Mathematics, Numerical Methods, Optimization Techniques
+
+SKILLS & TECHNOLOGIES
+Languages: Python, JavaScript, SQL, HTML5, CSS3
+Frameworks & Libraries: Django, Django REST Framework, React, Bootstrap
+Databases & Tools: PostgreSQL, SQLite, Git, GitHub, Postman, Linux (Ubuntu), Heroku
+
+SOFTWARE PROJECTS
+FleetTrack — Vehicle Telematics & Maintenance Tracker
+Technologies: Python, Django, PostgreSQL, Bootstrap, Chart.js
+GitHub: github.com/vikram-codes-synth/fleet-track
+• Built web application for small logistics operators to monitor 40+ delivery vehicles and schedule preventative maintenance.
+• Implemented Django REST Framework endpoints for fuel consumption logging, reducing reporting calculation errors by 100%.
+• Integrated Chart.js dashboards rendering historical fuel efficiency and maintenance expense breakdowns.
+
+InventoryPulse — Warehouse Stock Management Portal
+Technologies: React, Python, Django, SQLite
+GitHub: github.com/vikram-codes-synth/inventory-pulse
+• Created responsive inventory manager supporting barcode scanning input and low-stock automated email notifications.
+• Designed relational schema with Django ORM enforcing foreign key constraints across products, suppliers, and purchase orders.
+
+ENGINEERING CAPSTONE PROJECT (MECHANICAL)
+Design and CFD Analysis of Centrifugal Impeller Blade Geometries
+• Modeled 3D CAD geometries in SolidWorks and performed flow simulations using ANSYS Fluent.
+
+CODING PLATFORMS & CERTIFICATIONS
+• HackerRank: 5 Stars in Python, 4 Stars in SQL.
+• Meta Certified: Back-End Developer Specialization (Coursera, 2024).
