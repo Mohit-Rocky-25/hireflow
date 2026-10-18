@@ -24,12 +24,14 @@ export interface AtsToolState {
   jdText: string;
   appliedFixIds: string[];
   scanHistory: AtsScanHistoryEntry[];
+  latestMissingSkills: string[];
   
   // Actions
   setResumeText: (text: string, fileName?: string) => void;
   setJdText: (text: string) => void;
   toggleFix: (fixId: string) => void;
   clearFixes: () => void;
+  setLatestMissingSkills: (skills: string[]) => void;
   addHistoryEntry: (entry: Omit<AtsScanHistoryEntry, 'id' | 'timestamp'>) => void;
   clearHistory: () => void;
   resetAtsTool: () => void;
@@ -42,6 +44,7 @@ const DEFAULT_STATE = {
   jdText: '',
   appliedFixIds: [] as string[],
   scanHistory: [] as AtsScanHistoryEntry[],
+  latestMissingSkills: [] as string[],
 };
 
 export const useAtsToolStore = create<AtsToolState>()(
@@ -65,6 +68,8 @@ export const useAtsToolStore = create<AtsToolState>()(
         }),
 
       clearFixes: () => set({ appliedFixIds: [] }),
+
+      setLatestMissingSkills: (skills) => set({ latestMissingSkills: skills }),
 
       addHistoryEntry: (entry) =>
         set((state) => ({

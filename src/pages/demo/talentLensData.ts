@@ -107,7 +107,7 @@ export const COMPETENCY_SIGNALS: Record<string, { keywords: string[]; contextPhr
 // ════════════════════════════════════════════════════════════
 // 100 COMPANIES × 10-15 ROLES — Real Data 2024-25
 // ════════════════════════════════════════════════════════════
-export const COMPANIES = [
+const RAW_COMPANIES = [
   {
     id: "google",
     name: "Google",
@@ -154289,6 +154289,75 @@ export const COMPANIES = [
 
 
 // ════════════════════════════════════════════════════════════
+
+import { deduplicateCompanies } from '../../lib/companySearchEngine';
+
+export interface Role {
+  title: string;
+  level: string;
+  desc: string;
+  competencies: string[];
+  reqLevel?: Record<string, string>;
+  location?: string;
+  employmentType?: string;
+  experienceLevel?: string;
+  aboutRole?: string;
+  responsibilities?: string[];
+  requiredQualifications?: string[];
+  toolsAndTech?: string[];
+  requiredSkills?: string[];
+  fullText?: string;
+  selectionProcess?: { stage: string }[];
+  source?: string;
+  sourceUrl?: string | null;
+  lastVerified?: string | null;
+  confidence?: 'high' | 'medium' | 'low';
+  status?: 'verified' | 'needs-recheck' | 'unverified';
+  [key: string]: any;
+}
+
+export interface Company {
+  id: string;
+  name: string;
+  logo: string;
+  gradient: string;
+  industry: string;
+  hq: string;
+  tier: string;
+  hiring2023?: number;
+  hiring2024?: number;
+  openRoles?: number;
+  roles: Role[];
+  source?: string;
+  sourceUrl?: string | null;
+  lastVerified?: string | null;
+  confidence?: 'high' | 'medium' | 'low';
+  status?: 'verified' | 'needs-recheck' | 'unverified';
+  [key: string]: any;
+}
+
+// Attached provenance to every company and role (P-6, R7.11)
+function attachProvenance(companies: any[]): Company[] {
+  return companies.map((c) => ({
+    ...c,
+    source: c.source || 'HireFlow Curated Dataset 2024-25',
+    sourceUrl: c.sourceUrl || null,
+    lastVerified: c.lastVerified || null,
+    confidence: c.confidence || 'low',
+    status: c.status || 'unverified',
+    roles: (c.roles || []).map((r: any) => ({
+      ...r,
+      source: r.source || 'HireFlow Curated Dataset 2024-25',
+      sourceUrl: r.sourceUrl || null,
+      lastVerified: r.lastVerified || null,
+      confidence: r.confidence || 'low',
+      status: r.status || 'unverified',
+    })),
+  })) as Company[];
+}
+
+export const COMPANIES: Company[] = deduplicateCompanies<Company>(attachProvenance(RAW_COMPANIES));
+
 // TALENTLENS™ AI ENGINE v7 — 6-Layer Anti-Gaming Analysis
 // ════════════════════════════════════════════════════════════
 
@@ -154815,8 +154884,6 @@ export const INDUSTRIES = ["All", "Technology", "Fintech", "E-commerce", "IT Ser
 export const TIERS = ["All", "FAANG", "Unicorn", "MNC", "IT Services", "Startup", "Enterprise"];
 
 
-export type Company = typeof COMPANIES[0];
-export type Role = typeof COMPANIES[0]['roles'][0];
 export type CompetencyAnalysis = ReturnType<typeof deepAnalyzeCompetency>;
 export type ImprovementPlan = ReturnType<typeof generateImprovementPlan>;
 export interface AnalysisResult {

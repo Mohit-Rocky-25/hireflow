@@ -43,6 +43,7 @@ import { AuditTab } from '../../features/ats/components/AuditTab';
 import { LearningPathTab } from '../../features/ats/components/LearningPathTab';
 import { DebugDrawer } from '../../features/ats/components/DebugDrawer';
 import { useTalentLensStore, DEMO_TALENTLENS_RESUME } from '../demo/useTalentLensStore';
+import { useAtsToolStore } from '../../store/tools/atsStore';
 import { WordLimitSource } from '../../lib/config/limits';
 import { resolveTargetJob } from '../../features/career-path/resolveTargetJob';
 
@@ -263,6 +264,11 @@ export function ResumeChecker() {
         }
 
         setEngineResult(response.result);
+
+        const missing = (response.result.skillResults || [])
+          .filter((s: any) => s.status === 'missing')
+          .map((s: any) => s.name);
+        useAtsToolStore.getState().setLatestMissingSkills(missing);
 
         window.scrollTo({ top: 0, behavior: 'smooth' });
         setTimeout(() => {

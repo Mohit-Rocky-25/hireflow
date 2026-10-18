@@ -4,7 +4,7 @@
 // ============================================================
 
 import { describe, it, expect } from 'vitest';
-import { resolvePath, resolveStudentPath, formatINR } from '../careerEngine';
+import { resolvePath, resolveStudentPath, formatINR, formatINRRange } from '../careerEngine';
 
 describe('Career Engine Path Resolution & Deterministic Modeling (India Market)', () => {
   it('formats currency correctly in Indian LPA and Crores', () => {
@@ -13,6 +13,14 @@ describe('Career Engine Path Resolution & Deterministic Modeling (India Market)'
     expect(formatINR(7500000)).toBe('₹75.0 LPA');
     expect(formatINR(12800000)).toBe('₹1.28 Cr');
     expect(formatINR(24500000)).toBe('₹2.45 Cr');
+  });
+
+  it('formats compensation ranges as ranges with estimate label and never single point value (R7.8)', () => {
+    expect(formatINRRange(800000, 1500000)).toBe('₹8.0 LPA – ₹15.0 LPA (estimate)');
+    expect(formatINRRange(2500000, 4500000)).toBe('₹25.0 LPA – ₹45.0 LPA (estimate)');
+    expect(formatINRRange(10000000, 18000000)).toBe('₹1.00 Cr – ₹1.80 Cr (estimate)');
+    expect(formatINRRange(1200000, 1200000)).toBe('₹12.0 LPA (estimate)');
+    expect(formatINRRange(0, 0)).toBe('₹0 (estimate)');
   });
 
   // TEST 1 (Requested): IIT student to Google India SDE-L3 then L5

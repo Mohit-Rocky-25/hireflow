@@ -30,7 +30,7 @@ describe('bundleBriefsForGaps (Set-Cover Algorithm)', () => {
   it('handles empty gaps gracefully with default portfolio recommendations', () => {
     const result = bundleBriefsForGaps([]);
     expect(result.recommendedBriefs.length).toBe(2);
-    expect(result.coveragePercentage).toBe(100);
+    expect(result.coveragePercentage).toBe(0);
     expect(result.uncoveredSkills.length).toBe(0);
   });
 

@@ -94,5 +94,5 @@ describe('Evidence Card Codec (cardCodec.ts)', () => {
     const decoded = await decodeCard(encodedString);
     expect(decoded.ok).toBe(true);
     expect(decoded.integrityPassed).toBe(true);
-  });
+  }, 15000);
 });

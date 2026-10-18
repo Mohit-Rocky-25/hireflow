@@ -581,7 +581,9 @@ export function deduplicateCompanies<T extends SearchableCompany>(companies: T[]
   const map = new Map<string, T>();
 
   companies.forEach(company => {
-    const key = (company.id || company.name || '').toLowerCase().trim();
+    const key = company.name
+      ? company.name.toLowerCase().replace(/[^a-z0-9]/g, '')
+      : (company.id || '').toLowerCase().trim();
     if (!key) return;
 
     if (!map.has(key)) {

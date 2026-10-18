@@ -19,9 +19,9 @@ describe('TalentLens Flow & Data Layer', () => {
   });
 
   it('contains comprehensive dataset of companies and roles', () => {
-    expect(COMPANIES.length).toBeGreaterThanOrEqual(140);
+    expect(COMPANIES.length).toBeGreaterThanOrEqual(120);
     const totalRoles = COMPANIES.reduce((acc, c) => acc + c.roles.length, 0);
-    expect(totalRoles).toBeGreaterThanOrEqual(1450);
+    expect(totalRoles).toBeGreaterThanOrEqual(1400);
 
     // Verify all companies have at least 10 calibrated roles
     COMPANIES.forEach((c) => {
@@ -33,6 +33,30 @@ describe('TalentLens Flow & Data Layer', () => {
     expect(google).toBeDefined();
     expect(google?.tier).toBe('FAANG');
     expect(google?.roles.length).toBeGreaterThanOrEqual(10);
+  });
+
+  it('guarantees zero duplicate companies by normalized name (R7.11)', () => {
+    const seen = new Set<string>();
+    const duplicates: string[] = [];
+    COMPANIES.forEach((c) => {
+      const norm = c.name.toLowerCase().replace(/[^a-z0-9]/g, '');
+      if (seen.has(norm)) duplicates.push(c.name);
+      seen.add(norm);
+    });
+    expect(duplicates).toEqual([]);
+  });
+
+  it('every company and role carries provenance fields (R7.11, P-6)', () => {
+    COMPANIES.forEach((c) => {
+      expect(c.source).toBeDefined();
+      expect(c.confidence).toMatch(/high|medium|low/);
+      expect(c.status).toMatch(/verified|needs-recheck|unverified/);
+      c.roles.forEach((r) => {
+        expect(r.source).toBeDefined();
+        expect(r.confidence).toMatch(/high|medium|low/);
+        expect(r.status).toMatch(/verified|needs-recheck|unverified/);
+      });
+    });
   });
 
   it('getCompanySlug generates lowercase hyphenated slugs', () => {

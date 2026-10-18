@@ -196,6 +196,16 @@ export function formatINR(rupees: number): string {
 }
 
 /**
+ * Formats a rupee compensation range with an estimate suffix.
+ * Never presents compensation as a single point value.
+ */
+export function formatINRRange(minRupees: number, maxRupees: number): string {
+  if (isNaN(minRupees) || isNaN(maxRupees) || (minRupees === 0 && maxRupees === 0)) return '₹0 (estimate)';
+  if (minRupees === maxRupees) return `${formatINR(minRupees)} (estimate)`;
+  return `${formatINR(minRupees)} – ${formatINR(maxRupees)} (estimate)`;
+}
+
+/**
  * Calculates step duration adjusted by performance rating and existing tenure in level
  */
 function calculateStepDuration(

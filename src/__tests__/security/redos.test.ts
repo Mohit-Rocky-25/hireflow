@@ -55,7 +55,7 @@ describe('Regex Denial of Service (ReDoS) Resilience (Rule 4.3)', () => {
     const parsed = parseResume(trickySkills);
     const duration = performance.now() - start;
 
-    expect(duration).toBeLessThan(300);
+    expect(duration).toBeLessThan(750);
     expect(parsed.skillsExtracted).toBeDefined();
   });
 

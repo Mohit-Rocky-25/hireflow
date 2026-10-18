@@ -64,20 +64,20 @@ Traceability table mapping every requirement ID to its stage, acceptance test/va
 | **R6.9** | Stage 6 | Truth Gate: 25 adversarial cases blocked & 10 legitimate pass | `tests/tailor/truth-gate.test.ts` | **DONE** |
 | **R6.10**| Stage 6 | Content parity across HTML, TXT, and DOCX via LayoutTree | `tests/tailor/content-parity.test.ts` | **DONE** |
 | **R6.11**| Stage 6 | Zero silent loss drawer for omitted ledger items | `tests/tailor/content-parity.test.ts` | **DONE** |
-| **R7.1** | Stage 7 | Credential Engine freshness badges & yearly change notices | `tests/credentialsFreshnessSchema.test.ts` | **DONE** (Stage 0 check) |
-| **R7.2** | Stage 7 | Student eligibility, fee waivers, and next window notes | Data & UI tests | PENDING |
-| **R7.3** | Stage 7 | Placeholder bullets ([CREDENTIAL_ID], [DATE_EARNED]) & copy lock | `tests/credentialsTruthGate.test.ts` | **DONE** (Stage 0 check) |
-| **R7.4** | Stage 7 | Project Briefs validation & difficulty contradiction check | `validateData.test.ts` | PENDING |
-| **R7.5** | Stage 7 | Hour ranges with assumptions (+/-25% estimate) | Briefs data tests | PENDING |
-| **R7.6** | Stage 7 | Replace recruiter claims with "What this project demonstrates" | UI & data audit | PENDING |
-| **R7.7** | Stage 7 | Greedy set cover bundle generator with unit tests | `tests/briefs-bundler.test.ts` | PENDING |
-| **R7.8** | Stage 7 | Career Trajectory compensation ranges in LPA with INR formatting | Ladder data tests | PENDING |
-| **R7.9** | Stage 7 | Fresher 2-year view without "Promotion Simulator" wording | UI inspection | PENDING |
-| **R7.10**| Stage 7 | "Skills to close" panel connected to latest ATS scan | Store integration test | PENDING |
-| **R7.11**| Stage 7 | TalentLens company provenance & duplicate removal | `validateData.test.ts` | PENDING |
-| **R7.12**| Stage 7 | Company cards search, filters, roles page, Deep Analysis | UI inspection | PENDING |
-| **R7.13**| Stage 7 | JD completeness audit & compiled data disclosure | `docs/jd-gaps.md` | PENDING |
-| **R7.14**| Stage 7 | Deterministic `generateOutreach` with 3 formats & 2 variants | `tests/generateOutreach.test.ts` | **DONE** (Stage 0 check) |
+| **R7.1** | Stage 7 | Credential Engine freshness badges & yearly change notices | `tests/credentialsFreshnessSchema.test.ts` | **DONE** |
+| **R7.2** | Stage 7 | Student eligibility, fee waivers, and next window notes | Data & UI tests | **DONE** |
+| **R7.3** | Stage 7 | Placeholder bullets ([CREDENTIAL_ID], [DATE_EARNED]) & copy lock | `tests/credentialsTruthGate.test.ts` | **DONE** |
+| **R7.4** | Stage 7 | Project Briefs validation & difficulty contradiction check | `validateData.test.ts`, `docs/data-report.md` | **DONE** |
+| **R7.5** | Stage 7 | Hour ranges with assumptions (+/-25% estimate) | `bundleBriefs.ts`, `bundler.test.ts` | **DONE** |
+| **R7.6** | Stage 7 | Replace recruiter claims with "What this project demonstrates" | `BuildBriefsPage.tsx`, `bundleBriefs.ts` | **DONE** |
+| **R7.7** | Stage 7 | Greedy set cover bundle generator with unit tests | `tests/briefs/bundler.test.ts` | **DONE** |
+| **R7.8** | Stage 7 | Career Trajectory compensation ranges in LPA with INR formatting | `CareerPathSimulator.tsx`, `careerEngine.ts` | **DONE** |
+| **R7.9** | Stage 7 | Fresher 2-year view without "Promotion Simulator" wording | `CareerPathSimulator.tsx` | **DONE** |
+| **R7.10**| Stage 7 | "Skills to close" panel connected to latest ATS scan | `CareerPathSimulator.tsx`, `atsStore.ts` | **DONE** |
+| **R7.11**| Stage 7 | TalentLens company provenance & duplicate removal | `talentLensData.ts`, `talentlens.test.ts` | **DONE** |
+| **R7.12**| Stage 7 | Company cards search, filters, roles page, Deep Analysis | `CompanyRolesPage.tsx`, `MatchingDemo.tsx` | **DONE** |
+| **R7.13**| Stage 7 | JD completeness audit & compiled data disclosure | `docs/jd-gaps.md`, `CompanyRolesPage.tsx` | **DONE** |
+| **R7.14**| Stage 7 | Deterministic `generateOutreach` with 3 formats & 2 variants | `src/features/suite/outreach/__tests__/generateOutreach.test.ts` | **DONE** |
 | **R8.1** | Stage 8 | A11y: keyboard reachability, visible focus, ARIA labels | `tests/a11y/` | PENDING |
 | **R8.2** | Stage 8 | Privacy: zero-egress static check & local data storage drawer | `scripts/check-privacy.ts` | PENDING |
 | **R8.3** | Stage 8 | Robustness: empty, huge, Devanagari, emoji, limits | Robustness test suite | PENDING |

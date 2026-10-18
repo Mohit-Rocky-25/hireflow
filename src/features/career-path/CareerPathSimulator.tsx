@@ -81,14 +81,114 @@ import {
   resolvePath,
   resolveStudentPath,
   formatINR,
+  formatINRRange,
   type PerformanceBracket,
   type PromotionPlan,
   type StudentProfile,
   type StudentPromotionPlan,
   type CompDataPoint,
 } from '../../lib/careerEngine';
+import { useAtsToolStore } from '../../store/tools/atsStore';
 import { careers, DataBadge } from '../../careers-core';
 import type { FresherProgram } from '../../careers-core';
+
+export function SkillsToClosePanel() {
+  const latestMissingSkills = useAtsToolStore((s) => s.latestMissingSkills);
+
+  if (!latestMissingSkills || latestMissingSkills.length === 0) {
+    return (
+      <div className="bg-surface rounded-2xl p-6 border border-border shadow-sm space-y-3">
+        <div className="flex items-center gap-2">
+          <Target className="w-5 h-5 text-primary" />
+          <h3 className="text-sm font-black text-foreground uppercase tracking-wider">
+            Skills to Close (Target Career Alignment)
+          </h3>
+        </div>
+        <div className="bg-surface-2/40 border border-border/80 rounded-xl p-4 text-xs space-y-2">
+          <p className="text-secondary leading-relaxed">
+            No recent resume scan found. Run a scan in ATS Resume Roaster or Tailor My Resume to detect skill gaps for your target path and see your targeted skills to close.
+          </p>
+          <div className="pt-2 flex flex-wrap gap-2">
+            <Link
+              to="/tools/resume-checker"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary text-white text-xs font-bold hover:bg-primary/90 transition-colors"
+            >
+              <Sparkles className="w-3.5 h-3.5" />
+              Run ATS Resume Scan
+            </Link>
+            <Link
+              to="/tools/tailor"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface border border-border text-foreground hover:bg-surface-2 text-xs font-bold transition-colors"
+            >
+              <FileText className="w-3.5 h-3.5" />
+              Open Tailor My Resume
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="bg-surface rounded-2xl p-6 border border-border shadow-sm space-y-4">
+      <div className="flex items-center justify-between flex-wrap gap-2 pb-3 border-b border-border">
+        <div>
+          <span className="text-[10px] font-black uppercase text-primary tracking-wider">
+            Target Growth Pathway
+          </span>
+          <h3 className="text-base font-black text-foreground mt-0.5 flex items-center gap-2">
+            <Target className="w-5 h-5 text-primary" />
+            Skills to Close ({latestMissingSkills.length} Detected Gap{latestMissingSkills.length > 1 ? 's' : ''})
+          </h3>
+          <p className="text-xs text-secondary mt-0.5">
+            Identified from your latest resume scan. Closing these gaps accelerates entry readiness and Year 1–2 milestone achievement.
+          </p>
+        </div>
+        <Link
+          to="/tools/resume-checker"
+          className="text-xs font-bold text-primary hover:underline flex items-center gap-1"
+        >
+          Re-scan resume <ArrowRight className="w-3.5 h-3.5" />
+        </Link>
+      </div>
+
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        {latestMissingSkills.map((skill, idx) => (
+          <div
+            key={idx}
+            className="p-3.5 rounded-xl border border-border bg-surface-2/30 space-y-2 flex flex-col justify-between"
+          >
+            <div>
+              <div className="flex items-center justify-between mb-1">
+                <span className="font-black text-foreground text-xs">{skill}</span>
+                <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-500/10 text-amber-500 border border-amber-500/20">
+                  Target Gap
+                </span>
+              </div>
+              <p className="text-[11px] text-muted leading-relaxed">
+                Required for technical screening rounds and Year 1–2 delivery milestones on this path.
+              </p>
+            </div>
+            <div className="pt-2 border-t border-border/50 flex items-center justify-between text-[11px]">
+              <Link
+                to={`/tools/briefs?skill=${encodeURIComponent(skill)}`}
+                className="font-bold text-primary hover:underline flex items-center gap-1"
+              >
+                Find Practice Brief &rarr;
+              </Link>
+              <Link
+                to={`/tools/credentials?search=${encodeURIComponent(skill)}`}
+                className="text-muted hover:text-foreground font-semibold"
+              >
+                Certifications
+              </Link>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export interface CareerPathSimulatorProps {
   fixedTab?: 'simulator' | 'explorer';
@@ -674,9 +774,9 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
 
                         <div className="text-right pl-2">
                           <p className="text-xs font-black text-foreground">
-                            {formatINR(lvl.comp.total.p50)}
+                            {formatINRRange(lvl.comp.total.p25, lvl.comp.total.p75)}
                           </p>
-                          <span className="text-[10px] text-muted font-bold">Median CTC</span>
+                          <span className="text-[10px] text-muted font-bold">Annual Range</span>
                         </div>
                       </div>
                     );
@@ -708,7 +808,7 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                             </span>
                           ) : (
                             <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/10 text-amber-600 border border-amber-500/20">
-                              Estimate
+                              Estimate (Unverified)
                             </span>
                           )}
                         </div>
@@ -732,21 +832,19 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                       {/* Top CTC Card */}
                       <div className="text-right bg-surface-2/60 p-3 rounded-xl border border-border">
                         <span className="text-[10px] font-bold text-muted uppercase tracking-wider flex items-center gap-1 justify-end">
-                          Typical Total Annual Pay (Median)
+                          Typical Total Annual Pay Range
                           <span className="group relative cursor-help">
                             <HelpCircle className="w-3 h-3 text-muted hover:text-foreground" />
                             <span className="pointer-events-none absolute -left-48 top-5 w-56 rounded-lg bg-foreground text-background p-2 text-[10px] font-normal leading-tight opacity-0 shadow-lg transition-opacity group-hover:opacity-100 z-30">
-                              Median = the middle value. Half of the people at this level earn less, half earn more. Total annual pay = base + yearly bonus + yearly value of stock. Shown per year in INR.
+                              Estimated range (p25–p75) representing lower to upper quartile. Total annual pay = base + yearly bonus + yearly value of stock. Shown per year in INR.
                             </span>
                           </span>
                         </span>
                         <span className="text-2xl font-black text-emerald-600 dark:text-emerald-400 block mt-0.5">
-                          {formatINR(activeDetailLevel.comp.total.p50)}
+                          {formatINRRange(activeDetailLevel.comp.total.p25, activeDetailLevel.comp.total.p75)}
                         </span>
                         <span className="text-[10px] text-muted block mt-0.5">
-                          Lower range (25% earn less): {formatINR(activeDetailLevel.comp.total.p25)}
-                          <br />
-                          Upper range (75% earn less): {formatINR(activeDetailLevel.comp.total.p75)}
+                          Median benchmark: {formatINR(activeDetailLevel.comp.total.p50)} • Verified India Office Data
                         </span>
                       </div>
                     </div>
@@ -1250,6 +1348,9 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                     </button>
                   </div>
                 )}
+
+                {/* Skills to Close for Fresher Programs (R7.10) */}
+                <SkillsToClosePanel />
               </div>
             )}
 
@@ -1759,9 +1860,12 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                   {/* Top Metrics Cards */}
                   <div className="grid sm:grid-cols-3 gap-4">
                     <div className="bg-surface-2/40 rounded-xl p-4 border border-border">
-                      <span className="text-xs font-bold text-muted uppercase">Fresher Entry Offer (INR)</span>
-                      <span className="text-2xl font-black text-emerald-400 block mt-1">
-                        {formatINR(studentResult.entryRoutes[0]?.expectedOfferINR || studentResult.entryLevel.comp.total.p50)}
+                      <span className="text-xs font-bold text-muted uppercase">Fresher Entry Offer Range</span>
+                      <span className="text-xl font-black text-emerald-400 block mt-1">
+                        {formatINRRange(
+                          studentResult.entryRoutes[0]?.expectedOfferINR || studentResult.entryLevel.comp.total.p25,
+                          studentResult.entryLevel.comp.total.p75
+                        )}
                       </span>
                       <span className="text-xs text-secondary mt-1 block">
                         At {studentResult.dreamCompany.name} ({studentResult.entryLevel.levelCode})
@@ -1769,9 +1873,9 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                     </div>
 
                     <div className="bg-surface-2/40 rounded-xl p-4 border border-border">
-                      <span className="text-xs font-bold text-muted uppercase">Target Level Compensation</span>
-                      <span className="text-2xl font-black text-white block mt-1">
-                        {formatINR(studentResult.targetLevel.comp.total.p50)}
+                      <span className="text-xs font-bold text-muted uppercase">Target Level Compensation Range</span>
+                      <span className="text-xl font-black text-white block mt-1">
+                        {formatINRRange(studentResult.targetLevel.comp.total.p25, studentResult.targetLevel.comp.total.p75)}
                       </span>
                       <span className="text-xs text-secondary mt-1 block">
                         {studentResult.targetLevel.levelCode} • {studentResult.targetLevel.title}
@@ -1972,6 +2076,68 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                   </div>
                 )}
 
+                {/* 4.1 FIRST TWO YEARS FRESHER MILESTONES (R7.9) */}
+                <div className="bg-surface rounded-2xl p-6 border border-border shadow-sm space-y-5">
+                  <div className="border-b border-border pb-3">
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 inline-block mb-1">
+                      Early Career Core Focus
+                    </span>
+                    <h3 className="text-base sm:text-lg font-black text-foreground mt-0.5 flex items-center gap-2">
+                      <Target className="w-5 h-5 text-emerald-400" />
+                      First Two Years: Critical Engineering Milestones
+                    </h3>
+                    <p className="text-xs text-secondary mt-0.5">
+                      Clear operational milestones for your first 24 months at {studentResult.dreamCompany.name} ({studentResult.entryLevel.levelCode}), derived from verified promotion criteria.
+                    </p>
+                  </div>
+
+                  <div className="grid md:grid-cols-2 gap-4">
+                    {/* Year 1 */}
+                    <div className="p-4 rounded-xl border border-border bg-surface-2/40 space-y-3">
+                      <div className="flex items-center justify-between border-b border-border/60 pb-2">
+                        <span className="font-black text-foreground text-sm flex items-center gap-1.5">
+                          <CheckCircle2 className="w-4 h-4 text-emerald-400" /> Year 1: Onboarding &amp; Delivery Execution
+                        </span>
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-primary/10 text-primary">
+                          Months 1–12
+                        </span>
+                      </div>
+                      <div className="space-y-2 text-xs text-secondary">
+                        <div className="bg-surface p-2.5 rounded-lg border border-border/80">
+                          <strong className="text-foreground block text-[11px] mb-0.5">Production Ownership:</strong>
+                          Ship first feature PR within 30 days; master CI/CD deployment pipelines, unit testing, and team code review SLA standards.
+                        </div>
+                        <div className="bg-surface p-2.5 rounded-lg border border-border/80">
+                          <strong className="text-foreground block text-[11px] mb-0.5">Operational Reliability:</strong>
+                          Shadow team on-call rotation by month 6; write comprehensive runbooks for handled production incidents.
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Year 2 */}
+                    <div className="p-4 rounded-xl border border-border bg-surface-2/40 space-y-3">
+                      <div className="flex items-center justify-between border-b border-border/60 pb-2">
+                        <span className="font-black text-foreground text-sm flex items-center gap-1.5">
+                          <TrendingUp className="w-4 h-4 text-primary" /> Year 2: Independent Subsystem Scope
+                        </span>
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-primary/10 text-primary">
+                          Months 13–24
+                        </span>
+                      </div>
+                      <div className="space-y-2 text-xs text-secondary">
+                        <div className="bg-surface p-2.5 rounded-lg border border-border/80">
+                          <strong className="text-foreground block text-[11px] mb-0.5">End-to-End Design:</strong>
+                          Author RFC/technical design doc for a service integration or performance optimization; drive implementation end-to-end.
+                        </div>
+                        <div className="bg-surface p-2.5 rounded-lg border border-border/80">
+                          <strong className="text-foreground block text-[11px] mb-0.5">Promotion Packet Evidence:</strong>
+                          Deliver measurable business metric (latency reduction, cost savings, or error rate drop) required for advancement to {studentResult.targetLevel.levelCode}.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
                 {/* 5. WHAT SHOULD I DO NEXT? (ACTION STEPS & STEPPING STONES) */}
                 <div className="bg-surface rounded-2xl p-6 border border-border shadow-sm space-y-6">
                   <div className="border-b border-border pb-3">
@@ -2044,6 +2210,9 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                     </div>
                   )}
                 </div>
+
+                {/* Skills to Close Panel (R7.10) */}
+                <SkillsToClosePanel />
               </div>
             )}
 
@@ -2545,12 +2714,12 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                     </div>
 
                     <div className="bg-surface-2/40 rounded-xl p-4 border border-border">
-                      <span className="text-xs font-bold text-muted uppercase">Target Level Total Annual CTC</span>
-                      <span className="text-2xl font-black text-white block mt-1">
-                        {formatINR(profResult.targetLevel.comp.total.p50)}
+                      <span className="text-xs font-bold text-muted uppercase">Target Level Total Annual CTC Range</span>
+                      <span className="text-xl font-black text-white block mt-1">
+                        {formatINRRange(profResult.targetLevel.comp.total.p25, profResult.targetLevel.comp.total.p75)}
                       </span>
                       <span className="text-xs text-secondary mt-1 block">
-                        Median verified compensation for {profResult.targetLevel.companyId.toUpperCase()} {profResult.targetLevel.levelCode}
+                        Estimated quartile band for {profResult.targetLevel.companyId.toUpperCase()} {profResult.targetLevel.levelCode}
                       </span>
                     </div>
                   </div>

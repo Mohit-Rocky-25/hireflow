@@ -455,7 +455,7 @@ export function CompanyRolesPage() {
               <div className="flex items-center gap-[8px]">
                 <div className="bg-surface-2 rounded-xl px-[12px] py-[8px] text-center border border-border/60">
                   <div className="text-[13px] font-extrabold text-text">
-                    {company.hiring2024.toLocaleString()}
+                    {company.hiring2024 != null ? company.hiring2024.toLocaleString() : '—'}
                   </div>
                   <div className="text-[10px] text-text-muted flex items-center justify-center gap-[2px]">
                     Hires &lsquo;24{' '}
@@ -950,8 +950,13 @@ export function CompanyRolesPage() {
                       {/* Expanded JD Details */}
                       {isSelected && (role as any).fullText && (
                         <div className="mt-2 p-5 bg-surface-2 rounded-xl border border-border animate-fade-in cursor-default text-left" onClick={(e) => e.stopPropagation()}>
-                          <div className="flex items-center justify-between mb-4 border-b border-border pb-3">
-                            <h4 className="text-sm font-bold text-foreground">Complete Job Description</h4>
+                          <div className="flex items-center justify-between mb-4 border-b border-border pb-3 flex-wrap gap-2">
+                            <div className="flex items-center gap-2 flex-wrap">
+                              <h4 className="text-sm font-bold text-foreground">Job Description</h4>
+                              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/10 text-amber-500 border border-amber-500/25">
+                                <Info className="w-3 h-3" /> Compiled from HireFlow data (not the official posting)
+                              </span>
+                            </div>
                             <div className="flex gap-2">
                               <button
                                 onClick={(e) => {
@@ -1483,8 +1488,8 @@ export function CompanyRolesPage() {
                 {[
                   {
                     label: 'Hires 2024',
-                    value: company.hiring2024.toLocaleString(),
-                    sub: `${TREND_ICON[company.trend]} from ${company.hiring2023.toLocaleString()} (2023)`,
+                    value: company.hiring2024 != null ? company.hiring2024.toLocaleString() : '—',
+                    sub: `${TREND_ICON[company.trend]} from ${company.hiring2023 != null ? company.hiring2023.toLocaleString() : '—'} (2023)`,
                     subColor: TREND_COLOR[company.trend],
                   },
                   {

@@ -60,12 +60,29 @@ const DIFFICULTY_WEIGHT: Record<BriefDifficulty, number> = {
 };
 
 /**
+ * Derives hours range as +/- 25% with explicit assumption per R7.5.
+ */
+export function getBriefHoursRange(brief: ProjectBrief): { min: number; max: number; label: string; assumption: string } {
+  const min = Math.max(10, Math.round(brief.estimatedHours * 0.75));
+  const max = Math.round(brief.estimatedHours * 1.25);
+  const stack = (brief.techStack || []).slice(0, 2).join(' / ');
+  const assumption = `Assumes foundational familiarity with ${stack || 'core technologies'}`;
+  return {
+    min,
+    max,
+    label: `${min}–${max} h (estimate)`,
+    assumption,
+  };
+}
+
+/**
  * Deterministic Greedy Set Cover:
- * Finds the minimal set of project briefs that maximizes coverage of target skill gaps.
- * Deterministic tie-breaker:
- * 1. Fewest estimated hours (time efficiency)
- * 2. Highest difficulty level (stronger portfolio signal)
- * 3. Lexicographical ID
+ * Finds the suggested set of project briefs that maximizes coverage of target skill gaps.
+ * Deterministic tie-breakers:
+ * 1. Higher coverage of remaining gaps
+ * 2. Fewest estimated hours (time efficiency)
+ * 3. Lower difficulty level (beginner < intermediate < advanced)
+ * 4. Lexicographical ID
  */
 export function bundleBriefsForGaps(
   targetGaps: string[],
@@ -75,13 +92,13 @@ export function bundleBriefsForGaps(
   // Clean and deduplicate target gaps
   const uniqueGaps = Array.from(new Set(targetGaps.map((g) => g.trim()).filter(Boolean)));
   if (uniqueGaps.length === 0) {
-    // If no specific gaps provided, return top 2 versatile full-stack & distributed briefs
+    // If no specific gaps provided, return top 2 versatile full-stack & distributed briefs as suggested starter bundle
     const defaultBriefs = availableBriefs.slice(0, 2);
     return {
       recommendedBriefs: defaultBriefs,
       coveredSkills: [],
       uncoveredSkills: [],
-      coveragePercentage: 100,
+      coveragePercentage: 0,
       totalEstimatedHours: defaultBriefs.reduce((sum, b) => sum + b.estimatedHours, 0),
       briefCoverageMap: defaultBriefs.map((b) => ({
         briefId: b.id,
@@ -128,9 +145,8 @@ export function bundleBriefsForGaps(
         if (brief.estimatedHours < bestBrief.estimatedHours) {
           bestBrief = brief;
           bestCoveredForThisBrief = covers;
-        } else if (brief.estimatedHours === bestBrief.estimatedHours) {
-          // Tie-breaker 2: Higher difficulty weight
-          const diffDiff = DIFFICULTY_WEIGHT[brief.difficulty] - DIFFICULTY_WEIGHT[bestBrief.difficulty];
+          // Tie-breaker 2: Lower difficulty (beginner < intermediate < advanced)
+          const diffDiff = DIFFICULTY_WEIGHT[bestBrief.difficulty] - DIFFICULTY_WEIGHT[brief.difficulty];
           if (diffDiff > 0) {
             bestBrief = brief;
             bestCoveredForThisBrief = covers;

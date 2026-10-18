@@ -46,6 +46,7 @@ import {
   ALL_PROJECT_BRIEFS,
   ProjectBrief,
   BriefDifficulty,
+  getBriefHoursRange,
 } from './bundleBriefs';
 import { useProfile } from '../profile/ProfileContext';
 
@@ -99,7 +100,7 @@ function buildBriefText(brief: ProjectBrief): string {
     `-`.repeat(40),
     brief.problemItSolves || '—',
     ``,
-    `RECRUITER SHORTLIST SIGNAL`,
+    `WHAT THIS PROJECT DEMONSTRATES`,
     `-`.repeat(40),
     brief.recruiterSignal || '—',
     ``,
@@ -222,11 +223,12 @@ function BriefDetailModal({
                 <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border ${DIFFICULTY_BADGE[brief.difficulty]}`}>
                   {brief.difficulty}
                 </span>
-                <span className="text-[10px] font-semibold text-text-muted flex items-center gap-1">
-                  <Clock className="w-3 h-3" /> {brief.estimatedHours}h estimated
+                <span className="text-[10px] font-semibold text-text-muted flex items-center gap-1" title={getBriefHoursRange(brief).assumption}>
+                  <Clock className="w-3 h-3" /> {getBriefHoursRange(brief).label}
                 </span>
               </div>
               <h2 className="text-xl font-bold text-text leading-snug">{brief.title}</h2>
+              <p className="text-[11px] text-text-muted mt-0.5 italic">{getBriefHoursRange(brief).assumption}</p>
             </div>
 
             {/* Navigation & Close Controls */}
@@ -333,11 +335,11 @@ function BriefDetailModal({
             </section>
           )}
 
-          {/* Recruiter Signal */}
+          {/* What this project demonstrates */}
           {brief.recruiterSignal && (
             <section className="space-y-2">
               <h3 className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-text-muted">
-                <TrendingUp className="w-3.5 h-3.5 text-violet-400" /> Recruiter Shortlist Signal
+                <TrendingUp className="w-3.5 h-3.5 text-violet-400" /> What this project demonstrates
               </h3>
               <p className="text-sm text-text leading-relaxed bg-violet-500/5 p-4 rounded-xl border border-violet-500/20">
                 {brief.recruiterSignal}
@@ -523,6 +525,9 @@ function BriefCard({
             </span>
             <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded border ${DIFFICULTY_BADGE[brief.difficulty]}`}>
               {brief.difficulty}
+            </span>
+            <span className="text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded border bg-surface-elevated text-text-muted border-border">
+              {getBriefHoursRange(brief).label}
             </span>
           </div>
           <button
@@ -803,13 +808,13 @@ export function BuildBriefsPage() {
         <div className="space-y-2">
           <div className="flex items-center gap-2">
             <Sparkles className="w-5 h-5 text-primary" />
-            <span className="text-xs font-bold uppercase tracking-wider text-primary">Optimal Set-Cover Solution</span>
+            <span className="text-xs font-bold uppercase tracking-wider text-primary">Suggested Bundle</span>
           </div>
           <h2 className="text-xl sm:text-2xl font-bold text-text">
             {bundleResult.recommendedBriefs.length} Projects Cover {bundleResult.coveredSkills.length} of {activeGaps.length} Target Skills
           </h2>
           <p className="text-xs text-text-muted max-w-2xl leading-relaxed">
-            Greedy set-cover algorithm maximizes technical proof with minimal overhead.
+            Greedy set-cover algorithm suggests portfolio projects with high coverage.
             Estimated completion: <strong className="text-text">{bundleResult.totalEstimatedHours} hours</strong>.
           </p>
         </div>
@@ -834,7 +839,7 @@ export function BuildBriefsPage() {
             activeTab === 'bundle' ? 'border-primary text-primary' : 'border-transparent text-text-muted hover:text-text'
           }`}
         >
-          <Hammer className="w-4 h-4" /> Recommended Bundle ({bundleResult.recommendedBriefs.length})
+          <Hammer className="w-4 h-4" /> Suggested Bundle ({bundleResult.recommendedBriefs.length})
         </button>
         <button
           id="tab-library"

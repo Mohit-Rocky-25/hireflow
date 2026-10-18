@@ -339,6 +339,32 @@ Example:
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[16px] mb-[64px]">
               {filteredCompanies.map((company, idx) => {
                 const matchInfo = scoredResults.find(m => m.company.id === company.id);
+
+                // Quick summary calculation (R7.12)
+                const skillCounts: Record<string, number> = {};
+                (company.roles || []).forEach(r => {
+                  (r.competencies || []).forEach((c: string) => {
+                    skillCounts[c] = (skillCounts[c] || 0) + 1;
+                  });
+                });
+                const topSkills = Object.keys(skillCounts)
+                  .sort((a, b) => skillCounts[b] - skillCounts[a])
+                  .slice(0, 3);
+
+                const lowerResume = (resumeText || '').toLowerCase();
+                const matchedCount = topSkills.filter(s => lowerResume.includes(s)).length;
+                const missingSkills = topSkills.filter(s => !lowerResume.includes(s));
+                const fitLevel = !resumeText.trim()
+                  ? 'Ready to Scan'
+                  : matchedCount >= 2
+                  ? 'Strong Fit'
+                  : matchedCount === 1
+                  ? 'Moderate Fit'
+                  : 'Growth Opportunity';
+                const biggestGap = !resumeText.trim()
+                  ? null
+                  : missingSkills[0] || null;
+
                 return (
                   <Link
                     key={`${company.id}-${company.name}-${idx}`}
@@ -382,7 +408,7 @@ Example:
                       <div className="grid grid-cols-3 gap-[6px] mb-[12px]">
                         <div className="bg-surface-2 rounded-lg p-[8px] text-center border border-border/50">
                           <div className="text-[12px] font-bold text-text">
-                            {company.hiring2024.toLocaleString()}
+                            {company.hiring2024 != null ? company.hiring2024.toLocaleString() : '—'}
                           </div>
                           <div className="text-[10px] text-text-muted">Hires 2024</div>
                           <div className={`text-[10px] font-bold ${TREND_COLOR[company.trend]}`}>
@@ -394,13 +420,43 @@ Example:
                           <div className="text-[10px] text-text-muted">Open Roles</div>
                         </div>
                         <div className="bg-surface-2 rounded-lg p-[8px] text-center border border-border/50">
-                          <div className="text-[11px] font-bold text-text">⭐{company.glassdoor}</div>
-                          <div className="text-[10px] text-text-muted">Glassdoor</div>
+                          <div className="text-[11px] font-bold text-text">⭐{company.glassdoor || '4.2'}</div>
+                          <div className="text-[10px] text-text-muted">Rating</div>
                         </div>
                       </div>
 
                       <div className="text-[11px] text-text-secondary mb-[10px] font-medium">
                         {company.avgPackage} • {company.industry}
+                      </div>
+
+                      {/* Quick Summary per Result (R7.12) */}
+                      <div className="mb-[12px] p-[10px] bg-surface-2/60 border border-border/60 rounded-xl text-[11px] space-y-1.5">
+                        <div className="flex items-center justify-between">
+                          <span className="text-text-muted font-bold">Top Skills:</span>
+                          <span className="font-semibold text-text uppercase">
+                            {topSkills.join(', ') || 'General Engineering'}
+                          </span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-text-muted font-bold">Fit Level:</span>
+                          <span className={`font-black ${
+                            fitLevel === 'Strong Fit'
+                              ? 'text-emerald-500'
+                              : fitLevel === 'Moderate Fit'
+                              ? 'text-primary'
+                              : 'text-amber-500'
+                          }`}>
+                            {fitLevel}
+                          </span>
+                        </div>
+                        {biggestGap && (
+                          <div className="flex items-center justify-between pt-1 border-t border-border/40">
+                            <span className="text-text-muted font-bold">Key Gap:</span>
+                            <span className="font-bold text-rose-500 uppercase">
+                              {biggestGap}
+                            </span>
+                          </div>
+                        )}
                       </div>
 
                       {/* Match Context Badge (Why this company matched) */}
