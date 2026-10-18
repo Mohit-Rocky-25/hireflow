@@ -118,3 +118,5 @@ export interface ResumeFactLedgerV2 {
   skills: SkillFact[];
   rawTextPreview?: string | null;
 }
+
+export type ResumeFactLedger = ResumeFactLedgerV2;

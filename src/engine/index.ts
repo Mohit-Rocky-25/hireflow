@@ -11,4 +11,6 @@ export * from './ingestion';
 export * from './matching';
 export * from './ledger';
 export * from './roaster';
+export * from './tailor';
+export * from './compare';
 

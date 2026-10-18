@@ -40,7 +40,7 @@ export function parseJobDescription(jdText: string): ParsedJD {
   }
 
   // Section heading pattern
-  const headingRegex = /^(?:requirements|qualifications|what\s+you'?ll\s+need|must\s+haves?|responsibilities|what\s+you'?ll\s+do|preferred\s+qualifications|good\s+to\s+have|nice\s+to\s+have|about\s+(?:the\s+)?company|benefits|perks|equal\s+opportunity|how\s+to\s+apply)[:\s-]*$/i;
+  const headingRegex = /^(?:(?:mandatory|preferred|core|technical|key|basic)?\s*(?:requirements|qualifications|responsibilities|skills)|what\s+you'?ll\s+need|must\s+haves?|what\s+you'?ll\s+do|preferred\s+qualifications|good\s+to\s+have|nice\s+to\s+have|about\s+(?:the\s+)?company|benefits|perks|equal\s+opportunity|how\s+to\s+apply)[:\s-]*$/i;
 
   rawLines.forEach((line) => {
     if (headingRegex.test(line)) {

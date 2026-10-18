@@ -53,17 +53,17 @@ Traceability table mapping every requirement ID to its stage, acceptance test/va
 | **R5.7** | Stage 5 | Clean 4-tab results view with actionable Next Steps | `src/engine/roaster/roaster.ts` | **DONE** |
 | **R5.8** | Stage 5 | Calibration harness & confusion matrix | `tests/calibration/calibration.test.ts`, `docs/calibration-report.md` | **DONE** |
 | **R5.9** | Stage 5 | Sub-1.5s scan performance (26.5ms benchmark) | `tests/roaster/performance.test.ts` | **DONE** |
-| **R6.1** | Stage 6 | JD Compare fit ring & Match Confidence | Compare component tests | PENDING |
-| **R6.2** | Stage 6 | Venn diagram (Shared / Role A only / Role B only) | Venn component inspection | PENDING |
-| **R6.3** | Stage 6 | Bridge plan linking gaps to Build Briefs & Credentials | Bridge generator tests | PENDING |
-| **R6.4** | Stage 6 | JD input with extraction explanation summary | Parser explanation test | PENDING |
-| **R6.5** | Stage 6 | Resume Fact Ledger review & non-destructive edit form | Ledger UI tests | PENDING |
-| **R6.6** | Stage 6 | Requirement analysis view in plain English | UI review | PENDING |
-| **R6.7** | Stage 6 | Truth map with "Add context" question fields | Truth map tests | PENDING |
-| **R6.8** | Stage 6 | Configurable fresher section ordering (A4 default) | Layout engine tests | PENDING |
-| **R6.9** | Stage 6 | Truth Gate: 25 adversarial cases blocked & 10 legitimate pass | `tests/truth-gate.test.ts` | PENDING |
-| **R6.10**| Stage 6 | Content parity across HTML, TXT, and DOCX via LayoutTree | `tests/content-parity.test.ts` | PENDING |
-| **R6.11**| Stage 6 | Zero silent loss drawer for omitted ledger items | Silent loss test | PENDING |
+| **R6.1** | Stage 6 | JD Compare fit ring & Match Confidence | `tests/compare/compare.test.ts` | **DONE** |
+| **R6.2** | Stage 6 | Venn diagram (Shared / Role A only / Role B only) | `tests/compare/compare.test.ts` | **DONE** |
+| **R6.3** | Stage 6 | Bridge plan linking gaps to Build Briefs & Credentials | `tests/compare/compare.test.ts` | **DONE** |
+| **R6.4** | Stage 6 | JD input with extraction explanation summary | `tests/compare/compare.test.ts` | **DONE** |
+| **R6.5** | Stage 6 | Resume Fact Ledger review & non-destructive edit form | `tests/tailor/content-parity.test.ts` | **DONE** |
+| **R6.6** | Stage 6 | Requirement analysis view in plain English | `tests/compare/compare.test.ts` | **DONE** |
+| **R6.7** | Stage 6 | Truth map with "Add context" question fields | `tests/tailor/truth-gate.test.ts` | **DONE** |
+| **R6.8** | Stage 6 | Configurable fresher section ordering (A4 default) | `src/config/India-fresher.ts`, `layoutTree.ts` | **DONE** |
+| **R6.9** | Stage 6 | Truth Gate: 25 adversarial cases blocked & 10 legitimate pass | `tests/tailor/truth-gate.test.ts` | **DONE** |
+| **R6.10**| Stage 6 | Content parity across HTML, TXT, and DOCX via LayoutTree | `tests/tailor/content-parity.test.ts` | **DONE** |
+| **R6.11**| Stage 6 | Zero silent loss drawer for omitted ledger items | `tests/tailor/content-parity.test.ts` | **DONE** |
 | **R7.1** | Stage 7 | Credential Engine freshness badges & yearly change notices | `tests/credentialsFreshnessSchema.test.ts` | **DONE** (Stage 0 check) |
 | **R7.2** | Stage 7 | Student eligibility, fee waivers, and next window notes | Data & UI tests | PENDING |
 | **R7.3** | Stage 7 | Placeholder bullets ([CREDENTIAL_ID], [DATE_EARNED]) & copy lock | `tests/credentialsTruthGate.test.ts` | **DONE** (Stage 0 check) |

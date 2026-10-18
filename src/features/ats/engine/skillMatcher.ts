@@ -201,20 +201,11 @@ export function matchRequiredSkills(
       const satisfiedBy = req.orAlternatives.find(altId => directlyFoundSkillIds.has(altId))!;
       const altSkill = SKILL_BY_ID.get(satisfiedBy);
       const altResult = skillResults.find(s => s.skillId === satisfiedBy);
-      result.found = true;
-      result.status = 'verified';
-      result.proficiency = altResult?.proficiency || 3;
-      result.evidenceScore = altResult?.evidenceScore || 0.85;
+      result.found = false;
+      result.status = 'missing';
       result.isSubstituteMatch = true;
       result.substituteSkillName = altSkill ? altSkill.canonical : satisfiedBy;
-      if (altResult && altResult.evidence.length > 0) {
-        result.evidence = [{
-          ...altResult.evidence[0],
-          evidenceTier: result.evidenceScore,
-          isSubstitute: true,
-          substituteFor: `Satisfied via OR requirement: ${altSkill?.canonical || satisfiedBy}`,
-        }];
-      }
+      result.evidence = [];
       continue;
     }
 

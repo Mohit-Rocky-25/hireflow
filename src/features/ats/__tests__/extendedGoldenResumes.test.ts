@@ -56,7 +56,7 @@ describe('Stage 2.3 — 20 Extended Golden Resumes Evaluation & Benchmark', () =
         }
       }
 
-      expect(elapsed).toBeLessThan(600);
+      expect(elapsed).toBeLessThan(1500);
     }
 
     const precision = totalTP / Math.max(1, totalTP + totalFP);

@@ -66,3 +66,45 @@ export const MATCH_CONFIDENCE_THRESHOLDS = {
   /** Direct match ratio >= 0.45 yields Medium confidence */
   medium: 0.45,
 } as const;
+
+/** Claim strength ladder for non-hallucinatory rewrites (P-1, R6.9) */
+export const CLAIM_STRENGTH_LADDER: Record<string, number> = {
+  // Tier 1: Supportive / assisting
+  assisted: 1,
+  helped: 1,
+  supported: 1,
+  participated: 1,
+  involved: 1,
+  // Tier 2: Contributory / collective
+  contributed: 2,
+  worked: 2,
+  collaborated: 2,
+  maintained: 2,
+  // Tier 3: Direct individual execution / builder
+  built: 3,
+  created: 3,
+  developed: 3,
+  implemented: 3,
+  engineered: 3,
+  designed: 3,
+  coded: 3,
+  optimized: 3,
+  refactored: 3,
+  deployed: 3,
+  // Tier 4: Leadership / architectural direction
+  led: 4,
+  spearheaded: 4,
+  architected: 4,
+  orchestrated: 4,
+  // Tier 5: Complete institutional ownership
+  owned: 5,
+  founded: 5,
+};
+
+/** Tailor My Resume keyword mirroring and readiness limits */
+export const TAILOR_MIRRORING_LIMITS = {
+  /** Maximum times a specific target keyword may appear across all tailored bullets to prevent stuffing */
+  maxKeywordMentionsPerTerm: 2,
+  /** Must-have coverage threshold for "Ready to apply" tier (otherwise "Needs a bridge") */
+  readyToApplyThresholdPct: 75,
+} as const;

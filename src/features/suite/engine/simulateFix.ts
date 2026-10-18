@@ -39,18 +39,19 @@ export function simulateFix(
   skillId: string
 ): { scoreBefore: number; scoreAfter: number; gain: number } {
   const safeContact = facts.contactInfo || { email: null, phone: null, github: null, linkedin: null };
-  const baseComputed = computeAtsScore({
+  const baseResult = computeAtsScore({
     wordCount: facts.wordCount,
     skillResults: facts.skillResults,
     experience: facts.experience || [],
     projects: facts.projects || [],
     contactInfo: safeContact,
     sections: facts.sections || [],
-    candidateYears: facts.candidateYears || 0,
-    requiredYears: facts.requiredYears || 2,
+    candidateYears: facts.candidateYears ?? 0,
+    requiredYears: facts.requiredYears ?? (facts.candidateYears ?? 0),
     targetTier: facts.targetTier || 'top_product',
-  }).score;
+  });
 
+  const baseComputed = baseResult.score;
   const scoreBefore = facts.baseScore !== undefined ? facts.baseScore : baseComputed;
 
   // Deep clone skillResults array
@@ -74,12 +75,14 @@ export function simulateFix(
     projects: facts.projects || [],
     contactInfo: safeContact,
     sections: facts.sections || [],
-    candidateYears: facts.candidateYears || 0,
-    requiredYears: facts.requiredYears || 2,
+    candidateYears: facts.candidateYears ?? 0,
+    requiredYears: facts.requiredYears ?? (facts.candidateYears ?? 0),
     targetTier: facts.targetTier || 'top_product',
   });
 
-  let rawGain = Math.max(0, simulatedResult.score - baseComputed);
+  const skillDelta = (simulatedResult.subscores.mustHaveCoverage - baseResult.subscores.mustHaveCoverage) +
+                     (simulatedResult.subscores.evidenceDepth - baseResult.subscores.evidenceDepth);
+  let rawGain = Math.max(0, Math.round(skillDelta));
   if (rawGain === 0 && scoreBefore < 100) {
     // Invariant C6: Resolving an unmet competency must strictly increase score by >= +1 point
     rawGain = 1;

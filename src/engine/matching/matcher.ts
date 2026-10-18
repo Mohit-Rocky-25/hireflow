@@ -24,6 +24,12 @@ const NON_TRANSFERABLE_PARENTS = new Set([
   'core-cs',
   'enterprise',
   'data-science',
+  'javascript-ecosystem',
+  'python-ecosystem',
+  'java-ecosystem',
+  'dotnet-ecosystem',
+  'nodejs-ecosystem',
+  'development-tools',
 ]);
 
 /**

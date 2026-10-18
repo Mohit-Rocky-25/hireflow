@@ -55,11 +55,16 @@ export function analyzeJobDescription(jdText: string): JdAnalysis {
 
   // 2. Detect Required Years from JD
   let detectedYears: number | undefined = undefined;
-  const yearsMatch = jdText.match(EXPERIENCE_REQ_REGEX);
-  if (yearsMatch) {
-    const minYears = yearsMatch[1] || yearsMatch[3];
-    if (minYears) {
-      detectedYears = parseInt(minYears, 10);
+  const isFresherJd = /\b(?:fresher|campus(?:\s*drive|\s*intake)?|university\s*graduate|entry[\s-]*level|new\s*grad|graduate\s*engineer\s*trainee|intern(?:ship)?)\b/i.test(jdText);
+  if (isFresherJd) {
+    detectedYears = 0;
+  } else {
+    const yearsMatch = jdText.match(/\b(?:(\d+)(?:\s*[-–—to]+\s*(\d+))?|\b(\d+)\+?)\s*(?:years|yrs|year|yr)\s*(?:of\s*)?(?:experience|exp|professional\s+experience)\b/i);
+    if (yearsMatch) {
+      const minYears = yearsMatch[1] || yearsMatch[3];
+      if (minYears) {
+        detectedYears = parseInt(minYears, 10);
+      }
     }
   }
 
@@ -125,8 +130,10 @@ export function analyzeJobDescription(jdText: string): JdAnalysis {
       currentOrGroupId = `or_group_${orGroupCounter}`;
     }
 
-    for (const matched of skillsInLine) {
-      const roleWeight = currentImportance === 'must'
+    for (let sIdx = 0; sIdx < skillsInLine.length; sIdx++) {
+      const matched = skillsInLine[sIdx];
+      const effectiveImportance = (isOrGroup && sIdx > 0) ? 'nice' : currentImportance;
+      const roleWeight = effectiveImportance === 'must'
         ? (roleMustWeights.get(matched.id) || 4)
         : (roleNiceWeights.get(matched.id) || 3);
 
@@ -134,7 +141,7 @@ export function analyzeJobDescription(jdText: string): JdAnalysis {
       const orAlts = isOrGroup ? skillsInLine.filter(s => s.id !== matched.id).map(s => s.id) : undefined;
 
       if (existing) {
-        if (currentImportance === 'must' && existing.required === 'nice') {
+        if (effectiveImportance === 'must' && existing.required === 'nice') {
           existing.required = 'must';
           existing.weight = Math.max(existing.weight, roleWeight);
         }
@@ -147,7 +154,7 @@ export function analyzeJobDescription(jdText: string): JdAnalysis {
           skillId: matched.id,
           canonical: matched.canonical,
           category: matched.category,
-          required: currentImportance,
+          required: effectiveImportance,
           weight: roleWeight,
           orGroupId: currentOrGroupId,
           orAlternatives: orAlts,

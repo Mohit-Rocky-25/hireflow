@@ -18,16 +18,16 @@
 | **case_02** | `SHORTLIST` | **85** | 91 | 65 | 100 | 80 | synthetic - harness test only: ECE fresher with verified FreeRTOS, STM32 hardware and C/C++ projects. |
 | **case_03** | `MAYBE` | **59** | 50 | 20 | 95 | 100 | synthetic - harness test only: Passing CGPA, but bullets are sparse and lack measured outcome metrics. |
 | **case_04** | `MAYBE` | **85** | 100 | 85 | 60 | 80 | synthetic - harness test only: Solid React skills but messy multi-column layout requires parser review. |
-| **case_05** | `MAYBE` | **80** | 72 | 85 | 90 | 80 | synthetic - harness test only: Mechanical graduate with good self-taught Python/SQL portfolio; lacking CS core. |
-| **case_06** | `REJECT` | **74** | 69 | 65 | 75 | 100 | synthetic - harness test only: 40+ buzzwords listed without evidence; only one basic tutorial clone project. |
+| **case_05** | `MAYBE` | **77** | 65 | 85 | 90 | 80 | synthetic - harness test only: Mechanical graduate with good self-taught Python/SQL portfolio; lacking CS core. |
+| **case_06** | `REJECT` | **73** | 67 | 65 | 75 | 100 | synthetic - harness test only: 40+ buzzwords listed without evidence; only one basic tutorial clone project. |
 
 ---
 
 ## 2. Score Distribution by Verdict Tier
 
 - **Shortlist Cases**: Mean Score = 85.5
-- **Maybe Cases**: Mean Score = 74.7
-- **Reject Cases**: Mean Score = 74.0
+- **Maybe Cases**: Mean Score = 73.7
+- **Reject Cases**: Mean Score = 73.0
 
 ---
 

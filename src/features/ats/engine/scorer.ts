@@ -16,6 +16,7 @@ import {
   FixFirstItem,
   TargetTierId,
 } from './types';
+import { getVerdictBand } from './reportState';
 
 interface ScorerInput {
   wordCount: number;
@@ -105,10 +106,8 @@ export function computeAtsScore(input: ScorerInput) {
   const seniorityFitScore = Math.round(seniorityScoreFactor * weights.seniorityFit * 10) / 10;
 
   // 6. Format and Parse Quality (Weight 10)
-  const standardSections = ['experience', 'education', 'skills'];
-  if (candidateYears < 2 && experience.length < 2) {
-    standardSections.push('projects');
-  }
+  const isFresher = candidateYears <= 1 || (requiredYears !== undefined && requiredYears <= 1);
+  const standardSections = isFresher ? ['education', 'skills', 'projects'] : ['experience', 'education', 'skills'];
   const presentSections = new Set(sections.map(s => s.type));
   const missingStandardSections = standardSections.filter(s => !presentSections.has(s));
   let formatScoreFactor = 1.0 - (missingStandardSections.length * 0.2);
@@ -183,34 +182,20 @@ export function computeAtsScore(input: ScorerInput) {
   }
 
   // Word count outlier
-  if (wordCount < 250 || wordCount > 1200) {
+  const minWords = isFresher ? 140 : 250;
+  if (wordCount < minWords || wordCount > 1200) {
     penalties.push({
       id: 'word_count_outlier',
-      label: wordCount < 250 ? 'Resume Abnormally Brief' : 'Resume Overly Verbose',
+      label: wordCount < minWords ? 'Resume Abnormally Brief' : 'Resume Overly Verbose',
       points: penaltiesConfig.wordCountOutlier,
-      reason: `Resume has ${wordCount} words (ideal technical resumes range between 250 and 1,200 words).`,
+      reason: `Resume has ${wordCount} words (ideal technical resumes range between ${minWords} and 1,200 words).`,
     });
   }
 
-  const totalPenalties = penalties.reduce((sum, p) => sum + p.points, 0);
-  let finalScore = Math.max(0, Math.min(100, Math.round(rawSubtotal + totalPenalties)));
-
-  // CAP RULE: If must-haves met is under 50%, cap score at 64
-  if (mustMetRatio < 0.5 && finalScore > 64) {
-    finalScore = 64;
-  }
+  let finalScore = Math.max(0, Math.min(100, Math.round(rawSubtotal)));
 
   // Determine Band
-  let band: 'Strong' | 'Competitive' | 'Needs work' | 'Weak match' = 'Weak match';
-  if (finalScore >= 85 && mustMetRatio >= 0.75) {
-    band = 'Strong';
-  } else if (finalScore >= 70 && mustMetRatio >= 0.5) {
-    band = 'Competitive';
-  } else if (finalScore >= 55) {
-    band = 'Needs work';
-  } else {
-    band = 'Weak match';
-  }
+  const band = getVerdictBand(finalScore);
 
   // Parse Quality & Confidence
   let parseQuality: 'High' | 'Medium' | 'Poor' = 'High';
@@ -240,7 +225,7 @@ export function computeAtsScore(input: ScorerInput) {
     });
   }
 
-  const weakBullets = allBullets.filter(b => b.score < 60);
+  const weakBullets = allBullets.filter(b => b.rawText && b.rawText.trim().length > 15 && b.score < 60);
   if (weakBullets.length > 0 && fixFirst.length < 3) {
     fixFirst.push({
       title: 'Quantify Engineering Impact in Bullets',

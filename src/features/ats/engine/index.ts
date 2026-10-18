@@ -218,7 +218,7 @@ export function runAtsEngine(
     bestFitTier: targetTier === 'auto' ? 'Top Product' : targetTier.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase()),
     seniorityFit: {
       candidateYears: seniority.candidateYears,
-      requiredYears: jdAnalysis.detectedYears || 2,
+      requiredYears: jdAnalysis.detectedYears ?? 0,
       level: seniorityMode.detectedLevel,
       fitExplanation: seniorityMode.explanation,
     },

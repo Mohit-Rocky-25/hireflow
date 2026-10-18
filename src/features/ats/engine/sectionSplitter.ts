@@ -33,7 +33,9 @@ export function splitResumeSections(resumeText: string): ParsedSection[] {
 
     // Remove markdown headers, numbering, bullets, roman numerals: e.g. "## EXPERIENCE", "1. SKILLS", "I. EDUCATION", "=== PROJECTS ==="
     const cleanedHeading = trimmed
-      .replace(/^[#*\-•▪●\d.IVXLCDMivxlcdm]+\s*[.:\-)\]]?\s*/, '')
+      .replace(/^[#*\-•▪●\s]+/, '')
+      .replace(/^(?:\d+|[IVXLCDMivxlcdm]+)[.:\-)\]]\s*/, '')
+      .replace(/^\d+\s+/, '')
       .replace(/[=:|_\-\s]+$/, '')
       .replace(/^[=:|_\-\s]+/, '')
       .trim()
