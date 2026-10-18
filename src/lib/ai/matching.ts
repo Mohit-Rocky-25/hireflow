@@ -13,9 +13,9 @@
 import type {
   CandidateProfile, Job, CandidateMatch, RequirementAssessment,
   SkillGapDetail, ScoreComponent, EligibilityStatus, RequirementPriority
-} from '../types';
-import { extractSkillsFromText, getSkillById, getRelatedSkills, skillSimilarity, resolveSkill } from '../knowledge/skills';
-import { resolveOccupation } from '../knowledge/occupations';
+} from '@/types';
+import { extractSkillsFromText, getSkillById, getRelatedSkills, skillSimilarity, resolveSkill } from '@/data/knowledge/skills';
+import { resolveOccupation } from '@/data/knowledge/occupations';
 
 const ENGINE_VERSION = '1.0.0';
 const KNOWLEDGE_VERSION = '1.0.0';

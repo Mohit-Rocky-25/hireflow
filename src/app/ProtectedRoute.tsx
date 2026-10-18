@@ -2,8 +2,8 @@
 // HireFlow — Protected Route Guard
 // ============================================================
 import { Navigate, useLocation } from 'react-router-dom';
-import { useStore } from '../../store/useStore';
-import type { UserRole } from '../../types';
+import { useStore } from '@/store/useStore';
+import type { UserRole } from '@/types';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;

@@ -3,7 +3,7 @@
 // 50+ occupations with seniority levels and skill requirements
 // Designed for import from ESCO / O*NET in production
 // ============================================================
-import type { Occupation } from '../types';
+import type { Occupation } from '@/types';
 
 export const OCCUPATION_REGISTRY: Occupation[] = [
   {

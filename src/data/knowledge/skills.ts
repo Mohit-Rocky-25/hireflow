@@ -4,7 +4,7 @@
 // Designed to accept imports from ESCO, O*NET, company datasets
 // Source metadata stored per skill for licensing compliance
 // ============================================================
-import type { Skill, SkillRelationship } from '../types';
+import type { Skill, SkillRelationship } from '@/types';
 
 // ── Core Skill Registry ──
 // Each entry: canonical name, aliases (for resume parsing), related skills

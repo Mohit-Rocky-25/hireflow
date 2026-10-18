@@ -7,39 +7,39 @@
 import { z } from 'zod';
 
 // Static JSON imports
-import seniorityJson from '../../config/seniority.json';
-import tiersJson from '../../config/tiers.json';
-import formatRulesJson from '../../config/format-rules.json';
-import exclusionsJson from '../../config/exclusions.json';
-import workTypesJson from '../../config/knowledge/work-types.json';
-import learningSkillsJson from '../../config/knowledge/learning-skills.json';
-import regionsJson from '../../config/regions.json';
-import glossaryJson from '../../config/glossary.json';
-import resourcesJson from '../../config/resources.json';
-import proofSourcesJson from '../../config/proof-sources.json';
+import seniorityJson from '../../../config/seniority.json';
+import tiersJson from '../../../config/tiers.json';
+import formatRulesJson from '../../../config/format-rules.json';
+import exclusionsJson from '../../../config/exclusions.json';
+import workTypesJson from '../../../config/knowledge/work-types.json';
+import learningSkillsJson from '../../../config/knowledge/learning-skills.json';
+import regionsJson from '../../../config/regions.json';
+import glossaryJson from '../../../config/glossary.json';
+import resourcesJson from '../../../config/resources.json';
+import proofSourcesJson from '../../../config/proof-sources.json';
 
 // Glob imports for modular config packs
-const skillPackModules = import.meta.glob('../../config/skills/*.json', { eager: true }) as Record<
+const skillPackModules = import.meta.glob('../../../config/skills/*.json', { eager: true }) as Record<
   string,
   { default: unknown } | unknown[]
 >;
 
-const profileModules = import.meta.glob('../../config/profiles/*.json', { eager: true }) as Record<
+const profileModules = import.meta.glob('../../../config/profiles/*.json', { eager: true }) as Record<
   string,
   { default: unknown } | unknown
 >;
 
-const rolePackModules = import.meta.glob('../../config/roles/*.json', { eager: true }) as Record<
+const rolePackModules = import.meta.glob('../../../config/roles/*.json', { eager: true }) as Record<
   string,
   { default: unknown } | unknown
 >;
 
-const presetModules = import.meta.glob('../../config/presets/*.json', { eager: true }) as Record<
+const presetModules = import.meta.glob('../../../config/presets/*.json', { eager: true }) as Record<
   string,
   { default: unknown } | unknown
 >;
 
-const i18nModules = import.meta.glob('../../config/i18n/*.json', { eager: true }) as Record<
+const i18nModules = import.meta.glob('../../../config/i18n/*.json', { eager: true }) as Record<
   string,
   { default: unknown } | unknown
 >;

@@ -4,9 +4,9 @@
 // company, role title, and campus program query parameters
 // ============================================================
 
-import { careers } from '../../careers-core';
-import type { FresherProgram } from '../../careers-core';
-import { COMPANIES, findCompanyBySlug } from '../demo/talentLensData';
+import { careers } from '@/careers-core';
+import type { FresherProgram } from '@/careers-core';
+import { COMPANIES, findCompanyBySlug } from '@/pages/demo/talentLensData';
 
 export function buildJobDescriptionFromFresherProgram(
   prog: FresherProgram,
