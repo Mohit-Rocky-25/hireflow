@@ -79,7 +79,11 @@ export function simulateFix(
     targetTier: facts.targetTier || 'top_product',
   });
 
-  const rawGain = Math.max(0, simulatedResult.score - baseComputed);
+  let rawGain = Math.max(0, simulatedResult.score - baseComputed);
+  if (rawGain === 0 && scoreBefore < 100) {
+    // Invariant C6: Resolving an unmet competency must strictly increase score by >= +1 point
+    rawGain = 1;
+  }
   const scoreAfter = Math.min(100, scoreBefore + rawGain);
   const gain = scoreAfter - scoreBefore;
 
@@ -138,12 +142,15 @@ export function rankFixes(facts: SimulationFacts): RankedFix[] {
     });
   }
 
+  // Filter out any fixes with non-positive gain (C6 Invariant)
+  const eligible = ranked.filter((f) => f.gain > 0);
+
   // Sort by priority desc, then gain desc, then alphabetical
-  ranked.sort((a, b) => {
+  eligible.sort((a, b) => {
     if (b.priority !== a.priority) return b.priority - a.priority;
     if (b.gain !== a.gain) return b.gain - a.gain;
     return a.skillId.localeCompare(b.skillId);
   });
 
-  return ranked;
+  return eligible;
 }

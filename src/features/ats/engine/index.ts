@@ -51,6 +51,7 @@ export interface AtsEngineOptions {
   parentScanId?: string | null;
   resumeSource?: WordLimitSource;
   jdSource?: WordLimitSource;
+  today?: Date;
 }
 
 export type AtsEngineResponse =
@@ -103,7 +104,7 @@ export function runAtsEngine(
   ];
 
   // 4. Estimate Experience Tenure & Level-Aware Seniority Mode (Stage D)
-  const seniority = estimateCandidateExperience(experienceEntries, selectedLevel);
+  const seniority = estimateCandidateExperience(experienceEntries, selectedLevel, options?.today);
   const seniorityMode = evaluateSenioritySignals({
     resumeText,
     sections,

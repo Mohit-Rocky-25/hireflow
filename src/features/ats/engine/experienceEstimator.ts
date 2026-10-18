@@ -14,9 +14,10 @@ export interface SeniorityEstimate {
 
 export function estimateCandidateExperience(
   entries: ExperienceEntry[],
-  selectedLevel: ExperienceLevelId = 'auto'
+  selectedLevel: ExperienceLevelId = 'auto',
+  today: Date = new Date()
 ): SeniorityEstimate {
-  const currentYear = new Date().getFullYear();
+  const currentYear = today.getFullYear();
 
   let totalMonths = 0;
   const recordedSpans: Array<{ start: number; end: number }> = [];

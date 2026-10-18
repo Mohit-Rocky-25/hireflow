@@ -582,3 +582,8 @@ export interface AuditLog {
   details?: string;
   createdAt: string;
 }
+
+// ── Error Boundary Contract (R1.4) ──
+export type Result<T, E = Error | string> =
+  | { success: true; value: T }
+  | { success: false; error: E; context?: Record<string, unknown> };

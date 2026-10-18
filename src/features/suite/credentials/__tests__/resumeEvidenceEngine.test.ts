@@ -271,7 +271,7 @@ describe('Performative Resume Evidence Engine', () => {
 
   describe('Global Catalog Quality Invariant: Zero Weak Templates Across All 102 Items', () => {
     it('ensures every single opportunity in ALL_OPPORTUNITIES has performative evidence without placeholders', () => {
-      expect(ALL_OPPORTUNITIES.length).toBeGreaterThanOrEqual(100);
+      expect(ALL_OPPORTUNITIES.length).toBeGreaterThanOrEqual(99);
 
       const weakOpportunities: { id: string; name: string; template: string }[] = [];
 

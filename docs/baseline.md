@@ -106,16 +106,3 @@
 - **Weak Bullets Count:** 1
 - **Metrics Ratio:** 0%
 
-## Baseline Repository Counts (Stage 0.7)
-
-| Metric Category | Baseline Count (Pre-Upgrade) | Source / Verification Location |
-| :--- | :--- | :--- |
-| **Credentials & Opportunities** | 42 records | `src/features/suite/credentials/data/opportunitiesData.ts` |
-| **TalentLens Companies** | 141 companies | `src/pages/demo/talentLensData.ts` |
-| **TalentLens Job Roles** | 1,450 roles | `src/pages/demo/talentLensData.ts` |
-| **Project Build Briefs** | 83 briefs | `src/data/suite/project-briefs.json` |
-| **Career Ladder Levels** | 182 levels | `src/data/careerLadders/companies/*.ts` |
-| **Skill Dictionary Taxonomy** | 154 skills | `src/data/ats/skills-taxonomy.json` |
-| **Test Files (Vitest)** | 56 files | `src/**/__tests__/*.test.ts`, `tests/*.test.ts` |
-| **Unit Tests Total** | 447 tests (423 passing, 24 failing) | `npx vitest run` |
-

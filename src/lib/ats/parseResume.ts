@@ -20,7 +20,7 @@ const SECTION_HEADERS: Record<string, RegExp> = {
   certifications: /^(?:certifications|licenses & certifications|courses)\b/i,
 };
 
-export function parseResume(rawText: string): ParsedResume {
+export function parseResume(rawText: string, today: Date = new Date()): ParsedResume {
   const cleanText = rawText.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
   const lines = cleanText.split('\n').map((l) => l.trim());
   const parseWarnings: string[] = [];
@@ -204,7 +204,7 @@ export function parseResume(rawText: string): ParsedResume {
     const yearRanges = [...targetDateText.matchAll(/\b(20\d{2}|19\d{2})\s*(?:-|–|to)\s*(20\d{2}|present|current)\b/gi)];
     let earliestYear = 9999;
     let latestYear = 0;
-    const currentYear = new Date().getFullYear();
+    const currentYear = today.getFullYear();
 
     for (const match of yearRanges) {
       const matchedStr = match[0];
