@@ -50,3 +50,8 @@ __pycache__/
 
 # Refactoring workspace
 .refactor/
+
+# Real candidate calibration data (Personal Data)
+data/calibration/real/*
+!data/calibration/real/README.md
+

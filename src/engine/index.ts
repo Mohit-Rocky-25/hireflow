@@ -10,4 +10,5 @@ export { buildQuickSummary, buildQuickSummary as generateQuickSummary } from '..
 export * from './ingestion';
 export * from './matching';
 export * from './ledger';
+export * from './roaster';
 

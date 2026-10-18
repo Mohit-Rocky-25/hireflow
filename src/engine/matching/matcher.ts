@@ -16,6 +16,16 @@ import {
   REQUIREMENT_WEIGHT_CLASSES,
 } from '../../config/scoring';
 
+const NON_TRANSFERABLE_PARENTS = new Set([
+  'programming-languages',
+  'languages',
+  'web-development',
+  'tools',
+  'core-cs',
+  'enterprise',
+  'data-science',
+]);
+
 /**
  * Evaluates candidate skill evidence against target JD requirements.
  * Fully deterministic; no Math.random(), no clock dependency.
@@ -143,6 +153,7 @@ export function matchCandidateToJD(
 
         // Check parents (e.g. knowing a frontend framework when a category is required)
         for (const parentCat of skillDef.parents) {
+          if (NON_TRANSFERABLE_PARENTS.has(parentCat)) continue;
           // Find if candidate has any skill that shares this parent
           for (const [candidateSkillId, candEv] of evidenceMap.entries()) {
             const candDef = SKILL_MAP.get(candidateSkillId);

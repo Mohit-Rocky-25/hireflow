@@ -32,12 +32,23 @@ export const HEADING_DICTIONARY: HeadingDefinition[] = [
       'key skills',
       'skills',
       'core competencies',
+      'technical skills & competencies',
+      'technical skills and competencies',
+      'skills & competencies',
+      'skills and competencies',
+      'technical competencies',
+      'programming skills',
+      'computer skills',
+      'it skills',
       'skills & tools',
       'skills and tools',
       'tech stack',
       'technologies',
       'technical proficiency',
       'areas of expertise',
+      'technical expertise',
+      'tools & technologies',
+      'tools and technologies',
     ],
   },
   {
@@ -52,6 +63,7 @@ export const HEADING_DICTIONARY: HeadingDefinition[] = [
       'course projects',
       'capstone project',
       'selected projects',
+      'technical projects',
     ],
   },
   {
@@ -60,6 +72,7 @@ export const HEADING_DICTIONARY: HeadingDefinition[] = [
       'internship',
       'internships',
       'training',
+      'trainings',
       'work experience',
       'experience',
       'professional experience',
@@ -78,6 +91,7 @@ export const HEADING_DICTIONARY: HeadingDefinition[] = [
       'accolades',
       'accomplishments',
       'scholastic achievements',
+      'hackathons',
     ],
   },
   {
@@ -88,6 +102,8 @@ export const HEADING_DICTIONARY: HeadingDefinition[] = [
       'extra-curricular',
       'extra curricular',
       'co-curricular',
+      'extra-curricular activities',
+      'co-curricular activities',
       'leadership',
       'responsibilities',
       'volunteer work',
@@ -103,6 +119,9 @@ export const HEADING_DICTIONARY: HeadingDefinition[] = [
       'licenses and certifications',
       'certificates',
       'online courses',
+      'trainings & certifications',
+      'certifications & webinars',
+      'certifications and webinars',
     ],
   },
   {
@@ -115,6 +134,7 @@ export const HEADING_DICTIONARY: HeadingDefinition[] = [
       'profile',
       'about me',
       'personal profile',
+      'declaration',
     ],
   },
 ];
@@ -161,7 +181,7 @@ export function identifySectionHeader(line: string): {
     .trim()
     .toLowerCase();
 
-  if (clean.length < 3 || clean.length > 40) return null;
+  if (clean.length < 3 || clean.length > 50) return null;
 
   for (const def of HEADING_DICTIONARY) {
     for (const variant of def.variants) {

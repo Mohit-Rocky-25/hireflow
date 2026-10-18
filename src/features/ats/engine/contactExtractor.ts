@@ -27,9 +27,9 @@ export function extractContactInfo(resumeText: string): ContactInfo {
   const githubMatch = resumeText.match(/(?:https?:\/\/)?(?:www\.)?github\.com\/[a-zA-Z0-9_-]+/i);
   const github = githubMatch ? githubMatch[0] : null;
 
-  // 5. Portfolio / Web URL
+  // 5. Portfolio / Web URL (excluding degrees like B.Tech / M.Tech)
   const portfolioMatch = resumeText.match(
-    /(?:https?:\/\/)?(?:www\.)?[a-zA-Z0-9-]+\.(?:dev|me|io|app|tech|co)\b/i
+    /(?:https?:\/\/)?(?:www\.)?(?!(?:b|m)\.tech\b)[a-zA-Z0-9-]+\.(?:dev|me|io|app|tech|co)\b/i
   );
   const portfolio = portfolioMatch ? portfolioMatch[0] : null;
 

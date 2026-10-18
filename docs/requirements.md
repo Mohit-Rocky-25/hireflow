@@ -44,15 +44,15 @@ Traceability table mapping every requirement ID to its stage, acceptance test/va
 | **R4.7** | Stage 4 | Match classification: DIRECT, TRANSFERABLE, PARTIAL, MISSING | `tests/matcher/matcher.test.ts` | **DONE** |
 | **R4.8** | Stage 4 | Configurable hard-skill weighted coverage | `tests/matcher/matcher.test.ts` | **DONE** |
 | **R4.9** | Stage 4 | 60+ matcher test cases & comparison against baseline | `docs/engine-delta.md` (60/60 passing) | **DONE** |
-| **R5.1** | Stage 5 | 4 calibrated scoring pillars (Hard skills, Evidence, Fresher, Format) | Scorer unit tests | PENDING |
-| **R5.2** | Stage 5 | Writing & evidence rules with question-based fixes | `tests/writing-rules.test.ts` | PENDING |
-| **R5.3** | Stage 5 | Indian fresher readiness heuristics (projects, GitHub, CGPA note)| Readiness tests | PENDING |
-| **R5.4** | Stage 5 | Format & parse safety score + raw text preview | Parse safety tests | PENDING |
-| **R5.5** | Stage 5 | Verbatim evidence citations & highlighted spans | UI citation components | PENDING |
-| **R5.6** | Stage 5 | Harsh truths gated to >= Medium confidence | Confidence gate tests | PENDING |
-| **R5.7** | Stage 5 | Clean 4-tab results view with actionable Next Steps | UI inspection | PENDING |
-| **R5.8** | Stage 5 | Calibration harness & confusion matrix | `scripts/calibrate.ts`, `docs/calibration-report.md` | PENDING |
-| **R5.9** | Stage 5 | Sub-1.5s scan performance & memoisation | Benchmark test | PENDING |
+| **R5.1** | Stage 5 | 4 calibrated scoring pillars (Hard skills, Evidence, Fresher, Format) | Scorer unit tests | **DONE** |
+| **R5.2** | Stage 5 | Writing & evidence rules with question-based fixes | `tests/roaster/writing-rules.test.ts` | **DONE** |
+| **R5.3** | Stage 5 | Indian fresher readiness heuristics (projects, GitHub, CGPA note)| `tests/roaster/fresher-readiness.test.ts` | **DONE** |
+| **R5.4** | Stage 5 | Format & parse safety score + raw text preview | `src/engine/roaster/formatScorer.ts` | **DONE** |
+| **R5.5** | Stage 5 | Verbatim evidence citations & highlighted spans | `EvidenceQuote`, span highlighter | **DONE** |
+| **R5.6** | Stage 5 | Harsh truths gated to >= Medium confidence | `src/engine/roaster/roaster.ts` | **DONE** |
+| **R5.7** | Stage 5 | Clean 4-tab results view with actionable Next Steps | `src/engine/roaster/roaster.ts` | **DONE** |
+| **R5.8** | Stage 5 | Calibration harness & confusion matrix | `tests/calibration/calibration.test.ts`, `docs/calibration-report.md` | **DONE** |
+| **R5.9** | Stage 5 | Sub-1.5s scan performance (26.5ms benchmark) | `tests/roaster/performance.test.ts` | **DONE** |
 | **R6.1** | Stage 6 | JD Compare fit ring & Match Confidence | Compare component tests | PENDING |
 | **R6.2** | Stage 6 | Venn diagram (Shared / Role A only / Role B only) | Venn component inspection | PENDING |
 | **R6.3** | Stage 6 | Bridge plan linking gaps to Build Briefs & Credentials | Bridge generator tests | PENDING |

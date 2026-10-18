@@ -188,7 +188,7 @@ export function getGenericPlaybook(skillCanonical: string, roleTitle: string): S
     whyItMatters: `Proficiency in ${skillCanonical} validates your technical depth for modern ${roleTitle} engineering standards.`,
     concepts: `Study core ${skillCanonical} architectural patterns, official API documentation, and industry best practices.`,
     proofProject: `Build a functional proof module integrating ${skillCanonical} into a clean, testable application workflow.`,
-    resumeAction: `Incorporate a quantified accomplishment bullet citing ${skillCanonical} integration and verified system improvements.`,
+    resumeAction: `Add an impact bullet highlighting ${skillCanonical} implementation and system improvements.`,
     evidence: [
       `Version-controlled repository demonstrating idiomatic ${skillCanonical} implementation.`,
       `Documented architecture design and setup instructions in the project repository.`,

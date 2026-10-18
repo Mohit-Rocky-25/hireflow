@@ -29,7 +29,7 @@ export function classifyResumeEvidence(
 
   sections.forEach((sec) => {
     const secName = sec.name.toLowerCase();
-    const isSkillsSec = /skill|stack|technolog/i.test(secName);
+    const isSkillsSec = /skill|stack|technolog|competenc|proficienc|expertise|language/i.test(secName);
     const isProjectSec = /project|academic/i.test(secName);
     const isWorkSec = /intern|work|experience|employment/i.test(secName);
 

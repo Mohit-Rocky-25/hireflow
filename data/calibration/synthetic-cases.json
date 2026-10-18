@@ -1,0 +1,55 @@
+{
+  "version": "1.0.0",
+  "datasetType": "synthetic",
+  "disclaimer": "synthetic - harness test only. NOT ground truth.",
+  "cases": [
+    {
+      "id": "case_01",
+      "resumeFile": "tests/fixtures/synthetic/resume_01_strong_cs.txt",
+      "jdFile": "tests/fixtures/synthetic/jd_01_campus_sde_fresher.txt",
+      "humanVerdict": "shortlist",
+      "labellerNote": "synthetic - harness test only: Strong CS degree, 8.64 CGPA, verified fullstack internship with metrics.",
+      "isSynthetic": true
+    },
+    {
+      "id": "case_02",
+      "resumeFile": "tests/fixtures/synthetic/resume_02_ece_embedded.txt",
+      "jdFile": "tests/fixtures/synthetic/jd_05_embedded_firmware_engineer.txt",
+      "humanVerdict": "shortlist",
+      "labellerNote": "synthetic - harness test only: ECE fresher with verified FreeRTOS, STM32 hardware and C/C++ projects.",
+      "isSynthetic": true
+    },
+    {
+      "id": "case_03",
+      "resumeFile": "tests/fixtures/synthetic/resume_03_sparse_bullets.txt",
+      "jdFile": "tests/fixtures/synthetic/jd_01_campus_sde_fresher.txt",
+      "humanVerdict": "maybe",
+      "labellerNote": "synthetic - harness test only: Passing CGPA, but bullets are sparse and lack measured outcome metrics.",
+      "isSynthetic": true
+    },
+    {
+      "id": "case_04",
+      "resumeFile": "tests/fixtures/synthetic/resume_04_twocolumn_raw_paste.txt",
+      "jdFile": "tests/fixtures/synthetic/jd_02_startup_frontend_fresher.txt",
+      "humanVerdict": "maybe",
+      "labellerNote": "synthetic - harness test only: Solid React skills but messy multi-column layout requires parser review.",
+      "isSynthetic": true
+    },
+    {
+      "id": "case_05",
+      "resumeFile": "tests/fixtures/synthetic/resume_05_career_switcher_mech.txt",
+      "jdFile": "tests/fixtures/synthetic/jd_03_backend_intern_to_fte.txt",
+      "humanVerdict": "maybe",
+      "labellerNote": "synthetic - harness test only: Mechanical graduate with good self-taught Python/SQL portfolio; lacking CS core.",
+      "isSynthetic": true
+    },
+    {
+      "id": "case_06",
+      "resumeFile": "tests/fixtures/synthetic/resume_06_overstuffed_skills.txt",
+      "jdFile": "tests/fixtures/synthetic/jd_03_backend_intern_to_fte.txt",
+      "humanVerdict": "reject",
+      "labellerNote": "synthetic - harness test only: 40+ buzzwords listed without evidence; only one basic tutorial clone project.",
+      "isSynthetic": true
+    }
+  ]
+}
