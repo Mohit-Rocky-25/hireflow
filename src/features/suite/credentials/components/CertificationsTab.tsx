@@ -39,6 +39,7 @@ import {
 import { CredentialsStorage } from '../storage';
 import { getVerifiedTimeline } from '../engine/timelineEngine';
 import { ModalTab } from './OpportunityDetailModal';
+import { FreshnessBadge, OfficialSourceLink, DatesChangeNotice } from './FreshnessBadge';
 
 interface CertificationsTabProps {
   onSelectOpportunity: (opportunity: OpportunityRecord, tab?: ModalTab) => void;
@@ -59,6 +60,8 @@ export function CertificationsTab({
   const [selectedTrust, setSelectedTrust] = useState<string>('All');
   const [selectedFlag, setSelectedFlag] = useState<string>('All');
   const [selectedTier, setSelectedTier] = useState<string>('All');
+  const [hideUnverified, setHideUnverified] = useState(false);
+  const [sortBy, setSortBy] = useState<'default' | 'verified_desc'>('default');
   const [savedIds, setSavedIds] = useState<Set<string>>(() => {
     const items = CredentialsStorage.loadPlanItems();
     return new Set(items.map((i) => i.opportunityId));
@@ -194,6 +197,11 @@ export function CertificationsTab({
         return false;
       }
 
+      // Hide unverified filter
+      if (hideUnverified && cert.verificationStatus === 'unverified') {
+        return false;
+      }
+
       return true;
     });
   }, [
@@ -208,7 +216,19 @@ export function CertificationsTab({
     selectedBudget,
     selectedTime,
     selectedTier,
+    hideUnverified,
   ]);
+
+  const sortedCerts = useMemo(() => {
+    if (sortBy === 'verified_desc') {
+      return [...filteredCerts].sort((a, b) => {
+        const timeA = a.lastVerified ? new Date(a.lastVerified).getTime() : 0;
+        const timeB = b.lastVerified ? new Date(b.lastVerified).getTime() : 0;
+        return timeB - timeA;
+      });
+    }
+    return filteredCerts;
+  }, [filteredCerts, sortBy]);
 
   const handleTogglePlan = (e: React.MouseEvent, oppId: string) => {
     e.stopPropagation();
@@ -537,6 +557,31 @@ export function CertificationsTab({
           </div>
         </div>
 
+        {/* Sort & Freshness Filter Controls */}
+        <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-border/70">
+          <label className="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-surface-2 hover:bg-surface-3 border border-border text-xs font-bold text-foreground cursor-pointer transition-colors select-none">
+            <input
+              type="checkbox"
+              checked={hideUnverified}
+              onChange={(e) => setHideUnverified(e.target.checked)}
+              className="rounded text-primary focus:ring-primary w-4 h-4 cursor-pointer"
+            />
+            <span>Hide unverified listings</span>
+          </label>
+
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-bold text-text-secondary">Sort by:</span>
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value as any)}
+              className="px-3 py-1.5 rounded-xl bg-surface-2 hover:bg-surface border border-border text-xs font-bold text-foreground focus:outline-none transition-all cursor-pointer"
+            >
+              <option value="default">Default Catalog Order</option>
+              <option value="verified_desc">Most recently verified</option>
+            </select>
+          </div>
+        </div>
+
         {/* Active Filter Chips and Reset Bar */}
         {(selectedCategory !== 'All' ||
           selectedRole !== 'All' ||
@@ -547,6 +592,8 @@ export function CertificationsTab({
           selectedBudget !== 'All' ||
           selectedTime !== 'All' ||
           selectedTier !== 'All' ||
+          hideUnverified ||
+          sortBy !== 'default' ||
           searchQuery) && (
           <div className="pt-3 border-t border-border flex flex-wrap items-center justify-between gap-3 animate-fade-in">
             <div className="flex flex-wrap items-center gap-2">
@@ -656,7 +703,7 @@ export function CertificationsTab({
 
       {/* Certifications Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredCerts.map((cert) => {
+        {sortedCerts.map((cert) => {
           const isSaved = savedIds.has(cert.id);
           const theme = getProviderTheme(cert.issuer || cert.organizer);
           const portalUrl = cert.directPortalUrl || cert.officialUrl;
@@ -692,6 +739,7 @@ export function CertificationsTab({
                       {theme.brand}
                     </span>
                     {renderTrustBadge(cert)}
+                    <FreshnessBadge opportunity={cert} />
                   </div>
 
                   <button
@@ -718,6 +766,23 @@ export function CertificationsTab({
                     <span>{cert.issuer || cert.organizer}</span>
                   </p>
                 </div>
+
+                {/* Notice for yearly changing dates */}
+                {cert.datesChangeYearly && (
+                  <DatesChangeNotice datesChangeYearly={cert.datesChangeYearly} />
+                )}
+
+                {/* Fee Waiver & Eligibility Callouts (Shown only when present) */}
+                {cert.feeWaiverNote && (
+                  <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/25 text-xs text-emerald-700 dark:text-emerald-300">
+                    <span className="font-bold">Fee Waiver / Discount: </span>{cert.feeWaiverNote}
+                  </div>
+                )}
+                {cert.eligibility && (
+                  <div className="p-2.5 rounded-xl bg-surface-2 border border-border text-xs text-text-secondary">
+                    <span className="font-bold text-foreground">Eligibility: </span>{cert.eligibility}
+                  </div>
+                )}
 
                 {/* Branch and Special Attribute Badges */}
                 <div className="flex flex-wrap items-center gap-1.5">
@@ -841,10 +906,13 @@ export function CertificationsTab({
                 )}
 
                 {/* Data Provenance Footnote */}
-                <div className="flex items-center justify-between text-[11px] text-text-muted px-1 pt-1 border-t border-border/50">
-                  <span className="truncate">
-                    Official Blueprint: <strong className="text-foreground">{timeline.sources[0]?.name || cert.issuer}</strong>
-                  </span>
+                <div className="flex items-center justify-between text-[11px] text-text-muted px-1 pt-1 border-t border-border/50 gap-2">
+                  <div className="flex items-center gap-2 truncate">
+                    <span className="truncate">
+                      Official Blueprint: <strong className="text-foreground">{timeline.sources[0]?.name || cert.issuer}</strong>
+                    </span>
+                    <OfficialSourceLink sourceUrl={cert.sourceUrl} />
+                  </div>
                   <span className="text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1 shrink-0 ml-2">
                     <ShieldCheck className="w-3.5 h-3.5" />
                     Audited {timeline.verifiedAuditDate}

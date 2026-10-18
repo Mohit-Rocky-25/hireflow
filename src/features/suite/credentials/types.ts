@@ -51,6 +51,48 @@ export type OpportunityType =
 export type EventScope = 'college' | 'national' | 'international';
 export type DeliveryMode = 'online' | 'offline' | 'hybrid';
 
+// ── Provenance & Freshness Enums (Stage 1) ──
+export type VerificationStatus = 'verified' | 'needs-recheck' | 'unverified';
+export type OpportunityRecurrence = 'one-time' | 'annual' | 'rolling';
+export type FreshnessStatus = 'fresh' | 'aging' | 'stale';
+
+/**
+ * Pure helper determining freshness without accessing system clock.
+ * - "fresh": verified within 6 months (<= 183 days)
+ * - "aging": 6 to 12 months (184 to 365 days)
+ * - "stale": older than 12 months (> 365 days), invalid date, or unverified
+ */
+export function getFreshness(
+  entry: { lastVerified?: string | null; verificationStatus?: VerificationStatus },
+  today: Date | string
+): FreshnessStatus {
+  if (!entry.lastVerified || entry.verificationStatus === 'unverified') {
+    return 'stale';
+  }
+  const verifiedDate = new Date(entry.lastVerified);
+  if (isNaN(verifiedDate.getTime())) {
+    return 'stale';
+  }
+  const currentDate = typeof today === 'string' ? new Date(today) : today;
+  if (isNaN(currentDate.getTime())) {
+    return 'stale';
+  }
+
+  const diffMs = currentDate.getTime() - verifiedDate.getTime();
+  if (diffMs <= 0) {
+    return 'fresh';
+  }
+
+  const diffDays = diffMs / (1000 * 60 * 60 * 24);
+  if (diffDays <= 183) {
+    return 'fresh';
+  } else if (diffDays <= 365) {
+    return 'aging';
+  } else {
+    return 'stale';
+  }
+}
+
 // ── Specific Opportunity Schemas ──
 
 export interface CertificationSchema {
@@ -153,9 +195,9 @@ export interface OpenSourceProgramSchema {
   preparationFlow?: string[];
 }
 
-// ── Unified Top 30 Catalog Record ──
+// ── Unified Catalog Records (Raw vs Enriched) ──
 
-export interface OpportunityRecord {
+export interface RawOpportunityRecord {
   schemaVersion: 1;
   id: string;
   rank: number;
@@ -167,7 +209,7 @@ export interface OpportunityRecord {
   category: OpportunityCategory[];
   targetRoles: string[];
   relatedSkills: string[];
-  eligibility: string;
+  eligibility: string | null;
   level?: CertificationLevel;
   scope?: EventScope;
   mode?: DeliveryMode;
@@ -196,7 +238,16 @@ export interface OpportunityRecord {
   suitabilityNotes: string;
   confidence: ConfidenceLevel;
   lastVerifiedAt: string;
-  sourceUrl: string;
+  sourceUrl: string | null;
+
+  // ── Provenance & Freshness Model (Stage 1 - Optional in Raw) ──
+  lastVerified?: string | null;
+  verificationStatus?: VerificationStatus;
+  recurrence?: OpportunityRecurrence;
+  datesChangeYearly?: boolean;
+  feeWaiverNote?: string | null;
+  nextWindowNote?: string | null;
+
   releaseTier: ReleaseTier;
   whatItIs: string;
   whoShouldTakeIt: string;
@@ -236,6 +287,16 @@ export interface OpportunityRecord {
     basis: string;
     notes?: string;
   };
+}
+
+export interface OpportunityRecord extends RawOpportunityRecord {
+  // Enforced non-optional fields post-migration
+  lastVerified: string | null;
+  verificationStatus: VerificationStatus;
+  recurrence: OpportunityRecurrence;
+  datesChangeYearly: boolean;
+  feeWaiverNote: string | null;
+  nextWindowNote: string | null;
 }
 
 // ── Schema 2.0 Types & Flags ──

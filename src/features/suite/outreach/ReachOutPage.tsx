@@ -26,6 +26,9 @@ import {
   ExternalLink,
   PlusCircle,
   Share2,
+  ChevronDown,
+  ChevronUp,
+  ShieldCheck,
 } from 'lucide-react';
 import {
   generateOutreach,
@@ -34,9 +37,34 @@ import {
   OutreachChannel,
   RecipientType,
   GeneratedMessage,
+  GroundedOutreachFormat,
+  GroundedOutreachVariant,
+  GroundedOutreachInput,
+  GroundedOutreachResult,
 } from './generateOutreach';
 import { useProfile } from '../profile/ProfileContext';
 import { careers } from '../../../careers-core';
+
+function renderHighlightedOutreachText(text: string) {
+  const parts = text.split(/(\[[^\]]+\])/g);
+  return (
+    <span>
+      {parts.map((part, i) => {
+        if (/^\[[^\]]+\]$/.test(part)) {
+          return (
+            <span
+              key={i}
+              className="bg-amber-500/20 text-amber-700 dark:text-amber-300 font-mono text-[11px] font-bold px-1.5 py-0.5 rounded border border-amber-500/30 inline-block mx-0.5"
+            >
+              {part}
+            </span>
+          );
+        }
+        return <span key={i}>{part}</span>;
+      })}
+    </span>
+  );
+}
 
 const CHANNELS: { id: OutreachChannel | 'all'; label: string; emoji: string }[] = [
   { id: 'all', label: 'All Channels (50)', emoji: '🗂️' },
@@ -74,6 +102,12 @@ export function ReachOutPage() {
   // Copy toast state: templateId -> boolean
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [blockedCopyId, setBlockedCopyId] = useState<string | null>(null);
+
+  // Grounded Studio Controls (Stage 5)
+  const [groundedFormat, setGroundedFormat] = useState<GroundedOutreachFormat>('linkedin');
+  const [groundedVariant, setGroundedVariant] = useState<GroundedOutreachVariant>('project-first');
+  const [isWhyPanelOpen, setIsWhyPanelOpen] = useState<boolean>(true);
+  const [groundedCopied, setGroundedCopied] = useState<boolean>(false);
 
   // Initialize from CandidateProfile if available
   useEffect(() => {
@@ -142,6 +176,62 @@ export function ReachOutPage() {
   const messages: GeneratedMessage[] = useMemo(() => {
     return generateOutreach(currentSlots, activeChannel);
   }, [currentSlots, activeChannel]);
+
+  const groundedInput: GroundedOutreachInput = useMemo(() => {
+    const topProj = profile?.projects?.[0];
+    const secProj = profile?.projects?.[1];
+
+    return {
+      recipientName: recipientName.trim() || undefined,
+      recipientTitle: recipientTitle.trim() || undefined,
+      targetCompany: targetCompany.trim() || '',
+      targetRole: targetRole.trim() || '',
+      candidateName: candidateName.trim() || profile?.identity?.name || undefined,
+      candidateEmail: profile?.identity?.email || undefined,
+      portfolioLink: portfolioLink.trim() || undefined,
+      primarySkill: primarySkill.trim() || undefined,
+      topProject: {
+        name: topProj?.name || (proofPoint ? 'Core Project' : undefined) || '',
+        metric: proofPoint.trim() || topProj?.bullets?.[0] || undefined,
+        tech: topProj?.stack || (primarySkill ? primarySkill.split(/[&,]/).map((s) => s.trim()) : undefined),
+      },
+      secondaryProject: secProj
+        ? {
+            name: secProj.name,
+            metric: secProj.bullets?.[0],
+            tech: secProj.stack,
+          }
+        : undefined,
+      credentialOrAward: commonGround.trim() || undefined,
+      admiredProjectOrTeam: admiredProject.trim() || undefined,
+    };
+  }, [
+    profile,
+    recipientName,
+    recipientTitle,
+    targetCompany,
+    targetRole,
+    candidateName,
+    portfolioLink,
+    primarySkill,
+    proofPoint,
+    commonGround,
+    admiredProject,
+  ]);
+
+  const groundedResult: GroundedOutreachResult = useMemo(() => {
+    return generateOutreach(groundedInput, groundedFormat, groundedVariant);
+  }, [groundedInput, groundedFormat, groundedVariant]);
+
+  const handleCopyGrounded = () => {
+    if (!groundedResult.isReadyToSend) return;
+    const textToCopy = groundedResult.subject
+      ? `Subject: ${groundedResult.subject}\n\n${groundedResult.body}`
+      : groundedResult.body;
+    navigator.clipboard.writeText(textToCopy);
+    setGroundedCopied(true);
+    setTimeout(() => setGroundedCopied(false), 2000);
+  };
 
   const handleCopy = (msg: GeneratedMessage) => {
     if (msg.placeholdersCount > 0) {
@@ -380,6 +470,223 @@ export function ReachOutPage() {
                 />
               </div>
             )}
+          </div>
+        </div>
+
+        {/* Grounded Studio Section (Stage 5) */}
+        <div className="bg-surface border-2 border-primary/30 rounded-3xl p-6 sm:p-7 mb-10 shadow-lg space-y-6">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-border/80">
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="p-2 rounded-xl bg-primary/10 text-primary">
+                  <Sparkles className="w-5 h-5" />
+                </span>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <h2 className="text-lg font-black text-foreground">
+                      Grounded Outreach Studio
+                    </h2>
+                    <span className="text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25">
+                      Provenance Tracked
+                    </span>
+                  </div>
+                  <p className="text-xs text-text-secondary mt-0.5">
+                    Tailored message generation anchored strictly to real candidate facts. Copy is locked until bracketed placeholders are resolved.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Format & Variant Switchers */}
+            <div className="flex flex-wrap items-center gap-2.5">
+              {/* Format Switcher */}
+              <div className="inline-flex rounded-xl p-1 bg-surface-2 border border-border">
+                {[
+                  { id: 'linkedin' as const, label: 'LinkedIn Connect (300 char)' },
+                  { id: 'cold_email' as const, label: 'Cold Email (90-130w)' },
+                  { id: 'referral' as const, label: 'Referral Request' },
+                ].map((f) => (
+                  <button
+                    key={f.id}
+                    type="button"
+                    onClick={() => setGroundedFormat(f.id)}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                      groundedFormat === f.id
+                        ? 'bg-primary text-white shadow-xs'
+                        : 'text-text-secondary hover:text-foreground hover:bg-surface-3'
+                    }`}
+                  >
+                    {f.label}
+                  </button>
+                ))}
+              </div>
+
+              {/* Variant Switcher */}
+              <div className="inline-flex rounded-xl p-1 bg-surface-2 border border-border">
+                {[
+                  { id: 'project-first' as const, label: 'Project-First' },
+                  { id: 'role-first' as const, label: 'Role-First' },
+                ].map((v) => (
+                  <button
+                    key={v.id}
+                    type="button"
+                    onClick={() => setGroundedVariant(v.id)}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                      groundedVariant === v.id
+                        ? 'bg-foreground text-background shadow-xs'
+                        : 'text-text-secondary hover:text-foreground hover:bg-surface-3'
+                    }`}
+                  >
+                    {v.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Facts Used Provenance Bar */}
+          <div className="p-3.5 rounded-xl bg-surface-2/60 border border-border/80 flex flex-wrap items-center gap-2 text-xs">
+            <span className="font-bold text-foreground flex items-center gap-1.5">
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
+              <span>Real Facts Used in Generator:</span>
+            </span>
+            {groundedResult.factsUsed.length > 0 ? (
+              groundedResult.factsUsed.map((fact, idx) => (
+                <span
+                  key={idx}
+                  className="px-2 py-0.5 rounded-md bg-primary/10 text-primary border border-primary/20 text-[11px] font-medium"
+                >
+                  {fact}
+                </span>
+              ))
+            ) : (
+              <span className="text-text-muted text-[11px] italic">
+                No verified project facts detected in profile yet — using fallback brackets.
+              </span>
+            )}
+          </div>
+
+          {/* Live Message Output Card */}
+          <div className="p-5 sm:p-6 rounded-2xl bg-surface border border-border space-y-4 shadow-xs">
+            <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-border/80 text-xs">
+              <div className="flex items-center gap-3">
+                <span className="font-bold text-foreground">
+                  {groundedResult.wordCount} words
+                </span>
+                <span className="text-border">·</span>
+                <span className={groundedResult.exceedsLimit ? 'text-red-500 font-bold' : 'text-text-muted'}>
+                  {groundedResult.charCount} {groundedFormat === 'linkedin' ? '/ 300 chars' : 'characters'}
+                </span>
+                <span className="text-border">·</span>
+                <span className="text-emerald-600 dark:text-emerald-400 font-bold">
+                  {groundedResult.questionMarksCount} Question Mark ({groundedResult.hasClearAsk ? 'Clear Ask' : 'Gentle Ask'})
+                </span>
+                <span className="text-border">·</span>
+                <span className="text-emerald-600 dark:text-emerald-400 font-bold">
+                  0 Banned Phrases
+                </span>
+              </div>
+
+              {/* Copy Button */}
+              <button
+                type="button"
+                disabled={!groundedResult.isReadyToSend}
+                onClick={handleCopyGrounded}
+                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-xs inline-flex items-center gap-1.5 ${
+                  groundedResult.isReadyToSend
+                    ? 'bg-primary text-white hover:bg-primary/90 cursor-pointer'
+                    : 'bg-surface-3 text-text-muted border border-border cursor-not-allowed opacity-60'
+                }`}
+                title={groundedResult.isReadyToSend ? 'Copy message to clipboard' : 'Fill all highlighted brackets before copying'}
+              >
+                {groundedCopied ? (
+                  <>
+                    <Check className="w-3.5 h-3.5 text-white" />
+                    <span>Copied!</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-3.5 h-3.5" />
+                    <span>{groundedResult.isReadyToSend ? 'Copy Grounded Message' : 'Fill Missing Info to Copy'}</span>
+                  </>
+                )}
+              </button>
+            </div>
+
+            {/* Subject Line if present */}
+            {groundedResult.subject && (
+              <div className="p-3 rounded-xl bg-surface-2 border border-border text-xs">
+                <div className="text-[10px] text-text-muted font-bold uppercase mb-1">Subject Line</div>
+                <div className="font-bold text-foreground">
+                  {renderHighlightedOutreachText(groundedResult.subject)}
+                </div>
+              </div>
+            )}
+
+            {/* Message Body with Highlighted Placeholders */}
+            <div className="p-4 sm:p-5 rounded-xl bg-surface-2 border border-border/80 font-sans text-xs sm:text-sm text-foreground leading-relaxed whitespace-pre-wrap select-all">
+              {renderHighlightedOutreachText(groundedResult.body)}
+            </div>
+
+            {/* Missing Info Alert (if placeholders exist) */}
+            {groundedResult.placeholders.length > 0 && (
+              <div className="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/25 flex items-start gap-2.5 text-xs text-amber-700 dark:text-amber-300">
+                <AlertTriangle className="w-4 h-4 shrink-0 text-amber-500 mt-0.5" />
+                <div className="space-y-1">
+                  <div className="font-bold">
+                    Missing info required to unlock copy ({groundedResult.placeholders.length} remaining):
+                  </div>
+                  <div className="flex flex-wrap gap-1.5">
+                    {groundedResult.placeholders.map((ph, idx) => (
+                      <span
+                        key={idx}
+                        className="px-2 py-0.5 rounded-md bg-amber-500/20 text-amber-800 dark:text-amber-200 font-mono text-[11px] font-bold border border-amber-500/30"
+                      >
+                        {ph}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Collapsible "Why this message says this" Panel */}
+            <div className="pt-2 border-t border-border/60">
+              <button
+                type="button"
+                onClick={() => setIsWhyPanelOpen(!isWhyPanelOpen)}
+                className="flex items-center justify-between w-full py-2 text-xs font-bold text-text-secondary hover:text-foreground transition-colors cursor-pointer"
+              >
+                <span className="flex items-center gap-1.5">
+                  <HelpCircle className="w-3.5 h-3.5 text-primary" />
+                  <span>Why this message says this (Strategic Grounding)</span>
+                </span>
+                {isWhyPanelOpen ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+              </button>
+
+              {isWhyPanelOpen && (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3 p-3.5 rounded-xl bg-surface-2/40 border border-border/60 text-xs mt-2">
+                  <div className="space-y-1">
+                    <span className="font-bold text-foreground block">1. Hook Rationale</span>
+                    <p className="text-[11px] text-text-secondary leading-normal">
+                      {groundedResult.explanation.hookRationale}
+                    </p>
+                  </div>
+                  <div className="space-y-1">
+                    <span className="font-bold text-foreground block">2. Evidence Rationale</span>
+                    <p className="text-[11px] text-text-secondary leading-normal">
+                      {groundedResult.explanation.evidenceRationale}
+                    </p>
+                  </div>
+                  <div className="space-y-1">
+                    <span className="font-bold text-foreground block">3. Ask Rationale</span>
+                    <p className="text-[11px] text-text-secondary leading-normal">
+                      {groundedResult.explanation.askRationale}
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
 

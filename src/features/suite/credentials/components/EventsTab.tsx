@@ -32,6 +32,7 @@ import { OpportunityRecord, OpportunityFlag, EngineeringBranch, TrustLevel } fro
 import { CredentialsStorage } from '../storage';
 import { getVerifiedTimeline } from '../engine/timelineEngine';
 import { ModalTab } from './OpportunityDetailModal';
+import { FreshnessBadge, OfficialSourceLink, DatesChangeNotice } from './FreshnessBadge';
 
 interface EventsTabProps {
   onSelectOpportunity: (opportunity: OpportunityRecord, tab?: ModalTab) => void;
@@ -94,6 +95,8 @@ export function EventsTab({
   const [selectedFlag, setSelectedFlag] = useState<string>('All');
   const [onlyHiringPipeline, setOnlyHiringPipeline] = useState(false);
   const [onlyIndianFlagships, setOnlyIndianFlagships] = useState(false);
+  const [hideUnverified, setHideUnverified] = useState(false);
+  const [sortBy, setSortBy] = useState<'default' | 'verified_desc'>('default');
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [savedIds, setSavedIds] = useState<Set<string>>(() => {
     const items = CredentialsStorage.loadPlanItems();
@@ -171,6 +174,11 @@ export function EventsTab({
         if (!flags.includes(selectedFlag as OpportunityFlag)) return false;
       }
 
+      // Hide unverified filter
+      if (hideUnverified && event.verificationStatus === 'unverified') {
+        return false;
+      }
+
       return true;
     });
   }, [
@@ -183,7 +191,19 @@ export function EventsTab({
     selectedBranch,
     selectedTrust,
     selectedFlag,
+    hideUnverified,
   ]);
+
+  const sortedEvents = useMemo(() => {
+    if (sortBy === 'verified_desc') {
+      return [...filteredEvents].sort((a, b) => {
+        const timeA = a.lastVerified ? new Date(a.lastVerified).getTime() : 0;
+        const timeB = b.lastVerified ? new Date(b.lastVerified).getTime() : 0;
+        return timeB - timeA;
+      });
+    }
+    return filteredEvents;
+  }, [filteredEvents, sortBy]);
 
   const handleCopyTemplate = (e: React.MouseEvent, event: OpportunityRecord) => {
     e.stopPropagation();
@@ -428,6 +448,31 @@ export function EventsTab({
           </div>
         </div>
 
+        {/* Sort & Freshness Filter Controls */}
+        <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-border/70">
+          <label className="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-surface-2 hover:bg-surface-3 border border-border text-xs font-bold text-foreground cursor-pointer transition-colors select-none">
+            <input
+              type="checkbox"
+              checked={hideUnverified}
+              onChange={(e) => setHideUnverified(e.target.checked)}
+              className="rounded text-orange-500 focus:ring-orange-500 w-4 h-4 cursor-pointer"
+            />
+            <span>Hide unverified listings</span>
+          </label>
+
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-bold text-text-secondary">Sort by:</span>
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value as any)}
+              className="px-3 py-1.5 rounded-xl bg-surface-2 hover:bg-surface border border-border text-xs font-bold text-foreground focus:outline-none transition-all cursor-pointer"
+            >
+              <option value="default">Default Catalog Order</option>
+              <option value="verified_desc">Most recently verified</option>
+            </select>
+          </div>
+        </div>
+
         {/* Active Filter Chips and Reset Bar */}
         {(selectedType !== 'All' ||
           selectedRole !== 'All' ||
@@ -436,11 +481,13 @@ export function EventsTab({
           selectedFlag !== 'All' ||
           onlyHiringPipeline ||
           onlyIndianFlagships ||
+          hideUnverified ||
+          sortBy !== 'default' ||
           searchQuery) && (
           <div className="pt-3 border-t border-border flex flex-wrap items-center justify-between gap-3 animate-fade-in">
             <div className="flex flex-wrap items-center gap-2">
               <span className="px-3.5 py-1.5 rounded-xl bg-orange-500/15 border-2 border-orange-500/30 text-xs sm:text-sm font-black text-orange-600 dark:text-orange-400">
-                Showing {filteredEvents.length} of {eventOpportunities.length} Competitions
+                Showing {sortedEvents.length} of {eventOpportunities.length} Competitions
               </span>
 
               {selectedType !== 'All' && (
@@ -498,6 +545,17 @@ export function EventsTab({
                 </button>
               )}
 
+              {hideUnverified && (
+                <button
+                  onClick={() => setHideUnverified(false)}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-2 border border-border text-xs font-bold text-foreground hover:bg-rose-500/10 hover:border-rose-500/30 hover:text-rose-600 transition-all cursor-pointer"
+                  title="Show unverified listings"
+                >
+                  <span>Only Verified</span>
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              )}
+
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery('')}
@@ -520,6 +578,8 @@ export function EventsTab({
                 setSelectedFlag('All');
                 setOnlyHiringPipeline(false);
                 setOnlyIndianFlagships(false);
+                setHideUnverified(false);
+                setSortBy('default');
               }}
               className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-rose-500/15 hover:bg-rose-500/25 border-2 border-rose-500/30 font-black text-xs sm:text-sm text-rose-600 dark:text-rose-400 transition-all cursor-pointer shadow-2xs"
             >
@@ -532,7 +592,7 @@ export function EventsTab({
 
       {/* Events Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredEvents.map((event) => {
+        {sortedEvents.map((event) => {
           const isSaved = savedIds.has(event.id);
           const portalUrl = event.directPortalUrl || event.officialUrl;
           const syllabusUrl = event.syllabusUrl || portalUrl;
@@ -565,6 +625,7 @@ export function EventsTab({
                       </span>
                     )}
                     {renderTrustBadge(event)}
+                    <FreshnessBadge opportunity={event} />
                   </div>
 
                   <button
@@ -591,6 +652,23 @@ export function EventsTab({
                     <span>{event.organizer}</span>
                   </p>
                 </div>
+
+                {/* Yearly dates change notice */}
+                {event.datesChangeYearly && (
+                  <DatesChangeNotice datesChangeYearly={event.datesChangeYearly} />
+                )}
+
+                {/* Fee Waiver & Eligibility Callouts (Shown only when present) */}
+                {event.feeWaiverNote && (
+                  <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/25 text-xs text-emerald-700 dark:text-emerald-300">
+                    <span className="font-bold">Fee Waiver / Aid: </span>{event.feeWaiverNote}
+                  </div>
+                )}
+                {event.eligibility && (
+                  <div className="p-2.5 rounded-xl bg-surface-2 border border-border text-xs text-text-secondary">
+                    <span className="font-bold text-foreground">Eligibility: </span>{event.eligibility}
+                  </div>
+                )}
 
                 {/* Badges: PPO, Branch Edge, Flags */}
                 <div className="flex flex-wrap items-center gap-1.5">
@@ -682,10 +760,13 @@ export function EventsTab({
                 )}
 
                 {/* Data Provenance Footnote */}
-                <div className="flex items-center justify-between text-[10px] text-text-muted px-1 pt-0.5 border-t border-border/40">
-                  <span className="truncate">
-                    Source: <strong className="text-foreground/80">{timeline.sources[0]?.name || event.organizer}</strong>
-                  </span>
+                <div className="flex items-center justify-between text-[10px] text-text-muted px-1 pt-0.5 border-t border-border/40 gap-2">
+                  <div className="flex items-center gap-2 truncate">
+                    <span className="truncate">
+                      Source: <strong className="text-foreground/80">{timeline.sources[0]?.name || event.organizer}</strong>
+                    </span>
+                    <OfficialSourceLink sourceUrl={event.sourceUrl} />
+                  </div>
                   <span className="text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1 shrink-0 ml-2">
                     <ShieldCheck className="w-3 h-3" />
                     Audited {timeline.verifiedAuditDate}

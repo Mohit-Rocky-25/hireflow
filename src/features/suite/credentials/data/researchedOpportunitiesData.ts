@@ -4,9 +4,9 @@
 // Verified official pricing, fee waivers, honest confidence levels & direct portals
 // ============================================================
 
-import { OpportunityRecord } from '../types';
+import { RawOpportunityRecord } from '../types';
 
-export const RESEARCHED_MARKET_OPPORTUNITIES: OpportunityRecord[] = [
+export const RESEARCHED_MARKET_OPPORTUNITIES: RawOpportunityRecord[] = [
   {
     "schemaVersion": 1,
     "id": "cert-cka",

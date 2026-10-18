@@ -50,6 +50,14 @@ import {
 import { CredentialsStorage } from '../storage';
 import { getPerformativeEvidence, ResumeFormatItem } from '../engine/resumeEvidenceEngine';
 import { getVerifiedTimeline } from '../engine/timelineEngine';
+import { FreshnessBadge, OfficialSourceLink, DatesChangeNotice } from './FreshnessBadge';
+import {
+  CredentialTruthState,
+  CredentialTruthDetails,
+  validateTruthGate,
+  generateSafeForwardLookingBullet,
+  fillCredentialTemplate,
+} from '../engine/truthGate';
 
 export type ModalTab = 'overview' | 'timeline' | 'fees_aid' | 'syllabus' | 'resume_evidence' | 'pitfalls_sources';
 
@@ -74,6 +82,27 @@ export function OpportunityDetailModal({
   const [copiedFormatId, setCopiedFormatId] = useState<string | null>(null);
   const [checkedArtifacts, setCheckedArtifacts] = useState<Set<string>>(new Set());
   const [expandedInterviewIdx, setExpandedInterviewIdx] = useState<number | null>(0);
+  const [truthDetails, setTruthDetails] = useState<CredentialTruthDetails>({ truthState: 'Planned' });
+
+  useEffect(() => {
+    if (!opportunity) return;
+    const details = CredentialsStorage.getCredentialTruthDetails(opportunity.id);
+    setTruthDetails(details);
+  }, [opportunity?.id]);
+
+  const handleUpdateTruthState = (nextState: CredentialTruthState) => {
+    if (!opportunity) return;
+    const next: CredentialTruthDetails = { ...truthDetails, truthState: nextState };
+    setTruthDetails(next);
+    CredentialsStorage.saveCredentialTruthDetails(opportunity.id, next);
+  };
+
+  const handleUpdateTruthField = (field: keyof CredentialTruthDetails, value: string) => {
+    if (!opportunity) return;
+    const next: CredentialTruthDetails = { ...truthDetails, [field]: value };
+    setTruthDetails(next);
+    CredentialsStorage.saveCredentialTruthDetails(opportunity.id, next);
+  };
 
   const evidencePkg = useMemo(() => {
     return opportunity ? getPerformativeEvidence(opportunity) : null;
@@ -441,6 +470,8 @@ export function OpportunityDetailModal({
                 {opportunity.branches.join(', ')} Fit
               </span>
             )}
+
+            <FreshnessBadge opportunity={opportunity} />
           </div>
 
           <div>
@@ -450,6 +481,21 @@ export function OpportunityDetailModal({
             <p className="text-sm sm:text-base text-text-secondary font-medium mt-1">
               Organizer / Issuer: <strong className="text-foreground">{opportunity.organizer}</strong>
             </p>
+
+            {opportunity.datesChangeYearly && (
+              <div className="mt-3">
+                <DatesChangeNotice datesChangeYearly={opportunity.datesChangeYearly} />
+              </div>
+            )}
+
+            <div className="mt-3 flex flex-wrap items-center gap-3">
+              <OfficialSourceLink sourceUrl={opportunity.sourceUrl} />
+              {opportunity.nextWindowNote && (
+                <span className="text-xs font-bold text-text-secondary bg-surface-2 px-3 py-1 rounded-lg border border-border">
+                  Next Window: {opportunity.nextWindowNote}
+                </span>
+              )}
+            </div>
           </div>
         </div>
 
@@ -546,6 +592,32 @@ export function OpportunityDetailModal({
                   ))}
                 </div>
               </div>
+
+              {/* Fee Waiver & Eligibility Callouts (Shown only when present) */}
+              {(opportunity.feeWaiverNote || opportunity.eligibility) && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {opportunity.feeWaiverNote && (
+                    <div className="p-5 rounded-2xl bg-emerald-500/10 border border-emerald-500/25 space-y-1">
+                      <span className="text-xs font-black uppercase tracking-wider text-emerald-700 dark:text-emerald-300">
+                        Fee Waiver / Student Aid Pathway
+                      </span>
+                      <p className="text-xs sm:text-sm text-foreground">
+                        {opportunity.feeWaiverNote}
+                      </p>
+                    </div>
+                  )}
+                  {opportunity.eligibility && (
+                    <div className="p-5 rounded-2xl bg-surface-2 border border-border space-y-1">
+                      <span className="text-xs font-black uppercase tracking-wider text-foreground">
+                        Eligibility Criteria
+                      </span>
+                      <p className="text-xs sm:text-sm text-text-secondary">
+                        {opportunity.eligibility}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              )}
 
               {/* Verified Schedule & Provenance Fast-Access Box */}
               {verifiedTimeline && (
@@ -1143,10 +1215,145 @@ export function OpportunityDetailModal({
                 </div>
               </div>
 
+              {/* Truth Gate Status & Integrity Controls */}
+              <div className="p-5 sm:p-6 rounded-2xl bg-surface-2 border border-border space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <ShieldCheck className="w-4 h-4 text-primary" />
+                      <h4 className="text-xs font-black uppercase tracking-wider text-foreground">
+                        Truth Gate — Candidate Credential Status
+                      </h4>
+                    </div>
+                    <p className="text-xs text-text-secondary mt-0.5">
+                      Truth Gate guarantees verifiable resume claims, prevents fraudulent earned claims on planned credentials, and locks copy until placeholders are filled.
+                    </p>
+                  </div>
+
+                  {/* Status Toggle: Planned | In progress | Earned */}
+                  <div className="inline-flex rounded-xl p-1 bg-surface border border-border shrink-0">
+                    {(['Planned', 'In progress', 'Earned'] as const).map((st) => (
+                      <button
+                        key={st}
+                        type="button"
+                        onClick={() => handleUpdateTruthState(st)}
+                        className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                          truthDetails.truthState === st
+                            ? st === 'Earned'
+                              ? 'bg-emerald-500 text-white shadow-xs'
+                              : st === 'In progress'
+                              ? 'bg-primary text-white shadow-xs'
+                              : 'bg-amber-500 text-white shadow-xs'
+                            : 'text-text-secondary hover:text-foreground hover:bg-surface-2'
+                        }`}
+                      >
+                        {st}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* State-specific Fields & Warnings */}
+                {truthDetails.truthState === 'Earned' ? (
+                  <div className="p-4 rounded-xl bg-surface border border-border space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-foreground">
+                        Earned Credential Verification Metadata
+                      </span>
+                      <span className="text-[11px] text-text-muted">
+                        Required to unlock copy button
+                      </span>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                      <div>
+                        <label className="block text-[11px] font-bold text-text-secondary mb-1">
+                          Credential ID / Badge URL *
+                        </label>
+                        <input
+                          type="text"
+                          value={truthDetails.credentialId || ''}
+                          onChange={(e) => handleUpdateTruthField('credentialId', e.target.value)}
+                          placeholder="e.g. CRED-88912 or Credly URL"
+                          className="w-full px-3 py-1.5 rounded-lg bg-surface-2 border border-border text-xs text-foreground focus:outline-none focus:border-primary"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-[11px] font-bold text-text-secondary mb-1">
+                          Date Earned *
+                        </label>
+                        <input
+                          type="text"
+                          value={truthDetails.dateEarned || ''}
+                          onChange={(e) => handleUpdateTruthField('dateEarned', e.target.value)}
+                          placeholder="e.g. Nov 2025"
+                          className="w-full px-3 py-1.5 rounded-lg bg-surface-2 border border-border text-xs text-foreground focus:outline-none focus:border-primary"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-[11px] font-bold text-text-secondary mb-1">
+                          Score / Percentile (Optional)
+                        </label>
+                        <input
+                          type="text"
+                          value={truthDetails.score || ''}
+                          onChange={(e) => handleUpdateTruthField('score', e.target.value)}
+                          placeholder="e.g. 920/1000 or Top 1%"
+                          className="w-full px-3 py-1.5 rounded-lg bg-surface-2 border border-border text-xs text-foreground focus:outline-none focus:border-primary"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="p-4 rounded-xl bg-surface border border-border space-y-2">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                      <div className="space-y-0.5">
+                        <span className="text-xs font-bold text-foreground flex items-center gap-1.5">
+                          <Info className="w-3.5 h-3.5 text-amber-500" />
+                          <span>Forward-Looking Mode ({truthDetails.truthState})</span>
+                        </span>
+                        <p className="text-[11px] text-text-muted">
+                          Emits an ethical pursuit statement. Truth Gate prohibits unearned completion claims on planned credentials.
+                        </p>
+                      </div>
+                      <div className="w-full sm:w-64">
+                        <label className="block text-[10px] font-bold text-text-secondary mb-1">
+                          Expected Completion Date *
+                        </label>
+                        <input
+                          type="text"
+                          value={truthDetails.expectedDate || ''}
+                          onChange={(e) => handleUpdateTruthField('expectedDate', e.target.value)}
+                          placeholder="e.g. Q4 2026 or Dec 2026"
+                          className="w-full px-3 py-1.5 rounded-lg bg-surface-2 border border-border text-xs text-foreground focus:outline-none focus:border-primary"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+
               {/* Active Format Detail Card */}
               {(() => {
                 const activeFmt = evidencePkg.formats.find((f) => f.id === selectedFormatId) || evidencePkg.formats[0];
-                const contentToDisplay = showCompletedExample ? activeFmt.exampleCompleted : activeFmt.template;
+                const baseContent = showCompletedExample ? activeFmt.exampleCompleted : activeFmt.template;
+
+                let contentToDisplay = baseContent;
+                if (!showCompletedExample) {
+                  if (truthDetails.truthState === 'Earned') {
+                    contentToDisplay = fillCredentialTemplate(baseContent, truthDetails);
+                  } else if (activeFmt.id === 'cert_line') {
+                    contentToDisplay = generateSafeForwardLookingBullet(
+                      opportunity,
+                      truthDetails.truthState,
+                      truthDetails.expectedDate
+                    );
+                  } else {
+                    contentToDisplay = fillCredentialTemplate(baseContent, { expectedDate: truthDetails.expectedDate });
+                  }
+                }
+
+                const truthValidation = validateTruthGate(contentToDisplay, truthDetails.truthState);
+                const canCopy = showCompletedExample || truthValidation.isValid;
                 const isCopied = copiedFormatId === activeFmt.id;
 
                 return (
@@ -1182,12 +1389,17 @@ export function OpportunityDetailModal({
                           <span>{showCompletedExample ? 'Showing 10/10 Example' : 'Preview 10/10 Example'}</span>
                         </button>
 
-                        {/* Copy Button */}
+                        {/* Copy Button (Governed by Truth Gate) */}
                         <button
                           type="button"
-                          onClick={() => handleCopyFormat(contentToDisplay, activeFmt.id)}
-                          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-primary text-white hover:bg-primary/90 text-xs font-bold transition-all cursor-pointer shadow-xs"
-                          title="Copy template to clipboard"
+                          disabled={!canCopy}
+                          onClick={() => canCopy && handleCopyFormat(contentToDisplay, activeFmt.id)}
+                          className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all shadow-xs ${
+                            canCopy
+                              ? 'bg-primary text-white hover:bg-primary/90 cursor-pointer'
+                              : 'bg-surface-3 text-text-muted border border-border cursor-not-allowed opacity-60'
+                          }`}
+                          title={canCopy ? 'Copy template to clipboard' : truthValidation.message}
                         >
                           {isCopied ? (
                             <>
@@ -1197,7 +1409,7 @@ export function OpportunityDetailModal({
                           ) : (
                             <>
                               <Copy className="w-3.5 h-3.5" />
-                              <span>Copy Format</span>
+                              <span>{canCopy ? 'Copy Format' : 'Fill Fields to Copy'}</span>
                             </>
                           )}
                         </button>
@@ -1207,6 +1419,28 @@ export function OpportunityDetailModal({
                     {/* Template Code/Display Block */}
                     <div className="p-4 sm:p-5 rounded-xl bg-surface border border-border font-mono text-xs text-foreground/95 leading-relaxed select-all shadow-inner overflow-x-auto whitespace-pre-wrap">
                       {showCompletedExample ? contentToDisplay : renderHighlightedTemplate(contentToDisplay)}
+                    </div>
+
+                    {/* Truth Gate Verification Status Banner */}
+                    <div className="pt-1">
+                      {truthValidation.isValid ? (
+                        <div className="flex items-center gap-2 text-xs font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 p-3 rounded-xl border border-emerald-500/20">
+                          <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-500" />
+                          <span>{truthValidation.message}</span>
+                        </div>
+                      ) : (
+                        <div className="flex items-start gap-2 text-xs font-bold text-amber-700 dark:text-amber-300 bg-amber-500/10 p-3 rounded-xl border border-amber-500/20">
+                          <AlertTriangle className="w-4 h-4 shrink-0 text-amber-500 mt-0.5" />
+                          <div>
+                            <div>{truthValidation.message}</div>
+                            {truthValidation.unfilledPlaceholders && truthValidation.unfilledPlaceholders.length > 0 && (
+                              <div className="text-[11px] font-mono text-amber-600 dark:text-amber-400 mt-1">
+                                Missing: {truthValidation.unfilledPlaceholders.join(', ')}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      )}
                     </div>
 
                     {/* Quick Guidance Note */}

@@ -4,10 +4,10 @@
 // Strict verified data: Flipkart GRiD, TCS CodeVita/HackQuest, C4GT, Amazon ML, etc.
 // ============================================================
 
-import { OpportunityRecord } from '../types';
+import { OpportunityRecord, RawOpportunityRecord } from '../types';
 import { enrichOpportunityWithCuratedBrief } from './curatedBriefsPayload';
 
-const RAW_INDIAN_FLAGSHIP_OPPORTUNITIES: OpportunityRecord[] = [
+const RAW_INDIAN_FLAGSHIP_OPPORTUNITIES: RawOpportunityRecord[] = [
   // 1. Flipkart GRiD
   {
     schemaVersion: 1,

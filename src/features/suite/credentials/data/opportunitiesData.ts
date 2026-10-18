@@ -4,14 +4,14 @@
 // Strict data schema with zero fabrication & official citations
 // ============================================================
 
-import { OpportunityRecord } from '../types';
+import { OpportunityRecord, RawOpportunityRecord } from '../types';
 import { INDIAN_FLAGSHIP_OPPORTUNITIES } from './indianOpportunitiesData';
 import { RESEARCHED_MARKET_OPPORTUNITIES } from './researchedOpportunitiesData';
 import { enrichOpportunityWithCuratedBrief } from './curatedBriefsPayload';
 
 export { INDIAN_FLAGSHIP_OPPORTUNITIES, RESEARCHED_MARKET_OPPORTUNITIES };
 
-const RAW_TOP_30_OPPORTUNITIES: OpportunityRecord[] = [
+const RAW_TOP_30_OPPORTUNITIES: RawOpportunityRecord[] = [
   // =========================================================================
   // TIER 1 — BUILD FIRST (Records 1 to 10)
   // =========================================================================

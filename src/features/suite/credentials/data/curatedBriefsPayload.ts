@@ -3,11 +3,12 @@
 // Merges all 42 in-depth briefs for Top 30 + 12 Indian Flagships
 // ============================================================
 
-import { OpportunityRecord } from '../types';
+import { OpportunityRecord, RawOpportunityRecord } from '../types';
 import { CURATED_TOP_30_BRIEFS } from './curatedBriefsTop30';
 import { CURATED_TOP_30_PART_2 } from './curatedBriefsTop30Part2';
 import { CURATED_FLAGSHIP_BRIEFS } from './curatedBriefsFlagships';
 import { getPerformativeEvidence, getPrimaryPerformativeBullet } from '../engine/resumeEvidenceEngine';
+import { migrateOpportunityRecord } from './credentialsSchema';
 
 export const CURATED_BRIEFS_MAP: Record<string, Partial<OpportunityRecord>> = {
   ...CURATED_TOP_30_BRIEFS,
@@ -20,10 +21,10 @@ export const CURATED_BRIEFS_MAP: Record<string, Partial<OpportunityRecord>> = {
  * fee displays, student aid playbooks, calendar windows, citation sources,
  * and high-impact performative resume evidence templates.
  */
-export function enrichOpportunityWithCuratedBrief(opp: OpportunityRecord): OpportunityRecord {
+export function enrichOpportunityWithCuratedBrief(opp: RawOpportunityRecord): OpportunityRecord {
   const brief = CURATED_BRIEFS_MAP[opp.id] || {};
 
-  const merged: OpportunityRecord = {
+  const merged: RawOpportunityRecord = {
     ...opp,
     ...brief,
     richDetails: {
@@ -40,8 +41,10 @@ export function enrichOpportunityWithCuratedBrief(opp: OpportunityRecord): Oppor
     flags: Array.from(new Set([...(opp.flags || []), ...(brief.flags || [])])),
   };
 
+  const migrated = migrateOpportunityRecord(merged);
+
   // Inspect existing template quality: if weak or placeholder-only, upgrade with performative bullet
-  const current = (merged.resumePresentationTemplate || '').trim();
+  const current = (migrated.resumePresentationTemplate || '').trim();
   const isWeak =
     !current ||
     current.length < 35 ||
@@ -52,21 +55,21 @@ export function enrichOpportunityWithCuratedBrief(opp: OpportunityRecord): Oppor
     current.endsWith('Credential ID: {id}.');
 
   if (isWeak) {
-    merged.resumePresentationTemplate = getPrimaryPerformativeBullet(merged);
+    migrated.resumePresentationTemplate = getPrimaryPerformativeBullet(migrated);
   }
 
   // Ensure richDetails.resumeEvidence has valid attach items
-  if (!merged.richDetails) {
-    merged.richDetails = {};
+  if (!migrated.richDetails) {
+    migrated.richDetails = {};
   }
-  const evidencePkg = getPerformativeEvidence(merged);
-  if (!merged.richDetails.resumeEvidence && !merged.richDetails.resume_evidence) {
-    merged.richDetails.resumeEvidence = {
+  const evidencePkg = getPerformativeEvidence(migrated);
+  if (!migrated.richDetails.resumeEvidence && !migrated.richDetails.resume_evidence) {
+    migrated.richDetails.resumeEvidence = {
       attach: evidencePkg.artifactsChecklist.map((a) => a.title),
-      lineTemplate: merged.resumePresentationTemplate,
+      lineTemplate: migrated.resumePresentationTemplate,
     };
   }
 
-  return merged;
+  return migrated;
 }
 

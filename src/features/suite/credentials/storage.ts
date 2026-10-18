@@ -97,4 +97,46 @@ export const CredentialsStorage = {
   clearPlan(): void {
     safeSet(JSON.stringify([]));
   },
+
+  getCredentialTruthDetails(opportunityId: string): {
+    truthState: 'Planned' | 'In progress' | 'Earned';
+    credentialId?: string;
+    dateEarned?: string;
+    score?: string;
+    expectedDate?: string;
+  } {
+    try {
+      const raw = typeof localStorage !== 'undefined'
+        ? localStorage.getItem(`hireflow.suite.v1.truth.${opportunityId}`)
+        : memStore.get(`hireflow.suite.v1.truth.${opportunityId}`);
+      if (raw) {
+        return JSON.parse(raw);
+      }
+    } catch {
+      // fallback
+    }
+    return { truthState: 'Planned' };
+  },
+
+  saveCredentialTruthDetails(
+    opportunityId: string,
+    details: {
+      truthState: 'Planned' | 'In progress' | 'Earned';
+      credentialId?: string;
+      dateEarned?: string;
+      score?: string;
+      expectedDate?: string;
+    }
+  ): void {
+    try {
+      const str = JSON.stringify(details);
+      if (typeof localStorage !== 'undefined') {
+        localStorage.setItem(`hireflow.suite.v1.truth.${opportunityId}`, str);
+      } else {
+        memStore.set(`hireflow.suite.v1.truth.${opportunityId}`, str);
+      }
+    } catch (err) {
+      console.warn('[CredentialsStorage] Failed to save truth details:', err);
+    }
+  },
 };
