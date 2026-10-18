@@ -1,49 +1,48 @@
-PROJECT BRIEF — Real-Time Business Intelligence Dashboard with WebSocket Push
+PROJECT BRIEF — REAL-TIME BUSINESS INTELLIGENCE ANALYTICS DASHBOARD WITH NODE.JS WEBSOCKETS, REDIS PUB/SUB & POSTGRESQL ROLLUPS
 ======================================================================
 
-Domain    : Full-Stack Web
-Difficulty: INTERMEDIATE
-Est. Time : 28 hours
-Tech Stack: React, TypeScript, Node.js, WebSockets, PostgreSQL, Redis
+Project ID  : brief-realtime-analytics-dashboard
+Domain      : Full-Stack Web
+Difficulty  : INTERMEDIATE
+Est. Time   : 28 hours
+Tech Stack  : TypeScript, React, Node.js, WebSockets, PostgreSQL, Redis
+Covered Gaps: TypeScript, React, Node.js, WebSockets, PostgreSQL, Redis, Full-Stack Web, Real-Time Analytics
 
-PROBLEM STATEMENT
-----------------------------------------
-Business stakeholders refresh analytics dashboards manually to see current metrics, creating stale data problems. Build a real-time BI dashboard that pushes metric updates via WebSocket as database changes occur, with interactive filtering, drill-down capability, and configurable alert thresholds.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Executive and operational teams relying on periodic page refreshes to monitor critical business KPIs suffer from stale metrics, uncoordinated decision-making, and heavy database load from repetitive analytical queries. Polling REST APIs every few seconds exhausts server connection pools and introduces significant latency lag during rapid traffic surges. This project builds a production-grade real-time business intelligence (BI) dashboard in TypeScript and React. The system ingests business transaction events in Node.js, distributes live metric mutations horizontally across worker processes using Redis Pub/Sub, pushes delta updates to thousands of browser clients over WebSockets with sub-35ms broadcast latency, computes historical multi-dimensional rollups in PostgreSQL, and renders interactive SVG/Canvas charts with zero UI stutter.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-Operations command centers at top tech platforms, top tech platforms, and OYO; financial dashboards at banks and payment companies; manufacturing quality control dashboards; and healthcare patient monitoring systems all need real-time metrics with push updates.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+E-Commerce Black Friday Flash-Sale Monitoring: Retail merchandise directors need to monitor live revenue, order volume, and inventory depletion velocity across product categories during flash sales. The dashboard displays real-time ticker updates and conversion rate heatmaps, streaming purchase deltas over WebSockets within 25 milliseconds of order placement. | FinTech Payment Gateway Transaction & Anomaly Operations: Payment platform reliability teams require immediate visualization of payment authorization success rates and fraud decline spikes across banking partners. The streaming dashboard graphs rolling authorization percentages in real time, triggering visual alert banners when gateway error rates exceed defined thresholds. | SaaS Platform User Activity & Subscription ARR Metrics: Executive leadership needs an operational display tracking active user concurrency, plan upgrades, and recurring revenue metrics updated continuously. The system aggregates live billing and activity events in Redis, streaming live ARR and user count updates to executive browser sessions without requiring manual page reloads.
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Real-time WebSocket-push dashboards require solving backpressure (don't overwhelm slow clients), efficient database change detection (CDC or polling), selective subscription (client only receives updates for displayed metrics), and connection management at scale — a complete full-stack engineering exercise.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Designing high-throughput WebSocket connection management in Node.js supporting 2,000 concurrent browser sessions with heartbeats and auto-reconnection Implementing horizontal multi-worker broadcast fan-out using Redis Pub/Sub channels to distribute events across clustered Node.js processes Writing efficient SQL window functions and continuous aggregate rollups in PostgreSQL to support fast historical interval slicing (1m, 5m, 1h, 24h) Rendering dynamic 60 FPS live charts and animated metric counters in React without triggering unnecessary component re-renders or layout reflows
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Real-time data visualization with WebSocket push is a differentiator for full-stack engineers. Companies building internal analytics tools, operations dashboards, and monitoring products look for engineers who can combine data pipelines with interactive frontend visualization. Libraries like D3.js, Recharts, and Apache ECharts are relevant.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Clean TypeScript codebase cleanly separating React dashboard views, Node.js WebSocket socket gateways, Redis Pub/Sub distributors, and PostgreSQL queries High-concurrency benchmark report validating 2,000 concurrent WebSocket client connections receiving 1,000 event broadcasts per second with sub-35ms latency Anti-fake verification script publishing a synthetic $10,000 transaction event and asserting the connected browser UI increments the total revenue counter within 100 milliseconds
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-PostgreSQL trigger or polling service detecting metric changes. Node.js WebSocket server managing subscriptions per metric. React dashboard with Recharts/D3.js for visualization. Client subscribes to specific metric IDs; server pushes updates only for subscribed metrics. Redis pub/sub for broadcasting across multiple WebSocket server instances. Alert threshold configuration with browser notification API.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+A transaction event posts to the ingestion API; Node.js writes the raw event to PostgreSQL; simultaneously, the server publishes a lightweight delta payload to the Redis 'metrics:updates' channel; all active Node.js worker processes receive the Redis message; each worker identifies connected WebSocket clients subscribed to that metric room; the worker serializes the JSON frame and broadcasts it over WebSockets in < 35ms; the React client receives the WebSocket message, updates its local state store, and smoothly re-renders the KPI card and live chart; when the user changes historical date ranges, the client fetches aggregated buckets from the PostgreSQL REST API.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+p95 Event-to-Client Broadcast Latency: p95 broadcast latency across connected clients is < 22.5 milliseconds | PostgreSQL Historical Aggregate Query Latency: p95 historical query execution latency is < 24.0 milliseconds | Concurrent Client Connection Capacity: Cluster sustains >= 3,500 active connections with 0 socket drops and RSS memory < 320MB
 
-SKILLS COVERED
-----------------------------------------
-React, TypeScript, WebSockets, PostgreSQL, Node.js, Data Visualization
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. npm run bench:websocket -- --clients 2000 --rate 500 --events 10000: WebSocket server broadcasts frames to all clients with p95 delivery latency < 50.0ms [p95 latency < 50.0ms with exit code 0]
+[ ] 2. 2. npm run bench:postgres-query -- --queries 100: PostgreSQL executes analytical rollup queries with p95 execution latency < 65.0ms [p95 latency < 65.0ms with exit code 0]
+[ ] 3. 3. npm run test:concurrency-soak -- --clients 2000 --duration 600: Node.js server maintains all 2,000 connections with 0 socket disconnects and memory < 250MB [2,000 active connections maintained with exit code 0]
+[ ] 4. 4. npm run test:cluster-fanout: Redis Pub/Sub successfully routes messages to clients connected across both worker processes [All messages received across worker partitions with exit code 0]
+[ ] 5. 5. node ./scripts/verify_live_update.js --amount 10000: Connected browser client receives WebSocket update and increments total revenue display within 100ms [Console confirms revenue counter incremented by 10000 with exit code 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify webSocket push: database metric change reflected on dashboard within 500ms; passes when verified by automated test script or benchmark log.
-2. Verify selective subscription: client only receives updates for charts currently displayed; passes when verified by automated test script or benchmark log.
-3. Verify backpressure handling: slow client receives latest value, not every intermediate value; passes when verified by automated test script or benchmark log.
-4. Verify multi-server: second WebSocket server instance receives same updates via Redis pub/sub; passes when verified by automated test script or benchmark log.
-5. Verify alert notification: browser notification fired when metric crosses configured threshold; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected analytics dashboard in TypeScript and React using Node.js and WebSockets; achieved sub-[BROADCAST_LATENCY] millisecond broadcast latency across [CONCURRENT_CLIENTS] concurrent clients, and sustained sub-[QUERY_LATENCY] millisecond analytical query rollups."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Built real-time BI dashboard with WebSocket push delivering metric updates to [N] req/sec concurrent clients within [M ms] of data change; implemented selective subscription and backpressure handling with Redis multi-server pub/sub."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

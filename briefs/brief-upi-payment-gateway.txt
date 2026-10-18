@@ -1,49 +1,48 @@
-PROJECT BRIEF — UPI-Style Payment Gateway with Settlement Engine
+PROJECT BRIEF — UPI-STYLE REAL-TIME PAYMENT GATEWAY WITH VPA RESOLUTION, DYNAMIC BANK ROUTING & T+1 SETTLEMENT
 ======================================================================
 
-Domain    : FinTech Engineering
-Difficulty: ADVANCED
-Est. Time : 38 hours
-Tech Stack: Java, Spring Boot, PostgreSQL, Kafka, Redis, Docker
+Project ID  : brief-upi-payment-gateway
+Domain      : FinTech Engineering
+Difficulty  : ADVANCED
+Est. Time   : 40 hours
+Tech Stack  : Java, Spring Boot, PostgreSQL, Kafka, Redis, Docker, Prometheus
+Covered Gaps: Java, Spring Boot, PostgreSQL, Kafka, Redis, Docker, Prometheus, FinTech, Distributed Systems
 
-PROBLEM STATEMENT
-----------------------------------------
-India's UPI processes 12 billion transactions per month. The underlying payment routing, bank switching, settlement batching, and failed-transaction retry logic is enormously complex. Build a simplified UPI-style payment gateway with VPA (Virtual Payment Address) resolution, bank routing, and T+1 settlement batching.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Large-scale real-time payment infrastructures like UPI process billions of monthly peer-to-peer and merchant transactions, requiring sub-second response times, multi-bank failover routing, and ironclad financial consistency. Naive payment gateways suffer from double-debiting during network timeouts, race conditions across concurrent wallet balances, and ledger desynchronization during batch settlement failures. This project builds a high-throughput UPI-style payment gateway in Java and Spring Boot with Redis VPA (Virtual Payment Address) resolution, dynamic bank switching heuristics based on live latency and error rates, idempotent payment authorization, PostgreSQL double-entry bookkeeping, and an asynchronous Kafka T+1 net settlement engine.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-Directly applicable to roles at NPCI, top tech platforms, top tech platforms, top tech platforms, and any company building payment infrastructure. Also relevant to neo-banking (Jupiter, Fi Money, Niyo) and BNPL (LazyPay, Simpl) companies building payment rails.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+High-Volume Peer-to-Merchant (P2M) QR Code Checkout: Retail merchants accepting dynamic QR code payments require instant payment authorization and immediate customer notification without pending state lockups. The Spring Boot payment gateway authorizes inbound UPI requests in under 65ms, verifies account balance limits, and publishes payment success events to Kafka. | Multi-Bank Dynamic Failover Routing during Bank Outages: When a major partner bank experiences sudden core banking timeouts, payment success rates across all connected merchant checkouts drop precipitously. The gateway monitors rolling 60-second bank health metrics in Redis and automatically shifts transaction volume to secondary partner bank switches. | Automated T+1 Merchant Position Netting & Ledger Reconciliation: Acquiring banks must compute aggregate gross processing volume, deduct interchange fees, and generate net settlement payout batches every 24 hours. A Kafka streaming batch worker processes daily payment ledger entries, calculates net clearing positions across all merchants, and generates double-entry payout journals.
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Payment gateway architecture is one of the most complex domains in software engineering — it requires understanding ACID transactions, idempotency, settlement accounting, bank switching logic, and regulatory compliance. This project positions you as a FinTech infrastructure specialist.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Enforcing strict idempotency across distributed payment requests using atomic Redis locks and PostgreSQL unique constraint ledgers to prevent double-debits Implementing an automated double-entry bookkeeping ledger guaranteeing asset-liability equality across all financial state transitions Designing dynamic multi-bank routing algorithms with circuit breakers shifting traffic away from degraded bank simulator switches Executing asynchronous T+1 net settlement batch processing with exact financial reconciliation across millions of transaction records
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-NPCI, top tech platforms, top tech platforms, and top tech platforms actively seek engineers who understand payment flows at the infrastructure level. VPA resolution, bank adapter patterns, and T+1 settlement accounting are concepts that immediately demonstrate FinTech domain depth in interviews.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Clean Java / Spring Boot microservice repository cleanly separating VPA resolution, bank adapter interfaces, double-entry ledger services, and Kafka batchers High-concurrency benchmark report proving sustained processing of 3,500+ transactions per second with p95 latency under 65ms Anti-fake verification script issuing concurrent duplicate requests with identical idempotency keys and asserting exactly 1 debit and matching ledger entries
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-Spring Boot microservices: VPA Resolver (maps @phonepe addresses to bank account numbers), Payment Router (selects optimal bank rail based on success rate and latency), Transaction Ledger (PostgreSQL double-entry bookkeeping), Settlement Batcher (Kafka job aggregating T+1 settlements), Retry Engine (exponential backoff for failed transactions).
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+A client initiates a payment request with an Idempotency-Key; the gateway validates the key against Redis; the VPA resolver looks up payer and payee bank routing details from Redis cache; the dynamic bank switch router evaluates rolling bank health scores and selects the optimal bank rail; the gateway dispatches payment authorization to the mock bank switch; upon bank confirmation, the double-entry ledger writes an atomic debit-credit transaction in PostgreSQL; an event is emitted to Kafka; the T+1 settlement engine consumes Kafka events to net merchant clearing positions; Prometheus tracks payment latency and bank error rates.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Sustained Payment Authorization Throughput & Latency: Sustained throughput is >= 4,200 transactions/sec with p95 latency < 55 milliseconds | Idempotent Payment Authorization & Double-Debit Protection: 100 of 100 duplicate requests resolve with exactly 1 database debit and 0 balance discrepancies | Dynamic Bank Switching Failover Recovery Latency: Failover triggers within 1.1 seconds with 50 of 50 subsequent transactions routed to Bank B
 
-SKILLS COVERED
-----------------------------------------
-Java, Spring Boot, PostgreSQL, Redis, Kafka, Microservices
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. mvn test -Dtest=PaymentGatewayThroughputBenchmark: Gateway sustains >= 2,500 TPS with p95 authorization latency < 90ms [Sustained throughput >= 2,500 TPS with exit code 0]
+[ ] 2. 2. python ./scripts/test_idempotency.py --key dup_test_888 --requests 100: 100 requests return identical transaction ID; ledger shows exactly 1 debit entry [Exactly 1 debit recorded across 100 requests with exit code 0]
+[ ] 3. 3. python ./scripts/test_bank_failover.py --fault timeout --rate 0.2: Router detects degradation within 2.5s and switches 50 of 50 subsequent transactions to Bank B [50 of 50 subsequent transactions route to Bank B with exit code 0]
+[ ] 4. 4. python ./scripts/run_settlement_batch.py --date 2026-10-17: Settlement engine nets merchant balances with exact debit-credit reconciliation matching zero ledger delta [Settlement nets positions with 0 reconciliation discrepancies and exit code 0]
+[ ] 5. 5. python ./scripts/test_double_spend.py --account acc_user_123 --amount 500 --balance 500: First request authorizes successfully; second concurrent request is rejected with HTTP 402 Insufficient Funds [Console confirms exactly 1 authorization and 1 insufficient funds rejection with exit code 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify vPA resolution service mapping virtual addresses to bank routing info; passes when verified by automated test script or benchmark log.
-2. Verify double-entry bookkeeping ledger preventing debit without matching credit; passes when verified by automated test script or benchmark log.
-3. Verify idempotency key test: duplicate payment request returns same transaction ID, no double debit
-4. Verify settlement batch job aggregating and netting positions across all merchants; passes when verified by automated test script or benchmark log.
-5. Verify failure scenario tests: bank timeout, insufficient funds, invalid VPA handling; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected UPI payment gateway in Java and Spring Boot with Redis VPA resolution; sustained [PAYMENT_TPS] transactions per second with sub-[AUTH_LATENCY] millisecond authorization latency, and enforced double-debit protection across multi-bank routing."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Built UPI-style payment gateway in Java & Spring Boot; processed [N] req/sec transactions/sec with guaranteed idempotency and T+1 settlement batching across simulated multi-bank routing."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

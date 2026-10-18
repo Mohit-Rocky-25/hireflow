@@ -1,49 +1,48 @@
-PROJECT BRIEF — Developer-First API SDK with Type Safety & Auto-Generation
+PROJECT BRIEF — DEVELOPER-FIRST API SDK WITH TYPE SAFETY & AUTO-GENERATION
 ======================================================================
 
-Domain    : Full-Stack Web
-Difficulty: INTERMEDIATE
-Est. Time : 35 hours
-Tech Stack: TypeScript, Node.js, tsup, Vitest, npm
+Project ID  : brief-api-sdk-design
+Domain      : Full-Stack Web
+Difficulty  : INTERMEDIATE
+Est. Time   : 29 hours
+Tech Stack  : TypeScript, Node.js, tsup, Vitest, MSW
+Covered Gaps: TypeScript, Node.js, tsup, Vitest, MSW, REST APIs, Packaging
 
-PROBLEM STATEMENT
-----------------------------------------
-Consuming public or internal REST APIs without typed client libraries forces developers to manually write repetitive, error-prone HTTP boilerplate, maintain fragile interface declarations, and handle intermittent network failures independently. When backend API schemas evolve, unsynced client code fails at runtime rather than compile time. This project builds a code-generation pipeline and runtime SDK engine that parses OpenAPI 3.0/3.1 specifications into strongly-typed TypeScript client packages, featuring automated request authentication, exponential retry logic with jitter, local sandbox mocking, and dual CJS/ESM distribution bundles.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Integrating REST APIs without strongly-typed client libraries forces engineering teams to write repetitive HTTP boilerplate, maintain fragile interface declarations, and handle network failures in an ad-hoc manner. When backend API schemas evolve, unsynchronized frontend and backend codebases fail silently at runtime rather than at compile time. This project builds a code-generation pipeline and runtime SDK engine that parses OpenAPI 3.0 specifications into idiomatic TypeScript client packages, featuring request authentication, exponential retry logic with jitter, local sandbox mocking, and dual CommonJS and ECMAScript module distribution bundles.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-Public developer platforms and enterprise SaaS organizations publish official, auto-updated client libraries to streamline third-party developer integration. Neutral architectural reference points include open-source SDK toolchains such as Fern, OpenAPI Generator TypeScript, and Hey API.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Enterprise developer platforms publishing typed client packages for public REST APIs | Internal microservice communication libraries ensuring synchronized API contract types | Offline-capable developer testing sandboxes using schema-compliant mock responses
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Polymorphic Schema Normalization: OpenAPI specs frequently employ structural composition (oneOf, anyOf, allOf). The code generator must resolve circular $ref references and translate complex discriminator properties into idiomatic TypeScript discriminated unions without falling back to loose any or Record<string, unknown> escapes.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Resolving recursive schema references and circular dependencies in OpenAPI documents without stack overflow errors Translating complex schema compositions into idiomatic TypeScript discriminated unions without falling back to any types Ensuring dual CommonJS and ECMAScript module compatibility with clean declaration maps across different bundlers Implementing exponential backoff with full jitter to avoid thundering herd retry storms against rate-limited backends
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Demonstrates advanced mastery of the TypeScript type system (generics, conditional types, template literals, discriminated unions), schema-driven metaprogramming, and production npm library publishing workflows. Directly maps to Developer Experience (DX) Engineer, API Platform Engineer, and Core Library Software Engineer roles.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Clean CLI tool parsing OpenAPI specifications and emitting modular TypeScript source files Zero compile-time errors under tsc strict mode with zero occurrences of the any type keyword Vitest test suite validating automated retries, mock interceptors, and dual-module resolution
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-CLI tool parses OpenAPI 3.0/3.1 JSON/YAML, normalizes circular $refs into an intermediate AST, and emits strictly-typed TypeScript endpoint methods and interfaces. Client runtime wraps native fetch with authentication middleware, exponential backoff with full jitter on 429/503 errors, and automatic Idempotency-Key injection. Offline sandbox mode intercepts calls and returns schema-compliant mock data. tsup compiles tree-shakeable dual CJS/ESM artifacts with declaration maps.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+The CLI parses OpenAPI specifications into an intermediate model; the code generator emits TypeScript interfaces and client classes; developers initialize the SDK client; runtime interceptors attach authorization headers and telemetry; native fetch executes HTTP requests; if a transient error occurs, exponential backoff retries the request; responses deserialize into validated typed objects.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Generation Speed: Full SDK generation from Petstore spec in < 5s | Strict Type Coverage: 100% strict type safety with 0 any types verified via tsc --strict | Resilient Retry Success: ≥ 95% recovery rate under 30% injected transient 429/503 faults.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+SDK Code Generation Latency: Generation completes in < 3.5 seconds | Type System Strictness Verification: Passes with 0 type diagnostics and 0 occurrences of any keyword | Transient Fault Retry Recovery Rate: Recovery rate >= 98% across 50 test requests with exponential backoff
 
-SKILLS COVERED
-----------------------------------------
-TypeScript, OpenAPI, Node.js, SDK Design, REST APIs, DX, Packaging
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. Run npm run generate -- --input fixtures/petstore.json --output ./generated: CLI parses spec and writes complete TypeScript client files without error [Exit code 0 and presence of generated index.ts and api.ts files]
+[ ] 2. 2. Run npx tsc --noEmit --project ./generated/tsconfig.json: TypeScript compiler validates all declarations with zero errors [Exit code 0 with zero type diagnostics reported]
+[ ] 3. 3. Run npm run test:retries: SDK executes retry loop with exponential backoff and succeeds on 3rd attempt [Retry assertions pass confirming 3 attempts made before resolution]
+[ ] 4. 4. Run npm run test:packaging: Both node require('./dist/index.cjs') and import('./dist/index.js') resolve correctly [Both import methods instantiate client instance with exit code 0]
+[ ] 5. 5. Run npm run test:anti-fake -- --seed 7712: Generator parses dynamic spec, produces typed endpoint method, and executes successful mock call [Dynamic method invocation compiles and returns expected mock data with exit code 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Code Generation Execution Check: Run generator on fixtures/petstore.json; verify complete TypeScript client builds in < [M s] (target < 5s).
-2. Strict Type Safety Verification: Execute tsc --noEmit --strict on generated SDK; passes with 0 errors and 0 occurrences of 'any' type keyword.
-3. Resilient Retry Verification: Test against MSW injecting consecutive 429 errors; passes when SDK automatically retries with jitter and succeeds on 3rd attempt.
-4. Offline Sandbox Check: Execute API calls with { sandbox: true }; verify offline mock responses match OpenAPI schema examples without network access.
-5. Dual-Module Import Verification: Verify generated SDK imports seamlessly in both CommonJS require() and ESM import syntax without resolution errors.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected schema-driven TypeScript API SDK generator from OpenAPI specifications; achieved strict compile-time type safety across [OPERATION_COUNT] operations, sub-[GENERATION_TIME] generation speed, and resilient runtime client with jittered retries."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Architected schema-driven TypeScript API SDK generator from OpenAPI specifications; achieved strict compile-time type safety across [N] operations, sub-[M s] generation speed, and built-in exponential retry runtime with jitter."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

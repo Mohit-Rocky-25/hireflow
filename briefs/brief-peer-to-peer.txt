@@ -1,49 +1,48 @@
-PROJECT BRIEF — Peer-to-Peer File Sharing Network (BitTorrent-like)
+PROJECT BRIEF — DECENTRALIZED PEER-TO-PEER FILE DISTRIBUTION ENGINE IN GO WITH KADEMLIA DHT & RAREST-FIRST SWARM SCHEDULING
 ======================================================================
 
-Domain    : Distributed Systems
-Difficulty: ADVANCED
-Est. Time : 38 hours
-Tech Stack: Go, TCP, DHT, Concurrency, Cryptography, Networking
+Project ID  : brief-peer-to-peer
+Domain      : Distributed Systems
+Difficulty  : ADVANCED
+Est. Time   : 40 hours
+Tech Stack  : Go, TCP, UDP, BitTorrent Protocol, Concurrency, SHA-1
+Covered Gaps: Go, TCP, UDP, BitTorrent Protocol, Concurrency, SHA-1, Distributed Systems, Networking, P2P
 
-PROBLEM STATEMENT
-----------------------------------------
-Centralized file distribution creates single points of failure and bandwidth bottlenecks. Build a peer-to-peer file sharing protocol where files are split into pieces, distributed across peers, and each peer simultaneously downloads and uploads pieces to maximize network throughput.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Centralized file distribution architectures suffer from bandwidth exhaustion, single-point-of-failure bottlenecks, and exponential egress bandwidth costs when distributing large software packages to thousands of clients. Naive peer-to-peer implementations experience severe swarm churn when peers disconnect mid-download, choke on corrupted binary blocks due to lack of cryptographic verification, and fail to discover peers when central tracker servers are unreachable. This project builds a decentralized peer-to-peer (P2P) file distribution engine in Go inspired by the BitTorrent protocol. The engine splits files into piece-level SHA-1 hashed blocks, implements a Kademlia Distributed Hash Table (DHT) over UDP for decentralized peer discovery, executes rarest-first piece downloading over concurrent TCP connections, and enforces tit-for-tat choking algorithms to incentivize reciprocal bandwidth sharing.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-BitTorrent protocol powers 40% of internet traffic. IPFS (InterPlanetary File System) uses similar principles for decentralized web. CDN edge cache distribution, software update distribution (Linux packages, game patches), and decentralized storage all use P2P principles.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Large-Scale Container Image & Software Update Distribution: Enterprise infrastructure teams deploying multi-gigabyte container images across thousands of bare-metal server nodes need to avoid saturating central container registries. The engine distributes images peer-to-peer across cluster nodes, enabling servers to download pieces from neighboring rack servers and reducing central registry egress bandwidth by over 80%. | Decentralized Open-Source Dataset Distribution: Machine learning research consortiums sharing multi-terabyte scientific datasets require resilient distribution channels that do not depend on expensive cloud bucket hosting. Researchers share dataset torrent manifests, discovering peers via Kademlia DHT and transferring verified data blocks across distributed academic nodes with cryptographic integrity. | Edge CDN Cache Re-Seeding & Bandwidth Offloading: Content delivery network operators distributing high-demand video chunks to regional edge Points of Presence (PoPs) face heavy transit backhaul costs. The P2P network allows regional edge servers to re-seed and exchange cached video blocks horizontally across local fiber interconnects without fetching redundant copies from origin storage.
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-P2P networking requires understanding peer discovery (DHT), data integrity (Merkle trees), choking/unchoking algorithms, and concurrent piece downloads — deep networking and distributed systems knowledge. Engineers who have implemented P2P protocols understand distributed coordination at a fundamental level.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Implementing the Kademlia DHT routing table with 160-bit XOR distance metrics and iterative node lookup algorithms over UDP Designing concurrent TCP peer wire protocol state machines managing handshake, bitfield, request, piece, and keep-alive frames Implementing rarest-first piece scheduling algorithms that optimize piece availability across the swarm without duplicate downloads Enforcing reciprocal choking/unchoking algorithms (tit-for-tat) to maximize upload and download bandwidth efficiency while preventing free-riding
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-P2P networking knowledge is valued at companies building decentralized systems (Web3, IPFS), CDN infrastructure, and large-scale file distribution. The BitTorrent-like implementation demonstrates complete networking engineering at the protocol design level — rare and impressive to any systems-oriented interviewer.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Clean Go codebase adhering to systems design best practices, separating DHT routing, TCP peer state machines, and disk block managers Swarm benchmark report demonstrating >= 2.4x download speedup across a 5-node swarm compared to single-source HTTP transfers Anti-fake verification script injecting an intentionally corrupted binary piece from peer B and verifying the client detects hash failure and re-downloads from peer C
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-Files chunked into fixed-size pieces with SHA1 hash verification. DHT-based peer discovery or central tracker. TCP connections to multiple peers for parallel piece downloading. Piece selection algorithm (rarest-first). Choking/unchoking algorithm managing upload bandwidth allocation. Merkle tree verification of received pieces.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+The client loads a metainfo .torrent file, extracts the 20-byte infohash and piece hashes, and allocates disk space; the Kademlia DHT module queries neighboring nodes over UDP to find peers announcing the target infohash; the client establishes concurrent TCP connections to discovered peers, exchanges handshakes and bitfields; the rarest-first scheduler identifies pieces with the lowest frequency across connected peers and requests 16KB sub-blocks; received blocks write to disk; upon receiving all sub-blocks for a piece, the SHA-1 hasher validates integrity; if valid, the client updates its bitfield and announces piece availability to the swarm; when a peer disconnects, the scheduler transparently reassigns pending blocks.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Swarm Download Acceleration Speedup Factor: 5-peer swarm download speedup is >= 3.8x over single-source download | Corrupted Block Detection & Re-Request Rate: 20 of 20 corrupted pieces detected by SHA-1 hash and re-downloaded with 0 corrupted bytes in final file | Peer Disconnection Churn Transfer Survival: File transfer reaches verified data integrity confirmed by SHA-1 hash across the piece set
 
-SKILLS COVERED
-----------------------------------------
-Go, Networking, Distributed Systems, Protocols, Algorithms, Concurrency
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. go run ./cmd/bench_swarm --peers 5 --file-size 100MB: 5-peer swarm achieves download speedup >= 2.4x compared to single-source baseline [Speedup factor >= 2.4x with exit code 0]
+[ ] 2. 2. go test -v ./peer/... -run TestPieceCorruptionRecovery: SHA-1 hasher detects all 20 corrupted pieces, discards bytes, and re-downloads valid pieces [20 of 20 corrupted pieces rejected and final file SHA-1 matches ground truth with exit code 0]
+[ ] 3. 3. go run ./scripts/test_peer_churn.go --kill-peers 2: Engine reassigns missing piece blocks to remaining peers and completes 100% of download [File transfer completes with valid SHA-1 checksum and exit code 0]
+[ ] 4. 4. go run ./cmd/p2p_cli status --infohash f4b9c1d8...: CLI outputs connected peer list, download rate, upload rate, and bitfield completion percentage [Output displays active peer count >= 3 and valid completion progress with exit code 0]
+[ ] 5. 5. go run ./scripts/verify_dynamic_corruption.go --corrupt-piece 3: Client logs 'SHA1_MISMATCH: Piece 3 corrupted', requests piece from peer 3, and verifies valid hash [Console confirms piece 3 rejected from peer 2, re-downloaded from peer 3, with exit code 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify speed test: 5-peer download 2x faster than single-source for 1GB test file; passes when verified by automated test script or benchmark log.
-2. Verify integrity verification: corrupted piece detected and re-requested from different peer; passes when verified by automated test script or benchmark log.
-3. Verify peer failure recovery: 2 peers disconnect mid-download, file completes from remaining peers; passes when verified by automated test script or benchmark log.
-4. Verify rarest-first piece selection reduces piece redundancy compared to random selection; passes when verified by automated test script or benchmark log.
-5. Verify dHT peer discovery without central tracker server; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected decentralized peer-to-peer file sharing protocol in Go with Kademlia DHT peer discovery; achieved [SWARM_SPEEDUP] speedup factor over single-source transfers, and maintained verified payload integrity across multi-peer network swarms."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Built BitTorrent-like P2P file sharing in Go with DHT peer discovery and rarest-first selection; achieved 2.[X:1] download speedup over single-source with 100% integrity verification via piece-level SHA1 hashing.; achieved [N] throughput with < [M ms] latency overhead across [K] test transactions."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

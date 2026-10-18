@@ -1,49 +1,48 @@
-PROJECT BRIEF — DevSecOps CI/CD Pipeline with SAST & SCA Security Gates
+PROJECT BRIEF — DEVSECOPS CI/CD PIPELINE WITH SAST, SCA & CONTAINER ADMISSION GATES
 ======================================================================
 
-Domain    : Security & Platform
-Difficulty: INTERMEDIATE
-Est. Time : 28 hours
-Tech Stack: GitHub Actions, Semgrep, Trivy, detect-secrets, Snyk, Docker
+Project ID  : brief-devsecops-pipeline
+Domain      : Security & Platform
+Difficulty  : INTERMEDIATE
+Est. Time   : 28 hours
+Tech Stack  : GitHub Actions, Semgrep, Trivy, Docker, Cosign
+Covered Gaps: DevSecOps, GitHub Actions, Semgrep, Trivy, Docker, Cosign, Security Engineering
 
-PROBLEM STATEMENT
-----------------------------------------
-Security vulnerabilities introduced in code are 100x cheaper to fix at development time than post-production. Build a DevSecOps pipeline that integrates static application security testing (SAST), dependency vulnerability scanning, secrets detection, and container security scanning as mandatory quality gates blocking insecure code.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Software vulnerabilities introduced during feature development become exponentially costlier to remediate once deployed into production environments. Modern software engineering requires automated security gates embedded directly into CI/CD pipelines to intercept security flaws before code merge. This project constructs an automated DevSecOps pipeline using GitHub Actions, Semgrep, Trivy, and Cosign. The system enforces strict static application security testing (SAST), software composition analysis (SCA) for known CVEs, secrets leakage detection, container image vulnerability scanning, and cryptographic artifact signing with automated build failure policies.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-Every company with compliance requirements (SOC2, ISO 27001, PCI DSS) must integrate security into CI/CD. Snyk, Veracode, and Checkmarx are billion-dollar security companies built around this problem. India's financial sector regulatory requirements (RBI IT framework) mandate security testing.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Enterprise CI/CD quality gates enforcing SOC2 and PCI-DSS application security standards | Automated dependency audit workflows blocking vulnerable open-source packages in pull requests | Supply chain security pipelines cryptographically signing container images prior to production deployment
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Shift-left security (moving security checks to development pipeline) is mandatory in regulated industries and best practice everywhere. Understanding SAST tools, CVE databases, secrets detection, and container hardening positions you for security engineering roles that command 30-50% salary premium over standard engineering.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Tuning SAST rules to eliminate developer false positives while maintaining high recall on critical flaws Managing software composition analysis vulnerability thresholds across transitive dependency trees Implementing cryptographic container signing with Cosign keyless infrastructure and admission verification Designing fail-fast pipeline gating logic that delivers actionable remediation reports without stalling build velocity
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-DevSecOps is the fastest-growing engineering specialization. Any company handling sensitive data (healthcare, finance, government) requires security-integrated pipelines. SAST, SCA, and container security knowledge is explicitly sought in security engineering, cloud security, and DevOps roles at HDFC, SBI Tech, and enterprise software companies.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Modular GitHub Actions workflow configurations cleanly separating SAST, SCA, container scanning, and signing Automated vulnerability test suite with intentional defect fixtures confirming pipeline blocking enforcement Anti-fake verification script injecting dynamic secret tokens and high-severity CVEs into test PRs to assert blocking
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-GitHub Actions pipeline with sequential security gates: Semgrep SAST scanning code for common vulnerabilities → Trivy scanning Docker images for CVEs → detect-secrets scanning for hardcoded credentials → OWASP Dependency-Check for open-source dependency CVEs → Snyk container scanning. Failed gates block PR merge.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+Pull requests trigger GitHub Actions; Semgrep parses source files for code vulnerabilities and secret keys; Trivy analyzes project lockfiles for known dependency CVEs and generates an SBOM; Docker builds the container image; Trivy executes a deep filesystem scan on the container; if critical CVEs or secrets are detected, the pipeline terminates with exit code 1; if clean, Cosign cryptographically signs the image digest and generates an attestation log.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Injected Critical Security Flaw Interception Rate: Detection and blocking of 15 of 15 planted vulnerabilities with 0 pipeline escapes | Pipeline End-to-End Execution Latency: Execution across security stages finishes in < 120 seconds | Clean Codebase False Positive Blocking Rate: 0 false positive blocking alerts; pipeline terminates with exit code 0
 
-SKILLS COVERED
-----------------------------------------
-GitHub Actions, Docker, Security, Python, DevOps, SAST
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. Run semgrep scan --config .semgrep/rules.yml --error: Semgrep intercepts all 5 flaws and terminates with exit code 1 [Exit code 1 with exactly 5 vulnerability violations reported]
+[ ] 2. 2. Run trivy fs --severity HIGH,CRITICAL --exit-code 1 .: Trivy flags high-severity dependency CVEs and terminates with exit code 1 [Exit code 1 with identified CVE IDs matching planted test fixtures]
+[ ] 3. 3. Run cosign sign-blob --yes /tmp/image_digest.txt: Cosign creates cryptographic signature and attestation log for clean artifact [Cosign verification command returns exit code 0]
+[ ] 4. 4. Run bash scripts/benchmark_pipeline_speed.sh: All security stages (SAST, SCA, container scan) finish in < 240 seconds [Total pipeline execution latency is < 240 seconds]
+[ ] 5. 5. Run python scripts/verify_dynamic_secrets.sh --secret MOCK_AWS_ACCESS_KEY_ID: Security gate detects injected AWS credential pattern, logs rule breach, and halts build [Exit code 1 with secret scanner pinpointing injected credential string]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify inject SQL injection code, verify Semgrep gate blocks PR merge; passes when verified by automated test script or benchmark log.
-2. Verify inject hardcoded API key, verify secrets detection gate triggers; passes when verified by automated test script or benchmark log.
-3. Verify add vulnerable npm package (known CVE), verify dependency scan blocks merge; passes when verified by automated test script or benchmark log.
-4. Verify build Docker image with root user, verify container security gate warns/blocks; passes when verified by automated test script or benchmark log.
-5. Verify security report generated per PR with findings summary and remediation links; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected DevSecOps CI/CD security pipeline in GitHub Actions with Semgrep, Trivy, and Cosign; intercepted [VULN_COUNT] of [TOTAL_VULNS] planted security vulnerabilities across SAST and SCA stages, and achieved sub-[PIPELINE_LATENCY] scan execution latency with cryptographic container signing."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Built DevSecOps pipeline integrating Semgrep, Trivy, and secrets detection as mandatory PR gates; blocked 100% of injected OWASP Top 10 vulnerabilities and CVE introductions in < 8 minute pipeline runtime.; achieved [N] throughput with < [M ms] latency overhead across [K] test transactions."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

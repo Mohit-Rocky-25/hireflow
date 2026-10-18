@@ -1,49 +1,48 @@
-PROJECT BRIEF — Full-Stack Headless E-Commerce with Optimistic UI
+PROJECT BRIEF — HEADLESS E-COMMERCE PLATFORM WITH OPTIMISTIC UI & ATOMIC INVENTORY LOCKS
 ======================================================================
 
-Domain    : Full-Stack Web
-Difficulty: INTERMEDIATE
-Est. Time : 28 hours
-Tech Stack: Next.js, React, TypeScript, PostgreSQL, Prisma, Stripe
+Project ID  : brief-fullstack-ecommerce
+Domain      : Full-Stack Web
+Difficulty  : INTERMEDIATE
+Est. Time   : 28 hours
+Tech Stack  : Next.js, React, TypeScript, PostgreSQL, Prisma, Stripe
+Covered Gaps: TypeScript, Next.js, React, PostgreSQL, Prisma, Stripe, E-Commerce, Full-Stack Web
 
-PROBLEM STATEMENT
-----------------------------------------
-Traditional e-commerce carts suffer from high bounce rates due to checkout latency, inventory overselling, and slow page re-renders. Build a modern headless storefront with optimistic cart updates, database lock-guarded inventory checkout, and Stripe webhook verification.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Modern e-commerce web applications must deliver instantaneous client-side interactions while guaranteeing strict backend data consistency during high-concurrency flash sales. Naive implementations suffer from sluggish shopping cart state synchronizations and inventory overselling when multiple shoppers purchase the final item simultaneously. This project builds a high-performance headless e-commerce platform in Next.js, React, TypeScript, PostgreSQL, Prisma, and Stripe. The system implements optimistic client-side UI updates for seamless cart interactions, transactional database row locking to prevent overselling, resilient Stripe checkout session creation with idempotent webhook fulfillment, and server-side rendered (SSR) catalog pages with stale-while-revalidate caching.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-India's D2C e-commerce market is the high-signal core competencies, powering brands like top tech platforms, top tech platforms, and top tech platforms. Every D2C startup needs a custom commerce layer. Applicable to Shopify-alternative platforms, B2B procurement portals, and ticketing systems.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+High-volume consumer retail storefronts requiring zero overselling during limited product drops | Digital goods marketplaces delivering instant checkout workflows with automated webhook fulfillment | Headless commerce frontends decoupling customized customer experiences from backend catalog databases
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Inventory overselling under concurrent flash sales is a real production disaster that has high-signal core competencies. Demonstrating you can handle this with PostgreSQL row-level locks shows a depth of understanding that most full-stack engineers lack.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Preventing inventory overselling race conditions across concurrent checkouts via PostgreSQL SELECT FOR UPDATE locks Managing optimistic shopping cart UI updates with automatic rollback when backend validation rejects changes Processing asynchronous Stripe payment webhooks idempotently to eliminate duplicate order creation Coordinating server-side catalog caching and on-demand revalidation to ensure price accuracy
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-The combination of optimistic UI, ACID transaction guarantees, and payment webhook handling shows full-stack depth that goes beyond typical CRUD app development. Directly relevant to roles at top tech platforms, Myntra, and any e-commerce platform.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Clean TypeScript codebase cleanly separating Next.js app routes, Prisma schemas, cart state machines, and Stripe webhooks Automated flash-sale stress test simulating 100 concurrent checkouts on a single inventory item without overselling Anti-fake verification script creating dynamic product SKUs, launching concurrent purchase requests, and asserting lock integrity
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-Next.js App Router frontend with server components and Zustand/React Query client state. Backend REST/RPC endpoints use PostgreSQL SELECT ... FOR UPDATE row locks to prevent overselling inventory during concurrent flash-sale checkouts.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+Shoppers browse SSR product pages served by Next.js; adding items immediately triggers optimistic React state updates; upon proceeding to checkout, the backend executes an atomic Prisma transaction that locks inventory rows using PostgreSQL SELECT FOR UPDATE; if stock is available, inventory reserves and a Stripe checkout session is generated; customer completes payment on Stripe; Stripe posts a webhook event to Next.js API; the webhook handler checks event idempotency in PostgreSQL, marks the order PAID, and finalizes stock deduction.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Inventory Race Condition Overselling Rate: 0 oversold items; exactly 10 orders succeed and 490 requests receive OUT_OF_STOCK error | Cart UI Optimistic Update Latency: Average optimistic UI update latency is < 15 milliseconds | Stripe Webhook Idempotency Duplication Rate: 0 duplicate order records created; exactly 1 successful database processing confirmation
 
-SKILLS COVERED
-----------------------------------------
-React, TypeScript, PostgreSQL, Next.js, Stripe, REST APIs
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. npm run test:concurrency: Prisma transactional row lock permits exactly 10 checkouts and rejects 490 attempts [Exactly 10 successful orders created and 0 inventory overselling with exit code 0]
+[ ] 2. 2. npm run test:cart-latency: Optimistic UI updates DOM badge and drawer state in < 40 milliseconds [Average optimistic cart update latency is < 40 milliseconds]
+[ ] 3. 3. npm run test:webhook-idempotency: Webhook handler detects duplicate event IDs and avoids duplicate order generation [Exactly 1 order record created with 0 duplicate entries and exit code 0]
+[ ] 4. 4. curl -I http://localhost:3000/products: Next.js returns HTTP 200 with HTML payload and caching headers [HTTP status is 200 and Content-Type contains text/html]
+[ ] 5. 5. node scripts/verify_dynamic_checkout.js --sku DYNAMIC_FLASH_SKU --stock 1 --concurrent 10: Exactly 1 checkout succeeds, 9 fail with OUT_OF_STOCK, and database stock equals 0 [Successful count equals 1, failure count equals 9, remaining stock equals 0, exit code 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify live Vercel deployment with functioning Stripe test-mode checkout flow; passes when verified by automated test script or benchmark log.
-2. Verify concurrency test script demonstrating zero overselling when 50 items are bought by 100 buyers; passes when verified by automated test script or benchmark log.
-3. Verify stripe webhook handler with signature verification and idempotency keys; passes when verified by automated test script or benchmark log.
-4. Verify optimistic cart state providing instant UI feedback on poor connections; passes when verified by automated test script or benchmark log.
-5. Verify responsive design with dark mode and WCAG 2.1 AA accessibility compliance; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected headless e-commerce platform in Next.js and React with Prisma and PostgreSQL; eliminated inventory overselling via transactional row locks across [CONCURRENT_REQUESTS] concurrent checkouts, and achieved sub-[CART_LATENCY] optimistic cart interaction latency with idempotent Stripe fulfillment."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Developed full-stack headless commerce platform with Next.js, PostgreSQL, and Stripe; eliminated inventory overselling via row-level locking under [N] concurrent requests."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

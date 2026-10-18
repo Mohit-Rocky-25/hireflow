@@ -1,49 +1,48 @@
-PROJECT BRIEF — Autonomous LLM Agent Workflow Engine with Tool Calling
+PROJECT BRIEF — AUTONOMOUS LLM AGENT ORCHESTRATION ENGINE WITH REACT LOOP, DETERMINISTIC TOOL CALLING & STATE CHECKPOINTING
 ======================================================================
 
-Domain    : GenAI & LLM Engineering
-Difficulty: ADVANCED
-Est. Time : 38 hours
-Tech Stack: Python, LangChain, FastAPI, Pydantic, Redis, Docker
+Project ID  : brief-llm-agent-workflow
+Domain      : GenAI & LLM Engineering
+Difficulty  : ADVANCED
+Est. Time   : 40 hours
+Tech Stack  : Python, LangChain, FastAPI, Pydantic, Redis, Docker
+Covered Gaps: Python, LangChain, FastAPI, Pydantic, Redis, Docker, Agentic AI, Distributed Systems, API Design
 
-PROBLEM STATEMENT
-----------------------------------------
-Simple LLM chatbots are commoditized. Production AI products require agents that can autonomously plan multi-step workflows, call external APIs, recover from tool failures, and produce verifiable outputs. Build an agentic orchestration framework where an LLM breaks down complex user goals into sub-tasks, executes them using tool plugins, and synthesizes a verified result.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Uncontrolled LLM agents deployed with naive prompt loops suffer from infinite execution cycles, hallucinatory tool parameterization, and total loss of state upon downstream API failures. Relying on opaque framework abstractions obscures tool invocation errors and prevents deterministic workflow resumption. This project builds an autonomous agent orchestration engine in Python. The engine implements a stateful ReAct (Reasoning and Acting) loop, enforces structured tool calling schemas via Pydantic, tracks execution graphs with cycle detection, persists step-by-step workflow state in Redis, and guarantees graceful fallback handling when external tools fail or timeout.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-Customer support automation (Intercom AI, Freshdesk), sales qualification bots (HubSpot AI), code review agents (GitHub Copilot), legal document processors. Every enterprise deploying AI is moving from chat to autonomous workflow agents in 2025.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Automated IT Incident Diagnosis and Remediation: Enterprise DevOps teams need autonomous agents that investigate cloud infrastructure alarms by querying metric APIs, reading server logs, and executing read-only diagnostics. The agent breaks down incident alerts into multi-step investigative plans, executes diagnostic CLI stubs, and synthesizes root-cause summaries without human intervention. | Automated Customer Support Case Resolution: E-commerce customer service platforms require autonomous agents capable of resolving order tracking inquiries, processing authorized refunds, and updating shipping records. The engine authenticates customer intents, queries order databases via structured tool calls, verifies business logic guardrails, and returns resolved case statuses. | Financial Research & SEC Filing Information Extraction: Equity research analysts need automated research agents that search financial repositories, calculate accounting ratios, and verify contradictory data across company disclosures. The agent searches document stores, invokes calculator tools for ratio analysis, checks citation validity, and generates structured comparative investment memos.
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Prompt engineering is cheap — agent engineering is hard. Building a reliable agent with retry logic, context window management, hallucination detection, and structured tool calling shows you understand production GenAI beyond API wrappers. This is the #1 differentiator for Applied AI Engineer roles.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Preventing infinite reasoning loops and hallucinated circular plans through dynamic depth budgets and cycle detection Enforcing strict JSON parameter schemas on non-deterministic LLM tool-calling outputs using Pydantic validators Managing atomic state checkpoints in Redis to enable pause, resume, and rollback capabilities upon tool exceptions Implementing graceful degradation and alternative tool selection when primary third-party APIs encounter rate limits or timeouts
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Tool calling, ReAct patterns, and multi-agent orchestration are the core GenAI engineering skills being hired for everywhere in 2025. A working agent workflow engine immediately demonstrates applied LLM engineering competence beyond simple RAG or chatbot projects.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Clean Python codebase separating ReAct loop controllers, tool plugin registries, and Redis state checkpoint managers Comprehensive benchmark suite measuring task completion rate, tool call precision, and recovery latency on injected failures Anti-fake verification script presenting an unseen multi-step problem with an injected broken tool, verifying autonomous fallback to secondary tool
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-ReAct (Reasoning + Acting) loop implemented with LangChain/custom Python. Agent receives a goal, generates a plan with tool-call intents, executes tools (web search, calculator, database query, code interpreter), validates outputs, and retries on tool failure. Uses structured JSON output parsing with Pydantic validation.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+A user request enters the FastAPI execution gateway; the planning controller prompts the LLM to generate an initial Thought and Action; the tool dispatcher validates parameter arguments against the tool's Pydantic schema; if valid, the tool executes within its timeout budget; the Observation result writes to the Redis checkpoint store; if the tool fails, the fallback manager injects error details into the prompt context for replanning; the controller iterates through subsequent Thought-Action-Observation turns until a final answer synthesizes or the step budget exhausts.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Multi-Step Goal Completion Rate: Task completion rate is >= 93.0% across 100 benchmark tasks | Tool Parameter Schema Validation Compliance Rate: Schema compliance rate is >= 99.2% across 500 generated tool calls | Tool Failure Autonomous Recovery Rate: Autonomous recovery rate is >= 93.3% across 30 failure scenarios
 
-SKILLS COVERED
-----------------------------------------
-Python, LangChain, FastAPI, Vector Databases, Embeddings, REST APIs
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. python -m agent_engine.benchmark_tasks --tasks test_data/benchmark_tasks.json: Agent successfully completes >= 82.0% of multi-step goals producing verified outputs [Report records completion rate >= 82.0% with exit code 0]
+[ ] 2. 2. python -m agent_engine.evaluate_schemas --traces test_data/execution_traces.json: Tool parameter validation passes with >= 95.0% compliance [Compliance rate >= 95.0% with exit code 0]
+[ ] 3. 3. python scripts/run_chaos_failures.py --trials 30: Agent catches tool failure, replans, and achieves >= 80.0% autonomous recovery [Autonomous recovery rate >= 80.0% with exit code 0]
+[ ] 4. 4. curl -X POST http://localhost:8000/api/agent/run -H 'Content-Type: application/json' -d '{"goal": "Calculate operating margin for Company X"}': Server executes agent loop, persists state to Redis, and returns structured result with execution trace [Response status is 200 and JSON contains final_answer, steps_taken, and trace_id]
+[ ] 5. 5. python scripts/verify_dynamic_agent.py --goal 'Fetch inventory count' --inject-tool-error primary_db: Agent detects primary_db failure, reads error in context, invokes fallback secondary_db, and completes task [Trace confirms primary_db error handled and secondary_db used to fulfill goal with exit code 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify working demo: agent given a business question autonomously searches web, queries DB, and synthesizes answer; passes when verified by automated test script or benchmark log.
-2. Verify tool failure injection test: agent retries and falls back gracefully when 1 of 3 tools fails; passes when verified by automated test script or benchmark log.
-3. Verify structured output validation using Pydantic schemas with hallucination detection; passes when verified by automated test script or benchmark log.
-4. Verify conversation memory management: agent maintains context across multi-turn interactions; passes when verified by automated test script or benchmark log.
-5. Verify evaluation suite measuring task completion rate, tool call accuracy, and response quality; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected autonomous LLM agent workflow engine in Python and FastAPI with Redis state checkpointing; achieved [COMPLETION_RATE] task completion across [BENCHMARK_TASKS] multi-step goals, and delivered [RECOVERY_RATE] autonomous recovery on injected tool failures."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Built autonomous LLM agent engine in Python & LangChain with 5-tool orchestration; achieved 95% task completion rate on multi-step business goals with graceful tool failure recovery.; achieved [N] throughput with < [M ms] latency overhead across [K] test transactions."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

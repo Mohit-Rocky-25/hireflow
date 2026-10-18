@@ -1,49 +1,48 @@
-PROJECT BRIEF — Observability SDK & Auto-Instrumentation Library
+PROJECT BRIEF — IN-PROCESS OBSERVABILITY TELEMETRY SDK & AUTO-INSTRUMENTATION LIBRARY IN GO WITH OTLP EXPORTERS
 ======================================================================
 
-Domain    : Platform & DevOps
-Difficulty: INTERMEDIATE
-Est. Time : 28 hours
-Tech Stack: TypeScript, Node.js, OpenTelemetry, Prometheus, AsyncLocalStorage
+Project ID  : brief-observability-sdk
+Domain      : Platform & DevOps
+Difficulty  : INTERMEDIATE
+Est. Time   : 28 hours
+Tech Stack  : Go, OpenTelemetry, HTTP, Concurrency, gRPC
+Covered Gaps: Go, OpenTelemetry, HTTP, Concurrency, gRPC, Observability, Systems Programming
 
-PROBLEM STATEMENT
-----------------------------------------
-Adding observability to production applications requires manual instrumentation of every function, HTTP call, and database query. Build a zero-code auto-instrumentation SDK that transparently wraps common libraries (Express, Axios, PostgreSQL, Redis) with tracing, metrics, and logging.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Integrating third-party observability libraries into high-throughput microservices often introduces unacceptable CPU profiling overhead, lock contention in shared metric registries, and memory leaks when upstream collector endpoints experience network partitions. Heavy reflection-based SDKs degrade service p99 latencies and lack backpressure controls. This project builds a lightweight, zero-allocation observability SDK and auto-instrumentation middleware library from scratch in Go. The SDK intercepts HTTP and gRPC traffic, propagates W3C TraceContext headers across process boundaries, aggregates metrics using lock-free atomic counters and sliding-window histograms, and exports batched OpenTelemetry (OTLP) payloads over gRPC with bounded memory queues.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-Datadog's APM agent, New Relic's agent, and OpenTelemetry auto-instrumentation libraries all solve this. Any company with internal services wanting to add observability without rewriting application code needs this. Platform teams use instrumentation SDKs to enforce consistent telemetry across all services.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Core Banking Transaction Gateway Latency Tracing: Financial core transaction gateways processing thousands of credit authorization queries per second require microsecond-accurate distributed tracing without adding request latency. The SDK instruments incoming HTTP handler chains, creating child span contexts and streaming OTLP trace bundles over gRPC without blocking transactional worker threads. | Microservice Service Mesh Distributed Context Propagation: Platform engineering teams maintaining complex microservice topologies need standardized distributed trace headers to track requests across polyglot backend tiers. The library automatically extracts and injects standard W3C traceparent headers across outgoing client requests, preserving end-to-end trace causality across microservice hops. | High-Volume Telemetry Metric Counter Aggregation: Cloud infrastructure daemons monitoring container network sockets need to aggregate millions of metric data points per second with minimal memory overhead. The SDK uses lock-free atomic ring buffers to aggregate request rates and error status codes in-memory, flushing compressed delta batches to central collectors at regular intervals.
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-SDK design requires understanding Node.js module system patching (monkey-patching), async context propagation, and the OpenTelemetry API/SDK separation. Building an SDK that doesn't require application code changes demonstrates advanced understanding of runtime environments and observability engineering.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Designing lock-free atomic ring buffers for span collection and metric recording to eliminate mutex contention under high concurrency Parsing, validating, and injecting W3C TraceContext and baggage headers with zero heap allocations in critical request paths Implementing memory-bounded queueing with configurable drop-oldest backpressure to protect host services during collector outages Encoding binary Protocol Buffer OTLP payloads and managing persistent gRPC streaming channels with automatic reconnection
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Platform teams, DevEx engineers, and observability specialists who build instrumentation SDKs are extremely rare. Companies like Datadog, Honeycomb, and Lightstep are built on this capability. Any company standardizing observability across 100+ microservices needs engineers who can build instrumentation SDKs.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Clean idiomatic Go codebase using sync/atomic primitives, minimal allocations, and standard OpenTelemetry semantic conventions Microbenchmark report demonstrating sub-250 nanosecond span creation overhead and zero heap allocations in core tracer paths Anti-fake verification script issuing a live HTTP request with a custom traceparent header and verifying the SDK creates a correlated child span
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-TypeScript library using Node.js module patching to wrap Express.js routes, Axios HTTP calls, pg (PostgreSQL), and Redis client with OpenTelemetry spans automatically. AsyncLocalStorage for context propagation across async boundaries. Prometheus counter/histogram middleware injected via app factory. Zero-configuration setup with sensible defaults.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+An incoming HTTP request enters the instrumented middleware; the propagator extracts the W3C traceparent header and creates a child SpanContext; the handler executes business logic while recording attribute key-values; upon request completion, the span ends and enqueues into a lock-free ring buffer; background exporter goroutines poll the buffer, serialize spans into OTLP protobuf messages, and transmit batches over gRPC to OpenTelemetry collectors; if the collector is unreachable, the exporter drops oldest spans once the buffer reaches its capacity limit (e.g. 10,000 spans) to prevent memory ballooning.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Tracer Middleware Added Latency Overhead: Average added latency overhead per request is < 0.08 milliseconds with 0 heap allocations | OTLP Batch Exporter Throughput: Sustained export throughput is >= 35,000 spans per second | Memory Residency Ceiling Under Collector Outage: Peak SDK heap allocation is < 18.0 megabytes with drop-oldest policy engaged
 
-SKILLS COVERED
-----------------------------------------
-TypeScript, Node.js, OpenTelemetry, Prometheus, Middleware, SDK Design
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. go test -bench=BenchmarkMiddlewareOverhead -benchmem ./sdk/...: Microbenchmark confirms added latency overhead is < 0.25 milliseconds per request [Overhead is < 0.25ms/op with exit code 0]
+[ ] 2. 2. go run ./cmd/bench_exporter --spans 50000: SDK achieves sustained export throughput >= 15,000 spans per second over gRPC [Export throughput is >= 15,000 spans/sec with exit code 0]
+[ ] 3. 3. go test -v ./sdk/... -run TestMemoryResidencyUnderOutage: Drop-oldest backpressure engages and peak SDK heap memory remains < 35.0 megabytes [Peak heap memory < 35.0MB and exit code is 0]
+[ ] 4. 4. curl -i http://localhost:8080/api/users/123: Response headers contain traceparent header matching emitted span trace ID [traceparent header is present and valid format with status 200]
+[ ] 5. 5. go run ./scripts/verify_dynamic_trace.go --traceparent '00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01': SDK extracts parent ID, creates child span with parent '00f067aa0ba902b7', and flushes to collector [Collector verifies span has ParentSpanID '00f067aa0ba902b7' and TraceID '4bf92f3577b34da6a3ce929d0e0e4736' with exit code 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify zero-code demo: add 1 SDK import, every Express route and DB call auto-traced; passes when verified by automated test script or benchmark log.
-2. Verify context propagation: span IDs correctly inherited across 3 levels of async callback; passes when verified by automated test script or benchmark log.
-3. Verify overhead benchmark: < 2% CPU increase vs un-instrumented baseline at 10k req/sec; passes when verified by automated test script or benchmark log.
-4. Verify trace exported to Jaeger showing full HTTP → DB → Redis operation span tree; passes when verified by automated test script or benchmark log.
-5. Verify rEADME with 1-line integration guide and example Grafana dashboard JSON; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected in-process observability telemetry SDK in Go with OpenTelemetry gRPC exporting; maintained sub-[PROXY_OVERHEAD] microsecond middleware latency overhead, and sustained [INGESTION_THROUGHPUT] spans per second batch export throughput."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Built zero-config Node.js auto-instrumentation SDK wrapping Express, PostgreSQL, and Redis; added < 2% CPU overhead while automatically capturing 100% of HTTP and database spans with distributed context propagation.; achieved [N] throughput with < [M ms] latency overhead across [K] test transactions."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

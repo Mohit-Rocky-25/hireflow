@@ -1,49 +1,48 @@
-PROJECT BRIEF — Large-Scale Social Graph Analysis Platform
+PROJECT BRIEF — LARGE-SCALE SOCIAL GRAPH ANALYTICS PLATFORM WITH PAGERANK & COMMUNITY DETECTION
 ======================================================================
 
-Domain    : Data Engineering
-Difficulty: ADVANCED
-Est. Time : 38 hours
-Tech Stack: Python, PySpark GraphFrames, NetworkX, Neo4j, Jupyter
+Project ID  : brief-graph-analysis
+Domain      : Data Engineering
+Difficulty  : ADVANCED
+Est. Time   : 40 hours
+Tech Stack  : Python, DuckDB, NetworkX, FastAPI, Docker
+Covered Gaps: Python, NetworkX, DuckDB, FastAPI, Docker, Graph Analysis, Data Engineering, Distributed Systems
 
-PROBLEM STATEMENT
-----------------------------------------
-Social networks, fraud rings, and supply chains form graph structures that traditional SQL queries cannot efficiently traverse. Build a large-scale graph analysis platform that processes billion-edge graphs to compute centrality, community detection, and anomalous subgraph identification.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Modern social networks, financial transaction webs, and logistics supply chains contain deep relationship networks that traditional relational database SQL joins cannot analyze efficiently at scale. Calculating graph centrality, identifying dense community clusters, and locating anomalous cycles require specialized graph storage layouts and iterative graph algorithms. This project implements a high-performance graph analytics engine in Python, DuckDB, NetworkX, and FastAPI. The platform ingests million-edge datasets into compressed sparse row (CSR) memory structures, executes multi-threaded PageRank and Louvain community detection algorithms, evaluates multi-hop subgraph paths, and serves analytical graph queries through a FastAPI backend.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-LinkedIn's 'People You May Know', Facebook's friend recommendations, fraud network detection at banks (HDFC, SBI), and supply chain risk analysis. Any company with relationship data (social, financial, logistics) needs graph analysis capability.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Social network influence scoring calculating user centrality across large follower graphs | Anti-money laundering financial intelligence detecting circular fund transfer rings | Supply chain dependency analysis identifying single-point-of-failure bottlenecks
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Graph algorithms (PageRank, Betweenness Centrality, Louvain community detection) and their distributed implementation using GraphX or PyG are specialized data engineering skills. Understanding graph databases (Neo4j, top tech platforms Neptune) vs distributed graph compute is a specific and valuable architecture decision skill.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Optimizing graph memory layout using Compressed Sparse Row (CSR) matrices to prevent RAM bloat on million-edge graphs Parallelizing iterative PageRank matrix computations across multi-core CPUs with strict convergence bounds Implementing modularity-optimizing Louvain community partitioning across densely connected subgraphs Executing sub-15 millisecond K-hop neighborhood traversals without combinatorial path explosion
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Graph analysis is required at social platforms, FinTech fraud teams, and supply chain analytics companies. GraphX, GraphFrames, and graph neural networks are emerging skills that command premium compensation. Any company analyzing relationship data values graph engineering expertise.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Modular Python codebase separating CSR graph loaders, parallel iterative algorithms, and FastAPI endpoints Deterministic benchmark demonstrating PageRank convergence on 1,000,000 edges in under 4.5 seconds on local CPU Anti-fake verification script generating a dynamic star-hub topology and asserting exact centrality rankings
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-PySpark GraphFrames for distributed graph processing on large edge lists. NetworkX for single-machine analysis of smaller subgraphs. PageRank, Triangle Count, Strongly Connected Components algorithms. Louvain community detection for cluster identification. Neo4j for interactive graph query interface. Anomaly detection using z-score on graph metrics.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+Raw CSV/Parquet edge lists load into DuckDB tables; the CSR Graph Loader extracts directed edge pairs into compressed index pointers and column arrays; the PageRank Centrality Engine executes iterative vector updates until the L1 norm delta falls below 1e-6; the Louvain Engine assigns nodes to community clusters maximizing modularity Q; client analytical queries enter FastAPI; the gateway performs multi-hop neighbor lookups in CSR arrays and returns structured graph JSON in under 15 milliseconds.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Million-Edge PageRank Convergence Latency: Execution converges in < 2.0 seconds across 1,000,000 edges | Louvain Community Detection Modularity Score: Calculated modularity Q exceeds 0.78 | Multi-Hop Neighborhood Traversal Latency: Average 3-hop traversal latency is < 6.0 milliseconds
 
-SKILLS COVERED
-----------------------------------------
-Python, Graph Algorithms, Apache Spark, NetworkX, PostgreSQL, Algorithms
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. python -m graph_engine.bench_pagerank --edges data/graph_1m.parquet: PageRank algorithm converges within tolerance threshold in < 4.5 seconds [Convergence time is < 4.5 seconds with exit code 0]
+[ ] 2. 2. python -m graph_engine.test_louvain --graph data/communities.parquet: Louvain algorithm partitions graph with modularity score Q exceeding 0.65 [Modularity score Q is > 0.65 with exit code 0]
+[ ] 3. 3. python scripts/benchmark_traversal.py --requests 500 --hops 3: Average 3-hop ego network extraction completes in < 15.0 milliseconds [Average traversal latency is < 15.0 milliseconds]
+[ ] 4. 4. curl http://localhost:8000/api/centrality/top?k=10: API returns JSON list of top 10 nodes with computed PageRank scores [Response status is 200 and results array has exactly 10 ranked items]
+[ ] 5. 5. python scripts/verify_dynamic_graph.py --hub-id DYNAMIC_HUB_99 --leaves 50: PageRank algorithm identifies hub node as highest ranked node with score exceeding 0.15 [Top ranked node equals DYNAMIC_HUB_99 with score > 0.15 and exit code 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify pageRank computed on 10M node graph and top-100 nodes identified correctly; passes when verified by automated test script or benchmark log.
-2. Verify community detection: Louvain algorithm identifying clusters with Q > 0.5 modularity; passes when verified by automated test script or benchmark log.
-3. Verify fraud ring detection: seed known fraud nodes, identify connected unknown fraud nodes; passes when verified by automated test script or benchmark log.
-4. Verify graph visualization of top communities using Neo4j Browser or D3.js; passes when verified by automated test script or benchmark log.
-5. Verify performance benchmark comparing Spark GraphFrames vs NetworkX on increasing graph sizes; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected large-scale social graph analytics platform in Python and DuckDB with Compressed Sparse Row indexing; achieved sub-[CONVERGENCE_TIME] PageRank convergence across [EDGE_COUNT] edges, and delivered multi-hop subgraph traversals with sub-[TRAVERSAL_LATENCY] latency."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Built distributed graph analysis platform processing 100M-edge graphs with PySpark GraphFrames; computed PageRank and Louvain community detection in < 30min with 92% precision fraud ring identification.; achieved [N] throughput with < [M ms] latency overhead across [K] test transactions."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

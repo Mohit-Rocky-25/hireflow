@@ -1,49 +1,48 @@
-PROJECT BRIEF — Zero-Trust API Security Gateway with JWT Rotation
+PROJECT BRIEF — LEAST-PRIVILEGE API SECURITY GATEWAY WITH RS256 JWT ROTATION, REDIS BLOOM FILTER & DEVICE FINGERPRINTING
 ======================================================================
 
-Domain    : Security & Platform
-Difficulty: INTERMEDIATE
-Est. Time : 28 hours
-Tech Stack: Node.js, Express, Redis, Docker, JWT, Security
+Project ID  : brief-zero-trust-proxy
+Domain      : Security & Platform
+Difficulty  : INTERMEDIATE
+Est. Time   : 28 hours
+Tech Stack  : Node.js, Express, Redis, Docker, JWT, Security, Jest
+Covered Gaps: Node.js, Express, Redis, Docker, JWT, Security, Jest, DevOps
 
-PROBLEM STATEMENT
-----------------------------------------
-Microservices are vulnerable to token theft, replay attacks, and compromised credentials when relying on long-lived API keys. Build a Zero-Trust gateway enforcing asymmetric JWT rotation, IP fingerprinting, and blacklisted revocation.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Modern cloud-native microservices exposed to public networks face credential theft, token replay attacks, and compromised session hijacking when relying on static API keys or long-lived bearer tokens without instant revocation. Standard API gateways either incur severe latency bottlenecks by performing blocking database queries on every HTTP request or fail to invalidate stolen session tokens across distributed microservices. This project builds a high-performance least-privilege API security gateway in Node.js and Express. The gateway enforces asymmetric RS256 JWT validation with automated JWKS keypair rotation, checks token revocation via an in-memory Redis Bloom filter in sub-millisecond time, verifies cryptographic client device fingerprints, mitigates OWASP Top 10 API vulnerabilities, and signs downstream service-to-service requests with under 3.5ms proxy latency overhead.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-Every API-first company (Twilio, Stripe, top tech platforms, top tech platforms) needs identity-aware proxies. Security gateways protect internal microservices in banking, healthcare, and government applications. India's Digital Public Infrastructure (DPI) stack uses these patterns.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+High-Security Open Banking API Gateway Authorization: Financial microservices serving third-party fintech applications must validate asymmetric client signatures without exposing sensitive internal network endpoints. The Node.js gateway validates incoming RS256 JWT tokens against published JWKS key endpoints and forwards authenticated requests to internal banking services. | Instantaneous Compromised Session Revocation for Enterprise SSO: When a security incident detects compromised user credentials, security operations teams must invalidate active sessions immediately across all edge nodes. The gateway blacklists revoked token IDs in a Redis Bloom filter within 25ms, instantly rejecting subsequent requests without waiting for JWT TTL expiry. | Edge Microservice Layer 7 Threat Filtering & Fingerprint Verification: Public customer portals are targeted by automated credential stuffing bots replaying captured authorization tokens from novel IP addresses. The gateway computes SHA-256 client device fingerprints (User-Agent, TLS ciphers, IP subnets) and terminates replayed requests with mismatched fingerprints.
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-API security is an afterthought for most developers but a first-class concern for production systems. Understanding JWT rotation, revocation lists, and mTLS proves you can build systems that are secure by default — a rare and highly valued skill in compliance-heavy industries like BFSI and Healthcare.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Implementing automated RS256 asymmetric keypair rotation with zero-downtime JWKS cache invalidation across distributed edge gateway instances Designing an in-memory Redis Bloom filter token revocation registry supporting sub-millisecond membership checks and 0 false negatives Constructing cryptographic device fingerprint hashes resistant to token hijacking and header spoofing without impacting legitimate mobile clients Achieving sub-3.5ms proxy latency overhead while executing cryptographic signature verification and rate limiting under 2,000 RPS
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Security-aware backend engineering is a massive differentiator. Knowledge of RS256 asymmetric signing, bloom filter revocation, and Zero Trust principles maps directly to senior backend, security engineering, and platform engineering roles at banks, payment companies, and security-first startups.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Clean Node.js / Express codebase cleanly separating JWT verification middleware, JWKS rotation handlers, Redis Bloom filter clients, and rate limiters Performance benchmark report proving sustained validation throughput of 2,000+ requests per second with p95 proxy latency under 3.5ms Anti-fake verification script revoking an active session token via API and confirming immediate rejection across subsequent requests within 50ms
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-Express/Node.js edge proxy that verifies incoming client requests against RS256 public keys, validates dynamic fingerprint hashes, checks Redis revocation bloom filters in < 1ms, and signs downstream service-to-service mTLS tokens.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+An external client issues an HTTPS request with an Authorization Bearer JWT; the Express gateway extracts the token header to locate the `kid` (key ID); the JWT engine validates the RS256 signature against local cached JWKS public keys; the token's `jti` (JWT ID) is checked against the Redis Bloom filter in < 1ms; if found in the blacklist, the request is rejected with HTTP 401 Unauthorized; the security middleware computes the client device fingerprint and compares it to claims embedded in the token; if valid, the request is proxied to the backend microservice with downstream identity headers; Prometheus tracks latency and rejection counts.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Edge Token Verification & Proxy Latency Overhead: p95 proxy latency overhead is < 2.2 milliseconds per request | Compromised Token Revocation Propagation & Interception Rate: 50 of 50 revoked token requests rejected with HTTP 401 within 25ms | Client Device Fingerprint Replay Attack Mitigation Rate: 50 of 50 mismatched fingerprint requests rejected with HTTP 403
 
-SKILLS COVERED
-----------------------------------------
-Node.js, Express, Redis, Docker, Security, REST APIs
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. npm run bench:latency -- --rps 2000 --requests 10000: Gateway processes requests with p95 proxy latency overhead < 4.5ms [p95 proxy latency < 4.5ms with exit code 0]
+[ ] 2. 2. npm test -- -t 'revocation propagation': 50 of 50 requests using revoked tokens rejected with HTTP 401 within 25ms [50 of 50 revoked requests rejected with exit code 0]
+[ ] 3. 3. npm test -- -t 'device fingerprint replay': 50 of 50 replayed requests rejected with HTTP 403 Forbidden [50 of 50 mismatched requests rejected with exit code 0]
+[ ] 4. 4. npm test -- -t 'keypair rotation': Gateway fetches updated public key and verifies subsequent tokens without downtime [Keypair rotation completes with 0 verification errors and exit code 0]
+[ ] 5. 5. node ./scripts/verify_revocation_lock.js --token tok_active_77: Gateway consults Redis Bloom filter and returns HTTP 401 Unauthorized with error code TOKEN_REVOKED [Console confirms HTTP 401 and TOKEN_REVOKED rejection with exit code 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify public-private keypair (RS256) rotation workflow without user service disruption; passes when verified by automated test script or benchmark log.
-2. Verify immediate session revocation endpoint using Redis fast key-expiry; passes when verified by automated test script or benchmark log.
-3. Verify automated security suite testing against replay attacks, tampered signatures, and expired tokens; passes when verified by automated test script or benchmark log.
-4. Verify docker container with hardened non-root user and minimal alpine base; passes when verified by automated test script or benchmark log.
-5. Verify clear README outlining OWASP Top 10 API Security mitigation steps; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected least-privilege API security gateway in Node.js with asymmetric JWT rotation; delivered sub-[PROXY_OVERHEAD] millisecond proxy latency under [REQUEST_RPS] throughput, and enforced [REVOCATION_SUCCESS] session revocation via Redis Bloom filters."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Built Zero-Trust API gateway in Node.js & Redis utilizing RS256 token rotation; enforced instantaneous session revocation across [N] req/sec req/sec with < [M ms] latency overhead."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

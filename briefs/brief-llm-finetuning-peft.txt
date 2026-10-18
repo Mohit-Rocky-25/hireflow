@@ -1,49 +1,48 @@
-PROJECT BRIEF — Domain-Specific LLM Fine-Tuning with LoRA/PEFT
+PROJECT BRIEF — DOMAIN-SPECIFIC LLM FINE-TUNING PIPELINE WITH QLORA, TOKEN PACKING & AUTOMATED EVALUATION
 ======================================================================
 
-Domain    : GenAI & LLM Engineering
-Difficulty: ADVANCED
-Est. Time : 38 hours
-Tech Stack: Python, PyTorch, HuggingFace, PEFT, LoRA, Weights & Biases
+Project ID  : brief-llm-finetuning-peft
+Domain      : GenAI & LLM Engineering
+Difficulty  : ADVANCED
+Est. Time   : 40 hours
+Tech Stack  : Python, PyTorch, HuggingFace, PEFT, LoRA, Weights & Biases
+Covered Gaps: Python, PyTorch, HuggingFace, PEFT, LoRA, Weights & Biases, LLM Fine-tuning, CUDA
 
-PROBLEM STATEMENT
-----------------------------------------
-General-purpose LLMs perform poorly on specialized domains (medical, legal, code, finance) without domain adaptation. Full fine-tuning requires 100s of GPUs and millions of dollars. Build a parameter-efficient fine-tuning (PEFT) pipeline using LoRA that adapts a base model to a specific domain using consumer-grade hardware.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+General-purpose language models perform unreliably on specialized domain tasks involving legal statute interpretation, clinical terminology, and proprietary API code generation. Full parameter fine-tuning is computationally prohibitive, requiring multi-node GPU clusters and millions of dollars. This project builds a parameter-efficient fine-tuning (PEFT) pipeline in Python and PyTorch. The system ingests structured domain corpora, quantizes base open-source transformer models to 4-bit precision via bitsandbytes, injects Low-Rank Adaptation (LoRA) matrices into attention and feed-forward layers, trains models with sequence packing and gradient checkpointing, tracks loss curves in Weights & Biases, and evaluates domain accuracy improvements against base zero-shot models.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-Medical AI (Apollo, Manipal hospitals), Legal tech (IndiaFilings, LegalWiz), EdTech (BYJU's custom tutors), FinTech (HDFC credit risk models). Any company with domain-specific knowledge that needs an AI that actually understands their context needs fine-tuning.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Clinical Terminology and Pathology Report Extraction: Healthcare research institutions require language models that extract structured disease codes and laboratory findings from unstructured pathology text. The pipeline fine-tunes a base 7B parameter open-source model on clinical datasets, increasing biomedical entity extraction accuracy without exposing training data to third-party APIs. | Corporate Regulatory Compliance & Statutory Q&A: Corporate legal teams need specialized models capable of answering queries regarding cross-jurisdictional data privacy regulations and corporate bylaws. The engine trains LoRA adapters on statutory corpora, enabling localized legal question answering with precise section citations and low hallucination rates. | Internal Proprietary Software Framework Code Generation: Software engineering organizations with proprietary internal SDKs and private libraries require code assistance tools tailored to their non-public APIs. The system fine-tunes base coding models on internal repository functions, generating syntactically valid code completions that respect internal abstractions.
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Fine-tuning is the dividing line between ML engineers who use APIs and those who actually understand model internals. LoRA/PEFT specifically represents the state-of-the-art technique for adapting large models efficiently — knowledge that is explicitly required in LLM Engineer JDs at AI-first companies.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Configuring 4-bit NormalFloat (NF4) quantization and double quantization to fit 7B parameter models within consumer GPU VRAM limits Implementing sequence packing algorithms that concatenate short training samples to maximize compute utilization without cross-sample attention leakage Selecting optimal LoRA rank (r) and alpha hyperparameters across attention projections to prevent catastrophic forgetting Benchmarking fine-tuned adapter weights against zero-shot base baselines to verify genuine domain generalization
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-LoRA, QLoRA, and PEFT are the most explicitly mentioned techniques in LLM Engineer job descriptions in India right now. A working fine-tuned model with evaluation metrics immediately demonstrates you can operate at the model layer, not just the application layer.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Clean Python codebase separating dataset tokenization scripts, LoRA configuration modules, and evaluation harnesses Reproducible training pipeline with public Weights & Biases run logs demonstrating smooth loss convergence and gradient norm stability Anti-fake verification script loading merged LoRA adapter weights and verifying domain-specific terminology generation on unseen prompts
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-HuggingFace Transformers with PEFT library loading a base open-source model (LLaMA-2, Mistral, or Falcon). LoRA adapter matrices injected into attention layers. Dataset preprocessing pipeline with tokenization and packing. Training loop with Weights & Biases experiment tracking. GGUF quantization for efficient inference.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+Domain instruction datasets enter the tokenization engine; sequences pack into dense context blocks with appropriate masking; the base model loads in 4-bit precision using bitsandbytes; LoRA adapter matrices inject into target query, key, value, and projection layers; PyTorch executes mixed-precision training steps with AdamW optimizer and cosine learning rate schedules; training metrics stream to Weights & Biases; upon completion, adapter weights merge into the base checkpoint; the evaluation harness scores generation accuracy across held-out domain test sets.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Domain Benchmark Evaluation Accuracy Improvement: Fine-tuned model achieves >= 22.5 percentage point accuracy improvement over baseline unadapted model | Peak Training VRAM Consumption Ceiling: Peak VRAM allocation during training step is < 8.5 gigabytes | Training Token Processing Throughput: Training throughput is >= 1,450 tokens per second
 
-SKILLS COVERED
-----------------------------------------
-Python, PyTorch, HuggingFace, LLM Fine-tuning, PEFT, CUDA
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. python -m peft_pipeline.evaluate_domain --model-dir output/merged_model --test-file test_data/domain_eval.json: Fine-tuned model achieves >= 14.0 percentage point accuracy improvement over base zero-shot model [Evaluation report confirms >= 14.0 point accuracy improvement with exit code 0]
+[ ] 2. 2. python scripts/profile_vram.py --config configs/qlora_7b.yaml: Peak memory allocated during active forward and backward pass is < 12.0 gigabytes [Peak memory allocation is < 12.0GB with exit code 0]
+[ ] 3. 3. python -m peft_pipeline.verify_wandb_run --run-id latest: Telemetry confirms smooth training loss decrease, learning rate warmup, and zero NaN gradients [Verification confirms monotonic loss trend and 0 NaN occurrences]
+[ ] 4. 4. python -m peft_pipeline.verify_model_artifacts --model-dir output/merged_model: Directory contains valid safetensors weights, tokenizer configs, and generation config [All required model weight files exist and load successfully in Python]
+[ ] 5. 5. python scripts/verify_dynamic_generation.py --prompt 'Under Section 42 of the Corporate Privacy Act, what constitutes a qualifying data controller?': Model generates answer correctly citing statutory criteria while base model gives generic refusal [Generation contains required statutory keywords and passes domain rubric checks with exit code 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify training script running on consumer GPU (colab/kaggle) with reproducible config; passes when verified by automated test script or benchmark log.
-2. Verify before/after evaluation: zero-shot baseline vs fine-tuned model on domain-specific benchmark; passes when verified by automated test script or benchmark log.
-3. Verify weights & Biases training curves showing loss, learning rate, and gradient norms; passes when verified by automated test script or benchmark log.
-4. Verify gGUF quantization enabling CPU inference for deployment without GPU; passes when verified by automated test script or benchmark log.
-5. Verify model card documenting training data, hyperparameters, evaluation methodology, and limitations; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected parameter-efficient domain fine-tuning pipeline in Python and PyTorch using QLoRA; increased domain evaluation accuracy by [ACCURACY_DELTA] points over baseline, and maintained training memory consumption below [VRAM_CEILING] gigabytes."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Engineered fine-tuned 7B LLM using LoRA/PEFT on domain-specific dataset; achieved 18% improvement on benchmark evaluation metrics using consumer GPU within 4 hours of training compute.; achieved [N] throughput with < [M ms] latency overhead across [K] test transactions."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

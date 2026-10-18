@@ -1,49 +1,48 @@
-PROJECT BRIEF — Automated Data Quality Monitoring & Anomaly Detection
+PROJECT BRIEF — AUTOMATED DATA QUALITY MONITORING & ANOMALY DETECTION
 ======================================================================
 
-Domain    : Data Engineering
-Difficulty: INTERMEDIATE
-Est. Time : 28 hours
-Tech Stack: Python, dbt, Great Expectations, Airflow, PostgreSQL, Slack API
+Project ID  : brief-data-quality-framework
+Domain      : Data Engineering
+Difficulty  : INTERMEDIATE
+Est. Time   : 29 hours
+Tech Stack  : Python, DuckDB, Pandas, SQL, Docker
+Covered Gaps: Python, DuckDB, Pandas, SQL, Docker, Data Quality, Data Engineering
 
-PROBLEM STATEMENT
-----------------------------------------
-Data pipelines silently corrupt downstream analytics when source data quality degrades — wrong schema, null values, outlier ranges, referential integrity violations. Build a data quality framework that automatically validates data contracts, detects anomalies, and blocks bad data from reaching dashboards.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Modern analytical and machine learning data pipelines suffer from silent data corruption when upstream schemas drift, values violate business domain constraints, or statistical distributions shift unexpectedly. Undetected corrupted data propagates through downstream warehouses and dashboards, producing flawed metrics and erroneous automated business decisions. This project implements an automated, declarative data quality monitoring and anomaly detection engine in Python and DuckDB that validates dataset contracts, checks referential integrity, detects statistical outliers and distribution shifts, and enforces automated blocking gates before pipeline loading.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-Monte Carlo, Great Expectations, and dbt are companies building around this exact problem. Every data team at a mature tech company (top tech platforms, top tech platforms, top tech platforms) runs data quality checks. Bad data causes incorrect business decisions that can cost companies millions.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Automated data contract enforcement on daily batch data warehouse ingestion tables | Pre-training data validation for machine learning feature stores preventing corrupt inputs | Continuous schema drift and anomaly detection on third-party API data sync pipelines
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Data quality engineering is a growing specialty that bridges data engineering and reliability engineering. Understanding data contracts, statistical anomaly detection, and automated validation pipelines positions you as a data reliability engineer — a highly paid and in-demand role.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Executing complex declarative validation rules across hundreds of thousands of rows within sub-second execution limits Calculating statistical distribution drift metrics (Wasserstein distance, z-scores) without loading entire datasets into memory Preventing false positive alerts on legitimate seasonal or high-variance data spikes Designing fail-fast blocking ingestion gates that halt downstream jobs while outputting actionable failure diagnostics
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-dbt, Great Expectations, and automated data quality are standard requirements in Senior Data Engineer JDs. Showing you can build a data quality framework that blocks bad data before it reaches production signals data engineering maturity that most junior engineers lack.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Declarative YAML contract parser validating column types, nullability, uniqueness, and custom SQL expressions High-speed analytical validation engine executing inside DuckDB without external database dependencies Anti-fake verification script injecting dynamic anomalous rows at runtime and asserting automated gate blockage
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-dbt models for data transformation with Great Expectations test suites attached. Airflow DAG running quality checks before and after each pipeline stage. Statistical anomaly detection (Z-score, IQR) on numeric columns for out-of-range detection. Alert system with PagerDuty/Slack integration. Quarantine table for failed records.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+Data pipeline triggers the validation CLI passing a dataset path and a YAML contract; the Contract Parser loads rule definitions; DuckDB scans the target Parquet or CSV file directly; vectorized SQL assertions execute in parallel; the Statistical Profiler compares current summary statistics against historical baselines; if all checks pass, the CLI returns exit code 0; if any critical rule fails, the Blocking Gate returns exit code 1 and outputs failing row diagnostics.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Seeded Quality Defect Detection Rate: Detection of 20 of 20 injected defects with 0 false negatives | Dataset Validation Execution Latency: Execution completes in < 2.2 seconds across 250,000 rows | False Positive Violation Rate on Clean Baseline: 0 false positive rule violations reported on verified clean dataset
 
-SKILLS COVERED
-----------------------------------------
-Python, dbt, Great Expectations, Airflow, PostgreSQL, Monitoring
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. Run python -m dq_framework check --contract contracts/ecommerce.yaml --data data/dirty_transactions.parquet: Validation engine halts execution, returns exit code 1, and reports all 20 failing rule assertions [Exit code 1 with exactly 20 distinct failure records reported]
+[ ] 2. 2. Run python scripts/benchmark_speed.py: DuckDB executes all 15 checks in < 4.5 seconds [Total execution latency is < 4.5 seconds on local machine]
+[ ] 3. 3. Run python -m dq_framework check --contract contracts/ecommerce.yaml --data data/clean_transactions.parquet: Validation engine confirms all rules pass with zero violations [Exit code 0 with 0 rule violations reported]
+[ ] 4. 4. Run python -m dq_framework drift --baseline data/clean.parquet --target data/skewed.parquet: Profiler flags significant distribution drift on amount column [Drift detected with calculated distance exceeding configured threshold and warning logged]
+[ ] 5. 5. Run python scripts/verify_dynamic_quality.py --amount -999.00: Engine detects injected negative amount, triggers rule NEGATIVE_AMOUNT_VIOLATION, and blocks ingestion [Exit code 1 with report pinpointing dynamic row index and rule violation]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify great Expectations checkpoint suite with 20+ column-level expectations; passes when verified by automated test script or benchmark log.
-2. Verify dbt test integration running on every model refresh with failure blocking; passes when verified by automated test script or benchmark log.
-3. Verify statistical anomaly detection flagging volume drop > 20% or null rate increase; passes when verified by automated test script or benchmark log.
-4. Verify quarantine table routing failed records for manual review; passes when verified by automated test script or benchmark log.
-5. Verify weekly data quality report auto-generated and sent to Slack channel; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected automated data quality monitoring engine in Python and DuckDB; executed declarative schema contracts across [ROW_COUNT] rows in under [VALIDATION_TIME], detected [DEFECT_COUNT] of [TOTAL_DEFECTS] injected quality defects, and enforced automated pipeline ingestion blocking gates."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Built automated data quality framework using dbt and Great Expectations; validated 50M rows/run with statistical anomaly detection, reducing data quality incidents by 85% with zero silent failures.; achieved [N] throughput with < [M ms] latency overhead across [K] test transactions."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

@@ -1,49 +1,48 @@
-PROJECT BRIEF — Distributed In-Memory Cache with Eviction & Sharding
+PROJECT BRIEF — DISTRIBUTED IN-MEMORY KEY-VALUE CACHE ENGINE IN RUST WITH CONSISTENT HASHING
 ======================================================================
 
-Domain    : Systems Programming
-Difficulty: ADVANCED
-Est. Time : 38 hours
-Tech Stack: Rust, Tokio, TCP, Concurrency, System Architecture
+Project ID  : brief-dist-cache-rust
+Domain      : Systems Programming
+Difficulty  : ADVANCED
+Est. Time   : 40 hours
+Tech Stack  : Rust, Tokio
+Covered Gaps: Rust, Tokio, Distributed Systems, Consistent Hashing, Cache Eviction, Systems Programming, Concurrency
 
-PROBLEM STATEMENT
-----------------------------------------
-High-throughput applications exhaust traditional database connections without localized caching layers. Building this from scratch — rather than using Redis — demonstrates mastery of memory models, lock-free data structures, and network programming. Build a custom multi-threaded in-memory key-value cache engine in Rust supporting consistent hashing sharding and pluggable eviction policies.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+High-throughput distributed web applications exhaust relational database connection pools and disk I/O when handling read-heavy request spikes. Production caching systems mitigate this bottleneck, yet relying solely on prebuilt tools hides critical systems engineering concepts—lock-free concurrent memory management, cache replacement policies, thread contention mitigation, and network protocol framing. This project implements a high-throughput, distributed in-memory key-value cache engine from first principles in Rust. The system features a lock-free sharded storage map, segmented LRU and TinyLFU eviction, consistent hashing with virtual nodes for multi-node partitioning, an asynchronous Tokio TCP protocol parser, and request coalescing (singleflight) to prevent cache stampedes.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-Database caching layers at scale — used by HFT firms, gaming backends, social media platforms, and CDN providers. Any company running sub-millisecond latency services needs an understanding of cache design at this level.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Sub-millisecond session and authentication token caching for horizontally scaled APIs | Distributed database query result caching with automatic invalidation and stampede protection | High-frequency algorithmic trading feature store caching low-latency market state
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Building Redis from scratch in Rust signals the highest level of systems programming competence. It requires understanding memory safety without GC, async I/O, TCP protocol design, and concurrent data structures — skills that command the highest engineering salaries globally.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Implementing lock-free sharded cache storage to eliminate mutex contention across high thread counts Designing adaptive eviction combining frequency sketch (TinyLFU) and recency queues without lock contention Distributing keys evenly across nodes using consistent hashing with virtual nodes and minimal key churn on node joins Coalescing concurrent identical cache misses through singleflight synchronizers to eliminate database dogpiling
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Rust on a portfolio immediately gets attention at any systems company. The combination of lock-free concurrency, consistent hashing, and pluggable eviction policies maps directly to questions at Google, top tech platforms, and any HFT/infrastructure company.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Idiomatic Rust implementation utilizing Tokio, parking_lot synchronization, and zero unsafe memory violations Deterministic load test achieving over 100,000 requests/sec with p99 latency under 2 milliseconds on local hardware Anti-fake verification script sending dynamic high-concurrency key bursts and asserting singleflight deduplication
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-Rust async network server using Tokio and custom lock-free or striped concurrent hash maps. Implements TCP custom binary protocol with consistent hash ring node discovery and background TTL tombstone sweeps.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+Clients connect over TCP to the Tokio server; binary protocol frames are parsed into GET/SET commands; the Consistent Hashing Router determines target node ownership; the target node checks its Sharded Memory Cache; on hit, value bytes return immediately and TinyLFU frequency sketches update; on miss, the Singleflight Coalescer ensures only one upstream fetch executes while other concurrent requests await the shared result; returned data writes to memory and evicts candidates if memory limits are exceeded.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Sustained GET Throughput on Multi-Core CPU: Sustained throughput exceeds 120,000 requests/sec | Tail Read Latency (p99): p99 latency is < 1.5 milliseconds | Consistent Hashing Virtual Node Distribution Skew: Coefficient of variation between node key allocations is < 8%
 
-SKILLS COVERED
-----------------------------------------
-Rust, Concurrency, Networking, System Design, Linux
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. cargo run --release --bin cache_bench -- --clients 32 --requests 250000: Server processes requests with sustained throughput exceeding 60,000 requests/sec [Measured throughput is > 60,000 req/sec with exit code 0]
+[ ] 2. 2. cargo run --release --bin latency_profile: Engine delivers p99 latency under 3.5 milliseconds on local loopback [p99 latency is < 3.5 milliseconds]
+[ ] 3. 3. cargo test --release test_consistent_hashing_distribution: Ring balances keys with coefficient of variation under 15% [Test passes with coefficient of variation < 15%]
+[ ] 4. 4. cargo test --release test_tinylfu_eviction_limits: TinyLFU evicts low-frequency items; memory stays bounded under 10MB [Memory consumption remains <= 10.5MB with exit code 0]
+[ ] 5. 5. python scripts/verify_dynamic_singleflight.py --key DYNAMIC_KEY_BURST --concurrency 100: Singleflight coalescer intercepts storm and executes exactly 1 upstream fetch call [Upstream fetch counter equals 1 with all 100 clients receiving identical payload]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify cargo benchmark suite showing throughput comparisons against Redis baseline; passes when verified by automated test script or benchmark log.
-2. Verify thread safety proven via Rust borrow-checker and stress tests with 100 threads; passes when verified by automated test script or benchmark log.
-3. Verify consistent hashing visualization script illustrating re-balancing upon node leave/join; passes when verified by automated test script or benchmark log.
-4. Verify pluggable eviction policy trait implementation for LRU, LFU, and FIFO; passes when verified by automated test script or benchmark log.
-5. Verify cI workflow running cargo clippy, cargo test, and memory sanitizers; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected distributed in-memory key-value cache engine in Rust and Tokio; achieved [THROUGHPUT] sustained GET throughput with sub-[P99_LATENCY] tail latency across [CLIENT_COUNT] concurrent connections, and eliminated cache stampedes via singleflight request coalescing."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Designed high-performance concurrent key-value cache in Rust using Tokio; achieved [N] req/sec ops/sec with sub-millisecond p99 latencies using custom consistent hashing and LRU eviction."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

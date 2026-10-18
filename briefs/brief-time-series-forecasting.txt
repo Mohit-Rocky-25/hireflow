@@ -1,49 +1,48 @@
-PROJECT BRIEF — Production Time-Series Forecasting with Ensemble Methods
+PROJECT BRIEF — PRODUCTION TIME-SERIES FORECASTING PLATFORM WITH PROPHET, XGBOOST ENSEMBLES & FASTAPI
 ======================================================================
 
-Domain    : ML Engineering
-Difficulty: INTERMEDIATE
-Est. Time : 28 hours
-Tech Stack: Python, Prophet, N-BEATS, XGBoost, FastAPI, Redis
+Project ID  : brief-time-series-forecasting
+Domain      : ML Engineering
+Difficulty  : INTERMEDIATE
+Est. Time   : 28 hours
+Tech Stack  : Python, Prophet, XGBoost, FastAPI, Redis, Docker
+Covered Gaps: Python, Prophet, XGBoost, FastAPI, Redis, Docker, ML Engineering, Time-Series Forecasting
 
-PROBLEM STATEMENT
-----------------------------------------
-Business forecasting (demand prediction, sales, capacity planning) is notoriously difficult due to trend, seasonality, holiday effects, and external shocks. Build a production forecasting system that combines statistical models (ARIMA, Prophet) with deep learning (N-BEATS, Transformer) and automatic ensemble weighting.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Enterprises forecasting demand, retail inventory depletion, cloud infrastructure capacity, and financial cash flows suffer from severe forecast errors when relying on single-model architectures or naive statistical moving averages. Isolated models fail to capture composite time-series dynamics: classical statistical methods miss complex nonlinear exogenous covariates, while deep neural networks overfit on short historical datasets and struggle with abrupt holiday shocks. This project builds a production-grade time-series forecasting platform in Python. The system engineers rolling lag features, trains an ensemble combining additive trend/seasonality decomposition (Facebook Prophet) and gradient-boosted decision trees (XGBoost), serves multi-horizon forecasts via FastAPI with sub-25ms inference latency, caches predictions in Redis, and continuously evaluates accuracy using rolling backtests with Weighted Absolute Percentage Error (WAPE).
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-Demand forecasting at top tech platforms and Zomato (restaurant inventory), top tech platforms and top tech platforms (SKU stock management), Ola and Rapido (driver supply planning), HDFC and ICICI (loan default rate prediction). Every business that needs to plan ahead uses forecasting.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Retail Omnichannel Product Demand Forecasting: Retail merchandising directors need 14-day demand forecasts across thousands of store SKUs to prevent stockouts while avoiding excess inventory holding costs. The ensemble model captures day-of-week seasonality and holiday sales promotions, outputting item-level demand forecasts that reduce inventory variance by 18%. | Cloud Compute Capacity & Autoscaling Prediction: Cloud infrastructure platform engineers need to anticipate server cluster CPU and memory loads 2 hours in advance to pre-warm container nodes. The time-series engine forecasts rolling workload metrics, triggering predictive scaling events before traffic surges cause service degradation. | Corporate Cash Flow & Treasury Forecasting: Corporate financial officers requiring 30-day liquidity projections must forecast daily accounts receivable cash collections. The system combines historical recurring invoice payment cycles with calendar month-end effects, generating probabilistic cash flow confidence intervals.
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Production forecasting requires handling irregular time series, missing data, external regressors, and automatic model selection — problems that can't be solved with a single model. Building an ensemble forecasting system with proper evaluation demonstrates senior ML engineering capability.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Engineering robust temporal lag, rolling window statistics, and cyclical calendar features without creating target data leakage across train/validation splits Combining statistical decomposition (Prophet) and gradient boosting (XGBoost) into a weighted ensemble that minimizes out-of-sample Weighted Absolute Percentage Error (WAPE) Designing rolling-origin cross-validation backtesting pipelines that evaluate forecast stability across 10 distinct historical time horizons Serving low-latency multi-horizon forecast requests in FastAPI while caching precomputed predictions and feature matrices in Redis
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Time-series forecasting is required in data science and ML engineering roles across retail, fintech, logistics, and operations. N-BEATS, TFT (Temporal Fusion Transformer), and Prophet are specifically mentioned in JDs at top tech platforms, top tech platforms, and analytics companies. A production ensemble system is more impressive than any Kaggle notebook.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Clean Python codebase cleanly separating feature engineering pipelines, Prophet/XGBoost model trainers, FastAPI forecast routers, and Redis caching layers Backtesting benchmark report proving out-of-sample WAPE <= 12.5% and sub-25ms p95 forecast inference latency across 1,000 time series Anti-fake verification script simulating an unexpected sudden demand spike shock and asserting the model widens its forecast confidence interval bounds appropriately
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-Ensemble of: Facebook Prophet (trend/seasonality decomposition), ARIMA (linear statistical baseline), N-BEATS (deep neural network for time series), and XGBoost (feature engineering on lag features). Automatic ensemble weighting based on validation performance. FastAPI serving with prediction intervals. Backtesting evaluation framework.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+Historical time-series metrics ingest into the feature pipeline; the pipeline computes rolling lag windows and cyclical features using strict temporal splits; the Prophet model fits trend and seasonality curves, generating baseline predictions and uncertainty intervals; the XGBoost model trains on residual errors and exogenous regressors; the ensemble engine combines predictions using inverse-variance weights; when an API client requests a 14-day forecast for a series, FastAPI checks Redis for precomputed predictions in < 2ms; if missing, it computes the ensemble inference in < 20ms, caches the payload in Redis, and returns the point forecast and 80%/95% confidence intervals; periodic rolling backtests monitor WAPE drift.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Out-of-Sample Forecast Accuracy (WAPE): Out-of-sample WAPE is <= 10.8% across the 14-day test horizon | p95 Forecast Generation Inference Latency: p95 forecast inference latency is < 14.5 milliseconds | Uncertainty Interval Coverage Parity Rate: Observed test coverage is between 89.0% and 91.5% across 10,000 test observations
 
-SKILLS COVERED
-----------------------------------------
-Python, PyTorch, Scikit-learn, Feature Engineering, FastAPI, Docker
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. python ./evaluation/eval_wape.py --series 1000 --horizon 14: Ensemble model achieves out-of-sample WAPE <= 14.5% across test series [WAPE <= 14.5% with exit code 0]
+[ ] 2. 2. python ./benchmarks/bench_inference.py --requests 2000 --concurrency 50: FastAPI returns 30-day forecast predictions with p95 latency < 35.0ms [p95 latency < 35.0ms with exit code 0]
+[ ] 3. 3. python ./evaluation/eval_intervals.py --points 10000 --level 90: Empirical interval coverage is between 87.0% and 93.0% [Coverage between 87.0% and 93.0% with exit code 0]
+[ ] 4. 4. curl -X POST http://localhost:8000/api/v1/forecast -H 'Content-Type: application/json' -d '{"series_id":"sku_retail_101","horizon":14}': API responds with 14 daily point predictions, 80% bounds, and 95% bounds [Response status 200 with 14 daily forecast points and exit code 0]
+[ ] 5. 5. python ./scripts/verify_shock_adaptation.py --shock-pct 300: Ensemble detects elevated variance and widens 95% confidence interval width by at least 40% [Console confirms interval width widened by >= 40% with exit code 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify ensemble outperforms best individual model by at least 5% MAPE on holdout set; passes when verified by automated test script or benchmark log.
-2. Verify confidence interval coverage test: 90% of actuals fall within predicted 90% intervals; passes when verified by automated test script or benchmark log.
-3. Verify seasonality decomposition visualization showing trend, weekly, and annual patterns; passes when verified by automated test script or benchmark log.
-4. Verify missing data imputation and anomaly detection in training pipeline; passes when verified by automated test script or benchmark log.
-5. Verify aPI serving 10k product forecasts in < 1s via pre-computed cache with TTL; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected time-series forecasting platform in Python with Prophet and XGBoost ensembles; achieved [MODEL_WAPE] WAPE on multi-horizon demand forecasting across [SERIES_COUNT] time series, and delivered sub-[FORECAST_LATENCY] millisecond inference latency with Redis caching."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Built ensemble time-series forecasting system combining Prophet, N-BEATS, and XGBoost; achieved 4.2% MAPE on 30-day demand forecasts with 91% confidence interval coverage across [N] req/sec product SKUs."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

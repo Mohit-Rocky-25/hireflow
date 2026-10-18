@@ -1,49 +1,48 @@
-PROJECT BRIEF — DeFi Lending Protocol Smart Contract on Ethereum
+PROJECT BRIEF — DEFI LENDING PROTOCOL SMART CONTRACT ON ETHEREUM
 ======================================================================
 
-Domain    : Blockchain & Web3
-Difficulty: ADVANCED
-Est. Time : 38 hours
-Tech Stack: Solidity, Hardhat, Ethers.js, React, Chainlink, OpenZeppelin
+Project ID  : brief-blockchain-defi
+Domain      : Blockchain & Web3
+Difficulty  : ADVANCED
+Est. Time   : 34 hours
+Tech Stack  : Solidity, Hardhat, Ethers.js, OpenZeppelin, Slither
+Covered Gaps: Solidity, Hardhat, Ethers.js, OpenZeppelin, Slither, Smart Contracts, Security
 
-PROBLEM STATEMENT
-----------------------------------------
-Traditional lending requires credit history, collateral appraisal, and bank intermediaries. DeFi protocols enable permissionless lending with algorithmic interest rates and automated liquidation. Build a collateralized lending smart contract on Ethereum with overcollateralization, dynamic interest rate curves, and liquidation mechanisms.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Traditional financial lending requires credit scoring intermediaries, physical collateral appraisals, and centralized custody. Decentralized finance protocols enable permissionless overcollateralized lending through autonomous smart contracts that adjust borrowing interest rates algorithmically and enforce liquidations when collateral valuations drop. Developing robust lending protocols requires mitigating critical vulnerabilities such as reentrancy exploits, flash loan price manipulation, rounding errors, and gas exhaustion while maintaining deterministic financial invariants.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-Aave, Compound, and MakerDAO manage billions in locked value. In India, crypto lending and DeFi are growing with regulatory clarity from SEBI and RBI. Web3 companies like CoinDCX, WazirX, and international DeFi protocols hire for smart contract engineering.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Algorithmic crypto-asset lending with dynamic supply and borrow interest rate curves | Overcollateralized stablecoin borrowing against cryptocurrency reserve assets | Automated collateral liquidation bots monitoring position health factors via price oracles
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Smart contract development requires deep understanding of EVM semantics, gas optimization, reentrancy attack vectors, and economic mechanism design — a unique technical combination. The security requirements of immutable deployed code create extremely high engineering standards.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Preventing reentrancy vulnerabilities across state mutations and external token transfers using the checks-effects-interactions pattern Formulating the Jump Rate interest model using integer fixed-point arithmetic without precision loss or overflow Securing liquidation transactions against oracle manipulation and front-running via staleness threshold checks Minimizing gas consumption across high-frequency deposit, borrow, and liquidation execution paths
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Solidity smart contract development is a high-demand niche skill with relatively few engineers. DeFi protocol knowledge (AMMs, lending, liquidation mechanisms) combined with security awareness (reentrancy, flash loan attacks) is what Web3 companies and blockchain projects specifically seek.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Comprehensive Hardhat test suite with mainnet fork tests simulating price drop liquidations Automated Slither static analysis report confirming zero high or critical security vulnerabilities Gas consumption report generated via hardhat-gas-reporter establishing bounded execution costs
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-Solidity lending pool contract using ERC-20 tokens as collateral and borrowed assets. Algorithmic interest rate model (Jump Rate Model) based on utilization ratio. Liquidation bot monitoring health factors. Chainlink oracle price feeds for collateral valuation. Hardhat test suite with fork-based integration tests.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+Users deposit ERC20 collateral into the lending pool; borrowers draw loans against collateral up to maximum loan-to-value limits; interest accrues algorithmically each second based on pool utilization; price feeds update asset values; if an account health factor drops below 1.0, third-party liquidators repay up to 50% of the debt and seize collateral with a liquidation incentive bonus.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Deposit and Borrow Gas Consumption Ceiling: deposit() gas < 80,000 and borrow() gas < 135,000 | Liquidation Invariant Verification: 100 of 100 underwater positions liquidated without pool insolvency | Static Security Vulnerability Count: 0 high, 0 medium, and 0 low severity issues reported by Slither
 
-SKILLS COVERED
-----------------------------------------
-Solidity, Ethereum, Web3.js, React, Smart Contracts, Security
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. Run complete unit test suite across pool and interest rate model: All test assertions pass verifying deposit, borrow, repay, and withdrawal balances [Exit code 0 with 25 passing test cases and zero assertion failures]
+[ ] 2. 2. Execute npx hardhat test test/liquidation.test.js: Liquidator successfully calls liquidate(), receiving seized collateral and discount incentive [Account health factor restored to >= 1.0 and transaction succeeds with event LiquidationCall emitted]
+[ ] 3. 3. Run slither . --exclude-dependencies: Slither scans all contract files and outputs vulnerability summary [Zero high and zero medium severity security issues detected]
+[ ] 4. 4. Run REPORT_GAS=true npx hardhat test: Gas report generates table of average gas costs per method call [deposit() method consumes < 95,000 gas and borrow() consumes < 160,000 gas]
+[ ] 5. 5. Run npx hardhat test test/reentrancy_attack.test.js: Lending pool detects reentrancy and reverts transaction with custom error [Attack transaction fails with revert error ReentrancyGuardReentrantCall]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify mainnet fork test simulating real price crashes and verifying liquidation execution; passes when verified by automated test script or benchmark log.
-2. Verify slither and Mythril security scan output with zero critical vulnerabilities; passes when verified by automated test script or benchmark log.
-3. Verify reentrancy attack test confirming checks-effects-interactions pattern prevents exploit; passes when verified by automated test script or benchmark log.
-4. Verify gas optimization report showing gas costs below industry benchmarks; passes when verified by automated test script or benchmark log.
-5. Verify frontend React interface for deposit, borrow, and repay with MetaMask integration; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected decentralized overcollateralized lending protocol in Solidity using Hardhat and OpenZeppelin; implemented Jump Rate dynamic interest curves, automated liquidation engine, and verified gas ceilings under [DEPOSIT_GAS] gas per deposit with [AUDIT_ISSUES] critical vulnerabilities on Slither static audit."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Developed DeFi lending protocol in Solidity with Jump Rate interest model and automated liquidation; passed Slither/Mythril security scan, managing simulated $[K]+ TVL across 1,000 test loan positions."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

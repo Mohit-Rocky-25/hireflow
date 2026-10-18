@@ -1,49 +1,48 @@
-PROJECT BRIEF — Multi-Channel Notification Orchestration Service
+PROJECT BRIEF — HIGH-THROUGHPUT MULTI-CHANNEL NOTIFICATION ORCHESTRATION SERVICE WITH DEDUPLICATION, RATE LIMITING & CHANNEL FALLBACK
 ======================================================================
 
-Domain    : Full-Stack Web
-Difficulty: INTERMEDIATE
-Est. Time : 28 hours
-Tech Stack: Node.js, TypeScript, Kafka, Redis, FCM, Twilio, PostgreSQL
+Project ID  : brief-notification-service
+Domain      : Full-Stack Web
+Difficulty  : INTERMEDIATE
+Est. Time   : 28 hours
+Tech Stack  : Node.js, TypeScript, RabbitMQ, Redis, PostgreSQL, Docker
+Covered Gaps: Node.js, TypeScript, RabbitMQ, Redis, PostgreSQL, Docker, Distributed Systems, Full-Stack Web, API Design
 
-PROBLEM STATEMENT
-----------------------------------------
-Modern applications send notifications across email, SMS, push, WhatsApp, and in-app channels with complex routing logic: preference-based channel selection, deduplication, throttling, and delivery tracking. Build a notification orchestration service that abstracts provider complexity and ensures reliable delivery.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Modern applications communicating across email, SMS, mobile push, and chat channels suffer from duplicate message dispatches, uncoordinated user notification fatigue, and complete delivery failure when third-party gateway providers encounter outages. Tight coupling between business logic and downstream provider APIs creates brittle architectures without centralized delivery tracking or retry backoff. This project builds a high-throughput notification orchestration service in Node.js and TypeScript. The system buffers incoming events using RabbitMQ message queues, deduplicates messages using Redis sliding-window hashes, resolves user channel preferences, enforces per-user rate limits, routes to mock delivery providers with automatic fallback, and maintains an immutable delivery audit log in PostgreSQL.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-Every consumer app in India sends notifications — top tech platforms, Zomato, top tech platforms, HDFC Bank. WhatsApp Business API, FCM, and SMS providers (Twilio, MSG91) all need orchestration. This is core infrastructure at scale.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+E-Commerce Transactional Order & Delivery Notifications: Consumer retail platforms need to dispatch order confirmations, shipping updates, and one-time authentication codes reliably across multiple communication channels. The service deduplicates rapid checkout triggers, routes critical delivery updates to mobile push notifications, and automatically falls back to SMS if push tokens are invalid. | Digital Banking Security & Fraud Alert Dispatch: Financial services platforms require immediate, guaranteed delivery of suspicious debit alerts and transaction verification prompts to customer devices. The platform prioritizes critical security alerts through high-priority message queues, tracking delivery confirmations and recording immutable timestamps for compliance audits. | Enterprise Collaboration Team Notification Digests: Project management platforms serving thousands of corporate users need to prevent notification fatigue caused by rapid successive comment notifications. The engine enforces per-user rate limiting and temporal batching, aggregating conversational mentions into formatted email and in-app digest summaries.
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Notification systems have complex requirements: idempotency (don't send the same notification twice), user preference routing (send to email if push disabled), rate limiting per channel, retry logic, and delivery analytics. Building this end-to-end demonstrates production-grade distributed systems thinking.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Guaranteeing exactly-once notification delivery semantics across distributed workers using atomic Redis deduplication hashes Designing resilient priority queue topologies in RabbitMQ that prevent high-volume marketing batches from delaying critical authentication alerts Implementing dynamic channel fallback logic that detects third-party provider timeouts and re-routes messages without losing delivery context Managing per-user sliding-window rate limiters that prevent alert spam while preserving critical security notification overrides
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Notification infrastructure is a core backend system at every consumer tech company. Understanding provider abstraction, delivery tracking, and deduplication patterns demonstrates backend maturity relevant to senior backend roles at top tech platforms, Zomato, top tech platforms, and any company with push notification requirements.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Clean TypeScript codebase cleanly separating queue consumers, channel provider adapters, user preference resolvers, and audit repositories High-throughput load benchmark report verifying 2,500+ notifications per second sustained processing with sub-350ms channel fallback Anti-fake verification script issuing duplicate notification payloads concurrently and verifying exactly one message is dispatched while the duplicate is suppressed
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-Node.js orchestrator receiving notification requests from internal services via Kafka. User preference resolver selecting optimal channel. Provider plugins (FCM, Twilio SMS, WhatsApp Business API, SMTP). Redis deduplication using event fingerprints. PostgreSQL delivery audit log. Retry queue with exponential backoff.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+An upstream service dispatches a notification request over REST; the ingestion API computes a SHA-256 event fingerprint; Redis checks whether the fingerprint was processed within the sliding window; if unique, the message publishes to RabbitMQ with a priority header; queue workers consume the message, check user channel preferences and rate limits in PostgreSQL; the worker dispatches the notification to the primary channel adapter (e.g. Push); if the provider times out or fails, the fallback engine re-routes the message to the secondary channel (e.g. SMS); delivery status updates commit to PostgreSQL.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Notification Deduplication Accuracy Rate: 1,000 of 1,000 duplicate payloads suppressed with 0 duplicate delivery executions | Sustained Message Ingestion and Routing Throughput: Publish throughput is >= 5,500 notifications per second | Automated Channel Fallback Routing Duration: Average channel fallback duration is < 120 milliseconds across 30 trials
 
-SKILLS COVERED
-----------------------------------------
-Node.js, TypeScript, Kafka, Redis, PostgreSQL, REST APIs
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. npm run test:dedup -- --samples 1000: Redis deduplication engine suppresses all 1,000 duplicates with 0 redundant deliveries [1,000 of 1,000 duplicate payloads suppressed with exit code 0]
+[ ] 2. 2. node scripts/benchmark_throughput.js --events 20000 --concurrency 50: Service sustains publish throughput >= 2,500 notifications per second with zero message loss [Measured throughput is >= 2,500 msg/sec with exit code 0]
+[ ] 3. 3. node scripts/test_channel_fallback.js --trials 30 --timeout-ms 200: Worker catches timeout and completes delivery via secondary channel in average duration < 350ms [Average fallback duration < 350ms across 30 trials with exit code 0]
+[ ] 4. 4. curl http://localhost:3000/api/v1/notifications/evt_test_12345/status: Server returns structured JSON payload showing timeline: QUEUED, PRIMARY_FAILED, FALLBACK_DELIVERED [Response status is 200 and JSON contains delivery_timeline array with exit code 0]
+[ ] 5. 5. node scripts/verify_dynamic_dedup.js --event-id evt_dynamic_9872: First request routes to provider; second duplicate request suppressed with cached status return [Verification confirms provider called exactly once and second call logged 'DUPLICATE_SUPPRESSED' with exit code 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify deduplication test: send same notification ID twice, second delivery suppressed; passes when verified by automated test script or benchmark log.
-2. Verify channel fallback: email fails, system retries via SMS automatically; passes when verified by automated test script or benchmark log.
-3. Verify rate limiting: per-user notification throttle enforced (max 10/hour); passes when verified by automated test script or benchmark log.
-4. Verify delivery tracking: each notification has status (queued, sent, delivered, failed); passes when verified by automated test script or benchmark log.
-5. Verify load test: 50k notifications/min throughput with 99%+ delivery confirmation; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected multi-channel notification orchestration platform in Node.js and TypeScript using RabbitMQ and Redis; achieved sub-[FALLBACK_LATENCY] millisecond channel fallback diversion across [TRIAL_COUNT] chaos trials, and sustained [THROUGHPUT_MSG_SEC] message ingestion throughput."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Built multi-channel notification service handling [N] req/sec/sec across FCM, SMS, and email; achieved 99.9% delivery with Redis deduplication, user preference routing, and automatic channel fallback."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

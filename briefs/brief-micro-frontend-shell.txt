@@ -1,49 +1,48 @@
-PROJECT BRIEF — Micro-Frontend Host Shell with Module Federation
+PROJECT BRIEF — FEDERATED MICRO-FRONTEND HOST SHELL WITH MODULE FEDERATION, SHARED RUNTIME STATE & ERROR BOUNDARIES
 ======================================================================
 
-Domain    : Full-Stack Web
-Difficulty: INTERMEDIATE
-Est. Time : 28 hours
-Tech Stack: React, TypeScript, Webpack 5, Module Federation, TailwindCSS
+Project ID  : brief-micro-frontend-shell
+Domain      : Full-Stack Web
+Difficulty  : INTERMEDIATE
+Est. Time   : 28 hours
+Tech Stack  : React, TypeScript, Webpack, Module Federation, Tailwind CSS
+Covered Gaps: React, TypeScript, Webpack, Module Federation, Tailwind CSS, Frontend Architecture, Performance
 
-PROBLEM STATEMENT
-----------------------------------------
-Large enterprise frontends suffer from massive monorepo bundle sizes, slow build cycles, and team dependency blocking. Build a federated micro-frontend host application that dynamically consumes isolated remote apps with shared runtime state.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Monolithic enterprise frontend applications suffer from slow continuous integration build cycles, coupled release cadences, and brittle global state dependencies across distributed product teams. Standard iframe-based embedding creates degraded user experiences with clunky cross-window communication and duplicated vendor bundles. This project builds a federated micro-frontend host architecture in React, TypeScript, and Webpack 5 Module Federation. The host shell dynamically loads isolated remote micro-applications at runtime, coordinates shared singleton dependencies to prevent duplicate bundle downloads, implements a typed cross-app event bus for decoupled state synchronization, and isolates remote crashes using React error boundaries.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-SAP, Siemens, and large Indian IT companies (Infosys, TCS client portals) use micro-frontends to enable independent team deployments. Any enterprise with 10+ frontend teams needs this architectural pattern.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Enterprise Cloud Console Multi-Team Dashboard: Enterprise SaaS companies with autonomous product teams need a centralized administrative console where teams deploy services independently without rebuilding the host shell. The host shell dynamically imports remote micro-apps for billing, usage analytics, and identity management, rendering a unified user interface while maintaining decoupled release pipelines. | Digital Banking Customer Self-Service Portal: Financial institutions with strict compliance boundaries require isolated deployment surfaces for payment processing, loan applications, and investment accounts. The shell manages user authentication and global layout tokens, delegating account workflows to independent remote applications that load on-demand without cross-domain iframe issues. | Healthcare Provider Clinic Management Platform: Hospital networks deploying patient scheduling, clinical charting, and pharmacy modules need resilient frontends where failures in auxiliary modules do not crash critical patient care views. The architecture isolates remote child applications behind resilient error boundary fallbacks, ensuring clinicians can record vitals even if an external billing micro-frontend fails to load.
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Module Federation is an advanced webpack concept that most frontend engineers have never implemented. Demonstrating it proves you understand bundle optimization, runtime dependency sharing, and enterprise-scale frontend architecture — skills that unlock senior frontend and frontend architect roles.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Configuring Webpack 5 Module Federation with shared singleton runtime dependencies (React, React-DOM, UI tokens) to eliminate bundle duplication Designing a typed, framework-agnostic custom event bus allowing bidirectional communication between micro-frontends without tight coupling Implementing resilient error boundaries and skeleton placeholders that prevent unresponsive remote bundles from blank-screening the host application Isolating CSS namespaces using Tailwind prefixing and CSS modules to prevent remote child styles from overriding host design systems
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Enterprise frontend architecture knowledge is rare and high-signal core competencies. Module Federation specifically is mentioned in JDs at Oracle, SAP Labs, and large B2B SaaS companies hiring in India. Immediately distinguishes you from engineers who only know React component patterns.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Clean TypeScript codebase cleanly separating the host shell container, remote micro-apps, and shared contracts library Automated bundle analysis report confirming shared vendor chunk singletons and sub-120KB initial host shell payload size Anti-fake verification script dynamically registering a novel remote micro-app at runtime and verifying the host shell imports and renders it without rebuilding
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-Webpack 5 Module Federation setup with a Host Shell (Auth, Navigation, Theme) dynamically loading remote child micro-apps (Billing, Analytics, Profile) at runtime. Implements shared singleton dependencies (React, design tokens) and isolated CSS scopes.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+The user loads the host shell in the browser; the shell initialises the shared React singleton and global theme context; as the user navigates to an application route, the Module Federation runtime requests the target remoteEntry.js script from its CDN endpoint; if the network call succeeds, the remote component mounts seamlessly inside the shell layout; cross-app interactions (such as updating active workspace or currency) publish typed events through the shared event bus; if a remote fails to load or encounters a runtime exception, the error boundary renders a fallback retry card while maintaining full host shell operability.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Initial Host Shell Gzipped Bundle Size: Gzipped host shell entry bundle size is < 68.0 kilobytes | Remote Micro-Frontend Dynamic Load Latency: p95 remote micro-frontend load latency is < 320 milliseconds | Error Boundary Host Shell Survival Rate: 50 of 50 fatal crash simulations handled by error boundaries with 0 host shell crashes
 
-SKILLS COVERED
-----------------------------------------
-React, TypeScript, Webpack, Performance, CSS, Frontend Architecture
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. npm run build --workspace=host && node scripts/analyze_bundles.js: Webpack bundle analyzer confirms gzipped host shell bundle size is < 120.0 kilobytes [Compressed host bundle size is < 120KB with exit code 0]
+[ ] 2. 2. node scripts/benchmark_load_latency.js --runs 100 --throttle 3g: Remote micro-frontends resolve and mount with p95 load latency < 650 milliseconds [p95 load latency is < 650ms with exit code 0]
+[ ] 3. 3. npm test -- --testPathPattern=error_boundary: Error boundary catches all 50 component crashes, rendering fallback UI while host shell remains active [50 of 50 crash simulations pass error boundary assertions with exit code 0]
+[ ] 4. 4. npm test -- --testPathPattern=event_bus: Event bus transmits typed payload across micro-frontend boundaries with verified subscriber notification [All event pub/sub assertions pass with exit code 0]
+[ ] 5. 5. node scripts/verify_dynamic_remote.js --port 8089 --name DynamicPromoRemote: Host shell dynamically injects remote entry script, resolves federated export, and mounts component [Headless browser DOM confirms DynamicPromoRemote mounted inside host layout with exit code 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify live hosted demo with 1 host application and 2 independently deployed remote apps; passes when verified by automated test script or benchmark log.
-2. Verify error boundary fallback: host shell continues operating when 1 child app throws 500 error; passes when verified by automated test script or benchmark log.
-3. Verify shared runtime event bus allowing cross-microfrontend pub/sub communication; passes when verified by automated test script or benchmark log.
-4. Verify bundle analysis report showing shared vendor chunks and minimal payload sizes; passes when verified by automated test script or benchmark log.
-5. Verify documentation guide for adding a new micro-frontend service in < 15 minutes; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected federated micro-frontend host platform in React and TypeScript using Webpack Module Federation; maintained sub-[BUNDLE_SIZE] kilobyte initial host payload size, and achieved sub-[LOAD_LATENCY] remote component mount latency across throttled connections."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Architected federated micro-frontend platform with React and Webpack 5 Module Federation; enabled independent team deployments while slashing initial bundle size by 60%.; achieved [N] throughput with < [M ms] latency overhead across [K] test transactions."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

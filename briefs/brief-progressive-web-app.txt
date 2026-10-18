@@ -1,49 +1,48 @@
-PROJECT BRIEF — PWA with Service Worker, Push Notifications & App Shell
+PROJECT BRIEF — PRODUCTION PROGRESSIVE WEB APP (PWA) WITH WORKBOX SERVICE WORKER, INDEXEDDB OFFLINE MUTATION SYNC & WEB PUSH NOTIFICATIONS
 ======================================================================
 
-Domain    : Mobile Engineering
-Difficulty: INTERMEDIATE
-Est. Time : 28 hours
-Tech Stack: React, Workbox, Service Workers, Web Push API, IndexedDB
+Project ID  : brief-progressive-web-app
+Domain      : Mobile Engineering
+Difficulty  : INTERMEDIATE
+Est. Time   : 28 hours
+Tech Stack  : TypeScript, React, Workbox, Service Workers, IndexedDB, Web Push API
+Covered Gaps: TypeScript, React, Workbox, Service Workers, IndexedDB, Web Push API, Full-Stack Web, Mobile Engineering
 
-PROBLEM STATEMENT
-----------------------------------------
-Native mobile apps have 60% higher install friction than web apps, but web apps lack offline capability and push notifications. Build a Progressive Web App that provides native-like features: installable from browser, offline-first with Service Worker caching, background sync, and push notification support.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Native mobile applications impose substantial distribution friction, lengthy app store review cycles, and large download sizes, while standard responsive web applications break entirely when network connectivity drops. Users in areas with intermittent mobile coverage lose unsaved form inputs, encounter browser dinosaur error pages, and miss critical real-time alerts. This project builds a production-grade Progressive Web App (PWA) in TypeScript and React. The system implements an app-shell architecture precached via Workbox Service Workers, stores application data and offline mutation queues in browser IndexedDB, synchronizes queued transactions in the background upon network reconnection using the Background Sync API, and delivers timely transactional alerts via the Web Push API with VAPID authentication.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-Twitter Lite, top tech platforms PWA, and top tech platforms PWA demonstrate real-world PWA success. India's bandwidth-constrained markets benefit enormously from PWAs (50-80% smaller than native apps). Any company targeting users on mid-range phones with limited storage should consider PWAs.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Field Technician Maintenance Logging & Work Orders: Field service technicians inspecting remote wind turbines or basements frequently lose cellular signal while drafting maintenance reports. The PWA renders the precached app shell instantly offline, queues maintenance log submissions to IndexedDB, and automatically flushes queued updates to backend APIs once connectivity restores. | Warehouse Logistics Barcode Scanning & Inventory Auditing: Warehouse workers scanning physical inventory pallets in shielded distribution hubs need continuous UI responsiveness without network lag. The application persists inventory counts locally, updating quantities optimistically in the UI and synchronizing delta updates via background service worker sync. | Emergency Dispatch & Public Safety Broadcast Alerts: Municipal disaster relief teams require immediate real-time broadcast alerts on mobile web browsers even when the main app tab is closed. The service worker intercepts Web Push notifications using VAPID keys, rendering rich system notification badges and routing users to localized evacuation maps.
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-PWA technologies (Service Workers, Cache API, Web App Manifest, Push API) are browser primitives that most frontend engineers have never implemented. Demonstrating these shows understanding of the full web application platform beyond React component development.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Designing cache invalidation and stale-while-revalidate routing strategies with Workbox to eliminate stale app-shell bundles without serving broken assets Managing an append-only IndexedDB mutation queue that guarantees idempotent, FIFO transaction playback without duplicating orders upon reconnection Handling browser Web Push subscription lifecycles, VAPID public/private key cryptographic verification, and push service endpoint changes Architecting offline-first UI state synchronization in React that indicates network status changes with zero layout shift
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-PWA expertise is valuable at companies building for emerging markets (India's mid-range phone users), web-first products, and teams trying to bridge web and mobile experiences. Service Worker caching strategies and Web App Manifest configuration are specific frontend platform skills.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Clean TypeScript and React codebase cleanly separating UI views, Workbox service worker routing, IndexedDB storage adapters, and Web Push managers Lighthouse PWA audit achieving 100/100 PWA score and sub-1.2s First Contentful Paint (FCP) on simulated 4G mobile networks Anti-fake verification script simulating complete browser offline mode (navigator.onLine=false), queuing an order in IndexedDB, and verifying automatic API commit upon reconnection
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-React app with Workbox Service Worker implementing Cache-First strategy for static assets, Network-First for API calls. Background Sync API queueing failed requests for retry when online. Web Push notifications via VAPID keys. App Shell architecture loading immediately from cache. Lighthouse PWA audit achieving 100/100.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+The user loads the web app; the browser registers the Workbox service worker which precaches the app shell; user navigates between views; API data caches using a stale-while-revalidate strategy; if the device goes offline, network requests intercept and serve from IndexedDB or cache; when the user submits a form while offline, the payload writes to the IndexedDB mutation queue with a pending status and updates the UI optimistically; when network connectivity returns (via window online event or Background Sync), the service worker drains the queue in FIFO order, posts mutations to the backend API, and updates local record IDs; backend triggers Web Push events to display system notifications.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Lighthouse PWA Audit Compliance Score: Lighthouse PWA audit score is 100 out of 100 | Offline App Shell First Contentful Paint (FCP): p95 offline First Contentful Paint is < 650 milliseconds | Offline Mutation Queue Idempotent Reconnection Sync Rate: 50 of 50 offline mutations successfully synchronize with 0 duplicate submissions
 
-SKILLS COVERED
-----------------------------------------
-JavaScript, Service Workers, PWA, React, Web APIs, Performance
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. npx lighthouse http://localhost:3000 --output=json --output-path=./reports/lighthouse.json --only-categories=pwa: Lighthouse audit confirms service worker registration, offline loading, and scores >= 95 PWA score [PWA score >= 95 out of 100 with exit code 0]
+[ ] 2. 2. npm run test:offline-fcp: App shell renders completely from service worker cache with p95 FCP < 1,500ms [p95 FCP < 1500ms with exit code 0]
+[ ] 3. 3. npx playwright test tests/offline_sync.spec.ts: Mutations persist in IndexedDB and flush to mock API with 0 duplicates upon reconnection [50 of 50 mutations committed successfully with exit code 0]
+[ ] 4. 4. npm run test:push-notification: Service worker receives push event, verifies VAPID signature, and shows notification badge [Notification event received and displayed with exit code 0]
+[ ] 5. 5. npm run test:verify-offline-flow: Browser creates ticket in IndexedDB, displays pending sync badge, and commits to backend upon online event [Console confirms offline creation and successful online commit with exit code 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify lighthouse PWA audit: 100/100 score on installability, offline support, and performance; passes when verified by automated test script or benchmark log.
-2. Verify offline demo: disconnect network, app continues functioning with cached data; passes when verified by automated test script or benchmark log.
-3. Verify install prompt: browser shows 'Add to Home Screen' prompt on second visit; passes when verified by automated test script or benchmark log.
-4. Verify push notification received on device within 5 seconds of server-triggered push; passes when verified by automated test script or benchmark log.
-5. Verify background sync: form submission queued offline, submitted when connection restored; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected production Progressive Web App in TypeScript and React using Workbox service workers; achieved [LIGHTHOUSE_SCORE] Lighthouse PWA audit compliance, and maintained offline mutation reliability across [SYNC_TRANSACTIONS] queued offline transactions."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Built production PWA with Workbox Service Workers achieving Lighthouse 100/100 PWA score; delivered offline functionality, background sync, and push notifications with < 2s load on simulated 3G.; achieved [N] throughput with < [M ms] latency overhead across [K] test transactions."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

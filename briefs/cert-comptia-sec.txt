@@ -1,46 +1,48 @@
-CERTIFICATION PAGE — CompTIA Security+ (SY0-701)
+PROJECT BRIEF — COMPTIA SECURITY+ (SY0-701) CYBERSECURITY DEFENSE LAB & THREAT ANALYSIS FRAMEWORK
 ======================================================================
 
-Issuer    : CompTIA
-Domain    : Cybersecurity & Defense
-Difficulty: INTERMEDIATE
-Est. Time : 90 hours
-Skills    : Vulnerability Assessment, Threat Analysis, Zero Trust, Cryptography, Incident Response, Network Security
+Project ID  : cert-comptia-sec
+Domain      : Cybersecurity & Defense
+Difficulty  : INTERMEDIATE
+Est. Time   : 28 hours
+Tech Stack  : Linux, OpenSSL, Suricata, Docker, Python
+Covered Gaps: Linux, OpenSSL, Suricata, Docker, Python, Cybersecurity, Network Security, DevOps
 
-OVERVIEW & VALUE PROPOSITION
-----------------------------------------
-The globally recognized baseline cybersecurity credential establishing core knowledge in network security, risk management, threat mitigation, and enterprise compliance.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Security analysts and engineers preparing for the CompTIA Security+ (SY0-701) certification often memorize theoretical acronyms (CIA triad, NIST CSF, CVE, SIEM) without ever executing concrete vulnerability scans, analyzing network intrusion detection pcaps, or configuring role-based access control firewalls. Consequently, they lack practical capability when tasked with triaging Common Vulnerabilities and Exposures (CVEs), configuring Suricata intrusion detection signatures, or enforcing zero-trust authentication policies in enterprise Linux environments. This guide delivers a hands-on cybersecurity laboratory and defensive engineering suite. The engineer deploys a NIST CSF vulnerability scanning pipeline, configures Suricata IDS threat detection rules for real-time traffic analysis, enforces zero-trust Linux access controls, executes PKI cryptographic certificate verification, and triages simulated security incident alerts.
 
-EXAM FORMAT & PREREQUISITES
-----------------------------------------
-Maximum of 90 multiple-choice and performance-based PBQs in 90 minutes. Passing score: 750/900. Pearson VUE.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Automated Enterprise Vulnerability Assessment & CVE Triage: Corporate IT security teams must continuously scan software package inventories and operating system dependencies for newly disclosed vulnerabilities. The Python vulnerability scanner parses system package manifests against the NIST NVD database, calculating CVSS v3 severity scores and prioritizing critical patches. | Network Intrusion Detection & Malicious Traffic Signature Analysis: Security Operations Center (SOC) analysts monitoring enterprise perimeter networks need automated alert generation upon detecting malicious packet payloads. The Suricata IDS engine inspects network packet streams, matching traffic signatures against known attack rules (e.g. port scans, SQLi) and logging structured EVE JSON events. | Zero-Trust Role-Based Access Control & Linux Hardening: Financial compliance environments must prevent lateral movement and privilege escalation by enforcing strict least-privilege user authorization. The system applies Linux PAM (Pluggable Authentication Modules), strict sudoer permission matrices, and cryptographic SSH key-only authentication across server nodes.
 
-FEES & OFFICIAL PRICING
-----------------------------------------
-$404 USD standard exam fee. CompTIA Academic Store discount reduces fee to $262 USD.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Mapping the 5 core NIST Cybersecurity Framework (CSF) functions (Identify, Protect, Detect, Respond, Recover) to operational software tools Writing and tuning Suricata IDS signature rules to detect exploit patterns without producing flood-inducing false positive alerts Calculating CVSS v3.1 base score vectors and prioritizing remediation workflows against Common Weakness Enumerations (CWE) Hardening Linux operating system environments using non-root container contexts, iptables network firewalls, and auditd logging
 
-STUDENT AID & FEE WAIVER
-----------------------------------------
-Students with valid academic email (.edu or .ac.in) qualify for the CompTIA Academic Marketplace voucher waiver, saving over 40% on test fees.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Clean cybersecurity repository containing vulnerability scanner scripts, Suricata IDS rule sets, NIST CSF compliance matrices, and incident response runbooks Automated security assessment report identifying 10 of 10 seeded critical CVEs across synthetic software dependencies with exact CVSS score matching Anti-fake verification script replaying a malicious SQL injection payload and confirming Suricata IDS generates an alert in `fast.log` within 500ms
 
-SYLLABUS & CORE DOMAINS
-----------------------------------------
-1. General Security Concepts: CIA triad, Zero Trust architecture, and security controls
-2. Threats, Vulnerabilities & Mitigations: Malware analysis, social engineering, and CVE scoring
-3. Security Architecture: Network segmentation, VPNs, cloud defense, and resilience
-4. Security Operations: SIEM monitoring, log inspection, and digital incident response
-5. Security Program Management & Oversight: NIST CSF compliance, risk assessment, and audits
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+An auditor initiates the vulnerability scanning pipeline; the Python scanner ingests package manifests and queries CVE databases; vulnerabilities are prioritized by CVSS score; simultaneously, an attack simulation script injects synthetic malicious packets into a Docker network bridge; Suricata monitors the interface in real time; when a packet matches a threat signature, Suricata writes an alert to EVE JSON and fast.log; the security response harness parses the alert, correlates IP endpoints, and executes automated iptables firewall block rules; OpenSSL validates PKI certificate chains; documentation links results to NIST CSF controls.
 
-VALIDITY & RENEWAL POLICY
-----------------------------------------
-Valid for 3 years. Renewed by earning 50 Continuing Education Units (CEUs) or passing higher-tier certs.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Automated CVE Vulnerability Scanning & Risk Scoring Accuracy: 10 of 10 critical CVEs identified with exact CVSS base score parity and remediation guidance | Intrusion Detection System (IDS) Attack Signature Detection Rate: 50 of 50 malicious attack packets detected with alert generation in < 150 milliseconds | Zero-Trust RBAC Privilege Escalation Mitigation Rate: 50 of 50 unauthorized escalation attempts blocked with security audit log entry
 
-VERIFICATION METHOD
-----------------------------------------
-CompTIA CertMetrics transcript verification code and Credly digital credential badge.
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. python ./scripts/scan_vulnerabilities.py --manifest ./fixtures/packages.json: Scanner identifies 10 of 10 critical CVEs with CVSS base scores matching NIST ground truth [10 of 10 critical CVEs identified with exit code 0]
+[ ] 2. 2. python ./scripts/replay_attack_pcap.py --pcap ./fixtures/attacks.pcap: Suricata detects 50 of 50 attacks and writes alert entries to fast.log in < 500ms [50 of 50 attacks detected with exit code 0]
+[ ] 3. 3. ./scripts/test_privilege_escalation.sh: Linux security configuration blocks 50 of 50 escalation attempts with audit log record [50 of 50 attempts blocked with exit code 0]
+[ ] 4. 4. openssl verify -CAfile ./pki/ca_chain.pem ./pki/server_cert.pem: OpenSSL confirms certificate chain validity with OK status [Verification returns OK with exit code 0]
+[ ] 5. 5. python ./scripts/inject_payload.py --payload 'UNION SELECT username, password' --target http://localhost:8080: Suricata IDS detects pattern and writes alert SID 2010018 to fast.log within 500ms [Console confirms alert SID 2010018 detected with exit code 0]
 
-RESUME BULLET FORMULA
-----------------------------------------
-"CompTIA Security+ Certified (Verification: [CERT-ID]) — Executed network vulnerability assessments adhering to NIST CSF; remediated [14] critical CVEs and enforced Zero-Trust RBAC across Linux infrastructure."
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Implemented cybersecurity defense labs aligning with CompTIA Security+ standards; automated NIST CSF vulnerability assessments identifying [CVE_DETECTION_RATE] critical vulnerabilities, and deployed Suricata IDS detecting [ATTACK_DETECTION] of simulated network attacks."
 
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

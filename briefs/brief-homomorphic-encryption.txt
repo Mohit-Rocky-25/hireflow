@@ -1,49 +1,48 @@
-PROJECT BRIEF — Encrypted Database Queries with Homomorphic Encryption
+PROJECT BRIEF — CONFIDENTIAL DATABASE QUERY ENGINE WITH HOMOMORPHIC ENCRYPTION
 ======================================================================
 
-Domain    : Security & Platform
-Difficulty: ADVANCED
-Est. Time : 38 hours
-Tech Stack: Python, Microsoft SEAL, TenSEAL, PostgreSQL, Cryptography
+Project ID  : brief-homomorphic-encryption
+Domain      : Security & Platform
+Difficulty  : ADVANCED
+Est. Time   : 40 hours
+Tech Stack  : Python, PostgreSQL, Cryptography, Docker
+Covered Gaps: Python, PostgreSQL, Cryptography, Docker, Homomorphic Encryption, Security Engineering, Systems Programming
 
-PROBLEM STATEMENT
-----------------------------------------
-Database administrators with access to production databases can read all user data. Homomorphic Encryption (HE) allows computations on encrypted data without decryption. Build a prototype system demonstrating encrypted database aggregations (SUM, AVG) where the database server never sees plaintext values.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Traditional database encryption-at-rest models protect files on disk but force database servers to decrypt data into plaintext memory during query execution, exposing sensitive financial and healthcare records to rogue database administrators, memory-scraping malware, and cloud hypervisor compromises. Homomorphic Encryption (HE) solves this by enabling mathematical operations directly on ciphertexts without decryption. This project builds a confidential database query prototype in Python, TenSEAL, PostgreSQL, and Cryptography. The system encrypts sensitive numerical records client-side using BFV and CKKS homomorphic schemes, stores encrypted vector blobs in PostgreSQL, executes homomorphic SUM and AVG aggregations entirely on the server without plaintext access, and monitors ciphertext noise budgets to guarantee mathematical correctness upon client decryption.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-Healthcare data analytics (compute statistics over encrypted patient data), financial regulators (audit bank data without seeing individual transactions), cloud database providers offering confidential computing, and privacy-preserving ML training on sensitive datasets.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Healthcare research platforms aggregating encrypted patient clinical metrics across hospitals without HIPAA disclosures | Financial banking compliance audits verifying aggregate capital reserves without viewing individual customer balances | Confidential cloud database services offering zero-knowledge query processing on untrusted cloud infrastructure
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Homomorphic Encryption is at the frontier of applied cryptography. While fully practical HE is still emerging, understanding its properties, limitations, and use cases positions you at the intersection of cryptography and database engineering — a research-level skill that very few engineers possess.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Selecting and parameterizing BFV and CKKS homomorphic encryption polynomial modulus degrees and coefficient sizes Tracking and managing ciphertext noise budget consumption across successive multiplication and addition operations Executing homomorphic arithmetic operations across PostgreSQL bytea ciphertext vectors without memory exhaustion Guaranteeing zero plaintext information leakage in database query logs, execution buffers, and temporary storage
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Confidential computing, privacy-preserving computation, and applied cryptography are emerging specializations at companies like Intel (SGX), Google (Confidential VMs), and security startups. Understanding HE demonstrates cryptographic sophistication beyond standard TLS/JWT knowledge — immediately impressive to security and research engineering teams.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Clean Python codebase separating client cryptographic key managers, homomorphic arithmetic engines, and PostgreSQL storage handlers Zero-knowledge audit verifying that database query logs and server memory contain zero plaintext numerical records Anti-fake verification script inserting dynamic encrypted payroll records and verifying exact decrypted mathematical sum parity
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-Microsoft SEAL or TenSEAL (Python) implementing BFV/CKKS homomorphic encryption scheme. Encrypted integer database storing BFV-encrypted values. Server-side addition and multiplication on ciphertexts. Trusted client decrypting results. Performance benchmarking comparing HE overhead vs plaintext operations.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+The client Key Manager initializes BFV/CKKS cryptographic context parameters; public evaluation keys serialize and transmit to the server while private secret keys remain on the client; the client encrypts numerical records (e.g. salaries) and uploads ciphertext bytes to PostgreSQL; when an analytical query (e.g. SUM or AVG) arrives, the Confidential Evaluation Engine loads ciphertext byte arrays into memory; the engine performs homomorphic additions directly on ciphertexts without decryption; the resulting aggregated ciphertext byte buffer returns to the client; the client decrypts the payload using its private secret key, verifying noise budget and recovering the exact mathematical result.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Zero-Knowledge Plaintext Confidentiality Rate: 0 plaintext values discovered in database query logs or server memory buffers | Homomorphic Vector Addition Execution Latency: Execution completes in < 0.8 milliseconds per record pair | Decrypted Result Mathematical Precision Parity Rate: 100 of 100 batch aggregations match plaintext mathematical sum within 1e-4 tolerance
 
-SKILLS COVERED
-----------------------------------------
-Python, Cryptography, Privacy, Algorithms, Security, PostgreSQL
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. python -m confidential_db.audit_leakage: Inspection confirms zero plaintext numeric values exist in server query logs or memory dumps [0 plaintext values discovered with exit code 0]
+[ ] 2. 2. python scripts/benchmark_he_speed.py --records 1000 --op add: Homomorphic addition execution completes in < 2.5 milliseconds per record pair [Average operation latency is < 2.5 milliseconds]
+[ ] 3. 3. python -m confidential_db.test_precision: Decrypted client sums match exact plaintext mathematical calculations within 1e-4 tolerance [100 of 100 batch precision tests pass within tolerance with exit code 0]
+[ ] 4. 4. curl http://localhost:8000/api/query/encrypted_sum?column=payroll: Server returns serialized ciphertext byte buffer without possessing decryption keys [Response status is 200 and ciphertext bytes field is non-empty]
+[ ] 5. 5. python scripts/verify_dynamic_he.py --values 1000,2000,3000,4000,5000: Server computes encrypted sum; client decrypts payload to exactly $15,000.00 while server logs show only ciphertext [Decrypted sum equals 15000.00, server log contains zero plaintext, exit code 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify sum of 1000 encrypted values equals sum computed on plaintext values; passes when verified by automated test script or benchmark log.
-2. Verify server-side computation: database never accesses decryption key; passes when verified by automated test script or benchmark log.
-3. Verify performance benchmark documenting 1000x overhead with analysis of when HE is practical; passes when verified by automated test script or benchmark log.
-4. Verify cKKS scheme demonstration for approximate arithmetic on floating-point encrypted data; passes when verified by automated test script or benchmark log.
-5. Verify architectural writeup documenting current HE limitations and use case guidelines; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected confidential database query engine in Python and PostgreSQL using Homomorphic Encryption; executed encrypted aggregations without plaintext leakage across [RECORD_COUNT] records, and delivered sub-[ADDITION_LATENCY] encrypted addition latency with verified mathematical precision."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Engineered prototyped homomorphic encryption system using Microsoft SEAL/TenSEAL; demonstrated encrypted database SUM across [N] req/sec ciphertexts with provably correct results and documented HE performance tradeoffs for practical use case selection."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

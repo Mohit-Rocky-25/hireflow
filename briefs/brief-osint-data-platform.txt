@@ -1,49 +1,48 @@
-PROJECT BRIEF — Competitive Intelligence Web Scraping & Analysis Platform
+PROJECT BRIEF — DISTRIBUTED WEB INTELLIGENCE CRAWLING & CHANGE DETECTION PLATFORM WITH PLAYWRIGHT, CELERY & REDIS BLOOM FILTERS
 ======================================================================
 
-Domain    : Data Engineering
-Difficulty: INTERMEDIATE
-Est. Time : 28 hours
-Tech Stack: Python, Scrapy, Playwright, Kafka, Redis, PostgreSQL
+Project ID  : brief-osint-data-platform
+Domain      : Data Engineering
+Difficulty  : INTERMEDIATE
+Est. Time   : 28 hours
+Tech Stack  : Python, Playwright, PostgreSQL, FastAPI, Celery, Redis
+Covered Gaps: Python, Playwright, PostgreSQL, FastAPI, Celery, Redis, Data Pipelines, Web Scraping
 
-PROBLEM STATEMENT
-----------------------------------------
-Businesses manually monitor competitor pricing, job postings, and product changes — a time-consuming and error-prone process. Build a distributed web scraping and intelligence platform that monitors target websites for changes, extracts structured data, and sends real-time alerts on significant changes.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Manual competitive market monitoring is error-prone, unscalable, and blind to dynamic client-side DOM mutations. Naive HTTP scrapers fail completely on modern Single Page Applications (SPAs) that require JavaScript execution, trigger immediate IP bans due to uncoordinated request rates, and repeatedly re-crawl identical URLs wasting network bandwidth. This project builds a distributed web intelligence crawling and change detection platform in Python. The system coordinates headless browser scraping using Playwright and Celery worker queues, prevents duplicate URL crawls using Redis Bloom filters, stores structured page entity snapshots in PostgreSQL, computes content and structural DOM diffs, and sends automated webhook alerts upon detecting significant changes.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-Competitive price monitoring (top tech platforms/top tech platforms seller tools), job market intelligence (LinkedIn scraping for talent insights), real estate price tracking, stock analyst data gathering, and market research at consulting firms. Companies like SimilarWeb, Semrush, and Bombora are multi-billion-dollar businesses built on this.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+E-Commerce Competitor Price & Stock Monitoring: Retail pricing intelligence teams need to monitor thousands of competitor product listings daily to adjust promotional pricing dynamically. The crawler executes headless browser sessions, extracts live pricing and stock availability from dynamic JavaScript storefronts, and flags price changes in PostgreSQL. | Technology Job Market Skill Trend Intelligence: Workforce planning analysts require structured insights into evolving technical requirements across corporate career portals and job boards. The platform schedules periodic crawls of designated employer domains, parses required engineering competencies, and aggregates monthly technology demand trends. | Corporate Regulatory Disclosure & Policy Tracking: Compliance auditing teams must track updates across governmental regulatory portal announcements and corporate privacy policy terms. The engine computes structural semantic diffs across crawled policy page snapshots, dispatching immediate notification summaries when legal clauses are revised.
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Production web scraping requires handling bot detection, dynamic JavaScript rendering, rate limiting, proxy rotation, and distributed crawl scheduling — significantly harder than simple HTTP requests. This project demonstrates practical distributed systems skills applied to a high-demand business use case.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Orchestrating headless Playwright browser contexts in Celery worker processes with strict memory recycling to prevent browser zombie leaks Implementing scalable URL deduplication using space-efficient Redis Bloom filters across millions of discovered web hyperlinks Designing semantic DOM diffing algorithms that ignore dynamic ad trackers and timestamps while accurately detecting substantive text/price changes Enforcing per-domain rate limiting and polite crawl delays with exponential backoff to avoid IP blocks
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Data acquisition and web scraping platforms are used by every data-driven company for competitive intelligence. Scrapy, Playwright, proxy management, and anti-detection techniques are specialized but highly valued skills. Shows you can build data pipelines with real-world constraints.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Clean Python codebase cleanly separating crawler task queues, Playwright browser managers, Bloom filter utilities, and diff engines Automated load benchmark report verifying 120+ pages per minute extraction throughput across headless JavaScript workers Anti-fake verification script dynamically modifying a target mock SPA product price and verifying the platform detects the delta and emits a change event
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-Scrapy-based distributed crawler with Playwright for JavaScript-rendered pages. Redis Bloom filter for URL deduplication across crawler instances. Kafka queue for discovered URLs with priority queuing. PostgreSQL for structured data storage. Change detection using content hashing with diff computation. Email/Slack alerts on detected changes.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+Users register target URLs via the FastAPI endpoint; the scheduler checks the Redis Bloom filter; if the URL has not been crawled in the current cycle, a task dispatches to the Celery queue; a Celery worker launches a Playwright Chromium context, navigates to the target page, waits for network idle, and extracts structured JSON attributes; the worker writes the raw snapshot to PostgreSQL; the diff engine computes a SHA-256 hash and compares with the previous crawl; if changes are detected, a semantic diff generates and triggers a notification webhook.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Dynamic JavaScript Page Extraction Throughput: Crawling extraction throughput is >= 280 pages per minute | Redis Bloom Filter URL Deduplication Accuracy: Deduplication accuracy is >= 99.8% with false positive suppression < 0.2% | Change Detection Webhook Notification Latency: Average notification dispatch latency is < 3.2 seconds across 20 trials
 
-SKILLS COVERED
-----------------------------------------
-Python, Scrapy, PostgreSQL, Kafka, Redis, Data Pipelines
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. python -m crawler.benchmark_throughput --pages 500 --workers 4: Celery workers scrape and persist pages with throughput >= 120 pages per minute [Extraction throughput >= 120 pages/min with exit code 0]
+[ ] 2. 2. python -m crawler.test_bloom_filter --total 5000 --distinct 1000: Bloom filter suppresses duplicate URLs with deduplication accuracy >= 99.0% [Deduplication accuracy >= 99.0% with exit code 0]
+[ ] 3. 3. python scripts/test_change_alerts.py --trials 20: System detects DOM price changes and dispatches webhook alerts with average latency < 10.0s [Average alert latency < 10.0s across 20 trials with exit code 0]
+[ ] 4. 4. curl http://localhost:8000/api/v1/snapshots?url=http://mock-store.local/item/42: Server returns structured JSON payload containing title, price, currency, and timestamp [Response status is 200 and JSON contains non-empty price and title fields]
+[ ] 5. 5. python scripts/verify_dynamic_scrape.py --item-id 882 --new-price 29.99: Worker crawls page, diff engine computes $20 price drop, and emits alert webhook payload [Alert webhook confirms price change from 49.99 to 29.99 detected with exit code 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify javaScript-rendered page extraction working on React/Vue SPA target sites; passes when verified by automated test script or benchmark log.
-2. Verify deduplication: Bloom filter ensuring each URL crawled exactly once per 24h cycle; passes when verified by automated test script or benchmark log.
-3. Verify change detection: diff between yesterday and today's content with semantic diff; passes when verified by automated test script or benchmark log.
-4. Verify structured data extraction: product name, price, and availability from 3 e-commerce sites; passes when verified by automated test script or benchmark log.
-5. Verify alert notification within 15 minutes of target page content change; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected distributed web intelligence crawling platform in Python using Playwright and Celery; achieved [CRAWL_THROUGHPUT] pages per minute extraction throughput across dynamic pages, and delivered sub-[ALERT_LATENCY] second change detection notification latency."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Built distributed web intelligence platform with Scrapy, Playwright, and Kafka; processed [N] req/sec pages/hour with Bloom filter deduplication and 15-minute change detection alerting at 95% extraction accuracy."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

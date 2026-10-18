@@ -1,49 +1,48 @@
-PROJECT BRIEF — Apache Spark Streaming ETL with Delta Lake
+PROJECT BRIEF — REAL-TIME LAKEHOUSE STREAMING ETL PIPELINE WITH APACHE SPARK, DELTA LAKE, KAFKA & MINIO
 ======================================================================
 
-Domain    : Data Engineering
-Difficulty: ADVANCED
-Est. Time : 38 hours
-Tech Stack: Python, Apache Spark, Delta Lake, Kafka, AWS S3, SQL
+Project ID  : brief-streaming-data-pipeline
+Domain      : Data Engineering
+Difficulty  : ADVANCED
+Est. Time   : 40 hours
+Tech Stack  : Python, Apache Spark, Delta Lake, Kafka, MinIO, SQL
+Covered Gaps: Python, Apache Spark, Delta Lake, Kafka, MinIO, SQL, Data Engineering, Streaming Systems
 
-PROBLEM STATEMENT
-----------------------------------------
-Data warehouses accumulate data in nightly batch jobs, creating a 24-hour information lag that prevents real-time business intelligence. Build a real-time streaming ETL pipeline using Spark Structured Streaming that ingests Kafka events, transforms them, and writes to Delta Lake tables with ACID guarantees.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Traditional corporate data platforms relying on overnight batch ETL jobs inflict a 24-hour analytical lag on decision makers, preventing fraud detection, inventory rebalancing, and live operational monitoring. Naive streaming architectures built on raw object storage suffer from dirty reads, duplicate event writes, corrupt file fragmentation (the small-file problem), and lack of ACID transactional guarantees when streaming jobs fail mid-microbatch. This project builds a production-grade real-time lakehouse streaming ETL pipeline in Python using Apache Spark Structured Streaming, Delta Lake, and Apache Kafka. The pipeline ingests high-velocity events into a Medallion architecture (Bronze raw, Silver cleaned/deduplicated, Gold aggregated business marts), enforces ACID transactions with Delta Lake write-ahead logs, executes stateful stream-stream joins with event-time watermarking, and stores Parquet datasets in MinIO (S3-compatible) object storage with sub-5s end-to-end latency.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-Every company with a data warehouse moving from batch to real-time: top tech platforms's analytics, top tech platforms's demand forecasting, Ola's driver supply optimization. Delta Lake is standard at Databricks customers, which includes 50%+ of Fortune 500 companies and most large Indian tech companies.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+FinTech Fraud Detection & Live Transaction Scoring: Credit card networks processing thousands of point-of-sale swipes per second must detect fraudulent spending bursts across merchant categories. The streaming pipeline consumes transaction events from Kafka, dedupes events using watermarks in Spark, and updates rolling user spending profiles in Delta Lake tables within 4 seconds. | Ride-Hailing Dynamic Surge Pricing & Supply Balancing: Urban ride-hailing platforms need to match passenger ride requests with available driver locations in localized geographic zones. The Spark engine executes stateful stream-stream joins between passenger requests and driver GPS pings, computing localized supply-demand ratios in real time. | E-Commerce Real-Time Inventory Ledger Reconciliation: Retail fulfillment systems distributing orders across multiple regional warehouses need an immutable audit ledger of stock decrements. The system writes ACID micro-batches to Delta Lake, guaranteeing exactly-once semantics and supporting historical time-travel audit queries for financial compliance.
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-The Lakehouse architecture (Delta Lake) is replacing traditional data warehouses industry-wide. Understanding Spark Structured Streaming, schema evolution, upserts, and time travel queries positions you at the cutting edge of modern data engineering — skills that command ₹25-60 LPA in India.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Configuring Apache Spark Structured Streaming watermarks and event-time stateful operations to handle late-arriving events without unbounded memory leaks Enforcing Delta Lake ACID transaction guarantees with optimistic concurrency control and idempotent checkpointing during simulated node crashes Implementing automatic small-file compaction (OPTIMIZE / bin-packing) on streaming Delta tables to prevent query degradation over millions of Parquet files Structuring the Medallion architecture (Bronze raw ingestion, Silver deduplicated data cleaning, Gold continuous aggregate rollups) with Delta schema evolution
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Databricks, Delta Lake, and Spark Structured Streaming are the exact keywords in top Data Engineering JDs at Myntra, top tech platforms, InMobi, and most large tech companies. A working streaming pipeline with ACID guarantees and schema evolution immediately signals senior Data Engineer readiness.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Clean Python codebase cleanly separating Kafka ingestion schemas, Spark Structured Streaming jobs, Delta Lake table definitions, and MinIO storage configs Streaming benchmark proving sustained ingestion of 15,000+ events per second with sub-5s end-to-end processing latency from Kafka to Delta Gold Anti-fake verification script injecting 10 duplicate events with identical transaction IDs and 5 late-arriving events, asserting exactly-once deduplication in the Silver table
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-Kafka source streaming events into Spark Structured Streaming jobs. Schema evolution handling with Delta Lake schema merge. Incremental ETL with watermarking for late-arriving data. Delta table time-travel queries for point-in-time recovery. Databricks or local Spark cluster deployment.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+Producers publish transaction events to Kafka; Spark Structured Streaming consumes events and writes raw payloads to the Bronze Delta table in MinIO; a secondary streaming query reads Bronze, applies a 10-minute watermark on event_time, deduplicates transactions by transaction_id, validates schemas, and appends to the Silver Delta table; a third streaming query computes 5-minute sliding window aggregations (total volume, merchant counts), writing to the Gold Delta table; downstream analytical BI dashboards query Gold Delta tables using Spark SQL; if a worker fails, Spark resumes from the S3 checkpoint with zero duplicate records.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Sustained Streaming Event Ingestion Throughput: Sustained streaming throughput is >= 22,000 events per second | End-to-End Event-to-Gold Commit Latency: p95 end-to-end processing latency is < 3.2 seconds | Event-Time Watermark Deduplication Parity Rate: 50 of 50 duplicate events successfully dropped with exactly 1 record per transaction in Silver table
 
-SKILLS COVERED
-----------------------------------------
-Python, Spark, Delta Lake, Kafka, SQL, Cloud
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. python ./benchmarks/bench_streaming.py --events 100000 --rate 15000: Pipeline processes events with sustained throughput >= 10,000 events/sec into Delta Lake [Throughput >= 10000 events/sec with exit code 0]
+[ ] 2. 2. python ./benchmarks/bench_latency.py --events 5000 --trigger-interval 2s: Events appear in Gold Delta table with p95 end-to-end latency < 6.0 seconds [p95 latency < 6.0s with exit code 0]
+[ ] 3. 3. python ./tests/test_watermark_dedup.py --duplicates 50: Silver Delta table contains exactly 50 records; all duplicates dropped by Spark Structured Streaming [Silver table record count matches ground truth with exit code 0]
+[ ] 4. 4. python ./tests/test_checkpoint_recovery.py --kill-worker: Spark restarts from MinIO checkpoint with 0 missing records and 0 duplicate records committed [Pipeline recovers cleanly with valid transaction logs and exit code 0]
+[ ] 5. 5. python ./scripts/verify_exact_dedup.py --tx-id tx_test_999 --delay 5: Bronze table records 2 raw rows; Silver table contains exactly 1 deduplicated row [Console confirms exactly 1 row in Silver for tx_test_999 with exit code 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify spark streaming job handling late-arriving events via watermarking (up to 10 min delay); passes when verified by automated test script or benchmark log.
-2. Verify delta Lake MERGE operation implementing upsert (insert or update) semantics; passes when verified by automated test script or benchmark log.
-3. Verify schema evolution test: add new column to Kafka event schema without breaking pipeline; passes when verified by automated test script or benchmark log.
-4. Verify time travel query recovering data state from 1 hour ago via Delta table versioning; passes when verified by automated test script or benchmark log.
-5. Verify end-to-end latency benchmark from Kafka produce to Delta table availability; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected continuous lakehouse streaming ETL pipeline in Python with Apache Spark, Delta Lake, and Kafka; sustained [STREAM_THROUGHPUT] events per second ingestion throughput, and delivered sub-[STREAM_LATENCY] second end-to-end processing latency."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Built Spark Structured Streaming ETL pipeline with Delta Lake ACID guarantees; processed [N] req/sec events/sec with 30s latency and schema-evolution-safe upserts supporting time-travel queries."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

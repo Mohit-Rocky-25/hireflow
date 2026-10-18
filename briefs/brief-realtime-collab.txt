@@ -1,49 +1,48 @@
-PROJECT BRIEF — Real-Time Collaborative Document Canvas
+PROJECT BRIEF — REAL-TIME COLLABORATIVE DOCUMENT CANVAS IN TYPESCRIPT WITH YJS CRDTS, WEBSOCKETS & INDEXEDDB OFFLINE SYNC
 ======================================================================
 
-Domain    : Full-Stack Web
-Difficulty: ADVANCED
-Est. Time : 38 hours
-Tech Stack: TypeScript, React, WebSockets, Node.js, Yjs, IndexedDB
+Project ID  : brief-realtime-collab
+Domain      : Full-Stack Web
+Difficulty  : ADVANCED
+Est. Time   : 40 hours
+Tech Stack  : TypeScript, React, WebSockets, Node.js, Yjs, IndexedDB
+Covered Gaps: TypeScript, React, WebSockets, Node.js, Yjs, IndexedDB, Full-Stack Web, CRDTs
 
-PROBLEM STATEMENT
-----------------------------------------
-Concurrent document editors suffer from conflict desynchronization and high latency over lossy networks. When two users edit the same line simultaneously, naive approaches lose one edit entirely. Build a zero-conflict collaborative whiteboard or markdown editor where remote edits seamlessly converge using Conflict-free Replicated Data Types (CRDTs).
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Collaborative web applications (digital whiteboards, multi-cursor document editors, and design canvases) suffer from text jumping, cursor desynchronization, and silent data loss when multiple users edit concurrently over high-latency or intermittent networks. Centralized lock-based synchronization introduces unacceptable UI freezes, while naive operational transformation (OT) engines require complex central coordination servers that fail when network connections drop. This project builds a production-grade real-time collaborative document and canvas editor in TypeScript and React. The system resolves concurrent character and geometric mutations deterministically using Yjs Conflict-Free Replicated Data Types (CRDTs), streams binary update vectors over WebSockets with sub-25ms latency, stores local document snapshots and uncommitted deltas in IndexedDB, and renders multi-peer awareness presence cursors with zero layout stutter.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-Notion, Figma, Google Docs, and Miro all solve this exact problem at scale. In the Indian market, startups like Springworks and Leena AI are building collaborative HR tools that need real-time sync. Any B2B SaaS product with collaboration features faces this challenge.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Cross-Functional Digital Architecture Whiteboard: Distributed engineering and design teams sketching system architecture diagrams need to co-edit geometric nodes and connectors simultaneously without locking. The canvas syncs Yjs shared map data structures over WebSockets, converging node positions deterministically even when two engineers move the same node concurrently. | Multi-Author Collaborative Rich-Text Policy Drafting: Legal counsel and compliance officers co-drafting regulatory compliance policies need seamless real-time typing with character-level attribution. The editor binds Yjs shared text types to rich-text views, rendering peer presence cursors and merging concurrent typing deltas without character transposition. | Offline-to-Online Field Operations Report Collaboration: Emergency response coordinators drafting incident mitigation plans frequently lose Wi-Fi connectivity while walking between disaster command centers. The web app persists document updates locally in IndexedDB, automatically synchronizing state vectors and converging with remote edits upon network reconnection.
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Most developers can build a chat app — very few can build a system where concurrent edits converge correctly. CRDTs represent a deep understanding of distributed consistency, mathematical convergence properties, and operational transformation — rare skills that signal a senior-level engineering mindset.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Integrating Yjs binary CRDT state vector encoding with custom React state hooks without causing excessive DOM re-renders during high-frequency typing Managing ephemeral user awareness states (cursor coordinates, active selection spans, user profile avatars) over WebSockets with automatic timeout cleanup Designing an IndexedDB storage adapter that caches compact document snapshots and replays uncommitted CRDT delta buffers upon browser reload Handling complex concurrent editing conflicts (simultaneous text insertions, deletions, and block repositioning) while maintaining mathematical convergence across 50 simulated clients
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Shows understanding of distributed data structures, WebSocket protocols, and offline-first architecture. This is what separates frontend engineers from frontend architects. Directly relevant to Notion, Linear, Figma, and any real-time SaaS product interview.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Clean TypeScript codebase cleanly separating React canvas UI components, Yjs CRDT state bindings, WebSocket room synchronizers, and IndexedDB storage adapters Multi-client concurrent chaos test report proving 100 of 100 simulated conflicting edits converge to mathematically identical document state across 5 concurrent peers Anti-fake verification script simulating two partitioned clients concurrently inserting conflicting words at index 0, reconnecting, and asserting identical converged text across both browser instances
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-React frontend using Canvas API / Yjs state model connected over WebSocket channels to a Node.js sync server. Implements state-based CRDTs with presence awareness (live cursor coordinates, user avatars) and local-first indexedDB offline persistence.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+A user types a character in the React editor; the local Yjs binding generates a compact binary update vector and writes it to IndexedDB in < 10ms; the WebSocket synchronizer streams the binary payload over WebSockets; the Node.js room coordinator verifies the frame, saves it to the document update log, and broadcasts the frame to all other peers in the room; remote peers apply the update to their local Y.Doc instances, which deterministically merges the change and updates the React DOM via Yjs event listeners; simultaneously, mouse movements stream awareness updates (x, y coordinates) to render animated peer cursor flags.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Cross-Client Real-Time Delta Propagation Latency: p95 cross-client update propagation latency is < 18.0 milliseconds | Concurrent Conflict Resolution Convergence Rate: 50 of 50 conflict trials achieve identical converged state across each of 5 clients | Offline Cold-Start Document Reload Latency: p95 offline document restoration latency is < 16.5 milliseconds
 
-SKILLS COVERED
-----------------------------------------
-TypeScript, React, WebSockets, Node.js, CRDT, Algorithms
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. npm run bench:delta-latency -- --mutations 1000: WebSocket streams deltas with p95 cross-client update latency < 45.0ms [p95 latency < 45.0ms with exit code 0]
+[ ] 2. 2. npm run test:chaos-convergence -- --trials 50 --clients 5: 50 of 50 trials achieve identical converged document content across each of 5 clients [50 of 50 trials converge with exit code 0]
+[ ] 3. 3. npm run test:offline-reload: IndexedDB adapter loads and parses cached Y.Doc binary state in < 50.0ms [Reload latency < 50.0ms with exit code 0]
+[ ] 4. 4. npm run test:presence-cursors -- --clients 5: WebSocket broadcasts awareness state; all 5 clients render active peer cursor coordinates [5 active cursor positions verified with exit code 0]
+[ ] 5. 5. node ./scripts/verify_dynamic_crdt.js --clientA-text 'Alpha ' --clientB-text 'Beta ': Upon reconnection, both clients converge to mathematically identical string (e.g. 'Alpha Beta ') [Console confirms identical text on both clients with exit code 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify live deployed demo on Vercel/Render with multi-window link sharing; passes when verified by automated test script or benchmark log.
-2. Verify offline resilience demo: disconnect Wi-Fi, edit locally, reconnect without data loss; passes when verified by automated test script or benchmark log.
-3. Verify cursor broadcast with smooth interpolation and color-coded user badges; passes when verified by automated test script or benchmark log.
-4. Verify test suite verifying CRDT convergence across out-of-order packet delivery; passes when verified by automated test script or benchmark log.
-5. Verify architecture document explaining operational transformation vs CRDT tradeoffs; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected collaborative canvas application in TypeScript and React using Yjs CRDTs; delivered sub-[PROPAGATION_LATENCY] millisecond cross-client update propagation, and maintained document convergence across [CONFLICT_TRIALS] concurrent editing trials."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Architected real-time collaborative editor in TypeScript, React, and WebSockets using Yjs CRDTs; enabled conflict-free multi-user editing with < [M ms] broadcast sync and full offline resilience."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

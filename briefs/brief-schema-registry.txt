@@ -1,49 +1,48 @@
-PROJECT BRIEF — Event Schema Registry & Contract Testing Platform
+PROJECT BRIEF — EVENT SCHEMA REGISTRY & CONTRACT TESTING PLATFORM WITH PYTHON, KAFKA, APACHE AVRO & FASTAPI
 ======================================================================
 
-Domain    : Data Engineering
-Difficulty: INTERMEDIATE
-Est. Time : 28 hours
-Tech Stack: Python, Kafka, Avro, FastAPI, PostgreSQL, Confluent
+Project ID  : brief-schema-registry
+Domain      : Data Engineering
+Difficulty  : INTERMEDIATE
+Est. Time   : 28 hours
+Tech Stack  : Python, Kafka, Avro, FastAPI, PostgreSQL, Docker
+Covered Gaps: Python, Kafka, Avro, FastAPI, PostgreSQL, Docker, Data Engineering, Event-Driven Architecture
 
-PROBLEM STATEMENT
-----------------------------------------
-Microservices publishing and consuming Kafka events break silently when producers change event schemas without notifying consumers. Build a centralized schema registry that enforces backward-compatible schema evolution, generates type-safe consumer contracts, and validates events at runtime.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Microservice topologies publishing and consuming high-velocity streaming events over Apache Kafka experience catastrophic silent pipeline failures, downstream consumer crashes, and data lake corruption when producer services deploy schema modifications without coordinating changes. Lack of centralized schema governance results in breaking field deletions, incompatible data type mutations, and untraceable payload drift across polyglot service teams. This project builds a production-grade centralized schema registry and event contract testing platform in Python. The system registers and versions Apache Avro schemas, enforces strict compatibility validation rules (BACKWARD, FORWARD, FULL, NONE), assigns global monotonically increasing schema IDs, persists schema definitions in PostgreSQL, provides a high-throughput REST API in FastAPI, and supplies serializer/deserializer interceptors for Kafka producers and consumers.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-Confluent Schema Registry solves this commercially. Every company running Kafka at scale (LinkedIn, Twitter, top tech platforms) has a schema registry. Confluent's schema registry is a $7B+ business built on this problem. Directly applicable to data platform engineering at any Kafka-based architecture.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Financial Transaction Payment Event Governance: Core banking microservices streaming debit card authorization events must ensure downstream fraud detection engines never receive malformed payloads. The schema registry intercepts outgoing payment messages, validating Avro schemas against registered contract versions before publishing to production Kafka topics. | Continuous Delivery Pipeline Contract Compatibility Gate: Platform CI/CD pipelines need automated contract verification to block deployments of producer microservices that introduce breaking schema modifications. The registry CLI runs pre-deployment compatibility checks against existing consumer versions, failing CI jobs with detailed diffs when non-backward-compatible changes are detected. | Enterprise Data Lake Analytics Ingestion Parity: Data engineering teams consuming Kafka topics into analytical warehouses require consistent schema history to maintain partition evolution without table re-writes. The registry assigns unique 4-byte schema IDs embedded in message wire framing, allowing warehouse loaders to parse diverse event versions deterministically.
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Schema evolution is a real production problem that causes data pipeline failures. Understanding Avro schema evolution rules, backward/forward/full compatibility, and contract testing patterns demonstrates data engineering maturity that is rare among engineers who have only worked on simpler pipelines.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Implementing comprehensive Apache Avro schema compatibility validation algorithms (BACKWARD, FORWARD, FULL, and transitive variants) according to the Avro specification Designing confluent-wire-format binary serializers and deserializers that encode a magic byte and 4-byte global schema ID prefix with sub-millisecond serialization overhead Managing concurrent schema registration race conditions in PostgreSQL to guarantee unique version numbers and avoid duplicate schema fingerprint allocations Building an automated contract testing suite in Python that simulates evolving producer/consumer deployments across 10 distinct schema lifecycle iterations
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Confluent Schema Registry, Avro, and event contract testing are specific data platform skills. Engineers who understand schema compatibility levels and can implement them are immediately productive on Kafka-based data platforms at top tech platforms, top tech platforms, and any data-intensive company.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Clean Python codebase cleanly separating Avro compatibility algorithms, REST API routers, PostgreSQL storage repositories, and Kafka serializer interceptors High-throughput benchmark report proving sub-10ms schema validation and registration latency under 500 concurrent registration requests per second Anti-fake verification script attempting to register an incompatible breaking schema (removing a required field without default value) under BACKWARD mode and asserting HTTP 409 Conflict with detailed field diff
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-FastAPI schema registry storing versioned Avro/JSON schemas in PostgreSQL. Compatibility checker enforcing BACKWARD/FORWARD/FULL compatibility rules on schema updates. Kafka producer client library validating events against registered schema before publish. Consumer library decoding events with schema version from message header.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+A producer prepares to emit a Kafka event; the serializer checks its local schema cache; if missing, it calls FastAPI `POST /subjects/{subject}/versions` with the Avro schema; the registry queries PostgreSQL for the latest version; the compatibility engine validates that the candidate complies with the subject's mode (e.g. BACKWARD); if valid, it assigns a global schema ID (or returns the existing ID) and persists to PostgreSQL; the producer encodes the magic byte and 4-byte schema ID followed by the Avro binary payload and sends to Kafka; consumer interceptors read the 4-byte ID from the header, fetch the schema from the registry, and deserialize the payload safely.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Schema Registration & Compatibility Validation Latency: p95 registration and validation latency is < 9.5 milliseconds | Kafka Avro Wire Serialization & Deserialization Overhead: p95 serialization and deserialization overhead is < 0.65 milliseconds per event | Incompatible Breaking Schema Rejection Parity Rate: 50 of 50 breaking schema mutations rejected with detailed field conflict reasons
 
-SKILLS COVERED
-----------------------------------------
-Python, Kafka, Avro, FastAPI, PostgreSQL, REST APIs
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. python ./benchmarks/bench_registry.py --requests 1000 --concurrency 10: Registry validates and commits schemas with p95 latency < 25.0ms and 0 HTTP errors [p95 latency < 25.0ms with exit code 0]
+[ ] 2. 2. python ./benchmarks/bench_wire_serializer.py --events 50000: Serializer encodes and decodes wire payloads with average overhead < 2.0ms per event [Average overhead < 2.0ms with exit code 0]
+[ ] 3. 3. python ./tests/test_compatibility_matrix.py --mode BACKWARD: Validator rejects all 50 breaking schemas and outputs specific conflicting field names [50 of 50 breaking schemas rejected with exit code 0]
+[ ] 4. 4. python ./cli/schema_ctl.py validate --subject payment-events --schema ./schemas/payment_v2.avsc: CLI outputs 'COMPATIBLE: Schema satisfies BACKWARD compatibility' with exit code 0 [Output displays COMPATIBLE status with exit code 0]
+[ ] 5. 5. python ./scripts/verify_breaking_rejection.py --subject user-events --schema-diff remove_account_id: API responds with HTTP 409 Conflict, stating 'Field account_id was removed without default value' [Console confirms HTTP 409 and specific field diff error with exit code 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify backward compatibility: new schema version accepted if consumers on old version still work; passes when verified by automated test script or benchmark log.
-2. Verify breaking change rejection: removing required field correctly blocked at registry level; passes when verified by automated test script or benchmark log.
-3. Verify message validation: invalid message rejected before reaching Kafka topic; passes when verified by automated test script or benchmark log.
-4. Verify schema evolution history: full diff between any two versions of same schema; passes when verified by automated test script or benchmark log.
-5. Verify consumer contract test: auto-generated consumer tests verifying message deserialization; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected event schema registry in Python using FastAPI, Apache Avro, and Kafka; delivered sub-[REGISTRATION_LATENCY] millisecond schema validation latency, and eliminated breaking downstream events across [TEST_MUTATIONS] contract compatibility mutations."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Built event schema registry with Avro compatibility enforcement; blocked 100% of breaking schema changes at registration time and validated [N] req/sec Kafka messages/sec via schema cache with schema evolution audit history."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

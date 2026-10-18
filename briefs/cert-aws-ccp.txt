@@ -1,45 +1,48 @@
-CERTIFICATION PAGE — AWS Certified Cloud Practitioner (CLF-C02)
+PROJECT BRIEF — AWS CERTIFIED CLOUD PRACTITIONER (CLF-C02) HANDS-ON LAB & CLOUD FOUNDATION ARCHITECTURE
 ======================================================================
 
-Issuer    : Amazon Web Services (AWS)
-Domain    : Cloud Architecture & DevOps
-Difficulty: BEGINNER
-Est. Time : 40 hours
-Skills    : AWS IAM, Cloud Economics, EC2 & S3, Shared Responsibility Model, VPC Networking
+Project ID  : cert-aws-ccp
+Domain      : Cloud Architecture & DevOps
+Difficulty  : BEGINNER
+Est. Time   : 16 hours
+Tech Stack  : AWS IAM, Amazon EC2, Amazon S3, AWS VPC, CloudWatch, LocalStack, AWS CLI
+Covered Gaps: AWS IAM, Amazon EC2, Amazon S3, AWS VPC, CloudWatch, LocalStack, AWS CLI, DevOps, Cloud Architecture
 
-OVERVIEW & VALUE PROPOSITION
-----------------------------------------
-AWS Certified Cloud Practitioner validates overall understanding of the AWS Cloud platform, covering foundational cloud concepts, core security and compliance models, cloud economics, billing, and fundamental architectural best practices.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Aspiring cloud engineers and developers studying for the AWS Certified Cloud Practitioner (CLF-C02) exam often rely on passive flashcard memorization and rote multiple-choice dumps without understanding how core AWS infrastructure operates in code. Consequently, while they may pass an introductory exam, they remain unable to configure secure IAM least-privilege permission boundaries, architect multi-tier VPC network isolation, or implement cost-optimization alerts on cloud infrastructure. This guide delivers a hands-on lab preparation curriculum and reproducible infrastructure project in LocalStack and AWS. The engineer constructs an IAM least-privilege role matrix, provisions a multi-tier VPC with public and private subnets hosting EC2 and S3 static assets, configures automated CloudWatch billing alarms, and verifies architectural best practices against the AWS Well-Architected Framework.
 
-EXAM FORMAT & PREREQUISITES
-----------------------------------------
-65 multiple-choice/multiple-response questions in 90 minutes. Scaled passing score: 700/1000. Pearson VUE online proctored.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+IAM Least-Privilege Identity & Access Management Governance: Enterprise organizations migrating workloads to the public cloud must enforce role-based access control and prevent root account credential usage. The engineer configures granular IAM policies with permission boundaries, enforces Multi-Factor Authentication (MFA), and verifies programmatic access restriction across administrative roles. | Multi-Tier Web Architecture with S3 Static Hosting & EC2 Compute: Companies hosting customer-facing digital web portals need scalable, highly available web tiers isolated from public database tiers. The lab provisions an isolated VPC with public subnets for Application Load Balancers and private subnets for compute instances, serving static assets via Amazon S3. | Cloud Financial Management & Automated Cost Budget Alerting: Startups and corporate teams running on cloud infrastructure must prevent unexpected billing overruns caused by orphaned resources or traffic spikes. The project sets up AWS Budgets and CloudWatch alarm metrics that trigger notification alerts when simulated monthly spending exceeds configured monetary thresholds.
 
-FEES & OFFICIAL PRICING
-----------------------------------------
-$100 USD (approx. ₹8,680 INR). Includes 1 exam attempt.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Translating the AWS Shared Responsibility Model into concrete IAM JSON policies and security group inbound/outbound rules Designing multi-tier VPC network routing tables, Internet Gateways (IGW), and CIDR block allocations in software-defined networks Configuring CloudWatch billing alarm metrics and AWS Budget triggers with automated notification delivery mechanisms Executing local cloud emulation via LocalStack to validate AWS CLI commands and API operations without incurring cloud billing costs
 
-STUDENT AID & FEE WAIVER
-----------------------------------------
-AWS Educate & AWS Academy provide 50% discount fee vouchers to enrolled university students in India, reducing exam fee to $50 (~₹4,340 INR).
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Clean infrastructure repository containing documented IAM policies, VPC network configuration templates, and CloudWatch alarm scripts Security verification report proving 50 of 50 unauthorized IAM API actions are blocked with AccessDenied exceptions Anti-fake verification script creating an IAM user without S3 permissions and asserting immediate HTTP 403 AccessDenied rejection upon bucket access
 
-SYLLABUS & CORE DOMAINS
-----------------------------------------
-1. Cloud Concepts: High availability, elasticity, fault tolerance, and shared responsibility model
-2. Security & Compliance: IAM policies, MFA, KMS, AWS Shield, WAF, and compliance frameworks
-3. Cloud Technology & Services: EC2, S3, RDS, Lambda, VPC, CloudFront, Route 53, and DynamoDB
-4. Billing & Pricing: Cost Explorer, AWS Budgets, Pricing Calculator, and Support tiers
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+An administrator authenticates via AWS CLI with role credentials; the IAM engine evaluates permission boundaries; upon authorization, the operator provisions an AWS VPC with public and private subnets; static assets are synced to Amazon S3 with restricted bucket policies; compute workloads launch in private subnets behind security groups; CloudWatch continuously collects metric logs; when a simulated billing event exceeds the budget threshold, CloudWatch fires an alarm notification; LocalStack emulates all AWS API interactions locally for zero-cost verification.
 
-VALIDITY & RENEWAL POLICY
-----------------------------------------
-Valid for 3 years. Passing any AWS Associate exam automatically recertifies Cloud Practitioner.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+IAM Least-Privilege Permission Boundary Enforcement Rate: 50 of 50 unauthorized API calls rejected with HTTP 403 AccessDenied | Multi-Tier Subnet Network Routing Latency: Average packet latency is < 8 milliseconds with 0 packet loss | Automated CloudWatch Billing Budget Threshold Alert Latency: Alarm triggers and dispatches notification within 25 seconds
 
-VERIFICATION METHOD
-----------------------------------------
-Official Credly digital badge transcript URL with verifiable certification ID.
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. ./scripts/test_iam_boundaries.sh: IAM policy blocks 50 of 50 unauthorized calls with HTTP 403 AccessDenied [50 of 50 unauthorized requests blocked with exit code 0]
+[ ] 2. 2. ./scripts/verify_vpc_routing.sh: Packets route with average latency < 20ms and 0 packet loss [Latency < 20ms and zero packet loss with exit code 0]
+[ ] 3. 3. ./scripts/test_billing_alarm.sh --spend 15 --threshold 10: CloudWatch transitions alarm to ALARM state and dispatches notification within 60s [Alarm triggers and dispatches alert in < 60s with exit code 0]
+[ ] 4. 4. python ./scripts/run_exam_eval.py --questions 65: Scorer evaluates domain answers with score >= 700 / 1000 scaled points [Score >= 700 with exit code 0]
+[ ] 5. 5. aws --endpoint-url=http://localhost:4566 s3 ls --profile restricted-user: API terminates immediately with AccessDenied error message [Console confirms AccessDenied exception with exit code 255 or 1]
 
-RESUME BULLET FORMULA
-----------------------------------------
-"AWS Certified Cloud Practitioner (Validation ID: [AWS-CERT-ID]) — Validated proficiency in AWS cloud security governance, IAM least-privilege architecture, and cost optimization."
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Prepared for AWS Cloud Practitioner certification via hands-on cloud labs; deployed multi-tier VPC infrastructure in LocalStack with [IAM_COMPLIANCE] least-privilege policy enforcement, and established automated billing alert triggers within [ALERT_LATENCY] seconds."
 
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

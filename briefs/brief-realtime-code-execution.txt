@@ -1,49 +1,48 @@
-PROJECT BRIEF — Secure Remote Code Execution Engine (Judge System)
+PROJECT BRIEF — SECURE REMOTE CODE EXECUTION SANDBOX IN GO WITH LINUX NAMESPACES, CGROUPS V2 & SECCOMP BPF SYSCALL FILTERING
 ======================================================================
 
-Domain    : Security & Platform
-Difficulty: ADVANCED
-Est. Time : 38 hours
-Tech Stack: Go, Docker, seccomp, Linux Namespaces, cgroups
+Project ID  : brief-realtime-code-execution
+Domain      : Security & Platform
+Difficulty  : ADVANCED
+Est. Time   : 40 hours
+Tech Stack  : Go, Linux Namespaces, cgroups, seccomp, Docker
+Covered Gaps: Go, Linux Namespaces, cgroups, seccomp, Docker, Systems Programming, Security
 
-PROBLEM STATEMENT
-----------------------------------------
-Running user-submitted code safely requires strict sandboxing to prevent malicious code from compromising the host system. Build a secure remote code execution engine that sandboxes arbitrary user code in isolated containers with resource limits, network isolation, and process restrictions.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Online code assessment platforms, interactive coding sandboxes, and continuous integration runners need to execute untrusted user-submitted code at high concurrency. Naive execution directly on host operating systems exposes servers to catastrophic remote code execution (RCE) attacks, denial-of-service fork bombs, network port scanning, and host filesystem tampering. Relying on heavy full-system virtual machines introduces multi-second boot latency and unsustainable compute costs. This project builds a production-grade secure remote code execution engine and judge sandbox from scratch in Go. The system enforces strict process containment using Linux Namespaces (Mount, PID, Network, IPC, UTS), restricts CPU time and memory quotas with cgroups v2, filters dangerous kernel syscalls using seccomp BPF profiles, and executes code in under 120ms with zero host escape vulnerabilities.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-Online judges (LeetCode, HackerRank, Codeforces), competitive programming platforms, coding interview tools, online IDEs (Repl.it, CodeSandbox), and educational coding environments. Any platform that lets users submit and execute code needs this infrastructure.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Competitive Programming & Automated Assessment Judge: Online algorithmic evaluation platforms need to compile and execute thousands of untrusted Python, C++, and Go solutions submitted simultaneously by candidates. The engine runs each submission inside an isolated micro-sandbox, comparing standard output against test fixtures and enforcing strict execution time and memory limits. | AI Agent Sandboxed Tool Execution Environment: Autonomous LLM coding agents generating dynamic Python scripts require a secure runtime environment to test code without risking host machine deletion. The sandbox provides an ephemeral filesystem overlay, executing agent code with network isolation and returning execution outputs or stack traces safely. | Continuous Integration Micro-Build Container Runner: Developer platform teams need fast, lightweight sandboxes to run untrusted third-party pull request scripts and unit test suites. The sandbox isolates build tasks using cgroups v2 quotas, preventing runaway infinite loops or resource-hogging background crypto miners from degrading cluster nodes.
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Building a secure sandboxed execution engine requires understanding Linux security primitives (seccomp, namespaces, cgroups), container security, resource exhaustion prevention, and timing side channels. This is security engineering applied to execution infrastructure — a very specific and valuable skill.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Configuring isolated Linux namespaces (unshare clone flags) and pivot_root filesystems with zero residual access to the host root filesystem Writing custom seccomp BPF filter rules blocking dangerous system calls (clone without flags, ptrace, reboot, mount) while permitting safe language runtime operations Enforcing precise cgroups v2 CPU quotas, memory limits, and pids.max thresholds to neutralize fork-bomb exploits and OOM panics Managing high-concurrency ephemeral execution worker pools in Go with context timeouts and clean resource reclamation in sub-120ms
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Companies running online judges (HackerRank, LeetCode, CodeChef), coding interview platforms (Interviewing.io), and online IDEs need engineers who understand secure execution. Linux security, container isolation, and sandbox design are rare combinations that immediately impress security engineers.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Clean Go codebase cleanly separating the sandbox supervisor, namespace isolation routines, cgroups v2 controllers, seccomp filters, and execution worker queues Security penetration report proving complete containment across 5 attack vectors: fork bomb, host file access, network socket creation, memory exhaustion, and privilege escalation Anti-fake verification script attempting to read `/etc/shadow` from the host filesystem inside the sandbox and asserting `PERMISSION_DENIED` / file not found
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-Go orchestrator accepting code submissions. Docker container spawned per submission with strict resource limits (CPU time, memory, disk, network blocked). seccomp profile blocking dangerous system calls (exec, fork restrictions). gVisor or nsjail for additional sandboxing. Timeout enforcer killing containers exceeding time limit. Output capture and comparison.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+A client submits source code and execution parameters to the Go supervisor; the supervisor pulls an execution worker from the pool, writes the code to a temporary tmpfs directory, and creates a dedicated cgroup v2 slice setting memory limit to 128MB and pids limit to 20; the supervisor forks an isolated process with new PID, Mount, Network, and IPC namespaces; the child process executes pivot_root to bind a minimal read-only rootfs, applies the seccomp BPF filter to restrict syscalls, drops privileges to UID 65534 (nobody), and execs the compiler/interpreter; the supervisor monitors execution duration; upon completion or timeout, it captures stdout/stderr, records execution telemetry, destroys the cgroup slice, and returns the verdict JSON.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Sandboxed Code Execution Cold-Start Latency: p95 execution cold-start latency is < 85 milliseconds | Host Escape & Filesystem Containment Defense Rate: 50 of 50 malicious exploit scripts successfully neutralized with 0 host compromise | Fork-Bomb Process Quota Suppression Latency: Fork-bomb suppressed in < 4.5 milliseconds with 0 impact on host CPU responsiveness
 
-SKILLS COVERED
-----------------------------------------
-Go, Docker, Linux, Security, System Design, Concurrency
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. go run ./cmd/bench_executor --jobs 1000 --concurrency 10: Sandbox executes code and captures outputs with p95 cold-start latency < 180ms [p95 latency < 180ms with exit code 0]
+[ ] 2. 2. go test -v ./sandbox/... -run TestForkBombSuppression: cgroups v2 blocks new process creation; fork bomb terminates in < 15ms with 0 host CPU freeze [Process contained with exit code 0 and host CPU unaffected]
+[ ] 3. 3. go test -v ./security/... -run TestNetworkNamespaceIsolation: Network namespace blocks socket creation; process receives network unreachable error [Socket creation rejected with exit code 0]
+[ ] 4. 4. go test -v ./sandbox/... -run TestOOMSuppression: cgroup OOM killer terminates process cleanly; supervisor reports exit status 'MEMORY_LIMIT_EXCEEDED' [OOM handled cleanly with exit code 0]
+[ ] 5. 5. go run ./scripts/verify_host_containment.go --target-file /etc/shadow: Sandbox pivot_root isolation blocks access; process receives file not found / access denied [Console confirms access denied / file not found with exit code 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify fork bomb test: process creation limit blocks infinite fork() process exhaustion; passes when verified by automated test script or benchmark log.
-2. Verify memory limit: process allocating beyond limit is OOM-killed within 100ms; passes when verified by automated test script or benchmark log.
-3. Verify network isolation: container cannot make outbound network requests; passes when verified by automated test script or benchmark log.
-4. Verify dangerous syscall block: exec(), socket() blocked by seccomp profile; passes when verified by automated test script or benchmark log.
-5. Verify concurrent execution: 50 simultaneous submissions without cross-submission interference; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected secure remote code execution sandbox in Go using Linux namespaces and cgroups; achieved sub-[COLD_START_LATENCY] millisecond execution cold-start latency, and neutralized [EXPLOIT_COUNT] exploit attack vectors with seccomp BPF syscall filtering."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Built secure code execution engine with Docker + seccomp sandboxing; processed 500 concurrent submissions with process, memory, and network isolation, passing all escape attempt tests with zero host compromise.; achieved [N] throughput with < [M ms] latency overhead across [K] test transactions."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

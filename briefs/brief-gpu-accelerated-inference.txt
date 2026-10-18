@@ -1,49 +1,48 @@
-PROJECT BRIEF — GPU-Optimized ML Inference Server with Batching & Quantization
+PROJECT BRIEF — GPU & CPU ACCELERATED ML INFERENCE SERVER WITH DYNAMIC BATCHING
 ======================================================================
 
-Domain    : ML Engineering
-Difficulty: ADVANCED
-Est. Time : 38 hours
-Tech Stack: Python, PyTorch, TensorRT, CUDA, FastAPI, NVIDIA Triton
+Project ID  : brief-gpu-accelerated-inference
+Domain      : ML Engineering
+Difficulty  : ADVANCED
+Est. Time   : 39 hours
+Tech Stack  : Python, PyTorch, CUDA, FastAPI, Docker
+Covered Gaps: Python, PyTorch, CUDA, FastAPI, Docker, Machine Learning, Systems Programming, Inference Optimization
 
-PROBLEM STATEMENT
-----------------------------------------
-LLM and deep learning inference is bottlenecked by single-request GPU utilization. Build a high-performance ML inference server with dynamic request batching, TensorRT/ONNX quantization, continuous batching, and GPU memory optimization — reducing inference cost by 5-10x.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Serving machine learning models in production under heavy concurrent traffic creates severe hardware bottlenecks and spiraling infrastructure costs. Sequential request evaluation underutilizes parallel compute cores, while naive batching introduces prohibitive latency penalties for single requests. This project constructs an accelerated machine learning inference server in Python, PyTorch, CUDA, and FastAPI. The engine implements a dynamic batching queue with configurable microsecond timeout windows, INT8 and FP16 quantization to reduce memory bandwidth demands, asynchronous request worker pools, and an automatic CPU fallback engine using ONNX Runtime for hardware portability on standard developer laptops.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-Every company serving ML models at scale faces GPU cost pressure. Triton Inference Server (NVIDIA), vLLM, and TensorRT-LLM are billion-dollar technologies built on these optimizations. Companies deploying LLMs or vision models in production need engineers who understand inference optimization.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+High-throughput microservice backends serving deep learning embedding models under strict latency SLAs | Cost-optimized inference infrastructure maximizing throughput per compute core or GPU instance | Edge deployment platforms executing quantized neural networks across heterogeneous CPU/GPU hardware
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Inference optimization is the highest-ROI ML engineering skill in terms of infrastructure cost savings. Understanding quantization (INT8, FP16, BF16), dynamic batching, KV-cache optimization, and GPU memory management can reduce compute costs by 80%+ — directly impacting company profitability.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Coalescing asynchronous concurrent HTTP requests into unified dynamic batch tensors within microsecond timeout windows Calibrating post-training INT8 quantization to compress model size without degrading classification accuracy Managing GPU device memory buffers and host-to-device transfers to prevent out-of-memory crashes during traffic surges Architecting seamless CPU fallback using ONNX Runtime execution providers when CUDA devices are absent
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-ML Inference Engineer is one of the highest-paying roles in the industry. NVIDIA, Groq, Cerebras, and every AI cloud provider (AWS Bedrock, Google Vertex AI) needs inference engineers. In India, AI infrastructure teams at Reliance Jio, Microsoft, and AI startups urgently need this expertise.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Modular Python codebase separating dynamic batching schedulers, quantization pipelines, and FastAPI serving endpoints High-concurrency load benchmark demonstrating greater than 2.8x throughput increase via dynamic batching over sequential execution Anti-fake verification script issuing concurrent bursts and proving tensor dimension batching inside model forward execution
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-PyTorch model loaded and optimized via TensorRT INT8 quantization (3-4x speedup). FastAPI inference server with continuous batching (bucket requests by similar sequence lengths). Async GPU queue with configurable batch timeout and max batch size. CUDA memory pool management preventing fragmentation. Prometheus throughput/latency metrics.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+Client inference requests arrive at the FastAPI gateway; requests enter the Dynamic Batching Queue; the scheduler monitors batch size and timeout windows; once threshold or timeout triggers, inputs concatenate into a single batch tensor; the Hardware Execution Engine runs model forward pass on CUDA or CPU; the batch tensor slices into individual output responses; FastAPI resolves promises and returns individual prediction payloads to clients in under 25 milliseconds.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Dynamic Batching Throughput Improvement: Throughput improvement exceeds 4.2x compared to sequential baseline | End-to-End Batched Inference Latency (p95): p95 response latency is < 12.0 milliseconds | Post-Training Quantization Accuracy Retention: Accuracy retention exceeds 99.2% of baseline FP32 performance
 
-SKILLS COVERED
-----------------------------------------
-Python, PyTorch, TensorRT, CUDA, FastAPI, MLOps
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. python scripts/benchmark_batching.py --mode dynamic --requests 10000: Dynamic batching achieves throughput increase exceeding 2.8x over sequential baseline [Throughput ratio (dynamic / sequential) is > 2.8 with exit code 0]
+[ ] 2. 2. python scripts/benchmark_latency.py --rate 50 --requests 2500: p95 end-to-end response latency is < 25.0 milliseconds [p95 latency is < 25.0 milliseconds]
+[ ] 3. 3. python -m inference_server.evaluate_quantization: INT8 quantized model achieves > 98.5% accuracy retention compared to FP32 baseline [Quantized accuracy divided by baseline accuracy is > 0.985 with exit code 0]
+[ ] 4. 4. curl -X POST http://localhost:8000/predict -H 'Content-Type: application/json' -d '{"inputs": [1.0, 2.0, 3.0]}': API returns prediction tensor and execution metadata with HTTP 200 [Response status is 200 and predictions array has non-zero length]
+[ ] 5. 5. python scripts/verify_dynamic_batching.py --burst 8 --timeout-ms 5: Server scheduler coalesces all 8 inputs into exactly 1 model forward tensor call [Batch size logged inside forward execution equals 8 with exit code 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify quantization benchmark: INT8 vs FP32 accuracy drop < 1% with 3x memory reduction; passes when verified by automated test script or benchmark log.
-2. Verify dynamic batching test: 50 concurrent requests processed in 2 GPU batch calls, not 50; passes when verified by automated test script or benchmark log.
-3. Verify throughput benchmark: requests/sec comparison with/without batching at same latency; passes when verified by automated test script or benchmark log.
-4. Verify memory profile: GPU memory usage stable over 1 hour without leaks or fragmentation; passes when verified by automated test script or benchmark log.
-5. Verify latency SLO: p99 < 100ms maintained under 1k concurrent request load; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected accelerated machine learning inference server in Python and PyTorch with dynamic batching; achieved [THROUGHPUT_GAIN] throughput improvement over sequential execution across [CONCURRENT_CLIENTS] concurrent clients, and delivered sub-[INFERENCE_LATENCY] tail latency with low-bit quantization."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Built GPU inference server with TensorRT INT8 quantization and dynamic batching; achieved [X:1] throughput improvement and 60% GPU memory reduction while maintaining < [M ms] p99 latency at [N] req/sec concurrent requests."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

@@ -1,49 +1,48 @@
-PROJECT BRIEF — Service Mesh & mTLS Zero-Trust Microservices Architecture
+PROJECT BRIEF — SERVICE MESH ZERO-TRUST ARCHITECTURE WITH ISTIO, ENVOY SIDECARS, MTLS & SPIFFE IDENTITY
 ======================================================================
 
-Domain    : Platform & DevOps
-Difficulty: ADVANCED
-Est. Time : 38 hours
-Tech Stack: Kubernetes, Istio, Envoy, Docker, Prometheus, Kiali
+Project ID  : brief-service-mesh
+Domain      : Platform & DevOps
+Difficulty  : ADVANCED
+Est. Time   : 40 hours
+Tech Stack  : Kubernetes, Istio, Envoy, Docker, Prometheus, Kiali
+Covered Gaps: Kubernetes, Istio, Envoy, Docker, Prometheus, Kiali, DevOps, Service Mesh
 
-PROBLEM STATEMENT
-----------------------------------------
-Microservices architectures have insecure east-west (service-to-service) traffic by default, with no encryption, no service identity, and no traffic management policies. Build a service mesh implementation using Istio/Linkerd with mTLS, circuit breakers, traffic splitting, and distributed tracing.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Microservice topologies operating on Kubernetes clusters leave east-west (service-to-service) network traffic unencrypted and unauthenticated by default. In the event of a single pod breach, lateral attacker movement across internal cluster networks is trivial due to cleartext HTTP communications, static IP trust assumptions, and absence of granular Layer 7 authorization policies. Furthermore, lack of unified traffic management makes progressive canary rollouts risky and creates blind spots in distributed service latency tracing. This project builds a production-grade zero-trust service mesh architecture on Kubernetes using Istio and Envoy. The platform enforces strict mutual TLS (mTLS) with cryptographically verified SPIFFE identities, implements fine-grained authorization policies and Layer 7 traffic routing (canary splits, circuit breaking), exports telemetry to Prometheus, and visualizes live dependency topologies via Kiali with under 3.5ms proxy latency overhead.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-Large-scale microservices deployments at top tech platforms, top tech platforms, and Ola use service meshes for zero-trust security and traffic management. Any organization with 20+ microservices needs a service mesh to manage complexity and enforce security policies consistently.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+FinTech Core Banking Microservice East-West Encryption: Financial microservices transferring customer fund balances across internal payment and ledger services must comply with zero-trust regulatory mandates. Istio sidecars automatically enforce mutual TLS across all inter-service connections, ensuring encrypted data in transit with rotated X.509 certificates and SPIFFE IDs. | Progressive Canary Traffic Shifting for High-Volume APIs: Platform engineering teams releasing new versions of customer-facing recommendation services need automated canary deployments without traffic disruption. The service mesh splits production traffic dynamically (e.g. 90% v1, 10% v2) using Istio VirtualService weights, monitoring error rates before promoting releases. | Resilient Microservice Cascading Failure Prevention: E-commerce checkout pipelines relying on downstream inventory microservices risk cascading cluster failure during inventory database connection stalls. Envoy circuit breakers trip when consecutive 5xx errors exceed thresholds, failing fast with cached responses and isolating failing pods from healthy cluster tiers.
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Service mesh is advanced Kubernetes networking that most engineers never touch. Understanding mTLS certificate rotation, sidecar proxy patterns, traffic policies, and canary deployments demonstrates senior platform engineering depth that is extremely rare among engineers with <5 years experience.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Configuring Istio mutual TLS (mTLS) in STRICT mode across multi-namespace Kubernetes clusters with automated SPIFFE certificate issuance and rotation Writing fine-grained Istio AuthorizationPolicy resources restricting pod-to-pod RPC communication using authenticated SPIFFE identities and HTTP method rules Implementing advanced traffic management with VirtualServices and DestinationRules governing canary percentage splits and outlier detection circuit breaking Minimizing Envoy proxy latency overhead and CPU utilization under high-throughput microservice request volumes using optimized filter chains
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Istio/Linkerd expertise is specifically listed in Platform Engineer JDs at large tech companies. The combination of networking, security, and Kubernetes expertise that service mesh implementation requires positions you for principal-level platform engineering roles.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Clean Kubernetes and Istio configuration repository cleanly separating namespace manifests, VirtualService routes, AuthorizationPolicies, and Prometheus dashboards Security penetration benchmark report proving 100 of 100 unauthorized inter-service plaintext connection attempts are blocked by strict mTLS Anti-fake verification script sending an unauthenticated HTTP request from a rogue curl pod to an internal payment service and asserting connection termination via SSL handshake failure
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-Istio control plane (Istiod) managing sidecar Envoy proxy injection into all pods. mTLS enforced for all east-west service communication. VirtualService for traffic splitting (90/10 canary). DestinationRule for circuit breaker configuration. Kiali for service mesh visualization and Jaeger for distributed tracing.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+A user request enters via the Istio Ingress Gateway; the gateway verifies TLS and routes to the frontend microservice; the frontend Envoy sidecar establishes an mTLS connection to the backend payment service Envoy sidecar; sidecars exchange and validate SPIFFE X.509 certificates issued by Istiod; the payment service's Istio AuthorizationPolicy evaluates the client SPIFFE ID; if authorized, the request forwards to the local application container over localhost; Envoy streams access metrics to Prometheus; Kiali queries Prometheus to render real-time service dependency graphs; when a canary deployment triggers, VirtualService routing splits 10% of traffic to the v2 payment pod.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Envoy Sidecar Proxy Latency Overhead: p95 proxy latency overhead per hop is < 2.2 milliseconds | STRICT mTLS Unauthorized Connection Block Rate: 50 of 50 unauthorized connection attempts terminated with SSL handshake failure | Canary Traffic Shift Distribution Accuracy: Observed canary traffic split is within 9.5% to 10.5% across 5,000 requests
 
-SKILLS COVERED
-----------------------------------------
-Kubernetes, Istio, Docker, Security, DevOps, Networking
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. kubectl exec -it deploy/traffic-gen -- ./bench_mesh.sh --rps 1000 --requests 10000: Envoy proxy intercepts requests with p95 latency overhead < 5.0ms per hop [p95 latency overhead < 5.0ms with exit code 0]
+[ ] 2. 2. python ./scripts/test_mtls_enforcement.py --attempts 50: STRICT mTLS policy rejects all 50 attempts; 0 plaintext bytes delivered [50 of 50 connections rejected with exit code 0]
+[ ] 3. 3. python ./scripts/verify_canary_split.py --requests 5000 --target-split 10: Traffic distributes with observed canary share between 9.0% and 11.0% [Canary traffic split within 9.0% - 11.0% with exit code 0]
+[ ] 4. 4. python ./scripts/test_circuit_breaker.py --fault 503 --count 5: DestinationRule outlier detection trips circuit breaker; subsequent requests fail fast in < 2ms [Circuit breaker trips and fails fast with exit code 0]
+[ ] 5. 5. kubectl run rogue-pod --rm -i --restart=Never --image=curlimages/curl -- curl -v http://payment-service:8080/pay: Connection terminates immediately with SSL handshake error or HTTP 403 RBAC denied [Console confirms connection reset / handshake failure with exit code 35 or 56]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify mTLS enforcement verified via network policy blocking non-mTLS traffic
-2. Verify canary deployment test splitting 10% traffic to new service version; passes when verified by automated test script or benchmark log.
-3. Verify circuit breaker triggering when downstream service error rate exceeds 50%; passes when verified by automated test script or benchmark log.
-4. Verify certificate rotation without service disruption demonstrated in test; passes when verified by automated test script or benchmark log.
-5. Verify kiali service graph visualization showing all service dependencies and error rates; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected mutual-trust service mesh on Kubernetes using Istio and Envoy sidecars; enforced mutual TLS across microservices with sub-[PROXY_OVERHEAD] millisecond proxy latency overhead, and executed traffic canary shifts within [CANARY_MARGIN] of target ratios."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Implemented Istio service mesh with mTLS zero-trust across [N] nodes; enforced automatic certificate rotation and circuit breaking, reducing cross-service incidents by eliminating plaintext east-west traffic."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

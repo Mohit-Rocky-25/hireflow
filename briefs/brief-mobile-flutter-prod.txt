@@ -1,49 +1,48 @@
-PROJECT BRIEF — Production Flutter App with BLoC State & CI/CD Pipeline
+PROJECT BRIEF — CROSS-PLATFORM MOBILE APPLICATION IN FLUTTER WITH BLOC STATE MANAGEMENT, OFFLINE SQLITE SYNC & CI/CD FASTLANE PIPELINE
 ======================================================================
 
-Domain    : Mobile Engineering
-Difficulty: INTERMEDIATE
-Est. Time : 28 hours
-Tech Stack: Flutter, Dart, Firebase, BLoC, GitHub Actions, Riverpod
+Project ID  : brief-mobile-flutter-prod
+Domain      : Mobile Engineering
+Difficulty  : INTERMEDIATE
+Est. Time   : 28 hours
+Tech Stack  : Flutter, Dart, BLoC, Fastlane, Firebase, GitHub Actions
+Covered Gaps: Flutter, Dart, BLoC, Fastlane, Firebase, GitHub Actions, Mobile Engineering, Offline Sync, CI/CD
 
-PROBLEM STATEMENT
-----------------------------------------
-Most Flutter tutorial projects are single-screen apps with no state management, no testing, and no deployment pipeline. Build a production-ready multi-feature Flutter application with BLoC state management, Firebase integration, deep linking, push notifications, and automated CI/CD delivery to Play Store and App Store.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Cross-platform mobile applications frequently suffer from janky UI frame drops, fragile state synchronizations when network connectivity fluctuates, and chaotic manual application store release processes. Mixing business logic with widget trees produces untestable code and memory leaks during frequent device configuration changes. This project builds a production-grade cross-platform mobile application in Flutter and Dart. The system implements the BLoC (Business Logic Component) pattern for unidirectional state management, persists offline mutations to local SQLite databases with optimistic UI rendering, executes bidirectional delta synchronization with backend REST APIs, and automates testing, code signing, and release artifact generation using Fastlane and GitHub Actions.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-India has 200M+ smartphone users, and Flutter is increasingly chosen for cross-platform development (Google Pay India, Alibaba Xianyu, BMW). Startups like top tech platforms, Khatabook, and Cashify use Flutter. Any company building both Android and iOS apps with a single codebase.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Field Service Technician Offline Asset Inspection: Industrial maintenance technicians inspect remote oil pipelines and wind turbines in remote locations without cellular reception. The mobile app enables technicians to log equipment checklists and photo attachments to local SQLite storage, automatically syncing pending audits when reconnected to network coverage. | Last-Mile Delivery Driver Route & Package Tracking: Logistics delivery drivers require high-performance mobile interfaces that maintain 60fps rendering during fast barcode scanning and list flinging. The application manages package status transitions via BLoC state streams, executing optimistic local updates while streaming background GPS coordinates and delivery confirmations. | Personal Healthcare Medication & Symptom Diary: Patients tracking chronic medical symptoms need instant app responsiveness and guaranteed data capture even in hospital basements with poor connectivity. The Flutter app captures daily symptom logs locally with zero input latency, reconciling conflict-free timestamps against backend medical records upon connection restoration.
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-The gap between Flutter beginners and senior Flutter engineers is production skills: BLoC pattern, clean architecture, platform-specific code, CI/CD pipeline, and performance profiling. Demonstrating all of these signals you can contribute immediately to a production mobile team, not just build prototypes.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Architecting clean BLoC state machines that decouple business events, state transitions, and UI widget rebuilds Implementing offline-first data synchronization with SQLite mutation queues and idempotent server reconciliation Optimizing Flutter widget trees and list view builders to eliminate frame drops and sustain 60fps scrolling under load Automating multi-flavor code signing and build artifact generation (APK / App Bundle) using Fastlane in CI/CD
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Flutter is the fastest-growing mobile framework in India. Companies like top tech platforms, Dunzo, and Bharatpe are actively hiring Flutter engineers. A production app with BLoC, CI/CD, and Firebase integration is exactly what mobile engineering interview panels look for in senior candidates.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Clean Dart codebase adhering to clean architecture with clear separation between data sources, repositories, BLoCs, and UI widgets Automated Flutter driver integration test suite verifying offline mutation queuing and reconciliation upon network restoration Anti-fake verification script simulating sudden airplane mode disconnection during item creation and verifying zero data loss upon reconnection
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-Clean Architecture layers (Presentation → Domain → Data). BLoC pattern for state management with event/state separation. Firebase Auth, Firestore, and Cloud Messaging for backend. Dio HTTP client with interceptor chain for auth tokens. GitHub Actions CI/CD building and deploying to Firebase App Distribution.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+The user interacts with a Flutter screen widget; the widget dispatches a strongly-typed event to the BLoC; the BLoC invokes the repository layer; the repository immediately writes the mutation to the local SQLite database and emits an optimistic state to update the UI; if the network monitor confirms connectivity, the sync worker transmits the payload to backend REST endpoints; on successful server acknowledgement, the local record marks as synchronized; if offline, the mutation queues in SQLite; when connectivity restores, the sync service flushes pending queues with exponential backoff.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Application Cold Start Duration: Average cold start launch duration is < 950 milliseconds | UI Scrolling Frame Rate Rendering Stability: 0 jank occurrences with 0 dropped frames across 1,000-item scroll test | Offline Mutation Synchronization Latency: Average sync reconciliation time is < 250 milliseconds across 50 records
 
-SKILLS COVERED
-----------------------------------------
-Flutter, Dart, Firebase, CI/CD, BLoC, REST APIs
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. flutter drive --driver=test_driver/perf_driver.dart --target=integration_test/cold_start_test.dart: Application renders initial interactive screen with average cold start latency < 1,800 milliseconds [Average cold start is < 1,800ms with exit code 0]
+[ ] 2. 2. flutter drive --driver=test_driver/perf_driver.dart --target=integration_test/scrolling_test.dart --profile: Flutter timeline summary records steady 60fps rendering with < 4 dropped frames across test [Dropped frame count is < 4 and exit code is 0]
+[ ] 3. 3. dart test test/sync_reconciliation_test.dart: Sync service flushes all 50 mutations to backend with average reconciliation time < 650 milliseconds [Average sync time < 650ms and 50 of 50 records confirmed with exit code 0]
+[ ] 4. 4. bundle exec fastlane build_release_apk: Fastlane executes flutter analyze, runs test suite, and outputs release APK artifact [Build succeeds with exit code 0 and release APK file exists]
+[ ] 5. 5. dart test test/dynamic_offline_test.dart --item-title 'Inspection Asset 4099': BLoC creates item locally in SQLite while offline, emits optimistic UI state, and syncs upon reconnect [Backend receives Inspection Asset 4099 and local database marks sync_status=1 with exit code 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify bLoC unit tests covering all events and state transitions with 90%+ coverage; passes when verified by automated test script or benchmark log.
-2. Verify cI/CD pipeline running lint, tests, and distributing APK on every main branch push; passes when verified by automated test script or benchmark log.
-3. Verify deep linking working for 3 distinct navigation routes from external URLs; passes when verified by automated test script or benchmark log.
-4. Verify push notification flow from FCM topic subscription to foreground/background handling; passes when verified by automated test script or benchmark log.
-5. Verify flutter performance profiling screenshot showing 60fps rendering in release build; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected cross-platform Flutter application using BLoC state management and SQLite offline sync; maintained sub-[COLD_START_TIME] millisecond cold start launch duration, and achieved sub-[SYNC_LATENCY] millisecond offline reconciliation across [RECORD_COUNT] queued mutations."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Built production Flutter app with BLoC architecture, Firebase backend, and GitHub Actions CI/CD; achieved < 2s cold start, 60fps rendering, and automated Play Store delivery pipeline.; achieved [N] throughput with < [M ms] latency overhead across [K] test transactions."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

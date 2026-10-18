@@ -1,49 +1,48 @@
-PROJECT BRIEF — Multi-Tenant SaaS Backend with Event-Driven Architecture
+PROJECT BRIEF — MULTI-TENANT B2B SAAS BACKEND WITH ROW-LEVEL SECURITY & OUTBOX MESSAGING
 ======================================================================
 
-Domain    : Full-Stack Web
-Difficulty: ADVANCED
-Est. Time : 38 hours
-Tech Stack: Node.js, TypeScript, PostgreSQL RLS, Kafka, Redis, Stripe
+Project ID  : brief-event-driven-saas
+Domain      : Full-Stack Web
+Difficulty  : ADVANCED
+Est. Time   : 39 hours
+Tech Stack  : TypeScript, Node.js, PostgreSQL, Kafka, Redis
+Covered Gaps: TypeScript, Node.js, PostgreSQL, Kafka, Redis, Multi-Tenancy, Distributed Systems
 
-PROBLEM STATEMENT
-----------------------------------------
-SaaS applications need strong tenant isolation, usage-based billing, and webhook delivery to customer systems. Build a production multi-tenant SaaS backend with row-level security, event-driven inter-service communication, usage metering, and reliable webhook delivery.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Modern enterprise B2B SaaS platforms must enforce strict data isolation between rival corporate tenants, support asynchronous inter-service communication without data loss, and deliver outbound customer webhooks reliably. Naive application-level WHERE tenant_id filtering risks catastrophic data leakage if a single developer forgets a clause, and direct HTTP calls between microservices introduce cascading downtime. This project constructs an enterprise multi-tenant backend in TypeScript and Node.js using PostgreSQL Row-Level Security (RLS) to enforce database-level tenant isolation, Kafka event streaming with the Transactional Outbox pattern to guarantee at-least-once message delivery, Redis for tenant rate quotas, and an idempotent webhook delivery worker with exponential backoff retries.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-Every B2B SaaS product in India — Zoho, top tech platforms, top tech platforms, top tech platforms — faces multi-tenancy challenges. Startup founders building their first SaaS need to understand tenant isolation patterns before they learn them the hard way in production with a breach or data leak.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Enterprise B2B SaaS products requiring strict compliance-certified tenant data boundaries | Usage-metered cloud platforms aggregating customer API consumption for billing pipelines | Developer webhook delivery backends guaranteeing reliable event delivery to external customer systems
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Multi-tenancy, row-level security, usage metering, and reliable webhook delivery each individually are complex engineering challenges. Building all of them together as a coherent backend demonstrates enterprise-grade SaaS architecture knowledge that commands senior engineering titles at B2B software companies.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Enforcing PostgreSQL Row-Level Security policies dynamically bound to active connection tenant session variables Implementing the Transactional Outbox pattern to atomically commit database changes and publish Kafka events without distributed transactions Preventing cross-tenant noisy-neighbor starvation through fair-share Redis rate limiting and concurrency throttling Managing reliable webhook dispatching with HMAC signature verification, exponential backoff, and dead-letter queue routing
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-B2B SaaS backend engineering at Zoho, top tech platforms, top tech platforms, and top tech platforms requires exactly this knowledge. Row-level security patterns, PostgreSQL RLS, tenant isolation, and metered billing are specific and valuable skills. Engineers who have built multi-tenant backends from scratch are immediately productive on SaaS products.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Clean TypeScript codebase cleanly separating tenant middleware, outbox workers, Kafka consumers, and webhook dispatchers Automated cross-tenant penetration test asserting zero cross-tenant row leakage across 1,000 concurrent database queries Anti-fake verification script creating dynamic tenant accounts, dispatching outbox messages, and asserting strict boundary isolation
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-PostgreSQL with row-level security (RLS) policies enforcing tenant isolation at the database layer. Kafka event bus decoupling microservices. Usage metering service counting API calls per tenant per billing period. Webhook delivery service with retry queue and customer endpoint health monitoring. Tenant management API with plan limits.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+Incoming client HTTP requests pass through Tenant Ingress Middleware; tenant ID is validated and injected into PostgreSQL session config via SET LOCAL app.current_tenant_id; CRUD queries execute with RLS automatically restricting rows to active tenant; mutations atomically insert domain events into an outbox table within the same transaction; the Transactional Outbox Publisher polls pending outbox entries and publishes them to Kafka; the Metered Usage Aggregator consumes Kafka events to calculate usage; the Webhook Dispatcher signs and posts payloads to customer endpoints with exponential backoff.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Cross-Tenant Data Leakage Rate: 0 unauthorized records accessed across 1,000 test requests with 0 security escapes | Transactional Outbox Publishing Latency: Average outbox-to-broker latency is < 95 milliseconds | Webhook Dispatch Delivery Success Rate: Delivery success rate exceeds 99% following exponential backoff retries
 
-SKILLS COVERED
-----------------------------------------
-Node.js, TypeScript, PostgreSQL, Kafka, Redis, Microservices
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. npm run test:penetration: PostgreSQL Row-Level Security blocks all unauthorized tenant access queries [1,000 of 1,000 penetration checks pass with 0 unauthorized records exposed and exit code 0]
+[ ] 2. 2. npm run bench:outbox: Transactional outbox publishes events to Kafka with average latency < 250 milliseconds [Average outbox latency is < 250 milliseconds]
+[ ] 3. 3. npm run test:webhooks: Dispatcher retries failed deliveries using exponential backoff, achieving > 95% success [Delivery success rate exceeds 95% with failed items placed into DLQ]
+[ ] 4. 4. npm run test:ratelimit -- --tenant tenant-abc --requests 100: Redis rate limiter throttles excess requests and returns HTTP 429 [Responses transition to HTTP 429 once tenant quota threshold is reached]
+[ ] 5. 5. node scripts/verify_dynamic_multitenancy.js --tenantA Tenant-Dynamic-X --tenantB Tenant-Dynamic-Y: Tenant X creates private resource; Tenant Y attempts direct query by ID and receives empty result set [Query by Tenant Y returns null/404 and exit code is 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify rLS test: tenant A's API key cannot access tenant B's data under any SQL query; passes when verified by automated test script or benchmark log.
-2. Verify webhook reliability: 100 webhooks delivered to slow endpoint (10s timeout) with retry; passes when verified by automated test script or benchmark log.
-3. Verify usage metering: 1000 API calls counted correctly per tenant per billing period; passes when verified by automated test script or benchmark log.
-4. Verify plan limit enforcement: tenant exceeding free tier rate-limited to paid plan upgrade prompt; passes when verified by automated test script or benchmark log.
-5. Verify tenant isolation chaos test: set JWT tenant_id header to another tenant, verify 403; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected multi-tenant enterprise SaaS backend in TypeScript and Node.js with PostgreSQL Row-Level Security; enforced strict tenant isolation without data leakage across [QUERY_COUNT] penetration queries, and guaranteed event delivery via transactional outbox messaging with sub-[OUTBOX_LATENCY] latency."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Built multi-tenant SaaS backend with PostgreSQL RLS and Kafka event bus; achieved zero cross-tenant data leakage, 99.9% webhook delivery reliability, and < 1% usage metering error across [N] req/sec simulated tenants."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

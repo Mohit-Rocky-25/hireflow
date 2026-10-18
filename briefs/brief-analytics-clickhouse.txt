@@ -1,49 +1,48 @@
-PROJECT BRIEF — Multi-Tenant B2B Event Analytics Engine
+PROJECT BRIEF — MULTI-TENANT B2B EVENT ANALYTICS ENGINE
 ======================================================================
 
-Domain    : Data Engineering
-Difficulty: INTERMEDIATE
-Est. Time : 30 hours
-Tech Stack: ClickHouse, Kafka, Node.js, Docker, SQL, TypeScript
+Project ID  : brief-analytics-clickhouse
+Domain      : Data Engineering
+Difficulty  : INTERMEDIATE
+Est. Time   : 29 hours
+Tech Stack  : ClickHouse, TypeScript, Node.js, Kafka, Docker, SQL
+Covered Gaps: ClickHouse, TypeScript, Node.js, Docker, SQL, Kafka, Data Pipelines, Columnar Databases
 
-PROBLEM STATEMENT
-----------------------------------------
-SaaS telemetry platforms process millions of interaction events daily from web and mobile clients, but querying aggregate funnel conversions, retention cohorts, and time-series metrics on traditional row-oriented OLTP databases results in excessive query latency and timeouts once tables exceed tens of millions of rows. Analytical systems require columnar storage, data compression, and partitioned indexing to scan billions of values per second. This project builds a multi-tenant telemetry ingestion and analytical engine that streams event beacons through Kafka into a partitioned ClickHouse cluster, maintaining sub-second aggregation latencies across multi-million row datasets.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Software-as-a-service telemetry systems collect high-volume behavioral event streams from web and mobile applications, but executing ad-hoc funnel conversions and cohort retention aggregations on row-oriented transactional databases creates severe disk I/O bottlenecks and query timeouts. Relational databases store records contiguously on disk, forcing full-row deserialization even when queries touch only a few analytical columns. A multi-tenant analytics platform overcomes this limitation by streaming telemetry through an ingestion buffer into a columnar storage engine, compressing column payloads with dictionary and delta encodings and leveraging partitioned sparse primary keys to achieve sub-second analytical aggregations across multi-tenant datasets.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-Product analytics platforms ingest high-throughput user clickstreams to generate real-time behavioral metrics. Neutral architectural reference points include open-source and commercial product analytics systems such as PostHog, Mixpanel, and Amplitude.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Multi-step conversion funnel analysis across tenant user onboarding workflows | Weekly and monthly retention cohort calculation for subscription software products | Real-time event frequency monitoring and anomaly inspection across organizational workspaces
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Preventing Part Explosion: ClickHouse creates immutable physical directory parts for every write transaction. Ingesting high-frequency single records directly triggers the 'Too many parts in all data in table' exception. The ingestion pipeline must enforce batch buffering (minimum 10,000 events or 5-second flushes) before persisting to disk.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Preventing ClickHouse part explosion errors triggered by unbuffered high-frequency event ingestion Structuring sparse primary keys to balance tenant-level isolation with temporal range scan performance Managing deduplication consistency in ReplacingMergeTree tables without incurring severe query-time merge overhead Formulating vectorized SQL queries using windowFunnel and retention functions within bounded server memory limits
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Demonstrates mastery of the OLTP vs. OLAP boundary, columnar database internals (sparse primary keys, column encoding, merge policies), and high-throughput streaming architecture. Directly maps to Data Platform Engineer, Analytics Engineer, and Backend Data Infrastructure roles.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Reproducible Docker environment launching ClickHouse, Kafka, and ingestion services with automated health checks Validated benchmark suite demonstrating batch insert throughput and sub-100ms funnel query latencies Anti-fake verification script validating dynamic tenant isolation and live columnar mutations
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-Node.js/TypeScript HTTP receiver validates incoming JSON beacons against strict schemas and publishes to partitioned Kafka topics keyed by tenant_id. ClickHouse consumes from Kafka via Kafka Engine and buffers columnar batches of 10,000+ records into a ReplacingMergeTree table partitioned by toDate(timestamp) with ZSTD compression. Analytical query layer exposes REST endpoints for funnel conversions, retention cohorts, and time-series metrics.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+Client HTTP beacons are ingested by Node.js; validated events are buffered in Kafka topics partitioned by tenant; consumer groups aggregate records into micro-batches of several thousand rows; batches are inserted into ClickHouse ReplacingMergeTree tables; analytical dashboard queries invoke specialized ClickHouse SQL functions to compute aggregate funnels and cohorts.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Ingestion Throughput: > 10,000 events/sec sustained over 100k test events | Query Latency: p95 < 100ms for 3-step conversion funnel over 10M rows | Storage Compression: Disk compression ratio ≥ [X:1] (target ≥ 6:1) verified via system.parts.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Batch Ingestion Write Throughput: Sustained ingestion throughput > 12,000 events/sec without part errors | Three-Step Funnel Query Latency (p95): p95 query latency < 65ms across 50 concurrent requests | Columnar Disk Compression Ratio: Compression ratio >= 6.5:1 on event storage columns
 
-SKILLS COVERED
-----------------------------------------
-ClickHouse, Kafka, Node.js, SQL, Docker, TypeScript, Data Pipelines
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. Check health status of ClickHouse and Kafka containers: Both containers achieve healthy status and port 8123 accepts SQL queries within 30 seconds [Containers exit status 0 and HTTP 200 returned from ClickHouse ping endpoint]
+[ ] 2. 2. Execute npm run test:ingest: All 100,000 events inserted into ClickHouse without 'Too many parts' exceptions [Final row count in events table equals 100,000 and part count remains < 50]
+[ ] 3. 3. Execute curl request to /analytics/funnel for a designated tenant: Service executes windowFunnel SQL query and returns step conversion counts matching seeded ground truth [Exit code 0 with returned conversion rates matching expected values within 0.1% tolerance]
+[ ] 4. 4. Run npm run audit:compression: ClickHouse calculates aggregate disk compression ratio for event table parts [Calculated compression ratio is >= 4.0:1 on active event data parts]
+[ ] 5. 5. Run npm run verify:dynamic -- --tenant test-tenant-999: Script writes fresh dynamic events, queries the analytical API, and asserts live database mutations without using cached data [Verification script confirms isolated tenant count and returns exit code 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Environment Health Check: Verify docker compose up -d launches Kafka and ClickHouse with healthy connection status in < 30s.
-2. Ingestion Pipeline Verification: Stream 5,000 synthetic events via npm run seed; verify ClickHouse events table reflects exactly 5,000 rows within 10s.
-3. Funnel Query Execution: Execute npm run query:funnel; verify ClickHouse computes multi-step conversion counts using windowFunnel in < [M ms] (target < 100ms).
-4. Retention Matrix Verification: Execute npm run query:retention; verify query generates 30-day weekly retention cohort matrix matching ground truth.
-5. Storage Compression Verification: Run npm run audit:compression; verify system.parts reports columnar compression ratio ≥ [X:1] (target ≥ 6:1).
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected multi-tenant event analytics engine in TypeScript and Node.js using Kafka and ClickHouse; achieved [INGESTION_RATE] events/sec ingestion throughput and sub-[QUERY_LATENCY] aggregate funnel queries over [DATASET_SIZE] events with [COMPRESSION_RATIO] columnar disk compression."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Architected multi-tenant telemetry ingestion pipeline streaming event beacons through Kafka into ClickHouse; achieved [N] events/sec ingestion throughput and sub-[M ms] aggregate dashboard queries over [K] million events with [X:1] columnar compression."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

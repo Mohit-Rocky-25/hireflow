@@ -1,49 +1,48 @@
-PROJECT BRIEF — Change Data Capture (CDC) & Event Sourcing Pipeline
+PROJECT BRIEF — CHANGE DATA CAPTURE (CDC) & EVENT SOURCING PIPELINE
 ======================================================================
 
-Domain    : Data Engineering
-Difficulty: INTERMEDIATE
-Est. Time : 28 hours
-Tech Stack: Debezium, Kafka, PostgreSQL, Elasticsearch, Python, Docker
+Project ID  : brief-cdc-pipeline
+Domain      : Data Engineering
+Difficulty  : INTERMEDIATE
+Est. Time   : 29 hours
+Tech Stack  : Debezium, Kafka, PostgreSQL, Python, Docker, Elasticsearch
+Covered Gaps: Debezium, Kafka, PostgreSQL, Python, Docker, Elasticsearch, Data Pipelines
 
-PROBLEM STATEMENT
-----------------------------------------
-Microservices need to react to database changes in other services without tight coupling. Traditional polling-based approaches create database load and introduce replication lag. Build a Change Data Capture pipeline using Debezium that streams database changes into Kafka and fans them out to multiple downstream consumers.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Maintaining consistency between primary transactional databases and downstream search indexes, caches, and analytical stores using batch polling generates excessive database load and introduces unacceptable propagation latency. Polling-based architectures fail to capture intermediate updates and cannot provide reliable audit trails. A Change Data Capture pipeline overcomes these limitations by streaming row-level mutations directly from the database write-ahead log into a partitioned event broker, enabling real-time event dissemination across downstream consumers with low latency and idempotent deduplication guarantees.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-Synchronizing search indexes with database changes (e-commerce product catalog search), replicating data from OLTP to OLAP databases, building event sourcing systems, and propagating changes across microservices in a decoupled manner.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Synchronizing search indexes with transactional relational databases in real time | Invalidating distributed application cache layers immediately upon database row mutation | Streaming transactional events to audit stores and downstream analytical warehouses
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-CDC is a fundamental data architecture pattern that eliminates polling, reduces database load, and enables event-driven architecture. Debezium specifically is the industry-standard CDC tool and is used at LinkedIn, top tech platforms, and most large engineering organizations. Understanding it is table stakes for senior data and backend engineers.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Configuring PostgreSQL logical decoding and write-ahead log slot management without causing disk saturation during consumer downtime Enforcing idempotent consumer writes to prevent duplicate record processing during network partitions and consumer rebalances Handling upstream database schema migrations without terminating active Kafka Connect streaming connectors Maintaining event ordering across horizontal consumer instances when processing multi-row transactions
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Debezium, Kafka Connect, and CDC patterns are explicitly listed in Data Platform and Senior Backend Engineer JDs. This project shows you understand the operational transform from database mutations to domain events — a critical concept in event-driven microservices architecture.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Reproducible Docker Compose environment running PostgreSQL with wal_level=logical, Kafka, and Debezium Demonstrated sub-second end-to-end synchronization from PostgreSQL mutations to Elasticsearch search documents Anti-fake verification script validating dynamic column mutations and live search index reflections
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-Debezium PostgreSQL connector reads WAL (Write-Ahead Log) and streams row-level changes to Kafka as structured JSON events. Separate Kafka consumers fan out to: Elasticsearch for search index sync, Redis for cache invalidation, and a notification service for downstream event triggers. Exactly-once semantics via transaction outbox pattern.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+An application executes INSERT, UPDATE, or DELETE operations in PostgreSQL; the PostgreSQL WAL records the transaction; the Debezium connector captures the mutation and produces a structured event to Kafka; Python consumer processes read the topic; consumers enforce idempotent upserts into Elasticsearch using entity IDs as document identifiers; search queries immediately reflect the latest database state.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+End-to-End Change Propagation Latency: p95 end-to-end propagation latency < 750ms | Idempotent Deduplication Invariant: Downstream Elasticsearch document count equals exactly 1,000 with 0 duplicate records | CDC Pipeline Ingestion Throughput: Sustained pipeline capture throughput > 2,500 events/sec without connector lag buildup
 
-SKILLS COVERED
-----------------------------------------
-Python, Kafka, Debezium, PostgreSQL, Elasticsearch, Data Pipelines
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. Check health of PostgreSQL, Kafka, and Debezium containers: All containers report healthy and Debezium connector status shows RUNNING [Connector state equals RUNNING with 1/1 tasks running and exit code 0]
+[ ] 2. 2. Query Elasticsearch products index for newly inserted record: Elasticsearch returns matching document within 1,500ms of database commit [Document matches PostgreSQL row fields with exit code 0]
+[ ] 3. 3. Execute deduplication verification test script: Consumer idempotently handles duplicates without creating duplicate Elasticsearch documents [Final document count exactly equals source table count with 0 duplicates]
+[ ] 4. 4. Run python scripts/benchmark_latency.py: Benchmark script measures end-to-end latency for each transaction [Measured p95 end-to-end sync latency is < 1,500ms across all mutations]
+[ ] 5. 5. Run python scripts/verify_dynamic_mutation.py --sku DYN-7890: Script executes SQL update, monitors Kafka offset, and confirms dynamic SKU in Elasticsearch [Script confirms dynamic record reflected in search index within 2 seconds with exit code 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify database INSERT/UPDATE/DELETE replicated to Elasticsearch within 500ms; passes when verified by automated test script or benchmark log.
-2. Verify exactly-once test: network partition during change capture produces no duplicates; passes when verified by automated test script or benchmark log.
-3. Verify schema evolution test: add column to source table handled without pipeline restart; passes when verified by automated test script or benchmark log.
-4. Verify kafka consumer lag monitoring dashboard showing real-time propagation lag; passes when verified by automated test script or benchmark log.
-5. Verify transaction outbox pattern preventing lost events on application crashes; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected Change Data Capture pipeline using Debezium and Kafka streaming PostgreSQL write-ahead logs to Elasticsearch; achieved [P95_LATENCY] tail sync freshness and sustained [THROUGHPUT_RATE] events/sec throughput with idempotent deduplication across [EVENT_COUNT] event mutations."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Built CDC pipeline with Debezium and Kafka; propagated PostgreSQL row-level changes to Elasticsearch and 2 downstream consumers within [M ms] at [N] req/sec events/sec with exactly-once guarantees."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

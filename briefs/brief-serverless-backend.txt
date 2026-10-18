@@ -1,49 +1,48 @@
-PROJECT BRIEF — Serverless Event-Driven Backend on AWS Lambda
+PROJECT BRIEF — SERVERLESS EVENT-DRIVEN ORDER PROCESSING BACKEND WITH AWS LAMBDA, DYNAMODB, SQS & LOCALSTACK
 ======================================================================
 
-Domain    : Platform & DevOps
-Difficulty: INTERMEDIATE
-Est. Time : 28 hours
-Tech Stack: Python, AWS Lambda, DynamoDB, SQS, API Gateway, SAM
+Project ID  : brief-serverless-backend
+Domain      : Platform & DevOps
+Difficulty  : INTERMEDIATE
+Est. Time   : 28 hours
+Tech Stack  : Python, LocalStack, AWS Lambda, DynamoDB, SQS, API Gateway
+Covered Gaps: Python, LocalStack, AWS Lambda, DynamoDB, SQS, API Gateway, Platform & DevOps, Serverless
 
-PROBLEM STATEMENT
-----------------------------------------
-Traditional always-on servers are expensive for variable-traffic applications. Build a fully serverless event-driven backend that scales to zero when idle and handles traffic spikes without pre-provisioning, using AWS Lambda, API Gateway, DynamoDB, and SQS for asynchronous processing.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Traditional monolithic servers running continuously for variable or seasonal business workloads waste thousands of dollars in idle cloud compute costs, require complex auto-scaling group management, and suffer from single-point-of-failure bottlenecks during sudden traffic spikes. Naive serverless deployments experience crippling cold-start latency spikes, duplicate transaction executions from unhandled SQS retries, and silent message loss when downstream APIs fail. This project builds a production-grade serverless event-driven order processing backend in Python. The system deploys AWS Lambda functions emulated entirely on LocalStack, ingests order submissions via API Gateway, buffers asynchronous transactional workflows through Amazon SQS with Dead Letter Queues (DLQ), enforces idempotent ACID order state updates in Amazon DynamoDB, and achieves sub-100ms execution latency with zero external cloud expenses.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-Startups and indie developers use serverless to minimize infrastructure costs. Any API with variable traffic (seasonal e-commerce, event-based applications, webhook processors) benefits from serverless economics. AWS Lambda powers backends for companies of all sizes.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+E-Commerce Flash-Sale Order Intake & Inventory Decrement: Retail web applications processing sudden flash-sale traffic spikes need to accept thousands of order submissions without web server crashes. API Gateway immediately buffers orders into an SQS queue, returning a tracking ID to the buyer, while Lambda workers process inventory decrements asynchronously. | Subscription Billing Webhook Processing Pipeline: SaaS platforms receiving third-party payment gateway webhooks (e.g. Stripe, PayPal) need resilient ingestion that survives intermittent backend outages. Lambda functions validate webhook signatures and queue events to SQS; DLQs isolate failing webhooks for automated retry without dropping payment events. | IoT Telemetry Batch Processing & State Storage: Smart building sensor networks emitting periodic temperature and energy telemetry require scalable serverless ingestion that scales to zero overnight. Incoming telemetry bursts buffer through SQS and trigger batch Lambda executions, writing summarized device readings to DynamoDB with automated TTL expiry.
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Serverless architecture requires understanding cold start optimization, DynamoDB access patterns, Lambda concurrency limits, SQS retry semantics, and IAM least-privilege configuration — a different mental model from traditional server development. Building serverless demonstrates cloud-native engineering.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Configuring LocalStack container environments to emulate AWS Lambda, API Gateway, SQS, and DynamoDB with 100% API fidelity Designing idempotent Lambda handlers using DynamoDB conditional writes (`attribute_not_exists`) to prevent duplicate charge transactions from SQS at-least-once delivery Implementing exponential backoff retry policies and Dead Letter Queue (DLQ) redrive mechanisms to handle poison pill payloads cleanly Optimizing Python Lambda function packaging and cold-start execution latency to achieve sub-100ms warm invocation durations
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-AWS Lambda, DynamoDB, and serverless architecture are listed in cloud engineering and backend JDs at every AWS customer. Serverless specifically is gaining traction for cost-sensitive workloads. Engineers who understand cold start optimization and DynamoDB partition key design are immediately productive.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Clean Python codebase cleanly separating Lambda entrypoint handlers, SQS queue publishers, DynamoDB data access layers, and LocalStack deployment scripts High-throughput benchmark report proving sustained processing of 1,000 asynchronous orders per minute with sub-100ms Lambda execution latency Anti-fake verification script publishing duplicate order messages with the same idempotency key and asserting DynamoDB rejects the duplicate with zero duplicate charges
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-AWS Lambda functions triggered by API Gateway (REST API), S3 events, and SQS messages. DynamoDB single-table design with composite keys. SQS FIFO queue for ordered event processing. Lambda Layers for shared dependencies. CloudWatch alarms and X-Ray distributed tracing. SAM (Serverless Application Model) for IaC deployment.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+A client sends an order JSON via HTTP POST to API Gateway; API Gateway validates the schema and enqueues the message directly into Amazon SQS, returning an order receipt ID to the client in < 25ms; SQS triggers the Order Processing Lambda function in batches of 10 messages; the Lambda function extracts the idempotency key and executes a conditional PutItem on DynamoDB (`attribute_not_exists(order_id)`); if the order already exists, it ignores duplicate processing; if new, it writes the order with status 'CONFIRMED' and updates inventory; if an unhandled error occurs, SQS retries the message 3 times before moving the payload to the DLQ; clients query order status via a secondary API Gateway endpoint.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+End-to-End Serverless Order Processing Latency: p95 end-to-end order processing latency is < 85 milliseconds | Idempotent Duplicate Message Rejection Rate: 100 of 100 duplicate order messages detected with 0 duplicate records created in DynamoDB | Dead Letter Queue (DLQ) Poison Pill Isolation: 20 of 20 poison pill messages routed to DLQ with 0 impact on healthy message processing
 
-SKILLS COVERED
-----------------------------------------
-Python, AWS Lambda, DynamoDB, SQS, API Gateway, Cloud
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. python ./benchmarks/bench_orders.py --orders 1000 --rate 50: Pipeline processes orders into DynamoDB with p95 end-to-end latency < 250.0ms [p95 latency < 250.0ms with exit code 0]
+[ ] 2. 2. python ./tests/test_idempotency.py --duplicates 100: Lambda conditional writes reject duplicate messages; exactly 1 record created per order ID [100 of 100 duplicate messages rejected with exit code 0]
+[ ] 3. 3. python ./tests/test_dlq_redrive.py --poison-pills 20: SQS retries 3 times, fails cleanly, and routes all 20 messages to Dead Letter Queue [20 of 20 messages verified in DLQ with exit code 0]
+[ ] 4. 4. curl -X GET http://localhost:4566/restapis/order-api/orders/order_test_101: API returns order details from DynamoDB with status 'CONFIRMED' and timestamp [Response status 200 with valid order body and exit code 0]
+[ ] 5. 5. python ./scripts/verify_concurrent_idempotency.py --order-id order_dup_999 --attempts 5: First request writes record; subsequent 4 requests receive ConditionalCheckFailedException and succeed idempotently [Console confirms exactly 1 DynamoDB write and 4 idempotent skips with exit code 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify cold start optimization: Python Lambda running in < 200ms using Lambda Layers; passes when verified by automated test script or benchmark log.
-2. Verify dynamoDB single-table design handling user, order, and product entities; passes when verified by automated test script or benchmark log.
-3. Verify sQS event processing with exactly-once idempotency via deduplication ID; passes when verified by automated test script or benchmark log.
-4. Verify x-Ray trace showing complete request path across Lambda, DynamoDB, and SQS; passes when verified by automated test script or benchmark log.
-5. Verify load test: 1000 concurrent requests handled without manual pre-warming; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected serverless event-driven backend in Python using AWS Lambda, DynamoDB, and SQS; achieved sub-[PROCESSING_LATENCY] millisecond end-to-end order processing latency, and prevented duplicate transactions across [DUPLICATE_EVENTS] duplicate SQS event retries."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Built serverless event-driven backend on AWS Lambda, DynamoDB, and SQS; optimized cold starts to < [M ms], handled [N] req/sec concurrent requests without pre-warming, and processed [K] monthly requests at near-zero idle cost."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

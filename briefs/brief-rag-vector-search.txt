@@ -1,49 +1,48 @@
-PROJECT BRIEF — Enterprise RAG Semantic Search & Verification Engine
+PROJECT BRIEF — ENTERPRISE RAG SEMANTIC SEARCH & HALLUCINATION VERIFICATION ENGINE WITH FASTAPI, PGVECTOR & SENTENCE-TRANSFORMERS
 ======================================================================
 
-Domain    : AI/ML Applications
-Difficulty: INTERMEDIATE
-Est. Time : 28 hours
-Tech Stack: Python, FastAPI, pgvector, PostgreSQL, Docker, LangChain
+Project ID  : brief-rag-vector-search
+Domain      : AI/ML Applications
+Difficulty  : INTERMEDIATE
+Est. Time   : 28 hours
+Tech Stack  : Python, FastAPI, pgvector, PostgreSQL, Docker, Sentence-Transformers
+Covered Gaps: Python, FastAPI, pgvector, PostgreSQL, Docker, Sentence-Transformers, RAG, AI/ML Applications
 
-PROBLEM STATEMENT
-----------------------------------------
-LLM applications hallucinate when answering questions from internal company documentation. Build a Retrieval-Augmented Generation (RAG) backend with deterministic hybrid search (dense embeddings + BM25 sparse keyword search) and citation attribution.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Enterprise retrieval-augmented generation (RAG) applications frequently generate plausible-sounding hallucinations, quote non-existent policy clauses, and expose internal knowledge bases to context-stuffing vulnerabilities. Naive vector retrieval relying solely on dense similarity returns irrelevant chunks when users query specific entity IDs, keyword codes, or acronyms, degrading answer quality. This project builds a production-grade enterprise RAG semantic search and verification engine in Python. The system ingests technical documentation, generates dense vector representations with open-source Sentence-Transformers, stores and indexes chunks using PostgreSQL with the pgvector extension (HNSW indexing), performs hybrid dense-sparse semantic retrieval with Reciprocal Rank Fusion (RRF), synthesizes answers with local LLMs, and verifies generated claims using automated citation verification.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-Enterprise knowledge management, legal document Q&A, HR policy bots, and technical documentation search. Used by companies like Freshdesk, Salesforce, and ServiceNow for internal knowledge bases. Rapidly becoming a mandatory component of every AI-enabled product.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Enterprise IT Policy & Compliance QA Assistant: Enterprise employees querying internal security policy handbooks need exact policy answers with verifiable paragraph citations rather than generic advice. The engine retrieves top relevant policy chunks using hybrid vector search, synthesizes a grounded response via FastAPI, and highlights exact sentence citations matching source documents. | Engineering Technical Architecture Specification Retrieval: Software engineering teams navigating large system architecture repositories need to query API contract specifications and database schemas. The RAG backend combines pgvector semantic similarity with keyword matching to retrieve accurate technical snippets, reducing developer search time from hours to seconds. | Customer Support Agent Troubleshooting Copilot: Support engineers handling complex hardware troubleshooting tickets require fast access to relevant diagnostic flowcharts and error resolution manuals. The system matches incoming customer error logs to service manual chunks, generating step-by-step diagnostic workflows verified against official manuals.
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-RAG is the #1 architecture pattern being deployed across Indian tech companies in 2025. Understanding it at an implementation level (not just wrapping LangChain) is what separates GenAI engineers from prompt engineers. Demonstrates you understand retrieval theory, embedding models, and evaluation metrics.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Implementing hybrid dense-sparse retrieval combining pgvector HNSW cosine similarity with PostgreSQL full-text search (tsvector) using Reciprocal Rank Fusion Designing semantic chunking pipelines that preserve document hierarchical context without fragmenting code blocks or structured tables Building an automated claim-level hallucination verification module that cross-checks generated sentences against retrieved source chunk spans Optimizing pgvector HNSW index parameters (m, ef_construction, ef_search) to achieve sub-25ms retrieval latency across 100,000 document chunks
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Every company with AI on its roadmap (which is 80%+ of tech companies in India right now) is hiring for this. A working RAG system with hybrid search is the single most in-demand portfolio project for Applied AI/GenAI Engineer roles in 2025.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Clean Python codebase cleanly separating document chunkers, pgvector database adapters, embedding generators, and verification endpoints Search latency and accuracy report proving sub-25ms p95 vector retrieval and >= 88% Mean Reciprocal Rank (MRR@10) on technical queries Anti-fake verification script submitting an adversarial ungrounded question (querying non-existent policy XYZ-999) and asserting the engine responds with 'INSUFFICIENT_CONTEXT' rather than hallucinating
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-FastAPI service that chunks PDF/Markdown documents, generates embeddings with sentence-transformers/OpenAI, and stores vectors in pgvector / Qdrant. Answers user prompts with verbatim citation chunks and calculates hallucination confidence scores.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+Documents ingest into the pipeline; the chunker splits content into 500-token chunks with 50-token overlap; Sentence-Transformers computes 384-d embeddings; chunks and vectors insert into PostgreSQL; pgvector maintains the HNSW index; a user submits a query via FastAPI; the query converts to an embedding and a tsquery; pgvector executes hybrid dense-sparse search and merges results using Reciprocal Rank Fusion; top-5 chunks assemble into a prompt context; the generation module synthesizes an answer; the citation verifier validates extracted claim spans against source chunk text; the response returns with verified citation badges.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+p95 Hybrid Vector Retrieval Latency: p95 hybrid retrieval latency is < 18.5 milliseconds | Retrieval Mean Reciprocal Rank (MRR@10): Mean Reciprocal Rank (MRR@10) is >= 0.91 | Hallucination Rejection on Out-of-Domain Queries: 50 of 50 adversarial queries trigger INSUFFICIENT_CONTEXT with 0 fabricated claims
 
-SKILLS COVERED
-----------------------------------------
-Python, FastAPI, Vector Databases, Embeddings, PostgreSQL, Docker
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. python ./benchmarks/bench_retrieval.py --queries 1000 --concurrency 10: pgvector returns top-5 chunks with p95 hybrid latency < 40.0ms [p95 latency < 40.0ms with exit code 0]
+[ ] 2. 2. python ./evaluation/eval_mrr.py --queries 500: Hybrid dense-sparse retrieval achieves MRR@10 >= 0.82 and Hit Rate@5 >= 0.90 [MRR@10 >= 0.82 with exit code 0]
+[ ] 3. 3. python ./ingestion/chunk_documents.py --input-dir ./docs/sample: Chunks preserve code block integrity and generate valid 384-d vector embeddings [100 of 100 documents chunked and embedded with exit code 0]
+[ ] 4. 4. curl -X POST http://localhost:8000/api/v1/query -H 'Content-Type: application/json' -d '{"question":"What is the database connection timeout?"}': FastAPI returns grounded answer with verified source chunk ID and text citation span [Response status 200 with non-empty citation list and exit code 0]
+[ ] 5. 5. python ./scripts/verify_hallucination_rejection.py --query 'What are the penalties under policy XYZ-999?': System detects low similarity scores and returns 'INSUFFICIENT_CONTEXT' with 0 fabricated text [Console confirms response is 'INSUFFICIENT_CONTEXT' with exit code 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify hybrid search implementation blending BM25 lexical search with cosine vector similarity; passes when verified by automated test script or benchmark log.
-2. Verify exact source citation highlights showing exact page and paragraph references; passes when verified by automated test script or benchmark log.
-3. Verify evaluation benchmark script checking retrieval precision and MRR (Mean Reciprocal Rank); passes when verified by automated test script or benchmark log.
-4. Verify docker container running local embeddings without requiring external API keys; passes when verified by automated test script or benchmark log.
-5. Verify swagger API documentation with interactive testing endpoints; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected enterprise RAG semantic search engine in Python using FastAPI, PostgreSQL, and pgvector; achieved [RETRIEVAL_MRR] ranking accuracy on technical documentation retrieval, and maintained sub-[QUERY_LATENCY] millisecond hybrid vector search latency."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Engineered created enterprise RAG engine in Python & pgvector with hybrid BM25/dense vector retrieval; achieved 95% citation attribution accuracy across [N] req/sec document chunks in < [M ms]."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

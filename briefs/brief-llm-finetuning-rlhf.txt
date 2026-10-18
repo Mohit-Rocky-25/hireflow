@@ -1,49 +1,48 @@
-PROJECT BRIEF — RLHF-Style LLM Alignment with Reward Model Training
+PROJECT BRIEF — LLM PREFERENCE ALIGNMENT PIPELINE WITH BRADLEY-TERRY REWARD MODELING & DIRECT PREFERENCE OPTIMIZATION
 ======================================================================
 
-Domain    : GenAI & LLM Engineering
-Difficulty: ADVANCED
-Est. Time : 38 hours
-Tech Stack: Python, PyTorch, TRL (HuggingFace), LoRA, Weights & Biases
+Project ID  : brief-llm-finetuning-rlhf
+Domain      : GenAI & LLM Engineering
+Difficulty  : ADVANCED
+Est. Time   : 40 hours
+Tech Stack  : Python, PyTorch, HuggingFace, TRL, LoRA, Weights & Biases
+Covered Gaps: Python, PyTorch, HuggingFace, RLHF, Reward Modeling, PEFT, TRL, Weights & Biases, Alignment
 
-PROBLEM STATEMENT
-----------------------------------------
-Pre-trained LLMs are helpful but not aligned with human values or task preferences without additional training. Reinforcement Learning from Human Feedback (RLHF) is what makes ChatGPT helpful rather than harmful. Build a simplified RLHF pipeline: reward model training, PPO fine-tuning, and alignment evaluation.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Supervised fine-tuning teaches language models task formats but fails to align generation tone, safety boundaries, and nuanced human preferences. Reinforcement Learning from Human Feedback (RLHF) using traditional PPO is notoriously unstable, suffering from hyperparameter sensitivity, value network divergence, and reward hacking. This project builds a direct preference alignment pipeline in Python and PyTorch using the TRL library. The system trains a Bradley-Terry pairwise reward model on human preference datasets, optimizes model policies using Direct Preference Optimization (DPO) with implicit reward formulations and KL divergence penalties, prevents catastrophic forgetting, and evaluates alignment win rates against baseline supervised models.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-Every AI lab and company deploying LLMs needs alignment. Regulatory requirements (EU AI Act, RBI AI guidelines) require demonstrable alignment. EdTech, healthcare AI, and any consumer-facing AI application must ensure their models don't produce harmful or incorrect outputs.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Conversational Safety & Hate Speech Refusal Alignment: Consumer AI application developers need conversational assistants that politely refuse harmful instructions while remaining helpful on benign queries. The alignment pipeline trains a reward model on safety preference pairs, optimizing model weights via DPO to eliminate toxic outputs without over-refusal. | Executive Summary Conciseness and Tone Calibration: Enterprise business intelligence tools require summarization models that consistently produce concise, bulleted executive briefings rather than verbose narrative text. The system aligns an open-source model against executive preference pairs, ensuring generated summaries strictly prioritize key quantitative takeaways. | Code Review Tone & Constructive Feedback Alignment: Engineering organizations deploying automated code review bots need comments that provide constructive architectural suggestions rather than dismissive remarks. The engine trains on paired senior engineer feedback demonstrations, aligning review bots to suggest specific refactoring diffs with polite explanatory notes.
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-RLHF is the foundational technique behind every modern aligned LLM (ChatGPT, Claude, Gemini). Understanding reward modeling, PPO training stability, and KL divergence penalty is ML engineering at the research frontier. This separates engineers who can fine-tune from engineers who can align — a fundamentally different and more valuable skill.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Training a robust Bradley-Terry reward model that scores preference margins accurately without overfitting to response length bias Deriving and optimizing the closed-form DPO objective without requiring unstable actor-critic reinforcement learning loops Calibrating the KL divergence reference model constraint beta parameter to prevent policy collapse into degenerate repetitive strings Evaluating win rates using automated LLM-as-a-judge protocols with position-bias counterbalancing
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-AI safety and alignment roles are opening at Anthropic, OpenAI, DeepMind, and increasingly at Indian AI companies. Any AI company building regulated applications (healthcare, finance, government) needs alignment engineering. This is the most future-proof GenAI skill you can demonstrate.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Clean Python codebase separating preference dataset loaders, reward model training scripts, and DPO trainers Comprehensive training curves in Weights & Biases showing margin growth, policy reward increase, and KL divergence stabilization Anti-fake verification script presenting an unseen paired preference test and verifying reward model assigns correct higher score to preferred text
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-SFT (Supervised Fine-Tuning) baseline on task demonstrations. Human preference dataset collection UI. Reward model trained on preference pairs using Bradley-Terry model. PPO (Proximal Policy Optimization) fine-tuning loop with KL penalty constraining divergence from SFT model. Alignment evaluation on held-out preference test set.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+Chosen and rejected prompt-response pairs enter the ingestion pipeline; text sequences tokenize and pad with uniform formatting; the reward model trains to predict higher scalar values for chosen completions; the DPO training loop loads the base SFT model alongside frozen reference weights; DPO updates LoRA policy parameters by maximizing the log-likelihood of chosen completions relative to rejected completions penalizing KL divergence; evaluation harnesses score aligned outputs against held-out preference prompts; telemetry logs to Weights & Biases.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Pairwise Reward Model Classification Accuracy: Reward classification accuracy is >= 81.5% across 500 test pairs | DPO Aligned Policy Win-Rate Over SFT Baseline: Aligned model achieves >= 78.0% win-rate over unaligned SFT baseline across 200 prompts | KL Divergence Penalty Stability Ceiling: Average per-token KL divergence is < 0.08 across training epochs
 
-SKILLS COVERED
-----------------------------------------
-Python, PyTorch, HuggingFace, RLHF, Reward Modeling, PEFT
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. python -m rlhf_pipeline.evaluate_reward --model-dir output/reward_model --test-file test_data/test_pairs.json: Reward model scores chosen response higher than rejected response in >= 72.0% of test pairs [Report records preference classification accuracy >= 72.0% with exit code 0]
+[ ] 2. 2. python -m rlhf_pipeline.benchmark_win_rate --prompts test_data/eval_prompts.json: Aligned model achieves >= 65.0% win-rate over baseline with position bias balanced [Win-rate is >= 65.0% with exit code 0]
+[ ] 3. 3. python -m rlhf_pipeline.verify_training_stability --run-id latest: Verification confirms average per-token KL divergence remains < 0.15 across all steps [Average KL divergence < 0.15 and exit code is 0]
+[ ] 4. 4. python -m rlhf_pipeline.verify_checkpoint --adapter-dir output/dpo_adapter: Directory contains adapter_model.safetensors, adapter_config.json, and valid metadata [All adapter files exist and load into TRL pipeline without errors]
+[ ] 5. 5. python scripts/verify_dynamic_preference.py --prompt 'How do I bypass software activation keys?': Reward model evaluates safety response with higher score (margin > 1.5 logits) and DPO policy chooses refusal [Reward margin > 1.5 logits and generated response politely declines with exit code 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify reward model evaluation: > 70% accuracy classifying preferred vs rejected responses; passes when verified by automated test script or benchmark log.
-2. Verify pPO training stability: reward improves without KL explosion (KL < 0.1 per step); passes when verified by automated test script or benchmark log.
-3. Verify catastrophic forgetting test: RLHF model retains baseline capabilities on held-out tasks; passes when verified by automated test script or benchmark log.
-4. Verify alignment evaluation: RLHF model produces safer/more helpful outputs vs SFT on test set
-5. Verify training curves in Weights & Biases showing reward, KL divergence, and loss stability; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected direct preference optimization alignment pipeline in Python and PyTorch using TRL; achieved [PREFERENCE_ACCURACY] pairwise preference accuracy on reward classification, and delivered [WIN_RATE] win-rate improvement over baseline supervised policies."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Implemented RLHF alignment pipeline with reward model training and PPO fine-tuning; reward model achieved 73% preference accuracy, and aligned model improved reward score 28% vs SFT baseline.; achieved [N] throughput with < [M ms] latency overhead across [K] test transactions."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

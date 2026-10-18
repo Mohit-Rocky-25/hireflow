@@ -1,49 +1,48 @@
-PROJECT BRIEF — Language Server Protocol (LSP) Implementation
+PROJECT BRIEF — LANGUAGE SERVER PROTOCOL (LSP) ENGINE WITH AST PARSING & GLOB DIAGNOSTICS
 ======================================================================
 
-Domain    : Computer Science Fundamentals
-Difficulty: ADVANCED
-Est. Time : 38 hours
-Tech Stack: TypeScript, vscode-languageserver, Node.js, AST Parsing
+Project ID  : brief-gitignore-lsp
+Domain      : Computer Science Fundamentals
+Difficulty  : ADVANCED
+Est. Time   : 39 hours
+Tech Stack  : TypeScript, Node.js
+Covered Gaps: TypeScript, Node.js, Language Server Protocol, AST Parsing, Systems Programming, Compilers
 
-PROBLEM STATEMENT
-----------------------------------------
-Code editors provide features like autocomplete, go-to-definition, and syntax highlighting through a protocol (LSP) that any language can implement. Build an LSP server for a custom DSL or configuration language, enabling VS Code to provide rich editing features: syntax validation, hover documentation, and completions.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Software engineers rely on Language Server Protocol (LSP) capabilities daily in modern code editors (e.g., Neovim, VS Code) for instant diagnostics, symbol autocompletion, and hover explanations, yet the underlying language server mechanics—JSON-RPC 2.0 streaming, incremental document synchronization, abstract syntax tree (AST) evaluation, and path resolution—remain misunderstood. Configuration DSLs like .gitignore frequently contain subtle rule shadowing bugs and syntax conflicts that lead to accidental commits of sensitive files. This project constructs an LSP-compliant language server from first principles in TypeScript and Node.js. The engine handles JSON-RPC 2.0 message framing over stdio, parses gitignore glob patterns into AST nodes, detects syntax errors and conflicting negation rules in real-time, provides filesystem autocompletion, and serves contextual hover explanations.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-Any custom DSL or configuration language (Terraform HCL, Kubernetes YAML validation, GitHub Actions workflow validation) benefits from an LSP server. Companies with internal DSLs improve developer experience dramatically with LSP support. JetBrains, VS Code, and Neovim all support LSP.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+IDE extensions providing real-time syntax checking and negation conflict warnings for gitignore files | Enterprise developer tooling preventing accidental commits of secret keys and local build artifacts | Domain-specific configuration language servers for proprietary infrastructure rule files
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Building an LSP server requires understanding JSON-RPC protocol, incremental document synchronization, AST parsing with error recovery, and editor integration — the complete developer tooling stack. Engineers who can build language servers can improve developer experience for any proprietary language or DSL.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Framing and parsing asynchronous JSON-RPC 2.0 messages over standard input/output streams with Content-Length headers Implementing an AST parser for gitignore glob semantics supporting wildcard matching, character classes, and negation prefixes Detecting rule shadowing and redundant patterns in real-time without stalling keystroke latency Providing sub-20 millisecond filesystem path autocompletion across deep workspace directory trees
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Developer tooling companies (JetBrains, Microsoft VS Code team, GitHub), language design teams, and companies with internal DSLs value LSP engineering. Understanding the Language Server Protocol positions you to contribute to any language tooling project — an unusual and impressive portfolio item.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Modular TypeScript implementation separating JSON-RPC framing, AST tokenization, diagnostic engines, and LSP handlers Automated protocol conformance test suite verifying 50 distinct LSP client-server interaction scenarios Anti-fake verification script sending dynamic unclosed glob brackets via stdio and asserting exact diagnostic publication
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-TypeScript LSP server communicating via JSON-RPC over stdio. Document synchronization (open, change, close events). Incremental parsing maintaining AST for each open document. Completion providers using document symbols and schema definitions. Hover documentation from inline comments. Diagnostic publisher checking schema validation on every change.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+LSP client (e.g. editor) connects via stdio; the JSON-RPC Transport Framer parses Content-Length headers and emits typed RPC notifications; textDocument/didOpen and didChange events pass to the Gitignore Glob AST Parser; the parser tokenizes rule lines and builds an AST; the Diagnostics Engine analyzes the tree for syntax errors or rule conflicts and publishes textDocument/publishDiagnostics back to client; textDocument/completion requests trigger the Workspace Path Provider to scan matching files; hover requests return markdown rule explanations.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Keystroke Diagnostic Publication Latency (p99): p99 diagnostic latency is < 12 milliseconds | Workspace Path Autocompletion Latency: Average completion latency is < 8 milliseconds | Glob Syntax Parsing Accuracy Rate: 50 of 50 complex glob pattern fixtures parsed with 0 syntax misclassifications
 
-SKILLS COVERED
-----------------------------------------
-TypeScript, Parsing, LSP Protocol, Language Design, VS Code APIs, AST
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. npm run test:latency: Server processes didChange and emits publishDiagnostics with p99 latency < 30 milliseconds [p99 diagnostic publication latency is < 30 milliseconds with exit code 0]
+[ ] 2. 2. npm run test:completion -- --prefix 'src/components/': Server scans directory tree and returns matching path candidates in < 20 milliseconds [Average completion response latency is < 20 milliseconds]
+[ ] 3. 3. npm run test:ast-parser: AST parser tokenizes and compiles all 50 glob patterns accurately [50 of 50 glob parsing tests pass with exit code 0]
+[ ] 4. 4. node scripts/simulate_client.js --action hover --line 5 --col 2: Server returns hover response with markdown explanation of pattern matching behavior [Response contains contents.kind equals markdown and non-empty description]
+[ ] 5. 5. node scripts/verify_dynamic_lsp.js --content 'invalid-[abc' --expected-error 'UNCLOSED_BRACKET': Server emits publishDiagnostics identifying unclosed bracket at exact line and column [Diagnostic message contains UNCLOSED_BRACKET, range matches input, and exit code is 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify vS Code extension demo: open DSL file, get completions, hover docs, and error diagnostics; passes when verified by automated test script or benchmark log.
-2. Verify incremental parsing: edit one line, only affected AST nodes re-parsed; passes when verified by automated test script or benchmark log.
-3. Verify completion latency: suggestions appear within 50ms of trigger character; passes when verified by automated test script or benchmark log.
-4. Verify go-to-definition: cursor on symbol, jump to definition location; passes when verified by automated test script or benchmark log.
-5. Verify error recovery: parser continues providing valid AST even with syntax errors mid-file; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected Language Server Protocol engine in TypeScript and Node.js featuring custom AST glob parser; achieved sub-[DIAG_LATENCY] tail diagnostic publication latency across [LINE_COUNT]-line files, and delivered sub-[COMPLETION_LATENCY] path autocompletion across [WORKSPACE_FILES] repository files."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Built Language Server Protocol server for custom DSL with VS Code extension; delivered < [M ms] completions, [M ms] diagnostics, and hover documentation with incremental AST parsing for production editor integration."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

@@ -1,49 +1,48 @@
-PROJECT BRIEF — End-to-End MLOps Training & Deployment Platform
+PROJECT BRIEF — END-TO-END MLOPS PIPELINE PLATFORM WITH AUTOMATED EXPERIMENT TRACKING, MODEL REGISTRY & DRIFT DETECTION
 ======================================================================
 
-Domain    : ML Engineering
-Difficulty: ADVANCED
-Est. Time : 38 hours
-Tech Stack: Python, Airflow, MLflow, Kubernetes, Docker, Evidently AI
+Project ID  : brief-mlops-platform
+Domain      : ML Engineering
+Difficulty  : ADVANCED
+Est. Time   : 40 hours
+Tech Stack  : Python, MLflow, Docker, FastAPI, GitHub Actions, PostgreSQL
+Covered Gaps: Python, MLflow, Docker, FastAPI, GitHub Actions, PostgreSQL, ML Engineering, Data Pipelines, MLOps
 
-PROBLEM STATEMENT
-----------------------------------------
-Data science teams build great models in notebooks that never reach production because of missing MLOps infrastructure. Build a complete MLOps platform that automates model training pipelines, experiment tracking, deployment, A/B testing, and production monitoring with drift detection.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Machine learning teams struggle with reproducible model training, ad-hoc versioning stored on local disks, and silent performance degradation when real-world data distributions drift from training sets. Manually packaging models into Docker containers introduces deployment discrepancies and untracked dependencies. This project builds a production-grade MLOps platform in Python. The platform orchestrates automated training pipelines, tracks model parameters, metrics, and artifacts in MLflow, gates model stage transitions in a central Model Registry, packages champion models into containerized FastAPI inference microservices via Docker, and detects covariate feature drift using statistical tests in automated CI/CD workflows.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-Every ML team in India building production models needs this. top tech platforms, top tech platforms, Zomato, and Myntra have internal MLOps platforms. The open-source alternatives (MLflow, Kubeflow, Metaflow) require engineering effort to deploy and configure — this project shows you can do exactly that.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Predictive Maintenance Fleet Monitoring: Manufacturing operations engineering teams need automated model retraining pipelines to forecast industrial turbine failures based on sensor telemetry. The platform ingests streaming sensor data, tracks model hyperparameter runs in MLflow, and automatically promotes newly trained models if validation metrics surpass current production thresholds. | E-Commerce Customer Churn Prediction Engine: Growth analytics teams require reproducible customer churn prediction models that automatically retrain as quarterly consumer purchasing habits evolve. The system monitors feature distributions for covariate shift, triggering automated retraining pipelines and posting model registry evaluation reports before deployment. | Credit Risk Scoring & Financial Model Governance: Fintech lending platforms subject to strict auditing regulations must maintain immutable audit trails of every model artifact, dataset version, and training script. The platform enforces strict model registry gating where models progress from Staging to Production only after passing automated bias and drift validation tests.
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-MLOps is the fastest-growing engineering discipline of 2025. The gap between data scientists who build models and ML engineers who deploy them is enormous. Closing this gap with a working platform shows end-to-end ML system design — the skill that commands the highest ML salaries.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Establishing deterministic MLflow experiment tracking and artifact lineage linking git commits to model weights Implementing Kolmogorov-Smirnov and Population Stability Index (PSI) algorithms to detect subtle tabular feature drift Designing automated model promotion criteria that evaluate candidate models against challenger benchmarks before registry tagging Containerizing model inference servers with FastAPI and Docker ensuring minimal cold-start times and deterministic dependency isolation
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-ML Platform and MLOps Engineer roles are among the highest-paying in India (₹30-80 LPA at senior levels). Kubeflow, Airflow, MLflow, and Kubernetes are the exact keywords these JDs contain. A working MLOps platform is the definitive credential for these roles.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Clean Python codebase cleanly separating data ingestion pipelines, MLflow tracking utilities, inference APIs, and drift analyzers Comprehensive test suite verifying automated model promotion, inference endpoint latency, and statistical drift alerts Anti-fake verification script submitting an intentionally drifted feature batch and verifying the platform detects covariate shift and flags retraining alerts
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-Apache Airflow orchestrates training DAGs triggered on data drift or scheduled intervals. MLflow tracks experiments, parameters, and metrics. Docker images of trained models are pushed to a registry and deployed to Kubernetes with Seldon Core. Evidently AI monitors production prediction drift.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+Feature datasets enter the preprocessing pipeline; the training script trains model candidates (e.g., LightGBM / XGBoost) and logs parameters, metrics, and serialized artifacts to MLflow; the registry compares the candidate against the current production baseline; if accuracy improves and passes safety gates, the model is tagged as Staging; GitHub Actions builds a Docker container embedding the model and FastAPI server; during active serving, input payloads stream to the drift monitor; when statistical feature divergence exceeds defined p-value thresholds (p < 0.05), a drift alert triggers and logs a retraining event.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Automated Model Training & Registration Pipeline Cycle Time: End-to-end training and registration pipeline cycle time is < 3.5 minutes | Containerized Model Inference p95 Latency: p95 model inference response latency is < 9.5 milliseconds | Covariate Feature Drift Detection Recall: Feature drift detection recall is >= 98.0% with false positive rate < 2.0%
 
-SKILLS COVERED
-----------------------------------------
-Python, Kubernetes, MLflow, Docker, Airflow, Cloud
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. python -m mlops_pipeline.train_and_register --config configs/train_config.yaml: Pipeline trains model, logs metrics to MLflow, and registers candidate in under 8.0 minutes [Cycle time is < 8.0 minutes and MLflow run status is FINISHED with exit code 0]
+[ ] 2. 2. python scripts/benchmark_inference.py --endpoint http://localhost:8000/predict --requests 1000: Inference server fulfills requests with p95 response latency < 25.0 milliseconds [p95 latency is < 25.0ms with exit code 0]
+[ ] 3. 3. python -m mlops_pipeline.evaluate_drift --data-dir test_data/drift_batches: Drift monitor correctly flags >= 90.0% of drifted batches with false positive rate < 5.0% [Detection recall is >= 90.0% and exit code is 0]
+[ ] 4. 4. python -m mlops_pipeline.promote_model --model-name CustomerModel --metric-threshold 0.85: MLflow model registry updates stage tag to 'Production' and logs transition event [Model stage equals 'Production' with exit code 0]
+[ ] 5. 5. python scripts/verify_dynamic_drift.py --batch-file test_data/dynamic_drift.csv: Monitor computes Kolmogorov-Smirnov test (p < 0.01), flags feature drift, and logs retraining alert [Console output logs 'DRIFT_DETECTED: Feature X p-value < 0.01' with exit code 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify airflow DAG that trains, validates, and registers a model automatically on schedule; passes when verified by automated test script or benchmark log.
-2. Verify mLflow experiment dashboard showing parameter sweeps and metric comparisons; passes when verified by automated test script or benchmark log.
-3. Verify a/B deployment splitting 10%/90% traffic between model versions via Kubernetes; passes when verified by automated test script or benchmark log.
-4. Verify drift detection alert triggering retraining when feature distribution shifts beyond threshold; passes when verified by automated test script or benchmark log.
-5. Verify full rollback test: deploy broken model, detect failure, revert to previous version; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected end-to-end MLOps platform in Python and Docker using MLflow and FastAPI; automated model registry gating with sub-[CYCLE_MINUTES] minute pipeline cycles, and achieved [DRIFT_RECALL] drift detection recall across [BATCH_COUNT] evaluation batches."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Built end-to-end MLOps platform with Airflow, MLflow, and Kubernetes; automated model retraining and deployment pipeline reducing time-to-production from days to under 30 minutes.; achieved [N] throughput with < [M ms] latency overhead across [K] test transactions."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

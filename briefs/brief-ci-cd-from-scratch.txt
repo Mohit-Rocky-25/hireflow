@@ -1,49 +1,48 @@
-PROJECT BRIEF — Minimal CI/CD System from Scratch with Build Agents
+PROJECT BRIEF — MINIMAL CI/CD SYSTEM FROM SCRATCH WITH BUILD AGENTS
 ======================================================================
 
-Domain    : Platform & DevOps
-Difficulty: ADVANCED
-Est. Time : 38 hours
-Tech Stack: Go, Docker, PostgreSQL, WebSockets, GitHub API
+Project ID  : brief-ci-cd-from-scratch
+Domain      : Platform & DevOps
+Difficulty  : ADVANCED
+Est. Time   : 34 hours
+Tech Stack  : Go, Docker, SQLite, WebSockets
+Covered Gaps: Go, Docker, SQLite, WebSockets, CI/CD, DevOps
 
-PROBLEM STATEMENT
-----------------------------------------
-GitHub Actions, Jenkins, and CircleCI are all custom-built CI/CD systems. Understanding how they work requires building one: a master controller that receives webhook events, queues build jobs, distributes them to worker agents, streams build logs, and reports status back to GitHub.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Relying on black-box hosted CI/CD services obscures the fundamental distributed systems principles required to build scalable, secure continuous integration infrastructure. Multi-tenant build systems must parse pipeline definitions, schedule directed acyclic graph (DAG) tasks across worker pools, enforce process isolation between untrusted build jobs, stream live terminal logs without memory leaks, and persist artifacts securely. This project implements a custom containerized CI/CD engine in Go consisting of a central job scheduler server and autonomous worker agents that execute pipeline stages in isolated Docker containers with live WebSocket log streaming.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-Self-hosted CI/CD is common in air-gapped environments (defense, banking) and companies with custom build requirements. Understanding CI/CD internals enables optimization of existing systems and contribution to open-source CI tools like Drone, Woodpecker CI, and Concourse.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Air-gapped and self-hosted build automation for regulated enterprise environments | High-performance continuous integration runner with localized Docker layer caching | Lightweight task orchestration engine for automated test execution and artifact bundling
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-CI/CD systems require solving distributed job scheduling, build log streaming, GitHub webhook integration, Docker build isolation, and worker lifecycle management — a rich distributed systems exercise. Engineers who understand CI/CD internals can optimize build pipelines for speed, cost, and reliability.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Parsing pipeline definitions into directed acyclic graphs and scheduling parallel tasks without deadlock Managing Docker container lifecycles safely on worker nodes to prevent zombie containers upon job cancellation Streaming high-volume stdout and stderr terminal logs over WebSockets without unbounded memory buffers Enforcing secure agent-to-server communication and mutual authentication across untrusted networks
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Platform engineering teams that own CI/CD infrastructure need engineers who understand its internals. Companies with self-hosted runners (enterprise, regulated industries) and teams optimizing CI costs value this deeply. GitHub Actions and Jenkins administration is listed in nearly every DevOps JD.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Modular Go architecture cleanly separating controller scheduler from worker execution daemons Deterministic DAG scheduler executing parallel stages with topological sort verification Anti-fake verification script running dynamic job specifications and validating live log output streams
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-Go controller receiving GitHub webhook on push events. Build queue storing pending jobs in PostgreSQL. Docker container-based agents pulling jobs from queue, executing build steps in isolated containers, streaming stdout via WebSocket to controller. Status check API reporting pass/fail to GitHub Checks API.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+Users submit a pipeline YAML file via CLI; the DAG Engine resolves task dependencies; the Scheduler persists stages in SQLite and enqueues root tasks; an available Worker Agent claims the task via WebSockets; the agent spawns an isolated Docker container with the specified image; container logs stream in real-time over WebSockets to the server; upon container exit, the agent reports exit codes, triggering subsequent dependent tasks.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+DAG Stage Execution Dependency Adherence: 20 of 20 test pipelines execute stages in strict dependency order with 0 race conditions | Worker Container Cancellation Cleanup Duration: Worker container stopped and removed within 1.5 seconds of cancellation signal | Terminal Log Streaming Transmission Latency: p95 log transmission latency < 35ms without dropped lines
 
-SKILLS COVERED
-----------------------------------------
-Go, Docker, Networking, GitHub API, System Design, DevOps
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. Run go test ./pkg/scheduler -v: DAG scheduler parses steps and outputs valid topological execution plan [All scheduler unit tests pass with exit code 0]
+[ ] 2. 2. Inspect Docker container lifecycle on worker host: Worker spawns container, runs commands, captures stdout, and removes container on completion [Build completes successfully with exit code 0 and container removed from host]
+[ ] 3. 3. Verify worker container termination: Worker intercepts cancellation and forcibly destroys container within 4 seconds [Container state transitions to destroyed within 4 seconds with 0 leftover containers]
+[ ] 4. 4. Run python scripts/verify_log_stream.py: Log streaming client receives all lines in sequential order with p95 latency < 80ms [Total received line count equals 5,000 with 0 dropped lines]
+[ ] 5. 5. Run ./scripts/verify_dynamic_job.sh --token DYN-TOKEN-9941: Server schedules job, agent executes echo command in clean container, and returns matching token in log stream [Execution log matches dynamic token with exit status 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify end-to-end: git push triggers webhook, job queued, agent runs build, GitHub status updated; passes when verified by automated test script or benchmark log.
-2. Verify build isolation: each job runs in fresh Docker container, no state leaks between builds; passes when verified by automated test script or benchmark log.
-3. Verify log streaming: real-time build output visible in web UI within 200ms of stdout write; passes when verified by automated test script or benchmark log.
-4. Verify agent failure recovery: build re-queued when agent disconnects mid-execution; passes when verified by automated test script or benchmark log.
-5. Verify gitHub Checks API: PR shows pass/fail status with logs link; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected containerized CI/CD pipeline engine in Go using Docker and WebSockets; executed parallel task DAGs with topological dependency scheduling, live terminal log streaming under [STREAM_LATENCY] latency, and automated container teardown within [TEARDOWN_TIME] seconds."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Built minimal CI/CD system in Go with Docker-isolated build agents; processed 100 concurrent builds with < 5s pickup latency, real-time log streaming, and automated GitHub Checks status reporting.; achieved [N] throughput with < [M ms] latency overhead across [K] test transactions."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

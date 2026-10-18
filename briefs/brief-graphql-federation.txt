@@ -1,49 +1,48 @@
-PROJECT BRIEF — Federated GraphQL Gateway with Schema Stitching
+PROJECT BRIEF — FEDERATED GRAPHQL GATEWAY WITH DISTRIBUTED QUERY PLANNING & DATALOADER BATCHING
 ======================================================================
 
-Domain    : Full-Stack Web
-Difficulty: INTERMEDIATE
-Est. Time : 28 hours
-Tech Stack: TypeScript, Apollo Federation, Node.js, PostgreSQL, Redis, React
+Project ID  : brief-graphql-federation
+Domain      : Full-Stack Web
+Difficulty  : INTERMEDIATE
+Est. Time   : 28 hours
+Tech Stack  : TypeScript, Node.js, GraphQL, PostgreSQL, Redis, Docker
+Covered Gaps: TypeScript, Node.js, GraphQL, PostgreSQL, Redis, Docker, GraphQL Federation, Full-Stack Web
 
-PROBLEM STATEMENT
-----------------------------------------
-Large applications expose dozens of REST APIs that frontend teams struggle to compose efficiently. Build a federated GraphQL gateway that unifies multiple microservices behind a single typed schema, enabling efficient query composition and eliminating over-fetching.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Modern microservice architectures fracture domain data across dozens of isolated REST services, forcing client web applications to make redundant round-trips to assemble screens. Naive GraphQL gateways that resolve nested fields sequentially introduce disastrous N+1 request cascades that overwhelm downstream backends. This project builds a high-performance federated GraphQL gateway in TypeScript and Node.js. The system composes independent subgraph schemas into a unified supergraph, generates optimized distributed query execution DAGs, eliminates N+1 downstream round-trips via DataLoader request batching and entity reference resolution, and caches query plans in Redis to achieve sub-4ms routing overhead.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-Shopify, Twitter, and top tech platforms use GraphQL federation. Any company with 5+ microservices and multiple frontend clients (web, mobile, partner APIs) benefits from a unified GraphQL layer. Particularly relevant for B2B SaaS products with complex nested data relationships.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Enterprise microservice unification providing single typed API entrypoint for web and mobile clients | B2B SaaS data composition joining customer accounts, billing subscriptions, and usage analytics | High-throughput developer platform exposing coherent entity graph across decentralized teams
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-GraphQL Federation is complex — it requires understanding schema composition, entity references, and distributed query planning. Building it demonstrates advanced understanding of API design, type systems, and client-server data contracts — skills explicitly valued in full-stack and backend architecture roles.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Composing heterogeneous subgraph schemas into a unified federated supergraph without type conflicts Constructing optimal distributed query execution DAGs that parallelize non-dependent downstream sub-queries Eliminating N+1 downstream microservice request floods using DataLoader batching across entity boundaries Managing schema versioning and live subgraph health checking with graceful partial query execution
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Apollo Federation and GraphQL expertise are in high demand at product companies. Shopify, GitHub, Twitter, and top tech platforms are all on GraphQL. In India, companies like Dunzo, Slice, and Rapido are migrating to GraphQL. Schema federation knowledge specifically signals senior API design expertise.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Clean TypeScript codebase cleanly separating schema composition, query planners, DataLoader batchers, and execution engines Automated N+1 stress test demonstrating that a 4-level nested query issues exactly 1 batched request per downstream service Anti-fake verification script issuing dynamic nested entity queries and verifying downstream batch consolidation
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-Apollo Federation gateway routing queries to 3 subgraph services (Users, Products, Orders). Each subgraph owns its schema fragment and resolves its entity types. Supergraph schema composed automatically by Apollo Rover. DataLoader for batching N+1 database queries. Persisted queries for production performance.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+Client GraphQL queries arrive at the gateway; the Redis Query Plan Cache checks if a pre-compiled plan exists; on cache miss, the Distributed Query Planner constructs an execution DAG identifying dependencies between subgraphs; parallel execution steps dispatch simultaneously to downstream microservices; the DataLoader Entity Batching Service combines entity reference IDs into single batched HTTP requests; returned partial JSON payloads merge into the response shape; the final unified payload returns to client in sub-millisecond overhead.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Gateway Query Planning Overhead Latency: Average query planning overhead is < 1.2 milliseconds | Downstream N+1 Request Elimination Rate: 0 redundant requests; exactly 1 batched request per downstream subgraph service | Federated Gateway Sustained Throughput: Sustained throughput exceeds 6,000 queries/sec
 
-SKILLS COVERED
-----------------------------------------
-TypeScript, GraphQL, Node.js, React, Microservices, REST APIs
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. npm run test:n-plus-one: DataLoader consolidates entity lookups into exactly 1 batched request per downstream service [Each downstream subgraph records exactly 1 batched request with 0 unbatched calls, exit code 0]
+[ ] 2. 2. npm run bench:planning-latency: Average query planning and execution overhead added by gateway is < 4.0 milliseconds [Average planning overhead is < 4.0 milliseconds]
+[ ] 3. 3. npm run bench:throughput -- --requests 10000 --concurrency 50: Gateway delivers sustained throughput exceeding 2,500 queries/sec [Measured throughput is > 2,500 queries/sec with exit code 0]
+[ ] 4. 4. curl -X POST http://localhost:4000/graphql -H 'Content-Type: application/json' -d '{"query": "{ user(id: 1) { name orders { id total } } }"}': Gateway returns unified JSON response containing both user name and orders array [Response status is 200, data.user.name exists, and data.user.orders has items]
+[ ] 5. 5. node scripts/verify_dynamic_federation.js --entity-count 15: Gateway intercepts request, batches all 15 IDs into single downstream call, and returns unified payload [Downstream call inspector confirms batch size equals 15 and exit code is 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify federated schema with entity types resolvable across 3 independent subgraph services; passes when verified by automated test script or benchmark log.
-2. Verify n+1 query elimination test: 100 users with orders resolves in 2 DB queries, not 101; passes when verified by automated test script or benchmark log.
-3. Verify schema evolution test: add field to subgraph without breaking existing clients; passes when verified by automated test script or benchmark log.
-4. Verify performance trace showing per-subgraph query timing in Apollo Studio; passes when verified by automated test script or benchmark log.
-5. Verify react client using Apollo Client hooks with normalized cache and optimistic updates; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected federated GraphQL gateway in TypeScript and Node.js with distributed query planning; eliminated downstream cascading request amplification across [ENTITY_COUNT] nested entities, and achieved [GATEWAY_THROUGHPUT] sustained throughput with sub-[PLANNING_LATENCY] planning overhead."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Architected Apollo Federation GraphQL gateway unifying 3 microservices; eliminated N+1 database queries via DataLoader batching, delivering sub-[M ms] nested queries with 99% resolver cache hit rate."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

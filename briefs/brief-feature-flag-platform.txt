@@ -1,49 +1,48 @@
-PROJECT BRIEF — Feature Flag & A/B Testing Platform
+PROJECT BRIEF — FEATURE FLAG & PROGRESSIVE ROLLOUT PLATFORM WITH MURMURHASH3 BUCKETING
 ======================================================================
 
-Domain    : Full-Stack Web
-Difficulty: INTERMEDIATE
-Est. Time : 28 hours
-Tech Stack: TypeScript, Node.js, React, PostgreSQL, Redis, WebSockets
+Project ID  : brief-feature-flag-platform
+Domain      : Full-Stack Web
+Difficulty  : INTERMEDIATE
+Est. Time   : 28 hours
+Tech Stack  : Go, React, PostgreSQL, Redis
+Covered Gaps: Go, React, PostgreSQL, Redis, Feature Flags, Distributed Systems, Full-Stack Web
 
-PROBLEM STATEMENT
-----------------------------------------
-Engineering teams need to safely deploy features to specific user segments without full rollouts, enabling A/B testing and instant rollback. Build a feature flag management platform with percentage-based rollouts, user targeting rules, and real-time configuration updates without service restarts.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Software engineering teams must decouple code deployment from feature release to minimize production blast radiuses and perform gradual canary validations. Deploying features directly to all users simultaneously risks widespread service degradation, while coordinating rollouts via manual code releases slows engineering velocity. This project builds a high-performance feature flag and progressive rollout platform in Go, React, PostgreSQL, and Redis. The system supports percentage rollouts using deterministic MurmurHash3 user bucketing, complex attribute targeting rules (e.g., country, subscription tier, beta tag), sub-millisecond local in-memory flag evaluation, Server-Sent Events (SSE) for real-time flag push propagation without polling, and an administrative React dashboard with real-time audit logs and instant kill-switches.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-LaunchDarkly and Split.io are billion-dollar companies built on this problem. Every engineering team deploying at scale uses feature flags. top tech platforms, Zomato, and top tech platforms run extensive A/B experiments to optimize UX and conversion rates. This is table-stakes infrastructure for any mature engineering organization.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Continuous delivery pipelines executing progressive percentage canary rollouts (1% to 10% to 100%) | Targeted beta feature releases restricted to specific customer subscription tiers and internal employee emails | Emergency kill-switch activation instantly disabling broken third-party integrations across clusters without redeployment
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Feature flags require understanding of consistent hashing for user bucketing, real-time config propagation via WebSockets/SSE, and statistical significance for A/B test results — a combination of backend, distributed systems, and data concepts that few engineers have worked with end-to-end.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Implementing deterministic MurmurHash3 user bucketing so a user remains consistently assigned to the same variant Propagating flag configuration updates in real-time across distributed client instances via Server-Sent Events (SSE) Achieving sub-millisecond evaluation latency in local SDK memory while guaranteeing dynamic rule synchronization Building an atomic administrative audit trail in PostgreSQL that records every rule change, variant shift, and kill-switch toggle
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Growth engineering, experimentation platforms, and A/B testing infrastructure are high-value specializations. Companies like top tech platforms, top tech platforms, and any large consumer tech company run thousands of concurrent experiments. Engineers who understand this infrastructure are extremely valuable.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Clean full-stack implementation separating Go evaluation engine, SSE streamer, React admin dashboard, and Redis pub/sub Deterministic uniform distribution benchmark proving MurmurHash3 distributes 100,000 users evenly within 1.5% variance Anti-fake verification script toggling an emergency kill-switch and asserting that client evaluation flips instantly within 50ms
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-PostgreSQL flag definitions with user targeting rules (percentage rollout, user attribute targeting). Node.js API server with Redis cache for sub-millisecond flag evaluation. WebSocket/SSE push for real-time flag updates to client SDKs. React admin dashboard for flag management and experiment setup. Statistical significance calculator for A/B result evaluation.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+Administrators create or modify flags in the React Dashboard; the Go API validates changes, appends an entry to PostgreSQL audit logs, and commits updated rules; the server publishes an invalidation event to Redis Pub/Sub; the SSE Push Streamer broadcasts the new configuration to connected client applications over persistent HTTP streams; client SDKs update their local in-memory flag caches; incoming evaluation requests compute MurmurHash3 hashes across user ID and flag key to determine variant assignment locally in sub-millisecond time.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Local In-Memory Evaluation Latency (p99): p99 evaluation latency is < 0.25 milliseconds | Percentage Rollout Uniform Distribution Variance: Observed percentage allocation falls between 49.2% and 50.8% (variance <= 0.8%) | Real-Time Flag Propagation Latency: Connected clients update local evaluation within 50 milliseconds
 
-SKILLS COVERED
-----------------------------------------
-TypeScript, React, Node.js, PostgreSQL, Redis, REST APIs
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. go test -bench=BenchmarkEvaluate -benchmem ./pkg/evaluator: Evaluator achieves p99 latency under 1.0 milliseconds [p99 evaluation latency is < 1.0 milliseconds with exit code 0]
+[ ] 2. 2. go run ./cmd/distribution_test --users 100000 --rollout 50: Allocation percentage falls between 48.5% and 51.5% [Calculated percentage is between 48.5% and 51.5% with exit code 0]
+[ ] 3. 3. curl -X POST http://localhost:8080/api/flags/payment-v2/kill: Flag status updates in PostgreSQL and broadcasts invalidation to connected clients [Response status is 200 and audit table contains entry with action KILL_SWITCH]
+[ ] 4. 4. go run ./cmd/bench_sse --clients 1000: Clients receive invalidation event within 150 milliseconds of toggle [All 1,000 clients confirm state update in < 150 milliseconds]
+[ ] 5. 5. python scripts/verify_dynamic_rollout.py --flag DYNAMIC_ROLLOUT_37 --percent 37 --users 10000: Engine allocates users consistently matching 37% target (+/- 1.5%) [Allocated percentage falls between 35.5% and 38.5% with exit code 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify percentage rollout: exactly N% of users consistently see flag=true across requests; passes when verified by automated test script or benchmark log.
-2. Verify user attribute targeting: flag enabled only for users in specific city/plan tier; passes when verified by automated test script or benchmark log.
-3. Verify real-time update: toggle flag in UI and verify all connected clients update within 500ms; passes when verified by automated test script or benchmark log.
-4. Verify javaScript SDK with < 1ms local flag evaluation from cached config; passes when verified by automated test script or benchmark log.
-5. Verify a/B result dashboard showing statistical significance and conversion rates per variant; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected feature flag and rollout platform in Go and React using MurmurHash bucketing; achieved sub-[EVAL_LATENCY] in-memory evaluation latency, and delivered instantaneous flag push propagation across [CLIENT_COUNT] connected clients with sub-[PROPAGATION_TIME] latency."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Built feature flag and A/B testing platform with PostgreSQL, Redis, and WebSockets; evaluated [N] req/sec flag checks/sec at < [M ms] latency with real-time config propagation to [N] req/sec connected client SDKs."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

@@ -1,49 +1,48 @@
-PROJECT BRIEF — Canary Deployment Controller with Automated Rollback
+PROJECT BRIEF — CANARY DEPLOYMENT CONTROLLER WITH AUTOMATED ROLLBACK
 ======================================================================
 
-Domain    : Platform & DevOps
-Difficulty: INTERMEDIATE
-Est. Time : 28 hours
-Tech Stack: Go, Kubernetes, Istio, Prometheus, GitHub Actions
+Project ID  : brief-canary-deployment
+Domain      : Platform & DevOps
+Difficulty  : INTERMEDIATE
+Est. Time   : 29 hours
+Tech Stack  : Go, Kubernetes, Prometheus, Docker, Helm
+Covered Gaps: Go, Kubernetes, Prometheus, Docker, Helm, CI/CD, DevOps
 
-PROBLEM STATEMENT
-----------------------------------------
-Deploying new code to 100% of users simultaneously risks massive user impact if the new version has bugs. Build a canary deployment controller that gradually shifts traffic from old to new service version, monitors error rates and latency, and automatically rolls back if SLO thresholds are violated.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Deploying software updates to production instances without gradual traffic shifting risks catastrophic outages when defect-laden releases escape staging environments. Progressive delivery mitigates deployment blast radiuses by routing a small fraction of real user requests to canary replicas while monitoring reliability metrics. This project implements a custom Kubernetes operator in Go that reconciles declarative CanaryDeployment resources, coordinates traffic shifting across service meshes, evaluates Prometheus service-level indicators, and triggers automated rollbacks when error rate or latency thresholds are breached.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-Progressive delivery is the gold standard at FAANG companies. top tech platforms, top tech platforms, and top tech platforms deploy hundreds of times per day using canary deployments. Any company with high-traffic production services uses traffic splitting to minimize deployment risk.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Progressive release management for microservices with automated error rate rollback gates | Canary latency regression detection during cloud service upgrades | Automated traffic migration across Blue-Green and canary service endpoints
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Automated progressive delivery requires combining Kubernetes traffic management, Prometheus metrics analysis, and automated rollback decision logic — a sophisticated system that most engineers at small companies have never built. It proves you think about deployment safety at scale.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Managing Kubernetes reconciliation loops with exponential backoff and idempotency without state desynchronization Translating dynamic traffic weight distributions across service mesh routing objects without connection drops Querying Prometheus metrics reliably across sliding inspection windows while handling sparse or delayed samples Enforcing safe automated rollback state transitions during active deployments without human intervention
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Progressive delivery knowledge (canaries, feature flags, blue-green) is required for senior DevOps and SRE roles. Engineers who can build the controller, not just use it, are principal-level infrastructure candidates. Directly applicable to platform teams at any company deploying at scale.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Custom Resource Definition and Go operator built using client-go and controller-runtime Automated progressive traffic shifting verified across 4 distinct step percentages End-to-end chaos integration test demonstrating automated rollback within 30 seconds of an injected fault
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-Kubernetes controller (reconciliation loop) managing a custom CRD (CanaryDeployment). Gradually shifts Istio VirtualService weights from stable (100%) to canary (0% → 10% → 25% → 50% → 100%). Prometheus metrics queried every 60 seconds: error rate, p99 latency. Automatic rollback if metrics exceed SLO thresholds.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+Developers apply a CanaryDeployment manifest; the controller detects the spec change and creates a canary deployment; traffic shifts incrementally (10%, 25%, 50%, 100%) across scheduled intervals; the Metric Analyzer queries Prometheus every 15 seconds; if error rates remain below threshold, rollout advances; if SLOs are violated, the Rollback Engine immediately shifts 100% traffic to stable pods and marks status FAILED.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Traffic Shift Progression Accuracy: Observed traffic percentage within 1.5% of target weight at each progression stage | Automated Rollback Detection & Convergence Duration: Detection of breach and full traffic restoration to stable version in < 25 seconds | Controller Memory Footprint Under Reconciliation: Operator pod resident memory consumption < 40MB
 
-SKILLS COVERED
-----------------------------------------
-Kubernetes, Go, Prometheus, DevOps, CI/CD, System Design
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. Inspect operator pod logs and Kubernetes deployment objects: Operator initializes CanaryDeployment object and creates corresponding primary deployment [CanaryDeployment status transitions to Initialized with exit code 0]
+[ ] 2. 2. Run traffic monitoring script while progression advances: Traffic weights step through configured percentages without connection drops [Observed request routing matches target weights within 4% tolerance across all steps]
+[ ] 3. 3. Execute chaos test during 50% traffic rollout stage: Prometheus metric analyzer detects SLO violation and triggers immediate rollback [Traffic immediately shifted 100% to stable pods and canary status marked Failed]
+[ ] 4. 4. Inspect installed pods and CRD registration: Operator pod starts running with 1/1 ready status and CRDs established [Pod is in Running state and ready probe returns HTTP 200]
+[ ] 5. 5. Run ./scripts/verify_operator.sh --dynamic-threshold 3.5: Script deploys canary, injects controlled errors, and confirms automated rollback at dynamic threshold [Operator successfully halts deployment and logs matching dynamic threshold with exit code 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify canary deployment reaching 100% without SLO violation over 4 traffic stages; passes when verified by automated test script or benchmark log.
-2. Verify automatic rollback: inject errors into canary version, verify rollback within 60s; passes when verified by automated test script or benchmark log.
-3. Verify cRD spec defining canary stages, step weights, and SLO thresholds as YAML; passes when verified by automated test script or benchmark log.
-4. Verify prometheus dashboard showing traffic split and per-version error rates during deployment; passes when verified by automated test script or benchmark log.
-5. Verify gitHub Actions integration triggering canary on every main branch merge; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected Kubernetes canary deployment controller in Go using Prometheus metrics; automated progressive traffic shifting across [TRAFFIC_STAGES] stages and implemented automated rollback within [ROLLBACK_TIME] seconds of SLO error rate breach."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Built Kubernetes canary deployment controller with Prometheus-driven automated rollback; progressed traffic 0→100% in 4 stages with automatic SLO-breach rollback within 60 seconds of threshold violation.; achieved [N] throughput with < [M ms] latency overhead across [K] test transactions."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

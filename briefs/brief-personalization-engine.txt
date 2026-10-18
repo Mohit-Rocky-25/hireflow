@@ -1,49 +1,48 @@
-PROJECT BRIEF — Real-Time User Personalization Engine
+PROJECT BRIEF — REAL-TIME USER PERSONALIZATION & CONTEXTUAL BANDIT RECOMMENDATION ENGINE WITH KAFKA STREAMING, REDIS FEATURE STORE & SCIKIT-LEARN
 ======================================================================
 
-Domain    : ML Engineering
-Difficulty: INTERMEDIATE
-Est. Time : 28 hours
-Tech Stack: Python, Kafka, Redis, FastAPI, Scikit-learn, Celery
+Project ID  : brief-personalization-engine
+Domain      : ML Engineering
+Difficulty  : INTERMEDIATE
+Est. Time   : 28 hours
+Tech Stack  : Python, Kafka, Redis, FastAPI, Scikit-learn, Celery
+Covered Gaps: Python, Kafka, Redis, FastAPI, Scikit-learn, Celery, Recommendation Systems, ML Engineering
 
-PROBLEM STATEMENT
-----------------------------------------
-Generic UI experiences deliver lower conversion rates and higher churn than personalized experiences. Build a real-time personalization engine that learns user preferences from behavioral signals (clicks, dwells, purchases) and serves personalized content rankings within milliseconds.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Generic static UI interfaces deliver lower user engagement, subpar conversion rates, and elevated bounce rates compared to dynamic personalized digital experiences. However, traditional batch-recomputed recommendation pipelines suffer from multi-hour stale recommendations, inability to capture intra-session user intent shifts, and crippling cold-start latency for newly launched items. This project builds a production-grade real-time personalization and contextual bandit recommendation engine in Python. The system ingests user interaction event streams over Apache Kafka, aggregates real-time session feature vectors in Redis with sub-millisecond retrieval, trains LinUCB and Thompson Sampling contextual bandit models with Scikit-learn, and serves personalized ranking recommendations via FastAPI with sub-18ms p95 latency.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-Homepage personalization at top tech platforms, Myntra, and top tech platforms. Content ranking at YouTube, top tech platforms, and Hotstar. Feed curation at LinkedIn and Twitter. Product recommendation at top tech platforms. Any company with a content-heavy or product-heavy interface needs personalization.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+E-Commerce Dynamic Product Listing Ranking: Retail platforms need to re-rank search results and category listing carousels based on real-time item views and cart additions within the user's active session. The engine consumes clickstream events via Kafka, updates the user's affinity vector in Redis, and computes personalized product re-rankings via FastAPI in under 15 milliseconds. | Digital Media & News Feed Article Personalization: Online news publishers need to balance showing trending breaking news articles against exploring newly published editorial pieces to discover reader preferences. The contextual bandit engine balances exploitation of known topic affinities with exploration of fresh content, maximizing long-term reader retention while avoiding stale filter bubbles. | SaaS Onboarding Feature Discovery Recommendations: Software product teams need to recommend relevant workflow templates and product tours to newly onboarded users based on their initial setup clicks. The system matches incoming user metadata with bandit feature vectors to recommend optimal onboarding actions, elevating free-to-paid activation rates.
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Personalization requires combining online learning (real-time behavioral signal updates), precomputed offline user embeddings, and sub-millisecond serving — a technically complex combination. This demonstrates the full ML stack: feature engineering, online learning, model serving, and A/B evaluation.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Balancing exploitation of high-affinity items with algorithmic exploration of unvisited items using LinUCB upper confidence bounds Maintaining low-latency sliding-window feature aggregation in Redis while consuming thousands of concurrent Kafka clickstream events Managing cold-start penalties for new items with zero interaction history through feature fallback embeddings Designing asynchronous offline batch model retraining in Celery that safely deploys updated bandit weight matrices to FastAPI without dropping live inference traffic
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Growth engineering, personalization platform, and recommendation systems roles at large consumer companies (top tech platforms, top tech platforms, top tech platforms India) require exactly this understanding. Online feature updates and real-time scoring are the sophisticated components that separate ML engineers from data scientists.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Clean Python codebase cleanly separating Kafka stream processors, Redis feature extractors, bandit math models, and FastAPI inference routers Real-time benchmark proving sub-18ms p95 recommendation inference latency under 500 concurrent recommendation requests per second Anti-fake verification script simulating an active user clicking 5 technology articles and asserting the recommendation distribution shifts toward technology within 300 milliseconds
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-Kafka stream of behavioral events (clicks, impressions, purchases) → Online feature aggregator updating Redis per-user counters in real-time. Offline embedding model computing user/item representations daily. Real-time scoring combining online features with offline embeddings. FastAPI serving with Redis caching. Bandit algorithm for exploration-exploitation.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+A user clicks an item on the client UI; an engagement event publishes to the Kafka 'user-clicks' topic; the Kafka worker consumes the event and updates category view counters in Redis with a 30-minute sliding TTL; when the client requests personalized recommendations, FastAPI receives the user ID, executes an MGET against Redis to retrieve active session features in < 2ms, feeds the features into the LinUCB bandit scoring model, computes confidence bound scores for candidate items, filters previously viewed items, and returns top-K ranked item IDs; Celery periodically pulls historical conversion logs to retrain offline models.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+p95 Recommendation Inference Latency: p95 recommendation latency is < 14.5 milliseconds | Clickstream-to-Feature Update Propagation Latency: p95 event-to-feature update latency is < 85 milliseconds | Contextual Bandit Cumulative Regret Reduction: LinUCB cumulative regret is >= 65% lower than random exploration baseline
 
-SKILLS COVERED
-----------------------------------------
-Python, Redis, Kafka, FastAPI, Embeddings, Feature Engineering
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. python ./benchmarks/bench_inference.py --concurrency 50 --requests 10000: FastAPI returns top-5 recommendations with p95 latency < 30.0ms and 0 HTTP errors [p95 latency is < 30.0ms with exit code 0]
+[ ] 2. 2. python ./scripts/test_feature_pipeline.py --events 5000: Worker processes all events and updates Redis session vectors with p95 lag < 250ms [p95 lag < 250ms and 0 unhandled exceptions with exit code 0]
+[ ] 3. 3. python ./models/eval_regret.py --rounds 10000: LinUCB achieves >= 40% cumulative regret reduction compared to random policy [Regret reduction >= 40% with exit code 0]
+[ ] 4. 4. celery -A tasks.retrain worker --loglevel=info --concurrency=2 & python ./tasks/trigger_retrain.py: Celery worker updates inverse covariance matrices and persists weights without service interruption [Retraining task status completes with SUCCESS and exit code 0]
+[ ] 5. 5. python ./scripts/verify_dynamic_personalization.py --clicks tech,tech,tech,tech,tech: FastAPI recommendation distribution shifts to technology items with top-3 rank within 300ms [Console confirms top-3 recommendations belong to technology category with exit code 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify feature vector update within 500ms of behavioral event in Kafka; passes when verified by automated test script or benchmark log.
-2. Verify serving endpoint returning personalized ranking in < 10ms from Redis cache; passes when verified by automated test script or benchmark log.
-3. Verify a/B test showing personalized vs non-personalized CTR on simulated traffic; passes when verified by automated test script or benchmark log.
-4. Verify cold start handling: new users receive category-popularity baseline ranking; passes when verified by automated test script or benchmark log.
-5. Verify online learning convergence: click-through rate improves over 24-hour observation window; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected user personalization engine in Python with Kafka and Redis; delivered sub-[INFERENCE_LATENCY] millisecond recommendation latency, and reduced cumulative regret by [REGRET_REDUCTION] compared to baseline exploration."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Built real-time personalization engine with online feature learning and Redis-cached serving; updated user embeddings within [M ms] of behavioral events and demonstrated 17% CTR improvement vs non-personalized baseline."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

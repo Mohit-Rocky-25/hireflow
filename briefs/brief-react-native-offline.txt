@@ -1,49 +1,48 @@
-PROJECT BRIEF — React Native App with Offline SQLite & Background Sync
+PROJECT BRIEF — OFFLINE-FIRST MOBILE INSPECTION ENGINE IN REACT NATIVE WITH WATERMELONDB SQLITE & IDEMPOTENT DELTA SYNC
 ======================================================================
 
-Domain    : Mobile Engineering
-Difficulty: INTERMEDIATE
-Est. Time : 28 hours
-Tech Stack: React Native, TypeScript, WatermelonDB, Redux Saga, REST APIs
+Project ID  : brief-react-native-offline
+Domain      : Mobile Engineering
+Difficulty  : INTERMEDIATE
+Est. Time   : 28 hours
+Tech Stack  : TypeScript, React Native, SQLite, WatermelonDB, Node.js, Redux Toolkit
+Covered Gaps: TypeScript, React Native, SQLite, WatermelonDB, Node.js, Redux Toolkit, Mobile Engineering, Offline Sync
 
-PROBLEM STATEMENT
-----------------------------------------
-Mobile apps for field agents (insurance surveyors, delivery personnel, healthcare workers) require full functionality without network connectivity. Build a React Native app with local SQLite database, background sync service, and conflict resolution when connectivity is restored.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Mobile applications for field agents (insurance surveyors, equipment inspectors, and logistics personnel) suffer from frozen user interfaces and catastrophic data loss when operating in basements, rural regions, or cellular dead zones. Standard mobile architectures relying on synchronous REST calls fail completely without internet access, while naive local caching strategies overwrite remote changes during bulk reconnection syncs. This project builds a production-grade offline-first mobile inspection engine in TypeScript using React Native and WatermelonDB. The system persists complex relational inspection records locally in SQLite, executes optimistic UI mutations with sub-15ms local commit times, synchronizes differential delta vectors with a Node.js backend using idempotent transactions, and deterministically resolves concurrent field edits using column-level Last-Write-Wins (LWW) timestamps.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-Insurance field agents (PolicyBazaar, Acko), delivery executives (Delhivery, Porter), healthcare workers in rural India (1mg, Practo), and agricultural apps (AgroStar, BigHaat) — all require offline-first mobile functionality. India's rural market demands apps that work on 2G/3G with intermittent connectivity.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Aviation Runway & Aircraft Maintenance Logging: Aircraft maintenance engineers conducting pre-flight checks inside shielded airport hangars frequently lose cellular and Wi-Fi connectivity. The mobile app records structural component wear measurements locally in SQLite, synchronizing delta updates to airline maintenance servers once the tablet reconnects. | Insurance Property Damage Claims Assessment: Insurance field claims adjusters assessing remote flood or hurricane damage sites must log detailed property estimates without active cell towers. The surveyor captures inspection items and estimated repair costs locally, automatically queuing updates that flush to the claims processing backend upon network reconnection. | Commercial Cold-Storage Logistics Inventory Auditing: Warehouse auditors working inside heavily insulated refrigerated facilities need continuous mobile checklist performance without network latency. The mobile client provides instantaneous UI state transitions using local WatermelonDB queries, synchronizing inventory count reconciliations upon exiting the refrigerated vault.
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Offline-first mobile architecture is technically complex: managing local database migrations, sync queues, conflict resolution, and background service lifecycle on both iOS and Android. Demonstrating this skill makes you valuable for any company building for Bharat's next billion users.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Configuring WatermelonDB reactive observable queries over SQLite to maintain 60 FPS scrolling across 5,000 cached records on mobile devices Designing an idempotent differential synchronization protocol that tracks created, updated, and deleted record IDs with server-assigned sync timestamps Resolving concurrent multi-device editing conflicts deterministically without overwriting unrelated fields in the same inspection entity Managing background sync retries with exponential backoff and jitter to prevent thundering herd spikes during intermittent connection flapping
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Companies building for rural or field-agent use cases — BigBasket, HDFC Life, Bajaj Allianz, and logistics companies — actively look for engineers who understand offline mobile architecture. SQLite, background fetch, and sync protocols are specifically relevant for field-force application engineering roles.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Clean TypeScript codebase cleanly separating React Native UI views, WatermelonDB SQLite schema models, sync protocol clients, and Redux state slices Mobile performance report proving sub-15ms local SQLite write latency and zero UI freeze across 5,000 local records Anti-fake verification script simulating an airplane mode network cutoff, editing an inspection record locally, modifying the same record on the backend, reconnecting, and asserting non-conflicting field merge
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-React Native with WatermelonDB (SQLite) for offline data persistence. Redux Saga background sync service that queues mutations locally and replays them when connectivity returns. NetInfo API for connectivity detection. Optimistic UI updates with rollback on sync failure. Android WorkManager / iOS BackgroundFetch for periodic sync.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+The field agent updates an inspection item on the React Native UI; WatermelonDB writes the mutation to SQLite in < 15ms and sets the record sync_status to 'updated'; the UI updates instantly via reactive observables; Redux Toolkit monitors NetInfo network status; when network connectivity is detected, the sync manager triggers a push/pull transaction with Node.js; the client sends local deltas since last_pulled_at; the Node.js server applies non-conflicting fields, resolves concurrent edits using column-level timestamps, commits to database, and returns server changes; the client applies server deltas to SQLite and updates last_pulled_at.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Local SQLite Mutation Persistence Latency: p95 local mutation persistence latency is < 9.5 milliseconds | Differential Reconnection Synchronization Throughput: p95 sync duration for 500 records is < 950 milliseconds | Concurrent Multi-Device Field Conflict Merge Parity Rate: 50 of 50 conflict trials successfully merge without overwriting peer edits
 
-SKILLS COVERED
-----------------------------------------
-React Native, TypeScript, SQLite, REST APIs, Redux, iOS, Android
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. npm run bench:sqlite-writes -- --records 1000: Database commits mutations with p95 write latency < 20.0ms and 0 disk errors [p95 latency < 20.0ms with exit code 0]
+[ ] 2. 2. npm run test:sync-throughput -- --records 500: Sync manager synchronizes 500 records with Node.js backend in < 2,500ms total elapsed time [Sync duration < 2500ms with exit code 0]
+[ ] 3. 3. npm run test:migrations: Migrations upgrade schema version cleanly without data corruption across 1,000 pre-existing records [All migration steps pass with exit code 0]
+[ ] 4. 4. npm run test:network-state: App updates connectivity banner and optimistic mutation queue indicator with 0 UI drops [State assertions verify valid status flags with exit code 0]
+[ ] 5. 5. node ./scripts/verify_offline_merge.js --record 101 --devA-field notes='Passed' --devB-field status='Approved': Backend merges updates deterministically; both notes='Passed' and status='Approved' persist without data loss [Console confirms merged record contains both edits with exit code 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify app functions completely with no network (airplane mode demo recording); passes when verified by automated test script or benchmark log.
-2. Verify sync queue persistence: close app, kill process, reopen — queue intact; passes when verified by automated test script or benchmark log.
-3. Verify conflict resolution: 2 offline edits to same record merge correctly on sync; passes when verified by automated test script or benchmark log.
-4. Verify background sync running every 15 minutes even when app is killed; passes when verified by automated test script or benchmark log.
-5. Verify performance: 10k record SQLite query < 100ms on mid-range Android device; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected offline-first mobile inspection engine in TypeScript using React Native and WatermelonDB; achieved sub-[WRITE_LATENCY] millisecond local SQLite write latency, and synchronized [SYNC_RECORDS] queued offline records in under [SYNC_DURATION] seconds upon reconnection."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Built offline-first React Native app with WatermelonDB; operated full functionality without network for 7 days and synced [N] req/sec records in < 30s upon reconnection with deterministic conflict resolution."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

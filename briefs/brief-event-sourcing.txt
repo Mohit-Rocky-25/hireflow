@@ -1,49 +1,48 @@
-PROJECT BRIEF — Event Sourcing & CQRS Application Framework
+PROJECT BRIEF — EVENT SOURCING & CQRS CORE ENGINE WITH OPTIMISTIC CONCURRENCY CONTROL
 ======================================================================
 
-Domain    : Distributed Systems
-Difficulty: ADVANCED
-Est. Time : 38 hours
-Tech Stack: TypeScript, Node.js, PostgreSQL, Kafka, Event Sourcing
+Project ID  : brief-event-sourcing
+Domain      : Distributed Systems
+Difficulty  : ADVANCED
+Est. Time   : 39 hours
+Tech Stack  : TypeScript, Node.js, PostgreSQL, Kafka
+Covered Gaps: TypeScript, Node.js, PostgreSQL, Kafka, Event Sourcing, CQRS, Distributed Systems
 
-PROBLEM STATEMENT
-----------------------------------------
-Traditional mutable database applications lose the history of how data changed, making debugging, auditing, and time-travel queries impossible. Build an Event Sourcing framework where all state changes are stored as immutable events, and current state is derived by replaying the event log.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Traditional relational CRUD architectures mutate state in-place, permanently discarding historical context regarding how and why data changed. Debugging concurrency race conditions, proving complete regulatory audit trails, and executing temporal queries become impossible once previous states are overwritten. This project implements a production Event Sourcing and Command Query Responsibility Segregation (CQRS) framework in TypeScript and Node.js with PostgreSQL and Kafka. The system records all domain state changes as an immutable append-only sequence of domain events, enforces optimistic concurrency control via sequence revision checking, creates periodic aggregate snapshots to bound replay time, projects domain events into query-optimized read models, and exposes a temporal query engine capable of replaying entity state to any historical millisecond.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-Financial audit trails (every transaction history preserved), legal compliance (immutable evidence of who changed what when), version control systems, and domain-driven design applications. Martin Fowler's event sourcing pattern is used at top tech platforms, top tech platforms, and any application requiring complete audit history.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Financial banking systems requiring immutable audit trails of every balance-impacting event | Supply chain logistics platforms tracking historical ownership transfers and custody changes | Complex domain-driven design applications requiring historical time-travel state reconstruction
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Event sourcing requires understanding aggregate pattern, event streams, projection rebuilding, temporal queries, and the CQRS (Command Query Responsibility Segregation) pattern. These are advanced DDD concepts that senior backend engineers are expected to know and apply in complex domain-driven systems.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Enforcing optimistic concurrency control in the append-only event store to prevent concurrent write split-brain Maintaining exactly-once projection updates from asynchronous Kafka event streams into query read models Designing aggregate snapshotting and event replay mechanisms that reconstruct state in sub-10 milliseconds Handling temporal time-travel queries by projecting domain events up to an arbitrary historical timestamp
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Domain-Driven Design, CQRS, and Event Sourcing are explicitly required in senior backend roles at enterprise software companies. Zoho, top tech platforms, and any company building complex B2B products with audit requirements value engineers who can design event-sourced systems. Shows architectural thinking beyond CRUD.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Clean TypeScript codebase cleanly separating event store, aggregate roots, projections, and CQRS commands Automated concurrency race test asserting 100% collision rejection when two writes target identical aggregate revisions Anti-fake verification script appending dynamic events, executing historical replay, and asserting exact state reconstruction
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-Event store in PostgreSQL with append-only event table. Aggregate loading via event replay from store. Projections computing read models from event streams asynchronously. Kafka for event distribution to multiple projection workers. Snapshot mechanism for performance on long event streams. Time-travel query API for historical state retrieval.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+Commands arrive at the CQRS Command Gateway; the target Aggregate Root loads its latest snapshot and replays subsequent events from the Append-Only Event Store; the aggregate validates business invariants and produces new domain events; the Event Store attempts to commit events with the expected aggregate version; if a concurrent write modified the version, an OptimisticConcurrencyError terminates the transaction; on success, the Kafka Dispatcher publishes committed events; the Read-Model Projection Worker updates denormalized tables; temporal queries reconstruct historical state by replaying events up to the requested timestamp.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Optimistic Concurrency Collision Interception Rate: Exactly 1 command succeeds and exactly 99 commands fail with OptimisticConcurrencyError | Aggregate State Rehydration Latency: Average rehydration latency is < 4 milliseconds | Read-Model Projection Eventual Consistency Lag: Average projection lag is < 50 milliseconds
 
-SKILLS COVERED
-----------------------------------------
-TypeScript, Node.js, PostgreSQL, Kafka, DDD, Algorithms
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. npm run test:concurrency: Optimistic concurrency guard permits exactly 1 write and rejects 99 competing attempts [Exactly 1 success and 99 OptimisticConcurrencyError rejections with exit code 0]
+[ ] 2. 2. npm run bench:rehydrate -- --aggregate-id acct-1234: Aggregate rehydration loads snapshot, replays 100 events, and completes in < 15 milliseconds [Rehydration latency is < 15 milliseconds on local machine]
+[ ] 3. 3. npm run bench:projections: Denormalized read-model projection tables reflect committed state with < 150ms average lag [Average projection lag is < 150 milliseconds]
+[ ] 4. 4. curl http://localhost:3000/api/accounts/acct-1234/history?timestamp=1697500000: API reconstructs and returns exact entity balance and status as of historical timestamp [Returned state matches expected historical balance at specified timestamp with exit code 0]
+[ ] 5. 5. node scripts/verify_dynamic_eventsourcing.js --entity DYNAMIC_ENTITY_88 --events 5: Engine reconstructs state at event 3 and compares against event 5, proving temporal accuracy [Historical state at event 3 exactly matches intermediate balance, final matches event 5, exit code 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify time-travel query: retrieve exact aggregate state as of any past timestamp; passes when verified by automated test script or benchmark log.
-2. Verify event replay: delete read model, rebuild from events, identical to original in < 30s; passes when verified by automated test script or benchmark log.
-3. Verify snapshot optimization: aggregate with 1000 events loads in < 10ms via snapshot; passes when verified by automated test script or benchmark log.
-4. Verify concurrent write test: two commands on same aggregate handle optimistic concurrency; passes when verified by automated test script or benchmark log.
-5. Verify event schema evolution: old events deserialize correctly with new schema version; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected Event Sourcing and CQRS framework in TypeScript and Node.js with PostgreSQL and Kafka; eliminated race conditions via optimistic concurrency control across [CONCURRENT_WRITES] competing writes, and achieved sub-[REHYDRATION_LATENCY] aggregate rehydration across [EVENT_COUNT] historical events."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Built Event Sourcing + CQRS framework with PostgreSQL event store; rebuilt complete state from [K] events in < 30s and served time-travel queries at any historical timestamp with snapshot-optimized aggregate loading."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

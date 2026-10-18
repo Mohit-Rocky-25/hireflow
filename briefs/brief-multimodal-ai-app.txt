@@ -1,49 +1,48 @@
-PROJECT BRIEF — Multimodal AI App (Vision + Text + Audio)
+PROJECT BRIEF — CROSS-MODAL MULTIMODAL AI REASONING PLATFORM FUSING VISION, SPEECH AUDIO & TEXT IN PYTORCH AND FASTAPI
 ======================================================================
 
-Domain    : GenAI & LLM Engineering
-Difficulty: ADVANCED
-Est. Time : 38 hours
-Tech Stack: Python, PyTorch, Whisper, CLIP, LLaVA, FastAPI, Streamlit
+Project ID  : brief-multimodal-ai-app
+Domain      : GenAI & LLM Engineering
+Difficulty  : ADVANCED
+Est. Time   : 40 hours
+Tech Stack  : Python, FastAPI, PyTorch, CLIP, Whisper, LLaVA, Docker
+Covered Gaps: Python, FastAPI, PyTorch, CLIP, Whisper, LLaVA, Docker, Computer Vision, Speech Processing, GenAI
 
-PROBLEM STATEMENT
-----------------------------------------
-Real-world AI applications need to process multiple input modalities simultaneously: analyzing an image while listening to audio context or processing a document alongside voice instructions. Build a multimodal AI application that fuses vision, text, and audio inputs to answer complex queries that no single-modal model can handle.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Single-modal language and vision models fail catastrophically on tasks requiring joint understanding across disparate sensory inputs, such as visual anomaly inspection guided by spoken technical audio queries. Naively daisy-chaining independent monolithic models produces extreme end-to-end latency, out-of-sync multi-modal context buffers, and cascading transcription errors. This project builds a unified multimodal AI reasoning and retrieval platform in Python and PyTorch. The platform transcribes spoken audio queries using faster-whisper, extracts visual semantics and object embeddings via CLIP, fuses cross-modal representations into unified context vectors, performs multimodal question answering using local quantized vision-language models (LLaVA), and exposes real-time inference endpoints via asynchronous FastAPI.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-Medical diagnosis AI analyzing X-ray images with patient voice symptoms, educational assistants explaining math problems from whiteboard photos with voice queries, accessibility tools for visually impaired (image + speech), quality inspection in manufacturing (camera + audio anomaly detection).
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Industrial Equipment Maintenance & Visual Inspection: Field maintenance engineers inspecting complex factory machinery need to photograph mechanical components while speaking diagnostic questions into headsets. The system fuses the machine photograph with the spoken audio query, identifying equipment wear and returning step-by-step repair guidance within seconds. | Retail Catalog Product Search & Verification: E-commerce shoppers frequently search for products by snapping mobile photos while verbally describing desired color, material, or brand preferences. The engine aligns image embeddings with audio transcripts using joint vector projection, searching catalog databases and generating comparative product descriptions. | Accessibility Assistant for Impaired Document Reading: Visually impaired users require assistive tools that process photographed printed documents and answer spoken questions regarding specific passages. The platform analyzes document photos, interprets verbal questions, and synthesizes localized natural language answers grounded strictly in the visual text.
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Multimodal AI is the frontier of applied ML research in 2025. Most ML engineers work with single modalities. Building a working fusion system demonstrates you understand embedding alignment across modalities, attention mechanisms, and the engineering challenges of serving multiple heavy models efficiently.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Aligning heterogeneous cross-modal embedding spaces between dense image feature maps (CLIP) and sequential text tokens Minimizing composite inference pipeline latency across sequential ASR, vision encoding, and autoregressive language generation stages Implementing graceful degradation and modality dropout handling when image or audio inputs are corrupted or missing Running multi-model quantized inference (Whisper + CLIP + LLaVA) within 12GB to 16GB consumer GPU VRAM bounds
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Multimodal AI is the #1 research area at all major AI labs (OpenAI GPT-4V, Google Gemini, Anthropic Claude 3). AI-first companies building next-generation products are actively hiring engineers who can implement multimodal pipelines. Rare skill that high-signal core competencies.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Clean Python codebase cleanly separating modality encoders, cross-modal attention projection layers, and FastAPI serving endpoints Comprehensive ablation benchmark demonstrating that joint multimodal reasoning outperforms single-modal vision or text baselines Anti-fake verification script presenting an unobserved image with an embedded synthetic alphanumeric code and a spoken audio query, verifying correct fused answer generation
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-Whisper for audio transcription, CLIP/LLaVA for visual understanding, and LLaMA-3 for text generation. Embedding alignment module combining visual and audio context into a unified prompt. FastAPI async service handling parallel modality processing. Streamlit UI for demo interface.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+The client dispatches an HTTP multipart request containing an image file (JPEG/PNG) and a spoken audio query (WAV); the FastAPI gateway validates file headers and routes payloads in parallel; the Whisper pipeline transcribes the audio into a normalized question string; concurrently, CLIP processes the image into visual feature vectors; the fused context (visual tokens concatenated with prompt text) feeds into the quantized LLaVA vision-language model; LLaVA autoregressively decodes the response, grounding its reasoning in visual evidence; the structured JSON response streams back over HTTP.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Multimodal Cross-Modal Reasoning Accuracy: Multimodal reasoning accuracy is >= 88.5% across 300 test samples | End-to-End Multimodal Inference Latency: p95 end-to-end inference latency is < 3.2 seconds | Ablation Superiority Margin Over Single Modality: Multimodal model demonstrates >= 28.5 percentage point accuracy margin over unimodal baselines
 
-SKILLS COVERED
-----------------------------------------
-Python, PyTorch, FastAPI, Computer Vision, Speech Processing, LLM Fine-tuning
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. python -m multimodal_app.evaluate_multimodal --test-file test_data/multimodal_eval.json: Multimodal reasoning system achieves accuracy >= 78.0% across 300 test cases [Measured accuracy is >= 78.0% with exit code 0]
+[ ] 2. 2. python scripts/benchmark_latency.py --samples 100: System fulfills multimodal requests with p95 end-to-end latency < 6.5 seconds [p95 latency is < 6.5s with exit code 0]
+[ ] 3. 3. python -m multimodal_app.evaluate_ablation --data test_data/ablation_queries.json: Multimodal configuration achieves >= 18.0 percentage point accuracy margin over vision-only and text-only baselines [Accuracy margin >= 18.0 points with exit code 0]
+[ ] 4. 4. curl -X POST http://localhost:8000/api/v1/reason -F 'image=@test_data/sample.jpg' -F 'audio=@test_data/query.wav': Server returns structured JSON containing transcript, visual_tokens, and grounded natural language answer [Response status is 200 and JSON contains non-empty answer and transcript fields]
+[ ] 5. 5. python scripts/verify_dynamic_multimodal.py --image test_data/dynamic_barcode.png --audio test_data/audio_serial.wav: Pipeline transcribes audio question, extracts visual patch from barcode, and synthesizes answer containing 'SN-9821' [Answer string contains exact serial number 'SN-9821' with exit code 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify demo: answer question requiring both image analysis and audio transcript understanding; passes when verified by automated test script or benchmark log.
-2. Verify ablation test showing multimodal model outperforms single-modal on mixed queries; passes when verified by automated test script or benchmark log.
-3. Verify latency benchmark with GPU optimization for all three inference pipelines; passes when verified by automated test script or benchmark log.
-4. Verify error handling for missing modalities (graceful degradation to available inputs); passes when verified by automated test script or benchmark log.
-5. Verify architecture diagram showing modality fusion and embedding alignment approach; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected cross-modal reasoning platform in Python and PyTorch fusing Whisper audio and CLIP visual embeddings into LLaVA; achieved [MULTIMODAL_ACCURACY] accuracy across [TEST_SAMPLES] cross-modal queries, and delivered [ABLATION_MARGIN] percentage point superiority over unimodal baselines."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Built multimodal AI app fusing vision (CLIP/LLaVA), speech (Whisper), and text (LLaMA-3) for complex cross-modal queries; achieved < 8s end-to-end latency with modality-specific ablation evaluation.; achieved [N] throughput with < [M ms] latency overhead across [K] test transactions."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

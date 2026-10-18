@@ -1,49 +1,48 @@
-PROJECT BRIEF — Multi-Agent Orchestration System with Semantic Kernel
+PROJECT BRIEF — HIERARCHICAL MULTI-AGENT ORCHESTRATION FRAMEWORK IN PYTHON WITH SEMANTIC KERNEL, QDRANT & FASTAPI
 ======================================================================
 
-Domain    : GenAI & LLM Engineering
-Difficulty: ADVANCED
-Est. Time : 38 hours
-Tech Stack: Python, AutoGen / CrewAI, LangChain, Qdrant, FastAPI, Pydantic
+Project ID  : brief-semantic-kernel-agent
+Domain      : GenAI & LLM Engineering
+Difficulty  : ADVANCED
+Est. Time   : 40 hours
+Tech Stack  : Python, FastAPI, Pydantic, Qdrant, Docker, Sentence-Transformers
+Covered Gaps: Python, FastAPI, Pydantic, Qdrant, Docker, Sentence-Transformers, AI Agents, GenAI Engineering
 
-PROBLEM STATEMENT
-----------------------------------------
-Complex enterprise workflows require multiple specialized AI agents to collaborate: a research agent gathering information, an analysis agent synthesizing insights, a writing agent producing output, and a validation agent checking correctness. Build a multi-agent system where specialized agents with distinct personas and tool access collaborate to complete complex business workflows.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Single-prompt LLM applications and monolithic prompt chains fail when tasked with multi-step enterprise workflows requiring information retrieval, data validation, iterative code execution, and peer critique. Naive agent implementations suffer from compounding hallucination loops, runaway token expenditures, fragile tool invocation parsing, and lack of deterministic state recovery when intermediate steps fail. This project builds a production-grade hierarchical multi-agent orchestration framework in Python inspired by Microsoft Semantic Kernel. The framework implements a director agent decomposing high-level user goals into structured DAG plans, specialized worker agents (Researcher, Coder, Critic) executing sandboxed steps with Pydantic contract validation, semantic long-term memory powered by Qdrant vector database, and reflective critique-retry loops guaranteeing deterministic goal completion.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-Autonomous business intelligence (competitive analysis without human analysts), automated customer service escalation chains, research synthesis for consulting firms, and complex document processing pipelines. Microsoft Copilot Studio and AutoGen represent the market direction toward multi-agent systems.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Automated Financial Due Diligence & Market Analysis: Investment analysis teams need automated synthesis of corporate SEC filings, earnings call transcripts, and market news into comprehensive investment memos. The director agent delegates filing parsing to the researcher, numerical ratio calculations to the coder, and risk assessment to the critic, assembling a verified audit memo. | Autonomous Software Bug Diagnosis & Patch Synthesis: DevOps engineering teams investigating production exceptions require automated diagnosis, reproduction script synthesis, and candidate code patches. Worker agents retrieve stack traces, generate localized reproduction tests, verify patches in sandboxes, and submit peer-reviewed pull request summaries. | Enterprise Compliance Regulatory Audit QA: Compliance officers reviewing vendor contracts against strict corporate security standards need automated clause verification and deviation analysis. The multi-agent system cross-references contract text against Qdrant policy memory, highlighting non-compliant liability clauses and suggesting remediation wording.
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Multi-agent coordination requires solving non-trivial problems: agent communication protocols, state sharing, failure recovery when one agent fails, and result verification across agent boundaries. This is the frontier of practical GenAI engineering in 2025 and 2026.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Designing hierarchical goal decomposition algorithms that construct executable, acyclic dependency graphs (DAGs) from underspecified natural language user prompts Implementing strict Pydantic JSON schema function-calling filters that eliminate invalid tool invocations and parse errors Structuring semantic long-term memory in Qdrant with hybrid dense-sparse vector indexing to preserve agent cross-session context without token explosion Managing cyclic reflection loops where the Critic agent evaluates intermediate worker outputs against objective rubric criteria and triggers bounded auto-remediation
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-AutoGen, CrewAI, and Semantic Kernel are the emerging frameworks for multi-agent systems. Companies deploying advanced AI — Microsoft, Google, and enterprise AI vendors — are building these pipelines. Engineers who have implemented working multi-agent coordination are in the top 5% of GenAI engineers.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Clean Python codebase cleanly separating the DAG planner, worker agent implementations, Qdrant memory adapters, and FastAPI orchestration endpoints Autonomous multi-step execution report proving >= 92% goal completion rate across 50 complex multi-agent workflows with zero infinite loop traps Anti-fake verification script submitting an adversarial flawed research task and asserting the Critic agent rejects the first draft and forces the Coder agent to remediate within 2 retry cycles
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-Orchestrator agent receiving complex goal, decomposing into sub-tasks, and delegating to specialist agents (Researcher, Analyst, Writer, Validator). Shared memory store (vector DB) for inter-agent context passing. Structured output contracts between agents using Pydantic schemas. Failure detection and automatic agent retry/replacement.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+A user submits a complex task to FastAPI; the Hierarchical Planner calls an LLM with Pydantic schema enforcement to generate a step-by-step DAG; task 1 assigns to the Researcher agent, which queries Qdrant for historical context and extracts relevant facts; task 2 routes to the Coder agent to synthesize a solution; output forwards to the Critic agent; the Critic evaluates the output against defined constraints; if flawed, the Critic emits concrete remediation feedback and re-queues task 2 (up to a max of 3 retries); if approved, the planner marks the step complete and routes to subsequent DAG nodes; final verified results stream to the client via FastAPI SSE.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Complex Multi-Step Task Completion Rate: Multi-step task completion rate is >= 94.0% | p95 Agent Step Execution Latency: p95 agent orchestration and tool execution overhead is < 95 milliseconds per step | Critic Reflection & Flaw Remediation Parity Rate: 20 of 20 flawed drafts detected by Critic and successfully corrected within 2 retry cycles
 
-SKILLS COVERED
-----------------------------------------
-Python, LangChain, Semantic Kernel, Vector Databases, REST APIs, Async
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. python ./benchmarks/bench_completion.py --tasks 50: Multi-agent framework successfully completes >= 88.0% of workflows with all criteria satisfied [Task completion rate >= 88.0% with exit code 0]
+[ ] 2. 2. python ./benchmarks/bench_step_latency.py --steps 500: Orchestration and tool execution overhead exhibits p95 latency < 250ms per step [p95 latency < 250ms with exit code 0]
+[ ] 3. 3. python ./tests/test_critic_reflection.py --flawed-drafts 20: Critic agent detects flaws in all 20 drafts and forces worker auto-remediation within 2 cycles [20 of 20 flawed drafts caught and remediated with exit code 0]
+[ ] 4. 4. curl -X POST http://localhost:8000/api/v1/memory/recall -H 'Content-Type: application/json' -d '{"query":"What was the database schema discussed earlier?"}': API retrieves relevant episodic memory chunks from Qdrant with similarity score >= 0.80 [Response status 200 with non-empty relevant memories and exit code 0]
+[ ] 5. 5. python ./scripts/verify_forced_remediation.py --task 'divide_by_zero_recovery': Coder generates flawed code; Critic rejects; Coder remediates with try/except; Critic approves [Console confirms rejection of draft 1 and approval of draft 2 with exit code 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify demo: research goal produces report with citations from multiple agents' contributions; passes when verified by automated test script or benchmark log.
-2. Verify agent failure test: researcher agent fails, orchestrator retries with backup agent; passes when verified by automated test script or benchmark log.
-3. Verify inter-agent context passing: analyst agent reads researcher's findings from shared memory; passes when verified by automated test script or benchmark log.
-4. Verify output verification: validator agent rejects factually incorrect researcher claims; passes when verified by automated test script or benchmark log.
-5. Verify workflow timeline visualization showing agent execution sequence and handoffs; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected hierarchical multi-agent orchestration framework in Python with Semantic Kernel and Qdrant; achieved [COMPLETION_RATE] task completion rate across multi-step enterprise workflows, and eliminated execution loops with reflective critique cycles."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Built 5-agent collaborative AI research system using CrewAI/AutoGen; produced verified 2000-word reports in < 3 min with 90%+ accuracy through inter-agent fact validation and shared vector memory.; achieved [N] throughput with < [M ms] latency overhead across [K] test transactions."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

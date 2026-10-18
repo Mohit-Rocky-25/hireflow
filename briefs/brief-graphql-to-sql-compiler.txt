@@ -1,49 +1,48 @@
-PROJECT BRIEF — GraphQL to SQL Compiler & Query Optimizer
+PROJECT BRIEF — GRAPHQL-TO-SQL AST COMPILER & QUERY OPTIMIZER WITH LATERAL JOINS
 ======================================================================
 
-Domain    : Full-Stack Web
-Difficulty: ADVANCED
-Est. Time : 38 hours
-Tech Stack: TypeScript, GraphQL, SQL, Parsing, Node.js
+Project ID  : brief-graphql-to-sql-compiler
+Domain      : Full-Stack Web
+Difficulty  : ADVANCED
+Est. Time   : 40 hours
+Tech Stack  : TypeScript, Node.js, GraphQL, PostgreSQL
+Covered Gaps: TypeScript, Node.js, GraphQL, PostgreSQL, Compilers, SQL, AST Parsing, Query Optimization
 
-PROBLEM STATEMENT
-----------------------------------------
-GraphQL resolvers with naive database access produce catastrophic N+1 query patterns that can execute 1000+ SQL queries for a single API request. Build a GraphQL-to-SQL compiler that analyzes incoming GraphQL queries and generates a single optimized SQL query using JOIN inference.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+GraphQL APIs built with traditional ORM resolver models suffer from the devastating N+1 query problem, triggering hundreds of sequential database queries to fulfill a single nested API request. Application-level caching and DataLoaders patch the symptom but fail to optimize database execution plans. This project builds a production-grade GraphQL-to-SQL compiler in TypeScript and Node.js. The compiler traverses GraphQL abstract syntax trees (ASTs), maps selection sets to relational schemas, infers table relationships, and transpiles deeply nested GraphQL queries into a single, highly-optimized SQL query utilizing PostgreSQL JOINs and LATERAL subqueries with parameterized prepared statements.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-Hasura, PostGraphile, and Prisma all solve this at scale. Any company building a data-intensive GraphQL API needs query optimization. Understanding this unlocks contributions to ORM internals, GraphQL framework development, and backend query optimization.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+High-performance backend database gateways eliminating N+1 database queries at the compiler level | Data-intensive enterprise analytics APIs serving deeply nested relational data in a single database round-trip | Open-source ORM and GraphQL engine internals optimizing query execution pipelines
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-The N+1 problem is one of the most common performance disasters in GraphQL APIs. A compiler that automatically generates optimized SQL from GraphQL queries demonstrates deep understanding of query planning, AST traversal, and SQL semantics — topics covered in systems and database internals interviews.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Traversing arbitrary GraphQL AST selection sets and generating corresponding relational SQL JOIN and LATERAL expressions Resolving complex nested pagination (e.g. first: 5, offset: 10) inside SQL LATERAL subqueries without multiplying result sets Parameterizing all user filter arguments securely to guarantee complete SQL injection immunity Calculating static query complexity scores during compilation to reject computationally abusive queries
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Hasura has built a billion-dollar business on this exact problem. Engineers who understand GraphQL query planning and SQL optimization are extremely valuable at data-intensive product companies. This project shows you can reason about query plans, which is rare among application engineers.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Clean TypeScript codebase cleanly separating AST visitors, schema mappers, SQL expression builders, and complexity guards Automated compiler test suite verifying that a 4-level nested query compiles into exactly 1 parameterized SQL query Anti-fake verification script submitting dynamic nested queries and asserting exact single-statement SQL generation
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-GraphQL schema parser building a field dependency graph. Incoming query AST traversal identifying required fields and their relationships. JOIN inference engine generating a single SQL query with all required table joins, column selections, and WHERE clauses. Benchmark comparing N+1 vs compiled query on a 10k-row dataset.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+Incoming GraphQL query strings enter the compiler; the GraphQL parser generates an AST; the Complexity Analyzer calculates static query depth and multiplier costs, terminating execution if safety thresholds are breached; the AST Visitor traverses selection sets, mapping fields to relational table columns; the Join Generator constructs a single unified SQL query using LATERAL subqueries for one-to-many relationships; all filter values extract into parameterized arrays; the final single SQL statement dispatches to PostgreSQL in exactly one database round-trip.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+AST Compilation Latency per Document: Average compilation latency is < 0.8 milliseconds | Database Query Execution Round-Trip Reduction: Exactly 1 single SQL round-trip executed; 0 secondary resolver queries | SQL Parameterization Security Rate: 0 unparameterized literals; 50 of 50 values emitted strictly as positional SQL parameters ($1, $2)
 
-SKILLS COVERED
-----------------------------------------
-TypeScript, GraphQL, SQL, Algorithms, Node.js, Parsing
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. npm run test:compile -- --query samples/nested_orders.graphql: Compiler outputs a single unified SQL query with compilation latency < 2.5 milliseconds [Output contains exactly 1 SELECT statement, compilation latency < 2.5ms, exit code 0]
+[ ] 2. 2. npm run test:round-trip: Database executes exactly 1 single SQL round-trip instead of 100+ sequential queries [Recorded SQL statement count equals 1 with exit code 0]
+[ ] 3. 3. npm run test:security: All 50 filter values are emitted as positional parameters ($1, $2) with zero string concatenation [50 of 50 filter inputs safely parameterized with 0 injection escapes]
+[ ] 4. 4. npm run test:complexity -- --depth 6: Complexity analyzer rejects query during compilation and throws QueryTooComplexError [Compiler rejects query with QueryTooComplexError and exit code 0]
+[ ] 5. 5. node scripts/verify_dynamic_compiler.js --query '{ user { id dynamic_order: orders { total } } }': Compiler transpiles aliased query into single SQL statement using exact alias in LATERAL json_build_object [Generated SQL contains dynamic_order alias inside LATERAL subquery and exit code is 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify 5-level nested query resolved in 1 SQL statement with correct JOINs; passes when verified by automated test script or benchmark log.
-2. Verify n+1 benchmark: naive resolver makes 100 DB calls, compiler makes 1 for same data; passes when verified by automated test script or benchmark log.
-3. Verify circular query detection preventing infinite query compilation loops; passes when verified by automated test script or benchmark log.
-4. Verify query result correctly maps SQL rows back to GraphQL nested object structure; passes when verified by automated test script or benchmark log.
-5. Verify performance test: compiler overhead < 5ms for queries up to 10 nested fields; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected GraphQL-to-SQL AST compiler in TypeScript and Node.js with PostgreSQL; replaced cascading iterative database queries with [ROUNDTRIP_COUNT] single SQL statement via LATERAL joins, and achieved sub-[COMPILATION_LATENCY] compilation latency with parameterized security."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Built GraphQL-to-SQL compiler resolving 5-level nested queries in 1 SQL statement; eliminated N+1 pattern reducing database round trips from 100+ to 1 per request with < [M ms] compilation overhead."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

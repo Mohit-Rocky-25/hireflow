@@ -1,49 +1,48 @@
-PROJECT BRIEF — Full-Text Search Engine from Scratch (Inverted Index)
+PROJECT BRIEF — FULL-TEXT SEARCH ENGINE FROM SCRATCH IN GO WITH INVERTED INDEX, BM25 SCORING & CONCURRENT SEGMENT MERGING
 ======================================================================
 
-Domain    : Distributed Systems
-Difficulty: ADVANCED
-Est. Time : 38 hours
-Tech Stack: Go, Algorithms, Data Structures, HTTP, Concurrency
+Project ID  : brief-search-engine
+Domain      : Distributed Systems
+Difficulty  : ADVANCED
+Est. Time   : 40 hours
+Tech Stack  : Go, Concurrency, Algorithms, Data Structures, HTTP
+Covered Gaps: Go, Concurrency, Algorithms, Data Structures, HTTP, Distributed Systems, Systems Programming
 
-PROBLEM STATEMENT
-----------------------------------------
-Search is foundational to every product yet very few engineers understand how search engines actually work internally. Build a full-text search engine from scratch implementing inverted indexes, TF-IDF ranking, BM25 scoring, and Boolean query operators without using Elasticsearch or Lucene.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Engineering teams building search interfaces often treat full-text search as an opaque black box provided by managed Elasticsearch or Solr clusters, leaving them unable to diagnose high heap memory churn, segment merge storm freezes, or unexpected relevance ranking degradation. Commercial search engines incur high infrastructure costs and severe memory overhead for small-to-medium embedded datasets. This project builds a production-grade full-text search engine from scratch in Go inspired by the Lucene architecture. The engine implements a custom text tokenizer with stop-word removal and Porter stemming, constructs memory-efficient inverted indexes with compressed posting lists using Roaring Bitmaps, executes the BM25 probabilistic relevance ranking algorithm, coordinates concurrent multi-segment memory flushes and background merges, and exposes a high-throughput HTTP search API delivering sub-15ms queries across 100,000 documents.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-Every website with a search bar is running some variant of this. Internal search (Slack, Notion, Jira), e-commerce product search (top tech platforms, top tech platforms), and document search (Google Docs) all build on these fundamentals. Understanding these internals unlocks contribution to Elasticsearch, Meilisearch, or Typesense.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Enterprise Knowledge Base Documentation Search: Internal developer portals hosting hundreds of thousands of engineering design docs and markdown pages need fast keyword and phrase search. The engine indexes markdown content into inverted posting lists, ranking documentation snippets with BM25 relevance scores and serving search queries in under 12 milliseconds. | E-Commerce Product Catalog Multi-Field Search: Online retail platforms require accurate product discovery across title, description, and brand attributes with boolean query operators. The search engine parses multi-field boolean queries (AND, OR, NOT), computes disjunctive union and conjunctive intersection over compressed bitmaps, and returns ranked product IDs. | High-Throughput Application Log Inspection Search: Site reliability engineers troubleshooting production incidents need to grep and filter through gigabytes of structured server log lines in real time. The engine streams incoming log lines into memory segments, flushing immutable disk segments and enabling instant sub-second text queries across millions of log events.
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Building a search engine from scratch is one of the most algorithmically rich portfolio projects. It demonstrates mastery of data structures (inverted index, skip lists), ranking algorithms (TF-IDF, BM25), query planning, and performance optimization — topics that appear in algorithm production systems design interviews.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Implementing compressed posting lists using Roaring Bitmaps or Variable-Byte integer encoding to minimize RAM residency across high-cardinality vocabularies Implementing the Okapi BM25 relevance scoring formula with term frequency (TF), inverse document frequency (IDF), and document length normalization (k1=1.2, b=0.75) Designing a concurrent LSM-like segment architecture where mutable memory buffers flush to immutable on-disk segment files with background merge routines Constructing an Abstract Syntax Tree (AST) query parser supporting complex boolean expressions (AND, OR, NOT, phrase queries, and field prefixes)
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Companies like Elastic, Algolia, Meilisearch, and Typesense hire extensively for search infrastructure. Platform teams at top tech platforms, top tech platforms, and Urban Company building product search value engineers who understand Elasticsearch internals — which you can only do by building it yourself first.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Clean Go codebase cleanly separating the text analysis pipeline, inverted index structures, BM25 scoring modules, segment merge workers, and HTTP query handlers Search performance benchmark proving sub-15ms p95 query latency across an indexed corpus of 100,000 documents with memory consumption under 250MB Anti-fake verification script indexing 3 documents with subtle term frequency differences and asserting the BM25 score ranking matches exact mathematical calculation
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-Go implementation with an inverted index stored as a sorted map of term → posting list. Tokenization pipeline (stemming, stop word removal, n-gram generation). BM25 scoring with field weighting. Boolean AND/OR/NOT query parsing. Concurrent indexing with goroutines. HTTP query interface.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+Documents post to the `/api/v1/index` HTTP endpoint; the text analysis pipeline tokenizes, normalizes, and stems the text; tokens and position offsets insert into the active in-memory index segment; when the memory buffer reaches 10MB, a background goroutine flushes the segment to an immutable disk file; when a search query arrives at `/api/v1/search`, the boolean parser tokenizes the query into an AST; the query engine fetches posting lists for each term across all active disk segments, computes set intersections/unions, evaluates the BM25 relevance score for each matching document, sorts top-K results, and returns the JSON payload; periodically, the merge controller merges disk segments.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+p95 Full-Text Search Query Latency: p95 full-text query latency is < 9.5 milliseconds | Document Ingestion & Indexing Throughput: Sustained document indexing throughput is >= 12,000 documents per second | BM25 Scoring Mathematical Parity Rate: 50 of 50 query evaluations match reference BM25 calculations exactly
 
-SKILLS COVERED
-----------------------------------------
-Go, Algorithms, Data Structures, Concurrency, System Design, Networking
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. go run ./cmd/bench_search --queries 10000 --concurrency 20: Search engine serves queries with p95 query latency < 25.0ms and 0 HTTP errors [p95 latency < 25.0ms with exit code 0]
+[ ] 2. 2. go run ./cmd/bench_indexing --docs 100000 --batch-size 1000: Engine indexes corpus with sustained throughput >= 4,000 docs/sec and memory < 250MB [Throughput >= 4000 docs/sec with exit code 0]
+[ ] 3. 3. go test -v ./query/... -run TestBooleanASTExecution: AST parser evaluates query correctly; all returned documents match boolean constraints [All returned documents satisfy boolean logic with exit code 0]
+[ ] 4. 4. go test -v ./segment/... -run TestConcurrentSegmentFlush: Buffer flushes to disk segment file cleanly without dropping in-flight search queries [Flush completes without read errors and exit code 0]
+[ ] 5. 5. go run ./scripts/verify_bm25_ranking.go --query 'search' --expected-order 'DocA,DocB': Engine ranks DocA higher than DocB with BM25 score difference matching reference formula [Console confirms DocA rank 1 and DocB rank 2 with exit code 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify inverted index build time benchmark on 1M document corpus; passes when verified by automated test script or benchmark log.
-2. Verify bM25 vs TF-IDF comparison showing ranking quality improvement; passes when verified by automated test script or benchmark log.
-3. Verify boolean query parser supporting AND, OR, NOT, and phrase queries; passes when verified by automated test script or benchmark log.
-4. Verify concurrent indexing benchmark showing linear throughput scaling with goroutines; passes when verified by automated test script or benchmark log.
-5. Verify architectural writeup comparing design decisions to Lucene/Elasticsearch; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected full-text search engine from scratch in Go with inverted indexing and probabilistic relevance scoring; achieved sub-[QUERY_LATENCY] millisecond search latency across [DOC_COUNT] documents, and sustained [INDEX_THROUGHPUT] documents per second indexing throughput."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Built full-text search engine in Go with BM25 ranking and inverted index; indexed [K] documents in 60s and served sub-[M ms] query responses with support for Boolean operators and phrase matching."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

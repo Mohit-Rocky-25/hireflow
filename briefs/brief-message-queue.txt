@@ -1,49 +1,48 @@
-PROJECT BRIEF — Persistent Message Queue with At-Least-Once Delivery
+PROJECT BRIEF — PERSISTENT LOG-STRUCTURED MESSAGE BROKER IN GO WITH SEGMENTED STORAGE, CONSUMER GROUPS & AT-LEAST-ONCE DELIVERY
 ======================================================================
 
-Domain    : Distributed Systems
-Difficulty: INTERMEDIATE
-Est. Time : 28 hours
-Tech Stack: Go, TCP, Append-only Log, Concurrency, File I/O
+Project ID  : brief-message-queue
+Domain      : Distributed Systems
+Difficulty  : INTERMEDIATE
+Est. Time   : 28 hours
+Tech Stack  : Go, TCP, Append-only Log, Concurrency, File I/O
+Covered Gaps: Go, TCP, Append-only Log, Concurrency, File I/O, Networking, System Design, Distributed Systems
 
-PROBLEM STATEMENT
-----------------------------------------
-Building a reliable message queue from scratch — not using RabbitMQ or Kafka — requires solving fundamental distributed systems problems: message persistence, consumer group coordination, delivery acknowledgement, and dead-letter handling. Implement a simple but production-correct message queue.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Relying on external message brokers without understanding their underlying storage and replication mechanics leads to silent message loss, consumer partition starvation, and runaway disk exhaustion. In-memory queues lack crash durability, while naive file-based queues suffer from catastrophic disk write bottlenecks when executing synchronous disk syncs per message. This project builds a production-grade persistent message queue and log broker from scratch in Go. The system implements append-only log segmentation with index files, manages consumer group partition assignment and offset commits, guarantees at-least-once delivery with unacknowledged message redelivery timeouts, and isolates unprocessable poisoned messages into dead-letter queues.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-Understanding queue internals enables you to configure Kafka partitions correctly, debug RabbitMQ delivery guarantees, and explain message ordering to interviewers. Any asynchronous workflow (order processing, email delivery, notification dispatch) relies on these semantics.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Asynchronous E-Commerce Order Fulfillment Pipelines: E-commerce checkout platforms need durable message buffering to decouple instant client checkout confirmations from downstream payment and shipping services. The broker persists order messages to disk logs, ensuring that even if backend inventory workers crash, all pending orders are reliably redelivered and processed. | Financial Transaction Audit Event Streaming: Core banking and payment processing services require immutable, sequentially ordered audit records for every account debit and credit transaction. The engine writes transactions to sequential segmented log files with binary index offsets, guaranteeing deterministic replayability and non-repudiation. | High-Volume Telemetry and IoT Ingestion Buffering: Smart device fleet management systems ingest millions of sensor status pings per minute that fluctuate wildly during peak operational hours. The queue absorbs high-concurrency ingestion bursts using batched memory buffers and sequential append-only writes without dropping packets.
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Message queue internals — acknowledgement windows, at-least-once vs exactly-once semantics, partition ordering, consumer group rebalancing — are core distributed systems concepts that appear in senior backend interviews everywhere. Building one provides unmatched understanding of Kafka and RabbitMQ internals.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Designing a high-performance binary log segment format with sparse indexing for fast message offset lookups Coordinating consumer group partition assignments and cooperative rebalancing upon worker member joins or leaves Implementing reliable at-least-once delivery with acknowledgement timeout tracking and dead-letter queue routing Balancing write throughput and data durability using batching windows and controlled fsync disk flushing
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Kafka is in 70%+ of senior backend JDs. Engineers who understand its internal mechanics (consumer groups, partition leaders, acknowledgement offsets) rather than just its API can configure, tune, and debug Kafka — skills that operations teams desperately need.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Clean idiomatic Go codebase implementing binary file protocol serialization, segment rotation, and consumer offset stores High-throughput benchmark report validating 45,000+ messages per second sustained ingestion with crash durability Anti-fake verification script simulating consumer worker crash mid-batch and asserting broker redelivers unacknowledged messages to surviving consumer
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-Go TCP server with append-only log segments for message persistence. Consumer groups with offset tracking in metadata store. Acknowledgement window with redelivery on timeout. Dead-letter queue for repeatedly failed messages. Producer with configurable durability (sync/async). HTTP management API.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+Producers connect over TCP and emit binary Produce requests containing topic, partition, and payload; the log engine writes messages to the active binary segment file and updates the sparse index file; periodic or threshold-based fsync calls commit data to durable disk; consumer group workers connect and issue Fetch requests with current partition offsets; the broker returns message batches and starts an unacknowledged lease timer; when consumers emit Commit requests, the offset advances in the metadata store; if a consumer crashes before committing, the lease expires and the broker redelivers unacknowledged messages to an active consumer; messages failing 3 redeliveries divert to the dead-letter queue topic.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Sustained Message Ingestion Throughput: Publish throughput is >= 85,000 messages per second with 0 payload corruption | Crash Recovery Zero-Loss Durability: 50,000 of 50,000 published messages successfully recovered upon broker restart with 0 corrupted records | Consumer Crash Redelivery Detection Window: Average redelivery duration is < 1.8 seconds across 20 trials
 
-SKILLS COVERED
-----------------------------------------
-Go, Concurrency, Networking, File I/O, System Design, Algorithms
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. go run ./cmd/benchmarker --messages 100000 --batch-size 100: Broker sustains ingestion throughput >= 45,000 messages per second with zero data corruption [Measured throughput is >= 45,000 msg/sec with exit code 0]
+[ ] 2. 2. go run ./scripts/test_crash_recovery.go --messages 50000: Broker restarts, parses segment index headers, and verifies 50,000 of 50,000 messages present [Recovered count equals 50,000 with 0 corrupted messages and exit code 0]
+[ ] 3. 3. go test -v ./broker/... -run TestConsumerCrashRedelivery: Broker detects unacknowledged lease expiration and redelivers messages to active worker in < 5.0s [Average redelivery duration < 5.0s with exit code 0]
+[ ] 4. 4. go run ./scripts/test_dlq_routing.go --poison-payload 'TRIGGER_ERROR': Broker increments failure counter and routes unprocessable message to dedicated DLQ topic [Message appears in DLQ topic with original error metadata and exit code 0]
+[ ] 5. 5. go run ./scripts/verify_dynamic_redelivery.go --kill-worker 1: Broker detects consumer 1 silence, rebalances partition, and redelivers message to consumer 2 [Consumer 2 successfully acknowledges dynamic message with exit code 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify durability test: produce 100k messages, kill broker, restart, all messages present; passes when verified by automated test script or benchmark log.
-2. Verify at-least-once delivery test: consumer crashes mid-batch, messages redelivered to new consumer; passes when verified by automated test script or benchmark log.
-3. Verify consumer group rebalancing: add second consumer, verify partition reassignment; passes when verified by automated test script or benchmark log.
-4. Verify dead-letter queue: messages failed 3 times routed to DLQ automatically; passes when verified by automated test script or benchmark log.
-5. Verify throughput benchmark showing 50k msg/sec sustained over 5 minute window; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected persistent segmented message broker in Go with consumer group coordination; achieved [INGESTION_THROUGHPUT] message ingestion throughput with guaranteed delivery, and executed automated consumer failure redelivery in sub-[REDELIVERY_WINDOW] seconds."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Built persistent message queue in Go with append-only log storage; achieved [N] req/sec msg/sec with guaranteed at-least-once delivery and < 30s redelivery on consumer failure with DLQ support."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

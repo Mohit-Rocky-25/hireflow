@@ -1,49 +1,48 @@
-PROJECT BRIEF — Knowledge Graph Construction & Reasoning Engine
+PROJECT BRIEF — DOMAIN KNOWLEDGE GRAPH CONSTRUCTION PIPELINE WITH RELATION EXTRACTION & CYPHER GRAPH REASONING ENGINE
 ======================================================================
 
-Domain    : AI/ML Applications
-Difficulty: ADVANCED
-Est. Time : 38 hours
-Tech Stack: Python, spaCy, Neo4j, BERT, Wikidata API, D3.js
+Project ID  : brief-knowledge-graph
+Domain      : AI/ML Applications
+Difficulty  : ADVANCED
+Est. Time   : 40 hours
+Tech Stack  : Python, spaCy, BERT, Neo4j, Wikidata API, D3.js
+Covered Gaps: Python, spaCy, Neo4j, BERT, Wikidata API, D3.js, Knowledge Graphs, Cypher, NLP
 
-PROBLEM STATEMENT
-----------------------------------------
-Large document corpora (legal, medical, scientific) contain implicit relationships between entities that are difficult to query. Build a knowledge graph construction pipeline that automatically extracts named entities, relationships, and attributes from unstructured text, stores them in a graph database, and enables complex relational reasoning queries.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Unstructured technical and biomedical literature contains deeply interconnected entities that cannot be queried through keyword search or basic vector retrieval without losing relational context. Naive information extraction pipelines produce noisy entity boundaries, unresolved synonyms, and disconnected graph fragments. This project builds an automated knowledge graph construction and reasoning pipeline in Python. The system processes unstructured corpora using spaCy and BERT relation extractors, normalizes entities against canonical ontologies, persists nodes and directed edges in Neo4j, and executes Cypher reasoning queries over multi-hop relationships with interactive D3.js topology visualization.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-Drug discovery (entity relationships between drugs, proteins, diseases), legal research (case law relationships), financial analysis (company executive relationships), and Wikipedia-style knowledge bases. Google Knowledge Graph and Bing's entity understanding are the largest implementations.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Biomedical Literature Target Discovery Engines: Life sciences research laboratories need to uncover latent connections between molecular compounds, target proteins, and clinical adverse reactions from thousands of published papers. The pipeline ingests biomedical abstract batches, extracts normalized gene-disease associations, and enables researchers to execute 3-hop traversal queries identifying drug repurposing candidates. | Regulatory Compliance & Corporate Ownership Auditing: Financial risk analysts must detect undisclosed beneficial ownership chains and conflicts of interest across thousands of corporate filings and legal contracts. The system constructs an entity-relationship graph linking holding companies, subsidiaries, and executive board members, evaluating structural circular ownership loops. | Technical Architecture Dependency & Incident Mapping: Cloud infrastructure platform teams need clear visual and programmatic representations of distributed service dependencies, APIs, and shared datastores. The engine parses post-mortem incident documentation and architecture RFCs, synthesizing a queryable dependency graph that highlights cascading single points of failure.
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Knowledge graph construction combines NLP (Named Entity Recognition, Relation Extraction), graph database modeling, and reasoning — a multi-disciplinary ML engineering challenge. Engineers who can build knowledge graphs can work at the intersection of NLP, semantic web, and graph systems — a rare specialty.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Extracting complex overlapping relation triplets from dense academic literature with high precision Resolving entity aliases and polysemy to canonical ontology identifiers without introducing duplicate entity nodes Modeling high-performance property graph schemas in Neo4j with optimized indexes for recursive multi-hop traversals Designing deterministic graph reasoning queries that infer hidden transitive links and circular path anomalies
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Knowledge graphs are the backend of all major search engines and AI assistants. GraphRAG (Microsoft's graph-enhanced RAG) is the next evolution of enterprise AI. Companies building structured AI knowledge systems explicitly seek NLP + graph database engineers.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Clean Python codebase separating text extraction pipelines, entity resolution modules, and Neo4j graph access layers Quantitative extraction benchmark reporting precision, recall, and F1 scores against human-annotated entity relationship datasets Anti-fake verification script inserting unseen dynamic text passages and asserting automated creation of verified canonical nodes and edges in Neo4j
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-spaCy/BERT-based Named Entity Recognition extracting entities (persons, organizations, locations). Relation Extraction model identifying relationships between entity pairs. Neo4j Cypher for graph storage. Entity disambiguation using Wikipedia/Wikidata entity linking. Graph reasoning queries (shortest path, PageRank, pattern matching). React visualization using D3.js force graph.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+Unstructured text documents enter the ingestion parser; spaCy extracts sentences and linguistic dependency features; the BERT relation extractor identifies entity spans and predicts semantic relationships; the entity resolver maps entity strings to canonical ontology identifiers via the Wikidata API; resolved nodes and relationship edges stream to the Neo4j persistence layer in batched Cypher transactions; the reasoning engine executes multi-hop traversals over the constructed property graph; the results stream to the D3.js frontend for interactive visual analysis.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Named Entity Recognition and Relation Extraction F1 Score: Relation extraction micro-F1 score is >= 0.84 across 500 test sentences | Neo4j Knowledge Graph Multi-Hop Query Latency: p95 query response time for 3-hop graph traversals is < 18 milliseconds | Entity Disambiguation & Canonical Linking Precision: Linking precision is >= 91.5% across 300 entity mentions
 
-SKILLS COVERED
-----------------------------------------
-Python, NLP, Graph Databases, Neo4j, Embeddings, Information Extraction
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. python -m kg_engine.evaluate_extraction --test-data test_data/gold_relations.json: BERT and spaCy extraction pipeline achieves relation extraction micro-F1 score >= 0.74 [Report records micro-F1 >= 0.74 with exit code 0]
+[ ] 2. 2. python -m kg_engine.evaluate_linker --mentions-file test_data/entity_mentions.json: Entity resolution engine achieves canonical linking precision >= 82.0% [Linking precision >= 82.0% with exit code 0]
+[ ] 3. 3. python scripts/benchmark_traversal.py --queries test_data/traversal_queries.cql --runs 100: Neo4j graph database executes multi-hop traversals with p95 response time < 45 milliseconds [p95 latency is < 45ms and query success rate is 100%]
+[ ] 4. 4. curl http://localhost:8000/api/graph/subgraph?entity_id=Q12345&depth=2: Server returns structured JSON payload containing nodes array, edges array, and predicate metadata [Response status is 200 and JSON contains non-empty nodes and edges lists]
+[ ] 5. 5. python scripts/verify_dynamic_kg.py --sentence 'Alpha-7 inhibits kinase-9 expression in renal tissues': Pipeline extracts (Alpha-7, INHIBITS, kinase-9), resolves entities, and asserts new nodes and edge exist in Neo4j [Neo4j query verifies created edge INHIBITS between Alpha-7 and kinase-9 with exit code 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify nER precision > 95% on named entity types (PER, ORG, LOC) on test document set; passes when verified by automated test script or benchmark log.
-2. Verify relation extraction: correctly identifies 'CEO of', 'founded by', 'located in' relationships; passes when verified by automated test script or benchmark log.
-3. Verify 3-hop Cypher query completing in < 100ms on 1M node graph; passes when verified by automated test script or benchmark log.
-4. Verify entity disambiguation: '"Google" the company' linked to correct Wikidata entity; passes when verified by automated test script or benchmark log.
-5. Verify d3.js interactive visualization with zoom, filter, and entity detail panel; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected automated knowledge graph construction pipeline in Python with property graph database using spaCy and BERT; extracted [TRIPLET_COUNT] relational triplets with [EXTRACTION_SCORE] extraction score, and achieved sub-[TRAVERSAL_LATENCY] response times on recursive multi-hop Cypher traversals."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Built knowledge graph pipeline from [N] req/sec documents with spaCy NER and BERT relation extraction; achieved 96% entity recognition precision with Neo4j graph enabling 3-hop relationship queries in < [M ms]."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

@@ -1,49 +1,48 @@
-PROJECT BRIEF — API Gateway from Scratch with Plugin Architecture
+PROJECT BRIEF — API GATEWAY FROM SCRATCH WITH PLUGIN ARCHITECTURE
 ======================================================================
 
-Domain    : Distributed Systems
-Difficulty: ADVANCED
-Est. Time : 38 hours
-Tech Stack: Go, net/http, Prometheus, Docker, JSON, Concurrency
+Project ID  : brief-api-gateway-scratch
+Domain      : Distributed Systems
+Difficulty  : ADVANCED
+Est. Time   : 34 hours
+Tech Stack  : Go, Docker, Prometheus, JSON
+Covered Gaps: Go, Networking, HTTP, Concurrency, System Design, Docker
 
-PROBLEM STATEMENT
-----------------------------------------
-Microservice architectures require centralized ingress points to manage cross-cutting networking concerns—such as TLS termination, request authentication, rate limiting, and dynamic traffic routing—without duplicating logic across individual backend services. In horizontally-scaled environments, an ingress gateway must maintain low proxy overhead, support hot-reloading of routing rules without connection drops, balance traffic across upstream replicas using health checks, and execute extensible middleware plugins without introducing unbounded memory allocations or TCP socket leaks.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Modern microservice topologies require centralized networking ingress points to enforce cross-cutting concerns including transport-level security, authentication verification, request rate limiting, and dynamic traffic routing without duplicating boilerplate across individual services. Operating reverse proxies under sustained traffic introduces challenging failure modes such as connection pool exhaustion, file descriptor leaks, thread contention, and dropped requests during configuration changes. An engineered API gateway addresses these operational challenges by implementing tuned socket pooling, lock-free route table hot-reloading, active upstream health checking with automated failover, and an extensible pipeline for custom middleware plugins.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-Modern cloud platforms and Kubernetes clusters rely on edge gateways to safely expose internal services to external clients. Neutral architectural reference points include open-source gateways such as Envoy, Apache APISIX, and Traefik.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Edge ingress routing and token authentication for heterogeneous microservice clusters | Dynamic traffic shifting and canary release management across upstream service versions | Centralized rate limiting and telemetry metering for external partner API access
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-TCP Connection Pooling & File Descriptor Leaks: Default HTTP transports restrict concurrent connections per upstream host (MaxIdleConnsPerHost = 2), causing excessive socket creation and TIME_WAIT saturation under high concurrency. The proxy must implement a tuned custom http.Transport with aggressive connection reuse and leak-free response body consumption.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Eliminating socket exhaustion and TIME_WAIT saturation under high concurrency through tuned connection reuse and response body drain policies Executing zero-downtime route table hot-reloading via atomic pointer swapping without dropping in-flight client requests Minimizing garbage collection pause overhead in the proxy data path by recycling byte buffers with sync pools Mitigating upstream server flapping through hysteresis counters in active background health check loops
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Demonstrates deep capability in systems programming, networking protocols (HTTP/1.1, TCP connection lifecycles), concurrent synchronization, and infrastructure reliability engineering. Directly maps to Platform Engineer, Systems Software Engineer, and Cloud Infrastructure Engineer roles.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Standalone Go codebase implementing custom reverse proxying without high-level gateway frameworks Concurrency-safe route hot-reloading demonstrated under active automated load without connection drops Anti-fake verification script validating dynamic upstream registration and live header transformation
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-Custom Go reverse proxy utilizing net/http/httputil with tuned connection pools (MaxIdleConns: 1000, MaxIdleConnsPerHost: 200). Extensible plugin chain interface (Auth -> RateLimit -> Transform) executing in sequence. Dynamic route table managed via atomic.Pointer for lock-free hot-reloading via Admin REST API. Active background health checker polling upstream /healthz every 1s with weighted round-robin failover.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+Client HTTP requests reach the Go proxy engine; the router reads an atomic snapshot of current routes; the request traverses the middleware plugin chain (Auth -> RateLimiter -> HeaderMutator); the load balancer selects an active upstream replica from healthy nodes; the request is forwarded via pooled TCP connections; upstream response streams back to the client while Prometheus metrics increment.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Proxy Latency Overhead: p99 overhead < 5ms under 10k concurrent requests | Sustained Throughput: > [N] req/sec sustained (target 25k req/sec) | Failover Duration: Evicts dead node and converges traffic within < 2s of health check failure.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Proxy Tail Latency Overhead (p99): p99 latency overhead < 8ms under 2,000 requests per second | Hot-Reload Traffic Stability: 10,000 of 10,000 requests return HTTP 200 status code | Upstream Failover Convergence Duration: Traffic convergence to healthy replicas within 1.5 seconds of upstream termination
 
-SKILLS COVERED
-----------------------------------------
-Go, Networking, HTTP, Concurrency, System Design, Docker
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. Inspect response status code and headers: Request proxies to mock upstream and returns HTTP 200 with X-Gateway-Proxy header [Response status 200 OK received with gateway proxy header present]
+[ ] 2. 2. Execute dynamic hot-reload test script: New route takes effect immediately without restart and active requests continue without error [10,000 of 10,000 requests complete with HTTP 200 and zero connection resets]
+[ ] 3. 3. Run rate limit verification script: First 10 requests succeed; 11th request receives HTTP 429 Too Many Requests with Retry-After header [HTTP status 429 returned on 11th request with valid Retry-After duration]
+[ ] 4. 4. Execute upstream failover test script: Health checker detects failure and evicts node, routing subsequent traffic to healthy replicas [Traffic rerouted within 3 seconds of termination with healthy replicas serving traffic]
+[ ] 5. 5. Run go test ./tests/anti_fake_test.go -v: Test spawns fresh mock upstream, registers it dynamically via Admin API, and confirms response token validation [Test passes with exit code 0 confirming dynamic proxy routing and header mutation]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Gateway Startup & Direct Route Check: Verify HTTP GET /api/users proxies successfully to mock upstream and returns HTTP 200 with X-Gateway-Proxy: true.
-2. Dynamic Hot-Reload Verification: Send PUT request to Admin API :8081/admin/routes registering /api/orders; verify routing takes effect in < 1s without process restart.
-3. Rate Limiter Plugin Enforcement: Send 20 rapid requests to rate-limited route (threshold 10 req/min); verify 11th request returns HTTP 429 with Retry-After header.
-4. Upstream Failover Resilience: Terminate upstream replica 2 via chaos endpoint /chaos/kill; verify gateway evicts node and reroutes subsequent traffic to healthy replicas in < 2s.
-5. Proxy Overhead Benchmark Check: Execute benchmark comparing direct upstream vs proxied path; verify measured p99 latency overhead < [M ms] (target < 5ms).
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected high-throughput API gateway in Go with extensible middleware plugin architecture; achieved [PROXY_THROUGHPUT] req/sec with < [P99_OVERHEAD] proxy latency overhead and implemented dynamic atomic configuration reloading with failover convergence under [FAILOVER_TIME] seconds."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Architected high-throughput API Gateway in Go with extensible plugin pipeline; achieved [N] req/sec with < [M ms] proxy latency overhead and implemented dynamic atomic configuration reloading with failover convergence under [S] seconds."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

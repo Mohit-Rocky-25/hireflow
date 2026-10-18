@@ -1,49 +1,48 @@
-PROJECT BRIEF — Multi-Provider LLM Gateway with Cost Optimization
+PROJECT BRIEF — HIGH-THROUGHPUT MULTI-PROVIDER LLM GATEWAY WITH SEMANTIC PROMPT CACHING, AUTOMATIC FAILOVER & TOKEN RATE LIMITING
 ======================================================================
 
-Domain    : GenAI & LLM Engineering
-Difficulty: INTERMEDIATE
-Est. Time : 28 hours
-Tech Stack: Python, FastAPI, Redis, LangChain, OpenAI API, Anthropic API
+Project ID  : brief-llm-gateway
+Domain      : GenAI & LLM Engineering
+Difficulty  : INTERMEDIATE
+Est. Time   : 28 hours
+Tech Stack  : Python, FastAPI, Redis, LangChain, OpenAI API, Anthropic API
+Covered Gaps: Python, FastAPI, Redis, LangChain, OpenAI API, Anthropic API, API Gateway, Semantic Caching, Rate Limiting
 
-PROBLEM STATEMENT
-----------------------------------------
-Companies using multiple LLM providers (OpenAI, Anthropic, Google Gemini, open-source models) need unified access with cost optimization, automatic failover, prompt caching, and usage tracking. Build an LLM gateway that abstracts provider differences and minimizes inference costs through intelligent routing.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Applications relying directly on single LLM provider APIs suffer catastrophic outages during vendor downtime, waste budget repeatedly recalculating identical prompt completions, and face uncoordinated quota exhaustion across distributed microservices. Building ad-hoc client-side retries leads to stampeding herds and unpredictable billing spikes. This project builds a production-grade multi-provider LLM gateway in Python and FastAPI. The gateway unifies access across heterogeneous providers with automatic fallback routing, reduces inference expenditures through semantic vector prompt caching in Redis, enforces token-bucket rate limits per tenant, and exports real-time spend telemetry.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-Every company deploying multiple LLMs needs a gateway layer. LiteLLM, Portkey, and OpenRouter are commercial solutions. Companies with high LLM usage need cost optimization — routing simple queries to cheaper models (GPT-3.5) and complex ones to expensive models (GPT-4) saves 60-80% of inference costs.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Multi-Tenant Enterprise AI API Cost Optimization: Enterprise software platforms serving thousands of internal corporate users need centralized billing control and spend limits across engineering teams. The gateway intercepts all model completion requests, checks semantic caches to return instant cached responses for repetitive queries, and tracks usage per project. | Zero-Downtime Provider Failover for Mission-Critical APIs: Production SaaS products relying on LLM backends must maintain continuous uptime even when a primary commercial provider encounters service degradation. The gateway monitors provider response latency and HTTP error rates, automatically routing traffic to secondary providers or open-source fallback models within 450ms. | Distributed Rate Limiting and Quota Enforcement: Cloud services offering LLM features to tiered subscription customers need deterministic token-per-minute and request-per-minute enforcement. The system applies distributed token-bucket rate limiting in Redis, smoothly queuing requests and rejecting abusive bursts with standard HTTP 429 status codes.
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-LLM cost optimization requires understanding model capability differences, semantic caching (same meaning = same response), routing logic, and provider-specific API formats. Building a gateway that unifies these demonstrates both GenAI engineering and distributed systems thinking.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Implementing semantic prompt caching using vector cosine similarity that reliably detects semantic matches without returning stale or irrelevant completions Designing circuit-breaking failover policies that detect degraded upstream providers without causing cascading request timeouts Executing atomic distributed token-bucket rate limiting in Redis under high-concurrency client request bursts Normalizing disparate multi-vendor streaming response schemas into a unified server-sent events (SSE) protocol
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-LLM infrastructure engineering is a growing specialty. Any company deploying AI at scale needs engineers who understand model selection, cost optimization, semantic caching, and provider abstraction. This project shows you think about production AI economics, not just model capabilities.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Clean Python codebase separating provider adapters, semantic caching managers, rate limiting interceptors, and telemetry routers High-throughput benchmark report measuring proxy latency overhead, cache hit response speed, and failover diversion timings Anti-fake verification script issuing a novel prompt followed by a semantically equivalent variant, asserting sub-15ms cached return and zero provider token usage
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-FastAPI gateway normalizing OpenAI-compatible requests. Semantic prompt cache using embedding similarity (RedisSearch vector search) — return cached responses for semantically similar prompts. Complexity classifier routing simple prompts to GPT-3.5, complex to GPT-4. Provider failover with automatic fallback. Cost tracking per model per tenant.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+A client application dispatches a standard chat completion request to the FastAPI gateway; the rate limiter evaluates the tenant token budget in Redis, rejecting requests that exceed quotas; the semantic cache computes prompt embeddings and queries Redis; if a semantic match exceeding similarity threshold 0.92 exists, the cached completion returns immediately; on a cache miss, the failover router forwards the request to the primary provider; if the primary provider times out or returns HTTP 5xx, the circuit breaker triggers fallback routing to the secondary provider; the response streams back to the client while writing to the cache and telemetry logs.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Semantic Cache Hit Response Latency: p95 semantic cache response latency is < 12.0 milliseconds | Gateway Proxy Latency Overhead: Average gateway proxy overhead is < 1.8 milliseconds per request | Automated Provider Failover Recovery Duration: Average failover recovery duration is < 320 milliseconds across 20 trials
 
-SKILLS COVERED
-----------------------------------------
-Python, FastAPI, Redis, LLM APIs, Cost Optimization, Caching
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. python -m gateway.benchmark_cache --requests test_data/semantic_prompts.json: Semantic cache serves responses with p95 latency < 25.0 milliseconds and zero upstream calls [p95 latency is < 25.0ms with exit code 0]
+[ ] 2. 2. python scripts/benchmark_overhead.py --concurrency 50 --total 500: Gateway introduces average proxy processing overhead < 4.5 milliseconds [Average overhead is < 4.5ms with exit code 0]
+[ ] 3. 3. python scripts/run_failover_chaos.py --trials 20 --timeout-ms 500: Circuit breaker trips and routes requests to secondary provider within average duration < 650ms [Average failover recovery < 650ms and 100% request fulfillment across 20 trials]
+[ ] 4. 4. curl -X POST http://localhost:8000/v1/chat/completions -H 'X-Tenant-ID: abusive-tenant' -d @test_data/burst_payload.json: Gateway rejects request with HTTP 429 Too Many Requests and Retry-After header [Response status is 429 and response body contains rate limit exceeded error]
+[ ] 5. 5. python scripts/verify_dynamic_cache.py --prompt 'Summarize quarterly net revenue for Acme Corp': First call queries provider and populates cache; second paraphrased query returns cached response in < 15ms [Second query logs cache_hit=true, latency < 15ms, and provider token usage equals 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify semantic cache: paraphrased question returns cached response (embedding similarity > 0.95)
-2. Verify model routing: simple factual query routed to GPT-3.5, coding query to GPT-4; passes when verified by automated test script or benchmark log.
-3. Verify provider failover: primary provider 500 error triggers automatic switch to backup; passes when verified by automated test script or benchmark log.
-4. Verify cost dashboard: per-tenant token usage and estimated cost by model; passes when verified by automated test script or benchmark log.
-5. Verify cache hit rate benchmark: 60%+ cache hits on 100 sample queries with variations; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected resilient multi-provider LLM gateway in Python and FastAPI with Redis semantic caching; achieved sub-[CACHE_LATENCY] cached response times with [CACHE_HIT_RATE] hit rate, and cut downstream token expenditures across [PROMPT_COUNT] production queries."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Built multi-provider LLM gateway with semantic prompt caching and cost-optimized routing; achieved 65% cache hit rate and 42% cost reduction via automatic model selection across OpenAI, Anthropic, and open-source providers.; achieved [N] throughput with < [M ms] latency overhead across [K] test transactions."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

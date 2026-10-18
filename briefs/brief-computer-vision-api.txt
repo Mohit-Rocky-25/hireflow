@@ -1,49 +1,48 @@
-PROJECT BRIEF — Production Computer Vision API (Object Detection & OCR)
+PROJECT BRIEF — PRODUCTION COMPUTER VISION API (OBJECT DETECTION & OCR)
 ======================================================================
 
-Domain    : AI/ML Applications
-Difficulty: INTERMEDIATE
-Est. Time : 28 hours
-Tech Stack: Python, PyTorch, FastAPI, YOLOv8, TensorRT, Redis, Docker
+Project ID  : brief-computer-vision-api
+Domain      : AI/ML Applications
+Difficulty  : INTERMEDIATE
+Est. Time   : 29 hours
+Tech Stack  : Python, FastAPI, ONNX Runtime, Docker, Pillow
+Covered Gaps: Python, FastAPI, ONNX Runtime, Docker, Pillow, Computer Vision, REST APIs
 
-PROBLEM STATEMENT
-----------------------------------------
-Businesses manually process millions of documents, invoices, and images annually. Build a production-grade computer vision API that performs real-time object detection, document OCR, and image classification — deployable via REST API with GPU-optimized inference and batch processing support.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Deploying deep learning computer vision models directly from research notebooks into production web services frequently results in high latency, memory starvation, and severe concurrency bottlenecks. Naive per-request inference under Python locks the interpreter and fails to utilize batching opportunities. This project builds an asynchronous model serving API in FastAPI that executes object detection and optical character recognition using ONNX Runtime, featuring dynamic request batching, pre-allocated tensor memory, image validation and resizing pipelines, and structured bounding box JSON output formatting.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-Invoice processing (top tech platforms, Zoho Books), ID verification (KYC at banks/telecom), defect detection in manufacturing, medical imaging analysis, and traffic surveillance. India's digital KYC market is growing 40% annually and requires exactly this capability.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Automated document and invoice processing with bounding box OCR coordinate extraction | Digital identity verification and visual quality assessment for automated user onboarding | Real-time object detection and safety equipment verification for industrial site cameras
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Computer Vision is increasingly moving from research to production. Building a CV API with proper model serving (not just a Jupyter notebook) — including batch processing, async inference, and deployment optimization — demonstrates ML engineering skills at production scale.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Coordinating dynamic request batching across asynchronous HTTP workers without introducing latency penalties on single requests Optimizing image preprocessing (letterboxing, color normalization) to avoid becoming the primary throughput bottleneck Managing ONNX Runtime session execution providers and CPU thread pool allocations to prevent host thrashing Parsing and filtering multi-class bounding box coordinates with Non-Maximum Suppression (NMS) within sub-millisecond budgets
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Vision AI APIs, YOLOv8, TensorRT optimization, and production model serving are explicitly required in Computer Vision Engineer JDs at startups like Sarvam AI, Jio GenAI, and AI-first companies. A live API endpoint beats any Kaggle notebook in a portfolio review.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+FastAPI service with ONNX Runtime model inference decoupled from HTTP worker threads Automated benchmarking harness establishing CPU inference latency and batch throughput Anti-fake verification script evaluating dynamically transformed image inputs and asserting bounding box accuracy
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-YOLOv8 / EfficientDet for object detection, TrOCR / PaddleOCR for document text extraction. FastAPI async service with queue-based batch inference. TensorRT or ONNX runtime optimization for GPU inference. S3/MinIO for image storage. Redis for inference result caching. Celery for async processing of large image batches.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+Clients upload image files via HTTP POST to FastAPI; the Preprocessing Pipeline decodes and resizes images to 640x640 tensors; requests enter the Dynamic Batching Ingress Queue; when the batch fills or timeout expires, ONNX Runtime executes inference; the Post-Processing Filter applies Non-Maximum Suppression; individual prediction results resolve to client response futures and return formatted bounding boxes.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+CPU Single-Image Inference Latency: Inference latency < 75ms per image on CPU | Dynamic Batching Processing Throughput: Sustained inference throughput > 28 images/sec | Mean Average Precision (mAP@50) on Evaluation Set: mAP@50 score >= 0.72 on evaluation test split
 
-SKILLS COVERED
-----------------------------------------
-Python, PyTorch, FastAPI, Docker, Computer Vision, Cloud
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. Execute curl -X POST -F 'file=@fixtures/test_image.jpg' http://localhost:8000/predict: API responds with HTTP 200 and JSON payload containing detected classes and coordinates [HTTP status 200 with valid bounding box coordinates and confidence score > 0.5]
+[ ] 2. 2. Run evaluation across 200 labelled test images: Script computes mAP@50 score against ground truth annotations [Reported mAP@50 score is >= 0.60 across the 200 evaluation images]
+[ ] 3. 3. Run npm run test:load: API maintains batching queue and responds without dropping requests [Average throughput exceeds 15 images/sec with 0 socket errors]
+[ ] 4. 4. Send text file as image upload to test validation: API rejects invalid payload with structured HTTP 422 error response [HTTP status 422 returned with clear validation error message]
+[ ] 5. 5. Run python scripts/verify_dynamic_vision.py --box 100,100,200,200: Script posts image, asserts returned bounding box overlaps target coordinates with IoU > 0.7 [Returned bounding box matches injected rectangle coordinates with exit code 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify rEST API endpoint returning bounding boxes, labels, and confidence scores; passes when verified by automated test script or benchmark log.
-2. Verify oCR accuracy test on 100 sample invoices/IDs measured against ground truth; passes when verified by automated test script or benchmark log.
-3. Verify tensorRT optimization benchmark showing 3x+ speedup vs PyTorch CPU baseline; passes when verified by automated test script or benchmark log.
-4. Verify batch processing endpoint handling 100 images concurrently via Celery workers; passes when verified by automated test script or benchmark log.
-5. Verify aPI health endpoint and Swagger docs with sample request/response examples; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected asynchronous computer vision inference API in Python and FastAPI using ONNX Runtime; achieved [CPU_LATENCY] per-image inference latency on CPU, sustained [BATCH_THROUGHPUT] images/sec batch throughput, and attained [MAP_SCORE] mean average precision across a labelled [IMAGE_COUNT] evaluation test split."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Built production CV API using YOLOv8 and TrOCR with TensorRT optimization; served 100 images/sec at < [M ms] p99 latency with 98% OCR accuracy across document types."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

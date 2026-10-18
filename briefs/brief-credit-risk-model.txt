@@ -1,49 +1,48 @@
-PROJECT BRIEF — Credit Risk Scoring & Loan Underwriting ML System
+PROJECT BRIEF — CREDIT RISK SCORING & LOAN UNDERWRITING ML SYSTEM
 ======================================================================
 
-Domain    : FinTech Engineering
-Difficulty: INTERMEDIATE
-Est. Time : 28 hours
-Tech Stack: Python, XGBoost, SHAP, FastAPI, PostgreSQL, Scikit-learn
+Project ID  : brief-credit-risk-model
+Domain      : FinTech Engineering
+Difficulty  : INTERMEDIATE
+Est. Time   : 29 hours
+Tech Stack  : Python, XGBoost, Scikit-learn, SHAP, FastAPI, Pandas
+Covered Gaps: Python, XGBoost, Scikit-learn, SHAP, FastAPI, FinTech, Machine Learning
 
-PROBLEM STATEMENT
-----------------------------------------
-Traditional credit scoring (CIBIL) excludes 400M+ Indians who lack formal credit history. Alternative data sources (mobile usage, UPI transaction patterns, social signals) can accurately predict creditworthiness. Build an ML credit scoring model using alternative data with regulatory model explainability (SHAP).
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Traditional financial underwriting relies heavily on static credit bureau scores that systematically exclude populations lacking extensive formal credit histories. Machine learning credit risk models overcome this barrier by synthesizing transactional banking patterns, behavioral repayment indicators, and alternative cashflow features. Deploying machine learning in credit risk requires rigorous probability calibration, feature monotonicity enforcement to satisfy regulatory fair-lending requirements, automated adverse action factor attribution using SHAP values, and real-time inference latency guarantees.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-Slice, KreditBee, EarlySalary, Navi, and MoneyTap are all building alternative credit models in India. RBI guidelines require explainable AI for credit decisions. BNPL companies (LazyPay, Simpl) need this for instant credit line assignment.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Automated loan default risk assessment for digital consumer lending platforms | Instant credit line underwriting for point-of-sale buy-now-pay-later checkouts | Regulatory adverse action notice generation explaining top negative scoring factors
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Credit risk modeling requires domain-specific knowledge of financial data, model explainability for regulatory compliance, and understanding of class imbalance handling — skills that combine ML engineering with FinTech domain expertise. This combination is extremely valuable and rare.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Handling severe class imbalance (typically < 3% default rates) without inflating false positive rejections Enforcing monotonic feature constraints in gradient boosting models to satisfy fair lending and financial audit rules Calibrating raw model logits into empirical probabilities of default using isotonic regression or Platt scaling Extracting real-time SHAP tree values for adverse action explanation within sub-30ms API response windows
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-FinTech ML roles at Slice, Navi, top tech platforms, and top tech platforms explicitly require credit scoring experience. SHAP-based explainability for regulatory compliance (RBI requirement) is a specific and demonstrable skill that sets you apart from generic ML engineers.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Reproducible ML training pipeline with monotonic feature transformations and cross-validation reports Calibrated default probability curve verified via Brier score and reliability calibration plots FastAPI serving endpoint returning default probability and top-3 negative contributing SHAP factors
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-Feature engineering pipeline extracting 80+ features from alternative data (transaction frequency, merchant categories, timing patterns). XGBoost gradient boosting model with SHAP explainability. Model scorecard interface. FastAPI serving endpoint with < 100ms scoring latency. PostgreSQL audit trail for regulatory compliance.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+Applicant financial attributes enter via HTTP POST to FastAPI; Feature Pipeline calculates WoE transformed vectors; XGBoost scores risk margins with monotonic constraints; Probability Calibration Layer maps margin to default probability; SHAP Explainer extracts top adverse contributing features; Gateway returns decision (APPROVE, REVIEW, DECLINE) with calibrated probability and top-3 reason codes.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Model Discrimination Power (ROC-AUC): ROC-AUC >= 0.81 on held-out test split | Probability Calibration Reliability (Brier Score): Brier score <= 0.09 across evaluation dataset | Real-Time Underwriting Decision Latency: p95 decision latency < 22ms per applicant request
 
-SKILLS COVERED
-----------------------------------------
-Python, Scikit-learn, XGBoost, FastAPI, PostgreSQL, Feature Engineering
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. Run python scripts/train_model.py: Model trains with monotonic constraints and reports validation metrics [Validation ROC-AUC is >= 0.74 with Platt calibration applied]
+[ ] 2. 2. Run python scripts/evaluate_calibration.py: Script computes Brier score and generates reliability calibration curve [Calculated Brier score is <= 0.14 across all test deciles]
+[ ] 3. 3. Execute curl -X POST -H 'Content-Type: application/json' -d @fixtures/applicant.json http://localhost:8000/underwrite: API returns decision, calibrated default probability, and top-3 SHAP adverse factor codes in < 45ms [HTTP status 200 with valid probability float and 3 distinct adverse factor reasons]
+[ ] 4. 4. Evaluate risk predictions across synthetic applicant pairs with increasing debt-to-income: Predicted probability of default monotonically increases as debt-to-income increases [0 monotonicity constraint violations detected across 1,000 synthetic test pairs]
+[ ] 5. 5. Run python scripts/verify_dynamic_applicant.py --utilization 95.5: API evaluates applicant dynamically and identifies credit utilization as the #1 adverse factor [Primary adverse reason code equals HIGH_REVOLVING_UTILIZATION with exit code 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify sHAP waterfall charts providing human-readable explanation for each credit decision; passes when verified by automated test script or benchmark log.
-2. Verify gini coefficient and KS statistic evaluation on holdout test dataset; passes when verified by automated test script or benchmark log.
-3. Verify fairness audit checking model does not discriminate by gender/geography; passes when verified by automated test script or benchmark log.
-4. Verify model monitoring dashboard tracking PSI (Population Stability Index) over time; passes when verified by automated test script or benchmark log.
-5. Verify aPI endpoint with Swagger docs tested at 100k applications/hour throughput; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected credit risk underwriting ML system in Python and FastAPI using XGBoost and SHAP; achieved [MODEL_AUC] ROC-AUC on a [TEST_SET_SIZE] applicant test split, calibrated default probabilities to [BRIER_SCORE] Brier score, and delivered top adverse factors with sub-[DECISION_LATENCY] decision latency."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Developed alternative credit scoring model using XGBoost and SHAP; achieved 0.68 Gini coefficient on alternative data with full regulatory explainability for [N] req/sec applications/hour."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

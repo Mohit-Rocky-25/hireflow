@@ -1,49 +1,48 @@
-PROJECT BRIEF — Event-Driven Payment Reconciliation Engine
+PROJECT BRIEF — EVENT-DRIVEN PAYMENT RECONCILIATION ENGINE WITH DOUBLE-ENTRY LEDGER
 ======================================================================
 
-Domain    : FinTech Engineering
-Difficulty: ADVANCED
-Est. Time : 38 hours
-Tech Stack: Python, Kafka, PostgreSQL, SQLAlchemy, Docker, FastAPI
+Project ID  : brief-event-recon
+Domain      : FinTech Engineering
+Difficulty  : ADVANCED
+Est. Time   : 39 hours
+Tech Stack  : Python, Kafka, PostgreSQL, FastAPI
+Covered Gaps: Python, Kafka, PostgreSQL, FastAPI, FinTech, Distributed Systems, Data Pipelines
 
-PROBLEM STATEMENT
-----------------------------------------
-Fintech platforms process millions of transaction events across third-party gateways (Stripe, top tech platforms, Bank APIs) that often mismatch due to webhook dropped packets, bank settlements, and timezone drift. Manual reconciliation teams high-signal core competencies. Build an automated reconciliation engine with idempotent ledger tracking.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Financial platforms process millions of money movements across payment gateways, banking settlement rails, and merchant accounts. Webhook packet loss, bank batch file settlement delays, currency rounding, and timezone drift cause constant transaction discrepancies. Manual reconciliation is slow and prone to errors. This project builds an automated, event-driven payment reconciliation engine in Python and FastAPI. The system processes payment gateway webhook streams from Kafka, parses daily bank settlement CSV files, enforces double-entry ledger accounting invariants in PostgreSQL, executes three-way match algorithms across transactions, classifies breaks into distinct categories (unmatched settlement, fee drift, timing discrepancy), and generates audit-ready financial break reports.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-Every payment company in India — top tech platforms, top tech platforms, top tech platforms, top tech platforms — runs reconciliation systems. Banks, NBFCs, and lending platforms reconcile millions of transactions daily. This is a core infrastructure component for any company processing real money.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+FinTech payment processor daily settlement reconciliation against banking partner clearing files | E-commerce merchant multi-gateway audit verifying Stripe, Adyen, and PayPal payout accuracy | Lending platform loan disbursement and repayment tracking with automated discrepancy detection
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Financial mismatches expose companies to regulatory penalties, fraud losses, and customer trust damage. This project demonstrates you can build mission-critical, audit-compliant systems — a massive differentiation signal for FinTech roles at top tech platforms, top tech platforms, top tech platforms, and top tech platforms.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Enforcing immutable double-entry ledger accounting invariants (Assets = Liabilities + Equity) across high concurrency Resolving three-way matching between asynchronous gateway webhooks, internal ledger entries, and delayed bank clearing files Classifying financial discrepancies into actionable break buckets (unmatched settlement, fee mismatch, timing drift) Ensuring idempotent event ingestion so replayed Kafka webhooks never create duplicate ledger journal postings
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Demonstrates Kafka event sourcing, double-entry bookkeeping principles, idempotency — all non-negotiable knowledge in FinTech backend interviews. Any interviewer from top tech platforms or top tech platforms will immediately recognize the domain depth.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Clean Python implementation separating double-entry ledger, Kafka consumers, reconciliation matchers, and break reporters Automated reconciliation test suite with 25 intentionally seeded financial break scenarios verifying 100% detection Anti-fake verification script injecting a dynamic unrecorded settlement row and asserting exact discrepancy flag generation
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-Kafka consumers ingest raw gateway webhooks into an append-only transaction ledger in PostgreSQL. A reconciliation worker runs interval matrix joins detecting pending, settled, and discrepant transactions, emitting webhook alerts on discrepancy anomalies.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+Payment gateway webhooks arrive via Kafka; the Ingestion Consumer validates idempotency and posts balanced debit/credit entries to the Double-Entry General Ledger; daily bank settlement CSV files are ingested by the Settlement Parser; the Three-Way Reconciliation Matcher links internal order IDs, gateway transaction references, and bank settlement lines; matching records are marked RECONCILED; mismatched records are categorized by the Break Classifier into fee variances, timing delays, or missing settlements; audit reports and summary metrics are exposed via FastAPI.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Seeded Financial Break Detection Rate: Detection of 25 of 25 seeded breaks with 0 false negatives | Batch Reconciliation Execution Throughput: Throughput exceeds 12,000 transactions/sec | Double-Entry Ledger Balance Invariant Violation Rate: 0 ledger balance invariant violations across journal transactions
 
-SKILLS COVERED
-----------------------------------------
-Python, Kafka, PostgreSQL, Docker, Microservices, SQL
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. python -m recon_engine.reconcile --transactions data/tx.json --bank data/settlement.csv: Engine detects all 25 seeded breaks and outputs categorized discrepancy breakdown [25 of 25 seeded breaks detected with zero false negatives and exit code 0]
+[ ] 2. 2. python scripts/benchmark_recon_speed.py --count 100000: Reconciliation engine achieves throughput exceeding 5,000 transactions/sec [Measured throughput exceeds 5,000 transactions/sec]
+[ ] 3. 3. python -m recon_engine.audit_ledger: Sum of all debits equals sum of all credits with zero balance variance [Total debits minus total credits equals 0.00 with exit code 0]
+[ ] 4. 4. curl http://localhost:8000/api/reports/breaks: API returns JSON detailing break buckets (fee_variance, missing_settlement, timing_delay) [Response status is 200 with break categories matching seeded counts]
+[ ] 5. 5. python scripts/verify_dynamic_recon.py --amount 12345.67 --bank-ref DYNAMIC_REF_77: Reconciliation engine flags unrecorded deposit as UNMATCHED_BANK_SETTLEMENT break [Engine creates break record with reference DYNAMIC_REF_77 and exit code 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify dockerized test environment with simulated mock banking settlement feeds; passes when verified by automated test script or benchmark log.
-2. Verify idempotency key enforcement preventing double-credit on retried webhooks; passes when verified by automated test script or benchmark log.
-3. Verify automated discrepancy reporting generating downloadable CSV/PDF audit trails; passes when verified by automated test script or benchmark log.
-4. Verify unit tests with 90%+ branch coverage validating out-of-order webhook ingest; passes when verified by automated test script or benchmark log.
-5. Verify postgreSQL schema designed with double-entry bookkeeping constraints; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected event-driven payment reconciliation engine in Python and FastAPI with PostgreSQL double-entry ledger; detected [BREAK_COUNT] of [TOTAL_BREAKS] seeded financial discrepancies with verified ledger balance invariant integrity, and achieved [RECON_THROUGHPUT] reconciliation throughput."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Built event-driven payment reconciliation system in Python & Kafka backed by PostgreSQL; matched [N] req/sec daily transaction events with 100% precision and fault-tolerant idempotency."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

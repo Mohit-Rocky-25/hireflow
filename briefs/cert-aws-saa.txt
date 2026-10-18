@@ -1,45 +1,48 @@
-CERTIFICATION PAGE — AWS Certified Solutions Architect – Associate (SAA-C03)
+PROJECT BRIEF — AWS CERTIFIED SOLUTIONS ARCHITECT – ASSOCIATE (SAA-C03) HIGH-AVAILABILITY & DISASTER RECOVERY ARCHITECTURE
 ======================================================================
 
-Issuer    : Amazon Web Services (AWS)
-Domain    : Cloud Architecture & DevOps
-Difficulty: INTERMEDIATE
-Est. Time : 80 hours
-Skills    : Multi-Tier Architecture, Auto Scaling, VPC Peering, S3 Lifecycle Policies, DynamoDB, RDS Multi-AZ
+Project ID  : cert-aws-saa
+Domain      : Cloud Architecture & DevOps
+Difficulty  : INTERMEDIATE
+Est. Time   : 28 hours
+Tech Stack  : AWS VPC, ALB, Amazon SQS, Amazon S3, AWS KMS, LocalStack, Terraform
+Covered Gaps: AWS VPC, ALB, Amazon SQS, Amazon S3, AWS KMS, LocalStack, Terraform, DevOps, Cloud Architecture
 
-OVERVIEW & VALUE PROPOSITION
-----------------------------------------
-The gold standard cloud architecture credential validating ability to design resilient, high-performing, secure, and cost-optimized distributed systems on AWS.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Software engineers and architects preparing for the AWS Solutions Architect – Associate (SAA-C03) certification frequently memorize theoretical architecture diagrams and high-level service definitions without ever constructing a resilient, multi-AZ cloud architecture from code. When faced with production system designs, they struggle to implement automated multi-AZ load balancer failovers, configure asynchronous SQS decoupling, enforce KMS envelope encryption, or automate S3 lifecycle archival policies. This guide delivers a rigorous hands-on lab curriculum and reproducible architecture implementation in Terraform and LocalStack/AWS. The engineer architects an Application Load Balancer across multi-AZ subnets, implements an auto-scaling compute tier, decouples message processing via Amazon SQS, secures data with AWS KMS envelope encryption, automates S3 lifecycle tiering, and verifies 99.9% uptime during simulated availability zone outages.
 
-EXAM FORMAT & PREREQUISITES
-----------------------------------------
-65 scenario-based questions in 130 minutes. Passing score: 720/1000. Pearson VUE online or in-person test center.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Multi-AZ High-Availability Web Application Resiliency: Enterprise customer portals requiring 99.99% operational availability must survive sudden hardware failures or complete availability zone data center blackouts. The architecture deploys redundant compute instances across multiple availability zones behind an Application Load Balancer, executing sub-5s automatic failover routing. | Asynchronous Decoupled Message Processing with Amazon SQS: E-commerce order intake services experience extreme traffic spikes during promotional flash sales that threaten to overwhelm downstream billing databases. The system buffers incoming orders in an Amazon SQS distributed queue, allowing background worker pools to consume messages at a sustainable processing rate. | Automated S3 Storage Cost Optimization & KMS Envelope Encryption: Healthcare compliance architectures storing petabytes of patient audit logs must enforce cryptographic encryption at rest while minimizing storage costs. The pipeline encrypts object payloads with customer-managed AWS KMS keys and schedules lifecycle policies that transition inactive data to S3 Glacier after 30 days.
 
-FEES & OFFICIAL PRICING
-----------------------------------------
-$150 USD (approx. ₹13,020 INR). 50% discount voucher awarded automatically upon renewing or passing any prior AWS exam.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Architecting resilient multi-AZ network topologies with private subnet NAT gateways and resilient ALB target group health checks Implementing automated worker auto-scaling policies driven by Amazon SQS queue depth metrics (`ApproximateNumberOfMessagesVisible`) Configuring AWS KMS envelope encryption with customer managed keys (CMK) and key rotation policies across object storage Simulating availability zone failure scenarios and verifying zero dropped connections and automated health check recovery
 
-STUDENT AID & FEE WAIVER
-----------------------------------------
-AWS Academy student vouchers cover 50% of the exam fee for accredited college students across India.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Clean Terraform infrastructure repository cleanly defining multi-AZ VPC, ALB target groups, SQS queues, and KMS encryption keys High-availability failover benchmark report proving 100% request survival when an entire availability zone is taken offline Anti-fake verification script terminating an active EC2 instance in AZ 1 and confirming ALB redirects 100 of 100 requests to AZ 2 in < 5 seconds
 
-SYLLABUS & CORE DOMAINS
-----------------------------------------
-1. Design Resilient Architectures: Multi-AZ decoupling, SQS buffer queues, and disaster recovery
-2. Design High-Performing Architectures: Read-replicas, ElastiCache Redis, and Auto Scaling groups
-3. Design Secure Applications: KMS envelope encryption, private subnets, and security groups
-4. Design Cost-Optimized Architectures: EC2 Spot/Savings Plans, S3 Glacier lifecycle tiering
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+Inbound client traffic arrives at the Application Load Balancer across multi-AZ public subnets; ALB evaluates target group health and routes requests to compute instances in private subnets; compute instances receive requests and publish asynchronous processing jobs to Amazon SQS; background workers poll SQS and process jobs; processed results and media are encrypted with AWS KMS customer managed keys and saved to Amazon S3; S3 lifecycle rules automatically move objects older than 30 days to S3 Glacier; if an entire availability zone suffers an outage, ALB detects failed targets within 5 seconds and shifts 100% of traffic to healthy AZ instances; Terraform defines the entire topology.
 
-VALIDITY & RENEWAL POLICY
-----------------------------------------
-Valid for 3 years. Recertification by taking the current exam version or the Solutions Architect Professional.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Multi-AZ Load Balancer Outage Failover Resiliency: 1,000 of 1,000 requests succeed with 0 dropped sockets and failover rerouting in < 2.2 seconds | Asynchronous SQS Queue Processing Throughput: Sustained throughput is >= 1,800 messages per second with 0 messages routed to DLQ | S3 Storage Cost Optimization via Automated Lifecycle Transition: 50 of 50 qualifying objects transition to GLACIER storage class with 0 data loss
 
-VERIFICATION METHOD
-----------------------------------------
-Verifiable via Credly badge and official AWS Training and Certification portal ID.
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. python ./scripts/test_az_failover.py --requests 1000 --sever-az us-east-1a: 1,000 of 1,000 requests succeed; ALB reroutes to healthy zone in < 5.0 seconds [1,000 of 1,000 requests succeed with exit code 0]
+[ ] 2. 2. python ./scripts/test_sqs_throughput.py --messages 10000 --concurrency 10: System sustains >= 800 messages/sec with 0 messages delivered to DLQ [Sustained throughput >= 800 msgs/sec with exit code 0]
+[ ] 3. 3. python ./scripts/verify_glacier_transition.py --bucket test-archive-bucket: 50 of 50 objects report storage class GLACIER with valid KMS encryption headers [50 of 50 objects transitioned with exit code 0]
+[ ] 4. 4. terraform plan -out=tfplan.binary && tfsec .: Tfsec security scanner reports zero CRITICAL or HIGH compliance violations [Zero high/critical security findings with exit code 0]
+[ ] 5. 5. python ./scripts/verify_alb_target_drop.py --dead-az us-east-1a: ALB detects dead instance health check failure and directs 100% of new traffic to healthy zone [Console confirms 100% traffic shifted away from dead AZ with exit code 0]
 
-RESUME BULLET FORMULA
-----------------------------------------
-"AWS Certified Solutions Architect – Associate (Validation ID: [SAA-ID]) — Designed multi-AZ high-availability architectures featuring sub-100ms failover, automated scaling, and S3 lifecycle cost reduction of [30%]."
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Engineered multi-AZ cloud architecture aligning with AWS Solutions Architect Associate guidelines; achieved [FAILOVER_UPTIME] request availability during availability zone failover, and decoupled asynchronous workloads via SQS at [MESSAGE_THROUGHPUT] messages per second."
 
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

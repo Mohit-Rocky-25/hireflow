@@ -1,49 +1,48 @@
-PROJECT BRIEF — Real-Time Fraud Detection ML Pipeline
+PROJECT BRIEF — REAL-TIME FRAUD DETECTION ML PIPELINE WITH SLIDING-WINDOW FEATURE STORE
 ======================================================================
 
-Domain    : ML Engineering
-Difficulty: ADVANCED
-Est. Time : 38 hours
-Tech Stack: Python, XGBoost, Kafka, Redis, FastAPI, MLflow, Docker
+Project ID  : brief-fraud-detection-ml
+Domain      : ML Engineering
+Difficulty  : ADVANCED
+Est. Time   : 39 hours
+Tech Stack  : Python, FastAPI, LightGBM, Kafka, Redis, MLflow, Docker
+Covered Gaps: Python, FastAPI, LightGBM, Kafka, Redis, MLflow, Docker, Machine Learning, Feature Store
 
-PROBLEM STATEMENT
-----------------------------------------
-Payment fraud costs Indian companies ₹100+ crore annually, with traditional rule-based systems failing to adapt to evolving fraud patterns. Build a real-time fraud detection system using gradient boosting and neural network ensemble models served with sub-10ms latency for streaming payment transactions.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Financial payment networks process credit card transactions in under 50 milliseconds, creating a strict latency envelope to intercept fraudulent operations before approval. Batch scoring algorithms cannot detect rapid card-testing spikes or immediate velocity surges, while raw ML models lacking real-time feature context produce unacceptable false positive declines that alienate legitimate users. This project implements a real-time fraud detection pipeline in Python, FastAPI, LightGBM, Kafka, and Redis. The system streams transactions through Kafka, aggregates velocity and historical spending patterns into a Redis sliding-window feature store across 10-minute and 24-hour windows, evaluates transactions in under 15 milliseconds using a calibrated LightGBM classifier, provides explainable decision attributions via TreeSHAP, and tracks experiments and metrics in MLflow.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-top tech platforms, top tech platforms, BankBazaar, HDFC, and every payment processor in India. UPI transaction fraud specifically is one of the largest technology problems in Indian fintech. The Reserve Bank of India's guidelines require real-time fraud detection for digital payment processors.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Credit card payment gateway ingress blocking fraudulent authorization attempts before issuing bank approval | Digital wallet peer-to-peer transfer fraud prevention intercepting account takeover fund siphoning | E-commerce merchant checkout risk scoring detecting automated card-testing bots and stolen credentials
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Fraud detection requires understanding class imbalance handling, feature engineering for tabular data, model serving with strict latency requirements, and model drift monitoring — the complete production ML lifecycle. This demonstrates ML Engineering maturity, not just notebook data science.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Maintaining sliding-window aggregation features (transaction velocity, rolling sum, distinct merchants) in Redis under sub-5ms latency budgets Handling extreme dataset class imbalance (< 0.2% fraud prevalence) during LightGBM model training using focal loss and probability calibration Computing TreeSHAP local feature attribution values in under 8 milliseconds to return human-interpretable adverse action codes Tuning decision classification thresholds against an asymmetric business cost matrix balancing fraud loss versus false decline merchant penalties
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-MLOps + fraud domain knowledge is among the highest-paying specializations in India. A real-time ML system with feature stores, model versioning, and A/B testing frameworks is what ML Engineer JDs at top tech platforms, top tech platforms, and top tech platforms explicitly require.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Modular Python codebase cleanly separating feature store aggregators, model training pipelines, scoring services, and SHAP explainers High-concurrency benchmark demonstrating sub-15ms end-to-end scoring latency under a load of 1,000 transactions/sec Anti-fake verification script sending dynamic high-velocity payment bursts and asserting immediate transaction blocking with adverse reason codes
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-Kafka stream processor extracts 50+ transaction features into a Redis feature store. Gradient Boosting (XGBoost/LightGBM) + Neural Network ensemble model served via FastAPI. Shadow deployment with A/B testing framework. MLflow experiment tracking and model versioning pipeline.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+Payment authorizations arrive at the FastAPI scoring service; the service fetches rolling velocity and aggregation features from Redis in parallel; the combined transaction and feature vector is fed to the calibrated LightGBM model; if the fraud probability exceeds the cost-optimized decision threshold, TreeSHAP calculates the top contributing factors; the API returns an APPROVED or BLOCKED response with reason codes in < 15 milliseconds; background Kafka workers consume the approved transaction event and update Redis sliding window structures for future scoring.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Fraud Detection Precision-Recall Area (PR-AUC): PR-AUC exceeds 0.84 on imbalanced test split | End-to-End Scoring Decision Latency (p99): p99 decision latency is < 8.0 milliseconds | SHAP Adverse Factor Computation Overhead: Average SHAP attribution computation completes in < 3.5 milliseconds
 
-SKILLS COVERED
-----------------------------------------
-Python, PyTorch, Kafka, Redis, Feature Engineering, MLOps
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. python -m fraud_pipeline.evaluate --test-data data/test_split.parquet: Model achieves PR-AUC exceeding 0.72 on positive fraud class [PR-AUC is > 0.72 with exit code 0]
+[ ] 2. 2. python scripts/benchmark_scoring_latency.py --requests 10000 --rate 500: p99 decision latency added by feature lookup, inference, and SHAP is < 15.0 milliseconds [p99 decision latency is < 15.0 milliseconds]
+[ ] 3. 3. python scripts/benchmark_shap_speed.py --samples 1000: TreeSHAP computes top 3 feature attribution reasons in < 8.0 milliseconds average [Average SHAP latency is < 8.0 milliseconds with exit code 0]
+[ ] 4. 4. curl -X POST http://localhost:8000/score -H 'Content-Type: application/json' -d '{"card_id": "card-99", "amount": 4500.0, "category": "electronics"}': API returns status BLOCKED with top 3 adverse reason codes [Response status is 200, decision is BLOCKED, and reason_codes array has at least 1 item]
+[ ] 5. 5. python scripts/verify_dynamic_fraud.py --card-id DYNAMIC_BURST_CARD --count 6 --interval 5: Redis velocity counter detects anomaly; 6th transaction is blocked with VELOCITY_BURST reason [6th transaction returns BLOCKED with reason VELOCITY_BURST and exit code 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify online feature store updated within 500ms of incoming transaction events; passes when verified by automated test script or benchmark log.
-2. Verify model serving endpoint benchmarked to < 10ms inference at 10k concurrent requests; passes when verified by automated test script or benchmark log.
-3. Verify a/B testing framework comparing rule-based vs ML model on holdout dataset; passes when verified by automated test script or benchmark log.
-4. Verify mLflow model registry with champion/challenger deployment pattern; passes when verified by automated test script or benchmark log.
-5. Verify confusion matrix and ROC-AUC evaluation on labeled transaction dataset; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected low-latency fraud detection pipeline in Python and FastAPI with Redis sliding-window feature store; achieved [PR_AUC_SCORE] PR-AUC on imbalanced transaction data, and delivered sub-[DECISION_LATENCY] decision latency with TreeSHAP adverse factor explanations."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Engineered real-time fraud detection pipeline with XGBoost ensemble; scored [N] req/sec transactions/sec at < [M ms] latency with 99.5% precision and MLflow-tracked model versioning."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

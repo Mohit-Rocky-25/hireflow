@@ -1,49 +1,48 @@
-PROJECT BRIEF — Minimal Container Runtime (Docker-like) in Go
+PROJECT BRIEF — MINIMAL CONTAINER RUNTIME (DOCKER-LIKE) IN GO
 ======================================================================
 
-Domain    : Systems Programming
-Difficulty: ADVANCED
-Est. Time : 38 hours
-Tech Stack: Go, Linux Namespaces, cgroups, OverlayFS, System Calls
+Project ID  : brief-container-runtime
+Domain      : Systems Programming
+Difficulty  : ADVANCED
+Est. Time   : 34 hours
+Tech Stack  : Go, Linux, cgroups v2
+Covered Gaps: Go, Linux, cgroups v2, System Calls, Systems Programming
 
-PROBLEM STATEMENT
-----------------------------------------
-Docker is fundamentally a collection of Linux primitives (namespaces, cgroups, overlayfs) wrapped in a user-friendly CLI. Build a minimal container runtime from scratch using Linux namespaces, cgroups, and chroot — demonstrating how Docker works at the OS level without Docker itself.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Container management platforms like Docker and Kubernetes rely fundamentally on standard Linux kernel primitives—namespaces, control groups (cgroups v2), and chroot/pivot_root filesystem mounts—wrapped beneath friendly command-line utilities. Operating containers without understanding these low-level abstractions obscures critical boundaries regarding isolation guarantees, memory leak remediation, resource limit enforcement, and root escape vectors. This project implements a minimal OCI-compliant container runtime from scratch in Go that forks child processes into isolated PID, mount, UTS, and network namespaces, configures cgroups v2 memory and CPU ceilings, and pivots into an isolated root filesystem.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-Understanding container runtime internals is essential for Kubernetes cluster operators, container security engineers, and anyone building cloud infrastructure. Companies like Kata Containers, gVisor (Google), and Firecracker (AWS) all build on these primitives.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Secure sandbox process execution for untrusted multi-tenant code runners | Lightweight edge container execution environments with minimal memory footprint | Container security research and kernel-level isolation vulnerability assessment
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Most engineers use Docker without understanding the Linux primitives beneath it. Building a container runtime from scratch demonstrates kernel-level systems programming knowledge that is extremely rare and highly valued in platform engineering, Kubernetes development, and infrastructure security roles.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Executing Linux system calls (clone, setns, unshare, pivot_root) cleanly in Go without runtime thread corruption Interfacing with cgroups v2 unified filesystem hierarchy across memory.max, cpu.max, and pids.max controllers Safely unmounting host filesystems and isolating device nodes (/dev, /proc, /sys) to prevent container breakouts Managing process synchronization across parent and child processes prior to namespace activation
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Container runtime knowledge is the deepest level of Kubernetes and cloud infrastructure expertise. Engineers at CNCF projects (containerd, CRI-O), cloud providers (AWS, GCP, Azure), and security companies (Aqua Security, Sysdig) actively seek this knowledge. Immediately signals principal-level platform engineering capability.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Clean systems-level Go codebase making direct syscalls to Linux kernel primitives Demonstrated PID 1 isolation inside the container with 0 host processes visible via ps Kernel-enforced cgroups v2 memory limit verification triggering the Linux OOM killer on rogue allocations
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-Go program using Linux syscalls: UTS namespace (hostname isolation), PID namespace (process isolation), Network namespace (network isolation), Mount namespace (filesystem isolation). cgroups v2 for resource limits (CPU, memory). OverlayFS for container layers. pivot_root for filesystem isolation.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+User invokes the runtime CLI passing an Alpine rootfs and a command; the runtime creates a new cgroups v2 group with configured resource ceilings; the Go runtime re-executes itself via /proc/self/exe with clone flags (CLONE_NEWPID, CLONE_NEWNS, CLONE_NEWUTS); child process assigns its PID to cgroup.procs; the child pivots rootfs into target directory; procfs mounts to /proc; the target command executes as PID 1.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+PID Namespace Process Isolation Invariant: Target process observes PID 1 and can view 0 host processes from inside namespace | cgroups v2 Memory Limit Kernel Enforcement: Container process terminated by kernel OOM killer within 150ms of exceeding limit | Container Shell Boot Latency: Container shell boots and responds to command in < 120ms
 
-SKILLS COVERED
-----------------------------------------
-Go, Linux, System Calls, Namespaces, cgroups, Networking
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. Execute command and inspect process table output: ps command shows only PID 1 (/bin/ps) and no host background processes [Output contains only 1 running process with PID 1 and returns exit code 0]
+[ ] 2. 2. Execute memory stress program that attempts to allocate 100MB: Kernel cgroups v2 detects limit breach and sends SIGKILL to process [Process terminates with exit code 137 and memory.events reports oom_kill count >= 1]
+[ ] 3. 3. Inspect mounts visible inside container root filesystem: Only private container mounts are listed; host root filesystem is unmounted and inaccessible [Host root mount absent from list and exit code 0]
+[ ] 4. 4. Execute python scripts/benchmark_startup.py: Benchmark calculates mean container startup latency from invocation to exit [Average startup latency is < 250ms across 20 consecutive runs]
+[ ] 5. 5. sudo ./scripts/verify_dynamic_runtime.sh --hostname dyn-host-8819: Container sets hostname in isolated UTS namespace; host hostname remains untouched [Container reports dynamic hostname and host reports original hostname with exit code 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify process isolation: container process can't see host processes in `ps aux`; passes when verified by automated test script or benchmark log.
-2. Verify filesystem isolation: container has separate root filesystem from host; passes when verified by automated test script or benchmark log.
-3. Verify network isolation: container has separate network interface from host; passes when verified by automated test script or benchmark log.
-4. Verify cgroup memory limit: process OOM-killed when exceeding configured memory limit; passes when verified by automated test script or benchmark log.
-5. Verify cold start benchmark: container running /bin/bash starts in < 200ms; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected minimal OCI-compliant container runtime in Go leveraging Linux namespaces and cgroups unified hierarchy; enforced strict PID namespace isolation, kernel OOM termination under [OOM_MEMORY] memory limits, and sub-[STARTUP_LATENCY] shell startup latency."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Built minimal container runtime in Go using Linux namespaces, cgroups, and OverlayFS; demonstrated complete PID, network, and filesystem isolation with < [M ms] cold start and enforced CPU/memory resource limits."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

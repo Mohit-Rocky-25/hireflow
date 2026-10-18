@@ -1,49 +1,48 @@
-PROJECT BRIEF — Bayesian A/B Experimentation Engine
+PROJECT BRIEF — BAYESIAN A/B EXPERIMENTATION ENGINE
 ======================================================================
 
-Domain    : ML Engineering
-Difficulty: INTERMEDIATE
-Est. Time : 32 hours
-Tech Stack: Python, NumPy, SciPy, FastAPI, PostgreSQL, Docker
+Project ID  : brief-ab-experimentation
+Domain      : ML Engineering
+Difficulty  : INTERMEDIATE
+Est. Time   : 29 hours
+Tech Stack  : Python, NumPy, SciPy, FastAPI, SQLite, Docker
+Covered Gaps: Python, NumPy, SciPy, FastAPI, SQLite, Docker, Statistics, Bayesian Methods
 
-PROBLEM STATEMENT
-----------------------------------------
-Fixed-horizon frequentist A/B testing requires accumulating a predetermined sample size before evaluating outcomes, prolonging exposure to suboptimal variants and encouraging premature stopping errors (peeking). When teams inspect p-values continuously without formal alpha-spending adjustments, false positive rates escalate significantly. A Bayesian experimentation engine addresses this by maintaining continuous posterior probability distributions over conversion rates, calculating the exact probability that a candidate variant outperforms the baseline and quantifying the expected financial or metric loss of selecting that variant, enabling automated stopping decisions while bounding decision risk.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Fixed-horizon frequentist experiment evaluation forces product teams to wait for arbitrary precalculated sample thresholds before taking business actions, prolonging exposure to inferior variants and encouraging ad-hoc peeking that inflates false discovery rates. Continuous inspection under frequentist methods invalidates standard p-values unless complex alpha-spending functions are maintained. A Bayesian sequential experimentation engine continuously models parameter posteriors, computing the exact probability of variant superiority and quantifying bounded expected loss to automate candidate variant promotion or termination while strictly controlling decision risk.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-Online experimentation platforms evaluate user interface changes, pricing tiers, and checkout workflow variants across high-traffic digital applications. Neutral architectural reference points include web and mobile experimentation platforms such as Optimizely, Statsig, and GrowthBook.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Continuous feature-flag variant evaluation for web and mobile customer checkout workflows | Pricing tier optimization with automated risk-bounded stopping thresholds | Recommendation model candidate comparison without fixed sample horizon delays
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Preventing False Positive Inflation Under Continuous Inspection: While Bayesian updating is logically coherent under sequential data arrivals, naive early stopping on uncalibrated thresholds (P(B > A) > 0.95) during low-sample cold starts (N < 200) causes severe discovery bias. The engine enforces minimum statistical power thresholds and computes Expected Loss thresholds rather than relying purely on tail probabilities.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Preventing discovery bias during small-sample cold starts where high variance can trigger premature stopping without minimum sample guards Computing two-dimensional numerical quadrature for expected loss integrals within sub-20ms HTTP API response constraints Handling concurrent atomic increment transactions on experiment arms under SQLite without database lock contention Calibrating sequential stopping boundaries via Monte Carlo simulations to maintain Type I error rates under null conditions
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Demonstrates capability in applied probability, numerical computing, and concurrent backend architecture. Proves the engineer can translate mathematical statistics into a tested production service rather than relying on black-box modeling libraries. Directly maps to roles in Growth Engineering, Machine Learning Engineering, and Data Platform Infrastructure.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Deterministic pytest test suite comparing closed-form posterior probabilities against SciPy numerical quadrature Automated Monte Carlo simulation script reproducing bounded false positive rates across 500 null experiment runs Standalone reproducible FastAPI service with SQLite transactional persistence and benchmark reports
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-Event Ingestion via FastAPI into append-only PostgreSQL log. Beta-Binomial conjugate posterior Beta(α + k, β + n - k) evaluated via numerical quadrature or exact closed-form integral for two arms. Expected Loss computed as joint probability integral over loss function. Automated transition to STOPPED_WINNER or STOPPED_INCONCLUSIVE once n ≥ N_min and Expected Loss < ε.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+Client telemetry emits exposure and conversion events to FastAPI; API writes atomic increment transactions to SQLite; Decision Gateway triggers Posterior Evaluation Engine; SciPy computes Beta conjugate updates and Expected Loss; engine returns continue, promote, or terminate status based on calibrated decision thresholds.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Ingestion Latency: p99 < 20ms under 10k concurrent synthetic events | Inference Throughput: > 2,000 evaluations/sec on Python 3.11+ | Duration Reduction: Median sample reduction ≥ [X%] vs fixed-sample baseline with empirical false positive rate ≤ [Y%] under A=B null.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Expected Loss Quadrature Numerical Precision: Absolute error < 1e-5 across 15 of 15 test parameter pairs | Empirical Type I Error under Null Distribution: Empirical false stopping rate <= 4.2% across 500 simulated null trials | Decision Endpoint Latency (p95): p95 latency < 18ms under 100 requests per second
 
-SKILLS COVERED
-----------------------------------------
-Python, Statistics, FastAPI, PostgreSQL, Algorithms, Docker
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. Run pytest tests/test_math.py: All test assertions pass with absolute difference between analytical and quadrature calculations < 1e-4 [Exit code 0 with 15 passing mathematical assertions and zero calculation errors]
+[ ] 2. 2. Execute ingestion integration test script: All 100 events recorded in SQLite with correct aggregate arm counts and zero transaction collisions [Database count equals 100 with zero dropped events and HTTP 200 responses]
+[ ] 3. 3. Run sequential experiment simulator: Engine transitions experiment status from RUNNING to STOPPED_WINNER once expected loss drops below 0.001 after minimum sample threshold [Status correctly set to STOPPED_WINNER with winning variant identified as arm B]
+[ ] 4. 4. Execute python scripts/simulate_null.py: Empirical false positive stopping rate measured across all 500 completed trajectories [Reported empirical false positive rate is <= 5.0% across all 500 trials]
+[ ] 5. 5. Run python scripts/verify_reproducibility.py --seed 98765: Script dynamically computes posteriors for freshly generated data and matches mathematical invariants without using static fixture files [Script completes with exit code 0 confirming dynamic evaluation matches mathematical bounds]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Mathematical Correctness: Run pytest verifying analytical P(B > A) and Expected Loss match SciPy numerical integration within ±1e-4 tolerance across 10 deterministic test fixtures.
-2. Ingestion Verification: Submit 100 concurrent HTTP POST events to API; verify PostgreSQL records exactly 100 logged events with zero lost updates.
-3. Early Stopping Trigger: Ingest synthetic event stream (pA=0.05, pB=0.07); verify engine transitions status to STOPPED_WINNER once P(B > A) > 0.95 and Expected Loss < ε after N_min threshold.
-4. False Positive Boundary: Execute simulation benchmark over 500 null iterations (A=B); verify empirical false stopping rate does not exceed [X%] (target ≤ 5%).
-5. Benchmark Comparison: Execute benchmark comparing Bayesian early-stopping vs fixed-horizon baseline; report median sample size reduction of [X%].
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected Bayesian sequential A/B experimentation engine in Python and FastAPI backed by SQLite; implemented Beta conjugate updating and numerical expected loss quadrature to bound empirical false discoveries below [TYPE_I_ERROR] across [SIMULATION_TRIALS] simulated trials with tail decision latency under [P95_LATENCY]."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Architected Bayesian A/B experimentation engine in Python and FastAPI backed by PostgreSQL; implemented Beta-Binomial conjugate updating and expected loss calculations to reduce experiment duration by [X%] while bounding false discoveries below [Y%] across [N] simulated trials."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

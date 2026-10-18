@@ -1,49 +1,48 @@
-PROJECT BRIEF — Semantic Code Search Engine using AST + Embeddings
+PROJECT BRIEF — SEMANTIC CODE SEARCH ENGINE WITH TREE-SITTER AST CHUNKING & VECTOR RETRIEVAL
 ======================================================================
 
-Domain    : AI/ML Applications
-Difficulty: INTERMEDIATE
-Est. Time : 28 hours
-Tech Stack: Python, Tree-sitter, CodeBERT, Qdrant, FastAPI, React
+Project ID  : brief-embedding-search-engine
+Domain      : AI/ML Applications
+Difficulty  : INTERMEDIATE
+Est. Time   : 28 hours
+Tech Stack  : Python, Tree-sitter, Qdrant, FastAPI
+Covered Gaps: Python, Tree-sitter, Qdrant, FastAPI, Vector Search, Information Retrieval, NLP
 
-PROBLEM STATEMENT
-----------------------------------------
-Developers search codebases with grep and regex, missing semantically related code. Build a semantic code search engine that parses source code into AST-based chunks, embeds them into vector space, and returns semantically similar code functions in response to natural language queries.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Software engineers frequently navigate large unfamiliar codebases using literal string searches or regex queries, which consistently fail to discover code with differing naming conventions or abstract conceptual implementations. Traditional lexical search cannot capture syntactic structures or natural language semantic intent. This project builds an intelligent semantic code search engine in Python. The system parses source code files into structural abstract syntax tree (AST) chunks using Tree-sitter, computes dense vector representations using open-source code embedding models, stores vectors in a local Qdrant vector database, and serves natural language search queries through a FastAPI backend combining dense semantic retrieval with sparse BM25 keyword matching via Reciprocal Rank Fusion.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-GitHub Copilot's code search, Sourcegraph's intelligence platform, and Phind's code search all solve this. Developer tools are a hot market and code search is a foundational component. Any large codebase (>100k LOC) benefits from semantic code search for onboarding and refactoring.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Developer onboarding tools enabling natural language discovery of repository business logic | Automated duplicate and near-duplicate function identification across enterprise monorepositories | IDE contextual code discovery plugins matching user task descriptions to existing library utilities
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Code-specific embeddings (CodeBERT, UniXCoder) and AST-based chunking are specialized applications of embedding search. Building this demonstrates you understand how to apply semantic search to non-textual domains — a transferable skill applicable to any specialized search problem.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Extracting structurally coherent function and class blocks across multiple programming languages using Tree-sitter AST queries Selecting and quantizing code embedding models to execute inference within standard CPU RAM limits Implementing hybrid retrieval combining dense vector similarity with sparse BM25 scoring via Reciprocal Rank Fusion Maintaining sub-200 millisecond end-to-end search query latency across indexed repositories exceeding 25,000 code functions
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Developer tooling companies (JetBrains, Sourcegraph, GitHub, GitLab) and AI code tools (Tabnine, Cursor, Codeium) are hiring for exactly this. Also directly relevant for platform teams building internal code search for large engineering organizations.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Clean Python implementation separating AST parsing, embedding inference, vector indexing, and FastAPI endpoints Evaluation benchmark evaluating Recall@10 and Mean Reciprocal Rank (MRR) across 100 natural language query test pairs Anti-fake verification script indexing a dynamic code snippet with unique variable names and retrieving it via pure semantic intent
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-Tree-sitter AST parser extracting function-level chunks from Python/JavaScript/TypeScript code. CodeBERT/OpenAI embeddings for each chunk. Qdrant/ChromaDB vector store with metadata (file path, language, function name). FastAPI semantic search endpoint. React UI with syntax-highlighted results.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+Source code repositories are scanned by the Tree-Sitter AST Extractor; function definitions, parameters, and docstrings are extracted into structured code chunks; the Code Embedding Pipeline generates dense embeddings for each chunk; embeddings and text metadata are indexed into local Qdrant collections; client natural language queries enter FastAPI; the query is embedded and evaluated against Qdrant dense vectors and BM25 keywords; Reciprocal Rank Fusion merges ranked results; ranked code snippets with syntax highlighting return to the user.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Code Retrieval Relevance (Recall@10): Recall@10 exceeds 88% on technical query benchmark | End-to-End Query Retrieval Latency: Average query latency is < 85 milliseconds | AST Function Extraction Accuracy Rate: Accurate extraction of 50 of 50 function boundaries with 0 syntax parse errors
 
-SKILLS COVERED
-----------------------------------------
-Python, Embeddings, Vector Databases, FastAPI, Parsing, React
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. python -m search_engine.evaluate --queries data/eval_queries.json: Search engine achieves Recall@10 exceeding 75% and MRR exceeding 0.65 [Recall@10 is > 0.75 and MRR is > 0.65 with exit code 0]
+[ ] 2. 2. python scripts/benchmark_latency.py --queries 500: Average end-to-end query retrieval latency is < 200 milliseconds on local CPU [Average search latency is < 200 milliseconds]
+[ ] 3. 3. pytest tests/test_ast_parser.py: Tree-sitter parser extracts all 50 function boundaries accurately [50 of 50 function boundary extraction tests pass with exit code 0]
+[ ] 4. 4. curl -X POST http://localhost:8000/search -H 'Content-Type: application/json' -d '{"query": "parse json payload"}': FastAPI returns structured JSON with top ranked code functions, file paths, and confidence scores [Response status is 200 and results array contains at least 5 matching candidates]
+[ ] 5. 5. python scripts/verify_dynamic_semantic.py --code 'def xyz_calc_total(p, r, n): ...' --query 'calculate monthly mortgage payment breakdown': Engine embeds query and retrieves dynamic function in top 3 results despite zero lexical token overlap [Dynamic function appears in top 3 retrieved results with exit code 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify natural language query returns syntactically relevant code (e.g., 'sort a list' finds quicksort)
-2. Verify language-agnostic: returns results across Python, JS, and TypeScript codebases
-3. Verify aST chunking: functions extracted correctly without string splitting; passes when verified by automated test script or benchmark log.
-4. Verify index 1M lines benchmark (< 10 min) and query latency benchmark (< 200ms); passes when verified by automated test script or benchmark log.
-5. Verify re-ranking: combine BM25 keyword score with semantic score for hybrid ranking; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected semantic code search engine in Python and FastAPI using Tree-sitter and Qdrant; extracted AST function chunks across [FUNCTION_COUNT] functions, achieved [RECALL_SCORE] top-ten recall on technical query benchmarks, and delivered hybrid retrieval with sub-[QUERY_LATENCY] latency."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Built semantic code search engine using CodeBERT and AST chunking; indexed [K] LOC in < 10min and returned sub-[M ms] natural language query results with hybrid BM25 + semantic re-ranking."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

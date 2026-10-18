@@ -1,49 +1,48 @@
-PROJECT BRIEF — Offline-First Mobile & Web Local-Sync Protocol
+PROJECT BRIEF — OFFLINE-FIRST LOCAL SYNCHRONIZATION PROTOCOL WITH CRDTS, INDEXEDDB & BIDIRECTIONAL WEBSOCKET STREAMING
 ======================================================================
 
-Domain    : Full-Stack Web
-Difficulty: ADVANCED
-Est. Time : 38 hours
-Tech Stack: React, TypeScript, IndexedDB, GraphQL, PostgreSQL, Docker
+Project ID  : brief-offline-first-sync
+Domain      : Full-Stack Web
+Difficulty  : ADVANCED
+Est. Time   : 40 hours
+Tech Stack  : TypeScript, IndexedDB, CRDTs, WebSockets, Node.js, PostgreSQL
+Covered Gaps: TypeScript, IndexedDB, CRDTs, WebSockets, Node.js, PostgreSQL, Full-Stack Web, Distributed Systems
 
-PROBLEM STATEMENT
-----------------------------------------
-Field workers and mobile users frequently lose internet connectivity, leading to dropped changes and stuck form submits. Build an offline-first data synchronization protocol with client-side optimistic mutations and server vector clock conflict resolution.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Collaborative productivity applications relying on synchronous cloud API calls freeze or throw network errors during intermittent connectivity, causing lost user edits and frustrating conflict modals upon reconnection. Centralized lock-based synchronization fails when multiple users edit overlapping document sections while disconnected. This project builds a production-grade offline-first collaborative synchronization engine in TypeScript. The system persists local document state in browser IndexedDB, executes optimistic mutations with sub-12ms write latency, streams binary state updates over WebSockets using Conflict-Free Replicated Data Types (CRDTs), and automatically resolves concurrent cross-device editing conflicts deterministically in Node.js and PostgreSQL.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-Agriculture tech (kisan apps), healthcare field workers, logistics and last-mile delivery (Shadowfax, Porter), and rural education apps all need offline-first architecture. India's 4G coverage gaps make this a real business problem, not a theoretical one.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Mobile Field Operations Inspection & Work Order Sync: Utility maintenance crews operating in underground vaults without cellular signals need to update equipment checklists and assign work tickets. The web app writes updates locally to IndexedDB, synchronizing conflict-free CRDT delta states over WebSockets once crew devices reconnect to base station networks. | Multi-Author Collaborative Rich-Text Note Taking: Remote teams collaborating across distributed time zones frequently co-edit documents while offline during travel or flights. The engine applies character-level CRDT operations locally, automatically converging document trees into identical states upon reconnection without overwriting peer edits. | Retail Warehouse Point-of-Sale Inventory Management: Retail store cashiers processing checkout queues during sudden network provider disruptions cannot afford checkout register freezes. The application records inventory decrements to local CRDT counter registers, guaranteeing deterministic eventual convergence across checkout lanes when network service restores.
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Offline-first is architecturally complex — it requires understanding sync topologies, conflict resolution, and client-side storage. Most developers have never implemented this. It demonstrates you can build products for real-world network conditions, not just ideal environments.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Designing state-based or delta-mutator CRDT data structures that guarantee strong eventual consistency across out-of-order networks Optimizing IndexedDB read and write transactions to achieve sub-12ms mutation persistence on mobile browser threads Managing WebSocket connection reconnection state machines with exponential backoff and delta-vector catch-up exchanges Compacting and garbage-collecting tombstone records in CRDT history logs to prevent unbounded storage bloat in PostgreSQL
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Particularly relevant for companies building products for Bharat (next billion users) — BYJU's, mFine, Khatabook, OkCredit — where network reliability is a first-class engineering constraint. Shows empathy for real user conditions beyond metro cities.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Clean TypeScript codebase cleanly separating the IndexedDB storage adapter, CRDT math algorithms, and WebSocket network synchronizers Multi-client concurrent chaos test suite verifying 100% state convergence across 50 simulated conflicting editing operations Anti-fake verification script simulating two offline clients editing the exact same property simultaneously and verifying conflict-free convergence upon reconnection
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-Client stores mutations in local IndexedDB / SQLite with Lamport logical timestamps. When network connectivity resumes, an event sync engine batches mutations to a GraphQL backend which resolves conflicting updates via Last-Write-Wins or custom merge functions.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+The user edits a document field; the client CRDT engine applies the change to memory and writes the mutation to IndexedDB in < 12ms; the UI updates optimistically; the sync manager checks WebSocket connection status; if online, the client computes a state vector delta and streams it over WebSockets; the Node.js server validates the message, writes it to PostgreSQL, and broadcasts the update to peers in the same room; receiving peers apply the delta to their local CRDT stores and write to IndexedDB; if offline, mutations queue locally in IndexedDB; upon reconnecting, the client and server exchange state vectors and synchronize missing deltas.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Local IndexedDB Mutation Persistence Latency: p95 local mutation persistence latency is < 6.5 milliseconds | Online Cross-Client Synchronization Convergence Latency: p95 cross-client synchronization latency is < 65 milliseconds | Concurrent Conflict Resolution Convergence Rate: 50 of 50 conflict trials achieve identical converged state across each of 5 clients
 
-SKILLS COVERED
-----------------------------------------
-React, TypeScript, GraphQL, SQL, IndexedDB, Data Pipelines
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. npm run test:indexeddb -- --mutations 1000: IndexedDB adapter persists mutations with p95 write latency < 15.0 milliseconds [p95 write latency < 15.0ms with exit code 0]
+[ ] 2. 2. npm run test:sync_latency -- --events 500: WebSocket delta sync delivers updates across peers with p95 latency < 180 milliseconds [p95 sync latency < 180ms with exit code 0]
+[ ] 3. 3. npm run test:chaos_convergence -- --trials 50 --clients 5: All 50 trials achieve identical converged JSON document states across all 5 clients upon reconnection [50 of 50 trials converge to identical state with exit code 0]
+[ ] 4. 4. node scripts/query_room_state.js --room-id doc_test_42: Server returns serialized state vector and document JSON containing valid vector clock [Response status confirms synchronized state with non-empty clock metadata]
+[ ] 5. 5. node scripts/verify_dynamic_conflict.js --doc doc_dyn_99: Both clients update locally offline, connect to server, and converge to identical title deterministically [Both clients report identical title value and exit code is 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify interactive demo toggle simulating online, offline, and high-latency 3G connections; passes when verified by automated test script or benchmark log.
-2. Verify conflict resolution visualizer showing simultaneous changes from two browser windows; passes when verified by automated test script or benchmark log.
-3. Verify automated test suite validating vector clock incrementation and re-sync ordering; passes when verified by automated test script or benchmark log.
-4. Verify persistent offline store maintaining integrity across browser refreshes; passes when verified by automated test script or benchmark log.
-5. Verify detailed architectural write-up on offline storage tradeoffs and sync topologies; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected collaborative offline-first synchronization protocol in TypeScript with IndexedDB and WebSockets; achieved sub-[WRITE_LATENCY] millisecond local write latency, and resolved concurrent document conflicts across [CONFLICT_COUNT] simulated editing trials."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Implemented offline-first synchronization protocol in React & TypeScript with IndexedDB; enabled seamless queued writes and sub-2s vector clock conflict resolution upon reconnection.; achieved [N] throughput with < [M ms] latency overhead across [K] test transactions."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

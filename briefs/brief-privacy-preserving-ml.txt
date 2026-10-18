@@ -1,49 +1,48 @@
-PROJECT BRIEF — Federated Learning System for Privacy-Preserving ML
+PROJECT BRIEF — FEDERATED LEARNING SYSTEM FOR PRIVACY-PRESERVING ML WITH PYTORCH, DIFFERENTIAL PRIVACY DP-SGD & GRPC AGGREGATION
 ======================================================================
 
-Domain    : ML Engineering
-Difficulty: ADVANCED
-Est. Time : 38 hours
-Tech Stack: Python, PyTorch, PySyft, gRPC, Differential Privacy
+Project ID  : brief-privacy-preserving-ml
+Domain      : ML Engineering
+Difficulty  : ADVANCED
+Est. Time   : 40 hours
+Tech Stack  : Python, PyTorch, gRPC, Differential Privacy, Docker, NumPy
+Covered Gaps: Python, PyTorch, gRPC, Differential Privacy, Docker, NumPy, Federated Learning, ML Engineering
 
-PROBLEM STATEMENT
-----------------------------------------
-GDPR, India's DPDP Act, and healthcare regulations prohibit sharing raw data for ML training. Federated Learning enables training models on decentralized data without sharing raw records. Build a federated learning system where multiple clients train local models and securely aggregate updates on a central server.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Strict data privacy regulations (GDPR, HIPAA, and DPDP) forbid pooling sensitive customer records, financial transactions, or medical telemetry into centralized cloud servers for machine learning training. Centralized model training risks catastrophic data exposure during transit and storage. Federated Learning allows edge nodes to train models locally and share only encrypted weight updates. However, naive federated averaging is vulnerable to gradient inversion attacks, model poisoning by Byzantine clients, and non-IID data distribution divergence. This project builds a production-grade federated learning platform in Python with PyTorch and gRPC. The system orchestrates distributed edge training across isolated nodes, enforces Differential Privacy with DP-SGD clipping and Gaussian noise addition, tracks cumulative privacy loss (epsilon-delta) via Rényi differential privacy accountants, and aggregates robust model weights using secure Federated Averaging (FedAvg).
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-Healthcare federated learning (hospitals training diagnostic models without sharing patient records), keyboard prediction on mobile devices (Google Gboard), fraud detection across bank branches, and IoT device anomaly detection — all require learning from distributed private data.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Cross-Hospital Diagnostic Predictive Modeling: Consortiums of regional hospitals need to collaboratively train medical diagnostic classifiers on patient electronic health records without transferring protected patient data. Hospital nodes train local PyTorch models on on-premise clinical data, add calibrated differential privacy noise, and stream parameter updates over gRPC to a central aggregator. | Multi-Bank Fraud Pattern Detection Collaboration: Competing financial institutions require shared fraud detection models to detect emerging syndicated money laundering rings without disclosing proprietary customer transactions. Each bank trains localized neural network anomaly detectors, uploading clipped gradient updates that aggregate into a joint global fraud detection model while preserving bank privacy. | Edge Mobile Keyboard Next-Word Prediction: Mobile device manufacturers need to train next-token language models on user typing habits without uploading sensitive text inputs or passwords to cloud backends. Mobile client workers compute local gradient updates overnight during charging cycles, applying differential privacy to ensure zero individual keystrokes can be reconstructed.
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Federated Learning + Differential Privacy is the frontier of privacy-preserving ML. Understanding gradient aggregation, differential privacy noise addition, communication efficiency (gradient compression), and federated evaluation requires both distributed systems and ML expertise — a rare and highly valued combination.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Implementing differential privacy DP-SGD in PyTorch with per-sample gradient clipping and calibrated Gaussian noise injection Tracking cumulative privacy loss (epsilon, delta) across multiple federated training rounds using Rényi Differential Privacy (RDP) accounting Managing non-IID (non-identically distributed) client data partitions that cause local gradient drift and slow global model convergence Securing gRPC parameter exchange pipelines against gradient inversion and reconstruction attacks with Byzantine-resilient aggregation (e.g. Coordinate-wise Median)
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Privacy-preserving ML is mandated by India's DPDP Act and GDPR for any company processing personal data. Healthcare AI, FinTech fraud detection, and mobile ML companies (Google, Apple) actively need FL expertise. This is an emerging specialty with very few engineers who have practical implementation experience.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Clean Python codebase cleanly separating the central FedAvg aggregator, gRPC communication stubs, PyTorch local worker trainers, and DP privacy accountants Empirical privacy-utility trade-off report demonstrating >= 85% model accuracy while maintaining provable differential privacy epsilon <= 3.0 Anti-fake verification script running a gradient inversion attack against an aggregated model update and proving individual training sample pixels/tokens cannot be reconstructed
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-FedAvg (Federated Averaging) algorithm: central server distributes model weights to N clients, each client trains on local private data for K epochs, clients send gradient updates to server, server applies differential privacy noise (Gaussian mechanism) before aggregation. PySyft or custom implementation with gRPC communication.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+The central coordinator initializes global model weights and announces round 1 over gRPC; 5 simulated client nodes in Docker containers download the global model; each client executes 3 local epochs on private non-IID data using PyTorch; the DP-SGD hook clips per-sample gradients to maximum norm C=1.0 and injects calibrated Gaussian noise; clients stream updated weights back over gRPC; the coordinator aggregates weights using Federated Averaging (or trimmed mean), updates the global model, and logs privacy budget expenditure from the RDP accountant; the updated global model distributes to clients for evaluation.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Global Model Accuracy Under Differential Privacy: Global model validation accuracy is >= 86.5% while cumulative epsilon is <= 2.5 | Differential Privacy Budget Enforcement: Audited cumulative epsilon is <= 2.2 at delta=1e-5 across 20 completed rounds | Gradient Inversion Reconstruction Defense Rate: Reconstruction MSE is >= 0.75 across 50 of 50 attack attempts, completely obfuscating input features
 
-SKILLS COVERED
-----------------------------------------
-Python, PyTorch, Cryptography, Distributed Systems, Privacy, ML
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. python ./federated/coordinator.py --rounds 20 --clients 5 --dp-noise 1.2: Global model reaches validation accuracy >= 78.0% while cumulative epsilon remains <= 3.0 [Accuracy >= 78.0% and epsilon <= 3.0 with exit code 0]
+[ ] 2. 2. python ./privacy/eval_budget.py --steps 10000 --batch-size 32 --noise-multiplier 1.2: Accountant calculates cumulative epsilon <= 3.0 at delta=1e-5 [Calculated epsilon <= 3.0 with exit code 0]
+[ ] 3. 3. python ./tests/test_byzantine_resilience.py --poisoned-clients 1: Trimmed mean / median aggregation filters poisoned updates without degrading global accuracy by > 3% [Global accuracy drop <= 3.0% with exit code 0]
+[ ] 4. 4. python ./benchmarks/bench_grpc_streaming.py --payload-size 5MB: gRPC streams compressed model weights with p95 transfer latency < 120ms per client [p95 latency < 120ms with exit code 0]
+[ ] 5. 5. python ./scripts/verify_dlg_defense.py --iterations 300: Attacker fails to reconstruct private sample; reconstruction MSE is >= 0.45 [Reconstruction MSE is >= 0.45 with exit code 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify federated model accuracy within 5% of centralized training on identical data split; passes when verified by automated test script or benchmark log.
-2. Verify differential privacy: noise calibrated to (ε=1, δ=10^-5) Gaussian mechanism; passes when verified by automated test script or benchmark log.
-3. Verify communication efficiency: gradient compression reducing bandwidth by 10x vs naive; passes when verified by automated test script or benchmark log.
-4. Verify client heterogeneity: system handles stragglers (slow clients) without blocking; passes when verified by automated test script or benchmark log.
-5. Verify privacy budget tracking: cumulative ε tracked across federation rounds; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected federated learning system in Python using PyTorch, gRPC, and Differential Privacy; achieved [MODEL_ACCURACY] global accuracy on non-IID data under provable epsilon [PRIVACY_EPSILON], and prevented gradient inversion attacks with reconstruction error above [INVERSION_MSE]."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Built federated learning system with (ε=1)-differential privacy across [N] nodes; achieved 93% of centralized accuracy while maintaining formal privacy guarantees with [X:1] gradient compression efficiency."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

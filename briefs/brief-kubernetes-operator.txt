@@ -1,49 +1,48 @@
-PROJECT BRIEF — Custom Kubernetes Operator with CRD Lifecycle Management
+PROJECT BRIEF — CUSTOM KUBERNETES OPERATOR IN GO WITH CRD LIFECYCLE RECONCILER, AUTOMATED FAILOVER & BACKUP CONTROLLER
 ======================================================================
 
-Domain    : Platform & DevOps
-Difficulty: ADVANCED
-Est. Time : 38 hours
-Tech Stack: Go, Kubernetes, controller-runtime, Docker, Helm, GitHub Actions
+Project ID  : brief-kubernetes-operator
+Domain      : Platform & DevOps
+Difficulty  : ADVANCED
+Est. Time   : 40 hours
+Tech Stack  : Go, Kubernetes, controller-runtime, Docker, Helm
+Covered Gaps: Go, Kubernetes, controller-runtime, Docker, Helm, Platform Engineering, Distributed Systems, SRE
 
-PROBLEM STATEMENT
-----------------------------------------
-Running stateful applications (databases, message brokers) on Kubernetes requires expert manual management of complex operational tasks like backups, failovers, and schema migrations. Build a custom Kubernetes Operator that automates the full lifecycle of a stateful application using Custom Resource Definitions.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Running stateful distributed applications on Kubernetes using standard StatefulSets leads to uncoordinated leader elections, unmonitored replication lag, and manual, error-prone disaster recovery. Generic controllers lack application-specific operational knowledge required for safe failover and automated point-in-time snapshots. This project builds a production-grade Kubernetes Operator in Go using the controller-runtime framework. The operator defines custom resource definitions (CRDs) for stateful database clusters, executes declarative reconciliation loops managing primary-replica topologies, performs automated health checks with split-brain prevention, and orchestrates zero-downtime rolling upgrades and scheduled cloud storage backups.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-Every company running databases on Kubernetes needs operators: PostgreSQL Operator, Redis Operator, Kafka Operator, and Elasticsearch Operator are all widely deployed. Cloud providers (AWS, GCP, Azure) run their managed services using operator patterns internally.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Self-Service Internal Database Platform for Engineering Teams: Enterprise platform engineering teams need to provide software developers with self-service, highly available database clusters without ticketing delays. Developers declare desired database topology in simple YAML manifests, and the operator automatically provisions StatefulSets, Services, and replication secrets. | Automated Primary Node Failover & Disaster Recovery: Site reliability engineers require automated remediation when a database primary node suffers hardware failure or network isolation. The operator detects primary unresponsiveness within 10 seconds, selects the most up-to-date replica, promotes it to primary, and reconfigures downstream nodes. | Zero-Downtime Rolling Database Engine Upgrades: Database administrators need to apply security patches and minor version engine upgrades across hundreds of production instances without service interruption. The operator coordinates an ordered rolling update, upgrading replicas first before executing a controlled switchover of the primary node.
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Kubernetes Operators represent the highest level of Kubernetes expertise — understanding of the controller pattern, reconciliation loops, CRD schema design, and Kubernetes API. This separates Kubernetes users from Kubernetes platform engineers, who command 50-100% higher salaries.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Implementing idempotent reconciliation loops with controller-runtime that handle out-of-order Kubernetes API events Preventing split-brain scenarios during network partitions through distributed quorum checks and fencing mechanisms Orchestrating safe rolling updates on stateful workloads without data corruption or dropped client connections Managing point-in-time backup snapshots and restore workflows with atomic state verification
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Custom Operator development is a specific skill that only senior platform/SRE engineers possess. Platform teams at Google, top tech platforms, and infrastructure companies value this extremely highly. It demonstrates you understand Kubernetes at the control plane level, not just the application deployment level.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Clean Go codebase adhering to standard controller-runtime patterns, status subresource updates, and reconciler interfaces Comprehensive test suite using envtest and KinD verifying CRD schema validation, reconciliation cycles, and event generation Anti-fake verification script creating a dynamic cluster CRD with custom replica parameters and asserting controller reconciliation to target state
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-Go controller using controller-runtime library. Custom Resource Definition (CRD) describing desired state. Reconciliation loop watching for CR changes and reconciling actual vs desired state. Built-in backup CronJob, failover logic on pod failure detection, and rolling upgrade coordination.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+Users submit Custom Resource manifests (DatabaseCluster) to the Kubernetes API server; the API server stores the resource in etcd and emits an event; the controller-runtime informer detects the event and enqueues a reconciliation request; the reconciler evaluates current child resources (Pods, PVCs, Services, Secrets); if state diverges, the reconciler issues atomic Create/Update/Delete calls; the health monitor periodically checks primary availability; upon failure, the failover engine promotes an eligible replica and updates DNS endpoints; backup controllers trigger point-in-time snapshots according to defined schedules.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Reconciliation Loop Execution Latency: p95 reconciliation execution latency is < 220 milliseconds | Automated Primary Failover Detection & Promotion Time: Average failover time across 20 trials is < 12.0 seconds with 0 split-brain incidents | CRD Schema Validation Error Rejection Rate: 50 of 50 malformed manifests rejected with descriptive admission errors
 
-SKILLS COVERED
-----------------------------------------
-Go, Kubernetes, Docker, DevOps, Cloud, APIs
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. go test -v ./controllers/... -run TestCRDSchemaValidation: Kubernetes API validation rejects all 50 manifests with descriptive 400 Bad Request errors [All 50 invalid manifests rejected with exit code 0]
+[ ] 2. 2. go test -v ./controllers/... -run TestReconciliationLatency -bench=.: Controller executes reconciliation loop with p95 latency < 650 milliseconds [p95 latency is < 650ms with exit code 0]
+[ ] 3. 3. go run ./cmd/chaos_tester --trials 20 --cluster-name test-db-cluster: Operator detects primary failure, promotes healthy replica, and restores cluster health in < 25s [Average failover duration < 25s and zero split-brain occurrences across 20 trials]
+[ ] 4. 4. kubectl get databasecluster test-cluster -o json: Resource status displays Ready phase, healthy primary endpoint, and synchronized replica list [status.phase equals 'Ready' and status.healthyReplicas equals 2]
+[ ] 5. 5. go run ./scripts/verify_dynamic_operator.go --name dynamic-db-99 --replicas 3: Operator creates corresponding StatefulSet with 3 replicas, provisions Services, and updates CRD status [StatefulSet dynamic-db-99 exists with 3 ready replicas and operator logs show successful reconciliation]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify working CRD with schema validation and printer column definitions; passes when verified by automated test script or benchmark log.
-2. Verify reconciliation test: delete managed pod and verify operator restores it within 10s; passes when verified by automated test script or benchmark log.
-3. Verify automated backup CronJob created/updated when CRD spec changes; passes when verified by automated test script or benchmark log.
-4. Verify finalizer ensuring clean resource deletion order across all owned objects; passes when verified by automated test script or benchmark log.
-5. Verify end-to-end e2e test suite using envtest or KinD (Kubernetes in Docker); passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected custom Kubernetes Operator in Go using controller-runtime with declarative CRDs; automated primary failover with sub-[FAILOVER_DURATION] recovery time across [CHAOS_TRIALS] chaos trials, and achieved sub-[RECONCILE_LATENCY] reconciliation latency."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Built custom Kubernetes Operator in Go with CRD lifecycle management; automated stateful application operations (backup, failover, upgrades) with < 10s reconciliation and 30s automated failover.; achieved [N] throughput with < [M ms] latency overhead across [K] test transactions."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

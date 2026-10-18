@@ -1,49 +1,48 @@
-PROJECT BRIEF — AI-Powered Mock Interview Platform with DSP Feedback
+PROJECT BRIEF — VOICE-ENABLED TECHNICAL INTERVIEW SIMULATION ENGINE WITH ASYNCHRONOUS SPEECH PROCESSING & EVALUATION
 ======================================================================
 
-Domain    : GenAI & LLM Engineering
-Difficulty: INTERMEDIATE
-Est. Time : 28 hours
-Tech Stack: Python, FastAPI, Whisper, LangChain, React, WebSockets
+Project ID  : brief-interview-prep-ai
+Domain      : GenAI & LLM Engineering
+Difficulty  : INTERMEDIATE
+Est. Time   : 28 hours
+Tech Stack  : Python, FastAPI, Whisper, LangChain, React, WebSockets
+Covered Gaps: Python, FastAPI, Whisper, LangChain, React, WebSockets, GenAI, Speech Recognition, AsyncIO
 
-PROBLEM STATEMENT
-----------------------------------------
-Interview preparation requires realistic practice with immediate feedback, but human mock interviews are expensive and scheduling-dependent. Build an AI interview platform that conducts role-appropriate technical/behavioral interviews, evaluates responses in real-time, and provides structured feedback with specific improvement suggestions.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Technical mock interview platforms struggle with high speech-to-text latency, conversational interruptions, and subjective, uncalibrated feedback scoring. Relying on synchronous, single-turn LLM calls produces unrealistic dialog pacing and hallucinatory performance rubrics. This project builds an asynchronous voice-enabled interview simulation platform in Python and FastAPI. The engine accepts spoken audio streams, transcribes candidate responses using faster-whisper, evaluates technical depth and behavioral STAR structure using DSPy metric pipelines with LangChain, and returns structured feedback with actionable code corrections across WebSockets.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-Pramp, Interviewing.io, and Exponent all operate in this space. HireFlow itself is the perfect user. Any edtech company (Coursera, Udemy, BYJU's) could integrate this for job-readiness training. Corporate L&D departments use AI interview simulation for interview coaching at scale.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Automated Candidate Screenings for Engineering Teams: Recruiting teams at high-volume software agencies require consistent initial technical screenings without consuming senior engineering hours. The engine conducts automated 15-minute technical question drills, generating structured scoring reports and code diff suggestions for hiring managers. | Interactive University Career Placement Labs: Computer science departments need scalable interview preparation laboratories where graduating students practice algorithmic problem explanation under time constraints. Students verbalize design trade-offs and code logic into browser microphones, receiving immediate latency-calibrated evaluation on communication clarity and algorithmic soundness. | Corporate Lateral Hiring Preparation Portals: Enterprise internal mobility programs require standardized assessment environments for junior engineers seeking promotion to mid-level engineering tiers. The system runs targeted system design and coding mock interviews, evaluating structural responses against standardized competency rubrics without human bias.
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Building a real-time interview simulation requires combining speech-to-text, LLM evaluation, structured feedback generation, and WebSocket-based conversational turns — a genuinely complex multi-component system. It demonstrates you can integrate multiple AI services into a coherent product experience.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Minimizing audio chunk streaming latency across WebSockets while maintaining Whisper transcription word accuracy Constructing deterministic, calibrated scoring rubrics with DSPy assertion pipelines that prevent LLM hallucination and grade inflation Managing conversational state, interruption handling, and turn-taking without race conditions in asynchronous asyncio queues Synthesizing structured candidate feedback containing precise syntactic corrections and rubric-grounded improvement suggestions
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Real-time AI applications with voice integration are a growing category. Companies building AI tutors, AI coaching tools, and AI hiring platforms (HireVue, Paradox AI) are hiring engineers who can build these systems. Shows full-stack AI product engineering capability.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Clean Python codebase separating WebSocket transport, Whisper transcription pipelines, and DSPy evaluation runners Rigorous speech-to-text benchmark measuring word error rate and transcription latency across diverse synthetic accent datasets Anti-fake verification script streaming raw audio chunks and verifying real-time WebSocket token dispatch and structured JSON rubric emission
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-React frontend with MediaRecorder capturing audio, streamed to backend via WebSocket. Whisper real-time transcription. GPT-4/Claude evaluating response against role-specific rubric using structured output. Follow-up question generation based on answer quality. Feedback report aggregated at session end.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+The candidate speaks into the browser microphone; the React frontend captures 16kHz PCM audio frames and streams them over WebSockets to FastAPI; the streaming gateway buffers frames into temporal chunks; the Whisper pipeline transcribes speech into text segments; the dialogue manager appends transcript tokens to the active interview session state; once candidate turn completion is detected, the DSPy evaluation engine runs calibrated scoring pipelines against standardized technical rubrics; structured evaluation JSON and synthesized audio responses stream back over WebSockets to update the React UI.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Whisper Transcription Word Error Rate (WER): Average Word Error Rate across 50 audio recordings is < 6.5% | Audio Chunk End-to-End Transcription Latency: p95 transcription latency per 3-second chunk is < 420 milliseconds | Evaluation Rubric Score Consistency with Human Baseline: Pearson correlation coefficient r >= 0.89 across 40 responses
 
-SKILLS COVERED
-----------------------------------------
-Python, LangChain, FastAPI, React, WebSockets, Speech Processing
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. python -m interview_sim.benchmark_asr --audio-dir test_data/audio --manifest test_data/transcripts.json: faster-whisper transcribes all files with average Word Error Rate < 12.0% [Report records average WER < 12.0% with exit code 0]
+[ ] 2. 2. python scripts/benchmark_latency.py --chunks 100 --duration 3: WebSocket audio transcription pipeline records p95 chunk latency < 850 milliseconds [p95 latency is < 850ms and zero packets dropped]
+[ ] 3. 3. python -m interview_sim.evaluate_calibration --eval-set test_data/calibration_evals.json: DSPy evaluation engine produces scoring outputs achieving Pearson correlation r >= 0.78 [Pearson correlation coefficient r >= 0.78 with exit code 0]
+[ ] 4. 4. curl -X POST http://localhost:8000/api/interview/session/report -H 'Content-Type: application/json' -d @test_data/sample_session.json: API returns structured feedback JSON with category scores, STAR breakdown, and specific code improvements [Response status is 200 and JSON contains technical_score, behavioral_score, and actionable_feedback]
+[ ] 5. 5. python scripts/verify_dynamic_stream.py --audio test_data/dynamic_prompt.wav: WebSocket server transcribes speech, evaluates response against question criteria, and streams structured feedback tokens [Server returns transcript matching prompt and valid rubric evaluation JSON with exit code 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify end-to-end demo: speak answer, receive AI evaluation and follow-up within 5s; passes when verified by automated test script or benchmark log.
-2. Verify rubric evaluation: structured scoring on 5 dimensions (clarity, depth, STAR format, etc.); passes when verified by automated test script or benchmark log.
-3. Verify role-specific question bank for SDE, PM, and Data Analyst interviews; passes when verified by automated test script or benchmark log.
-4. Verify session report: summary of strengths, weaknesses, and improvement suggestions; passes when verified by automated test script or benchmark log.
-5. Verify webSocket latency benchmark: audio-to-response round trip < 5 seconds; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected asynchronous voice-enabled interview simulation platform in Python and FastAPI using faster-whisper; achieved sub-[STREAMING_LATENCY] transcription latency across [STREAMED_CHUNKS] audio chunks, and delivered [CORRELATION_SCORE] rubric scoring correlation with expert evaluations."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Built AI mock interview platform with real-time Whisper transcription and LLM evaluation; delivered structured feedback within 5s of response with role-specific rubric scoring across SDE, PM, and Data Analyst interviews.; achieved [N] throughput with < [M ms] latency overhead across [K] test transactions."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

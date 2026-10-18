@@ -1,49 +1,48 @@
-PROJECT BRIEF — Supply Chain Route Optimization with Graph Algorithms
+PROJECT BRIEF — SUPPLY CHAIN VEHICLE ROUTING OPTIMIZER WITH GOOGLE OR-TOOLS, OPENSTREETMAP & FASTAPI
 ======================================================================
 
-Domain    : Algorithms & Applied Math
-Difficulty: INTERMEDIATE
-Est. Time : 28 hours
-Tech Stack: Python, OR-Tools, Google Maps API, FastAPI, React
+Project ID  : brief-supply-chain-optimization
+Domain      : Algorithms & Applied Math
+Difficulty  : INTERMEDIATE
+Est. Time   : 28 hours
+Tech Stack  : Python, OR-Tools, OpenStreetMap, FastAPI, React
+Covered Gaps: Python, OR-Tools, OpenStreetMap, FastAPI, React, Algorithms, Operations Research
 
-PROBLEM STATEMENT
-----------------------------------------
-E-commerce logistics companies spend 30-40% of operating costs on inefficient last-mile delivery routing. Build a supply chain optimization system using graph algorithms and linear programming to compute optimal vehicle routing with capacity constraints, time windows, and multi-depot assignment.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Last-mile delivery and supply chain logistics fleets waste thousands of fuel hours, fail strict delivery appointment windows, and incur excessive driver overtime costs when route dispatchers rely on manual scheduling or naive greedy distance heuristics. The Vehicle Routing Problem with Time Windows (VRPTW) and capacity constraints is an NP-hard combinatorial optimization challenge where adding even 20 delivery stops creates factorial search spaces that overwhelm standard computing pipelines. This project builds a production-grade supply chain route optimization engine in Python using Google OR-Tools. The system models multi-vehicle capacity limits, customer delivery time windows, and driver shift constraints, calculates real-world distance matrices using OpenStreetMap, solves routes using Guided Local Search metaheuristics in under 15 seconds for 100 stops, and visualizes turn-by-turn routes on interactive React map dashboards.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-top tech platforms, Zomato, Delhivery, Dunzo, Porter, and top tech platforms logistics all solve vehicle routing optimization. Any logistics company managing fleets of delivery vehicles needs this. Directly applicable to supply chain engineering roles at logistics startups and large e-commerce companies.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+E-Commerce Urban Last-Mile Parcel Delivery: Urban courier delivery fleets dispatching 500 packages daily across 20 vans need optimal delivery sequencing to minimize total transit miles. The solver ingests delivery coordinates and parcel weight packages, generating turn-by-turn routes that reduce fleet vehicle mileage by over 22%. | Grocery Cold-Chain Delivery with Strict Time Windows: Fresh grocery delivery platforms promising 1-hour customer delivery windows must balance vehicle refrigeration capacities against customer arrival commitments. The OR-Tools routing model enforces strict time window boundaries, ensuring refrigerated delivery vans arrive within designated customer windows without perishable spoilage. | Medical Specimen Hospital Pickup Fleet Dispatch: Clinical diagnostic laboratories picking up laboratory specimens from regional clinics must guarantee sample pickup within 2 hours of collection. The optimization engine schedules on-demand hospital pickup dispatches, assigning couriers to priority clinic stops while respecting vehicle specimen volume caps.
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-The Vehicle Routing Problem (VRP) is an NP-hard combinatorial optimization problem. Solving it with Google OR-Tools, genetic algorithms, or simulated annealing demonstrates applied algorithmic thinking and operations research knowledge — skills that unlock roles at logistics tech companies and quantitative engineering teams.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Formulating the multi-vehicle routing problem (VRPTW) in Google OR-Tools with heterogeneous fleet capacities, drop-off service times, and penalty dropped-node costs Configuring metaheuristic search strategies (Guided Local Search, Tabu Search) to escape local minima and converge to high-quality solutions within 15 seconds Constructing and caching real-world distance and travel-time matrices using OpenStreetMap road network graphs without hitting external API rate limits Handling dynamic route recalculations when emergency priority pickup orders are inserted into an active dispatch schedule mid-shift
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Logistics engineering at Delhivery, top tech platforms, Zomato, and any supply chain tech company explicitly requires optimization algorithm knowledge. OR-Tools, vehicle routing, and constraint programming are specific skills that immediately signal applied algorithms depth to any logistics engineering interviewer.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Clean Python codebase cleanly separating the OR-Tools mathematical model, OpenStreetMap matrix calculators, FastAPI optimization routers, and React map views Optimization benchmark proving >= 20% total route mileage reduction compared to nearest-neighbor greedy heuristics across 100 delivery stops Anti-fake verification script adding an impossible constraint (stop demanding 500kg when max van capacity is 200kg) and asserting the solver drops the node with a penalty violation rather than crashing
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-Google OR-Tools VRP solver for optimal route computation. OpenStreetMap/Google Maps API for real distance matrix computation. Capacitated VRP with time windows (CVRPTW). Multi-depot assignment optimization. FastAPI endpoint accepting orders and returning optimized routes. React map visualization showing planned vs actual routes.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+A dispatcher submits 100 delivery orders with customer coordinates, package weights, and delivery windows to FastAPI; the distance matrix worker checks its local SQLite cache for pairwise travel times (or computes Haversine/OSM routes) and returns a 100x100 matrix; the OR-Tools model creates the RoutingIndexManager, adds vehicle capacity constraints (max 1,000kg per van across 5 vans), and defines time window dimensions; the solver executes Guided Local Search with a 15-second time limit; the optimal route sequence, arrival times, and vehicle assignments return via JSON; the React dashboard renders delivery polylines and stop markers on an interactive map.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Mileage Reduction Over Greedy Baseline: Total fleet mileage reduction is >= 24.5% over greedy baseline | 100-Stop Solver Convergence Execution Latency: Solver returns feasible high-quality solution in < 7.5 seconds | Delivery Time Window & Capacity Violation Parity Rate: 50 of 50 delivery dispatch runs exhibit 0 time window and 0 capacity constraint violations
 
-SKILLS COVERED
-----------------------------------------
-Python, Graph Algorithms, OR Tools, Optimization, FastAPI, Algorithms
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. python ./benchmarks/bench_mileage.py --stops 100 --vehicles 5: OR-Tools Guided Local Search achieves >= 18.0% mileage reduction compared to greedy baseline [Mileage reduction >= 18.0% with exit code 0]
+[ ] 2. 2. python ./solver/run_vrptw.py --stops 100 --timeout 15: Solver converges to feasible schedule with 0 constraint violations in < 15.0 seconds [Execution latency < 15.0s with exit code 0]
+[ ] 3. 3. python ./tests/test_time_windows.py --runs 50: All 50 runs satisfy time windows with 0 arrival violations across all delivery stops [0 arrival violations with exit code 0]
+[ ] 4. 4. curl -X POST http://localhost:8000/api/v1/optimize -H 'Content-Type: application/json' -d @data/sample_stops.json: API responds with vehicle routes, stop sequences, and GeoJSON polylines in < 5 seconds [Response status 200 with non-empty route polylines and exit code 0]
+[ ] 5. 5. python ./scripts/verify_unfeasible_drop.py --overweight-kg 500 --max-capacity-kg 200: Solver detects capacity violation, drops the unfeasible stop with penalty, and solves remaining stops [Console confirms unfeasible node dropped with penalty and remaining solved with exit code 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify optimal routes for 100 orders/10 vehicles computed in < 30 seconds; passes when verified by automated test script or benchmark log.
-2. Verify capacity constraints: no vehicle assigned load exceeding capacity limit; passes when verified by automated test script or benchmark log.
-3. Verify time window constraints: each delivery arrives within specified time window; passes when verified by automated test script or benchmark log.
-4. Verify comparison benchmark: OR-Tools solution vs greedy nearest-neighbor showing 20%+ distance reduction; passes when verified by automated test script or benchmark log.
-5. Verify interactive map showing optimized routes per vehicle with order sequence; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected supply chain vehicle routing optimizer in Python using Google OR-Tools and OpenStreetMap; reduced fleet transit mileage by [MILEAGE_REDUCTION] over heuristic baselines, and converged multi-vehicle schedules across [STOP_COUNT] stops in sub-[SOLVER_LATENCY] seconds."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Built VRP route optimizer with OR-Tools solving 100-order/10-vehicle routing in < 30s; achieved 24% travel distance reduction vs greedy baseline with hard capacity and time-window constraint enforcement.; achieved [N] throughput with < [M ms] latency overhead across [K] test transactions."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

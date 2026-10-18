@@ -1,49 +1,48 @@
-PROJECT BRIEF — Custom Programming Language Interpreter & AST Evaluator
+PROJECT BRIEF — CUSTOM PROGRAMMING LANGUAGE INTERPRETER & AST EVALUATOR
 ======================================================================
 
-Domain    : Computer Science Fundamentals
-Difficulty: ADVANCED
-Est. Time : 38 hours
-Tech Stack: Go, Algorithms, Parsing, Compilers, Data Structures
+Project ID  : brief-compiler-interpreter
+Domain      : Computer Science Fundamentals
+Difficulty  : ADVANCED
+Est. Time   : 34 hours
+Tech Stack  : Go
+Covered Gaps: Go, Algorithms, Parsing, Compilers, Data Structures
 
-PROBLEM STATEMENT
-----------------------------------------
-Building an interpreter from scratch is the ultimate demonstration of computer science fundamentals. Most engineers use programming languages daily but have no idea how parsing, AST construction, scope resolution, or garbage collection work. Build a working interpreter for a custom scripting language with closures, higher-order functions, and a REPL.
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Software engineers interact with high-level programming languages daily, yet the underlying execution mechanisms—lexical tokenization, recursive descent parsing, abstract syntax tree construction, scope resolution, and virtual machine bytecode evaluation—remain opaque black boxes. Building an interpreter from first principles clarifies runtime language mechanics and domain-specific language design. This project implements a complete programming language engine in Go comprising a lexical scanner, a Pratt operator-precedence parser, an AST tree-walking evaluator with lexical closures, and an alternative stack-based bytecode compiler and virtual machine.
 
-USE CASES IN THE REAL WORLD
-----------------------------------------
-DSL (Domain-Specific Language) design for configuration, scripting in games, workflow automation engines, query language design. Understanding interpreter design unlocks contribution to language runtimes (V8, CPython, GraalVM), compilers, and developer tools.
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Domain-specific configuration languages for enterprise rule evaluation engines | Sandboxed scripting runtimes for game development and plugin extensions | Interactive command-line query parsers for proprietary data structures
 
-WHY THIS IS HARD (COMPETENCY REDUCER)
-----------------------------------------
-Building an interpreter exercises the deepest computer science knowledge: lexical analysis, recursive descent parsing, scope chain resolution, environment frames, closure capture, and memory management. Engineers who have done this can discuss runtime internals in any language — a massive advantage in senior technical interviews.
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Implementing Pratt operator precedence parsing to handle complex infix, prefix, and postfix expressions cleanly Preserving lexical closure state across first-class and higher-order functions without leaking scope bindings Compiling nested control flow structures into linear bytecode instructions with relative jump address resolution Optimizing virtual machine stack operations to minimize garbage collection allocations in hot execution loops
 
-RECRUITER SHORTLIST SIGNAL
-----------------------------------------
-Interpreter/compiler projects are the most impressive computer science demonstrations on a resume. They signal you can think at the language level rather than just the library level. Any company working on developer tools, runtime systems, or DSL design will immediately elevate your candidacy.
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Modular Go implementation cleanly separating lexer, parser, AST nodes, compiler, and VM modules Deterministic language test suite verifying 120 distinct syntax programs and edge cases Anti-fake verification script accepting dynamic arithmetic and closure scripts via stdin and asserting output
 
-ARCHITECTURE & DATA FLOW
-----------------------------------------
-Lexer (tokenizer) → Pratt parser → Abstract Syntax Tree (AST) → Tree-walking evaluator. Implements: variables, closures, higher-order functions, conditionals, loops, arrays, hash maps, and built-in functions. REPL for interactive evaluation. Error recovery for useful error messages.
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+Source code text enters the Lexical Scanner; tokens are emitted to the Pratt Parser; the parser constructs an Abstract Syntax Tree; for interpreted mode, the Tree-Walking Evaluator executes nodes within an Environment scope frame; for compiled mode, the Bytecode Compiler emits instructions and constant pools; the Stack Virtual Machine executes opcodes, manipulating the operand stack and returning output values.
 
-SCALE & PERFORMANCE TARGETS
-----------------------------------------
-Throughput: > [N] req/sec sustained | Latency: p99 < [M ms] measured via k6 benchmark | Reliability: [X of Y] chaos test scenarios recovered with zero data loss.
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Language Spec Compliance Test Coverage: 120 of 120 test programs pass with expected output and 0 runtime crashes | Recursive Function Execution Latency: Execution completes in < 1.2s on AST evaluator and < 250ms on Bytecode VM | Lexical Scope Isolation Invariant: 30 of 30 test fixtures confirm inner variables do not mutate outer bindings
 
-SKILLS COVERED
-----------------------------------------
-Go, Algorithms, Compilers, Data Structures, Parsing, Language Design
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. 1. Run go test ./pkg/... -v: Lexer, parser, evaluator, and VM pass all specification tests [120 of 120 tests pass with exit code 0 and 0 failures]
+[ ] 2. 2. Run go test -bench=. ./pkg/vm: Bytecode VM evaluates Fibonacci(25) in < 450ms with correct output 75025 [Execution latency < 450ms and calculated integer equals 75025]
+[ ] 3. 3. Execute ./bin/lang run fixtures/scoping.lang: Evaluator maintains separate environment frames for inner and outer variables [Output confirms outer variable unchanged with exit code 0]
+[ ] 4. 4. Pipe arithmetic expression 'let x = 10; let y = 20; x * y;' into stdin: REPL evaluates expression and prints integer 200 to stdout [Evaluated result equals 200 and REPL exits cleanly]
+[ ] 5. 5. Execute ./scripts/verify_dynamic_eval.sh --factor 17: Interpreter dynamically parses, builds closure, and evaluates correct calculated product [Calculated value matches expected mathematical output with exit code 0]
 
-SCREENER VERIFICATION RUBRIC
-----------------------------------------
-1. Verify working REPL supporting variable declarations, closures, and recursive functions; passes when verified by automated test script or benchmark log.
-2. Verify fibonacci(35) computed correctly via recursive function definition; passes when verified by automated test script or benchmark log.
-3. Verify closure correctness test: inner function capturing outer scope variable correctly; passes when verified by automated test script or benchmark log.
-4. Verify error recovery: syntax errors report line number and helpful message; passes when verified by automated test script or benchmark log.
-5. Verify 200+ unit tests covering edge cases in parsing, evaluation, and scope resolution; passes when verified by automated test script or benchmark log.
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected custom programming language compiler and stack virtual machine in Go; executed [TEST_CASES_PASSED] language specification test programs with lexical closure support, recursive Fibonacci evaluation in under [VM_EVAL_TIME] on bytecode VM, and isolated lexical environment frames."
 
-RESUME BULLET FORMULA
-----------------------------------------
-"Built custom scripting language interpreter in Go with Pratt parser and tree-walking evaluator; implemented closures, higher-order functions, and REPL — passing 200+ correctness tests including recursive mutual functions.; achieved [N] throughput with < [M ms] latency overhead across [K] test transactions."
-
-Generated by HireFlow — hireflow.io
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)
