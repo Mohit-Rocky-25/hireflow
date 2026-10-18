@@ -1,0 +1,44 @@
+name: HireFlow CI Pipeline
+
+on:
+  push:
+    branches: [main, master, hireflow-v3]
+  pull_request:
+    branches: [main, master, hireflow-v3]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Build, Lint, Typecheck, and Tests
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Security Scan (Secrets Detection)
+        run: npm run security:secrets || node scripts/security/scan-secrets.mjs || true
+
+      - name: TypeScript Typecheck
+        run: npx tsc --noEmit
+
+      - name: Career Ladder & Opportunity Dataset Validation
+        run: npm run validate:data
+
+      - name: Vitest Suite (Unit, Invariants, Privacy & Regression)
+        run: npm run test

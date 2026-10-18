@@ -145,4 +145,100 @@ describe('Career Ladder Dataset Integrity & Schema Validation (India Market)', (
       }
     }
   });
+
+  describe('R1.4: Universal Dataset Provenance, Schemas, & Uniqueness (P-6)', () => {
+    it('validates Credentials dataset: no duplicate IDs, no duplicate names, valid ISO dates, URL shape', async () => {
+      const { ALL_OPPORTUNITIES } = await import('../../features/suite/credentials/data/opportunitiesData');
+      const seenIds = new Set<string>();
+      const seenNames = new Set<string>();
+      const statusCounts = { verified: 0, 'needs-recheck': 0, unverified: 0 };
+
+      const duplicates: string[] = [];
+      for (const item of ALL_OPPORTUNITIES) {
+        // Unique ID
+        expect(seenIds.has(item.id), `Duplicate credential ID: ${item.id}`).toBe(false);
+        seenIds.add(item.id);
+
+        // Unique normalized name
+        const normName = item.name.toLowerCase().trim();
+        if (seenNames.has(normName)) {
+          duplicates.push(`${item.name} (${item.id})`);
+        }
+        seenNames.add(normName);
+        // Non-empty required fields
+        expect(item.name.trim().length, `Credential ${item.id} has empty name`).toBeGreaterThan(0);
+        expect(item.issuer.trim().length, `Credential ${item.id} has empty issuer`).toBeGreaterThan(0);
+
+        // P-6 Provenance verification
+        if (item.sourceUrl) {
+          expect(item.sourceUrl, `Invalid URL in ${item.id}`).toMatch(/^https?:\/\//);
+        }
+        if (item.lastVerifiedAt) {
+          expect(item.lastVerifiedAt, `Invalid ISO date in ${item.id}`).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+        }
+
+        const stat = (item as any).status === 'verified' ? 'verified' : ((item as any).status === 'unverified' ? 'unverified' : 'needs-recheck');
+        statusCounts[stat] = (statusCounts[stat] || 0) + 1;
+      }
+
+      if (duplicates.length > 0) {
+        console.error(`Found duplicate credential names: ${duplicates.join(', ')}`);
+      }
+      expect(duplicates).toEqual([]);
+
+      console.log(`\n[R1.4 Credentials Status Counts] Verified: ${statusCounts.verified}, Needs-Recheck: ${statusCounts['needs-recheck']}, Unverified: ${statusCounts.unverified}`);
+    });
+
+    it('validates Project Briefs dataset: schema, non-empty text, difficulty, and unique IDs', async () => {
+      const fs = await import('fs');
+      const path = await import('path');
+      const briefsPath = path.resolve(__dirname, '../suite/project-briefs.json');
+      const briefs = JSON.parse(fs.readFileSync(briefsPath, 'utf8'));
+
+      const seenIds = new Set<string>();
+      const seenTitles = new Set<string>();
+
+      for (const brief of briefs) {
+        expect(seenIds.has(brief.id), `Duplicate brief ID: ${brief.id}`).toBe(false);
+        seenIds.add(brief.id);
+
+        const normTitle = brief.title.toLowerCase().trim();
+        expect(seenTitles.has(normTitle), `Duplicate brief title: ${brief.title}`).toBe(false);
+        seenTitles.add(normTitle);
+
+        expect(brief.title.trim().length).toBeGreaterThan(0);
+        expect(brief.domain.trim().length).toBeGreaterThan(0);
+        expect(brief.coveredSkills.length).toBeGreaterThan(0);
+        expect(brief.techStack.length).toBeGreaterThan(0);
+        expect(brief.problemStatement.trim().length).toBeGreaterThan(20);
+      }
+    });
+
+    it('reports any JD under the configured minimum word count without failing', async () => {
+      const { DOCUMENT_BOUNDS } = await import('../../config/thresholds');
+      const shortJdReports: string[] = [];
+
+      // Test synthetic JDs
+      const fs = await import('fs');
+      const path = await import('path');
+      const syntheticDir = path.resolve(__dirname, '../../../tests/fixtures/synthetic');
+      if (fs.existsSync(syntheticDir)) {
+        const files = fs.readdirSync(syntheticDir).filter(f => f.startsWith('jd_'));
+        for (const f of files) {
+          const content = fs.readFileSync(path.join(syntheticDir, f), 'utf8');
+          const words = content.trim().split(/\s+/).length;
+          if (words < DOCUMENT_BOUNDS.minJdWords) {
+            shortJdReports.push(`${f} (${words} words < min ${DOCUMENT_BOUNDS.minJdWords})`);
+          }
+        }
+      }
+
+      if (shortJdReports.length > 0) {
+        console.warn(`[R1.4 JD Word Count Notice] Below min words: ${shortJdReports.join(', ')}`);
+      } else {
+        console.log(`[R1.4 JD Word Count Notice] All synthetic JDs meet or exceed the ${DOCUMENT_BOUNDS.minJdWords}-word minimum.`);
+      }
+      expect(true).toBe(true); // Report, do not fail
+    });
+  });
 });

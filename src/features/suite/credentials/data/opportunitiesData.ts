@@ -1968,10 +1968,21 @@ export const TOP_30_OPPORTUNITIES: OpportunityRecord[] =
   RAW_TOP_30_OPPORTUNITIES.map(enrichOpportunityWithCuratedBrief);
 
 // Combined catalog: Core Top 30 + Indian Flagship Competitions & Fellowships + Researched Market Opportunities
-export const ALL_OPPORTUNITIES: OpportunityRecord[] = [
+// Enforces P-6 rule: No duplicate IDs or normalized names across curated & researched catalogs
+const baseCatalog = [
   ...TOP_30_OPPORTUNITIES,
   ...INDIAN_FLAGSHIP_OPPORTUNITIES.map(enrichOpportunityWithCuratedBrief),
-  ...RESEARCHED_MARKET_OPPORTUNITIES.map(enrichOpportunityWithCuratedBrief),
+];
+const existingNames = new Set(baseCatalog.map((o) => o.name.toLowerCase().trim()));
+const existingIds = new Set(baseCatalog.map((o) => o.id));
+
+const deduplicatedResearched = RESEARCHED_MARKET_OPPORTUNITIES
+  .map(enrichOpportunityWithCuratedBrief)
+  .filter((o) => !existingNames.has(o.name.toLowerCase().trim()) && !existingIds.has(o.id));
+
+export const ALL_OPPORTUNITIES: OpportunityRecord[] = [
+  ...baseCatalog,
+  ...deduplicatedResearched,
 ];
 
 export function getAllOpportunities(): OpportunityRecord[] {

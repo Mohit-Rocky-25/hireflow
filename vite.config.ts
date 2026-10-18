@@ -178,6 +178,13 @@ export default defineConfig({
     host: true,
     port: 5173,
     open: false,
+    headers: {
+      'X-Content-Type-Options': 'nosniff',
+      'X-Frame-Options': 'DENY',
+      'Referrer-Policy': 'strict-origin-when-cross-origin',
+      'Cross-Origin-Opener-Policy': 'same-origin',
+      'Cross-Origin-Resource-Policy': 'same-origin',
+    },
   },
   build: {
     sourcemap: false, // Security: Never leak TypeScript source maps in production build

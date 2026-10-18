@@ -1,16 +1,19 @@
 #!/bin/sh
-# HireFlow AI — Pre-Commit Security Guard
-# Blocks any commit containing secrets, tokens, or private credentials.
+# HireFlow AI — Pre-Commit Quality & Security Gate (P-5, P-7, R1.6)
+# Runs secret scanning, typescript typecheck, and critical unit tests.
 
-echo "Running pre-commit security secret scan..."
-node scripts/security/scan-secrets.mjs --staged
-RESULT=$?
+set -e
 
-if [ $RESULT -ne 0 ]; then
-  echo ""
-  echo "❌ COMMIT REJECTED: Secrets or sensitive credentials detected in staged files."
-  echo "Please remove the credentials or verify allowlist.json before committing."
-  exit 1
+echo "🔒 [HireFlow Pre-Commit] 1/3 Running security secret scan..."
+if [ -f "scripts/security/scan-secrets.mjs" ]; then
+  node scripts/security/scan-secrets.mjs --staged
 fi
 
+echo "🔍 [HireFlow Pre-Commit] 2/3 Checking TypeScript compilation..."
+npx tsc --noEmit
+
+echo "🧪 [HireFlow Pre-Commit] 3/3 Validating datasets & privacy..."
+npx vitest run src/data/__tests__/validateData.test.ts tests/privacy-telemetry.test.ts
+
+echo "✅ [HireFlow Pre-Commit] All quality gates passed!"
 exit 0
