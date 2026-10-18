@@ -7,3 +7,7 @@
 export * from '../features/ats/engine';
 export { rankFixes, simulateFix, simulateFix as simulateScoreDelta } from '../features/suite/engine/simulateFix';
 export { buildQuickSummary, buildQuickSummary as generateQuickSummary } from '../features/suite/engine/quickSummary';
+export * from './ingestion';
+export * from './matching';
+export * from './ledger';
+

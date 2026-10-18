@@ -35,15 +35,15 @@ Traceability table mapping every requirement ID to its stage, acceptance test/va
 | **R3.8** | Stage 3 | Non-fabricating entity extraction (degrees, CGPA, links) | `src/engine/ingestion/entityExtractor.ts` | **DONE** |
 | **R3.9** | Stage 3 | Ingestion diagnostics object & "What a parser sees" preview | `tests/ingestion/layout-kit.test.ts` | **DONE** |
 | **R3.10**| Stage 3 | Layout test kit (single, two-col, sidebar, grid, RTL glyphs) | `tests/ingestion/layout-kit.test.ts` | **DONE** |
-| **R4.1** | Stage 4 | Canonical skill dictionary in `src/data/skills/` | Skill registry tests | PENDING |
-| **R4.2** | Stage 4 | Optional open-taxonomy import script (ESCO / O*NET CC-BY-4.0) | `scripts/import-taxonomy.ts` | PENDING |
-| **R4.3** | Stage 4 | Tokeniser with alias resolution & span offsets | Tokeniser unit tests | PENDING |
-| **R4.4** | Stage 4 | Context & negation classifier (negated, weak, planned, strong)| Negation tests | PENDING |
-| **R4.5** | Stage 4 | Evidence levels L0 (listed) to L3 (metric outcome) | Evidence classifier tests | PENDING |
-| **R4.6** | Stage 4 | JD segmentation & mandatory vs preferred classification | JD parser tests | PENDING |
-| **R4.7** | Stage 4 | Match classification: DIRECT, TRANSFERABLE, PARTIAL, MISSING | Matcher tests | PENDING |
-| **R4.8** | Stage 4 | Configurable hard-skill weighted coverage | Score engine tests | PENDING |
-| **R4.9** | Stage 4 | 60+ matcher test cases & comparison against baseline | `docs/engine-delta.md` | PENDING |
+| **R4.1** | Stage 4 | Canonical skill dictionary in `src/data/skills/` | Skill registry & type tests | **DONE** |
+| **R4.2** | Stage 4 | Optional open-taxonomy import script (ESCO / O*NET CC-BY-4.0) | `scripts/import-taxonomy.ts`, `docs/ATTRIBUTION.md` | **DONE** |
+| **R4.3** | Stage 4 | Tokeniser with alias resolution & span offsets | `tests/matcher/matcher.test.ts` | **DONE** |
+| **R4.4** | Stage 4 | Context & negation classifier (negated, weak, planned, strong)| `tests/matcher/matcher.test.ts` | **DONE** |
+| **R4.5** | Stage 4 | Evidence levels L0 (listed) to L3 (metric outcome) | `tests/matcher/matcher.test.ts` | **DONE** |
+| **R4.6** | Stage 4 | JD segmentation & mandatory vs preferred classification | `tests/matcher/matcher.test.ts` | **DONE** |
+| **R4.7** | Stage 4 | Match classification: DIRECT, TRANSFERABLE, PARTIAL, MISSING | `tests/matcher/matcher.test.ts` | **DONE** |
+| **R4.8** | Stage 4 | Configurable hard-skill weighted coverage | `tests/matcher/matcher.test.ts` | **DONE** |
+| **R4.9** | Stage 4 | 60+ matcher test cases & comparison against baseline | `docs/engine-delta.md` (60/60 passing) | **DONE** |
 | **R5.1** | Stage 5 | 4 calibrated scoring pillars (Hard skills, Evidence, Fresher, Format) | Scorer unit tests | PENDING |
 | **R5.2** | Stage 5 | Writing & evidence rules with question-based fixes | `tests/writing-rules.test.ts` | PENDING |
 | **R5.3** | Stage 5 | Indian fresher readiness heuristics (projects, GitHub, CGPA note)| Readiness tests | PENDING |

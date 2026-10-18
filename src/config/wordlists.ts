@@ -125,3 +125,40 @@ export const INDIAN_BOARDS = [
   'Andhra Pradesh Board',
   'Telangana Board',
 ] as const;
+
+/** JD Requirement Classification Keywords (R4.6) */
+export const MANDATORY_KEYWORDS = [
+  'must',
+  'must have',
+  'required',
+  'mandatory',
+  'essential',
+  'should have',
+  'proficient in',
+  'strong experience',
+  'hands-on',
+  'proven experience',
+  'deep understanding',
+] as const;
+
+export const PREFERRED_KEYWORDS = [
+  'good to have',
+  'preferred',
+  'plus',
+  'bonus',
+  'nice to have',
+  'desirable',
+  'advantage',
+  'an asset',
+  'familiarity with',
+] as const;
+
+export const NON_SCORED_JD_PATTERNS = [
+  /\b(?:notice\s*period|immediate\s*joiner|serving\s*notice)\b/i,
+  /\b(?:location|work\s*location|work\s*from\s*home|wfh|hybrid|remote)\b/i,
+  /\b(?:shift|night\s*shift|rotational\s*shift|day\s*shift)\b/i,
+  /\b(?:bond|service\s*agreement|training\s*period)\b/i,
+  /\b(?:salary|ctc|package|perks|benefits|health\s*insurance)\b/i,
+  /\b(?:equal\s*opportunity|diversity\s*and\s*inclusion)\b/i,
+] as const;
+
