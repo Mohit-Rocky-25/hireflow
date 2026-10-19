@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, Sparkles, ArrowRight, Menu, X, Compass, FileSearch, Award } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Sparkles, ArrowRight, Menu, X, Compass, FileSearch, Award, Scale, Database } from 'lucide-react';
 
 export function PublicNavbar() {
   const navigate = useNavigate();
@@ -136,6 +136,22 @@ export function PublicNavbar() {
             >
               <Award className="w-4 h-4 text-emerald-400" />
               <span>Credential & Opportunity Engine</span>
+            </Link>
+            <Link
+              to="/methodology"
+              onClick={() => setMobileMenuOpen(false)}
+              className="px-4 py-2.5 rounded-xl text-[14px] font-medium text-text-secondary hover:text-text hover:bg-surface-2 flex items-center gap-2"
+            >
+              <Scale className="w-4 h-4 text-emerald-400" />
+              <span>Scoring Methodology</span>
+            </Link>
+            <Link
+              to="/data"
+              onClick={() => setMobileMenuOpen(false)}
+              className="px-4 py-2.5 rounded-xl text-[14px] font-medium text-text-secondary hover:text-text hover:bg-surface-2 flex items-center gap-2"
+            >
+              <Database className="w-4 h-4 text-cyan-400" />
+              <span>Your Data & Privacy</span>
             </Link>
           </div>
         </div>

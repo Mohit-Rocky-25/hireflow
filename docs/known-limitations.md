@@ -1,30 +1,31 @@
-# HireFlow v3 — Known Limitations
+# HireFlow v4: Known Architectural Limitations
 
-To maintain absolute transparency with engineering freshers and developers, this document outlines known operational boundaries and technical limitations of HireFlow v3:
-
----
-
-## 1. Scanned & Image-Only PDFs (No OCR)
-- **Limitation**: HireFlow operates strictly client-side using `pdfjs-dist` to extract vector text streams. It does not package heavy client-side OCR engines (like Tesseract.js).
-- **Behavior**: If an uploaded PDF contains only flattened bitmap images without an underlying text layer, the ingestion pipeline safely flags:
-  > *"This looks like a scanned image. OCR isn't supported; paste the text or upload a DOCX."*
-- **Workaround**: Candidates should export directly from Microsoft Word / Google Docs as a standard PDF or paste their resume text directly.
+An honest, transparent accounting of system boundaries, heuristics, platform constraints, and operating limitations.
 
 ---
 
-## 2. Highly Complex Graphic / Canva Layouts
-- **Limitation**: Resumes featuring 3+ columns, overlapping floating text boxes, circular graphic callouts, or irregular infographic flow may cause text interleaving.
-- **Behavior**: The ingestion pipeline detects baseline shifts and assigns a `readingOrderConfidence: "low"`.
-- **Workaround**: Candidates are prompted to review the *"What a parser sees"* raw text preview in the ATS Roaster and make manual corrections if needed.
+## 1. Local-Only Storage & Zero Cloud Sync
+- **No User Accounts or Server Database**: HireFlow does not have a backend user database, cloud sync, or multi-device account system. All profiles, scan histories, saved JDs, and feedback remain purely on the candidate's local browser device.
+- **Device & Browser Siloing**: Data created in Google Chrome on Desktop will not automatically appear in Safari on iPhone or another machine. Data portability is achieved manually via JSON export/import at `/data`.
+- **LocalStorage Capacity Constraints**: Browsers enforce an origin storage quota of approximately 5 MB to 10 MB for `localStorage`. HireFlow enforces strict collection caps (e.g. 60 scans, 40 JDs, 50 roles) to prevent quota exhaustion. When caps are reached, the user must export a backup or delete items.
 
 ---
 
-## 3. Pure Deterministic Processing (Zero Hallucination)
-- **Limitation**: HireFlow deliberately excludes non-deterministic LLM runtime APIs from the core candidate tool path to honor Privacy (P-2) and Truth Gates (P-1).
-- **Behavior**: The system will NEVER generate fictional metrics, project deliverables, or dates to boost scores. If an applicant has not provided project impact metrics, the engine can only provide guided questions, not fabricated bullets.
+## 2. Deterministic Heuristics & Scoring Boundaries
+- **Unvalidated Third-Party ATS Emulation**: HireFlow's scoring algorithms reflect internal deterministic rubrics (weighting quantified metrics, strong action verbs, and keyword alignment). They **do not** predict with certainty what any third-party corporate Applicant Tracking System (such as Workday, Taleo, Greenhouse, or Lever) will decide.
+- **Zero Probability Guarantees**: HireFlow never produces "acceptance probability", "callback probability", or claims that "X% of resumes are auto-rejected". All scoring outputs are labeled as internal benchmark estimates.
+- **Preset Data Provenance**: The 7 Fresher Role Presets in `role-presets.json` are curated archetypes based on Indian fresher campus hiring patterns; they should be adjusted to specific job descriptions whenever an exact JD is available.
 
 ---
 
-## 4. Local-Only Storage Scope
-- **Limitation**: All resume variants, tailored profiles, and outreach drafts persist exclusively in the browser's `localStorage` / `sessionStorage`.
-- **Behavior**: Clearing browser cache or switching devices will reset saved drafts unless exported as DOCX / TXT.
+## 3. Secure Context & Network Restrictions (P-13)
+- **Local Network (LAN) HTTP Limitations**:
+  - The W3C Service Worker API and Web Cryptography API (`crypto.subtle`) strictly require a Secure Context (`https://` or `http://localhost`).
+  - When testing on a physical smartphone over a local Wi-Fi IP address (e.g. `http://192.168.1.100:5173`), modern mobile browsers automatically disable Service Worker registration and `crypto.subtle`.
+  - **Graceful Degradation**: HireFlow handles this without throwing errors by falling back to FNV-1a 64-bit hashing and standard network requests, but offline PWA capabilities will not activate over plain HTTP on LAN.
+
+---
+
+## 4. Parser & Layout Limitations
+- **Multi-Column & Complex PDF Layouts**: PDF text extraction is performed via client-side `pdfjs-dist`. Resumes with complex multi-column floating boxes, graphics, or non-standard font encodings may extract with non-linear word order. HireFlow provides a raw text editor and fallback paste mode to verify extracted text.
+- **File Upload Limits**: Client-side document parsers enforce maximum upload boundaries (`maxFileUploadMB: 5MB`, `maxPdfPages: 6 pages`) to prevent browser main-thread freezing.

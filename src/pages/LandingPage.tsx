@@ -419,10 +419,11 @@ export function LandingPage() {
               </div>
               <span className="text-[18px] font-bold text-text tracking-[-0.02em]">HireFlow</span>
             </div>
-            <div className="flex gap-[32px] text-[15px] font-medium text-text-secondary">
+            <div className="flex flex-wrap gap-[24px] text-[15px] font-medium text-text-secondary">
+              <Link to="/tools" className="hover:text-primary transition-colors duration-[200ms]">Tools Hub</Link>
+              <Link to="/methodology" className="hover:text-primary transition-colors duration-[200ms]">Methodology</Link>
+              <Link to="/data" className="hover:text-primary transition-colors duration-[200ms]">Your Data</Link>
               <Link to="/demo" className="hover:text-primary transition-colors duration-[200ms]">AI Context</Link>
-              <Link to="/login" className="hover:text-primary transition-colors duration-[200ms]">Sign In</Link>
-              <Link to="/register" className="hover:text-primary transition-colors duration-[200ms]">Register</Link>
             </div>
             <p className="text-[14px] text-text-muted">© 2026 HireFlow. Built for the future of work.</p>
           </div>

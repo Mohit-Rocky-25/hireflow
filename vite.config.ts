@@ -2,6 +2,7 @@ import { defineConfig, loadEnv, Plugin } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import path from 'node:path'
+import fs from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { runHybridAnalysis } from './src/lib/ats/pipeline'
 
@@ -170,8 +171,57 @@ function portBridgePlugin(): Plugin {
   };
 }
 
+function cspBuildPlugin(): Plugin {
+  return {
+    name: 'csp-meta-injector',
+    apply: 'build',
+    transformIndexHtml(html) {
+      const cspPolicy = "default-src 'self'; script-src 'self'; worker-src 'self' blob:; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self';";
+      const metaTag = `<meta http-equiv="Content-Security-Policy" content="${cspPolicy}">`;
+      return html.replace('</head>', `    ${metaTag}\n  </head>`);
+    },
+  };
+}
+
+function pwaBuildPlugin(): Plugin {
+  return {
+    name: 'pwa-precache-injector',
+    apply: 'build',
+    closeBundle() {
+      try {
+        const distDir = path.resolve(process.cwd(), 'dist');
+        const assetsDir = path.join(distDir, 'assets');
+        const swPath = path.join(distDir, 'sw.js');
+
+        if (!fs.existsSync(swPath) || !fs.existsSync(assetsDir)) {
+          return;
+        }
+
+        const assetFiles = fs.readdirSync(assetsDir);
+        const dynamicAssets = assetFiles
+          .filter((f) => f.endsWith('.js') || f.endsWith('.css'))
+          .map((f) => `/assets/${f}`);
+
+        let swContent = fs.readFileSync(swPath, 'utf-8');
+
+        // Prepend dynamic assets to PRECACHE_ASSETS array
+        const injection = JSON.stringify(dynamicAssets, null, 2);
+        swContent = swContent.replace(
+          'const PRECACHE_ASSETS = [',
+          `const PRECACHE_ASSETS = [\n  ...${injection},`
+        );
+
+        fs.writeFileSync(swPath, swContent, 'utf-8');
+        console.log(`[PWA Plugin] Injected ${dynamicAssets.length} build assets into dist/sw.js precache`);
+      } catch (err) {
+        console.warn('[PWA Plugin] Failed to inject dynamic assets into sw.js:', err);
+      }
+    },
+  };
+}
+
 export default defineConfig({
-  plugins: [react(), tailwindcss(), atsApiPlugin(), portBridgePlugin()],
+  plugins: [react(), tailwindcss(), atsApiPlugin(), portBridgePlugin(), cspBuildPlugin(), pwaBuildPlugin()],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),

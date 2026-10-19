@@ -13,5 +13,6 @@ export default defineConfig({
     globals: true,
     environment: 'node',
     maxWorkers: 2,
+    pool: 'threads',
   },
 });

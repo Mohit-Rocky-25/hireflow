@@ -23,6 +23,9 @@ import {
   Layers,
   Database,
   Sparkles,
+  Scale,
+  History,
+  Bookmark,
 } from 'lucide-react';
 
 interface RouteItem {
@@ -178,6 +181,40 @@ export function LocalhostNavigator() {
       badge: 'Dev Utility',
       description: 'Raw taxonomy and careers dataset browser for developers',
       icon: Database,
+    },
+    {
+      id: 'methodology',
+      name: 'Scoring Methodology & Transparency',
+      path: '/methodology',
+      category: 'Public Explorers',
+      badge: 'Zero Black Box',
+      description: 'Mathematical derivation, ATS weights, constants, and diagnostic reports',
+      icon: Scale,
+    },
+    {
+      id: 'your-data',
+      name: 'Your Data & Privacy Settings',
+      path: '/data',
+      category: 'Career Decision Suite',
+      badge: 'Local Only',
+      description: 'Inspect device storage, export/import backups, and clear all data',
+      icon: Database,
+    },
+    {
+      id: 'scan-history',
+      name: 'Scan History & Trajectory',
+      path: '/history',
+      category: 'Career Decision Suite',
+      description: 'Review ATS scan progression, score trends, and compare scans',
+      icon: History,
+    },
+    {
+      id: 'jd-library',
+      name: 'Saved Job Descriptions Library',
+      path: '/jd-library',
+      category: 'Career Decision Suite',
+      description: 'Saved JD catalog and cross-JD market demand skill aggregation',
+      icon: Bookmark,
     },
   ];
 
