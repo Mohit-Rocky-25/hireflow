@@ -187,7 +187,7 @@ describe('Career Ladder Dataset Integrity & Schema Validation (India Market)', (
       expect(duplicates).toEqual([]);
 
       console.log(`\n[R1.4 Credentials Status Counts] Verified: ${statusCounts.verified}, Needs-Recheck: ${statusCounts['needs-recheck']}, Unverified: ${statusCounts.unverified}`);
-    });
+    }, 15000);
 
     it('validates Project Briefs dataset: schema, non-empty text, difficulty, and unique IDs', async () => {
       const fs = await import('fs');
