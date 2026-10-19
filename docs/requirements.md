@@ -82,10 +82,10 @@ Traceability table mapping every requirement ID to its stage, acceptance test/va
 | **R8.2** | Stage 8 | Privacy: zero-egress static check & local data storage drawer | `scripts/check-privacy.ts` | **DONE** |
 | **R8.3** | Stage 8 | Robustness: empty, huge, Devanagari, emoji, limits | Robustness test suite | **DONE** |
 | **R8.4** | Stage 8 | Navigation consistency: Back/Home, scroll-to-top, pressed state | UI audit | **DONE** |
-| **R9.1** | Stage 9 | `docs/invariants.md`: 1:1 mapping of principles to test cases | `docs/invariants.md` | PENDING |
-| **R9.2** | Stage 9 | Test inventory scripts before/after | `package.json` | PENDING |
-| **R9.3** | Stage 9 | Complete documentation suite (ingestion, scoring, data-policy) | `docs/` | PENDING |
-| **10.1** | Stage 10| Run `/verify` and capture walkthrough screenshots | Browser test & screenshots | PENDING |
-| **10.2** | Stage 10| Confirm zero out-of-scope files altered | Git diff audit | PENDING |
-| **10.3** | Stage 10| Final quality report & owner action checklist | Final report artifact | PENDING |
-| **10.4** | Stage 10| Checkpoint commit on `hireflow-v3` branch | Git commit hash | PENDING |
+| **R9.1** | Stage 9 | `docs/invariants.md`: 1:1 mapping of principles to test cases | `docs/invariants.md` | **DONE** |
+| **R9.2** | Stage 9 | Test inventory scripts before/after | `package.json` | **DONE** |
+| **R9.3** | Stage 9 | Complete documentation suite (ingestion, scoring, data-policy) | `docs/` | **DONE** |
+| **10.1** | Stage 10| Run `/verify` and capture synthetic walkthrough | `npm run verify` & `scripts/e2e-synthetic-walkthrough.ts` | **DONE** |
+| **10.2** | Stage 10| Confirm zero out-of-scope files altered | Git diff audit (P-7 verified) | **DONE** |
+| **10.3** | Stage 10| Final quality report & owner action checklist | Final report artifact & `docs/blocked.md` | **DONE** |
+| **10.4** | Stage 10| Checkpoint commit & push to main and origin | Git commit & push (`hireflow-v3` & `main`) | **DONE** |

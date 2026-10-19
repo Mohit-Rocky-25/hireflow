@@ -81,14 +81,14 @@ export function evaluateTruthGate(input: TruthGateInput): TruthGateOutput {
   harvestFactsFromText(addedContext);
 
   // Harvest from candidate ledger
-  candidateLedger.skills.forEach((s: any) => {
+  candidateLedger?.skills?.forEach((s: any) => {
     const skillName = typeof s === 'string' ? s : s.displayName || s.skillId;
     const skillId = typeof s === 'string' ? s : s.skillId;
     verifiedSkills.add(skillId);
     verifiedSkills.add(normalizeFact(skillName));
   });
 
-  candidateLedger.education.forEach((edu: any) => {
+  candidateLedger?.education?.forEach((edu: any) => {
     if (edu.institute) verifiedCompanies.add(normalizeFact(edu.institute));
     if (edu.startYear) verifiedDates.add(String(edu.startYear));
     if (edu.endYear) verifiedDates.add(String(edu.endYear));
@@ -97,12 +97,12 @@ export function evaluateTruthGate(input: TruthGateInput): TruthGateOutput {
     if (edu.percentage) verifiedMetrics.add(normalizeFact(String(edu.percentage)));
   });
 
-  candidateLedger.projects.forEach((proj: any) => {
+  candidateLedger?.projects?.forEach((proj: any) => {
     proj.techStack?.forEach((t: string) => verifiedSkills.add(normalizeFact(t)));
     proj.bullets?.forEach((b: string) => harvestFactsFromText(b));
   });
 
-  candidateLedger.internships.forEach((intern: any) => {
+  candidateLedger?.internships?.forEach((intern: any) => {
     const company = intern.org || intern.company;
     if (company) verifiedCompanies.add(normalizeFact(company));
     if (intern.startYear) verifiedDates.add(String(intern.startYear));
@@ -110,13 +110,13 @@ export function evaluateTruthGate(input: TruthGateInput): TruthGateOutput {
     intern.bullets?.forEach((b: string) => harvestFactsFromText(b));
   });
 
-  candidateLedger.certifications.forEach((cert: any) => {
+  candidateLedger?.certifications?.forEach((cert: any) => {
     if (cert.name) verifiedCredentials.add(normalizeFact(cert.name));
     if (cert.issuer) verifiedCompanies.add(normalizeFact(cert.issuer));
     if (cert.year) verifiedDates.add(String(cert.year));
   });
 
-  candidateLedger.achievements.forEach((ach: any) => {
+  candidateLedger?.achievements?.forEach((ach: any) => {
     const text = typeof ach === 'string' ? ach : [ach.title, ach.description].filter(Boolean).join(' ');
     harvestFactsFromText(text);
   });
