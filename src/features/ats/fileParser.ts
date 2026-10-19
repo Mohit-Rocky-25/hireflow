@@ -11,20 +11,19 @@ if (typeof (Promise as any).withResolvers === 'undefined') {
   };
 }
 
-import * as pdfjsLib from 'pdfjs-dist/legacy/build/pdf.mjs';
-import mammoth from 'mammoth';
-import JSZip from 'jszip';
-
-// Configure PDF.js worker for browser execution
-if (typeof window !== 'undefined' && !pdfjsLib.GlobalWorkerOptions.workerSrc) {
-  try {
-    pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
-      'pdfjs-dist/legacy/build/pdf.worker.min.mjs',
-      import.meta.url
-    ).toString();
-  } catch {
-    // fallback in non-standard environments
+async function getPdfJs() {
+  const pdfjsLib = await import('pdfjs-dist/legacy/build/pdf.mjs');
+  if (typeof window !== 'undefined' && !pdfjsLib.GlobalWorkerOptions.workerSrc) {
+    try {
+      pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
+        'pdfjs-dist/legacy/build/pdf.worker.min.mjs',
+        import.meta.url
+      ).toString();
+    } catch {
+      // fallback in non-standard environments
+    }
   }
+  return pdfjsLib;
 }
 
 export interface FileParseResult {
@@ -156,6 +155,7 @@ function assembleLinesFromItems(items: TextItemWithPos[]): string[] {
  * Extracts clean text from PDF using PDF.js with two-column detection and header/footer filtering.
  */
 async function extractTextFromPdf(buffer: ArrayBuffer): Promise<{ text: string; pageCount: number }> {
+  const pdfjsLib = await getPdfJs();
   const loadingTask = pdfjsLib.getDocument({
     data: new Uint8Array(buffer),
     useSystemFonts: true,
@@ -244,6 +244,8 @@ async function extractTextFromPdf(buffer: ArrayBuffer): Promise<{ text: string; 
 async function extractTextFromDocx(buffer: ArrayBuffer): Promise<string> {
   // Strategy 1: Mammoth
   try {
+    const mammothModule = (await import('mammoth')) as any;
+    const mammoth = mammothModule.default || mammothModule;
     const globalBuf = (globalThis as { Buffer?: { from: (buf: ArrayBuffer) => unknown } }).Buffer;
     const nodeBuffer = typeof globalBuf !== 'undefined' ? globalBuf.from(buffer) : undefined;
     const options = nodeBuffer
@@ -259,6 +261,8 @@ async function extractTextFromDocx(buffer: ArrayBuffer): Promise<string> {
 
   // Strategy 2: Direct OpenXML extraction via JSZip
   try {
+    const jszipModule = (await import('jszip')) as any;
+    const JSZip = jszipModule.default || jszipModule;
     const zip = await JSZip.loadAsync(buffer);
     const docXmlFile = zip.file('word/document.xml');
     if (docXmlFile) {
