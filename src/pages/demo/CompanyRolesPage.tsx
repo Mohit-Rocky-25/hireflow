@@ -28,7 +28,7 @@ import {
   Info,
   Sparkles,
 } from 'lucide-react';
-import { PublicNavbar } from '../../app/layout/PublicNavbar';
+import { PublicNavbar } from '../../components/common/PublicNavbar';
 import { careers, useEligibility, DataBadge } from '../../careers-core';
 import type { FresherProgram } from '../../careers-core';
 import {

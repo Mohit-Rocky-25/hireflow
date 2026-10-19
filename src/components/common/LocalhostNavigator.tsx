@@ -29,7 +29,7 @@ interface RouteItem {
   id: string;
   name: string;
   path: string;
-  category: 'Suite & Tools' | 'Public & Portals' | 'Dashboards & Admin';
+  category: 'Career Decision Suite' | 'Public Explorers';
   badge?: string;
   description: string;
   icon: React.ComponentType<{ className?: string }>;
@@ -67,7 +67,7 @@ export function LocalhostNavigator() {
       id: 'credentials',
       name: 'Credential & Opportunity Engine',
       path: '/tools/credential-engine',
-      category: 'Suite & Tools',
+      category: 'Career Decision Suite',
       badge: 'Updated & Live',
       description: '102 verified hackathons, open source, & certifications with full-page detail view',
       icon: Award,
@@ -76,7 +76,7 @@ export function LocalhostNavigator() {
       id: 'resume-checker',
       name: 'ATS Resume Roaster',
       path: '/tools/resume-checker',
-      category: 'Suite & Tools',
+      category: 'Career Decision Suite',
       badge: 'Core Tool',
       description: 'Harsh invariant ATS checker with verbatim citations & score auditing',
       icon: FileSearch,
@@ -85,7 +85,7 @@ export function LocalhostNavigator() {
       id: 'tailor',
       name: 'Resume Tailor Engine',
       path: '/tools/tailor',
-      category: 'Suite & Tools',
+      category: 'Career Decision Suite',
       badge: 'Core Tool',
       description: 'Truth-checked resume bullet tailoring and context-enhanced alignment',
       icon: FileEdit,
@@ -94,7 +94,7 @@ export function LocalhostNavigator() {
       id: 'jd-compare',
       name: 'Compare Job Descriptions',
       path: '/tools/jd-compare',
-      category: 'Suite & Tools',
+      category: 'Career Decision Suite',
       description: 'Side-by-side JD skill extraction, compensation, and gap analysis',
       icon: GitCompare,
     },
@@ -102,7 +102,7 @@ export function LocalhostNavigator() {
       id: 'reach-out',
       name: 'Executive Outreach Generator',
       path: '/tools/reach-out',
-      category: 'Suite & Tools',
+      category: 'Career Decision Suite',
       description: 'Targeted recruiter, peer, and hiring manager outreach copy',
       icon: Mail,
     },
@@ -110,7 +110,7 @@ export function LocalhostNavigator() {
       id: 'build-briefs',
       name: 'Executive Briefs Builder',
       path: '/tools/build-briefs',
-      category: 'Suite & Tools',
+      category: 'Career Decision Suite',
       description: 'Distill and export structured career briefs for interviews',
       icon: FolderGit2,
     },
@@ -118,7 +118,7 @@ export function LocalhostNavigator() {
       id: 'career-path',
       name: 'Career Path Hub',
       path: '/tools/career-path',
-      category: 'Suite & Tools',
+      category: 'Career Decision Suite',
       description: 'Role ladders, progression timelines, and promotion benchmarks',
       icon: Compass,
     },
@@ -126,7 +126,7 @@ export function LocalhostNavigator() {
       id: 'dream-job-roadmap',
       name: 'Dream Job Roadmap',
       path: '/tools/career-path/dream-job-roadmap',
-      category: 'Suite & Tools',
+      category: 'Career Decision Suite',
       description: 'Step-by-step career pathing simulator to reach tier-1 target jobs',
       icon: Compass,
     },
@@ -134,7 +134,7 @@ export function LocalhostNavigator() {
       id: 'company-levels',
       name: 'Company Levels Matrix',
       path: '/tools/career-path/company-levels',
-      category: 'Suite & Tools',
+      category: 'Career Decision Suite',
       description: 'Cross-company engineering level mapping (FAANG, Unicorns, GCCs)',
       icon: Layers,
     },
@@ -142,93 +142,42 @@ export function LocalhostNavigator() {
       id: 'talent-lens',
       name: 'TalentLens Simulator',
       path: '/tools/talent-lens',
-      category: 'Suite & Tools',
+      category: 'Career Decision Suite',
       description: 'Simulate recruiter evaluation of your candidate profile',
       icon: UserCheck,
-    },
-    {
-      id: 'home',
-      name: 'Home / Landing Page',
-      path: '/',
-      category: 'Public & Portals',
-      description: 'HireFlow public hero landing page with feature showcase',
-      icon: Home,
     },
     {
       id: 'tools-hub',
       name: 'Free Tools Hub',
       path: '/tools',
-      category: 'Public & Portals',
+      category: 'Career Decision Suite',
       description: 'Central directory of all candidate career tools and simulators',
       icon: Layers,
     },
     {
-      id: 'portal',
-      name: 'Candidate Portal',
-      path: '/portal',
-      category: 'Public & Portals',
-      description: 'Candidate profile, saved applications, and timeline view',
-      icon: UserCheck,
+      id: 'home',
+      name: 'Home / Landing Page',
+      path: '/',
+      category: 'Public Explorers',
+      description: 'HireFlow public hero landing page with feature showcase',
+      icon: Home,
     },
     {
       id: 'matching-demo',
       name: 'Company Matching Demo',
       path: '/demo',
-      category: 'Public & Portals',
+      category: 'Public Explorers',
       description: 'Interactive company-candidate matching algorithm visualizer',
       icon: Sparkles,
-    },
-    {
-      id: 'login',
-      name: 'Login Portal',
-      path: '/login',
-      category: 'Public & Portals',
-      description: 'Authentication login page with demo role switches',
-      icon: UserCheck,
-    },
-    {
-      id: 'register',
-      name: 'Register Account',
-      path: '/register',
-      category: 'Public & Portals',
-      description: 'Candidate and Recruiter onboarding registration flow',
-      icon: UserCheck,
     },
     {
       id: 'dev-careers-data',
       name: 'Careers Data Explorer',
       path: '/dev/careers-data',
-      category: 'Public & Portals',
+      category: 'Public Explorers',
       badge: 'Dev Utility',
       description: 'Raw taxonomy and careers dataset browser for developers',
       icon: Database,
-    },
-    {
-      id: 'company-dashboard',
-      name: 'Company / Recruiter Dashboard',
-      path: '/company/dashboard',
-      category: 'Dashboards & Admin',
-      badge: 'Protected',
-      description: 'Recruiter pipeline, applicant review, and candidate intelligence',
-      icon: Building2,
-    },
-    {
-      id: 'interviewer-dashboard',
-      name: 'Interviewer Dashboard',
-      path: '/interviewer/dashboard',
-      category: 'Dashboards & Admin',
-      badge: 'Protected',
-      description: 'Scheduled interviews, scorecard inputs, and notes',
-      icon: UserCheck,
-    },
-    {
-      id: 'admin-dashboard',
-      name: 'Admin Dashboard',
-      path: '/admin/dashboard',
-      category: 'Dashboards & Admin',
-      badge: 'Protected',
-      description: 'Platform management, companies, user roles, and audit log',
-      icon: ShieldAlert,
     },
   ];
 
@@ -374,7 +323,7 @@ export function LocalhostNavigator() {
 
             {/* Routes List */}
             <div className="flex-1 overflow-y-auto px-6 py-4 space-y-6">
-              {['Suite & Tools', 'Public & Portals', 'Dashboards & Admin'].map((category) => {
+              {(['Career Decision Suite', 'Public Explorers'] as const).map((category) => {
                 const categoryRoutes = filteredRoutes.filter((r) => r.category === category);
                 if (categoryRoutes.length === 0) return null;
 

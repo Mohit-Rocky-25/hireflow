@@ -8,7 +8,7 @@ import {
   Shield, Zap, Target, Building2, ChevronRight, Cpu, BarChart3, TrendingUp,
   MessageSquare, FileText, Briefcase, GraduationCap, Flame
 } from "lucide-react";
-import { PublicNavbar } from "../app/layout/PublicNavbar";
+import { PublicNavbar } from "../components/common/PublicNavbar";
 import { careers } from "../careers-core";
 import { COMPANIES } from "./demo/talentLensData";
 

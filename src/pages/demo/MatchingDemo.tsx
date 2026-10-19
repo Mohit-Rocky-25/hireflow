@@ -10,7 +10,7 @@ import {
   Upload, FileText, BarChart3, Briefcase, Zap, Sparkles, X
 } from "lucide-react";
 import { Button } from "../../components/ui/Components";
-import { PublicNavbar } from "../../app/layout/PublicNavbar";
+import { PublicNavbar } from "../../components/common/PublicNavbar";
 import {
   COMPANIES,
   INDUSTRIES,
