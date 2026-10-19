@@ -1,7 +1,15 @@
-// ============================================================
-// HireFlow ATS Resume Roaster — Robust File Parser (Stage 1)
-// Clean extraction for PDF, DOCX, TXT, MD with Garbage Guard
-// ============================================================
+// Ensure Promise.withResolvers is polyfilled for runtimes < Node 22 (e.g. Node 20.x, older browsers)
+if (typeof (Promise as any).withResolvers === 'undefined') {
+  (Promise as any).withResolvers = function <T>() {
+    let resolve!: (value: T | PromiseLike<T>) => void;
+    let reject!: (reason?: any) => void;
+    const promise = new Promise<T>((res, rej) => {
+      resolve = res;
+      reject = rej;
+    });
+    return { promise, resolve, reject };
+  };
+}
 
 import * as pdfjsLib from 'pdfjs-dist/legacy/build/pdf.mjs';
 import mammoth from 'mammoth';
