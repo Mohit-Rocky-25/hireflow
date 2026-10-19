@@ -18,17 +18,13 @@ export function PageNav({ onBack, fallbackRoute = '/tools', preferFallback = tru
       return;
     }
     
-    // If a fallbackRoute is defined and preferFallback is true (or when on a sub-tool page),
-    // navigate directly to fallbackRoute so we don't jump to unrelated history like /tools/career-path.
-    if (fallbackRoute && (preferFallback || location.pathname !== fallbackRoute)) {
-      navigate(fallbackRoute);
-      return;
-    }
-
-    if (window.history.length > 2) {
+    // Per R8.4: Back goes to previous page, with fallback if direct entry
+    if (window.history.state && typeof window.history.state.idx === 'number' && window.history.state.idx > 0) {
+      navigate(-1);
+    } else if (window.history.length > 1) {
       navigate(-1);
     } else {
-      navigate(fallbackRoute || '/');
+      navigate(fallbackRoute || '/tools');
     }
   };
 

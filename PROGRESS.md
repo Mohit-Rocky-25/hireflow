@@ -44,4 +44,4 @@
   - Engine verification suite (`src/__tests__/tailor/verify.test.ts`) **12/12 PASSED (100%)**.
   - **TOTAL TEST PASS RATE: 128 / 128 TESTS GREEN (100%)**.
 - **Dev Server**:
-  - Live preview active at `http://localhost:5175/tools/tailor`.
+  - Live preview active at `http://localhost:5173/tools/tailor` (and bridge at `http://localhost:5176`).

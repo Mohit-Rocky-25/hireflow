@@ -1,0 +1,11 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "Allowlist for justified network or remote URL references in src/. Every entry must carry a verified justification.",
+  "entries": [
+    {
+      "pattern": "fetch\\('/api/ats/analyze'",
+      "file": "src/lib/ats/index.ts",
+      "reason": "Local development server mock proxy fallback; all production candidate tools execute 100% client-side with zero remote data egress."
+    }
+  ]
+}

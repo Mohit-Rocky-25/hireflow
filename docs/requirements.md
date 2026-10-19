@@ -78,10 +78,10 @@ Traceability table mapping every requirement ID to its stage, acceptance test/va
 | **R7.12**| Stage 7 | Company cards search, filters, roles page, Deep Analysis | `CompanyRolesPage.tsx`, `MatchingDemo.tsx` | **DONE** |
 | **R7.13**| Stage 7 | JD completeness audit & compiled data disclosure | `docs/jd-gaps.md`, `CompanyRolesPage.tsx` | **DONE** |
 | **R7.14**| Stage 7 | Deterministic `generateOutreach` with 3 formats & 2 variants | `src/features/suite/outreach/__tests__/generateOutreach.test.ts` | **DONE** |
-| **R8.1** | Stage 8 | A11y: keyboard reachability, visible focus, ARIA labels | `tests/a11y/` | PENDING |
-| **R8.2** | Stage 8 | Privacy: zero-egress static check & local data storage drawer | `scripts/check-privacy.ts` | PENDING |
-| **R8.3** | Stage 8 | Robustness: empty, huge, Devanagari, emoji, limits | Robustness test suite | PENDING |
-| **R8.4** | Stage 8 | Navigation consistency: Back/Home, scroll-to-top, pressed state | UI audit | PENDING |
+| **R8.1** | Stage 8 | A11y: keyboard reachability, visible focus, ARIA labels | `tests/a11y/` | **DONE** |
+| **R8.2** | Stage 8 | Privacy: zero-egress static check & local data storage drawer | `scripts/check-privacy.ts` | **DONE** |
+| **R8.3** | Stage 8 | Robustness: empty, huge, Devanagari, emoji, limits | Robustness test suite | **DONE** |
+| **R8.4** | Stage 8 | Navigation consistency: Back/Home, scroll-to-top, pressed state | UI audit | **DONE** |
 | **R9.1** | Stage 9 | `docs/invariants.md`: 1:1 mapping of principles to test cases | `docs/invariants.md` | PENDING |
 | **R9.2** | Stage 9 | Test inventory scripts before/after | `package.json` | PENDING |
 | **R9.3** | Stage 9 | Complete documentation suite (ingestion, scoring, data-policy) | `docs/` | PENDING |
