@@ -1,0 +1,108 @@
+{
+  "provenance": {
+    "source": "derived from HireFlow role data",
+    "sourceCount": 42,
+    "derivedAt": "2026-10-19T00:00:00.000Z",
+    "status": "unverified"
+  },
+  "families": [
+    {
+      "familyId": "web-fullstack",
+      "title": "Web / Full-stack Developer",
+      "description": "Frontend interfaces, client-side rendering, RESTful APIs, and full-stack component architecture.",
+      "coreSkills": ["JavaScript", "TypeScript", "React", "HTML", "CSS", "REST API", "Git"],
+      "commonSkills": ["Node.js", "Tailwind", "Next.js", "SQL", "PostgreSQL"],
+      "bonusSkills": ["GraphQL", "Docker", "Redis", "Jest", "CI/CD"],
+      "branchTransferable": {
+        "ECE": ["C", "C++", "Linux", "Git", "Computer Networks"],
+        "EEE": ["C", "MATLAB", "Git", "Circuit Logic"],
+        "Mechanical": ["Python", "Algorithms", "CAD/Simulation Math"],
+        "Civil": ["Python", "Data Analysis", "Project Planning"]
+      }
+    },
+    {
+      "familyId": "backend",
+      "title": "Backend Software Engineer",
+      "description": "Server-side services, database modeling, API architecture, concurrency, and caching systems.",
+      "coreSkills": ["Java", "Python", "Node.js", "SQL", "Data Structures", "OOP", "Git"],
+      "commonSkills": ["Spring Boot", "PostgreSQL", "MongoDB", "REST API", "Docker", "Linux"],
+      "bonusSkills": ["Redis", "Kubernetes", "Microservices", "Kafka", "AWS"],
+      "branchTransferable": {
+        "ECE": ["C", "C++", "RTOS", "Linux", "Microcontrollers", "Computer Networks"],
+        "EEE": ["C", "Control Systems", "Microprocessors", "Signal Processing"],
+        "Mechanical": ["Python", "Optimization Algorithms", "Thermodynamics Modeling"],
+        "Civil": ["SQL", "Python", "Structural Matrix Calculations"]
+      }
+    },
+    {
+      "familyId": "data-ml",
+      "title": "Data Science & ML Engineer",
+      "description": "Statistical modeling, predictive machine learning, data wrangling, feature engineering, and pipeline execution.",
+      "coreSkills": ["Python", "SQL", "Pandas", "NumPy", "Data Analysis", "Git"],
+      "commonSkills": ["Scikit-Learn", "Machine Learning", "Data Visualization", "Matplotlib", "Seaborn"],
+      "bonusSkills": ["PyTorch", "TensorFlow", "Deep Learning", "Docker", "NLP", "BigQuery"],
+      "branchTransferable": {
+        "ECE": ["Signal Processing", "Fourier Transforms", "Linear Algebra", "MATLAB", "Python"],
+        "EEE": ["Probability", "Statistics", "Calculus", "MATLAB", "System Modeling"],
+        "Mechanical": ["Finite Element Analysis", "Numerical Methods", "Python", "Data Wrangling"],
+        "Civil": ["GIS Data", "Statistical Surveying", "Python", "Linear Regression"]
+      }
+    },
+    {
+      "familyId": "qa-test",
+      "title": "QA & Test Automation Engineer",
+      "description": "Functional test suites, automation scripting, integration validation, bug tracking, and regression harnesses.",
+      "coreSkills": ["Java", "Python", "Selenium", "Test Automation", "SQL", "Git"],
+      "commonSkills": ["Cypress", "Postman", "API Testing", "Jira", "Linux"],
+      "bonusSkills": ["Docker", "Jenkins", "Performance Testing", "Playwright", "CI/CD"],
+      "branchTransferable": {
+        "ECE": ["Hardware Testing", "Logic Analyzers", "Oscilloscopes", "C", "Verification Protocols"],
+        "EEE": ["System Testing", "Circuit Benchmarking", "Troubleshooting"],
+        "Mechanical": ["Quality Assurance Standards", "Tolerance Testing", "Failure Mode Analysis"],
+        "Civil": ["Material Testing Protocols", "Quality Control Documentation"]
+      }
+    },
+    {
+      "familyId": "embedded-iot",
+      "title": "Embedded Systems & Firmware Engineer",
+      "description": "Microcontroller programming, device drivers, low-level serial protocols, hardware integration, and RTOS.",
+      "coreSkills": ["C", "C++", "Microcontrollers", "Embedded C", "Git", "Linux"],
+      "commonSkills": ["ARM Cortex", "UART", "SPI", "I2C", "RTOS", "PCB Design"],
+      "bonusSkills": ["FreeRTOS", "BLE", "Device Drivers", "Python", "MQTT"],
+      "branchTransferable": {
+        "ECE": ["Digital Electronics", "Microprocessors 8086/8051", "VLSI", "Signals & Systems", "VHDL/Verilog"],
+        "EEE": ["Power Electronics", "Sensor Interfacing", "Microcontrollers", "Electric Drives"],
+        "Mechanical": ["Mechatronics", "Robotics Kinematics", "Sensors & Actuators"],
+        "Civil": ["IoT Sensor Node Deployment", "Environmental Monitoring Hardware"]
+      }
+    },
+    {
+      "familyId": "devops-cloud",
+      "title": "DevOps & Cloud Engineer",
+      "description": "Infrastructure automation, containerization, cloud resource provisioning, and deployment pipelines.",
+      "coreSkills": ["Linux", "Bash", "Docker", "Git", "Networking", "Python"],
+      "commonSkills": ["AWS", "CI/CD", "GitHub Actions", "Kubernetes", "Terraform"],
+      "bonusSkills": ["Ansible", "Prometheus", "Grafana", "Nginx", "CloudFormation"],
+      "branchTransferable": {
+        "ECE": ["Computer Networks", "TCP/IP Protocol Stack", "Linux Kernel Basics", "Shell Scripting"],
+        "EEE": ["Power Grid Systems", "Network Topologies", "System Reliability"],
+        "Mechanical": ["Automation Systems", "Process Engineering Pipelines"],
+        "Civil": ["Infrastructure Planning", "Network Architecture"]
+      }
+    },
+    {
+      "familyId": "mobile",
+      "title": "Mobile App Developer",
+      "description": "Cross-platform and native mobile applications, mobile UI responsiveness, offline storage, and app publishing.",
+      "coreSkills": ["Java", "Kotlin", "React Native", "JavaScript", "REST API", "Git"],
+      "commonSkills": ["Android SDK", "Flutter", "Dart", "Firebase", "State Management"],
+      "bonusSkills": ["Swift", "iOS", "GraphQL", "SQLite", "Push Notifications"],
+      "branchTransferable": {
+        "ECE": ["C", "C++", "Wireless Communication", "Embedded Display UI"],
+        "EEE": ["Microcontroller Interfaces", "Basic Programming"],
+        "Mechanical": ["3D Graphics Math", "Kinematics Visualization"],
+        "Civil": ["Field Inspection Apps", "Survey Data Collection"]
+      }
+    }
+  ]
+}
