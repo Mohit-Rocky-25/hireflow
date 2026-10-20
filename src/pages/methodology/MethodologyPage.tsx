@@ -1,7 +1,8 @@
 /**
- * HireFlow v4: Methodology & Provenance Page (B7)
- * Comprehensive, transparent documentation of all scoring algorithms, data provenance,
- * live configuration constants, and diagnostic report generator.
+ * HireFlow: Scoring Methodology & Provenance Page (Phase 4 Transparency)
+ * Comprehensive, honest, and verifiable documentation of all scoring algorithms,
+ * JD Alignment Index, Project Substance Index, Truth Gate invariants,
+ * live configuration constants, and sanitized diagnostic utilities.
  */
 
 import React, { useState } from 'react';
@@ -16,6 +17,12 @@ import {
   Download,
   Info,
   Scale,
+  Target,
+  Layers,
+  Cpu,
+  CheckCircle2,
+  Lock,
+  Sparkles,
 } from 'lucide-react';
 import {
   ATS_PILLAR_WEIGHTS,
@@ -23,6 +30,9 @@ import {
   MATCH_CLASSIFICATION_MULTIPLIERS,
   EVIDENCE_LEVEL_MULTIPLIERS,
   VERB_STRENGTH_MODIFIERS,
+  JD_ALIGNMENT_WEIGHTS,
+  PROJECT_SUBSTANCE_WEIGHTS,
+  TRUTH_GATE_RULES,
 } from '../../config/scoring';
 import { ENGINE_VERSION, computeConfigFingerprint } from '../../config/versions';
 import { useFeedbackStore } from '../../store/feedbackStore';
@@ -101,18 +111,19 @@ export function MethodologyPage() {
     <div className="min-h-screen bg-slate-950 text-slate-100 py-10 px-4 sm:px-6 lg:px-8 relative">
       <div className="max-w-5xl mx-auto space-y-12">
         <PageNav fallbackRoute="/tools" />
+
         {/* Title Header */}
         <div className="border-b border-slate-800 pb-8">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-semibold mb-4 border border-emerald-500/20">
             <Scale className="h-3.5 w-3.5" />
-            <span>Transparency & Rigor (Requirement B7)</span>
+            <span>Deterministic Rigor &amp; Full Transparency</span>
           </div>
           <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
-            Scoring Methodology & Provenance
+            Scoring Methodology &amp; Provenance
           </h1>
           <p className="mt-3 text-base text-slate-400 max-w-3xl leading-relaxed">
-            HireFlow rejects black-box scoring. Every number, match percentage, and recommendation
-            is mathematically derived from published configuration constants and client-side heuristics.
+            HireFlow rejects black-box scoring and marketing hype. Every metric, match percentage, and guideline
+            is mathematically derived from published configuration constants, verifiable syntax trees, and deterministic client-side heuristics.
           </p>
 
           <div className="mt-6 flex flex-wrap items-center gap-4 text-xs font-mono text-slate-400 bg-slate-900/60 p-3 rounded-lg border border-slate-800">
@@ -124,18 +135,30 @@ export function MethodologyPage() {
           </div>
         </div>
 
-        {/* 100% Client-Side Privacy Guarantee */}
-        <div className="rounded-xl border border-emerald-500/30 bg-emerald-950/20 p-6 flex flex-col sm:flex-row items-start sm:items-center gap-4">
-          <div className="rounded-lg bg-emerald-500/10 p-3 text-emerald-400 shrink-0">
-            <ShieldCheck className="h-8 w-8" />
+        {/* Honest Mission & Diagnostic Framing */}
+        <div className="rounded-2xl border-2 border-blue-500/30 bg-blue-950/20 p-6 sm:p-7 space-y-3">
+          <div className="flex items-center gap-2.5 text-blue-400">
+            <ShieldCheck className="h-6 w-6 shrink-0" />
+            <h2 className="text-lg font-black text-white tracking-wide">
+              Our Technical Philosophy: Deterministic Diagnostics, Zero Magic
+            </h2>
           </div>
-          <div>
-            <h2 className="text-lg font-bold text-white">100% Client-Side Guarantee</h2>
-            <p className="mt-1 text-sm text-slate-300 leading-relaxed">
-              HireFlow never communicates with external servers. All algorithms, parsers, and scoring
-              engines run entirely inside your browser using client-side TypeScript. Your resume data,
-              job descriptions, and scores never leave your local device.
-            </p>
+          <p className="text-sm text-slate-300 leading-relaxed">
+            <strong>HireFlow is an evidence diagnostic tool</strong> designed to help candidates self-audit their resumes before submitting to human hiring managers and applicant tracking systems.
+          </p>
+          <div className="grid sm:grid-cols-3 gap-3 pt-2 text-xs">
+            <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1">
+              <strong className="text-white block">No "AI Probabilities"</strong>
+              <p className="text-slate-400">We do not claim predictive crystal balls. A 75% score means 75/100 points of concrete requirement coverage.</p>
+            </div>
+            <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1">
+              <strong className="text-white block">No Hardcoded Score Bumps</strong>
+              <p className="text-slate-400">Tailoring bullet points computes the real before-and-after ATS delta — never guaranteed fictional boosts (+31 points).</p>
+            </div>
+            <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1">
+              <strong className="text-white block">100% Client-Side Privacy</strong>
+              <p className="text-slate-400">All parsers, tokenizers, and PDF generators run locally in your browser. Zero resume text ever leaves your device.</p>
+            </div>
           </div>
         </div>
 
@@ -193,11 +216,143 @@ export function MethodologyPage() {
           </div>
         </section>
 
-        {/* Section 2: Weighting & Multipliers Table */}
+        {/* Section 2: JD Alignment Index Formula */}
+        <section className="space-y-6">
+          <div className="flex items-center gap-2">
+            <Target className="h-5 w-5 text-blue-400" />
+            <h2 className="text-xl font-bold text-white">2. Job Description Alignment Index (JD Index)</h2>
+          </div>
+          <p className="text-sm text-slate-400 leading-relaxed">
+            Replaces speculative "interview likelihood" with an objective, observable coverage benchmark:
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-3 text-xs">
+            <div className="p-4 rounded-xl border border-slate-800 bg-slate-900/60 space-y-1.5">
+              <span className="text-xs font-bold text-blue-400 uppercase block">
+                {Math.round(JD_ALIGNMENT_WEIGHTS.mustHaveSkills * 100)}% Weight
+              </span>
+              <h3 className="font-bold text-white text-sm">Must-Have Skills</h3>
+              <p className="text-slate-400">Direct or transferable match on mandatory technical requirements.</p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-slate-800 bg-slate-900/60 space-y-1.5">
+              <span className="text-xs font-bold text-emerald-400 uppercase block">
+                {Math.round(JD_ALIGNMENT_WEIGHTS.evidenceDepth * 100)}% Weight
+              </span>
+              <h3 className="font-bold text-white text-sm">Evidence Depth</h3>
+              <p className="text-slate-400">Measured outcomes (L3) vs work bullets (L2) vs simple keyword lists (L0).</p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-slate-800 bg-slate-900/60 space-y-1.5">
+              <span className="text-xs font-bold text-purple-400 uppercase block">
+                {Math.round(JD_ALIGNMENT_WEIGHTS.preferredSkills * 100)}% Weight
+              </span>
+              <h3 className="font-bold text-white text-sm">Preferred Tech</h3>
+              <p className="text-slate-400">Coverage on secondary frameworks, cloud providers, and auxiliary tools.</p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-slate-800 bg-slate-900/60 space-y-1.5">
+              <span className="text-xs font-bold text-amber-400 uppercase block">
+                {Math.round(JD_ALIGNMENT_WEIGHTS.seniorityScope * 100)}% Weight
+              </span>
+              <h3 className="font-bold text-white text-sm">Seniority Scope</h3>
+              <p className="text-slate-400">Alignment of architectural ownership and project scope with target level.</p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-slate-800 bg-slate-900/60 space-y-1.5">
+              <span className="text-xs font-bold text-sky-400 uppercase block">
+                {Math.round(JD_ALIGNMENT_WEIGHTS.formatSafety * 100)}% Weight
+              </span>
+              <h3 className="font-bold text-white text-sm">Parse Safety</h3>
+              <p className="text-slate-400">Header structure, standard section titles, and zero unparsed glyphs.</p>
+            </div>
+          </div>
+        </section>
+
+        {/* Section 3: Project Substance Index Formula */}
+        <section className="space-y-6">
+          <div className="flex items-center gap-2">
+            <Cpu className="h-5 w-5 text-indigo-400" />
+            <h2 className="text-xl font-bold text-white">3. Project Substance Index (Engineering Rigor)</h2>
+          </div>
+          <p className="text-sm text-slate-400 leading-relaxed">
+            Distinguishes real, production-caliber engineering systems from shallow tutorial clones:
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="rounded-xl border border-slate-800 bg-slate-900/50 p-4 space-y-1.5">
+              <span className="text-xs font-semibold text-indigo-400 uppercase tracking-wider">
+                {Math.round(PROJECT_SUBSTANCE_WEIGHTS.architectureSystemsDepth * 100)}% Weight
+              </span>
+              <h3 className="text-base font-bold text-white">Architecture &amp; Systems Depth</h3>
+              <p className="text-xs text-slate-400">
+                Presence of asynchronous job queues (Redis, Kafka), composite indexing, connection pooling, and circuit breaker patterns.
+              </p>
+            </div>
+
+            <div className="rounded-xl border border-slate-800 bg-slate-900/50 p-4 space-y-1.5">
+              <span className="text-xs font-semibold text-emerald-400 uppercase tracking-wider">
+                {Math.round(PROJECT_SUBSTANCE_WEIGHTS.productionRigor * 100)}% Weight
+              </span>
+              <h3 className="text-base font-bold text-white">Production Rigor &amp; Testing</h3>
+              <p className="text-xs text-slate-400">
+                Automated test suites (unit, integration), Dockerfiles, CI/CD deployment pipelines, and live verifiable deployment URLs.
+              </p>
+            </div>
+
+            <div className="rounded-xl border border-slate-800 bg-slate-900/50 p-4 space-y-1.5">
+              <span className="text-xs font-semibold text-sky-400 uppercase tracking-wider">
+                {Math.round(PROJECT_SUBSTANCE_WEIGHTS.quantifiedOutcomes * 100)}% Weight
+              </span>
+              <h3 className="text-base font-bold text-white">Quantified Outcomes</h3>
+              <p className="text-xs text-slate-400">
+                Empirical metrics: p99 latency reduction, sustained throughput/QPS, error rate drops, or storage optimizations.
+              </p>
+            </div>
+
+            <div className="rounded-xl border border-slate-800 bg-slate-900/50 p-4 space-y-1.5">
+              <span className="text-xs font-semibold text-purple-400 uppercase tracking-wider">
+                {Math.round(PROJECT_SUBSTANCE_WEIGHTS.techStackCraftsmanship * 100)}% Weight
+              </span>
+              <h3 className="text-base font-bold text-white">Modern Craftsmanship</h3>
+              <p className="text-xs text-slate-400">
+                Strict type safety, idiomatic error handling, clean repository structure, and absence of generic template code.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Section 4: Truth Gate Non-Negotiable Invariants */}
+        <section className="space-y-6">
+          <div className="flex items-center gap-2">
+            <Lock className="h-5 w-5 text-amber-400" />
+            <h2 className="text-xl font-bold text-white">4. Truth Gate Verification Invariants</h2>
+          </div>
+          <p className="text-sm text-slate-400 leading-relaxed">
+            Every candidate tailoring pass is gated by deterministic truth verification rules:
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {TRUTH_GATE_RULES.map((rule) => (
+              <div key={rule.id} className="p-4 rounded-xl border border-slate-800 bg-slate-900/50 space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-xs font-bold text-amber-400">{rule.id}</span>
+                  <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20 uppercase">
+                    Non-Negotiable
+                  </span>
+                </div>
+                <h3 className="text-sm font-black text-white">{rule.rule}</h3>
+                <p className="text-xs text-slate-400 leading-relaxed">{rule.description}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Section 5: Weighting & Multipliers Table */}
         <section className="space-y-6">
           <div className="flex items-center gap-2">
             <FileCode className="h-5 w-5 text-sky-400" />
-            <h2 className="text-xl font-bold text-white">2. Multipliers & Dynamic Weights</h2>
+            <h2 className="text-xl font-bold text-white">5. Multipliers &amp; Dynamic Weights</h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
@@ -264,11 +419,11 @@ export function MethodologyPage() {
           </div>
         </section>
 
-        {/* Section 3: Data Provenance Table */}
+        {/* Section 6: Data Provenance Table */}
         <section className="space-y-6">
           <div className="flex items-center gap-2">
             <Database className="h-5 w-5 text-purple-400" />
-            <h2 className="text-xl font-bold text-white">3. Data Provenance & Calibration Baselines</h2>
+            <h2 className="text-xl font-bold text-white">6. Data Provenance &amp; Calibration Baselines</h2>
           </div>
           <div className="overflow-x-auto rounded-xl border border-slate-800 bg-slate-900/30">
             <table className="w-full text-left text-xs text-slate-300">
@@ -278,7 +433,7 @@ export function MethodologyPage() {
                   <th className="p-3">Fresher Relevance</th>
                   <th className="p-3">Sample Size</th>
                   <th className="p-3">Observation Period</th>
-                  <th className="p-3">Known Biases & Limits</th>
+                  <th className="p-3">Known Biases &amp; Limits</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-800/60 font-normal">
@@ -296,11 +451,11 @@ export function MethodologyPage() {
           </div>
         </section>
 
-        {/* Section 4: Report a Wrong Result Diagnostic Tool */}
+        {/* Section 7: Report a Wrong Result Diagnostic Tool */}
         <section className="space-y-6 rounded-xl border border-slate-800 bg-slate-900/40 p-6">
           <div className="flex items-center gap-2">
             <AlertTriangle className="h-5 w-5 text-amber-400" />
-            <h2 className="text-xl font-bold text-white">4. "Report a Wrong Result" Diagnostic Utility</h2>
+            <h2 className="text-xl font-bold text-white">7. &ldquo;Report a Wrong Result&rdquo; Diagnostic Utility</h2>
           </div>
           <p className="text-sm text-slate-400 leading-relaxed">
             If an ATS scan or match result seems inaccurate, generate a sanitized diagnostic snapshot.
@@ -388,7 +543,7 @@ export function MethodologyPage() {
             href="/"
             className="text-emerald-400 hover:underline font-medium"
           >
-            ← Return to Candidate Dashboard
+            &larr; Return to Candidate Dashboard
           </a>
         </div>
       </div>
