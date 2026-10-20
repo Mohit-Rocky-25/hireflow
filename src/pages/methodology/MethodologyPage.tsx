@@ -33,6 +33,8 @@ import {
   JD_ALIGNMENT_WEIGHTS,
   PROJECT_SUBSTANCE_WEIGHTS,
   TRUTH_GATE_RULES,
+  MRVI_WEIGHTS,
+  calculateMrvi,
 } from '../../config/scoring';
 import { ENGINE_VERSION, computeConfigFingerprint } from '../../config/versions';
 import { useFeedbackStore } from '../../store/feedbackStore';
@@ -79,6 +81,16 @@ export function MethodologyPage() {
   const [copiedMetricId, setCopiedMetricId] = useState<string | null>(null);
   const [selectedDiagnosticMetric, setSelectedDiagnosticMetric] = useState('overall-ats-score');
   const [diagnosticJson, setDiagnosticJson] = useState<string | null>(null);
+
+  // MRVI Interactive Simulator
+  const [mrviDemand, setMrviDemand] = useState(85);
+  const [mrviRecruiter, setMrviRecruiter] = useState(90);
+  const [mrviRisk, setMrviRisk] = useState(80);
+  const computedMrvi = calculateMrvi({
+    marketDemand: mrviDemand,
+    recruiterImpact: mrviRecruiter,
+    riskMitigation: mrviRisk,
+  });
 
   const feedbackStats = useFeedbackStore((s) => s.getSummaryStats());
   const exportFeedbackJson = useFeedbackStore((s) => s.exportFeedbackJson);
@@ -348,11 +360,87 @@ export function MethodologyPage() {
           </div>
         </section>
 
-        {/* Section 5: Weighting & Multipliers Table */}
+        {/* Section 5: Market Requirement & Value Index (MRVI) */}
+        <section className="space-y-6">
+          <div className="flex items-center gap-2">
+            <Sparkles className="h-5 w-5 text-emerald-400" />
+            <h2 className="text-xl font-bold text-white">5. Market Requirement &amp; Value Index (MRVI)</h2>
+          </div>
+          <p className="text-sm text-slate-400 leading-relaxed">
+            Measures the empirical hiring advantage delivered by each resume capability in the 2025–2026 hiring market:
+          </p>
+
+          <div className="p-5 rounded-2xl border border-emerald-500/30 bg-emerald-950/20 space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-emerald-500/20 pb-4">
+              <div>
+                <span className="text-xs font-mono uppercase text-emerald-400 font-bold tracking-wider">Formula</span>
+                <p className="font-mono text-sm text-emerald-200 mt-0.5">
+                  MRVI = (MarketDemand &times; 40%) + (RecruiterGlance &times; 35%) + (RiskMitigation &times; 25%)
+                </p>
+              </div>
+              <div className="text-right">
+                <span className="text-[11px] font-bold text-slate-400 uppercase block">Simulated Score</span>
+                <span className="text-3xl font-black text-emerald-400 font-mono">{computedMrvi}/100</span>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+              <div className="space-y-2">
+                <div className="flex justify-between text-xs">
+                  <span className="font-semibold text-slate-300">Market Demand Penalty (40%)</span>
+                  <span className="font-mono text-emerald-400 font-bold">{mrviDemand}</span>
+                </div>
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  value={mrviDemand}
+                  onChange={(e) => setMrviDemand(Number(e.target.value))}
+                  className="w-full accent-emerald-500 cursor-pointer"
+                />
+                <p className="text-[11px] text-slate-400">Rejection penalty if missing from resume.</p>
+              </div>
+
+              <div className="space-y-2">
+                <div className="flex justify-between text-xs">
+                  <span className="font-semibold text-slate-300">Recruiter Glance Impact (35%)</span>
+                  <span className="font-mono text-emerald-400 font-bold">{mrviRecruiter}</span>
+                </div>
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  value={mrviRecruiter}
+                  onChange={(e) => setMrviRecruiter(Number(e.target.value))}
+                  className="w-full accent-emerald-500 cursor-pointer"
+                />
+                <p className="text-[11px] text-slate-400">Attention captured in the initial 6-second scan.</p>
+              </div>
+
+              <div className="space-y-2">
+                <div className="flex justify-between text-xs">
+                  <span className="font-semibold text-slate-300">Disqualification Mitigation (25%)</span>
+                  <span className="font-mono text-emerald-400 font-bold">{mrviRisk}</span>
+                </div>
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  value={mrviRisk}
+                  onChange={(e) => setMrviRisk(Number(e.target.value))}
+                  className="w-full accent-emerald-500 cursor-pointer"
+                />
+                <p className="text-[11px] text-slate-400">Protection against parse bugs & unbacked claims.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Section 6: Weighting & Multipliers Table */}
         <section className="space-y-6">
           <div className="flex items-center gap-2">
             <FileCode className="h-5 w-5 text-sky-400" />
-            <h2 className="text-xl font-bold text-white">5. Multipliers &amp; Dynamic Weights</h2>
+            <h2 className="text-xl font-bold text-white">6. Multipliers &amp; Dynamic Weights</h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
