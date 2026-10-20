@@ -27,19 +27,24 @@ import { downloadResumeAsDocx } from '../../../../lib/tailor/export/docxExporter
 import {
   triggerPrintToPdf,
   generatePlainTextResume,
+  downloadResumeAsPdf,
   downloadResumeAsTxt,
   downloadResumeAsMarkdown,
   downloadResumeAsJson
 } from '../../../../lib/tailor/export/pdfExporter';
 
+import { MakeItBetterResult } from '../../../../lib/tailor/engine/makeItBetterEngine';
+
 interface DarkTailorHeaderProps {
   onOpenInputModal: () => void;
   onOpenMakeItBetterModal: () => void;
+  onMakeItBetterResult: (result: MakeItBetterResult | null) => void;
 }
 
 export function DarkTailorHeader({
   onOpenInputModal,
-  onOpenMakeItBetterModal
+  onOpenMakeItBetterModal,
+  onMakeItBetterResult
 }: DarkTailorHeaderProps) {
   const {
     activeProject,
@@ -49,6 +54,7 @@ export function DarkTailorHeader({
 
   const [copied, setCopied] = useState(false);
   const [downloadingDocx, setDownloadingDocx] = useState(false);
+  const [downloadingPdf, setDownloadingPdf] = useState(false);
   const [elevating, setElevating] = useState(false);
   const [downloadMenuOpen, setDownloadMenuOpen] = useState(false);
   const [downloadToast, setDownloadToast] = useState<string | null>(null);
@@ -84,6 +90,21 @@ export function DarkTailorHeader({
     }
   };
 
+  const handleDownloadPdf = async () => {
+    if (!resume) return;
+    setDownloadingPdf(true);
+    try {
+      await downloadResumeAsPdf(resume, candidate);
+      showToast('Downloaded .PDF (Vector Document)');
+    } catch (e) {
+      console.error('Failed to download pdf:', e);
+      triggerPrintToPdf();
+    } finally {
+      setDownloadingPdf(false);
+      setDownloadMenuOpen(false);
+    }
+  };
+
   const handleDownloadTxt = () => {
     if (!resume) return;
     downloadResumeAsTxt(resume, candidate);
@@ -107,7 +128,8 @@ export function DarkTailorHeader({
 
   const handleTriggerMakeItBetter = () => {
     setElevating(true);
-    applyMakeItBetter();
+    const result = applyMakeItBetter();
+    onMakeItBetterResult(result);
     setTimeout(() => {
       setElevating(false);
       onOpenMakeItBetterModal();
@@ -207,12 +229,13 @@ export function DarkTailorHeader({
                 </button>
 
                 <button
-                  onClick={triggerPrintToPdf}
-                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold text-neutral-200 hover:text-white hover:bg-neutral-800 transition"
-                  title="Print or Save as Vector PDF"
+                  onClick={handleDownloadPdf}
+                  disabled={downloadingPdf}
+                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold text-neutral-200 hover:text-white hover:bg-neutral-800 transition disabled:opacity-50"
+                  title="Download genuine vector PDF directly generated in memory"
                 >
                   <Printer className="w-3.5 h-3.5 text-sky-400" />
-                  <span className="hidden sm:inline">PDF</span>
+                  <span className="hidden sm:inline">{downloadingPdf ? 'PDF...' : 'PDF'}</span>
                 </button>
 
                 <button
@@ -239,7 +262,16 @@ export function DarkTailorHeader({
                     Export Resume As
                   </div>
                   <button
+                    onClick={handleDownloadPdf}
+                    disabled={downloadingPdf}
+                    className="w-full text-left px-2.5 py-1.5 rounded-lg hover:bg-neutral-800 text-neutral-200 hover:text-white flex items-center gap-2 transition"
+                  >
+                    <Download className="w-3.5 h-3.5 text-sky-400" />
+                    <span>Vector PDF (.pdf)</span>
+                  </button>
+                  <button
                     onClick={handleDownloadDocx}
+                    disabled={downloadingDocx}
                     className="w-full text-left px-2.5 py-1.5 rounded-lg hover:bg-neutral-800 text-neutral-200 hover:text-white flex items-center gap-2 transition"
                   >
                     <Download className="w-3.5 h-3.5 text-emerald-400" />
@@ -252,8 +284,8 @@ export function DarkTailorHeader({
                     }}
                     className="w-full text-left px-2.5 py-1.5 rounded-lg hover:bg-neutral-800 text-neutral-200 hover:text-white flex items-center gap-2 transition"
                   >
-                    <Printer className="w-3.5 h-3.5 text-sky-400" />
-                    <span>Print / Vector PDF</span>
+                    <Printer className="w-3.5 h-3.5 text-neutral-400" />
+                    <span>Browser Print Dialog</span>
                   </button>
                   <button
                     onClick={handleDownloadTxt}

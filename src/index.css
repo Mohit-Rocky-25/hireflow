@@ -371,3 +371,56 @@ html, body, #root {
   100% { opacity: 1; transform: translateY(0); }
 }
 
+/* ============================================================
+   Pixel-Perfect Clean Resume Print Styles
+   Scoped specifically to #printable-resume for zero UI chrome
+   ============================================================ */
+@media print {
+  @page {
+    margin: 0;
+    size: auto;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #0f172a !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Hide everything on the page by default (header, toolbars, sidebars) */
+  body * {
+    visibility: hidden;
+  }
+
+  /* Make #printable-resume and its descendants visible */
+  #printable-resume,
+  #printable-resume * {
+    visibility: visible;
+  }
+
+  /* Position the printable resume precisely at top-left with 100% vector fidelity */
+  #printable-resume {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    min-height: 100% !important;
+    margin: 0 !important;
+    padding: 0.5in !important;
+    box-shadow: none !important;
+    border: none !important;
+    background: #ffffff !important;
+    color: #0f172a !important;
+    transform: none !important;
+    overflow: visible !important;
+  }
+
+  /* Ensure background colors and borders render in print */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
+
+
