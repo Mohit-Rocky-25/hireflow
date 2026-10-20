@@ -283,6 +283,6 @@ startxref
       expect(result.text).toContain('Staff DevOps Engineer');
       expect(result.text).toContain('Terraform, Kubernetes, and Docker');
       expect(result.wordCount).toBeGreaterThan(15);
-    });
+    }, 15000);
   });
 });

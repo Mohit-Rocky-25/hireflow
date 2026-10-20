@@ -12,12 +12,12 @@ const PHONE_REGEX = /(?:\+?\d{1,3}[-.\s]?)?\(?\d{3,5}\)?[-.\s]?\d{3,5}[-.\s]?\d{
 const URL_REGEX = /(?:https?:\/\/)?(?:www\.)?(?:github\.com\/[a-zA-Z0-9_-]+|linkedin\.com\/in\/[a-zA-Z0-9_-]+|[a-zA-Z0-9_-]+\.(?:io|dev|app|me|com)(?:\/[^\s,]+)?)/gi;
 
 const SECTION_HEADERS: Record<string, RegExp> = {
-  summary: /^(?:summary|professional summary|about me|career objective|profile)\b/i,
-  skills: /^(?:technical skills|skills & tools|skills|technologies|core competencies|tech stack|skills dump)\b/i,
-  experience: /^(?:work experience|professional experience|employment history|internships|experience|work history)\b/i,
-  projects: /^(?:projects|technical projects|key projects|academic projects|personal projects)\b/i,
-  education: /^(?:education|academic background|academics|qualifications)\b/i,
-  certifications: /^(?:certifications|licenses & certifications|courses)\b/i,
+  summary: /^(?:summary|professional summary|about me|career objective|profile|overview|executive summary|personal profile)\b/i,
+  skills: /^(?:technical skills|core skills|key skills|skills\s*(?:&|and)\s*technologies|skills\s*(?:&|and)\s*tools|core competencies|skills summary|skills|technologies|tools\s*(?:&|and)\s*technologies|tech stack|programming languages|technical strengths|areas of expertise|skills dump)\b/i,
+  experience: /^(?:work experience|professional experience|employment history|career history|work history|relevant experience|experience|internships|internship experience|industrial experience|employment|professional background)\b/i,
+  projects: /^(?:technical projects|academic projects|featured projects|key projects|personal projects|software projects|projects|selected projects|notable projects|open source projects|capstone projects?)\b/i,
+  education: /^(?:education|academic background|educational qualifications|academic qualifications|academics|qualifications|academic credentials|academic profile|degrees|university education|educational background)\b/i,
+  certifications: /^(?:certifications|licenses & certifications|credentials|professional certifications|licenses|courses & certifications|courses)\b/i,
 };
 
 export function parseResume(rawText: string, today: Date = new Date()): ParsedResume {
@@ -64,12 +64,18 @@ export function parseResume(rawText: string, today: Date = new Date()): ParsedRe
   for (const line of lines) {
     if (!line) continue;
 
-    // Check if line is a section header
+    // Check if line is a section header (strip markdown, numbers, bullets, roman numerals)
     let matchedHeader = false;
-    const cleanLine = line.replace(/^[#*\-=_~]+\s*/, '').replace(/[:#*\-=_~]+$/, '').trim();
+    const cleanLine = line
+      .replace(/^[#*•▪●\-=_~\s]+/, '')
+      .replace(/^(?:\d+|[IVXLCDMivxlcdm]+)[.:\-)\]]\s*/, '')
+      .replace(/^\d+\s+/, '')
+      .replace(/[:#*•▪●\-=_~\s]+$/, '')
+      .trim();
 
     if (
-      cleanLine.length < 35 &&
+      cleanLine.length >= 3 &&
+      cleanLine.length < 50 &&
       !cleanLine.includes('|') &&
       !cleanLine.startsWith('-') &&
       !cleanLine.startsWith('•') &&
@@ -166,8 +172,15 @@ export function parseResume(rawText: string, today: Date = new Date()): ParsedRe
   if (!email && !phone) {
     parseWarnings.push('No contact email or phone number detected.');
   }
-  if (!rawSections.skills) {
+  if (!rawSections.skills || rawSections.skills.length === 0) {
     parseWarnings.push('No dedicated Technical Skills section identified.');
+  }
+  if (!rawSections.education || rawSections.education.length === 0) {
+    parseWarnings.push('No dedicated Education section identified.');
+  }
+  const cleanWordCount = cleanText.split(/\s+/).filter(Boolean).length;
+  if (cleanWordCount < 180 && parseStatus === 'success') {
+    parseWarnings.push(`Resume text is unusually brief (${cleanWordCount} words). Comprehensive scoring requires 300–800 words.`);
   }
 
   // 4. Skills extraction against skills-taxonomy using token-boundary precision
