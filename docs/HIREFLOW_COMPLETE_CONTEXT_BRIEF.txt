@@ -1,608 +1,630 @@
 ================================================================================
-HIREFLOW AI — COMPLETE SYSTEM TESTING & QUALITY VERIFICATION CONTEXT MANUAL
-The Definitive Architectural Specification, Test Protocols, Formulas & Click-Paths
-Version: 4.0.0 • Production Ready • Candidate-Side Career Decision Suite
-Generated: 2026-10-19T16:06:45.139Z
+HIREFLOW AI — COMPLETE QUALITY ENGINE, SUBSECTIONS & ARCHITECTURE MANUAL
+The Comprehensive Technical Guide to All Subsections, UI/UX Layouts, Project Briefs,
+and Quality Calibration Engines (For System Designers, Developers & Evaluators)
+Version: 4.0.0 • Candidate Career Decision Suite • Production Engineering Edition
+Generated: 2026-10-20T07:04:24.524Z
 Author: Mohit-Rocky-25 <yadavmohit12243@gmail.com>
 ================================================================================
 
+================================================================================
 TABLE OF CONTENTS
+================================================================================
+CHAPTER 1: SYSTEM ARCHITECTURE & UI/UX DESIGN SYSTEM
+   1.1 The Visual Language, Dark Ambient Canvas & Design Tokens
+   1.2 Global Component Hierarchy & Persistent Navigation
+   1.3 Responsive Layout Standards (Desktop, Tablet, 360x800 & 390x844 Mobile)
+   1.4 Micro-Interactions, Drawers, Modals & Focus Management
+
+CHAPTER 2: COMPREHENSIVE SUBSECTION-BY-SUBSECTION UI/UX BREAKDOWN
+   2.1 ATS Resume Roaster & Character-Span Annotator (/tools/resume-roaster)
+   2.2 Dual-Role Job Description Comparison Engine (/tools/jd-compare)
+   2.3 Handmade Resume Tailor & Studio Canvas (/tools/tailor)
+   2.4 Project Build Briefs & Set-Cover Bundler (/tools/build-briefs)
+   2.5 Credential & Opportunity Engine (/tools/credential-engine)
+   2.6 Career Trajectory Hub & What-If Simulator (/tools/career-path)
+   2.7 TalentLens Market Intelligence & Saved Roles (/tools/talentlens)
+   2.8 Grounded Outreach Generator & Cold Email Analyzer (/tools/reach-out)
+   2.9 Unified Candidate Profile & Scan History Timeline (/history, /data)
+   2.10 Saved Job Description Library & Market Demand Aggregator (/jd-library)
+   2.11 Scoring Methodology & Diagnostic Reporter (/methodology)
+   2.12 Data Portability, Storage Quotas & Hard Reset (/data)
+
+CHAPTER 3: PROJECT BUILD BRIEFS ARCHITECTURE, SCHEMA & QUALITY RUBRIC
+   3.1 The 15-Field Project Brief Anatomy
+   3.2 Domain Taxonomy (14 Technical Specializations)
+   3.3 The 4 Quality Sentinels of a Production Brief
+   3.4 Greedy Set-Cover Project Bundler Algorithm (bundleBriefs.ts)
+   3.5 In-Browser JSZip Scaffold Generator (scaffoldGenerator.ts)
+   3.6 Resume Ledger Injection with [METRIC] Placeholders
+   3.7 Developer Protocol: How to Add, Edit, or Verify Project Briefs
+
+CHAPTER 4: THE COMPLETE QUALITY & SCORING ENGINES
+   4.1 ATS Ingestion & Layout Quality Engine (src/engine/ingestion/)
+   4.2 Calibrated 4-Pillar Scoring Engine (src/engine/roaster/, src/config/scoring.ts)
+   4.3 Semantic Matcher, Alias Graph & Taxonomy Engine (src/engine/matching/)
+   4.4 Truth Gate & Anti-Hallucination Honesty Engine (src/engine/tailor/truthGate.ts)
+   4.5 Pre-Export Formatting Quality Sentinel (src/lib/tailor/export/formattingChecker.ts)
+   4.6 What-If Readiness Delta & Campus Corporate Cutoff Engine
+   4.7 Subject Line Effectiveness & Cold Outreach Quality Meter
+
+CHAPTER 5: DATA MODELS, STORAGE ADAPTER & ZOD SCHEMAS
+   5.1 Store Architecture & Storage Key Prefixes
+   5.2 Application Capacity Limits (src/config/limits.ts)
+   5.3 Corrupt Quarantine Workflow (_corrupt)
+   5.4 Strict Zod Schemas (src/types/schemas-v4.ts)
+   5.5 Tamper-Evident Backup Export/Import & SHA-256 Integrity Verification
+
+CHAPTER 6: DEVELOPER'S EXTENSION BLUEPRINT ("IN ORDER TO MAKE CHANGES")
+   6.1 Modifying UI Components, Subsections & Layouts
+   6.2 Updating or Adding Project Briefs in project-briefs.json
+   6.3 Calibrating Scoring Weights, Pillars & Thresholds
+   6.4 Modifying Datasets, Role Presets & Credentials
+   6.5 Running the 106-Suite Automated Quality Gate
+
+================================================================================
+CHAPTER 1: SYSTEM ARCHITECTURE & UI/UX DESIGN SYSTEM
+================================================================================
+
+1.1 THE VISUAL LANGUAGE, DARK AMBIENT CANVAS & DESIGN TOKENS
+HireFlow v4 employs a tailored dark canvas designed for high-density technical work.
+The visual system avoids generic black backgrounds, utilizing a deeply layered
+slate/neutral palette with subtle ambient radial gradients:
+
+• Canvas Background: #020617 (slate-950) and #0a0a0a (neutral-950)
+• Ambient Glows: Top-centered radial gradients (e.g. from-blue-600/15 via-violet-600/10 to-emerald-600/15 blur-3xl)
+• Card Surfaces: #0f172a / #171717 with 1px border highlights (border-neutral-800 or border-border/80)
+• Surface Elevation: Glassmorphism backdrops using backdrop-blur-md and bg-surface/70
+• Typography:
+  - System sans-serif font stack prioritizing native rendering speed
+  - Clear hierarchy: Bold/Black display titles (text-xl to text-3xl font-black)
+  - Monospace font stack (font-mono) for code tokens, formulas, and metric tags
+• Color Accents & Status Pairings:
+  - Blue / Sky: Information, Primary actions, Navigation accents (#0284c7 / #38bdf8)
+  - Emerald / Green: Verified credentials, High evidence, L3 outcomes, Strong verbs (#059669 / #10b981)
+  - Amber / Yellow: Needs-recheck status, Medium priority, Run-on sentences (#d97706 / #f59e0b)
+  - Red / Rose: Weak verbs, Unverified claims, Dangerous formatting, Gaps (#dc2626 / #ef4444)
+  - Violet / Purple: GenAI, Machine Learning, Deep Trajectory tools (#7c3aed / #a855f7)
+
+1.2 GLOBAL COMPONENT HIERARCHY & PERSISTENT NAVIGATION
+Every view in HireFlow follows a predictable, accessible layout structure:
+
+[1] TOP NAVIGATION (PublicNavbar or PageNav):
+    - Logo with version badge ("v4.0.0")
+    - Quick route links: Tools Hub, History, Methodology, Settings
+    - Profile Resume Chip: "Using: <active resume label> (change)"
+    - Offline Indicator Badge: Automatically shows when network drops
+
+[2] HERO & CONTROL SECTION:
+    - Tool Title with uppercase domain badge
+    - Concise 1-sentence purpose statement
+    - Primary action controls, view toggles, and filter pills
+
+[3] MAIN INTERACTION CANVAS (Split or Stacked):
+    - Desktop: Typically 2-column or 12-column responsive grid (e.g. 7-col editor, 5-col live preview)
+    - Mobile: Segmented control switching between Editor and Preview canvas
+
+[4] INTERACTIVE SIDE-OVER & BOTTOM-SHEET DRAWERS:
+    - Drawer.tsx: Slide-over on desktop (w-96 to w-[480px]), bottom sheet on mobile (h-[85vh])
+    - ExplainDrawer.tsx: Triggered by any (i) icon next to a derived score
+    - Span Detail Drawer: Triggered by clicking any highlighted resume token
+
+[5] GLOBAL OVERLAYS:
+    - LocalhostNavigator.tsx (Ctrl+/): Fast jump palette to all 14 tools and views
+    - PwaUpdateToast.tsx: Non-intrusive notification when a new service worker builds
+
+1.3 RESPONSIVE LAYOUT STANDARDS (DESKTOP TO 360px MOBILE)
+Strictly validated against 360x800, 390x844, and 768x1024 viewports:
+• Zero Horizontal Page Overflow: document.body.scrollWidth === window.innerWidth
+• Minimum Touch Target Size: Every interactive button or icon is >= 44x44px
+• Mobile Bottom-Sheet Behavior: Slide-over panels adapt to swipeable bottom sheets
+• Horizontal Scroll Wrappers: Tables and skill tag clouds wrap or scroll with visual fades
+
+================================================================================
+CHAPTER 2: COMPREHENSIVE SUBSECTION-BY-SUBSECTION UI/UX BREAKDOWN
+================================================================================
+
+2.1 ATS RESUME ROASTER & CHARACTER-SPAN ANNOTATOR (/tools/resume-roaster)
+The primary diagnostic tool for resume evidence depth.
+
+SUBSECTION LAYOUT:
+[A] Header & Score Gauge:
+    - Large circular or radial ATS Score gauge (0-100)
+    - Calibrated 4-pillar badges: Hard Skills (/40), Evidence (/25), Fresher (/20), Format (/15)
+    - Target role match indicator and calibrated grade (e.g. "Competitive - Top 15%")
+    - "How is this calculated?" (i) trigger opening ExplainDrawer
+
+[B] View Mode Switcher:
+    - Segmented control offering 3 distinct view modes:
+      1. Annotated View: Character-by-character color-highlighted resume text
+      2. Clean View: Formatted typography view with highlighted bullet scores
+      3. Raw View: Raw ingested text stream revealing hidden parsing glitches
+
+[C] Character-Span Annotations (D16):
+    - Evaluates exact character indices (start, end) without DOM mutations:
+      • RED: Weak verbs ("helped", "assisted", "worked on", "handled")
+      • AMBER: Run-on bullets (>35 words), passive voice, missing metric proof
+      • GREEN: Evidenced technical skills, verified metric patterns (%, ms, QPS)
+    - Clicking any highlight opens the Span Drawer:
+      - Rationale explaining screener reaction
+      - Live replacement suggestion
+      - One-click "Apply Rewrite" button that patches the resume text in-place
+
+[D] Tabbed Analysis Deck (TabBar.tsx):
+    - Tab 1: Overview — Pillar breakdown, seniority signals, contact details
+    - Tab 2: Skills — Matched vs missing hard skills, transferable skills
+    - Tab 3: Fix These First — Prioritized high-impact fixes ordered by score delta
+    - Tab 4: Learning Path — Curated roadmaps to close identified skill gaps
+    - Tab 5: Annotated View — Direct character-span inspection view
+
+[E] Local Finding Feedback Widget (B8):
+    - Thumbs up/down on individual findings with optional note dialog
+    - Stored locally in feedbackStore (cap: 500); invariant: zero scoring mutation
+
 --------------------------------------------------------------------------------
-1. Executive Summary & Quality Scorecard
-2. The 10 Prime Architectural Directives (Invariants)
-3. End-to-End System Topology & Codebase Organization
-4. Detailed Tool-by-Tool QA Specification & Test Guide
-   4.1 ATS Resume Roaster & Character-Span Annotator (/tools/resume-roaster)
-   4.2 Dual-Role Job Description Comparison Engine (/tools/jd-compare)
-   4.3 7-Stage Zero-Hallucination Resume Tailoring Engine (/tools/tailor)
-   4.4 Project Build Briefs & Set-Cover Bundler (/tools/build-briefs)
-   4.5 Credential & Opportunity Engine (/tools/credential-engine)
-   4.6 Career Trajectory Hub & What-If Simulator (/tools/career-path)
-   4.7 TalentLens Intelligence & Saved Roles (/tools/talentlens)
-   4.8 Grounded Outreach Generator & Cold Email Analyzer (/tools/reach-out)
-   4.9 Unified Candidate Profile & Gap Derivation (/data & Global Chip)
-   4.10 5-Step Guided Improvement Loop (/guided & Tool Triggers)
-   4.11 Historical Progression & Scan Comparator (/history)
-   4.12 Saved Job Description Library & Market Demand Aggregator (/jd-library)
-   4.13 Scoring Methodology & Diagnostic Reporter (/methodology)
-   4.14 Data Management, Backup Portability & Reset (/data)
-5. Complete Mathematical & Algorithmic Scoring Inventory
-6. Test Automation Architecture & Suite Catalog (106 Suites, 738 Tests)
-7. Step-by-Step Manual QA Testing Checklist & Synthetic Payloads
-8. Security, Privacy Zero-Egress & Data Safety Audit Protocol
-9. Storage Specifications, Typed Limits & Corruption Quarantine
-10. Performance Benchmarks, Bundle Budgets & Offline PWA Protocol
-11. Known System Boundaries, Heuristics & Verification Caveats
-12. QA Command Cheatsheet & Automated Gate Execution Guide
+2.2 DUAL-ROLE JOB DESCRIPTION COMPARISON ENGINE (/tools/jd-compare)
+Evaluates a candidate resume against two target JDs simultaneously.
 
-================================================================================
-1. EXECUTIVE SUMMARY & QUALITY SCORECARD
-================================================================================
-HireFlow v4 is a zero-egress, client-side candidate career decision and evidence
-toolkit engineered specifically for engineering students and fresher graduates
-in the Indian and global technology hiring markets.
+SUBSECTION LAYOUT:
+[A] Dual Input Panel:
+    - Left Column: Target Role A (Paste text or select Role Preset)
+    - Right Column: Target Role B (Paste text or select Role Preset)
+    - Preset Selector: One-click selection from 7 canonical fresher archetypes
 
-KEY VERIFICATION SCORECARD:
-• Automated Test Coverage: 106 test suites, 738 tests (100% green, 0 failures)
-• Privacy & Network Safety: 0 external egress network calls, 0 third-party telemetry
-• Security & DOM Sinks: 0 dangerous sinks (no innerHTML, eval, Function constructor)
-• Content Security Policy: Strict CSP headers injected into production build
-• Initial Entry Bundle: 1.83 MB (gzip: 286.19 kB) — 88.3% reduction via lazy loading
-• Storage Resilience: Quota management, corruption quarantine, SHA-256 backup verify
-• Mobile Ergonomics: 100% responsive (360x800, 390x844), >=44px touch targets
-• Offline Capability: Installable PWA with full service worker app-shell precache
+[B] Semantic Overlap Breakdown:
+    - Overlap percentage calculation
+    - Shared Technical Skills (intersection)
+    - Role A Unique Requirements vs Role B Unique Requirements
+    - Requirement weight classification (Mandatory, Preferred, Mentioned)
 
-BEFORE VS AFTER EVOLUTION:
-• Scope Purge: All multi-tenant recruiter/BHR/admin portals permanently removed
-• Test Suites: Increased from 75 to 106 suites (+41.3% coverage expansion)
-• Total Passing Tests: Increased from 617 to 738 tests (+19.6% net additions)
-• Entry Bundle Size: Reduced from 15.68 MB to 1.83 MB (-88.3% payload drop)
-• Dynamic Imports: Heavy PDF/Word parsers loaded strictly on-demand
+[C] Visual Radar Score:
+    - Comparative radar chart comparing candidate coverage against Role A vs Role B
 
-================================================================================
-2. THE 10 PRIME ARCHITECTURAL DIRECTIVES (INVARIANTS)
-================================================================================
-Every tool and algorithm adheres to 10 strict prime directives:
+[D] Deterministic Gap Derivation (A1):
+    - Automatically derives missing skills and populates the global Gap List
+    - Marks gaps as "Open" until candidate re-scans a resume containing proof
 
-[P-1] ZERO FABRICATION / ZERO INVENTED CLAIMS
-      No synthetic statistics, fake placement percentages, or made-up claims.
-      Missing data is stored as null and labeled "unverified".
-
-[P-2] DETERMINISTIC PURE LOGIC ENGINES
-      All core engines in src/engine/ are 100% pure functions: zero Math.random(),
-      zero Date.now() / new Date(), zero network access, zero storage access.
-      Time, IDs, and seeds are injected via UI/store layer.
-
-[P-3] ZERO EXTERNAL NETWORK EGRESS & LOCAL PRIVACY
-      100% of resume and JD text processing runs locally inside the browser.
-      Zero external API calls, zero analytics trackers, zero telemetry beacons.
-      Verified via automated AST scan: npm run privacy:check.
-
-[P-4] CALIBRATED SCORING PILLARS
-      ATS scores are calibrated against real Indian fresher recruitment patterns:
-      Hard Skills Coverage: 40%, Evidence Quality: 25%, Fresher Readiness: 20%,
-      Format Safety: 15%. Minimum ATS baseline score is anchored at 25.0.
-
-[P-5] HONEST PROVENANCE & TRANSPARENT AUDITING
-      Every national credential, salary benchmark, and exam date carries explicit
-      provenance metadata (verified, needs-recheck, unverified) with audit dates.
-
-[P-6] STRICT CANDIDATE SCOPE DISCIPLINE
-      HireFlow is exclusively a candidate career toolkit. Recruiter, BHR, and
-      interviewer portals were permanently eliminated to ensure laser-focused depth.
-
-[P-7] HONEST NAMING & REJECTION REALITY
-      Zero claims that HireFlow predicts company hiring outcomes or "callback
-      probability". Results are strictly termed "Match Alignment" and "Evidence".
-
-[P-8] WCAG 2.1 AA ACCESSIBILITY & TACTILE CONTRAST
-      Every interactive element features visible focus rings (focus-visible:ring-2),
-      status indicators pair colors with explicit icons and text (no color alone),
-      dialogs have accessible focus traps and Esc-key handlers.
-
-[P-9] FAULT-TOLERANT STORAGE & CORRUPTION QUARANTINE
-      Safe storage adapter traps QuotaExceededError, isolates corrupted JSON into
-      hireflow:v4:<key>_corrupt, and defaults safely without crashing.
-
-[P-10] SECURE CONTEXT & LAN DEGRADED MODE
-      Engineered for mobile phone testing over plain HTTP Wi-Fi (http://<IP>:5173).
-      Service worker, crypto.subtle, and crypto.randomUUID degrade gracefully to
-      FNV-1a and high-entropy counters without throwing exceptions.
-
-================================================================================
-3. END-TO-END SYSTEM TOPOLOGY & CODEBASE ORGANIZATION
-================================================================================
-src/
-├── engine/                      # PURE DETERMINISTIC ENGINES (P-2)
-│   ├── ingestion/               # Multi-format parsing (PDF, DOCX, TXT), AST layout
-│   ├── roaster/                 # Calibrated 4-pillar ATS evaluator & regex rules
-│   ├── matcher/                 # Semantic JD matcher, alias resolution, taxonomy
-│   ├── honesty/                 # Truth Gate honesty checker, bullet level auditor
-│   ├── provenance/              # Source verification, dataset integrity checkers
-│   └── index.ts                 # Engine barrel export
-├── features/                    # DOMAIN FEATURE MODULES
-│   ├── ats/                     # Resume Roaster UI, annotated character spans
-│   ├── career-path/             # Trajectory Hub, Ladders, What-If Simulator
-│   ├── suite/                   # Candidate suite features
-│   │   ├── briefs/              # Project Build Briefs, JSZip scaffold generator
-│   │   ├── credentials/         # Opportunity Engine, .ics Calendar generator
-│   │   └── outreach/            # Recruiter outreach, follow-ups, subject analyzer
-├── store/                       # ZUSTAND CLIENT STORES
-│   ├── profileStore.ts          # Active resume, 5 version slots, target preferences
-│   ├── scanHistoryStore.ts      # 60-scan ring buffer, config fingerprints
-│   ├── savedJdStore.ts          # 40 saved JDs, text hash deduplication
-│   ├── savedRoleStore.ts        # 50 saved roles from TalentLens
-│   ├── feedbackStore.ts         # 500 local thumbs up/down notes
-│   └── briefProgressStore.ts    # Project progress tracker & resume ledger injector
-├── components/                  # ACCESSIBLE UI PRIMITIVES
-│   ├── common/
-│   │   ├── Drawer.tsx           # Slide-over & bottom sheet with focus trap
-│   │   ├── ConfirmDialog.tsx    # Accessible modal with typed confirmation input
-│   │   ├── ExplainDrawer.tsx    # "How is this calculated?" formula breakdown
-│   │   ├── Metric.tsx           # Value display with ExplainDrawer trigger
-│   │   ├── ProfileResumeChip.tsx# Global "Using: <resume> (change)" context chip
-│   │   ├── OfflineIndicator.tsx # Unobtrusive network status banner
-│   │   ├── PwaUpdateToast.tsx   # Non-disruptive update notification
-│   │   ├── SegmentedControl.tsx # Keyboard-navigable tab toggle
-│   │   ├── Skeleton.tsx         # Pulse loading placeholder
-│   │   └── Tag.tsx              # High-contrast status badge
-│   └── guided/
-│       └── GuidedImprovementLoop.tsx # 5-step accomplishment authoring flow
-├── lib/                         # UTILITY PRIMITIVES
-│   ├── storage/                 # Resilient storage adapter with quota management
-│   ├── safe/                    # Safe text segmenter & URL sanitizers (P-3)
-│   ├── safeUtils.ts             # FNV-1a, hashText, createId with LAN fallback
-│   ├── backup/                  # Portable backup registry & JSON checksum verify
-│   ├── gaps/                    # Deterministic gap list derivation
-│   ├── jds/                     # Cross-JD skill demand aggregation
-│   ├── presets/                 # Fresher role presets & branch bridge loader
-│   ├── pwa/                     # Service worker registration & lifecycle
-│   ├── tailor/export/           # Pre-export formatting sentinel (widow/overflow)
-│   └── url/useUrlState.ts       # Query parameter state synchronization
-├── config/                      # CONFIGURATION CONSTANTS
-│   ├── limits.ts                # Application-wide capacity bounds
-│   ├── scoring.ts               # Calibrated ATS weights & multipliers
-│   └── versions.ts              # ENGINE_VERSION & computeConfigFingerprint()
-├── data/                        # CURATED DATASETS
-│   ├── presets/role-presets.json# 7 Indian fresher role archetypes
-│   └── careers/                 # 20+ tech company tracks (BigTech, GCCs, IT)
-└── pages/                       # ROUTE VIEWS (LAZY-LOADED)
-    ├── LandingPage.tsx          # Public entry & navigation
-    ├── tools/ToolsHubPage.tsx   # Categorized Free Tools Hub (Groups A-D)
-    ├── data/YourDataPage.tsx    # Data management, export/import, storage clear
-    ├── history/ScanHistoryPage.tsx # Scan timeline & comparison charts
-    ├── jd-library/SavedJdLibraryPage.tsx # JD library & demand matrix
-    └── methodology/MethodologyPage.tsx # Scoring transparency & diagnostics
-
-================================================================================
-4. DETAILED TOOL-BY-TOOL QA SPECIFICATION & TEST GUIDE
-================================================================================
-
-4.1 ATS RESUME ROASTER & CHARACTER-SPAN ANNOTATOR
-    Route: /tools/resume-roaster (or /tools/resume-checker)
-    Capabilities:
-    • 4-Pillar Score calculation: Hard Skills, Evidence, Fresher, Format Safety.
-    • Character-Span Highlighting:
-      - RED spans: Weak/passive action verbs (e.g. "assisted", "helped").
-      - AMBER spans: Run-on sentences (>35 words), missing metrics.
-      - GREEN spans: Evidenced technical skills, verified metric patterns.
-    • Interactive Span Drawer: Clicking any highlighted token opens rationale,
-      suggested active verb replacements, and metric guidance.
-    • One-Click Rewrite Applicator: Directly transforms weak bullets.
-    • Local Finding Feedback: Thumbs up/down with notes (does not alter scoring).
-
-4.2 DUAL-ROLE JOB DESCRIPTION COMPARISON ENGINE
-    Route: /tools/jd-compare
-    Capabilities:
-    • 2-Way Job Description Comparison side-by-side.
-    • Overlap Breakdown: Shared requirements vs unique requirements.
-    • Semantic Match Radar: Visual radar representation of core domains.
-    • Automatic Gap Derivation: Populates open gaps for candidate profile.
-    • Presets Integration: One-click "Use Role Preset" pre-populates target JD.
-
-4.3 7-STAGE ZERO-HALLUCINATION RESUME TAILORING ENGINE
-    Route: /tools/tailor
-    Capabilities:
-    • 7-Stage Tailoring Pipeline: Parse -> Match -> Truth Gate -> Reorder ->
-      Highlight -> Format Lint -> Export.
-    • Truth Gate Enforcer: Strictly prohibits hallucinated claims. Projects can
-      only be reordered or emphasized; bullets cannot invent new accomplishments.
-    • Pre-Export Quality Sentinel (D15):
-      - Scans for broken glyphs and unprintable Unicode characters.
-      - Detects widow and orphan lines (< 3 words on final line).
-      - Warns if estimated length overflows standard 1-page fresher limit.
-
-4.4 PROJECT BUILD BRIEFS & SET-COVER BUNDLER
-    Route: /tools/build-briefs
-    Capabilities:
-    • Curated Production Portfolio Briefs for Indian Fresher market.
-    • Greedy Set-Cover Optimizer: Selects minimum projects covering all open gaps.
-    • Client-Side JSZip Scaffold Generator (D17):
-      - Generates valid starter repository ZIP entirely in-browser.
-      - Includes README.md with Mermaid architecture, config files, and tests.
-    • Resume Ledger Injection: Inject completed brief with [METRIC] placeholders.
-
-4.5 CREDENTIAL & OPPORTUNITY ENGINE
-    Route: /tools/credential-engine
-    Capabilities:
-    • Curated national certifications, hackathons, and fellowship opportunities.
-    • Eligibility Checker: Rule-based evaluation for GATE, ISRO ICRB, AWS, CDAC.
-    • RFC 5545 iCalendar Generator (.ics): Generates calendar file with exam dates,
-      application deadlines, and study milestones.
-
-4.6 CAREER TRAJECTORY HUB & WHAT-IF SIMULATOR
-    Route: /tools/career-path
-    Capabilities:
-    • India Market Career Ladders: Service IT (TCS/Infy), Product/Unicorn, GCCs,
-      and Big Tech leveling pathways.
-    • What-If Scenario Simulator (D20):
-      - Live sliders for CGPA, Tier (Tier 1/2/3), Branch, and Internships.
-      - Real-time route eligibility updates.
-      - Displays corporate cutoff boundaries (e.g. 7.0 CGPA campus cutoff).
-      - Zero fake probabilities; displays honest prerequisite gaps.
-
-4.7 TALENTLENS INTELLIGENCE & SAVED ROLES
-    Route: /tools/talentlens
-    Capabilities:
-    • Deep role requirements intelligence across Indian hiring landscape.
-    • Saved Roles Store (D19): Save up to 50 roles with local persistence.
-    • Deep Linking: Filter and sort synchronization via URL search params.
-    • Send to JD Compare: One-click export of saved role requirements into matcher.
-
-4.8 GROUNDED OUTREACH GENERATOR & COLD EMAIL ANALYZER
-    Route: /tools/reach-out (or /tools/reachout)
-    Capabilities:
-    • Grounded message generation: Day 3, Day 7, Post-Interview, Cold Outreach.
-    • Uses only evidenced resume facts; inserts [FILL_IN] for specific details.
-    • Subject Line Analyzer: Scans word count, urgency, spam trigger words.
-
-4.9 UNIFIED CANDIDATE PROFILE & GAP DERIVATION
-    Route: /data & Global Header
-    Capabilities:
-    • Profile Resume Chip: "Using: <resume label> (change)" present on all tools.
-    • Up to 5 labeled versions (e.g. "Default", "Backend Focus", "Campus SDE").
-    • Deterministic Gap List: Derived from target scans, marks gaps Open/Closed.
-
-4.10 5-STEP GUIDED IMPROVEMENT LOOP
-    Route: Accessible from Resume Roaster & Header
-    Capabilities:
-    • Structured Steps: Diagnose -> Prioritize -> Author -> Verify -> Progress.
-    • Input Guard: Verifies quantifiable impact metrics before accepting.
-    • Before/After Delta Card: Explicitly displays score increase.
-
-4.11 HISTORICAL PROGRESSION & SCAN COMPARATOR
-    Route: /history
-    Capabilities:
-    • Ring Buffer Storage: Logs up to 60 scans automatically.
-    • Score Progression Chart: Recharts graphical visualization over time.
-    • Side-by-Side Comparator: Select two scans to inspect pillar score deltas.
-    • Version Fingerprint Warning: Alerts if scoring configuration changed.
-
-4.12 SAVED JOB DESCRIPTION LIBRARY & MARKET DEMAND AGGREGATOR
-    Route: /jd-library
-    Capabilities:
-    • Library storage for up to 40 JDs with tag filtering.
-    • SHA-256 Deduplication: Pasting duplicate JD text updates existing entry.
-    • Cross-JD Market Demand Matrix: Aggregates skills appearing in >= 3 JDs.
-
-4.13 SCORING METHODOLOGY & DIAGNOSTIC REPORTER
-    Route: /methodology
-    Capabilities:
-    • Live Configuration Constants: Live readouts of all pillar weights.
-    • Data Provenance Table: Lists verification dates and sources.
-    • Sanitized Diagnostic Generator: Generates PII-free diagnostic JSON report.
-
-4.14 DATA MANAGEMENT, BACKUP PORTABILITY & RESET
-    Route: /data
-    Capabilities:
-    • Export Backup: Produces tamper-evident hireflow-backup-YYYY-MM-DD.json.
-    • Import Backup: Validates Zod schema and SHA-256 checksum with Merge/Replace.
-    • Typed Deletion Guard: Requires typing "DELETE" to reset all stores.
-
-================================================================================
-5. COMPLETE MATHEMATICAL & ALGORITHMIC SCORING INVENTORY
-================================================================================
-
-5.1 OVERALL ATS SCORE (overall-ats-score)
-    OverallScore = (HardSkills * 0.40) + (EvidenceQuality * 0.25) +
-                   (FresherReadiness * 0.20) + (FormatSafety * 0.15)
-    Weights Source: src/config/scoring.ts (ATS_PILLAR_WEIGHTS)
-    Input Range: 0 to 100 for each pillar. Result clamped to [25, 100].
-
-5.2 JD MATCH SCORE (jd-match-score)
-    MatchScore = (∑ (RequirementWeight * MatchCredit * EvidenceMultiplier)) /
-                 (∑ RequirementWeight) * 100
-    Weights: Mandatory = 3.0, Preferred = 1.5, Mentioned = 1.0
-    Match Credits: DIRECT = 1.0, TRANSFERABLE = 0.7, PARTIAL = 0.4, MISSING = 0.0
-    Evidence Multipliers: L3 (Metrics) = 1.0, L2 (Experience) = 0.85,
-                          L1 (Project) = 0.65, L0 (Listed) = 0.35
-
-5.3 HARD SKILLS COVERAGE (hard-skills-coverage)
-    Coverage% = (Evidenced Mandatory Skills / Total Mandatory Skills in JD) * 100
-
-5.4 EVIDENCE QUALITY & DEPTH SCORE (evidence-depth-score)
-    EvidenceScore = (∑ BulletTierMultipliers) / TotalBullets * 100
-    Tier Multipliers: L3 (Outcome) = 1.0, L2 (Internship) = 0.85,
-                      L1 (Project) = 0.65, L0 (Listed) = 0.35
-
-5.5 ACTION VERB IMPACT DENSITY (verb-impact-score)
-    VerbScore = ((StrongVerbs * 1.15) + (StandardVerbs * 1.0) - (WeakVerbs * 0.3)) /
-                TotalBullets * 100
-    Strong: architected, implemented, engineered, optimized, built, deployed.
-    Weak: assisted, worked on, helped, responsible for.
-
-5.6 CROSS-JD MARKET DEMAND SCORE (demanded-skill-score)
-    Score = (MandatoryCount * 3.0 + PreferredCount * 1.5 + MentionedCount * 1.0) /
-            TotalSavedJDs
-    Threshold: Active only when saved JDs >= 3.
-
-5.7 BRANCH BRIDGE ALIGNMENT (branch-bridge-match)
-    BridgeAlignment% = (TransferableSkills.length + CoreSkills.length) /
-                       TotalRoleCoreSkills * 100
-    Source: src/data/presets/role-presets.json (AICTE curriculum mappings).
-
-5.8 GREEDY SET-COVER PORTFOLIO BUNDLER
-    Given universe of open skill gaps U = {s1, s2, ..., sn} and project library P.
-    Iteration: Select project p ∈ P that covers maximum remaining uncovered skills.
-    Continue until U is covered or no candidate projects add coverage.
-    Guarantee: Approximation ratio <= ln(|U|) + 1 of optimal minimum projects.
-
-================================================================================
-6. TEST AUTOMATION ARCHITECTURE & SUITE CATALOG (106 SUITES, 738 TESTS)
-================================================================================
-All 106 test suites pass with 100% green status under Vitest.
-
-PRIMARY TEST SUITE GROUPS:
-1. Stage 1 Foundation:
-   - tests/unit/stage1/storageAdapter.test.ts (Quota, quarantine, memory fallback)
-   - tests/unit/stage1/safeUtils.test.ts (FNV-1a, hashText, createId)
-   - tests/unit/stage1/safeRender.test.ts (XSS sanitization, safe segments)
-   - tests/unit/stage1/v4Schemas.test.ts (Zod schema boundary validation)
-   - tests/unit/stage1/useUrlState.test.ts (URL search param synchronization)
-   - tests/unit/stage1/backupRegistry.test.ts (Store registration integrity)
-   - tests/unit/stage1/versionsConfig.test.ts (Engine version & fingerprint)
-2. Stage 2 Security & Data Safety:
-   - tests/security/no-unsafe-html.test.ts (Static AST scan for DOM sinks)
-   - tests/security/hostile-input.test.ts (XSS payloads, bidi, 1MB lines, pollution)
-   - tests/security/no-external-egress.test.ts (AST scan for fetch, axios, WebSocket)
-   - tests/unit/stage2/backupRoundtrip.test.ts (Export, tamper, import verification)
-3. Stage 3 Profile, History & Guided Loop:
-   - tests/unit/stage3/profileStore.test.ts (5 version cap, active swap)
-   - tests/unit/stage3/scanHistory.test.ts (60 scan ring buffer, fingerprint stamp)
-   - tests/unit/stage3/gapList.test.ts (Deterministic open/closed gap transitions)
-4. Stage 4 JDs & Presets:
-   - tests/unit/stage4/savedJdLibrary.test.ts (40 cap, deduplication, demand table)
-   - tests/unit/stage4/rolePresets.test.ts (7 Indian fresher roles, branch bridge)
-5. Stage 5 Explainability & Methodology:
-   - tests/unit/stage5/explainability.test.ts (ExplainDrawer formula verification)
-   - tests/unit/stage5/feedbackStore.test.ts (500 cap, invariant verification)
-   - tests/unit/stage5/methodologyPage.test.tsx (Public methodology route)
-6. Stage 6 Tool Depth:
-   - tests/tailor/templatesParity.test.ts (Formatting sentinel, widow detection)
-   - tests/roaster/annotatedView.test.ts (Character span annotator)
-   - tests/briefs/scaffold.test.ts (JSZip starter scaffold generator)
-   - tests/credentials/calendarExport.test.ts (RFC 5545 .ics generation)
-   - tests/talentlens/savedRoles.test.ts (50 saved roles cap, prefill)
-   - tests/trajectory/scenarios.test.ts (What-If simulator, corporate cutoffs)
-   - tests/reachout/followups.test.ts (Deterministic follow-up generator)
-7. Stage 7 Code Splitting:
-   - tests/unit/stage7/urlStateDeepLinks.test.ts (Deep links & wizard steps)
-8. Stage 8 Mobile & Ergonomics:
-   - tests/unit/stage8/mobileTouchTargets.test.ts (360x800, >=44px touch targets)
-9. Stage 9 PWA & Offline:
-   - tests/unit/stage9/pwaManifest.test.ts (Manifest schema, service worker precache)
-10. Stage 10 Cross-Cutting Quality:
-    - tests/unit/stage10/crossCuttingA11y.test.ts (WCAG 2.1 AA focus rings, aria-live)
-    - tests/unit/stage10/perfBudgets.test.ts (Span annotation <100ms, history <50ms)
-11. Ingestion & Layout Engines:
-    - tests/ingestion/layoutReader.test.ts (PDF layout parsing, column detection)
-    - tests/ingestion/fileParser.test.ts (Dynamic on-demand parser loader)
-12. Determinism & Integrity:
-    - tests/determinism.test.ts (Identical inputs produce bit-identical scores)
-    - src/data/__tests__/validateData.test.ts (Dataset provenance, schemas, IDs)
-
-================================================================================
-7. STEP-BY-STEP MANUAL QA TESTING CHECKLIST & SYNTHETIC PAYLOADS
-================================================================================
-
-QUICK 2-MINUTE PER-FEATURE CLICK-PATHS:
-
-[ ] TC-01: Profile Multi-Version Switch
-    Path: Open /data -> Profile -> Add Version -> Paste resume -> Save.
-    Verify: Active version updates. Adding 6th version is blocked by limit.
-
-[ ] TC-02: Global Context Continuity
-    Path: Switch active resume -> Open /tools/resume-roaster -> Open /tools/jd-compare.
-    Verify: "Using: <version name>" chip is visible at top of every tool.
-
-[ ] TC-03: Roaster Character-Span Annotations
-    Path: /tools/resume-roaster -> Paste resume -> Run Scan -> Annotated View.
-    Verify: Weak verbs in RED, metrics in GREEN. Click token to verify rewrite drawer.
-
-[ ] TC-04: Guided 5-Step Improvement Loop
-    Path: /tools/resume-roaster -> Start Guided Improvement -> Follow Steps 1 to 5.
-    Verify: Accomplishment entry requires metric; delta card displays score increase.
-
-[ ] TC-05: Saved JDs & Demand Aggregation
-    Path: /jd-library -> Add 3 JDs with common skill "Docker" -> Save all.
-    Verify: "Docker" appears in Demanded Skills table with demand count >= 3.
-
-[ ] TC-06: Fresher Role Preset & Branch Bridge
-    Path: /tools/jd-compare -> Use Role Preset -> Select ECE to SDE bridge.
-    Verify: Hardware-to-software theory suggestions appear; requirements pre-fill.
-
-[ ] TC-07: ExplainDrawer Mathematical Breakdown
-    Path: Any tool -> Click "(i)" icon next to ATS Score or Match Percentage.
-    Verify: Slide-over drawer opens with exact formula, live inputs, and limitations.
-
-[ ] TC-08: Data Backup Export & Tamper Guard
-    Path: /data -> Export Backup -> Open JSON -> Edit 1 character -> Try Import.
-    Verify: Export file contains checksum. Tampered file triggers "Checksum mismatch".
-
-[ ] TC-09: Production CSP & Zero Sinks
-    Path: Run npm run preview (port 4173) -> Open DevTools Console.
-    Verify: Zero CSP violations. Pasting <script>alert(1)</script> renders as text.
-
-[ ] TC-10: PWA Offline Simulation
-    Path: Open http://localhost:4173 -> DevTools Network -> Check "Offline" -> Reload.
-    Verify: Page loads cleanly; OfflineIndicator banner displays "Offline Mode".
-
-[ ] TC-11: JSZip Scaffold Generation
-    Path: /tools/build-briefs -> Select any project -> Click "Download Scaffold (.zip)".
-    Verify: Valid .zip archive downloads with README.md, Mermaid diagram, and tests.
-
-[ ] TC-12: iCalendar (.ics) Export
-    Path: /tools/credential-engine -> Select exam -> Export to Calendar.
-    Verify: Valid RFC 5545 .ics file downloads with official exam and deadline dates.
-
-SYNTHETIC ADVERSARIAL TEST PAYLOADS:
-1. XSS Injection: <script>document.location='http://evil.com'</script>
-   Expected: Safely rendered as escaped text inside <code> or <span>; zero execution.
-2. Bidi Character Override: \u202E reverse text test \u202C
-   Expected: Sanitized before layout parsing; does not invert UI flow.
-3. Giant Input Line: A single 1,000,000 character line of text without linebreaks.
-   Expected: Regex parsers wrap without memory exhaustion; processed in <200ms.
-4. Prototype Pollution JSON: {"__proto__": {"admin": true}} in backup import.
-   Expected: Zod schema rejects non-conforming keys; Object.prototype untouched.
-
-================================================================================
-8. SECURITY, PRIVACY ZERO-EGRESS & DATA SAFETY AUDIT PROTOCOL
-================================================================================
-HireFlow enforces an ironclad zero-telemetry policy:
-
-1. STATIC EGRESS AUDIT COMMAND:
-   npm run privacy:check
-   Scans all TypeScript/TSX source files in src/ using AST traversal for:
-   • fetch(), XMLHttpRequest, WebSocket, EventSource
-   • navigator.sendBeacon()
-   • Google Analytics, Mixpanel, Sentry, Segment, PostHog integrations
-   Result: 0 unauthorized egress calls detected.
-
-2. CONTENT SECURITY POLICY (CSP):
-   Production builds automatically inject a strict CSP meta tag:
-   <meta http-equiv="Content-Security-Policy" content="
-     default-src 'self';
-     script-src 'self' 'wasm-unsafe-eval';
-     style-src 'self' 'unsafe-inline';
-     img-src 'self' data: blob:;
-     font-src 'self';
-     connect-src 'self';
-     object-src 'none';
-     base-uri 'self';
-   ">
-   Blocks any third-party script injection or exfiltration connection.
-
-3. DOM SINK SANITIZATION:
-   Zero instances of dangerouslySetInnerHTML, innerHTML, document.write(), eval(),
-   or new Function() exist anywhere in src/.
-   Verified by tests/security/no-unsafe-html.test.ts.
-
-================================================================================
-9. STORAGE SPECIFICATIONS, TYPED LIMITS & CORRUPTION QUARANTINE
-================================================================================
-
-STORAGE KEYS:
-• Profile:      hireflow:v4:profile
-• Scan History: hireflow:v4:scan_history
-• Saved JDs:    hireflow:v4:saved_jds
-• Saved Roles:  hireflow:v4:saved_roles
-• Feedback:     hireflow:v4:feedback
-• Briefs:       hireflow:v4:brief_progress
-
-CAPACITY LIMIT CONSTANTS (src/config/limits.ts):
 --------------------------------------------------------------------------------
-Limit Key                Maximum Allowed    Enforcement Mechanism
+2.3 HANDMADE RESUME TAILOR & STUDIO CANVAS (/tools/tailor)
+Studio editor featuring 2-column subsection cards and a live A4 paper canvas.
+
+SUBSECTION LAYOUT:
+[A] Left Column: Handmade Resume Editor (HandmadeResumeEditor.tsx):
+    - Filter Pills: All, Experience, Projects, Skills, Education, Summary, Requirements
+    - Live Requirement Mapping Card:
+      - Displays target JD requirements alongside matched resume bullets
+      - Direct indicators showing L0, L1, L2, L3 evidence levels
+    - Subsection Cards (Draggable & Collapsible):
+      - Header & Contact: Name, email, phone, GitHub, LinkedIn, portfolio
+      - Professional Summary: Google XYZ elevation with active character count
+      - Experience / Internships: Role, company, duration, location, bullet editor
+      - Projects: Title, tech stack, live demo URL, architecture bullets
+      - Technical Skills: Grouped by category (Languages, Frameworks, Cloud, Databases)
+      - Education: Degree, branch, CGPA, graduation year
+    - In-Place Bullet Elevation:
+      - "Elevate Bullet" button transforms weak bullets into STAR / Google XYZ format
+      - Generates bullet rewrite suggestions with [METRIC] placeholders
+
+[B] Right Column: Live Paper Canvas (DarkPaperPreview.tsx):
+    - True A4 aspect-ratio paper preview with zoom controls
+    - Live synchronization: Any edit in the left column updates the canvas instantly
+    - 1-Page Overflow Sentinel:
+      - Real-time page height measurement
+      - Visual warning badge if content spills onto page 2
+      - "Auto-Fit One Page" button: Intelligently adjusts line height, padding,
+        and font size within safe bounds (10pt minimum) to ensure 1-page fit
+
+[C] Pre-Export Formatting Quality Sentinel (D15):
+    - Triggered before PDF / DOCX download:
+      - Broken Unicode glyph scanner (detects squares, , replacement glyphs)
+      - Widow/Orphan line detector (flags trailing lines with < 3 words)
+      - Heading isolation check (prevents section headers detached from content)
+
 --------------------------------------------------------------------------------
-maxScanHistory           60 scans           Oldest scans automatically evicted
-maxSavedJDs              40 JDs             User prompted to remove before adding
-maxSavedRoles            50 roles           User prompted to remove before adding
-maxFeedbackItems         500 items          Oldest feedback entries evicted
-maxResumeVersions        5 versions         Explicit replacement dialog
-maxBackupFileMB          10 MB              File rejected if exceeded
-maxFileUploadMB          5 MB               Parser rejects with clear error
-maxPdfPages              6 pages            Parser truncates after page 6
-maxFindingNoteChars      500 chars          Textarea maxlength enforcement
+2.4 PROJECT BUILD BRIEFS & SET-COVER BUNDLER (/tools/build-briefs)
+Production project specifications engineered for portfolio proof.
+
+SUBSECTION LAYOUT:
+[A] Filter & Search Deck:
+    - Domain Category Pills: 14 domains with distinctive color tokens
+    - Difficulty Toggles: Beginner, Intermediate, Advanced
+    - Estimated Hours Range Filter (e.g. 15-30h, 30-50h, 50h+)
+    - "For Your Gaps" Toggle: Filter briefs that directly resolve open profile gaps
+
+[B] Greedy Set-Cover Recommendations Tray:
+    - When open gaps exist, calculates the minimum combination of projects
+      covering all missing skills using the greedy set-cover algorithm
+    - Displays total hours required and consolidated skills covered
+
+[C] Project Brief Cards:
+    - Title, Domain, Estimated Hours, Difficulty Badge
+    - Problem Statement preview
+    - Key Tech Stack badges
+    - "Open Full Brief" button and bookmark toggle
+
+[D] Detail Modal (BriefDetailModal):
+    - Displays all 10 deep sections (Problem Statement, Use Cases, Architecture,
+      Scale Targets, Verification Rubric, Resume Bullet Formula)
+    - "Download Brief (.txt)" and "Copy to Clipboard" buttons
+    - "Download Starter Scaffold (.zip)" button: Triggers client-side JSZip generator
+    - "Mark Completed & Inject to Resume" button: Adds project to resume ledger
+
 --------------------------------------------------------------------------------
+2.5 CREDENTIAL & OPPORTUNITY ENGINE (/tools/credential-engine)
+Evidence builder covering national exams, cloud certifications, and hackathons.
 
-CORRUPTION QUARANTINE WORKFLOW:
-If localStorage contains invalid JSON or schema validation fails:
-1. Fault-tolerant adapter catches error.
-2. Moves corrupt data to hireflow:v4:<store>_corrupt for forensic inspection.
-3. Re-initializes store with valid default schema.
-4. Alerts user with non-blocking toast; application remains completely operational.
+SUBSECTION LAYOUT:
+[A] Category Subsections:
+    - Certifications Tab: Verified cloud & software certifications
+    - Events Tab: Hackathons, coding contests, CTFs, AI challenges
+    - Open Source Tab: Fellowships, mentorships (GSoC, LFX, MLH)
+    - Opportunity Plan Tab: Saved targets, deadlines, milestone tracker
 
-================================================================================
-10. PERFORMANCE BENCHMARKS, BUNDLE BUDGETS & OFFLINE PWA PROTOCOL
-================================================================================
+[B] Opportunity Detail Modal:
+    - Overview, Syllabus, Eligibility Rules, Student Fee Waiver guide
+    - Provenance badge: "Verified", "Needs-Recheck", "Unverified"
+    - Last verified timestamp and source URL
 
-BUNDLE SIZE BUDGET COMPARISON:
+[C] RFC 5545 iCalendar Generator (.ics) (D18):
+    - Generates calendar file with verified application deadlines and exam dates
+
+[D] National Exam Eligibility Evaluator:
+    - Evaluates eligibility rules for GATE, ISRO ICRB, AWS SAA, CDAC
+
 --------------------------------------------------------------------------------
-Chunk Identifier              v3 Monolith       v4 Code-Split      Reduction
+2.6 CAREER TRAJECTORY HUB & WHAT-IF SIMULATOR (/tools/career-path)
+Exploration of Indian IT and global tech leveling tracks.
+
+SUBSECTION LAYOUT:
+[A] Career Explorer Subsections:
+    - Company Tracks: IT Services (TCS/Infosys), Unicorns, GCCs, Big Tech India
+    - Equivalent Levels: Cross-company ladder equivalence mapping
+    - CTC Salary Visualizer: Transparent base vs variable vs stock breakdowns
+
+[B] What-If Scenario Simulator (D20):
+    - Live Sliders: CGPA (5.0 to 10.0), College Tier (1, 2, 3), Branch, Internships
+    - Campus Corporate Cutoff Gates:
+      - Visual boundary flags (e.g. "Cutoff: 7.0 CGPA for Tier-1 Tech")
+      - Reveals eligibility changes in real time without fake probabilities
+
 --------------------------------------------------------------------------------
-Initial Entry Bundle          15.68 MB          1.83 MB            -88.3%
-Gzip Compressed Payload       1.85 MB           286.19 kB          -84.5%
-PDF Parser (pdfjs-dist)       Loaded at start   On-Demand (~480kB) Decoupled
-DOCX Parser (mammoth)         Loaded at start   On-Demand (~180kB) Decoupled
-JSZip Scaffold Generator      Loaded at start   On-Demand (~95kB)  Decoupled
+2.7 TALENTLENS MARKET INTELLIGENCE & SAVED ROLES (/tools/talentlens)
+Role requirements library and candidate bridge.
+
+SUBSECTION LAYOUT:
+[A] Role Catalog & Search:
+    - Filters by company type, experience tier, and technology family
+    - Deep requirements breakdown: Mandatory vs Preferred vs Mentioned
+
+[B] Saved Roles Tray (D19):
+    - Local storage persistence for up to 50 bookmarked roles
+    - "Send to JD Compare" button: Pre-populates JD Compare with one click
+
 --------------------------------------------------------------------------------
+2.8 GROUNDED OUTREACH GENERATOR & COLD EMAIL ANALYZER (/tools/reach-out)
+Recruiter outreach generator adhering to strict ground-truth constraints.
 
-PWA SERVICE WORKER (public/sw.js):
-• Strategy: Stale-While-Revalidate for JS/CSS chunks; Cache-First for static SVGs.
-• Precache: Injects all 71 production build chunks directly on build.
-• Offline Fallback: Serves /index.html on navigation requests when offline.
-• User Data Isolation: Service worker never touches localStorage or user inputs.
+SUBSECTION LAYOUT:
+[A] Message Archetype Selectors:
+    - Cold Outreach (Engineering Manager, Recruiter, Senior Peer)
+    - Day 3 Follow-Up
+    - Day 7 Follow-Up
+    - Post-Interview Thank You
 
-RUNTIME BENCHMARKS (Synthetic Fixtures):
-• Character Span Annotator: 12.4ms (Budget: <100ms) — PASS
-• Scan History Render (60 items): 8.2ms (Budget: <50ms) — PASS
-• Greedy Set-Cover Bundler (30 projects): 3.1ms (Budget: <20ms) — PASS
-• Backup SHA-256 Checksum (full stores): 18.5ms (Budget: <100ms) — PASS
+[B] Grounded Message Generator:
+    - Synthesizes messages using candidate resume facts
+    - Inserts explicit [FILL_IN] placeholders for company-specific details
+    - Zero hallucinated achievements
+
+[C] Subject Line Effectiveness Meter:
+    - Evaluates subject line length, personalization, urgency, and spam triggers
+
+--------------------------------------------------------------------------------
+2.9 UNIFIED CANDIDATE PROFILE & SCAN HISTORY (/history, /data)
+Persistent candidate state across all tools.
+
+SUBSECTION LAYOUT:
+[A] Multi-Version Resume Slots:
+    - Up to 5 labeled versions (e.g. "Default", "Backend SDE", "Full Stack")
+    - One-click active resume swap
+
+[B] Scan History Progression Chart:
+    - Logs up to 60 scans automatically
+    - Recharts line graph showing ATS Score and Evidence Depth progression over time
+    - Side-by-side comparator displaying score deltas between any two historical scans
+    - Configuration fingerprint warning if scoring weights differed between scans
+
+--------------------------------------------------------------------------------
+2.10 SAVED JOB DESCRIPTION LIBRARY (/jd-library)
+Curated personal repository of target opportunities.
+
+SUBSECTION LAYOUT:
+[A] Saved JDs Grid:
+    - Up to 40 saved JDs with tags and dates
+    - Automatic deduplication via SHA-256 hashText()
+
+[B] Cross-JD Market Demand Aggregator:
+    - Aggregates demanded skills across all saved JDs (threshold: >= 3 JDs)
+    - Displays frequency count and demand weight
+
+--------------------------------------------------------------------------------
+2.11 SCORING METHODOLOGY & DIAGNOSTIC REPORTER (/methodology)
+Transparent algorithmic documentation.
+
+SUBSECTION LAYOUT:
+[A] Live Configuration Inspector:
+    - Displays live weights from scoring.ts and limits.ts
+    - Data provenance table with audit timestamps
+
+[B] Sanitized Diagnostic Generator:
+    - Generates PII-free JSON report containing score components and token counts
+    - Safe to share for bug reports or engine tuning
+
+--------------------------------------------------------------------------------
+2.12 DATA PORTABILITY, STORAGE QUOTAS & RESET (/data)
+Candidate data management and safety controls.
+
+SUBSECTION LAYOUT:
+[A] Storage Usage Gauges:
+    - Live item counts across all 6 local stores
+
+[B] Export / Import Data:
+    - Downloads tamper-evident hireflow-backup-YYYY-MM-DD.json with checksum
+    - Import validates Zod schemas and checksum with Merge/Replace modes
+
+[C] Typed Deletion Guard:
+    - Requires typing "DELETE" into ConfirmDialog to execute hard storage wipe
 
 ================================================================================
-11. KNOWN SYSTEM BOUNDARIES, HEURISTICS & VERIFICATION CAVEATS
-================================================================================
-Documented in docs/known-limitations.md:
-1. Heuristic ATS Matching: Evaluates textual overlap, known aliases, and metrics;
-   does not predict human screener bias or interview shortlists.
-2. Metric Pattern Verification: Validates presence of numerical metrics and units;
-   cannot independently confirm candidate project accomplishments were real.
-3. LAN HTTP Secure-Context Limitation: Testing on a phone over plain HTTP local
-   network disables crypto.subtle and Service Workers; fallbacks activate cleanly.
-4. Single Browser Scope: localStorage is scoped per origin/browser profile.
-   Use /data export/import to migrate data between browsers or devices.
-
-================================================================================
-12. QA COMMAND CHEATSHEET & AUTOMATED GATE EXECUTION GUIDE
+CHAPTER 3: PROJECT BUILD BRIEFS ARCHITECTURE, SCHEMA & QUALITY RUBRIC
 ================================================================================
 
-RUN ALL AUTOMATED TESTS:
-$ npx vitest run
+3.1 THE 15-FIELD PROJECT BRIEF ANATOMY
+Every project brief in src/data/suite/project-briefs.json adheres to a strict schema:
 
-RUN SPECIFIC TEST CATEGORY:
-$ npx vitest run tests/security/              # Run security & hostile input tests
-$ npx vitest run tests/a11y/                  # Run accessibility & WCAG tests
-$ npx vitest run src/data/__tests__/          # Run dataset schemas & provenance
-$ npx vitest run tests/roaster/               # Run character span annotator tests
-$ npx vitest run tests/tailor/                # Run resume tailor & parity tests
+1.  id                      (string): Unique kebab-case slug (e.g. "brief-ab-experimentation")
+2.  title                   (string): Production-grade system title
+3.  domain                  (string): One of 14 canonical technical domains
+4.  estimatedHours          (number): Defensible, realistic time to complete
+5.  difficulty              (enum)  : "beginner" | "intermediate" | "advanced"
+6.  coveredSkills           (array) : List of skills demonstrated by the project
+7.  problemStatement        (string): Industry pain point the system addresses
+8.  useCases                (string): Real-world business scenarios where this is deployed
+9.  problemItSolves         (string): Why this problem is technically difficult
+10. recruiterSignal         (string): Explicit competencies demonstrated to an engineering screener
+11. architecture            (string): Components, data flow, failure modes, storage layer
+12. scaleTargets            (string): Throughput (QPS), latency (p99), memory, and data size targets
+13. techStack               (array) : Languages, frameworks, databases, and tooling
+14. verificationRubric      (array) : Concrete verification checklist for screeners
+15. portfolioBulletFormula  (string): Exact STAR/Google XYZ resume bullet with metrics
 
-TYPECHECK CODEBASE:
+3.2 DOMAIN TAXONOMY (14 TECHNICAL SPECIALIZATIONS)
+1.  Distributed Systems          (Blue)    : Consensus, caching, rate limiting, queuing
+2.  Full-Stack Web               (Emerald) : React, Node, WebSockets, SSR, GraphQL
+3.  Data Engineering             (Amber)   : ETL pipelines, Spark, Kafka, Parquet, OLAP
+4.  AI/ML Applications           (Purple)  : Embeddings, vector search, RAG, inference
+5.  GenAI & LLM Engineering      (Violet)  : Fine-tuning, agents, prompt evaluations
+6.  ML Engineering               (Pink)    : Feature stores, model serving, drift monitoring
+7.  Platform & DevOps            (Cyan)    : Kubernetes, Terraform, CI/CD, observability
+8.  Security & Platform          (Red)     : OAuth2, mTLS, zero trust, secret management
+9.  FinTech Engineering          (Green)   : Ledgers, double-entry accounting, reconciliations
+10. Systems Programming          (Orange)  : Rust/C++, memory management, network protocols
+11. Mobile Engineering           (Teal)    : Offline-first sync, SQLite, push notifications
+12. Blockchain & Web3            (Yellow)  : Smart contracts, EVM, verifiable credentials
+13. Computer Science Fundamentals(Indigo)  : Compilers, virtual machines, operating systems
+14. Algorithms & Applied Math    (Rose)    : Bayesian inference, graph algorithms, optimization
+
+3.3 THE 4 QUALITY SENTINELS OF A PRODUCTION BRIEF
+A brief is rejected if it fails any of these 4 quality sentinels:
+[Sentinel 1: No Invented Facts]
+  Zero fabricated salaries, unrealistic claims, or fake benchmarks.
+  Every tool named must be an active, real-world open-source or industry technology.
+
+[Sentinel 2: Defensible Scale Targets]
+  Scale targets must be achievable on a developer laptop or free-tier cloud account.
+  (e.g. "1,000 requests/sec with p99 < 15ms using Redis on localhost", NOT "100M QPS").
+
+[Sentinel 3: Concrete Verification Rubric]
+  Screener rubrics must contain reproducible tests:
+  (e.g. "Run `k6 run loadtest.js` to verify 1,000 QPS with zero 5xx responses").
+
+[Sentinel 4: Google XYZ Resume Bullet Formula]
+  Resume bullet formulas must follow the pattern:
+  "Accomplished [X], as measured by [Y], by doing [Z]"
+  (e.g. "Engineered sequential Bayesian A/B test evaluator in FastAPI, reducing sample exposure time by 38% while bounding false discovery rates via posterior probability stopping rules").
+
+3.4 GREEDY SET-COVER PROJECT BUNDLER ALGORITHM (bundleBriefs.ts)
+When candidate has open skill gaps U = {s1, s2, ..., sn}:
+• Objective: Find subset of briefs B ⊆ ALL_PROJECT_BRIEFS that covers U with minimal total hours.
+• Algorithm:
+  1. Let RemainingGaps = U.
+  2. While RemainingGaps is not empty and available briefs remain:
+     a. For each brief b, calculate MarginalCoverage(b) = |b.coveredSkills ∩ RemainingGaps|.
+     b. Compute Efficiency(b) = MarginalCoverage(b) / b.estimatedHours.
+     c. Select brief b* that maximizes Efficiency(b*).
+     d. Add b* to Bundle.
+     e. RemainingGaps = RemainingGaps  b*.coveredSkills.
+  3. Return Bundle sorted by priority.
+
+3.5 IN-BROWSER JSZIP SCAFFOLD GENERATOR (scaffoldGenerator.ts)
+Generates starter code without any server-side dependencies:
+• Generates ZIP containing:
+  - README.md: Title, architecture overview, scale targets, verification rubric
+  - docs/architecture.mmd: Renderable Mermaid system diagram
+  - package.json / requirements.txt: Pre-configured dependencies
+  - src/index.ts or app.py: Clean starter scaffolding with TODO markers
+  - tests/verification.test.ts: Pre-written test cases validating the rubric
+
+3.6 RESUME LEDGER INJECTION
+When user clicks "Mark Completed & Inject to Resume":
+• Formats the brief's portfolioBulletFormula into a structured project block.
+• Inserts explicit [METRIC] placeholders for the candidate to fill in verified numbers.
+• Injects directly into active resume draft in profileStore and tailorStore.
+
+3.7 DEVELOPER PROTOCOL: HOW TO ADD OR EDIT PROJECT BRIEFS
+1. Open src/data/suite/project-briefs.json.
+2. Create new object conforming to the 15-field schema.
+3. Validate unique id (must not collide with existing 83 IDs).
+4. Run validation test: npx vitest run src/data/__tests__/validateData.test.ts.
+
+================================================================================
+CHAPTER 4: THE COMPLETE QUALITY & SCORING ENGINES
+================================================================================
+
+4.1 ATS INGESTION & LAYOUT QUALITY ENGINE (src/engine/ingestion/)
+Multi-format document ingestion pipeline:
+• Multi-Format Parsers (fileParser.ts):
+  - PDF: Handled via dynamic import of pdfjs-dist; extracts text coordinates, fonts.
+  - DOCX: Handled via dynamic import of mammoth; converts styles to clean text streams.
+  - TXT / Markdown: Normalized UTF-8 decoding.
+• Section Segmenter (sectionSegmenter.ts):
+  - Detects 12 standard resume section headings via regex pattern matching
+  - Identifies Experience, Projects, Education, Skills, Certifications, Summary
+• Layout Reader (layoutReader.ts):
+  - Evaluates bounding boxes to detect multi-column layouts
+  - Reassembles natural reading order: prevents left/right column text interleaving
+• Entity Extractor (entityExtractor.ts):
+  - Extracts contact information: email, phone, LinkedIn, GitHub, portfolio URLs
+  - Extracts GPA/CGPA and degree metadata
+
+4.2 CALIBRATED 4-PILLAR SCORING ENGINE (src/engine/roaster/, src/config/scoring.ts)
+The definitive ATS evaluator calibrated to the Indian fresher hiring market:
+
+PILLAR 1: HARD SKILLS COVERAGE (40% Weight)
+  Formula: HardSkillsScore = (EvidencedSkills / TargetSkills) * 100
+  Evaluates candidate skills against target role taxonomy.
+
+PILLAR 2: EVIDENCE QUALITY & DEPTH (25% Weight)
+  Formula: EvidenceScore = (∑ BulletLevelMultipliers) / TotalBullets * 100
+  Levels:
+  - L3 (Measured Outcome): 1.00 — Contains digits, metrics, and outcomes
+  - L2 (Internship/Work): 0.85 — Work experience bullet with context
+  - L1 (Project Bullet): 0.65 — Academic or personal project bullet
+  - L0 (Listed Skill): 0.35 — Skill mentioned only in skills list
+
+PILLAR 3: FRESHER READINESS (20% Weight)
+  Formula: FresherScore = ProjectPoints (40) + DegreePoints (25) + GitHubPoints (20) + CSTheory (15)
+  Rewards concrete project evidence over unverified claims.
+
+PILLAR 4: FORMAT SAFETY (15% Weight)
+  Evaluates ATS parsing risks:
+  - Multi-column penalty: -15 pts
+  - Broken glyphs / symbols: -10 pts
+  - Missing section headings: -10 pts
+  - Tables detected: -15 pts
+
+OVERALL ATS SCORE:
+  OverallATS = (HardSkills * 0.40) + (Evidence * 0.25) + (Fresher * 0.20) + (Format * 0.15)
+  Clamped to range [25, 100].
+
+4.3 SEMANTIC MATCHER, ALIAS GRAPH & TAXONOMY ENGINE (src/engine/matching/)
+Matches candidate capabilities against job descriptions:
+• Alias Resolution:
+  - Resolves abbreviations: "k8s" -> "Kubernetes", "aws" -> "Amazon Web Services", "postgres" -> "PostgreSQL"
+• Context Classifier:
+  - Classifies where a skill appears: Primary Tool, Secondary Environment, or Passing Mention
+• Multiplier Matrix:
+  - DIRECT MATCH: 1.00
+  - TRANSFERABLE MATCH (e.g. PyTorch for TensorFlow): 0.70
+  - PARTIAL MATCH (e.g. C++ for C): 0.40
+  - MISSING: 0.00
+
+4.4 TRUTH GATE & ANTI-HALLUCINATION HONESTY ENGINE (src/engine/tailor/truthGate.ts)
+Guarantees that tailoring never fabricates resume content:
+• Parity Audit: Compares tailored resume tokens against source resume tokens.
+• Rules Enforced:
+  - Project bullets cannot introduce new technologies not evidenced in source draft.
+  - Metrics (percentages, counts) cannot be altered without candidate confirmation.
+  - Stored in activeProject.evidenceMapping.
+
+4.5 PRE-EXPORT FORMATTING QUALITY SENTINEL (src/lib/tailor/export/formattingChecker.ts)
+Pre-export linter enforcing quality before file download:
+• Broken Glyph Check: Scans for \uFFFD, non-printable characters, unclosed brackets.
+• Widow/Orphan Check: Flags bullet points ending with < 3 words on the final line.
+• Length Overflow Check: Computes vertical line counts; warns if > 1 page.
+
+4.6 WHAT-IF READINESS DELTA & CORPORATE CUTOFF ENGINE (src/features/career-path/whatIfSimulator.ts)
+Evaluates Indian campus eligibility:
+• Live sliders: CGPA, College Tier, Branch, Internships.
+• Cutoff Matrix:
+  - Tier-1 Product: 7.5+ CGPA, CS/IT preferred, 2+ projects, 1+ internship
+  - GCCs (Global Capability Centers): 7.0+ CGPA, all branches considered
+  - IT Services: 6.0+ CGPA, strict zero active backlogs
+• Displays eligibility delta and exact prerequisite gaps.
+
+4.7 SUBJECT LINE EFFECTIVENESS & OUTREACH QUALITY METER
+Evaluates cold email outreach before sending:
+• Word Count Check: Optimal range 5 to 9 words.
+• Spam Trigger Scanner: Flags "URGENT", "FREE", "GUARANTEED", "100%", all-caps tokens.
+• Personalization Density: Checks for [COMPANY_NAME] and role-specific hooks.
+
+================================================================================
+CHAPTER 5: DATA MODELS, STORAGE ADAPTER & ZOD SCHEMAS
+================================================================================
+
+5.1 STORE INVENTORY & STORAGE KEYS
+All state is persisted in client localStorage with hireflow:v4: prefix:
+• Profile:      hireflow:v4:profile       (ProfileStoreSchema)
+• Scan History: hireflow:v4:scan_history  (ScanHistoryStoreSchema)
+• Saved JDs:    hireflow:v4:saved_jds     (SavedJdStoreSchema)
+• Saved Roles:  hireflow:v4:saved_roles   (SavedRoleStoreSchema)
+• Feedback:     hireflow:v4:feedback      (FeedbackStoreSchema)
+• Briefs:       hireflow:v4:brief_progress(BriefProgressStoreSchema)
+
+5.2 APPLICATION CAPACITY LIMITS (src/config/limits.ts)
+• maxScanHistory     : 60 scans (Ring buffer)
+• maxSavedJDs        : 40 JDs
+• maxSavedRoles      : 50 roles
+• maxFeedbackItems   : 500 notes
+• maxResumeVersions  : 5 versions
+• maxBackupFileMB    : 10 MB
+• maxFileUploadMB    : 5 MB
+• maxPdfPages        : 6 pages
+
+5.3 CORRUPT QUARANTINE WORKFLOW
+If storage parsing fails:
+1. Catches syntax or schema error.
+2. Moves damaged value to hireflow:v4:<key>_corrupt.
+3. Initializes clean default state.
+4. Notifies user via toast; zero crash impact.
+
+5.4 TAMPER-EVIDENT BACKUP FORMAT
+Exported JSON contains:
+- backupVersion: 1
+- exportedAt: ISO timestamp
+- engineVersion: "4.0.0"
+- sections: { profile, scan_history, saved_jds, saved_roles, feedback, brief_progress }
+- checksum: "fnv1a:<hash>"
+Import verifies checksum; warns if modified.
+
+================================================================================
+CHAPTER 6: DEVELOPER'S EXTENSION BLUEPRINT ("IN ORDER TO MAKE CHANGES")
+================================================================================
+
+6.1 MODIFYING UI COMPONENTS, SUBSECTIONS & LAYOUTS
+• Adding a new subsection to a tool:
+  1. Open the tool page in src/features/suite/<tool>/ or src/pages/tools/.
+  2. Implement the component under src/components/common/ or the tool's components/ directory.
+  3. Ensure it uses design tokens (border-border/80, bg-surface/70, text-foreground).
+  4. Ensure WCAG compliance: focus-visible:ring-2, min 44px touch targets.
+
+6.2 UPDATING OR ADDING PROJECT BRIEFS
+• Open src/data/suite/project-briefs.json.
+• Add or edit the brief adhering to the 15-field schema.
+• Run validation: npx vitest run src/data/__tests__/validateData.test.ts.
+
+6.3 CALIBRATING SCORING WEIGHTS, PILLARS & THRESHOLDS
+• Open src/config/scoring.ts to adjust pillar weights (ATS_PILLAR_WEIGHTS).
+• Note: Changing weights automatically alters computeConfigFingerprint() in src/config/versions.ts,
+  which alerts users on historical scan comparisons that scoring rules have changed.
+• Document any changes in docs/metric-inventory.md and update src/types/explain.ts.
+
+6.4 RUNNING THE QUALITY GATE BEFORE PUSHING
 $ npm run typecheck
-
-STATIC PRIVACY EGRESS AUDIT:
 $ npm run privacy:check
-
-PRODUCTION BUILD & BUNDLE SIZE AUDIT:
+$ npx vitest run
 $ npm run build
-$ npx tsx scripts/check-bundle-size.ts
-
-PREVIEW PRODUCTION BUILD (TEST PWA & CSP):
-$ npm run preview
-# Open http://localhost:4173 in Chrome or Edge
-
-SERVE ON LAN (FOR MOBILE PHONE TESTING):
-$ npm run dev -- --host
-# Connect phone to same Wi-Fi and open http://<YOUR_IP>:5173
 
 ================================================================================
-END OF COMPLETE TESTING CONTEXT MANUAL • HIREFLOW AI v4.0.0
+END OF COMPLETE QUALITY ENGINE & SUBSECTIONS MANUAL • HIREFLOW AI v4.0.0
 ================================================================================
