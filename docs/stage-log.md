@@ -263,6 +263,20 @@ Log of all stages executed autonomously, including files modified, commands exec
   - `npx vitest run`: 105 test files passed, 737 tests passed (100% green)
 - **Status**: **100% COMPLETE**. Work remains uncommitted in working tree per absolute git rules.
 
+---
+
+## Quality Engine Overhaul: Phases 1 to 4 (Deterministic Truth Gate & MRVI)
+- **Scope Covered**:
+  - **Phase 1**: Purged fake scoring math, removed arbitrary +15% boost claims, restored real `computeAtsScore` calculations, and fixed slot interpolation leaks.
+  - **Phase 2**: Implemented thin-text safeguards (< 50 words) and missing critical section flags in resume parser.
+  - **Phase 3**: Decomposed monolithic 2,955-line `CareerPathSimulator.tsx` down to 597 lines into 4 testable domain components; added in-memory pure-vector PDF generation with `pdf-lib` and `@media print` scoped A4 styles.
+  - **Phase 4**: Open-sourced exact JD Alignment Index (40/25/15/10/10) and Project Substance Index (35/30/20/15) formulas; published Truth Gate rules TG-01 to TG-04; implemented Market Requirement & Value Index (MRVI) calculation engine and interactive simulator.
+- **Verification**:
+  - `npx vitest run`: 110 test files passed, 766 tests green (0 failures)
+  - `npx tsc --noEmit`: 0 TypeScript errors
+  - Secret scanning & zero-egress privacy verification: 100% clean
+
+
 
 
 

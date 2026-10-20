@@ -80,11 +80,12 @@ Every factual record in HireFlow's datasets carries explicit provenance fields (
 ## Tech Stack & Architecture
 
 - **Framework**: React 19 + TypeScript (strict mode) + Vite
-- **Styling**: Tailwind CSS with dark theme tokens
+- **Styling**: Tailwind CSS with dark theme tokens & scoped `@media print` A4 pagination
 - **State**: Zustand with typed schema migrations
-- **Parsers**: `pdfjs-dist` (client-side text layer), `mammoth` (DOCX extraction), `docx` (binary exporter)
-- **Validation**: Zod schema validation
-- **Testing**: Vitest (pure deterministic engines without clock/random dependencies)
+- **Parsers & Exporters**: `pdfjs-dist` (client-side text extraction), `pdf-lib` (pure-vector in-memory PDF synthesis), `mammoth` (DOCX extraction), `docx` (binary exporter)
+- **Validation**: Zod schema validation & Truth Gate invariants
+- **Evaluation Index**: Market Requirement & Value Index (MRVI) & Project Substance Index
+- **Testing**: Vitest (110 test files, 766 tests, zero flakiness)
 
 ---
 
