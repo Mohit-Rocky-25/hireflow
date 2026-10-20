@@ -30,6 +30,12 @@ export interface GeneratedPlanResult {
   ninetyDayPlan: PlanRecommendation[];
   totalRecommendedCount: number;
   overloadWarning: string | null;
+  /**
+   * Set when the user's target role string did not match any known role pattern.
+   * The plan falls back to backend-developer paths.
+   * UI should display this warning so the user knows to refine their role input.
+   */
+  unrecognizedRoleWarning: string | null;
   evidenceCaveat: string;
   contextSummary: string;
 }
@@ -46,43 +52,49 @@ export interface PlanGenerationInput {
 }
 
 /**
- * Normalizes user target role to one of the 11 recommendation paths
+ * Normalizes user target role to one of the 11 recommendation paths.
+ * Returns both the normalized role ID and whether the input was recognized.
+ * If unrecognized, falls back to 'backend-developer' and sets wasRecognized=false.
  */
-export function normalizeTargetRole(roleName?: string | null): string {
-  if (!roleName) return 'backend-developer';
+export function normalizeTargetRole(roleName?: string | null): {
+  roleId: string;
+  wasRecognized: boolean;
+} {
+  if (!roleName) return { roleId: 'backend-developer', wasRecognized: false };
   const lower = roleName.toLowerCase().trim();
 
   if (lower.includes('front') || lower.includes('react') || lower.includes('ui developer')) {
-    return 'frontend-developer';
+    return { roleId: 'frontend-developer', wasRecognized: true };
   }
   if (lower.includes('full') || lower.includes('mern') || lower.includes('web developer')) {
-    return 'full-stack-developer';
+    return { roleId: 'full-stack-developer', wasRecognized: true };
   }
   if (lower.includes('data eng') || lower.includes('etl') || lower.includes('pipeline')) {
-    return 'data-engineer';
+    return { roleId: 'data-engineer', wasRecognized: true };
   }
   if (lower.includes('data anal') || lower.includes('business anal') || lower.includes('bi analyst')) {
-    return 'data-analyst';
+    return { roleId: 'data-analyst', wasRecognized: true };
   }
-  if (lower.includes('ai') || lower.includes('machine learning') || lower.includes('ml ') || lower.includes('deep learning')) {
-    return 'ai-ml-engineer';
+  if (/\b(?:ai|ml|artificial intelligence|machine learning|deep learning)\b/i.test(lower)) {
+    return { roleId: 'ai-ml-engineer', wasRecognized: true };
   }
   if (lower.includes('cloud') || lower.includes('devops') || lower.includes('sre') || lower.includes('infrastructure')) {
-    return 'cloud-devops-engineer';
+    return { roleId: 'cloud-devops-engineer', wasRecognized: true };
   }
   if (lower.includes('security') || lower.includes('cyber') || lower.includes('soc') || lower.includes('infosec')) {
-    return 'cybersecurity-analyst';
+    return { roleId: 'cybersecurity-analyst', wasRecognized: true };
   }
   if (lower.includes('product anal') || lower.includes('product ops') || lower.includes('metrics')) {
-    return 'product-analyst';
+    return { roleId: 'product-analyst', wasRecognized: true };
   }
   if (lower.includes('design') || lower.includes('ux') || lower.includes('product design')) {
-    return 'ux-product-designer';
+    return { roleId: 'ux-product-designer', wasRecognized: true };
   }
   if (lower.includes('qa') || lower.includes('test') || lower.includes('sdet') || lower.includes('automation')) {
-    return 'qa-automation-engineer';
+    return { roleId: 'qa-automation-engineer', wasRecognized: true };
   }
-  return 'backend-developer';
+  // Unrecognized — silent fallback removed; caller receives wasRecognized=false
+  return { roleId: 'backend-developer', wasRecognized: false };
 }
 
 /**
@@ -90,8 +102,14 @@ export function normalizeTargetRole(roleName?: string | null): string {
  * Enforces strict rule: Recommend ONLY 3–5 high-yield opportunities total
  */
 export function generateOpportunityPlan(input: PlanGenerationInput): GeneratedPlanResult {
-  const roleId = normalizeTargetRole(input.targetRole);
+  const { roleId, wasRecognized } = normalizeTargetRole(input.targetRole);
   const path = ROLE_RECOMMENDATION_PATHS.find((p) => p.roleId === roleId) || ROLE_RECOMMENDATION_PATHS[0];
+
+  // Surface unrecognized role to UI instead of silently falling back
+  const unrecognizedRoleWarning: string | null =
+    !wasRecognized && input.targetRole
+      ? `We didn't recognize "${input.targetRole}" as a supported role. Showing a Backend Developer plan instead. Try updating your target role to one we support (e.g. Frontend Developer, Data Engineer, DevOps, AI/ML Engineer).`
+      : null;
 
   const opportunitiesMap = new Map<string, OpportunityRecord>();
   for (const opp of TOP_30_OPPORTUNITIES) {
@@ -229,6 +247,7 @@ export function generateOpportunityPlan(input: PlanGenerationInput): GeneratedPl
     ninetyDayPlan,
     totalRecommendedCount: totalCount,
     overloadWarning,
+    unrecognizedRoleWarning,
     evidenceCaveat:
       'Remember: A certification supports credentials and interview conversations, but does not replace hands-on project evidence with code, tests, and metrics.',
     contextSummary,

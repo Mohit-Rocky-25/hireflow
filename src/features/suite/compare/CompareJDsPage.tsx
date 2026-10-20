@@ -252,7 +252,7 @@ export function CompareJDsPage() {
             Compare Two Job Descriptions
           </h1>
           <p className="text-text-secondary text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
-            Evaluate two competing job opportunities side-by-side. Uncover which role offers higher interview conversion probability, inspect architectural divergence, and generate a step-by-step bridge plan.
+            Evaluate two competing job opportunities side-by-side. Uncover which role offers stronger requirement alignment, inspect architectural divergence, and generate a step-by-step bridge plan.
           </p>
         </div>
 
@@ -1182,7 +1182,7 @@ export function CompareJDsPage() {
                         <div>
                           <h3 className="text-lg font-bold text-text">Strategic Dual-Role Bridge Plan</h3>
                           <p className="text-xs text-text-secondary mt-0.5">
-                            Execute these sequenced steps to unlock interview calls at both companies.
+                            Execute these sequenced steps to systematically strengthen qualifications for both companies.
                           </p>
                         </div>
                         <span className="text-xs font-bold text-primary flex items-center gap-1">
@@ -1343,7 +1343,7 @@ export function CompareJDsPage() {
                     Cross-Application Leverage Opportunities
                   </h3>
                   <p className="text-xs text-text-secondary mt-1">
-                    Fix these competencies once to simultaneously boost multiple job applications.
+                    Address these competencies once to strengthen alignment across multiple job applications.
                   </p>
                 </div>
 

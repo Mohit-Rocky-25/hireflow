@@ -43,7 +43,14 @@ export interface SingleJDResult {
   matchedSkills: string[];
   missingMustHaves: string[];
   missingPreferred: string[];
-  interviewProbability: number;
+  /**
+   * Composite match strength (5–95).
+   * Computed from ATS score (65% weight) + must-have coverage (35% weight).
+   * This is a MODEL ESTIMATE based on keyword and skill signals only.
+   * It is NOT a verified interview callback rate or recruiter statistic.
+   * Use it for relative comparison between roles — not as an absolute prediction.
+   */
+  matchStrength: number;
   readinessAssessment: 'Interview Ready' | 'Competitive Contender' | 'Targeted Gap Closure' | 'High Risk';
 }
 
@@ -144,13 +151,19 @@ function getMatchTier(skill: SkillResult): 'exact' | 'alias' | 'implied' | 'rela
 }
 
 /**
- * Computes estimated match strength score (5 - 95)
+ * Computes composite match strength score (5–95).
+ * Formula: ATS score * 0.65 + must-have coverage% * 0.35.
+ * Bonus +8 if must-have coverage >= 85%; penalty -18 if below 50%.
+ *
+ * NOTE: This is a MODEL ESTIMATE from local skill signals only.
+ * It is NOT a verified interview callback rate. Do NOT label it as a probability.
+ * It exists purely for relative ranking between roles in a comparison session.
  */
-function calculateInterviewProbability(score: number, mustHaveCoverage: number): number {
-  let prob = score * 0.65 + mustHaveCoverage * 100 * 0.35;
-  if (mustHaveCoverage >= 0.85) prob += 8;
-  if (mustHaveCoverage < 0.5) prob -= 18;
-  return Math.min(95, Math.max(5, Math.round(prob)));
+function calculateMatchStrength(score: number, mustHaveCoverage: number): number {
+  let strength = score * 0.65 + mustHaveCoverage * 100 * 0.35;
+  if (mustHaveCoverage >= 0.85) strength += 8;
+  if (mustHaveCoverage < 0.5) strength -= 18;
+  return Math.min(95, Math.max(5, Math.round(strength)));
 }
 
 /**
@@ -247,7 +260,7 @@ function buildHeadToHead(jdA: SingleJDResult, jdB: SingleJDResult): HeadToHeadCo
       jdB.mustHaveCoverage * 100
     )}% must-haves met vs ${Math.round(
       jdA.mustHaveCoverage * 100
-    )}%). You have an estimated ${jdB.interviewProbability}% interview callback rate compared to ${jdA.interviewProbability}% for ${jdA.label}.`;
+    )}%). Your composite match strength for this role is ${jdB.matchStrength} vs ${jdA.matchStrength} for ${jdA.label}.`;
   } else {
     executiveRecommendation = `Both roles present nearly identical readiness profiles (${jdA.score}% vs ${jdB.score}%).`;
     strategicRationale = `Your core qualifications match both roles equally. Focus your preparation on the shared core competencies (${commonCoreSkills.length} common skills) to qualify for both pipelines simultaneously.`;
@@ -264,7 +277,7 @@ function buildHeadToHead(jdA: SingleJDResult, jdB: SingleJDResult): HeadToHeadCo
       stepNumber: 1,
       title: `Close Shared Core Competencies: ${topShared}`,
       action: `Add concrete project bullet points demonstrating hands-on usage of ${topShared} with verifiable scale or latency metrics.`,
-      impact: `Simultaneously lifts both role scores (+8% to +14% total boost).`,
+      impact: `Directly closes requirements shared across both job descriptions.`,
       targetRole: 'Both',
       estimatedHours: 4,
     });
@@ -288,7 +301,7 @@ function buildHeadToHead(jdA: SingleJDResult, jdB: SingleJDResult): HeadToHeadCo
     action: missingMust
       ? `Tailor your primary experience section to highlight ${missingMust} architecture and production deployment.`
       : `Fine-tune resume keywords to match ${targetForStep2.label} exact phrasing.`,
-    impact: `Protects against automated recruiter rejection filters (+${targetForStep2.topFixes[0]?.gain || 6}% score boost).`,
+    impact: `Addresses missing qualification for ${targetForStep2.company || targetForStep2.label} ATS screening.`,
     targetRole: targetForStep2.id === jdA.id ? 'Role A' : 'Role B',
     estimatedHours: 2,
   });
@@ -300,7 +313,7 @@ function buildHeadToHead(jdA: SingleJDResult, jdB: SingleJDResult): HeadToHeadCo
     stepNumber: 3,
     title: `Secondary Role Adaptation: ${alternateRole.company || alternateRole.label}`,
     action: `Create a dedicated tailored resume variant highlighting ${missingAlt} before applying to ${alternateRole.label}.`,
-    impact: `Bridges the ${scoreDelta}% gap and turns this second role into a high-confidence backup offer.`,
+    impact: `Bridges core requirement gap to create a viable second application pipeline.`,
     targetRole: alternateRole.id === jdA.id ? 'Role A' : 'Role B',
     estimatedHours: 3,
   });
@@ -380,7 +393,7 @@ export async function compareJDs(
         matchedSkills: [],
         missingMustHaves: [],
         missingPreferred: [],
-        interviewProbability: 5,
+        matchStrength: 5,
         readinessAssessment: 'High Risk',
       });
       onProgress?.(i + 1, uniqueInputs.length);
@@ -413,7 +426,7 @@ export async function compareJDs(
         matchedSkills: [],
         missingMustHaves: [],
         missingPreferred: [],
-        interviewProbability: 5,
+        matchStrength: 5,
         readinessAssessment: 'High Risk',
       });
     } else {
@@ -438,7 +451,7 @@ export async function compareJDs(
         .filter((s) => !s.found && s.required !== 'must')
         .map((s) => s.canonical);
 
-      const interviewProbability = calculateInterviewProbability(res.score, mustCoverage);
+      const matchStrength = calculateMatchStrength(res.score, mustCoverage);
       const readinessAssessment = determineReadiness(res.score, mustCoverage);
 
       jdResults.push({
@@ -462,7 +475,7 @@ export async function compareJDs(
         matchedSkills,
         missingMustHaves,
         missingPreferred,
-        interviewProbability,
+        matchStrength,
         readinessAssessment,
       });
     }

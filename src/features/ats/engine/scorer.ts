@@ -202,14 +202,20 @@ export function computeAtsScore(input: ScorerInput) {
   let confidence: 'High' | 'Medium' | 'Low' = 'High';
   let confidenceReason: string | undefined = undefined;
 
-  if (experience.length === 0 && projects.length === 0 && wordCount > 300) {
+  if (experience.length === 0 && projects.length === 0) {
     parseQuality = 'Poor';
     confidence = 'Low';
-    confidenceReason = 'Experience and projects sections could not be cleanly identified due to non-standard headings or formatting.';
-  } else if (missingStandardSections.length >= 2 || wordCount < 200) {
+    confidenceReason = wordCount < 200
+      ? `Resume text is unusually brief (${wordCount} words) with minimal project or experience content. Scoring confidence is limited.`
+      : 'Experience and projects sections could not be cleanly identified due to non-standard headings or formatting.';
+  } else if (wordCount < 200) {
     parseQuality = 'Medium';
     confidence = 'Medium';
-    confidenceReason = 'Missing standard headings may reduce ATS parsing reliability.';
+    confidenceReason = `Resume text is unusually brief (${wordCount} words). A full technical resume typically requires 300–800 words for comprehensive evaluation.`;
+  } else if (missingStandardSections.length >= 2) {
+    parseQuality = 'Medium';
+    confidence = 'Medium';
+    confidenceReason = `Missing standard sections (${missingStandardSections.join(', ')}) may reduce ATS parsing reliability.`;
   }
 
   // Fix First items

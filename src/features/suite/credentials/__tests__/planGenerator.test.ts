@@ -12,17 +12,32 @@ import { TOP_30_OPPORTUNITIES } from '../data/opportunitiesData';
 
 describe('Credential & Opportunity Engine — Plan Generator Engine', () => {
   it('normalizes various role strings into standard target roles', () => {
-    expect(normalizeTargetRole('Backend Engineer')).toBe('backend-developer');
-    expect(normalizeTargetRole('React Frontend Developer')).toBe('frontend-developer');
-    expect(normalizeTargetRole('Full Stack MERN')).toBe('full-stack-developer');
-    expect(normalizeTargetRole('Data Engineer AWS')).toBe('data-engineer');
-    expect(normalizeTargetRole('Power BI Business Analyst')).toBe('data-analyst');
-    expect(normalizeTargetRole('Machine Learning Specialist')).toBe('ai-ml-engineer');
-    expect(normalizeTargetRole('DevOps / SRE Engineer')).toBe('cloud-devops-engineer');
-    expect(normalizeTargetRole('SOC Tier 1 Cybersecurity')).toBe('cybersecurity-analyst');
-    expect(normalizeTargetRole('Product Metrics Analyst')).toBe('product-analyst');
-    expect(normalizeTargetRole('UI/UX Designer')).toBe('ux-product-designer');
-    expect(normalizeTargetRole('SDET / QA Automation')).toBe('qa-automation-engineer');
+    // normalizeTargetRole now returns { roleId, wasRecognized }
+    expect(normalizeTargetRole('Backend Engineer').roleId).toBe('backend-developer');
+    expect(normalizeTargetRole('React Frontend Developer').roleId).toBe('frontend-developer');
+    expect(normalizeTargetRole('Full Stack MERN').roleId).toBe('full-stack-developer');
+    expect(normalizeTargetRole('Data Engineer AWS').roleId).toBe('data-engineer');
+    expect(normalizeTargetRole('Power BI Business Analyst').roleId).toBe('data-analyst');
+    expect(normalizeTargetRole('Machine Learning Specialist').roleId).toBe('ai-ml-engineer');
+    expect(normalizeTargetRole('DevOps / SRE Engineer').roleId).toBe('cloud-devops-engineer');
+    expect(normalizeTargetRole('SOC Tier 1 Cybersecurity').roleId).toBe('cybersecurity-analyst');
+    expect(normalizeTargetRole('Product Metrics Analyst').roleId).toBe('product-analyst');
+    expect(normalizeTargetRole('UI/UX Designer').roleId).toBe('ux-product-designer');
+    expect(normalizeTargetRole('SDET / QA Automation').roleId).toBe('qa-automation-engineer');
+  });
+
+  it('marks recognized roles as wasRecognized=true and unrecognized roles as false', () => {
+    expect(normalizeTargetRole('React Frontend Developer').wasRecognized).toBe(true);
+    expect(normalizeTargetRole('some random unknown role xyz').wasRecognized).toBe(false);
+    expect(normalizeTargetRole(null).wasRecognized).toBe(false);
+    expect(normalizeTargetRole(undefined).wasRecognized).toBe(false);
+  });
+
+  it('emits unrecognizedRoleWarning for an unknown role and returns backend-developer plan', () => {
+    const plan = generateOpportunityPlan({ targetRole: 'Blockchain Wizard Supreme' });
+    expect(plan.targetRole).toBe('backend-developer');
+    expect(plan.unrecognizedRoleWarning).not.toBeNull();
+    expect(plan.unrecognizedRoleWarning).toContain('Blockchain Wizard Supreme');
   });
 
   it('enforces the rule: recommend strictly 3–5 next opportunities total', () => {

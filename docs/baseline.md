@@ -1,6 +1,6 @@
 # HireFlow v3 Baseline Performance Report (Stage 0.6)
 
-> Recorded on: 2026-10-19
+> Recorded on: 2026-10-20
 > Status: Baseline measurements before any engine changes or refactoring.
 
 ## Baseline Evaluation Matrix
@@ -66,7 +66,7 @@
 - **JD Fixture:** `jd_02_startup_frontend_fresher.txt`
 - **ATS Overall Score:** 29
 - **Band:** Weak match
-- **Confidence:** Medium
+- **Confidence:** Low
 - **Headline:** Moderate Alignment (7/13 must-haves met) · Key requirements missing
 - **Must Haves Met:** 7/13
 - **Subscores:** Hard Skills: undefined, Evidence: undefined, Seniority: 10, Format Safety: undefined

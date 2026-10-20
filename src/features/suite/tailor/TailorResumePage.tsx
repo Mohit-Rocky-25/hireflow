@@ -11,12 +11,14 @@ import { HandmadeResumeEditor } from './components/HandmadeResumeEditor';
 import { DarkPaperPreview } from './components/DarkPaperPreview';
 import { DirectInputModal } from './components/DirectInputModal';
 import { MakeItBetterModal } from './components/MakeItBetterModal';
+import { MakeItBetterResult } from '../../../lib/tailor/engine/makeItBetterEngine';
 import { Sparkles, Zap, FileText, CheckCircle2 } from 'lucide-react';
 
 export function TailorResumePage() {
   const { activeProject } = useTailorStore();
   const [isInputModalOpen, setIsInputModalOpen] = useState(false);
   const [isMakeItBetterModalOpen, setIsMakeItBetterModalOpen] = useState(false);
+  const [makeItBetterResult, setMakeItBetterResult] = useState<MakeItBetterResult | null>(null);
   const [mobileTab, setMobileTab] = useState<'editor' | 'preview'>('editor');
 
   const resume = activeProject.tailoredResume;
@@ -34,6 +36,7 @@ export function TailorResumePage() {
       <DarkTailorHeader
         onOpenInputModal={() => setIsInputModalOpen(true)}
         onOpenMakeItBetterModal={() => setIsMakeItBetterModalOpen(true)}
+        onMakeItBetterResult={setMakeItBetterResult}
       />
 
       {/* Main Container */}
@@ -101,6 +104,7 @@ export function TailorResumePage() {
       <MakeItBetterModal
         isOpen={isMakeItBetterModalOpen}
         onClose={() => setIsMakeItBetterModalOpen(false)}
+        result={makeItBetterResult}
       />
     </div>
   );

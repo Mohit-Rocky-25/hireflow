@@ -333,6 +333,21 @@ export function OpportunityPlanTab({
           </div>
         )}
 
+        {/* Unrecognized Role Warning — shown when typed role didn't match any path */}
+        {planResult.unrecognizedRoleWarning && (
+          <div className="p-4 rounded-2xl bg-orange-500/10 border border-orange-500/30 flex items-start gap-3">
+            <AlertTriangle className="w-5 h-5 text-orange-500 shrink-0 mt-0.5" />
+            <div className="space-y-1">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-orange-600 dark:text-orange-400">
+                Role Not Recognized
+              </h4>
+              <p className="text-xs sm:text-sm text-text-secondary leading-relaxed">
+                {planResult.unrecognizedRoleWarning}
+              </p>
+            </div>
+          </div>
+        )}
+
         {/* Evidence Caveat */}
         <div className="p-3.5 rounded-xl bg-surface-2 border border-border text-xs text-text-secondary flex items-center gap-2">
           <ShieldCheck className="w-4 h-4 text-primary shrink-0" />
