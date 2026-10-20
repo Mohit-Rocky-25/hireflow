@@ -111,3 +111,28 @@ export const TRUTH_GATE_RULES = [
   },
 ] as const;
 
+/** Market Requirement & Value Index (MRVI) component weights (sum = 1.0) */
+export const MRVI_WEIGHTS = {
+  /** Market demand penalty for absent capability (40% weight) */
+  marketDemandWeight: 0.40,
+  /** Recruiter screening speed and glance impact (35% weight) */
+  recruiterScreeningImpact: 0.35,
+  /** Protection against immediate disqualification or parsing drop (25% weight) */
+  disqualificationRiskMitigation: 0.25,
+} as const;
+
+export interface MrviComponentScores {
+  marketDemand: number;
+  recruiterImpact: number;
+  riskMitigation: number;
+}
+
+/** Calculates the Market Requirement & Value Index (0-100) deterministically */
+export function calculateMrvi(components: MrviComponentScores): number {
+  const score =
+    components.marketDemand * MRVI_WEIGHTS.marketDemandWeight +
+    components.recruiterImpact * MRVI_WEIGHTS.recruiterScreeningImpact +
+    components.riskMitigation * MRVI_WEIGHTS.disqualificationRiskMitigation;
+  return Math.min(100, Math.max(0, Math.round(score)));
+}
+
