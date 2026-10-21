@@ -13,12 +13,13 @@ import {
   FileText,
   Zap,
   CheckCircle2,
-  Printer
+  Printer,
+  Download
 } from 'lucide-react';
 import { TailoredResume, CandidateProfile, TailoredSection } from '../../../../lib/tailor/types';
 import { evaluateLayoutHeight } from '../../../../lib/tailor/export/layoutSentinel';
 import { useTailorStore } from '../../../../lib/tailor/store/tailorStore';
-import { triggerPrintToPdf } from '../../../../lib/tailor/export/pdfExporter';
+import { triggerPrintToPdf, downloadResumeAsPdf } from '../../../../lib/tailor/export/pdfExporter';
 
 interface DarkPaperPreviewProps {
   resume: TailoredResume;
@@ -28,7 +29,19 @@ interface DarkPaperPreviewProps {
 
 export function DarkPaperPreview({ resume, candidate, className = '' }: DarkPaperPreviewProps) {
   const [zoom, setZoom] = useState<number>(100);
+  const [downloading, setDownloading] = useState<boolean>(false);
   const { autoFitOnePage } = useTailorStore();
+
+  const handleDownload = async () => {
+    setDownloading(true);
+    try {
+      await downloadResumeAsPdf(resume, candidate);
+    } catch {
+      triggerPrintToPdf();
+    } finally {
+      setDownloading(false);
+    }
+  };
 
   const settings = resume.layoutSettings;
   const heightReport = evaluateLayoutHeight(resume);
@@ -90,32 +103,57 @@ export function DarkPaperPreview({ resume, candidate, className = '' }: DarkPape
           </div>
         </div>
 
-        {/* Zoom Controls */}
-        <div className="flex items-center gap-1.5 bg-neutral-900 p-1 rounded-lg border border-neutral-800">
+        {/* Actions & Zoom Controls */}
+        <div className="flex items-center gap-2">
           <button
-            onClick={() => setZoom(Math.max(60, zoom - 10))}
-            className="p-1 rounded hover:bg-neutral-800 text-neutral-400 hover:text-white transition"
-            title="Zoom Out"
+            type="button"
+            onClick={handleDownload}
+            disabled={downloading}
+            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white transition cursor-pointer shadow-xs disabled:opacity-50"
+            title="Download Vector PDF directly generated in memory"
           >
-            <ZoomOut className="w-3.5 h-3.5" />
+            <Download className="w-3.5 h-3.5" />
+            <span>{downloading ? 'Exporting...' : 'Export PDF'}</span>
           </button>
-          <span className="text-[11px] font-mono px-1.5 text-neutral-300 min-w-[36px] text-center">
-            {zoom}%
-          </span>
+
           <button
-            onClick={() => setZoom(Math.min(130, zoom + 10))}
-            className="p-1 rounded hover:bg-neutral-800 text-neutral-400 hover:text-white transition"
-            title="Zoom In"
+            type="button"
+            onClick={triggerPrintToPdf}
+            className="p-1.5 rounded-lg bg-neutral-900 hover:bg-neutral-800 text-neutral-400 hover:text-white border border-neutral-800 transition cursor-pointer"
+            title="Browser Print Preview (Ctrl+P)"
           >
-            <ZoomIn className="w-3.5 h-3.5" />
+            <Printer className="w-3.5 h-3.5" />
           </button>
-          <button
-            onClick={() => setZoom(100)}
-            className="p-1 rounded hover:bg-neutral-800 text-neutral-400 hover:text-white transition"
-            title="Reset to 100%"
-          >
-            <Maximize2 className="w-3.5 h-3.5" />
-          </button>
+
+          <div className="flex items-center gap-1.5 bg-neutral-900 p-1 rounded-lg border border-neutral-800">
+            <button
+              type="button"
+              onClick={() => setZoom(Math.max(60, zoom - 10))}
+              className="p-1 rounded hover:bg-neutral-800 text-neutral-400 hover:text-white transition cursor-pointer"
+              title="Zoom Out"
+            >
+              <ZoomOut className="w-3.5 h-3.5" />
+            </button>
+            <span className="text-[11px] font-mono px-1.5 text-neutral-300 min-w-[36px] text-center">
+              {zoom}%
+            </span>
+            <button
+              type="button"
+              onClick={() => setZoom(Math.min(130, zoom + 10))}
+              className="p-1 rounded hover:bg-neutral-800 text-neutral-400 hover:text-white transition cursor-pointer"
+              title="Zoom In"
+            >
+              <ZoomIn className="w-3.5 h-3.5" />
+            </button>
+            <button
+              type="button"
+              onClick={() => setZoom(100)}
+              className="p-1 rounded hover:bg-neutral-800 text-neutral-400 hover:text-white transition cursor-pointer"
+              title="Reset to 100%"
+            >
+              <Maximize2 className="w-3.5 h-3.5" />
+            </button>
+          </div>
         </div>
       </div>
 

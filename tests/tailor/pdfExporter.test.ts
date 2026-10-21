@@ -9,6 +9,7 @@ import {
   generatePdfResume,
   generatePlainTextResume,
   generateMarkdownResume,
+  downloadResumeAsPdf,
 } from '../../src/lib/tailor/export/pdfExporter';
 import type { TailoredResume, CandidateProfile } from '../../src/lib/tailor/types';
 
@@ -195,5 +196,44 @@ describe('HireFlow Vector PDF Exporter Engine', () => {
     expect(markdown).toContain('## Technical Skills');
     expect(markdown).toContain('### Backend Engineering Intern — *Razorpay India*');
     expect(markdown).toContain('- Architected async webhook replay queue');
+  });
+
+  it('executes downloadResumeAsPdf and creates an in-memory downloadable PDF', async () => {
+    let clicked = false;
+    let downloadedName = '';
+    const fakeAnchor: any = {
+      href: '',
+      download: '',
+      click: () => { clicked = true; },
+    };
+
+    const originalWindow = (globalThis as any).window;
+    const originalDoc = (globalThis as any).document;
+    const originalUrlCreate = (globalThis as any).URL.createObjectURL;
+    const originalUrlRevoke = (globalThis as any).URL.revokeObjectURL;
+
+    (globalThis as any).window = globalThis;
+    (globalThis as any).document = {
+      createElement: (tag: string) => {
+        if (tag === 'a') return fakeAnchor;
+        return {};
+      },
+      body: {
+        appendChild: (el: any) => el,
+        removeChild: (el: any) => el,
+      },
+    };
+    (globalThis as any).URL.createObjectURL = () => 'blob:test-pdf-url';
+    (globalThis as any).URL.revokeObjectURL = () => {};
+
+    await downloadResumeAsPdf(dummyResume, dummyCandidate, 'Jeswanth_Resume.pdf');
+    expect(clicked).toBe(true);
+    expect(fakeAnchor.download).toBe('Jeswanth_Resume.pdf');
+    expect(fakeAnchor.href).toBe('blob:test-pdf-url');
+
+    (globalThis as any).window = originalWindow;
+    (globalThis as any).document = originalDoc;
+    (globalThis as any).URL.createObjectURL = originalUrlCreate;
+    (globalThis as any).URL.revokeObjectURL = originalUrlRevoke;
   });
 });
