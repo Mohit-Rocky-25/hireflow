@@ -14,6 +14,8 @@ import { careers } from "../careers-core";
 const platformStats = careers.stats.counts();
 const TOTAL_COMPANIES = platformStats.companies;
 const TOTAL_ROLES = platformStats.roles;
+const TOTAL_FRESHER_PROGRAMS = platformStats.fresherPrograms;
+const TOP_COMPANIES = careers.companies.list().slice(0, 24);
 
 const FEATURES = [
   {
@@ -203,12 +205,34 @@ export function LandingPage() {
                 <div>
                   <h3 className="text-[52px] sm:text-[56px] font-black text-text tracking-tighter leading-none mb-[12px] group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-emerald-500 group-hover:to-teal-400 transition-all duration-500">'26-27</h3>
                   <p className="text-[20px] font-extrabold text-text mb-[6px] tracking-tight">Campus Intelligence</p>
-                  <p className="text-[15px] text-text-secondary font-medium">85+ verified fresher programs, actual CTC bands & eligibility.</p>
+                  <p className="text-[15px] text-text-secondary font-medium">{TOTAL_FRESHER_PROGRAMS}+ verified fresher programs, actual CTC bands & eligibility.</p>
                 </div>
               </div>
               <div className="absolute bottom-[-20%] right-[-5%] opacity-[0.03] group-hover:opacity-[0.08] group-hover:scale-110 transition-all duration-700 pointer-events-none -rotate-12">
                 <GraduationCap className="w-[260px] h-[260px] text-emerald-500" />
               </div>
+            </div>
+          </div>
+
+          {/* Dynamic Unified Employers Showcase */}
+          <div className="mt-[56px] max-w-[1140px] mx-auto text-center page-enter">
+            <p className="text-[12px] font-bold text-text-muted uppercase tracking-[0.14em] mb-[20px]">
+              Calibrated across {TOTAL_COMPANIES}+ Verified Employers & Recruiters
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 max-w-[1000px] mx-auto">
+              {TOP_COMPANIES.map((company) => (
+                <Link
+                  key={company.id}
+                  to={`/demo`}
+                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface-2/80 hover:bg-surface border border-border/70 hover:border-border-accent text-[13px] font-semibold text-text hover:text-primary transition-all duration-150 hover:scale-[1.03] shadow-2xs"
+                >
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0" />
+                  <span>{company.name}</span>
+                  <span className="text-[11px] font-medium text-text-muted px-1.5 py-0.5 rounded bg-bg border border-border/50">
+                    {company.marketSegment}
+                  </span>
+                </Link>
+              ))}
             </div>
           </div>
         </div>

@@ -67,7 +67,7 @@ describe('Careers Platform Data Integrity & Contract Validation', () => {
 
     // Company operations
     const allCompanies = careers.companies.list();
-    expect(allCompanies.length).toBe(PLATFORM_COMPANIES.length);
+    expect(allCompanies.length).toBeGreaterThanOrEqual(PLATFORM_COMPANIES.length);
     const google = careers.companies.get('google');
     expect(google).toBeDefined();
     expect(google?.name).toBe('Google India');

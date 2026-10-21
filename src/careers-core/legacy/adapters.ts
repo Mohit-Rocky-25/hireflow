@@ -15,6 +15,9 @@ import { DEGREE_BRANCH_CATALOG } from '../../data/careerLadders/degreesAndBranch
 import type { Company } from '../../pages/demo/talentLensData';
 import { PLATFORM_COMPETENCIES } from '../data/competencies';
 
+import { COMPANIES } from '../../pages/demo/talentLensData';
+import { synthesizeCompanyLadder } from '../../data/careerLadders/synthesizer';
+
 const RAW_COMPANY_LADDERS: CompanyLadder[] = [
   ...BIG_TECH_INDIA_LADDERS,
   ...INDIAN_PRODUCT_UNICORN_LADDERS,
@@ -25,9 +28,10 @@ const RAW_COMPANY_LADDERS: CompanyLadder[] = [
 
 /**
  * Returns ALL_COMPANY_LADDERS in the exact legacy shape, enriched with platform resolutions.
+ * Dynamically includes synthesized ladders for all companies in TalentLens.
  */
 export function getLegacyCompanyLadders(): CompanyLadder[] {
-  return RAW_COMPANY_LADDERS.map((ladder) => {
+  const enrichedRaw = RAW_COMPANY_LADDERS.map((ladder) => {
     const platformLevels = careers.levels.forCompany(ladder.id);
     const platformLevelMap = new Map(platformLevels.map((l) => [l.levelCode.toLowerCase(), l]));
 
@@ -46,14 +50,26 @@ export function getLegacyCompanyLadders(): CompanyLadder[] {
       levels: enrichedLevels,
     };
   });
+
+  const existingIds = new Set(enrichedRaw.map((l) => l.id.toLowerCase()));
+  const synthesized: CompanyLadder[] = [];
+
+  for (const company of COMPANIES) {
+    const cid = company.id.toLowerCase();
+    if (!existingIds.has(cid)) {
+      existingIds.add(cid);
+      synthesized.push(synthesizeCompanyLadder(company));
+    }
+  }
+
+  return [...enrichedRaw, ...synthesized];
 }
 
 /**
  * Returns legacy COMPANIES array for TalentLens consumers.
- * @deprecated Import directly from '@/pages/demo/talentLensData' if full dataset is required.
  */
 export function getLegacyTalentLensCompanies(): Company[] {
-  return [];
+  return COMPANIES;
 }
 
 /**

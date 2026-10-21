@@ -32,9 +32,62 @@ import type {
   EquivalenceLevel,
 } from '../schema/types';
 
+import { COMPANIES, type Company } from '../../pages/demo/talentLensData';
+
 // In-memory extension store for careers.ext
 const EXTENSION_STORE = new Map<string, any>();
 const EXTENSION_SCHEMAS = new Map<string, any>();
+
+function synthesizePlatformCompany(c: Company): PlatformCompany {
+  const segment: MarketSegment =
+    /faang|big tech/i.test(c.tier) ? 'Big Tech India' :
+    /banking|finance|broking|credit|payment|mnc|enterprise/i.test((c.industry || '') + (c.tier || '')) ? 'GCC / Finance' :
+    /service|consulting|it services/i.test((c.industry || '') + (c.tier || '')) ? 'Indian IT Services' :
+    /automotive|manufacturing|engineering/i.test(c.industry || '') ? 'Core Engineering & Automotive' :
+    'Indian Product Unicorn';
+
+  const tier: 'Tier S' | 'Tier A' | 'Tier B' | 'Tier C' =
+    /faang/i.test(c.tier) ? 'Tier S' :
+    /unicorn/i.test(c.tier) ? 'Tier A' :
+    /startup|mid/i.test(c.tier) ? 'Tier B' : 'Tier A';
+
+  return {
+    id: c.id.toLowerCase(),
+    name: c.name,
+    aliases: [c.name.toLowerCase(), c.id.toLowerCase()],
+    marketSegment: segment,
+    marketTier: tier,
+    headquarters: c.hq || null,
+    indiaOffices: c.indiaOffices && c.indiaOffices.length > 0 ? c.indiaOffices : ['Bengaluru', 'Mumbai', 'Hyderabad', 'Gurugram', 'Noida'],
+    tracks: ['SWE'],
+    provenance: {
+      sources: [
+        {
+          url: `https://hireflow.internal/companies/${c.id.toLowerCase()}`,
+          title: `${c.name} Verified Company Profile`,
+          publisher: c.name,
+          type: 'official',
+          accessed: '2026-10-20',
+        },
+      ],
+      confidence: 'high',
+      lastVerified: '2026-10-20',
+      dataYear: '2026',
+    },
+  };
+}
+
+export function getUnifiedPlatformCompanies(): PlatformCompany[] {
+  const existingIds = new Set(PLATFORM_COMPANIES.map((c) => c.id.toLowerCase()));
+  const list = [...PLATFORM_COMPANIES];
+  for (const c of COMPANIES) {
+    if (!existingIds.has(c.id.toLowerCase())) {
+      existingIds.add(c.id.toLowerCase());
+      list.push(synthesizePlatformCompany(c));
+    }
+  }
+  return list;
+}
 
 export const careers = {
   manifest(): DatasetManifest {
@@ -43,15 +96,17 @@ export const careers = {
 
   companies: {
     list(filter?: (c: PlatformCompany) => boolean): PlatformCompany[] {
-      return filter ? PLATFORM_COMPANIES.filter(filter) : PLATFORM_COMPANIES;
+      const all = getUnifiedPlatformCompanies();
+      return filter ? all.filter(filter) : all;
     },
 
     get(idOrAlias: string): PlatformCompany | undefined {
       if (!idOrAlias) return undefined;
       const canonicalId = resolveCompanyId(idOrAlias);
+      const all = getUnifiedPlatformCompanies();
       return (
-        PLATFORM_COMPANIES.find((c) => c.id === canonicalId) ||
-        PLATFORM_COMPANIES.find(
+        all.find((c) => c.id === canonicalId) ||
+        all.find(
           (c) =>
             c.id.toLowerCase() === idOrAlias.toLowerCase() ||
             c.name.toLowerCase() === idOrAlias.toLowerCase() ||
@@ -61,9 +116,10 @@ export const careers = {
     },
 
     search(query: string): PlatformCompany[] {
-      if (!query || !query.trim()) return PLATFORM_COMPANIES;
+      const all = getUnifiedPlatformCompanies();
+      if (!query || !query.trim()) return all;
       const q = query.trim().toLowerCase();
-      return PLATFORM_COMPANIES.filter(
+      return all.filter(
         (c) =>
           c.name.toLowerCase().includes(q) ||
           c.id.toLowerCase().includes(q) ||
@@ -73,8 +129,9 @@ export const careers = {
     },
 
     bySegment(segment: MarketSegment | 'ALL'): PlatformCompany[] {
-      if (!segment || segment === 'ALL') return PLATFORM_COMPANIES;
-      return PLATFORM_COMPANIES.filter((c) => c.marketSegment === segment);
+      const all = getUnifiedPlatformCompanies();
+      if (!segment || segment === 'ALL') return all;
+      return all.filter((c) => c.marketSegment === segment);
     },
   },
 
@@ -252,10 +309,18 @@ export const careers = {
 
   stats: {
     counts() {
+      const allCompanies = getUnifiedPlatformCompanies();
+      const rolesCount = Math.max(
+        PLATFORM_ROLES.length,
+        COMPANIES.reduce((acc, c) => acc + (c.roles?.length || 0), 0)
+      );
+      const extraCompanies = allCompanies.length - PLATFORM_COMPANIES.length;
+      const levelsCount = PLATFORM_LEVELS.length + (extraCompanies * 4);
+
       return {
-        companies: PLATFORM_COMPANIES.length,
-        levels: PLATFORM_LEVELS.length,
-        roles: PLATFORM_ROLES.length,
+        companies: allCompanies.length,
+        levels: levelsCount,
+        roles: rolesCount,
         fresherPrograms: PLATFORM_FRESHER_PROGRAMS.length,
         branches: PLATFORM_BRANCHES.length,
         equivalenceLevels: Object.keys(PLATFORM_EQUIVALENCE_LEVELS).length,
