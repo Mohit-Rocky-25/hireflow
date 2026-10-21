@@ -27,7 +27,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
       "off-campus",
       "portal"
     ],
-    "testOrPortal": "TCS NQT (National Qualifier Test)",
+    "testOrPortal": "TCS iON Platform (National Qualifier Test \u2014 strictly proctored: disabled copy-paste, per-section locked timers, negative marking on cognitive sub-sections)",
     "eligibility": {
       "degrees": [
         "B.Tech",
@@ -111,7 +111,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
       "durationMonths": 3,
       "bondMonths": 12,
       "bondAmountINR": 50000,
-      "notes": "Initial Learning Program (ILP) at TCS Trivandrum / virtual followed by project allocation."
+      "notes": "TCS Xplore Pre-Onboarding Foundation: Mandatory Coursework & Proctored Assessment (CPA). Scoring >80% unlocks early joining priority (Batch A July) and \u20b940,000\u2013\u20b960,000 one-time incentive; failure to pass delays joining window by 3\u20136 months. Followed by 3-month Initial Learning Program (ILP) at TCS Trivandrum / virtual."
     },
     "locations": [
       "Bengaluru",
@@ -129,7 +129,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
         9,
         10
       ],
-      "notes": "Primary drives run August to October for graduating cohort."
+      "notes": "Primary drives August to October. High Onboarding Delay Risk: Offers are disbursed across 3\u20138 month staggered onboarding batches (Batch A July, Batch B October, Batch C March of following year) based on project demand pipeline."
     },
     "entry": {
       "companyLevelCode": "NINJA",
@@ -158,6 +158,12 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
             "category": "certification",
             "whyItBlocks": "Internal elevation to Digital compensation band mandates clearing internal DCA (Digital Capability Assessment).",
             "evidenceToCounter": "Complete internal Python/Java track certifications and submit top-tier DCA test scores."
+          },
+          {
+            "title": "Onboarding Batch Stagger Delay",
+            "category": "onboarding",
+            "whyItBlocks": "Mass campus hires face 3 to 8 months of idle waiting time between graduation and actual Date of Joining (DOJ).",
+            "evidenceToCounter": "Score 80%+ in TCS Xplore Proctored Assessment (CPA) before graduation to secure earliest Batch A joining allocation."
           }
         ],
         "compensationLPAAfter": {
@@ -234,7 +240,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
       "off-campus",
       "portal"
     ],
-    "testOrPortal": "TCS NQT Advanced Section",
+    "testOrPortal": "TCS iON Advanced (Advanced Coding in Trees, Graphs, DP \u2014 zero IDE autocomplete, strict memory/CPU limits)",
     "eligibility": {
       "degrees": [
         "B.Tech",
@@ -314,7 +320,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
       "durationMonths": 2,
       "bondMonths": 12,
       "bondAmountINR": 50000,
-      "notes": "Accelerated digital technology induction with immediate billable project deployment."
+      "notes": "Fast-track Digital Onboarding: Mandatory Xplore Advanced certification. Immediate post-joining eligibility for Wings1 DCA articulation to unlock early band increments to \u20b99+ LPA."
     },
     "locations": [
       "Bengaluru",
@@ -331,7 +337,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
         10,
         11
       ],
-      "notes": "Assessed concurrently during TCS NQT drives."
+      "notes": "Priority onboarding relative to Ninja tier (typically July\u2013September), with staggered delays only in case of backlog or delayed graduation certificates."
     },
     "entry": {
       "companyLevelCode": "DIGITAL",
@@ -402,7 +408,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
       "on-campus",
       "portal"
     ],
-    "testOrPortal": "TCS NQT Prime Level Assessment",
+    "testOrPortal": "TCS iON Prime Tier (Elite Algorithms, System Architecture, & AI/Cloud Assessment)",
     "eligibility": {
       "degrees": [
         "B.Tech",
@@ -469,7 +475,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
       "durationMonths": 1,
       "bondMonths": 12,
       "bondAmountINR": 50000,
-      "notes": "Fast-tracked into TCS R&D Labs, TCS Pace Ports, or cutting-edge AI centers of excellence."
+      "notes": "TCS Prime Fast-Track Acceleration: Streamlined 6-week elite bootcamp with direct deployment to TCS Research & Innovation (TRDDC) or AI Excellence Centers."
     },
     "locations": [
       "Bengaluru",
@@ -483,7 +489,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
         9,
         10
       ],
-      "notes": "Conducted alongside premier campus placement windows."
+      "notes": "Priority campus cohort: earliest onboarding dates (July joining window) with zero batch backlog risk."
     },
     "entry": {
       "companyLevelCode": "DIGITAL",
@@ -555,7 +561,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
       "off-campus",
       "portal"
     ],
-    "testOrPortal": "Infosys Online Assessment (InfyTQ)",
+    "testOrPortal": "Infosys Springboard Assessment (Strict sectional cutoffs: Numerical Puzzle Solving, Mathematical Ability, Reasoning, Verbal, & Pseudocode analysis)",
     "eligibility": {
       "degrees": [
         "B.Tech",
@@ -639,7 +645,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
       "durationMonths": 4,
       "bondMonths": 12,
       "bondAmountINR": null,
-      "notes": "Legendary Infosys Mysore campus residential training program covering generic and stream tracks."
+      "notes": "Mandatory Infosys Lex Pre-Onboarding Program: Candidates must complete self-paced Lex Foundation modules (Python, DBMS, OOP) and clear proctored readiness milestones prior to Date of Joining. Followed by residential training at Infosys Mysore campus with strict 65% qualifying exam gates (3 attempts or release)."
     },
     "locations": [
       "Bengaluru",
@@ -657,7 +663,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
         10,
         11
       ],
-      "notes": "Standard national campus hiring season."
+      "notes": "Annual campus drives run August to November. Severe Onboarding Delay Exposure: Mass campus cohorts frequently experience 4\u201310 month staggered joining delays dependent on enterprise client utilization and bench capacity."
     },
     "entry": {
       "companyLevelCode": "SE",
@@ -680,7 +686,14 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
           "Completion of client projects with good CSAT score",
           "Clearing internal technical certifications (JL5 readiness)"
         ],
-        "blockers": [],
+        "blockers": [
+          {
+            "title": "Staggered Mysore Joining Delay",
+            "category": "onboarding",
+            "whyItBlocks": "SE offers are released in waves spanning up to 10 months post-graduation, creating prolonged career start gaps.",
+            "evidenceToCounter": "Complete Infosys Lex Foundation modules early and achieve distinction on pre-boarding benchmark assessments."
+          }
+        ],
         "compensationLPAAfter": {
           "min": 5.5,
           "max": 7.5
@@ -728,7 +741,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
       "portal",
       "on-campus"
     ],
-    "testOrPortal": "HackWithInfy National Competitive Coding Contest",
+    "testOrPortal": "HackWithInfy / SP Proctored Arena (HackerEarth competitive programming platform \u2014 3 hard algorithmic problems: DP, Segment Trees, Bitmasking)",
     "eligibility": {
       "degrees": [
         "B.Tech",
@@ -796,7 +809,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
       "durationMonths": 2,
       "bondMonths": null,
       "bondAmountINR": null,
-      "notes": "Directly placed into Infosys Strategic Technology Group (STG) / AI Labs."
+      "notes": "High-velocity Specialist Training at Mysore campus with focused deep dives in Distributed Systems, Generative AI, and Cloud Architecture. Immediate deployment to Global Digital Hubs."
     },
     "locations": [
       "Bengaluru",
@@ -811,7 +824,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
         7,
         8
       ],
-      "notes": "HackWithInfy takes place across summer leading to campus offers."
+      "notes": "Priority onboarding guarantee: SP hires join in early summer batches (July\u2013August) with minimal onboarding lag compared to generic SE cohort."
     },
     "entry": {
       "companyLevelCode": "DSE_SP",
@@ -882,7 +895,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
       "off-campus",
       "portal"
     ],
-    "testOrPortal": "Wipro NLTH Assessment (AMCAT platform)",
+    "testOrPortal": "Wipro NLTH (AMCAT/Aon CoCubes Platform \u2014 Aptitude, Verbal, Automata Fix coding, and automated AI Written Communication evaluation)",
     "eligibility": {
       "degrees": [
         "B.Tech",
@@ -964,7 +977,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
       "durationMonths": 3,
       "bondMonths": 12,
       "bondAmountINR": 75000,
-      "notes": "Project Readiness Program (PRP) with training and domain assessment."
+      "notes": "Mandatory Wipro Velocity (Project Based Pre-skilling - PBP): Candidates must complete self-paced modules and achieve >=60% in proctored milestone assessments to receive Date of Joining. Scoring >75% qualifies candidates for Wipro Turbo upgrade test (elevation from \u20b93.5 to \u20b96.5 LPA)."
     },
     "locations": [
       "Bengaluru",
@@ -981,7 +994,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
         10,
         11
       ],
-      "notes": "Elite NLTH window opens late summer."
+      "notes": "Autumn recruitment cycle. Extreme Onboarding Delay Risk: Historically prone to 6\u201312 month joining delays for Elite campus candidates, heavily contingent on passing Velocity assessments and business pipeline."
     },
     "entry": {
       "companyLevelCode": "Elite",
@@ -1004,7 +1017,14 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
           "Annual appraisal rating Exceeds Expectations",
           "Customer billability and technology certification in cloud or microservices"
         ],
-        "blockers": [],
+        "blockers": [
+          {
+            "title": "Velocity Pre-Skilling Milestone Gate",
+            "category": "onboarding",
+            "whyItBlocks": "Date of Joining (DOJ) is actively held back until candidate clears proctored Velocity PBP assessments with >=60%.",
+            "evidenceToCounter": "Complete all Velocity pre-boarding milestones 2 months before graduation and clear Turbo upgrade challenge."
+          }
+        ],
         "compensationLPAAfter": {
           "min": 5.5,
           "max": 7
@@ -1051,7 +1071,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
       "off-campus",
       "portal"
     ],
-    "testOrPortal": "Cognizant Superset Assessment Platform",
+    "testOrPortal": "Cognizant Superset / HirePro Platform (Strict webcam/audio AI proctoring, browser lockdown, quantitative + logical reasoning + coding)",
     "eligibility": {
       "degrees": [
         "B.Tech",
@@ -1133,7 +1153,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
       "durationMonths": 3,
       "bondMonths": null,
       "bondAmountINR": null,
-      "notes": "Cognizant Academy internship or post-joining full-time training program."
+      "notes": "Continuous Skill Development (CSD) / Digital Nurture Pre-Joining Program: Mandatory learning path in Java/Fullstack/Cloud with weekly proctored quizzes. Candidates must maintain >=70% aggregate to maintain joining eligibility. 3-month post-joining internship/training."
     },
     "locations": [
       "Chennai",
@@ -1151,7 +1171,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
         10,
         11
       ],
-      "notes": "Conducted in autumn campus recruitment window."
+      "notes": "Recruitment window August to November. Realistic Onboarding Delay: 3\u20138 month staggered onboarding across quarterly calendar cohorts (Q3 July to Q1 March)."
     },
     "entry": {
       "companyLevelCode": "GenC",
@@ -1174,7 +1194,14 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
           "Successful delivery across account releases",
           "Completion of PAT confirmation appraisal"
         ],
-        "blockers": [],
+        "blockers": [
+          {
+            "title": "Digital Nurture Score Qualification",
+            "category": "onboarding",
+            "whyItBlocks": "Low completion or failure to score 70%+ in pre-joining CSD quizzes results in cohort demotion to later joining quarters.",
+            "evidenceToCounter": "Submit all CSD capstone projects on time with clean linting and high unit test coverage."
+          }
+        ],
         "compensationLPAAfter": {
           "min": 6,
           "max": 7.5
@@ -1221,7 +1248,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
       "on-campus",
       "portal"
     ],
-    "testOrPortal": "Cognizant Skill Assessment (Advanced Coding)",
+    "testOrPortal": "Cognizant Skill Assessment (Advanced DSA, Web Architecture, SQL/NoSQL & live technical problem solving)",
     "eligibility": {
       "degrees": [
         "B.Tech",
@@ -1289,7 +1316,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
       "durationMonths": 2,
       "bondMonths": null,
       "bondAmountINR": null,
-      "notes": "Focused domain training for enterprise digital engineering practice."
+      "notes": "Elevate Specialized Track: Advanced full-stack training with accelerated project pairing in Cloud Modernization & AI practice areas."
     },
     "locations": [
       "Bengaluru",
@@ -1303,7 +1330,7 @@ export const PLATFORM_FRESHER_PROGRAMS: FresherProgram[] = [
         9,
         10
       ],
-      "notes": "Conducted alongside GenC campus drives."
+      "notes": "Prioritized joining batch relative to base GenC (typically July\u2013October), with reduced idle delay."
     },
     "entry": {
       "companyLevelCode": "GenC Next",
