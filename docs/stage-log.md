@@ -276,6 +276,60 @@ Log of all stages executed autonomously, including files modified, commands exec
   - `npx tsc --noEmit`: 0 TypeScript errors
   - Secret scanning & zero-egress privacy verification: 100% clean
 
+---
+
+## Stage S6: TalentLens Big Tech Leveling & Monolith Decomposition
+- **Scope & Actions**:
+  - Aligned Google L3 (SWE II, ₹32-45 LPA, 0-2 YOE, 3 coding + Googleyness, strictly no system design) and L4 (SWE III, ₹50-80 LPA, 2-5 YOE, 3 coding + 1 system design + Googleyness).
+  - Aligned Amazon Principal Engineer (L7, 10+ YOE, ₹1.6-3.0 Cr) and Microsoft Principal Engineer (L67, 10+ YOE, ₹1.4-2.5 Cr).
+  - Decomposed monolithic `CompanyRolesPage.tsx` from 1,931 lines down to 486 lines into 5 subcomponents: `CompanyHeaderCard`, `ProgramEligibilityBadge`, `FresherProgramCard`, `ExperiencedRoleCard`, `TargetRoleActionPanel`, and `AnalysisResultView`.
+- **Commit**: `5504ae3`
+
+---
+
+## Stage S7: CareerPathSimulator Decomposition & Accessibility Focus
+- **Scope & Actions**:
+  - Extracted 268-line monolithic working professional results into [ProfessionalPromotionResult.tsx](file:///c:/Users/yadav/.gemini/antigravity-ide/scratch/hireflow/src/features/career-path/components/ProfessionalPromotionResult.tsx).
+  - Decomposed [CareerPathSimulator.tsx](file:///c:/Users/yadav/.gemini/antigravity-ide/scratch/hireflow/src/features/career-path/CareerPathSimulator.tsx) down to 736 lines.
+  - Aligned React 19 / TypeScript strict `RefObject` types with nullability guards.
+- **Verification**:
+  - `npx vitest run src/features/career-path/`: 3 suites passed, 22 tests green (0 failures)
+  - `npx tsc --noEmit`: 0 errors
+- **Commit**: `48ab7e6`
+
+---
+
+## Stage S8: HandmadeResumeEditor Modular Decomposition
+- **Scope & Actions**:
+  - Decomposed monolithic 1,297-line [HandmadeResumeEditor.tsx](file:///c:/Users/yadav/.gemini/antigravity-ide/scratch/hireflow/src/features/suite/tailor/components/HandmadeResumeEditor.tsx) down to 488 lines (62% reduction).
+  - Extracted 7 isolated subsection editors into `src/features/suite/tailor/components/sections/`:
+    - `WorkExperienceSection.tsx` (2-column card grid, bullet in-place configuration, TalentLens suggestion elevation)
+    - `ProjectsSection.tsx` (stack badges, domain relevance alignment)
+    - `SkillsSection.tsx` (ontology matrix, JD keyword match indicators)
+    - `EducationSection.tsx` (degree cards and graduation metrics)
+    - `SummarySection.tsx` (live sync executive summary editor)
+    - `JobRequirementsSection.tsx` (requirement assessment status cards)
+    - `CandidateProfileSection.tsx` (contact & profile details)
+- **Verification**:
+  - `npx vitest run tests/tailor/`: 4 suites passed, 48 tests green (0 failures)
+  - `npx tsc --noEmit`: 0 errors
+- **Commit**: `8af0c11`
+
+---
+
+## Stage S9: Campus Fresher Programs Realism & Platform Mechanics
+- **Scope & Actions**:
+  - Enriched mass recruiter programs in `src/careers-core/data/fresherPrograms.ts` (TCS Ninja/Digital/Prime, Infosys SE/SP, Wipro Elite, Cognizant GenC/Elevate):
+    - **TCS Ninja / Digital / Prime**: Integrated TCS iON platform constraints (disabled copy-paste, per-section locked timers, negative marking on cognitive sections) and TCS Xplore CPA pre-onboarding assessment gates with 3–8 month onboarding delay risk.
+    - **Infosys SE / SP**: Added Infosys Springboard sectional cutoffs, mandatory Infosys Lex pre-onboarding foundation courses with 4–10 month Mysore staggered joining delay exposure.
+    - **Wipro Elite NLTH**: Added AMCAT/CoCubes platform details, mandatory Wipro Velocity (Project-Based Pre-skilling PBP) assessments (>=60% for DOJ, >75% for Turbo upgrade), and documented 6–12 month joining delays.
+    - **Cognizant GenC / Elevate**: Added Superset platform AI proctoring, Continuous Skill Development (CSD) pre-joining quiz thresholds (70%+), and quarterly calendar cohort delays.
+- **Verification**:
+  - `npx vitest run src/data/__tests__/validateData.test.ts src/__tests__/careers/`: 5 suites passed, 23 tests green (0 failures)
+  - `npx tsc --noEmit`: 0 errors
+- **Commit**: `9537ee1`
+
+
 
 
 
