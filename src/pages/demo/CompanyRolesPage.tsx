@@ -29,7 +29,6 @@ import {
   Sparkles,
 } from 'lucide-react';
 import { PublicNavbar } from '../../components/common/PublicNavbar';
-import { HireFlowDiagnosticLoader } from '../../components/common/HireFlowDiagnosticLoader';
 import { careers, useEligibility, DataBadge } from '../../careers-core';
 import type { FresherProgram } from '../../careers-core';
 import {
@@ -199,43 +198,64 @@ export function CompanyRolesPage() {
     selectRole(progAsRole);
   };
 
-  // Handle analysis with premium diagnostic loader
+  // Handle analysis
   const handleRunAnalysis = () => {
     if (!selectedRole || !company || !resumeText.trim()) return;
+
     setAnalyzing(true);
     setResult(null);
     setShowSuggestions(false);
-  };
 
-  const handleDiagnosticComplete = () => {
-    if (!selectedRole || !company) return;
+    const phases = [
+      'Layer 1: Scanning keyword signals...',
+      'Layer 2: Verifying contextual authenticity...',
+      'Layer 3: Evaluating production depth...',
+      'Layer 4: Measuring quantified impact...',
+      'Layer 5: Anti-gaming cognitive screening...',
+      'Layer 6: Progression & authenticity signals...',
+      'Generating role-specific career acceleration plan...',
+    ];
 
-    const reqLevelMap = selectedRole.reqLevel as unknown as Record<string, string>;
-    const breakdown = selectedRole.competencies.map((comp) => ({
-      competency: comp,
-      reqLevel: reqLevelMap[comp] || 'working',
-      analysis: deepAnalyzeCompetency(resumeText, comp, reqLevelMap[comp] || 'working'),
-    }));
-    const score = computeScore(
-      breakdown.map((b) => b.analysis),
-      reqLevelMap,
-      resumeText
-    );
-    const plans = generateImprovementPlan(breakdown, company, selectedRole, score);
-    const marketIntel = runMarketIntelligenceEngine(
-      resumeText,
-      selectedRole.competencies,
-      company,
-      selectedRole
-    );
+    let phaseIdx = 0;
+    const interval = setInterval(() => {
+      if (phaseIdx < phases.length) {
+        setAnalysisPhase(phases[phaseIdx]);
+        phaseIdx++;
+      } else {
+        clearInterval(interval);
+      }
+    }, 450);
 
-    setResult({ score, breakdown, plans, marketIntel });
-    setAnalyzing(false);
-    setStep(3);
-    setSearchParams({ view: 'analysis' });
+    setTimeout(() => {
+      clearInterval(interval);
+      const reqLevelMap = selectedRole.reqLevel as unknown as Record<string, string>;
+      const breakdown = selectedRole.competencies.map((comp) => ({
+        competency: comp,
+        reqLevel: reqLevelMap[comp] || 'working',
+        analysis: deepAnalyzeCompetency(resumeText, comp, reqLevelMap[comp] || 'working'),
+      }));
+      const score = computeScore(
+        breakdown.map((b) => b.analysis),
+        reqLevelMap,
+        resumeText
+      );
+      const plans = generateImprovementPlan(breakdown, company, selectedRole, score);
+      const marketIntel = runMarketIntelligenceEngine(
+        resumeText,
+        selectedRole.competencies,
+        company,
+        selectedRole
+      );
 
-    // Smooth scroll to top of analysis
-    window.scrollTo({ top: 120, behavior: 'smooth' });
+      setResult({ score, breakdown, plans, marketIntel });
+      setAnalysisPhase('');
+      setAnalyzing(false);
+      setStep(3);
+      setSearchParams({ view: 'analysis' });
+
+      // Smooth scroll to top of analysis
+      window.scrollTo({ top: 120, behavior: 'smooth' });
+    }, 3400);
   };
 
   const handleBackToRoles = () => {
@@ -301,18 +321,6 @@ export function CompanyRolesPage() {
   return (
     <div className="min-h-screen bg-bg">
       <PublicNavbar />
-
-      {/* Premium Diagnostic Loading Overlay */}
-      {analyzing && selectedRole && company && (
-        <HireFlowDiagnosticLoader
-          companyName={company.name}
-          roleTitle={selectedRole.title}
-          roleLevel={selectedRole.level}
-          competencies={selectedRole.competencies}
-          onComplete={handleDiagnosticComplete}
-          speedMs={1500}
-        />
-      )}
 
       <div className="max-w-[1400px] mx-auto px-[24px] py-[88px] page-enter">
         {/* Hero headline */}
