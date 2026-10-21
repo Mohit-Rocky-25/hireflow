@@ -19,6 +19,7 @@ import {
   BackupValidationResult,
 } from '../../lib/backup';
 import { storage } from '../../lib/storage';
+import { cloudSync, CloudSyncMetadata } from '../../lib/sync/cloudSync';
 import {
   Database,
   Download,
@@ -29,6 +30,8 @@ import {
   AlertTriangle,
   RefreshCw,
   FileCheck,
+  Cloud,
+  Share2,
 } from 'lucide-react';
 
 export function YourDataPage() {
@@ -42,6 +45,8 @@ export function YourDataPage() {
   const [validationResult, setValidationResult] = useState<BackupValidationResult | null>(null);
   const [allowChecksumOverride, setAllowChecksumOverride] = useState(false);
   const [rawUploadText, setRawUploadText] = useState<string | null>(null);
+  const [syncMeta, setSyncMeta] = useState<CloudSyncMetadata>(cloudSync.getMetadata());
+  const [isSyncing, setIsSyncing] = useState(false);
 
   // Refresh storage metrics
   const refreshStorageMetrics = () => {
@@ -145,6 +150,35 @@ export function YourDataPage() {
     toast('success', 'All local data has been permanently cleared.');
     setIsClearModalOpen(false);
     refreshStorageMetrics();
+  };
+
+  const handleTriggerSync = async () => {
+    setIsSyncing(true);
+    const result = await cloudSync.triggerSync();
+    setIsSyncing(false);
+    setSyncMeta(cloudSync.getMetadata());
+    if (result.success) {
+      toast('success', result.message);
+    } else {
+      toast('warning', result.message);
+    }
+  };
+
+  const handleExportShareableProfile = () => {
+    const profile = cloudSync.generateShareableProfile(
+      'Verified Candidate',
+      'Software Engineer',
+      ['TypeScript', 'React', 'Go', 'Docker', 'PostgreSQL'],
+      88
+    );
+    const blob = new Blob([JSON.stringify(profile, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `hireflow-verified-profile-${profile.profileId}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    toast('success', 'Exported signed Shareable Candidate Profile bundle.');
   };
 
   return (
@@ -330,6 +364,65 @@ export function YourDataPage() {
                 </div>
               </div>
             )}
+          </div>
+        </div>
+
+        {/* Cloud Sync & Shareable Verification Portfolio (P5) */}
+        <div className="rounded-xl border border-indigo-900/40 bg-indigo-950/20 p-6 space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <div className="flex items-center gap-2">
+                <Cloud className="h-5 w-5 text-indigo-400" />
+                <h3 className="text-base font-semibold text-white">Cloud Sync & Shareable Portfolio (P5)</h3>
+              </div>
+              <p className="mt-1 text-xs text-slate-300 leading-relaxed">
+                Offline-first state synchronization and cryptographically signed candidate verification bundles for recruiter sharing.
+              </p>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-mono px-2.5 py-1 rounded-full bg-indigo-500/10 text-indigo-300 border border-indigo-500/20">
+                Status: {syncMeta.status.toUpperCase()}
+              </span>
+            </div>
+          </div>
+
+          <div className="grid sm:grid-cols-2 gap-3 pt-2">
+            <div className="p-4 rounded-lg bg-slate-900/60 border border-slate-800 space-y-2">
+              <div className="text-xs font-bold text-white flex items-center gap-1.5">
+                <RefreshCw className={`h-3.5 w-3.5 text-indigo-400 ${isSyncing ? 'animate-spin' : ''}`} />
+                <span>Local-First State Sync</span>
+              </div>
+              <p className="text-[11px] text-slate-400">
+                Snapshots all stores with SHA-256 fingerprinting. Queues changes when offline.
+              </p>
+              <button
+                type="button"
+                onClick={handleTriggerSync}
+                disabled={isSyncing}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-indigo-600 hover:bg-indigo-500 text-xs font-semibold text-white transition-colors disabled:opacity-50"
+              >
+                <Cloud className="h-3.5 w-3.5" />
+                <span>{isSyncing ? 'Syncing...' : 'Sync Snapshot Now'}</span>
+              </button>
+            </div>
+
+            <div className="p-4 rounded-lg bg-slate-900/60 border border-slate-800 space-y-2">
+              <div className="text-xs font-bold text-white flex items-center gap-1.5">
+                <Share2 className="h-3.5 w-3.5 text-emerald-400" />
+                <span>Shareable Candidate Portfolio</span>
+              </div>
+              <p className="text-[11px] text-slate-400">
+                Generate a signed, tamper-evident JSON bundle of your verified skills and ATS readiness.
+              </p>
+              <button
+                type="button"
+                onClick={handleExportShareableProfile}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-emerald-600 hover:bg-emerald-500 text-xs font-semibold text-white transition-colors"
+              >
+                <Download className="h-3.5 w-3.5" />
+                <span>Export Signed Bundle (.json)</span>
+              </button>
+            </div>
           </div>
         </div>
 
