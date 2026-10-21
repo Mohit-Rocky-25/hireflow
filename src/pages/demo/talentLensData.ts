@@ -154488,8 +154488,8 @@ export function deepAnalyzeCompetency(resumeText: string, competency: string, re
   if (impact.hasTeamSize) evidence.push("Team leadership context detected — relevant signal for senior and staff-level positions.");
   if (impact.hasProduction) evidence.push("Production/live deployment context confirmed — significantly more credible than side-project or dev-only experience.");
 
-  if (antiGamingFlag) gaps.push(`Anti-gaming alert: "${competency.toUpperCase()}" appears ${kwMatches.length}x but mostly outside project/experience descriptions. Advanced ATS systems and senior interviewers at ${reqLevel === "expert" ? "tier-1 companies" : "this company"} are trained to detect this pattern. Rewrite each bullet as: "Used ${competency.toUpperCase()} to [action verb] [specific problem] resulting in [metric]."`);
-  if (!impact.hasScale && reqLevel === "expert") gaps.push(`Scale metrics are mandatory for Expert-level ${competency.toUpperCase()} at top-tier companies. Add: "system handled 5M req/day", "served 2M active users", "processed ₹200Cr daily transactions". Without this, expert-level claim has no evidence.`);
+  if (antiGamingFlag) gaps.push(`Evidence Depth Notice: "${competency.toUpperCase()}" appears ${kwMatches.length}x primarily in list format. To maximize recruiter confidence, demonstrate it in project bullets with active verbs and measurable outcomes.`);
+  if (!impact.hasScale && reqLevel === "expert") gaps.push(`Scale metrics are key for Expert-level ${competency.toUpperCase()} at top-tier companies. Add: "system handled 5M req/day", "served 2M active users", "processed ₹200Cr daily transactions". Without this, expert-level claim has no evidence.`);
   if (!impact.hasMetrics && detectedLevel !== "absent") gaps.push(`No measurable outcomes found for ${competency.toUpperCase()}. Add: "reduced p99 latency by 60% (800ms→320ms)", "improved throughput by 3x using connection pooling", "cut cloud spend by ₹5L/month via reserved instances".`);
   if (!ctxMatches.length && reqLevel === "expert") gaps.push(`No production-depth language detected for ${competency.toUpperCase()}. Expert-level requires context like: "architected from scratch", "led migration from X to Y", "performance-tuned production system serving N users", "designed database schema for N-billion rows".`);
   if (detectedLevel === "absent") gaps.push(`${competency.toUpperCase()} is completely absent from resume. This is a required competency — application will be automatically rejected at ATS stage. Minimum: 2 real projects with ${competency.toUpperCase()} plus quantified outcomes before applying.`);
@@ -154502,8 +154502,10 @@ export function deepAnalyzeCompetency(resumeText: string, competency: string, re
 export function computeScore(roleAnalysis: ReturnType<typeof deepAnalyzeCompetency>[], reqLevels: Record<string, string>, resumeText: string): number {
   const text = resumeText.toLowerCase();
   const LEVEL_WEIGHTS: Record<string, number> = { expert: 1.5, strong: 1.2, working: 1.0 };
-  const LEVEL_VALUES: Record<string, number> = { absent: 0, working: 0.30, strong: 0.65, expert: 1.0 };
-  let totalWeight = 0; let earned = 0;
+  const LEVEL_VALUES: Record<string, number> = { absent: 0, working: 0.35, strong: 0.70, expert: 1.0 };
+  
+  let totalWeight = 0;
+  let earned = 0;
   const reqLevelValues = Object.values(reqLevels);
   roleAnalysis.forEach((a, i) => {
     const reqLevel = reqLevelValues[i] || "working";
@@ -154511,12 +154513,29 @@ export function computeScore(roleAnalysis: ReturnType<typeof deepAnalyzeCompeten
     totalWeight += weight;
     earned += (LEVEL_VALUES[a.status] ?? 0) * weight;
   });
-  const base = totalWeight > 0 ? Math.round((earned / totalWeight) * 100) : 0;
-  const progression = detectProgressionSignals(text);
+
+  // Base competency match: 70% of total score
+  const competencyScore = totalWeight > 0 ? (earned / totalWeight) * 70 : 0;
+
+  // Evidence & Scale Rigor: 20% of total score
   const impact = parseImpactMetrics(text);
+  const scaleScore = (impact.hasScale ? 8 : 0) + 
+                     (impact.hasMetrics ? 6 : 0) + 
+                     (impact.hasProduction ? 4 : 0) + 
+                     (impact.hasTeamSize ? 2 : 0);
+
+  // Provenance & Growth Breadth: 10% of total score
+  const progression = detectProgressionSignals(text);
+  const breadthScore = (progression.hasOpenSource ? 5 : 0) + 
+                       (progression.hasProgression ? 3 : 0) + 
+                       (progression.hasPremiumEdu ? 2 : 0);
+
+  // Unnatural repetition penalty (max 10 points)
   const stuffedCount = roleAnalysis.filter(a => a.antiGamingFlag).length;
-  const bonus = (progression.hasPremiumEdu ? 6 : 0) + (progression.hasOpenSource ? 5 : 0) + (impact.hasScale ? 5 : 0) + (impact.hasMetrics ? 4 : 0) + (progression.hasProgression ? 3 : 0);
-  return Math.min(99, Math.max(1, base + bonus - stuffedCount * 8));
+  const penalty = Math.min(10, stuffedCount * 3);
+
+  const finalScore = Math.round(competencyScore + scaleScore + breadthScore - penalty);
+  return Math.min(100, Math.max(0, finalScore));
 }
 
 
