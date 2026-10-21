@@ -47,6 +47,7 @@ import {
   getCompanySlug,
 } from './talentLensData';
 import { useTalentLensStore, DEMO_TALENTLENS_RESUME } from './useTalentLensStore';
+import { useProfileStore } from '../../store/profileStore';
 
 function ProgramEligibilityBadge({ programId, facts }: { programId: string; facts: any }) {
   const result = useEligibility(facts, programId);
@@ -80,6 +81,7 @@ export function CompanyRolesPage() {
   const { companySlug = '' } = useParams<{ companySlug: string }>();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
+  const { activeResume } = useProfileStore();
 
   // Shared store
   const {
@@ -94,6 +96,13 @@ export function CompanyRolesPage() {
     setStep,
     resetToNewResume,
   } = useTalentLensStore();
+
+  // Auto-populate active profile resume if talentLens store is currently empty
+  useEffect(() => {
+    if (!resumeText.trim() && activeResume?.ledger?.rawText) {
+      setResume(activeResume.ledger.rawText, activeResume.label);
+    }
+  }, [activeResume, resumeText, setResume]);
 
   // Find company
   const company = useMemo(() => findCompanyBySlug(companySlug), [companySlug]);
@@ -834,9 +843,21 @@ export function CompanyRolesPage() {
                                 </button>
                               </div>
                             ) : (
-                              <div className="p-2.5 bg-emerald-500/10 border border-emerald-500/25 rounded-xl mb-3 flex items-center gap-2 text-xs text-emerald-700 dark:text-emerald-400 font-bold">
-                                <CheckCircle className="w-4 h-4 flex-shrink-0" />
-                                <span>Resume ready ({resumeText.split(/\s+/).length} words)</span>
+                              <div className="p-2.5 bg-emerald-500/10 border border-emerald-500/25 rounded-xl mb-3 flex items-center justify-between text-xs text-emerald-700 dark:text-emerald-400 font-bold">
+                                <div className="flex items-center gap-2">
+                                  <CheckCircle className="w-4 h-4 flex-shrink-0" />
+                                  <span>
+                                    {activeResume?.ledger?.rawText === resumeText
+                                      ? `Profile: ${activeResume.label}`
+                                      : 'Resume ready'}{' '}
+                                    ({resumeText.split(/\s+/).filter(Boolean).length} words)
+                                  </span>
+                                </div>
+                                {activeResume?.ledger?.rawText === resumeText && (
+                                  <span className="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-mono">
+                                    SYNCED
+                                  </span>
+                                )}
                               </div>
                             )}
 

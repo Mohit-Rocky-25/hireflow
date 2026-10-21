@@ -20,12 +20,15 @@ import {
   getCompanySlug,
 } from "./talentLensData";
 import { useTalentLensStore } from "./useTalentLensStore";
+import { useProfileStore } from "../../store/profileStore";
+import { toast } from "../../components/ui/Toast";
 import { parseResumeFile } from "../../features/ats/fileParser";
 import { searchCompanies, deduplicateCompanies } from "../../lib/companySearchEngine";
 
 export function MatchingDemo() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const { activeResume } = useProfileStore();
 
   const {
     resumeText,
@@ -45,6 +48,13 @@ export function MatchingDemo() {
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [dragActive, setDragActive] = React.useState(false);
+
+  // Auto-populate active profile resume if talentLens store is currently empty
+  useEffect(() => {
+    if (!resumeText.trim() && activeResume?.ledger?.rawText) {
+      setResume(activeResume.ledger.rawText, activeResume.label);
+    }
+  }, [activeResume, resumeText, setResume]);
 
   // Sync step from query param if provided (e.g. ?step=1 or ?step=2)
   useEffect(() => {
@@ -169,6 +179,39 @@ export function MatchingDemo() {
                   <p className="text-[13px] text-text-secondary">More detail = deeper, more accurate AI analysis</p>
                 </div>
               </div>
+
+              {/* Active Profile Banner if resume exists in profileStore */}
+              {activeResume && activeResume.ledger?.rawText && (
+                <div className="mb-[20px] p-[16px] rounded-xl border border-primary/30 bg-primary/10 flex flex-wrap items-center justify-between gap-[12px]">
+                  <div className="flex items-center gap-[12px]">
+                    <div className="w-[36px] h-[36px] rounded-lg bg-primary/20 flex items-center justify-center text-primary flex-shrink-0">
+                      <Sparkles className="w-[18px] h-[18px]" />
+                    </div>
+                    <div>
+                      <div className="text-[13px] font-bold text-text flex items-center gap-[8px]">
+                        Active Profile: <span className="text-primary">{activeResume.label}</span>
+                        <span className="text-[10px] px-[8px] py-[2px] rounded-full bg-emerald-500/20 text-emerald-400 font-semibold border border-emerald-500/30">
+                          {activeResume.ledger.rawText.split(/\s+/).filter(Boolean).length} words
+                        </span>
+                      </div>
+                      <div className="text-[11px] text-text-muted mt-[1px]">
+                        Your saved resume from candidate profile is connected and ready for placement matching.
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setResume(activeResume.ledger.rawText, activeResume.label);
+                      toast('success', `Loaded "${activeResume.label}" from your profile.`);
+                    }}
+                    className="px-[14px] py-[7px] rounded-lg bg-primary text-white text-[12px] font-semibold hover:bg-primary-hover transition-all shadow-sm flex items-center gap-[6px]"
+                  >
+                    <CheckCircle className="w-[14px] h-[14px]" />
+                    {resumeText === activeResume.ledger.rawText ? 'Profile Active' : 'Load Profile'}
+                  </button>
+                </div>
+              )}
 
               <div className="flex gap-[2px] p-[4px] bg-surface-2 rounded-xl mb-[20px] w-fit">
                 {(["paste", "upload"] as const).map(mode => (
