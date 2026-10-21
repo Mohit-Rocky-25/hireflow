@@ -4,6 +4,7 @@
 // ============================================================
 
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   CheckCircle2,
   AlertCircle,
@@ -12,6 +13,9 @@ import {
   ChevronDown,
   ChevronUp,
   Quote,
+  PenTool,
+  FolderGit2,
+  GraduationCap,
 } from 'lucide-react';
 import { SkillResult } from '../engine/types';
 
@@ -196,9 +200,37 @@ export const SkillsTab: React.FC<Props> = ({ skills }) => {
                     {/* Verbatim Evidence Quote */}
                     <td className="py-4 px-6 align-top">
                       {skill.evidence.length === 0 ? (
-                        <span className="text-xs text-slate-400 italic">
-                          No text evidence found in resume
-                        </span>
+                        <div className="space-y-2">
+                          <span className="text-xs text-rose-500 font-medium block">
+                            No text evidence found in resume
+                          </span>
+                          <div className="flex flex-wrap gap-1.5 pt-0.5">
+                            <Link
+                              to={`/tools/resume-tailor?skill=${encodeURIComponent(skill.canonical)}`}
+                              className="inline-flex items-center gap-1 text-[11px] font-semibold px-2 py-0.5 rounded bg-primary/10 text-primary hover:bg-primary/20 transition-all border border-primary/25"
+                              title="Draft bullet in Tailor Studio"
+                            >
+                              <PenTool className="w-3 h-3" />
+                              Tailor Bullet
+                            </Link>
+                            <Link
+                              to={`/tools/project-briefs?query=${encodeURIComponent(skill.canonical)}`}
+                              className="inline-flex items-center gap-1 text-[11px] font-semibold px-2 py-0.5 rounded bg-purple-50 text-purple-700 hover:bg-purple-100 transition-all border border-purple-200"
+                              title="Generate 3-day project scaffold"
+                            >
+                              <FolderGit2 className="w-3 h-3" />
+                              Project Brief
+                            </Link>
+                            <Link
+                              to={`/tools/credentials?q=${encodeURIComponent(skill.canonical)}`}
+                              className="inline-flex items-center gap-1 text-[11px] font-semibold px-2 py-0.5 rounded bg-amber-50 text-amber-800 hover:bg-amber-100 transition-all border border-amber-200"
+                              title="Find verified certifications"
+                            >
+                              <GraduationCap className="w-3 h-3" />
+                              Certify
+                            </Link>
+                          </div>
+                        </div>
                       ) : (
                         <div className="space-y-2">
                           <div className="text-xs text-slate-800 bg-slate-50 p-2.5 rounded-[8px] border border-slate-200 leading-relaxed font-mono shadow-2xs">

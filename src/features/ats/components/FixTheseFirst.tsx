@@ -4,7 +4,8 @@
 // ============================================================
 
 import React from 'react';
-import { TrendingUp, AlertCircle, Sparkles } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { TrendingUp, AlertCircle, Sparkles, ArrowRight, PenTool, FolderGit2 } from 'lucide-react';
 import { FixFirstItem } from '../engine/types';
 
 interface Props {
@@ -54,16 +55,50 @@ export const FixTheseFirst: React.FC<Props> = ({ items }) => {
               </p>
             </div>
 
-            <div className="pt-2 border-t border-border/70 flex items-center justify-between text-xs text-slate-500">
-              <span className="flex items-center gap-1.5 font-medium">
-                <AlertCircle className="w-3.5 h-3.5 text-slate-400" />
-                {item.type === 'missing_must_have'
-                  ? 'Mandatory Requirement'
-                  : item.type === 'weak_bullet'
-                  ? 'Metric & Verbs Depth'
-                  : 'Evidence Grounding'}
-              </span>
-              <span className="font-semibold text-slate-800">Direct ATS Gain</span>
+            {/* 1-Click Interactive Gap Handoff */}
+            <div className="pt-3 border-t border-border/70 flex flex-col gap-2">
+              <div className="flex items-center justify-between text-xs text-slate-500">
+                <span className="flex items-center gap-1.5 font-medium">
+                  <AlertCircle className="w-3.5 h-3.5 text-slate-400" />
+                  {item.type === 'missing_must_have'
+                    ? 'Mandatory Requirement'
+                    : item.type === 'weak_bullet'
+                    ? 'Metric & Verbs Depth'
+                    : 'Evidence Grounding'}
+                </span>
+                <span className="font-semibold text-slate-800">Direct ATS Gain</span>
+              </div>
+
+              <div className="flex flex-wrap gap-1.5 pt-1">
+                {item.type === 'missing_must_have' ? (
+                  <>
+                    <Link
+                      to={`/tools/resume-tailor?focus=${encodeURIComponent(item.title)}`}
+                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-bold bg-primary text-white hover:bg-primary-hover transition-all shadow-xs"
+                    >
+                      <PenTool className="w-3 h-3" />
+                      Add to Tailor Draft
+                      <ArrowRight className="w-3 h-3 ml-0.5" />
+                    </Link>
+                    <Link
+                      to={`/tools/project-briefs?query=${encodeURIComponent(item.title)}`}
+                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-semibold bg-purple-50 text-purple-700 hover:bg-purple-100 transition-all border border-purple-200"
+                    >
+                      <FolderGit2 className="w-3 h-3" />
+                      Build Proof Project
+                    </Link>
+                  </>
+                ) : (
+                  <Link
+                    to={`/tools/resume-tailor?mode=upgrade&bullet=${encodeURIComponent(item.title)}`}
+                    className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-bold bg-primary text-white hover:bg-primary-hover transition-all shadow-xs"
+                  >
+                    <PenTool className="w-3 h-3" />
+                    Rewrite in Tailor Studio
+                    <ArrowRight className="w-3 h-3 ml-0.5" />
+                  </Link>
+                )}
+              </div>
             </div>
           </div>
         ))}
