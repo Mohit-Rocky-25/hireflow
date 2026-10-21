@@ -10,7 +10,7 @@ export const PLATFORM_ROLES: PlatformRole[] = [
     "id": "google-software-engineer-l3",
     "companyId": "google",
     "title": "Software Engineer L3",
-    "level": "SDE-2",
+    "level": "Entry / SWE II",
     "department": "Engineering",
     "roleFamily": "sde-product",
     "competencies": {

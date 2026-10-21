@@ -125,53 +125,42 @@ const RAW_COMPANIES = [
     roles: [
       {
         title: "Software Engineer L3",
-        level: "SDE-2",
+        level: "Entry / SWE II",
         competencies: [
           "dsa",
-          "systemdesign",
           "java",
-          "python"
+          "python",
+          "communication"
         ],
         reqLevel: {
           dsa: "expert",
-          systemdesign: "expert",
           java: "strong",
-          python: "strong"
+          python: "strong",
+          communication: "strong"
         },
-        desc: "Core product engineering. 4 coding rounds + system design + behavioural.",
-        location: "Mountain View, CA",
+        desc: "Entry-level SWE role (0-2 YOE). Executes well-scoped algorithmic and component tasks. 3 coding rounds + 1 Googleyness & Leadership (no system design).",
+        location: "Bengaluru / Hyderabad, India (HQ: Mountain View, CA)",
         employmentType: "Full-time",
-        experienceLevel: "2-5 years",
-        aboutRole: "As a Software Engineer L3 at Google, you will be at the forefront of the Technology industry, shaping the future of our core platforms. You will tackle complex technical challenges, working alongside a world-class engineering team. Core product engineering. 4 coding rounds + system design + behavioural. We are looking for passionate builders who thrive in fast-paced environments and have a deep commitment to operational excellence.",
+        experienceLevel: "0-2 years",
+        aboutRole: "As a Software Engineer L3 at Google, you will join an engineering team solving planetary-scale problems. You will design, develop, test, and ship clean, highly performant code adhering to Google's engineering readability standards (go/readability). At L3, candidates are assessed rigorously on algorithmic problem solving, time/space complexity, edge cases, and cultural collaboration (Googleyness). There is NO system design round for L3 candidates.",
         responsibilities: [
-          "Contribute to technical vision and architectural decisions for new and existing subsystems.",
-          "Identify and resolve performance bottlenecks, optimizing systems for scale and high availability.",
-          "Participate in rigorous code reviews to maintain high quality code standards and ensure system reliability.",
-          "Drive engineering best practices including CI/CD, comprehensive testing, and technical documentation.",
-          "Mentor junior engineers and foster a culture of technical excellence and continuous learning.",
-          "Collaborate closely with product managers, designers, and cross-functional engineering teams to define and deliver new features.",
-          "Apply advanced data structures and algorithms to solve complex optimization and scaling problems.",
-          "Architect distributed, highly available, and scalable microservices capable of handling massive throughput.",
-          "Build robust backend services and APIs using enterprise Java ecosystems (Spring Boot, Hibernate).",
-          "Develop highly performant Python applications, optimizing data pipelines and machine learning integrations."
+          "Design, implement, test, and deploy well-scoped features and microservice components.",
+          "Write clean, idiomatic, well-documented code adhering to strict style guides (C++, Java, Go, Python).",
+          "Participate actively in rigorous code reviews (CLs) and adhere to internal readability approvals.",
+          "Debug issues, write unit/integration tests with high coverage, and maintain system stability.",
+          "Collaborate with tech leads and senior peers to understand design trade-offs.",
+          "Participate in team on-call rotations and author post-mortems for minor operational incidents."
         ],
         requiredQualifications: [
           "Bachelor's or Master's degree in Computer Science, Engineering, or a related technical field.",
-          "Minimum of 2-5 years of professional software development experience.",
-          "Proven track record of building and delivering complex, production-grade software systems.",
-          "Strong command of computer science fundamentals, including object-oriented design, data structures, and algorithmic complexity.",
-          "Excellent problem-solving skills and ability to thrive in an ambiguous, fast-moving environment.",
-          "Demonstrated ability to write clean, maintainable, and well-tested code.",
-          "Deep understanding of distributed systems architecture, concurrency, and network protocols."
+          "0-2 years of software engineering experience or strong collegiate project track record.",
+          "Strong foundation in core data structures, algorithms, time/space complexity analysis.",
+          "Fluency in at least one modern language: Java, C++, Python, or Go.",
+          "Demonstrated ability to write clean, maintainable, and thoroughly tested code."
         ],
         requiredSkills: [
           {
             skill: "dsa",
-            category: "concept",
-            weight: 1
-          },
-          {
-            skill: "systemdesign",
             category: "concept",
             weight: 1
           },
@@ -197,42 +186,42 @@ const RAW_COMPANIES = [
           }
         ],
         preferredSkills: [
-          "Open Source Contributions",
-          "Experience with high-scale systems",
-          "Cloud Certifications"
+          "Competitive programming background (Codeforces, LeetCode 300+, ICPC)",
+          "Open Source contributions to recognized repositories",
+          "Prior software engineering internships at high-growth or tech organizations"
         ],
         toolsAndTech: [
           "dsa",
-          "systemdesign",
           "java",
           "python",
           "SQL",
           "REST APIs"
         ],
         softSkills: [
-          "Problem Solving",
+          "Googleyness & Leadership",
+          "First-Principles Problem Solving",
           "Team Collaboration",
           "Adaptability"
         ],
         hiringProcess: [
           "Initial Recruiter Phone Screen (30 mins)",
-          "Technical Phone Interview - Coding & Problem Solving (45-60 mins)",
-          "Virtual Onsite Loop: 4-5 rounds covering Data Structures, System Design, and Behavioral (Leadership Principles)",
-          "Hiring Committee Review"
+          "Technical Phone Interview - Coding & Problem Solving (45 mins)",
+          "Virtual Onsite Loop: 3 Coding Rounds (Data Structures, Algorithms) + 1 Googleyness & Leadership Round (NO System Design)",
+          "Hiring Committee (HC) Review & Team Matching (Strict 6-12 month cooling period on rejection)"
         ],
-        compensation: "₹45-80 LPA",
+        compensation: "₹32-45 LPA (Base ₹22-26L + Variable + RSUs)",
         benefits: [
-          "Health Insurance",
-          "Stock Options (RSUs)",
-          "Flexible Work Hours",
-          "Wellness Allowance",
+          "Comprehensive Health Insurance",
+          "Stock Options (Alphabet GSUs 4-year frontloaded)",
+          "Flexible Work Hours & Hybrid Model",
+          "Free Gourmet Meals & Micro-kitchens",
           "Relocation Assistance"
         ],
-        fullText: "Job Title: Software Engineer L3\nCompany: Google\nLocation: Mountain View, CA\nEmployment Type: Full-time\nExperience Level: 2-5 years\n\nAbout the Role:\nAs a Software Engineer L3 at Google, you will be at the forefront of the Technology industry, shaping the future of our core platforms. You will tackle complex technical challenges, working alongside a world-class engineering team. Core product engineering. 4 coding rounds + system design + behavioural. We are looking for passionate builders who thrive in fast-paced environments and have a deep commitment to operational excellence.\n\nKey Responsibilities:\n• Contribute to technical vision and architectural decisions for new and existing subsystems.\n• Identify and resolve performance bottlenecks, optimizing systems for scale and high availability.\n• Participate in rigorous code reviews to maintain high quality code standards and ensure system reliability.\n• Drive engineering best practices including CI/CD, comprehensive testing, and technical documentation.\n• Mentor junior engineers and foster a culture of technical excellence and continuous learning.\n• Collaborate closely with product managers, designers, and cross-functional engineering teams to define and deliver new features.\n• Apply advanced data structures and algorithms to solve complex optimization and scaling problems.\n• Architect distributed, highly available, and scalable microservices capable of handling massive throughput.\n• Build robust backend services and APIs using enterprise Java ecosystems (Spring Boot, Hibernate).\n• Develop highly performant Python applications, optimizing data pipelines and machine learning integrations.\n\nRequired Qualifications:\n• Bachelor's or Master's degree in Computer Science, Engineering, or a related technical field.\n• Minimum of 2-5 years of professional software development experience.\n• Proven track record of building and delivering complex, production-grade software systems.\n• Strong command of computer science fundamentals, including object-oriented design, data structures, and algorithmic complexity.\n• Excellent problem-solving skills and ability to thrive in an ambiguous, fast-moving environment.\n• Demonstrated ability to write clean, maintainable, and well-tested code.\n• Deep understanding of distributed systems architecture, concurrency, and network protocols.\n\nRequired Skills & Technologies:\n• Dsa\n• Systemdesign\n• Java\n• Python\n• SQL\n• REST APIs\n\nHiring Process:\n1. Initial Recruiter Phone Screen (30 mins)\n2. Technical Phone Interview - Coding & Problem Solving (45-60 mins)\n3. Virtual Onsite Loop: 4-5 rounds covering Data Structures, System Design, and Behavioral (Leadership Principles)\n4. Hiring Committee Review"
+        fullText: "Job Title: Software Engineer L3\nCompany: Google\nLocation: Bengaluru / Hyderabad, India\nEmployment Type: Full-time\nExperience Level: 0-2 years\n\nAbout the Role:\nAs a Software Engineer L3 at Google, you will join an engineering team solving planetary-scale problems. You will design, develop, test, and ship clean, highly performant code adhering to Google's engineering readability standards. At L3, candidates are assessed rigorously on algorithmic problem solving, time/space complexity, edge cases, and cultural collaboration (Googleyness). There is NO system design round for L3 candidates.\n\nKey Responsibilities:\n• Design, implement, test, and deploy well-scoped features and microservice components.\n• Write clean, idiomatic, well-documented code adhering to strict style guides (C++, Java, Go, Python).\n• Participate actively in rigorous code reviews (CLs) and adhere to internal readability approvals.\n• Debug issues, write unit/integration tests with high coverage, and maintain system stability.\n• Collaborate with tech leads and senior peers to understand design trade-offs.\n\nRequired Qualifications:\n• Bachelor's or Master's degree in Computer Science, Engineering, or a related technical field.\n• 0-2 years of software engineering experience or strong collegiate project track record.\n• Strong foundation in core data structures, algorithms, time/space complexity analysis.\n• Fluency in at least one modern language: Java, C++, Python, or Go.\n\nRequired Skills & Technologies:\n• DSA\n• Java\n• Python\n• SQL\n• REST APIs\n\nHiring Process:\n1. Initial Recruiter Phone Screen (30 mins)\n2. Technical Phone Interview - Coding & Algorithms (45 mins)\n3. Virtual Onsite Loop: 3 Coding Rounds (DSA) + 1 Googleyness & Leadership Round (NO System Design)\n4. Hiring Committee (HC) Review & Team Matching (6-12 month cooldown on rejection)"
       },
       {
         title: "Software Engineer L4",
-        level: "Senior SDE",
+        level: "Mid-Level / SWE III",
         competencies: [
           "dsa",
           "systemdesign",
@@ -241,34 +230,28 @@ const RAW_COMPANIES = [
         ],
         reqLevel: {
           dsa: "expert",
-          systemdesign: "expert",
+          systemdesign: "strong",
           java: "expert",
           leadership: "strong"
         },
-        desc: "Senior IC role. Owns design decisions for large features across Google's product surface.",
-        location: "Mountain View, CA",
+        desc: "Mid-level SWE IC (2-5 YOE). Fully autonomous execution, owns service features and subsystem design. 3 coding + 1 distributed systems design + 1 Googleyness.",
+        location: "Bengaluru / Hyderabad, India (HQ: Mountain View, CA)",
         employmentType: "Full-time",
-        experienceLevel: "5+ years",
-        aboutRole: "As a Software Engineer L4 at Google, you will be at the forefront of the Technology industry, shaping the future of our core platforms. You will tackle complex technical challenges, working alongside a world-class engineering team. Senior IC role. Owns design decisions for large features across Google's product surface. We are looking for passionate builders who thrive in fast-paced environments and have a deep commitment to operational excellence.",
+        experienceLevel: "2-5 years",
+        aboutRole: "As a Software Engineer L4 at Google, you are expected to operate with high autonomy, designing and delivering robust software systems that scale to billions of queries. You will lead technical mini-designs, unblock peers, and actively contribute to system architecture. Interview loop tests high-level problem solving, concurrency, distributed storage, and cross-functional leadership.",
         responsibilities: [
-          "Collaborate closely with product managers, designers, and cross-functional engineering teams to define and deliver new features.",
-          "Mentor junior engineers and foster a culture of technical excellence and continuous learning.",
-          "Contribute to technical vision and architectural decisions for new and existing subsystems.",
-          "Manage individual project priorities, deadlines, and deliverables effectively.",
-          "Design, develop, test, deploy, maintain and improve software across the stack.",
-          "Drive engineering best practices including CI/CD, comprehensive testing, and technical documentation.",
-          "Apply advanced data structures and algorithms to solve complex optimization and scaling problems.",
-          "Architect distributed, highly available, and scalable microservices capable of handling massive throughput.",
-          "Build robust backend services and APIs using enterprise Java ecosystems (Spring Boot, Hibernate)."
+          "Own design and execution of non-trivial services and components across Google's distributed infrastructure.",
+          "Author technical design documents and navigate them through engineering review committees.",
+          "Identify and resolve bottlenecks in system latency, throughput, memory, and database I/O.",
+          "Drive testing standards, integration verification, and automated canary deployments.",
+          "Mentor early-career L3 engineers and provide constructive feedback on code reviews."
         ],
         requiredQualifications: [
           "Bachelor's or Master's degree in Computer Science, Engineering, or a related technical field.",
-          "Minimum of 5+ years of professional software development experience.",
-          "Proven track record of building and delivering complex, production-grade software systems.",
-          "Strong command of computer science fundamentals, including object-oriented design, data structures, and algorithmic complexity.",
-          "Excellent problem-solving skills and ability to thrive in an ambiguous, fast-moving environment.",
-          "Demonstrated ability to write clean, maintainable, and well-tested code.",
-          "Deep understanding of distributed systems architecture, concurrency, and network protocols."
+          "2-5 years of professional production software development experience.",
+          "Demonstrated track record of delivering distributed systems with high availability requirements.",
+          "Deep understanding of concurrency, data modeling, RPC protocols, caching, and database partitioning.",
+          "Proven problem-solving skills and comfort with ambiguous requirements."
         ],
         requiredSkills: [
           {
@@ -303,9 +286,9 @@ const RAW_COMPANIES = [
           }
         ],
         preferredSkills: [
-          "Open Source Contributions",
-          "Experience with high-scale systems",
-          "Cloud Certifications"
+          "Experience with planetary-scale distributed storage (Bigtable, Spanner, Cassandra, Kafka)",
+          "Cloud platform expertise (GCP, AWS) with container orchestration (Kubernetes)",
+          "Public technical blog posts or open source contributions"
         ],
         toolsAndTech: [
           "dsa",
@@ -315,25 +298,26 @@ const RAW_COMPANIES = [
           "REST APIs"
         ],
         softSkills: [
-          "Problem Solving",
+          "System Architecture Thinking",
           "Team Collaboration",
-          "Adaptability"
+          "Ownership & Leadership",
+          "Clear Technical Communication"
         ],
         hiringProcess: [
           "Initial Recruiter Phone Screen (30 mins)",
-          "Technical Phone Interview - Coding & Problem Solving (45-60 mins)",
-          "Virtual Onsite Loop: 4-5 rounds covering Data Structures, System Design, and Behavioral (Leadership Principles)",
-          "Hiring Committee Review"
+          "Technical Phone Interview - Coding & Algorithms (45 mins)",
+          "Virtual Onsite Loop: 3 Coding Rounds (DSA) + 1 System Design Round (Subsystem & Distributed Architecture) + 1 Googleyness & Leadership Round",
+          "Hiring Committee (HC) Review & Team Matching"
         ],
-        compensation: "₹45-80 LPA",
+        compensation: "₹50-80 LPA (Base ₹32-42L + Variable + RSUs)",
         benefits: [
-          "Health Insurance",
-          "Stock Options (RSUs)",
-          "Flexible Work Hours",
-          "Wellness Allowance",
+          "Comprehensive Health Insurance",
+          "Stock Options (Alphabet GSUs)",
+          "Flexible Work Hours & Hybrid Model",
+          "Free Gourmet Meals & Micro-kitchens",
           "Relocation Assistance"
         ],
-        fullText: "Job Title: Software Engineer L4\nCompany: Google\nLocation: Mountain View, CA\nEmployment Type: Full-time\nExperience Level: 5+ years\n\nAbout the Role:\nAs a Software Engineer L4 at Google, you will be at the forefront of the Technology industry, shaping the future of our core platforms. You will tackle complex technical challenges, working alongside a world-class engineering team. Senior IC role. Owns design decisions for large features across Google's product surface. We are looking for passionate builders who thrive in fast-paced environments and have a deep commitment to operational excellence.\n\nKey Responsibilities:\n• Collaborate closely with product managers, designers, and cross-functional engineering teams to define and deliver new features.\n• Mentor junior engineers and foster a culture of technical excellence and continuous learning.\n• Contribute to technical vision and architectural decisions for new and existing subsystems.\n• Manage individual project priorities, deadlines, and deliverables effectively.\n• Design, develop, test, deploy, maintain and improve software across the stack.\n• Drive engineering best practices including CI/CD, comprehensive testing, and technical documentation.\n• Apply advanced data structures and algorithms to solve complex optimization and scaling problems.\n• Architect distributed, highly available, and scalable microservices capable of handling massive throughput.\n• Build robust backend services and APIs using enterprise Java ecosystems (Spring Boot, Hibernate).\n\nRequired Qualifications:\n• Bachelor's or Master's degree in Computer Science, Engineering, or a related technical field.\n• Minimum of 5+ years of professional software development experience.\n• Proven track record of building and delivering complex, production-grade software systems.\n• Strong command of computer science fundamentals, including object-oriented design, data structures, and algorithmic complexity.\n• Excellent problem-solving skills and ability to thrive in an ambiguous, fast-moving environment.\n• Demonstrated ability to write clean, maintainable, and well-tested code.\n• Deep understanding of distributed systems architecture, concurrency, and network protocols.\n\nRequired Skills & Technologies:\n• Dsa\n• Systemdesign\n• Java\n• Leadership\n• SQL\n• REST APIs\n\nHiring Process:\n1. Initial Recruiter Phone Screen (30 mins)\n2. Technical Phone Interview - Coding & Problem Solving (45-60 mins)\n3. Virtual Onsite Loop: 4-5 rounds covering Data Structures, System Design, and Behavioral (Leadership Principles)\n4. Hiring Committee Review"
+        fullText: "Job Title: Software Engineer L4\nCompany: Google\nLocation: Bengaluru / Hyderabad, India\nEmployment Type: Full-time\nExperience Level: 2-5 years\n\nAbout the Role:\nAs a Software Engineer L4 at Google, you are expected to operate with high autonomy, designing and delivering robust software systems that scale to billions of queries. You will lead technical mini-designs, unblock peers, and actively contribute to system architecture. Interview loop tests high-level problem solving, concurrency, distributed storage, and cross-functional leadership.\n\nKey Responsibilities:\n• Own design and execution of non-trivial services and components across Google's distributed infrastructure.\n• Author technical design documents and navigate them through engineering review committees.\n• Identify and resolve bottlenecks in system latency, throughput, memory, and database I/O.\n• Drive testing standards, integration verification, and automated canary deployments.\n• Mentor early-career L3 engineers and provide constructive feedback on code reviews.\n\nRequired Qualifications:\n• Bachelor's or Master's degree in Computer Science, Engineering, or a related technical field.\n• 2-5 years of professional production software development experience.\n• Demonstrated track record of delivering distributed systems with high availability requirements.\n• Deep understanding of concurrency, data modeling, RPC protocols, caching, and database partitioning.\n\nRequired Skills & Technologies:\n• DSA\n• System Design\n• Java\n• Leadership\n• SQL\n• REST APIs\n\nHiring Process:\n1. Initial Recruiter Phone Screen (30 mins)\n2. Technical Phone Interview - Coding & Algorithms (45 mins)\n3. Virtual Onsite Loop: 3 Coding Rounds (DSA) + 1 System Design Round + 1 Googleyness & Leadership Round\n4. Hiring Committee (HC) Review & Team Matching"
       },
       {
         title: "ML Engineer L4",
@@ -2251,7 +2235,7 @@ const RAW_COMPANIES = [
           "Virtual Onsite Loop: 4-5 rounds covering Data Structures, System Design, and Behavioral (Leadership Principles)",
           "Hiring Committee Review"
         ],
-        compensation: "₹40-75 LPA",
+        compensation: "₹1.4-2.5 Cr",
         benefits: [
           "Health Insurance",
           "Stock Options (RSUs)",
@@ -3555,7 +3539,7 @@ const RAW_COMPANIES = [
         desc: "Technical direction across Amazon. Bar-raisers in interviews. Cross-org influence.",
         location: "Seattle, WA",
         employmentType: "Full-time",
-        experienceLevel: "2-5 years",
+        experienceLevel: "10+ years",
         aboutRole: "As a Principal Engineer at Amazon, you will be at the forefront of the E-commerce / Cloud industry, shaping the future of our core platforms. You will tackle complex technical challenges, working alongside a world-class engineering team. Technical direction across Amazon. Bar-raisers in interviews. Cross-org influence. We are looking for passionate builders who thrive in fast-paced environments and have a deep commitment to operational excellence.",
         responsibilities: [
           "Collaborate closely with product managers, designers, and cross-functional engineering teams to define and deliver new features.",
@@ -3630,7 +3614,7 @@ const RAW_COMPANIES = [
           "Virtual Onsite Loop: 4-5 rounds covering Data Structures, System Design, and Behavioral (Leadership Principles)",
           "Hiring Committee Review"
         ],
-        compensation: "₹42-78 LPA",
+        compensation: "₹1.6-3.0 Cr",
         benefits: [
           "Health Insurance",
           "Stock Options (RSUs)",
