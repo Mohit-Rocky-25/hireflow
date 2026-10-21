@@ -15,9 +15,13 @@ import {
   Sparkles,
   ArrowRight,
   X,
+  Binary,
+  ShieldCheck,
+  UserCheck,
 } from 'lucide-react';
 import { generateResumeAnnotations, ResumeAnnotationSpan } from '../lib/annotateResume';
 import { MetricFeedbackWidget } from '../../../components/common/MetricFeedbackWidget';
+import { parseResume } from '../../../lib/ats/parseResume';
 
 export interface AnnotatedResumeViewProps {
   resumeText: string;
@@ -32,8 +36,12 @@ export function AnnotatedResumeView({
   onApplyRewrite,
   className = '',
 }: AnnotatedResumeViewProps) {
-  const [viewMode, setViewMode] = useState<'annotated' | 'clean' | 'raw'>('annotated');
+  const [viewMode, setViewMode] = useState<'annotated' | 'clean' | 'raw' | 'ats_stream'>('annotated');
   const [activeAnnotation, setActiveAnnotation] = useState<ResumeAnnotationSpan | null>(null);
+
+  const parsedResume = useMemo(() => {
+    return parseResume(resumeText);
+  }, [resumeText]);
 
   const annotations = useMemo(() => {
     return generateResumeAnnotations(resumeText, targetSkills);
@@ -152,6 +160,16 @@ export function AnnotatedResumeView({
           >
             Raw Source
           </button>
+          <button
+            type="button"
+            onClick={() => setViewMode('ats_stream')}
+            className={`px-3 py-1 rounded text-xs font-medium transition flex items-center gap-1.5 ${
+              viewMode === 'ats_stream' ? 'bg-indigo-600 text-white font-bold' : 'text-slate-400 hover:text-white'
+            }`}
+          >
+            <Binary className="w-3.5 h-3.5" />
+            What ATS Sees
+          </button>
         </div>
       </div>
 
@@ -167,6 +185,79 @@ export function AnnotatedResumeView({
             <pre className="text-slate-400 font-mono text-[11px] leading-relaxed">
               {resumeText}
             </pre>
+          )}
+          {viewMode === 'ats_stream' && (
+            <div className="space-y-4 font-sans text-xs">
+              {/* ATS Ingestion Header & Verification Chips */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 p-3 rounded-lg bg-slate-950/80 border border-slate-800">
+                <div>
+                  <div className="text-[10px] text-slate-500 font-bold uppercase">Candidate Name</div>
+                  <div className="text-sm font-bold text-emerald-400 truncate mt-0.5">
+                    {parsedResume.contact.name || 'Not Detected'}
+                  </div>
+                </div>
+                <div>
+                  <div className="text-[10px] text-slate-500 font-bold uppercase">Contact Extracted</div>
+                  <div className="text-xs font-semibold text-slate-300 mt-1">
+                    {parsedResume.contact.email ? '✓ Email' : '✗ Email'} · {parsedResume.contact.phone ? '✓ Phone' : '✗ Phone'}
+                  </div>
+                </div>
+                <div>
+                  <div className="text-[10px] text-slate-500 font-bold uppercase">Token Count</div>
+                  <div className="text-sm font-mono font-bold text-slate-200 mt-0.5">
+                    {resumeText.split(/\s+/).filter(Boolean).length} tokens
+                  </div>
+                </div>
+                <div>
+                  <div className="text-[10px] text-slate-500 font-bold uppercase">Parsing Status</div>
+                  <div className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-400 mt-1">
+                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" /> Linear Single-Column
+                  </div>
+                </div>
+              </div>
+
+              {/* Detected Sections Matrix */}
+              <div className="p-3 rounded-lg bg-slate-950/50 border border-slate-800">
+                <div className="text-[10px] font-bold uppercase text-slate-400 mb-2">
+                  Enterprise ATS Section Mapping (Workday / Taleo standard)
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2">
+                  {[
+                    { id: 'summary', label: 'Summary', found: Boolean(parsedResume.sections.summary && parsedResume.sections.summary.trim()) },
+                    { id: 'skills', label: 'Skills', found: Boolean(parsedResume.sections.skills && parsedResume.sections.skills.length > 0) },
+                    { id: 'experience', label: 'Experience', found: Boolean(parsedResume.sections.experience && parsedResume.sections.experience.length > 0) },
+                    { id: 'projects', label: 'Projects', found: Boolean(parsedResume.sections.projects && parsedResume.sections.projects.length > 0) },
+                    { id: 'education', label: 'Education', found: Boolean(parsedResume.sections.education && parsedResume.sections.education.length > 0) },
+                    { id: 'certifications', label: 'Certifications', found: Boolean(parsedResume.sections.rawSections?.certifications) },
+                  ].map((sec) => (
+                    <div
+                      key={sec.id}
+                      className={`p-2 rounded border text-center ${
+                        sec.found
+                          ? 'bg-emerald-500/10 border-emerald-500/25 text-emerald-300'
+                          : 'bg-slate-900 border-slate-800 text-slate-500'
+                      }`}
+                    >
+                      <div className="text-[11px] font-bold">{sec.label}</div>
+                      <div className="text-[9px] mt-0.5">{sec.found ? '✓ Parsed' : '— Missing'}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Raw Parsed Stream */}
+              <div className="p-3 rounded-lg bg-black/60 border border-slate-800 font-mono text-[11px] text-slate-300">
+                <div className="text-[10px] font-bold uppercase text-slate-500 font-sans mb-1.5">
+                  Raw Parsed Token Stream (Exactly how ATS engines index your text)
+                </div>
+                <pre className="max-h-[340px] overflow-y-auto whitespace-pre-wrap leading-relaxed text-emerald-300/90">
+                  {resumeText
+                    .split('\n')
+                    .map((line, idx) => `[TOKEN_${String(idx + 1).padStart(3, '0')}] ${line}`)
+                    .join('\n')}
+                </pre>
+              </div>
+            </div>
           )}
         </div>
 
