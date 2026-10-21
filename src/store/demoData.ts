@@ -3,14 +3,13 @@ import { users, companies, companyMembers } from "./seedUsers";
 import { jobs } from "./seedJobs";
 import { candidateProfiles } from "./seedCandidates";
 import { applications, candidateMatches, interviews, notifications } from "./seedApplications";
-import { massiveCompanies, massiveJobs } from "./seedMassive";
 
 export function generateDemoData(): Partial<AppState> {
   return {
     users,
-    companies: [...companies, ...massiveCompanies],
+    companies,
     companyMembers,
-    jobs: [...jobs, ...massiveJobs],
+    jobs,
     candidateProfiles,
     applications,
     candidateMatches,

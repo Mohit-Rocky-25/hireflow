@@ -47,7 +47,16 @@ function RouteFallback() {
 
 export default function App() {
   const { initDemoData, _initialized } = useStore();
-  const [appReady, setAppReady] = useState(false);
+  const [appReady, setAppReady] = useState(() => {
+    if (typeof window !== 'undefined' && window.sessionStorage) {
+      try {
+        return window.sessionStorage.getItem('hf_seen_cinematic') === 'true';
+      } catch {
+        return false;
+      }
+    }
+    return false;
+  });
 
   useEffect(() => {
     if (!_initialized) {
@@ -56,6 +65,11 @@ export default function App() {
   }, [_initialized, initDemoData]);
 
   const handleLoadingFinish = useCallback(() => {
+    if (typeof window !== 'undefined' && window.sessionStorage) {
+      try {
+        window.sessionStorage.setItem('hf_seen_cinematic', 'true');
+      } catch {}
+    }
     setAppReady(true);
   }, []);
 

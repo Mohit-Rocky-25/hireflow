@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react';
 import './CinematicLoader.css';
 
-const LOADER_MIN_MS = 3400;
+const LOADER_MIN_MS = 1800;
 
 const STATUS_MESSAGES = [
   'Vortex engine initializing...',
@@ -71,6 +71,11 @@ export const CinematicLoader: React.FC<CinematicLoaderProps> = ({ onFinish }) =>
   const finish = useCallback(() => {
     if (hasFinishedRef.current) return;
     hasFinishedRef.current = true;
+    if (typeof window !== 'undefined' && window.sessionStorage) {
+      try {
+        window.sessionStorage.setItem('hf_seen_cinematic', 'true');
+      } catch {}
+    }
     if (typeof document !== 'undefined') {
       document.body.style.overflow = '';
       document.documentElement.style.overflow = '';
@@ -78,6 +83,17 @@ export const CinematicLoader: React.FC<CinematicLoaderProps> = ({ onFinish }) =>
     }
     onFinish();
   }, [onFinish]);
+
+  // If already seen in this session, skip immediately
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.sessionStorage) {
+      try {
+        if (window.sessionStorage.getItem('hf_seen_cinematic') === 'true') {
+          finish();
+        }
+      } catch {}
+    }
+  }, [finish]);
 
   // Lock body scroll during cinematic intro
   useEffect(() => {
