@@ -313,10 +313,10 @@ describe('HireFlow ATS Engine — Fixtures Verification', () => {
 
   it('No UI text contains auto-reject below 75% or calibrated against Tier S', () => {
     const resumeCheckerPath = path.resolve(__dirname, '../../../pages/tools/ResumeChecker.tsx');
-    const overviewTabPath = path.resolve(__dirname, '../../../components/ats/OverviewTab.tsx');
-    const verdictCardPath = path.resolve(__dirname, '../../../components/ats/VerdictCard.tsx');
+    const overviewTabPath = path.resolve(__dirname, '../../../features/ats/components/OverviewTab.tsx');
+    const scoreHeaderPath = path.resolve(__dirname, '../../../features/ats/components/ScoreHeader.tsx');
 
-    const files = [resumeCheckerPath, overviewTabPath, verdictCardPath];
+    const files = [resumeCheckerPath, overviewTabPath, scoreHeaderPath];
     for (const f of files) {
       if (fs.existsSync(f)) {
         const content = fs.readFileSync(f, 'utf-8');
