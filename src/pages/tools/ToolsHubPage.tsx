@@ -16,7 +16,6 @@ import {
 import { PageNav } from '../../components/common/PageNav';
 import { PublicNavbar } from '../../components/common/PublicNavbar';
 import { careers } from '../../careers-core';
-import { COMPANIES } from '../demo/talentLensData';
 
 interface ToolItem {
   id: string;
@@ -168,12 +167,12 @@ export function ToolsHubPage() {
         {
           id: 'careers-explorer',
           title: 'Careers Data Platform Explorer',
-          badge: `${COMPANIES.length}+ Employers · ${COMPANIES.reduce((a, c) => a + c.roles.length, 0)}+ Roles`,
-          description: `Browse the full unified dataset of ${COMPANIES.length} top employers and active recruiters, ${COMPANIES.reduce((a, c) => a + c.roles.length, 0)}+ calibrated roles, eligibility cutoffs, and audit ledgers.`,
+          badge: `${careers.stats.counts().companies}+ Employers · ${careers.stats.counts().roles}+ Roles`,
+          description: `Browse the full unified dataset of ${careers.stats.counts().companies} top employers and active recruiters, ${careers.stats.counts().roles}+ calibrated roles, eligibility cutoffs, and audit ledgers.`,
           link: '/dev/careers-data',
           cta: 'Explore Dataset',
           icon: Database,
-          tags: [`${COMPANIES.length}+ Companies`, `${COMPANIES.reduce((a, c) => a + c.roles.length, 0)}+ Roles`, 'Cybersecurity & Tech', 'Audit Ledgers'],
+          tags: [`${careers.stats.counts().companies}+ Companies`, `${careers.stats.counts().roles}+ Roles`, 'Cybersecurity & Tech', 'Audit Ledgers'],
         },
       ],
     },
@@ -214,8 +213,8 @@ export function ToolsHubPage() {
         {/* Live Careers Data Platform Metrics & Quick Link */}
         {(() => {
           const stats = careers.stats.counts();
-          const totalCompanies = COMPANIES.length;
-          const totalRoles = COMPANIES.reduce((a, c) => a + c.roles.length, 0);
+          const totalCompanies = stats.companies;
+          const totalRoles = stats.roles;
           return (
             <Link
               to="/dev/careers-data"

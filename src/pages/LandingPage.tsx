@@ -10,10 +10,10 @@ import {
 } from "lucide-react";
 import { PublicNavbar } from "../components/common/PublicNavbar";
 import { careers } from "../careers-core";
-import { COMPANIES } from "./demo/talentLensData";
 
-const TOTAL_COMPANIES = COMPANIES.length;
-const TOTAL_ROLES = COMPANIES.reduce((acc, c) => acc + c.roles.length, 0);
+const platformStats = careers.stats.counts();
+const TOTAL_COMPANIES = platformStats.companies;
+const TOTAL_ROLES = platformStats.roles;
 
 const FEATURES = [
   {

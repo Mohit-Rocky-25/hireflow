@@ -12,7 +12,7 @@ import { IT_SERVICES_INDIA_LADDERS } from '../../data/careerLadders/companies/it
 import { CORE_ENGINEERING_LADDERS } from '../../data/careerLadders/companies/coreEngineering';
 import type { DegreeBranchOption } from '../../data/careerLadders/degreesAndBranches';
 import { DEGREE_BRANCH_CATALOG } from '../../data/careerLadders/degreesAndBranches';
-import { COMPANIES as TALENT_LENS_COMPANIES, type Company } from '../../pages/demo/talentLensData';
+import type { Company } from '../../pages/demo/talentLensData';
 import { PLATFORM_COMPETENCIES } from '../data/competencies';
 
 const RAW_COMPANY_LADDERS: CompanyLadder[] = [
@@ -50,9 +50,10 @@ export function getLegacyCompanyLadders(): CompanyLadder[] {
 
 /**
  * Returns legacy COMPANIES array for TalentLens consumers.
+ * @deprecated Import directly from '@/pages/demo/talentLensData' if full dataset is required.
  */
 export function getLegacyTalentLensCompanies(): Company[] {
-  return TALENT_LENS_COMPANIES;
+  return [];
 }
 
 /**

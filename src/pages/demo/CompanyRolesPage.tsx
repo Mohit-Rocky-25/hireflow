@@ -46,8 +46,10 @@ import {
   AnalysisResult,
   getCompanySlug,
 } from './talentLensData';
-import { useTalentLensStore, DEMO_TALENTLENS_RESUME } from './useTalentLensStore';
+import { useTalentLensStore, DEMO_TALENTLENS_RESUME, setCompaniesResolver } from './useTalentLensStore';
 import { useProfileStore } from '../../store/profileStore';
+
+setCompaniesResolver(() => COMPANIES);
 
 function ProgramEligibilityBadge({ programId, facts }: { programId: string; facts: any }) {
   const result = useEligibility(facts, programId);

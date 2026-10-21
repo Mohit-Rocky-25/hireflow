@@ -5,12 +5,16 @@
 // ============================================================
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
-import {
-  COMPANIES,
+import type {
   Company,
   Role,
   AnalysisResult,
 } from './talentLensData';
+
+let _companiesResolver: (() => Company[]) | null = null;
+export function setCompaniesResolver(resolver: () => Company[]) {
+  _companiesResolver = resolver;
+}
 
 export const DEMO_TALENTLENS_RESUME = {
   fileName: 'resume-final-2.pdf',
@@ -24,7 +28,9 @@ export interface TalentLensState {
   companySearch: string;
   industryFilter: string;
   tierFilter: string;
+  selectedCompany: Company | null;
   selectedCompanyId: string | null;
+  selectedRole: Role | null;
   selectedRoleTitle: string | null;
   result: AnalysisResult | null;
   step: 1 | 2 | 3;
@@ -57,7 +63,9 @@ export const useTalentLensStore = create<TalentLensState>()(
       companySearch: '',
       industryFilter: 'All',
       tierFilter: 'All',
+      selectedCompany: null,
       selectedCompanyId: null,
+      selectedRole: null,
       selectedRoleTitle: null,
       result: null,
       step: 1,
@@ -79,7 +87,12 @@ export const useTalentLensStore = create<TalentLensState>()(
 
       selectCompany: (company: Company | null) =>
         set((state) => ({
+          selectedCompany: company,
           selectedCompanyId: company ? company.id : null,
+          selectedRole:
+            company && state.selectedCompanyId === company.id
+              ? state.selectedRole
+              : null,
           selectedRoleTitle:
             company && state.selectedCompanyId === company.id
               ? state.selectedRoleTitle
@@ -87,7 +100,10 @@ export const useTalentLensStore = create<TalentLensState>()(
         })),
 
       selectRole: (role: Role | null) =>
-        set({ selectedRoleTitle: role ? role.title : null }),
+        set({
+          selectedRole: role,
+          selectedRoleTitle: role ? role.title : null,
+        }),
 
       setResult: (result: AnalysisResult | null) =>
         set({ result }),
@@ -99,7 +115,9 @@ export const useTalentLensStore = create<TalentLensState>()(
         set({
           resumeText: '',
           resumeFileName: '',
+          selectedCompany: null,
           selectedCompanyId: null,
+          selectedRole: null,
           selectedRoleTitle: null,
           result: null,
           step: 1,
@@ -107,6 +125,7 @@ export const useTalentLensStore = create<TalentLensState>()(
 
       resetToCompanies: () =>
         set({
+          selectedRole: null,
           selectedRoleTitle: null,
           result: null,
           step: 2,
@@ -119,15 +138,22 @@ export const useTalentLensStore = create<TalentLensState>()(
         }),
 
       getSelectedCompany: () => {
-        const { selectedCompanyId } = get();
+        const { selectedCompany, selectedCompanyId } = get();
+        if (selectedCompany) return selectedCompany;
         if (!selectedCompanyId) return null;
-        return COMPANIES.find((c) => c.id === selectedCompanyId) || null;
+        if (_companiesResolver) {
+          return _companiesResolver().find((c) => c.id === selectedCompanyId) || null;
+        }
+        return null;
       },
 
       getSelectedRole: () => {
-        const { selectedCompanyId, selectedRoleTitle } = get();
+        const { selectedRole, selectedCompany, selectedCompanyId, selectedRoleTitle } = get();
+        if (selectedRole) return selectedRole;
         if (!selectedCompanyId || !selectedRoleTitle) return null;
-        const company = COMPANIES.find((c) => c.id === selectedCompanyId);
+        const company =
+          selectedCompany ||
+          (_companiesResolver ? _companiesResolver().find((c) => c.id === selectedCompanyId) : null);
         if (!company) return null;
         return company.roles.find((r) => r.title === selectedRoleTitle) || null;
       },

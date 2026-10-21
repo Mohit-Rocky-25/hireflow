@@ -19,11 +19,13 @@ import {
   TREND_ICON,
   getCompanySlug,
 } from "./talentLensData";
-import { useTalentLensStore } from "./useTalentLensStore";
+import { useTalentLensStore, setCompaniesResolver } from "./useTalentLensStore";
 import { useProfileStore } from "../../store/profileStore";
 import { toast } from "../../components/ui/Toast";
 import { parseResumeFile } from "../../features/ats/fileParser";
 import { searchCompanies, deduplicateCompanies } from "../../lib/companySearchEngine";
+
+setCompaniesResolver(() => COMPANIES);
 
 export function MatchingDemo() {
   const navigate = useNavigate();

@@ -11,10 +11,11 @@ import {
   generateImprovementPlan,
   runMarketIntelligenceEngine,
 } from '../talentLensData';
-import { useTalentLensStore } from '../useTalentLensStore';
+import { useTalentLensStore, setCompaniesResolver } from '../useTalentLensStore';
 
 describe('TalentLens Flow & Data Layer', () => {
   beforeEach(() => {
+    setCompaniesResolver(() => COMPANIES);
     useTalentLensStore.getState().resetToNewResume();
   });
 

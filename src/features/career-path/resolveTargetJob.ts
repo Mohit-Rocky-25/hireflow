@@ -6,7 +6,12 @@
 
 import { careers } from '@/careers-core';
 import type { FresherProgram } from '@/careers-core';
-import { COMPANIES, findCompanyBySlug } from '@/pages/demo/talentLensData';
+import { useTalentLensStore } from '@/pages/demo/useTalentLensStore';
+
+let _externalCompaniesSource: any[] | null = null;
+export function setResolveTargetJobCompaniesSource(companies: any[]) {
+  _externalCompaniesSource = companies;
+}
 
 export function buildJobDescriptionFromFresherProgram(
   prog: FresherProgram,
@@ -103,13 +108,15 @@ export function resolveTargetJob(
   const cleanComp = (companyId || '').trim();
   const cleanProg = (programId || '').trim();
 
-  // 1. Try finding company from talentLensData COMPANIES or careers-core
+  // 1. Try finding company from store, registered source, or careers-core
+  const sessionComp = useTalentLensStore.getState().getSelectedCompany();
   const talentComp =
-    COMPANIES.find(
+    (sessionComp && (sessionComp.id.toLowerCase() === cleanComp.toLowerCase() || sessionComp.name.toLowerCase() === cleanComp.toLowerCase()) ? sessionComp : null) ||
+    (_externalCompaniesSource?.find(
       (c) =>
         c.id.toLowerCase() === cleanComp.toLowerCase() ||
         c.name.toLowerCase() === cleanComp.toLowerCase()
-    ) || findCompanyBySlug(cleanComp);
+    ) || null);
 
   const careersComp = careers.companies.get(cleanComp);
   const companyName = talentComp?.name || careersComp?.name || cleanComp || 'Technology Company';
@@ -152,13 +159,13 @@ export function resolveTargetJob(
     const lowRole = cleanRole.toLowerCase();
     const baseRole = lowRole.replace(/\s*\(.*?\)\s*/g, '').trim();
 
-    let matchedRole = talentComp.roles.find((r) => r.title.toLowerCase() === lowRole);
+    let matchedRole = talentComp.roles.find((r: any) => r.title.toLowerCase() === lowRole);
     if (!matchedRole && baseRole) {
-      matchedRole = talentComp.roles.find((r) => r.title.toLowerCase() === baseRole);
+      matchedRole = talentComp.roles.find((r: any) => r.title.toLowerCase() === baseRole);
     }
     if (!matchedRole) {
       matchedRole = talentComp.roles.find(
-        (r) =>
+        (r: any) =>
           r.title.toLowerCase().includes(lowRole) ||
           lowRole.includes(r.title.toLowerCase()) ||
           (baseRole &&
@@ -188,7 +195,7 @@ ${(
     'Participate in rigorous code reviews, mentoring, and continuous deployment workflows.',
   ]
 )
-  .map((r) => `• ${r}`)
+  .map((r: string) => `• ${r}`)
   .join('\n')}
 
 Required Qualifications:
@@ -199,7 +206,7 @@ ${(
     'Proven track record writing maintainable, resilient, clean production code.',
   ]
 )
-  .map((q) => `• ${q}`)
+  .map((q: string) => `• ${q}`)
   .join('\n')}
 
 Required Skills & Technologies:
@@ -225,6 +232,65 @@ ${(
       return {
         text: roleText,
         fileName: `${talentComp.name}_${matchedRole.title.replace(/\s+/g, '_')}_JD.txt`,
+      };
+    }
+  }
+
+  // 3b. Try matching Experienced Role from canonical careers.roles
+  if (cleanComp && cleanRole) {
+    const lowRole = cleanRole.toLowerCase();
+    const baseRole = lowRole.replace(/\s*\(.*?\)\s*/g, '').trim();
+    const platformRoles = careers.roles.forCompany(cleanComp);
+    const matchedPlatformRole = platformRoles.find(
+      (r) =>
+        r.title.toLowerCase() === lowRole ||
+        (baseRole && r.title.toLowerCase() === baseRole) ||
+        r.id.toLowerCase() === lowRole ||
+        r.title.toLowerCase().includes(lowRole) ||
+        lowRole.includes(r.title.toLowerCase())
+    );
+
+    if (matchedPlatformRole) {
+      const competenciesLines = Object.entries(matchedPlatformRole.competencies || {})
+        .map(([k, v]) => `• ${k.toUpperCase()}: Demonstrated competency level ${v}`)
+        .join('\n');
+
+      const keywordsLine = (matchedPlatformRole.derivedKeywords || []).slice(0, 15).join(', ');
+
+      const platformJDText = `Job Title: ${matchedPlatformRole.title}
+Company: ${companyName}
+Location: India / Global Engineering Centers
+Employment Type: Full-time
+Experience Level: ${matchedPlatformRole.level}
+
+About the Role:
+${companyName} is seeking an accomplished ${matchedPlatformRole.title} to drive mission-critical engineering initiatives and scale platform systems. You will collaborate across product and infrastructure disciplines to design robust architectures, optimize system performance, and deliver high-impact software capabilities.
+
+Key Responsibilities:
+• Architect, implement, test, and maintain high-throughput production software components.
+• Collaborate closely with product, infrastructure, and engineering teammates on technical architecture.
+• Apply advanced algorithmic principles and patterns to optimize latency, fault-tolerance, and scale.
+• Participate in rigorous code reviews, mentoring, and continuous deployment workflows.
+• Ensure adherence to industry benchmarks in software security, reliability, and code quality.
+
+Required Qualifications & Competencies:
+• Bachelor's or Master's degree in Computer Science, Software Engineering, or related technical discipline.
+• Demonstrated expertise in core data structures, algorithms, and modular object-oriented architecture.
+• Proven track record writing maintainable, resilient, clean production code.
+${competenciesLines}
+
+Key Technologies & Signals:
+${keywordsLine}
+
+Hiring & Screening Process:
+1. Initial technical recruiter screening and profile evaluation
+2. Deep algorithmic problem solving and data structures assessment
+3. Systems architecture and distributed system design evaluation
+4. Engineering leadership principles, bar raiser, and culture fit interview`;
+
+      return {
+        text: platformJDText,
+        fileName: `${companyName}_${matchedPlatformRole.title.replace(/\s+/g, '_')}_JD.txt`,
       };
     }
   }
