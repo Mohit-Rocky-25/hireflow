@@ -1,4 +1,4 @@
-﻿import type { CandidateProfile } from "../types";
+import type { CandidateProfile } from "../types";
 import { DEMO_IDS, daysAgo } from "./seedHelpers";
 
 export const candidateProfiles: CandidateProfile[] = [

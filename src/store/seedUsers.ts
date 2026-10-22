@@ -1,4 +1,4 @@
-﻿import type { User, Company, CompanyMember } from "../types";
+import type { User, Company, CompanyMember } from "../types";
 import { DEMO_IDS, daysAgo } from "./seedHelpers";
 
 export const users: User[] = [

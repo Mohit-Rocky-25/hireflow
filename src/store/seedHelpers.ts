@@ -1,4 +1,4 @@
-﻿// HireFlow Demo Seed Data v3 - Users, Companies, CompanyMembers
+// HireFlow Demo Seed Data v3 - Users, Companies, CompanyMembers
 // TODAY = 04 Oct 2026
 import type { User, Company, CompanyMember, JobRequirement, ScreeningConfig, Job, CandidateProfile, Application, CandidateMatch, Interview, Notification, InterviewFeedback } from "../types";
 
