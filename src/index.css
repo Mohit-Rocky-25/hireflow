@@ -183,6 +183,52 @@
   outline-offset: 2px;
 }
 
+/* ============================================================
+   Scoped Dark Design System for Reach Out Section
+   Dark, cool-neutral surfaces matching the Decision Suite hub.
+   ============================================================ */
+[data-theme="reach-out-dark"] {
+  color-scheme: dark;
+  --color-bg: #0a0a0a;
+  --color-surface: #141414;
+  --color-surface-2: #1c1c1c;
+  --color-surface-3: #262626;
+  --color-text: #f3f4f6;
+  --color-text-secondary: #9ca3af;
+  --color-text-muted: #6b7280;
+  --color-border: rgba(255, 255, 255, 0.10);
+  --color-border-strong: rgba(255, 255, 255, 0.20);
+  --color-primary: #3b82f6;
+  --color-primary-hover: #2563eb;
+  background-color: #0a0a0a;
+  color: #f3f4f6;
+}
+
+[data-theme="reach-out-dark"] ::selection {
+  background: rgba(59, 130, 246, 0.35);
+  color: #ffffff;
+}
+
+[data-theme="reach-out-dark"] select,
+[data-theme="reach-out-dark"] option {
+  background-color: #171717;
+  color: #f3f4f6;
+}
+
+[data-theme="reach-out-dark"] ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+}
+
+[data-theme="reach-out-dark"] ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+[data-theme="reach-out-dark"] :focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
 
 /* ── Reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
