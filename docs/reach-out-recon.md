@@ -74,21 +74,21 @@ The current slot filling engine supports the following 13 slots:
 ## 5. Mojibake Audit
 All occurrences of corrupted characters in the repository are cataloged below:
 
-| File | Line | Corrupted String | Correct Character / Fix |
+| File | Line | Corrupted String Pattern | Correct Character / Fix |
 |---|---|---|---|
-| `src/features/suite/outreach/ReachOutPage.tsx` | 2 | `Suite UI ΓÇö Reach Out` | Hyphen or comma (`// Suite UI - Reach Out`) |
-| `src/features/suite/outreach/ReachOutPage.tsx` | 174 | `Reach Out ΓÇö Cold Outreach Generator` | Hyphen (`Reach Out: Cold Outreach Generator`) |
-| `src/features/suite/outreach/ReachOutPage.tsx` | 376 | `<span>┬╖</span>` | Middot `·` or plain hyphen |
-| `src/features/suite/outreach/ReachOutPage.tsx` | 440 | `Ready to send ΓÇö 0 placeholders remaining` | Hyphen or comma (`Ready to send: 0 placeholders remaining`) |
-| `src/features/suite/outreach/generateOutreach.ts` | 2 | `HireFlow Suite ΓÇö Cold Outreach Generator` | Hyphen (`// HireFlow Suite - Cold Outreach Generator`) |
-| `src/features/suite/outreach/generateOutreach.ts` | 88 | `^[*\-ΓÇóΓû¬ΓùÅ\d.]+\s*` | Unicode bullet classes `•▪●` |
-| `src/features/suite/outreach/generateOutreach.ts` | 96 | `^[*\-ΓÇóΓû¬ΓùÅ\d.]+\s*` | Unicode bullet classes `•▪●` |
-| `src/data/suite/outreach-templates.json` | 32 | `Recruiter InMail ΓÇö Value Proposition` | Hyphen (`Recruiter InMail - Value Proposition`) |
-| `src/data/suite/outreach-templates.json` | 56 | `Cold Email ΓÇö Direct Role Application` | Hyphen (`Cold Email - Direct Role Application`) |
-| `src/data/suite/outreach-templates.json` | 58 | `Application: {{targetRole}} ΓÇö {{candidateName}}` | Hyphen (`Application: {{targetRole}} - {{candidateName}}`) |
-| `src/data/suite/outreach-templates.json` | 65 | `Cold Email ΓÇö Solutions & Problem Solving` | Hyphen (`Cold Email - Solutions & Problem Solving`) |
-| `src/data/suite/outreach-templates.json` | 74 | `Cold Email ΓÇö Scannable Bullet Pitch` | Hyphen (`Cold Email - Scannable Bullet Pitch`) |
-| `src/data/suite/outreach-templates.json` | 76 | `{{candidateName}} ΓÇö {{targetRole}} candidate` | Hyphen (`{{candidateName}} - {{targetRole}} candidate`) |
+| `src/features/suite/outreach/ReachOutPage.tsx` | 2 | `Suite UI [mojibake-em-dash] Reach Out` | Hyphen or comma (`// Suite UI - Reach Out`) |
+| `src/features/suite/outreach/ReachOutPage.tsx` | 174 | `Reach Out [mojibake-em-dash] Cold Outreach Generator` | Hyphen (`Reach Out: Cold Outreach Generator`) |
+| `src/features/suite/outreach/ReachOutPage.tsx` | 376 | `<span>[mojibake-middot]</span>` | Middot `·` or plain hyphen |
+| `src/features/suite/outreach/ReachOutPage.tsx` | 440 | `Ready to send [mojibake-em-dash] 0 placeholders remaining` | Hyphen or comma (`Ready to send: 0 placeholders remaining`) |
+| `src/features/suite/outreach/generateOutreach.ts` | 2 | `HireFlow Suite [mojibake-em-dash] Cold Outreach Generator` | Hyphen (`// HireFlow Suite - Cold Outreach Generator`) |
+| `src/features/suite/outreach/generateOutreach.ts` | 88 | `^[*\-[mojibake-bullets]\d.]+\s*` | Unicode bullet classes `•▪●` |
+| `src/features/suite/outreach/generateOutreach.ts` | 96 | `^[*\-[mojibake-bullets]\d.]+\s*` | Unicode bullet classes `•▪●` |
+| `src/data/suite/outreach-templates.json` | 32 | `Recruiter InMail [mojibake-em-dash] Value Proposition` | Hyphen (`Recruiter InMail - Value Proposition`) |
+| `src/data/suite/outreach-templates.json` | 56 | `Cold Email [mojibake-em-dash] Direct Role Application` | Hyphen (`Cold Email - Direct Role Application`) |
+| `src/data/suite/outreach-templates.json` | 58 | `Application: {{targetRole}} [mojibake-em-dash] {{candidateName}}` | Hyphen (`Application: {{targetRole}} - {{candidateName}}`) |
+| `src/data/suite/outreach-templates.json` | 65 | `Cold Email [mojibake-em-dash] Solutions & Problem Solving` | Hyphen (`Cold Email - Solutions & Problem Solving`) |
+| `src/data/suite/outreach-templates.json` | 74 | `Cold Email [mojibake-em-dash] Scannable Bullet Pitch` | Hyphen (`Cold Email - Scannable Bullet Pitch`) |
+| `src/data/suite/outreach-templates.json` | 76 | `{{candidateName}} [mojibake-em-dash] {{targetRole}} candidate` | Hyphen (`{{candidateName}} - {{targetRole}} candidate`) |
 
 *Note: As per guardrails, no em dashes will be used in any template text or UI strings.*
 
