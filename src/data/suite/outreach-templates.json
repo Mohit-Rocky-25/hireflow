@@ -1,452 +1,128 @@
-[
+﻿[
   {
-    "id": "li_connect_signal_trigger",
+    "id": "li-conn-recruiter",
     "channel": "linkedin_connect",
-    "name": "Signal Trigger: Relevant Content Engagement",
-    "targetAudience": "Hiring Manager",
-    "maxLength": 300,
-    "template": "Hi {{recipientName}}, read your post on {{admiredProject}} and your take on {{primarySkill}}. As an engineer exploring {{targetRole}} roles at {{targetCompany}}, I would value connecting to follow your work.",
-    "description": "Engages with a recent technical post or discussion by the recipient before connecting. Signals genuine interest rather than automated outreach."
-  },
-  {
-    "id": "li_connect_tech_blog_hook",
-    "channel": "linkedin_connect",
-    "name": "Engineering Blog Hook: Technical Discussion",
-    "targetAudience": "Peer Engineer",
-    "maxLength": 300,
-    "template": "Hi {{recipientName}}, really enjoyed {{targetCompany}}'s engineering post on {{admiredProject}}—especially how your team evaluated {{primarySkill}} trade-offs. I work on similar system architectures and would love to connect with fellow engineers in this space.",
-    "description": "References a published technical decision from the company's engineering blog, establishing immediate engineering common ground."
-  },
-  {
-    "id": "li_connect_funding_trigger",
-    "channel": "linkedin_connect",
-    "name": "Scaling Milestone: Infrastructure Alignment",
-    "targetAudience": "Recruiter / Hiring Manager",
-    "maxLength": 300,
-    "template": "Hi {{recipientName}}, congrats on {{targetCompany}}'s recent growth milestones! Scaling infrastructure at this stage brings exciting engineering challenges. My focus is {{primarySkill}} ({{proofPoint}}). Would love to connect as you expand the {{targetRole}} team.",
-    "description": "Connects during a company scaling or milestone phase, highlighting relevant experience building reliable systems during high growth."
-  },
-  {
-    "id": "li_connect_competitor_lateral",
-    "channel": "linkedin_connect",
-    "name": "Domain Peer: Technical Exchange",
-    "targetAudience": "Peer Engineer",
-    "maxLength": 300,
-    "template": "Hi {{recipientName}}, I work in the same space building with {{primarySkill}} and have been following {{targetCompany}}'s engineering closely. Would value connecting with fellow engineers solving similar distributed system challenges. No pitch—just staying connected!",
-    "description": "Connects with a peer engineer working in the same domain to exchange technical perspectives without transactional pressure."
-  },
-  {
-    "id": "li_connect_open_source_collab",
-    "channel": "linkedin_connect",
-    "name": "Open-Source Contributor Alignment",
-    "targetAudience": "Peer Engineer",
-    "maxLength": 300,
-    "template": "Hi {{recipientName}}, saw your open-source work on {{admiredProject}}—clean implementation in {{primarySkill}}. I also build in this ecosystem ({{proofPoint}}) and wanted to connect with fellow contributors. — {{candidateName}}",
-    "description": "Recognizes shared contributions or work in open-source ecosystems, creating authentic developer credibility."
-  },
-  {
-    "id": "li_inmail_problem_first",
-    "channel": "linkedin_inmail",
-    "name": "Architecture Focus: Addressing Shared System Bottlenecks",
-    "targetAudience": "Hiring Manager",
-    "subject": "{{primarySkill}} architecture & scaling considerations for {{admiredProject}}",
-    "template": "Hi {{recipientName}},\n\nScaling {{primarySkill}} infrastructure often surfaces nuanced trade-offs between throughput and latency—especially in services like {{admiredProject}}.\n\nIn my recent engineering work, I focused on resolving this exact bottleneck: {{proofPoint}}. I published an architecture teardown and benchmarks here: {{portfolioLink}}.\n\nI saw your team is hiring for the {{targetRole}} position at {{targetCompany}}. If you are reviewing candidates with hands-on systems experience in this stack, I would welcome a 15-minute introductory conversation.\n\nBest regards,\n{{candidateName}}",
-    "description": "Opens with a concrete architectural consideration rather than a resume summary, establishing technical credibility immediately."
-  },
-  {
-    "id": "li_inmail_specific_jd_teardown",
-    "channel": "linkedin_inmail",
-    "name": "Role Alignment: Direct Requirement Mapping",
+    "name": "Recruiter Direct Note",
     "targetAudience": "Recruiter",
-    "subject": "Candidate alignment: {{targetRole}} at {{targetCompany}} ({{primarySkill}})",
-    "template": "Hi {{recipientName}},\n\nI reviewed the {{targetRole}} opening at {{targetCompany}} and wanted to share how my engineering background maps directly to your core requirements:\n\n1. Stack Depth: Hands-on expertise in {{primarySkill}} across production services.\n2. Verified Outcome: {{proofPoint}}.\n3. Production Focus: Full lifecycle experience covering profiling, CI/CD, and monitoring.\n\nMy code repositories, architecture write-ups, and resume are available here: {{portfolioLink}}.\n\nIf my background matches what you are seeking for this role, I would welcome the opportunity to connect for an initial recruiter conversation.\n\nBest regards,\n{{candidateName}}",
-    "description": "Concise, structured alignment mapping the core job requirements directly to verified candidate deliverables with zero filler."
+    "maxLength": 300,
+    "template": "Hi {{recipientName}}, noticed you lead recruiting for {{targetCompany}}'s {{targetRole}} team. I specialize in {{primarySkill}} (recently: {{proofPoint}}). Would love to connect and keep in touch as engineering opportunities arise!",
+    "description": "Punchy 300-char note highlighting stack and #1 proof point."
   },
   {
-    "id": "li_inmail_the_contrarian",
-    "channel": "linkedin_inmail",
-    "name": "Architectural Perspective: Technical Trade-Offs",
+    "id": "li-conn-manager",
+    "channel": "linkedin_connect",
+    "name": "Hiring Manager Project Hook",
     "targetAudience": "Hiring Manager",
-    "subject": "Architectural trade-offs in {{primarySkill}} (re: {{admiredProject}})",
-    "template": "Hi {{recipientName}},\n\nMany engineering teams default to horizontal scaling for {{primarySkill}} services before exhausting query optimization and memory footprint improvements. In high-throughput architectures like {{admiredProject}}, that often creates compounding operational overhead.\n\nIn my recent work, we prioritized data-access profiling and cache locality first: {{proofPoint}}. A technical overview is detailed at {{portfolioLink}}.\n\nI am interested in {{targetCompany}}'s approach to these systems and noticed the open {{targetRole}} position. If your team values engineers who balance pragmatism with deep profiling, I would welcome a brief conversation.\n\nRegards,\n{{candidateName}}",
-    "description": "Offers a thoughtful, nuanced perspective on a technical trade-off rather than conventional assumptions, demonstrating senior judgment."
+    "maxLength": 300,
+    "template": "Hi {{recipientName}}, admired your team's work on {{admiredProject}} at {{targetCompany}}. As an engineer focused on {{primarySkill}}, I recently {{proofPoint}}. Would love to connect and follow your engineering posts!",
+    "description": "Respectful note referencing the team's public work."
   },
   {
-    "id": "li_inmail_value_before_ask",
-    "channel": "linkedin_inmail",
-    "name": "Constructive Peer Review: Technical Observation",
-    "targetAudience": "Hiring Manager",
-    "subject": "Technical observation regarding {{admiredProject}} & {{primarySkill}}",
-    "template": "Hi {{recipientName}},\n\nWhile studying {{targetCompany}}'s public technical documentation for {{admiredProject}}, I noticed an interesting pattern in how requests interact with {{primarySkill}} services under heavy concurrency.\n\nI compiled a brief set of reproduction notes and benchmark comparisons based on similar challenges I solved previously:\n• Summary notes: {{portfolioLink}}\n• Engineering context: {{proofPoint}}\n\nI wanted to share this simply as a constructive peer contribution that may be useful to your platform team.\n\nI am also actively applying for the {{targetRole}} role at {{targetCompany}} and would love to discuss how I can contribute directly to your group.\n\nBest regards,\n{{candidateName}}",
-    "description": "Shares a respectful, well-documented observation regarding public API behavior or performance patterns with zero entitlement."
-  },
-  {
-    "id": "li_inmail_the_30_60_90",
-    "channel": "linkedin_inmail",
-    "name": "Pragmatic Ramp-Up: 30-60-90 Day Framework",
-    "targetAudience": "Hiring Manager",
-    "subject": "30-60-90 Day contribution roadmap for {{targetRole}}",
-    "template": "Hi {{recipientName}},\n\nTo illustrate how I approach team integration, here is how I would structure my first 90 days as a {{targetRole}} at {{targetCompany}}:\n\n• Days 1–30: Deep-dive into existing codebase architecture, observability dashboards, and deployment pipelines; ship initial bug fixes to calibrate workflow.\n• Days 31–60: Take ownership of a scoped subsystem in {{primarySkill}}, applying lessons from past projects where I {{proofPoint}}.\n• Days 61–90: Drive sprint deliverables independently, contribute to design reviews, and assist in mentoring and documentation.\n\nMy technical portfolio is available at {{portfolioLink}}. If you have ten minutes this week, I would love to learn more about your team's immediate milestones.\n\nBest regards,\n{{candidateName}}",
-    "description": "Presents a structured, realistic onboarding and execution roadmap demonstrating immediate organizational readiness."
-  },
-  {
-    "id": "cold_email_bypass_ats_hr",
-    "channel": "cold_email",
-    "name": "Direct Engineering Introduction",
-    "targetAudience": "Engineering Manager",
-    "subject": "{{targetRole}} at {{targetCompany}} — {{primarySkill}} background",
-    "template": "Hi {{recipientName}},\n\nI am reaching out directly because I noticed your team at {{targetCompany}} is hiring for the {{targetRole}} role, specifically working with {{primarySkill}}.\n\nIn my recent engineering work, I focused on building reliable backend systems where I {{proofPoint}}. I have been following {{targetCompany}}'s technical work on {{admiredProject}} and see a clear overlap with the architectural problems your group is tackling.\n\nMy technical portfolio and project source code are available here: {{portfolioLink}}.\n\nIf your team is currently reviewing candidates for this position, I would welcome the opportunity to discuss how my background fits your current roadmap.\n\nBest regards,\n{{candidateName}}",
-    "description": "Direct, respectful engineering outreach focusing on relevant technical stack alignment and demonstrated capability, without adversarial framing."
-  },
-  {
-    "id": "cold_email_founder_mode",
-    "channel": "cold_email",
-    "name": "Founder and Product Relevance",
-    "targetAudience": "Startup Founder",
-    "subject": "Engineering for {{admiredProject}} — {{targetRole}} inquiry",
-    "template": "Hi {{recipientName}},\n\nI have been following {{targetCompany}}'s progress, particularly your product milestones around {{admiredProject}}. Delivering that level of functionality at early-stage velocity requires pragmatic technical trade-offs and clear product intuition.\n\nAs an engineer specializing in {{primarySkill}}, my focus has always been connecting code directly to business outcomes: {{proofPoint}}. I enjoy high-ownership environments where engineers talk to users, scope MVPs tightly, and ship production-ready features quickly.\n\nI am interested in contributing to {{targetCompany}} as a {{targetRole}}. You can review my past builds and open-source contributions here: {{portfolioLink}}.\n\nAre you currently open to a brief introductory conversation this week?\n\nBest,\n{{candidateName}}",
-    "description": "Speaks to a startup founder about product execution, shipping speed, and pragmatic technical trade-offs without inventing company problems."
-  },
-  {
-    "id": "cold_email_referral_blurb_attached",
-    "channel": "cold_email",
-    "name": "Referral Request with Pre-Written Blurb",
-    "targetAudience": "Peer Engineer",
-    "subject": "Quick question regarding {{targetRole}} at {{targetCompany}}",
-    "template": "Hi {{recipientName}},\n\nI saw your engineering work at {{targetCompany}} and noticed you are working in the {{primarySkill}} space. I am currently applying for the open {{targetRole}} role and wanted to reach out respectfully.\n\nI know evaluating an external candidate takes time, so I have summarized my qualifications below along with a short blurb you can review or forward if appropriate:\n\nCandidate Profile:\n• Stack: {{primarySkill}}\n• Key Result: {{proofPoint}}\n• Code & Resume: {{portfolioLink}}\n\nDraft Blurb for Referral Portal:\n\"{{candidateName}} is applying for the {{targetRole}} role. They have hands-on experience in {{primarySkill}}, with verified work including {{proofPoint}}.\"\n\nIf you are comfortable submitting an internal referral, I would be deeply grateful. If not, I completely understand and appreciate your time either way.\n\nBest regards,\n{{candidateName}}",
-    "description": "Makes candidate evaluation effortless for a peer engineer by providing an objective summary and forwardable blurb with zero pressure."
-  },
-  {
-    "id": "cold_email_the_quick_win",
-    "channel": "cold_email",
-    "name": "Demonstrated Initiative: Prototype Demonstration",
-    "targetAudience": "Engineering Manager",
-    "subject": "Prototype demonstration relevant to {{admiredProject}} ({{targetRole}})",
-    "template": "Hi {{recipientName}},\n\nWhile preparing my application for the {{targetRole}} position at {{targetCompany}}, I built a lightweight proof-of-concept to explore some of the technical considerations around {{admiredProject}}.\n\nRather than speaking in abstractions, I wanted to show my implementation approach. The project implements a {{primarySkill}} architecture with an emphasis on data integrity and throughput:\n• Live demo & source: {{portfolioLink}}\n• Core engineering focus: {{proofPoint}}\n\nBuilding this gave me concrete insights into the operational nuances your team likely navigates daily.\n\nI would value any brief technical feedback on the implementation, and I would love to discuss how this hands-on approach translates to the open role.\n\nBest,\n{{candidateName}}",
-    "description": "Showcases an existing, proportionate technical prototype and architectural learnings rather than promising free work."
-  },
-  {
-    "id": "cold_email_the_data_pitch",
-    "channel": "cold_email",
-    "name": "Quantified Achievement: Technical Impact",
-    "targetAudience": "Engineering Manager",
-    "subject": "{{targetRole}} candidate: engineering metrics and production outcomes",
-    "template": "Hi {{recipientName}},\n\nI am reaching out regarding the {{targetRole}} opening at {{targetCompany}}. Below is a summary of the production outcome most relevant to your infrastructure:\n\nTechnical Baseline & Result:\n• Core Focus: {{primarySkill}}\n• Verified Impact: {{proofPoint}}\n• Implementation Details: Available in full at {{portfolioLink}}\n\nIn achieving this metric, my focus was on root-cause diagnosis, profiling system bottlenecks, and making measured architectural changes rather than superficial optimizations.\n\nI am keen to apply this same rigorous engineering approach to {{targetCompany}}'s technical priorities. If your team is interviewing engineers this month, I would welcome a 15-minute conversation.\n\nRegards,\n{{candidateName}}",
-    "description": "Leads with one verified technical outcome and the profiling methodology behind it, demonstrating senior engineering rigor."
-  },
-  {
-    "id": "cold_email_inbound_content",
-    "channel": "cold_email",
-    "name": "Relevant Public Content: Technical Discussion",
-    "targetAudience": "Engineering Manager",
-    "subject": "Technical discussion: {{targetCompany}}'s approach to {{admiredProject}}",
-    "template": "Hi {{recipientName}},\n\nI recently reviewed {{targetCompany}}'s public engineering notes on {{admiredProject}} and was particularly interested in how your team approached scalability in {{primarySkill}}.\n\nI encountered a comparable architectural trade-off in my own work: {{proofPoint}}. Balancing maintainability with raw performance required careful benchmarking, which I documented here: {{portfolioLink}}.\n\nSeeing your team's published solutions reinforced my interest in {{targetCompany}}, and I noticed you have an open {{targetRole}} role.\n\nI would be interested to hear if your engineering roadmap is continuing in that direction, and whether my background aligns with what your team needs right now.\n\nBest regards,\n{{candidateName}}",
-    "description": "References a specific public engineering post, talk, or technical decision from the company, connecting it to candidate's own trade-offs."
-  },
-  {
-    "id": "warm_referral_job_id_sniper",
-    "channel": "warm_referral",
-    "name": "Direct Internal Referral: Pre-Formatted Qualifications",
-    "targetAudience": "Peer Engineer",
-    "subject": "Internal referral request for {{targetRole}} ({{targetCompany}})",
-    "template": "Hi {{recipientName}},\n\nI am applying for the {{targetRole}} position at {{targetCompany}} and wanted to respectfully ask if you would be open to submitting an internal referral.\n\nTo make this as quick and effortless as possible for your internal portal, here is a concise summary of my background:\n• Stack: {{primarySkill}}\n• Core Achievement: {{proofPoint}}\n• Code & Resume: {{portfolioLink}}\n\nDraft Blurb for the Portal:\n\"{{candidateName}} is applying for {{targetRole}}. They have verified experience in {{primarySkill}}, with production outcomes including {{proofPoint}}.\"\n\nIf you feel comfortable submitting this, I would be deeply grateful. If not, I completely understand and appreciate your time.\n\nBest regards,\n{{candidateName}}",
-    "description": "Removes justification friction for the referee by providing pre-written bullet points and clean portal blurb."
-  },
-  {
-    "id": "warm_referral_alumni_insider",
-    "channel": "warm_referral",
-    "name": "Alumni Connection: Engineering Culture Insight",
+    "id": "li-conn-alumni",
+    "channel": "linkedin_connect",
+    "name": "Alumni Common Ground",
     "targetAudience": "Alumnus",
-    "subject": "{{collegeName}} alumni connection: engineering culture at {{targetCompany}}",
-    "template": "Hi {{recipientName}},\n\nI hope you're doing well. As a fellow {{collegeName}} graduate, I was glad to come across your engineering work at {{targetCompany}}.\n\nI am preparing an application for the {{targetRole}} role and wanted to ask if you might be open to sharing a quick perspective on the team's culture. Specifically, I'm curious how your group balances new feature velocity with technical debt and architectural refactoring.\n\nFor context, my technical focus is in {{primarySkill}}, recently achieving {{proofPoint}} (portfolio: {{portfolioLink}}).\n\nI know your time is valuable, so even a brief reply would be greatly appreciated.\n\nBest regards,\n{{candidateName}}",
-    "description": "Reaches out respectfully to a fellow alumnus asking about engineering standards and team autonomy rather than demanding a job."
-  },
-  {
-    "id": "warm_referral_community_member",
-    "channel": "warm_referral",
-    "name": "Technical Community Peer: Shared Domain Discussion",
-    "targetAudience": "Peer Engineer",
-    "subject": "From {{commonGround}}: {{targetRole}} inquiry at {{targetCompany}}",
-    "template": "Hi {{recipientName}},\n\nWe are both members of {{commonGround}}—I've really appreciated your thoughtful contributions on backend development and system design there.\n\nI noticed that you are working at {{targetCompany}} and saw that your group is currently hiring for a {{targetRole}}. My engineering background is centered on {{primarySkill}}, with recent work including {{proofPoint}}.\n\nIf you are open to it, I would love to ask for a brief 10-minute perspective on the team's tech stack and engineering priorities (portfolio: {{portfolioLink}}).\n\nNo pressure at all if your schedule is packed. Thanks for all your great contributions in {{commonGround}}!\n\nBest,\n{{candidateName}}",
-    "description": "Connects via a shared technical community (Slack, Discord, meetup), establishing natural rapport through common technical interests."
-  },
-  {
-    "id": "warm_referral_github_collaborator",
-    "channel": "warm_referral",
-    "name": "Open-Source Collaborator: Shared Repository Work",
-    "targetAudience": "Peer Engineer",
-    "subject": "OSS collaboration on {{admiredProject}} / {{targetRole}} at {{targetCompany}}",
-    "template": "Hi {{recipientName}},\n\nI contributed to {{admiredProject}} a while back where we collaborated on code review and implementation details.\n\nI have continued building actively within the {{primarySkill}} ecosystem, recently focusing on system performance and reliability: {{proofPoint}}. My recent work is available at {{portfolioLink}}.\n\nI noticed that {{targetCompany}} is hiring for a {{targetRole}} on a team tackling similar problems. Given our shared open-source context, I wanted to reach out to see if you would be open to submitting an internal referral or introducing me to the hiring team.\n\nI appreciate your consideration and hope your open-source work continues to thrive.\n\nBest regards,\n{{candidateName}}",
-    "description": "References direct collaboration on an open-source repository or pull request review, providing established technical familiarity."
-  },
-  {
-    "id": "warm_referral_conference_speaker",
-    "channel": "warm_referral",
-    "name": "Technical Talk Follow-Up: Concept Application",
-    "targetAudience": "Hiring Manager",
-    "subject": "Reflections on your {{commonGround}} talk / {{targetRole}} at {{targetCompany}}",
-    "template": "Hi {{recipientName}},\n\nI attended your presentation at {{commonGround}} regarding {{admiredProject}} and found your analysis of {{primarySkill}} architectural trade-offs very insightful.\n\nYour points regarding system resilience closely reflect what I encountered in my recent engineering work, where I {{proofPoint}} (technical documentation: {{portfolioLink}}).\n\nSeeing your team's engineering philosophy firsthand reinforced my strong interest in {{targetCompany}}, and I noticed an opening for a {{targetRole}}.\n\nWould you be open to a brief introductory conversation to discuss whether my background aligns with your team's technical roadmap?\n\nBest regards,\n{{candidateName}}",
-    "description": "Connects after attending the recipient's technical conference talk or workshop, citing specific architectural principles and their application."
-  },
-  {
-    "id": "follow_up_day_3_nudge",
-    "channel": "follow_up",
-    "name": "Concise 3-Day Check-In: Application Follow-Up",
-    "targetAudience": "Recruiter",
-    "subject": "Following up: {{targetRole}} application — {{candidateName}}",
-    "template": "Hi {{recipientName}},\n\nI wanted to follow up briefly on my note from earlier this week regarding the {{targetRole}} role at {{targetCompany}}.\n\nI remain very interested in the team's work. As a quick reminder, my background centers on {{primarySkill}}, where I recently {{proofPoint}}.\n\nMy complete resume and project source code are accessible here: {{portfolioLink}}.\n\nI would welcome the opportunity to connect if your team is currently reviewing candidates.\n\nBest regards,\n{{candidateName}}",
-    "description": "Short, courteous follow-up after an initial outreach, reaffirming interest and providing a quick link to credentials."
-  },
-  {
-    "id": "follow_up_value_add",
-    "channel": "follow_up",
-    "name": "Technical Progress Update: New Milestone",
-    "targetAudience": "Hiring Manager",
-    "subject": "Update on {{primarySkill}} project relevant to {{targetCompany}}",
-    "template": "Hi {{recipientName}},\n\nI am following up on my previous note regarding the {{targetRole}} position at {{targetCompany}}.\n\nSince reaching out, I published a new technical write-up detailing our benchmarking results on {{admiredProject}}-style architectures in {{primarySkill}}: {{portfolioLink}}.\n\nI wanted to share this update because the concurrency findings directly relate to the challenges your team solves at scale.\n\nNo pressure for an immediate reply if hiring is on hold, but I wanted to ensure you had this recent work on hand.\n\nBest regards,\n{{candidateName}}",
-    "description": "Follows up by sharing a new technical milestone, benchmark, or published repository directly relevant to the team's stack."
-  },
-  {
-    "id": "follow_up_post_interview_24h",
-    "channel": "follow_up",
-    "name": "Post-Interview Reflection: Technical Discussion Follow-Up",
-    "targetAudience": "Hiring Manager",
-    "subject": "Thank you for the interview / Follow-up thought on {{admiredProject}}",
-    "template": "Hi {{recipientName}},\n\nThank you for the thoughtful discussion today regarding the {{targetRole}} role and {{targetCompany}}'s engineering direction.\n\nOur conversation regarding {{admiredProject}} stayed with me. On reflection, when considering {{primarySkill}} under high write volumes, I would complement the approach we discussed by implementing decoupled batch processing: {{proofPoint}}.\n\nI documented a quick architectural diagram illustrating this pattern here: {{portfolioLink}}.\n\nI thoroughly enjoyed our conversation and look forward to the next steps in the process.\n\nBest regards,\n{{candidateName}}",
-    "description": "Sends a thoughtful 24-hour thank you note expanding on a specific architectural discussion from the interview with deeper technical analysis."
-  },
-  {
-    "id": "follow_up_ghosted_professional",
-    "channel": "follow_up",
-    "name": "Graceful Closure: Final Check-In",
-    "targetAudience": "Recruiter",
-    "subject": "Final check-in regarding {{targetRole}} — {{candidateName}}",
-    "template": "Hi {{recipientName}},\n\nI know hiring timelines change and priorities shift, so I will keep this brief: this is my final check-in regarding the {{targetRole}} position at {{targetCompany}}.\n\nIf the search has been paused or filled, I completely understand and will close the loop on my side.\n\nIf your team is still actively evaluating candidates, my portfolio and code remain available at {{portfolioLink}}.\n\nThank you for your time throughout this process, and I wish you and {{targetCompany}} continued success.\n\nBest regards,\n{{candidateName}}",
-    "description": "Respectfully closes the communication loop after multiple unreturned messages, keeping the relationship positive for the future."
-  },
-  {
-    "id": "follow_up_offer_competing",
-    "channel": "follow_up",
-    "name": "Offer Timeline Transparency: Decision Accelerant",
-    "targetAudience": "Recruiter",
-    "subject": "Timeline update: {{targetRole}} application — {{candidateName}}",
-    "template": "Hi {{recipientName}},\n\nI am reaching out to provide a transparent update on my search. I have received an offer from another company that requires a decision by {{commonGround}}.\n\nHowever, {{targetCompany}} remains my top choice due to your engineering mission and technical work on {{admiredProject}}.\n\nIf there is any possibility to accelerate the remaining interview steps for the {{targetRole}} role before my deadline, I would be eager to make that happen.\n\nI appreciate your consideration and thank you for your support throughout the evaluation process.\n\nBest regards,\n{{candidateName}}",
-    "description": "Provides honest, transparent notification of a competing offer deadline without making aggressive demands."
-  },
-  {
-    "id": "follow_up_keep_door_open",
-    "channel": "follow_up",
-    "name": "Gracious Post-Rejection: Future Pipeline Relationship",
-    "targetAudience": "Hiring Manager",
-    "subject": "Thank you for the interview process — staying connected",
-    "template": "Hi {{recipientName}},\n\nThank you for letting me know about the {{targetRole}} decision. While I am naturally disappointed not to be joining the team at this time, I appreciate the prompt communication and constructive process.\n\nI really enjoyed learning more about {{targetCompany}}'s technical vision, particularly around {{admiredProject}} and your team's use of {{primarySkill}}.\n\nI will continue following your group's engineering milestones. Should relevant opportunities open up in the future as the team scales, I would love to stay in touch.\n\nWishing you and the team continued success.\n\nBest regards,\n{{candidateName}}",
-    "description": "Responds gracefully to a rejection notification, building a long-term professional relationship with the hiring manager."
-  },
-  {
-    "id": "academic_professor_research_fit",
-    "channel": "academic_outreach",
-    "name": "Research Alignment: Publication Inquiry",
-    "targetAudience": "Professor",
-    "subject": "Inquiry on {{researchTopic}} research / Prospective {{mastersProgram}} applicant",
-    "template": "Dear Professor {{recipientName}},\n\nI recently read your lab's publication on {{researchTopic}} and wanted to ask a specific methodological question regarding your optimization pipeline. Did your group investigate {{primarySkill}}-based approaches for the inference phase, or did latency constraints favor your current model architecture?\n\nIn my recent academic project, I explored a related question ({{proofPoint}}) and found that trade-offs between interpretability and throughput required careful benchmarking (portfolio: {{portfolioLink}}).\n\nI am applying to the {{mastersProgram}} at {{targetCompany}} because your lab's research aligns directly with my technical focus. If you have 10–15 minutes this semester, I would be grateful for the opportunity to discuss your group's upcoming research directions.\n\nSincerely,\n{{candidateName}}\n{{candidateEmail}}",
-    "description": "References a specific research paper and methodology question, demonstrating genuine intellectual engagement."
-  },
-  {
-    "id": "academic_sop_advisor_match",
-    "channel": "academic_outreach",
-    "name": "Prospective Graduate Student: Lab Capacity Inquiry",
-    "targetAudience": "Professor",
-    "subject": "Prospective student inquiry: {{mastersProgram}} research in {{researchTopic}}",
-    "template": "Dear Professor {{recipientName}},\n\nMy name is {{candidateName}}, and I am preparing my application for the {{mastersProgram}} program at {{targetCompany}} for the upcoming academic year.\n\nMy primary research interests center on {{researchTopic}}, and I have been closely following your lab's contributions, especially the experimental design in {{admiredProject}}.\n\nMy technical background is focused on {{primarySkill}}, with verified project work including {{proofPoint}} (technical portfolio: {{portfolioLink}}).\n\nI wanted to respectfully inquire whether your research group anticipates taking on new graduate research assistants this admissions cycle. I plan to cite your group's work in my Statement of Purpose and want to ensure my proposed direction aligns with your active projects.\n\nThank you very much for your time and consideration.\n\nSincerely,\n{{candidateName}}\n{{candidateEmail}}",
-    "description": "Inquires about graduate student intake for the upcoming academic cycle, highlighting relevant technical preparation."
-  },
-  {
-    "id": "academic_international_student",
-    "channel": "academic_outreach",
-    "name": "International Applicant: Direct Preparation & Academic Focus",
-    "targetAudience": "Professor",
-    "subject": "Prospective international applicant: {{researchTopic}} ({{mastersProgram}})",
-    "template": "Dear Professor {{recipientName}},\n\nI am an international applicant preparing my submission for the {{mastersProgram}} program at {{targetCompany}}, with a dedicated focus on {{researchTopic}}.\n\nTo provide clear context on my preparation, I bring strong hands-on experience in {{primarySkill}} and computational modeling, with demonstrable results including {{proofPoint}} (portfolio & code: {{portfolioLink}}).\n\nI have secured independent funding arrangements, allowing me to focus entirely on contributing to your lab's research objectives without placing an immediate financial demand on your grants.\n\nI would be honored to have a brief 10-minute introductory meeting to learn if my research interests align with your current lab initiatives.\n\nThank you for your time and guidance.\n\nSincerely,\n{{candidateName}}\n{{candidateEmail}}",
-    "description": "Addresses international graduate applicant background and preparation clearly, emphasizing strong technical and research capabilities."
-  },
-  {
-    "id": "academic_ms_to_phd_bridge",
-    "channel": "academic_outreach",
-    "name": "Doctoral Trajectory: Long-Term Research Commitment",
-    "targetAudience": "Professor",
-    "subject": "Prospective MS-to-PhD student inquiry: {{researchTopic}} lab",
-    "template": "Dear Professor {{recipientName}},\n\nI am applying to the {{mastersProgram}} at {{targetCompany}} with the explicit intention of continuing toward a Ph.D. under your mentorship in {{researchTopic}}.\n\nI am seeking an advisor whose research questions provide the foundation for sustained doctoral inquiry. Your recent investigations in {{admiredProject}} match the exact intersection of my technical skills in {{primarySkill}} and my long-term academic goals.\n\nMy prior research experience includes {{proofPoint}}, with code and documentation available at {{portfolioLink}}.\n\nWould you be open to a brief exploratory conversation regarding potential doctoral research problems in your lab?\n\nThank you for your consideration.\n\nSincerely,\n{{candidateName}}\n{{candidateEmail}}",
-    "description": "Communicates long-term commitment to doctoral research, bridging master's preparation into multi-year lab contributions."
-  },
-  {
-    "id": "academic_industry_to_research",
-    "channel": "academic_outreach",
-    "name": "Industry to Academia: Applied Systems Experience",
-    "targetAudience": "Professor",
-    "subject": "Industry engineer applying to {{mastersProgram}} / Research in {{researchTopic}}",
-    "template": "Dear Professor {{recipientName}},\n\nI am a software engineer specializing in {{primarySkill}} making a deliberate transition from industry practice to academic research. I am applying to the {{mastersProgram}} at {{targetCompany}} to focus on {{researchTopic}}.\n\nIn industry, I learned to build resilient, production-grade systems: {{proofPoint}} (code and architecture: {{portfolioLink}}). I am excited to apply these software engineering and benchmarking disciplines to the experimental challenges your research group is pursuing.\n\nI would value your perspective on how applied engineering experience can best contribute to your current research agenda. If your schedule permits, I would be grateful for a brief 10-minute conversation.\n\nThank you for your time and consideration.\n\nSincerely,\n{{candidateName}}",
-    "description": "Presents professional software engineering experience as an asset for building reliable experimental testbeds and scaling research code."
-  },
-  {
-    "id": "li_connect_post_layoff",
-    "channel": "linkedin_connect",
-    "name": "Career Transition: Focused Momentum",
-    "targetAudience": "Recruiter / Hiring Manager",
     "maxLength": 300,
-    "template": "Hi {{recipientName}}, following a recent restructuring, I'm focusing my next role on teams with deep engineering rigor. My core background is {{primarySkill}} ({{proofPoint}}), and I'm actively exploring {{targetRole}} roles at {{targetCompany}}. Would value connecting!",
-    "description": "Acknowledges a company transition calmly and focuses immediately on active technical builds and relevant engineering qualifications."
+    "template": "Hi {{recipientName}}, fellow alum from {{collegeName}} here! Great to see your journey at {{targetCompany}} as a {{recipientTitle}}. I am exploring {{targetRole}} roles and would love to connect with alumni in the domain.",
+    "description": "Warm alumni connection establishing shared background."
   },
   {
-    "id": "li_connect_career_changer",
-    "channel": "linkedin_connect",
-    "name": "Non-Traditional Background: Unique Domain Lens",
-    "targetAudience": "Hiring Manager",
-    "maxLength": 300,
-    "template": "Hi {{recipientName}}, I transitioned into software from {{commonGround}}, which brings a disciplined operational approach to my {{primarySkill}} work ({{proofPoint}}). I'm exploring {{targetRole}} opportunities at {{targetCompany}} and would love to connect.",
-    "description": "Frames a non-traditional background as an advantage that brings disciplined problem-solving and cross-functional clarity to engineering."
+    "id": "li-inmail-recruiter",
+    "channel": "linkedin_inmail",
+    "name": "Recruiter InMail ΓÇö Value Proposition",
+    "targetAudience": "Recruiter",
+    "template": "Hi {{recipientName}},\n\nI hope you are having a productive week.\n\nI noticed {{targetCompany}} is actively hiring for the {{targetRole}} opening. Having tracked {{targetCompany}}'s engineering scale, I wanted to reach out directly.\n\nMy core stack centers on {{primarySkill}}. In my recent work, I {{proofPoint}}, focusing on production reliability and clean software architecture.\n\nI would love to learn if my background aligns with what the engineering team is looking for. Happy to share my resume or portfolio ({{portfolioLink}}) if you have 5 minutes.\n\nBest regards,\n{{candidateName}}",
+    "description": "Concise 120-word InMail highlighting concrete production evidence."
   },
   {
-    "id": "li_connect_fresher_campus",
-    "channel": "linkedin_connect",
-    "name": "Early Career: Demonstrated Project Work",
-    "targetAudience": "Recruiter / Hiring Manager",
-    "maxLength": 300,
-    "template": "Hi {{recipientName}}, graduating from {{collegeName}} and focusing on production software engineering in {{primarySkill}} (recent build: {{proofPoint}}). I'm exploring {{targetRole}} opportunities at {{targetCompany}} and would love to connect. — {{candidateName}}",
-    "description": "Leads with verifiable code and project accomplishments rather than GPA, demonstrating immediate technical readiness."
-  },
-  {
-    "id": "cold_email_technical_audit",
-    "channel": "cold_email",
-    "name": "Technical Observation: Defensible System Insight",
-    "targetAudience": "Engineering Manager",
-    "subject": "Technical observation regarding {{admiredProject}} public interface",
-    "template": "Hi {{recipientName}},\n\nWhile exploring {{targetCompany}}'s public documentation and client integrations for {{admiredProject}}, I noticed a subtle behavioral detail regarding how edge cases are handled in {{primarySkill}}.\n\nI put together a short, reproduction-focused summary with notes on potential optimizations:\n• Technical notes: {{portfolioLink}}\n• Context: In previous work, I addressed similar edge-case behavior ({{proofPoint}}).\n\nI want to share this simply as a constructive peer observation that might be helpful to your engineers.\n\nSince I am also actively exploring the {{targetRole}} opening at {{targetCompany}}, I thought this would be the most candid way to show how I analyze systems and write technical documentation.\n\nBest regards,\n{{candidateName}}",
-    "description": "Presents one defensible, respectful system observation with reproduction notes, distinguishing hypotheses from confirmed defects."
-  },
-  {
-    "id": "cold_email_customer_turned_candidate",
-    "channel": "cold_email",
-    "name": "Product User to Candidate",
-    "targetAudience": "Hiring Manager",
-    "subject": "User perspective & engineering background for {{targetRole}}",
-    "template": "Hi {{recipientName}},\n\nAs an active user of {{targetCompany}}'s {{admiredProject}}, I have spent considerable time experiencing your product workflows firsthand. That daily familiarity has given me a deep appreciation for the UX polish and reliability your team maintains.\n\nBeyond being an engaged user, my core background is in {{primarySkill}} engineering. In my recent work, I {{proofPoint}}, balancing user-facing responsiveness with dependable backend architecture.\n\nDetailed engineering write-ups and code repositories are available here: {{portfolioLink}}.\n\nI am applying for the {{targetRole}} role because I would love to contribute to the exact product ecosystem I rely on. If you have ten minutes for an introductory chat, I would welcome the conversation.\n\nBest regards,\n{{candidateName}}",
-    "description": "Connects authentic user empathy with verified technical capabilities, explaining how user insight accelerates engineering ramp-up."
-  },
-  {
-    "id": "cold_email_weekend_project",
-    "channel": "cold_email",
-    "name": "Independent Engineering Project: Systems Architecture",
-    "targetAudience": "Engineering Manager",
-    "subject": "Independent {{primarySkill}} project relevant to {{targetCompany}}'s stack",
-    "template": "Hi {{recipientName}},\n\nI recently completed an independent systems project exploring how to solve distributed {{primarySkill}} challenges similar to those tackled by {{targetCompany}} in {{admiredProject}}.\n\nRather than building a generic tutorial clone, I designed it to test specific engineering constraints:\n• Key design decision: Balancing throughput and data consistency during peak loads\n• Validated result: {{proofPoint}}\n• Architecture breakdown & GitHub repo: {{portfolioLink}}\n\nI am applying for the open {{targetRole}} role because I want to work with an engineering team solving these problems at genuine scale.\n\nIf you are interested in reviewing the architecture decisions behind this build, I would be glad to share my design notes.\n\nBest,\n{{candidateName}}",
-    "description": "Presents an independent, self-directed systems engineering project and its design trade-offs without claiming to reverse-engineer closed code."
-  },
-  {
-    "id": "warm_referral_mutual_slack_intro",
-    "channel": "warm_referral",
-    "name": "Mutual Contact Intro: Double-Opt-In Request",
+    "id": "li-inmail-engineer",
+    "channel": "linkedin_inmail",
+    "name": "Peer Engineer Tech Conversation",
     "targetAudience": "Peer Engineer",
-    "subject": "Quick question regarding {{targetCompany}} (via {{commonGround}})",
-    "template": "Hi {{recipientName}},\n\nI am reaching out via our mutual connection with {{commonGround}}. They mentioned your engineering work at {{targetCompany}} and suggested you might be a great person to speak with.\n\nI am preparing an application for the {{targetRole}} opening. My core background is in {{primarySkill}}, with recent production work including {{proofPoint}} (portfolio: {{portfolioLink}}).\n\nI wanted to ask if you might be comfortable making a brief introduction to the engineering manager hiring for this role, or if you would be open to submitting an internal referral.\n\nI've attached my details above so you can easily review. If the timing isn't right, I completely understand and appreciate your consideration.\n\nBest regards,\n{{candidateName}}",
-    "description": "Respectful request through a mutual acquaintance that makes forwarding seamless and low-risk for the connector."
+    "template": "Hi {{recipientName}},\n\nI came across your profile while researching {{targetCompany}}'s engineering stack. I was really impressed by {{admiredProject}}.\n\nI am a {{targetRole}} working primarily with {{primarySkill}}. Recently, I {{proofPoint}}, and had been exploring similar architecture trade-offs that {{targetCompany}} encounters.\n\nI saw open positions on your team and would love 10 minutes to ask about your day-to-day engineering culture. If open, would love to hear your perspective.\n\nThanks,\n{{candidateName}}",
+    "description": "Engineer-to-engineer message focused on architecture culture."
   },
   {
-    "id": "warm_referral_senior_mentorship_ask",
+    "id": "li-inmail-manager",
+    "channel": "linkedin_inmail",
+    "name": "Hiring Manager High-Impact Pitch",
+    "targetAudience": "Hiring Manager",
+    "template": "Hi {{recipientName}},\n\nI follow your team's engineering work at {{targetCompany}} and wanted to reach out regarding the {{targetRole}} opening under your group.\n\nMy focus is {{primarySkill}}. A quick highlight of what I bring:\n- {{proofPoint}}\n- Track record in {{commonGround}}\n- Active focus on automated testing, maintainable CI/CD, and latency optimization\n\nGiven the problems your team is solving around {{admiredProject}}, I believe I can hit the ground running. Would you be open to a brief chat or reviewing my background?\n\nWarmly,\n{{candidateName}}",
+    "description": "Direct, structured value proposition for engineering managers."
+  },
+  {
+    "id": "email-cold-pitch",
+    "channel": "cold_email",
+    "name": "Cold Email ΓÇö Direct Role Application",
+    "targetAudience": "Recruiter",
+    "subject": "Application: {{targetRole}} ΓÇö {{candidateName}} ({{primarySkill}})",
+    "template": "Hi {{recipientName}},\n\nI am writing to express my strong interest in the {{targetRole}} position at {{targetCompany}}.\n\nI specialize in {{primarySkill}} and have built scalable services with high reliability requirements. Key highlights include:\n- {{proofPoint}}\n- Solid foundation in {{commonGround}} and automated testing\n- Proven ownership from design to deployment\n\nI have admired {{targetCompany}}'s trajectory, particularly {{admiredProject}}. I have attached my resume for your review and you can inspect my code samples here: {{portfolioLink}}.\n\nWould you have 10 minutes this week for a brief introductory call?\n\nBest regards,\n{{candidateName}}\n{{candidateEmail}}",
+    "description": "Standard high-converting cold email with clear subject line."
+  },
+  {
+    "id": "email-hiring-manager",
+    "channel": "cold_email",
+    "name": "Cold Email ΓÇö Solutions & Problem Solving",
+    "targetAudience": "Hiring Manager",
+    "subject": "Quick question on {{targetCompany}}'s {{targetRole}} stack",
+    "template": "Hi {{recipientName}},\n\nI noticed you lead the team behind {{admiredProject}} at {{targetCompany}}. Building at that scale requires exceptional engineering discipline.\n\nI am a software engineer specializing in {{primarySkill}}. In my last project, I {{proofPoint}}. Given {{targetCompany}}'s emphasis on high availability and developer productivity, I would love to contribute to your upcoming initiatives.\n\nI have reviewed the {{targetRole}} opening and would welcome the chance to discuss how my skill set addresses your current sprint priorities.\n\nAre you free for a brief 10-minute sync this Thursday or Friday?\n\nWarmly,\n{{candidateName}}",
+    "description": "Proactive email showcasing admiration and relevant proof points."
+  },
+  {
+    "id": "email-recruiter-fast",
+    "channel": "cold_email",
+    "name": "Cold Email ΓÇö Scannable Bullet Pitch",
+    "targetAudience": "Recruiter",
+    "subject": "{{candidateName}} ΓÇö {{targetRole}} candidate ({{primarySkill}})",
+    "template": "Hi {{recipientName}},\n\nHope your week is going well. I know you receive many applications, so I will keep this concise.\n\nI am applying for the {{targetRole}} role at {{targetCompany}}:\n\n1. Core Tech: {{primarySkill}}\n2. Verified Evidence: {{proofPoint}}\n3. Portfolio: {{portfolioLink}}\n\nI would love the opportunity to interview and demonstrate my problem-solving ability in the technical screen.\n\nThanks for your time,\n{{candidateName}}",
+    "description": "Ultra-scannable 3-point email tailored for busy recruiters."
+  },
+  {
+    "id": "ref-alumni-warm",
     "channel": "warm_referral",
-    "name": "Senior Alum Consultation: Engineering Expectations",
+    "name": "Alumni Warm Referral Ask",
     "targetAudience": "Alumnus",
-    "subject": "Advice from a senior {{collegeName}} engineer at {{targetCompany}}",
-    "template": "Hi {{recipientName}},\n\nI hope you're having a good week. As a fellow {{collegeName}} alumnus, I have been following your career journey and engineering leadership at {{targetCompany}} with great respect.\n\nI am currently an engineer working with {{primarySkill}} (recent milestone: {{proofPoint}}), and I am applying for the {{targetRole}} position.\n\nGiven your experience at {{targetCompany}}, I would be deeply grateful for 5–10 minutes of your advice on what qualities differentiate engineers who succeed in your organization.\n\nMy technical portfolio is at {{portfolioLink}}. Thank you for your time and for being an inspiring example for our alumni community.\n\nWarm regards,\n{{candidateName}}",
-    "description": "Seeks professional advice from a senior engineer or alumnus regarding technical expectations and career progression at the company."
+    "template": "Hi {{recipientName}},\n\nHope you are doing well! I am {{candidateName}}, currently a student/alum from {{collegeName}}.\n\nI saw your profile and noticed you are working as a {{recipientTitle}} at {{targetCompany}}. It is great to see alumni making an impact on the engineering team there.\n\nI am preparing to apply for the {{targetRole}} position. Over the past year, I have built deep experience with {{primarySkill}}, most notably: {{proofPoint}}.\n\nIf you feel comfortable, would you be open to submitting an internal referral for me, or sharing quick advice on the team's interview process? I have my resume ready to share.\n\nThanks so much,\n{{candidateName}}",
+    "description": "Courteous referral request leveraging shared college network."
   },
   {
-    "id": "warm_referral_give_first",
+    "id": "ref-second-degree",
     "channel": "warm_referral",
-    "name": "Peer Resource Exchange: Open-Source Contribution",
+    "name": "Mutual Connection / Peer Referral",
     "targetAudience": "Peer Engineer",
-    "subject": "Resource regarding {{primarySkill}} + inquiry on {{targetRole}}",
-    "template": "Hi {{recipientName}},\n\nI saw your recent discussion in {{commonGround}} about challenges handling {{primarySkill}} workloads at scale. I recently spent time benchmarking this exact issue and compiled our implementation notes and code here: {{portfolioLink}}.\n\nI wanted to share it with you simply as a resource that might save your team some debugging cycles.\n\nOn a related note, I noticed the open {{targetRole}} role at {{targetCompany}} and am actively applying. If my work resonates and you are open to submitting an internal referral, I would be grateful. But either way, I hope the notes prove helpful!\n\nBest regards,\n{{candidateName}}",
-    "description": "Shares a genuinely useful technical guide, benchmark, or open-source tool related to an issue the recipient raised in a public channel."
+    "template": "Hi {{recipientName}},\n\nI hope you are doing well.\n\nI noticed we share mutual connections in the {{commonGround}} community. I have been following {{targetCompany}}'s growth, especially the work your team shipped on {{admiredProject}}.\n\nI am interested in the {{targetRole}} opening and have deep hands-on experience in {{primarySkill}} (recently: {{proofPoint}}).\n\nIf you are open to it, could I send over my resume for an internal referral? I would also value any insider tips on what the engineering team prioritizes in the coding screen.\n\nAppreciate your help,\n{{candidateName}}",
+    "description": "Polite referral ask highlighting shared engineering community."
   },
   {
-    "id": "follow_up_interview_debrief",
+    "id": "ref-manager-intro",
+    "channel": "warm_referral",
+    "name": "Referral Recommendation via Team Lead",
+    "targetAudience": "Hiring Manager",
+    "template": "Hi {{recipientName}},\n\nHope you are having a great week.\n\nI noticed your team at {{targetCompany}} is looking for a {{targetRole}}. As an engineer with production background in {{primarySkill}}, I recently {{proofPoint}}.\n\nI would love to be considered for your team and wanted to ask if you'd prefer I apply via a referral link or send my resume directly to your hiring coordinator.\n\nLooking forward to hearing from you,\n{{candidateName}}",
+    "description": "Direct referral pathway check with the team hiring manager."
+  },
+  {
+    "id": "followup-gentle",
     "channel": "follow_up",
-    "name": "Growth Mindset: Targeted Feedback Request",
+    "name": "Gentle Follow-Up (Day 5-7)",
     "targetAudience": "Recruiter",
-    "subject": "Feedback request: {{targetRole}} interview process",
-    "template": "Hi {{recipientName}},\n\nThank you for following up regarding the {{targetRole}} decision.\n\nAs an engineer committed to continuous growth, I would be very grateful for any specific feedback the interview panel might have noted—particularly regarding system design or technical execution in {{primarySkill}}.\n\nI understand detailed feedback isn't always possible due to scheduling constraints, but any guidance on areas where I can strengthen my preparation would be invaluable.\n\nThank you again for the time and consideration you and the team invested.\n\nBest regards,\n{{candidateName}}",
-    "description": "Requests specific, constructive feedback on technical interview performance in a humble, professional manner."
+    "template": "Hi {{recipientName}},\n\nFollowing up on my previous note regarding the {{targetRole}} opening at {{targetCompany}}.\n\nI know you have a packed schedule, so I just wanted to reiterate my enthusiasm for the role and my readiness in {{primarySkill}}.\n\nHappy to provide any additional details, GitHub code samples ({{portfolioLink}}), or work history whenever convenient.\n\nBest regards,\n{{candidateName}}",
+    "description": "Polite 60-word reminder sent after 5 to 7 days."
   },
   {
-    "id": "follow_up_referral_status",
+    "id": "followup-new-milestone",
     "channel": "follow_up",
-    "name": "Referrer Acknowledgement: Submission Status Update",
-    "targetAudience": "Peer Engineer",
-    "subject": "Application submitted for {{targetRole}} — thank you for your referral!",
-    "template": "Hi {{recipientName}},\n\nI wanted to quickly let you know that I have officially submitted my application for the {{targetRole}} position at {{targetCompany}}.\n\nThank you again for submitting the internal referral on my behalf. Having your endorsement made a significant difference.\n\nI have updated my portfolio with our latest {{primarySkill}} project notes: {{portfolioLink}}.\n\nNo action needed on your end—I just wanted to keep you informed since you were kind enough to support my application. I will let you know how things progress!\n\nBest regards,\n{{candidateName}}",
-    "description": "Updates the employee who provided a referral, demonstrating professionalism and closing the feedback loop."
-  },
-  {
-    "id": "li_connect_second_degree",
-    "channel": "linkedin_connect",
-    "name": "Mutual Network: Peer Introduction",
-    "targetAudience": "Recruiter / Hiring Manager",
-    "maxLength": 300,
-    "template": "Hi {{recipientName}}, I noticed our mutual connection with {{commonGround}} and saw the technical work your team is doing at {{targetCompany}}. My focus is {{primarySkill}} ({{proofPoint}}). Exploring {{targetRole}} opportunities and would value connecting!",
-    "description": "Leverages a shared professional connection or mutual community to introduce engineering background respectfully."
-  },
-  {
-    "id": "cold_email_the_micro_case_study",
-    "channel": "cold_email",
-    "name": "Concise Technical Case Study",
+    "name": "Value-Add Follow-Up with Update",
     "targetAudience": "Hiring Manager",
-    "subject": "Technical case study: {{primarySkill}} implementation for {{targetRole}}",
-    "template": "Hi {{recipientName}},\n\nTo provide concrete evidence of how I solve technical problems, here is a concise case study from my recent work in {{primarySkill}}:\n\n1. Challenge: System performance constraints in a high-demand service environment similar to {{admiredProject}}.\n2. Approach: Profiling critical execution paths, identifying database connection bottlenecks, and redesigning the data access layer.\n3. Outcome: {{proofPoint}}, with full observability and regression testing in place.\n\nThe complete architectural teardown with trade-off analysis is documented here: {{portfolioLink}}.\n\nI am applying for the {{targetRole}} position at {{targetCompany}} and would love to bring this same engineering rigor to your team's upcoming milestones. Would you be open to a brief introductory call?\n\nBest regards,\n{{candidateName}}",
-    "description": "Structured problem → approach → outcome narrative showcasing technical judgment, trade-offs, and verifiable production evidence."
+    "template": "Hi {{recipientName}},\n\nWanted to quickly follow up on my note last week regarding {{targetCompany}}'s {{targetRole}} team.\n\nSince reaching out, I just published an update on {{proofPoint}} that directly mirrors the architectural requirements mentioned in the job description.\n\nWould love 5 minutes to discuss if there is a match for your current hiring cycle.\n\nWarmly,\n{{candidateName}}",
+    "description": "Follow-up sharing a fresh proof point or project milestone."
   },
   {
-    "id": "li_inmail_the_short_story",
-    "channel": "linkedin_inmail",
-    "name": "Root-Cause Analysis: Engineering Retrospective",
-    "targetAudience": "Hiring Manager",
-    "subject": "Debugging retrospective: Lessons from {{primarySkill}} production incidents",
-    "template": "Hi {{recipientName}},\n\nDuring a high-traffic release on a previous project, we encountered an elusive latency degradation in our {{primarySkill}} pipeline. Rather than applying temporary band-aids, we instrumented distributed tracing and traced the issue to lock contention:\n• Diagnosis & Fix: Restructured concurrency patterns to eliminate blocking calls.\n• Measured Result: {{proofPoint}}.\n• Complete Teardown: {{portfolioLink}}\n\nThat experience reinforced my belief that resilient systems require rigorous instrumentation and disciplined root-cause analysis.\n\nI am applying for the {{targetRole}} role at {{targetCompany}} because I want to bring this same engineering rigor to your team. Would you be open to a brief introductory chat?\n\nBest regards,\n{{candidateName}}",
-    "description": "Shares a brief, memorable technical retrospective from a high-stakes debugging incident, illustrating rigorous analytical troubleshooting."
-  },
-  {
-    "id": "li_inmail_the_honest_pitch",
-    "channel": "linkedin_inmail",
-    "name": "Transparent Engineering Fit: Core Strengths & Growth Areas",
-    "targetAudience": "Hiring Manager",
-    "subject": "Candidate profile & engineering focus for {{targetRole}}",
-    "template": "Hi {{recipientName}},\n\nIn reviewing the {{targetRole}} position at {{targetCompany}}, I wanted to provide a candid summary of my technical fit:\n\n• Where I contribute immediately: Deep proficiency in {{primarySkill}}, defensive API design, and verifiable production delivery ({{proofPoint}}).\n• Where I am eager to expand: Deepening expertise in {{admiredProject}}-scale distributed coordination alongside your senior staff.\n• Project evidence & source code: {{portfolioLink}}\n\nI pride myself on strong computer science fundamentals, self-directed research, and fast ramp-up on complex architectures.\n\nIf this profile aligns with what you look for in a new team member, I would appreciate a brief conversation.\n\nBest regards,\n{{candidateName}}",
-    "description": "Provides a refreshing, transparent overview of primary proficiencies and rapid learning capability without superficial buzzwords."
-  },
-  {
-    "id": "follow_up_linkedin_post_react",
+    "id": "followup-closing-loop",
     "channel": "follow_up",
-    "name": "Public Technical Discussion: Follow-Up Touchpoint",
-    "targetAudience": "Hiring Manager",
-    "subject": "Follow-up regarding {{targetRole}} / Thoughts on {{admiredProject}}",
-    "template": "Hi {{recipientName}},\n\nI recently submitted my application for the {{targetRole}} role at {{targetCompany}} and wanted to follow up with a quick technical note.\n\nI read your recent post discussing system scalability in {{primarySkill}} and found your observations on latency under peak traffic very relevant to my recent work: {{proofPoint}}.\n\nI shared a few thoughts in the comments on that post and wanted to link my complete technical work here: {{portfolioLink}}.\n\nI look forward to hearing from the hiring team and would welcome a conversation whenever convenient.\n\nBest regards,\n{{candidateName}}",
-    "description": "Follows up after an application by referencing a recent technical article or engineering discussion published by the recipient."
-  },
-  {
-    "id": "warm_referral_pay_it_forward",
-    "channel": "warm_referral",
-    "name": "Reciprocal Professional Exchange: Transparent Referral Request",
-    "targetAudience": "Peer Engineer",
-    "subject": "Referral inquiry for {{targetRole}} at {{targetCompany}}",
-    "template": "Hi {{recipientName}},\n\nI am applying for the {{targetRole}} role at {{targetCompany}} and wanted to respectfully inquire if you would be open to submitting an internal referral on my behalf.\n\nI know submitting a referral requires confidence in candidate quality, so I want to be completely transparent about my background:\n• Technical focus: {{primarySkill}}\n• Verified deliverable: {{proofPoint}}\n• Code repositories & resume: {{portfolioLink}}\n\nI would be delighted to return the favor whenever anyone in your network is looking for intros or technical reviews. If you are comfortable submitting my details, please let me know; if not, I completely understand and appreciate your consideration.\n\nBest regards,\n{{candidateName}}",
-    "description": "Acknowledges the value of a peer referral and offers complete candidate credentials with explicit mutual support."
-  },
-  {
-    "id": "academic_lab_rotation_ask",
-    "channel": "academic_outreach",
-    "name": "Graduate Lab Rotation: Project Scoping",
-    "targetAudience": "Professor",
-    "subject": "Lab rotation request: {{researchTopic}} — {{candidateName}}",
-    "template": "Dear Professor {{recipientName}},\n\nI am a graduate student in the {{mastersProgram}} at {{targetCompany}} and am currently selecting my lab rotations for the upcoming term.\n\nYour lab's work on {{researchTopic}} is my top choice because it directly aligns with my technical background in {{primarySkill}} and previous project work: {{proofPoint}}.\n\nI would love to contribute to an active experimental bench during a rotation, particularly on performance optimization or data pipeline tooling. My code and technical background are available at {{portfolioLink}}.\n\nWould you have 10 minutes this week to discuss potential rotation projects where my skills could be immediately useful to your lab?\n\nThank you for your consideration.\n\nSincerely,\n{{candidateName}}\n{{candidateEmail}}",
-    "description": "Requests a semester research rotation for graduate students, proposing clear technical deliverables and skill contributions."
+    "name": "Final Polite Loop Closure",
+    "targetAudience": "Recruiter",
+    "template": "Hi {{recipientName}},\n\nCircling back one last time regarding the {{targetRole}} position at {{targetCompany}}.\n\nIf the headcount has been filled or the timing is not right, no worries at all! I will keep following {{targetCompany}}'s engineering milestones and would welcome keeping in touch on LinkedIn for future roles.\n\nThanks again for your time,\n{{candidateName}}",
+    "description": "Classy, low-pressure loop closer that keeps future doors open."
   }
 ]
