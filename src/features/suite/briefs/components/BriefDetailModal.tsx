@@ -98,31 +98,31 @@ export function BriefDetailModal({
 
   return (
     <div
-      className="fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex items-center justify-center p-3 sm:p-5 overflow-hidden animate-fade-in"
+      className="fixed inset-0 z-50 bg-black/85 flex items-center justify-center p-3 sm:p-5 overflow-hidden animate-fade-in"
       onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
     >
       <div
         ref={modalRef}
         tabIndex={-1}
-        className="bg-surface border border-border rounded-2xl max-w-3xl w-full shadow-2xl flex flex-col h-[90vh] max-h-[850px] overflow-hidden focus:outline-none"
+        className="bg-near-black border border-charcoal rounded-lg max-w-3xl w-full shadow-2xl flex flex-col h-[90vh] max-h-[850px] overflow-hidden focus:outline-none"
       >
         {/* Modal Header */}
-        <div className={`p-5 sm:p-6 border-b border-border rounded-t-2xl shrink-0 ${dc.bg}`}>
+        <div className="p-5 sm:p-6 border-b border-charcoal rounded-t-lg shrink-0 bg-black">
           <div className="flex items-start justify-between gap-4">
             <div className="flex-1 min-w-0">
               <div className="flex flex-wrap items-center gap-2 mb-3">
-                <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border ${dc.bg} ${dc.text} ${dc.border}`}>
+                <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded border ${dc.bg} ${dc.text} ${dc.border}`}>
                   {brief.domain}
                 </span>
-                <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border ${DIFFICULTY_BADGE[brief.difficulty]}`}>
+                <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded border ${DIFFICULTY_BADGE[brief.difficulty]}`}>
                   {brief.difficulty}
                 </span>
-                <span className="text-[10px] font-semibold text-text-muted flex items-center gap-1" title={getBriefHoursRange(brief).assumption}>
-                  <Clock className="w-3 h-3" /> {getBriefHoursRange(brief).label}
+                <span className="text-[10px] font-semibold text-silver flex items-center gap-1" title={getBriefHoursRange(brief).assumption}>
+                  <Clock className="w-3 h-3 text-silver" /> {getBriefHoursRange(brief).label}
                 </span>
               </div>
-              <h2 className="text-xl font-bold text-text leading-snug">{brief.title}</h2>
-              <p className="text-[11px] text-text-muted mt-0.5 italic">{getBriefHoursRange(brief).assumption}</p>
+              <h2 className="text-xl font-black text-white leading-snug">{brief.title}</h2>
+              <p className="text-[11px] text-silver mt-0.5 italic">{getBriefHoursRange(brief).assumption}</p>
             </div>
 
             {/* Navigation & Close Controls */}
@@ -130,7 +130,7 @@ export function BriefDetailModal({
               <button
                 type="button"
                 onClick={onClose}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-surface border border-border text-text hover:border-primary/40 hover:bg-surface-elevated transition-all cursor-pointer shadow-xs"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-bold bg-near-black border border-charcoal text-silver hover:text-white hover:border-volt hover:bg-hover-gray transition-colors cursor-pointer"
                 title="Back to all briefs"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
@@ -139,7 +139,7 @@ export function BriefDetailModal({
               <button
                 type="button"
                 onClick={() => { onClose(); navigate('/'); }}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-surface border border-border text-text hover:border-primary/40 hover:bg-surface-elevated transition-all cursor-pointer shadow-xs"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-bold bg-near-black border border-charcoal text-silver hover:text-white hover:border-volt hover:bg-hover-gray transition-colors cursor-pointer"
                 title="Go Home"
               >
                 <Home className="w-3.5 h-3.5" />
@@ -148,7 +148,7 @@ export function BriefDetailModal({
               <button
                 id={`modal-close-${brief.id}`}
                 onClick={onClose}
-                className="w-8 h-8 rounded-lg flex items-center justify-center bg-surface border border-border text-text-muted hover:text-text hover:border-primary/40 hover:bg-surface-elevated transition-all cursor-pointer"
+                className="w-8 h-8 rounded flex items-center justify-center bg-near-black border border-charcoal text-silver hover:text-white hover:border-volt hover:bg-hover-gray transition-colors cursor-pointer"
                 title="Close (Esc)"
               >
                 <X className="w-4 h-4" />
@@ -160,29 +160,29 @@ export function BriefDetailModal({
           <div className="flex flex-wrap items-center gap-2 mt-4">
             <button
               onClick={handleCopyFull}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-surface/80 border border-border hover:border-primary/40 text-text-muted hover:text-text transition-all cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-bold bg-black border border-charcoal hover:border-volt text-silver hover:text-white transition-colors cursor-pointer"
               title="Copy complete brief to clipboard"
             >
-              {copiedFull ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+              {copiedFull ? <Check className="w-3.5 h-3.5 text-volt" /> : <Copy className="w-3.5 h-3.5" />}
               {copiedFull ? 'Copied!' : 'Copy Full Brief'}
             </button>
             <button
               onClick={handleDownload}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-surface/80 border border-border hover:border-primary/40 text-text-muted hover:text-text transition-all cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-bold bg-black border border-charcoal hover:border-volt text-silver hover:text-white transition-colors cursor-pointer"
               title="Download as .txt file"
             >
-              <Download className="w-3.5 h-3.5" />
+              <Download className="w-3.5 h-3.5 text-silver" />
               Download .txt
             </button>
             <button
               onClick={() => onToggleSave(brief.id)}
-              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all cursor-pointer ${
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-bold border transition-colors cursor-pointer ${
                 isSaved
-                  ? 'bg-primary/10 border-primary/30 text-primary'
-                  : 'bg-surface/80 border-border text-text-muted hover:border-primary/40 hover:text-text'
+                  ? 'bg-near-black border-volt text-volt'
+                  : 'bg-black border-charcoal text-silver hover:border-volt hover:text-white'
               }`}
             >
-              {isSaved ? <BookmarkCheck className="w-3.5 h-3.5" /> : <Bookmark className="w-3.5 h-3.5" />}
+              {isSaved ? <BookmarkCheck className="w-3.5 h-3.5 text-volt" /> : <Bookmark className="w-3.5 h-3.5" />}
               {isSaved ? 'In Build Plan' : 'Add to Plan'}
             </button>
           </div>
@@ -192,14 +192,14 @@ export function BriefDetailModal({
         <div
           ref={bodyRef}
           onScroll={handleScroll}
-          className="flex-1 overflow-y-auto p-5 sm:p-6 space-y-5 scrollbar-thin relative focus:outline-none"
+          className="flex-1 overflow-y-auto p-5 sm:p-6 space-y-5 relative focus:outline-none bg-near-black"
         >
           {/* Problem Statement */}
           <section className="space-y-2">
-            <h3 className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-text-muted">
-              <AlertCircle className="w-3.5 h-3.5 text-primary" /> Problem Statement
+            <h3 className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-volt">
+              <AlertCircle className="w-3.5 h-3.5 text-volt" /> Problem Statement
             </h3>
-            <p className="text-sm text-text leading-relaxed bg-background/60 p-4 rounded-xl border border-border">
+            <p className="text-sm text-silver leading-relaxed bg-black p-4 rounded border border-charcoal">
               {brief.problemStatement}
             </p>
           </section>
@@ -207,10 +207,10 @@ export function BriefDetailModal({
           {/* Use Cases */}
           {brief.useCases && (
             <section className="space-y-2">
-              <h3 className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-text-muted">
-                <Globe className="w-3.5 h-3.5 text-emerald-400" /> Real-World Use Cases
+              <h3 className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-volt">
+                <Globe className="w-3.5 h-3.5 text-volt" /> Real-World Use Cases
               </h3>
-              <p className="text-sm text-text leading-relaxed bg-emerald-500/5 p-4 rounded-xl border border-emerald-500/20">
+              <p className="text-sm text-silver leading-relaxed bg-black p-4 rounded border border-charcoal">
                 {brief.useCases}
               </p>
             </section>
@@ -219,10 +219,10 @@ export function BriefDetailModal({
           {/* Competency Reducer */}
           {brief.problemItSolves && (
             <section className="space-y-2">
-              <h3 className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-text-muted">
-                <Zap className="w-3.5 h-3.5 text-amber-400" /> Why This Reduces Competency Gap
+              <h3 className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-pale-yellow">
+                <Zap className="w-3.5 h-3.5 text-pale-yellow" /> Why This Reduces Competency Gap
               </h3>
-              <p className="text-sm text-text leading-relaxed bg-amber-500/5 p-4 rounded-xl border border-amber-500/20">
+              <p className="text-sm text-silver leading-relaxed bg-black p-4 rounded border border-charcoal">
                 {brief.problemItSolves}
               </p>
             </section>
@@ -231,10 +231,10 @@ export function BriefDetailModal({
           {/* What this project demonstrates */}
           {brief.recruiterSignal && (
             <section className="space-y-2">
-              <h3 className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-text-muted">
-                <TrendingUp className="w-3.5 h-3.5 text-violet-400" /> What this project demonstrates
+              <h3 className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-volt">
+                <TrendingUp className="w-3.5 h-3.5 text-volt" /> What this project demonstrates
               </h3>
-              <p className="text-sm text-text leading-relaxed bg-violet-500/5 p-4 rounded-xl border border-violet-500/20">
+              <p className="text-sm text-silver leading-relaxed bg-black p-4 rounded border border-charcoal">
                 {brief.recruiterSignal}
               </p>
             </section>
@@ -242,32 +242,32 @@ export function BriefDetailModal({
 
           {/* Architecture */}
           <section className="space-y-2">
-            <h3 className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-text-muted">
-              <Code2 className="w-3.5 h-3.5 text-cyan-400" /> Architecture & Data Flow
+            <h3 className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-white">
+              <Code2 className="w-3.5 h-3.5 text-volt" /> Architecture & Data Flow
             </h3>
-            <p className="text-sm text-text leading-relaxed bg-background/60 p-4 rounded-xl border border-border">
+            <p className="text-sm text-silver leading-relaxed bg-black p-4 rounded border border-charcoal">
               {brief.architecture}
             </p>
           </section>
 
           {/* Scale Targets */}
           <section className="space-y-2">
-            <h3 className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-text-muted">
-              <Target className="w-3.5 h-3.5 text-amber-400" /> Scale & Performance Targets
+            <h3 className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-pale-yellow">
+              <Target className="w-3.5 h-3.5 text-pale-yellow" /> Scale & Performance Targets
             </h3>
-            <div className="text-sm font-medium bg-amber-500/10 border border-amber-500/20 p-4 rounded-xl text-amber-300 leading-relaxed">
+            <div className="text-sm font-mono bg-black border border-olive-border p-4 rounded text-pale-yellow leading-relaxed">
               {brief.scaleTargets}
             </div>
           </section>
 
           {/* Tech Stack */}
           <section className="space-y-2">
-            <h3 className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-text-muted">
-              <Terminal className="w-3.5 h-3.5 text-text-muted" /> Tech Stack
+            <h3 className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-white">
+              <Terminal className="w-3.5 h-3.5 text-silver" /> Tech Stack
             </h3>
             <div className="flex flex-wrap gap-2">
               {brief.techStack.map((tech, i) => (
-                <span key={i} className={`text-xs font-bold px-2.5 py-1 rounded-lg border ${dc.bg} ${dc.text} ${dc.border}`}>
+                <span key={i} className={`text-xs font-bold px-2.5 py-1 rounded border ${dc.bg} ${dc.text} ${dc.border}`}>
                   {tech}
                 </span>
               ))}
@@ -276,13 +276,13 @@ export function BriefDetailModal({
 
           {/* Verification Rubric */}
           <section className="space-y-2">
-            <h3 className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-text-muted">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" /> Screener Verification Rubric
+            <h3 className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-volt">
+              <ShieldCheck className="w-3.5 h-3.5 text-volt" /> Screener Verification Rubric
             </h3>
             <div className="space-y-2">
               {brief.verificationRubric.map((item, i) => (
-                <div key={i} className="flex items-start gap-3 text-sm text-text bg-background/50 p-3 rounded-lg border border-border">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                <div key={i} className="flex items-start gap-3 text-sm text-silver bg-black p-3 rounded border border-charcoal">
+                  <CheckCircle2 className="w-4 h-4 text-volt shrink-0 mt-0.5" />
                   <span className="leading-relaxed">{item}</span>
                 </div>
               ))}
@@ -292,28 +292,28 @@ export function BriefDetailModal({
           {/* Portfolio Bullet Formula */}
           <section className="space-y-2">
             <div className="flex items-center justify-between gap-3">
-              <h3 className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-text-muted">
-                <Terminal className="w-3.5 h-3.5 text-primary" /> Resume Bullet Formula
+              <h3 className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-white">
+                <Terminal className="w-3.5 h-3.5 text-volt" /> Resume Bullet Formula
               </h3>
               <button
                 onClick={handleCopyBullet}
-                className="text-xs text-primary hover:underline flex items-center gap-1 transition-colors cursor-pointer"
+                className="text-xs text-volt hover:underline flex items-center gap-1 transition-colors cursor-pointer font-bold"
               >
-                {copiedBullet ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
+                {copiedBullet ? <Check className="w-3 h-3 text-volt" /> : <Copy className="w-3 h-3" />}
                 {copiedBullet ? 'Copied!' : 'Copy Bullet'}
               </button>
             </div>
-            <div className="p-4 rounded-xl bg-background border border-primary/20 font-mono text-sm text-text leading-relaxed">
-              "{brief.portfolioBulletFormula}"
+            <div className="p-4 rounded bg-black border border-charcoal font-mono text-sm text-volt leading-relaxed">
+              &quot;{brief.portfolioBulletFormula}&quot;
             </div>
           </section>
 
           {/* Covered Skills */}
           <section className="space-y-2">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-text-muted">Skills Demonstrated</h3>
+            <h3 className="text-xs font-black uppercase tracking-wider text-silver">Skills Demonstrated</h3>
             <div className="flex flex-wrap gap-1.5">
               {brief.coveredSkills.map((skill, i) => (
-                <span key={i} className="text-[11px] px-2 py-0.5 rounded bg-background border border-border text-text-muted font-medium">
+                <span key={i} className="text-[11px] px-2 py-0.5 rounded bg-black border border-charcoal text-silver font-medium">
                   {skill}
                 </span>
               ))}
@@ -326,10 +326,10 @@ export function BriefDetailModal({
               <button
                 type="button"
                 onClick={() => bodyRef.current?.scrollTo({ top: 0, behavior: 'smooth' })}
-                className="pointer-events-auto px-3.5 py-1.5 rounded-full bg-surface border border-border shadow-xl text-xs font-bold text-text flex items-center gap-1.5 hover:border-primary/50 hover:bg-surface-elevated transition-all hover:scale-105 cursor-pointer"
+                className="pointer-events-auto px-3.5 py-1.5 rounded-full bg-black border border-charcoal shadow-xl text-xs font-bold text-silver hover:text-volt hover:border-volt transition-colors cursor-pointer"
                 title="Scroll back to top of brief"
               >
-                <ArrowUp className="w-3.5 h-3.5 text-primary" />
+                <ArrowUp className="w-3.5 h-3.5 text-volt" />
                 <span>Back to Top</span>
               </button>
             </div>
@@ -337,17 +337,17 @@ export function BriefDetailModal({
         </div>
 
         {/* Modal Footer */}
-        <div className="p-4 sm:p-5 border-t border-border flex items-center justify-between gap-3 rounded-b-2xl bg-surface shrink-0">
+        <div className="p-4 sm:p-5 border-t border-charcoal flex items-center justify-between gap-3 rounded-b-lg bg-black shrink-0">
           <div className="flex items-center gap-2">
             <button
               onClick={onClose}
-              className="px-4 py-2 text-xs font-semibold rounded-xl border border-border bg-surface-elevated hover:bg-border text-text transition-colors flex items-center gap-1.5 cursor-pointer"
+              className="px-4 py-2 text-xs font-bold rounded border border-charcoal bg-near-black hover:bg-hover-gray text-silver hover:text-white transition-colors flex items-center gap-1.5 cursor-pointer"
             >
               <ArrowLeft className="w-3.5 h-3.5" /> Back to Project Briefs
             </button>
             <button
               onClick={() => { onClose(); navigate('/'); }}
-              className="px-3 py-2 text-xs font-semibold rounded-xl border border-border bg-surface-elevated hover:bg-border text-text transition-colors flex items-center gap-1.5 cursor-pointer"
+              className="px-3 py-2 text-xs font-bold rounded border border-charcoal bg-near-black hover:bg-hover-gray text-silver hover:text-white transition-colors flex items-center gap-1.5 cursor-pointer"
             >
               <Home className="w-3.5 h-3.5" /> Home
             </button>
@@ -355,13 +355,13 @@ export function BriefDetailModal({
           <div className="flex items-center gap-2">
             <button
               onClick={handleDownload}
-              className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold rounded-xl border border-border bg-surface-elevated hover:bg-border text-text transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-bold rounded border border-charcoal bg-near-black hover:bg-hover-gray text-silver hover:text-white transition-colors cursor-pointer"
             >
-              <Download className="w-3.5 h-3.5" /> Download Brief
+              <Download className="w-3.5 h-3.5 text-silver" /> Download Brief
             </button>
             <button
               onClick={() => { onToggleSave(brief.id); onClose(); }}
-              className="px-4 py-2 text-xs font-bold rounded-xl bg-primary hover:opacity-90 text-surface transition-all cursor-pointer"
+              className="px-4 py-2 text-xs font-black rounded bg-volt hover:bg-[#1d1d1d] text-[#151515] hover:text-white border border-volt transition-colors cursor-pointer"
             >
               {isSaved ? 'Remove from Build Plan' : '+ Add to My Build Plan'}
             </button>

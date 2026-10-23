@@ -76,64 +76,64 @@ export const CHANNEL_CONFIG: Record<string, ChannelMeta> = {
     label: 'Cold Email',
     shortLabel: 'Email',
     icon: Mail,
-    badgeCls: 'bg-emerald-50 text-emerald-700 border-emerald-200',
-    borderCls: 'border-emerald-500',
-    bgCls: 'bg-emerald-500/10',
-    textCls: 'text-emerald-600',
+    badgeCls: 'bg-black text-volt border-charcoal',
+    borderCls: 'border-charcoal',
+    bgCls: 'bg-black',
+    textCls: 'text-volt',
   },
   linkedin_connect: {
     label: 'LinkedIn Connect (300 char)',
     shortLabel: 'Connect',
     icon: MessageSquare,
-    badgeCls: 'bg-sky-50 text-sky-700 border-sky-200',
-    borderCls: 'border-sky-500',
-    bgCls: 'bg-sky-500/10',
-    textCls: 'text-sky-600',
+    badgeCls: 'bg-black text-volt border-charcoal',
+    borderCls: 'border-charcoal',
+    bgCls: 'bg-black',
+    textCls: 'text-volt',
   },
   linkedin_inmail: {
     label: 'LinkedIn InMail',
     shortLabel: 'InMail',
     icon: Send,
-    badgeCls: 'bg-purple-50 text-purple-700 border-purple-200',
-    borderCls: 'border-purple-500',
-    bgCls: 'bg-purple-500/10',
-    textCls: 'text-purple-600',
+    badgeCls: 'bg-black text-volt border-charcoal',
+    borderCls: 'border-charcoal',
+    bgCls: 'bg-black',
+    textCls: 'text-volt',
   },
   warm_referral: {
     label: 'Warm Referral',
     shortLabel: 'Referral',
     icon: Users,
-    badgeCls: 'bg-amber-50 text-amber-800 border-amber-200',
-    borderCls: 'border-amber-500',
-    bgCls: 'bg-amber-500/10',
-    textCls: 'text-amber-600',
+    badgeCls: 'bg-black text-pale-yellow border-charcoal',
+    borderCls: 'border-charcoal',
+    bgCls: 'bg-black',
+    textCls: 'text-pale-yellow',
   },
   follow_up: {
     label: 'Follow-Up',
     shortLabel: 'Follow-Up',
     icon: Clock,
-    badgeCls: 'bg-rose-50 text-rose-700 border-rose-200',
-    borderCls: 'border-rose-500',
-    bgCls: 'bg-rose-500/10',
-    textCls: 'text-rose-600',
+    badgeCls: 'bg-black text-silver border-charcoal',
+    borderCls: 'border-charcoal',
+    bgCls: 'bg-black',
+    textCls: 'text-silver',
   },
   direct_message: {
     label: 'Direct Message',
     shortLabel: 'DM',
     icon: Zap,
-    badgeCls: 'bg-cyan-50 text-cyan-800 border-cyan-200',
-    borderCls: 'border-cyan-500',
-    bgCls: 'bg-cyan-500/10',
-    textCls: 'text-cyan-600',
+    badgeCls: 'bg-black text-volt border-charcoal',
+    borderCls: 'border-charcoal',
+    bgCls: 'bg-black',
+    textCls: 'text-volt',
   },
   reply: {
     label: 'Reply Handling',
     shortLabel: 'Reply',
     icon: RefreshCw,
-    badgeCls: 'bg-indigo-50 text-indigo-700 border-indigo-200',
-    borderCls: 'border-indigo-500',
-    bgCls: 'bg-indigo-500/10',
-    textCls: 'text-indigo-600',
+    badgeCls: 'bg-black text-silver border-charcoal',
+    borderCls: 'border-charcoal',
+    bgCls: 'bg-black',
+    textCls: 'text-silver',
   },
 };
 
@@ -153,121 +153,121 @@ const TOPIC_METADATA: Record<string, TopicMeta> = {
   'first-touch-recruiters': {
     id: 'first-touch-recruiters',
     icon: Briefcase,
-    gradient: 'from-blue-600 to-sky-500',
-    pillBorder: 'border-blue-200',
-    pillBg: 'bg-blue-50',
-    pillText: 'text-blue-700',
-    accentBg: 'bg-blue-500/10',
+    gradient: 'from-[#141414] to-black',
+    pillBorder: 'border-charcoal',
+    pillBg: 'bg-black',
+    pillText: 'text-volt',
+    accentBg: 'bg-black',
     tagline: 'Technical recruiters & talent acquisition scouts',
   },
   'first-touch-engineers': {
     id: 'first-touch-engineers',
     icon: Code2,
-    gradient: 'from-indigo-600 to-purple-600',
-    pillBorder: 'border-indigo-200',
-    pillBg: 'bg-indigo-50',
-    pillText: 'text-indigo-700',
-    accentBg: 'bg-indigo-500/10',
+    gradient: 'from-[#141414] to-black',
+    pillBorder: 'border-charcoal',
+    pillBg: 'bg-black',
+    pillText: 'text-volt',
+    accentBg: 'bg-black',
     tagline: 'Engineering managers, tech leads & staff engineers',
   },
   'campus-fresher-programs': {
     id: 'campus-fresher-programs',
     icon: GraduationCap,
-    gradient: 'from-emerald-600 to-teal-500',
-    pillBorder: 'border-emerald-200',
-    pillBg: 'bg-emerald-50',
-    pillText: 'text-emerald-700',
-    accentBg: 'bg-emerald-500/10',
+    gradient: 'from-[#141414] to-black',
+    pillBorder: 'border-charcoal',
+    pillBg: 'bg-black',
+    pillText: 'text-volt',
+    accentBg: 'bg-black',
     tagline: 'Off-campus drives, university relations, TPO & PPO conversions',
   },
   'alumni-mutual-warm': {
     id: 'alumni-mutual-warm',
     icon: Users,
-    gradient: 'from-amber-600 to-orange-500',
-    pillBorder: 'border-amber-200',
-    pillBg: 'bg-amber-50',
-    pillText: 'text-amber-800',
-    accentBg: 'bg-amber-500/10',
+    gradient: 'from-[#141414] to-black',
+    pillBorder: 'border-charcoal',
+    pillBg: 'bg-black',
+    pillText: 'text-pale-yellow',
+    accentBg: 'bg-black',
     tagline: 'College alumni, department seniors & mutual connections',
   },
   'startup-founder-direct': {
     id: 'startup-founder-direct',
     icon: Rocket,
-    gradient: 'from-rose-600 to-pink-500',
-    pillBorder: 'border-rose-200',
-    pillBg: 'bg-rose-50',
-    pillText: 'text-rose-700',
-    accentBg: 'bg-rose-500/10',
+    gradient: 'from-[#141414] to-black',
+    pillBorder: 'border-charcoal',
+    pillBg: 'bg-black',
+    pillText: 'text-volt',
+    accentBg: 'bg-black',
     tagline: 'Early-stage founders, CTOs & founding engineer roles',
   },
   'referral-engine': {
     id: 'referral-engine',
     icon: Award,
-    gradient: 'from-cyan-600 to-blue-600',
-    pillBorder: 'border-cyan-200',
-    pillBg: 'bg-cyan-50',
-    pillText: 'text-cyan-800',
-    accentBg: 'bg-cyan-500/10',
+    gradient: 'from-[#141414] to-black',
+    pillBorder: 'border-charcoal',
+    pillBg: 'bg-black',
+    pillText: 'text-volt',
+    accentBg: 'bg-black',
     tagline: 'Forwardable blurbs, Job ID asks & low-friction referrals',
   },
   'open-source-portfolio': {
     id: 'open-source-portfolio',
     icon: Sparkles,
-    gradient: 'from-violet-600 to-indigo-600',
-    pillBorder: 'border-violet-200',
-    pillBg: 'bg-violet-50',
-    pillText: 'text-violet-700',
-    accentBg: 'bg-violet-500/10',
+    gradient: 'from-[#141414] to-black',
+    pillBorder: 'border-charcoal',
+    pillBg: 'bg-black',
+    pillText: 'text-volt',
+    accentBg: 'bg-black',
     tagline: 'Merged PRs, system architecture, teardowns & demo shares',
   },
   'follow-ups': {
     id: 'follow-ups',
     icon: Clock,
-    gradient: 'from-red-600 to-rose-600',
-    pillBorder: 'border-red-200',
-    pillBg: 'bg-red-50',
-    pillText: 'text-red-700',
-    accentBg: 'bg-red-500/10',
+    gradient: 'from-[#141414] to-black',
+    pillBorder: 'border-charcoal',
+    pillBg: 'bg-black',
+    pillText: 'text-silver',
+    accentBg: 'bg-black',
     tagline: '5-day value adds, calm check-ins & polite loop closures',
   },
   'interview-lifecycle': {
     id: 'interview-lifecycle',
     icon: CheckCircle2,
-    gradient: 'from-teal-600 to-cyan-600',
-    pillBorder: 'border-teal-200',
-    pillBg: 'bg-teal-50',
-    pillText: 'text-teal-700',
-    accentBg: 'bg-teal-500/10',
+    gradient: 'from-[#141414] to-black',
+    pillBorder: 'border-charcoal',
+    pillBg: 'bg-black',
+    pillText: 'text-volt',
+    accentBg: 'bg-black',
     tagline: 'Post-OA confirmations, thank-you notes & status checks',
   },
   'informational-chats': {
     id: 'informational-chats',
     icon: MessageSquare,
-    gradient: 'from-yellow-600 to-amber-600',
-    pillBorder: 'border-amber-200',
-    pillBg: 'bg-amber-50',
-    pillText: 'text-amber-800',
-    accentBg: 'bg-amber-500/10',
+    gradient: 'from-[#141414] to-black',
+    pillBorder: 'border-charcoal',
+    pillBg: 'bg-black',
+    pillText: 'text-pale-yellow',
+    accentBg: 'bg-black',
     tagline: '15-minute stack discussions & engineering decision advice',
   },
   're-engagement-replies': {
     id: 're-engagement-replies',
     icon: RefreshCw,
-    gradient: 'from-slate-700 to-indigo-700',
-    pillBorder: 'border-slate-300',
-    pillBg: 'bg-slate-100',
-    pillText: 'text-slate-800',
-    accentBg: 'bg-slate-500/10',
+    gradient: 'from-[#141414] to-black',
+    pillBorder: 'border-charcoal',
+    pillBg: 'bg-black',
+    pillText: 'text-silver',
+    accentBg: 'bg-black',
     tagline: '6-month re-engagement, no-headcount replies & logistics',
   },
   'events-community': {
     id: 'events-community',
     icon: Zap,
-    gradient: 'from-emerald-600 to-green-600',
-    pillBorder: 'border-emerald-200',
-    pillBg: 'bg-emerald-50',
-    pillText: 'text-emerald-700',
-    accentBg: 'bg-emerald-500/10',
+    gradient: 'from-[#141414] to-black',
+    pillBorder: 'border-charcoal',
+    pillBg: 'bg-black',
+    pillText: 'text-volt',
+    accentBg: 'bg-black',
     tagline: 'Conferences, hackathons, speakers & developer meetups',
   },
 };
@@ -553,24 +553,24 @@ export function ReachOutPage() {
   }, [selectedTopicId]);
 
   return (
-    <div className="min-h-screen bg-bg text-text pb-24 font-sans selection:bg-primary/20 selection:text-primary">
+    <div className="min-h-screen bg-black text-white pb-24 font-sans selection:bg-volt selection:text-black">
       {/* ── Top Bar / Breadcrumb ── */}
-      <div className="border-b border-border bg-surface/90 backdrop-blur-md sticky top-0 z-30 shadow-xs">
+      <div className="border-b border-charcoal bg-black/95 sticky top-0 z-30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <Link
               to="/tools"
-              className="inline-flex items-center gap-1.5 text-xs text-text-muted hover:text-text font-bold px-3 py-1.5 rounded-lg hover:bg-surface-2 transition-colors border border-transparent hover:border-border"
+              className="inline-flex items-center gap-1.5 text-xs text-silver hover:text-white font-bold px-3 py-1.5 rounded bg-near-black hover:bg-hover-gray transition-colors border border-charcoal"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
               Tools Hub
             </Link>
-            <span className="text-border">/</span>
-            <span className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full bg-gradient-to-r from-blue-500/10 to-indigo-500/10 text-primary border border-primary/20">
-              <Sparkles className="w-3 h-3 text-primary animate-pulse" />
+            <span className="text-charcoal">/</span>
+            <span className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded bg-near-black text-volt border border-charcoal">
+              <Sparkles className="w-3 h-3 text-volt" />
               Reach Out Engine
             </span>
-            <span className="text-sm font-extrabold text-text hidden sm:inline">
+            <span className="text-sm font-extrabold text-white hidden sm:inline">
               Cold Outreach Generator
             </span>
           </div>
@@ -578,9 +578,9 @@ export function ReachOutPage() {
           <div className="flex items-center gap-2">
             <Link
               to="/tools/tracker"
-              className="px-3.5 py-1.5 text-xs font-bold bg-surface hover:bg-surface-2 border border-border rounded-xl text-text transition-all hover:shadow-xs flex items-center gap-1.5"
+              className="px-3.5 py-1.5 text-xs font-bold bg-near-black hover:bg-hover-gray border border-charcoal hover:border-silver rounded text-white transition-all flex items-center gap-1.5"
             >
-              <Briefcase className="w-3.5 h-3.5 text-primary" />
+              <Briefcase className="w-3.5 h-3.5 text-volt" />
               Application Tracker
             </Link>
           </div>
@@ -591,14 +591,14 @@ export function ReachOutPage() {
         {/* ── Page Header ── */}
         <div className="mb-6">
           <div className="flex items-center gap-3 mb-2">
-            <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-violet-600 flex items-center justify-center text-white shadow-md shadow-blue-500/20">
+            <div className="w-12 h-12 rounded-lg bg-near-black border border-charcoal flex items-center justify-center text-volt">
               <Send className="w-6 h-6" />
             </div>
             <div>
-              <h1 className="text-2xl sm:text-3xl font-black text-text tracking-tight flex items-center gap-2">
+              <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight flex items-center gap-2">
                 Reach Out — Cold Outreach Generator
               </h1>
-              <p className="text-xs sm:text-sm text-text-secondary mt-0.5">
+              <p className="text-xs sm:text-sm text-silver mt-0.5">
                 Targeted outreach playbooks across 12 hiring scenarios: select a topic below to spawn matching cold emails, InMails, referrals, and LinkedIn connection notes.
               </p>
             </div>
@@ -606,49 +606,49 @@ export function ReachOutPage() {
         </div>
 
         {/* ── Interactive Input Requirements Panel (Accessible on every view) ── */}
-        <div className="bg-surface border border-border rounded-3xl p-5 sm:p-6 mb-8 shadow-sm transition-all">
-          <div className="flex items-center justify-between flex-wrap gap-3 pb-4 border-b border-border">
+        <div className="bg-near-black border border-charcoal rounded-lg p-5 sm:p-6 mb-8">
+          <div className="flex items-center justify-between flex-wrap gap-3 pb-4 border-b border-charcoal">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-xl bg-primary/10 flex items-center justify-center text-primary font-bold">
+              <div className="w-8 h-8 rounded bg-black border border-charcoal flex items-center justify-center text-volt font-bold">
                 <Sliders className="w-4 h-4" />
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <h2 className="text-sm font-extrabold text-text">Outreach Slot Inputs & Personalization</h2>
+                  <h2 className="text-sm font-extrabold text-white">Outreach Slot Inputs & Personalization</h2>
                   {hasUnsavedChanges ? (
-                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 text-amber-700 border border-amber-300 animate-pulse">
+                    <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-black text-pale-yellow border border-olive-border animate-pulse">
                       ● Unsaved Changes — Click Confirm to Apply
                     </span>
                   ) : justConfirmed ? (
-                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-300 flex items-center gap-1">
-                      <CheckCircle2 className="w-3 h-3 text-emerald-600" />
+                    <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-black text-volt border border-volt flex items-center gap-1">
+                      <CheckCircle2 className="w-3 h-3 text-volt" />
                       Changes Confirmed & Applied!
                     </span>
                   ) : (
-                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-600 border border-slate-200">
+                    <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-black text-silver border border-charcoal">
                       ✓ Synchronized
                     </span>
                   )}
                 </div>
-                <p className="text-[11px] text-text-muted mt-0.5">
-                  Fields with <span className="text-red-500 font-bold">* Required</span> auto-fill your templates. Edit anywhere and click "Confirm & Apply Changes".
+                <p className="text-[11px] text-silver mt-0.5">
+                  Fields with <span className="text-danger font-bold">* Required</span> auto-fill your templates. Edit anywhere and click &quot;Confirm &amp; Apply Changes&quot;.
                 </p>
               </div>
             </div>
 
             <div className="flex items-center gap-2 flex-wrap">
               {/* Market-Standard Evidence Preset Selector */}
-              <div className="flex items-center gap-1.5 bg-surface-2 border border-border rounded-xl px-2.5 py-1">
-                <Sparkles className="w-3.5 h-3.5 text-primary" />
-                <span className="text-[11px] font-semibold text-text-muted">Evidence Preset:</span>
+              <div className="flex items-center gap-1.5 bg-black border border-charcoal rounded px-2.5 py-1">
+                <Sparkles className="w-3.5 h-3.5 text-volt" />
+                <span className="text-[11px] font-semibold text-silver">Evidence Preset:</span>
                 <select
                   onChange={(e) => handleApplyEvidencePreset(e.target.value)}
-                  className="bg-transparent text-xs font-bold text-text focus:outline-none cursor-pointer"
+                  className="bg-black text-xs font-bold text-white focus:outline-none cursor-pointer"
                   defaultValue=""
                 >
                   <option value="" disabled>Load Market Evidence Example...</option>
                   {EVIDENCE_PRESETS.map((p) => (
-                    <option key={p.id} value={p.id}>
+                    <option key={p.id} value={p.id} className="bg-black text-white">
                       {p.label}
                     </option>
                   ))}
@@ -656,17 +656,17 @@ export function ReachOutPage() {
               </div>
 
               {/* Quick Pick Company Dropdown */}
-              <div className="flex items-center gap-1.5 bg-surface-2 border border-border rounded-xl px-2.5 py-1">
-                <Building2 className="w-3.5 h-3.5 text-text-muted" />
-                <span className="text-[11px] font-semibold text-text-muted">Company Preset:</span>
+              <div className="flex items-center gap-1.5 bg-black border border-charcoal rounded px-2.5 py-1">
+                <Building2 className="w-3.5 h-3.5 text-silver" />
+                <span className="text-[11px] font-semibold text-silver">Company Preset:</span>
                 <select
                   onChange={(e) => handleSelectCompany(e.target.value)}
-                  className="bg-transparent text-xs font-bold text-text focus:outline-none cursor-pointer"
+                  className="bg-black text-xs font-bold text-white focus:outline-none cursor-pointer"
                   defaultValue=""
                 >
                   <option value="" disabled>Select Company...</option>
                   {COMPANIES.slice(0, 30).map((c) => (
-                    <option key={c.id} value={c.name}>
+                    <option key={c.id} value={c.name} className="bg-black text-white">
                       {c.name} ({c.tier})
                     </option>
                   ))}
@@ -676,7 +676,7 @@ export function ReachOutPage() {
               {/* Reset to defaults */}
               <button
                 onClick={handleResetDefaults}
-                className="px-3 py-1.5 rounded-xl border border-border text-xs font-semibold text-text-muted hover:text-text hover:bg-surface-2 transition-colors flex items-center gap-1 cursor-pointer"
+                className="px-3 py-1.5 rounded border border-charcoal text-xs font-semibold text-silver hover:text-white hover:bg-hover-gray transition-colors flex items-center gap-1 cursor-pointer"
                 title="Reset to default slots"
               >
                 <RotateCcw className="w-3 h-3" />
@@ -686,7 +686,7 @@ export function ReachOutPage() {
               {/* Toggle Collapse */}
               <button
                 onClick={() => setShowInputsDrawer((prev) => !prev)}
-                className="px-3 py-1.5 rounded-xl border border-border text-xs font-semibold text-text-secondary hover:text-text hover:bg-surface-2 transition-colors flex items-center gap-1 cursor-pointer"
+                className="px-3 py-1.5 rounded border border-charcoal text-xs font-semibold text-silver hover:text-white hover:bg-hover-gray transition-colors flex items-center gap-1 cursor-pointer"
               >
                 {showInputsDrawer ? (
                   <>
@@ -704,10 +704,10 @@ export function ReachOutPage() {
               {/* Explicit Confirm Button (Prominently Styled) */}
               <button
                 onClick={handleConfirmChanges}
-                className={`px-5 py-2 rounded-xl font-extrabold text-xs transition-all flex items-center gap-2 cursor-pointer shadow-md ${
+                className={`px-5 py-2 rounded font-black text-xs transition-colors flex items-center gap-2 cursor-pointer border ${
                   hasUnsavedChanges
-                    ? 'bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 hover:from-blue-700 hover:to-violet-700 text-white scale-[1.02] ring-2 ring-primary/40 ring-offset-2'
-                    : 'bg-primary hover:bg-primary/90 text-white'
+                    ? 'bg-volt text-[#151515] hover:bg-[#1d1d1d] hover:text-white border-volt ring-2 ring-volt/40'
+                    : 'bg-forest text-white hover:bg-[#3a3a3a] border-border-default'
                 }`}
               >
                 <Check className="w-4 h-4" />
@@ -721,16 +721,16 @@ export function ReachOutPage() {
             <div className="pt-5 space-y-5">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                 {/* ── Column 1: Target Position ── */}
-                <div className="bg-surface-2/60 border border-border rounded-2xl p-4 space-y-3.5">
-                  <div className="flex items-center gap-2 text-xs font-extrabold text-blue-700 uppercase tracking-wider pb-1 border-b border-border/80">
-                    <Building2 className="w-3.5 h-3.5 text-blue-600" />
+                <div className="bg-black border border-charcoal rounded-lg p-4 space-y-3.5">
+                  <div className="flex items-center gap-2 text-xs font-black text-volt uppercase tracking-wider pb-1 border-b border-charcoal">
+                    <Building2 className="w-3.5 h-3.5 text-volt" />
                     1. Target Position
                   </div>
 
                   <div>
                     <div className="flex items-center justify-between mb-1">
-                      <label className="text-[11px] font-bold text-text">Target Company</label>
-                      <span className="text-[10px] font-extrabold text-red-500 bg-red-50 px-1.5 py-0.2 rounded border border-red-200">
+                      <label className="text-[11px] font-bold text-silver">Target Company</label>
+                      <span className="text-[10px] font-bold text-danger bg-black px-1.5 py-0.5 rounded border border-danger/40">
                         * Required
                       </span>
                     </div>
@@ -739,14 +739,14 @@ export function ReachOutPage() {
                       value={draftSlots.company || ''}
                       onChange={(e) => handleInputChange('company', e.target.value)}
                       placeholder="e.g. Razorpay, Swiggy, Zepto"
-                      className="w-full bg-surface border border-border rounded-xl px-3 py-2 text-xs text-text focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary font-medium"
+                      className="w-full bg-near-black border border-charcoal rounded px-3 py-2 text-xs text-white placeholder-silver/60 focus:outline-none focus:border-volt focus:ring-2 focus:ring-volt font-medium"
                     />
                   </div>
 
                   <div>
                     <div className="flex items-center justify-between mb-1">
-                      <label className="text-[11px] font-bold text-text">Target Role</label>
-                      <span className="text-[10px] font-extrabold text-red-500 bg-red-50 px-1.5 py-0.2 rounded border border-red-200">
+                      <label className="text-[11px] font-bold text-silver">Target Role</label>
+                      <span className="text-[10px] font-bold text-danger bg-black px-1.5 py-0.5 rounded border border-danger/40">
                         * Required
                       </span>
                     </div>
@@ -755,53 +755,53 @@ export function ReachOutPage() {
                       value={draftSlots.role || ''}
                       onChange={(e) => handleInputChange('role', e.target.value)}
                       placeholder="e.g. Backend Engineer, Fullstack SDE"
-                      className="w-full bg-surface border border-border rounded-xl px-3 py-2 text-xs text-text focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary font-medium"
+                      className="w-full bg-near-black border border-charcoal rounded px-3 py-2 text-xs text-white placeholder-silver/60 focus:outline-none focus:border-volt focus:ring-2 focus:ring-volt font-medium"
                     />
                   </div>
 
                   <div>
                     <div className="flex items-center justify-between mb-1">
-                      <label className="text-[11px] font-bold text-text">Recipient Type</label>
-                      <span className="text-[10px] text-text-muted">Target audience</span>
+                      <label className="text-[11px] font-bold text-silver">Recipient Type</label>
+                      <span className="text-[10px] text-silver/80">Target audience</span>
                     </div>
                     <select
                       value={draftSlots.recipient_type || 'Recruiter'}
                       onChange={(e) => handleInputChange('recipient_type', e.target.value)}
-                      className="w-full bg-surface border border-border rounded-xl px-3 py-2 text-xs text-text focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary font-medium"
+                      className="w-full bg-near-black border border-charcoal rounded px-3 py-2 text-xs text-white focus:outline-none focus:border-volt focus:ring-2 focus:ring-volt font-medium"
                     >
-                      <option value="Recruiter">Recruiter / Talent Scout</option>
-                      <option value="Hiring Manager">Hiring Manager / Tech Lead</option>
-                      <option value="Peer Engineer">Peer Engineer / Senior SDE</option>
-                      <option value="Alumnus">College Alumnus</option>
-                      <option value="Founder/CTO">Founder / CTO</option>
-                      <option value="Referrer">Referrer / Team Member</option>
-                      <option value="Campus Recruiter">Campus Recruiter / University Relations</option>
+                      <option value="Recruiter" className="bg-black text-white">Recruiter / Talent Scout</option>
+                      <option value="Hiring Manager" className="bg-black text-white">Hiring Manager / Tech Lead</option>
+                      <option value="Peer Engineer" className="bg-black text-white">Peer Engineer / Senior SDE</option>
+                      <option value="Alumnus" className="bg-black text-white">College Alumnus</option>
+                      <option value="Founder/CTO" className="bg-black text-white">Founder / CTO</option>
+                      <option value="Referrer" className="bg-black text-white">Referrer / Team Member</option>
+                      <option value="Campus Recruiter" className="bg-black text-white">Campus Recruiter / University Relations</option>
                     </select>
                   </div>
 
                   <div>
-                    <label className="block text-[11px] font-bold text-text mb-1">Requisition / Job ID (Optional)</label>
+                    <label className="block text-[11px] font-bold text-silver mb-1">Requisition / Job ID (Optional)</label>
                     <input
                       type="text"
                       value={draftSlots.job_id || ''}
                       onChange={(e) => handleInputChange('job_id', e.target.value)}
                       placeholder="e.g. REQ-0482 or Job URL"
-                      className="w-full bg-surface border border-border rounded-xl px-3 py-2 text-xs text-text focus:outline-none focus:border-primary font-medium"
+                      className="w-full bg-near-black border border-charcoal rounded px-3 py-2 text-xs text-white placeholder-silver/60 focus:outline-none focus:border-volt focus:ring-2 focus:ring-volt font-medium"
                     />
                   </div>
                 </div>
 
                 {/* ── Column 2: Candidate Technical Proof Points ── */}
-                <div className="bg-surface-2/60 border border-border rounded-2xl p-4 space-y-3.5">
-                  <div className="flex items-center gap-2 text-xs font-extrabold text-emerald-700 uppercase tracking-wider pb-1 border-b border-border/80">
-                    <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
+                <div className="bg-black border border-charcoal rounded-lg p-4 space-y-3.5">
+                  <div className="flex items-center gap-2 text-xs font-black text-volt uppercase tracking-wider pb-1 border-b border-charcoal">
+                    <Sparkles className="w-3.5 h-3.5 text-volt" />
                     2. Technical Proof Points
                   </div>
 
                   <div>
                     <div className="flex items-center justify-between mb-1">
-                      <label className="text-[11px] font-bold text-text">Primary Stack & Skills</label>
-                      <span className="text-[10px] font-extrabold text-red-500 bg-red-50 px-1.5 py-0.2 rounded border border-red-200">
+                      <label className="text-[11px] font-bold text-silver">Primary Stack & Skills</label>
+                      <span className="text-[10px] font-bold text-danger bg-black px-1.5 py-0.5 rounded border border-danger/40">
                         * Required
                       </span>
                     </div>
@@ -810,14 +810,14 @@ export function ReachOutPage() {
                       value={draftSlots.primary_skill || ''}
                       onChange={(e) => handleInputChange('primary_skill', e.target.value)}
                       placeholder="e.g. React & Node.js, Go & Kafka"
-                      className="w-full bg-surface border border-border rounded-xl px-3 py-2 text-xs text-text focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary font-medium"
+                      className="w-full bg-near-black border border-charcoal rounded px-3 py-2 text-xs text-white placeholder-silver/60 focus:outline-none focus:border-volt focus:ring-2 focus:ring-volt font-medium"
                     />
                   </div>
 
                   <div>
                     <div className="flex items-center justify-between mb-1">
-                      <label className="text-[11px] font-bold text-text">Quantified Proof Point</label>
-                      <span className="text-[10px] font-extrabold text-red-500 bg-red-50 px-1.5 py-0.2 rounded border border-red-200">
+                      <label className="text-[11px] font-bold text-silver">Quantified Proof Point</label>
+                      <span className="text-[10px] font-bold text-danger bg-black px-1.5 py-0.5 rounded border border-danger/40">
                         * Required
                       </span>
                     </div>
@@ -826,37 +826,37 @@ export function ReachOutPage() {
                       value={draftSlots.proof_point || ''}
                       onChange={(e) => handleInputChange('proof_point', e.target.value)}
                       placeholder="e.g. built real-time WebSocket dashboard handling 800+ concurrent users"
-                      className="w-full bg-surface border border-border rounded-xl px-3 py-2 text-xs text-text focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary font-medium"
+                      className="w-full bg-near-black border border-charcoal rounded px-3 py-2 text-xs text-white placeholder-silver/60 focus:outline-none focus:border-volt focus:ring-2 focus:ring-volt font-medium"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-[11px] font-bold text-text mb-1">College / University</label>
+                    <label className="block text-[11px] font-bold text-silver mb-1">College / University</label>
                     <input
                       type="text"
                       value={draftSlots.college || ''}
                       onChange={(e) => handleInputChange('college', e.target.value)}
                       placeholder="e.g. NIT Trichy, IIT Madras, BITS Pilani"
-                      className="w-full bg-surface border border-border rounded-xl px-3 py-2 text-xs text-text focus:outline-none focus:border-primary font-medium"
+                      className="w-full bg-near-black border border-charcoal rounded px-3 py-2 text-xs text-white placeholder-silver/60 focus:outline-none focus:border-volt focus:ring-2 focus:ring-volt font-medium"
                     />
                   </div>
 
                   {/* ── Portfolio & GitHub Links Sub-Options ── */}
-                  <div className="bg-surface/90 border border-border/90 rounded-xl p-3 space-y-2.5">
+                  <div className="bg-near-black border border-charcoal rounded p-3 space-y-2.5">
                     <div className="flex items-center justify-between">
-                      <label className="text-[11px] font-bold text-text flex items-center gap-1.5">
-                        <Code2 className="w-3.5 h-3.5 text-primary" />
+                      <label className="text-[11px] font-bold text-white flex items-center gap-1.5">
+                        <Code2 className="w-3.5 h-3.5 text-volt" />
                         Code & Project Links
                       </label>
-                      <span className="text-[10px] text-text-muted font-medium bg-surface-2 px-1.5 py-0.5 rounded border border-border">
+                      <span className="text-[10px] text-silver font-medium bg-black px-1.5 py-0.5 rounded border border-charcoal">
                         Add GitHub, Portfolio, or both
                       </span>
                     </div>
 
                     <div className="space-y-2">
                       <div>
-                        <label className="block text-[10px] font-bold text-text-secondary mb-1 flex items-center gap-1">
-                          <GitFork className="w-3 h-3 text-text" />
+                        <label className="block text-[10px] font-bold text-silver mb-1 flex items-center gap-1">
+                          <GitFork className="w-3 h-3 text-silver" />
                           GitHub Profile / Repo Link
                         </label>
                         <input
@@ -864,13 +864,13 @@ export function ReachOutPage() {
                           value={draftSlots.github || ''}
                           onChange={(e) => handleInputChange('github', e.target.value)}
                           placeholder="e.g. github.com/arjunmehta"
-                          className="w-full bg-surface border border-border rounded-lg px-2.5 py-1.5 text-xs text-text focus:outline-none focus:border-primary font-medium"
+                          className="w-full bg-black border border-charcoal rounded px-2.5 py-1.5 text-xs text-white placeholder-silver/60 focus:outline-none focus:border-volt focus:ring-2 focus:ring-volt font-mono"
                         />
                       </div>
 
                       <div>
-                        <label className="block text-[10px] font-bold text-text-secondary mb-1 flex items-center gap-1">
-                          <Globe className="w-3 h-3 text-emerald-600" />
+                        <label className="block text-[10px] font-bold text-silver mb-1 flex items-center gap-1">
+                          <Globe className="w-3 h-3 text-silver" />
                           Portfolio Website Link
                         </label>
                         <input
@@ -878,14 +878,14 @@ export function ReachOutPage() {
                           value={draftSlots.portfolio || ''}
                           onChange={(e) => handleInputChange('portfolio', e.target.value)}
                           placeholder="e.g. arjunmehta.dev"
-                          className="w-full bg-surface border border-border rounded-lg px-2.5 py-1.5 text-xs text-text focus:outline-none focus:border-primary font-medium"
+                          className="w-full bg-black border border-charcoal rounded px-2.5 py-1.5 text-xs text-white placeholder-silver/60 focus:outline-none focus:border-volt focus:ring-2 focus:ring-volt font-mono"
                         />
                       </div>
                     </div>
 
-                    <div className="text-[10px] text-text-muted flex items-center gap-1.5 pt-0.5 border-t border-border/50">
-                      <span className="font-semibold text-text-secondary shrink-0">In template:</span>
-                      <code className="bg-surface-2 px-1.5 py-0.5 rounded text-[10px] font-mono text-primary truncate max-w-full">
+                    <div className="text-[10px] text-silver flex items-center gap-1.5 pt-0.5 border-t border-charcoal">
+                      <span className="font-semibold text-silver shrink-0">In template:</span>
+                      <code className="bg-black px-1.5 py-0.5 rounded text-[10px] font-mono text-volt truncate max-w-full">
                         {draftSlots.portfolio && draftSlots.github
                           ? `${draftSlots.portfolio} | ${draftSlots.github}`
                           : draftSlots.portfolio || draftSlots.github || 'No link provided'}
@@ -895,61 +895,61 @@ export function ReachOutPage() {
                 </div>
 
                 {/* ── Column 3: Personalization & Recipient Details ── */}
-                <div className="bg-surface-2/60 border border-border rounded-2xl p-4 space-y-3.5">
-                  <div className="flex items-center gap-2 text-xs font-extrabold text-purple-700 uppercase tracking-wider pb-1 border-b border-border/80">
-                    <Users className="w-3.5 h-3.5 text-purple-600" />
+                <div className="bg-black border border-charcoal rounded-lg p-4 space-y-3.5">
+                  <div className="flex items-center gap-2 text-xs font-black text-volt uppercase tracking-wider pb-1 border-b border-charcoal">
+                    <Users className="w-3.5 h-3.5 text-volt" />
                     3. Recipient & Personalization
                   </div>
 
                   <div>
-                    <label className="block text-[11px] font-bold text-text mb-1">Recipient Name</label>
+                    <label className="block text-[11px] font-bold text-silver mb-1">Recipient Name</label>
                     <input
                       type="text"
                       value={draftSlots.recipient_name || ''}
                       onChange={(e) => handleInputChange('recipient_name', e.target.value)}
                       placeholder="e.g. Rahul Sharma"
-                      className="w-full bg-surface border border-border rounded-xl px-3 py-2 text-xs text-text focus:outline-none focus:border-primary font-medium"
+                      className="w-full bg-near-black border border-charcoal rounded px-3 py-2 text-xs text-white placeholder-silver/60 focus:outline-none focus:border-volt focus:ring-2 focus:ring-volt font-medium"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-[11px] font-bold text-text mb-1">Personal Hook / Connection Note</label>
+                    <label className="block text-[11px] font-bold text-silver mb-1">Personal Hook / Connection Note</label>
                     <input
                       type="text"
                       value={draftSlots.personal_line || ''}
                       onChange={(e) => handleInputChange('personal_line', e.target.value)}
                       placeholder="e.g. Loved your recent post on distributed transaction sagas"
-                      className="w-full bg-surface border border-border rounded-xl px-3 py-2 text-xs text-text focus:outline-none focus:border-primary font-medium"
+                      className="w-full bg-near-black border border-charcoal rounded px-3 py-2 text-xs text-white placeholder-silver/60 focus:outline-none focus:border-volt focus:ring-2 focus:ring-volt font-medium"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-[11px] font-bold text-text mb-1">Admired Project or Feature</label>
+                    <label className="block text-[11px] font-bold text-silver mb-1">Admired Project or Feature</label>
                     <input
                       type="text"
                       value={draftSlots.admired_project || ''}
                       onChange={(e) => handleInputChange('admired_project', e.target.value)}
                       placeholder="e.g. UPI payment switch, Real-time dispatch"
-                      className="w-full bg-surface border border-border rounded-xl px-3 py-2 text-xs text-text focus:outline-none focus:border-primary font-medium"
+                      className="w-full bg-near-black border border-charcoal rounded px-3 py-2 text-xs text-white placeholder-silver/60 focus:outline-none focus:border-volt focus:ring-2 focus:ring-volt font-medium"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-[11px] font-bold text-text mb-1">Your Name & Email</label>
+                    <label className="block text-[11px] font-bold text-silver mb-1">Your Name & Email</label>
                     <div className="grid grid-cols-2 gap-2">
                       <input
                         type="text"
                         value={draftSlots.your_name || ''}
                         onChange={(e) => handleInputChange('your_name', e.target.value)}
                         placeholder="Your Name"
-                        className="bg-surface border border-border rounded-xl px-2.5 py-2 text-xs text-text focus:outline-none focus:border-primary font-medium"
+                        className="bg-near-black border border-charcoal rounded px-2.5 py-2 text-xs text-white placeholder-silver/60 focus:outline-none focus:border-volt focus:ring-2 focus:ring-volt font-medium"
                       />
                       <input
                         type="text"
                         value={draftSlots.your_email || ''}
                         onChange={(e) => handleInputChange('your_email', e.target.value)}
                         placeholder="Your Email"
-                        className="bg-surface border border-border rounded-xl px-2.5 py-2 text-xs text-text focus:outline-none focus:border-primary font-medium"
+                        className="bg-near-black border border-charcoal rounded px-2.5 py-2 text-xs text-white placeholder-silver/60 focus:outline-none focus:border-volt focus:ring-2 focus:ring-volt font-medium"
                       />
                     </div>
                   </div>
@@ -958,24 +958,24 @@ export function ReachOutPage() {
 
               {/* Bottom Quick Action for Confirmation */}
               <div className="flex items-center justify-between pt-2">
-                <div className="text-[11px] text-text-muted flex items-center gap-2">
+                <div className="text-[11px] text-silver flex items-center gap-2">
                   <span>Current Target:</span>
-                  <span className="font-bold text-text bg-surface-2 px-2 py-0.5 rounded-md border border-border">
+                  <span className="font-bold text-white bg-black px-2 py-0.5 rounded border border-charcoal">
                     {appliedSlots.company || 'Not set'}
                   </span>
                   <span>·</span>
-                  <span className="font-bold text-text bg-surface-2 px-2 py-0.5 rounded-md border border-border">
+                  <span className="font-bold text-white bg-black px-2 py-0.5 rounded border border-charcoal">
                     {appliedSlots.role || 'Not set'}
                   </span>
                   <span>·</span>
-                  <span className="font-bold text-text bg-surface-2 px-2 py-0.5 rounded-md border border-border">
+                  <span className="font-bold text-white bg-black px-2 py-0.5 rounded border border-charcoal">
                     {appliedSlots.primary_skill || 'Not set'}
                   </span>
                 </div>
 
                 <button
                   onClick={handleConfirmChanges}
-                  className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 hover:from-blue-700 hover:to-violet-700 text-white font-extrabold text-xs shadow-md hover:shadow-lg transition-all flex items-center gap-2 cursor-pointer"
+                  className="px-6 py-2.5 rounded bg-volt text-[#151515] hover:bg-[#1d1d1d] hover:text-white font-black text-xs border border-volt transition-colors flex items-center gap-2 cursor-pointer"
                 >
                   <Check className="w-4 h-4" />
                   Confirm & Apply Changes
@@ -989,24 +989,24 @@ export function ReachOutPage() {
         <div className="mb-5">
           <div className="flex items-center justify-between flex-wrap gap-2 mb-2">
             <div>
-              <h2 className="text-lg font-black text-text flex items-center gap-2">
-                <Layers className="w-5 h-5 text-primary" />
+              <h2 className="text-lg font-black text-white flex items-center gap-2">
+                <Layers className="w-5 h-5 text-volt" />
                 Select Outreach Playbook
               </h2>
-              <p className="text-xs text-text-muted mt-0.5">
+              <p className="text-xs text-silver mt-0.5">
                 Click any topic below to spawn matching cold emails, InMails, referrals, and connection notes with un-hallucinated proof points.
               </p>
             </div>
 
             {/* Quick Keyword Search */}
             <div className="relative min-w-[260px]">
-              <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
+              <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-silver" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search templates or keywords..."
-                className="w-full pl-9 pr-3 py-1.5 bg-surface border border-border rounded-xl text-xs text-text focus:outline-none focus:border-primary shadow-2xs"
+                className="w-full pl-9 pr-3 py-1.5 bg-near-black border border-charcoal rounded text-xs text-white placeholder-silver/60 focus:outline-none focus:border-volt focus:ring-2 focus:ring-volt font-medium"
               />
             </div>
           </div>
@@ -1025,39 +1025,37 @@ export function ReachOutPage() {
                     setSelectedTopicId(group.id);
                     setChannelFilter('all');
                   }}
-                  className={`text-left p-3.5 rounded-2xl border transition-all cursor-pointer flex flex-col justify-between relative group ${
+                  className={`text-left p-3.5 rounded-lg border transition-all cursor-pointer flex flex-col justify-between relative group ${
                     isSelected
-                      ? 'bg-surface border-primary shadow-md ring-2 ring-primary/20 scale-[1.02]'
-                      : 'bg-surface/80 hover:bg-surface border-border hover:border-border-strong hover:shadow-xs'
+                      ? 'bg-near-black border-volt ring-1 ring-volt'
+                      : 'bg-black hover:bg-near-black border-charcoal hover:border-silver'
                   }`}
                 >
                   {/* Top Bar */}
                   <div>
                     <div className="flex items-center justify-between mb-2">
-                      <div
-                        className={`w-8 h-8 rounded-xl flex items-center justify-center text-white bg-gradient-to-br ${meta.gradient} shadow-xs`}
-                      >
+                      <div className="w-8 h-8 rounded flex items-center justify-center text-volt bg-near-black border border-charcoal">
                         <Icon className="w-4 h-4" />
                       </div>
-                      <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-surface-2 text-text-secondary border border-border">
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-black text-silver border border-charcoal">
                         {group.count} connects
                       </span>
                     </div>
 
-                    <div className="font-extrabold text-xs text-text group-hover:text-primary transition-colors line-clamp-1">
+                    <div className="font-bold text-xs text-white group-hover:text-volt transition-colors line-clamp-1">
                       {group.shortLabel}
                     </div>
-                    <div className="text-[10px] text-text-muted mt-0.5 line-clamp-2 leading-relaxed">
+                    <div className="text-[10px] text-silver mt-0.5 line-clamp-2 leading-relaxed">
                       {meta.tagline}
                     </div>
                   </div>
 
                   {/* Bottom Indicator */}
-                  <div className="mt-3 pt-2 border-t border-border/60 flex items-center justify-between">
-                    <span className="text-[10px] font-bold text-text-secondary">
+                  <div className="mt-3 pt-2 border-t border-charcoal flex items-center justify-between">
+                    <span className="text-[10px] font-bold text-silver">
                       {isSelected ? '● Spawned' : 'Spawn →'}
                     </span>
-                    <span className={`w-1.5 h-1.5 rounded-full ${isSelected ? 'bg-primary' : 'bg-transparent'}`} />
+                    <span className={`w-1.5 h-1.5 rounded-full ${isSelected ? 'bg-volt' : 'bg-transparent'}`} />
                   </div>
                 </button>
               );
@@ -1066,29 +1064,27 @@ export function ReachOutPage() {
         </div>
 
         {/* ── Spawned Topic View (All connects under this topic) ── */}
-        <div className="bg-surface border border-border rounded-3xl p-6 sm:p-7 shadow-xs">
+        <div className="bg-near-black border border-charcoal rounded-lg p-6 sm:p-7">
           {/* Header of Spawned Topic */}
-          <div className="flex items-start justify-between flex-wrap gap-4 pb-6 border-b border-border">
+          <div className="flex items-start justify-between flex-wrap gap-4 pb-6 border-b border-charcoal">
             <div className="flex items-start gap-4">
-              <div
-                className={`w-12 h-12 rounded-2xl flex items-center justify-center text-white bg-gradient-to-br ${currentTopicMeta.gradient} shadow-md shrink-0`}
-              >
+              <div className="w-12 h-12 rounded-lg flex items-center justify-center text-volt bg-black border border-charcoal shrink-0">
                 {React.createElement(currentTopicMeta.icon, { className: 'w-6 h-6' })}
               </div>
               <div>
                 <div className="flex items-center gap-2 flex-wrap">
-                  <span className="text-xs font-extrabold text-primary uppercase tracking-wider">
+                  <span className="text-xs font-black text-volt uppercase tracking-wider">
                     Spawned Topic {currentGroup.number} of 12
                   </span>
-                  <span className="text-border">·</span>
-                  <span className="text-xs font-bold text-text-muted">
+                  <span className="text-charcoal">·</span>
+                  <span className="text-xs font-bold text-silver">
                     {currentTopicTemplates.length} outreach templates ready
                   </span>
                 </div>
-                <h2 className="text-xl sm:text-2xl font-black text-text mt-0.5">
+                <h2 className="text-xl sm:text-2xl font-black text-white mt-0.5">
                   {currentGroup.title}
                 </h2>
-                <p className="text-xs sm:text-sm text-text-secondary mt-1 max-w-2xl">
+                <p className="text-xs sm:text-sm text-silver mt-1 max-w-2xl">
                   {currentGroup.description}
                 </p>
               </div>
@@ -1099,19 +1095,19 @@ export function ReachOutPage() {
               {/* Download all in this topic */}
               <button
                 onClick={() => handleDownloadAllInTopic(selectedTopicId)}
-                className="px-4 py-2 rounded-xl bg-surface-2 hover:bg-surface-3 border border-border text-xs font-bold text-text hover:text-primary transition-all flex items-center gap-2 cursor-pointer shadow-2xs"
+                className="px-4 py-2 rounded bg-black hover:bg-hover-gray border border-charcoal text-xs font-bold text-white hover:text-volt transition-colors flex items-center gap-2 cursor-pointer"
                 title="Download all templates in this category as a clean .txt file"
               >
-                <Download className="w-3.5 h-3.5 text-primary" />
+                <Download className="w-3.5 h-3.5 text-volt" />
                 Download All ({currentTopicTemplates.length})
               </button>
 
               {/* Quick Input Toggle for this page */}
               <button
                 onClick={() => setShowInputsDrawer((prev) => !prev)}
-                className="px-4 py-2 rounded-xl bg-primary text-white text-xs font-bold hover:bg-primary/90 transition-all flex items-center gap-2 cursor-pointer shadow-xs"
+                className="px-4 py-2 rounded bg-black hover:bg-hover-gray border border-charcoal text-white hover:text-volt text-xs font-bold transition-colors flex items-center gap-2 cursor-pointer"
               >
-                <Sliders className="w-3.5 h-3.5" />
+                <Sliders className="w-3.5 h-3.5 text-volt" />
                 {showInputsDrawer ? 'Hide Inputs' : 'Tweak Inputs Here'}
               </button>
             </div>
@@ -1126,10 +1122,10 @@ export function ReachOutPage() {
 
             <button
               onClick={() => setChannelFilter('all')}
-              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer shrink-0 ${
+              className={`px-3 py-1.5 rounded text-xs font-bold transition-colors cursor-pointer shrink-0 border ${
                 channelFilter === 'all'
-                  ? 'bg-primary text-white shadow-xs'
-                  : 'bg-surface-2 text-text-secondary hover:text-text hover:bg-surface-3'
+                  ? 'bg-volt text-[#151515] border-volt font-black'
+                  : 'bg-black text-silver hover:text-white hover:bg-hover-gray border-charcoal'
               }`}
             >
               All Types ({ALL_REACH_OUT_TEMPLATES.filter((t) => t.group === selectedTopicId).length})
@@ -1140,7 +1136,7 @@ export function ReachOutPage() {
                 label: chKey,
                 shortLabel: chKey,
                 icon: MessageSquare,
-                badgeCls: 'bg-surface-2 text-text-muted',
+                badgeCls: 'bg-near-black text-silver border-charcoal',
               };
               const Icon = ch.icon;
               const count = ALL_REACH_OUT_TEMPLATES.filter(
@@ -1151,10 +1147,10 @@ export function ReachOutPage() {
                 <button
                   key={chKey}
                   onClick={() => setChannelFilter(chKey)}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 shrink-0 border ${
+                  className={`px-3 py-1.5 rounded text-xs font-bold transition-colors cursor-pointer flex items-center gap-1.5 shrink-0 border ${
                     channelFilter === chKey
-                      ? `${ch.badgeCls} ring-2 ring-primary/20 shadow-xs font-extrabold`
-                      : 'bg-surface border-border text-text-secondary hover:text-text hover:bg-surface-2'
+                      ? 'bg-volt text-[#151515] border-volt font-black'
+                      : 'bg-black border-charcoal text-silver hover:text-white hover:bg-hover-gray'
                   }`}
                 >
                   <Icon className="w-3.5 h-3.5" />
@@ -1167,15 +1163,15 @@ export function ReachOutPage() {
           {/* ── Spawned Cards Grid ── */}
           {currentTopicTemplates.length === 0 ? (
             <div className="text-center py-12">
-              <AlertTriangle className="w-8 h-8 text-amber-500 mx-auto mb-2" />
-              <p className="text-sm font-bold text-text">No matching outreach templates found</p>
-              <p className="text-xs text-text-muted mt-1">Try resetting the channel filter or search term.</p>
+              <AlertTriangle className="w-8 h-8 text-pale-yellow mx-auto mb-2" />
+              <p className="text-sm font-bold text-white">No matching outreach templates found</p>
+              <p className="text-xs text-silver mt-1">Try resetting the channel filter or search term.</p>
               <button
                 onClick={() => {
                   setChannelFilter('all');
                   setSearchQuery('');
                 }}
-                className="mt-3 px-4 py-1.5 rounded-xl bg-primary text-white text-xs font-bold"
+                className="mt-3 px-4 py-1.5 rounded bg-volt text-[#151515] text-xs font-black hover:bg-[#1d1d1d] hover:text-white border border-volt"
               >
                 Clear Filters
               </button>
@@ -1196,10 +1192,10 @@ export function ReachOutPage() {
                   label: tmpl.channel,
                   shortLabel: tmpl.channel,
                   icon: MessageSquare,
-                  badgeCls: 'bg-surface-2 text-text-muted border-border',
-                  borderCls: 'border-border',
-                  bgCls: 'bg-surface-2',
-                  textCls: 'text-text',
+                  badgeCls: 'bg-near-black text-silver border-charcoal',
+                  borderCls: 'border-charcoal',
+                  bgCls: 'bg-near-black',
+                  textCls: 'text-white',
                 };
                 const ChannelIcon = channelConfig.icon;
                 const hasPlaceholders = rendered.unresolvedSlots.length > 0;
@@ -1209,18 +1205,18 @@ export function ReachOutPage() {
                 return (
                   <div
                     key={tmpl.id}
-                    className="bg-surface border border-border hover:border-primary/40 rounded-2xl p-5 flex flex-col justify-between shadow-xs hover:shadow-md transition-all group"
+                    className="bg-black border border-charcoal hover:border-volt rounded-lg p-5 flex flex-col justify-between transition-all group"
                   >
                     <div>
                       {/* Card Header */}
                       <div className="flex items-start justify-between gap-3 mb-3">
                         <div>
-                          <h3 className="text-sm font-extrabold text-text group-hover:text-primary transition-colors">
+                          <h3 className="text-sm font-black text-white group-hover:text-volt transition-colors">
                             {tmpl.name}
                           </h3>
-                          <div className="text-[11px] text-text-muted mt-0.5">
+                          <div className="text-[11px] text-silver mt-0.5">
                             Target Audience:{' '}
-                            <span className="font-semibold text-text-secondary">
+                            <span className="font-semibold text-white">
                               {tmpl.recipientTypes.join(', ')}
                             </span>
                           </div>
@@ -1228,7 +1224,7 @@ export function ReachOutPage() {
 
                         {/* Channel Badge */}
                         <span
-                          className={`text-[10px] font-extrabold px-2.5 py-1 rounded-full uppercase tracking-wider border shrink-0 flex items-center gap-1 ${channelConfig.badgeCls}`}
+                          className="text-[10px] font-bold px-2.5 py-1 rounded uppercase tracking-wider border shrink-0 flex items-center gap-1 bg-near-black text-volt border-charcoal"
                         >
                           <ChannelIcon className="w-3 h-3" />
                           {channelConfig.shortLabel}
@@ -1236,13 +1232,13 @@ export function ReachOutPage() {
                       </div>
 
                       {/* Char / Word Count + Progress */}
-                      <div className="flex items-center justify-between text-[11px] text-text-muted mb-3 pb-2.5 border-b border-border/80">
+                      <div className="flex items-center justify-between text-[11px] text-silver mb-3 pb-2.5 border-b border-charcoal">
                         <div className="flex items-center gap-3">
                           <span className="font-semibold">{wordCount} words</span>
                           <span>·</span>
                           <span
                             className={`font-semibold ${
-                              isLinkedInConnect && charCount > 300 ? 'text-red-500 font-extrabold' : ''
+                              isLinkedInConnect && charCount > 300 ? 'text-danger font-extrabold' : ''
                             }`}
                           >
                             {charCount} {isLinkedInConnect ? '/ 300 chars' : 'characters'}
@@ -1252,21 +1248,21 @@ export function ReachOutPage() {
                         {/* LinkedIn 300 Char Limit Meter */}
                         {isLinkedInConnect && (
                           <div className="flex items-center gap-2">
-                            <div className="w-20 h-1.5 bg-surface-2 rounded-full overflow-hidden border border-border">
+                            <div className="w-20 h-1 bg-near-black rounded-full overflow-hidden border border-charcoal">
                               <div
                                 className={`h-full transition-all ${
                                   charCount > 300
-                                    ? 'bg-red-500'
+                                    ? 'bg-danger'
                                     : charCount > 270
-                                    ? 'bg-amber-500'
-                                    : 'bg-emerald-500'
+                                    ? 'bg-pale-yellow'
+                                    : 'bg-volt'
                                 }`}
                                 style={{ width: `${Math.min(100, charLimitProgress)}%` }}
                               />
                             </div>
                             <span
-                              className={`text-[10px] font-extrabold ${
-                                300 - charCount >= 0 ? 'text-emerald-600' : 'text-red-500'
+                              className={`text-[10px] font-bold ${
+                                300 - charCount >= 0 ? 'text-volt' : 'text-danger'
                               }`}
                             >
                               {300 - charCount >= 0
@@ -1279,31 +1275,31 @@ export function ReachOutPage() {
 
                       {/* Subject Line (if present) */}
                       {rendered.subject && (
-                        <div className="mb-3 p-3 rounded-xl bg-surface-2/90 border border-border text-xs">
+                        <div className="mb-3 p-3 rounded bg-near-black border border-charcoal text-xs">
                           <div className="flex items-center justify-between mb-1">
-                            <span className="text-[10px] text-primary font-black uppercase tracking-wider">
+                            <span className="text-[10px] text-volt font-black uppercase tracking-wider">
                               Subject Line
                             </span>
                             <button
                               onClick={() => handleCopy(`${copyKey}-subject`, rendered.subject!)}
-                              className="text-[10px] font-bold text-text-muted hover:text-text cursor-pointer flex items-center gap-1"
+                              className="text-[10px] font-bold text-silver hover:text-white cursor-pointer flex items-center gap-1"
                             >
                               {copiedId === `${copyKey}-subject` ? (
-                                <Check className="w-3 h-3 text-emerald-500" />
+                                <Check className="w-3 h-3 text-volt" />
                               ) : (
                                 <Copy className="w-3 h-3" />
                               )}
                               Copy Subject
                             </button>
                           </div>
-                          <div className="font-semibold text-text">{rendered.subject}</div>
+                          <div className="font-semibold text-white">{rendered.subject}</div>
                         </div>
                       )}
 
                       {/* Message Body / Inline Editable Draft */}
                       <div className="mb-3.5">
                         <div className="flex items-center justify-between mb-1">
-                          <span className="text-[10px] font-bold text-text-muted uppercase tracking-wider">
+                          <span className="text-[10px] font-bold text-silver uppercase tracking-wider">
                             Message Body
                           </span>
                           <button
@@ -1313,9 +1309,9 @@ export function ReachOutPage() {
                               }
                               setEditingTemplateId(isEditing ? null : tmpl.id);
                             }}
-                            className="text-[10px] font-bold text-text-secondary hover:text-primary transition-colors flex items-center gap-1 cursor-pointer"
+                            className="text-[10px] font-bold text-silver hover:text-volt transition-colors flex items-center gap-1 cursor-pointer"
                           >
-                            <Edit3 className="w-3 h-3 text-primary" />
+                            <Edit3 className="w-3 h-3 text-volt" />
                             {isEditing ? 'Done Editing' : 'Customize Draft'}
                           </button>
                         </div>
@@ -1327,10 +1323,10 @@ export function ReachOutPage() {
                               setCustomDrafts((prev) => ({ ...prev, [tmpl.id]: e.target.value }))
                             }
                             rows={8}
-                            className="w-full p-3.5 rounded-xl bg-surface border-2 border-primary/50 text-xs text-text font-mono leading-relaxed focus:outline-none focus:ring-1 focus:ring-primary shadow-inner"
+                            className="w-full p-3.5 rounded bg-black border border-volt text-xs text-white font-mono leading-relaxed focus:outline-none focus:ring-2 focus:ring-volt"
                           />
                         ) : (
-                          <div className="p-4 rounded-xl bg-surface-2/70 border border-border/80 text-xs text-text font-mono leading-relaxed whitespace-pre-wrap select-all">
+                          <div className="p-4 rounded bg-near-black border border-charcoal text-xs text-white font-mono leading-relaxed whitespace-pre-wrap select-all">
                             {bodyText}
                           </div>
                         )}
@@ -1339,8 +1335,8 @@ export function ReachOutPage() {
                       {/* Placeholder Tracker / Status */}
                       <div className="mb-3">
                         {hasPlaceholders ? (
-                          <div className="p-2.5 rounded-xl bg-amber-50 border border-amber-200 flex items-start gap-2 text-xs text-amber-800">
-                            <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+                          <div className="p-2.5 rounded bg-black border border-olive-border flex items-start gap-2 text-xs text-pale-yellow">
+                            <AlertTriangle className="w-4 h-4 text-pale-yellow shrink-0 mt-0.5" />
                             <div>
                               <div className="font-bold">
                                 {rendered.unresolvedSlots.length} slot
@@ -1350,7 +1346,7 @@ export function ReachOutPage() {
                                 {rendered.unresolvedSlots.map((slot, sIdx) => (
                                   <span
                                     key={sIdx}
-                                    className="px-1.5 py-0.5 rounded bg-amber-100 text-amber-900 font-mono text-[10px] border border-amber-300"
+                                    className="px-1.5 py-0.5 rounded bg-near-black text-pale-yellow font-mono text-[10px] border border-olive-border"
                                   >
                                     {slot}
                                   </span>
@@ -1359,39 +1355,39 @@ export function ReachOutPage() {
                             </div>
                           </div>
                         ) : (
-                          <div className="p-2 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center gap-2 text-xs text-emerald-700 font-bold">
-                            <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                          <div className="p-2 rounded bg-black border border-charcoal flex items-center gap-2 text-xs text-volt font-bold">
+                            <CheckCircle2 className="w-4 h-4 text-volt" />
                             Ready to send — 0 placeholders remaining
                           </div>
                         )}
                       </div>
 
                       {/* Best Practice Guidance */}
-                      <div className="p-2.5 rounded-xl bg-surface-2 border border-border text-[11px] text-text-muted leading-relaxed mb-3">
-                        <span className="font-bold text-text-secondary">When to use: </span>
+                      <div className="p-2.5 rounded bg-near-black border border-charcoal text-[11px] text-silver leading-relaxed mb-3">
+                        <span className="font-bold text-white">When to use: </span>
                         {tmpl.whenToUse}
                       </div>
 
                       {/* Mandatory Limits Notice */}
-                      <div className="p-2 rounded-xl bg-surface-2/60 border border-border/70 text-[11px] text-text-muted leading-relaxed mb-4">
-                        Replies depend on your profile, timing and the company's hiring state. No template can guarantee one.
+                      <div className="p-2 rounded bg-black border border-charcoal text-[11px] text-silver leading-relaxed mb-4">
+                        Replies depend on your profile, timing and the company&apos;s hiring state. No template can guarantee one.
                       </div>
 
                       {/* Optional Review Status Line (renders only when filled) */}
                       {tmpl.reviewedBy?.name && tmpl.reviewedBy?.role && tmpl.reviewedBy?.date && (
-                        <div className="text-[11px] text-text-muted pb-3 border-b border-border/60">
+                        <div className="text-[11px] text-silver pb-3 border-b border-charcoal">
                           Reviewed by {tmpl.reviewedBy.name}, {tmpl.reviewedBy.role}, {tmpl.reviewedBy.date}
                         </div>
                       )}
                     </div>
 
                     {/* Card Actions Footer */}
-                    <div className="pt-3 border-t border-border flex items-center justify-between gap-2 flex-wrap">
+                    <div className="pt-3 border-t border-charcoal flex items-center justify-between gap-2 flex-wrap">
                       <Link
                         to="/tools/tracker"
-                        className="text-xs font-semibold text-text-secondary hover:text-text flex items-center gap-1"
+                        className="text-xs font-semibold text-silver hover:text-volt flex items-center gap-1"
                       >
-                        <Briefcase className="w-3.5 h-3.5 text-primary" />
+                        <Briefcase className="w-3.5 h-3.5 text-volt" />
                         Log in Tracker
                       </Link>
 
@@ -1399,14 +1395,14 @@ export function ReachOutPage() {
                         {/* Download as .txt */}
                         <button
                           onClick={() => handleDownloadSingle(tmpl, rendered.subject, bodyText)}
-                          className="px-3 py-1.5 rounded-xl bg-surface-2 hover:bg-surface-3 border border-border text-xs font-bold text-text hover:text-primary transition-colors cursor-pointer flex items-center gap-1.5"
+                          className="px-3 py-1.5 rounded bg-near-black hover:bg-hover-gray border border-charcoal text-xs font-bold text-white hover:text-volt transition-colors cursor-pointer flex items-center gap-1.5"
                           title="Download message as .txt"
                         >
-                          <Download className="w-3.5 h-3.5 text-text-muted" />
+                          <Download className="w-3.5 h-3.5 text-silver" />
                           Download
                         </button>
 
-                        {/* Copy to Clipboard */}
+                        {/* Copy to Clipboard (Forest button per guardrail) */}
                         <button
                           onClick={() =>
                             handleCopy(
@@ -1414,7 +1410,7 @@ export function ReachOutPage() {
                               rendered.subject ? `Subject: ${rendered.subject}\n\n${bodyText}` : bodyText
                             )
                           }
-                          className="px-4 py-1.5 rounded-xl bg-primary hover:bg-primary/90 text-white text-xs font-bold transition-all cursor-pointer shadow-xs inline-flex items-center gap-1.5"
+                          className="px-4 py-1.5 rounded bg-forest hover:bg-[#3a3a3a] text-white hover:text-pale-yellow text-xs font-bold border border-[#141414] transition-colors cursor-pointer inline-flex items-center gap-1.5 active:shadow-[inset_0_2px_4px_rgba(0,0,0,0.8)]"
                         >
                           {copiedId === copyKey ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
                           {copiedId === copyKey ? 'Copied!' : 'Copy to Clipboard'}
@@ -1429,38 +1425,38 @@ export function ReachOutPage() {
         </div>
 
         {/* ── Platform Rules Collapsible Section ── */}
-        <div className="mt-8 border border-border rounded-2xl bg-surface overflow-hidden shadow-2xs">
+        <div className="mt-8 border border-charcoal rounded-lg bg-near-black overflow-hidden">
           <button
             onClick={() => setShowPlatformRules((prev) => !prev)}
-            className="w-full flex items-center justify-between px-5 py-4 text-left hover:bg-surface-2 transition-colors cursor-pointer"
+            className="w-full flex items-center justify-between px-5 py-4 text-left hover:bg-hover-gray transition-colors cursor-pointer"
           >
             <div className="flex items-center gap-2.5">
-              <Shield className="w-4 h-4 text-primary" />
+              <Shield className="w-4 h-4 text-volt" />
               <div>
-                <span className="text-xs font-extrabold text-text">Platform rules</span>
-                <span className="text-[11px] text-text-muted ml-2">({PLATFORM_RULES.length} standards)</span>
+                <span className="text-xs font-black text-white">Platform rules</span>
+                <span className="text-[11px] text-silver ml-2">({PLATFORM_RULES.length} standards)</span>
               </div>
             </div>
-            <div className="flex items-center gap-2 text-xs font-bold text-text-secondary">
+            <div className="flex items-center gap-2 text-xs font-bold text-silver">
               <span>{showPlatformRules ? 'Hide rules' : 'View platform rules'}</span>
               {showPlatformRules ? (
-                <ChevronUp className="w-4 h-4 text-text-muted" />
+                <ChevronUp className="w-4 h-4 text-silver" />
               ) : (
-                <ChevronDown className="w-4 h-4 text-text-muted" />
+                <ChevronDown className="w-4 h-4 text-silver" />
               )}
             </div>
           </button>
 
           {showPlatformRules && (
-            <div className="border-t border-border p-5 bg-surface-2/30 divide-y divide-border/60">
+            <div className="border-t border-charcoal p-5 bg-black divide-y divide-charcoal">
               {PLATFORM_RULES.map((rule, idx) => (
                 <div
                   key={idx}
                   className="py-3 first:pt-0 last:pb-0 flex flex-col md:flex-row md:items-center md:justify-between gap-1.5 text-xs"
                 >
                   <div className="max-w-2xl">
-                    <div className="font-extrabold text-text">{rule.rule}</div>
-                    <div className="text-[11px] text-text-secondary mt-0.5">{rule.value}</div>
+                    <div className="font-bold text-white">{rule.rule}</div>
+                    <div className="text-[11px] text-silver mt-0.5">{rule.value}</div>
                   </div>
 
                   <div className="text-[11px] shrink-0">
@@ -1469,13 +1465,13 @@ export function ReachOutPage() {
                         href={rule.sourceUrl}
                         target="_blank"
                         rel="noreferrer"
-                        className="text-primary hover:underline font-bold inline-flex items-center gap-1"
+                        className="text-volt hover:underline font-bold inline-flex items-center gap-1"
                       >
                         {`Source: ${rule.sourceName}, last checked ${rule.lastCheckedDate}`}
                         <ExternalLink className="w-3 h-3" />
                       </a>
                     ) : (
-                      <span className="text-text-muted italic px-2 py-0.5 rounded bg-surface border border-border">
+                      <span className="text-silver italic px-2 py-0.5 rounded bg-near-black border border-charcoal">
                         Source pending
                       </span>
                     )}
@@ -1487,8 +1483,8 @@ export function ReachOutPage() {
         </div>
 
         {/* ── Honesty Footer (Strictly pre-written, client-side only) ── */}
-        <div className="mt-12 pt-6 border-t border-border text-center">
-          <p className="text-xs font-semibold text-text-muted">
+        <div className="mt-12 pt-6 border-t border-charcoal text-center">
+          <p className="text-xs font-semibold text-silver">
             Pre-written templates. Nothing you type leaves your browser.
           </p>
         </div>

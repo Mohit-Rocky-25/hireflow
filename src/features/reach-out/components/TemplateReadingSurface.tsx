@@ -86,38 +86,31 @@ export function TemplateReadingSurface({
 
   return (
     <article
-      className="w-full h-full flex flex-col bg-neutral-950 overflow-y-auto"
+      className="w-full h-full flex flex-col bg-black text-white overflow-y-auto"
       aria-label={`Outreach template reader: ${template.name}`}
     >
       {/* Reading Surface Container constrained to ~68ch */}
       <div className="w-full max-w-[68ch] mx-auto px-4 sm:px-8 py-8 flex-1 flex flex-col space-y-6">
         {/* Template Header & Metadata Badges */}
-        <header className="border-b border-neutral-800 pb-5 space-y-3">
+        <header className="border-b border-charcoal pb-5 space-y-3">
           <div className="flex flex-wrap items-center gap-2">
             {/* Channel badge */}
-            <span
-              className="px-2.5 py-0.5 rounded-full text-xs font-semibold border inline-flex items-center gap-1.5"
-              style={{
-                color: palette.text,
-                backgroundColor: palette.bg,
-                borderColor: palette.border,
-              }}
-            >
+            <span className="px-2.5 py-0.5 rounded text-xs font-mono font-semibold border border-charcoal bg-black text-volt inline-flex items-center gap-1.5">
               {palette.label}
             </span>
 
             {/* Recipient types */}
-            <span className="px-2.5 py-0.5 rounded-full text-xs font-medium bg-neutral-900 text-neutral-300 border border-neutral-800">
+            <span className="px-2.5 py-0.5 rounded text-xs font-mono bg-black text-silver border border-charcoal">
               For: {template.recipientTypes.join(', ')}
             </span>
 
             {/* Opening move badge */}
-            <span className="px-2 py-0.5 rounded text-[11px] font-mono text-neutral-400 bg-neutral-900/60 border border-neutral-800/80">
+            <span className="px-2 py-0.5 rounded text-[11px] font-mono text-silver bg-black border border-charcoal">
               Move: {template.openingMove}
             </span>
 
             {/* Ask type badge */}
-            <span className="px-2 py-0.5 rounded text-[11px] font-mono text-neutral-400 bg-neutral-900/60 border border-neutral-800/80">
+            <span className="px-2 py-0.5 rounded text-[11px] font-mono text-silver bg-black border border-charcoal">
               Ask: {template.askType}
             </span>
           </div>
@@ -126,7 +119,7 @@ export function TemplateReadingSurface({
             {template.name}
           </h1>
 
-          <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed">
+          <p className="text-xs sm:text-sm text-silver leading-relaxed">
             {template.intent}
           </p>
         </header>
@@ -134,16 +127,16 @@ export function TemplateReadingSurface({
         {/* Recipient Compatibility Warning (if incompatible) */}
         {!compatibility.isCompatible && (
           <div
-            className="p-3.5 rounded-xl bg-amber-950/40 border border-amber-600/40 text-amber-200 text-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 animate-fade-in"
+            className="p-3.5 rounded-lg bg-black border border-pale-yellow/40 text-pale-yellow text-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 animate-fade-in"
             role="alert"
           >
             <div className="flex items-start gap-2.5">
-              <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+              <AlertTriangle className="w-4 h-4 text-pale-yellow shrink-0 mt-0.5" />
               <div>
-                <strong className="font-semibold block text-amber-300">
+                <strong className="font-semibold block text-white font-mono uppercase">
                   Recipient Mismatch Detected
                 </strong>
-                <span className="text-amber-200/90">{compatibility.reason}</span>
+                <span className="text-silver">{compatibility.reason}</span>
               </div>
             </div>
 
@@ -151,7 +144,7 @@ export function TemplateReadingSurface({
               <button
                 type="button"
                 onClick={() => onSwitchTemplate(compatibility.suggestedTemplate!.id)}
-                className="px-3 py-1.5 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 font-semibold text-xs border border-amber-500/30 transition-colors shrink-0 inline-flex items-center gap-1.5 cursor-pointer"
+                className="px-3 py-1.5 rounded bg-black hover:border-volt text-volt font-mono font-semibold text-xs border border-charcoal transition-colors shrink-0 inline-flex items-center gap-1.5 cursor-pointer uppercase"
               >
                 <span>Switch to {compatibility.suggestedTemplate.name}</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -162,11 +155,11 @@ export function TemplateReadingSurface({
 
         {/* Subject Line Switcher (for Email & InMail templates) */}
         {template.subjects && template.subjects.length > 0 && (
-          <section className="bg-neutral-900/80 border border-neutral-800 rounded-xl p-3.5 space-y-2">
+          <section className="bg-[#141414] border border-charcoal rounded-lg p-3.5 space-y-2">
             <div className="flex items-center justify-between">
-              <div className="text-[11px] font-bold uppercase tracking-wider text-neutral-400 flex items-center gap-1.5">
+              <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-silver flex items-center gap-1.5">
                 <span>Subject Line</span>
-                <span className="text-neutral-500 font-normal lowercase">
+                <span className="text-silver/60 font-normal lowercase">
                   ({selectedSubjectIndex + 1} of {template.subjects.length} alternates)
                 </span>
               </div>
@@ -180,8 +173,8 @@ export function TemplateReadingSurface({
                     onClick={() => onSelectSubjectIndex(idx)}
                     className={`w-5 h-5 rounded text-[11px] font-mono flex items-center justify-center transition-colors cursor-pointer ${
                       selectedSubjectIndex === idx
-                        ? 'bg-neutral-800 text-blue-400 font-bold border border-blue-500/40'
-                        : 'text-neutral-400 hover:text-white bg-neutral-950/60'
+                        ? 'bg-black text-volt font-bold border border-volt'
+                        : 'text-silver hover:text-white bg-black/60 border border-charcoal'
                     }`}
                     title={`Use subject variation ${idx + 1}`}
                     aria-label={`Subject variation ${idx + 1}`}
@@ -193,12 +186,12 @@ export function TemplateReadingSurface({
                 <button
                   type="button"
                   onClick={handleCopySubject}
-                  className="ml-1 p-1 rounded hover:bg-neutral-800 text-neutral-400 hover:text-white transition-colors cursor-pointer"
+                  className="ml-1 p-1 rounded hover:bg-black text-silver hover:text-volt transition-colors cursor-pointer"
                   title="Copy subject line"
                   aria-label="Copy subject line"
                 >
                   {copiedSubject ? (
-                    <Check className="w-3.5 h-3.5 text-emerald-400" />
+                    <Check className="w-3.5 h-3.5 text-volt" />
                   ) : (
                     <Copy className="w-3.5 h-3.5" />
                   )}
@@ -215,9 +208,9 @@ export function TemplateReadingSurface({
 
         {/* Alternate Opener Switcher (if available) */}
         {template.altOpeners && template.altOpeners.length > 1 && (
-          <div className="flex items-center justify-between px-3 py-1.5 bg-neutral-900/40 border border-neutral-800/60 rounded-lg text-xs text-neutral-400">
-            <span className="text-[11px]">
-              Opener variation: <strong className="text-neutral-200">{selectedOpenerIndex + 1}</strong> of {template.altOpeners.length}
+          <div className="flex items-center justify-between px-3 py-1.5 bg-[#141414] border border-charcoal rounded text-xs text-silver">
+            <span className="text-[11px] font-mono">
+              Opener variation: <strong className="text-white">{selectedOpenerIndex + 1}</strong> of {template.altOpeners.length}
             </span>
             <div className="flex items-center gap-1">
               {template.altOpeners.map((_, idx) => (
@@ -225,10 +218,10 @@ export function TemplateReadingSurface({
                   key={idx}
                   type="button"
                   onClick={() => onSelectOpenerIndex(idx)}
-                  className={`px-2 py-0.5 rounded text-[11px] transition-colors cursor-pointer ${
+                  className={`px-2 py-0.5 rounded text-[11px] font-mono transition-colors cursor-pointer ${
                     selectedOpenerIndex === idx
-                      ? 'bg-neutral-800 text-white font-semibold border border-neutral-700'
-                      : 'text-neutral-500 hover:text-neutral-300'
+                      ? 'bg-black text-volt font-semibold border border-volt'
+                      : 'text-silver hover:text-white'
                   }`}
                 >
                   Var {idx + 1}
@@ -240,20 +233,20 @@ export function TemplateReadingSurface({
 
         {/* Competing Deadline Confirmation Gate (Template 10.4 safety requirement) */}
         {isCompetingDeadlineTemplate && (
-          <div className="p-4 rounded-xl bg-neutral-900 border border-neutral-800 space-y-3">
-            <div className="flex items-center gap-2 text-xs font-bold text-neutral-200">
-              <ShieldAlert className="w-4 h-4 text-amber-400" />
+          <div className="p-4 rounded-lg bg-[#141414] border border-charcoal space-y-3">
+            <div className="flex items-center gap-2 text-xs font-mono font-bold text-white uppercase">
+              <ShieldAlert className="w-4 h-4 text-pale-yellow" />
               <span>Anti-Fabrication Safety Gate</span>
             </div>
-            <label className="flex items-start gap-2.5 text-xs text-neutral-300 cursor-pointer">
+            <label className="flex items-start gap-2.5 text-xs text-silver cursor-pointer">
               <input
                 type="checkbox"
                 checked={isRealDeadlineConfirmed}
                 onChange={(e) => onToggleRealDeadlineConfirmed(e.target.checked)}
-                className="mt-0.5 rounded border-neutral-700 text-blue-500 focus:ring-blue-500 bg-neutral-950"
+                className="mt-0.5 rounded border-charcoal text-volt focus:ring-volt bg-black"
               />
               <span>
-                <strong>This is a real deadline.</strong> I verify that I hold an active written offer or official decision deadline with another employer. (HireFlow strictly forbids fabricating competing offers).
+                <strong className="text-white">This is a real deadline.</strong> I verify that I hold an active written offer or official decision deadline with another employer. (HireFlow strictly forbids fabricating competing offers).
               </span>
             </label>
           </div>
@@ -261,23 +254,23 @@ export function TemplateReadingSurface({
 
         {/* MAIN READING SURFACE: Real typography, 16-17px, line-height 1.6, preserved line breaks */}
         {isCompetingDeadlineTemplate && !isRealDeadlineConfirmed ? (
-          <div className="p-8 rounded-2xl bg-neutral-900/50 border border-neutral-800 text-center space-y-3">
-            <ShieldAlert className="w-8 h-8 text-neutral-500 mx-auto" />
-            <div className="text-sm font-semibold text-neutral-300">
+          <div className="p-8 rounded-lg bg-[#141414] border border-charcoal text-center space-y-3">
+            <ShieldAlert className="w-8 h-8 text-silver mx-auto" />
+            <div className="text-sm font-semibold text-white font-mono">
               Template Gated Behind Real Deadline Confirmation
             </div>
-            <p className="text-xs text-neutral-500 max-w-md mx-auto">
+            <p className="text-xs text-silver max-w-md mx-auto">
               Please check the box above to confirm you hold a genuine competing offer before accessing this template.
             </p>
           </div>
         ) : (
           <div
-            className="relative rounded-2xl bg-neutral-900/60 border border-neutral-800/90 p-5 sm:p-7 transition-all"
+            className="relative rounded-lg bg-[#141414] border border-charcoal p-5 sm:p-7 transition-all"
             style={{ minHeight: '260px' }}
           >
-            {/* Real typography: 16-17px proportional font, line-height 1.6, preserved line breaks */}
+            {/* Real typography: 16-17px proportional font, line-height 1.6, max width about 68ch */}
             <div
-              className="text-[16px] sm:text-[17px] leading-[1.65] font-sans text-neutral-100 whitespace-pre-wrap select-text"
+              className="text-[16px] sm:text-[17px] leading-[1.6] font-sans text-white whitespace-pre-wrap select-text max-w-[68ch]"
               style={{ wordBreak: 'break-word' }}
             >
               {bodyTokens.map((token, idx) => {
@@ -294,10 +287,10 @@ export function TemplateReadingSurface({
                     key={idx}
                     type="button"
                     onClick={() => onSelectSlotForEdit(slotKey)}
-                    className={`inline-flex items-center gap-1 mx-1 px-2 py-0.5 rounded text-[13px] sm:text-[14px] font-mono align-baseline transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-1 focus:ring-offset-neutral-950 ${
+                    className={`inline-flex items-center gap-1 mx-1 px-2 py-0.5 rounded text-[13px] sm:text-[14px] font-mono align-baseline transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-volt focus:ring-offset-1 focus:ring-offset-black ${
                       isUnresolved
-                        ? 'border border-dashed border-amber-500 bg-amber-500/15 text-amber-300 hover:bg-amber-500/25 font-semibold animate-pulse'
-                        : 'border border-amber-500/40 bg-amber-500/10 text-amber-200 hover:bg-amber-500/20'
+                        ? 'border border-dashed border-volt bg-[#141414] text-pale-yellow hover:bg-black font-semibold animate-pulse'
+                        : 'border border-volt bg-[#141414] text-pale-yellow hover:bg-black'
                     }`}
                     title={
                       isUnresolved
@@ -307,7 +300,7 @@ export function TemplateReadingSurface({
                     aria-label={`Slot ${slotKey}: ${token.value}`}
                   >
                     <span>{token.value}</span>
-                    <CornerDownRight className="w-3 h-3 opacity-60 shrink-0" />
+                    <CornerDownRight className="w-3 h-3 text-volt shrink-0" />
                   </button>
                 );
               })}
@@ -317,12 +310,12 @@ export function TemplateReadingSurface({
 
         {/* Safety Note banner at bottom of reading panel */}
         {template.riskNotes && template.riskNotes.length > 0 && (
-          <footer className="text-xs text-neutral-500 space-y-1 pt-2">
-            <div className="font-semibold text-neutral-400 flex items-center gap-1.5">
-              <Info className="w-3.5 h-3.5" />
+          <footer className="text-xs text-silver space-y-1 pt-2 font-mono">
+            <div className="font-semibold text-white flex items-center gap-1.5 uppercase">
+              <Info className="w-3.5 h-3.5 text-volt" />
               <span>Grounding & Tone Rules</span>
             </div>
-            <ul className="list-disc list-inside space-y-0.5 text-neutral-400 pl-1 text-[11px]">
+            <ul className="list-disc list-inside space-y-0.5 text-silver pl-1 text-[11px]">
               {template.riskNotes.map((note, idx) => (
                 <li key={idx}>{note}</li>
               ))}
