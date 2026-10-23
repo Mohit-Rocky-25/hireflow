@@ -22,6 +22,7 @@ import { SimulationFacts } from '../../features/suite/engine/simulateFix';
 import { DEMO_TALENTLENS_RESUME } from '../demo/useTalentLensStore';
 import { HonestyExplainerModal } from '../../components/common/HonestyExplainerModal';
 import { RealityFactorsPanel } from '../../components/common/RealityFactorsPanel';
+import { EligibilityCard } from '../../components/common/EligibilityCard';
 
 // ── Status Components ──
 function EligibilityBadge({ status }: { status: string }) {
@@ -489,6 +490,9 @@ export function TalentLens() {
 
           {/* Reality Factors (Stage 3D, Unscored) */}
           <RealityFactorsPanel className="my-6" />
+
+          {/* Eligibility Card (Stage 4, Advisory) */}
+          <EligibilityCard className="my-6" />
 
           {/* Tabs */}
           <div className="flex items-center gap-[4px] border-b border-border">

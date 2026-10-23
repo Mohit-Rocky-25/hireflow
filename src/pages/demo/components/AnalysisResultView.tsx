@@ -18,6 +18,7 @@ import { STATUS_CONFIG, TREND_COLOR, TREND_ICON } from '../talentLensData';
 import { HonestyExplainerModal } from '../../../components/common/HonestyExplainerModal';
 import { CalculationBreakdownCollapsible, CalculationDetails } from '../../../components/common/CalculationBreakdownCollapsible';
 import { RealityFactorsPanel } from '../../../components/common/RealityFactorsPanel';
+import { EligibilityCard } from '../../../components/common/EligibilityCard';
 
 export interface AnalysisResultViewProps {
   result: AnalysisResult;
@@ -143,6 +144,9 @@ export function AnalysisResultView({
 
         {/* Reality Factors (Stage 3D, Unscored) */}
         <RealityFactorsPanel className="my-4" />
+
+        {/* Eligibility Card (Stage 4, Advisory) */}
+        <EligibilityCard targetCompanyId={company.id} className="my-4" />
 
         {/* 8-Facet Quick Summary Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
