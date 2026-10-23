@@ -238,71 +238,6 @@ export function LandingPage() {
         </div>
       </section>
 
-      {/* Free Tools Cards (Symmetrical 3-Column Grid) */}
-      <section className="py-[100px] border-t border-border bg-slate-50/60">
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-[32px]">
-          <div className="text-center mb-[60px]">
-            <p className="text-[12px] font-bold text-primary uppercase tracking-[0.14em] mb-[12px]">Free Tools</p>
-            <h2 className="text-[38px] sm:text-[46px] font-black text-black tracking-[-0.03em] mb-[14px]">
-              Accelerate your career.
-            </h2>
-            <p className="text-[17px] sm:text-[18px] text-text-secondary max-w-[500px] mx-auto leading-relaxed">
-              Everything you need to land your next big role.
-            </p>
-          </div>
-
-          {/* Symmetrical 3-Column Layout with Premium Interactive Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 max-w-[1240px] mx-auto">
-            {TOOLS.map((role, i) => {
-              const Icon = role.icon;
-              return (
-                <Link
-                  key={i}
-                  to={role.link}
-                  className={`group relative rounded-3xl bg-white border border-slate-200/90 p-8 sm:p-9 flex flex-col justify-between shadow-xs hover:shadow-xl hover:-translate-y-2 active:scale-[0.985] transition-all duration-200 cursor-pointer overflow-hidden ${role.cardHoverStyle}`}
-                >
-                  {/* Subtle top glow bar on hover */}
-                  <div className={`absolute top-0 left-6 right-6 h-[3px] rounded-b-full bg-gradient-to-r ${role.accentGrad} opacity-0 group-hover:opacity-100 transition-opacity duration-200`} />
-
-                  <div>
-                    {/* Top row: Icon and Badge */}
-                    <div className="flex items-center justify-between gap-4 mb-7">
-                      <div className={`w-14 h-14 rounded-2xl border flex items-center justify-center transition-all duration-200 shadow-xs ${role.iconBoxStyle}`}>
-                        <Icon className="w-7 h-7 stroke-[2px]" />
-                      </div>
-                      <span className={`text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full border transition-colors ${role.badgeStyle}`}>
-                        {role.badge}
-                      </span>
-                    </div>
-
-                    {/* Title */}
-                    <h3 className="text-[24px] sm:text-[26px] font-black text-black mb-4 tracking-tight group-hover:text-primary transition-colors">
-                      {role.title}
-                    </h3>
-
-                    {/* Points list */}
-                    <ul className="space-y-3.5 mb-8">
-                      {role.points.map((p, j) => (
-                        <li key={j} className="flex items-start gap-3 text-[14px] sm:text-[15px] text-text-secondary font-medium leading-snug">
-                          <CheckCircle className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0 stroke-[2.2px]" />
-                          <span>{p}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* Interactive Button */}
-                  <div className={`w-full py-3.5 px-5 rounded-xl border border-slate-200/90 bg-slate-50 text-slate-800 text-[14px] font-bold flex items-center justify-between transition-all duration-200 shadow-2xs ${role.buttonStyle}`}>
-                    <span>{role.cta}</span>
-                    <ArrowRight className="w-4 h-4 stroke-[2.2px] group-hover:translate-x-1 transition-transform duration-200" />
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
       {/* Core Features (Symmetrical 3-Column Grid) */}
       <section id="features" className="py-[100px] border-t border-border bg-white relative">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-[32px] relative z-10">
@@ -411,6 +346,71 @@ export function LandingPage() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Free Tools Cards (Symmetrical 3-Column Grid) */}
+      <section className="py-[100px] border-t border-border bg-slate-50/60">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-[32px]">
+          <div className="text-center mb-[60px]">
+            <p className="text-[12px] font-bold text-primary uppercase tracking-[0.14em] mb-[12px]">Free Tools</p>
+            <h2 className="text-[38px] sm:text-[46px] font-black text-black tracking-[-0.03em] mb-[14px]">
+              Accelerate your career.
+            </h2>
+            <p className="text-[17px] sm:text-[18px] text-text-secondary max-w-[500px] mx-auto leading-relaxed">
+              Everything you need to land your next big role.
+            </p>
+          </div>
+
+          {/* Symmetrical 3-Column Layout with Premium Interactive Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 max-w-[1240px] mx-auto">
+            {TOOLS.map((role, i) => {
+              const Icon = role.icon;
+              return (
+                <Link
+                  key={i}
+                  to={role.link}
+                  className={`group relative rounded-3xl bg-white border border-slate-200/90 p-8 sm:p-9 flex flex-col justify-between shadow-xs hover:shadow-xl hover:-translate-y-2 active:scale-[0.985] transition-all duration-200 cursor-pointer overflow-hidden ${role.cardHoverStyle}`}
+                >
+                  {/* Subtle top glow bar on hover */}
+                  <div className={`absolute top-0 left-6 right-6 h-[3px] rounded-b-full bg-gradient-to-r ${role.accentGrad} opacity-0 group-hover:opacity-100 transition-opacity duration-200`} />
+
+                  <div>
+                    {/* Top row: Icon and Badge */}
+                    <div className="flex items-center justify-between gap-4 mb-7">
+                      <div className={`w-14 h-14 rounded-2xl border flex items-center justify-center transition-all duration-200 shadow-xs ${role.iconBoxStyle}`}>
+                        <Icon className="w-7 h-7 stroke-[2px]" />
+                      </div>
+                      <span className={`text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full border transition-colors ${role.badgeStyle}`}>
+                        {role.badge}
+                      </span>
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="text-[24px] sm:text-[26px] font-black text-black mb-4 tracking-tight group-hover:text-primary transition-colors">
+                      {role.title}
+                    </h3>
+
+                    {/* Points list */}
+                    <ul className="space-y-3.5 mb-8">
+                      {role.points.map((p, j) => (
+                        <li key={j} className="flex items-start gap-3 text-[14px] sm:text-[15px] text-text-secondary font-medium leading-snug">
+                          <CheckCircle className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0 stroke-[2.2px]" />
+                          <span>{p}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Interactive Button */}
+                  <div className={`w-full py-3.5 px-5 rounded-xl border border-slate-200/90 bg-slate-50 text-slate-800 text-[14px] font-bold flex items-center justify-between transition-all duration-200 shadow-2xs ${role.buttonStyle}`}>
+                    <span>{role.cta}</span>
+                    <ArrowRight className="w-4 h-4 stroke-[2.2px] group-hover:translate-x-1 transition-transform duration-200" />
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>
