@@ -28,15 +28,15 @@ export const ProvenanceBadge: React.FC<ProvenanceBadgeProps> = ({
     .join(' • ');
 
   const badgeStyles = {
-    verified: 'bg-emerald-950/80 text-emerald-400 border-emerald-700/50',
-    'needs-recheck': 'bg-amber-950/80 text-amber-300 border-amber-700/50',
-    unverified: 'bg-gray-800/80 text-gray-400 border-gray-700/50',
+    verified: 'bg-near-black text-volt border-volt/50',
+    'needs-recheck': 'bg-near-black text-pale-yellow border-pale-yellow/50',
+    unverified: 'bg-near-black text-silver border-charcoal',
   }[status];
 
   const dotColor = {
-    verified: 'bg-emerald-400',
-    'needs-recheck': 'bg-amber-400',
-    unverified: 'bg-gray-500',
+    verified: 'bg-volt',
+    'needs-recheck': 'bg-pale-yellow',
+    unverified: 'bg-silver',
   }[status];
 
   const label = {
@@ -49,7 +49,7 @@ export const ProvenanceBadge: React.FC<ProvenanceBadgeProps> = ({
     <span
       role="status"
       title={tooltipText}
-      className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-xs font-medium border transition-colors ${badgeStyles} ${className}`}
+      className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded text-[11px] font-semibold uppercase tracking-[1.2px] border transition-colors select-none ${badgeStyles} ${className}`}
     >
       <span className={`w-1.5 h-1.5 rounded-full ${dotColor}`} aria-hidden="true" />
       <span>{label}</span>
@@ -58,7 +58,7 @@ export const ProvenanceBadge: React.FC<ProvenanceBadgeProps> = ({
           href={sourceUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="ml-0.5 hover:underline opacity-80"
+          className="ml-0.5 text-white hover:text-volt transition-colors"
           aria-label={`Official source link for ${source || 'record'}`}
         >
           ↗

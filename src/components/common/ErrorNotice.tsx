@@ -1,4 +1,5 @@
 import React from 'react';
+import { AlertCircle } from 'lucide-react';
 
 export interface ErrorNoticeProps {
   title?: string;
@@ -16,17 +17,17 @@ export const ErrorNotice: React.FC<ErrorNoticeProps> = ({
   return (
     <div
       role="alert"
-      className={`p-4 bg-red-950/40 border border-red-800/60 rounded-xl text-red-200 text-xs space-y-2 ${className}`}
+      className={`p-4 bg-near-black border border-danger/60 rounded-lg text-white space-y-2 ${className}`}
     >
       <div className="flex items-center gap-2">
-        <span className="w-2 h-2 rounded-full bg-red-400" aria-hidden="true" />
-        <h5 className="font-semibold text-red-100">{title}</h5>
+        <AlertCircle className="w-4 h-4 text-danger shrink-0 stroke-[1.5px]" aria-hidden="true" />
+        <h5 className="font-bold text-[14px] text-danger">{title}</h5>
       </div>
-      <p className="text-red-300/90 leading-relaxed">{message}</p>
+      <p className="text-[13px] text-silver leading-relaxed">{message}</p>
       {onRetry && (
         <button
           onClick={onRetry}
-          className="mt-2 px-2.5 py-1 text-xs font-medium text-white bg-red-900/80 hover:bg-red-800 rounded-md border border-red-700/50 transition-colors"
+          className="mt-2 inline-flex items-center gap-1.5 px-3 py-1.5 text-[12px] font-semibold text-white bg-near-black hover:bg-hover-gray border border-charcoal hover:border-volt hover:text-volt rounded transition-colors active:text-pale-yellow active:shadow-inset focus-visible:outline-2 focus-visible:outline-volt"
         >
           Try Again
         </button>

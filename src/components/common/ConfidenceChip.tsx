@@ -12,12 +12,12 @@ export const ConfidenceChip: React.FC<ConfidenceChipProps> = ({
   className = '',
 }) => {
   const styles = {
-    high: 'bg-emerald-950/70 text-emerald-300 border-emerald-600/40',
-    medium: 'bg-amber-950/70 text-amber-300 border-amber-600/40',
-    low: 'bg-gray-800/80 text-gray-300 border-gray-600/40',
+    high: 'bg-near-black text-volt border border-volt/60',
+    medium: 'bg-near-black text-pale-yellow border border-pale-yellow/60',
+    low: 'bg-near-black text-silver border border-charcoal',
   }[confidence];
 
-  const sizeStyles = size === 'sm' ? 'px-1.5 py-0.5 text-[10px]' : 'px-2 py-0.5 text-xs';
+  const sizeStyles = size === 'sm' ? 'px-2 py-0.5 text-[10px]' : 'px-2.5 py-0.5 text-[11px]';
 
   const label = {
     high: 'High Confidence',
@@ -27,7 +27,7 @@ export const ConfidenceChip: React.FC<ConfidenceChipProps> = ({
 
   return (
     <span
-      className={`inline-flex items-center font-medium rounded-md border tracking-wide uppercase ${styles} ${sizeStyles} ${className}`}
+      className={`inline-flex items-center font-semibold rounded uppercase tracking-[1.2px] select-none ${styles} ${sizeStyles} ${className}`}
       aria-label={`Confidence level: ${confidence}`}
     >
       {label}

@@ -1,5 +1,5 @@
 /**
- * HireFlow v4: Drawer Component (X1.7)
+ * HireFlow: Drawer Component (High-Contrast Dark System)
  * Slide-over drawer on desktop (right panel) and bottom sheet on mobile (<640px).
  * Features: focus trap, Esc to close, focus restoration, backdrop dismiss, accessible ARIA attributes.
  */
@@ -35,7 +35,6 @@ export function Drawer({
     if (isOpen) {
       previouslyFocusedElement.current = document.activeElement as HTMLElement;
 
-      // Focus drawer or first focusable element
       const timer = setTimeout(() => {
         if (drawerRef.current) {
           const focusable = drawerRef.current.querySelectorAll<HTMLElement>(
@@ -49,7 +48,6 @@ export function Drawer({
         }
       }, 50);
 
-      // Lock body scroll
       document.body.style.overflow = 'hidden';
 
       return () => {
@@ -63,7 +61,6 @@ export function Drawer({
     }
   }, [isOpen]);
 
-  // Handle Escape key and focus trap
   useEffect(() => {
     if (!isOpen) return;
 
@@ -112,7 +109,7 @@ export function Drawer({
     >
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-black/70 backdrop-blur-sm transition-opacity"
+        className="fixed inset-0 bg-black/80 transition-opacity"
         onClick={onClose}
         aria-hidden="true"
       />
@@ -121,28 +118,28 @@ export function Drawer({
       <div
         ref={drawerRef}
         tabIndex={-1}
-        className={`relative z-10 flex w-full flex-col bg-slate-900 border-slate-800 text-slate-100 shadow-2xl transition-transform duration-300 ease-in-out
-          max-sm:mt-auto max-sm:max-h-[85vh] max-sm:rounded-t-2xl max-sm:border-t
+        className={`relative z-10 flex w-full flex-col bg-black border-charcoal text-white shadow-level-3 transition-transform duration-150 ease-out
+          max-sm:mt-auto max-sm:max-h-[85vh] max-sm:rounded-t-lg max-sm:border-t
           sm:h-full sm:border-l ${widthClass}`}
       >
         {/* Mobile handle indicator */}
         <div className="sm:hidden flex justify-center pt-3 pb-1">
-          <div className="w-12 h-1.5 rounded-full bg-slate-700" />
+          <div className="w-12 h-1 rounded-full bg-charcoal" />
         </div>
 
         {/* Header */}
-        <div className="flex items-start justify-between border-b border-slate-800 px-6 py-4">
+        <div className="flex items-start justify-between border-b border-charcoal px-6 py-4">
           <div>
-            <h2 className="text-lg font-semibold text-white tracking-tight">{title}</h2>
-            {description && <p className="mt-1 text-xs text-slate-400">{description}</p>}
+            <h2 className="text-[18px] font-bold text-white tracking-tight">{title}</h2>
+            {description && <p className="mt-1 text-xs text-silver">{description}</p>}
           </div>
           <button
             type="button"
             onClick={onClose}
             aria-label="Close panel"
-            className="rounded-lg p-2 text-slate-400 hover:bg-slate-800 hover:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="rounded p-2 text-silver hover:bg-hover-gray hover:text-volt focus-visible:outline-2 focus-visible:outline-volt"
           >
-            <X className="h-5 w-5" />
+            <X className="h-5 w-5 stroke-[1.5px]" />
           </button>
         </div>
 
@@ -153,7 +150,7 @@ export function Drawer({
 
         {/* Footer if provided */}
         {footer && (
-          <div className="border-t border-slate-800 px-6 py-4 bg-slate-950/50">
+          <div className="border-t border-charcoal px-6 py-4 bg-near-black">
             {footer}
           </div>
         )}

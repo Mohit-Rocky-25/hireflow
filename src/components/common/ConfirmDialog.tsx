@@ -1,5 +1,5 @@
 /**
- * HireFlow v4: ConfirmDialog Component (X1.7)
+ * HireFlow: ConfirmDialog Component (High-Contrast Dark System)
  * Accessible modal dialog for user confirmation with support for destructive actions
  * and required typed verification strings (e.g. typing "CLEAR" to erase data).
  */
@@ -64,7 +64,6 @@ export function ConfirmDialog({
     }
   }, [isOpen]);
 
-  // Escape key handler
   useEffect(() => {
     if (!isOpen) return;
 
@@ -93,7 +92,7 @@ export function ConfirmDialog({
     >
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-black/75 backdrop-blur-sm transition-opacity"
+        className="fixed inset-0 bg-black/80 transition-opacity"
         onClick={onCancel}
         aria-hidden="true"
       />
@@ -102,33 +101,33 @@ export function ConfirmDialog({
       <div
         ref={dialogRef}
         tabIndex={-1}
-        className="relative z-10 w-full max-w-md rounded-xl border border-slate-800 bg-slate-900 p-6 text-slate-100 shadow-2xl transition-all"
+        className="relative z-10 w-full max-w-md rounded-lg border border-charcoal bg-black p-6 text-white shadow-level-3 animate-fade-in"
       >
         <div className="flex items-start gap-4">
           {isDestructive && (
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-rose-500/20 text-rose-400">
-              <AlertTriangle className="h-5 w-5" />
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded bg-near-black border border-danger/60 text-danger">
+              <AlertTriangle className="h-5 w-5 stroke-[1.5px]" />
             </div>
           )}
           <div className="flex-1">
-            <h3 className="text-lg font-semibold text-white tracking-tight">{title}</h3>
-            <p className="mt-2 text-sm text-slate-300 leading-relaxed">{message}</p>
+            <h3 className="text-[18px] font-bold text-white tracking-tight">{title}</h3>
+            <p className="mt-2 text-sm text-silver leading-relaxed">{message}</p>
           </div>
           <button
             type="button"
             onClick={onCancel}
             aria-label="Close dialog"
-            className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-800 hover:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="rounded p-1.5 text-silver hover:bg-hover-gray hover:text-volt focus-visible:outline-2 focus-visible:outline-volt"
           >
-            <X className="h-4 w-4" />
+            <X className="h-4 w-4 stroke-[1.5px]" />
           </button>
         </div>
 
         {/* Required typed input verification */}
         {requiredConfirmationWord && (
-          <div className="mt-4 rounded-lg bg-slate-950/70 p-3 border border-slate-800">
-            <label htmlFor="confirm-typed-input" className="block text-xs font-medium text-slate-300">
-              To proceed, please type <strong className="text-rose-400 font-mono">{requiredConfirmationWord}</strong> below:
+          <div className="mt-4 rounded bg-near-black p-3.5 border border-charcoal">
+            <label htmlFor="confirm-typed-input" className="block text-xs font-semibold uppercase tracking-[1.2px] text-silver">
+              To proceed, please type <strong className="text-danger font-mono font-bold">{requiredConfirmationWord}</strong> below:
             </label>
             <input
               id="confirm-typed-input"
@@ -136,7 +135,7 @@ export function ConfirmDialog({
               value={typedInput}
               onChange={(e) => setTypedInput(e.target.value)}
               placeholder={requiredConfirmationWord}
-              className="mt-2 w-full rounded-md border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-white placeholder-slate-500 focus:border-rose-500 focus:outline-none focus:ring-1 focus:ring-rose-500"
+              className="mt-2 w-full rounded border border-charcoal bg-black px-3.5 py-2 text-sm text-white placeholder:text-silver/50 focus:border-danger focus:outline-none focus:ring-1 focus:ring-danger"
             />
           </div>
         )}
@@ -146,7 +145,7 @@ export function ConfirmDialog({
           <button
             type="button"
             onClick={onCancel}
-            className="rounded-lg border border-slate-700 bg-slate-800 px-4 py-2 text-sm font-medium text-slate-200 hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-400"
+            className="rounded border border-charcoal bg-near-black px-4 py-2 text-sm font-semibold text-white hover:bg-hover-gray active:text-pale-yellow active:shadow-inset focus-visible:outline-2 focus-visible:outline-volt"
           >
             {cancelText}
           </button>
@@ -158,10 +157,10 @@ export function ConfirmDialog({
                 onConfirm();
               }
             }}
-            className={`rounded-lg px-4 py-2 text-sm font-medium text-white transition-opacity focus:outline-none focus:ring-2 ${
+            className={`rounded px-4 py-2 text-sm font-semibold transition-colors disabled:opacity-40 disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-volt active:shadow-inset ${
               isDestructive
-                ? 'bg-rose-600 hover:bg-rose-500 focus:ring-rose-500 disabled:opacity-40'
-                : 'bg-emerald-600 hover:bg-emerald-500 focus:ring-emerald-500 disabled:opacity-40'
+                ? 'bg-near-black text-danger border border-danger/80 hover:bg-danger/20 active:text-pale-yellow'
+                : 'bg-forest text-white border border-[#141414] hover:bg-hover-gray active:text-pale-yellow'
             }`}
           >
             {confirmText}

@@ -1,7 +1,7 @@
 // ============================================================
 // Career Trajectory Navigation Header & Back Button Component
-// Accessible, responsive, pinned above sticky headers with 44px touch targets
-// Matches the dark design system of the Career Trajectory section
+// Accessible, responsive, pinned with 44px touch targets
+// High-Contrast Dark System with Inset Pressed Depth
 // ============================================================
 
 import React from 'react';
@@ -25,7 +25,7 @@ export function CareerPathBackButton({
 
   return (
     <div
-      className={`w-full bg-neutral-900/90 backdrop-blur-md border-b border-neutral-800/80 z-40 transition-colors ${className}`}
+      className={`w-full bg-black border-b border-charcoal z-40 transition-colors ${className}`}
       role="navigation"
       aria-label="Career Trajectory Navigation"
     >
@@ -34,10 +34,10 @@ export function CareerPathBackButton({
           {isHub ? (
             <Link
               to="/"
-              className="inline-flex items-center gap-2 px-3.5 py-2 text-sm font-semibold text-neutral-200 hover:text-white bg-neutral-800 hover:bg-neutral-700 border border-neutral-700/60 rounded-lg transition-colors min-h-[44px] min-w-[44px] focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:outline-none"
+              className="inline-flex items-center gap-2 px-3.5 py-2 text-sm font-semibold text-white bg-near-black hover:bg-hover-gray border border-charcoal rounded transition-colors min-h-[44px] min-w-[44px] active:text-pale-yellow active:shadow-inset focus-visible:outline-2 focus-visible:outline-volt"
               aria-label="Back to HireFlow Home"
             >
-              <ArrowLeft className="w-4 h-4 text-neutral-300" aria-hidden="true" />
+              <ArrowLeft className="w-4 h-4 text-silver stroke-[1.5px]" aria-hidden="true" />
               <span>Back to Home</span>
             </Link>
           ) : (
@@ -45,39 +45,39 @@ export function CareerPathBackButton({
               <button
                 type="button"
                 onClick={() => navigate('/tools/career-path')}
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 text-sm font-semibold text-neutral-200 hover:text-white bg-neutral-800 hover:bg-neutral-700 border border-neutral-700/60 rounded-lg transition-colors min-h-[44px] min-w-[44px] cursor-pointer focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:outline-none"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 text-sm font-semibold text-white bg-near-black hover:bg-hover-gray border border-charcoal rounded transition-colors min-h-[44px] min-w-[44px] cursor-pointer active:text-pale-yellow active:shadow-inset focus-visible:outline-2 focus-visible:outline-volt"
                 aria-label="Back to Career Trajectory Hub"
               >
-                <ArrowLeft className="w-4 h-4 text-neutral-300" aria-hidden="true" />
+                <ArrowLeft className="w-4 h-4 text-silver stroke-[1.5px]" aria-hidden="true" />
                 <span>Back</span>
               </button>
 
               <Link
                 to="/"
-                className="inline-flex items-center justify-center p-2.5 text-neutral-200 hover:text-white bg-neutral-800 hover:bg-neutral-700 border border-neutral-700/60 rounded-lg transition-colors min-h-[44px] min-w-[44px] focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:outline-none"
+                className="inline-flex items-center justify-center p-2.5 text-white bg-near-black hover:bg-hover-gray border border-charcoal rounded transition-colors min-h-[44px] min-w-[44px] active:text-pale-yellow active:shadow-inset focus-visible:outline-2 focus-visible:outline-volt"
                 aria-label="Go to Home"
                 title="Go to Home"
               >
-                <Home className="w-4 h-4 text-neutral-300" aria-hidden="true" />
+                <Home className="w-4 h-4 text-silver stroke-[1.5px]" aria-hidden="true" />
               </Link>
             </div>
           )}
 
           {/* Breadcrumb for sub-pages */}
           {!isHub && (
-            <nav className="hidden sm:flex items-center gap-1.5 text-xs font-medium text-neutral-400 pl-2 border-l border-neutral-700" aria-label="Breadcrumb">
-              <Link to="/" className="hover:text-white transition-colors">
-                HireFlow
+            <nav className="hidden sm:flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[1.2px] text-silver pl-2 border-l border-charcoal" aria-label="Breadcrumb">
+              <Link to="/" className="text-silver hover:text-volt transition-colors">
+                HIREFLOW
               </Link>
-              <ChevronRight className="w-3.5 h-3.5 text-neutral-500" aria-hidden="true" />
-              <Link to="/tools/career-path" className="hover:text-white transition-colors">
-                Career Trajectory
+              <ChevronRight className="w-3.5 h-3.5 text-silver/60 stroke-[1.5px]" aria-hidden="true" />
+              <Link to="/tools/career-path" className="text-silver hover:text-volt transition-colors">
+                CAREER TRAJECTORY
               </Link>
               {currentPageTitle && (
                 <>
-                  <ChevronRight className="w-3.5 h-3.5 text-neutral-500" aria-hidden="true" />
-                  <span className="text-white font-semibold truncate max-w-[200px] md:max-w-xs" aria-current="page">
-                    {currentPageTitle}
+                  <ChevronRight className="w-3.5 h-3.5 text-silver/60 stroke-[1.5px]" aria-hidden="true" />
+                  <span className="text-white font-bold truncate max-w-[200px] md:max-w-xs" aria-current="page">
+                    {currentPageTitle.toUpperCase()}
                   </span>
                 </>
               )}
@@ -87,8 +87,8 @@ export function CareerPathBackButton({
 
         {/* Region & Market Badge */}
         <div className="flex items-center gap-2">
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold rounded-full bg-emerald-950/60 text-emerald-300 border border-emerald-800/80">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" aria-hidden="true"></span>
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold uppercase tracking-[1.4px] rounded-full bg-near-black text-volt border border-volt/40">
+            <span className="w-1.5 h-1.5 rounded-full bg-volt" aria-hidden="true"></span>
             India Market • INR (₹)
           </span>
         </div>

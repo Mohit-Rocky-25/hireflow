@@ -1,6 +1,6 @@
 /**
- * HireFlow v4: Tag / Badge Component (X1.7)
- * Consistent dark-theme status badges with high WCAG contrast and semantic icons.
+ * HireFlow: Tag / Badge Component (High-Contrast Dark System)
+ * Consistent dark-theme status badges with high WCAG contrast and sharp 4px corners.
  */
 
 import React from 'react';
@@ -24,14 +24,14 @@ export interface TagProps {
 }
 
 const VARIANT_STYLES: Record<TagVariant, string> = {
-  default: 'bg-slate-800 border-slate-700 text-slate-300',
-  verified: 'bg-emerald-950/60 border-emerald-700/60 text-emerald-300',
-  'needs-recheck': 'bg-amber-950/60 border-amber-700/60 text-amber-300',
-  unverified: 'bg-slate-900 border-slate-700 text-slate-400',
-  success: 'bg-emerald-950/60 border-emerald-700/60 text-emerald-300',
-  warning: 'bg-amber-950/60 border-amber-700/60 text-amber-300',
-  danger: 'bg-rose-950/60 border-rose-700/60 text-rose-300',
-  info: 'bg-sky-950/60 border-sky-700/60 text-sky-300',
+  default: 'bg-near-black border-charcoal text-silver',
+  verified: 'bg-near-black border-volt/50 text-volt',
+  'needs-recheck': 'bg-near-black border-pale-yellow/50 text-pale-yellow',
+  unverified: 'bg-near-black border-charcoal text-silver',
+  success: 'bg-near-black border-volt/50 text-volt',
+  warning: 'bg-near-black border-pale-yellow/50 text-pale-yellow',
+  danger: 'bg-near-black border-danger/60 text-danger',
+  info: 'bg-near-black border-charcoal text-silver',
 };
 
 export function Tag({
@@ -41,11 +41,11 @@ export function Tag({
   icon,
   className = '',
 }: TagProps) {
-  const sizeClass = size === 'sm' ? 'px-2 py-0.5 text-xs' : 'px-2.5 py-1 text-xs font-medium';
+  const sizeClass = size === 'sm' ? 'px-2 py-0.5 text-[10px]' : 'px-2.5 py-1 text-[11px] font-semibold';
 
   return (
     <span
-      className={`inline-flex items-center gap-1 rounded-md border ${sizeClass} ${VARIANT_STYLES[variant]} ${className}`}
+      className={`inline-flex items-center gap-1.5 rounded border uppercase tracking-[1.2px] select-none ${sizeClass} ${VARIANT_STYLES[variant]} ${className}`}
     >
       {icon && <span className="shrink-0">{icon}</span>}
       <span>{children}</span>

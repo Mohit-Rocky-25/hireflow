@@ -1,5 +1,5 @@
 // ============================================================
-// HireFlow — Source Chip Component (Stage 3F)
+// HireFlow — Source Chip Component (High-Contrast Dark System)
 // Visual provenance indicator for market claims, requirements, and cutoffs
 // ============================================================
 
@@ -29,53 +29,53 @@ export function SourceChip({
   if (isPending) {
     return (
       <span
-        className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-surface-2 text-text-muted border border-border/80 ${className}`}
+        className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-semibold uppercase tracking-[1.2px] bg-near-black text-silver border border-charcoal ${className}`}
         title="Source pending: this signal is an empirical estimate awaiting primary employer documentation."
       >
-        <HelpCircle className="w-2.5 h-2.5 text-text-muted" />
+        <HelpCircle className="w-3 h-3 text-silver stroke-[1.5px]" />
         <span>Source pending</span>
         {lastReviewed && <span className="opacity-75">· rev. {lastReviewed}</span>}
       </span>
     );
   }
 
-  let badgeStyle = 'bg-slate-800/80 text-slate-300 border-slate-700';
+  let badgeStyle = 'bg-near-black text-silver border-charcoal';
   let label = 'Reported';
   let Icon = Newspaper;
 
   switch (kind) {
     case 'official-requirement':
-      badgeStyle = 'bg-emerald-950/60 text-emerald-300 border-emerald-800/80';
+      badgeStyle = 'bg-near-black text-volt border-volt/50';
       label = 'Official';
       Icon = ShieldCheck;
       break;
     case 'company-published':
-      badgeStyle = 'bg-blue-950/60 text-blue-300 border-blue-800/80';
+      badgeStyle = 'bg-near-black text-volt border-volt/50';
       label = 'Company-published';
       Icon = CheckCircle2;
       break;
     case 'community-reported':
-      badgeStyle = 'bg-amber-950/60 text-amber-300 border-amber-800/80';
+      badgeStyle = 'bg-near-black text-pale-yellow border-pale-yellow/50';
       label = 'Reported';
       Icon = Newspaper;
       break;
     case 'editorial-opinion':
-      badgeStyle = 'bg-purple-950/60 text-purple-300 border-purple-800/80';
+      badgeStyle = 'bg-near-black text-silver border-charcoal';
       label = 'Opinion';
       Icon = HelpCircle;
       break;
     default:
-      badgeStyle = 'bg-slate-800/80 text-slate-300 border-slate-700';
+      badgeStyle = 'bg-near-black text-silver border-charcoal';
       label = 'Estimate';
   }
 
   const content = (
-    <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold border ${badgeStyle} ${className}`}>
-      <Icon className="w-2.5 h-2.5" />
+    <span className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-semibold uppercase tracking-[1.2px] border ${badgeStyle} ${className}`}>
+      <Icon className="w-3 h-3 stroke-[1.5px]" />
       <span>{label}</span>
-      {sourceName && <span className="max-w-[130px] truncate opacity-85">({sourceName})</span>}
+      {sourceName && <span className="max-w-[130px] truncate opacity-90">({sourceName})</span>}
       {lastReviewed && <span className="opacity-75">· {lastReviewed}</span>}
-      {sourceUrl && <ExternalLink className="w-2.5 h-2.5 opacity-80" />}
+      {sourceUrl && <ExternalLink className="w-3 h-3 opacity-80 stroke-[1.5px]" />}
     </span>
   );
 

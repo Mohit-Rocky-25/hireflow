@@ -1,7 +1,7 @@
 // ============================================================
-// HireFlow — Toast Notification System
+// HireFlow — Toast Notification System (High-Contrast Dark System)
 // ============================================================
-import { useState, useEffect, createContext, useContext, useCallback } from 'react';
+import React, { useState, useEffect, createContext, useContext, useCallback } from 'react';
 import { CheckCircle, AlertCircle, AlertTriangle, Info, X } from 'lucide-react';
 
 type ToastType = 'success' | 'error' | 'warning' | 'info';
@@ -36,36 +36,31 @@ export function ToastContainer() {
   const [toasts, setToasts] = useState<Toast[]>([]);
 
   const addToast = useCallback((type: ToastType, message: string, duration = 4000) => {
-    const id = Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
-    setToasts(prev => [...prev, { id, type, message, duration }]);
+    const id = Date.now().toString(36) + Math.random().toString(36).substring(2, 7);
+    setToasts((prev) => [...prev, { id, type, message, duration }]);
     if (duration > 0) {
       setTimeout(() => {
-        setToasts(prev => prev.filter(t => t.id !== id));
+        setToasts((prev) => prev.filter((t) => t.id !== id));
       }, duration);
     }
   }, []);
 
   useEffect(() => {
     globalAddToast = addToast;
-    return () => { globalAddToast = null; };
+    return () => {
+      globalAddToast = null;
+    };
   }, [addToast]);
 
   const removeToast = (id: string) => {
-    setToasts(prev => prev.filter(t => t.id !== id));
+    setToasts((prev) => prev.filter((t) => t.id !== id));
   };
 
   const icons: Record<ToastType, React.ReactNode> = {
-    success: <CheckCircle className="w-5 h-5 text-success" />,
-    error: <AlertCircle className="w-5 h-5 text-danger" />,
-    warning: <AlertTriangle className="w-5 h-5 text-warning" />,
-    info: <Info className="w-5 h-5 text-primary" />,
-  };
-
-  const bgColors: Record<ToastType, string> = {
-    success: 'bg-green-50 border-green-200',
-    error: 'bg-red-50 border-red-200',
-    warning: 'bg-amber-50 border-amber-200',
-    info: 'bg-blue-50 border-blue-200',
+    success: <CheckCircle className="w-5 h-5 text-volt shrink-0 stroke-[1.5px]" />,
+    error: <AlertCircle className="w-5 h-5 text-danger shrink-0 stroke-[1.5px]" />,
+    warning: <AlertTriangle className="w-5 h-5 text-pale-yellow shrink-0 stroke-[1.5px]" />,
+    info: <Info className="w-5 h-5 text-silver shrink-0 stroke-[1.5px]" />,
   };
 
   if (toasts.length === 0) return null;
@@ -75,20 +70,21 @@ export function ToastContainer() {
       role="region"
       aria-label="Notifications"
       aria-live="polite"
-      className="fixed bottom-6 right-6 z-[9999] flex flex-col gap-3 max-w-sm"
+      className="fixed bottom-6 right-6 z-[9999] flex flex-col gap-3 max-w-sm w-full"
     >
-      {toasts.map(t => (
+      {toasts.map((t) => (
         <div
           key={t.id}
-          className={`flex items-start gap-3 px-4 py-3 rounded-btn border shadow-dropdown animate-slide-up ${bgColors[t.type]}`}
+          className="flex items-start gap-3 px-4 py-3 bg-near-black rounded border border-charcoal shadow-level-3 animate-fade-in text-white"
         >
           <span className="mt-0.5 shrink-0">{icons[t.type]}</span>
-          <p className="text-sm text-foreground flex-1">{t.message}</p>
+          <p className="text-sm text-white flex-1 font-sans">{t.message}</p>
           <button
             onClick={() => removeToast(t.id)}
-            className="shrink-0 p-0.5 rounded hover:bg-black/5 transition-colors"
+            aria-label="Close notification"
+            className="shrink-0 p-1 rounded text-silver hover:text-volt transition-colors"
           >
-            <X className="w-4 h-4 text-muted" />
+            <X className="w-4 h-4 stroke-[1.5px]" />
           </button>
         </div>
       ))}

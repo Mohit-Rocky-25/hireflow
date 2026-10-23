@@ -1,5 +1,5 @@
 /**
- * HireFlow v4: SegmentedControl Component (X1.7)
+ * HireFlow: SegmentedControl Component (High-Contrast Dark System)
  * Keyboard-navigable segmented button group for tabs, variants, and filters.
  */
 
@@ -32,7 +32,7 @@ export function SegmentedControl<T extends string = string>({
     <div
       role="radiogroup"
       aria-label={ariaLabel || name}
-      className={`inline-flex rounded-lg border border-slate-800 bg-slate-950/80 p-1 text-slate-300 ${
+      className={`inline-flex rounded border border-charcoal bg-near-black p-1 text-silver ${
         size === 'sm' ? 'text-xs' : 'text-sm'
       }`}
     >
@@ -46,12 +46,12 @@ export function SegmentedControl<T extends string = string>({
             aria-checked={isSelected}
             tabIndex={isSelected ? 0 : -1}
             onClick={() => onChange(opt.value)}
-            className={`flex items-center gap-1.5 rounded-md font-medium transition-all focus:outline-none focus:ring-2 focus:ring-emerald-500 ${
-              size === 'sm' ? 'px-2.5 py-1' : 'px-3 py-1.5'
+            className={`flex items-center gap-1.5 rounded font-semibold uppercase tracking-[1.2px] transition-colors focus-visible:outline-2 focus-visible:outline-volt ${
+              size === 'sm' ? 'px-3 py-1 text-[11px]' : 'px-4 py-1.5 text-[12px]'
             } ${
               isSelected
-                ? 'bg-slate-800 text-white shadow-sm'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900/60'
+                ? 'bg-black text-volt border border-volt/60 shadow-inset'
+                : 'text-silver hover:text-white hover:bg-hover-gray border border-transparent active:text-pale-yellow'
             }`}
           >
             {opt.icon && <span className="shrink-0">{opt.icon}</span>}

@@ -19,21 +19,21 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
 }) => {
   return (
     <div
-      className={`flex flex-col items-center justify-center p-8 text-center bg-gray-900/40 border border-gray-800 rounded-xl space-y-3 ${className}`}
+      className={`flex flex-col items-center justify-center p-8 text-center bg-near-black border border-charcoal rounded-lg space-y-3 ${className}`}
     >
       {icon ? (
-        <div className="text-gray-400 mb-1">{icon}</div>
+        <div className="text-silver mb-1 stroke-[1.5px]">{icon}</div>
       ) : (
-        <div className="w-10 h-10 rounded-full bg-gray-800/80 flex items-center justify-center text-gray-400 text-lg mb-1">
+        <div className="w-10 h-10 rounded bg-black border border-charcoal flex items-center justify-center text-silver text-lg mb-1">
           📁
         </div>
       )}
-      <h4 className="text-sm font-semibold text-gray-200">{title}</h4>
-      <p className="text-xs text-gray-400 max-w-sm leading-relaxed">{message}</p>
+      <h4 className="text-[16px] font-bold text-white">{title}</h4>
+      <p className="text-[14px] text-silver max-w-sm leading-relaxed">{message}</p>
       {actionLabel && onAction && (
         <button
           onClick={onAction}
-          className="mt-2 px-3 py-1.5 text-xs font-medium text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg transition-colors focus:ring-2 focus:ring-indigo-400 focus:outline-none"
+          className="mt-2 px-4 py-2 text-[13px] font-bold text-text-on-accent bg-volt hover:bg-[#1d1d1d] hover:text-white border border-volt rounded transition-colors active:text-pale-yellow active:shadow-inset focus-visible:outline-2 focus-visible:outline-volt"
         >
           {actionLabel}
         </button>
