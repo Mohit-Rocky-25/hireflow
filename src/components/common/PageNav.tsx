@@ -8,13 +8,25 @@ interface PageNavProps {
   preferFallback?: boolean;
 }
 
-export function PageNav({ onBack, fallbackRoute = '/tools', preferFallback = true }: PageNavProps) {
+export function PageNav({ onBack, fallbackRoute = '/tools', preferFallback = false }: PageNavProps) {
   const navigate = useNavigate();
   const location = useLocation();
 
   const handleBack = () => {
     if (onBack) {
       onBack();
+      return;
+    }
+
+    // Top-level tools hub goes back directly to Home (/)
+    if (location.pathname === '/tools') {
+      navigate(fallbackRoute || '/');
+      return;
+    }
+
+    // If explicit preferFallback is set, return to the designated route
+    if (preferFallback && fallbackRoute) {
+      navigate(fallbackRoute);
       return;
     }
     

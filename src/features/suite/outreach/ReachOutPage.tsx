@@ -559,7 +559,7 @@ export function ReachOutPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <Link
-              to="/tools/career-path"
+              to="/tools"
               className="inline-flex items-center gap-1.5 text-xs text-text-muted hover:text-text font-bold px-3 py-1.5 rounded-lg hover:bg-surface-2 transition-colors border border-transparent hover:border-border"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
