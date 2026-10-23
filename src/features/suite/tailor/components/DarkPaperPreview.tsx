@@ -62,28 +62,28 @@ export function DarkPaperPreview({ resume, candidate, className = '' }: DarkPape
   const template = settings.template;
 
   return (
-    <div className={`flex flex-col h-full bg-neutral-900/90 border border-neutral-800 rounded-2xl overflow-hidden shadow-2xl backdrop-blur-sm ${className}`}>
+    <div className={`flex flex-col h-full bg-surface border border-charcoal rounded overflow-hidden shadow-2xl ${className}`}>
       {/* ── Studio Top Toolbar ── */}
-      <div className="bg-neutral-950/80 border-b border-neutral-800 px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 text-xs text-neutral-300">
+      <div className="bg-black border-b border-charcoal px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 text-xs text-neutral-300">
         <div className="flex items-center gap-2.5">
-          <FileText className="w-4 h-4 text-blue-400" />
-          <span className="font-bold text-white uppercase tracking-wider text-[11px]">
+          <FileText className="w-4 h-4 text-volt" />
+          <span className="font-mono font-bold text-white uppercase tracking-wider text-[11px]">
             Live Paper Canvas
           </span>
 
           {/* 1-Page Height Sentinel Badge */}
           <div className="flex items-center gap-1.5">
             <span
-              className={`px-2 py-0.5 rounded-full text-[10px] font-extrabold flex items-center gap-1 ${
+              className={`px-2 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-wider flex items-center gap-1 ${
                 heightReport.densityStatus === 'page_overflow'
-                  ? 'bg-amber-500/10 text-amber-400 border border-amber-500/25'
-                  : 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/25'
+                  ? 'bg-amber-500/10 text-amber-400 border border-amber-500/30'
+                  : 'bg-volt/10 text-volt border border-volt/30'
               }`}
             >
               {heightReport.densityStatus === 'page_overflow' ? (
-                <AlertTriangle className="w-3 h-3" />
+                <AlertTriangle className="w-3 h-3 text-amber-400" />
               ) : (
-                <CheckCircle2 className="w-3 h-3" />
+                <CheckCircle2 className="w-3 h-3 text-volt" />
               )}
               <span>
                 {heightReport.estimatedPages === 1 ? '1 Page • Optimal Fit' : `${heightReport.estimatedPages} Pages • Spillover`}
@@ -93,10 +93,10 @@ export function DarkPaperPreview({ resume, candidate, className = '' }: DarkPape
             {heightReport.hasSpillRisk && (
               <button
                 onClick={autoFitOnePage}
-                className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-bold bg-blue-600 hover:bg-blue-500 text-white transition"
+                className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-volt hover:bg-volt-hover active:shadow-[inset_0_2px_4px_rgba(0,0,0,0.6)] text-black transition"
                 title="Automatically compress spacing to fit on 1 page"
               >
-                <Zap className="w-2.5 h-2.5" />
+                <Zap className="w-2.5 h-2.5 text-black" />
                 <span>Auto-Fit 1P</span>
               </button>
             )}
@@ -109,27 +109,27 @@ export function DarkPaperPreview({ resume, candidate, className = '' }: DarkPape
             type="button"
             onClick={handleDownload}
             disabled={downloading}
-            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white transition cursor-pointer shadow-xs disabled:opacity-50"
+            className="inline-flex items-center gap-1.5 px-3 py-1 rounded text-xs font-mono uppercase tracking-wider font-bold bg-volt hover:bg-volt-hover active:shadow-[inset_0_2px_4px_rgba(0,0,0,0.6)] text-black transition cursor-pointer shadow-xs disabled:opacity-50"
             title="Download Vector PDF directly generated in memory"
           >
-            <Download className="w-3.5 h-3.5" />
+            <Download className="w-3.5 h-3.5 text-black" />
             <span>{downloading ? 'Exporting...' : 'Export PDF'}</span>
           </button>
 
           <button
             type="button"
             onClick={triggerPrintToPdf}
-            className="p-1.5 rounded-lg bg-neutral-900 hover:bg-neutral-800 text-neutral-400 hover:text-white border border-neutral-800 transition cursor-pointer"
+            className="p-1.5 rounded bg-surface hover:bg-surface-elevated text-neutral-400 hover:text-white border border-charcoal transition cursor-pointer"
             title="Browser Print Preview (Ctrl+P)"
           >
             <Printer className="w-3.5 h-3.5" />
           </button>
 
-          <div className="flex items-center gap-1.5 bg-neutral-900 p-1 rounded-lg border border-neutral-800">
+          <div className="flex items-center gap-1.5 bg-surface p-1 rounded border border-charcoal">
             <button
               type="button"
               onClick={() => setZoom(Math.max(60, zoom - 10))}
-              className="p-1 rounded hover:bg-neutral-800 text-neutral-400 hover:text-white transition cursor-pointer"
+              className="p-1 rounded hover:bg-surface-elevated text-neutral-400 hover:text-volt transition cursor-pointer"
               title="Zoom Out"
             >
               <ZoomOut className="w-3.5 h-3.5" />
@@ -140,7 +140,7 @@ export function DarkPaperPreview({ resume, candidate, className = '' }: DarkPape
             <button
               type="button"
               onClick={() => setZoom(Math.min(130, zoom + 10))}
-              className="p-1 rounded hover:bg-neutral-800 text-neutral-400 hover:text-white transition cursor-pointer"
+              className="p-1 rounded hover:bg-surface-elevated text-neutral-400 hover:text-volt transition cursor-pointer"
               title="Zoom In"
             >
               <ZoomIn className="w-3.5 h-3.5" />
@@ -148,7 +148,7 @@ export function DarkPaperPreview({ resume, candidate, className = '' }: DarkPape
             <button
               type="button"
               onClick={() => setZoom(100)}
-              className="p-1 rounded hover:bg-neutral-800 text-neutral-400 hover:text-white transition cursor-pointer"
+              className="p-1 rounded hover:bg-surface-elevated text-neutral-400 hover:text-volt transition cursor-pointer"
               title="Reset to 100%"
             >
               <Maximize2 className="w-3.5 h-3.5" />
@@ -158,7 +158,7 @@ export function DarkPaperPreview({ resume, candidate, className = '' }: DarkPape
       </div>
 
       {/* ── Scrollable Document Sheet ── */}
-      <div className="flex-1 overflow-auto p-4 sm:p-8 flex justify-center items-start bg-neutral-950/90">
+      <div className="flex-1 overflow-auto p-4 sm:p-8 flex justify-center items-start bg-black">
         <div
           id="printable-resume"
           style={{

@@ -216,30 +216,30 @@ export function HandmadeResumeEditor() {
   return (
     <div className="space-y-6 animate-fade-in">
       {/* ── TALENTLENS-STYLE TARGET HEADER & READINESS BAR ── */}
-      <div className="rounded-2xl bg-neutral-900 border border-neutral-800 p-4 sm:p-5 shadow-xl backdrop-blur-sm space-y-4">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-neutral-800/80">
+      <div className="rounded bg-surface border border-charcoal p-4 sm:p-5 shadow-xl space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-charcoal">
           <div className="flex items-center gap-3.5">
-            <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${getGradient(job.company)} flex items-center justify-center text-white font-black text-sm shadow-md shrink-0`}>
+            <div className="w-12 h-12 rounded bg-surface-elevated border border-charcoal flex items-center justify-center text-volt font-mono font-black text-sm shrink-0">
               {getInitials(job.company)}
             </div>
             <div>
               <div className="flex items-center gap-2 flex-wrap">
-                <h2 className="text-base sm:text-lg font-black text-white tracking-tight">
+                <h2 className="text-base sm:text-lg font-mono font-black text-white tracking-tight uppercase">
                   {job.company}
                 </h2>
-                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-blue-500/15 text-blue-400 border border-blue-500/30 uppercase tracking-wider">
+                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-volt/10 text-volt border border-volt/30 uppercase tracking-wider">
                   Target Company
                 </span>
-                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 uppercase tracking-wider">
+                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-volt/10 text-volt border border-volt/30 uppercase tracking-wider">
                   Live Mapping
                 </span>
               </div>
-              <div className="text-xs text-neutral-400 font-medium mt-0.5 flex items-center gap-2">
+              <div className="text-xs text-neutral-400 font-mono mt-0.5 flex items-center gap-2">
                 <span className="text-neutral-200 font-bold">{job.title}</span>
                 <span>•</span>
                 <span className="text-neutral-400">{job.requirements.length} Requirements Active</span>
                 <span>•</span>
-                <span className="text-emerald-400 font-bold">TalentLens™ Engine</span>
+                <span className="text-volt font-bold">TalentLens™ Engine</span>
               </div>
             </div>
           </div>
@@ -247,42 +247,42 @@ export function HandmadeResumeEditor() {
           {/* Quick Auto-Fit 1P Action */}
           <button
             onClick={handleAutoFit}
-            className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-bold transition self-start sm:self-auto shadow-sm"
+            className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded bg-volt hover:bg-volt-hover active:shadow-[inset_0_2px_4px_rgba(0,0,0,0.6)] text-black text-xs font-mono font-bold uppercase tracking-wider transition self-start sm:self-auto shadow-xs"
             title="Automatically adjust font size, margins, and density to guarantee optimal 1-page fit"
           >
-            <Zap className="w-3.5 h-3.5 text-emerald-400" />
+            <Zap className="w-3.5 h-3.5 text-black" />
             <span>{fitToast ? '✓ Optimized to 1 Page!' : 'Auto-Fit 1 Page'}</span>
           </button>
         </div>
 
         {/* Target Alignment Metrics Strip (3 Mini Cards) */}
         <div className="grid grid-cols-3 gap-2.5 text-center">
-          <div className="bg-neutral-950/80 rounded-xl p-2.5 border border-neutral-800">
-            <div className="text-xs sm:text-sm font-black text-emerald-400">
+          <div className="bg-black rounded p-2.5 border border-charcoal">
+            <div className="text-xs sm:text-sm font-mono font-black text-volt">
               {mandatoryMatchedCount} / {mandatoryReqs.length}
             </div>
-            <div className="text-[10px] text-neutral-400 mt-0.5">Mandatory Criteria</div>
-            <div className="text-[10px] font-bold text-neutral-300 mt-0.5">
+            <div className="text-[10px] text-neutral-400 font-mono uppercase tracking-wider mt-0.5">Mandatory Criteria</div>
+            <div className="text-[10px] font-mono font-bold text-neutral-300 mt-0.5">
               {Math.round((mandatoryMatchedCount / Math.max(1, mandatoryReqs.length)) * 100)}% Match
             </div>
           </div>
 
-          <div className="bg-neutral-950/80 rounded-xl p-2.5 border border-neutral-800">
-            <div className="text-xs sm:text-sm font-black text-blue-400">
+          <div className="bg-black rounded p-2.5 border border-charcoal">
+            <div className="text-xs sm:text-sm font-mono font-black text-volt">
               {resume.pageCount || 1} Page
             </div>
-            <div className="text-[10px] text-neutral-400 mt-0.5">Length Status</div>
-            <div className="text-[10px] font-bold text-blue-400 mt-0.5">
+            <div className="text-[10px] text-neutral-400 font-mono uppercase tracking-wider mt-0.5">Length Status</div>
+            <div className="text-[10px] font-mono font-bold text-volt mt-0.5">
               1-Page Sentinel Active
             </div>
           </div>
 
-          <div className="bg-neutral-950/80 rounded-xl p-2.5 border border-neutral-800">
-            <div className="text-xs sm:text-sm font-black text-white">
+          <div className="bg-black rounded p-2.5 border border-charcoal">
+            <div className="text-xs sm:text-sm font-mono font-black text-white">
               100%
             </div>
-            <div className="text-[10px] text-neutral-400 mt-0.5">Truth Gate</div>
-            <div className="text-[10px] font-bold text-emerald-400 mt-0.5 flex items-center justify-center gap-1">
+            <div className="text-[10px] text-neutral-400 font-mono uppercase tracking-wider mt-0.5">Truth Gate</div>
+            <div className="text-[10px] font-mono font-bold text-volt mt-0.5 flex items-center justify-center gap-1">
               <span>Zero-Hallucination</span>
             </div>
           </div>
@@ -292,7 +292,7 @@ export function HandmadeResumeEditor() {
         <div className="flex flex-wrap items-center justify-between gap-2 pt-1 text-xs">
           <div className="flex items-center gap-1.5 text-neutral-400">
             <Sliders className="w-3.5 h-3.5 text-neutral-400" />
-            <span className="text-[11px] font-bold uppercase tracking-wider text-neutral-400">Template Style:</span>
+            <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-neutral-400">Template Style:</span>
           </div>
 
           <div className="flex flex-wrap items-center gap-1.5">
@@ -300,10 +300,10 @@ export function HandmadeResumeEditor() {
               <button
                 key={tmpl}
                 onClick={() => setTemplate(tmpl)}
-                className={`px-2.5 py-1 rounded-lg text-xs font-bold capitalize transition ${
+                className={`px-2.5 py-1 rounded text-xs font-mono uppercase tracking-wider transition ${
                   resume.layoutSettings.template === tmpl
-                    ? 'bg-blue-600 text-white shadow-xs'
-                    : 'bg-neutral-800/70 text-neutral-300 hover:bg-neutral-800 hover:text-white'
+                    ? 'bg-volt text-black font-bold shadow-xs'
+                    : 'bg-surface text-neutral-300 border border-charcoal hover:bg-surface-elevated hover:text-white'
                 }`}
               >
                 {tmpl === 'modern' ? 'Modern Slate' : tmpl === 'classic' ? 'Ivy Classic' : tmpl === 'executive' ? 'Executive Serif' : 'Compact Tech'}
@@ -319,10 +319,10 @@ export function HandmadeResumeEditor() {
         <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none text-xs">
           <button
             onClick={() => setActiveTab('all')}
-            className={`px-3 py-2 rounded-xl font-bold flex items-center gap-1.5 whitespace-nowrap transition-all ${
+            className={`px-3 py-2 rounded font-mono text-xs uppercase tracking-wider font-bold flex items-center gap-1.5 whitespace-nowrap transition-all ${
               activeTab === 'all'
-                ? 'bg-white text-black shadow-md font-black'
-                : 'bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white hover:bg-neutral-850'
+                ? 'bg-volt text-black shadow-xs'
+                : 'bg-surface border border-charcoal text-neutral-400 hover:text-white hover:bg-surface-elevated'
             }`}
           >
             <Layers className="w-3.5 h-3.5" />
@@ -331,16 +331,16 @@ export function HandmadeResumeEditor() {
 
           <button
             onClick={() => setActiveTab('experience')}
-            className={`px-3 py-2 rounded-xl font-bold flex items-center gap-1.5 whitespace-nowrap transition-all ${
+            className={`px-3 py-2 rounded font-mono text-xs uppercase tracking-wider font-bold flex items-center gap-1.5 whitespace-nowrap transition-all ${
               activeTab === 'experience'
-                ? 'bg-white text-black shadow-md font-black'
-                : 'bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white hover:bg-neutral-850'
+                ? 'bg-volt text-black shadow-xs'
+                : 'bg-surface border border-charcoal text-neutral-400 hover:text-white hover:bg-surface-elevated'
             }`}
           >
             <Briefcase className="w-3.5 h-3.5" />
             <span>Experience</span>
             <span className={`px-1.5 py-0.2 rounded-full text-[10px] font-mono ${
-              activeTab === 'experience' ? 'bg-black/15 text-black' : 'bg-neutral-800 text-neutral-400'
+              activeTab === 'experience' ? 'bg-black/20 text-black font-bold' : 'bg-surface-elevated text-neutral-400'
             }`}>
               {expEntries.length}
             </span>
@@ -348,16 +348,16 @@ export function HandmadeResumeEditor() {
 
           <button
             onClick={() => setActiveTab('projects')}
-            className={`px-3 py-2 rounded-xl font-bold flex items-center gap-1.5 whitespace-nowrap transition-all ${
+            className={`px-3 py-2 rounded font-mono text-xs uppercase tracking-wider font-bold flex items-center gap-1.5 whitespace-nowrap transition-all ${
               activeTab === 'projects'
-                ? 'bg-white text-black shadow-md font-black'
-                : 'bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white hover:bg-neutral-850'
+                ? 'bg-volt text-black shadow-xs'
+                : 'bg-surface border border-charcoal text-neutral-400 hover:text-white hover:bg-surface-elevated'
             }`}
           >
             <Code2 className="w-3.5 h-3.5" />
             <span>Projects</span>
             <span className={`px-1.5 py-0.2 rounded-full text-[10px] font-mono ${
-              activeTab === 'projects' ? 'bg-black/15 text-black' : 'bg-neutral-800 text-neutral-400'
+              activeTab === 'projects' ? 'bg-black/20 text-black font-bold' : 'bg-surface-elevated text-neutral-400'
             }`}>
               {projEntries.length}
             </span>
@@ -365,16 +365,16 @@ export function HandmadeResumeEditor() {
 
           <button
             onClick={() => setActiveTab('skills')}
-            className={`px-3 py-2 rounded-xl font-bold flex items-center gap-1.5 whitespace-nowrap transition-all ${
+            className={`px-3 py-2 rounded font-mono text-xs uppercase tracking-wider font-bold flex items-center gap-1.5 whitespace-nowrap transition-all ${
               activeTab === 'skills'
-                ? 'bg-white text-black shadow-md font-black'
-                : 'bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white hover:bg-neutral-850'
+                ? 'bg-volt text-black shadow-xs'
+                : 'bg-surface border border-charcoal text-neutral-400 hover:text-white hover:bg-surface-elevated'
             }`}
           >
             <Zap className="w-3.5 h-3.5" />
             <span>Technical Skills</span>
             <span className={`px-1.5 py-0.2 rounded-full text-[10px] font-mono ${
-              activeTab === 'skills' ? 'bg-black/15 text-black' : 'bg-neutral-800 text-neutral-400'
+              activeTab === 'skills' ? 'bg-black/20 text-black font-bold' : 'bg-surface-elevated text-neutral-400'
             }`}>
               {totalSkillsCount}
             </span>
@@ -382,16 +382,16 @@ export function HandmadeResumeEditor() {
 
           <button
             onClick={() => setActiveTab('education')}
-            className={`px-3 py-2 rounded-xl font-bold flex items-center gap-1.5 whitespace-nowrap transition-all ${
+            className={`px-3 py-2 rounded font-mono text-xs uppercase tracking-wider font-bold flex items-center gap-1.5 whitespace-nowrap transition-all ${
               activeTab === 'education'
-                ? 'bg-white text-black shadow-md font-black'
-                : 'bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white hover:bg-neutral-850'
+                ? 'bg-volt text-black shadow-xs'
+                : 'bg-surface border border-charcoal text-neutral-400 hover:text-white hover:bg-surface-elevated'
             }`}
           >
             <GraduationCap className="w-3.5 h-3.5" />
             <span>Education</span>
             <span className={`px-1.5 py-0.2 rounded-full text-[10px] font-mono ${
-              activeTab === 'education' ? 'bg-black/15 text-black' : 'bg-neutral-800 text-neutral-400'
+              activeTab === 'education' ? 'bg-black/20 text-black font-bold' : 'bg-surface-elevated text-neutral-400'
             }`}>
               {eduEntries.length}
             </span>
@@ -399,10 +399,10 @@ export function HandmadeResumeEditor() {
 
           <button
             onClick={() => setActiveTab('summary')}
-            className={`px-3 py-2 rounded-xl font-bold flex items-center gap-1.5 whitespace-nowrap transition-all ${
+            className={`px-3 py-2 rounded font-mono text-xs uppercase tracking-wider font-bold flex items-center gap-1.5 whitespace-nowrap transition-all ${
               activeTab === 'summary'
-                ? 'bg-white text-black shadow-md font-black'
-                : 'bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white hover:bg-neutral-850'
+                ? 'bg-volt text-black shadow-xs'
+                : 'bg-surface border border-charcoal text-neutral-400 hover:text-white hover:bg-surface-elevated'
             }`}
           >
             <FileText className="w-3.5 h-3.5" />
@@ -411,16 +411,16 @@ export function HandmadeResumeEditor() {
 
           <button
             onClick={() => setActiveTab('requirements')}
-            className={`px-3 py-2 rounded-xl font-bold flex items-center gap-1.5 whitespace-nowrap transition-all ${
+            className={`px-3 py-2 rounded font-mono text-xs uppercase tracking-wider font-bold flex items-center gap-1.5 whitespace-nowrap transition-all ${
               activeTab === 'requirements'
-                ? 'bg-white text-black shadow-md font-black'
-                : 'bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white hover:bg-neutral-850'
+                ? 'bg-volt text-black shadow-xs'
+                : 'bg-surface border border-charcoal text-neutral-400 hover:text-white hover:bg-surface-elevated'
             }`}
           >
-            <Target className="w-3.5 h-3.5 text-blue-400" />
+            <Target className="w-3.5 h-3.5" />
             <span>Job Requirements Map</span>
             <span className={`px-1.5 py-0.2 rounded-full text-[10px] font-mono font-bold ${
-              activeTab === 'requirements' ? 'bg-black/15 text-black' : 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/20'
+              activeTab === 'requirements' ? 'bg-black/20 text-black' : 'bg-volt/10 text-volt border border-volt/30'
             }`}>
               {mandatoryMatchedCount}/{mandatoryReqs.length}
             </span>
@@ -428,10 +428,10 @@ export function HandmadeResumeEditor() {
 
           <button
             onClick={() => setActiveTab('profile')}
-            className={`px-3 py-2 rounded-xl font-bold flex items-center gap-1.5 whitespace-nowrap transition-all ${
+            className={`px-3 py-2 rounded font-mono text-xs uppercase tracking-wider font-bold flex items-center gap-1.5 whitespace-nowrap transition-all ${
               activeTab === 'profile'
-                ? 'bg-white text-black shadow-md font-black'
-                : 'bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white hover:bg-neutral-850'
+                ? 'bg-volt text-black shadow-xs'
+                : 'bg-surface border border-charcoal text-neutral-400 hover:text-white hover:bg-surface-elevated'
             }`}
           >
             <User className="w-3.5 h-3.5" />
@@ -447,7 +447,7 @@ export function HandmadeResumeEditor() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search within roles, projects, skills, and bullet statements..."
-            className="w-full bg-neutral-900/90 border border-neutral-800 rounded-xl pl-10 pr-10 py-2.5 text-xs text-neutral-200 placeholder-neutral-500 focus:outline-none focus:border-blue-500 transition"
+            className="w-full bg-surface border border-charcoal rounded pl-10 pr-10 py-2.5 text-xs font-mono text-neutral-200 placeholder-neutral-500 focus:outline-none focus:border-volt transition"
           />
           {searchQuery && (
             <button

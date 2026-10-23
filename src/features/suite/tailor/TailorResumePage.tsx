@@ -25,13 +25,7 @@ export function TailorResumePage() {
   const candidate = activeProject.candidate;
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-neutral-100 flex flex-col selection:bg-blue-500 selection:text-white relative">
-      {/* Background Ambient Glow matching Career Trajectory */}
-      <div
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[360px] bg-gradient-to-tr from-blue-600/15 via-violet-600/10 to-emerald-600/15 blur-3xl pointer-events-none rounded-full"
-        aria-hidden="true"
-      />
-
+    <div className="min-h-screen bg-black text-foreground flex flex-col selection:bg-volt selection:text-black relative">
       {/* Pinned Top Navigation */}
       <DarkTailorHeader
         onOpenInputModal={() => setIsInputModalOpen(true)}
@@ -42,35 +36,35 @@ export function TailorResumePage() {
       {/* Main Container */}
       <main className="relative flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col space-y-6">
         {/* Subtle Page Intro Banner */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-2 border-b border-neutral-900">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-2 border-b border-border">
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="text-xl sm:text-2xl font-black text-white tracking-tight">
+              <h1 className="text-xl sm:text-2xl font-black text-foreground tracking-tight">
                 Handmade Resume Editor
               </h1>
-              <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-500/10 text-blue-400 border border-blue-500/20">
+              <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-volt/10 text-volt border border-volt/30 uppercase">
                 Live Dynamic Sync
               </span>
             </div>
-            <p className="text-xs text-neutral-400 mt-1 max-w-2xl leading-relaxed">
+            <p className="text-xs text-secondary mt-1 max-w-2xl leading-relaxed">
               Craft, polish, and tailor your resume in real time. Features bold subheadings, Google XYZ accomplishment formulas, verified metric locking, and 1-page overflow protection.
             </p>
           </div>
 
           {/* Mobile Switcher (Hidden on Desktop) */}
-          <div className="lg:hidden flex items-center p-1 bg-neutral-900 border border-neutral-800 rounded-xl self-start">
+          <div className="lg:hidden flex items-center p-1 bg-surface border border-border rounded self-start">
             <button
               onClick={() => setMobileTab('editor')}
-              className={`px-4 py-1.5 text-xs font-bold rounded-lg transition ${
-                mobileTab === 'editor' ? 'bg-blue-600 text-white' : 'text-neutral-400'
+              className={`px-4 py-1.5 text-xs font-mono font-bold rounded transition cursor-pointer ${
+                mobileTab === 'editor' ? 'bg-volt text-black shadow-[inset_0_1px_2px_rgba(0,0,0,0.2)]' : 'text-muted hover:text-foreground'
               }`}
             >
               Editor
             </button>
             <button
               onClick={() => setMobileTab('preview')}
-              className={`px-4 py-1.5 text-xs font-bold rounded-lg transition ${
-                mobileTab === 'preview' ? 'bg-blue-600 text-white' : 'text-neutral-400'
+              className={`px-4 py-1.5 text-xs font-mono font-bold rounded transition cursor-pointer ${
+                mobileTab === 'preview' ? 'bg-volt text-black shadow-[inset_0_1px_2px_rgba(0,0,0,0.2)]' : 'text-muted hover:text-foreground'
               }`}
             >
               Paper Canvas

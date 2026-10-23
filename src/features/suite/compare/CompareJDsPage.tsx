@@ -231,17 +231,17 @@ export function CompareJDsPage() {
   const activePreset = COMPARISON_PRESETS.find((p) => p.id === selectedPresetId);
 
   return (
-    <div className="min-h-screen bg-bg text-text pt-24 pb-20 px-4 sm:px-6 md:px-8 relative">
+    <div className="min-h-screen bg-black text-white pt-24 pb-20 px-4 sm:px-6 md:px-8 relative">
       <PageNav onBack={result ? () => setResult(null) : undefined} fallbackRoute="/tools" preferFallback={true} />
 
       {/* Top Bar with Profile Chip */}
       <div className="max-w-7xl mx-auto mb-6 flex items-center justify-between">
-        <div className="flex items-center gap-2 text-xs font-medium text-text-secondary">
-          <Link to="/tools" className="hover:text-primary transition-colors">Tools</Link>
-          <ChevronRight className="w-3.5 h-3.5 text-text-tertiary" />
-          <span className="text-text">Decision Suite</span>
-          <ChevronRight className="w-3.5 h-3.5 text-text-tertiary" />
-          <span className="text-primary font-bold">Compare Job Descriptions</span>
+        <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-neutral-400">
+          <Link to="/tools" className="hover:text-volt transition-colors">Tools</Link>
+          <ChevronRight className="w-3.5 h-3.5 text-neutral-600" />
+          <span className="text-white">Decision Suite</span>
+          <ChevronRight className="w-3.5 h-3.5 text-neutral-600" />
+          <span className="text-volt font-bold">Compare Job Descriptions</span>
         </div>
         <ProfileStatusChip />
       </div>
@@ -249,25 +249,25 @@ export function CompareJDsPage() {
       <div className="max-w-7xl mx-auto space-y-8 animate-fade-in">
         {/* Header Hero */}
         <div className="text-center max-w-4xl mx-auto mb-4">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-primary/10 border border-primary/25 text-primary rounded-full text-xs font-bold uppercase tracking-wider mb-3">
-            <Swords className="w-3.5 h-3.5 text-primary" /> Head-to-Head Role Evaluation
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-volt/10 border border-volt/30 text-volt rounded-full text-xs font-mono font-bold uppercase tracking-wider mb-3">
+            <Swords className="w-3.5 h-3.5 text-volt" /> Head-to-Head Role Evaluation
           </div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight mb-3">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-mono font-black tracking-tight mb-3 uppercase text-white">
             Compare Two Job Descriptions
           </h1>
-          <p className="text-text-secondary text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+          <p className="text-neutral-400 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
             Evaluate two competing job opportunities side-by-side. Uncover which role offers stronger requirement alignment, inspect architectural divergence, and generate a step-by-step bridge plan.
           </p>
         </div>
 
         {/* Curated Presets Bar */}
-        <div className="bg-surface border border-border/80 rounded-2xl p-4 sm:p-5 shadow-xs space-y-3">
+        <div className="bg-surface border border-charcoal rounded p-4 sm:p-5 shadow-xs space-y-3">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-            <div className="flex items-center gap-2 text-xs font-bold text-text-secondary uppercase tracking-wider">
-              <Zap className="w-4 h-4 text-amber-400" />
+            <div className="flex items-center gap-2 text-xs font-mono font-bold text-neutral-300 uppercase tracking-wider">
+              <Zap className="w-4 h-4 text-volt" />
               <span>Instant Real-World Benchmarks</span>
             </div>
-            <span className="text-[11px] text-text-muted">
+            <span className="text-[11px] font-mono text-neutral-500">
               Calibrated production JDs with realistic engineering stacks
             </span>
           </div>
@@ -280,20 +280,20 @@ export function CompareJDsPage() {
                   key={preset.id}
                   type="button"
                   onClick={() => handleSelectPreset(preset)}
-                  className={`text-left p-3 rounded-xl border transition-all cursor-pointer relative flex flex-col justify-between ${
+                  className={`text-left p-3 rounded border transition-all cursor-pointer relative flex flex-col justify-between ${
                     isSelected
-                      ? 'bg-primary/10 border-primary shadow-xs ring-1 ring-primary/40'
-                      : 'bg-surface-2 hover:bg-surface-3 border-border/70 hover:border-border text-text-secondary hover:text-text'
+                      ? 'bg-volt/10 border-volt shadow-xs ring-1 ring-volt/40 text-white'
+                      : 'bg-surface-elevated hover:bg-neutral-800 border-charcoal hover:border-neutral-500 text-neutral-400 hover:text-white'
                   }`}
                 >
                   <div className="space-y-1">
                     <div className="flex items-center justify-between gap-1">
-                      <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-surface border border-border/80 text-primary uppercase">
+                      <span className="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-black border border-charcoal text-volt uppercase">
                         {preset.badge}
                       </span>
                     </div>
-                    <div className="font-bold text-xs text-text line-clamp-1">{preset.title}</div>
-                    <div className="text-[11px] text-text-muted line-clamp-2 leading-tight">
+                    <div className="font-bold text-xs text-white line-clamp-1">{preset.title}</div>
+                    <div className="text-[11px] text-neutral-400 line-clamp-2 leading-tight">
                       {preset.keyDivergenceSummary}
                     </div>
                   </div>
@@ -303,10 +303,10 @@ export function CompareJDsPage() {
           </div>
 
           {activePreset && !result && (
-            <div className="mt-3 p-3 rounded-xl bg-surface-2/60 border border-border/60 text-xs text-text-secondary flex items-start gap-2.5">
-              <Sparkles className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+            <div className="mt-3 p-3 rounded bg-surface-elevated border border-charcoal text-xs text-neutral-300 flex items-start gap-2.5">
+              <Sparkles className="w-4 h-4 text-volt shrink-0 mt-0.5" />
               <div>
-                <span className="font-bold text-text">Strategic Context: </span>
+                <span className="font-bold text-white font-mono">Strategic Context: </span>
                 {activePreset.strategicContext}
               </div>
             </div>
@@ -314,19 +314,19 @@ export function CompareJDsPage() {
         </div>
 
         {/* Candidate Resume / Persona Selector */}
-        <div className="bg-surface border border-border/80 rounded-2xl p-4 sm:p-5 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="bg-surface border border-charcoal rounded p-4 sm:p-5 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 text-primary flex items-center justify-center shrink-0">
+            <div className="w-10 h-10 rounded bg-surface-elevated border border-charcoal text-volt flex items-center justify-center shrink-0">
               <UserCheck className="w-5 h-5" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="text-sm font-bold text-text">Evaluating Candidate Profile</h3>
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-surface-2 border border-border text-text-secondary">
+                <h3 className="text-sm font-bold text-white uppercase font-mono">Evaluating Candidate Profile</h3>
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-surface-elevated border border-charcoal text-neutral-400">
                   {resumeText.trim().split(/\s+/).filter(Boolean).length} words
                 </span>
               </div>
-              <p className="text-xs text-text-muted mt-0.5">
+              <p className="text-xs text-neutral-400 mt-0.5">
                 {activePersonaId === 'profile'
                   ? 'Using your active Master Resume from profile'
                   : SAMPLE_CANDIDATES.find((c) => c.id === activePersonaId)?.skillsHeadline || 'Custom resume loaded'}
@@ -339,10 +339,10 @@ export function CompareJDsPage() {
               <button
                 type="button"
                 onClick={() => handleSelectPersona('profile')}
-                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                className={`px-3 py-1.5 rounded text-xs font-mono font-bold uppercase tracking-wider transition-all cursor-pointer ${
                   activePersonaId === 'profile'
-                    ? 'bg-primary text-white shadow-xs'
-                    : 'bg-surface-2 hover:bg-surface-3 border border-border text-text-secondary hover:text-text'
+                    ? 'bg-volt text-black shadow-xs'
+                    : 'bg-surface-elevated hover:bg-neutral-800 border border-charcoal text-neutral-300 hover:text-white'
                 }`}
               >
                 My Master Resume
@@ -354,10 +354,10 @@ export function CompareJDsPage() {
                 key={cand.id}
                 type="button"
                 onClick={() => handleSelectPersona(cand)}
-                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                className={`px-3 py-1.5 rounded text-xs font-mono font-bold uppercase tracking-wider transition-all cursor-pointer ${
                   activePersonaId === cand.id
-                    ? 'bg-primary text-white shadow-xs'
-                    : 'bg-surface-2 hover:bg-surface-3 border border-border text-text-secondary hover:text-text'
+                    ? 'bg-volt text-black shadow-xs'
+                    : 'bg-surface-elevated hover:bg-neutral-800 border border-charcoal text-neutral-300 hover:text-white'
                 }`}
               >
                 {cand.name} ({cand.experience})
@@ -367,7 +367,7 @@ export function CompareJDsPage() {
             <button
               type="button"
               onClick={() => setShowResumeDrawer(!showResumeDrawer)}
-              className="px-3 py-1.5 rounded-xl bg-surface-2 hover:bg-surface-3 border border-border text-xs font-semibold text-text-secondary hover:text-text inline-flex items-center gap-1.5 transition-colors cursor-pointer"
+              className="px-3 py-1.5 rounded bg-surface-elevated hover:bg-neutral-800 border border-charcoal text-xs font-mono uppercase tracking-wider font-semibold text-neutral-300 hover:text-white inline-flex items-center gap-1.5 transition-colors cursor-pointer"
             >
               <FileText className="w-3.5 h-3.5" />
               {showResumeDrawer ? 'Hide Resume' : 'View / Edit Resume'}
@@ -377,12 +377,12 @@ export function CompareJDsPage() {
 
         {/* Resume View/Edit Drawer */}
         {showResumeDrawer && (
-          <div className="bg-surface border border-border rounded-2xl p-5 space-y-3 animate-fade-in">
+          <div className="bg-surface border border-charcoal rounded p-5 space-y-3 animate-fade-in">
             <div className="flex items-center justify-between">
-              <label className="text-xs font-bold text-text-secondary uppercase tracking-wider">
+              <label className="text-xs font-mono font-bold text-neutral-300 uppercase tracking-wider">
                 Candidate Resume Raw Text
               </label>
-              <span className="text-xs text-text-muted">
+              <span className="text-xs font-mono text-neutral-500">
                 Edit text to simulate resume revisions
               </span>
             </div>
@@ -394,7 +394,7 @@ export function CompareJDsPage() {
                 if (result) setResult(null);
               }}
               placeholder="Paste plain text resume here..."
-              className="w-full h-44 bg-surface-2 border border-border rounded-xl p-3 text-xs font-mono text-text placeholder:text-text-muted focus:outline-none focus:border-primary"
+              className="w-full h-44 bg-surface-elevated border border-charcoal rounded p-3 text-xs font-mono text-white placeholder:text-neutral-500 focus:outline-none focus:border-volt"
             />
           </div>
         )}
@@ -404,10 +404,10 @@ export function CompareJDsPage() {
           <div className="space-y-6">
             <div className="flex items-center justify-between">
               <div>
-                <h2 className="text-base font-bold text-text">
+                <h2 className="text-base font-bold text-white font-mono uppercase tracking-tight">
                   Job Descriptions ({jds.length} Loaded)
                 </h2>
-                <p className="text-xs text-text-muted">
+                <p className="text-xs text-neutral-400 font-mono">
                   Dual-column side-by-side comparison mode
                 </p>
               </div>
@@ -417,19 +417,19 @@ export function CompareJDsPage() {
                   <button
                     type="button"
                     onClick={handleSwapRoles}
-                    className="px-3 py-1.5 rounded-xl bg-surface-2 hover:bg-surface-3 border border-border text-xs font-bold text-text inline-flex items-center gap-1.5 transition-colors cursor-pointer"
+                    className="px-3 py-1.5 rounded bg-surface hover:bg-surface-elevated border border-charcoal text-xs font-mono font-bold uppercase tracking-wider text-white inline-flex items-center gap-1.5 transition-colors cursor-pointer"
                     title="Swap Role A and Role B"
                   >
-                    <ArrowLeftRight className="w-3.5 h-3.5 text-primary" /> Swap A &harr; B
+                    <ArrowLeftRight className="w-3.5 h-3.5 text-volt" /> Swap A &harr; B
                   </button>
                 )}
                 {jds.length < 5 && (
                   <button
                     type="button"
                     onClick={handleAddJD}
-                    className="px-3 py-1.5 rounded-xl bg-surface-2 hover:bg-surface-3 border border-border text-xs font-bold text-text inline-flex items-center gap-1.5 transition-colors cursor-pointer"
+                    className="px-3 py-1.5 rounded bg-surface hover:bg-surface-elevated border border-charcoal text-xs font-mono font-bold uppercase tracking-wider text-white inline-flex items-center gap-1.5 transition-colors cursor-pointer"
                   >
-                    <Plus className="w-3.5 h-3.5 text-primary" /> Add 3rd Role
+                    <Plus className="w-3.5 h-3.5 text-volt" /> Add 3rd Role
                   </button>
                 )}
               </div>
@@ -441,33 +441,28 @@ export function CompareJDsPage() {
                 const words = jd.text.trim().split(/\s+/).filter(Boolean).length;
                 const isShort = words > 0 && words < 20;
                 const isRoleA = idx === 0;
-                const isRoleB = idx === 1;
 
                 const accentColor = isRoleA
-                  ? 'border-emerald-500/30 shadow-emerald-500/5'
-                  : isRoleB
-                  ? 'border-indigo-500/30 shadow-indigo-500/5'
-                  : 'border-border';
+                  ? 'border-volt/40'
+                  : 'border-charcoal';
 
                 const badgeBg = isRoleA
-                  ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
-                  : isRoleB
-                  ? 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20'
-                  : 'bg-surface-2 text-text-secondary border-border';
+                  ? 'bg-volt/10 text-volt border-volt/30'
+                  : 'bg-surface-elevated text-neutral-300 border-charcoal';
 
                 return (
                   <div
                     key={jd.id}
-                    className={`bg-surface border ${accentColor} rounded-2xl p-5 sm:p-6 space-y-4 relative flex flex-col justify-between shadow-lg transition-all`}
+                    className={`bg-surface border ${accentColor} rounded p-5 sm:p-6 space-y-4 relative flex flex-col justify-between shadow-lg transition-all`}
                   >
                     {/* Role Header */}
                     <div className="space-y-3">
-                      <div className="flex items-center justify-between pb-3 border-b border-border/80">
+                      <div className="flex items-center justify-between pb-3 border-b border-charcoal">
                         <div className="flex items-center gap-2">
-                          <span className={`text-xs font-black px-2.5 py-1 rounded-lg border font-mono ${badgeBg}`}>
+                          <span className={`text-xs font-black px-2.5 py-1 rounded border font-mono uppercase tracking-wider ${badgeBg}`}>
                             {idx === 0 ? 'ROLE A' : idx === 1 ? 'ROLE B' : `ROLE ${idx + 1}`}
                           </span>
-                          <span className="text-xs font-bold text-text-secondary">
+                          <span className="text-xs font-bold font-mono text-neutral-300">
                             {jd.company || (idx === 0 ? 'Primary Target' : 'Benchmark Target')}
                           </span>
                         </div>
@@ -475,7 +470,7 @@ export function CompareJDsPage() {
                           <button
                             type="button"
                             onClick={() => handleRemoveJD(jd.id)}
-                            className="text-text-muted hover:text-rose-400 p-1 rounded-lg transition-colors cursor-pointer"
+                            className="text-neutral-500 hover:text-rose-400 p-1 rounded transition-colors cursor-pointer"
                             title="Remove Role"
                           >
                             <Trash2 className="w-4 h-4" />
@@ -486,27 +481,27 @@ export function CompareJDsPage() {
                       {/* Aligned Metadata Inputs */}
                       <div className="grid grid-cols-2 gap-2 text-xs">
                         <div>
-                          <label className="block text-[10px] font-bold text-text-muted uppercase mb-1">
+                          <label className="block text-[10px] font-mono font-bold text-neutral-400 uppercase mb-1">
                             Company
                           </label>
-                          <div className="flex items-center gap-1.5 bg-surface-2 border border-border/70 rounded-lg px-2.5 py-1.5">
-                            <Building2 className="w-3.5 h-3.5 text-text-tertiary shrink-0" />
+                          <div className="flex items-center gap-1.5 bg-surface-elevated border border-charcoal rounded px-2.5 py-1.5">
+                            <Building2 className="w-3.5 h-3.5 text-neutral-400 shrink-0" />
                             <input
                               type="text"
                               value={jd.company || ''}
                               onChange={(e) => handleUpdateJD(jd.id, 'company', e.target.value)}
                               placeholder="e.g. Google"
-                              className="bg-transparent text-text font-semibold text-xs focus:outline-none w-full"
+                              className="bg-transparent text-white font-mono font-semibold text-xs focus:outline-none w-full"
                             />
                           </div>
                         </div>
 
                         <div>
-                          <label className="block text-[10px] font-bold text-text-muted uppercase mb-1">
+                          <label className="block text-[10px] font-mono font-bold text-neutral-400 uppercase mb-1">
                             Role Title
                           </label>
-                          <div className="flex items-center gap-1.5 bg-surface-2 border border-border/70 rounded-lg px-2.5 py-1.5">
-                            <Briefcase className="w-3.5 h-3.5 text-text-tertiary shrink-0" />
+                          <div className="flex items-center gap-1.5 bg-surface-elevated border border-charcoal rounded px-2.5 py-1.5">
+                            <Briefcase className="w-3.5 h-3.5 text-neutral-400 shrink-0" />
                             <input
                               type="text"
                               value={jd.roleTitle || jd.label}
@@ -515,39 +510,39 @@ export function CompareJDsPage() {
                                 handleUpdateJD(jd.id, 'label', e.target.value);
                               }}
                               placeholder="e.g. Software Engineer L3"
-                              className="bg-transparent text-text font-semibold text-xs focus:outline-none w-full"
+                              className="bg-transparent text-white font-mono font-semibold text-xs focus:outline-none w-full"
                             />
                           </div>
                         </div>
 
                         <div>
-                          <label className="block text-[10px] font-bold text-text-muted uppercase mb-1">
+                          <label className="block text-[10px] font-mono font-bold text-neutral-400 uppercase mb-1">
                             Seniority &amp; YOE
                           </label>
-                          <div className="flex items-center gap-1.5 bg-surface-2 border border-border/70 rounded-lg px-2.5 py-1.5">
-                            <Clock className="w-3.5 h-3.5 text-text-tertiary shrink-0" />
+                          <div className="flex items-center gap-1.5 bg-surface-elevated border border-charcoal rounded px-2.5 py-1.5">
+                            <Clock className="w-3.5 h-3.5 text-neutral-400 shrink-0" />
                             <input
                               type="text"
                               value={jd.experienceLevel || ''}
                               onChange={(e) => handleUpdateJD(jd.id, 'experienceLevel', e.target.value)}
                               placeholder="e.g. 2–4 Years"
-                              className="bg-transparent text-text text-xs focus:outline-none w-full"
+                              className="bg-transparent text-white font-mono text-xs focus:outline-none w-full"
                             />
                           </div>
                         </div>
 
                         <div>
-                          <label className="block text-[10px] font-bold text-text-muted uppercase mb-1">
+                          <label className="block text-[10px] font-mono font-bold text-neutral-400 uppercase mb-1">
                             Location / CTC
                           </label>
-                          <div className="flex items-center gap-1.5 bg-surface-2 border border-border/70 rounded-lg px-2.5 py-1.5">
-                            <MapPin className="w-3.5 h-3.5 text-text-tertiary shrink-0" />
+                          <div className="flex items-center gap-1.5 bg-surface-elevated border border-charcoal rounded px-2.5 py-1.5">
+                            <MapPin className="w-3.5 h-3.5 text-neutral-400 shrink-0" />
                             <input
                               type="text"
                               value={jd.location || ''}
                               onChange={(e) => handleUpdateJD(jd.id, 'location', e.target.value)}
                               placeholder="e.g. Bangalore / ₹30L+"
-                              className="bg-transparent text-text text-xs focus:outline-none w-full"
+                              className="bg-transparent text-white font-mono text-xs focus:outline-none w-full"
                             />
                           </div>
                         </div>
@@ -555,27 +550,27 @@ export function CompareJDsPage() {
 
                       {/* Job Description Textarea */}
                       <div>
-                        <label className="block text-[10px] font-bold text-text-muted uppercase mb-1">
+                        <label className="block text-[10px] font-mono font-bold text-neutral-400 uppercase mb-1">
                           Production Job Description Text
                         </label>
                         <textarea
                           value={jd.text}
                           onChange={(e) => handleUpdateJD(jd.id, 'text', e.target.value)}
                           placeholder="Paste full job description requirements and responsibilities..."
-                          className="w-full h-56 bg-surface-2 border border-border rounded-xl p-3 text-xs font-mono text-text placeholder:text-text-muted focus:outline-none focus:border-primary leading-relaxed"
+                          className="w-full h-56 bg-surface-elevated border border-charcoal rounded p-3 text-xs font-mono text-white placeholder:text-neutral-500 focus:outline-none focus:border-volt leading-relaxed"
                         />
                       </div>
                     </div>
 
-                    <div className="flex items-center justify-between text-[11px] text-text-muted pt-3 border-t border-border/60">
-                      <span className="font-mono">{words} words</span>
+                    <div className="flex items-center justify-between text-[11px] font-mono text-neutral-400 pt-3 border-t border-charcoal">
+                      <span>{words} words</span>
                       {isShort && (
                         <span className="text-amber-400 flex items-center gap-1">
                           <AlertCircle className="w-3 h-3" /> Min 20 words required
                         </span>
                       )}
                       {words >= 150 && (
-                        <span className="text-emerald-400 flex items-center gap-1">
+                        <span className="text-volt flex items-center gap-1">
                           <CheckCircle2 className="w-3 h-3" /> Rich JD Context
                         </span>
                       )}
@@ -591,20 +586,20 @@ export function CompareJDsPage() {
                 type="button"
                 onClick={handleRunCompare}
                 disabled={isAnalyzing || (!resumeText.trim() && !profile?.masterResumeText)}
-                className="px-8 py-3.5 rounded-xl bg-primary text-white text-sm font-black hover:bg-primary/90 transition-all shadow-lg hover:shadow-primary/25 inline-flex items-center gap-2.5 cursor-pointer disabled:opacity-50"
+                className="px-8 py-3.5 rounded bg-volt hover:bg-volt-hover active:shadow-[inset_0_2px_4px_rgba(0,0,0,0.6)] text-black text-sm font-mono font-black uppercase tracking-wider transition-all shadow-xs inline-flex items-center gap-2.5 cursor-pointer disabled:opacity-50"
               >
                 {isAnalyzing ? (
                   <>
-                    <RefreshCw className="w-4 h-4 animate-spin" />
+                    <RefreshCw className="w-4 h-4 animate-spin text-black" />
                     Evaluating Roles ({progress.done}/{progress.total})...
                   </>
                 ) : (
                   <>
-                    <Swords className="w-4 h-4" /> Compare &amp; Evaluate Head-to-Head
+                    <Swords className="w-4 h-4 text-black" /> Compare &amp; Evaluate Head-to-Head
                   </>
                 )}
               </button>
-              <p className="text-xs text-text-muted">
+              <p className="text-xs font-mono text-neutral-500">
                 Calculates JD Match evidence scores, match confidence factors, and divergence points
               </p>
             </div>
@@ -615,16 +610,16 @@ export function CompareJDsPage() {
         {result && (
           <div className="space-y-8 animate-fade-in">
             {/* Control & Tab Bar */}
-            <div className="flex flex-wrap items-center justify-between gap-4 p-4 rounded-2xl bg-surface border border-border shadow-xs">
-              <div className="inline-flex rounded-xl bg-surface-2 p-1 border border-border/80">
+            <div className="flex flex-wrap items-center justify-between gap-4 p-4 rounded bg-surface border border-charcoal shadow-xs">
+              <div className="inline-flex rounded bg-black p-1 border border-charcoal">
                 {result.headToHead && (
                   <button
                     type="button"
                     onClick={() => setActiveTab('headtohead')}
-                    className={`px-3.5 py-1.5 text-xs font-bold rounded-lg transition-all cursor-pointer ${
+                    className={`px-3.5 py-1.5 text-xs font-mono font-bold uppercase tracking-wider rounded transition-all cursor-pointer ${
                       activeTab === 'headtohead'
-                        ? 'bg-text text-bg shadow-xs'
-                        : 'text-text-secondary hover:text-text'
+                        ? 'bg-volt text-black shadow-xs'
+                        : 'text-neutral-400 hover:text-white'
                     }`}
                   >
                     <Swords className="w-3.5 h-3.5 inline mr-1.5" /> Head-to-Head
@@ -633,10 +628,10 @@ export function CompareJDsPage() {
                 <button
                   type="button"
                   onClick={() => setActiveTab('ranking')}
-                  className={`px-3.5 py-1.5 text-xs font-bold rounded-lg transition-all cursor-pointer ${
+                  className={`px-3.5 py-1.5 text-xs font-mono font-bold uppercase tracking-wider rounded transition-all cursor-pointer ${
                     activeTab === 'ranking'
-                      ? 'bg-text text-bg shadow-xs'
-                      : 'text-text-secondary hover:text-text'
+                      ? 'bg-volt text-black shadow-xs'
+                      : 'text-neutral-400 hover:text-white'
                   }`}
                 >
                   <TrendingUp className="w-3.5 h-3.5 inline mr-1.5" /> Leaderboard ({result.rankedJDs.length})
@@ -644,10 +639,10 @@ export function CompareJDsPage() {
                 <button
                   type="button"
                   onClick={() => setActiveTab('gaps')}
-                  className={`px-3.5 py-1.5 text-xs font-bold rounded-lg transition-all cursor-pointer ${
+                  className={`px-3.5 py-1.5 text-xs font-mono font-bold uppercase tracking-wider rounded transition-all cursor-pointer ${
                     activeTab === 'gaps'
-                      ? 'bg-text text-bg shadow-xs'
-                      : 'text-text-secondary hover:text-text'
+                      ? 'bg-volt text-black shadow-xs'
+                      : 'text-neutral-400 hover:text-white'
                   }`}
                 >
                   <Layers className="w-3.5 h-3.5 inline mr-1.5" /> Shared Gaps ({result.sharedGaps.length})
@@ -655,10 +650,10 @@ export function CompareJDsPage() {
                 <button
                   type="button"
                   onClick={() => setActiveTab('matrix')}
-                  className={`px-3.5 py-1.5 text-xs font-bold rounded-lg transition-all cursor-pointer ${
+                  className={`px-3.5 py-1.5 text-xs font-mono font-bold uppercase tracking-wider rounded transition-all cursor-pointer ${
                     activeTab === 'matrix'
-                      ? 'bg-text text-bg shadow-xs'
-                      : 'text-text-secondary hover:text-text'
+                      ? 'bg-volt text-black shadow-xs'
+                      : 'text-neutral-400 hover:text-white'
                   }`}
                 >
                   <Grid3X3 className="w-3.5 h-3.5 inline mr-1.5" /> Overlap Matrix
@@ -669,22 +664,22 @@ export function CompareJDsPage() {
                 <button
                   type="button"
                   onClick={handleCopySummary}
-                  className="px-3 py-1.5 rounded-xl bg-surface-2 hover:bg-surface-3 border border-border text-xs font-semibold text-text inline-flex items-center gap-1.5 transition-colors cursor-pointer"
+                  className="px-3 py-1.5 rounded bg-surface-elevated hover:bg-neutral-800 border border-charcoal text-xs font-mono font-semibold uppercase tracking-wider text-neutral-200 inline-flex items-center gap-1.5 transition-colors cursor-pointer"
                 >
-                  {copiedSummary ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5 text-text-tertiary" />}
+                  {copiedSummary ? <Check className="w-3.5 h-3.5 text-volt" /> : <Copy className="w-3.5 h-3.5 text-neutral-400" />}
                   <span>{copiedSummary ? 'Copied' : 'Copy Report'}</span>
                 </button>
                 <button
                   type="button"
                   onClick={handleExportCSV}
-                  className="px-3 py-1.5 rounded-xl bg-surface-2 hover:bg-surface-3 border border-border text-xs font-semibold text-text inline-flex items-center gap-1.5 transition-colors cursor-pointer"
+                  className="px-3 py-1.5 rounded bg-surface-elevated hover:bg-neutral-800 border border-charcoal text-xs font-mono font-semibold uppercase tracking-wider text-neutral-200 inline-flex items-center gap-1.5 transition-colors cursor-pointer"
                 >
-                  <Download className="w-3.5 h-3.5 text-text-tertiary" /> Export CSV
+                  <Download className="w-3.5 h-3.5 text-neutral-400" /> Export CSV
                 </button>
                 <button
                   type="button"
                   onClick={() => setResult(null)}
-                  className="px-3 py-1.5 rounded-xl bg-surface-2 hover:bg-surface-3 border border-border text-xs font-semibold text-text inline-flex items-center gap-1.5 transition-colors cursor-pointer"
+                  className="px-3 py-1.5 rounded bg-surface-elevated hover:bg-neutral-800 border border-charcoal text-xs font-mono font-semibold uppercase tracking-wider text-neutral-200 inline-flex items-center gap-1.5 transition-colors cursor-pointer"
                 >
                   Edit Inputs
                 </button>

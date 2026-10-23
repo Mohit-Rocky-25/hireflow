@@ -137,29 +137,29 @@ export function DarkTailorHeader({
   };
 
   return (
-    <header className="bg-neutral-950/95 border-b border-neutral-800 backdrop-blur-md sticky top-0 z-40 text-neutral-100">
+    <header className="bg-black/95 border-b border-charcoal backdrop-blur-md sticky top-0 z-40 text-neutral-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
         <div className="flex flex-wrap items-center justify-between gap-3">
           {/* Left: Back Link + Brand Title */}
           <div className="flex items-center gap-3">
             <Link
               to="/tools"
-              className="p-1.5 rounded-lg bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white hover:bg-neutral-800 transition"
+              className="p-1.5 rounded bg-surface border border-charcoal text-neutral-400 hover:text-white hover:border-neutral-500 transition"
               title="Back to Suite Tools"
             >
               <ChevronLeft className="w-4 h-4" />
             </Link>
 
             <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-violet-600 flex items-center justify-center text-white shadow-md shadow-blue-500/20">
-                <Sparkles className="w-4 h-4" />
+              <div className="w-9 h-9 rounded bg-volt text-black flex items-center justify-center font-bold shadow-xs">
+                <Sparkles className="w-4 h-4 text-black" />
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="font-extrabold text-base tracking-tight text-white">
-                    HireFlow Resume Studio
+                  <span className="font-extrabold text-base tracking-tight text-white uppercase font-mono">
+                    HIRE<span className="text-volt">FLOW</span> RESUME STUDIO
                   </span>
-                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/25">
+                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-wider bg-volt/10 text-volt border border-volt/30">
                     <CheckCircle2 className="w-2.5 h-2.5" />
                     Truth Locked
                   </span>
@@ -172,20 +172,20 @@ export function DarkTailorHeader({
           </div>
 
           {/* Center / Right: Quick Presets */}
-          <div className="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-neutral-900/90 border border-neutral-800 text-xs text-neutral-400">
-            <span className="text-[11px] font-semibold text-neutral-500 uppercase tracking-wider pr-1">
+          <div className="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded bg-surface border border-charcoal text-xs text-neutral-400">
+            <span className="text-[11px] font-mono font-semibold text-neutral-400 uppercase tracking-wider pr-1">
               Presets:
             </span>
             <button
               onClick={() => loadPresetFixture('fresher')}
-              className="px-2.5 py-1 rounded-lg text-xs font-medium text-neutral-300 hover:text-white hover:bg-neutral-800 transition"
+              className="px-2.5 py-1 rounded text-xs font-mono uppercase tracking-wider text-neutral-300 hover:text-volt hover:bg-surface-elevated transition"
               title="Load Fresher Software Engineer Profile (Jeswanth Kumar)"
             >
               🎓 College Fresher
             </button>
             <button
               onClick={() => loadPresetFixture('security')}
-              className="px-2.5 py-1 rounded-lg text-xs font-medium text-neutral-300 hover:text-white hover:bg-neutral-800 transition"
+              className="px-2.5 py-1 rounded text-xs font-mono uppercase tracking-wider text-neutral-300 hover:text-volt hover:bg-surface-elevated transition"
               title="Load Senior Cybersecurity Engineer Profile (Alex Morgan)"
             >
               🛡️ Security Lead
@@ -197,10 +197,10 @@ export function DarkTailorHeader({
             {/* Input Data Button */}
             <button
               onClick={onOpenInputModal}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-neutral-900 hover:bg-neutral-800 border border-neutral-700/80 text-xs font-semibold text-neutral-200 transition shadow-xs"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-surface hover:bg-surface-elevated border border-charcoal text-xs font-mono uppercase tracking-wider text-neutral-200 transition shadow-xs"
               title="Upload or paste custom Resume & Job Description"
             >
-              <UploadCloud className="w-3.5 h-3.5 text-blue-400" />
+              <UploadCloud className="w-3.5 h-3.5 text-volt" />
               <span>Upload / Input</span>
             </button>
 
@@ -208,39 +208,39 @@ export function DarkTailorHeader({
             <button
               onClick={handleTriggerMakeItBetter}
               disabled={elevating}
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 hover:from-blue-500 hover:to-violet-500 text-white text-xs font-bold shadow-lg shadow-blue-500/20 hover:shadow-blue-500/35 transition hover:-translate-y-0.5 active:translate-y-0"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded bg-volt hover:bg-volt-hover active:shadow-[inset_0_2px_4px_rgba(0,0,0,0.6)] text-black text-xs font-mono font-bold uppercase tracking-wider transition hover:-translate-y-0.5 active:translate-y-0"
               title="Upgrade to Top 1% Industry Standards (Google XYZ, Power Verbs, 1-Page Fit)"
             >
-              <Zap className={`w-3.5 h-3.5 text-amber-300 ${elevating ? 'animate-spin' : ''}`} />
+              <Zap className={`w-3.5 h-3.5 text-black ${elevating ? 'animate-spin' : ''}`} />
               <span>Make It Better</span>
             </button>
 
             {/* Download Hub Dropdown & Quick Actions */}
             <div className="relative">
-              <div className="flex items-center gap-1 bg-neutral-900 p-1 rounded-xl border border-neutral-800">
+              <div className="flex items-center gap-1 bg-surface p-1 rounded border border-charcoal">
                 <button
                   onClick={handleDownloadDocx}
                   disabled={downloadingDocx}
-                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold text-neutral-200 hover:text-white hover:bg-neutral-800 transition disabled:opacity-50"
+                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded text-xs font-mono uppercase tracking-wider text-neutral-200 hover:text-volt hover:bg-surface-elevated transition disabled:opacity-50"
                   title="Download genuine Microsoft Word .DOCX binary"
                 >
-                  <Download className="w-3.5 h-3.5 text-emerald-400" />
+                  <Download className="w-3.5 h-3.5 text-volt" />
                   <span className="hidden sm:inline">DOCX</span>
                 </button>
 
                 <button
                   onClick={handleDownloadPdf}
                   disabled={downloadingPdf}
-                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold text-neutral-200 hover:text-white hover:bg-neutral-800 transition disabled:opacity-50"
+                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded text-xs font-mono uppercase tracking-wider text-neutral-200 hover:text-volt hover:bg-surface-elevated transition disabled:opacity-50"
                   title="Download genuine vector PDF directly generated in memory"
                 >
-                  <Printer className="w-3.5 h-3.5 text-sky-400" />
+                  <Printer className="w-3.5 h-3.5 text-neutral-300" />
                   <span className="hidden sm:inline">{downloadingPdf ? 'PDF...' : 'PDF'}</span>
                 </button>
 
                 <button
                   onClick={() => setDownloadMenuOpen(!downloadMenuOpen)}
-                  className="p-1 rounded-lg text-neutral-400 hover:text-white hover:bg-neutral-800 transition"
+                  className="p-1 rounded text-neutral-400 hover:text-volt hover:bg-surface-elevated transition"
                   title="More download formats (TXT, MD, JSON)"
                 >
                   <ChevronDown className="w-3.5 h-3.5" />
@@ -248,33 +248,33 @@ export function DarkTailorHeader({
 
                 <button
                   onClick={handleCopyText}
-                  className="p-1.5 rounded-lg text-neutral-400 hover:text-white hover:bg-neutral-800 transition"
+                  className="p-1.5 rounded text-neutral-400 hover:text-volt hover:bg-surface-elevated transition"
                   title="Copy Clean ATS Plain Text"
                 >
-                  {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                  {copied ? <Check className="w-3.5 h-3.5 text-volt" /> : <Copy className="w-3.5 h-3.5" />}
                 </button>
               </div>
 
               {/* Multi-Format Download Dropdown Menu */}
               {downloadMenuOpen && (
-                <div className="absolute right-0 top-full mt-2 w-52 bg-neutral-900 border border-neutral-800 rounded-xl shadow-2xl z-50 p-1.5 space-y-1 animate-fade-in text-xs">
-                  <div className="px-2.5 py-1 text-[10px] font-bold text-neutral-400 uppercase tracking-wider border-b border-neutral-800">
+                <div className="absolute right-0 top-full mt-2 w-52 bg-black border border-charcoal rounded shadow-2xl z-50 p-1.5 space-y-1 animate-fade-in text-xs">
+                  <div className="px-2.5 py-1 text-[10px] font-mono font-bold text-neutral-400 uppercase tracking-wider border-b border-charcoal">
                     Export Resume As
                   </div>
                   <button
                     onClick={handleDownloadPdf}
                     disabled={downloadingPdf}
-                    className="w-full text-left px-2.5 py-1.5 rounded-lg hover:bg-neutral-800 text-neutral-200 hover:text-white flex items-center gap-2 transition"
+                    className="w-full text-left px-2.5 py-1.5 rounded hover:bg-surface-elevated text-neutral-200 hover:text-volt flex items-center gap-2 transition font-mono"
                   >
-                    <Download className="w-3.5 h-3.5 text-sky-400" />
+                    <Download className="w-3.5 h-3.5 text-volt" />
                     <span>Vector PDF (.pdf)</span>
                   </button>
                   <button
                     onClick={handleDownloadDocx}
                     disabled={downloadingDocx}
-                    className="w-full text-left px-2.5 py-1.5 rounded-lg hover:bg-neutral-800 text-neutral-200 hover:text-white flex items-center gap-2 transition"
+                    className="w-full text-left px-2.5 py-1.5 rounded hover:bg-surface-elevated text-neutral-200 hover:text-volt flex items-center gap-2 transition font-mono"
                   >
-                    <Download className="w-3.5 h-3.5 text-emerald-400" />
+                    <Download className="w-3.5 h-3.5 text-volt" />
                     <span>Microsoft Word (.docx)</span>
                   </button>
                   <button
@@ -282,30 +282,30 @@ export function DarkTailorHeader({
                       triggerPrintToPdf();
                       setDownloadMenuOpen(false);
                     }}
-                    className="w-full text-left px-2.5 py-1.5 rounded-lg hover:bg-neutral-800 text-neutral-200 hover:text-white flex items-center gap-2 transition"
+                    className="w-full text-left px-2.5 py-1.5 rounded hover:bg-surface-elevated text-neutral-200 hover:text-volt flex items-center gap-2 transition font-mono"
                   >
                     <Printer className="w-3.5 h-3.5 text-neutral-400" />
                     <span>Browser Print Dialog</span>
                   </button>
                   <button
                     onClick={handleDownloadTxt}
-                    className="w-full text-left px-2.5 py-1.5 rounded-lg hover:bg-neutral-800 text-neutral-200 hover:text-white flex items-center gap-2 transition"
+                    className="w-full text-left px-2.5 py-1.5 rounded hover:bg-surface-elevated text-neutral-200 hover:text-volt flex items-center gap-2 transition font-mono"
                   >
-                    <FileText className="w-3.5 h-3.5 text-amber-400" />
+                    <FileText className="w-3.5 h-3.5 text-neutral-400" />
                     <span>Plain Text (.txt)</span>
                   </button>
                   <button
                     onClick={handleDownloadMarkdown}
-                    className="w-full text-left px-2.5 py-1.5 rounded-lg hover:bg-neutral-800 text-neutral-200 hover:text-white flex items-center gap-2 transition"
+                    className="w-full text-left px-2.5 py-1.5 rounded hover:bg-surface-elevated text-neutral-200 hover:text-volt flex items-center gap-2 transition font-mono"
                   >
-                    <FileCode className="w-3.5 h-3.5 text-violet-400" />
+                    <FileCode className="w-3.5 h-3.5 text-neutral-400" />
                     <span>Markdown (.md)</span>
                   </button>
                   <button
                     onClick={handleDownloadJson}
-                    className="w-full text-left px-2.5 py-1.5 rounded-lg hover:bg-neutral-800 text-neutral-200 hover:text-white flex items-center gap-2 transition"
+                    className="w-full text-left px-2.5 py-1.5 rounded hover:bg-surface-elevated text-neutral-200 hover:text-volt flex items-center gap-2 transition font-mono"
                   >
-                    <FileSpreadsheet className="w-3.5 h-3.5 text-indigo-400" />
+                    <FileSpreadsheet className="w-3.5 h-3.5 text-neutral-400" />
                     <span>Structured Data (.json)</span>
                   </button>
                 </div>
@@ -317,8 +317,8 @@ export function DarkTailorHeader({
 
       {/* Floating Download Toast */}
       {downloadToast && (
-        <div className="fixed bottom-6 right-6 z-50 bg-neutral-900 border border-emerald-500/40 text-emerald-400 px-4 py-2 rounded-xl shadow-xl text-xs font-bold flex items-center gap-2 animate-bounce">
-          <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+        <div className="fixed bottom-6 right-6 z-50 bg-black border border-volt/40 text-volt px-4 py-2 rounded shadow-xl text-xs font-mono font-bold flex items-center gap-2 animate-bounce">
+          <CheckCircle2 className="w-4 h-4 text-volt" />
           <span>{downloadToast}</span>
         </div>
       )}
