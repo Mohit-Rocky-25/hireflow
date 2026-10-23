@@ -47,19 +47,19 @@ export function FresherProgramCard({
             onSelect();
           }
         }}
-        className={`group w-full p-[20px] rounded-2xl border transition-all flex flex-col justify-between gap-[14px] cursor-pointer select-none text-left ${
+        className={`group w-full p-5 rounded-lg border transition-colors flex flex-col justify-between gap-3.5 cursor-pointer select-none text-left ${
           isSelected
-            ? 'bg-surface-2 border-black ring-2 ring-black/80 shadow-lg dark:border-white dark:ring-white/80'
-            : 'bg-surface border-border hover:border-black/40 hover:bg-surface-2 hover:shadow-md dark:hover:border-white/40'
+            ? 'bg-near-black border-volt shadow-level-5'
+            : 'bg-near-black border-charcoal hover:border-volt/60'
         }`}
       >
-        <div className="flex items-start justify-between gap-[14px]">
+        <div className="flex items-start justify-between gap-3.5">
           <div className="space-y-1.5 flex-1 min-w-0">
-            <div className="flex items-center gap-[8px] flex-wrap">
-              <h3 className="text-[17px] sm:text-[18px] font-black text-black dark:text-white tracking-tight leading-snug group-hover:text-primary transition-colors">
+            <div className="flex items-center gap-2 flex-wrap">
+              <h3 className="text-[17px] sm:text-[18px] font-bold text-white tracking-tight leading-snug group-hover:text-volt transition-colors uppercase">
                 {prog.programName}
               </h3>
-              <span className="text-[10px] font-black px-[8px] py-[2px] rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/25 uppercase tracking-wider">
+              <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-black text-silver border border-charcoal uppercase tracking-[1px]">
                 {prog.campusCategory.toUpperCase()}
               </span>
               <DataBadge entity={prog} />
@@ -68,8 +68,8 @@ export function FresherProgramCard({
                 facts={candidateFacts}
               />
             </div>
-            <div className="text-[13px] font-bold text-zinc-700 dark:text-zinc-300">
-              {prog.roleTitle} · <span className="text-text-muted font-normal">{prog.roleFamily}</span>
+            <div className="text-xs font-semibold text-silver font-mono">
+              {prog.roleTitle} · <span className="text-silver/80 font-normal">{prog.roleFamily}</span>
             </div>
           </div>
 
@@ -79,16 +79,16 @@ export function FresherProgramCard({
               e.stopPropagation();
               onSelect();
             }}
-            className={`shrink-0 px-3.5 py-1.5 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 ${
+            className={`shrink-0 px-3.5 py-1.5 rounded text-xs font-bold uppercase tracking-[1px] transition-colors flex items-center gap-1.5 cursor-pointer ${
               isSelected
-                ? 'bg-black text-white dark:bg-white dark:text-black shadow-sm ring-1 ring-black/20'
-                : 'bg-surface-3 border border-border text-zinc-900 dark:text-zinc-100 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black shadow-xs'
+                ? 'bg-black text-volt border border-volt/60 shadow-level-4'
+                : 'bg-black border border-charcoal text-white hover:border-volt hover:text-volt'
             }`}
           >
             {isSelected ? (
               <>
-                <CheckCircle className="w-3.5 h-3.5 text-emerald-400 dark:text-emerald-600" />
-                <span>Selected ✓</span>
+                <CheckCircle className="w-3.5 h-3.5 text-volt stroke-[1.5px]" />
+                <span>Selected</span>
               </>
             ) : (
               <span>Select Role →</span>
@@ -98,47 +98,47 @@ export function FresherProgramCard({
 
         {/* Compensation & Criteria Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs py-1">
-          <div className="p-2.5 rounded-xl bg-emerald-500/[0.07] border border-emerald-500/20">
-            <span className="text-[10px] text-emerald-800 dark:text-emerald-300 uppercase font-black tracking-wider block">
+          <div className="p-2.5 rounded bg-black border border-charcoal">
+            <span className="text-[10px] text-silver uppercase font-bold tracking-[1.4px] block">
               Compensation
             </span>
-            <span className="font-black text-[13px] text-emerald-600 dark:text-emerald-400">{ctcStr}</span>
+            <span className="font-bold text-[13px] text-volt font-mono">{ctcStr}</span>
           </div>
-          <div className="p-2.5 rounded-xl bg-surface-2 border border-border/80">
-            <span className="text-[10px] text-text-muted uppercase font-bold tracking-wider block">
+          <div className="p-2.5 rounded bg-black border border-charcoal">
+            <span className="text-[10px] text-silver uppercase font-bold tracking-[1.4px] block">
               Cutoffs &amp; Backlogs
             </span>
-            <span className="font-bold text-zinc-900 dark:text-zinc-100">
+            <span className="font-semibold text-white">
               {prog.eligibility.minCgpa ? `≥ ${prog.eligibility.minCgpa} CGPA` : 'No CGPA cutoff'} · {prog.eligibility.backlogPolicy || '0 backlogs'}
             </span>
           </div>
-          <div className="p-2.5 rounded-xl bg-surface-2 border border-border/80">
-            <span className="text-[10px] text-text-muted uppercase font-bold tracking-wider block">
+          <div className="p-2.5 rounded bg-black border border-charcoal">
+            <span className="text-[10px] text-silver uppercase font-bold tracking-[1.4px] block">
               Eligible Branches
             </span>
-            <span className="font-bold text-zinc-900 dark:text-zinc-100 truncate block" title={prog.eligibility.branchCodes.join(', ')}>
+            <span className="font-semibold text-white truncate block" title={prog.eligibility.branchCodes.join(', ')}>
               {prog.eligibility.branchCodes.join(', ') || 'Engineering'}
             </span>
           </div>
         </div>
 
         {/* Selection Stages Stepper */}
-        <div className="pt-2 border-t border-border/60">
-          <span className="text-[10px] font-black uppercase tracking-wider text-text-muted block mb-1.5">
+        <div className="pt-2 border-t border-charcoal">
+          <span className="text-[10px] font-bold uppercase tracking-[1.4px] text-silver block mb-1.5">
             Selection Funnel ({prog.selectionProcess.length} Stages):
           </span>
           <div className="flex items-center gap-1.5 flex-wrap">
             {prog.selectionProcess.map((stage, idx) => (
               <div
                 key={idx}
-                className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-surface-3 border border-border text-[11px] font-medium text-text-secondary"
+                className="flex items-center gap-1 px-2.5 py-1 rounded bg-black border border-charcoal text-[11px] font-medium text-silver"
               >
-                <span className="font-mono text-[10px] text-primary font-black">
+                <span className="font-mono text-[10px] text-volt font-bold">
                   {idx + 1}.
                 </span>
-                <span className="font-semibold text-text">{stage.stage}</span>
+                <span className="font-semibold text-white">{stage.stage}</span>
                 {stage.topics.length > 0 && (
-                  <span className="text-[10px] text-text-muted">
+                  <span className="text-[10px] text-silver">
                     ({stage.topics.slice(0, 2).join(', ')})
                   </span>
                 )}
@@ -148,15 +148,15 @@ export function FresherProgramCard({
         </div>
 
         {/* Competency tags & Actions */}
-        <div className="flex items-center justify-between gap-2 flex-wrap pt-2 border-t border-border/60">
+        <div className="flex items-center justify-between gap-2 flex-wrap pt-2 border-t border-charcoal">
           <div className="flex items-center gap-1.5 flex-wrap">
-            <span className="text-[10px] font-bold text-text-muted uppercase tracking-wider">
-              Skills Evaluated:
+            <span className="text-[10px] font-bold text-silver uppercase tracking-[1.4px]">
+              Skills:
             </span>
             {Object.keys(prog.competencyProfile).map((c) => (
               <span
                 key={c}
-                className="text-[10px] font-black px-[8px] py-[2px] rounded-md bg-surface-3 text-text border border-border/80 uppercase"
+                className="text-[10px] font-semibold px-2 py-0.5 rounded bg-black text-silver border border-charcoal uppercase tracking-[0.5px]"
               >
                 {c}
               </span>
@@ -166,7 +166,7 @@ export function FresherProgramCard({
           <Link
             to={`/tools/resume-checker?company=${company.id}&role=${encodeURIComponent(prog.roleTitle)}&program=${encodeURIComponent(prog.id)}`}
             onClick={(e) => e.stopPropagation()}
-            className="text-[11px] font-bold text-primary hover:underline inline-flex items-center gap-1"
+            className="text-xs font-bold text-white hover:text-volt uppercase tracking-[1px] inline-flex items-center gap-1 transition-colors"
           >
             Scan in ATS Roaster →
           </Link>
@@ -175,39 +175,39 @@ export function FresherProgramCard({
 
       {/* Mobile-Only Action Panel */}
       {isSelected && (
-        <div className="lg:hidden mt-[10px] mb-[12px] bg-surface-2 border border-black/20 dark:border-white/20 rounded-2xl p-[18px] animate-slide-up shadow-md">
-          <div className="flex items-center gap-[10px] mb-[12px]">
-            <div className="w-[36px] h-[36px] rounded-xl bg-black text-white dark:bg-white dark:text-black flex items-center justify-center flex-shrink-0">
-              <Brain className="w-4 h-4" />
+        <div className="lg:hidden mt-2.5 mb-3 bg-black border border-charcoal rounded-lg p-4 shadow-level-2">
+          <div className="flex items-center gap-2.5 mb-3">
+            <div className="w-9 h-9 rounded bg-near-black border border-charcoal text-volt flex items-center justify-center flex-shrink-0">
+              <Brain className="w-4 h-4 stroke-[1.5px]" />
             </div>
             <div>
-              <div className="text-[14px] font-black text-black dark:text-white">
+              <div className="text-sm font-bold text-white uppercase tracking-tight">
                 {company.name} — {prog.programName}
               </div>
-              <div className="text-[11px] text-text-secondary font-medium">
+              <div className="text-xs text-silver font-mono">
                 {Object.keys(prog.competencyProfile).length} competencies ready for deep screening
               </div>
             </div>
           </div>
 
           {!resumeText.trim() ? (
-            <div className="p-3 bg-amber-500/10 border border-amber-500/25 rounded-xl mb-3 text-xs space-y-2">
-              <div className="font-bold text-amber-700 dark:text-amber-400 flex items-center gap-1.5">
+            <div className="p-3 bg-near-black border border-charcoal rounded mb-3 text-xs space-y-2">
+              <div className="font-semibold text-pale-yellow flex items-center gap-1.5 uppercase tracking-[1px]">
                 <Info className="w-3.5 h-3.5" /> Resume needed for AI screening
               </div>
               <button
                 type="button"
                 onClick={onLoadSampleResume}
-                className="w-full flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg bg-black text-white dark:bg-white dark:text-black font-extrabold text-xs shadow-sm cursor-pointer"
+                className="w-full flex items-center justify-center gap-1.5 py-2 px-3 rounded bg-volt text-[#151515] font-bold text-xs uppercase tracking-[1.4px] border border-volt hover:bg-[#1d1d1d] hover:text-white transition-colors cursor-pointer"
               >
-                <Sparkles className="w-3.5 h-3.5 text-amber-400 dark:text-amber-500" />
+                <Sparkles className="w-3.5 h-3.5" />
                 <span>Load Sample Resume &amp; Verify Now</span>
               </button>
             </div>
           ) : (
-            <div className="p-2.5 bg-emerald-500/10 border border-emerald-500/25 rounded-xl mb-3 flex items-center justify-between text-xs text-emerald-700 dark:text-emerald-400 font-bold">
+            <div className="p-2.5 bg-near-black border border-charcoal rounded mb-3 flex items-center justify-between text-xs text-volt font-bold uppercase tracking-[1px]">
               <div className="flex items-center gap-2">
-                <CheckCircle className="w-4 h-4 flex-shrink-0" />
+                <CheckCircle className="w-4 h-4 flex-shrink-0 stroke-[1.5px]" />
                 <span>
                   {activeResume?.ledger?.rawText === resumeText
                     ? `Profile: ${activeResume.label}`
@@ -216,7 +216,7 @@ export function FresherProgramCard({
                 </span>
               </div>
               {activeResume?.ledger?.rawText === resumeText && (
-                <span className="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-mono">
+                <span className="text-[10px] px-1.5 py-0.5 rounded bg-black text-volt border border-volt/60 font-mono">
                   SYNCED
                 </span>
               )}
@@ -227,16 +227,16 @@ export function FresherProgramCard({
             type="button"
             onClick={onRunAnalysis}
             disabled={analyzing || !resumeText.trim()}
-            className="w-full bg-primary text-white py-[11px] px-[16px] rounded-xl font-bold text-[13px] hover:bg-primary-hover transition-all flex items-center justify-center gap-[8px] disabled:opacity-40 disabled:cursor-not-allowed shadow-sm cursor-pointer"
+            className="w-full bg-volt text-[#151515] py-2.5 px-4 rounded font-bold text-xs uppercase tracking-[1.4px] border border-volt hover:bg-[#1d1d1d] hover:text-white transition-colors flex items-center justify-center gap-2 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
           >
             {analyzing ? (
               <>
-                <RefreshCw className="w-4 h-4 animate-spin" />
+                <RefreshCw className="w-4 h-4 animate-spin stroke-[1.5px]" />
                 <span>Analyzing deeply...</span>
               </>
             ) : (
               <>
-                <Brain className="w-4 h-4" />
+                <Brain className="w-4 h-4 stroke-[1.5px]" />
                 <span>Run Deep AI Analysis</span>
               </>
             )}

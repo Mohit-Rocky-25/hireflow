@@ -1,236 +1,147 @@
 // ============================================================
-// HireFlow — Landing Page (Aesthetic & Context-Driven)
+// HireFlow — Home / Landing Page (High-Contrast Dark System)
+// Strictly adhering to DESIGN.md and Project Specifications
 // ============================================================
-import { Link } from "react-router-dom";
-import { useStore } from "../store/useStore";
+import React from 'react';
+import { Link } from 'react-router-dom';
 import {
-  Sparkles, Brain, Users, CheckCircle, ArrowRight,
-  Shield, Zap, Target, Building2, ChevronRight, Cpu, BarChart3, TrendingUp,
-  MessageSquare, FileText, Briefcase, GraduationCap, Flame
-} from "lucide-react";
-import { PublicNavbar } from "../components/common/PublicNavbar";
-import { careers } from "../careers-core";
+  Brain,
+  Target,
+  Zap,
+  Building2,
+  Briefcase,
+  GraduationCap,
+  Flame,
+  ArrowRight,
+  CheckCircle2,
+  ShieldCheck,
+  Award,
+} from 'lucide-react';
+import { PublicNavbar } from '../components/common/PublicNavbar';
+import { careers } from '../careers-core';
 
 const platformStats = careers.stats.counts();
 const TOTAL_COMPANIES = platformStats.companies;
 const TOTAL_ROLES = platformStats.roles;
 const TOTAL_FRESHER_PROGRAMS = platformStats.fresherPrograms;
-const TOP_COMPANIES = careers.companies.list().slice(0, 24);
-
-const FEATURES = [
-  {
-    icon: Brain,
-    title: "Harsh Truth AI",
-    desc: "We don't sugarcoat. Our AI acts like a ruthless recruiter, tearing apart your resume to tell you exactly why you'd be rejected.",
-    iconColor: "text-violet-600",
-    iconBg: "bg-violet-50 border-violet-200/80",
-  },
-  {
-    icon: Target,
-    title: "Trajectory Mapping",
-    desc: "Stop guessing your next move. Input your dream job and we generate a year-by-year syllabus of skills you need to learn.",
-    iconColor: "text-emerald-600",
-    iconBg: "bg-emerald-50 border-emerald-200/80",
-  },
-  {
-    icon: Zap,
-    title: "Instant ATS Simulation",
-    desc: "Drop in any Job Description and your Resume. We instantly simulate an enterprise ATS scan to give you a match score.",
-    iconColor: "text-sky-600",
-    iconBg: "bg-sky-50 border-sky-200/80",
-  },
-];
-
-const TOOLS = [
-  {
-    icon: Brain,
-    title: "TalentLens Simulator",
-    badge: `${TOTAL_COMPANIES}+ Employers & Recruiters · 6-Layer AI`,
-    badgeStyle: "bg-sky-50 text-sky-700 border-sky-200/80 group-hover:bg-sky-100",
-    iconBoxStyle: "bg-sky-500/10 border-sky-500/20 text-sky-600 group-hover:bg-sky-500 group-hover:text-white",
-    cardHoverStyle: "hover:border-sky-400/90 hover:ring-2 hover:ring-sky-400/15",
-    accentGrad: "from-sky-500 to-indigo-500",
-    buttonStyle: "group-hover:bg-sky-500 group-hover:text-white group-hover:border-sky-500",
-    points: [
-      "Experience our proprietary B2B AI matching engine",
-      "See how recruiters evaluate your profile behind the scenes",
-      "Understand semantic gap analysis & evidence extraction"
-    ],
-    cta: "Launch Simulator",
-    link: "/demo",
-  },
-  {
-    icon: Flame,
-    title: "ATS Resume Roaster",
-    badge: "Hot · Instant Audit",
-    badgeStyle: "bg-amber-50 text-amber-700 border-amber-200/80 group-hover:bg-amber-100",
-    iconBoxStyle: "bg-amber-500/10 border-amber-500/20 text-amber-600 group-hover:bg-amber-500 group-hover:text-white",
-    cardHoverStyle: "hover:border-amber-400/90 hover:ring-2 hover:ring-amber-400/15",
-    accentGrad: "from-amber-500 to-orange-500",
-    buttonStyle: "group-hover:bg-amber-500 group-hover:text-white group-hover:border-amber-500",
-    points: [
-      "Simulate exactly what ATS filters see",
-      "Get a harsh match score for any Job Description",
-      "Identify missing hard skills & red flags instantly"
-    ],
-    cta: "Roast My Resume",
-    link: "/tools/resume-checker",
-  },
-  {
-    icon: Target,
-    title: "Career Trajectory",
-    badge: "₹ CTC · Level Ladders",
-    badgeStyle: "bg-emerald-50 text-emerald-700 border-emerald-200/80 group-hover:bg-emerald-100",
-    iconBoxStyle: "bg-emerald-500/10 border-emerald-500/20 text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white",
-    cardHoverStyle: "hover:border-emerald-400/90 hover:ring-2 hover:ring-emerald-400/15",
-    accentGrad: "from-emerald-500 to-teal-500",
-    buttonStyle: "group-hover:bg-emerald-600 group-hover:text-white group-hover:border-emerald-600",
-    points: [
-      "Plan your path from campus to dream companies",
-      "Real eligibility rules, cutoffs & fresher CTC in INR",
-      "Step-by-step offer routes, timeline & action guide"
-    ],
-    cta: "Plan My Trajectory",
-    link: "/tools/career-path",
-  },
-];
+const TOP_COMPANIES = careers.companies.list().slice(0, 20);
 
 export function LandingPage() {
-  const { isAuthenticated, currentUser } = useStore();
-
-
   return (
-    <div className="min-h-screen bg-bg font-sans text-text overflow-x-hidden">
+    <div className="min-h-screen bg-black text-white font-sans overflow-x-hidden selection:bg-volt selection:text-black">
       <PublicNavbar />
 
-      {/* Hero */}
-      <section className="relative pt-[136px] pb-[96px] lg:pt-[152px] lg:pb-[112px] hero-mesh flex items-center">
-        <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
-          <div className="absolute top-[18%] right-[8%] w-[380px] h-[380px] rounded-full bg-primary/8 blur-[100px] animate-float" style={{ animationDelay: "0s" }} />
-          <div className="absolute bottom-[22%] left-[5%] w-[300px] h-[300px] rounded-full bg-ai-dark/8 blur-[100px] animate-float" style={{ animationDelay: "3s" }} />
-          <div className="absolute top-[55%] right-[30%] w-[200px] h-[200px] rounded-full bg-primary/6 blur-[80px] animate-float" style={{ animationDelay: "1.5s" }} />
-        </div>
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-[32px] w-full text-center">
-          <div className="max-w-[860px] mx-auto page-enter flex flex-col items-center">
+      {/* ── Marketing Hero Section (§3, §4) ── */}
+      <section className="relative pt-[120px] pb-[72px] sm:pt-[140px] sm:pb-[96px] bg-black">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="max-w-[960px] mx-auto flex flex-col items-center">
             
-            {/* Main Headline — Deep Solid Black */}
-            <h1 className="text-[52px] sm:text-[68px] lg:text-[84px] font-black text-black leading-[1.03] tracking-[-0.04em] mb-[24px]">
-              Take control of your{" "}
-              <span className="gradient-text">Career.</span>
+            {/* Uppercase Section Overline */}
+            <p className="text-[13px] sm:text-[14px] font-semibold text-silver uppercase tracking-[1.4px] mb-6 select-none">
+              Candidate Career Decision Suite
+            </p>
+
+            {/* Display Mega Headline (§3: Inter 900, 96px responsive collapse) */}
+            <h1 className="text-[40px] sm:text-[64px] md:text-[80px] lg:text-[96px] font-black text-white leading-[1.0] tracking-tight mb-8">
+              TAKE CONTROL OF YOUR <span className="text-volt">CAREER.</span>
             </h1>
 
             {/* Subtitle */}
-            <p className="text-[18px] sm:text-[20px] text-text-secondary leading-[30px] sm:leading-[32px] mb-[44px] max-w-[620px] mx-auto font-normal">
-              Simulate ATS resume filters, map your career trajectory, and test your resume against {TOTAL_COMPANIES}+ verified employers and {TOTAL_ROLES.toLocaleString()}+ calibrated roles across active recruiters — all completely free.
+            <p className="text-[16px] sm:text-[18px] md:text-[20px] text-silver leading-relaxed mb-10 max-w-[680px] mx-auto font-normal">
+              Simulate ATS resume filters, map your career trajectory, and test your profile against{' '}
+              <strong className="text-white font-bold">{TOTAL_COMPANIES}+</strong> verified employers and{' '}
+              <strong className="text-white font-bold">{TOTAL_ROLES.toLocaleString()}+</strong> calibrated roles across active recruiters — all completely free.
             </p>
 
-            {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row gap-[14px] justify-center w-full">
-              <Link to="/demo">
-                <button className="inline-flex items-center gap-[10px] h-[54px] px-[32px] text-[16px] font-bold text-white rounded-xl bg-gradient-to-r from-primary to-ai shadow-glow-orange hover:scale-[1.02] active:scale-[0.99] transition-all duration-[150ms]">
-                  <Sparkles className="w-[18px] h-[18px] stroke-[1.8px]" />
-                  Try TalentLens™
+            {/* Hero CTAs: Exactly ONE Neon Primary + ONE Ghost button (§4, Stage 4) */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
+              <Link to="/demo" className="w-full sm:w-auto">
+                <button
+                  type="button"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 h-[48px] px-8 rounded text-[14px] font-bold uppercase tracking-[1.2px] text-text-on-accent bg-volt hover:bg-[#1d1d1d] hover:text-white border border-volt transition-colors active:text-pale-yellow active:shadow-inset focus-visible:outline-2 focus-visible:outline-volt cursor-pointer select-none"
+                >
+                  <span>LAUNCH SIMULATOR</span>
+                  <ArrowRight className="w-4 h-4 stroke-[1.5px]" />
                 </button>
               </Link>
-              <Link to="/tools/resume-checker">
-                <button className="inline-flex items-center gap-[10px] h-[54px] px-[28px] text-[15px] font-semibold text-text-secondary rounded-xl border border-border-strong bg-white hover:border-border-accent hover:text-black hover:bg-surface-2 transition-all duration-[150ms] shadow-xs">
-                  ATS Roaster
-                </button>
-              </Link>
-              <Link to="/tools">
-                <button className="inline-flex items-center gap-[10px] h-[54px] px-[28px] text-[15px] font-semibold text-text-secondary rounded-xl border border-border-strong bg-white hover:border-border-accent hover:text-black hover:bg-surface-2 transition-all duration-[150ms] shadow-xs">
-                  Decision Suite <ChevronRight className="w-[16px] h-[16px] stroke-[2px]" />
+              <Link to="/tools" className="w-full sm:w-auto">
+                <button
+                  type="button"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 h-[48px] px-8 rounded text-[14px] font-semibold uppercase tracking-[1.2px] text-white bg-transparent hover:bg-near-black border border-olive-border hover:border-volt/60 transition-colors active:text-pale-yellow active:shadow-inset focus-visible:outline-2 focus-visible:outline-volt cursor-pointer select-none"
+                >
+                  <span>EXPLORE DECISION SUITE</span>
                 </button>
               </Link>
             </div>
           </div>
 
-          {/* Stats Bento Grid */}
-          <div className="mt-[64px] sm:mt-[80px] grid grid-cols-1 md:grid-cols-3 gap-[20px] sm:gap-[24px] page-enter max-w-[1140px] mx-auto w-full px-2 sm:px-[20px]">
-            {/* Card 1: Employers (Wide) */}
-            <div className="md:col-span-2 relative rounded-[32px] bg-gradient-to-br from-surface/80 to-surface-2/80 backdrop-blur-md border border-border/80 p-[36px] sm:p-[40px] overflow-hidden group hover:border-blue-500/40 transition-all duration-500 hover:shadow-[0_20px_40px_-15px_rgba(59,130,246,0.15)] text-left">
-              <div className="absolute top-[-20%] right-[-10%] w-[400px] h-[400px] rounded-full bg-blue-500/10 blur-[80px] pointer-events-none group-hover:bg-blue-500/20 transition-colors duration-700" />
-              <div className="relative z-10 flex flex-col h-full justify-between">
-                <div className="w-[60px] h-[60px] rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center mb-[28px] group-hover:scale-110 transition-transform duration-500">
-                  <Building2 className="w-[30px] h-[30px] text-blue-500" />
+          {/* ── Real Computed Performance Stats Bar (§4: Oversized numbers 72px+) ── */}
+          <div className="mt-16 sm:mt-24 max-w-[1280px] mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-6 sm:p-8 rounded-lg bg-near-black border border-charcoal">
+              <div className="text-left p-4">
+                <div className="text-[48px] sm:text-[64px] lg:text-[72px] font-black text-white leading-none tracking-tight font-sans">
+                  {TOTAL_COMPANIES}<span className="text-volt">+</span>
                 </div>
-                <div>
-                  <h3 className="text-[52px] sm:text-[56px] font-black text-text tracking-tighter leading-none mb-[12px] group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-500 group-hover:to-indigo-400 transition-all duration-500">{TOTAL_COMPANIES}+</h3>
-                  <p className="text-[20px] font-extrabold text-text mb-[6px] tracking-tight">Top Employers & Recruiters</p>
-                  <p className="text-[15px] text-text-secondary font-medium">FAANG, Unicorns, Cybersecurity, GCCs, and Indian Tech Giants verified.</p>
-                </div>
+                <p className="text-[13px] font-semibold uppercase tracking-[1.4px] text-silver mt-2">
+                  Verified Employers
+                </p>
+                <p className="text-[13px] text-silver/70 mt-1">
+                  FAANG, Unicorns, GCCs, and Tier-1 engineering teams.
+                </p>
               </div>
-              <div className="absolute bottom-[-15%] right-[-5%] opacity-[0.03] group-hover:opacity-[0.08] group-hover:scale-110 transition-all duration-700 pointer-events-none rotate-12">
-                <Building2 className="w-[280px] h-[280px] text-blue-500" />
-              </div>
-            </div>
 
-            {/* Card 2: Roles (Tall/Square) */}
-            <div className="relative rounded-[32px] bg-gradient-to-br from-surface/80 to-surface-2/80 backdrop-blur-md border border-border/80 p-[36px] sm:p-[40px] overflow-hidden group hover:border-amber-500/40 transition-all duration-500 hover:shadow-[0_20px_40px_-15px_rgba(245,158,11,0.15)] text-left">
-              <div className="absolute top-0 right-0 w-[200px] h-[200px] rounded-full bg-amber-500/10 blur-[60px] pointer-events-none group-hover:bg-amber-500/20 transition-colors duration-700" />
-              <div className="relative z-10 flex flex-col h-full justify-between">
-                <div className="w-[60px] h-[60px] rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center mb-[28px] group-hover:scale-110 transition-transform duration-500">
-                  <Briefcase className="w-[30px] h-[30px] text-amber-500" />
+              <div className="text-left p-4 border-t sm:border-t-0 sm:border-l border-charcoal">
+                <div className="text-[48px] sm:text-[64px] lg:text-[72px] font-black text-white leading-none tracking-tight font-sans">
+                  {TOTAL_ROLES.toLocaleString()}<span className="text-volt">+</span>
                 </div>
-                <div>
-                  <h3 className="text-[52px] sm:text-[56px] font-black text-text tracking-tighter leading-none mb-[12px] group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-amber-500 group-hover:to-orange-400 transition-all duration-500">{TOTAL_ROLES.toLocaleString()}+</h3>
-                  <p className="text-[20px] font-extrabold text-text mb-[6px] tracking-tight">Calibrated Roles</p>
-                  <p className="text-[15px] text-text-secondary font-medium">Deep 6-layer competency mapping across all companies.</p>
-                </div>
+                <p className="text-[13px] font-semibold uppercase tracking-[1.4px] text-silver mt-2">
+                  Calibrated Roles
+                </p>
+                <p className="text-[13px] text-silver/70 mt-1">
+                  Multi-pillar competency mappings with exact CTC bands.
+                </p>
               </div>
-            </div>
 
-            {/* Card 3: ATS Audit (Square) */}
-            <div className="relative rounded-[32px] bg-gradient-to-br from-surface/80 to-surface-2/80 backdrop-blur-md border border-border/80 p-[36px] sm:p-[40px] overflow-hidden group hover:border-violet-500/40 transition-all duration-500 hover:shadow-[0_20px_40px_-15px_rgba(139,92,246,0.15)] text-left">
-              <div className="absolute bottom-0 left-0 w-[250px] h-[250px] rounded-full bg-violet-500/10 blur-[70px] pointer-events-none group-hover:bg-violet-500/20 transition-colors duration-700" />
-              <div className="relative z-10 flex flex-col h-full justify-between">
-                <div className="w-[60px] h-[60px] rounded-2xl bg-violet-500/10 border border-violet-500/20 flex items-center justify-center mb-[28px] group-hover:scale-110 transition-transform duration-500">
-                  <Zap className="w-[30px] h-[30px] text-violet-500" />
+              <div className="text-left p-4 border-t lg:border-t-0 lg:border-l border-charcoal">
+                <div className="text-[48px] sm:text-[64px] lg:text-[72px] font-black text-white leading-none tracking-tight font-sans">
+                  102
                 </div>
-                <div>
-                  <h3 className="text-[44px] sm:text-[48px] font-black text-text tracking-tighter leading-none mb-[12px] group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-violet-500 group-hover:to-purple-400 transition-all duration-500">6-Layer</h3>
-                  <p className="text-[20px] font-extrabold text-text mb-[6px] tracking-tight">Deep ATS Audit</p>
-                  <p className="text-[15px] text-text-secondary font-medium">Harsh citations & gap fixes.</p>
-                </div>
+                <p className="text-[13px] font-semibold uppercase tracking-[1.4px] text-silver mt-2">
+                  Verified Credentials
+                </p>
+                <p className="text-[13px] text-silver/70 mt-1">
+                  Hackathons, certifications, and high-impact open source.
+                </p>
               </div>
-            </div>
 
-            {/* Card 4: Campus Intelligence (Wide) */}
-            <div className="md:col-span-2 relative rounded-[32px] bg-gradient-to-br from-surface/80 to-surface-2/80 backdrop-blur-md border border-border/80 p-[36px] sm:p-[40px] overflow-hidden group hover:border-emerald-500/40 transition-all duration-500 hover:shadow-[0_20px_40px_-15px_rgba(16,185,129,0.15)] text-left">
-              <div className="absolute top-[-20%] right-[-10%] w-[400px] h-[400px] rounded-full bg-emerald-500/10 blur-[80px] pointer-events-none group-hover:bg-emerald-500/20 transition-colors duration-700" />
-              <div className="relative z-10 flex flex-col h-full justify-between">
-                <div className="w-[60px] h-[60px] rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center mb-[28px] group-hover:scale-110 transition-transform duration-500">
-                  <GraduationCap className="w-[30px] h-[30px] text-emerald-500" />
+              <div className="text-left p-4 border-t sm:border-t-0 sm:border-l border-charcoal">
+                <div className="text-[48px] sm:text-[64px] lg:text-[72px] font-black text-volt leading-none tracking-tight font-sans">
+                  0%
                 </div>
-                <div>
-                  <h3 className="text-[52px] sm:text-[56px] font-black text-text tracking-tighter leading-none mb-[12px] group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-emerald-500 group-hover:to-teal-400 transition-all duration-500">'26-27</h3>
-                  <p className="text-[20px] font-extrabold text-text mb-[6px] tracking-tight">Campus Intelligence</p>
-                  <p className="text-[15px] text-text-secondary font-medium">{TOTAL_FRESHER_PROGRAMS}+ verified fresher programs, actual CTC bands & eligibility.</p>
-                </div>
-              </div>
-              <div className="absolute bottom-[-20%] right-[-5%] opacity-[0.03] group-hover:opacity-[0.08] group-hover:scale-110 transition-all duration-700 pointer-events-none -rotate-12">
-                <GraduationCap className="w-[260px] h-[260px] text-emerald-500" />
+                <p className="text-[13px] font-semibold uppercase tracking-[1.4px] text-silver mt-2">
+                  Data Egress
+                </p>
+                <p className="text-[13px] text-silver/70 mt-1">
+                  100% local browser execution. Zero telemetry or CDN leaks.
+                </p>
               </div>
             </div>
           </div>
 
-          {/* Dynamic Unified Employers Showcase */}
-          <div className="mt-[56px] max-w-[1140px] mx-auto text-center page-enter">
-            <p className="text-[12px] font-bold text-text-muted uppercase tracking-[0.14em] mb-[20px]">
-              Calibrated across {TOTAL_COMPANIES}+ Verified Employers & Recruiters
+          {/* Calibrated Employers Strip */}
+          <div className="mt-14 max-w-[1280px] mx-auto text-left">
+            <p className="text-[12px] font-semibold text-silver uppercase tracking-[1.4px] mb-4">
+              Calibrated Across Active Employer Standards
             </p>
-            <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 max-w-[1000px] mx-auto">
+            <div className="flex flex-wrap items-center gap-2">
               {TOP_COMPANIES.map((company) => (
                 <Link
                   key={company.id}
-                  to={`/demo`}
-                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface-2/80 hover:bg-surface border border-border/70 hover:border-border-accent text-[13px] font-semibold text-text hover:text-primary transition-all duration-150 hover:scale-[1.03] shadow-2xs"
+                  to={`/demo/company/${company.id}`}
+                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded bg-near-black border border-charcoal text-[12px] font-semibold uppercase tracking-[1px] text-white hover:text-volt hover:border-volt/60 transition-colors"
                 >
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-volt" />
                   <span>{company.name}</span>
-                  <span className="text-[11px] font-medium text-text-muted px-1.5 py-0.5 rounded bg-bg border border-border/50">
-                    {company.marketSegment}
-                  </span>
                 </Link>
               ))}
             </div>
@@ -238,218 +149,210 @@ export function LandingPage() {
         </div>
       </section>
 
-      {/* Core Features (Symmetrical 3-Column Grid) */}
-      <section id="features" className="py-[100px] border-t border-border bg-white relative">
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-[32px] relative z-10">
-          <div className="mb-[60px] text-center max-w-2xl mx-auto">
-            <p className="text-[12px] font-bold text-primary uppercase tracking-[0.14em] mb-[12px]">Core Features</p>
-            <h2 className="text-[38px] sm:text-[46px] font-black text-black mb-[14px] tracking-[-0.03em]">
-              Built for the modern candidate
+      {/* ── Decision Suite Core Tools Section ── */}
+      <section className="py-16 sm:py-24 border-t border-charcoal bg-black">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-12 text-left">
+            <p className="text-[13px] font-semibold text-silver uppercase tracking-[1.4px] mb-2">
+              Core Capabilities
+            </p>
+            <h2 className="text-[32px] sm:text-[44px] font-black text-white tracking-tight uppercase">
+              Engineered For Radical Transparency
             </h2>
-            <p className="text-[17px] sm:text-[18px] text-text-secondary leading-relaxed">
-              We reverse-engineered enterprise ATS systems so you can finally beat them.
+            <p className="text-[16px] text-silver mt-2 max-w-2xl">
+              Reverse-engineered enterprise ATS parsers, recruiter evaluation models, and India market ladders.
             </p>
           </div>
 
-          {/* Symmetrical 3-Column Layout with Zero Orphan Gaps */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 max-w-[1240px] mx-auto">
-            {FEATURES.map((f, i) => {
-              const Icon = f.icon;
-              return (
-                <div
-                  key={i}
-                  className="group relative rounded-3xl bg-slate-50/70 border border-slate-200/80 p-8 hover:bg-white hover:border-slate-300 hover:shadow-lg hover:-translate-y-1.5 transition-all duration-200"
-                >
-                  <div className={`w-12 h-12 rounded-2xl ${f.iconBg} border flex items-center justify-center mb-6 shadow-xs group-hover:scale-105 transition-transform duration-200`}>
-                    <Icon className={`w-6 h-6 ${f.iconColor} stroke-[2px]`} />
+          {/* Tool Cards Grid (§4: 8px radius, charcoal border, hover elevated, featured card with volt border) */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Tool 1: Featured Card with Neon Border */}
+            <Link
+              to="/demo"
+              className="group rounded-lg bg-near-black border border-volt p-8 shadow-level-5 flex flex-col justify-between hover:border-volt transition-colors cursor-pointer"
+            >
+              <div>
+                <div className="flex items-center justify-between gap-4 mb-6">
+                  <div className="w-12 h-12 rounded bg-black border border-charcoal flex items-center justify-center text-volt">
+                    <Brain className="w-6 h-6 stroke-[1.5px]" />
                   </div>
-                  <h3 className="text-[20px] font-bold text-black mb-2.5 tracking-tight group-hover:text-primary transition-colors">
-                    {f.title}
-                  </h3>
-                  <p className="text-[14px] sm:text-[15px] text-text-secondary leading-relaxed font-normal">
-                    {f.desc}
-                  </p>
+                  <span className="text-[11px] font-semibold uppercase tracking-[1.4px] px-2.5 py-1 rounded bg-black text-volt border border-volt">
+                    Featured • Simulator
+                  </span>
                 </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
 
-      {/* The AI Showcase Example */}
-      <section className="py-[120px] border-t border-border bg-surface-2/40 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full bg-ai/5 blur-[120px] pointer-events-none" />
-        <div className="max-w-[1280px] mx-auto px-[32px] relative z-10 flex flex-col lg:flex-row items-center gap-[64px]">
-          <div className="flex-1 text-center lg:text-left">
-            <div className="inline-flex items-center gap-[8px] px-[12px] py-[6px] bg-ai-light border border-ai/20 rounded-full text-[13px] font-semibold text-ai mb-[24px]">
-              <Sparkles className="w-[14px] h-[14px]" /> Harsh Truth AI
-            </div>
-            <h2 className="text-[38px] md:text-[46px] font-bold text-text tracking-[-0.03em] leading-[1.1] mb-[24px]">
-              Know exactly <span className="text-ai">why</span> you're getting rejected.
-            </h2>
-            <p className="text-[18px] text-text-secondary leading-[1.8] mb-[32px]">
-              Stop firing your resume into the void. Our scanner evaluates your profile with industry-leading precision, instantly flagging missing hard skills, overused buzzwords, and formatting errors before you apply.
-            </p>
-            <ul className="space-y-[16px] text-[15px] text-text font-medium">
-              <li className="flex items-center gap-[12px] justify-center lg:justify-start">
-                <CheckCircle className="w-[20px] h-[20px] text-ai" /> Enterprise ATS simulation
-              </li>
-              <li className="flex items-center gap-[12px] justify-center lg:justify-start">
-                <CheckCircle className="w-[20px] h-[20px] text-ai" /> Identifies semantic keyword gaps
-              </li>
-              <li className="flex items-center gap-[12px] justify-center lg:justify-start">
-                <CheckCircle className="w-[20px] h-[20px] text-ai" /> No-BS actionable feedback
-              </li>
-            </ul>
-          </div>
-          
-          <div className="flex-1 w-full max-w-[600px]">
-            <div className="bg-surface border border-border rounded-2xl shadow-xl overflow-hidden transform -rotate-1 hover:rotate-0 transition-transform duration-500">
-              <div className="px-[24px] py-[16px] border-b border-border bg-surface-2/60 flex items-center justify-between">
-                <div>
-                  <p className="text-[13px] text-text-muted font-medium">ATS Match Report</p>
-                  <h3 className="text-[15px] font-bold text-text">Target: Senior Frontend Engineer</h3>
-                </div>
-                <span className="px-[12px] py-[4px] bg-red-50 text-red-700 border border-red-200 text-[11px] font-bold rounded-full uppercase">
-                  Score: 42%
-                </span>
+                <h3 className="text-[22px] font-bold text-white mb-3 tracking-tight group-hover:text-volt transition-colors">
+                  TalentLens™ Simulator
+                </h3>
+
+                <p className="text-[14px] text-silver leading-relaxed mb-6">
+                  Experience how corporate talent teams and enterprise algorithms score your candidate profile across multi-pillar benchmarks.
+                </p>
+
+                <ul className="space-y-2.5 mb-8">
+                  <li className="flex items-start gap-2.5 text-[14px] text-silver">
+                    <CheckCircle2 className="w-4 h-4 text-volt mt-0.5 shrink-0 stroke-[1.5px]" />
+                    <span>6-layer semantic evaluation matrix</span>
+                  </li>
+                  <li className="flex items-start gap-2.5 text-[14px] text-silver">
+                    <CheckCircle2 className="w-4 h-4 text-volt mt-0.5 shrink-0 stroke-[1.5px]" />
+                    <span>Real-time verbatim citation breakdown</span>
+                  </li>
+                  <li className="flex items-start gap-2.5 text-[14px] text-silver">
+                    <CheckCircle2 className="w-4 h-4 text-volt mt-0.5 shrink-0 stroke-[1.5px]" />
+                    <span>Direct role-by-role eligibility checks</span>
+                  </li>
+                </ul>
               </div>
 
-              <div className="p-[24px] space-y-[16px]">
-                {/* Error 1 */}
-                <div className="border border-border rounded-xl p-[16px] bg-surface space-y-[12px]">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <span className="text-[15px] font-bold text-text">Missing Skill: Webpack/Vite</span>
-                      <span className="ml-[8px] text-[11px] font-semibold text-text-muted uppercase">Critical</span>
-                    </div>
-                    <span className="bg-red-50 text-red-700 border border-red-200 px-[10px] py-[2px] rounded-full text-[11px] font-bold uppercase">Missing</span>
-                  </div>
-                  <div className="bg-red-50/50 border border-red-100 rounded-lg px-[12px] py-[10px]">
-                    <p className="text-[13px] text-red-800 mb-[6px] font-medium">Critical Must-Have Gap Identified</p>
-                    <p className="text-[13px] text-text-secondary">The job description highlights Webpack 5 times as a core requirement, but no bundler evidence was found in your resume. Recruiters skimming applications will likely notice this gap immediately.</p>
-                  </div>
-                </div>
-
-                {/* Error 2 */}
-                <div className="border border-border rounded-xl p-[16px] bg-surface space-y-[12px]">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <span className="text-[15px] font-bold text-text">Impact Metrics</span>
-                      <span className="ml-[8px] text-[11px] font-semibold text-text-muted uppercase">Warning</span>
-                    </div>
-                    <span className="bg-amber-50 text-amber-700 border border-amber-200 px-[10px] py-[2px] rounded-full text-[11px] font-bold uppercase">Needs Work</span>
-                  </div>
-                  <div className="bg-surface-2 rounded-lg px-[12px] py-[10px]">
-                    <p className="text-[13px] text-text-secondary">"Responsible for building components" is a weak bullet point. Change this to "Built 15+ reusable components, reducing development time by 30%". Give us the data.</p>
-                  </div>
-                </div>
+              <div className="w-full py-3 px-4 rounded bg-volt text-text-on-accent text-[13px] font-bold uppercase tracking-[1.2px] flex items-center justify-between group-hover:bg-[#1d1d1d] group-hover:text-white transition-colors">
+                <span>Launch Simulator</span>
+                <ArrowRight className="w-4 h-4 stroke-[1.5px]" />
               </div>
-            </div>
+            </Link>
+
+            {/* Tool 2: ATS Resume Roaster */}
+            <Link
+              to="/tools/resume-checker"
+              className="group rounded-lg bg-near-black border border-charcoal p-8 hover:border-volt/60 hover:shadow-level-3 flex flex-col justify-between transition-colors cursor-pointer"
+            >
+              <div>
+                <div className="flex items-center justify-between gap-4 mb-6">
+                  <div className="w-12 h-12 rounded bg-black border border-charcoal flex items-center justify-center text-volt">
+                    <Flame className="w-6 h-6 stroke-[1.5px]" />
+                  </div>
+                  <span className="text-[11px] font-semibold uppercase tracking-[1.4px] px-2.5 py-1 rounded bg-black text-silver border border-charcoal">
+                    Invariant Audit
+                  </span>
+                </div>
+
+                <h3 className="text-[22px] font-bold text-white mb-3 tracking-tight group-hover:text-volt transition-colors">
+                  ATS Resume Roaster
+                </h3>
+
+                <p className="text-[14px] text-silver leading-relaxed mb-6">
+                  Harsh, invariant-based ATS auditor. Uncovers fatal parse traps, missing hard skills, and ambiguous bullet points.
+                </p>
+
+                <ul className="space-y-2.5 mb-8">
+                  <li className="flex items-start gap-2.5 text-[14px] text-silver">
+                    <CheckCircle2 className="w-4 h-4 text-volt mt-0.5 shrink-0 stroke-[1.5px]" />
+                    <span>Simulates raw parser text streams</span>
+                  </li>
+                  <li className="flex items-start gap-2.5 text-[14px] text-silver">
+                    <CheckCircle2 className="w-4 h-4 text-volt mt-0.5 shrink-0 stroke-[1.5px]" />
+                    <span>Exact citations with score deduction log</span>
+                  </li>
+                  <li className="flex items-start gap-2.5 text-[14px] text-silver">
+                    <CheckCircle2 className="w-4 h-4 text-volt mt-0.5 shrink-0 stroke-[1.5px]" />
+                    <span>No generic praise: only verifiable flaws</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="w-full py-3 px-4 rounded bg-near-black border border-charcoal text-white text-[13px] font-semibold uppercase tracking-[1.2px] flex items-center justify-between group-hover:border-volt group-hover:text-volt transition-colors">
+                <span>Roast My Resume</span>
+                <ArrowRight className="w-4 h-4 stroke-[1.5px]" />
+              </div>
+            </Link>
+
+            {/* Tool 3: Career Trajectory Hub */}
+            <Link
+              to="/tools/career-path"
+              className="group rounded-lg bg-near-black border border-charcoal p-8 hover:border-volt/60 hover:shadow-level-3 flex flex-col justify-between transition-colors cursor-pointer"
+            >
+              <div>
+                <div className="flex items-center justify-between gap-4 mb-6">
+                  <div className="w-12 h-12 rounded bg-black border border-charcoal flex items-center justify-center text-volt">
+                    <Target className="w-6 h-6 stroke-[1.5px]" />
+                  </div>
+                  <span className="text-[11px] font-semibold uppercase tracking-[1.4px] px-2.5 py-1 rounded bg-black text-silver border border-charcoal">
+                    Market Ladders
+                  </span>
+                </div>
+
+                <h3 className="text-[22px] font-bold text-white mb-3 tracking-tight group-hover:text-volt transition-colors">
+                  Career Trajectory
+                </h3>
+
+                <p className="text-[14px] text-silver leading-relaxed mb-6">
+                  India tech market ladders, cross-company level mapping (FAANG to GCCs), and verifiable CTC bands in INR.
+                </p>
+
+                <ul className="space-y-2.5 mb-8">
+                  <li className="flex items-start gap-2.5 text-[14px] text-silver">
+                    <CheckCircle2 className="w-4 h-4 text-volt mt-0.5 shrink-0 stroke-[1.5px]" />
+                    <span>Target job roadmap generator</span>
+                  </li>
+                  <li className="flex items-start gap-2.5 text-[14px] text-silver">
+                    <CheckCircle2 className="w-4 h-4 text-volt mt-0.5 shrink-0 stroke-[1.5px]" />
+                    <span>Real campus CTC bands & cutoffs</span>
+                  </li>
+                  <li className="flex items-start gap-2.5 text-[14px] text-silver">
+                    <CheckCircle2 className="w-4 h-4 text-volt mt-0.5 shrink-0 stroke-[1.5px]" />
+                    <span>Promotion benchmarks & week-by-week plans</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="w-full py-3 px-4 rounded bg-near-black border border-charcoal text-white text-[13px] font-semibold uppercase tracking-[1.2px] flex items-center justify-between group-hover:border-volt group-hover:text-volt transition-colors">
+                <span>Explore Trajectories</span>
+                <ArrowRight className="w-4 h-4 stroke-[1.5px]" />
+              </div>
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* Free Tools Cards (Symmetrical 3-Column Grid) */}
-      <section className="py-[100px] border-t border-border bg-slate-50/60">
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-[32px]">
-          <div className="text-center mb-[60px]">
-            <p className="text-[12px] font-bold text-primary uppercase tracking-[0.14em] mb-[12px]">Free Tools</p>
-            <h2 className="text-[38px] sm:text-[46px] font-black text-black tracking-[-0.03em] mb-[14px]">
-              Accelerate your career.
-            </h2>
-            <p className="text-[17px] sm:text-[18px] text-text-secondary max-w-[500px] mx-auto leading-relaxed">
-              Everything you need to land your next big role.
-            </p>
-          </div>
-
-          {/* Symmetrical 3-Column Layout with Premium Interactive Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 max-w-[1240px] mx-auto">
-            {TOOLS.map((role, i) => {
-              const Icon = role.icon;
-              return (
-                <Link
-                  key={i}
-                  to={role.link}
-                  className={`group relative rounded-3xl bg-white border border-slate-200/90 p-8 sm:p-9 flex flex-col justify-between shadow-xs hover:shadow-xl hover:-translate-y-2 active:scale-[0.985] transition-all duration-200 cursor-pointer overflow-hidden ${role.cardHoverStyle}`}
-                >
-                  {/* Subtle top glow bar on hover */}
-                  <div className={`absolute top-0 left-6 right-6 h-[3px] rounded-b-full bg-gradient-to-r ${role.accentGrad} opacity-0 group-hover:opacity-100 transition-opacity duration-200`} />
-
-                  <div>
-                    {/* Top row: Icon and Badge */}
-                    <div className="flex items-center justify-between gap-4 mb-7">
-                      <div className={`w-14 h-14 rounded-2xl border flex items-center justify-center transition-all duration-200 shadow-xs ${role.iconBoxStyle}`}>
-                        <Icon className="w-7 h-7 stroke-[2px]" />
-                      </div>
-                      <span className={`text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full border transition-colors ${role.badgeStyle}`}>
-                        {role.badge}
-                      </span>
-                    </div>
-
-                    {/* Title */}
-                    <h3 className="text-[24px] sm:text-[26px] font-black text-black mb-4 tracking-tight group-hover:text-primary transition-colors">
-                      {role.title}
-                    </h3>
-
-                    {/* Points list */}
-                    <ul className="space-y-3.5 mb-8">
-                      {role.points.map((p, j) => (
-                        <li key={j} className="flex items-start gap-3 text-[14px] sm:text-[15px] text-text-secondary font-medium leading-snug">
-                          <CheckCircle className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0 stroke-[2.2px]" />
-                          <span>{p}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* Interactive Button */}
-                  <div className={`w-full py-3.5 px-5 rounded-xl border border-slate-200/90 bg-slate-50 text-slate-800 text-[14px] font-bold flex items-center justify-between transition-all duration-200 shadow-2xs ${role.buttonStyle}`}>
-                    <span>{role.cta}</span>
-                    <ArrowRight className="w-4 h-4 stroke-[2.2px] group-hover:translate-x-1 transition-transform duration-200" />
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="py-[140px] relative overflow-hidden">
-        <div className="absolute inset-0 -z-10 hero-mesh opacity-70" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-primary/10 blur-[150px] pointer-events-none" />
-        <div className="max-w-[720px] mx-auto px-[32px] text-center relative z-10">
-          <p className="text-[14px] font-bold text-primary uppercase tracking-[0.10em] mb-[24px]">Get Started Today</p>
-          <h2 className="text-[48px] md:text-[56px] font-extrabold text-text mb-[24px] tracking-[-0.03em] leading-[1.1]">Ready to decode your career?</h2>
-          <p className="text-[20px] text-text-secondary mb-[48px] leading-[1.6]">Simulate ATS filters, map your trajectory, and apply to top companies.</p>
-          <div className="flex flex-col sm:flex-row gap-[16px] justify-center">
-            <Link to="/register">
-              <button className="inline-flex items-center gap-[12px] h-[60px] px-[40px] text-[18px] font-bold text-white rounded-xl bg-gradient-to-r from-primary to-primary-hover shadow-glow-orange hover:scale-[1.02] active:scale-[0.99] transition-all duration-[200ms]">
-                Get Started Free <ArrowRight className="w-[20px] h-[20px] stroke-[2px]" />
+      {/* ── Conversion Section: Forest Action Button ── */}
+      <section className="py-20 border-t border-charcoal bg-black">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <p className="text-[13px] font-semibold text-silver uppercase tracking-[1.4px] mb-3">
+            Open & Free For Candidates
+          </p>
+          <h2 className="text-[36px] sm:text-[48px] font-black text-white uppercase tracking-tight mb-4">
+            Zero Black Box. Zero Gatekeeping.
+          </h2>
+          <p className="text-[16px] text-silver max-w-xl mx-auto mb-8 leading-relaxed">
+            Every score, formula, and invariant audit rule is publicly transparent. No accounts or credit cards required.
+          </p>
+          <div className="flex justify-center">
+            <Link to="/tools">
+              <button
+                type="button"
+                className="inline-flex items-center gap-2.5 h-[48px] px-8 rounded bg-forest text-white border border-[#141414] hover:bg-hover-gray hover:text-white/90 text-[14px] font-semibold uppercase tracking-[1.2px] active:text-pale-yellow active:shadow-inset transition-colors cursor-pointer select-none"
+              >
+                <span>GET STARTED WITH TOOLS HUB</span>
+                <ArrowRight className="w-4 h-4 stroke-[1.5px]" />
               </button>
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-[48px] border-t border-border bg-surface">
-        <div className="max-w-[1280px] mx-auto px-[32px]">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-[24px]">
-            <div className="flex items-center gap-[12px]">
-              <div className="w-[36px] h-[36px] rounded-lg bg-gradient-to-br from-primary to-primary-hover flex items-center justify-center shadow-sm">
-                <Sparkles className="w-[18px] h-[18px] text-white stroke-[2px]" />
+      {/* ── Minimal Footer (§3: Charcoal Top Border, Pure Black) ── */}
+      <footer className="py-12 border-t border-charcoal bg-black">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="flex items-center gap-3 select-none">
+              <div className="w-7 h-7 rounded bg-near-black border border-charcoal flex items-center justify-center text-volt font-black text-xs">
+                H
               </div>
-              <span className="text-[18px] font-bold text-text tracking-[-0.02em]">HireFlow</span>
+              <span className="text-[18px] font-black text-white tracking-tight font-sans">
+                HIRE<span className="text-volt">FLOW</span>
+              </span>
             </div>
-            <div className="flex flex-wrap gap-[24px] text-[15px] font-medium text-text-secondary">
-              <Link to="/tools" className="hover:text-primary transition-colors duration-[200ms]">Tools Hub</Link>
-              <Link to="/methodology" className="hover:text-primary transition-colors duration-[200ms]">Methodology</Link>
-              <Link to="/data" className="hover:text-primary transition-colors duration-[200ms]">Your Data</Link>
-              <Link to="/demo" className="hover:text-primary transition-colors duration-[200ms]">AI Context</Link>
+
+            <div className="flex flex-wrap gap-6 text-[13px] font-semibold uppercase tracking-[1.2px] text-silver">
+              <Link to="/tools" className="text-silver hover:text-volt transition-colors">Tools Hub</Link>
+              <Link to="/methodology" className="text-silver hover:text-volt transition-colors">Methodology</Link>
+              <Link to="/data" className="text-silver hover:text-volt transition-colors">Your Data</Link>
+              <Link to="/demo" className="text-silver hover:text-volt transition-colors">TalentLens</Link>
             </div>
-            <p className="text-[14px] text-text-muted">© 2026 HireFlow. Built for the future of work.</p>
+
+            <p className="text-[13px] text-silver/60">
+              © 2026 HireFlow. Client-side career intelligence.
+            </p>
           </div>
         </div>
       </footer>

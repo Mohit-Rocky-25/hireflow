@@ -335,7 +335,7 @@ export function ResumeChecker() {
   }, [engineResult, profile]);
 
   return (
-    <div className="min-h-screen bg-bg text-text pt-28 pb-20 px-4 sm:px-6 md:px-8 relative">
+    <div className="min-h-screen bg-black text-white pt-28 pb-20 px-4 sm:px-6 md:px-8 relative">
       <PublicNavbar />
 
       <div className="max-w-6xl mx-auto space-y-8 animate-fade-in">
@@ -344,38 +344,35 @@ export function ResumeChecker() {
           <button
             type="button"
             onClick={() => (engineResult ? handleTryAnotherJob() : navigate('/tools'))}
-            className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-surface border border-border text-text hover:text-text hover:bg-surface-2 text-xs font-semibold transition-all shadow-2xs group cursor-pointer"
+            className="inline-flex items-center gap-2 px-3.5 py-2 rounded bg-near-black border border-charcoal text-silver hover:text-white hover:border-volt text-xs font-semibold uppercase tracking-[1px] transition-colors cursor-pointer"
           >
-            <ArrowLeft className="w-3.5 h-3.5 text-text-muted group-hover:text-text group-hover:-translate-x-0.5 transition-transform" />
+            <ArrowLeft className="w-3.5 h-3.5 stroke-[1.5px]" />
             <span>{engineResult ? 'Modify Inputs' : 'Decision Suite'}</span>
           </button>
 
-          <div className="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface border border-border text-[11px] font-medium text-text-secondary shadow-2xs">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-            </span>
-            <span className="text-text-muted">Tools</span>
-            <span className="text-border-strong">/</span>
-            <span className="font-semibold text-text">ATS Resume Roaster</span>
+          <div className="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 rounded bg-near-black border border-charcoal text-[11px] font-semibold text-silver uppercase tracking-[1px]">
+            <span className="w-2 h-2 rounded-full bg-volt inline-block"></span>
+            <span>Tools</span>
+            <span className="text-charcoal-deep">/</span>
+            <span className="text-white">ATS Resume Roaster</span>
           </div>
         </div>
 
         {/* Hero Section */}
         <div className="text-center max-w-3xl mx-auto mb-8 mt-1 print:mb-4">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-semibold mb-4 shadow-2xs">
-            <ShieldCheck className="w-3.5 h-3.5 text-primary" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded bg-near-black border border-charcoal text-silver text-xs font-semibold uppercase tracking-[1.4px] mb-4">
+            <ShieldCheck className="w-3.5 h-3.5 text-volt stroke-[1.5px]" />
             <span>Deterministic ATS Fit Audit</span>
-            <span className="w-1 h-1 rounded-full bg-primary/40"></span>
-            <span className="text-text-secondary font-normal text-[11px]">Zero-Fabrication Analysis</span>
+            <span className="text-charcoal-deep">|</span>
+            <span className="text-silver">Zero-Fabrication Analysis</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-text tracking-tight leading-[1.12] mb-3.5">
+          <h1 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-[1.12] mb-3.5">
             How well does your resume match,{' '}
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-sky-500 via-indigo-600 to-violet-600">
+            <span className="block text-volt">
               and what should you improve?
             </span>
           </h1>
-          <p className="text-text-secondary text-[15px] sm:text-[16px] leading-relaxed max-w-2xl mx-auto font-normal">
+          <p className="text-silver text-[15px] sm:text-[16px] leading-relaxed max-w-2xl mx-auto font-normal">
             Audit your resume against any target job description. Receive deterministic keyword scoring, verbatim citations, and actionable bullet rewrites calibrated to engineering hiring bars.
           </p>
         </div>
@@ -383,59 +380,57 @@ export function ResumeChecker() {
         {/* Input Panel Section */}
         {!engineResult && (
           <div className="space-y-6">
-            
-
             <AtsInputSection
               resumeText={resumeText}
-            jobText={jobText}
-            resumeFileName={resumeFileName}
-            jobFileName={jobFileName}
-            resumePageCount={resumePageCount}
-            jobPageCount={jobPageCount}
-            targetTier={targetTier}
-            experienceLevel={experienceLevel}
-            isScanning={isScanning}
-            isFileExtracting={isFileExtracting}
-            stagedStageIndex={stagedStageIndex}
-            stagedMessages={STAGED_MESSAGES}
-            fileError={fileError}
-            resumeSource={resumeSource}
-            jobSource={jobSource}
-            onResumeTextChange={(txt) => {
-              userClearedResumeRef.current = false;
-              setResumeText(txt);
-              setFileError(null);
-              if (!txt.trim()) {
-                setResumeFileName(null);
-                setResumePageCount(undefined);
-                setResumeSource(undefined);
-              }
-            }}
-            onJobTextChange={(txt) => {
-              userClearedJobRef.current = false;
-              setJobText(txt);
-              setFileError(null);
-              if (!txt.trim()) {
-                setJobFileName(null);
-                setJobPageCount(undefined);
-                setJobSource(undefined);
-              }
-            }}
-            onTargetTierChange={setTargetTier}
-            onExperienceLevelChange={setExperienceLevel}
-            onFileUpload={handleFileUpload}
-            onClearResume={handleClearResume}
-            onClearJob={handleClearJob}
-            onAnalyze={handleAnalyze}
-            onImportTalentLensResume={handleImportTalentLensResume}
-          />
-        </div>
-      )}
+              jobText={jobText}
+              resumeFileName={resumeFileName}
+              jobFileName={jobFileName}
+              resumePageCount={resumePageCount}
+              jobPageCount={jobPageCount}
+              targetTier={targetTier}
+              experienceLevel={experienceLevel}
+              isScanning={isScanning}
+              isFileExtracting={isFileExtracting}
+              stagedStageIndex={stagedStageIndex}
+              stagedMessages={STAGED_MESSAGES}
+              fileError={fileError}
+              resumeSource={resumeSource}
+              jobSource={jobSource}
+              onResumeTextChange={(txt) => {
+                userClearedResumeRef.current = false;
+                setResumeText(txt);
+                setFileError(null);
+                if (!txt.trim()) {
+                  setResumeFileName(null);
+                  setResumePageCount(undefined);
+                  setResumeSource(undefined);
+                }
+              }}
+              onJobTextChange={(txt) => {
+                userClearedJobRef.current = false;
+                setJobText(txt);
+                setFileError(null);
+                if (!txt.trim()) {
+                  setJobFileName(null);
+                  setJobPageCount(undefined);
+                  setJobSource(undefined);
+                }
+              }}
+              onTargetTierChange={setTargetTier}
+              onExperienceLevelChange={setExperienceLevel}
+              onFileUpload={handleFileUpload}
+              onClearResume={handleClearResume}
+              onClearJob={handleClearJob}
+              onAnalyze={handleAnalyze}
+              onImportTalentLensResume={handleImportTalentLensResume}
+            />
+          </div>
+        )}
 
         {/* Results Screen */}
         {engineResult && (
           <div className="space-y-8 animate-fade-in">
-            {/* Quick Summary Card Pinned at the Top (Stage 2.2) */}
+            {/* Quick Summary Card Pinned at the Top */}
             {quickSummary && (
               <QuickSummaryCard
                 summary={quickSummary}
@@ -450,24 +445,24 @@ export function ResumeChecker() {
               />
             )}
 
-            {/* Top Re-Scan Action Bar with Mode Switcher (STAGE 9) */}
-            <div className="flex flex-wrap items-center justify-between gap-4 p-4 rounded-[16px] bg-surface border border-border shadow-xs print:hidden">
-                <div className="flex items-center gap-3 min-w-0 text-sm">
-                  <span className="text-xs font-bold text-text-tertiary uppercase">Target:</span>
-                  <span className="font-bold text-text truncate">
-                    {engineResult.bestFitTier} ({engineResult.seniorityFit.level} Level)
-                  </span>
+            {/* Top Re-Scan Action Bar with Mode Switcher */}
+            <div className="flex flex-wrap items-center justify-between gap-4 p-4 rounded-lg bg-near-black border border-charcoal shadow-level-1 print:hidden">
+              <div className="flex items-center gap-3 min-w-0 text-sm">
+                <span className="text-xs font-bold text-silver uppercase tracking-[1.4px]">Target:</span>
+                <span className="font-bold text-white truncate">
+                  {engineResult.bestFitTier} ({engineResult.seniorityFit.level} Level)
+                </span>
 
                 {canonical && (
                   <span
-                    className={`text-xs font-bold px-2.5 py-0.5 rounded-full border ${
+                    className={`text-xs font-bold px-2.5 py-0.5 rounded uppercase tracking-[1px] border ${
                       canonical.applicationGuidance === 'Ready to apply'
-                        ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                        ? 'bg-black text-volt border-volt/60'
                         : canonical.applicationGuidance === 'Apply after high-priority fixes'
-                        ? 'bg-amber-50 text-amber-700 border-amber-200'
+                        ? 'bg-black text-pale-yellow border-pale-yellow/60'
                         : canonical.applicationGuidance === 'Insufficient evidence to evaluate'
-                        ? 'bg-slate-100 text-slate-700 border-slate-200'
-                        : 'bg-rose-50 text-rose-700 border-rose-200'
+                        ? 'bg-black text-silver border-charcoal'
+                        : 'bg-black text-danger border-danger/60'
                     }`}
                   >
                     {canonical.applicationGuidance}
@@ -477,28 +472,28 @@ export function ResumeChecker() {
 
               <div className="flex items-center gap-2">
                 {/* Mode Switcher Toggle */}
-                <div className="inline-flex rounded-xl bg-surface-2 p-1 border border-border">
+                <div className="inline-flex rounded bg-black p-1 border border-charcoal">
                   <button
                     type="button"
                     onClick={() => setPresentationMode('quick')}
-                    className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-all ${
+                    className={`px-3 py-1.5 text-xs font-semibold uppercase tracking-[1px] rounded transition-all cursor-pointer ${
                       presentationMode === 'quick'
-                        ? 'bg-text text-bg shadow-xs'
-                        : 'text-text-secondary hover:text-text'
+                        ? 'bg-near-black text-volt border border-volt shadow-level-4'
+                        : 'text-silver hover:text-white'
                     }`}
                   >
-                    <Zap className="w-3.5 h-3.5 inline mr-1" /> Quick Roast
+                    <Zap className="w-3.5 h-3.5 inline mr-1 stroke-[1.5px]" /> Quick Roast
                   </button>
                   <button
                     type="button"
                     onClick={() => setPresentationMode('deep')}
-                    className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-all ${
+                    className={`px-3 py-1.5 text-xs font-semibold uppercase tracking-[1px] rounded transition-all cursor-pointer ${
                       presentationMode === 'deep'
-                        ? 'bg-text text-bg shadow-xs'
-                        : 'text-text-secondary hover:text-text'
+                        ? 'bg-near-black text-volt border border-volt shadow-level-4'
+                        : 'text-silver hover:text-white'
                     }`}
                   >
-                    <Compass className="w-3.5 h-3.5 inline mr-1" /> Deep Roaster
+                    <Compass className="w-3.5 h-3.5 inline mr-1 stroke-[1.5px]" /> Deep Roaster
                   </button>
                 </div>
 
@@ -509,18 +504,18 @@ export function ResumeChecker() {
                     setParsedJdData(pj);
                     setIsConfirmModalOpen(true);
                   }}
-                  className="px-3.5 py-2 bg-surface hover:bg-surface-2 border border-border text-xs font-bold rounded-xl text-text transition-colors flex items-center gap-1.5 cursor-pointer shadow-2xs"
+                  className="px-3.5 py-2 bg-near-black hover:bg-hover-gray border border-charcoal hover:border-volt text-xs font-bold uppercase tracking-[1px] rounded text-white transition-colors flex items-center gap-1.5 cursor-pointer"
                   title="Review and adjust mandatory vs preferred requirements for this job"
                 >
-                  <Search className="w-3.5 h-3.5 text-primary" /> Confirm Requirements
+                  <Search className="w-3.5 h-3.5 text-volt stroke-[1.5px]" /> Confirm Requirements
                 </button>
 
                 <button
                   type="button"
                   onClick={handleTryAnotherJob}
-                  className="px-4 py-2 bg-surface hover:bg-surface-2 border border-border text-xs font-bold rounded-xl text-text transition-colors flex items-center gap-1.5 cursor-pointer shadow-2xs"
+                  className="px-4 py-2 bg-near-black hover:bg-hover-gray border border-charcoal hover:border-volt text-xs font-bold uppercase tracking-[1px] rounded text-white transition-colors flex items-center gap-1.5 cursor-pointer"
                 >
-                  <RotateCcw className="w-3.5 h-3.5 text-primary" /> Try Another Job
+                  <RotateCcw className="w-3.5 h-3.5 text-volt stroke-[1.5px]" /> Try Another Job
                 </button>
 
                 <button
@@ -529,118 +524,118 @@ export function ResumeChecker() {
                     saveFromResumeText(resumeText);
                     openDrawer();
                   }}
-                  className="px-4 py-2 bg-primary/10 hover:bg-primary/20 border border-primary/30 text-xs font-bold rounded-xl text-primary transition-colors flex items-center gap-1.5 cursor-pointer shadow-2xs"
+                  className="px-4 py-2 bg-forest hover:bg-[#3a3a3a] border border-[#141414] text-xs font-bold uppercase tracking-[1px] rounded text-white transition-colors flex items-center gap-1.5 cursor-pointer"
                 >
-                  <Bookmark className="w-3.5 h-3.5" /> Save to my profile
+                  <Bookmark className="w-3.5 h-3.5 stroke-[1.5px]" /> Save to my profile
                 </button>
               </div>
             </div>
 
             {showFullReport && (
               <>
-                {/* PRESENTATION MODE 1: QUICK ROAST (STAGE 9) */}
+                {/* PRESENTATION MODE 1: QUICK ROAST */}
                 {presentationMode === 'quick' && canonical && (
-              <div className="space-y-6 animate-fade-in">
-                {/* Score & Verdict Card */}
-                <div className="bg-surface rounded-2xl p-6 sm:p-8 border border-border shadow-xs text-center">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 text-primary border border-primary/20 rounded-full text-xs font-bold uppercase mb-4">
-                    <ShieldCheck className="w-4 h-4" /> Grounded Quick Roast
-                  </div>
+                  <div className="space-y-6 animate-fade-in">
+                    {/* Score & Verdict Card */}
+                    <div className="bg-near-black rounded-lg p-6 sm:p-8 border border-charcoal shadow-level-1 text-center">
+                      <div className="inline-flex items-center gap-2 px-3 py-1 bg-black text-volt border border-volt/60 rounded text-xs font-bold uppercase tracking-[1.4px] mb-4">
+                        <ShieldCheck className="w-4 h-4 text-volt stroke-[1.5px]" /> Grounded Quick Roast
+                      </div>
 
-                  <div className="flex items-center justify-center gap-3 mb-2">
-                    <div className="text-6xl sm:text-7xl font-black font-mono text-primary">
-                      {canonical.scores.finalScore}
-                      <span className="text-3xl opacity-50">%</span>
-                    </div>
-                  </div>
-
-                  <div className="text-xl sm:text-2xl font-bold text-text mb-2">
-                    {canonical.quickRoast.oneLineVerdict}
-                  </div>
-
-                  <p className="text-sm text-text-secondary max-w-xl mx-auto mb-6">
-                    Confidence: <span className="font-bold capitalize">{canonical.confidence}</span> • Guidance:{' '}
-                    <span className="font-bold">{canonical.applicationGuidance}</span>
-                  </p>
-
-                  <div className="flex justify-center gap-3">
-                    <button
-                      type="button"
-                      onClick={() => setPresentationMode('deep')}
-                      className="px-5 py-2.5 bg-primary text-white text-xs font-bold rounded-xl hover:bg-primary/90 transition-colors inline-flex items-center gap-2"
-                    >
-                      Inspect Full Deep Breakdown <ArrowUpRight className="w-4 h-4" />
-                    </button>
-                  </div>
-                </div>
-
-                {/* 3 Strengths & 3 Gaps Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {/* Strengths */}
-                  <div className="bg-surface rounded-2xl p-6 border border-emerald-200/50 shadow-xs">
-                    <h3 className="text-base font-bold text-emerald-700 mb-4 flex items-center gap-2">
-                      <CheckCircle2 className="w-5 h-5 text-emerald-600" /> Key Verified Strengths (Up to 3)
-                    </h3>
-                    <div className="space-y-3">
-                      {canonical.quickRoast.strengths.length === 0 ? (
-                        <p className="text-xs text-text-secondary">No strong verified strengths detected.</p>
-                      ) : (
-                        canonical.quickRoast.strengths.map((s, i) => (
-                          <div key={i} className="p-3 bg-emerald-50/50 rounded-xl border border-emerald-100 text-xs">
-                            <div className="font-bold text-slate-900">{s.title}</div>
-                            <div className="text-slate-600 mt-1 italic">&ldquo;{s.evidenceQuote}&rdquo;</div>
-                          </div>
-                        ))
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Gaps */}
-                  <div className="bg-surface rounded-2xl p-6 border border-rose-200/50 shadow-xs">
-                    <h3 className="text-base font-bold text-rose-700 mb-4 flex items-center gap-2">
-                      <AlertCircle className="w-5 h-5 text-rose-600" /> Top Priority Gaps (Up to 3)
-                    </h3>
-                    <div className="space-y-3">
-                      {canonical.quickRoast.gaps.length === 0 ? (
-                        <p className="text-xs text-text-secondary">No critical skill gaps found.</p>
-                      ) : (
-                        canonical.quickRoast.gaps.map((g, i) => (
-                          <div key={i} className="p-3 bg-rose-50/50 rounded-xl border border-rose-100 text-xs">
-                            <div className="font-bold text-slate-900">{g.title}</div>
-                            <div className="text-rose-700 mt-0.5 capitalize">Gap type: {g.gapType.replace('_', ' ')}</div>
-                          </div>
-                        ))
-                      )}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Prioritized Actions */}
-                <div className="bg-surface rounded-2xl p-6 border border-border shadow-xs">
-                  <h3 className="text-base font-bold text-text mb-4 flex items-center gap-2">
-                    <Sparkles className="w-5 h-5 text-primary" /> Top Prioritized Action Items
-                  </h3>
-                  <div className="space-y-3">
-                    {canonical.quickRoast.prioritizedActions.map((act, i) => (
-                      <div key={i} className="p-4 bg-surface-2 rounded-xl border border-border text-xs flex items-start gap-3">
-                        <span className="w-6 h-6 rounded-full bg-primary/10 text-primary font-bold flex items-center justify-center shrink-0">
-                          {i + 1}
-                        </span>
-                        <div>
-                          <div className="font-bold text-text text-sm">{act.title}</div>
-                          <div className="text-text-secondary mt-1">{act.action}</div>
+                      <div className="flex items-center justify-center gap-3 mb-2">
+                        <div className="text-6xl sm:text-7xl font-black font-mono text-white">
+                          {canonical.scores.finalScore}
+                          <span className="text-3xl text-volt ml-1">%</span>
                         </div>
                       </div>
-                    ))}
+
+                      <div className="text-xl sm:text-2xl font-bold text-white mb-2">
+                        {canonical.quickRoast.oneLineVerdict}
+                      </div>
+
+                      <p className="text-sm text-silver max-w-xl mx-auto mb-6">
+                        Confidence: <span className="font-bold text-white capitalize">{canonical.confidence}</span> • Guidance:{' '}
+                        <span className="font-bold text-white">{canonical.applicationGuidance}</span>
+                      </p>
+
+                      <div className="flex justify-center gap-3">
+                        <button
+                          type="button"
+                          onClick={() => setPresentationMode('deep')}
+                          className="px-5 py-2.5 bg-volt text-[#151515] text-xs font-bold uppercase tracking-[1.4px] rounded border border-volt hover:bg-[#1d1d1d] hover:text-white transition-colors inline-flex items-center gap-2 cursor-pointer"
+                        >
+                          Inspect Full Deep Breakdown <ArrowUpRight className="w-4 h-4 stroke-[1.5px]" />
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* 3 Strengths & 3 Gaps Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {/* Strengths */}
+                      <div className="bg-near-black rounded-lg p-6 border border-charcoal shadow-level-1">
+                        <h3 className="text-base font-bold text-white uppercase tracking-tight mb-4 flex items-center gap-2">
+                          <CheckCircle2 className="w-5 h-5 text-volt stroke-[1.5px]" /> Key Verified Strengths (Up to 3)
+                        </h3>
+                        <div className="space-y-3">
+                          {canonical.quickRoast.strengths.length === 0 ? (
+                            <p className="text-xs text-silver">No strong verified strengths detected.</p>
+                          ) : (
+                            canonical.quickRoast.strengths.map((s, i) => (
+                              <div key={i} className="p-3 bg-black rounded border border-charcoal text-xs">
+                                <div className="font-bold text-white">{s.title}</div>
+                                <div className="text-silver mt-1 italic">&ldquo;{s.evidenceQuote}&rdquo;</div>
+                              </div>
+                            ))
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Gaps */}
+                      <div className="bg-near-black rounded-lg p-6 border border-charcoal shadow-level-1">
+                        <h3 className="text-base font-bold text-danger uppercase tracking-tight mb-4 flex items-center gap-2">
+                          <AlertCircle className="w-5 h-5 text-danger stroke-[1.5px]" /> Top Priority Gaps (Up to 3)
+                        </h3>
+                        <div className="space-y-3">
+                          {canonical.quickRoast.gaps.length === 0 ? (
+                            <p className="text-xs text-silver">No critical skill gaps found.</p>
+                          ) : (
+                            canonical.quickRoast.gaps.map((g, i) => (
+                              <div key={i} className="p-3 bg-black rounded border border-danger/40 text-xs">
+                                <div className="font-bold text-white">{g.title}</div>
+                                <div className="text-danger mt-0.5 uppercase tracking-[1px] text-[10px]">Gap type: {g.gapType.replace('_', ' ')}</div>
+                              </div>
+                            ))
+                          )}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Prioritized Actions */}
+                    <div className="bg-near-black rounded-lg p-6 border border-charcoal shadow-level-1">
+                      <h3 className="text-base font-bold text-white uppercase tracking-tight mb-4 flex items-center gap-2">
+                        <Sparkles className="w-5 h-5 text-volt stroke-[1.5px]" /> Top Prioritized Action Items
+                      </h3>
+                      <div className="space-y-3">
+                        {canonical.quickRoast.prioritizedActions.map((act, i) => (
+                          <div key={i} className="p-4 bg-black rounded border border-charcoal text-xs flex items-start gap-3">
+                            <span className="w-6 h-6 rounded bg-near-black border border-charcoal text-volt font-mono font-bold flex items-center justify-center shrink-0">
+                              {i + 1}
+                            </span>
+                            <div>
+                              <div className="font-bold text-white text-sm">{act.title}</div>
+                              <div className="text-silver mt-1">{act.action}</div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <RealityFactorsPanel className="mt-6" />
                   </div>
-                </div>
+                )}
 
-                <RealityFactorsPanel className="mt-6" />
-              </div>
-            )}
-
-            {/* PRESENTATION MODE 2: DEEP ROASTER (STAGE 9) */}
-            {presentationMode === 'deep' && (
+                {/* PRESENTATION MODE 2: DEEP ROASTER */}
+                {presentationMode === 'deep' && (
               <>
                 {/* Layout Section A: Score Header */}
                 <ScoreHeader result={engineResult} headerRef={headerRef} />

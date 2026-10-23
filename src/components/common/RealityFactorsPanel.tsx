@@ -5,7 +5,7 @@
 // ============================================================
 
 import React, { useState, useEffect } from 'react';
-import { Compass, CheckSquare, Square, Info, ShieldAlert, Sparkles, Building, Users, Award, Code2, GraduationCap } from 'lucide-react';
+import { Compass, CheckSquare, Square, Sparkles } from 'lucide-react';
 
 export interface RealityFactorsState {
   campusAccess: boolean;
@@ -55,7 +55,6 @@ export function RealityFactorsPanel({ className = '' }: RealityFactorsPanelProps
 
   const selectedCount = Object.values(factors).filter(Boolean).length;
 
-  // Compute honest, tactical guidance (never changing score)
   const guidanceNotes: string[] = [];
 
   if (factors.referral) {
@@ -95,21 +94,21 @@ export function RealityFactorsPanel({ className = '' }: RealityFactorsPanelProps
   }
 
   return (
-    <div className={`bg-surface border border-border rounded-2xl p-4 sm:p-5 shadow-xs transition-all ${className}`}>
+    <div className={`bg-near-black border border-charcoal rounded-lg p-4 sm:p-5 shadow-level-1 transition-colors ${className}`}>
       {/* Header */}
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary flex-shrink-0">
-            <Compass className="w-4 h-4" />
+          <div className="w-8 h-8 rounded bg-black border border-charcoal flex items-center justify-center text-volt flex-shrink-0">
+            <Compass className="w-4 h-4 stroke-[1.5px]" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h3 className="text-sm font-bold text-text">Things That Often Matter as Much as Your Resume</h3>
-              <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-950/60 text-amber-300 border border-amber-800/80 uppercase tracking-wider">
+              <h3 className="text-sm font-bold text-white uppercase tracking-tight">Things That Often Matter as Much as Your Resume</h3>
+              <span className="px-2 py-0.5 rounded text-[10px] font-semibold uppercase tracking-[1px] bg-black text-silver border border-charcoal">
                 Unscored
               </span>
             </div>
-            <p className="text-xs text-text-muted mt-0.5">
+            <p className="text-xs text-silver mt-0.5">
               Self-reported market reality factors. In India (2026), these channels strongly influence who gets interviewed.
             </p>
           </div>
@@ -118,21 +117,21 @@ export function RealityFactorsPanel({ className = '' }: RealityFactorsPanelProps
         <button
           type="button"
           onClick={() => setIsOpen(!isOpen)}
-          className="text-xs font-semibold text-primary hover:text-primary-hover px-2.5 py-1 rounded-lg hover:bg-surface-2 transition-colors flex-shrink-0 cursor-pointer"
+          className="text-xs font-semibold uppercase tracking-[1px] text-white hover:text-volt px-2.5 py-1 rounded bg-black border border-charcoal hover:border-volt transition-colors flex-shrink-0 cursor-pointer"
         >
           {isOpen ? 'Collapse' : `Customize (${selectedCount}/5)`}
         </button>
       </div>
 
       {/* Always Visible Tactical Guidance */}
-      <div className="mt-3.5 pt-3.5 border-t border-border/80">
+      <div className="mt-3.5 pt-3.5 border-t border-charcoal">
         <div className="flex items-center gap-1.5 mb-2">
-          <Sparkles className="w-3.5 h-3.5 text-primary" />
-          <span className="text-xs font-bold text-text">Channel-Aware Guidance:</span>
+          <Sparkles className="w-3.5 h-3.5 text-volt stroke-[1.5px]" />
+          <span className="text-xs font-bold text-white uppercase tracking-[1px]">Channel-Aware Guidance:</span>
         </div>
         <div className="space-y-1.5">
           {guidanceNotes.slice(0, 2).map((note, idx) => (
-            <p key={idx} className="text-xs text-text-secondary leading-relaxed bg-surface-2/60 border border-border/60 rounded-xl px-3 py-2">
+            <p key={idx} className="text-xs text-silver leading-relaxed bg-black border border-charcoal rounded p-3">
               {note}
             </p>
           ))}
@@ -141,83 +140,83 @@ export function RealityFactorsPanel({ className = '' }: RealityFactorsPanelProps
 
       {/* Collapsible Toggles */}
       {isOpen && (
-        <div className="mt-4 pt-3.5 border-t border-border/80 space-y-2.5">
-          <p className="text-[11px] text-text-muted italic mb-3">
+        <div className="mt-4 pt-3.5 border-t border-charcoal space-y-2.5">
+          <p className="text-[11px] text-silver italic mb-3">
             Tick the channels available to you. These factors do NOT change your match score; they tailor realistic career advice.
           </p>
 
           <label
             onClick={() => toggleFactor('campusAccess')}
-            className="flex items-center gap-3 p-2.5 rounded-xl border border-border/70 hover:bg-surface-2 transition-colors cursor-pointer select-none"
+            className="flex items-center gap-3 p-2.5 rounded bg-black border border-charcoal hover:border-volt/60 transition-colors cursor-pointer select-none"
           >
             {factors.campusAccess ? (
-              <CheckSquare className="w-4 h-4 text-primary flex-shrink-0" />
+              <CheckSquare className="w-4 h-4 text-volt flex-shrink-0 stroke-[1.5px]" />
             ) : (
-              <Square className="w-4 h-4 text-text-muted flex-shrink-0" />
+              <Square className="w-4 h-4 text-silver flex-shrink-0 stroke-[1.5px]" />
             )}
             <div className="text-xs">
-              <span className="font-bold text-text">Campus Drive Access: </span>
-              <span className="text-text-muted">Reputable tech companies visit my college for on-campus drives.</span>
+              <span className="font-bold text-white uppercase tracking-[1px]">Campus Drive Access: </span>
+              <span className="text-silver">Reputable tech companies visit my college for on-campus drives.</span>
             </div>
           </label>
 
           <label
             onClick={() => toggleFactor('referral')}
-            className="flex items-center gap-3 p-2.5 rounded-xl border border-border/70 hover:bg-surface-2 transition-colors cursor-pointer select-none"
+            className="flex items-center gap-3 p-2.5 rounded bg-black border border-charcoal hover:border-volt/60 transition-colors cursor-pointer select-none"
           >
             {factors.referral ? (
-              <CheckSquare className="w-4 h-4 text-primary flex-shrink-0" />
+              <CheckSquare className="w-4 h-4 text-volt flex-shrink-0 stroke-[1.5px]" />
             ) : (
-              <Square className="w-4 h-4 text-text-muted flex-shrink-0" />
+              <Square className="w-4 h-4 text-silver flex-shrink-0 stroke-[1.5px]" />
             )}
             <div className="text-xs">
-              <span className="font-bold text-text">Employee Referral: </span>
-              <span className="text-text-muted">I have an internal contact or connection who can refer my application directly.</span>
+              <span className="font-bold text-white uppercase tracking-[1px]">Employee Referral: </span>
+              <span className="text-silver">I have an internal contact or connection who can refer my application directly.</span>
             </div>
           </label>
 
           <label
             onClick={() => toggleFactor('internship')}
-            className="flex items-center gap-3 p-2.5 rounded-xl border border-border/70 hover:bg-surface-2 transition-colors cursor-pointer select-none"
+            className="flex items-center gap-3 p-2.5 rounded bg-black border border-charcoal hover:border-volt/60 transition-colors cursor-pointer select-none"
           >
             {factors.internship ? (
-              <CheckSquare className="w-4 h-4 text-primary flex-shrink-0" />
+              <CheckSquare className="w-4 h-4 text-volt flex-shrink-0 stroke-[1.5px]" />
             ) : (
-              <Square className="w-4 h-4 text-text-muted flex-shrink-0" />
+              <Square className="w-4 h-4 text-silver flex-shrink-0 stroke-[1.5px]" />
             )}
             <div className="text-xs">
-              <span className="font-bold text-text">Production Internship: </span>
-              <span className="text-text-muted">I have completed at least 2–6 months of hands-on software development at a company.</span>
+              <span className="font-bold text-white uppercase tracking-[1px]">Production Internship: </span>
+              <span className="text-silver">I have completed at least 2–6 months of hands-on software development at a company.</span>
             </div>
           </label>
 
           <label
             onClick={() => toggleFactor('onlineTest')}
-            className="flex items-center gap-3 p-2.5 rounded-xl border border-border/70 hover:bg-surface-2 transition-colors cursor-pointer select-none"
+            className="flex items-center gap-3 p-2.5 rounded bg-black border border-charcoal hover:border-volt/60 transition-colors cursor-pointer select-none"
           >
             {factors.onlineTest ? (
-              <CheckSquare className="w-4 h-4 text-primary flex-shrink-0" />
+              <CheckSquare className="w-4 h-4 text-volt flex-shrink-0 stroke-[1.5px]" />
             ) : (
-              <Square className="w-4 h-4 text-text-muted flex-shrink-0" />
+              <Square className="w-4 h-4 text-silver flex-shrink-0 stroke-[1.5px]" />
             )}
             <div className="text-xs">
-              <span className="font-bold text-text">Online Assessment (OA) Confidence: </span>
-              <span className="text-text-muted">I am confident in clearing timed aptitude and algorithmic assessments (NQT, HackWithInfy, HackerRank).</span>
+              <span className="font-bold text-white uppercase tracking-[1px]">Online Assessment (OA) Confidence: </span>
+              <span className="text-silver">I am confident in clearing timed aptitude and algorithmic assessments (NQT, HackWithInfy, HackerRank).</span>
             </div>
           </label>
 
           <label
             onClick={() => toggleFactor('cpOrOss')}
-            className="flex items-center gap-3 p-2.5 rounded-xl border border-border/70 hover:bg-surface-2 transition-colors cursor-pointer select-none"
+            className="flex items-center gap-3 p-2.5 rounded bg-black border border-charcoal hover:border-volt/60 transition-colors cursor-pointer select-none"
           >
             {factors.cpOrOss ? (
-              <CheckSquare className="w-4 h-4 text-primary flex-shrink-0" />
+              <CheckSquare className="w-4 h-4 text-volt flex-shrink-0 stroke-[1.5px]" />
             ) : (
-              <Square className="w-4 h-4 text-text-muted flex-shrink-0" />
+              <Square className="w-4 h-4 text-silver flex-shrink-0 stroke-[1.5px]" />
             )}
             <div className="text-xs">
-              <span className="font-bold text-text">CP Rating or Open-Source PRs: </span>
-              <span className="text-text-muted">I have a verifiable LeetCode/Codeforces rating or public pull requests merged into open source repositories.</span>
+              <span className="font-bold text-white uppercase tracking-[1px]">CP Rating or Open-Source PRs: </span>
+              <span className="text-silver">I have a verifiable LeetCode/Codeforces rating or public pull requests merged into open source repositories.</span>
             </div>
           </label>
         </div>

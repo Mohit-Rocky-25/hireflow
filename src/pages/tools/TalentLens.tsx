@@ -27,14 +27,14 @@ import { EligibilityCard } from '../../components/common/EligibilityCard';
 // ── Status Components ──
 function EligibilityBadge({ status }: { status: string }) {
   const map: Record<string, { cls: string; label: string }> = {
-    ELIGIBLE: { cls: "bg-emerald-50 text-emerald-700 border-emerald-200", label: "ELIGIBLE" },
-    CONDITIONAL: { cls: "bg-amber-50 text-amber-700 border-amber-200", label: "CONDITIONAL" },
-    INELIGIBLE: { cls: "bg-red-50 text-red-700 border-red-200", label: "INELIGIBLE" },
-    UNCERTAIN: { cls: "bg-slate-50 text-slate-600 border-slate-200", label: "UNCERTAIN" },
+    ELIGIBLE: { cls: "bg-black text-volt border-volt", label: "ELIGIBLE" },
+    CONDITIONAL: { cls: "bg-black text-pale-yellow border-pale-yellow/50", label: "CONDITIONAL" },
+    INELIGIBLE: { cls: "bg-black text-danger border-danger/50", label: "INELIGIBLE" },
+    UNCERTAIN: { cls: "bg-black text-silver border-charcoal", label: "UNCERTAIN" },
   };
   const { cls, label } = map[status] ?? map.UNCERTAIN;
   return (
-    <span className={`px-[12px] py-[4px] rounded-full text-[12px] font-bold border uppercase tracking-wide ${cls}`}>
+    <span className={`px-2.5 py-1 rounded text-xs font-mono font-bold border uppercase tracking-wider ${cls}`}>
       {label}
     </span>
   );
@@ -42,25 +42,25 @@ function EligibilityBadge({ status }: { status: string }) {
 
 function MatchStatusIcon({ status }: { status: string }) {
   switch (status) {
-    case 'STRONG': return <CheckCircle2 className="w-[18px] h-[18px] text-emerald-600 flex-shrink-0" />;
-    case 'PARTIAL': return <AlertTriangle className="w-[18px] h-[18px] text-amber-500 flex-shrink-0" />;
-    case 'INFERRED': return <TrendingUp className="w-[18px] h-[18px] text-blue-500 flex-shrink-0" />;
-    case 'MISSING': return <XCircle className="w-[18px] h-[18px] text-red-500 flex-shrink-0" />;
-    case 'UNCERTAIN': return <HelpCircle className="w-[18px] h-[18px] text-slate-400 flex-shrink-0" />;
-    default: return <HelpCircle className="w-[18px] h-[18px] text-slate-400 flex-shrink-0" />;
+    case 'STRONG': return <CheckCircle2 className="w-4 h-4 text-volt flex-shrink-0" />;
+    case 'PARTIAL': return <AlertTriangle className="w-4 h-4 text-pale-yellow flex-shrink-0" />;
+    case 'INFERRED': return <TrendingUp className="w-4 h-4 text-volt flex-shrink-0" />;
+    case 'MISSING': return <XCircle className="w-4 h-4 text-danger flex-shrink-0" />;
+    case 'UNCERTAIN': return <HelpCircle className="w-4 h-4 text-silver flex-shrink-0" />;
+    default: return <HelpCircle className="w-4 h-4 text-silver flex-shrink-0" />;
   }
 }
 
 function StatusPill({ status }: { status: string }) {
   const map: Record<string, string> = {
-    STRONG: "bg-emerald-50 text-emerald-700 border-emerald-200",
-    PARTIAL: "bg-amber-50 text-amber-700 border-amber-200",
-    INFERRED: "bg-sky-50 text-sky-700 border-sky-200",
-    MISSING: "bg-red-50 text-red-700 border-red-200",
-    UNCERTAIN: "bg-slate-50 text-slate-600 border-slate-200",
+    STRONG: "bg-black text-volt border-volt",
+    PARTIAL: "bg-black text-pale-yellow border-pale-yellow/50",
+    INFERRED: "bg-black text-volt border-volt/40",
+    MISSING: "bg-black text-danger border-danger/50",
+    UNCERTAIN: "bg-black text-silver border-charcoal",
   };
   return (
-    <span className={`px-[8px] py-[2px] rounded-full text-[11px] font-bold border uppercase ${map[status] ?? map.UNCERTAIN}`}>
+    <span className={`px-2 py-0.5 rounded text-[11px] font-mono font-bold border uppercase ${map[status] ?? map.UNCERTAIN}`}>
       {status}
     </span>
   );
@@ -68,23 +68,23 @@ function StatusPill({ status }: { status: string }) {
 
 function DimensionBadge({ label, value }: { label: string; value: string }) {
   const colorMap: Record<string, string> = {
-    STRONG: "text-emerald-700",
-    MODERATE: "text-amber-700",
-    WEAK: "text-red-600",
-    HIGH: "text-emerald-700",
-    MEDIUM: "text-amber-700",
-    LOW: "text-red-600",
-    ELIGIBLE: "text-emerald-700",
-    CONDITIONAL: "text-amber-700",
-    INELIGIBLE: "text-red-600",
-    INSUFFICIENT: "text-red-600",
-    UNCLEAR: "text-slate-500",
-    NONE: "text-slate-500",
+    STRONG: "text-volt",
+    MODERATE: "text-pale-yellow",
+    WEAK: "text-danger",
+    HIGH: "text-volt",
+    MEDIUM: "text-pale-yellow",
+    LOW: "text-danger",
+    ELIGIBLE: "text-volt",
+    CONDITIONAL: "text-pale-yellow",
+    INELIGIBLE: "text-danger",
+    INSUFFICIENT: "text-danger",
+    UNCLEAR: "text-silver",
+    NONE: "text-silver",
   };
   return (
-    <div className="bg-surface border border-border rounded-xl p-[16px]">
-      <p className="text-[11px] font-bold text-text-muted uppercase tracking-wider mb-[4px]">{label}</p>
-      <p className={`text-[18px] font-extrabold ${colorMap[value] ?? 'text-text'}`}>{value}</p>
+    <div className="bg-[#141414] border border-charcoal rounded-lg p-4">
+      <p className="text-[10px] font-mono font-bold text-silver uppercase tracking-wider mb-1">{label}</p>
+      <p className={`text-lg font-bold font-mono ${colorMap[value] ?? 'text-white'}`}>{value}</p>
     </div>
   );
 }
@@ -93,95 +93,90 @@ function DimensionBadge({ label, value }: { label: string; value: string }) {
 function RequirementCard({ assessment }: { assessment: RequirementAssessment }) {
   const [expanded, setExpanded] = useState(false);
   const priorityColors: Record<string, string> = {
-    MANDATORY: "bg-red-50 text-red-700 border-red-200",
-    PREFERRED: "bg-blue-50 text-blue-700 border-blue-200",
-    OPTIONAL: "bg-slate-50 text-slate-600 border-slate-200",
+    MANDATORY: "bg-black text-danger border-danger/40",
+    PREFERRED: "bg-black text-volt border-volt/40",
+    OPTIONAL: "bg-black text-silver border-charcoal",
   };
 
   return (
-    <div className={`border rounded-xl overflow-hidden transition-all ${
-      assessment.status === 'STRONG' ? 'border-emerald-200 bg-emerald-50/30' :
-      assessment.status === 'PARTIAL' || assessment.status === 'INFERRED' ? 'border-amber-200 bg-amber-50/20' :
-      assessment.status === 'MISSING' ? 'border-red-200 bg-red-50/20' :
-      'border-border bg-surface'
-    }`}>
+    <div className="border border-charcoal bg-[#141414] rounded-lg overflow-hidden transition-all">
       {/* Header */}
       <button
-        className="w-full flex items-center justify-between px-[20px] py-[16px] text-left"
+        className="w-full flex items-center justify-between px-5 py-4 text-left cursor-pointer"
         onClick={() => setExpanded(!expanded)}
       >
-        <div className="flex items-center gap-[12px]">
+        <div className="flex items-center gap-3">
           <MatchStatusIcon status={assessment.status} />
           <div>
-            <div className="flex items-center gap-[8px]">
-              <span className="text-[15px] font-bold text-text">{assessment.requirementName}</span>
-              <span className={`px-[8px] py-[1px] rounded-full text-[10px] font-bold border uppercase ${priorityColors[assessment.requirementPriority]}`}>
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-bold text-white font-mono">{assessment.requirementName}</span>
+              <span className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold border uppercase ${priorityColors[assessment.requirementPriority]}`}>
                 {assessment.requirementPriority}
               </span>
             </div>
             {assessment.evidenceText && !expanded && (
-              <p className="text-[12px] text-text-muted mt-[2px] truncate max-w-[400px]">{assessment.evidenceText}</p>
+              <p className="text-xs text-silver mt-0.5 truncate max-w-[400px]">{assessment.evidenceText}</p>
             )}
           </div>
         </div>
-        <div className="flex items-center gap-[12px]">
+        <div className="flex items-center gap-3">
           <StatusPill status={assessment.status} />
           {assessment.confidence > 0 && (
-            <span className="text-[12px] font-bold text-text-muted">{Math.round(assessment.confidence * 100)}% conf.</span>
+            <span className="text-xs font-mono text-silver">{Math.round(assessment.confidence * 100)}% conf.</span>
           )}
-          {expanded ? <ChevronUp className="w-[16px] h-[16px] text-text-muted" /> : <ChevronDown className="w-[16px] h-[16px] text-text-muted" />}
+          {expanded ? <ChevronUp className="w-4 h-4 text-silver" /> : <ChevronDown className="w-4 h-4 text-silver" />}
         </div>
       </button>
 
       {/* Expanded Details */}
       {expanded && (
-        <div className="px-[20px] pb-[20px] space-y-[12px] border-t border-current/10">
+        <div className="px-5 pb-5 space-y-3 border-t border-charcoal">
           {assessment.evidenceText && (
-            <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-[12px] mt-[12px]">
-              <p className="text-[11px] font-bold text-text-muted uppercase tracking-wider mb-[4px]">
+            <div className="bg-black border border-charcoal rounded p-3 mt-3">
+              <p className="text-[10px] font-mono font-bold text-silver uppercase tracking-wider mb-1">
                 EVIDENCE · {assessment.evidenceSource ?? 'profile'}
               </p>
-              <p className="text-[13px] text-text-secondary italic">{assessment.evidenceText}</p>
+              <p className="text-xs text-silver italic leading-relaxed">{assessment.evidenceText}</p>
             </div>
           )}
 
           {assessment.relatedEvidence && (
-            <div className="bg-amber-50 border border-amber-200 rounded-lg p-[12px]">
-              <p className="text-[11px] font-bold text-amber-700 uppercase tracking-wider mb-[4px]">
+            <div className="bg-black border border-charcoal rounded p-3">
+              <p className="text-[10px] font-mono font-bold text-pale-yellow uppercase tracking-wider mb-1">
                 RELATED EVIDENCE · Semantic Match
               </p>
-              <p className="text-[13px] text-text-secondary">{assessment.relatedEvidence}</p>
+              <p className="text-xs text-silver leading-relaxed">{assessment.relatedEvidence}</p>
               {assessment.semanticRelationship && (
-                <p className="text-[12px] text-text-muted mt-[4px] italic">↳ {assessment.semanticRelationship}</p>
+                <p className="text-xs font-mono text-silver/60 mt-1 italic">↳ {assessment.semanticRelationship}</p>
               )}
             </div>
           )}
 
           {assessment.missingEvidenceExplanation && (
-            <div className="bg-surface-2 border border-border rounded-lg p-[12px]">
-              <p className="text-[11px] font-bold text-text-muted uppercase tracking-wider mb-[4px]">
+            <div className="bg-black border border-charcoal rounded p-3">
+              <p className="text-[10px] font-mono font-bold text-silver uppercase tracking-wider mb-1">
                 EVIDENCE STATUS
               </p>
-              <p className="text-[13px] text-text-secondary">{assessment.missingEvidenceExplanation}</p>
+              <p className="text-xs text-silver leading-relaxed">{assessment.missingEvidenceExplanation}</p>
             </div>
           )}
 
           {assessment.recruiterAction && (
-            <div className="bg-primary-light border border-primary/20 rounded-lg p-[12px]">
-              <p className="text-[11px] font-bold text-primary uppercase tracking-wider mb-[4px]">
+            <div className="bg-black border border-charcoal rounded p-3">
+              <p className="text-[10px] font-mono font-bold text-volt uppercase tracking-wider mb-1">
                 RECRUITER ACTION
               </p>
-              <p className="text-[13px] text-text">{assessment.recruiterAction}</p>
+              <p className="text-xs text-white leading-relaxed">{assessment.recruiterAction}</p>
             </div>
           )}
 
           {assessment.suggestedInterviewQuestion && (
-            <div className="bg-surface-2 border border-border rounded-lg p-[12px]">
-              <p className="text-[11px] font-bold text-text-muted uppercase tracking-wider mb-[4px]">
-                <MessageSquare className="w-[11px] h-[11px] inline mr-[4px]" />
+            <div className="bg-black border border-charcoal rounded p-3">
+              <p className="text-[10px] font-mono font-bold text-silver uppercase tracking-wider mb-1">
+                <MessageSquare className="w-3 h-3 inline mr-1 text-volt" />
                 SUGGESTED INTERVIEW QUESTION
               </p>
-              <p className="text-[13px] text-text italic">"{assessment.suggestedInterviewQuestion}"</p>
+              <p className="text-xs text-white italic leading-relaxed">"{assessment.suggestedInterviewQuestion}"</p>
             </div>
           )}
         </div>
@@ -280,9 +275,9 @@ export function TalentLens() {
 
   if (!candidate) {
     return (
-      <div className="p-[32px] text-center">
-        <p className="text-text-secondary">Candidate not found.</p>
-        <Link to="/" className="mt-[16px] text-primary hover:underline">← Go back to Home</Link>
+      <div className="min-h-screen bg-black text-white p-8 text-center font-sans">
+        <p className="text-silver">Candidate not found.</p>
+        <Link to="/" className="mt-4 inline-block text-volt font-mono text-xs hover:underline">← Go back to Home</Link>
       </div>
     );
   }
@@ -290,48 +285,48 @@ export function TalentLens() {
   const selectedJob = jobs.find(j => j.id === selectedJobId);
 
   return (
-    <div className="min-h-screen bg-bg text-text pt-24 pb-12 px-8 relative">
+    <div className="min-h-screen bg-black text-white pt-24 pb-12 px-8 relative font-sans">
       
       {/* Absolute Top-Left Back Button */}
       <div className="absolute top-8 left-8">
-        <Link to="/" className="inline-flex items-center gap-2 text-xl font-black text-text hover:text-primary transition-colors">
-          <ArrowLeft className="w-6 h-6" /> Back to Home
+        <Link to="/" className="inline-flex items-center gap-2 text-sm font-mono font-bold uppercase tracking-wider text-white hover:text-volt transition-colors">
+          <ArrowLeft className="w-4 h-4" /> Back to Home
         </Link>
       </div>
 
       <div className="max-w-7xl mx-auto space-y-8 animate-fade-in">
         
         <div className="text-center max-w-3xl mx-auto mb-12 mt-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-ai/10 text-ai font-bold text-sm rounded-full mb-6">
-            <Sparkles className="w-4 h-4" /> B2B Engine Demo
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#141414] border border-charcoal rounded text-xs font-mono uppercase tracking-wider text-volt mb-4">
+            <Sparkles className="w-3.5 h-3.5 text-volt" /> B2B Engine Demo
           </div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter mb-4">
-            Talent<span className="text-transparent bg-clip-text bg-gradient-to-r from-ai to-primary">Lens</span> Simulator
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight mb-3">
+            Talent<span className="text-volt">Lens</span> Simulator
           </h1>
-          <p className="text-secondary text-lg">
+          <p className="text-silver text-sm max-w-2xl mx-auto leading-relaxed">
             Experience our proprietary B2B matching engine. See how it deeply analyzes semantic context instead of just keyword matching.
           </p>
         </div>
 
         {/* Header */}
-        <div className="flex items-start justify-between gap-[16px]">
-          <div className="flex items-center gap-[16px]">
-            <div className="w-[56px] h-[56px] rounded-full bg-gradient-to-br from-primary-light to-primary/20 flex items-center justify-center text-primary text-[20px] font-black">
+        <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded bg-black border border-charcoal flex items-center justify-center text-volt text-base font-mono font-bold">
               {candidate.displayName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase()}
             </div>
             <div className="text-left">
-              <h1 className="text-[24px] font-bold text-text tracking-tight">{candidate.displayName}</h1>
-              <p className="text-[14px] text-text-secondary">{profile?.headline ?? 'Candidate'}</p>
+              <h1 className="text-xl font-bold text-white tracking-tight">{candidate.displayName}</h1>
+              <p className="text-xs font-mono text-silver">{profile?.headline ?? 'Candidate'}</p>
             </div>
           </div>
 
-        <div className="flex items-center gap-[12px]">
+        <div className="flex items-center gap-3 flex-wrap">
           <HonestyExplainerModal tool="talentlens" />
           {/* Job selector */}
           <select
             value={selectedJobId}
             onChange={e => { setSelectedJobId(e.target.value); setMatch(null); }}
-            className="h-[40px] px-[12px] border border-border rounded-lg text-[14px] font-medium bg-surface focus:ring-2 focus:ring-primary outline-none"
+            className="h-10 px-3 border border-charcoal rounded text-xs font-mono bg-black text-white focus:border-volt outline-none"
           >
             <option value="">Select job to analyze against…</option>
             {companyJobs.map(j => (
@@ -342,53 +337,53 @@ export function TalentLens() {
           <button
             onClick={runAnalysis}
             disabled={!selectedJobId || !profile || analyzing}
-            className="h-[40px] px-[20px] bg-primary text-white text-[14px] font-bold rounded-lg hover:bg-primary-hover transition-all flex items-center gap-[8px] disabled:opacity-40 shadow-glow-orange"
+            className="h-10 px-5 bg-volt text-[#151515] text-xs font-bold font-mono uppercase tracking-wider rounded hover:bg-[#1a1a1a] hover:text-volt border border-volt transition-all flex items-center gap-2 disabled:opacity-40 cursor-pointer"
           >
-            {analyzing ? <RefreshCw className="w-[16px] h-[16px] animate-spin" /> : <Brain className="w-[16px] h-[16px]" />}
+            {analyzing ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Brain className="w-4 h-4" />}
             {analyzing ? 'Analyzing…' : match ? 'Re-Analyze' : 'Analyze'}
           </button>
 
           <Link
             to="/tools/company-compare"
-            className="h-[40px] px-[14px] border border-border rounded-lg text-[13px] font-semibold bg-surface hover:bg-surface-2 flex items-center gap-1.5 text-text-secondary hover:text-text transition-colors"
+            className="h-10 px-3.5 border border-charcoal rounded text-xs font-mono bg-black text-white hover:text-volt hover:border-volt flex items-center gap-1.5 transition-colors"
           >
-            <Building2 className="w-4 h-4 text-primary" />
+            <Building2 className="w-4 h-4 text-volt" />
             Compare Companies
           </Link>
         </div>
       </div>
 
       {error && (
-        <div className="bg-red-50 border border-red-200 rounded-xl p-[16px] text-[14px] text-red-700">
-          <AlertTriangle className="w-[16px] h-[16px] inline mr-[8px]" />
+        <div className="bg-black border border-danger/40 rounded p-4 text-xs text-danger font-mono flex items-center gap-2">
+          <AlertTriangle className="w-4 h-4 text-danger shrink-0" />
           {error}
         </div>
       )}
 
       {!selectedJobId && (
-        <div className="bg-surface-2/50 border border-border rounded-2xl p-[64px] text-center">
-          <Brain className="w-[48px] h-[48px] text-primary/30 mx-auto mb-[16px]" />
-          <h3 className="text-[16px] font-bold text-text mb-[8px]">Select a job to run intelligence analysis</h3>
-          <p className="text-[14px] text-text-secondary">Choose from the dropdown above to see evidence-based candidate assessment against that role's requirements.</p>
+        <div className="bg-[#141414] border border-charcoal rounded-lg p-16 text-center">
+          <Brain className="w-10 h-10 text-silver mx-auto mb-4" />
+          <h3 className="text-base font-bold text-white mb-2">Select a job to run intelligence analysis</h3>
+          <p className="text-xs text-silver max-w-md mx-auto leading-relaxed">Choose from the dropdown above to see evidence-based candidate assessment against that role's requirements.</p>
         </div>
       )}
 
       {selectedJobId && !match && !analyzing && (
-        <div className="bg-surface-2/50 border border-border rounded-2xl p-[64px] text-center">
-          <Target className="w-[48px] h-[48px] text-primary/30 mx-auto mb-[16px]" />
-          <h3 className="text-[16px] font-bold text-text mb-[8px]">Ready to analyze against "{selectedJob?.title}"</h3>
-          <p className="text-[14px] text-text-secondary mb-[24px]">The engine will assess each job requirement individually with evidence from the candidate's profile.</p>
-          <button onClick={runAnalysis} className="h-[44px] px-[28px] bg-primary text-white text-[14px] font-bold rounded-xl hover:bg-primary-hover transition-all flex items-center gap-[8px] mx-auto shadow-glow-orange">
-            <Brain className="w-[16px] h-[16px]" /> Run Evidence Analysis
+        <div className="bg-[#141414] border border-charcoal rounded-lg p-16 text-center">
+          <Target className="w-10 h-10 text-volt mx-auto mb-4" />
+          <h3 className="text-base font-bold text-white mb-2">Ready to analyze against "{selectedJob?.title}"</h3>
+          <p className="text-xs text-silver max-w-md mx-auto leading-relaxed mb-6">The engine will assess each job requirement individually with evidence from the candidate's profile.</p>
+          <button onClick={runAnalysis} className="h-10 px-6 bg-volt text-[#151515] text-xs font-bold font-mono uppercase tracking-wider rounded hover:bg-[#1a1a1a] hover:text-volt border border-volt transition-all flex items-center gap-2 mx-auto cursor-pointer">
+            <Brain className="w-4 h-4" /> Run Evidence Analysis
           </button>
         </div>
       )}
 
       {analyzing && (
-        <div className="bg-surface border border-border rounded-2xl p-[48px] text-center">
-          <RefreshCw className="w-[32px] h-[32px] text-primary mx-auto mb-[16px] animate-spin" />
-          <h3 className="text-[15px] font-bold text-text">Analyzing candidate against job requirements…</h3>
-          <p className="text-[13px] text-text-muted mt-[4px]">Extracting evidence · Resolving skills · Assessing requirements</p>
+        <div className="bg-[#141414] border border-charcoal rounded-lg p-12 text-center">
+          <RefreshCw className="w-8 h-8 text-volt mx-auto mb-4 animate-spin" />
+          <h3 className="text-base font-bold text-white">Analyzing candidate against job requirements…</h3>
+          <p className="text-xs font-mono text-silver mt-1">Extracting evidence · Resolving skills · Assessing requirements</p>
         </div>
       )}
 
@@ -406,11 +401,11 @@ export function TalentLens() {
           {showFullTalentLensReport && (
             <>
               {/* Score Overview */}
-          <div className="bg-surface border border-border rounded-2xl p-[24px]">
-            <div className="flex items-start justify-between mb-[24px]">
+          <div className="bg-[#141414] border border-charcoal rounded-lg p-6">
+            <div className="flex items-start justify-between mb-6">
               <div>
-                <div className="flex items-center gap-[12px] mb-[4px]">
-                  <h2 className="text-[18px] font-bold text-text">Intelligence Report</h2>
+                <div className="flex items-center gap-3 mb-1.5 flex-wrap">
+                  <h2 className="text-lg font-bold text-white">Intelligence Report</h2>
                   <EligibilityBadge status={match.eligibility} />
                   <button
                     type="button"
@@ -418,22 +413,22 @@ export function TalentLens() {
                       saveFromResumeText(profile?.resumeRawText || DEMO_TALENTLENS_RESUME.text);
                       openDrawer();
                     }}
-                    className="ml-2 px-3 py-1 bg-primary/10 hover:bg-primary/20 border border-primary/30 text-xs font-bold rounded-lg text-primary transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-2xs"
+                    className="ml-2 px-2.5 py-1 bg-black hover:border-volt border border-charcoal text-xs font-mono uppercase rounded text-silver hover:text-white transition-colors inline-flex items-center gap-1.5 cursor-pointer"
                   >
-                    <Bookmark className="w-3.5 h-3.5" /> Save to my profile
+                    <Bookmark className="w-3.5 h-3.5 text-volt" /> Save to profile
                   </button>
                 </div>
-                <p className="text-[14px] text-text-secondary">{match.explanation}</p>
+                <p className="text-xs text-silver leading-relaxed">{match.explanation}</p>
               </div>
               <div className="text-right">
-                <p className="text-[11px] font-bold text-text-muted uppercase tracking-wider">Overall Score</p>
-                <p className="text-[36px] font-black text-text">{match.overallScore}<span className="text-[16px] text-text-muted">/100</span></p>
-                <p className="text-[11px] text-text-muted">Backed by {match.scoreComponents?.length ?? 0} components</p>
+                <p className="text-[10px] font-mono font-bold text-silver uppercase tracking-wider">Overall Score</p>
+                <p className="text-4xl font-black font-mono text-white">{match.overallScore}<span className="text-sm font-normal text-silver">/100</span></p>
+                <p className="text-[10px] font-mono text-silver/60">Backed by {match.scoreComponents?.length ?? 0} components</p>
               </div>
             </div>
 
             {/* Dimensions */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-[16px] mb-[24px]">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
               <DimensionBadge label="Required Skill Alignment" value={match.requiredSkillAlignment} />
               <DimensionBadge label="Experience Relevance" value={match.experienceRelevance} />
               <DimensionBadge label="Project Evidence" value={match.projectRelevance} />
@@ -442,23 +437,23 @@ export function TalentLens() {
 
             {/* Score Components (transparent calculation) */}
             {match.scoreComponents && match.scoreComponents.length > 0 && (
-              <div className="border-t border-border pt-[20px]">
-                <p className="text-[12px] font-bold text-text-muted uppercase tracking-wider mb-[12px]">Score Calculation (Transparent)</p>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-[8px]">
+              <div className="border-t border-charcoal pt-5">
+                <p className="text-xs font-mono font-bold text-silver uppercase tracking-wider mb-3">Score Calculation (Transparent)</p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                   {match.scoreComponents.map((comp, i) => (
-                    <div key={i} className="flex items-center justify-between bg-surface-2/50 rounded-lg px-[12px] py-[8px]">
+                    <div key={i} className="flex items-center justify-between bg-black border border-charcoal rounded px-3 py-2">
                       <div>
-                        <p className="text-[13px] font-semibold text-text">{comp.dimension}</p>
-                        <p className="text-[11px] text-text-muted">{comp.explanation}</p>
+                        <p className="text-xs font-mono font-semibold text-white">{comp.dimension}</p>
+                        <p className="text-[11px] text-silver">{comp.explanation}</p>
                       </div>
-                      <div className="text-right ml-[12px] shrink-0">
-                        <p className="text-[15px] font-bold text-text">{comp.score}</p>
-                        <p className="text-[10px] text-text-muted">×{comp.weight} wt</p>
+                      <div className="text-right ml-3 shrink-0">
+                        <p className="text-sm font-mono font-bold text-white">{comp.score}</p>
+                        <p className="text-[10px] font-mono text-silver">×{comp.weight} wt</p>
                       </div>
                     </div>
                   ))}
                 </div>
-                <p className="text-[11px] text-text-muted mt-[8px]">
+                <p className="text-[10px] font-mono text-silver/60 mt-2">
                   AI: {match.modelProvider} {match.modelVersion} · Knowledge: {match.knowledgeVersion} · Analyzed: {new Date(match.analyzedAt).toLocaleString()}
                 </p>
               </div>
@@ -466,24 +461,24 @@ export function TalentLens() {
           </div>
 
           {/* Summary Row */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-[16px]">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
-              { label: 'Strong Matches', count: match.strongMatches.length, color: 'text-emerald-700', bg: 'bg-emerald-50 border-emerald-200' },
-              { label: 'Partial Matches', count: match.partialMatches.length, color: 'text-amber-700', bg: 'bg-amber-50 border-amber-200' },
-              { label: 'Missing Evidence', count: match.missingRequirements.length, color: 'text-red-700', bg: 'bg-red-50 border-red-200' },
-              { label: 'Uncertain / Verify', count: match.uncertainRequirements.length, color: 'text-slate-600', bg: 'bg-slate-50 border-slate-200' },
+              { label: 'Strong Matches', count: match.strongMatches.length, color: 'text-volt' },
+              { label: 'Partial Matches', count: match.partialMatches.length, color: 'text-pale-yellow' },
+              { label: 'Missing Evidence', count: match.missingRequirements.length, color: 'text-danger' },
+              { label: 'Uncertain / Verify', count: match.uncertainRequirements.length, color: 'text-silver' },
             ].map((item, i) => (
-              <div key={i} className={`border rounded-xl p-[20px] ${item.bg}`}>
-                <p className={`text-[32px] font-black ${item.color}`}>{item.count}</p>
-                <p className={`text-[13px] font-semibold ${item.color}`}>{item.label}</p>
+              <div key={i} className="border border-charcoal bg-[#141414] rounded-lg p-5 text-center">
+                <p className={`text-3xl font-black font-mono ${item.color}`}>{item.count}</p>
+                <p className="text-xs font-mono uppercase text-silver mt-1">{item.label}</p>
               </div>
             ))}
           </div>
 
           {/* Evidence Summary */}
           {match.evidenceSummary && (
-            <div className="bg-surface border border-border rounded-xl p-[16px] text-[14px] text-text-secondary">
-              <p className="text-[11px] font-bold text-text-muted uppercase tracking-wider mb-[4px]">Evidence Summary</p>
+            <div className="bg-[#141414] border border-charcoal rounded-lg p-4 text-xs text-silver leading-relaxed">
+              <p className="text-[10px] font-mono font-bold text-silver uppercase tracking-wider mb-1">Evidence Summary</p>
               {match.evidenceSummary}
             </div>
           )}
@@ -495,7 +490,7 @@ export function TalentLens() {
           <EligibilityCard className="my-6" />
 
           {/* Tabs */}
-          <div className="flex items-center gap-[4px] border-b border-border">
+          <div className="flex items-center gap-1 border-b border-charcoal">
             {[
               { key: 'overview', label: 'Recruiter Recommendations' },
               { key: 'requirements', label: `All Requirements (${match.requirementAssessments.length})` },
@@ -505,10 +500,10 @@ export function TalentLens() {
               <button
                 key={tab.key}
                 onClick={() => setActiveTab(tab.key as typeof activeTab)}
-                className={`px-[16px] py-[12px] text-[14px] font-bold transition-all border-b-2 ${
+                className={`px-4 py-3 text-xs font-mono uppercase tracking-wider transition-all border-b-2 cursor-pointer ${
                   activeTab === tab.key
-                    ? 'border-primary text-primary'
-                    : 'border-transparent text-text-secondary hover:text-text'
+                    ? 'border-volt text-volt font-bold'
+                    : 'border-transparent text-silver hover:text-white'
                 }`}
               >
                 {tab.label}
@@ -519,29 +514,24 @@ export function TalentLens() {
           {/* Tab Content */}
           <div className="animate-fade-in">
             {activeTab === 'overview' && (
-              <div className="space-y-[16px]">
+              <div className="space-y-3">
                 {match.recruiterRecommendations.map((rec, i) => (
-                  <div key={i} className="flex gap-[12px] bg-surface border border-border rounded-xl p-[16px]">
-                    <ChevronRight className="w-[16px] h-[16px] text-primary mt-[2px] flex-shrink-0" />
-                    <p className="text-[14px] text-text">{rec}</p>
+                  <div key={i} className="flex gap-3 bg-[#141414] border border-charcoal rounded-lg p-4">
+                    <ChevronRight className="w-4 h-4 text-volt mt-0.5 flex-shrink-0" />
+                    <p className="text-xs text-silver leading-relaxed">{rec}</p>
                   </div>
                 ))}
                 {match.recruiterRecommendations.length === 0 && (
-                  <div className="text-center py-[48px] text-text-muted text-[14px]">No specific recommendations — strong candidate profile.</div>
+                  <div className="text-center py-12 text-silver text-xs font-mono">No specific recommendations — strong candidate profile.</div>
                 )}
               </div>
             )}
 
             {activeTab === 'requirements' && (
-              <div className="space-y-[12px]">
-                <div className="flex gap-[8px] mb-[16px]">
+              <div className="space-y-3">
+                <div className="flex gap-2 mb-4">
                   {['STRONG', 'PARTIAL', 'UNCERTAIN', 'MISSING'].map(status => (
-                    <span key={status} className={`px-[10px] py-[3px] rounded-full text-[11px] font-bold border uppercase ${
-                      status === 'STRONG' ? 'bg-emerald-50 text-emerald-700 border-emerald-200' :
-                      status === 'PARTIAL' ? 'bg-amber-50 text-amber-700 border-amber-200' :
-                      status === 'MISSING' ? 'bg-red-50 text-red-700 border-red-200' :
-                      'bg-slate-50 text-slate-600 border-slate-200'
-                    }`}>
+                    <span key={status} className="px-2.5 py-1 rounded text-[11px] font-mono font-bold border border-charcoal bg-black text-silver uppercase">
                       {match.requirementAssessments.filter(r => r.status === status).length} {status}
                     </span>
                   ))}
@@ -553,54 +543,54 @@ export function TalentLens() {
             )}
 
             {activeTab === 'gaps' && (
-              <div className="space-y-[16px]">
+              <div className="space-y-4">
                 {match.skillGaps.length === 0 ? (
-                  <div className="text-center py-[48px] bg-emerald-50 border border-emerald-200 rounded-2xl">
-                    <CheckCircle2 className="w-[40px] h-[40px] text-emerald-600 mx-auto mb-[12px]" />
-                    <h3 className="text-[15px] font-bold text-emerald-700">No significant skill gaps found</h3>
-                    <p className="text-[13px] text-emerald-600 mt-[4px]">Candidate shows evidence for all mandatory requirements.</p>
+                  <div className="text-center py-12 bg-[#141414] border border-charcoal rounded-lg">
+                    <CheckCircle2 className="w-8 h-8 text-volt mx-auto mb-3" />
+                    <h3 className="text-sm font-bold text-white font-mono uppercase">No significant skill gaps found</h3>
+                    <p className="text-xs text-silver mt-1">Candidate shows evidence for all mandatory requirements.</p>
                   </div>
                 ) : (
                   match.skillGaps.map((gap, i) => (
-                    <div key={i} className="bg-surface border border-border rounded-2xl p-[24px] space-y-[16px]">
+                    <div key={i} className="bg-[#141414] border border-charcoal rounded-lg p-5 space-y-4">
                       <div className="flex items-center justify-between">
                         <div>
-                          <h3 className="text-[16px] font-bold text-text">{gap.skillName}</h3>
-                          <span className={`text-[11px] font-bold uppercase ${gap.jobPriority === 'MANDATORY' ? 'text-red-700' : 'text-amber-700'}`}>
+                          <h3 className="text-sm font-bold text-white font-mono">{gap.skillName}</h3>
+                          <span className={`text-[10px] font-mono font-bold uppercase ${gap.jobPriority === 'MANDATORY' ? 'text-danger' : 'text-pale-yellow'}`}>
                             {gap.jobPriority} requirement
                           </span>
                         </div>
                       </div>
 
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-[12px]">
-                        <div className="bg-surface-2 rounded-xl p-[12px]">
-                          <p className="text-[11px] font-bold text-text-muted uppercase mb-[4px]">Why it matters</p>
-                          <p className="text-[13px] text-text-secondary">{gap.whyItMatters}</p>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div className="bg-black border border-charcoal rounded p-3">
+                          <p className="text-[10px] font-mono font-bold text-silver uppercase mb-1">Why it matters</p>
+                          <p className="text-xs text-silver leading-relaxed">{gap.whyItMatters}</p>
                         </div>
-                        <div className="bg-surface-2 rounded-xl p-[12px]">
-                          <p className="text-[11px] font-bold text-text-muted uppercase mb-[4px]">Evidence status</p>
-                          <p className="text-[13px] text-text-secondary">{gap.whatEvidenceIsMissing}</p>
+                        <div className="bg-black border border-charcoal rounded p-3">
+                          <p className="text-[10px] font-mono font-bold text-silver uppercase mb-1">Evidence status</p>
+                          <p className="text-xs text-silver leading-relaxed">{gap.whatEvidenceIsMissing}</p>
                         </div>
                         {gap.relatedExperience && (
-                          <div className="bg-amber-50 border border-amber-200 rounded-xl p-[12px]">
-                            <p className="text-[11px] font-bold text-amber-700 uppercase mb-[4px]">Related experience</p>
-                            <p className="text-[13px] text-text-secondary">{gap.relatedExperience}</p>
+                          <div className="bg-black border border-charcoal rounded p-3">
+                            <p className="text-[10px] font-mono font-bold text-pale-yellow uppercase mb-1">Related experience</p>
+                            <p className="text-xs text-silver leading-relaxed">{gap.relatedExperience}</p>
                           </div>
                         )}
                         {gap.suggestedProject && (
-                          <div className="bg-primary-light border border-primary/20 rounded-xl p-[12px]">
-                            <p className="text-[11px] font-bold text-primary uppercase mb-[4px]">Portfolio suggestion</p>
-                            <p className="text-[13px] text-text-secondary">{gap.suggestedProject}</p>
+                          <div className="bg-black border border-charcoal rounded p-3">
+                            <p className="text-[10px] font-mono font-bold text-volt uppercase mb-1">Portfolio suggestion</p>
+                            <p className="text-xs text-white leading-relaxed">{gap.suggestedProject}</p>
                           </div>
                         )}
                       </div>
 
-                      <div className="bg-surface-2 border border-border rounded-xl p-[12px]">
-                        <p className="text-[11px] font-bold text-text-muted uppercase mb-[4px]">
-                          <MessageSquare className="w-[11px] h-[11px] inline mr-[4px]" />
+                      <div className="bg-black border border-charcoal rounded p-3">
+                        <p className="text-[10px] font-mono font-bold text-silver uppercase mb-1">
+                          <MessageSquare className="w-3 h-3 inline mr-1 text-volt" />
                           Interview question
                         </p>
-                        <p className="text-[13px] text-text italic">"{gap.suggestedInterviewQuestion}"</p>
+                        <p className="text-xs text-white italic">"{gap.suggestedInterviewQuestion}"</p>
                       </div>
                     </div>
                   ))
@@ -609,24 +599,24 @@ export function TalentLens() {
             )}
 
             {activeTab === 'interview' && (
-              <div className="space-y-[16px]">
-                <div className="bg-amber-50 border border-amber-200 rounded-xl p-[16px] text-[14px] text-amber-800">
-                  <AlertTriangle className="w-[14px] h-[14px] inline mr-[8px]" />
+              <div className="space-y-4">
+                <div className="bg-black border border-pale-yellow/40 rounded p-4 text-xs text-pale-yellow flex items-center gap-2">
+                  <AlertTriangle className="w-4 h-4 text-pale-yellow shrink-0" />
                   These questions are generated based on gaps in the candidate's evidence profile. They are suggestions — recruiters should adapt them based on the actual conversation.
                 </div>
                 {match.requirementAssessments
                   .filter(r => r.suggestedInterviewQuestion)
                   .map((req, i) => (
-                    <div key={i} className="bg-surface border border-border rounded-xl p-[20px]">
-                      <div className="flex items-center gap-[8px] mb-[12px]">
+                    <div key={i} className="bg-[#141414] border border-charcoal rounded-lg p-5">
+                      <div className="flex items-center gap-2 mb-3">
                         <StatusPill status={req.status} />
-                        <span className="text-[14px] font-bold text-text">{req.requirementName}</span>
+                        <span className="text-xs font-mono font-bold text-white">{req.requirementName}</span>
                       </div>
-                      <p className="text-[14px] text-text italic border-l-2 border-primary pl-[12px]">
+                      <p className="text-xs text-white italic border-l-2 border-volt pl-3 leading-relaxed">
                         "{req.suggestedInterviewQuestion}"
                       </p>
                       {req.recruiterAction && (
-                        <p className="text-[12px] text-text-muted mt-[8px]">Rationale: {req.recruiterAction}</p>
+                        <p className="text-[11px] font-mono text-silver mt-2">Rationale: {req.recruiterAction}</p>
                       )}
                     </div>
                   ))}
@@ -635,10 +625,10 @@ export function TalentLens() {
           </div>
 
           {/* AI Metadata Footer */}
-          <div className="bg-surface-2/40 border border-border rounded-xl p-[16px] text-center">
-            <p className="text-[11px] text-text-muted">
+          <div className="bg-[#141414] border border-charcoal rounded-lg p-4 text-center">
+            <p className="text-[10px] font-mono text-silver">
               Analysis by {match.modelProvider} v{match.modelVersion} · Knowledge Base v{match.knowledgeVersion} · Rules v{match.rulesVersion}
-              {' · '}<span className="font-bold">Human review required before any hiring decision.</span>
+              {' · '}<span className="font-bold text-white">Human review required before any hiring decision.</span>
               {match.inputHash && ` · Hash: ${match.inputHash}`}
             </p>
           </div>

@@ -1,10 +1,10 @@
 // ============================================================
 // HireFlow ATS Resume Roaster — Input Screen Component (Stage 1)
-// Top Designer Grade: Integrated Sample Loaders, Dynamic CTAs & Micro-interactions
+// Token-driven, dark, flat high-contrast input system
 // ============================================================
 
 import React, { useMemo } from 'react';
-import { FileText, Search, ScanLine, AlertCircle, Sparkles, ArrowRight, ShieldCheck, Zap } from 'lucide-react';
+import { FileText, Search, ScanLine, AlertCircle, Sparkles, ArrowRight, ShieldCheck } from 'lucide-react';
 import { SegmentedSelectors, TargetTier, ExperienceLevel } from './SegmentedSelectors';
 import { FileDropzone } from './FileDropzone';
 import { useTalentLensStore } from '../../../pages/demo/useTalentLensStore';
@@ -147,7 +147,6 @@ export const AtsInputSection: React.FC<Props> = ({
   onAnalyze,
   onImportTalentLensResume,
 }) => {
-  // Access resume state from TalentLens if candidate previously used TalentLens
   const tlResumeText = useTalentLensStore((state) => state.resumeText);
   const tlResumeFileName = useTalentLensStore((state) => state.resumeFileName);
   const talentLensResume = useMemo(() => {
@@ -161,7 +160,6 @@ export const AtsInputSection: React.FC<Props> = ({
       ? 'talentlens'
       : undefined);
 
-  // Single source of truth validation
   const validation = validateAtsInputs(resumeText, jobText, {
     resumeSource: effectiveResumeSource,
     jobSource,
@@ -207,11 +205,11 @@ export const AtsInputSection: React.FC<Props> = ({
   return (
     <div className="space-y-8 animate-fade-in">
       {fileError && (
-        <div className="max-w-4xl mx-auto p-4 rounded-2xl bg-red-50 border border-red-200 flex items-start gap-3 text-red-800 text-sm shadow-xs">
-          <AlertCircle className="w-5 h-5 shrink-0 text-red-600 mt-0.5" />
+        <div className="max-w-4xl mx-auto p-4 rounded-lg bg-near-black border border-danger/60 flex items-start gap-3 text-danger text-sm">
+          <AlertCircle className="w-5 h-5 shrink-0 text-danger mt-0.5 stroke-[1.5px]" />
           <div className="flex-1">
-            <span className="font-bold">File Extraction Notice: </span>
-            {fileError}
+            <span className="font-bold uppercase tracking-wider text-xs">File Extraction Notice: </span>
+            <span>{fileError}</span>
           </div>
         </div>
       )}
@@ -226,11 +224,10 @@ export const AtsInputSection: React.FC<Props> = ({
 
       {/* Two Main Input Panels: Resume & Job Description */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
-        {/* Resume Input Dropzone & Text Area */}
         <FileDropzone
           type="resume"
           title="Your Resume"
-          icon={<FileText className="w-5 h-5 text-sky-600 shrink-0 stroke-[2px]" />}
+          icon={<FileText className="w-5 h-5 stroke-[1.5px]" />}
           text={resumeText}
           fileName={resumeFileName}
           pageCount={resumePageCount}
@@ -255,11 +252,10 @@ export const AtsInputSection: React.FC<Props> = ({
           onLoadSample={handleLoadSampleResume}
         />
 
-        {/* Target Job Description Dropzone & Text Area */}
         <FileDropzone
           type="job"
           title="Target Job Description"
-          icon={<Search className="w-5 h-5 text-indigo-600 shrink-0 stroke-[2px]" />}
+          icon={<Search className="w-5 h-5 stroke-[1.5px]" />}
           text={jobText}
           fileName={jobFileName}
           pageCount={jobPageCount}
@@ -278,23 +274,23 @@ export const AtsInputSection: React.FC<Props> = ({
       {/* Main Action CTA Section / Live Scanning State */}
       <div className="flex flex-col items-center justify-center pt-4 pb-6 space-y-4 max-w-xl mx-auto">
         {isScanning ? (
-          <div className="p-7 bg-white rounded-3xl border border-slate-200 shadow-lg w-full text-center space-y-4 animate-pulse">
-            <div className="flex items-center justify-center gap-2.5 text-slate-950 font-black text-base">
-              <ScanLine className="w-5 h-5 animate-spin text-sky-600" />
+          <div className="p-6 bg-near-black rounded-lg border border-charcoal w-full text-center space-y-4">
+            <div className="flex items-center justify-center gap-2.5 text-white font-bold text-base uppercase tracking-tight">
+              <ScanLine className="w-5 h-5 animate-spin text-volt stroke-[1.5px]" />
               <span>Running 6-Layer Deterministic Audit</span>
             </div>
             
-            {/* Animated Progress Bar */}
-            <div className="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden border border-slate-200">
+            {/* Thin 2px Neon Progress Bar */}
+            <div className="w-full bg-black rounded-full h-[2px] overflow-hidden border border-charcoal">
               <div
-                className="bg-gradient-to-r from-sky-500 via-indigo-600 to-violet-600 h-full transition-all duration-300 rounded-full"
+                className="bg-volt h-full transition-all duration-300"
                 style={{
                   width: `${((stagedStageIndex + 1) / stagedMessages.length) * 100}%`,
                 }}
               />
             </div>
             
-            <p className="text-xs text-slate-600 font-mono tracking-tight font-medium">
+            <p className="text-xs text-silver font-mono tracking-tight font-medium">
               {stagedMessages[stagedStageIndex] || 'Simulating enterprise recruiter filters...'}
             </p>
           </div>
@@ -304,30 +300,30 @@ export const AtsInputSection: React.FC<Props> = ({
               type="button"
               onClick={onAnalyze}
               disabled={!canAnalyze}
-              className={`group relative inline-flex items-center justify-center gap-3 px-12 py-4 rounded-2xl font-black text-[16px] sm:text-[17px] transition-all duration-200 ${
+              className={`inline-flex items-center justify-center gap-2.5 px-8 h-12 rounded text-[14px] font-bold uppercase tracking-[1.4px] transition-colors duration-150 cursor-pointer ${
                 !canAnalyze
-                  ? 'bg-slate-100 border border-slate-200 text-slate-400 cursor-not-allowed shadow-none'
-                  : 'bg-gradient-to-r from-sky-500 via-indigo-600 to-violet-600 text-white shadow-[0_10px_25px_-5px_rgba(79,70,229,0.35)] hover:shadow-[0_16px_35px_-5px_rgba(79,70,229,0.5)] hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.985] cursor-pointer'
+                  ? 'bg-near-black border border-charcoal text-silver/40 cursor-not-allowed shadow-none'
+                  : 'bg-volt text-[#151515] border border-volt hover:bg-[#1d1d1d] hover:text-white active:text-pale-yellow shadow-level-1'
               }`}
             >
-              <Sparkles className={`w-5 h-5 ${canAnalyze ? 'text-amber-300 group-hover:rotate-12 transition-transform' : 'text-slate-400'}`} />
+              <Sparkles className={`w-4 h-4 stroke-[1.5px] ${canAnalyze ? 'text-[#151515] hover:text-volt' : 'text-silver/40'}`} />
               <span>Roast &amp; Analyze Match</span>
-              <ArrowRight className={`w-5 h-5 ${canAnalyze ? 'group-hover:translate-x-1 transition-transform' : 'text-slate-400'}`} />
+              <ArrowRight className="w-4 h-4 stroke-[1.5px]" />
             </button>
 
             {!canAnalyze && disabledReason && (
               <div
                 aria-live="polite"
-                className="text-xs text-amber-800 text-center font-bold bg-amber-50 px-4 py-2 rounded-xl border border-amber-200/80 shadow-2xs flex items-center gap-1.5"
+                className="text-xs text-pale-yellow text-center font-semibold bg-black px-4 py-2 rounded border border-charcoal flex items-center gap-2"
               >
-                <AlertCircle className="w-3.5 h-3.5 text-amber-600 shrink-0" />
+                <AlertCircle className="w-3.5 h-3.5 text-pale-yellow shrink-0 stroke-[1.5px]" />
                 <span>{disabledReason}</span>
               </div>
             )}
 
             {canAnalyze && (
-              <div className="flex items-center gap-2 text-xs text-slate-500 font-medium text-center">
-                <ShieldCheck className="w-4 h-4 text-emerald-600" />
+              <div className="flex items-center gap-2 text-xs text-silver font-medium text-center">
+                <ShieldCheck className="w-4 h-4 text-volt stroke-[1.5px]" />
                 <span>Deterministic invariant engine · Verbatim citations · Never invents facts</span>
               </div>
             )}

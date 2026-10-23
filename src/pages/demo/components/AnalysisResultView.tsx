@@ -59,30 +59,30 @@ export function AnalysisResultView({
 
   const roleFitStyles =
     roleFitStatus === 'Strong fit'
-      ? 'bg-emerald-50 text-emerald-800 border-emerald-300'
+      ? 'bg-black text-volt border-volt'
       : roleFitStatus === 'Developing fit'
-      ? 'bg-sky-50 text-sky-800 border-sky-300'
+      ? 'bg-black text-pale-yellow border-pale-yellow/50'
       : roleFitStatus === 'Potential fit with evidence gaps'
-      ? 'bg-amber-50 text-amber-800 border-amber-300'
-      : 'bg-rose-50 text-rose-800 border-rose-300';
+      ? 'bg-black text-pale-yellow border-pale-yellow/40'
+      : 'bg-black text-danger border-danger/50';
 
   return (
-    <div className="max-w-[960px] mx-auto animate-fade-in">
+    <div className="max-w-[960px] mx-auto animate-fade-in text-white">
       {/* 1. Placement Readiness Quick Summary Card */}
-      <div className="bg-surface border border-border rounded-2xl p-[28px] mb-[20px] shadow-sm space-y-6">
+      <div className="bg-[#141414] border border-charcoal rounded-lg p-6 mb-5 space-y-6">
         {/* Status Banner */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-border">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-charcoal">
           <div>
             <div className="flex items-center gap-2 mb-1.5 flex-wrap">
-              <span className="text-[12px] font-bold text-text-secondary uppercase tracking-wider">
+              <span className="text-xs font-mono uppercase tracking-wider text-silver">
                 Placement Readiness Assessment (Simulation)
               </span>
-              <span>•</span>
-              <span className="text-[12px] font-semibold text-text">
+              <span className="text-silver">•</span>
+              <span className="text-xs font-mono text-white">
                 {company.name} ({company.tier})
               </span>
             </div>
-            <h2 className="text-[20px] font-extrabold text-text">
+            <h2 className="text-xl font-bold text-white">
               Targeting: {selectedRole.title} ({selectedRole.level})
             </h2>
           </div>
@@ -90,23 +90,23 @@ export function AnalysisResultView({
           <div className="flex items-center gap-3">
             <HonestyExplainerModal tool="talentlens" />
             <span
-              className={`px-4 py-1.5 rounded-full text-xs font-black border uppercase tracking-wider ${roleFitStyles}`}
+              className={`px-3 py-1 rounded text-xs font-mono uppercase tracking-wider border ${roleFitStyles}`}
             >
               {roleFitStatus}
             </span>
             <div className="text-right">
-              <span className="text-2xl font-black font-mono text-primary">{result.score}%</span>
-              <div className="text-[10px] text-text-muted">Grounded Fit</div>
+              <span className="text-3xl font-black font-mono text-white">{result.score}%</span>
+              <div className="text-[10px] font-mono uppercase text-silver">Grounded Fit</div>
             </div>
           </div>
         </div>
 
         {/* Grounded Role-Fit Explanation */}
-        <p className="text-[14px] text-text-secondary leading-relaxed">
+        <p className="text-sm text-silver leading-relaxed">
           Based on evidence found in your resume text, your profile currently demonstrates a{' '}
-          <strong className="text-text">{roleFitStatus.toLowerCase()}</strong> for{' '}
-          <strong className="text-text">{selectedRole.title}</strong> at{' '}
-          <strong className="text-text">{company.name}</strong>. {selectedRole.desc}
+          <strong className="text-white font-semibold">{roleFitStatus.toLowerCase()}</strong> for{' '}
+          <strong className="text-white font-semibold">{selectedRole.title}</strong> at{' '}
+          <strong className="text-white font-semibold">{company.name}</strong>. {selectedRole.desc}
         </p>
 
         {/* How this was calculated collapsible */}
@@ -132,8 +132,8 @@ export function AnalysisResultView({
 
         {/* Anti-gaming notice if detected */}
         {result.breakdown.some((b) => b.analysis.antiGamingFlag) && (
-          <div className="p-3 bg-warning-bg border border-warning/30 rounded-xl text-[12px] text-warning flex items-center gap-2">
-            <AlertTriangle className="w-4 h-4 shrink-0" />
+          <div className="p-3 bg-black border border-pale-yellow/40 rounded text-xs text-pale-yellow flex items-center gap-2">
+            <AlertTriangle className="w-4 h-4 shrink-0 text-pale-yellow" />
             <span>
               TalentLens™ detected keyword stuffing in{' '}
               {result.breakdown.filter((b) => b.analysis.antiGamingFlag).length} competency area(s).
@@ -150,19 +150,19 @@ export function AnalysisResultView({
 
         {/* 8-Facet Quick Summary Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-          <div className="bg-surface-2 p-3.5 rounded-xl border border-border">
-            <div className="text-[10px] font-bold uppercase text-text-muted mb-1">
+          <div className="bg-black p-3.5 rounded border border-charcoal">
+            <div className="text-[10px] font-mono font-bold uppercase text-silver mb-1">
               Best-Fit Roles
             </div>
-            <div className="text-[13px] font-bold text-text">{selectedRole.title}</div>
-            <div className="text-[11px] text-text-secondary mt-0.5">{roleFitStatus}</div>
+            <div className="text-xs font-bold text-white">{selectedRole.title}</div>
+            <div className="text-[11px] text-silver mt-0.5">{roleFitStatus}</div>
           </div>
 
-          <div className="bg-surface-2 p-3.5 rounded-xl border border-border">
-            <div className="text-[10px] font-bold uppercase text-emerald-700 mb-1">
+          <div className="bg-black p-3.5 rounded border border-charcoal">
+            <div className="text-[10px] font-mono font-bold uppercase text-volt mb-1">
               Strongest Evidence
             </div>
-            <div className="text-[13px] font-bold text-emerald-800 truncate">
+            <div className="text-xs font-bold text-volt truncate font-mono">
               {provenComps.length > 0
                 ? provenComps.map((p) => p.competency.toUpperCase()).slice(0, 3).join(', ')
                 : partialComps.length > 0
@@ -170,7 +170,7 @@ export function AnalysisResultView({
                   ' (Partial)'
                 : 'Foundational'}
             </div>
-            <div className="text-[11px] text-text-secondary mt-0.5">
+            <div className="text-[11px] text-silver mt-0.5">
               {provenComps.length > 0
                 ? `${provenComps.length} demonstrated areas`
                 : partialComps.length > 0
@@ -179,59 +179,59 @@ export function AnalysisResultView({
             </div>
           </div>
 
-          <div className="bg-surface-2 p-3.5 rounded-xl border border-border">
-            <div className="text-[10px] font-bold uppercase text-amber-700 mb-1">
+          <div className="bg-black p-3.5 rounded border border-charcoal">
+            <div className="text-[10px] font-mono font-bold uppercase text-pale-yellow mb-1">
               Partial Competencies
             </div>
-            <div className="text-[13px] font-bold text-amber-800 truncate">
+            <div className="text-xs font-bold text-pale-yellow truncate font-mono">
               {partialComps.map((p) => p.competency.toUpperCase()).slice(0, 3).join(', ') ||
                 'None'}
             </div>
-            <div className="text-[11px] text-text-secondary mt-0.5">
+            <div className="text-[11px] text-silver mt-0.5">
               {partialComps.length} need deeper metrics
             </div>
           </div>
 
-          <div className="bg-surface-2 p-3.5 rounded-xl border border-border">
-            <div className="text-[10px] font-bold uppercase text-rose-700 mb-1">
+          <div className="bg-black p-3.5 rounded border border-charcoal">
+            <div className="text-[10px] font-mono font-bold uppercase text-danger mb-1">
               Missing Competencies
             </div>
-            <div className="text-[13px] font-bold text-rose-800 truncate">
+            <div className="text-xs font-bold text-danger truncate font-mono">
               {missingComps.map((m) => m.competency.toUpperCase()).slice(0, 3).join(', ') ||
                 'Zero missing'}
             </div>
-            <div className="text-[11px] text-text-secondary mt-0.5">
+            <div className="text-[11px] text-silver mt-0.5">
               {missingComps.length} critical gaps
             </div>
           </div>
 
-          <div className="bg-surface-2 p-3.5 rounded-xl border border-border">
-            <div className="text-[10px] font-bold uppercase text-text-muted mb-1">
+          <div className="bg-black p-3.5 rounded border border-charcoal">
+            <div className="text-[10px] font-mono font-bold uppercase text-silver mb-1">
               Best-Fit Company Groups
             </div>
-            <div className="text-[13px] font-bold text-text">{company.tier} Tier</div>
-            <div className="text-[11px] text-text-secondary mt-0.5">
+            <div className="text-xs font-bold text-white">{company.tier} Tier</div>
+            <div className="text-[11px] text-silver mt-0.5">
               {company.industry} focus
             </div>
           </div>
 
-          <div className="bg-surface-2 p-3.5 rounded-xl border border-border">
-            <div className="text-[10px] font-bold uppercase text-text-muted mb-1">
+          <div className="bg-black p-3.5 rounded border border-charcoal">
+            <div className="text-[10px] font-mono font-bold uppercase text-silver mb-1">
               Main Risk Factor
             </div>
-            <div className="text-[13px] font-bold text-text truncate">
+            <div className="text-xs font-bold text-white truncate">
               {missingComps.length > 0
                 ? `Missing ${missingComps[0].competency.toUpperCase()}`
                 : 'Scale metrics required'}
             </div>
-            <div className="text-[11px] text-text-secondary mt-0.5">Top screening filter</div>
+            <div className="text-[11px] text-silver mt-0.5">Top screening filter</div>
           </div>
 
-          <div className="bg-surface-2 p-3.5 rounded-xl border border-border sm:col-span-2">
-            <div className="text-[10px] font-bold uppercase text-text-muted mb-1">
+          <div className="bg-black p-3.5 rounded border border-charcoal sm:col-span-2">
+            <div className="text-[10px] font-mono font-bold uppercase text-silver mb-1">
               Three Next Actions
             </div>
-            <div className="text-[12px] text-text space-y-1">
+            <div className="text-xs text-silver space-y-1">
               <div>1. {result.plans[0]?.title || 'Quantify project impact metrics'}</div>
               <div>2. {result.plans[1]?.title || 'Deploy demo project with modern stack'}</div>
             </div>
@@ -241,13 +241,20 @@ export function AnalysisResultView({
         {/* Competency Pill Status Badges */}
         <div className="pt-2 flex justify-center gap-2 flex-wrap">
           {result.breakdown.map((b) => {
-            const cfg = STATUS_CONFIG[b.analysis.status] || STATUS_CONFIG.absent;
+            const isExpertOrStrong = b.analysis.status === 'expert' || b.analysis.status === 'strong';
+            const isWorking = b.analysis.status === 'working';
             return (
               <span
                 key={b.competency}
-                className={`text-[11px] font-bold px-[10px] py-[4px] rounded-full ${cfg.bg} ${cfg.color} border ${cfg.border} flex items-center gap-[4px]`}
+                className={`text-xs font-mono font-bold px-2.5 py-1 rounded border flex items-center gap-1.5 ${
+                  isExpertOrStrong
+                    ? 'border-volt text-volt bg-black'
+                    : isWorking
+                    ? 'border-pale-yellow/40 text-pale-yellow bg-black'
+                    : 'border-danger/40 text-danger bg-black'
+                }`}
               >
-                {b.analysis.antiGamingFlag && <AlertTriangle className="w-[9px] h-[9px]" />}
+                {b.analysis.antiGamingFlag && <AlertTriangle className="w-3 h-3 text-pale-yellow" />}
                 {b.analysis.status === 'expert'
                   ? '✓✓'
                   : b.analysis.status === 'strong'
@@ -262,12 +269,12 @@ export function AnalysisResultView({
         </div>
 
         {/* Cross-Section Connection CTA */}
-        <div className="p-4 rounded-xl bg-primary/5 border border-primary/20 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="p-4 rounded-lg bg-black border border-charcoal flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <div className="text-sm font-bold text-text flex items-center gap-1.5">
-              <Zap className="w-4 h-4 text-primary" /> Evaluate in ATS Resume Roaster
+            <div className="text-sm font-bold text-white flex items-center gap-1.5 font-mono">
+              <Zap className="w-4 h-4 text-volt" /> Evaluate in ATS Resume Roaster
             </div>
-            <div className="text-xs text-text-secondary mt-0.5">
+            <div className="text-xs text-silver mt-0.5">
               Test job-specific fit with full 7-dimension scoring and safe bullet rewrites for this
               exact position.
             </div>
@@ -277,27 +284,27 @@ export function AnalysisResultView({
             to={`/tools/resume-checker?company=${company.id}&role=${encodeURIComponent(
               selectedRole.title
             )}`}
-            className="px-4 py-2 bg-primary text-white text-xs font-bold rounded-xl hover:bg-primary/90 transition-colors inline-flex items-center gap-1.5 whitespace-nowrap shadow-xs"
+            className="px-4 py-2 bg-volt text-[#151515] text-xs font-bold rounded hover:bg-[#1a1a1a] hover:text-volt border border-volt transition-colors inline-flex items-center gap-1.5 whitespace-nowrap shadow-xs font-mono uppercase tracking-wider"
           >
             Open ATS Roaster <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
 
         {/* Stored Company Benchmark Provenance Box */}
-        <div className="text-[11px] text-text-muted bg-surface-2 p-3 rounded-xl border border-border flex flex-wrap items-center justify-between gap-2">
+        <div className="text-xs font-mono text-silver bg-black p-3 rounded border border-charcoal flex flex-wrap items-center justify-between gap-2">
           <div>
-            <span className="font-bold text-text">Benchmark Source:</span> HireFlow Curated
-            Benchmark Index 2024-2025 • <span className="font-bold text-text">Version:</span> v1.2.0
-            • <span className="font-bold text-text">Confidence:</span> High
+            <span className="font-bold text-white">Benchmark Source:</span> HireFlow Curated
+            Benchmark Index 2024-2025 • <span className="font-bold text-white">Version:</span> v1.2.0
+            • <span className="font-bold text-white">Confidence:</span> High
           </div>
-          <div>Directional diagnostic benchmark. Not an automated hiring decision.</div>
+          <div className="text-[11px] text-silver/60">Directional diagnostic benchmark. Not an automated hiring decision.</div>
         </div>
       </div>
 
       {/* 6-Layer analysis legend */}
-      <div className="bg-surface border border-border rounded-2xl p-[16px] mb-[20px] shadow-sm">
-        <div className="flex flex-wrap gap-[8px] items-center">
-          <span className="text-[11px] font-bold text-text-secondary uppercase tracking-wide mr-[4px]">
+      <div className="bg-[#141414] border border-charcoal rounded-lg p-4 mb-5">
+        <div className="flex flex-wrap gap-2 items-center">
+          <span className="text-xs font-mono font-bold text-silver uppercase tracking-wide mr-1">
             TalentLens™ 6-Layer Analysis:
           </span>
           {[
@@ -310,24 +317,23 @@ export function AnalysisResultView({
           ].map((layer, i) => (
             <span
               key={i}
-              className="text-[10px] font-semibold px-[8px] py-[3px] rounded-full bg-primary-light border border-primary/20 text-primary"
+              className="text-xs font-mono px-2 py-0.5 rounded bg-black border border-charcoal text-volt"
             >
               {layer}
             </span>
           ))}
-          <span className="text-[11px] text-text-muted ml-auto">
-            Score is weighted — not just keyword count
+          <span className="text-xs font-mono text-silver ml-auto">
+            Weighted calculation — anti-gaming enabled
           </span>
         </div>
       </div>
 
       {/* Company context */}
-      <div className="bg-surface border border-border rounded-2xl p-[20px] mb-[20px] shadow-sm">
-        <h3 className="font-bold text-text text-[15px] mb-[14px] flex items-center gap-[8px]">
-          <Building2 className="w-[15px] h-[15px] text-primary" /> Company Hiring Context —{' '}
-          {company.name}
+      <div className="bg-[#141414] border border-charcoal rounded-lg p-5 mb-5">
+        <h3 className="font-bold text-white text-sm mb-3.5 flex items-center gap-2 font-mono uppercase tracking-wider">
+          <Building2 className="w-4 h-4 text-volt" /> Company Hiring Context — {company.name}
         </h3>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-[10px]">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5">
           {[
             {
               label: 'Hires 2024',
@@ -335,28 +341,31 @@ export function AnalysisResultView({
               sub: `${TREND_ICON[company.trend]} from ${
                 company.hiring2023 != null ? company.hiring2023.toLocaleString() : '—'
               } (2023)`,
-              subColor: TREND_COLOR[company.trend],
+              subColor: company.trend === 'up' ? 'text-volt' : company.trend === 'down' ? 'text-danger' : 'text-pale-yellow',
             },
             {
               label: 'Open Roles',
               value: `${company.openRoles}+`,
               sub: company.industry,
+              subColor: 'text-silver',
             },
             {
               label: 'Avg Package',
               value: company.avgPackage,
               sub: company.tier,
+              subColor: 'text-silver',
             },
             {
               label: 'Glassdoor',
               value: `⭐ ${company.glassdoor}`,
               sub: 'Employee Rating',
+              subColor: 'text-silver',
             },
           ].map(({ label, value, sub, subColor }) => (
-            <div key={label} className="bg-surface-2 rounded-xl p-[12px] text-center">
-              <div className="text-[10px] text-text-muted mb-[2px]">{label}</div>
-              <div className="text-[17px] font-bold text-text">{value}</div>
-              <div className={`text-[11px] mt-[1px] ${subColor || 'text-text-secondary'}`}>
+            <div key={label} className="bg-black border border-charcoal rounded p-3 text-center">
+              <div className="text-[10px] font-mono text-silver uppercase mb-0.5">{label}</div>
+              <div className="text-lg font-bold font-mono text-white">{value}</div>
+              <div className={`text-xs mt-0.5 font-mono ${subColor || 'text-silver'}`}>
                 {sub}
               </div>
             </div>
@@ -365,43 +374,56 @@ export function AnalysisResultView({
       </div>
 
       {/* Deep skill breakdown */}
-      <div className="bg-surface border border-border rounded-2xl p-[24px] mb-[20px] shadow-sm">
-        <h3 className="font-bold text-text text-[15px] mb-[18px] flex items-center gap-[8px]">
-          <Target className="w-[15px] h-[15px] text-primary" /> 6-Layer Competency Intelligence
-          Report
+      <div className="bg-[#141414] border border-charcoal rounded-lg p-6 mb-5">
+        <h3 className="font-bold text-white text-sm mb-4 flex items-center gap-2 font-mono uppercase tracking-wider">
+          <Target className="w-4 h-4 text-volt" /> 6-Layer Competency Intelligence Report
         </h3>
-        <div className="space-y-[14px]">
+        <div className="space-y-3.5">
           {result.breakdown.map((b) => {
-            const cfg = STATUS_CONFIG[b.analysis.status] || STATUS_CONFIG.absent;
+            const isExpertOrStrong = b.analysis.status === 'expert' || b.analysis.status === 'strong';
+            const isWorking = b.analysis.status === 'working';
+            const statusLabel =
+              b.analysis.status === 'expert'
+                ? 'Expert'
+                : b.analysis.status === 'strong'
+                ? 'Strong'
+                : b.analysis.status === 'working'
+                ? 'Partial'
+                : 'Not Found';
+
             return (
               <div
                 key={b.competency}
-                className={`p-[16px] rounded-xl border ${cfg.bg} ${cfg.border}`}
+                className="p-4 rounded-lg border border-charcoal bg-black"
               >
-                <div className="flex items-center justify-between mb-[8px]">
-                  <div className="flex items-center gap-[8px]">
-                    <span className={`text-[14px] font-extrabold uppercase ${cfg.color}`}>
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-2">
+                    <span className={`text-xs font-mono font-bold uppercase ${
+                      isExpertOrStrong ? 'text-volt' : isWorking ? 'text-pale-yellow' : 'text-danger'
+                    }`}>
                       {b.competency}
                     </span>
-                    <span className="text-[10px] bg-surface/60 text-text-secondary px-[7px] py-[2px] rounded-full font-medium">
+                    <span className="text-[10px] font-mono bg-[#141414] border border-charcoal text-silver px-2 py-0.5 rounded">
                       Required: {b.reqLevel}
                     </span>
                     {b.analysis.antiGamingFlag && (
-                      <span className="text-[10px] bg-warning-bg text-warning px-[7px] py-[2px] rounded-full font-bold border border-warning/20">
-                        ⚠ Gaming Detected
+                      <span className="text-[10px] font-mono bg-black text-pale-yellow px-2 py-0.5 rounded font-bold border border-pale-yellow/40 flex items-center gap-1">
+                        <AlertTriangle className="w-2.5 h-2.5" /> Gaming Detected
                       </span>
                     )}
                   </div>
-                  <div className="flex items-center gap-[8px]">
-                    <span className={`text-[12px] font-bold ${cfg.color}`}>{cfg.label}</span>
-                    <span className="text-[11px] text-text-muted">
+                  <div className="flex items-center gap-2">
+                    <span className={`text-xs font-mono font-bold ${
+                      isExpertOrStrong ? 'text-volt' : isWorking ? 'text-pale-yellow' : 'text-danger'
+                    }`}>{statusLabel}</span>
+                    <span className="text-xs font-mono text-silver">
                       ({b.analysis.confidence}% confidence)
                     </span>
                   </div>
                 </div>
 
                 {/* 5-layer score bars */}
-                <div className="grid grid-cols-5 gap-[4px] mb-[10px]">
+                <div className="grid grid-cols-5 gap-1.5 mb-2.5">
                   {[
                     { label: 'L1 Keywords', val: b.analysis.layerScores.l1 },
                     { label: 'L2 Context', val: b.analysis.layerScores.l2 },
@@ -410,33 +432,33 @@ export function AnalysisResultView({
                     { label: 'L5 Auth', val: b.analysis.layerScores.l5 },
                   ].map((layer) => (
                     <div key={layer.label} className="text-center">
-                      <div className="h-[4px] bg-surface-3 rounded-full mb-[3px]">
+                      <div className="h-1 bg-[#141414] rounded-full mb-1 overflow-hidden">
                         <div
-                          className={`h-full rounded-full ${
+                          className={`h-full ${
                             layer.val > 60
-                              ? 'bg-success'
+                              ? 'bg-volt'
                               : layer.val > 30
-                              ? 'bg-warning'
+                              ? 'bg-pale-yellow'
                               : 'bg-danger'
                           }`}
                           style={{ width: `${Math.max(0, Math.min(100, layer.val))}%` }}
                         />
                       </div>
-                      <div className="text-[9px] text-text-muted">{layer.label}</div>
+                      <div className="text-[9px] font-mono text-silver">{layer.label}</div>
                     </div>
                   ))}
                 </div>
 
                 {/* Context sentences */}
                 {b.analysis.contextSentences.length > 0 && (
-                  <div className="mb-[8px] p-[10px] bg-surface/60 rounded-lg border border-border/50">
-                    <div className="text-[10px] font-bold text-text-muted uppercase tracking-wide mb-[4px]">
+                  <div className="p-2.5 bg-[#141414] rounded border border-charcoal">
+                    <div className="text-[10px] font-mono font-bold text-silver uppercase tracking-wide mb-1">
                       Verified context sentences:
                     </div>
                     {b.analysis.contextSentences.slice(0, 2).map((s, i) => (
                       <p
                         key={i}
-                        className="text-[11px] text-text-secondary italic leading-[16px]"
+                        className="text-xs text-silver leading-relaxed italic"
                       >
                         &ldquo;{s.length > 120 ? s.substring(0, 120) + '...' : s}&rdquo;
                       </p>
@@ -450,67 +472,60 @@ export function AnalysisResultView({
       </div>
 
       {/* Improvement Plan */}
-      <div className="bg-surface border border-border rounded-2xl p-[24px] mb-[28px] shadow-sm">
+      <div className="bg-[#141414] border border-charcoal rounded-lg p-6 mb-6">
         <button
           type="button"
           onClick={() => setShowSuggestions(!showSuggestions)}
-          className="w-full flex items-center justify-between mb-[2px] cursor-pointer"
+          className="w-full flex items-center justify-between cursor-pointer"
         >
-          <h3 className="font-bold text-text text-[15px] flex items-center gap-[8px]">
-            <Lightbulb className="w-[15px] h-[15px] text-warning" /> TalentLens™ Career Acceleration
-            Plan ({result.plans.length} actions)
+          <h3 className="font-bold text-white text-sm flex items-center gap-2 font-mono uppercase tracking-wider">
+            <Lightbulb className="w-4 h-4 text-pale-yellow" /> TalentLens™ Career Acceleration Plan ({result.plans.length} actions)
           </h3>
           {showSuggestions ? (
-            <ChevronUp className="w-[15px] h-[15px] text-text-secondary" />
+            <ChevronUp className="w-4 h-4 text-silver" />
           ) : (
-            <ChevronDown className="w-[15px] h-[15px] text-text-secondary" />
+            <ChevronDown className="w-4 h-4 text-silver" />
           )}
         </button>
         {showSuggestions && (
-          <div className="mt-[16px] space-y-[14px]">
+          <div className="mt-4 space-y-3.5">
             {result.plans.map((plan, i) => (
               <div
                 key={i}
-                className={`rounded-xl border p-[16px] ${
-                  plan.priority === 'critical'
-                    ? 'bg-danger-bg border-danger/25'
-                    : plan.priority === 'high'
-                    ? 'bg-warning-bg border-warning/25'
-                    : 'bg-surface-2 border-border'
-                }`}
+                className="rounded-lg border border-charcoal bg-black p-4"
               >
-                <div className="flex items-start justify-between mb-[8px]">
-                  <div className="flex items-center gap-[8px]">
+                <div className="flex items-start justify-between mb-2">
+                  <div className="flex items-center gap-2">
                     <span
-                      className={`text-[10px] font-black uppercase px-[8px] py-[2px] rounded-full tracking-wide ${
+                      className={`text-[10px] font-mono font-bold uppercase px-2 py-0.5 rounded tracking-wide border ${
                         plan.priority === 'critical'
-                          ? 'bg-danger text-white'
+                          ? 'bg-black text-danger border-danger/40'
                           : plan.priority === 'high'
-                          ? 'bg-warning text-bg'
-                          : 'bg-primary-light text-primary border border-primary/20'
+                          ? 'bg-black text-pale-yellow border-pale-yellow/40'
+                          : 'bg-black text-volt border-volt'
                       }`}
                     >
                       {plan.priority}
                     </span>
-                    <h4 className="font-bold text-text text-[13px]">{plan.title}</h4>
+                    <h4 className="font-bold text-white text-xs">{plan.title}</h4>
                   </div>
-                  <span className="text-[10px] text-text-muted whitespace-nowrap ml-[8px] bg-surface px-[7px] py-[2px] rounded-full">
+                  <span className="text-[10px] font-mono text-silver whitespace-nowrap ml-2 bg-[#141414] border border-charcoal px-2 py-0.5 rounded">
                     {plan.timeframe}
                   </span>
                 </div>
-                <p className="text-[12px] text-text-secondary leading-[19px] mb-[10px]">
+                <p className="text-xs text-silver leading-relaxed mb-2.5">
                   {plan.detail}
                 </p>
-                <div className="space-y-[3px]">
-                  <div className="text-[10px] font-bold text-text-muted uppercase tracking-wide mb-[4px]">
+                <div className="space-y-1">
+                  <div className="text-[10px] font-mono font-bold text-silver uppercase tracking-wide mb-1">
                     Curated resources:
                   </div>
                   {plan.resources.map((r, ri) => (
-                    <div key={ri} className="flex items-start gap-[6px]">
-                      <span className="text-primary font-bold text-[11px] flex-shrink-0 mt-[1px]">
+                    <div key={ri} className="flex items-start gap-1.5">
+                      <span className="text-volt font-mono text-xs flex-shrink-0">
                         {ri + 1}.
                       </span>
-                      <p className="text-[11px] text-text-secondary leading-[16px]">{r}</p>
+                      <p className="text-xs text-silver leading-normal">{r}</p>
                     </div>
                   ))}
                 </div>
@@ -521,155 +536,106 @@ export function AnalysisResultView({
       </div>
 
       {/* Market Intelligence Report */}
-      <div className="bg-surface border border-border rounded-2xl p-[24px] mb-[28px] shadow-sm">
-        <div className="flex items-start justify-between mb-[18px]">
+      <div className="bg-[#141414] border border-charcoal rounded-lg p-6 mb-7">
+        <div className="flex items-start justify-between mb-4">
           <div>
-            <h3 className="font-bold text-text text-[15px] mb-[4px] flex items-center gap-[8px]">
-              <Terminal className="w-[15px] h-[15px] text-primary" /> Market Intelligence &amp;
-              Build Verification Report
+            <h3 className="font-bold text-white text-sm mb-1 flex items-center gap-2 font-mono uppercase tracking-wider">
+              <Terminal className="w-4 h-4 text-volt" /> Market Intelligence &amp; Build Verification Report
             </h3>
-            <p className="text-[12px] text-text-secondary">
+            <p className="text-xs text-silver">
               Deep research engine — cross-references your actual build usage against 2024-25 market
               standards.
             </p>
           </div>
           <div
-            className={`px-[12px] py-[6px] rounded-xl text-[11px] font-black uppercase tracking-wide flex-shrink-0 ml-[12px] ${
-              result.marketIntel.marketPosition === 'Industry Leader'
-                ? 'bg-success/15 text-success border border-success/25'
-                : result.marketIntel.marketPosition === 'Market Current'
-                ? 'bg-primary/10 text-primary border border-primary/20'
-                : result.marketIntel.marketPosition === 'Needs Modernization'
-                ? 'bg-warning/10 text-warning border border-warning/20'
-                : 'bg-danger/10 text-danger border border-danger/20'
-            }`}
+            className="px-3 py-1 rounded text-xs font-mono font-bold uppercase tracking-wide flex-shrink-0 ml-3 bg-black border border-charcoal text-volt"
           >
             {result.marketIntel.marketPosition}
           </div>
         </div>
 
         {/* 4 metric scores */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-[10px] mb-[18px]">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 mb-4">
           {[
             {
               label: 'Overall Market Fit',
               val: result.marketIntel.overallMarketFit,
               sub: 'vs 2024-25 benchmark',
-              color:
-                result.marketIntel.overallMarketFit >= 70
-                  ? 'text-success'
-                  : result.marketIntel.overallMarketFit >= 45
-                  ? 'text-warning'
-                  : 'text-danger',
             },
             {
               label: 'Tech Currency',
               val: result.marketIntel.techCurrencyScore,
               sub: 'Modern vs outdated stack',
-              color:
-                result.marketIntel.techCurrencyScore >= 70
-                  ? 'text-success'
-                  : result.marketIntel.techCurrencyScore >= 45
-                  ? 'text-warning'
-                  : 'text-danger',
             },
             {
               label: 'Build Authenticity',
               val: result.marketIntel.buildAuthenticity,
               sub: 'Deployment, tests, monitoring',
-              color:
-                result.marketIntel.buildAuthenticity >= 60
-                  ? 'text-success'
-                  : result.marketIntel.buildAuthenticity >= 40
-                  ? 'text-warning'
-                  : 'text-danger',
             },
             {
               label: 'Fundamental Depth',
               val: result.marketIntel.fundamentalDepth,
               sub: 'Production patterns used',
-              color:
-                result.marketIntel.fundamentalDepth >= 60
-                  ? 'text-success'
-                  : result.marketIntel.fundamentalDepth >= 35
-                  ? 'text-warning'
-                  : 'text-danger',
             },
           ].map((m) => (
-            <div key={m.label} className="bg-surface-2 rounded-xl p-[12px] text-center">
-              <div className={`text-[28px] font-extrabold ${m.color}`}>
+            <div key={m.label} className="bg-black border border-charcoal rounded p-3 text-center">
+              <div className="text-2xl font-bold font-mono text-white">
                 {m.val}
-                <span className="text-[14px] opacity-50">%</span>
+                <span className="text-xs text-silver font-normal">%</span>
               </div>
-              <div className="text-[11px] font-bold text-text mt-[2px]">{m.label}</div>
-              <div className="text-[10px] text-text-muted">{m.sub}</div>
+              <div className="text-xs font-mono uppercase text-silver mt-1">{m.label}</div>
+              <div className="text-[10px] text-silver/60">{m.sub}</div>
             </div>
           ))}
         </div>
 
         {/* Verdict */}
-        <div className="p-[14px] bg-surface-2 rounded-xl border border-border mb-[18px]">
-          <div className="text-[10px] font-bold text-text-muted uppercase tracking-wide mb-[4px]">
+        <div className="p-3.5 bg-black rounded border border-charcoal mb-4">
+          <div className="text-[10px] font-mono font-bold text-silver uppercase tracking-wide mb-1">
             Build Research Verdict
           </div>
-          <p className="text-[13px] text-text leading-[20px]">
+          <p className="text-xs text-white leading-relaxed">
             {result.marketIntel.buildVerdict}
           </p>
         </div>
 
         {/* Per-competency findings */}
-        <div className="space-y-[10px] mb-[16px]">
-          <div className="text-[11px] font-bold text-text-muted uppercase tracking-wide">
+        <div className="space-y-2.5 mb-4">
+          <div className="text-xs font-mono font-bold text-silver uppercase tracking-wide">
             Per-Competency Market Research
           </div>
           {result.marketIntel.findings.map((f, i) => (
             <div
               key={i}
-              className={`rounded-xl border p-[13px] ${
-                f.status === 'cutting-edge'
-                  ? 'bg-success/5 border-success/20'
-                  : f.status === 'current'
-                  ? 'bg-primary/5 border-primary/15'
-                  : f.status === 'dated'
-                  ? 'bg-warning/5 border-warning/20'
-                  : 'bg-danger/5 border-danger/20'
-              }`}
+              className="rounded border border-charcoal bg-black p-3.5"
             >
-              <div className="flex items-center gap-[8px] mb-[6px]">
-                <span className="text-[14px]">{f.icon}</span>
-                <span className="text-[12px] font-black uppercase tracking-wide text-text">
+              <div className="flex items-center gap-2 mb-1.5">
+                <span className="text-sm">{f.icon}</span>
+                <span className="text-xs font-mono font-bold uppercase tracking-wide text-white">
                   {f.category}
                 </span>
                 <span
-                  className={`text-[10px] font-bold px-[7px] py-[2px] rounded-full ml-auto ${
-                    f.status === 'cutting-edge'
-                      ? 'bg-success/15 text-success'
-                      : f.status === 'current'
-                      ? 'bg-primary/10 text-primary'
-                      : f.status === 'dated'
-                      ? 'bg-warning/10 text-warning'
-                      : 'bg-danger/10 text-danger'
-                  }`}
+                  className="text-[10px] font-mono uppercase font-bold px-2 py-0.5 rounded border border-charcoal bg-[#141414] text-silver ml-auto"
                 >
                   {f.status.replace('-', ' ')}
                 </span>
               </div>
-              <p className="text-[12px] text-text-secondary leading-[18px] mb-[6px]">
+              <p className="text-xs text-silver leading-relaxed mb-1.5">
                 {f.finding}
               </p>
               {f.evidence.length > 0 && (
-                <div className="flex flex-wrap gap-[4px]">
+                <div className="flex flex-wrap gap-1">
                   {f.evidence.map((ev, ei) => (
                     <span
                       key={ei}
-                      className="text-[10px] font-medium px-[7px] py-[2px] rounded-full bg-surface border border-border text-text-muted"
+                      className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[#141414] border border-charcoal text-silver"
                     >
                       {ev}
                     </span>
                   ))}
                 </div>
               )}
-              <div className="mt-[6px] text-[10px] text-text-muted italic">
+              <div className="mt-1.5 text-[10px] text-silver/60 italic font-mono">
                 {f.marketContext}
               </div>
             </div>
@@ -678,25 +644,25 @@ export function AnalysisResultView({
       </div>
 
       {/* Step 3 Action Buttons */}
-      <div className="flex flex-wrap gap-[12px] justify-center pt-[10px] pb-[32px]">
+      <div className="flex flex-wrap gap-3 justify-center pt-2 pb-8">
         <button
           type="button"
           onClick={onBackToRoles}
-          className="flex items-center gap-[8px] px-[20px] py-[10px] rounded-xl bg-primary text-white font-semibold text-[13px] hover:bg-primary-hover transition-all shadow-sm cursor-pointer"
+          className="flex items-center gap-2 px-5 py-2.5 rounded bg-volt text-[#151515] font-bold text-xs hover:bg-[#1a1a1a] hover:text-volt border border-volt transition-all shadow-sm cursor-pointer font-mono uppercase tracking-wider"
         >
           <ArrowLeft className="w-4 h-4" /> Back to Roles
         </button>
         <button
           type="button"
           onClick={onChangeCompany}
-          className="flex items-center gap-[8px] px-[20px] py-[10px] rounded-xl border border-border text-text hover:bg-surface-2 font-medium text-[13px] transition-all cursor-pointer"
+          className="flex items-center gap-2 px-5 py-2.5 rounded border border-charcoal bg-black text-white hover:text-volt hover:border-volt text-xs transition-all cursor-pointer font-mono uppercase tracking-wider"
         >
-          <Building2 className="w-4 h-4 text-text-secondary" /> Change Company
+          <Building2 className="w-4 h-4 text-silver" /> Change Company
         </button>
         <button
           type="button"
           onClick={onNewResume}
-          className="flex items-center gap-[8px] px-[20px] py-[10px] rounded-xl border border-border text-text-secondary hover:text-text hover:bg-surface-2 font-medium text-[13px] transition-all cursor-pointer"
+          className="flex items-center gap-2 px-5 py-2.5 rounded border border-charcoal bg-black text-silver hover:text-white hover:border-silver text-xs transition-all cursor-pointer font-mono uppercase tracking-wider"
         >
           <RefreshCw className="w-4 h-4" /> New Resume
         </button>

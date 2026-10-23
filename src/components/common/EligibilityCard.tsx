@@ -5,9 +5,9 @@
 // ============================================================
 
 import React, { useState } from 'react';
-import { ShieldCheck, AlertTriangle, XCircle, Info, Edit3, ExternalLink } from 'lucide-react';
+import { ShieldCheck, AlertTriangle, XCircle, Info, Edit3 } from 'lucide-react';
 import { getFresherIntake, FresherIntakeData, FresherIntakeModal } from './FresherIntakeModal';
-import { getMarketEntries, MarketEntry } from '../../data/market';
+import { getMarketEntries } from '../../data/market';
 import { SourceChip } from './SourceChip';
 
 interface EligibilityCardProps {
@@ -43,69 +43,65 @@ export function EligibilityCard({ targetCompanyId, targetArchetypeId, className 
   const requiredPercent = eligibilityRule?.aggregatePercent || 60;
   const requiredCgpa = eligibilityRule?.cgpaEquivalent || 6.0;
 
-  let status: 'likely_eligible' | 'check_carefully' | 'likely_not_eligible' = 'likely_eligible';
   let statusText = 'Likely Eligible for Initial Screening';
-  let badgeStyle = 'bg-emerald-950/60 text-emerald-300 border-emerald-800/80';
+  let badgeStyle = 'bg-black text-volt border border-volt/60';
   let Icon = ShieldCheck;
 
   if (candidatePercent >= requiredPercent) {
-    status = 'likely_eligible';
     statusText = 'Likely Eligible for Screening';
-    badgeStyle = 'bg-emerald-950/60 text-emerald-300 border-emerald-800/80';
+    badgeStyle = 'bg-black text-volt border border-volt/60';
     Icon = ShieldCheck;
   } else if (candidatePercent >= requiredPercent - 3) {
-    status = 'check_carefully';
     statusText = 'Check Carefully (Borderline Cutoff)';
-    badgeStyle = 'bg-amber-950/60 text-amber-300 border-amber-800/80';
+    badgeStyle = 'bg-black text-pale-yellow border border-pale-yellow/60';
     Icon = AlertTriangle;
   } else {
-    status = 'likely_not_eligible';
     statusText = 'Likely Below Drive Cutoff';
-    badgeStyle = 'bg-rose-950/60 text-rose-300 border-rose-800/80';
+    badgeStyle = 'bg-black text-danger border border-danger/60';
     Icon = XCircle;
   }
 
   return (
     <>
-      <div className={`bg-surface border border-border rounded-2xl p-4 sm:p-5 shadow-xs ${className}`}>
+      <div className={`bg-near-black border border-charcoal rounded-lg p-4 sm:p-5 shadow-level-1 ${className}`}>
         {/* Header */}
         <div className="flex items-start justify-between gap-3 mb-3">
           <div className="flex items-center gap-2">
-            <span className={`px-2.5 py-1 rounded-full text-xs font-bold border inline-flex items-center gap-1.5 ${badgeStyle}`}>
-              <Icon className="w-3.5 h-3.5" />
+            <span className={`px-2.5 py-1 rounded text-xs font-bold uppercase tracking-[1px] border inline-flex items-center gap-1.5 ${badgeStyle}`}>
+              <Icon className="w-3.5 h-3.5 stroke-[1.5px]" />
               {statusText}
             </span>
-            <span className="text-xs text-text-muted hidden sm:inline">
+            <span className="text-xs text-silver hidden sm:inline font-mono">
               · {entry.displayName}
             </span>
           </div>
 
           <button
             onClick={() => setIsModalOpen(true)}
-            className="text-xs font-semibold text-primary hover:text-primary-hover transition-colors inline-flex items-center gap-1 cursor-pointer bg-primary/10 px-2.5 py-1 rounded-lg"
+            className="text-xs font-semibold uppercase tracking-[1px] text-white hover:text-volt hover:border-volt transition-colors inline-flex items-center gap-1.5 cursor-pointer bg-black border border-charcoal px-2.5 py-1 rounded"
           >
-            <Edit3 className="w-3 h-3" /> Edit Profile ({intake.cgpa}{intake.cgpaScale === 10 ? '/10' : '%'}, {intake.batchYear})
+            <Edit3 className="w-3 h-3 stroke-[1.5px]" /> Edit Profile ({intake.cgpa}{intake.cgpaScale === 10 ? '/10' : '%'}, {intake.batchYear})
           </button>
         </div>
 
         {/* Criteria Comparison Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-surface-2/40 p-3 rounded-xl border border-border text-xs mb-3">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-black p-3 rounded border border-charcoal text-xs mb-3">
           <div>
-            <span className="text-text-muted block text-[10px] font-bold uppercase tracking-wider mb-0.5">Your Recorded Profile</span>
-            <span className="font-semibold text-text">
+            <span className="text-silver block text-[10px] font-bold uppercase tracking-[1.4px] mb-0.5">Your Recorded Profile</span>
+            <span className="font-bold text-white">
               {intake.cgpa} {intake.cgpaScale === 10 ? 'CGPA (~' + candidatePercent + '%)' : '%'} · {intake.batchYear} Batch
             </span>
           </div>
 
           <div>
-            <span className="text-text-muted block text-[10px] font-bold uppercase tracking-wider mb-0.5">Official Baseline Cutoff</span>
-            <span className="font-semibold text-text">
+            <span className="text-silver block text-[10px] font-bold uppercase tracking-[1.4px] mb-0.5">Official Baseline Cutoff</span>
+            <span className="font-bold text-white">
               {requiredPercent}% Aggregate (~{requiredCgpa} CGPA in 10th, 12th, Degree)
             </span>
           </div>
 
           <div>
-            <span className="text-text-muted block text-[10px] font-bold uppercase tracking-wider mb-0.5">Primary Source</span>
+            <span className="text-silver block text-[10px] font-bold uppercase tracking-[1.4px] mb-0.5">Primary Source</span>
             {eligibilityRule?.sourceUrl ? (
               <SourceChip
                 kind="official-requirement"
@@ -124,11 +120,11 @@ export function EligibilityCard({ targetCompanyId, targetArchetypeId, className 
         </div>
 
         {/* Advisory Context Note */}
-        <p className="text-[11px] text-text-secondary leading-relaxed flex items-start gap-1.5">
-          <Info className="w-3.5 h-3.5 text-text-muted shrink-0 mt-0.5" />
+        <p className="text-[11px] text-silver leading-relaxed flex items-start gap-1.5">
+          <Info className="w-3.5 h-3.5 text-silver shrink-0 mt-0.5 stroke-[1.5px]" />
           <span>
             {eligibilityRule?.note || 'Eligibility cutoffs vary by batch, drive type (campus vs off-campus pool), and participating college tiers.'}{' '}
-            <strong>Always verify current criteria directly on the official portal for your graduating batch.</strong>
+            <strong className="text-white">Always verify current criteria directly on the official portal for your graduating batch.</strong>
           </span>
         </p>
       </div>

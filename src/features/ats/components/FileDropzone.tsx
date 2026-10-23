@@ -1,6 +1,6 @@
 // ============================================================
 // ATS Resume Roaster — File Dropzone & Editor Component
-// Top-Designer Grade UI/UX with Code Editor Feel, Quick Presets & Fluid Transitions
+// Token-driven, dark, flat high-contrast code-editor feel
 // ============================================================
 
 import React, { useState, useRef } from 'react';
@@ -89,7 +89,6 @@ export const FileDropzone: React.FC<FileDropzoneProps> = ({
     return parts.length > 1 ? parts[parts.length - 1].toUpperCase() : 'DOC';
   };
 
-  const accentColor = type === 'resume' ? 'sky' : 'indigo';
   const progressPercent = Math.min(100, Math.round((wordCount / minWords) * 100));
 
   return (
@@ -106,66 +105,51 @@ export const FileDropzone: React.FC<FileDropzoneProps> = ({
         setDragActive(false);
       }}
       onDrop={handleDrop}
-      className={`group relative bg-white border rounded-3xl p-6 sm:p-7 flex flex-col h-[590px] transition-all duration-300 ${
+      className={`group relative bg-near-black border rounded-lg p-6 flex flex-col h-[590px] transition-colors duration-150 ${
         dragActive
-          ? 'border-sky-500 bg-sky-50/40 ring-4 ring-sky-500/10'
-          : 'border-slate-200/90 hover:border-slate-300 shadow-[0_10px_30px_-5px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.07)]'
+          ? 'border-volt bg-black shadow-level-5'
+          : 'border-charcoal hover:border-charcoal-deep shadow-level-1'
       }`}
     >
       {/* Drag Overlay */}
       {dragActive && (
-        <div className="absolute inset-0 z-30 rounded-3xl bg-sky-50/95 backdrop-blur-xs border-2 border-dashed border-sky-500 flex flex-col items-center justify-center p-6 text-center animate-fade-in pointer-events-none">
-          <div className="w-16 h-16 rounded-2xl bg-white border border-sky-200 shadow-md flex items-center justify-center text-sky-600 mb-3 animate-bounce">
-            <Upload className="w-8 h-8 stroke-[2px]" />
+        <div className="absolute inset-0 z-30 rounded-lg bg-black/95 border-2 border-dashed border-volt flex flex-col items-center justify-center p-6 text-center animate-fade-in pointer-events-none">
+          <div className="w-14 h-14 rounded bg-near-black border border-volt flex items-center justify-center text-volt mb-3">
+            <Upload className="w-7 h-7 stroke-[1.5px]" />
           </div>
-          <p className="text-lg font-black text-slate-950">Drop file to attach</p>
-          <p className="text-xs text-slate-500 mt-1 font-medium">Extracts text and auto-scans for ATS compatibility</p>
+          <p className="text-[18px] font-bold text-white uppercase tracking-tight">Drop file to attach</p>
+          <p className="text-[13px] text-silver mt-1">Extracts text and auto-scans for ATS compatibility</p>
         </div>
       )}
-
-      {/* Top subtle decorative accent line */}
-      <div
-        className={`absolute top-0 left-8 right-8 h-[3px] rounded-b-full ${
-          type === 'resume'
-            ? 'bg-gradient-to-r from-sky-400 to-blue-600'
-            : 'bg-gradient-to-r from-indigo-500 to-violet-600'
-        }`}
-      />
 
       {/* Card Header */}
       <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
         <div className="flex items-center gap-3 min-w-0">
-          <div
-            className={`w-10 h-10 rounded-2xl flex items-center justify-center shrink-0 border ${
-              type === 'resume'
-                ? 'bg-sky-50 border-sky-100 text-sky-600'
-                : 'bg-indigo-50 border-indigo-100 text-indigo-600'
-            }`}
-          >
+          <div className="w-10 h-10 rounded bg-black border border-charcoal flex items-center justify-center text-volt shrink-0">
             {icon}
           </div>
           <div>
-            <h2 className="text-[19px] sm:text-[21px] font-black text-slate-950 tracking-tight leading-none mb-1">
+            <h2 className="text-[20px] font-bold text-white tracking-tight leading-none mb-1">
               {title}
             </h2>
             <div className="flex items-center gap-2">
               <span
-                className={`inline-flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-full ${
+                className={`inline-flex items-center gap-1.5 text-[11px] font-semibold px-2 py-0.5 rounded uppercase tracking-[1px] ${
                   isReady
-                    ? 'bg-emerald-50 text-emerald-700 border border-emerald-200/80'
+                    ? 'bg-black text-volt border border-volt/60'
                     : wordCount > 0
-                    ? 'bg-amber-50 text-amber-700 border border-amber-200/80'
-                    : 'bg-slate-100 text-slate-500 border border-slate-200/60'
+                    ? 'bg-black text-pale-yellow border border-pale-yellow/60'
+                    : 'bg-black text-silver border border-charcoal'
                 }`}
               >
                 {isReady ? (
                   <>
-                    <CheckCircle2 className="w-3 h-3 text-emerald-600" />
+                    <CheckCircle2 className="w-3 h-3 text-volt stroke-[1.5px]" />
                     <span>Ready for scan</span>
                   </>
                 ) : wordCount > 0 ? (
                   <>
-                    <AlertCircle className="w-3 h-3 text-amber-600" />
+                    <AlertCircle className="w-3 h-3 text-pale-yellow stroke-[1.5px]" />
                     <span>{minWords - wordCount} more words needed</span>
                   </>
                 ) : (
@@ -177,28 +161,28 @@ export const FileDropzone: React.FC<FileDropzoneProps> = ({
         </div>
 
         {/* Mode Switch Tabs: Paste vs Upload */}
-        <div className="flex items-center gap-1 p-1 bg-slate-100/90 rounded-xl border border-slate-200/70">
+        <div className="flex items-center gap-1 p-1 bg-black rounded border border-charcoal">
           <button
             type="button"
             onClick={() => setMode('paste')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer select-none ${
+            className={`px-3 py-1.5 rounded text-xs font-semibold uppercase tracking-[1px] transition-all cursor-pointer select-none ${
               mode === 'paste'
-                ? 'bg-white text-slate-950 shadow-xs border border-slate-200/80 ring-1 ring-slate-900/5'
-                : 'text-slate-600 hover:text-slate-900 font-medium'
+                ? 'bg-near-black text-volt border border-volt shadow-level-4'
+                : 'text-silver hover:text-white font-medium'
             }`}
           >
-            ✏️ Paste Text
+            Paste Text
           </button>
           <button
             type="button"
             onClick={() => setMode('upload')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer select-none ${
+            className={`px-3 py-1.5 rounded text-xs font-semibold uppercase tracking-[1px] transition-all cursor-pointer select-none ${
               mode === 'upload'
-                ? 'bg-white text-slate-950 shadow-xs border border-slate-200/80 ring-1 ring-slate-900/5'
-                : 'text-slate-600 hover:text-slate-900 font-medium'
+                ? 'bg-near-black text-volt border border-volt shadow-level-4'
+                : 'text-silver hover:text-white font-medium'
             }`}
           >
-            📎 Upload File
+            Upload File
           </button>
         </div>
       </div>
@@ -211,10 +195,10 @@ export const FileDropzone: React.FC<FileDropzoneProps> = ({
               <button
                 type="button"
                 onClick={onImportTalentLens}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-sky-50 hover:bg-sky-100 text-sky-700 border border-sky-200/80 text-[11px] font-bold transition-all cursor-pointer shadow-2xs"
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-black text-volt border border-charcoal hover:border-volt text-[11px] font-semibold uppercase tracking-[1px] transition-colors cursor-pointer"
                 title="Load active resume from TalentLens"
               >
-                <Sparkles className="w-3 h-3 text-sky-600" />
+                <Sparkles className="w-3 h-3 text-volt" />
                 <span>Use TalentLens ({talentLensResume.fileName || 'Active'})</span>
               </button>
             )}
@@ -223,29 +207,29 @@ export const FileDropzone: React.FC<FileDropzoneProps> = ({
               <button
                 type="button"
                 onClick={() => onLoadSample('sample')}
-                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-slate-100 hover:bg-slate-200/80 text-slate-700 border border-slate-200 text-[11px] font-semibold transition-all cursor-pointer"
+                className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-black text-silver hover:text-white border border-charcoal hover:border-silver text-[11px] font-semibold uppercase tracking-[1px] transition-colors cursor-pointer"
               >
-                <PlusCircle className="w-3 h-3 text-slate-500" />
+                <PlusCircle className="w-3 h-3" />
                 <span>Load Sample Resume</span>
               </button>
             )}
           </div>
         ) : (
           <div className="flex items-center gap-1.5 flex-wrap">
-            <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mr-1">Presets:</span>
+            <span className="text-[11px] font-semibold text-silver uppercase tracking-[1.4px] mr-1">Presets:</span>
             {onLoadSample && (
               <>
                 <button
                   type="button"
                   onClick={() => onLoadSample('fullstack')}
-                  className="px-2 py-0.5 rounded-md bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200/70 text-[11px] font-bold transition-all cursor-pointer"
+                  className="px-2 py-0.5 rounded bg-black hover:bg-hover-gray text-silver hover:text-white border border-charcoal text-[11px] font-semibold transition-colors cursor-pointer"
                 >
                   + Fullstack SDE
                 </button>
                 <button
                   type="button"
                   onClick={() => onLoadSample('senior-backend')}
-                  className="px-2 py-0.5 rounded-md bg-violet-50 hover:bg-violet-100 text-violet-700 border border-violet-200/70 text-[11px] font-bold transition-all cursor-pointer"
+                  className="px-2 py-0.5 rounded bg-black hover:bg-hover-gray text-silver hover:text-white border border-charcoal text-[11px] font-semibold transition-colors cursor-pointer"
                 >
                   + Senior Backend
                 </button>
@@ -254,12 +238,12 @@ export const FileDropzone: React.FC<FileDropzoneProps> = ({
           </div>
         )}
 
-        {/* Clear Button: only show in quick-bar if text exists AND no file attachment (since file banner has its own remove button) */}
+        {/* Clear Button */}
         {!fileName && text && (
           <button
             type="button"
             onClick={onClear}
-            className="text-[11px] text-rose-600 hover:text-rose-700 font-bold hover:underline cursor-pointer ml-auto shrink-0 flex items-center gap-1 transition-colors px-2 py-0.5 rounded-md hover:bg-rose-50"
+            className="text-[11px] text-danger hover:underline cursor-pointer ml-auto shrink-0 flex items-center gap-1 transition-colors px-2 py-0.5 rounded hover:bg-black uppercase tracking-[1px] font-semibold"
             title="Clear text"
           >
             <RotateCcw className="w-3 h-3" /> Clear Text
@@ -276,31 +260,31 @@ export const FileDropzone: React.FC<FileDropzoneProps> = ({
         onChange={(e) => {
           if (e.target.files?.[0]) {
             onFileUpload(e.target.files[0]);
-            e.target.value = ''; // Always clear native value so re-uploading works reliably
+            e.target.value = '';
           }
         }}
       />
 
       {/* Main Body: Mode 1 (Paste Editor) vs Mode 2 (File Dropzone) */}
       {mode === 'paste' ? (
-        <div className="flex-1 flex flex-col min-h-0 relative rounded-2xl border border-slate-200/90 bg-slate-50/40 focus-within:bg-white focus-within:border-sky-500 focus-within:ring-4 focus-within:ring-sky-500/10 transition-all duration-200 overflow-hidden shadow-2xs">
+        <div className="flex-1 flex flex-col min-h-0 relative rounded border border-charcoal bg-black focus-within:border-volt transition-colors overflow-hidden">
           
           {/* File attachment banner if loaded via file */}
           {fileName && (
-            <div className="px-3.5 py-2 bg-emerald-50/90 border-b border-emerald-200/80 flex items-center justify-between text-xs text-emerald-950">
+            <div className="px-3.5 py-2 bg-near-black border-b border-charcoal flex items-center justify-between text-xs text-white">
               <div className="flex items-center gap-2 truncate font-medium">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                <span className="font-bold text-emerald-900 truncate max-w-[220px]">
+                <CheckCircle2 className="w-3.5 h-3.5 text-volt shrink-0 stroke-[1.5px]" />
+                <span className="font-bold text-white truncate max-w-[220px]">
                   {fileName}
                 </span>
-                <span className="text-emerald-700 font-mono text-[11px]">
+                <span className="text-silver font-mono text-[11px]">
                   ({pageCount || 1} {pageCount === 1 ? 'page' : 'pages'})
                 </span>
               </div>
               <button
                 type="button"
                 onClick={onClear}
-                className="text-rose-600 hover:text-rose-700 font-bold cursor-pointer text-xs ml-2 hover:underline inline-flex items-center gap-1"
+                className="text-danger hover:underline font-semibold cursor-pointer text-xs ml-2 inline-flex items-center gap-1"
                 title="Remove attached file"
               >
                 <Trash2 className="w-3 h-3" /> Remove File
@@ -309,20 +293,20 @@ export const FileDropzone: React.FC<FileDropzoneProps> = ({
           )}
 
           {/* Editor Sub-Header Bar */}
-          <div className="px-3.5 py-1.5 bg-slate-100/70 border-b border-slate-200/70 flex items-center justify-between text-[11px] text-slate-500 font-medium">
+          <div className="px-3.5 py-1.5 bg-near-black border-b border-charcoal flex items-center justify-between text-[11px] text-silver font-medium">
             <div className="flex items-center gap-2">
-              <FileCode className="w-3 h-3 text-slate-400" />
-              <span>Plain Text / Markdown</span>
+              <FileCode className="w-3 h-3 text-silver stroke-[1.5px]" />
+              <span className="uppercase tracking-[1px]">Plain Text / Markdown</span>
             </div>
             {text && (
               <button
                 type="button"
                 onClick={handleCopy}
-                className="flex items-center gap-1 text-slate-600 hover:text-slate-900 cursor-pointer font-semibold transition-colors"
+                className="flex items-center gap-1 text-silver hover:text-white cursor-pointer font-semibold transition-colors uppercase tracking-[1px]"
                 title="Copy text to clipboard"
               >
-                {copied ? <Check className="w-3 h-3 text-emerald-600" /> : <Copy className="w-3 h-3" />}
-                <span>{copied ? 'Copied!' : 'Copy'}</span>
+                {copied ? <Check className="w-3 h-3 text-volt" /> : <Copy className="w-3 h-3" />}
+                <span>{copied ? 'Copied' : 'Copy'}</span>
               </button>
             )}
           </div>
@@ -332,7 +316,7 @@ export const FileDropzone: React.FC<FileDropzoneProps> = ({
             value={text}
             onChange={(e) => onTextChange(e.target.value)}
             placeholder={placeholder}
-            className="flex-1 w-full p-4 bg-transparent text-[13.5px] sm:text-[14px] font-mono leading-relaxed text-slate-800 placeholder:text-slate-400 placeholder:font-sans focus:outline-none resize-none overflow-y-auto selection:bg-sky-500/20"
+            className="flex-1 w-full p-4 bg-transparent text-[14px] font-mono leading-relaxed text-white placeholder:text-silver placeholder:font-sans focus:outline-none resize-none overflow-y-auto selection:bg-volt selection:text-black"
           />
         </div>
       ) : (
@@ -347,65 +331,65 @@ export const FileDropzone: React.FC<FileDropzoneProps> = ({
               onDragLeave={() => setDragActive(false)}
               onDrop={handleDrop}
               onClick={() => fileInputRef.current?.click()}
-              className={`flex-1 border-2 border-dashed rounded-2xl flex flex-col items-center justify-center p-6 sm:p-8 text-center cursor-pointer transition-all duration-200 ${
+              className={`flex-1 border border-dashed rounded flex flex-col items-center justify-center p-6 sm:p-8 text-center cursor-pointer transition-colors ${
                 dragActive
-                  ? 'border-sky-500 bg-sky-50/70 scale-[1.01]'
-                  : 'border-slate-200 bg-gradient-to-b from-slate-50/50 to-slate-100/40 hover:border-sky-400/80 hover:bg-sky-50/30 shadow-2xs'
+                  ? 'border-volt bg-near-black'
+                  : 'border-charcoal bg-black hover:border-volt hover:bg-near-black'
               }`}
             >
-              <div className="w-14 h-14 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-center justify-center text-sky-600 mb-3.5 group-hover:scale-110 group-hover:border-sky-300 transition-all duration-200">
-                <Upload className="w-7 h-7 stroke-[2px]" />
+              <div className="w-12 h-12 rounded bg-near-black border border-charcoal flex items-center justify-center text-volt mb-3 group-hover:border-volt transition-colors">
+                <Upload className="w-6 h-6 stroke-[1.5px]" />
               </div>
-              <p className="text-[16px] font-black text-slate-950">
+              <p className="text-[16px] font-bold text-white uppercase tracking-tight">
                 Drop your {type === 'resume' ? 'resume file' : 'job description'} here
               </p>
-              <p className="text-xs text-slate-500 mt-1 max-w-[260px] leading-relaxed">
+              <p className="text-xs text-silver mt-1 max-w-[260px] leading-relaxed">
                 or click to browse PDF, DOCX, or TXT from your computer
               </p>
               <div className="flex items-center gap-1.5 mt-4">
-                <span className="px-2.5 py-0.5 rounded-md bg-white border border-slate-200 text-[11px] font-mono font-bold text-slate-600 shadow-2xs">PDF</span>
-                <span className="px-2.5 py-0.5 rounded-md bg-white border border-slate-200 text-[11px] font-mono font-bold text-slate-600 shadow-2xs">DOCX</span>
-                <span className="px-2.5 py-0.5 rounded-md bg-white border border-slate-200 text-[11px] font-mono font-bold text-slate-600 shadow-2xs">TXT</span>
+                <span className="px-2 py-0.5 rounded bg-near-black border border-charcoal text-[11px] font-mono font-bold text-silver">PDF</span>
+                <span className="px-2 py-0.5 rounded bg-near-black border border-charcoal text-[11px] font-mono font-bold text-silver">DOCX</span>
+                <span className="px-2 py-0.5 rounded bg-near-black border border-charcoal text-[11px] font-mono font-bold text-silver">TXT</span>
               </div>
             </div>
           ) : (
             /* Uploaded File Inspector Card */
-            <div className="flex-1 flex flex-col justify-between bg-slate-50/80 border border-slate-200/90 rounded-2xl p-5 shadow-2xs">
+            <div className="flex-1 flex flex-col justify-between bg-black border border-charcoal rounded p-5">
               <div className="space-y-4">
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-center gap-3.5 min-w-0">
-                    <div className="w-12 h-12 rounded-xl bg-sky-500/10 border border-sky-500/25 flex flex-col items-center justify-center text-sky-600 shrink-0">
-                      <FileText className="w-5 h-5" />
-                      <span className="text-[9px] font-black font-mono leading-none mt-0.5">
+                    <div className="w-12 h-12 rounded bg-near-black border border-charcoal flex flex-col items-center justify-center text-volt shrink-0">
+                      <FileText className="w-5 h-5 stroke-[1.5px]" />
+                      <span className="text-[9px] font-bold font-mono leading-none mt-0.5">
                         {getFileExtension(fileName)}
                       </span>
                     </div>
                     <div className="min-w-0">
-                      <p className="font-black text-slate-950 text-sm truncate max-w-[240px] sm:max-w-[280px]">
+                      <p className="font-bold text-white text-sm truncate max-w-[240px] sm:max-w-[280px]">
                         {fileName}
                       </p>
-                      <p className="text-xs text-slate-500 font-mono mt-0.5">
+                      <p className="text-xs text-silver font-mono mt-0.5">
                         {pageCount || 1} {pageCount === 1 ? 'page' : 'pages'} · {wordCount} words extracted
                       </p>
                     </div>
                   </div>
-                  <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-bold shrink-0">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> Parsed
+                  <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-black text-volt border border-volt/60 text-[11px] font-semibold uppercase tracking-[1px] shrink-0">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-volt stroke-[1.5px]" /> Parsed
                   </span>
                 </div>
 
                 {/* Collapsible Text Preview */}
-                <div className="border border-slate-200 bg-white rounded-xl overflow-hidden shadow-2xs">
+                <div className="border border-charcoal bg-near-black rounded overflow-hidden">
                   <button
                     type="button"
                     onClick={() => setShowPreview(!showPreview)}
-                    className="w-full flex items-center justify-between px-3.5 py-2 text-xs font-bold text-slate-700 bg-slate-100/70 hover:bg-slate-100 cursor-pointer transition-colors"
+                    className="w-full flex items-center justify-between px-3.5 py-2 text-xs font-bold text-silver bg-black hover:bg-hover-gray cursor-pointer transition-colors uppercase tracking-[1px]"
                   >
                     <span>Inspect Extracted Text</span>
                     {showPreview ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
                   </button>
                   {showPreview && (
-                    <div className="p-3.5 max-h-[140px] overflow-y-auto text-xs text-slate-600 font-mono leading-relaxed bg-white whitespace-pre-wrap selection:bg-sky-500/20">
+                    <div className="p-3.5 max-h-[140px] overflow-y-auto text-xs text-silver font-mono leading-relaxed bg-black whitespace-pre-wrap selection:bg-volt selection:text-black">
                       {text}
                     </div>
                   )}
@@ -413,18 +397,18 @@ export const FileDropzone: React.FC<FileDropzoneProps> = ({
               </div>
 
               {/* Action Buttons */}
-              <div className="flex items-center justify-between pt-3 border-t border-slate-200">
+              <div className="flex items-center justify-between pt-3 border-t border-charcoal">
                 <button
                   type="button"
                   onClick={() => fileInputRef.current?.click()}
-                  className="px-3.5 py-1.5 text-xs font-bold text-sky-600 hover:bg-sky-50 rounded-lg border border-sky-300 transition-colors cursor-pointer"
+                  className="px-3.5 py-1.5 text-xs font-semibold text-white hover:text-volt rounded border border-charcoal hover:border-volt transition-colors cursor-pointer uppercase tracking-[1px]"
                 >
                   Replace File
                 </button>
                 <button
                   type="button"
                   onClick={onClear}
-                  className="px-3.5 py-1.5 text-xs font-bold text-rose-600 hover:bg-rose-50 rounded-lg transition-colors flex items-center gap-1 cursor-pointer"
+                  className="px-3.5 py-1.5 text-xs font-semibold text-danger hover:underline rounded transition-colors flex items-center gap-1 cursor-pointer uppercase tracking-[1px]"
                 >
                   <Trash2 className="w-3.5 h-3.5" /> Remove File
                 </button>
@@ -435,26 +419,26 @@ export const FileDropzone: React.FC<FileDropzoneProps> = ({
       )}
 
       {/* Card Footer: Metrics & Progress */}
-      <div className="mt-3.5 pt-2 border-t border-slate-100 flex flex-col gap-1.5">
+      <div className="mt-3.5 pt-2 border-t border-charcoal flex flex-col gap-1.5">
         <div className="flex items-center justify-between text-xs">
           <div className="flex items-center gap-1.5 font-mono">
-            <span className="font-bold text-slate-900">{wordCount}</span>
-            <span className="text-slate-400">words</span>
+            <span className="font-bold text-white">{wordCount}</span>
+            <span className="text-silver">words</span>
           </div>
-          <span className={`text-[11px] font-bold ${isReady ? 'text-emerald-700' : 'text-slate-500'}`}>
+          <span className={`text-[11px] font-semibold uppercase tracking-[1px] ${isReady ? 'text-volt' : 'text-silver'}`}>
             {maxWords && wordCount > maxWords
               ? `Max ${maxWords} words, please trim`
               : wordCount < minWords
               ? `Need ≥ ${minWords} words`
-              : `✓ Meets ≥ ${minWords} words requirement`}
+              : `Meets ≥ ${minWords} words requirement`}
           </span>
         </div>
 
-        {/* Subtle Word Count Progress Bar */}
-        <div className="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
+        {/* Thin 2px progress bar */}
+        <div className="w-full bg-black rounded-full h-[2px] overflow-hidden border border-charcoal">
           <div
-            className={`h-full transition-all duration-300 rounded-full ${
-              isReady ? 'bg-emerald-500' : 'bg-sky-500'
+            className={`h-full transition-all duration-300 ${
+              isReady ? 'bg-volt' : 'bg-pale-yellow'
             }`}
             style={{ width: `${progressPercent}%` }}
           />

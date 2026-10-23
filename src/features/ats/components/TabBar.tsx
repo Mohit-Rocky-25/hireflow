@@ -1,6 +1,6 @@
 // ============================================================
 // ATS Resume Roaster — Results Tab Bar (Stage 4)
-// Exactly 4 tabs with solid dark active state and 1px inactive border
+// Exactly 4 tabs with solid dark active state and 1px volt border
 // ============================================================
 
 import React from 'react';
@@ -31,7 +31,7 @@ export const TabBar: React.FC<Props> = ({
   return (
     <div
       ref={tabBarRef as any}
-      className="p-1.5 rounded-[16px] bg-surface border border-border flex items-center gap-2 overflow-x-auto scrollbar-none shadow-xs"
+      className="p-1.5 rounded-lg bg-near-black border border-charcoal flex items-center gap-2 overflow-x-auto scrollbar-none"
     >
       {tabs.map((tab) => {
         const Icon = tab.icon;
@@ -41,13 +41,13 @@ export const TabBar: React.FC<Props> = ({
             key={tab.id}
             type="button"
             onClick={() => onTabChange(tab.id)}
-            className={`flex-1 min-w-[150px] inline-flex items-center justify-center gap-2.5 px-4 py-3 rounded-[12px] text-sm transition-all cursor-pointer select-none ${
+            className={`flex-1 min-w-[150px] inline-flex items-center justify-center gap-2.5 px-4 py-2.5 rounded text-xs font-semibold uppercase tracking-[1.2px] transition-colors duration-150 cursor-pointer select-none ${
               isActive
-                ? 'bg-primary text-white shadow-xs font-bold'
-                : 'bg-transparent text-slate-600 hover:text-slate-900 hover:bg-slate-100/60 border border-transparent font-medium'
+                ? 'bg-black text-volt border border-volt shadow-level-4 font-bold'
+                : 'bg-transparent text-silver hover:text-white hover:bg-hover-gray border border-transparent font-medium'
             }`}
           >
-            <Icon className="w-4 h-4 shrink-0" />
+            <Icon className="w-4 h-4 shrink-0 stroke-[1.5px]" />
             <span className="whitespace-nowrap">{tab.label}</span>
           </button>
         );

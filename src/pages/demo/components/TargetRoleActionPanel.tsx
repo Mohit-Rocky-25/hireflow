@@ -24,49 +24,49 @@ export function TargetRoleActionPanel({
 }: TargetRoleActionPanelProps) {
   return (
     <div className="hidden lg:block w-[380px] shrink-0 sticky top-[96px]">
-      <div className="bg-surface border border-border rounded-2xl p-[22px] shadow-md">
-        <div className="flex items-center gap-[10px] mb-[16px]">
-          <div className="w-[40px] h-[40px] rounded-xl bg-primary-light flex items-center justify-center text-primary flex-shrink-0">
-            <Brain className="w-5 h-5" />
+      <div className="bg-near-black border border-charcoal rounded-lg p-5 shadow-level-1">
+        <div className="flex items-center gap-3 mb-4 pb-3 border-b border-charcoal">
+          <div className="w-10 h-10 rounded bg-black border border-charcoal flex items-center justify-center text-volt flex-shrink-0">
+            <Brain className="w-5 h-5 stroke-[1.5px]" />
           </div>
           <div>
-            <h3 className="font-bold text-text text-[15px]">Target Role Verification</h3>
-            <p className="text-[12px] text-text-secondary">6-Layer Anti-Gaming Engine</p>
+            <h3 className="font-bold text-white text-[15px] uppercase tracking-tight">Target Verification</h3>
+            <p className="text-xs text-silver">6-Layer Anti-Gaming Engine</p>
           </div>
         </div>
 
         {selectedRole ? (
           <>
-            <div className="p-[14px] bg-surface-2 border border-border rounded-xl mb-[16px]">
-              <div className="text-[11px] font-bold text-text-muted uppercase tracking-wider mb-[2px]">
+            <div className="p-3.5 bg-black border border-charcoal rounded mb-4">
+              <div className="text-[10px] font-bold text-silver uppercase tracking-[1.4px] mb-1">
                 Selected Position
               </div>
-              <div className="font-extrabold text-text text-[15px]">
+              <div className="font-bold text-white text-[15px] uppercase tracking-tight">
                 {company.name} — {selectedRole.title}
               </div>
-              <div className="text-[12px] text-text-secondary mt-[2px]">
-                Level: <span className="font-semibold text-text">{selectedRole.level}</span>
+              <div className="text-xs text-silver mt-1 font-mono">
+                Level: <span className="font-bold text-white">{selectedRole.level}</span>
               </div>
-              <div className="mt-[10px] pt-[10px] border-t border-border flex items-center justify-between text-[12px]">
-                <span className="text-text-muted">Target Competencies</span>
-                <span className="font-bold text-primary">
+              <div className="mt-2.5 pt-2.5 border-t border-charcoal flex items-center justify-between text-xs">
+                <span className="text-silver uppercase tracking-[1px] text-[10px]">Target Competencies</span>
+                <span className="font-bold text-volt font-mono">
                   {selectedRole.competencies.length} to analyze
                 </span>
               </div>
             </div>
 
             {/* Competency signal tags */}
-            <div className="mb-[16px]">
-              <div className="text-[11px] font-semibold text-text-secondary mb-[6px]">
+            <div className="mb-4">
+              <div className="text-[10px] font-semibold text-silver uppercase tracking-[1.4px] mb-1.5">
                 Cognitive layers evaluated:
               </div>
-              <div className="flex flex-wrap gap-[4px]">
+              <div className="flex flex-wrap gap-1">
                 {selectedRole.competencies.map((comp) => (
                   <span
                     key={comp}
-                    className="text-[11px] font-bold px-[8px] py-[3px] rounded-lg bg-surface-2 border border-border text-text"
+                    className="text-[10px] font-semibold px-2 py-0.5 rounded bg-black border border-charcoal text-silver uppercase tracking-[0.5px]"
                   >
-                    {comp.toUpperCase()}
+                    {comp}
                   </span>
                 ))}
               </div>
@@ -74,38 +74,38 @@ export function TargetRoleActionPanel({
 
             {/* Resume state check */}
             {!resumeText.trim() ? (
-              <div className="p-[14px] bg-amber-500/10 border border-amber-500/25 rounded-xl mb-[16px] text-xs space-y-2">
-                <div className="font-bold text-amber-700 dark:text-amber-400 flex items-center gap-1.5">
-                  <Info className="w-4 h-4" /> Resume needed for AI screening
+              <div className="p-3.5 bg-black border border-charcoal rounded mb-4 text-xs space-y-2">
+                <div className="font-semibold text-pale-yellow flex items-center gap-1.5 uppercase tracking-[1px]">
+                  <Info className="w-4 h-4 stroke-[1.5px]" /> Resume needed for AI screening
                 </div>
-                <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                <p className="text-xs text-silver leading-relaxed">
                   Benchmark your profile against {company.name}&rsquo;s criteria. Add your resume or test immediately with our verified engineering sample resume.
                 </p>
                 <div className="flex flex-col gap-1.5 pt-1">
                   <button
                     type="button"
                     onClick={onLoadSampleResume}
-                    className="w-full flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-lg bg-black text-white dark:bg-white dark:text-black font-extrabold text-xs shadow-sm hover:opacity-90 transition-opacity cursor-pointer"
+                    className="w-full flex items-center justify-center gap-1.5 py-2.5 px-3 rounded bg-volt text-[#151515] font-bold text-xs uppercase tracking-[1.4px] border border-volt hover:bg-[#1d1d1d] hover:text-white transition-colors cursor-pointer"
                   >
-                    <Sparkles className="w-3.5 h-3.5 text-amber-400 dark:text-amber-500" />
-                    <span>Load Sample Resume &amp; Verify Now</span>
+                    <Sparkles className="w-3.5 h-3.5" />
+                    <span>Load Sample Resume &amp; Verify</span>
                   </button>
                   <Link
                     to="/demo"
-                    className="inline-flex items-center justify-center gap-1 text-[11px] font-bold text-text-secondary hover:text-text py-1"
+                    className="inline-flex items-center justify-center gap-1 text-[11px] font-semibold uppercase tracking-[1px] text-silver hover:text-white py-1"
                   >
-                    <FileText className="w-3 h-3" /> Or upload custom resume in Step 1
+                    <FileText className="w-3 h-3 stroke-[1.5px]" /> Or upload custom in Step 1
                   </Link>
                 </div>
               </div>
             ) : (
-              <div className="p-[12px] bg-emerald-500/10 border border-emerald-500/25 rounded-xl mb-[16px] flex items-center justify-between gap-[10px] text-[12px] text-emerald-700 dark:text-emerald-400">
+              <div className="p-3 bg-black border border-charcoal rounded mb-4 flex items-center justify-between gap-2 text-xs text-white">
                 <div className="flex items-center gap-2">
-                  <CheckCircle className="w-[18px] h-[18px] flex-shrink-0" />
+                  <CheckCircle className="w-4 h-4 text-volt flex-shrink-0 stroke-[1.5px]" />
                   <div>
-                    <div className="font-bold">Resume verified in state</div>
-                    <div className="text-[11px] opacity-80">
-                      {resumeText.split(/\s+/).length} words ready for multi-layer scan
+                    <div className="font-bold uppercase tracking-[1px] text-[11px] text-volt">Resume verified in state</div>
+                    <div className="text-[11px] text-silver font-mono">
+                      {resumeText.split(/\s+/).length} words ready for scan
                     </div>
                   </div>
                 </div>
@@ -113,7 +113,7 @@ export function TargetRoleActionPanel({
                   type="button"
                   onClick={onLoadSampleResume}
                   title="Switch to standard sample resume"
-                  className="text-[10px] font-bold underline text-text-muted hover:text-text cursor-pointer"
+                  className="text-[10px] font-bold underline uppercase tracking-[1px] text-silver hover:text-white cursor-pointer"
                 >
                   Reset Sample
                 </button>
@@ -130,44 +130,44 @@ export function TargetRoleActionPanel({
                   ? 'Add resume first'
                   : 'Run 6-layer deep screening analysis'
               }
-              className="w-full bg-primary text-white py-[12px] px-[20px] rounded-xl font-bold text-[14px] hover:bg-primary-hover transition-all flex items-center justify-center gap-[8px] disabled:opacity-40 disabled:cursor-not-allowed shadow-md cursor-pointer"
+              className="w-full bg-volt text-[#151515] py-3 px-5 rounded font-bold text-xs uppercase tracking-[1.4px] border border-volt hover:bg-[#1d1d1d] hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2 shadow-level-1 cursor-pointer"
             >
               {analyzing ? (
                 <>
-                  <RefreshCw className="w-4 h-4 animate-spin" />
+                  <RefreshCw className="w-4 h-4 animate-spin stroke-[1.5px]" />
                   <span>Analyzing deeply...</span>
                 </>
               ) : (
                 <>
-                  <Brain className="w-4 h-4" />
+                  <Brain className="w-4 h-4 stroke-[1.5px]" />
                   <span>Run Deep AI Analysis</span>
                 </>
               )}
             </button>
           </>
         ) : (
-          <div className="text-center py-[36px] px-[16px] bg-surface-2 border border-dashed border-border rounded-xl">
-            <Briefcase className="w-[32px] h-[32px] text-text-muted mx-auto mb-[10px]" />
-            <div className="text-[14px] font-bold text-text mb-[4px]">
+          <div className="text-center py-9 px-4 bg-black border border-dashed border-charcoal rounded">
+            <Briefcase className="w-8 h-8 text-silver mx-auto mb-2.5 stroke-[1.5px]" />
+            <div className="text-sm font-bold text-white mb-1 uppercase tracking-tight">
               Select a role first
             </div>
-            <p className="text-[12px] text-text-secondary mb-[16px]">
+            <p className="text-xs text-silver mb-4 leading-relaxed">
               Click any role from {company.name}&lsquo;s list on the left to inspect requirements and run AI screening.
             </p>
             <button
               disabled
               title="Select a role first"
-              className="w-full bg-surface-3 text-text-muted py-[11px] px-[16px] rounded-xl font-bold text-[13px] opacity-50 cursor-not-allowed"
+              className="w-full bg-near-black text-silver/40 py-2.5 px-4 rounded font-bold text-xs uppercase tracking-[1px] border border-charcoal cursor-not-allowed"
             >
               Select a role first
             </button>
           </div>
         )}
 
-        {/* Staged Phase Loader (Inside Action Panel) */}
+        {/* Staged Phase Loader */}
         {analyzing && (
-          <div className="mt-[16px] p-[12px] bg-ai-light border border-ai/30 rounded-xl text-center">
-            <div className="text-[12px] font-bold text-ai animate-pulse">
+          <div className="mt-4 p-3 bg-black border border-volt/60 rounded text-center">
+            <div className="text-xs font-mono font-bold text-volt uppercase tracking-[1px] animate-pulse">
               {analysisPhase || 'Scanning resume signals...'}
             </div>
           </div>

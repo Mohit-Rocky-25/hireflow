@@ -34,15 +34,6 @@ export const OverviewTab: React.FC<Props> = ({ result }) => {
 
   const categoryConfigs = result.reportState
     ? result.reportState.scoreLedger.lines.map((line) => {
-        const colorMap: Record<string, string> = {
-          mustHaveCoverage: 'bg-emerald-600',
-          evidenceDepth: 'bg-blue-600',
-          impactMetrics: 'bg-indigo-600',
-          projectsAndArtifacts: 'bg-purple-600',
-          senioritySignals: 'bg-amber-600',
-          formatAndParse: 'bg-teal-600',
-          tierFit: 'bg-slate-700',
-        };
         const descMap: Record<string, string> = {
           mustHaveCoverage: 'Proportion of mandatory skills with evidence found in your resume text vs target role job description.',
           evidenceDepth: 'Skills demonstrated in project or experience bullets versus isolated in a skills list.',
@@ -57,7 +48,6 @@ export const OverviewTab: React.FC<Props> = ({ result }) => {
           name: line.factorLabel,
           score: line.earned,
           max: line.max,
-          color: colorMap[line.factor] || 'bg-primary',
           description: descMap[line.factor] || line.formula,
         };
       })
@@ -67,7 +57,6 @@ export const OverviewTab: React.FC<Props> = ({ result }) => {
           name: 'Must-Have Coverage',
           score: subscores.mustHaveCoverage,
           max: weights.mustHaveCoverage,
-          color: 'bg-emerald-600',
           description: 'Proportion of mandatory skills with evidence found in your resume text vs target role job description.',
         },
         {
@@ -75,7 +64,6 @@ export const OverviewTab: React.FC<Props> = ({ result }) => {
           name: 'Evidence Depth & Context',
           score: subscores.evidenceDepth,
           max: weights.evidenceDepth,
-          color: 'bg-blue-600',
           description: 'Skills demonstrated in project or experience bullets versus isolated in a skills list.',
         },
         {
@@ -83,7 +71,6 @@ export const OverviewTab: React.FC<Props> = ({ result }) => {
           name: 'Quantified Impact Metrics',
           score: subscores.impactMetrics,
           max: weights.impactMetrics,
-          color: 'bg-indigo-600',
           description: 'Bullets containing tangible numbers, latency reductions, scale, or business revenue.',
         },
         {
@@ -91,7 +78,6 @@ export const OverviewTab: React.FC<Props> = ({ result }) => {
           name: 'Projects & Engineering Artifacts',
           score: subscores.projectsAndOss,
           max: weights.projectsAndOss,
-          color: 'bg-purple-600',
           description: 'Production systems, live deployed web applications, or open source repositories.',
         },
         {
@@ -99,7 +85,6 @@ export const OverviewTab: React.FC<Props> = ({ result }) => {
           name: 'Seniority & Track Record',
           score: subscores.seniorityFit,
           max: weights.seniorityFit,
-          color: 'bg-amber-600',
           description: 'Candidate experience span and depth calibrated against position level requirements.',
         },
         {
@@ -107,7 +92,6 @@ export const OverviewTab: React.FC<Props> = ({ result }) => {
           name: 'Format Safety & Parse Integrity',
           score: subscores.formatAndParse,
           max: weights.formatAndParse,
-          color: 'bg-teal-600',
           description: 'Standard semantic section headers, clear dates, contact info, and token readability.',
         },
         {
@@ -115,7 +99,6 @@ export const OverviewTab: React.FC<Props> = ({ result }) => {
           name: 'Tier Competency Fit',
           score: subscores.tierFit,
           max: weights.tierFit,
-          color: 'bg-slate-700',
           description: `Alignment against the hiring bar and artifact expectations for ${tierConfig.name}.`,
         },
       ];
@@ -123,12 +106,12 @@ export const OverviewTab: React.FC<Props> = ({ result }) => {
   return (
     <div className="space-y-6">
       {/* 1. Category Subscore Breakdown Panel */}
-      <div className="bg-surface rounded-[16px] p-6 sm:p-8 border border-border shadow-xs space-y-6">
+      <div className="bg-near-black rounded-lg p-6 sm:p-8 border border-charcoal shadow-level-1 space-y-6">
         <div>
-          <h3 className="text-[24px] sm:text-[26px] font-extrabold text-slate-900 tracking-tight flex items-center gap-2.5">
-            <Layers className="w-6 h-6 text-primary" /> Weighted Resume Strength Breakdown
+          <h3 className="text-[20px] sm:text-[22px] font-bold text-white uppercase tracking-tight flex items-center gap-2.5">
+            <Layers className="w-5 h-5 text-volt stroke-[1.5px]" /> Weighted Resume Strength Breakdown
           </h3>
-          <p className="text-[16px] text-slate-600 mt-1">
+          <p className="text-[14px] text-silver mt-1">
             Calculated based on editorial heuristic weights across active evaluation pillars (sum: 100 points).
           </p>
         </div>
@@ -137,28 +120,29 @@ export const OverviewTab: React.FC<Props> = ({ result }) => {
           {categoryConfigs.map((cat) => {
             const pct = Math.min(100, Math.round((cat.score / cat.max) * 100));
             return (
-              <div key={cat.id} className="space-y-2">
+              <div key={cat.id} className="space-y-1.5">
                 <div className="flex items-center justify-between text-sm">
                   <div>
-                    <span className="font-bold text-slate-900 text-[16px]">{cat.name}</span>
-                    <span className="text-slate-500 ml-2 text-xs font-mono">
+                    <span className="font-bold text-white text-[15px]">{cat.name}</span>
+                    <span className="text-silver ml-2 text-xs font-mono">
                       (Weight: {cat.max} pts)
                     </span>
                   </div>
-                  <div className="font-mono font-bold text-slate-900 text-[15px]">
+                  <div className="font-mono font-bold text-white text-[14px]">
                     {cat.score} / {cat.max} pts{' '}
-                    <span className="text-slate-500 text-xs">({pct}%)</span>
+                    <span className="text-silver text-xs">({pct}%)</span>
                   </div>
                 </div>
 
-                <div className="w-full bg-slate-100 rounded-full h-3 overflow-hidden border border-slate-200">
+                {/* Thin 2px meter per §1B */}
+                <div className="w-full bg-black rounded-full h-[2px] overflow-hidden border border-charcoal">
                   <div
-                    className={`${cat.color} h-full transition-all duration-700 rounded-full`}
+                    className="bg-volt h-full transition-all duration-500"
                     style={{ width: `${pct}%` }}
                   />
                 </div>
 
-                <p className="text-xs text-slate-500">{cat.description}</p>
+                <p className="text-xs text-silver">{cat.description}</p>
               </div>
             );
           })}
@@ -167,12 +151,12 @@ export const OverviewTab: React.FC<Props> = ({ result }) => {
 
       {/* 2. Penalties Deductions Panel */}
       {penalties.length > 0 && (
-        <div className="bg-surface rounded-[16px] p-6 sm:p-8 border border-border shadow-xs space-y-4">
+        <div className="bg-near-black rounded-lg p-6 sm:p-8 border border-charcoal shadow-level-1 space-y-4">
           <div className="flex items-center justify-between">
-            <h3 className="text-[20px] sm:text-[22px] font-extrabold tracking-tight flex items-center gap-2 text-rose-600">
-              <TrendingDown className="w-5 h-5" /> Applied Deductions & Penalties
+            <h3 className="text-[18px] sm:text-[20px] font-bold uppercase tracking-tight flex items-center gap-2 text-danger">
+              <TrendingDown className="w-5 h-5 stroke-[1.5px]" /> Applied Deductions &amp; Penalties
             </h3>
-            <span className="text-xs font-mono font-bold px-2.5 py-1 rounded bg-rose-50 text-rose-700 border border-rose-200">
+            <span className="text-xs font-mono font-bold px-2 py-0.5 rounded bg-black text-danger border border-danger/60">
               {penalties.reduce((sum, p) => sum + p.points, 0)} pts total
             </span>
           </div>
@@ -181,17 +165,17 @@ export const OverviewTab: React.FC<Props> = ({ result }) => {
             {penalties.map((penalty, idx) => (
               <div
                 key={idx}
-                className="p-4 rounded-[12px] bg-rose-50/60 border border-rose-200 flex items-start gap-3.5"
+                className="p-4 rounded bg-black border border-danger/40 flex items-start gap-3.5"
               >
-                <ShieldAlert className="w-5 h-5 text-rose-600 shrink-0 mt-0.5" />
+                <ShieldAlert className="w-5 h-5 text-danger shrink-0 mt-0.5 stroke-[1.5px]" />
                 <div className="flex-1 space-y-1">
                   <div className="flex items-center justify-between">
-                    <span className="font-bold text-sm text-slate-900">{penalty.label}</span>
-                    <span className="font-mono font-bold text-xs text-rose-700">
+                    <span className="font-bold text-sm text-white">{penalty.label}</span>
+                    <span className="font-mono font-bold text-xs text-danger">
                       {penalty.points} pts
                     </span>
                   </div>
-                  <p className="text-xs text-slate-600 leading-relaxed">
+                  <p className="text-xs text-silver leading-relaxed">
                     {penalty.reason}
                   </p>
                 </div>
@@ -202,31 +186,31 @@ export const OverviewTab: React.FC<Props> = ({ result }) => {
       )}
 
       {/* 3. Market Tier Expectation Bar */}
-      <div className="bg-surface rounded-[16px] p-6 sm:p-8 border border-border shadow-xs space-y-5">
+      <div className="bg-near-black rounded-lg p-6 sm:p-8 border border-charcoal shadow-level-1 space-y-5">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="text-[20px] sm:text-[22px] font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
-              <Award className="w-5 h-5 text-primary" /> Market Bar: {tierConfig.name}
+            <h3 className="text-[18px] sm:text-[20px] font-bold text-white uppercase tracking-tight flex items-center gap-2">
+              <Award className="w-5 h-5 text-volt stroke-[1.5px]" /> Market Bar: {tierConfig.name}
             </h3>
-            <p className="text-xs text-slate-600 mt-1">
+            <p className="text-xs text-silver mt-1">
               {tierConfig.description}
             </p>
           </div>
-          <span className="hidden sm:inline-block px-3 py-1 rounded-full text-xs font-bold bg-primary/10 text-primary">
+          <span className="hidden sm:inline-block px-2.5 py-0.5 rounded text-[11px] font-semibold uppercase tracking-[1.2px] bg-black text-silver border border-charcoal">
             Min {(tierConfig.minMetricBulletRatio * 100).toFixed(0)}% Metrics
           </span>
         </div>
 
         <div className="grid md:grid-cols-2 gap-4 pt-1">
           {/* Key Bonus Signals */}
-          <div className="p-4 rounded-[12px] bg-slate-50 border border-slate-200/90 space-y-2.5 shadow-2xs">
-            <span className="text-xs font-bold text-emerald-700 uppercase tracking-wider flex items-center gap-1.5">
-              <FileCheck2 className="w-4 h-4 text-emerald-600" /> Strongest Hiring Signals
+          <div className="p-4 rounded bg-black border border-charcoal space-y-2.5">
+            <span className="text-[11px] font-semibold text-volt uppercase tracking-[1.4px] flex items-center gap-1.5">
+              <FileCheck2 className="w-4 h-4 text-volt stroke-[1.5px]" /> Strongest Hiring Signals
             </span>
-            <ul className="space-y-1.5 text-xs text-slate-700">
+            <ul className="space-y-1.5 text-xs text-silver">
               {tierConfig.keyBonusSignals.map((sig: string, i: number) => (
                 <li key={i} className="flex items-start gap-2">
-                  <span className="text-emerald-600 font-bold">•</span>
+                  <span className="text-volt font-bold">•</span>
                   <span>{sig}</span>
                 </li>
               ))}
@@ -234,14 +218,14 @@ export const OverviewTab: React.FC<Props> = ({ result }) => {
           </div>
 
           {/* Key Screening Risks */}
-          <div className="p-4 rounded-[12px] bg-slate-50 border border-slate-200/90 space-y-2.5 shadow-2xs">
-            <span className="text-xs font-bold text-amber-700 uppercase tracking-wider flex items-center gap-1.5">
-              <Info className="w-4 h-4 text-amber-600" /> Common Rejection Pitfalls
+          <div className="p-4 rounded bg-black border border-charcoal space-y-2.5">
+            <span className="text-[11px] font-semibold text-pale-yellow uppercase tracking-[1.4px] flex items-center gap-1.5">
+              <Info className="w-4 h-4 text-pale-yellow stroke-[1.5px]" /> Common Rejection Pitfalls
             </span>
-            <ul className="space-y-1.5 text-xs text-slate-700">
+            <ul className="space-y-1.5 text-xs text-silver">
               {tierConfig.keyRisks.map((risk: string, i: number) => (
                 <li key={i} className="flex items-start gap-2">
-                  <span className="text-amber-600 font-bold">•</span>
+                  <span className="text-pale-yellow font-bold">•</span>
                   <span>{risk}</span>
                 </li>
               ))}

@@ -48,39 +48,39 @@ export const AuditTab: React.FC<Props> = ({ result }) => {
   return (
     <div className="space-y-6">
       {/* 1. "What the ATS Parsed" Counters */}
-      <div className="bg-surface rounded-[16px] p-6 sm:p-8 border border-border shadow-xs space-y-4">
+      <div className="bg-near-black rounded-lg p-6 sm:p-8 border border-charcoal shadow-level-1 space-y-4">
         <div>
-          <h3 className="text-[20px] sm:text-[22px] font-extrabold text-text tracking-tight flex items-center gap-2">
-            <Hash className="w-5 h-5 text-text" /> What the ATS Parsed From Your Document
+          <h3 className="text-[20px] sm:text-[22px] font-bold text-white uppercase tracking-tight flex items-center gap-2">
+            <Hash className="w-5 h-5 text-volt stroke-[1.5px]" /> What the ATS Parsed From Your Document
           </h3>
-          <p className="text-xs text-text-secondary mt-1">
+          <p className="text-xs text-silver mt-1">
             Exact structural counts extracted by the deterministic document reader.
           </p>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 pt-1">
-          <div className="p-4 rounded-[12px] bg-slate-50 hover:bg-slate-100/70 transition-colors border border-slate-200/90 shadow-2xs">
-            <div className="text-xs font-bold text-slate-500 uppercase">Total Word Count</div>
-            <div className="text-2xl font-black font-mono text-slate-900 mt-1">{audit.wordCount}</div>
-            <div className="text-[11px] text-slate-500 mt-0.5">Recommended: 250 - 1,200</div>
+          <div className="p-4 rounded bg-black border border-charcoal shadow-level-1">
+            <div className="text-xs font-semibold text-silver uppercase tracking-[1.4px]">Total Word Count</div>
+            <div className="text-2xl font-bold font-mono text-white mt-1">{audit.wordCount}</div>
+            <div className="text-[11px] text-silver mt-0.5">Recommended: 250 - 1,200</div>
           </div>
 
-          <div className="p-4 rounded-[12px] bg-slate-50 hover:bg-slate-100/70 transition-colors border border-slate-200/90 shadow-2xs">
-            <div className="text-xs font-bold text-slate-500 uppercase">Experience Roles</div>
-            <div className="text-2xl font-black font-mono text-slate-900 mt-1">{audit.experienceEntriesCount}</div>
-            <div className="text-[11px] text-slate-500 mt-0.5">Parsed job tenures</div>
+          <div className="p-4 rounded bg-black border border-charcoal shadow-level-1">
+            <div className="text-xs font-semibold text-silver uppercase tracking-[1.4px]">Experience Roles</div>
+            <div className="text-2xl font-bold font-mono text-white mt-1">{audit.experienceEntriesCount}</div>
+            <div className="text-[11px] text-silver mt-0.5">Parsed job tenures</div>
           </div>
 
-          <div className="p-4 rounded-[12px] bg-slate-50 hover:bg-slate-100/70 transition-colors border border-slate-200/90 shadow-2xs">
-            <div className="text-xs font-bold text-slate-500 uppercase">Projects Detected</div>
-            <div className="text-2xl font-black font-mono text-slate-900 mt-1">{audit.projectsCount}</div>
-            <div className="text-[11px] text-slate-500 mt-0.5">Independent systems</div>
+          <div className="p-4 rounded bg-black border border-charcoal shadow-level-1">
+            <div className="text-xs font-semibold text-silver uppercase tracking-[1.4px]">Projects Detected</div>
+            <div className="text-2xl font-bold font-mono text-white mt-1">{audit.projectsCount}</div>
+            <div className="text-[11px] text-silver mt-0.5">Independent systems</div>
           </div>
 
-          <div className="p-4 rounded-[12px] bg-slate-50 hover:bg-slate-100/70 transition-colors border border-slate-200/90 shadow-2xs">
-            <div className="text-xs font-bold text-slate-500 uppercase">Achievement Bullets</div>
-            <div className="text-2xl font-black font-mono text-slate-900 mt-1">{audit.bulletsCount}</div>
-            <div className="text-[11px] text-slate-500 mt-0.5">
+          <div className="p-4 rounded bg-black border border-charcoal shadow-level-1">
+            <div className="text-xs font-semibold text-silver uppercase tracking-[1.4px]">Achievement Bullets</div>
+            <div className="text-2xl font-bold font-mono text-white mt-1">{audit.bulletsCount}</div>
+            <div className="text-[11px] text-silver mt-0.5">
               {(audit.metricsRatio * 100).toFixed(0)}% contain metrics
             </div>
           </div>
@@ -90,9 +90,9 @@ export const AuditTab: React.FC<Props> = ({ result }) => {
       {/* 2. Contact Channels & Section Checklist */}
       <div className="grid md:grid-cols-2 gap-6">
         {/* Contact Info Verification */}
-        <div className="bg-surface rounded-[16px] p-6 sm:p-8 border border-border shadow-xs space-y-4">
-          <h3 className="text-[18px] sm:text-[20px] font-bold text-slate-900 flex items-center gap-2">
-            <Mail className="w-5 h-5 text-primary" /> Recruiter Contact Channels
+        <div className="bg-near-black rounded-lg p-6 sm:p-8 border border-charcoal shadow-level-1 space-y-4">
+          <h3 className="text-[18px] sm:text-[20px] font-bold text-white uppercase tracking-tight flex items-center gap-2">
+            <Mail className="w-5 h-5 text-volt stroke-[1.5px]" /> Recruiter Contact Channels
           </h3>
           <div className="space-y-2.5">
             {contactsList.map((c, i) => {
@@ -101,19 +101,19 @@ export const AuditTab: React.FC<Props> = ({ result }) => {
               return (
                 <div
                   key={i}
-                  className="flex items-center justify-between p-2.5 rounded-[8px] bg-slate-50 border border-slate-200/90 text-xs shadow-2xs"
+                  className="flex items-center justify-between p-2.5 rounded bg-black border border-charcoal text-xs"
                 >
                   <div className="flex items-center gap-2">
-                    <Icon className="w-4 h-4 text-slate-500" />
-                    <span className="font-medium text-slate-800">{c.label}</span>
+                    <Icon className="w-4 h-4 text-silver stroke-[1.5px]" />
+                    <span className="font-medium text-white">{c.label}</span>
                   </div>
                   {isFound ? (
-                    <span className="font-mono text-emerald-700 font-bold truncate max-w-[200px]">
+                    <span className="font-mono text-volt font-bold truncate max-w-[200px]">
                       {c.val}
                     </span>
                   ) : (
-                    <span className="text-rose-600 font-semibold flex items-center gap-1">
-                      <XCircle className="w-3.5 h-3.5" /> Missing
+                    <span className="text-danger font-semibold flex items-center gap-1 uppercase tracking-[1px] text-[11px]">
+                      <XCircle className="w-3.5 h-3.5 stroke-[1.5px]" /> Missing
                     </span>
                   )}
                 </div>
@@ -123,9 +123,9 @@ export const AuditTab: React.FC<Props> = ({ result }) => {
         </div>
 
         {/* Section Checklist */}
-        <div className="bg-surface rounded-[16px] p-6 sm:p-8 border border-border shadow-xs space-y-4">
-          <h3 className="text-[18px] sm:text-[20px] font-bold text-slate-900 flex items-center gap-2">
-            <ListChecks className="w-5 h-5 text-primary" /> Standard Section Check (heuristic)
+        <div className="bg-near-black rounded-lg p-6 sm:p-8 border border-charcoal shadow-level-1 space-y-4">
+          <h3 className="text-[18px] sm:text-[20px] font-bold text-white uppercase tracking-tight flex items-center gap-2">
+            <ListChecks className="w-5 h-5 text-volt stroke-[1.5px]" /> Standard Section Check (heuristic)
           </h3>
           <div className="space-y-2.5">
             {standardSections.map((sec) => {
@@ -133,16 +133,16 @@ export const AuditTab: React.FC<Props> = ({ result }) => {
               return (
                 <div
                   key={sec.id}
-                  className="flex items-center justify-between p-2.5 rounded-[8px] bg-slate-50 border border-slate-200/90 text-xs shadow-2xs"
+                  className="flex items-center justify-between p-2.5 rounded bg-black border border-charcoal text-xs"
                 >
-                  <span className="font-medium text-slate-800">{sec.label}</span>
+                  <span className="font-medium text-white">{sec.label}</span>
                   {isPresent ? (
-                    <span className="text-emerald-700 font-bold flex items-center gap-1">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-600" /> Header Detected
+                    <span className="text-volt font-semibold flex items-center gap-1.5 uppercase tracking-[1px] text-[11px]">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-volt stroke-[1.5px]" /> Header Detected
                     </span>
                   ) : (
-                    <span className="text-amber-600 font-bold flex items-center gap-1">
-                      <AlertTriangle className="w-4 h-4 text-amber-600" /> Missing Header
+                    <span className="text-pale-yellow font-semibold flex items-center gap-1.5 uppercase tracking-[1px] text-[11px]">
+                      <AlertTriangle className="w-3.5 h-3.5 text-pale-yellow stroke-[1.5px]" /> Missing Header
                     </span>
                   )}
                 </div>
@@ -153,43 +153,43 @@ export const AuditTab: React.FC<Props> = ({ result }) => {
       </div>
 
       {/* 3. Ranked Screening Bottlenecks with Severity */}
-      <div className="bg-surface rounded-[16px] p-6 sm:p-8 border border-border shadow-xs space-y-4">
-        <h3 className="text-[20px] sm:text-[22px] font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
-          <AlertCircle className="w-5 h-5 text-primary" /> Ranked Screening Bottlenecks
+      <div className="bg-near-black rounded-lg p-6 sm:p-8 border border-charcoal shadow-level-1 space-y-4">
+        <h3 className="text-[18px] sm:text-[20px] font-bold text-white uppercase tracking-tight flex items-center gap-2">
+          <AlertCircle className="w-5 h-5 text-volt stroke-[1.5px]" /> Ranked Screening Bottlenecks
         </h3>
 
         <div className="space-y-3">
           {penalties.map((pen, i) => (
             <div
               key={i}
-              className="p-4 rounded-[12px] bg-slate-50 border border-slate-200/90 flex items-start gap-3.5 shadow-2xs"
+              className="p-4 rounded bg-black border border-charcoal flex items-start gap-3.5"
             >
               <div
-                className={`px-2 py-0.5 rounded text-[11px] font-extrabold uppercase mt-0.5 ${
+                className={`px-2 py-0.5 rounded text-[11px] font-bold uppercase tracking-[1px] mt-0.5 border ${
                   Math.abs(pen.points) >= 8
-                    ? 'bg-rose-100 text-rose-800 border border-rose-200'
+                    ? 'bg-black text-danger border-danger/60'
                     : Math.abs(pen.points) >= 4
-                    ? 'bg-amber-100 text-amber-800 border border-amber-200'
-                    : 'bg-sky-100 text-sky-800 border border-sky-200'
+                    ? 'bg-black text-pale-yellow border-pale-yellow/60'
+                    : 'bg-black text-silver border-charcoal'
                 }`}
               >
                 {Math.abs(pen.points) >= 8 ? 'Critical' : Math.abs(pen.points) >= 4 ? 'High' : 'Medium'}
               </div>
               <div className="flex-1 space-y-1">
                 <div className="flex items-center justify-between">
-                  <span className="font-bold text-sm text-slate-900">{pen.label}</span>
-                  <span className="text-xs font-mono font-bold text-rose-600">
+                  <span className="font-bold text-sm text-white">{pen.label}</span>
+                  <span className="text-xs font-mono font-bold text-danger">
                     {pen.points} pts
                   </span>
                 </div>
-                <p className="text-xs text-slate-600 leading-relaxed">{pen.reason}</p>
+                <p className="text-xs text-silver leading-relaxed">{pen.reason}</p>
               </div>
             </div>
           ))}
 
           {penalties.length === 0 && (
-            <div className="p-4 rounded-[12px] bg-emerald-50 border border-emerald-200 text-xs text-emerald-800 flex items-center gap-2 font-medium">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+            <div className="p-4 rounded bg-black border border-volt/60 text-xs text-volt flex items-center gap-2 font-medium">
+              <CheckCircle2 className="w-4 h-4 text-volt stroke-[1.5px]" />
               Zero formatting or structural penalties triggered on this document.
             </div>
           )}
@@ -197,17 +197,17 @@ export const AuditTab: React.FC<Props> = ({ result }) => {
       </div>
 
       {/* 4. Weak Bullets Breakdown */}
-      <div className="bg-surface rounded-[16px] p-6 sm:p-8 border border-border shadow-xs space-y-4">
+      <div className="bg-near-black rounded-lg p-6 sm:p-8 border border-charcoal shadow-level-1 space-y-4">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="text-[20px] sm:text-[22px] font-extrabold text-slate-900 tracking-tight">
+            <h3 className="text-[18px] sm:text-[20px] font-bold text-white uppercase tracking-tight">
               Underperforming Bullet Points ({audit.weakBulletsCount} Identified)
             </h3>
-            <p className="text-xs text-slate-600 mt-1">
+            <p className="text-xs text-silver mt-1">
               Bullets scored under 60 quality due to missing metrics, duty-oriented phrasing, or non-standard length.
             </p>
           </div>
-          <span className="text-xs font-mono font-bold text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded">
+          <span className="text-xs font-mono font-bold text-volt bg-black border border-volt/60 px-2 py-0.5 rounded uppercase tracking-[1px]">
             Stage 5 Rewrites
           </span>
         </div>
@@ -218,21 +218,21 @@ export const AuditTab: React.FC<Props> = ({ result }) => {
             .map((f, i) => (
               <div
                 key={i}
-                className="p-4 rounded-[12px] bg-amber-50/60 border border-amber-200 space-y-1.5 shadow-2xs"
+                className="p-4 rounded bg-black border border-charcoal space-y-1.5"
               >
-                <div className="flex items-center justify-between text-xs font-bold text-amber-900">
+                <div className="flex items-center justify-between text-xs font-bold text-white">
                   <span>{f.title}</span>
-                  <span className="font-mono text-emerald-700 font-bold">
+                  <span className="font-mono text-volt font-bold">
                     +{f.expectedScoreGain} pts gain
                   </span>
                 </div>
-                <p className="text-xs text-slate-600 leading-relaxed">{f.reason}</p>
+                <p className="text-xs text-silver leading-relaxed">{f.reason}</p>
               </div>
             ))}
 
           {audit.weakBulletsCount === 0 && (
-            <div className="p-4 rounded-[12px] bg-emerald-50 border border-emerald-200 text-xs text-emerald-800 flex items-center gap-2 font-medium">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+            <div className="p-4 rounded bg-black border border-volt/60 text-xs text-volt flex items-center gap-2 font-medium">
+              <CheckCircle2 className="w-4 h-4 text-volt stroke-[1.5px]" />
               All experience and project bullets meet the high-conviction engineering threshold.
             </div>
           )}

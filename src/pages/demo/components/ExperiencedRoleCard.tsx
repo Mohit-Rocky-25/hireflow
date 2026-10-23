@@ -27,69 +27,47 @@ export function ExperiencedRoleCard({
       <button
         type="button"
         onClick={onSelect}
-        className={`w-full text-left p-[18px] rounded-2xl border transition-all flex flex-col justify-between gap-[10px] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary cursor-pointer ${
+        className={`w-full text-left p-5 rounded-lg border transition-colors flex flex-col justify-between gap-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-volt cursor-pointer ${
           isSelected
-            ? 'bg-text text-bg border-text shadow-md'
-            : 'bg-surface border-border text-text hover:border-primary/40 hover:bg-surface-2'
+            ? 'bg-near-black text-white border-volt shadow-level-5'
+            : 'bg-near-black border-charcoal text-white hover:border-volt/60'
         }`}
       >
-        <div className="flex items-start justify-between gap-[12px]">
+        <div className="flex items-start justify-between gap-3">
           <div>
-            <div className="flex items-center gap-[8px] flex-wrap">
-              <h3
-                className={`text-[15px] font-bold ${
-                  isSelected ? 'text-bg' : 'text-text'
-                }`}
-              >
+            <div className="flex items-center gap-2 flex-wrap">
+              <h3 className="text-[16px] font-bold text-white uppercase tracking-tight">
                 {role.title}
               </h3>
-              <span
-                className={`text-[10px] font-bold px-[8px] py-[2px] rounded-full ${
-                  isSelected
-                    ? 'bg-white/20 text-bg'
-                    : 'bg-surface-3 text-text-secondary'
-                }`}
-              >
+              <span className="text-[10px] font-semibold uppercase tracking-[1px] px-2 py-0.5 rounded bg-black text-silver border border-charcoal">
                 {role.level}
               </span>
             </div>
-            <p
-              className={`text-[12px] mt-[4px] leading-[18px] ${
-                isSelected ? 'text-bg/80' : 'text-text-secondary'
-              }`}
-            >
+            <p className="text-xs text-silver mt-1 leading-relaxed">
               {role.desc}
             </p>
           </div>
 
           <div
-            className={`w-[22px] h-[22px] rounded-full border flex items-center justify-center flex-shrink-0 mt-[2px] ${
+            className={`w-5 h-5 rounded border flex items-center justify-center flex-shrink-0 mt-0.5 ${
               isSelected
-                ? 'bg-primary border-primary text-white'
-                : 'border-border-strong bg-surface-2'
+                ? 'bg-black border-volt text-volt'
+                : 'border-charcoal bg-black text-transparent'
             }`}
           >
-            {isSelected && <span className="text-[12px] font-black">✓</span>}
+            {isSelected && <span className="text-[11px] font-black">✓</span>}
           </div>
         </div>
 
         {/* Competency badges */}
-        <div className="flex items-center gap-[6px] flex-wrap pt-[8px] border-t border-current/10">
-          <span
-            className={`text-[10px] font-semibold uppercase tracking-wider ${
-              isSelected ? 'text-bg/60' : 'text-text-muted'
-            }`}
-          >
-            Required Competencies:
+        <div className="flex items-center gap-1.5 flex-wrap pt-2 border-t border-charcoal">
+          <span className="text-[10px] font-bold uppercase tracking-[1.4px] text-silver">
+            Required:
           </span>
           {role.competencies.map((c) => (
             <span
               key={c}
-              className={`text-[10px] font-bold px-[7px] py-[2px] rounded-md uppercase ${
-                isSelected
-                  ? 'bg-white/15 text-bg'
-                  : 'bg-surface-2 text-text-secondary border border-border/80'
-              }`}
+              className="text-[10px] font-semibold px-2 py-0.5 rounded bg-black text-silver border border-charcoal uppercase tracking-[0.5px]"
             >
               {c}
             </span>
@@ -100,14 +78,14 @@ export function ExperiencedRoleCard({
       {/* Expanded JD Details */}
       {isSelected && (role as any).fullText && (
         <div
-          className="mt-2 p-5 bg-surface-2 rounded-xl border border-border animate-fade-in cursor-default text-left"
+          className="mt-2 p-5 bg-black rounded-lg border border-charcoal animate-fade-in cursor-default text-left"
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="flex items-center justify-between mb-4 border-b border-border pb-3 flex-wrap gap-2">
+          <div className="flex items-center justify-between mb-4 border-b border-charcoal pb-3 flex-wrap gap-2">
             <div className="flex items-center gap-2 flex-wrap">
-              <h4 className="text-sm font-bold text-foreground">Job Description</h4>
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/10 text-amber-500 border border-amber-500/25">
-                <Info className="w-3 h-3" /> Compiled from HireFlow data (not the official posting)
+              <h4 className="text-xs font-bold text-white uppercase tracking-[1px]">Job Description</h4>
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold uppercase tracking-[0.5px] bg-near-black text-silver border border-charcoal">
+                <Info className="w-3 h-3 stroke-[1.5px]" /> Compiled HireFlow Data
               </span>
             </div>
             <div className="flex gap-2">
@@ -118,30 +96,30 @@ export function ExperiencedRoleCard({
                   navigator.clipboard.writeText((role as any).fullText || '');
                   alert('JD Copied to clipboard!');
                 }}
-                className="px-3 py-1.5 bg-surface-3 hover:bg-surface border border-border rounded-lg text-xs font-bold text-text transition-colors flex items-center gap-1 cursor-pointer"
+                className="px-3 py-1.5 bg-near-black hover:bg-hover-gray border border-charcoal hover:border-volt rounded text-xs font-semibold uppercase tracking-[1px] text-white transition-colors flex items-center gap-1 cursor-pointer"
               >
-                📋 Copy JD
+                Copy JD
               </button>
               <Link
                 to={`/tools/resume-checker?company=${company.id}&role=${encodeURIComponent(role.title)}`}
                 onClick={(e) => e.stopPropagation()}
-                className="px-3 py-1.5 bg-primary/10 hover:bg-primary/20 text-primary rounded-lg text-xs font-bold transition-colors flex items-center gap-1"
+                className="px-3 py-1.5 bg-forest hover:bg-[#3a3a3a] border border-[#141414] text-white rounded text-xs font-bold uppercase tracking-[1px] transition-colors flex items-center gap-1"
               >
-                🎯 Use in ATS Scanner
+                Scan in ATS Roaster →
               </Link>
             </div>
           </div>
 
-          <div className="space-y-4 text-xs text-text-secondary leading-relaxed">
+          <div className="space-y-4 text-xs text-silver leading-relaxed">
             {(role as any).aboutRole && (
               <div>
-                <h5 className="font-bold text-text mb-1">About the Role</h5>
+                <h5 className="font-bold text-white uppercase tracking-[1px] text-[11px] mb-1">About the Role</h5>
                 <p>{(role as any).aboutRole}</p>
               </div>
             )}
             {(role as any).responsibilities && (role as any).responsibilities.length > 0 && (
               <div>
-                <h5 className="font-bold text-text mb-1">Key Responsibilities</h5>
+                <h5 className="font-bold text-white uppercase tracking-[1px] text-[11px] mb-1">Key Responsibilities</h5>
                 <ul className="list-disc pl-4 space-y-1">
                   {(role as any).responsibilities.map((r: string, i: number) => (
                     <li key={i}>{r}</li>
@@ -151,7 +129,7 @@ export function ExperiencedRoleCard({
             )}
             {(role as any).requiredQualifications && (role as any).requiredQualifications.length > 0 && (
               <div>
-                <h5 className="font-bold text-text mb-1">Qualifications</h5>
+                <h5 className="font-bold text-white uppercase tracking-[1px] text-[11px] mb-1">Qualifications</h5>
                 <ul className="list-disc pl-4 space-y-1">
                   {(role as any).requiredQualifications.map((q: string, i: number) => (
                     <li key={i}>{q}</li>
@@ -161,13 +139,13 @@ export function ExperiencedRoleCard({
             )}
             {(role as any).hiringProcess && (role as any).hiringProcess.length > 0 && (
               <div>
-                <h5 className="font-bold text-text mb-1">Interview Process</h5>
+                <h5 className="font-bold text-white uppercase tracking-[1px] text-[11px] mb-1">Interview Process</h5>
                 <div className="flex items-center gap-2 text-[11px] font-bold mt-2 flex-wrap">
                   {(role as any).hiringProcess.map((step: string, i: number) => (
                     <React.Fragment key={i}>
-                      <span className="px-2 py-1 bg-surface-3 rounded-md text-text">{step}</span>
+                      <span className="px-2 py-0.5 bg-near-black border border-charcoal rounded text-white font-mono">{step}</span>
                       {i < (role as any).hiringProcess!.length - 1 && (
-                        <span className="text-text-muted">→</span>
+                        <span className="text-silver">→</span>
                       )}
                     </React.Fragment>
                   ))}
@@ -178,33 +156,33 @@ export function ExperiencedRoleCard({
         </div>
       )}
 
-      {/* Mobile-Only Action Panel (Right under selected role card) */}
+      {/* Mobile-Only Action Panel */}
       {isSelected && (
-        <div className="lg:hidden mt-[10px] mb-[12px] bg-surface-2 border border-primary/40 rounded-2xl p-[18px] animate-slide-up shadow-sm">
-          <div className="flex items-center gap-[10px] mb-[10px]">
-            <div className="w-[32px] h-[32px] rounded-xl bg-primary-light flex items-center justify-center text-primary">
-              <Brain className="w-4 h-4" />
+        <div className="lg:hidden mt-2.5 mb-3 bg-black border border-charcoal rounded-lg p-4 shadow-level-2">
+          <div className="flex items-center gap-2.5 mb-2.5">
+            <div className="w-8 h-8 rounded bg-near-black border border-charcoal flex items-center justify-center text-volt">
+              <Brain className="w-4 h-4 stroke-[1.5px]" />
             </div>
             <div>
-              <div className="text-[13px] font-bold text-text">
+              <div className="text-xs font-bold text-white uppercase tracking-tight">
                 {company.name} — {role.title}
               </div>
-              <div className="text-[11px] text-text-secondary">
+              <div className="text-[11px] text-silver font-mono">
                 {role.competencies.length} competencies to analyze
               </div>
             </div>
           </div>
 
           {!resumeText.trim() ? (
-            <div className="p-[10px] bg-warning-bg border border-warning/30 rounded-xl mb-[12px] text-[12px] text-warning">
-              <p className="font-semibold mb-[2px]">⚠ Add resume first</p>
-              <Link to="/demo" className="text-primary font-bold underline">
-                ← Click here to paste or upload your resume in Step 1
+            <div className="p-2.5 bg-near-black border border-charcoal rounded mb-3 text-xs text-pale-yellow">
+              <p className="font-semibold mb-1 uppercase tracking-[1px]">⚠ Add resume first</p>
+              <Link to="/demo" className="text-volt font-bold underline uppercase tracking-[1px]">
+                ← Click here to add your resume in Step 1
               </Link>
             </div>
           ) : (
-            <div className="p-[10px] bg-success-bg border border-success/20 rounded-xl mb-[12px] flex items-center gap-[8px] text-[12px] text-success">
-              <CheckCircle className="w-4 h-4 flex-shrink-0" />
+            <div className="p-2.5 bg-near-black border border-charcoal rounded mb-3 flex items-center gap-2 text-xs text-volt font-semibold uppercase tracking-[1px]">
+              <CheckCircle className="w-4 h-4 flex-shrink-0 stroke-[1.5px]" />
               <span>Resume loaded ({resumeText.split(/\s+/).length} words)</span>
             </div>
           )}
@@ -213,21 +191,16 @@ export function ExperiencedRoleCard({
             type="button"
             onClick={onRunAnalysis}
             disabled={analyzing || !resumeText.trim()}
-            title={
-              !resumeText.trim()
-                ? 'Add resume first'
-                : 'Run 6-layer deep screening analysis'
-            }
-            className="w-full bg-primary text-white py-[11px] px-[16px] rounded-xl font-bold text-[13px] hover:bg-primary-hover transition-all flex items-center justify-center gap-[8px] disabled:opacity-40 disabled:cursor-not-allowed shadow-sm cursor-pointer"
+            className="w-full bg-volt text-[#151515] py-2.5 px-4 rounded font-bold text-xs uppercase tracking-[1.4px] border border-volt hover:bg-[#1d1d1d] hover:text-white transition-colors flex items-center justify-center gap-2 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
           >
             {analyzing ? (
               <>
-                <RefreshCw className="w-4 h-4 animate-spin" />
+                <RefreshCw className="w-4 h-4 animate-spin stroke-[1.5px]" />
                 <span>Analyzing deeply...</span>
               </>
             ) : (
               <>
-                <Brain className="w-4 h-4" />
+                <Brain className="w-4 h-4 stroke-[1.5px]" />
                 <span>Run Deep AI Analysis</span>
               </>
             )}

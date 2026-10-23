@@ -1,3 +1,7 @@
+// ============================================================
+// HireFlow — Tools Hub Page (High-Contrast Dark System)
+// Strictly adhering to DESIGN.md and Stage 4 specs
+// ============================================================
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
@@ -8,10 +12,10 @@ import {
   FolderGit2,
   Compass,
   ArrowRight,
-  Sparkles,
   Search,
   Database,
   Award,
+  Layers,
 } from 'lucide-react';
 import { PageNav } from '../../components/common/PageNav';
 import { PublicNavbar } from '../../components/common/PublicNavbar';
@@ -33,14 +37,6 @@ interface DecisionGroup {
   groupLetter: string;
   title: string;
   description: string;
-  colorTheme: {
-    bg: string;
-    border: string;
-    text: string;
-    hoverBorder: string;
-    shadowGlow: string;
-    button: string;
-  };
   tools: ToolItem[];
 }
 
@@ -52,15 +48,7 @@ export function ToolsHubPage() {
       id: 'group-a',
       groupLetter: 'A',
       title: 'Application & Outreach',
-      description: 'Audit your resume, tailor your bullets, and generate high-converting cold outreach.',
-      colorTheme: {
-        bg: 'bg-emerald-500/10',
-        border: 'border-emerald-500/30',
-        text: 'text-emerald-600 dark:text-emerald-400',
-        hoverBorder: 'hover:border-emerald-500/60',
-        shadowGlow: 'hover:shadow-[0_8px_30px_rgba(16,185,129,0.15)]',
-        button: 'bg-emerald-600 text-white',
-      },
+      description: 'Audit your resume, tailor your bullets, and generate high-converting outreach.',
       tools: [
         {
           id: 'resume-checker',
@@ -99,14 +87,6 @@ export function ToolsHubPage() {
       groupLetter: 'B',
       title: 'Projects & Career Evidence',
       description: 'Close missing resume gaps with production-grade engineering briefs and verifiable career credentials.',
-      colorTheme: {
-        bg: 'bg-cyan-500/10',
-        border: 'border-cyan-500/30',
-        text: 'text-cyan-600 dark:text-cyan-400',
-        hoverBorder: 'hover:border-cyan-500/60',
-        shadowGlow: 'hover:shadow-[0_8px_30px_rgba(6,182,212,0.15)]',
-        button: 'bg-cyan-600 text-white',
-      },
       tools: [
         {
           id: 'credential-engine',
@@ -135,14 +115,6 @@ export function ToolsHubPage() {
       groupLetter: 'C',
       title: 'Discovery & Direction',
       description: 'Explore career ladders and evaluate target roles side-by-side.',
-      colorTheme: {
-        bg: 'bg-indigo-500/10',
-        border: 'border-indigo-500/20',
-        text: 'text-indigo-500',
-        hoverBorder: 'hover:border-indigo-500/50',
-        shadowGlow: 'hover:shadow-[0_8px_30px_rgba(99,102,241,0.15)]',
-        button: 'bg-indigo-500 text-white',
-      },
       tools: [
         {
           id: 'career-path',
@@ -167,12 +139,12 @@ export function ToolsHubPage() {
         {
           id: 'careers-explorer',
           title: 'Careers Data Platform Explorer',
-          badge: `${careers.stats.counts().companies}+ Employers · ${careers.stats.counts().roles}+ Roles`,
+          badge: `${careers.stats.counts().companies}+ Employers`,
           description: `Browse the full unified dataset of ${careers.stats.counts().companies} top employers and active recruiters, ${careers.stats.counts().roles}+ calibrated roles, eligibility cutoffs, and audit ledgers.`,
           link: '/dev/careers-data',
           cta: 'Explore Dataset',
           icon: Database,
-          tags: [`${careers.stats.counts().companies}+ Companies`, `${careers.stats.counts().roles}+ Roles`, 'Cybersecurity & Tech', 'Audit Ledgers'],
+          tags: [`${careers.stats.counts().companies}+ Companies`, `${careers.stats.counts().roles}+ Roles`, 'Audit Ledgers'],
         },
       ],
     },
@@ -193,157 +165,118 @@ export function ToolsHubPage() {
   const totalTools = decisionGroups.reduce((acc, g) => acc + g.tools.length, 0);
 
   return (
-    <div className="min-h-screen bg-bg">
+    <div className="min-h-screen bg-black text-white font-sans selection:bg-volt selection:text-black">
       <PublicNavbar />
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 space-y-20 animate-fade-in relative">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 space-y-16 animate-fade-in relative">
         <PageNav fallbackRoute="/" preferFallback={true} />
-        {/* Hero Header */}
-        <div className="text-center max-w-4xl mx-auto space-y-6">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-[#4F46E5] to-[#7C3AED] text-white text-sm font-bold tracking-wide uppercase shadow-sm shadow-indigo-500/20">
-            <Sparkles className="w-4 h-4 text-white" />
-            <span>HireFlow Decision Suite • {totalTools} Essential Tools</span>
-          </div>
-        <h1 className="text-4xl sm:text-6xl font-black text-foreground tracking-tight leading-tight">
-          Everything You Need to Win Your Next Tech Role
-        </h1>
-        <p className="text-lg sm:text-xl text-muted max-w-3xl mx-auto font-medium">
-          From evaluating your target roles to building the right projects and presenting yourself better. No gimmicks, pure intelligence.
-        </p>
 
-        {/* Live Careers Data Platform Metrics & Quick Link */}
-        {(() => {
-          const stats = careers.stats.counts();
-          const totalCompanies = stats.companies;
-          const totalRoles = stats.roles;
-          return (
-            <Link
-              to="/dev/careers-data"
-              title="Click to open Careers Data Platform Explorer"
-              className="inline-flex flex-wrap items-center justify-center gap-2.5 pt-2 text-xs font-semibold group cursor-pointer hover:opacity-95 transition-all"
-            >
-              <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-2 border border-border group-hover:border-primary/50 shadow-xs transition-colors">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                <span className="text-foreground font-bold">{totalCompanies}</span>
-                <span className="text-text-secondary">Verified Employers & Recruiters</span>
-              </div>
-              <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-2 border border-border group-hover:border-primary/50 shadow-xs transition-colors">
-                <span className="text-primary font-bold">{totalRoles.toLocaleString()}+</span>
-                <span className="text-text-secondary">Calibrated Roles</span>
-              </div>
-              <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-2 border border-border group-hover:border-primary/50 shadow-xs transition-colors">
-                <span className="text-foreground font-bold">{stats.fresherPrograms}</span>
-                <span className="text-text-secondary">Campus Programs ('26-27)</span>
-              </div>
-              <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-2 border border-border group-hover:border-primary/50 shadow-xs transition-colors">
-                <span className="text-foreground font-bold">{stats.levels}</span>
-                <span className="text-text-secondary">Level Ladders</span>
-              </div>
-              <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-2 border border-border group-hover:border-primary/50 shadow-xs transition-colors">
-                <span className="text-foreground font-bold">{stats.branches}</span>
-                <span className="text-text-secondary">Engineering Branches</span>
-              </div>
-              <span className="text-[11px] text-primary font-bold ml-1 group-hover:underline">
-                Explore Full Dataset ↗
-              </span>
-            </Link>
-          );
-        })()}
+        {/* Hero Header (§3 App Scale) */}
+        <div className="text-center max-w-4xl mx-auto space-y-4">
+          <p className="text-[13px] font-semibold text-silver uppercase tracking-[1.4px]">
+            HireFlow Decision Suite • {totalTools} Essential Tools
+          </p>
+          <h1 className="text-[36px] sm:text-[48px] font-black text-white uppercase tracking-tight leading-tight">
+            Everything You Need To Win Your Next Tech Role
+          </h1>
+          <p className="text-[16px] text-silver max-w-2xl mx-auto leading-relaxed">
+            From evaluating target roles to building production proof points and simulating recruiter scans. 100% deterministic intelligence.
+          </p>
 
-        {/* Search Bar */}
-        <div className="pt-6 max-w-xl mx-auto">
-          <div className="relative group">
-            <Search className="w-6 h-6 text-muted absolute left-5 top-1/2 -translate-y-1/2 group-focus-within:text-primary transition-colors" />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search tools by capability (e.g. cold email, resume, career)..."
-              className="w-full pl-14 pr-6 py-5 rounded-2xl bg-surface border-2 border-border text-base text-foreground placeholder:text-muted focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all shadow-sm"
-            />
+          {/* Search Bar (§4 Derived Input) */}
+          <div className="pt-4 max-w-xl mx-auto">
+            <div className="relative">
+              <Search className="w-5 h-5 text-silver absolute left-4 top-1/2 -translate-y-1/2 stroke-[1.5px]" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search tools by capability (e.g. cold email, resume, career)..."
+                className="w-full pl-12 pr-4 py-3 rounded bg-near-black border border-charcoal text-[14px] text-white placeholder:text-silver/50 focus:outline-none focus:border-volt focus:ring-1 focus:ring-volt transition-colors"
+              />
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Decision Groups Container */}
-      <div className="space-y-20">
-        {filteredGroups.map((group) => (
-          <section key={group.id} className="space-y-8">
-            {/* Group Header */}
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b-2 border-border">
-              <div className="flex items-start gap-6">
-                <span className={`w-14 h-14 rounded-2xl ${group.colorTheme.bg} ${group.colorTheme.border} border-2 font-mono text-2xl font-black ${group.colorTheme.text} flex items-center justify-center shrink-0`}>
-                  {group.groupLetter}
-                </span>
-                <div>
-                  <h2 className="text-[clamp(32px,4vw,44px)] font-[800] text-foreground tracking-tight leading-none mb-3">
-                    {group.title}
-                  </h2>
-                  <p className="text-lg text-muted font-medium">{group.description}</p>
+        {/* Decision Groups Container */}
+        <div className="space-y-16">
+          {filteredGroups.map((group) => (
+            <section key={group.id} className="space-y-6">
+              {/* Group Header */}
+              <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-4 border-b border-charcoal">
+                <div className="flex items-start gap-4">
+                  <span className="w-10 h-10 rounded bg-near-black border border-charcoal font-mono text-lg font-bold text-volt flex items-center justify-center shrink-0">
+                    {group.groupLetter}
+                  </span>
+                  <div>
+                    <h2 className="text-[24px] font-bold text-white uppercase tracking-tight">
+                      {group.title}
+                    </h2>
+                    <p className="text-[14px] text-silver">{group.description}</p>
+                  </div>
                 </div>
+                <span className="text-[12px] font-semibold text-silver uppercase tracking-[1.4px]">
+                  {group.tools.length} Tools
+                </span>
               </div>
-              <span className="text-sm font-bold text-muted font-mono uppercase tracking-wider mb-2">
-                {group.tools.length} Tools
-              </span>
-            </div>
 
-            {/* Tools Grid */}
-            <div className={`grid gap-6 ${group.tools.length === 1 ? 'grid-cols-1 max-w-4xl mx-auto' : 'grid-cols-1 md:grid-cols-2'}`}>
-              {group.tools.map((tool) => {
-                const Icon = tool.icon;
-                return (
-                  <Link
-                    key={tool.id}
-                    to={tool.link}
-                    className={`group block bg-surface rounded-[24px] border-2 border-border p-8 min-h-[280px] flex flex-col justify-between transition-all duration-300 transform hover:-translate-y-2 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/50 ${group.colorTheme.hoverBorder} ${group.colorTheme.shadowGlow} overflow-hidden`}
-                  >
-                    <div className="space-y-6">
-                      <div className="flex items-start justify-between gap-4">
-                        <div className={`w-16 h-16 rounded-2xl ${group.colorTheme.bg} ${group.colorTheme.border} border-2 flex items-center justify-center ${group.colorTheme.text} transition-colors shrink-0`}>
-                          <Icon className="w-8 h-8" />
-                        </div>
-                        <span className={`px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-wider ${group.colorTheme.bg} ${group.colorTheme.text} border border-transparent group-hover:${group.colorTheme.border}`}>
-                          {tool.badge}
-                        </span>
-                      </div>
-
-                      <div>
-                        <h3 className="text-2xl sm:text-[28px] font-bold text-foreground transition-colors group-hover:text-foreground/90 leading-tight">
-                          {tool.title}
-                        </h3>
-                        <p className="text-base text-text-secondary mt-3 leading-relaxed">
-                          {tool.description}
-                        </p>
-                      </div>
-
-                      {/* Capability Tags */}
-                      <div className="flex flex-wrap gap-2 pt-2">
-                        {tool.tags.map((tag, idx) => (
-                          <span
-                            key={idx}
-                            className={`text-[12px] font-bold px-3 py-1 rounded-md bg-surface-2 text-text-secondary border border-border group-hover:${group.colorTheme.border} transition-colors`}
-                          >
-                            {tag}
+              {/* Tools Grid (§4: 8px radius, charcoal border, hover elevated) */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {group.tools.map((tool) => {
+                  const Icon = tool.icon;
+                  return (
+                    <Link
+                      key={tool.id}
+                      to={tool.link}
+                      className="group bg-near-black rounded-lg border border-charcoal p-6 flex flex-col justify-between hover:border-volt/60 hover:shadow-level-3 transition-colors cursor-pointer select-none"
+                    >
+                      <div className="space-y-4">
+                        <div className="flex items-start justify-between gap-3">
+                          <div className="w-10 h-10 rounded bg-black border border-charcoal flex items-center justify-center text-volt shrink-0">
+                            <Icon className="w-5 h-5 stroke-[1.5px]" />
+                          </div>
+                          <span className="px-2.5 py-0.5 rounded text-[11px] font-semibold uppercase tracking-[1.2px] bg-black text-silver border border-charcoal">
+                            {tool.badge}
                           </span>
-                        ))}
-                      </div>
-                    </div>
+                        </div>
 
-                    {/* Bottom CTA */}
-                    <div className="mt-8 pt-6 border-t-2 border-border flex items-center justify-between">
-                      <div className={`inline-flex items-center justify-center h-12 px-6 rounded-xl font-bold text-sm transition-all ${group.colorTheme.button} hover:opacity-90`}>
-                        {tool.cta}
+                        <div>
+                          <h3 className="text-[20px] font-bold text-white group-hover:text-volt transition-colors leading-snug">
+                            {tool.title}
+                          </h3>
+                          <p className="text-[14px] text-silver mt-2 leading-relaxed">
+                            {tool.description}
+                          </p>
+                        </div>
+
+                        {/* Capability Tags */}
+                        <div className="flex flex-wrap gap-1.5 pt-2">
+                          {tool.tags.map((tag, idx) => (
+                            <span
+                              key={idx}
+                              className="text-[11px] font-semibold uppercase tracking-[1px] px-2 py-0.5 rounded bg-black text-silver/80 border border-charcoal"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
                       </div>
-                      <div className={`w-12 h-12 rounded-xl flex items-center justify-center bg-surface-2 border-2 border-border group-hover:${group.colorTheme.border} transition-transform group-hover:translate-x-1`}>
-                        <ArrowRight className={`w-6 h-6 ${group.colorTheme.text}`} />
+
+                      {/* Bottom CTA Button */}
+                      <div className="mt-6 pt-4 border-t border-charcoal flex items-center justify-between">
+                        <span className="text-[13px] font-bold uppercase tracking-[1.2px] text-white group-hover:text-volt transition-colors">
+                          {tool.cta}
+                        </span>
+                        <div className="w-8 h-8 rounded bg-black border border-charcoal flex items-center justify-center text-silver group-hover:text-volt group-hover:border-volt transition-colors">
+                          <ArrowRight className="w-4 h-4 stroke-[1.5px]" />
+                        </div>
                       </div>
-                    </div>
-                  </Link>
-                );
-              })}
-            </div>
-          </section>
-        ))}
-      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+            </section>
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Building2, DollarSign, ArrowLeft } from 'lucide-react';
 import type { Company } from '../talentLensData';
-import { TREND_COLOR, TREND_ICON } from '../talentLensData';
+import { TREND_ICON } from '../talentLensData';
 
 export interface CompanyHeaderCardProps {
   company: Company;
@@ -11,92 +11,75 @@ export interface CompanyHeaderCardProps {
 
 export function CompanyHeaderCard({ company, onChangeCompany }: CompanyHeaderCardProps) {
   return (
-    <div className="bg-surface border border-border rounded-2xl p-[24px] mb-[28px] shadow-sm">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-[20px]">
-        <div className="flex items-center gap-[16px]">
-          <div
-            className={`w-[56px] h-[56px] rounded-2xl bg-gradient-to-br ${company.gradient} flex items-center justify-center text-white font-extrabold text-[18px] flex-shrink-0 shadow-md`}
-          >
+    <div className="bg-near-black border border-charcoal rounded-lg p-6 mb-6 shadow-level-1">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-5">
+        <div className="flex items-center gap-4">
+          <div className="w-12 h-12 rounded bg-black border border-charcoal flex items-center justify-center text-volt font-black text-[18px] flex-shrink-0">
             {company.logo}
           </div>
           <div>
-            <div className="flex items-center gap-[10px] flex-wrap">
-              <h2 className="text-[22px] font-bold text-text">{company.name}</h2>
-              <span
-                className={`text-[11px] font-bold px-[8px] py-[2px] rounded-full ${
-                  company.tier === 'FAANG'
-                    ? 'bg-ai-light text-ai'
-                    : company.tier === 'Unicorn'
-                    ? 'bg-primary-light text-primary'
-                    : company.tier === 'MNC'
-                    ? 'bg-info-bg text-info'
-                    : company.tier === 'Startup'
-                    ? 'bg-success-bg text-success'
-                    : 'bg-surface-3 text-text-secondary'
-                }`}
-              >
+            <div className="flex items-center gap-2.5 flex-wrap">
+              <h2 className="text-[22px] font-bold text-white uppercase tracking-tight">{company.name}</h2>
+              <span className="text-[10px] font-semibold uppercase tracking-[1px] px-2 py-0.5 rounded bg-black text-silver border border-charcoal">
                 {company.tier}
               </span>
             </div>
-            <div className="text-[13px] text-text-secondary mt-[2px] flex items-center gap-[8px]">
+            <div className="text-xs text-silver mt-1 flex items-center gap-2 font-mono">
               <span>{company.hq}</span>
               <span>•</span>
               <span>{company.industry}</span>
               <span>•</span>
-              <span className="font-semibold text-text">{company.avgPackage}</span>
+              <span className="font-bold text-white">{company.avgPackage}</span>
             </div>
           </div>
         </div>
 
-        <div className="flex items-center gap-[12px] flex-wrap">
+        <div className="flex items-center gap-3 flex-wrap">
           {/* Mini Stats */}
-          <div className="flex items-center gap-[8px]">
-            <div className="bg-surface-2 rounded-xl px-[12px] py-[8px] text-center border border-border/60">
-              <div className="text-[13px] font-extrabold text-text">
+          <div className="flex items-center gap-2">
+            <div className="bg-black rounded px-3 py-1.5 text-center border border-charcoal">
+              <div className="text-xs font-bold text-white font-mono">
                 {company.hiring2024 != null ? company.hiring2024.toLocaleString() : '—'}
               </div>
-              <div className="text-[10px] text-text-muted flex items-center justify-center gap-[2px]">
-                Hires &lsquo;24{' '}
-                <span className={`font-bold ${TREND_COLOR[company.trend]}`}>
-                  {TREND_ICON[company.trend]}
-                </span>
+              <div className="text-[10px] text-silver uppercase tracking-[0.5px] flex items-center justify-center gap-1">
+                Hires &lsquo;24 <span className="font-bold text-volt">{TREND_ICON[company.trend]}</span>
               </div>
             </div>
-            <div className="bg-surface-2 rounded-xl px-[12px] py-[8px] text-center border border-border/60">
-              <div className="text-[13px] font-extrabold text-text">{company.openRoles}+</div>
-              <div className="text-[10px] text-text-muted">Open Roles</div>
+            <div className="bg-black rounded px-3 py-1.5 text-center border border-charcoal">
+              <div className="text-xs font-bold text-white font-mono">{company.openRoles}+</div>
+              <div className="text-[10px] text-silver uppercase tracking-[0.5px]">Open Roles</div>
             </div>
-            <div className="bg-surface-2 rounded-xl px-[12px] py-[8px] text-center border border-border/60">
-              <div className="text-[13px] font-extrabold text-text">⭐ {company.glassdoor}</div>
-              <div className="text-[10px] text-text-muted">Glassdoor</div>
+            <div className="bg-black rounded px-3 py-1.5 text-center border border-charcoal">
+              <div className="text-xs font-bold text-white font-mono">★ {company.glassdoor}</div>
+              <div className="text-[10px] text-silver uppercase tracking-[0.5px]">Glassdoor</div>
             </div>
           </div>
 
           {/* Compare with another company button */}
           <Link
             to={`/tools/company-compare?c1=${company.id}`}
-            className="flex items-center gap-[6px] px-[14px] py-[9px] rounded-xl border border-primary/30 bg-primary/5 hover:bg-primary/10 text-primary font-semibold text-[13px] transition-colors"
+            className="flex items-center gap-1.5 px-3 py-2 rounded bg-black hover:bg-hover-gray border border-charcoal hover:border-volt text-white font-semibold text-xs uppercase tracking-[1px] transition-colors"
           >
-            <Building2 className="w-4 h-4" />
-            Compare with another company...
+            <Building2 className="w-3.5 h-3.5 text-volt stroke-[1.5px]" />
+            <span>Compare</span>
           </Link>
 
           {/* Decode offer link */}
           <Link
             to={`/tools/offer-decoder?company=${company.id}`}
-            className="flex items-center gap-[6px] px-[14px] py-[9px] rounded-xl border border-emerald-500/30 bg-emerald-500/5 hover:bg-emerald-500/10 text-emerald-400 font-semibold text-[13px] transition-colors"
+            className="flex items-center gap-1.5 px-3 py-2 rounded bg-black hover:bg-hover-gray border border-charcoal hover:border-volt text-white font-semibold text-xs uppercase tracking-[1px] transition-colors"
           >
-            <DollarSign className="w-4 h-4" />
-            Have an offer? Decode it...
+            <DollarSign className="w-3.5 h-3.5 text-volt stroke-[1.5px]" />
+            <span>Decode Offer</span>
           </Link>
 
           {/* Back to Companies Button */}
           <button
             onClick={onChangeCompany}
-            className="flex items-center gap-[6px] px-[14px] py-[9px] rounded-xl border border-border text-text hover:bg-surface-2 font-medium text-[13px] transition-colors cursor-pointer"
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded bg-black hover:bg-hover-gray border border-charcoal hover:border-volt text-silver hover:text-white font-semibold text-xs uppercase tracking-[1px] transition-colors cursor-pointer"
           >
-            <ArrowLeft className="w-4 h-4 text-text-secondary" />
-            Change Company
+            <ArrowLeft className="w-3.5 h-3.5 stroke-[1.5px]" />
+            <span>Change Company</span>
           </button>
         </div>
       </div>

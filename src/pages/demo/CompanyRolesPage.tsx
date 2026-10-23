@@ -244,18 +244,18 @@ export function CompanyRolesPage() {
   // Unknown company state
   if (!company) {
     return (
-      <div className="min-h-screen bg-bg">
+      <div className="min-h-screen bg-black text-white">
         <PublicNavbar />
-        <div className="max-w-[800px] mx-auto px-[24px] py-[120px] text-center">
-          <div className="bg-surface border border-border rounded-2xl p-[40px] shadow-md">
-            <Building2 className="w-[48px] h-[48px] text-text-muted mx-auto mb-[16px]" />
-            <h1 className="text-[24px] font-bold text-text mb-[8px]">Company Not Found</h1>
-            <p className="text-[14px] text-text-secondary mb-[24px]">
+        <div className="max-w-[800px] mx-auto px-6 py-[120px] text-center">
+          <div className="bg-[#141414] border border-charcoal rounded-lg p-10">
+            <Building2 className="w-12 h-12 text-silver mx-auto mb-4" />
+            <h1 className="text-2xl font-bold text-white mb-2">Company Not Found</h1>
+            <p className="text-sm text-silver mb-6">
               We couldn't find a company profile matching &ldquo;{companySlug}&rdquo;. It may have been renamed or moved.
             </p>
             <Link
               to="/demo"
-              className="inline-flex items-center gap-[8px] px-[20px] py-[10px] rounded-xl bg-primary text-white font-bold text-[13px] hover:bg-primary-hover transition-colors"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded bg-volt text-[#151515] font-bold text-xs hover:bg-[#1a1a1a] hover:text-volt border border-volt transition-colors"
             >
               <ArrowLeft className="w-4 h-4" /> Back to Company Directory
             </Link>
@@ -269,97 +269,77 @@ export function CompanyRolesPage() {
   const activeStep = isAnalysisView ? 3 : 2;
 
   return (
-    <div className="min-h-screen bg-bg">
+    <div className="min-h-screen bg-black text-white">
       <PublicNavbar />
 
-      <div className="max-w-[1400px] mx-auto px-[24px] py-[88px] page-enter">
+      <div className="max-w-[1400px] mx-auto px-6 py-[88px] page-enter">
         {/* Hero headline */}
-        <div className="text-center mb-[36px] max-w-[900px] mx-auto">
-          <div className="inline-flex items-center gap-[10px] px-[16px] py-[7px] bg-ai-light border border-ai/25 rounded-full text-[13px] font-semibold text-ai mb-[16px]">
-            <Brain className="w-[14px] h-[14px]" />
+        <div className="text-center mb-9 max-w-[900px] mx-auto">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#141414] border border-charcoal rounded text-xs font-mono uppercase tracking-wider text-volt mb-4">
+            <Brain className="w-3.5 h-3.5 text-volt" />
             TalentLens™ · Placement Readiness &amp; Career Fit
           </div>
-          <h1 className="text-[36px] md:text-[46px] font-extrabold text-text mb-[10px] tracking-[-0.03em] leading-[1.1]">
-            Where do I fit at <span className="gradient-text">{company.name}</span>?
+          <h1 className="text-3xl md:text-5xl font-black text-white mb-3 tracking-tight leading-tight">
+            Where do I fit at <span className="text-volt">{company.name}</span>?
           </h1>
-          <p className="text-[15px] text-text-secondary leading-[24px]">
+          <p className="text-sm text-silver leading-relaxed max-w-2xl mx-auto">
             An evidence-first placement-readiness platform that helps students understand which roles and company paths fit their current profile, identify missing evidence, improve their resume, and follow a practical preparation plan.
           </p>
         </div>
 
         {/* 3-Step Progress Indicator */}
-        <div className="flex items-center justify-center gap-0 mb-[36px]">
-          {[
-            { n: 1, label: 'Your Resume', to: '/demo' },
-            { n: 2, label: 'Company & Role', onClick: handleBackToRoles },
-            { n: 3, label: 'AI Analysis', disabled: !result },
-          ].map((s, i) => (
-            <div key={s.n} className="flex items-center">
-              {s.n === 1 ? (
-                <Link
-                  to="/demo"
-                  className={`flex items-center gap-[8px] px-[18px] py-[9px] rounded-xl font-semibold text-[13px] transition-all ${
-                    resumeText.trim()
-                      ? 'bg-success/15 text-success border border-success/30 hover:bg-success/20'
-                      : 'bg-surface border border-border text-text-secondary'
-                  }`}
-                >
-                  <span className="w-[20px] h-[20px] rounded-full flex items-center justify-center text-[11px] font-bold bg-success/20">
-                    ✓
-                  </span>
-                  {s.label}
-                </Link>
-              ) : s.n === 2 ? (
-                <button
-                  onClick={s.onClick}
-                  className={`flex items-center gap-[8px] px-[18px] py-[9px] rounded-xl font-semibold text-[13px] transition-all cursor-pointer ${
-                    activeStep === 2
-                      ? 'bg-text text-bg shadow-md'
-                      : 'bg-success/15 text-success border border-success/30'
-                  }`}
-                >
-                  <span
-                    className={`w-[20px] h-[20px] rounded-full flex items-center justify-center text-[11px] font-bold ${
-                      activeStep === 2 ? 'bg-white/20' : 'bg-success/20'
+        <div className="flex items-center justify-center gap-2 mb-9">
+          <div className="inline-flex items-center bg-[#141414] border border-charcoal rounded p-1 gap-1">
+            {[
+              { n: 1, label: '1. Your Resume', to: '/demo' },
+              { n: 2, label: '2. Company & Role', onClick: handleBackToRoles },
+              { n: 3, label: '3. AI Analysis', disabled: !result },
+            ].map((s) => (
+              <React.Fragment key={s.n}>
+                {s.n === 1 ? (
+                  <Link
+                    to="/demo"
+                    className={`flex items-center gap-2 px-4 py-2 rounded font-mono text-xs uppercase tracking-wider transition-all ${
+                      resumeText.trim()
+                        ? 'bg-black text-volt border border-charcoal hover:border-volt'
+                        : 'text-silver hover:text-white'
                     }`}
                   >
-                    {activeStep > 2 ? '✓' : 2}
-                  </span>
-                  {s.label}
-                </button>
-              ) : (
-                <button
-                  disabled={s.disabled}
-                  onClick={() => {
-                    if (result) setSearchParams({ view: 'analysis' });
-                  }}
-                  className={`flex items-center gap-[8px] px-[18px] py-[9px] rounded-xl font-semibold text-[13px] transition-all cursor-pointer ${
-                    activeStep === 3
-                      ? 'bg-text text-bg shadow-md'
-                      : result
-                      ? 'bg-surface border border-border text-text hover:border-primary/50'
-                      : 'bg-surface border border-border text-text-muted opacity-50 cursor-not-allowed'
-                  }`}
-                >
-                  <span
-                    className={`w-[20px] h-[20px] rounded-full flex items-center justify-center text-[11px] font-bold ${
-                      activeStep === 3 ? 'bg-white/20' : 'bg-border'
+                    <span className="text-volt font-bold">✓</span>
+                    {s.label}
+                  </Link>
+                ) : s.n === 2 ? (
+                  <button
+                    onClick={s.onClick}
+                    className={`flex items-center gap-2 px-4 py-2 rounded font-mono text-xs uppercase tracking-wider transition-all cursor-pointer ${
+                      activeStep === 2
+                        ? 'bg-volt text-[#151515] font-bold'
+                        : 'bg-black text-volt border border-charcoal'
                     }`}
                   >
-                    3
-                  </span>
-                  {s.label}
-                </button>
-              )}
-              {i < 2 && (
-                <div
-                  className={`w-[32px] h-[2px] mx-[2px] rounded-full ${
-                    activeStep > s.n ? 'bg-success' : 'bg-border'
-                  }`}
-                />
-              )}
-            </div>
-          ))}
+                    <span>{activeStep > 2 ? '✓' : ''}</span>
+                    {s.label}
+                  </button>
+                ) : (
+                  <button
+                    disabled={s.disabled}
+                    onClick={() => {
+                      if (result) setSearchParams({ view: 'analysis' });
+                    }}
+                    className={`flex items-center gap-2 px-4 py-2 rounded font-mono text-xs uppercase tracking-wider transition-all cursor-pointer ${
+                      activeStep === 3
+                        ? 'bg-volt text-[#151515] font-bold'
+                        : result
+                        ? 'bg-black text-silver border border-charcoal hover:border-volt hover:text-white'
+                        : 'text-silver/40 cursor-not-allowed'
+                    }`}
+                  >
+                    {s.label}
+                  </button>
+                )}
+              </React.Fragment>
+            ))}
+          </div>
         </div>
 
         {/* Company Header Card */}
@@ -367,58 +347,38 @@ export function CompanyRolesPage() {
 
         {/* ── STEP 2: COMPANY ROLES VIEW ── */}
         {!isAnalysisView && (
-          <div className="flex flex-col lg:flex-row items-start gap-[24px]">
+          <div className="flex flex-col lg:flex-row items-start gap-6">
             {/* Roles Column */}
             <div className="flex-1 w-full min-w-0">
               {/* Segmented Control: Fresher vs Experienced */}
-              <div className="grid grid-cols-2 gap-2 p-1.5 bg-surface-2/90 border border-border/80 rounded-2xl mb-4 shadow-xs">
+              <div className="grid grid-cols-2 gap-2 p-1 bg-[#141414] border border-charcoal rounded-lg mb-4">
                 <button
                   type="button"
                   onClick={() => setRoleMode('fresher')}
-                  className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                  className={`flex items-center justify-center gap-2 py-2.5 px-4 rounded text-xs font-bold font-mono uppercase tracking-wider transition-all cursor-pointer ${
                     roleMode === 'fresher'
-                      ? 'bg-black text-white dark:bg-white dark:text-black shadow-md font-extrabold ring-1 ring-black/10'
-                      : 'text-text-secondary hover:text-text hover:bg-surface/60'
+                      ? 'bg-black text-volt border border-volt'
+                      : 'text-silver hover:text-white hover:bg-black/50'
                   }`}
                 >
-                  <GraduationCap
-                    className={`w-4 h-4 ${
-                      roleMode === 'fresher' ? 'text-amber-400 dark:text-amber-500' : 'text-text-muted'
-                    }`}
-                  />
-                  <span className="tracking-tight">Fresher / Campus ('26-27)</span>
-                  <span
-                    className={`px-2 py-0.5 rounded-full text-[11px] font-mono font-bold ${
-                      roleMode === 'fresher'
-                        ? 'bg-white/20 text-white dark:bg-black/15 dark:text-black'
-                        : 'bg-surface-3 text-text-muted border border-border'
-                    }`}
-                  >
+                  <GraduationCap className={`w-4 h-4 ${roleMode === 'fresher' ? 'text-volt' : 'text-silver'}`} />
+                  <span>Fresher / Campus ('26-27)</span>
+                  <span className="px-1.5 py-0.5 rounded text-[10px] bg-[#141414] text-silver border border-charcoal">
                     {companyPrograms.length}
                   </span>
                 </button>
                 <button
                   type="button"
                   onClick={() => setRoleMode('experienced')}
-                  className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                  className={`flex items-center justify-center gap-2 py-2.5 px-4 rounded text-xs font-bold font-mono uppercase tracking-wider transition-all cursor-pointer ${
                     roleMode === 'experienced'
-                      ? 'bg-black text-white dark:bg-white dark:text-black shadow-md font-extrabold ring-1 ring-black/10'
-                      : 'text-text-secondary hover:text-text hover:bg-surface/60'
+                      ? 'bg-black text-volt border border-volt'
+                      : 'text-silver hover:text-white hover:bg-black/50'
                   }`}
                 >
-                  <Briefcase
-                    className={`w-4 h-4 ${
-                      roleMode === 'experienced' ? 'text-sky-400 dark:text-sky-500' : 'text-text-muted'
-                    }`}
-                  />
-                  <span className="tracking-tight">Experienced Lateral Roles</span>
-                  <span
-                    className={`px-2 py-0.5 rounded-full text-[11px] font-mono font-bold ${
-                      roleMode === 'experienced'
-                        ? 'bg-white/20 text-white dark:bg-black/15 dark:text-black'
-                        : 'bg-surface-3 text-text-muted border border-border'
-                    }`}
-                  >
+                  <Briefcase className={`w-4 h-4 ${roleMode === 'experienced' ? 'text-volt' : 'text-silver'}`} />
+                  <span>Experienced Lateral Roles</span>
+                  <span className="px-1.5 py-0.5 rounded text-[10px] bg-[#141414] text-silver border border-charcoal">
                     {company.roles.length}
                   </span>
                 </button>
@@ -426,18 +386,18 @@ export function CompanyRolesPage() {
 
               {/* Search if company has more than 8 roles */}
               {company.roles.length > 8 && (
-                <div className="relative mb-[16px]">
-                  <Search className="absolute left-[14px] top-1/2 -translate-y-1/2 w-[16px] h-[16px] text-text-secondary" />
+                <div className="relative mb-4">
+                  <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-silver" />
                   <input
                     value={roleSearch}
                     onChange={(e) => setRoleSearch(e.target.value)}
                     placeholder={`Search ${company.roles.length} roles at ${company.name}...`}
-                    className="w-full pl-[40px] pr-[14px] h-[42px] bg-surface border border-border rounded-xl text-[13px] text-text focus:outline-none focus:border-primary/50 transition-colors shadow-sm"
+                    className="w-full pl-10 pr-14 h-10 bg-[#141414] border border-charcoal rounded text-xs text-white placeholder:text-silver focus:outline-none focus:border-volt transition-colors"
                   />
                   {roleSearch && (
                     <button
                       onClick={() => setRoleSearch('')}
-                      className="absolute right-[12px] top-1/2 -translate-y-1/2 text-[11px] text-text-muted hover:text-text cursor-pointer"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-mono text-silver hover:text-volt cursor-pointer"
                     >
                       Clear
                     </button>
@@ -450,20 +410,20 @@ export function CompanyRolesPage() {
                 <div className="space-y-4">
                   {/* Candidate Quick Eligibility Filter Bar */}
                   {companyPrograms.length > 0 && (
-                    <div className="p-3.5 bg-surface border border-border rounded-2xl flex flex-wrap items-center justify-between gap-3 text-xs">
+                    <div className="p-3.5 bg-[#141414] border border-charcoal rounded-lg flex flex-wrap items-center justify-between gap-3 text-xs">
                       <div className="flex items-center gap-2">
-                        <span className="font-bold text-text">Verify My Eligibility:</span>
-                        <span className="text-[11px] text-text-secondary">
+                        <span className="font-bold text-white font-mono uppercase text-xs">Verify Eligibility:</span>
+                        <span className="text-xs text-silver">
                           Live evaluation against 2026-27 campus hiring criteria
                         </span>
                       </div>
                       <div className="flex items-center gap-2 flex-wrap">
-                        <div className="flex items-center gap-1">
-                          <span className="text-[11px] text-text-muted">Branch:</span>
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-xs text-silver font-mono">Branch:</span>
                           <select
                             value={candidateBranch}
                             onChange={(e) => setCandidateBranch(e.target.value)}
-                            className="bg-surface-2 border border-border rounded-lg px-2 py-1 text-xs font-semibold text-text outline-none"
+                            className="bg-black border border-charcoal rounded px-2 py-1 text-xs font-mono text-white outline-none focus:border-volt"
                           >
                             <option value="cs">CS</option>
                             <option value="it">IT</option>
@@ -473,12 +433,12 @@ export function CompanyRolesPage() {
                             <option value="civil">CIVIL</option>
                           </select>
                         </div>
-                        <div className="flex items-center gap-1">
-                          <span className="text-[11px] text-text-muted">CGPA:</span>
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-xs text-silver font-mono">CGPA:</span>
                           <select
                             value={candidateCgpa}
                             onChange={(e) => setCandidateCgpa(parseFloat(e.target.value))}
-                            className="bg-surface-2 border border-border rounded-lg px-2 py-1 text-xs font-semibold text-text outline-none"
+                            className="bg-black border border-charcoal rounded px-2 py-1 text-xs font-mono text-white outline-none focus:border-volt"
                           >
                             <option value="9.0">≥ 9.0</option>
                             <option value="8.0">≥ 8.0</option>
@@ -488,12 +448,12 @@ export function CompanyRolesPage() {
                             <option value="6.0">≥ 6.0</option>
                           </select>
                         </div>
-                        <div className="flex items-center gap-1">
-                          <span className="text-[11px] text-text-muted">Backlogs:</span>
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-xs text-silver font-mono">Backlogs:</span>
                           <select
                             value={candidateBacklogs}
                             onChange={(e) => setCandidateBacklogs(parseInt(e.target.value, 10))}
-                            className="bg-surface-2 border border-border rounded-lg px-2 py-1 text-xs font-semibold text-text outline-none"
+                            className="bg-black border border-charcoal rounded px-2 py-1 text-xs font-mono text-white outline-none focus:border-volt"
                           >
                             <option value="0">0 Active</option>
                             <option value="1">1 Active</option>
@@ -506,20 +466,20 @@ export function CompanyRolesPage() {
 
                   {/* Empty state: No campus programs */}
                   {companyPrograms.length === 0 && (
-                    <div className="p-8 rounded-2xl bg-surface border border-border text-center space-y-3">
-                      <div className="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-400 mx-auto flex items-center justify-center">
-                        <Info className="w-6 h-6" />
+                    <div className="p-8 rounded-lg bg-[#141414] border border-charcoal text-center space-y-3">
+                      <div className="w-10 h-10 rounded bg-black border border-charcoal text-pale-yellow mx-auto flex items-center justify-center">
+                        <Info className="w-5 h-5" />
                       </div>
-                      <h4 className="text-base font-bold text-foreground">
+                      <h4 className="text-base font-bold text-white">
                         No General Fresher / Campus Intake for {company.name}
                       </h4>
-                      <p className="text-xs text-text-secondary max-w-md mx-auto leading-relaxed">
+                      <p className="text-xs text-silver max-w-md mx-auto leading-relaxed">
                         {company.name} engineering hires strictly lateral senior roles in India. There is no open campus graduate intake program.
                       </p>
                       <button
                         type="button"
                         onClick={() => setRoleMode('experienced')}
-                        className="px-5 py-2 rounded-xl bg-primary text-white text-xs font-bold hover:bg-primary-hover transition-colors shadow-sm cursor-pointer"
+                        className="px-5 py-2 rounded bg-volt text-[#151515] font-bold text-xs hover:bg-[#1a1a1a] hover:text-volt border border-volt transition-colors cursor-pointer"
                       >
                         Explore Experienced Roles ({company.roles.length})
                       </button>
@@ -557,7 +517,7 @@ export function CompanyRolesPage() {
 
               {/* ── EXPERIENCED MODE VIEW ── */}
               {roleMode === 'experienced' && (
-                <div className="space-y-[10px]">
+                <div className="space-y-3">
                   {filteredRoles.map((role) => {
                     const isSelected = selectedRole?.title === role.title;
                     return (
@@ -575,17 +535,17 @@ export function CompanyRolesPage() {
                   })}
 
                   {filteredRoles.length === 0 && (
-                    <div className="text-center py-[48px] bg-surface border border-border rounded-2xl p-[24px]">
-                      <Briefcase className="w-[32px] h-[32px] text-text-muted mx-auto mb-[10px]" />
-                      <h4 className="text-[14px] font-bold text-text mb-[4px]">
+                    <div className="text-center py-12 bg-[#141414] border border-charcoal rounded-lg p-6">
+                      <Briefcase className="w-8 h-8 text-silver mx-auto mb-2" />
+                      <h4 className="text-sm font-bold text-white mb-1">
                         No matching roles found
                       </h4>
-                      <p className="text-[12px] text-text-secondary mb-[14px]">
+                      <p className="text-xs text-silver mb-3">
                         No roles at {company.name} match &ldquo;{roleSearch}&rdquo;.
                       </p>
                       <button
                         onClick={() => setRoleSearch('')}
-                        className="text-primary font-semibold text-[12px] underline cursor-pointer"
+                        className="text-volt font-mono text-xs hover:underline cursor-pointer"
                       >
                         Show all {company.roles.length} roles
                       </button>
@@ -623,7 +583,7 @@ export function CompanyRolesPage() {
         )}
 
         {/* 4-Stat Strip at bottom */}
-        <div className="mt-[56px] grid grid-cols-2 md:grid-cols-4 gap-[14px] border-t border-border pt-[40px]">
+        <div className="mt-14 grid grid-cols-2 md:grid-cols-4 gap-4 border-t border-charcoal pt-10">
           {[
             {
               icon: Building2,
@@ -652,15 +612,15 @@ export function CompanyRolesPage() {
           ].map((s) => (
             <div
               key={s.label}
-              className="bg-surface border border-border rounded-2xl p-[16px] flex items-center gap-[12px]"
+              className="bg-[#141414] border border-charcoal rounded-lg p-4 flex items-center gap-3"
             >
-              <div className="w-[40px] h-[40px] rounded-xl bg-primary-light border border-primary/20 flex items-center justify-center flex-shrink-0">
-                <s.icon className="w-[18px] h-[18px] text-primary" />
+              <div className="w-10 h-10 rounded bg-black border border-charcoal flex items-center justify-center flex-shrink-0">
+                <s.icon className="w-5 h-5 text-volt" />
               </div>
               <div>
-                <div className="text-[18px] font-extrabold text-text">{s.value}</div>
-                <div className="text-[12px] font-semibold text-text">{s.label}</div>
-                <div className="text-[11px] text-text-muted">{s.sub}</div>
+                <div className="text-xl font-bold font-mono text-white">{s.value}</div>
+                <div className="text-xs font-mono uppercase text-silver">{s.label}</div>
+                <div className="text-[11px] text-silver/60">{s.sub}</div>
               </div>
             </div>
           ))}

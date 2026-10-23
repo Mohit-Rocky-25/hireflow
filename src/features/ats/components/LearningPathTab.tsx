@@ -15,7 +15,7 @@ import {
   ShieldCheck,
   FileCode,
 } from 'lucide-react';
-import { AtsEngineResult, LearningPathItem } from '../engine/types';
+import { AtsEngineResult } from '../engine/types';
 import { ResumeRewritesSection } from './ResumeRewritesSection';
 import { generateActionabilityPlan } from '../../../data/curriculum/actionabilityEngine';
 import { ActionabilityPlanPanel } from '../../../components/common/ActionabilityPlanPanel';
@@ -87,40 +87,40 @@ export const LearningPathTab: React.FC<LearningPathTabProps> = ({ result }) => {
 
   return (
     <div className="space-y-8 animate-fade-in">
-      {/* Stage 5 Actionability Plan (Ranked by Impact-per-Effort) */}
+      {/* Stage 5 Actionability Plan */}
       <ActionabilityPlanPanel plan={actionabilityPlan} />
 
       {/* Overview & Progress Card */}
-      <div className="bg-surface rounded-[16px] p-6 border border-border shadow-xs">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-border/70">
+      <div className="bg-near-black rounded-lg p-6 border border-charcoal shadow-level-1">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-charcoal">
           <div>
             <div className="flex items-center gap-2">
-              <Layers className="w-5 h-5 text-primary" />
-              <h3 className="text-lg font-bold text-text">Prerequisite-Ordered Learning Path</h3>
+              <Layers className="w-5 h-5 text-volt stroke-[1.5px]" />
+              <h3 className="text-lg font-bold text-white uppercase tracking-tight">Prerequisite-Ordered Learning Path</h3>
             </div>
-            <p className="text-xs text-text-secondary mt-1">
+            <p className="text-xs text-silver mt-1">
               Topological progression ordered by prerequisite dependencies and recruiter scoring weight.
             </p>
           </div>
 
-          <div className="flex items-center gap-3 bg-slate-50 px-4 py-2.5 rounded-[12px] border border-slate-200/90 shadow-2xs">
+          <div className="flex items-center gap-3 bg-black px-4 py-2 rounded border border-charcoal">
             <div className="text-right">
-              <p className="text-[11px] font-bold text-slate-500 uppercase">Acquisition Progress</p>
-              <p className="text-sm font-extrabold text-slate-900">
+              <p className="text-[11px] font-semibold text-silver uppercase tracking-[1.4px]">Acquisition Progress</p>
+              <p className="text-sm font-bold text-white">
                 {completedCount} of {learningPath.totalSkillsToAcquire} Mastered
               </p>
             </div>
-            <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-primary/10 text-primary">
+            <span className="text-xs font-mono font-bold px-2 py-0.5 rounded bg-near-black text-volt border border-volt/60">
               {progressPercent}%
             </span>
           </div>
         </div>
 
-        {/* Progress Bar */}
+        {/* Progress Bar (2px thin neon meter) */}
         <div className="pt-4">
-          <div className="w-full h-2 rounded-full bg-slate-100 overflow-hidden border border-slate-200">
+          <div className="w-full h-[2px] rounded-full bg-black overflow-hidden border border-charcoal">
             <div
-              className="h-full bg-primary rounded-full transition-all duration-300"
+              className="h-full bg-volt transition-all duration-300"
               style={{ width: `${progressPercent}%` }}
             />
           </div>
@@ -132,12 +132,12 @@ export const LearningPathTab: React.FC<LearningPathTabProps> = ({ result }) => {
         if (stg.items.length === 0) return null;
         return (
           <div key={stg.title} className="space-y-4">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between pb-2 border-b border-charcoal">
               <div>
-                <h4 className="text-base font-bold text-slate-900 tracking-tight">{stg.title}</h4>
-                <p className="text-xs text-slate-500">{stg.desc}</p>
+                <h4 className="text-base font-bold text-white uppercase tracking-tight">{stg.title}</h4>
+                <p className="text-xs text-silver">{stg.desc}</p>
               </div>
-              <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200">
+              <span className="text-xs font-semibold text-silver uppercase tracking-[1.2px] px-2.5 py-0.5 rounded bg-black border border-charcoal">
                 {stg.items.length} {stg.items.length === 1 ? 'skill' : 'skills'}
               </span>
             </div>
@@ -150,10 +150,10 @@ export const LearningPathTab: React.FC<LearningPathTabProps> = ({ result }) => {
                 return (
                   <div
                     key={item.skillId}
-                    className={`rounded-[14px] border transition-all ${
+                    className={`rounded-lg border transition-colors ${
                       isDone
-                        ? 'bg-slate-50/70 border-border/60 opacity-80'
-                        : 'bg-surface border-border shadow-2xs hover:border-border-strong'
+                        ? 'bg-black border-charcoal opacity-70'
+                        : 'bg-near-black border-charcoal hover:border-volt/60'
                     }`}
                   >
                     {/* Collapsible Card Header */}
@@ -168,68 +168,64 @@ export const LearningPathTab: React.FC<LearningPathTabProps> = ({ result }) => {
                             e.stopPropagation();
                             toggleComplete(item.skillId);
                           }}
-                          className="text-slate-400 hover:text-primary transition-colors cursor-pointer shrink-0"
+                          className="text-silver hover:text-volt transition-colors cursor-pointer shrink-0"
                           title={isDone ? 'Mark as incomplete' : 'Mark as learned'}
                         >
                           {isDone ? (
-                            <CheckCircle2 className="w-5 h-5 text-emerald-600" />
+                            <CheckCircle2 className="w-5 h-5 text-volt stroke-[1.5px]" />
                           ) : (
-                            <Circle className="w-5 h-5" />
+                            <Circle className="w-5 h-5 stroke-[1.5px]" />
                           )}
                         </button>
 
-                        <div className="w-6 h-6 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-xs font-bold text-slate-700 shrink-0">
+                        <div className="w-6 h-6 rounded bg-black border border-charcoal flex items-center justify-center text-xs font-mono font-bold text-volt shrink-0">
                           {item.stageOrder}
                         </div>
 
                         <div className="min-w-0">
                           <div className="flex flex-wrap items-center gap-2">
-                            <span className={`text-sm font-bold truncate ${isDone ? 'line-through text-slate-400' : 'text-slate-900'}`}>
+                            <span className={`text-sm font-bold truncate ${isDone ? 'line-through text-silver' : 'text-white'}`}>
                               {item.canonical}
                             </span>
-                            <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
-                              item.required === 'must'
-                                ? 'bg-amber-50 text-amber-700 border border-amber-200'
-                                : 'bg-slate-100 text-slate-700 border border-slate-200'
-                            }`}>
+                            <span className="text-[10px] font-semibold uppercase tracking-[1px] px-2 py-0.5 rounded bg-black text-silver border border-charcoal">
                               {item.required === 'must' ? 'Must-Have' : 'Differentiator'}
                             </span>
-                            <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                            <span className={`text-[10px] font-semibold uppercase tracking-[1px] px-2 py-0.5 rounded ${
                               item.status === 'missing'
-                                ? 'bg-rose-50 text-rose-700 border border-rose-200'
-                                : 'bg-amber-50 text-amber-700 border border-amber-200'
+                                ? 'bg-black text-danger border border-danger/60'
+                                : 'bg-black text-pale-yellow border border-pale-yellow/60'
                             }`}>
                               {item.status === 'missing' ? 'Missing' : 'Weak Evidence'}
                             </span>
                           </div>
-                          <p className="text-xs text-slate-600 truncate mt-0.5">
+                          <p className="text-xs text-silver truncate mt-0.5">
                             {item.whyItMatters}
                           </p>
                         </div>
                       </div>
 
-                      <div className="shrink-0 text-slate-400">
-                        {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                      <div className="shrink-0 text-silver">
+                        {isExpanded ? <ChevronUp className="w-4 h-4 stroke-[1.5px]" /> : <ChevronDown className="w-4 h-4 stroke-[1.5px]" />}
                       </div>
                     </div>
 
                     {/* Expanded Content Drawer */}
                     {isExpanded && (
-                      <div className="px-4 pb-5 sm:px-5 sm:pb-6 pt-1 border-t border-border/70 space-y-4">
+                      <div className="px-4 pb-5 sm:px-5 sm:pb-6 pt-3 border-t border-charcoal space-y-4 bg-black rounded-b-lg">
                         {/* Order Rationale */}
-                        <div className="p-3 rounded-[10px] bg-slate-50 text-xs text-slate-700 border border-slate-200/90 shadow-2xs">
-                          <span className="font-bold text-slate-900">Sequence Rationale: </span>
+                        <div className="p-3 rounded bg-near-black text-xs text-silver border border-charcoal">
+                          <span className="font-bold text-white uppercase tracking-[1px]">Sequence Rationale: </span>
                           {item.orderRationale}
                         </div>
 
                         {/* 3 Concrete Steps */}
                         <div className="space-y-2">
-                          <p className="text-xs font-bold text-slate-900 uppercase tracking-wider">3-Step Mastery Sequence</p>
+                          <p className="text-xs font-bold text-white uppercase tracking-[1.4px]">3-Step Mastery Sequence</p>
                           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                             {item.steps.map((st) => (
-                              <div key={st.stepNumber} className="p-3.5 rounded-[12px] bg-surface-alt border border-border/70 text-xs space-y-1">
-                                <span className="font-bold text-primary">Step {st.stepNumber}: {st.title}</span>
-                                <p className="text-slate-600 leading-relaxed">{st.action}</p>
+                              <div key={st.stepNumber} className="p-3.5 rounded bg-near-black border border-charcoal text-xs space-y-1">
+                                <span className="font-bold text-volt uppercase tracking-[1px]">Step {st.stepNumber}: {st.title}</span>
+                                <p className="text-silver leading-relaxed">{st.action}</p>
                               </div>
                             ))}
                           </div>
@@ -238,38 +234,38 @@ export const LearningPathTab: React.FC<LearningPathTabProps> = ({ result }) => {
                         {/* Example Resume Bullet Template */}
                         <div className="space-y-1.5">
                           <div className="flex items-center justify-between">
-                            <span className="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center gap-1.5">
-                              <FileCode className="w-3.5 h-3.5 text-primary" /> Resume Bullet Template
+                            <span className="text-xs font-bold text-white uppercase tracking-[1.4px] flex items-center gap-1.5">
+                              <FileCode className="w-3.5 h-3.5 text-volt stroke-[1.5px]" /> Resume Bullet Template
                             </span>
                             <button
                               type="button"
                               onClick={() => copyToClipboard(item.exampleBullet, item.skillId)}
-                              className="text-[11px] font-bold text-primary hover:underline flex items-center gap-1 cursor-pointer"
+                              className="text-[11px] font-bold text-volt hover:underline flex items-center gap-1 cursor-pointer uppercase tracking-[1px]"
                             >
                               {copiedItem === item.skillId ? (
-                                <><Check className="w-3 h-3 text-emerald-600" /> Copied</>
+                                <><Check className="w-3 h-3 text-volt stroke-[1.5px]" /> Copied</>
                               ) : (
-                                <><Copy className="w-3 h-3" /> Copy Template</>
+                                <><Copy className="w-3 h-3 stroke-[1.5px]" /> Copy Template</>
                               )}
                             </button>
                           </div>
-                          <div className="p-3 rounded-[10px] bg-sky-50/70 text-slate-900 font-mono text-xs leading-relaxed border border-sky-200/90 shadow-2xs">
+                          <div className="p-3 rounded bg-near-black text-white font-mono text-xs leading-relaxed border border-charcoal">
                             {item.exampleBullet}
                           </div>
-                          <p className="text-[11px] text-text-tertiary">
+                          <p className="text-[11px] text-silver">
                             Fill bracketed tokens with your verified production data.
                           </p>
                         </div>
 
                         {/* Recruiter Evidence of Done */}
                         <div className="space-y-1.5">
-                          <span className="text-xs font-bold text-text uppercase tracking-wider flex items-center gap-1.5">
-                            <ShieldCheck className="w-3.5 h-3.5 text-success" /> Evidence of Done (Recruiter Checklist)
+                          <span className="text-xs font-bold text-white uppercase tracking-[1.4px] flex items-center gap-1.5">
+                            <ShieldCheck className="w-3.5 h-3.5 text-volt stroke-[1.5px]" /> Evidence of Done (Recruiter Checklist)
                           </span>
-                          <ul className="space-y-1 text-xs text-text-secondary pl-1">
+                          <ul className="space-y-1 text-xs text-silver pl-1">
                             {item.evidenceOfDone.map((ev, i) => (
                               <li key={i} className="flex items-start gap-2">
-                                <span className="text-success font-bold mt-0.5">✓</span>
+                                <span className="text-volt font-bold mt-0.5">✓</span>
                                 <span>{ev}</span>
                               </li>
                             ))}

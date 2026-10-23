@@ -7,20 +7,11 @@
 
 import React, { useState, useEffect } from 'react';
 import {
-  Calendar,
   CheckCircle2,
-  Clock,
-  Sparkles,
   ExternalLink,
   Copy,
   Check,
-  ChevronDown,
-  ChevronUp,
-  AlertCircle,
   TrendingUp,
-  BookOpen,
-  ArrowRight,
-  ShieldAlert,
 } from 'lucide-react';
 import {
   ActionabilityPlanResult,
@@ -28,7 +19,6 @@ import {
   CurriculumDomain,
 } from '../../data/curriculum/types';
 import { getCurriculumDomainById } from '../../data/curriculum/curriculumData';
-import { SourceChip } from './SourceChip';
 
 interface ActionabilityPlanPanelProps {
   plan: ActionabilityPlanResult;
@@ -78,24 +68,24 @@ export function ActionabilityPlanPanel({ plan, className = '' }: ActionabilityPl
       : plan.notClosableGaps;
 
   return (
-    <div className={`bg-surface border border-border rounded-2xl p-4 sm:p-6 shadow-xs ${className}`}>
+    <div className={`bg-near-black border border-charcoal rounded-lg p-4 sm:p-6 shadow-level-1 ${className}`}>
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-border">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-charcoal">
         <div>
           <div className="flex items-center gap-2">
-            <span className="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
-              <TrendingUp className="w-4 h-4" />
+            <span className="w-8 h-8 rounded bg-black border border-charcoal text-volt flex items-center justify-center shrink-0">
+              <TrendingUp className="w-4 h-4 stroke-[1.5px]" />
             </span>
-            <h3 className="text-base font-bold text-text">Actionability & Evidence-Building Plans</h3>
+            <h3 className="text-base font-bold text-white uppercase tracking-tight">Actionability &amp; Evidence-Building Plans</h3>
           </div>
-          <p className="text-xs text-text-muted mt-1">
+          <p className="text-xs text-silver mt-1">
             Grounded roadmaps ranked by impact-per-effort. Never claims a gap is "closed"; shows what builds verifiable proof.
           </p>
         </div>
 
         {/* Effort Tier Toggle */}
-        <div className="flex items-center gap-1.5 bg-surface-2 p-1 rounded-xl border border-border text-xs">
-          <span className="text-[10px] font-bold uppercase text-text-muted px-2 hidden sm:inline">Pace:</span>
+        <div className="flex items-center gap-1.5 bg-black p-1 rounded border border-charcoal text-xs">
+          <span className="text-[10px] font-bold uppercase tracking-[1px] text-silver px-2 hidden sm:inline">Pace:</span>
           {(
             [
               { id: 'at5HoursPerWeek', label: '5h / wk' },
@@ -106,10 +96,10 @@ export function ActionabilityPlanPanel({ plan, className = '' }: ActionabilityPl
             <button
               key={tier.id}
               onClick={() => setEffortTier(tier.id)}
-              className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-colors cursor-pointer ${
+              className={`px-2.5 py-1 rounded text-xs font-semibold uppercase tracking-[1px] transition-colors cursor-pointer ${
                 effortTier === tier.id
-                  ? 'bg-surface text-text font-bold shadow-2xs'
-                  : 'text-text-muted hover:text-text'
+                  ? 'bg-near-black text-volt border border-volt shadow-level-4 font-bold'
+                  : 'text-silver hover:text-white'
               }`}
             >
               {tier.label}
@@ -119,7 +109,7 @@ export function ActionabilityPlanPanel({ plan, className = '' }: ActionabilityPl
       </div>
 
       {/* Navigation Tabs */}
-      <div className="flex items-center gap-2 mt-4 overflow-x-auto pb-1 text-xs border-b border-border">
+      <div className="flex items-center gap-2 mt-4 overflow-x-auto pb-1 text-xs border-b border-charcoal">
         {[
           { id: '7days', label: `7-Day Quick Wins (${plan.sevenDayPlan.length})` },
           { id: '30days', label: `30-Day Proof Projects (${plan.thirtyDayPlan.length})` },
@@ -129,10 +119,10 @@ export function ActionabilityPlanPanel({ plan, className = '' }: ActionabilityPl
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id as any)}
-            className={`px-3 py-2 rounded-t-xl font-bold whitespace-nowrap transition-colors cursor-pointer border-b-2 ${
+            className={`px-3 py-2 font-bold whitespace-nowrap uppercase tracking-[1px] transition-colors cursor-pointer border-b-2 ${
               activeTab === tab.id
-                ? 'border-primary text-primary bg-primary/5'
-                : 'border-transparent text-text-muted hover:text-text'
+                ? 'border-volt text-volt bg-black'
+                : 'border-transparent text-silver hover:text-white'
             }`}
           >
             {tab.label}
@@ -143,12 +133,12 @@ export function ActionabilityPlanPanel({ plan, className = '' }: ActionabilityPl
       {/* Gap Items List */}
       <div className="mt-4 space-y-4 text-xs">
         {currentList.length === 0 ? (
-          <div className="p-8 text-center text-text-muted bg-surface-2/40 rounded-xl border border-border">
-            <CheckCircle2 className="w-6 h-6 text-emerald-500 mx-auto mb-2" />
-            <p className="font-semibold text-text">No outstanding gaps identified for this time window.</p>
+          <div className="p-8 text-center text-silver bg-black rounded-lg border border-charcoal">
+            <CheckCircle2 className="w-6 h-6 text-volt mx-auto mb-2 stroke-[1.5px]" />
+            <p className="font-semibold text-white">No outstanding gaps identified for this time window.</p>
           </div>
         ) : (
-          currentList.map((gap, index) => {
+          currentList.map((gap) => {
             const isDone = Boolean(completedGaps[gap.id]);
             const domain: CurriculumDomain | undefined = gap.curriculumDomainId
               ? getCurriculumDomainById(gap.curriculumDomainId)
@@ -157,10 +147,10 @@ export function ActionabilityPlanPanel({ plan, className = '' }: ActionabilityPl
             return (
               <div
                 key={gap.id}
-                className={`p-4 rounded-xl border transition-all ${
+                className={`p-4 rounded-lg border transition-colors ${
                   isDone
-                    ? 'bg-surface-2/30 border-border opacity-75'
-                    : 'bg-surface border-border hover:border-primary/40'
+                    ? 'bg-black border-charcoal opacity-70'
+                    : 'bg-black border-charcoal hover:border-volt/60'
                 }`}
               >
                 {/* Header Row */}
@@ -170,65 +160,65 @@ export function ActionabilityPlanPanel({ plan, className = '' }: ActionabilityPl
                       onClick={() => toggleComplete(gap.id)}
                       className={`mt-0.5 w-4 h-4 rounded border flex items-center justify-center transition-colors cursor-pointer ${
                         isDone
-                          ? 'bg-primary border-primary text-white'
-                          : 'border-border hover:border-primary'
+                          ? 'bg-black border-volt text-volt'
+                          : 'border-charcoal hover:border-volt text-transparent'
                       }`}
                     >
-                      {isDone && <Check className="w-3 h-3" />}
+                      {isDone && <Check className="w-3 h-3 stroke-[2px]" />}
                     </button>
                     <div>
                       <div className="flex items-center gap-2 flex-wrap">
-                        <span className={`font-bold text-sm ${isDone ? 'line-through text-text-muted' : 'text-text'}`}>
+                        <span className={`font-bold text-sm ${isDone ? 'line-through text-silver' : 'text-white'}`}>
                           {gap.title}
                         </span>
-                        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-surface-2 border border-border text-text-secondary">
+                        <span className="px-2 py-0.5 rounded text-[10px] font-semibold uppercase tracking-[1px] bg-near-black border border-charcoal text-silver">
                           {gap.closability}
                         </span>
                       </div>
-                      <p className="text-xs text-text-secondary mt-1">{gap.evidenceHeadline}</p>
+                      <p className="text-xs text-silver mt-1">{gap.evidenceHeadline}</p>
                     </div>
                   </div>
 
                   {/* What-If Projected Gain */}
                   {gap.hypotheticalScoreGain.max > 0 && (
-                    <span className="px-2.5 py-1 rounded-lg text-[11px] font-mono font-bold bg-emerald-950/40 text-emerald-300 border border-emerald-800/60 shrink-0">
+                    <span className="px-2.5 py-1 rounded text-[11px] font-mono font-bold bg-black text-volt border border-volt/60 shrink-0">
                       {gap.hypotheticalScoreGain.projectedRange}
                     </span>
                   )}
                 </div>
 
                 {/* Suggested Action */}
-                <div className="mt-3 bg-surface-2/50 p-3 rounded-lg border border-border space-y-2">
-                  <p className="text-xs text-text leading-relaxed">
-                    <strong>Recommended Action:</strong> {gap.suggestedAction}
+                <div className="mt-3 bg-near-black p-3 rounded border border-charcoal space-y-2">
+                  <p className="text-xs text-white leading-relaxed">
+                    <strong className="text-volt uppercase tracking-[1px]">Recommended Action:</strong> {gap.suggestedAction}
                   </p>
 
                   {/* Domain Checkpoints if Available */}
                   {domain && (
-                    <div className="mt-2 pt-2 border-t border-border/80 space-y-1.5">
-                      <div className="flex items-center justify-between text-[11px] text-text-muted">
-                        <span className="font-bold text-text-secondary">Deliverable Checkpoints:</span>
-                        <span>Estimated timeline: {domain.effortHours[effortTier]}</span>
+                    <div className="mt-2 pt-2 border-t border-charcoal space-y-1.5">
+                      <div className="flex items-center justify-between text-[11px] text-silver">
+                        <span className="font-bold text-white uppercase tracking-[1px]">Deliverable Checkpoints:</span>
+                        <span className="font-mono">Estimated timeline: {domain.effortHours[effortTier]}</span>
                       </div>
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                         {domain.checkpoints.map((cp, cpIdx) => (
-                          <div key={cpIdx} className="bg-surface p-2 rounded border border-border text-[11px]">
-                            <span className="font-bold text-text block mb-0.5">{cp.milestone.split(':')[0]}</span>
-                            <span className="text-text-muted leading-tight block">{cp.description}</span>
+                          <div key={cpIdx} className="bg-black p-2 rounded border border-charcoal text-[11px]">
+                            <span className="font-bold text-volt block mb-0.5">{cp.milestone.split(':')[0]}</span>
+                            <span className="text-silver leading-tight block">{cp.description}</span>
                           </div>
                         ))}
                       </div>
 
-                      {/* Verified Resources with Source Chips */}
+                      {/* Verified Resources */}
                       <div className="pt-2 flex items-center gap-2 flex-wrap">
-                        <span className="text-[10px] font-bold uppercase text-text-muted">Official Guides:</span>
+                        <span className="text-[10px] font-bold uppercase tracking-[1.4px] text-silver">Official Guides:</span>
                         {domain.resources.map((res, rIdx) => (
                           <a
                             key={rIdx}
                             href={res.url || '#'}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1 text-[11px] text-primary hover:underline"
+                            className="inline-flex items-center gap-1 text-[11px] text-white hover:text-volt hover:underline"
                           >
                             <span>{res.title}</span>
                             <ExternalLink className="w-2.5 h-2.5" />
@@ -240,14 +230,14 @@ export function ActionabilityPlanPanel({ plan, className = '' }: ActionabilityPl
 
                   {/* Alternative Pathways for Non-Closable */}
                   {gap.alternativesForNonClosable && (
-                    <div className="mt-2 pt-2 border-t border-border/80 space-y-1">
-                      <span className="font-bold text-amber-300 block text-[11px]">
+                    <div className="mt-2 pt-2 border-t border-charcoal space-y-1">
+                      <span className="font-bold text-pale-yellow block text-[11px] uppercase tracking-[1px]">
                         Realistic Strategy (Bypassing Pure Resume Screening):
                       </span>
                       <ul className="space-y-1 pl-1">
                         {gap.alternativesForNonClosable.map((alt, aIdx) => (
-                          <li key={aIdx} className="text-[11px] text-text flex items-start gap-1.5">
-                            <span className="text-primary font-bold">•</span>
+                          <li key={aIdx} className="text-[11px] text-silver flex items-start gap-1.5">
+                            <span className="text-volt font-bold">•</span>
                             <span>{alt}</span>
                           </li>
                         ))}
@@ -257,18 +247,18 @@ export function ActionabilityPlanPanel({ plan, className = '' }: ActionabilityPl
 
                   {/* Fillable Bullet Template (Never Invented Metrics) */}
                   {gap.bulletTemplate && (
-                    <div className="mt-2 pt-2 border-t border-border flex items-center justify-between gap-2 bg-surface p-2 rounded border border-border">
-                      <div className="font-mono text-[11px] text-text-secondary truncate">
-                        <strong className="text-primary">Resume Template:</strong> {gap.bulletTemplate}
+                    <div className="mt-2 pt-2 border-t border-charcoal flex items-center justify-between gap-2 bg-black p-2 rounded border border-charcoal">
+                      <div className="font-mono text-[11px] text-silver truncate">
+                        <strong className="text-volt">Resume Template:</strong> {gap.bulletTemplate}
                       </div>
                       <button
                         onClick={() => copyTemplate(gap.bulletTemplate!, gap.id)}
-                        className="px-2 py-1 bg-surface-2 hover:bg-surface border border-border rounded text-[11px] font-bold text-text transition-colors flex items-center gap-1 shrink-0 cursor-pointer"
+                        className="px-2 py-1 bg-near-black hover:bg-hover-gray border border-charcoal rounded text-[11px] font-bold uppercase tracking-[1px] text-white transition-colors flex items-center gap-1 shrink-0 cursor-pointer"
                         title="Copy bullet template with placeholders"
                       >
                         {copiedId === gap.id ? (
                           <>
-                            <Check className="w-3 h-3 text-emerald-400" /> Copied
+                            <Check className="w-3 h-3 text-volt" /> Copied
                           </>
                         ) : (
                           <>
