@@ -100,6 +100,13 @@ export interface ReachOutTemplate {
   riskNotes: string[];
   experienceFit: ExperienceFit[];
   roleFamilies: RoleFamilyId[] | 'all';
+  reviewedBy?: TemplateReviewer;
+}
+
+export interface TemplateReviewer {
+  name: string;
+  role: string;
+  date: string;
 }
 
 export interface ScenarioGroupMeta {

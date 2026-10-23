@@ -123,7 +123,7 @@ const SPAM_TRIGGERS = [
   'call me',
   'free',
   '100%',
-  'guaranteed',
+  'promise',
   'unemployed',
   'request',
 ];

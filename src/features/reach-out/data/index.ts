@@ -202,3 +202,5 @@ export const CHANNEL_LABELS: Record<ChannelId, { label: string; short: string; b
     badgeClass: 'bg-rose-500/10 text-rose-400 border-rose-500/20',
   },
 };
+
+export { PLATFORM_RULES, type PlatformRule } from './platformRules';
