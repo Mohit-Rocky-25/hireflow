@@ -299,11 +299,16 @@ Java, Spring Boot, SQL
     it('Verifies Invariant 1: Must-have ratio equals matched / total', () => {
       const analysis = analyzeCanonical(sampleResume, sampleJD);
       const totalMust = analysis.jobRequirements.mustHave.length;
-      const matchedMust = analysis.skillMatches.filter(
-        (s) => s.importance === 'must_have' && (s.status === 'exact' || s.status === 'alias' || s.status === 'implied')
-      ).length;
+      const earnedCredit = analysis.skillMatches
+        .filter((s) => s.importance === 'must_have')
+        .reduce((sum, s) => {
+          if (s.status === 'exact' || s.status === 'alias') return sum + (s.isClaimedOnly ? 0.5 : 1.0);
+          if (s.status === 'implied') return sum + 0.5;
+          if (s.status === 'related') return sum + 0.25;
+          return sum;
+        }, 0);
 
-      const expectedRatio = totalMust > 0 ? Math.round((matchedMust / totalMust) * 100) : 100;
+      const expectedRatio = totalMust > 0 ? Math.round((earnedCredit / totalMust) * 100) : 100;
       expect(analysis.scores.mustHaveCoverage).toBe(expectedRatio);
     });
 

@@ -12,6 +12,15 @@ import {
   SeniorityFitResult,
   SkillMatchResult,
 } from './types';
+import skillsTaxonomyData from '../../data/ats/skills-taxonomy.json';
+
+const skillAliasesMap = new Map<string, string[]>();
+for (const item of (skillsTaxonomyData as any[])) {
+  const allNames = [item.canonical, ...(item.aliases || [])].map((a: string) => a.toLowerCase());
+  for (const name of allNames) {
+    skillAliasesMap.set(name, allNames);
+  }
+}
 
 export function scoreAggregator(
   resume: ParsedResume,
@@ -39,7 +48,17 @@ export function scoreAggregator(
   let evidencedSkillsCount = 0;
   for (const skill of extractedList) {
     const sLower = skill.toLowerCase();
-    if (bulletTextJoined.includes(sLower) || resume.rawText.toLowerCase().includes(`with ${sLower}`)) {
+    const aliases = skillAliasesMap.get(sLower) || [sLower];
+    const matchHasEvidence = skillMatches.some(
+      (m) =>
+        aliases.includes(m.skill.toLowerCase()) &&
+        (m.status === 'exact' || m.status === 'alias') &&
+        !m.isClaimedOnly
+    );
+    const inBullet = aliases.some(
+      (a) => bulletTextJoined.includes(a) || resume.rawText.toLowerCase().includes(`with ${a}`)
+    );
+    if (matchHasEvidence || inBullet) {
       evidencedSkillsCount++;
     }
   }
@@ -131,13 +150,12 @@ export function scoreAggregator(
   }
 
   // 5. Seniority & Experience Fit (Constant-Pillar Rule, F19)
-  // For entry-level / fresher roles with fresher candidates, seniority yields a constant 100 and inflates composite.
-  // We exclude this constant pillar and renormalize active weights.
-  const isSeniorityConstant =
-    (jd.yearsRequired <= 1 || jd.seniority === 'fresher') &&
-    (resume.totalYearsEstimate <= 1.5 || resume.careerLevel === 'student' || resume.careerLevel === 'fresher');
-
+  // For entry-level / fresher roles with fresher candidates where seniority yields a constant 100,
+  // we exclude this constant pillar and renormalize active weights.
   const seniorityFitScore = seniority.score;
+  const isSeniorityConstant =
+    (jd.yearsRequired === 0 || jd.seniority === 'fresher') &&
+    seniorityFitScore === 100;
   if (isSeniorityConstant) {
     scoreExplanation.seniority.push(
       'Not applicable: Seniority Fit (excluded for fresher/entry-level role to prevent unearned point inflation).'

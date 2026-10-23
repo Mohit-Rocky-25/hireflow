@@ -57,17 +57,27 @@ export function enforceInvariants(
   let autoCorrected = false;
 
   // -------------------------------------------------------------------------
-  // Invariant 1: mustHaveCoverage must equal (must-haves with status exact|alias|implied) / (total must-haves)
+  // -------------------------------------------------------------------------
+  // Invariant 1: mustHaveCoverage must equal sum of earned must-have credit / total must-haves
   // -------------------------------------------------------------------------
   const mustHaves = facts.skillMatches.filter((s) => s.importance === 'must_have');
-  const matchedMustHaves = mustHaves.filter(
-    (s) => s.status === 'exact' || s.status === 'alias' || s.status === 'implied'
-  );
+  const earnedCreditSum = mustHaves.reduce((acc, m) => {
+    if (m.earnedCredit !== undefined) return acc + m.earnedCredit;
+    if (m.status === 'exact' || m.status === 'alias') return acc + (m.isClaimedOnly ? 0.5 : 1.0);
+    if (m.status === 'implied') return acc + 0.5;
+    if (m.status === 'related') return acc + 0.25;
+    return acc;
+  }, 0);
 
   const expectedMustHaveCoverage = mustHaves.length > 0
-    ? Math.round((matchedMustHaves.length / mustHaves.length) * 100)
-    : (facts.skillMatches.length > 0 
-        ? Math.round((facts.skillMatches.filter(s => s.status === 'exact' || s.status === 'alias' || s.status === 'implied').length / facts.skillMatches.length) * 100)
+    ? Math.round((earnedCreditSum / mustHaves.length) * 100)
+    : (facts.skillMatches.length > 0
+        ? Math.round((facts.skillMatches.reduce((acc, m) => {
+            if (m.earnedCredit !== undefined) return acc + m.earnedCredit;
+            if (m.status === 'exact' || m.status === 'alias') return acc + (m.isClaimedOnly ? 0.5 : 1.0);
+            if (m.status === 'implied') return acc + 0.5;
+            return acc;
+          }, 0) / facts.skillMatches.length) * 100)
         : 100);
 
   if (facts.scoreBreakdown.mustHaveCoverageScore !== expectedMustHaveCoverage) {

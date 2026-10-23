@@ -1,5 +1,6 @@
 {
-  "_comment": "Heuristic knowledge base. Not real ATS vendor data. Editorial defaults, not learned from outcome data.",
+  "_comment": "Heuristic knowledge base. Not real ATS vendor data. Review and extend.",
+  "rationale": "Editorial defaults, not learned from outcome data.",
   "weights": {
     "mustHaveCoverage": 30,
     "evidenceDepth": 20,

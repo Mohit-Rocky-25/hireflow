@@ -799,12 +799,17 @@ export function analyzeCanonical(
   // 15. Runtime Invariant Verification (STAGE 7)
   const invariantFailures: string[] = [];
 
-  // Invariant 1: Must-have ratio equals matched / total
+  // Invariant 1: Must-have coverage equals earned credit / total must-haves
   const totalMust = canonicalMustHaves.length;
-  const matchedMust = canonicalSkillMatches.filter(
-    (s) => s.importance === 'must_have' && (s.status === 'exact' || s.status === 'alias' || s.status === 'implied')
-  ).length;
-  const expectedMustRatio = totalMust > 0 ? Math.round((matchedMust / totalMust) * 100) : scores.mustHaveCoverage;
+  const earnedMustCredit = canonicalSkillMatches
+    .filter((s) => s.importance === 'must_have')
+    .reduce((sum, s) => {
+      if (s.status === 'exact' || s.status === 'alias') return sum + (s.isClaimedOnly ? 0.5 : 1.0);
+      if (s.status === 'implied') return sum + 0.5;
+      if (s.status === 'related') return sum + 0.25;
+      return sum;
+    }, 0);
+  const expectedMustRatio = totalMust > 0 ? Math.round((earnedMustCredit / totalMust) * 100) : scores.mustHaveCoverage;
   if (scores.mustHaveCoverage !== expectedMustRatio) {
     invariantFailures.push(
       `Invariant 1: mustHaveCoverage (${scores.mustHaveCoverage}) does not match ratio (${expectedMustRatio})`

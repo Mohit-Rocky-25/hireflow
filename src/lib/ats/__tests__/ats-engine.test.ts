@@ -223,12 +223,16 @@ describe('HireFlow ATS Engine — Fixtures Verification', () => {
     expect(result.resume.bullets.length).toBeGreaterThan(0);
 
     // Invariants check:
-    // 1. mustHaveCoverage must equal (exact + alias + implied) / total must-haves
+    // 1. mustHaveCoverage must equal earned must-have credit / total must-haves
     const mustHaves = result.skillMatches.filter((s) => s.importance === 'must_have');
-    const matchedMustHaves = mustHaves.filter(
-      (s) => s.status === 'exact' || s.status === 'alias' || s.status === 'implied'
-    );
-    const expectedCoverage = Math.round((matchedMustHaves.length / mustHaves.length) * 100);
+    const earnedCreditSum = mustHaves.reduce((acc, m) => {
+      if (m.earnedCredit !== undefined) return acc + m.earnedCredit;
+      if (m.status === 'exact' || m.status === 'alias') return acc + (m.isClaimedOnly ? 0.5 : 1.0);
+      if (m.status === 'implied') return acc + 0.5;
+      if (m.status === 'related') return acc + 0.25;
+      return acc;
+    }, 0);
+    const expectedCoverage = Math.round((earnedCreditSum / mustHaves.length) * 100);
     expect(result.scoreBreakdown.mustHaveCoverageScore).toBe(expectedCoverage);
 
     // 2. Count of missing keywords must match across tabs
