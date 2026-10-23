@@ -1,47 +1,56 @@
 // ============================================================
-// HireFlow v3 — Design Tokens & WCAG Contrast Standards (R1.6)
-// Curated dark theme tokens with verified AA/AAA compliance
+// HireFlow v2 — Design Tokens & WCAG Contrast Standards (DESIGN.md)
+// High-contrast pure black (#000000), neon volt (#faff69), charcoal
 // ============================================================
 
 export const DARK_TOKENS = {
-  // Surfaces & Backgrounds
-  bgPrimary: '#0B0F19',     // Main page background
-  bgCard: '#111827',        // Tool card & panel background
-  bgCardElevated: '#1F2937',// Hover/elevated surface
-  bgInput: '#161F30',       // Form inputs, textareas
+  // Surfaces & Backgrounds (§2)
+  bgPrimary: '#000000',     // Pure black canvas
+  bgCard: '#141414',        // Near-black container surface
+  bgCardElevated: '#1f1f1f',// Elevated hover surface
+  bgInput: '#141414',       // Near-black input field
 
-  // Text & Typography
-  textPrimary: '#F9FAFB',   // 98% white high-emphasis text
-  textSecondary: '#E5E7EB', // 90% white readable body text
-  textMuted: '#9CA3AF',     // Secondary metadata text (contrast >= 4.5:1 against bgCard)
-  textSubtle: '#D1D5DB',    // High-visibility metadata text
+  // Text & Typography (§2, §3)
+  textPrimary: '#ffffff',   // Pure white high-emphasis text (21:1 on pure black)
+  textSecondary: '#a0a0a0', // Silver secondary text (8:1 on pure black)
+  textMuted: '#a0a0a0',     // Secondary metadata text (>= 4.5:1 against bgCard)
+  textSubtle: '#a0a0a0',    // Secondary metadata text
 
-  // Borders & Dividers
-  borderSubtle: '#374151',
-  borderHighlight: '#4B5563',
+  // Borders & Dividers (§2)
+  borderSubtle: '#343434',
+  borderHighlight: '#faff69',
 
-  // Semantic Status Colors
-  successText: '#34D399',   // Green verified text
-  successBg: '#064E3B',     // Deep emerald surface
-  warningText: '#FBBF24',   // Amber warning/needs-recheck
-  warningBg: '#451A03',     // Deep amber surface
-  dangerText: '#F87171',    // Coral red error/missing
-  dangerBg: '#450A0A',      // Deep red surface
-  infoText: '#60A5FA',      // Soft blue info
-  infoBg: '#172554',        // Deep blue surface
+  // Core Brand Colors (§2)
+  volt: '#faff69',
+  forest: '#166534',
+  forestDark: '#14572f',
+  paleYellow: '#f4f692',
+  charcoal: 'rgba(65, 65, 65, 0.8)',
+  charcoalDeep: '#343434',
+  nearBlack: '#141414',
 
-  // Career Trajectory & Data Visualization Chart Tokens
+  // Semantic Status Colors (Stage 1B: No new hues except danger)
+  successText: '#faff69',   // Volt text on dark surface
+  successBg: '#161600',     // Dark olive surface
+  warningText: '#f4f692',   // Pale yellow text on dark surface
+  warningBg: '#161600',     // Dark olive surface
+  dangerText: '#f87171',    // Muted coral red error text (passes 4.5:1 on black & dark surface)
+  dangerBg: '#2a0c0c',      // Dark crimson container surface
+  infoText: '#a0a0a0',      // Silver info text
+  infoBg: '#141414',        // Near-black surface
+
+  // Career Trajectory & Data Visualization Chart Tokens (Single-hue luminance ramp)
   chart: {
-    bg: '#111827',
-    gridLines: '#374151',
-    axisText: '#E5E7EB',     // High contrast readable axis labels
-    tooltipBg: '#030712',
-    tooltipText: '#F9FAFB',
-    series1: '#38BDF8',     // Sky blue
-    series2: '#34D399',     // Emerald
-    series3: '#F472B6',     // Pink
-    series4: '#A78BFA',     // Purple
-    series5: '#FBBF24',     // Amber
+    bg: '#000000',
+    gridLines: '#343434',
+    axisText: '#a0a0a0',     // Silver axis labels (8:1 on pure black)
+    tooltipBg: '#141414',
+    tooltipText: '#ffffff',
+    series1: '#faff69',     // Volt (brightest)
+    series2: '#f4f692',     // Pale yellow
+    series3: '#ffffff',     // White
+    series4: '#a0a0a0',     // Silver
+    series5: '#6b7280',     // Charcoal-mid
   },
 } as const;
 

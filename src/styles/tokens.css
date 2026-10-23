@@ -1,0 +1,116 @@
+/* ============================================================
+   HireFlow — High-Contrast Dark Design System v2 Tokens
+   Pure Black (#000000) Canvas, Neon Volt (#faff69), Charcoal Borders
+   Strictly adheres to DESIGN.md and Project Specifications
+   ============================================================ */
+
+@theme {
+  /* ── Core Brand & Accent Colors (§2) ── */
+  --color-volt:           #faff69;
+  --color-forest:         #166534;
+  --color-forest-dark:    #14572f;
+  --color-pale-yellow:    #f4f692;
+  --color-olive-border:   #4f5100;
+  --color-olive-dark:     #161600;
+
+  /* ── Canvas, Surfaces & Borders (§2) ── */
+  --color-black:          #000000;
+  --color-near-black:     #141414;
+  --color-charcoal:       rgba(65, 65, 65, 0.8);
+  --color-charcoal-deep:  #343434;
+  --color-hover-gray:     #3a3a3a;
+
+  /* ── Neutrals & Text (§2) ── */
+  --color-white:          #ffffff;
+  --color-silver:         #a0a0a0;
+  --color-mid-gray:       #585858;
+  --color-border-gray:    #414141;
+
+  /* ── Deliberate Deviations (Stage 1B) ── */
+  --color-danger:         #ef4444;
+  --color-danger-bg:      rgba(239, 68, 68, 0.15);
+
+  /* ── Semantic Aliases (Required by Stage 1A) ── */
+  --color-bg-page:        #000000;
+  --color-bg-surface:     #141414;
+  --color-bg-surface-hover: #1f1f1f;
+  --color-text-primary:   #ffffff;
+  --color-text-secondary: #a0a0a0;
+  --color-text-on-accent: #151515;
+  --color-border-default: rgba(65, 65, 65, 0.8);
+  --color-border-subtle:  #343434;
+  --color-accent:         #faff69;
+  --color-accent-active:  #f4f692;
+  --color-action-primary: #166534;
+  --color-focus-ring:     #faff69;
+
+  /* ── Pre-existing Semantic Token Aliases (Backwards Compatibility) ── */
+  --color-primary:        #faff69;
+  --color-primary-hover:  #f4f692;
+  --color-primary-active: #e2e850;
+  --color-primary-light:  rgba(250, 255, 105, 0.12);
+  --color-primary-glow:   none;
+
+  --color-ai:             #faff69;
+  --color-ai-dark:        #166534;
+  --color-ai-light:       rgba(250, 255, 105, 0.12);
+  --color-ai-glow:        none;
+
+  --color-bg:             #000000;
+  --color-surface:        #141414;
+  --color-surface-2:      #1f1f1f;
+  --color-surface-3:      #2a2a2a;
+
+  --color-text:           #ffffff;
+  --color-text-muted:     #888888;
+
+  --color-border:         rgba(65, 65, 65, 0.8);
+  --color-border-strong:  #555555;
+  --color-border-accent:  #faff69;
+
+  --color-success:        #faff69;
+  --color-success-bg:     rgba(250, 255, 105, 0.10);
+  --color-warning:        #f4f692;
+  --color-warning-bg:     rgba(244, 246, 146, 0.10);
+  --color-info:           #a0a0a0;
+  --color-info-bg:        rgba(160, 160, 160, 0.10);
+
+  --color-header-btn:       #faff69;
+  --color-header-btn-hover: #1d1d1d;
+  --color-header-btn-text:  #151515;
+
+  /* ── Strict Radius Tokens: ONLY 4px, 8px, 9999px (§5, Stage 1A) ── */
+  --radius-none: 0px;
+  --radius-xs:   4px;
+  --radius-sm:   4px;
+  --radius-md:   4px;
+  --radius-lg:   8px;
+  --radius-xl:   8px;
+  --radius-2xl:  8px;
+  --radius-3xl:  8px;
+  --radius-full: 9999px;
+
+  /* ── Shadows: DESIGN.md Levels 1–4 (§6) ── */
+  --shadow-level-1: rgba(0, 0, 0, 0.1) 0px 1px 3px, rgba(0, 0, 0, 0.1) 0px 1px 2px -1px;
+  --shadow-level-2: 0px 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-level-3: 0px 10px 15px -3px rgba(0, 0, 0, 0.1), 0px 4px 6px -4px rgba(0, 0, 0, 0.1);
+  --shadow-level-4: 0px 4px 25px rgba(0, 0, 0, 0.14) inset;
+  --shadow-inset:   0px 4px 25px rgba(0, 0, 0, 0.14) inset;
+
+  --shadow-xs:      rgba(0, 0, 0, 0.1) 0px 1px 3px;
+  --shadow-sm:      0px 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md:      0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-lg:      0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-xl:      0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-2xl:     0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-glow-orange: none;
+  --shadow-glow-violet: none;
+
+  /* ── Typography & Self-hosted Fonts (§3) ── */
+  --font-sans: 'Inter Variable', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, Arial, Helvetica, sans-serif;
+  --font-mono: 'Inconsolata', ui-monospace, Consolas, monospace;
+
+  /* ── Transitions & Motion: 120–180ms ease-out (§5) ── */
+  --animate-fade-in: fadeIn 0.15s ease-out;
+  --animate-scale-in: scaleIn 0.15s ease-out;
+}
