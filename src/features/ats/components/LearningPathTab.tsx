@@ -17,6 +17,8 @@ import {
 } from 'lucide-react';
 import { AtsEngineResult, LearningPathItem } from '../engine/types';
 import { ResumeRewritesSection } from './ResumeRewritesSection';
+import { generateActionabilityPlan } from '../../../data/curriculum/actionabilityEngine';
+import { ActionabilityPlanPanel } from '../../../components/common/ActionabilityPlanPanel';
 
 interface LearningPathTabProps {
   result: AtsEngineResult;
@@ -26,6 +28,16 @@ const STORAGE_KEY_PREFIX = 'hireflow_ats_learned_';
 
 export const LearningPathTab: React.FC<LearningPathTabProps> = ({ result }) => {
   const { learningPath } = result;
+
+  const actionabilityPlan = generateActionabilityPlan({
+    baseScore: result.score,
+    skillResults: result.skillResults,
+    penalties: result.penalties,
+    fixFirst: result.fixFirst,
+    candidateYears: result.seniorityFit?.candidateYears ?? 1,
+    requiredYears: result.seniorityFit?.requiredYears ?? 2,
+    targetTier: result.bestFitTier,
+  });
   const [expandedId, setExpandedId] = useState<string | null>(
     learningPath.items.length > 0 ? learningPath.items[0].skillId : null
   );
@@ -75,6 +87,9 @@ export const LearningPathTab: React.FC<LearningPathTabProps> = ({ result }) => {
 
   return (
     <div className="space-y-8 animate-fade-in">
+      {/* Stage 5 Actionability Plan (Ranked by Impact-per-Effort) */}
+      <ActionabilityPlanPanel plan={actionabilityPlan} />
+
       {/* Overview & Progress Card */}
       <div className="bg-surface rounded-[16px] p-6 border border-border shadow-xs">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-border/70">
