@@ -1,7 +1,7 @@
 // ============================================================
 // HireFlow — Canonical Analysis Engine
 // Single source of truth for TalentLens and ATS Resume Roaster
-// Guaranteed deterministic, zero-hallucination, invariant-enforced
+// Deterministic rule-based evaluation with invariant checks
 // ============================================================
 
 import {
@@ -664,7 +664,7 @@ export function analyzeCanonical(
       id: 'rec-weak-bullets',
       priority: 'high',
       title: `Quantify ${weakBullets.length} Experience Bullets with XYZ Formula`,
-      action: 'Rewrite bullets starting with strong action verbs (Architected, Scaled, Optimized) and include verified metrics (users, latency, throughput).',
+      action: 'Rewrite bullets starting with strong action verbs (Architected, Scaled, Optimized) and include measurable metrics (users, latency, throughput).',
       sourceFactId: weakBullets[0].id,
       impactOnScore: '+5 to +10 pts',
       effort: 'days',

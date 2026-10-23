@@ -69,7 +69,7 @@ export function computeAtsScore(input: ScorerInput) {
   const weakFoundSkills = skillResults.filter(s => s.status === 'weak');
   const totalEvidenceTierSum = skillResults.reduce((acc, s) => acc + (s.evidenceScore || (s.status === 'verified' ? 0.85 : s.status === 'weak' ? 0.4 : 0)), 0);
 
-  // Strictly monotonic: adding any verified skill or weak skill adds positive contribution, never reduces
+  // Strictly monotonic: adding any demonstrated skill or weak skill adds positive contribution, never reduces
   const baseTarget = Math.max(1, mustTotalCount * 0.85);
   const evidenceDepthFactor = Math.min(
     1.0,

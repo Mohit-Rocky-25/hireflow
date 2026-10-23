@@ -44,7 +44,7 @@ export const OverviewTab: React.FC<Props> = ({ result }) => {
           tierFit: 'bg-slate-700',
         };
         const descMap: Record<string, string> = {
-          mustHaveCoverage: 'Proportion of mandatory skills with verified proof vs target role job description.',
+          mustHaveCoverage: 'Proportion of mandatory skills with evidence found in your resume text vs target role job description.',
           evidenceDepth: 'Skills demonstrated in project or experience bullets versus isolated in a skills list.',
           impactMetrics: 'Bullets containing tangible numbers, latency reductions, scale, or business revenue.',
           projectsAndArtifacts: 'Production systems, live deployed web applications, or open source repositories.',
@@ -68,7 +68,7 @@ export const OverviewTab: React.FC<Props> = ({ result }) => {
           score: subscores.mustHaveCoverage,
           max: weights.mustHaveCoverage,
           color: 'bg-emerald-600',
-          description: 'Proportion of mandatory skills with verified proof vs target role job description.',
+          description: 'Proportion of mandatory skills with evidence found in your resume text vs target role job description.',
         },
         {
           id: 'evidenceDepth',
@@ -129,7 +129,7 @@ export const OverviewTab: React.FC<Props> = ({ result }) => {
             <Layers className="w-6 h-6 text-primary" /> Weighted Resume Strength Breakdown
           </h3>
           <p className="text-[16px] text-slate-600 mt-1">
-            Every point is deterministically calculated against industry recruiter benchmarks (sum: 100 points).
+            Calculated based on editorial heuristic weights across active evaluation pillars (sum: 100 points).
           </p>
         </div>
 

@@ -77,21 +77,21 @@ export const SkillsTab: React.FC<Props> = ({ skills }) => {
         </div>
 
         <div className="bg-surface rounded-[16px] p-5 border border-border shadow-xs">
-          <div className="text-xs font-bold text-emerald-700 uppercase">Verified Evidence</div>
+          <div className="text-xs font-bold text-emerald-700 uppercase">Evidence in Bullets</div>
           <div className="text-2xl font-black font-mono text-emerald-700 mt-1">{verifiedCount}</div>
-          <div className="text-[11px] text-slate-500 mt-0.5">Backed by bullets</div>
+          <div className="text-[11px] text-slate-500 mt-0.5">Found in experience/project text</div>
         </div>
 
         <div className="bg-surface rounded-[16px] p-5 border border-border shadow-xs">
-          <div className="text-xs font-bold text-amber-700 uppercase">Weak Evidence</div>
+          <div className="text-xs font-bold text-amber-700 uppercase">Skills List Only</div>
           <div className="text-2xl font-black font-mono text-amber-700 mt-1">{weakCount}</div>
-          <div className="text-[11px] text-slate-500 mt-0.5">Skills list only</div>
+          <div className="text-[11px] text-slate-500 mt-0.5">Mentioned without bullet evidence</div>
         </div>
 
         <div className="bg-surface rounded-[16px] p-5 border border-border shadow-xs">
           <div className="text-xs font-bold text-rose-700 uppercase">Missing Skills</div>
           <div className="text-2xl font-black font-mono text-rose-700 mt-1">{missingCount}</div>
-          <div className="text-[11px] text-slate-500 mt-0.5">Not detected in text</div>
+          <div className="text-[11px] text-slate-500 mt-0.5">Not detected in resume text</div>
         </div>
       </div>
 
@@ -171,7 +171,7 @@ export const SkillsTab: React.FC<Props> = ({ skills }) => {
 
                         switch (evStatus) {
                           case 'proven':
-                            return <span className="inline-flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-300"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> Proven</span>;
+                            return <span className="inline-flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-300"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> Demonstrated</span>;
                           case 'strongly_supported':
                             return <span className="inline-flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> Strongly Supported</span>;
                           case 'partially_supported':
@@ -224,7 +224,7 @@ export const SkillsTab: React.FC<Props> = ({ skills }) => {
                             <Link
                               to={`/tools/credentials?q=${encodeURIComponent(skill.canonical)}`}
                               className="inline-flex items-center gap-1 text-[11px] font-semibold px-2 py-0.5 rounded bg-amber-50 text-amber-800 hover:bg-amber-100 transition-all border border-amber-200"
-                              title="Find verified certifications"
+                              title="Find industry certifications"
                             >
                               <GraduationCap className="w-3 h-3" />
                               Certify

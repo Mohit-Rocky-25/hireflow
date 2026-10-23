@@ -1,6 +1,6 @@
 // ============================================================
 // HireFlow ATS Engine — formatAuditor
-// Pure TypeScript module to audit ATS format safety
+// Pure TypeScript module to audit parser-friendliness heuristics
 // ============================================================
 
 import { FormatRiskItem, ParsedResume } from './types';

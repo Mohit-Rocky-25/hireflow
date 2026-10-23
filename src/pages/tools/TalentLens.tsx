@@ -20,6 +20,7 @@ import { QuickSummaryCard } from '../../features/suite/components/QuickSummaryCa
 import { buildQuickSummary } from '../../features/suite/engine/quickSummary';
 import { SimulationFacts } from '../../features/suite/engine/simulateFix';
 import { DEMO_TALENTLENS_RESUME } from '../demo/useTalentLensStore';
+import { HonestyExplainerModal } from '../../components/common/HonestyExplainerModal';
 
 // ── Status Components ──
 function EligibilityBadge({ status }: { status: string }) {
@@ -323,6 +324,7 @@ export function TalentLens() {
           </div>
 
         <div className="flex items-center gap-[12px]">
+          <HonestyExplainerModal tool="talentlens" />
           {/* Job selector */}
           <select
             value={selectedJobId}

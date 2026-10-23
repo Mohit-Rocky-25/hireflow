@@ -3,7 +3,7 @@
 // Large 200px+ ring, band, verdict, 4 stat tiles, confidence banner
 // ============================================================
 
-import React from 'react';
+import React, { useState } from 'react';
 import {
   AlertTriangle,
   CheckCircle2,
@@ -11,8 +11,12 @@ import {
   Award,
   Briefcase,
   FileCheck2,
+  ShieldAlert,
+  HelpCircle,
 } from 'lucide-react';
 import { AtsEngineResult } from '../engine/types';
+import { HonestyExplainerModal } from '../../../components/common/HonestyExplainerModal';
+import { CalculationBreakdownCollapsible, CalculationDetails } from '../../../components/common/CalculationBreakdownCollapsible';
 
 interface Props {
   result: AtsEngineResult;
@@ -20,6 +24,7 @@ interface Props {
 }
 
 export const ScoreHeader: React.FC<Props> = ({ result, headerRef }) => {
+  const [isHonestyOpen, setIsHonestyOpen] = useState(false);
   const { score, band, headline, mustHavesMet, bestFitTier, seniorityFit, parseQuality, confidence, confidenceReason } = result;
 
   // Ring circumference for SVG circle
@@ -105,10 +110,13 @@ export const ScoreHeader: React.FC<Props> = ({ result, headerRef }) => {
                 {score}
               </span>
               <span className="text-xs uppercase font-extrabold tracking-wider text-slate-500 mt-1">
-                Resume Strength
+                Match Estimate
+              </span>
+              <span className="text-[10px] text-slate-400 font-mono mt-0.5">
+                Range: {Math.max(0, Math.round(score * 0.94 - 2))}–{Math.min(100, Math.round(score * 1.04 + 3))}
               </span>
               <div
-                className={`mt-2 px-3 py-0.5 rounded-full text-xs font-bold border ${bandStyles.badgeBg}`}
+                className={`mt-1.5 px-3 py-0.5 rounded-full text-xs font-bold border ${bandStyles.badgeBg}`}
               >
                 {band}
               </div>
@@ -116,27 +124,80 @@ export const ScoreHeader: React.FC<Props> = ({ result, headerRef }) => {
           </div>
 
           {/* Verdict and 4 Stat Tiles */}
-          <div className="flex-1 w-full space-y-6 text-center lg:text-left">
+          <div className="flex-1 w-full space-y-5 text-center lg:text-left">
             <div>
-              <span className="text-xs font-mono font-bold uppercase tracking-wider text-primary">
-                Executive Verdict
-              </span>
+              <div className="flex flex-wrap items-center justify-between gap-2 mb-1">
+                <span className="text-xs font-mono font-bold uppercase tracking-wider text-primary">
+                  Review Simulation Verdict
+                </span>
+                <button
+                  onClick={() => setIsHonestyOpen(true)}
+                  className="inline-flex items-center gap-1.5 text-xs text-slate-500 hover:text-primary font-medium py-1 px-2.5 rounded-lg border border-slate-200 hover:border-primary/40 bg-slate-50 hover:bg-slate-100 transition-colors"
+                >
+                  <ShieldAlert className="w-3.5 h-3.5 text-amber-500" />
+                  <span>What this is / what it isn't</span>
+                </button>
+              </div>
+
               <h2 className="text-[24px] sm:text-[28px] font-extrabold text-slate-900 tracking-tight mt-1 leading-snug">
                 {headline}
               </h2>
-              <p className="text-[16px] text-slate-600 mt-2 leading-relaxed">
+              <p className="text-[15px] text-slate-600 mt-2 leading-relaxed">
                 {result.oneParagraphSummary}
               </p>
-              <details className="mt-3 group cursor-pointer text-xs text-slate-500">
-                <summary className="font-medium text-slate-600 hover:text-slate-800 list-none flex items-center gap-1.5 select-none">
-                  <span className="text-primary font-bold">ℹ️</span>
-                  <span>How is this estimated?</span>
-                  <span className="text-[10px] text-slate-400 group-open:rotate-180 transition-transform">▼</span>
-                </summary>
-                <div className="mt-2 p-3 bg-slate-50 border border-slate-200 rounded-lg text-slate-600 leading-relaxed text-left">
-                  This is HireFlow's own estimate of resume quality and job match. Different companies use different systems and humans make the final call.
-                </div>
-              </details>
+
+              {/* How this was calculated collapsible */}
+              <div className="mt-4">
+                <CalculationBreakdownCollapsible
+                  details={{
+                    scoreMin: Math.max(0, Math.round(score * 0.94 - 2)),
+                    scoreMax: Math.min(100, Math.round(score * 1.04 + 3)),
+                    effectiveScore: score,
+                    band,
+                    activePillars: [
+                      {
+                        name: 'Must-Have Coverage',
+                        weightPercent: 30,
+                        earnedScore: Math.round(((result.subscores.mustHaveCoverage || 0) / 30) * 100),
+                      },
+                      {
+                        name: 'Evidence Depth & Impact',
+                        weightPercent: 20,
+                        earnedScore: Math.round(((result.subscores.evidenceDepth || 0) / 20) * 100),
+                      },
+                      {
+                        name: 'Impact Metrics in Bullets',
+                        weightPercent: 15,
+                        earnedScore: Math.round(((result.subscores.impactMetrics || 0) / 15) * 100),
+                      },
+                      {
+                        name: 'Project & Role Relevance',
+                        weightPercent: 10,
+                        earnedScore: Math.round(((result.subscores.projectsAndOss || 0) / 10) * 100),
+                      },
+                      {
+                        name: 'Parser-Friendliness Check (heuristic)',
+                        weightPercent: 10,
+                        earnedScore: Math.round(((result.subscores.formatAndParse || 0) / 10) * 100),
+                      },
+                      {
+                        name: 'Target Tier Alignment',
+                        weightPercent: 5,
+                        earnedScore: Math.round(((result.subscores.tierFit || 0) / 5) * 100),
+                      },
+                    ],
+                    excludedPillars: seniorityFit.requiredYears <= 1 && seniorityFit.candidateYears <= 1 ? [
+                      {
+                        name: 'Seniority Fit (0-1 yr)',
+                        reason: 'Constant pillar: Early career candidate applying to entry-level JD; excluded from composite to prevent unearned free score inflation.',
+                      }
+                    ] : [],
+                    engineVersion: '2.4.0',
+                    taxonomyVersion: '1.2.0',
+                    lastReviewedDate: 'October 2026',
+                  }}
+                />
+              </div>
             </div>
 
             {/* 4 Stat Tiles */}
@@ -196,6 +257,12 @@ export const ScoreHeader: React.FC<Props> = ({ result, headerRef }) => {
           </div>
         </div>
       </div>
+      {/* Honesty Explainer Modal */}
+      <HonestyExplainerModal
+        isOpen={isHonestyOpen}
+        onClose={() => setIsHonestyOpen(false)}
+        toolName="ATS Resume Roaster"
+      />
     </div>
   );
 };

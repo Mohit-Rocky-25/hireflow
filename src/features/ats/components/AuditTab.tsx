@@ -125,7 +125,7 @@ export const AuditTab: React.FC<Props> = ({ result }) => {
         {/* Section Checklist */}
         <div className="bg-surface rounded-[16px] p-6 sm:p-8 border border-border shadow-xs space-y-4">
           <h3 className="text-[18px] sm:text-[20px] font-bold text-slate-900 flex items-center gap-2">
-            <ListChecks className="w-5 h-5 text-primary" /> Standard Section Verification
+            <ListChecks className="w-5 h-5 text-primary" /> Standard Section Check (heuristic)
           </h3>
           <div className="space-y-2.5">
             {standardSections.map((sec) => {

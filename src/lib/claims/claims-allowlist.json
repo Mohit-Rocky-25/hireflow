@@ -1,0 +1,20 @@
+{
+  "allowlistedFiles": [
+    "src/lib/claims/bannedClaims.ts",
+    "scripts/check-claims.ts",
+    "docs/integrity-baseline.md",
+    "docs/integrity-v2-report.md"
+  ],
+  "allowlistedTermsInContext": [
+    {
+      "term": "ATS Resume Roaster",
+      "context": "Tool branding name allowed with honest explainer panel",
+      "allowed": true
+    },
+    {
+      "term": "TalentLens",
+      "context": "Tool branding name",
+      "allowed": true
+    }
+  ]
+}

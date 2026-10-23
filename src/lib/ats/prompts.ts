@@ -1,16 +1,18 @@
 import { z } from 'zod';
 import type { DeterministicFacts, AICommentary, HarshTruthItem, BulletRewriteItem } from './types';
+import { sanitizeClaims } from '../claims/bannedClaims';
 
-export const SYSTEM_PROMPT = `You are a veteran technical recruiter and staff engineer with 12+ years of hiring experience across global tech giants (Google, Meta, Uber, Stripe), high-growth product unicorns, and Indian enterprise firms.
-You are evaluating a candidate's resume against a target Job Description. You deliver the raw, unvarnished hiring truth with tactical precision.
+export const SYSTEM_PROMPT = `You are a veteran technical recruiter and staff engineer with hiring experience across global tech giants, high-growth product unicorns, and Indian enterprise firms.
+You are evaluating a candidate's resume against a target Job Description. You provide clear, honest, and actionable feedback.
 
 RULES OF ENGAGEMENT:
-1. STRICT TRUTHFULNESS & GROUNDING: You MUST NOT invent, hallucinate, or assume technologies, metrics, or responsibilities that the candidate did not mention.
-2. HARSH TRUTHS: Each harsh truth must point directly to a real flaw (e.g. passive job descriptions, missing core tech stack, unquantified claims, keyword stuffing, lack of production scale).
-3. BULLET REWRITES: Rewrite actual weak bullets from the candidate's resume using the Google XYZ formula: "Accomplished [X] as measured by [Y] by doing [Z]". Do not invent fictional 10x numbers; add realistic metric brackets or show how to frame their real impact.
-4. SKILL GAPS: Distinguish between 'wording_fix' (candidate has adjacent experience or synonymous tech) vs 'learn_needed' (genuine missing core competency).
-5. RECRUITER 6-SECOND SCAN: Summarize exactly what a recruiter notices in their initial 6-second glance before deciding to reject or advance.
-6. JSON ONLY: Return ONLY valid JSON adhering strictly to the required schema.`;
+1. STRICT TRUTHFULNESS & GROUNDING: You MUST NOT invent, hallucinate, or assume technologies, metrics, companies, or responsibilities that the candidate did not mention. Do NOT introduce any new numbers, percentages, or metrics.
+2. NO CERTAINTY CLAIMS: Never use certainty language (e.g., "guaranteed", "proven", "will definitely reject", "100% chance"). Present observations as professional estimates or review simulations.
+3. HARSH TRUTHS: Each harsh truth must point directly to a real flaw (e.g. passive job descriptions, missing core tech stack, unquantified claims, keyword stuffing, lack of production scale).
+4. BULLET REWRITES: Rewrite actual weak bullets from the candidate's resume using the Google XYZ formula: "Accomplished [X] as measured by [Y] by doing [Z]". If the original bullet lacks a number, use a placeholder such as "[add your measured metric]" rather than inventing fictional numbers.
+5. SKILL GAPS: Distinguish between 'wording_fix' (candidate has adjacent experience or synonymous tech) vs 'learn_needed' (genuine missing core competency).
+6. QUICK-SCAN SIMULATION (ILLUSTRATIVE): Summarize what a recruiter typically notices during an initial quick-scan, without making unsourced timing claims.
+7. JSON ONLY: Return ONLY valid JSON adhering strictly to the required schema.`;
 
 export const AICommentarySchema = z.object({
   verdict: z.object({
@@ -187,8 +189,22 @@ export function validateAndSanitizeAICommentary(
 
   return {
     ...ai,
-    harshTruths: sanitizedHarshTruths,
-    bulletRewrites: sanitizedRewrites,
+    verdict: {
+      headline: sanitizeClaims(ai.verdict.headline),
+      tone: ai.verdict.tone,
+      oneParagraphSummary: sanitizeClaims(ai.verdict.oneParagraphSummary),
+    },
+    recruiterFirst6Seconds: sanitizeClaims(ai.recruiterFirst6Seconds),
+    harshTruths: sanitizedHarshTruths.map(ht => ({
+      ...ht,
+      issue: sanitizeClaims(ht.issue),
+      whyItHurts: sanitizeClaims(ht.whyItHurts),
+      fix: sanitizeClaims(ht.fix),
+    })),
+    bulletRewrites: sanitizedRewrites.map(rw => ({
+      ...rw,
+      whatChanged: sanitizeClaims(rw.whatChanged),
+    })),
   };
 }
 
@@ -201,22 +217,22 @@ export function generateDeterministicFallbackAI(facts: DeterministicFacts): AICo
   const tone = score >= 75 ? 'strong' : score >= 55 ? 'borderline' : 'weak';
 
   const headline = score >= 80 
-    ? 'Solid Contender: Strong Technical Alignment with Target Role'
+    ? 'Strong Foundational Contender: Technical Alignment with Target Role'
     : score >= 65
-    ? 'Borderline ATS Screen: Missing Key Infrastructure & Scale Evidence'
-    : 'High Rejection Risk: Significant Must-Have Gaps & Passive Phrasing';
+    ? 'Borderline Role Match: Missing Key Infrastructure & Scale Evidence'
+    : 'Significant Requirements Gap: Unaddressed Must-Haves & Passive Phrasing';
 
   const summary = score >= 75
-    ? `Your profile demonstrates clear competency in core technologies (${facts.resume.skillsExtracted.slice(0, 4).join(', ')}). Your experience aligns well with the requirements, but tightening impact metrics will elevate you into top-tier compensation brackets.`
+    ? `Your profile demonstrates clear competency in core technologies (${facts.resume.skillsExtracted.slice(0, 4).join(', ')}). Your experience aligns well with the requirements; tightening measurable impact metrics will strengthen reviewer confidence.`
     : score >= 60
-    ? `While you have foundational competence in ${facts.resume.skillsExtracted.slice(0, 3).join(', ')}, you are missing critical must-have competencies required for this role (${facts.skillMatches.filter(m => m.importance === 'must_have' && m.status === 'missing').map(m => m.skill).slice(0, 3).join(', ') || 'production scale'}). A recruiter reviewing this in 6 seconds will spot the missing infrastructure tooling.`
-    : `Your resume currently struggles to clear automated and human screening. Critical must-have requirements are unaddressed, and bullet points lean heavily on passive task descriptions rather than measurable engineering outcomes.`;
+    ? `While you have foundational competence in ${facts.resume.skillsExtracted.slice(0, 3).join(', ')}, you are missing key competencies required for this role (${facts.skillMatches.filter(m => m.importance === 'must_have' && m.status === 'missing').map(m => m.skill).slice(0, 3).join(', ') || 'production scale'}). Reviewers conducting an initial quick-scan are likely to notice the missing tooling.`
+    : `Your resume currently demonstrates significant gaps against the job description. Critical must-have requirements are unaddressed, and bullet points lean heavily on passive task descriptions rather than measurable engineering outcomes.`;
 
   const recruiterFirst6Seconds = score >= 75
-    ? `Recruiter sees clear relevant job titles and recognizable tech keywords (${facts.resume.skillsExtracted.slice(0, 3).join(', ')}). Quickly scans for company tier and tenure. Decision: Shortlist for phone screen.`
+    ? `Reviewer sees clear relevant job titles and recognizable tech keywords (${facts.resume.skillsExtracted.slice(0, 3).join(', ')}). Quickly scans for project depth and tenure. Illustrative Verdict: High likelihood of advancing to technical screen.`
     : score >= 60
-    ? `Recruiter looks for ${facts.skillMatches.find(m => m.status === 'missing')?.skill || 'key technologies'} in the first half of the resume. Doesn't see it immediately. Eyes drift to project bullet points which lack metrics. Decision: Held in maybe pile; likely skipped if batch has 200+ applicants.`
-    : `Recruiter glances at headers and top bullets. Sees generic responsibilities ("responsible for developing...", "worked on"). Key role requirements are missing. Decision: 6-second rejection.`;
+    ? `Reviewer looks for ${facts.skillMatches.find(m => m.status === 'missing')?.skill || 'key technologies'} in the first half of the resume. Doesn't see it immediately. Eyes drift to project bullet points which lack metrics. Illustrative Verdict: Held in review pile; may be skipped if applicant volume is high.`
+    : `Reviewer glances at headers and top bullets. Sees generic responsibilities ("responsible for developing...", "worked on"). Key role requirements are missing. Illustrative Verdict: Likely screened out early without referral or strong test scores.`;
 
   // Build grounded harsh truths from deterministic facts
   const harshTruths: HarshTruthItem[] = [];
@@ -292,28 +308,28 @@ export function generateDeterministicFallbackAI(facts: DeterministicFacts): AICo
       }
     }
     if (!b.hasMetric) {
-      rewritten = `${rewritten}, improving throughput by 35% and reducing p99 latency to <120ms across 50K+ daily requests`;
+      rewritten = `${rewritten}, improving efficiency [add your measured result, e.g. throughput or latency] across [add your volume scale]`;
     }
     bulletRewrites.push({
       original: b.rawText,
       rewritten,
-      whatChanged: 'Replaced passive phrasing with decisive action verb and added concrete scale/latency metrics.',
+      whatChanged: 'Replaced passive phrasing with decisive action verb and added placeholder for concrete scale/latency metrics.',
     });
   }
 
   // 7-day and 30-day plans
   const sevenDayPlan = [
     { day: 1, task: 'Audit & trim Skills section', outcome: 'Remove unsupported buzzwords; align canonical names with JD.' },
-    { day: 2, task: 'Rewrite top 4 experience bullets with XYZ formula', outcome: 'Incorporate quantified metrics and latency/throughput numbers.' },
+    { day: 2, task: 'Rewrite top 4 experience bullets with XYZ formula', outcome: 'Incorporate quantified metrics and latency/throughput numbers from your actual work.' },
     { day: 3, task: `Draft proof-of-work project for ${missingMustHaves[0]?.skill || 'missing tech'}`, outcome: 'GitHub repo initialized with boilerplate and architecture diagram.' },
     { day: 4, task: 'Implement core functionality & containerize', outcome: 'Working demo with Dockerfile and CI/CD workflow.' },
     { day: 5, task: 'Deploy and test under simulated traffic', outcome: 'Live URL and benchmark metrics documented.' },
     { day: 6, task: 'Update Resume Experience section with new project', outcome: 'New bullet points citing live URL and technical decisions.' },
-    { day: 7, task: 'Run final ATS validation and submit application', outcome: 'Resume score increased above 85%.' },
+    { day: 7, task: 'Run final ATS validation and submit application', outcome: 'Resume match estimate strengthened through concrete evidence.' },
   ];
 
   const thirtyDayPlan = [
-    { week: 1, focus: 'Resume Optimization & Core Skills Alignment', deliverable: 'ATS-proof resume with verified action verbs and metric anchors.' },
+    { week: 1, focus: 'Resume Optimization & Core Skills Alignment', deliverable: 'Parser-friendly resume with active action verbs and metric anchors.' },
     { week: 2, focus: `Deep Dive into ${missingMustHaves[0]?.skill || 'System Architecture'}`, deliverable: 'Production-ready showcase repository with integration tests.' },
     { week: 3, focus: 'Distributed Systems & Data Modeling Interview Prep', deliverable: '20 LeetCode Mediums + 5 system design architectures white-boarded.' },
     { week: 4, focus: 'Targeted Outreach & Referral Pipeline', deliverable: '15 tailored cold messages to engineering managers at target tier companies.' },

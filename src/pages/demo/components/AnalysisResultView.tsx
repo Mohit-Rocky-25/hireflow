@@ -15,6 +15,8 @@ import {
 } from 'lucide-react';
 import type { Company, Role, AnalysisResult } from '../talentLensData';
 import { STATUS_CONFIG, TREND_COLOR, TREND_ICON } from '../talentLensData';
+import { HonestyExplainerModal } from '../../../components/common/HonestyExplainerModal';
+import { CalculationBreakdownCollapsible, CalculationDetails } from '../../../components/common/CalculationBreakdownCollapsible';
 
 export interface AnalysisResultViewProps {
   result: AnalysisResult;
@@ -71,7 +73,7 @@ export function AnalysisResultView({
           <div>
             <div className="flex items-center gap-2 mb-1.5 flex-wrap">
               <span className="text-[12px] font-bold text-text-secondary uppercase tracking-wider">
-                Placement Readiness Assessment
+                Placement Readiness Assessment (Simulation)
               </span>
               <span>•</span>
               <span className="text-[12px] font-semibold text-text">
@@ -84,6 +86,7 @@ export function AnalysisResultView({
           </div>
 
           <div className="flex items-center gap-3">
+            <HonestyExplainerModal tool="talentlens" />
             <span
               className={`px-4 py-1.5 rounded-full text-xs font-black border uppercase tracking-wider ${roleFitStyles}`}
             >
@@ -98,11 +101,32 @@ export function AnalysisResultView({
 
         {/* Grounded Role-Fit Explanation */}
         <p className="text-[14px] text-text-secondary leading-relaxed">
-          Based on verified evidence in your resume, your profile currently demonstrates a{' '}
+          Based on evidence found in your resume text, your profile currently demonstrates a{' '}
           <strong className="text-text">{roleFitStatus.toLowerCase()}</strong> for{' '}
           <strong className="text-text">{selectedRole.title}</strong> at{' '}
           <strong className="text-text">{company.name}</strong>. {selectedRole.desc}
         </p>
+
+        {/* How this was calculated collapsible */}
+        {(() => {
+          const calcDetails: CalculationDetails = {
+            effectiveScore: result.score,
+            scoreMin: Math.max(0, result.score - 5),
+            scoreMax: Math.min(100, result.score + 5),
+            band: roleFitStatus,
+            activePillars: result.breakdown.map((b) => ({
+              name: b.competency.toUpperCase(),
+              weightPercent: Math.round(100 / (result.breakdown.length || 1)),
+              earnedScore: Math.round(b.analysis.confidence),
+              statusNote: b.analysis.status,
+            })),
+            excludedPillars: [],
+            engineVersion: '2.4.0 (Integrity Release)',
+            taxonomyVersion: '1.2.0',
+            lastReviewedDate: 'October 2026',
+          };
+          return <CalculationBreakdownCollapsible details={calcDetails} />;
+        })()}
 
         {/* Anti-gaming notice if detected */}
         {result.breakdown.some((b) => b.analysis.antiGamingFlag) && (
@@ -140,10 +164,10 @@ export function AnalysisResultView({
             </div>
             <div className="text-[11px] text-text-secondary mt-0.5">
               {provenComps.length > 0
-                ? `${provenComps.length} verified areas`
+                ? `${provenComps.length} demonstrated areas`
                 : partialComps.length > 0
                 ? `${partialComps.length} partial evidence areas`
-                : '0 verified areas'}
+                : '0 demonstrated areas'}
             </div>
           </div>
 
