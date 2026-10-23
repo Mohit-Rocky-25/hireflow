@@ -20,6 +20,7 @@ import {
   Building2,
   Info,
   X,
+  Search,
 } from 'lucide-react';
 import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 import { PublicNavbar } from '../../components/common/PublicNavbar';
@@ -46,6 +47,8 @@ import { useTalentLensStore, DEMO_TALENTLENS_RESUME } from '../demo/useTalentLen
 import { useAtsToolStore } from '../../store/tools/atsStore';
 import { WordLimitSource } from '../../lib/config/limits';
 import { resolveTargetJob } from '../../features/career-path/resolveTargetJob';
+import { ConfirmRequirementsModal, ConfirmedRequirement } from '../../features/ats/components/ConfirmRequirementsModal';
+import { parseJD } from '../../lib/ats/parseJD';
 
 const STAGED_MESSAGES = [
   'Reading resume tokens & structural sections...',
@@ -116,6 +119,9 @@ export function ResumeChecker() {
   const [engineResult, setEngineResult] = useState<AtsEngineResult | null>(null);
   const [activeTab, setActiveTab] = useState<ReportTabId>('overview');
   const [presentationMode, setPresentationMode] = useState<'deep' | 'quick'>('deep');
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+  const [confirmedRequirements, setConfirmedRequirements] = useState<ConfirmedRequirement[] | null>(null);
+  const [parsedJdData, setParsedJdData] = useState<ReturnType<typeof parseJD> | null>(null);
 
   // Campus UI removed for TalentLens JD single source
 
@@ -210,6 +216,8 @@ export function ResumeChecker() {
     setJobPageCount(undefined);
     setJobSource(undefined);
     setFileError(null);
+    setConfirmedRequirements(null);
+    setParsedJdData(null);
   };
 
   const handleTabChange = (tab: ReportTabId) => {
@@ -228,9 +236,7 @@ export function ResumeChecker() {
     setFileError(null);
   };
 
-  const handleAnalyze = () => {
-    if (!resumeText.trim() || !jobText.trim()) return;
-
+  const executeAnalysis = (confirmedList?: ConfirmedRequirement[]) => {
     setIsScanning(true);
     setActiveTab('overview');
 
@@ -251,11 +257,13 @@ export function ResumeChecker() {
 
     setTimeout(() => {
       try {
+        const activeRequirements = confirmedList || confirmedRequirements || undefined;
         const response = runAtsEngine(resumeText, jobText, {
           tier: mappedTier,
           level: mappedLevel,
           resumeSource,
           jdSource: jobSource,
+          confirmedRequirements: activeRequirements ? activeRequirements.map(r => ({ text: r.text, type: r.type })) : undefined,
         });
 
         if (!response.success) {
@@ -282,11 +290,31 @@ export function ResumeChecker() {
     }, 400);
   };
 
+  const handleAnalyze = () => {
+    if (!resumeText.trim() || !jobText.trim()) return;
+
+    if (!confirmedRequirements) {
+      const pj = parseJD(jobText);
+      setParsedJdData(pj);
+      setIsConfirmModalOpen(true);
+      return;
+    }
+
+    executeAnalysis(confirmedRequirements);
+  };
+
+  const handleConfirmRequirements = (confirmed: ConfirmedRequirement[]) => {
+    setConfirmedRequirements(confirmed);
+    executeAnalysis(confirmed);
+  };
+
   const handleTryAnotherJob = () => {
     setJobText('');
     setJobFileName(null);
     setJobPageCount(undefined);
     setEngineResult(null);
+    setConfirmedRequirements(null);
+    setParsedJdData(null);
     setActiveTab('overview');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -473,6 +501,19 @@ export function ResumeChecker() {
 
                 <button
                   type="button"
+                  onClick={() => {
+                    const pj = parseJD(jobText, confirmedRequirements ? confirmedRequirements.map(r => ({ text: r.text, type: r.type })) : undefined);
+                    setParsedJdData(pj);
+                    setIsConfirmModalOpen(true);
+                  }}
+                  className="px-3.5 py-2 bg-surface hover:bg-surface-2 border border-border text-xs font-bold rounded-xl text-text transition-colors flex items-center gap-1.5 cursor-pointer shadow-2xs"
+                  title="Review and adjust mandatory vs preferred requirements for this job"
+                >
+                  <Search className="w-3.5 h-3.5 text-primary" /> Confirm Requirements
+                </button>
+
+                <button
+                  type="button"
                   onClick={handleTryAnotherJob}
                   className="px-4 py-2 bg-surface hover:bg-surface-2 border border-border text-xs font-bold rounded-xl text-text transition-colors flex items-center gap-1.5 cursor-pointer shadow-2xs"
                 >
@@ -626,6 +667,17 @@ export function ResumeChecker() {
           </div>
         )}
       </div>
+
+      {/* Requirement Confirmation Modal (Stage 2C) */}
+      {isConfirmModalOpen && parsedJdData && (
+        <ConfirmRequirementsModal
+          isOpen={isConfirmModalOpen}
+          onClose={() => setIsConfirmModalOpen(false)}
+          onConfirm={handleConfirmRequirements}
+          extractedRequirements={parsedJdData.extractedRequirements || []}
+          unrecognizedRequirements={parsedJdData.unrecognizedRequirements || []}
+        />
+      )}
 
       {/* Dev-Only Debug Drawer */}
       <DebugDrawer result={engineResult} />

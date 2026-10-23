@@ -27,7 +27,10 @@ function escapeRegex(str: string): string {
   return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
-export function analyzeJobDescription(jdText: string): JdAnalysis {
+export function analyzeJobDescription(
+  jdText: string,
+  confirmedRequirements?: Array<{ text: string; type: 'must' | 'nice' }>
+): JdAnalysis {
   const lowerJd = jdText.toLowerCase();
 
   // 1. Detect target role from title or keywords
@@ -183,6 +186,32 @@ export function analyzeJobDescription(jdText: string): JdAnalysis {
   }
 
   const requiredSkills = Array.from(requirementsMap.values());
+
+  if (confirmedRequirements && confirmedRequirements.length > 0) {
+    const confirmedMap = new Map<string, 'must' | 'nice'>();
+    for (const cr of confirmedRequirements) {
+      confirmedMap.set(cr.text.toLowerCase(), cr.type);
+    }
+    for (const req of requiredSkills) {
+      const confirmedType = confirmedMap.get(req.canonical.toLowerCase());
+      if (confirmedType) {
+        req.required = confirmedType;
+      }
+    }
+    for (const cr of confirmedRequirements) {
+      const alreadyPresent = requiredSkills.some((r) => r.canonical.toLowerCase() === cr.text.toLowerCase());
+      if (!alreadyPresent) {
+        const foundTax = ALL_TAXONOMY_SKILLS.find((s) => s.canonical.toLowerCase() === cr.text.toLowerCase());
+        requiredSkills.push({
+          skillId: foundTax ? foundTax.id : `custom_${cr.text.toLowerCase().replace(/[^a-z0-9]/g, '_')}`,
+          canonical: foundTax ? foundTax.canonical : cr.text,
+          category: foundTax ? foundTax.category : 'General',
+          required: cr.type,
+          weight: cr.type === 'must' ? 3 : 1,
+        });
+      }
+    }
+  }
 
   return {
     roleId: detectedRole.id,

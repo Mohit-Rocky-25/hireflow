@@ -77,28 +77,48 @@ export function scoreBullet(rawBullet: string): BulletAnalysis {
       text
     );
 
-  // 6. Job Description Style Flag
+  // 6. Keyword-dump bullet detector (lists 3+ technologies with no action or outcome)
+  const isKeywordDump = technologiesFound.length >= 3 && !hasActionVerb && !hasOutcome;
+
+  // 7. Job Description Style Flag
   // If bullet says "responsible for", "duties included", "worked on", or lacks both action verb and metric
   const isJobDescriptionStyle =
     weakPhraseHits.some((p) => ['responsible for', 'duties included', 'worked on', 'assisted with', 'handled tasks'].includes(p)) ||
     (!hasActionVerb && !hasMetric && text.length < 50);
 
-  // 7. Calculate 0-100 Score
-  let score = 40; // baseline
-  if (hasActionVerb) score += 20;
-  if (hasMetric) score += 25;
-  if (hasTechnology) score += 15;
-  if (hasOutcome) score += 10;
+  // 8. Calculate Four Criteria (Sum = Exactly 100)
+  // Criterion 1: Action Verb (20 pts)
+  const actionVerbScore = hasActionVerb ? 20 : 0;
 
-  // Penalties
-  if (weakPhraseHits.length > 0) score -= weakPhraseHits.length * 15;
-  if (isJobDescriptionStyle) score -= 15;
-  if (text.length < 25) score -= 20;
+  // Criterion 2: Quantified Result / Metric (30 pts)
+  const quantifiedResultScore = hasMetric ? 30 : 0;
 
-  score = Math.max(5, Math.min(100, score));
+  // Criterion 3: Technology & Context (25 pts)
+  // If keyword dump (3+ tech with zero action/outcome), lower credit to 5 pts
+  let technologyContextScore = 0;
+  if (isKeywordDump) {
+    technologyContextScore = 5;
+  } else if (hasTechnology) {
+    technologyContextScore = 25;
+  }
+
+  // Criterion 4: Outcome & Impact (25 pts)
+  const outcomeImpactScore = hasOutcome ? 25 : 0;
+
+  let rawScore = actionVerbScore + quantifiedResultScore + technologyContextScore + outcomeImpactScore;
+
+  // Soft deductions for passive phrasing or abnormal brevity
+  let deduction = 0;
+  if (weakPhraseHits.length > 0) deduction += weakPhraseHits.length * 10;
+  if (isJobDescriptionStyle && !isKeywordDump) deduction += 10;
+  if (text.split(/\s+/).length < 7) deduction += 15;
+
+  const score = Math.max(0, Math.min(100, rawScore - deduction));
 
   let critique: string | undefined;
-  if (isJobDescriptionStyle) {
+  if (isKeywordDump) {
+    critique = 'Keyword dump: lists 3+ technologies with no engineering action or measurable outcome.';
+  } else if (isJobDescriptionStyle) {
     critique = 'Reads like a passive job duty rather than an active accomplishment.';
   } else if (!hasMetric) {
     critique = 'Lacks quantifiable metric or business impact measurement.';

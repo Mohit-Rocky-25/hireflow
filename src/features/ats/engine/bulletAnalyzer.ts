@@ -77,22 +77,36 @@ export function analyzeBullet(rawText: string): BulletAnalysis {
     issues.push(`Overly verbose (${wordCount} words) — break into focused single-achievement bullets`);
   }
 
-  // 5. Tech mention heuristic (capitalized acronyms, frameworks, databases)
+  // 5. Tech mention heuristic
   const hasTechMention = /\b[A-Z][a-zA-Z0-9+#.]+\b/.test(trimmed);
 
-  // Calculate 0-100 Quality Score
-  let score = 50; // base score
+  // 6. Outcome heuristic
+  const hasOutcome =
+    hasMetric ||
+    /\b(?:resulting in|leading to|enabling|improving|decreasing|increasing|reducing|boosting|to achieve|to prevent|saving)\b/i.test(
+      trimmed
+    );
 
-  if (hasStrongVerb) score += 20;
-  if (hasMetric) score += 25;
-  if (hasTechMention) score += 10;
-  if (wordCount >= 10 && wordCount <= 28) score += 15;
+  // 7. Keyword dump heuristic (3+ tech capitalized words with no strong verb or outcome)
+  const techCapitalizedMatches = trimmed.match(/\b[A-Z][a-zA-Z0-9+#.]+\b/g) || [];
+  const isKeywordDump = techCapitalizedMatches.length >= 3 && !hasStrongVerb && !hasOutcome;
+  if (isKeywordDump) {
+    issues.push('Keyword dump detected: multiple tools listed without an engineering action or outcome');
+  }
 
-  if (hasWeakPhrase) score -= 25;
-  if (wordCount < 7) score -= 20;
-  if (wordCount > 40) score -= 15;
+  // Calculate 0-100 Quality Score across 4 criteria (Sum = 100)
+  const actionVerbScore = (hasStrongVerb || strongVerbMatched) ? 20 : 0;
+  const metricScore = hasMetric ? 30 : 0;
+  const techScore = isKeywordDump ? 5 : hasTechMention ? 25 : 0;
+  const outcomeScore = hasOutcome ? 25 : 0;
 
-  score = Math.max(10, Math.min(100, score));
+  let rawScore = actionVerbScore + metricScore + techScore + outcomeScore;
+  let deduction = 0;
+  if (hasWeakPhrase) deduction += 15;
+  if (wordCount < 7) deduction += 15;
+  if (wordCount > 35) deduction += 10;
+
+  const score = Math.max(0, Math.min(100, rawScore - deduction));
 
   return {
     rawText: trimmed,
@@ -104,6 +118,7 @@ export function analyzeBullet(rawText: string): BulletAnalysis {
     hasMetric,
     metricMatched,
     hasTechMention,
+    isKeywordDump,
     score,
     issues,
   };

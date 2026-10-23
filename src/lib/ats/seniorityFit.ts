@@ -1,58 +1,79 @@
 // ============================================================
 // HireFlow ATS Engine — seniorityFit
-// Pure TypeScript module to compute candidate seniority fit
+// Continuous, documented piecewise function with ZERO gaps (Stage 2A)
 // ============================================================
 
 import { ParsedJD, ParsedResume, SeniorityFitResult } from './types';
+
+/**
+ * Calculates continuous, gap-free seniority fit score (0-100).
+ * Let diff = candidateYears - requiredYears.
+ *
+ * Continuous at all boundaries:
+ * - diff = 0: 100
+ * - diff = 2.0: 100
+ * - shortfall = 1.0: 80 from both sides
+ * - shortfall = 3.0: 40 from both sides
+ */
+export function calculateContinuousSeniorityScore(candidateYears: number, requiredYears: number): number {
+  const diff = candidateYears - requiredYears;
+
+  if (diff >= 0) {
+    if (diff <= 2.0) return 100;
+    return Math.max(70, 100 - (diff - 2.0) * 5);
+  }
+
+  const shortfall = -diff;
+  if (shortfall <= 1.0) {
+    return 100 - 20 * shortfall;
+  }
+  if (shortfall <= 3.0) {
+    return 80 - 20 * (shortfall - 1.0);
+  }
+  return Math.max(10, 40 - 10 * (shortfall - 3.0));
+}
 
 export function seniorityFit(resume: ParsedResume, jd: ParsedJD): SeniorityFitResult {
   const candidateYears = resume.totalYearsEstimate;
   const requiredYears = jd.yearsRequired;
 
   const diff = candidateYears - requiredYears;
+  const score = calculateContinuousSeniorityScore(candidateYears, requiredYears);
 
   let status: 'underqualified' | 'fit' | 'overqualified' = 'fit';
-  let score = 100;
   let reasoning = '';
 
   const isCareerSwitcher =
-    resume.rawText.match(/\b(?:transitioning|career switcher|career transition|former financial|career change)\b/i) &&
+    Boolean(resume.rawText.match(/\b(?:transitioning|career switcher|career transition|former financial|career change)\b/i)) &&
     jd.yearsRequired >= 3;
 
   if (isCareerSwitcher) {
     status = 'underqualified';
-    score = 35;
-    reasoning = `Career transition detected: While you have overall professional experience, this position requires ${requiredYears}+ years of specialized technical engineering track record.`;
+    reasoning = `Career transition detected: While you have overall professional experience, this position requests ${requiredYears}+ years of specialized technical engineering track record.`;
   } else if (diff < -2) {
     status = 'underqualified';
-    score = Math.max(20, 100 - Math.abs(diff) * 18);
-    reasoning = `The role specifies ${requiredYears}+ years of experience, but your resume reflects approximately ${candidateYears.toFixed(
+    reasoning = `Experience gap: Role specifies ${requiredYears}+ years, and your resume reflects ~${candidateYears.toFixed(
       1
-    )} years. This creates an immediate screening hurdle unless backed by exceptional portfolio or referral.`;
+    )} years. This creates an initial screening hurdle unless backed by substantial project proof or direct referral.`;
   } else if (diff < 0) {
     status = 'fit';
-    score = Math.max(75, 100 - Math.abs(diff) * 12);
     reasoning = `Close seniority match: Candidate has ~${candidateYears.toFixed(
       1
-    )} years vs ${requiredYears} years requested. High skill alignment and strong project bullets can readily close this slight gap.`;
+    )} years vs ${requiredYears} years requested. Demonstrated bullet evidence readily balances this slight delta.`;
   } else if (diff <= 3) {
     status = 'fit';
-    score = 100;
-    reasoning = `Ideal seniority fit: Candidate experience (~${candidateYears.toFixed(
+    reasoning = `Strong seniority fit: Candidate experience (~${candidateYears.toFixed(
       1
-    )} years) directly aligns with the target role seniority (${jd.seniority.toUpperCase()} level).`;
+    )} years) directly aligns with target role level (${jd.seniority.toUpperCase()}).`;
   } else {
-    // Overqualified by > 3 years
     if (jd.seniority === 'fresher' && candidateYears >= 3) {
       status = 'overqualified';
-      score = 65;
-      reasoning = `You have ${candidateYears.toFixed(
+      reasoning = `Candidate reflects ${candidateYears.toFixed(
         1
-      )} years of experience applying for an entry-level / fresher position. Recruiters may worry about flight risk, boredom, or salary misalignment.`;
+      )} years of experience applying for an entry-level position. Reviewers may explore career trajectory alignment.`;
     } else {
       status = 'fit';
-      score = 90;
-      reasoning = `Strong veteran seniority: Candidate experience (~${candidateYears.toFixed(
+      reasoning = `Experienced background: Candidate experience (~${candidateYears.toFixed(
         1
       )} years) comfortably satisfies the ${requiredYears}+ years requirement.`;
     }

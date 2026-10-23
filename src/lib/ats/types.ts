@@ -28,6 +28,8 @@ export interface TaxonomySkill {
 
 export type SkillMatchStatus = 'exact' | 'alias' | 'implied' | 'related' | 'missing';
 
+export type EvidenceTier = 'evidenced' | 'listed_only' | 'implied_strong' | 'not_demonstrated';
+
 export interface SkillMatchResult {
   skill: string;
   category: SkillCategory;
@@ -38,6 +40,8 @@ export interface SkillMatchResult {
   evidenceSnippet?: string;
   gapType: 'matched' | 'wording_fix' | 'learn_needed';
   isClaimedOnly?: boolean;
+  evidenceTier?: EvidenceTier;
+  earnedCredit?: number; // 1.0 (evidenced), 0.5 (listed only or strong implied), 0.0 (weak/missing)
 }
 
 export interface BulletAnalysis {
@@ -100,6 +104,16 @@ export interface JDRequirement {
   inferred?: boolean;
 }
 
+export interface ExtractedRequirement {
+  id: string;
+  text: string;
+  canonical?: string;
+  type: 'must' | 'nice';
+  confidence: 'high' | 'medium' | 'low';
+  sourceSentence: string;
+  inTaxonomy: boolean;
+}
+
 export interface ParsedJD {
   rawText: string;
   roleTitle: string;
@@ -110,6 +124,8 @@ export interface ParsedJD {
   responsibilities: string[];
   toolsMentioned: string[];
   domainKeywords: string[];
+  extractedRequirements?: ExtractedRequirement[];
+  unrecognizedRequirements?: ExtractedRequirement[];
   requirements?: JDRequirement[];
   dealbreakers?: string[];
 }
@@ -145,7 +161,8 @@ export interface ScoreBreakdown {
   isEvidenceNA?: boolean;
   scoreExplanation?: Record<string, string[]>;
   dealbreakerTriggered?: { rule: string; reason: string };
-  verifiedCitationsCount?: number;
+  isStuffingFlagged?: boolean;
+  isSeniorityConstant?: boolean;
   effectiveWeights?: {
     mustHave: number;
     evidence: number;

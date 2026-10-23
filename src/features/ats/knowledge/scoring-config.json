@@ -1,5 +1,5 @@
 {
-  "_comment": "Heuristic knowledge base. Not real ATS vendor data. Review and extend.",
+  "_comment": "Heuristic knowledge base. Not real ATS vendor data. Editorial defaults, not learned from outcome data.",
   "weights": {
     "mustHaveCoverage": 30,
     "evidenceDepth": 20,
@@ -28,23 +28,23 @@
       "id": "strong",
       "minScore": 85,
       "maxScore": 100,
-      "label": "Strong",
-      "badge": "High ATS Compatibility",
-      "verdict": "High match for the target role with grounded bullet evidence, solid metrics, and verified must-haves."
+      "label": "Strong Match",
+      "badge": "High Alignment",
+      "verdict": "High alignment for the target role with bullet evidence, solid metrics, and evidenced must-haves."
     },
     {
       "id": "competitive",
       "minScore": 70,
       "maxScore": 84,
-      "label": "Competitive",
-      "badge": "Competitive Candidate",
-      "verdict": "Solid foundation meeting most core criteria; address minor evidence gaps or weak metrics to maximize interview callbacks."
+      "label": "Partial Match",
+      "badge": "Competitive Alignment",
+      "verdict": "Solid foundation meeting most core criteria; address minor evidence gaps or weak metrics to strengthen your review."
     },
     {
       "id": "needs_work",
       "minScore": 55,
       "maxScore": 69,
-      "label": "Needs work",
+      "label": "Needs Work",
       "badge": "Notable Gaps Detected",
       "verdict": "Notable gaps in must-have technologies, lack of metric depth, or ungrounded skill claims require targeted revision."
     },
@@ -52,9 +52,9 @@
       "id": "weak_match",
       "minScore": 0,
       "maxScore": 54,
-      "label": "Weak match",
+      "label": "Weak Match",
       "badge": "Substantial Risk Profile",
-      "verdict": "Substantial risk of immediate ATS filter rejection due to missing core requirements, low evidence depth, or formatting bottlenecks."
+      "verdict": "Substantial evidence gap against job description requirements due to missing core stack items or lack of project depth."
     }
   ]
 }

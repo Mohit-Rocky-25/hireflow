@@ -1,0 +1,82 @@
+{
+  "$schema": "HireFlow Scoring Configuration Schema v2.0",
+  "version": "2.4.0",
+  "lastReviewed": "2026-10-23",
+  "editorialDisclaimer": "editorial defaults, not learned from outcome data",
+  "presets": {
+    "experienced": {
+      "id": "experienced",
+      "label": "Experienced Professional (2+ Years)",
+      "rationale": "Calibrates weight across commercial tenure, verified bullet evidence, architecture scope, and mandatory skills.",
+      "weights": {
+        "mustHaveCoverage": 30,
+        "evidenceDepth": 20,
+        "impactMetrics": 15,
+        "projectsAndOss": 10,
+        "seniorityFit": 10,
+        "formatAndParse": 10,
+        "tierFit": 5
+      }
+    },
+    "student_fresher": {
+      "id": "student_fresher",
+      "label": "Student & Campus Fresher (0-2 Years)",
+      "rationale": "Excludes the constant seniority pillar to prevent unearned point inflation (F19). Re-allocates weight to demonstrable project engineering artifacts, bullet depth, and core mandatory skills.",
+      "weights": {
+        "mustHaveCoverage": 35,
+        "evidenceDepth": 25,
+        "projectsAndOss": 20,
+        "impactMetrics": 10,
+        "seniorityFit": 0,
+        "formatAndParse": 10,
+        "tierFit": 0
+      }
+    }
+  },
+  "defaultWeights": {
+    "mustHaveCoverage": 30,
+    "evidenceDepth": 20,
+    "impactMetrics": 15,
+    "projectsAndOss": 10,
+    "seniorityFit": 10,
+    "formatAndParse": 10,
+    "tierFit": 5
+  },
+  "penalties": {
+    "keywordStuffingMax": -10,
+    "noContactInfo": -5,
+    "missingStandardSection": -3,
+    "wordCountOutlier": -4
+  },
+  "wordCountLimits": {
+    "fresherMin": 140,
+    "experiencedMin": 250,
+    "maxRecommended": 1200
+  },
+  "bands": [
+    {
+      "id": "strong",
+      "minScore": 85,
+      "maxScore": 100,
+      "label": "Strong Match",
+      "badge": "High Alignment",
+      "verdict": "High textual alignment with target role requirements. Demonstrates evidence for core must-haves and quantified achievements."
+    },
+    {
+      "id": "partial",
+      "minScore": 60,
+      "maxScore": 84,
+      "label": "Partial Match",
+      "badge": "Developing Alignment",
+      "verdict": "Solid foundational competence; address missing mandatory technologies or weak unquantified bullets to improve review alignment."
+    },
+    {
+      "id": "weak",
+      "minScore": 0,
+      "maxScore": 59,
+      "label": "Weak Match",
+      "badge": "Notable Evidence Gaps",
+      "verdict": "Substantial textual gaps against mandatory JD requirements. Critical core stack items are absent or only listed without bullet proof."
+    }
+  ]
+}

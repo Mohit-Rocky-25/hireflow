@@ -52,6 +52,7 @@ export interface AtsEngineOptions {
   resumeSource?: WordLimitSource;
   jdSource?: WordLimitSource;
   today?: Date;
+  confirmedRequirements?: Array<{ text: string; type: 'must' | 'nice' }>;
 }
 
 export type AtsEngineResponse =
@@ -114,7 +115,7 @@ export function runAtsEngine(
   });
 
   // 5. Analyze Job Description
-  const jdAnalysis = analyzeJobDescription(jdText);
+  const jdAnalysis = analyzeJobDescription(jdText, options?.confirmedRequirements);
 
   // 6. Match Skills on resumeText ONLY
   const skillResults = matchRequiredSkills(resumeText, sections, jdAnalysis.requiredSkills);
@@ -175,6 +176,7 @@ export function runAtsEngine(
       band: scoring.band,
       headline: scoring.headline,
       subscores: scoring.subscores,
+      activeWeights: (scoring as any).activeWeights,
       penalties: scoring.penalties,
     },
     fixes: fixFirstItems.map((f, i) => ({
@@ -237,7 +239,7 @@ export function runAtsEngine(
       missingStandardSections: scoring.missingStandardSections,
       weakBulletsCount: scoring.weakBulletsCount,
       metricsRatio: scoring.metricsRatio,
-      stuffedSkills: scoring.stuffedSkills,
+      stuffedSkills: scoring.stuffedSkills.map((s: any) => typeof s === 'string' ? s : s.canonical || s.skillId),
     },
     learningPath,
     canonicalResult: analyzeCanonical(resumeText, jdText, {

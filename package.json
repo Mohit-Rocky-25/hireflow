@@ -24,7 +24,8 @@
     "security:bundle": "node scripts/security/scan-bundle.mjs",
     "security:redteam": "vitest run src/__tests__/security/",
     "security:check": "node scripts/security/run-check.mjs",
-    "check:claims": "npx tsx scripts/check-claims.ts"
+    "check:claims": "npx tsx scripts/check-claims.ts",
+    "validate:scoring": "vitest run tests/validation/validateScoring.test.ts"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.3.3",

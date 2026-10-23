@@ -63,6 +63,7 @@ export interface BulletAnalysis {
   hasTechMention: boolean;
   score: number; // 0-100 quality
   issues: string[];
+  isKeywordDump?: boolean;
 }
 
 export interface ExperienceEntry {

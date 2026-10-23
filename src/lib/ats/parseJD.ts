@@ -3,13 +3,16 @@
 // Pure TypeScript module to parse raw job descriptions
 // ============================================================
 
-import { ParsedJD } from './types';
+import { ParsedJD, ExtractedRequirement } from './types';
 import skillsTaxonomyData from '../../data/ats/skills-taxonomy.json';
 
 const MUST_HAVE_HEADERS = /(?:must[\s-]have|key requirements|requirements|qualifications|what you'?ll need|technical requirements|core skills|mandatory)/i;
 const NICE_TO_HAVE_HEADERS = /(?:nice[\s-]to[\s-]have|bonus|preferred|good to have|plus|desirable)/i;
 
-export function parseJD(rawText: string): ParsedJD {
+export function parseJD(
+  rawText: string,
+  confirmedRequirements?: { text: string; type: 'must' | 'nice' }[]
+): ParsedJD {
   const cleanText = rawText.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
   const lines = cleanText.split('\n').map((l) => l.trim()).filter(Boolean);
 
@@ -79,6 +82,34 @@ export function parseJD(rawText: string): ParsedJD {
   for (const line of lines) {
     const cleanLine = line.toLowerCase().replace(/^[#*\-=_~•\s]+/, '').trim();
     const isBullet = line.trim().startsWith('-') || line.trim().startsWith('•') || line.trim().startsWith('*');
+
+    // Check for inline header pattern: e.g. "Requirements: Java, Python, SQL" or "Preferred: Cloud, Docker"
+    const mustInline = line.match(/^(?:must[\s-]have|key requirements|requirements|mandatory requirements|qualifications|technical requirements|core skills|mandatory)\s*[:\-]\s*(.*)$/i);
+    if (mustInline) {
+      currentBucket = 'must';
+      if (mustInline[1] && mustInline[1].trim()) {
+        mustLines.push(mustInline[1].trim());
+      }
+      continue;
+    }
+
+    const niceInline = line.match(/^(?:nice[\s-]to[\s-]have|bonus|preferred|good to have|plus|desirable)\s*[:\-]\s*(.*)$/i);
+    if (niceInline) {
+      currentBucket = 'nice';
+      if (niceInline[1] && niceInline[1].trim()) {
+        niceLines.push(niceInline[1].trim());
+      }
+      continue;
+    }
+
+    const respInline = line.match(/^(?:responsibilities|what you'?ll do|the role|duties)\s*[:\-]\s*(.*)$/i);
+    if (respInline) {
+      currentBucket = 'resp';
+      if (respInline[1] && respInline[1].trim()) {
+        respLines.push(respInline[1].trim());
+      }
+      continue;
+    }
 
     if (!isBullet && line.length < 60) {
       if (NICE_TO_HAVE_HEADERS.test(cleanLine)) {
@@ -172,6 +203,84 @@ export function parseJD(rawText: string): ParsedJD {
     niceToHavesSet.delete(m);
   }
 
+  // 5. Build ExtractedRequirement list and detect Unrecognized Requirements (Stage 2C)
+  const extractedRequirements: ExtractedRequirement[] = [];
+  const unrecognizedRequirements: ExtractedRequirement[] = [];
+
+  // Match each mustHave to its source sentence/bullet
+  for (const m of mustHavesSet) {
+    const matchingLine = lines.find((l) => l.toLowerCase().includes(m.toLowerCase())) || `Required qualification: ${m}`;
+    extractedRequirements.push({
+      id: `req_must_${m.toLowerCase().replace(/[^a-z0-9]/g, '_')}`,
+      text: m,
+      canonical: m,
+      type: 'must',
+      confidence: mustLines.length > 0 ? 'high' : 'medium',
+      sourceSentence: matchingLine,
+      inTaxonomy: true,
+    });
+  }
+
+  // Match each niceToHave to its source sentence/bullet
+  for (const n of niceToHavesSet) {
+    const matchingLine = lines.find((l) => l.toLowerCase().includes(n.toLowerCase())) || `Preferred qualification: ${n}`;
+    extractedRequirements.push({
+      id: `req_nice_${n.toLowerCase().replace(/[^a-z0-9]/g, '_')}`,
+      text: n,
+      canonical: n,
+      type: 'nice',
+      confidence: niceLines.length > 0 ? 'high' : 'medium',
+      sourceSentence: matchingLine,
+      inTaxonomy: true,
+    });
+  }
+
+  // Scan must/nice lines for unrecognized technologies/tools not in taxonomy
+  const knownTokensLower = new Set(
+    skillsTaxonomyData.flatMap((t) => [t.canonical.toLowerCase(), ...t.aliases.map((a) => a.toLowerCase())])
+  );
+
+  const requirementCueLines = lines.filter(
+    (l) =>
+      l.length > 15 &&
+      l.length < 160 &&
+      /\b(?:must\s+have|proficiency\s+in|hands[- ]on\s+experience\s+with|experience\s+in|knowledge\s+of|working\s+with)\b/i.test(l)
+  );
+
+  for (const reqLine of requirementCueLines) {
+    // Check if this line already contains a recognized taxonomy skill
+    const hasRecognizedSkill = Array.from(knownTokensLower).some((tok) =>
+      new RegExp(`\\b${tok.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i').test(reqLine)
+    );
+
+    if (!hasRecognizedSkill) {
+      // Extract candidate phrase after the cue
+      const match = reqLine.match(
+        /\b(?:must\s+have|proficiency\s+in|hands[- ]on\s+experience\s+with|experience\s+in|knowledge\s+of|working\s+with)\s+([^,.;]+)/i
+      );
+      if (match && match[1].trim().length >= 3 && match[1].trim().length <= 40) {
+        const unrecognizedPhrase = match[1].trim();
+        unrecognizedRequirements.push({
+          id: `unrec_${Math.random().toString(36).slice(2, 8)}`,
+          text: unrecognizedPhrase,
+          type: 'must',
+          confidence: 'low',
+          sourceSentence: reqLine,
+          inTaxonomy: false,
+        });
+      }
+    }
+  }
+
+  // If user provided a confirmed list of requirements, override with user confirmed items
+  let finalMustHaves = Array.from(mustHavesSet);
+  let finalNiceToHaves = Array.from(niceToHavesSet);
+
+  if (confirmedRequirements && confirmedRequirements.length > 0) {
+    finalMustHaves = confirmedRequirements.filter((r) => r.type === 'must').map((r) => r.text);
+    finalNiceToHaves = confirmedRequirements.filter((r) => r.type === 'nice').map((r) => r.text);
+  }
+
   // Domain keywords (e.g. Distributed, Microservices, Scale, Real-time, Security)
   const domainKeywords = [
     'distributed systems',
@@ -190,10 +299,12 @@ export function parseJD(rawText: string): ParsedJD {
     roleTitle,
     seniority,
     yearsRequired,
-    mustHaves: Array.from(mustHavesSet),
-    niceToHaves: Array.from(niceToHavesSet),
+    mustHaves: finalMustHaves,
+    niceToHaves: finalNiceToHaves,
     responsibilities: respLines,
     toolsMentioned: Array.from(toolsMentionedSet),
     domainKeywords,
+    extractedRequirements,
+    unrecognizedRequirements,
   };
 }

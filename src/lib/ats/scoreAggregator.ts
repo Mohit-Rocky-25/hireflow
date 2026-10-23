@@ -30,50 +30,56 @@ export function scoreAggregator(
     format: [],
   };
 
-  // 1. Keyword Stuffing Detection
+  // 1. Skills-Evidence Rule (Stage 2A)
+  // evidenceRatio = (listed skills with at least 1 supporting mention in experience/project bullets) / (listed skills)
+  // Stuffing flag fires strictly when listedOnly > 60% of listed skills AND listed skills >= 15
   const bulletTextJoined = (bulletAnalyses || []).map((b) => b.rawText.toLowerCase()).join(' ');
-  const skillsWordCount = (resume.sections.skills || []).join(' ').split(/\s+/).filter(Boolean).length;
-  const isSkillsDominated = resume.wordCount > 0 && skillsWordCount / resume.wordCount > 0.40;
-  const isExtremeCount = resume.skillsExtracted.length >= 40;
-
-  let unsupportedSkillsCount = 0;
-  for (const skill of resume.skillsExtracted) {
+  const extractedList = resume.skillsExtracted || (resume.sections?.skills ? resume.sections.skills.join(', ').split(/[,•\n]+/).map(s => s.trim()).filter(Boolean) : []);
+  const totalListedSkills = extractedList.length;
+  let evidencedSkillsCount = 0;
+  for (const skill of extractedList) {
     const sLower = skill.toLowerCase();
-    if (!bulletTextJoined.includes(sLower) && !resume.rawText.toLowerCase().includes(`with ${sLower}`)) {
-      unsupportedSkillsCount++;
+    if (bulletTextJoined.includes(sLower) || resume.rawText.toLowerCase().includes(`with ${sLower}`)) {
+      evidencedSkillsCount++;
     }
   }
-
-  const isStuffingFlagged =
-    (isExtremeCount || isSkillsDominated) &&
-    unsupportedSkillsCount / Math.max(1, resume.skillsExtracted.length) > 0.65;
+  const listedOnlyCount = totalListedSkills - evidencedSkillsCount;
+  const evidenceRatio = totalListedSkills > 0 ? evidencedSkillsCount / totalListedSkills : 1.0;
+  const isStuffingFlagged = listedOnlyCount / Math.max(1, totalListedSkills) > 0.60 && totalListedSkills >= 15;
 
   const keywordStuffingPenalty = isStuffingFlagged ? -15 : 0;
   if (isStuffingFlagged) {
     scoreExplanation.format.push(
-      `Keyword stuffing detected: ${unsupportedSkillsCount} of ${resume.skillsExtracted.length} listed skills lack any project or bullet evidence.`
+      `Keyword stuffing flagged: ${listedOnlyCount} of ${totalListedSkills} listed skills (${Math.round((listedOnlyCount / totalListedSkills) * 100)}%) lack supporting project or bullet proof.`
     );
   }
 
-  // 2. Must-Have Coverage (35%)
-  // Invariant 1: mustHaveCoverage must equal (must-haves with status exact|alias|implied) / (total must-haves)
+  // 2. Must-Have Coverage (Evidence-Tiered Credit, Stage 2B)
+  // Evidenced in bullets = 1.0, Listed only = 0.5, Implied via STRONG = 0.5, Weak/Missing = 0.0
   const mustHaves = skillMatches.filter((s) => s.importance === 'must_have');
-  const matchedMustHaves = mustHaves.filter(
-    (s) => s.status === 'exact' || s.status === 'alias' || s.status === 'implied'
-  );
-
   let mustHaveCoverageScore = 100;
   if (mustHaves.length > 0) {
-    mustHaveCoverageScore = Math.round((matchedMustHaves.length / mustHaves.length) * 100);
+    const earnedCreditSum = mustHaves.reduce((acc, m) => {
+      if (m.earnedCredit !== undefined) return acc + m.earnedCredit;
+      if (m.status === 'exact' || m.status === 'alias') return acc + (m.isClaimedOnly ? 0.5 : 1.0);
+      if (m.status === 'implied') return acc + 0.5;
+      if (m.status === 'related') return acc + 0.25;
+      return acc;
+    }, 0);
+    mustHaveCoverageScore = Math.round((earnedCreditSum / mustHaves.length) * 100);
+
     const missingMustList = mustHaves.filter((s) => s.status === 'missing' || s.status === 'related');
     for (const m of missingMustList.slice(0, 2)) {
       scoreExplanation.mustHave.push(`Missing mandatory requirement: ${m.skill}`);
     }
   } else if (skillMatches.length > 0) {
-    const allMatched = skillMatches.filter(
-      (s) => s.status === 'exact' || s.status === 'alias' || s.status === 'implied'
-    );
-    mustHaveCoverageScore = Math.round((allMatched.length / skillMatches.length) * 100);
+    const earnedCreditSum = skillMatches.reduce((acc, m) => {
+      if (m.earnedCredit !== undefined) return acc + m.earnedCredit;
+      if (m.status === 'exact' || m.status === 'alias') return acc + (m.isClaimedOnly ? 0.5 : 1.0);
+      if (m.status === 'implied') return acc + 0.5;
+      return acc;
+    }, 0);
+    mustHaveCoverageScore = Math.round((earnedCreditSum / skillMatches.length) * 100);
   }
 
   // 3. Evidence & Impact Quality (20%)
@@ -82,7 +88,7 @@ export function scoreAggregator(
   let evidenceQualityScore = 0;
 
   if (isEvidenceNA) {
-    scoreExplanation.evidence.push('Not enough data: No structured experience bullet points found in resume.');
+    scoreExplanation.evidence.push('Not applicable: No structured experience bullet points found in resume.');
   } else {
     const sumScores = bulletAnalyses.reduce((acc, b) => acc + b.score, 0);
     evidenceQualityScore = Math.round(sumScores / bulletAnalyses.length);
@@ -107,10 +113,14 @@ export function scoreAggregator(
   if (niceToHaves.length > 0) {
     let earned = 0;
     for (const n of niceToHaves) {
-      if (n.status === 'exact' || n.status === 'alias' || n.status === 'implied') {
-        earned += 1.0;
-      } else if (n.status === 'related') {
+      if (n.earnedCredit !== undefined) {
+        earned += n.earnedCredit;
+      } else if (n.status === 'exact' || n.status === 'alias') {
+        earned += n.isClaimedOnly ? 0.5 : 1.0;
+      } else if (n.status === 'implied') {
         earned += 0.5;
+      } else if (n.status === 'related') {
+        earned += 0.25;
       }
     }
     niceToHaveCoverageScore = Math.round((earned / niceToHaves.length) * 100);
@@ -120,9 +130,19 @@ export function scoreAggregator(
     }
   }
 
-  // 5. Seniority & Experience Fit (15%)
+  // 5. Seniority & Experience Fit (Constant-Pillar Rule, F19)
+  // For entry-level / fresher roles with fresher candidates, seniority yields a constant 100 and inflates composite.
+  // We exclude this constant pillar and renormalize active weights.
+  const isSeniorityConstant =
+    (jd.yearsRequired <= 1 || jd.seniority === 'fresher') &&
+    (resume.totalYearsEstimate <= 1.5 || resume.careerLevel === 'student' || resume.careerLevel === 'fresher');
+
   const seniorityFitScore = seniority.score;
-  if (seniority.status === 'underqualified') {
+  if (isSeniorityConstant) {
+    scoreExplanation.seniority.push(
+      'Not applicable: Seniority Fit (excluded for fresher/entry-level role to prevent unearned point inflation).'
+    );
+  } else if (seniority.status === 'underqualified') {
     scoreExplanation.seniority.push(seniority.reasoning);
   } else if (seniority.status === 'overqualified') {
     scoreExplanation.seniority.push(seniority.reasoning);
@@ -178,13 +198,12 @@ export function scoreAggregator(
     scoreExplanation.format.push(`[${r.severity.toUpperCase()}] ${r.name}`);
   }
 
-  // 8. Re-normalization of weights if any component is N/A
-  // Base weights: mustHave=0.35, evidence=0.20, niceToHave=0.10, seniority=0.15, project=0.10, format=0.10
+  // 8. Re-normalization of weights across ACTIVE non-constant components
   const baseWeights = {
     mustHave: 0.35,
     evidence: isEvidenceNA ? 0 : 0.20,
     niceToHave: niceToHaves.length > 0 ? 0.10 : 0,
-    seniority: 0.15,
+    seniority: isSeniorityConstant ? 0 : 0.15,
     project: 0.10,
     format: 0.10,
   };
@@ -219,14 +238,14 @@ export function scoreAggregator(
     mustHaveCoverageScore * normWeights.mustHave +
     (isEvidenceNA ? 0 : evidenceQualityScore * normWeights.evidence) +
     niceToHaveCoverageScore * normWeights.niceToHave +
-    seniorityFitScore * normWeights.seniority +
+    (isSeniorityConstant ? 0 : seniorityFitScore * normWeights.seniority) +
     projectRelevanceScore * normWeights.project +
     formatSafetyScore * normWeights.format;
 
   let finalScore = Math.round(weightedSum + keywordStuffingPenalty);
   finalScore = Math.max(0, Math.min(100, finalScore));
 
-  // 9. Dealbreaker Checks
+  // 9. Experience Gap Notice (Stage 2A: No hidden hard cap on composite score)
   let dealbreakerTriggered: { rule: string; reason: string } | undefined;
   if (
     seniority.status === 'underqualified' &&
@@ -234,10 +253,9 @@ export function scoreAggregator(
     seniority.candidateYears <= 1
   ) {
     dealbreakerTriggered = {
-      rule: `Mandatory Seniority: Role demands ${seniority.requiredYears}+ years of production engineering experience.`,
-      reason: `Candidate has ~${seniority.candidateYears} yrs experience (student/fresher level), falling critically short of senior role mandate.`,
+      rule: `Experience Gap: Role specifies ${seniority.requiredYears}+ years of production engineering experience.`,
+      reason: `Candidate has ~${seniority.candidateYears} yrs experience (student/fresher level), lowering seniority fit without artificially capping composite score.`,
     };
-    finalScore = Math.min(finalScore, 55);
   }
 
   // 10. Confidence Evaluation
@@ -263,6 +281,8 @@ export function scoreAggregator(
     formatSafetyScore,
     keywordStuffingPenalty,
     finalScore,
+    isStuffingFlagged,
+    isSeniorityConstant,
     confidence,
     confidenceReason,
     isEvidenceNA,

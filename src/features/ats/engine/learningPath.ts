@@ -70,7 +70,13 @@ function stripWeakPrefix(text: string): string {
     }
   }
   cleaned = cleaned.replace(/^(developing|building|creating|implementing|fixing|integrating|handling)\s+/i, '').trim();
-  if (/^[A-Z]{2,}\b/.test(cleaned)) {
+  const firstWord = cleaned.split(/\s+/)[0];
+  const isLikelyProjectOrProperNoun = /^[A-Z][a-zA-Z0-9_-]+$/.test(firstWord) && (
+    /^[A-Z]{2,}/.test(firstWord) ||
+    /^[A-Z][a-z]+[A-Z]/.test(firstWord) ||
+    ['tourly', 'unisync', 'localpro'].includes(firstWord.toLowerCase())
+  );
+  if (isLikelyProjectOrProperNoun) {
     return cleaned;
   }
   return cleaned.charAt(0).toLowerCase() + cleaned.slice(1);
@@ -260,7 +266,15 @@ export function generateLearningPath(params: GenerateLearningPathParams): Learni
       weakness = 'Missing strong action verb and concrete verification metrics.';
     }
 
-    const rawTemplate = `${verb} ${cleaned.replace(/\.$/, '')}, accelerating throughput by [X%] and reducing latency across [N] production requests.`;
+    const isApiOrService = /api|endpoint|backend|server|service|microservice|database|query|latency|throughput/i.test(bullet.rawText);
+    const isLostAndFoundOrNonService = /lost\s*and\s*found|belongings|portfolio|landing\s*page|ui|frontend|mobile\s*app/i.test(bullet.rawText);
+
+    let rawTemplate = '';
+    if (isLostAndFoundOrNonService && !isApiOrService) {
+      rawTemplate = `${verb} ${cleaned.replace(/\.$/, '')}, improving task completion time by [X%] across [N] active student users.`;
+    } else {
+      rawTemplate = `${verb} ${cleaned.replace(/\.$/, '')}, accelerating throughput by [X%] and reducing latency across [N] production requests.`;
+    }
     const templateRewrite = sanitizeTimeWords(rawTemplate);
 
     return {

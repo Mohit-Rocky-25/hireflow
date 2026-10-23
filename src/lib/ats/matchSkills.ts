@@ -3,8 +3,9 @@
 // Context-aware, token-boundary skill matcher with special token support
 // ============================================================
 
-import { SkillMatchResult, SkillMatchStatus, TaxonomySkill } from './types';
+import { SkillMatchResult, SkillMatchStatus, TaxonomySkill, EvidenceTier } from './types';
 import skillsTaxonomyData from '../../data/ats/skills-taxonomy.json';
+import implicationGraphData from '../../data/ats/implication-graph.json';
 
 export const SKILL_TAXONOMY = skillsTaxonomyData as TaxonomySkill[];
 const taxonomyList = SKILL_TAXONOMY;
@@ -13,21 +14,19 @@ for (const item of taxonomyList) {
   taxonomyMap.set(item.canonical.toLowerCase(), item);
 }
 
-// Additional implication graphs
-const IMPLICATION_RULES: Record<string, string[]> = {
-  'next.js': ['React', 'JavaScript'],
-  'react': ['JavaScript'],
-  'typescript': ['JavaScript'],
-  'eks': ['Kubernetes', 'AWS', 'Docker'],
-  'gke': ['Kubernetes', 'GCP', 'Docker'],
-  'aks': ['Kubernetes', 'Azure', 'Docker'],
-  'kubernetes': ['Docker', 'Containerization'],
-  'spring boot': ['Java', 'Spring Framework'],
-  'express.js': ['Node.js', 'JavaScript'],
-  'fastapi': ['Python', 'REST APIs'],
-  'django': ['Python'],
-  'flask': ['Python'],
-};
+// Build implication rules strictly from verified STRONG edges (Stage 2B)
+// WEAK edges (e.g. EKS -> Docker) are explicitly prohibited from counting toward met requirements.
+export const IMPLICATION_GRAPH = implicationGraphData.edges;
+
+const STRONG_IMPLICATION_MAP = new Map<string, { target: string; rationale: string }[]>();
+for (const edge of implicationGraphData.edges) {
+  if (edge.type === 'STRONG') {
+    const src = edge.source.toLowerCase();
+    const existing = STRONG_IMPLICATION_MAP.get(src) || [];
+    existing.push({ target: edge.target, rationale: edge.rationale });
+    STRONG_IMPLICATION_MAP.set(src, existing);
+  }
+}
 
 /**
  * Searches for a skill/token in text with strict boundaries and token-specific context rules.
@@ -227,30 +226,18 @@ export function matchSkills(
   jdNiceToHaves: string[],
   resumeRawText: string
 ): SkillMatchResult[] {
-  // Pre-calculate implications from resume skills
+  // Pre-calculate implications strictly from verified STRONG edges in the implication graph
   const candidateImpliedMap = new Map<string, { source: string; quote: string }>();
 
   for (const skill of resumeSkills) {
     const sLower = skill.toLowerCase();
-    const directImplications = IMPLICATION_RULES[sLower] || [];
-    for (const imp of directImplications) {
-      if (!candidateImpliedMap.has(imp.toLowerCase())) {
-        candidateImpliedMap.set(imp.toLowerCase(), {
+    const strongImplications = STRONG_IMPLICATION_MAP.get(sLower) || [];
+    for (const imp of strongImplications) {
+      if (!candidateImpliedMap.has(imp.target.toLowerCase())) {
+        candidateImpliedMap.set(imp.target.toLowerCase(), {
           source: skill,
-          quote: `Implied by candidate proficiency in ${skill}`,
+          quote: `Implied by candidate proficiency in ${skill}: ${imp.rationale}`,
         });
-      }
-    }
-
-    const tax = taxonomyMap.get(sLower);
-    if (tax?.implies) {
-      for (const imp of tax.implies) {
-        if (!candidateImpliedMap.has(imp.toLowerCase())) {
-          candidateImpliedMap.set(imp.toLowerCase(), {
-            source: skill,
-            quote: `Implied by ${skill}`,
-          });
-        }
       }
     }
   }
@@ -264,11 +251,15 @@ export function matchSkills(
   // Helper to check if skill appears outside the skills section (in experience or projects)
   const isFoundInWorkOrProjects = (term: string) => {
     const lower = resumeRawText.toLowerCase();
-    const tLower = term.toLowerCase();
-    // Exclude header and skills section block from check
-    const skillsIdx = lower.indexOf('technical skills');
-    const skillsBlock = skillsIdx !== -1 ? lower.slice(skillsIdx, skillsIdx + 400) : '';
-    const otherText = lower.replace(skillsBlock, '');
+    // Find where experience or projects section begins
+    const workMatch = lower.match(/(?:experience|work\s+history|projects|employment)\s*[:\n]/i);
+    if (workMatch && workMatch.index !== undefined) {
+      const workText = lower.slice(workMatch.index);
+      return findTokenInText(term, workText).found;
+    }
+    // Fallback: exclude the skills line
+    const skillsMatch = lower.match(/(?:technical\s+skills|skills|core\s+competencies)\s*[:\n][^\n]*/i);
+    const otherText = skillsMatch ? lower.replace(skillsMatch[0], '') : lower;
     return findTokenInText(term, otherText).found;
   };
 
@@ -326,7 +317,8 @@ export function matchSkills(
       }
     }
 
-    // 3. Check Implied Skills (e.g. Next.js implies React, EKS implies Kubernetes)
+    // 3. Check Implied Skills strictly from STRONG edges (Next.js -> React; TypeScript -> JS)
+    // WEAK edges (e.g. EKS -> Docker) are explicitly prohibited
     if (status === 'missing') {
       const imp = candidateImpliedMap.get(skillLower);
       if (imp) {
@@ -360,11 +352,33 @@ export function matchSkills(
     if (status === 'missing') {
       gapType = 'learn_needed';
     } else if (status === 'related') {
-      // High-complexity architectural, infrastructure, and DevOps competencies require genuine project/study
       const requiresHandsOnStudy = /^(?:ci\/cd|devops|kubernetes|docker|system design|distributed systems|kafka|spark|airflow|aws|gcp|azure)\b/i.test(skill);
       gapType = requiresHandsOnStudy ? 'learn_needed' : 'wording_fix';
     } else if (status === 'implied') {
       gapType = 'wording_fix';
+    }
+
+    // Evidence Tiered Credit assignment (Stage 2B)
+    let evidenceTier: EvidenceTier = 'not_demonstrated';
+    let earnedCredit = 0.0;
+
+    if (status === 'exact' || status === 'alias') {
+      if (!isClaimedOnly) {
+        evidenceTier = 'evidenced';
+        earnedCredit = 1.0;
+      } else {
+        evidenceTier = 'listed_only';
+        earnedCredit = 0.5; // Bare mention receives at most 0.5 credit (F6)
+      }
+    } else if (status === 'implied') {
+      evidenceTier = 'implied_strong';
+      earnedCredit = 0.5; // Implied via STRONG edge gets 0.5 credit
+    } else if (status === 'related') {
+      evidenceTier = 'not_demonstrated';
+      earnedCredit = 0.25;
+    } else {
+      evidenceTier = 'not_demonstrated';
+      earnedCredit = 0.0;
     }
 
     results.push({
@@ -377,6 +391,8 @@ export function matchSkills(
       evidenceSnippet,
       gapType,
       isClaimedOnly,
+      evidenceTier,
+      earnedCredit,
     });
   }
 

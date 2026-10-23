@@ -222,24 +222,72 @@ export const PassCNarrativeZod = z.object({
 });
 
 // ============================================================
-// SHA-256 RESULT CACHE
 // ============================================================
+// CACHE & IDENTITY (Stage 2E)
+// Versioned inputs ensure engine or taxonomy upgrades invalidate stale results
+// ============================================================
+export const ENGINE_VERSION = '2.4.0';
+export const TAXONOMY_VERSION = '1.2.0';
+export const PROMPT_VERSION = '1.1.0';
+
 const analysisCache = new Map<string, AnalysisResponse>();
 
-export function getCacheKey(resumeText: string, jdText: string, options?: Record<string, any>): string {
+export function getCacheKey(
+  resumeText: string,
+  jdText: string,
+  options?: Record<string, any>,
+  versions?: { engineVersion?: string; taxonomyVersion?: string; promptVersion?: string }
+): string {
   const normResume = resumeText.trim().replace(/\r\n/g, '\n');
   const normJd = jdText.trim().replace(/\r\n/g, '\n');
   const optStr = JSON.stringify(options || {});
-  
-  // Simple fast string hash for browser/node universal safety
-  let hash = 0;
-  const combined = `${normResume}:::${normJd}:::${optStr}`;
+  const ev = versions?.engineVersion || ENGINE_VERSION;
+  const tv = versions?.taxonomyVersion || TAXONOMY_VERSION;
+  const pv = versions?.promptVersion || PROMPT_VERSION;
+  const confirmed = JSON.stringify(options?.confirmedRequirements || []);
+
+  const combined = `${normResume}:::${normJd}:::${optStr}:::ev:${ev}:::tv:${tv}:::pv:${pv}:::req:${confirmed}`;
+
+  // Quick fingerprint (deterministic fast 64-bit integer simulation, not cryptographic)
+  let hash1 = 5381;
+  let hash2 = 1779033703;
   for (let i = 0; i < combined.length; i++) {
     const char = combined.charCodeAt(i);
-    hash = ((hash << 5) - hash) + char;
-    hash |= 0;
+    hash1 = ((hash1 << 5) + hash1) ^ char;
+    hash2 = Math.imul(hash2 ^ char, 1597334677);
+    hash1 |= 0;
   }
-  return `ats_${Math.abs(hash).toString(36)}_${combined.length}`;
+  const part1 = (hash1 >>> 0).toString(16).padStart(8, '0');
+  const part2 = (hash2 >>> 0).toString(16).padStart(8, '0');
+  return `ats_cache_${part1}${part2}_${combined.length}`;
+}
+
+export async function computeSha256CacheKey(
+  resumeText: string,
+  jdText: string,
+  options?: Record<string, any>,
+  versions?: { engineVersion?: string; taxonomyVersion?: string; promptVersion?: string }
+): Promise<string> {
+  const normResume = resumeText.trim().replace(/\r\n/g, '\n');
+  const normJd = jdText.trim().replace(/\r\n/g, '\n');
+  const optStr = JSON.stringify(options || {});
+  const ev = versions?.engineVersion || ENGINE_VERSION;
+  const tv = versions?.taxonomyVersion || TAXONOMY_VERSION;
+  const pv = versions?.promptVersion || PROMPT_VERSION;
+  const confirmed = JSON.stringify(options?.confirmedRequirements || []);
+  const payload = `${normResume}:::${normJd}:::${optStr}:::ev:${ev}:::tv:${tv}:::pv:${pv}:::req:${confirmed}`;
+
+  if (typeof crypto !== 'undefined' && crypto.subtle && typeof crypto.subtle.digest === 'function') {
+    try {
+      const msgBuffer = new TextEncoder().encode(payload);
+      const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      return hashArray.map((b) => b.toString(16).padStart(2, '0')).join('');
+    } catch {
+      // Fallback to quick fingerprint
+    }
+  }
+  return getCacheKey(resumeText, jdText, options, versions);
 }
 
 export function getFromCache(key: string): AnalysisResponse | undefined {
@@ -248,6 +296,10 @@ export function getFromCache(key: string): AnalysisResponse | undefined {
 
 export function saveToCache(key: string, res: AnalysisResponse): void {
   analysisCache.set(key, res);
+}
+
+export function clearCache(): void {
+  analysisCache.clear();
 }
 
 // ============================================================

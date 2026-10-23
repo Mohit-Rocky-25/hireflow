@@ -530,6 +530,7 @@ export interface BuildReportStateParams {
     headline: string;
     subscores: any;
     penalties: Array<any>;
+    activeWeights?: any;
   };
   fixes: Array<{ id: string; title: string; reason: string; gain: number; effort?: any; type?: any; skillId?: string }>;
   bullets: Array<{ rawText: string; score: number; issues?: string[]; hasStrongVerb?: boolean; hasMetric?: boolean; hasTechMention?: boolean }>;
@@ -641,61 +642,70 @@ export function buildReportState(params: BuildReportStateParams): ReportState {
 
   // 5. Score Ledger
   const sub = params.scoring.subscores || {};
+  const activeWeights = (params.scoring as any).activeWeights || {
+    mustHaveCoverage: 30,
+    evidenceDepth: 20,
+    impactMetrics: 15,
+    projectsAndOss: 10,
+    seniorityFit: 10,
+    formatAndParse: 10,
+    tierFit: 5,
+  };
   const ledgerLines: ReportScoreLedgerLine[] = [
     {
       factor: 'mustHaveCoverage',
       factorLabel: 'Core Competency Coverage',
       earned: Number(sub.mustHaveCoverage ?? 0),
-      max: 30,
-      formula: 'sum(verifiedMustWeight * 1.0 + weakMustWeight * 0.5) / totalMustWeight * 30',
+      max: activeWeights.mustHaveCoverage ?? 30,
+      formula: `sum(verifiedMustWeight * 1.0 + weakMustWeight * 0.5) / totalMustWeight * ${activeWeights.mustHaveCoverage ?? 30}`,
       inputs: { count: sub.mustHaveCoverage ?? 0 },
     },
     {
       factor: 'evidenceDepth',
       factorLabel: 'Depth of Evidence',
       earned: Number(sub.evidenceDepth ?? 0),
-      max: 20,
-      formula: 'min(1.0, (verified * 1.0 + weak * 0.25 + tiers * 0.1) / target) * 20',
+      max: activeWeights.evidenceDepth ?? 20,
+      formula: `min(1.0, (verified * 1.0 + weak * 0.25 + tiers * 0.1) / target) * ${activeWeights.evidenceDepth ?? 20}`,
       inputs: { count: sub.evidenceDepth ?? 0 },
     },
     {
       factor: 'impactMetrics',
       factorLabel: 'Quantified Impact Metrics',
       earned: Number(sub.impactMetrics ?? 0),
-      max: 15,
-      formula: 'min(1.0, metricsRatio / targetRatio) * 15',
+      max: activeWeights.impactMetrics ?? 15,
+      formula: `min(1.0, metricsRatio / targetRatio) * ${activeWeights.impactMetrics ?? 15}`,
       inputs: { count: sub.impactMetrics ?? 0 },
     },
     {
       factor: 'projectsAndArtifacts',
       factorLabel: 'Projects & Engineering Artifacts',
       earned: Number(sub.projectsAndOss ?? 0),
-      max: 10,
-      formula: 'gradedProjectDepth(projects.length) * 10',
+      max: activeWeights.projectsAndOss ?? 10,
+      formula: `gradedProjectDepth(projects.length) * ${activeWeights.projectsAndOss ?? 10}`,
       inputs: { count: sub.projectsAndOss ?? 0 },
     },
     {
       factor: 'senioritySignals',
       factorLabel: 'Seniority & Level Alignment',
       earned: Number(sub.seniorityFit ?? 0),
-      max: 10,
-      formula: 'tenureCalibration(candidateYears, requiredYears) * 10',
+      max: activeWeights.seniorityFit ?? 10,
+      formula: `tenureCalibration(candidateYears, requiredYears) * ${activeWeights.seniorityFit ?? 10}`,
       inputs: { count: sub.seniorityFit ?? 0 },
     },
     {
       factor: 'formatAndParse',
       factorLabel: 'Format Integrity & Parsability',
       earned: Number(sub.formatAndParse ?? 0),
-      max: 10,
-      formula: 'standardSectionsRatio(present / expected) * 10',
+      max: activeWeights.formatAndParse ?? 10,
+      formula: `standardSectionsRatio(present / expected) * ${activeWeights.formatAndParse ?? 10}`,
       inputs: { count: sub.formatAndParse ?? 0 },
     },
     {
       factor: 'tierFit',
       factorLabel: 'Target Market Tier Fit',
       earned: Number(sub.tierFit ?? 0),
-      max: 5,
-      formula: 'tierCalibration(metricsRatio, mustMetRatio) * 5',
+      max: activeWeights.tierFit ?? 5,
+      formula: `tierCalibration(metricsRatio, mustMetRatio) * ${activeWeights.tierFit ?? 5}`,
       inputs: { count: sub.tierFit ?? 0 },
     },
   ];

@@ -1,0 +1,113 @@
+{
+  "$schema": "HireFlow Implication Graph Schema v2.0",
+  "version": "2.0.0",
+  "lastReviewed": "2026-10-23",
+  "description": "Directed implication graph with explicit STRONG vs WEAK edge classifications. WEAK edges are forbidden from counting toward met requirements.",
+  "edges": [
+    {
+      "source": "Next.js",
+      "target": "React",
+      "type": "STRONG",
+      "rationale": "Next.js is a React meta-framework; building Next.js apps requires writing React components and using hooks.",
+      "lastReviewed": "2026-10-23"
+    },
+    {
+      "source": "Next.js",
+      "target": "JavaScript",
+      "type": "STRONG",
+      "rationale": "React and Next.js are JavaScript/TypeScript libraries executing on the JavaScript runtime.",
+      "lastReviewed": "2026-10-23"
+    },
+    {
+      "source": "TypeScript",
+      "target": "JavaScript",
+      "type": "STRONG",
+      "rationale": "TypeScript is a strict syntactical superset of JavaScript that compiles down to JavaScript.",
+      "lastReviewed": "2026-10-23"
+    },
+    {
+      "source": "React",
+      "target": "JavaScript",
+      "type": "STRONG",
+      "rationale": "React component development requires foundational JavaScript (ES6+, DOM, closures).",
+      "lastReviewed": "2026-10-23"
+    },
+    {
+      "source": "Spring Boot",
+      "target": "Java",
+      "type": "STRONG",
+      "rationale": "Spring Boot applications are written in Java and execute on the Java Virtual Machine.",
+      "lastReviewed": "2026-10-23"
+    },
+    {
+      "source": "FastAPI",
+      "target": "Python",
+      "type": "STRONG",
+      "rationale": "FastAPI is a Python web framework built on standard Python type hints.",
+      "lastReviewed": "2026-10-23"
+    },
+    {
+      "source": "Django",
+      "target": "Python",
+      "type": "STRONG",
+      "rationale": "Django is a high-level Python web framework written entirely in Python.",
+      "lastReviewed": "2026-10-23"
+    },
+    {
+      "source": "Flask",
+      "target": "Python",
+      "type": "STRONG",
+      "rationale": "Flask is a Python micro-framework requiring Python proficiency.",
+      "lastReviewed": "2026-10-23"
+    },
+    {
+      "source": "Express.js",
+      "target": "Node.js",
+      "type": "STRONG",
+      "rationale": "Express is an HTTP framework designed specifically for the Node.js runtime.",
+      "lastReviewed": "2026-10-23"
+    },
+    {
+      "source": "NestJS",
+      "target": "Node.js",
+      "type": "STRONG",
+      "rationale": "NestJS is a server-side framework running on Node.js.",
+      "lastReviewed": "2026-10-23"
+    },
+    {
+      "source": "NestJS",
+      "target": "TypeScript",
+      "type": "STRONG",
+      "rationale": "NestJS heavily leverages TypeScript decorators, interfaces, and dependency injection.",
+      "lastReviewed": "2026-10-23"
+    },
+    {
+      "source": "EKS",
+      "target": "Docker",
+      "type": "WEAK",
+      "rationale": "Deploying services onto managed Amazon EKS clusters does not demonstrate Docker containerization or container daemon internals.",
+      "lastReviewed": "2026-10-23"
+    },
+    {
+      "source": "EKS",
+      "target": "Kubernetes",
+      "type": "WEAK",
+      "rationale": "Using a cloud-managed Kubernetes service (EKS) does not imply proficiency in bare-metal Kubernetes architecture or cluster administration.",
+      "lastReviewed": "2026-10-23"
+    },
+    {
+      "source": "GKE",
+      "target": "Docker",
+      "type": "WEAK",
+      "rationale": "Managed service usage does not guarantee container runtime proficiency.",
+      "lastReviewed": "2026-10-23"
+    },
+    {
+      "source": "AKS",
+      "target": "Docker",
+      "type": "WEAK",
+      "rationale": "Managed service usage does not guarantee container runtime proficiency.",
+      "lastReviewed": "2026-10-23"
+    }
+  ]
+}

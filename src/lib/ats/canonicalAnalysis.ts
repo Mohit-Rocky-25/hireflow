@@ -24,9 +24,8 @@ import { AtsEngineResult } from '../../features/ats/engine/types';
 import { SKILL_TAXONOMY } from './matchSkills';
 import { WORD_LIMITS } from '../config/limits';
 
-export const TAXONOMY_VERSION = '1.2.0';
+import { TAXONOMY_VERSION, PROMPT_VERSION } from './pipeline';
 export const SCORING_VERSION = '2.4.0';
-export const PROMPT_VERSION = '2.0.0';
 export const MODEL_VERSION = 'gemini-2.5-flash-grounded-v1';
 
 // ============================================================

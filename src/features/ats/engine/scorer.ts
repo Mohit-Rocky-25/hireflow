@@ -48,22 +48,29 @@ export function computeAtsScore(input: ScorerInput) {
   const tiersConfig = tiersData.tiers as Record<string, any>;
   const activeTier = tiersConfig[targetTier] || tiersConfig['top_product'];
 
-  // 1. Must-Have Coverage (Weight 30)
+  const activeWeights = weights;
+
+  // 1. Must-Have Coverage (Evidence-Tiered Credit, Stage 2B)
   const mustSkills = skillResults.filter(s => s.required === 'must');
-  const verifiedOrWeakMust = mustSkills.filter(s => s.status !== 'missing');
-  const fullyVerifiedMust = mustSkills.filter(s => s.status === 'verified');
-
   const mustTotalCount = mustSkills.length;
-  const mustMetCount = verifiedOrWeakMust.length;
+
+  let earnedCreditSum = 0;
+  for (const s of mustSkills) {
+    if (s.status === 'verified') {
+      earnedCreditSum += 1.0; // Evidenced in bullets = 1.0
+    } else if (s.status === 'weak') {
+      earnedCreditSum += 0.5; // Listed only = 0.5 (F6 bare mention cap)
+    } else if ((s as any).evidenceTier === 'implied_strong') {
+      earnedCreditSum += 0.5;
+    }
+  }
+
+  const mustMetCount = mustSkills.filter(s => s.status !== 'missing').length;
   const mustMetRatio = mustTotalCount > 0 ? mustMetCount / mustTotalCount : 1.0;
+  const mustScoreFactor = mustTotalCount > 0 ? earnedCreditSum / mustTotalCount : 1.0;
+  const mustHaveCoverage = Math.round(mustScoreFactor * activeWeights.mustHaveCoverage * 10) / 10;
 
-  // Fully verified musts get full weight; weak musts get partial weight
-  const mustScoreFactor = mustTotalCount > 0
-    ? (fullyVerifiedMust.length * 1.0 + (mustMetCount - fullyVerifiedMust.length) * 0.5) / mustTotalCount
-    : 1.0;
-  const mustHaveCoverage = Math.round(mustScoreFactor * weights.mustHaveCoverage * 10) / 10;
-
-  // 2. Evidence Depth (Weight 20) — Strictly Monotonic
+  // 2. Evidence Depth (Weight 20 or 25 for fresher) — Strictly Monotonic
   const totalFoundSkills = skillResults.filter(s => s.found);
   const verifiedFoundSkills = skillResults.filter(s => s.status === 'verified');
   const weakFoundSkills = skillResults.filter(s => s.status === 'weak');
@@ -75,7 +82,7 @@ export function computeAtsScore(input: ScorerInput) {
     1.0,
     (verifiedFoundSkills.length * 1.0 + weakFoundSkills.length * 0.25 + totalEvidenceTierSum * 0.1) / (baseTarget + 0.5)
   );
-  const evidenceDepth = Math.round(evidenceDepthFactor * weights.evidenceDepth * 10) / 10;
+  const evidenceDepth = Math.round(evidenceDepthFactor * activeWeights.evidenceDepth * 10) / 10;
 
   // 3. Impact Metrics (Weight 15)
   const allBullets = [
@@ -86,40 +93,39 @@ export function computeAtsScore(input: ScorerInput) {
   const metricsRatio = allBullets.length > 0 ? metricBullets.length / allBullets.length : 0;
   const targetMetricRatio = activeTier.minMetricBulletRatio || 0.5;
   const metricScoreFactor = Math.min(1.0, metricsRatio / targetMetricRatio);
-  const impactMetrics = Math.round(metricScoreFactor * weights.impactMetrics * 10) / 10;
+  const impactMetrics = Math.round(metricScoreFactor * activeWeights.impactMetrics * 10) / 10;
 
-  // 4. Projects and OSS (Weight 10)
-  // 4. Projects and OSS (Weight 10)
+  // 4. Projects and OSS (Weight 10 or 15 for fresher)
   let projectScoreFactor = 0;
   if (projects.length >= 2) projectScoreFactor = 1.0;
   else if (projects.length === 1) projectScoreFactor = 0.7;
   else if (experience.length >= 2) projectScoreFactor = 0.9;
   else if (experience.length === 1) projectScoreFactor = 0.5;
-  const projectsAndOss = Math.round(projectScoreFactor * weights.projectsAndOss * 10) / 10;
+  const projectsAndOss = Math.round(projectScoreFactor * activeWeights.projectsAndOss * 10) / 10;
 
-  // 5. Seniority Fit (Weight 10)
+  // 5. Seniority Fit
   let seniorityScoreFactor = 1.0;
   if (candidateYears < requiredYears) {
     const diff = requiredYears - candidateYears;
-    seniorityScoreFactor = Math.max(0.2, 1.0 - (diff * 0.25));
+    seniorityScoreFactor = Math.max(0.1, 1.0 - (diff * 0.25));
   }
-  const seniorityFitScore = Math.round(seniorityScoreFactor * weights.seniorityFit * 10) / 10;
+  const seniorityFitScore = Math.round(seniorityScoreFactor * activeWeights.seniorityFit * 10) / 10;
 
   // 6. Format and Parse Quality (Weight 10)
-  const isFresher = candidateYears <= 1 || (requiredYears !== undefined && requiredYears <= 1);
+  const isFresher = candidateYears <= 1;
   const standardSections = isFresher ? ['education', 'skills', 'projects'] : ['experience', 'education', 'skills'];
   const presentSections = new Set(sections.map(s => s.type));
   const missingStandardSections = standardSections.filter(s => !presentSections.has(s));
   let formatScoreFactor = 1.0 - (missingStandardSections.length * 0.2);
   if (!contactInfo.email || !contactInfo.phone) formatScoreFactor -= 0.15;
   formatScoreFactor = Math.max(0, formatScoreFactor);
-  const formatAndParse = Math.round(formatScoreFactor * weights.formatAndParse * 10) / 10;
+  const formatAndParse = Math.round(formatScoreFactor * activeWeights.formatAndParse * 10) / 10;
 
   // 7. Tier Fit (Weight 5)
   let tierScoreFactor = 0.5;
   if (metricsRatio >= targetMetricRatio && mustMetRatio >= 0.8) tierScoreFactor = 1.0;
   else if (mustMetRatio >= 0.6) tierScoreFactor = 0.7;
-  const tierFit = Math.round(tierScoreFactor * weights.tierFit * 10) / 10;
+  const tierFit = Math.round(tierScoreFactor * activeWeights.tierFit * 10) / 10;
 
   // Additional explainable metrics
   const niceSkills = skillResults.filter(s => s.required === 'nice');
@@ -148,16 +154,43 @@ export function computeAtsScore(input: ScorerInput) {
   // Penalties
   const penalties: PenaltyItem[] = [];
 
-  // Keyword stuffing: skills in skills section with 0 supporting bullets
-  const verifiedSkillsCount = skillResults.filter(s => s.status === 'verified').length;
-  const stuffedSkills = skillResults.filter(s => s.status === 'weak').map(s => s.canonical);
-  if (stuffedSkills.length >= 5 && (verifiedSkillsCount === 0 || stuffedSkills.length > verifiedSkillsCount * 1.5)) {
-    const penaltyPoints = Math.min(10, Math.round(stuffedSkills.length * 1.5));
+  // Skills-evidence rule (Stage 2A):
+  // evidenceRatio = (listed skills with at least one supporting mention in experience/project bullets) / (listed skills)
+  // Stuffing flag when listedOnly > 60% of listed skills AND listed skills >= 15
+  const skillsSec = sections.find(s => s.type === 'skills');
+  let resumeSkillsList: string[] = [];
+  if (skillsSec && skillsSec.content) {
+    resumeSkillsList = skillsSec.content
+      .split(/[,;\n•|]+/)
+      .map(s => s.trim().replace(/^[-*•\s]+/, ''))
+      .filter(s => s.length > 1 && !/^(skills|technical skills|proficiencies|tools|languages|frameworks):?$/i.test(s));
+  } else {
+    for (const sec of sections) {
+      const match = sec.content.match(/(?:skills|technical skills|proficiencies):\s*([^\n]+)/i);
+      if (match && match[1]) {
+        resumeSkillsList = match[1]
+          .split(/[,;\n•|]+/)
+          .map(s => s.trim().replace(/^[-*•\s]+/, ''))
+          .filter(s => s.length > 1 && !/^(skills|technical skills|proficiencies|tools|languages|frameworks):?$/i.test(s));
+        break;
+      }
+    }
+  }
+
+  const allBulletText = allBullets.map(b => b.rawText.toLowerCase()).join(' ');
+  const evidencedInBulletsCount = resumeSkillsList.filter(s => allBulletText.includes(s.toLowerCase())).length;
+  const listedSkillsCount = resumeSkillsList.length > 0 ? resumeSkillsList.length : skillResults.length;
+  const evidencedCount = resumeSkillsList.length > 0 ? evidencedInBulletsCount : skillResults.filter(s => s.status === 'verified').length;
+  const listedOnlyCount = listedSkillsCount - evidencedCount;
+  const isStuffingFlagged = listedOnlyCount / Math.max(1, listedSkillsCount) > 0.60 && listedSkillsCount >= 15;
+
+  if (isStuffingFlagged) {
+    const penaltyPoints = Math.min(15, Math.max(5, Math.round(listedOnlyCount * 0.8)));
     penalties.push({
       id: 'keyword_stuffing',
       label: 'Keyword Stuffing Detected',
       points: -penaltyPoints,
-      reason: `${stuffedSkills.length} skills listed in skills section lack any project or experience evidence (${stuffedSkills.slice(0, 3).join(', ')}...).`,
+      reason: `${listedOnlyCount} of ${listedSkillsCount} skills listed in skills section lack any project or experience evidence.`,
     });
   }
 
@@ -241,6 +274,7 @@ export function computeAtsScore(input: ScorerInput) {
     });
   }
 
+  const stuffedSkills = skillResults.filter(s => s.status === 'weak');
   if (stuffedSkills.length >= 3 && fixFirst.length < 3) {
     fixFirst.push({
       title: 'Back Up Listed Skills with Experience',
@@ -270,6 +304,7 @@ export function computeAtsScore(input: ScorerInput) {
     confidenceReason,
     headline,
     subscores,
+    activeWeights,
     penalties,
     mustHavesMet: mustHavesMetStr,
     mustHavesMetRatio: mustMetRatio,
