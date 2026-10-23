@@ -47,7 +47,6 @@ export function LocalhostNavigator() {
   });
   const location = useLocation();
 
-  // Listen for Ctrl+Shift+L or Ctrl+/ keyboard shortcut
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.ctrlKey && e.key === '/') || (e.ctrlKey && e.shiftKey && (e.key === 'L' || e.key === 'l'))) {
@@ -62,8 +61,8 @@ export function LocalhostNavigator() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen]);
 
-  const origin = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:5173';
-  const currentPort = typeof window !== 'undefined' ? window.location.port || '80' : '5173';
+  const origin = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:5177';
+  const currentPort = typeof window !== 'undefined' ? window.location.port || '80' : '5177';
 
   const routes: RouteItem[] = [
     {
@@ -236,7 +235,7 @@ export function LocalhostNavigator() {
     setCopiedId(id);
     setTimeout(() => {
       setCopiedId(null);
-    }, 2000);
+    }, 1500);
   };
 
   const copyAllLinks = () => {
@@ -265,28 +264,28 @@ export function LocalhostNavigator() {
           <button
             onClick={() => setIsMinimized(false)}
             title="Expand Localhost Navigator"
-            className="flex items-center justify-center w-10 h-10 rounded-full bg-slate-900/90 text-amber-400 border border-amber-500/30 shadow-xl backdrop-blur-md hover:scale-105 transition-all"
+            className="flex items-center justify-center w-10 h-10 rounded bg-near-black text-volt border border-charcoal shadow-level-3 hover:border-volt transition-colors"
           >
-            <Zap className="w-5 h-5 fill-amber-400" />
+            <Zap className="w-5 h-5 fill-volt stroke-[1.5px]" />
           </button>
         ) : (
-          <div className="flex items-center gap-1.5 p-1 bg-slate-950/90 text-white rounded-full border border-slate-700/60 shadow-2xl backdrop-blur-md hover:border-amber-500/50 transition-all">
+          <div className="flex items-center gap-1.5 p-1 bg-near-black text-white rounded border border-charcoal shadow-level-3 hover:border-volt/60 transition-colors">
             <button
               onClick={() => setIsOpen(true)}
-              className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r from-amber-500/20 to-sky-500/20 hover:from-amber-500/30 hover:to-sky-500/30 text-xs font-semibold text-slate-100 transition-colors"
+              className="flex items-center gap-2 px-3 py-1.5 rounded bg-black hover:bg-hover-gray text-xs font-semibold uppercase tracking-[1.2px] text-white transition-colors"
             >
-              <Zap className="w-3.5 h-3.5 text-amber-400 fill-amber-400 animate-pulse" />
+              <Zap className="w-3.5 h-3.5 text-volt fill-volt stroke-[1.5px]" />
               <span>Localhost Links</span>
-              <span className="px-1.5 py-0.5 rounded text-[10px] bg-slate-800 text-amber-300 font-mono">
+              <span className="px-1.5 py-0.5 rounded text-[10px] bg-near-black border border-charcoal text-volt font-mono">
                 :{currentPort}
               </span>
             </button>
             <button
               onClick={toggleMinimize}
               title="Minimize pill"
-              className="p-1 rounded-full text-slate-400 hover:text-white hover:bg-slate-800/80 transition-colors"
+              className="p-1 rounded text-silver hover:text-white hover:bg-hover-gray transition-colors"
             >
-              <Minimize2 className="w-3.5 h-3.5" />
+              <Minimize2 className="w-3.5 h-3.5 stroke-[1.5px]" />
             </button>
           </div>
         )}
@@ -294,22 +293,22 @@ export function LocalhostNavigator() {
 
       {/* Modal Directory */}
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm animate-in fade-in duration-150">
-          <div className="relative w-full max-w-3xl max-h-[85vh] flex flex-col bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl overflow-hidden text-slate-100">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 animate-fade-in">
+          <div className="relative w-full max-w-3xl max-h-[85vh] flex flex-col bg-black border border-charcoal rounded-lg shadow-level-3 overflow-hidden text-white">
             {/* Modal Header */}
-            <div className="px-6 py-4 border-b border-slate-800 bg-slate-950/60 flex items-center justify-between gap-4">
+            <div className="px-6 py-4 border-b border-charcoal bg-near-black flex items-center justify-between gap-4">
               <div className="flex items-center gap-3">
-                <div className="p-2 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400">
-                  <Zap className="w-5 h-5 fill-amber-400" />
+                <div className="p-2 rounded bg-black border border-charcoal text-volt">
+                  <Zap className="w-5 h-5 fill-volt stroke-[1.5px]" />
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
-                    <h2 className="text-base font-bold text-white">HireFlow Localhost Directory</h2>
-                    <span className="px-2 py-0.5 text-xs font-mono rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                    <h2 className="text-base font-bold text-white uppercase tracking-tight">HireFlow Localhost Directory</h2>
+                    <span className="px-2 py-0.5 text-xs font-mono rounded bg-near-black text-volt border border-volt/40">
                       Live on :{currentPort}
                     </span>
                   </div>
-                  <p className="text-xs text-slate-400 mt-0.5">
+                  <p className="text-xs text-silver mt-0.5">
                     Click any page to navigate instantly, or copy the direct local URL.
                   </p>
                 </div>
@@ -318,42 +317,42 @@ export function LocalhostNavigator() {
               <div className="flex items-center gap-2">
                 <button
                   onClick={copyAllLinks}
-                  className="px-2.5 py-1.5 rounded-lg text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 transition-colors flex items-center gap-1.5"
+                  className="px-3 py-1.5 rounded text-xs font-semibold uppercase tracking-[1.2px] bg-near-black hover:bg-hover-gray text-white border border-charcoal transition-colors flex items-center gap-1.5"
                   title="Copy all localhost URLs to clipboard"
                 >
                   {copiedId === '__all__' ? (
                     <>
-                      <Check className="w-3.5 h-3.5 text-emerald-400" />
-                      <span className="text-emerald-400">Copied All</span>
+                      <Check className="w-3.5 h-3.5 text-volt stroke-[1.5px]" />
+                      <span className="text-volt">Copied All</span>
                     </>
                   ) : (
                     <>
-                      <Copy className="w-3.5 h-3.5" />
+                      <Copy className="w-3.5 h-3.5 stroke-[1.5px]" />
                       <span>Copy All</span>
                     </>
                   )}
                 </button>
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+                  className="p-1.5 rounded text-silver hover:text-volt hover:bg-near-black transition-colors"
                   title="Close (Esc)"
                 >
-                  <X className="w-5 h-5" />
+                  <X className="w-5 h-5 stroke-[1.5px]" />
                 </button>
               </div>
             </div>
 
             {/* Search Input */}
-            <div className="px-6 py-3 border-b border-slate-800 bg-slate-900/90">
+            <div className="px-6 py-3 border-b border-charcoal bg-black">
               <div className="relative">
-                <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                <Search className="w-4 h-4 text-silver absolute left-3 top-1/2 -translate-y-1/2 stroke-[1.5px]" />
                 <input
                   type="text"
                   placeholder="Search routes by name, path, or description... (e.g. credentials, tailor, resume)"
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   autoFocus
-                  className="w-full pl-9 pr-4 py-2 text-sm bg-slate-950/80 border border-slate-700/80 rounded-xl text-slate-100 placeholder-slate-500 focus:outline-none focus:border-amber-500/60 focus:ring-1 focus:ring-amber-500/40"
+                  className="w-full pl-9 pr-4 py-2 text-sm bg-near-black border border-charcoal rounded text-white placeholder:text-silver/50 focus:outline-none focus:border-volt focus:ring-1 focus:ring-volt"
                 />
               </div>
             </div>
@@ -366,9 +365,9 @@ export function LocalhostNavigator() {
 
                 return (
                   <div key={category} className="space-y-2">
-                    <div className="flex items-center justify-between text-xs font-semibold text-slate-400 uppercase tracking-wider px-1">
+                    <div className="flex items-center justify-between text-xs font-semibold text-silver uppercase tracking-[1.4px] px-1">
                       <span>{category}</span>
-                      <span className="text-[11px] font-normal text-slate-500">
+                      <span className="text-[11px] font-normal text-silver/60">
                         {categoryRoutes.length} links
                       </span>
                     </div>
@@ -382,10 +381,10 @@ export function LocalhostNavigator() {
                         return (
                           <div
                             key={route.id}
-                            className={`group flex items-center justify-between p-3 rounded-xl border transition-all ${
+                            className={`group flex items-center justify-between p-3 rounded border transition-colors ${
                               isCurrent
-                                ? 'bg-amber-500/10 border-amber-500/40'
-                                : 'bg-slate-950/40 border-slate-800/80 hover:border-slate-700 hover:bg-slate-800/40'
+                                ? 'bg-near-black border-volt shadow-level-5'
+                                : 'bg-near-black border-charcoal hover:border-volt/60'
                             }`}
                           >
                             <Link
@@ -394,39 +393,39 @@ export function LocalhostNavigator() {
                               className="flex items-center gap-3 min-w-0 flex-1 pr-3"
                             >
                               <div
-                                className={`p-2 rounded-lg ${
+                                className={`p-2 rounded ${
                                   isCurrent
-                                    ? 'bg-amber-500/20 text-amber-300'
-                                    : 'bg-slate-800/80 text-slate-400 group-hover:text-amber-400 group-hover:bg-slate-800'
+                                    ? 'bg-black text-volt border border-volt/40'
+                                    : 'bg-black text-silver group-hover:text-volt border border-charcoal'
                                 }`}
                               >
-                                <Icon className="w-4 h-4" />
+                                <Icon className="w-4 h-4 stroke-[1.5px]" />
                               </div>
                               <div className="min-w-0">
                                 <div className="flex items-center gap-2">
                                   <span
                                     className={`text-sm font-semibold truncate ${
-                                      isCurrent ? 'text-amber-300 font-bold' : 'text-slate-200 group-hover:text-white'
+                                      isCurrent ? 'text-volt font-bold' : 'text-white group-hover:text-volt'
                                     }`}
                                   >
                                     {route.name}
                                   </span>
                                   {route.badge && (
-                                    <span className="px-1.5 py-0.2 rounded text-[10px] font-medium bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                                    <span className="px-1.5 py-0.2 rounded text-[10px] font-semibold uppercase tracking-[1.2px] bg-near-black text-volt border border-volt/40">
                                       {route.badge}
                                     </span>
                                   )}
                                   {isCurrent && (
-                                    <span className="px-1.5 py-0.2 rounded text-[10px] font-medium bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                                    <span className="px-1.5 py-0.2 rounded text-[10px] font-semibold uppercase tracking-[1.2px] bg-black text-volt border border-volt">
                                       Active Tab
                                     </span>
                                   )}
                                 </div>
                                 <div className="flex items-center gap-2 mt-0.5">
-                                  <code className="text-[11px] font-mono text-slate-400 group-hover:text-slate-300 truncate">
+                                  <code className="text-[11px] font-mono text-silver group-hover:text-white truncate">
                                     {route.path}
                                   </code>
-                                  <span className="text-[11px] text-slate-500 hidden sm:inline truncate">
+                                  <span className="text-[11px] text-silver/70 hidden sm:inline truncate">
                                     • {route.description}
                                   </span>
                                 </div>
@@ -437,20 +436,20 @@ export function LocalhostNavigator() {
                               <button
                                 onClick={() => copyUrl(route.id, route.path)}
                                 title={`Copy ${origin}${route.path}`}
-                                className={`p-1.5 rounded-lg text-xs font-mono transition-colors flex items-center gap-1 ${
+                                className={`p-1.5 rounded text-xs font-mono transition-colors flex items-center gap-1 ${
                                   isCopied
-                                    ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
-                                    : 'bg-slate-800/80 hover:bg-slate-700 text-slate-400 hover:text-white border border-slate-700/60'
+                                    ? 'bg-black text-volt border border-volt'
+                                    : 'bg-black hover:bg-hover-gray text-silver hover:text-white border border-charcoal'
                                 }`}
                               >
                                 {isCopied ? (
                                   <>
-                                    <Check className="w-3.5 h-3.5" />
+                                    <Check className="w-3.5 h-3.5 text-volt stroke-[1.5px]" />
                                     <span className="text-[11px] font-sans">Copied</span>
                                   </>
                                 ) : (
                                   <>
-                                    <Copy className="w-3.5 h-3.5" />
+                                    <Copy className="w-3.5 h-3.5 stroke-[1.5px]" />
                                     <span className="text-[11px] font-sans hidden sm:inline">Copy</span>
                                   </>
                                 )}
@@ -460,9 +459,9 @@ export function LocalhostNavigator() {
                                 to={route.path}
                                 onClick={() => setIsOpen(false)}
                                 title="Open Page"
-                                className="p-1.5 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/20 transition-colors"
+                                className="p-1.5 rounded bg-black hover:bg-hover-gray text-silver hover:text-volt border border-charcoal transition-colors"
                               >
-                                <ExternalLink className="w-3.5 h-3.5" />
+                                <ExternalLink className="w-3.5 h-3.5 stroke-[1.5px]" />
                               </Link>
                             </div>
                           </div>
@@ -474,11 +473,11 @@ export function LocalhostNavigator() {
               })}
 
               {filteredRoutes.length === 0 && (
-                <div className="py-12 text-center text-slate-400">
+                <div className="py-12 text-center text-silver">
                   <p className="text-sm font-medium">No routes match "{search}"</p>
                   <button
                     onClick={() => setSearch('')}
-                    className="mt-2 text-xs text-amber-400 hover:underline"
+                    className="mt-2 text-xs text-volt hover:underline"
                   >
                     Clear search filter
                   </button>
@@ -487,19 +486,19 @@ export function LocalhostNavigator() {
             </div>
 
             {/* Footer with Keyboard shortcut info */}
-            <div className="px-6 py-3 border-t border-slate-800 bg-slate-950/80 flex items-center justify-between text-xs text-slate-400">
+            <div className="px-6 py-3 border-t border-charcoal bg-near-black flex items-center justify-between text-xs text-silver">
               <div className="flex items-center gap-2">
                 <span>Shortcut:</span>
-                <kbd className="px-1.5 py-0.5 bg-slate-800 text-slate-300 rounded border border-slate-700 font-mono text-[10px]">
+                <kbd className="px-1.5 py-0.5 bg-black text-silver rounded border border-charcoal font-mono text-[10px]">
                   Ctrl + /
                 </kbd>
                 <span>or</span>
-                <kbd className="px-1.5 py-0.5 bg-slate-800 text-slate-300 rounded border border-slate-700 font-mono text-[10px]">
+                <kbd className="px-1.5 py-0.5 bg-black text-silver rounded border border-charcoal font-mono text-[10px]">
                   Ctrl + Shift + L
                 </kbd>
               </div>
-              <span className="text-[11px] text-slate-500">
-                Base: <code className="text-slate-400">{origin}</code>
+              <span className="text-[11px] text-silver/60">
+                Base: <code className="text-silver">{origin}</code>
               </span>
             </div>
           </div>

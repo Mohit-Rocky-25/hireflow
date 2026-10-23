@@ -11,10 +11,10 @@ export const OfflineIndicator: React.FC = () => {
     <div
       role="status"
       aria-live="polite"
-      className="fixed top-2 left-1/2 -translate-x-1/2 z-50 px-3 py-1.5 bg-amber-500/10 border border-amber-500/30 rounded-full backdrop-blur-md flex items-center gap-2 shadow-lg"
+      className="fixed top-2.5 left-1/2 -translate-x-1/2 z-50 px-3.5 py-1.5 bg-near-black border border-charcoal rounded-full flex items-center gap-2 shadow-level-3 select-none"
     >
-      <WifiOff className="w-3.5 h-3.5 text-amber-400" />
-      <span className="text-xs font-medium text-amber-200">
+      <WifiOff className="w-3.5 h-3.5 text-pale-yellow stroke-[1.5px]" />
+      <span className="text-xs font-semibold uppercase tracking-[1.2px] text-pale-yellow">
         Offline Mode — All tools work locally
       </span>
     </div>

@@ -38,9 +38,9 @@ import { OfflineIndicator } from './components/common/OfflineIndicator';
 
 function RouteFallback() {
   return (
-    <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center p-6 space-y-4">
-      <div className="w-10 h-10 border-2 border-emerald-500/20 border-t-emerald-500 rounded-full animate-spin" />
-      <span className="text-xs font-mono text-slate-400">Loading module...</span>
+    <div className="min-h-screen bg-black flex flex-col items-center justify-center p-6 space-y-4">
+      <div className="w-10 h-10 border-2 border-charcoal border-t-volt rounded-full animate-spin" />
+      <span className="text-xs font-mono text-silver uppercase tracking-[1.4px]">Loading module...</span>
     </div>
   );
 }

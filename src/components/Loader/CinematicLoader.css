@@ -1,6 +1,6 @@
 /* ============================================================
-   HireFlow AI — Cinematic Light Sky & 3D Tornado Loader
-   VFX Pro Motion Graphics & 3D Word Fall Choreography
+   HireFlow AI — Cinematic High-Contrast Dark System Loader
+   Pure Black (#000000) Canvas with Neon Volt (#faff69)
    ============================================================ */
 
 .hf-sky-loader {
@@ -11,120 +11,39 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(180deg, #BAE6FD 0%, #E0F2FE 28%, #F0F9FF 65%, #FFFFFF 100%);
-  color: #0F172A;
+  background-color: #000000;
+  color: #ffffff;
   overflow: hidden;
   user-select: none;
   touch-action: none;
-  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, sans-serif;
-  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  transition: opacity 0.4s ease-out;
 }
 
-/* ------------------------------------------------------------
-   Daylight Sky Atmosphere Backdrop
-   ------------------------------------------------------------ */
+.hf-sky-exit {
+  opacity: 0;
+  pointer-events: none;
+}
+
 .hf-sky-backdrop {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  overflow: hidden;
-  z-index: 0;
+  background-color: #000000;
 }
 
-/* Ambient Sun Radiance */
-.hf-sun-radiance {
-  position: absolute;
-  top: -80px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 650px;
-  height: 450px;
-  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.95) 0%, rgba(186, 230, 253, 0.5) 45%, rgba(224, 242, 254, 0) 75%);
-  filter: blur(40px);
-  animation: sunBreathe 6s ease-in-out infinite alternate;
+.hf-sun-radiance,
+.hf-light-beam,
+.hf-cloud-layer,
+.hf-wind-wisps {
+  display: none;
 }
 
-@keyframes sunBreathe {
-  0% { transform: translateX(-50%) scale(0.95); opacity: 0.8; }
-  100% { transform: translateX(-50%) scale(1.08); opacity: 1; }
-}
-
-/* Ethereal Volumetric Sunlight Beam */
-.hf-light-beam {
-  position: absolute;
-  top: -40px;
-  left: 50%;
-  transform: translateX(-50%) rotate(-8deg);
-  width: 320px;
-  height: 100vh;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.1) 40%, rgba(255, 255, 255, 0) 80%);
-  filter: blur(35px);
-  pointer-events: none;
-  animation: beamSway 10s ease-in-out infinite alternate;
-}
-
-@keyframes beamSway {
-  0% { transform: translateX(-50%) rotate(-12deg); opacity: 0.5; }
-  100% { transform: translateX(-50%) rotate(4deg); opacity: 0.85; }
-}
-
-/* Floating Stylized Cumulus Clouds */
-.hf-cloud-layer {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(45px);
-  opacity: 0.7;
-}
-
-.hf-cloud-1 {
-  top: 15%;
-  left: -8%;
-  width: 520px;
-  height: 280px;
-  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.9) 0%, rgba(224, 242, 254, 0.4) 60%, transparent 80%);
-  animation: cloudDriftLeft 18s ease-in-out infinite alternate;
-}
-
-.hf-cloud-2 {
-  top: 30%;
-  right: -10%;
-  width: 560px;
-  height: 300px;
-  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.95) 0%, rgba(186, 230, 253, 0.5) 60%, transparent 80%);
-  animation: cloudDriftRight 22s ease-in-out infinite alternate;
-}
-
-.hf-cloud-3 {
-  bottom: 5%;
-  left: 20%;
-  width: 600px;
-  height: 220px;
-  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.8) 0%, rgba(240, 249, 255, 0.3) 70%, transparent 85%);
-  animation: cloudDriftBottom 25s ease-in-out infinite alternate;
-}
-
-@keyframes cloudDriftLeft {
-  0% { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(40px, -20px) scale(1.08); }
-}
-
-@keyframes cloudDriftRight {
-  0% { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(-50px, 15px) scale(1.05); }
-}
-
-@keyframes cloudDriftBottom {
-  0% { transform: translate(0, 0); }
-  100% { transform: translate(30px, -15px); }
-}
-
-/* ------------------------------------------------------------
-   Top Controls: Skip Button
-   ------------------------------------------------------------ */
+/* Top Bar & Skip Button */
 .hf-sky-top-bar {
   position: absolute;
   top: 24px;
-  right: 28px;
+  right: 24px;
   z-index: 50;
 }
 
@@ -133,41 +52,39 @@
   align-items: center;
   gap: 8px;
   padding: 8px 16px;
-  background: rgba(255, 255, 255, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.9);
-  border-radius: 999px;
-  color: #0369A1;
   font-size: 13px;
   font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+  color: #a0a0a0;
+  background: #141414;
+  border: 1px solid rgba(65, 65, 65, 0.8);
+  border-radius: 4px;
   cursor: pointer;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.08);
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: color 150ms ease-out, border-color 150ms ease-out;
 }
 
 .hf-sky-skip-btn:hover {
-  background: rgba(255, 255, 255, 0.95);
-  transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(2, 132, 199, 0.16);
-  color: #0284C7;
+  color: #faff69;
+  border-color: #faff69;
+}
+
+.hf-sky-skip-btn:active {
+  color: #f4f692;
+  box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.5) inset;
 }
 
 .hf-sky-kbd {
-  display: inline-block;
+  font-family: var(--font-mono, 'Inconsolata', monospace);
+  font-size: 11px;
+  color: #faff69;
+  background: #000000;
+  border: 1px solid rgba(65, 65, 65, 0.8);
   padding: 2px 6px;
-  font-size: 10px;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  font-weight: 700;
-  color: #0284C7;
-  background: rgba(224, 242, 254, 0.8);
-  border-radius: 6px;
-  border: 1px solid rgba(186, 230, 253, 0.9);
+  border-radius: 4px;
 }
 
-/* ------------------------------------------------------------
-   Center 3D Stage & Screen Shake Physics
-   ------------------------------------------------------------ */
+/* Stage */
 .hf-sky-stage {
   position: relative;
   z-index: 10;
@@ -177,67 +94,16 @@
   justify-content: center;
   max-width: 900px;
   width: 100%;
-  padding: 20px;
-  transform-style: preserve-3d;
-  transition: transform 0.05s ease-out;
+  padding: 24px;
 }
 
-/* Camera Micro-Jolts on Word Touchdowns */
-.hf-shake-active-1 {
-  animation: cameraJolt1 0.28s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
-}
-
-.hf-shake-active-2 {
-  animation: cameraJolt2 0.28s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
-}
-
-.hf-shake-active-3 {
-  animation: cameraJolt3 0.32s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
-}
-
-@keyframes cameraJolt1 {
-  0% { transform: translate3d(0, 0, 0); }
-  25% { transform: translate3d(-3px, 4px, 0); }
-  50% { transform: translate3d(2px, -3px, 0); }
-  75% { transform: translate3d(-1px, 2px, 0); }
-  100% { transform: translate3d(0, 0, 0); }
-}
-
-@keyframes cameraJolt2 {
-  0% { transform: translate3d(0, 0, 0); }
-  25% { transform: translate3d(4px, 3px, 0); }
-  50% { transform: translate3d(-3px, -2px, 0); }
-  75% { transform: translate3d(2px, 1px, 0); }
-  100% { transform: translate3d(0, 0, 0); }
-}
-
-@keyframes cameraJolt3 {
-  0% { transform: translate3d(0, 0, 0) scale(1); }
-  20% { transform: translate3d(0, 6px, 0) scale(1.015); }
-  45% { transform: translate3d(-4px, -4px, 0) scale(0.995); }
-  70% { transform: translate3d(3px, 2px, 0) scale(1.005); }
-  100% { transform: translate3d(0, 0, 0) scale(1); }
-}
-
-/* ------------------------------------------------------------
-   3D Tornado Funnel Wrapper & Kinetic Ring Gyros
-   ------------------------------------------------------------ */
 .hf-tornado-wrapper {
   position: relative;
-  width: 500px;
-  height: 320px;
+  width: 440px;
+  height: 260px;
   display: flex;
   align-items: center;
   justify-content: center;
-  perspective: 1200px;
-  transform-style: preserve-3d;
-  margin-bottom: 12px;
-  animation: tornadoHover 5s ease-in-out infinite;
-}
-
-@keyframes tornadoHover {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
 }
 
 .hf-tornado-canvas {
@@ -245,622 +111,72 @@
   inset: 0;
   width: 100%;
   height: 100%;
-  z-index: 5;
   pointer-events: none;
 }
 
-/* 3D Kinetic Outer Vortex Rings */
-.hf-vortex-rings-3d {
-  position: absolute;
-  inset: 0;
+/* Brand Display Title */
+.hf-brand-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  pointer-events: none;
-  transform-style: preserve-3d;
-  z-index: 2;
+  gap: 12px;
+  margin-top: 16px;
+  margin-bottom: 24px;
 }
 
-.hf-vortex-ring {
-  position: absolute;
-  border-radius: 50%;
-  border-style: solid;
-  transform-style: preserve-3d;
-  box-shadow: 0 0 16px rgba(56, 189, 248, 0.35);
-}
-
-.ring-crown {
-  top: 10%;
-  width: 310px;
-  height: 88px;
-  border-width: 2px;
-  border-color: rgba(56, 189, 248, 0.5) rgba(255, 255, 255, 0.85) rgba(14, 165, 233, 0.3) rgba(255, 255, 255, 0.95);
-  border-style: dashed;
-  transform: rotateX(68deg) rotateZ(0deg);
-  animation: spinRingCW 3.5s linear infinite;
-}
-
-.ring-upper {
-  top: 28%;
-  width: 220px;
-  height: 66px;
-  border-width: 2px;
-  border-color: rgba(14, 165, 233, 0.6) rgba(255, 255, 255, 0.9) rgba(99, 102, 241, 0.4) rgba(56, 189, 248, 0.7);
-  transform: rotateX(68deg) rotateZ(0deg);
-  animation: spinRingCCW 2.8s linear infinite;
-}
-
-.ring-mid {
-  top: 46%;
-  width: 150px;
-  height: 50px;
-  border-width: 2px;
-  border-color: rgba(2, 132, 199, 0.7) rgba(255, 255, 255, 0.95) rgba(14, 165, 233, 0.8) rgba(99, 102, 241, 0.5);
-  border-style: dashed;
-  transform: rotateX(68deg) rotateZ(0deg);
-  animation: spinRingCW 2.2s linear infinite;
-}
-
-.ring-throat {
-  top: 64%;
-  width: 90px;
-  height: 34px;
-  border-width: 2px;
-  border-color: rgba(2, 132, 199, 0.85) rgba(255, 255, 255, 0.9) rgba(56, 189, 248, 0.9) rgba(255, 255, 255, 0.95);
-  transform: rotateX(68deg) rotateZ(0deg);
-  animation: spinRingCCW 1.6s linear infinite;
-}
-
-.ring-base {
-  top: 78%;
-  width: 46px;
-  height: 18px;
-  border-width: 2px;
-  border-color: #0284C7 #38BDF8 #0284C7 #FFFFFF;
-  transform: rotateX(68deg) rotateZ(0deg);
-  animation: spinRingCW 1.1s linear infinite;
-}
-
-.hf-vortex-eye-pulsar {
-  position: absolute;
-  top: 40%;
-  width: 76px;
-  height: 76px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(56, 189, 248, 0.8) 0%, rgba(2, 132, 199, 0.35) 50%, transparent 75%);
-  filter: blur(14px);
-  animation: pulsarScale 2s ease-in-out infinite alternate;
-}
-
-@keyframes spinRingCW {
-  0% { transform: rotateX(68deg) rotateZ(0deg); }
-  100% { transform: rotateX(68deg) rotateZ(360deg); }
-}
-
-@keyframes spinRingCCW {
-  0% { transform: rotateX(68deg) rotateZ(360deg); }
-  100% { transform: rotateX(68deg) rotateZ(0deg); }
-}
-
-@keyframes pulsarScale {
-  0% { transform: scale(0.85); opacity: 0.5; }
-  100% { transform: scale(1.35); opacity: 0.95; }
-}
-
-/* ------------------------------------------------------------
-   3D Swirling Word Stream Caught in Tornado Vortex
-   ------------------------------------------------------------ */
-.hf-funnel-word-stream {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 8;
-  perspective: 1000px;
-  transform-style: preserve-3d;
-}
-
-.hf-cyclone-word {
-  position: absolute;
-  font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+.hf-word-hire {
+  font-size: 64px;
   font-weight: 900;
-  letter-spacing: 0.08em;
-  transform-style: preserve-3d;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  color: #ffffff;
+  letter-spacing: -0.03em;
+  font-family: var(--font-sans, 'Inter', sans-serif);
 }
 
-/* Word Token: HIRE orbiting in Upper Funnel */
-.token-hire {
-  top: 22%;
-  left: 50%;
-  font-size: 24px;
-  color: #0284C7;
-  text-shadow: 0 0 18px rgba(56, 189, 248, 0.9), 0 0 35px rgba(2, 132, 199, 0.6);
-  animation: vortexOrbitHire 1.3s cubic-bezier(0.44, 0, 0.2, 1) infinite;
+.hf-word-flow {
+  font-size: 64px;
+  font-weight: 900;
+  color: #faff69;
+  letter-spacing: -0.03em;
+  font-family: var(--font-sans, 'Inter', sans-serif);
 }
 
-/* Word Token: FLOW orbiting in Mid Funnel */
-.token-flow {
-  top: 42%;
-  left: 50%;
-  font-size: 22px;
-  color: #06B6D4;
-  text-shadow: 0 0 18px rgba(6, 182, 212, 0.95), 0 0 35px rgba(37, 99, 235, 0.7);
-  animation: vortexOrbitFlow 1.1s cubic-bezier(0.44, 0, 0.2, 1) infinite;
-}
-
-/* Word Token: AI spinning in Core Eye */
-.token-ai {
-  top: 60%;
-  left: 50%;
-  font-size: 18px;
-  color: #6366F1;
-  text-shadow: 0 0 16px rgba(99, 102, 241, 0.95), 0 0 30px #FFFFFF;
-  animation: vortexOrbitAI 0.85s linear infinite;
-}
-
-.hf-vortex-letter-glow {
-  background: rgba(255, 255, 255, 0.92);
-  -webkit-background-clip: text;
-  background-clip: text;
-  padding: 2px 8px;
-  border-radius: 6px;
-  backdrop-filter: blur(4px);
-}
-
-.hf-word-vortex-tail {
-  position: absolute;
-  width: 60px;
-  height: 3px;
-  background: linear-gradient(90deg, rgba(56, 189, 248, 0.8) 0%, transparent 100%);
-  border-radius: 999px;
-  filter: blur(1px);
-  transform: rotate(-15deg);
-}
-
-.tail-ai {
-  background: linear-gradient(90deg, rgba(99, 102, 241, 0.9) 0%, transparent 100%);
-}
-
-@keyframes vortexOrbitHire {
-  0% {
-    transform: translate3d(-130px, 0, 80px) rotateY(15deg) scale(1.15);
-    opacity: 0.95;
-  }
-  25% {
-    transform: translate3d(0, -16px, 140px) rotateY(0deg) scale(1.25);
-    opacity: 1;
-  }
-  50% {
-    transform: translate3d(130px, 0, 40px) rotateY(-15deg) scale(0.95);
-    opacity: 0.85;
-  }
-  75% {
-    transform: translate3d(0, 16px, -80px) rotateY(-180deg) scale(0.75);
-    opacity: 0.5;
-  }
-  100% {
-    transform: translate3d(-130px, 0, 80px) rotateY(15deg) scale(1.15);
-    opacity: 0.95;
-  }
-}
-
-@keyframes vortexOrbitFlow {
-  0% {
-    transform: translate3d(95px, 0, 60px) rotateY(-20deg) scale(1.1);
-    opacity: 0.95;
-  }
-  25% {
-    transform: translate3d(0, 14px, -60px) rotateY(-180deg) scale(0.7);
-    opacity: 0.45;
-  }
-  50% {
-    transform: translate3d(-95px, 0, 60px) rotateY(20deg) scale(1.1);
-    opacity: 0.95;
-  }
-  75% {
-    transform: translate3d(0, -14px, 110px) rotateY(0deg) scale(1.25);
-    opacity: 1;
-  }
-  100% {
-    transform: translate3d(95px, 0, 60px) rotateY(-20deg) scale(1.1);
-    opacity: 0.95;
-  }
-}
-
-@keyframes vortexOrbitAI {
-  0% {
-    transform: translate3d(-45px, 0, 30px) rotateZ(0deg) scale(1.1);
-  }
-  50% {
-    transform: translate3d(45px, 0, -30px) rotateZ(180deg) scale(0.85);
-  }
-  100% {
-    transform: translate3d(-45px, 0, 30px) rotateZ(360deg) scale(1.1);
-  }
-}
-
-/* ------------------------------------------------------------
-   Brand Reveal Zone & Kinetic Word Landing Runway
-   ------------------------------------------------------------ */
-.hf-brand-emblem-zone {
+/* Status & Thin Neon Progress Bar */
+.hf-sky-status-bar {
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
-  z-index: 10;
-  position: relative;
-}
-
-.hf-brand-badge-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 5px 14px;
-  margin-bottom: 12px;
-  font-size: 11px;
-  font-weight: 750;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #0284C7;
-  background: rgba(255, 255, 255, 0.85);
-  border: 1px solid rgba(14, 165, 233, 0.3);
-  border-radius: 999px;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.1);
-  transition: all 0.4s ease;
-}
-
-.hf-badge-ignited {
-  border-color: rgba(56, 189, 248, 0.8);
-  box-shadow: 0 0 20px rgba(56, 189, 248, 0.45);
-  color: #0369A1;
-}
-
-.hf-spark-icon {
-  color: #0284C7;
-  font-size: 12px;
-  animation: sparkSpin 4s linear infinite;
-}
-
-@keyframes sparkSpin {
-  0% { transform: rotate(0deg) scale(1); }
-  50% { transform: rotate(180deg) scale(1.2); }
-  100% { transform: rotate(360deg) scale(1); }
-}
-
-/* Brand Name Group - The Stage where Words Land */
-.hf-brand-name-group {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   gap: 12px;
-  margin-bottom: 8px;
-  position: relative;
-  min-height: 56px;
-  perspective: 1000px;
-}
-
-/* Word Capsule Kinematics */
-.hf-word-capsule {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* State 1: In Vortex (Invisible on the landing runway) */
-.hf-word-capsule.vortex {
-  opacity: 0;
-  transform: translate3d(0, -70px, 0) scale(0.6) rotateX(45deg);
-  filter: blur(12px);
-  pointer-events: none;
-}
-
-/* State 2: Falling from the Tornado at Warp Velocity */
-.hf-word-capsule.falling {
-  opacity: 1;
-  filter: blur(2px);
-  animation: wordPlungeDown 0.32s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-
-@keyframes wordPlungeDown {
-  0% {
-    opacity: 0;
-    transform: translate3d(0, -95px, 80px) scaleY(1.4) scaleX(0.85) rotateX(30deg);
-    filter: blur(14px);
-  }
-  60% {
-    opacity: 1;
-    transform: translate3d(0, 8px, 0) scaleY(1.15) scaleX(0.95);
-    filter: blur(1px);
-  }
-  100% {
-    opacity: 1;
-    transform: translate3d(0, 0, 0) scale(1);
-    filter: blur(0);
-  }
-}
-
-/* State 3: Landed with Elastic Spring Recoil & Ground Shake */
-.hf-word-capsule.landed {
-  opacity: 1;
-  filter: blur(0);
-  animation: wordImpactBounce 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-}
-
-@keyframes wordImpactBounce {
-  0% {
-    transform: translate3d(0, -60px, 60px) scale(1.3);
-    filter: blur(6px);
-  }
-  45% {
-    transform: translate3d(0, 4px, 0) scaleY(0.88) scaleX(1.12);
-    filter: blur(0);
-  }
-  70% {
-    transform: translate3d(0, -3px, 0) scale(1.05);
-  }
-  85% {
-    transform: translate3d(0, 1px, 0) scale(0.99);
-  }
-  100% {
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-}
-
-/* Word Impact Radial Ground Flares */
-.hf-word-impact-flare {
-  position: absolute;
-  bottom: -4px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 90px;
-  height: 24px;
-  border-radius: 50%;
-  background: radial-gradient(ellipse, rgba(56, 189, 248, 0.85) 0%, rgba(2, 132, 199, 0.25) 55%, transparent 80%);
-  filter: blur(6px);
-  pointer-events: none;
-  animation: impactFlarePulse 0.5s ease-out forwards;
-}
-
-.flare-cyan {
-  background: radial-gradient(ellipse, rgba(6, 182, 212, 0.95) 0%, rgba(37, 99, 235, 0.3) 55%, transparent 80%);
-}
-
-.flare-indigo {
-  background: radial-gradient(ellipse, rgba(99, 102, 241, 0.95) 0%, rgba(255, 255, 255, 0.4) 55%, transparent 80%);
-}
-
-@keyframes impactFlarePulse {
-  0% { transform: translateX(-50%) scale(0.3); opacity: 1; }
-  100% { transform: translateX(-50%) scale(2.4); opacity: 0; }
-}
-
-/* Typography Aesthetics */
-.hf-brand-title-text {
-  margin: 0;
-  font-size: 50px;
-  font-weight: 850;
-  letter-spacing: -0.035em;
-  line-height: 1.1;
-  color: #0F172A;
-  display: inline-block;
-}
-
-.hf-text-hire {
-  color: #0F172A;
-  text-shadow: 0 4px 18px rgba(15, 23, 42, 0.12);
-}
-
-.hf-title-accent {
-  background: linear-gradient(135deg, #0284C7 0%, #2563EB 50%, #4F46E5 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  display: inline-block;
-  margin-left: 2px;
-  filter: drop-shadow(0 4px 14px rgba(2, 132, 199, 0.3));
-}
-
-.hf-brand-ai-chip {
-  font-size: 15px;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  padding: 5px 12px;
-  border-radius: 9px;
-  background: linear-gradient(135deg, #0284C7 0%, #2563EB 50%, #4F46E5 100%);
-  color: #FFFFFF;
-  box-shadow: 0 6px 18px rgba(2, 132, 199, 0.45);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-}
-
-/* Grand Holographic Sheen Sweep across entire Logo */
-.hf-grand-sheen-sweep {
-  position: absolute;
-  top: 0;
-  left: -40%;
-  width: 180%;
-  height: 100%;
-  background: linear-gradient(
-    105deg,
-    transparent 20%,
-    rgba(255, 255, 255, 0.65) 48%,
-    rgba(56, 189, 248, 0.8) 52%,
-    transparent 70%
-  );
-  filter: blur(3px);
-  pointer-events: none;
-  animation: grandSheen 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes grandSheen {
-  0% { transform: translateX(-100%); opacity: 0; }
-  30% { opacity: 1; }
-  100% { transform: translateX(100%); opacity: 0; }
-}
-
-.hf-brand-tagline {
-  margin: 0 0 32px 0;
-  font-size: 14px;
-  font-weight: 500;
-  color: #475569;
-  max-width: 480px;
-  line-height: 1.5;
-  opacity: 0;
-  transform: translateY(12px);
-  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.hf-tagline-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ------------------------------------------------------------
-   Floating Glassmorphic Progress Console
-   ------------------------------------------------------------ */
-.hf-sky-console {
-  width: 360px;
-  max-width: 90vw;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  padding: 16px 20px;
-  background: rgba(255, 255, 255, 0.82);
-  border: 1px solid rgba(255, 255, 255, 0.95);
-  border-radius: 20px;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  box-shadow: 
-    0 20px 40px -15px rgba(14, 165, 233, 0.18),
-    0 0 0 1px rgba(224, 242, 254, 0.7);
-  animation: consoleReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
-}
-
-@keyframes consoleReveal {
-  0% { opacity: 0; transform: translateY(16px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
-.hf-console-bar-track {
   width: 100%;
-  height: 6px;
-  background: rgba(224, 242, 254, 0.85);
-  border-radius: 999px;
-  overflow: hidden;
-  position: relative;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04);
+  max-width: 380px;
 }
 
-.hf-console-bar-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #38BDF8 0%, #0284C7 60%, #4F46E5 100%);
-  border-radius: 999px;
-  transition: width 0.22s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  box-shadow: 0 0 12px rgba(2, 132, 199, 0.4);
-}
-
-.hf-console-shimmer {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.75) 50%, transparent 100%);
-  animation: barShimmer 1.8s infinite linear;
-}
-
-@keyframes barShimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
-
-.hf-console-meta {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 12px;
-}
-
-.hf-status-indicator {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: #334155;
-  font-weight: 550;
-  max-width: 260px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.hf-status-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background-color: #0284C7;
-  box-shadow: 0 0 8px rgba(2, 132, 199, 0.8);
-  animation: liveDotPulse 1.4s ease-in-out infinite alternate;
-  flex-shrink: 0;
-}
-
-@keyframes liveDotPulse {
-  0% { transform: scale(0.85); opacity: 0.6; }
-  100% { transform: scale(1.25); opacity: 1; }
-}
-
-.hf-status-text {
-  font-size: 12px;
-  color: #475569;
-}
-
-.hf-percent-counter {
-  color: #0284C7;
-  font-weight: 800;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+.hf-sky-status-text {
   font-size: 13px;
-  letter-spacing: -0.02em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+  color: #a0a0a0;
+  text-align: center;
 }
 
-/* ------------------------------------------------------------
-   Exit Animation (Smooth Upward Atmospheric Dissolve)
-   ------------------------------------------------------------ */
-.hf-sky-exit {
-  opacity: 0;
-  transform: translateY(-24px) scale(1.02);
-  filter: blur(8px);
-  pointer-events: none;
+.hf-sky-progress-track {
+  width: 100%;
+  height: 3px;
+  background: #141414;
+  border: 1px solid rgba(65, 65, 65, 0.8);
+  border-radius: 4px;
+  overflow: hidden;
 }
 
-/* ------------------------------------------------------------
-   Accessibility: Reduced Motion
-   ------------------------------------------------------------ */
-@media (prefers-reduced-motion: reduce) {
-  .hf-sun-radiance,
-  .hf-light-beam,
-  .hf-cloud-1,
-  .hf-cloud-2,
-  .hf-cloud-3,
-  .hf-tornado-wrapper,
-  .ring-crown,
-  .ring-upper,
-  .ring-mid,
-  .ring-throat,
-  .ring-base,
-  .hf-vortex-eye-pulsar,
-  .hf-spark-icon,
-  .hf-status-dot,
-  .token-hire,
-  .token-flow,
-  .token-ai,
-  .hf-word-capsule.falling,
-  .hf-word-capsule.landed {
-    animation: none !important;
-  }
+.hf-sky-progress-fill {
+  height: 100%;
+  background: #faff69;
+  transition: width 0.2s ease-out;
+}
+
+.hf-sky-progress-pct {
+  font-family: var(--font-mono, 'Inconsolata', monospace);
+  font-size: 13px;
+  font-weight: 600;
+  color: #faff69;
 }
