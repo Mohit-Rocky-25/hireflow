@@ -92,8 +92,18 @@ export function MethodologyPage() {
     riskMitigation: mrviRisk,
   });
 
-  const feedbackStats = useFeedbackStore((s) => s.getSummaryStats());
+  const feedbackItems = useFeedbackStore((s) => s.items);
   const exportFeedbackJson = useFeedbackStore((s) => s.exportFeedbackJson);
+
+  const feedbackStats = React.useMemo(() => {
+    let up = 0;
+    let down = 0;
+    for (const it of feedbackItems) {
+      if (it.verdict === 'up') up++;
+      else if (it.verdict === 'down') down++;
+    }
+    return { total: feedbackItems.length, up, down };
+  }, [feedbackItems]);
 
   const handleCopyDiagnostic = async (metricId: string) => {
     const success = await copyDiagnosticPayload(metricId);

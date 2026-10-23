@@ -119,7 +119,7 @@ export function Drawer({
         ref={drawerRef}
         tabIndex={-1}
         className={`relative z-10 flex w-full flex-col bg-black border-charcoal text-white shadow-level-3 transition-transform duration-150 ease-out
-          max-sm:mt-auto max-sm:max-h-[85vh] max-sm:rounded-t-lg max-sm:border-t
+          max-sm:mt-auto max-sm:max-h-[85vh] max-sm:rounded-t-2xl max-sm:border-t
           sm:h-full sm:border-l ${widthClass}`}
       >
         {/* Mobile handle indicator */}
