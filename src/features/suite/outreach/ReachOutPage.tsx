@@ -46,6 +46,8 @@ import {
   RotateCcw,
   Shield,
   Edit3,
+  GitFork,
+  Globe,
 } from 'lucide-react';
 import { useProfile } from '../profile/ProfileContext';
 import { COMPANIES } from '../../../pages/demo/talentLensData';
@@ -296,7 +298,8 @@ export function ReachOutPage() {
     proof_point: 'scaled REST APIs reducing latency by 45%',
     college: 'NIT Trichy',
     admired_project: 'UPI payment switch',
-    portfolio: 'github.com/myname/portfolio',
+    portfolio: 'myname.dev',
+    github: 'github.com/myname/portfolio',
     your_name: 'Arjun Mehta',
     your_email: 'arjun.mehta@example.com',
     batch_year: '2026',
@@ -327,7 +330,7 @@ export function ReachOutPage() {
   const [channelFilter, setChannelFilter] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [showInputsDrawer, setShowInputsDrawer] = useState<boolean>(true);
-  const [showPlatformRules, setShowPlatformRules] = useState<boolean>(false);
+  const [showPlatformRules, setShowPlatformRules] = useState<boolean>(true);
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
   // ── Custom Editable Drafts per Template ──
@@ -395,7 +398,8 @@ export function ReachOutPage() {
       proof_point: 'scaled REST APIs reducing latency by 45%',
       college: 'NIT Trichy',
       admired_project: 'UPI payment switch',
-      portfolio: 'github.com/myname/portfolio',
+      portfolio: 'myname.dev',
+      github: 'github.com/myname/portfolio',
       your_name: profile?.identity?.name || 'Arjun Mehta',
       your_email: profile?.identity?.email || 'arjun.mehta@example.com',
       batch_year: '2026',
@@ -837,15 +841,56 @@ export function ReachOutPage() {
                     />
                   </div>
 
-                  <div>
-                    <label className="block text-[11px] font-bold text-text mb-1">Portfolio or GitHub Link</label>
-                    <input
-                      type="text"
-                      value={draftSlots.portfolio || ''}
-                      onChange={(e) => handleInputChange('portfolio', e.target.value)}
-                      placeholder="e.g. github.com/yourname/portfolio"
-                      className="w-full bg-surface border border-border rounded-xl px-3 py-2 text-xs text-text focus:outline-none focus:border-primary font-medium"
-                    />
+                  {/* ── Portfolio & GitHub Links Sub-Options ── */}
+                  <div className="bg-surface/90 border border-border/90 rounded-xl p-3 space-y-2.5">
+                    <div className="flex items-center justify-between">
+                      <label className="text-[11px] font-bold text-text flex items-center gap-1.5">
+                        <Code2 className="w-3.5 h-3.5 text-primary" />
+                        Code & Project Links
+                      </label>
+                      <span className="text-[10px] text-text-muted font-medium bg-surface-2 px-1.5 py-0.5 rounded border border-border">
+                        Add GitHub, Portfolio, or both
+                      </span>
+                    </div>
+
+                    <div className="space-y-2">
+                      <div>
+                        <label className="block text-[10px] font-bold text-text-secondary mb-1 flex items-center gap-1">
+                          <GitFork className="w-3 h-3 text-text" />
+                          GitHub Profile / Repo Link
+                        </label>
+                        <input
+                          type="text"
+                          value={draftSlots.github || ''}
+                          onChange={(e) => handleInputChange('github', e.target.value)}
+                          placeholder="e.g. github.com/arjunmehta"
+                          className="w-full bg-surface border border-border rounded-lg px-2.5 py-1.5 text-xs text-text focus:outline-none focus:border-primary font-medium"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-[10px] font-bold text-text-secondary mb-1 flex items-center gap-1">
+                          <Globe className="w-3 h-3 text-emerald-600" />
+                          Portfolio Website Link
+                        </label>
+                        <input
+                          type="text"
+                          value={draftSlots.portfolio || ''}
+                          onChange={(e) => handleInputChange('portfolio', e.target.value)}
+                          placeholder="e.g. arjunmehta.dev"
+                          className="w-full bg-surface border border-border rounded-lg px-2.5 py-1.5 text-xs text-text focus:outline-none focus:border-primary font-medium"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="text-[10px] text-text-muted flex items-center gap-1.5 pt-0.5 border-t border-border/50">
+                      <span className="font-semibold text-text-secondary shrink-0">In template:</span>
+                      <code className="bg-surface-2 px-1.5 py-0.5 rounded text-[10px] font-mono text-primary truncate max-w-full">
+                        {draftSlots.portfolio && draftSlots.github
+                          ? `${draftSlots.portfolio} | ${draftSlots.github}`
+                          : draftSlots.portfolio || draftSlots.github || 'No link provided'}
+                      </code>
+                    </div>
                   </div>
                 </div>
 
@@ -1426,7 +1471,7 @@ export function ReachOutPage() {
                         rel="noreferrer"
                         className="text-primary hover:underline font-bold inline-flex items-center gap-1"
                       >
-                        Source: {rule.sourceName}, last checked {rule.lastCheckedDate}
+                        {`Source: ${rule.sourceName}, last checked ${rule.lastCheckedDate}`}
                         <ExternalLink className="w-3 h-3" />
                       </a>
                     ) : (

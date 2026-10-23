@@ -129,6 +129,7 @@ export interface ReachOutSlots {
   proof_point?: string;
   college?: string;
   portfolio?: string;
+  github?: string;
   your_name?: string;
   your_email?: string;
 

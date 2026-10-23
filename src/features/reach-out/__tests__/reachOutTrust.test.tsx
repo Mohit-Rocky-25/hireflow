@@ -145,22 +145,13 @@ describe('Trust Layer: Reach Out Section Verification', () => {
       expect(rule.rule).toBeTruthy();
       expect(rule.value).toBeTruthy();
       expect(rule.sourceName).toBeTruthy();
-
-      if (rule.sourceUrl !== null) {
-        expect(rule.sourceUrl).toMatch(/^https:\/\/.+/);
-      }
-
-      if (rule.lastCheckedDate !== null) {
-        expect(rule.sourceUrl).not.toBeNull();
-      }
-
-      // Currently, all sourceUrl and lastCheckedDate must be null as instructed
-      expect(rule.sourceUrl).toBeNull();
-      expect(rule.lastCheckedDate).toBeNull();
+      expect(rule.sourceUrl).not.toBeNull();
+      expect(rule.sourceUrl).toMatch(/^https:\/\/.+/);
+      expect(rule.lastCheckedDate).toBe('2026-10-23');
     }
   });
 
-  it('renders "Source pending" and no anchor link when sourceUrl is null', () => {
+  it('renders official source links with last checked date for verified platform rules', () => {
     const html = renderToString(
       <MemoryRouter initialEntries={['/tools/reach-out']}>
         <ProfileProvider>
@@ -171,6 +162,8 @@ describe('Trust Layer: Reach Out Section Verification', () => {
 
     // Platform rules section is included in the page
     expect(html).toContain('Platform rules');
+    expect(html).toContain('Source:');
+    expect(html).toContain('last checked 2026-10-23');
   });
 
   // ── 5. Review Status Invariants ─────────────────────────────

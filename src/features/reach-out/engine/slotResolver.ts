@@ -70,6 +70,16 @@ export function getSlotValue(slots: ReachOutSlots, key: string): string | undefi
     return undefined;
   }
 
+  const resolveCodeAndPortfolio = (): string | undefined => {
+    const p = slots.portfolio && slots.portfolio.trim() ? slots.portfolio.trim() : undefined;
+    const g = slots.github && slots.github.trim() ? slots.github.trim() : undefined;
+    if (p && g) {
+      if (p === g) return p;
+      return `${p} | ${g}`;
+    }
+    return p || g || undefined;
+  };
+
   const lookup: Record<string, any> = {
     company: slots.company,
     targetcompany: slots.company,
@@ -83,8 +93,10 @@ export function getSlotValue(slots: ReachOutSlots, key: string): string | undefi
     college: slots.college,
     collegename: slots.college,
     admiredproject: slots.admired_project,
-    portfolio: slots.portfolio,
-    portfoliolink: slots.portfolio,
+    portfolio: resolveCodeAndPortfolio(),
+    portfoliolink: resolveCodeAndPortfolio(),
+    github: slots.github || slots.portfolio,
+    githublink: slots.github || slots.portfolio,
     yourname: slots.your_name,
     candidatename: slots.your_name,
     youremail: slots.your_email,
@@ -105,7 +117,7 @@ export function getSlotValue(slots: ReachOutSlots, key: string): string | undefi
     specificobservation: slots.specific_observation,
     prlink: slots.pr_link,
     usecase: slots.use_case,
-    demolink: slots.portfolio || slots.demo_link,
+    demolink: resolveCodeAndPortfolio() || slots.demo_link,
     expectedctc: slots.expected_ctc,
   };
 
