@@ -1,12 +1,13 @@
 // ============================================================
 // HireFlow Suite - Reach Out (/tools/reach-out)
-// Original card-grid UI restored.
-// Original 15 templates shown at top as always.
-// New 50 v2 templates shown below as collapsible scenario subsections
-// in the same card style — no separate layout or dark redesign.
-// ============================================================
+// Unified Outreach Engine: 12 Master Topics, 50 Deterministic Templates
+// Features:
+// - Interactive Topic Spawn Architecture (TalentLens-inspired)
+// - Required input markers & explicit "Confirm & Apply Changes" button
+// - Contextual input requirements panel accessible on every view
+// - Vibrant, modern, high-contrast aesthetic with deterministic accuracy
 
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import {
   ArrowLeft,
@@ -17,17 +18,28 @@ import {
   CheckCircle2,
   Briefcase,
   ChevronDown,
+  ChevronUp,
   ChevronRight,
+  Download,
+  Sparkles,
+  Mail,
+  MessageSquare,
+  Users,
+  Clock,
+  Building2,
+  Search,
+  Filter,
+  GraduationCap,
+  Rocket,
+  Code2,
+  RefreshCw,
+  Zap,
+  Award,
   Layers,
+  Sliders,
+  ExternalLink,
+  RotateCcw,
 } from 'lucide-react';
-import {
-  generateOutreach,
-  extractSlotsFromProfile,
-  OutreachSlots,
-  OutreachChannel,
-  RecipientType,
-  GeneratedMessage,
-} from './generateOutreach';
 import { useProfile } from '../profile/ProfileContext';
 import { COMPANIES } from '../../../pages/demo/talentLensData';
 import {
@@ -35,621 +47,1238 @@ import {
   SCENARIO_GROUPS,
 } from '../../reach-out/data';
 import { renderReachOutMessage } from '../../reach-out/engine/slotResolver';
-import { ReachOutSlots } from '../../reach-out/types';
+import { ReachOutSlots, ReachOutTemplate, ChannelId } from '../../reach-out/types';
 
-const CHANNELS: { id: OutreachChannel | 'all'; label: string }[] = [
-  { id: 'all', label: 'All Channels (15)' },
-  { id: 'linkedin_connect', label: 'LinkedIn Connect (300 char)' },
-  { id: 'linkedin_inmail', label: 'LinkedIn InMail' },
-  { id: 'cold_email', label: 'Cold Email' },
-  { id: 'warm_referral', label: 'Warm Referral' },
-  { id: 'follow_up', label: 'Follow-Up' },
-];
+// ── Vibrant Channel Styling ──
+export interface ChannelMeta {
+  label: string;
+  shortLabel: string;
+  icon: React.ElementType;
+  badgeCls: string;
+  borderCls: string;
+  bgCls: string;
+  textCls: string;
+}
 
-const CHANNEL_BADGE: Record<string, string> = {
-  linkedin_connect: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
-  linkedin_inmail: 'bg-purple-500/10 text-purple-400 border-purple-500/20',
-  cold_email: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
-  warm_referral: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
-  follow_up: 'bg-rose-500/10 text-rose-400 border-rose-500/20',
-  direct_message: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
-  reply: 'bg-rose-500/10 text-rose-400 border-rose-500/20',
+export const CHANNEL_CONFIG: Record<string, ChannelMeta> = {
+  cold_email: {
+    label: 'Cold Email',
+    shortLabel: 'Email',
+    icon: Mail,
+    badgeCls: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+    borderCls: 'border-emerald-500',
+    bgCls: 'bg-emerald-500/10',
+    textCls: 'text-emerald-600',
+  },
+  linkedin_connect: {
+    label: 'LinkedIn Connect (300 char)',
+    shortLabel: 'Connect',
+    icon: MessageSquare,
+    badgeCls: 'bg-sky-50 text-sky-700 border-sky-200',
+    borderCls: 'border-sky-500',
+    bgCls: 'bg-sky-500/10',
+    textCls: 'text-sky-600',
+  },
+  linkedin_inmail: {
+    label: 'LinkedIn InMail',
+    shortLabel: 'InMail',
+    icon: Send,
+    badgeCls: 'bg-purple-50 text-purple-700 border-purple-200',
+    borderCls: 'border-purple-500',
+    bgCls: 'bg-purple-500/10',
+    textCls: 'text-purple-600',
+  },
+  warm_referral: {
+    label: 'Warm Referral',
+    shortLabel: 'Referral',
+    icon: Users,
+    badgeCls: 'bg-amber-50 text-amber-800 border-amber-200',
+    borderCls: 'border-amber-500',
+    bgCls: 'bg-amber-500/10',
+    textCls: 'text-amber-600',
+  },
+  follow_up: {
+    label: 'Follow-Up',
+    shortLabel: 'Follow-Up',
+    icon: Clock,
+    badgeCls: 'bg-rose-50 text-rose-700 border-rose-200',
+    borderCls: 'border-rose-500',
+    bgCls: 'bg-rose-500/10',
+    textCls: 'text-rose-600',
+  },
+  direct_message: {
+    label: 'Direct Message',
+    shortLabel: 'DM',
+    icon: Zap,
+    badgeCls: 'bg-cyan-50 text-cyan-800 border-cyan-200',
+    borderCls: 'border-cyan-500',
+    bgCls: 'bg-cyan-500/10',
+    textCls: 'text-cyan-600',
+  },
+  reply: {
+    label: 'Reply Handling',
+    shortLabel: 'Reply',
+    icon: RefreshCw,
+    badgeCls: 'bg-indigo-50 text-indigo-700 border-indigo-200',
+    borderCls: 'border-indigo-500',
+    bgCls: 'bg-indigo-500/10',
+    textCls: 'text-indigo-600',
+  },
 };
+
+// ── Master Topic Visual Metadata ──
+interface TopicMeta {
+  id: string;
+  icon: React.ElementType;
+  gradient: string;
+  pillBorder: string;
+  pillBg: string;
+  pillText: string;
+  accentBg: string;
+  tagline: string;
+}
+
+const TOPIC_METADATA: Record<string, TopicMeta> = {
+  'first-touch-recruiters': {
+    id: 'first-touch-recruiters',
+    icon: Briefcase,
+    gradient: 'from-blue-600 to-sky-500',
+    pillBorder: 'border-blue-200',
+    pillBg: 'bg-blue-50',
+    pillText: 'text-blue-700',
+    accentBg: 'bg-blue-500/10',
+    tagline: 'Technical recruiters & talent acquisition scouts',
+  },
+  'first-touch-engineers': {
+    id: 'first-touch-engineers',
+    icon: Code2,
+    gradient: 'from-indigo-600 to-purple-600',
+    pillBorder: 'border-indigo-200',
+    pillBg: 'bg-indigo-50',
+    pillText: 'text-indigo-700',
+    accentBg: 'bg-indigo-500/10',
+    tagline: 'Engineering managers, tech leads & staff engineers',
+  },
+  'campus-fresher-programs': {
+    id: 'campus-fresher-programs',
+    icon: GraduationCap,
+    gradient: 'from-emerald-600 to-teal-500',
+    pillBorder: 'border-emerald-200',
+    pillBg: 'bg-emerald-50',
+    pillText: 'text-emerald-700',
+    accentBg: 'bg-emerald-500/10',
+    tagline: 'Off-campus drives, university relations, TPO & PPO conversions',
+  },
+  'alumni-mutual-warm': {
+    id: 'alumni-mutual-warm',
+    icon: Users,
+    gradient: 'from-amber-600 to-orange-500',
+    pillBorder: 'border-amber-200',
+    pillBg: 'bg-amber-50',
+    pillText: 'text-amber-800',
+    accentBg: 'bg-amber-500/10',
+    tagline: 'College alumni, department seniors & mutual connections',
+  },
+  'startup-founder-direct': {
+    id: 'startup-founder-direct',
+    icon: Rocket,
+    gradient: 'from-rose-600 to-pink-500',
+    pillBorder: 'border-rose-200',
+    pillBg: 'bg-rose-50',
+    pillText: 'text-rose-700',
+    accentBg: 'bg-rose-500/10',
+    tagline: 'Early-stage founders, CTOs & founding engineer roles',
+  },
+  'referral-engine': {
+    id: 'referral-engine',
+    icon: Award,
+    gradient: 'from-cyan-600 to-blue-600',
+    pillBorder: 'border-cyan-200',
+    pillBg: 'bg-cyan-50',
+    pillText: 'text-cyan-800',
+    accentBg: 'bg-cyan-500/10',
+    tagline: 'Forwardable blurbs, Job ID asks & low-friction referrals',
+  },
+  'open-source-portfolio': {
+    id: 'open-source-portfolio',
+    icon: Sparkles,
+    gradient: 'from-violet-600 to-indigo-600',
+    pillBorder: 'border-violet-200',
+    pillBg: 'bg-violet-50',
+    pillText: 'text-violet-700',
+    accentBg: 'bg-violet-500/10',
+    tagline: 'Merged PRs, system architecture, teardowns & demo shares',
+  },
+  'follow-ups': {
+    id: 'follow-ups',
+    icon: Clock,
+    gradient: 'from-red-600 to-rose-600',
+    pillBorder: 'border-red-200',
+    pillBg: 'bg-red-50',
+    pillText: 'text-red-700',
+    accentBg: 'bg-red-500/10',
+    tagline: '5-day value adds, calm check-ins & polite loop closures',
+  },
+  'interview-lifecycle': {
+    id: 'interview-lifecycle',
+    icon: CheckCircle2,
+    gradient: 'from-teal-600 to-cyan-600',
+    pillBorder: 'border-teal-200',
+    pillBg: 'bg-teal-50',
+    pillText: 'text-teal-700',
+    accentBg: 'bg-teal-500/10',
+    tagline: 'Post-OA confirmations, thank-you notes & status checks',
+  },
+  'informational-chats': {
+    id: 'informational-chats',
+    icon: MessageSquare,
+    gradient: 'from-yellow-600 to-amber-600',
+    pillBorder: 'border-amber-200',
+    pillBg: 'bg-amber-50',
+    pillText: 'text-amber-800',
+    accentBg: 'bg-amber-500/10',
+    tagline: '15-minute stack discussions & engineering decision advice',
+  },
+  're-engagement-replies': {
+    id: 're-engagement-replies',
+    icon: RefreshCw,
+    gradient: 'from-slate-700 to-indigo-700',
+    pillBorder: 'border-slate-300',
+    pillBg: 'bg-slate-100',
+    pillText: 'text-slate-800',
+    accentBg: 'bg-slate-500/10',
+    tagline: '6-month re-engagement, no-headcount replies & logistics',
+  },
+  'events-community': {
+    id: 'events-community',
+    icon: Zap,
+    gradient: 'from-emerald-600 to-green-600',
+    pillBorder: 'border-emerald-200',
+    pillBg: 'bg-emerald-50',
+    pillText: 'text-emerald-700',
+    accentBg: 'bg-emerald-500/10',
+    tagline: 'Conferences, hackathons, speakers & developer meetups',
+  },
+};
+
+// Clean browser download helper
+function downloadTextFile(filename: string, content: string) {
+  const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
 
 export function ReachOutPage() {
   const { profile } = useProfile();
 
-  // ── Original 15 template state ──────────────────────────────
-  const [activeChannel, setActiveChannel] = useState<OutreachChannel | 'all'>('all');
-  const [targetCompany, setTargetCompany] = useState<string>('Razorpay');
-  const [targetRole, setTargetRole] = useState<string>('Backend Engineer');
-  const [recipientName, setRecipientName] = useState<string>('');
-  const [recipientRole, setRecipientRole] = useState<RecipientType>('Recruiter');
-  const [recipientTitle, setRecipientTitle] = useState<string>('Technical Recruiter');
-  const [primarySkill, setPrimarySkill] = useState<string>('Node.js & PostgreSQL');
-  const [proofPoint, setProofPoint] = useState<string>('scaled REST APIs reducing latency by 45%');
-  const [commonGround, setCommonGround] = useState<string>('distributed fintech architecture');
-  const [collegeName, setCollegeName] = useState<string>('');
-  const [admiredProject, setAdmiredProject] = useState<string>('UPI payment switch');
-  const [portfolioLink, setPortfolioLink] = useState<string>('github.com/myname/portfolio');
-  const [copiedId, setCopiedId] = useState<string | null>(null);
-
-  // ── Extended library state ──────────────────────────────────
-  const [showExtended, setShowExtended] = useState<boolean>(false);
-  const [expandedGroups, setExpandedGroups] = useState<Set<string>>(new Set());
-
-  // Sync from profile
-  useEffect(() => {
-    if (profile) {
-      const extracted = extractSlotsFromProfile(profile, targetCompany, targetRole);
-      if (extracted.primarySkill) setPrimarySkill(extracted.primarySkill);
-      if (extracted.proofPoint) setProofPoint(extracted.proofPoint);
-      if (extracted.collegeName) setCollegeName(extracted.collegeName);
-      if (extracted.portfolioLink) setPortfolioLink(extracted.portfolioLink);
-      if (extracted.targetCompany) setTargetCompany(extracted.targetCompany);
-      if (extracted.targetRole) setTargetRole(extracted.targetRole);
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [profile]);
-
-  const handleSelectCompany = (compName: string) => {
-    const comp = COMPANIES.find((c) => c.name === compName || c.id === compName);
-    if (!comp) return;
-    setTargetCompany(comp.name);
-    if (comp.roles[0]) {
-      setTargetRole(comp.roles[0].title);
-      setPrimarySkill(comp.roles[0].competencies.slice(0, 3).join(', '));
-    }
-    setAdmiredProject(`${comp.name}'s ${comp.industry} platform`);
-  };
-
-  const currentSlots: OutreachSlots = useMemo(() => ({
-    targetCompany,
-    targetRole,
-    recipientName: recipientName || undefined,
-    recipientRole,
-    recipientTitle: recipientTitle || undefined,
-    primarySkill: primarySkill || undefined,
-    proofPoint: proofPoint || undefined,
-    commonGround: commonGround || undefined,
-    collegeName: collegeName || undefined,
-    admiredProject: admiredProject || undefined,
-    portfolioLink: portfolioLink || undefined,
-    candidateName: profile?.identity?.name || undefined,
-    candidateEmail: profile?.identity?.email || undefined,
-  }), [
-    targetCompany, targetRole, recipientName, recipientRole, recipientTitle,
-    primarySkill, proofPoint, commonGround, collegeName, admiredProject,
-    portfolioLink, profile,
-  ]);
-
-  const messages: GeneratedMessage[] = useMemo(
-    () => generateOutreach(currentSlots, activeChannel),
-    [currentSlots, activeChannel]
-  );
-
-  // Shared slots for v2 templates — map from the same inputs above
-  const v2Slots: ReachOutSlots = useMemo(() => ({
-    company: targetCompany,
-    role: targetRole,
-    recipient_name: recipientName || 'Recipient',
-    recipient_type: recipientRole as any,
-    primary_skill: primarySkill,
-    proof_point: proofPoint,
-    college: collegeName || 'your college',
-    admired_project: admiredProject,
-    portfolio: portfolioLink,
-    your_name: profile?.identity?.name || '[Your Name]',
-    your_email: profile?.identity?.email || '[Your Email]',
+  // ── Confirmed Slot State (Active in generator) ──
+  const [appliedSlots, setAppliedSlots] = useState<ReachOutSlots>({
+    company: 'Razorpay',
+    role: 'Backend Engineer',
+    recipient_name: 'Rahul Sharma',
+    recipient_type: 'Recruiter',
+    primary_skill: 'Node.js & PostgreSQL',
+    proof_point: 'scaled REST APIs reducing latency by 45%',
+    college: 'NIT Trichy',
+    admired_project: 'UPI payment switch',
+    portfolio: 'github.com/myname/portfolio',
+    your_name: 'Arjun Mehta',
+    your_email: 'arjun.mehta@example.com',
     batch_year: '2026',
-    source_trigger: 'your recent engineering post',
+    job_id: 'REQ-0482',
+    source_trigger: 'your engineering blog post on high-concurrency payment queues',
     event_name: 'GopherCon India',
-    talk_topic: 'distributed systems',
+    talk_topic: 'distributed systems reliability',
     interviewer_topic: 'system design trade-offs',
     days_since_last_contact: 7,
     availability_date: 'Immediate',
     notice_period: 'Immediate / 15 days',
     location_preference: 'Bengaluru / Remote',
-    personal_line: 'Your team\'s open-source work directly influenced my recent project.',
-    what_changed: 'shipped production microservices',
+    personal_line: 'Your team\'s open-source work directly influenced my final-year project.',
+    what_changed: 'shipped production microservices with 99.9% uptime',
     referrer_relationship: 'former_colleague',
-    job_id: 'REQ-0001',
-  }), [
-    targetCompany, targetRole, recipientName, recipientRole,
-    primarySkill, proofPoint, collegeName, admiredProject, portfolioLink, profile,
-  ]);
+    specific_observation: 'clean circuit-breaker implementation on checkout',
+    pr_link: 'github.com/org/repo/pull/124',
+    expected_ctc: 'Market Standard',
+  });
 
+  // ── Draft Slot State (Form input values before confirmation) ──
+  const [draftSlots, setDraftSlots] = useState<ReachOutSlots>({ ...appliedSlots });
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState<boolean>(false);
+  const [justConfirmed, setJustConfirmed] = useState<boolean>(false);
+
+  // ── Navigation & Topic Selection ──
+  const [selectedTopicId, setSelectedTopicId] = useState<string>('first-touch-recruiters');
+  const [channelFilter, setChannelFilter] = useState<string>('all');
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [showInputsDrawer, setShowInputsDrawer] = useState<boolean>(true);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+
+  // Sync candidate identity from profile context if available
+  useEffect(() => {
+    if (profile) {
+      setDraftSlots((prev) => ({
+        ...prev,
+        your_name: profile.identity?.name || prev.your_name,
+        your_email: profile.identity?.email || prev.your_email,
+        college: profile.education?.[0]?.institution || prev.college,
+      }));
+      setAppliedSlots((prev) => ({
+        ...prev,
+        your_name: profile.identity?.name || prev.your_name,
+        your_email: profile.identity?.email || prev.your_email,
+        college: profile.education?.[0]?.institution || prev.college,
+      }));
+    }
+  }, [profile]);
+
+  // Track draft modifications
+  const handleInputChange = (field: keyof ReachOutSlots, value: any) => {
+    setDraftSlots((prev) => {
+      const next = { ...prev, [field]: value };
+      setHasUnsavedChanges(true);
+      return next;
+    });
+  };
+
+  // Explicit Confirm & Apply Button
+  const handleConfirmChanges = () => {
+    setAppliedSlots({ ...draftSlots });
+    setHasUnsavedChanges(false);
+    setJustConfirmed(true);
+    setTimeout(() => setJustConfirmed(null as any), 3000);
+  };
+
+  // Reset to original defaults
+  const handleResetDefaults = () => {
+    const defaults: ReachOutSlots = {
+      company: 'Razorpay',
+      role: 'Backend Engineer',
+      recipient_name: 'Rahul Sharma',
+      recipient_type: 'Recruiter',
+      primary_skill: 'Node.js & PostgreSQL',
+      proof_point: 'scaled REST APIs reducing latency by 45%',
+      college: 'NIT Trichy',
+      admired_project: 'UPI payment switch',
+      portfolio: 'github.com/myname/portfolio',
+      your_name: profile?.identity?.name || 'Arjun Mehta',
+      your_email: profile?.identity?.email || 'arjun.mehta@example.com',
+      batch_year: '2026',
+      job_id: 'REQ-0482',
+      source_trigger: 'your engineering blog post on high-concurrency payment queues',
+      event_name: 'GopherCon India',
+      talk_topic: 'distributed systems reliability',
+      interviewer_topic: 'system design trade-offs',
+      days_since_last_contact: 7,
+      availability_date: 'Immediate',
+      notice_period: 'Immediate / 15 days',
+      location_preference: 'Bengaluru / Remote',
+      personal_line: 'Your team\'s open-source work directly influenced my final-year project.',
+      what_changed: 'shipped production microservices with 99.9% uptime',
+      referrer_relationship: 'former_colleague',
+      specific_observation: 'clean circuit-breaker implementation on checkout',
+      pr_link: 'github.com/org/repo/pull/124',
+      expected_ctc: 'Market Standard',
+    };
+    setDraftSlots(defaults);
+    setAppliedSlots(defaults);
+    setHasUnsavedChanges(false);
+  };
+
+  // Handle Quick Pick Target Company
+  const handleSelectCompany = (compName: string) => {
+    const comp = COMPANIES.find((c) => c.name === compName || c.id === compName);
+    if (!comp) return;
+    const roleTitle = comp.roles[0]?.title || 'Software Engineer';
+    const skills = comp.roles[0]?.competencies.slice(0, 3).join(', ') || 'Go, Distributed Systems';
+
+    setDraftSlots((prev) => ({
+      ...prev,
+      company: comp.name,
+      role: roleTitle,
+      primary_skill: skills,
+      admired_project: `${comp.name}'s ${comp.industry} infrastructure`,
+    }));
+    setHasUnsavedChanges(true);
+  };
+
+  // Copy handler
   const handleCopy = (id: string, text: string) => {
     navigator.clipboard.writeText(text);
     setCopiedId(id);
     setTimeout(() => setCopiedId(null), 2000);
   };
 
-  const toggleGroup = (groupId: string) => {
-    setExpandedGroups((prev) => {
-      const next = new Set(prev);
-      if (next.has(groupId)) next.delete(groupId);
-      else next.add(groupId);
-      return next;
-    });
+  // Download single template
+  const handleDownloadSingle = (tmpl: ReachOutTemplate, renderedSubject?: string, renderedBody?: string) => {
+    const subject = renderedSubject || '';
+    const body = renderedBody || '';
+    const cleanComp = (appliedSlots.company || 'Company').replace(/[^a-zA-Z0-9]/g, '_');
+    const cleanName = tmpl.name.replace(/[^a-zA-Z0-9]/g, '_');
+    const filename = `Outreach_${cleanComp}_${cleanName}.txt`;
+
+    const fileContent = [
+      '================================================================================',
+      `HIREFLOW OUTREACH GENERATOR — ${tmpl.name.toUpperCase()}`,
+      '================================================================================',
+      `Channel:        ${CHANNEL_CONFIG[tmpl.channel]?.label || tmpl.channel}`,
+      `Target Company: ${appliedSlots.company || 'Target Company'}`,
+      `Target Role:    ${appliedSlots.role || 'Target Role'}`,
+      `Recipient:      ${appliedSlots.recipient_name || 'Recipient'} (${appliedSlots.recipient_type || 'Contact'})`,
+      `Primary Stack:  ${appliedSlots.primary_skill || 'Tech Stack'}`,
+      '================================================================================',
+      '',
+      subject ? `SUBJECT LINE:\n${subject}\n\n` : '',
+      `MESSAGE BODY:\n${body}`,
+      '',
+      '================================================================================',
+      `WORD COUNT: ${body.split(/\s+/).filter(Boolean).length} | CHAR COUNT: ${body.length}`,
+      'WHEN TO USE:',
+      tmpl.whenToUse || 'Direct outreach scenario.',
+      '================================================================================',
+    ].join('\n');
+
+    downloadTextFile(filename, fileContent);
   };
 
+  // Download all templates in current topic
+  const handleDownloadAllInTopic = (groupId: string) => {
+    const group = SCENARIO_GROUPS.find((g) => g.id === groupId);
+    const templatesInGroup = ALL_REACH_OUT_TEMPLATES.filter((t) => t.group === groupId);
+    const cleanComp = (appliedSlots.company || 'Company').replace(/[^a-zA-Z0-9]/g, '_');
+    const cleanGroup = (group?.shortLabel || 'Topic').replace(/[^a-zA-Z0-9]/g, '_');
+    const filename = `HireFlow_${cleanComp}_${cleanGroup}_All_Connects.txt`;
+
+    const sections = templatesInGroup.map((tmpl, idx) => {
+      const rendered = renderReachOutMessage(tmpl, appliedSlots, { openerIndex: 0, subjectIndex: 0 });
+      return [
+        `--------------------------------------------------------------------------------`,
+        `[${idx + 1}] ${tmpl.name.toUpperCase()} (${CHANNEL_CONFIG[tmpl.channel]?.label || tmpl.channel})`,
+        `Target Audience: ${tmpl.recipientTypes.join(', ')}`,
+        `--------------------------------------------------------------------------------`,
+        rendered.subject ? `SUBJECT: ${rendered.subject}\n` : '',
+        rendered.body,
+        '',
+        `Guidance: ${tmpl.whenToUse}`,
+        '',
+      ].filter(Boolean).join('\n');
+    });
+
+    const fileContent = [
+      '================================================================================',
+      `HIREFLOW OUTREACH PLAYBOOK — ${group?.title.toUpperCase() || 'TOPIC'}`,
+      `Target Company: ${appliedSlots.company} | Role: ${appliedSlots.role}`,
+      `Total Templates: ${templatesInGroup.length}`,
+      '================================================================================',
+      '',
+      ...sections,
+      '================================================================================',
+      'Generated by HireFlow Outreach Engine (Strictly Deterministic)',
+      '================================================================================',
+    ].join('\n');
+
+    downloadTextFile(filename, fileContent);
+  };
+
+  // Active topic metadata
+  const currentTopicMeta = TOPIC_METADATA[selectedTopicId] || TOPIC_METADATA['first-touch-recruiters'];
+  const currentGroup = SCENARIO_GROUPS.find((g) => g.id === selectedTopicId) || SCENARIO_GROUPS[0];
+
+  // Templates in current topic
+  const currentTopicTemplates = useMemo(() => {
+    let list = ALL_REACH_OUT_TEMPLATES.filter((t) => t.group === selectedTopicId);
+    if (channelFilter !== 'all') {
+      list = list.filter((t) => t.channel === channelFilter);
+    }
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase().trim();
+      list = list.filter(
+        (t) =>
+          t.name.toLowerCase().includes(q) ||
+          t.intent.toLowerCase().includes(q) ||
+          t.whenToUse.toLowerCase().includes(q) ||
+          t.channel.toLowerCase().includes(q)
+      );
+    }
+    return list;
+  }, [selectedTopicId, channelFilter, searchQuery]);
+
+  // Channels available in current topic
+  const availableChannelsInTopic = useMemo(() => {
+    const allInGroup = ALL_REACH_OUT_TEMPLATES.filter((t) => t.group === selectedTopicId);
+    const channelSet = new Set(allInGroup.map((t) => t.channel));
+    return Array.from(channelSet);
+  }, [selectedTopicId]);
+
   return (
-    <div className="min-h-screen bg-bg text-text pb-16">
-      {/* Sticky Top Bar */}
-      <div className="border-b border-border bg-surface/50 backdrop-blur-md sticky top-0 z-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex flex-wrap items-center justify-between gap-4">
+    <div className="min-h-screen bg-bg text-text pb-24 font-sans selection:bg-primary/20 selection:text-primary">
+      {/* ── Top Bar / Breadcrumb ── */}
+      <div className="border-b border-border bg-surface/90 backdrop-blur-md sticky top-0 z-30 shadow-xs">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <Link
               to="/tools/career-path"
-              className="inline-flex items-center gap-1.5 text-xs text-text-muted hover:text-text font-semibold px-2.5 py-1.5 rounded-lg hover:bg-surface-2 transition-colors"
+              className="inline-flex items-center gap-1.5 text-xs text-text-muted hover:text-text font-bold px-3 py-1.5 rounded-lg hover:bg-surface-2 transition-colors border border-transparent hover:border-border"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
               Tools Hub
             </Link>
             <span className="text-border">/</span>
-            <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
-              Group B: Present
+            <span className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full bg-gradient-to-r from-blue-500/10 to-indigo-500/10 text-primary border border-primary/20">
+              <Sparkles className="w-3 h-3 text-primary animate-pulse" />
+              Reach Out Engine v2
             </span>
-            <span className="text-sm font-bold text-text">Reach Out</span>
+            <span className="text-sm font-extrabold text-text hidden sm:inline">
+              Cold Outreach Generator
+            </span>
           </div>
+
           <div className="flex items-center gap-2">
             <Link
               to="/tools/tracker"
-              className="px-3 py-1.5 text-xs font-semibold bg-surface-2 hover:bg-surface-3 border border-border rounded-xl text-text transition-colors flex items-center gap-1.5"
+              className="px-3.5 py-1.5 text-xs font-bold bg-surface hover:bg-surface-2 border border-border rounded-xl text-text transition-all hover:shadow-xs flex items-center gap-1.5"
             >
-              <Briefcase className="w-3.5 h-3.5 text-text-secondary" />
-              Log in Application Tracker
+              <Briefcase className="w-3.5 h-3.5 text-primary" />
+              Application Tracker
             </Link>
           </div>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-8">
-        {/* Title */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-6">
+        {/* ── Page Header ── */}
         <div className="mb-6">
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-text tracking-tight flex items-center gap-2.5">
-            <Send className="w-7 h-7 text-primary" />
-            Reach Out — Cold Outreach Generator
-          </h1>
-          <p className="text-sm text-text-secondary mt-1">
-            Deterministic slot-filling cold outreach messages with strict length limits, un-hallucinated proof points, and real-time placeholder tracking.
-          </p>
-        </div>
-
-        {/* ── Slot Inputs Grid ── */}
-        <div className="bg-surface border border-border rounded-2xl p-5 mb-8 shadow-xs">
-          <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
-            <div className="text-xs font-bold text-text-muted uppercase tracking-wider">
-              Outreach Slot Inputs (Auto-filled from Profile where available)
+          <div className="flex items-center gap-3 mb-2">
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-violet-600 flex items-center justify-center text-white shadow-md shadow-blue-500/20">
+              <Send className="w-6 h-6" />
             </div>
-            <div className="flex items-center gap-1.5">
-              <span className="text-xs text-text-muted">Target Company Quick Pick:</span>
-              <select
-                onChange={(e) => handleSelectCompany(e.target.value)}
-                className="bg-surface-2 border border-border rounded-lg px-2.5 py-1 text-xs text-text focus:outline-none focus:border-primary"
-              >
-                <option value="">Select from Companies...</option>
-                {COMPANIES.slice(0, 30).map((c) => (
-                  <option key={c.id} value={c.name}>
-                    {c.name} ({c.tier})
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {/* Company */}
             <div>
-              <label className="block text-[11px] font-semibold text-text-muted mb-1">Target Company *</label>
-              <input
-                type="text"
-                value={targetCompany}
-                onChange={(e) => setTargetCompany(e.target.value)}
-                placeholder="e.g. Razorpay"
-                className="w-full bg-surface-2 border border-border rounded-lg px-3 py-2 text-xs text-text focus:outline-none focus:border-primary"
-              />
-            </div>
-            {/* Role */}
-            <div>
-              <label className="block text-[11px] font-semibold text-text-muted mb-1">Target Role *</label>
-              <input
-                type="text"
-                value={targetRole}
-                onChange={(e) => setTargetRole(e.target.value)}
-                placeholder="e.g. Backend Engineer"
-                className="w-full bg-surface-2 border border-border rounded-lg px-3 py-2 text-xs text-text focus:outline-none focus:border-primary"
-              />
-            </div>
-            {/* Recipient Name */}
-            <div>
-              <label className="block text-[11px] font-semibold text-text-muted mb-1">Recipient Name</label>
-              <input
-                type="text"
-                value={recipientName}
-                onChange={(e) => setRecipientName(e.target.value)}
-                placeholder="e.g. Rahul Sharma"
-                className="w-full bg-surface-2 border border-border rounded-lg px-3 py-2 text-xs text-text focus:outline-none focus:border-primary"
-              />
-            </div>
-            {/* Recipient Role */}
-            <div>
-              <label className="block text-[11px] font-semibold text-text-muted mb-1">Recipient Type</label>
-              <select
-                value={recipientRole}
-                onChange={(e) => setRecipientRole(e.target.value as RecipientType)}
-                className="w-full bg-surface-2 border border-border rounded-lg px-3 py-2 text-xs text-text focus:outline-none focus:border-primary"
-              >
-                <option value="Recruiter">Recruiter</option>
-                <option value="Hiring Manager">Hiring Manager</option>
-                <option value="Peer Engineer">Peer Engineer</option>
-                <option value="Alumnus">Alumnus</option>
-                <option value="Founder/CTO">Founder/CTO</option>
-                <option value="Referrer">Referrer</option>
-                <option value="Campus Recruiter">Campus Recruiter</option>
-              </select>
-            </div>
-            {/* Primary Skill */}
-            <div>
-              <label className="block text-[11px] font-semibold text-text-muted mb-1">Primary Skill *</label>
-              <input
-                type="text"
-                value={primarySkill}
-                onChange={(e) => setPrimarySkill(e.target.value)}
-                placeholder="e.g. Go & Distributed Systems"
-                className="w-full bg-surface-2 border border-border rounded-lg px-3 py-2 text-xs text-text focus:outline-none focus:border-primary"
-              />
-            </div>
-            {/* Proof Point */}
-            <div className="sm:col-span-2">
-              <label className="block text-[11px] font-semibold text-text-muted mb-1">Quantified Proof Point *</label>
-              <input
-                type="text"
-                value={proofPoint}
-                onChange={(e) => setProofPoint(e.target.value)}
-                placeholder="e.g. reduced tail latency by 35% on 5k req/s"
-                className="w-full bg-surface-2 border border-border rounded-lg px-3 py-2 text-xs text-text focus:outline-none focus:border-primary"
-              />
-            </div>
-            {/* Common Ground */}
-            <div>
-              <label className="block text-[11px] font-semibold text-text-muted mb-1">Common Ground / Interest</label>
-              <input
-                type="text"
-                value={commonGround}
-                onChange={(e) => setCommonGround(e.target.value)}
-                placeholder="e.g. distributed fintech systems"
-                className="w-full bg-surface-2 border border-border rounded-lg px-3 py-2 text-xs text-text focus:outline-none focus:border-primary"
-              />
-            </div>
-            {/* College */}
-            <div>
-              <label className="block text-[11px] font-semibold text-text-muted mb-1">College / University</label>
-              <input
-                type="text"
-                value={collegeName}
-                onChange={(e) => setCollegeName(e.target.value)}
-                placeholder="e.g. NIT Trichy"
-                className="w-full bg-surface-2 border border-border rounded-lg px-3 py-2 text-xs text-text focus:outline-none focus:border-primary"
-              />
-            </div>
-            {/* Admired Project */}
-            <div>
-              <label className="block text-[11px] font-semibold text-text-muted mb-1">Admired Project / Feature</label>
-              <input
-                type="text"
-                value={admiredProject}
-                onChange={(e) => setAdmiredProject(e.target.value)}
-                placeholder="e.g. UPI payment switch"
-                className="w-full bg-surface-2 border border-border rounded-lg px-3 py-2 text-xs text-text focus:outline-none focus:border-primary"
-              />
-            </div>
-            {/* Portfolio */}
-            <div>
-              <label className="block text-[11px] font-semibold text-text-muted mb-1">Portfolio / GitHub Link</label>
-              <input
-                type="text"
-                value={portfolioLink}
-                onChange={(e) => setPortfolioLink(e.target.value)}
-                placeholder="github.com/yourname/portfolio"
-                className="w-full bg-surface-2 border border-border rounded-lg px-3 py-2 text-xs text-text focus:outline-none focus:border-primary"
-              />
+              <h1 className="text-2xl sm:text-3xl font-black text-text tracking-tight flex items-center gap-2">
+                Reach Out — Cold Outreach Generator
+              </h1>
+              <p className="text-xs sm:text-sm text-text-secondary mt-0.5">
+                Targeted outreach playbooks across 12 hiring scenarios: select a topic below to spawn matching cold emails, InMails, referrals, and LinkedIn connection notes.
+              </p>
             </div>
           </div>
         </div>
 
-        {/* ── Channel Filter Tabs ── */}
-        <div className="flex border-b border-border mb-6 overflow-x-auto">
-          {CHANNELS.map((ch) => (
-            <button
-              key={ch.id}
-              onClick={() => setActiveChannel(ch.id)}
-              className={`px-4 py-3 text-xs font-bold whitespace-nowrap border-b-2 transition-colors cursor-pointer ${
-                activeChannel === ch.id
-                  ? 'border-primary text-primary'
-                  : 'border-transparent text-text-secondary hover:text-text'
-              }`}
-            >
-              {ch.label}
-            </button>
-          ))}
-        </div>
-
-        {/* ── Original 15 Templates (card grid) ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10">
-          {messages.map((msg) => {
-            const isLinkedInConnect = msg.channel === 'linkedin_connect';
-            const charLimitProgress = isLinkedInConnect ? Math.round((msg.charCount / 300) * 100) : 0;
-            const badgeClass = CHANNEL_BADGE[msg.channel] || 'bg-surface-2 text-text-muted border-border';
-
-            return (
-              <div
-                key={msg.templateId}
-                className="bg-surface border border-border rounded-2xl p-5 flex flex-col justify-between shadow-xs"
-              >
-                <div>
-                  {/* Card Header */}
-                  <div className="flex items-start justify-between gap-3 mb-3">
-                    <div>
-                      <h3 className="text-sm font-bold text-text">{msg.name}</h3>
-                      <div className="text-[11px] text-text-muted mt-0.5">
-                        For: <span className="font-semibold text-text-secondary">{msg.targetAudience}</span>
-                      </div>
-                    </div>
-                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider border ${badgeClass}`}>
-                      {msg.channel.replace(/_/g, ' ')}
+        {/* ── Interactive Input Requirements Panel (Visible on every page & view) ── */}
+        <div className="bg-surface border border-border rounded-3xl p-5 sm:p-6 mb-8 shadow-sm transition-all">
+          <div className="flex items-center justify-between flex-wrap gap-3 pb-4 border-b border-border">
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-xl bg-primary/10 flex items-center justify-center text-primary font-bold">
+                <Sliders className="w-4 h-4" />
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <h2 className="text-sm font-extrabold text-text">Outreach Slot Inputs & Personalization</h2>
+                  {hasUnsavedChanges ? (
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 text-amber-700 border border-amber-300 animate-pulse">
+                      ● Unsaved Changes — Click Confirm to Apply
                     </span>
+                  ) : justConfirmed ? (
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-300 flex items-center gap-1">
+                      <CheckCircle2 className="w-3 h-3 text-emerald-600" />
+                      Changes Confirmed & Applied!
+                    </span>
+                  ) : (
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-600 border border-slate-200">
+                      ✓ Synchronized
+                    </span>
+                  )}
+                </div>
+                <p className="text-[11px] text-text-muted mt-0.5">
+                  Fields with <span className="text-red-500 font-bold">* Required</span> auto-fill your templates. Edit anywhere and click "Confirm & Apply Changes".
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 flex-wrap">
+              {/* Quick Pick Company Dropdown */}
+              <div className="flex items-center gap-1.5 bg-surface-2 border border-border rounded-xl px-2.5 py-1">
+                <Building2 className="w-3.5 h-3.5 text-text-muted" />
+                <span className="text-[11px] font-semibold text-text-muted">Target Company Preset:</span>
+                <select
+                  onChange={(e) => handleSelectCompany(e.target.value)}
+                  className="bg-transparent text-xs font-bold text-text focus:outline-none cursor-pointer"
+                  defaultValue=""
+                >
+                  <option value="" disabled>Select Company Preset...</option>
+                  {COMPANIES.slice(0, 30).map((c) => (
+                    <option key={c.id} value={c.name}>
+                      {c.name} ({c.tier})
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Reset to defaults */}
+              <button
+                onClick={handleResetDefaults}
+                className="px-3 py-1.5 rounded-xl border border-border text-xs font-semibold text-text-muted hover:text-text hover:bg-surface-2 transition-colors flex items-center gap-1 cursor-pointer"
+                title="Reset to default slots"
+              >
+                <RotateCcw className="w-3 h-3" />
+                Reset
+              </button>
+
+              {/* Toggle Collapse */}
+              <button
+                onClick={() => setShowInputsDrawer((prev) => !prev)}
+                className="px-3 py-1.5 rounded-xl border border-border text-xs font-semibold text-text-secondary hover:text-text hover:bg-surface-2 transition-colors flex items-center gap-1 cursor-pointer"
+              >
+                {showInputsDrawer ? (
+                  <>
+                    <ChevronUp className="w-3.5 h-3.5" />
+                    Collapse Inputs
+                  </>
+                ) : (
+                  <>
+                    <ChevronDown className="w-3.5 h-3.5" />
+                    Expand Inputs
+                  </>
+                )}
+              </button>
+
+              {/* Explicit Confirm Button (Prominently Styled) */}
+              <button
+                onClick={handleConfirmChanges}
+                className={`px-5 py-2 rounded-xl font-extrabold text-xs transition-all flex items-center gap-2 cursor-pointer shadow-md ${
+                  hasUnsavedChanges
+                    ? 'bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 hover:from-blue-700 hover:to-violet-700 text-white scale-[1.02] ring-2 ring-primary/40 ring-offset-2'
+                    : 'bg-primary hover:bg-primary/90 text-white'
+                }`}
+              >
+                <Check className="w-4 h-4" />
+                Confirm & Apply Changes
+              </button>
+            </div>
+          </div>
+
+          {/* Form Content */}
+          {showInputsDrawer && (
+            <div className="pt-5 space-y-5">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                {/* ── Column 1: Target Position ── */}
+                <div className="bg-surface-2/60 border border-border rounded-2xl p-4 space-y-3.5">
+                  <div className="flex items-center gap-2 text-xs font-extrabold text-blue-700 uppercase tracking-wider pb-1 border-b border-border/80">
+                    <Building2 className="w-3.5 h-3.5 text-blue-600" />
+                    1. Target Position
                   </div>
 
-                  {/* Char / Word count */}
-                  <div className="flex items-center justify-between text-[11px] text-text-muted mb-3 pb-2 border-b border-border/80">
-                    <div className="flex items-center gap-3">
-                      <span>{msg.wordCount} words</span>
-                      <span>·</span>
-                      <span className={msg.exceedsLimit ? 'text-red-400 font-bold' : ''}>
-                        {msg.charCount} {isLinkedInConnect ? '/ 300' : 'chars'}
+                  <div>
+                    <div className="flex items-center justify-between mb-1">
+                      <label className="text-[11px] font-bold text-text">Target Company</label>
+                      <span className="text-[10px] font-extrabold text-red-500 bg-red-50 px-1.5 py-0.2 rounded border border-red-200">
+                        * Required
                       </span>
                     </div>
-                    {isLinkedInConnect && (
-                      <div className="flex items-center gap-2">
-                        <div className="w-16 h-1.5 bg-surface-2 rounded-full overflow-hidden border border-border">
-                          <div
-                            className={`h-full ${msg.charCount > 300 ? 'bg-red-500' : msg.charCount > 270 ? 'bg-amber-500' : 'bg-primary'}`}
-                            style={{ width: `${Math.min(100, charLimitProgress)}%` }}
-                          />
-                        </div>
-                        <span className="text-[10px] font-bold">
-                          {300 - msg.charCount >= 0 ? `${300 - msg.charCount} left` : 'OVER LIMIT'}
-                        </span>
-                      </div>
-                    )}
+                    <input
+                      type="text"
+                      value={draftSlots.company || ''}
+                      onChange={(e) => handleInputChange('company', e.target.value)}
+                      placeholder="e.g. Razorpay, Swiggy, Zepto"
+                      className="w-full bg-surface border border-border rounded-xl px-3 py-2 text-xs text-text focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary font-medium"
+                    />
                   </div>
 
-                  {/* Subject */}
-                  {msg.subject && (
-                    <div className="mb-3 p-2.5 rounded-xl bg-surface-2 border border-border text-xs">
-                      <div className="text-[10px] text-text-muted font-bold uppercase mb-0.5">Subject Line</div>
-                      <div className="font-semibold text-text">{msg.subject}</div>
+                  <div>
+                    <div className="flex items-center justify-between mb-1">
+                      <label className="text-[11px] font-bold text-text">Target Role</label>
+                      <span className="text-[10px] font-extrabold text-red-500 bg-red-50 px-1.5 py-0.2 rounded border border-red-200">
+                        * Required
+                      </span>
                     </div>
-                  )}
-
-                  {/* Body */}
-                  <div className="p-3.5 rounded-xl bg-surface-2 border border-border/80 text-xs text-text font-mono leading-relaxed whitespace-pre-wrap mb-4">
-                    {msg.body}
+                    <input
+                      type="text"
+                      value={draftSlots.role || ''}
+                      onChange={(e) => handleInputChange('role', e.target.value)}
+                      placeholder="e.g. Backend Engineer, Fullstack SDE"
+                      className="w-full bg-surface border border-border rounded-xl px-3 py-2 text-xs text-text focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary font-medium"
+                    />
                   </div>
 
-                  {/* Placeholder badge */}
-                  <div className="mb-4">
-                    {msg.placeholdersCount > 0 ? (
-                      <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-start gap-2 text-xs text-amber-400">
-                        <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5" />
-                        <div>
-                          <div className="font-bold">{msg.placeholdersCount} placeholder{msg.placeholdersCount > 1 ? 's' : ''} need input:</div>
-                          <div className="flex flex-wrap gap-1 mt-1">
-                            {msg.placeholders.map((p, pIdx) => (
-                              <span key={pIdx} className="px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-mono text-[10px]">
-                                {p}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="p-2 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center gap-2 text-xs text-emerald-400 font-bold">
-                        <CheckCircle2 className="w-3.5 h-3.5" />
-                        Ready to send — 0 placeholders remaining
-                      </div>
-                    )}
+                  <div>
+                    <div className="flex items-center justify-between mb-1">
+                      <label className="text-[11px] font-bold text-text">Recipient Type</label>
+                      <span className="text-[10px] text-text-muted">Target audience</span>
+                    </div>
+                    <select
+                      value={draftSlots.recipient_type || 'Recruiter'}
+                      onChange={(e) => handleInputChange('recipient_type', e.target.value)}
+                      className="w-full bg-surface border border-border rounded-xl px-3 py-2 text-xs text-text focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary font-medium"
+                    >
+                      <option value="Recruiter">Recruiter / Talent Scout</option>
+                      <option value="Hiring Manager">Hiring Manager / Tech Lead</option>
+                      <option value="Peer Engineer">Peer Engineer / Senior SDE</option>
+                      <option value="Alumnus">College Alumnus</option>
+                      <option value="Founder/CTO">Founder / CTO</option>
+                      <option value="Referrer">Referrer / Team Member</option>
+                      <option value="Campus Recruiter">Campus Recruiter / University Relations</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-[11px] font-bold text-text mb-1">Requisition / Job ID (Optional)</label>
+                    <input
+                      type="text"
+                      value={draftSlots.job_id || ''}
+                      onChange={(e) => handleInputChange('job_id', e.target.value)}
+                      placeholder="e.g. REQ-0482 or Job URL"
+                      className="w-full bg-surface border border-border rounded-xl px-3 py-2 text-xs text-text focus:outline-none focus:border-primary font-medium"
+                    />
                   </div>
                 </div>
 
-                {/* Card Footer */}
-                <div className="pt-3 border-t border-border flex items-center justify-between gap-2">
-                  <Link to="/tools/tracker" className="text-xs font-semibold text-text-secondary hover:text-text flex items-center gap-1">
-                    <Briefcase className="w-3 h-3 text-primary" />
-                    Log in Tracker
-                  </Link>
-                  <button
-                    onClick={() => handleCopy(msg.templateId, msg.subject ? `Subject: ${msg.subject}\n\n${msg.body}` : msg.body)}
-                    className="px-3.5 py-1.5 rounded-xl bg-primary text-white text-xs font-bold hover:bg-primary/90 transition-colors cursor-pointer shadow-xs inline-flex items-center gap-1.5"
-                  >
-                    {copiedId === msg.templateId ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-                    {copiedId === msg.templateId ? 'Copied!' : 'Copy to Clipboard'}
-                  </button>
+                {/* ── Column 2: Candidate Technical Proof Points ── */}
+                <div className="bg-surface-2/60 border border-border rounded-2xl p-4 space-y-3.5">
+                  <div className="flex items-center gap-2 text-xs font-extrabold text-emerald-700 uppercase tracking-wider pb-1 border-b border-border/80">
+                    <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
+                    2. Technical Proof Points
+                  </div>
+
+                  <div>
+                    <div className="flex items-center justify-between mb-1">
+                      <label className="text-[11px] font-bold text-text">Primary Stack & Skills</label>
+                      <span className="text-[10px] font-extrabold text-red-500 bg-red-50 px-1.5 py-0.2 rounded border border-red-200">
+                        * Required
+                      </span>
+                    </div>
+                    <input
+                      type="text"
+                      value={draftSlots.primary_skill || ''}
+                      onChange={(e) => handleInputChange('primary_skill', e.target.value)}
+                      placeholder="e.g. Node.js & PostgreSQL, Go & Kafka"
+                      className="w-full bg-surface border border-border rounded-xl px-3 py-2 text-xs text-text focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary font-medium"
+                    />
+                  </div>
+
+                  <div>
+                    <div className="flex items-center justify-between mb-1">
+                      <label className="text-[11px] font-bold text-text">Quantified Proof Point</label>
+                      <span className="text-[10px] font-extrabold text-red-500 bg-red-50 px-1.5 py-0.2 rounded border border-red-200">
+                        * Required
+                      </span>
+                    </div>
+                    <input
+                      type="text"
+                      value={draftSlots.proof_point || ''}
+                      onChange={(e) => handleInputChange('proof_point', e.target.value)}
+                      placeholder="e.g. scaled REST APIs reducing latency by 45%"
+                      className="w-full bg-surface border border-border rounded-xl px-3 py-2 text-xs text-text focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary font-medium"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-[11px] font-bold text-text mb-1">College / University</label>
+                    <input
+                      type="text"
+                      value={draftSlots.college || ''}
+                      onChange={(e) => handleInputChange('college', e.target.value)}
+                      placeholder="e.g. NIT Trichy, IIT Madras, BITS Pilani"
+                      className="w-full bg-surface border border-border rounded-xl px-3 py-2 text-xs text-text focus:outline-none focus:border-primary font-medium"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-[11px] font-bold text-text mb-1">Portfolio or GitHub Link</label>
+                    <input
+                      type="text"
+                      value={draftSlots.portfolio || ''}
+                      onChange={(e) => handleInputChange('portfolio', e.target.value)}
+                      placeholder="e.g. github.com/yourname/portfolio"
+                      className="w-full bg-surface border border-border rounded-xl px-3 py-2 text-xs text-text focus:outline-none focus:border-primary font-medium"
+                    />
+                  </div>
+                </div>
+
+                {/* ── Column 3: Personalization & Recipient Details ── */}
+                <div className="bg-surface-2/60 border border-border rounded-2xl p-4 space-y-3.5">
+                  <div className="flex items-center gap-2 text-xs font-extrabold text-purple-700 uppercase tracking-wider pb-1 border-b border-border/80">
+                    <Users className="w-3.5 h-3.5 text-purple-600" />
+                    3. Recipient & Personalization
+                  </div>
+
+                  <div>
+                    <label className="block text-[11px] font-bold text-text mb-1">Recipient Name</label>
+                    <input
+                      type="text"
+                      value={draftSlots.recipient_name || ''}
+                      onChange={(e) => handleInputChange('recipient_name', e.target.value)}
+                      placeholder="e.g. Rahul Sharma"
+                      className="w-full bg-surface border border-border rounded-xl px-3 py-2 text-xs text-text focus:outline-none focus:border-primary font-medium"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-[11px] font-bold text-text mb-1">Personal Hook / Connection Note</label>
+                    <input
+                      type="text"
+                      value={draftSlots.personal_line || ''}
+                      onChange={(e) => handleInputChange('personal_line', e.target.value)}
+                      placeholder="e.g. Loved your recent post on distributed transaction sagas"
+                      className="w-full bg-surface border border-border rounded-xl px-3 py-2 text-xs text-text focus:outline-none focus:border-primary font-medium"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-[11px] font-bold text-text mb-1">Admired Project or Feature</label>
+                    <input
+                      type="text"
+                      value={draftSlots.admired_project || ''}
+                      onChange={(e) => handleInputChange('admired_project', e.target.value)}
+                      placeholder="e.g. UPI payment switch, Real-time dispatch"
+                      className="w-full bg-surface border border-border rounded-xl px-3 py-2 text-xs text-text focus:outline-none focus:border-primary font-medium"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-[11px] font-bold text-text mb-1">Your Name & Email</label>
+                    <div className="grid grid-cols-2 gap-2">
+                      <input
+                        type="text"
+                        value={draftSlots.your_name || ''}
+                        onChange={(e) => handleInputChange('your_name', e.target.value)}
+                        placeholder="Your Name"
+                        className="bg-surface border border-border rounded-xl px-2.5 py-2 text-xs text-text focus:outline-none focus:border-primary font-medium"
+                      />
+                      <input
+                        type="text"
+                        value={draftSlots.your_email || ''}
+                        onChange={(e) => handleInputChange('your_email', e.target.value)}
+                        placeholder="Your Email"
+                        className="bg-surface border border-border rounded-xl px-2.5 py-2 text-xs text-text focus:outline-none focus:border-primary font-medium"
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
-            );
-          })}
+
+              {/* Bottom Quick Action for Confirmation */}
+              <div className="flex items-center justify-between pt-2">
+                <div className="text-[11px] text-text-muted flex items-center gap-2">
+                  <span>Current Target:</span>
+                  <span className="font-bold text-text bg-surface-2 px-2 py-0.5 rounded-md border border-border">
+                    {appliedSlots.company || 'Not set'}
+                  </span>
+                  <span>·</span>
+                  <span className="font-bold text-text bg-surface-2 px-2 py-0.5 rounded-md border border-border">
+                    {appliedSlots.role || 'Not set'}
+                  </span>
+                  <span>·</span>
+                  <span className="font-bold text-text bg-surface-2 px-2 py-0.5 rounded-md border border-border">
+                    {appliedSlots.primary_skill || 'Not set'}
+                  </span>
+                </div>
+
+                <button
+                  onClick={handleConfirmChanges}
+                  className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 hover:from-blue-700 hover:to-violet-700 text-white font-extrabold text-xs shadow-md hover:shadow-lg transition-all flex items-center gap-2 cursor-pointer"
+                >
+                  <Check className="w-4 h-4" />
+                  Confirm & Apply Changes
+                </button>
+              </div>
+            </div>
+          )}
         </div>
 
-        {/* ── Extended Outreach Library (50 v2 templates) ── */}
-        <div className="mb-8">
-          <button
-            onClick={() => setShowExtended((prev) => !prev)}
-            className="w-full flex items-center justify-between px-5 py-4 bg-surface border border-border rounded-2xl hover:bg-surface-2 transition-colors cursor-pointer group"
-          >
-            <div className="flex items-center gap-3">
-              <Layers className="w-5 h-5 text-primary" />
-              <div className="text-left">
-                <div className="text-sm font-bold text-text">Extended Outreach Library</div>
-                <div className="text-xs text-text-muted mt-0.5">
-                  50 additional outreach templates across 12 scenario groups — alumni, startup founders, open source, referrals, events, interview lifecycle, and more
+        {/* ── Section Title: Outreach Playbooks / Scenarios (TalentLens-inspired) ── */}
+        <div className="mb-5">
+          <div className="flex items-center justify-between flex-wrap gap-2 mb-2">
+            <div>
+              <h2 className="text-lg font-black text-text flex items-center gap-2">
+                <Layers className="w-5 h-5 text-primary" />
+                Select Outreach Playbook
+              </h2>
+              <p className="text-xs text-text-muted mt-0.5">
+                Click any topic below to spawn matching cold emails, InMails, referrals, and connection notes with un-hallucinated proof points.
+              </p>
+            </div>
+
+            {/* Quick Keyword Search */}
+            <div className="relative min-w-[260px]">
+              <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search templates or keywords..."
+                className="w-full pl-9 pr-3 py-1.5 bg-surface border border-border rounded-xl text-xs text-text focus:outline-none focus:border-primary shadow-2xs"
+              />
+            </div>
+          </div>
+
+          {/* ── Master Topic Selection Grid ── */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3 mb-8">
+            {SCENARIO_GROUPS.map((group) => {
+              const meta = TOPIC_METADATA[group.id] || TOPIC_METADATA['first-touch-recruiters'];
+              const Icon = meta.icon;
+              const isSelected = selectedTopicId === group.id;
+
+              return (
+                <button
+                  key={group.id}
+                  onClick={() => {
+                    setSelectedTopicId(group.id);
+                    setChannelFilter('all');
+                  }}
+                  className={`text-left p-3.5 rounded-2xl border transition-all cursor-pointer flex flex-col justify-between relative group ${
+                    isSelected
+                      ? 'bg-surface border-primary shadow-md ring-2 ring-primary/20 scale-[1.02]'
+                      : 'bg-surface/80 hover:bg-surface border-border hover:border-border-strong hover:shadow-xs'
+                  }`}
+                >
+                  {/* Top Bar */}
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <div
+                        className={`w-8 h-8 rounded-xl flex items-center justify-center text-white bg-gradient-to-br ${meta.gradient} shadow-xs`}
+                      >
+                        <Icon className="w-4 h-4" />
+                      </div>
+                      <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-surface-2 text-text-secondary border border-border">
+                        {group.count} connects
+                      </span>
+                    </div>
+
+                    <div className="font-extrabold text-xs text-text group-hover:text-primary transition-colors line-clamp-1">
+                      {group.shortLabel}
+                    </div>
+                    <div className="text-[10px] text-text-muted mt-0.5 line-clamp-2 leading-relaxed">
+                      {meta.tagline}
+                    </div>
+                  </div>
+
+                  {/* Bottom Indicator */}
+                  <div className="mt-3 pt-2 border-t border-border/60 flex items-center justify-between">
+                    <span className="text-[10px] font-bold text-text-secondary">
+                      {isSelected ? '● Spawned' : 'Spawn →'}
+                    </span>
+                    <span className={`w-1.5 h-1.5 rounded-full ${isSelected ? 'bg-primary' : 'bg-transparent'}`} />
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* ── Spawned Topic View (All connects under this topic) ── */}
+        <div className="bg-surface border border-border rounded-3xl p-6 sm:p-7 shadow-xs">
+          {/* Header of Spawned Topic */}
+          <div className="flex items-start justify-between flex-wrap gap-4 pb-6 border-b border-border">
+            <div className="flex items-start gap-4">
+              <div
+                className={`w-12 h-12 rounded-2xl flex items-center justify-center text-white bg-gradient-to-br ${currentTopicMeta.gradient} shadow-md shrink-0`}
+              >
+                {React.createElement(currentTopicMeta.icon, { className: 'w-6 h-6' })}
+              </div>
+              <div>
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="text-xs font-extrabold text-primary uppercase tracking-wider">
+                    Spawned Topic {currentGroup.number} of 12
+                  </span>
+                  <span className="text-border">·</span>
+                  <span className="text-xs font-bold text-text-muted">
+                    {currentTopicTemplates.length} outreach templates ready
+                  </span>
                 </div>
+                <h2 className="text-xl sm:text-2xl font-black text-text mt-0.5">
+                  {currentGroup.title}
+                </h2>
+                <p className="text-xs sm:text-sm text-text-secondary mt-1 max-w-2xl">
+                  {currentGroup.description}
+                </p>
               </div>
             </div>
-            <div className="flex items-center gap-2 shrink-0">
-              <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-primary/10 text-primary border border-primary/20">
-                50 templates
-              </span>
-              {showExtended ? (
-                <ChevronDown className="w-4 h-4 text-text-muted group-hover:text-text transition-colors" />
-              ) : (
-                <ChevronRight className="w-4 h-4 text-text-muted group-hover:text-text transition-colors" />
-              )}
-            </div>
-          </button>
 
-          {showExtended && (
-            <div className="mt-4 space-y-4">
-              {SCENARIO_GROUPS.map((group) => {
-                const groupTemplates = ALL_REACH_OUT_TEMPLATES.filter((t) => t.group === group.id);
-                const isExpanded = expandedGroups.has(group.id);
+            {/* Topic Action Buttons */}
+            <div className="flex items-center gap-2 flex-wrap">
+              {/* Download all in this topic */}
+              <button
+                onClick={() => handleDownloadAllInTopic(selectedTopicId)}
+                className="px-4 py-2 rounded-xl bg-surface-2 hover:bg-surface-3 border border-border text-xs font-bold text-text hover:text-primary transition-all flex items-center gap-2 cursor-pointer shadow-2xs"
+                title="Download all templates in this category as a clean .txt file"
+              >
+                <Download className="w-3.5 h-3.5 text-primary" />
+                Download All ({currentTopicTemplates.length})
+              </button>
+
+              {/* Quick Input Toggle for this page */}
+              <button
+                onClick={() => setShowInputsDrawer((prev) => !prev)}
+                className="px-4 py-2 rounded-xl bg-primary text-white text-xs font-bold hover:bg-primary/90 transition-all flex items-center gap-2 cursor-pointer shadow-xs"
+              >
+                <Sliders className="w-3.5 h-3.5" />
+                {showInputsDrawer ? 'Hide Inputs' : 'Tweak Inputs Here'}
+              </button>
+            </div>
+          </div>
+
+          {/* ── Channel Filter Tabs within Spawned Topic ── */}
+          <div className="flex items-center gap-2 overflow-x-auto py-4 border-b border-border/80">
+            <span className="text-xs font-bold text-text-muted mr-1 flex items-center gap-1 shrink-0">
+              <Filter className="w-3.5 h-3.5" />
+              Connect Type:
+            </span>
+
+            <button
+              onClick={() => setChannelFilter('all')}
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer shrink-0 ${
+                channelFilter === 'all'
+                  ? 'bg-primary text-white shadow-xs'
+                  : 'bg-surface-2 text-text-secondary hover:text-text hover:bg-surface-3'
+              }`}
+            >
+              All Types ({ALL_REACH_OUT_TEMPLATES.filter((t) => t.group === selectedTopicId).length})
+            </button>
+
+            {availableChannelsInTopic.map((chKey) => {
+              const ch = CHANNEL_CONFIG[chKey] || {
+                label: chKey,
+                shortLabel: chKey,
+                icon: MessageSquare,
+                badgeCls: 'bg-surface-2 text-text-muted',
+              };
+              const Icon = ch.icon;
+              const count = ALL_REACH_OUT_TEMPLATES.filter(
+                (t) => t.group === selectedTopicId && t.channel === chKey
+              ).length;
+
+              return (
+                <button
+                  key={chKey}
+                  onClick={() => setChannelFilter(chKey)}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 shrink-0 border ${
+                    channelFilter === chKey
+                      ? `${ch.badgeCls} ring-2 ring-primary/20 shadow-xs font-extrabold`
+                      : 'bg-surface border-border text-text-secondary hover:text-text hover:bg-surface-2'
+                  }`}
+                >
+                  <Icon className="w-3.5 h-3.5" />
+                  {ch.shortLabel} ({count})
+                </button>
+              );
+            })}
+          </div>
+
+          {/* ── Spawned Cards Grid ── */}
+          {currentTopicTemplates.length === 0 ? (
+            <div className="text-center py-12">
+              <AlertTriangle className="w-8 h-8 text-amber-500 mx-auto mb-2" />
+              <p className="text-sm font-bold text-text">No matching outreach templates found</p>
+              <p className="text-xs text-text-muted mt-1">Try resetting the channel filter or search term.</p>
+              <button
+                onClick={() => {
+                  setChannelFilter('all');
+                  setSearchQuery('');
+                }}
+                className="mt-3 px-4 py-1.5 rounded-xl bg-primary text-white text-xs font-bold"
+              >
+                Clear Filters
+              </button>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+              {currentTopicTemplates.map((tmpl) => {
+                const rendered = renderReachOutMessage(tmpl, appliedSlots, {
+                  openerIndex: 0,
+                  subjectIndex: 0,
+                });
+                const isLinkedInConnect = tmpl.channel === 'linkedin_connect';
+                const charLimitProgress = isLinkedInConnect ? Math.round((rendered.charCount / 300) * 100) : 0;
+                const channelConfig = CHANNEL_CONFIG[tmpl.channel] || {
+                  label: tmpl.channel,
+                  shortLabel: tmpl.channel,
+                  icon: MessageSquare,
+                  badgeCls: 'bg-surface-2 text-text-muted border-border',
+                  borderCls: 'border-border',
+                  bgCls: 'bg-surface-2',
+                  textCls: 'text-text',
+                };
+                const ChannelIcon = channelConfig.icon;
+                const hasPlaceholders = rendered.unresolvedSlots.length > 0;
+                const copyKey = tmpl.id;
 
                 return (
-                  <div key={group.id} className="border border-border rounded-2xl overflow-hidden">
-                    {/* Group accordion header */}
-                    <button
-                      onClick={() => toggleGroup(group.id)}
-                      className="w-full flex items-center justify-between px-5 py-3.5 bg-surface hover:bg-surface-2 transition-colors cursor-pointer"
-                    >
-                      <div className="flex items-center gap-3">
-                        <span className="text-xs font-bold text-text-muted w-6 text-right">
-                          {group.number}.
-                        </span>
-                        <div className="text-left">
-                          <div className="text-sm font-bold text-text">{group.title}</div>
-                          <div className="text-[11px] text-text-muted mt-0.5">{group.description}</div>
+                  <div
+                    key={tmpl.id}
+                    className="bg-surface border border-border hover:border-primary/40 rounded-2xl p-5 flex flex-col justify-between shadow-xs hover:shadow-md transition-all group"
+                  >
+                    <div>
+                      {/* Card Header */}
+                      <div className="flex items-start justify-between gap-3 mb-3">
+                        <div>
+                          <h3 className="text-sm font-extrabold text-text group-hover:text-primary transition-colors">
+                            {tmpl.name}
+                          </h3>
+                          <div className="text-[11px] text-text-muted mt-0.5">
+                            Target Audience:{' '}
+                            <span className="font-semibold text-text-secondary">
+                              {tmpl.recipientTypes.join(', ')}
+                            </span>
+                          </div>
                         </div>
-                      </div>
-                      <div className="flex items-center gap-2 shrink-0 ml-4">
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-surface-2 text-text-secondary border border-border">
-                          {group.count} templates
+
+                        {/* Channel Badge */}
+                        <span
+                          className={`text-[10px] font-extrabold px-2.5 py-1 rounded-full uppercase tracking-wider border shrink-0 flex items-center gap-1 ${channelConfig.badgeCls}`}
+                        >
+                          <ChannelIcon className="w-3 h-3" />
+                          {channelConfig.shortLabel}
                         </span>
-                        {isExpanded ? (
-                          <ChevronDown className="w-4 h-4 text-text-muted" />
-                        ) : (
-                          <ChevronRight className="w-4 h-4 text-text-muted" />
+                      </div>
+
+                      {/* Char / Word Count + Progress */}
+                      <div className="flex items-center justify-between text-[11px] text-text-muted mb-3 pb-2.5 border-b border-border/80">
+                        <div className="flex items-center gap-3">
+                          <span className="font-semibold">{rendered.wordCount} words</span>
+                          <span>·</span>
+                          <span
+                            className={`font-semibold ${
+                              isLinkedInConnect && rendered.charCount > 300 ? 'text-red-500 font-extrabold' : ''
+                            }`}
+                          >
+                            {rendered.charCount} {isLinkedInConnect ? '/ 300 chars' : 'characters'}
+                          </span>
+                        </div>
+
+                        {/* LinkedIn 300 Char Limit Meter */}
+                        {isLinkedInConnect && (
+                          <div className="flex items-center gap-2">
+                            <div className="w-20 h-1.5 bg-surface-2 rounded-full overflow-hidden border border-border">
+                              <div
+                                className={`h-full transition-all ${
+                                  rendered.charCount > 300
+                                    ? 'bg-red-500'
+                                    : rendered.charCount > 270
+                                    ? 'bg-amber-500'
+                                    : 'bg-emerald-500'
+                                }`}
+                                style={{ width: `${Math.min(100, charLimitProgress)}%` }}
+                              />
+                            </div>
+                            <span
+                              className={`text-[10px] font-extrabold ${
+                                300 - rendered.charCount >= 0 ? 'text-emerald-600' : 'text-red-500'
+                              }`}
+                            >
+                              {300 - rendered.charCount >= 0
+                                ? `${300 - rendered.charCount} chars left`
+                                : 'OVER LIMIT'}
+                            </span>
+                          </div>
                         )}
                       </div>
-                    </button>
 
-                    {/* Group expanded card grid */}
-                    {isExpanded && (
-                      <div className="border-t border-border p-4 bg-bg grid grid-cols-1 lg:grid-cols-2 gap-4">
-                        {groupTemplates.map((tmpl) => {
-                          const rendered = renderReachOutMessage(tmpl, v2Slots, { openerIndex: 0, subjectIndex: 0 });
-                          const isLiConnect = tmpl.channel === 'linkedin_connect';
-                          const badgeClass = CHANNEL_BADGE[tmpl.channel] || 'bg-surface-2 text-text-muted border-border';
-                          const hasPlaceholders = rendered.unresolvedSlots.length > 0;
-                          const copyKey = `v2-${tmpl.id}`;
-
-                          return (
-                            <div
-                              key={tmpl.id}
-                              className="bg-surface border border-border rounded-xl p-4 flex flex-col justify-between"
+                      {/* Subject Line (if present) */}
+                      {rendered.subject && (
+                        <div className="mb-3 p-3 rounded-xl bg-surface-2/90 border border-border text-xs">
+                          <div className="flex items-center justify-between mb-1">
+                            <span className="text-[10px] text-primary font-black uppercase tracking-wider">
+                              Subject Line
+                            </span>
+                            <button
+                              onClick={() => handleCopy(`${copyKey}-subject`, rendered.subject!)}
+                              className="text-[10px] font-bold text-text-muted hover:text-text cursor-pointer flex items-center gap-1"
                             >
-                              <div>
-                                {/* Header */}
-                                <div className="flex items-start justify-between gap-2 mb-2">
-                                  <div>
-                                    <h3 className="text-xs font-bold text-text">{tmpl.name}</h3>
-                                    <div className="text-[11px] text-text-muted mt-0.5">
-                                      For: <span className="font-semibold text-text-secondary">{tmpl.recipientTypes.join(', ')}</span>
-                                    </div>
-                                  </div>
-                                  <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider border shrink-0 ${badgeClass}`}>
-                                    {tmpl.channel.replace(/_/g, ' ')}
-                                  </span>
-                                </div>
+                              {copiedId === `${copyKey}-subject` ? (
+                                <Check className="w-3 h-3 text-emerald-500" />
+                              ) : (
+                                <Copy className="w-3 h-3" />
+                              )}
+                              Copy Subject
+                            </button>
+                          </div>
+                          <div className="font-semibold text-text">{rendered.subject}</div>
+                        </div>
+                      )}
 
-                                {/* Char/word count */}
-                                <div className="flex items-center gap-3 text-[11px] text-text-muted mb-2 pb-2 border-b border-border/60">
-                                  <span>{rendered.wordCount} words</span>
-                                  <span>·</span>
-                                  <span className={isLiConnect && rendered.charCount > 300 ? 'text-red-400 font-bold' : ''}>
-                                    {rendered.charCount} {isLiConnect ? '/ 300' : 'chars'}
-                                  </span>
-                                  {isLiConnect && (
-                                    <div className="w-12 h-1 bg-surface-2 rounded-full overflow-hidden border border-border ml-1">
-                                      <div
-                                        className={`h-full ${rendered.charCount > 300 ? 'bg-red-500' : rendered.charCount > 270 ? 'bg-amber-500' : 'bg-primary'}`}
-                                        style={{ width: `${Math.min(100, (rendered.charCount / 300) * 100)}%` }}
-                                      />
-                                    </div>
-                                  )}
-                                </div>
+                      {/* Message Body */}
+                      <div className="p-4 rounded-xl bg-surface-2/70 border border-border/80 text-xs text-text font-mono leading-relaxed whitespace-pre-wrap mb-3.5 select-all">
+                        {rendered.body}
+                      </div>
 
-                                {/* Subject */}
-                                {rendered.subject && (
-                                  <div className="mb-2 p-2 rounded-lg bg-surface-2 border border-border text-xs">
-                                    <div className="text-[10px] text-text-muted font-bold uppercase mb-0.5">Subject</div>
-                                    <div className="font-semibold text-text text-[11px]">{rendered.subject}</div>
-                                  </div>
-                                )}
-
-                                {/* Body */}
-                                <div className="p-3 rounded-lg bg-surface-2 border border-border/80 text-[11px] text-text font-mono leading-relaxed whitespace-pre-wrap mb-3">
-                                  {rendered.body}
-                                </div>
-
-                                {/* Placeholder / ready badge */}
-                                <div className="mb-3">
-                                  {hasPlaceholders ? (
-                                    <div className="p-2 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-start gap-1.5 text-xs text-amber-400">
-                                      <AlertTriangle className="w-3.5 h-3.5 shrink-0 mt-0.5" />
-                                      <div>
-                                        <span className="font-bold">{rendered.unresolvedSlots.length} field{rendered.unresolvedSlots.length > 1 ? 's' : ''} need input: </span>
-                                        <span className="font-mono text-[10px]">{rendered.unresolvedSlots.slice(0, 4).join(', ')}</span>
-                                      </div>
-                                    </div>
-                                  ) : (
-                                    <div className="p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center gap-1.5 text-xs text-emerald-400 font-bold">
-                                      <CheckCircle2 className="w-3.5 h-3.5" />
-                                      Ready to send
-                                    </div>
-                                  )}
-                                </div>
-
-                                {/* Guidance pill */}
-                                <div className="text-[10px] text-text-muted bg-surface-2 border border-border rounded-lg px-2.5 py-1.5 leading-relaxed">
-                                  <span className="font-semibold text-text-secondary">When to use: </span>
-                                  {tmpl.whenToUse}
-                                </div>
+                      {/* Placeholder Tracker / Status */}
+                      <div className="mb-3.5">
+                        {hasPlaceholders ? (
+                          <div className="p-2.5 rounded-xl bg-amber-50 border border-amber-200 flex items-start gap-2 text-xs text-amber-800">
+                            <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+                            <div>
+                              <div className="font-bold">
+                                {rendered.unresolvedSlots.length} slot
+                                {rendered.unresolvedSlots.length > 1 ? 's' : ''} need input:
                               </div>
-
-                              {/* Footer */}
-                              <div className="pt-3 border-t border-border flex items-center justify-between gap-2 mt-3">
-                                <Link to="/tools/tracker" className="text-[11px] font-semibold text-text-secondary hover:text-text flex items-center gap-1">
-                                  <Briefcase className="w-3 h-3 text-primary" />
-                                  Log in Tracker
-                                </Link>
-                                <button
-                                  onClick={() => handleCopy(
-                                    copyKey,
-                                    rendered.subject ? `Subject: ${rendered.subject}\n\n${rendered.body}` : rendered.body
-                                  )}
-                                  className="px-3 py-1.5 rounded-lg bg-primary text-white text-[11px] font-bold hover:bg-primary/90 transition-colors cursor-pointer inline-flex items-center gap-1.5"
-                                >
-                                  {copiedId === copyKey ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
-                                  {copiedId === copyKey ? 'Copied!' : 'Copy'}
-                                </button>
+                              <div className="flex flex-wrap gap-1 mt-1">
+                                {rendered.unresolvedSlots.map((slot, sIdx) => (
+                                  <span
+                                    key={sIdx}
+                                    className="px-1.5 py-0.5 rounded bg-amber-100 text-amber-900 font-mono text-[10px] border border-amber-300"
+                                  >
+                                    {slot}
+                                  </span>
+                                ))}
                               </div>
                             </div>
-                          );
-                        })}
+                          </div>
+                        ) : (
+                          <div className="p-2.5 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center gap-2 text-xs text-emerald-700 font-bold">
+                            <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                            Ready to send — 0 placeholders remaining
+                          </div>
+                        )}
                       </div>
-                    )}
+
+                      {/* Best Practice Guidance */}
+                      <div className="p-2.5 rounded-xl bg-surface-2 border border-border text-[11px] text-text-muted leading-relaxed mb-4">
+                        <span className="font-bold text-text-secondary">When to use: </span>
+                        {tmpl.whenToUse}
+                      </div>
+                    </div>
+
+                    {/* Card Actions Footer */}
+                    <div className="pt-3 border-t border-border flex items-center justify-between gap-2 flex-wrap">
+                      <Link
+                        to="/tools/tracker"
+                        className="text-xs font-semibold text-text-secondary hover:text-text flex items-center gap-1"
+                      >
+                        <Briefcase className="w-3.5 h-3.5 text-primary" />
+                        Log in Tracker
+                      </Link>
+
+                      <div className="flex items-center gap-2">
+                        {/* Download as .txt */}
+                        <button
+                          onClick={() => handleDownloadSingle(tmpl, rendered.subject, rendered.body)}
+                          className="px-3 py-1.5 rounded-xl bg-surface-2 hover:bg-surface-3 border border-border text-xs font-bold text-text hover:text-primary transition-colors cursor-pointer flex items-center gap-1.5"
+                          title="Download message as .txt"
+                        >
+                          <Download className="w-3.5 h-3.5 text-text-muted" />
+                          Download
+                        </button>
+
+                        {/* Copy to Clipboard */}
+                        <button
+                          onClick={() =>
+                            handleCopy(
+                              copyKey,
+                              rendered.subject ? `Subject: ${rendered.subject}\n\n${rendered.body}` : rendered.body
+                            )
+                          }
+                          className="px-4 py-1.5 rounded-xl bg-primary hover:bg-primary/90 text-white text-xs font-bold transition-all cursor-pointer shadow-xs inline-flex items-center gap-1.5"
+                        >
+                          {copiedId === copyKey ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                          {copiedId === copyKey ? 'Copied!' : 'Copy to Clipboard'}
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 );
               })}
