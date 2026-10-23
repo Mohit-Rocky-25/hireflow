@@ -1,0 +1,486 @@
+[
+  {
+    "id": "big_tech_product",
+    "employerOrArchetype": "Big Tech & Global Product Leaders",
+    "archetype": "big_tech_product",
+    "displayName": "Big Tech & Global Product SDE (Google, Microsoft, Amazon, Uber)",
+    "description": "Global scale tier prioritizing algorithmic problem solving, clean system fundamentals, core data structures, and production-grade engineering agency.",
+    "reportedPackageRange": "₹18,00,000 – ₹45,00,000 CTC (reported fresher base + stock package)",
+    "rubrics": {
+      "coreFocus": [
+        "Data structures and algorithms (arrays, trees, graphs, dynamic programming)",
+        "Computer science fundamentals (OS, networking, memory management, concurrency)",
+        "Clean, testable code with edge-case handling and optimal time/space complexity",
+        "High engineering agency and ownership of technical decisions"
+      ],
+      "evaluationCriteria": [
+        "Algorithmic correctness and time/space complexity optimization",
+        "Systems design principles (for experienced) and clean OOP/modular architecture (for freshers)",
+        "Structured problem decomposition under live pair programming conditions",
+        "Behavioral depth and post-mortem ownership"
+      ],
+      "expectedArtifacts": [
+        "Production-grade projects with automated unit/integration tests",
+        "High-performance implementations demonstrating concurrency or memory profiling",
+        "Clean GitHub repositories with meaningful commit history and clear README architecture diagrams"
+      ]
+    },
+    "signals": [
+      {
+        "text": "Bachelor's or Master's degree in Computer Science, related technical field, or equivalent practical experience.",
+        "kind": "official-requirement",
+        "sourceUrl": "https://careers.google.com/jobs/results/",
+        "sourceName": "Google University Graduate SDE Posting",
+        "lastReviewed": "2026-09-15",
+        "confidence": "high"
+      },
+      {
+        "text": "LeetCode 2100+ contest rating (approx. 98th percentile of global contest participants). Highly regarded differentiator demonstrating rapid algorithmic formulation, but not a mandatory prerequisite.",
+        "kind": "community-reported",
+        "sourceUrl": null,
+        "sourceName": "Competitive Programming Global Contest Distributions",
+        "lastReviewed": "2026-09-10",
+        "confidence": "medium",
+        "percentileContext": "~98th percentile of active contest solvers"
+      },
+      {
+        "text": "Demonstrated scale metrics (e.g. throughput, query latency, multi-stage pipelines) in personal or internship projects.",
+        "kind": "editorial-opinion",
+        "sourceUrl": null,
+        "sourceName": "HireFlow Editorial Calibration Panel",
+        "lastReviewed": "2026-09-20",
+        "confidence": "medium"
+      },
+      {
+        "text": "Direct code contributions to recognized open-source libraries or foundational repositories.",
+        "kind": "community-reported",
+        "sourceUrl": null,
+        "sourceName": "Tech Hiring Community Benchmarks",
+        "lastReviewed": "2026-09-01",
+        "confidence": "medium"
+      }
+    ]
+  },
+  {
+    "id": "quant_trading",
+    "employerOrArchetype": "Quantitative Trading & High-Frequency Systems",
+    "archetype": "quant_trading",
+    "displayName": "Quant & Low-Latency Systems (Tower Research, Graviton, Jane Street, NK Securities)",
+    "description": "Ultra-low-latency financial engineering evaluating mathematical rigour, probability, C++ template metaprogramming, Linux kernel bypass, and cache locality. Evaluated separately from distributed web systems.",
+    "reportedPackageRange": "₹40,00,000 – ₹1,20,00,000+ CTC (reported base + quantitative performance bonus)",
+    "rubrics": {
+      "coreFocus": [
+        "Low-latency C++ (C++20, templates, move semantics, zero-allocation algorithms)",
+        "Computer architecture (CPU cache hierarchies, memory barriers, SIMD, lock-free queues)",
+        "Probability, combinatorics, stochastic processes, and linear algebra",
+        "Operating systems internals (Linux kernel bypass, epoll, network drivers, DPDK)"
+      ],
+      "evaluationCriteria": [
+        "Extreme algorithmic depth and execution speed",
+        "Deep hardware-level awareness (cache line alignment, branch prediction, assembly output)",
+        "Mathematical and statistical intuition under timed constraints"
+      ],
+      "expectedArtifacts": [
+        "Zero-allocation low-latency messaging queues or order-book simulators in modern C++",
+        "High-performance memory allocators or lock-free concurrent ring buffers",
+        "Competitive programming achievements (Codeforces Candidate Master / International Master / ACM-ICPC)"
+      ]
+    },
+    "signals": [
+      {
+        "text": "Codeforces Candidate Master rating (1900+) or top 5% national competitive programming standing. Strong differentiator demonstrating rapid mathematical and algorithmic formulation under pressure.",
+        "kind": "community-reported",
+        "sourceUrl": null,
+        "sourceName": "HFT Campus Hiring Community Reports",
+        "lastReviewed": "2026-09-12",
+        "confidence": "medium",
+        "percentileContext": "Top ~7% of active rated competitive programmers"
+      },
+      {
+        "text": "Deep proficiency in modern C++ (C++17/20), pointer arithmetic, cache-friendly data structures, and multi-threaded synchronization.",
+        "kind": "company-published",
+        "sourceUrl": null,
+        "sourceName": "Quantitative Firm Engineering Job Specifications",
+        "lastReviewed": "2026-09-01",
+        "confidence": "medium"
+      },
+      {
+        "text": "Distributed web architectures (Kafka, Kubernetes, microservices) are NOT typically evaluated for core low-latency execution desks.",
+        "kind": "editorial-opinion",
+        "sourceUrl": null,
+        "sourceName": "HireFlow Systems Calibration Panel",
+        "lastReviewed": "2026-09-20",
+        "confidence": "high"
+      }
+    ]
+  },
+  {
+    "id": "indian_high_growth",
+    "employerOrArchetype": "Indian High-Growth Product Scale-Ups",
+    "archetype": "indian_high_growth",
+    "displayName": "Indian High-Growth Product (Swiggy, Razorpay, CRED, Zomato, Zepto)",
+    "description": "Fast-paced consumer and fintech scale-ups prioritizing product execution speed, full-stack resilience, pragmatic API design, and telemetry.",
+    "reportedPackageRange": "₹14,00,000 – ₹28,00,000 CTC (reported fresher base + ESOP grant)",
+    "rubrics": {
+      "coreFocus": [
+        "Modern full-stack or backend engineering (Node.js, Go, React, PostgreSQL, Redis)",
+        "End-to-end feature ownership and real user transaction handling",
+        "Pragmatic system architecture (caching, database indexing, background workers)",
+        "Observability, logging, and error tracking in production"
+      ],
+      "evaluationCriteria": [
+        "Feature delivery speed and pragmatic engineering trade-offs",
+        "Hands-on machine coding / modular component design in 90-120 minutes",
+        "Understanding of common failure modes in high-concurrency mobile/web APIs"
+      ],
+      "expectedArtifacts": [
+        "Deployed full-stack application with real authenticated users or webhooks",
+        "Relational database schema with indexes, transactions, and migration scripts",
+        "Redis caching or asynchronous background worker queue implementation"
+      ]
+    },
+    "signals": [
+      {
+        "text": "Demonstrated capability to build and ship production features end-to-end using modern languages (Go, TypeScript, Python, or Java).",
+        "kind": "company-published",
+        "sourceUrl": null,
+        "sourceName": "Indian Unicorn Engineering Job Descriptions",
+        "lastReviewed": "2026-09-18",
+        "confidence": "medium"
+      },
+      {
+        "text": "Hands-on experience with relational databases (PostgreSQL/MySQL) including query planning and connection pooling.",
+        "kind": "editorial-opinion",
+        "sourceUrl": null,
+        "sourceName": "HireFlow Engineering Benchmarks",
+        "lastReviewed": "2026-09-20",
+        "confidence": "medium"
+      },
+      {
+        "text": "Live deployed project link with verifiable database persistence and responsive interface.",
+        "kind": "community-reported",
+        "sourceUrl": null,
+        "sourceName": "Campus Tech Placement Reports",
+        "lastReviewed": "2026-09-05",
+        "confidence": "medium"
+      }
+    ]
+  },
+  {
+    "id": "product_mnc_gcc",
+    "employerOrArchetype": "Global Capability Centers & Product MNCs",
+    "archetype": "product_mnc_gcc",
+    "displayName": "Product MNC & Enterprise GCC (Adobe, Intuit, Salesforce, Oracle, Cisco, SAP)",
+    "description": "Established enterprise software creators and high-maturity Global Capability Centers. Values disciplined engineering lifecycles, rigorous automated testing, distributed service governance, and clean architecture.",
+    "reportedPackageRange": "₹15,00,000 – ₹32,00,000 CTC (reported fresher/early career compensation)",
+    "rubrics": {
+      "coreFocus": [
+        "Object-oriented design, design patterns, and clean code principles (SOLID)",
+        "Robust enterprise frameworks (Spring Boot, Java, Python, C#, React)",
+        "Comprehensive automated testing (unit, integration, mocking, code coverage)",
+        "Database performance, query optimization, and enterprise API security"
+      ],
+      "evaluationCriteria": [
+        "Data structures and algorithmic fundamentals (medium difficulty)",
+        "Low-level object-oriented design and design pattern application",
+        "Disciplined engineering process awareness (CI/CD, code review, automated tests)"
+      ],
+      "expectedArtifacts": [
+        "Well-structured modular application with unit tests achieving >= 70% coverage",
+        "Documented RESTful API with authentication (OAuth2/JWT) and error contract",
+        "Clean Git branch workflows and pull request documentation"
+      ]
+    },
+    "signals": [
+      {
+        "text": "Bachelor's or Master's degree in Computer Science, Information Technology, Electronics, or related discipline.",
+        "kind": "official-requirement",
+        "sourceUrl": "https://www.oracle.com/corporate/careers/",
+        "sourceName": "Oracle Campus College Relations Program",
+        "lastReviewed": "2026-09-14",
+        "confidence": "high"
+      },
+      {
+        "text": "Solid comprehension of Object-Oriented Design principles, Design Patterns, and clean component layering.",
+        "kind": "company-published",
+        "sourceUrl": null,
+        "sourceName": "Enterprise Software Engineering Specifications",
+        "lastReviewed": "2026-09-08",
+        "confidence": "medium"
+      },
+      {
+        "text": "Hands-on familiarity with unit testing frameworks (e.g. JUnit, Vitest, Jest) and automated build pipelines.",
+        "kind": "editorial-opinion",
+        "sourceUrl": null,
+        "sourceName": "HireFlow GCC Calibration Panel",
+        "lastReviewed": "2026-09-20",
+        "confidence": "medium"
+      }
+    ]
+  },
+  {
+    "id": "tcs_ninja",
+    "employerOrArchetype": "Tata Consultancy Services (TCS)",
+    "track": "Ninja Track",
+    "archetype": "service_track",
+    "displayName": "TCS — Ninja Track (Assistant System Engineer)",
+    "description": "Entry-level foundation track for engineering graduates at Tata Consultancy Services, primarily recruited through the National Qualifier Test (NQT).",
+    "reportedPackageRange": "₹3.36 – ₹3.60 LPA (reported entry compensation)",
+    "eligibility": {
+      "aggregatePercent": 60,
+      "cgpaEquivalent": 6.0,
+      "qualification": "B.E. / B.Tech / M.E. / M.Tech / MCA / M.Sc from recognized institutions",
+      "sourceUrl": "https://nextstep.tcs.com/campus/",
+      "sourceName": "TCS NextStep National Qualifier Drive Guidelines",
+      "note": "Minimum 60% or 6.0 CGPA throughout 10th, 12th, Diploma (if applicable), and Graduation. Criteria vary by drive and batch; verify on the official TCS NextStep portal for your specific batch."
+    },
+    "rubrics": {
+      "coreFocus": [
+        "Programming foundations in C, Java, or Python (syntax, loops, arrays)",
+        "Basic computer science knowledge (DBMS, SQL queries, Computer Networks)",
+        "Numerical aptitude, logical reasoning, and English verbal proficiency"
+      ],
+      "evaluationCriteria": [
+        "National Qualifier Test (NQT) score across Foundation & Advanced sections",
+        "Basic programming syntax test during technical round",
+        "Communication clarity and willingness to learn diverse technologies"
+      ],
+      "expectedArtifacts": [
+        "Academic final year project demonstrating functional workflow",
+        "Certification or coursework in core programming languages",
+        "Clear, professional resume adhering to single-column ATS guidelines"
+      ]
+    },
+    "signals": [
+      {
+        "text": "Minimum 60% aggregate or 6.0 CGPA throughout 10th, 12th, Diploma (if applicable), and Graduation with no active backlogs at time of appearance.",
+        "kind": "official-requirement",
+        "sourceUrl": "https://nextstep.tcs.com/campus/",
+        "sourceName": "TCS NextStep Campus Portal 2026",
+        "lastReviewed": "2026-09-22",
+        "confidence": "high"
+      },
+      {
+        "text": "Score qualification in the TCS National Qualifier Test (NQT) Cognitive and IT Programming modules.",
+        "kind": "company-published",
+        "sourceUrl": null,
+        "sourceName": "TCS iON NQT Process Guidelines",
+        "lastReviewed": "2026-09-10",
+        "confidence": "medium"
+      },
+      {
+        "text": "Familiarity with relational database queries (SQL SELECT, JOIN, GROUP BY) and standard SDLC concepts.",
+        "kind": "editorial-opinion",
+        "sourceUrl": null,
+        "sourceName": "HireFlow IT Services Benchmark",
+        "lastReviewed": "2026-09-20",
+        "confidence": "medium"
+      }
+    ]
+  },
+  {
+    "id": "tcs_digital",
+    "employerOrArchetype": "Tata Consultancy Services (TCS)",
+    "track": "Digital Track",
+    "archetype": "service_track",
+    "displayName": "TCS — Digital Track (System Engineer)",
+    "description": "High-differentiator fresher track for candidates excelling in advanced coding, full-stack, cloud, or AI sections in TCS NQT.",
+    "reportedPackageRange": "₹7.00 – ₹7.50 LPA (reported entry compensation)",
+    "eligibility": {
+      "aggregatePercent": 60,
+      "cgpaEquivalent": 6.0,
+      "sourceUrl": "https://nextstep.tcs.com/campus/",
+      "sourceName": "TCS NextStep National Qualifier Drive Guidelines",
+      "note": "Minimum 60% or 6.0 CGPA throughout 10th, 12th, and Degree. Advanced coding performance in NQT or internal upgrade test required."
+    },
+    "rubrics": {
+      "coreFocus": [
+        "Advanced data structures and algorithms (trees, dynamic programming, hashing)",
+        "Modern application stacks (React, Angular, Spring Boot, Node.js, Python)",
+        "Cloud fundamentals (AWS/Azure concepts) and containerization basics"
+      ],
+      "evaluationCriteria": [
+        "Performance on NQT Advanced Coding section (complex array/string/graph problem)",
+        "Deep technical interview probing project architecture, databases, and modern frameworks"
+      ],
+      "expectedArtifacts": [
+        "Full-stack web application with database connectivity",
+        "Demonstrated use of REST APIs, Git version control, and containerization"
+      ]
+    },
+    "signals": [
+      {
+        "text": "Minimum 60% aggregate or 6.0 CGPA in 10th, 12th, and Graduation.",
+        "kind": "official-requirement",
+        "sourceUrl": "https://nextstep.tcs.com/campus/",
+        "sourceName": "TCS NextStep Campus Portal 2026",
+        "lastReviewed": "2026-09-22",
+        "confidence": "high"
+      },
+      {
+        "text": "High percentile clearance in NQT Advanced Coding and Cognitive test sections.",
+        "kind": "company-published",
+        "sourceUrl": null,
+        "sourceName": "TCS Digital Drive Process Guidelines",
+        "lastReviewed": "2026-09-10",
+        "confidence": "medium"
+      },
+      {
+        "text": "Hands-on experience with modern backend or fullstack web frameworks (Spring Boot, Node.js, React).",
+        "kind": "editorial-opinion",
+        "sourceUrl": null,
+        "sourceName": "HireFlow Campus Technical Review",
+        "lastReviewed": "2026-09-20",
+        "confidence": "medium"
+      }
+    ]
+  },
+  {
+    "id": "tcs_prime",
+    "employerOrArchetype": "Tata Consultancy Services (TCS)",
+    "track": "Prime Track",
+    "archetype": "service_track",
+    "displayName": "TCS — Prime Track (Senior System Engineer)",
+    "description": "Premium fresher engineering track at TCS introduced for top algorithmic coders, hackathon winners, and high-complexity system builders.",
+    "reportedPackageRange": "₹9.00 – ₹11.50 LPA (reported entry compensation)",
+    "eligibility": {
+      "aggregatePercent": 60,
+      "cgpaEquivalent": 6.0,
+      "sourceUrl": "https://nextstep.tcs.com/campus/",
+      "sourceName": "TCS NextStep National Qualifier Drive Guidelines",
+      "note": "Minimum 60% or 6.0 CGPA throughout 10th, 12th, and Degree. Top-tier score in NQT Advanced or premier hackathon performance."
+    },
+    "rubrics": {
+      "coreFocus": [
+        "Complex algorithms, graph algorithms, and optimization techniques",
+        "AI/ML engineering, high-throughput distributed systems, or microservices architecture",
+        "Systems design awareness and performance tuning"
+      ],
+      "evaluationCriteria": [
+        "Top percentile in advanced algorithmic coding assessments",
+        "Rigorous technical interview on architectural decisions and edge-case handling"
+      ],
+      "expectedArtifacts": [
+        "Complex project demonstrating distributed systems, AI/ML pipelines, or low-level systems",
+        "Competitive programming rank or proven hackathon finish"
+      ]
+    },
+    "signals": [
+      {
+        "text": "Minimum 60% aggregate or 6.0 CGPA in 10th, 12th, and Graduation.",
+        "kind": "official-requirement",
+        "sourceUrl": "https://nextstep.tcs.com/campus/",
+        "sourceName": "TCS NextStep Campus Portal 2026",
+        "lastReviewed": "2026-09-22",
+        "confidence": "high"
+      },
+      {
+        "text": "Top percentile finish in TCS NQT Advanced section or national hackathons (TCS CodeVita).",
+        "kind": "company-published",
+        "sourceUrl": null,
+        "sourceName": "TCS Prime Hiring Notices",
+        "lastReviewed": "2026-09-05",
+        "confidence": "medium"
+      },
+      {
+        "text": "Deep proficiency in distributed systems, asynchronous messaging (Kafka/RabbitMQ), or machine learning frameworks.",
+        "kind": "editorial-opinion",
+        "sourceUrl": null,
+        "sourceName": "HireFlow IT Services Benchmark",
+        "lastReviewed": "2026-09-20",
+        "confidence": "medium"
+      }
+    ]
+  },
+  {
+    "id": "infosys_sp",
+    "employerOrArchetype": "Infosys",
+    "track": "Specialist Programmer (Power Programmer)",
+    "archetype": "service_track",
+    "displayName": "Infosys — Specialist Programmer (Power Programmer Track)",
+    "description": "High-tier engineering track at Infosys recruited primarily through HackWithInfy or premier college hiring drives for high-performing algorithmic developers.",
+    "reportedPackageRange": "₹9.50 – ₹10.00 LPA (reported entry compensation)",
+    "rubrics": {
+      "coreFocus": [
+        "Competitive programming, dynamic programming, greedy algorithms, graph theory",
+        "Modern cloud-native development (Python, Java, Go, Docker, Kubernetes)",
+        "System design and high-volume data processing concepts"
+      ],
+      "evaluationCriteria": [
+        "HackWithInfy national competitive coding rounds",
+        "Technical interview assessing algorithmic trade-offs and code implementation elegance"
+      ],
+      "expectedArtifacts": [
+        "High-complexity project with clean modular architecture and unit tests",
+        "Active GitHub repository with contributions or competitive programming track record"
+      ]
+    },
+    "signals": [
+      {
+        "text": "Graduate degree in engineering (B.E./B.Tech/M.E./M.Tech) or MCA/M.Sc with verified academic standing.",
+        "kind": "official-requirement",
+        "sourceUrl": "https://www.infosys.com/careers/graduate.html",
+        "sourceName": "Infosys Graduate Recruitment Guidelines",
+        "lastReviewed": "2026-09-18",
+        "confidence": "high"
+      },
+      {
+        "text": "Qualification through HackWithInfy coding competition rounds or premier campus assessment.",
+        "kind": "company-published",
+        "sourceUrl": null,
+        "sourceName": "Infosys HackWithInfy Process Details",
+        "lastReviewed": "2026-09-01",
+        "confidence": "medium"
+      },
+      {
+        "text": "Ability to solve LeetCode Medium/Hard algorithmic challenges under time limits.",
+        "kind": "community-reported",
+        "sourceUrl": null,
+        "sourceName": "Campus Placement Coding Analysis",
+        "lastReviewed": "2026-09-10",
+        "confidence": "medium"
+      }
+    ]
+  },
+  {
+    "id": "early_growth_startup",
+    "employerOrArchetype": "Seed to Series B Tech Startups",
+    "archetype": "early_growth_startup",
+    "displayName": "Early to Mid-Stage Tech Startups (Seed – Series B)",
+    "description": "High-autonomy, rapid-iteration engineering environments valuing self-directed execution, quick learning, and zero-to-one implementation.",
+    "reportedPackageRange": "₹8,00,000 – ₹20,00,000 CTC (reported salary + early startup equity)",
+    "rubrics": {
+      "coreFocus": [
+        "Full-stack engineering agility (Next.js, TypeScript, Tailwind, Node.js, Supabase/PostgreSQL)",
+        "Self-direction, fast debugging, and rapid feature prototyping",
+        "Direct integration with third-party APIs (Stripe, OpenAI, Twilio, SendGrid)"
+      ],
+      "evaluationCriteria": [
+        "Live coding of a realistic feature or take-home assignment in 24-48 hours",
+        "Demonstrated ability to deploy, debug, and iterate without constant supervision"
+      ],
+      "expectedArtifacts": [
+        "Live shipped side projects or SaaS tools with active URLs",
+        "Clear GitHub repository showing git commit velocity and clean TypeScript types"
+      ]
+    },
+    "signals": [
+      {
+        "text": "Working code demonstrated via accessible live web links, public GitHub repositories, or open-source PRs.",
+        "kind": "company-published",
+        "sourceUrl": null,
+        "sourceName": "YC & Indian Startup Hiring Guidelines",
+        "lastReviewed": "2026-09-12",
+        "confidence": "medium"
+      },
+      {
+        "text": "Broad full-stack versatility across modern frontend, backend, and hosted database tooling.",
+        "kind": "editorial-opinion",
+        "sourceUrl": null,
+        "sourceName": "HireFlow Startup Calibration Panel",
+        "lastReviewed": "2026-09-20",
+        "confidence": "high"
+      }
+    ]
+  }
+]

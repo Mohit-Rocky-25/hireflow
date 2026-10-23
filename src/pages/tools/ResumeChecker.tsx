@@ -48,6 +48,7 @@ import { useAtsToolStore } from '../../store/tools/atsStore';
 import { WordLimitSource } from '../../lib/config/limits';
 import { resolveTargetJob } from '../../features/career-path/resolveTargetJob';
 import { ConfirmRequirementsModal, ConfirmedRequirement } from '../../features/ats/components/ConfirmRequirementsModal';
+import { RealityFactorsPanel } from '../../components/common/RealityFactorsPanel';
 import { parseJD } from '../../lib/ats/parseJD';
 
 const STAGED_MESSAGES = [
@@ -631,6 +632,8 @@ export function ResumeChecker() {
                     ))}
                   </div>
                 </div>
+
+                <RealityFactorsPanel className="mt-6" />
               </div>
             )}
 
@@ -639,6 +642,9 @@ export function ResumeChecker() {
               <>
                 {/* Layout Section A: Score Header */}
                 <ScoreHeader result={engineResult} headerRef={headerRef} />
+
+                {/* Reality Factors (Stage 3D, Unscored) */}
+                <RealityFactorsPanel className="mb-6" />
 
                 {/* Layout Section B: Fix These First */}
                 <FixTheseFirst items={engineResult.fixFirst} />

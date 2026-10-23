@@ -25,10 +25,11 @@ export function marketPositioning(
     const presentSignals: string[] = [];
     const missingSignals: string[] = [];
 
-    // Check minimum signals
-    for (const sig of tierObj.minimumSignals) {
-      const words = sig.toLowerCase().split(/\s+/).filter((w) => w.length > 4);
-      const matches = words.filter((w) => textLower.includes(w)).length;
+    // Check typical baseline signals (formerly minimum signals, now calibrated)
+    const baseSignals = (tierObj as any).typicalSignals || (tierObj as any).minimumSignals || [];
+    for (const sig of baseSignals) {
+      const words = sig.toLowerCase().split(/\s+/).filter((w: string) => w.length > 4);
+      const matches = words.filter((w: string) => textLower.includes(w)).length;
       if (matches >= 2 || textLower.includes(sig.toLowerCase().slice(0, 15))) {
         signalsScore += 15;
         presentSignals.push(sig);
@@ -39,8 +40,8 @@ export function marketPositioning(
 
     // Check strong signals
     for (const sig of tierObj.strongSignals) {
-      const words = sig.toLowerCase().split(/\s+/).filter((w) => w.length > 4);
-      const matches = words.filter((w) => textLower.includes(w)).length;
+      const words = sig.toLowerCase().split(/\s+/).filter((w: string) => w.length > 4);
+      const matches = words.filter((w: string) => textLower.includes(w)).length;
       if (matches >= 2) {
         signalsScore += 20;
         presentSignals.push(sig);

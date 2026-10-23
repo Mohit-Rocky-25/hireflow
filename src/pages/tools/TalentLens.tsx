@@ -21,6 +21,7 @@ import { buildQuickSummary } from '../../features/suite/engine/quickSummary';
 import { SimulationFacts } from '../../features/suite/engine/simulateFix';
 import { DEMO_TALENTLENS_RESUME } from '../demo/useTalentLensStore';
 import { HonestyExplainerModal } from '../../components/common/HonestyExplainerModal';
+import { RealityFactorsPanel } from '../../components/common/RealityFactorsPanel';
 
 // ── Status Components ──
 function EligibilityBadge({ status }: { status: string }) {
@@ -485,6 +486,9 @@ export function TalentLens() {
               {match.evidenceSummary}
             </div>
           )}
+
+          {/* Reality Factors (Stage 3D, Unscored) */}
+          <RealityFactorsPanel className="my-6" />
 
           {/* Tabs */}
           <div className="flex items-center gap-[4px] border-b border-border">

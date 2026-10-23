@@ -310,7 +310,7 @@ export const MARKET_INTELLIGENCE: Record<string, {
 }> = {
   java: {
     currentStandard: ["spring boot 3", "virtual threads", "graalvm", "micronaut", "quarkus", "reactive", "webflux", "java 17", "java 21", "loom", "records", "sealed classes"],
-    outdated: ["struts", "ejb", "spring 4", "java 8 only", "xml config", "servlet 2", "log4j 1", "ant build"],
+    outdated: ["struts", "ejb", "spring 4", "xml config", "servlet 2", "log4j 1", "ant build"],
     emerging: ["project loom", "project valhalla", "jdk 21", "graalvm native image", "spring ai"],
     productionPatterns: ["connection pooling (hikari)", "circuit breaker (resilience4j)", "distributed tracing (micrometer/otel)", "caching (caffeine/redis)", "idempotency keys", "outbox pattern", "cqrs"],
     architectureSignals: ["hexagonal architecture", "clean architecture", "domain-driven design", "event-driven", "cdc (debezium)", "kafka streams"],
@@ -469,7 +469,7 @@ export function runMarketIntelligenceEngine(
       status = "critical";
       icon = "🚨";
       const flagList = foundRedFlags.slice(0, 2).join(', ');
-      finding = `CRITICAL: Resume references ${flagList} — these are anti-patterns that signal inexperience to ${company.tier} interviewers. Production systems at ${company.name} use ${foundModern.slice(0,2).join(', ') || intel.currentStandard.slice(0,2).join(', ')}.`;
+      finding = `Practice note: Resume references ${flagList}. Modern production environments at ${company.name} typically emphasize ${foundModern.slice(0,2).join(', ') || intel.currentStandard.slice(0,2).join(', ')}.`;
     } else if (compScore >= 70 || foundEmerging.length >= 2) {
       status = "cutting-edge";
       icon = "⚡";

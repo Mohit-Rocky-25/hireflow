@@ -24,6 +24,7 @@ import { useProfileStore } from "../../store/profileStore";
 import { toast } from "../../components/ui/Toast";
 import { parseResumeFile } from "../../features/ats/fileParser";
 import { searchCompanies, deduplicateCompanies } from "../../lib/companySearchEngine";
+import { getMarketSummary } from "../../data/market";
 
 setCompaniesResolver(() => COMPANIES);
 
@@ -336,9 +337,14 @@ Example:
                 >
                   {TIERS.map(t => <option key={t} value={t}>{t}</option>)}
                 </select>
-                <span className="text-[13px] text-text-secondary ml-auto font-medium">
-                  {filteredCompanies.length} employers & recruiters · {filteredCompanies.reduce((a, c) => a + c.roles.length, 0)} calibrated roles
-                </span>
+                {(() => {
+                  const summary = getMarketSummary();
+                  return (
+                    <span className="text-[12px] sm:text-[13px] text-text-secondary ml-auto font-medium">
+                      {summary.totalProfiles} employer profiles ({summary.officialSourceCount} with official sources, {summary.sourcePendingCount} source pending)
+                    </span>
+                  );
+                })()}
               </div>
 
               {/* Typo Correction Banner ("Did you mean?") */}

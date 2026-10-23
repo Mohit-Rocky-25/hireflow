@@ -154540,7 +154540,7 @@ export const MARKET_INTELLIGENCE: Record<string, {
 }> = {
   java: {
     currentStandard: ["spring boot 3", "virtual threads", "graalvm", "micronaut", "quarkus", "reactive", "webflux", "java 17", "java 21", "loom", "records", "sealed classes"],
-    outdated: ["struts", "ejb", "spring 4", "java 8 only", "xml config", "servlet 2", "log4j 1", "ant build"],
+    outdated: ["struts", "ejb", "spring 4", "xml config", "servlet 2", "log4j 1", "ant build"],
     emerging: ["project loom", "project valhalla", "jdk 21", "graalvm native image", "spring ai"],
     productionPatterns: ["connection pooling", "circuit breaker", "resilience4j", "actuator", "jvm tuning", "gc tuning", "heap dump", "thread dump", "profiling"],
     architectureSignals: ["microservices", "event-driven", "cqrs", "saga pattern", "hexagonal", "domain driven", "api gateway"],
