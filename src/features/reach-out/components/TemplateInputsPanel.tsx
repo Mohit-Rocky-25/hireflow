@@ -588,7 +588,55 @@ export function TemplateInputsPanel({
               </div>
             )}
 
-            {/* 20. what_changed (for re-apply) */}
+            {/* 20. specific_observation (for startup / product-led templates) */}
+            {activeSlots.includes('specific_observation') && (
+              <div className="space-y-1">
+                <label className="text-[11px] font-medium text-neutral-300 flex items-center justify-between">
+                  <span>Specific Product Observation {template.requiredSlots.includes('specific_observation') && '*'}</span>
+                </label>
+                <input
+                  type="text"
+                  value={slots.specific_observation || ''}
+                  onChange={(e) => onChangeSlot('specific_observation', e.target.value)}
+                  placeholder="e.g. checkout latency spike on 3G networks in rural areas"
+                  className="w-full px-2.5 py-1.5 bg-neutral-950 border border-neutral-800 rounded-lg text-neutral-100 placeholder-neutral-600 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                />
+              </div>
+            )}
+
+            {/* 21. pr_link (for open-source / portfolio-led templates) */}
+            {activeSlots.includes('pr_link') && (
+              <div className="space-y-1">
+                <label className="text-[11px] font-medium text-neutral-300 flex items-center justify-between">
+                  <span>PR / Issue Link {template.requiredSlots.includes('pr_link') && '*'}</span>
+                </label>
+                <input
+                  type="url"
+                  value={slots.pr_link || ''}
+                  onChange={(e) => onChangeSlot('pr_link', e.target.value)}
+                  placeholder="e.g. github.com/org/repo/pull/42"
+                  className="w-full px-2.5 py-1.5 bg-neutral-950 border border-neutral-800 rounded-lg text-neutral-100 placeholder-neutral-600 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                />
+              </div>
+            )}
+
+            {/* 22. availability_date */}
+            {activeSlots.includes('availability_date') && (
+              <div className="space-y-1">
+                <label className="text-[11px] font-medium text-neutral-300 flex items-center justify-between">
+                  <span>Availability / Deadline Date {template.requiredSlots.includes('availability_date') && '*'}</span>
+                </label>
+                <input
+                  type="text"
+                  value={slots.availability_date || ''}
+                  onChange={(e) => onChangeSlot('availability_date', e.target.value)}
+                  placeholder="e.g. October 30 / Immediate"
+                  className="w-full px-2.5 py-1.5 bg-neutral-950 border border-neutral-800 rounded-lg text-neutral-100 placeholder-neutral-600 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                />
+              </div>
+            )}
+
+            {/* 23. what_changed (for re-apply) */}
             {activeSlots.includes('what_changed') && (
               <div className="space-y-1">
                 <label className="text-[11px] font-medium text-neutral-300 flex items-center justify-between">
