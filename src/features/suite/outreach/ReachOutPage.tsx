@@ -5,7 +5,12 @@
 // - Interactive Topic Spawn Architecture (TalentLens-inspired)
 // - Required input markers & explicit "Confirm & Apply Changes" button
 // - Contextual input requirements panel accessible on every view
-// - Vibrant, modern, high-contrast aesthetic with deterministic accuracy
+// - Market-Standard Evidence & Skill Context Presets
+// - Per-template inline draft editor for custom tailoring
+// - Single-click "Copy to Clipboard" & instant "Download (.txt)" options
+// - Platform rules collapsible with verification tracking
+// - Limits notice and strict zero-egress honesty footer
+// ============================================================
 
 import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
@@ -39,13 +44,17 @@ import {
   Sliders,
   ExternalLink,
   RotateCcw,
+  Shield,
+  Edit3,
 } from 'lucide-react';
 import { useProfile } from '../profile/ProfileContext';
 import { COMPANIES } from '../../../pages/demo/talentLensData';
 import {
   ALL_REACH_OUT_TEMPLATES,
   SCENARIO_GROUPS,
+  PLATFORM_RULES,
 } from '../../reach-out/data';
+import { EVIDENCE_PRESETS, EvidencePreset } from '../../reach-out/data/evidencePresets';
 import { renderReachOutMessage } from '../../reach-out/engine/slotResolver';
 import { ReachOutSlots, ReachOutTemplate, ChannelId } from '../../reach-out/types';
 
@@ -313,12 +322,17 @@ export function ReachOutPage() {
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState<boolean>(false);
   const [justConfirmed, setJustConfirmed] = useState<boolean>(false);
 
-  // ── Navigation & Topic Selection ──
+  // ── Navigation, Search & Controls ──
   const [selectedTopicId, setSelectedTopicId] = useState<string>('first-touch-recruiters');
   const [channelFilter, setChannelFilter] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [showInputsDrawer, setShowInputsDrawer] = useState<boolean>(true);
+  const [showPlatformRules, setShowPlatformRules] = useState<boolean>(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
+
+  // ── Custom Editable Drafts per Template ──
+  const [customDrafts, setCustomDrafts] = useState<Record<string, string>>({});
+  const [editingTemplateId, setEditingTemplateId] = useState<string | null>(null);
 
   // Sync candidate identity from profile context if available
   useEffect(() => {
@@ -355,6 +369,21 @@ export function ReachOutPage() {
     setTimeout(() => setJustConfirmed(null as any), 3000);
   };
 
+  // Apply a Market-Standard Evidence Preset
+  const handleApplyEvidencePreset = (presetId: string) => {
+    const preset = EVIDENCE_PRESETS.find((p) => p.id === presetId);
+    if (!preset) return;
+    setDraftSlots((prev) => ({
+      ...prev,
+      role: preset.role,
+      primary_skill: preset.primarySkill,
+      proof_point: preset.proofPoint,
+      admired_project: preset.admiredProject,
+      personal_line: preset.personalLine,
+    }));
+    setHasUnsavedChanges(true);
+  };
+
   // Reset to original defaults
   const handleResetDefaults = () => {
     const defaults: ReachOutSlots = {
@@ -389,6 +418,8 @@ export function ReachOutPage() {
     setDraftSlots(defaults);
     setAppliedSlots(defaults);
     setHasUnsavedChanges(false);
+    setCustomDrafts({});
+    setEditingTemplateId(null);
   };
 
   // Handle Quick Pick Target Company
@@ -457,13 +488,14 @@ export function ReachOutPage() {
 
     const sections = templatesInGroup.map((tmpl, idx) => {
       const rendered = renderReachOutMessage(tmpl, appliedSlots, { openerIndex: 0, subjectIndex: 0 });
+      const bodyToUse = customDrafts[tmpl.id] || rendered.body;
       return [
         `--------------------------------------------------------------------------------`,
         `[${idx + 1}] ${tmpl.name.toUpperCase()} (${CHANNEL_CONFIG[tmpl.channel]?.label || tmpl.channel})`,
         `Target Audience: ${tmpl.recipientTypes.join(', ')}`,
         `--------------------------------------------------------------------------------`,
         rendered.subject ? `SUBJECT: ${rendered.subject}\n` : '',
-        rendered.body,
+        bodyToUse,
         '',
         `Guidance: ${tmpl.whenToUse}`,
         '',
@@ -532,7 +564,7 @@ export function ReachOutPage() {
             <span className="text-border">/</span>
             <span className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full bg-gradient-to-r from-blue-500/10 to-indigo-500/10 text-primary border border-primary/20">
               <Sparkles className="w-3 h-3 text-primary animate-pulse" />
-              Reach Out Engine v2
+              Reach Out Engine
             </span>
             <span className="text-sm font-extrabold text-text hidden sm:inline">
               Cold Outreach Generator
@@ -569,7 +601,7 @@ export function ReachOutPage() {
           </div>
         </div>
 
-        {/* ── Interactive Input Requirements Panel (Visible on every page & view) ── */}
+        {/* ── Interactive Input Requirements Panel (Accessible on every view) ── */}
         <div className="bg-surface border border-border rounded-3xl p-5 sm:p-6 mb-8 shadow-sm transition-all">
           <div className="flex items-center justify-between flex-wrap gap-3 pb-4 border-b border-border">
             <div className="flex items-center gap-2.5">
@@ -601,16 +633,34 @@ export function ReachOutPage() {
             </div>
 
             <div className="flex items-center gap-2 flex-wrap">
+              {/* Market-Standard Evidence Preset Selector */}
+              <div className="flex items-center gap-1.5 bg-surface-2 border border-border rounded-xl px-2.5 py-1">
+                <Sparkles className="w-3.5 h-3.5 text-primary" />
+                <span className="text-[11px] font-semibold text-text-muted">Evidence Preset:</span>
+                <select
+                  onChange={(e) => handleApplyEvidencePreset(e.target.value)}
+                  className="bg-transparent text-xs font-bold text-text focus:outline-none cursor-pointer"
+                  defaultValue=""
+                >
+                  <option value="" disabled>Load Market Evidence Example...</option>
+                  {EVIDENCE_PRESETS.map((p) => (
+                    <option key={p.id} value={p.id}>
+                      {p.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
               {/* Quick Pick Company Dropdown */}
               <div className="flex items-center gap-1.5 bg-surface-2 border border-border rounded-xl px-2.5 py-1">
                 <Building2 className="w-3.5 h-3.5 text-text-muted" />
-                <span className="text-[11px] font-semibold text-text-muted">Target Company Preset:</span>
+                <span className="text-[11px] font-semibold text-text-muted">Company Preset:</span>
                 <select
                   onChange={(e) => handleSelectCompany(e.target.value)}
                   className="bg-transparent text-xs font-bold text-text focus:outline-none cursor-pointer"
                   defaultValue=""
                 >
-                  <option value="" disabled>Select Company Preset...</option>
+                  <option value="" disabled>Select Company...</option>
                   {COMPANIES.slice(0, 30).map((c) => (
                     <option key={c.id} value={c.name}>
                       {c.name} ({c.tier})
@@ -755,7 +805,7 @@ export function ReachOutPage() {
                       type="text"
                       value={draftSlots.primary_skill || ''}
                       onChange={(e) => handleInputChange('primary_skill', e.target.value)}
-                      placeholder="e.g. Node.js & PostgreSQL, Go & Kafka"
+                      placeholder="e.g. React & Node.js, Go & Kafka"
                       className="w-full bg-surface border border-border rounded-xl px-3 py-2 text-xs text-text focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary font-medium"
                     />
                   </div>
@@ -771,7 +821,7 @@ export function ReachOutPage() {
                       type="text"
                       value={draftSlots.proof_point || ''}
                       onChange={(e) => handleInputChange('proof_point', e.target.value)}
-                      placeholder="e.g. scaled REST APIs reducing latency by 45%"
+                      placeholder="e.g. built real-time WebSocket dashboard handling 800+ concurrent users"
                       className="w-full bg-surface border border-border rounded-xl px-3 py-2 text-xs text-text focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary font-medium"
                     />
                   </div>
@@ -1093,7 +1143,10 @@ export function ReachOutPage() {
                   subjectIndex: 0,
                 });
                 const isLinkedInConnect = tmpl.channel === 'linkedin_connect';
-                const charLimitProgress = isLinkedInConnect ? Math.round((rendered.charCount / 300) * 100) : 0;
+                const bodyText = customDrafts[tmpl.id] ?? rendered.body;
+                const charCount = bodyText.length;
+                const wordCount = bodyText.split(/\s+/).filter(Boolean).length;
+                const charLimitProgress = isLinkedInConnect ? Math.round((charCount / 300) * 100) : 0;
                 const channelConfig = CHANNEL_CONFIG[tmpl.channel] || {
                   label: tmpl.channel,
                   shortLabel: tmpl.channel,
@@ -1106,6 +1159,7 @@ export function ReachOutPage() {
                 const ChannelIcon = channelConfig.icon;
                 const hasPlaceholders = rendered.unresolvedSlots.length > 0;
                 const copyKey = tmpl.id;
+                const isEditing = editingTemplateId === tmpl.id;
 
                 return (
                   <div
@@ -1139,14 +1193,14 @@ export function ReachOutPage() {
                       {/* Char / Word Count + Progress */}
                       <div className="flex items-center justify-between text-[11px] text-text-muted mb-3 pb-2.5 border-b border-border/80">
                         <div className="flex items-center gap-3">
-                          <span className="font-semibold">{rendered.wordCount} words</span>
+                          <span className="font-semibold">{wordCount} words</span>
                           <span>·</span>
                           <span
                             className={`font-semibold ${
-                              isLinkedInConnect && rendered.charCount > 300 ? 'text-red-500 font-extrabold' : ''
+                              isLinkedInConnect && charCount > 300 ? 'text-red-500 font-extrabold' : ''
                             }`}
                           >
-                            {rendered.charCount} {isLinkedInConnect ? '/ 300 chars' : 'characters'}
+                            {charCount} {isLinkedInConnect ? '/ 300 chars' : 'characters'}
                           </span>
                         </div>
 
@@ -1156,9 +1210,9 @@ export function ReachOutPage() {
                             <div className="w-20 h-1.5 bg-surface-2 rounded-full overflow-hidden border border-border">
                               <div
                                 className={`h-full transition-all ${
-                                  rendered.charCount > 300
+                                  charCount > 300
                                     ? 'bg-red-500'
-                                    : rendered.charCount > 270
+                                    : charCount > 270
                                     ? 'bg-amber-500'
                                     : 'bg-emerald-500'
                                 }`}
@@ -1167,11 +1221,11 @@ export function ReachOutPage() {
                             </div>
                             <span
                               className={`text-[10px] font-extrabold ${
-                                300 - rendered.charCount >= 0 ? 'text-emerald-600' : 'text-red-500'
+                                300 - charCount >= 0 ? 'text-emerald-600' : 'text-red-500'
                               }`}
                             >
-                              {300 - rendered.charCount >= 0
-                                ? `${300 - rendered.charCount} chars left`
+                              {300 - charCount >= 0
+                                ? `${300 - charCount} chars left`
                                 : 'OVER LIMIT'}
                             </span>
                           </div>
@@ -1201,13 +1255,44 @@ export function ReachOutPage() {
                         </div>
                       )}
 
-                      {/* Message Body */}
-                      <div className="p-4 rounded-xl bg-surface-2/70 border border-border/80 text-xs text-text font-mono leading-relaxed whitespace-pre-wrap mb-3.5 select-all">
-                        {rendered.body}
+                      {/* Message Body / Inline Editable Draft */}
+                      <div className="mb-3.5">
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="text-[10px] font-bold text-text-muted uppercase tracking-wider">
+                            Message Body
+                          </span>
+                          <button
+                            onClick={() => {
+                              if (!isEditing && !customDrafts[tmpl.id]) {
+                                setCustomDrafts((prev) => ({ ...prev, [tmpl.id]: rendered.body }));
+                              }
+                              setEditingTemplateId(isEditing ? null : tmpl.id);
+                            }}
+                            className="text-[10px] font-bold text-text-secondary hover:text-primary transition-colors flex items-center gap-1 cursor-pointer"
+                          >
+                            <Edit3 className="w-3 h-3 text-primary" />
+                            {isEditing ? 'Done Editing' : 'Customize Draft'}
+                          </button>
+                        </div>
+
+                        {isEditing ? (
+                          <textarea
+                            value={customDrafts[tmpl.id] ?? rendered.body}
+                            onChange={(e) =>
+                              setCustomDrafts((prev) => ({ ...prev, [tmpl.id]: e.target.value }))
+                            }
+                            rows={8}
+                            className="w-full p-3.5 rounded-xl bg-surface border-2 border-primary/50 text-xs text-text font-mono leading-relaxed focus:outline-none focus:ring-1 focus:ring-primary shadow-inner"
+                          />
+                        ) : (
+                          <div className="p-4 rounded-xl bg-surface-2/70 border border-border/80 text-xs text-text font-mono leading-relaxed whitespace-pre-wrap select-all">
+                            {bodyText}
+                          </div>
+                        )}
                       </div>
 
                       {/* Placeholder Tracker / Status */}
-                      <div className="mb-3.5">
+                      <div className="mb-3">
                         {hasPlaceholders ? (
                           <div className="p-2.5 rounded-xl bg-amber-50 border border-amber-200 flex items-start gap-2 text-xs text-amber-800">
                             <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
@@ -1229,7 +1314,7 @@ export function ReachOutPage() {
                             </div>
                           </div>
                         ) : (
-                          <div className="p-2.5 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center gap-2 text-xs text-emerald-700 font-bold">
+                          <div className="p-2 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center gap-2 text-xs text-emerald-700 font-bold">
                             <CheckCircle2 className="w-4 h-4 text-emerald-600" />
                             Ready to send — 0 placeholders remaining
                           </div>
@@ -1237,10 +1322,22 @@ export function ReachOutPage() {
                       </div>
 
                       {/* Best Practice Guidance */}
-                      <div className="p-2.5 rounded-xl bg-surface-2 border border-border text-[11px] text-text-muted leading-relaxed mb-4">
+                      <div className="p-2.5 rounded-xl bg-surface-2 border border-border text-[11px] text-text-muted leading-relaxed mb-3">
                         <span className="font-bold text-text-secondary">When to use: </span>
                         {tmpl.whenToUse}
                       </div>
+
+                      {/* Mandatory Limits Notice */}
+                      <div className="p-2 rounded-xl bg-surface-2/60 border border-border/70 text-[11px] text-text-muted leading-relaxed mb-4">
+                        Replies depend on your profile, timing and the company's hiring state. No template can guarantee one.
+                      </div>
+
+                      {/* Optional Review Status Line (renders only when filled) */}
+                      {tmpl.reviewedBy?.name && tmpl.reviewedBy?.role && tmpl.reviewedBy?.date && (
+                        <div className="text-[11px] text-text-muted pb-3 border-b border-border/60">
+                          Reviewed by {tmpl.reviewedBy.name}, {tmpl.reviewedBy.role}, {tmpl.reviewedBy.date}
+                        </div>
+                      )}
                     </div>
 
                     {/* Card Actions Footer */}
@@ -1256,7 +1353,7 @@ export function ReachOutPage() {
                       <div className="flex items-center gap-2">
                         {/* Download as .txt */}
                         <button
-                          onClick={() => handleDownloadSingle(tmpl, rendered.subject, rendered.body)}
+                          onClick={() => handleDownloadSingle(tmpl, rendered.subject, bodyText)}
                           className="px-3 py-1.5 rounded-xl bg-surface-2 hover:bg-surface-3 border border-border text-xs font-bold text-text hover:text-primary transition-colors cursor-pointer flex items-center gap-1.5"
                           title="Download message as .txt"
                         >
@@ -1269,7 +1366,7 @@ export function ReachOutPage() {
                           onClick={() =>
                             handleCopy(
                               copyKey,
-                              rendered.subject ? `Subject: ${rendered.subject}\n\n${rendered.body}` : rendered.body
+                              rendered.subject ? `Subject: ${rendered.subject}\n\n${bodyText}` : bodyText
                             )
                           }
                           className="px-4 py-1.5 rounded-xl bg-primary hover:bg-primary/90 text-white text-xs font-bold transition-all cursor-pointer shadow-xs inline-flex items-center gap-1.5"
@@ -1284,6 +1381,71 @@ export function ReachOutPage() {
               })}
             </div>
           )}
+        </div>
+
+        {/* ── Platform Rules Collapsible Section ── */}
+        <div className="mt-8 border border-border rounded-2xl bg-surface overflow-hidden shadow-2xs">
+          <button
+            onClick={() => setShowPlatformRules((prev) => !prev)}
+            className="w-full flex items-center justify-between px-5 py-4 text-left hover:bg-surface-2 transition-colors cursor-pointer"
+          >
+            <div className="flex items-center gap-2.5">
+              <Shield className="w-4 h-4 text-primary" />
+              <div>
+                <span className="text-xs font-extrabold text-text">Platform rules</span>
+                <span className="text-[11px] text-text-muted ml-2">({PLATFORM_RULES.length} standards)</span>
+              </div>
+            </div>
+            <div className="flex items-center gap-2 text-xs font-bold text-text-secondary">
+              <span>{showPlatformRules ? 'Hide rules' : 'View platform rules'}</span>
+              {showPlatformRules ? (
+                <ChevronUp className="w-4 h-4 text-text-muted" />
+              ) : (
+                <ChevronDown className="w-4 h-4 text-text-muted" />
+              )}
+            </div>
+          </button>
+
+          {showPlatformRules && (
+            <div className="border-t border-border p-5 bg-surface-2/30 divide-y divide-border/60">
+              {PLATFORM_RULES.map((rule, idx) => (
+                <div
+                  key={idx}
+                  className="py-3 first:pt-0 last:pb-0 flex flex-col md:flex-row md:items-center md:justify-between gap-1.5 text-xs"
+                >
+                  <div className="max-w-2xl">
+                    <div className="font-extrabold text-text">{rule.rule}</div>
+                    <div className="text-[11px] text-text-secondary mt-0.5">{rule.value}</div>
+                  </div>
+
+                  <div className="text-[11px] shrink-0">
+                    {rule.sourceUrl ? (
+                      <a
+                        href={rule.sourceUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-primary hover:underline font-bold inline-flex items-center gap-1"
+                      >
+                        Source: {rule.sourceName}, last checked {rule.lastCheckedDate}
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                    ) : (
+                      <span className="text-text-muted italic px-2 py-0.5 rounded bg-surface border border-border">
+                        Source pending
+                      </span>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* ── Honesty Footer (Strictly pre-written, client-side only) ── */}
+        <div className="mt-12 pt-6 border-t border-border text-center">
+          <p className="text-xs font-semibold text-text-muted">
+            Pre-written templates. Nothing you type leaves your browser.
+          </p>
         </div>
       </div>
     </div>
