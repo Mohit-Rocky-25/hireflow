@@ -62,39 +62,65 @@ export function analyzeBullet(rawText: string): BulletAnalysis {
     }
   }
 
-  // 3. Metric check
+  // 2B. Cliché verb check (Mild flag)
+  const CLICHE_VERBS = ['utilized', 'leveraged', 'handled', 'participated', 'worked with', 'assisted'];
+  let hasClichéVerb = false;
+  let clichéVerbMatched: string | undefined = undefined;
+  for (const cv of CLICHE_VERBS) {
+    if (lowerText.startsWith(cv) || lowerText.includes(` ${cv} `)) {
+      hasClichéVerb = true;
+      clichéVerbMatched = cv;
+      issues.push(`Contains clichéd or generic action verb: "${cv}" (use specific engineering verbs like "Engineered", "Architected", "Refactored")`);
+      break;
+    }
+  }
+
+  // 3. Metric check & plausibility flag
   const metricMatch = trimmed.match(METRIC_REGEX);
   const hasMetric = Boolean(metricMatch);
   const metricMatched = metricMatch ? metricMatch[0] : undefined;
+  let plausibilityWarning: string | undefined = undefined;
+
   if (!hasMetric) {
     issues.push('Missing measurable outcome or quantifiable scale metric (%, numbers, latency, users)');
+  } else if (metricMatched) {
+    // Check for extreme/implausible metric claims
+    const percentMatch = metricMatched.match(/(\d+)%/);
+    if (percentMatch && parseInt(percentMatch[1], 10) > 300) {
+      plausibilityWarning = `Metric "${metricMatched}" represents an extreme claim (>300%). Prepare verifiable baseline benchmarks for technical interviews.`;
+    }
   }
 
-  // 4. Length check (8 to 35 words recommended)
-  if (wordCount < 8) {
-    issues.push(`Too brief (${wordCount} words) — expand on the architectural context and result`);
-  } else if (wordCount > 35) {
-    issues.push(`Overly verbose (${wordCount} words) — break into focused single-achievement bullets`);
+  // 4. Length check (12 to 28 words recommended per Stage 6)
+  if (wordCount < 12) {
+    issues.push(`Too brief (${wordCount} words; 12–28 recommended) — expand on the architectural context and result`);
+  } else if (wordCount > 28) {
+    issues.push(`Overly verbose (${wordCount} words; 12–28 recommended) — break into focused single-achievement bullets`);
   }
 
-  // 5. Tech mention heuristic
+  // 5. Multi-idea heuristic (more than one idea joined by also / additionally)
+  if (/\b(?:also|additionally|as well as|and also)\b/i.test(trimmed) && trimmed.split(/[,;]/).length >= 3) {
+    issues.push('Multiple disjoint ideas detected in one bullet — focus on one key accomplishment per bullet');
+  }
+
+  // 6. Tech mention heuristic
   const hasTechMention = /\b[A-Z][a-zA-Z0-9+#.]+\b/.test(trimmed);
 
-  // 6. Outcome heuristic
+  // 7. Outcome heuristic
   const hasOutcome =
     hasMetric ||
     /\b(?:resulting in|leading to|enabling|improving|decreasing|increasing|reducing|boosting|to achieve|to prevent|saving)\b/i.test(
       trimmed
     );
 
-  // 7. Keyword dump heuristic (3+ tech capitalized words with no strong verb or outcome)
+  // 8. Keyword dump heuristic (3+ tech capitalized words with no strong verb or outcome)
   const techCapitalizedMatches = trimmed.match(/\b[A-Z][a-zA-Z0-9+#.]+\b/g) || [];
   const isKeywordDump = techCapitalizedMatches.length >= 3 && !hasStrongVerb && !hasOutcome;
   if (isKeywordDump) {
     issues.push('Keyword dump detected: multiple tools listed without an engineering action or outcome');
   }
 
-  // Calculate 0-100 Quality Score across 4 criteria (Sum = 100)
+  // Calculate 0-100 Quality Score across 4 criteria (Sum = exactly 100)
   const actionVerbScore = (hasStrongVerb || strongVerbMatched) ? 20 : 0;
   const metricScore = hasMetric ? 30 : 0;
   const techScore = isKeywordDump ? 5 : hasTechMention ? 25 : 0;
@@ -103,8 +129,10 @@ export function analyzeBullet(rawText: string): BulletAnalysis {
   let rawScore = actionVerbScore + metricScore + techScore + outcomeScore;
   let deduction = 0;
   if (hasWeakPhrase) deduction += 15;
-  if (wordCount < 7) deduction += 15;
+  if (wordCount < 8) deduction += 15;
+  else if (wordCount < 12) deduction += 5;
   if (wordCount > 35) deduction += 10;
+  else if (wordCount > 28) deduction += 5;
 
   const score = Math.max(0, Math.min(100, rawScore - deduction));
 
@@ -115,11 +143,22 @@ export function analyzeBullet(rawText: string): BulletAnalysis {
     strongVerb: strongVerbMatched,
     hasWeakPhrase,
     weakPhrase: weakPhraseMatched,
+    hasClichéVerb,
+    clichéVerbMatched,
     hasMetric,
     metricMatched,
     hasTechMention,
     isKeywordDump,
     score,
     issues,
+    plausibilityWarning,
+    breakdown: {
+      actionVerbScore,
+      metricScore,
+      techScore,
+      outcomeScore,
+      deduction,
+      total: score,
+    },
   };
 }

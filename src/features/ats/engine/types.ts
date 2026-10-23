@@ -64,6 +64,17 @@ export interface BulletAnalysis {
   score: number; // 0-100 quality
   issues: string[];
   isKeywordDump?: boolean;
+  breakdown?: {
+    actionVerbScore: number;
+    metricScore: number;
+    techScore: number;
+    outcomeScore: number;
+    deduction: number;
+    total: number;
+  };
+  hasClichéVerb?: boolean;
+  clichéVerbMatched?: string;
+  plausibilityWarning?: string;
 }
 
 export interface ExperienceEntry {
