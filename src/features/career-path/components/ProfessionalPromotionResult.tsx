@@ -37,13 +37,13 @@ export function ProfessionalPromotionResult({
         <button
           type="button"
           onClick={onReset}
-          className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-black bg-surface border border-border text-foreground hover:bg-surface-2 transition-all cursor-pointer shadow-xs min-h-[44px]"
+          className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded text-xs font-mono font-bold bg-surface border border-border text-foreground hover:bg-surface-2 active:shadow-[inset_0_2px_4px_rgba(0,0,0,0.6)] transition-all cursor-pointer min-h-[44px]"
         >
           <RotateCcw className="w-3.5 h-3.5" /> Start Over / Reconfigure
         </button>
 
         <div className="text-right">
-          <span className="text-xs text-muted font-bold">
+          <span className="text-xs text-muted font-mono font-bold">
             {profResult.sourceLevel.companyId.toUpperCase()} &rarr;{' '}
             {profResult.targetLevel.companyId.toUpperCase()}
           </span>
@@ -56,32 +56,32 @@ export function ProfessionalPromotionResult({
         tabIndex={-1}
         className="text-xl sm:text-2xl font-black text-foreground outline-none flex items-center gap-2.5 tracking-tight"
       >
-        <TrendingUp className="w-6 h-6 text-primary" />
+        <TrendingUp className="w-6 h-6 text-volt" />
         Your Level-Up &amp; Switch Plan
       </h2>
 
       {/* 1. WHERE CAN I REACH? */}
-      <div className="bg-surface rounded-2xl p-6 border border-border shadow-sm space-y-5">
+      <div className="bg-surface rounded-md p-6 border border-border space-y-5">
         <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border pb-3">
           <div>
-            <span className="text-[10px] font-black uppercase text-primary tracking-wider">
+            <span className="text-[10px] font-black uppercase text-volt font-mono tracking-wider">
               Question 1 of 4
             </span>
             <h3 className="text-base sm:text-lg font-black text-foreground mt-0.5 flex items-center gap-2">
-              <Target className="w-5 h-5 text-primary" />
+              <Target className="w-5 h-5 text-volt" />
               Where can I reach? (Target Level &amp; Switch Plan)
             </h3>
           </div>
-          <span className="px-3 py-1 rounded-full text-xs font-black bg-primary/10 text-primary border border-primary/20">
+          <span className="px-3 py-1 rounded-full text-xs font-mono font-black bg-volt/10 text-volt border border-volt/30">
             {profResult.probability.percentage}% Success Probability
           </span>
         </div>
 
         {/* Top Metrics Cards */}
         <div className="grid sm:grid-cols-3 gap-4">
-          <div className="bg-surface-2/40 rounded-xl p-4 border border-border">
-            <span className="text-xs font-bold text-muted uppercase">Target Transition</span>
-            <span className="text-xl font-black text-foreground block mt-1">
+          <div className="bg-surface-2/40 rounded p-4 border border-border">
+            <span className="text-xs font-bold text-muted uppercase font-mono">Target Transition</span>
+            <span className="text-xl font-mono font-black text-foreground block mt-1">
               {profResult.sourceLevel.levelCode} &rarr; {profResult.targetLevel.levelCode}
             </span>
             <span className="text-xs text-secondary mt-1 block">
@@ -90,19 +90,19 @@ export function ProfessionalPromotionResult({
             </span>
           </div>
 
-          <div className="bg-surface-2/40 rounded-xl p-4 border border-border">
-            <span className="text-xs font-bold text-muted uppercase">Estimated Total Time</span>
-            <span className="text-2xl font-black text-foreground block mt-1">
+          <div className="bg-surface-2/40 rounded p-4 border border-border">
+            <span className="text-xs font-bold text-muted uppercase font-mono">Estimated Total Time</span>
+            <span className="text-2xl font-mono font-black text-foreground block mt-1">
               {profResult.totalTime.likely} Years
             </span>
-            <span className="text-xs text-muted mt-1 block">
+            <span className="text-xs text-muted mt-1 block font-mono">
               Range: {profResult.totalTime.min}–{profResult.totalTime.max} yrs
             </span>
           </div>
 
-          <div className="bg-surface-2/40 rounded-xl p-4 border border-border">
-            <span className="text-xs font-bold text-muted uppercase">Success Probability</span>
-            <span className="text-2xl font-black text-primary block mt-1">
+          <div className="bg-surface-2/40 rounded p-4 border border-border">
+            <span className="text-xs font-bold text-muted uppercase font-mono">Success Probability</span>
+            <span className="text-2xl font-mono font-black text-volt block mt-1">
               {profResult.probability.percentage}%
             </span>
             <span className="text-xs text-muted mt-1 block">
@@ -116,7 +116,7 @@ export function ProfessionalPromotionResult({
           <button
             type="button"
             onClick={() => setShowFormulaDetails(!showFormulaDetails)}
-            className="text-xs font-bold text-primary hover:underline flex items-center gap-1 cursor-pointer"
+            className="text-xs font-bold text-volt hover:underline flex items-center gap-1 cursor-pointer font-mono"
           >
             <Info className="w-3.5 h-3.5" />
             {showFormulaDetails
@@ -125,8 +125,8 @@ export function ProfessionalPromotionResult({
           </button>
 
           {showFormulaDetails && (
-            <div className="mt-3 bg-surface-2/40 rounded-xl p-4 border border-border text-xs space-y-2">
-              <span className="font-black text-foreground block">
+            <div className="mt-3 bg-surface-2/40 rounded p-4 border border-border text-xs space-y-2">
+              <span className="font-mono font-black text-foreground block uppercase">
                 Mathematical Probability Model
               </span>
               <p className="text-secondary leading-relaxed">
@@ -134,11 +134,11 @@ export function ProfessionalPromotionResult({
               </p>
               <div className="grid sm:grid-cols-3 gap-2 pt-1">
                 {profResult.probability.levelStallRates.map((sr, idx) => (
-                  <div key={idx} className="p-2.5 bg-surface rounded-lg border border-border">
-                    <span className="font-bold text-foreground block">
+                  <div key={idx} className="p-2.5 bg-surface rounded border border-border">
+                    <span className="font-mono font-bold text-foreground block">
                       {sr.companyId.toUpperCase()} • {sr.levelCode}
                     </span>
-                    <span className="text-muted text-[10px]">
+                    <span className="text-muted text-[10px] font-mono">
                       Empirical Stall Rate: {sr.stallRate}%
                     </span>
                   </div>
@@ -150,13 +150,13 @@ export function ProfessionalPromotionResult({
       </div>
 
       {/* 2. WHAT WILL I EARN? */}
-      <div className="bg-surface rounded-2xl p-6 border border-border shadow-sm space-y-5">
+      <div className="bg-surface rounded-md p-6 border border-border space-y-5">
         <div className="border-b border-border pb-3">
-          <span className="text-[10px] font-black uppercase text-primary tracking-wider">
+          <span className="text-[10px] font-black uppercase text-volt font-mono tracking-wider">
             Question 2 of 4
           </span>
           <h3 className="text-base sm:text-lg font-black text-foreground mt-0.5 flex items-center gap-2">
-            <TrendingUp className="w-5 h-5 text-emerald-400" />
+            <TrendingUp className="w-5 h-5 text-volt" />
             What will I earn? (Projected Compensation Jump &amp; Trajectory)
           </h3>
           <p className="text-xs text-secondary mt-0.5">
@@ -165,24 +165,24 @@ export function ProfessionalPromotionResult({
         </div>
 
         <div className="grid sm:grid-cols-2 gap-4">
-          <div className="bg-surface-2/40 rounded-xl p-4 border border-border">
-            <span className="text-xs font-bold text-muted uppercase">
+          <div className="bg-surface-2/40 rounded p-4 border border-border">
+            <span className="text-xs font-bold text-muted uppercase font-mono">
               Projected Annual Comp Jump
             </span>
-            <span className="text-2xl font-black text-emerald-400 block mt-1">
+            <span className="text-2xl font-mono font-black text-volt block mt-1">
               +{formatINR(profResult.compJump.diff)} (
               {profResult.compJump.percentage > 0 ? `+${profResult.compJump.percentage}%` : '0%'})
             </span>
-            <span className="text-xs text-muted mt-1 block">
+            <span className="text-xs text-muted mt-1 block font-mono">
               {formatINR(profResult.compJump.from)} &rarr; {formatINR(profResult.compJump.to)}
             </span>
           </div>
 
-          <div className="bg-surface-2/40 rounded-xl p-4 border border-border">
-            <span className="text-xs font-bold text-muted uppercase">
+          <div className="bg-surface-2/40 rounded p-4 border border-border">
+            <span className="text-xs font-bold text-muted uppercase font-mono">
               Target Level Total Annual CTC Range
             </span>
-            <span className="text-xl font-black text-white block mt-1">
+            <span className="text-xl font-mono font-black text-foreground block mt-1">
               {formatINRRange(
                 profResult.targetLevel.comp.total.p25,
                 profResult.targetLevel.comp.total.p75
@@ -214,13 +214,13 @@ export function ProfessionalPromotionResult({
       </div>
 
       {/* 3. WHEN WILL IT HAPPEN? */}
-      <div className="bg-surface rounded-2xl p-6 border border-border shadow-sm space-y-6">
+      <div className="bg-surface rounded-md p-6 border border-border space-y-6">
         <div className="border-b border-border pb-3">
-          <span className="text-[10px] font-black uppercase text-primary tracking-wider">
+          <span className="text-[10px] font-black uppercase text-volt font-mono tracking-wider">
             Question 3 of 4
           </span>
           <h3 className="text-base sm:text-lg font-black text-foreground mt-0.5 flex items-center gap-2">
-            <Clock className="w-5 h-5 text-blue-400" />
+            <Clock className="w-5 h-5 text-volt" />
             When will it happen? (Promotion Plan Timeline)
           </h3>
           <p className="text-xs text-secondary mt-0.5">
@@ -232,42 +232,42 @@ export function ProfessionalPromotionResult({
           {profResult.steps.map((step) => (
             <div
               key={step.stepIndex}
-              className="p-5 rounded-xl border border-border bg-surface-2/30 space-y-4"
+              className="p-5 rounded border border-border bg-surface-2/30 space-y-4"
             >
-              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border/60 pb-3">
+              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border pb-3">
                 <div className="flex items-center gap-2">
-                  <span className="w-6 h-6 rounded-full bg-primary text-white text-xs font-black flex items-center justify-center">
+                  <span className="w-6 h-6 rounded-full bg-volt text-black text-xs font-mono font-black flex items-center justify-center">
                     {step.stepIndex}
                   </span>
                   <h4 className="text-sm font-black text-foreground">
                     {step.fromLevel.companyId.toUpperCase()} {step.fromLevel.levelCode} &rarr;{' '}
                     {step.toLevel.companyId.toUpperCase()} {step.toLevel.levelCode}
                   </h4>
-                  <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-surface border border-border">
+                  <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-surface border border-border uppercase">
                     {step.stepType.replace('_', ' ')}
                   </span>
                 </div>
                 <div className="text-right">
-                  <span className="text-xs font-black text-primary block">
+                  <span className="text-xs font-mono font-black text-volt block">
                     Duration: ~{step.durationYears.likely} yrs (range: {step.durationYears.min}–
                     {step.durationYears.max} yrs)
                   </span>
-                  <span className="text-[10px] text-muted">{step.cycleWindow}</span>
+                  <span className="text-[10px] text-muted font-mono">{step.cycleWindow}</span>
                 </div>
               </div>
 
               {/* Requirements */}
               <div className="grid sm:grid-cols-3 gap-3 text-xs">
-                <div className="bg-surface p-3 rounded-lg border border-border space-y-1">
-                  <span className="font-extrabold text-foreground block">Scope Required</span>
+                <div className="bg-surface p-3 rounded border border-border space-y-1">
+                  <span className="font-mono font-bold uppercase text-[11px] text-foreground block">Scope Required</span>
                   <p className="text-secondary leading-relaxed">{step.requirements.scope}</p>
                 </div>
-                <div className="bg-surface p-3 rounded-lg border border-border space-y-1">
-                  <span className="font-extrabold text-foreground block">Measurable Impact</span>
+                <div className="bg-surface p-3 rounded border border-border space-y-1">
+                  <span className="font-mono font-bold uppercase text-[11px] text-foreground block">Measurable Impact</span>
                   <p className="text-secondary leading-relaxed">{step.requirements.impact}</p>
                 </div>
-                <div className="bg-surface p-3 rounded-lg border border-border space-y-1">
-                  <span className="font-extrabold text-foreground block">
+                <div className="bg-surface p-3 rounded border border-border space-y-1">
+                  <span className="font-mono font-bold uppercase text-[11px] text-foreground block">
                     Leadership &amp; Mentorship
                   </span>
                   <p className="text-secondary leading-relaxed">{step.requirements.influence}</p>
@@ -287,13 +287,13 @@ export function ProfessionalPromotionResult({
       </div>
 
       {/* 4. WHAT SHOULD I DO NEXT? */}
-      <div className="bg-surface rounded-2xl p-6 border border-border shadow-sm space-y-5">
+      <div className="bg-surface rounded-md p-6 border border-border space-y-5">
         <div className="border-b border-border pb-3">
-          <span className="text-[10px] font-black uppercase text-primary tracking-wider">
+          <span className="text-[10px] font-black uppercase text-volt font-mono tracking-wider">
             Question 4 of 4
           </span>
           <h3 className="text-base sm:text-lg font-black text-foreground mt-0.5 flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-primary" />
+            <Sparkles className="w-5 h-5 text-volt" />
             What should I do next? (Action Steps &amp; Promo Packet Evidence)
           </h3>
           <p className="text-xs text-secondary mt-0.5">
@@ -302,24 +302,24 @@ export function ProfessionalPromotionResult({
         </div>
 
         <div className="grid sm:grid-cols-3 gap-3 text-xs">
-          <div className="p-4 bg-surface-2/40 rounded-xl border border-border space-y-2">
-            <span className="font-black text-foreground block text-sm">1. Scope Expansion</span>
+          <div className="p-4 bg-surface-2/40 rounded border border-border space-y-2">
+            <span className="font-mono font-black text-foreground block text-sm">1. Scope Expansion</span>
             <p className="text-secondary leading-relaxed">
               Anchor ownership over a multi-team project or critical architectural subsystem
               required for {profResult.targetLevel.levelCode}.
             </p>
           </div>
 
-          <div className="p-4 bg-surface-2/40 rounded-xl border border-border space-y-2">
-            <span className="font-black text-foreground block text-sm">2. Quantified Evidence</span>
+          <div className="p-4 bg-surface-2/40 rounded border border-border space-y-2">
+            <span className="font-mono font-black text-foreground block text-sm">2. Quantified Evidence</span>
             <p className="text-secondary leading-relaxed">
               Document business impact metrics (latency reduction, revenue enablement, incident
               reduction) in your brag document.
             </p>
           </div>
 
-          <div className="p-4 bg-surface-2/40 rounded-xl border border-border space-y-2">
-            <span className="font-black text-foreground block text-sm">
+          <div className="p-4 bg-surface-2/40 rounded border border-border space-y-2">
+            <span className="font-mono font-black text-foreground block text-sm">
               3. Calibration Alignment
             </span>
             <p className="text-secondary leading-relaxed">

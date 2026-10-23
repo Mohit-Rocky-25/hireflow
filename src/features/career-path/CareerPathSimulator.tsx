@@ -224,7 +224,7 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
   };
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-neutral-100 pb-20 selection:bg-blue-500 selection:text-white" data-theme="career-dark">
+    <div className="min-h-screen bg-black text-white pb-20 selection:bg-volt selection:text-black">
       {/* ── Reusable Back Button & Breadcrumbs Navigation ─────────── */}
       <CareerPathBackButton
         isHub={false}
@@ -236,7 +236,7 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
       />
 
       {/* ── Sub-Page Title & Tab Navigation Bar ───────────────────── */}
-      <div className="border-b border-neutral-800/80 bg-neutral-900/90 backdrop-blur-md sticky top-0 z-20">
+      <div className="border-b border-charcoal bg-black/95 sticky top-0 z-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div>
@@ -245,7 +245,7 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                   ? 'Dream Job Roadmap'
                   : 'Company Levels & Pay'}
               </h1>
-              <p className="text-xs text-neutral-400 mt-0.5 font-medium">
+              <p className="text-xs text-silver mt-0.5 font-medium">
                 {activeTab === 'simulator'
                   ? 'Plan your path from campus to dream companies: real eligibility, fresher CTC, and clear next steps.'
                   : 'Real India-office levels, verified CTC bands in INR, and promotion requirements.'}
@@ -253,14 +253,14 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
             </div>
 
             {/* Navigation Tabs */}
-            <div className="flex items-center gap-1.5 p-1 bg-neutral-800 rounded-xl border border-neutral-700">
+            <div className="flex items-center gap-1.5 p-1 bg-near-black rounded border border-charcoal">
               <button
                 type="button"
                 onClick={() => handleTabChange('simulator')}
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                className={`flex items-center gap-2 px-4 py-2 rounded text-xs font-bold transition-colors cursor-pointer ${
                   activeTab === 'simulator'
-                    ? 'bg-blue-600 text-white shadow-sm'
-                    : 'text-neutral-400 hover:text-white'
+                    ? 'bg-volt text-[#151515] font-black'
+                    : 'text-silver hover:text-white'
                 }`}
               >
                 <TrendingUp className="w-3.5 h-3.5" />
@@ -269,10 +269,10 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
               <button
                 type="button"
                 onClick={() => handleTabChange('explorer')}
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                className={`flex items-center gap-2 px-4 py-2 rounded text-xs font-bold transition-colors cursor-pointer ${
                   activeTab === 'explorer'
-                    ? 'bg-blue-600 text-white shadow-sm'
-                    : 'text-neutral-400 hover:text-white'
+                    ? 'bg-volt text-[#151515] font-black'
+                    : 'text-silver hover:text-white'
                 }`}
               >
                 <Layers className="w-3.5 h-3.5" />
@@ -302,20 +302,20 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
           <div className="space-y-8 animate-fade-in">
             {/* Mode Switcher: Fresher Entry vs Student Roadmap vs Working Professional */}
             <div className="flex justify-center">
-              <div className="inline-flex p-2 bg-neutral-900 border border-neutral-800 rounded-2xl shadow-md flex-wrap gap-2">
+              <div className="inline-flex p-1.5 bg-near-black border border-charcoal rounded flex-wrap gap-2">
                 <button
                   type="button"
                   onClick={() => {
                     setSimulatorMode('fresher-programs');
                     setProfResult(null);
                   }}
-                  className={`px-6 py-3 rounded-xl text-sm font-black transition-all flex items-center gap-2 cursor-pointer ${
+                  className={`px-5 py-2.5 rounded text-xs font-black transition-colors flex items-center gap-2 cursor-pointer ${
                     simulatorMode === 'fresher-programs'
-                      ? 'bg-blue-600 text-white shadow-md'
-                      : 'text-neutral-300 hover:text-white hover:bg-neutral-800/60'
+                      ? 'bg-volt text-[#151515]'
+                      : 'text-silver hover:text-white hover:bg-hover-gray'
                   }`}
                 >
-                  <Sparkles className="w-4 h-4 text-emerald-400" />
+                  <Sparkles className="w-4 h-4 text-volt" />
                   Fresher / Campus Entry (&apos;26-27)
                 </button>
                 <button
@@ -324,10 +324,10 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                     setSimulatorMode('student');
                     setProfResult(null);
                   }}
-                  className={`px-6 py-3 rounded-xl text-sm font-black transition-all flex items-center gap-2 cursor-pointer ${
+                  className={`px-5 py-2.5 rounded text-xs font-black transition-colors flex items-center gap-2 cursor-pointer ${
                     simulatorMode === 'student'
-                      ? 'bg-blue-600 text-white shadow-md'
-                      : 'text-neutral-300 hover:text-white hover:bg-neutral-800/60'
+                      ? 'bg-volt text-[#151515]'
+                      : 'text-silver hover:text-white hover:bg-hover-gray'
                   }`}
                 >
                   <GraduationCap className="w-4 h-4" />
@@ -338,10 +338,10 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                   onClick={() => {
                     setSimulatorMode('professional');
                   }}
-                  className={`px-6 py-3 rounded-xl text-sm font-black transition-all flex items-center gap-2 cursor-pointer ${
+                  className={`px-5 py-2.5 rounded text-xs font-black transition-colors flex items-center gap-2 cursor-pointer ${
                     simulatorMode === 'professional'
-                      ? 'bg-blue-600 text-white shadow-md'
-                      : 'text-neutral-300 hover:text-white hover:bg-neutral-800/60'
+                      ? 'bg-volt text-[#151515]'
+                      : 'text-silver hover:text-white hover:bg-hover-gray'
                   }`}
                 >
                   <Briefcase className="w-4 h-4" />
@@ -362,12 +362,12 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                 MODE B: WORKING PROFESSIONAL SIMULATOR FORM
                 ───────────────────────────────────────────────────────── */}
             {simulatorMode === 'professional' && !profResult && (
-              <div className="bg-surface rounded-2xl p-6 md:p-8 border border-border shadow-xl max-w-3xl mx-auto space-y-6">
-                <div className="border-b border-border pb-4">
-                  <h2 className="text-xl font-black text-foreground flex items-center gap-2">
-                    <Briefcase className="w-5 h-5 text-blue-400" /> Configure Your Career Switch &amp; Level-Up Plan
+              <div className="bg-near-black rounded-lg p-6 md:p-8 border border-charcoal max-w-3xl mx-auto space-y-6">
+                <div className="border-b border-charcoal pb-4">
+                  <h2 className="text-xl font-black text-white flex items-center gap-2">
+                    <Briefcase className="w-5 h-5 text-volt" /> Configure Your Career Switch &amp; Level-Up Plan
                   </h2>
-                  <p className="text-xs text-secondary mt-1 leading-relaxed">
+                  <p className="text-xs text-silver mt-1 leading-relaxed">
                     Plan your path to a higher level or cross-company switch: equivalence jumps, target compensation in INR, and promotion requirements.
                   </p>
                 </div>
@@ -375,13 +375,13 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                 {/* Position Selection Cards */}
                 <div className="grid md:grid-cols-2 gap-6">
                   {/* Current Position Card */}
-                  <div className="bg-surface-2/40 border border-border rounded-xl p-4.5 space-y-3.5">
+                  <div className="bg-black border border-charcoal rounded-lg p-4 space-y-3.5">
                     <div className="flex items-center justify-between">
-                      <label className="text-xs font-black text-foreground uppercase tracking-wider flex items-center gap-1.5">
-                        <Building2 className="w-3.5 h-3.5 text-primary" /> Current Position
+                      <label className="text-xs font-black text-white uppercase tracking-wider flex items-center gap-1.5">
+                        <Building2 className="w-3.5 h-3.5 text-volt" /> Current Position
                       </label>
                       {currentProfSourceLevel && (
-                        <span className="text-[11px] font-bold px-2 py-0.5 rounded bg-primary/10 text-primary">
+                        <span className="text-[11px] font-bold px-2 py-0.5 rounded bg-near-black text-volt border border-charcoal">
                           {currentProfSourceLevel.levelCode} • {getEquivalenceHumanLabel(currentProfSourceLevel.equivalenceGroup)}
                         </span>
                       )}
@@ -390,7 +390,7 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                     {/* Single Searchable Autocomplete for Current */}
                     <div className="relative" ref={sourceDropdownRef}>
                       <div className="relative flex items-center">
-                        <Search className="w-4 h-4 text-muted absolute left-3 pointer-events-none" />
+                        <Search className="w-4 h-4 text-silver absolute left-3 pointer-events-none" />
                         <input
                           type="text"
                           value={sourceSearchQuery}
@@ -400,7 +400,7 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                           }}
                           onFocus={() => setIsSourceDropdownOpen(true)}
                           placeholder="Search role e.g. 'Amazon SDE II', 'TCS Digital'..."
-                          className="w-full bg-surface border border-border rounded-lg pl-9 pr-8 py-2 text-xs font-semibold text-foreground placeholder:text-muted focus:ring-2 focus:ring-primary outline-none"
+                          className="w-full bg-near-black border border-charcoal rounded pl-9 pr-8 py-2 text-xs font-medium text-white placeholder-silver/60 focus:outline-none focus:border-volt focus:ring-2 focus:ring-volt"
                         />
                         {sourceSearchQuery && (
                           <button
@@ -409,7 +409,7 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                               setSourceSearchQuery('');
                               setIsSourceDropdownOpen(false);
                             }}
-                            className="absolute right-2.5 p-0.5 text-muted hover:text-foreground rounded"
+                            className="absolute right-2.5 p-0.5 text-silver hover:text-white rounded cursor-pointer"
                           >
                             <X className="w-3.5 h-3.5" />
                           </button>
@@ -417,33 +417,33 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                       </div>
 
                       {isSourceDropdownOpen && (
-                        <div className="absolute z-30 left-0 right-0 mt-1.5 bg-surface border border-border rounded-xl shadow-xl max-h-60 overflow-y-auto divide-y divide-border">
+                        <div className="absolute z-30 left-0 right-0 mt-1.5 bg-near-black border border-charcoal rounded shadow-xl max-h-60 overflow-y-auto divide-y divide-charcoal">
                           {sourceMatches.length > 0 ? (
                             sourceMatches.map((m) => (
                               <div
                                 key={`${m.company.id}-${m.level.levelCode}-${m.level.track}`}
                                 onClick={() => handleSelectSource(m.company.id, m.level.levelCode, m.level.track)}
-                                className="p-2.5 hover:bg-primary/5 cursor-pointer flex items-center justify-between text-xs transition-colors"
+                                className="p-2.5 hover:bg-hover-gray cursor-pointer flex items-center justify-between text-xs transition-colors"
                               >
                                 <div>
-                                  <span className="font-black text-foreground">{m.company.name}</span>
-                                  <span className="text-secondary ml-1.5 font-medium">{m.level.title}</span>
+                                  <span className="font-black text-white">{m.company.name}</span>
+                                  <span className="text-silver ml-1.5 font-medium">{m.level.title}</span>
                                 </div>
-                                <span className="px-1.5 py-0.5 rounded bg-surface-2 text-[10px] font-black text-primary border border-border">
+                                <span className="px-1.5 py-0.5 rounded bg-black text-[10px] font-black text-volt border border-charcoal">
                                   {m.level.levelCode}
                                 </span>
                               </div>
                             ))
                           ) : (
                             <div className="p-3 text-xs space-y-2">
-                              <p className="text-muted">No exact ladder node matched &ldquo;{sourceSearchQuery}&rdquo;.</p>
+                              <p className="text-silver">No exact ladder node matched &ldquo;{sourceSearchQuery}&rdquo;.</p>
                               {sourceFuzzySuggestion && (
-                                <div className="p-2.5 rounded-lg bg-amber-500/10 border border-amber-500/20 text-xs">
-                                  <div className="flex items-center gap-1.5 text-amber-600 dark:text-amber-400 font-bold mb-1">
+                                <div className="p-2.5 rounded bg-black border border-olive-border text-xs">
+                                  <div className="flex items-center gap-1.5 text-pale-yellow font-bold mb-1">
                                     <Sparkles className="w-3.5 h-3.5" /> Did you mean?
                                   </div>
                                   <div className="flex items-center justify-between gap-2">
-                                    <span className="font-semibold text-foreground">{sourceFuzzySuggestion.label}</span>
+                                    <span className="font-semibold text-white">{sourceFuzzySuggestion.label}</span>
                                     <button
                                       type="button"
                                       onClick={() => handleSelectSource(
@@ -451,7 +451,7 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                                         sourceFuzzySuggestion.level.levelCode,
                                         sourceFuzzySuggestion.level.track
                                       )}
-                                      className="px-2 py-1 rounded bg-amber-500 text-white font-bold text-[11px] hover:bg-amber-600 shrink-0"
+                                      className="px-2 py-1 rounded bg-volt text-[#151515] font-black text-[11px] hover:bg-[#1d1d1d] hover:text-white shrink-0 cursor-pointer"
                                     >
                                       Select
                                     </button>
@@ -464,9 +464,9 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                       )}
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1 border-t border-border/60">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1 border-t border-charcoal">
                       <div>
-                        <span className="text-[10px] text-muted font-bold block mb-1">Company</span>
+                        <span className="text-[10px] text-silver font-bold block mb-1">Company</span>
                         <Dropdown
                           searchable={true}
                           value={profSourceCompanyId}
@@ -486,7 +486,7 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                       </div>
 
                       <div>
-                        <span className="text-[10px] text-muted font-bold block mb-1">Level</span>
+                        <span className="text-[10px] text-silver font-bold block mb-1">Level</span>
                         <Dropdown
                           searchable={true}
                           value={profSourceLevelCode}
@@ -504,13 +504,13 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                   </div>
 
                   {/* Target Position Card */}
-                  <div className="bg-surface-2/40 border border-border rounded-xl p-4.5 space-y-3.5">
+                  <div className="bg-black border border-charcoal rounded-lg p-4 space-y-3.5">
                     <div className="flex items-center justify-between">
-                      <label className="text-xs font-black text-foreground uppercase tracking-wider flex items-center gap-1.5">
-                        <Award className="w-3.5 h-3.5 text-blue-500" /> Target Position
+                      <label className="text-xs font-black text-white uppercase tracking-wider flex items-center gap-1.5">
+                        <Award className="w-3.5 h-3.5 text-volt" /> Target Position
                       </label>
                       {currentProfTargetLevel && (
-                        <span className="text-[11px] font-bold px-2 py-0.5 rounded bg-blue-500/10 text-blue-600 dark:text-blue-400">
+                        <span className="text-[11px] font-bold px-2 py-0.5 rounded bg-near-black text-volt border border-charcoal">
                           {currentProfTargetLevel.levelCode} • {getEquivalenceHumanLabel(currentProfTargetLevel.equivalenceGroup)}
                         </span>
                       )}
@@ -519,7 +519,7 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                     {/* Single Searchable Autocomplete for Target */}
                     <div className="relative" ref={targetDropdownRef}>
                       <div className="relative flex items-center">
-                        <Search className="w-4 h-4 text-muted absolute left-3 pointer-events-none" />
+                        <Search className="w-4 h-4 text-silver absolute left-3 pointer-events-none" />
                         <input
                           type="text"
                           value={targetSearchQuery}
@@ -529,7 +529,7 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                           }}
                           onFocus={() => setIsTargetDropdownOpen(true)}
                           placeholder="Search target e.g. 'Meta E6', 'Flipkart SDE-3'..."
-                          className="w-full bg-surface border border-border rounded-lg pl-9 pr-8 py-2 text-xs font-semibold text-foreground placeholder:text-muted focus:ring-2 focus:ring-primary outline-none"
+                          className="w-full bg-near-black border border-charcoal rounded pl-9 pr-8 py-2 text-xs font-medium text-white placeholder-silver/60 focus:outline-none focus:border-volt focus:ring-2 focus:ring-volt"
                         />
                         {targetSearchQuery && (
                           <button
@@ -538,7 +538,7 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                               setTargetSearchQuery('');
                               setIsTargetDropdownOpen(false);
                             }}
-                            className="absolute right-2.5 p-0.5 text-muted hover:text-foreground rounded"
+                            className="absolute right-2.5 p-0.5 text-silver hover:text-white rounded cursor-pointer"
                           >
                             <X className="w-3.5 h-3.5" />
                           </button>
@@ -546,33 +546,33 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                       </div>
 
                       {isTargetDropdownOpen && (
-                        <div className="absolute z-30 left-0 right-0 mt-1.5 bg-surface border border-border rounded-xl shadow-xl max-h-60 overflow-y-auto divide-y divide-border">
+                        <div className="absolute z-30 left-0 right-0 mt-1.5 bg-near-black border border-charcoal rounded shadow-xl max-h-60 overflow-y-auto divide-y divide-charcoal">
                           {targetMatches.length > 0 ? (
                             targetMatches.map((m) => (
                               <div
                                 key={`${m.company.id}-${m.level.levelCode}-${m.level.track}`}
                                 onClick={() => handleSelectTarget(m.company.id, m.level.levelCode, m.level.track)}
-                                className="p-2.5 hover:bg-blue-500/5 cursor-pointer flex items-center justify-between text-xs transition-colors"
+                                className="p-2.5 hover:bg-hover-gray cursor-pointer flex items-center justify-between text-xs transition-colors"
                               >
                                 <div>
-                                  <span className="font-black text-foreground">{m.company.name}</span>
-                                  <span className="text-secondary ml-1.5 font-medium">{m.level.title}</span>
+                                  <span className="font-black text-white">{m.company.name}</span>
+                                  <span className="text-silver ml-1.5 font-medium">{m.level.title}</span>
                                 </div>
-                                <span className="px-1.5 py-0.5 rounded bg-surface-2 text-[10px] font-black text-blue-500 border border-border">
+                                <span className="px-1.5 py-0.5 rounded bg-black text-[10px] font-black text-volt border border-charcoal">
                                   {m.level.levelCode}
                                 </span>
                               </div>
                             ))
                           ) : (
                             <div className="p-3 text-xs space-y-2">
-                              <p className="text-muted">No exact ladder node matched &ldquo;{targetSearchQuery}&rdquo;.</p>
+                              <p className="text-silver">No exact ladder node matched &ldquo;{targetSearchQuery}&rdquo;.</p>
                               {targetFuzzySuggestion && (
-                                <div className="p-2.5 rounded-lg bg-amber-500/10 border border-amber-500/20 text-xs">
-                                  <div className="flex items-center gap-1.5 text-amber-600 dark:text-amber-400 font-bold mb-1">
+                                <div className="p-2.5 rounded bg-black border border-olive-border text-xs">
+                                  <div className="flex items-center gap-1.5 text-pale-yellow font-bold mb-1">
                                     <Sparkles className="w-3.5 h-3.5" /> Did you mean?
                                   </div>
                                   <div className="flex items-center justify-between gap-2">
-                                    <span className="font-semibold text-foreground">{targetFuzzySuggestion.label}</span>
+                                    <span className="font-semibold text-white">{targetFuzzySuggestion.label}</span>
                                     <button
                                       type="button"
                                       onClick={() => handleSelectTarget(
@@ -580,7 +580,7 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                                         targetFuzzySuggestion.level.levelCode,
                                         targetFuzzySuggestion.level.track
                                       )}
-                                      className="px-2 py-1 rounded bg-amber-500 text-white font-bold text-[11px] hover:bg-amber-600 shrink-0"
+                                      className="px-2 py-1 rounded bg-volt text-[#151515] font-black text-[11px] hover:bg-[#1d1d1d] hover:text-white shrink-0 cursor-pointer"
                                     >
                                       Select
                                     </button>
@@ -593,9 +593,9 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                       )}
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1 border-t border-border/60">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1 border-t border-charcoal">
                       <div>
-                        <span className="text-[10px] text-muted font-bold block mb-1">Company</span>
+                        <span className="text-[10px] text-silver font-bold block mb-1">Company</span>
                         <Dropdown
                           searchable={true}
                           value={profTargetCompanyId}
@@ -615,7 +615,7 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                       </div>
 
                       <div>
-                        <span className="text-[10px] text-muted font-bold block mb-1">Level</span>
+                        <span className="text-[10px] text-silver font-bold block mb-1">Level</span>
                         <Dropdown
                           searchable={true}
                           value={profTargetLevelCode}
@@ -634,10 +634,10 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                 </div>
 
                 {/* Additional Settings */}
-                <div className="grid sm:grid-cols-3 gap-4 pt-2 border-t border-border">
+                <div className="grid sm:grid-cols-3 gap-4 pt-2 border-t border-charcoal">
                   <div>
                     <div className="h-5 flex items-center mb-1.5">
-                      <label className="text-xs font-black text-foreground">Performance Rating</label>
+                      <label className="text-xs font-black text-white">Performance Rating</label>
                     </div>
                     <Dropdown
                       value={profPerformance}
@@ -652,7 +652,7 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
 
                   <div>
                     <div className="h-5 flex items-center mb-1.5">
-                      <label className="text-xs font-black text-foreground">
+                      <label className="text-xs font-black text-white">
                         Years in Current Level (0–15)
                       </label>
                     </div>
@@ -663,14 +663,14 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                       step={0.5}
                       value={profYearsInLevel}
                       onChange={(e) => setProfYearsInLevel(parseFloat(e.target.value) || 0)}
-                      className="w-full min-h-[44px] h-[44px] bg-surface-2 border border-border rounded-xl px-3 py-2 text-xs font-bold text-foreground focus:ring-2 focus:ring-primary outline-none"
+                      className="w-full min-h-[44px] h-[44px] bg-black border border-charcoal rounded px-3 py-2 text-xs font-bold text-white focus:outline-none focus:border-volt focus:ring-2 focus:ring-volt font-mono"
                     />
-                    <span className="text-[10px] text-muted mt-1 block">Deducted from 1st promo window</span>
+                    <span className="text-[10px] text-silver mt-1 block">Deducted from 1st promo window</span>
                   </div>
 
                   <div>
                     <div className="h-5 flex items-center mb-1.5">
-                      <label className="text-xs font-black text-foreground">
+                      <label className="text-xs font-black text-white">
                         Current Annual CTC (₹ LPA, Optional)
                       </label>
                     </div>
@@ -679,9 +679,9 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                       placeholder="e.g. 42 (for ₹42 LPA)"
                       value={profCurrentCtcLPA}
                       onChange={(e) => setProfCurrentCtcLPA(e.target.value)}
-                      className="w-full min-h-[44px] h-[44px] bg-surface-2 border border-border rounded-xl px-3 py-2 text-xs font-bold text-foreground focus:ring-2 focus:ring-primary outline-none"
+                      className="w-full min-h-[44px] h-[44px] bg-black border border-charcoal rounded px-3 py-2 text-xs font-bold text-white focus:outline-none focus:border-volt focus:ring-2 focus:ring-volt font-mono"
                     />
-                    <span className="text-[10px] text-muted mt-1 block">Shows real % jump</span>
+                    <span className="text-[10px] text-silver mt-1 block">Shows real % jump</span>
                   </div>
                 </div>
 
@@ -689,11 +689,11 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                   type="button"
                   onClick={handleSimulateProf}
                   disabled={isCalculating}
-                  className="w-full py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-black text-sm transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer min-h-[44px]"
+                  className="w-full py-3.5 rounded bg-volt text-[#151515] hover:bg-[#1d1d1d] hover:text-white font-black text-sm border border-volt transition-colors flex items-center justify-center gap-2 cursor-pointer min-h-[44px]"
                 >
                   {isCalculating ? (
                     <span className="flex items-center gap-2">
-                      <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                      <span className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin" />
                       Computing Promotion Pathway...
                     </span>
                   ) : (
@@ -707,14 +707,14 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
 
             {/* Professional Loading Skeleton */}
             {isCalculating && simulatorMode === 'professional' && (
-              <div className="bg-surface rounded-2xl p-8 border border-border shadow-xl max-w-4xl mx-auto space-y-6 min-h-[380px] animate-pulse">
-                <div className="h-6 bg-surface-2 rounded-lg w-1/3 mb-4" />
+              <div className="bg-near-black rounded-lg p-8 border border-charcoal max-w-4xl mx-auto space-y-6 min-h-[380px] animate-pulse">
+                <div className="h-6 bg-black border border-charcoal rounded w-1/3 mb-4" />
                 <div className="grid sm:grid-cols-3 gap-4">
-                  <div className="h-28 bg-surface-2 rounded-2xl" />
-                  <div className="h-28 bg-surface-2 rounded-2xl" />
-                  <div className="h-28 bg-surface-2 rounded-2xl" />
+                  <div className="h-28 bg-black border border-charcoal rounded" />
+                  <div className="h-28 bg-black border border-charcoal rounded" />
+                  <div className="h-28 bg-black border border-charcoal rounded" />
                 </div>
-                <div className="h-44 bg-surface-2 rounded-2xl mt-4" />
+                <div className="h-44 bg-black border border-charcoal rounded mt-4" />
               </div>
             )}
 

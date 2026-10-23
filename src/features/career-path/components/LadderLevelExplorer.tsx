@@ -88,7 +88,7 @@ export function LadderLevelExplorer({
   return (
     <div className="space-y-8 animate-fade-in">
       {/* Market Segment & Filter Header */}
-      <div className="bg-surface rounded-2xl p-6 border border-border shadow-sm space-y-4">
+      <div className="bg-surface rounded-md p-6 border border-border space-y-4">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
             <h2 className="text-lg font-black text-foreground">Explore Verified India Ladders</h2>
@@ -98,7 +98,7 @@ export function LadderLevelExplorer({
           </div>
           {/* Track Selector */}
           <div className="flex items-center gap-2">
-            <span className="text-xs font-bold text-muted uppercase">Track:</span>
+            <span className="text-xs font-bold text-muted uppercase font-mono">Track:</span>
             <div className="w-60">
               <Dropdown
                 value={selectedTrack}
@@ -118,15 +118,15 @@ export function LadderLevelExplorer({
         </div>
 
         {/* Market Segment Filter Pills */}
-        <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-border/60">
-          <span className="text-[11px] font-bold text-muted mr-1">Market Segment:</span>
+        <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-border">
+          <span className="text-[11px] font-bold text-muted mr-1 font-mono uppercase">Segment:</span>
           <button
             type="button"
             onClick={() => setSelectedSegment('ALL')}
-            className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
+            className={`px-3 py-1 rounded text-xs font-mono font-bold transition-all cursor-pointer ${
               selectedSegment === 'ALL'
-                ? 'bg-foreground text-background'
-                : 'bg-surface-2 text-muted hover:text-foreground'
+                ? 'bg-volt text-black shadow-[inset_0_1px_2px_rgba(0,0,0,0.2)]'
+                : 'bg-surface-2 text-muted border border-border hover:text-foreground'
             }`}
           >
             All Segments ({allCompanies.length})
@@ -138,10 +138,10 @@ export function LadderLevelExplorer({
                 key={seg}
                 type="button"
                 onClick={() => setSelectedSegment(seg)}
-                className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
+                className={`px-3 py-1 rounded text-xs font-mono font-bold transition-all cursor-pointer ${
                   selectedSegment === seg
-                    ? 'bg-primary text-white shadow-xs'
-                    : 'bg-surface-2 text-muted hover:text-foreground'
+                    ? 'bg-volt text-black shadow-[inset_0_1px_2px_rgba(0,0,0,0.2)]'
+                    : 'bg-surface-2 text-muted border border-border hover:text-foreground'
                 }`}
               >
                 {seg} ({count})
@@ -152,7 +152,7 @@ export function LadderLevelExplorer({
 
         {/* Company Picker Dropdown */}
         <div className="pt-2">
-          <label className="text-xs font-bold text-foreground block mb-1.5">Select Company:</label>
+          <label className="text-xs font-bold text-foreground block mb-1.5 uppercase font-mono">Select Company:</label>
           <div className="w-full sm:w-80">
             <Dropdown
               searchable={true}
@@ -177,12 +177,12 @@ export function LadderLevelExplorer({
       {/* Ladder Stepper Layout */}
       <div className="grid lg:grid-cols-12 gap-6 items-start">
         {/* Left Column: Vertical Ladder Stepper */}
-        <div className="lg:col-span-5 bg-surface rounded-2xl p-5 border border-border shadow-sm space-y-3">
+        <div className="lg:col-span-5 bg-surface rounded-md p-5 border border-border space-y-3">
           <div className="flex items-center justify-between pb-3 border-b border-border">
-            <h3 className="text-xs font-black text-foreground uppercase tracking-wider">
+            <h3 className="text-xs font-black text-foreground uppercase tracking-wider font-mono">
               {activeCompanyLadder.name} • {selectedTrack} Ladder
             </h3>
-            <span className="text-[11px] text-muted font-bold">
+            <span className="text-[11px] text-muted font-bold font-mono">
               {activeLadderLevels.length} Levels
             </span>
           </div>
@@ -194,48 +194,48 @@ export function LadderLevelExplorer({
                 <div
                   key={lvl.levelCode}
                   onClick={() => handleSelectLevel(lvl)}
-                  className={`group relative p-3.5 rounded-xl border transition-all cursor-pointer flex items-center justify-between ${
+                  className={`group relative p-3.5 rounded border transition-all cursor-pointer flex items-center justify-between ${
                     isSelected
-                      ? 'bg-primary/5 border-primary shadow-xs ring-1 ring-primary/20'
-                      : 'bg-surface-2/60 border-border hover:bg-surface-2 hover:border-border-hover'
+                      ? 'bg-surface-2 border-volt shadow-[inset_0_2px_4px_rgba(0,0,0,0.6)]'
+                      : 'bg-surface border-border hover:bg-surface-2 hover:border-border-hover'
                   }`}
                 >
                   <div className="flex items-center gap-3">
                     <div
-                      className={`w-9 h-9 rounded-lg flex items-center justify-center font-black text-xs shrink-0 ${
+                      className={`w-9 h-9 rounded flex items-center justify-center font-mono font-black text-xs shrink-0 ${
                         isSelected
-                          ? 'bg-primary text-white shadow-xs'
-                          : 'bg-surface border border-border text-foreground group-hover:border-primary/50'
+                          ? 'bg-volt text-black'
+                          : 'bg-surface-2 border border-border text-foreground group-hover:border-volt/50'
                       }`}
                     >
                       {lvl.levelCode}
                     </div>
                     <div>
                       <div className="flex items-center gap-2">
-                        <h4 className="text-sm font-black text-foreground group-hover:text-primary transition-colors">
+                        <h4 className="text-sm font-black text-foreground group-hover:text-volt transition-colors">
                           {lvl.title}
                         </h4>
                         {lvl.isTerminal ? (
-                          <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-500/10 text-emerald-600 border border-emerald-500/20">
+                          <span className="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-volt/10 text-volt border border-volt/30">
                             Terminal
                           </span>
                         ) : lvl.upOrOutPolicy ? (
-                          <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-500/10 text-amber-600 border border-amber-500/20">
+                          <span className="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-500/10 text-amber-400 border border-amber-500/30">
                             Up or Out
                           </span>
                         ) : null}
                       </div>
                       <p className="text-[11px] text-muted mt-0.5">
-                        {lvl.yoeTypicalMin}–{lvl.yoeTypicalMax} yrs exp • Median promo: {lvl.timeInLevel.median} yrs
+                        {lvl.yoeTypicalMin}–{lvl.yoeTypicalMax} yrs exp • Median promo: <span className="font-mono">{lvl.timeInLevel.median}</span> yrs
                       </p>
                     </div>
                   </div>
 
                   <div className="text-right pl-2">
-                    <p className="text-xs font-black text-foreground">
+                    <p className="text-xs font-mono font-black text-foreground">
                       {formatINRRange(lvl.comp.total.p25, lvl.comp.total.p75)}
                     </p>
-                    <span className="text-[10px] text-muted font-bold">Annual Range</span>
+                    <span className="text-[10px] text-muted font-bold uppercase font-mono">Annual</span>
                   </div>
                 </div>
               );
@@ -244,29 +244,29 @@ export function LadderLevelExplorer({
         </div>
 
         {/* Right Column: Detailed Level Panel */}
-        <div className="lg:col-span-7 bg-surface rounded-2xl p-6 border border-border shadow-sm space-y-6">
+        <div className="lg:col-span-7 bg-surface rounded-md p-6 border border-border space-y-6">
           {activeDetailLevel ? (
             <>
               {/* Header */}
               <div className="flex flex-wrap items-start justify-between gap-4 pb-4 border-b border-border">
                 <div>
                   <div className="flex items-center gap-2 mb-1.5">
-                    <span className="px-2.5 py-0.5 rounded bg-primary/10 text-primary font-black text-xs">
+                    <span className="px-2.5 py-0.5 rounded bg-volt text-black font-mono font-black text-xs">
                       {activeDetailLevel.levelCode}
                     </span>
-                    <span className="text-xs text-muted font-bold">
+                    <span className="text-xs text-muted font-mono font-bold">
                       {getEquivalenceHumanLabel(activeDetailLevel.equivalenceGroup)}
                     </span>
                     {activeDetailLevel.confidence === 'verified' ? (
-                      <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 flex items-center gap-1">
+                      <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-volt/10 text-volt border border-volt/30 flex items-center gap-1">
                         <ShieldCheck className="w-3 h-3" /> Verified (2+ Sources)
                       </span>
                     ) : activeDetailLevel.confidence === 'community' ? (
-                      <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/10 text-emerald-600 border border-emerald-500/20">
+                      <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-surface-2 text-muted border border-border">
                         Community Data
                       </span>
                     ) : (
-                      <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/10 text-amber-600 border border-amber-500/20">
+                      <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-500/10 text-amber-400 border border-amber-500/30">
                         Estimate (Unverified)
                       </span>
                     )}
@@ -280,7 +280,7 @@ export function LadderLevelExplorer({
                   <div className="pt-2">
                     <Link
                       to="/tools/resume-checker"
-                      className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-primary/10 hover:bg-primary/20 text-primary border border-primary/20 text-xs font-bold transition-colors"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-volt/10 hover:bg-volt/20 text-volt border border-volt/30 text-xs font-bold transition-colors"
                     >
                       <Sparkles className="w-3.5 h-3.5" />
                       Check my resume against this level
@@ -289,46 +289,46 @@ export function LadderLevelExplorer({
                 </div>
 
                 {/* Top CTC Card */}
-                <div className="text-right bg-surface-2/60 p-3 rounded-xl border border-border">
-                  <span className="text-[10px] font-bold text-muted uppercase tracking-wider flex items-center gap-1 justify-end">
+                <div className="text-right bg-surface-2/60 p-3.5 rounded border border-border">
+                  <span className="text-[10px] font-bold text-muted uppercase tracking-wider flex items-center gap-1 justify-end font-mono">
                     Typical Total Annual Pay Range
                     <span className="group relative cursor-help">
                       <HelpCircle className="w-3 h-3 text-muted hover:text-foreground" />
-                      <span className="pointer-events-none absolute -left-48 top-5 w-56 rounded-lg bg-foreground text-background p-2 text-[10px] font-normal leading-tight opacity-0 shadow-lg transition-opacity group-hover:opacity-100 z-30">
+                      <span className="pointer-events-none absolute -left-48 top-5 w-56 rounded bg-foreground text-background p-2 text-[10px] font-normal leading-tight opacity-0 shadow-lg transition-opacity group-hover:opacity-100 z-30">
                         Estimated range (p25–p75) representing lower to upper quartile. Total annual pay = base + yearly bonus + yearly value of stock. Shown per year in INR.
                       </span>
                     </span>
                   </span>
-                  <span className="text-2xl font-black text-emerald-600 dark:text-emerald-400 block mt-0.5">
+                  <span className="text-2xl font-mono font-black text-volt block mt-0.5">
                     {formatINRRange(activeDetailLevel.comp.total.p25, activeDetailLevel.comp.total.p75)}
                   </span>
-                  <span className="text-[10px] text-muted block mt-0.5">
+                  <span className="text-[10px] text-muted block mt-0.5 font-mono">
                     Median benchmark: {formatINR(activeDetailLevel.comp.total.p50)} • Verified India Office Data
                   </span>
                 </div>
               </div>
 
               {/* Detailed Compensation Breakdown in INR */}
-              <div className="bg-surface-2/40 rounded-xl p-4 border border-border space-y-2.5">
-                <h4 className="text-xs font-black text-foreground uppercase tracking-wider">
+              <div className="bg-surface-2/40 rounded p-4 border border-border space-y-2.5">
+                <h4 className="text-xs font-black text-foreground uppercase tracking-wider font-mono">
                   Annual Compensation Breakdown (Per Year in INR)
                 </h4>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs pt-1">
-                  <div className="bg-surface p-2.5 rounded-lg border border-border">
-                    <span className="text-[10px] text-muted block font-bold">Fixed / Base Pay</span>
-                    <span className="font-extrabold text-foreground">{formatINR(activeDetailLevel.comp.base)}</span>
+                  <div className="bg-surface p-2.5 rounded border border-border">
+                    <span className="text-[10px] text-muted block font-bold uppercase font-mono">Fixed / Base</span>
+                    <span className="font-mono font-black text-foreground">{formatINR(activeDetailLevel.comp.base)}</span>
                   </div>
-                  <div className="bg-surface p-2.5 rounded-lg border border-border">
-                    <span className="text-[10px] text-muted block font-bold">Variable / Bonus</span>
-                    <span className="font-extrabold text-foreground">{formatINR(activeDetailLevel.comp.variable)}</span>
+                  <div className="bg-surface p-2.5 rounded border border-border">
+                    <span className="text-[10px] text-muted block font-bold uppercase font-mono">Variable / Bonus</span>
+                    <span className="font-mono font-black text-foreground">{formatINR(activeDetailLevel.comp.variable)}</span>
                   </div>
-                  <div className="bg-surface p-2.5 rounded-lg border border-border">
-                    <span className="text-[10px] text-muted block font-bold">Stock (Annual Vesting)</span>
-                    <span className="font-extrabold text-foreground">{formatINR(activeDetailLevel.comp.stock)}</span>
+                  <div className="bg-surface p-2.5 rounded border border-border">
+                    <span className="text-[10px] text-muted block font-bold uppercase font-mono">Stock (Annual)</span>
+                    <span className="font-mono font-black text-foreground">{formatINR(activeDetailLevel.comp.stock)}</span>
                   </div>
-                  <div className="bg-surface p-2.5 rounded-lg border border-border">
-                    <span className="text-[10px] text-muted block font-bold">Joining Bonus (Known)</span>
-                    <span className="font-extrabold text-foreground">
+                  <div className="bg-surface p-2.5 rounded border border-border">
+                    <span className="text-[10px] text-muted block font-bold uppercase font-mono">Joining Bonus</span>
+                    <span className="font-mono font-black text-foreground">
                       {activeDetailLevel.comp.joiningBonus ? formatINR(activeDetailLevel.comp.joiningBonus) : 'None / Discretionary'}
                     </span>
                   </div>
@@ -337,48 +337,48 @@ export function LadderLevelExplorer({
 
               {/* Time in Level & Velocity Stats */}
               <div className="grid sm:grid-cols-4 gap-3 text-center">
-                <div className="p-3 bg-surface-2/40 rounded-xl border border-border">
-                  <span className="text-[10px] font-bold text-muted block uppercase">Fast-Track (p25)</span>
-                  <span className="text-base font-black text-foreground">{activeDetailLevel.timeInLevel.p25} Years</span>
+                <div className="p-3 bg-surface-2/40 rounded border border-border">
+                  <span className="text-[10px] font-bold text-muted block uppercase font-mono">Fast-Track (p25)</span>
+                  <span className="text-base font-mono font-black text-foreground">{activeDetailLevel.timeInLevel.p25} Years</span>
                 </div>
-                <div className="p-3 bg-surface-2/40 rounded-xl border border-border">
-                  <span className="text-[10px] font-bold text-muted block uppercase">Typical (Median)</span>
-                  <span className="text-base font-black text-primary">{activeDetailLevel.timeInLevel.median} Years</span>
+                <div className="p-3 bg-surface-2/40 rounded border border-border">
+                  <span className="text-[10px] font-bold text-muted block uppercase font-mono">Typical (Median)</span>
+                  <span className="text-base font-mono font-black text-volt">{activeDetailLevel.timeInLevel.median} Years</span>
                 </div>
-                <div className="p-3 bg-surface-2/40 rounded-xl border border-border">
-                  <span className="text-[10px] font-bold text-muted block uppercase">Conservative (p75)</span>
-                  <span className="text-base font-black text-foreground">{activeDetailLevel.timeInLevel.p75} Years</span>
+                <div className="p-3 bg-surface-2/40 rounded border border-border">
+                  <span className="text-[10px] font-bold text-muted block uppercase font-mono">Conservative (p75)</span>
+                  <span className="text-base font-mono font-black text-foreground">{activeDetailLevel.timeInLevel.p75} Years</span>
                 </div>
-                <div className="p-3 bg-surface-2/40 rounded-xl border border-border">
-                  <span className="text-[10px] font-bold text-muted block uppercase">Stall Rate</span>
-                  <span className="text-base font-black text-amber-600 dark:text-amber-400">~{activeDetailLevel.timeInLevel.stallRatePct}%</span>
+                <div className="p-3 bg-surface-2/40 rounded border border-border">
+                  <span className="text-[10px] font-bold text-muted block uppercase font-mono">Stall Rate</span>
+                  <span className="text-base font-mono font-black text-amber-400">~{activeDetailLevel.timeInLevel.stallRatePct}%</span>
                 </div>
               </div>
 
               {/* Promotion Requirements INTO this Level */}
               <div className="space-y-3 pt-2">
                 <h3 className="text-sm font-black text-foreground flex items-center gap-2">
-                  <Target className="w-4 h-4 text-primary" /> Promotion Requirements Into {activeDetailLevel.levelCode}
+                  <Target className="w-4 h-4 text-volt" /> Promotion Requirements Into {activeDetailLevel.levelCode}
                 </h3>
                 <div className="grid sm:grid-cols-3 gap-3 text-xs">
-                  <div className="p-3 bg-surface-2/40 rounded-xl border border-border space-y-1">
-                    <span className="font-extrabold text-foreground block">Scope of Ownership</span>
+                  <div className="p-3 bg-surface-2/40 rounded border border-border space-y-1">
+                    <span className="font-extrabold text-foreground block uppercase font-mono text-[11px]">Scope of Ownership</span>
                     <p className="text-secondary leading-relaxed">{activeDetailLevel.promotionRequirements.scope}</p>
                   </div>
-                  <div className="p-3 bg-surface-2/40 rounded-xl border border-border space-y-1">
-                    <span className="font-extrabold text-foreground block">Impact Expectations</span>
+                  <div className="p-3 bg-surface-2/40 rounded border border-border space-y-1">
+                    <span className="font-extrabold text-foreground block uppercase font-mono text-[11px]">Impact Expectations</span>
                     <p className="text-secondary leading-relaxed">{activeDetailLevel.promotionRequirements.impact}</p>
                   </div>
-                  <div className="p-3 bg-surface-2/40 rounded-xl border border-border space-y-1">
-                    <span className="font-extrabold text-foreground block">Leadership & Influence</span>
+                  <div className="p-3 bg-surface-2/40 rounded border border-border space-y-1">
+                    <span className="font-extrabold text-foreground block uppercase font-mono text-[11px]">Leadership & Influence</span>
                     <p className="text-secondary leading-relaxed">{activeDetailLevel.promotionRequirements.influence}</p>
                   </div>
                 </div>
 
                 {/* Concrete Promo Packet Evidence */}
-                <div className="bg-surface-2/30 rounded-xl p-3.5 border border-border space-y-1.5">
+                <div className="bg-surface-2/30 rounded p-3.5 border border-border space-y-1.5">
                   <span className="text-xs font-black text-foreground flex items-center gap-1.5">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" /> Expected Promo Packet Evidence
+                    <CheckCircle2 className="w-3.5 h-3.5 text-volt" /> Expected Promo Packet Evidence
                   </span>
                   <ul className="space-y-1 text-xs text-secondary list-disc list-inside">
                     {activeDetailLevel.promotionRequirements.evidence.map((ev, idx) => (
@@ -391,18 +391,18 @@ export function LadderLevelExplorer({
               {/* How Promotion Process Works */}
               <div className="space-y-3 pt-2">
                 <h3 className="text-sm font-black text-foreground flex items-center gap-2">
-                  <Clock className="w-4 h-4 text-blue-500" /> How Promotions Work at {activeCompanyLadder.name}
+                  <Clock className="w-4 h-4 text-volt" /> How Promotions Work at {activeCompanyLadder.name}
                 </h3>
                 <div className="grid sm:grid-cols-2 gap-3 text-xs">
-                  <div className="p-3 bg-surface-2/40 rounded-xl border border-border">
-                    <span className="text-[10px] font-bold text-muted block uppercase">Cadence & Cycle Months</span>
+                  <div className="p-3 bg-surface-2/40 rounded border border-border">
+                    <span className="text-[10px] font-bold text-muted block uppercase font-mono">Cadence & Cycle Months</span>
                     <p className="font-bold text-foreground mt-0.5">{activeDetailLevel.promotionProcess.cadence}</p>
                     <span className="text-[11px] text-secondary mt-1 block">
                       Type: {activeDetailLevel.promotionProcess.cycleType === 'cycle' ? 'Cycle-bound only' : 'Rolling & Cycle'}
                     </span>
                   </div>
-                  <div className="p-3 bg-surface-2/40 rounded-xl border border-border">
-                    <span className="text-[10px] font-bold text-muted block uppercase">Nominator & Decider</span>
+                  <div className="p-3 bg-surface-2/40 rounded border border-border">
+                    <span className="text-[10px] font-bold text-muted block uppercase font-mono">Nominator & Decider</span>
                     <p className="font-bold text-foreground mt-0.5">{activeDetailLevel.promotionProcess.nominator}</p>
                     <span className="text-[11px] text-secondary mt-1 block">
                       Decider: {activeDetailLevel.promotionProcess.decider} ({activeDetailLevel.promotionProcess.calibrationLayers} layers)
@@ -418,22 +418,22 @@ export function LadderLevelExplorer({
               />
 
               {/* Where does this data come from? (Collapsible Section) */}
-              <div className="border border-border rounded-xl bg-surface-2/20 overflow-hidden pt-1">
+              <div className="border border-border rounded bg-surface-2/20 overflow-hidden pt-1">
                 <button
                   type="button"
                   onClick={() => setIsSourcesOpen(!isSourcesOpen)}
-                  className="w-full px-4 py-3 text-left text-xs font-black text-foreground flex items-center justify-between hover:bg-surface-2/50 transition-colors"
+                  className="w-full px-4 py-3 text-left text-xs font-black text-foreground flex items-center justify-between hover:bg-surface-2/50 transition-colors cursor-pointer"
                 >
                   <span className="flex items-center gap-2">
-                    <Info className="w-3.5 h-3.5 text-primary" />
+                    <Info className="w-3.5 h-3.5 text-volt" />
                     Where does this data come from? (Verified Sources & Verification Date)
                   </span>
                   {isSourcesOpen ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
                 </button>
 
                 {isSourcesOpen && (
-                  <div className="px-4 pb-4 pt-2 border-t border-border/60 space-y-3 text-xs">
-                    <div className="flex items-center justify-between text-[11px] text-muted pb-1 border-b border-border/40">
+                  <div className="px-4 pb-4 pt-2 border-t border-border space-y-3 text-xs">
+                    <div className="flex items-center justify-between text-[11px] text-muted pb-1 border-b border-border/40 font-mono">
                       <span>Last Verified: <strong className="text-foreground">{activeDetailLevel.lastVerified}</strong></span>
                       <span>Confidence: <strong className="text-foreground capitalize">{activeDetailLevel.confidence}</strong></span>
                     </div>
@@ -442,17 +442,17 @@ export function LadderLevelExplorer({
                     </p>
                     <div className="space-y-2">
                       {activeDetailLevel.sources.map((s, sIdx) => (
-                        <div key={sIdx} className="p-2.5 rounded-lg bg-surface border border-border flex items-center justify-between">
+                        <div key={sIdx} className="p-2.5 rounded bg-surface border border-border flex items-center justify-between">
                           <div>
                             <a
                               href={sanitizeUrl(s.url)}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="font-extrabold text-primary hover:underline flex items-center gap-1"
+                              className="font-extrabold text-volt hover:underline flex items-center gap-1"
                             >
                               {s.name} <ExternalLink className="w-3 h-3" />
                             </a>
-                            <span className="text-[10px] text-muted block mt-0.5">
+                            <span className="text-[10px] text-muted block mt-0.5 font-mono">
                               Extracted: {s.extractedFields.join(', ')} • Retrieved on {s.retrievedAt}
                             </span>
                           </div>

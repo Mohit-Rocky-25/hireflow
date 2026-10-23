@@ -84,54 +84,45 @@ export function CareerPathHub() {
   };
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-neutral-100 flex flex-col selection:bg-blue-500 selection:text-white" data-theme="career-dark">
+    <div className="min-h-screen bg-black text-white flex flex-col selection:bg-volt selection:text-black">
       {/* Pinned Top Navigation */}
       <CareerPathBackButton isHub={true} />
 
       {/* Hero Section */}
-      <section className="relative flex-1 flex flex-col items-center justify-center text-center px-4 sm:px-6 lg:px-8 py-20 lg:py-32 overflow-hidden">
-        {/* Subtle background glow */}
-        <div
-          className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-gradient-to-tr from-blue-500/15 via-emerald-500/10 to-indigo-500/15 blur-3xl pointer-events-none rounded-full"
-          aria-hidden="true"
-        />
-
+      <section className="relative flex-1 flex flex-col items-center justify-center text-center px-4 sm:px-6 lg:px-8 py-20 lg:py-28 overflow-hidden">
         <div className="relative max-w-5xl mx-auto flex flex-col items-center">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-[#0F172A] to-[#1E293B] border border-slate-700/60 text-white text-xs font-bold tracking-wide uppercase mb-6 shadow-sm">
-            <Zap className="w-3.5 h-3.5 text-white" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded bg-near-black border border-charcoal text-silver text-xs font-bold tracking-wide uppercase mb-6">
+            <Zap className="w-3.5 h-3.5 text-volt" />
             <span>India Market • INR (₹) Career Intelligence</span>
           </div>
 
-          {/* Very Large Heading */}
-          <h1
-            className="font-extrabold tracking-tight text-white leading-[1.05] max-w-4xl"
-            style={{ fontSize: 'clamp(2.75rem, 7vw, 5.5rem)' }}
-          >
+          {/* Very Large Heading (Marketing Display scale) */}
+          <h1 className="font-black tracking-tight text-white leading-tight max-w-4xl text-4xl sm:text-6xl lg:text-7xl">
             Career Trajectory
           </h1>
 
           {/* One-line subheading */}
-          <p className="mt-6 text-lg sm:text-xl md:text-2xl text-neutral-300 max-w-3xl font-normal leading-relaxed">
+          <p className="mt-6 text-base sm:text-lg md:text-xl text-silver max-w-3xl font-normal leading-relaxed">
             Plan your path from campus to your dream company: real eligibility rules, fresher CTC in INR, and the exact steps to get there.
           </p>
 
-          {/* Quick Action Navigation Buttons */}
+          {/* Quick Action Navigation Buttons: exactly ONE Neon Primary, ONE Ghost */}
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <Link
               to="/tools/career-path/dream-job-roadmap"
-              className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-base shadow-lg shadow-blue-600/25 hover:shadow-blue-600/40 transition-all hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:outline-none"
+              className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded bg-volt text-[#151515] hover:bg-[#1d1d1d] hover:text-white font-black text-sm border border-volt transition-colors min-h-[44px]"
             >
-              <Compass className="w-5 h-5" />
+              <Compass className="w-4 h-4" />
               <span>Build my roadmap</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
 
             <Link
               to="/tools/career-path/company-levels"
-              className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl bg-neutral-900 hover:bg-neutral-800 text-neutral-100 font-semibold text-base border border-neutral-700 shadow-sm transition-all hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-neutral-400 focus-visible:outline-none"
+              className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded bg-black hover:bg-near-black text-white font-bold text-sm border border-olive-border transition-colors min-h-[44px]"
             >
-              <Building2 className="w-5 h-5 text-neutral-300" />
+              <Building2 className="w-4 h-4 text-silver" />
               <span>Company Levels &amp; Pay</span>
             </Link>
           </div>
@@ -140,31 +131,31 @@ export function CareerPathHub() {
           <button
             type="button"
             onClick={scrollToSection}
-            className="mt-16 sm:mt-24 inline-flex flex-col items-center gap-2 text-xs font-medium text-neutral-400 hover:text-neutral-200 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded p-2"
+            className="mt-16 sm:mt-20 inline-flex flex-col items-center gap-2 text-xs font-bold text-silver hover:text-volt transition-colors rounded p-2 cursor-pointer"
             aria-label="Scroll down to tool showcases"
           >
             <span>Explore the Tools</span>
-            <ChevronDown className="w-4 h-4 animate-bounce" />
+            <ChevronDown className="w-4 h-4" />
           </button>
         </div>
       </section>
 
       {/* Candidate Market Tier Positioning Card */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 -mt-10 mb-12">
-        <div className="rounded-2xl bg-neutral-900/90 border border-neutral-800 p-6 shadow-xl backdrop-blur-sm space-y-4">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-3 border-b border-neutral-800">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 mb-12">
+        <div className="rounded-lg bg-near-black border border-charcoal p-6 space-y-4">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-3 border-b border-charcoal">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 shrink-0">
+              <div className="w-10 h-10 rounded bg-black border border-charcoal flex items-center justify-center text-volt shrink-0">
                 <Target className="w-5 h-5" />
               </div>
               <div>
                 <div className="flex items-center gap-2">
                   <h3 className="text-sm font-bold text-white">Your Market Tier Positioning</h3>
-                  <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-500/10 text-blue-400 border border-blue-500/20">
+                  <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-black text-volt border border-charcoal">
                     {tierStatus.currentTier}
                   </span>
                 </div>
-                <p className="text-xs text-neutral-400 mt-0.5">
+                <p className="text-xs text-silver mt-0.5">
                   {tierStatus.summaryStatement}
                 </p>
               </div>
@@ -173,14 +164,14 @@ export function CareerPathHub() {
             <div className="flex items-center gap-2 shrink-0 self-start md:self-auto">
               <Link
                 to="/tools/build-briefs"
-                className="px-3.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition-colors flex items-center gap-1.5"
+                className="px-3.5 py-1.5 rounded bg-black hover:bg-hover-gray text-white hover:text-volt text-xs font-bold border border-charcoal transition-colors flex items-center gap-1.5"
               >
-                <Sparkles className="w-3.5 h-3.5" />
+                <Sparkles className="w-3.5 h-3.5 text-volt" />
                 Bridge Gaps
               </Link>
               <Link
                 to="/tools/resume-checker"
-                className="px-3.5 py-1.5 rounded-lg bg-neutral-800 hover:bg-neutral-700 text-neutral-200 text-xs font-semibold border border-neutral-700 transition-colors"
+                className="px-3.5 py-1.5 rounded bg-black hover:bg-hover-gray text-silver hover:text-white text-xs font-bold border border-charcoal transition-colors"
               >
                 Check Resume
               </Link>
@@ -189,24 +180,24 @@ export function CareerPathHub() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-1">
             <div className="space-y-1">
-              <span className="text-[11px] font-medium text-neutral-400">Target Promotion Bar:</span>
+              <span className="text-[11px] font-medium text-silver">Target Promotion Bar:</span>
               <p className="text-xs font-bold text-white">{tierStatus.nextTierDisplayName}</p>
-              <div className="w-full h-1.5 bg-neutral-800 rounded-full overflow-hidden mt-1.5">
+              <div className="w-full h-1 bg-black rounded-full overflow-hidden border border-charcoal mt-1.5">
                 <div
-                  className="h-full bg-gradient-to-r from-blue-500 to-emerald-400 rounded-full"
+                  className="h-full bg-volt rounded-full"
                   style={{ width: `${tierStatus.readinessScore}%` }}
                 />
               </div>
-              <p className="text-[10px] text-neutral-400 text-right">{tierStatus.readinessScore}% ready</p>
+              <p className="text-[10px] text-silver text-right">{tierStatus.readinessScore}% ready</p>
             </div>
 
             <div className="md:col-span-2 space-y-1.5">
-              <span className="text-[11px] font-medium text-neutral-400">Critical Tier Bridge Gaps:</span>
+              <span className="text-[11px] font-medium text-silver">Critical Tier Bridge Gaps:</span>
               <div className="flex flex-wrap gap-1.5">
                 {tierStatus.tierGaps.map((gap, idx) => (
                   <span
                     key={idx}
-                    className="px-2 py-0.5 rounded-md bg-amber-500/10 border border-amber-500/20 text-amber-400 text-[11px] font-medium flex items-center gap-1"
+                    className="px-2 py-0.5 rounded bg-black border border-olive-border text-pale-yellow text-[11px] font-medium flex items-center gap-1"
                   >
                     • {gap}
                   </span>
@@ -218,38 +209,30 @@ export function CareerPathHub() {
       </div>
 
       {/* Tool Showcase Sections */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-28 space-y-24">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-28 space-y-20">
         {/* Tool 1 Showcase: Dream Job Roadmap */}
         <section
           ref={section1Ref}
-          className={`transition-all duration-700 ease-out transform ${
-            section1Visible
-              ? 'opacity-100 translate-y-0'
-              : 'opacity-0 translate-y-12'
+          className={`transition-all duration-300 ease-out ${
+            section1Visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           }`}
           aria-labelledby="roadmap-heading"
         >
-          <div className="relative rounded-3xl bg-neutral-900 border border-neutral-800 p-8 sm:p-12 lg:p-16 shadow-xl shadow-black/40 overflow-hidden group">
-            {/* Background accent */}
-            <div
-              className="absolute -top-24 -right-24 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none group-hover:scale-125 transition-transform duration-700"
-              aria-hidden="true"
-            />
-
+          <div className="rounded-lg bg-near-black border border-charcoal p-8 sm:p-12 lg:p-16 hover:border-silver transition-colors">
             <div className="max-w-3xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-blue-950/60 text-blue-400 font-semibold text-xs mb-5 border border-blue-800/60">
-                <Compass className="w-4 h-4" />
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-black text-volt font-bold text-xs mb-5 border border-charcoal">
+                <Compass className="w-4 h-4 text-volt" />
                 <span>Tool 1 • For students &amp; freshers</span>
               </div>
 
               <h2
                 id="roadmap-heading"
-                className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight"
+                className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight"
               >
                 Dream Job Roadmap
               </h2>
 
-              <p className="mt-4 text-lg sm:text-xl text-neutral-300 font-normal leading-relaxed">
+              <p className="mt-4 text-base sm:text-lg text-silver font-normal leading-relaxed">
                 Step-by-step career path planning with dual modes: built for college students targeting dream fresher jobs and working engineers planning career growth.
               </p>
 
@@ -264,7 +247,7 @@ export function CareerPathHub() {
                 ].map((chip) => (
                   <span
                     key={chip}
-                    className="inline-flex items-center px-3.5 py-1.5 rounded-full text-xs font-medium bg-neutral-800 text-neutral-200 border border-neutral-700/80"
+                    className="inline-flex items-center px-3.5 py-1.5 rounded text-xs font-bold bg-black text-silver border border-charcoal"
                   >
                     {chip}
                   </span>
@@ -272,26 +255,26 @@ export function CareerPathHub() {
               </div>
 
               {/* Modes highlight */}
-              <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4 pt-6 border-t border-neutral-800">
+              <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4 pt-6 border-t border-charcoal">
                 <div className="flex items-start gap-3">
-                  <div className="p-2 rounded-lg bg-indigo-950 text-indigo-400 mt-0.5 border border-indigo-800/40">
+                  <div className="p-2 rounded bg-black border border-charcoal text-volt mt-0.5">
                     <GraduationCap className="w-4 h-4" />
                   </div>
                   <div>
-                    <h4 className="text-sm font-semibold text-neutral-100">Student Mode</h4>
-                    <p className="text-xs text-neutral-400 mt-0.5">
+                    <h4 className="text-sm font-bold text-white">Student Mode</h4>
+                    <p className="text-xs text-silver mt-0.5">
                       Degree, branch family, college tier, CGPA cutoffs &amp; stepping stone offers.
                     </p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <div className="p-2 rounded-lg bg-emerald-950 text-emerald-400 mt-0.5 border border-emerald-800/40">
+                  <div className="p-2 rounded bg-black border border-charcoal text-white mt-0.5">
                     <Briefcase className="w-4 h-4" />
                   </div>
                   <div>
-                    <h4 className="text-sm font-semibold text-neutral-100">Professional Mode</h4>
-                    <p className="text-xs text-neutral-400 mt-0.5">
+                    <h4 className="text-sm font-bold text-white">Professional Mode</h4>
+                    <p className="text-xs text-silver mt-0.5">
                       Current tenure, rating calibration, expected growth windows &amp; CTC jumps.
                     </p>
                   </div>
@@ -302,7 +285,7 @@ export function CareerPathHub() {
               <div className="mt-10">
                 <Link
                   to="/tools/career-path/dream-job-roadmap"
-                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-cyan-400 to-teal-300 hover:from-cyan-300 hover:to-teal-200 text-neutral-950 font-black text-base shadow-lg transition-all focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:outline-none min-h-[44px]"
+                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded bg-forest hover:bg-[#3a3a3a] text-white hover:text-pale-yellow font-bold text-sm border border-[#141414] transition-colors min-h-[44px]"
                 >
                   <span>Build my roadmap</span>
                   <ArrowRight className="w-4 h-4" />
@@ -315,34 +298,26 @@ export function CareerPathHub() {
         {/* Tool 2 Showcase: Company Levels & Pay */}
         <section
           ref={section2Ref}
-          className={`transition-all duration-700 ease-out transform ${
-            section2Visible
-              ? 'opacity-100 translate-y-0'
-              : 'opacity-0 translate-y-12'
+          className={`transition-all duration-300 ease-out ${
+            section2Visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           }`}
           aria-labelledby="ladder-heading"
         >
-          <div className="relative rounded-3xl bg-neutral-900 border border-neutral-800 p-8 sm:p-12 lg:p-16 shadow-xl shadow-black/40 overflow-hidden group">
-            {/* Background accent */}
-            <div
-              className="absolute -top-24 -right-24 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none group-hover:scale-125 transition-transform duration-700"
-              aria-hidden="true"
-            />
-
+          <div className="rounded-lg bg-near-black border border-charcoal p-8 sm:p-12 lg:p-16 hover:border-silver transition-colors">
             <div className="max-w-3xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-emerald-950/60 text-emerald-400 font-semibold text-xs mb-5 border border-emerald-800/60">
-                <Building2 className="w-4 h-4" />
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-black text-silver font-bold text-xs mb-5 border border-charcoal">
+                <Building2 className="w-4 h-4 text-silver" />
                 <span>Tool 2 • Verified company levels &amp; pay</span>
               </div>
 
               <h2
                 id="ladder-heading"
-                className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight"
+                className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight"
               >
                 Company Levels &amp; Pay
               </h2>
 
-              <p className="mt-4 text-lg sm:text-xl text-neutral-300 font-normal leading-relaxed">
+              <p className="mt-4 text-base sm:text-lg text-silver font-normal leading-relaxed">
                 Explore real India-office leveling frameworks, verified INR CTC packages, and authentic promotion expectations across 52 tech organizations.
               </p>
 
@@ -357,7 +332,7 @@ export function CareerPathHub() {
                 ].map((chip) => (
                   <span
                     key={chip}
-                    className="inline-flex items-center px-3.5 py-1.5 rounded-full text-xs font-medium bg-neutral-800 text-neutral-200 border border-neutral-700/80"
+                    className="inline-flex items-center px-3.5 py-1.5 rounded text-xs font-bold bg-black text-silver border border-charcoal"
                   >
                     {chip}
                   </span>
@@ -365,25 +340,25 @@ export function CareerPathHub() {
               </div>
 
               {/* Segments highlight */}
-              <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3 pt-6 border-t border-neutral-800 text-xs">
-                <div className="p-3 rounded-lg bg-neutral-800/60 border border-neutral-700/60">
-                  <span className="font-semibold text-white block">Big Tech India</span>
-                  <span className="text-neutral-400 mt-1 block">Google, MS, Amazon, Meta</span>
+              <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3 pt-6 border-t border-charcoal text-xs">
+                <div className="p-3 rounded bg-black border border-charcoal">
+                  <span className="font-bold text-white block">Big Tech India</span>
+                  <span className="text-silver mt-1 block">Google, MS, Amazon, Meta</span>
                 </div>
 
-                <div className="p-3 rounded-lg bg-neutral-800/60 border border-neutral-700/60">
-                  <span className="font-semibold text-white block">Product Unicorns</span>
-                  <span className="text-neutral-400 mt-1 block">Flipkart, Swiggy, Zomato, CRED</span>
+                <div className="p-3 rounded bg-black border border-charcoal">
+                  <span className="font-bold text-white block">Product Unicorns</span>
+                  <span className="text-silver mt-1 block">Flipkart, Swiggy, Zomato, CRED</span>
                 </div>
 
-                <div className="p-3 rounded-lg bg-neutral-800/60 border border-neutral-700/60">
-                  <span className="font-semibold text-white block">GCC / Finance</span>
-                  <span className="text-neutral-400 mt-1 block">Goldman, Walmart, JPMC, Amex</span>
+                <div className="p-3 rounded bg-black border border-charcoal">
+                  <span className="font-bold text-white block">GCC / Finance</span>
+                  <span className="text-silver mt-1 block">Goldman, Walmart, JPMC, Amex</span>
                 </div>
 
-                <div className="p-3 rounded-lg bg-neutral-800/60 border border-neutral-700/60">
-                  <span className="font-semibold text-white block">IT Services</span>
-                  <span className="text-neutral-400 mt-1 block">TCS, Infosys, Wipro, HCLTech</span>
+                <div className="p-3 rounded bg-black border border-charcoal">
+                  <span className="font-bold text-white block">IT Services</span>
+                  <span className="text-silver mt-1 block">TCS, Infosys, Wipro, HCLTech</span>
                 </div>
               </div>
 
@@ -391,7 +366,7 @@ export function CareerPathHub() {
               <div className="mt-10">
                 <Link
                   to="/tools/career-path/company-levels"
-                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-neutral-800 hover:bg-neutral-700 text-white font-semibold text-base border border-neutral-700 shadow-md hover:shadow-lg transition-all focus-visible:ring-2 focus-visible:ring-neutral-400 focus-visible:outline-none"
+                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded bg-black hover:bg-hover-gray text-white hover:text-volt font-bold text-sm border border-charcoal transition-colors min-h-[44px]"
                 >
                   <span>Explore Company Levels &amp; Pay</span>
                   <ArrowRight className="w-4 h-4" />

@@ -42,11 +42,11 @@ export const renderCompTimelineTick = (timeline: CompDataPoint[]) => (props: any
   const pt = timeline.find((d) => d.year === payload?.value) || timeline[props.index];
   return (
     <g transform={`translate(${x},${y})`}>
-      <text x={0} y={0} dy={12} textAnchor="middle" fill="#94a3b8" fontSize={11} fontWeight={600}>
+      <text x={0} y={0} dy={12} textAnchor="middle" fill="#a0a0a0" fontSize={11} fontWeight={600}>
         {payload?.value}
       </text>
       {pt?.levelCode && (
-        <text x={0} y={0} dy={26} textAnchor="middle" fill="#38bdf8" fontSize={10} fontWeight={700}>
+        <text x={0} y={0} dy={26} textAnchor="middle" fill="#faff69" fontSize={10} fontWeight={700}>
           {pt.levelCode}
         </text>
       )}
@@ -60,7 +60,7 @@ export function CompensationTrajectoryChart({
   subtitle,
   ariaLabel,
   tableCaption = 'Projected Career Compensation Timeline',
-  gradientId = 'emeraldGradientTrajectory',
+  gradientId = 'voltGradientTrajectory',
   prefersReducedMotion = false,
 }: CompensationTrajectoryChartProps) {
   if (!timeline || timeline.length === 0) return null;
@@ -75,11 +75,11 @@ export function CompensationTrajectoryChart({
   return (
     <div className="pt-2 space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <span className="text-xs font-bold text-muted uppercase tracking-wider flex items-center gap-1.5">
-          <TrendingUp className="w-3.5 h-3.5 text-emerald-400" />
+        <span className="text-xs font-bold text-silver uppercase tracking-wider flex items-center gap-1.5">
+          <TrendingUp className="w-3.5 h-3.5 text-volt" />
           {title}
         </span>
-        {subtitle && <span className="text-[11px] text-muted">{subtitle}</span>}
+        {subtitle && <span className="text-[11px] text-silver">{subtitle}</span>}
       </div>
 
       <div role="img" aria-label={defaultAriaLabel} className="h-72 w-full">
@@ -87,24 +87,24 @@ export function CompensationTrajectoryChart({
           <AreaChart data={timeline} margin={{ top: 12, right: 24, left: 10, bottom: 26 }}>
             <defs>
               <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#10b981" stopOpacity={0.35} />
-                <stop offset="95%" stopColor="#10b981" stopOpacity={0.0} />
+                <stop offset="5%" stopColor="#faff69" stopOpacity={0.2} />
+                <stop offset="95%" stopColor="#faff69" stopOpacity={0.0} />
               </linearGradient>
             </defs>
-            <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.08)" vertical={false} />
+            <CartesianGrid strokeDasharray="3 3" stroke="rgba(65,65,65,0.8)" vertical={false} />
             <XAxis
               dataKey="year"
-              stroke="#94a3b8"
+              stroke="#a0a0a0"
               fontSize={11}
               tickLine={false}
               tick={renderCompTimelineTick(timeline)}
               interval={0}
             />
             <YAxis
-              stroke="#94a3b8"
+              stroke="#a0a0a0"
               fontSize={11}
               tickLine={false}
-              axisLine={{ stroke: 'rgba(255,255,255,0.08)' }}
+              axisLine={{ stroke: 'rgba(65,65,65,0.8)' }}
               tickFormatter={formatChartINRTick}
             />
             <Tooltip
@@ -112,14 +112,14 @@ export function CompensationTrajectoryChart({
                 if (active && payload && payload.length) {
                   const data = payload[0].payload as CompDataPoint;
                   return (
-                    <div className="bg-neutral-900 border border-neutral-700/80 rounded-xl p-3 shadow-2xl text-xs space-y-1 backdrop-blur-md">
+                    <div className="bg-near-black border border-charcoal rounded p-3 shadow-2xl text-xs space-y-1">
                       <p className="font-black text-white">
                         {data.year} • {data.companyName} ({data.levelCode})
                       </p>
-                      <p className="text-emerald-400 font-extrabold text-sm">
+                      <p className="text-volt font-black text-sm">
                         Total Annual CTC: {formatINR(data.salary)}
                       </p>
-                      <div className="text-[10px] text-neutral-400 space-y-0.5 pt-1 border-t border-neutral-800">
+                      <div className="text-[10px] text-silver space-y-0.5 pt-1 border-t border-charcoal">
                         <p>Fixed Base: {formatINR(data.base)}</p>
                         <p>Annual Stock: {formatINR(data.stock)}</p>
                         <p>Yearly Bonus: {formatINR(data.bonus)}</p>
@@ -133,12 +133,12 @@ export function CompensationTrajectoryChart({
             <Area
               type="monotone"
               dataKey="salary"
-              stroke="#10b981"
-              strokeWidth={2.5}
+              stroke="#faff69"
+              strokeWidth={2}
               fillOpacity={1}
               fill={`url(#${gradientId})`}
-              dot={{ r: 4, fill: '#10b981', stroke: 'rgba(16, 185, 129, 0.4)', strokeWidth: 4 }}
-              activeDot={{ r: 6, fill: '#10b981', stroke: '#ffffff', strokeWidth: 2 }}
+              dot={{ r: 4, fill: '#000000', stroke: '#faff69', strokeWidth: 2 }}
+              activeDot={{ r: 6, fill: '#faff69', stroke: '#000000', strokeWidth: 2 }}
               isAnimationActive={!prefersReducedMotion}
               animationDuration={800}
             />
@@ -178,10 +178,10 @@ export function CompensationTrajectoryChart({
       </div>
 
       {/* Explicit 2025 Market Realities Note */}
-      <div className="p-3.5 rounded-xl bg-surface-2/60 border border-border/80 flex items-start gap-2.5 text-[11px] text-secondary leading-relaxed">
-        <Info className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+      <div className="p-3.5 rounded bg-black border border-charcoal flex items-start gap-2.5 text-[11px] text-silver leading-relaxed">
+        <Info className="w-4 h-4 text-volt shrink-0 mt-0.5" />
         <div>
-          <span className="font-bold text-foreground">2025 Market Reality Calibration: </span>
+          <span className="font-bold text-white">2025 Market Reality Calibration: </span>
           <span>
             Projected figures aggregate verified India compensation bands (base pay, target variable bonus, and annualized 4-year ESOP/RSU vesting). Actual CTC offers vary based on campus tier policies (Tier-1 Day-1 bands vs. off-campus pools), macro hiring freezes, and candidate interview rating.
           </span>

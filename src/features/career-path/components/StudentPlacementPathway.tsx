@@ -59,28 +59,28 @@ export function SkillsToClosePanel() {
 
   if (!latestMissingSkills || latestMissingSkills.length === 0) {
     return (
-      <div className="bg-surface rounded-2xl p-6 border border-border shadow-sm space-y-3">
+      <div className="bg-surface rounded-md p-6 border border-border space-y-3">
         <div className="flex items-center gap-2">
-          <Target className="w-5 h-5 text-primary" />
-          <h3 className="text-sm font-black text-foreground uppercase tracking-wider">
+          <Target className="w-5 h-5 text-volt" />
+          <h3 className="text-sm font-black text-foreground uppercase tracking-wider font-mono">
             Skills to Close (Target Career Alignment)
           </h3>
         </div>
-        <div className="bg-surface-2/40 border border-border/80 rounded-xl p-4 text-xs space-y-2">
+        <div className="bg-surface-2/40 border border-border rounded p-4 text-xs space-y-2">
           <p className="text-secondary leading-relaxed">
             No recent resume scan found. Run a scan in ATS Resume Roaster or Tailor My Resume to detect skill gaps for your target path and see your targeted skills to close.
           </p>
           <div className="pt-2 flex flex-wrap gap-2">
             <Link
               to="/tools/resume-checker"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary text-white text-xs font-bold hover:bg-primary/90 transition-colors"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-volt text-black text-xs font-mono font-black uppercase tracking-wider hover:bg-volt-hover transition-colors"
             >
               <Sparkles className="w-3.5 h-3.5" />
               Run ATS Resume Scan
             </Link>
             <Link
               to="/tools/tailor"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface border border-border text-foreground hover:bg-surface-2 text-xs font-bold transition-colors"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-surface border border-border text-foreground hover:bg-surface-2 text-xs font-mono font-bold transition-colors"
             >
               <FileText className="w-3.5 h-3.5" />
               Open Tailor My Resume
@@ -92,14 +92,14 @@ export function SkillsToClosePanel() {
   }
 
   return (
-    <div className="bg-surface rounded-2xl p-6 border border-border shadow-sm space-y-4">
+    <div className="bg-surface rounded-md p-6 border border-border space-y-4">
       <div className="flex items-center justify-between flex-wrap gap-2 pb-3 border-b border-border">
         <div>
-          <span className="text-[10px] font-black uppercase text-primary tracking-wider">
+          <span className="text-[10px] font-black uppercase text-volt font-mono tracking-wider">
             Target Growth Pathway
           </span>
           <h3 className="text-base font-black text-foreground mt-0.5 flex items-center gap-2">
-            <Target className="w-5 h-5 text-primary" />
+            <Target className="w-5 h-5 text-volt" />
             Skills to Close ({latestMissingSkills.length} Detected Gap{latestMissingSkills.length > 1 ? 's' : ''})
           </h3>
           <p className="text-xs text-secondary mt-0.5">
@@ -108,7 +108,7 @@ export function SkillsToClosePanel() {
         </div>
         <Link
           to="/tools/resume-checker"
-          className="text-xs font-bold text-primary hover:underline flex items-center gap-1"
+          className="text-xs font-mono font-bold text-volt hover:underline flex items-center gap-1"
         >
           Re-scan resume <ArrowRight className="w-3.5 h-3.5" />
         </Link>
@@ -118,12 +118,12 @@ export function SkillsToClosePanel() {
         {latestMissingSkills.map((skill, idx) => (
           <div
             key={idx}
-            className="p-3.5 rounded-xl border border-border bg-surface-2/30 space-y-2 flex flex-col justify-between"
+            className="p-3.5 rounded border border-border bg-surface-2/30 space-y-2 flex flex-col justify-between"
           >
             <div>
               <div className="flex items-center justify-between mb-1">
                 <span className="font-black text-foreground text-xs">{skill}</span>
-                <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-500/10 text-amber-500 border border-amber-500/20">
+                <span className="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-500/10 text-amber-400 border border-amber-500/30">
                   Target Gap
                 </span>
               </div>
@@ -131,16 +131,16 @@ export function SkillsToClosePanel() {
                 Required for technical screening rounds and Year 1–2 delivery milestones on this path.
               </p>
             </div>
-            <div className="pt-2 border-t border-border/50 flex items-center justify-between text-[11px]">
+            <div className="pt-2 border-t border-border flex items-center justify-between text-[11px]">
               <Link
                 to={`/tools/briefs?skill=${encodeURIComponent(skill)}`}
-                className="font-bold text-primary hover:underline flex items-center gap-1"
+                className="font-mono font-bold text-volt hover:underline flex items-center gap-1"
               >
                 Find Practice Brief &rarr;
               </Link>
               <Link
                 to={`/tools/credentials?search=${encodeURIComponent(skill)}`}
-                className="text-muted hover:text-foreground font-semibold"
+                className="text-muted hover:text-foreground font-semibold font-mono"
               >
                 Certifications
               </Link>
@@ -308,29 +308,29 @@ export function StudentPlacementPathway({
       {mode === 'fresher-programs' && (
         <div className="space-y-6">
           {/* Branch Selection & Filter Header */}
-          <div className="bg-neutral-900 rounded-2xl p-6 border border-neutral-800 shadow-xl space-y-4">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-neutral-800">
+          <div className="bg-surface rounded-md p-6 border border-border space-y-4">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-border">
               <div>
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-black uppercase tracking-wider bg-volt/10 text-volt border border-volt/30">
                     2026-27 Hiring Season Live
                   </span>
-                  <span className="text-xs text-neutral-400 font-bold">
+                  <span className="text-xs text-muted font-mono font-bold">
                     {branchPrograms.length} Eligible Programs
                   </span>
                 </div>
-                <h2 className="text-xl font-black text-white flex items-center gap-2">
-                  <Sparkles className="w-5 h-5 text-emerald-400" />
+                <h2 className="text-xl font-black text-foreground flex items-center gap-2">
+                  <Sparkles className="w-5 h-5 text-volt" />
                   Verified Campus Entry Programs for Your Engineering Branch
                 </h2>
-                <p className="text-xs text-neutral-300 mt-0.5">
+                <p className="text-xs text-secondary mt-0.5">
                   Authentic hiring criteria, first-round screening formats, bond commitments, and promotion steps across India employers.
                 </p>
               </div>
 
               {/* Degree & Branch Dropdown */}
               <div className="w-full md:w-80 shrink-0">
-                <label className="text-xs font-bold text-neutral-400 block mb-1.5">
+                <label className="text-xs font-bold text-muted uppercase font-mono block mb-1.5">
                   Your Branch / Discipline:
                 </label>
                 <Dropdown
@@ -354,16 +354,16 @@ export function StudentPlacementPathway({
             {/* Filter Pills & Search */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2">
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="text-sm font-bold text-neutral-300 mr-1">Category:</span>
+                <span className="text-xs font-mono uppercase font-bold text-muted mr-1">Category:</span>
                 {(['all', 'super-dream', 'dream', 'mass'] as const).map((cat) => (
                   <button
                     key={cat}
                     type="button"
                     onClick={() => setCampusCategoryFilter(cat)}
-                    className={`px-4 py-2 rounded-xl text-sm font-bold transition-all capitalize cursor-pointer ${
+                    className={`px-4 py-2 rounded text-xs font-mono font-bold transition-all uppercase cursor-pointer ${
                       campusCategoryFilter === cat
-                        ? 'bg-blue-600 text-white shadow-md'
-                        : 'bg-neutral-800 text-neutral-300 hover:text-white hover:bg-neutral-700'
+                        ? 'bg-volt text-black shadow-[inset_0_1px_2px_rgba(0,0,0,0.2)]'
+                        : 'bg-surface-2 text-muted border border-border hover:text-foreground'
                     }`}
                   >
                     {cat === 'all' ? `All (${branchPrograms.length})` : cat.replace('-', ' ')}
@@ -372,13 +372,13 @@ export function StudentPlacementPathway({
               </div>
 
               <div className="relative w-full sm:w-80">
-                <Search className="w-4 h-4 text-neutral-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                <Search className="w-4 h-4 text-muted absolute left-3.5 top-1/2 -translate-y-1/2" />
                 <input
                   type="text"
                   value={campusProgramSearch}
                   onChange={(e) => setCampusProgramSearch(e.target.value)}
                   placeholder="Search company, role, program..."
-                  className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-neutral-800 border border-neutral-700 text-sm text-white placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full pl-10 pr-4 py-2.5 rounded bg-surface border border-border text-sm text-foreground placeholder:text-muted focus:outline-none focus:ring-1 focus:ring-volt focus:border-volt"
                 />
               </div>
             </div>
@@ -395,33 +395,33 @@ export function StudentPlacementPathway({
               return (
                 <div
                   key={prog.id}
-                  className="bg-neutral-900 rounded-2xl p-5 border border-neutral-800 hover:border-neutral-700 transition-all flex flex-col justify-between gap-4 shadow-sm group"
+                  className="bg-surface rounded-md p-5 border border-border hover:border-volt/50 transition-all flex flex-col justify-between gap-4 shadow-sm group"
                 >
                   <div className="space-y-3">
                     <div className="flex items-start justify-between gap-3">
                       <div>
                         <div className="flex items-center gap-2 flex-wrap mb-1">
-                          <span className="font-bold text-white text-base group-hover:text-blue-400 transition-colors">
+                          <span className="font-bold text-foreground text-base group-hover:text-volt transition-colors">
                             {comp?.name || prog.companyId}
                           </span>
-                          <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-blue-500/15 text-blue-300 border border-blue-500/30 uppercase">
+                          <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-volt/10 text-volt border border-volt/30 uppercase">
                             {prog.campusCategory.replace('-', ' ')}
                           </span>
                           <DataBadge entity={prog} />
                         </div>
-                        <h3 className="text-sm font-bold text-neutral-200">
+                        <h3 className="text-sm font-bold text-foreground">
                           {prog.programName}
                         </h3>
-                        <p className="text-xs text-neutral-400 font-medium">
+                        <p className="text-xs text-secondary font-medium">
                           {prog.roleTitle} · {prog.roleFamily}
                         </p>
                       </div>
 
                       <div className="text-right shrink-0">
-                        <span className="text-xs font-bold text-emerald-400 block">
+                        <span className="text-xs font-mono font-black text-volt block">
                           {ctcStr}
                         </span>
-                        <span className="text-[10px] text-neutral-400 font-mono">
+                        <span className="text-[10px] text-muted font-mono uppercase">
                           Total CTC
                         </span>
                       </div>
@@ -429,55 +429,55 @@ export function StudentPlacementPathway({
 
                     {/* Key Criteria Pill Bar */}
                     <div className="grid grid-cols-3 gap-2 text-xs py-1">
-                      <div className="p-2 rounded-xl bg-neutral-800/70 border border-neutral-700/60">
-                        <span className="text-[10px] text-neutral-400 font-bold uppercase block">
-                          Academic Cutoff
+                      <div className="p-2 rounded bg-surface-2/60 border border-border">
+                        <span className="text-[10px] text-muted font-mono font-bold uppercase block">
+                          Cutoff
                         </span>
-                        <span className="font-semibold text-neutral-200 text-[11px]">
+                        <span className="font-semibold text-foreground text-[11px]">
                           {prog.eligibility.minCgpa ? `≥ ${prog.eligibility.minCgpa} CGPA` : 'No hard cutoff'}
                         </span>
-                        <div className="text-[10px] text-neutral-400 truncate mt-0.5">
+                        <div className="text-[10px] text-muted truncate mt-0.5 font-mono">
                           {prog.eligibility.backlogPolicy || '0 backlogs'}
                         </div>
                       </div>
 
-                      <div className="p-2 rounded-xl bg-neutral-800/70 border border-neutral-700/60">
-                        <span className="text-[10px] text-neutral-400 font-bold uppercase block">
+                      <div className="p-2 rounded bg-surface-2/60 border border-border">
+                        <span className="text-[10px] text-muted font-mono font-bold uppercase block">
                           Training &amp; Bond
                         </span>
-                        <span className="font-semibold text-neutral-200 text-[11px]">
+                        <span className="font-semibold text-foreground text-[11px]">
                           {prog.training.bondMonths ? `${prog.training.bondMonths} mo bond` : 'Zero service bond'}
                         </span>
-                        <div className="text-[10px] text-neutral-400 truncate mt-0.5">
+                        <div className="text-[10px] text-muted truncate mt-0.5 font-mono">
                           {prog.training.bondAmountINR ? `₹${(prog.training.bondAmountINR / 100000).toFixed(1)}L bond` : 'No penalty'}
                         </div>
                       </div>
 
-                      <div className="p-2 rounded-xl bg-neutral-800/70 border border-neutral-700/60">
-                        <span className="text-[10px] text-neutral-400 font-bold uppercase block">
+                      <div className="p-2 rounded bg-surface-2/60 border border-border">
+                        <span className="text-[10px] text-muted font-mono font-bold uppercase block">
                           Next Promotion
                         </span>
-                        <span className="font-semibold text-neutral-200 text-[11px] truncate block">
+                        <span className="font-semibold text-foreground text-[11px] truncate block font-mono">
                           {prog.trajectory[0] ? `${prog.trajectory[0].fromLevelCode} → ${prog.trajectory[0].toLevelCode}` : 'Fast-Track'}
                         </span>
-                        <div className="text-[10px] text-emerald-400 truncate mt-0.5">
-                          {prog.trajectory[0]?.typicalYearsMin ? `${prog.trajectory[0].typicalYearsMin}-${prog.trajectory[0].typicalYearsMax} yrs cadence` : 'Standard cadence'}
+                        <div className="text-[10px] text-volt truncate mt-0.5 font-mono">
+                          {prog.trajectory[0]?.typicalYearsMin ? `${prog.trajectory[0].typicalYearsMin}-${prog.trajectory[0].typicalYearsMax} yrs` : 'Standard cadence'}
                         </div>
                       </div>
                     </div>
 
                     {/* Selection Stages Funnel */}
-                    <div className="pt-2 border-t border-neutral-800">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 block mb-1">
+                    <div className="pt-2 border-t border-border">
+                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-muted block mb-1">
                         Selection Stages ({prog.selectionProcess.length} Rounds):
                       </span>
                       <div className="flex items-center gap-1.5 flex-wrap">
                         {prog.selectionProcess.map((stage, idx) => (
                           <div
                             key={idx}
-                            className="flex items-center gap-1 px-2 py-0.5 rounded-md bg-neutral-800 border border-neutral-700 text-[11px] text-neutral-300"
+                            className="flex items-center gap-1 px-2 py-0.5 rounded bg-surface-2 border border-border text-[11px] text-foreground"
                           >
-                            <span className="font-mono text-[10px] text-blue-400 font-bold">
+                            <span className="font-mono text-[10px] text-volt font-bold">
                               {idx + 1}.
                             </span>
                             <span>{stage.stage}</span>
@@ -488,13 +488,13 @@ export function StudentPlacementPathway({
 
                     {/* Competency badges */}
                     <div className="flex items-center gap-1.5 flex-wrap pt-1">
-                      <span className="text-[10px] font-semibold text-neutral-400 uppercase">
-                        Evaluated Skills:
+                      <span className="text-[10px] font-mono font-semibold text-muted uppercase">
+                        Evaluated:
                       </span>
                       {Object.keys(prog.competencyProfile).map((c) => (
                         <span
                           key={c}
-                          className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-neutral-800 text-neutral-300 border border-neutral-700 uppercase"
+                          className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-surface-2 text-muted border border-border uppercase"
                         >
                           {c}
                         </span>
@@ -503,10 +503,10 @@ export function StudentPlacementPathway({
                   </div>
 
                   {/* Bottom Actions */}
-                  <div className="pt-3 border-t border-neutral-800 flex items-center justify-between gap-3">
+                  <div className="pt-3 border-t border-border flex items-center justify-between gap-3">
                     <Link
                       to={`/tools/resume-checker?company=${prog.companyId}&role=${encodeURIComponent(prog.roleTitle)}&program=${encodeURIComponent(prog.id)}`}
-                      className="px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition-all shadow-sm flex items-center gap-1.5"
+                      className="px-3.5 py-1.5 rounded bg-volt hover:bg-volt-hover active:shadow-[inset_0_2px_4px_rgba(0,0,0,0.6)] text-black text-xs font-mono font-black uppercase tracking-wider transition-all shadow-sm flex items-center gap-1.5"
                     >
                       <FileText className="w-3.5 h-3.5" />
                       Roast Resume Against Program
@@ -514,7 +514,7 @@ export function StudentPlacementPathway({
 
                     <Link
                       to={`/demo/company/${prog.companyId}`}
-                      className="text-xs font-bold text-neutral-400 hover:text-white transition-colors"
+                      className="text-xs font-mono font-bold text-muted hover:text-volt transition-colors"
                     >
                       Company Roles &amp; Fit →
                     </Link>
@@ -525,8 +525,8 @@ export function StudentPlacementPathway({
           </div>
 
           {filteredBranchPrograms.length === 0 && (
-            <div className="p-12 text-center bg-neutral-900 border border-neutral-800 rounded-2xl space-y-3">
-              <p className="text-sm font-bold text-neutral-300">
+            <div className="p-12 text-center bg-surface border border-border rounded-md space-y-3">
+              <p className="text-sm font-bold text-foreground">
                 No campus programs found matching &ldquo;{campusProgramSearch}&rdquo;
               </p>
               <button
@@ -535,7 +535,7 @@ export function StudentPlacementPathway({
                   setCampusProgramSearch('');
                   setCampusCategoryFilter('all');
                 }}
-                className="text-xs font-bold text-blue-400 hover:underline"
+                className="text-xs font-mono font-bold text-volt hover:underline cursor-pointer"
               >
                 Clear search and category filters
               </button>
@@ -551,12 +551,12 @@ export function StudentPlacementPathway({
           MODE A: STUDENT SIMULATOR FORM
           ───────────────────────────────────────────────────────── */}
       {mode === 'student' && !studentResult && (
-        <div className="bg-neutral-900 rounded-3xl p-8 sm:p-10 border border-neutral-800 shadow-2xl max-w-5xl md:max-w-6xl mx-auto space-y-8">
-          <div className="border-b border-neutral-800 pb-5">
-            <h2 className="text-2xl sm:text-3xl font-black text-white flex items-center gap-3">
-              <GraduationCap className="w-7 h-7 text-blue-400 shrink-0" /> Configure Your Campus-to-Dream Job Roadmap
+        <div className="bg-surface rounded-md p-8 sm:p-10 border border-border max-w-5xl md:max-w-6xl mx-auto space-y-8">
+          <div className="border-b border-border pb-5">
+            <h2 className="text-2xl sm:text-3xl font-black text-foreground flex items-center gap-3">
+              <GraduationCap className="w-7 h-7 text-volt shrink-0" /> Configure Your Campus-to-Dream Job Roadmap
             </h2>
-            <p className="text-sm sm:text-base text-neutral-300 mt-2 leading-relaxed">
+            <p className="text-sm sm:text-base text-secondary mt-2 leading-relaxed">
               Select your college background and dream company to see real campus hiring routes, eligibility cutoffs, fresher CTC packages in INR, and the multi-year path to reach your dream level.
             </p>
           </div>
@@ -566,7 +566,7 @@ export function StudentPlacementPathway({
             {/* College Tier */}
             <div>
               <div className="h-6 flex items-center mb-2">
-                <label className="text-sm font-bold text-white">College Tier</label>
+                <label className="text-sm font-bold text-foreground uppercase font-mono">College Tier</label>
               </div>
               <Dropdown
                 value={studentTier}
@@ -579,17 +579,17 @@ export function StudentPlacementPathway({
                 ]}
               />
               <div className="h-7 flex items-center gap-2 mt-2">
-                <span className="text-xs font-bold px-3 py-1 rounded-full bg-blue-500/15 text-blue-300 border border-blue-500/30">
+                <span className="text-xs font-mono font-bold px-3 py-1 rounded-full bg-volt/10 text-volt border border-volt/30">
                   {studentTier}
                 </span>
-                <span className="text-xs text-neutral-300 font-medium">Campus hiring pool</span>
+                <span className="text-xs text-muted font-medium">Campus hiring pool</span>
               </div>
             </div>
 
             {/* Degree & Branch Dropdown */}
             <div>
               <div className="h-6 flex items-center mb-2">
-                <label className="text-sm font-bold text-white">Degree &amp; Branch</label>
+                <label className="text-sm font-bold text-foreground uppercase font-mono">Degree &amp; Branch</label>
               </div>
               <Dropdown
                 searchable={true}
@@ -608,18 +608,18 @@ export function StudentPlacementPathway({
               />
               <div className="h-7 flex items-center gap-2 mt-2">
                 {selectedBranchOption && (
-                  <span className="text-xs font-bold px-3 py-1 rounded-full bg-blue-500/15 text-blue-300 border border-blue-500/30 truncate max-w-[200px]">
+                  <span className="text-xs font-mono font-bold px-3 py-1 rounded-full bg-volt/10 text-volt border border-volt/30 truncate max-w-[200px]">
                     {selectedBranchOption.familyLabel}
                   </span>
                 )}
-                <span className="text-xs text-neutral-300 font-medium truncate">Specialization</span>
+                <span className="text-xs text-muted font-medium truncate">Specialization</span>
               </div>
             </div>
 
             {/* Current Year & Expected Grad Year */}
             <div>
               <div className="h-6 flex items-center mb-2">
-                <label className="text-sm font-bold text-white">Graduation Year</label>
+                <label className="text-sm font-bold text-foreground uppercase font-mono">Graduation Year</label>
               </div>
               <Dropdown
                 value={studentGradYear}
@@ -632,11 +632,11 @@ export function StudentPlacementPathway({
               />
               <div className="h-7 flex items-center gap-2 mt-2">
                 {selectedGradYearOption && (
-                  <span className="text-xs font-bold px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
+                  <span className="text-xs font-mono font-bold px-3 py-1 rounded-full bg-volt/10 text-volt border border-volt/30">
                     {selectedGradYearOption.shortLabel}
                   </span>
                 )}
-                <span className="text-xs text-neutral-300 font-medium truncate">{selectedGradYearOption?.label || 'Target batch'}</span>
+                <span className="text-xs text-muted font-medium truncate">{selectedGradYearOption?.label || 'Target batch'}</span>
               </div>
             </div>
           </div>
@@ -645,7 +645,7 @@ export function StudentPlacementPathway({
             {/* CGPA Bracket */}
             <div>
               <div className="h-6 flex items-center justify-between mb-2">
-                <label className="text-sm font-bold text-white">CGPA Bracket</label>
+                <label className="text-sm font-bold text-foreground uppercase font-mono">CGPA Bracket</label>
               </div>
               <Dropdown
                 value={studentCgpa}
@@ -662,7 +662,7 @@ export function StudentPlacementPathway({
             {/* Internship Status */}
             <div>
               <div className="h-6 flex items-center justify-between mb-2">
-                <label className="text-sm font-bold text-white">Internship Status</label>
+                <label className="text-sm font-bold text-foreground uppercase font-mono">Internship Status</label>
               </div>
               <Dropdown
                 value={studentInternship}
@@ -677,13 +677,13 @@ export function StudentPlacementPathway({
           </div>
 
           {/* Dream Company & Target Role Selection */}
-          <div className="p-6 sm:p-7 rounded-2xl bg-neutral-800/80 border-2 border-neutral-700 space-y-5 pt-6 shadow-md">
+          <div className="p-6 sm:p-7 rounded bg-surface-2/40 border border-border space-y-5 pt-6">
             <div className="flex items-center justify-between">
-              <label className="text-sm sm:text-base font-black text-white uppercase tracking-wider flex items-center gap-2">
-                <Target className="w-5 h-5 text-blue-400" /> Target Dream Company &amp; Level
+              <label className="text-sm sm:text-base font-black text-foreground uppercase font-mono tracking-wider flex items-center gap-2">
+                <Target className="w-5 h-5 text-volt" /> Target Dream Company &amp; Level
               </label>
               {currentStudentDreamLevel && (
-                <span className="text-xs font-bold px-3 py-1 rounded-full bg-blue-500/15 text-blue-300 border border-blue-500/30">
+                <span className="text-xs font-mono font-bold px-3 py-1 rounded-full bg-volt/10 text-volt border border-volt/30">
                   {currentStudentDreamLevel.levelCode} • {getEquivalenceHumanLabel(currentStudentDreamLevel.equivalenceGroup)}
                 </span>
               )}
@@ -692,7 +692,7 @@ export function StudentPlacementPathway({
             {/* Single Searchable Autocomplete for Dream Company */}
             <div className="relative" ref={studentSearchRef}>
               <div className="relative flex items-center">
-                <Search className="w-5 h-5 text-neutral-400 absolute left-4 pointer-events-none" />
+                <Search className="w-5 h-5 text-muted absolute left-4 pointer-events-none" />
                 <input
                   type="text"
                   value={studentSearchQuery}
@@ -702,7 +702,7 @@ export function StudentPlacementPathway({
                   }}
                   onFocus={() => setIsStudentSearchOpen(true)}
                   placeholder="Search dream role e.g. 'Google L5', 'Flipkart SDE-2', 'Amazon SDE III'..."
-                  className="w-full min-h-[52px] h-[52px] bg-neutral-900 border-2 border-neutral-700 rounded-xl pl-12 pr-10 py-3 text-sm font-semibold text-white placeholder:text-neutral-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none shadow-sm"
+                  className="w-full min-h-[52px] h-[52px] bg-surface border border-border focus:border-volt rounded pl-12 pr-10 py-3 text-sm font-semibold text-foreground placeholder:text-muted focus:ring-1 focus:ring-volt outline-none"
                 />
                 {studentSearchQuery && (
                   <button
@@ -711,7 +711,7 @@ export function StudentPlacementPathway({
                       setStudentSearchQuery('');
                       setIsStudentSearchOpen(false);
                     }}
-                    className="absolute right-3.5 p-1 text-neutral-400 hover:text-white rounded cursor-pointer"
+                    className="absolute right-3.5 p-1 text-muted hover:text-foreground rounded cursor-pointer"
                   >
                     <X className="w-4 h-4" />
                   </button>
@@ -719,33 +719,33 @@ export function StudentPlacementPathway({
               </div>
 
               {isStudentSearchOpen && (
-                <div className="absolute z-30 left-0 right-0 mt-2 bg-neutral-900 border border-neutral-700 rounded-xl shadow-2xl max-h-64 overflow-y-auto divide-y divide-neutral-800">
+                <div className="absolute z-30 left-0 right-0 mt-2 bg-surface border border-border rounded shadow-2xl max-h-64 overflow-y-auto divide-y divide-border">
                   {studentMatches.length > 0 ? (
                     studentMatches.map((m) => (
                       <div
                         key={`${m.company.id}-${m.level.levelCode}-${m.level.track}`}
                         onClick={() => handleSelectStudentDream(m.company.id, m.level.levelCode, m.level.track)}
-                        className="p-3.5 hover:bg-blue-600/15 cursor-pointer flex items-center justify-between text-sm transition-colors"
+                        className="p-3.5 hover:bg-surface-2 cursor-pointer flex items-center justify-between text-sm transition-colors"
                       >
                         <div>
-                          <span className="font-black text-white">{m.company.name}</span>
-                          <span className="text-neutral-300 ml-2 font-medium">{m.level.title}</span>
+                          <span className="font-black text-foreground">{m.company.name}</span>
+                          <span className="text-secondary ml-2 font-medium">{m.level.title}</span>
                         </div>
-                        <span className="px-2.5 py-1 rounded bg-neutral-800 text-xs font-black text-blue-400 border border-neutral-700">
+                        <span className="px-2.5 py-1 rounded bg-surface-2 text-xs font-mono font-black text-volt border border-border">
                           {m.level.levelCode}
                         </span>
                       </div>
                     ))
                   ) : (
                     <div className="p-4 text-sm space-y-2">
-                      <p className="text-neutral-300">No exact ladder node matched &ldquo;{studentSearchQuery}&rdquo;.</p>
+                      <p className="text-muted">No exact ladder node matched &ldquo;{studentSearchQuery}&rdquo;.</p>
                       {studentFuzzySuggestion && (
-                        <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-sm">
+                        <div className="p-3 rounded bg-amber-500/10 border border-amber-500/20 text-sm">
                           <div className="flex items-center gap-2 text-amber-400 font-bold mb-1">
                             <Sparkles className="w-4 h-4" /> Did you mean?
                           </div>
                           <div className="flex items-center justify-between gap-3">
-                            <span className="font-semibold text-white">{studentFuzzySuggestion.label}</span>
+                            <span className="font-semibold text-foreground">{studentFuzzySuggestion.label}</span>
                             <button
                               type="button"
                               onClick={() => handleSelectStudentDream(
@@ -753,7 +753,7 @@ export function StudentPlacementPathway({
                                 studentFuzzySuggestion.level.levelCode,
                                 studentFuzzySuggestion.level.track
                               )}
-                              className="px-3 py-1.5 rounded-lg bg-amber-500 text-white font-bold text-xs hover:bg-amber-600 shrink-0 cursor-pointer"
+                              className="px-3 py-1.5 rounded bg-volt text-black font-black uppercase font-mono text-xs hover:bg-volt-hover shrink-0 cursor-pointer"
                             >
                               Select
                             </button>
@@ -767,9 +767,9 @@ export function StudentPlacementPathway({
             </div>
 
             {/* Company & Level Selectors */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-3 border-t border-neutral-700">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-3 border-t border-border">
               <div>
-                <span className="text-xs font-bold text-neutral-300 uppercase tracking-wide block mb-2">Dream Company</span>
+                <span className="text-xs font-bold text-muted uppercase font-mono tracking-wide block mb-2">Dream Company</span>
                 <Dropdown
                   searchable={true}
                   value={studentDreamCompanyId}
@@ -789,7 +789,7 @@ export function StudentPlacementPathway({
               </div>
 
               <div>
-                <span className="text-xs font-bold text-neutral-300 uppercase tracking-wide block mb-2">Dream Target Level</span>
+                <span className="text-xs font-bold text-muted uppercase font-mono tracking-wide block mb-2">Dream Target Level</span>
                 <Dropdown
                   searchable={true}
                   value={studentDreamLevelCode}
@@ -811,11 +811,11 @@ export function StudentPlacementPathway({
             type="button"
             onClick={handleSimulateStudent}
             disabled={isCalculating}
-            className="w-full h-[58px] py-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-black text-base transition-all shadow-xl shadow-blue-600/30 hover:shadow-blue-600/50 flex items-center justify-center gap-3 cursor-pointer"
+            className="w-full h-[54px] py-3.5 rounded bg-volt hover:bg-volt-hover active:shadow-[inset_0_2px_4px_rgba(0,0,0,0.6)] text-black font-black uppercase tracking-wider text-sm transition-all flex items-center justify-center gap-2 cursor-pointer"
           >
             {isCalculating ? (
-              <span className="flex items-center gap-2.5 text-base">
-                <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+              <span className="flex items-center gap-2.5 font-mono text-sm">
+                <span className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin" />
                 Computing Campus-to-Career Roadmap...
               </span>
             ) : (
@@ -829,14 +829,14 @@ export function StudentPlacementPathway({
 
       {/* Skeleton while calculating */}
       {isCalculating && mode === 'student' && (
-        <div className="bg-surface rounded-2xl p-8 border border-border shadow-xl max-w-4xl mx-auto space-y-6 min-h-[380px] animate-pulse">
-          <div className="h-6 bg-surface-2 rounded-lg w-1/3 mb-4" />
+        <div className="bg-surface rounded-md p-8 border border-border max-w-4xl mx-auto space-y-6 min-h-[380px] animate-pulse">
+          <div className="h-6 bg-surface-2 rounded w-1/3 mb-4" />
           <div className="grid sm:grid-cols-3 gap-4">
-            <div className="h-28 bg-surface-2 rounded-2xl" />
-            <div className="h-28 bg-surface-2 rounded-2xl" />
-            <div className="h-28 bg-surface-2 rounded-2xl" />
+            <div className="h-28 bg-surface-2 rounded" />
+            <div className="h-28 bg-surface-2 rounded" />
+            <div className="h-28 bg-surface-2 rounded" />
           </div>
-          <div className="h-44 bg-surface-2 rounded-2xl mt-4" />
+          <div className="h-44 bg-surface-2 rounded mt-4" />
         </div>
       )}
 
@@ -850,13 +850,13 @@ export function StudentPlacementPathway({
             <button
               type="button"
               onClick={() => setStudentResult(null)}
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-black bg-surface border border-border text-foreground hover:bg-surface-2 transition-all cursor-pointer shadow-xs min-h-[44px]"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded text-xs font-mono font-bold bg-surface border border-border text-foreground hover:bg-surface-2 active:shadow-[inset_0_2px_4px_rgba(0,0,0,0.6)] transition-all cursor-pointer min-h-[44px]"
             >
               <RotateCcw className="w-4 h-4" /> Start Over / Edit Profile
             </button>
 
             <div className="text-right">
-              <span className="text-sm text-muted font-bold">
+              <span className="text-xs text-muted font-mono font-bold">
                 {studentResult.studentProfile.collegeTier} • {studentResult.studentProfile.currentYearOfStudy} (Class of {studentResult.studentProfile.expectedGraduationYear})
               </span>
             </div>
@@ -868,92 +868,92 @@ export function StudentPlacementPathway({
             tabIndex={-1}
             className="text-2xl sm:text-3xl font-black text-foreground outline-none flex items-center gap-3 tracking-tight"
           >
-            <Target className="w-7 h-7 text-primary" />
+            <Target className="w-7 h-7 text-volt" />
             Your Campus-to-Offer Roadmap
           </h2>
 
           {/* 1. CAN I GET IN? (ELIGIBILITY & CUTOFFS) */}
-          <div className="bg-surface rounded-3xl p-7 sm:p-8 border border-border shadow-sm space-y-6">
+          <div className="bg-surface rounded-md p-7 sm:p-8 border border-border space-y-6">
             <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border pb-4">
               <div>
-                <span className="text-xs font-black uppercase text-primary tracking-wider">
+                <span className="text-xs font-mono font-black uppercase text-volt tracking-wider">
                   Question 1 of 5
                 </span>
                 <h3 className="text-lg sm:text-xl font-black text-foreground mt-1 flex items-center gap-2.5">
-                  <ShieldCheck className="w-6 h-6 text-emerald-400" />
+                  <ShieldCheck className="w-6 h-6 text-volt" />
                   Can I get in? (Eligibility &amp; Cutoffs)
                 </h3>
               </div>
-              <span className="px-3.5 py-1.5 rounded-full text-sm font-black bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+              <span className="px-3.5 py-1.5 rounded-full text-xs font-mono font-black bg-volt/10 text-volt border border-volt/30">
                 {studentResult.probability.percentage}% Target Success Probability
               </span>
             </div>
 
             {/* Trajectory Scope */}
-            <div className="p-4 rounded-xl bg-surface-2/60 border border-border flex flex-wrap items-center justify-between gap-3">
+            <div className="p-4 rounded bg-surface-2/60 border border-border flex flex-wrap items-center justify-between gap-3">
               <div>
-                <span className="text-xs text-muted font-bold uppercase block">Target Pathway</span>
+                <span className="text-xs text-muted font-mono font-bold uppercase block">Target Pathway</span>
                 <p className="text-base font-black text-foreground mt-0.5">
                   Campus Entry at {studentResult.dreamCompany.name} ({studentResult.entryLevel.levelCode}) &rarr; Target Level {studentResult.targetLevel.levelCode} ({studentResult.targetLevel.title})
                 </p>
               </div>
-              <span className="text-sm font-bold text-secondary">
+              <span className="text-xs font-mono font-bold text-secondary">
                 {studentResult.studentProfile.collegeTier} • {studentResult.studentProfile.degreeAndBranch}
               </span>
             </div>
 
             {/* Eligibility Windows & Date-Driven Status */}
             {studentResult.eligibilityWindows && (
-              <div className="p-5 rounded-2xl bg-primary/10 border border-primary/25 space-y-2.5 text-sm">
+              <div className="p-5 rounded bg-surface-2/40 border border-border space-y-2.5 text-sm">
                 <div className="flex flex-wrap items-center justify-between gap-2">
-                  <span className="font-black text-foreground flex items-center gap-2 text-base">
-                    <GraduationCap className="w-5 h-5 text-primary" />
+                  <span className="font-mono font-black text-foreground flex items-center gap-2 text-base">
+                    <GraduationCap className="w-5 h-5 text-volt" />
                     Academic Status: {studentResult.eligibilityWindows.currentStatus}
                   </span>
-                  <span className="font-bold text-muted text-xs">
+                  <span className="font-mono font-bold text-muted text-xs">
                     {studentResult.eligibilityWindows.remainingSemesters} Semesters Remaining
                   </span>
                 </div>
                 <div className="grid sm:grid-cols-2 gap-4 pt-1 text-xs sm:text-sm">
                   <div>
-                    <span className="font-bold text-muted block mb-0.5">Internship Window:</span>
+                    <span className="font-mono font-bold text-muted block mb-0.5 uppercase text-[11px]">Internship Window:</span>
                     <span className="font-semibold text-foreground">{studentResult.eligibilityWindows.internshipWindow}</span>
                   </div>
                   <div>
-                    <span className="font-bold text-muted block mb-0.5">Campus Placement Drive:</span>
+                    <span className="font-mono font-bold text-muted block mb-0.5 uppercase text-[11px]">Campus Placement Drive:</span>
                     <span className="font-semibold text-foreground">{studentResult.eligibilityWindows.campusPlacementWindow}</span>
                   </div>
                 </div>
-                <p className="text-xs sm:text-sm text-secondary pt-2 border-t border-primary/15">
-                  <strong className="text-foreground">Recommended Focus:</strong> {studentResult.eligibilityWindows.recommendedFocus}
+                <p className="text-xs sm:text-sm text-secondary pt-2 border-t border-border">
+                  <strong className="text-foreground font-mono">Recommended Focus:</strong> {studentResult.eligibilityWindows.recommendedFocus}
                 </p>
               </div>
             )}
 
             {/* Academic & Cutoff Summary Grid */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm pt-1">
-              <div className="p-3.5 bg-surface-2/40 rounded-xl border border-border">
-                <span className="text-xs font-bold text-muted uppercase block">College Tier</span>
-                <span className="text-base font-black text-foreground mt-1 block">{studentResult.studentProfile.collegeTier}</span>
-                <span className="text-xs text-emerald-400 mt-1 block font-semibold">Campus hiring pool</span>
+              <div className="p-3.5 bg-surface-2/40 rounded border border-border">
+                <span className="text-xs font-bold text-muted uppercase font-mono block">College Tier</span>
+                <span className="text-base font-mono font-black text-foreground mt-1 block">{studentResult.studentProfile.collegeTier}</span>
+                <span className="text-xs text-volt mt-1 block font-mono font-semibold">Campus hiring pool</span>
               </div>
-              <div className="p-3.5 bg-surface-2/40 rounded-xl border border-border">
-                <span className="text-xs font-bold text-muted uppercase block">Branch Family</span>
-                <span className="text-base font-black text-foreground mt-1 block truncate" title={studentResult.studentProfile.degreeAndBranch}>
+              <div className="p-3.5 bg-surface-2/40 rounded border border-border">
+                <span className="text-xs font-bold text-muted uppercase font-mono block">Branch Family</span>
+                <span className="text-base font-mono font-black text-foreground mt-1 block truncate" title={studentResult.studentProfile.degreeAndBranch}>
                   {studentResult.studentProfile.branchFamily}
                 </span>
-                <span className="text-xs text-emerald-400 mt-1 block font-semibold">Degree eligible</span>
+                <span className="text-xs text-volt mt-1 block font-mono font-semibold">Degree eligible</span>
               </div>
-              <div className="p-3.5 bg-surface-2/40 rounded-xl border border-border">
-                <span className="text-xs font-bold text-muted uppercase block">CGPA Cutoff Status</span>
-                <span className="text-base font-black text-foreground mt-1 block">
+              <div className="p-3.5 bg-surface-2/40 rounded border border-border">
+                <span className="text-xs font-bold text-muted uppercase font-mono block">CGPA Cutoff Status</span>
+                <span className="text-base font-mono font-black text-foreground mt-1 block">
                   {studentResult.studentProfile.cgpaBracket === 'above_8' ? '> 8.0 CGPA' : studentResult.studentProfile.cgpaBracket === '7_to_8' ? '7.0–8.0 CGPA' : studentResult.studentProfile.cgpaBracket === '6_to_7' ? '6.0–7.0 CGPA' : '< 6.0 CGPA'}
                 </span>
                 <span className="text-xs text-secondary mt-1 block font-medium">Meets prime cutoffs</span>
               </div>
-              <div className="p-3.5 bg-surface-2/40 rounded-xl border border-border">
-                <span className="text-xs font-bold text-muted uppercase block">Internship Status</span>
-                <span className="text-base font-black text-foreground mt-1 block capitalize">
+              <div className="p-3.5 bg-surface-2/40 rounded border border-border">
+                <span className="text-xs font-bold text-muted uppercase font-mono block">Internship Status</span>
+                <span className="text-base font-mono font-black text-foreground mt-1 block capitalize">
                   {studentResult.studentProfile.internshipStatus === 'ppo' ? 'Have PPO' : studentResult.studentProfile.internshipStatus === 'completed' ? 'Completed' : 'None yet'}
                 </span>
                 <span className="text-xs text-secondary mt-1 block font-medium">Pre-placement track</span>
@@ -962,13 +962,13 @@ export function StudentPlacementPathway({
           </div>
 
           {/* 2. HOW DO I GET IN? (RANKED ENTRY ROUTES) */}
-          <div className="bg-surface rounded-3xl p-7 sm:p-8 border border-border shadow-sm space-y-5">
+          <div className="bg-surface rounded-md p-7 sm:p-8 border border-border space-y-5">
             <div className="border-b border-border pb-4">
-              <span className="text-xs font-black uppercase text-primary tracking-wider">
+              <span className="text-xs font-mono font-black uppercase text-volt tracking-wider">
                 Question 2 of 5
               </span>
               <h3 className="text-lg sm:text-xl font-black text-foreground mt-1 flex items-center gap-2.5">
-                <Award className="w-6 h-6 text-primary" />
+                <Award className="w-6 h-6 text-volt" />
                 How do I get in? (Ranked Entry Routes)
               </h3>
               <p className="text-sm text-secondary mt-1">
@@ -980,18 +980,18 @@ export function StudentPlacementPathway({
               {studentResult.entryRoutes.map((route, rIdx) => (
                 <div
                   key={rIdx}
-                  className="bg-surface-2/40 border border-border rounded-2xl p-5 space-y-3 flex flex-col justify-between"
+                  className="bg-surface-2/40 border border-border rounded p-5 space-y-3 flex flex-col justify-between"
                 >
                   <div>
                     <div className="flex items-center justify-between gap-2 mb-2">
                       <span className="text-sm sm:text-base font-black text-foreground">{route.name}</span>
                       <span
-                        className={`px-2.5 py-1 rounded text-xs font-black uppercase ${
+                        className={`px-2.5 py-1 rounded text-xs font-mono font-black uppercase ${
                           route.adjustedLikelihood === 'High'
-                            ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
+                            ? 'bg-volt/10 text-volt border border-volt/30'
                             : route.adjustedLikelihood === 'Medium'
-                            ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20'
-                            : 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
+                            ? 'bg-surface-2 text-muted border border-border'
+                            : 'bg-amber-500/10 text-amber-400 border border-amber-500/30'
                         }`}
                       >
                         Likelihood: {route.adjustedLikelihood}
@@ -1000,30 +1000,30 @@ export function StudentPlacementPathway({
 
                     <p className="text-xs sm:text-sm text-muted leading-relaxed">{route.likelihoodReason}</p>
 
-                    <div className="mt-2.5 pt-2.5 border-t border-border/60 text-xs space-y-1.5">
+                    <div className="mt-2.5 pt-2.5 border-t border-border text-xs space-y-1.5">
                       <div className="flex items-center justify-between text-[11px]">
-                        <span className="text-muted font-bold">Typical CTC Offer:</span>
-                        <span className="font-black text-emerald-400">
+                        <span className="text-muted font-bold font-mono uppercase">Typical CTC Offer:</span>
+                        <span className="font-mono font-black text-volt">
                           {formatINR(route.expectedOfferINR)}
                         </span>
                       </div>
                       <div className="flex items-center justify-between text-[11px]">
-                        <span className="text-muted font-bold">Eligibility Cutoff:</span>
-                        <span className="font-semibold text-foreground">
+                        <span className="text-muted font-bold font-mono uppercase">Cutoff:</span>
+                        <span className="font-semibold text-foreground font-mono">
                           {route.eligibility.cgpaMin}+ CGPA ({route.eligibility.allowedBranches[0]}...)
                         </span>
                       </div>
                     </div>
 
                     {/* Selection Rounds */}
-                    <div className="mt-3 pt-2.5 border-t border-border/60">
-                      <span className="text-[10px] font-black text-muted uppercase block mb-1">
+                    <div className="mt-3 pt-2.5 border-t border-border">
+                      <span className="text-[10px] font-mono font-black text-muted uppercase block mb-1">
                         Selection Rounds ({route.selectionRounds.length})
                       </span>
                       <ul className="space-y-1 text-[11px] text-secondary">
                         {route.selectionRounds.map((rnd, rndIdx) => (
                           <li key={rndIdx} className="flex items-start gap-1.5">
-                            <span className="text-primary font-bold">{rndIdx + 1}.</span>
+                            <span className="text-volt font-bold font-mono">{rndIdx + 1}.</span>
                             <span>{rnd}</span>
                           </li>
                         ))}
@@ -1036,13 +1036,13 @@ export function StudentPlacementPathway({
           </div>
 
           {/* 3. WHAT WILL I EARN? (FRESHER CTC & GROWTH TRAJECTORY) */}
-          <div className="bg-surface rounded-2xl p-6 border border-border shadow-sm space-y-5">
+          <div className="bg-surface rounded-md p-6 border border-border space-y-5">
             <div className="border-b border-border pb-3">
-              <span className="text-[10px] font-black uppercase text-primary tracking-wider">
+              <span className="text-[10px] font-mono font-black uppercase text-volt tracking-wider">
                 Question 3 of 5
               </span>
               <h3 className="text-base sm:text-lg font-black text-foreground mt-0.5 flex items-center gap-2">
-                <TrendingUp className="w-5 h-5 text-emerald-400" />
+                <TrendingUp className="w-5 h-5 text-volt" />
                 What will I earn? (Fresher CTC in INR)
               </h3>
               <p className="text-xs text-secondary mt-0.5">
@@ -1052,9 +1052,9 @@ export function StudentPlacementPathway({
 
             {/* Top Metrics Cards */}
             <div className="grid sm:grid-cols-3 gap-4">
-              <div className="bg-surface-2/40 rounded-xl p-4 border border-border">
-                <span className="text-xs font-bold text-muted uppercase">Fresher Entry Offer Range</span>
-                <span className="text-xl font-black text-emerald-400 block mt-1">
+              <div className="bg-surface-2/40 rounded p-4 border border-border">
+                <span className="text-xs font-bold text-muted uppercase font-mono">Fresher Entry Offer</span>
+                <span className="text-xl font-mono font-black text-volt block mt-1">
                   {formatINRRange(
                     studentResult.entryRoutes[0]?.expectedOfferINR || studentResult.entryLevel.comp.total.p25,
                     studentResult.entryLevel.comp.total.p75
@@ -1065,9 +1065,9 @@ export function StudentPlacementPathway({
                 </span>
               </div>
 
-              <div className="bg-surface-2/40 rounded-xl p-4 border border-border">
-                <span className="text-xs font-bold text-muted uppercase">Target Level Compensation Range</span>
-                <span className="text-xl font-black text-white block mt-1">
+              <div className="bg-surface-2/40 rounded p-4 border border-border">
+                <span className="text-xs font-bold text-muted uppercase font-mono">Target Level Range</span>
+                <span className="text-xl font-mono font-black text-foreground block mt-1">
                   {formatINRRange(studentResult.targetLevel.comp.total.p25, studentResult.targetLevel.comp.total.p75)}
                 </span>
                 <span className="text-xs text-secondary mt-1 block">
@@ -1075,12 +1075,12 @@ export function StudentPlacementPathway({
                 </span>
               </div>
 
-              <div className="bg-surface-2/40 rounded-xl p-4 border border-border">
-                <span className="text-xs font-bold text-muted uppercase">Estimated Time from Graduation</span>
-                <span className="text-2xl font-black text-primary block mt-1">
+              <div className="bg-surface-2/40 rounded p-4 border border-border">
+                <span className="text-xs font-bold text-muted uppercase font-mono">Estimated Time</span>
+                <span className="text-2xl font-mono font-black text-volt block mt-1">
                   {studentResult.totalTimeFromGraduation.likely} Years
                 </span>
-                <span className="text-xs text-muted mt-1 block">
+                <span className="text-xs text-muted mt-1 block font-mono">
                   Range: {studentResult.totalTimeFromGraduation.min}–{studentResult.totalTimeFromGraduation.max} yrs (By ~{studentResult.studentProfile.expectedGraduationYear + Math.round(studentResult.totalTimeFromGraduation.likely)})
                 </span>
               </div>
@@ -1102,13 +1102,13 @@ export function StudentPlacementPathway({
 
           {/* 4. WHEN WILL IT HAPPEN? (CALENDAR TIMELINE) */}
           {studentResult.steps.length > 0 && (
-            <div className="bg-surface rounded-2xl p-6 border border-border shadow-sm space-y-6">
+            <div className="bg-surface rounded-md p-6 border border-border space-y-6">
               <div className="border-b border-border pb-3">
-                <span className="text-[10px] font-black uppercase text-primary tracking-wider">
+                <span className="text-[10px] font-mono font-black uppercase text-volt tracking-wider">
                   Question 4 of 5
                 </span>
                 <h3 className="text-base sm:text-lg font-black text-foreground mt-0.5 flex items-center gap-2">
-                  <Clock className="w-5 h-5 text-blue-400" />
+                  <Clock className="w-5 h-5 text-volt" />
                   When will it happen? (Calendar Timeline)
                 </h3>
                 <p className="text-xs text-secondary mt-0.5">
@@ -1120,11 +1120,11 @@ export function StudentPlacementPathway({
                 {studentResult.steps.map((step) => (
                   <div
                     key={step.stepIndex}
-                    className="p-5 rounded-xl border border-border bg-surface-2/30 space-y-4"
+                    className="p-5 rounded border border-border bg-surface-2/30 space-y-4"
                   >
-                    <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border/60 pb-3">
+                    <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border pb-3">
                       <div className="flex items-center gap-2">
-                        <span className="w-6 h-6 rounded-full bg-primary text-white text-xs font-black flex items-center justify-center">
+                        <span className="w-6 h-6 rounded-full bg-volt text-black text-xs font-mono font-black flex items-center justify-center">
                           {step.stepIndex}
                         </span>
                         <h4 className="text-sm font-black text-foreground">
@@ -1132,10 +1132,10 @@ export function StudentPlacementPathway({
                         </h4>
                       </div>
                       <div className="text-right">
-                        <span className="text-xs font-black text-primary block">
+                        <span className="text-xs font-mono font-black text-volt block">
                           {step.calendarYearWindow}
                         </span>
-                        <span className="text-[10px] text-muted">
+                        <span className="text-[10px] text-muted font-mono">
                           Duration: ~{step.durationYears.likely} yrs (range: {step.durationYears.min}–{step.durationYears.max} yrs)
                         </span>
                       </div>
@@ -1143,16 +1143,16 @@ export function StudentPlacementPathway({
 
                     {/* Requirements Grid */}
                     <div className="grid sm:grid-cols-3 gap-3 text-xs">
-                      <div className="bg-surface p-3 rounded-lg border border-border space-y-1">
-                        <span className="font-extrabold text-foreground block">Scope Required</span>
+                      <div className="bg-surface p-3 rounded border border-border space-y-1">
+                        <span className="font-mono font-bold uppercase text-[11px] text-foreground block">Scope Required</span>
                         <p className="text-secondary leading-relaxed">{step.requirements.scope}</p>
                       </div>
-                      <div className="bg-surface p-3 rounded-lg border border-border space-y-1">
-                        <span className="font-extrabold text-foreground block">Measurable Impact</span>
+                      <div className="bg-surface p-3 rounded border border-border space-y-1">
+                        <span className="font-mono font-bold uppercase text-[11px] text-foreground block">Measurable Impact</span>
                         <p className="text-secondary leading-relaxed">{step.requirements.impact}</p>
                       </div>
-                      <div className="bg-surface p-3 rounded-lg border border-border space-y-1">
-                        <span className="font-extrabold text-foreground block">Leadership &amp; Mentorship</span>
+                      <div className="bg-surface p-3 rounded border border-border space-y-1">
+                        <span className="font-mono font-bold uppercase text-[11px] text-foreground block">Leadership &amp; Mentorship</span>
                         <p className="text-secondary leading-relaxed">{step.requirements.influence}</p>
                       </div>
                     </div>
@@ -1171,13 +1171,13 @@ export function StudentPlacementPathway({
           )}
 
           {/* 4.1 FIRST TWO YEARS FRESHER MILESTONES */}
-          <div className="bg-surface rounded-2xl p-6 border border-border shadow-sm space-y-5">
+          <div className="bg-surface rounded-md p-6 border border-border space-y-5">
             <div className="border-b border-border pb-3">
-              <span className="px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 inline-block mb-1">
+              <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-black uppercase tracking-wider bg-volt/10 text-volt border border-volt/30 inline-block mb-1">
                 Early Career Core Focus
               </span>
               <h3 className="text-base sm:text-lg font-black text-foreground mt-0.5 flex items-center gap-2">
-                <Target className="w-5 h-5 text-emerald-400" />
+                <Target className="w-5 h-5 text-volt" />
                 First Two Years: Critical Engineering Milestones
               </h3>
               <p className="text-xs text-secondary mt-0.5">
@@ -1187,44 +1187,44 @@ export function StudentPlacementPathway({
 
             <div className="grid md:grid-cols-2 gap-4">
               {/* Year 1 */}
-              <div className="p-4 rounded-xl border border-border bg-surface-2/40 space-y-3">
-                <div className="flex items-center justify-between border-b border-border/60 pb-2">
+              <div className="p-4 rounded border border-border bg-surface-2/40 space-y-3">
+                <div className="flex items-center justify-between border-b border-border pb-2">
                   <span className="font-black text-foreground text-sm flex items-center gap-1.5">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400" /> Year 1: Onboarding &amp; Delivery Execution
+                    <CheckCircle2 className="w-4 h-4 text-volt" /> Year 1: Onboarding &amp; Delivery Execution
                   </span>
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-primary/10 text-primary">
+                  <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-volt/10 text-volt">
                     Months 1–12
                   </span>
                 </div>
                 <div className="space-y-2 text-xs text-secondary">
-                  <div className="bg-surface p-2.5 rounded-lg border border-border/80">
-                    <strong className="text-foreground block text-[11px] mb-0.5">Production Ownership:</strong>
+                  <div className="bg-surface p-2.5 rounded border border-border">
+                    <strong className="text-foreground block text-[11px] font-mono mb-0.5 uppercase">Production Ownership:</strong>
                     Ship first feature PR within 30 days; master CI/CD deployment pipelines, unit testing, and team code review SLA standards.
                   </div>
-                  <div className="bg-surface p-2.5 rounded-lg border border-border/80">
-                    <strong className="text-foreground block text-[11px] mb-0.5">Operational Reliability:</strong>
+                  <div className="bg-surface p-2.5 rounded border border-border">
+                    <strong className="text-foreground block text-[11px] font-mono mb-0.5 uppercase">Operational Reliability:</strong>
                     Shadow team on-call rotation by month 6; write comprehensive runbooks for handled production incidents.
                   </div>
                 </div>
               </div>
 
               {/* Year 2 */}
-              <div className="p-4 rounded-xl border border-border bg-surface-2/40 space-y-3">
-                <div className="flex items-center justify-between border-b border-border/60 pb-2">
+              <div className="p-4 rounded border border-border bg-surface-2/40 space-y-3">
+                <div className="flex items-center justify-between border-b border-border pb-2">
                   <span className="font-black text-foreground text-sm flex items-center gap-1.5">
-                    <TrendingUp className="w-4 h-4 text-primary" /> Year 2: Independent Subsystem Scope
+                    <TrendingUp className="w-4 h-4 text-volt" /> Year 2: Independent Subsystem Scope
                   </span>
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-primary/10 text-primary">
+                  <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-volt/10 text-volt">
                     Months 13–24
                   </span>
                 </div>
                 <div className="space-y-2 text-xs text-secondary">
-                  <div className="bg-surface p-2.5 rounded-lg border border-border/80">
-                    <strong className="text-foreground block text-[11px] mb-0.5">End-to-End Design:</strong>
+                  <div className="bg-surface p-2.5 rounded border border-border">
+                    <strong className="text-foreground block text-[11px] font-mono mb-0.5 uppercase">End-to-End Design:</strong>
                     Author RFC/technical design doc for a service integration or performance optimization; drive implementation end-to-end.
                   </div>
-                  <div className="bg-surface p-2.5 rounded-lg border border-border/80">
-                    <strong className="text-foreground block text-[11px] mb-0.5">Promotion Packet Evidence:</strong>
+                  <div className="bg-surface p-2.5 rounded border border-border">
+                    <strong className="text-foreground block text-[11px] font-mono mb-0.5 uppercase">Promotion Packet Evidence:</strong>
                     Deliver measurable business metric (latency reduction, cost savings, or error rate drop) required for advancement to {studentResult.targetLevel.levelCode}.
                   </div>
                 </div>
@@ -1233,13 +1233,13 @@ export function StudentPlacementPathway({
           </div>
 
           {/* 5. WHAT SHOULD I DO NEXT? (ACTION STEPS & STEPPING STONES) */}
-          <div className="bg-surface rounded-2xl p-6 border border-border shadow-sm space-y-6">
+          <div className="bg-surface rounded-md p-6 border border-border space-y-6">
             <div className="border-b border-border pb-3">
-              <span className="text-[10px] font-black uppercase text-primary tracking-wider">
+              <span className="text-[10px] font-mono font-black uppercase text-volt tracking-wider">
                 Question 5 of 5
               </span>
               <h3 className="text-base sm:text-lg font-black text-foreground mt-0.5 flex items-center gap-2">
-                <Compass className="w-5 h-5 text-blue-400" />
+                <Compass className="w-5 h-5 text-volt" />
                 What should I do next? (Action Steps &amp; Stepping Stones)
               </h3>
               <p className="text-xs text-secondary mt-0.5">
@@ -1248,26 +1248,26 @@ export function StudentPlacementPathway({
             </div>
 
             {/* Immediate Semester Action Plan */}
-            <div className="p-4 rounded-xl bg-blue-500/10 border border-blue-500/25 space-y-2.5 text-xs">
-              <span className="font-black text-blue-300 flex items-center gap-2 text-sm">
-                <Sparkles className="w-4 h-4 text-blue-400" />
+            <div className="p-4 rounded bg-surface-2/40 border border-border space-y-2.5 text-xs">
+              <span className="font-mono font-black text-volt flex items-center gap-2 text-sm uppercase">
+                <Sparkles className="w-4 h-4 text-volt" />
                 Your Recommended Tactical Next Steps
               </span>
               <div className="grid sm:grid-cols-3 gap-3 pt-1">
-                <div className="bg-surface p-3 rounded-lg border border-border space-y-1">
-                  <span className="font-bold text-foreground block text-xs">1. Immediate Target</span>
+                <div className="bg-surface p-3 rounded border border-border space-y-1">
+                  <span className="font-mono font-bold text-foreground block text-xs uppercase">1. Immediate Target</span>
                   <p className="text-secondary text-[11px] leading-relaxed">
                     {studentResult.eligibilityWindows?.recommendedFocus || 'Strengthen Data Structures and core Computer Science fundamentals for campus placement rounds.'}
                   </p>
                 </div>
-                <div className="bg-surface p-3 rounded-lg border border-border space-y-1">
-                  <span className="font-bold text-foreground block text-xs">2. Drive Preparation</span>
+                <div className="bg-surface p-3 rounded border border-border space-y-1">
+                  <span className="font-mono font-bold text-foreground block text-xs uppercase">2. Drive Preparation</span>
                   <p className="text-secondary text-[11px] leading-relaxed">
                     Prepare for {studentResult.entryRoutes[0]?.name || 'campus online assessments'} with target company question patterns and mock coding tests.
                   </p>
                 </div>
-                <div className="bg-surface p-3 rounded-lg border border-border space-y-1">
-                  <span className="font-bold text-foreground block text-xs">3. Resume &amp; Portfolio</span>
+                <div className="bg-surface p-3 rounded border border-border space-y-1">
+                  <span className="font-mono font-bold text-foreground block text-xs uppercase">3. Resume &amp; Portfolio</span>
                   <p className="text-secondary text-[11px] leading-relaxed">
                     Build 2 production-grade full-stack / backend projects showcasing concurrency, clean architecture, and deployment evidence.
                   </p>
@@ -1279,24 +1279,24 @@ export function StudentPlacementPathway({
             {studentResult.alternateSteppingStones.length > 0 && (
               <div className="space-y-3 pt-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-black text-foreground uppercase tracking-wider">
+                  <span className="text-xs font-mono font-black text-foreground uppercase tracking-wider">
                     Stepping-Stone Backup Offers ({studentResult.alternateSteppingStones.length})
                   </span>
-                  <span className="text-[11px] text-muted">
+                  <span className="text-[11px] text-muted font-mono">
                     Alternative routes into {studentResult.dreamCompany.name}
                   </span>
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-4">
                   {studentResult.alternateSteppingStones.map((stone, sIdx) => (
-                    <div key={sIdx} className="bg-surface-2/40 border border-border rounded-xl p-4 space-y-2 text-xs">
+                    <div key={sIdx} className="bg-surface-2/40 border border-border rounded p-4 space-y-2 text-xs">
                       <div className="flex items-center justify-between">
                         <span className="font-black text-foreground text-sm">{stone.company.name}</span>
-                        <span className="px-2 py-0.5 rounded bg-surface text-[10px] font-bold text-muted border border-border">
+                        <span className="px-2 py-0.5 rounded bg-surface text-[10px] font-mono font-bold text-muted border border-border">
                           {stone.typicalDurationYears} yrs stepping stone
                         </span>
                       </div>
-                      <p className="text-primary font-bold">{stone.entryRole} ({formatINR(stone.entryOfferINR)})</p>
+                      <p className="text-volt font-mono font-bold">{stone.entryRole} ({formatINR(stone.entryOfferINR)})</p>
                       <p className="text-secondary leading-relaxed pt-1">{stone.rationale}</p>
                     </div>
                   ))}

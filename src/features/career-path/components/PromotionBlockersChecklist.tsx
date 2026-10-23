@@ -29,8 +29,8 @@ export function PromotionBlockersChecklist({
 
   if (!blockers || blockers.length === 0) {
     return (
-      <div className="p-4 rounded-xl bg-surface-2/40 border border-border text-xs text-muted flex items-center gap-2">
-        <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+      <div className="p-4 rounded bg-surface-2/40 border border-border text-xs text-muted flex items-center gap-2 font-mono">
+        <CheckCircle2 className="w-4 h-4 text-volt" />
         No critical structural blockers documented for this milestone.
       </div>
     );
@@ -40,27 +40,27 @@ export function PromotionBlockersChecklist({
   if (mode === 'card-grid') {
     const displayed = blockers.slice(0, maxCards);
     return (
-      <div className="bg-amber-500/5 border border-amber-500/20 rounded-xl p-3.5 space-y-2 text-xs">
-        <span className="font-black text-amber-400 flex items-center gap-1.5">
+      <div className="bg-surface-2/40 border border-border rounded p-3.5 space-y-2 text-xs">
+        <span className="font-black text-amber-400 flex items-center gap-1.5 uppercase font-mono tracking-wider">
           <AlertTriangle className="w-3.5 h-3.5 shrink-0" />
           {title || `Key Blockers to Overcome on this Promotion (${blockers.length} Documented)`}
         </span>
         {subtitle && <p className="text-[11px] text-muted">{subtitle}</p>}
         <div className="grid sm:grid-cols-2 gap-2 pt-1">
           {displayed.map((blk, idx) => (
-            <div key={idx} className="bg-surface p-2.5 rounded-lg border border-border space-y-1">
+            <div key={idx} className="bg-surface p-2.5 rounded border border-border space-y-1">
               <div className="flex items-center justify-between gap-1">
                 <span className="font-bold text-foreground block text-[11px]">{blk.title}</span>
                 {blk.category && (
-                  <span className="text-[9px] px-1.5 py-0.2 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20 uppercase font-mono">
+                  <span className="text-[9px] px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/30 uppercase font-mono">
                     {blk.category}
                   </span>
                 )}
               </div>
               <p className="text-[10px] text-muted leading-tight">{blk.whyItBlocks}</p>
               {blk.evidenceToCounter && (
-                <p className="text-[10px] text-emerald-400 leading-tight pt-1 border-t border-border/40">
-                  <span className="font-bold">Counter: </span>
+                <p className="text-[10px] text-volt leading-tight pt-1 border-t border-border font-mono">
+                  <span className="font-bold uppercase">Counter: </span>
                   {blk.evidenceToCounter}
                 </p>
               )}
@@ -83,10 +83,10 @@ export function PromotionBlockersChecklist({
     <div className="space-y-3 pt-2">
       <div className="flex items-center justify-between">
         <h3 className="text-sm font-black text-foreground flex items-center gap-2">
-          <AlertTriangle className="w-4 h-4 text-amber-500" />
+          <AlertTriangle className="w-4 h-4 text-amber-400" />
           {title || `Common Reasons Promotions Get Blocked (${blockers.length} Documented)`}
         </h3>
-        <span className="text-[10px] text-muted font-bold">Grouped by Category</span>
+        <span className="text-[10px] text-muted font-bold font-mono uppercase">By Category</span>
       </div>
       {subtitle && <p className="text-xs text-secondary leading-relaxed">{subtitle}</p>}
 
@@ -94,27 +94,27 @@ export function PromotionBlockersChecklist({
         {Object.entries(grouped).map(([category, catBlockers]) => {
           const isExpanded = expandedCat === category;
           return (
-            <div key={category} className="border border-border rounded-xl bg-surface-2/30 overflow-hidden">
+            <div key={category} className="border border-border rounded bg-surface-2/30 overflow-hidden">
               <button
                 type="button"
                 onClick={() => setExpandedCat(isExpanded ? null : category)}
-                className="w-full px-4 py-2.5 text-left text-xs font-black text-foreground flex items-center justify-between hover:bg-surface-2/60 transition-colors"
+                className="w-full px-4 py-2.5 text-left text-xs font-black text-foreground flex items-center justify-between hover:bg-surface-2 transition-colors cursor-pointer"
                 aria-expanded={isExpanded}
               >
                 <span className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-amber-500" />
-                  {category}
-                  <span className="text-[10px] font-normal text-muted">({catBlockers.length})</span>
+                  <span className="w-2 h-2 rounded-full bg-amber-400" />
+                  <span className="font-mono">{category}</span>
+                  <span className="text-[10px] font-mono text-muted">({catBlockers.length})</span>
                 </span>
                 {isExpanded ? <ChevronUp className="w-4 h-4 text-muted" /> : <ChevronDown className="w-4 h-4 text-muted" />}
               </button>
 
               {isExpanded && (
-                <div className="px-4 pb-3 pt-1 space-y-2 border-t border-border/60 animate-fade-in">
+                <div className="px-4 pb-3 pt-1 space-y-2 border-t border-border animate-fade-in">
                   {catBlockers.map((b, idx) => (
-                    <div key={idx} className="p-3 bg-surface rounded-lg border border-border/80 text-xs space-y-1.5 shadow-2xs">
+                    <div key={idx} className="p-3 bg-surface rounded border border-border text-xs space-y-1.5">
                       <div className="font-bold text-foreground text-xs flex items-center gap-1.5">
-                        <ShieldAlert className="w-3.5 h-3.5 text-amber-500" />
+                        <ShieldAlert className="w-3.5 h-3.5 text-amber-400" />
                         {b.title}
                       </div>
                       <div className="text-secondary leading-relaxed text-[11px]">
@@ -122,8 +122,8 @@ export function PromotionBlockersChecklist({
                         {b.whyItBlocks}
                       </div>
                       {b.evidenceToCounter && (
-                        <div className="text-emerald-400 bg-emerald-500/10 p-2 rounded border border-emerald-500/20 text-[11px] leading-relaxed">
-                          <span className="font-bold">Required Evidence to Counter: </span>
+                        <div className="text-volt bg-volt/10 p-2 rounded border border-volt/20 text-[11px] leading-relaxed font-mono">
+                          <span className="font-bold uppercase">Required Evidence to Counter: </span>
                           {b.evidenceToCounter}
                         </div>
                       )}
