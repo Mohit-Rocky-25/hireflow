@@ -166,17 +166,17 @@ export function LandingPage() {
 
           {/* Tool Cards Grid (§4: 8px radius, charcoal border, hover elevated, featured card with volt border) */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Tool 1: Featured Card with Neon Border */}
+            {/* Tool 1: TalentLens Simulator */}
             <Link
               to="/demo"
-              className="group rounded-lg bg-near-black border border-volt p-8 shadow-level-5 flex flex-col justify-between hover:border-volt transition-colors cursor-pointer"
+              className="group rounded-lg bg-near-black border border-charcoal p-8 hover:border-volt/60 hover:shadow-level-3 flex flex-col justify-between transition-colors cursor-pointer"
             >
               <div>
                 <div className="flex items-center justify-between gap-4 mb-6">
                   <div className="w-12 h-12 rounded bg-black border border-charcoal flex items-center justify-center text-volt">
                     <Brain className="w-6 h-6 stroke-[1.5px]" />
                   </div>
-                  <span className="text-[11px] font-semibold uppercase tracking-[1.4px] px-2.5 py-1 rounded bg-black text-volt border border-volt">
+                  <span className="text-[11px] font-semibold uppercase tracking-[1.4px] px-2.5 py-1 rounded bg-black text-silver border border-charcoal">
                     Featured • Simulator
                   </span>
                 </div>
@@ -205,7 +205,7 @@ export function LandingPage() {
                 </ul>
               </div>
 
-              <div className="w-full py-3 px-4 rounded bg-volt text-text-on-accent text-[13px] font-bold uppercase tracking-[1.2px] flex items-center justify-between group-hover:bg-[#1d1d1d] group-hover:text-white transition-colors">
+              <div className="w-full py-3 px-4 rounded bg-near-black border border-charcoal text-white text-[13px] font-semibold uppercase tracking-[1.2px] flex items-center justify-between group-hover:border-volt group-hover:text-volt transition-colors">
                 <span>Launch Simulator</span>
                 <ArrowRight className="w-4 h-4 stroke-[1.5px]" />
               </div>

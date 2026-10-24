@@ -43,9 +43,8 @@ export function PublicNavbar() {
         <div className="hidden md:flex items-center gap-6 lg:gap-8">
           <Link
             to="/demo"
-            className="text-[13px] font-semibold uppercase tracking-[1.4px] text-white hover:text-volt active:text-pale-yellow transition-colors flex items-center gap-1.5"
+            className="text-[13px] font-semibold uppercase tracking-[1.4px] text-white hover:text-volt active:text-pale-yellow transition-colors"
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-volt" />
             TALENTLENS
           </Link>
           <Link
@@ -103,13 +102,10 @@ export function PublicNavbar() {
             <Link
               to="/demo"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center justify-between px-3.5 py-2.5 rounded bg-near-black border border-charcoal text-[13px] font-semibold uppercase tracking-[1.4px] text-volt hover:border-volt transition-colors"
+              className="px-3.5 py-2.5 rounded text-[13px] font-semibold uppercase tracking-[1.4px] text-white hover:text-volt hover:bg-near-black flex items-center gap-2 transition-colors"
             >
-              <span className="flex items-center gap-2">
-                <UserCheck className="w-4 h-4 stroke-[1.5px]" />
-                TALENTLENS™ SIMULATOR
-              </span>
-              <span className="text-xs text-silver">PRIMARY →</span>
+              <UserCheck className="w-4 h-4 stroke-[1.5px] text-silver" />
+              <span>TALENTLENS™ SIMULATOR</span>
             </Link>
             <Link
               to="/tools"
