@@ -5,7 +5,7 @@
  * live configuration constants, and sanitized diagnostic utilities.
  */
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   ShieldCheck,
   Calculator,
@@ -23,6 +23,7 @@ import {
   CheckCircle2,
   Lock,
   Sparkles,
+  ChevronDown,
 } from 'lucide-react';
 import {
   ATS_PILLAR_WEIGHTS,
@@ -77,10 +78,43 @@ const PROVENANCE_DATA: ProvenanceEntry[] = [
   },
 ];
 
+const DIAGNOSTIC_METRIC_OPTIONS = [
+  { value: 'overall-ats-score', label: 'Overall ATS Score' },
+  { value: 'jd-match-score', label: 'JD Match Score' },
+  { value: 'hard-skills-coverage', label: 'Hard Skills Coverage' },
+  { value: 'evidence-depth-score', label: 'Evidence Depth Score' },
+  { value: 'verb-impact-score', label: 'Verb Impact Score' },
+  { value: 'demanded-skill-score', label: 'Demanded Skill Market Score' },
+  { value: 'branch-bridge-match', label: 'Branch Bridge Transferability' },
+];
+
 export function MethodologyPage() {
   const [copiedMetricId, setCopiedMetricId] = useState<string | null>(null);
   const [selectedDiagnosticMetric, setSelectedDiagnosticMetric] = useState('overall-ats-score');
   const [diagnosticJson, setDiagnosticJson] = useState<string | null>(null);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    }
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === 'Escape') {
+        setIsDropdownOpen(false);
+      }
+    }
+    if (isDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('keydown', handleKeyDown);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isDropdownOpen]);
 
   // MRVI Interactive Simulator
   const [mrviDemand, setMrviDemand] = useState(85);
@@ -563,22 +597,76 @@ export function MethodologyPage() {
           </p>
 
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-            <select
-              value={selectedDiagnosticMetric}
-              onChange={(e) => {
-                setSelectedDiagnosticMetric(e.target.value);
-                setDiagnosticJson(null);
-              }}
-              className="rounded border border-charcoal bg-surface-elevated px-3 py-2 text-xs text-white font-mono focus:border-volt focus:outline-none"
-            >
-              <option value="overall-ats-score">Overall ATS Score</option>
-              <option value="jd-match-score">JD Match Score</option>
-              <option value="hard-skills-coverage">Hard Skills Coverage</option>
-              <option value="evidence-depth-score">Evidence Depth Score</option>
-              <option value="verb-impact-score">Verb Impact Score</option>
-              <option value="demanded-skill-score">Demanded Skill Market Score</option>
-              <option value="branch-bridge-match">Branch Bridge Transferability</option>
-            </select>
+            {/* Custom High-Contrast Dark Dropdown (prevents OS light-theme popup screen) */}
+            <div ref={dropdownRef} className="relative inline-block w-full sm:w-auto">
+              <button
+                type="button"
+                id="diagnostic-metric-select-btn"
+                aria-haspopup="listbox"
+                aria-expanded={isDropdownOpen}
+                onClick={() => setIsDropdownOpen((prev) => !prev)}
+                className="w-full sm:w-64 inline-flex items-center justify-between gap-2 rounded border border-charcoal bg-[#121212] px-3.5 py-2 text-xs text-white font-mono hover:border-neutral-500 focus:border-volt focus:outline-none transition-colors cursor-pointer shadow-sm"
+              >
+                <span className="truncate font-semibold text-white">
+                  {DIAGNOSTIC_METRIC_OPTIONS.find((opt) => opt.value === selectedDiagnosticMetric)?.label || 'Select Metric'}
+                </span>
+                <ChevronDown className={`h-4 w-4 text-neutral-400 transition-transform duration-200 shrink-0 ${isDropdownOpen ? 'rotate-180 text-volt' : ''}`} />
+              </button>
+
+              {isDropdownOpen && (
+                <div
+                  role="listbox"
+                  aria-labelledby="diagnostic-metric-select-btn"
+                  className="absolute left-0 mt-1.5 w-full sm:w-72 rounded-lg border border-charcoal bg-[#0f0f0f] py-1.5 z-50 animate-fade-in"
+                  style={{
+                    boxShadow: '0 12px 36px rgba(0, 0, 0, 0.95), 0 0 0 1px rgba(255, 255, 255, 0.08)',
+                  }}
+                >
+                  {DIAGNOSTIC_METRIC_OPTIONS.map((opt) => {
+                    const isSelected = opt.value === selectedDiagnosticMetric;
+                    return (
+                      <button
+                        key={opt.value}
+                        type="button"
+                        role="option"
+                        aria-selected={isSelected}
+                        onClick={() => {
+                          setSelectedDiagnosticMetric(opt.value);
+                          setDiagnosticJson(null);
+                          setIsDropdownOpen(false);
+                        }}
+                        className={`w-full text-left px-3.5 py-2.5 text-xs font-mono flex items-center justify-between transition-colors cursor-pointer ${
+                          isSelected
+                            ? 'bg-volt/15 text-volt font-bold'
+                            : 'text-neutral-200 hover:bg-[#1f1f1f] hover:text-white'
+                        }`}
+                      >
+                        <span className="truncate">{opt.label}</span>
+                        {isSelected && <Check className="h-3.5 w-3.5 text-volt ml-2 shrink-0" />}
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+
+              {/* Visually hidden native select to guarantee form compatibility & test accessibility */}
+              <select
+                aria-label="Diagnostic Metric Selection"
+                value={selectedDiagnosticMetric}
+                onChange={(e) => {
+                  setSelectedDiagnosticMetric(e.target.value);
+                  setDiagnosticJson(null);
+                }}
+                className="sr-only"
+                tabIndex={-1}
+              >
+                {DIAGNOSTIC_METRIC_OPTIONS.map((opt) => (
+                  <option key={opt.value} value={opt.value} className="bg-[#121212] text-white">
+                    {opt.label}
+                  </option>
+                ))}
+              </select>
+            </div>
 
             <button
               type="button"

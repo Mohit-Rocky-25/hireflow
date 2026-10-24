@@ -42,12 +42,32 @@ body {
   background-color: #000000;
 }
 
-/* ── Universal Dark High-Contrast Theming ── */
-[data-theme],
-.career-portal-dark {
-  background-color: #000000 !important;
+/* ── Universal Dark Form Controls (Eliminates OS white popup menus & blinding white screens) ── */
+select,
+input,
+textarea {
+  color-scheme: dark !important;
+}
+
+select {
+  background-color: #121212 !important;
   color: #ffffff !important;
 }
+
+select option,
+select optgroup {
+  background-color: #121212 !important;
+  color: #ffffff !important;
+  padding: 8px 12px !important;
+}
+
+select option:hover,
+select option:focus,
+select option:checked {
+  background-color: #242424 !important;
+  color: #faff69 !important;
+}
+
 
 /* ── Universal High-Contrast Text Color Rules (WCAG AAA on Dark Canvas) ── */
 .text-foreground {
