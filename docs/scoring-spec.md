@@ -97,18 +97,37 @@ Each resume bullet is evaluated against a strict 100-point ceiling:
    - Implied objective (`in order to maintain`, `for higher scalability`): **10 pts**
    - None: **0 pts**
 
-*Keyword Dump Penalty*: If 3+ technologies are listed in a bullet with no decisive action verb and no outcome, it is flagged as a keyword dump and takes an 8-point score.  
-*Plausibility Check*: Implausible metrics (e.g. `+800%`, `99.999% uptime` on student project) trigger an advisory flag but never artificially modify the numerical score.
+*Keyword Dump Penalty*: If 3+ technologies are listed in a bullet with no decisive action verb and no outcome, it is flagged as a keyword dump and takes an 8-point score.
 
 ---
 
-## 6. Sensitivity Band Evaluation
+## 6. Sensitivity Band Parameters (`bandParameters`)
 
-Sensitivity is computed deterministically with **zero randomness**:
-- Perturbation A: Each applicable pillar weight perturbed by `x0.8` and `x1.2` individually, with full weight renormalization across applicable pillars.
-- Perturbation B: Each requirement with classification confidence below `0.75` flipped between must and preferred.
-- Range: `low = min(runs)`, `high = max(runs)`, `width = high - low`.
-- Output Label:
-  - `width <= 6`: **Stable**
-  - `width <= 12`: **Moderate**
-  - `width > 12`: **Sensitive**
+HireFlow presents a sensitivity range instead of a misleading single integer cutoff:
+
+- **Perturbation Delta**: `±0.20` (20% weight variation)
+- **Confidence Threshold**: `0.75` (Requirements below 75% extraction confidence widen the band)
+- **Minimum Spread**: `±3.0 pts`
+- **Maximum Spread**: `±12.0 pts`
+- **Stability Labels**:
+  - `Stable`: Spread ≤ 4.0 pts (high certainty in resume alignment)
+  - `Moderate`: Spread ≤ 7.5 pts (some ambiguous wording or missing metrics)
+  - `Sensitive`: Spread > 7.5 pts (heavy reliance on low-confidence requirements)
+
+---
+
+## 7. Market Archetype Group Weights (`archetypeProfiles`)
+
+TalentLens evaluates readiness according to the calibrated bar of each employer archetype:
+
+| Archetype ID | Market Archetype Label | Req Coverage | Evidence Quality | Project Readiness | Parser Friendly | Seniority Fit |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| `big_tech_product` | Tier 1 Global Product (Google, Microsoft, Amazon) | **40%** | **30%** | **20%** | **10%** | **0%** |
+| `quant_trading` | High-Frequency & Quantitative Trading (Tower, Graviton) | **35%** | **35%** | **20%** | **10%** | **0%** |
+| `indian_high_growth` | Tier 1/2 Indian High-Growth Product (Swiggy, Razorpay) | **35%** | **25%** | **25%** | **15%** | **0%** |
+| `product_mnc_gcc` | Product MNC & Global Capability Centers (JPMC, Target) | **35%** | **25%** | **20%** | **20%** | **0%** |
+| `service_track` | Global IT Services (TCS Digital/Prime, Infosys DNB) | **40%** | **20%** | **15%** | **25%** | **0%** |
+| `early_growth_startup` | Early & Growth-Stage Startups (Seed to Series B) | **30%** | **25%** | **35%** | **10%** | **0%** |
+
+*Rule F15 Enforcement*: TCS criteria is strictly 60% aggregate (~6.0 CGPA throughout 10th, 12th, and degree), NOT 6.5 CGPA.
+*Rule F16 Enforcement*: LeetCode and Codeforces rankings are percentiled strong signals, never minimum screening cutoffs.

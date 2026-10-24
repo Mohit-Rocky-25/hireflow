@@ -29,6 +29,8 @@
     "check:market-data": "npx tsx scripts/check-market-data.ts",
     "check:constants": "node scripts/check-constants.mjs",
     "check:ui-scoring": "node scripts/check-ui-scoring.mjs",
+    "check:provenance": "node scripts/check-provenance.mjs",
+    "docs:scoring": "node scripts/docs-scoring.mjs",
     "validate:scoring": "vitest run tests/validation/validateScoring.test.ts"
   },
   "devDependencies": {

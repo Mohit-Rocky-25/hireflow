@@ -1,12 +1,12 @@
 /**
- * HireFlow: Scoring Methodology & Provenance Page (Phase 4 Transparency)
- * Comprehensive, honest, and verifiable documentation of all scoring algorithms,
- * JD Alignment Index, Project Substance Index, Truth Gate invariants,
- * live configuration constants, and sanitized diagnostic utilities.
+ * HireFlow: Scoring Methodology & Provenance Page (Stage 6)
+ * Built strictly from CANONICAL_SCORING_SPEC and provenance.generated.json.
+ * Zero hardcoded scoring weights, zero UI arithmetic, zero banned claims.
  */
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
 import {
+  Scale,
   ShieldCheck,
   Calculator,
   Database,
@@ -16,7 +16,6 @@ import {
   FileCode,
   Download,
   Info,
-  Scale,
   Target,
   Layers,
   Cpu,
@@ -24,112 +23,176 @@ import {
   Lock,
   Sparkles,
   ChevronDown,
+  Play,
+  ArrowRight,
+  ExternalLink,
+  Eye,
+  BarChart3,
+  BadgeCheck,
+  AlertCircle,
+  HelpCircle,
 } from 'lucide-react';
-import {
-  ATS_PILLAR_WEIGHTS,
-  REQUIREMENT_WEIGHT_CLASSES,
-  MATCH_CLASSIFICATION_MULTIPLIERS,
-  EVIDENCE_LEVEL_MULTIPLIERS,
-  VERB_STRENGTH_MODIFIERS,
-  JD_ALIGNMENT_WEIGHTS,
-  PROJECT_SUBSTANCE_WEIGHTS,
-  TRUTH_GATE_RULES,
-  MRVI_WEIGHTS,
-  calculateMrvi,
-} from '../../config/scoring';
-import { ENGINE_VERSION, computeConfigFingerprint } from '../../config/versions';
+import { CANONICAL_SCORING_SPEC } from '../../scoring/spec/canonicalSpec';
+import { computeSpecFingerprint } from '../../scoring/core/fingerprint';
+import { runScoringEngine } from '../../scoring/core/traceBuilder';
+import { buildScoringContext } from '../../scoring/core/context';
+import { parseResumeToScoringInput } from '../../scoring/core/resumeParser';
+import { parseJobDescription } from '../../scoring/core/jdParser';
+import { buildZeroPiiReportPayload } from '../../scoring/core/reportPayload';
+import { SYNTHETIC_FIXTURES, SyntheticFixture } from '../../scoring/__fixtures__/syntheticFixtures';
+import provenanceData from '../../data/provenance.generated.json';
 import { useFeedbackStore } from '../../store/feedbackStore';
-import { copyDiagnosticPayload, generateDiagnosticPayload } from '../../lib/diagnostics/reportWrongResult';
 import { PageNav } from '../../components/common/PageNav';
+import { copyDiagnosticPayload, generateDiagnosticPayload } from '../../lib/diagnostics/reportWrongResult';
+import { ScoreTrace, PillarTraceItem } from '../../scoring/core/types';
+import { ExperienceLevel } from '../../scoring/spec/types';
 
-interface ProvenanceEntry {
-  dataset: string;
-  relevance: string;
-  source: string;
-  sampleSize: string;
-  period: string;
-  biases: string;
-}
-
-const PROVENANCE_DATA: ProvenanceEntry[] = [
+// Feature-to-Pillar Canonical Mapping Table (Rule A3)
+const SINGLE_COUNTING_MAPPING = [
   {
-    dataset: 'Indian Engineering Campus Placements',
-    relevance: 'Tier-1, 2, and 3 campus placement drive patterns (TCS, Infosys, Wipro, Product Startups)',
-    source: 'Aggregated anonymized fresher hiring drives & AICTE curriculum updates',
-    sampleSize: '2,400+ job descriptions across 18 tech hubs',
-    period: '2024–2026 academic calendar',
-    biases: 'Heavier representation of Bangalore, Hyderabad, Pune, and NCR engineering hubs.',
+    feature: 'Mandatory Technical Skills (Direct & Transferable)',
+    pillar: 'Requirement Coverage',
+    pillarId: 'requirement_coverage',
+    howEvaluated: 'Keyword boundary matching against target job description requirements with taxonomy synonyms.',
+    prohibitedIn: 'Evidence Quality, Project Readiness, Parser-Friendliness, Experience Fit',
   },
   {
-    dataset: 'ATS Parser Taxonomy & Extraction Rules',
-    relevance: 'Standard text extraction and section segmentation across Workday, Greenhouse, Taleo',
-    source: 'Public documentation and client-side regex parsing tests against standard ATS templates',
-    sampleSize: '120 standard resume templates tested',
-    period: 'Continuous 2026 benchmarking',
-    biases: 'Optimized for single-column and clear dual-column linear text; tables penalize parsing safety.',
+    feature: 'Preferred / Secondary Skills',
+    pillar: 'Requirement Coverage',
+    pillarId: 'requirement_coverage',
+    howEvaluated: 'Secondary technology stack coverage with placement-based sub-weighting.',
+    prohibitedIn: 'Evidence Quality, Project Readiness, Parser-Friendliness, Experience Fit',
   },
   {
-    dataset: 'AICTE Model Curriculum & Non-CS Bridges',
-    relevance: 'Hardware, signals, and math coursework transferable to software engineering roles',
-    source: 'AICTE Model Undergraduate Engineering Curriculum (ECE, EEE, Mech, Civil)',
-    sampleSize: '4 canonical engineering streams',
-    period: '2018–2024 revisions',
-    biases: 'Autonomous institutions may include custom CS electives not covered in standard AICTE baselines.',
+    feature: 'Action Verbs (Strong vs Standard vs Passive)',
+    pillar: 'Evidence Quality',
+    pillarId: 'evidence_quality',
+    howEvaluated: 'Bullet-level syntax evaluation for decisive engineering action verbs.',
+    prohibitedIn: 'Requirement Coverage, Project Readiness, Parser-Friendliness, Experience Fit',
+  },
+  {
+    feature: 'Measured Outcome Metrics (% latency, QPS, scale)',
+    pillar: 'Evidence Quality',
+    pillarId: 'evidence_quality',
+    howEvaluated: 'Regex numerical metrics tied to nouns within work and project bullet points.',
+    prohibitedIn: 'Requirement Coverage, Project Readiness, Parser-Friendliness, Experience Fit',
+  },
+  {
+    feature: 'Skills Demonstrated in Active Operational Context',
+    pillar: 'Evidence Quality',
+    pillarId: 'evidence_quality',
+    howEvaluated: 'Keywords used alongside decisive action and outcome (not bare skills lists).',
+    prohibitedIn: 'Requirement Coverage, Project Readiness, Parser-Friendliness, Experience Fit',
+  },
+  {
+    feature: 'Architecture & Systems Depth (queuing, caching, pipelines)',
+    pillar: 'Project & Practical Readiness',
+    pillarId: 'project_readiness',
+    howEvaluated: 'Presence of engineering systems concepts (Redis, Kafka, Docker, indexing).',
+    prohibitedIn: 'Requirement Coverage, Evidence Quality, Parser-Friendliness, Experience Fit',
+  },
+  {
+    feature: 'Production Rigor (automated testing, CI/CD, Docker)',
+    pillar: 'Project & Practical Readiness',
+    pillarId: 'project_readiness',
+    howEvaluated: 'Verifiable traces of unit tests, integration tests, containerization, or workflows.',
+    prohibitedIn: 'Requirement Coverage, Evidence Quality, Parser-Friendliness, Experience Fit',
+  },
+  {
+    feature: 'Practical Artifacts (live URLs, GitHub repositories)',
+    pillar: 'Project & Practical Readiness',
+    pillarId: 'project_readiness',
+    howEvaluated: 'Live demo links, competitive programming profiles, and repository references.',
+    prohibitedIn: 'Requirement Coverage, Evidence Quality, Parser-Friendliness, Experience Fit',
+  },
+  {
+    feature: 'Section Hierarchy & Layout Extractability',
+    pillar: 'Parser-Friendliness',
+    pillarId: 'parser_friendliness',
+    howEvaluated: 'Standard section titles (Experience, Education, Projects, Skills) and linear text flow.',
+    prohibitedIn: 'Requirement Coverage, Evidence Quality, Project Readiness, Experience Fit',
+  },
+  {
+    feature: 'Regional Campus Advisories (photos, declarations)',
+    pillar: 'Parser-Friendliness (Advisories Only)',
+    pillarId: 'parser_friendliness',
+    howEvaluated: 'Generates helpful regional guidance; zero score deductions are applied.',
+    prohibitedIn: 'All other pillars',
+  },
+  {
+    feature: 'Career Tenure & Seniority Alignment',
+    pillar: 'Experience & Seniority Fit',
+    pillarId: 'experience_fit',
+    howEvaluated: 'Continuous piecewise tenure curve against role minimum years (excluded for freshers).',
+    prohibitedIn: 'Requirement Coverage, Evidence Quality, Project Readiness, Parser-Friendliness',
   },
 ];
 
 const DIAGNOSTIC_METRIC_OPTIONS = [
-  { value: 'overall-ats-score', label: 'Overall ATS Score' },
-  { value: 'jd-match-score', label: 'JD Match Score' },
-  { value: 'hard-skills-coverage', label: 'Hard Skills Coverage' },
-  { value: 'evidence-depth-score', label: 'Evidence Depth Score' },
-  { value: 'verb-impact-score', label: 'Verb Impact Score' },
-  { value: 'demanded-skill-score', label: 'Demanded Skill Market Score' },
-  { value: 'branch-bridge-match', label: 'Branch Bridge Transferability' },
+  { value: 'resume-match-estimate', label: 'Resume Match Estimate' },
+  { value: 'requirement-coverage', label: 'Requirement Coverage Pillar' },
+  { value: 'evidence-quality', label: 'Evidence Quality Pillar' },
+  { value: 'project-readiness', label: 'Project Readiness Pillar' },
+  { value: 'parser-friendliness', label: 'Parser-Friendliness Check' },
+  { value: 'experience-fit', label: 'Experience Fit Pillar' },
 ];
 
 export function MethodologyPage() {
-  const [copiedMetricId, setCopiedMetricId] = useState<string | null>(null);
-  const [selectedDiagnosticMetric, setSelectedDiagnosticMetric] = useState('overall-ats-score');
+  const spec = CANONICAL_SCORING_SPEC;
+  const specFingerprint = useMemo(() => computeSpecFingerprint(spec), [spec]);
+
+  // Try the engine interactive state
+  const [selectedFixtureId, setSelectedFixtureId] = useState<string>(SYNTHETIC_FIXTURES[0].id);
+  const [activeTab, setActiveTab] = useState<'simulator' | 'pillars' | 'provenance' | 'validation'>('simulator');
+  const [copiedTrace, setCopiedTrace] = useState(false);
+  const [copiedDiagnostic, setCopiedDiagnostic] = useState(false);
+  const [showDiagnosticJson, setShowDiagnosticJson] = useState(false);
+
+  // Diagnostic utility state
+  const [selectedDiagnosticMetric, setSelectedDiagnosticMetric] = useState('resume-match-estimate');
   const [diagnosticJson, setDiagnosticJson] = useState<string | null>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsDropdownOpen(false);
-      }
-    }
-    function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === 'Escape') {
-        setIsDropdownOpen(false);
-      }
-    }
-    if (isDropdownOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-      document.addEventListener('keydown', handleKeyDown);
-    }
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [isDropdownOpen]);
+  const selectedFixture = useMemo<SyntheticFixture>(() => {
+    return SYNTHETIC_FIXTURES.find((f) => f.id === selectedFixtureId) || SYNTHETIC_FIXTURES[0];
+  }, [selectedFixtureId]);
 
-  // MRVI Interactive Simulator
-  const [mrviDemand, setMrviDemand] = useState(85);
-  const [mrviRecruiter, setMrviRecruiter] = useState(90);
-  const [mrviRisk, setMrviRisk] = useState(80);
-  const computedMrvi = calculateMrvi({
-    marketDemand: mrviDemand,
-    recruiterImpact: mrviRecruiter,
-    riskMitigation: mrviRisk,
-  });
+  // Execute engine in real time on selected fixture
+  const liveTrace = useMemo<ScoreTrace>(() => {
+    const parsedJd = selectedFixture.jdText ? parseJobDescription(selectedFixture.jdText) : undefined;
+    const expLevel: ExperienceLevel =
+      selectedFixture.experienceLevel === '3+ yrs' ? '2+ yrs' : selectedFixture.experienceLevel;
+    const context = buildScoringContext({
+      experienceLevel: expLevel,
+      roleFamily: selectedFixture.roleFamily,
+      parsedJd,
+      archetype:
+        selectedFixture.targetTier === 'top_product'
+          ? 'big_tech_product'
+          : selectedFixture.targetTier === 'unicorn'
+            ? 'indian_high_growth'
+            : selectedFixture.targetTier === 'gcc'
+              ? 'product_mnc_gcc'
+              : selectedFixture.targetTier === 'it_services'
+                ? 'service_track'
+                : selectedFixture.targetTier === 'startup'
+                  ? 'early_growth_startup'
+                  : undefined,
+    });
+    const resumeInput = parseResumeToScoringInput(selectedFixture.resumeText);
+    return runScoringEngine(context, resumeInput);
+  }, [selectedFixture]);
+
+  // Zero-PII payload for live trace
+  const zeroPiiPayload = useMemo(() => {
+    return buildZeroPiiReportPayload(liveTrace, 'Methodology page interactive simulator trace inspection');
+  }, [liveTrace]);
 
   const feedbackItems = useFeedbackStore((s) => s.items);
   const exportFeedbackJson = useFeedbackStore((s) => s.exportFeedbackJson);
 
-  const feedbackStats = React.useMemo(() => {
+  const feedbackStats = useMemo(() => {
     let up = 0;
     let down = 0;
     for (const it of feedbackItems) {
@@ -139,11 +202,35 @@ export function MethodologyPage() {
     return { total: feedbackItems.length, up, down };
   }, [feedbackItems]);
 
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    }
+    if (isDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isDropdownOpen]);
+
+  const handleCopyTraceJson = async () => {
+    try {
+      await navigator.clipboard.writeText(JSON.stringify(zeroPiiPayload, null, 2));
+      setCopiedTrace(true);
+      setTimeout(() => setCopiedTrace(false), 2000);
+    } catch {
+      // ignore
+    }
+  };
+
   const handleCopyDiagnostic = async (metricId: string) => {
     const success = await copyDiagnosticPayload(metricId);
     if (success) {
-      setCopiedMetricId(metricId);
-      setTimeout(() => setCopiedMetricId(null), 2500);
+      setCopiedDiagnostic(true);
+      setTimeout(() => setCopiedDiagnostic(false), 2000);
     }
   };
 
@@ -165,439 +252,744 @@ export function MethodologyPage() {
 
   return (
     <div className="min-h-screen bg-black text-white py-10 px-4 sm:px-6 lg:px-8 relative">
-      <div className="max-w-5xl mx-auto space-y-12">
+      <div className="max-w-6xl mx-auto space-y-12">
         <PageNav fallbackRoute="/tools" />
 
         {/* Title Header */}
         <div className="border-b border-charcoal pb-8">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-volt/10 text-volt text-xs font-mono font-semibold uppercase tracking-wider mb-4 border border-volt/20">
             <Scale className="h-3.5 w-3.5" />
-            <span>Deterministic Rigor &amp; Full Transparency</span>
+            <span>Deterministic Scoring Specification &bull; Open Provenance</span>
           </div>
           <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white uppercase">
             Scoring Methodology &amp; Provenance
           </h1>
-          <p className="mt-3 text-base text-neutral-400 max-w-3xl leading-relaxed">
-            HireFlow rejects black-box scoring and marketing hype. Every metric, match percentage, and guideline
-            is mathematically derived from published configuration constants, verifiable syntax trees, and deterministic client-side heuristics.
+          <p className="mt-3 text-base text-neutral-400 max-w-4xl leading-relaxed">
+            HireFlow operates on a single machine-readable canonical specification. Every metric, weight,
+            sensitivity band, and dynamic context profile derives directly from{' '}
+            <code className="text-volt font-mono">CANONICAL_SCORING_SPEC</code> with zero UI arithmetic,
+            zero network egress, and client-side execution.
           </p>
 
-          <div className="mt-6 flex flex-wrap items-center gap-4 text-xs font-mono text-neutral-400 bg-surface p-3 rounded-md border border-charcoal">
-            <span>Engine Version: <strong className="text-white">{ENGINE_VERSION}</strong></span>
-            <span className="text-charcoal">•</span>
-            <span>Config Fingerprint: <strong className="text-volt">{computeConfigFingerprint()}</strong></span>
-            <span className="text-charcoal">•</span>
-            <span>Local Feedback Recorded: <strong className="text-white">{feedbackStats.total}</strong> ({feedbackStats.up} 👍 / {feedbackStats.down} 👎)</span>
+          <div className="mt-6 flex flex-wrap items-center gap-4 text-xs font-mono text-neutral-400 bg-surface p-3.5 rounded-md border border-charcoal">
+            <span>Spec Version: <strong className="text-white">{spec.specVersion}</strong></span>
+            <span className="text-charcoal">&bull;</span>
+            <span>Engine Version: <strong className="text-white">{spec.engineVersion}</strong></span>
+            <span className="text-charcoal">&bull;</span>
+            <span>Spec Fingerprint: <strong className="text-volt">{specFingerprint}</strong></span>
+            <span className="text-charcoal">&bull;</span>
+            <span>Provenance Datasets: <strong className="text-white">{provenanceData.datasets.length} Verified</strong></span>
+            {feedbackStats.total > 0 && (
+              <>
+                <span className="text-charcoal">&bull;</span>
+                <span>Feedback Recorded: <strong className="text-white">{feedbackStats.total}</strong> ({feedbackStats.up} &#128077; / {feedbackStats.down} &#128078;)</span>
+              </>
+            )}
           </div>
         </div>
 
-        {/* Honest Mission & Diagnostic Framing */}
-        <div className="rounded-md border border-charcoal bg-surface p-6 sm:p-7 space-y-4">
-          <div className="flex items-center gap-2.5 text-volt">
-            <ShieldCheck className="h-6 w-6 shrink-0" />
-            <h2 className="text-lg font-bold text-white uppercase tracking-wider">
-              Technical Philosophy: Deterministic Diagnostics, Zero Magic
-            </h2>
-          </div>
-          <p className="text-sm text-neutral-300 leading-relaxed">
-            <strong className="text-white">HireFlow is an evidence diagnostic tool</strong> designed to help candidates self-audit their resumes before submitting to human hiring managers and applicant tracking systems.
-          </p>
-          <div className="grid sm:grid-cols-3 gap-3 pt-2 text-xs">
-            <div className="p-3 rounded bg-surface-elevated border border-charcoal space-y-1">
-              <strong className="text-white block font-mono uppercase tracking-wider">No &ldquo;AI Probabilities&rdquo;</strong>
-              <p className="text-neutral-400">We do not claim predictive crystal balls. A 75% score means 75/100 points of concrete requirement coverage.</p>
-            </div>
-            <div className="p-3 rounded bg-surface-elevated border border-charcoal space-y-1">
-              <strong className="text-white block font-mono uppercase tracking-wider">No Hardcoded Score Bumps</strong>
-              <p className="text-neutral-400">Tailoring bullet points computes the real before-and-after ATS delta &mdash; never guaranteed fictional boosts (+31 points).</p>
-            </div>
-            <div className="p-3 rounded bg-surface-elevated border border-charcoal space-y-1">
-              <strong className="text-white block font-mono uppercase tracking-wider">100% Client-Side Privacy</strong>
-              <p className="text-neutral-400">All parsers, tokenizers, and PDF generators run locally in your browser. Zero resume text ever leaves your device.</p>
-            </div>
-          </div>
+        {/* Navigation Tabs */}
+        <div className="flex flex-wrap items-center gap-2 border-b border-charcoal pb-4">
+          <button
+            type="button"
+            onClick={() => setActiveTab('simulator')}
+            className={`inline-flex items-center gap-2 px-4 py-2 rounded-md text-xs font-mono uppercase tracking-wider transition-all cursor-pointer ${
+              activeTab === 'simulator'
+                ? 'bg-volt text-black font-bold shadow-sm'
+                : 'bg-surface text-neutral-300 hover:text-white border border-charcoal'
+            }`}
+          >
+            <Play className="h-3.5 w-3.5" />
+            <span>Try the Engine (Live Trace)</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab('pillars')}
+            className={`inline-flex items-center gap-2 px-4 py-2 rounded-md text-xs font-mono uppercase tracking-wider transition-all cursor-pointer ${
+              activeTab === 'pillars'
+                ? 'bg-volt text-black font-bold shadow-sm'
+                : 'bg-surface text-neutral-300 hover:text-white border border-charcoal'
+            }`}
+          >
+            <Layers className="h-3.5 w-3.5" />
+            <span>5 Canonical Pillars</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab('validation')}
+            className={`inline-flex items-center gap-2 px-4 py-2 rounded-md text-xs font-mono uppercase tracking-wider transition-all cursor-pointer ${
+              activeTab === 'validation'
+                ? 'bg-volt text-black font-bold shadow-sm'
+                : 'bg-surface text-neutral-300 hover:text-white border border-charcoal'
+            }`}
+          >
+            <ShieldCheck className="h-3.5 w-3.5" />
+            <span>Validation &amp; Invariants</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab('provenance')}
+            className={`inline-flex items-center gap-2 px-4 py-2 rounded-md text-xs font-mono uppercase tracking-wider transition-all cursor-pointer ${
+              activeTab === 'provenance'
+                ? 'bg-volt text-black font-bold shadow-sm'
+                : 'bg-surface text-neutral-300 hover:text-white border border-charcoal'
+            }`}
+          >
+            <Database className="h-3.5 w-3.5" />
+            <span>Data Provenance (P-6)</span>
+          </button>
         </div>
 
-        {/* Section 1: The Four Evaluation Pillars */}
-        <section className="space-y-6">
-          <div className="flex items-center gap-2">
-            <Calculator className="h-5 w-5 text-volt" />
-            <h2 className="text-xl font-bold text-white uppercase tracking-wider">1. Core Resume Evaluation Pillars</h2>
-          </div>
-          <p className="text-sm text-neutral-400 leading-relaxed">
-            Overall ATS scoring is normalized across four foundational pillars, tuned specifically
-            for Indian engineering fresher placement drives:
-          </p>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="rounded-md border border-charcoal bg-surface p-4 space-y-2">
-              <span className="text-xs font-mono font-bold text-volt uppercase tracking-wider">
-                {Math.round(ATS_PILLAR_WEIGHTS.hardSkills * 100)}% Weight
-              </span>
-              <h3 className="text-base font-bold text-white">Technical Hard Skills</h3>
-              <p className="text-xs text-neutral-400">
-                Matches candidate languages, frameworks, databases, and core CS fundamentals against target role requirements.
-              </p>
-            </div>
-
-            <div className="rounded-md border border-charcoal bg-surface p-4 space-y-2">
-              <span className="text-xs font-mono font-bold text-volt uppercase tracking-wider">
-                {Math.round(ATS_PILLAR_WEIGHTS.evidenceQuality * 100)}% Weight
-              </span>
-              <h3 className="text-base font-bold text-white">Evidence Quality</h3>
-              <p className="text-xs text-neutral-400">
-                Measures presence of quantifiable outcome metrics (latency, QPS, user counts) and strong active engineering verbs.
-              </p>
-            </div>
-
-            <div className="rounded-md border border-charcoal bg-surface p-4 space-y-2">
-              <span className="text-xs font-mono font-bold text-volt uppercase tracking-wider">
-                {Math.round(ATS_PILLAR_WEIGHTS.fresherReadiness * 100)}% Weight
-              </span>
-              <h3 className="text-base font-bold text-white">Fresher Readiness</h3>
-              <p className="text-xs text-neutral-400">
-                Evaluates independent project depth, GitHub links, live demos, and verifiable academic engineering foundations.
-              </p>
-            </div>
-
-            <div className="rounded-md border border-charcoal bg-surface p-4 space-y-2">
-              <span className="text-xs font-mono font-bold text-volt uppercase tracking-wider">
-                {Math.round(ATS_PILLAR_WEIGHTS.formatSafety * 100)}% Weight
-              </span>
-              <h3 className="text-base font-bold text-white">Format Safety</h3>
-              <p className="text-xs text-neutral-400">
-                Checks document parseability: absence of nested tables, multi-column flows, unreadable glyphs, and ATS truncation risks.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Section 2: JD Alignment Index Formula */}
+        {/* Section: Index Architecture & Single-Counting Guarantees (Rule A3) */}
         <section className="space-y-6">
           <div className="flex items-center gap-2">
             <Target className="h-5 w-5 text-volt" />
-            <h2 className="text-xl font-bold text-white uppercase tracking-wider">2. Job Description Alignment Index (JD Index)</h2>
+            <h2 className="text-xl font-bold text-white uppercase tracking-wider">
+              Canonical Index Architecture &amp; Single-Counting Guarantees
+            </h2>
           </div>
           <p className="text-sm text-neutral-400 leading-relaxed">
-            Replaces speculative &ldquo;interview likelihood&rdquo; with an objective, observable coverage benchmark:
+            HireFlow maintains two diagnostic estimates powered by the identical core scoring specification:
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-3 text-xs">
-            <div className="p-4 rounded-md border border-charcoal bg-surface space-y-1.5">
-              <span className="text-xs font-mono font-bold text-volt uppercase block">
-                {Math.round(JD_ALIGNMENT_WEIGHTS.mustHaveSkills * 100)}% Weight
-              </span>
-              <h3 className="font-bold text-white text-sm">Must-Have Skills</h3>
-              <p className="text-neutral-400">Direct or transferable match on mandatory technical requirements.</p>
-            </div>
-
-            <div className="p-4 rounded-md border border-charcoal bg-surface space-y-1.5">
-              <span className="text-xs font-mono font-bold text-volt uppercase block">
-                {Math.round(JD_ALIGNMENT_WEIGHTS.evidenceDepth * 100)}% Weight
-              </span>
-              <h3 className="font-bold text-white text-sm">Evidence Depth</h3>
-              <p className="text-neutral-400">Measured outcomes (L3) vs work bullets (L2) vs simple keyword lists (L0).</p>
-            </div>
-
-            <div className="p-4 rounded-md border border-charcoal bg-surface space-y-1.5">
-              <span className="text-xs font-mono font-bold text-volt uppercase block">
-                {Math.round(JD_ALIGNMENT_WEIGHTS.preferredSkills * 100)}% Weight
-              </span>
-              <h3 className="font-bold text-white text-sm">Preferred Tech</h3>
-              <p className="text-neutral-400">Coverage on secondary frameworks, cloud providers, and auxiliary tools.</p>
-            </div>
-
-            <div className="p-4 rounded-md border border-charcoal bg-surface space-y-1.5">
-              <span className="text-xs font-mono font-bold text-volt uppercase block">
-                {Math.round(JD_ALIGNMENT_WEIGHTS.seniorityScope * 100)}% Weight
-              </span>
-              <h3 className="font-bold text-white text-sm">Seniority Scope</h3>
-              <p className="text-neutral-400">Alignment of architectural ownership and project scope with target level.</p>
-            </div>
-
-            <div className="p-4 rounded-md border border-charcoal bg-surface space-y-1.5">
-              <span className="text-xs font-mono font-bold text-volt uppercase block">
-                {Math.round(JD_ALIGNMENT_WEIGHTS.formatSafety * 100)}% Weight
-              </span>
-              <h3 className="font-bold text-white text-sm">Parse Safety</h3>
-              <p className="text-neutral-400">Header structure, standard section titles, and zero unparsed glyphs.</p>
-            </div>
-          </div>
-        </section>
-
-        {/* Section 3: Project Substance Index Formula */}
-        <section className="space-y-6">
-          <div className="flex items-center gap-2">
-            <Cpu className="h-5 w-5 text-volt" />
-            <h2 className="text-xl font-bold text-white uppercase tracking-wider">3. Project Substance Index (Engineering Rigor)</h2>
-          </div>
-          <p className="text-sm text-neutral-400 leading-relaxed">
-            Distinguishes real, production-caliber engineering systems from shallow tutorial clones:
-          </p>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="rounded-md border border-charcoal bg-surface p-4 space-y-1.5">
-              <span className="text-xs font-mono font-bold text-volt uppercase tracking-wider">
-                {Math.round(PROJECT_SUBSTANCE_WEIGHTS.architectureSystemsDepth * 100)}% Weight
-              </span>
-              <h3 className="text-base font-bold text-white">Architecture &amp; Systems Depth</h3>
-              <p className="text-xs text-neutral-400">
-                Presence of asynchronous job queues (Redis, Kafka), composite indexing, connection pooling, and circuit breaker patterns.
-              </p>
-            </div>
-
-            <div className="rounded-md border border-charcoal bg-surface p-4 space-y-1.5">
-              <span className="text-xs font-mono font-bold text-volt uppercase tracking-wider">
-                {Math.round(PROJECT_SUBSTANCE_WEIGHTS.productionRigor * 100)}% Weight
-              </span>
-              <h3 className="text-base font-bold text-white">Production Rigor &amp; Testing</h3>
-              <p className="text-xs text-neutral-400">
-                Automated test suites (unit, integration), Dockerfiles, CI/CD deployment pipelines, and live verifiable deployment URLs.
-              </p>
-            </div>
-
-            <div className="rounded-md border border-charcoal bg-surface p-4 space-y-1.5">
-              <span className="text-xs font-mono font-bold text-volt uppercase tracking-wider">
-                {Math.round(PROJECT_SUBSTANCE_WEIGHTS.quantifiedOutcomes * 100)}% Weight
-              </span>
-              <h3 className="text-base font-bold text-white">Quantified Outcomes</h3>
-              <p className="text-xs text-neutral-400">
-                Empirical metrics: p99 latency reduction, sustained throughput/QPS, error rate drops, or storage optimizations.
-              </p>
-            </div>
-
-            <div className="rounded-md border border-charcoal bg-surface p-4 space-y-1.5">
-              <span className="text-xs font-mono font-bold text-volt uppercase tracking-wider">
-                {Math.round(PROJECT_SUBSTANCE_WEIGHTS.techStackCraftsmanship * 100)}% Weight
-              </span>
-              <h3 className="text-base font-bold text-white">Modern Craftsmanship</h3>
-              <p className="text-xs text-neutral-400">
-                Strict type safety, idiomatic error handling, clean repository structure, and absence of generic template code.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Section 4: Truth Gate Non-Negotiable Invariants */}
-        <section className="space-y-6">
-          <div className="flex items-center gap-2">
-            <Lock className="h-5 w-5 text-volt" />
-            <h2 className="text-xl font-bold text-white uppercase tracking-wider">4. Truth Gate Verification Invariants</h2>
-          </div>
-          <p className="text-sm text-neutral-400 leading-relaxed">
-            Every candidate tailoring pass is gated by deterministic truth verification rules:
-          </p>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {TRUTH_GATE_RULES.map((rule) => (
-              <div key={rule.id} className="p-4 rounded-md border border-charcoal bg-surface space-y-2">
-                <div className="flex items-center justify-between">
-                  <span className="font-mono text-xs font-bold text-volt">{rule.id}</span>
-                  <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-volt/10 text-volt border border-volt/20 uppercase tracking-wider">
-                    Non-Negotiable
-                  </span>
-                </div>
-                <h3 className="text-sm font-bold text-white">{rule.rule}</h3>
-                <p className="text-xs text-neutral-400 leading-relaxed">{rule.description}</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="rounded-md border border-charcoal bg-surface p-5 space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-mono uppercase text-volt font-bold tracking-wider">ATS Resume Roaster</span>
+                <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-volt/10 text-volt border border-volt/20">
+                  Target Role Focused
+                </span>
               </div>
-            ))}
+              <h3 className="text-base font-bold text-white">Resume Match Estimate</h3>
+              <p className="text-xs text-neutral-300 leading-relaxed">
+                Evaluates candidate resume evidence against a specific job description. Analyzes requirement coverage,
+                action verbs, metric outcomes, and parser safety. If no job description is provided, runs in role baseline mode.
+              </p>
+            </div>
+
+            <div className="rounded-md border border-charcoal bg-surface p-5 space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-mono uppercase text-volt font-bold tracking-wider">TalentLens Engine</span>
+                <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-volt/10 text-volt border border-volt/20">
+                  Market Archetype Focused
+                </span>
+              </div>
+              <h3 className="text-base font-bold text-white">Market Readiness Estimate</h3>
+              <p className="text-xs text-neutral-300 leading-relaxed">
+                Evaluates candidate resume evidence across 6 distinct market archetypes (Big Tech, Quant Trading,
+                Indian Scale-Ups, Enterprise GCCs, IT Services, and Early Startups) with calibrated archetype weightings.
+              </p>
+            </div>
+          </div>
+
+          {/* Rule A3 Single-Counting Table */}
+          <div className="rounded-md border border-charcoal bg-surface p-5 space-y-4">
+            <div className="flex items-center gap-2">
+              <BadgeCheck className="h-4 w-4 text-volt" />
+              <h3 className="text-sm font-bold text-white uppercase tracking-wider">
+                Rule A3: Single-Counting Architectural Guarantee
+              </h3>
+            </div>
+            <p className="text-xs text-neutral-400 leading-relaxed">
+              Every resume feature is evaluated in <strong className="text-white">exactly ONE pillar</strong>.
+              No signal is counted twice, and no parallel duplicate indices measure the same candidate attribute.
+            </p>
+
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-xs text-neutral-300">
+                <thead className="bg-surface-elevated text-neutral-400 uppercase font-mono font-semibold text-[11px] border-b border-charcoal">
+                  <tr>
+                    <th className="p-3">Candidate Signal / Feature</th>
+                    <th className="p-3">Exclusive Home Pillar</th>
+                    <th className="p-3">How It Is Evaluated</th>
+                    <th className="p-3">Strictly Prohibited In</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-charcoal font-normal">
+                  {SINGLE_COUNTING_MAPPING.map((item, idx) => (
+                    <tr key={idx} className="hover:bg-surface-elevated/40 transition-colors">
+                      <td className="p-3 font-semibold text-white">{item.feature}</td>
+                      <td className="p-3 font-mono text-volt">{item.pillar}</td>
+                      <td className="p-3 text-neutral-300">{item.howEvaluated}</td>
+                      <td className="p-3 text-neutral-500 font-mono text-[11px]">{item.prohibitedIn}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </section>
 
-        {/* Section 5: Market Requirement & Value Index (MRVI) */}
-        <section className="space-y-6">
-          <div className="flex items-center gap-2">
-            <Sparkles className="h-5 w-5 text-volt" />
-            <h2 className="text-xl font-bold text-white uppercase tracking-wider">5. Market Requirement &amp; Value Index (MRVI)</h2>
-          </div>
-          <p className="text-sm text-neutral-400 leading-relaxed">
-            Measures the empirical hiring advantage delivered by each resume capability in the 2025–2026 hiring market:
-          </p>
-
-          <div className="p-5 rounded-md border border-charcoal bg-surface space-y-6">
+        {/* Tab 1: Interactive "Try the engine" Live Simulator Panel */}
+        {activeTab === 'simulator' && (
+          <section className="space-y-6 rounded-md border border-charcoal bg-surface p-6 sm:p-7">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-charcoal pb-4">
               <div>
-                <span className="text-xs font-mono uppercase text-volt font-bold tracking-wider">Formula</span>
-                <p className="font-mono text-sm text-neutral-200 mt-0.5">
-                  MRVI = (MarketDemand &times; 40%) + (RecruiterGlance &times; 35%) + (RiskMitigation &times; 25%)
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded text-[11px] font-mono font-bold bg-volt/10 text-volt border border-volt/20 uppercase tracking-wider mb-2">
+                  <Play className="h-3 w-3" />
+                  <span>Interactive Engine Demonstration</span>
+                </div>
+                <h2 className="text-xl font-bold text-white uppercase tracking-wider">
+                  Live Trace Inspector
+                </h2>
+                <p className="text-xs text-neutral-400 mt-1">
+                  Select any of the 24 canonical synthetic fixtures. The core engine executes client-side and produces an authoritative <code className="text-neutral-200">ScoreTrace</code>.
                 </p>
               </div>
-              <div className="text-right">
-                <span className="text-[11px] font-mono font-bold text-neutral-400 uppercase tracking-wider block">Simulated Score</span>
-                <span className="text-3xl font-black text-volt font-mono">{computedMrvi}/100</span>
+
+              {/* Fixture Selector Dropdown */}
+              <div className="w-full sm:w-80 space-y-1.5">
+                <label htmlFor="fixture-select" className="text-[11px] font-mono text-neutral-400 uppercase block">
+                  Select Synthetic Fixture:
+                </label>
+                <select
+                  id="fixture-select"
+                  aria-label="Select Synthetic Fixture"
+                  value={selectedFixtureId}
+                  onChange={(e) => setSelectedFixtureId(e.target.value)}
+                  className="w-full rounded border border-charcoal bg-black px-3 py-2 text-xs font-mono text-white focus:border-volt focus:outline-none"
+                >
+                  {SYNTHETIC_FIXTURES.map((fixture) => (
+                    <option key={fixture.id} value={fixture.id}>
+                      {fixture.label} ({fixture.category})
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-              <div className="space-y-2">
-                <div className="flex justify-between text-xs">
-                  <span className="font-semibold text-neutral-300">Market Demand Penalty (40%)</span>
-                  <span className="font-mono text-volt font-bold">{mrviDemand}</span>
-                </div>
-                <input
-                  type="range"
-                  min="0"
-                  max="100"
-                  value={mrviDemand}
-                  onChange={(e) => setMrviDemand(Number(e.target.value))}
-                  className="w-full accent-[#faff69] cursor-pointer"
-                />
-                <p className="text-[11px] text-neutral-400">Rejection penalty if missing from resume.</p>
+            {/* Fixture Info Card */}
+            <div className="p-4 rounded bg-surface-elevated border border-charcoal grid grid-cols-1 sm:grid-cols-4 gap-4 text-xs font-mono">
+              <div>
+                <span className="text-neutral-500 uppercase block text-[10px]">Experience Level</span>
+                <span className="text-white font-bold">{selectedFixture.experienceLevel}</span>
               </div>
-
-              <div className="space-y-2">
-                <div className="flex justify-between text-xs">
-                  <span className="font-semibold text-neutral-300">Recruiter Glance Impact (35%)</span>
-                  <span className="font-mono text-volt font-bold">{mrviRecruiter}</span>
-                </div>
-                <input
-                  type="range"
-                  min="0"
-                  max="100"
-                  value={mrviRecruiter}
-                  onChange={(e) => setMrviRecruiter(Number(e.target.value))}
-                  className="w-full accent-[#faff69] cursor-pointer"
-                />
-                <p className="text-[11px] text-neutral-400">Attention captured in the initial 6-second scan.</p>
+              <div>
+                <span className="text-neutral-500 uppercase block text-[10px]">Role Family</span>
+                <span className="text-white font-bold">{selectedFixture.roleFamily}</span>
               </div>
-
-              <div className="space-y-2">
-                <div className="flex justify-between text-xs">
-                  <span className="font-semibold text-neutral-300">Disqualification Mitigation (25%)</span>
-                  <span className="font-mono text-volt font-bold">{mrviRisk}</span>
-                </div>
-                <input
-                  type="range"
-                  min="0"
-                  max="100"
-                  value={mrviRisk}
-                  onChange={(e) => setMrviRisk(Number(e.target.value))}
-                  className="w-full accent-[#faff69] cursor-pointer"
-                />
-                <p className="text-[11px] text-neutral-400">Protection against parse bugs &amp; unbacked claims.</p>
+              <div>
+                <span className="text-neutral-500 uppercase block text-[10px]">Category</span>
+                <span className="text-volt font-bold">{selectedFixture.category}</span>
+              </div>
+              <div>
+                <span className="text-neutral-500 uppercase block text-[10px]">Target Tier</span>
+                <span className="text-neutral-300 font-bold">{selectedFixture.targetTier || 'Standard Technology Track'}</span>
+              </div>
+              <div className="sm:col-span-4 text-neutral-400 font-sans text-xs border-t border-charcoal pt-2">
+                <strong className="text-neutral-300 font-mono text-xs">Profile Description: </strong>
+                {selectedFixture.description}
               </div>
             </div>
-          </div>
-        </section>
 
-        {/* Section 6: Weighting & Multipliers Table */}
-        <section className="space-y-6">
-          <div className="flex items-center gap-2">
-            <FileCode className="h-5 w-5 text-volt" />
-            <h2 className="text-xl font-bold text-white uppercase tracking-wider">6. Multipliers &amp; Dynamic Weights</h2>
-          </div>
+            {/* Live Trace Score Summary Banner */}
+            <div className="p-6 rounded-md border border-volt/30 bg-gradient-to-r from-black via-surface-elevated to-black flex flex-col md:flex-row md:items-center justify-between gap-6">
+              <div className="space-y-1">
+                <span className="text-[11px] font-mono uppercase text-volt font-bold tracking-wider">
+                  Authoritative ScoreTrace Estimate
+                </span>
+                <div className="flex items-baseline gap-3">
+                  <span className="text-4xl sm:text-5xl font-black text-white font-mono">
+                    {liveTrace.compositeDisplay}
+                  </span>
+                  <span className="text-lg text-neutral-400 font-mono">/ 100</span>
+                  <span className="text-xs px-2.5 py-1 rounded-full font-mono font-bold bg-volt/15 text-volt border border-volt/30 ml-2">
+                    {liveTrace.band.label}
+                  </span>
+                </div>
+                <div className="flex items-center gap-2 text-xs font-mono text-neutral-400 pt-1">
+                  <span>Sensitivity Band:</span>
+                  <span className="text-white font-bold">[{liveTrace.band.low} &ndash; {liveTrace.band.high}]</span>
+                  <span className="text-charcoal">&bull;</span>
+                  <span>Active Profile:</span>
+                  <span className="text-volt font-bold uppercase">{liveTrace.profileId}</span>
+                </div>
+              </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
-            {/* Requirement Weights */}
-            <div className="rounded-md border border-charcoal bg-surface p-4">
-              <h3 className="font-bold text-white uppercase tracking-wider text-xs mb-3">Requirement Priority Weights</h3>
-              <dl className="space-y-2 text-xs">
-                <div className="flex justify-between border-b border-charcoal pb-1">
-                  <dt className="text-neutral-400">Mandatory / Must-Have</dt>
-                  <dd className="font-mono font-bold text-volt">{REQUIREMENT_WEIGHT_CLASSES.mandatory}x</dd>
-                </div>
-                <div className="flex justify-between border-b border-charcoal pb-1">
-                  <dt className="text-neutral-400">Preferred / Good-to-Have</dt>
-                  <dd className="font-mono font-bold text-neutral-200">{REQUIREMENT_WEIGHT_CLASSES.preferred}x</dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt className="text-neutral-400">Mentioned in Passing</dt>
-                  <dd className="font-mono font-bold text-neutral-400">{REQUIREMENT_WEIGHT_CLASSES.mentioned}x</dd>
-                </div>
-              </dl>
+              {/* Action Buttons */}
+              <div className="flex flex-wrap items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setShowDiagnosticJson((prev) => !prev)}
+                  className="inline-flex items-center gap-1.5 px-3 py-2 rounded text-xs font-mono font-medium border border-charcoal bg-black text-neutral-200 hover:text-white hover:border-neutral-500 transition-colors cursor-pointer"
+                >
+                  <Eye className="h-3.5 w-3.5 text-volt" />
+                  <span>{showDiagnosticJson ? 'Hide Trace Payload' : 'Inspect Zero-PII Payload'}</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={handleCopyTraceJson}
+                  className="inline-flex items-center gap-1.5 px-3 py-2 rounded text-xs font-mono font-bold bg-volt text-black hover:bg-volt-hover transition-colors cursor-pointer"
+                >
+                  {copiedTrace ? (
+                    <>
+                      <Check className="h-3.5 w-3.5 text-black" />
+                      <span>Copied Trace JSON!</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="h-3.5 w-3.5 text-black" />
+                      <span>Copy Sanitized Trace</span>
+                    </>
+                  )}
+                </button>
+              </div>
             </div>
 
-            {/* Evidence Depth Tiers */}
-            <div className="rounded-md border border-charcoal bg-surface p-4">
-              <h3 className="font-bold text-white uppercase tracking-wider text-xs mb-3">Evidence Depth Tiers</h3>
-              <dl className="space-y-2 text-xs">
-                <div className="flex justify-between border-b border-charcoal pb-1">
-                  <dt className="text-neutral-400">L3: Measured Metric Outcome</dt>
-                  <dd className="font-mono font-bold text-volt">{EVIDENCE_LEVEL_MULTIPLIERS.L3_MEASURED_OUTCOME * 100}%</dd>
-                </div>
-                <div className="flex justify-between border-b border-charcoal pb-1">
-                  <dt className="text-neutral-400">L2: Internship / Live Work</dt>
-                  <dd className="font-mono font-bold text-neutral-200">{EVIDENCE_LEVEL_MULTIPLIERS.L2_INTERNSHIP_WORK * 100}%</dd>
-                </div>
-                <div className="flex justify-between border-b border-charcoal pb-1">
-                  <dt className="text-neutral-400">L1: Project Demonstration</dt>
-                  <dd className="font-mono font-bold text-neutral-300">{EVIDENCE_LEVEL_MULTIPLIERS.L1_PROJECT_BULLET * 100}%</dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt className="text-neutral-400">L0: Listed in Skills Block</dt>
-                  <dd className="font-mono font-bold text-neutral-400">{EVIDENCE_LEVEL_MULTIPLIERS.L0_LISTED_ONLY * 100}%</dd>
-                </div>
-              </dl>
+            {/* Live Trace 5 Pillars Breakdown Table */}
+            <div className="space-y-3">
+              <h3 className="text-xs font-mono uppercase text-neutral-400 font-bold tracking-wider">
+                Live Pillar Trace Breakdown (Dynamic Renormalization)
+              </h3>
+              <div className="overflow-x-auto rounded-md border border-charcoal bg-black">
+                <table className="w-full text-left text-xs text-neutral-300">
+                  <thead className="bg-surface text-neutral-400 uppercase font-mono font-semibold text-[11px] border-b border-charcoal">
+                    <tr>
+                      <th className="p-3">Pillar Name</th>
+                      <th className="p-3">Status</th>
+                      <th className="p-3 font-mono">Nominal Wt</th>
+                      <th className="p-3 font-mono">Effective Wt</th>
+                      <th className="p-3 font-mono">Raw Score</th>
+                      <th className="p-3 font-mono">Contribution</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-charcoal font-mono text-xs">
+                    {liveTrace.pillars.map((p: PillarTraceItem) => {
+                      const isApplicable = p.applicable;
+                      return (
+                        <tr key={p.id} className="hover:bg-surface-elevated/30 transition-colors">
+                          <td className="p-3 font-sans font-semibold text-white">
+                            {p.label}
+                            {!isApplicable && p.notApplicableReason && (
+                              <span className="block text-[11px] font-sans text-neutral-500 font-normal">
+                                {p.notApplicableReason}
+                              </span>
+                            )}
+                          </td>
+                          <td className="p-3">
+                            {isApplicable ? (
+                              <span className="text-emerald-400 text-[11px] uppercase font-bold">Evaluated</span>
+                            ) : (
+                              <span className="text-neutral-500 text-[11px] uppercase">Excluded</span>
+                            )}
+                          </td>
+                          <td className="p-3 text-neutral-400">{p.nominalWeight}%</td>
+                          <td className="p-3 text-volt font-bold">{Math.round(p.effectiveWeight * 100)}%</td>
+                          <td className="p-3 text-white font-bold">{p.rawScore} / 100</td>
+                          <td className="p-3 text-volt font-bold">{Math.round(p.contribution)}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+              <p className="text-[11px] text-neutral-500 font-mono">
+                * When Experience Fit is excluded for fresher roles, effective weights dynamically renormalize to guarantee a 100-point composite sum.
+              </p>
             </div>
 
-            {/* Action Verb Modifiers */}
-            <div className="rounded-md border border-charcoal bg-surface p-4">
-              <h3 className="font-bold text-white uppercase tracking-wider text-xs mb-3">Action Verb Impact</h3>
-              <dl className="space-y-2 text-xs">
-                <div className="flex justify-between border-b border-charcoal pb-1">
-                  <dt className="text-neutral-400">Strong Engineering Verbs</dt>
-                  <dd className="font-mono font-bold text-volt">+{Math.round((VERB_STRENGTH_MODIFIERS.STRONG - 1) * 100)}%</dd>
+            {/* Zero-PII Payload Preview */}
+            {showDiagnosticJson && (
+              <div className="space-y-2 pt-2 animate-fade-in">
+                <div className="flex items-center justify-between text-xs font-mono text-neutral-400">
+                  <span>Zero-PII Diagnostic Snapshot (Scrubbed Names, Emails, Phones):</span>
+                  <span className="text-volt">Stamped: {liveTrace.specFingerprint}</span>
                 </div>
-                <div className="flex justify-between border-b border-charcoal pb-1">
-                  <dt className="text-neutral-400">Standard Descriptive Verbs</dt>
-                  <dd className="font-mono font-bold text-neutral-300">Baseline ({VERB_STRENGTH_MODIFIERS.STANDARD}x)</dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt className="text-neutral-400">Weak / Passive Openers</dt>
-                  <dd className="font-mono font-bold text-neutral-400">{VERB_STRENGTH_MODIFIERS.WEAK}x</dd>
-                </div>
-              </dl>
-            </div>
-          </div>
-        </section>
+                <pre className="rounded border border-charcoal bg-black p-4 text-xs font-mono text-volt overflow-x-auto max-h-72">
+                  {JSON.stringify(zeroPiiPayload, null, 2)}
+                </pre>
+              </div>
+            )}
+          </section>
+        )}
 
-        {/* Section 7: Data Provenance Table */}
-        <section className="space-y-6">
-          <div className="flex items-center gap-2">
-            <Database className="h-5 w-5 text-volt" />
-            <h2 className="text-xl font-bold text-white uppercase tracking-wider">7. Data Provenance &amp; Calibration Baselines</h2>
-          </div>
-          <div className="overflow-x-auto rounded-md border border-charcoal bg-surface">
-            <table className="w-full text-left text-xs text-neutral-300">
-              <thead className="bg-surface-elevated text-neutral-400 uppercase font-mono font-semibold text-[11px] border-b border-charcoal">
-                <tr>
-                  <th className="p-3">Dataset / Benchmark</th>
-                  <th className="p-3">Fresher Relevance</th>
-                  <th className="p-3">Sample Size</th>
-                  <th className="p-3">Observation Period</th>
-                  <th className="p-3">Known Biases &amp; Limits</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-charcoal font-normal">
-                {PROVENANCE_DATA.map((row, idx) => (
-                  <tr key={idx} className="hover:bg-surface-elevated/50 transition-colors">
-                    <td className="p-3 font-semibold text-white">{row.dataset}</td>
-                    <td className="p-3 text-neutral-300">{row.relevance}</td>
-                    <td className="p-3 font-mono text-neutral-300 whitespace-nowrap">{row.sampleSize}</td>
-                    <td className="p-3 font-mono text-neutral-400 whitespace-nowrap">{row.period}</td>
-                    <td className="p-3 text-neutral-400 max-w-xs">{row.biases}</td>
-                  </tr>
+        {/* Tab 2: The 5 Canonical Pillars & Sub-Features */}
+        {activeTab === 'pillars' && (
+          <section className="space-y-8">
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <Layers className="h-5 w-5 text-volt" />
+                <h2 className="text-xl font-bold text-white uppercase tracking-wider">
+                  The Five Canonical Evaluation Pillars
+                </h2>
+              </div>
+              <p className="text-sm text-neutral-400 leading-relaxed">
+                Rendered directly from <code className="text-neutral-300">CANONICAL_SCORING_SPEC.pillars</code>.
+                Weights adapt dynamically based on candidate experience level and market context:
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 gap-6">
+              {spec.pillars.map((pillar, idx) => (
+                <div key={pillar.id} className="rounded-md border border-charcoal bg-surface p-6 space-y-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-charcoal pb-3">
+                    <div className="flex items-center gap-3">
+                      <span className="h-6 w-6 rounded-full bg-volt/10 text-volt text-xs font-mono font-bold flex items-center justify-center border border-volt/20">
+                        {idx + 1}
+                      </span>
+                      <h3 className="text-base font-bold text-white">{pillar.label}</h3>
+                      <code className="text-[11px] font-mono text-neutral-500">({pillar.id})</code>
+                    </div>
+                    <div className="flex items-center gap-3 text-xs font-mono">
+                      <span className="text-neutral-400">
+                        Fresher: <strong className="text-volt">{pillar.nominalWeights.fresher}%</strong>
+                      </span>
+                      <span className="text-charcoal">&bull;</span>
+                      <span className="text-neutral-400">
+                        Experienced: <strong className="text-white">{pillar.nominalWeights.experienced}%</strong>
+                      </span>
+                    </div>
+                  </div>
+
+                  <p className="text-xs text-neutral-300 leading-relaxed">{pillar.plainDescription}</p>
+
+                  <div className="space-y-2 pt-2">
+                    <span className="text-[11px] font-mono text-neutral-400 uppercase font-bold tracking-wider block">
+                      Sub-Features &amp; Rubric Components:
+                    </span>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                      {pillar.subFeatures.map((sub) => (
+                        <div key={sub.id} className="p-3 rounded bg-surface-elevated border border-charcoal space-y-1">
+                          <div className="flex items-center justify-between">
+                            <span className="text-[10px] font-mono uppercase text-volt font-bold">
+                              {sub.nominalWeight}% Sub-Weight
+                            </span>
+                            <span className="text-[9px] font-mono text-neutral-500 uppercase">{sub.sourceKind}</span>
+                          </div>
+                          <h4 className="text-xs font-bold text-white">{sub.label}</h4>
+                          <p className="text-[11px] text-neutral-400 leading-normal">{sub.description}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Dynamic Market Archetype Profiles */}
+            <div className="space-y-4 pt-4 border-t border-charcoal">
+              <div className="flex items-center gap-2">
+                <Sparkles className="h-5 w-5 text-volt" />
+                <h3 className="text-lg font-bold text-white uppercase tracking-wider">
+                  Dynamic Market Archetypes (TalentLens)
+                </h3>
+              </div>
+              <p className="text-xs text-neutral-400">
+                TalentLens calibrates pillar weights against 6 distinct hiring archetypes:
+              </p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {Object.entries(spec.archetypeProfiles || {}).map(([key, arch]) => (
+                  <div key={key} className="p-4 rounded-md border border-charcoal bg-surface space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-mono text-volt font-bold uppercase">{arch.label}</span>
+                      <span className="text-[10px] font-mono text-neutral-500">{arch.id}</span>
+                    </div>
+                    <p className="text-xs text-neutral-300">{arch.note}</p>
+                    <div className="space-y-1 text-xs font-mono border-t border-charcoal pt-2 text-neutral-400">
+                      <div className="flex justify-between">
+                        <span>Req Coverage:</span>
+                        <span className="text-white font-bold">{arch.weights.requirement_coverage}%</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Evidence Quality:</span>
+                        <span className="text-white font-bold">{arch.weights.evidence_quality}%</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Project Readiness:</span>
+                        <span className="text-white font-bold">{arch.weights.project_readiness}%</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Parser Safety:</span>
+                        <span className="text-white font-bold">{arch.weights.parser_friendliness}%</span>
+                      </div>
+                    </div>
+                  </div>
                 ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
+              </div>
+            </div>
 
-        {/* Section 8: Report a Wrong Result Diagnostic Tool */}
-        <section className="space-y-6 rounded-md border border-charcoal bg-surface p-6">
+            {/* Evidence Depth & Bullet Scoring Rubric */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4 border-t border-charcoal">
+              {/* Context Weights */}
+              <div className="p-4 rounded-md border border-charcoal bg-surface space-y-3">
+                <h4 className="text-xs font-mono text-white font-bold uppercase tracking-wider">
+                  Placement Context Multipliers
+                </h4>
+                <dl className="space-y-2 text-xs font-mono">
+                  <div className="flex justify-between border-b border-charcoal pb-1">
+                    <dt className="text-neutral-400">Experience Section</dt>
+                    <dd className="text-volt font-bold">{spec.evidenceTables.contextWeight.experience}x</dd>
+                  </div>
+                  <div className="flex justify-between border-b border-charcoal pb-1">
+                    <dt className="text-neutral-400">Project with Live Link</dt>
+                    <dd className="text-white font-bold">{spec.evidenceTables.contextWeight.projectWithLink}x</dd>
+                  </div>
+                  <div className="flex justify-between border-b border-charcoal pb-1">
+                    <dt className="text-neutral-400">Academic Project</dt>
+                    <dd className="text-neutral-300 font-bold">{spec.evidenceTables.contextWeight.academicProject}x</dd>
+                  </div>
+                  <div className="flex justify-between">
+                    <dt className="text-neutral-400">Skills Block Only</dt>
+                    <dd className="text-neutral-500 font-bold">{spec.evidenceTables.contextWeight.skillsBlockOnly}x</dd>
+                  </div>
+                </dl>
+              </div>
+
+              {/* Requirement Priority Weights */}
+              <div className="p-4 rounded-md border border-charcoal bg-surface space-y-3">
+                <h4 className="text-xs font-mono text-white font-bold uppercase tracking-wider">
+                  Requirement Priority Multipliers
+                </h4>
+                <dl className="space-y-2 text-xs font-mono">
+                  <div className="flex justify-between border-b border-charcoal pb-1">
+                    <dt className="text-neutral-400">Mandatory / Must-Have</dt>
+                    <dd className="text-volt font-bold">{spec.evidenceTables.priorityWeights.mandatory}x</dd>
+                  </div>
+                  <div className="flex justify-between border-b border-charcoal pb-1">
+                    <dt className="text-neutral-400">Preferred / Good-to-Have</dt>
+                    <dd className="text-white font-bold">{spec.evidenceTables.priorityWeights.preferred}x</dd>
+                  </div>
+                  <div className="flex justify-between">
+                    <dt className="text-neutral-400">Mentioned in Passing</dt>
+                    <dd className="text-neutral-400 font-bold">{spec.evidenceTables.priorityWeights.mentioned}x</dd>
+                  </div>
+                </dl>
+              </div>
+
+              {/* Bullet Scoring Maximums */}
+              <div className="p-4 rounded-md border border-charcoal bg-surface space-y-3">
+                <h4 className="text-xs font-mono text-white font-bold uppercase tracking-wider">
+                  100-Point Bullet Scoring Rubric
+                </h4>
+                <dl className="space-y-2 text-xs font-mono">
+                  <div className="flex justify-between border-b border-charcoal pb-1">
+                    <dt className="text-neutral-400">Decisive Action Verb</dt>
+                    <dd className="text-volt font-bold">{spec.evidenceTables.bulletScoring.actionVerbMax} pts</dd>
+                  </div>
+                  <div className="flex justify-between border-b border-charcoal pb-1">
+                    <dt className="text-neutral-400">Measured Numerical Metric</dt>
+                    <dd className="text-volt font-bold">{spec.evidenceTables.bulletScoring.measuredResultMax} pts</dd>
+                  </div>
+                  <div className="flex justify-between border-b border-charcoal pb-1">
+                    <dt className="text-neutral-400">Technology in Action</dt>
+                    <dd className="text-volt font-bold">{spec.evidenceTables.bulletScoring.techInContextMax} pts</dd>
+                  </div>
+                  <div className="flex justify-between">
+                    <dt className="text-neutral-400">Outcome &amp; Business Impact</dt>
+                    <dd className="text-volt font-bold">{spec.evidenceTables.bulletScoring.outcomeImpactMax} pts</dd>
+                  </div>
+                </dl>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Tab 3: Validation Status & Invariants (Task 6.4) */}
+        {activeTab === 'validation' && (
+          <section className="space-y-6">
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <ShieldCheck className="h-5 w-5 text-volt" />
+                <h2 className="text-xl font-bold text-white uppercase tracking-wider">
+                  Validation Status &amp; Invariant Verification
+                </h2>
+              </div>
+              <p className="text-sm text-neutral-400 leading-relaxed">
+                Clear and honest documentation of what the HireFlow scoring suite programmatically verifies versus its boundaries and limitations:
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Box 1: What IS Programmatically Checked */}
+              <div className="rounded-md border border-emerald-500/30 bg-surface p-6 space-y-4">
+                <div className="flex items-center gap-2 text-emerald-400">
+                  <CheckCircle2 className="h-5 w-5 shrink-0" />
+                  <h3 className="text-base font-bold text-white uppercase tracking-wider">
+                    Programmatically Checked &amp; Enforced
+                  </h3>
+                </div>
+                <ul className="space-y-3 text-xs text-neutral-300">
+                  <li className="flex items-start gap-2.5">
+                    <Check className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
+                    <div>
+                      <strong className="text-white block font-mono">Boundary-Safe Tokenization:</strong>
+                      <span>Word-boundary regular expressions prevent false-positive substring matches (e.g., &ldquo;Go&rdquo; vs &ldquo;Google&rdquo;).</span>
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <Check className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
+                    <div>
+                      <strong className="text-white block font-mono">Metamorphic Monotonicity:</strong>
+                      <span>Adding authentic requirement evidence or measured engineering outcomes never decreases candidate scores.</span>
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <Check className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
+                    <div>
+                      <strong className="text-white block font-mono">Rule A3 Single-Counting Invariant:</strong>
+                      <span>Every feature lives in exactly one pillar. Unit tests enforce zero duplicate signal accumulation.</span>
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <Check className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
+                    <div>
+                      <strong className="text-white block font-mono">Continuous Piecewise Seniority:</strong>
+                      <span>Smooth experience curve prevents cliff-edge score penalties for minor tenure differences.</span>
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <Check className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
+                    <div>
+                      <strong className="text-white block font-mono">100% Client-Side Evaluation:</strong>
+                      <span>Zero network requests during scoring. All tokenization, parsing, and math execute in your local browser sandbox.</span>
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <Check className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
+                    <div>
+                      <strong className="text-white block font-mono">Zero-PII Diagnostic Redaction:</strong>
+                      <span>Names, phone numbers, email addresses, URLs, and street addresses are systematically scrubbed prior to any export.</span>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Box 2: What IS NOT Checked & Honest Limitations */}
+              <div className="rounded-md border border-neutral-700 bg-surface p-6 space-y-4">
+                <div className="flex items-center gap-2 text-neutral-400">
+                  <AlertCircle className="h-5 w-5 shrink-0 text-amber-400" />
+                  <h3 className="text-base font-bold text-white uppercase tracking-wider">
+                    Boundaries &amp; Honest Limitations
+                  </h3>
+                </div>
+                <ul className="space-y-3 text-xs text-neutral-300">
+                  <li className="flex items-start gap-2.5">
+                    <span className="text-amber-400 font-mono font-bold shrink-0">&times;</span>
+                    <div>
+                      <strong className="text-white block font-mono">No Real Callback Probabilities:</strong>
+                      <span>HireFlow provides an internal estimate of requirement coverage; we do not claim to predict real-world employer interview callbacks.</span>
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <span className="text-amber-400 font-mono font-bold shrink-0">&times;</span>
+                    <div>
+                      <strong className="text-white block font-mono">No Live Code Execution:</strong>
+                      <span>We evaluate claimed skills and metrics in text; we do not run unit tests on candidate code or execute remote repositories.</span>
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <span className="text-amber-400 font-mono font-bold shrink-0">&times;</span>
+                    <div>
+                      <strong className="text-white block font-mono">Heuristic Layout Extraction:</strong>
+                      <span>Text extractors cannot assess visual PDF typography bounding boxes; parser checks are heuristic benchmarks.</span>
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <span className="text-amber-400 font-mono font-bold shrink-0">&times;</span>
+                    <div>
+                      <strong className="text-white block font-mono">Unverified External Data:</strong>
+                      <span>Any dataset lacking direct automated verification is marked as &ldquo;Source pending&rdquo; in our provenance registry.</span>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Tab 4: Data Provenance Table (Task 6.5) */}
+        {activeTab === 'provenance' && (
+          <section className="space-y-6">
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <Database className="h-5 w-5 text-volt" />
+                <h2 className="text-xl font-bold text-white uppercase tracking-wider">
+                  Data Provenance &amp; Calibration Baselines (P-6)
+                </h2>
+              </div>
+              <p className="text-sm text-neutral-400 leading-relaxed">
+                Rendered strictly from <code className="text-neutral-300">src/data/provenance.generated.json</code>.
+                Every dataset logged includes purpose, verification status, derived counts, and documented limitations:
+              </p>
+            </div>
+
+            <div className="overflow-x-auto rounded-md border border-charcoal bg-surface">
+              <table className="w-full text-left text-xs text-neutral-300">
+                <thead className="bg-surface-elevated text-neutral-400 uppercase font-mono font-semibold text-[11px] border-b border-charcoal">
+                  <tr>
+                    <th className="p-3">Dataset / Asset</th>
+                    <th className="p-3">Purpose &amp; Scope</th>
+                    <th className="p-3">Source Reference</th>
+                    <th className="p-3">Status</th>
+                    <th className="p-3 font-mono">Derived Metrics</th>
+                    <th className="p-3">Documented Biases &amp; Limits</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-charcoal font-normal">
+                  {provenanceData.datasets.map((row) => (
+                    <tr key={row.id} className="hover:bg-surface-elevated/40 transition-colors">
+                      <td className="p-3 font-semibold text-white">
+                        {row.name}
+                        <code className="block text-[10px] font-mono text-neutral-500 font-normal">{row.id}</code>
+                      </td>
+                      <td className="p-3 text-neutral-300 max-w-xs">{row.purpose}</td>
+                      <td className="p-3 font-mono text-neutral-400 max-w-[200px] break-all">{row.source}</td>
+                      <td className="p-3">
+                        {row.status === 'verified' && (
+                          <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 uppercase">
+                            Verified
+                          </span>
+                        )}
+                        {row.status === 'editorial' && (
+                          <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-blue-500/10 text-blue-400 border border-blue-500/20 uppercase">
+                            Editorial
+                          </span>
+                        )}
+                        {row.status === 'unverified' && (
+                          <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20 uppercase">
+                            Source Pending
+                          </span>
+                        )}
+                      </td>
+                      <td className="p-3 font-mono text-volt text-[11px] whitespace-nowrap">
+                        {row.derivedMetrics ? (
+                          <ul className="space-y-0.5">
+                            {Object.entries(row.derivedMetrics).map(([k, v]) => (
+                              <li key={k}>
+                                {k}: <strong>{String(v)}</strong>
+                              </li>
+                            ))}
+                          </ul>
+                        ) : (
+                          <span className="text-neutral-500">None</span>
+                        )}
+                      </td>
+                      <td className="p-3 text-neutral-400 max-w-xs leading-normal">{row.biasesOrLimitations}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+        )}
+
+        {/* Section: Diagnostic Utility ("Report a Wrong Result") */}
+        <section className="space-y-6 rounded-md border border-charcoal bg-surface p-6 sm:p-7">
           <div className="flex items-center gap-2">
             <AlertTriangle className="h-5 w-5 text-volt" />
-            <h2 className="text-xl font-bold text-white uppercase tracking-wider">8. &ldquo;Report a Wrong Result&rdquo; Diagnostic Utility</h2>
+            <h2 className="text-xl font-bold text-white uppercase tracking-wider">
+              &ldquo;Report a Wrong Result&rdquo; Diagnostic Utility
+            </h2>
           </div>
           <p className="text-sm text-neutral-400 leading-relaxed">
-            If an ATS scan or match result seems inaccurate, generate a sanitized diagnostic snapshot.
+            If an evaluation estimate appears inaccurate, export a sanitized diagnostic snapshot.
             In compliance with our zero-data-leakage architecture, this snapshot contains <strong className="text-white">zero PII</strong>
-            (no names, phone numbers, email addresses, or raw resume text). It includes only token weights,
+            (no names, phone numbers, email addresses, URLs, or raw resume text). It includes only token weights,
             math inputs, and engine fingerprints.
           </p>
 
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-            {/* Custom High-Contrast Dark Dropdown (prevents OS light-theme popup screen) */}
             <div ref={dropdownRef} className="relative inline-block w-full sm:w-auto">
               <button
                 type="button"
@@ -648,30 +1040,12 @@ export function MethodologyPage() {
                   })}
                 </div>
               )}
-
-              {/* Visually hidden native select to guarantee form compatibility & test accessibility */}
-              <select
-                aria-label="Diagnostic Metric Selection"
-                value={selectedDiagnosticMetric}
-                onChange={(e) => {
-                  setSelectedDiagnosticMetric(e.target.value);
-                  setDiagnosticJson(null);
-                }}
-                className="sr-only"
-                tabIndex={-1}
-              >
-                {DIAGNOSTIC_METRIC_OPTIONS.map((opt) => (
-                  <option key={opt.value} value={opt.value} className="bg-[#121212] text-white">
-                    {opt.label}
-                  </option>
-                ))}
-              </select>
             </div>
 
             <button
               type="button"
               onClick={handlePreviewDiagnostic}
-              className="inline-flex items-center justify-center gap-1.5 rounded border border-charcoal bg-surface-elevated px-4 py-2 text-xs font-mono font-medium text-neutral-200 hover:text-white hover:border-neutral-500 transition-colors"
+              className="inline-flex items-center justify-center gap-1.5 rounded border border-charcoal bg-surface-elevated px-4 py-2 text-xs font-mono font-medium text-neutral-200 hover:text-white hover:border-neutral-500 transition-colors cursor-pointer"
             >
               <FileCode className="h-4 w-4 text-volt" />
               <span>Preview Payload</span>
@@ -680,9 +1054,9 @@ export function MethodologyPage() {
             <button
               type="button"
               onClick={() => handleCopyDiagnostic(selectedDiagnosticMetric)}
-              className="inline-flex items-center justify-center gap-1.5 rounded bg-volt px-4 py-2 text-xs font-mono font-bold text-black hover:bg-volt-hover active:shadow-[inset_0_2px_4px_rgba(0,0,0,0.6)] transition-all shadow-sm"
+              className="inline-flex items-center justify-center gap-1.5 rounded bg-volt px-4 py-2 text-xs font-mono font-bold text-black hover:bg-volt-hover active:shadow-[inset_0_2px_4px_rgba(0,0,0,0.6)] transition-all shadow-sm cursor-pointer"
             >
-              {copiedMetricId === selectedDiagnosticMetric ? (
+              {copiedDiagnostic ? (
                 <>
                   <Check className="h-4 w-4 text-black" />
                   <span>Copied to Clipboard!</span>
@@ -699,7 +1073,7 @@ export function MethodologyPage() {
               <button
                 type="button"
                 onClick={handleExportFeedback}
-                className="inline-flex items-center justify-center gap-1.5 rounded border border-charcoal bg-surface-elevated px-4 py-2 text-xs font-mono font-medium text-neutral-300 hover:text-white hover:border-neutral-500 transition-colors ml-auto"
+                className="inline-flex items-center justify-center gap-1.5 rounded border border-charcoal bg-surface-elevated px-4 py-2 text-xs font-mono font-medium text-neutral-300 hover:text-white hover:border-neutral-500 transition-colors ml-auto cursor-pointer"
               >
                 <Download className="h-4 w-4 text-volt" />
                 <span>Export {feedbackStats.total} Local Feedback Items</span>
@@ -708,7 +1082,7 @@ export function MethodologyPage() {
           </div>
 
           {diagnosticJson && (
-            <div className="mt-4">
+            <div className="mt-4 animate-fade-in">
               <span className="text-xs font-mono font-semibold text-neutral-400 uppercase tracking-wider block mb-2">
                 Sanitized Payload Preview (Zero PII):
               </span>
@@ -723,7 +1097,7 @@ export function MethodologyPage() {
         <div className="pt-6 border-t border-charcoal text-xs text-neutral-400 flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <Info className="h-4 w-4 text-volt" />
-            <span>Specifications documented in <code className="text-neutral-300">docs/metric-inventory.md</code></span>
+            <span>Specifications documented in <code className="text-neutral-300 font-mono">docs/scoring-spec.md</code></span>
           </div>
           <a
             href="/"
@@ -738,4 +1112,3 @@ export function MethodologyPage() {
 }
 
 export default MethodologyPage;
-

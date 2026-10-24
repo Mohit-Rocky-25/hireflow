@@ -70,14 +70,14 @@
 
 ## Stage 6: Methodology Page Generated from the Spec
 
-- [ ] **6.1**: [TODO] Methodology page rendered purely from spec data (zero hardcoded numbers or rule text in JSX).
-- [ ] **6.2**: [TODO] Index map at the top detailing both estimates, their pillars, and single-counting guarantees.
-- [ ] **6.3**: [TODO] "Try the engine" live interactive panel running the real core against synthetic fixtures.
-- [ ] **6.4**: [TODO] Validation status box clearly separating real programmatic checks from editorial defaults & blind spots.
-- [ ] **6.5**: [TODO] Section 7 provenance derived strictly from repo artifacts (`src/data/provenance.generated.json` & `check:provenance`).
-- [ ] **6.6**: [TODO] Wording sweep removing all inflated claims ("mathematically derived", "Zero Magic", "verifiable academic foundations", etc.).
-- [ ] **6.7**: [TODO] Implement `npm run check:claims` and `npm run check:provenance`.
-- [ ] **6.8**: [TODO] Implement `npm run docs:scoring` generating `docs/scoring-spec.md` and `docs/metric-inventory.md` from the spec.
+- [x] **6.1**: [DONE] Methodology page rendered purely from spec data (zero hardcoded numbers or rule text in JSX).
+- [x] **6.2**: [DONE] Index map at the top detailing both estimates, their pillars, and single-counting guarantees.
+- [x] **6.3**: [DONE] "Try the engine" live interactive panel running the real core against synthetic fixtures.
+- [x] **6.4**: [DONE] Validation status box clearly separating real programmatic checks from editorial defaults & blind spots.
+- [x] **6.5**: [DONE] Section 7 provenance derived strictly from repo artifacts (`src/data/provenance.generated.json` & `check:provenance`).
+- [x] **6.6**: [DONE] Wording sweep removing all inflated claims ("mathematically derived", "Zero Magic", "verifiable academic foundations", etc.).
+- [x] **6.7**: [DONE] Implement `npm run check:claims` and `npm run check:provenance`.
+- [x] **6.8**: [DONE] Implement `npm run docs:scoring` generating `docs/scoring-spec.md` and `docs/metric-inventory.md` from the spec.
 
 ---
 

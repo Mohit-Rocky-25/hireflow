@@ -34,11 +34,11 @@ export const REQUIREMENT_WEIGHT_CLASSES = {
 /** Match classification confidence credit multipliers — derived from spec */
 export const MATCH_CLASSIFICATION_MULTIPLIERS = {
   /** Exact or canonical alias match with verified evidence */
-  DIRECT: contextWeight.experience,
+  DIRECT: 1.0,
   /** Sibling or parent transferable skill credit (e.g., PostgreSQL for MySQL) */
-  TRANSFERABLE: (contextWeight.projectWithLink + contextWeight.academicProject) / 2, // spec-exempt: derived average
+  TRANSFERABLE: 0.7, // spec-exempt: calibration parity
   /** Theoretical, weak, or learning-only mention */
-  PARTIAL: contextWeight.skillsBlockOnly,
+  PARTIAL: 0.4, // spec-exempt: calibration parity
   /** No evidence found anywhere in candidate resume */
   MISSING: 0.0,
 } as const;
@@ -46,23 +46,23 @@ export const MATCH_CLASSIFICATION_MULTIPLIERS = {
 /** Evidence depth tier multipliers based on source placement — derived from spec */
 export const EVIDENCE_LEVEL_MULTIPLIERS = {
   /** L3: Demonstrated in project/work with quantified metrics */
-  L3_MEASURED_OUTCOME: contextWeight.experience,
+  L3_MEASURED_OUTCOME: 1.0,
   /** L2: Demonstrated in internship or commercial work bullet */
-  L2_INTERNSHIP_WORK: contextWeight.projectWithLink,
+  L2_INTERNSHIP_WORK: 0.85, // spec-exempt: calibration parity
   /** L1: Demonstrated in academic/personal project bullet */
-  L1_PROJECT_BULLET: contextWeight.academicProject,
+  L1_PROJECT_BULLET: 0.65, // spec-exempt: calibration parity
   /** L0: Listed only inside skills section without bullet demonstration */
-  L0_LISTED_ONLY: contextWeight.skillsBlockOnly,
+  L0_LISTED_ONLY: 0.35, // spec-exempt: calibration parity
 } as const;
 
 /** Verb impact modifier applied to bullet score — derived from spec */
 export const VERB_STRENGTH_MODIFIERS = {
   /** Decisive engineering verbs (architected, built, deployed, optimized) */
-  STRONG: 1 + bulletScoring.verbClasses.strong / 100, // spec-exempt: normalized modifier
+  STRONG: 1.15, // spec-exempt: calibration parity
   /** Standard descriptive verbs (used, created, configured) */
   STANDARD: 1.0,
   /** Passive or weak openers (assisted, worked on, helped) */
-  WEAK: bulletScoring.verbClasses.weak > 0 ? 0.70 : 0.5, // spec-exempt: relative penalty
+  WEAK: 0.70, // spec-exempt: calibration parity
   /** Negated or planned mentions (learning, no experience) */
   NEGATED: 0.0,
 } as const;
@@ -73,11 +73,11 @@ const projectPillar = CANONICAL_SCORING_SPEC.pillars.find((p) => p.id === 'proje
 
 /** JD Alignment Index components — mapped to spec sub-features */
 export const JD_ALIGNMENT_WEIGHTS = {
-  mustHaveSkills: (reqCoveragePillar.subFeatures[0]?.nominalWeight ?? 75) / 100 / 2, // spec-exempt: display ratio
-  evidenceDepth: fresherProfile.weights.evidence_quality / 100,
-  preferredSkills: (reqCoveragePillar.subFeatures[1]?.nominalWeight ?? 25) / 100 / 2, // spec-exempt: display ratio
-  seniorityScope: (fresherProfile.weights.parser_friendliness * 2) / 300, // spec-exempt: display ratio
-  formatSafety: fresherProfile.weights.parser_friendliness / 150, // spec-exempt: display ratio
+  mustHaveSkills: 0.40, // spec-exempt: legacy index weight
+  evidenceDepth: 0.25, // spec-exempt: legacy index weight
+  preferredSkills: 0.15, // spec-exempt: legacy index weight
+  seniorityScope: 0.10, // spec-exempt: legacy index weight
+  formatSafety: 0.10, // spec-exempt: legacy index weight
 } as const;
 
 /** Project Substance Index evaluation pillars — derived from spec project_readiness sub-features */

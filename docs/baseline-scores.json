@@ -35,32 +35,32 @@
       ]
     },
     "talentLens": {
-      "simulatedScore": 10,
+      "simulatedScore": 44,
       "sampleCompetencies": [
         {
           "competency": "Java",
-          "status": "absent",
-          "confidence": 5
+          "status": "working",
+          "confidence": 15
         },
         {
           "competency": "Python",
-          "status": "absent",
-          "confidence": 5
+          "status": "working",
+          "confidence": 15
         },
         {
           "competency": "React",
-          "status": "absent",
-          "confidence": 5
+          "status": "working",
+          "confidence": 15
         },
         {
           "competency": "TypeScript",
-          "status": "absent",
-          "confidence": 5
+          "status": "working",
+          "confidence": 15
         },
         {
           "competency": "Docker",
-          "status": "absent",
-          "confidence": 5
+          "status": "strong",
+          "confidence": 36
         },
         {
           "competency": "System Design",
@@ -106,7 +106,7 @@
       ]
     },
     "talentLens": {
-      "simulatedScore": 5,
+      "simulatedScore": 54,
       "sampleCompetencies": [
         {
           "competency": "Java",
@@ -120,13 +120,13 @@
         },
         {
           "competency": "React",
-          "status": "absent",
-          "confidence": 5
+          "status": "working",
+          "confidence": 29
         },
         {
           "competency": "TypeScript",
-          "status": "absent",
-          "confidence": 5
+          "status": "working",
+          "confidence": 29
         },
         {
           "competency": "Docker",
@@ -183,7 +183,7 @@
       ]
     },
     "talentLens": {
-      "simulatedScore": 15,
+      "simulatedScore": 47,
       "sampleCompetencies": [
         {
           "competency": "Java",
@@ -192,8 +192,8 @@
         },
         {
           "competency": "Python",
-          "status": "absent",
-          "confidence": 5
+          "status": "strong",
+          "confidence": 45
         },
         {
           "competency": "React",
@@ -207,8 +207,8 @@
         },
         {
           "competency": "Docker",
-          "status": "absent",
-          "confidence": 5
+          "status": "strong",
+          "confidence": 45
         },
         {
           "competency": "System Design",
@@ -260,17 +260,17 @@
       ]
     },
     "talentLens": {
-      "simulatedScore": 5,
+      "simulatedScore": 44,
       "sampleCompetencies": [
         {
           "competency": "Java",
-          "status": "absent",
-          "confidence": 5
+          "status": "strong",
+          "confidence": 36
         },
         {
           "competency": "Python",
-          "status": "absent",
-          "confidence": 5
+          "status": "working",
+          "confidence": 15
         },
         {
           "competency": "React",
@@ -284,8 +284,8 @@
         },
         {
           "competency": "Docker",
-          "status": "absent",
-          "confidence": 5
+          "status": "working",
+          "confidence": 15
         },
         {
           "competency": "System Design",
@@ -331,12 +331,12 @@
       ]
     },
     "talentLens": {
-      "simulatedScore": 14,
+      "simulatedScore": 32,
       "sampleCompetencies": [
         {
           "competency": "Java",
-          "status": "absent",
-          "confidence": 5
+          "status": "working",
+          "confidence": 15
         },
         {
           "competency": "Python",
@@ -408,7 +408,7 @@
       ]
     },
     "talentLens": {
-      "simulatedScore": 0,
+      "simulatedScore": 35,
       "sampleCompetencies": [
         {
           "competency": "Java",
@@ -417,8 +417,8 @@
         },
         {
           "competency": "Python",
-          "status": "absent",
-          "confidence": 5
+          "status": "working",
+          "confidence": 15
         },
         {
           "competency": "React",
@@ -432,8 +432,8 @@
         },
         {
           "competency": "Docker",
-          "status": "absent",
-          "confidence": 5
+          "status": "working",
+          "confidence": 15
         },
         {
           "competency": "System Design",
@@ -479,22 +479,22 @@
       ]
     },
     "talentLens": {
-      "simulatedScore": 5,
+      "simulatedScore": 34,
       "sampleCompetencies": [
         {
           "competency": "Java",
-          "status": "absent",
-          "confidence": 5
+          "status": "working",
+          "confidence": 15
         },
         {
           "competency": "Python",
-          "status": "absent",
-          "confidence": 5
+          "status": "working",
+          "confidence": 15
         },
         {
           "competency": "React",
-          "status": "absent",
-          "confidence": 5
+          "status": "working",
+          "confidence": 15
         },
         {
           "competency": "TypeScript",
@@ -556,17 +556,17 @@
       ]
     },
     "talentLens": {
-      "simulatedScore": 13,
+      "simulatedScore": 41,
       "sampleCompetencies": [
         {
           "competency": "Java",
-          "status": "absent",
-          "confidence": 5
+          "status": "working",
+          "confidence": 20
         },
         {
           "competency": "Python",
-          "status": "absent",
-          "confidence": 5
+          "status": "working",
+          "confidence": 20
         },
         {
           "competency": "React",
@@ -580,8 +580,8 @@
         },
         {
           "competency": "Docker",
-          "status": "absent",
-          "confidence": 5
+          "status": "strong",
+          "confidence": 45
         },
         {
           "competency": "System Design",
@@ -627,7 +627,7 @@
       ]
     },
     "talentLens": {
-      "simulatedScore": 0,
+      "simulatedScore": 41,
       "sampleCompetencies": [
         {
           "competency": "Java",
@@ -641,13 +641,13 @@
         },
         {
           "competency": "React",
-          "status": "absent",
-          "confidence": 5
+          "status": "working",
+          "confidence": 29
         },
         {
           "competency": "TypeScript",
-          "status": "absent",
-          "confidence": 5
+          "status": "working",
+          "confidence": 29
         },
         {
           "competency": "Docker",
@@ -704,22 +704,22 @@
       ]
     },
     "talentLens": {
-      "simulatedScore": 0,
+      "simulatedScore": 33,
       "sampleCompetencies": [
         {
           "competency": "Java",
-          "status": "absent",
-          "confidence": 5
+          "status": "working",
+          "confidence": 15
         },
         {
           "competency": "Python",
-          "status": "absent",
-          "confidence": 5
+          "status": "working",
+          "confidence": 15
         },
         {
           "competency": "React",
-          "status": "absent",
-          "confidence": 5
+          "status": "working",
+          "confidence": 15
         },
         {
           "competency": "TypeScript",
@@ -728,8 +728,8 @@
         },
         {
           "competency": "Docker",
-          "status": "absent",
-          "confidence": 5
+          "status": "working",
+          "confidence": 15
         },
         {
           "competency": "System Design",
@@ -787,7 +787,7 @@
       ]
     },
     "talentLens": {
-      "simulatedScore": 0,
+      "simulatedScore": 31,
       "sampleCompetencies": [
         {
           "competency": "Java",
@@ -801,13 +801,13 @@
         },
         {
           "competency": "React",
-          "status": "absent",
-          "confidence": 5
+          "status": "working",
+          "confidence": 15
         },
         {
           "competency": "TypeScript",
-          "status": "absent",
-          "confidence": 5
+          "status": "working",
+          "confidence": 15
         },
         {
           "competency": "Docker",
@@ -864,12 +864,12 @@
       ]
     },
     "talentLens": {
-      "simulatedScore": 3,
+      "simulatedScore": 25,
       "sampleCompetencies": [
         {
           "competency": "Java",
-          "status": "absent",
-          "confidence": 5
+          "status": "working",
+          "confidence": 15
         },
         {
           "competency": "Python",
@@ -935,12 +935,12 @@
       ]
     },
     "talentLens": {
-      "simulatedScore": 5,
+      "simulatedScore": 32,
       "sampleCompetencies": [
         {
           "competency": "Java",
-          "status": "absent",
-          "confidence": 5
+          "status": "working",
+          "confidence": 15
         },
         {
           "competency": "Python",
@@ -959,8 +959,8 @@
         },
         {
           "competency": "Docker",
-          "status": "absent",
-          "confidence": 5
+          "status": "working",
+          "confidence": 15
         },
         {
           "competency": "System Design",
@@ -1006,7 +1006,7 @@
       ]
     },
     "talentLens": {
-      "simulatedScore": 6,
+      "simulatedScore": 32,
       "sampleCompetencies": [
         {
           "competency": "Java",
@@ -1015,8 +1015,8 @@
         },
         {
           "competency": "Python",
-          "status": "absent",
-          "confidence": 5
+          "status": "working",
+          "confidence": 15
         },
         {
           "competency": "React",
@@ -1077,7 +1077,7 @@
       ]
     },
     "talentLens": {
-      "simulatedScore": 0,
+      "simulatedScore": 32,
       "sampleCompetencies": [
         {
           "competency": "Java",
@@ -1086,8 +1086,8 @@
         },
         {
           "competency": "Python",
-          "status": "absent",
-          "confidence": 5
+          "status": "working",
+          "confidence": 29
         },
         {
           "competency": "React",
@@ -1101,8 +1101,8 @@
         },
         {
           "competency": "Docker",
-          "status": "absent",
-          "confidence": 5
+          "status": "working",
+          "confidence": 15
         },
         {
           "competency": "System Design",
@@ -1166,7 +1166,7 @@
       ]
     },
     "talentLens": {
-      "simulatedScore": 0,
+      "simulatedScore": 25,
       "sampleCompetencies": [
         {
           "competency": "Java",
@@ -1180,13 +1180,13 @@
         },
         {
           "competency": "React",
-          "status": "absent",
-          "confidence": 5
+          "status": "working",
+          "confidence": 29
         },
         {
           "competency": "TypeScript",
-          "status": "absent",
-          "confidence": 5
+          "status": "working",
+          "confidence": 29
         },
         {
           "competency": "Docker",
@@ -1255,12 +1255,12 @@
       ]
     },
     "talentLens": {
-      "simulatedScore": 8,
+      "simulatedScore": 35,
       "sampleCompetencies": [
         {
           "competency": "Java",
-          "status": "absent",
-          "confidence": 5
+          "status": "strong",
+          "confidence": 37
         },
         {
           "competency": "Python",
@@ -1279,8 +1279,8 @@
         },
         {
           "competency": "Docker",
-          "status": "absent",
-          "confidence": 5
+          "status": "working",
+          "confidence": 15
         },
         {
           "competency": "System Design",
@@ -1332,7 +1332,7 @@
       ]
     },
     "talentLens": {
-      "simulatedScore": 0,
+      "simulatedScore": 26,
       "sampleCompetencies": [
         {
           "competency": "Java",
@@ -1341,8 +1341,8 @@
         },
         {
           "competency": "Python",
-          "status": "absent",
-          "confidence": 5
+          "status": "working",
+          "confidence": 15
         },
         {
           "competency": "React",
@@ -1356,8 +1356,8 @@
         },
         {
           "competency": "Docker",
-          "status": "absent",
-          "confidence": 5
+          "status": "working",
+          "confidence": 15
         },
         {
           "competency": "System Design",
@@ -1415,7 +1415,7 @@
       ]
     },
     "talentLens": {
-      "simulatedScore": 3,
+      "simulatedScore": 26,
       "sampleCompetencies": [
         {
           "competency": "Java",
@@ -1439,8 +1439,8 @@
         },
         {
           "competency": "Docker",
-          "status": "absent",
-          "confidence": 5
+          "status": "working",
+          "confidence": 15
         },
         {
           "competency": "System Design",
@@ -1492,7 +1492,7 @@
       ]
     },
     "talentLens": {
-      "simulatedScore": 5,
+      "simulatedScore": 61,
       "sampleCompetencies": [
         {
           "competency": "Java",
@@ -1506,13 +1506,13 @@
         },
         {
           "competency": "React",
-          "status": "absent",
-          "confidence": 5
+          "status": "strong",
+          "confidence": 36
         },
         {
           "competency": "TypeScript",
-          "status": "absent",
-          "confidence": 5
+          "status": "strong",
+          "confidence": 36
         },
         {
           "competency": "Docker",
@@ -1563,7 +1563,7 @@
       ]
     },
     "talentLens": {
-      "simulatedScore": 5,
+      "simulatedScore": 38,
       "sampleCompetencies": [
         {
           "competency": "Java",
@@ -1572,8 +1572,8 @@
         },
         {
           "competency": "Python",
-          "status": "absent",
-          "confidence": 5
+          "status": "working",
+          "confidence": 15
         },
         {
           "competency": "React",
@@ -1587,8 +1587,8 @@
         },
         {
           "competency": "Docker",
-          "status": "absent",
-          "confidence": 5
+          "status": "working",
+          "confidence": 15
         },
         {
           "competency": "System Design",
@@ -1640,12 +1640,12 @@
       ]
     },
     "talentLens": {
-      "simulatedScore": 0,
+      "simulatedScore": 35,
       "sampleCompetencies": [
         {
           "competency": "Java",
-          "status": "absent",
-          "confidence": 5
+          "status": "working",
+          "confidence": 15
         },
         {
           "competency": "Python",
@@ -1711,12 +1711,12 @@
       ]
     },
     "talentLens": {
-      "simulatedScore": 0,
+      "simulatedScore": 26,
       "sampleCompetencies": [
         {
           "competency": "Java",
-          "status": "absent",
-          "confidence": 5
+          "status": "working",
+          "confidence": 15
         },
         {
           "competency": "Python",
@@ -1735,8 +1735,8 @@
         },
         {
           "competency": "Docker",
-          "status": "absent",
-          "confidence": 5
+          "status": "working",
+          "confidence": 15
         },
         {
           "competency": "System Design",
@@ -1788,12 +1788,12 @@
       ]
     },
     "talentLens": {
-      "simulatedScore": 5,
+      "simulatedScore": 35,
       "sampleCompetencies": [
         {
           "competency": "Java",
-          "status": "absent",
-          "confidence": 5
+          "status": "working",
+          "confidence": 34
         },
         {
           "competency": "Python",

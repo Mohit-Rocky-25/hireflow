@@ -1,150 +1,97 @@
-# HireFlow v4: Metric Inventory & Mathematical Specifications
+# HireFlow Metric Inventory & Mathematical Specifications (`docs/metric-inventory.md`)
 
-This inventory documents every derived score, ratio, and match percentage across candidate tools in HireFlow v4.
-In accordance with Principle P-1 (Zero Fabrication) and Requirement B6 ("How is this calculated?"), every metric is deterministically derived from live configuration constants (`src/config/scoring.ts`, `src/config/limits.ts`, `src/data/presets/role-presets.json`) and runtime candidate inputs.
-
----
-
-## 1. Overall ATS Score (`overall-ats-score`)
-
-- **Identifier**: `overall-ats-score`
-- **User-Facing Title**: Resume Strength & ATS Score
-- **Unit**: `/100`
-- **Dynamic Formula**:
-  ```
-  OverallScore = (HardSkills * ATS_PILLAR_WEIGHTS.hardSkills)
-               + (EvidenceQuality * ATS_PILLAR_WEIGHTS.evidenceQuality)
-               + (FresherReadiness * ATS_PILLAR_WEIGHTS.fresherReadiness)
-               + (FormatSafety * ATS_PILLAR_WEIGHTS.formatSafety)
-  ```
-- **Configuration Source**: `ATS_PILLAR_WEIGHTS` in `src/config/scoring.ts`
-  - `hardSkills`: 0.40 (40%)
-  - `evidenceQuality`: 0.25 (25%)
-  - `fresherReadiness`: 0.20 (20%)
-  - `formatSafety`: 0.15 (15%)
-- **Inputs**:
-  1. `HardSkillsScore` (0-100): Weighted match against target role / JD skills
-  2. `EvidenceQualityScore` (0-100): Quantifiable metrics, active verbs, and bullet depth
-  3. `FresherReadinessScore` (0-100): Academic/personal projects, GitHub links, degree proof
-  4. `FormatSafetyScore` (0-100): Parsing fidelity, absence of tables/multi-columns/broken glyphs
-- **Data Provenance**: 2026–2027 Indian Campus Placement & Fresher ATS benchmarks.
-- **Honest Limitations**:
-  - Heuristic score based on standard ATS parser behaviors (Workday, Greenhouse, Taleo, Darwinbox).
-  - High score does not guarantee interview shortlisting, which depends on campus quota and hiring volumes.
-  - Cannot verify whether stated project accomplishments correspond to active repositories.
+> **Spec Version**: 2.4.0  
+> **Engine Version**: 4.0.0  
+> **Architecture Status**: Pure Specification-Derived (Rule A1 & A2)  
+> **Last Verification**: October 2026
 
 ---
 
-## 2. JD Match Score (`jd-match-score`)
+## 1. Primary Tool Estimates
 
-- **Identifier**: `jd-match-score`
-- **User-Facing Title**: Job Description Match Score
-- **Unit**: `%`
+HireFlow computes two primary estimates, both driven from the identical core engine (`runScoringEngine`):
+
+### A. Resume Match Estimate (`resume-match-estimate`)
+- **Tool**: ATS Resume Roaster
+- **User-Facing Label**: Resume Match Estimate
+- **Unit**: `0–100` (with sensitivity band, e.g. `76–82/100`)
 - **Dynamic Formula**:
-  ```
-  MatchScore = (∑ (RequirementWeight * MatchCredit * EvidenceMultiplier)) / (∑ RequirementWeight) * 100
-  ```
-- **Configuration Source**:
-  - `REQUIREMENT_WEIGHT_CLASSES` (`mandatory`: 3.0, `preferred`: 1.5, `mentioned`: 1.0)
-  - `MATCH_CLASSIFICATION_MULTIPLIERS` (`DIRECT`: 1.0, `TRANSFERABLE`: 0.7, `PARTIAL`: 0.4, `MISSING`: 0.0)
-  - `EVIDENCE_LEVEL_MULTIPLIERS` (`L3`: 1.0, `L2`: 0.85, `L1`: 0.65, `L0`: 0.35)
-- **Inputs**:
-  - Target Job Description parsed requirements
-  - Candidate resume matched tokens, alias graph resolution, and section placement
-- **Data Provenance**: Parsed directly from user-uploaded or pasted target JD.
-- **Honest Limitations**:
-  - Semantic matching evaluates textual overlap and known technical taxonomies.
-  - Cannot evaluate problem-solving intuition or live debugging abilities.
+  $$\text{EffectiveWeight}_i = \frac{\text{NominalWeight}_i}{\sum_{j \in \text{applicable}} \text{NominalWeight}_j}$$
+  $$\text{CompositeScore} = \sum_{i \in \text{applicable}} \text{RawScore}_i \times \text{EffectiveWeight}_i$$
+  $$\text{EstimateDisplay} = \text{round}(\text{CompositeScore})$$
+- **Applicable Pillars**:
+  - Fresher Profile: Requirement Coverage (40%), Evidence Quality (25%), Project Readiness (20%), Parser-Friendliness (15%). Experience Fit is excluded.
+  - Experienced Profile: Requirement Coverage (35%), Evidence Quality (25%), Project Readiness (15%), Parser-Friendliness (10%), Experience Fit (15%).
+- **Sensitivity Band**: Computed via `calculateScoreBand` by perturbing pillar weights by ±20% and evaluating borderline requirement flips.
+
+### B. Market Readiness Estimate (`market-readiness-estimate`)
+- **Tool**: TalentLens
+- **User-Facing Label**: Market Readiness Estimate
+- **Unit**: `0–100%` (with sensitivity band and readiness tier)
+- **Dynamic Formula**: Evaluated with market archetype group weights (`big_tech_product`, `quant_trading`, `indian_high_growth`, `product_mnc_gcc`, `service_track`, `early_growth_startup`).
+- **Readiness Tier Classification**:
+  - `Strong fit`: Score ≥ 75% and 0 missing competencies
+  - `Developing fit`: Score ≥ 50% and ≤ 1 missing competency
+  - `Potential fit with evidence gaps`: Missing critical competencies
+  - `Low current fit`: Score < 50%
 
 ---
 
-## 3. Hard Skills Coverage (`hard-skills-coverage`)
+## 2. Canonical Pillar Inventory
 
-- **Identifier**: `hard-skills-coverage`
-- **User-Facing Title**: Technical Hard Skills Coverage
-- **Unit**: `%`
-- **Dynamic Formula**:
-  ```
-  Coverage = (Evidenced Mandatory Skills / Total Mandatory Skills in JD) * 100
-  ```
-- **Configuration Source**: `REQUIREMENT_WEIGHT_CLASSES.mandatory` (3.0)
-- **Inputs**:
-  - Count of mandatory skills identified in target role
-  - Count of those skills found in candidate projects or skills list
-- **Data Provenance**: Target role specifications.
-- **Honest Limitations**:
-  - A skill listed in a "Skills" section counts as evidenced (L0 tier) even without bullet proof. Check Evidence Quality for demonstrated ability.
+Every sub-feature belongs to **exactly ONE canonical pillar** (Rule A3 Single-Counting Guarantee):
 
----
+### Pillar 1: Requirement Coverage (`requirement_coverage`)
+- **Compute ID**: `compute_requirement_coverage`
+- **Nominal Profile Weights**: Fresher **40%**, Experienced **35%**
+- **Sub-Features**:
+  - `sub_must_have_skills` (75% sub-weight): Placement credit (Experience 1.0, Project 0.8, Academic 0.6, Skills block 0.35, Missing 0.0)
+  - `sub_preferred_skills` (25% sub-weight): Preferred / secondary technical qualifications
+- **Data Provenance**: Parsed directly from target JD or role baseline standards.
+- **Honest Limitations**: Measures lexical & synonym overlap; cannot verify actual depth without coding tests.
 
-## 4. Evidence Quality & Depth (`evidence-depth-score`)
+### Pillar 2: Evidence Quality (`evidence_quality`)
+- **Compute ID**: `compute_evidence_quality`
+- **Nominal Profile Weights**: Fresher **25%**, Experienced **25%**
+- **Sub-Features**:
+  - `sub_action_verbs` (20% sub-weight): Strong decisive engineering verbs (20 pts), standard (15 pts), passive (6 pts)
+  - `sub_measured_results` (30% sub-weight): Numerals tied to metrics (30 pts), qualitative (12 pts)
+  - `sub_tech_in_context` (25% sub-weight): Skills used in operational action (25 pts), bare lists (8 pts)
+  - `sub_outcome_impact` (25% sub-weight): Explicit business or system outcome (25 pts)
+- **Special Guards**: Bullets listing 3+ technologies with no verb or outcome are penalized as keyword dumps (capped at 8 pts). Implausible metrics flagged.
 
-- **Identifier**: `evidence-depth-score`
-- **User-Facing Title**: Evidence Depth & Quantifiable Metrics
-- **Unit**: `/100`
-- **Dynamic Formula**:
-  ```
-  EvidenceScore = (∑ BulletTierMultipliers) / TotalBullets * 100
-  where L3_MEASURED_OUTCOME = 1.0, L2_INTERNSHIP = 0.85, L1_PROJECT = 0.65, L0_LISTED = 0.35
-  ```
-- **Configuration Source**: `EVIDENCE_LEVEL_MULTIPLIERS` in `src/config/scoring.ts`
-- **Inputs**:
-  - Bullet points parsed from Experience and Project sections
-  - Regex detection of numerical metrics (percentages, latency ms, query times, throughput, user counts)
-- **Data Provenance**: Client-side regex pattern extraction over candidate resume text.
-- **Honest Limitations**:
-  - Detects syntactic presence of digits and units; cannot mathematically verify whether "reduced latency by 45%" was real.
+### Pillar 3: Project & Practical Readiness (`project_readiness`)
+- **Compute ID**: `compute_project_readiness`
+- **Nominal Profile Weights**: Fresher **20%**, Experienced **15%**
+- **Sub-Features**:
+  - `sub_architecture_depth` (35% sub-weight): Systems signals (caching, queuing, state management, pipelines)
+  - `sub_production_rigor` (30% sub-weight): Automated testing, CI/CD, Docker, container deployment
+  - `sub_quantified_engineering_metrics` (20% sub-weight): System benchmarks (p99 latency, QPS, crash rates)
+  - `sub_practical_artifacts` (15% sub-weight): Live demo links, GitHub repositories, competitive profiles
+- **Data Provenance**: Editorial standards calibrated against campus and off-campus recruitment rubrics.
 
----
+### Pillar 4: Parser-Friendliness (`parser_friendliness`)
+- **Compute ID**: `compute_parser_friendliness`
+- **Nominal Profile Weights**: Fresher **15%**, Experienced **10%**
+- **Sub-Features**:
+  - `sub_standard_section_structure` (50% sub-weight): Standard section headings recognized by ATS
+  - `sub_layout_cleanliness` (35% sub-weight): Clean linear text flow without multi-column parsing hazards
+  - `sub_regional_advisories` (15% sub-weight): Regional standards (photo, declaration statements)
+- **Regional Advisory Guarantee**: Indian campus norms (photos, declaration statements) generate advisory chips but never cause score deductions.
 
-## 5. Verb Impact Score (`verb-impact-score`)
-
-- **Identifier**: `verb-impact-score`
-- **User-Facing Title**: Action Verb Impact Density
-- **Unit**: `/100`
-- **Dynamic Formula**:
-  ```
-  VerbScore = ((StrongVerbs * 1.15) + (StandardVerbs * 1.0) - (WeakVerbs * 0.3)) / TotalBullets * 100
-  ```
-- **Configuration Source**: `VERB_STRENGTH_MODIFIERS` in `src/config/scoring.ts`
-  - `STRONG`: 1.15 (architected, implemented, built, optimized, deployed)
-  - `STANDARD`: 1.0 (created, developed, configured, maintained)
-  - `WEAK`: 0.70 (assisted, worked on, helped)
-- **Inputs**: Initial token of each bullet point across projects and experience.
-- **Data Provenance**: Indian engineering placement resume taxonomy.
-- **Honest Limitations**:
-  - Lexical evaluation only; strong verbs cannot compensate for an absence of technical depth.
+### Pillar 5: Experience & Seniority Fit (`experience_fit`)
+- **Compute ID**: `compute_experience_fit`
+- **Nominal Profile Weights**: Fresher **0% (Excluded)**, Experienced **15%**
+- **Sub-Features**:
+  - `sub_tenure_alignment` (100% sub-weight): Continuous piecewise tenure evaluation function
+- **Exclusion Guarantee**: When candidate has ≤ 1 year experience and target role is entry-level, this pillar is excluded and its weight is dynamically renormalized.
 
 ---
 
-## 6. Demanded Skill Cross-JD Score (`demanded-skill-score`)
+## 3. Unscored Advisory Panels
 
-- **Identifier**: `demanded-skill-score`
-- **User-Facing Title**: Cross-JD Market Demand Score
-- **Unit**: `pts`
-- **Dynamic Formula**:
-  ```
-  Score = (MandatoryCount * 3.0 + PreferredCount * 1.5 + MentionedCount * 1.0) / TotalSavedJDs
-  ```
-- **Configuration Source**: `REQUIREMENT_WEIGHT_CLASSES` in `src/config/scoring.ts`
-- **Inputs**: Candidate's library of saved JDs (threshold: ≥ 3 JDs required).
-- **Data Provenance**: User's saved job description library.
-- **Honest Limitations**:
-  - Reflects only the JDs manually saved by the user. If the user only saves fintech JDs, enterprise SaaS requirements will be underrepresented.
+The following dimensions provide qualitative guidance and **never modify numeric scores**:
 
----
-
-## 7. Branch Bridge Transferability (`branch-bridge-match`)
-
-- **Identifier**: `branch-bridge-match`
-- **User-Facing Title**: Non-CS Branch Bridge Alignment
-- **Unit**: `%`
-- **Dynamic Formula**:
-  ```
-  BridgeAlignment = (CandidateTransferableSkills.length + CandidateCoreSkills.length) / TotalRoleCoreSkills * 100
-  ```
-- **Configuration Source**: `src/data/presets/role-presets.json` (AICTE curriculum mappings).
-- **Inputs**: User declared engineering branch (e.g. ECE, EEE, Mechanical, Civil), evidenced resume skills.
-- **Data Provenance**: Standard Indian AICTE model curriculum (2018–2024 revisions).
-- **Honest Limitations**:
-  - Autonomous engineering colleges and tier-1 universities (IITs, NITs, BITS) may offer custom software electives not captured in standard AICTE branch profiles.
+1. **Reality Factors Panel**: Campus tier, referral status, aptitude tests, cold outreach effectiveness.
+2. **Eligibility Gate**: Official academic cutoffs (e.g. TCS 60% aggregate criterion across 10th, 12th, and degree).
+3. **Regional Advisory Standards**: Photo placement, declaration statement wording.
