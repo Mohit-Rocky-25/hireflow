@@ -12,7 +12,7 @@ export interface CompanyHeaderCardProps {
 
 export function CompanyHeaderCard({ company, onChangeCompany }: CompanyHeaderCardProps) {
   return (
-    <div className="bg-near-black border border-charcoal rounded-lg p-6 mb-6 shadow-level-1">
+    <div className="shiny-edge-card bg-near-black border border-charcoal rounded-lg p-6 mb-6 shadow-level-1">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-5">
         <div className="flex items-center gap-4">
           <CompanyLogo company={company} size="lg" />

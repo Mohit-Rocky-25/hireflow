@@ -224,6 +224,118 @@ button.bg-volt:hover[class*="hover:!text-volt"] svg {
 }
 
 /* ============================================================
+   HireFlow — Shiny Multi-Color Iridescent Edge UI System
+   Luxury Dark UI Specular Sheen & Chromatic Gradient Edges
+   ============================================================ */
+
+/* ── 1. Base Multi-Color Edge Box & Card Styles ── */
+.shiny-box,
+.shiny-edge-card,
+.card-shiny,
+[data-card],
+div[class*="rounded-2xl"][class*="bg-near-black"][class*="border"]:not(.no-shiny):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-forest"]),
+div[class*="rounded-xl"][class*="bg-near-black"][class*="border"]:not(.no-shiny):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-forest"]),
+div[class*="rounded-lg"][class*="bg-near-black"][class*="border"]:not(.no-shiny):not(input):not(textarea):not(select):not([class*="w-7"]):not([class*="w-8"]):not([class*="w-9"]):not([class*="w-10"]):not([class*="w-12"]):not([class*="w-14"]):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-forest"]),
+a[class*="rounded-2xl"][class*="bg-near-black"][class*="border"]:not(.no-shiny):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-forest"]),
+a[class*="rounded-xl"][class*="bg-near-black"][class*="border"]:not(.no-shiny):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-forest"]),
+a[class*="rounded-lg"][class*="bg-near-black"][class*="border"]:not(.no-shiny):not([class*="w-7"]):not([class*="w-8"]):not([class*="w-9"]):not([class*="w-10"]):not([class*="w-12"]):not([class*="w-14"]):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-forest"]),
+div[class*="rounded-xl"][class*="bg-black"][class*="border"]:not(.no-shiny):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-forest"]),
+div[class*="rounded-lg"][class*="bg-black"][class*="border"]:not(.no-shiny):not(input):not(textarea):not(select):not([class*="w-7"]):not([class*="w-8"]):not([class*="w-9"]):not([class*="w-10"]):not([class*="w-12"]):not([class*="w-14"]):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-forest"]),
+a[class*="rounded-lg"][class*="bg-black"][class*="border"]:not(.no-shiny):not([class*="w-7"]):not([class*="w-8"]):not([class*="w-9"]):not([class*="w-10"]):not([class*="w-12"]):not([class*="w-14"]):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-forest"]) {
+  position: relative;
+  background:
+    linear-gradient(180deg, #131313 0%, #0a0a0a 100%) padding-box,
+    linear-gradient(
+      135deg,
+      rgba(250, 255, 105, 0.40) 0%,
+      rgba(56, 189, 248, 0.35) 25%,
+      rgba(168, 85, 247, 0.35) 50%,
+      rgba(16, 185, 129, 0.35) 75%,
+      rgba(244, 63, 94, 0.40) 100%
+    ) border-box !important;
+  border: 1px solid transparent !important;
+  box-shadow:
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.16),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.02),
+    0 8px 30px -8px rgba(0, 0, 0, 0.8) !important;
+  transition: all 250ms cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* ── 2. Hover Interaction: Vibrant Chromatic Aura & Specular Flare ── */
+.shiny-box:hover,
+.shiny-edge-card:hover,
+.card-shiny:hover,
+[data-card]:hover,
+div[class*="rounded-2xl"][class*="bg-near-black"][class*="border"]:not(.no-shiny):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-forest"]):hover,
+div[class*="rounded-xl"][class*="bg-near-black"][class*="border"]:not(.no-shiny):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-forest"]):hover,
+div[class*="rounded-lg"][class*="bg-near-black"][class*="border"]:not(.no-shiny):not(input):not(textarea):not(select):not([class*="w-7"]):not([class*="w-8"]):not([class*="w-9"]):not([class*="w-10"]):not([class*="w-12"]):not([class*="w-14"]):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-forest"]):hover,
+a[class*="rounded-2xl"][class*="bg-near-black"][class*="border"]:not(.no-shiny):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-forest"]):hover,
+a[class*="rounded-xl"][class*="bg-near-black"][class*="border"]:not(.no-shiny):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-forest"]):hover,
+a[class*="rounded-lg"][class*="bg-near-black"][class*="border"]:not(.no-shiny):not([class*="w-7"]):not([class*="w-8"]):not([class*="w-9"]):not([class*="w-10"]):not([class*="w-12"]):not([class*="w-14"]):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-forest"]):hover,
+div[class*="rounded-xl"][class*="bg-black"][class*="border"]:not(.no-shiny):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-forest"]):hover,
+div[class*="rounded-lg"][class*="bg-black"][class*="border"]:not(.no-shiny):not(input):not(textarea):not(select):not([class*="w-7"]):not([class*="w-8"]):not([class*="w-9"]):not([class*="w-10"]):not([class*="w-12"]):not([class*="w-14"]):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-forest"]):hover,
+a[class*="rounded-lg"][class*="bg-black"][class*="border"]:not(.no-shiny):not([class*="w-7"]):not([class*="w-8"]):not([class*="w-9"]):not([class*="w-10"]):not([class*="w-12"]):not([class*="w-14"]):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-forest"]):hover {
+  background:
+    linear-gradient(180deg, #181818 0%, #0d0d0d 100%) padding-box,
+    linear-gradient(
+      135deg,
+      rgba(250, 255, 105, 0.90) 0%,
+      rgba(56, 189, 248, 0.85) 25%,
+      rgba(168, 85, 247, 0.85) 50%,
+      rgba(16, 185, 129, 0.85) 75%,
+      rgba(244, 63, 94, 0.90) 100%
+    ) border-box !important;
+  box-shadow:
+    inset 0 1px 2px 0 rgba(255, 255, 255, 0.30),
+    0 0 25px -4px rgba(250, 255, 105, 0.20),
+    0 0 35px -6px rgba(56, 189, 248, 0.18),
+    0 0 45px -8px rgba(168, 85, 247, 0.16),
+    0 18px 45px -10px rgba(0, 0, 0, 0.95) !important;
+  transform: translateY(-2px);
+}
+
+/* ── 3. Selected / Featured State ── */
+.shiny-box.selected,
+.shiny-edge-card.selected,
+.shiny-edge-highlight,
+[data-card-selected="true"] {
+  background:
+    linear-gradient(180deg, #1b1b1b 0%, #0e0e0e 100%) padding-box,
+    linear-gradient(
+      135deg,
+      rgba(250, 255, 105, 1) 0%,
+      rgba(56, 189, 248, 0.95) 25%,
+      rgba(168, 85, 247, 0.95) 50%,
+      rgba(16, 185, 129, 0.95) 75%,
+      rgba(244, 63, 94, 1) 100%
+    ) border-box !important;
+  box-shadow:
+    inset 0 1px 2px 0 rgba(255, 255, 255, 0.35),
+    0 0 30px -4px rgba(250, 255, 105, 0.28),
+    0 0 40px -6px rgba(56, 189, 248, 0.22),
+    0 0 50px -8px rgba(168, 85, 247, 0.20),
+    0 20px 50px -10px rgba(0, 0, 0, 0.98) !important;
+}
+
+/* ── 4. Dynamic Chromatic Shimmer Keyframes & Modifier ── */
+@keyframes shiny-edge-flow {
+  0% {
+    background-position: 0% 50%, 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%, 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%, 0% 50%;
+  }
+}
+
+.shiny-edge-animated {
+  background-size: 100% 100%, 300% 300% !important;
+  animation: shiny-edge-flow 8s ease infinite !important;
+}
+
+/* ============================================================
    Pixel-Perfect Clean Resume Print Styles
    Scoped specifically to #printable-resume for zero UI chrome
    ============================================================ */

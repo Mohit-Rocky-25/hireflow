@@ -116,9 +116,11 @@ export function Card({
   const isHighlighted = featured || selected;
   return (
     <div
-      className={`bg-near-black rounded-lg border p-6 sm:p-8 transition-colors duration-150 ${
+      data-card="true"
+      data-card-selected={isHighlighted ? "true" : undefined}
+      className={`shiny-edge-card bg-near-black rounded-lg border p-6 sm:p-8 transition-all duration-200 ${
         isHighlighted
-          ? 'border-volt shadow-level-5'
+          ? 'border-volt shadow-level-5 shiny-edge-highlight'
           : 'border-charcoal'
       } ${
         hover
@@ -145,7 +147,8 @@ export interface StatCardProps {
 export function StatCard({ label, value, icon, trend, trendUp, className = '' }: StatCardProps) {
   return (
     <div
-      className={`bg-near-black rounded-lg border border-charcoal p-6 hover:border-volt/60 transition-colors ${className}`}
+      data-card="true"
+      className={`shiny-edge-card bg-near-black rounded-lg border border-charcoal p-6 hover:border-volt/60 transition-all duration-200 ${className}`}
     >
       <div className="flex items-start justify-between gap-4">
         <div>

@@ -165,7 +165,7 @@ export function LandingPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5 text-left">
               
               {/* Card 1: Employers (Wide 2-col) */}
-              <div className="md:col-span-2 relative rounded-2xl bg-near-black border border-charcoal p-8 sm:p-10 overflow-hidden group hover:border-volt/40 transition-all duration-300">
+              <div className="shiny-edge-card md:col-span-2 relative rounded-2xl bg-near-black border border-charcoal p-8 sm:p-10 overflow-hidden group hover:border-volt/40 transition-all duration-300">
                 <div className="relative z-10 flex flex-col h-full justify-between">
                   <div className="w-14 h-14 rounded-xl bg-black border border-charcoal flex items-center justify-center text-volt mb-6 group-hover:border-volt/40 transition-colors">
                     <Building2 className="w-7 h-7 stroke-[1.5px]" />
@@ -185,7 +185,7 @@ export function LandingPage() {
               </div>
 
               {/* Card 2: Roles */}
-              <div className="relative rounded-2xl bg-near-black border border-charcoal p-8 sm:p-10 overflow-hidden group hover:border-volt/40 transition-all duration-300">
+              <div className="shiny-edge-card relative rounded-2xl bg-near-black border border-charcoal p-8 sm:p-10 overflow-hidden group hover:border-volt/40 transition-all duration-300">
                 <div className="relative z-10 flex flex-col h-full justify-between">
                   <div className="w-14 h-14 rounded-xl bg-black border border-charcoal flex items-center justify-center text-volt mb-6 group-hover:border-volt/40 transition-colors">
                     <Briefcase className="w-7 h-7 stroke-[1.5px]" />
@@ -205,7 +205,7 @@ export function LandingPage() {
               </div>
 
               {/* Card 3: Deep ATS Audit */}
-              <div className="relative rounded-2xl bg-near-black border border-charcoal p-8 sm:p-10 overflow-hidden group hover:border-volt/40 transition-all duration-300">
+              <div className="shiny-edge-card relative rounded-2xl bg-near-black border border-charcoal p-8 sm:p-10 overflow-hidden group hover:border-volt/40 transition-all duration-300">
                 <div className="relative z-10 flex flex-col h-full justify-between">
                   <div className="w-14 h-14 rounded-xl bg-black border border-charcoal flex items-center justify-center text-volt mb-6 group-hover:border-volt/40 transition-colors">
                     <Zap className="w-7 h-7 stroke-[1.5px]" />
@@ -225,7 +225,7 @@ export function LandingPage() {
               </div>
 
               {/* Card 4: Campus Intelligence (Wide 2-col) */}
-              <div className="md:col-span-2 relative rounded-2xl bg-near-black border border-charcoal p-8 sm:p-10 overflow-hidden group hover:border-volt/40 transition-all duration-300">
+              <div className="shiny-edge-card md:col-span-2 relative rounded-2xl bg-near-black border border-charcoal p-8 sm:p-10 overflow-hidden group hover:border-volt/40 transition-all duration-300">
                 <div className="relative z-10 flex flex-col h-full justify-between">
                   <div className="w-14 h-14 rounded-xl bg-black border border-charcoal flex items-center justify-center text-volt mb-6 group-hover:border-volt/40 transition-colors">
                     <GraduationCap className="w-7 h-7 stroke-[1.5px]" />
@@ -288,7 +288,7 @@ export function LandingPage() {
               return (
                 <div
                   key={i}
-                  className="group relative rounded-2xl bg-near-black border border-charcoal p-8 hover:border-volt/60 transition-all duration-200"
+                  className="shiny-edge-card group relative rounded-2xl bg-near-black border border-charcoal p-8 hover:border-volt/60 transition-all duration-200"
                 >
                   <div className="w-12 h-12 rounded-xl bg-black border border-charcoal text-volt flex items-center justify-center mb-6 group-hover:scale-105 group-hover:border-volt/40 transition-all">
                     <Icon className="w-6 h-6 stroke-[1.5px]" />
@@ -342,7 +342,7 @@ export function LandingPage() {
           
           {/* Right Live ATS Match Report Mockup Card */}
           <div className="flex-1 w-full max-w-[580px]">
-            <div className="bg-near-black border border-charcoal rounded-2xl shadow-level-3 overflow-hidden">
+            <div className="shiny-edge-card bg-near-black border border-charcoal rounded-2xl shadow-level-3 overflow-hidden">
               
               {/* Header */}
               <div className="px-6 py-4 border-b border-charcoal bg-black flex items-center justify-between">
@@ -359,7 +359,7 @@ export function LandingPage() {
               <div className="p-6 space-y-4">
                 
                 {/* Error 1: Missing Critical Skill */}
-                <div className="border border-charcoal rounded-xl p-4 bg-black space-y-2.5">
+                <div className="shiny-edge-card border border-charcoal rounded-xl p-4 bg-black space-y-2.5">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-rose-500 shrink-0" />
@@ -380,7 +380,7 @@ export function LandingPage() {
                 </div>
 
                 {/* Error 2: Impact Metrics */}
-                <div className="border border-charcoal rounded-xl p-4 bg-black space-y-2.5">
+                <div className="shiny-edge-card border border-charcoal rounded-xl p-4 bg-black space-y-2.5">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-amber-400 shrink-0" />
@@ -424,7 +424,7 @@ export function LandingPage() {
                 <Link
                   key={i}
                   to={role.link}
-                  className={`group relative rounded-2xl bg-near-black border border-charcoal p-8 sm:p-9 flex flex-col justify-between transition-all duration-200 cursor-pointer ${role.cardHoverStyle}`}
+                  className={`shiny-edge-card group relative rounded-2xl bg-near-black border border-charcoal p-8 sm:p-9 flex flex-col justify-between transition-all duration-200 cursor-pointer ${role.cardHoverStyle}`}
                 >
                   <div>
                     {/* Top row: Icon and Badge */}

@@ -227,7 +227,7 @@ export function ToolsHubPage() {
                     <Link
                       key={tool.id}
                       to={tool.link}
-                      className="group bg-near-black rounded-lg border border-charcoal p-6 flex flex-col justify-between hover:border-volt/60 hover:shadow-level-3 transition-colors cursor-pointer select-none"
+                      className="shiny-edge-card group bg-near-black rounded-lg border border-charcoal p-6 flex flex-col justify-between hover:border-volt/60 hover:shadow-level-3 transition-colors cursor-pointer select-none"
                     >
                       <div className="space-y-4">
                         <div className="flex items-start justify-between gap-3">

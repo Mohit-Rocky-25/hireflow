@@ -28,9 +28,9 @@ export function ExperiencedRoleCard({
       <button
         type="button"
         onClick={onSelect}
-        className={`w-full text-left p-5 rounded-lg border transition-colors flex flex-col justify-between gap-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-volt cursor-pointer ${
+        className={`shiny-edge-card w-full text-left p-5 rounded-lg border transition-all duration-200 flex flex-col justify-between gap-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-volt cursor-pointer ${
           isSelected
-            ? 'bg-near-black text-white border-volt shadow-level-5'
+            ? 'bg-near-black text-white border-volt shadow-level-5 shiny-edge-highlight'
             : 'bg-near-black border-charcoal text-white hover:border-volt/60'
         }`}
       >

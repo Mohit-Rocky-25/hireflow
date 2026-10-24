@@ -64,7 +64,7 @@ export function EligibilityCard({ targetCompanyId, targetArchetypeId, className 
 
   return (
     <>
-      <div className={`bg-near-black border border-charcoal rounded-lg p-4 sm:p-5 shadow-level-1 ${className}`}>
+      <div className={`shiny-edge-card bg-near-black border border-charcoal rounded-lg p-4 sm:p-5 shadow-level-1 ${className}`}>
         {/* Header */}
         <div className="flex items-start justify-between gap-3 mb-3">
           <div className="flex items-center gap-2">

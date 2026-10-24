@@ -48,9 +48,9 @@ export function FresherProgramCard({
             onSelect();
           }
         }}
-        className={`group w-full p-5 rounded-lg border transition-colors flex flex-col justify-between gap-3.5 cursor-pointer select-none text-left ${
+        className={`shiny-edge-card group w-full p-5 rounded-lg border transition-all duration-200 flex flex-col justify-between gap-3.5 cursor-pointer select-none text-left ${
           isSelected
-            ? 'bg-near-black border-volt shadow-level-5'
+            ? 'bg-near-black border-volt shadow-level-5 shiny-edge-highlight'
             : 'bg-near-black border-charcoal hover:border-volt/60'
         }`}
       >

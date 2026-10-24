@@ -35,7 +35,7 @@ export function BriefCard({
 
   return (
     <div
-      className="group relative bg-black border border-charcoal rounded-lg p-5 flex flex-col justify-between hover:border-volt transition-colors cursor-pointer space-y-4"
+      className="shiny-edge-card group relative bg-black border border-charcoal rounded-lg p-5 flex flex-col justify-between hover:border-volt transition-colors cursor-pointer space-y-4"
       onClick={onOpen}
       role="button"
       tabIndex={0}

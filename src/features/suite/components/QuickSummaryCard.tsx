@@ -72,7 +72,7 @@ export function QuickSummaryCard({
 
   return (
     <div
-      className={`bg-near-black border border-charcoal rounded-lg p-5 sm:p-6 shadow-level-1 relative overflow-hidden ${className}`}
+      className={`shiny-edge-card bg-near-black border border-charcoal rounded-lg p-5 sm:p-6 shadow-level-1 relative overflow-hidden ${className}`}
     >
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-charcoal">
         <div className="flex items-center gap-3">
