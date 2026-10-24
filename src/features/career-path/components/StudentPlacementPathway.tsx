@@ -60,28 +60,28 @@ export function SkillsToClosePanel() {
 
   if (!latestMissingSkills || latestMissingSkills.length === 0) {
     return (
-      <div className="bg-surface rounded-md p-6 border border-border space-y-3">
-        <div className="flex items-center gap-2">
+      <div className="shiny-edge-card bg-near-black rounded-xl p-6 sm:p-8 border border-charcoal space-y-4">
+        <div className="flex items-center gap-2.5">
           <Target className="w-5 h-5 text-volt" />
-          <h3 className="text-sm font-black text-foreground uppercase tracking-wider font-mono">
+          <h3 className="text-base font-black text-white uppercase tracking-wider font-mono">
             Skills to Close (Target Career Alignment)
           </h3>
         </div>
-        <div className="bg-surface-2/40 border border-border rounded p-4 text-xs space-y-2">
-          <p className="text-secondary leading-relaxed">
+        <div className="bg-black/80 border border-charcoal rounded-lg p-5 text-xs space-y-3">
+          <p className="text-silver text-sm leading-relaxed">
             No recent resume scan found. Run a scan in ATS Resume Roaster or Tailor My Resume to detect skill gaps for your target path and see your targeted skills to close.
           </p>
-          <div className="pt-2 flex flex-wrap gap-2">
+          <div className="pt-2 flex flex-wrap gap-3">
             <Link
               to="/tools/resume-checker"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-volt text-black text-xs font-mono font-black uppercase tracking-wider hover:bg-volt-hover transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded bg-volt text-black text-xs font-mono font-black uppercase tracking-wider hover:bg-[#1d1d1d] hover:!text-white transition-colors cursor-pointer select-none"
             >
               <Sparkles className="w-3.5 h-3.5" />
               Run ATS Resume Scan
             </Link>
             <Link
               to="/tools/tailor"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-surface border border-border text-foreground hover:bg-surface-2 text-xs font-mono font-bold transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded bg-near-black border border-charcoal text-white hover:text-volt hover:border-volt/60 text-xs font-mono font-bold transition-colors cursor-pointer select-none"
             >
               <FileText className="w-3.5 h-3.5" />
               Open Tailor My Resume
@@ -93,46 +93,46 @@ export function SkillsToClosePanel() {
   }
 
   return (
-    <div className="bg-surface rounded-md p-6 border border-border space-y-4">
-      <div className="flex items-center justify-between flex-wrap gap-2 pb-3 border-b border-border">
+    <div className="shiny-edge-card bg-near-black rounded-xl p-6 sm:p-8 border border-charcoal space-y-5">
+      <div className="flex items-center justify-between flex-wrap gap-3 pb-4 border-b border-charcoal">
         <div>
           <span className="text-[10px] font-black uppercase text-volt font-mono tracking-wider">
             Target Growth Pathway
           </span>
-          <h3 className="text-base font-black text-foreground mt-0.5 flex items-center gap-2">
+          <h3 className="text-lg font-black text-white mt-1 flex items-center gap-2">
             <Target className="w-5 h-5 text-volt" />
             Skills to Close ({latestMissingSkills.length} Detected Gap{latestMissingSkills.length > 1 ? 's' : ''})
           </h3>
-          <p className="text-xs text-secondary mt-0.5">
+          <p className="text-xs sm:text-sm text-silver mt-1">
             Identified from your latest resume scan. Closing these gaps accelerates entry readiness and Year 1–2 milestone achievement.
           </p>
         </div>
         <Link
           to="/tools/resume-checker"
-          className="text-xs font-mono font-bold text-volt hover:underline flex items-center gap-1"
+          className="text-xs font-mono font-bold text-volt hover:underline flex items-center gap-1.5"
         >
           Re-scan resume <ArrowRight className="w-3.5 h-3.5" />
         </Link>
       </div>
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {latestMissingSkills.map((skill, idx) => (
           <div
             key={idx}
-            className="p-3.5 rounded border border-border bg-surface-2/30 space-y-2 flex flex-col justify-between"
+            className="p-4 rounded-lg border border-charcoal bg-black/80 space-y-2.5 flex flex-col justify-between"
           >
             <div>
-              <div className="flex items-center justify-between mb-1">
-                <span className="font-black text-foreground text-xs">{skill}</span>
-                <span className="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-500/10 text-amber-400 border border-amber-500/30">
+              <div className="flex items-center justify-between mb-1.5">
+                <span className="font-black text-white text-sm">{skill}</span>
+                <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-500/15 text-amber-300 border border-amber-500/30">
                   Target Gap
                 </span>
               </div>
-              <p className="text-[11px] text-muted leading-relaxed">
+              <p className="text-[12px] text-silver leading-relaxed">
                 Required for technical screening rounds and Year 1–2 delivery milestones on this path.
               </p>
             </div>
-            <div className="pt-2 border-t border-border flex items-center justify-between text-[11px]">
+            <div className="pt-2.5 border-t border-charcoal flex items-center justify-between text-xs">
               <Link
                 to={`/tools/briefs?skill=${encodeURIComponent(skill)}`}
                 className="font-mono font-bold text-volt hover:underline flex items-center gap-1"
@@ -141,7 +141,7 @@ export function SkillsToClosePanel() {
               </Link>
               <Link
                 to={`/tools/credentials?search=${encodeURIComponent(skill)}`}
-                className="text-muted hover:text-foreground font-semibold font-mono"
+                className="text-silver hover:text-white font-semibold font-mono"
               >
                 Certifications
               </Link>
@@ -309,29 +309,29 @@ export function StudentPlacementPathway({
       {mode === 'fresher-programs' && (
         <div className="space-y-6">
           {/* Branch Selection & Filter Header */}
-          <div className="bg-surface rounded-md p-6 border border-border space-y-4">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-border">
+          <div className="shiny-edge-card bg-near-black rounded-xl p-6 sm:p-8 border border-charcoal space-y-5">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-5 pb-5 border-b border-charcoal">
               <div>
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-black uppercase tracking-wider bg-volt/10 text-volt border border-volt/30">
+                <div className="flex items-center gap-2.5 mb-1.5">
+                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-black uppercase tracking-wider bg-volt/15 text-volt border border-volt/40">
                     2026-27 Hiring Season Live
                   </span>
-                  <span className="text-xs text-muted font-mono font-bold">
+                  <span className="text-xs text-silver font-mono font-bold">
                     {branchPrograms.length} Eligible Programs
                   </span>
                 </div>
-                <h2 className="text-xl font-black text-foreground flex items-center gap-2">
-                  <Sparkles className="w-5 h-5 text-volt" />
+                <h2 className="text-xl sm:text-2xl font-black text-white flex items-center gap-2 tracking-tight">
+                  <Sparkles className="w-5 h-5 text-volt shrink-0" />
                   Verified Campus Entry Programs for Your Engineering Branch
                 </h2>
-                <p className="text-xs text-secondary mt-0.5">
+                <p className="text-xs sm:text-sm text-silver mt-1 leading-relaxed">
                   Authentic hiring criteria, first-round screening formats, bond commitments, and promotion steps across India employers.
                 </p>
               </div>
 
               {/* Degree & Branch Dropdown */}
               <div className="w-full md:w-80 shrink-0">
-                <label className="text-xs font-bold text-muted uppercase font-mono block mb-1.5">
+                <label className="text-xs font-bold text-silver uppercase font-mono block mb-1.5">
                   Your Branch / Discipline:
                 </label>
                 <Dropdown
@@ -353,18 +353,18 @@ export function StudentPlacementPathway({
             </div>
 
             {/* Filter Pills & Search */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-1">
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="text-xs font-mono uppercase font-bold text-muted mr-1">Category:</span>
+                <span className="text-xs font-mono uppercase font-bold text-silver mr-1">Category:</span>
                 {(['all', 'super-dream', 'dream', 'mass'] as const).map((cat) => (
                   <button
                     key={cat}
                     type="button"
                     onClick={() => setCampusCategoryFilter(cat)}
-                    className={`px-4 py-2 rounded text-xs font-mono font-bold transition-all uppercase cursor-pointer ${
+                    className={`px-4 py-2 rounded text-xs font-mono font-bold transition-all uppercase cursor-pointer select-none ${
                       campusCategoryFilter === cat
-                        ? 'bg-volt text-black shadow-[inset_0_1px_2px_rgba(0,0,0,0.2)]'
-                        : 'bg-surface-2 text-muted border border-border hover:text-foreground'
+                        ? 'bg-volt !text-black shadow-[inset_0_1px_2px_rgba(0,0,0,0.2)] font-black'
+                        : 'bg-black text-silver border border-charcoal hover:text-white hover:border-volt/60'
                     }`}
                   >
                     {cat === 'all' ? `All (${branchPrograms.length})` : cat.replace('-', ' ')}
@@ -373,13 +373,13 @@ export function StudentPlacementPathway({
               </div>
 
               <div className="relative w-full sm:w-80">
-                <Search className="w-4 h-4 text-muted absolute left-3.5 top-1/2 -translate-y-1/2" />
+                <Search className="w-4 h-4 text-silver absolute left-3.5 top-1/2 -translate-y-1/2" />
                 <input
                   type="text"
                   value={campusProgramSearch}
                   onChange={(e) => setCampusProgramSearch(e.target.value)}
                   placeholder="Search company, role, program..."
-                  className="w-full pl-10 pr-4 py-2.5 rounded bg-surface border border-border text-sm text-foreground placeholder:text-muted focus:outline-none focus:ring-1 focus:ring-volt focus:border-volt"
+                  className="w-full pl-10 pr-4 py-2.5 rounded bg-black border border-charcoal text-sm text-white placeholder:text-silver/60 focus:outline-none focus:ring-1 focus:ring-volt focus:border-volt"
                 />
               </div>
             </div>
@@ -396,93 +396,93 @@ export function StudentPlacementPathway({
               return (
                 <div
                   key={prog.id}
-                  className="bg-surface rounded-md p-5 border border-border hover:border-volt/50 transition-all flex flex-col justify-between gap-4 shadow-sm group"
+                  className="shiny-edge-card bg-near-black rounded-xl p-6 border border-charcoal hover:border-volt/60 transition-all flex flex-col justify-between gap-5 shadow-level-2 group"
                 >
-                  <div className="space-y-3">
+                  <div className="space-y-4">
                     <div className="flex items-start justify-between gap-3">
                       <div>
-                        <div className="flex items-center gap-2 flex-wrap mb-1">
+                        <div className="flex items-center gap-2 flex-wrap mb-1.5">
                           <CompanyLogo company={comp || prog.companyId} size="xs" />
-                          <span className="font-bold text-foreground text-base group-hover:text-volt transition-colors">
+                          <span className="font-bold text-white text-base group-hover:text-volt transition-colors">
                             {comp?.name || prog.companyId}
                           </span>
-                          <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-volt/10 text-volt border border-volt/30 uppercase">
+                          <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-volt/15 text-volt border border-volt/40 uppercase">
                             {prog.campusCategory.replace('-', ' ')}
                           </span>
                           <DataBadge entity={prog} />
                         </div>
-                        <h3 className="text-sm font-bold text-foreground">
+                        <h3 className="text-[16px] font-bold text-white tracking-tight">
                           {prog.programName}
                         </h3>
-                        <p className="text-xs text-secondary font-medium">
+                        <p className="text-xs text-silver font-medium mt-0.5">
                           {prog.roleTitle} · {prog.roleFamily}
                         </p>
                       </div>
 
                       <div className="text-right shrink-0">
-                        <span className="text-xs font-mono font-black text-volt block">
+                        <span className="text-sm font-mono font-black text-volt block leading-tight">
                           {ctcStr}
                         </span>
-                        <span className="text-[10px] text-muted font-mono uppercase">
+                        <span className="text-[10px] text-silver font-mono uppercase tracking-wider">
                           Total CTC
                         </span>
                       </div>
                     </div>
 
                     {/* Key Criteria Pill Bar */}
-                    <div className="grid grid-cols-3 gap-2 text-xs py-1">
-                      <div className="p-2 rounded bg-surface-2/60 border border-border">
-                        <span className="text-[10px] text-muted font-mono font-bold uppercase block">
+                    <div className="grid grid-cols-3 gap-2.5 text-xs py-1">
+                      <div className="p-2.5 rounded-lg bg-black border border-charcoal">
+                        <span className="text-[10px] text-silver font-mono font-bold uppercase tracking-wider block mb-1">
                           Cutoff
                         </span>
-                        <span className="font-semibold text-foreground text-[11px]">
+                        <span className="font-bold text-white text-[12px] block">
                           {prog.eligibility.minCgpa ? `≥ ${prog.eligibility.minCgpa} CGPA` : 'No hard cutoff'}
                         </span>
-                        <div className="text-[10px] text-muted truncate mt-0.5 font-mono">
+                        <div className="text-[10px] text-silver truncate mt-1 font-mono">
                           {prog.eligibility.backlogPolicy || '0 backlogs'}
                         </div>
                       </div>
 
-                      <div className="p-2 rounded bg-surface-2/60 border border-border">
-                        <span className="text-[10px] text-muted font-mono font-bold uppercase block">
+                      <div className="p-2.5 rounded-lg bg-black border border-charcoal">
+                        <span className="text-[10px] text-silver font-mono font-bold uppercase tracking-wider block mb-1">
                           Training &amp; Bond
                         </span>
-                        <span className="font-semibold text-foreground text-[11px]">
+                        <span className="font-bold text-white text-[12px] block">
                           {prog.training.bondMonths ? `${prog.training.bondMonths} mo bond` : 'Zero service bond'}
                         </span>
-                        <div className="text-[10px] text-muted truncate mt-0.5 font-mono">
+                        <div className="text-[10px] text-silver truncate mt-1 font-mono">
                           {prog.training.bondAmountINR ? `₹${(prog.training.bondAmountINR / 100000).toFixed(1)}L bond` : 'No penalty'}
                         </div>
                       </div>
 
-                      <div className="p-2 rounded bg-surface-2/60 border border-border">
-                        <span className="text-[10px] text-muted font-mono font-bold uppercase block">
+                      <div className="p-2.5 rounded-lg bg-black border border-charcoal">
+                        <span className="text-[10px] text-silver font-mono font-bold uppercase tracking-wider block mb-1">
                           Next Promotion
                         </span>
-                        <span className="font-semibold text-foreground text-[11px] truncate block font-mono">
+                        <span className="font-bold text-white text-[12px] truncate block font-mono">
                           {prog.trajectory[0] ? `${prog.trajectory[0].fromLevelCode} → ${prog.trajectory[0].toLevelCode}` : 'Fast-Track'}
                         </span>
-                        <div className="text-[10px] text-volt truncate mt-0.5 font-mono">
+                        <div className="text-[10px] text-volt truncate mt-1 font-mono font-bold">
                           {prog.trajectory[0]?.typicalYearsMin ? `${prog.trajectory[0].typicalYearsMin}-${prog.trajectory[0].typicalYearsMax} yrs` : 'Standard cadence'}
                         </div>
                       </div>
                     </div>
 
                     {/* Selection Stages Funnel */}
-                    <div className="pt-2 border-t border-border">
-                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-muted block mb-1">
+                    <div className="pt-3 border-t border-charcoal">
+                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-silver block mb-2">
                         Selection Stages ({prog.selectionProcess.length} Rounds):
                       </span>
                       <div className="flex items-center gap-1.5 flex-wrap">
                         {prog.selectionProcess.map((stage, idx) => (
                           <div
                             key={idx}
-                            className="flex items-center gap-1 px-2 py-0.5 rounded bg-surface-2 border border-border text-[11px] text-foreground"
+                            className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-black border border-charcoal text-[11px] text-white"
                           >
                             <span className="font-mono text-[10px] text-volt font-bold">
                               {idx + 1}.
                             </span>
-                            <span>{stage.stage}</span>
+                            <span className="font-semibold text-white">{stage.stage}</span>
                           </div>
                         ))}
                       </div>
@@ -490,13 +490,13 @@ export function StudentPlacementPathway({
 
                     {/* Competency badges */}
                     <div className="flex items-center gap-1.5 flex-wrap pt-1">
-                      <span className="text-[10px] font-mono font-semibold text-muted uppercase">
+                      <span className="text-[10px] font-mono font-bold text-silver uppercase mr-1">
                         Evaluated:
                       </span>
                       {Object.keys(prog.competencyProfile).map((c) => (
                         <span
                           key={c}
-                          className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-surface-2 text-muted border border-border uppercase"
+                          className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-black text-silver border border-charcoal uppercase"
                         >
                           {c}
                         </span>
@@ -505,18 +505,18 @@ export function StudentPlacementPathway({
                   </div>
 
                   {/* Bottom Actions */}
-                  <div className="pt-3 border-t border-border flex items-center justify-between gap-3">
+                  <div className="pt-3.5 border-t border-charcoal flex items-center justify-between gap-3">
                     <Link
                       to={`/tools/resume-checker?company=${prog.companyId}&role=${encodeURIComponent(prog.roleTitle)}&program=${encodeURIComponent(prog.id)}`}
-                      className="px-3.5 py-1.5 rounded bg-volt hover:bg-volt-hover active:shadow-[inset_0_2px_4px_rgba(0,0,0,0.6)] text-black text-xs font-mono font-black uppercase tracking-wider transition-all shadow-sm flex items-center gap-1.5"
+                      className="px-4 py-2 rounded bg-volt hover:bg-[#1d1d1d] active:shadow-inset !text-black hover:!text-white text-xs font-mono font-black uppercase tracking-wider transition-colors shadow-sm flex items-center gap-2 group/btn cursor-pointer select-none"
                     >
-                      <FileText className="w-3.5 h-3.5" />
-                      Roast Resume Against Program
+                      <FileText className="w-3.5 h-3.5 stroke-[2px] !text-black group-hover/btn:!text-white" />
+                      <span className="!text-black group-hover/btn:!text-white font-black">Roast Resume Against Program</span>
                     </Link>
 
                     <Link
                       to={`/demo/company/${prog.companyId}`}
-                      className="text-xs font-mono font-bold text-muted hover:text-volt transition-colors"
+                      className="text-xs font-mono font-bold text-silver hover:text-volt transition-colors flex items-center gap-1"
                     >
                       Company Roles &amp; Fit →
                     </Link>
@@ -553,12 +553,12 @@ export function StudentPlacementPathway({
           MODE A: STUDENT SIMULATOR FORM
           ───────────────────────────────────────────────────────── */}
       {mode === 'student' && !studentResult && (
-        <div className="bg-surface rounded-md p-8 sm:p-10 border border-border max-w-5xl md:max-w-6xl mx-auto space-y-8">
-          <div className="border-b border-border pb-5">
-            <h2 className="text-2xl sm:text-3xl font-black text-foreground flex items-center gap-3">
+        <div className="shiny-edge-card bg-near-black rounded-xl p-8 sm:p-10 border border-charcoal max-w-5xl md:max-w-6xl mx-auto space-y-8">
+          <div className="border-b border-charcoal pb-5">
+            <h2 className="text-2xl sm:text-3xl font-black text-white flex items-center gap-3">
               <GraduationCap className="w-7 h-7 text-volt shrink-0" /> Configure Your Campus-to-Dream Job Roadmap
             </h2>
-            <p className="text-sm sm:text-base text-secondary mt-2 leading-relaxed">
+            <p className="text-sm sm:text-base text-silver mt-2 leading-relaxed">
               Select your college background and dream company to see real campus hiring routes, eligibility cutoffs, fresher CTC packages in INR, and the multi-year path to reach your dream level.
             </p>
           </div>
@@ -568,7 +568,7 @@ export function StudentPlacementPathway({
             {/* College Tier */}
             <div>
               <div className="h-6 flex items-center mb-2">
-                <label className="text-sm font-bold text-foreground uppercase font-mono">College Tier</label>
+                <label className="text-sm font-bold text-white uppercase font-mono">College Tier</label>
               </div>
               <Dropdown
                 value={studentTier}

@@ -89,11 +89,11 @@ export function LadderLevelExplorer({
   return (
     <div className="space-y-8 animate-fade-in">
       {/* Market Segment & Filter Header */}
-      <div className="bg-surface rounded-md p-6 border border-border space-y-4">
+      <div className="shiny-edge-card bg-near-black rounded-xl p-6 sm:p-8 border border-charcoal space-y-4">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
-            <h2 className="text-lg font-black text-foreground">Explore Verified India Ladders</h2>
-            <p className="text-xs text-secondary mt-0.5">
+            <h2 className="text-xl font-black text-white">Explore Verified India Ladders</h2>
+            <p className="text-xs sm:text-sm text-silver mt-1">
               Real promotion cadences, committee review criteria, time-in-level statistics, and verified India CTC packages.
             </p>
           </div>
@@ -178,15 +178,15 @@ export function LadderLevelExplorer({
       {/* Ladder Stepper Layout */}
       <div className="grid lg:grid-cols-12 gap-6 items-start">
         {/* Left Column: Vertical Ladder Stepper */}
-        <div className="lg:col-span-5 bg-surface rounded-md p-5 border border-border space-y-3">
-          <div className="flex items-center justify-between pb-3 border-b border-border">
+        <div className="lg:col-span-5 shiny-edge-card bg-near-black rounded-xl p-5 sm:p-6 border border-charcoal space-y-4">
+          <div className="flex items-center justify-between pb-3 border-b border-charcoal">
             <div className="flex items-center gap-2">
               <CompanyLogo company={activeCompanyLadder.id} size="xs" showBorder={false} interactive={false} />
-              <h3 className="text-xs font-black text-foreground uppercase tracking-wider font-mono">
+              <h3 className="text-xs font-black text-white uppercase tracking-wider font-mono">
                 {activeCompanyLadder.name} • {selectedTrack} Ladder
               </h3>
             </div>
-            <span className="text-[11px] text-muted font-bold font-mono">
+            <span className="text-[11px] text-silver font-bold font-mono">
               {activeLadderLevels.length} Levels
             </span>
           </div>
@@ -248,7 +248,7 @@ export function LadderLevelExplorer({
         </div>
 
         {/* Right Column: Detailed Level Panel */}
-        <div className="lg:col-span-7 bg-surface rounded-md p-6 border border-border space-y-6">
+        <div className="lg:col-span-7 shiny-edge-card bg-near-black rounded-xl p-6 sm:p-8 border border-charcoal space-y-6">
           {activeDetailLevel ? (
             <>
               {/* Header */}

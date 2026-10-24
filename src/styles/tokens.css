@@ -44,6 +44,16 @@
   --color-action-primary: #166534;
   --color-focus-ring:     #faff69;
 
+  /* ── Modern Semantic Token Aliases (Universal Visibility) ── */
+  --color-foreground:           #ffffff;
+  --color-secondary:            #a0a0a0;
+  --color-muted:                #a0a0a0;
+  --color-muted-foreground:     #a0a0a0;
+  --color-card:                 #141414;
+  --color-card-foreground:      #ffffff;
+  --color-popover:              #141414;
+  --color-popover-foreground:   #ffffff;
+
   /* ── Pre-existing Semantic Token Aliases (Backwards Compatibility) ── */
   --color-primary:        #faff69;
   --color-primary-hover:  #f4f692;

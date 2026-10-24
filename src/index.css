@@ -49,6 +49,31 @@ body {
   color: #ffffff !important;
 }
 
+/* ── Universal High-Contrast Text Color Rules (WCAG AAA on Dark Canvas) ── */
+.text-foreground {
+  color: #ffffff !important;
+}
+
+.text-secondary {
+  color: #a0a0a0 !important;
+}
+
+.text-muted {
+  color: #a0a0a0 !important;
+}
+
+.text-muted-foreground {
+  color: #a0a0a0 !important;
+}
+
+a.text-muted {
+  color: #a0a0a0 !important;
+}
+
+a.text-muted:hover {
+  color: #faff69 !important;
+}
+
 /* ── Interactive Links (§2, §4, §7) ── */
 a {
   text-decoration: none;
@@ -241,6 +266,8 @@ a[class*="rounded-xl"][class*="bg-near-black"][class*="border"]:not(.no-shiny):n
 a[class*="rounded-lg"][class*="bg-near-black"][class*="border"]:not(.no-shiny):not([class*="w-7"]):not([class*="w-8"]):not([class*="w-9"]):not([class*="w-10"]):not([class*="w-12"]):not([class*="w-14"]):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-forest"]),
 div[class*="rounded-xl"][class*="bg-black"][class*="border"]:not(.no-shiny):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-forest"]),
 div[class*="rounded-lg"][class*="bg-black"][class*="border"]:not(.no-shiny):not(input):not(textarea):not(select):not([class*="w-7"]):not([class*="w-8"]):not([class*="w-9"]):not([class*="w-10"]):not([class*="w-12"]):not([class*="w-14"]):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-forest"]),
+div[class*="rounded-md"][class*="bg-surface"][class*="border"]:not(.no-shiny):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-forest"]),
+div[class*="rounded-md"][class*="bg-near-black"][class*="border"]:not(.no-shiny):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-forest"]),
 a[class*="rounded-lg"][class*="bg-black"][class*="border"]:not(.no-shiny):not([class*="w-7"]):not([class*="w-8"]):not([class*="w-9"]):not([class*="w-10"]):not([class*="w-12"]):not([class*="w-14"]):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-forest"]) {
   position: relative;
   background:
@@ -274,6 +301,8 @@ a[class*="rounded-xl"][class*="bg-near-black"][class*="border"]:not(.no-shiny):n
 a[class*="rounded-lg"][class*="bg-near-black"][class*="border"]:not(.no-shiny):not([class*="w-7"]):not([class*="w-8"]):not([class*="w-9"]):not([class*="w-10"]):not([class*="w-12"]):not([class*="w-14"]):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-forest"]):hover,
 div[class*="rounded-xl"][class*="bg-black"][class*="border"]:not(.no-shiny):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-forest"]):hover,
 div[class*="rounded-lg"][class*="bg-black"][class*="border"]:not(.no-shiny):not(input):not(textarea):not(select):not([class*="w-7"]):not([class*="w-8"]):not([class*="w-9"]):not([class*="w-10"]):not([class*="w-12"]):not([class*="w-14"]):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-forest"]):hover,
+div[class*="rounded-md"][class*="bg-surface"][class*="border"]:not(.no-shiny):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-forest"]):hover,
+div[class*="rounded-md"][class*="bg-near-black"][class*="border"]:not(.no-shiny):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-forest"]):hover,
 a[class*="rounded-lg"][class*="bg-black"][class*="border"]:not(.no-shiny):not([class*="w-7"]):not([class*="w-8"]):not([class*="w-9"]):not([class*="w-10"]):not([class*="w-12"]):not([class*="w-14"]):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-forest"]):hover {
   background:
     linear-gradient(180deg, #181818 0%, #0d0d0d 100%) padding-box,
