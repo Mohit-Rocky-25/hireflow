@@ -183,11 +183,28 @@ export interface ConfidenceThresholds {
   unrecognizedTerm: number;    // 0.65
 }
 
+export type MarketArchetypeId =
+  | 'big_tech_product'
+  | 'quant_trading'
+  | 'indian_high_growth'
+  | 'product_mnc_gcc'
+  | 'service_track'
+  | 'early_growth_startup';
+
+export interface ArchetypeProfileDefinition {
+  id: MarketArchetypeId;
+  label: string;
+  weights: Record<PillarId, number>;
+  focusPillars: PillarId[];
+  note: string;
+}
+
 export interface ScoringSpec {
   specVersion: string;
   engineVersion: string;
   pillars: PillarDefinition[];
   profiles: ProfileDefinition[];
+  archetypeProfiles?: Record<MarketArchetypeId, ArchetypeProfileDefinition>;
   applicabilityRules: ApplicabilityRule[];
   evidenceTables: {
     contextWeight: ContextWeightTable;

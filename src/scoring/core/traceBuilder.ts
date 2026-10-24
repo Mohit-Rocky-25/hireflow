@@ -26,6 +26,21 @@ export interface ScoreEngineOptions {
  * Evaluates candidate profile selection based on ScoringContext
  */
 export function selectProfile(context: ScoringContext, spec: ScoringSpec): ProfileDefinition {
+  if (context.archetype && spec.archetypeProfiles && (spec.archetypeProfiles as any)[context.archetype]) {
+    const arch = (spec.archetypeProfiles as any)[context.archetype];
+    const isFresher =
+      context.experienceLevel === 'Student' ||
+      context.experienceLevel === 'Intern' ||
+      context.experienceLevel === '0-2 yrs';
+    return {
+      id: isFresher ? 'fresher' : 'experienced',
+      label: arch.label,
+      selectorRules: ['rule_always_applies'],
+      weights: arch.weights,
+      note: arch.note,
+    };
+  }
+
   const isFresher =
     context.experienceLevel === 'Student' ||
     context.experienceLevel === 'Intern' ||

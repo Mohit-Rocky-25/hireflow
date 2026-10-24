@@ -198,3 +198,5 @@ export function scoreBullets(
     implausibleCount,
   };
 }
+
+export const scoreBulletPoint = scoreBullet;

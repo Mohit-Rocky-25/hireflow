@@ -47,14 +47,14 @@
 
 ## Stage 4: TalentLens Wired to the Same Core
 
-- [ ] **4.1**: [TODO] TalentLens wired to shared core primitives (matching, contextWeight, bullet score, band, trace).
-- [ ] **4.2**: [TODO] Market profiles from market-data model with archetypes and signal provenance.
-- [ ] **4.3**: [TODO] Eligibility gate evaluation (pass / check carefully / likely not eligible / unknown) with source chips & Tier C TCS 60% rule fix.
-- [ ] **4.3b**: [TODO] Restrict "required" and "minimum" strictly to official signals with sourceUrl; LeetCode/Codeforces as percentiled strong signals.
-- [ ] **4.4**: [TODO] Market Readiness Estimate computed via core engine with archetype group weights, band, and trace.
-- [ ] **4.5**: [TODO] Actionable gap classification (7/30/90+ days/not-closable), deterministic what-if rescore, bullet templates.
-- [ ] **4.6**: [TODO] Unscored reality-factors panel (campus access, referrals, tests) providing guidance only.
-- [ ] **4.7**: [TODO] Cross-tool consistency tests ensuring shared sub-results match across Roaster and TalentLens.
+- [x] **4.1**: [DONE] TalentLens wired to shared core primitives (matching, contextWeight, bullet score, band, trace).
+- [x] **4.2**: [DONE] Market profiles from market-data model with archetypes and signal provenance.
+- [x] **4.3**: [DONE] Eligibility gate evaluation (pass / check carefully / likely not eligible / unknown) with source chips & Tier C TCS 60% rule fix.
+- [x] **4.3b**: [DONE] Restrict "required" and "minimum" strictly to official signals with sourceUrl; LeetCode/Codeforces as percentiled strong signals.
+- [x] **4.4**: [DONE] Market Readiness Estimate computed via core engine with archetype group weights, band, and trace.
+- [x] **4.5**: [DONE] Actionable gap classification (7/30/90+ days/not-closable), deterministic what-if rescore, bullet templates.
+- [x] **4.6**: [DONE] Unscored reality-factors panel (campus access, referrals, tests) providing guidance only.
+- [x] **4.7**: [DONE] Cross-tool consistency tests ensuring shared sub-results match across Roaster and TalentLens.
 
 ---
 

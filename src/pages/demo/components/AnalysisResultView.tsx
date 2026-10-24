@@ -93,11 +93,13 @@ export function AnalysisResultView({
             <span
               className={`px-3 py-1 rounded text-xs font-mono uppercase tracking-wider border ${roleFitStyles}`}
             >
-              {roleFitStatus}
+              {result.readinessLabel || roleFitStatus}
             </span>
             <div className="text-right">
               <span className="text-3xl font-black font-mono text-white">{result.score}%</span>
-              <div className="text-[10px] font-mono uppercase text-silver">Grounded Fit</div>
+              <div className="text-[10px] font-mono uppercase text-silver">
+                {result.band ? `Band: ${result.band.low}–${result.band.high}% (${result.band.label})` : 'Market Readiness Estimate'}
+              </div>
             </div>
           </div>
         </div>
@@ -105,7 +107,7 @@ export function AnalysisResultView({
         {/* Grounded Role-Fit Explanation */}
         <p className="text-sm text-silver leading-relaxed">
           Based on evidence found in your resume text, your profile currently demonstrates a{' '}
-          <strong className="text-white font-semibold">{roleFitStatus.toLowerCase()}</strong> for{' '}
+          <strong className="text-white font-semibold">{(result.readinessLabel || roleFitStatus).toLowerCase()}</strong> readiness for{' '}
           <strong className="text-white font-semibold">{selectedRole.title}</strong> at{' '}
           <strong className="text-white font-semibold">{company.name}</strong>. {selectedRole.desc}
         </p>
@@ -114,18 +116,34 @@ export function AnalysisResultView({
         {(() => {
           const calcDetails: CalculationDetails = {
             effectiveScore: result.score,
-            scoreMin: Math.max(0, result.score - 5),
-            scoreMax: Math.min(100, result.score + 5),
-            band: roleFitStatus,
-            activePillars: result.breakdown.map((b) => ({
-              name: b.competency.toUpperCase(),
-              weightPercent: Math.round(100 / (result.breakdown.length || 1)),
-              earnedScore: Math.round(b.analysis.confidence),
-              statusNote: b.analysis.status,
-            })),
-            excludedPillars: [],
-            engineVersion: '2.4.0 (Integrity Release)',
-            taxonomyVersion: '1.2.0',
+            scoreMin: result.band?.low ?? Math.max(0, result.score - 5),
+            scoreMax: result.band?.high ?? Math.min(100, result.score + 5),
+            band: result.readinessLabel || roleFitStatus,
+            activePillars: result.trace?.pillars
+              ? result.trace.pillars
+                  .filter((p) => p.applicable)
+                  .map((p) => ({
+                    name: p.label,
+                    weightPercent: Math.round(p.effectiveWeight * 100),
+                    earnedScore: p.rawScore,
+                    statusNote: p.flags.join(', ') || 'Applicable',
+                  }))
+              : result.breakdown.map((b) => ({
+                  name: b.competency.toUpperCase(),
+                  weightPercent: Math.round(100 / (result.breakdown.length || 1)),
+                  earnedScore: Math.round(b.analysis.confidence),
+                  statusNote: b.analysis.status,
+                })),
+            excludedPillars: result.trace?.pillars
+              ? result.trace.pillars
+                  .filter((p) => !p.applicable)
+                  .map((p) => ({
+                    name: p.label,
+                    reason: p.notApplicableReason || 'Not applicable for candidate context',
+                  }))
+              : [],
+            engineVersion: result.trace?.engineVersion || '4.0.0',
+            taxonomyVersion: '2026.1',
             lastReviewedDate: 'October 2026',
           };
           return <CalculationBreakdownCollapsible details={calcDetails} />;

@@ -174,14 +174,24 @@ export function computeRequirementCoverage(
     flags.push(`${impliedCount} skill(s) satisfied via verified strong ecosystem implication.`);
   }
 
+  const rawInputs: Record<string, number | string | boolean> = {
+    totalRequirements: reqs.length,
+    demonstratedRequirements: demonstratedCount,
+    impliedRequirements: impliedCount,
+  };
+
+  for (const r of reqs) {
+    const term = r.text.toLowerCase();
+    const ctx = candidateMentions.get(term) || 'none';
+    const assessment = assessments.get(term);
+    rawInputs[`req_evidenced_${r.id}`] = ctx;
+    rawInputs[`req_credit_${r.id}`] = assessment ? assessment.effectiveCredit : 0;
+  }
+
   return {
     rawScore: Math.round(weightedCoverageScore),
     subScores,
-    rawInputs: {
-      totalRequirements: reqs.length,
-      demonstratedRequirements: demonstratedCount,
-      impliedRequirements: impliedCount,
-    },
+    rawInputs,
     flags,
   };
 }

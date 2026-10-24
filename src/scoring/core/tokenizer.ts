@@ -31,21 +31,21 @@ export function matchTokenInText(
   // 1. Special Language: C
   if (tokenLower === 'c') {
     // Avoid Class C, Vitamin C, California CA, etc.
-    const cRegex = /(?:(?:^|[\s,;|/([\]])C(?=[\s,;|/)\].]|$))|(?:C\s*\/\s*C\+\+)|(?:C\s*,\s*C\+\+)|(?:\bC\s+programming\b)|(?:\bANSI\s+C\b)|(?:\bC\s+language\b)/;
-    const match = text.match(cRegex);
-    if (match && match.index !== undefined) {
-      const start = Math.max(0, match.index - 20);
-      const end = Math.min(text.length, match.index + match[0].length + 20);
-      const window = text.substring(start, end);
-      if (
-        window.includes(', CA') ||
-        window.includes('California') ||
-        window.includes('Class C') ||
-        window.includes('Vitamin C')
-      ) {
-        return { found: false };
+    const cRegex = /(?:(?:^|[\s,;|/([\]])C(?=[\s,;|/)\].]|$))|(?:C\s*\/\s*C\+\+)|(?:C\s*,\s*C\+\+)|(?:\bC\s+programming\b)|(?:\bANSI\s+C\b)|(?:\bC\s+language\b)/g;
+    for (const match of text.matchAll(cRegex)) {
+      if (match.index !== undefined) {
+        const start = Math.max(0, match.index - 20);
+        const end = Math.min(text.length, match.index + match[0].length + 20);
+        const window = text.substring(start, end);
+        if (
+          !window.includes(', CA') &&
+          !window.includes('California') &&
+          !window.includes('Class C') &&
+          !window.includes('Vitamin C')
+        ) {
+          return { found: true, matchedToken: 'C' };
+        }
       }
-      return { found: true, matchedToken: 'C' };
     }
     return { found: false };
   }
@@ -55,33 +55,40 @@ export function matchTokenInText(
     if (/\bGolang\b/i.test(text)) {
       return { found: true, matchedToken: 'Golang' };
     }
-    const goRegex = /(?:(?:^|[\s,;/|([\]])Go(?=[\s,;/|)\].]|$))|(?:\bGo\s+(?:language|developer|backend|microservice|service|goroutine|code|SDK)\b)/;
-    const match = text.match(goRegex);
-    if (match && match.index !== undefined) {
-      const matchText = match[0];
-      // Exclude colloquial English "go to", "go live", "go ahead", etc.
-      if (/\bGo\s+(?:through|to|for|with|ahead|live|on|over|back|beyond)\b/i.test(matchText)) {
-        return { found: false };
+    const goRegex = /(?:(?:^|[\s,;/|([\]])Go(?=[\s,;/|)\].]|$))|(?:\bGo\s+(?:language|developer|backend|microservice|service|goroutine|code|SDK)\b)|(?:\b(?:in|with|using|wrote|built\s+in)\s+go\b)/gi;
+    for (const match of text.matchAll(goRegex)) {
+      if (match.index !== undefined) {
+        const start = Math.max(0, match.index - 10);
+        const end = Math.min(text.length, match.index + match[0].length + 25);
+        const window = text.substring(start, end);
+        // Exclude colloquial English "go to", "go live", "go ahead", etc. unless preceded by technical preposition "in/using/with Go"
+        const hasTechPreposition = /\b(?:in|using|with|wrote|built\s+in)\s+Go\b/i.test(window);
+        const isColloquial = /\bGo\s+(?:through|to|for|ahead|live|on|over|back|beyond)\b/i.test(window);
+        if (!isColloquial || hasTechPreposition) {
+          return { found: true, matchedToken: 'Go' };
+        }
       }
-      return { found: true, matchedToken: 'Go' };
     }
     return { found: false };
   }
 
   // 3. Special Language: R
   if (tokenLower === 'r') {
-    const rRegex = /(?:(?:^|[\s,;/|([\]])R(?=[\s,;/|)\].]|$))|(?:\bR\s+(?:programming|language|package|Shiny)\b)|(?:\bGNU\s+R\b)/;
-    const match = text.match(rRegex);
-    if (match && match.index !== undefined) {
-      const start = Math.max(0, match.index - 15);
-      const end = Math.min(text.length, match.index + match[0].length + 15);
-      const window = text.substring(start, end);
-      if (window.includes('R&D') || window.includes('R-rated') || window.includes('Round')) {
-        return { found: false };
-      }
-      // In resume body, single-letter R is only credited if in skills section or explicitly qualified
-      if (isSkillsSection || /programming|language|package|shiny|gnu/i.test(window)) {
-        return { found: true, matchedToken: 'R' };
+    const rRegex = /(?:(?:^|[\s,;/|([\]])R(?=[\s,;/|)\].]|$))|(?:\bR\s+(?:programming|language|package|Shiny)\b)|(?:\bGNU\s+R\b)/g;
+    for (const match of text.matchAll(rRegex)) {
+      if (match.index !== undefined) {
+        const start = Math.max(0, match.index - 15);
+        const end = Math.min(text.length, match.index + match[0].length + 15);
+        const window = text.substring(start, end);
+        if (
+          !window.includes('R&D') &&
+          !window.includes('R-rated') &&
+          !window.includes('Round')
+        ) {
+          if (isSkillsSection || /programming|language|package|shiny|gnu/i.test(window)) {
+            return { found: true, matchedToken: 'R' };
+          }
+        }
       }
     }
     return { found: false };
@@ -143,4 +150,11 @@ export function matchTokenInText(
   }
 
   return { found: false };
+}
+
+/**
+ * Convenient boundary-safe matching alias accepting (text, token).
+ */
+export function matchesTokenSafely(text: string, token: string): TokenMatchResult {
+  return matchTokenInText(token, text);
 }

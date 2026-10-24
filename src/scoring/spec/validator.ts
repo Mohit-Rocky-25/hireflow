@@ -131,6 +131,34 @@ export function validateScoringSpec(spec: ScoringSpec): ValidationResult {
     }
   }
 
+  // 4b. Archetype Profiles Checks (if defined)
+  if (spec.archetypeProfiles) {
+    for (const [archId, archProfile] of Object.entries(spec.archetypeProfiles)) {
+      if (!archProfile.id || archProfile.id !== archId) {
+        errors.push(`Archetype profile id mismatch: key "${archId}" vs id "${archProfile.id}".`);
+      }
+      if (!archProfile.label || archProfile.label.trim() === '') {
+        errors.push(`Archetype profile "${archId}" has empty label.`);
+      }
+      let archWeightSum = 0;
+      for (const [pillarId, weight] of Object.entries(archProfile.weights)) {
+        if (!pillarMap.has(pillarId)) {
+          errors.push(`Archetype profile "${archId}" references unknown pillar ID: "${pillarId}".`);
+        }
+        if (weight < 0 || weight > 100) {
+          errors.push(`Archetype profile "${archId}" weight for pillar "${pillarId}" is ${weight}, outside [0, 100].`);
+        }
+        archWeightSum += weight;
+      }
+      if (Math.abs(archWeightSum - 100) > 0.001) {
+        errors.push(`Archetype profile "${archId}" weights sum to ${archWeightSum}, expected exactly 100.`);
+      }
+      if (!archProfile.note || archProfile.note.trim() === '') {
+        errors.push(`Archetype profile "${archId}" must include a descriptive note.`);
+      }
+    }
+  }
+
   // 5. Evidence Tables Checks
   const { contextWeight, bulletScoring, priorityWeights, implicationEdges, parserFriendliness, caps } =
     spec.evidenceTables;

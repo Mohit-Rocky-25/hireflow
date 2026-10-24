@@ -27,6 +27,7 @@ import {
   computeScore,
   generateImprovementPlan,
   runMarketIntelligenceEngine,
+  analyzeRoleMatch,
 } from './talentLensData';
 import { useTalentLensStore, DEMO_TALENTLENS_RESUME, setCompaniesResolver } from './useTalentLensStore';
 import { useProfileStore } from '../../store/profileStore';
@@ -197,26 +198,8 @@ export function CompanyRolesPage() {
 
     setTimeout(() => {
       clearInterval(interval);
-      const reqLevelMap = selectedRole.reqLevel as unknown as Record<string, string>;
-      const breakdown = selectedRole.competencies.map((comp) => ({
-        competency: comp,
-        reqLevel: reqLevelMap[comp] || 'working',
-        analysis: deepAnalyzeCompetency(resumeText, comp, reqLevelMap[comp] || 'working'),
-      }));
-      const score = computeScore(
-        breakdown.map((b) => b.analysis),
-        reqLevelMap,
-        resumeText
-      );
-      const plans = generateImprovementPlan(breakdown, company, selectedRole, score);
-      const marketIntel = runMarketIntelligenceEngine(
-        resumeText,
-        selectedRole.competencies,
-        company,
-        selectedRole
-      );
-
-      setResult({ score, breakdown, plans, marketIntel });
+      const analysisResult = analyzeRoleMatch(resumeText, company, selectedRole);
+      setResult(analysisResult);
       setAnalysisPhase('');
       setAnalyzing(false);
       setStep(3);

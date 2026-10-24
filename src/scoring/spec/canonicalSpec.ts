@@ -210,6 +210,87 @@ export const CANONICAL_SCORING_SPEC: ScoringSpec = {
     },
   ],
 
+  archetypeProfiles: {
+    big_tech_product: {
+      id: 'big_tech_product',
+      label: 'Big Tech & Global Product Leaders',
+      weights: {
+        requirement_coverage: 40,
+        evidence_quality: 30,
+        project_readiness: 20,
+        parser_friendliness: 10,
+        experience_fit: 0,
+      },
+      focusPillars: ['requirement_coverage', 'evidence_quality'],
+      note: 'Calibrated for Google, Microsoft, Amazon, Uber tier prioritizing algorithmic depth and clean code.',
+    },
+    quant_trading: {
+      id: 'quant_trading',
+      label: 'Quant Trading & Low-Latency Systems',
+      weights: {
+        requirement_coverage: 35,
+        evidence_quality: 35,
+        project_readiness: 20,
+        parser_friendliness: 10,
+        experience_fit: 0,
+      },
+      focusPillars: ['evidence_quality', 'project_readiness'],
+      note: 'Calibrated for HFT & quantitative desks evaluating low-latency C++, math, and performance profiling.',
+    },
+    indian_high_growth: {
+      id: 'indian_high_growth',
+      label: 'Indian High-Growth Product Scale-Ups',
+      weights: {
+        requirement_coverage: 35,
+        evidence_quality: 25,
+        project_readiness: 25,
+        parser_friendliness: 15,
+        experience_fit: 0,
+      },
+      focusPillars: ['requirement_coverage', 'project_readiness'],
+      note: 'Calibrated for Swiggy, Razorpay, CRED, Zomato scale-ups emphasizing rapid full-stack execution.',
+    },
+    product_mnc_gcc: {
+      id: 'product_mnc_gcc',
+      label: 'Product MNC & Enterprise GCC',
+      weights: {
+        requirement_coverage: 35,
+        evidence_quality: 25,
+        project_readiness: 20,
+        parser_friendliness: 20,
+        experience_fit: 0,
+      },
+      focusPillars: ['requirement_coverage', 'parser_friendliness'],
+      note: 'Calibrated for Adobe, Intuit, Salesforce, Oracle GCCs evaluating OOP patterns and disciplined testing.',
+    },
+    service_track: {
+      id: 'service_track',
+      label: 'IT Services & Foundation Tracks',
+      weights: {
+        requirement_coverage: 40,
+        evidence_quality: 20,
+        project_readiness: 15,
+        parser_friendliness: 25,
+        experience_fit: 0,
+      },
+      focusPillars: ['requirement_coverage', 'parser_friendliness'],
+      note: 'Calibrated for TCS, Infosys, Wipro campus recruitment drives evaluating syntax and standard formatting.',
+    },
+    early_growth_startup: {
+      id: 'early_growth_startup',
+      label: 'Early-Stage Tech Startups',
+      weights: {
+        requirement_coverage: 30,
+        evidence_quality: 25,
+        project_readiness: 35,
+        parser_friendliness: 10,
+        experience_fit: 0,
+      },
+      focusPillars: ['project_readiness', 'evidence_quality'],
+      note: 'Calibrated for seed to Series B startups evaluating live URLs, shipped artifacts, and engineering velocity.',
+    },
+  },
+
   applicabilityRules: [
     {
       id: 'rule_always_applies',
@@ -609,6 +690,13 @@ export const CANONICAL_SCORING_SPEC: ScoringSpec = {
       lastReviewed: '2026-10-24',
       citation: 'Standard ATS Header & Layout Conventions (Workday, Greenhouse, Taleo)',
       notes: 'Section segmentation rules derived from common ATS linear parser behavior.',
+    },
+    {
+      tableId: 'archetypeProfiles',
+      sourceKind: 'editorial',
+      lastReviewed: '2026-10-24',
+      citation: 'Market Archetype Calibration (Big Tech, Quant, Unicorn, GCC, IT Services, Startup)',
+      notes: 'Archetype nominal weights define differential emphasis across tech hiring sectors.',
     },
   ],
 };

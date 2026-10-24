@@ -13,3 +13,5 @@ export * from './calculators';
 export * from './traceBuilder';
 export * from './jdParser';
 export * from './context';
+export * from './resumeParser';
+export * from './eligibility';
