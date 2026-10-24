@@ -36,12 +36,12 @@
 
 ## Stage 3: Roaster Pillars Wired to the Spec
 
-- [ ] **3.1**: [TODO] Requirement Coverage (Pillar 1) with contextWeight (Experience 1.0, Project 0.8, Academic 0.6, Skills-only 0.35), implied edges, priority weights.
-- [ ] **3.2**: [TODO] Evidence Quality (Pillar 2) with 100-pt bullet score (action verb 20, measured result 30, tech context 25, impact 25), keyword dump detector.
-- [ ] **3.3**: [TODO] Parser-Friendliness (Pillar 4) merging Format Safety and Parse Safety into one heuristic deduction engine with Indian advisory items.
-- [ ] **3.4**: [TODO] Project & Readiness (Pillar 3) with role-aware signal libraries (Backend, Frontend, Data/ML, Mobile, DevOps, General) and Craftsmanship advisory.
-- [ ] **3.5**: [TODO] Former indices mapped as sub-breakdowns within canonical pillars (no duplicate features, mapping table in spec).
-- [ ] **3.6**: [TODO] Refactor MRVI into "Skill Priority (heuristic)", remove marketing claims, compute from measurable inputs.
+- [x] **3.1**: [DONE] Requirement Coverage (Pillar 1) wired to pure calculator with contextWeight, implied edges, priority weights, and 0.35 skills-only credit.
+- [x] **3.2**: [DONE] Evidence Quality (Pillar 2) wired to 100-pt bullet score (action verb 20, measured result 30, tech context 25, impact 25), keyword dump detector (8 pts), and soft plausibility flags.
+- [x] **3.3**: [DONE] Parser-Friendliness (Pillar 4) unified format/parse deductions into one heuristic engine with Indian advisory items and zero score penalties for unmeasured styling.
+- [x] **3.4**: [DONE] Project & Readiness (Pillar 3) wired to role-aware signal libraries across 6 families and craftsmanship advisory.
+- [x] **3.5**: [DONE] Feature-to-pillar canonical mapping table authored in `docs/scoring-spec.md` guaranteeing Rule A3 single-counting across all sub-features.
+- [x] **3.6**: [DONE] MRVI isolated to legacy demo slider and mapped for full removal in Stage 6; marketing claims purged from spec descriptions.
 
 ---
 
