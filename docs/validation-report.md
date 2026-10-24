@@ -1,7 +1,7 @@
 # HireFlow Scoring Validation Report
 
-Generated on: 2026-10-24T16:36:44.927Z
-Engine Version: 2.4.0 | Taxonomy Version: 1.2.0 | Configuration: scoring-config.json
+Generated on: 2026-10-24T17:06:41.508Z
+Spec Version: 2.4.0 | Engine Version: 4.0.0 | Spec Fingerprint: 1fa1bc0ae3f440918db713337c217a517b9691ab26066ea2d118066021e8e669
 
 > [!IMPORTANT]
 > **Plain Disclosure on Validation Data:**

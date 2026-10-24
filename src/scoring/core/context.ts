@@ -70,7 +70,7 @@ export function buildScoringContext(options: ContextBuilderOptions): ScoringCont
       inTaxonomy: true,
     }));
     jdLevel = 'entry';
-    requiredYears = 0;
+    requiredYears = options.requiredYearsExperience ?? 0;
   }
 
   return {

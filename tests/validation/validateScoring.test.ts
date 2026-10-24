@@ -5,6 +5,8 @@ import { runAtsEngine } from '../../src/features/ats/engine';
 import { analyzeCanonical } from '../../src/lib/ats/canonicalAnalysis';
 import { parseJD } from '../../src/lib/ats/parseJD';
 import { scoreBullet } from '../../src/lib/ats/evidenceScorer';
+import { CANONICAL_SCORING_SPEC } from '../../src/scoring/spec/canonicalSpec';
+import { computeSpecFingerprint } from '../../src/scoring/core/fingerprint';
 
 interface TestResult {
   suite: string;
@@ -442,7 +444,7 @@ Bonus: Next.js, TypeScript.`,
       '# HireFlow Scoring Validation Report',
       '',
       `Generated on: ${new Date().toISOString()}`,
-      'Engine Version: 2.4.0 | Taxonomy Version: 1.2.0 | Configuration: scoring-config.json',
+      `Spec Version: ${CANONICAL_SCORING_SPEC.specVersion} | Engine Version: ${CANONICAL_SCORING_SPEC.engineVersion} | Spec Fingerprint: ${computeSpecFingerprint(CANONICAL_SCORING_SPEC)}`,
       '',
       '> [!IMPORTANT]',
       '> **Plain Disclosure on Validation Data:**',

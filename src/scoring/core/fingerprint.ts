@@ -90,10 +90,24 @@ export function sha256(ascii: string): string {
   return result;
 }
 
+function canonicalize(obj: any): any {
+  if (obj === null || typeof obj !== 'object') {
+    return obj;
+  }
+  if (Array.isArray(obj)) {
+    return obj.map(canonicalize);
+  }
+  const sorted: Record<string, any> = {};
+  for (const key of Object.keys(obj).sort()) {
+    sorted[key] = canonicalize(obj[key]);
+  }
+  return sorted;
+}
+
 /**
  * Computes canonical sorted JSON representation and returns its SHA-256 fingerprint.
  */
 export function computeSpecFingerprint(spec: ScoringSpec): string {
-  const canonicalString = JSON.stringify(spec, Object.keys(spec).sort());
-  return sha256(canonicalString);
+  const sorted = canonicalize(spec);
+  return sha256(JSON.stringify(sorted));
 }

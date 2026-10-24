@@ -83,16 +83,16 @@
 
 ## Stage 7: Verification
 
-- [ ] **7.1**: [TODO] 12 hand-calculated golden fixtures with documented arithmetic.
-- [ ] **7.2**: [TODO] 500-iteration seeded PRNG property tests (normalization, range [0, 100], determinism).
-- [ ] **7.3**: [TODO] Metamorphic/monotonic invariant tests (irrelevant skills, genuine evidence, reordering, aliases).
-- [ ] **7.4**: [TODO] Adversarial test suite (stuffing, white-text, buzzwords, duplicates, implausible metrics).
-- [ ] **7.5**: [TODO] Spec-drift test proving spec edits dynamically alter engine and rendered methodology in lockstep.
-- [ ] **7.6**: [TODO] Privacy spy tests verifying zero network calls during scan, tailor, export, TalentLens, and methodology.
-- [ ] **7.7**: [TODO] Cache fingerprint invalidation test.
-- [ ] **7.8**: [TODO] Implement `npm run validate:scoring` generating `docs/validation-report.md`.
-- [ ] **7.9**: [TODO] Implement `npm run report:migration` generating `docs/score-migration-report.md` comparing against baseline.
-- [ ] **7.10**: [TODO] Run full suite of checks (`check:constants`, `check:ui-scoring`, `check:claims`, `check:provenance`, `docs:scoring`, `validate:scoring`, `report:migration`, lint, typecheck, full vitest suite, build).
+- [x] **7.1**: [DONE] 12 hand-calculated golden fixtures with documented arithmetic (`tests/scoring/goldenArithmetic.test.ts`).
+- [x] **7.2**: [DONE] 500-iteration seeded PRNG property tests verifying normalization, range [0, 100], and determinism (`tests/scoring/propertyPurity.test.ts`).
+- [x] **7.3**: [DONE] Metamorphic/monotonic invariant tests verifying irrelevant skills, genuine evidence, reordering, and aliases (`tests/scoring/metamorphic.test.ts`).
+- [x] **7.4**: [DONE] Adversarial test suite verifying resistance to stuffing, white-text, buzzwords, duplicates, and implausible metrics (`tests/scoring/adversarial.test.ts`).
+- [x] **7.5**: [DONE] Spec-drift test proving spec edits dynamically alter engine and rendered methodology in lockstep (`tests/scoring/specDrift.test.ts`).
+- [x] **7.6**: [DONE] Privacy spy tests verifying zero network calls during scan, tailor, export, TalentLens, and methodology (`tests/scoring/privacyNetworkSpy.test.ts`).
+- [x] **7.7**: [DONE] Cache fingerprint invalidation test (`tests/scoring/cacheFingerprint.test.ts`).
+- [x] **7.8**: [DONE] Implemented `npm run validate:scoring` generating `docs/validation-report.md`.
+- [x] **7.9**: [DONE] Implemented `npm run report:migration` generating `docs/score-migration-report.md` comparing against baseline.
+- [x] **7.10**: [DONE] Run full suite of checks (`check:constants`, `check:ui-scoring`, `check:claims`, `check:provenance`, `docs:scoring`, `validate:scoring`, `report:migration`, typecheck, full vitest suite, build).
 
 ---
 

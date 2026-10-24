@@ -1081,3 +1081,4 @@ export const findCompanyBySlug = (slug: string, companyCatalog: Company[] = []):
     );
   });
 };
+
