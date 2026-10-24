@@ -1,6 +1,6 @@
 # HireFlow Scoring Validation Report
 
-Generated on: 2026-10-24T10:09:24.777Z
+Generated on: 2026-10-24T10:36:00.998Z
 Engine Version: 2.4.0 | Taxonomy Version: 1.2.0 | Configuration: scoring-config.json
 
 > [!IMPORTANT]
