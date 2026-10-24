@@ -23,6 +23,7 @@ import { DEMO_TALENTLENS_RESUME } from '../demo/useTalentLensStore';
 import { HonestyExplainerModal } from '../../components/common/HonestyExplainerModal';
 import { RealityFactorsPanel } from '../../components/common/RealityFactorsPanel';
 import { EligibilityCard } from '../../components/common/EligibilityCard';
+import { WhyThisScoreDrawer, StaleVersionBanner } from '../../components/scoring';
 
 // ── Status Components ──
 function EligibilityBadge({ status }: { status: string }) {
@@ -199,6 +200,7 @@ export function TalentLens() {
   const [showFullTalentLensReport, setShowFullTalentLensReport] = useState(true);
   const [activeTab, setActiveTab] = useState<'overview' | 'requirements' | 'gaps' | 'interview'>('overview');
   const [error, setError] = useState<string | null>(null);
+  const [isWhyScoreOpen, setIsWhyScoreOpen] = useState(false);
 
   const candidate = users.find(u => u.id === candidateId);
   const profile = candidateProfiles.find(p => p.userId === candidateId);
@@ -407,6 +409,13 @@ export function TalentLens() {
 
           {showFullTalentLensReport && (
             <>
+              {/* Stale Version Notification (Task 5.4) */}
+              <StaleVersionBanner
+                storedSpecVersion={(match as any).specVersion}
+                storedFingerprint={(match as any).specFingerprint}
+                className="mb-4"
+              />
+
               {/* Score Overview */}
           <div className="bg-[#141414] border border-charcoal rounded-lg p-6">
             <div className="flex items-start justify-between mb-6">
@@ -414,6 +423,13 @@ export function TalentLens() {
                 <div className="flex items-center gap-3 mb-1.5 flex-wrap">
                   <h2 className="text-lg font-bold text-white">Intelligence Report</h2>
                   <EligibilityBadge status={match.eligibility} />
+                  <button
+                    type="button"
+                    onClick={() => setIsWhyScoreOpen(true)}
+                    className="ml-2 px-2.5 py-1 bg-black hover:border-volt border border-volt/40 text-xs font-mono uppercase rounded text-volt hover:text-white transition-colors inline-flex items-center gap-1.5 cursor-pointer"
+                  >
+                    <HelpCircle className="w-3.5 h-3.5 text-volt" /> Why this score
+                  </button>
                   <button
                     type="button"
                     onClick={() => {
@@ -428,9 +444,11 @@ export function TalentLens() {
                 <p className="text-xs text-silver leading-relaxed">{match.explanation}</p>
               </div>
               <div className="text-right">
-                <p className="text-[10px] font-mono font-bold text-silver uppercase tracking-wider">Overall Score</p>
-                <p className="text-4xl font-black font-mono text-white">{match.overallScore}<span className="text-sm font-normal text-silver">/100</span></p>
-                <p className="text-[10px] font-mono text-silver/60">Backed by {match.scoreComponents?.length ?? 0} components</p>
+                <p className="text-[10px] font-mono font-bold text-silver uppercase tracking-wider">Market Readiness Estimate</p>
+                <p className="text-4xl font-black font-mono text-white">{(match as any).trace?.compositeDisplay ?? match.overallScore}<span className="text-sm font-normal text-silver">/100</span></p>
+                <p className="text-[10px] font-mono text-volt">
+                  {(match as any).band ? `Band: ${(match as any).band.low}–${(match as any).band.high}% (${(match as any).band.label})` : 'Simulation Estimate'}
+                </p>
               </div>
             </div>
 
@@ -642,6 +660,15 @@ export function TalentLens() {
             </>
           )}
         </div>
+      )}
+
+      {match && (
+        <WhyThisScoreDrawer
+          isOpen={isWhyScoreOpen}
+          onClose={() => setIsWhyScoreOpen(false)}
+          trace={(match as any).trace}
+          toolName="TalentLens"
+        />
       )}
       </div>
     </div>

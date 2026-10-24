@@ -16,6 +16,8 @@ import {
 import { AtsEngineResult } from '../engine/types';
 import { HonestyExplainerModal } from '../../../components/common/HonestyExplainerModal';
 import { CalculationBreakdownCollapsible } from '../../../components/common/CalculationBreakdownCollapsible';
+import { WhyThisScoreDrawer, StaleVersionBanner } from '../../../components/scoring';
+import { HelpCircle } from 'lucide-react';
 
 interface Props {
   result: AtsEngineResult;
@@ -24,14 +26,16 @@ interface Props {
 
 export const ScoreHeader: React.FC<Props> = ({ result, headerRef }) => {
   const [isHonestyOpen, setIsHonestyOpen] = useState(false);
-  const { score, band, headline, mustHavesMet, bestFitTier, seniorityFit, parseQuality, confidence, confidenceReason } = result;
+  const [isWhyScoreOpen, setIsWhyScoreOpen] = useState(false);
+  const { score, band, headline, mustHavesMet, bestFitTier, seniorityFit, parseQuality, confidence, confidenceReason, trace } = result;
 
-  // Sensitivity range: +/- 20% weight perturbation
-  const scoreMin = Math.max(0, Math.round(score * 0.92 - 2)); // spec-exempt: legacy UI range replaced in Stage 5
-  const scoreMax = Math.min(100, Math.round(score * 1.06 + 3));
+  // Sensitivity range: read directly from trace if available (Rule A2)
+  const scoreMin = trace?.band ? trace.band.low : (result.bandDetails ? result.bandDetails.low : score);
+  const scoreMax = trace?.band ? trace.band.high : (result.bandDetails ? result.bandDetails.high : score);
+  const displayScore = trace?.compositeDisplay ?? score;
 
   // Honest band label
-  const honestBandLabel = score >= 80 ? 'Strong match' : score >= 60 ? 'Partial match' : 'Weak match';
+  const honestBandLabel = trace?.band ? `${trace.band.label} match` : (score >= 80 ? 'Strong match' : score >= 60 ? 'Partial match' : 'Weak match');
   const cautionText = 'Simulation estimate: no employer sees this number; real ATS software does not publish universal scores.';
 
   // Top 3 reasons moving the score
@@ -60,6 +64,12 @@ export const ScoreHeader: React.FC<Props> = ({ result, headerRef }) => {
 
   return (
     <div ref={headerRef as any} tabIndex={-1} className="space-y-6 outline-none text-white font-sans">
+      {/* Stale Version Notification (Task 5.4) */}
+      <StaleVersionBanner
+        storedSpecVersion={result.specVersion}
+        storedFingerprint={result.specFingerprint}
+      />
+
       {/* Low / Medium Confidence Warning Banner */}
       {confidence !== 'High' && confidenceReason && (
         <div className="p-4 rounded-lg bg-near-black border border-pale-yellow/50 flex items-start gap-3.5 text-pale-yellow">
@@ -78,13 +88,13 @@ export const ScoreHeader: React.FC<Props> = ({ result, headerRef }) => {
           {/* Oversized White Numerals & Midpoint Range (§4, Stage 4) */}
           <div className="w-full lg:w-[240px] shrink-0 flex flex-col items-center justify-center p-6 bg-black rounded-lg border border-charcoal text-center">
             <span className="text-[12px] font-semibold uppercase tracking-[1.4px] text-silver mb-1">
-              Match Estimate Range
+              Resume Match Estimate
             </span>
             <div className="text-[52px] sm:text-[60px] font-black text-white tracking-tight font-mono leading-none border-b-2 border-volt pb-2 mb-2">
               {scoreMin}–{scoreMax}
             </div>
             <span className="text-xs font-mono text-silver">
-              Midpoint: <strong className="text-white font-bold">{score}/100</strong>
+              Midpoint: <strong className="text-white font-bold">{displayScore}/100</strong>
             </span>
             <div className="mt-3 px-3 py-1 rounded text-xs font-bold uppercase tracking-[1.2px] bg-near-black text-volt border border-volt/40">
               {honestBandLabel}
@@ -98,14 +108,24 @@ export const ScoreHeader: React.FC<Props> = ({ result, headerRef }) => {
                 <span className="text-xs font-semibold uppercase tracking-[1.4px] text-volt">
                   Review Simulation Verdict
                 </span>
-                <button
-                  type="button"
-                  onClick={() => setIsHonestyOpen(true)}
-                  className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[1.2px] text-white py-1.5 px-3 rounded border border-charcoal bg-black hover:border-volt hover:text-volt transition-colors active:shadow-inset"
-                >
-                  <ShieldAlert className="w-3.5 h-3.5 text-pale-yellow stroke-[1.5px]" />
-                  <span>What this is / isn't</span>
-                </button>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setIsWhyScoreOpen(true)}
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[1.2px] text-volt py-1.5 px-3 rounded border border-volt/40 bg-black hover:bg-volt/10 transition-colors cursor-pointer"
+                  >
+                    <HelpCircle className="w-3.5 h-3.5 text-volt stroke-[1.5px]" />
+                    <span>Why this score</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setIsHonestyOpen(true)}
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[1.2px] text-white py-1.5 px-3 rounded border border-charcoal bg-black hover:border-volt hover:text-volt transition-colors active:shadow-inset cursor-pointer"
+                  >
+                    <ShieldAlert className="w-3.5 h-3.5 text-pale-yellow stroke-[1.5px]" />
+                    <span>What this is / isn't</span>
+                  </button>
+                </div>
               </div>
 
               <h2 className="text-[24px] sm:text-[28px] font-bold text-white tracking-tight leading-snug">
@@ -145,48 +165,60 @@ export const ScoreHeader: React.FC<Props> = ({ result, headerRef }) => {
                   details={{
                     scoreMin,
                     scoreMax,
-                    effectiveScore: score,
+                    effectiveScore: displayScore,
                     band,
-                    activePillars: [
-                      {
-                        name: 'Must-Have Coverage',
-                        weightPercent: 30,
-                        earnedScore: Math.round(((result.subscores.mustHaveCoverage || 0) / 30) * 100),
-                      },
-                      {
-                        name: 'Evidence Depth & Impact',
-                        weightPercent: 20,
-                        earnedScore: Math.round(((result.subscores.evidenceDepth || 0) / 20) * 100),
-                      },
-                      {
-                        name: 'Impact Metrics in Bullets',
-                        weightPercent: 15,
-                        earnedScore: Math.round(((result.subscores.impactMetrics || 0) / 15) * 100),
-                      },
-                      {
-                        name: 'Project & Role Relevance',
-                        weightPercent: 10,
-                        earnedScore: Math.round(((result.subscores.projectsAndOss || 0) / 10) * 100),
-                      },
-                      {
-                        name: 'Parser-Friendliness Check (heuristic)',
-                        weightPercent: 10,
-                        earnedScore: Math.round(((result.subscores.formatAndParse || 0) / 10) * 100),
-                      },
-                      {
-                        name: 'Target Tier Alignment',
-                        weightPercent: 5,
-                        earnedScore: Math.round(((result.subscores.tierFit || 0) / 5) * 100),
-                      },
-                    ],
-                    excludedPillars: seniorityFit.requiredYears <= 1 && seniorityFit.candidateYears <= 1 ? [
-                      {
-                        name: 'Seniority Fit (0-1 yr)',
-                        reason: 'Constant pillar: Early career candidate applying to entry-level JD; excluded from composite to prevent unearned free score inflation.',
-                      }
-                    ] : [],
-                    engineVersion: '2.4.0',
-                    taxonomyVersion: '1.2.0',
+                    activePillars: trace?.pillars
+                      ? trace.pillars.filter((p) => p.applicable).map((p) => ({
+                          name: p.label,
+                          weightPercent: Math.round(p.effectiveWeight * 100),
+                          earnedScore: p.rawScore,
+                          statusNote: p.flags.join(', ') || 'Applicable',
+                        }))
+                      : [
+                          {
+                            name: 'Must-Have Coverage',
+                            weightPercent: 30,
+                            earnedScore: Math.round(((result.subscores.mustHaveCoverage || 0) / 30) * 100),
+                          },
+                          {
+                            name: 'Evidence Depth & Impact',
+                            weightPercent: 20,
+                            earnedScore: Math.round(((result.subscores.evidenceDepth || 0) / 20) * 100),
+                          },
+                          {
+                            name: 'Impact Metrics in Bullets',
+                            weightPercent: 15,
+                            earnedScore: Math.round(((result.subscores.impactMetrics || 0) / 15) * 100),
+                          },
+                          {
+                            name: 'Project & Role Relevance',
+                            weightPercent: 10,
+                            earnedScore: Math.round(((result.subscores.projectsAndOss || 0) / 10) * 100),
+                          },
+                          {
+                            name: 'Parser-Friendliness Check (heuristic)',
+                            weightPercent: 10,
+                            earnedScore: Math.round(((result.subscores.formatAndParse || 0) / 10) * 100),
+                          },
+                          {
+                            name: 'Target Tier Alignment',
+                            weightPercent: 5,
+                            earnedScore: Math.round(((result.subscores.tierFit || 0) / 5) * 100),
+                          },
+                        ],
+                    excludedPillars: trace?.pillars
+                      ? trace.pillars.filter((p) => !p.applicable).map((p) => ({
+                          name: p.label,
+                          reason: p.notApplicableReason || 'Excluded for candidate profile',
+                        }))
+                      : seniorityFit.requiredYears <= 1 && seniorityFit.candidateYears <= 1 ? [
+                          {
+                            name: 'Seniority Fit (0-1 yr)',
+                            reason: 'Constant pillar: Early career candidate applying to entry-level JD; excluded from composite to prevent unearned free score inflation.',
+                          }
+                        ] : [],
+                    engineVersion: trace?.engineVersion || '4.0.0',
+                    taxonomyVersion: trace?.specVersion || '2.4.0',
                     lastReviewedDate: 'October 2026',
                   }}
                 />
@@ -250,6 +282,13 @@ export const ScoreHeader: React.FC<Props> = ({ result, headerRef }) => {
       <HonestyExplainerModal
         isOpen={isHonestyOpen}
         onClose={() => setIsHonestyOpen(false)}
+        toolName="ATS Resume Roaster"
+      />
+
+      <WhyThisScoreDrawer
+        isOpen={isWhyScoreOpen}
+        onClose={() => setIsWhyScoreOpen(false)}
+        trace={trace}
         toolName="ATS Resume Roaster"
       />
     </div>

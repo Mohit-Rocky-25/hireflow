@@ -188,6 +188,11 @@ export interface AtsEngineResult {
   canonicalResult?: import('../../../lib/ats/canonicalAnalysis').CanonicalAnalysis;
   quickRoast?: import('../../../lib/ats/canonicalAnalysis').CanonicalAnalysis['quickRoast'];
   talentLensReadiness?: import('../../../lib/ats/canonicalAnalysis').CanonicalAnalysis['talentLensReadiness'];
+  trace?: import('../../../scoring/core/types').ScoreTrace;
+  bandDetails?: import('../../../scoring/core/types').ScoreBand;
+  specVersion?: string;
+  engineVersion?: string;
+  specFingerprint?: string;
 }
 
 export type LearningStage = 'Foundation' | 'Core Role Skills' | 'Differentiators';

@@ -24,6 +24,12 @@ import {
 } from './types';
 import { analyzeCanonical } from '../../../lib/ats/canonicalAnalysis';
 import { getMinWords, WordLimitSource } from '../../../lib/config/limits';
+import {
+  runScoringEngine,
+  buildScoringContext,
+  parseResumeToScoringInput,
+  parseJobDescriptionToRequirements,
+} from '../../../scoring/core';
 
 export * from './types';
 export * from './reportState';
@@ -247,6 +253,38 @@ export function runAtsEngine(
       level: selectedLevel,
     }),
   };
+
+  // 8. Compute Canonical ScoreTrace from CANONICAL_SCORING_SPEC
+  try {
+    const scoringInput = parseResumeToScoringInput(resumeText);
+    const parsedJd = parseJobDescriptionToRequirements(jdText);
+    if (options?.confirmedRequirements && options.confirmedRequirements.length > 0) {
+      parsedJd.confirmedRequirements = options.confirmedRequirements.map((r, i) => ({
+        id: `confirmed_req_${i}`,
+        text: r.text,
+        category: r.type === 'must' ? ('must' as const) : ('preferred' as const),
+        confidence: 1.0,
+        inTaxonomy: true,
+      }));
+    }
+
+    const scoringContext = buildScoringContext({
+      experienceLevel: seniority.candidateYears <= 1 ? '0-2 yrs' : '2+ yrs',
+      roleFamily: (options?.roleFamily || jdAnalysis.roleTitle || 'Backend') as any,
+      parsedJd,
+      candidateYearsExperience: seniority.candidateYears,
+      requiredYearsExperience: jdAnalysis.detectedYears,
+    });
+
+    const trace = runScoringEngine(scoringContext, scoringInput, { tool: 'roaster' });
+    result.trace = trace;
+    result.bandDetails = trace.band;
+    result.specVersion = trace.specVersion;
+    result.engineVersion = trace.engineVersion;
+    result.specFingerprint = trace.specFingerprint;
+  } catch {
+    // Graceful fallback if parsing edge case
+  }
 
   return {
     success: true,

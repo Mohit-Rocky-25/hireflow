@@ -20,6 +20,8 @@ import { CalculationBreakdownCollapsible, CalculationDetails } from '../../../co
 import { RealityFactorsPanel } from '../../../components/common/RealityFactorsPanel';
 import { EligibilityCard } from '../../../components/common/EligibilityCard';
 import { CompanyLogo } from '../../../components/common/CompanyLogo';
+import { WhyThisScoreDrawer, StaleVersionBanner } from '../../../components/scoring';
+import { HelpCircle } from 'lucide-react';
 
 export interface AnalysisResultViewProps {
   result: AnalysisResult;
@@ -39,6 +41,7 @@ export function AnalysisResultView({
   onNewResume,
 }: AnalysisResultViewProps) {
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [isWhyScoreOpen, setIsWhyScoreOpen] = useState(false);
 
   const missingComps = result.breakdown.filter((b) => b.analysis.status === 'absent');
   const provenComps = result.breakdown.filter(
@@ -69,6 +72,13 @@ export function AnalysisResultView({
 
   return (
     <div className="max-w-[960px] mx-auto animate-fade-in text-white">
+      {/* Stale Version Notification (Task 5.4) */}
+      <StaleVersionBanner
+        storedSpecVersion={result.trace?.specVersion}
+        storedFingerprint={result.trace?.specFingerprint}
+        className="mb-4"
+      />
+
       {/* 1. Placement Readiness Quick Summary Card */}
       <div className="bg-[#141414] border border-charcoal rounded-lg p-6 mb-5 space-y-6">
         {/* Status Banner */}
@@ -89,6 +99,14 @@ export function AnalysisResultView({
           </div>
 
           <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={() => setIsWhyScoreOpen(true)}
+              className="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-volt py-1.5 px-3 rounded border border-volt/40 bg-black hover:bg-volt/10 transition-colors cursor-pointer"
+            >
+              <HelpCircle className="w-3.5 h-3.5 text-volt" />
+              <span>Why this score</span>
+            </button>
             <HonestyExplainerModal tool="talentlens" />
             <span
               className={`px-3 py-1 rounded text-xs font-mono uppercase tracking-wider border ${roleFitStyles}`}
@@ -689,6 +707,13 @@ export function AnalysisResultView({
           <RefreshCw className="w-4 h-4" /> New Resume
         </button>
       </div>
+
+      <WhyThisScoreDrawer
+        isOpen={isWhyScoreOpen}
+        onClose={() => setIsWhyScoreOpen(false)}
+        trace={result.trace}
+        toolName="TalentLens"
+      />
     </div>
   );
 }

@@ -290,3 +290,5 @@ export function applyRequirementUserEdits(
 
   return updated;
 }
+
+export const parseJobDescriptionToRequirements = parseJobDescription;

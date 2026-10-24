@@ -366,6 +366,13 @@ export interface CandidateMatch {
   humanNote?: string;
   flaggedForReview?: boolean;
 
+  // Scoring trace
+  trace?: import('../scoring/core/types').ScoreTrace;
+  band?: import('../scoring/core/types').ScoreBand;
+  specVersion?: string;
+  engineVersion?: string;
+  specFingerprint?: string;
+
   createdAt: string;
 }
 

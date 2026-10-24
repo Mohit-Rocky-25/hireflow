@@ -16,6 +16,12 @@ import type {
 } from '@/types';
 import { extractSkillsFromText, getSkillById, getRelatedSkills, skillSimilarity, resolveSkill } from '@/data/knowledge/skills';
 import { resolveOccupation } from '@/data/knowledge/occupations';
+import {
+  runScoringEngine,
+  buildScoringContext,
+  parseResumeToScoringInput,
+  parseJobDescriptionToRequirements,
+} from '../../scoring/core';
 
 const ENGINE_VERSION = '1.0.0';
 const KNOWLEDGE_VERSION = '1.0.0';
@@ -125,6 +131,30 @@ export function analyzeCandidate(
     analyzedAt: new Date().toISOString(),
     inputHash: hashInput(candidateId, job.id),
     createdAt: new Date().toISOString(),
+    trace: (() => {
+      try {
+        const scoringInput = parseResumeToScoringInput(corpus.fullText);
+        const parsedJd = parseJobDescriptionToRequirements(
+          job.title + '\n' + (job.summary || '') + '\n' + (job.responsibilities || []).join('\n') + '\n' + (job.requirements || []).map(r => r.name).join('\n')
+        );
+        parsedJd.confirmedRequirements = (job.requirements || []).map((r, i) => ({
+          id: r.id || `req_${i}`,
+          text: r.name,
+          category: r.priority === 'MANDATORY' ? 'must' : 'preferred',
+          confidence: 1.0,
+          inTaxonomy: true,
+        }));
+        const scoringContext = buildScoringContext({
+          experienceLevel: corpus.yearsOfExperience <= 1 ? '0-2 yrs' : '2+ yrs',
+          roleFamily: (job.department || 'Backend') as any,
+          parsedJd,
+          candidateYearsExperience: corpus.yearsOfExperience,
+        });
+        return runScoringEngine(scoringContext, scoringInput, { tool: 'talentlens' });
+      } catch {
+        return undefined;
+      }
+    })(),
   };
 }
 

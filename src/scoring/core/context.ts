@@ -7,7 +7,7 @@
 import { RoleFamily, ScoringSpec } from '../spec/types';
 import { CANONICAL_SCORING_SPEC } from '../spec/canonicalSpec';
 import { ScoringContext, ConfirmedRequirement, JdSeniorityLevel } from './types';
-import { ParsedJobDescription } from './jdParser';
+import { ParsedJobDescription, parseJobDescription } from './jdParser';
 
 export interface ContextBuilderOptions {
   experienceLevel?: ScoringContext['experienceLevel'];
@@ -51,9 +51,14 @@ export function buildScoringContext(options: ContextBuilderOptions): ScoringCont
   let jdLevel: JdSeniorityLevel = options.parsedJd?.jdLevel || 'unknown';
   let requiredYears = options.requiredYearsExperience ?? options.parsedJd?.yearsRequired ?? 0;
 
-  if (jdPresent && options.parsedJd) {
-    confirmedRequirements = options.parsedJd.confirmedRequirements;
-  } else if (!jdPresent) {
+  if (options.parsedJd) {
+    confirmedRequirements = options.parsedJd.confirmedRequirements || [];
+  } else if (options.rawJdText && options.rawJdText.trim().length > 30) {
+    const parsed = parseJobDescription(options.rawJdText, spec);
+    confirmedRequirements = parsed.confirmedRequirements;
+    jdLevel = parsed.jdLevel;
+    requiredYears = options.requiredYearsExperience ?? parsed.yearsRequired;
+  } else {
     // Rule 2.2: Switch to role baseline mode using spec's roleSignalLibraries
     const roleLib = spec.roleSignalLibraries[roleFamily] || spec.roleSignalLibraries.General;
     confirmedRequirements = (roleLib.baselineRequirements || []).map((reqName, idx) => ({

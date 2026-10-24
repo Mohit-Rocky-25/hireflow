@@ -15,3 +15,4 @@ export * from './jdParser';
 export * from './context';
 export * from './resumeParser';
 export * from './eligibility';
+export * from './reportPayload';

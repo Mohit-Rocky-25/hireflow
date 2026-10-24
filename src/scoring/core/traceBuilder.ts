@@ -67,7 +67,7 @@ export function evaluateApplicabilityRule(
       return { applies: true };
 
     case 'rule_has_bullets': {
-      const bulletCount = resumeData.experienceBullets.length + resumeData.projectBullets.length;
+      const bulletCount = (resumeData.experienceBullets?.length || 0) + (resumeData.projectBullets?.length || 0);
       if (bulletCount === 0) {
         return { applies: false, reason: 'No experience or project bullet points found in resume.' };
       }

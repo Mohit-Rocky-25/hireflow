@@ -49,7 +49,7 @@ export function computeRequirementCoverage(
   resumeData: ResumeScoringInput,
   spec: ScoringSpec
 ): PillarCalculatorResult {
-  const reqs = context.confirmedRequirements;
+  const reqs = context.confirmedRequirements || [];
   const flags: string[] = [];
   const mustHaveWeight = getSubFeatureWeight(spec, 'requirement_coverage', 'sub_must_have_skills', 75);
   const preferredWeight = getSubFeatureWeight(spec, 'requirement_coverage', 'sub_preferred_skills', 25);

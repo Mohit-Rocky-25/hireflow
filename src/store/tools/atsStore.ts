@@ -15,6 +15,9 @@ export interface AtsScanHistoryEntry {
   score: number;
   matchedCount: number;
   missingCount: number;
+  specVersion?: string;
+  engineVersion?: string;
+  specFingerprint?: string;
 }
 
 export interface AtsToolState {

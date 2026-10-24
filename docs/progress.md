@@ -60,11 +60,11 @@
 
 ## Stage 5: UI Consumes the Trace
 
-- [ ] **5.1**: [TODO] Replace raw score displays with trace-driven estimate + band + label ("Resume Match Estimate" / "Market Readiness Estimate").
-- [ ] **5.2**: [TODO] Generic "Why this score" drawer rendering exclusively from ScoreTrace.
-- [ ] **5.3**: [TODO] Add and run `npm run check:ui-scoring` boundary lint enforcing zero UI arithmetic or internal imports.
-- [ ] **5.4**: [TODO] Stamp stored results with specVersion, engineVersion, specFingerprint; stale version notification.
-- [ ] **5.5**: [TODO] Zero-PII report-a-wrong-result payload verification test with fake PII fixtures.
+- [x] **5.1**: [DONE] Replace raw score displays with trace-driven estimate + band + label ("Resume Match Estimate" / "Market Readiness Estimate").
+- [x] **5.2**: [DONE] Generic "Why this score" drawer rendering exclusively from ScoreTrace.
+- [x] **5.3**: [DONE] Add and run `npm run check:ui-scoring` boundary lint enforcing zero UI arithmetic or internal imports.
+- [x] **5.4**: [DONE] Stamp stored results with specVersion, engineVersion, specFingerprint; stale version notification.
+- [x] **5.5**: [DONE] Zero-PII report-a-wrong-result payload verification test with fake PII fixtures.
 
 ---
 

@@ -280,6 +280,16 @@ export function ResumeChecker() {
           .filter((s: any) => s.status === 'missing')
           .map((s: any) => s.name);
         useAtsToolStore.getState().setLatestMissingSkills(missing);
+        useAtsToolStore.getState().addHistoryEntry({
+          resumeFileName: resumeFileName || 'resume.pdf',
+          targetRole: response.result.bestFitTier || 'Standard Role',
+          score: response.result.trace?.compositeDisplay ?? response.result.score,
+          matchedCount: response.result.audit.skillsParsedCount,
+          missingCount: response.result.missingKeywordsCount,
+          specVersion: response.result.specVersion,
+          engineVersion: response.result.engineVersion,
+          specFingerprint: response.result.specFingerprint,
+        });
 
         window.scrollTo({ top: 0, behavior: 'smooth' });
         setTimeout(() => {
