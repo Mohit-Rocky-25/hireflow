@@ -27,10 +27,10 @@
 
 ## Stage 2: Dynamic Context
 
-- [ ] **2.1**: [TODO] Implement `ScoringContext` with experience level, role family, JD presence, confirmed requirements, archetype.
-- [ ] **2.2**: [TODO] Runtime profile selection and applicability evaluation from spec (Fresher, Experienced, continuous Experience Fit, role baseline mode).
-- [ ] **2.3**: [TODO] Deterministic JD requirement extraction with user-confirmation workflow & unrecognized term warnings.
-- [ ] **2.4**: [TODO] Dynamic context test suite (profile switches, role baselines, renormalization, oracle prediction).
+- [x] **2.1**: [DONE] Implemented `ScoringContext` with experience level, role family, JD presence, confirmed requirements, archetype.
+- [x] **2.2**: [DONE] Implemented runtime profile selection and applicability evaluation from spec (Fresher, Experienced, continuous Experience Fit, role baseline mode).
+- [x] **2.3**: [DONE] Implemented deterministic JD requirement extraction, verbatim proposal validation, and unrecognized term warning bucket in `src/scoring/core/jdParser.ts`.
+- [x] **2.4**: [DONE] Implemented dynamic context test suite in `tests/scoring/dynamicContext.test.ts` passing all 7 tests.
 
 ---
 

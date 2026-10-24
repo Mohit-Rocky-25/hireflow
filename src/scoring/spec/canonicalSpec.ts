@@ -402,6 +402,7 @@ export const CANONICAL_SCORING_SPEC: ScoringSpec = {
   roleSignalLibraries: {
     Backend: {
       roleFamily: 'Backend',
+      baselineRequirements: ['Go', 'Java', 'Python', 'PostgreSQL', 'Redis', 'Docker', 'REST API'],
       architectureKeywords: [
         'redis', 'kafka', 'rabbitmq', 'connection pooling', 'caching', 'microservices',
         'grpc', 'distributed transactions', 'idempotency', 'circuit breaker', 'sharding',
@@ -421,6 +422,7 @@ export const CANONICAL_SCORING_SPEC: ScoringSpec = {
 
     Frontend: {
       roleFamily: 'Frontend',
+      baselineRequirements: ['React', 'TypeScript', 'JavaScript', 'HTML5', 'CSS3', 'Next.js', 'Testing'],
       architectureKeywords: [
         'component architecture', 'state management', 'code splitting', 'bundle size',
         'server-side rendering', 'client-side routing', 'design system', 'design tokens',
@@ -439,6 +441,7 @@ export const CANONICAL_SCORING_SPEC: ScoringSpec = {
 
     'Full-stack': {
       roleFamily: 'Full-stack',
+      baselineRequirements: ['React', 'Node.js', 'TypeScript', 'PostgreSQL', 'Docker', 'REST API', 'Git'],
       architectureKeywords: [
         'restful api', 'graphql', 'client-server', 'microservices', 'caching', 'relational database',
       ],
@@ -455,6 +458,7 @@ export const CANONICAL_SCORING_SPEC: ScoringSpec = {
 
     'Data/ML': {
       roleFamily: 'Data/ML',
+      baselineRequirements: ['Python', 'SQL', 'PyTorch', 'TensorFlow', 'Data Pipelines', 'Scikit-Learn', 'FastAPI'],
       architectureKeywords: [
         'data pipeline', 'feature store', 'model training', 'inference server', 'batch processing',
         'etl', 'embedding', 'vector search',
@@ -472,6 +476,7 @@ export const CANONICAL_SCORING_SPEC: ScoringSpec = {
 
     Mobile: {
       roleFamily: 'Mobile',
+      baselineRequirements: ['Kotlin', 'Swift', 'React Native', 'Android SDK', 'iOS SDK', 'REST API', 'Git'],
       architectureKeywords: [
         'mvvm', 'mvi', 'clean architecture', 'offline-first', 'background sync', 'dependency injection',
         'coroutines', 'modularization',
@@ -490,6 +495,7 @@ export const CANONICAL_SCORING_SPEC: ScoringSpec = {
 
     DevOps: {
       roleFamily: 'DevOps',
+      baselineRequirements: ['Kubernetes', 'Docker', 'Terraform', 'CI/CD', 'AWS', 'Linux', 'Monitoring'],
       architectureKeywords: [
         'infrastructure as code', 'gitops', 'service mesh', 'container orchestration',
         'zero-trust', 'observability', 'disaster recovery',
@@ -508,6 +514,7 @@ export const CANONICAL_SCORING_SPEC: ScoringSpec = {
 
     General: {
       roleFamily: 'General',
+      baselineRequirements: ['Data Structures', 'Algorithms', 'Git', 'OOP', 'SQL', 'System Design', 'Testing'],
       architectureKeywords: [
         'data structures', 'algorithms', 'operating systems', 'networks', 'concurrency', 'oop',
       ],
@@ -544,6 +551,15 @@ export const CANONICAL_SCORING_SPEC: ScoringSpec = {
     withinReach: 75,
     stretch: 50,
     far: 0,
+  },
+
+  confidenceThresholds: {
+    mustWithCue: 0.95,
+    mustStandard: 0.90,
+    preferredWithCue: 0.90,
+    preferredStandard: 0.85,
+    mentioned: 0.70,
+    unrecognizedTerm: 0.65,
   },
 
   taxonomyReference: {

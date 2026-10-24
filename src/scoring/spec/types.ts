@@ -122,6 +122,7 @@ export interface ParserFriendlinessTable {
 
 export interface RoleSignalLibrary {
   roleFamily: RoleFamily;
+  baselineRequirements: string[];
   architectureKeywords: string[];
   productionPatterns: string[];
   outcomeMetrics: string[];
@@ -173,6 +174,15 @@ export interface TaxonomyReference {
   sourceFile: string;
 }
 
+export interface ConfidenceThresholds {
+  mustWithCue: number;         // 0.95
+  mustStandard: number;        // 0.90
+  preferredWithCue: number;    // 0.90
+  preferredStandard: number;   // 0.85
+  mentioned: number;           // 0.70
+  unrecognizedTerm: number;    // 0.65
+}
+
 export interface ScoringSpec {
   specVersion: string;
   engineVersion: string;
@@ -190,8 +200,10 @@ export interface ScoringSpec {
   roleSignalLibraries: Record<RoleFamily, RoleSignalLibrary>;
   bandParameters: BandParameters;
   labelThresholds: LabelThresholds;
+  confidenceThresholds: ConfidenceThresholds;
   experienceFitParameters: ExperienceFitParameters;
   taxonomyReference: TaxonomyReference;
   provenance: TableProvenance[];
 }
+
 
