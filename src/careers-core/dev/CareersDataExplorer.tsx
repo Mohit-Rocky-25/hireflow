@@ -7,6 +7,7 @@ import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { careers } from '../api';
 import { DataBadge } from '../react/DataBadge';
+import { CompanyLogo } from '../../components/common/CompanyLogo';
 import {
   Building2,
   GraduationCap,
@@ -215,8 +216,9 @@ export function CareersDataExplorer() {
                   >
                     <div className="flex items-start justify-between gap-3">
                       <div>
-                        <div className="text-[11px] font-mono font-bold text-volt uppercase tracking-wider">
-                          {company?.name || prog.companyId} • {prog.roleFamily}
+                        <div className="flex items-center gap-1.5 text-[11px] font-mono font-bold text-volt uppercase tracking-wider mb-0.5">
+                          <CompanyLogo company={company || prog.companyId} size="xs" showBorder={false} interactive={false} />
+                          <span>{company?.name || prog.companyId} • {prog.roleFamily}</span>
                         </div>
                         <h3 className="text-base font-bold text-white mt-0.5">{prog.programName}</h3>
                         <div className="text-xs text-neutral-300 font-mono font-medium">{prog.roleTitle}</div>

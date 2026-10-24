@@ -1,5 +1,6 @@
 import React from 'react';
 import { CompareJDsResult, SingleJDResult } from '../compareJDs';
+import { CompanyLogo } from '../../../../components/common/CompanyLogo';
 
 export function OverlapMatrixView({
   matrix,
@@ -39,7 +40,10 @@ export function OverlapMatrixView({
             <th className="py-2.5 px-3 font-semibold">Skill / Competency</th>
             {rankedJDs.map((jd) => (
               <th key={jd.id} className="py-2.5 px-3 font-semibold truncate max-w-[140px]">
-                {jd.company || jd.label}
+                <div className="flex items-center gap-1.5 truncate">
+                  <CompanyLogo company={jd.company || jd.label} size="xs" showBorder={false} interactive={false} />
+                  <span className="truncate">{jd.company || jd.label}</span>
+                </div>
               </th>
             ))}
           </tr>

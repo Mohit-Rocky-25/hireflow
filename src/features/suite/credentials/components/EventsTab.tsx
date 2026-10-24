@@ -33,6 +33,7 @@ import { CredentialsStorage } from '../storage';
 import { getVerifiedTimeline } from '../engine/timelineEngine';
 import { ModalTab } from './OpportunityDetailModal';
 import { FreshnessBadge, OfficialSourceLink, DatesChangeNotice } from './FreshnessBadge';
+import { CompanyLogo } from '../../../../components/common/CompanyLogo';
 
 interface EventsTabProps {
   onSelectOpportunity: (opportunity: OpportunityRecord, tab?: ModalTab) => void;
@@ -648,7 +649,7 @@ export function EventsTab({
                     {event.name}
                   </h3>
                   <p className="text-xs text-text-secondary font-medium mt-1 flex items-center gap-1.5">
-                    <Building2 className="w-3.5 h-3.5 text-orange-500 shrink-0" />
+                    <CompanyLogo company={event.organizer} size="xs" showBorder={false} interactive={false} />
                     <span>{event.organizer}</span>
                   </p>
                 </div>

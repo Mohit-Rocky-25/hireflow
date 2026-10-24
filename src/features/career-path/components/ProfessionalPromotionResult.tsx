@@ -11,6 +11,7 @@ import type { PromotionPlan, PerformanceBracket } from '../../../lib/careerEngin
 import { formatINR, formatINRRange } from '../../../lib/careerEngine';
 import { CompensationTrajectoryChart } from './CompensationTrajectoryChart';
 import { PromotionBlockersChecklist } from './PromotionBlockersChecklist';
+import { CompanyLogo } from '../../../components/common/CompanyLogo';
 
 export interface ProfessionalPromotionResultProps {
   profResult: PromotionPlan;
@@ -42,11 +43,12 @@ export function ProfessionalPromotionResult({
           <RotateCcw className="w-3.5 h-3.5" /> Start Over / Reconfigure
         </button>
 
-        <div className="text-right">
-          <span className="text-xs text-muted font-mono font-bold">
-            {profResult.sourceLevel.companyId.toUpperCase()} &rarr;{' '}
-            {profResult.targetLevel.companyId.toUpperCase()}
-          </span>
+        <div className="flex items-center gap-2">
+          <CompanyLogo company={profResult.sourceLevel.companyId} size="xs" showBorder={false} interactive={false} />
+          <span className="text-xs text-muted font-mono font-bold uppercase">{profResult.sourceLevel.companyId}</span>
+          <span className="text-xs text-muted font-mono">&rarr;</span>
+          <CompanyLogo company={profResult.targetLevel.companyId} size="xs" showBorder={false} interactive={false} />
+          <span className="text-xs text-muted font-mono font-bold uppercase">{profResult.targetLevel.companyId}</span>
         </div>
       </div>
 
@@ -84,10 +86,13 @@ export function ProfessionalPromotionResult({
             <span className="text-xl font-mono font-black text-foreground block mt-1">
               {profResult.sourceLevel.levelCode} &rarr; {profResult.targetLevel.levelCode}
             </span>
-            <span className="text-xs text-secondary mt-1 block">
-              {profResult.sourceLevel.companyId.toUpperCase()} to{' '}
-              {profResult.targetLevel.companyId.toUpperCase()}
-            </span>
+            <div className="flex items-center gap-1.5 mt-1">
+              <CompanyLogo company={profResult.sourceLevel.companyId} size="xs" showBorder={false} interactive={false} />
+              <span className="text-xs text-secondary uppercase font-bold">{profResult.sourceLevel.companyId}</span>
+              <span className="text-xs text-muted">to</span>
+              <CompanyLogo company={profResult.targetLevel.companyId} size="xs" showBorder={false} interactive={false} />
+              <span className="text-xs text-secondary uppercase font-bold">{profResult.targetLevel.companyId}</span>
+            </div>
           </div>
 
           <div className="bg-surface-2/40 rounded p-4 border border-border">

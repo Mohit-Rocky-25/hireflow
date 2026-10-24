@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Info, Brain, CheckCircle, RefreshCw } from 'lucide-react';
 import type { Company, Role } from '../talentLensData';
+import { CompanyLogo } from '../../../components/common/CompanyLogo';
 
 export interface ExperiencedRoleCardProps {
   role: Role;
@@ -36,6 +37,7 @@ export function ExperiencedRoleCard({
         <div className="flex items-start justify-between gap-3">
           <div>
             <div className="flex items-center gap-2 flex-wrap">
+              <CompanyLogo company={company} size="xs" showBorder={false} interactive={false} />
               <h3 className="text-[16px] font-bold text-white uppercase tracking-tight">
                 {role.title}
               </h3>

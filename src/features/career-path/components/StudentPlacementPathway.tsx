@@ -51,6 +51,7 @@ import {
 } from '../../../lib/careerEngine';
 import { useAtsToolStore } from '../../../store/tools/atsStore';
 import { careers, DataBadge } from '../../../careers-core';
+import { CompanyLogo } from '../../../components/common/CompanyLogo';
 import { CompensationTrajectoryChart } from './CompensationTrajectoryChart';
 import { PromotionBlockersChecklist } from './PromotionBlockersChecklist';
 
@@ -401,6 +402,7 @@ export function StudentPlacementPathway({
                     <div className="flex items-start justify-between gap-3">
                       <div>
                         <div className="flex items-center gap-2 flex-wrap mb-1">
+                          <CompanyLogo company={comp || prog.companyId} size="xs" />
                           <span className="font-bold text-foreground text-base group-hover:text-volt transition-colors">
                             {comp?.name || prog.companyId}
                           </span>

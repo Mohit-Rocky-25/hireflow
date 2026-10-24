@@ -1,5 +1,6 @@
 import React from 'react';
 import { SingleJDResult } from '../compareJDs';
+import { CompanyLogo } from '../../../../components/common/CompanyLogo';
 
 export function LeaderboardView({ rankedJDs }: { rankedJDs: SingleJDResult[] }) {
   return (
@@ -18,8 +19,9 @@ export function LeaderboardView({ rankedJDs }: { rankedJDs: SingleJDResult[] }) 
                 <div className="flex items-center gap-2">
                   <h3 className="text-base font-bold text-text">{jd.label}</h3>
                   {jd.company && (
-                    <span className="text-xs px-2 py-0.5 rounded bg-surface-2 border border-border text-text-secondary">
-                      {jd.company}
+                    <span className="inline-flex items-center gap-1.5 text-xs px-2 py-0.5 rounded bg-surface-2 border border-border text-text-secondary">
+                      <CompanyLogo company={jd.company} size="xs" showBorder={false} interactive={false} />
+                      <span>{jd.company}</span>
                     </span>
                   )}
                 </div>

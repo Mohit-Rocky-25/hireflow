@@ -19,6 +19,7 @@ import { HonestyExplainerModal } from '../../../components/common/HonestyExplain
 import { CalculationBreakdownCollapsible, CalculationDetails } from '../../../components/common/CalculationBreakdownCollapsible';
 import { RealityFactorsPanel } from '../../../components/common/RealityFactorsPanel';
 import { EligibilityCard } from '../../../components/common/EligibilityCard';
+import { CompanyLogo } from '../../../components/common/CompanyLogo';
 
 export interface AnalysisResultViewProps {
   result: AnalysisResult;
@@ -330,8 +331,9 @@ export function AnalysisResultView({
 
       {/* Company context */}
       <div className="bg-[#141414] border border-charcoal rounded-lg p-5 mb-5">
-        <h3 className="font-bold text-white text-sm mb-3.5 flex items-center gap-2 font-mono uppercase tracking-wider">
-          <Building2 className="w-4 h-4 text-volt" /> Company Hiring Context — {company.name}
+        <h3 className="font-bold text-white text-sm mb-3.5 flex items-center gap-2.5 font-mono uppercase tracking-wider">
+          <CompanyLogo company={company} size="xs" showBorder={false} interactive={false} />
+          <span>Company Hiring Context — {company.name}</span>
         </h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5">
           {[

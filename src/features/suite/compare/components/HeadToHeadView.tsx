@@ -9,6 +9,7 @@ import {
   Sparkles,
 } from 'lucide-react';
 import { HeadToHeadComparison } from '../compareJDs';
+import { CompanyLogo } from '../../../../components/common/CompanyLogo';
 
 export function HeadToHeadView({ h2h }: { h2h: HeadToHeadComparison }) {
   const isTie = h2h.winnerId === 'tie';
@@ -56,8 +57,13 @@ export function HeadToHeadView({ h2h }: { h2h: HeadToHeadComparison }) {
                 <span className="text-[11px] font-black px-2.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono">
                   ROLE A
                 </span>
-                <h3 className="text-xl font-black text-text mt-1">{jdA.company || jdA.label}</h3>
-                <p className="text-xs text-text-secondary font-medium">{jdA.roleTitle || jdA.label}</p>
+                <div className="flex items-center gap-3 mt-1">
+                  <CompanyLogo company={jdA.company || jdA.label} size="sm" showBorder={false} interactive={false} />
+                  <div>
+                    <h3 className="text-xl font-black text-text">{jdA.company || jdA.label}</h3>
+                    <p className="text-xs text-text-secondary font-medium">{jdA.roleTitle || jdA.label}</p>
+                  </div>
+                </div>
               </div>
               <div className="text-right">
                 <div className="text-3xl sm:text-4xl font-black font-mono text-emerald-400">
@@ -203,8 +209,13 @@ export function HeadToHeadView({ h2h }: { h2h: HeadToHeadComparison }) {
                 <span className="text-[11px] font-black px-2.5 py-0.5 rounded bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 font-mono">
                   ROLE B
                 </span>
-                <h3 className="text-xl font-black text-text mt-1">{jdB.company || jdB.label}</h3>
-                <p className="text-xs text-text-secondary font-medium">{jdB.roleTitle || jdB.label}</p>
+                <div className="flex items-center gap-3 mt-1">
+                  <CompanyLogo company={jdB.company || jdB.label} size="sm" showBorder={false} interactive={false} />
+                  <div>
+                    <h3 className="text-xl font-black text-text">{jdB.company || jdB.label}</h3>
+                    <p className="text-xs text-text-secondary font-medium">{jdB.roleTitle || jdB.label}</p>
+                  </div>
+                </div>
               </div>
               <div className="text-right">
                 <div className="text-3xl sm:text-4xl font-black font-mono text-indigo-400">

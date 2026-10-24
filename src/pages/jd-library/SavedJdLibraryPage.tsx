@@ -10,6 +10,7 @@ import { PageNav } from '../../components/common/PageNav';
 import { ConfirmDialog } from '../../components/common/ConfirmDialog';
 import { Metric } from '../../components/common/Metric';
 import { Tag } from '../../components/common/Tag';
+import { CompanyLogo } from '../../components/common/CompanyLogo';
 import { useSavedJdStore } from '../../store/savedJdStore';
 import { useProfileStore } from '../../store/profileStore';
 import { aggregateDemandedSkills } from '../../lib/jds/demandAggregation';
@@ -261,7 +262,12 @@ export function SavedJdLibraryPage() {
                     <div className="flex items-start justify-between gap-2">
                       <div>
                         <h3 className="text-sm font-mono font-semibold text-white tracking-tight">{jd.title}</h3>
-                        {jd.company && <p className="text-xs text-volt font-mono font-medium">{jd.company}</p>}
+                        {jd.company && (
+                          <div className="flex items-center gap-1.5 mt-0.5">
+                            <CompanyLogo company={jd.company} size="xs" showBorder={false} interactive={false} />
+                            <p className="text-xs text-volt font-mono font-medium">{jd.company}</p>
+                          </div>
+                        )}
                       </div>
 
                       <div className="flex items-center gap-1">

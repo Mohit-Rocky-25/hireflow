@@ -32,6 +32,7 @@ import { validateProofPointMetrics } from '../engine/slotResolver';
 import { ROLE_FAMILIES } from '../engine/fragments';
 import { LINKEDIN_CONNECT_LIMITS } from '../engine/config';
 import { COMPANIES } from '../../../pages/demo/talentLensData';
+import { CompanyLogo } from '../../../components/common/CompanyLogo';
 
 interface TemplateInputsPanelProps {
   template: ReachOutTemplate;
@@ -262,7 +263,10 @@ export function TemplateInputsPanel({
             {activeSlots.includes('company') && (
               <div className="space-y-1">
                 <label className="text-[11px] font-medium text-neutral-300 flex items-center justify-between">
-                  <span>Target Company {template.requiredSlots.includes('company') && '*'}</span>
+                  <span className="flex items-center gap-1.5">
+                    {slots.company && <CompanyLogo company={slots.company} size="xs" showBorder={false} interactive={false} />}
+                    Target Company {template.requiredSlots.includes('company') && '*'}
+                  </span>
                 </label>
                 <input
                   type="text"

@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import { PublicNavbar } from '../components/common/PublicNavbar';
 import { careers } from '../careers-core';
+import { CompanyLogo } from '../components/common/CompanyLogo';
 
 const platformStats = careers.stats.counts();
 const TOTAL_COMPANIES = platformStats.companies;
@@ -138,9 +139,9 @@ export function LandingPage() {
                 <Link
                   key={company.id}
                   to={`/demo/company/${company.id}`}
-                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded bg-near-black border border-charcoal text-[12px] font-semibold uppercase tracking-[1px] text-white hover:text-volt hover:border-volt/60 transition-colors"
+                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded bg-near-black border border-charcoal text-[12px] font-semibold uppercase tracking-[1px] text-white hover:text-volt hover:border-volt/60 transition-colors group"
                 >
-                  <span className="w-1.5 h-1.5 rounded-full bg-volt" />
+                  <CompanyLogo company={company} size="xs" showBorder={false} interactive={false} />
                   <span>{company.name}</span>
                 </Link>
               ))}

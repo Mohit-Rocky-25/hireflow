@@ -14,6 +14,7 @@ import {
   generateUniqueAccomplishments,
   SuggestedAccomplishment,
 } from '../../../../../lib/tailor/engine/accomplishmentGenerator';
+import { CompanyLogo } from '@/components/common/CompanyLogo';
 
 export interface WorkExperienceSectionProps {
   expSection: TailoredSection;
@@ -114,13 +115,7 @@ export function WorkExperienceSection({
               >
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-start gap-3.5 min-w-0">
-                    <div
-                      className={`w-11 h-11 rounded-xl bg-gradient-to-br ${getGradient(
-                        entry.secondaryTitle || entry.primaryTitle
-                      )} flex items-center justify-center text-white font-black text-xs shrink-0 shadow-sm mt-0.5`}
-                    >
-                      {getInitials(entry.secondaryTitle || entry.primaryTitle)}
-                    </div>
+                    <CompanyLogo company={entry.secondaryTitle || entry.primaryTitle} size="md" />
 
                     <div className="min-w-0 space-y-1">
                       <div className="flex items-center gap-2 flex-wrap">

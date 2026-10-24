@@ -36,6 +36,7 @@ import { FresherProgramCard } from './components/FresherProgramCard';
 import { ExperiencedRoleCard } from './components/ExperiencedRoleCard';
 import { TargetRoleActionPanel } from './components/TargetRoleActionPanel';
 import { AnalysisResultView } from './components/AnalysisResultView';
+import { CompanyLogo } from '../../components/common/CompanyLogo';
 
 setCompaniesResolver(() => COMPANIES);
 
@@ -279,8 +280,13 @@ export function CompanyRolesPage() {
             <Brain className="w-3.5 h-3.5 text-volt" />
             TalentLens™ · Placement Readiness &amp; Career Fit
           </div>
-          <h1 className="text-3xl md:text-5xl font-black text-white mb-3 tracking-tight leading-tight">
-            Where do I fit at <span className="text-volt">{company.name}</span>?
+          <h1 className="text-3xl md:text-5xl font-black text-white mb-3 tracking-tight leading-tight flex items-center justify-center gap-3 flex-wrap">
+            <span>Where do I fit at</span>
+            <span className="inline-flex items-center gap-2.5">
+              <CompanyLogo company={company} size="sm" showBorder={false} interactive={false} />
+              <span className="text-volt">{company.name}</span>
+            </span>
+            <span>?</span>
           </h1>
           <p className="text-sm text-silver leading-relaxed max-w-2xl mx-auto">
             An evidence-first placement-readiness platform that helps students understand which roles and company paths fit their current profile, identify missing evidence, improve their resume, and follow a practical preparation plan.

@@ -23,6 +23,7 @@ import {
 import { CareerPathBackButton } from '../../../components/career-path/CareerPathBackButton';
 import { useProfile } from '../../../features/suite/profile/ProfileContext';
 import { getCandidateTierStatus } from '../../../features/suite/integration/trajectory';
+import { CompanyLogo } from '../../../components/common/CompanyLogo';
 
 export function CareerPathHub() {
   const { profile, hasProfile } = useProfile();
@@ -341,24 +342,48 @@ export function CareerPathHub() {
 
               {/* Segments highlight */}
               <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3 pt-6 border-t border-charcoal text-xs">
-                <div className="p-3 rounded bg-black border border-charcoal">
+                <div className="p-3 rounded bg-black border border-charcoal space-y-2">
                   <span className="font-bold text-white block">Big Tech India</span>
-                  <span className="text-silver mt-1 block">Google, MS, Amazon, Meta</span>
+                  <div className="flex items-center gap-1.5 flex-wrap">
+                    <CompanyLogo company="google" size="xs" showBorder={false} interactive={false} />
+                    <CompanyLogo company="microsoft" size="xs" showBorder={false} interactive={false} />
+                    <CompanyLogo company="amazon" size="xs" showBorder={false} interactive={false} />
+                    <CompanyLogo company="meta" size="xs" showBorder={false} interactive={false} />
+                  </div>
+                  <span className="text-silver text-[11px] block">Google, MS, Amazon, Meta</span>
                 </div>
 
-                <div className="p-3 rounded bg-black border border-charcoal">
+                <div className="p-3 rounded bg-black border border-charcoal space-y-2">
                   <span className="font-bold text-white block">Product Unicorns</span>
-                  <span className="text-silver mt-1 block">Flipkart, Swiggy, Zomato, CRED</span>
+                  <div className="flex items-center gap-1.5 flex-wrap">
+                    <CompanyLogo company="flipkart" size="xs" showBorder={false} interactive={false} />
+                    <CompanyLogo company="swiggy" size="xs" showBorder={false} interactive={false} />
+                    <CompanyLogo company="zomato" size="xs" showBorder={false} interactive={false} />
+                    <CompanyLogo company="cred" size="xs" showBorder={false} interactive={false} />
+                  </div>
+                  <span className="text-silver text-[11px] block">Flipkart, Swiggy, Zomato, CRED</span>
                 </div>
 
-                <div className="p-3 rounded bg-black border border-charcoal">
+                <div className="p-3 rounded bg-black border border-charcoal space-y-2">
                   <span className="font-bold text-white block">GCC / Finance</span>
-                  <span className="text-silver mt-1 block">Goldman, Walmart, JPMC, Amex</span>
+                  <div className="flex items-center gap-1.5 flex-wrap">
+                    <CompanyLogo company="goldman" size="xs" showBorder={false} interactive={false} />
+                    <CompanyLogo company="walmart" size="xs" showBorder={false} interactive={false} />
+                    <CompanyLogo company="jpmorgan" size="xs" showBorder={false} interactive={false} />
+                    <CompanyLogo company="barclays" size="xs" showBorder={false} interactive={false} />
+                  </div>
+                  <span className="text-silver text-[11px] block">Goldman, Walmart, JPMC, Barclays</span>
                 </div>
 
-                <div className="p-3 rounded bg-black border border-charcoal">
+                <div className="p-3 rounded bg-black border border-charcoal space-y-2">
                   <span className="font-bold text-white block">IT Services</span>
-                  <span className="text-silver mt-1 block">TCS, Infosys, Wipro, HCLTech</span>
+                  <div className="flex items-center gap-1.5 flex-wrap">
+                    <CompanyLogo company="tcs" size="xs" showBorder={false} interactive={false} />
+                    <CompanyLogo company="infosys" size="xs" showBorder={false} interactive={false} />
+                    <CompanyLogo company="wipro" size="xs" showBorder={false} interactive={false} />
+                    <CompanyLogo company="hcl" size="xs" showBorder={false} interactive={false} />
+                  </div>
+                  <span className="text-silver text-[11px] block">TCS, Infosys, Wipro, HCLTech</span>
                 </div>
               </div>
 

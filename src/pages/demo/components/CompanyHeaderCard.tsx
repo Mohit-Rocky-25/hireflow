@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Building2, DollarSign, ArrowLeft } from 'lucide-react';
 import type { Company } from '../talentLensData';
 import { TREND_ICON } from '../talentLensData';
+import { CompanyLogo } from '../../../components/common/CompanyLogo';
 
 export interface CompanyHeaderCardProps {
   company: Company;
@@ -14,9 +15,7 @@ export function CompanyHeaderCard({ company, onChangeCompany }: CompanyHeaderCar
     <div className="bg-near-black border border-charcoal rounded-lg p-6 mb-6 shadow-level-1">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-5">
         <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded bg-black border border-charcoal flex items-center justify-center text-volt font-black text-[18px] flex-shrink-0">
-            {company.logo}
-          </div>
+          <CompanyLogo company={company} size="lg" />
           <div>
             <div className="flex items-center gap-2.5 flex-wrap">
               <h2 className="text-[22px] font-bold text-white uppercase tracking-tight">{company.name}</h2>

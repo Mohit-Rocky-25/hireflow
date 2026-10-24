@@ -8,6 +8,7 @@ import React, { useState, useMemo } from 'react';
 import { PageNav } from '../../components/common/PageNav';
 import { ConfirmDialog } from '../../components/common/ConfirmDialog';
 import { Tag } from '../../components/common/Tag';
+import { CompanyLogo } from '../../components/common/CompanyLogo';
 import { useScanHistoryStore } from '../../store/scanHistoryStore';
 import { ScanRecord } from '../../types/schemas-v4';
 import {
@@ -258,7 +259,10 @@ export function ScanHistoryPage() {
                 {Array.from(scansByTarget.entries()).map(([target, targetScans]) => (
                   <div key={target} className="rounded border border-charcoal bg-surface p-4 space-y-3">
                     <div className="flex items-center justify-between border-b border-charcoal pb-2">
-                      <span className="font-mono font-semibold text-white text-sm">{target}</span>
+                      <div className="flex items-center gap-2">
+                        <CompanyLogo company={target} size="xs" showBorder={false} interactive={false} />
+                        <span className="font-mono font-semibold text-white text-sm">{target}</span>
+                      </div>
                       <span className="text-xs text-neutral-400 font-mono">{targetScans.length} scans</span>
                     </div>
 

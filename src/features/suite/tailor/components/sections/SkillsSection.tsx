@@ -4,6 +4,7 @@ import {
   CheckCircle,
 } from 'lucide-react';
 import { JobDescription } from '../../../../../lib/tailor/types';
+import { CompanyLogo } from '@/components/common/CompanyLogo';
 
 export interface SkillsSectionProps {
   skillsCategories: Record<string, string[]>;
@@ -64,8 +65,9 @@ export function SkillsSection({
                 </div>
 
                 {matchedCategorySkills.length > 0 && (
-                  <div className="text-[10px] text-emerald-400 font-bold flex items-center gap-1">
-                    <CheckCircle className="w-3 h-3 text-emerald-400" />
+                  <div className="text-[10px] text-emerald-400 font-bold flex items-center gap-1.5 flex-wrap">
+                    <CheckCircle className="w-3 h-3 text-emerald-400 shrink-0" />
+                    <CompanyLogo company={job.company} size="xs" showBorder={false} interactive={false} />
                     <span>{matchedCategorySkills.length} skills directly match {job.company} JD</span>
                   </div>
                 )}

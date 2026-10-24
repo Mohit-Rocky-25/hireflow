@@ -25,6 +25,7 @@ import { toast } from "../../components/ui/Toast";
 import { parseResumeFile } from "../../features/ats/fileParser";
 import { searchCompanies, deduplicateCompanies } from "../../lib/companySearchEngine";
 import { getMarketSummary } from "../../data/market";
+import { CompanyLogo } from "../../components/common/CompanyLogo";
 
 setCompaniesResolver(() => COMPANIES);
 
@@ -421,9 +422,7 @@ Include:
                       {/* Header */}
                       <div className="flex items-start justify-between mb-3">
                         <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 rounded bg-black border border-charcoal flex items-center justify-center text-volt font-bold text-sm flex-shrink-0">
-                            {company.logo}
-                          </div>
+                          <CompanyLogo company={company} size="md" />
                           <div>
                             <div className="font-bold text-white text-[15px] group-hover:text-volt transition-colors uppercase tracking-tight">
                               {company.name}

@@ -58,6 +58,7 @@ import {
   generateSafeForwardLookingBullet,
   fillCredentialTemplate,
 } from '../engine/truthGate';
+import { CompanyLogo } from '../../../../components/common/CompanyLogo';
 
 export type ModalTab = 'overview' | 'timeline' | 'fees_aid' | 'syllabus' | 'resume_evidence' | 'pitfalls_sources';
 
@@ -309,8 +310,9 @@ export function OpportunityDetailModal({
                   #{opportunity.rank} in Engine
                 </span>
                 <span className="text-xs text-text-muted hidden md:inline">·</span>
-                <span className="text-xs font-bold text-text-secondary truncate hidden md:inline">
-                  {opportunity.organizer}
+                <span className="text-xs font-bold text-text-secondary truncate hidden md:inline-flex items-center gap-1.5">
+                  <CompanyLogo company={opportunity.organizer} size="xs" showBorder={false} interactive={false} />
+                  <span>{opportunity.organizer}</span>
                 </span>
               </div>
               <h2 className="text-sm sm:text-lg font-black text-foreground truncate">

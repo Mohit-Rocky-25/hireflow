@@ -23,6 +23,7 @@ import {
   FileSpreadsheet
 } from 'lucide-react';
 import { useTailorStore } from '../../../../lib/tailor/store/tailorStore';
+import { CompanyLogo } from '../../../../components/common/CompanyLogo';
 import { downloadResumeAsDocx } from '../../../../lib/tailor/export/docxExporter';
 import {
   triggerPrintToPdf,
@@ -164,8 +165,12 @@ export function DarkTailorHeader({
                     Truth Locked
                   </span>
                 </div>
-                <p className="text-[11px] text-neutral-400 truncate max-w-xs sm:max-w-md">
-                  {candidate.fullName} &bull; Tailoring for <span className="text-neutral-200 font-medium">{activeProject.job.title}</span> at <span className="text-neutral-200 font-medium">{activeProject.job.company}</span>
+                <p className="text-[11px] text-neutral-400 truncate max-w-xs sm:max-w-md flex items-center gap-1.5 flex-wrap">
+                  <span>{candidate.fullName} &bull; Tailoring for <span className="text-neutral-200 font-medium">{activeProject.job.title}</span> at</span>
+                  <span className="inline-flex items-center gap-1 text-neutral-200 font-medium">
+                    <CompanyLogo company={activeProject.job.company} size="xs" showBorder={false} interactive={false} />
+                    <span>{activeProject.job.company}</span>
+                  </span>
                 </p>
               </div>
             </div>

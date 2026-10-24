@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Brain, Briefcase, Info, Sparkles, FileText, CheckCircle, RefreshCw } from 'lucide-react';
 import type { Company, Role } from '../talentLensData';
+import { CompanyLogo } from '../../../components/common/CompanyLogo';
 
 export interface TargetRoleActionPanelProps {
   company: Company;
@@ -41,8 +42,11 @@ export function TargetRoleActionPanel({
               <div className="text-[10px] font-bold text-silver uppercase tracking-[1.4px] mb-1">
                 Selected Position
               </div>
-              <div className="font-bold text-white text-[15px] uppercase tracking-tight">
-                {company.name} — {selectedRole.title}
+              <div className="flex items-center gap-2 mb-1">
+                <CompanyLogo company={company} size="xs" showBorder={false} interactive={false} />
+                <div className="font-bold text-white text-[15px] uppercase tracking-tight truncate">
+                  {company.name} — {selectedRole.title}
+                </div>
               </div>
               <div className="text-xs text-silver mt-1 font-mono">
                 Level: <span className="font-bold text-white">{selectedRole.level}</span>

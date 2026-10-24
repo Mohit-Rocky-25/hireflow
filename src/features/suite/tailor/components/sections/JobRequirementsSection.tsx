@@ -1,6 +1,7 @@
 import React from 'react';
 import { Target } from 'lucide-react';
 import { JobDescription, EvidenceMapping } from '../../../../../lib/tailor/types';
+import { CompanyLogo } from '@/components/common/CompanyLogo';
 
 export interface JobRequirementsSectionProps {
   job: JobDescription;
@@ -87,7 +88,10 @@ export function JobRequirementsSection({
 
               <div className="pt-2 border-t border-neutral-900 flex items-center justify-between text-[10px] text-neutral-400">
                 <span className="font-mono">Category: {req.category}</span>
-                <span className="text-neutral-500 font-bold">{job.company}</span>
+                <span className="inline-flex items-center gap-1.5 text-neutral-300 font-bold">
+                  <CompanyLogo company={job.company} size="xs" showBorder={false} interactive={false} />
+                  <span>{job.company}</span>
+                </span>
               </div>
             </div>
           );

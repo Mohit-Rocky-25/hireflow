@@ -9,6 +9,7 @@ import { ShieldCheck, AlertTriangle, XCircle, Info, Edit3 } from 'lucide-react';
 import { getFresherIntake, FresherIntakeData, FresherIntakeModal } from './FresherIntakeModal';
 import { getMarketEntries } from '../../data/market';
 import { SourceChip } from './SourceChip';
+import { CompanyLogo } from './CompanyLogo';
 
 interface EligibilityCardProps {
   targetCompanyId?: string;
@@ -71,8 +72,9 @@ export function EligibilityCard({ targetCompanyId, targetArchetypeId, className 
               <Icon className="w-3.5 h-3.5 stroke-[1.5px]" />
               {statusText}
             </span>
-            <span className="text-xs text-silver hidden sm:inline font-mono">
-              · {entry.displayName}
+            <span className="text-xs text-silver hidden sm:inline-flex items-center gap-1.5 font-mono">
+              · <CompanyLogo company={targetCompanyId || entry.id || entry.displayName} size="xs" showBorder={false} interactive={false} />
+              <span>{entry.displayName}</span>
             </span>
           </div>
 

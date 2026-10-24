@@ -55,6 +55,7 @@ import {
   JobRequirementsSection,
   CandidateProfileSection,
 } from './sections';
+import { CompanyLogo } from '../../../../components/common/CompanyLogo';
 
 type SubsectionFilterTab = 'all' | 'experience' | 'projects' | 'skills' | 'education' | 'summary' | 'requirements' | 'profile';
 
@@ -219,9 +220,7 @@ export function HandmadeResumeEditor() {
       <div className="rounded bg-surface border border-charcoal p-4 sm:p-5 shadow-xl space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-charcoal">
           <div className="flex items-center gap-3.5">
-            <div className="w-12 h-12 rounded bg-surface-elevated border border-charcoal flex items-center justify-center text-volt font-mono font-black text-sm shrink-0">
-              {getInitials(job.company)}
-            </div>
+            <CompanyLogo company={job.company} size="lg" />
             <div>
               <div className="flex items-center gap-2 flex-wrap">
                 <h2 className="text-base sm:text-lg font-mono font-black text-white tracking-tight uppercase">

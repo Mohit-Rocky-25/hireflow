@@ -5,6 +5,7 @@ import { DataBadge } from '../../../careers-core';
 import type { FresherProgram } from '../../../careers-core';
 import type { Company } from '../talentLensData';
 import { ProgramEligibilityBadge } from './ProgramEligibilityBadge';
+import { CompanyLogo } from '../../../components/common/CompanyLogo';
 
 export interface FresherProgramCardProps {
   prog: FresherProgram;
@@ -56,6 +57,7 @@ export function FresherProgramCard({
         <div className="flex items-start justify-between gap-3.5">
           <div className="space-y-1.5 flex-1 min-w-0">
             <div className="flex items-center gap-2 flex-wrap">
+              <CompanyLogo company={company} size="xs" showBorder={false} interactive={false} />
               <h3 className="text-[17px] sm:text-[18px] font-bold text-white tracking-tight leading-snug group-hover:text-volt transition-colors uppercase">
                 {prog.programName}
               </h3>

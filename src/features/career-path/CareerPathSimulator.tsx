@@ -8,6 +8,7 @@ import React, { useState, useMemo, useRef, useEffect, useLayoutEffect } from 're
 import { useLocation, useNavigate } from 'react-router-dom';
 import { CareerPathBackButton } from '../../components/career-path/CareerPathBackButton';
 import { Dropdown } from '../../components/career-path/Dropdown';
+import { CompanyLogo } from '../../components/common/CompanyLogo';
 import {
   TrendingUp,
   Clock,
@@ -425,9 +426,12 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                                 onClick={() => handleSelectSource(m.company.id, m.level.levelCode, m.level.track)}
                                 className="p-2.5 hover:bg-hover-gray cursor-pointer flex items-center justify-between text-xs transition-colors"
                               >
-                                <div>
-                                  <span className="font-black text-white">{m.company.name}</span>
-                                  <span className="text-silver ml-1.5 font-medium">{m.level.title}</span>
+                                <div className="flex items-center gap-2">
+                                  <CompanyLogo company={m.company.id} size="xs" showBorder={false} interactive={false} />
+                                  <div>
+                                    <span className="font-black text-white">{m.company.name}</span>
+                                    <span className="text-silver ml-1.5 font-medium">{m.level.title}</span>
+                                  </div>
                                 </div>
                                 <span className="px-1.5 py-0.5 rounded bg-black text-[10px] font-black text-volt border border-charcoal">
                                   {m.level.levelCode}
@@ -554,9 +558,12 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                                 onClick={() => handleSelectTarget(m.company.id, m.level.levelCode, m.level.track)}
                                 className="p-2.5 hover:bg-hover-gray cursor-pointer flex items-center justify-between text-xs transition-colors"
                               >
-                                <div>
-                                  <span className="font-black text-white">{m.company.name}</span>
-                                  <span className="text-silver ml-1.5 font-medium">{m.level.title}</span>
+                                <div className="flex items-center gap-2">
+                                  <CompanyLogo company={m.company.id} size="xs" showBorder={false} interactive={false} />
+                                  <div>
+                                    <span className="font-black text-white">{m.company.name}</span>
+                                    <span className="text-silver ml-1.5 font-medium">{m.level.title}</span>
+                                  </div>
                                 </div>
                                 <span className="px-1.5 py-0.5 rounded bg-black text-[10px] font-black text-volt border border-charcoal">
                                   {m.level.levelCode}
