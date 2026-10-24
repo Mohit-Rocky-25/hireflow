@@ -68,7 +68,7 @@ export function isGarbageOrBinary(text: string): boolean {
   }
 
   const ratio = nonPrintableCount / Math.max(1, text.length);
-  return ratio > 0.15;
+  return ratio > 0.15; // spec-exempt: binary text corruption threshold
 }
 
 /**
@@ -181,7 +181,7 @@ async function extractTextFromPdf(buffer: ArrayBuffer): Promise<{ text: string; 
 
         // Strip headers & footers (top 5% or bottom 5% matching page numbers or boilerplate)
         if (trimmedStr && pageCount > 1) {
-          const isHeaderOrFooterY = y > pageHeight * 0.95 || y < pageHeight * 0.05;
+          const isHeaderOrFooterY = y > pageHeight * 0.95 || y < pageHeight * 0.05; // spec-exempt: PDF margin geometry
           const isPageNumberPattern = /^(?:page\s*\d+(?:\s*(?:of|\/)\s*\d+)?|\d+\s*(?:of|\/)\s*\d+|\d+)$/i.test(trimmedStr);
           if (isHeaderOrFooterY && isPageNumberPattern) {
             continue;
@@ -205,8 +205,8 @@ async function extractTextFromPdf(buffer: ArrayBuffer): Promise<{ text: string; 
     // Two-column layout detection:
     // Check if items cluster distinctly on the left and right halves with a clear column gutter
     const midX = pageWidth * 0.5;
-    const leftMargin = pageWidth * 0.46;
-    const rightMargin = pageWidth * 0.54;
+    const leftMargin = pageWidth * 0.46; // spec-exempt: PDF column geometry
+    const rightMargin = pageWidth * 0.54; // spec-exempt: PDF column geometry
 
     const leftColItems = items.filter(it => it.x < leftMargin);
     const rightColItems = items.filter(it => it.x > rightMargin);

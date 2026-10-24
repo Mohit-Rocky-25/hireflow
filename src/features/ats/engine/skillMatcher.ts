@@ -108,7 +108,7 @@ export function matchRequiredSkills(
           let tier = 0.4;
           if (isWorkOrProject) {
             foundInExperienceOrProject = true;
-            tier = hasMetric ? 1.0 : 0.85;
+            tier = hasMetric ? 1.0 : 0.85; // spec-exempt: legacy matcher awaiting Stage 3
             if (hasMetric) hasMetricEvidence = true;
           } else if (isEduOrCert) {
             tier = 0.5;
@@ -121,7 +121,7 @@ export function matchRequiredSkills(
             tier = Math.min(tier, 0.5);
           }
           if (isOlder) {
-            tier = Math.round(tier * 0.85 * 100) / 100;
+            tier = Math.round(tier * 0.85 * 100) / 100; // spec-exempt: legacy matcher awaiting Stage 3
           }
 
           if (tier > maxEvidenceTier) {

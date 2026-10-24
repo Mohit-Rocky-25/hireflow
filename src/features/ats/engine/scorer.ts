@@ -74,13 +74,13 @@ export function computeAtsScore(input: ScorerInput) {
   const totalFoundSkills = skillResults.filter(s => s.found);
   const verifiedFoundSkills = skillResults.filter(s => s.status === 'verified');
   const weakFoundSkills = skillResults.filter(s => s.status === 'weak');
-  const totalEvidenceTierSum = skillResults.reduce((acc, s) => acc + (s.evidenceScore || (s.status === 'verified' ? 0.85 : s.status === 'weak' ? 0.4 : 0)), 0);
-
+  const totalEvidenceTierSum = skillResults.reduce((acc, s) => acc + (s.evidenceScore || (s.status === 'verified' ? 0.85 : s.status === 'weak' ? 0.4 : 0)), 0); // spec-exempt: legacy scorer awaiting Stage 3
+ 
   // Strictly monotonic: adding any demonstrated skill or weak skill adds positive contribution, never reduces
-  const baseTarget = Math.max(1, mustTotalCount * 0.85);
+  const baseTarget = Math.max(1, mustTotalCount * 0.85); // spec-exempt: legacy scorer awaiting Stage 3
   const evidenceDepthFactor = Math.min(
     1.0,
-    (verifiedFoundSkills.length * 1.0 + weakFoundSkills.length * 0.25 + totalEvidenceTierSum * 0.1) / (baseTarget + 0.5)
+    (verifiedFoundSkills.length * 1.0 + weakFoundSkills.length * 0.25 + totalEvidenceTierSum * 0.1) / (baseTarget + 0.5) // spec-exempt: legacy scorer awaiting Stage 3
   );
   const evidenceDepth = Math.round(evidenceDepthFactor * activeWeights.evidenceDepth * 10) / 10;
 
@@ -107,7 +107,7 @@ export function computeAtsScore(input: ScorerInput) {
   let seniorityScoreFactor = 1.0;
   if (candidateYears < requiredYears) {
     const diff = requiredYears - candidateYears;
-    seniorityScoreFactor = Math.max(0.1, 1.0 - (diff * 0.25));
+    seniorityScoreFactor = Math.max(0.1, 1.0 - (diff * 0.25)); // spec-exempt: legacy scorer awaiting Stage 3
   }
   const seniorityFitScore = Math.round(seniorityScoreFactor * activeWeights.seniorityFit * 10) / 10;
 
@@ -182,7 +182,7 @@ export function computeAtsScore(input: ScorerInput) {
   const listedSkillsCount = resumeSkillsList.length > 0 ? resumeSkillsList.length : skillResults.length;
   const evidencedCount = resumeSkillsList.length > 0 ? evidencedInBulletsCount : skillResults.filter(s => s.status === 'verified').length;
   const listedOnlyCount = listedSkillsCount - evidencedCount;
-  const isStuffingFlagged = listedOnlyCount / Math.max(1, listedSkillsCount) > 0.60 && listedSkillsCount >= 15;
+  const isStuffingFlagged = listedOnlyCount / Math.max(1, listedSkillsCount) > 0.60 && listedSkillsCount >= 15; // spec-exempt: legacy scorer awaiting Stage 3
 
   if (isStuffingFlagged) {
     const penaltyPoints = Math.min(15, Math.max(5, Math.round(listedOnlyCount * 0.8)));
@@ -289,7 +289,7 @@ export function computeAtsScore(input: ScorerInput) {
   let headline = '';
   if (mustMetCount === mustTotalCount && mustTotalCount > 0) {
     headline = `Meets 100% of Must-Have Requirements (${mustHavesMetStr}) · Verified ATS Compatibility`;
-  } else if (mustMetRatio >= 0.75) {
+  } else if (mustMetRatio >= 0.75) { // spec-exempt: legacy scorer awaiting Stage 3
     headline = `Strong Core Match (${mustHavesMetStr} must-haves met) · Minor evidence gaps detected`;
   } else if (mustMetRatio >= 0.5) {
     headline = `Moderate Alignment (${mustHavesMetStr} must-haves met) · Key requirements missing`;

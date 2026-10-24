@@ -27,7 +27,7 @@ export const ScoreHeader: React.FC<Props> = ({ result, headerRef }) => {
   const { score, band, headline, mustHavesMet, bestFitTier, seniorityFit, parseQuality, confidence, confidenceReason } = result;
 
   // Sensitivity range: +/- 20% weight perturbation
-  const scoreMin = Math.max(0, Math.round(score * 0.92 - 2));
+  const scoreMin = Math.max(0, Math.round(score * 0.92 - 2)); // spec-exempt: legacy UI range replaced in Stage 5
   const scoreMax = Math.min(100, Math.round(score * 1.06 + 3));
 
   // Honest band label

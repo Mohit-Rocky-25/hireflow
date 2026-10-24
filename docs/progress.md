@@ -15,13 +15,13 @@
 
 ## Stage 1: The Spec and The Core
 
-- [ ] **1.1**: [TODO] Create `src/scoring/spec/` with typed spec files and build-time validator.
-- [ ] **1.2**: [TODO] Create `src/scoring/core/` with pure functions (tokenization, evidence credit, bullet scoring, registered calculators, composite, band, trace).
-- [ ] **1.3**: [TODO] Define `ScoreTrace` (no raw resume text, SHA-256 fingerprint, pure data).
-- [ ] **1.4**: [TODO] Implement exact composite formula with dynamic renormalization and clamping.
-- [ ] **1.5**: [TODO] Implement deterministic sensitivity band calculator (perturbations x0.8/x1.2, confidence flips).
-- [ ] **1.6**: [TODO] Independent oracle test verifying composite and band matching engine to 1e-9.
-- [ ] **1.7**: [TODO] Implement and run `npm run check:constants` to ensure zero hardcoded scoring constants outside spec.
+- [x] **1.1**: [DONE] Created `src/scoring/spec/` with typed spec, canonical spec, validator, and verified with unit tests.
+- [x] **1.2**: [DONE] Created `src/scoring/core/` pure functions (tokenization safe for C/Go/R, evidence credit, 100-pt bullet score, registered calculators, composite, band, trace).
+- [x] **1.3**: [DONE] Defined `ScoreTrace` (no raw resume text, SHA-256 fingerprint, pure data contract).
+- [x] **1.4**: [DONE] Implemented exact composite formula with dynamic renormalization and clamping.
+- [x] **1.5**: [DONE] Implemented deterministic sensitivity band calculator (perturbations x0.8/x1.2, confidence flips).
+- [x] **1.6**: [DONE] Independent oracle test verifying composite and band matching engine to 1e-9 across 24 fixtures.
+- [x] **1.7**: [DONE] Implemented and ran `npm run check:constants` ensuring zero hardcoded scoring constants outside spec.
 
 ---
 

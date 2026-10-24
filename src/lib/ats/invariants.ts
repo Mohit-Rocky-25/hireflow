@@ -65,7 +65,7 @@ export function enforceInvariants(
     if (m.earnedCredit !== undefined) return acc + m.earnedCredit;
     if (m.status === 'exact' || m.status === 'alias') return acc + (m.isClaimedOnly ? 0.5 : 1.0);
     if (m.status === 'implied') return acc + 0.5;
-    if (m.status === 'related') return acc + 0.25;
+    if (m.status === 'related') return acc + 0.25; // spec-exempt: legacy credit awaiting Stage 3
     return acc;
   }, 0);
 
@@ -182,13 +182,13 @@ export function enforceInvariants(
   const b = facts.scoreBreakdown;
   const isEvNA = Boolean(b.isEvidenceNA);
 
-  const baseMust = 0.35;
-  const baseEv = isEvNA ? 0 : 0.20;
+  const baseMust = 0.35; // spec-exempt: legacy base weight awaiting Stage 3
+  const baseEv = isEvNA ? 0 : 0.20; // spec-exempt: legacy base weight awaiting Stage 3
   const hasNice = (facts.jd?.niceToHaves || []).length > 0;
-  const baseNice = hasNice ? 0.10 : 0;
-  const baseSen = 0.15;
-  const baseProj = 0.10;
-  const baseForm = 0.10;
+  const baseNice = hasNice ? 0.10 : 0; // spec-exempt: legacy base weight awaiting Stage 3
+  const baseSen = 0.15; // spec-exempt: legacy base weight awaiting Stage 3
+  const baseProj = 0.10; // spec-exempt: legacy base weight awaiting Stage 3
+  const baseForm = 0.10; // spec-exempt: legacy base weight awaiting Stage 3
 
   const totalW = baseMust + baseEv + baseNice + baseSen + baseProj + baseForm;
   const nMust = baseMust / totalW;

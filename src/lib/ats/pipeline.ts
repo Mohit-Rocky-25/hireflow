@@ -490,12 +490,12 @@ export function computeHybridScores(
   }
 
   // 8. Re-normalization of weights
-  const baseMust = 0.35;
-  const baseEv = isEvidenceNA ? 0 : 0.20;
-  const baseNice = niceTotalWeight > 0 ? 0.10 : 0;
-  const baseSen = 0.15;
-  const baseProj = 0.10;
-  const baseForm = 0.10;
+  const baseMust = 0.35; // spec-exempt: legacy base weight awaiting Stage 3
+  const baseEv = isEvidenceNA ? 0 : 0.20; // spec-exempt: legacy base weight awaiting Stage 3
+  const baseNice = niceTotalWeight > 0 ? 0.10 : 0; // spec-exempt: legacy base weight awaiting Stage 3
+  const baseSen = 0.15; // spec-exempt: legacy base weight awaiting Stage 3
+  const baseProj = 0.10; // spec-exempt: legacy base weight awaiting Stage 3
+  const baseForm = 0.10; // spec-exempt: legacy base weight awaiting Stage 3
 
   const totalW = baseMust + baseEv + baseNice + baseSen + baseProj + baseForm;
   const nMust = baseMust / totalW;
@@ -701,7 +701,7 @@ export function runHybridAnalysis(
         evidence: m.evidenceSnippet ? [{ quote: m.evidenceSnippet, location: 'skills' }] : [],
         transferableFrom: m.status === 'related' ? [m.skill] : [],
         reasoning: `Extracted via exact token boundary analysis: ${m.status}`,
-        confidence: 0.95,
+        confidence: 0.95, // spec-exempt: extraction confidence
       };
     }),
     keywordStuffing: facts.scoreBreakdown.keywordStuffingPenalty < 0

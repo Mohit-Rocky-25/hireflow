@@ -32,7 +32,7 @@ export class Bm25Engine {
   private avgDocLen = 0;
   private dfMap = new Map<string, number>();
   private k1 = 1.2;
-  private b = 0.75;
+  private b = 0.75; // spec-exempt: classic BM25 length normalization hyperparameter
 
   constructor(corpus: { id: string; text: string }[]) {
     let totalLen = 0;

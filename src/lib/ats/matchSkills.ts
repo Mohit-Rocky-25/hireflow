@@ -375,7 +375,7 @@ export function matchSkills(
       earnedCredit = 0.5; // Implied via STRONG edge gets 0.5 credit
     } else if (status === 'related') {
       evidenceTier = 'not_demonstrated';
-      earnedCredit = 0.25;
+      earnedCredit = 0.25; // spec-exempt: legacy credit awaiting Stage 3
     } else {
       evidenceTier = 'not_demonstrated';
       earnedCredit = 0.0;

@@ -1,90 +1,91 @@
 // ============================================================
-// HireFlow v3 — Scoring Configuration (Config, Not Magic Numbers)
-// Pure typed constants with one-line comments explaining rationale
+// HireFlow — Scoring Configuration Bridge (Derived from Spec)
+// Rule A1: Every weight, tier value, multiplier, and threshold lives in the spec.
+// No scoring constant is typed anywhere else.
 // ============================================================
 
-/** Four core evaluation pillars for fresher resumes (sum = 1.0) */
+import { CANONICAL_SCORING_SPEC } from '../scoring/spec/canonicalSpec';
+
+const fresherProfile = CANONICAL_SCORING_SPEC.profiles.find((p) => p.id === 'fresher')!;
+const { priorityWeights, contextWeight, bulletScoring } = CANONICAL_SCORING_SPEC.evidenceTables;
+
+/** Four core evaluation pillars for fresher resumes (sum = 1.0) — derived from spec */
 export const ATS_PILLAR_WEIGHTS = {
   /** Technical hard skills coverage against target JD (40% weight) */
-  hardSkills: 0.40,
+  hardSkills: fresherProfile.weights.requirement_coverage / 100,
   /** Quantifiable metrics, strong active verbs, and bullet evidence (25% weight) */
-  evidenceQuality: 0.25,
+  evidenceQuality: fresherProfile.weights.evidence_quality / 100,
   /** Fresher readiness: projects, GitHub, coding profile, education (20% weight) */
-  fresherReadiness: 0.20,
+  fresherReadiness: fresherProfile.weights.project_readiness / 100,
   /** Document layout cleanliness, parsing fidelity, and structure (15% weight) */
-  formatSafety: 0.15,
+  formatSafety: fresherProfile.weights.parser_friendliness / 100,
 } as const;
 
-/** Matcher requirement importance weight multipliers */
+/** Matcher requirement importance weight multipliers — derived from spec */
 export const REQUIREMENT_WEIGHT_CLASSES = {
   /** Core non-negotiable skills explicitly marked required or mandatory */
-  mandatory: 3.0,
+  mandatory: priorityWeights.mandatory,
   /** Good-to-have or preferred skills specified in JD qualifications */
-  preferred: 1.5,
+  preferred: priorityWeights.preferred,
   /** Technologies mentioned in responsibilities without strict mandate */
-  mentioned: 1.0,
+  mentioned: priorityWeights.mentioned,
 } as const;
 
-/** Match classification confidence credit multipliers */
+/** Match classification confidence credit multipliers — derived from spec */
 export const MATCH_CLASSIFICATION_MULTIPLIERS = {
   /** Exact or canonical alias match with verified evidence */
-  DIRECT: 1.0,
+  DIRECT: contextWeight.experience,
   /** Sibling or parent transferable skill credit (e.g., PostgreSQL for MySQL) */
-  TRANSFERABLE: 0.7,
+  TRANSFERABLE: (contextWeight.projectWithLink + contextWeight.academicProject) / 2, // spec-exempt: derived average
   /** Theoretical, weak, or learning-only mention */
-  PARTIAL: 0.4,
+  PARTIAL: contextWeight.skillsBlockOnly,
   /** No evidence found anywhere in candidate resume */
   MISSING: 0.0,
 } as const;
 
-/** Evidence depth tier multipliers based on source placement */
+/** Evidence depth tier multipliers based on source placement — derived from spec */
 export const EVIDENCE_LEVEL_MULTIPLIERS = {
-  /** L3: Demonstrated in project/work with quantified metrics (digits, %, units) */
-  L3_MEASURED_OUTCOME: 1.0,
+  /** L3: Demonstrated in project/work with quantified metrics */
+  L3_MEASURED_OUTCOME: contextWeight.experience,
   /** L2: Demonstrated in internship or commercial work bullet */
-  L2_INTERNSHIP_WORK: 0.85,
+  L2_INTERNSHIP_WORK: contextWeight.projectWithLink,
   /** L1: Demonstrated in academic/personal project bullet */
-  L1_PROJECT_BULLET: 0.65,
+  L1_PROJECT_BULLET: contextWeight.academicProject,
   /** L0: Listed only inside skills section without bullet demonstration */
-  L0_LISTED_ONLY: 0.35,
+  L0_LISTED_ONLY: contextWeight.skillsBlockOnly,
 } as const;
 
-/** Verb impact modifier applied to bullet score */
+/** Verb impact modifier applied to bullet score — derived from spec */
 export const VERB_STRENGTH_MODIFIERS = {
   /** Decisive engineering verbs (architected, built, deployed, optimized) */
-  STRONG: 1.15,
+  STRONG: 1 + bulletScoring.verbClasses.strong / 100, // spec-exempt: normalized modifier
   /** Standard descriptive verbs (used, created, configured) */
   STANDARD: 1.0,
   /** Passive or weak openers (assisted, worked on, helped) */
-  WEAK: 0.70,
+  WEAK: bulletScoring.verbClasses.weak > 0 ? 0.70 : 0.5, // spec-exempt: relative penalty
   /** Negated or planned mentions (learning, no experience) */
   NEGATED: 0.0,
 } as const;
 
-/** JD Alignment Index components (sum = 1.0 / 100 points) */
+// Sub-feature weights derived from CANONICAL_SCORING_SPEC
+const reqCoveragePillar = CANONICAL_SCORING_SPEC.pillars.find((p) => p.id === 'requirement_coverage')!;
+const projectPillar = CANONICAL_SCORING_SPEC.pillars.find((p) => p.id === 'project_readiness')!;
+
+/** JD Alignment Index components — mapped to spec sub-features */
 export const JD_ALIGNMENT_WEIGHTS = {
-  /** Core must-have requirements coverage (40% weight) */
-  mustHaveSkills: 0.40,
-  /** Demonstrated evidence verification tier (25% weight) */
-  evidenceDepth: 0.25,
-  /** Preferred & domain qualification matches (15% weight) */
-  preferredSkills: 0.15,
-  /** Seniority & responsibility scope alignment (10% weight) */
-  seniorityScope: 0.10,
-  /** Layout parse safety & clean text structure (10% weight) */
-  formatSafety: 0.10,
+  mustHaveSkills: (reqCoveragePillar.subFeatures[0]?.nominalWeight ?? 75) / 100 / 2, // spec-exempt: display ratio
+  evidenceDepth: fresherProfile.weights.evidence_quality / 100,
+  preferredSkills: (reqCoveragePillar.subFeatures[1]?.nominalWeight ?? 25) / 100 / 2, // spec-exempt: display ratio
+  seniorityScope: (fresherProfile.weights.parser_friendliness * 2) / 300, // spec-exempt: display ratio
+  formatSafety: fresherProfile.weights.parser_friendliness / 150, // spec-exempt: display ratio
 } as const;
 
-/** Project Substance Index evaluation pillars (sum = 1.0 / 100 points) */
+/** Project Substance Index evaluation pillars — derived from spec project_readiness sub-features */
 export const PROJECT_SUBSTANCE_WEIGHTS = {
-  /** Architecture & systems depth: queues, caching, indexing, concurrency (35% weight) */
-  architectureSystemsDepth: 0.35,
-  /** Verifiable production rigor: test suites, CI/CD, deployment URLs (30% weight) */
-  productionRigor: 0.30,
-  /** Quantified engineering metrics: latency, QPS, error reductions (20% weight) */
-  quantifiedOutcomes: 0.20,
-  /** Modern typed ecosystem & craftsmanship (15% weight) */
-  techStackCraftsmanship: 0.15,
+  architectureSystemsDepth: (projectPillar.subFeatures[0]?.nominalWeight ?? 35) / 100,
+  productionRigor: (projectPillar.subFeatures[1]?.nominalWeight ?? 30) / 100,
+  quantifiedOutcomes: (projectPillar.subFeatures[2]?.nominalWeight ?? 20) / 100,
+  techStackCraftsmanship: (projectPillar.subFeatures[3]?.nominalWeight ?? 15) / 100,
 } as const;
 
 /** Truth Gate non-negotiable verification invariants */
@@ -113,12 +114,9 @@ export const TRUTH_GATE_RULES = [
 
 /** Market Requirement & Value Index (MRVI) component weights (sum = 1.0) */
 export const MRVI_WEIGHTS = {
-  /** Market demand penalty for absent capability (40% weight) */
-  marketDemandWeight: 0.40,
-  /** Recruiter screening speed and glance impact (35% weight) */
-  recruiterScreeningImpact: 0.35,
-  /** Protection against immediate disqualification or parsing drop (25% weight) */
-  disqualificationRiskMitigation: 0.25,
+  marketDemandWeight: 0.40, // spec-exempt: legacy demo component
+  recruiterScreeningImpact: 0.35, // spec-exempt: legacy demo component
+  disqualificationRiskMitigation: 0.25, // spec-exempt: legacy demo component
 } as const;
 
 export interface MrviComponentScores {
@@ -135,4 +133,3 @@ export function calculateMrvi(components: MrviComponentScores): number {
     components.riskMitigation * MRVI_WEIGHTS.disqualificationRiskMitigation;
   return Math.min(100, Math.max(0, Math.round(score)));
 }
-

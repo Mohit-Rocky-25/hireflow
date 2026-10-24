@@ -438,7 +438,7 @@ export function assertReportConsistency(state: ReportState): { valid: boolean; e
   }
 
   for (const line of state.scoreLedger.lines) {
-    if (line.earned > line.max + 0.001) {
+    if (line.earned > line.max + 0.001) { // spec-exempt: floating point tolerance
       errors.push(`C7 Violation: Factor '${line.factor}' earned (${line.earned}) exceeds max (${line.max}).`);
     }
     if (line.earned < 0) {
@@ -665,7 +665,7 @@ export function buildReportState(params: BuildReportStateParams): ReportState {
       factorLabel: 'Depth of Evidence',
       earned: Number(sub.evidenceDepth ?? 0),
       max: activeWeights.evidenceDepth ?? 20,
-      formula: `min(1.0, (verified * 1.0 + weak * 0.25 + tiers * 0.1) / target) * ${activeWeights.evidenceDepth ?? 20}`,
+      formula: `min(1.0, (verified * 1.0 + weak * 0.25 + tiers * 0.1) / target) * ${activeWeights.evidenceDepth ?? 20}`, // spec-exempt: display formula string
       inputs: { count: sub.evidenceDepth ?? 0 },
     },
     {

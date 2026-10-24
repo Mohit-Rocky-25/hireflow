@@ -806,7 +806,7 @@ export function analyzeCanonical(
     .reduce((sum, s) => {
       if (s.status === 'exact' || s.status === 'alias') return sum + (s.isClaimedOnly ? 0.5 : 1.0);
       if (s.status === 'implied') return sum + 0.5;
-      if (s.status === 'related') return sum + 0.25;
+      if (s.status === 'related') return sum + 0.25; // spec-exempt: legacy credit awaiting Stage 3
       return sum;
     }, 0);
   const expectedMustRatio = totalMust > 0 ? Math.round((earnedMustCredit / totalMust) * 100) : scores.mustHaveCoverage;

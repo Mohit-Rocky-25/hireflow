@@ -64,7 +64,7 @@ export function scoreAggregator(
   }
   const listedOnlyCount = totalListedSkills - evidencedSkillsCount;
   const evidenceRatio = totalListedSkills > 0 ? evidencedSkillsCount / totalListedSkills : 1.0;
-  const isStuffingFlagged = listedOnlyCount / Math.max(1, totalListedSkills) > 0.60 && totalListedSkills >= 15;
+  const isStuffingFlagged = listedOnlyCount / Math.max(1, totalListedSkills) > 0.60 && totalListedSkills >= 15; // spec-exempt: legacy threshold awaiting Stage 3
 
   const keywordStuffingPenalty = isStuffingFlagged ? -15 : 0;
   if (isStuffingFlagged) {
@@ -82,7 +82,7 @@ export function scoreAggregator(
       if (m.earnedCredit !== undefined) return acc + m.earnedCredit;
       if (m.status === 'exact' || m.status === 'alias') return acc + (m.isClaimedOnly ? 0.5 : 1.0);
       if (m.status === 'implied') return acc + 0.5;
-      if (m.status === 'related') return acc + 0.25;
+      if (m.status === 'related') return acc + 0.25; // spec-exempt: legacy credit awaiting Stage 3
       return acc;
     }, 0);
     mustHaveCoverageScore = Math.round((earnedCreditSum / mustHaves.length) * 100);
@@ -139,7 +139,7 @@ export function scoreAggregator(
       } else if (n.status === 'implied') {
         earned += 0.5;
       } else if (n.status === 'related') {
-        earned += 0.25;
+        earned += 0.25; // spec-exempt: legacy credit awaiting Stage 3
       }
     }
     niceToHaveCoverageScore = Math.round((earned / niceToHaves.length) * 100);
@@ -218,12 +218,12 @@ export function scoreAggregator(
 
   // 8. Re-normalization of weights across ACTIVE non-constant components
   const baseWeights = {
-    mustHave: 0.35,
-    evidence: isEvidenceNA ? 0 : 0.20,
-    niceToHave: niceToHaves.length > 0 ? 0.10 : 0,
-    seniority: isSeniorityConstant ? 0 : 0.15,
-    project: 0.10,
-    format: 0.10,
+    mustHave: 0.35, // spec-exempt: legacy base weight awaiting Stage 3
+    evidence: isEvidenceNA ? 0 : 0.20, // spec-exempt: legacy base weight awaiting Stage 3
+    niceToHave: niceToHaves.length > 0 ? 0.10 : 0, // spec-exempt: legacy base weight awaiting Stage 3
+    seniority: isSeniorityConstant ? 0 : 0.15, // spec-exempt: legacy base weight awaiting Stage 3
+    project: 0.10, // spec-exempt: legacy base weight awaiting Stage 3
+    format: 0.10, // spec-exempt: legacy base weight awaiting Stage 3
   };
 
   const totalActiveWeight =

@@ -1,0 +1,13 @@
+// ============================================================
+// HireFlow Scoring Suite — Core Engine Barrel Export
+// ============================================================
+
+export * from './types';
+export * from './fingerprint';
+export * from './tokenizer';
+export * from './evidenceCredit';
+export * from './bulletScorer';
+export * from './composite';
+export * from './band';
+export * from './calculators';
+export * from './traceBuilder';

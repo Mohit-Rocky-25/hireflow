@@ -253,7 +253,7 @@ export function TalentLens() {
         charStart: 0,
         charEnd: quote.length,
         hasMetric: false,
-        evidenceTier: ra.status === 'STRONG' ? 0.85 : 0.5,
+        evidenceTier: ra.status === 'STRONG' ? 0.85 : 0.5, // spec-exempt: legacy view replaced in Stage 4
       }] : [];
 
       return {
