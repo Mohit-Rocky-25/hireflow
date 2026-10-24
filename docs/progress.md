@@ -98,4 +98,4 @@
 
 ## Stage 8: Final Report
 
-- [ ] **8.1**: [TODO] Author `docs/scoring-fix-report.md` with complete evidence, walkthrough, and migration audit.
+- [x] **8.1**: [DONE] Author `docs/scoring-fix-report.md` with complete evidence, walkthrough, and migration audit.
