@@ -252,7 +252,7 @@ export function BranchCombobox({ value, onChange, className = '' }: BranchCombob
                     <button
                       type="button"
                       onClick={handleApplyCustom}
-                      className="px-3 py-1 rounded-lg bg-primary hover:bg-primary-hover text-white text-xs font-bold cursor-pointer transition-colors"
+                      className="px-3 py-1 rounded-lg bg-primary hover:bg-primary-hover text-black text-xs font-bold cursor-pointer transition-colors"
                     >
                       Apply Discipline
                     </button>

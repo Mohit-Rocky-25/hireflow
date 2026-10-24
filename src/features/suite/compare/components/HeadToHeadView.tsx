@@ -516,7 +516,7 @@ export function HeadToHeadView({ h2h }: { h2h: HeadToHeadComparison }) {
         <div className="flex flex-wrap items-center justify-end gap-3 pt-2">
           <Link
             to="/tools/tailor"
-            className="px-4 py-2 rounded-xl bg-primary text-white text-xs font-bold hover:bg-primary/90 transition-colors inline-flex items-center gap-1.5"
+            className="px-4 py-2 rounded-xl bg-primary text-black text-xs font-bold hover:bg-primary/90 transition-colors inline-flex items-center gap-1.5"
           >
             Launch Resume Tailor <ArrowRight className="w-3.5 h-3.5" />
           </Link>

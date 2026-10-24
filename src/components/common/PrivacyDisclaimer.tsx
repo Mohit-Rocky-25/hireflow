@@ -154,7 +154,7 @@ export function PrivacyDisclaimer() {
                 onClick={() => setActiveTab('policy')}
                 className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors flex items-center gap-1.5 ${
                   activeTab === 'policy'
-                    ? 'bg-primary text-white shadow-sm'
+                    ? 'bg-primary text-black shadow-sm'
                     : 'text-text-muted hover:text-text hover:bg-surface-2'
                 }`}
               >
@@ -168,7 +168,7 @@ export function PrivacyDisclaimer() {
                 }}
                 className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors flex items-center gap-1.5 ${
                   activeTab === 'storage'
-                    ? 'bg-primary text-white shadow-sm'
+                    ? 'bg-primary text-black shadow-sm'
                     : 'text-text-muted hover:text-text hover:bg-surface-2'
                 }`}
               >
@@ -302,7 +302,7 @@ export function PrivacyDisclaimer() {
 
               <button
                 onClick={() => setIsOpen(false)}
-                className="px-4 py-1.5 text-xs font-semibold rounded-lg bg-primary text-white hover:bg-primary/90 transition-colors ml-auto focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
+                className="px-4 py-1.5 text-xs font-semibold rounded-lg bg-primary text-black hover:bg-primary/90 transition-colors ml-auto focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
               >
                 Understood
               </button>

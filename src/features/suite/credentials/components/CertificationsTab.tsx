@@ -423,7 +423,7 @@ export function CertificationsTab({
             onClick={() => setSelectedCategory(cat)}
             className={`px-4 py-2.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all border cursor-pointer ${
               selectedCategory === cat
-                ? 'bg-gradient-to-r from-primary to-indigo-600 text-white border-primary/50 shadow-md shadow-primary/25 scale-[1.02]'
+                ? 'bg-primary text-black border-primary shadow-xs'
                 : 'bg-surface border-border text-text-secondary hover:text-foreground hover:bg-surface-2'
             }`}
           >
@@ -746,7 +746,7 @@ export function CertificationsTab({
                     onClick={(e) => handleTogglePlan(e, cert.id)}
                     className={`p-2.5 rounded-xl border-2 transition-all shrink-0 cursor-pointer ${
                       isSaved
-                        ? 'bg-primary text-white border-primary shadow-sm shadow-primary/30'
+                        ? 'bg-primary text-black border-primary shadow-sm shadow-primary/30'
                         : 'bg-surface-2 border-border text-text-secondary hover:text-foreground hover:bg-surface-2/80'
                     }`}
                     title={isSaved ? 'Saved in My Opportunity Plan' : 'Save to Opportunity Plan'}
@@ -882,7 +882,7 @@ export function CertificationsTab({
                     title={cert.studentDiscountNote || cert.studentAid?.summary || ''}
                   >
                     <div className="flex items-center gap-2.5 min-w-0">
-                      <div className="p-2 rounded-lg bg-primary/15 text-primary group-hover/waiver:bg-primary group-hover/waiver:text-white transition-colors shrink-0">
+                      <div className="p-2 rounded-lg bg-primary/15 text-primary group-hover/waiver:bg-primary group-hover/waiver:text-black transition-colors shrink-0">
                         <GraduationCap className="w-4 h-4" />
                       </div>
                       <div className="min-w-0">
@@ -946,11 +946,11 @@ export function CertificationsTab({
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={(e) => handleExternalRedirect(e, portalUrl)}
-                    className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-surface-2 hover:bg-primary hover:text-white border border-border hover:border-primary font-black text-xs sm:text-sm text-foreground transition-all duration-200 group/btn shadow-xs cursor-pointer"
+                    className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-surface-2 hover:bg-primary hover:text-black border border-border hover:border-primary font-black text-xs sm:text-sm text-foreground transition-all duration-200 group/btn shadow-xs cursor-pointer"
                     title={`Open official portal (${getDomainFromUrl(portalUrl)})`}
                   >
                     <span>Portal</span>
-                    <ExternalLink className="w-3.5 h-3.5 text-primary group-hover/btn:text-white shrink-0" />
+                    <ExternalLink className="w-3.5 h-3.5 text-primary group-hover/btn:text-black shrink-0" />
                   </a>
 
                   {/* Direct Operable Syllabus Link */}
@@ -1031,7 +1031,7 @@ export function CertificationsTab({
                 setSelectedTime('All');
                 setSelectedTier('All');
               }}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary hover:bg-primary/90 text-white font-black text-sm shadow-lg shadow-primary/25 cursor-pointer transition-all hover:scale-[1.02]"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary hover:bg-primary/90 text-black font-black text-sm shadow-lg shadow-primary/25 cursor-pointer transition-all hover:scale-[1.02]"
             >
               <RotateCcw className="w-4 h-4" />
               <span>Reset All Filters & Show All {allCerts.length} Certifications</span>
