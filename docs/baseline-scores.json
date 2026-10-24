@@ -1,0 +1,1826 @@
+{
+  "syn-01-student-backend-honest": {
+    "id": "syn-01-student-backend-honest",
+    "label": "Student Backend — Honest Strong Evidence",
+    "experienceLevel": "Student",
+    "roleFamily": "Backend",
+    "category": "honest",
+    "description": "Final year B.Tech student with authentic project evidence, Redis queue, Docker, PostgreSQL, and measurable metrics.",
+    "hasJd": true,
+    "atsRoaster": {
+      "success": true,
+      "score": 77,
+      "band": "Competitive",
+      "headline": "Moderate Alignment (5/8 must-haves met) · Key requirements missing",
+      "subscores": {
+        "mustHaveCoverage": 16.9,
+        "evidenceDepth": 18.7,
+        "impactMetrics": 7.5,
+        "projectsAndOss": 10,
+        "seniorityFit": 10,
+        "formatAndParse": 10,
+        "tierFit": 3.5,
+        "niceToHaveCoverage": 4,
+        "titleAlignment": 10,
+        "educationAndCerts": 4,
+        "parseHealth": 5
+      },
+      "penalties": [
+        {
+          "id": "keyword_stuffing",
+          "label": "Keyword Stuffing Detected",
+          "points": -9,
+          "reason": "11 of 16 skills listed in skills section lack any project or experience evidence."
+        }
+      ]
+    },
+    "talentLens": {
+      "simulatedScore": 10,
+      "sampleCompetencies": [
+        {
+          "competency": "Java",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "Python",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "React",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "TypeScript",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "Docker",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "System Design",
+          "status": "absent",
+          "confidence": 5
+        }
+      ]
+    }
+  },
+  "syn-02-intern-frontend-honest": {
+    "id": "syn-02-intern-frontend-honest",
+    "label": "Intern Frontend — Component Architecture & Web Vitals",
+    "experienceLevel": "Intern",
+    "roleFamily": "Frontend",
+    "category": "honest",
+    "description": "Frontend intern with 6 months internship experience, React, Next.js, TypeScript, and Lighthouse metrics.",
+    "hasJd": true,
+    "atsRoaster": {
+      "success": true,
+      "score": 79,
+      "band": "Competitive",
+      "headline": "Moderate Alignment (5/7 must-haves met) · Key requirements missing",
+      "subscores": {
+        "mustHaveCoverage": 21.4,
+        "evidenceDepth": 20,
+        "impactMetrics": 3.6,
+        "projectsAndOss": 10,
+        "seniorityFit": 10,
+        "formatAndParse": 10,
+        "tierFit": 3.5,
+        "niceToHaveCoverage": 6.7,
+        "titleAlignment": 10,
+        "educationAndCerts": 4,
+        "parseHealth": 5
+      },
+      "penalties": [
+        {
+          "id": "keyword_stuffing",
+          "label": "Keyword Stuffing Detected",
+          "points": -11,
+          "reason": "14 of 18 skills listed in skills section lack any project or experience evidence."
+        }
+      ]
+    },
+    "talentLens": {
+      "simulatedScore": 5,
+      "sampleCompetencies": [
+        {
+          "competency": "Java",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "Python",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "React",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "TypeScript",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "Docker",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "System Design",
+          "status": "absent",
+          "confidence": 5
+        }
+      ]
+    }
+  },
+  "syn-03-0to2yr-dataml-honest": {
+    "id": "syn-03-0to2yr-dataml-honest",
+    "label": "0-2 yr Data/ML — Pipelines & Metric Rigor",
+    "experienceLevel": "0-2 yrs",
+    "roleFamily": "Data/ML",
+    "category": "honest",
+    "description": "Junior ML Engineer with 1.5 years experience, PyTorch, Scikit-Learn, MLflow, and reproducible data pipelines.",
+    "hasJd": true,
+    "atsRoaster": {
+      "success": true,
+      "score": 85,
+      "band": "Strong",
+      "headline": "Strong Core Match (6/7 must-haves met) · Minor evidence gaps detected",
+      "subscores": {
+        "mustHaveCoverage": 21.4,
+        "evidenceDepth": 15.3,
+        "impactMetrics": 14.3,
+        "projectsAndOss": 10,
+        "seniorityFit": 10,
+        "formatAndParse": 10,
+        "tierFit": 3.5,
+        "niceToHaveCoverage": 10,
+        "titleAlignment": 10,
+        "educationAndCerts": 4,
+        "parseHealth": 5
+      },
+      "penalties": [
+        {
+          "id": "keyword_stuffing",
+          "label": "Keyword Stuffing Detected",
+          "points": -13,
+          "reason": "16 of 20 skills listed in skills section lack any project or experience evidence."
+        },
+        {
+          "id": "word_count_outlier",
+          "label": "Resume Abnormally Brief",
+          "points": -4,
+          "reason": "Resume has 204 words (ideal technical resumes range between 250 and 1,200 words)."
+        }
+      ]
+    },
+    "talentLens": {
+      "simulatedScore": 15,
+      "sampleCompetencies": [
+        {
+          "competency": "Java",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "Python",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "React",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "TypeScript",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "Docker",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "System Design",
+          "status": "absent",
+          "confidence": 5
+        }
+      ]
+    }
+  },
+  "syn-04-3plus-backend-senior": {
+    "id": "syn-04-3plus-backend-senior",
+    "label": "3+ yr Backend — Distributed Systems Architecture",
+    "experienceLevel": "3+ yrs",
+    "roleFamily": "Backend",
+    "category": "honest",
+    "description": "Senior SWE with 4 years experience, distributed transaction management, Kafka, Kubernetes, and high-throughput systems.",
+    "hasJd": true,
+    "atsRoaster": {
+      "success": true,
+      "score": 90,
+      "band": "Strong",
+      "headline": "Meets 100% of Must-Have Requirements (5/5) · Verified ATS Compatibility",
+      "subscores": {
+        "mustHaveCoverage": 27,
+        "evidenceDepth": 20,
+        "impactMetrics": 10.7,
+        "projectsAndOss": 9,
+        "seniorityFit": 10,
+        "formatAndParse": 10,
+        "tierFit": 3.5,
+        "niceToHaveCoverage": 5,
+        "titleAlignment": 10,
+        "educationAndCerts": 4,
+        "parseHealth": 5
+      },
+      "penalties": [
+        {
+          "id": "keyword_stuffing",
+          "label": "Keyword Stuffing Detected",
+          "points": -14,
+          "reason": "17 of 21 skills listed in skills section lack any project or experience evidence."
+        },
+        {
+          "id": "word_count_outlier",
+          "label": "Resume Abnormally Brief",
+          "points": -4,
+          "reason": "Resume has 204 words (ideal technical resumes range between 250 and 1,200 words)."
+        }
+      ]
+    },
+    "talentLens": {
+      "simulatedScore": 5,
+      "sampleCompetencies": [
+        {
+          "competency": "Java",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "Python",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "React",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "TypeScript",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "Docker",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "System Design",
+          "status": "absent",
+          "confidence": 5
+        }
+      ]
+    }
+  },
+  "syn-05-student-mobile-honest": {
+    "id": "syn-05-student-mobile-honest",
+    "label": "Student Mobile — Kotlin & Offline Architecture",
+    "experienceLevel": "Student",
+    "roleFamily": "Mobile",
+    "category": "honest",
+    "description": "Final year student with Android Kotlin projects, Room database, Jetpack Compose, and offline synchronization.",
+    "hasJd": true,
+    "atsRoaster": {
+      "success": true,
+      "score": 81,
+      "band": "Strong",
+      "headline": "Strong Core Match (5/6 must-haves met) · Minor evidence gaps detected",
+      "subscores": {
+        "mustHaveCoverage": 20,
+        "evidenceDepth": 17.6,
+        "impactMetrics": 9.4,
+        "projectsAndOss": 10,
+        "seniorityFit": 10,
+        "formatAndParse": 10,
+        "tierFit": 3.5,
+        "niceToHaveCoverage": 10,
+        "titleAlignment": 10,
+        "educationAndCerts": 4,
+        "parseHealth": 5
+      },
+      "penalties": [
+        {
+          "id": "keyword_stuffing",
+          "label": "Keyword Stuffing Detected",
+          "points": -9,
+          "reason": "11 of 18 skills listed in skills section lack any project or experience evidence."
+        }
+      ]
+    },
+    "talentLens": {
+      "simulatedScore": 14,
+      "sampleCompetencies": [
+        {
+          "competency": "Java",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "Python",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "React",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "TypeScript",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "Docker",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "System Design",
+          "status": "absent",
+          "confidence": 5
+        }
+      ]
+    }
+  },
+  "syn-06-0to2yr-devops-honest": {
+    "id": "syn-06-0to2yr-devops-honest",
+    "label": "0-2 yr DevOps — CI/CD & Infrastructure as Code",
+    "experienceLevel": "0-2 yrs",
+    "roleFamily": "DevOps",
+    "category": "honest",
+    "description": "Junior Cloud Engineer with 1 year experience, Terraform, GitHub Actions, Docker, and Kubernetes.",
+    "hasJd": true,
+    "atsRoaster": {
+      "success": true,
+      "score": 80,
+      "band": "Strong",
+      "headline": "Meets 100% of Must-Have Requirements (7/7) · Verified ATS Compatibility",
+      "subscores": {
+        "mustHaveCoverage": 21.4,
+        "evidenceDepth": 20,
+        "impactMetrics": 6.3,
+        "projectsAndOss": 9,
+        "seniorityFit": 10,
+        "formatAndParse": 10,
+        "tierFit": 3.5,
+        "niceToHaveCoverage": 7.5,
+        "titleAlignment": 10,
+        "educationAndCerts": 4,
+        "parseHealth": 5
+      },
+      "penalties": [
+        {
+          "id": "keyword_stuffing",
+          "label": "Keyword Stuffing Detected",
+          "points": -12,
+          "reason": "15 of 20 skills listed in skills section lack any project or experience evidence."
+        },
+        {
+          "id": "word_count_outlier",
+          "label": "Resume Abnormally Brief",
+          "points": -4,
+          "reason": "Resume has 145 words (ideal technical resumes range between 250 and 1,200 words)."
+        }
+      ]
+    },
+    "talentLens": {
+      "simulatedScore": 0,
+      "sampleCompetencies": [
+        {
+          "competency": "Java",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "Python",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "React",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "TypeScript",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "Docker",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "System Design",
+          "status": "absent",
+          "confidence": 5
+        }
+      ]
+    }
+  },
+  "syn-07-student-general-honest": {
+    "id": "syn-07-student-general-honest",
+    "label": "Student General — Competitive Programming & Core CS",
+    "experienceLevel": "Student",
+    "roleFamily": "General",
+    "category": "honest",
+    "description": "Final year student with strong core CS fundamentals, LeetCode rating, Operating Systems, and full-stack projects.",
+    "hasJd": true,
+    "atsRoaster": {
+      "success": true,
+      "score": 63,
+      "band": "Needs work",
+      "headline": "Strong Core Match (5/6 must-haves met) · Minor evidence gaps detected",
+      "subscores": {
+        "mustHaveCoverage": 12.5,
+        "evidenceDepth": 9.1,
+        "impactMetrics": 8.3,
+        "projectsAndOss": 10,
+        "seniorityFit": 10,
+        "formatAndParse": 10,
+        "tierFit": 3.5,
+        "niceToHaveCoverage": 10,
+        "titleAlignment": 10,
+        "educationAndCerts": 4,
+        "parseHealth": 5
+      },
+      "penalties": [
+        {
+          "id": "keyword_stuffing",
+          "label": "Keyword Stuffing Detected",
+          "points": -11,
+          "reason": "14 of 15 skills listed in skills section lack any project or experience evidence."
+        }
+      ]
+    },
+    "talentLens": {
+      "simulatedScore": 5,
+      "sampleCompetencies": [
+        {
+          "competency": "Java",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "Python",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "React",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "TypeScript",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "Docker",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "System Design",
+          "status": "absent",
+          "confidence": 5
+        }
+      ]
+    }
+  },
+  "syn-08-student-backend-no-jd": {
+    "id": "syn-08-student-backend-no-jd",
+    "label": "Student Backend — No JD Present (Role Baseline)",
+    "experienceLevel": "Student",
+    "roleFamily": "Backend",
+    "category": "no_jd",
+    "description": "Student resume scanned without any job description to trigger role baseline evaluation mode.",
+    "hasJd": false,
+    "atsRoaster": {
+      "success": true,
+      "score": 58,
+      "band": "Needs work",
+      "headline": "Moderate Alignment (5/7 must-haves met) · Key requirements missing",
+      "subscores": {
+        "mustHaveCoverage": 12.9,
+        "evidenceDepth": 7,
+        "impactMetrics": 10,
+        "projectsAndOss": 10,
+        "seniorityFit": 5,
+        "formatAndParse": 10,
+        "tierFit": 3.5,
+        "niceToHaveCoverage": 10,
+        "titleAlignment": 5,
+        "educationAndCerts": 4,
+        "parseHealth": 5
+      },
+      "penalties": [
+        {
+          "id": "keyword_stuffing",
+          "label": "Keyword Stuffing Detected",
+          "points": -10,
+          "reason": "13 of 15 skills listed in skills section lack any project or experience evidence."
+        },
+        {
+          "id": "word_count_outlier",
+          "label": "Resume Abnormally Brief",
+          "points": -4,
+          "reason": "Resume has 117 words (ideal technical resumes range between 140 and 1,200 words)."
+        }
+      ]
+    },
+    "talentLens": {
+      "simulatedScore": 13,
+      "sampleCompetencies": [
+        {
+          "competency": "Java",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "Python",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "React",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "TypeScript",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "Docker",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "System Design",
+          "status": "absent",
+          "confidence": 5
+        }
+      ]
+    }
+  },
+  "syn-09-0to2yr-frontend-no-jd": {
+    "id": "syn-09-0to2yr-frontend-no-jd",
+    "label": "0-2 yr Frontend — No JD Present (Role Baseline)",
+    "experienceLevel": "0-2 yrs",
+    "roleFamily": "Frontend",
+    "category": "no_jd",
+    "description": "Frontend engineer scanned without a target JD, evaluating against generic frontend baseline.",
+    "hasJd": false,
+    "atsRoaster": {
+      "success": true,
+      "score": 38,
+      "band": "Weak match",
+      "headline": "High Risk ATS Profile (2/7 must-haves met) · Missing core job requirements",
+      "subscores": {
+        "mustHaveCoverage": 4.3,
+        "evidenceDepth": 1.8,
+        "impactMetrics": 0,
+        "projectsAndOss": 9,
+        "seniorityFit": 10,
+        "formatAndParse": 10,
+        "tierFit": 2.5,
+        "niceToHaveCoverage": 10,
+        "titleAlignment": 10,
+        "educationAndCerts": 4,
+        "parseHealth": 5
+      },
+      "penalties": [
+        {
+          "id": "word_count_outlier",
+          "label": "Resume Abnormally Brief",
+          "points": -4,
+          "reason": "Resume has 95 words (ideal technical resumes range between 250 and 1,200 words)."
+        }
+      ]
+    },
+    "talentLens": {
+      "simulatedScore": 0,
+      "sampleCompetencies": [
+        {
+          "competency": "Java",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "Python",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "React",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "TypeScript",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "Docker",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "System Design",
+          "status": "absent",
+          "confidence": 5
+        }
+      ]
+    }
+  },
+  "syn-10-student-stuffing": {
+    "id": "syn-10-student-stuffing",
+    "label": "Student Backend — Blatant Keyword Stuffing",
+    "experienceLevel": "Student",
+    "roleFamily": "Backend",
+    "category": "stuffing",
+    "description": "Candidate lists 28 buzzwords in skills block but project bullets only demonstrate HTML/CSS and basic Python.",
+    "hasJd": true,
+    "atsRoaster": {
+      "success": true,
+      "score": 46,
+      "band": "Needs work",
+      "headline": "Strong Core Match (5/6 must-haves met) · Minor evidence gaps detected",
+      "subscores": {
+        "mustHaveCoverage": 12.5,
+        "evidenceDepth": 5.2,
+        "impactMetrics": 0,
+        "projectsAndOss": 10,
+        "seniorityFit": 5,
+        "formatAndParse": 10,
+        "tierFit": 3.5,
+        "niceToHaveCoverage": 10,
+        "titleAlignment": 5,
+        "educationAndCerts": 4,
+        "parseHealth": 5
+      },
+      "penalties": [
+        {
+          "id": "keyword_stuffing",
+          "label": "Keyword Stuffing Detected",
+          "points": -15,
+          "reason": "32 of 32 skills listed in skills section lack any project or experience evidence."
+        },
+        {
+          "id": "word_count_outlier",
+          "label": "Resume Abnormally Brief",
+          "points": -4,
+          "reason": "Resume has 129 words (ideal technical resumes range between 140 and 1,200 words)."
+        }
+      ]
+    },
+    "talentLens": {
+      "simulatedScore": 0,
+      "sampleCompetencies": [
+        {
+          "competency": "Java",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "Python",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "React",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "TypeScript",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "Docker",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "System Design",
+          "status": "absent",
+          "confidence": 5
+        }
+      ]
+    }
+  },
+  "syn-11-intern-skills-dump": {
+    "id": "syn-11-intern-skills-dump",
+    "label": "Intern Frontend — Massive Skills Dump No Evidence",
+    "experienceLevel": "Intern",
+    "roleFamily": "Frontend",
+    "category": "skills_dump",
+    "description": "Lists modern frontend stack (React, Next.js, Redux, Vitest, Tailwind, GraphQL), but experience bullets describe manual testing.",
+    "hasJd": true,
+    "atsRoaster": {
+      "success": true,
+      "score": 50,
+      "band": "Needs work",
+      "headline": "Meets 100% of Must-Have Requirements (5/5) · Verified ATS Compatibility",
+      "subscores": {
+        "mustHaveCoverage": 15,
+        "evidenceDepth": 7.3,
+        "impactMetrics": 0,
+        "projectsAndOss": 9,
+        "seniorityFit": 7,
+        "formatAndParse": 8,
+        "tierFit": 3.5,
+        "niceToHaveCoverage": 10,
+        "titleAlignment": 7,
+        "educationAndCerts": 4,
+        "parseHealth": 4
+      },
+      "penalties": [
+        {
+          "id": "keyword_stuffing",
+          "label": "Keyword Stuffing Detected",
+          "points": -15,
+          "reason": "20 of 20 skills listed in skills section lack any project or experience evidence."
+        },
+        {
+          "id": "missing_projects",
+          "label": "Missing Dedicated PROJECTS Section",
+          "points": -3,
+          "reason": "ATS parser expects a dedicated header for projects."
+        },
+        {
+          "id": "word_count_outlier",
+          "label": "Resume Abnormally Brief",
+          "points": -4,
+          "reason": "Resume has 97 words (ideal technical resumes range between 140 and 1,200 words)."
+        }
+      ]
+    },
+    "talentLens": {
+      "simulatedScore": 0,
+      "sampleCompetencies": [
+        {
+          "competency": "Java",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "Python",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "React",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "TypeScript",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "Docker",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "System Design",
+          "status": "absent",
+          "confidence": 5
+        }
+      ]
+    }
+  },
+  "syn-12-0to2yr-buzzwords": {
+    "id": "syn-12-0to2yr-buzzwords",
+    "label": "0-2 yr Backend — Buzzword Salad Without Context",
+    "experienceLevel": "0-2 yrs",
+    "roleFamily": "Backend",
+    "category": "buzzwords",
+    "description": "Full of corporate fluff (\"synergized cutting-edge paradigms\", \"orchestrated visionary architecture\") with zero concrete facts.",
+    "hasJd": true,
+    "atsRoaster": {
+      "success": true,
+      "score": 31,
+      "band": "Weak match",
+      "headline": "Moderate Alignment (2/4 must-haves met) · Key requirements missing",
+      "subscores": {
+        "mustHaveCoverage": 7.5,
+        "evidenceDepth": 3,
+        "impactMetrics": 0,
+        "projectsAndOss": 5,
+        "seniorityFit": 5,
+        "formatAndParse": 8,
+        "tierFit": 2.5,
+        "niceToHaveCoverage": 10,
+        "titleAlignment": 5,
+        "educationAndCerts": 4,
+        "parseHealth": 4
+      },
+      "penalties": [
+        {
+          "id": "missing_projects",
+          "label": "Missing Dedicated PROJECTS Section",
+          "points": -3,
+          "reason": "ATS parser expects a dedicated header for projects."
+        },
+        {
+          "id": "word_count_outlier",
+          "label": "Resume Abnormally Brief",
+          "points": -4,
+          "reason": "Resume has 89 words (ideal technical resumes range between 140 and 1,200 words)."
+        }
+      ]
+    },
+    "talentLens": {
+      "simulatedScore": 3,
+      "sampleCompetencies": [
+        {
+          "competency": "Java",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "Python",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "React",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "TypeScript",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "Docker",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "System Design",
+          "status": "absent",
+          "confidence": 5
+        }
+      ]
+    }
+  },
+  "syn-13-student-duplicated-bullets": {
+    "id": "syn-13-student-duplicated-bullets",
+    "label": "Student Backend — Duplicated Copy-Paste Bullets",
+    "experienceLevel": "Student",
+    "roleFamily": "Backend",
+    "category": "duplicates",
+    "description": "Contains identical repeated bullet points across two projects to inflate resume length.",
+    "hasJd": true,
+    "atsRoaster": {
+      "success": true,
+      "score": 79,
+      "band": "Competitive",
+      "headline": "Meets 100% of Must-Have Requirements (4/4) · Verified ATS Compatibility",
+      "subscores": {
+        "mustHaveCoverage": 30,
+        "evidenceDepth": 20,
+        "impactMetrics": 0,
+        "projectsAndOss": 10,
+        "seniorityFit": 5,
+        "formatAndParse": 10,
+        "tierFit": 3.5,
+        "niceToHaveCoverage": 10,
+        "titleAlignment": 5,
+        "educationAndCerts": 4,
+        "parseHealth": 5
+      },
+      "penalties": [
+        {
+          "id": "word_count_outlier",
+          "label": "Resume Abnormally Brief",
+          "points": -4,
+          "reason": "Resume has 134 words (ideal technical resumes range between 140 and 1,200 words)."
+        }
+      ]
+    },
+    "talentLens": {
+      "simulatedScore": 5,
+      "sampleCompetencies": [
+        {
+          "competency": "Java",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "Python",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "React",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "TypeScript",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "Docker",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "System Design",
+          "status": "absent",
+          "confidence": 5
+        }
+      ]
+    }
+  },
+  "syn-14-student-implausible-metrics": {
+    "id": "syn-14-student-implausible-metrics",
+    "label": "Student Backend — Wildly Implausible Fantasy Metrics",
+    "experienceLevel": "Student",
+    "roleFamily": "Backend",
+    "category": "implausible",
+    "description": "Student project claims 99.999% uptime on localhost, 50 billion users, and 1,000,000% speedup.",
+    "hasJd": true,
+    "atsRoaster": {
+      "success": true,
+      "score": 61,
+      "band": "Needs work",
+      "headline": "High Risk ATS Profile (2/8 must-haves met) · Missing core job requirements",
+      "subscores": {
+        "mustHaveCoverage": 7.5,
+        "evidenceDepth": 8.8,
+        "impactMetrics": 12.5,
+        "projectsAndOss": 10,
+        "seniorityFit": 10,
+        "formatAndParse": 10,
+        "tierFit": 2.5,
+        "niceToHaveCoverage": 5,
+        "titleAlignment": 10,
+        "educationAndCerts": 4,
+        "parseHealth": 5
+      },
+      "penalties": [
+        {
+          "id": "word_count_outlier",
+          "label": "Resume Abnormally Brief",
+          "points": -4,
+          "reason": "Resume has 104 words (ideal technical resumes range between 140 and 1,200 words)."
+        }
+      ]
+    },
+    "talentLens": {
+      "simulatedScore": 6,
+      "sampleCompetencies": [
+        {
+          "competency": "Java",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "Python",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "React",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "TypeScript",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "Docker",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "System Design",
+          "status": "absent",
+          "confidence": 5
+        }
+      ]
+    }
+  },
+  "syn-15-intern-minimal-text": {
+    "id": "syn-15-intern-minimal-text",
+    "label": "Intern General — Minimal Length Bordering Threshold",
+    "experienceLevel": "Intern",
+    "roleFamily": "General",
+    "category": "honest",
+    "description": "Very short resume text, near the minimum 100-word limit, but formatted cleanly.",
+    "hasJd": true,
+    "atsRoaster": {
+      "success": true,
+      "score": 43,
+      "band": "Weak match",
+      "headline": "High Risk ATS Profile (3/8 must-haves met) · Missing core job requirements",
+      "subscores": {
+        "mustHaveCoverage": 9.4,
+        "evidenceDepth": 6.7,
+        "impactMetrics": 0,
+        "projectsAndOss": 7,
+        "seniorityFit": 7,
+        "formatAndParse": 10,
+        "tierFit": 2.5,
+        "niceToHaveCoverage": 10,
+        "titleAlignment": 7,
+        "educationAndCerts": 4,
+        "parseHealth": 5
+      },
+      "penalties": [
+        {
+          "id": "word_count_outlier",
+          "label": "Resume Abnormally Brief",
+          "points": -4,
+          "reason": "Resume has 97 words (ideal technical resumes range between 140 and 1,200 words)."
+        }
+      ]
+    },
+    "talentLens": {
+      "simulatedScore": 0,
+      "sampleCompetencies": [
+        {
+          "competency": "Java",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "Python",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "React",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "TypeScript",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "Docker",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "System Design",
+          "status": "absent",
+          "confidence": 5
+        }
+      ]
+    }
+  },
+  "syn-16-student-ugly-columns": {
+    "id": "syn-16-student-ugly-columns",
+    "label": "Student Frontend — Interleaved Two-Column Layout",
+    "experienceLevel": "Student",
+    "roleFamily": "Frontend",
+    "category": "ugly_format",
+    "description": "Simulates OCR / text extraction from a 2-column resume where left and right columns bleed together.",
+    "hasJd": true,
+    "atsRoaster": {
+      "success": true,
+      "score": 70,
+      "band": "Competitive",
+      "headline": "Meets 100% of Must-Have Requirements (5/5) · Verified ATS Compatibility",
+      "subscores": {
+        "mustHaveCoverage": 30,
+        "evidenceDepth": 20,
+        "impactMetrics": 0,
+        "projectsAndOss": 7,
+        "seniorityFit": 5,
+        "formatAndParse": 4.5,
+        "tierFit": 3.5,
+        "niceToHaveCoverage": 10,
+        "titleAlignment": 5,
+        "educationAndCerts": 1,
+        "parseHealth": 2.3
+      },
+      "penalties": [
+        {
+          "id": "no_contact_info",
+          "label": "Missing Critical Contact Information",
+          "points": -5,
+          "reason": "Resume is missing direct recruiter contact channels (email or phone)."
+        },
+        {
+          "id": "missing_education",
+          "label": "Missing Dedicated EDUCATION Section",
+          "points": -3,
+          "reason": "ATS parser expects a dedicated header for education."
+        },
+        {
+          "id": "missing_skills",
+          "label": "Missing Dedicated SKILLS Section",
+          "points": -3,
+          "reason": "ATS parser expects a dedicated header for skills."
+        },
+        {
+          "id": "word_count_outlier",
+          "label": "Resume Abnormally Brief",
+          "points": -4,
+          "reason": "Resume has 76 words (ideal technical resumes range between 140 and 1,200 words)."
+        }
+      ]
+    },
+    "talentLens": {
+      "simulatedScore": 0,
+      "sampleCompetencies": [
+        {
+          "competency": "Java",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "Python",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "React",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "TypeScript",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "Docker",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "System Design",
+          "status": "absent",
+          "confidence": 5
+        }
+      ]
+    }
+  },
+  "syn-17-0to2yr-ugly-text-box": {
+    "id": "syn-17-0to2yr-ugly-text-box",
+    "label": "0-2 yr Backend — Missing Section Headers & Text-Box Flow",
+    "experienceLevel": "0-2 yrs",
+    "roleFamily": "Backend",
+    "category": "ugly_format",
+    "description": "Lacks standard section headers (\"Experience\", \"Education\", \"Projects\") causing ATS section-segmentation penalties.",
+    "hasJd": true,
+    "atsRoaster": {
+      "success": true,
+      "score": 25,
+      "band": "Weak match",
+      "headline": "Moderate Alignment (2/4 must-haves met) · Key requirements missing",
+      "subscores": {
+        "mustHaveCoverage": 7.5,
+        "evidenceDepth": 3,
+        "impactMetrics": 0,
+        "projectsAndOss": 0,
+        "seniorityFit": 7.5,
+        "formatAndParse": 4,
+        "tierFit": 2.5,
+        "niceToHaveCoverage": 10,
+        "titleAlignment": 7.5,
+        "educationAndCerts": 1,
+        "parseHealth": 2
+      },
+      "penalties": [
+        {
+          "id": "missing_education",
+          "label": "Missing Dedicated EDUCATION Section",
+          "points": -3,
+          "reason": "ATS parser expects a dedicated header for education."
+        },
+        {
+          "id": "missing_skills",
+          "label": "Missing Dedicated SKILLS Section",
+          "points": -3,
+          "reason": "ATS parser expects a dedicated header for skills."
+        },
+        {
+          "id": "missing_projects",
+          "label": "Missing Dedicated PROJECTS Section",
+          "points": -3,
+          "reason": "ATS parser expects a dedicated header for projects."
+        },
+        {
+          "id": "word_count_outlier",
+          "label": "Resume Abnormally Brief",
+          "points": -4,
+          "reason": "Resume has 95 words (ideal technical resumes range between 140 and 1,200 words)."
+        }
+      ]
+    },
+    "talentLens": {
+      "simulatedScore": 8,
+      "sampleCompetencies": [
+        {
+          "competency": "Java",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "Python",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "React",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "TypeScript",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "Docker",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "System Design",
+          "status": "absent",
+          "confidence": 5
+        }
+      ]
+    }
+  },
+  "syn-18-student-dataml-stuffing": {
+    "id": "syn-18-student-dataml-stuffing",
+    "label": "Student Data/ML — ML Framework Stuffing Zero Math",
+    "experienceLevel": "Student",
+    "roleFamily": "Data/ML",
+    "category": "stuffing",
+    "description": "Claims deep learning expertise with 20 libraries listed, but project is basic scikit-learn tutorial on Iris dataset.",
+    "hasJd": true,
+    "atsRoaster": {
+      "success": true,
+      "score": 59,
+      "band": "Needs work",
+      "headline": "Strong Core Match (6/8 must-haves met) · Minor evidence gaps detected",
+      "subscores": {
+        "mustHaveCoverage": 16.9,
+        "evidenceDepth": 11.2,
+        "impactMetrics": 0,
+        "projectsAndOss": 7,
+        "seniorityFit": 10,
+        "formatAndParse": 10,
+        "tierFit": 3.5,
+        "niceToHaveCoverage": 10,
+        "titleAlignment": 10,
+        "educationAndCerts": 4,
+        "parseHealth": 5
+      },
+      "penalties": [
+        {
+          "id": "keyword_stuffing",
+          "label": "Keyword Stuffing Detected",
+          "points": -15,
+          "reason": "22 of 22 skills listed in skills section lack any project or experience evidence."
+        },
+        {
+          "id": "word_count_outlier",
+          "label": "Resume Abnormally Brief",
+          "points": -4,
+          "reason": "Resume has 81 words (ideal technical resumes range between 140 and 1,200 words)."
+        }
+      ]
+    },
+    "talentLens": {
+      "simulatedScore": 0,
+      "sampleCompetencies": [
+        {
+          "competency": "Java",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "Python",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "React",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "TypeScript",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "Docker",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "System Design",
+          "status": "absent",
+          "confidence": 5
+        }
+      ]
+    }
+  },
+  "syn-19-intern-devops-buzzwords": {
+    "id": "syn-19-intern-devops-buzzwords",
+    "label": "Intern DevOps — Cloud Enthusiast Buzzword Resume",
+    "experienceLevel": "Intern",
+    "roleFamily": "DevOps",
+    "category": "buzzwords",
+    "description": "Lots of cloud keywords (\"cloud-native evangelist\", \"multi-cloud visionary\") without a single concrete cluster configuration.",
+    "hasJd": true,
+    "atsRoaster": {
+      "success": true,
+      "score": 38,
+      "band": "Weak match",
+      "headline": "High Risk ATS Profile (1/4 must-haves met) · Missing core job requirements",
+      "subscores": {
+        "mustHaveCoverage": 7.5,
+        "evidenceDepth": 5.6,
+        "impactMetrics": 0,
+        "projectsAndOss": 9,
+        "seniorityFit": 7,
+        "formatAndParse": 6,
+        "tierFit": 2.5,
+        "niceToHaveCoverage": 0,
+        "titleAlignment": 7,
+        "educationAndCerts": 4,
+        "parseHealth": 3
+      },
+      "penalties": [
+        {
+          "id": "missing_skills",
+          "label": "Missing Dedicated SKILLS Section",
+          "points": -3,
+          "reason": "ATS parser expects a dedicated header for skills."
+        },
+        {
+          "id": "missing_projects",
+          "label": "Missing Dedicated PROJECTS Section",
+          "points": -3,
+          "reason": "ATS parser expects a dedicated header for projects."
+        },
+        {
+          "id": "word_count_outlier",
+          "label": "Resume Abnormally Brief",
+          "points": -4,
+          "reason": "Resume has 88 words (ideal technical resumes range between 140 and 1,200 words)."
+        }
+      ]
+    },
+    "talentLens": {
+      "simulatedScore": 3,
+      "sampleCompetencies": [
+        {
+          "competency": "Java",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "Python",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "React",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "TypeScript",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "Docker",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "System Design",
+          "status": "absent",
+          "confidence": 5
+        }
+      ]
+    }
+  },
+  "syn-20-3plus-frontend-senior": {
+    "id": "syn-20-3plus-frontend-senior",
+    "label": "3+ yr Frontend — Design System & Micro-Frontends",
+    "experienceLevel": "3+ yrs",
+    "roleFamily": "Frontend",
+    "category": "honest",
+    "description": "Senior Frontend Engineer with 4 years experience, design token architecture, micro-frontends, and performance budgets.",
+    "hasJd": true,
+    "atsRoaster": {
+      "success": true,
+      "score": 74,
+      "band": "Competitive",
+      "headline": "Strong Core Match (7/9 must-haves met) · Minor evidence gaps detected",
+      "subscores": {
+        "mustHaveCoverage": 18.3,
+        "evidenceDepth": 15.6,
+        "impactMetrics": 7.1,
+        "projectsAndOss": 9,
+        "seniorityFit": 10,
+        "formatAndParse": 10,
+        "tierFit": 3.5,
+        "niceToHaveCoverage": 10,
+        "titleAlignment": 10,
+        "educationAndCerts": 4,
+        "parseHealth": 5
+      },
+      "penalties": [
+        {
+          "id": "keyword_stuffing",
+          "label": "Keyword Stuffing Detected",
+          "points": -13,
+          "reason": "16 of 19 skills listed in skills section lack any project or experience evidence."
+        },
+        {
+          "id": "word_count_outlier",
+          "label": "Resume Abnormally Brief",
+          "points": -4,
+          "reason": "Resume has 193 words (ideal technical resumes range between 250 and 1,200 words)."
+        }
+      ]
+    },
+    "talentLens": {
+      "simulatedScore": 5,
+      "sampleCompetencies": [
+        {
+          "competency": "Java",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "Python",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "React",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "TypeScript",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "Docker",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "System Design",
+          "status": "absent",
+          "confidence": 5
+        }
+      ]
+    }
+  },
+  "syn-21-3plus-dataml-senior": {
+    "id": "syn-21-3plus-dataml-senior",
+    "label": "3+ yr Data/ML — Distributed Training & Real-Time ML",
+    "experienceLevel": "3+ yrs",
+    "roleFamily": "Data/ML",
+    "category": "honest",
+    "description": "Senior ML Engineer with 4 years experience, recommendation systems, feature store, and low-latency inference.",
+    "hasJd": true,
+    "atsRoaster": {
+      "success": true,
+      "score": 80,
+      "band": "Strong",
+      "headline": "Strong Core Match (6/7 must-haves met) · Minor evidence gaps detected",
+      "subscores": {
+        "mustHaveCoverage": 19.3,
+        "evidenceDepth": 17.1,
+        "impactMetrics": 10.7,
+        "projectsAndOss": 9,
+        "seniorityFit": 10,
+        "formatAndParse": 10,
+        "tierFit": 3.5,
+        "niceToHaveCoverage": 6.7,
+        "titleAlignment": 10,
+        "educationAndCerts": 4,
+        "parseHealth": 5
+      },
+      "penalties": [
+        {
+          "id": "word_count_outlier",
+          "label": "Resume Abnormally Brief",
+          "points": -4,
+          "reason": "Resume has 191 words (ideal technical resumes range between 250 and 1,200 words)."
+        }
+      ]
+    },
+    "talentLens": {
+      "simulatedScore": 5,
+      "sampleCompetencies": [
+        {
+          "competency": "Java",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "Python",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "React",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "TypeScript",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "Docker",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "System Design",
+          "status": "absent",
+          "confidence": 5
+        }
+      ]
+    }
+  },
+  "syn-22-3plus-mobile-senior": {
+    "id": "syn-22-3plus-mobile-senior",
+    "label": "3+ yr Mobile — Dual Platform & Scale Architecture",
+    "experienceLevel": "3+ yrs",
+    "roleFamily": "Mobile",
+    "category": "honest",
+    "description": "Senior Mobile Engineer with 4 years experience, modular Kotlin/Swift codebase, 5M+ active users, and crash observability.",
+    "hasJd": true,
+    "atsRoaster": {
+      "success": true,
+      "score": 81,
+      "band": "Strong",
+      "headline": "Strong Core Match (5/6 must-haves met) · Minor evidence gaps detected",
+      "subscores": {
+        "mustHaveCoverage": 20,
+        "evidenceDepth": 17.7,
+        "impactMetrics": 10.7,
+        "projectsAndOss": 9,
+        "seniorityFit": 10,
+        "formatAndParse": 10,
+        "tierFit": 3.5,
+        "niceToHaveCoverage": 10,
+        "titleAlignment": 10,
+        "educationAndCerts": 4,
+        "parseHealth": 5
+      },
+      "penalties": [
+        {
+          "id": "keyword_stuffing",
+          "label": "Keyword Stuffing Detected",
+          "points": -14,
+          "reason": "18 of 19 skills listed in skills section lack any project or experience evidence."
+        },
+        {
+          "id": "word_count_outlier",
+          "label": "Resume Abnormally Brief",
+          "points": -4,
+          "reason": "Resume has 182 words (ideal technical resumes range between 250 and 1,200 words)."
+        }
+      ]
+    },
+    "talentLens": {
+      "simulatedScore": 0,
+      "sampleCompetencies": [
+        {
+          "competency": "Java",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "Python",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "React",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "TypeScript",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "Docker",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "System Design",
+          "status": "absent",
+          "confidence": 5
+        }
+      ]
+    }
+  },
+  "syn-23-student-underqualified-for-senior-jd": {
+    "id": "syn-23-student-underqualified-for-senior-jd",
+    "label": "Student Applying for Staff/Senior Role (Mismatch)",
+    "experienceLevel": "Student",
+    "roleFamily": "Backend",
+    "category": "mismatch",
+    "description": "Fresh graduate candidate evaluated against a Staff Engineer JD requiring 8+ years and cross-org technical leadership.",
+    "hasJd": true,
+    "atsRoaster": {
+      "success": true,
+      "score": 54,
+      "band": "Needs work",
+      "headline": "Moderate Alignment (5/9 must-haves met) · Key requirements missing",
+      "subscores": {
+        "mustHaveCoverage": 15,
+        "evidenceDepth": 11.3,
+        "impactMetrics": 0,
+        "projectsAndOss": 10,
+        "seniorityFit": 5,
+        "formatAndParse": 10,
+        "tierFit": 2.5,
+        "niceToHaveCoverage": 10,
+        "titleAlignment": 5,
+        "educationAndCerts": 4,
+        "parseHealth": 5
+      },
+      "penalties": [
+        {
+          "id": "word_count_outlier",
+          "label": "Resume Abnormally Brief",
+          "points": -4,
+          "reason": "Resume has 87 words (ideal technical resumes range between 140 and 1,200 words)."
+        }
+      ]
+    },
+    "talentLens": {
+      "simulatedScore": 0,
+      "sampleCompetencies": [
+        {
+          "competency": "Java",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "Python",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "React",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "TypeScript",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "Docker",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "System Design",
+          "status": "absent",
+          "confidence": 5
+        }
+      ]
+    }
+  },
+  "syn-24-3plus-overqualified-for-intern-jd": {
+    "id": "syn-24-3plus-overqualified-for-intern-jd",
+    "label": "Senior SWE Applying for Summer Intern Role (Mismatch)",
+    "experienceLevel": "3+ yrs",
+    "roleFamily": "Backend",
+    "category": "mismatch",
+    "description": "Senior engineer with 5 years experience evaluated against a campus summer internship role.",
+    "hasJd": true,
+    "atsRoaster": {
+      "success": true,
+      "score": 47,
+      "band": "Needs work",
+      "headline": "High Risk ATS Profile (2/6 must-haves met) · Missing core job requirements",
+      "subscores": {
+        "mustHaveCoverage": 10,
+        "evidenceDepth": 7.8,
+        "impactMetrics": 3.6,
+        "projectsAndOss": 5,
+        "seniorityFit": 10,
+        "formatAndParse": 8,
+        "tierFit": 2.5,
+        "niceToHaveCoverage": 0,
+        "titleAlignment": 10,
+        "educationAndCerts": 4,
+        "parseHealth": 4
+      },
+      "penalties": [
+        {
+          "id": "missing_projects",
+          "label": "Missing Dedicated PROJECTS Section",
+          "points": -3,
+          "reason": "ATS parser expects a dedicated header for projects."
+        },
+        {
+          "id": "word_count_outlier",
+          "label": "Resume Abnormally Brief",
+          "points": -4,
+          "reason": "Resume has 102 words (ideal technical resumes range between 140 and 1,200 words)."
+        }
+      ]
+    },
+    "talentLens": {
+      "simulatedScore": 5,
+      "sampleCompetencies": [
+        {
+          "competency": "Java",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "Python",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "React",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "TypeScript",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "Docker",
+          "status": "absent",
+          "confidence": 5
+        },
+        {
+          "competency": "System Design",
+          "status": "absent",
+          "confidence": 5
+        }
+      ]
+    }
+  }
+}
