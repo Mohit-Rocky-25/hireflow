@@ -577,7 +577,7 @@ export function ReachOutPage() {
 
           <div className="flex items-center gap-2">
             <Link
-              to="/tools/tracker"
+              to="/history"
               className="px-3.5 py-1.5 text-xs font-bold bg-near-black hover:bg-hover-gray border border-charcoal hover:border-silver rounded text-white transition-all flex items-center gap-1.5"
             >
               <Briefcase className="w-3.5 h-3.5 text-volt" />
@@ -1384,7 +1384,7 @@ export function ReachOutPage() {
                     {/* Card Actions Footer */}
                     <div className="pt-3 border-t border-charcoal flex items-center justify-between gap-2 flex-wrap">
                       <Link
-                        to="/tools/tracker"
+                        to="/history"
                         className="text-xs font-semibold text-silver hover:text-volt flex items-center gap-1"
                       >
                         <Briefcase className="w-3.5 h-3.5 text-volt" />

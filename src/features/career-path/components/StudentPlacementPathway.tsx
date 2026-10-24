@@ -134,13 +134,13 @@ export function SkillsToClosePanel() {
             </div>
             <div className="pt-2.5 border-t border-charcoal flex items-center justify-between text-xs">
               <Link
-                to={`/tools/briefs?skill=${encodeURIComponent(skill)}`}
+                to={`/tools/build-briefs?query=${encodeURIComponent(skill)}`}
                 className="font-mono font-bold text-volt hover:underline flex items-center gap-1"
               >
                 Find Practice Brief &rarr;
               </Link>
               <Link
-                to={`/tools/credentials?search=${encodeURIComponent(skill)}`}
+                to={`/tools/credential-engine?q=${encodeURIComponent(skill)}`}
                 className="text-silver hover:text-white font-semibold font-mono"
               >
                 Certifications

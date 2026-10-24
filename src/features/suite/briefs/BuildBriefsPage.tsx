@@ -9,7 +9,7 @@
 // ============================================================
 
 import React, { useState, useMemo, useEffect, useCallback, useRef, useLayoutEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { PageNav } from '../../../components/common/PageNav';
 import {
   ArrowLeft,
@@ -56,16 +56,25 @@ import { BriefCard } from './components/BriefCard';
 // ── Main Page ─────────────────────────────────────────────
 export function BuildBriefsPage() {
   const { profile } = useProfile();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const incomingQuery = searchParams.get('query') || searchParams.get('skill') || searchParams.get('q') || '';
 
   const [gapMode,         setGapMode]         = useState<'profile' | 'custom'>('profile');
   const [customGapsInput, setCustomGapsInput] = useState('Kafka, Go, Redis, Docker, System Design');
   const [selectedDomain,  setSelectedDomain]  = useState('all');
   const [selectedDiff,    setSelectedDiff]    = useState('all');
-  const [searchQuery,     setSearchQuery]     = useState('');
-  const [activeTab,       setActiveTab]       = useState<'bundle' | 'library'>('bundle');
+  const [searchQuery,     setSearchQuery]     = useState(incomingQuery);
+  const [activeTab,       setActiveTab]       = useState<'bundle' | 'library'>(incomingQuery ? 'library' : 'bundle');
   const [activeBrief,     setActiveBrief]     = useState<ProjectBrief | null>(null);
   const [savedBriefIds,   setSavedBriefIds]   = useState<string[]>([]);
   const [copyStatus,      setCopyStatus]      = useState<Record<string, boolean>>({});
+
+  useEffect(() => {
+    if (incomingQuery) {
+      setSearchQuery(incomingQuery);
+      setActiveTab('library');
+    }
+  }, [incomingQuery]);
 
   const activeGaps = useMemo<string[]>(() => {
     if (gapMode === 'profile') {
@@ -172,6 +181,35 @@ export function BuildBriefsPage() {
           </Link>
         </div>
       </div>
+
+      {/* Query filter banner */}
+      {incomingQuery && (
+        <div className="flex items-center justify-between p-3.5 bg-near-black border border-volt/40 rounded-lg text-xs font-mono text-white animate-fade-in shadow-level-1">
+          <div className="flex items-center gap-2.5">
+            <span className="w-2.5 h-2.5 rounded-full bg-volt shrink-0 animate-ping" />
+            <span>
+              🎯 <strong className="text-volt uppercase tracking-wider">Filtered by Requirement:</strong>{' '}
+              <span className="text-white font-black underline decoration-volt decoration-2">{incomingQuery}</span>{' '}
+              — showing matching 3-day project briefs.
+            </span>
+          </div>
+          <button
+            onClick={() => {
+              const next = new URLSearchParams(searchParams);
+              next.delete('query');
+              next.delete('skill');
+              next.delete('q');
+              setSearchParams(next);
+              setSearchQuery('');
+            }}
+            className="inline-flex items-center gap-1 px-2.5 py-1 text-[11px] font-bold uppercase rounded bg-black hover:bg-hover-gray border border-charcoal hover:border-volt text-silver hover:text-white transition-colors cursor-pointer shrink-0"
+            title="Clear filter and show all briefs"
+          >
+            <X className="w-3 h-3 text-silver" />
+            Clear Filter
+          </button>
+        </div>
+      )}
 
       {/* Domain quick-stats bar */}
       <div className="flex flex-wrap gap-2">

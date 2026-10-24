@@ -204,7 +204,7 @@ export const SkillsTab: React.FC<Props> = ({ skills }) => {
                           </span>
                           <div className="flex flex-wrap gap-1.5 pt-0.5">
                             <Link
-                              to={`/tools/resume-tailor?skill=${encodeURIComponent(skill.canonical)}`}
+                              to={`/tools/tailor?skill=${encodeURIComponent(skill.canonical)}`}
                               className="inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-[1px] px-2.5 py-1 rounded bg-forest text-white border border-[#141414] hover:bg-[#3a3a3a] transition-colors"
                               title="Draft bullet in Tailor Studio"
                             >
@@ -212,7 +212,7 @@ export const SkillsTab: React.FC<Props> = ({ skills }) => {
                               Tailor Bullet
                             </Link>
                             <Link
-                              to={`/tools/project-briefs?query=${encodeURIComponent(skill.canonical)}`}
+                              to={`/tools/build-briefs?query=${encodeURIComponent(skill.canonical)}`}
                               className="inline-flex items-center gap-1 text-[11px] font-semibold uppercase tracking-[1px] px-2.5 py-1 rounded bg-black text-silver hover:text-white border border-charcoal hover:border-silver transition-colors"
                               title="Generate 3-day project scaffold"
                             >
@@ -220,7 +220,7 @@ export const SkillsTab: React.FC<Props> = ({ skills }) => {
                               Project Brief
                             </Link>
                             <Link
-                              to={`/tools/credentials?q=${encodeURIComponent(skill.canonical)}`}
+                              to={`/tools/credential-engine?q=${encodeURIComponent(skill.canonical)}`}
                               className="inline-flex items-center gap-1 text-[11px] font-semibold uppercase tracking-[1px] px-2.5 py-1 rounded bg-black text-silver hover:text-white border border-charcoal hover:border-silver transition-colors"
                               title="Find industry certifications"
                             >

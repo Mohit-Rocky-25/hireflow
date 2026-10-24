@@ -4,6 +4,7 @@
 // ============================================================
 
 import React, { useState, useMemo } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import {
   Award,
   Trophy,
@@ -31,6 +32,9 @@ import { ALL_OPPORTUNITIES } from './data/opportunitiesData';
 export type EngineTab = 'certifications' | 'events' | 'open_source' | 'opportunity_plan';
 
 export function CredentialOpportunityEnginePage() {
+  const [searchParams] = useSearchParams();
+  const searchParam = searchParams.get('q') || searchParams.get('search') || '';
+
   const [activeTab, setActiveTab] = useState<EngineTab>('certifications');
   const [selectedOpportunity, setSelectedOpportunity] = useState<OpportunityRecord | null>(null);
   const [modalInitialTab, setModalInitialTab] = useState<ModalTab>('overview');
@@ -241,6 +245,7 @@ export function CredentialOpportunityEnginePage() {
             <CertificationsTab
               onSelectOpportunity={handleOpenOpportunity}
               onPlanUpdated={refreshPlanCount}
+              initialSearchQuery={searchParam}
             />
           )}
 

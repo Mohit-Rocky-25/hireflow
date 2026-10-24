@@ -119,7 +119,7 @@ export function ReachOutNav({
 
           {/* Log in Tracker Link (Hard Guardrail 6) */}
           <Link
-            to="/tools/tracker"
+            to="/history"
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-neutral-300 hover:text-white bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 transition-colors"
             title="Log outreach note in Application Tracker"
           >

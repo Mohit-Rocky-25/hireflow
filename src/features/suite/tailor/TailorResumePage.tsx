@@ -5,6 +5,7 @@
 // ============================================================
 
 import React, { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { useTailorStore } from '../../../lib/tailor/store/tailorStore';
 import { DarkTailorHeader } from './components/DarkTailorHeader';
 import { HandmadeResumeEditor } from './components/HandmadeResumeEditor';
@@ -12,10 +13,15 @@ import { DarkPaperPreview } from './components/DarkPaperPreview';
 import { DirectInputModal } from './components/DirectInputModal';
 import { MakeItBetterModal } from './components/MakeItBetterModal';
 import { MakeItBetterResult } from '../../../lib/tailor/engine/makeItBetterEngine';
-import { Sparkles, Zap, FileText, CheckCircle2 } from 'lucide-react';
+import { Sparkles, Zap, FileText, CheckCircle2, Target, X } from 'lucide-react';
 
 export function TailorResumePage() {
   const { activeProject } = useTailorStore();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const focusParam = searchParams.get('focus') || searchParams.get('skill') || '';
+  const bulletParam = searchParams.get('bullet') || '';
+  const modeParam = searchParams.get('mode') || '';
+
   const [isInputModalOpen, setIsInputModalOpen] = useState(false);
   const [isMakeItBetterModalOpen, setIsMakeItBetterModalOpen] = useState(false);
   const [makeItBetterResult, setMakeItBetterResult] = useState<MakeItBetterResult | null>(null);
@@ -23,6 +29,8 @@ export function TailorResumePage() {
 
   const resume = activeProject.tailoredResume;
   const candidate = activeProject.candidate;
+
+  const targetFocus = focusParam || bulletParam;
 
   return (
     <div className="min-h-screen bg-black text-foreground flex flex-col selection:bg-volt selection:text-black relative">
@@ -72,12 +80,45 @@ export function TailorResumePage() {
           </div>
         </div>
 
+        {/* Target Focus Imported Banner */}
+        {targetFocus && (
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 p-3.5 bg-near-black border border-volt/40 rounded-lg text-xs font-mono text-white animate-fade-in shadow-level-1">
+            <div className="flex items-center gap-2.5">
+              <span className="w-2.5 h-2.5 rounded-full bg-volt shrink-0 animate-ping" />
+              <div>
+                <span className="text-volt font-bold uppercase tracking-wider">🎯 Tailor Improvement Target:</span>{' '}
+                <span className="text-white font-black underline decoration-volt decoration-2">{targetFocus}</span>
+                <span className="text-silver ml-2 hidden md:inline">
+                  {modeParam === 'upgrade'
+                    ? '— Loaded for bullet elevation & XYZ quantification'
+                    : '— Direct ATS requirement imported from Resume Checker'}
+                </span>
+              </div>
+            </div>
+            <button
+              onClick={() => {
+                const next = new URLSearchParams(searchParams);
+                next.delete('focus');
+                next.delete('skill');
+                next.delete('bullet');
+                next.delete('mode');
+                setSearchParams(next);
+              }}
+              className="inline-flex items-center gap-1 px-2.5 py-1 text-[11px] font-bold uppercase rounded bg-black hover:bg-hover-gray border border-charcoal hover:border-volt text-silver hover:text-white transition-colors cursor-pointer shrink-0"
+              title="Clear focus and show all sections"
+            >
+              <X className="w-3 h-3 text-silver" />
+              Clear Focus
+            </button>
+          </div>
+        )}
+
         {/* Desktop Split View: Editor (Left) & Live Canvas (Right) */}
         {resume && (
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start flex-1">
             {/* Left Column: Handmade Editor */}
             <div className={`lg:col-span-7 ${mobileTab === 'preview' ? 'hidden lg:block' : ''}`}>
-              <HandmadeResumeEditor />
+              <HandmadeResumeEditor initialFocus={targetFocus} />
             </div>
 
             {/* Right Column: Live Paper Canvas */}

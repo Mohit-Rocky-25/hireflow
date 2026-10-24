@@ -352,7 +352,7 @@ export function TalentLens() {
           </button>
 
           <Link
-            to="/tools/company-compare"
+            to="/tools/jd-compare"
             className="h-10 px-3.5 border border-charcoal rounded text-xs font-mono bg-black text-white hover:text-volt hover:border-volt flex items-center gap-1.5 transition-colors"
           >
             <Building2 className="w-4 h-4 text-volt" />

@@ -44,13 +44,21 @@ import { FreshnessBadge, OfficialSourceLink, DatesChangeNotice } from './Freshne
 interface CertificationsTabProps {
   onSelectOpportunity: (opportunity: OpportunityRecord, tab?: ModalTab) => void;
   onPlanUpdated?: () => void;
+  initialSearchQuery?: string;
 }
 
 export function CertificationsTab({
   onSelectOpportunity,
   onPlanUpdated,
+  initialSearchQuery = '',
 }: CertificationsTabProps) {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState(initialSearchQuery);
+
+  React.useEffect(() => {
+    if (initialSearchQuery) {
+      setSearchQuery(initialSearchQuery);
+    }
+  }, [initialSearchQuery]);
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [selectedRole, setSelectedRole] = useState<string>('All');
   const [selectedLevel, setSelectedLevel] = useState<string>('All');

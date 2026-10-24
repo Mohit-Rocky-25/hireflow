@@ -56,7 +56,7 @@ export function CompanyHeaderCard({ company, onChangeCompany }: CompanyHeaderCar
 
           {/* Compare with another company button */}
           <Link
-            to={`/tools/company-compare?c1=${company.id}`}
+            to={`/tools/jd-compare?c1=${company.id}`}
             className="flex items-center gap-1.5 px-3 py-2 rounded bg-black hover:bg-hover-gray border border-charcoal hover:border-volt text-white font-semibold text-xs uppercase tracking-[1px] transition-colors"
           >
             <Building2 className="w-3.5 h-3.5 text-volt stroke-[1.5px]" />
@@ -65,7 +65,7 @@ export function CompanyHeaderCard({ company, onChangeCompany }: CompanyHeaderCar
 
           {/* Decode offer link */}
           <Link
-            to={`/tools/offer-decoder?company=${company.id}`}
+            to={`/tools/career-path/company-levels?company=${company.id}`}
             className="flex items-center gap-1.5 px-3 py-2 rounded bg-black hover:bg-hover-gray border border-charcoal hover:border-volt text-white font-semibold text-xs uppercase tracking-[1px] transition-colors"
           >
             <DollarSign className="w-3.5 h-3.5 text-volt stroke-[1.5px]" />

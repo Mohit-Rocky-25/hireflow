@@ -73,7 +73,7 @@ export const FixTheseFirst: React.FC<Props> = ({ items }) => {
                 {item.type === 'missing_must_have' ? (
                   <>
                     <Link
-                      to={`/tools/resume-tailor?focus=${encodeURIComponent(item.title)}`}
+                      to={`/tools/tailor?focus=${encodeURIComponent(item.title)}`}
                       className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-bold uppercase tracking-[1px] bg-forest text-white border border-[#141414] hover:bg-[#3a3a3a] transition-colors"
                     >
                       <PenTool className="w-3 h-3 stroke-[1.5px]" />
@@ -81,7 +81,7 @@ export const FixTheseFirst: React.FC<Props> = ({ items }) => {
                       <ArrowRight className="w-3 h-3 ml-0.5 stroke-[1.5px]" />
                     </Link>
                     <Link
-                      to={`/tools/project-briefs?query=${encodeURIComponent(item.title)}`}
+                      to={`/tools/build-briefs?query=${encodeURIComponent(item.title)}`}
                       className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-semibold uppercase tracking-[1px] bg-black text-silver hover:text-white border border-charcoal hover:border-silver transition-colors"
                     >
                       <FolderGit2 className="w-3 h-3 stroke-[1.5px]" />
@@ -90,7 +90,7 @@ export const FixTheseFirst: React.FC<Props> = ({ items }) => {
                   </>
                 ) : (
                   <Link
-                    to={`/tools/resume-tailor?mode=upgrade&bullet=${encodeURIComponent(item.title)}`}
+                    to={`/tools/tailor?mode=upgrade&bullet=${encodeURIComponent(item.title)}`}
                     className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-bold uppercase tracking-[1px] bg-forest text-white border border-[#141414] hover:bg-[#3a3a3a] transition-colors"
                   >
                     <PenTool className="w-3 h-3 stroke-[1.5px]" />

@@ -75,7 +75,7 @@ export function ReachOutActionBar({
         {/* Left: Log in Tracker link (Hard Guardrail 6) */}
         <div className="flex items-center gap-3">
           <Link
-            to="/tools/tracker"
+            to="/history"
             className="text-xs font-semibold text-neutral-300 hover:text-white inline-flex items-center gap-1.5 transition-colors"
             title="Log this communication in your HireFlow Application Tracker"
           >

@@ -4,7 +4,7 @@
 // in-place role & bullet elevation, 1-page fit sentinel, and search filtering
 // ============================================================
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import {
   Sparkles,
   Plus,
@@ -59,7 +59,11 @@ import { CompanyLogo } from '../../../../components/common/CompanyLogo';
 
 type SubsectionFilterTab = 'all' | 'experience' | 'projects' | 'skills' | 'education' | 'summary' | 'requirements' | 'profile';
 
-export function HandmadeResumeEditor() {
+export interface HandmadeResumeEditorProps {
+  initialFocus?: string;
+}
+
+export function HandmadeResumeEditor({ initialFocus }: HandmadeResumeEditorProps = {}) {
   const {
     activeProject,
     updateBulletText,
@@ -87,12 +91,18 @@ export function HandmadeResumeEditor() {
 
   // Local UI states
   const [activeTab, setActiveTab] = useState<SubsectionFilterTab>('all');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState(initialFocus || '');
   const [expandedEntryId, setExpandedEntryId] = useState<string | null>(null);
   const [expandedSuggestions, setExpandedSuggestions] = useState<Record<string, boolean>>({});
   const [addedBulletMap, setAddedBulletMap] = useState<Record<string, boolean>>({});
   const [newSkillInput, setNewSkillInput] = useState<Record<string, string>>({});
   const [fitToast, setFitToast] = useState(false);
+
+  useEffect(() => {
+    if (initialFocus) {
+      setSearchQuery(initialFocus);
+    }
+  }, [initialFocus]);
 
   if (!resume) {
     return (

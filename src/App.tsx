@@ -1,7 +1,7 @@
 // ============================================================
 // HireFlow v3 — Candidate Career Decision Suite (Client-Side)
 // ============================================================
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import React, { useEffect, useState, useCallback, Suspense } from 'react';
 import { useStore } from './store/useStore';
 import { CinematicLoader } from './components/Loader/CinematicLoader';
@@ -43,6 +43,11 @@ function RouteFallback() {
       <span className="text-xs font-mono text-silver uppercase tracking-[1.4px]">Loading module...</span>
     </div>
   );
+}
+
+function RedirectWithSearch({ to }: { to: string }) {
+  const location = useLocation();
+  return <Navigate to={`${to}${location.search}`} replace />;
 }
 
 export default function App() {
@@ -101,16 +106,26 @@ export default function App() {
             <Route path="/tools/career-path/explorer" element={<Navigate to="/tools/career-path/company-levels" replace />} />
             <Route path="/tools/talent-lens" element={<TalentLens />} />
             <Route path="/tools/credential-engine" element={<CredentialOpportunityEnginePage />} />
-            <Route path="/tools/credentials" element={<Navigate to="/tools/credential-engine" replace />} />
-            <Route path="/tools/opportunity-engine" element={<Navigate to="/tools/credential-engine" replace />} />
+            <Route path="/tools/credentials" element={<RedirectWithSearch to="/tools/credential-engine" />} />
+            <Route path="/tools/opportunity-engine" element={<RedirectWithSearch to="/tools/credential-engine" />} />
+            <Route path="/tools/resume-tailor" element={<RedirectWithSearch to="/tools/tailor" />} />
+            <Route path="/tools/tailor-draft" element={<RedirectWithSearch to="/tools/tailor" />} />
+            <Route path="/tools/project-briefs" element={<RedirectWithSearch to="/tools/build-briefs" />} />
+            <Route path="/tools/briefs" element={<RedirectWithSearch to="/tools/build-briefs" />} />
+            <Route path="/tools/tracker" element={<RedirectWithSearch to="/history" />} />
+            <Route path="/tools/company-compare" element={<RedirectWithSearch to="/tools/jd-compare" />} />
+            <Route path="/tools/offer-decoder" element={<RedirectWithSearch to="/tools/career-path/company-levels" />} />
+            <Route path="/tools/resume-roaster" element={<RedirectWithSearch to="/tools/resume-checker" />} />
+            <Route path="/tools/roaster" element={<RedirectWithSearch to="/tools/resume-checker" />} />
+            <Route path="/tools/checker" element={<RedirectWithSearch to="/tools/resume-checker" />} />
             <Route path="/dev/careers-data" element={<CareersDataExplorer />} />
             <Route path="/data" element={<YourDataPage />} />
-            <Route path="/settings" element={<Navigate to="/data" replace />} />
+            <Route path="/settings" element={<RedirectWithSearch to="/data" />} />
             <Route path="/history" element={<ScanHistoryPage />} />
             <Route path="/jd-library" element={<SavedJdLibraryPage />} />
-            <Route path="/tools/jd-library" element={<Navigate to="/jd-library" replace />} />
+            <Route path="/tools/jd-library" element={<RedirectWithSearch to="/jd-library" />} />
             <Route path="/methodology" element={<MethodologyPage />} />
-            <Route path="/tools/methodology" element={<Navigate to="/methodology" replace />} />
+            <Route path="/tools/methodology" element={<RedirectWithSearch to="/methodology" />} />
 
             {/* Legacy Fallbacks (graceful redirects for old bookmarks) */}
             <Route path="/portal/*" element={<Navigate to="/tools" replace />} />
