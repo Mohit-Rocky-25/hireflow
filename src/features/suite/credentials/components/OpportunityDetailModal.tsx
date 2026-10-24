@@ -328,10 +328,10 @@ export function OpportunityDetailModal({
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => handleExternalRedirect(e, portalUrl)}
-              className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-primary text-black text-xs font-bold hover:opacity-90 shadow-xs transition-all cursor-pointer"
+              className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-primary !text-black text-xs font-bold hover:opacity-90 shadow-xs transition-all cursor-pointer"
             >
-              <span>Official Site</span>
-              <ExternalLink className="w-3.5 h-3.5" />
+              <span className="!text-black font-black">Official Site</span>
+              <ExternalLink className="w-3.5 h-3.5 !text-black stroke-[2px]" />
             </a>
 
             {/* Prominent Cross Button on Top Edge to Go Back */}
@@ -355,7 +355,7 @@ export function OpportunityDetailModal({
                 onClick={() => setActiveTab('overview')}
                 className={`px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
                   activeTab === 'overview'
-                    ? 'bg-primary text-black shadow-xs'
+                    ? 'bg-primary !text-black font-black shadow-xs'
                     : 'text-text-secondary hover:text-foreground hover:bg-surface-2'
                 }`}
               >
@@ -398,7 +398,7 @@ export function OpportunityDetailModal({
                 onClick={() => setActiveTab('resume_evidence')}
                 className={`px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
                   activeTab === 'resume_evidence'
-                    ? 'bg-primary text-black shadow-xs'
+                    ? 'bg-primary !text-black font-black shadow-xs'
                     : 'text-text-secondary hover:text-foreground hover:bg-surface-2'
                 }`}
               >
@@ -409,7 +409,7 @@ export function OpportunityDetailModal({
                 onClick={() => setActiveTab('pitfalls_sources')}
                 className={`px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer flex items-center gap-1 ${
                   activeTab === 'pitfalls_sources'
-                    ? 'bg-primary text-black shadow-xs'
+                    ? 'bg-primary !text-black font-black shadow-xs'
                     : 'text-text-secondary hover:text-foreground hover:bg-surface-2'
                 }`}
               >
@@ -428,7 +428,7 @@ export function OpportunityDetailModal({
                     onClick={() => handleToggleSavePlan(st)}
                     className={`px-2.5 py-1 rounded-lg capitalize transition-all cursor-pointer ${
                       currentStatus === st
-                        ? 'bg-primary text-black font-bold shadow-xs'
+                        ? 'bg-primary !text-black font-black shadow-xs'
                         : 'text-text-secondary hover:text-foreground'
                     }`}
                   >
@@ -1060,10 +1060,10 @@ export function OpportunityDetailModal({
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={(e) => handleExternalRedirect(e, syllabusUrl)}
-                    className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-primary hover:bg-primary/90 text-black text-xs font-black shadow-md shadow-primary/20 transition-all cursor-pointer group shrink-0"
+                    className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-primary hover:bg-primary/90 !text-black text-xs font-black shadow-md shadow-primary/20 transition-all cursor-pointer group shrink-0"
                   >
-                    <span>Open Official Syllabus / Guide</span>
-                    <ExternalLink className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                    <span className="!text-black font-black">Open Official Syllabus / Guide</span>
+                    <ExternalLink className="w-3.5 h-3.5 !text-black stroke-[2px] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                   </a>
                 </div>
 
@@ -1822,12 +1822,12 @@ export function OpportunityDetailModal({
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => handleExternalRedirect(e, portalUrl)}
-              className="px-5 py-2 rounded-xl bg-primary text-black font-bold inline-flex items-center gap-1.5 hover:opacity-90 shadow-md shadow-primary/20 transition-all cursor-pointer"
+              className="px-5 py-2 rounded-xl bg-primary !text-black font-black inline-flex items-center gap-1.5 hover:opacity-90 shadow-md shadow-primary/20 transition-all cursor-pointer"
               title={`Open official website (${getDomainFromUrl(portalUrl)})`}
             >
-              <span>Open Official Website</span>
-              <span className="opacity-80 font-mono text-[10px]">({getDomainFromUrl(portalUrl)})</span>
-              <ExternalLink className="w-3.5 h-3.5 shrink-0" />
+              <span className="!text-black font-black">Open Official Website</span>
+              <span className="opacity-80 font-mono text-[10px] !text-black">({getDomainFromUrl(portalUrl)})</span>
+              <ExternalLink className="w-3.5 h-3.5 shrink-0 !text-black stroke-[2px]" />
             </a>
           </div>
         </div>

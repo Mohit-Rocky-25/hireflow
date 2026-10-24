@@ -77,10 +77,10 @@ export function PublicNavbar() {
         <div className="flex items-center gap-3">
           <Link
             to="/tools"
-            className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded text-[13px] font-bold text-text-on-accent bg-volt hover:bg-[#1d1d1d] hover:text-white border border-volt transition-colors active:text-pale-yellow active:shadow-inset focus-visible:outline-2 focus-visible:outline-volt"
+            className="group hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded text-[13px] font-bold !text-black bg-volt hover:bg-[#1d1d1d] hover:!text-white border border-volt transition-colors active:shadow-inset focus-visible:outline-2 focus-visible:outline-volt"
           >
-            <span>OPEN TOOLS HUB</span>
-            <ArrowRight className="w-4 h-4 stroke-[1.5px]" />
+            <span className="!text-black group-hover:!text-white font-black">OPEN TOOLS HUB</span>
+            <ArrowRight className="w-4 h-4 stroke-[2px] !text-black group-hover:!text-white" />
           </Link>
 
           {/* Mobile hamburger */}

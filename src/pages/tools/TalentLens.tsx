@@ -337,10 +337,16 @@ export function TalentLens() {
           <button
             onClick={runAnalysis}
             disabled={!selectedJobId || !profile || analyzing}
-            className="h-10 px-5 bg-volt text-[#151515] text-xs font-bold font-mono uppercase tracking-wider rounded hover:bg-[#1a1a1a] hover:text-volt border border-volt transition-all flex items-center gap-2 disabled:opacity-40 cursor-pointer"
+            className="group h-10 px-5 bg-volt !text-black text-xs font-bold font-mono uppercase tracking-wider rounded hover:bg-[#1a1a1a] hover:!text-volt border border-volt transition-all flex items-center gap-2 disabled:opacity-40 cursor-pointer"
           >
-            {analyzing ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Brain className="w-4 h-4" />}
-            {analyzing ? 'Analyzing…' : match ? 'Re-Analyze' : 'Analyze'}
+            {analyzing ? (
+              <RefreshCw className="w-4 h-4 animate-spin !text-black group-hover:!text-volt" />
+            ) : (
+              <Brain className="w-4 h-4 !text-black group-hover:!text-volt" />
+            )}
+            <span className="!text-black group-hover:!text-volt font-black">
+              {analyzing ? 'Analyzing…' : match ? 'Re-Analyze' : 'Analyze'}
+            </span>
           </button>
 
           <Link
@@ -373,8 +379,9 @@ export function TalentLens() {
           <Target className="w-10 h-10 text-volt mx-auto mb-4" />
           <h3 className="text-base font-bold text-white mb-2">Ready to analyze against "{selectedJob?.title}"</h3>
           <p className="text-xs text-silver max-w-md mx-auto leading-relaxed mb-6">The engine will assess each job requirement individually with evidence from the candidate's profile.</p>
-          <button onClick={runAnalysis} className="h-10 px-6 bg-volt text-[#151515] text-xs font-bold font-mono uppercase tracking-wider rounded hover:bg-[#1a1a1a] hover:text-volt border border-volt transition-all flex items-center gap-2 mx-auto cursor-pointer">
-            <Brain className="w-4 h-4" /> Run Evidence Analysis
+          <button onClick={runAnalysis} className="group h-10 px-6 bg-volt !text-black text-xs font-bold font-mono uppercase tracking-wider rounded hover:bg-[#1a1a1a] hover:!text-volt border border-volt transition-all flex items-center gap-2 mx-auto cursor-pointer">
+            <Brain className="w-4 h-4 !text-black group-hover:!text-volt" />
+            <span className="!text-black group-hover:!text-volt font-black">Run Evidence Analysis</span>
           </button>
         </div>
       )}

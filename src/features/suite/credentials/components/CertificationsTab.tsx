@@ -423,7 +423,7 @@ export function CertificationsTab({
             onClick={() => setSelectedCategory(cat)}
             className={`px-4 py-2.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all border cursor-pointer ${
               selectedCategory === cat
-                ? 'bg-primary text-black border-primary shadow-xs'
+                ? 'bg-primary !text-black font-black border-primary shadow-xs'
                 : 'bg-surface border-border text-text-secondary hover:text-foreground hover:bg-surface-2'
             }`}
           >
@@ -746,13 +746,13 @@ export function CertificationsTab({
                     onClick={(e) => handleTogglePlan(e, cert.id)}
                     className={`p-2.5 rounded-xl border-2 transition-all shrink-0 cursor-pointer ${
                       isSaved
-                        ? 'bg-primary text-black border-primary shadow-sm shadow-primary/30'
+                        ? 'bg-primary !text-black border-primary shadow-sm shadow-primary/30'
                         : 'bg-surface-2 border-border text-text-secondary hover:text-foreground hover:bg-surface-2/80'
                     }`}
                     title={isSaved ? 'Saved in My Opportunity Plan' : 'Save to Opportunity Plan'}
                     aria-label={isSaved ? 'Saved in My Opportunity Plan' : 'Save to Opportunity Plan'}
                   >
-                    {isSaved ? <BookmarkCheck className="w-4 h-4" /> : <Bookmark className="w-4 h-4" />}
+                    {isSaved ? <BookmarkCheck className="w-4 h-4 !text-black stroke-[2px]" /> : <Bookmark className="w-4 h-4" />}
                   </button>
                 </div>
 
@@ -1031,10 +1031,10 @@ export function CertificationsTab({
                 setSelectedTime('All');
                 setSelectedTier('All');
               }}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary hover:bg-primary/90 text-black font-black text-sm shadow-lg shadow-primary/25 cursor-pointer transition-all hover:scale-[1.02]"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary hover:bg-primary/90 !text-black font-black text-sm shadow-lg shadow-primary/25 cursor-pointer transition-all hover:scale-[1.02]"
             >
-              <RotateCcw className="w-4 h-4" />
-              <span>Reset All Filters & Show All {allCerts.length} Certifications</span>
+              <RotateCcw className="w-4 h-4 !text-black stroke-[2px]" />
+              <span className="!text-black font-black">Reset All Filters & Show All {allCerts.length} Certifications</span>
             </button>
 
             {selectedTrust === 'unverified_recurring' && (

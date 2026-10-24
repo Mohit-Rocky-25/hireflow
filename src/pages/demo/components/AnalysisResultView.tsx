@@ -285,9 +285,10 @@ export function AnalysisResultView({
             to={`/tools/resume-checker?company=${company.id}&role=${encodeURIComponent(
               selectedRole.title
             )}`}
-            className="px-4 py-2 bg-volt text-[#151515] text-xs font-bold rounded hover:bg-[#1a1a1a] hover:text-volt border border-volt transition-colors inline-flex items-center gap-1.5 whitespace-nowrap shadow-xs font-mono uppercase tracking-wider"
+            className="group px-4 py-2 bg-volt !text-black text-xs font-bold rounded hover:bg-[#1a1a1a] hover:!text-volt border border-volt transition-colors inline-flex items-center gap-1.5 whitespace-nowrap shadow-xs font-mono uppercase tracking-wider"
           >
-            Open ATS Roaster <ArrowRight className="w-3.5 h-3.5" />
+            <span className="!text-black group-hover:!text-volt font-black">Open ATS Roaster</span>
+            <ArrowRight className="w-3.5 h-3.5 !text-black group-hover:!text-volt" />
           </Link>
         </div>
 
@@ -650,9 +651,10 @@ export function AnalysisResultView({
         <button
           type="button"
           onClick={onBackToRoles}
-          className="flex items-center gap-2 px-5 py-2.5 rounded bg-volt text-[#151515] font-bold text-xs hover:bg-[#1a1a1a] hover:text-volt border border-volt transition-all shadow-sm cursor-pointer font-mono uppercase tracking-wider"
+          className="group flex items-center gap-2 px-5 py-2.5 rounded bg-volt !text-black font-bold text-xs hover:bg-[#1a1a1a] hover:!text-volt border border-volt transition-all shadow-sm cursor-pointer font-mono uppercase tracking-wider"
         >
-          <ArrowLeft className="w-4 h-4" /> Back to Roles
+          <ArrowLeft className="w-4 h-4 !text-black group-hover:!text-volt" />
+          <span className="!text-black group-hover:!text-volt font-black">Back to Roles</span>
         </button>
         <button
           type="button"

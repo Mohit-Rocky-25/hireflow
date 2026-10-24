@@ -562,9 +562,10 @@ export function ResumeChecker() {
                         <button
                           type="button"
                           onClick={() => setPresentationMode('deep')}
-                          className="px-5 py-2.5 bg-volt text-[#151515] text-xs font-bold uppercase tracking-[1.4px] rounded border border-volt hover:bg-[#1d1d1d] hover:text-white transition-colors inline-flex items-center gap-2 cursor-pointer"
+                          className="group px-5 py-2.5 bg-volt !text-black text-xs font-bold uppercase tracking-[1.4px] rounded border border-volt hover:bg-[#1d1d1d] hover:!text-white transition-colors inline-flex items-center gap-2 cursor-pointer"
                         >
-                          Inspect Full Deep Breakdown <ArrowUpRight className="w-4 h-4 stroke-[1.5px]" />
+                          <span className="!text-black group-hover:!text-white font-black">Inspect Full Deep Breakdown</span>
+                          <ArrowUpRight className="w-4 h-4 stroke-[2px] !text-black group-hover:!text-white" />
                         </button>
                       </div>
                     </div>

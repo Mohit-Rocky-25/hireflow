@@ -200,10 +200,10 @@ export function FresherProgramCard({
               <button
                 type="button"
                 onClick={onLoadSampleResume}
-                className="w-full flex items-center justify-center gap-1.5 py-2 px-3 rounded bg-volt text-[#151515] font-bold text-xs uppercase tracking-[1.4px] border border-volt hover:bg-[#1d1d1d] hover:text-white transition-colors cursor-pointer"
+                className="group w-full flex items-center justify-center gap-1.5 py-2 px-3 rounded bg-volt !text-black font-bold text-xs uppercase tracking-[1.4px] border border-volt hover:bg-[#1d1d1d] hover:!text-white transition-colors cursor-pointer"
               >
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>Load Sample Resume &amp; Verify Now</span>
+                <Sparkles className="w-3.5 h-3.5 !text-black group-hover:!text-white" />
+                <span className="!text-black group-hover:!text-white font-black">Load Sample Resume &amp; Verify Now</span>
               </button>
             </div>
           ) : (
@@ -229,17 +229,17 @@ export function FresherProgramCard({
             type="button"
             onClick={onRunAnalysis}
             disabled={analyzing || !resumeText.trim()}
-            className="w-full bg-volt text-[#151515] py-2.5 px-4 rounded font-bold text-xs uppercase tracking-[1.4px] border border-volt hover:bg-[#1d1d1d] hover:text-white transition-colors flex items-center justify-center gap-2 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+            className="group w-full bg-volt !text-black py-2.5 px-4 rounded font-bold text-xs uppercase tracking-[1.4px] border border-volt hover:bg-[#1d1d1d] hover:!text-white transition-colors flex items-center justify-center gap-2 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
           >
             {analyzing ? (
               <>
-                <RefreshCw className="w-4 h-4 animate-spin stroke-[1.5px]" />
-                <span>Analyzing deeply...</span>
+                <RefreshCw className="w-4 h-4 animate-spin stroke-[1.5px] !text-black group-hover:!text-white" />
+                <span className="!text-black group-hover:!text-white font-black">Analyzing deeply...</span>
               </>
             ) : (
               <>
-                <Brain className="w-4 h-4 stroke-[1.5px]" />
-                <span>Run Deep AI Analysis</span>
+                <Brain className="w-4 h-4 stroke-[1.5px] !text-black group-hover:!text-white" />
+                <span className="!text-black group-hover:!text-white font-black">Run Deep AI Analysis</span>
               </>
             )}
           </button>

@@ -193,17 +193,17 @@ export function ExperiencedRoleCard({
             type="button"
             onClick={onRunAnalysis}
             disabled={analyzing || !resumeText.trim()}
-            className="w-full bg-volt text-[#151515] py-2.5 px-4 rounded font-bold text-xs uppercase tracking-[1.4px] border border-volt hover:bg-[#1d1d1d] hover:text-white transition-colors flex items-center justify-center gap-2 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+            className="group w-full bg-volt !text-black py-2.5 px-4 rounded font-bold text-xs uppercase tracking-[1.4px] border border-volt hover:bg-[#1d1d1d] hover:!text-white transition-colors flex items-center justify-center gap-2 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
           >
             {analyzing ? (
               <>
-                <RefreshCw className="w-4 h-4 animate-spin stroke-[1.5px]" />
-                <span>Analyzing deeply...</span>
+                <RefreshCw className="w-4 h-4 animate-spin stroke-[1.5px] !text-black group-hover:!text-white" />
+                <span className="!text-black group-hover:!text-white font-black">Analyzing deeply...</span>
               </>
             ) : (
               <>
-                <Brain className="w-4 h-4 stroke-[1.5px]" />
-                <span>Run Deep AI Analysis</span>
+                <Brain className="w-4 h-4 stroke-[1.5px] !text-black group-hover:!text-white" />
+                <span className="!text-black group-hover:!text-white font-black">Run Deep AI Analysis</span>
               </>
             )}
           </button>

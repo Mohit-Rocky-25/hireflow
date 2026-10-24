@@ -112,11 +112,11 @@ export function CareerPathHub() {
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <Link
               to="/tools/career-path/dream-job-roadmap"
-              className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded bg-volt text-[#151515] hover:bg-[#1d1d1d] hover:text-white font-black text-sm border border-volt transition-colors min-h-[44px]"
+              className="group inline-flex items-center gap-2.5 px-6 py-3.5 rounded bg-volt !text-black hover:bg-[#1d1d1d] hover:!text-white font-black text-sm border border-volt transition-colors min-h-[44px]"
             >
-              <Compass className="w-4 h-4" />
-              <span>Build my roadmap</span>
-              <ArrowRight className="w-4 h-4" />
+              <Compass className="w-4 h-4 !text-black group-hover:!text-white" />
+              <span className="!text-black group-hover:!text-white">Build my roadmap</span>
+              <ArrowRight className="w-4 h-4 !text-black group-hover:!text-white" />
             </Link>
 
             <Link

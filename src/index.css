@@ -51,16 +51,20 @@ body {
 
 /* ── Interactive Links (§2, §4, §7) ── */
 a {
-  color: #ffffff;
   text-decoration: none;
   transition: color 150ms ease-out;
 }
 
-a:hover {
+/* Default unstyled links get white text, without overriding utility classes */
+a:not([class*="text-"]):not([class*="bg-"]) {
+  color: #ffffff;
+}
+
+a:not([class*="bg-"]):hover {
   color: #faff69 !important;
 }
 
-a:active {
+a:not([class*="bg-"]):active {
   color: #f4f692 !important;
 }
 
@@ -72,11 +76,89 @@ a:active {
 }
 
 /* ── Inset Pressed State (§4, §6 Level 4) ── */
-button:active:not(:disabled),
-[role="button"]:active:not(:disabled),
+button:active:not(:disabled):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-pale-yellow"]),
+[role="button"]:active:not(:disabled):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-pale-yellow"]),
 .btn-pressed {
   box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.5) inset !important;
   color: #f4f692 !important;
+}
+
+/* ── Universal High-Contrast Black Text Rules on Yellow & Volt Backgrounds ── */
+/* Solid yellow/volt containers, buttons, links, and badges */
+.bg-volt,
+.bg-primary,
+.bg-pale-yellow,
+a.bg-volt,
+a.bg-primary,
+button.bg-volt,
+button.bg-primary,
+[class*="bg-volt"]:not([class*="/"]):not([class*="hover:bg-"]),
+[class*="bg-primary"]:not([class*="/"]):not([class*="hover:bg-"]) {
+  color: #000000 !important;
+}
+
+/* Child elements (spans, headings, text, icons) inside solid yellow/volt containers */
+.bg-volt:not(:hover) *,
+.bg-primary:not(:hover) *,
+.bg-pale-yellow:not(:hover) *,
+a.bg-volt:not(:hover) *,
+a.bg-primary:not(:hover) *,
+button.bg-volt:not(:hover) *,
+button.bg-primary:not(:hover) * {
+  color: #000000 !important;
+}
+
+.bg-volt:not(:hover) svg,
+.bg-primary:not(:hover) svg,
+.bg-pale-yellow:not(:hover) svg,
+a.bg-volt:not(:hover) svg,
+a.bg-primary:not(:hover) svg,
+button.bg-volt:not(:hover) svg,
+button.bg-primary:not(:hover) svg {
+  stroke: #000000 !important;
+}
+
+/* Dark hover states on yellow buttons (e.g. hover:bg-[#1d1d1d] hover:text-white) */
+a.bg-volt:hover[class*="hover:text-white"],
+button.bg-volt:hover[class*="hover:text-white"],
+a.bg-volt:hover[class*="hover:!text-white"],
+button.bg-volt:hover[class*="hover:!text-white"],
+[class*="bg-volt"]:hover[class*="hover:text-white"],
+[class*="bg-volt"]:hover[class*="hover:!text-white"] {
+  color: #ffffff !important;
+}
+a.bg-volt:hover[class*="hover:text-white"] *,
+button.bg-volt:hover[class*="hover:text-white"] *,
+a.bg-volt:hover[class*="hover:!text-white"] *,
+button.bg-volt:hover[class*="hover:!text-white"] * {
+  color: #ffffff !important;
+}
+a.bg-volt:hover[class*="hover:text-white"] svg,
+button.bg-volt:hover[class*="hover:text-white"] svg,
+a.bg-volt:hover[class*="hover:!text-white"] svg,
+button.bg-volt:hover[class*="hover:!text-white"] svg {
+  stroke: #ffffff !important;
+}
+
+/* Volt hover states on yellow buttons (e.g. hover:bg-[#1a1a1a] hover:text-volt) */
+a.bg-volt:hover[class*="hover:text-volt"],
+button.bg-volt:hover[class*="hover:text-volt"],
+a.bg-volt:hover[class*="hover:!text-volt"],
+button.bg-volt:hover[class*="hover:!text-volt"],
+[class*="bg-volt"]:hover[class*="hover:text-volt"] {
+  color: #faff69 !important;
+}
+a.bg-volt:hover[class*="hover:text-volt"] *,
+button.bg-volt:hover[class*="hover:text-volt"] *,
+a.bg-volt:hover[class*="hover:!text-volt"] *,
+button.bg-volt:hover[class*="hover:!text-volt"] * {
+  color: #faff69 !important;
+}
+a.bg-volt:hover[class*="hover:text-volt"] svg,
+button.bg-volt:hover[class*="hover:text-volt"] svg,
+a.bg-volt:hover[class*="hover:!text-volt"] svg,
+button.bg-volt:hover[class*="hover:!text-volt"] svg {
+  stroke: #faff69 !important;
 }
 
 /* ── Text Selection Highlight ── */

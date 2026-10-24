@@ -59,10 +59,10 @@ export function LandingPage() {
               <Link to="/demo" className="w-full sm:w-auto">
                 <button
                   type="button"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 h-[48px] px-8 rounded text-[14px] font-bold uppercase tracking-[1.2px] text-text-on-accent bg-volt hover:bg-[#1d1d1d] hover:text-white border border-volt transition-colors active:text-pale-yellow active:shadow-inset focus-visible:outline-2 focus-visible:outline-volt cursor-pointer select-none"
+                  className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 h-[48px] px-8 rounded text-[14px] font-bold uppercase tracking-[1.2px] !text-black bg-volt hover:bg-[#1d1d1d] hover:!text-white border border-volt transition-colors active:shadow-inset focus-visible:outline-2 focus-visible:outline-volt cursor-pointer select-none"
                 >
-                  <span>LAUNCH SIMULATOR</span>
-                  <ArrowRight className="w-4 h-4 stroke-[1.5px]" />
+                  <span className="!text-black group-hover:!text-white font-black">LAUNCH SIMULATOR</span>
+                  <ArrowRight className="w-4 h-4 stroke-[2px] !text-black group-hover:!text-white" />
                 </button>
               </Link>
               <Link to="/tools" className="w-full sm:w-auto">

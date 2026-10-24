@@ -147,9 +147,9 @@ export function MatchingDemo() {
                 }`}
               >
                 <span
-                  className={`w-5 h-5 rounded flex items-center justify-center text-[10px] font-mono font-bold ${
+                  className={`w-5 h-5 rounded flex items-center justify-center text-[10px] font-mono font-black ${
                     step === s.n
-                      ? "bg-volt text-[#151515]"
+                      ? "bg-volt !text-black"
                       : "bg-near-black text-silver"
                   }`}
                 >
@@ -285,10 +285,10 @@ Include:
                   type="button"
                   disabled={!resumeText.trim()}
                   onClick={() => setStep(2)}
-                  className="px-6 py-2.5 text-xs font-bold uppercase tracking-[1.4px] rounded bg-volt text-[#151515] border border-volt hover:bg-[#1d1d1d] hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-colors flex items-center gap-2 cursor-pointer shadow-level-1"
+                  className="group px-6 py-2.5 text-xs font-bold uppercase tracking-[1.4px] rounded bg-volt !text-black border border-volt hover:bg-[#1d1d1d] hover:!text-white disabled:opacity-30 disabled:cursor-not-allowed transition-colors flex items-center gap-2 cursor-pointer shadow-level-1"
                 >
-                  <span>Select Company &amp; Role</span>
-                  <ArrowRight className="w-4 h-4 stroke-[1.5px]" />
+                  <span className="!text-black group-hover:!text-white font-black">Select Company &amp; Role</span>
+                  <ArrowRight className="w-4 h-4 stroke-[2px] !text-black group-hover:!text-white" />
                 </button>
               </div>
             </div>

@@ -361,7 +361,7 @@ export function OpportunityPlanTab({
           onClick={() => setActiveSubTab('roadmap')}
           className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
             activeSubTab === 'roadmap'
-              ? 'bg-primary text-black shadow-xs'
+              ? 'bg-primary !text-black font-black shadow-xs'
               : 'text-text-secondary hover:text-foreground'
           }`}
         >
@@ -372,7 +372,7 @@ export function OpportunityPlanTab({
           onClick={() => setActiveSubTab('saved_items')}
           className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
             activeSubTab === 'saved_items'
-              ? 'bg-primary text-black shadow-xs'
+              ? 'bg-primary !text-black font-black shadow-xs'
               : 'text-text-secondary hover:text-foreground'
           }`}
         >
@@ -383,7 +383,7 @@ export function OpportunityPlanTab({
           onClick={() => setActiveSubTab('role_paths')}
           className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
             activeSubTab === 'role_paths'
-              ? 'bg-primary text-black shadow-xs'
+              ? 'bg-primary !text-black font-black shadow-xs'
               : 'text-text-secondary hover:text-foreground'
           }`}
         >
@@ -971,7 +971,7 @@ export function OpportunityPlanTab({
                 onClick={() => setSelectedPathRoleId(path.roleId)}
                 className={`px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all border cursor-pointer ${
                   selectedPathRoleId === path.roleId
-                    ? 'bg-primary text-black border-primary shadow-xs'
+                    ? 'bg-primary !text-black font-black border-primary shadow-xs'
                     : 'bg-surface-2 border-border text-text-secondary hover:text-foreground'
                 }`}
               >

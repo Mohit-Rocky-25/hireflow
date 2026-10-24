@@ -256,9 +256,10 @@ export function CompanyRolesPage() {
             </p>
             <Link
               to="/demo"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded bg-volt text-[#151515] font-bold text-xs hover:bg-[#1a1a1a] hover:text-volt border border-volt transition-colors"
+              className="group inline-flex items-center gap-2 px-5 py-2.5 rounded bg-volt !text-black font-bold text-xs hover:bg-[#1a1a1a] hover:!text-volt border border-volt transition-colors"
             >
-              <ArrowLeft className="w-4 h-4" /> Back to Company Directory
+              <ArrowLeft className="w-4 h-4 !text-black group-hover:!text-volt" />
+              <span className="!text-black group-hover:!text-volt font-black">Back to Company Directory</span>
             </Link>
           </div>
         </div>
@@ -319,7 +320,7 @@ export function CompanyRolesPage() {
                     onClick={s.onClick}
                     className={`flex items-center gap-2 px-4 py-2 rounded font-mono text-xs uppercase tracking-wider transition-all cursor-pointer ${
                       activeStep === 2
-                        ? 'bg-volt text-[#151515] font-bold'
+                        ? 'bg-volt !text-black font-black'
                         : 'bg-black text-volt border border-charcoal'
                     }`}
                   >
@@ -334,7 +335,7 @@ export function CompanyRolesPage() {
                     }}
                     className={`flex items-center gap-2 px-4 py-2 rounded font-mono text-xs uppercase tracking-wider transition-all cursor-pointer ${
                       activeStep === 3
-                        ? 'bg-volt text-[#151515] font-bold'
+                        ? 'bg-volt !text-black font-black'
                         : result
                         ? 'bg-black text-silver border border-charcoal hover:border-volt hover:text-white'
                         : 'text-silver/40 cursor-not-allowed'
@@ -485,9 +486,9 @@ export function CompanyRolesPage() {
                       <button
                         type="button"
                         onClick={() => setRoleMode('experienced')}
-                        className="px-5 py-2 rounded bg-volt text-[#151515] font-bold text-xs hover:bg-[#1a1a1a] hover:text-volt border border-volt transition-colors cursor-pointer"
+                        className="group px-5 py-2 rounded bg-volt !text-black font-black text-xs hover:bg-[#1a1a1a] hover:!text-volt border border-volt transition-colors cursor-pointer"
                       >
-                        Explore Experienced Roles ({company.roles.length})
+                        <span className="!text-black group-hover:!text-volt font-black">Explore Experienced Roles ({company.roles.length})</span>
                       </button>
                     </div>
                   )}
