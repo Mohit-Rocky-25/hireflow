@@ -14,8 +14,8 @@ Started: 2026-10-25
 | 0.5 | Stage 0 | Existing stats, dedupe 100 against existing data by id & normalised name | DONE | e87bbfa | `node scripts/analyze_existing_and_dedupe.cjs` (141 existing, 4 overlaps) |
 | 0.6 | Stage 0 | Schema facts, optional value null safety, 20 competency keys, tier mapping, hardcoded counts | DONE | e87bbfa | Audited in recon.md: 20 keys verified, openRoles null hazard identified |
 | 0.7 | Stage 0 | Write recon.md with answers & OPEN QUESTIONS | DONE | e87bbfa | `docs/companies-100/recon.md` generated with all findings and answers |
-| 1.1 | Stage 1 | Write ADR-001.md, implement additive schema changes & migrations | DONE | pending | `npx tsc --noEmit && npx vitest run` (142 passed, 927 passed, 0 failed) |
-| 1.2 | Stage 1 | Build ledger tooling (validate:ledger, verify:blind, build:companies, check:generated) | TODO | - | - |
+| 1.1 | Stage 1 | Write ADR-001.md, implement additive schema changes & migrations | DONE | 727f6fc | `npx tsc --noEmit && npx vitest run` (142 passed, 927 passed, 0 failed) |
+| 1.2 | Stage 1 | Build ledger tooling (validate:ledger, verify:blind, build:companies, check:generated) | DONE | pending | `npm run validate:ledger && npm run build:companies && npm run check:generated` |
 | 1.3 | Stage 1 | UI null safety, depth chip, editorial label, source chips, disclaimer, error report | TODO | - | - |
 | 1.4 | Stage 1 | Validator unit tests, canary tests (H10), rejection tests, full suite, tag c100-stage-1 | TODO | - | - |
 | 2.1 | Stage 2 | Dedupe roster into dedupe.md | TODO | - | - |
@@ -128,6 +128,34 @@ Successfully saved to docs/companies-100/roster-parsed.json
    Duration  57.37s (tests 56%, import 28%, transform 13%, worker 3%)
 ```
 - **Changes**: Wrote `docs/companies-100/decisions/ADR-001.md`, implemented additive schema extensions to `Company`, `Role`, `CompanyEligibilityRule` in `talentLensData.ts` and `companyEligibility.ts`, added null safety handling in `EligibilityCard.tsx` and migration tagging in `attachProvenance`.
+
+### Task 1.2 Log
+- **Commands**: 
+  - `npm run validate:ledger`
+  - `npm run verify:blind`
+  - `npm run build:companies`
+  - `npm run check:generated`
+- **Output (validate:ledger)**:
+```
+=== HireFlow Ledger Validator (Rules H2, H3, H4, H5, H7) ===
+Audited 0 ledger files (0 total rows).
+✅ All ledger files passed validation cleanly.
+```
+- **Output (build:companies)**:
+```
+=== HireFlow Companies-100 Code Generator (Rule H1) ===
+✅ Generated artifacts:
+  - src/data/market/companies100/generated/companies.ts (0 companies)
+  - src/data/market/companies100/generated/eligibility.ts (0 eligibility rules)
+  - src/data/market/companies100/generated/manifest.json (Processed 0 ledger rows)
+```
+- **Output (check:generated)**:
+```
+=== HireFlow Check Generated Files (Rule H1 Enforcement) ===
+✅ Generated files are in sync with ledger and hash-verified.
+```
+- **Changes**: Created `scripts/companies100/` with `validate-ledger.mjs`, `verify-blind.mjs`, `build-companies.mjs`, `check-generated.mjs`; registered npm scripts in `package.json`; added `.evidence-cache/` to `.gitignore`; initialized `docs/companies-100/ledger/` and `src/data/market/companies100/`.
+
 
 
 

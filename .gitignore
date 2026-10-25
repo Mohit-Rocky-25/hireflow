@@ -55,3 +55,7 @@ __pycache__/
 data/calibration/real/*
 !data/calibration/real/README.md
 
+# Companies 100 Evidence Cache (Raw fetched HTML/text)
+.evidence-cache/
+
+

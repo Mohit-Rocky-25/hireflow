@@ -1,0 +1,10 @@
+{
+  "generatedAt": "2026-10-25T17:10:16.960Z",
+  "totalCompaniesCount": 0,
+  "totalEligibilityRulesCount": 0,
+  "totalLedgerRowsProcessed": 0,
+  "hashes": {
+    "companiesTs": "df3043929a0e10101dd48fd9d2a397c7f6b3cac2f6e1018355bc266431fdcec0",
+    "eligibilityTs": "997184707edd1413bb4bd77f8e5652783e65f833c57fc053cb61d497fa278ad7"
+  }
+}

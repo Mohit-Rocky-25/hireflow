@@ -32,7 +32,11 @@
     "check:provenance": "node scripts/check-provenance.mjs",
     "docs:scoring": "node scripts/docs-scoring.mjs",
     "report:migration": "npx tsx scripts/score-migration-report.ts",
-    "validate:scoring": "vitest run tests/validation/validateScoring.test.ts"
+    "validate:scoring": "vitest run tests/validation/validateScoring.test.ts",
+    "validate:ledger": "node scripts/companies100/validate-ledger.mjs",
+    "verify:blind": "node scripts/companies100/verify-blind.mjs",
+    "build:companies": "node scripts/companies100/build-companies.mjs",
+    "check:generated": "node scripts/companies100/check-generated.mjs"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.3.3",
