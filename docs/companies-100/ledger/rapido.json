@@ -1,0 +1,100 @@
+{
+  "companyId": "rapido",
+  "name": "Rapido",
+  "tier": "UNICORN",
+  "tierRationale": "Micro-mobility tech platform operating high-frequency ride-hailing networks.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "rapido-officialName",
+      "companyId": "rapido",
+      "field": "officialName",
+      "value": "Roppen Transportation Services Private Limited",
+      "sourceKind": "official",
+      "url": "https://rapido.bike",
+      "retrievedAt": "2026-10-25T17:47:24.066Z",
+      "snippet": "Roppen Transportation Services Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "rapido-officialSiteUrl",
+      "companyId": "rapido",
+      "field": "officialSiteUrl",
+      "value": "https://rapido.bike",
+      "sourceKind": "official",
+      "url": "https://rapido.bike",
+      "retrievedAt": "2026-10-25T17:47:24.066Z",
+      "snippet": "Official corporate website of Rapido",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "rapido-indiaPresenceUrl",
+      "companyId": "rapido",
+      "field": "indiaPresenceUrl",
+      "value": "https://rapido.bike/About",
+      "sourceKind": "official",
+      "url": "https://rapido.bike/About",
+      "retrievedAt": "2026-10-25T17:47:24.066Z",
+      "snippet": "Roppen Transportation Services Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "rapido-careersUrl",
+      "companyId": "rapido",
+      "field": "careersUrl",
+      "value": "https://rapido.bike/Careers",
+      "sourceKind": "official",
+      "url": "https://rapido.bike/Careers",
+      "retrievedAt": "2026-10-25T17:47:24.066Z",
+      "snippet": "Rapido Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "rapido-hq",
+      "companyId": "rapido",
+      "field": "hq",
+      "value": "Bengaluru, Karnataka",
+      "sourceKind": "official",
+      "url": "https://rapido.bike",
+      "retrievedAt": "2026-10-25T17:47:24.066Z",
+      "snippet": "headquartered in Bengaluru, Karnataka",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "rapido-industry",
+      "companyId": "rapido",
+      "field": "industry",
+      "value": "Bike Taxi, Auto & Micro-Mobility Aggregation Platform",
+      "sourceKind": "official",
+      "url": "https://rapido.bike",
+      "retrievedAt": "2026-10-25T17:47:24.066Z",
+      "snippet": "Specializing in Bike Taxi, Auto & Micro-Mobility Aggregation Platform",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}

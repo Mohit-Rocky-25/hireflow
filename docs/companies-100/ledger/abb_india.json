@@ -1,0 +1,115 @@
+{
+  "companyId": "abb_india",
+  "name": "ABB India",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "Pioneering technology leader in electrification products, robotics and motion control.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "abb_india-officialName",
+      "companyId": "abb_india",
+      "field": "officialName",
+      "value": "ABB India Limited",
+      "sourceKind": "official",
+      "url": "https://new.abb.com",
+      "retrievedAt": "2026-10-25T17:47:22.716Z",
+      "snippet": "ABB India Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "abb_india-officialSiteUrl",
+      "companyId": "abb_india",
+      "field": "officialSiteUrl",
+      "value": "https://new.abb.com",
+      "sourceKind": "official",
+      "url": "https://new.abb.com",
+      "retrievedAt": "2026-10-25T17:47:22.716Z",
+      "snippet": "Official corporate website of ABB India",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "abb_india-indiaPresenceUrl",
+      "companyId": "abb_india",
+      "field": "indiaPresenceUrl",
+      "value": "https://new.abb.com/in/about",
+      "sourceKind": "official",
+      "url": "https://new.abb.com/in/about",
+      "retrievedAt": "2026-10-25T17:47:22.716Z",
+      "snippet": "ABB India Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "abb_india-careersUrl",
+      "companyId": "abb_india",
+      "field": "careersUrl",
+      "value": "https://new.abb.com/careers",
+      "sourceKind": "official",
+      "url": "https://new.abb.com/careers",
+      "retrievedAt": "2026-10-25T17:47:22.716Z",
+      "snippet": "ABB India Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "abb_india-campusPageUrl",
+      "companyId": "abb_india",
+      "field": "campusPageUrl",
+      "value": "https://new.abb.com/careers/students-and-graduates",
+      "sourceKind": "official",
+      "url": "https://new.abb.com/careers/students-and-graduates",
+      "retrievedAt": "2026-10-25T17:47:22.716Z",
+      "snippet": "ABB India early careers campus hiring",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "abb_india-hq",
+      "companyId": "abb_india",
+      "field": "hq",
+      "value": "Bengaluru, Karnataka",
+      "sourceKind": "official",
+      "url": "https://new.abb.com",
+      "retrievedAt": "2026-10-25T17:47:22.716Z",
+      "snippet": "headquartered in Bengaluru, Karnataka",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "abb_india-industry",
+      "companyId": "abb_india",
+      "field": "industry",
+      "value": "Electrification, Robotics, Motion & Industrial Automation",
+      "sourceKind": "official",
+      "url": "https://new.abb.com",
+      "retrievedAt": "2026-10-25T17:47:22.716Z",
+      "snippet": "Specializing in Electrification, Robotics, Motion & Industrial Automation",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}

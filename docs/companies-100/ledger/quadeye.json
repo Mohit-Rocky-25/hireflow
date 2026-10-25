@@ -1,0 +1,115 @@
+{
+  "companyId": "quadeye",
+  "name": "Quadeye Securities",
+  "tier": "UNICORN",
+  "tierRationale": "Proprietary algorithmic trading partnership; labelled UNICORN in roster (flagged: non-VC).",
+  "needsReview": true,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "quadeye-officialName",
+      "companyId": "quadeye",
+      "field": "officialName",
+      "value": "Quadeye Securities LLP",
+      "sourceKind": "official",
+      "url": "https://www.quadeye.com",
+      "retrievedAt": "2026-10-25T17:47:21.053Z",
+      "snippet": "Quadeye Securities LLP",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "quadeye-officialSiteUrl",
+      "companyId": "quadeye",
+      "field": "officialSiteUrl",
+      "value": "https://www.quadeye.com",
+      "sourceKind": "official",
+      "url": "https://www.quadeye.com",
+      "retrievedAt": "2026-10-25T17:47:21.053Z",
+      "snippet": "Official corporate website of Quadeye Securities",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "quadeye-indiaPresenceUrl",
+      "companyId": "quadeye",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.quadeye.com/about-us",
+      "sourceKind": "official",
+      "url": "https://www.quadeye.com/about-us",
+      "retrievedAt": "2026-10-25T17:47:21.053Z",
+      "snippet": "Quadeye Securities LLP maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "quadeye-careersUrl",
+      "companyId": "quadeye",
+      "field": "careersUrl",
+      "value": "https://www.quadeye.com/careers",
+      "sourceKind": "official",
+      "url": "https://www.quadeye.com/careers",
+      "retrievedAt": "2026-10-25T17:47:21.053Z",
+      "snippet": "Quadeye Securities Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "quadeye-campusPageUrl",
+      "companyId": "quadeye",
+      "field": "campusPageUrl",
+      "value": "https://www.quadeye.com/campus",
+      "sourceKind": "official",
+      "url": "https://www.quadeye.com/campus",
+      "retrievedAt": "2026-10-25T17:47:21.053Z",
+      "snippet": "Quadeye Securities early careers campus hiring",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "quadeye-hq",
+      "companyId": "quadeye",
+      "field": "hq",
+      "value": "Gurugram, Haryana",
+      "sourceKind": "official",
+      "url": "https://www.quadeye.com",
+      "retrievedAt": "2026-10-25T17:47:21.053Z",
+      "snippet": "headquartered in Gurugram, Haryana",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "quadeye-industry",
+      "companyId": "quadeye",
+      "field": "industry",
+      "value": "Algorithmic Trading & High Frequency Systems",
+      "sourceKind": "official",
+      "url": "https://www.quadeye.com",
+      "retrievedAt": "2026-10-25T17:47:21.053Z",
+      "snippet": "Specializing in Algorithmic Trading & High Frequency Systems",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}

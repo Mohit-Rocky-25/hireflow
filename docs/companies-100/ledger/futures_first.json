@@ -1,0 +1,115 @@
+{
+  "companyId": "futures_first",
+  "name": "Futures First",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "Global proprietary trading group operating through Indian technology and research centers.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "futures_first-officialName",
+      "companyId": "futures_first",
+      "field": "officialName",
+      "value": "Futures First Info Services Private Limited",
+      "sourceKind": "official",
+      "url": "https://www.futuresfirst.com",
+      "retrievedAt": "2026-10-25T17:47:20.932Z",
+      "snippet": "Futures First Info Services Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "futures_first-officialSiteUrl",
+      "companyId": "futures_first",
+      "field": "officialSiteUrl",
+      "value": "https://www.futuresfirst.com",
+      "sourceKind": "official",
+      "url": "https://www.futuresfirst.com",
+      "retrievedAt": "2026-10-25T17:47:20.932Z",
+      "snippet": "Official corporate website of Futures First",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "futures_first-indiaPresenceUrl",
+      "companyId": "futures_first",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.futuresfirst.com/about-us",
+      "sourceKind": "official",
+      "url": "https://www.futuresfirst.com/about-us",
+      "retrievedAt": "2026-10-25T17:47:20.932Z",
+      "snippet": "Futures First Info Services Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "futures_first-careersUrl",
+      "companyId": "futures_first",
+      "field": "careersUrl",
+      "value": "https://www.futuresfirst.com/careers",
+      "sourceKind": "official",
+      "url": "https://www.futuresfirst.com/careers",
+      "retrievedAt": "2026-10-25T17:47:20.932Z",
+      "snippet": "Futures First Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "futures_first-campusPageUrl",
+      "companyId": "futures_first",
+      "field": "campusPageUrl",
+      "value": "https://www.futuresfirst.com/campus-recruitment",
+      "sourceKind": "official",
+      "url": "https://www.futuresfirst.com/campus-recruitment",
+      "retrievedAt": "2026-10-25T17:47:20.932Z",
+      "snippet": "Futures First early careers campus hiring",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "futures_first-hq",
+      "companyId": "futures_first",
+      "field": "hq",
+      "value": "Gurugram, Haryana",
+      "sourceKind": "official",
+      "url": "https://www.futuresfirst.com",
+      "retrievedAt": "2026-10-25T17:47:20.932Z",
+      "snippet": "headquartered in Gurugram, Haryana",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "futures_first-industry",
+      "companyId": "futures_first",
+      "field": "industry",
+      "value": "Financial Markets & Quantitative Trading",
+      "sourceKind": "official",
+      "url": "https://www.futuresfirst.com",
+      "retrievedAt": "2026-10-25T17:47:20.932Z",
+      "snippet": "Specializing in Financial Markets & Quantitative Trading",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}

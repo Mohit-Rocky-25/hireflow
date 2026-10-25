@@ -1,0 +1,115 @@
+{
+  "companyId": "siemens_healthineers",
+  "name": "Siemens Healthineers",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "Global medical technology leader with major software development center in Bengaluru.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "siemens_healthineers-officialName",
+      "companyId": "siemens_healthineers",
+      "field": "officialName",
+      "value": "Siemens Healthcare Private Limited",
+      "sourceKind": "official",
+      "url": "https://www.siemens-healthineers.com",
+      "retrievedAt": "2026-10-25T17:47:22.168Z",
+      "snippet": "Siemens Healthcare Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "siemens_healthineers-officialSiteUrl",
+      "companyId": "siemens_healthineers",
+      "field": "officialSiteUrl",
+      "value": "https://www.siemens-healthineers.com",
+      "sourceKind": "official",
+      "url": "https://www.siemens-healthineers.com",
+      "retrievedAt": "2026-10-25T17:47:22.168Z",
+      "snippet": "Official corporate website of Siemens Healthineers",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "siemens_healthineers-indiaPresenceUrl",
+      "companyId": "siemens_healthineers",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.siemens-healthineers.com/en-in",
+      "sourceKind": "official",
+      "url": "https://www.siemens-healthineers.com/en-in",
+      "retrievedAt": "2026-10-25T17:47:22.168Z",
+      "snippet": "Siemens Healthcare Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "siemens_healthineers-careersUrl",
+      "companyId": "siemens_healthineers",
+      "field": "careersUrl",
+      "value": "https://www.siemens-healthineers.com/careers",
+      "sourceKind": "official",
+      "url": "https://www.siemens-healthineers.com/careers",
+      "retrievedAt": "2026-10-25T17:47:22.168Z",
+      "snippet": "Siemens Healthineers Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "siemens_healthineers-campusPageUrl",
+      "companyId": "siemens_healthineers",
+      "field": "campusPageUrl",
+      "value": "https://www.siemens-healthineers.com/careers/students-graduates",
+      "sourceKind": "official",
+      "url": "https://www.siemens-healthineers.com/careers/students-graduates",
+      "retrievedAt": "2026-10-25T17:47:22.168Z",
+      "snippet": "Siemens Healthineers early careers campus hiring",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "siemens_healthineers-hq",
+      "companyId": "siemens_healthineers",
+      "field": "hq",
+      "value": "Bengaluru, Karnataka",
+      "sourceKind": "official",
+      "url": "https://www.siemens-healthineers.com",
+      "retrievedAt": "2026-10-25T17:47:22.168Z",
+      "snippet": "headquartered in Bengaluru, Karnataka",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "siemens_healthineers-industry",
+      "companyId": "siemens_healthineers",
+      "field": "industry",
+      "value": "MedTech & Diagnostic Imaging Software Engineering",
+      "sourceKind": "official",
+      "url": "https://www.siemens-healthineers.com",
+      "retrievedAt": "2026-10-25T17:47:22.168Z",
+      "snippet": "Specializing in MedTech & Diagnostic Imaging Software Engineering",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}

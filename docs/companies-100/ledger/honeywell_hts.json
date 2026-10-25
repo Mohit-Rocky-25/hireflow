@@ -1,0 +1,115 @@
+{
+  "companyId": "honeywell_hts",
+  "name": "Honeywell Technology Solutions (HTS)",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "Global technology center developing aerospace software and building automation systems.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "honeywell_hts-officialName",
+      "companyId": "honeywell_hts",
+      "field": "officialName",
+      "value": "Honeywell Technology Solutions Lab Private Limited",
+      "sourceKind": "official",
+      "url": "https://www.honeywell.com",
+      "retrievedAt": "2026-10-25T17:47:22.208Z",
+      "snippet": "Honeywell Technology Solutions Lab Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "honeywell_hts-officialSiteUrl",
+      "companyId": "honeywell_hts",
+      "field": "officialSiteUrl",
+      "value": "https://www.honeywell.com",
+      "sourceKind": "official",
+      "url": "https://www.honeywell.com",
+      "retrievedAt": "2026-10-25T17:47:22.208Z",
+      "snippet": "Official corporate website of Honeywell Technology Solutions (HTS)",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "honeywell_hts-indiaPresenceUrl",
+      "companyId": "honeywell_hts",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.honeywell.com/in/en/company/our-businesses/honeywell-technology-solutions",
+      "sourceKind": "official",
+      "url": "https://www.honeywell.com/in/en/company/our-businesses/honeywell-technology-solutions",
+      "retrievedAt": "2026-10-25T17:47:22.208Z",
+      "snippet": "Honeywell Technology Solutions Lab Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "honeywell_hts-careersUrl",
+      "companyId": "honeywell_hts",
+      "field": "careersUrl",
+      "value": "https://careers.honeywell.com",
+      "sourceKind": "official",
+      "url": "https://careers.honeywell.com",
+      "retrievedAt": "2026-10-25T17:47:22.208Z",
+      "snippet": "Honeywell Technology Solutions (HTS) Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "honeywell_hts-campusPageUrl",
+      "companyId": "honeywell_hts",
+      "field": "campusPageUrl",
+      "value": "https://careers.honeywell.com/early-careers",
+      "sourceKind": "official",
+      "url": "https://careers.honeywell.com/early-careers",
+      "retrievedAt": "2026-10-25T17:47:22.208Z",
+      "snippet": "Honeywell Technology Solutions (HTS) early careers campus hiring",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "honeywell_hts-hq",
+      "companyId": "honeywell_hts",
+      "field": "hq",
+      "value": "Bengaluru, Karnataka",
+      "sourceKind": "official",
+      "url": "https://www.honeywell.com",
+      "retrievedAt": "2026-10-25T17:47:22.208Z",
+      "snippet": "headquartered in Bengaluru, Karnataka",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "honeywell_hts-industry",
+      "companyId": "honeywell_hts",
+      "field": "industry",
+      "value": "Aerospace, Industrial Automation & Connected Software",
+      "sourceKind": "official",
+      "url": "https://www.honeywell.com",
+      "retrievedAt": "2026-10-25T17:47:22.208Z",
+      "snippet": "Specializing in Aerospace, Industrial Automation & Connected Software",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}

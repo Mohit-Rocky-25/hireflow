@@ -1,0 +1,115 @@
+{
+  "companyId": "graviton",
+  "name": "Graviton Research Capital",
+  "tier": "UNICORN",
+  "tierRationale": "Proprietary algorithmic trading partnership; labelled UNICORN in roster (flagged: not a VC unicorn).",
+  "needsReview": true,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "graviton-officialName",
+      "companyId": "graviton",
+      "field": "officialName",
+      "value": "Graviton Research Capital LLP",
+      "sourceKind": "official",
+      "url": "https://gravitonresearch.com",
+      "retrievedAt": "2026-10-25T17:47:20.971Z",
+      "snippet": "Graviton Research Capital LLP",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "graviton-officialSiteUrl",
+      "companyId": "graviton",
+      "field": "officialSiteUrl",
+      "value": "https://gravitonresearch.com",
+      "sourceKind": "official",
+      "url": "https://gravitonresearch.com",
+      "retrievedAt": "2026-10-25T17:47:20.971Z",
+      "snippet": "Official corporate website of Graviton Research Capital",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "graviton-indiaPresenceUrl",
+      "companyId": "graviton",
+      "field": "indiaPresenceUrl",
+      "value": "https://gravitonresearch.com/about",
+      "sourceKind": "official",
+      "url": "https://gravitonresearch.com/about",
+      "retrievedAt": "2026-10-25T17:47:20.971Z",
+      "snippet": "Graviton Research Capital LLP maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "graviton-careersUrl",
+      "companyId": "graviton",
+      "field": "careersUrl",
+      "value": "https://gravitonresearch.com/careers",
+      "sourceKind": "official",
+      "url": "https://gravitonresearch.com/careers",
+      "retrievedAt": "2026-10-25T17:47:20.971Z",
+      "snippet": "Graviton Research Capital Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "graviton-campusPageUrl",
+      "companyId": "graviton",
+      "field": "campusPageUrl",
+      "value": "https://gravitonresearch.com/campus",
+      "sourceKind": "official",
+      "url": "https://gravitonresearch.com/campus",
+      "retrievedAt": "2026-10-25T17:47:20.971Z",
+      "snippet": "Graviton Research Capital early careers campus hiring",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "graviton-hq",
+      "companyId": "graviton",
+      "field": "hq",
+      "value": "Gurugram, Haryana",
+      "sourceKind": "official",
+      "url": "https://gravitonresearch.com",
+      "retrievedAt": "2026-10-25T17:47:20.971Z",
+      "snippet": "headquartered in Gurugram, Haryana",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "graviton-industry",
+      "companyId": "graviton",
+      "field": "industry",
+      "value": "High Frequency Trading & Quantitative Research",
+      "sourceKind": "official",
+      "url": "https://gravitonresearch.com",
+      "retrievedAt": "2026-10-25T17:47:20.971Z",
+      "snippet": "Specializing in High Frequency Trading & Quantitative Research",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}

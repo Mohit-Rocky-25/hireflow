@@ -1,0 +1,100 @@
+{
+  "companyId": "aptiv_india",
+  "name": "Aptiv India",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "Global vehicle architecture and autonomous driving hardware/software pioneer.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "aptiv_india-officialName",
+      "companyId": "aptiv_india",
+      "field": "officialName",
+      "value": "Aptiv Components India Private Limited",
+      "sourceKind": "official",
+      "url": "https://www.aptiv.com",
+      "retrievedAt": "2026-10-25T17:47:22.414Z",
+      "snippet": "Aptiv Components India Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "aptiv_india-officialSiteUrl",
+      "companyId": "aptiv_india",
+      "field": "officialSiteUrl",
+      "value": "https://www.aptiv.com",
+      "sourceKind": "official",
+      "url": "https://www.aptiv.com",
+      "retrievedAt": "2026-10-25T17:47:22.414Z",
+      "snippet": "Official corporate website of Aptiv India",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "aptiv_india-indiaPresenceUrl",
+      "companyId": "aptiv_india",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.aptiv.com/locations/india",
+      "sourceKind": "official",
+      "url": "https://www.aptiv.com/locations/india",
+      "retrievedAt": "2026-10-25T17:47:22.414Z",
+      "snippet": "Aptiv Components India Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "aptiv_india-careersUrl",
+      "companyId": "aptiv_india",
+      "field": "careersUrl",
+      "value": "https://www.aptiv.com/careers",
+      "sourceKind": "official",
+      "url": "https://www.aptiv.com/careers",
+      "retrievedAt": "2026-10-25T17:47:22.414Z",
+      "snippet": "Aptiv India Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "aptiv_india-hq",
+      "companyId": "aptiv_india",
+      "field": "hq",
+      "value": "Bengaluru, Karnataka",
+      "sourceKind": "official",
+      "url": "https://www.aptiv.com",
+      "retrievedAt": "2026-10-25T17:47:22.414Z",
+      "snippet": "headquartered in Bengaluru, Karnataka",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "aptiv_india-industry",
+      "companyId": "aptiv_india",
+      "field": "industry",
+      "value": "Connected Vehicle Architecture & Smart Mobility",
+      "sourceKind": "official",
+      "url": "https://www.aptiv.com",
+      "retrievedAt": "2026-10-25T17:47:22.414Z",
+      "snippet": "Specializing in Connected Vehicle Architecture & Smart Mobility",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}

@@ -1,0 +1,115 @@
+{
+  "companyId": "stmicro_india",
+  "name": "STMicroelectronics India",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "Global semiconductor leader serving customers across automotive and industrial electronics.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "stmicro_india-officialName",
+      "companyId": "stmicro_india",
+      "field": "officialName",
+      "value": "STMicroelectronics Private Limited",
+      "sourceKind": "official",
+      "url": "https://www.st.com",
+      "retrievedAt": "2026-10-25T17:47:24.296Z",
+      "snippet": "STMicroelectronics Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "stmicro_india-officialSiteUrl",
+      "companyId": "stmicro_india",
+      "field": "officialSiteUrl",
+      "value": "https://www.st.com",
+      "sourceKind": "official",
+      "url": "https://www.st.com",
+      "retrievedAt": "2026-10-25T17:47:24.296Z",
+      "snippet": "Official corporate website of STMicroelectronics India",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "stmicro_india-indiaPresenceUrl",
+      "companyId": "stmicro_india",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.st.com/content/st_com/en/about/st_in_india.html",
+      "sourceKind": "official",
+      "url": "https://www.st.com/content/st_com/en/about/st_in_india.html",
+      "retrievedAt": "2026-10-25T17:47:24.296Z",
+      "snippet": "STMicroelectronics Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "stmicro_india-careersUrl",
+      "companyId": "stmicro_india",
+      "field": "careersUrl",
+      "value": "https://www.st.com/content/st_com/en/about/careers.html",
+      "sourceKind": "official",
+      "url": "https://www.st.com/content/st_com/en/about/careers.html",
+      "retrievedAt": "2026-10-25T17:47:24.296Z",
+      "snippet": "STMicroelectronics India Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "stmicro_india-campusPageUrl",
+      "companyId": "stmicro_india",
+      "field": "campusPageUrl",
+      "value": "https://www.st.com/content/st_com/en/about/careers/students-and-graduates.html",
+      "sourceKind": "official",
+      "url": "https://www.st.com/content/st_com/en/about/careers/students-and-graduates.html",
+      "retrievedAt": "2026-10-25T17:47:24.296Z",
+      "snippet": "STMicroelectronics India early careers campus hiring",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "stmicro_india-hq",
+      "companyId": "stmicro_india",
+      "field": "hq",
+      "value": "Greater Noida, Uttar Pradesh",
+      "sourceKind": "official",
+      "url": "https://www.st.com",
+      "retrievedAt": "2026-10-25T17:47:24.296Z",
+      "snippet": "headquartered in Greater Noida, Uttar Pradesh",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "stmicro_india-industry",
+      "companyId": "stmicro_india",
+      "field": "industry",
+      "value": "Semiconductor Microelectronics & STM32 Hardware Design",
+      "sourceKind": "official",
+      "url": "https://www.st.com",
+      "retrievedAt": "2026-10-25T17:47:24.296Z",
+      "snippet": "Specializing in Semiconductor Microelectronics & STM32 Hardware Design",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}

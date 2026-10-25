@@ -1,0 +1,100 @@
+{
+  "companyId": "zf_india",
+  "name": "ZF Group India",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "Global technology company supplying systems for passenger cars and industrial technology.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "zf_india-officialName",
+      "companyId": "zf_india",
+      "field": "officialName",
+      "value": "ZF India Private Limited",
+      "sourceKind": "official",
+      "url": "https://www.zf.com",
+      "retrievedAt": "2026-10-25T17:47:22.565Z",
+      "snippet": "ZF India Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "zf_india-officialSiteUrl",
+      "companyId": "zf_india",
+      "field": "officialSiteUrl",
+      "value": "https://www.zf.com",
+      "sourceKind": "official",
+      "url": "https://www.zf.com",
+      "retrievedAt": "2026-10-25T17:47:22.565Z",
+      "snippet": "Official corporate website of ZF Group India",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "zf_india-indiaPresenceUrl",
+      "companyId": "zf_india",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.zf.com/mobile/en/company/locations/india.html",
+      "sourceKind": "official",
+      "url": "https://www.zf.com/mobile/en/company/locations/india.html",
+      "retrievedAt": "2026-10-25T17:47:22.565Z",
+      "snippet": "ZF India Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "zf_india-careersUrl",
+      "companyId": "zf_india",
+      "field": "careersUrl",
+      "value": "https://jobs.zf.com",
+      "sourceKind": "official",
+      "url": "https://jobs.zf.com",
+      "retrievedAt": "2026-10-25T17:47:22.565Z",
+      "snippet": "ZF Group India Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "zf_india-hq",
+      "companyId": "zf_india",
+      "field": "hq",
+      "value": "Hyderabad, Telangana",
+      "sourceKind": "official",
+      "url": "https://www.zf.com",
+      "retrievedAt": "2026-10-25T17:47:22.565Z",
+      "snippet": "headquartered in Hyderabad, Telangana",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "zf_india-industry",
+      "companyId": "zf_india",
+      "field": "industry",
+      "value": "Commercial Vehicle Control & E-Mobility Systems",
+      "sourceKind": "official",
+      "url": "https://www.zf.com",
+      "retrievedAt": "2026-10-25T17:47:22.565Z",
+      "snippet": "Specializing in Commercial Vehicle Control & E-Mobility Systems",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}

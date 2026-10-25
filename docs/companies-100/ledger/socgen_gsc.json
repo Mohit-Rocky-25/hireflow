@@ -1,0 +1,115 @@
+{
+  "companyId": "socgen_gsc",
+  "name": "Societe Generale GSC",
+  "tier": "GCC",
+  "tierRationale": "Strategic GCC delivering digital banking systems and capital markets tech for SocGen.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "socgen_gsc-officialName",
+      "companyId": "socgen_gsc",
+      "field": "officialName",
+      "value": "Societe Generale Global Solution Centre Private Limited",
+      "sourceKind": "official",
+      "url": "https://www.societegenerale.asia",
+      "retrievedAt": "2026-10-25T17:47:21.311Z",
+      "snippet": "Societe Generale Global Solution Centre Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "socgen_gsc-officialSiteUrl",
+      "companyId": "socgen_gsc",
+      "field": "officialSiteUrl",
+      "value": "https://www.societegenerale.asia",
+      "sourceKind": "official",
+      "url": "https://www.societegenerale.asia",
+      "retrievedAt": "2026-10-25T17:47:21.311Z",
+      "snippet": "Official corporate website of Societe Generale GSC",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "socgen_gsc-indiaPresenceUrl",
+      "companyId": "socgen_gsc",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.societegenerale.asia/en/about/locations/india",
+      "sourceKind": "official",
+      "url": "https://www.societegenerale.asia/en/about/locations/india",
+      "retrievedAt": "2026-10-25T17:47:21.311Z",
+      "snippet": "Societe Generale Global Solution Centre Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "socgen_gsc-careersUrl",
+      "companyId": "socgen_gsc",
+      "field": "careersUrl",
+      "value": "https://careers.societegenerale.com",
+      "sourceKind": "official",
+      "url": "https://careers.societegenerale.com",
+      "retrievedAt": "2026-10-25T17:47:21.311Z",
+      "snippet": "Societe Generale GSC Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "socgen_gsc-campusPageUrl",
+      "companyId": "socgen_gsc",
+      "field": "campusPageUrl",
+      "value": "https://www.societegenerale.asia/en/careers/campus-connect",
+      "sourceKind": "official",
+      "url": "https://www.societegenerale.asia/en/careers/campus-connect",
+      "retrievedAt": "2026-10-25T17:47:21.311Z",
+      "snippet": "Societe Generale GSC early careers campus hiring",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "socgen_gsc-hq",
+      "companyId": "socgen_gsc",
+      "field": "hq",
+      "value": "Bengaluru, Karnataka",
+      "sourceKind": "official",
+      "url": "https://www.societegenerale.asia",
+      "retrievedAt": "2026-10-25T17:47:21.311Z",
+      "snippet": "headquartered in Bengaluru, Karnataka",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "socgen_gsc-industry",
+      "companyId": "socgen_gsc",
+      "field": "industry",
+      "value": "Banking Technology & Global Solution Centre",
+      "sourceKind": "official",
+      "url": "https://www.societegenerale.asia",
+      "retrievedAt": "2026-10-25T17:47:21.311Z",
+      "snippet": "Specializing in Banking Technology & Global Solution Centre",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}

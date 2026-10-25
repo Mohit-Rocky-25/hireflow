@@ -1,0 +1,100 @@
+{
+  "companyId": "cams",
+  "name": "Computer Age Management Services (CAMS)",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "Publicly listed mutual fund transfer agency and financial infrastructure institution.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "cams-officialName",
+      "companyId": "cams",
+      "field": "officialName",
+      "value": "Computer Age Management Services Limited",
+      "sourceKind": "official",
+      "url": "https://www.camsonline.com",
+      "retrievedAt": "2026-10-25T17:47:21.271Z",
+      "snippet": "Computer Age Management Services Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "cams-officialSiteUrl",
+      "companyId": "cams",
+      "field": "officialSiteUrl",
+      "value": "https://www.camsonline.com",
+      "sourceKind": "official",
+      "url": "https://www.camsonline.com",
+      "retrievedAt": "2026-10-25T17:47:21.271Z",
+      "snippet": "Official corporate website of Computer Age Management Services (CAMS)",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "cams-indiaPresenceUrl",
+      "companyId": "cams",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.camsonline.com/about-cams",
+      "sourceKind": "official",
+      "url": "https://www.camsonline.com/about-cams",
+      "retrievedAt": "2026-10-25T17:47:21.271Z",
+      "snippet": "Computer Age Management Services Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "cams-careersUrl",
+      "companyId": "cams",
+      "field": "careersUrl",
+      "value": "https://www.camsonline.com/careers",
+      "sourceKind": "official",
+      "url": "https://www.camsonline.com/careers",
+      "retrievedAt": "2026-10-25T17:47:21.271Z",
+      "snippet": "Computer Age Management Services (CAMS) Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "cams-hq",
+      "companyId": "cams",
+      "field": "hq",
+      "value": "Chennai, Tamil Nadu",
+      "sourceKind": "official",
+      "url": "https://www.camsonline.com",
+      "retrievedAt": "2026-10-25T17:47:21.271Z",
+      "snippet": "headquartered in Chennai, Tamil Nadu",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "cams-industry",
+      "companyId": "cams",
+      "field": "industry",
+      "value": "Capital Markets & BFSI Infrastructure Technology",
+      "sourceKind": "official",
+      "url": "https://www.camsonline.com",
+      "retrievedAt": "2026-10-25T17:47:21.271Z",
+      "snippet": "Specializing in Capital Markets & BFSI Infrastructure Technology",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}

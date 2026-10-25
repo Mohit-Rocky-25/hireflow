@@ -1,0 +1,100 @@
+{
+  "companyId": "danfoss_india",
+  "name": "Danfoss India",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "Global producer of power electronics, frequency converters and energy efficient solutions.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "danfoss_india-officialName",
+      "companyId": "danfoss_india",
+      "field": "officialName",
+      "value": "Danfoss Industries Private Limited",
+      "sourceKind": "official",
+      "url": "https://www.danfoss.com",
+      "retrievedAt": "2026-10-25T17:47:22.734Z",
+      "snippet": "Danfoss Industries Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "danfoss_india-officialSiteUrl",
+      "companyId": "danfoss_india",
+      "field": "officialSiteUrl",
+      "value": "https://www.danfoss.com",
+      "sourceKind": "official",
+      "url": "https://www.danfoss.com",
+      "retrievedAt": "2026-10-25T17:47:22.734Z",
+      "snippet": "Official corporate website of Danfoss India",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "danfoss_india-indiaPresenceUrl",
+      "companyId": "danfoss_india",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.danfoss.com/en-in/about-danfoss/our-businesses/danfoss-in-india",
+      "sourceKind": "official",
+      "url": "https://www.danfoss.com/en-in/about-danfoss/our-businesses/danfoss-in-india",
+      "retrievedAt": "2026-10-25T17:47:22.734Z",
+      "snippet": "Danfoss Industries Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "danfoss_india-careersUrl",
+      "companyId": "danfoss_india",
+      "field": "careersUrl",
+      "value": "https://www.danfoss.com/en-in/about-danfoss/careers",
+      "sourceKind": "official",
+      "url": "https://www.danfoss.com/en-in/about-danfoss/careers",
+      "retrievedAt": "2026-10-25T17:47:22.734Z",
+      "snippet": "Danfoss India Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "danfoss_india-hq",
+      "companyId": "danfoss_india",
+      "field": "hq",
+      "value": "Chennai, Tamil Nadu",
+      "sourceKind": "official",
+      "url": "https://www.danfoss.com",
+      "retrievedAt": "2026-10-25T17:47:22.734Z",
+      "snippet": "headquartered in Chennai, Tamil Nadu",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "danfoss_india-industry",
+      "companyId": "danfoss_india",
+      "field": "industry",
+      "value": "Power Electronics, Variable Speed Drives & Climate Solutions",
+      "sourceKind": "official",
+      "url": "https://www.danfoss.com",
+      "retrievedAt": "2026-10-25T17:47:22.734Z",
+      "snippet": "Specializing in Power Electronics, Variable Speed Drives & Climate Solutions",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}

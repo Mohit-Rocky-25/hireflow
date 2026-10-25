@@ -1,0 +1,115 @@
+{
+  "companyId": "texas_instruments_india",
+  "name": "Texas Instruments India",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "Pioneer of the Indian semiconductor R&D ecosystem operating in Bengaluru since 1985.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "texas_instruments_india-officialName",
+      "companyId": "texas_instruments_india",
+      "field": "officialName",
+      "value": "Texas Instruments (India) Private Limited",
+      "sourceKind": "official",
+      "url": "https://www.ti.com",
+      "retrievedAt": "2026-10-25T17:47:23.844Z",
+      "snippet": "Texas Instruments (India) Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "texas_instruments_india-officialSiteUrl",
+      "companyId": "texas_instruments_india",
+      "field": "officialSiteUrl",
+      "value": "https://www.ti.com",
+      "sourceKind": "official",
+      "url": "https://www.ti.com",
+      "retrievedAt": "2026-10-25T17:47:23.844Z",
+      "snippet": "Official corporate website of Texas Instruments India",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "texas_instruments_india-indiaPresenceUrl",
+      "companyId": "texas_instruments_india",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.ti.com/about-ti/company/ti-at-a-glance.html",
+      "sourceKind": "official",
+      "url": "https://www.ti.com/about-ti/company/ti-at-a-glance.html",
+      "retrievedAt": "2026-10-25T17:47:23.844Z",
+      "snippet": "Texas Instruments (India) Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "texas_instruments_india-careersUrl",
+      "companyId": "texas_instruments_india",
+      "field": "careersUrl",
+      "value": "https://careers.ti.com",
+      "sourceKind": "official",
+      "url": "https://careers.ti.com",
+      "retrievedAt": "2026-10-25T17:47:23.844Z",
+      "snippet": "Texas Instruments India Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "texas_instruments_india-campusPageUrl",
+      "companyId": "texas_instruments_india",
+      "field": "campusPageUrl",
+      "value": "https://careers.ti.com/students",
+      "sourceKind": "official",
+      "url": "https://careers.ti.com/students",
+      "retrievedAt": "2026-10-25T17:47:23.844Z",
+      "snippet": "Texas Instruments India early careers campus hiring",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "texas_instruments_india-hq",
+      "companyId": "texas_instruments_india",
+      "field": "hq",
+      "value": "Bengaluru, Karnataka",
+      "sourceKind": "official",
+      "url": "https://www.ti.com",
+      "retrievedAt": "2026-10-25T17:47:23.844Z",
+      "snippet": "headquartered in Bengaluru, Karnataka",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "texas_instruments_india-industry",
+      "companyId": "texas_instruments_india",
+      "field": "industry",
+      "value": "Analog & Embedded Semiconductor Circuit Design",
+      "sourceKind": "official",
+      "url": "https://www.ti.com",
+      "retrievedAt": "2026-10-25T17:47:23.844Z",
+      "snippet": "Specializing in Analog & Embedded Semiconductor Circuit Design",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}

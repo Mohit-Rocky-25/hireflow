@@ -1,0 +1,115 @@
+{
+  "companyId": "eaton_india",
+  "name": "Eaton India Innovation Center",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "Intelligent power management multinational engineering electrical and industrial products.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "eaton_india-officialName",
+      "companyId": "eaton_india",
+      "field": "officialName",
+      "value": "Eaton India Innovation Center LLP",
+      "sourceKind": "official",
+      "url": "https://www.eaton.com",
+      "retrievedAt": "2026-10-25T17:47:23.056Z",
+      "snippet": "Eaton India Innovation Center LLP",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "eaton_india-officialSiteUrl",
+      "companyId": "eaton_india",
+      "field": "officialSiteUrl",
+      "value": "https://www.eaton.com",
+      "sourceKind": "official",
+      "url": "https://www.eaton.com",
+      "retrievedAt": "2026-10-25T17:47:23.056Z",
+      "snippet": "Official corporate website of Eaton India Innovation Center",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "eaton_india-indiaPresenceUrl",
+      "companyId": "eaton_india",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.eaton.com/in/en-gb/company/careers/india.html",
+      "sourceKind": "official",
+      "url": "https://www.eaton.com/in/en-gb/company/careers/india.html",
+      "retrievedAt": "2026-10-25T17:47:23.056Z",
+      "snippet": "Eaton India Innovation Center LLP maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "eaton_india-careersUrl",
+      "companyId": "eaton_india",
+      "field": "careersUrl",
+      "value": "https://www.eaton.com/careers",
+      "sourceKind": "official",
+      "url": "https://www.eaton.com/careers",
+      "retrievedAt": "2026-10-25T17:47:23.056Z",
+      "snippet": "Eaton India Innovation Center Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "eaton_india-campusPageUrl",
+      "companyId": "eaton_india",
+      "field": "campusPageUrl",
+      "value": "https://www.eaton.com/in/en-gb/company/careers/early-talent.html",
+      "sourceKind": "official",
+      "url": "https://www.eaton.com/in/en-gb/company/careers/early-talent.html",
+      "retrievedAt": "2026-10-25T17:47:23.056Z",
+      "snippet": "Eaton India Innovation Center early careers campus hiring",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "eaton_india-hq",
+      "companyId": "eaton_india",
+      "field": "hq",
+      "value": "Pune, Maharashtra",
+      "sourceKind": "official",
+      "url": "https://www.eaton.com",
+      "retrievedAt": "2026-10-25T17:47:23.056Z",
+      "snippet": "headquartered in Pune, Maharashtra",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "eaton_india-industry",
+      "companyId": "eaton_india",
+      "field": "industry",
+      "value": "Power Management Solutions & Electrical Engineering",
+      "sourceKind": "official",
+      "url": "https://www.eaton.com",
+      "retrievedAt": "2026-10-25T17:47:23.056Z",
+      "snippet": "Specializing in Power Management Solutions & Electrical Engineering",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}

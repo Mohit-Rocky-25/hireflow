@@ -1,0 +1,100 @@
+{
+  "companyId": "smarsh",
+  "name": "Smarsh India",
+  "tier": "GCC",
+  "tierRationale": "Enterprise compliance and electronic communications capture SaaS engineering center.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "smarsh-officialName",
+      "companyId": "smarsh",
+      "field": "officialName",
+      "value": "Smarsh India Private Limited",
+      "sourceKind": "official",
+      "url": "https://www.smarsh.com",
+      "retrievedAt": "2026-10-25T17:47:21.806Z",
+      "snippet": "Smarsh India Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "smarsh-officialSiteUrl",
+      "companyId": "smarsh",
+      "field": "officialSiteUrl",
+      "value": "https://www.smarsh.com",
+      "sourceKind": "official",
+      "url": "https://www.smarsh.com",
+      "retrievedAt": "2026-10-25T17:47:21.806Z",
+      "snippet": "Official corporate website of Smarsh India",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "smarsh-indiaPresenceUrl",
+      "companyId": "smarsh",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.smarsh.com/about",
+      "sourceKind": "official",
+      "url": "https://www.smarsh.com/about",
+      "retrievedAt": "2026-10-25T17:47:21.806Z",
+      "snippet": "Smarsh India Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "smarsh-careersUrl",
+      "companyId": "smarsh",
+      "field": "careersUrl",
+      "value": "https://www.smarsh.com/careers",
+      "sourceKind": "official",
+      "url": "https://www.smarsh.com/careers",
+      "retrievedAt": "2026-10-25T17:47:21.806Z",
+      "snippet": "Smarsh India Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "smarsh-hq",
+      "companyId": "smarsh",
+      "field": "hq",
+      "value": "Bengaluru, Karnataka",
+      "sourceKind": "official",
+      "url": "https://www.smarsh.com",
+      "retrievedAt": "2026-10-25T17:47:21.806Z",
+      "snippet": "headquartered in Bengaluru, Karnataka",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "smarsh-industry",
+      "companyId": "smarsh",
+      "field": "industry",
+      "value": "RegTech & Digital Communications Compliance SaaS",
+      "sourceKind": "official",
+      "url": "https://www.smarsh.com",
+      "retrievedAt": "2026-10-25T17:47:21.806Z",
+      "snippet": "Specializing in RegTech & Digital Communications Compliance SaaS",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}

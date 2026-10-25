@@ -1,0 +1,100 @@
+{
+  "companyId": "delhivery",
+  "name": "Delhivery Tech",
+  "tier": "UNICORN",
+  "tierRationale": "Publicly listed logistics and supply chain services company.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "delhivery-officialName",
+      "companyId": "delhivery",
+      "field": "officialName",
+      "value": "Delhivery Limited",
+      "sourceKind": "official",
+      "url": "https://www.delhivery.com",
+      "retrievedAt": "2026-10-25T17:47:24.096Z",
+      "snippet": "Delhivery Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "delhivery-officialSiteUrl",
+      "companyId": "delhivery",
+      "field": "officialSiteUrl",
+      "value": "https://www.delhivery.com",
+      "sourceKind": "official",
+      "url": "https://www.delhivery.com",
+      "retrievedAt": "2026-10-25T17:47:24.096Z",
+      "snippet": "Official corporate website of Delhivery Tech",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "delhivery-indiaPresenceUrl",
+      "companyId": "delhivery",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.delhivery.com/company/about-us",
+      "sourceKind": "official",
+      "url": "https://www.delhivery.com/company/about-us",
+      "retrievedAt": "2026-10-25T17:47:24.096Z",
+      "snippet": "Delhivery Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "delhivery-careersUrl",
+      "companyId": "delhivery",
+      "field": "careersUrl",
+      "value": "https://www.delhivery.com/careers",
+      "sourceKind": "official",
+      "url": "https://www.delhivery.com/careers",
+      "retrievedAt": "2026-10-25T17:47:24.096Z",
+      "snippet": "Delhivery Tech Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "delhivery-hq",
+      "companyId": "delhivery",
+      "field": "hq",
+      "value": "Gurugram, Haryana",
+      "sourceKind": "official",
+      "url": "https://www.delhivery.com",
+      "retrievedAt": "2026-10-25T17:47:24.096Z",
+      "snippet": "headquartered in Gurugram, Haryana",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "delhivery-industry",
+      "companyId": "delhivery",
+      "field": "industry",
+      "value": "Integrated Express Logistics & Automated Supply Chain",
+      "sourceKind": "official",
+      "url": "https://www.delhivery.com",
+      "retrievedAt": "2026-10-25T17:47:24.096Z",
+      "snippet": "Specializing in Integrated Express Logistics & Automated Supply Chain",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}

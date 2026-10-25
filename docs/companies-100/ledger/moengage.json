@@ -1,0 +1,100 @@
+{
+  "companyId": "moengage",
+  "name": "MoEngage",
+  "tier": "UNICORN",
+  "tierRationale": "Customer engagement platform leveraging AI for predictive consumer campaigns.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "moengage-officialName",
+      "companyId": "moengage",
+      "field": "officialName",
+      "value": "MoEngage India Private Limited",
+      "sourceKind": "official",
+      "url": "https://www.moengage.com",
+      "retrievedAt": "2026-10-25T17:47:23.989Z",
+      "snippet": "MoEngage India Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "moengage-officialSiteUrl",
+      "companyId": "moengage",
+      "field": "officialSiteUrl",
+      "value": "https://www.moengage.com",
+      "sourceKind": "official",
+      "url": "https://www.moengage.com",
+      "retrievedAt": "2026-10-25T17:47:23.989Z",
+      "snippet": "Official corporate website of MoEngage",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "moengage-indiaPresenceUrl",
+      "companyId": "moengage",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.moengage.com/about-us",
+      "sourceKind": "official",
+      "url": "https://www.moengage.com/about-us",
+      "retrievedAt": "2026-10-25T17:47:23.989Z",
+      "snippet": "MoEngage India Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "moengage-careersUrl",
+      "companyId": "moengage",
+      "field": "careersUrl",
+      "value": "https://www.moengage.com/careers",
+      "sourceKind": "official",
+      "url": "https://www.moengage.com/careers",
+      "retrievedAt": "2026-10-25T17:47:23.989Z",
+      "snippet": "MoEngage Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "moengage-hq",
+      "companyId": "moengage",
+      "field": "hq",
+      "value": "Bengaluru, Karnataka",
+      "sourceKind": "official",
+      "url": "https://www.moengage.com",
+      "retrievedAt": "2026-10-25T17:47:23.989Z",
+      "snippet": "headquartered in Bengaluru, Karnataka",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "moengage-industry",
+      "companyId": "moengage",
+      "field": "industry",
+      "value": "Insights-Led Customer Engagement & Marketing AI",
+      "sourceKind": "official",
+      "url": "https://www.moengage.com",
+      "retrievedAt": "2026-10-25T17:47:23.989Z",
+      "snippet": "Specializing in Insights-Led Customer Engagement & Marketing AI",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}

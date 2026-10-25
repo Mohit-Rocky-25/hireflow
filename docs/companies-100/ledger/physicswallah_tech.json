@@ -1,0 +1,100 @@
+{
+  "companyId": "physicswallah_tech",
+  "name": "PhysicsWallah Tech",
+  "tier": "UNICORN",
+  "tierRationale": "Indian EdTech unicorn delivering affordable competitive exam test prep apps.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "physicswallah_tech-officialName",
+      "companyId": "physicswallah_tech",
+      "field": "officialName",
+      "value": "PhysicsWallah Private Limited",
+      "sourceKind": "official",
+      "url": "https://www.pw.live",
+      "retrievedAt": "2026-10-25T17:47:24.020Z",
+      "snippet": "PhysicsWallah Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "physicswallah_tech-officialSiteUrl",
+      "companyId": "physicswallah_tech",
+      "field": "officialSiteUrl",
+      "value": "https://www.pw.live",
+      "sourceKind": "official",
+      "url": "https://www.pw.live",
+      "retrievedAt": "2026-10-25T17:47:24.020Z",
+      "snippet": "Official corporate website of PhysicsWallah Tech",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "physicswallah_tech-indiaPresenceUrl",
+      "companyId": "physicswallah_tech",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.pw.live/about-us",
+      "sourceKind": "official",
+      "url": "https://www.pw.live/about-us",
+      "retrievedAt": "2026-10-25T17:47:24.020Z",
+      "snippet": "PhysicsWallah Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "physicswallah_tech-careersUrl",
+      "companyId": "physicswallah_tech",
+      "field": "careersUrl",
+      "value": "https://www.pw.live/careers",
+      "sourceKind": "official",
+      "url": "https://www.pw.live/careers",
+      "retrievedAt": "2026-10-25T17:47:24.020Z",
+      "snippet": "PhysicsWallah Tech Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "physicswallah_tech-hq",
+      "companyId": "physicswallah_tech",
+      "field": "hq",
+      "value": "Noida, Uttar Pradesh",
+      "sourceKind": "official",
+      "url": "https://www.pw.live",
+      "retrievedAt": "2026-10-25T17:47:24.020Z",
+      "snippet": "headquartered in Noida, Uttar Pradesh",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "physicswallah_tech-industry",
+      "companyId": "physicswallah_tech",
+      "field": "industry",
+      "value": "EdTech Platform, Live Streaming & Digital Learning",
+      "sourceKind": "official",
+      "url": "https://www.pw.live",
+      "retrievedAt": "2026-10-25T17:47:24.020Z",
+      "snippet": "Specializing in EdTech Platform, Live Streaming & Digital Learning",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}

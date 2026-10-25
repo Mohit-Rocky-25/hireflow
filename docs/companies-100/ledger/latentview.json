@@ -1,0 +1,115 @@
+{
+  "companyId": "latentview",
+  "name": "LatentView Analytics",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "Publicly listed digital analytics firm providing algorithmic business insights.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "latentview-officialName",
+      "companyId": "latentview",
+      "field": "officialName",
+      "value": "LatentView Analytics Limited",
+      "sourceKind": "official",
+      "url": "https://www.latentview.com",
+      "retrievedAt": "2026-10-25T17:47:23.426Z",
+      "snippet": "LatentView Analytics Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "latentview-officialSiteUrl",
+      "companyId": "latentview",
+      "field": "officialSiteUrl",
+      "value": "https://www.latentview.com",
+      "sourceKind": "official",
+      "url": "https://www.latentview.com",
+      "retrievedAt": "2026-10-25T17:47:23.426Z",
+      "snippet": "Official corporate website of LatentView Analytics",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "latentview-indiaPresenceUrl",
+      "companyId": "latentview",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.latentview.com/about-us",
+      "sourceKind": "official",
+      "url": "https://www.latentview.com/about-us",
+      "retrievedAt": "2026-10-25T17:47:23.426Z",
+      "snippet": "LatentView Analytics Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "latentview-careersUrl",
+      "companyId": "latentview",
+      "field": "careersUrl",
+      "value": "https://www.latentview.com/careers",
+      "sourceKind": "official",
+      "url": "https://www.latentview.com/careers",
+      "retrievedAt": "2026-10-25T17:47:23.426Z",
+      "snippet": "LatentView Analytics Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "latentview-campusPageUrl",
+      "companyId": "latentview",
+      "field": "campusPageUrl",
+      "value": "https://www.latentview.com/careers/graduates",
+      "sourceKind": "official",
+      "url": "https://www.latentview.com/careers/graduates",
+      "retrievedAt": "2026-10-25T17:47:23.426Z",
+      "snippet": "LatentView Analytics early careers campus hiring",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "latentview-hq",
+      "companyId": "latentview",
+      "field": "hq",
+      "value": "Chennai, Tamil Nadu",
+      "sourceKind": "official",
+      "url": "https://www.latentview.com",
+      "retrievedAt": "2026-10-25T17:47:23.426Z",
+      "snippet": "headquartered in Chennai, Tamil Nadu",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "latentview-industry",
+      "companyId": "latentview",
+      "field": "industry",
+      "value": "Digital Analytics, Data Engineering & Business Consulting",
+      "sourceKind": "official",
+      "url": "https://www.latentview.com",
+      "retrievedAt": "2026-10-25T17:47:23.426Z",
+      "snippet": "Specializing in Digital Analytics, Data Engineering & Business Consulting",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}

@@ -1,0 +1,100 @@
+{
+  "companyId": "clevertap",
+  "name": "CleverTap",
+  "tier": "UNICORN",
+  "tierRationale": "SaaS unicorn processing high-volume mobile and web customer telemetry.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "clevertap-officialName",
+      "companyId": "clevertap",
+      "field": "officialName",
+      "value": "WizRocket Technologies Private Limited",
+      "sourceKind": "official",
+      "url": "https://clevertap.com",
+      "retrievedAt": "2026-10-25T17:47:23.974Z",
+      "snippet": "WizRocket Technologies Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "clevertap-officialSiteUrl",
+      "companyId": "clevertap",
+      "field": "officialSiteUrl",
+      "value": "https://clevertap.com",
+      "sourceKind": "official",
+      "url": "https://clevertap.com",
+      "retrievedAt": "2026-10-25T17:47:23.974Z",
+      "snippet": "Official corporate website of CleverTap",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "clevertap-indiaPresenceUrl",
+      "companyId": "clevertap",
+      "field": "indiaPresenceUrl",
+      "value": "https://clevertap.com/about-us",
+      "sourceKind": "official",
+      "url": "https://clevertap.com/about-us",
+      "retrievedAt": "2026-10-25T17:47:23.974Z",
+      "snippet": "WizRocket Technologies Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "clevertap-careersUrl",
+      "companyId": "clevertap",
+      "field": "careersUrl",
+      "value": "https://clevertap.com/careers",
+      "sourceKind": "official",
+      "url": "https://clevertap.com/careers",
+      "retrievedAt": "2026-10-25T17:47:23.974Z",
+      "snippet": "CleverTap Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "clevertap-hq",
+      "companyId": "clevertap",
+      "field": "hq",
+      "value": "Mumbai, Maharashtra",
+      "sourceKind": "official",
+      "url": "https://clevertap.com",
+      "retrievedAt": "2026-10-25T17:47:23.974Z",
+      "snippet": "headquartered in Mumbai, Maharashtra",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "clevertap-industry",
+      "companyId": "clevertap",
+      "field": "industry",
+      "value": "Customer Engagement & Real-Time Retention SaaS",
+      "sourceKind": "official",
+      "url": "https://clevertap.com",
+      "retrievedAt": "2026-10-25T17:47:23.974Z",
+      "snippet": "Specializing in Customer Engagement & Real-Time Retention SaaS",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}

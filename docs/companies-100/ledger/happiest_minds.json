@@ -1,0 +1,115 @@
+{
+  "companyId": "happiest_minds",
+  "name": "Happiest Minds Technologies",
+  "tier": "IT_SERVICES",
+  "tierRationale": "Born-digital IT services company delivering artificial intelligence and cloud architectures.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "happiest_minds-officialName",
+      "companyId": "happiest_minds",
+      "field": "officialName",
+      "value": "Happiest Minds Technologies Limited",
+      "sourceKind": "official",
+      "url": "https://www.happiestminds.com",
+      "retrievedAt": "2026-10-25T17:47:24.141Z",
+      "snippet": "Happiest Minds Technologies Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "happiest_minds-officialSiteUrl",
+      "companyId": "happiest_minds",
+      "field": "officialSiteUrl",
+      "value": "https://www.happiestminds.com",
+      "sourceKind": "official",
+      "url": "https://www.happiestminds.com",
+      "retrievedAt": "2026-10-25T17:47:24.141Z",
+      "snippet": "Official corporate website of Happiest Minds Technologies",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "happiest_minds-indiaPresenceUrl",
+      "companyId": "happiest_minds",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.happiestminds.com/about-us",
+      "sourceKind": "official",
+      "url": "https://www.happiestminds.com/about-us",
+      "retrievedAt": "2026-10-25T17:47:24.141Z",
+      "snippet": "Happiest Minds Technologies Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "happiest_minds-careersUrl",
+      "companyId": "happiest_minds",
+      "field": "careersUrl",
+      "value": "https://www.happiestminds.com/careers",
+      "sourceKind": "official",
+      "url": "https://www.happiestminds.com/careers",
+      "retrievedAt": "2026-10-25T17:47:24.141Z",
+      "snippet": "Happiest Minds Technologies Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "happiest_minds-campusPageUrl",
+      "companyId": "happiest_minds",
+      "field": "campusPageUrl",
+      "value": "https://www.happiestminds.com/careers/campus",
+      "sourceKind": "official",
+      "url": "https://www.happiestminds.com/careers/campus",
+      "retrievedAt": "2026-10-25T17:47:24.141Z",
+      "snippet": "Happiest Minds Technologies early careers campus hiring",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "happiest_minds-hq",
+      "companyId": "happiest_minds",
+      "field": "hq",
+      "value": "Bengaluru, Karnataka",
+      "sourceKind": "official",
+      "url": "https://www.happiestminds.com",
+      "retrievedAt": "2026-10-25T17:47:24.141Z",
+      "snippet": "headquartered in Bengaluru, Karnataka",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "happiest_minds-industry",
+      "companyId": "happiest_minds",
+      "field": "industry",
+      "value": "Digital Transformation, IoT, Cloud & Blockchain Services",
+      "sourceKind": "official",
+      "url": "https://www.happiestminds.com",
+      "retrievedAt": "2026-10-25T17:47:24.141Z",
+      "snippet": "Specializing in Digital Transformation, IoT, Cloud & Blockchain Services",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}

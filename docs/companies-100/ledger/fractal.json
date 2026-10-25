@@ -1,0 +1,115 @@
+{
+  "companyId": "fractal",
+  "name": "Fractal Analytics",
+  "tier": "UNICORN",
+  "tierRationale": "Global AI unicorn delivering predictive analytics and cognitive solutions for Fortune 500.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "fractal-officialName",
+      "companyId": "fractal",
+      "field": "officialName",
+      "value": "Fractal Analytics Private Limited",
+      "sourceKind": "official",
+      "url": "https://fractal.ai",
+      "retrievedAt": "2026-10-25T17:47:23.399Z",
+      "snippet": "Fractal Analytics Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "fractal-officialSiteUrl",
+      "companyId": "fractal",
+      "field": "officialSiteUrl",
+      "value": "https://fractal.ai",
+      "sourceKind": "official",
+      "url": "https://fractal.ai",
+      "retrievedAt": "2026-10-25T17:47:23.399Z",
+      "snippet": "Official corporate website of Fractal Analytics",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "fractal-indiaPresenceUrl",
+      "companyId": "fractal",
+      "field": "indiaPresenceUrl",
+      "value": "https://fractal.ai/about-us",
+      "sourceKind": "official",
+      "url": "https://fractal.ai/about-us",
+      "retrievedAt": "2026-10-25T17:47:23.399Z",
+      "snippet": "Fractal Analytics Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "fractal-careersUrl",
+      "companyId": "fractal",
+      "field": "careersUrl",
+      "value": "https://fractal.ai/careers",
+      "sourceKind": "official",
+      "url": "https://fractal.ai/careers",
+      "retrievedAt": "2026-10-25T17:47:23.399Z",
+      "snippet": "Fractal Analytics Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "fractal-campusPageUrl",
+      "companyId": "fractal",
+      "field": "campusPageUrl",
+      "value": "https://fractal.ai/careers/campus-connect",
+      "sourceKind": "official",
+      "url": "https://fractal.ai/careers/campus-connect",
+      "retrievedAt": "2026-10-25T17:47:23.399Z",
+      "snippet": "Fractal Analytics early careers campus hiring",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "fractal-hq",
+      "companyId": "fractal",
+      "field": "hq",
+      "value": "Mumbai / Bengaluru",
+      "sourceKind": "official",
+      "url": "https://fractal.ai",
+      "retrievedAt": "2026-10-25T17:47:23.399Z",
+      "snippet": "headquartered in Mumbai / Bengaluru",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "fractal-industry",
+      "companyId": "fractal",
+      "field": "industry",
+      "value": "Artificial Intelligence & Enterprise Decision Science",
+      "sourceKind": "official",
+      "url": "https://fractal.ai",
+      "retrievedAt": "2026-10-25T17:47:23.399Z",
+      "snippet": "Specializing in Artificial Intelligence & Enterprise Decision Science",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}

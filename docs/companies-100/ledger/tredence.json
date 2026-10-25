@@ -1,0 +1,100 @@
+{
+  "companyId": "tredence",
+  "name": "Tredence Analytics",
+  "tier": "UNICORN",
+  "tierRationale": "Private equity-backed analytics unicorn focused on last-mile adoption of data science.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "tredence-officialName",
+      "companyId": "tredence",
+      "field": "officialName",
+      "value": "Tredence Analytics Solutions Private Limited",
+      "sourceKind": "official",
+      "url": "https://www.tredence.com",
+      "retrievedAt": "2026-10-25T17:47:23.582Z",
+      "snippet": "Tredence Analytics Solutions Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "tredence-officialSiteUrl",
+      "companyId": "tredence",
+      "field": "officialSiteUrl",
+      "value": "https://www.tredence.com",
+      "sourceKind": "official",
+      "url": "https://www.tredence.com",
+      "retrievedAt": "2026-10-25T17:47:23.582Z",
+      "snippet": "Official corporate website of Tredence Analytics",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "tredence-indiaPresenceUrl",
+      "companyId": "tredence",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.tredence.com/about-us",
+      "sourceKind": "official",
+      "url": "https://www.tredence.com/about-us",
+      "retrievedAt": "2026-10-25T17:47:23.582Z",
+      "snippet": "Tredence Analytics Solutions Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "tredence-careersUrl",
+      "companyId": "tredence",
+      "field": "careersUrl",
+      "value": "https://www.tredence.com/careers",
+      "sourceKind": "official",
+      "url": "https://www.tredence.com/careers",
+      "retrievedAt": "2026-10-25T17:47:23.582Z",
+      "snippet": "Tredence Analytics Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "tredence-hq",
+      "companyId": "tredence",
+      "field": "hq",
+      "value": "Bengaluru, Karnataka",
+      "sourceKind": "official",
+      "url": "https://www.tredence.com",
+      "retrievedAt": "2026-10-25T17:47:23.582Z",
+      "snippet": "headquartered in Bengaluru, Karnataka",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "tredence-industry",
+      "companyId": "tredence",
+      "field": "industry",
+      "value": "Data Science & Enterprise Last-Mile AI Solutions",
+      "sourceKind": "official",
+      "url": "https://www.tredence.com",
+      "retrievedAt": "2026-10-25T17:47:23.582Z",
+      "snippet": "Specializing in Data Science & Enterprise Last-Mile AI Solutions",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}

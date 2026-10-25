@@ -1,0 +1,115 @@
+{
+  "companyId": "micron_india",
+  "name": "Micron Technology India",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "World leader in innovative memory and storage solutions with major Hyderabad tech center.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "micron_india-officialName",
+      "companyId": "micron_india",
+      "field": "officialName",
+      "value": "Micron Technology Operations India LLP",
+      "sourceKind": "official",
+      "url": "https://in.micron.com",
+      "retrievedAt": "2026-10-25T17:47:23.822Z",
+      "snippet": "Micron Technology Operations India LLP",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "micron_india-officialSiteUrl",
+      "companyId": "micron_india",
+      "field": "officialSiteUrl",
+      "value": "https://in.micron.com",
+      "sourceKind": "official",
+      "url": "https://in.micron.com",
+      "retrievedAt": "2026-10-25T17:47:23.822Z",
+      "snippet": "Official corporate website of Micron Technology India",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "micron_india-indiaPresenceUrl",
+      "companyId": "micron_india",
+      "field": "indiaPresenceUrl",
+      "value": "https://in.micron.com/about",
+      "sourceKind": "official",
+      "url": "https://in.micron.com/about",
+      "retrievedAt": "2026-10-25T17:47:23.822Z",
+      "snippet": "Micron Technology Operations India LLP maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "micron_india-careersUrl",
+      "companyId": "micron_india",
+      "field": "careersUrl",
+      "value": "https://in.micron.com/careers",
+      "sourceKind": "official",
+      "url": "https://in.micron.com/careers",
+      "retrievedAt": "2026-10-25T17:47:23.822Z",
+      "snippet": "Micron Technology India Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "micron_india-campusPageUrl",
+      "companyId": "micron_india",
+      "field": "campusPageUrl",
+      "value": "https://in.micron.com/careers/students-and-recent-grads",
+      "sourceKind": "official",
+      "url": "https://in.micron.com/careers/students-and-recent-grads",
+      "retrievedAt": "2026-10-25T17:47:23.822Z",
+      "snippet": "Micron Technology India early careers campus hiring",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "micron_india-hq",
+      "companyId": "micron_india",
+      "field": "hq",
+      "value": "Hyderabad, Telangana",
+      "sourceKind": "official",
+      "url": "https://in.micron.com",
+      "retrievedAt": "2026-10-25T17:47:23.822Z",
+      "snippet": "headquartered in Hyderabad, Telangana",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "micron_india-industry",
+      "companyId": "micron_india",
+      "field": "industry",
+      "value": "Semiconductor Memory, DRAM/NAND & Storage R&D",
+      "sourceKind": "official",
+      "url": "https://in.micron.com",
+      "retrievedAt": "2026-10-25T17:47:23.822Z",
+      "snippet": "Specializing in Semiconductor Memory, DRAM/NAND & Storage R&D",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}

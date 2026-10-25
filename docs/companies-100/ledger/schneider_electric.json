@@ -1,0 +1,115 @@
+{
+  "companyId": "schneider_electric",
+  "name": "Schneider Electric India",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "Global leader in energy management and automation solutions with major Indian R&D hubs.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "schneider_electric-officialName",
+      "companyId": "schneider_electric",
+      "field": "officialName",
+      "value": "Schneider Electric India Private Limited",
+      "sourceKind": "official",
+      "url": "https://www.se.com",
+      "retrievedAt": "2026-10-25T17:47:22.694Z",
+      "snippet": "Schneider Electric India Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "schneider_electric-officialSiteUrl",
+      "companyId": "schneider_electric",
+      "field": "officialSiteUrl",
+      "value": "https://www.se.com",
+      "sourceKind": "official",
+      "url": "https://www.se.com",
+      "retrievedAt": "2026-10-25T17:47:22.694Z",
+      "snippet": "Official corporate website of Schneider Electric India",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "schneider_electric-indiaPresenceUrl",
+      "companyId": "schneider_electric",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.se.com/in/en/about-us",
+      "sourceKind": "official",
+      "url": "https://www.se.com/in/en/about-us",
+      "retrievedAt": "2026-10-25T17:47:22.694Z",
+      "snippet": "Schneider Electric India Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "schneider_electric-careersUrl",
+      "companyId": "schneider_electric",
+      "field": "careersUrl",
+      "value": "https://www.se.com/in/en/about-us/careers",
+      "sourceKind": "official",
+      "url": "https://www.se.com/in/en/about-us/careers",
+      "retrievedAt": "2026-10-25T17:47:22.694Z",
+      "snippet": "Schneider Electric India Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "schneider_electric-campusPageUrl",
+      "companyId": "schneider_electric",
+      "field": "campusPageUrl",
+      "value": "https://www.se.com/in/en/about-us/careers/students-and-graduates.jsp",
+      "sourceKind": "official",
+      "url": "https://www.se.com/in/en/about-us/careers/students-and-graduates.jsp",
+      "retrievedAt": "2026-10-25T17:47:22.694Z",
+      "snippet": "Schneider Electric India early careers campus hiring",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "schneider_electric-hq",
+      "companyId": "schneider_electric",
+      "field": "hq",
+      "value": "Bengaluru, Karnataka",
+      "sourceKind": "official",
+      "url": "https://www.se.com",
+      "retrievedAt": "2026-10-25T17:47:22.694Z",
+      "snippet": "headquartered in Bengaluru, Karnataka",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "schneider_electric-industry",
+      "companyId": "schneider_electric",
+      "field": "industry",
+      "value": "Digital Energy Management & Industrial Automation",
+      "sourceKind": "official",
+      "url": "https://www.se.com",
+      "retrievedAt": "2026-10-25T17:47:22.694Z",
+      "snippet": "Specializing in Digital Energy Management & Industrial Automation",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}

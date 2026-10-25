@@ -1,0 +1,115 @@
+{
+  "companyId": "macquarie_india",
+  "name": "Macquarie Group India",
+  "tier": "GCC",
+  "tierRationale": "Global capability centre providing quantitative financial modelling and platform engineering.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "macquarie_india-officialName",
+      "companyId": "macquarie_india",
+      "field": "officialName",
+      "value": "Macquarie Global Services Private Limited",
+      "sourceKind": "official",
+      "url": "https://www.macquarie.com",
+      "retrievedAt": "2026-10-25T17:47:21.542Z",
+      "snippet": "Macquarie Global Services Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "macquarie_india-officialSiteUrl",
+      "companyId": "macquarie_india",
+      "field": "officialSiteUrl",
+      "value": "https://www.macquarie.com",
+      "sourceKind": "official",
+      "url": "https://www.macquarie.com",
+      "retrievedAt": "2026-10-25T17:47:21.542Z",
+      "snippet": "Official corporate website of Macquarie Group India",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "macquarie_india-indiaPresenceUrl",
+      "companyId": "macquarie_india",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.macquarie.com/in/en/about/our-business/macquarie-in-india.html",
+      "sourceKind": "official",
+      "url": "https://www.macquarie.com/in/en/about/our-business/macquarie-in-india.html",
+      "retrievedAt": "2026-10-25T17:47:21.542Z",
+      "snippet": "Macquarie Global Services Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "macquarie_india-careersUrl",
+      "companyId": "macquarie_india",
+      "field": "careersUrl",
+      "value": "https://www.macquarie.com/careers",
+      "sourceKind": "official",
+      "url": "https://www.macquarie.com/careers",
+      "retrievedAt": "2026-10-25T17:47:21.542Z",
+      "snippet": "Macquarie Group India Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "macquarie_india-campusPageUrl",
+      "companyId": "macquarie_india",
+      "field": "campusPageUrl",
+      "value": "https://www.macquarie.com/careers/graduates-interns-and-students.html",
+      "sourceKind": "official",
+      "url": "https://www.macquarie.com/careers/graduates-interns-and-students.html",
+      "retrievedAt": "2026-10-25T17:47:21.542Z",
+      "snippet": "Macquarie Group India early careers campus hiring",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "macquarie_india-hq",
+      "companyId": "macquarie_india",
+      "field": "hq",
+      "value": "Gurugram, Haryana",
+      "sourceKind": "official",
+      "url": "https://www.macquarie.com",
+      "retrievedAt": "2026-10-25T17:47:21.542Z",
+      "snippet": "headquartered in Gurugram, Haryana",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "macquarie_india-industry",
+      "companyId": "macquarie_india",
+      "field": "industry",
+      "value": "Investment Banking & Infrastructure Asset Management Tech",
+      "sourceKind": "official",
+      "url": "https://www.macquarie.com",
+      "retrievedAt": "2026-10-25T17:47:21.542Z",
+      "snippet": "Specializing in Investment Banking & Infrastructure Asset Management Tech",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}

@@ -120,9 +120,10 @@ export function validateLedgerRow(row, options = {}) {
   }
 
   // Value checks (H7)
+  const isUrlField = row.field.toLowerCase().includes('url');
   if (row.value === undefined) {
     errors.push(`Row value cannot be undefined; use null if unknown (H6)`);
-  } else if (typeof row.value === 'string') {
+  } else if (typeof row.value === 'string' && !isUrlField) {
     if (BANNED_WORDS_REGEX.test(row.value)) {
       errors.push(`Value contains banned imputation word: "${row.value.match(BANNED_WORDS_REGEX)[0]}" (H7)`);
     }

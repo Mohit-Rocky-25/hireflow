@@ -1,0 +1,100 @@
+{
+  "companyId": "valeo_india",
+  "name": "Valeo India",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "Automotive supplier pioneering thermal systems, visibility systems, and electrification.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "valeo_india-officialName",
+      "companyId": "valeo_india",
+      "field": "officialName",
+      "value": "Valeo India Private Limited",
+      "sourceKind": "official",
+      "url": "https://www.valeo.com",
+      "retrievedAt": "2026-10-25T17:47:22.484Z",
+      "snippet": "Valeo India Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "valeo_india-officialSiteUrl",
+      "companyId": "valeo_india",
+      "field": "officialSiteUrl",
+      "value": "https://www.valeo.com",
+      "sourceKind": "official",
+      "url": "https://www.valeo.com",
+      "retrievedAt": "2026-10-25T17:47:22.484Z",
+      "snippet": "Official corporate website of Valeo India",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "valeo_india-indiaPresenceUrl",
+      "companyId": "valeo_india",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.valeo.com/en/india",
+      "sourceKind": "official",
+      "url": "https://www.valeo.com/en/india",
+      "retrievedAt": "2026-10-25T17:47:22.484Z",
+      "snippet": "Valeo India Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "valeo_india-careersUrl",
+      "companyId": "valeo_india",
+      "field": "careersUrl",
+      "value": "https://www.valeo.com/en/careers",
+      "sourceKind": "official",
+      "url": "https://www.valeo.com/en/careers",
+      "retrievedAt": "2026-10-25T17:47:22.484Z",
+      "snippet": "Valeo India Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "valeo_india-hq",
+      "companyId": "valeo_india",
+      "field": "hq",
+      "value": "Chennai, Tamil Nadu",
+      "sourceKind": "official",
+      "url": "https://www.valeo.com",
+      "retrievedAt": "2026-10-25T17:47:22.484Z",
+      "snippet": "headquartered in Chennai, Tamil Nadu",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "valeo_india-industry",
+      "companyId": "valeo_india",
+      "field": "industry",
+      "value": "Automotive Thermal Systems, Powertrain & ADAS Sensors",
+      "sourceKind": "official",
+      "url": "https://www.valeo.com",
+      "retrievedAt": "2026-10-25T17:47:22.484Z",
+      "snippet": "Specializing in Automotive Thermal Systems, Powertrain & ADAS Sensors",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}

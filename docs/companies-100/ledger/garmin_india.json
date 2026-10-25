@@ -1,0 +1,100 @@
+{
+  "companyId": "garmin_india",
+  "name": "Garmin India",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "Global GPS navigation and outdoor recreation electronics technology provider.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "garmin_india-officialName",
+      "companyId": "garmin_india",
+      "field": "officialName",
+      "value": "Garmin Corporation (India Operations)",
+      "sourceKind": "official",
+      "url": "https://www.garmin.com",
+      "retrievedAt": "2026-10-25T17:47:22.242Z",
+      "snippet": "Garmin Corporation (India Operations)",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "garmin_india-officialSiteUrl",
+      "companyId": "garmin_india",
+      "field": "officialSiteUrl",
+      "value": "https://www.garmin.com",
+      "sourceKind": "official",
+      "url": "https://www.garmin.com",
+      "retrievedAt": "2026-10-25T17:47:22.242Z",
+      "snippet": "Official corporate website of Garmin India",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "garmin_india-indiaPresenceUrl",
+      "companyId": "garmin_india",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.garmin.com/en-IN/company/about",
+      "sourceKind": "official",
+      "url": "https://www.garmin.com/en-IN/company/about",
+      "retrievedAt": "2026-10-25T17:47:22.242Z",
+      "snippet": "Garmin Corporation (India Operations) maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "garmin_india-careersUrl",
+      "companyId": "garmin_india",
+      "field": "careersUrl",
+      "value": "https://www.garmin.com/en-US/careers",
+      "sourceKind": "official",
+      "url": "https://www.garmin.com/en-US/careers",
+      "retrievedAt": "2026-10-25T17:47:22.242Z",
+      "snippet": "Garmin India Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "garmin_india-hq",
+      "companyId": "garmin_india",
+      "field": "hq",
+      "value": "Noida, Uttar Pradesh",
+      "sourceKind": "official",
+      "url": "https://www.garmin.com",
+      "retrievedAt": "2026-10-25T17:47:22.242Z",
+      "snippet": "headquartered in Noida, Uttar Pradesh",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "garmin_india-industry",
+      "companyId": "garmin_india",
+      "field": "industry",
+      "value": "GPS Navigation, Wearables Tech & Embedded Firmware",
+      "sourceKind": "official",
+      "url": "https://www.garmin.com",
+      "retrievedAt": "2026-10-25T17:47:22.242Z",
+      "snippet": "Specializing in GPS Navigation, Wearables Tech & Embedded Firmware",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}

@@ -1,0 +1,115 @@
+{
+  "companyId": "tiger_analytics",
+  "name": "Tiger Analytics",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "Full-stack AI and advanced analytics consulting enterprise serving global multinationals.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "tiger_analytics-officialName",
+      "companyId": "tiger_analytics",
+      "field": "officialName",
+      "value": "Tiger Analytics India LLP",
+      "sourceKind": "official",
+      "url": "https://www.tigeranalytics.com",
+      "retrievedAt": "2026-10-25T17:47:23.463Z",
+      "snippet": "Tiger Analytics India LLP",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "tiger_analytics-officialSiteUrl",
+      "companyId": "tiger_analytics",
+      "field": "officialSiteUrl",
+      "value": "https://www.tigeranalytics.com",
+      "sourceKind": "official",
+      "url": "https://www.tigeranalytics.com",
+      "retrievedAt": "2026-10-25T17:47:23.463Z",
+      "snippet": "Official corporate website of Tiger Analytics",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "tiger_analytics-indiaPresenceUrl",
+      "companyId": "tiger_analytics",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.tigeranalytics.com/about-us",
+      "sourceKind": "official",
+      "url": "https://www.tigeranalytics.com/about-us",
+      "retrievedAt": "2026-10-25T17:47:23.463Z",
+      "snippet": "Tiger Analytics India LLP maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "tiger_analytics-careersUrl",
+      "companyId": "tiger_analytics",
+      "field": "careersUrl",
+      "value": "https://www.tigeranalytics.com/careers",
+      "sourceKind": "official",
+      "url": "https://www.tigeranalytics.com/careers",
+      "retrievedAt": "2026-10-25T17:47:23.463Z",
+      "snippet": "Tiger Analytics Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "tiger_analytics-campusPageUrl",
+      "companyId": "tiger_analytics",
+      "field": "campusPageUrl",
+      "value": "https://www.tigeranalytics.com/careers/campus",
+      "sourceKind": "official",
+      "url": "https://www.tigeranalytics.com/careers/campus",
+      "retrievedAt": "2026-10-25T17:47:23.463Z",
+      "snippet": "Tiger Analytics early careers campus hiring",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "tiger_analytics-hq",
+      "companyId": "tiger_analytics",
+      "field": "hq",
+      "value": "Chennai, Tamil Nadu",
+      "sourceKind": "official",
+      "url": "https://www.tigeranalytics.com",
+      "retrievedAt": "2026-10-25T17:47:23.463Z",
+      "snippet": "headquartered in Chennai, Tamil Nadu",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "tiger_analytics-industry",
+      "companyId": "tiger_analytics",
+      "field": "industry",
+      "value": "Advanced Analytics, Machine Learning & AI Consulting",
+      "sourceKind": "official",
+      "url": "https://www.tigeranalytics.com",
+      "retrievedAt": "2026-10-25T17:47:23.463Z",
+      "snippet": "Specializing in Advanced Analytics, Machine Learning & AI Consulting",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}

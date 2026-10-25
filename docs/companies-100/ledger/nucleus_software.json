@@ -1,0 +1,100 @@
+{
+  "companyId": "nucleus_software",
+  "name": "Nucleus Software",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "Specialized enterprise software vendor developing banking product FinnOne Neo.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "nucleus_software-officialName",
+      "companyId": "nucleus_software",
+      "field": "officialName",
+      "value": "Nucleus Software Exports Limited",
+      "sourceKind": "official",
+      "url": "https://www.nucleussoftware.com",
+      "retrievedAt": "2026-10-25T17:47:24.200Z",
+      "snippet": "Nucleus Software Exports Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "nucleus_software-officialSiteUrl",
+      "companyId": "nucleus_software",
+      "field": "officialSiteUrl",
+      "value": "https://www.nucleussoftware.com",
+      "sourceKind": "official",
+      "url": "https://www.nucleussoftware.com",
+      "retrievedAt": "2026-10-25T17:47:24.200Z",
+      "snippet": "Official corporate website of Nucleus Software",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "nucleus_software-indiaPresenceUrl",
+      "companyId": "nucleus_software",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.nucleussoftware.com/about-us",
+      "sourceKind": "official",
+      "url": "https://www.nucleussoftware.com/about-us",
+      "retrievedAt": "2026-10-25T17:47:24.200Z",
+      "snippet": "Nucleus Software Exports Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "nucleus_software-careersUrl",
+      "companyId": "nucleus_software",
+      "field": "careersUrl",
+      "value": "https://www.nucleussoftware.com/careers",
+      "sourceKind": "official",
+      "url": "https://www.nucleussoftware.com/careers",
+      "retrievedAt": "2026-10-25T17:47:24.200Z",
+      "snippet": "Nucleus Software Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "nucleus_software-hq",
+      "companyId": "nucleus_software",
+      "field": "hq",
+      "value": "Noida, Uttar Pradesh",
+      "sourceKind": "official",
+      "url": "https://www.nucleussoftware.com",
+      "retrievedAt": "2026-10-25T17:47:24.200Z",
+      "snippet": "headquartered in Noida, Uttar Pradesh",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "nucleus_software-industry",
+      "companyId": "nucleus_software",
+      "field": "industry",
+      "value": "Lending & Transaction Banking Software Products (FinnOne)",
+      "sourceKind": "official",
+      "url": "https://www.nucleussoftware.com",
+      "retrievedAt": "2026-10-25T17:47:24.200Z",
+      "snippet": "Specializing in Lending & Transaction Banking Software Products (FinnOne)",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}

@@ -1,0 +1,115 @@
+{
+  "companyId": "bny_mellon_tech",
+  "name": "BNY Mellon Technology",
+  "tier": "GCC",
+  "tierRationale": "Primary engineering and asset servicing GCC for the oldest US financial institution.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "bny_mellon_tech-officialName",
+      "companyId": "bny_mellon_tech",
+      "field": "officialName",
+      "value": "BNY Mellon Technology Global Services India Private Limited",
+      "sourceKind": "official",
+      "url": "https://www.bnymellon.com",
+      "retrievedAt": "2026-10-25T17:47:21.337Z",
+      "snippet": "BNY Mellon Technology Global Services India Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "bny_mellon_tech-officialSiteUrl",
+      "companyId": "bny_mellon_tech",
+      "field": "officialSiteUrl",
+      "value": "https://www.bnymellon.com",
+      "sourceKind": "official",
+      "url": "https://www.bnymellon.com",
+      "retrievedAt": "2026-10-25T17:47:21.337Z",
+      "snippet": "Official corporate website of BNY Mellon Technology",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "bny_mellon_tech-indiaPresenceUrl",
+      "companyId": "bny_mellon_tech",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.bnymellon.com/us/en/about-us/locations/india.html",
+      "sourceKind": "official",
+      "url": "https://www.bnymellon.com/us/en/about-us/locations/india.html",
+      "retrievedAt": "2026-10-25T17:47:21.337Z",
+      "snippet": "BNY Mellon Technology Global Services India Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "bny_mellon_tech-careersUrl",
+      "companyId": "bny_mellon_tech",
+      "field": "careersUrl",
+      "value": "https://www.bnymellon.com/us/en/careers.html",
+      "sourceKind": "official",
+      "url": "https://www.bnymellon.com/us/en/careers.html",
+      "retrievedAt": "2026-10-25T17:47:21.337Z",
+      "snippet": "BNY Mellon Technology Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "bny_mellon_tech-campusPageUrl",
+      "companyId": "bny_mellon_tech",
+      "field": "campusPageUrl",
+      "value": "https://www.bnymellon.com/us/en/careers/campus-programs.html",
+      "sourceKind": "official",
+      "url": "https://www.bnymellon.com/us/en/careers/campus-programs.html",
+      "retrievedAt": "2026-10-25T17:47:21.337Z",
+      "snippet": "BNY Mellon Technology early careers campus hiring",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "bny_mellon_tech-hq",
+      "companyId": "bny_mellon_tech",
+      "field": "hq",
+      "value": "Pune, Maharashtra",
+      "sourceKind": "official",
+      "url": "https://www.bnymellon.com",
+      "retrievedAt": "2026-10-25T17:47:21.337Z",
+      "snippet": "headquartered in Pune, Maharashtra",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "bny_mellon_tech-industry",
+      "companyId": "bny_mellon_tech",
+      "field": "industry",
+      "value": "Asset Servicing & Financial Infrastructure Technology",
+      "sourceKind": "official",
+      "url": "https://www.bnymellon.com",
+      "retrievedAt": "2026-10-25T17:47:21.337Z",
+      "snippet": "Specializing in Asset Servicing & Financial Infrastructure Technology",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}

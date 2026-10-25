@@ -1,0 +1,115 @@
+{
+  "companyId": "cyient",
+  "name": "Cyient",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "Global engineering and technology solutions company (flagged: IT/Engineering services model).",
+  "needsReview": true,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "cyient-officialName",
+      "companyId": "cyient",
+      "field": "officialName",
+      "value": "Cyient Limited",
+      "sourceKind": "official",
+      "url": "https://www.cyient.com",
+      "retrievedAt": "2026-10-25T17:47:24.127Z",
+      "snippet": "Cyient Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "cyient-officialSiteUrl",
+      "companyId": "cyient",
+      "field": "officialSiteUrl",
+      "value": "https://www.cyient.com",
+      "sourceKind": "official",
+      "url": "https://www.cyient.com",
+      "retrievedAt": "2026-10-25T17:47:24.127Z",
+      "snippet": "Official corporate website of Cyient",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "cyient-indiaPresenceUrl",
+      "companyId": "cyient",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.cyient.com/about-us",
+      "sourceKind": "official",
+      "url": "https://www.cyient.com/about-us",
+      "retrievedAt": "2026-10-25T17:47:24.127Z",
+      "snippet": "Cyient Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "cyient-careersUrl",
+      "companyId": "cyient",
+      "field": "careersUrl",
+      "value": "https://www.cyient.com/careers",
+      "sourceKind": "official",
+      "url": "https://www.cyient.com/careers",
+      "retrievedAt": "2026-10-25T17:47:24.127Z",
+      "snippet": "Cyient Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "cyient-campusPageUrl",
+      "companyId": "cyient",
+      "field": "campusPageUrl",
+      "value": "https://www.cyient.com/careers/campus-connect",
+      "sourceKind": "official",
+      "url": "https://www.cyient.com/careers/campus-connect",
+      "retrievedAt": "2026-10-25T17:47:24.127Z",
+      "snippet": "Cyient early careers campus hiring",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "cyient-hq",
+      "companyId": "cyient",
+      "field": "hq",
+      "value": "Hyderabad, Telangana",
+      "sourceKind": "official",
+      "url": "https://www.cyient.com",
+      "retrievedAt": "2026-10-25T17:47:24.127Z",
+      "snippet": "headquartered in Hyderabad, Telangana",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "cyient-industry",
+      "companyId": "cyient",
+      "field": "industry",
+      "value": "Intelligent Engineering & Technology Solutions",
+      "sourceKind": "official",
+      "url": "https://www.cyient.com",
+      "retrievedAt": "2026-10-25T17:47:24.127Z",
+      "snippet": "Specializing in Intelligent Engineering & Technology Solutions",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}

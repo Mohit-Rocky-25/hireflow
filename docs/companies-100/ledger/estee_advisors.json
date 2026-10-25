@@ -1,0 +1,115 @@
+{
+  "companyId": "estee_advisors",
+  "name": "Estee Advisors",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "SEBI-registered quantitative asset management and algorithmic execution firm.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "estee_advisors-officialName",
+      "companyId": "estee_advisors",
+      "field": "officialName",
+      "value": "Estee Advisors Private Limited",
+      "sourceKind": "official",
+      "url": "https://esteeadvisors.com",
+      "retrievedAt": "2026-10-25T17:47:21.076Z",
+      "snippet": "Estee Advisors Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "estee_advisors-officialSiteUrl",
+      "companyId": "estee_advisors",
+      "field": "officialSiteUrl",
+      "value": "https://esteeadvisors.com",
+      "sourceKind": "official",
+      "url": "https://esteeadvisors.com",
+      "retrievedAt": "2026-10-25T17:47:21.076Z",
+      "snippet": "Official corporate website of Estee Advisors",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "estee_advisors-indiaPresenceUrl",
+      "companyId": "estee_advisors",
+      "field": "indiaPresenceUrl",
+      "value": "https://esteeadvisors.com/about-us",
+      "sourceKind": "official",
+      "url": "https://esteeadvisors.com/about-us",
+      "retrievedAt": "2026-10-25T17:47:21.076Z",
+      "snippet": "Estee Advisors Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "estee_advisors-careersUrl",
+      "companyId": "estee_advisors",
+      "field": "careersUrl",
+      "value": "https://esteeadvisors.com/careers",
+      "sourceKind": "official",
+      "url": "https://esteeadvisors.com/careers",
+      "retrievedAt": "2026-10-25T17:47:21.076Z",
+      "snippet": "Estee Advisors Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "estee_advisors-campusPageUrl",
+      "companyId": "estee_advisors",
+      "field": "campusPageUrl",
+      "value": "https://esteeadvisors.com/campus",
+      "sourceKind": "official",
+      "url": "https://esteeadvisors.com/campus",
+      "retrievedAt": "2026-10-25T17:47:21.076Z",
+      "snippet": "Estee Advisors early careers campus hiring",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "estee_advisors-hq",
+      "companyId": "estee_advisors",
+      "field": "hq",
+      "value": "Gurugram, Haryana",
+      "sourceKind": "official",
+      "url": "https://esteeadvisors.com",
+      "retrievedAt": "2026-10-25T17:47:21.076Z",
+      "snippet": "headquartered in Gurugram, Haryana",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "estee_advisors-industry",
+      "companyId": "estee_advisors",
+      "field": "industry",
+      "value": "Algorithmic Trading & Quantitative Asset Management",
+      "sourceKind": "official",
+      "url": "https://esteeadvisors.com",
+      "retrievedAt": "2026-10-25T17:47:21.076Z",
+      "snippet": "Specializing in Algorithmic Trading & Quantitative Asset Management",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}

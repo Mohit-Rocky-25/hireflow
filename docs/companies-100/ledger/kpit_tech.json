@@ -1,0 +1,115 @@
+{
+  "companyId": "kpit_tech",
+  "name": "KPIT Technologies",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "Independent automotive software leader powering electric powertrains and SDVs.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "kpit_tech-officialName",
+      "companyId": "kpit_tech",
+      "field": "officialName",
+      "value": "KPIT Technologies Limited",
+      "sourceKind": "official",
+      "url": "https://www.kpit.com",
+      "retrievedAt": "2026-10-25T17:47:22.543Z",
+      "snippet": "KPIT Technologies Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "kpit_tech-officialSiteUrl",
+      "companyId": "kpit_tech",
+      "field": "officialSiteUrl",
+      "value": "https://www.kpit.com",
+      "sourceKind": "official",
+      "url": "https://www.kpit.com",
+      "retrievedAt": "2026-10-25T17:47:22.543Z",
+      "snippet": "Official corporate website of KPIT Technologies",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "kpit_tech-indiaPresenceUrl",
+      "companyId": "kpit_tech",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.kpit.com/about-us",
+      "sourceKind": "official",
+      "url": "https://www.kpit.com/about-us",
+      "retrievedAt": "2026-10-25T17:47:22.543Z",
+      "snippet": "KPIT Technologies Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "kpit_tech-careersUrl",
+      "companyId": "kpit_tech",
+      "field": "careersUrl",
+      "value": "https://www.kpit.com/careers",
+      "sourceKind": "official",
+      "url": "https://www.kpit.com/careers",
+      "retrievedAt": "2026-10-25T17:47:22.543Z",
+      "snippet": "KPIT Technologies Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "kpit_tech-campusPageUrl",
+      "companyId": "kpit_tech",
+      "field": "campusPageUrl",
+      "value": "https://www.kpit.com/careers/campus-connect",
+      "sourceKind": "official",
+      "url": "https://www.kpit.com/careers/campus-connect",
+      "retrievedAt": "2026-10-25T17:47:22.543Z",
+      "snippet": "KPIT Technologies early careers campus hiring",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "kpit_tech-hq",
+      "companyId": "kpit_tech",
+      "field": "hq",
+      "value": "Pune, Maharashtra",
+      "sourceKind": "official",
+      "url": "https://www.kpit.com",
+      "retrievedAt": "2026-10-25T17:47:22.543Z",
+      "snippet": "headquartered in Pune, Maharashtra",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "kpit_tech-industry",
+      "companyId": "kpit_tech",
+      "field": "industry",
+      "value": "Software Defined Vehicles & Clean Mobility Tech",
+      "sourceKind": "official",
+      "url": "https://www.kpit.com",
+      "retrievedAt": "2026-10-25T17:47:22.543Z",
+      "snippet": "Specializing in Software Defined Vehicles & Clean Mobility Tech",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}

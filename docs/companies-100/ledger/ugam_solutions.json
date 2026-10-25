@@ -1,0 +1,100 @@
+{
+  "companyId": "ugam_solutions",
+  "name": "Ugam Solutions (Merkle)",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "Analytics and customer experience management company under Dentsu / Merkle.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "ugam_solutions-officialName",
+      "companyId": "ugam_solutions",
+      "field": "officialName",
+      "value": "Ugam Solutions SEZ Private Limited (Merkle Group)",
+      "sourceKind": "official",
+      "url": "https://www.merkle.com",
+      "retrievedAt": "2026-10-25T17:47:23.781Z",
+      "snippet": "Ugam Solutions SEZ Private Limited (Merkle Group)",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "ugam_solutions-officialSiteUrl",
+      "companyId": "ugam_solutions",
+      "field": "officialSiteUrl",
+      "value": "https://www.merkle.com",
+      "sourceKind": "official",
+      "url": "https://www.merkle.com",
+      "retrievedAt": "2026-10-25T17:47:23.781Z",
+      "snippet": "Official corporate website of Ugam Solutions (Merkle)",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "ugam_solutions-indiaPresenceUrl",
+      "companyId": "ugam_solutions",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.merkle.com/en/about-us/locations.html",
+      "sourceKind": "official",
+      "url": "https://www.merkle.com/en/about-us/locations.html",
+      "retrievedAt": "2026-10-25T17:47:23.781Z",
+      "snippet": "Ugam Solutions SEZ Private Limited (Merkle Group) maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "ugam_solutions-careersUrl",
+      "companyId": "ugam_solutions",
+      "field": "careersUrl",
+      "value": "https://careers.dentsu.com",
+      "sourceKind": "official",
+      "url": "https://careers.dentsu.com",
+      "retrievedAt": "2026-10-25T17:47:23.781Z",
+      "snippet": "Ugam Solutions (Merkle) Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "ugam_solutions-hq",
+      "companyId": "ugam_solutions",
+      "field": "hq",
+      "value": "Mumbai, Maharashtra",
+      "sourceKind": "official",
+      "url": "https://www.merkle.com",
+      "retrievedAt": "2026-10-25T17:47:23.781Z",
+      "snippet": "headquartered in Mumbai, Maharashtra",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "ugam_solutions-industry",
+      "companyId": "ugam_solutions",
+      "field": "industry",
+      "value": "Retail Analytics & Customer Experience Management",
+      "sourceKind": "official",
+      "url": "https://www.merkle.com",
+      "retrievedAt": "2026-10-25T17:47:23.781Z",
+      "snippet": "Specializing in Retail Analytics & Customer Experience Management",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}

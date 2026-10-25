@@ -1,0 +1,7 @@
+{
+  "companyId": "axxela",
+  "status": "quarantined",
+  "quarantineReason": "Entity does not resolve to an official institutional primary employer site; H8 quarantine.",
+  "tierRationale": "Labelled UNICORN but firm is an advisory/trading entity; unsupported valuation.",
+  "rows": []
+}

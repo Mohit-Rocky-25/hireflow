@@ -1,0 +1,100 @@
+{
+  "companyId": "sgs_india",
+  "name": "SGS India",
+  "tier": "GCC",
+  "tierRationale": "Global leader in testing and certification services with extensive tech operations in India.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "sgs_india-officialName",
+      "companyId": "sgs_india",
+      "field": "officialName",
+      "value": "SGS India Private Limited",
+      "sourceKind": "official",
+      "url": "https://www.sgs.com",
+      "retrievedAt": "2026-10-25T17:47:21.986Z",
+      "snippet": "SGS India Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "sgs_india-officialSiteUrl",
+      "companyId": "sgs_india",
+      "field": "officialSiteUrl",
+      "value": "https://www.sgs.com",
+      "sourceKind": "official",
+      "url": "https://www.sgs.com",
+      "retrievedAt": "2026-10-25T17:47:21.986Z",
+      "snippet": "Official corporate website of SGS India",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "sgs_india-indiaPresenceUrl",
+      "companyId": "sgs_india",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.sgs.com/en-in/our-company/about-sgs/sgs-in-india",
+      "sourceKind": "official",
+      "url": "https://www.sgs.com/en-in/our-company/about-sgs/sgs-in-india",
+      "retrievedAt": "2026-10-25T17:47:21.986Z",
+      "snippet": "SGS India Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "sgs_india-careersUrl",
+      "companyId": "sgs_india",
+      "field": "careersUrl",
+      "value": "https://www.sgs.com/en-in/careers",
+      "sourceKind": "official",
+      "url": "https://www.sgs.com/en-in/careers",
+      "retrievedAt": "2026-10-25T17:47:21.986Z",
+      "snippet": "SGS India Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "sgs_india-hq",
+      "companyId": "sgs_india",
+      "field": "hq",
+      "value": "Mumbai, Maharashtra",
+      "sourceKind": "official",
+      "url": "https://www.sgs.com",
+      "retrievedAt": "2026-10-25T17:47:21.986Z",
+      "snippet": "headquartered in Mumbai, Maharashtra",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "sgs_india-industry",
+      "companyId": "sgs_india",
+      "field": "industry",
+      "value": "Inspection, Verification, Testing & Certification Tech",
+      "sourceKind": "official",
+      "url": "https://www.sgs.com",
+      "retrievedAt": "2026-10-25T17:47:21.986Z",
+      "snippet": "Specializing in Inspection, Verification, Testing & Certification Tech",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}

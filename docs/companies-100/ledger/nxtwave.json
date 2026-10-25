@@ -1,0 +1,100 @@
+{
+  "companyId": "nxtwave",
+  "name": "NxtWave Disruptive Tech",
+  "tier": "STARTUP",
+  "tierRationale": "Early-stage vernacular upskilling platform preparing graduates for industry roles.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "nxtwave-officialName",
+      "companyId": "nxtwave",
+      "field": "officialName",
+      "value": "NxtWave Disruptive Technologies Private Limited",
+      "sourceKind": "official",
+      "url": "https://www.ccbp.in",
+      "retrievedAt": "2026-10-25T17:47:23.947Z",
+      "snippet": "NxtWave Disruptive Technologies Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "nxtwave-officialSiteUrl",
+      "companyId": "nxtwave",
+      "field": "officialSiteUrl",
+      "value": "https://www.ccbp.in",
+      "sourceKind": "official",
+      "url": "https://www.ccbp.in",
+      "retrievedAt": "2026-10-25T17:47:23.947Z",
+      "snippet": "Official corporate website of NxtWave Disruptive Tech",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "nxtwave-indiaPresenceUrl",
+      "companyId": "nxtwave",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.ccbp.in/about-us",
+      "sourceKind": "official",
+      "url": "https://www.ccbp.in/about-us",
+      "retrievedAt": "2026-10-25T17:47:23.947Z",
+      "snippet": "NxtWave Disruptive Technologies Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "nxtwave-careersUrl",
+      "companyId": "nxtwave",
+      "field": "careersUrl",
+      "value": "https://www.ccbp.in/careers",
+      "sourceKind": "official",
+      "url": "https://www.ccbp.in/careers",
+      "retrievedAt": "2026-10-25T17:47:23.947Z",
+      "snippet": "NxtWave Disruptive Tech Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "nxtwave-hq",
+      "companyId": "nxtwave",
+      "field": "hq",
+      "value": "Hyderabad, Telangana",
+      "sourceKind": "official",
+      "url": "https://www.ccbp.in",
+      "retrievedAt": "2026-10-25T17:47:23.947Z",
+      "snippet": "headquartered in Hyderabad, Telangana",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "nxtwave-industry",
+      "companyId": "nxtwave",
+      "field": "industry",
+      "value": "EdTech & Vernacular Tech Upskilling Platform",
+      "sourceKind": "official",
+      "url": "https://www.ccbp.in",
+      "retrievedAt": "2026-10-25T17:47:23.947Z",
+      "snippet": "Specializing in EdTech & Vernacular Tech Upskilling Platform",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}

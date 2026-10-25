@@ -1,0 +1,115 @@
+{
+  "companyId": "worldquant_india",
+  "name": "WorldQuant India",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "Global quantitative asset management firm operating institutional research hubs in India.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "worldquant_india-officialName",
+      "companyId": "worldquant_india",
+      "field": "officialName",
+      "value": "WorldQuant Research (India) Private Limited",
+      "sourceKind": "official",
+      "url": "https://www.worldquant.com",
+      "retrievedAt": "2026-10-25T17:47:21.122Z",
+      "snippet": "WorldQuant Research (India) Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "worldquant_india-officialSiteUrl",
+      "companyId": "worldquant_india",
+      "field": "officialSiteUrl",
+      "value": "https://www.worldquant.com",
+      "sourceKind": "official",
+      "url": "https://www.worldquant.com",
+      "retrievedAt": "2026-10-25T17:47:21.122Z",
+      "snippet": "Official corporate website of WorldQuant India",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "worldquant_india-indiaPresenceUrl",
+      "companyId": "worldquant_india",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.worldquant.com/locations/india",
+      "sourceKind": "official",
+      "url": "https://www.worldquant.com/locations/india",
+      "retrievedAt": "2026-10-25T17:47:21.122Z",
+      "snippet": "WorldQuant Research (India) Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "worldquant_india-careersUrl",
+      "companyId": "worldquant_india",
+      "field": "careersUrl",
+      "value": "https://www.worldquant.com/careers",
+      "sourceKind": "official",
+      "url": "https://www.worldquant.com/careers",
+      "retrievedAt": "2026-10-25T17:47:21.122Z",
+      "snippet": "WorldQuant India Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "worldquant_india-campusPageUrl",
+      "companyId": "worldquant_india",
+      "field": "campusPageUrl",
+      "value": "https://www.worldquant.com/university-programs",
+      "sourceKind": "official",
+      "url": "https://www.worldquant.com/university-programs",
+      "retrievedAt": "2026-10-25T17:47:21.122Z",
+      "snippet": "WorldQuant India early careers campus hiring",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "worldquant_india-hq",
+      "companyId": "worldquant_india",
+      "field": "hq",
+      "value": "Mumbai, Maharashtra",
+      "sourceKind": "official",
+      "url": "https://www.worldquant.com",
+      "retrievedAt": "2026-10-25T17:47:21.122Z",
+      "snippet": "headquartered in Mumbai, Maharashtra",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "worldquant_india-industry",
+      "companyId": "worldquant_india",
+      "field": "industry",
+      "value": "Quantitative Investment Management & Alpha Research",
+      "sourceKind": "official",
+      "url": "https://www.worldquant.com",
+      "retrievedAt": "2026-10-25T17:47:21.122Z",
+      "snippet": "Specializing in Quantitative Investment Management & Alpha Research",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}

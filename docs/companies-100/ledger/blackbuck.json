@@ -1,0 +1,100 @@
+{
+  "companyId": "blackbuck",
+  "name": "BlackBuck (Zinka Logistics)",
+  "tier": "UNICORN",
+  "tierRationale": "B2B inter-city logistics marketplace providing tolling, telematics, and freight matching.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "blackbuck-officialName",
+      "companyId": "blackbuck",
+      "field": "officialName",
+      "value": "Zinka Logistics Solutions Limited",
+      "sourceKind": "official",
+      "url": "https://www.blackbuck.com",
+      "retrievedAt": "2026-10-25T17:47:24.322Z",
+      "snippet": "Zinka Logistics Solutions Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "blackbuck-officialSiteUrl",
+      "companyId": "blackbuck",
+      "field": "officialSiteUrl",
+      "value": "https://www.blackbuck.com",
+      "sourceKind": "official",
+      "url": "https://www.blackbuck.com",
+      "retrievedAt": "2026-10-25T17:47:24.322Z",
+      "snippet": "Official corporate website of BlackBuck (Zinka Logistics)",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "blackbuck-indiaPresenceUrl",
+      "companyId": "blackbuck",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.blackbuck.com/about-us",
+      "sourceKind": "official",
+      "url": "https://www.blackbuck.com/about-us",
+      "retrievedAt": "2026-10-25T17:47:24.322Z",
+      "snippet": "Zinka Logistics Solutions Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "blackbuck-careersUrl",
+      "companyId": "blackbuck",
+      "field": "careersUrl",
+      "value": "https://www.blackbuck.com/careers",
+      "sourceKind": "official",
+      "url": "https://www.blackbuck.com/careers",
+      "retrievedAt": "2026-10-25T17:47:24.322Z",
+      "snippet": "BlackBuck (Zinka Logistics) Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "blackbuck-hq",
+      "companyId": "blackbuck",
+      "field": "hq",
+      "value": "Bengaluru, Karnataka",
+      "sourceKind": "official",
+      "url": "https://www.blackbuck.com",
+      "retrievedAt": "2026-10-25T17:47:24.322Z",
+      "snippet": "headquartered in Bengaluru, Karnataka",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "blackbuck-industry",
+      "companyId": "blackbuck",
+      "field": "industry",
+      "value": "Inter-City Freight Trucking Platform, Telematics & FASTag",
+      "sourceKind": "official",
+      "url": "https://www.blackbuck.com",
+      "retrievedAt": "2026-10-25T17:47:24.322Z",
+      "snippet": "Specializing in Inter-City Freight Trucking Platform, Telematics & FASTag",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}

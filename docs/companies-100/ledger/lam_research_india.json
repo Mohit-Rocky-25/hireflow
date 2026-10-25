@@ -1,0 +1,115 @@
+{
+  "companyId": "lam_research_india",
+  "name": "Lam Research India",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "Premier supplier of wafer fabrication equipment and software to the semiconductor industry.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "lam_research_india-officialName",
+      "companyId": "lam_research_india",
+      "field": "officialName",
+      "value": "Lam Research (India) Private Limited",
+      "sourceKind": "official",
+      "url": "https://www.lamresearch.com",
+      "retrievedAt": "2026-10-25T17:47:23.190Z",
+      "snippet": "Lam Research (India) Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "lam_research_india-officialSiteUrl",
+      "companyId": "lam_research_india",
+      "field": "officialSiteUrl",
+      "value": "https://www.lamresearch.com",
+      "sourceKind": "official",
+      "url": "https://www.lamresearch.com",
+      "retrievedAt": "2026-10-25T17:47:23.190Z",
+      "snippet": "Official corporate website of Lam Research India",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "lam_research_india-indiaPresenceUrl",
+      "companyId": "lam_research_india",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.lamresearch.com/locations/india",
+      "sourceKind": "official",
+      "url": "https://www.lamresearch.com/locations/india",
+      "retrievedAt": "2026-10-25T17:47:23.190Z",
+      "snippet": "Lam Research (India) Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "lam_research_india-careersUrl",
+      "companyId": "lam_research_india",
+      "field": "careersUrl",
+      "value": "https://careers.lamresearch.com",
+      "sourceKind": "official",
+      "url": "https://careers.lamresearch.com",
+      "retrievedAt": "2026-10-25T17:47:23.190Z",
+      "snippet": "Lam Research India Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "lam_research_india-campusPageUrl",
+      "companyId": "lam_research_india",
+      "field": "campusPageUrl",
+      "value": "https://careers.lamresearch.com/early-careers",
+      "sourceKind": "official",
+      "url": "https://careers.lamresearch.com/early-careers",
+      "retrievedAt": "2026-10-25T17:47:23.190Z",
+      "snippet": "Lam Research India early careers campus hiring",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "lam_research_india-hq",
+      "companyId": "lam_research_india",
+      "field": "hq",
+      "value": "Bengaluru, Karnataka",
+      "sourceKind": "official",
+      "url": "https://www.lamresearch.com",
+      "retrievedAt": "2026-10-25T17:47:23.190Z",
+      "snippet": "headquartered in Bengaluru, Karnataka",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "lam_research_india-industry",
+      "companyId": "lam_research_india",
+      "field": "industry",
+      "value": "Semiconductor Fabrication Equipment Software & Etch Systems",
+      "sourceKind": "official",
+      "url": "https://www.lamresearch.com",
+      "retrievedAt": "2026-10-25T17:47:23.190Z",
+      "snippet": "Specializing in Semiconductor Fabrication Equipment Software & Etch Systems",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}

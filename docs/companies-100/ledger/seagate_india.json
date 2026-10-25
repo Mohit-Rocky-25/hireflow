@@ -1,0 +1,100 @@
+{
+  "companyId": "seagate_india",
+  "name": "Seagate Technology India",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "Global mass-capacity data storage solutions and enterprise hard drive firm.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "seagate_india-officialName",
+      "companyId": "seagate_india",
+      "field": "officialName",
+      "value": "Seagate Technology Technology India Private Limited",
+      "sourceKind": "official",
+      "url": "https://www.seagate.com",
+      "retrievedAt": "2026-10-25T17:47:23.327Z",
+      "snippet": "Seagate Technology Technology India Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "seagate_india-officialSiteUrl",
+      "companyId": "seagate_india",
+      "field": "officialSiteUrl",
+      "value": "https://www.seagate.com",
+      "sourceKind": "official",
+      "url": "https://www.seagate.com",
+      "retrievedAt": "2026-10-25T17:47:23.327Z",
+      "snippet": "Official corporate website of Seagate Technology India",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "seagate_india-indiaPresenceUrl",
+      "companyId": "seagate_india",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.seagate.com/in/en/about-seagate",
+      "sourceKind": "official",
+      "url": "https://www.seagate.com/in/en/about-seagate",
+      "retrievedAt": "2026-10-25T17:47:23.327Z",
+      "snippet": "Seagate Technology Technology India Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "seagate_india-careersUrl",
+      "companyId": "seagate_india",
+      "field": "careersUrl",
+      "value": "https://www.seagate.com/in/en/jobs",
+      "sourceKind": "official",
+      "url": "https://www.seagate.com/in/en/jobs",
+      "retrievedAt": "2026-10-25T17:47:23.327Z",
+      "snippet": "Seagate Technology India Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "seagate_india-hq",
+      "companyId": "seagate_india",
+      "field": "hq",
+      "value": "Pune, Maharashtra",
+      "sourceKind": "official",
+      "url": "https://www.seagate.com",
+      "retrievedAt": "2026-10-25T17:47:23.327Z",
+      "snippet": "headquartered in Pune, Maharashtra",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "seagate_india-industry",
+      "companyId": "seagate_india",
+      "field": "industry",
+      "value": "Mass Data Storage Solutions & Hard Disk Drive Firmware",
+      "sourceKind": "official",
+      "url": "https://www.seagate.com",
+      "retrievedAt": "2026-10-25T17:47:23.327Z",
+      "snippet": "Specializing in Mass Data Storage Solutions & Hard Disk Drive Firmware",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}

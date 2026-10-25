@@ -1,0 +1,115 @@
+{
+  "companyId": "fidelity_international",
+  "name": "Fidelity International",
+  "tier": "GCC",
+  "tierRationale": "Global capability center delivering investment technology and quantitative analytics.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "fidelity_international-officialName",
+      "companyId": "fidelity_international",
+      "field": "officialName",
+      "value": "FIL India Business and Research Services Private Limited",
+      "sourceKind": "official",
+      "url": "https://www.fidelityinternational.com",
+      "retrievedAt": "2026-10-25T17:47:21.398Z",
+      "snippet": "FIL India Business and Research Services Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "fidelity_international-officialSiteUrl",
+      "companyId": "fidelity_international",
+      "field": "officialSiteUrl",
+      "value": "https://www.fidelityinternational.com",
+      "sourceKind": "official",
+      "url": "https://www.fidelityinternational.com",
+      "retrievedAt": "2026-10-25T17:47:21.398Z",
+      "snippet": "Official corporate website of Fidelity International",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "fidelity_international-indiaPresenceUrl",
+      "companyId": "fidelity_international",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.fidelityinternational.com/careers/locations/india",
+      "sourceKind": "official",
+      "url": "https://www.fidelityinternational.com/careers/locations/india",
+      "retrievedAt": "2026-10-25T17:47:21.398Z",
+      "snippet": "FIL India Business and Research Services Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "fidelity_international-careersUrl",
+      "companyId": "fidelity_international",
+      "field": "careersUrl",
+      "value": "https://www.fidelityinternational.com/careers",
+      "sourceKind": "official",
+      "url": "https://www.fidelityinternational.com/careers",
+      "retrievedAt": "2026-10-25T17:47:21.398Z",
+      "snippet": "Fidelity International Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "fidelity_international-campusPageUrl",
+      "companyId": "fidelity_international",
+      "field": "campusPageUrl",
+      "value": "https://www.fidelityinternational.com/careers/early-careers",
+      "sourceKind": "official",
+      "url": "https://www.fidelityinternational.com/careers/early-careers",
+      "retrievedAt": "2026-10-25T17:47:21.398Z",
+      "snippet": "Fidelity International early careers campus hiring",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "fidelity_international-hq",
+      "companyId": "fidelity_international",
+      "field": "hq",
+      "value": "Gurugram, Haryana",
+      "sourceKind": "official",
+      "url": "https://www.fidelityinternational.com",
+      "retrievedAt": "2026-10-25T17:47:21.398Z",
+      "snippet": "headquartered in Gurugram, Haryana",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "fidelity_international-industry",
+      "companyId": "fidelity_international",
+      "field": "industry",
+      "value": "Investment Management & FinTech Global Capability Center",
+      "sourceKind": "official",
+      "url": "https://www.fidelityinternational.com",
+      "retrievedAt": "2026-10-25T17:47:21.398Z",
+      "snippet": "Specializing in Investment Management & FinTech Global Capability Center",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}

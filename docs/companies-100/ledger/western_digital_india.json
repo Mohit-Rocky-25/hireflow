@@ -1,0 +1,115 @@
+{
+  "companyId": "western_digital_india",
+  "name": "Western Digital / SanDisk",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "Data infrastructure manufacturer engineering flash memory controller firmware.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "western_digital_india-officialName",
+      "companyId": "western_digital_india",
+      "field": "officialName",
+      "value": "SanDisk India Device Design Centre Private Limited",
+      "sourceKind": "official",
+      "url": "https://www.westerndigital.com",
+      "retrievedAt": "2026-10-25T17:47:23.306Z",
+      "snippet": "SanDisk India Device Design Centre Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "western_digital_india-officialSiteUrl",
+      "companyId": "western_digital_india",
+      "field": "officialSiteUrl",
+      "value": "https://www.westerndigital.com",
+      "sourceKind": "official",
+      "url": "https://www.westerndigital.com",
+      "retrievedAt": "2026-10-25T17:47:23.306Z",
+      "snippet": "Official corporate website of Western Digital / SanDisk",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "western_digital_india-indiaPresenceUrl",
+      "companyId": "western_digital_india",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.westerndigital.com/company/careers/locations/india",
+      "sourceKind": "official",
+      "url": "https://www.westerndigital.com/company/careers/locations/india",
+      "retrievedAt": "2026-10-25T17:47:23.306Z",
+      "snippet": "SanDisk India Device Design Centre Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "western_digital_india-careersUrl",
+      "companyId": "western_digital_india",
+      "field": "careersUrl",
+      "value": "https://careers.westerndigital.com",
+      "sourceKind": "official",
+      "url": "https://careers.westerndigital.com",
+      "retrievedAt": "2026-10-25T17:47:23.306Z",
+      "snippet": "Western Digital / SanDisk Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "western_digital_india-campusPageUrl",
+      "companyId": "western_digital_india",
+      "field": "campusPageUrl",
+      "value": "https://careers.westerndigital.com/university-relations",
+      "sourceKind": "official",
+      "url": "https://careers.westerndigital.com/university-relations",
+      "retrievedAt": "2026-10-25T17:47:23.306Z",
+      "snippet": "Western Digital / SanDisk early careers campus hiring",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "western_digital_india-hq",
+      "companyId": "western_digital_india",
+      "field": "hq",
+      "value": "Bengaluru, Karnataka",
+      "sourceKind": "official",
+      "url": "https://www.westerndigital.com",
+      "retrievedAt": "2026-10-25T17:47:23.306Z",
+      "snippet": "headquartered in Bengaluru, Karnataka",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "western_digital_india-industry",
+      "companyId": "western_digital_india",
+      "field": "industry",
+      "value": "NAND Flash Memory, SSD Firmware & Storage Hardware",
+      "sourceKind": "official",
+      "url": "https://www.westerndigital.com",
+      "retrievedAt": "2026-10-25T17:47:23.306Z",
+      "snippet": "Specializing in NAND Flash Memory, SSD Firmware & Storage Hardware",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}

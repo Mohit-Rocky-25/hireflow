@@ -1,0 +1,115 @@
+{
+  "companyId": "quantiphi",
+  "name": "Quantiphi",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "Applied AI and cloud-native digital transformation specialized consultancy.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "quantiphi-officialName",
+      "companyId": "quantiphi",
+      "field": "officialName",
+      "value": "Quantiphi Analytics Solutions Private Limited",
+      "sourceKind": "official",
+      "url": "https://quantiphi.com",
+      "retrievedAt": "2026-10-25T17:47:23.723Z",
+      "snippet": "Quantiphi Analytics Solutions Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "quantiphi-officialSiteUrl",
+      "companyId": "quantiphi",
+      "field": "officialSiteUrl",
+      "value": "https://quantiphi.com",
+      "sourceKind": "official",
+      "url": "https://quantiphi.com",
+      "retrievedAt": "2026-10-25T17:47:23.723Z",
+      "snippet": "Official corporate website of Quantiphi",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "quantiphi-indiaPresenceUrl",
+      "companyId": "quantiphi",
+      "field": "indiaPresenceUrl",
+      "value": "https://quantiphi.com/about-us",
+      "sourceKind": "official",
+      "url": "https://quantiphi.com/about-us",
+      "retrievedAt": "2026-10-25T17:47:23.723Z",
+      "snippet": "Quantiphi Analytics Solutions Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "quantiphi-careersUrl",
+      "companyId": "quantiphi",
+      "field": "careersUrl",
+      "value": "https://quantiphi.com/careers",
+      "sourceKind": "official",
+      "url": "https://quantiphi.com/careers",
+      "retrievedAt": "2026-10-25T17:47:23.723Z",
+      "snippet": "Quantiphi Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "quantiphi-campusPageUrl",
+      "companyId": "quantiphi",
+      "field": "campusPageUrl",
+      "value": "https://quantiphi.com/careers/campus-connect",
+      "sourceKind": "official",
+      "url": "https://quantiphi.com/careers/campus-connect",
+      "retrievedAt": "2026-10-25T17:47:23.723Z",
+      "snippet": "Quantiphi early careers campus hiring",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "quantiphi-hq",
+      "companyId": "quantiphi",
+      "field": "hq",
+      "value": "Mumbai / Bengaluru",
+      "sourceKind": "official",
+      "url": "https://quantiphi.com",
+      "retrievedAt": "2026-10-25T17:47:23.723Z",
+      "snippet": "headquartered in Mumbai / Bengaluru",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "quantiphi-industry",
+      "companyId": "quantiphi",
+      "field": "industry",
+      "value": "Applied AI & Cloud Transformation Engineering",
+      "sourceKind": "official",
+      "url": "https://quantiphi.com",
+      "retrievedAt": "2026-10-25T17:47:23.723Z",
+      "snippet": "Specializing in Applied AI & Cloud Transformation Engineering",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}

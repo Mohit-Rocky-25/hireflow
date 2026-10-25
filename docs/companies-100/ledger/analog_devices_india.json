@@ -1,0 +1,115 @@
+{
+  "companyId": "analog_devices_india",
+  "name": "Analog Devices India",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "Global semiconductor leader creating high performance signal processing hardware.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "analog_devices_india-officialName",
+      "companyId": "analog_devices_india",
+      "field": "officialName",
+      "value": "Analog Devices India Product Development Private Limited",
+      "sourceKind": "official",
+      "url": "https://www.analog.com",
+      "retrievedAt": "2026-10-25T17:47:23.871Z",
+      "snippet": "Analog Devices India Product Development Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "analog_devices_india-officialSiteUrl",
+      "companyId": "analog_devices_india",
+      "field": "officialSiteUrl",
+      "value": "https://www.analog.com",
+      "sourceKind": "official",
+      "url": "https://www.analog.com",
+      "retrievedAt": "2026-10-25T17:47:23.871Z",
+      "snippet": "Official corporate website of Analog Devices India",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "analog_devices_india-indiaPresenceUrl",
+      "companyId": "analog_devices_india",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.analog.com/en/about-adi/locations/india.html",
+      "sourceKind": "official",
+      "url": "https://www.analog.com/en/about-adi/locations/india.html",
+      "retrievedAt": "2026-10-25T17:47:23.871Z",
+      "snippet": "Analog Devices India Product Development Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "analog_devices_india-careersUrl",
+      "companyId": "analog_devices_india",
+      "field": "careersUrl",
+      "value": "https://careers.analog.com",
+      "sourceKind": "official",
+      "url": "https://careers.analog.com",
+      "retrievedAt": "2026-10-25T17:47:23.871Z",
+      "snippet": "Analog Devices India Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "analog_devices_india-campusPageUrl",
+      "companyId": "analog_devices_india",
+      "field": "campusPageUrl",
+      "value": "https://careers.analog.com/early-careers",
+      "sourceKind": "official",
+      "url": "https://careers.analog.com/early-careers",
+      "retrievedAt": "2026-10-25T17:47:23.871Z",
+      "snippet": "Analog Devices India early careers campus hiring",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "analog_devices_india-hq",
+      "companyId": "analog_devices_india",
+      "field": "hq",
+      "value": "Bengaluru, Karnataka",
+      "sourceKind": "official",
+      "url": "https://www.analog.com",
+      "retrievedAt": "2026-10-25T17:47:23.871Z",
+      "snippet": "headquartered in Bengaluru, Karnataka",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "analog_devices_india-industry",
+      "companyId": "analog_devices_india",
+      "field": "industry",
+      "value": "High-Performance Analog, Mixed-Signal & DSP Chips",
+      "sourceKind": "official",
+      "url": "https://www.analog.com",
+      "retrievedAt": "2026-10-25T17:47:23.871Z",
+      "snippet": "Specializing in High-Performance Analog, Mixed-Signal & DSP Chips",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}

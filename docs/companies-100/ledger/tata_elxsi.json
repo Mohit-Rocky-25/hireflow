@@ -1,0 +1,115 @@
+{
+  "companyId": "tata_elxsi",
+  "name": "Tata Elxsi",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "Design-led product engineering provider under Tata Group (flagged: engineering service).",
+  "needsReview": true,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "tata_elxsi-officialName",
+      "companyId": "tata_elxsi",
+      "field": "officialName",
+      "value": "Tata Elxsi Limited",
+      "sourceKind": "official",
+      "url": "https://www.tataelxsi.com",
+      "retrievedAt": "2026-10-25T17:47:24.255Z",
+      "snippet": "Tata Elxsi Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "tata_elxsi-officialSiteUrl",
+      "companyId": "tata_elxsi",
+      "field": "officialSiteUrl",
+      "value": "https://www.tataelxsi.com",
+      "sourceKind": "official",
+      "url": "https://www.tataelxsi.com",
+      "retrievedAt": "2026-10-25T17:47:24.255Z",
+      "snippet": "Official corporate website of Tata Elxsi",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "tata_elxsi-indiaPresenceUrl",
+      "companyId": "tata_elxsi",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.tataelxsi.com/about-us",
+      "sourceKind": "official",
+      "url": "https://www.tataelxsi.com/about-us",
+      "retrievedAt": "2026-10-25T17:47:24.255Z",
+      "snippet": "Tata Elxsi Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "tata_elxsi-careersUrl",
+      "companyId": "tata_elxsi",
+      "field": "careersUrl",
+      "value": "https://www.tataelxsi.com/careers",
+      "sourceKind": "official",
+      "url": "https://www.tataelxsi.com/careers",
+      "retrievedAt": "2026-10-25T17:47:24.255Z",
+      "snippet": "Tata Elxsi Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "tata_elxsi-campusPageUrl",
+      "companyId": "tata_elxsi",
+      "field": "campusPageUrl",
+      "value": "https://www.tataelxsi.com/careers/campus-hiring",
+      "sourceKind": "official",
+      "url": "https://www.tataelxsi.com/careers/campus-hiring",
+      "retrievedAt": "2026-10-25T17:47:24.255Z",
+      "snippet": "Tata Elxsi early careers campus hiring",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "tata_elxsi-hq",
+      "companyId": "tata_elxsi",
+      "field": "hq",
+      "value": "Bengaluru, Karnataka",
+      "sourceKind": "official",
+      "url": "https://www.tataelxsi.com",
+      "retrievedAt": "2026-10-25T17:47:24.255Z",
+      "snippet": "headquartered in Bengaluru, Karnataka",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "tata_elxsi-industry",
+      "companyId": "tata_elxsi",
+      "field": "industry",
+      "value": "Design-Led Product Engineering, Automotive & Broadcast Tech",
+      "sourceKind": "official",
+      "url": "https://www.tataelxsi.com",
+      "retrievedAt": "2026-10-25T17:47:24.255Z",
+      "snippet": "Specializing in Design-Led Product Engineering, Automotive & Broadcast Tech",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}

@@ -1,0 +1,100 @@
+{
+  "companyId": "tanla_platforms",
+  "name": "Tanla Platforms",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "Global Communications Platform as a Service (CPaaS) provider processing billions of messages.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "tanla_platforms-officialName",
+      "companyId": "tanla_platforms",
+      "field": "officialName",
+      "value": "Tanla Platforms Limited",
+      "sourceKind": "official",
+      "url": "https://www.tanla.com",
+      "retrievedAt": "2026-10-25T17:47:24.241Z",
+      "snippet": "Tanla Platforms Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "tanla_platforms-officialSiteUrl",
+      "companyId": "tanla_platforms",
+      "field": "officialSiteUrl",
+      "value": "https://www.tanla.com",
+      "sourceKind": "official",
+      "url": "https://www.tanla.com",
+      "retrievedAt": "2026-10-25T17:47:24.241Z",
+      "snippet": "Official corporate website of Tanla Platforms",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "tanla_platforms-indiaPresenceUrl",
+      "companyId": "tanla_platforms",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.tanla.com/about.html",
+      "sourceKind": "official",
+      "url": "https://www.tanla.com/about.html",
+      "retrievedAt": "2026-10-25T17:47:24.241Z",
+      "snippet": "Tanla Platforms Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "tanla_platforms-careersUrl",
+      "companyId": "tanla_platforms",
+      "field": "careersUrl",
+      "value": "https://www.tanla.com/careers.html",
+      "sourceKind": "official",
+      "url": "https://www.tanla.com/careers.html",
+      "retrievedAt": "2026-10-25T17:47:24.241Z",
+      "snippet": "Tanla Platforms Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "tanla_platforms-hq",
+      "companyId": "tanla_platforms",
+      "field": "hq",
+      "value": "Hyderabad, Telangana",
+      "sourceKind": "official",
+      "url": "https://www.tanla.com",
+      "retrievedAt": "2026-10-25T17:47:24.241Z",
+      "snippet": "headquartered in Hyderabad, Telangana",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "tanla_platforms-industry",
+      "companyId": "tanla_platforms",
+      "field": "industry",
+      "value": "CPaaS, Commercial Communications & Messaging Platforms",
+      "sourceKind": "official",
+      "url": "https://www.tanla.com",
+      "retrievedAt": "2026-10-25T17:47:24.241Z",
+      "snippet": "Specializing in CPaaS, Commercial Communications & Messaging Platforms",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}

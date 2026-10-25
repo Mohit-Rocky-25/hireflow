@@ -1,0 +1,115 @@
+{
+  "companyId": "continental_automotive",
+  "name": "Continental Automotive India",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "Tier-1 automotive supplier engineering brake systems, ADAS algorithms, and telematics.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "continental_automotive-officialName",
+      "companyId": "continental_automotive",
+      "field": "officialName",
+      "value": "Continental Automotive Components (India) Private Limited",
+      "sourceKind": "official",
+      "url": "https://www.continental.com",
+      "retrievedAt": "2026-10-25T17:47:22.374Z",
+      "snippet": "Continental Automotive Components (India) Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "continental_automotive-officialSiteUrl",
+      "companyId": "continental_automotive",
+      "field": "officialSiteUrl",
+      "value": "https://www.continental.com",
+      "sourceKind": "official",
+      "url": "https://www.continental.com",
+      "retrievedAt": "2026-10-25T17:47:22.374Z",
+      "snippet": "Official corporate website of Continental Automotive India",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "continental_automotive-indiaPresenceUrl",
+      "companyId": "continental_automotive",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.continental.com/en-in/career",
+      "sourceKind": "official",
+      "url": "https://www.continental.com/en-in/career",
+      "retrievedAt": "2026-10-25T17:47:22.374Z",
+      "snippet": "Continental Automotive Components (India) Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "continental_automotive-careersUrl",
+      "companyId": "continental_automotive",
+      "field": "careersUrl",
+      "value": "https://www.continental-jobs.com",
+      "sourceKind": "official",
+      "url": "https://www.continental-jobs.com",
+      "retrievedAt": "2026-10-25T17:47:22.374Z",
+      "snippet": "Continental Automotive India Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "continental_automotive-campusPageUrl",
+      "companyId": "continental_automotive",
+      "field": "campusPageUrl",
+      "value": "https://www.continental.com/en-in/career/entry-level/students-graduates",
+      "sourceKind": "official",
+      "url": "https://www.continental.com/en-in/career/entry-level/students-graduates",
+      "retrievedAt": "2026-10-25T17:47:22.374Z",
+      "snippet": "Continental Automotive India early careers campus hiring",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "continental_automotive-hq",
+      "companyId": "continental_automotive",
+      "field": "hq",
+      "value": "Bengaluru, Karnataka",
+      "sourceKind": "official",
+      "url": "https://www.continental.com",
+      "retrievedAt": "2026-10-25T17:47:22.374Z",
+      "snippet": "headquartered in Bengaluru, Karnataka",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "continental_automotive-industry",
+      "companyId": "continental_automotive",
+      "field": "industry",
+      "value": "Autonomous Mobility, ADAS & Vehicle Safety Electronics",
+      "sourceKind": "official",
+      "url": "https://www.continental.com",
+      "retrievedAt": "2026-10-25T17:47:22.374Z",
+      "snippet": "Specializing in Autonomous Mobility, ADAS & Vehicle Safety Electronics",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}

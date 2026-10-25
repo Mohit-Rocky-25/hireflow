@@ -1,0 +1,100 @@
+{
+  "companyId": "sonata_software",
+  "name": "Sonata Software",
+  "tier": "IT_SERVICES",
+  "tierRationale": "Modernization engineering firm specializing in cloud and data platforms.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "sonata_software-officialName",
+      "companyId": "sonata_software",
+      "field": "officialName",
+      "value": "Sonata Software Limited",
+      "sourceKind": "official",
+      "url": "https://www.sonata-software.com",
+      "retrievedAt": "2026-10-25T17:47:24.173Z",
+      "snippet": "Sonata Software Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "sonata_software-officialSiteUrl",
+      "companyId": "sonata_software",
+      "field": "officialSiteUrl",
+      "value": "https://www.sonata-software.com",
+      "sourceKind": "official",
+      "url": "https://www.sonata-software.com",
+      "retrievedAt": "2026-10-25T17:47:24.173Z",
+      "snippet": "Official corporate website of Sonata Software",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "sonata_software-indiaPresenceUrl",
+      "companyId": "sonata_software",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.sonata-software.com/about-us",
+      "sourceKind": "official",
+      "url": "https://www.sonata-software.com/about-us",
+      "retrievedAt": "2026-10-25T17:47:24.173Z",
+      "snippet": "Sonata Software Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "sonata_software-careersUrl",
+      "companyId": "sonata_software",
+      "field": "careersUrl",
+      "value": "https://www.sonata-software.com/careers",
+      "sourceKind": "official",
+      "url": "https://www.sonata-software.com/careers",
+      "retrievedAt": "2026-10-25T17:47:24.173Z",
+      "snippet": "Sonata Software Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "sonata_software-hq",
+      "companyId": "sonata_software",
+      "field": "hq",
+      "value": "Bengaluru, Karnataka",
+      "sourceKind": "official",
+      "url": "https://www.sonata-software.com",
+      "retrievedAt": "2026-10-25T17:47:24.173Z",
+      "snippet": "headquartered in Bengaluru, Karnataka",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "sonata_software-industry",
+      "companyId": "sonata_software",
+      "field": "industry",
+      "value": "Modernization Engineering & Platformation Solutions",
+      "sourceKind": "official",
+      "url": "https://www.sonata-software.com",
+      "retrievedAt": "2026-10-25T17:47:24.173Z",
+      "snippet": "Specializing in Modernization Engineering & Platformation Solutions",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}

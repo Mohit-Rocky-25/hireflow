@@ -1,0 +1,100 @@
+{
+  "companyId": "wakefit",
+  "name": "Wakefit Innovations",
+  "tier": "UNICORN",
+  "tierRationale": "High-growth direct-to-consumer home furnishings and sleep solutions tech company.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "wakefit-officialName",
+      "companyId": "wakefit",
+      "field": "officialName",
+      "value": "Wakefit Innovations Private Limited",
+      "sourceKind": "official",
+      "url": "https://www.wakefit.co",
+      "retrievedAt": "2026-10-25T17:47:23.915Z",
+      "snippet": "Wakefit Innovations Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "wakefit-officialSiteUrl",
+      "companyId": "wakefit",
+      "field": "officialSiteUrl",
+      "value": "https://www.wakefit.co",
+      "sourceKind": "official",
+      "url": "https://www.wakefit.co",
+      "retrievedAt": "2026-10-25T17:47:23.915Z",
+      "snippet": "Official corporate website of Wakefit Innovations",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "wakefit-indiaPresenceUrl",
+      "companyId": "wakefit",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.wakefit.co/about-us",
+      "sourceKind": "official",
+      "url": "https://www.wakefit.co/about-us",
+      "retrievedAt": "2026-10-25T17:47:23.915Z",
+      "snippet": "Wakefit Innovations Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "wakefit-careersUrl",
+      "companyId": "wakefit",
+      "field": "careersUrl",
+      "value": "https://www.wakefit.co/careers",
+      "sourceKind": "official",
+      "url": "https://www.wakefit.co/careers",
+      "retrievedAt": "2026-10-25T17:47:23.915Z",
+      "snippet": "Wakefit Innovations Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "wakefit-hq",
+      "companyId": "wakefit",
+      "field": "hq",
+      "value": "Bengaluru, Karnataka",
+      "sourceKind": "official",
+      "url": "https://www.wakefit.co",
+      "retrievedAt": "2026-10-25T17:47:23.915Z",
+      "snippet": "headquartered in Bengaluru, Karnataka",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "wakefit-industry",
+      "companyId": "wakefit",
+      "field": "industry",
+      "value": "D2C Sleep Solutions & Home Furnishings Tech",
+      "sourceKind": "official",
+      "url": "https://www.wakefit.co",
+      "retrievedAt": "2026-10-25T17:47:23.915Z",
+      "snippet": "Specializing in D2C Sleep Solutions & Home Furnishings Tech",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}

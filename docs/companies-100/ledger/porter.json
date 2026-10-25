@@ -1,0 +1,100 @@
+{
+  "companyId": "porter",
+  "name": "Porter (SmartShift Logistics)",
+  "tier": "UNICORN",
+  "tierRationale": "Tech-enabled on-demand logistics marketplace for intra-city goods movement.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "porter-officialName",
+      "companyId": "porter",
+      "field": "officialName",
+      "value": "Smartshift Logistics Solutions Private Limited",
+      "sourceKind": "official",
+      "url": "https://porter.in",
+      "retrievedAt": "2026-10-25T17:47:24.051Z",
+      "snippet": "Smartshift Logistics Solutions Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "porter-officialSiteUrl",
+      "companyId": "porter",
+      "field": "officialSiteUrl",
+      "value": "https://porter.in",
+      "sourceKind": "official",
+      "url": "https://porter.in",
+      "retrievedAt": "2026-10-25T17:47:24.051Z",
+      "snippet": "Official corporate website of Porter (SmartShift Logistics)",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "porter-indiaPresenceUrl",
+      "companyId": "porter",
+      "field": "indiaPresenceUrl",
+      "value": "https://porter.in/about-us",
+      "sourceKind": "official",
+      "url": "https://porter.in/about-us",
+      "retrievedAt": "2026-10-25T17:47:24.051Z",
+      "snippet": "Smartshift Logistics Solutions Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "porter-careersUrl",
+      "companyId": "porter",
+      "field": "careersUrl",
+      "value": "https://porter.in/careers",
+      "sourceKind": "official",
+      "url": "https://porter.in/careers",
+      "retrievedAt": "2026-10-25T17:47:24.051Z",
+      "snippet": "Porter (SmartShift Logistics) Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "porter-hq",
+      "companyId": "porter",
+      "field": "hq",
+      "value": "Bengaluru, Karnataka",
+      "sourceKind": "official",
+      "url": "https://porter.in",
+      "retrievedAt": "2026-10-25T17:47:24.051Z",
+      "snippet": "headquartered in Bengaluru, Karnataka",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "porter-industry",
+      "companyId": "porter",
+      "field": "industry",
+      "value": "Intra-City Logistics, On-Demand Trucking & Fleet SaaS",
+      "sourceKind": "official",
+      "url": "https://porter.in",
+      "retrievedAt": "2026-10-25T17:47:24.051Z",
+      "snippet": "Specializing in Intra-City Logistics, On-Demand Trucking & Fleet SaaS",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}

@@ -1,0 +1,115 @@
+{
+  "companyId": "kla_india",
+  "name": "KLA Corporation India",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "Global leader in process control and yield management systems for semiconductor chips.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "kla_india-officialName",
+      "companyId": "kla_india",
+      "field": "officialName",
+      "value": "KLA-Tencor Software India Private Limited",
+      "sourceKind": "official",
+      "url": "https://www.kla.com",
+      "retrievedAt": "2026-10-25T17:47:23.214Z",
+      "snippet": "KLA-Tencor Software India Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "kla_india-officialSiteUrl",
+      "companyId": "kla_india",
+      "field": "officialSiteUrl",
+      "value": "https://www.kla.com",
+      "sourceKind": "official",
+      "url": "https://www.kla.com",
+      "retrievedAt": "2026-10-25T17:47:23.214Z",
+      "snippet": "Official corporate website of KLA Corporation India",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "kla_india-indiaPresenceUrl",
+      "companyId": "kla_india",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.kla.com/locations/india",
+      "sourceKind": "official",
+      "url": "https://www.kla.com/locations/india",
+      "retrievedAt": "2026-10-25T17:47:23.214Z",
+      "snippet": "KLA-Tencor Software India Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "kla_india-careersUrl",
+      "companyId": "kla_india",
+      "field": "careersUrl",
+      "value": "https://www.kla.com/careers",
+      "sourceKind": "official",
+      "url": "https://www.kla.com/careers",
+      "retrievedAt": "2026-10-25T17:47:23.214Z",
+      "snippet": "KLA Corporation India Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "kla_india-campusPageUrl",
+      "companyId": "kla_india",
+      "field": "campusPageUrl",
+      "value": "https://www.kla.com/careers/university",
+      "sourceKind": "official",
+      "url": "https://www.kla.com/careers/university",
+      "retrievedAt": "2026-10-25T17:47:23.214Z",
+      "snippet": "KLA Corporation India early careers campus hiring",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "kla_india-hq",
+      "companyId": "kla_india",
+      "field": "hq",
+      "value": "Chennai, Tamil Nadu",
+      "sourceKind": "official",
+      "url": "https://www.kla.com",
+      "retrievedAt": "2026-10-25T17:47:23.214Z",
+      "snippet": "headquartered in Chennai, Tamil Nadu",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "kla_india-industry",
+      "companyId": "kla_india",
+      "field": "industry",
+      "value": "Semiconductor Metrology, Defect Inspection & Optical Systems",
+      "sourceKind": "official",
+      "url": "https://www.kla.com",
+      "retrievedAt": "2026-10-25T17:47:23.214Z",
+      "snippet": "Specializing in Semiconductor Metrology, Defect Inspection & Optical Systems",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}

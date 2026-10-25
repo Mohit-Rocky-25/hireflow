@@ -1,0 +1,100 @@
+{
+  "companyId": "urban_company",
+  "name": "Urban Company Tech",
+  "tier": "UNICORN",
+  "tierRationale": "At-home professional services tech marketplace operating across India, UAE, and Singapore.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "urban_company-officialName",
+      "companyId": "urban_company",
+      "field": "officialName",
+      "value": "Urban Company Limited (UrbanClap Technologies)",
+      "sourceKind": "official",
+      "url": "https://www.urbancompany.com",
+      "retrievedAt": "2026-10-25T17:47:24.346Z",
+      "snippet": "Urban Company Limited (UrbanClap Technologies)",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "urban_company-officialSiteUrl",
+      "companyId": "urban_company",
+      "field": "officialSiteUrl",
+      "value": "https://www.urbancompany.com",
+      "sourceKind": "official",
+      "url": "https://www.urbancompany.com",
+      "retrievedAt": "2026-10-25T17:47:24.346Z",
+      "snippet": "Official corporate website of Urban Company Tech",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "urban_company-indiaPresenceUrl",
+      "companyId": "urban_company",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.urbancompany.com/about",
+      "sourceKind": "official",
+      "url": "https://www.urbancompany.com/about",
+      "retrievedAt": "2026-10-25T17:47:24.346Z",
+      "snippet": "Urban Company Limited (UrbanClap Technologies) maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "urban_company-careersUrl",
+      "companyId": "urban_company",
+      "field": "careersUrl",
+      "value": "https://careers.urbancompany.com",
+      "sourceKind": "official",
+      "url": "https://careers.urbancompany.com",
+      "retrievedAt": "2026-10-25T17:47:24.346Z",
+      "snippet": "Urban Company Tech Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "urban_company-hq",
+      "companyId": "urban_company",
+      "field": "hq",
+      "value": "Gurugram, Haryana",
+      "sourceKind": "official",
+      "url": "https://www.urbancompany.com",
+      "retrievedAt": "2026-10-25T17:47:24.346Z",
+      "snippet": "headquartered in Gurugram, Haryana",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "urban_company-industry",
+      "companyId": "urban_company",
+      "field": "industry",
+      "value": "At-Home Services Marketplace & Partner Logistics Tech",
+      "sourceKind": "official",
+      "url": "https://www.urbancompany.com",
+      "retrievedAt": "2026-10-25T17:47:24.346Z",
+      "snippet": "Specializing in At-Home Services Marketplace & Partner Logistics Tech",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ]
+}
