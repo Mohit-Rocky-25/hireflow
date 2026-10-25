@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Building2, DollarSign, ArrowLeft } from 'lucide-react';
+import { Building2, DollarSign, ArrowLeft, ShieldCheck } from 'lucide-react';
 import type { Company } from '../talentLensData';
 import { TREND_ICON } from '../talentLensData';
 import { CompanyLogo } from '../../../components/common/CompanyLogo';
+import { DataProvenanceModal } from '../../../components/common/DataProvenanceModal';
 
 export interface CompanyHeaderCardProps {
   company: Company;
@@ -71,6 +72,12 @@ export function CompanyHeaderCard({ company, onChangeCompany }: CompanyHeaderCar
             <DollarSign className="w-3.5 h-3.5 text-volt stroke-[1.5px]" />
             <span>Decode Offer</span>
           </Link>
+
+          {/* Sourcing & Legal Provenance Modal */}
+          <DataProvenanceModal
+            triggerButtonText="Data Sources & Legal Shield"
+            triggerButtonClassName="flex items-center gap-1.5 px-3 py-2 rounded bg-black hover:bg-hover-gray border border-charcoal hover:border-volt text-volt font-semibold text-xs uppercase tracking-[1px] transition-colors cursor-pointer"
+          />
 
           {/* Back to Companies Button */}
           <button

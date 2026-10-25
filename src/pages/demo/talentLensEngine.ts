@@ -21,6 +21,7 @@ import {
 import { CANONICAL_SCORING_SPEC } from '../../scoring/spec';
 import { MARKET_ENTRIES, MarketEntry } from '../../data/market';
 import { CURRICULUM_DOMAINS } from '../../data/curriculum/curriculumData';
+import { validateResumeAuthenticity } from '../../lib/resumeValidator';
 
 export interface Role {
   title: string;
@@ -101,99 +102,104 @@ export function getSentences(text: string): string[] {
 
 export const COMPETENCY_SIGNALS: Record<string, { keywords: string[]; contextPhrases: string[]; redFlags: string[] }> = {
   dsa: {
-    keywords: ['dsa', 'data structures', 'algorithms', 'leetcode', 'competitive programming', 'dynamic programming', 'graph', 'tree', 'binary search', 'sorting', 'hash table', 'time complexity', 'space complexity'],
-    contextPhrases: ['solved 300+', 'competitive programming', 'icpc', 'codeforces', 'rating', 'contest participant'],
+    keywords: ['dsa', 'data structures', 'algorithms', 'leetcode', 'competitive programming', 'dynamic programming', 'binary search', 'hash table', 'hashmap', 'time complexity', 'space complexity', 'depth-first search', 'breadth-first search', 'dijkstra', 'big-o'],
+    contextPhrases: ['solved 300+', 'competitive programming', 'icpc', 'codeforces', 'leetcode rating', 'contest participant'],
     redFlags: ['basic understanding only', 'learning data structures', 'no practical coding experience'],
   },
   systemdesign: {
-    keywords: ['microservices', 'distributed systems', 'scalability', 'high availability', 'load balancer', 'cdn', 'caching', 'sharding', 'cap theorem', 'kafka', 'system design', 'distributed architecture', 'throughput', 'fault tolerance'],
-    contextPhrases: ['architected system', 'high availability', 'fault tolerant', 'horizontally scalable', 'designed microservices', 'caching tier'],
+    keywords: ['system design', 'microservices', 'distributed systems', 'high availability', 'load balancer', 'load balancing', 'cdn tier', 'caching tier', 'redis cache', 'database sharding', 'cap theorem', 'kafka', 'message queue', 'distributed architecture', 'fault tolerance', 'rate limiting', 'consistent hashing'],
+    contextPhrases: ['architected distributed system', 'high availability architecture', 'fault tolerant microservices', 'horizontally scalable system', 'designed microservices', 'caching tier'],
     redFlags: ['basic architecture only', 'monolith only', 'no distributed system experience'],
   },
   java: {
-    keywords: ['java', 'spring boot', 'spring', 'jvm', 'jpa', 'hibernate', 'maven', 'gradle', 'java ee', 'multithreading', 'concurrency', 'jdk', 'collections', 'streams'],
-    contextPhrases: ['production java', 'spring microservices', 'jvm tuning', 'enterprise backend', 'high throughput java', 'distributed microservices'],
+    keywords: ['java', 'spring boot', 'spring framework', 'jvm', 'jpa', 'hibernate', 'maven', 'gradle', 'java ee', 'jakarta ee', 'jdk', 'core java', 'java 17', 'java 21', 'java 11', 'virtual threads'],
+    contextPhrases: ['production java', 'spring boot microservices', 'jvm tuning', 'enterprise java backend', 'high throughput java'],
     redFlags: ['java basics only', 'learning java', 'hello world only'],
   },
   python: {
-    keywords: ['python', 'django', 'flask', 'fastapi', 'pandas', 'numpy', 'pytorch', 'tensorflow', 'scikit-learn', 'asyncio', 'celery', 'pytest', 'pydantic'],
-    contextPhrases: ['production python', 'fastapi microservices', 'ml pipeline', 'async python', 'python backend'],
+    keywords: ['python', 'django', 'flask', 'fastapi', 'pandas', 'numpy', 'pytorch', 'tensorflow', 'scikit-learn', 'asyncio', 'celery', 'pytest', 'pydantic', 'sqlalchemy'],
+    contextPhrases: ['production python', 'fastapi microservices', 'ml pipeline', 'async python', 'python backend service'],
     redFlags: ['python beginner', 'learning python', 'basic scripting only'],
   },
   golang: {
-    keywords: ['golang', 'go', 'goroutine', 'channels', 'gin', 'echo', 'gorm', 'grpc', 'protobuf', 'go modules'],
-    contextPhrases: ['production go', 'concurrent systems', 'high performance go', 'grpc microservices'],
+    keywords: ['golang', 'go language', 'goroutine', 'goroutines', 'go channels', 'gin framework', 'echo framework', 'gorm', 'grpc', 'protobuf', 'go modules'],
+    contextPhrases: ['production go', 'concurrent systems in go', 'high performance go', 'grpc microservices in go'],
     redFlags: ['learning go', 'go basics only'],
   },
   nodejs: {
-    keywords: ['node.js', 'nodejs', 'express', 'fastify', 'nestjs', 'async await', 'event loop', 'npm', 'yarn', 'typescript node', 'websocket', 'rest api'],
-    contextPhrases: ['node production', 'event-driven node', 'high throughput node', 'real-time api'],
+    keywords: ['node.js', 'nodejs', 'express.js', 'fastify', 'nestjs', 'node runtime', 'node backend', 'node server', 'event loop node', 'npm packages'],
+    contextPhrases: ['node production backend', 'event-driven node service', 'high throughput node.js', 'real-time node api'],
     redFlags: ['node beginner', 'learning node'],
   },
   react: {
-    keywords: ['react', 'react.js', 'hooks', 'redux', 'context api', 'next.js', 'jsx', 'tsx', 'zustand', 'react query', 'tanstack query'],
-    contextPhrases: ['production react', 'component architecture', 'next.js app', 'state management', 'performance optimization'],
+    keywords: ['react', 'react.js', 'reactjs', 'react native', 'redux toolkit', 'next.js', 'jsx', 'tsx', 'zustand', 'react query', 'tanstack query', 'react router'],
+    contextPhrases: ['production react app', 'react component architecture', 'next.js application', 'state management with zustand', 'frontend performance optimization'],
     redFlags: ['learning react', 'tutorial project only'],
   },
   typescript: {
-    keywords: ['typescript', 'ts', 'tsx', 'type-safe', 'generics', 'interfaces', 'type inference', 'strict mode', 'utility types'],
-    contextPhrases: ['strict typescript', 'type-safe architecture', 'complex generics', 'shared domain types'],
+    keywords: ['typescript', 'tsx', 'tsconfig', 'type-safe typescript', 'strict typescript', 'tsc'],
+    contextPhrases: ['strict typescript codebase', 'type-safe architecture in typescript', 'shared domain types in typescript'],
     redFlags: ['just started typescript', 'any types everywhere'],
   },
   aws: {
-    keywords: ['aws', 'amazon web services', 'ec2', 's3', 'lambda', 'rds', 'dynamodb', 'sqs', 'sns', 'cloudfront', 'iam', 'vpc', 'eks', 'ecs', 'cloudformation', 'terraform'],
-    contextPhrases: ['aws certified', 'cloud architecture', 'production aws', 'serverless lambda', 'infrastructure as code'],
+    keywords: ['aws', 'amazon web services', 'aws ec2', 'aws s3', 'aws lambda', 'aws rds', 'dynamodb', 'aws sqs', 'aws sns', 'cloudfront', 'aws iam', 'aws vpc', 'aws eks', 'aws ecs', 'cloudformation', 'terraform aws'],
+    contextPhrases: ['aws certified', 'cloud architecture on aws', 'production aws environment', 'serverless on aws', 'infrastructure as code on aws'],
     redFlags: ['no cloud exposure', 'learning aws'],
   },
   kubernetes: {
-    keywords: ['kubernetes', 'k8s', 'docker', 'containers', 'helm', 'kubectl', 'pod', 'deployment', 'ingress', 'service mesh', 'gitops', 'hpa'],
-    contextPhrases: ['production k8s', 'container orchestration', 'managed k8s cluster', 'helm charts', 'ci/cd deployment'],
+    keywords: ['kubernetes', 'k8s', 'kubectl', 'helm charts', 'helm chart', 'k8s cluster', 'kubernetes cluster', 'service mesh', 'istio', 'argo cd', 'k8s pod', 'k8s ingress', 'gitops'],
+    contextPhrases: ['production k8s cluster', 'managed kubernetes cluster', 'helm charts deployment', 'service mesh in production'],
     redFlags: ['basic docker only', 'no k8s experience'],
   },
   ml: {
-    keywords: ['machine learning', 'deep learning', 'neural networks', 'tensorflow', 'pytorch', 'scikit-learn', 'xgboost', 'nlp', 'computer vision', 'transformer', 'llm', 'fine-tuning'],
-    contextPhrases: ['trained model', 'deployed ml model', 'ml pipeline', 'inference latency', 'experiment tracking'],
+    keywords: ['machine learning', 'deep learning', 'neural networks', 'tensorflow', 'pytorch', 'scikit-learn', 'xgboost', 'nlp', 'computer vision', 'large language model', 'llm', 'model fine-tuning'],
+    contextPhrases: ['trained ml model', 'deployed machine learning model', 'ml training pipeline', 'inference latency optimization'],
     redFlags: ['ml basics only', 'course certificate without projects'],
   },
   databases: {
-    keywords: ['postgresql', 'mysql', 'mongodb', 'cassandra', 'redis', 'elasticsearch', 'sql', 'nosql', 'database schema', 'query optimization', 'indexing', 'acid', 'replication', 'transactions'],
-    contextPhrases: ['query tuning', 'database indexing', 'production schema', 'connection pooling', 'high volume queries'],
+    keywords: ['postgresql', 'postgres', 'mysql', 'mongodb', 'cassandra', 'redis cache', 'elasticsearch', 'sql queries', 'relational database', 'nosql database', 'database schema design', 'database query optimization', 'database indexing', 'database replication', 'acid compliance'],
+    contextPhrases: ['database query tuning', 'production schema design', 'connection pooling in postgres', 'database indexing optimization'],
     redFlags: ['basic sql only', 'no database experience'],
   },
   leadership: {
-    keywords: ['lead', 'mentor', 'team lead', 'tech lead', 'architect', 'stakeholder', 'cross-functional', 'roadmap', 'technical guidance'],
-    contextPhrases: ['led engineering team', 'mentored engineers', 'drove technical decisions', 'cross-functional coordination'],
+    keywords: ['tech lead', 'team lead', 'engineering lead', 'lead engineer', 'lead developer', 'mentored engineers', 'mentoring junior engineers', 'cross-functional leadership', 'technical roadmap', 'architected solutions'],
+    contextPhrases: ['led engineering team', 'mentored software engineers', 'drove technical architecture decisions', 'cross-functional roadmap planning'],
     redFlags: ['no collaboration experience'],
   },
   devops: {
-    keywords: ['ci/cd', 'github actions', 'gitlab ci', 'jenkins', 'terraform', 'ansible', 'monitoring', 'prometheus', 'grafana', 'datadog', 'sre', 'slo', 'sla'],
-    contextPhrases: ['automated ci/cd pipeline', 'infrastructure as code', 'production monitoring', 'zero downtime deployments'],
+    keywords: ['ci/cd pipeline', 'github actions', 'gitlab ci', 'jenkins pipeline', 'terraform', 'ansible', 'infrastructure as code', 'prometheus monitoring', 'grafana dashboards', 'datadog', 'site reliability engineering', 'sre'],
+    contextPhrases: ['automated ci/cd pipeline', 'infrastructure as code with terraform', 'production monitoring with prometheus', 'zero downtime deployments'],
     redFlags: ['manual deployments only', 'no ci/cd exposure'],
   },
   security: {
-    keywords: ['security', 'oauth', 'jwt', 'ssl/tls', 'encryption', 'xss', 'sql injection', 'owasp', 'rbac', 'iam', 'penetration testing'],
-    contextPhrases: ['security compliance', 'owasp guidelines', 'authenticated endpoints', 'vulnerability assessment'],
+    keywords: ['application security', 'appsec', 'oauth2', 'oauth 2.0', 'jwt authentication', 'ssl/tls', 'encryption at rest', 'xss prevention', 'sql injection prevention', 'owasp top 10', 'rbac', 'penetration testing'],
+    contextPhrases: ['security compliance audit', 'owasp security guidelines', 'authenticated api endpoints', 'vulnerability penetration testing'],
     redFlags: ['no security awareness', 'unauthenticated apis'],
   },
   swift: {
-    keywords: ['swift', 'swiftui', 'uikit', 'xcode', 'core data', 'combine', 'ios', 'app store'],
-    contextPhrases: ['shipped ios app', 'app store release', 'production swift', 'native ios architecture'],
+    keywords: ['swift language', 'swiftui', 'uikit', 'xcode', 'core data', 'combine framework', 'ios app development', 'app store release'],
+    contextPhrases: ['shipped ios app to app store', 'production swift codebase', 'native ios architecture'],
     redFlags: ['learning swift', 'tutorial app only'],
   },
   kotlin: {
-    keywords: ['kotlin', 'android', 'jetpack compose', 'mvvm', 'coroutines', 'room db', 'retrofit', 'play store'],
-    contextPhrases: ['shipped android app', 'play store release', 'production kotlin', 'compose ui'],
+    keywords: ['kotlin language', 'jetpack compose', 'android development', 'kotlin coroutines', 'room db', 'retrofit android', 'play store release'],
+    contextPhrases: ['shipped android app to play store', 'production kotlin application', 'jetpack compose ui'],
     redFlags: ['learning android', 'hello world app only'],
   },
   finance: {
-    keywords: ['fintech', 'payments', 'upi', 'banking', 'trading', 'financial', 'pci-dss', 'settlement', 'reconciliation', 'ledger'],
-    contextPhrases: ['payment gateway', 'transaction processing', 'idempotent payments', 'financial compliance'],
+    keywords: ['fintech', 'payment gateway', 'upi integration', 'banking software', 'trading platform', 'financial systems', 'pci-dss compliance', 'payment settlement engine', 'double-entry ledger'],
+    contextPhrases: ['payment gateway integration', 'high-throughput transaction processing', 'idempotent payment flows', 'financial compliance'],
     redFlags: ['no finance exposure'],
   },
   communication: {
-    keywords: ['technical writing', 'documentation', 'rfc', 'design doc', 'code review', 'presentation', 'collaboration'],
-    contextPhrases: ['authored architecture rfc', 'comprehensive documentation', 'conducted code reviews', 'presented engineering talks'],
+    keywords: ['technical writing', 'authored architecture rfc', 'system design document', 'conducted code reviews', 'technical presentation'],
+    contextPhrases: ['authored architecture rfc document', 'comprehensive technical documentation', 'conducted rigorous code reviews', 'presented engineering architecture'],
     redFlags: ['no documentation habits'],
+  },
+  concurrency: {
+    keywords: ['multithreading', 'concurrent programming', 'thread safety', 'thread pool', 'mutex', 'deadlock prevention', 'race condition resolution', 'concurrency control', 'virtual threads'],
+    contextPhrases: ['high-concurrency system', 'thread-safe architecture', 'prevented race conditions in production'],
+    redFlags: ['no multithreading experience'],
   },
 };
 
@@ -330,11 +336,15 @@ export function deepAnalyzeCompetency(
 
   // Layer 3: Production depth & ecosystem cues
   const ctxMatches = signals.contextPhrases.filter((phrase) => text.includes(phrase.toLowerCase()));
-  const impact = parseImpactMetrics(text);
-  const l3Score = Math.min(100, ctxMatches.length * 35 + (impact.hasProduction ? 25 : 0));
+  const compContextText = contextSentences.join(' ');
+  const compImpact = contextSentences.length > 0
+    ? parseImpactMetrics(compContextText)
+    : { hasScale: false, hasMetrics: false, hasTeamSize: false, hasProduction: false, scaleDetails: [], metricDetails: [] };
 
-  // Layer 4: Impact metrics evaluated via bullet scorer & metric parser
-  const l4Score = (impact.hasScale ? 35 : 0) + (impact.hasMetrics ? 30 : 0) + (impact.hasTeamSize ? 20 : 0) + (impact.hasProduction ? 15 : 0);
+  const l3Score = Math.min(100, ctxMatches.length * 35 + (compImpact.hasProduction ? 25 : 0));
+
+  // Layer 4: Impact metrics evaluated ONLY in context where this competency is actually applied
+  const l4Score = (compImpact.hasScale ? 35 : 0) + (compImpact.hasMetrics ? 30 : 0) + (compImpact.hasTeamSize ? 20 : 0) + (compImpact.hasProduction ? 15 : 0);
 
   // Layer 5: Anti-gaming stuffing detection
   const stuffing = detectKeywordStuffing(text, signals.keywords);
@@ -343,30 +353,42 @@ export function deepAnalyzeCompetency(
 
   const redFlagCount = signals.redFlags.filter((rf) => text.includes(rf.toLowerCase())).length;
 
-  const rawScore = (l1Score * 0.20) + (l2Score * 0.35) + (l3Score * 0.20) + (l4Score * 0.25) + l5Penalty - (redFlagCount * 15); // spec-exempt: 6-layer competency diagnostic sub-score weights
+  const rawScore = (l1Score * 0.20) + (l2Score * 0.35) + (l3Score * 0.20) + (l4Score * 0.25) + l5Penalty - (redFlagCount * 15);
   const clampedScore = Math.max(0, Math.min(100, rawScore));
 
   let detectedLevel: 'expert' | 'strong' | 'working' | 'absent';
   let confidence: number;
 
+  const isInSkillsBlock = Boolean(
+    resumeData.skillsBlockText &&
+    signals.keywords.some((kw) => matchesTokenSafely(resumeData.skillsBlockText, kw).found)
+  );
+
   if (kwMatches.length === 0) {
     detectedLevel = 'absent';
-    confidence = 5;
+    confidence = 0;
   } else if (redFlagCount > 0 && kwMatches.length < 2) {
     detectedLevel = 'absent';
-    confidence = 5;
-  } else if (antiGamingFlag && contextResults.length === 0) {
-    detectedLevel = 'working';
-    confidence = 20;
-  } else if (clampedScore >= 60 && contextResults.length >= 1 && (impact.hasScale || impact.hasMetrics)) {
+    confidence = 0;
+  } else if (contextResults.length === 0) {
+    // No experience or project bullet demonstrated this competency
+    if (isInSkillsBlock && !antiGamingFlag) {
+      detectedLevel = 'working';
+      confidence = 25;
+    } else {
+      // Casual token mention in prose without technical context -> ABSENT
+      detectedLevel = 'absent';
+      confidence = 0;
+    }
+  } else if (contextResults.length >= 2 && (compImpact.hasScale || compImpact.hasMetrics || compImpact.hasProduction || clampedScore >= 60)) {
     detectedLevel = 'expert';
-    confidence = Math.round(clampedScore);
-  } else if (clampedScore >= 35 && (contextResults.length >= 1 || resumeData.projectBullets.length > 0 || kwMatches.length >= 2)) {
+    confidence = Math.min(95, Math.max(72, Math.round(clampedScore)));
+  } else if (contextResults.length >= 1) {
     detectedLevel = 'strong';
-    confidence = Math.round(clampedScore);
+    confidence = Math.min(85, Math.max(50, Math.round(clampedScore)));
   } else {
     detectedLevel = 'working';
-    confidence = Math.round(Math.max(15, clampedScore));
+    confidence = Math.min(45, Math.max(20, Math.round(clampedScore)));
   }
 
   const LEVELS = ['working', 'strong', 'expert'];
@@ -377,32 +399,35 @@ export function deepAnalyzeCompetency(
   const evidence: string[] = [];
   const gaps: string[] = [];
 
-  if (contextSentences.length > 0) {
-    evidence.push(`Found in ${contextResults.length} project/experience description(s) with action verbs and operational context.`);
-  } else if (kwMatches.length > 0) {
-    evidence.push(`"${kwMatches[0]}" detected in skills block — evaluated with 0.35 baseline credit per scoring spec.`);
-  }
-
-  if (ctxMatches.length > 0) {
-    evidence.push(`Ecosystem signals detected: "${ctxMatches.slice(0, 2).join('", "')}".`);
-  }
-  if (impact.hasScale) {
-    evidence.push(`System-scale metrics found (${impact.scaleDetails.slice(0, 2).join(', ')}).`);
-  }
-  if (impact.hasMetrics) {
-    evidence.push(`Quantified outcomes identified (${impact.metricDetails.slice(0, 2).join(', ')}).`);
-  }
-  if (impact.hasProduction) {
-    evidence.push('Production deployment or live environment indicators detected.');
-  }
-
-  if (antiGamingFlag) {
-    gaps.push(`Evidence Depth Note: "${competency.toUpperCase()}" appears primarily in list format. Demonstrate it in project bullets with action verbs.`);
-  }
   if (detectedLevel === 'absent') {
+    // Invariant: An absent competency must NEVER claim false positive evidence
     gaps.push(`${competency.toUpperCase()} is not evidenced in the resume. Build a real proof project demonstrating ${competency.toUpperCase()} before applying.`);
-  } else if (!meetsRequirement) {
-    gaps.push(`Role lists "${reqLevel}" proficiency for ${competency.toUpperCase()} while current resume demonstrates "${detectedLevel}". Deepen with quantified project outcomes.`);
+  } else {
+    if (contextSentences.length > 0) {
+      evidence.push(`Found in ${contextResults.length} project/experience description(s) with action verbs and operational context.`);
+    } else if (kwMatches.length > 0) {
+      evidence.push(`"${kwMatches[0]}" detected in skills block — evaluated with baseline credit per scoring spec.`);
+    }
+
+    if (ctxMatches.length > 0) {
+      evidence.push(`Ecosystem signals detected: "${ctxMatches.slice(0, 2).join('", "')}".`);
+    }
+    if (compImpact.hasScale) {
+      evidence.push(`System-scale metrics found (${compImpact.scaleDetails.slice(0, 2).join(', ')}).`);
+    }
+    if (compImpact.hasMetrics) {
+      evidence.push(`Quantified outcomes identified (${compImpact.metricDetails.slice(0, 2).join(', ')}).`);
+    }
+    if (compImpact.hasProduction) {
+      evidence.push('Production deployment or live environment indicators detected.');
+    }
+
+    if (antiGamingFlag) {
+      gaps.push(`Evidence Depth Note: "${competency.toUpperCase()}" appears primarily in list format. Demonstrate it in project bullets with action verbs.`);
+    }
+    if (!meetsRequirement) {
+      gaps.push(`Role lists "${reqLevel}" proficiency for ${competency.toUpperCase()} while current resume demonstrates "${detectedLevel}". Deepen with quantified project outcomes.`);
+    }
   }
 
   return {
@@ -433,7 +458,15 @@ export function computeScore(
   company?: { name: string; tier: string; industry: string },
   role?: { title: string; level?: string }
 ): number {
+  const validity = validateResumeAuthenticity(resumeText);
+  if (!validity.isValid) {
+    return 0;
+  }
+
   const resumeData = parseResumeToScoringInput(resumeText);
+  if (roleAnalysis.length > 0 && roleAnalysis.every((a) => a.status === 'absent') && resumeData.sectionsFound.length === 0) {
+    return 0;
+  }
 
   // 1. Resolve role family from title and competencies
   const compNames = Object.keys(reqLevels).join(' ').toLowerCase();
@@ -937,6 +970,9 @@ export interface AnalysisResult {
   readinessLabel: 'Within reach' | 'Stretch' | 'Far';
   band: ScoreBand;
   eligibilityStatus?: EligibilityGateResult;
+  isValidResume?: boolean;
+  invalidReason?: string;
+  invalidIssues?: string[];
 }
 
 /**
@@ -951,6 +987,103 @@ export function analyzeRoleMatch(
   intake?: EligibilityCandidateInput
 ): AnalysisResult {
   const reqLevelMap = (role.reqLevel as unknown as Record<string, string>) || {};
+
+  // Level 1 Gatekeeper: Reject non-resume text with score 0 and unscoreable explanation
+  const validity = validateResumeAuthenticity(resumeText);
+  if (!validity.isValid) {
+    const dummyTrace: ScoreTrace = {
+      tool: 'talentlens',
+      specVersion: CANONICAL_SCORING_SPEC.specVersion,
+      engineVersion: CANONICAL_SCORING_SPEC.engineVersion,
+      specFingerprint: 'unscoreable_non_resume',
+      context: {
+        experienceLevel: '0-2 yrs',
+        roleFamily: 'General',
+        jdPresent: true,
+        confirmedRequirements: [],
+        jdLevel: 'entry',
+        archetype: 'product_mnc_gcc',
+        candidateYearsExperience: 0,
+        requiredYearsExperience: 0,
+      },
+      profileId: 'fresher',
+      pillars: [],
+      adjustments: [],
+      composite: 0,
+      compositeDisplay: 0,
+      band: {
+        low: 0,
+        high: 0,
+        width: 0,
+        label: 'Sensitive',
+      },
+      confidence: 1.0,
+      warnings: [validity.reason || 'Document not recognized as an authentic resume.'],
+      advisories: validity.issues,
+    };
+
+    const emptyBreakdown = role.competencies.map((comp) => ({
+      competency: comp,
+      reqLevel: reqLevelMap[comp] || 'working',
+      analysis: {
+        status: 'absent' as const,
+        confidence: 0,
+        evidence: [],
+        gaps: [validity.reason || 'Document not recognized as an authentic resume.'],
+        layerScores: { l1: 0, l2: 0, l3: 0, l4: 0, l5: 0 },
+        contextSentences: [],
+        antiGamingFlag: false,
+      },
+    }));
+
+    return {
+      score: 0,
+      breakdown: emptyBreakdown,
+      plans: [
+        {
+          priority: 'critical',
+          title: 'Provide a Genuine Technical Resume',
+          detail: validity.reason || 'The text provided does not contain recognizable resume sections (Experience, Education, Projects, Skills) or sufficient technical vocabulary. TalentLens requires a real resume to perform placement readiness calibration.',
+          timeframe: 'Immediate',
+          closability: 'not closable by resume alone',
+          suggestedAction: 'Upload or paste an authentic technical resume containing your educational qualifications, project portfolio, and technical skills.',
+          hypotheticalScoreGain: 'Enables calibrated readiness scoring and personalized gap analysis',
+          bulletTemplate: 'Education: [Degree] from [Institution] | Technical Skills: [Languages, Frameworks] | Projects: [Title, Tools, Scale]',
+          resources: ['Use HireFlow Verified Engineering Sample Resume', 'Google XYZ Resume Formula Guide'],
+        },
+      ],
+      marketIntel: {
+        overallMarketFit: 0,
+        buildAuthenticity: 0,
+        techCurrencyScore: 0,
+        fundamentalDepth: 0,
+        findings: [
+          {
+            category: 'Document Authenticity',
+            icon: '⚠️',
+            status: 'critical',
+            finding: 'Non-Resume Input Detected',
+            marketContext: validity.reason || 'TalentLens requires an authentic engineering resume to evaluate.',
+            evidence: [],
+          },
+        ],
+        stackCurrency: {
+          modernPractices: [],
+          outdatedSignals: [],
+          emergingAdoption: [],
+          missingForMarket: ['Standard Resume Headings (Experience, Skills, Education)'],
+        },
+        buildVerdict: 'Unscoreable: Submitted document lacks resume structure or career credentials.',
+        marketPosition: 'Significantly Behind',
+      },
+      trace: dummyTrace,
+      readinessLabel: 'Far',
+      band: dummyTrace.band,
+      isValidResume: false,
+      invalidReason: validity.reason,
+      invalidIssues: validity.issues,
+    };
+  }
   const breakdown = role.competencies.map((comp) => ({
     competency: comp,
     reqLevel: reqLevelMap[comp] || 'working',

@@ -8,7 +8,7 @@ import React, { useRef, useCallback, useEffect } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import {
   Brain, CheckCircle, ArrowRight, Building2, Search,
-  Upload, FileText, BarChart3, Briefcase, Zap, Sparkles, X
+  Upload, FileText, BarChart3, Briefcase, Zap, Sparkles, X, AlertTriangle
 } from "lucide-react";
 import { PublicNavbar } from "../../components/common/PublicNavbar";
 import {
@@ -19,13 +19,15 @@ import {
   TREND_ICON,
   getCompanySlug,
 } from "./talentLensData";
-import { useTalentLensStore, setCompaniesResolver } from "./useTalentLensStore";
+import { useTalentLensStore, DEMO_TALENTLENS_RESUME, setCompaniesResolver } from "./useTalentLensStore";
 import { useProfileStore } from "../../store/profileStore";
 import { toast } from "../../components/ui/Toast";
 import { parseResumeFile } from "../../features/ats/fileParser";
 import { searchCompanies, deduplicateCompanies } from "../../lib/companySearchEngine";
 import { getMarketSummary } from "../../data/market";
 import { CompanyLogo } from "../../components/common/CompanyLogo";
+import { DataProvenanceModal } from "../../components/common/DataProvenanceModal";
+import { validateResumeAuthenticity } from "../../lib/resumeValidator";
 
 setCompaniesResolver(() => COMPANIES);
 
@@ -113,9 +115,14 @@ export function MatchingDemo() {
 
         {/* Hero */}
         <div className="text-center mb-12 max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-near-black border border-charcoal rounded text-xs font-semibold text-silver uppercase tracking-[1.4px] mb-4">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-near-black border border-charcoal rounded text-xs font-semibold text-silver uppercase tracking-[1.4px] mb-4 flex-wrap justify-center">
             <Brain className="w-3.5 h-3.5 text-volt stroke-[1.5px]" />
             <span>TalentLens™ · Evidence-First Placement Readiness</span>
+            <span className="text-charcoal-deep">|</span>
+            <DataProvenanceModal
+              triggerButtonText="Data Sources & Legal Shield"
+              triggerButtonClassName="text-volt hover:text-white uppercase tracking-[1px] text-xs font-bold transition-colors cursor-pointer inline-flex items-center gap-1"
+            />
           </div>
           <h1 className="text-3xl sm:text-5xl font-black text-white mb-3.5 tracking-tight leading-[1.08]">
             Where do I fit, <span className="block text-volt">and what should I prepare for?</span>
@@ -271,14 +278,53 @@ Include:
                 </div>
               )}
 
-              {resumeText.trim() && (
-                <div className="mt-4 p-3 bg-black border border-volt/60 rounded flex items-center gap-2.5">
-                  <CheckCircle className="w-4 h-4 text-volt flex-shrink-0 stroke-[1.5px]" />
-                  <span className="text-xs text-volt font-semibold uppercase tracking-[1px]">
-                    {resumeText.split(/\s+/).length} words loaded — deep AI analysis will begin when you select a role.
-                  </span>
-                </div>
-              )}
+              {(() => {
+                if (!resumeText.trim()) return null;
+                const validity = validateResumeAuthenticity(resumeText);
+                if (validity.isValid) {
+                  return (
+                    <div className="mt-4 p-3 bg-black border border-volt/60 rounded flex items-center justify-between gap-2.5 flex-wrap">
+                      <div className="flex items-center gap-2">
+                        <CheckCircle className="w-4 h-4 text-volt flex-shrink-0 stroke-[1.5px]" />
+                        <span className="text-xs text-volt font-semibold uppercase tracking-[1px]">
+                          {validity.wordCount} words loaded · Structure verified ({validity.sectionsFound.slice(0, 3).join(', ')})
+                        </span>
+                      </div>
+                      <span className="text-[10px] text-silver font-mono">
+                        Ready for placement calibration
+                      </span>
+                    </div>
+                  );
+                }
+                return (
+                  <div className="mt-4 p-4 bg-black border border-danger/80 rounded text-left space-y-2">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2 text-danger font-bold text-xs uppercase tracking-wider">
+                        <AlertTriangle className="w-4 h-4 stroke-[1.5px] text-danger" />
+                        <span>Input Warning: Document Not Recognized as a Resume</span>
+                      </div>
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-near-black text-danger border border-danger/40">
+                        {validity.wordCount} words
+                      </span>
+                    </div>
+                    <p className="text-xs text-silver leading-relaxed font-mono">
+                      {validity.reason || 'Missing standard sections (Experience, Skills, Education) or sufficient technical vocabulary. TalentLens will mark this document as unscoreable (0%).'}
+                    </p>
+                    <div className="pt-2 flex items-center justify-between flex-wrap gap-2">
+                      <span className="text-[11px] text-silver/70">
+                        Want to test with a verified technical profile?
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => setResume(DEMO_TALENTLENS_RESUME.text, DEMO_TALENTLENS_RESUME.fileName)}
+                        className="px-3 py-1 rounded bg-volt !text-black font-bold text-xs font-mono uppercase tracking-wider hover:bg-[#1a1a1a] hover:!text-volt border border-volt transition-colors cursor-pointer"
+                      >
+                        Load Verified Sample Resume
+                      </button>
+                    </div>
+                  </div>
+                );
+              })()}
 
               <div className="mt-6 flex justify-end">
                 <button
@@ -579,6 +625,22 @@ Include:
           ))}
         </div>
 
+        {/* Legal & Provenance Footer Banner */}
+        <div className="mt-8 p-4 rounded-lg bg-[#0e0e0e] border border-charcoal/80 flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-mono text-silver">
+          <div className="flex items-center gap-3">
+            <span className="w-2 h-2 rounded-full bg-volt flex-shrink-0" />
+            <span>
+              <strong>Company & Role Data Provenance:</strong> Job descriptions, compensation bands, and interview rounds are extracted from public corporate career portals, verified campus placement reports, and anonymous employee submissions.
+            </span>
+          </div>
+          <div className="flex items-center gap-3 flex-shrink-0">
+            <span className="text-silver/60">Nominative Fair Use • Non-Affiliated</span>
+            <DataProvenanceModal
+              triggerButtonText="Data Sources & Legal Shield"
+              triggerButtonClassName="px-3 py-1.5 bg-black border border-charcoal hover:border-volt rounded text-xs font-semibold uppercase tracking-[1px] text-volt hover:text-white transition-colors cursor-pointer"
+            />
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -142,7 +142,73 @@ export function matchTokenInText(
     return { found: false };
   }
 
-  // 9. General token with word boundary
+  // 9. Special Language: TypeScript / TS
+  if (tokenLower === 'ts' || tokenLower === 'typescript') {
+    const tsCanonical = 'TypeScript';
+    if (/\bTypeScript\b/i.test(text)) {
+      return { found: true, matchedToken: tsCanonical };
+    }
+    if (/\bTSX\b/i.test(text)) {
+      return { found: true, matchedToken: 'TSX' };
+    }
+    if (isSkillsSection && /(?:^|[\s,;/|([\]])TS(?:[\s,;/|)\].]|$)/.test(text)) {
+      return { found: true, matchedToken: tsCanonical };
+    }
+    if (/(?:React|Node|Vue|Angular|Next\.?js)\s*[\/|]\s*TS\b/i.test(text) || /\bTS\s*[\/|]\s*(?:JS|JavaScript)\b/i.test(text)) {
+      return { found: true, matchedToken: tsCanonical };
+    }
+    return { found: false };
+  }
+
+  // 10. Special Language: JavaScript / JS
+  if (tokenLower === 'js' || tokenLower === 'javascript') {
+    const jsCanonical = 'JavaScript';
+    if (/\bJavaScript\b/i.test(text)) {
+      return { found: true, matchedToken: jsCanonical };
+    }
+    if (/\bJSX\b/i.test(text)) {
+      return { found: true, matchedToken: 'JSX' };
+    }
+    if (isSkillsSection && /(?:^|[\s,;/|([\]])JS(?:[\s,;/|)\].]|$)/.test(text)) {
+      return { found: true, matchedToken: jsCanonical };
+    }
+    if (/(?:React|Node|HTML|CSS|TS)\s*[\/|]\s*JS\b/i.test(text) || /\bJS\s*[\/|]\s*(?:TS|HTML|CSS)\b/i.test(text)) {
+      return { found: true, matchedToken: jsCanonical };
+    }
+    return { found: false };
+  }
+
+  // 11. Special Competency: System Design / systemdesign
+  if (tokenLower === 'systemdesign' || tokenLower === 'system design' || tokenLower === 'system-design') {
+    if (/\b(?:system\s+design|system-design|distributed\s+systems?|microservices\s+architecture)\b/i.test(text)) {
+      return { found: true, matchedToken: 'System Design' };
+    }
+    return { found: false };
+  }
+
+  // 12. Special Competency: DSA / Data Structures & Algorithms
+  if (tokenLower === 'dsa') {
+    if (/\b(?:dsa|data\s+structures?\s*(?:&|and)?\s*algorithms?|competitive\s+programming|leetcode)\b/i.test(text)) {
+      return { found: true, matchedToken: 'DSA' };
+    }
+    return { found: false };
+  }
+
+  // 13. Special Competency: ML / Machine Learning
+  if (tokenLower === 'ml') {
+    if (/\b(?:machine\s+learning|deep\s+learning|neural\s+networks?|tensorflow|pytorch|scikit-learn)\b/i.test(text)) {
+      return { found: true, matchedToken: 'Machine Learning' };
+    }
+    if (isSkillsSection && /(?:^|[\s,;/|([\]])ML(?:[\s,;/|)\].]|$)/.test(text)) {
+      return { found: true, matchedToken: 'ML' };
+    }
+    if (/\bML\s+(?:engineer|model|pipeline|algorithm|infrastructure)\b/i.test(text)) {
+      return { found: true, matchedToken: 'ML' };
+    }
+    return { found: false };
+  }
+
+  // 14. General token with word boundary
   const escaped = escapeRegex(token);
   const generalRegex = new RegExp(`(?:^|[^a-zA-Z0-9_])${escaped}(?:$|[^a-zA-Z0-9_])`, 'i');
   if (generalRegex.test(text)) {

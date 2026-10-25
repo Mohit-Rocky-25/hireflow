@@ -7,9 +7,12 @@ import {
   getCompanySlug,
   findCompanyBySlug,
   parseImpactMetrics,
+  analyzeRoleMatch,
   Role,
   Company,
 } from '../../../src/pages/demo/talentLensEngine';
+import { validateResumeAuthenticity } from '../../../src/lib/resumeValidator';
+import { runAtsEngine } from '../../../src/features/ats/engine';
 
 describe('TalentLens Engine (P2)', () => {
   const sampleResume = `
@@ -102,5 +105,76 @@ describe('TalentLens Engine (P2)', () => {
 
     expect(plans.length).toBeGreaterThan(0);
     expect(plans.some(p => p.priority === 'critical')).toBe(true);
+  });
+
+  describe('Level 1 Gatekeeper — Resume Authenticity & Non-Resume Input Safety', () => {
+    const randomGibberish = 'I HAVE GIVEN IT SOME RANDOM ASS THING AND CALIBRATED AND SCORED A 17 PERCENT LIKE ITS NOT EVEN A RESUME HOW ARE YOU EVEN SCORING I WANT YOU DEVELOP THE UNDERSTAND OF THE RESUME AND WHAT IS ACTUALLY REQUIRED';
+    const groceryList = 'Apples, bananas, milk, eggs, sourdough bread, butter, olive oil, chicken breast, tomatoes, cucumbers, spinach, oatmeal, honey, yogurt, coffee beans, sparkling water.';
+
+    it('rejects random prose and non-resume text with isValid: false and explicit diagnostic reasons', () => {
+      const gibberishResult = validateResumeAuthenticity(randomGibberish);
+      expect(gibberishResult.isValid).toBe(false);
+      expect(gibberishResult.sectionsFound.length).toBe(0);
+      expect(gibberishResult.reason).toBeDefined();
+
+      const groceryResult = validateResumeAuthenticity(groceryList);
+      expect(groceryResult.isValid).toBe(false);
+      expect(groceryResult.careerTokenCount).toBe(0);
+    });
+
+    it('approves genuine technical resumes containing standard sections and engineering vocabulary', () => {
+      const validResult = validateResumeAuthenticity(sampleResume);
+      expect(validResult.isValid).toBe(true);
+      expect(validResult.careerTokenCount).toBeGreaterThanOrEqual(5);
+    });
+
+    it('analyzeRoleMatch halts execution and returns strictly 0% (Unscoreable) on non-resume text', () => {
+      const mockCompany: Company = {
+        id: 'microsoft',
+        name: 'Microsoft',
+        logo: '',
+        gradient: '',
+        industry: 'Technology',
+        hq: 'Redmond, WA',
+        tier: 'FAANG',
+        roles: [],
+      };
+
+      const mockRole: Role = {
+        id: 'sde-2',
+        title: 'Software Engineer II (SDE-2)',
+        level: 'Mid-Level',
+        location: 'Hyderabad / Bengaluru / Redmond',
+        workArrangement: 'Hybrid',
+        experienceRequired: '3-6 yrs',
+        salaryBand: '₹35L - ₹60L',
+        salaryRange: { min: 3500000, max: 6000000, currency: 'INR', formatted: '₹35L - ₹60L' },
+        description: 'Design and build high-scale distributed systems and cloud services.',
+        competencies: ['systemdesign', 'dsa', 'cloud', 'concurrency'],
+        reqLevel: { systemdesign: 'expert', dsa: 'strong', cloud: 'strong', concurrency: 'working' },
+      };
+
+      const result = analyzeRoleMatch(randomGibberish, mockCompany, mockRole);
+
+      expect(result.isValidResume).toBe(false);
+      expect(result.score).toBe(0);
+      expect(result.readinessLabel).toBe('Far');
+      expect(result.invalidReason).toBeDefined();
+      expect(result.invalidIssues?.length).toBeGreaterThan(0);
+      expect(result.trace.compositeDisplay).toBe(0);
+    });
+
+    it('runAtsEngine refuses to score random text with UNREADABLE_RESUME error', () => {
+      const atsResponse = runAtsEngine(
+        randomGibberish,
+        'Senior Software Engineer at Microsoft. Requires C++, Python, distributed systems, Azure, and 3+ years experience.'
+      );
+
+      expect(atsResponse.success).toBe(false);
+      if (!atsResponse.success) {
+        expect(atsResponse.error).toBe('UNREADABLE_RESUME');
+        expect(atsResponse.message).toContain('resume');
+      }
+    });
   });
 });

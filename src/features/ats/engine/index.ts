@@ -4,6 +4,7 @@
 // ============================================================
 
 import { isGarbageOrBinary, countWords } from '../fileParser';
+import { validateResumeAuthenticity } from '../../../lib/resumeValidator';
 import { splitResumeSections } from './sectionSplitter';
 import { extractContactInfo } from './contactExtractor';
 import { parseExperienceSection } from './experienceParser';
@@ -89,6 +90,16 @@ export function runAtsEngine(
       success: false,
       error: 'UNREADABLE_RESUME',
       message: `Resume text has only ${wordCount} words (minimum ${minRequired} words required to evaluate).`,
+    };
+  }
+
+  // Level 1 Gatekeeper: Reject non-resume text or prose lacking resume structure
+  const resumeValidity = validateResumeAuthenticity(resumeText);
+  if (!resumeValidity.isValid) {
+    return {
+      success: false,
+      error: 'UNREADABLE_RESUME',
+      message: resumeValidity.reason || 'Document does not contain recognized resume structure, sections, or technical credentials.',
     };
   }
 

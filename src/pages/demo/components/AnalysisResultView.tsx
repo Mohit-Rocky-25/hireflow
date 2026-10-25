@@ -16,12 +16,14 @@ import {
 import type { Company, Role, AnalysisResult } from '../talentLensData';
 import { STATUS_CONFIG, TREND_COLOR, TREND_ICON } from '../talentLensData';
 import { HonestyExplainerModal } from '../../../components/common/HonestyExplainerModal';
+import { DataProvenanceModal } from '../../../components/common/DataProvenanceModal';
 import { CalculationBreakdownCollapsible, CalculationDetails } from '../../../components/common/CalculationBreakdownCollapsible';
 import { RealityFactorsPanel } from '../../../components/common/RealityFactorsPanel';
 import { EligibilityCard } from '../../../components/common/EligibilityCard';
 import { CompanyLogo } from '../../../components/common/CompanyLogo';
 import { WhyThisScoreDrawer, StaleVersionBanner } from '../../../components/scoring';
 import { HelpCircle } from 'lucide-react';
+import { useTalentLensStore, DEMO_TALENTLENS_RESUME } from '../useTalentLensStore';
 
 export interface AnalysisResultViewProps {
   result: AnalysisResult;
@@ -49,26 +51,30 @@ export function AnalysisResultView({
   );
   const partialComps = result.breakdown.filter((b) => b.analysis.status === 'working');
 
-  const roleFitStatus =
-    result.score >= 75 && missingComps.length === 0
-      ? 'Strong fit'
-      : (result.score >= 50 && missingComps.length <= 1) ||
-        (missingComps.length === 0 && partialComps.length > 0)
-      ? 'Developing fit'
-      : missingComps.length > 0
-      ? 'Potential fit with evidence gaps'
-      : partialComps.length > 0
-      ? 'Developing fit'
-      : 'Low current fit';
+  const isInvalid = result.isValidResume === false;
 
-  const roleFitStyles =
-    roleFitStatus === 'Strong fit'
-      ? 'bg-black text-volt border-volt'
-      : roleFitStatus === 'Developing fit'
-      ? 'bg-black text-pale-yellow border-pale-yellow/50'
-      : roleFitStatus === 'Potential fit with evidence gaps'
-      ? 'bg-black text-pale-yellow border-pale-yellow/40'
-      : 'bg-black text-danger border-danger/50';
+  const roleFitStatus = isInvalid
+    ? 'Unscoreable — Non-Resume Document'
+    : result.score >= 75 && missingComps.length === 0
+    ? 'Strong fit'
+    : (result.score >= 50 && missingComps.length <= 1) ||
+      (missingComps.length === 0 && partialComps.length > 0)
+    ? 'Developing fit'
+    : missingComps.length > 0
+    ? 'Potential fit with evidence gaps'
+    : partialComps.length > 0
+    ? 'Developing fit'
+    : 'Low current fit';
+
+  const roleFitStyles = isInvalid
+    ? 'bg-black text-danger border-danger'
+    : roleFitStatus === 'Strong fit'
+    ? 'bg-black text-volt border-volt'
+    : roleFitStatus === 'Developing fit'
+    ? 'bg-black text-pale-yellow border-pale-yellow/50'
+    : roleFitStatus === 'Potential fit with evidence gaps'
+    ? 'bg-black text-pale-yellow border-pale-yellow/40'
+    : 'bg-black text-danger border-danger/50';
 
   return (
     <div className="max-w-[960px] mx-auto animate-fade-in text-white">
@@ -78,6 +84,93 @@ export function AnalysisResultView({
         storedFingerprint={result.trace?.specFingerprint}
         className="mb-4"
       />
+
+      {/* Level 1 Gatekeeper Card: Shown when submitted text is not a resume */}
+      {isInvalid && (
+        <div className="bg-[#141414] border-2 border-danger/70 rounded-xl p-6 sm:p-8 mb-6 shadow-2xl animate-fade-in text-left">
+          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 pb-6 border-b border-charcoal">
+            <div className="flex items-start gap-4">
+              <div className="p-3 bg-black border border-danger rounded-lg text-danger flex-shrink-0">
+                <AlertTriangle className="w-8 h-8 stroke-[1.5px]" />
+              </div>
+              <div>
+                <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded bg-black text-danger text-[11px] font-mono font-bold uppercase tracking-wider border border-danger/40 mb-2">
+                  Level 1 Gatekeeper: Non-Resume Input Detected
+                </div>
+                <h2 className="text-2xl font-black text-white uppercase tracking-tight">
+                  Document Not Recognized as a Resume
+                </h2>
+                <p className="text-sm text-silver mt-1.5 leading-relaxed max-w-2xl">
+                  TalentLens evaluated your submitted text and halted scoring. The input lacks the fundamental structural anatomy of an engineering resume (missing Experience, Technical Skills, Education, or Projects).
+                </p>
+              </div>
+            </div>
+            <div className="text-right flex-shrink-0 bg-black p-3.5 rounded border border-danger/40">
+              <span className="text-3xl sm:text-4xl font-black font-mono text-danger">0%</span>
+              <div className="text-[10px] font-mono uppercase text-silver">Refused to Score</div>
+            </div>
+          </div>
+
+          <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="p-4 bg-black border border-charcoal rounded-lg">
+              <div className="text-[11px] font-mono uppercase text-silver mb-1">Standard Sections</div>
+              <div className="text-base font-bold text-danger">0 / 4 Detected</div>
+              <div className="text-xs text-silver mt-1">Requires: Experience, Skills, Education, or Projects</div>
+            </div>
+            <div className="p-4 bg-black border border-charcoal rounded-lg">
+              <div className="text-[11px] font-mono uppercase text-silver mb-1">Technical Vocabulary</div>
+              <div className="text-base font-bold text-danger">0 Verified Signals</div>
+              <div className="text-xs text-silver mt-1">No recognized programming languages or frameworks found</div>
+            </div>
+            <div className="p-4 bg-black border border-charcoal rounded-lg">
+              <div className="text-[11px] font-mono uppercase text-silver mb-1">Integrity Policy</div>
+              <div className="text-base font-bold text-danger">Zero Arbitrary Scoring</div>
+              <div className="text-xs text-silver mt-1">Will not generate false ratings for random text</div>
+            </div>
+          </div>
+
+          <div className="mt-6 p-4 bg-black border border-charcoal rounded-lg">
+            <div className="text-xs font-bold font-mono text-white uppercase tracking-wider mb-2">
+              Diagnosis & Rejection Reason:
+            </div>
+            <div className="text-xs text-silver font-mono leading-relaxed">
+              {result.invalidReason || 'The submitted text does not contain recognizable resume structure or career history.'}
+            </div>
+          </div>
+
+          <div className="mt-6 flex flex-wrap gap-4 items-center justify-between pt-6 border-t border-charcoal">
+            <div className="text-xs text-silver font-mono">
+              Calibrate {company.name} — {selectedRole.title} with a verified engineering resume:
+            </div>
+            <div className="flex gap-3 flex-wrap">
+              <button
+                type="button"
+                onClick={() => {
+                  useTalentLensStore.getState().setResume(DEMO_TALENTLENS_RESUME.text, DEMO_TALENTLENS_RESUME.fileName);
+                  window.location.reload();
+                }}
+                className="px-5 py-2.5 rounded bg-volt !text-black font-bold text-xs uppercase tracking-[1px] hover:bg-[#1a1a1a] hover:!text-volt border border-volt transition-all cursor-pointer font-mono shadow-sm"
+              >
+                Load Sample Engineering Resume
+              </button>
+              <button
+                type="button"
+                onClick={onBackToRoles}
+                className="px-4 py-2.5 rounded bg-black text-white hover:text-volt border border-charcoal hover:border-volt text-xs font-mono uppercase tracking-[1px] transition-colors cursor-pointer"
+              >
+                Back to Roles
+              </button>
+              <button
+                type="button"
+                onClick={onNewResume}
+                className="px-4 py-2.5 rounded bg-black text-silver hover:text-white border border-charcoal hover:border-silver text-xs font-mono uppercase tracking-[1px] transition-colors cursor-pointer"
+              >
+                Paste Real Resume
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* 1. Placement Readiness Quick Summary Card */}
       <div className="bg-[#141414] border border-charcoal rounded-lg p-6 mb-5 space-y-6">
@@ -108,6 +201,7 @@ export function AnalysisResultView({
               <span>Why this score</span>
             </button>
             <HonestyExplainerModal tool="talentlens" />
+            <DataProvenanceModal triggerButtonText="Sourcing & Legal" />
             <span
               className={`px-3 py-1 rounded text-xs font-mono uppercase tracking-wider border ${roleFitStyles}`}
             >
@@ -123,12 +217,21 @@ export function AnalysisResultView({
         </div>
 
         {/* Grounded Role-Fit Explanation */}
-        <p className="text-sm text-silver leading-relaxed">
-          Based on evidence found in your resume text, your profile currently demonstrates a{' '}
-          <strong className="text-white font-semibold">{(result.readinessLabel || roleFitStatus).toLowerCase()}</strong> readiness for{' '}
-          <strong className="text-white font-semibold">{selectedRole.title}</strong> at{' '}
-          <strong className="text-white font-semibold">{company.name}</strong>. {selectedRole.desc}
-        </p>
+        {isInvalid ? (
+          <div className="p-4 rounded-lg bg-black border border-danger/40 text-xs font-mono text-danger space-y-1">
+            <div className="font-bold uppercase tracking-wider">Calibration Halted by Level 1 Gatekeeper</div>
+            <p className="text-silver leading-relaxed">
+              {result.invalidReason || 'The submitted text does not contain recognizable resume structure or career history. TalentLens refused to compute a speculative fit score.'}
+            </p>
+          </div>
+        ) : (
+          <p className="text-sm text-silver leading-relaxed">
+            Based on evidence found in your resume text, your profile currently demonstrates a{' '}
+            <strong className="text-white font-semibold">{(result.readinessLabel || roleFitStatus).toLowerCase()}</strong> readiness for{' '}
+            <strong className="text-white font-semibold">{selectedRole.title}</strong> at{' '}
+            <strong className="text-white font-semibold">{company.name}</strong>. {selectedRole.desc}
+          </p>
+        )}
 
         {/* How this was calculated collapsible */}
         {(() => {
@@ -706,6 +809,20 @@ export function AnalysisResultView({
         >
           <RefreshCw className="w-4 h-4" /> New Resume
         </button>
+      </div>
+
+      {/* Sourcing & Legal Shield Footer */}
+      <div className="mb-6 p-4 rounded-lg bg-[#0e0e0e] border border-charcoal/80 flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-mono text-silver">
+        <div className="flex items-center gap-3">
+          <span className="w-2 h-2 rounded-full bg-volt flex-shrink-0" />
+          <span>
+            <strong>Deterministic Evaluation:</strong> Evaluated against public career criteria for {company.name} ({selectedRole.title}). Indian Copyright Act §52 & Nominative Fair Use.
+          </span>
+        </div>
+        <DataProvenanceModal
+          triggerButtonText="Data Sources & Legal Shield"
+          triggerButtonClassName="px-3 py-1.5 bg-black border border-charcoal hover:border-volt rounded text-xs font-semibold uppercase tracking-[1px] text-volt hover:text-white transition-colors cursor-pointer"
+        />
       </div>
 
       <WhyThisScoreDrawer

@@ -40,32 +40,32 @@
         {
           "competency": "Java",
           "status": "working",
-          "confidence": 15
+          "confidence": 25
         },
         {
           "competency": "Python",
           "status": "working",
-          "confidence": 15
+          "confidence": 25
         },
         {
           "competency": "React",
           "status": "working",
-          "confidence": 15
+          "confidence": 25
         },
         {
           "competency": "TypeScript",
           "status": "working",
-          "confidence": 15
+          "confidence": 25
         },
         {
           "competency": "Docker",
           "status": "strong",
-          "confidence": 36
+          "confidence": 50
         },
         {
           "competency": "System Design",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         }
       ]
     }
@@ -111,32 +111,32 @@
         {
           "competency": "Java",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "Python",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "React",
-          "status": "working",
-          "confidence": 29
+          "status": "strong",
+          "confidence": 50
         },
         {
           "competency": "TypeScript",
-          "status": "working",
-          "confidence": 29
+          "status": "strong",
+          "confidence": 50
         },
         {
           "competency": "Docker",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "System Design",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         }
       ]
     }
@@ -188,32 +188,32 @@
         {
           "competency": "Java",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "Python",
           "status": "strong",
-          "confidence": 45
+          "confidence": 50
         },
         {
           "competency": "React",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "TypeScript",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "Docker",
           "status": "strong",
-          "confidence": 45
+          "confidence": 50
         },
         {
           "competency": "System Design",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         }
       ]
     }
@@ -265,32 +265,32 @@
         {
           "competency": "Java",
           "status": "strong",
-          "confidence": 36
+          "confidence": 50
         },
         {
           "competency": "Python",
           "status": "working",
-          "confidence": 15
+          "confidence": 25
         },
         {
           "competency": "React",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "TypeScript",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "Docker",
           "status": "working",
-          "confidence": 15
+          "confidence": 25
         },
         {
           "competency": "System Design",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         }
       ]
     }
@@ -336,32 +336,32 @@
         {
           "competency": "Java",
           "status": "working",
-          "confidence": 15
+          "confidence": 25
         },
         {
           "competency": "Python",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "React",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "TypeScript",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "Docker",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "System Design",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         }
       ]
     }
@@ -413,32 +413,32 @@
         {
           "competency": "Java",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "Python",
           "status": "working",
-          "confidence": 15
+          "confidence": 25
         },
         {
           "competency": "React",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "TypeScript",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "Docker",
           "status": "working",
-          "confidence": 15
+          "confidence": 25
         },
         {
           "competency": "System Design",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         }
       ]
     }
@@ -484,32 +484,32 @@
         {
           "competency": "Java",
           "status": "working",
-          "confidence": 15
+          "confidence": 25
         },
         {
           "competency": "Python",
           "status": "working",
-          "confidence": 15
+          "confidence": 25
         },
         {
           "competency": "React",
-          "status": "working",
-          "confidence": 15
+          "status": "absent",
+          "confidence": 0
         },
         {
           "competency": "TypeScript",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "Docker",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "System Design",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         }
       ]
     }
@@ -561,32 +561,32 @@
         {
           "competency": "Java",
           "status": "working",
-          "confidence": 20
+          "confidence": 25
         },
         {
           "competency": "Python",
           "status": "working",
-          "confidence": 20
+          "confidence": 25
         },
         {
           "competency": "React",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "TypeScript",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "Docker",
           "status": "strong",
-          "confidence": 45
+          "confidence": 50
         },
         {
           "competency": "System Design",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         }
       ]
     }
@@ -632,32 +632,32 @@
         {
           "competency": "Java",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "Python",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "React",
-          "status": "working",
-          "confidence": 29
+          "status": "strong",
+          "confidence": 50
         },
         {
           "competency": "TypeScript",
-          "status": "working",
-          "confidence": 29
+          "status": "strong",
+          "confidence": 50
         },
         {
           "competency": "Docker",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "System Design",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         }
       ]
     }
@@ -709,32 +709,32 @@
         {
           "competency": "Java",
           "status": "working",
-          "confidence": 15
+          "confidence": 25
         },
         {
           "competency": "Python",
           "status": "working",
-          "confidence": 15
+          "confidence": 25
         },
         {
           "competency": "React",
           "status": "working",
-          "confidence": 15
+          "confidence": 25
         },
         {
           "competency": "TypeScript",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "Docker",
           "status": "working",
-          "confidence": 15
+          "confidence": 25
         },
         {
           "competency": "System Design",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         }
       ]
     }
@@ -792,32 +792,32 @@
         {
           "competency": "Java",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "Python",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "React",
           "status": "working",
-          "confidence": 15
+          "confidence": 25
         },
         {
           "competency": "TypeScript",
           "status": "working",
-          "confidence": 15
+          "confidence": 25
         },
         {
           "competency": "Docker",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "System Design",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         }
       ]
     }
@@ -869,32 +869,32 @@
         {
           "competency": "Java",
           "status": "working",
-          "confidence": 15
+          "confidence": 25
         },
         {
           "competency": "Python",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "React",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "TypeScript",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "Docker",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "System Design",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         }
       ]
     }
@@ -940,32 +940,32 @@
         {
           "competency": "Java",
           "status": "working",
-          "confidence": 15
+          "confidence": 25
         },
         {
           "competency": "Python",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "React",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "TypeScript",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "Docker",
           "status": "working",
-          "confidence": 15
+          "confidence": 25
         },
         {
           "competency": "System Design",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         }
       ]
     }
@@ -1011,32 +1011,32 @@
         {
           "competency": "Java",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "Python",
           "status": "working",
-          "confidence": 15
+          "confidence": 25
         },
         {
           "competency": "React",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "TypeScript",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "Docker",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "System Design",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         }
       ]
     }
@@ -1082,32 +1082,32 @@
         {
           "competency": "Java",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "Python",
-          "status": "working",
-          "confidence": 29
+          "status": "strong",
+          "confidence": 50
         },
         {
           "competency": "React",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "TypeScript",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "Docker",
           "status": "working",
-          "confidence": 15
+          "confidence": 25
         },
         {
           "competency": "System Design",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         }
       ]
     }
@@ -1171,32 +1171,32 @@
         {
           "competency": "Java",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "Python",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "React",
-          "status": "working",
-          "confidence": 29
+          "status": "strong",
+          "confidence": 50
         },
         {
           "competency": "TypeScript",
-          "status": "working",
-          "confidence": 29
+          "status": "strong",
+          "confidence": 50
         },
         {
           "competency": "Docker",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "System Design",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         }
       ]
     }
@@ -1260,32 +1260,32 @@
         {
           "competency": "Java",
           "status": "strong",
-          "confidence": 37
+          "confidence": 50
         },
         {
           "competency": "Python",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "React",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "TypeScript",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "Docker",
-          "status": "working",
-          "confidence": 15
+          "status": "absent",
+          "confidence": 0
         },
         {
           "competency": "System Design",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         }
       ]
     }
@@ -1337,32 +1337,32 @@
         {
           "competency": "Java",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "Python",
-          "status": "working",
-          "confidence": 15
+          "status": "absent",
+          "confidence": 0
         },
         {
           "competency": "React",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "TypeScript",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "Docker",
           "status": "working",
-          "confidence": 15
+          "confidence": 25
         },
         {
           "competency": "System Design",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         }
       ]
     }
@@ -1420,32 +1420,32 @@
         {
           "competency": "Java",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "Python",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "React",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "TypeScript",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "Docker",
-          "status": "working",
-          "confidence": 15
+          "status": "absent",
+          "confidence": 0
         },
         {
           "competency": "System Design",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         }
       ]
     }
@@ -1497,32 +1497,32 @@
         {
           "competency": "Java",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "Python",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "React",
           "status": "strong",
-          "confidence": 36
+          "confidence": 50
         },
         {
           "competency": "TypeScript",
           "status": "strong",
-          "confidence": 36
+          "confidence": 50
         },
         {
           "competency": "Docker",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "System Design",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         }
       ]
     }
@@ -1568,32 +1568,32 @@
         {
           "competency": "Java",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "Python",
           "status": "working",
-          "confidence": 15
+          "confidence": 25
         },
         {
           "competency": "React",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "TypeScript",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "Docker",
           "status": "working",
-          "confidence": 15
+          "confidence": 25
         },
         {
           "competency": "System Design",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         }
       ]
     }
@@ -1645,32 +1645,32 @@
         {
           "competency": "Java",
           "status": "working",
-          "confidence": 15
+          "confidence": 25
         },
         {
           "competency": "Python",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "React",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "TypeScript",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "Docker",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "System Design",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         }
       ]
     }
@@ -1716,32 +1716,32 @@
         {
           "competency": "Java",
           "status": "working",
-          "confidence": 15
+          "confidence": 25
         },
         {
           "competency": "Python",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "React",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "TypeScript",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "Docker",
           "status": "working",
-          "confidence": 15
+          "confidence": 25
         },
         {
           "competency": "System Design",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         }
       ]
     }
@@ -1788,37 +1788,37 @@
       ]
     },
     "talentLens": {
-      "simulatedScore": 35,
+      "simulatedScore": 36,
       "sampleCompetencies": [
         {
           "competency": "Java",
-          "status": "working",
-          "confidence": 34
+          "status": "strong",
+          "confidence": 50
         },
         {
           "competency": "Python",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "React",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "TypeScript",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "Docker",
           "status": "absent",
-          "confidence": 5
+          "confidence": 0
         },
         {
           "competency": "System Design",
-          "status": "absent",
-          "confidence": 5
+          "status": "working",
+          "confidence": 25
         }
       ]
     }

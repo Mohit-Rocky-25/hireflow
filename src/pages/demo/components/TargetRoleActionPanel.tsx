@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Brain, Briefcase, Info, Sparkles, FileText, CheckCircle, RefreshCw } from 'lucide-react';
+import { Brain, Briefcase, Info, Sparkles, FileText, CheckCircle, RefreshCw, AlertTriangle } from 'lucide-react';
 import type { Company, Role } from '../talentLensData';
 import { CompanyLogo } from '../../../components/common/CompanyLogo';
+import { DataProvenanceModal } from '../../../components/common/DataProvenanceModal';
+import { validateResumeAuthenticity } from '../../../lib/resumeValidator';
 
 export interface TargetRoleActionPanelProps {
   company: Company;
@@ -102,27 +104,55 @@ export function TargetRoleActionPanel({
                   </Link>
                 </div>
               </div>
-            ) : (
-              <div className="p-3 bg-black border border-charcoal rounded mb-4 flex items-center justify-between gap-2 text-xs text-white">
-                <div className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-volt flex-shrink-0 stroke-[1.5px]" />
-                  <div>
-                    <div className="font-bold uppercase tracking-[1px] text-[11px] text-volt">Resume verified in state</div>
-                    <div className="text-[11px] text-silver font-mono">
-                      {resumeText.split(/\s+/).length} words ready for scan
+            ) : (() => {
+              const validity = validateResumeAuthenticity(resumeText);
+              if (validity.isValid) {
+                return (
+                  <div className="p-3 bg-black border border-charcoal rounded mb-4 flex items-center justify-between gap-2 text-xs text-white">
+                    <div className="flex items-center gap-2">
+                      <CheckCircle className="w-4 h-4 text-volt flex-shrink-0 stroke-[1.5px]" />
+                      <div>
+                        <div className="font-bold uppercase tracking-[1px] text-[11px] text-volt">Resume verified in state</div>
+                        <div className="text-[11px] text-silver font-mono">
+                          {validity.wordCount} words · {validity.sectionsFound.slice(0, 2).join(', ') || 'Ready'}
+                        </div>
+                      </div>
                     </div>
+                    <button
+                      type="button"
+                      onClick={onLoadSampleResume}
+                      title="Switch to standard sample resume"
+                      className="text-[10px] font-bold underline uppercase tracking-[1px] text-silver hover:text-white cursor-pointer"
+                    >
+                      Reset Sample
+                    </button>
                   </div>
+                );
+              }
+              return (
+                <div className="p-3 bg-black border border-danger/60 rounded mb-4 text-xs text-white text-left">
+                  <div className="flex items-center justify-between gap-2 mb-1.5">
+                    <div className="flex items-center gap-1.5 text-danger font-bold text-[11px] uppercase tracking-wider">
+                      <AlertTriangle className="w-4 h-4 text-danger flex-shrink-0" />
+                      <span>Non-Resume Text Detected</span>
+                    </div>
+                    <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-near-black text-danger border border-danger/40">
+                      {validity.wordCount} words
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-silver font-mono leading-relaxed mb-2">
+                    {validity.reason}
+                  </p>
+                  <button
+                    type="button"
+                    onClick={onLoadSampleResume}
+                    className="w-full py-1.5 px-2 bg-near-black hover:bg-hover-gray border border-volt rounded text-volt text-[11px] font-bold font-mono uppercase tracking-wider transition-colors cursor-pointer"
+                  >
+                    Load Verified Sample Resume
+                  </button>
                 </div>
-                <button
-                  type="button"
-                  onClick={onLoadSampleResume}
-                  title="Switch to standard sample resume"
-                  className="text-[10px] font-bold underline uppercase tracking-[1px] text-silver hover:text-white cursor-pointer"
-                >
-                  Reset Sample
-                </button>
-              </div>
-            )}
+              );
+            })()}
 
             {/* Trigger Button */}
             <button
@@ -144,7 +174,9 @@ export function TargetRoleActionPanel({
               ) : (
                 <>
                   <Brain className="w-4 h-4 stroke-[1.5px] !text-black group-hover:!text-white" />
-                  <span className="!text-black group-hover:!text-white font-black">Run Deep AI Analysis</span>
+                  <span className="!text-black group-hover:!text-white font-black">
+                    {!validateResumeAuthenticity(resumeText).isValid ? 'Run AI Analysis (Score: 0%)' : 'Run Deep AI Analysis'}
+                  </span>
                 </>
               )}
             </button>
@@ -176,6 +208,15 @@ export function TargetRoleActionPanel({
             </div>
           </div>
         )}
+
+        {/* Corporate Sourcing & Legal Shield */}
+        <div className="mt-4 pt-3 border-t border-charcoal/80 flex items-center justify-between text-[11px] font-mono text-silver">
+          <span>Corporate Job Intelligence</span>
+          <DataProvenanceModal
+            triggerButtonText="Data Sources & Legal"
+            triggerButtonClassName="text-volt hover:underline cursor-pointer"
+          />
+        </div>
       </div>
     </div>
   );

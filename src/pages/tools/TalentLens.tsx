@@ -21,6 +21,7 @@ import { buildQuickSummary } from '../../features/suite/engine/quickSummary';
 import { SimulationFacts } from '../../features/suite/engine/simulateFix';
 import { DEMO_TALENTLENS_RESUME } from '../demo/useTalentLensStore';
 import { HonestyExplainerModal } from '../../components/common/HonestyExplainerModal';
+import { DataProvenanceModal } from '../../components/common/DataProvenanceModal';
 import { RealityFactorsPanel } from '../../components/common/RealityFactorsPanel';
 import { EligibilityCard } from '../../components/common/EligibilityCard';
 import { WhyThisScoreDrawer, StaleVersionBanner } from '../../components/scoring';
@@ -324,6 +325,7 @@ export function TalentLens() {
 
         <div className="flex items-center gap-3 flex-wrap">
           <HonestyExplainerModal tool="talentlens" />
+          <DataProvenanceModal triggerButtonText="Data Sources & Legal Shield" />
           {/* Job selector */}
           <select
             value={selectedJobId}

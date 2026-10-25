@@ -51,6 +51,7 @@ import { ConfirmRequirementsModal, ConfirmedRequirement } from '../../features/a
 import { RealityFactorsPanel } from '../../components/common/RealityFactorsPanel';
 import { EligibilityCard } from '../../components/common/EligibilityCard';
 import { FresherChecksPanel } from '../../components/common/FresherChecksPanel';
+import { DataProvenanceModal } from '../../components/common/DataProvenanceModal';
 import { parseJD } from '../../lib/ats/parseJD';
 
 const STAGED_MESSAGES = [
@@ -370,11 +371,16 @@ export function ResumeChecker() {
 
         {/* Hero Section */}
         <div className="text-center max-w-3xl mx-auto mb-8 mt-1 print:mb-4">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded bg-near-black border border-charcoal text-silver text-xs font-semibold uppercase tracking-[1.4px] mb-4">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded bg-near-black border border-charcoal text-silver text-xs font-semibold uppercase tracking-[1.4px] mb-4 flex-wrap justify-center">
             <ShieldCheck className="w-3.5 h-3.5 text-volt stroke-[1.5px]" />
             <span>Deterministic ATS Fit Audit</span>
             <span className="text-charcoal-deep">|</span>
-            <span className="text-silver">Zero-Fabrication Analysis</span>
+            <span>Zero-Fabrication Analysis</span>
+            <span className="text-charcoal-deep">|</span>
+            <DataProvenanceModal
+              triggerButtonText="Data Sources & Legal Shield"
+              triggerButtonClassName="text-volt hover:text-white uppercase tracking-[1px] text-xs font-bold transition-colors cursor-pointer inline-flex items-center gap-1"
+            />
           </div>
           <h1 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-[1.12] mb-3.5">
             How well does your resume match,{' '}
@@ -686,6 +692,20 @@ export function ResumeChecker() {
             )}
           </div>
         )}
+
+        {/* Legal & Data Provenance Strip */}
+        <div className="mt-12 p-4 rounded-lg bg-near-black border border-charcoal flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-silver">
+          <div className="flex items-center gap-2.5">
+            <span className="w-2 h-2 rounded-full bg-volt flex-shrink-0"></span>
+            <span>
+              <strong>Deterministic Matching & Fair Use:</strong> Scoring executes purely on lexical & token boundaries with zero generative hallucinations. All company benchmarks and role titles are processed under Nominative Fair Use and Section 52(1)(a) of the Indian Copyright Act (Educational research & private study).
+            </span>
+          </div>
+          <DataProvenanceModal
+            triggerButtonText="Legal Shield & Sourcing"
+            triggerButtonClassName="px-3 py-1.5 bg-black border border-charcoal hover:border-volt rounded text-xs font-semibold uppercase tracking-[1px] text-volt hover:text-white transition-colors flex items-center gap-1.5 flex-shrink-0 cursor-pointer"
+          />
+        </div>
       </div>
 
       {/* Requirement Confirmation Modal (Stage 2C) */}

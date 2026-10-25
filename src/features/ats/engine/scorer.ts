@@ -227,6 +227,11 @@ export function computeAtsScore(input: ScorerInput) {
 
   let finalScore = Math.max(0, Math.min(100, Math.round(rawSubtotal)));
 
+  // Zero-bullet / Zero-match invariant: Formatting & default seniority cannot float an unevidenced non-matching candidate above 0
+  if (mustSkills.length > 0 && mustMetCount === 0 && allBullets.length === 0 && totalFoundSkills.length === 0) {
+    finalScore = 0;
+  }
+
   // Determine Band
   const band = getVerdictBand(finalScore);
 

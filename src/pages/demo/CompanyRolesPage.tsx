@@ -38,6 +38,7 @@ import { ExperiencedRoleCard } from './components/ExperiencedRoleCard';
 import { TargetRoleActionPanel } from './components/TargetRoleActionPanel';
 import { AnalysisResultView } from './components/AnalysisResultView';
 import { CompanyLogo } from '../../components/common/CompanyLogo';
+import { DataProvenanceModal } from '../../components/common/DataProvenanceModal';
 
 setCompaniesResolver(() => COMPANIES);
 
@@ -614,6 +615,23 @@ export function CompanyRolesPage() {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Legal & Provenance Footer Banner */}
+        <div className="mt-8 p-4 rounded-lg bg-[#0e0e0e] border border-charcoal/80 flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-mono text-silver">
+          <div className="flex items-center gap-3">
+            <span className="w-2 h-2 rounded-full bg-volt flex-shrink-0" />
+            <span>
+              <strong>Job Intelligence Provenance:</strong> Job descriptions, interview rounds, and CTC bands are extracted from official corporate career portals, verified campus recruitment drives (IITs/NITs/BITS), and public salary archives.
+            </span>
+          </div>
+          <div className="flex items-center gap-3 flex-shrink-0">
+            <span className="text-silver/60">Nominative Fair Use • Non-Affiliated</span>
+            <DataProvenanceModal
+              triggerButtonText="Data Sources & Legal Shield"
+              triggerButtonClassName="px-3 py-1.5 bg-black border border-charcoal hover:border-volt rounded text-xs font-semibold uppercase tracking-[1px] text-volt hover:text-white transition-colors cursor-pointer"
+            />
+          </div>
         </div>
       </div>
     </div>

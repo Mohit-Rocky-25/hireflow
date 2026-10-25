@@ -8,99 +8,104 @@
 // ════════════════════════════════════════════════════════════
 export const COMPETENCY_SIGNALS: Record<string, { keywords: string[]; contextPhrases: string[]; redFlags: string[] }> = {
   dsa: {
-    keywords: ["dsa", "data structure", "algorithm", "leetcode", "competitive", "dynamic programming", "graph", "tree", "binary search", "sorting", "hash", "complexity", "o(n)", "o(log n)", "big o"],
-    contextPhrases: ["solved 300+", "competitive programmer", "icpc", "codeforces", "hackerrank gold", "top", "rating"],
+    keywords: ["dsa", "data structures", "algorithms", "leetcode", "competitive programming", "dynamic programming", "binary search", "hash table", "hashmap", "time complexity", "space complexity", "depth-first search", "breadth-first search", "dijkstra", "big-o"],
+    contextPhrases: ["solved 300+", "competitive programming", "icpc", "codeforces", "leetcode rating", "contest participant"],
     redFlags: ["basic understanding", "learning data structures", "no coding experience"]
   },
   systemdesign: {
-    keywords: ["microservices", "distributed system", "scalable", "high availability", "load balancer", "cdn", "cache", "sharding", "cap theorem", "kafka", "architecture", "design", "million users", "billion", "throughput"],
-    contextPhrases: ["designed system", "architected", "handles million", "scale to", "99.9%", "fault tolerant", "horizontally scalable"],
+    keywords: ["system design", "microservices", "distributed systems", "high availability", "load balancer", "load balancing", "cdn tier", "caching tier", "redis cache", "database sharding", "cap theorem", "kafka", "message queue", "distributed architecture", "fault tolerance", "rate limiting", "consistent hashing"],
+    contextPhrases: ["architected distributed system", "high availability architecture", "fault tolerant microservices", "horizontally scalable system", "designed microservices", "caching tier"],
     redFlags: ["basic architecture", "monolith only", "no distributed experience"]
   },
   java: {
-    keywords: ["java", "spring boot", "spring", "jvm", "jpa", "hibernate", "maven", "gradle", "java ee", "multithreading", "concurrency", "jdk", "collections", "streams", "lambda"],
-    contextPhrases: ["production java", "spring microservices", "jvm tuning", "millions of requests", "enterprise java"],
+    keywords: ["java", "spring boot", "spring framework", "jvm", "jpa", "hibernate", "maven", "gradle", "java ee", "jakarta ee", "jdk", "core java", "java 17", "java 21", "java 11", "virtual threads"],
+    contextPhrases: ["production java", "spring boot microservices", "jvm tuning", "enterprise java backend", "high throughput java"],
     redFlags: ["java basics", "learning java", "hello world"]
   },
   python: {
-    keywords: ["python", "django", "flask", "fastapi", "pandas", "numpy", "pytorch", "tensorflow", "scikit-learn", "asyncio", "celery", "pytest", "pydantic"],
-    contextPhrases: ["python expert", "5 years python", "ml pipeline", "production python", "data science"],
+    keywords: ["python", "django", "flask", "fastapi", "pandas", "numpy", "pytorch", "tensorflow", "scikit-learn", "asyncio", "celery", "pytest", "pydantic", "sqlalchemy"],
+    contextPhrases: ["production python", "fastapi microservices", "ml pipeline", "async python", "python backend service"],
     redFlags: ["python beginner", "learning python", "basic python scripts"]
   },
   golang: {
-    keywords: ["golang", "go language", "goroutine", "channel", "gin", "echo", "gorm", "grpc", "protobuf", "go modules"],
-    contextPhrases: ["production go", "concurrent systems", "go routines", "high performance go"],
+    keywords: ["golang", "go language", "goroutine", "goroutines", "go channels", "gin framework", "echo framework", "gorm", "grpc", "protobuf", "go modules"],
+    contextPhrases: ["production go", "concurrent systems in go", "high performance go", "grpc microservices in go"],
     redFlags: ["learning go", "go basics"]
   },
   nodejs: {
-    keywords: ["node.js", "nodejs", "express", "fastify", "nestjs", "async await", "event loop", "npm", "yarn", "typescript node", "websocket", "restful"],
-    contextPhrases: ["node production", "high throughput node", "event-driven", "real-time"],
+    keywords: ["node.js", "nodejs", "express.js", "fastify", "nestjs", "node runtime", "node backend", "node server", "event loop node", "npm packages"],
+    contextPhrases: ["node production backend", "event-driven node service", "high throughput node.js", "real-time node api"],
     redFlags: ["node beginner", "learning node"]
   },
   react: {
-    keywords: ["react", "react.js", "hooks", "redux", "context api", "next.js", "gatsby", "jsx", "tsx", "react native", "recoil", "zustand", "react query"],
-    contextPhrases: ["react expert", "complex react app", "react at scale", "performance optimization react"],
+    keywords: ["react", "react.js", "reactjs", "react native", "redux toolkit", "next.js", "jsx", "tsx", "zustand", "react query", "tanstack query", "react router"],
+    contextPhrases: ["production react app", "react component architecture", "next.js application", "state management with zustand", "frontend performance optimization"],
     redFlags: ["learning react", "react basics", "tutorial project"]
   },
   typescript: {
-    keywords: ["typescript", "ts", "tsx", "type-safe", "generics", "decorators", "type inference", "interfaces", "enums", "utility types"],
-    contextPhrases: ["strict typescript", "typed system", "complex generics"],
+    keywords: ["typescript", "tsx", "tsconfig", "type-safe typescript", "strict typescript", "tsc"],
+    contextPhrases: ["strict typescript codebase", "type-safe architecture in typescript", "shared domain types in typescript"],
     redFlags: ["just started typescript", "basic types only"]
   },
   aws: {
-    keywords: ["aws", "amazon web services", "ec2", "s3", "lambda", "rds", "dynamodb", "sqs", "sns", "cloudfront", "iam", "vpc", "eks", "ecs", "cloudformation", "terraform aws"],
-    contextPhrases: ["aws certified", "aws architect", "production aws", "multi-region", "aws solutions"],
+    keywords: ["aws", "amazon web services", "aws ec2", "aws s3", "aws lambda", "aws rds", "dynamodb", "aws sqs", "aws sns", "cloudfront", "aws iam", "aws vpc", "aws eks", "aws ecs", "cloudformation", "terraform aws"],
+    contextPhrases: ["aws certified", "cloud architecture on aws", "production aws environment", "serverless on aws", "infrastructure as code on aws"],
     redFlags: ["no cloud experience", "learning aws", "basic aws"]
   },
   kubernetes: {
-    keywords: ["kubernetes", "k8s", "docker", "container", "helm", "kubectl", "pod", "deployment", "service mesh", "istio", "argo", "gitops", "hpa", "autoscaling"],
-    contextPhrases: ["production k8s", "managed kubernetes cluster", "eks/gke/aks", "100+ microservices"],
+    keywords: ["kubernetes", "k8s", "kubectl", "helm charts", "helm chart", "k8s cluster", "kubernetes cluster", "service mesh", "istio", "argo cd", "k8s pod", "k8s ingress", "gitops"],
+    contextPhrases: ["production k8s cluster", "managed kubernetes cluster", "helm charts deployment", "service mesh in production"],
     redFlags: ["basic docker", "no k8s", "just learned containers"]
   },
   ml: {
-    keywords: ["machine learning", "deep learning", "neural network", "tensorflow", "pytorch", "scikit", "xgboost", "lightgbm", "regression", "classification", "nlp", "computer vision", "transformer", "bert", "llm", "fine-tuning"],
-    contextPhrases: ["trained model", "deployed ml", "ml pipeline", "production model", "research paper", "model accuracy", "a/b test model"],
+    keywords: ["machine learning", "deep learning", "neural networks", "tensorflow", "pytorch", "scikit-learn", "xgboost", "nlp", "computer vision", "large language model", "llm", "model fine-tuning"],
+    contextPhrases: ["trained ml model", "deployed machine learning model", "ml training pipeline", "inference latency optimization"],
     redFlags: ["ml basics", "andrew ng", "course project only"]
   },
   databases: {
-    keywords: ["postgresql", "mysql", "mongodb", "cassandra", "redis", "elasticsearch", "oracle", "sql", "nosql", "database design", "query optimization", "indexing", "normalization", "acid", "replication", "sharding"],
-    contextPhrases: ["billion rows", "query tuning", "database architect", "production dba", "schema design"],
+    keywords: ["postgresql", "postgres", "mysql", "mongodb", "cassandra", "redis cache", "elasticsearch", "sql queries", "relational database", "nosql database", "database schema design", "database query optimization", "database indexing", "database replication", "acid compliance"],
+    contextPhrases: ["database query tuning", "production schema design", "connection pooling in postgres", "database indexing optimization"],
     redFlags: ["basic sql", "tutorial sql", "no db experience"]
   },
   leadership: {
-    keywords: ["lead", "mentor", "manage", "team lead", "principal", "architect", "hire", "grow team", "drive", "cross-functional", "stakeholder", "roadmap", "strategy"],
-    contextPhrases: ["led team of", "managed engineers", "hired and grew", "drove initiative"],
+    keywords: ["tech lead", "team lead", "engineering lead", "lead engineer", "lead developer", "mentored engineers", "mentoring junior engineers", "cross-functional leadership", "technical roadmap", "architected solutions"],
+    contextPhrases: ["led engineering team", "mentored software engineers", "drove technical architecture decisions", "cross-functional roadmap planning"],
     redFlags: ["no leadership", "individual contributor only"]
   },
   devops: {
-    keywords: ["ci/cd", "jenkins", "github actions", "gitlab ci", "terraform", "ansible", "puppet", "chef", "monitoring", "prometheus", "grafana", "elk stack", "datadog", "pagerduty", "sre", "slo", "sla"],
-    contextPhrases: ["production ci/cd", "zero downtime deployment", "infrastructure as code", "sre practice"],
+    keywords: ["ci/cd pipeline", "github actions", "gitlab ci", "jenkins pipeline", "terraform", "ansible", "infrastructure as code", "prometheus monitoring", "grafana dashboards", "datadog", "site reliability engineering", "sre"],
+    contextPhrases: ["automated ci/cd pipeline", "infrastructure as code with terraform", "production monitoring with prometheus", "zero downtime deployments"],
     redFlags: ["no devops", "manual deployments", "learning ci/cd"]
   },
   security: {
-    keywords: ["security", "pci-dss", "oauth", "jwt", "ssl/tls", "encryption", "xss", "sql injection", "owasp", "penetration testing", "vault", "iam", "rbac", "soc2", "hipaa", "gdpr"],
-    contextPhrases: ["security audit", "penetration tested", "pci compliant", "hipaa certified", "vulnerability assessment"],
+    keywords: ["application security", "appsec", "oauth2", "oauth 2.0", "jwt authentication", "ssl/tls", "encryption at rest", "xss prevention", "sql injection prevention", "owasp top 10", "rbac", "penetration testing"],
+    contextPhrases: ["security compliance audit", "owasp security guidelines", "authenticated api endpoints", "vulnerability penetration testing"],
     redFlags: ["no security experience", "basic auth only"]
   },
   swift: {
-    keywords: ["swift", "objective-c", "uikit", "swiftui", "xcode", "cocoa touch", "core data", "combine", "async await swift", "app store", "arkit", "coreml", "metal"],
-    contextPhrases: ["shipped ios app", "app store", "million downloads", "production swift"],
+    keywords: ["swift language", "swiftui", "uikit", "xcode", "core data", "combine framework", "ios app development", "app store release"],
+    contextPhrases: ["shipped ios app to app store", "production swift codebase", "native ios architecture"],
     redFlags: ["learning swift", "basic ios", "tutorial app"]
   },
   kotlin: {
-    keywords: ["kotlin", "android", "jetpack compose", "mvvm", "viewmodel", "livedata", "coroutines", "room db", "hilt", "dagger", "retrofit", "android studio", "play store"],
-    contextPhrases: ["shipped android app", "million downloads", "production android", "compose expert"],
+    keywords: ["kotlin language", "jetpack compose", "android development", "kotlin coroutines", "room db", "retrofit android", "play store release"],
+    contextPhrases: ["shipped android app to play store", "production kotlin application", "jetpack compose ui"],
     redFlags: ["learning android", "basic android", "hello world app"]
   },
   finance: {
-    keywords: ["fintech", "payment", "upi", "banking", "trading", "financial", "pci", "sebi", "rbi", "nbfc", "credit", "risk", "compliance", "regulatory", "aml", "kyc", "fix protocol"],
-    contextPhrases: ["financial systems", "payment gateway", "high frequency", "risk engine", "regulatory reporting"],
+    keywords: ["fintech", "payment gateway", "upi integration", "banking software", "trading platform", "financial systems", "pci-dss compliance", "payment settlement engine", "double-entry ledger"],
+    contextPhrases: ["payment gateway integration", "high-throughput transaction processing", "idempotent payment flows", "financial compliance"],
     redFlags: ["no finance experience", "no banking knowledge"]
   },
   communication: {
-    keywords: ["communication", "presentation", "stakeholder", "documentation", "mentoring", "collaboration", "cross-functional", "leadership", "client facing", "written"],
-    contextPhrases: ["excellent communicator", "led workshops", "presented to", "clear technical writing"],
+    keywords: ["technical writing", "authored architecture rfc", "system design document", "conducted code reviews", "technical presentation"],
+    contextPhrases: ["authored architecture rfc document", "comprehensive technical documentation", "conducted rigorous code reviews", "presented engineering architecture"],
     redFlags: ["poor communication", "introvert"]
+  },
+  concurrency: {
+    keywords: ["multithreading", "concurrent programming", "thread safety", "thread pool", "mutex", "deadlock prevention", "race condition resolution", "concurrency control", "virtual threads"],
+    contextPhrases: ["high-concurrency system", "thread-safe architecture", "prevented race conditions in production"],
+    redFlags: ["no multithreading experience"]
   }
 };
 

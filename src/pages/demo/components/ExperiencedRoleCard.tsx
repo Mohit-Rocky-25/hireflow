@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Info, Brain, CheckCircle, RefreshCw } from 'lucide-react';
 import type { Company, Role } from '../talentLensData';
 import { CompanyLogo } from '../../../components/common/CompanyLogo';
+import { DataProvenanceModal } from '../../../components/common/DataProvenanceModal';
 
 export interface ExperiencedRoleCardProps {
   role: Role;
@@ -87,8 +88,12 @@ export function ExperiencedRoleCard({
             <div className="flex items-center gap-2 flex-wrap">
               <h4 className="text-xs font-bold text-white uppercase tracking-[1px]">Job Description</h4>
               <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold uppercase tracking-[0.5px] bg-near-black text-silver border border-charcoal">
-                <Info className="w-3 h-3 stroke-[1.5px]" /> Compiled HireFlow Data
+                <Info className="w-3 h-3 stroke-[1.5px]" /> Public Corporate Spec
               </span>
+              <DataProvenanceModal
+                triggerButtonText="How & Where Extracted"
+                triggerButtonClassName="px-2 py-0.5 bg-black hover:bg-hover-gray border border-charcoal hover:border-volt rounded text-[10px] font-semibold uppercase tracking-[0.5px] text-volt transition-colors cursor-pointer"
+              />
             </div>
             <div className="flex gap-2">
               <button
@@ -154,6 +159,11 @@ export function ExperiencedRoleCard({
                 </div>
               </div>
             )}
+
+            <div className="pt-3 border-t border-charcoal flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-[10px] text-silver font-mono">
+              <span>Touchpoints: Official {company.name} Careers / Public Intake Criteria</span>
+              <span className="text-silver/60">Fair dealing under Indian Copyright Act §52 & Nominative Fair Use</span>
+            </div>
           </div>
         </div>
       )}
