@@ -8,12 +8,12 @@ Started: 2026-10-25
 | Task ID | Stage | Description | Status | Commit | Command / Output Record |
 |---|---|---|---|---|---|
 | 0.1 | Stage 0 | Create branch, progress.md, run baseline tests, git tag c100-baseline | DONE | cef216e | `npx vitest run` (142 passed, 927 passed, 0 failed) |
-| 0.2 | Stage 0 | Copy roster to roster-input.md, parse tables, confirm 100 ids & category counts | DONE | pending | `node scripts/parse_roster.cjs` (100 unique IDs, categories 10/15/25/15/15/20) |
-| 0.3 | Stage 0 | Locate and record company/role data, eligibility, types, validators, provenance | TODO | - | - |
-| 0.4 | Stage 0 | Write consumed-fields.md (field usages, file:line, effect) | TODO | - | - |
-| 0.5 | Stage 0 | Existing stats, dedupe 100 against existing data by id & normalised name | TODO | - | - |
-| 0.6 | Stage 0 | Schema facts, optional value null safety, 20 competency keys, tier mapping, hardcoded counts | TODO | - | - |
-| 0.7 | Stage 0 | Write recon.md with answers & OPEN QUESTIONS | TODO | - | - |
+| 0.2 | Stage 0 | Copy roster to roster-input.md, parse tables, confirm 100 ids & category counts | DONE | 8cb9dfe | `node scripts/parse_roster.cjs` (100 unique IDs, categories 10/15/25/15/15/20) |
+| 0.3 | Stage 0 | Locate and record company/role data, eligibility, types, validators, provenance | DONE | pending | Located in `talentLensData.ts`, `companyEligibility.ts`, `MethodologyPage.tsx` |
+| 0.4 | Stage 0 | Write consumed-fields.md (field usages, file:line, effect) | DONE | pending | `node scripts/trace_consumed_fields.cjs` -> `docs/companies-100/consumed-fields.md` |
+| 0.5 | Stage 0 | Existing stats, dedupe 100 against existing data by id & normalised name | DONE | pending | `node scripts/analyze_existing_and_dedupe.cjs` (141 existing, 4 overlaps) |
+| 0.6 | Stage 0 | Schema facts, optional value null safety, 20 competency keys, tier mapping, hardcoded counts | DONE | pending | Audited in recon.md: 20 keys verified, openRoles null hazard identified |
+| 0.7 | Stage 0 | Write recon.md with answers & OPEN QUESTIONS | DONE | pending | `docs/companies-100/recon.md` generated with all findings and answers |
 | 1.1 | Stage 1 | Write ADR-001.md, implement additive schema changes & migrations | TODO | - | - |
 | 1.2 | Stage 1 | Build ledger tooling (validate:ledger, verify:blind, build:companies, check:generated) | TODO | - | - |
 | 1.3 | Stage 1 | UI null safety, depth chip, editorial label, source chips, disclaimer, error report | TODO | - | - |
@@ -93,4 +93,13 @@ Total companies: 100
 Unique IDs count: 100
 Successfully saved to docs/companies-100/roster-parsed.json
 ```
+
+### Tasks 0.3 - 0.7 Log
+- **Task 0.3**: Located company data (`talentLensData.ts`), eligibility (`companyEligibility.ts`), types (`Company`, `Role`, `CompanyEligibilityRule`), validators (`validateData.test.ts`, `talentlens.test.ts`), provenance generator (`generate-provenance.mjs`), and methodology table (`MethodologyPage.tsx`).
+- **Task 0.4**: Ran `node scripts/trace_consumed_fields.cjs`. Generated `docs/companies-100/consumed-fields.md` mapping all fields to file:line and effect (score / UI / Roaster / none).
+- **Task 0.5**: Ran `node scripts/analyze_existing_and_dedupe.cjs`. Found 141 existing companies, ~1,450 roles, and 4 exact overlaps (`mu_sigma`, `leadsquared`, `birlasoft`, `zensar`).
+- **Task 0.6**: Audited 20 canonical competency keys (exact match), null safety hazard in `openRoles` (`undefined+`), and archetype mapping.
+- **Task 0.7**: Generated `docs/companies-100/recon.md` with all reconnaissance answers and open questions. No code files in `src/` modified.
+- **Stage 0 Completed**: Git tag ready for stage completion.
+
 
