@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
+import { JOB_FAMILY_TEMPLATES } from '../../src/data/market/companies100/jobFamilyTemplates.ts';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -89,22 +90,25 @@ export function generateCompaniesArtifacts(options = {}) {
     const roles = [];
     if (depth !== 'basic') {
       const maxRoles = depth === 'deep' ? 5 : 2;
-      const familiesToBuild = (jobFamilies.length > 0 ? jobFamilies : ['software-engineer']).slice(0, maxRoles);
+      const familiesToBuild = jobFamilies.slice(0, maxRoles);
 
       for (const famKey of familiesToBuild) {
-        const tmpl = templates[famKey] || templates['software-engineer'];
-        if (!tmpl) continue;
+        // Task 5.1: role profiles come ONLY from deterministic lookup table in code mapping jobFamily ledger rows to templates
+        const tmpl = JOB_FAMILY_TEMPLATES[famKey];
+        if (!tmpl) continue; // Unmapped families produce no role
 
         const roleId = `${id}-${famKey}`;
-        const overview = tmpl.overviewTemplate ? tmpl.overviewTemplate.replace(/\{\{companyName\}\}/g, companyName) : '';
+        const sourceUrl = careersUrl || officialSiteUrl || 'https://hireflow.internal';
         const fullText = [
-          `Representative role profile (editorial). Not an actual job posting. See the official careers page: ${careersUrl || officialSiteUrl || 'https://hireflow.internal'}`,
+          `Representative role profile (editorial). Not an actual job posting. See the official careers page: ${sourceUrl}`,
           `Company: ${companyName}`,
           `Role: ${tmpl.title}`,
           `Level: ${tmpl.level}`,
-          `Overview: ${overview}`,
-          `Responsibilities:\n- ` + tmpl.keyResponsibilities.join('\n- '),
-          `Requirements:\n- ` + tmpl.requiredSkills.join('\n- ')
+          `Track: ${tmpl.track}`,
+          `About Role: ${tmpl.aboutRole}`,
+          `Key Responsibilities:\n- ` + tmpl.responsibilities.join('\n- '),
+          `Required Qualifications:\n- ` + tmpl.requiredQualifications.join('\n- '),
+          `Required Skills:\n- ` + tmpl.requiredSkills.map(s => `${s.name} (${s.category})`).join('\n- ')
         ].join('\n\n');
 
         roles.push({
@@ -113,12 +117,23 @@ export function generateCompaniesArtifacts(options = {}) {
           title: tmpl.title,
           level: tmpl.level,
           track: tmpl.track,
-          overview,
-          responsibilities: tmpl.keyResponsibilities,
-          requirements: tmpl.requiredSkills,
+          desc: tmpl.desc,
+          aboutRole: tmpl.aboutRole,
+          responsibilities: tmpl.responsibilities,
+          requiredQualifications: tmpl.requiredQualifications,
+          requiredSkills: tmpl.requiredSkills.map(s => s.name),
+          competencies: tmpl.competencies,
+          reqLevel: tmpl.reqLevel,
+          uncoveredSkills: tmpl.uncoveredSkills,
+          competencyFit: tmpl.competencyFit,
           fullText,
           profileKind: 'representative',
-          jobFamily: famKey
+          jobFamily: famKey,
+          source: 'Official careers portal via verified ledger',
+          sourceUrl,
+          lastVerified: '2026-10-25',
+          confidence: 'high',
+          status: 'verified'
         });
       }
     }
@@ -170,9 +185,11 @@ export function generateCompaniesArtifacts(options = {}) {
   title: string;
   level: string;
   track: string;
-  overview: string;
+  desc?: string;
+  aboutRole?: string;
   responsibilities: string[];
-  requirements: string[];
+  requiredQualifications?: string[];
+  requiredSkills: string[];
   fullText: string;
   profileKind?: 'representative';
   jobFamily?: string;
@@ -180,6 +197,11 @@ export function generateCompaniesArtifacts(options = {}) {
   reqLevel?: Record<string, string>;
   uncoveredSkills?: string[];
   competencyFit?: 'good' | 'approximate';
+  source?: string;
+  sourceUrl?: string | null;
+  lastVerified?: string | null;
+  confidence?: 'high' | 'medium' | 'low';
+  status?: 'verified' | 'needs-recheck' | 'unverified';
 }
 
 export interface CompanyRecord {

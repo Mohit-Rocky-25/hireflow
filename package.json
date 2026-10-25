@@ -36,7 +36,8 @@
     "validate:ledger": "node scripts/companies100/validate-ledger.mjs",
     "verify:blind": "node scripts/companies100/verify-blind.mjs",
     "build:companies": "node scripts/companies100/build-companies.mjs",
-    "check:generated": "node scripts/companies100/check-generated.mjs"
+    "check:generated": "node scripts/companies100/check-generated.mjs",
+    "validate:companies": "node scripts/companies100/check-generated.mjs && vitest run tests/talentlens/companies100Sanity.test.ts"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.3.3",
