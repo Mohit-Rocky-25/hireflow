@@ -6,10 +6,6 @@
 // ============================================================
 import React, { useRef, useCallback, useEffect } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import {
-  Brain, CheckCircle, ArrowRight, Search,
-  Upload, FileText, Sparkles, X, AlertTriangle
-} from "lucide-react";
 import { PublicNavbar } from "../../components/common/PublicNavbar";
 import {
   COMPANIES,
@@ -116,7 +112,7 @@ export function MatchingDemo() {
         {/* Hero */}
         <div className="text-center mb-12 max-w-3xl mx-auto">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-near-black border border-charcoal rounded text-xs font-semibold text-silver uppercase tracking-[1.4px] mb-4 flex-wrap justify-center">
-            <Brain className="w-3.5 h-3.5 text-volt stroke-[1.5px]" />
+            <span className="w-2 h-2 rounded-full bg-volt animate-pulse" />
             <span>TalentLens™ · Evidence-First Placement Readiness</span>
             <span className="text-charcoal-deep">|</span>
             <DataProvenanceModal
@@ -180,8 +176,8 @@ export function MatchingDemo() {
           <div className="max-w-[800px] mx-auto animate-fade-in">
             <div className="bg-near-black border border-charcoal rounded-lg p-8 shadow-level-1">
               <div className="flex items-center gap-3 mb-6 pb-4 border-b border-charcoal">
-                <div className="w-10 h-10 rounded bg-black border border-charcoal flex items-center justify-center text-volt">
-                  <FileText className="w-5 h-5 stroke-[1.5px]" />
+                <div className="w-10 h-10 rounded bg-black border border-charcoal flex items-center justify-center text-volt font-mono text-sm font-bold">
+                  TXT
                 </div>
                 <div>
                   <h2 className="text-[20px] font-bold text-white uppercase tracking-tight">Upload Your Resume</h2>
@@ -193,8 +189,8 @@ export function MatchingDemo() {
               {activeResume && activeResume.ledger?.rawText && (
                 <div className="mb-5 p-4 rounded bg-black border border-charcoal flex flex-wrap items-center justify-between gap-3">
                   <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded bg-near-black border border-charcoal flex items-center justify-center text-volt flex-shrink-0">
-                      <Sparkles className="w-4 h-4 stroke-[1.5px]" />
+                    <div className="w-9 h-9 rounded bg-near-black border border-charcoal flex items-center justify-center text-volt flex-shrink-0 text-sm font-bold">
+                      ★
                     </div>
                     <div>
                       <div className="text-[13px] font-bold text-white flex items-center gap-2 uppercase tracking-[1px]">
@@ -216,7 +212,7 @@ export function MatchingDemo() {
                     }}
                     className="px-3 py-1.5 rounded bg-forest text-white text-xs font-bold uppercase tracking-[1px] hover:bg-[#3a3a3a] border border-[#141414] transition-colors flex items-center gap-1.5 cursor-pointer"
                   >
-                    <CheckCircle className="w-3.5 h-3.5 stroke-[1.5px]" />
+                    <span className="text-xs">✓</span>
                     {resumeText === activeResume.ledger.rawText ? 'Profile Active' : 'Load Profile'}
                   </button>
                 </div>
@@ -263,7 +259,7 @@ Include:
                       : "border-charcoal bg-black hover:border-volt"
                   }`}
                 >
-                  <Upload className={`w-8 h-8 stroke-[1.5px] ${dragActive ? "text-volt" : "text-silver"}`} />
+                  <span className={`text-2xl font-bold font-mono ${dragActive ? "text-volt" : "text-silver"}`}>↑</span>
                   <div className="text-center">
                     <p className="font-bold text-white uppercase tracking-tight">{resumeFileName || "Drop your resume (.txt, .pdf, .docx)"}</p>
                     <p className="text-xs text-silver mt-0.5">Click to browse from your computer</p>
@@ -285,7 +281,7 @@ Include:
                   return (
                     <div className="mt-4 p-3 bg-black border border-volt/60 rounded flex items-center justify-between gap-2.5 flex-wrap">
                       <div className="flex items-center gap-2">
-                        <CheckCircle className="w-4 h-4 text-volt flex-shrink-0 stroke-[1.5px]" />
+                        <span className="text-xs text-volt font-bold">✓</span>
                         <span className="text-xs text-volt font-semibold uppercase tracking-[1px]">
                           {validity.wordCount} words loaded · Structure verified ({validity.sectionsFound.slice(0, 3).join(', ')})
                         </span>
@@ -300,7 +296,7 @@ Include:
                   <div className="mt-4 p-4 bg-black border border-danger/80 rounded text-left space-y-2">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2 text-danger font-bold text-xs uppercase tracking-wider">
-                        <AlertTriangle className="w-4 h-4 stroke-[1.5px] text-danger" />
+                        <span className="text-danger font-mono font-bold text-xs">[!]</span>
                         <span>Input Warning: Document Not Recognized as a Resume</span>
                       </div>
                       <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-near-black text-danger border border-danger/40">
@@ -334,7 +330,7 @@ Include:
                   className="group px-6 py-2.5 text-xs font-bold uppercase tracking-[1.4px] rounded bg-volt !text-black border border-volt hover:bg-[#1d1d1d] hover:!text-white disabled:opacity-30 disabled:cursor-not-allowed transition-colors flex items-center gap-2 cursor-pointer shadow-level-1"
                 >
                   <span className="!text-black group-hover:!text-white font-black">Select Company &amp; Role</span>
-                  <ArrowRight className="w-4 h-4 stroke-[2px] !text-black group-hover:!text-white" />
+                  <span className="text-sm font-bold transition-transform group-hover:translate-x-0.5">→</span>
                 </button>
               </div>
             </div>
@@ -348,7 +344,7 @@ Include:
             <div className="bg-near-black border border-charcoal rounded-lg p-4 mb-6 shadow-level-1">
               <div className="flex flex-wrap gap-2.5 items-center">
                 <div className="relative flex-1 min-w-[240px]">
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-silver stroke-[1.5px]" />
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-silver font-mono text-xs pointer-events-none">/</span>
                   <input
                     value={companySearch}
                     onChange={e => setCompanySearch(e.target.value)}
@@ -362,7 +358,7 @@ Include:
                       className="absolute right-2.5 top-1/2 -translate-y-1/2 p-1 text-silver hover:text-white transition-colors"
                       title="Clear search"
                     >
-                      <X className="w-3.5 h-3.5 stroke-[1.5px]" />
+                      <span className="font-mono text-xs font-bold">×</span>
                     </button>
                   )}
                 </div>
@@ -394,7 +390,7 @@ Include:
               {searchResult.didYouMean && searchResult.isFuzzyMatch && (
                 <div className="mt-3 pt-3 border-t border-charcoal flex items-center justify-between flex-wrap gap-2 bg-black -mx-4 -mb-4 p-3 px-4 rounded-b-lg">
                   <div className="flex items-center gap-2 text-xs text-white">
-                    <Sparkles className="w-4 h-4 text-volt shrink-0 stroke-[1.5px]" />
+                    <span className="text-volt font-bold text-xs">★</span>
                     <span>
                       Showing results for <strong className="text-volt font-bold">{searchResult.didYouMean}</strong> (auto-corrected from &lsquo;{companySearch}&rsquo;)
                     </span>
@@ -413,7 +409,7 @@ Include:
               {companySearch.trim() && searchResult.suggestedCompanies.length > 0 && (
                 <div className="mt-3 pt-2.5 border-t border-charcoal flex items-center gap-2 flex-wrap text-xs">
                   <span className="text-silver font-semibold uppercase tracking-[1px] flex items-center gap-1.5 text-[11px]">
-                    <span className="font-mono text-volt text-[10px]">CLUSTERS //</span> Similar companies:
+                    Similar companies:
                   </span>
                   {searchResult.suggestedCompanies.map(name => (
                     <button
@@ -555,7 +551,7 @@ Include:
                         {company.roles.length} Roles available
                       </span>
                       <span className="inline-flex items-center gap-1 uppercase tracking-[1px] font-bold text-[11px]">
-                        View Roles <ArrowRight className="w-3.5 h-3.5 stroke-[1.5px]" />
+                        View Roles <span className="text-xs font-bold transition-transform group-hover:translate-x-0.5">→</span>
                       </span>
                     </div>
                   </Link>
@@ -566,7 +562,7 @@ Include:
             {filteredCompanies.length === 0 && (
               <div className="text-center py-16 bg-near-black border border-charcoal rounded-lg p-8 mb-16">
                 <div className="inline-block px-3 py-1 rounded bg-black text-silver border border-charcoal font-mono text-[11px] uppercase tracking-wider mb-3">
-                  [CATALOG // 0 MATCHES]
+                  Company Directory
                 </div>
                 <h3 className="text-[18px] font-bold text-white mb-2 uppercase tracking-tight">
                   No companies found for &ldquo;{companySearch}&rdquo;
@@ -610,25 +606,25 @@ Include:
         <div className="mt-14 grid grid-cols-2 md:grid-cols-4 gap-3.5 border-t border-charcoal pt-10">
           {[
             {
-              tag: "CATALOG // 01",
+              tag: "Directory",
               value: `${COMPANIES.length}+`,
               label: "Verified Employers",
               sub: "Tier-S FAANG, Tier-A Unicorns & Cybersecurity",
             },
             {
-              tag: "ROLES // 02",
+              tag: "Calibrated Roles",
               value: `${COMPANIES.reduce((a, c) => a + c.roles.length, 0)}+`,
               label: "Calibrated Roles",
               sub: "10+ verified career tracks per employer",
             },
             {
-              tag: "SAFETY // 03",
+              tag: "Zero-Egress Security",
               value: "Level 1",
               label: "Authenticity Guard",
               sub: "Structural parser & anti-gaming verification",
             },
             {
-              tag: "INTELLIGENCE // 04",
+              tag: "Candidate Intelligence",
               value: "100%",
               label: "Deterministic Math",
               sub: "Single source of truth with zero random drift",

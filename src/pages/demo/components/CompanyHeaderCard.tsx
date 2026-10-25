@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ShieldCheck } from 'lucide-react';
 import type { Company } from '../talentLensData';
 import { TREND_ICON } from '../talentLensData';
 import { CompanyLogo } from '../../../components/common/CompanyLogo';
@@ -84,7 +83,7 @@ export function CompanyHeaderCard({ company, onChangeCompany }: CompanyHeaderCar
             onClick={onChangeCompany}
             className="flex items-center gap-1.5 px-3.5 py-2 rounded bg-black hover:bg-hover-gray border border-charcoal hover:border-volt text-silver hover:text-white font-semibold text-xs uppercase tracking-[1px] transition-colors cursor-pointer"
           >
-            <ArrowLeft className="w-3.5 h-3.5 stroke-[1.5px]" />
+            <span className="font-bold text-xs">←</span>
             <span>Change Company</span>
           </button>
         </div>

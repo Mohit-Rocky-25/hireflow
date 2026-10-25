@@ -5,13 +5,6 @@
 // ============================================================
 import React, { useState, useEffect, useMemo } from 'react';
 import { useParams, useNavigate, useSearchParams, Link } from 'react-router-dom';
-import {
-  Brain,
-  Search,
-  ArrowLeft,
-  GraduationCap,
-  Info,
-} from 'lucide-react';
 import { PublicNavbar } from '../../components/common/PublicNavbar';
 import { careers } from '../../careers-core';
 import type { FresherProgram } from '../../careers-core';
@@ -230,7 +223,7 @@ export function CompanyRolesPage() {
         <div className="max-w-[800px] mx-auto px-6 py-[120px] text-center">
           <div className="bg-[#141414] border border-charcoal rounded-lg p-10">
             <div className="inline-block px-3 py-1 rounded bg-black text-silver border border-charcoal font-mono text-[11px] uppercase tracking-wider mb-4">
-              [404 // PROFILE NOT FOUND]
+              Company Profile Not Found
             </div>
             <h1 className="text-2xl font-bold text-white mb-2">Company Not Found</h1>
             <p className="text-sm text-silver mb-6">
@@ -240,7 +233,7 @@ export function CompanyRolesPage() {
               to="/demo"
               className="group inline-flex items-center gap-2 px-5 py-2.5 rounded bg-volt !text-black font-bold text-xs hover:bg-[#1a1a1a] hover:!text-volt border border-volt transition-colors"
             >
-              <ArrowLeft className="w-4 h-4 !text-black group-hover:!text-volt" />
+              <span className="font-bold text-sm !text-black group-hover:!text-volt">←</span>
               <span className="!text-black group-hover:!text-volt font-black">Back to Company Directory</span>
             </Link>
           </div>
@@ -260,7 +253,7 @@ export function CompanyRolesPage() {
         {/* Hero headline */}
         <div className="text-center mb-9 max-w-[900px] mx-auto">
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#141414] border border-charcoal rounded text-xs font-mono uppercase tracking-wider text-volt mb-4">
-            <Brain className="w-3.5 h-3.5 text-volt" />
+            <span className="w-2 h-2 rounded-full bg-volt animate-pulse" />
             TalentLens™ · Placement Readiness &amp; Career Fit
           </div>
           <h1 className="text-3xl md:text-5xl font-black text-white mb-3 tracking-tight leading-tight flex items-center justify-center gap-3 flex-wrap">
@@ -350,7 +343,6 @@ export function CompanyRolesPage() {
                       : 'text-silver hover:text-white hover:bg-black/50'
                   }`}
                 >
-                  <GraduationCap className={`w-4 h-4 ${roleMode === 'fresher' ? 'text-volt' : 'text-silver'}`} />
                   <span>Fresher / Campus ('26-27)</span>
                   <span className="px-1.5 py-0.5 rounded text-[10px] bg-[#141414] text-silver border border-charcoal">
                     {companyPrograms.length}
@@ -376,12 +368,12 @@ export function CompanyRolesPage() {
               {/* Search if company has more than 8 roles */}
               {company.roles.length > 8 && (
                 <div className="relative mb-4">
-                  <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-silver" />
+                  <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-silver font-mono text-xs pointer-events-none">/</span>
                   <input
                     value={roleSearch}
                     onChange={(e) => setRoleSearch(e.target.value)}
                     placeholder={`Search ${company.roles.length} roles at ${company.name}...`}
-                    className="w-full pl-10 pr-14 h-10 bg-[#141414] border border-charcoal rounded text-xs text-white placeholder:text-silver focus:outline-none focus:border-volt transition-colors"
+                    className="w-full pl-9 pr-14 h-10 bg-[#141414] border border-charcoal rounded text-xs text-white placeholder:text-silver focus:outline-none focus:border-volt transition-colors"
                   />
                   {roleSearch && (
                     <button
@@ -456,8 +448,8 @@ export function CompanyRolesPage() {
                   {/* Empty state: No campus programs */}
                   {companyPrograms.length === 0 && (
                     <div className="p-8 rounded-lg bg-[#141414] border border-charcoal text-center space-y-3">
-                      <div className="w-10 h-10 rounded bg-black border border-charcoal text-pale-yellow mx-auto flex items-center justify-center">
-                        <Info className="w-5 h-5" />
+                      <div className="w-10 h-10 rounded bg-black border border-charcoal text-pale-yellow mx-auto flex items-center justify-center font-mono font-bold text-sm">
+                        i
                       </div>
                       <h4 className="text-base font-bold text-white">
                         No General Fresher / Campus Intake for {company.name}
@@ -526,7 +518,7 @@ export function CompanyRolesPage() {
                   {filteredRoles.length === 0 && (
                     <div className="text-center py-12 bg-[#141414] border border-charcoal rounded-lg p-6">
                       <div className="inline-block px-3 py-1 rounded bg-black text-silver border border-charcoal font-mono text-[11px] uppercase tracking-wider mb-3">
-                        [ROLES // 0 MATCHES]
+                        Calibrated Roles
                       </div>
                       <h4 className="text-sm font-bold text-white mb-1">
                         No matching roles found
@@ -577,25 +569,25 @@ export function CompanyRolesPage() {
         <div className="mt-14 grid grid-cols-2 md:grid-cols-4 gap-4 border-t border-charcoal pt-10">
           {[
             {
-              tag: 'CATALOG // 01',
+              tag: 'Directory',
               value: `${COMPANIES.length}+`,
               label: 'Verified Employers',
               sub: 'Tier-S FAANG, Tier-A Unicorns & Cybersecurity',
             },
             {
-              tag: 'ROLES // 02',
+              tag: 'Calibrated Roles',
               value: `${COMPANIES.reduce((a, c) => a + c.roles.length, 0)}+`,
               label: 'Calibrated Roles',
               sub: '10+ verified career tracks per employer',
             },
             {
-              tag: 'SAFETY // 03',
+              tag: 'Zero-Egress Security',
               value: 'Level 1',
               label: 'Authenticity Guard',
               sub: 'Structural parser & anti-gaming verification',
             },
             {
-              tag: 'INTELLIGENCE // 04',
+              tag: 'Candidate Intelligence',
               value: '100%',
               label: 'Deterministic Math',
               sub: 'Single source of truth with zero random drift',

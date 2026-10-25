@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { RefreshCw } from 'lucide-react';
 import type { Company, Role } from '../talentLensData';
 import { CompanyLogo } from '../../../components/common/CompanyLogo';
 import { DataProvenanceModal } from '../../../components/common/DataProvenanceModal';
@@ -173,7 +172,7 @@ export function ExperiencedRoleCard({
         <div className="lg:hidden mt-2.5 mb-3 bg-black border border-charcoal rounded-lg p-4 shadow-level-2">
           <div className="flex items-center gap-2.5 mb-2.5">
             <span className="font-mono text-[11px] font-bold text-volt bg-near-black px-2 py-1 rounded border border-charcoal">
-              EVAL // 01
+              Calibrated Role
             </span>
             <div>
               <div className="text-xs font-bold text-white uppercase tracking-tight">
@@ -207,7 +206,7 @@ export function ExperiencedRoleCard({
           >
             {analyzing ? (
               <>
-                <RefreshCw className="w-4 h-4 animate-spin stroke-[1.5px] !text-black group-hover:!text-white" />
+                <span className="inline-block w-3.5 h-3.5 border-2 border-black group-hover:border-white border-t-transparent rounded-full animate-spin" />
                 <span className="!text-black group-hover:!text-white font-black">Analyzing deeply...</span>
               </>
             ) : (

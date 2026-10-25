@@ -5,7 +5,6 @@
 // ============================================================
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Search } from 'lucide-react';
 import { PageNav } from '../../components/common/PageNav';
 import { PublicNavbar } from '../../components/common/PublicNavbar';
 import { careers } from '../../careers-core';
@@ -41,7 +40,7 @@ export function ToolsHubPage() {
       tools: [
         {
           id: 'resume-checker',
-          pill: 'AUDIT // 01',
+          pill: 'Audit',
           title: 'ATS Resume Roaster',
           badge: 'Harsh Invariant Scorer',
           description: 'Scan your resume against any JD. Get strict subscore audits, verbatim citations, and simulated wording fixes.',
@@ -51,7 +50,7 @@ export function ToolsHubPage() {
         },
         {
           id: 'tailor',
-          pill: 'TAILOR // 02',
+          pill: 'Editor',
           title: 'Tailor My Resume',
           badge: 'Truth-Checked Suggestions',
           description: 'Reorder, rephrase, and context-enhance resume bullets with strictly verified skills and required metric placeholders.',
@@ -61,7 +60,7 @@ export function ToolsHubPage() {
         },
         {
           id: 'reach-out',
-          pill: 'OUTREACH // 03',
+          pill: 'Outreach',
           title: 'Reach Out',
           badge: 'Targeted Communication',
           description: 'Generate professional, context-aware messages across channels with strict LinkedIn 300-char limits and verifiable proof points.',
@@ -79,7 +78,7 @@ export function ToolsHubPage() {
       tools: [
         {
           id: 'credential-engine',
-          pill: 'CREDENTIAL // 01',
+          pill: 'Credentials',
           title: 'Credential & Opportunity Engine',
           badge: 'Evidence-Building Hub',
           description: 'Find industry-relevant certifications, competitions, and open-source programs that create verifiable resume evidence for your target role.',
@@ -89,7 +88,7 @@ export function ToolsHubPage() {
         },
         {
           id: 'build-briefs',
-          pill: 'BRIEFS // 02',
+          pill: 'Briefs',
           title: 'Project Build Briefs',
           badge: 'Gap-Driven Generation',
           description: 'Generate production engineering briefs directly from your JD skill gaps, complete with deliverables and interview talking points.',
@@ -107,7 +106,7 @@ export function ToolsHubPage() {
       tools: [
         {
           id: 'career-path',
-          pill: 'TRAJECTORY // 01',
+          pill: 'Trajectory',
           title: 'Career Trajectory & Levels',
           badge: 'India Market Intelligence',
           description: 'Dream job roadmaps, India-office leveling ladders, CTC medians, and market tier positioning from Tier C to Tier S.',
@@ -117,7 +116,7 @@ export function ToolsHubPage() {
         },
         {
           id: 'jd-compare',
-          pill: 'COMPARE // 02',
+          pill: 'Compare',
           title: 'Compare Job Descriptions',
           badge: 'Multi-JD Evaluator',
           description: 'Compare 2–3 job descriptions side-by-side. Uncover shared vs unique gaps and choose the highest-yield target.',
@@ -127,7 +126,7 @@ export function ToolsHubPage() {
         },
         {
           id: 'careers-explorer',
-          pill: 'CATALOG // 03',
+          pill: 'Directory',
           title: 'Careers Data Platform Explorer',
           badge: `${careers.stats.counts().companies}+ Employers`,
           description: `Browse the full unified dataset of ${careers.stats.counts().companies} top employers and active recruiters, ${careers.stats.counts().roles}+ calibrated roles, eligibility cutoffs, and audit ledgers.`,
@@ -174,13 +173,13 @@ export function ToolsHubPage() {
           {/* Search Bar (§4 Derived Input) */}
           <div className="pt-4 max-w-xl mx-auto">
             <div className="relative">
-              <Search className="w-5 h-5 text-silver absolute left-4 top-1/2 -translate-y-1/2 stroke-[1.5px]" />
+              <span className="text-silver/60 absolute left-4 top-1/2 -translate-y-1/2 font-mono text-sm pointer-events-none">/</span>
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search tools by capability (e.g. cold email, resume, career)..."
-                className="w-full pl-12 pr-4 py-3 rounded bg-near-black border border-charcoal text-[14px] text-white placeholder:text-silver/50 focus:outline-none focus:border-volt focus:ring-1 focus:ring-volt transition-colors"
+                className="w-full pl-10 pr-4 py-3 rounded bg-near-black border border-charcoal text-[14px] text-white placeholder:text-silver/50 focus:outline-none focus:border-volt focus:ring-1 focus:ring-volt transition-colors"
               />
             </div>
           </div>
@@ -257,7 +256,7 @@ export function ToolsHubPage() {
                         {tool.cta}
                       </span>
                       <div className="w-8 h-8 rounded bg-black border border-charcoal flex items-center justify-center text-silver group-hover:text-volt group-hover:border-volt transition-colors">
-                        <ArrowRight className="w-4 h-4 stroke-[1.5px]" />
+                        <span className="text-[14px] font-bold">→</span>
                       </div>
                     </div>
                   </Link>
