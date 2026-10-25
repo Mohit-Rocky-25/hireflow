@@ -13,7 +13,7 @@
       "value": "InterviewBit Software Services Private Limited",
       "sourceKind": "official",
       "url": "https://www.scaler.com",
-      "retrievedAt": "2026-10-25T17:47:24.035Z",
+      "retrievedAt": "2026-10-25T18:20:09.355Z",
       "snippet": "InterviewBit Software Services Private Limited",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://www.scaler.com",
       "sourceKind": "official",
       "url": "https://www.scaler.com",
-      "retrievedAt": "2026-10-25T17:47:24.035Z",
+      "retrievedAt": "2026-10-25T18:20:09.355Z",
       "snippet": "Official corporate website of Scaler Academy (InterviewBit)",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://www.scaler.com/about-us",
       "sourceKind": "official",
       "url": "https://www.scaler.com/about-us",
-      "retrievedAt": "2026-10-25T17:47:24.035Z",
+      "retrievedAt": "2026-10-25T18:20:09.355Z",
       "snippet": "InterviewBit Software Services Private Limited maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://www.scaler.com/careers",
       "sourceKind": "official",
       "url": "https://www.scaler.com/careers",
-      "retrievedAt": "2026-10-25T17:47:24.035Z",
+      "retrievedAt": "2026-10-25T18:20:09.355Z",
       "snippet": "Scaler Academy (InterviewBit) Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "Bengaluru, Karnataka",
       "sourceKind": "official",
       "url": "https://www.scaler.com",
-      "retrievedAt": "2026-10-25T17:47:24.035Z",
+      "retrievedAt": "2026-10-25T18:20:09.355Z",
       "snippet": "headquartered in Bengaluru, Karnataka",
       "extractedBy": "ai",
       "verify": {
@@ -88,13 +88,44 @@
       "value": "Tech Career Education & Software Engineering Upskilling",
       "sourceKind": "official",
       "url": "https://www.scaler.com",
-      "retrievedAt": "2026-10-25T17:47:24.035Z",
+      "retrievedAt": "2026-10-25T18:20:09.355Z",
       "snippet": "Specializing in Tech Career Education & Software Engineering Upskilling",
       "extractedBy": "ai",
       "verify": {
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "scaler_tech-jobFamily-1",
+      "companyId": "scaler_tech",
+      "field": "jobFamily",
+      "value": "backend-engineer",
+      "sourceKind": "official",
+      "url": "https://www.scaler.com/careers",
+      "retrievedAt": "2026-10-25T18:37:36.258Z",
+      "snippet": "Recruiting Backend Software Engineer to design high-throughput microservices at Scaler",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "scaler_tech-jobFamily-2",
+      "companyId": "scaler_tech",
+      "field": "jobFamily",
+      "value": "fullstack-engineer",
+      "sourceKind": "official",
+      "url": "https://www.scaler.com/careers",
+      "retrievedAt": "2026-10-25T18:37:36.258Z",
+      "snippet": "Hiring Full Stack Web Engineer building cloud applications at Scaler",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
-  ]
+  ],
+  "depth": "standard"
 }

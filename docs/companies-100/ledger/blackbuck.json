@@ -13,7 +13,7 @@
       "value": "Zinka Logistics Solutions Limited",
       "sourceKind": "official",
       "url": "https://www.blackbuck.com",
-      "retrievedAt": "2026-10-25T17:47:24.322Z",
+      "retrievedAt": "2026-10-25T18:20:09.592Z",
       "snippet": "Zinka Logistics Solutions Limited",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://www.blackbuck.com",
       "sourceKind": "official",
       "url": "https://www.blackbuck.com",
-      "retrievedAt": "2026-10-25T17:47:24.322Z",
+      "retrievedAt": "2026-10-25T18:20:09.592Z",
       "snippet": "Official corporate website of BlackBuck (Zinka Logistics)",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://www.blackbuck.com/about-us",
       "sourceKind": "official",
       "url": "https://www.blackbuck.com/about-us",
-      "retrievedAt": "2026-10-25T17:47:24.322Z",
+      "retrievedAt": "2026-10-25T18:20:09.592Z",
       "snippet": "Zinka Logistics Solutions Limited maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://www.blackbuck.com/careers",
       "sourceKind": "official",
       "url": "https://www.blackbuck.com/careers",
-      "retrievedAt": "2026-10-25T17:47:24.322Z",
+      "retrievedAt": "2026-10-25T18:20:09.592Z",
       "snippet": "BlackBuck (Zinka Logistics) Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "Bengaluru, Karnataka",
       "sourceKind": "official",
       "url": "https://www.blackbuck.com",
-      "retrievedAt": "2026-10-25T17:47:24.322Z",
+      "retrievedAt": "2026-10-25T18:20:09.592Z",
       "snippet": "headquartered in Bengaluru, Karnataka",
       "extractedBy": "ai",
       "verify": {
@@ -88,13 +88,29 @@
       "value": "Inter-City Freight Trucking Platform, Telematics & FASTag",
       "sourceKind": "official",
       "url": "https://www.blackbuck.com",
-      "retrievedAt": "2026-10-25T17:47:24.322Z",
+      "retrievedAt": "2026-10-25T18:20:09.592Z",
       "snippet": "Specializing in Inter-City Freight Trucking Platform, Telematics & FASTag",
       "extractedBy": "ai",
       "verify": {
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "blackbuck-jobFamily-1",
+      "companyId": "blackbuck",
+      "field": "jobFamily",
+      "value": "software-engineer",
+      "sourceKind": "official",
+      "url": "https://www.blackbuck.com/careers",
+      "retrievedAt": "2026-10-25T18:37:43.703Z",
+      "snippet": "Hiring Software Development Engineer for enterprise technology systems at BlackBuck",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
-  ]
+  ],
+  "depth": "standard"
 }

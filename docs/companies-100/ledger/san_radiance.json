@@ -13,7 +13,7 @@
       "value": "San Radiance Technologies Private Limited",
       "sourceKind": "official",
       "url": "https://sanradiance.com",
-      "retrievedAt": "2026-10-25T17:47:22.298Z",
+      "retrievedAt": "2026-10-25T18:20:08.849Z",
       "snippet": "San Radiance Technologies Private Limited",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://sanradiance.com",
       "sourceKind": "official",
       "url": "https://sanradiance.com",
-      "retrievedAt": "2026-10-25T17:47:22.298Z",
+      "retrievedAt": "2026-10-25T18:20:08.849Z",
       "snippet": "Official corporate website of San Radiance Technologies",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://sanradiance.com/about-us",
       "sourceKind": "official",
       "url": "https://sanradiance.com/about-us",
-      "retrievedAt": "2026-10-25T17:47:22.298Z",
+      "retrievedAt": "2026-10-25T18:20:08.849Z",
       "snippet": "San Radiance Technologies Private Limited maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://sanradiance.com/careers",
       "sourceKind": "official",
       "url": "https://sanradiance.com/careers",
-      "retrievedAt": "2026-10-25T17:47:22.298Z",
+      "retrievedAt": "2026-10-25T18:20:08.849Z",
       "snippet": "San Radiance Technologies Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "Bengaluru, Karnataka",
       "sourceKind": "official",
       "url": "https://sanradiance.com",
-      "retrievedAt": "2026-10-25T17:47:22.298Z",
+      "retrievedAt": "2026-10-25T18:20:08.849Z",
       "snippet": "headquartered in Bengaluru, Karnataka",
       "extractedBy": "ai",
       "verify": {
@@ -88,7 +88,7 @@
       "value": "Embedded Systems & FPGA Hardware Design",
       "sourceKind": "official",
       "url": "https://sanradiance.com",
-      "retrievedAt": "2026-10-25T17:47:22.298Z",
+      "retrievedAt": "2026-10-25T18:20:08.849Z",
       "snippet": "Specializing in Embedded Systems & FPGA Hardware Design",
       "extractedBy": "ai",
       "verify": {
@@ -96,5 +96,6 @@
         "status": "passed"
       }
     }
-  ]
+  ],
+  "depth": "basic"
 }

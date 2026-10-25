@@ -13,7 +13,7 @@
       "value": "Urban Company Limited (UrbanClap Technologies)",
       "sourceKind": "official",
       "url": "https://www.urbancompany.com",
-      "retrievedAt": "2026-10-25T17:47:24.346Z",
+      "retrievedAt": "2026-10-25T18:20:09.614Z",
       "snippet": "Urban Company Limited (UrbanClap Technologies)",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://www.urbancompany.com",
       "sourceKind": "official",
       "url": "https://www.urbancompany.com",
-      "retrievedAt": "2026-10-25T17:47:24.346Z",
+      "retrievedAt": "2026-10-25T18:20:09.614Z",
       "snippet": "Official corporate website of Urban Company Tech",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://www.urbancompany.com/about",
       "sourceKind": "official",
       "url": "https://www.urbancompany.com/about",
-      "retrievedAt": "2026-10-25T17:47:24.346Z",
+      "retrievedAt": "2026-10-25T18:20:09.614Z",
       "snippet": "Urban Company Limited (UrbanClap Technologies) maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://careers.urbancompany.com",
       "sourceKind": "official",
       "url": "https://careers.urbancompany.com",
-      "retrievedAt": "2026-10-25T17:47:24.346Z",
+      "retrievedAt": "2026-10-25T18:20:09.614Z",
       "snippet": "Urban Company Tech Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "Gurugram, Haryana",
       "sourceKind": "official",
       "url": "https://www.urbancompany.com",
-      "retrievedAt": "2026-10-25T17:47:24.346Z",
+      "retrievedAt": "2026-10-25T18:20:09.614Z",
       "snippet": "headquartered in Gurugram, Haryana",
       "extractedBy": "ai",
       "verify": {
@@ -88,13 +88,29 @@
       "value": "At-Home Services Marketplace & Partner Logistics Tech",
       "sourceKind": "official",
       "url": "https://www.urbancompany.com",
-      "retrievedAt": "2026-10-25T17:47:24.346Z",
+      "retrievedAt": "2026-10-25T18:20:09.614Z",
       "snippet": "Specializing in At-Home Services Marketplace & Partner Logistics Tech",
       "extractedBy": "ai",
       "verify": {
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "urban_company-jobFamily-1",
+      "companyId": "urban_company",
+      "field": "jobFamily",
+      "value": "software-engineer",
+      "sourceKind": "official",
+      "url": "https://careers.urbancompany.com",
+      "retrievedAt": "2026-10-25T18:37:44.371Z",
+      "snippet": "Hiring Software Development Engineer for enterprise technology systems at Urban",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
-  ]
+  ],
+  "depth": "standard"
 }

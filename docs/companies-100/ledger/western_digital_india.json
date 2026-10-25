@@ -13,7 +13,7 @@
       "value": "SanDisk India Device Design Centre Private Limited",
       "sourceKind": "official",
       "url": "https://www.westerndigital.com",
-      "retrievedAt": "2026-10-25T17:47:23.306Z",
+      "retrievedAt": "2026-10-25T18:20:09.071Z",
       "snippet": "SanDisk India Device Design Centre Private Limited",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://www.westerndigital.com",
       "sourceKind": "official",
       "url": "https://www.westerndigital.com",
-      "retrievedAt": "2026-10-25T17:47:23.306Z",
+      "retrievedAt": "2026-10-25T18:20:09.071Z",
       "snippet": "Official corporate website of Western Digital / SanDisk",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://www.westerndigital.com/company/careers/locations/india",
       "sourceKind": "official",
       "url": "https://www.westerndigital.com/company/careers/locations/india",
-      "retrievedAt": "2026-10-25T17:47:23.306Z",
+      "retrievedAt": "2026-10-25T18:20:09.071Z",
       "snippet": "SanDisk India Device Design Centre Private Limited maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://careers.westerndigital.com",
       "sourceKind": "official",
       "url": "https://careers.westerndigital.com",
-      "retrievedAt": "2026-10-25T17:47:23.306Z",
+      "retrievedAt": "2026-10-25T18:20:09.071Z",
       "snippet": "Western Digital / SanDisk Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "https://careers.westerndigital.com/university-relations",
       "sourceKind": "official",
       "url": "https://careers.westerndigital.com/university-relations",
-      "retrievedAt": "2026-10-25T17:47:23.306Z",
+      "retrievedAt": "2026-10-25T18:20:09.071Z",
       "snippet": "Western Digital / SanDisk early careers campus hiring",
       "extractedBy": "ai",
       "verify": {
@@ -88,7 +88,7 @@
       "value": "Bengaluru, Karnataka",
       "sourceKind": "official",
       "url": "https://www.westerndigital.com",
-      "retrievedAt": "2026-10-25T17:47:23.306Z",
+      "retrievedAt": "2026-10-25T18:20:09.071Z",
       "snippet": "headquartered in Bengaluru, Karnataka",
       "extractedBy": "ai",
       "verify": {
@@ -103,13 +103,44 @@
       "value": "NAND Flash Memory, SSD Firmware & Storage Hardware",
       "sourceKind": "official",
       "url": "https://www.westerndigital.com",
-      "retrievedAt": "2026-10-25T17:47:23.306Z",
+      "retrievedAt": "2026-10-25T18:20:09.071Z",
       "snippet": "Specializing in NAND Flash Memory, SSD Firmware & Storage Hardware",
       "extractedBy": "ai",
       "verify": {
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "western_digital_india-jobFamily-1",
+      "companyId": "western_digital_india",
+      "field": "jobFamily",
+      "value": "embedded-engineer",
+      "sourceKind": "official",
+      "url": "https://careers.westerndigital.com",
+      "retrievedAt": "2026-10-25T18:37:21.658Z",
+      "snippet": "Hiring Embedded Software Engineer for hardware controller systems at Western",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "western_digital_india-jobFamily-2",
+      "companyId": "western_digital_india",
+      "field": "jobFamily",
+      "value": "qa-automation",
+      "sourceKind": "official",
+      "url": "https://careers.westerndigital.com",
+      "retrievedAt": "2026-10-25T18:37:21.658Z",
+      "snippet": "Quality Assurance Test Automation Engineer for system validation at Western",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
-  ]
+  ],
+  "depth": "standard"
 }

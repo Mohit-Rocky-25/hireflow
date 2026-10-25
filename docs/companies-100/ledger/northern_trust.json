@@ -13,7 +13,7 @@
       "value": "Northern Trust India Operating Services Private Limited",
       "sourceKind": "official",
       "url": "https://www.northerntrust.com",
-      "retrievedAt": "2026-10-25T17:47:21.377Z",
+      "retrievedAt": "2026-10-25T18:20:08.623Z",
       "snippet": "Northern Trust India Operating Services Private Limited",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://www.northerntrust.com",
       "sourceKind": "official",
       "url": "https://www.northerntrust.com",
-      "retrievedAt": "2026-10-25T17:47:21.377Z",
+      "retrievedAt": "2026-10-25T18:20:08.623Z",
       "snippet": "Official corporate website of Northern Trust India",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://www.northerntrust.com/united-states/about-us/careers/locations/india",
       "sourceKind": "official",
       "url": "https://www.northerntrust.com/united-states/about-us/careers/locations/india",
-      "retrievedAt": "2026-10-25T17:47:21.377Z",
+      "retrievedAt": "2026-10-25T18:20:08.623Z",
       "snippet": "Northern Trust India Operating Services Private Limited maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://www.northerntrust.com/careers",
       "sourceKind": "official",
       "url": "https://www.northerntrust.com/careers",
-      "retrievedAt": "2026-10-25T17:47:21.377Z",
+      "retrievedAt": "2026-10-25T18:20:08.623Z",
       "snippet": "Northern Trust India Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "https://www.northerntrust.com/careers/students-and-graduates",
       "sourceKind": "official",
       "url": "https://www.northerntrust.com/careers/students-and-graduates",
-      "retrievedAt": "2026-10-25T17:47:21.377Z",
+      "retrievedAt": "2026-10-25T18:20:08.623Z",
       "snippet": "Northern Trust India early careers campus hiring",
       "extractedBy": "ai",
       "verify": {
@@ -88,7 +88,7 @@
       "value": "Pune / Bengaluru",
       "sourceKind": "official",
       "url": "https://www.northerntrust.com",
-      "retrievedAt": "2026-10-25T17:47:21.377Z",
+      "retrievedAt": "2026-10-25T18:20:08.623Z",
       "snippet": "headquartered in Pune / Bengaluru",
       "extractedBy": "ai",
       "verify": {
@@ -103,13 +103,29 @@
       "value": "Wealth Management & Asset Servicing Global Hub",
       "sourceKind": "official",
       "url": "https://www.northerntrust.com",
-      "retrievedAt": "2026-10-25T17:47:21.377Z",
+      "retrievedAt": "2026-10-25T18:20:08.623Z",
       "snippet": "Specializing in Wealth Management & Asset Servicing Global Hub",
       "extractedBy": "ai",
       "verify": {
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "northern_trust-jobFamily-1",
+      "companyId": "northern_trust",
+      "field": "jobFamily",
+      "value": "software-engineer",
+      "sourceKind": "official",
+      "url": "https://www.northerntrust.com/careers",
+      "retrievedAt": "2026-10-25T18:36:57.778Z",
+      "snippet": "Hiring Software Development Engineer for enterprise technology systems at Northern",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
-  ]
+  ],
+  "depth": "standard"
 }

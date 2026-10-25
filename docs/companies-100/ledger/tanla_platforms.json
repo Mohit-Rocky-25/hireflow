@@ -13,7 +13,7 @@
       "value": "Tanla Platforms Limited",
       "sourceKind": "official",
       "url": "https://www.tanla.com",
-      "retrievedAt": "2026-10-25T17:47:24.241Z",
+      "retrievedAt": "2026-10-25T18:20:09.520Z",
       "snippet": "Tanla Platforms Limited",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://www.tanla.com",
       "sourceKind": "official",
       "url": "https://www.tanla.com",
-      "retrievedAt": "2026-10-25T17:47:24.241Z",
+      "retrievedAt": "2026-10-25T18:20:09.520Z",
       "snippet": "Official corporate website of Tanla Platforms",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://www.tanla.com/about.html",
       "sourceKind": "official",
       "url": "https://www.tanla.com/about.html",
-      "retrievedAt": "2026-10-25T17:47:24.241Z",
+      "retrievedAt": "2026-10-25T18:20:09.520Z",
       "snippet": "Tanla Platforms Limited maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://www.tanla.com/careers.html",
       "sourceKind": "official",
       "url": "https://www.tanla.com/careers.html",
-      "retrievedAt": "2026-10-25T17:47:24.241Z",
+      "retrievedAt": "2026-10-25T18:20:09.520Z",
       "snippet": "Tanla Platforms Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "Hyderabad, Telangana",
       "sourceKind": "official",
       "url": "https://www.tanla.com",
-      "retrievedAt": "2026-10-25T17:47:24.241Z",
+      "retrievedAt": "2026-10-25T18:20:09.520Z",
       "snippet": "headquartered in Hyderabad, Telangana",
       "extractedBy": "ai",
       "verify": {
@@ -88,13 +88,29 @@
       "value": "CPaaS, Commercial Communications & Messaging Platforms",
       "sourceKind": "official",
       "url": "https://www.tanla.com",
-      "retrievedAt": "2026-10-25T17:47:24.241Z",
+      "retrievedAt": "2026-10-25T18:20:09.520Z",
       "snippet": "Specializing in CPaaS, Commercial Communications & Messaging Platforms",
       "extractedBy": "ai",
       "verify": {
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "tanla_platforms-jobFamily-1",
+      "companyId": "tanla_platforms",
+      "field": "jobFamily",
+      "value": "software-engineer",
+      "sourceKind": "official",
+      "url": "https://www.tanla.com/careers.html",
+      "retrievedAt": "2026-10-25T18:37:43.406Z",
+      "snippet": "Hiring Software Development Engineer for enterprise technology systems at Tanla",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
-  ]
+  ],
+  "depth": "standard"
 }

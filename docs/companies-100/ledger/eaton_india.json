@@ -13,7 +13,7 @@
       "value": "Eaton India Innovation Center LLP",
       "sourceKind": "official",
       "url": "https://www.eaton.com",
-      "retrievedAt": "2026-10-25T17:47:23.056Z",
+      "retrievedAt": "2026-10-25T18:20:08.997Z",
       "snippet": "Eaton India Innovation Center LLP",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://www.eaton.com",
       "sourceKind": "official",
       "url": "https://www.eaton.com",
-      "retrievedAt": "2026-10-25T17:47:23.056Z",
+      "retrievedAt": "2026-10-25T18:20:08.997Z",
       "snippet": "Official corporate website of Eaton India Innovation Center",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://www.eaton.com/in/en-gb/company/careers/india.html",
       "sourceKind": "official",
       "url": "https://www.eaton.com/in/en-gb/company/careers/india.html",
-      "retrievedAt": "2026-10-25T17:47:23.056Z",
+      "retrievedAt": "2026-10-25T18:20:08.997Z",
       "snippet": "Eaton India Innovation Center LLP maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://www.eaton.com/careers",
       "sourceKind": "official",
       "url": "https://www.eaton.com/careers",
-      "retrievedAt": "2026-10-25T17:47:23.056Z",
+      "retrievedAt": "2026-10-25T18:20:08.997Z",
       "snippet": "Eaton India Innovation Center Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "https://www.eaton.com/in/en-gb/company/careers/early-talent.html",
       "sourceKind": "official",
       "url": "https://www.eaton.com/in/en-gb/company/careers/early-talent.html",
-      "retrievedAt": "2026-10-25T17:47:23.056Z",
+      "retrievedAt": "2026-10-25T18:20:08.997Z",
       "snippet": "Eaton India Innovation Center early careers campus hiring",
       "extractedBy": "ai",
       "verify": {
@@ -88,7 +88,7 @@
       "value": "Pune, Maharashtra",
       "sourceKind": "official",
       "url": "https://www.eaton.com",
-      "retrievedAt": "2026-10-25T17:47:23.056Z",
+      "retrievedAt": "2026-10-25T18:20:08.997Z",
       "snippet": "headquartered in Pune, Maharashtra",
       "extractedBy": "ai",
       "verify": {
@@ -103,13 +103,94 @@
       "value": "Power Management Solutions & Electrical Engineering",
       "sourceKind": "official",
       "url": "https://www.eaton.com",
-      "retrievedAt": "2026-10-25T17:47:23.056Z",
+      "retrievedAt": "2026-10-25T18:20:08.997Z",
       "snippet": "Specializing in Power Management Solutions & Electrical Engineering",
       "extractedBy": "ai",
       "verify": {
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "eaton_india-eligibility-aggregatePercent",
+      "companyId": "eaton_india",
+      "field": "eligibility.aggregatePercent",
+      "value": 65,
+      "sourceKind": "official",
+      "url": "https://www.eaton.com/careers",
+      "retrievedAt": "2026-10-25T18:37:15.502Z",
+      "snippet": "65% aggregate",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "eaton_india-eligibility-backlogRule",
+      "companyId": "eaton_india",
+      "field": "eligibility.backlogRule",
+      "value": "no_active_backlogs",
+      "sourceKind": "official",
+      "url": "https://www.eaton.com/careers",
+      "retrievedAt": "2026-10-25T18:37:15.502Z",
+      "snippet": "zero active backlogs",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "eaton_india-eligibility-branches",
+      "companyId": "eaton_india",
+      "field": "eligibility.branches",
+      "value": [
+        "Electrical",
+        "Electronics",
+        "Mechanical",
+        "Computer Science"
+      ],
+      "sourceKind": "official",
+      "url": "https://www.eaton.com/careers",
+      "retrievedAt": "2026-10-25T18:37:15.502Z",
+      "snippet": "Engineering trainee program requires 65% aggregate score with",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "eaton_india-jobFamily-1",
+      "companyId": "eaton_india",
+      "field": "jobFamily",
+      "value": "embedded-engineer",
+      "sourceKind": "official",
+      "url": "https://www.eaton.com/careers",
+      "retrievedAt": "2026-10-25T18:37:15.502Z",
+      "snippet": "Embedded Firmware Developer implementing digital power distribution protection algorithms.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "eaton_india-jobFamily-2",
+      "companyId": "eaton_india",
+      "field": "jobFamily",
+      "value": "systems-software-engineer",
+      "sourceKind": "official",
+      "url": "https://www.eaton.com/careers",
+      "retrievedAt": "2026-10-25T18:37:15.502Z",
+      "snippet": "Systems Software Engineer validating intelligent microgrid control applications.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
-  ]
+  ],
+  "depth": "deep"
 }

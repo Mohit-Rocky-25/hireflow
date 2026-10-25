@@ -13,7 +13,7 @@
       "value": "Honeywell Technology Solutions Lab Private Limited",
       "sourceKind": "official",
       "url": "https://www.honeywell.com",
-      "retrievedAt": "2026-10-25T17:47:22.208Z",
+      "retrievedAt": "2026-10-25T18:20:08.814Z",
       "snippet": "Honeywell Technology Solutions Lab Private Limited",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://www.honeywell.com",
       "sourceKind": "official",
       "url": "https://www.honeywell.com",
-      "retrievedAt": "2026-10-25T17:47:22.208Z",
+      "retrievedAt": "2026-10-25T18:20:08.814Z",
       "snippet": "Official corporate website of Honeywell Technology Solutions (HTS)",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://www.honeywell.com/in/en/company/our-businesses/honeywell-technology-solutions",
       "sourceKind": "official",
       "url": "https://www.honeywell.com/in/en/company/our-businesses/honeywell-technology-solutions",
-      "retrievedAt": "2026-10-25T17:47:22.208Z",
+      "retrievedAt": "2026-10-25T18:20:08.814Z",
       "snippet": "Honeywell Technology Solutions Lab Private Limited maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://careers.honeywell.com",
       "sourceKind": "official",
       "url": "https://careers.honeywell.com",
-      "retrievedAt": "2026-10-25T17:47:22.208Z",
+      "retrievedAt": "2026-10-25T18:20:08.814Z",
       "snippet": "Honeywell Technology Solutions (HTS) Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "https://careers.honeywell.com/early-careers",
       "sourceKind": "official",
       "url": "https://careers.honeywell.com/early-careers",
-      "retrievedAt": "2026-10-25T17:47:22.208Z",
+      "retrievedAt": "2026-10-25T18:20:08.814Z",
       "snippet": "Honeywell Technology Solutions (HTS) early careers campus hiring",
       "extractedBy": "ai",
       "verify": {
@@ -88,7 +88,7 @@
       "value": "Bengaluru, Karnataka",
       "sourceKind": "official",
       "url": "https://www.honeywell.com",
-      "retrievedAt": "2026-10-25T17:47:22.208Z",
+      "retrievedAt": "2026-10-25T18:20:08.814Z",
       "snippet": "headquartered in Bengaluru, Karnataka",
       "extractedBy": "ai",
       "verify": {
@@ -103,13 +103,93 @@
       "value": "Aerospace, Industrial Automation & Connected Software",
       "sourceKind": "official",
       "url": "https://www.honeywell.com",
-      "retrievedAt": "2026-10-25T17:47:22.208Z",
+      "retrievedAt": "2026-10-25T18:20:08.814Z",
       "snippet": "Specializing in Aerospace, Industrial Automation & Connected Software",
       "extractedBy": "ai",
       "verify": {
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "honeywell_hts-eligibility-aggregatePercent",
+      "companyId": "honeywell_hts",
+      "field": "eligibility.aggregatePercent",
+      "value": 65,
+      "sourceKind": "official",
+      "url": "https://careers.honeywell.com",
+      "retrievedAt": "2026-10-25T18:37:07.467Z",
+      "snippet": "65% aggregate",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "honeywell_hts-eligibility-backlogRule",
+      "companyId": "honeywell_hts",
+      "field": "eligibility.backlogRule",
+      "value": "no_active_backlogs",
+      "sourceKind": "official",
+      "url": "https://careers.honeywell.com",
+      "retrievedAt": "2026-10-25T18:37:07.467Z",
+      "snippet": "zero active backlogs",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "honeywell_hts-eligibility-branches",
+      "companyId": "honeywell_hts",
+      "field": "eligibility.branches",
+      "value": [
+        "Computer Science",
+        "Electronics and Communication",
+        "Mechanical"
+      ],
+      "sourceKind": "official",
+      "url": "https://careers.honeywell.com",
+      "retrievedAt": "2026-10-25T18:37:07.467Z",
+      "snippet": "HTS university recruitment requires 65% aggregate marks with",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "honeywell_hts-jobFamily-1",
+      "companyId": "honeywell_hts",
+      "field": "jobFamily",
+      "value": "embedded-engineer",
+      "sourceKind": "official",
+      "url": "https://careers.honeywell.com",
+      "retrievedAt": "2026-10-25T18:37:07.467Z",
+      "snippet": "Embedded Systems Engineer developing avionics displays and flight management firmware.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "honeywell_hts-jobFamily-2",
+      "companyId": "honeywell_hts",
+      "field": "jobFamily",
+      "value": "software-engineer",
+      "sourceKind": "official",
+      "url": "https://careers.honeywell.com",
+      "retrievedAt": "2026-10-25T18:37:07.467Z",
+      "snippet": "Software Engineer developing industrial IoT connected building solutions.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
-  ]
+  ],
+  "depth": "deep"
 }

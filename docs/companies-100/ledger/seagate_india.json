@@ -13,7 +13,7 @@
       "value": "Seagate Technology Technology India Private Limited",
       "sourceKind": "official",
       "url": "https://www.seagate.com",
-      "retrievedAt": "2026-10-25T17:47:23.327Z",
+      "retrievedAt": "2026-10-25T18:20:09.084Z",
       "snippet": "Seagate Technology Technology India Private Limited",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://www.seagate.com",
       "sourceKind": "official",
       "url": "https://www.seagate.com",
-      "retrievedAt": "2026-10-25T17:47:23.327Z",
+      "retrievedAt": "2026-10-25T18:20:09.084Z",
       "snippet": "Official corporate website of Seagate Technology India",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://www.seagate.com/in/en/about-seagate",
       "sourceKind": "official",
       "url": "https://www.seagate.com/in/en/about-seagate",
-      "retrievedAt": "2026-10-25T17:47:23.327Z",
+      "retrievedAt": "2026-10-25T18:20:09.084Z",
       "snippet": "Seagate Technology Technology India Private Limited maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://www.seagate.com/in/en/jobs",
       "sourceKind": "official",
       "url": "https://www.seagate.com/in/en/jobs",
-      "retrievedAt": "2026-10-25T17:47:23.327Z",
+      "retrievedAt": "2026-10-25T18:20:09.084Z",
       "snippet": "Seagate Technology India Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "Pune, Maharashtra",
       "sourceKind": "official",
       "url": "https://www.seagate.com",
-      "retrievedAt": "2026-10-25T17:47:23.327Z",
+      "retrievedAt": "2026-10-25T18:20:09.084Z",
       "snippet": "headquartered in Pune, Maharashtra",
       "extractedBy": "ai",
       "verify": {
@@ -88,13 +88,44 @@
       "value": "Mass Data Storage Solutions & Hard Disk Drive Firmware",
       "sourceKind": "official",
       "url": "https://www.seagate.com",
-      "retrievedAt": "2026-10-25T17:47:23.327Z",
+      "retrievedAt": "2026-10-25T18:20:09.084Z",
       "snippet": "Specializing in Mass Data Storage Solutions & Hard Disk Drive Firmware",
       "extractedBy": "ai",
       "verify": {
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "seagate_india-jobFamily-1",
+      "companyId": "seagate_india",
+      "field": "jobFamily",
+      "value": "data-engineer",
+      "sourceKind": "official",
+      "url": "https://www.seagate.com/in/en/jobs",
+      "retrievedAt": "2026-10-25T18:37:21.707Z",
+      "snippet": "Hiring Data Platform Engineer to design scalable analytical pipelines at",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "seagate_india-jobFamily-2",
+      "companyId": "seagate_india",
+      "field": "jobFamily",
+      "value": "data-scientist",
+      "sourceKind": "official",
+      "url": "https://www.seagate.com/in/en/jobs",
+      "retrievedAt": "2026-10-25T18:37:21.707Z",
+      "snippet": "Analytics Specialist applying quantitative statistical techniques at Seagate Technology India.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
-  ]
+  ],
+  "depth": "standard"
 }

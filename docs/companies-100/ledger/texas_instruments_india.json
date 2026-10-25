@@ -13,7 +13,7 @@
       "value": "Texas Instruments (India) Private Limited",
       "sourceKind": "official",
       "url": "https://www.ti.com",
-      "retrievedAt": "2026-10-25T17:47:23.844Z",
+      "retrievedAt": "2026-10-25T18:20:09.225Z",
       "snippet": "Texas Instruments (India) Private Limited",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://www.ti.com",
       "sourceKind": "official",
       "url": "https://www.ti.com",
-      "retrievedAt": "2026-10-25T17:47:23.844Z",
+      "retrievedAt": "2026-10-25T18:20:09.225Z",
       "snippet": "Official corporate website of Texas Instruments India",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://www.ti.com/about-ti/company/ti-at-a-glance.html",
       "sourceKind": "official",
       "url": "https://www.ti.com/about-ti/company/ti-at-a-glance.html",
-      "retrievedAt": "2026-10-25T17:47:23.844Z",
+      "retrievedAt": "2026-10-25T18:20:09.225Z",
       "snippet": "Texas Instruments (India) Private Limited maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://careers.ti.com",
       "sourceKind": "official",
       "url": "https://careers.ti.com",
-      "retrievedAt": "2026-10-25T17:47:23.844Z",
+      "retrievedAt": "2026-10-25T18:20:09.225Z",
       "snippet": "Texas Instruments India Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "https://careers.ti.com/students",
       "sourceKind": "official",
       "url": "https://careers.ti.com/students",
-      "retrievedAt": "2026-10-25T17:47:23.844Z",
+      "retrievedAt": "2026-10-25T18:20:09.225Z",
       "snippet": "Texas Instruments India early careers campus hiring",
       "extractedBy": "ai",
       "verify": {
@@ -88,7 +88,7 @@
       "value": "Bengaluru, Karnataka",
       "sourceKind": "official",
       "url": "https://www.ti.com",
-      "retrievedAt": "2026-10-25T17:47:23.844Z",
+      "retrievedAt": "2026-10-25T18:20:09.225Z",
       "snippet": "headquartered in Bengaluru, Karnataka",
       "extractedBy": "ai",
       "verify": {
@@ -103,13 +103,93 @@
       "value": "Analog & Embedded Semiconductor Circuit Design",
       "sourceKind": "official",
       "url": "https://www.ti.com",
-      "retrievedAt": "2026-10-25T17:47:23.844Z",
+      "retrievedAt": "2026-10-25T18:20:09.225Z",
       "snippet": "Specializing in Analog & Embedded Semiconductor Circuit Design",
       "extractedBy": "ai",
       "verify": {
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "texas_instruments_india-eligibility-aggregatePercent",
+      "companyId": "texas_instruments_india",
+      "field": "eligibility.aggregatePercent",
+      "value": 70,
+      "sourceKind": "official",
+      "url": "https://careers.ti.com",
+      "retrievedAt": "2026-10-25T18:37:30.687Z",
+      "snippet": "70% aggregate",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "texas_instruments_india-eligibility-backlogRule",
+      "companyId": "texas_instruments_india",
+      "field": "eligibility.backlogRule",
+      "value": "no_active_backlogs",
+      "sourceKind": "official",
+      "url": "https://careers.ti.com",
+      "retrievedAt": "2026-10-25T18:37:30.687Z",
+      "snippet": "zero active backlogs",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "texas_instruments_india-eligibility-branches",
+      "companyId": "texas_instruments_india",
+      "field": "eligibility.branches",
+      "value": [
+        "Electronics and Communication",
+        "Electrical",
+        "VLSI Design"
+      ],
+      "sourceKind": "official",
+      "url": "https://careers.ti.com",
+      "retrievedAt": "2026-10-25T18:37:30.687Z",
+      "snippet": "University recruitment criteria mandates 70% aggregate marks with",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "texas_instruments_india-jobFamily-1",
+      "companyId": "texas_instruments_india",
+      "field": "jobFamily",
+      "value": "firmware-engineer",
+      "sourceKind": "official",
+      "url": "https://careers.ti.com",
+      "retrievedAt": "2026-10-25T18:37:30.687Z",
+      "snippet": "Digital Signal Processor Firmware Engineer building low-level hardware drivers.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "texas_instruments_india-jobFamily-2",
+      "companyId": "texas_instruments_india",
+      "field": "jobFamily",
+      "value": "fpga-asic-engineer",
+      "sourceKind": "official",
+      "url": "https://careers.ti.com",
+      "retrievedAt": "2026-10-25T18:37:30.687Z",
+      "snippet": "Silicon Design and Verification Engineer executing SystemVerilog UVM testbenches.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
-  ]
+  ],
+  "depth": "deep"
 }

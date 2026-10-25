@@ -13,7 +13,7 @@
       "value": "Continental Automotive Components (India) Private Limited",
       "sourceKind": "official",
       "url": "https://www.continental.com",
-      "retrievedAt": "2026-10-25T17:47:22.374Z",
+      "retrievedAt": "2026-10-25T18:20:08.860Z",
       "snippet": "Continental Automotive Components (India) Private Limited",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://www.continental.com",
       "sourceKind": "official",
       "url": "https://www.continental.com",
-      "retrievedAt": "2026-10-25T17:47:22.374Z",
+      "retrievedAt": "2026-10-25T18:20:08.860Z",
       "snippet": "Official corporate website of Continental Automotive India",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://www.continental.com/en-in/career",
       "sourceKind": "official",
       "url": "https://www.continental.com/en-in/career",
-      "retrievedAt": "2026-10-25T17:47:22.374Z",
+      "retrievedAt": "2026-10-25T18:20:08.860Z",
       "snippet": "Continental Automotive Components (India) Private Limited maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://www.continental-jobs.com",
       "sourceKind": "official",
       "url": "https://www.continental-jobs.com",
-      "retrievedAt": "2026-10-25T17:47:22.374Z",
+      "retrievedAt": "2026-10-25T18:20:08.860Z",
       "snippet": "Continental Automotive India Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "https://www.continental.com/en-in/career/entry-level/students-graduates",
       "sourceKind": "official",
       "url": "https://www.continental.com/en-in/career/entry-level/students-graduates",
-      "retrievedAt": "2026-10-25T17:47:22.374Z",
+      "retrievedAt": "2026-10-25T18:20:08.860Z",
       "snippet": "Continental Automotive India early careers campus hiring",
       "extractedBy": "ai",
       "verify": {
@@ -88,7 +88,7 @@
       "value": "Bengaluru, Karnataka",
       "sourceKind": "official",
       "url": "https://www.continental.com",
-      "retrievedAt": "2026-10-25T17:47:22.374Z",
+      "retrievedAt": "2026-10-25T18:20:08.860Z",
       "snippet": "headquartered in Bengaluru, Karnataka",
       "extractedBy": "ai",
       "verify": {
@@ -103,13 +103,93 @@
       "value": "Autonomous Mobility, ADAS & Vehicle Safety Electronics",
       "sourceKind": "official",
       "url": "https://www.continental.com",
-      "retrievedAt": "2026-10-25T17:47:22.374Z",
+      "retrievedAt": "2026-10-25T18:20:08.860Z",
       "snippet": "Specializing in Autonomous Mobility, ADAS & Vehicle Safety Electronics",
       "extractedBy": "ai",
       "verify": {
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "continental_automotive-eligibility-aggregatePercent",
+      "companyId": "continental_automotive",
+      "field": "eligibility.aggregatePercent",
+      "value": 65,
+      "sourceKind": "official",
+      "url": "https://www.continental-jobs.com",
+      "retrievedAt": "2026-10-25T18:37:07.818Z",
+      "snippet": "65% aggregate",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "continental_automotive-eligibility-backlogRule",
+      "companyId": "continental_automotive",
+      "field": "eligibility.backlogRule",
+      "value": "no_active_backlogs",
+      "sourceKind": "official",
+      "url": "https://www.continental-jobs.com",
+      "retrievedAt": "2026-10-25T18:37:07.818Z",
+      "snippet": "zero active backlogs",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "continental_automotive-eligibility-branches",
+      "companyId": "continental_automotive",
+      "field": "eligibility.branches",
+      "value": [
+        "Electronics and Communication",
+        "Electrical",
+        "Computer Science"
+      ],
+      "sourceKind": "official",
+      "url": "https://www.continental-jobs.com",
+      "retrievedAt": "2026-10-25T18:37:07.818Z",
+      "snippet": "University relations criteria specifies 65% aggregate score with",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "continental_automotive-jobFamily-1",
+      "companyId": "continental_automotive",
+      "field": "jobFamily",
+      "value": "embedded-engineer",
+      "sourceKind": "official",
+      "url": "https://www.continental-jobs.com",
+      "retrievedAt": "2026-10-25T18:37:07.818Z",
+      "snippet": "Embedded Software Engineer developing brake systems and passive safety modules.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "continental_automotive-jobFamily-2",
+      "companyId": "continental_automotive",
+      "field": "jobFamily",
+      "value": "automotive-software-engineer",
+      "sourceKind": "official",
+      "url": "https://www.continental-jobs.com",
+      "retrievedAt": "2026-10-25T18:37:07.818Z",
+      "snippet": "Vehicle Networking Software Engineer integrating CAN and Ethernet protocols.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
-  ]
+  ],
+  "depth": "deep"
 }

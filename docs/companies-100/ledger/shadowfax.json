@@ -13,7 +13,7 @@
       "value": "Shadowfax Technologies Private Limited",
       "sourceKind": "official",
       "url": "https://www.shadowfax.in",
-      "retrievedAt": "2026-10-25T17:47:24.080Z",
+      "retrievedAt": "2026-10-25T18:20:09.388Z",
       "snippet": "Shadowfax Technologies Private Limited",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://www.shadowfax.in",
       "sourceKind": "official",
       "url": "https://www.shadowfax.in",
-      "retrievedAt": "2026-10-25T17:47:24.080Z",
+      "retrievedAt": "2026-10-25T18:20:09.388Z",
       "snippet": "Official corporate website of Shadowfax Technologies",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://www.shadowfax.in/about-us",
       "sourceKind": "official",
       "url": "https://www.shadowfax.in/about-us",
-      "retrievedAt": "2026-10-25T17:47:24.080Z",
+      "retrievedAt": "2026-10-25T18:20:09.388Z",
       "snippet": "Shadowfax Technologies Private Limited maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://www.shadowfax.in/careers",
       "sourceKind": "official",
       "url": "https://www.shadowfax.in/careers",
-      "retrievedAt": "2026-10-25T17:47:24.080Z",
+      "retrievedAt": "2026-10-25T18:20:09.388Z",
       "snippet": "Shadowfax Technologies Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "Bengaluru, Karnataka",
       "sourceKind": "official",
       "url": "https://www.shadowfax.in",
-      "retrievedAt": "2026-10-25T17:47:24.080Z",
+      "retrievedAt": "2026-10-25T18:20:09.388Z",
       "snippet": "headquartered in Bengaluru, Karnataka",
       "extractedBy": "ai",
       "verify": {
@@ -88,13 +88,29 @@
       "value": "Crowdsourced Hyperlocal Delivery & Express Logistics",
       "sourceKind": "official",
       "url": "https://www.shadowfax.in",
-      "retrievedAt": "2026-10-25T17:47:24.080Z",
+      "retrievedAt": "2026-10-25T18:20:09.388Z",
       "snippet": "Specializing in Crowdsourced Hyperlocal Delivery & Express Logistics",
       "extractedBy": "ai",
       "verify": {
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "shadowfax-jobFamily-1",
+      "companyId": "shadowfax",
+      "field": "jobFamily",
+      "value": "software-engineer",
+      "sourceKind": "official",
+      "url": "https://www.shadowfax.in/careers",
+      "retrievedAt": "2026-10-25T18:37:39.315Z",
+      "snippet": "Hiring Software Development Engineer for enterprise technology systems at Shadowfax",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
-  ]
+  ],
+  "depth": "standard"
 }

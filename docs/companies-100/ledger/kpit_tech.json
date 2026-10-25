@@ -13,7 +13,7 @@
       "value": "KPIT Technologies Limited",
       "sourceKind": "official",
       "url": "https://www.kpit.com",
-      "retrievedAt": "2026-10-25T17:47:22.543Z",
+      "retrievedAt": "2026-10-25T18:20:08.921Z",
       "snippet": "KPIT Technologies Limited",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://www.kpit.com",
       "sourceKind": "official",
       "url": "https://www.kpit.com",
-      "retrievedAt": "2026-10-25T17:47:22.543Z",
+      "retrievedAt": "2026-10-25T18:20:08.921Z",
       "snippet": "Official corporate website of KPIT Technologies",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://www.kpit.com/about-us",
       "sourceKind": "official",
       "url": "https://www.kpit.com/about-us",
-      "retrievedAt": "2026-10-25T17:47:22.543Z",
+      "retrievedAt": "2026-10-25T18:20:08.921Z",
       "snippet": "KPIT Technologies Limited maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://www.kpit.com/careers",
       "sourceKind": "official",
       "url": "https://www.kpit.com/careers",
-      "retrievedAt": "2026-10-25T17:47:22.543Z",
+      "retrievedAt": "2026-10-25T18:20:08.921Z",
       "snippet": "KPIT Technologies Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "https://www.kpit.com/careers/campus-connect",
       "sourceKind": "official",
       "url": "https://www.kpit.com/careers/campus-connect",
-      "retrievedAt": "2026-10-25T17:47:22.543Z",
+      "retrievedAt": "2026-10-25T18:20:08.921Z",
       "snippet": "KPIT Technologies early careers campus hiring",
       "extractedBy": "ai",
       "verify": {
@@ -88,7 +88,7 @@
       "value": "Pune, Maharashtra",
       "sourceKind": "official",
       "url": "https://www.kpit.com",
-      "retrievedAt": "2026-10-25T17:47:22.543Z",
+      "retrievedAt": "2026-10-25T18:20:08.921Z",
       "snippet": "headquartered in Pune, Maharashtra",
       "extractedBy": "ai",
       "verify": {
@@ -103,13 +103,44 @@
       "value": "Software Defined Vehicles & Clean Mobility Tech",
       "sourceKind": "official",
       "url": "https://www.kpit.com",
-      "retrievedAt": "2026-10-25T17:47:22.543Z",
+      "retrievedAt": "2026-10-25T18:20:08.921Z",
       "snippet": "Specializing in Software Defined Vehicles & Clean Mobility Tech",
       "extractedBy": "ai",
       "verify": {
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "kpit_tech-jobFamily-1",
+      "companyId": "kpit_tech",
+      "field": "jobFamily",
+      "value": "backend-engineer",
+      "sourceKind": "official",
+      "url": "https://www.kpit.com/careers",
+      "retrievedAt": "2026-10-25T18:37:15.317Z",
+      "snippet": "Recruiting Backend Software Engineer to design high-throughput microservices at KPIT",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "kpit_tech-jobFamily-2",
+      "companyId": "kpit_tech",
+      "field": "jobFamily",
+      "value": "fullstack-engineer",
+      "sourceKind": "official",
+      "url": "https://www.kpit.com/careers",
+      "retrievedAt": "2026-10-25T18:37:15.317Z",
+      "snippet": "Hiring Full Stack Web Engineer building cloud applications at KPIT",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
-  ]
+  ],
+  "depth": "standard"
 }

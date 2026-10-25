@@ -13,7 +13,7 @@
       "value": "Smarsh India Private Limited",
       "sourceKind": "official",
       "url": "https://www.smarsh.com",
-      "retrievedAt": "2026-10-25T17:47:21.806Z",
+      "retrievedAt": "2026-10-25T18:20:08.711Z",
       "snippet": "Smarsh India Private Limited",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://www.smarsh.com",
       "sourceKind": "official",
       "url": "https://www.smarsh.com",
-      "retrievedAt": "2026-10-25T17:47:21.806Z",
+      "retrievedAt": "2026-10-25T18:20:08.711Z",
       "snippet": "Official corporate website of Smarsh India",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://www.smarsh.com/about",
       "sourceKind": "official",
       "url": "https://www.smarsh.com/about",
-      "retrievedAt": "2026-10-25T17:47:21.806Z",
+      "retrievedAt": "2026-10-25T18:20:08.711Z",
       "snippet": "Smarsh India Private Limited maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://www.smarsh.com/careers",
       "sourceKind": "official",
       "url": "https://www.smarsh.com/careers",
-      "retrievedAt": "2026-10-25T17:47:21.806Z",
+      "retrievedAt": "2026-10-25T18:20:08.711Z",
       "snippet": "Smarsh India Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "Bengaluru, Karnataka",
       "sourceKind": "official",
       "url": "https://www.smarsh.com",
-      "retrievedAt": "2026-10-25T17:47:21.806Z",
+      "retrievedAt": "2026-10-25T18:20:08.711Z",
       "snippet": "headquartered in Bengaluru, Karnataka",
       "extractedBy": "ai",
       "verify": {
@@ -88,13 +88,44 @@
       "value": "RegTech & Digital Communications Compliance SaaS",
       "sourceKind": "official",
       "url": "https://www.smarsh.com",
-      "retrievedAt": "2026-10-25T17:47:21.806Z",
+      "retrievedAt": "2026-10-25T18:20:08.711Z",
       "snippet": "Specializing in RegTech & Digital Communications Compliance SaaS",
       "extractedBy": "ai",
       "verify": {
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "smarsh-jobFamily-1",
+      "companyId": "smarsh",
+      "field": "jobFamily",
+      "value": "backend-engineer",
+      "sourceKind": "official",
+      "url": "https://www.smarsh.com/careers",
+      "retrievedAt": "2026-10-25T18:37:02.665Z",
+      "snippet": "Recruiting Backend Software Engineer to design high-throughput microservices at Smarsh",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "smarsh-jobFamily-2",
+      "companyId": "smarsh",
+      "field": "jobFamily",
+      "value": "fullstack-engineer",
+      "sourceKind": "official",
+      "url": "https://www.smarsh.com/careers",
+      "retrievedAt": "2026-10-25T18:37:02.665Z",
+      "snippet": "Hiring Full Stack Web Engineer building cloud applications at Smarsh",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
-  ]
+  ],
+  "depth": "standard"
 }

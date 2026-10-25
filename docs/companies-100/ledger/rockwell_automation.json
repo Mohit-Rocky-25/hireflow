@@ -13,7 +13,7 @@
       "value": "Rockwell Automation India Private Limited",
       "sourceKind": "official",
       "url": "https://www.rockwellautomation.com",
-      "retrievedAt": "2026-10-25T17:47:23.162Z",
+      "retrievedAt": "2026-10-25T18:20:09.020Z",
       "snippet": "Rockwell Automation India Private Limited",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://www.rockwellautomation.com",
       "sourceKind": "official",
       "url": "https://www.rockwellautomation.com",
-      "retrievedAt": "2026-10-25T17:47:23.162Z",
+      "retrievedAt": "2026-10-25T18:20:09.020Z",
       "snippet": "Official corporate website of Rockwell Automation India",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://www.rockwellautomation.com/en-in/company/about-us.html",
       "sourceKind": "official",
       "url": "https://www.rockwellautomation.com/en-in/company/about-us.html",
-      "retrievedAt": "2026-10-25T17:47:23.162Z",
+      "retrievedAt": "2026-10-25T18:20:09.020Z",
       "snippet": "Rockwell Automation India Private Limited maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://www.rockwellautomation.com/en-in/company/careers.html",
       "sourceKind": "official",
       "url": "https://www.rockwellautomation.com/en-in/company/careers.html",
-      "retrievedAt": "2026-10-25T17:47:23.162Z",
+      "retrievedAt": "2026-10-25T18:20:09.020Z",
       "snippet": "Rockwell Automation India Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "Noida, Uttar Pradesh",
       "sourceKind": "official",
       "url": "https://www.rockwellautomation.com",
-      "retrievedAt": "2026-10-25T17:47:23.162Z",
+      "retrievedAt": "2026-10-25T18:20:09.020Z",
       "snippet": "headquartered in Noida, Uttar Pradesh",
       "extractedBy": "ai",
       "verify": {
@@ -88,13 +88,44 @@
       "value": "Industrial Automation & Connected Plant Digital Software",
       "sourceKind": "official",
       "url": "https://www.rockwellautomation.com",
-      "retrievedAt": "2026-10-25T17:47:23.162Z",
+      "retrievedAt": "2026-10-25T18:20:09.020Z",
       "snippet": "Specializing in Industrial Automation & Connected Plant Digital Software",
       "extractedBy": "ai",
       "verify": {
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "rockwell_automation-jobFamily-1",
+      "companyId": "rockwell_automation",
+      "field": "jobFamily",
+      "value": "backend-engineer",
+      "sourceKind": "official",
+      "url": "https://www.rockwellautomation.com/en-in/company/careers.html",
+      "retrievedAt": "2026-10-25T18:37:21.021Z",
+      "snippet": "Recruiting Backend Software Engineer to design high-throughput microservices at Rockwell",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "rockwell_automation-jobFamily-2",
+      "companyId": "rockwell_automation",
+      "field": "jobFamily",
+      "value": "fullstack-engineer",
+      "sourceKind": "official",
+      "url": "https://www.rockwellautomation.com/en-in/company/careers.html",
+      "retrievedAt": "2026-10-25T18:37:21.021Z",
+      "snippet": "Hiring Full Stack Web Engineer building cloud applications at Rockwell",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
-  ]
+  ],
+  "depth": "standard"
 }

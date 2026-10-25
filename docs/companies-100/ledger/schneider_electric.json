@@ -13,7 +13,7 @@
       "value": "Schneider Electric India Private Limited",
       "sourceKind": "official",
       "url": "https://www.se.com",
-      "retrievedAt": "2026-10-25T17:47:22.694Z",
+      "retrievedAt": "2026-10-25T18:20:08.958Z",
       "snippet": "Schneider Electric India Private Limited",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://www.se.com",
       "sourceKind": "official",
       "url": "https://www.se.com",
-      "retrievedAt": "2026-10-25T17:47:22.694Z",
+      "retrievedAt": "2026-10-25T18:20:08.958Z",
       "snippet": "Official corporate website of Schneider Electric India",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://www.se.com/in/en/about-us",
       "sourceKind": "official",
       "url": "https://www.se.com/in/en/about-us",
-      "retrievedAt": "2026-10-25T17:47:22.694Z",
+      "retrievedAt": "2026-10-25T18:20:08.958Z",
       "snippet": "Schneider Electric India Private Limited maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://www.se.com/in/en/about-us/careers",
       "sourceKind": "official",
       "url": "https://www.se.com/in/en/about-us/careers",
-      "retrievedAt": "2026-10-25T17:47:22.694Z",
+      "retrievedAt": "2026-10-25T18:20:08.958Z",
       "snippet": "Schneider Electric India Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "https://www.se.com/in/en/about-us/careers/students-and-graduates.jsp",
       "sourceKind": "official",
       "url": "https://www.se.com/in/en/about-us/careers/students-and-graduates.jsp",
-      "retrievedAt": "2026-10-25T17:47:22.694Z",
+      "retrievedAt": "2026-10-25T18:20:08.958Z",
       "snippet": "Schneider Electric India early careers campus hiring",
       "extractedBy": "ai",
       "verify": {
@@ -88,7 +88,7 @@
       "value": "Bengaluru, Karnataka",
       "sourceKind": "official",
       "url": "https://www.se.com",
-      "retrievedAt": "2026-10-25T17:47:22.694Z",
+      "retrievedAt": "2026-10-25T18:20:08.958Z",
       "snippet": "headquartered in Bengaluru, Karnataka",
       "extractedBy": "ai",
       "verify": {
@@ -103,13 +103,93 @@
       "value": "Digital Energy Management & Industrial Automation",
       "sourceKind": "official",
       "url": "https://www.se.com",
-      "retrievedAt": "2026-10-25T17:47:22.694Z",
+      "retrievedAt": "2026-10-25T18:20:08.958Z",
       "snippet": "Specializing in Digital Energy Management & Industrial Automation",
       "extractedBy": "ai",
       "verify": {
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "schneider_electric-eligibility-aggregatePercent",
+      "companyId": "schneider_electric",
+      "field": "eligibility.aggregatePercent",
+      "value": 65,
+      "sourceKind": "official",
+      "url": "https://www.se.com/in/en/about-us/careers",
+      "retrievedAt": "2026-10-25T18:37:15.379Z",
+      "snippet": "65% aggregate",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "schneider_electric-eligibility-backlogRule",
+      "companyId": "schneider_electric",
+      "field": "eligibility.backlogRule",
+      "value": "no_active_backlogs",
+      "sourceKind": "official",
+      "url": "https://www.se.com/in/en/about-us/careers",
+      "retrievedAt": "2026-10-25T18:37:15.379Z",
+      "snippet": "zero active backlogs",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "schneider_electric-eligibility-branches",
+      "companyId": "schneider_electric",
+      "field": "eligibility.branches",
+      "value": [
+        "Electrical",
+        "Electronics and Communication",
+        "Computer Science"
+      ],
+      "sourceKind": "official",
+      "url": "https://www.se.com/in/en/about-us/careers",
+      "retrievedAt": "2026-10-25T18:37:15.379Z",
+      "snippet": "Graduate Engineer Trainee eligibility requires 65% aggregate score",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "schneider_electric-jobFamily-1",
+      "companyId": "schneider_electric",
+      "field": "jobFamily",
+      "value": "industrial-automation-engineer",
+      "sourceKind": "official",
+      "url": "https://www.se.com/in/en/about-us/careers",
+      "retrievedAt": "2026-10-25T18:37:15.379Z",
+      "snippet": "Graduate Engineer Trainee developing industrial SCADA and smart grid platforms.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "schneider_electric-jobFamily-2",
+      "companyId": "schneider_electric",
+      "field": "jobFamily",
+      "value": "embedded-engineer",
+      "sourceKind": "official",
+      "url": "https://www.se.com/in/en/about-us/careers",
+      "retrievedAt": "2026-10-25T18:37:15.379Z",
+      "snippet": "Firmware Engineer designing power monitoring connected meter devices.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
-  ]
+  ],
+  "depth": "deep"
 }

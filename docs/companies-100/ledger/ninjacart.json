@@ -13,7 +13,7 @@
       "value": "63Ideas Infolabs Private Limited",
       "sourceKind": "official",
       "url": "https://www.ninjacart.com",
-      "retrievedAt": "2026-10-25T17:47:24.333Z",
+      "retrievedAt": "2026-10-25T18:20:09.603Z",
       "snippet": "63Ideas Infolabs Private Limited",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://www.ninjacart.com",
       "sourceKind": "official",
       "url": "https://www.ninjacart.com",
-      "retrievedAt": "2026-10-25T17:47:24.333Z",
+      "retrievedAt": "2026-10-25T18:20:09.603Z",
       "snippet": "Official corporate website of Ninjacart",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://www.ninjacart.com/about",
       "sourceKind": "official",
       "url": "https://www.ninjacart.com/about",
-      "retrievedAt": "2026-10-25T17:47:24.333Z",
+      "retrievedAt": "2026-10-25T18:20:09.603Z",
       "snippet": "63Ideas Infolabs Private Limited maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://www.ninjacart.com/careers",
       "sourceKind": "official",
       "url": "https://www.ninjacart.com/careers",
-      "retrievedAt": "2026-10-25T17:47:24.333Z",
+      "retrievedAt": "2026-10-25T18:20:09.603Z",
       "snippet": "Ninjacart Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "Bengaluru, Karnataka",
       "sourceKind": "official",
       "url": "https://www.ninjacart.com",
-      "retrievedAt": "2026-10-25T17:47:24.333Z",
+      "retrievedAt": "2026-10-25T18:20:09.603Z",
       "snippet": "headquartered in Bengaluru, Karnataka",
       "extractedBy": "ai",
       "verify": {
@@ -88,13 +88,44 @@
       "value": "Agritech B2B Fresh Produce Supply Chain Tech",
       "sourceKind": "official",
       "url": "https://www.ninjacart.com",
-      "retrievedAt": "2026-10-25T17:47:24.333Z",
+      "retrievedAt": "2026-10-25T18:20:09.603Z",
       "snippet": "Specializing in Agritech B2B Fresh Produce Supply Chain Tech",
       "extractedBy": "ai",
       "verify": {
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "ninjacart-jobFamily-1",
+      "companyId": "ninjacart",
+      "field": "jobFamily",
+      "value": "data-engineer",
+      "sourceKind": "official",
+      "url": "https://www.ninjacart.com/careers",
+      "retrievedAt": "2026-10-25T18:37:44.073Z",
+      "snippet": "Hiring Data Platform Engineer to design scalable analytical pipelines at",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "ninjacart-jobFamily-2",
+      "companyId": "ninjacart",
+      "field": "jobFamily",
+      "value": "data-scientist",
+      "sourceKind": "official",
+      "url": "https://www.ninjacart.com/careers",
+      "retrievedAt": "2026-10-25T18:37:44.073Z",
+      "snippet": "Analytics Specialist applying quantitative statistical techniques at Ninjacart.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
-  ]
+  ],
+  "depth": "standard"
 }

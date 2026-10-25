@@ -13,7 +13,7 @@
       "value": "Quantiphi Analytics Solutions Private Limited",
       "sourceKind": "official",
       "url": "https://quantiphi.com",
-      "retrievedAt": "2026-10-25T17:47:23.723Z",
+      "retrievedAt": "2026-10-25T18:20:09.155Z",
       "snippet": "Quantiphi Analytics Solutions Private Limited",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://quantiphi.com",
       "sourceKind": "official",
       "url": "https://quantiphi.com",
-      "retrievedAt": "2026-10-25T17:47:23.723Z",
+      "retrievedAt": "2026-10-25T18:20:09.155Z",
       "snippet": "Official corporate website of Quantiphi",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://quantiphi.com/about-us",
       "sourceKind": "official",
       "url": "https://quantiphi.com/about-us",
-      "retrievedAt": "2026-10-25T17:47:23.723Z",
+      "retrievedAt": "2026-10-25T18:20:09.155Z",
       "snippet": "Quantiphi Analytics Solutions Private Limited maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://quantiphi.com/careers",
       "sourceKind": "official",
       "url": "https://quantiphi.com/careers",
-      "retrievedAt": "2026-10-25T17:47:23.723Z",
+      "retrievedAt": "2026-10-25T18:20:09.155Z",
       "snippet": "Quantiphi Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "https://quantiphi.com/careers/campus-connect",
       "sourceKind": "official",
       "url": "https://quantiphi.com/careers/campus-connect",
-      "retrievedAt": "2026-10-25T17:47:23.723Z",
+      "retrievedAt": "2026-10-25T18:20:09.155Z",
       "snippet": "Quantiphi early careers campus hiring",
       "extractedBy": "ai",
       "verify": {
@@ -88,7 +88,7 @@
       "value": "Mumbai / Bengaluru",
       "sourceKind": "official",
       "url": "https://quantiphi.com",
-      "retrievedAt": "2026-10-25T17:47:23.723Z",
+      "retrievedAt": "2026-10-25T18:20:09.155Z",
       "snippet": "headquartered in Mumbai / Bengaluru",
       "extractedBy": "ai",
       "verify": {
@@ -103,13 +103,93 @@
       "value": "Applied AI & Cloud Transformation Engineering",
       "sourceKind": "official",
       "url": "https://quantiphi.com",
-      "retrievedAt": "2026-10-25T17:47:23.723Z",
+      "retrievedAt": "2026-10-25T18:20:09.155Z",
       "snippet": "Specializing in Applied AI & Cloud Transformation Engineering",
       "extractedBy": "ai",
       "verify": {
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "quantiphi-eligibility-aggregatePercent",
+      "companyId": "quantiphi",
+      "field": "eligibility.aggregatePercent",
+      "value": 60,
+      "sourceKind": "official",
+      "url": "https://quantiphi.com/careers",
+      "retrievedAt": "2026-10-25T18:37:30.069Z",
+      "snippet": "60% aggregate",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "quantiphi-eligibility-backlogRule",
+      "companyId": "quantiphi",
+      "field": "eligibility.backlogRule",
+      "value": "no_active_backlogs",
+      "sourceKind": "official",
+      "url": "https://quantiphi.com/careers",
+      "retrievedAt": "2026-10-25T18:37:30.069Z",
+      "snippet": "zero active backlogs",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "quantiphi-eligibility-branches",
+      "companyId": "quantiphi",
+      "field": "eligibility.branches",
+      "value": [
+        "Computer Science",
+        "Information Technology",
+        "Circuital"
+      ],
+      "sourceKind": "official",
+      "url": "https://quantiphi.com/careers",
+      "retrievedAt": "2026-10-25T18:37:30.069Z",
+      "snippet": "Campus recruitment standard requires 60% aggregate score with",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "quantiphi-jobFamily-1",
+      "companyId": "quantiphi",
+      "field": "jobFamily",
+      "value": "ml-engineer",
+      "sourceKind": "official",
+      "url": "https://quantiphi.com/careers",
+      "retrievedAt": "2026-10-25T18:37:30.069Z",
+      "snippet": "Applied AI Engineer implementing generative language models and document intelligence.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "quantiphi-jobFamily-2",
+      "companyId": "quantiphi",
+      "field": "jobFamily",
+      "value": "data-engineer",
+      "sourceKind": "official",
+      "url": "https://quantiphi.com/careers",
+      "retrievedAt": "2026-10-25T18:37:30.069Z",
+      "snippet": "Big Data Engineer architecting distributed data flows on Google Cloud",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
-  ]
+  ],
+  "depth": "deep"
 }

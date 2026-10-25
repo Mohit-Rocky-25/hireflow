@@ -13,7 +13,7 @@
       "value": "Sonata Software Limited",
       "sourceKind": "official",
       "url": "https://www.sonata-software.com",
-      "retrievedAt": "2026-10-25T17:47:24.173Z",
+      "retrievedAt": "2026-10-25T18:20:09.464Z",
       "snippet": "Sonata Software Limited",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://www.sonata-software.com",
       "sourceKind": "official",
       "url": "https://www.sonata-software.com",
-      "retrievedAt": "2026-10-25T17:47:24.173Z",
+      "retrievedAt": "2026-10-25T18:20:09.464Z",
       "snippet": "Official corporate website of Sonata Software",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://www.sonata-software.com/about-us",
       "sourceKind": "official",
       "url": "https://www.sonata-software.com/about-us",
-      "retrievedAt": "2026-10-25T17:47:24.173Z",
+      "retrievedAt": "2026-10-25T18:20:09.464Z",
       "snippet": "Sonata Software Limited maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://www.sonata-software.com/careers",
       "sourceKind": "official",
       "url": "https://www.sonata-software.com/careers",
-      "retrievedAt": "2026-10-25T17:47:24.173Z",
+      "retrievedAt": "2026-10-25T18:20:09.464Z",
       "snippet": "Sonata Software Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "Bengaluru, Karnataka",
       "sourceKind": "official",
       "url": "https://www.sonata-software.com",
-      "retrievedAt": "2026-10-25T17:47:24.173Z",
+      "retrievedAt": "2026-10-25T18:20:09.464Z",
       "snippet": "headquartered in Bengaluru, Karnataka",
       "extractedBy": "ai",
       "verify": {
@@ -88,13 +88,29 @@
       "value": "Modernization Engineering & Platformation Solutions",
       "sourceKind": "official",
       "url": "https://www.sonata-software.com",
-      "retrievedAt": "2026-10-25T17:47:24.173Z",
+      "retrievedAt": "2026-10-25T18:20:09.464Z",
       "snippet": "Specializing in Modernization Engineering & Platformation Solutions",
       "extractedBy": "ai",
       "verify": {
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "sonata_software-jobFamily-1",
+      "companyId": "sonata_software",
+      "field": "jobFamily",
+      "value": "software-engineer",
+      "sourceKind": "official",
+      "url": "https://www.sonata-software.com/careers",
+      "retrievedAt": "2026-10-25T18:37:39.821Z",
+      "snippet": "Hiring Software Development Engineer for enterprise technology systems at Sonata",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
-  ]
+  ],
+  "depth": "standard"
 }

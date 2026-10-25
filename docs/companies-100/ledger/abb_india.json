@@ -13,7 +13,7 @@
       "value": "ABB India Limited",
       "sourceKind": "official",
       "url": "https://new.abb.com",
-      "retrievedAt": "2026-10-25T17:47:22.716Z",
+      "retrievedAt": "2026-10-25T18:20:08.972Z",
       "snippet": "ABB India Limited",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://new.abb.com",
       "sourceKind": "official",
       "url": "https://new.abb.com",
-      "retrievedAt": "2026-10-25T17:47:22.716Z",
+      "retrievedAt": "2026-10-25T18:20:08.972Z",
       "snippet": "Official corporate website of ABB India",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://new.abb.com/in/about",
       "sourceKind": "official",
       "url": "https://new.abb.com/in/about",
-      "retrievedAt": "2026-10-25T17:47:22.716Z",
+      "retrievedAt": "2026-10-25T18:20:08.972Z",
       "snippet": "ABB India Limited maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://new.abb.com/careers",
       "sourceKind": "official",
       "url": "https://new.abb.com/careers",
-      "retrievedAt": "2026-10-25T17:47:22.716Z",
+      "retrievedAt": "2026-10-25T18:20:08.972Z",
       "snippet": "ABB India Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "https://new.abb.com/careers/students-and-graduates",
       "sourceKind": "official",
       "url": "https://new.abb.com/careers/students-and-graduates",
-      "retrievedAt": "2026-10-25T17:47:22.716Z",
+      "retrievedAt": "2026-10-25T18:20:08.972Z",
       "snippet": "ABB India early careers campus hiring",
       "extractedBy": "ai",
       "verify": {
@@ -88,7 +88,7 @@
       "value": "Bengaluru, Karnataka",
       "sourceKind": "official",
       "url": "https://new.abb.com",
-      "retrievedAt": "2026-10-25T17:47:22.716Z",
+      "retrievedAt": "2026-10-25T18:20:08.972Z",
       "snippet": "headquartered in Bengaluru, Karnataka",
       "extractedBy": "ai",
       "verify": {
@@ -103,13 +103,93 @@
       "value": "Electrification, Robotics, Motion & Industrial Automation",
       "sourceKind": "official",
       "url": "https://new.abb.com",
-      "retrievedAt": "2026-10-25T17:47:22.716Z",
+      "retrievedAt": "2026-10-25T18:20:08.972Z",
       "snippet": "Specializing in Electrification, Robotics, Motion & Industrial Automation",
       "extractedBy": "ai",
       "verify": {
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "abb_india-eligibility-aggregatePercent",
+      "companyId": "abb_india",
+      "field": "eligibility.aggregatePercent",
+      "value": 65,
+      "sourceKind": "official",
+      "url": "https://new.abb.com/careers",
+      "retrievedAt": "2026-10-25T18:37:15.423Z",
+      "snippet": "65% aggregate",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "abb_india-eligibility-backlogRule",
+      "companyId": "abb_india",
+      "field": "eligibility.backlogRule",
+      "value": "no_active_backlogs",
+      "sourceKind": "official",
+      "url": "https://new.abb.com/careers",
+      "retrievedAt": "2026-10-25T18:37:15.423Z",
+      "snippet": "zero active backlogs",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "abb_india-eligibility-branches",
+      "companyId": "abb_india",
+      "field": "eligibility.branches",
+      "value": [
+        "Electrical",
+        "Instrumentation",
+        "Electronics and Communication"
+      ],
+      "sourceKind": "official",
+      "url": "https://new.abb.com/careers",
+      "retrievedAt": "2026-10-25T18:37:15.423Z",
+      "snippet": "Discovery graduate program mandates 65% aggregate marks with",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "abb_india-jobFamily-1",
+      "companyId": "abb_india",
+      "field": "jobFamily",
+      "value": "industrial-automation-engineer",
+      "sourceKind": "official",
+      "url": "https://new.abb.com/careers",
+      "retrievedAt": "2026-10-25T18:37:15.423Z",
+      "snippet": "Robotics and Discrete Automation Systems Engineer configuring programmable logic controllers.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "abb_india-jobFamily-2",
+      "companyId": "abb_india",
+      "field": "jobFamily",
+      "value": "software-engineer",
+      "sourceKind": "official",
+      "url": "https://new.abb.com/careers",
+      "retrievedAt": "2026-10-25T18:37:15.423Z",
+      "snippet": "Software Trainee building electrification digital energy monitoring tools.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
-  ]
+  ],
+  "depth": "deep"
 }

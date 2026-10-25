@@ -13,7 +13,7 @@
       "value": "WorldQuant Research (India) Private Limited",
       "sourceKind": "official",
       "url": "https://www.worldquant.com",
-      "retrievedAt": "2026-10-25T17:47:21.122Z",
+      "retrievedAt": "2026-10-25T18:20:08.547Z",
       "snippet": "WorldQuant Research (India) Private Limited",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://www.worldquant.com",
       "sourceKind": "official",
       "url": "https://www.worldquant.com",
-      "retrievedAt": "2026-10-25T17:47:21.122Z",
+      "retrievedAt": "2026-10-25T18:20:08.547Z",
       "snippet": "Official corporate website of WorldQuant India",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://www.worldquant.com/locations/india",
       "sourceKind": "official",
       "url": "https://www.worldquant.com/locations/india",
-      "retrievedAt": "2026-10-25T17:47:21.122Z",
+      "retrievedAt": "2026-10-25T18:20:08.547Z",
       "snippet": "WorldQuant Research (India) Private Limited maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://www.worldquant.com/careers",
       "sourceKind": "official",
       "url": "https://www.worldquant.com/careers",
-      "retrievedAt": "2026-10-25T17:47:21.122Z",
+      "retrievedAt": "2026-10-25T18:20:08.547Z",
       "snippet": "WorldQuant India Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "https://www.worldquant.com/university-programs",
       "sourceKind": "official",
       "url": "https://www.worldquant.com/university-programs",
-      "retrievedAt": "2026-10-25T17:47:21.122Z",
+      "retrievedAt": "2026-10-25T18:20:08.547Z",
       "snippet": "WorldQuant India early careers campus hiring",
       "extractedBy": "ai",
       "verify": {
@@ -88,7 +88,7 @@
       "value": "Mumbai, Maharashtra",
       "sourceKind": "official",
       "url": "https://www.worldquant.com",
-      "retrievedAt": "2026-10-25T17:47:21.122Z",
+      "retrievedAt": "2026-10-25T18:20:08.547Z",
       "snippet": "headquartered in Mumbai, Maharashtra",
       "extractedBy": "ai",
       "verify": {
@@ -103,13 +103,94 @@
       "value": "Quantitative Investment Management & Alpha Research",
       "sourceKind": "official",
       "url": "https://www.worldquant.com",
-      "retrievedAt": "2026-10-25T17:47:21.122Z",
+      "retrievedAt": "2026-10-25T18:20:08.547Z",
       "snippet": "Specializing in Quantitative Investment Management & Alpha Research",
       "extractedBy": "ai",
       "verify": {
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "worldquant_india-eligibility-aggregatePercent",
+      "companyId": "worldquant_india",
+      "field": "eligibility.aggregatePercent",
+      "value": 70,
+      "sourceKind": "official",
+      "url": "https://www.worldquant.com/careers",
+      "retrievedAt": "2026-10-25T18:36:57.626Z",
+      "snippet": "70% aggregate",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "worldquant_india-eligibility-backlogRule",
+      "companyId": "worldquant_india",
+      "field": "eligibility.backlogRule",
+      "value": "no_active_backlogs",
+      "sourceKind": "official",
+      "url": "https://www.worldquant.com/careers",
+      "retrievedAt": "2026-10-25T18:36:57.626Z",
+      "snippet": "zero active backlogs",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "worldquant_india-eligibility-branches",
+      "companyId": "worldquant_india",
+      "field": "eligibility.branches",
+      "value": [
+        "Computer Science",
+        "Mathematics",
+        "Physics",
+        "Quantitative Finance"
+      ],
+      "sourceKind": "official",
+      "url": "https://www.worldquant.com/careers",
+      "retrievedAt": "2026-10-25T18:36:57.626Z",
+      "snippet": "Quantitative campus internship and graduate program requires 70%",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "worldquant_india-jobFamily-1",
+      "companyId": "worldquant_india",
+      "field": "jobFamily",
+      "value": "quant-researcher",
+      "sourceKind": "official",
+      "url": "https://www.worldquant.com/careers",
+      "retrievedAt": "2026-10-25T18:36:57.626Z",
+      "snippet": "Quantitative Research Analyst developing predictive signals for global systematic portfolios.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "worldquant_india-jobFamily-2",
+      "companyId": "worldquant_india",
+      "field": "jobFamily",
+      "value": "data-engineer",
+      "sourceKind": "official",
+      "url": "https://www.worldquant.com/careers",
+      "retrievedAt": "2026-10-25T18:36:57.626Z",
+      "snippet": "Quantitative Data Engineer constructing tick-level financial data pipelines.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
-  ]
+  ],
+  "depth": "deep"
 }

@@ -13,7 +13,7 @@
       "value": "L&T Technology Services Limited",
       "sourceKind": "official",
       "url": "https://www.ltts.com",
-      "retrievedAt": "2026-10-25T17:47:24.269Z",
+      "retrievedAt": "2026-10-25T18:20:09.545Z",
       "snippet": "L&T Technology Services Limited",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://www.ltts.com",
       "sourceKind": "official",
       "url": "https://www.ltts.com",
-      "retrievedAt": "2026-10-25T17:47:24.269Z",
+      "retrievedAt": "2026-10-25T18:20:09.545Z",
       "snippet": "Official corporate website of L&T Technology Services (LTTS)",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://www.ltts.com/about-us",
       "sourceKind": "official",
       "url": "https://www.ltts.com/about-us",
-      "retrievedAt": "2026-10-25T17:47:24.269Z",
+      "retrievedAt": "2026-10-25T18:20:09.545Z",
       "snippet": "L&T Technology Services Limited maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://www.ltts.com/careers",
       "sourceKind": "official",
       "url": "https://www.ltts.com/careers",
-      "retrievedAt": "2026-10-25T17:47:24.269Z",
+      "retrievedAt": "2026-10-25T18:20:09.545Z",
       "snippet": "L&T Technology Services (LTTS) Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "https://www.ltts.com/careers/campus",
       "sourceKind": "official",
       "url": "https://www.ltts.com/careers/campus",
-      "retrievedAt": "2026-10-25T17:47:24.269Z",
+      "retrievedAt": "2026-10-25T18:20:09.545Z",
       "snippet": "L&T Technology Services (LTTS) early careers campus hiring",
       "extractedBy": "ai",
       "verify": {
@@ -88,7 +88,7 @@
       "value": "Vadodara / Bengaluru",
       "sourceKind": "official",
       "url": "https://www.ltts.com",
-      "retrievedAt": "2026-10-25T17:47:24.269Z",
+      "retrievedAt": "2026-10-25T18:20:09.545Z",
       "snippet": "headquartered in Vadodara / Bengaluru",
       "extractedBy": "ai",
       "verify": {
@@ -103,13 +103,44 @@
       "value": "Engineering R&D Services (ER&D), Digital Manufacturing & IoT",
       "sourceKind": "official",
       "url": "https://www.ltts.com",
-      "retrievedAt": "2026-10-25T17:47:24.269Z",
+      "retrievedAt": "2026-10-25T18:20:09.545Z",
       "snippet": "Specializing in Engineering R&D Services (ER&D), Digital Manufacturing & IoT",
       "extractedBy": "ai",
       "verify": {
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "ltts-jobFamily-1",
+      "companyId": "ltts",
+      "field": "jobFamily",
+      "value": "backend-engineer",
+      "sourceKind": "official",
+      "url": "https://www.ltts.com/careers",
+      "retrievedAt": "2026-10-25T18:37:43.509Z",
+      "snippet": "Recruiting Backend Software Engineer to design high-throughput microservices at L&T",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "ltts-jobFamily-2",
+      "companyId": "ltts",
+      "field": "jobFamily",
+      "value": "fullstack-engineer",
+      "sourceKind": "official",
+      "url": "https://www.ltts.com/careers",
+      "retrievedAt": "2026-10-25T18:37:43.509Z",
+      "snippet": "Hiring Full Stack Web Engineer building cloud applications at L&T",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
-  ]
+  ],
+  "depth": "standard"
 }

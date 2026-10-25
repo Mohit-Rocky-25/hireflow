@@ -13,7 +13,7 @@
       "value": "Macquarie Global Services Private Limited",
       "sourceKind": "official",
       "url": "https://www.macquarie.com",
-      "retrievedAt": "2026-10-25T17:47:21.542Z",
+      "retrievedAt": "2026-10-25T18:20:08.684Z",
       "snippet": "Macquarie Global Services Private Limited",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://www.macquarie.com",
       "sourceKind": "official",
       "url": "https://www.macquarie.com",
-      "retrievedAt": "2026-10-25T17:47:21.542Z",
+      "retrievedAt": "2026-10-25T18:20:08.684Z",
       "snippet": "Official corporate website of Macquarie Group India",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://www.macquarie.com/in/en/about/our-business/macquarie-in-india.html",
       "sourceKind": "official",
       "url": "https://www.macquarie.com/in/en/about/our-business/macquarie-in-india.html",
-      "retrievedAt": "2026-10-25T17:47:21.542Z",
+      "retrievedAt": "2026-10-25T18:20:08.684Z",
       "snippet": "Macquarie Global Services Private Limited maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://www.macquarie.com/careers",
       "sourceKind": "official",
       "url": "https://www.macquarie.com/careers",
-      "retrievedAt": "2026-10-25T17:47:21.542Z",
+      "retrievedAt": "2026-10-25T18:20:08.684Z",
       "snippet": "Macquarie Group India Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "https://www.macquarie.com/careers/graduates-interns-and-students.html",
       "sourceKind": "official",
       "url": "https://www.macquarie.com/careers/graduates-interns-and-students.html",
-      "retrievedAt": "2026-10-25T17:47:21.542Z",
+      "retrievedAt": "2026-10-25T18:20:08.684Z",
       "snippet": "Macquarie Group India early careers campus hiring",
       "extractedBy": "ai",
       "verify": {
@@ -88,7 +88,7 @@
       "value": "Gurugram, Haryana",
       "sourceKind": "official",
       "url": "https://www.macquarie.com",
-      "retrievedAt": "2026-10-25T17:47:21.542Z",
+      "retrievedAt": "2026-10-25T18:20:08.684Z",
       "snippet": "headquartered in Gurugram, Haryana",
       "extractedBy": "ai",
       "verify": {
@@ -103,13 +103,93 @@
       "value": "Investment Banking & Infrastructure Asset Management Tech",
       "sourceKind": "official",
       "url": "https://www.macquarie.com",
-      "retrievedAt": "2026-10-25T17:47:21.542Z",
+      "retrievedAt": "2026-10-25T18:20:08.684Z",
       "snippet": "Specializing in Investment Banking & Infrastructure Asset Management Tech",
       "extractedBy": "ai",
       "verify": {
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "macquarie_india-eligibility-aggregatePercent",
+      "companyId": "macquarie_india",
+      "field": "eligibility.aggregatePercent",
+      "value": 65,
+      "sourceKind": "official",
+      "url": "https://www.macquarie.com/careers",
+      "retrievedAt": "2026-10-25T18:37:02.457Z",
+      "snippet": "65% aggregate",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "macquarie_india-eligibility-backlogRule",
+      "companyId": "macquarie_india",
+      "field": "eligibility.backlogRule",
+      "value": "no_active_backlogs",
+      "sourceKind": "official",
+      "url": "https://www.macquarie.com/careers",
+      "retrievedAt": "2026-10-25T18:37:02.457Z",
+      "snippet": "zero active backlogs",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "macquarie_india-eligibility-branches",
+      "companyId": "macquarie_india",
+      "field": "eligibility.branches",
+      "value": [
+        "Computer Science",
+        "Information Technology",
+        "Finance"
+      ],
+      "sourceKind": "official",
+      "url": "https://www.macquarie.com/careers",
+      "retrievedAt": "2026-10-25T18:37:02.457Z",
+      "snippet": "Graduate technology intake mandates 65% aggregate marks with",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "macquarie_india-jobFamily-1",
+      "companyId": "macquarie_india",
+      "field": "jobFamily",
+      "value": "software-engineer",
+      "sourceKind": "official",
+      "url": "https://www.macquarie.com/careers",
+      "retrievedAt": "2026-10-25T18:37:02.457Z",
+      "snippet": "Graduate Analyst Developer supporting commodities and global markets trading tech.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "macquarie_india-jobFamily-2",
+      "companyId": "macquarie_india",
+      "field": "jobFamily",
+      "value": "data-engineer",
+      "sourceKind": "official",
+      "url": "https://www.macquarie.com/careers",
+      "retrievedAt": "2026-10-25T18:37:02.457Z",
+      "snippet": "Data Intelligence Engineer building analytics datasets for risk assessment.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
-  ]
+  ],
+  "depth": "deep"
 }

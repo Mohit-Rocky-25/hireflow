@@ -13,7 +13,7 @@
       "value": "Garmin Corporation (India Operations)",
       "sourceKind": "official",
       "url": "https://www.garmin.com",
-      "retrievedAt": "2026-10-25T17:47:22.242Z",
+      "retrievedAt": "2026-10-25T18:20:08.827Z",
       "snippet": "Garmin Corporation (India Operations)",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://www.garmin.com",
       "sourceKind": "official",
       "url": "https://www.garmin.com",
-      "retrievedAt": "2026-10-25T17:47:22.242Z",
+      "retrievedAt": "2026-10-25T18:20:08.827Z",
       "snippet": "Official corporate website of Garmin India",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://www.garmin.com/en-IN/company/about",
       "sourceKind": "official",
       "url": "https://www.garmin.com/en-IN/company/about",
-      "retrievedAt": "2026-10-25T17:47:22.242Z",
+      "retrievedAt": "2026-10-25T18:20:08.827Z",
       "snippet": "Garmin Corporation (India Operations) maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://www.garmin.com/en-US/careers",
       "sourceKind": "official",
       "url": "https://www.garmin.com/en-US/careers",
-      "retrievedAt": "2026-10-25T17:47:22.242Z",
+      "retrievedAt": "2026-10-25T18:20:08.827Z",
       "snippet": "Garmin India Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "Noida, Uttar Pradesh",
       "sourceKind": "official",
       "url": "https://www.garmin.com",
-      "retrievedAt": "2026-10-25T17:47:22.242Z",
+      "retrievedAt": "2026-10-25T18:20:08.827Z",
       "snippet": "headquartered in Noida, Uttar Pradesh",
       "extractedBy": "ai",
       "verify": {
@@ -88,13 +88,44 @@
       "value": "GPS Navigation, Wearables Tech & Embedded Firmware",
       "sourceKind": "official",
       "url": "https://www.garmin.com",
-      "retrievedAt": "2026-10-25T17:47:22.242Z",
+      "retrievedAt": "2026-10-25T18:20:08.827Z",
       "snippet": "Specializing in GPS Navigation, Wearables Tech & Embedded Firmware",
       "extractedBy": "ai",
       "verify": {
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "garmin_india-jobFamily-1",
+      "companyId": "garmin_india",
+      "field": "jobFamily",
+      "value": "embedded-engineer",
+      "sourceKind": "official",
+      "url": "https://www.garmin.com/en-US/careers",
+      "retrievedAt": "2026-10-25T18:37:07.581Z",
+      "snippet": "Hiring Embedded Software Engineer for hardware controller systems at Garmin",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "garmin_india-jobFamily-2",
+      "companyId": "garmin_india",
+      "field": "jobFamily",
+      "value": "qa-automation",
+      "sourceKind": "official",
+      "url": "https://www.garmin.com/en-US/careers",
+      "retrievedAt": "2026-10-25T18:37:07.581Z",
+      "snippet": "Quality Assurance Test Automation Engineer for system validation at Garmin",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
-  ]
+  ],
+  "depth": "standard"
 }

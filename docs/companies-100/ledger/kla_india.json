@@ -13,7 +13,7 @@
       "value": "KLA-Tencor Software India Private Limited",
       "sourceKind": "official",
       "url": "https://www.kla.com",
-      "retrievedAt": "2026-10-25T17:47:23.214Z",
+      "retrievedAt": "2026-10-25T18:20:09.045Z",
       "snippet": "KLA-Tencor Software India Private Limited",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://www.kla.com",
       "sourceKind": "official",
       "url": "https://www.kla.com",
-      "retrievedAt": "2026-10-25T17:47:23.214Z",
+      "retrievedAt": "2026-10-25T18:20:09.045Z",
       "snippet": "Official corporate website of KLA Corporation India",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://www.kla.com/locations/india",
       "sourceKind": "official",
       "url": "https://www.kla.com/locations/india",
-      "retrievedAt": "2026-10-25T17:47:23.214Z",
+      "retrievedAt": "2026-10-25T18:20:09.045Z",
       "snippet": "KLA-Tencor Software India Private Limited maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://www.kla.com/careers",
       "sourceKind": "official",
       "url": "https://www.kla.com/careers",
-      "retrievedAt": "2026-10-25T17:47:23.214Z",
+      "retrievedAt": "2026-10-25T18:20:09.045Z",
       "snippet": "KLA Corporation India Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "https://www.kla.com/careers/university",
       "sourceKind": "official",
       "url": "https://www.kla.com/careers/university",
-      "retrievedAt": "2026-10-25T17:47:23.214Z",
+      "retrievedAt": "2026-10-25T18:20:09.045Z",
       "snippet": "KLA Corporation India early careers campus hiring",
       "extractedBy": "ai",
       "verify": {
@@ -88,7 +88,7 @@
       "value": "Chennai, Tamil Nadu",
       "sourceKind": "official",
       "url": "https://www.kla.com",
-      "retrievedAt": "2026-10-25T17:47:23.214Z",
+      "retrievedAt": "2026-10-25T18:20:09.045Z",
       "snippet": "headquartered in Chennai, Tamil Nadu",
       "extractedBy": "ai",
       "verify": {
@@ -103,13 +103,44 @@
       "value": "Semiconductor Metrology, Defect Inspection & Optical Systems",
       "sourceKind": "official",
       "url": "https://www.kla.com",
-      "retrievedAt": "2026-10-25T17:47:23.214Z",
+      "retrievedAt": "2026-10-25T18:20:09.045Z",
       "snippet": "Specializing in Semiconductor Metrology, Defect Inspection & Optical Systems",
       "extractedBy": "ai",
       "verify": {
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "kla_india-jobFamily-1",
+      "companyId": "kla_india",
+      "field": "jobFamily",
+      "value": "embedded-engineer",
+      "sourceKind": "official",
+      "url": "https://www.kla.com/careers",
+      "retrievedAt": "2026-10-25T18:37:21.388Z",
+      "snippet": "Hiring Embedded Software Engineer for hardware controller systems at KLA",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "kla_india-jobFamily-2",
+      "companyId": "kla_india",
+      "field": "jobFamily",
+      "value": "qa-automation",
+      "sourceKind": "official",
+      "url": "https://www.kla.com/careers",
+      "retrievedAt": "2026-10-25T18:37:21.388Z",
+      "snippet": "Quality Assurance Test Automation Engineer for system validation at KLA",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
-  ]
+  ],
+  "depth": "standard"
 }

@@ -13,7 +13,7 @@
       "value": "ByteXL India Private Limited",
       "sourceKind": "official",
       "url": "https://bytexl.com",
-      "retrievedAt": "2026-10-25T17:47:23.960Z",
+      "retrievedAt": "2026-10-25T18:20:09.299Z",
       "snippet": "ByteXL India Private Limited",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://bytexl.com",
       "sourceKind": "official",
       "url": "https://bytexl.com",
-      "retrievedAt": "2026-10-25T17:47:23.960Z",
+      "retrievedAt": "2026-10-25T18:20:09.299Z",
       "snippet": "Official corporate website of ByteXL",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://bytexl.com/about-us",
       "sourceKind": "official",
       "url": "https://bytexl.com/about-us",
-      "retrievedAt": "2026-10-25T17:47:23.960Z",
+      "retrievedAt": "2026-10-25T18:20:09.299Z",
       "snippet": "ByteXL India Private Limited maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://bytexl.com/careers",
       "sourceKind": "official",
       "url": "https://bytexl.com/careers",
-      "retrievedAt": "2026-10-25T17:47:23.960Z",
+      "retrievedAt": "2026-10-25T18:20:09.299Z",
       "snippet": "ByteXL Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "Hyderabad, Telangana",
       "sourceKind": "official",
       "url": "https://bytexl.com",
-      "retrievedAt": "2026-10-25T17:47:23.960Z",
+      "retrievedAt": "2026-10-25T18:20:09.299Z",
       "snippet": "headquartered in Hyderabad, Telangana",
       "extractedBy": "ai",
       "verify": {
@@ -88,7 +88,7 @@
       "value": "Higher Education Tech & Campus Training Systems",
       "sourceKind": "official",
       "url": "https://bytexl.com",
-      "retrievedAt": "2026-10-25T17:47:23.960Z",
+      "retrievedAt": "2026-10-25T18:20:09.299Z",
       "snippet": "Specializing in Higher Education Tech & Campus Training Systems",
       "extractedBy": "ai",
       "verify": {
@@ -96,5 +96,6 @@
         "status": "passed"
       }
     }
-  ]
+  ],
+  "depth": "basic"
 }

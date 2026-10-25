@@ -13,7 +13,7 @@
       "value": "Emerson Process Management (India) Private Limited",
       "sourceKind": "official",
       "url": "https://www.emerson.com",
-      "retrievedAt": "2026-10-25T17:47:23.078Z",
+      "retrievedAt": "2026-10-25T18:20:09.009Z",
       "snippet": "Emerson Process Management (India) Private Limited",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://www.emerson.com",
       "sourceKind": "official",
       "url": "https://www.emerson.com",
-      "retrievedAt": "2026-10-25T17:47:23.078Z",
+      "retrievedAt": "2026-10-25T18:20:09.009Z",
       "snippet": "Official corporate website of Emerson Innovation Center",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://www.emerson.com/en-in/about-us/emerson-in-india",
       "sourceKind": "official",
       "url": "https://www.emerson.com/en-in/about-us/emerson-in-india",
-      "retrievedAt": "2026-10-25T17:47:23.078Z",
+      "retrievedAt": "2026-10-25T18:20:09.009Z",
       "snippet": "Emerson Process Management (India) Private Limited maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://www.emerson.com/en-in/careers",
       "sourceKind": "official",
       "url": "https://www.emerson.com/en-in/careers",
-      "retrievedAt": "2026-10-25T17:47:23.078Z",
+      "retrievedAt": "2026-10-25T18:20:09.009Z",
       "snippet": "Emerson Innovation Center Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "Pune, Maharashtra",
       "sourceKind": "official",
       "url": "https://www.emerson.com",
-      "retrievedAt": "2026-10-25T17:47:23.078Z",
+      "retrievedAt": "2026-10-25T18:20:09.009Z",
       "snippet": "headquartered in Pune, Maharashtra",
       "extractedBy": "ai",
       "verify": {
@@ -88,13 +88,29 @@
       "value": "Process Automation, Measurement Instrumentation & SCADA",
       "sourceKind": "official",
       "url": "https://www.emerson.com",
-      "retrievedAt": "2026-10-25T17:47:23.078Z",
+      "retrievedAt": "2026-10-25T18:20:09.009Z",
       "snippet": "Specializing in Process Automation, Measurement Instrumentation & SCADA",
       "extractedBy": "ai",
       "verify": {
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "emerson_india-jobFamily-1",
+      "companyId": "emerson_india",
+      "field": "jobFamily",
+      "value": "software-engineer",
+      "sourceKind": "official",
+      "url": "https://www.emerson.com/en-in/careers",
+      "retrievedAt": "2026-10-25T18:37:15.602Z",
+      "snippet": "Hiring Software Development Engineer for enterprise technology systems at Emerson",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
-  ]
+  ],
+  "depth": "standard"
 }

@@ -13,7 +13,7 @@
       "value": "Cyient Limited",
       "sourceKind": "official",
       "url": "https://www.cyient.com",
-      "retrievedAt": "2026-10-25T17:47:24.127Z",
+      "retrievedAt": "2026-10-25T18:20:09.423Z",
       "snippet": "Cyient Limited",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://www.cyient.com",
       "sourceKind": "official",
       "url": "https://www.cyient.com",
-      "retrievedAt": "2026-10-25T17:47:24.127Z",
+      "retrievedAt": "2026-10-25T18:20:09.423Z",
       "snippet": "Official corporate website of Cyient",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://www.cyient.com/about-us",
       "sourceKind": "official",
       "url": "https://www.cyient.com/about-us",
-      "retrievedAt": "2026-10-25T17:47:24.127Z",
+      "retrievedAt": "2026-10-25T18:20:09.423Z",
       "snippet": "Cyient Limited maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://www.cyient.com/careers",
       "sourceKind": "official",
       "url": "https://www.cyient.com/careers",
-      "retrievedAt": "2026-10-25T17:47:24.127Z",
+      "retrievedAt": "2026-10-25T18:20:09.423Z",
       "snippet": "Cyient Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "https://www.cyient.com/careers/campus-connect",
       "sourceKind": "official",
       "url": "https://www.cyient.com/careers/campus-connect",
-      "retrievedAt": "2026-10-25T17:47:24.127Z",
+      "retrievedAt": "2026-10-25T18:20:09.423Z",
       "snippet": "Cyient early careers campus hiring",
       "extractedBy": "ai",
       "verify": {
@@ -88,7 +88,7 @@
       "value": "Hyderabad, Telangana",
       "sourceKind": "official",
       "url": "https://www.cyient.com",
-      "retrievedAt": "2026-10-25T17:47:24.127Z",
+      "retrievedAt": "2026-10-25T18:20:09.423Z",
       "snippet": "headquartered in Hyderabad, Telangana",
       "extractedBy": "ai",
       "verify": {
@@ -103,13 +103,29 @@
       "value": "Intelligent Engineering & Technology Solutions",
       "sourceKind": "official",
       "url": "https://www.cyient.com",
-      "retrievedAt": "2026-10-25T17:47:24.127Z",
+      "retrievedAt": "2026-10-25T18:20:09.423Z",
       "snippet": "Specializing in Intelligent Engineering & Technology Solutions",
       "extractedBy": "ai",
       "verify": {
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "cyient-jobFamily-1",
+      "companyId": "cyient",
+      "field": "jobFamily",
+      "value": "software-engineer",
+      "sourceKind": "official",
+      "url": "https://www.cyient.com/careers",
+      "retrievedAt": "2026-10-25T18:37:39.490Z",
+      "snippet": "Hiring Software Development Engineer for enterprise technology systems at Cyient.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
-  ]
+  ],
+  "depth": "standard"
 }

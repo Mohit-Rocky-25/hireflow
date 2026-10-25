@@ -13,7 +13,7 @@
       "value": "ZF India Private Limited",
       "sourceKind": "official",
       "url": "https://www.zf.com",
-      "retrievedAt": "2026-10-25T17:47:22.565Z",
+      "retrievedAt": "2026-10-25T18:20:08.934Z",
       "snippet": "ZF India Private Limited",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://www.zf.com",
       "sourceKind": "official",
       "url": "https://www.zf.com",
-      "retrievedAt": "2026-10-25T17:47:22.565Z",
+      "retrievedAt": "2026-10-25T18:20:08.934Z",
       "snippet": "Official corporate website of ZF Group India",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://www.zf.com/mobile/en/company/locations/india.html",
       "sourceKind": "official",
       "url": "https://www.zf.com/mobile/en/company/locations/india.html",
-      "retrievedAt": "2026-10-25T17:47:22.565Z",
+      "retrievedAt": "2026-10-25T18:20:08.934Z",
       "snippet": "ZF India Private Limited maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://jobs.zf.com",
       "sourceKind": "official",
       "url": "https://jobs.zf.com",
-      "retrievedAt": "2026-10-25T17:47:22.565Z",
+      "retrievedAt": "2026-10-25T18:20:08.934Z",
       "snippet": "ZF Group India Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "Hyderabad, Telangana",
       "sourceKind": "official",
       "url": "https://www.zf.com",
-      "retrievedAt": "2026-10-25T17:47:22.565Z",
+      "retrievedAt": "2026-10-25T18:20:08.934Z",
       "snippet": "headquartered in Hyderabad, Telangana",
       "extractedBy": "ai",
       "verify": {
@@ -88,13 +88,29 @@
       "value": "Commercial Vehicle Control & E-Mobility Systems",
       "sourceKind": "official",
       "url": "https://www.zf.com",
-      "retrievedAt": "2026-10-25T17:47:22.565Z",
+      "retrievedAt": "2026-10-25T18:20:08.934Z",
       "snippet": "Specializing in Commercial Vehicle Control & E-Mobility Systems",
       "extractedBy": "ai",
       "verify": {
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "zf_india-jobFamily-1",
+      "companyId": "zf_india",
+      "field": "jobFamily",
+      "value": "software-engineer",
+      "sourceKind": "official",
+      "url": "https://jobs.zf.com",
+      "retrievedAt": "2026-10-25T18:37:15.338Z",
+      "snippet": "Hiring Software Development Engineer for enterprise technology systems at ZF",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
-  ]
+  ],
+  "depth": "standard"
 }

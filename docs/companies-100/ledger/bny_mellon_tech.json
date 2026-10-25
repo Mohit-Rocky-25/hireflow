@@ -13,7 +13,7 @@
       "value": "BNY Mellon Technology Global Services India Private Limited",
       "sourceKind": "official",
       "url": "https://www.bnymellon.com",
-      "retrievedAt": "2026-10-25T17:47:21.337Z",
+      "retrievedAt": "2026-10-25T18:20:08.607Z",
       "snippet": "BNY Mellon Technology Global Services India Private Limited",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://www.bnymellon.com",
       "sourceKind": "official",
       "url": "https://www.bnymellon.com",
-      "retrievedAt": "2026-10-25T17:47:21.337Z",
+      "retrievedAt": "2026-10-25T18:20:08.607Z",
       "snippet": "Official corporate website of BNY Mellon Technology",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://www.bnymellon.com/us/en/about-us/locations/india.html",
       "sourceKind": "official",
       "url": "https://www.bnymellon.com/us/en/about-us/locations/india.html",
-      "retrievedAt": "2026-10-25T17:47:21.337Z",
+      "retrievedAt": "2026-10-25T18:20:08.607Z",
       "snippet": "BNY Mellon Technology Global Services India Private Limited maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://www.bnymellon.com/us/en/careers.html",
       "sourceKind": "official",
       "url": "https://www.bnymellon.com/us/en/careers.html",
-      "retrievedAt": "2026-10-25T17:47:21.337Z",
+      "retrievedAt": "2026-10-25T18:20:08.607Z",
       "snippet": "BNY Mellon Technology Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "https://www.bnymellon.com/us/en/careers/campus-programs.html",
       "sourceKind": "official",
       "url": "https://www.bnymellon.com/us/en/careers/campus-programs.html",
-      "retrievedAt": "2026-10-25T17:47:21.337Z",
+      "retrievedAt": "2026-10-25T18:20:08.607Z",
       "snippet": "BNY Mellon Technology early careers campus hiring",
       "extractedBy": "ai",
       "verify": {
@@ -88,7 +88,7 @@
       "value": "Pune, Maharashtra",
       "sourceKind": "official",
       "url": "https://www.bnymellon.com",
-      "retrievedAt": "2026-10-25T17:47:21.337Z",
+      "retrievedAt": "2026-10-25T18:20:08.607Z",
       "snippet": "headquartered in Pune, Maharashtra",
       "extractedBy": "ai",
       "verify": {
@@ -103,91 +103,14 @@
       "value": "Asset Servicing & Financial Infrastructure Technology",
       "sourceKind": "official",
       "url": "https://www.bnymellon.com",
-      "retrievedAt": "2026-10-25T17:47:21.337Z",
+      "retrievedAt": "2026-10-25T18:20:08.607Z",
       "snippet": "Specializing in Asset Servicing & Financial Infrastructure Technology",
       "extractedBy": "ai",
       "verify": {
         "method": "blind_consensus",
         "status": "passed"
       }
-    },
-    {
-      "rowId": "bny_mellon_tech-eligibility-aggregatePercent",
-      "companyId": "bny_mellon_tech",
-      "field": "eligibility.aggregatePercent",
-      "value": 65,
-      "sourceKind": "official",
-      "url": "https://www.bnymellon.com/us/en/careers/campus-programs.html",
-      "retrievedAt": "2026-10-25T18:06:41.586Z",
-      "snippet": "requires 65% aggregate marks",
-      "extractedBy": "ai",
-      "verify": {
-        "method": "blind_consensus",
-        "status": "passed"
-      }
-    },
-    {
-      "rowId": "bny_mellon_tech-eligibility-backlogRule",
-      "companyId": "bny_mellon_tech",
-      "field": "eligibility.backlogRule",
-      "value": "no_active_backlogs",
-      "sourceKind": "official",
-      "url": "https://www.bnymellon.com/us/en/careers/campus-programs.html",
-      "retrievedAt": "2026-10-25T18:06:41.586Z",
-      "snippet": "with zero active backlogs",
-      "extractedBy": "ai",
-      "verify": {
-        "method": "blind_consensus",
-        "status": "passed"
-      }
-    },
-    {
-      "rowId": "bny_mellon_tech-eligibility-branches",
-      "companyId": "bny_mellon_tech",
-      "field": "eligibility.branches",
-      "value": [
-        "Computer Science",
-        "Information Technology"
-      ],
-      "sourceKind": "official",
-      "url": "https://www.bnymellon.com/us/en/careers/campus-programs.html",
-      "retrievedAt": "2026-10-25T18:06:41.586Z",
-      "snippet": "Campus graduate criteria requires 65% aggregate marks throughout academics with",
-      "extractedBy": "ai",
-      "verify": {
-        "method": "blind_consensus",
-        "status": "passed"
-      }
-    },
-    {
-      "rowId": "bny_mellon_tech-jobFamily-1",
-      "companyId": "bny_mellon_tech",
-      "field": "jobFamily",
-      "value": "software-engineer",
-      "sourceKind": "official",
-      "url": "https://www.bnymellon.com/us/en/careers/campus-programs.html",
-      "retrievedAt": "2026-10-25T18:06:41.586Z",
-      "snippet": "Early-career Software Development Engineer roles across custodial banking platforms.",
-      "extractedBy": "ai",
-      "verify": {
-        "method": "blind_consensus",
-        "status": "passed"
-      }
-    },
-    {
-      "rowId": "bny_mellon_tech-jobFamily-2",
-      "companyId": "bny_mellon_tech",
-      "field": "jobFamily",
-      "value": "data-engineer",
-      "sourceKind": "official",
-      "url": "https://www.bnymellon.com/us/en/careers/campus-programs.html",
-      "retrievedAt": "2026-10-25T18:06:41.586Z",
-      "snippet": "Recruiting Data Platform Engineer for enterprise data warehousing and reporting systems.",
-      "extractedBy": "ai",
-      "verify": {
-        "method": "blind_consensus",
-        "status": "passed"
-      }
     }
-  ]
+  ],
+  "depth": "deep"
 }

@@ -13,7 +13,7 @@
       "value": "Applied Materials India Private Limited",
       "sourceKind": "official",
       "url": "https://www.appliedmaterials.com",
-      "retrievedAt": "2026-10-25T17:47:23.277Z",
+      "retrievedAt": "2026-10-25T18:20:09.057Z",
       "snippet": "Applied Materials India Private Limited",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://www.appliedmaterials.com",
       "sourceKind": "official",
       "url": "https://www.appliedmaterials.com",
-      "retrievedAt": "2026-10-25T17:47:23.277Z",
+      "retrievedAt": "2026-10-25T18:20:09.057Z",
       "snippet": "Official corporate website of Applied Materials India",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://www.appliedmaterials.com/in/en/about/india.html",
       "sourceKind": "official",
       "url": "https://www.appliedmaterials.com/in/en/about/india.html",
-      "retrievedAt": "2026-10-25T17:47:23.277Z",
+      "retrievedAt": "2026-10-25T18:20:09.057Z",
       "snippet": "Applied Materials India Private Limited maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://www.appliedmaterials.com/careers",
       "sourceKind": "official",
       "url": "https://www.appliedmaterials.com/careers",
-      "retrievedAt": "2026-10-25T17:47:23.277Z",
+      "retrievedAt": "2026-10-25T18:20:09.057Z",
       "snippet": "Applied Materials India Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "https://www.appliedmaterials.com/careers/students-and-recent-graduates",
       "sourceKind": "official",
       "url": "https://www.appliedmaterials.com/careers/students-and-recent-graduates",
-      "retrievedAt": "2026-10-25T17:47:23.277Z",
+      "retrievedAt": "2026-10-25T18:20:09.057Z",
       "snippet": "Applied Materials India early careers campus hiring",
       "extractedBy": "ai",
       "verify": {
@@ -88,7 +88,7 @@
       "value": "Bengaluru, Karnataka",
       "sourceKind": "official",
       "url": "https://www.appliedmaterials.com",
-      "retrievedAt": "2026-10-25T17:47:23.277Z",
+      "retrievedAt": "2026-10-25T18:20:09.057Z",
       "snippet": "headquartered in Bengaluru, Karnataka",
       "extractedBy": "ai",
       "verify": {
@@ -103,13 +103,44 @@
       "value": "Materials Engineering & Semiconductor Equipment Systems",
       "sourceKind": "official",
       "url": "https://www.appliedmaterials.com",
-      "retrievedAt": "2026-10-25T17:47:23.277Z",
+      "retrievedAt": "2026-10-25T18:20:09.057Z",
       "snippet": "Specializing in Materials Engineering & Semiconductor Equipment Systems",
       "extractedBy": "ai",
       "verify": {
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "applied_materials_india-jobFamily-1",
+      "companyId": "applied_materials_india",
+      "field": "jobFamily",
+      "value": "embedded-engineer",
+      "sourceKind": "official",
+      "url": "https://www.appliedmaterials.com/careers",
+      "retrievedAt": "2026-10-25T18:37:21.581Z",
+      "snippet": "Hiring Embedded Software Engineer for hardware controller systems at Applied",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "applied_materials_india-jobFamily-2",
+      "companyId": "applied_materials_india",
+      "field": "jobFamily",
+      "value": "qa-automation",
+      "sourceKind": "official",
+      "url": "https://www.appliedmaterials.com/careers",
+      "retrievedAt": "2026-10-25T18:37:21.581Z",
+      "snippet": "Quality Assurance Test Automation Engineer for system validation at Applied",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
-  ]
+  ],
+  "depth": "standard"
 }

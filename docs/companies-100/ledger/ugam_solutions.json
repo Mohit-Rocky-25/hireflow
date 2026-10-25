@@ -13,7 +13,7 @@
       "value": "Ugam Solutions SEZ Private Limited (Merkle Group)",
       "sourceKind": "official",
       "url": "https://www.merkle.com",
-      "retrievedAt": "2026-10-25T17:47:23.781Z",
+      "retrievedAt": "2026-10-25T18:20:09.190Z",
       "snippet": "Ugam Solutions SEZ Private Limited (Merkle Group)",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://www.merkle.com",
       "sourceKind": "official",
       "url": "https://www.merkle.com",
-      "retrievedAt": "2026-10-25T17:47:23.781Z",
+      "retrievedAt": "2026-10-25T18:20:09.190Z",
       "snippet": "Official corporate website of Ugam Solutions (Merkle)",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://www.merkle.com/en/about-us/locations.html",
       "sourceKind": "official",
       "url": "https://www.merkle.com/en/about-us/locations.html",
-      "retrievedAt": "2026-10-25T17:47:23.781Z",
+      "retrievedAt": "2026-10-25T18:20:09.190Z",
       "snippet": "Ugam Solutions SEZ Private Limited (Merkle Group) maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://careers.dentsu.com",
       "sourceKind": "official",
       "url": "https://careers.dentsu.com",
-      "retrievedAt": "2026-10-25T17:47:23.781Z",
+      "retrievedAt": "2026-10-25T18:20:09.190Z",
       "snippet": "Ugam Solutions (Merkle) Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "Mumbai, Maharashtra",
       "sourceKind": "official",
       "url": "https://www.merkle.com",
-      "retrievedAt": "2026-10-25T17:47:23.781Z",
+      "retrievedAt": "2026-10-25T18:20:09.190Z",
       "snippet": "headquartered in Mumbai, Maharashtra",
       "extractedBy": "ai",
       "verify": {
@@ -88,13 +88,44 @@
       "value": "Retail Analytics & Customer Experience Management",
       "sourceKind": "official",
       "url": "https://www.merkle.com",
-      "retrievedAt": "2026-10-25T17:47:23.781Z",
+      "retrievedAt": "2026-10-25T18:20:09.190Z",
       "snippet": "Specializing in Retail Analytics & Customer Experience Management",
       "extractedBy": "ai",
       "verify": {
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "ugam_solutions-jobFamily-1",
+      "companyId": "ugam_solutions",
+      "field": "jobFamily",
+      "value": "data-engineer",
+      "sourceKind": "official",
+      "url": "https://careers.dentsu.com",
+      "retrievedAt": "2026-10-25T18:37:30.543Z",
+      "snippet": "Hiring Data Platform Engineer to design scalable analytical pipelines at",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "ugam_solutions-jobFamily-2",
+      "companyId": "ugam_solutions",
+      "field": "jobFamily",
+      "value": "data-scientist",
+      "sourceKind": "official",
+      "url": "https://careers.dentsu.com",
+      "retrievedAt": "2026-10-25T18:37:30.543Z",
+      "snippet": "Analytics Specialist applying quantitative statistical techniques at Ugam Solutions (Merkle).",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
-  ]
+  ],
+  "depth": "standard"
 }

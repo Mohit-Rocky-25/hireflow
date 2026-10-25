@@ -13,7 +13,7 @@
       "value": "STMicroelectronics Private Limited",
       "sourceKind": "official",
       "url": "https://www.st.com",
-      "retrievedAt": "2026-10-25T17:47:24.296Z",
+      "retrievedAt": "2026-10-25T18:20:09.568Z",
       "snippet": "STMicroelectronics Private Limited",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://www.st.com",
       "sourceKind": "official",
       "url": "https://www.st.com",
-      "retrievedAt": "2026-10-25T17:47:24.296Z",
+      "retrievedAt": "2026-10-25T18:20:09.568Z",
       "snippet": "Official corporate website of STMicroelectronics India",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://www.st.com/content/st_com/en/about/st_in_india.html",
       "sourceKind": "official",
       "url": "https://www.st.com/content/st_com/en/about/st_in_india.html",
-      "retrievedAt": "2026-10-25T17:47:24.296Z",
+      "retrievedAt": "2026-10-25T18:20:09.568Z",
       "snippet": "STMicroelectronics Private Limited maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://www.st.com/content/st_com/en/about/careers.html",
       "sourceKind": "official",
       "url": "https://www.st.com/content/st_com/en/about/careers.html",
-      "retrievedAt": "2026-10-25T17:47:24.296Z",
+      "retrievedAt": "2026-10-25T18:20:09.568Z",
       "snippet": "STMicroelectronics India Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "https://www.st.com/content/st_com/en/about/careers/students-and-graduates.html",
       "sourceKind": "official",
       "url": "https://www.st.com/content/st_com/en/about/careers/students-and-graduates.html",
-      "retrievedAt": "2026-10-25T17:47:24.296Z",
+      "retrievedAt": "2026-10-25T18:20:09.568Z",
       "snippet": "STMicroelectronics India early careers campus hiring",
       "extractedBy": "ai",
       "verify": {
@@ -88,7 +88,7 @@
       "value": "Greater Noida, Uttar Pradesh",
       "sourceKind": "official",
       "url": "https://www.st.com",
-      "retrievedAt": "2026-10-25T17:47:24.296Z",
+      "retrievedAt": "2026-10-25T18:20:09.568Z",
       "snippet": "headquartered in Greater Noida, Uttar Pradesh",
       "extractedBy": "ai",
       "verify": {
@@ -103,13 +103,44 @@
       "value": "Semiconductor Microelectronics & STM32 Hardware Design",
       "sourceKind": "official",
       "url": "https://www.st.com",
-      "retrievedAt": "2026-10-25T17:47:24.296Z",
+      "retrievedAt": "2026-10-25T18:20:09.568Z",
       "snippet": "Specializing in Semiconductor Microelectronics & STM32 Hardware Design",
       "extractedBy": "ai",
       "verify": {
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "stmicro_india-jobFamily-1",
+      "companyId": "stmicro_india",
+      "field": "jobFamily",
+      "value": "embedded-engineer",
+      "sourceKind": "official",
+      "url": "https://www.st.com/content/st_com/en/about/careers.html",
+      "retrievedAt": "2026-10-25T18:37:43.590Z",
+      "snippet": "Hiring Embedded Software Engineer for hardware controller systems at STMicroelectronics",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "stmicro_india-jobFamily-2",
+      "companyId": "stmicro_india",
+      "field": "jobFamily",
+      "value": "qa-automation",
+      "sourceKind": "official",
+      "url": "https://www.st.com/content/st_com/en/about/careers.html",
+      "retrievedAt": "2026-10-25T18:37:43.590Z",
+      "snippet": "Quality Assurance Test Automation Engineer for system validation at STMicroelectronics",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
-  ]
+  ],
+  "depth": "standard"
 }

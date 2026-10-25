@@ -13,7 +13,7 @@
       "value": "WizRocket Technologies Private Limited",
       "sourceKind": "official",
       "url": "https://clevertap.com",
-      "retrievedAt": "2026-10-25T17:47:23.974Z",
+      "retrievedAt": "2026-10-25T18:20:09.311Z",
       "snippet": "WizRocket Technologies Private Limited",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://clevertap.com",
       "sourceKind": "official",
       "url": "https://clevertap.com",
-      "retrievedAt": "2026-10-25T17:47:23.974Z",
+      "retrievedAt": "2026-10-25T18:20:09.311Z",
       "snippet": "Official corporate website of CleverTap",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://clevertap.com/about-us",
       "sourceKind": "official",
       "url": "https://clevertap.com/about-us",
-      "retrievedAt": "2026-10-25T17:47:23.974Z",
+      "retrievedAt": "2026-10-25T18:20:09.311Z",
       "snippet": "WizRocket Technologies Private Limited maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://clevertap.com/careers",
       "sourceKind": "official",
       "url": "https://clevertap.com/careers",
-      "retrievedAt": "2026-10-25T17:47:23.974Z",
+      "retrievedAt": "2026-10-25T18:20:09.311Z",
       "snippet": "CleverTap Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "Mumbai, Maharashtra",
       "sourceKind": "official",
       "url": "https://clevertap.com",
-      "retrievedAt": "2026-10-25T17:47:23.974Z",
+      "retrievedAt": "2026-10-25T18:20:09.311Z",
       "snippet": "headquartered in Mumbai, Maharashtra",
       "extractedBy": "ai",
       "verify": {
@@ -88,13 +88,44 @@
       "value": "Customer Engagement & Real-Time Retention SaaS",
       "sourceKind": "official",
       "url": "https://clevertap.com",
-      "retrievedAt": "2026-10-25T17:47:23.974Z",
+      "retrievedAt": "2026-10-25T18:20:09.311Z",
       "snippet": "Specializing in Customer Engagement & Real-Time Retention SaaS",
       "extractedBy": "ai",
       "verify": {
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "clevertap-jobFamily-1",
+      "companyId": "clevertap",
+      "field": "jobFamily",
+      "value": "backend-engineer",
+      "sourceKind": "official",
+      "url": "https://clevertap.com/careers",
+      "retrievedAt": "2026-10-25T18:37:35.779Z",
+      "snippet": "Recruiting Backend Software Engineer to design high-throughput microservices at CleverTap.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "clevertap-jobFamily-2",
+      "companyId": "clevertap",
+      "field": "jobFamily",
+      "value": "fullstack-engineer",
+      "sourceKind": "official",
+      "url": "https://clevertap.com/careers",
+      "retrievedAt": "2026-10-25T18:37:35.779Z",
+      "snippet": "Hiring Full Stack Web Engineer building cloud applications at CleverTap.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
-  ]
+  ],
+  "depth": "standard"
 }

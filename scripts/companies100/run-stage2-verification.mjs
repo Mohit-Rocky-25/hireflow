@@ -1871,7 +1871,9 @@ ${confirmedList.map(c => `| \`${c.id}\` | ${c.name} | [${new URL(c.officialSiteU
   console.log(`Counts: Confirmed: ${confirmedList.length}, Quarantined: ${quarantinedList.length}, Flagged: ${reviewCount}`);
 }
 
-main().catch(err => {
-  console.error('Fatal error in Stage 2 runner:', err);
-  process.exit(1);
-});
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main().catch(err => {
+    console.error('Fatal error in Stage 2 runner:', err);
+    process.exit(1);
+  });
+}

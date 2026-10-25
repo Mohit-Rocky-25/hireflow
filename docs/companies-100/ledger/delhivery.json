@@ -13,7 +13,7 @@
       "value": "Delhivery Limited",
       "sourceKind": "official",
       "url": "https://www.delhivery.com",
-      "retrievedAt": "2026-10-25T17:47:24.096Z",
+      "retrievedAt": "2026-10-25T18:20:09.399Z",
       "snippet": "Delhivery Limited",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://www.delhivery.com",
       "sourceKind": "official",
       "url": "https://www.delhivery.com",
-      "retrievedAt": "2026-10-25T17:47:24.096Z",
+      "retrievedAt": "2026-10-25T18:20:09.399Z",
       "snippet": "Official corporate website of Delhivery Tech",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://www.delhivery.com/company/about-us",
       "sourceKind": "official",
       "url": "https://www.delhivery.com/company/about-us",
-      "retrievedAt": "2026-10-25T17:47:24.096Z",
+      "retrievedAt": "2026-10-25T18:20:09.399Z",
       "snippet": "Delhivery Limited maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://www.delhivery.com/careers",
       "sourceKind": "official",
       "url": "https://www.delhivery.com/careers",
-      "retrievedAt": "2026-10-25T17:47:24.096Z",
+      "retrievedAt": "2026-10-25T18:20:09.399Z",
       "snippet": "Delhivery Tech Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "Gurugram, Haryana",
       "sourceKind": "official",
       "url": "https://www.delhivery.com",
-      "retrievedAt": "2026-10-25T17:47:24.096Z",
+      "retrievedAt": "2026-10-25T18:20:09.399Z",
       "snippet": "headquartered in Gurugram, Haryana",
       "extractedBy": "ai",
       "verify": {
@@ -88,13 +88,92 @@
       "value": "Integrated Express Logistics & Automated Supply Chain",
       "sourceKind": "official",
       "url": "https://www.delhivery.com",
-      "retrievedAt": "2026-10-25T17:47:24.096Z",
+      "retrievedAt": "2026-10-25T18:20:09.399Z",
       "snippet": "Specializing in Integrated Express Logistics & Automated Supply Chain",
       "extractedBy": "ai",
       "verify": {
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "delhivery-eligibility-aggregatePercent",
+      "companyId": "delhivery",
+      "field": "eligibility.aggregatePercent",
+      "value": 65,
+      "sourceKind": "official",
+      "url": "https://www.delhivery.com/careers",
+      "retrievedAt": "2026-10-25T18:37:39.404Z",
+      "snippet": "65% aggregate",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "delhivery-eligibility-backlogRule",
+      "companyId": "delhivery",
+      "field": "eligibility.backlogRule",
+      "value": "no_active_backlogs",
+      "sourceKind": "official",
+      "url": "https://www.delhivery.com/careers",
+      "retrievedAt": "2026-10-25T18:37:39.404Z",
+      "snippet": "zero active backlogs",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "delhivery-eligibility-branches",
+      "companyId": "delhivery",
+      "field": "eligibility.branches",
+      "value": [
+        "Computer Science",
+        "Information Technology"
+      ],
+      "sourceKind": "official",
+      "url": "https://www.delhivery.com/careers",
+      "retrievedAt": "2026-10-25T18:37:39.404Z",
+      "snippet": "Engineering graduate program specifies 65% aggregate marks with",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "delhivery-jobFamily-1",
+      "companyId": "delhivery",
+      "field": "jobFamily",
+      "value": "backend-engineer",
+      "sourceKind": "official",
+      "url": "https://www.delhivery.com/careers",
+      "retrievedAt": "2026-10-25T18:37:39.404Z",
+      "snippet": "Software Engineer Trainee building parcel tracking and dispatch optimization systems.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "delhivery-jobFamily-2",
+      "companyId": "delhivery",
+      "field": "jobFamily",
+      "value": "fullstack-engineer",
+      "sourceKind": "official",
+      "url": "https://www.delhivery.com/careers",
+      "retrievedAt": "2026-10-25T18:37:39.404Z",
+      "snippet": "Product Engineer building real-time warehouse logistics management dashboards.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
-  ]
+  ],
+  "depth": "deep"
 }

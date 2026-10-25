@@ -82,47 +82,63 @@ export function generateCompaniesArtifacts(options = {}) {
     const campusPageUrl = ledgerValues['campusPageUrl'] || null;
     const industry = ledgerValues['industry'] || item.sector;
 
-    // Build role list from verified job families and templates
+    const ledgerContent = JSON.parse(fs.readFileSync(path.join(ledgerDir, `${id}.json`), 'utf8'));
+    const depth = ledgerContent.depth || (jobFamilies.length >= 2 && ledgerValues['eligibility.aggregatePercent'] ? 'deep' : (jobFamilies.length > 0 ? 'standard' : 'basic'));
+
+    // Build role list from verified job families and templates (basic has none)
     const roles = [];
-    const familiesToBuild = jobFamilies.length > 0 ? jobFamilies : ['software-engineer'];
+    if (depth !== 'basic') {
+      const maxRoles = depth === 'deep' ? 5 : 2;
+      const familiesToBuild = (jobFamilies.length > 0 ? jobFamilies : ['software-engineer']).slice(0, maxRoles);
 
-    for (const famKey of familiesToBuild) {
-      const tmpl = templates[famKey] || templates['software-engineer'];
-      if (!tmpl) continue;
+      for (const famKey of familiesToBuild) {
+        const tmpl = templates[famKey] || templates['software-engineer'];
+        if (!tmpl) continue;
 
-      const roleId = `${id}-${famKey}`;
-      const overview = tmpl.overviewTemplate ? tmpl.overviewTemplate.replace(/\{\{companyName\}\}/g, companyName) : '';
-      const fullText = [
-        `Company: ${companyName}`,
-        `Role: ${tmpl.title}`,
-        `Level: ${tmpl.level}`,
-        `Overview: ${overview}`,
-        `Responsibilities:\n- ` + tmpl.keyResponsibilities.join('\n- '),
-        `Requirements:\n- ` + tmpl.requiredSkills.join('\n- ')
-      ].join('\n\n');
+        const roleId = `${id}-${famKey}`;
+        const overview = tmpl.overviewTemplate ? tmpl.overviewTemplate.replace(/\{\{companyName\}\}/g, companyName) : '';
+        const fullText = [
+          `Representative role profile (editorial). Not an actual job posting. See the official careers page: ${careersUrl || officialSiteUrl || 'https://hireflow.internal'}`,
+          `Company: ${companyName}`,
+          `Role: ${tmpl.title}`,
+          `Level: ${tmpl.level}`,
+          `Overview: ${overview}`,
+          `Responsibilities:\n- ` + tmpl.keyResponsibilities.join('\n- '),
+          `Requirements:\n- ` + tmpl.requiredSkills.join('\n- ')
+        ].join('\n\n');
 
-      roles.push({
-        id: roleId,
-        companyId: id,
-        title: tmpl.title,
-        level: tmpl.level,
-        track: tmpl.track,
-        overview,
-        responsibilities: tmpl.keyResponsibilities,
-        requirements: tmpl.requiredSkills,
-        fullText
-      });
+        roles.push({
+          id: roleId,
+          companyId: id,
+          title: tmpl.title,
+          level: tmpl.level,
+          track: tmpl.track,
+          overview,
+          responsibilities: tmpl.keyResponsibilities,
+          requirements: tmpl.requiredSkills,
+          fullText,
+          profileKind: 'representative',
+          jobFamily: famKey
+        });
+      }
     }
 
     const companyObj = {
       id,
       name: companyName,
+      logo: item.logo || companyName.split(' ').map(w => w[0]).join('').slice(0, 3).toUpperCase(),
+      gradient: item.gradient || 'from-blue-600 to-indigo-600',
       sector: industry,
+      industry,
       tier: item.tier || 'Enterprise',
       hq,
+      depth,
+      dataStatus: 'sourced',
       officialSiteUrl,
       careersUrl,
       campusPageUrl,
+      tierRationale: ledgerContent.tierRationale || item.tierRationale || '',
+      editorial: false,
       roles
     };
 
@@ -158,17 +174,30 @@ export function generateCompaniesArtifacts(options = {}) {
   responsibilities: string[];
   requirements: string[];
   fullText: string;
+  profileKind?: 'representative';
+  jobFamily?: string;
+  competencies?: string[];
+  reqLevel?: Record<string, string>;
+  uncoveredSkills?: string[];
+  competencyFit?: 'good' | 'approximate';
 }
 
 export interface CompanyRecord {
   id: string;
   name: string;
+  logo?: string;
+  gradient?: string;
   sector: string;
+  industry?: string;
   tier: string;
   hq: string | null;
+  depth?: 'deep' | 'standard' | 'basic';
+  dataStatus?: 'legacy_unaudited' | 'sourced' | 'editorial' | 'quarantined';
   officialSiteUrl: string | null;
   careersUrl: string | null;
   campusPageUrl: string | null;
+  tierRationale?: string;
+  editorial?: boolean;
   roles: CompanyRole[];
 }
 
@@ -183,6 +212,16 @@ export const companies100: CompanyRecord[] = ${JSON.stringify(generatedCompanies
   backlogRule: string | null;
   eligibleBranches: string[] | null;
   eligibleBatchYears: number[] | null;
+  companyName?: string;
+  displayName?: string;
+  aggregatePercent?: number | null;
+  cgpaEquivalent?: number | null;
+  sourceName?: string;
+  sourceUrl?: string;
+  sourceKind?: 'official' | 'company-published';
+  notes?: string;
+  confidence?: 'high' | 'medium';
+  lastReviewed?: string;
 }
 
 export const companies100Eligibility: Record<string, CompanyEligibilityRule> = ${JSON.stringify(generatedEligibility, null, 2)};
@@ -211,10 +250,7 @@ export const companies100Eligibility: Record<string, CompanyEligibilityRule> = $
   };
 }
 
-// CLI runner
-if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  console.log('=== HireFlow Companies-100 Code Generator (Rule H1) ===');
-
+export function buildCompaniesArtifacts() {
   const generatedDir = path.join(REPO_ROOT, 'src/data/market/companies100/generated');
   fs.mkdirSync(generatedDir, { recursive: true });
 
@@ -228,8 +264,23 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   fs.writeFileSync(eligibilityPath, artifacts.finalEligibilityContent, 'utf8');
   fs.writeFileSync(manifestPath, JSON.stringify(artifacts.manifest, null, 2), 'utf8');
 
-  console.log(`✅ Generated artifacts:`);
-  console.log(`  - ${companiesPath} (${artifacts.manifest.totalCompaniesCount} companies)`);
-  console.log(`  - ${eligibilityPath} (${artifacts.manifest.totalEligibilityRulesCount} eligibility rules)`);
-  console.log(`  - ${manifestPath} (Processed ${artifacts.manifest.totalLedgerRowsProcessed} ledger rows)`);
+  return {
+    ...artifacts,
+    paths: {
+      companiesPath,
+      eligibilityPath,
+      manifestPath
+    }
+  };
 }
+
+// CLI runner
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  console.log('=== HireFlow Companies-100 Code Generator (Rule H1) ===');
+  const artifacts = buildCompaniesArtifacts();
+  console.log(`✅ Generated artifacts:`);
+  console.log(`  - ${artifacts.paths.companiesPath} (${artifacts.manifest.totalCompaniesCount} companies)`);
+  console.log(`  - ${artifacts.paths.eligibilityPath} (${artifacts.manifest.totalEligibilityRulesCount} eligibility rules)`);
+  console.log(`  - ${artifacts.paths.manifestPath} (Processed ${artifacts.manifest.totalLedgerRowsProcessed} ledger rows)`);
+}
+

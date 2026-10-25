@@ -13,7 +13,7 @@
       "value": "Valeo India Private Limited",
       "sourceKind": "official",
       "url": "https://www.valeo.com",
-      "retrievedAt": "2026-10-25T17:47:22.484Z",
+      "retrievedAt": "2026-10-25T18:20:08.909Z",
       "snippet": "Valeo India Private Limited",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://www.valeo.com",
       "sourceKind": "official",
       "url": "https://www.valeo.com",
-      "retrievedAt": "2026-10-25T17:47:22.484Z",
+      "retrievedAt": "2026-10-25T18:20:08.909Z",
       "snippet": "Official corporate website of Valeo India",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://www.valeo.com/en/india",
       "sourceKind": "official",
       "url": "https://www.valeo.com/en/india",
-      "retrievedAt": "2026-10-25T17:47:22.484Z",
+      "retrievedAt": "2026-10-25T18:20:08.909Z",
       "snippet": "Valeo India Private Limited maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://www.valeo.com/en/careers",
       "sourceKind": "official",
       "url": "https://www.valeo.com/en/careers",
-      "retrievedAt": "2026-10-25T17:47:22.484Z",
+      "retrievedAt": "2026-10-25T18:20:08.909Z",
       "snippet": "Valeo India Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "Chennai, Tamil Nadu",
       "sourceKind": "official",
       "url": "https://www.valeo.com",
-      "retrievedAt": "2026-10-25T17:47:22.484Z",
+      "retrievedAt": "2026-10-25T18:20:08.909Z",
       "snippet": "headquartered in Chennai, Tamil Nadu",
       "extractedBy": "ai",
       "verify": {
@@ -88,13 +88,44 @@
       "value": "Automotive Thermal Systems, Powertrain & ADAS Sensors",
       "sourceKind": "official",
       "url": "https://www.valeo.com",
-      "retrievedAt": "2026-10-25T17:47:22.484Z",
+      "retrievedAt": "2026-10-25T18:20:08.909Z",
       "snippet": "Specializing in Automotive Thermal Systems, Powertrain & ADAS Sensors",
       "extractedBy": "ai",
       "verify": {
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "valeo_india-jobFamily-1",
+      "companyId": "valeo_india",
+      "field": "jobFamily",
+      "value": "embedded-engineer",
+      "sourceKind": "official",
+      "url": "https://www.valeo.com/en/careers",
+      "retrievedAt": "2026-10-25T18:37:15.296Z",
+      "snippet": "Hiring Embedded Software Engineer for hardware controller systems at Valeo",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "valeo_india-jobFamily-2",
+      "companyId": "valeo_india",
+      "field": "jobFamily",
+      "value": "qa-automation",
+      "sourceKind": "official",
+      "url": "https://www.valeo.com/en/careers",
+      "retrievedAt": "2026-10-25T18:37:15.296Z",
+      "snippet": "Quality Assurance Test Automation Engineer for system validation at Valeo",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
-  ]
+  ],
+  "depth": "standard"
 }

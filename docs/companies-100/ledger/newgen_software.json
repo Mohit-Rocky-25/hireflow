@@ -13,7 +13,7 @@
       "value": "Newgen Software Technologies Limited",
       "sourceKind": "official",
       "url": "https://newgensoft.com",
-      "retrievedAt": "2026-10-25T17:47:24.213Z",
+      "retrievedAt": "2026-10-25T18:20:09.497Z",
       "snippet": "Newgen Software Technologies Limited",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://newgensoft.com",
       "sourceKind": "official",
       "url": "https://newgensoft.com",
-      "retrievedAt": "2026-10-25T17:47:24.213Z",
+      "retrievedAt": "2026-10-25T18:20:09.497Z",
       "snippet": "Official corporate website of Newgen Software",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://newgensoft.com/company/about-us",
       "sourceKind": "official",
       "url": "https://newgensoft.com/company/about-us",
-      "retrievedAt": "2026-10-25T17:47:24.213Z",
+      "retrievedAt": "2026-10-25T18:20:09.497Z",
       "snippet": "Newgen Software Technologies Limited maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://newgensoft.com/careers",
       "sourceKind": "official",
       "url": "https://newgensoft.com/careers",
-      "retrievedAt": "2026-10-25T17:47:24.213Z",
+      "retrievedAt": "2026-10-25T18:20:09.497Z",
       "snippet": "Newgen Software Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "https://newgensoft.com/careers/campus",
       "sourceKind": "official",
       "url": "https://newgensoft.com/careers/campus",
-      "retrievedAt": "2026-10-25T17:47:24.213Z",
+      "retrievedAt": "2026-10-25T18:20:09.497Z",
       "snippet": "Newgen Software early careers campus hiring",
       "extractedBy": "ai",
       "verify": {
@@ -88,7 +88,7 @@
       "value": "New Delhi / Noida",
       "sourceKind": "official",
       "url": "https://newgensoft.com",
-      "retrievedAt": "2026-10-25T17:47:24.213Z",
+      "retrievedAt": "2026-10-25T18:20:09.497Z",
       "snippet": "headquartered in New Delhi / Noida",
       "extractedBy": "ai",
       "verify": {
@@ -103,13 +103,29 @@
       "value": "Low-Code Application Platform & Enterprise Content Services",
       "sourceKind": "official",
       "url": "https://newgensoft.com",
-      "retrievedAt": "2026-10-25T17:47:24.213Z",
+      "retrievedAt": "2026-10-25T18:20:09.497Z",
       "snippet": "Specializing in Low-Code Application Platform & Enterprise Content Services",
       "extractedBy": "ai",
       "verify": {
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "newgen_software-jobFamily-1",
+      "companyId": "newgen_software",
+      "field": "jobFamily",
+      "value": "software-engineer",
+      "sourceKind": "official",
+      "url": "https://newgensoft.com/careers",
+      "retrievedAt": "2026-10-25T18:37:39.956Z",
+      "snippet": "Hiring Software Development Engineer for enterprise technology systems at Newgen",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
-  ]
+  ],
+  "depth": "standard"
 }

@@ -13,7 +13,7 @@
       "value": "Incedo Technologies Private Limited",
       "sourceKind": "official",
       "url": "https://www.incedoinc.com",
-      "retrievedAt": "2026-10-25T17:47:21.924Z",
+      "retrievedAt": "2026-10-25T18:20:08.755Z",
       "snippet": "Incedo Technologies Private Limited",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://www.incedoinc.com",
       "sourceKind": "official",
       "url": "https://www.incedoinc.com",
-      "retrievedAt": "2026-10-25T17:47:21.924Z",
+      "retrievedAt": "2026-10-25T18:20:08.755Z",
       "snippet": "Official corporate website of Incedo Inc",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://www.incedoinc.com/about-incedo",
       "sourceKind": "official",
       "url": "https://www.incedoinc.com/about-incedo",
-      "retrievedAt": "2026-10-25T17:47:21.924Z",
+      "retrievedAt": "2026-10-25T18:20:08.755Z",
       "snippet": "Incedo Technologies Private Limited maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://www.incedoinc.com/careers",
       "sourceKind": "official",
       "url": "https://www.incedoinc.com/careers",
-      "retrievedAt": "2026-10-25T17:47:21.924Z",
+      "retrievedAt": "2026-10-25T18:20:08.755Z",
       "snippet": "Incedo Inc Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "Gurugram, Haryana",
       "sourceKind": "official",
       "url": "https://www.incedoinc.com",
-      "retrievedAt": "2026-10-25T17:47:21.924Z",
+      "retrievedAt": "2026-10-25T18:20:08.755Z",
       "snippet": "headquartered in Gurugram, Haryana",
       "extractedBy": "ai",
       "verify": {
@@ -88,13 +88,44 @@
       "value": "Digital Transformation, Data & Cloud Engineering Consulting",
       "sourceKind": "official",
       "url": "https://www.incedoinc.com",
-      "retrievedAt": "2026-10-25T17:47:21.924Z",
+      "retrievedAt": "2026-10-25T18:20:08.755Z",
       "snippet": "Specializing in Digital Transformation, Data & Cloud Engineering Consulting",
       "extractedBy": "ai",
       "verify": {
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "incedo-jobFamily-1",
+      "companyId": "incedo",
+      "field": "jobFamily",
+      "value": "data-engineer",
+      "sourceKind": "official",
+      "url": "https://www.incedoinc.com/careers",
+      "retrievedAt": "2026-10-25T18:37:03.009Z",
+      "snippet": "Hiring Data Platform Engineer to design scalable analytical pipelines at",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "incedo-jobFamily-2",
+      "companyId": "incedo",
+      "field": "jobFamily",
+      "value": "data-scientist",
+      "sourceKind": "official",
+      "url": "https://www.incedoinc.com/careers",
+      "retrievedAt": "2026-10-25T18:37:03.009Z",
+      "snippet": "Analytics Specialist applying quantitative statistical techniques at Incedo Inc.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
-  ]
+  ],
+  "depth": "standard"
 }

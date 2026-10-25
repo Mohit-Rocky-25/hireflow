@@ -13,7 +13,7 @@
       "value": "Graviton Research Capital LLP",
       "sourceKind": "official",
       "url": "https://gravitonresearch.com",
-      "retrievedAt": "2026-10-25T17:47:20.971Z",
+      "retrievedAt": "2026-10-25T18:20:08.457Z",
       "snippet": "Graviton Research Capital LLP",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://gravitonresearch.com",
       "sourceKind": "official",
       "url": "https://gravitonresearch.com",
-      "retrievedAt": "2026-10-25T17:47:20.971Z",
+      "retrievedAt": "2026-10-25T18:20:08.457Z",
       "snippet": "Official corporate website of Graviton Research Capital",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://gravitonresearch.com/about",
       "sourceKind": "official",
       "url": "https://gravitonresearch.com/about",
-      "retrievedAt": "2026-10-25T17:47:20.971Z",
+      "retrievedAt": "2026-10-25T18:20:08.457Z",
       "snippet": "Graviton Research Capital LLP maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://gravitonresearch.com/careers",
       "sourceKind": "official",
       "url": "https://gravitonresearch.com/careers",
-      "retrievedAt": "2026-10-25T17:47:20.971Z",
+      "retrievedAt": "2026-10-25T18:20:08.457Z",
       "snippet": "Graviton Research Capital Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "https://gravitonresearch.com/campus",
       "sourceKind": "official",
       "url": "https://gravitonresearch.com/campus",
-      "retrievedAt": "2026-10-25T17:47:20.971Z",
+      "retrievedAt": "2026-10-25T18:20:08.457Z",
       "snippet": "Graviton Research Capital early careers campus hiring",
       "extractedBy": "ai",
       "verify": {
@@ -88,7 +88,7 @@
       "value": "Gurugram, Haryana",
       "sourceKind": "official",
       "url": "https://gravitonresearch.com",
-      "retrievedAt": "2026-10-25T17:47:20.971Z",
+      "retrievedAt": "2026-10-25T18:20:08.457Z",
       "snippet": "headquartered in Gurugram, Haryana",
       "extractedBy": "ai",
       "verify": {
@@ -103,13 +103,93 @@
       "value": "High Frequency Trading & Quantitative Research",
       "sourceKind": "official",
       "url": "https://gravitonresearch.com",
-      "retrievedAt": "2026-10-25T17:47:20.971Z",
+      "retrievedAt": "2026-10-25T18:20:08.457Z",
       "snippet": "Specializing in High Frequency Trading & Quantitative Research",
       "extractedBy": "ai",
       "verify": {
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "graviton-eligibility-aggregatePercent",
+      "companyId": "graviton",
+      "field": "eligibility.aggregatePercent",
+      "value": 75,
+      "sourceKind": "official",
+      "url": "https://gravitonresearch.com/campus",
+      "retrievedAt": "2026-10-25T18:36:57.359Z",
+      "snippet": "75% aggregate",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "graviton-eligibility-backlogRule",
+      "companyId": "graviton",
+      "field": "eligibility.backlogRule",
+      "value": "no_active_backlogs",
+      "sourceKind": "official",
+      "url": "https://gravitonresearch.com/campus",
+      "retrievedAt": "2026-10-25T18:36:57.359Z",
+      "snippet": "zero active backlogs",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "graviton-eligibility-branches",
+      "companyId": "graviton",
+      "field": "eligibility.branches",
+      "value": [
+        "Computer Science",
+        "Electrical",
+        "Mathematics and Computing"
+      ],
+      "sourceKind": "official",
+      "url": "https://gravitonresearch.com/campus",
+      "retrievedAt": "2026-10-25T18:36:57.359Z",
+      "snippet": "Campus selection standard mandates 75% aggregate score or",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "graviton-jobFamily-1",
+      "companyId": "graviton",
+      "field": "jobFamily",
+      "value": "quant-developer",
+      "sourceKind": "official",
+      "url": "https://gravitonresearch.com/campus",
+      "retrievedAt": "2026-10-25T18:36:57.359Z",
+      "snippet": "Hiring Quantitative Software Engineer to build ultra low-latency trading infrastructure",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "graviton-jobFamily-2",
+      "companyId": "graviton",
+      "field": "jobFamily",
+      "value": "quant-researcher",
+      "sourceKind": "official",
+      "url": "https://gravitonresearch.com/campus",
+      "retrievedAt": "2026-10-25T18:36:57.359Z",
+      "snippet": "Quantitative Researcher applying mathematical models to alpha generation and statistical",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
-  ]
+  ],
+  "depth": "deep"
 }

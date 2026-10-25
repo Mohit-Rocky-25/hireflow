@@ -13,7 +13,7 @@
       "value": "Happiest Minds Technologies Limited",
       "sourceKind": "official",
       "url": "https://www.happiestminds.com",
-      "retrievedAt": "2026-10-25T17:47:24.141Z",
+      "retrievedAt": "2026-10-25T18:20:09.436Z",
       "snippet": "Happiest Minds Technologies Limited",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://www.happiestminds.com",
       "sourceKind": "official",
       "url": "https://www.happiestminds.com",
-      "retrievedAt": "2026-10-25T17:47:24.141Z",
+      "retrievedAt": "2026-10-25T18:20:09.436Z",
       "snippet": "Official corporate website of Happiest Minds Technologies",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://www.happiestminds.com/about-us",
       "sourceKind": "official",
       "url": "https://www.happiestminds.com/about-us",
-      "retrievedAt": "2026-10-25T17:47:24.141Z",
+      "retrievedAt": "2026-10-25T18:20:09.436Z",
       "snippet": "Happiest Minds Technologies Limited maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://www.happiestminds.com/careers",
       "sourceKind": "official",
       "url": "https://www.happiestminds.com/careers",
-      "retrievedAt": "2026-10-25T17:47:24.141Z",
+      "retrievedAt": "2026-10-25T18:20:09.436Z",
       "snippet": "Happiest Minds Technologies Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "https://www.happiestminds.com/careers/campus",
       "sourceKind": "official",
       "url": "https://www.happiestminds.com/careers/campus",
-      "retrievedAt": "2026-10-25T17:47:24.141Z",
+      "retrievedAt": "2026-10-25T18:20:09.436Z",
       "snippet": "Happiest Minds Technologies early careers campus hiring",
       "extractedBy": "ai",
       "verify": {
@@ -88,7 +88,7 @@
       "value": "Bengaluru, Karnataka",
       "sourceKind": "official",
       "url": "https://www.happiestminds.com",
-      "retrievedAt": "2026-10-25T17:47:24.141Z",
+      "retrievedAt": "2026-10-25T18:20:09.436Z",
       "snippet": "headquartered in Bengaluru, Karnataka",
       "extractedBy": "ai",
       "verify": {
@@ -103,13 +103,93 @@
       "value": "Digital Transformation, IoT, Cloud & Blockchain Services",
       "sourceKind": "official",
       "url": "https://www.happiestminds.com",
-      "retrievedAt": "2026-10-25T17:47:24.141Z",
+      "retrievedAt": "2026-10-25T18:20:09.436Z",
       "snippet": "Specializing in Digital Transformation, IoT, Cloud & Blockchain Services",
       "extractedBy": "ai",
       "verify": {
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "happiest_minds-eligibility-aggregatePercent",
+      "companyId": "happiest_minds",
+      "field": "eligibility.aggregatePercent",
+      "value": 60,
+      "sourceKind": "official",
+      "url": "https://www.happiestminds.com/careers",
+      "retrievedAt": "2026-10-25T18:37:39.634Z",
+      "snippet": "60% aggregate",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "happiest_minds-eligibility-backlogRule",
+      "companyId": "happiest_minds",
+      "field": "eligibility.backlogRule",
+      "value": "no_active_backlogs",
+      "sourceKind": "official",
+      "url": "https://www.happiestminds.com/careers",
+      "retrievedAt": "2026-10-25T18:37:39.634Z",
+      "snippet": "zero active backlogs",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "happiest_minds-eligibility-branches",
+      "companyId": "happiest_minds",
+      "field": "eligibility.branches",
+      "value": [
+        "Computer Science",
+        "Information Technology",
+        "Electronics"
+      ],
+      "sourceKind": "official",
+      "url": "https://www.happiestminds.com/careers",
+      "retrievedAt": "2026-10-25T18:37:39.634Z",
+      "snippet": "Campus hiring eligibility requires 60% aggregate score with",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "happiest_minds-jobFamily-1",
+      "companyId": "happiest_minds",
+      "field": "jobFamily",
+      "value": "software-engineer",
+      "sourceKind": "official",
+      "url": "https://www.happiestminds.com/careers",
+      "retrievedAt": "2026-10-25T18:37:39.634Z",
+      "snippet": "Associate Software Engineer building cloud modernization solutions.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "happiest_minds-jobFamily-2",
+      "companyId": "happiest_minds",
+      "field": "jobFamily",
+      "value": "qa-automation",
+      "sourceKind": "official",
+      "url": "https://www.happiestminds.com/careers",
+      "retrievedAt": "2026-10-25T18:37:39.634Z",
+      "snippet": "Quality Assurance Engineer implementing automated end-to-end regression test scripts.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
-  ]
+  ],
+  "depth": "deep"
 }

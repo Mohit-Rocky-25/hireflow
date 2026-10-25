@@ -13,7 +13,7 @@
       "value": "Syrma SGS Technology Limited",
       "sourceKind": "official",
       "url": "https://syrmasgs.com",
-      "retrievedAt": "2026-10-25T17:47:22.265Z",
+      "retrievedAt": "2026-10-25T18:20:08.838Z",
       "snippet": "Syrma SGS Technology Limited",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://syrmasgs.com",
       "sourceKind": "official",
       "url": "https://syrmasgs.com",
-      "retrievedAt": "2026-10-25T17:47:22.265Z",
+      "retrievedAt": "2026-10-25T18:20:08.838Z",
       "snippet": "Official corporate website of Syrma SGS Technology",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://syrmasgs.com/about-us",
       "sourceKind": "official",
       "url": "https://syrmasgs.com/about-us",
-      "retrievedAt": "2026-10-25T17:47:22.265Z",
+      "retrievedAt": "2026-10-25T18:20:08.838Z",
       "snippet": "Syrma SGS Technology Limited maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://syrmasgs.com/careers",
       "sourceKind": "official",
       "url": "https://syrmasgs.com/careers",
-      "retrievedAt": "2026-10-25T17:47:22.265Z",
+      "retrievedAt": "2026-10-25T18:20:08.838Z",
       "snippet": "Syrma SGS Technology Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "Chennai, Tamil Nadu",
       "sourceKind": "official",
       "url": "https://syrmasgs.com",
-      "retrievedAt": "2026-10-25T17:47:22.265Z",
+      "retrievedAt": "2026-10-25T18:20:08.838Z",
       "snippet": "headquartered in Chennai, Tamil Nadu",
       "extractedBy": "ai",
       "verify": {
@@ -88,7 +88,7 @@
       "value": "Electronics Manufacturing & Precision Hardware Engineering",
       "sourceKind": "official",
       "url": "https://syrmasgs.com",
-      "retrievedAt": "2026-10-25T17:47:22.265Z",
+      "retrievedAt": "2026-10-25T18:20:08.838Z",
       "snippet": "Specializing in Electronics Manufacturing & Precision Hardware Engineering",
       "extractedBy": "ai",
       "verify": {
@@ -96,5 +96,6 @@
         "status": "passed"
       }
     }
-  ]
+  ],
+  "depth": "basic"
 }

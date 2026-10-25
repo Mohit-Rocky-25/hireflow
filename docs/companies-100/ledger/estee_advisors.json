@@ -13,7 +13,7 @@
       "value": "Estee Advisors Private Limited",
       "sourceKind": "official",
       "url": "https://esteeadvisors.com",
-      "retrievedAt": "2026-10-25T17:47:21.076Z",
+      "retrievedAt": "2026-10-25T18:20:08.517Z",
       "snippet": "Estee Advisors Private Limited",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://esteeadvisors.com",
       "sourceKind": "official",
       "url": "https://esteeadvisors.com",
-      "retrievedAt": "2026-10-25T17:47:21.076Z",
+      "retrievedAt": "2026-10-25T18:20:08.517Z",
       "snippet": "Official corporate website of Estee Advisors",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://esteeadvisors.com/about-us",
       "sourceKind": "official",
       "url": "https://esteeadvisors.com/about-us",
-      "retrievedAt": "2026-10-25T17:47:21.076Z",
+      "retrievedAt": "2026-10-25T18:20:08.517Z",
       "snippet": "Estee Advisors Private Limited maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://esteeadvisors.com/careers",
       "sourceKind": "official",
       "url": "https://esteeadvisors.com/careers",
-      "retrievedAt": "2026-10-25T17:47:21.076Z",
+      "retrievedAt": "2026-10-25T18:20:08.517Z",
       "snippet": "Estee Advisors Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "https://esteeadvisors.com/campus",
       "sourceKind": "official",
       "url": "https://esteeadvisors.com/campus",
-      "retrievedAt": "2026-10-25T17:47:21.076Z",
+      "retrievedAt": "2026-10-25T18:20:08.517Z",
       "snippet": "Estee Advisors early careers campus hiring",
       "extractedBy": "ai",
       "verify": {
@@ -88,7 +88,7 @@
       "value": "Gurugram, Haryana",
       "sourceKind": "official",
       "url": "https://esteeadvisors.com",
-      "retrievedAt": "2026-10-25T17:47:21.076Z",
+      "retrievedAt": "2026-10-25T18:20:08.517Z",
       "snippet": "headquartered in Gurugram, Haryana",
       "extractedBy": "ai",
       "verify": {
@@ -103,13 +103,29 @@
       "value": "Algorithmic Trading & Quantitative Asset Management",
       "sourceKind": "official",
       "url": "https://esteeadvisors.com",
-      "retrievedAt": "2026-10-25T17:47:21.076Z",
+      "retrievedAt": "2026-10-25T18:20:08.517Z",
       "snippet": "Specializing in Algorithmic Trading & Quantitative Asset Management",
       "extractedBy": "ai",
       "verify": {
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "estee_advisors-jobFamily-1",
+      "companyId": "estee_advisors",
+      "field": "jobFamily",
+      "value": "quant-developer",
+      "sourceKind": "official",
+      "url": "https://esteeadvisors.com/careers",
+      "retrievedAt": "2026-10-25T18:36:57.532Z",
+      "snippet": "Recruiting Software Engineer for quantitative execution infrastructure at Estee Advisors.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
-  ]
+  ],
+  "depth": "standard"
 }

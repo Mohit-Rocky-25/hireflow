@@ -13,7 +13,7 @@
       "value": "Coforge Limited",
       "sourceKind": "official",
       "url": "https://www.coforge.com",
-      "retrievedAt": "2026-10-25T17:47:24.158Z",
+      "retrievedAt": "2026-10-25T18:20:09.451Z",
       "snippet": "Coforge Limited",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://www.coforge.com",
       "sourceKind": "official",
       "url": "https://www.coforge.com",
-      "retrievedAt": "2026-10-25T17:47:24.158Z",
+      "retrievedAt": "2026-10-25T18:20:09.451Z",
       "snippet": "Official corporate website of Coforge",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://www.coforge.com/about-us",
       "sourceKind": "official",
       "url": "https://www.coforge.com/about-us",
-      "retrievedAt": "2026-10-25T17:47:24.158Z",
+      "retrievedAt": "2026-10-25T18:20:09.451Z",
       "snippet": "Coforge Limited maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://www.coforge.com/careers",
       "sourceKind": "official",
       "url": "https://www.coforge.com/careers",
-      "retrievedAt": "2026-10-25T17:47:24.158Z",
+      "retrievedAt": "2026-10-25T18:20:09.451Z",
       "snippet": "Coforge Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "https://www.coforge.com/careers/campus-hiring",
       "sourceKind": "official",
       "url": "https://www.coforge.com/careers/campus-hiring",
-      "retrievedAt": "2026-10-25T17:47:24.158Z",
+      "retrievedAt": "2026-10-25T18:20:09.451Z",
       "snippet": "Coforge early careers campus hiring",
       "extractedBy": "ai",
       "verify": {
@@ -88,7 +88,7 @@
       "value": "Noida, Uttar Pradesh",
       "sourceKind": "official",
       "url": "https://www.coforge.com",
-      "retrievedAt": "2026-10-25T17:47:24.158Z",
+      "retrievedAt": "2026-10-25T18:20:09.451Z",
       "snippet": "headquartered in Noida, Uttar Pradesh",
       "extractedBy": "ai",
       "verify": {
@@ -103,13 +103,92 @@
       "value": "Digital Services, Cloud Transformation & BFSI Systems",
       "sourceKind": "official",
       "url": "https://www.coforge.com",
-      "retrievedAt": "2026-10-25T17:47:24.158Z",
+      "retrievedAt": "2026-10-25T18:20:09.451Z",
       "snippet": "Specializing in Digital Services, Cloud Transformation & BFSI Systems",
       "extractedBy": "ai",
       "verify": {
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "coforge-eligibility-aggregatePercent",
+      "companyId": "coforge",
+      "field": "eligibility.aggregatePercent",
+      "value": 60,
+      "sourceKind": "official",
+      "url": "https://www.coforge.com/careers",
+      "retrievedAt": "2026-10-25T18:37:39.730Z",
+      "snippet": "60% aggregate",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "coforge-eligibility-backlogRule",
+      "companyId": "coforge",
+      "field": "eligibility.backlogRule",
+      "value": "no_active_backlogs",
+      "sourceKind": "official",
+      "url": "https://www.coforge.com/careers",
+      "retrievedAt": "2026-10-25T18:37:39.730Z",
+      "snippet": "zero active backlogs",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "coforge-eligibility-branches",
+      "companyId": "coforge",
+      "field": "eligibility.branches",
+      "value": [
+        "Computer Science",
+        "Information Technology"
+      ],
+      "sourceKind": "official",
+      "url": "https://www.coforge.com/careers",
+      "retrievedAt": "2026-10-25T18:37:39.730Z",
+      "snippet": "Graduate Engineer Trainee cutoff specifies 60% aggregate marks",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "coforge-jobFamily-1",
+      "companyId": "coforge",
+      "field": "jobFamily",
+      "value": "software-engineer",
+      "sourceKind": "official",
+      "url": "https://www.coforge.com/careers",
+      "retrievedAt": "2026-10-25T18:37:39.730Z",
+      "snippet": "Graduate Engineer Trainee building enterprise travel and financial workflow applications.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "coforge-jobFamily-2",
+      "companyId": "coforge",
+      "field": "jobFamily",
+      "value": "qa-automation",
+      "sourceKind": "official",
+      "url": "https://www.coforge.com/careers",
+      "retrievedAt": "2026-10-25T18:37:39.730Z",
+      "snippet": "Test Automation Trainee executing API test collections with Playwright.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
-  ]
+  ],
+  "depth": "deep"
 }

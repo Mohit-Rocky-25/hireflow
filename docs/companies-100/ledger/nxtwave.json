@@ -13,7 +13,7 @@
       "value": "NxtWave Disruptive Technologies Private Limited",
       "sourceKind": "official",
       "url": "https://www.ccbp.in",
-      "retrievedAt": "2026-10-25T17:47:23.947Z",
+      "retrievedAt": "2026-10-25T18:20:09.288Z",
       "snippet": "NxtWave Disruptive Technologies Private Limited",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://www.ccbp.in",
       "sourceKind": "official",
       "url": "https://www.ccbp.in",
-      "retrievedAt": "2026-10-25T17:47:23.947Z",
+      "retrievedAt": "2026-10-25T18:20:09.288Z",
       "snippet": "Official corporate website of NxtWave Disruptive Tech",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://www.ccbp.in/about-us",
       "sourceKind": "official",
       "url": "https://www.ccbp.in/about-us",
-      "retrievedAt": "2026-10-25T17:47:23.947Z",
+      "retrievedAt": "2026-10-25T18:20:09.288Z",
       "snippet": "NxtWave Disruptive Technologies Private Limited maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://www.ccbp.in/careers",
       "sourceKind": "official",
       "url": "https://www.ccbp.in/careers",
-      "retrievedAt": "2026-10-25T17:47:23.947Z",
+      "retrievedAt": "2026-10-25T18:20:09.288Z",
       "snippet": "NxtWave Disruptive Tech Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "Hyderabad, Telangana",
       "sourceKind": "official",
       "url": "https://www.ccbp.in",
-      "retrievedAt": "2026-10-25T17:47:23.947Z",
+      "retrievedAt": "2026-10-25T18:20:09.288Z",
       "snippet": "headquartered in Hyderabad, Telangana",
       "extractedBy": "ai",
       "verify": {
@@ -88,13 +88,29 @@
       "value": "EdTech & Vernacular Tech Upskilling Platform",
       "sourceKind": "official",
       "url": "https://www.ccbp.in",
-      "retrievedAt": "2026-10-25T17:47:23.947Z",
+      "retrievedAt": "2026-10-25T18:20:09.288Z",
       "snippet": "Specializing in EdTech & Vernacular Tech Upskilling Platform",
       "extractedBy": "ai",
       "verify": {
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "nxtwave-jobFamily-1",
+      "companyId": "nxtwave",
+      "field": "jobFamily",
+      "value": "software-engineer",
+      "sourceKind": "official",
+      "url": "https://www.ccbp.in/careers",
+      "retrievedAt": "2026-10-25T18:37:35.727Z",
+      "snippet": "Hiring Software Development Engineer for enterprise technology systems at NxtWave",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
-  ]
+  ],
+  "depth": "standard"
 }

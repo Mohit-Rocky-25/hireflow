@@ -13,7 +13,7 @@
       "value": "Tredence Analytics Solutions Private Limited",
       "sourceKind": "official",
       "url": "https://www.tredence.com",
-      "retrievedAt": "2026-10-25T17:47:23.582Z",
+      "retrievedAt": "2026-10-25T18:20:09.135Z",
       "snippet": "Tredence Analytics Solutions Private Limited",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://www.tredence.com",
       "sourceKind": "official",
       "url": "https://www.tredence.com",
-      "retrievedAt": "2026-10-25T17:47:23.582Z",
+      "retrievedAt": "2026-10-25T18:20:09.135Z",
       "snippet": "Official corporate website of Tredence Analytics",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://www.tredence.com/about-us",
       "sourceKind": "official",
       "url": "https://www.tredence.com/about-us",
-      "retrievedAt": "2026-10-25T17:47:23.582Z",
+      "retrievedAt": "2026-10-25T18:20:09.135Z",
       "snippet": "Tredence Analytics Solutions Private Limited maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://www.tredence.com/careers",
       "sourceKind": "official",
       "url": "https://www.tredence.com/careers",
-      "retrievedAt": "2026-10-25T17:47:23.582Z",
+      "retrievedAt": "2026-10-25T18:20:09.135Z",
       "snippet": "Tredence Analytics Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "Bengaluru, Karnataka",
       "sourceKind": "official",
       "url": "https://www.tredence.com",
-      "retrievedAt": "2026-10-25T17:47:23.582Z",
+      "retrievedAt": "2026-10-25T18:20:09.135Z",
       "snippet": "headquartered in Bengaluru, Karnataka",
       "extractedBy": "ai",
       "verify": {
@@ -88,13 +88,44 @@
       "value": "Data Science & Enterprise Last-Mile AI Solutions",
       "sourceKind": "official",
       "url": "https://www.tredence.com",
-      "retrievedAt": "2026-10-25T17:47:23.582Z",
+      "retrievedAt": "2026-10-25T18:20:09.135Z",
       "snippet": "Specializing in Data Science & Enterprise Last-Mile AI Solutions",
       "extractedBy": "ai",
       "verify": {
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "tredence-jobFamily-1",
+      "companyId": "tredence",
+      "field": "jobFamily",
+      "value": "data-engineer",
+      "sourceKind": "official",
+      "url": "https://www.tredence.com/careers",
+      "retrievedAt": "2026-10-25T18:37:22.019Z",
+      "snippet": "Hiring Data Platform Engineer to design scalable analytical pipelines at",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "tredence-jobFamily-2",
+      "companyId": "tredence",
+      "field": "jobFamily",
+      "value": "data-scientist",
+      "sourceKind": "official",
+      "url": "https://www.tredence.com/careers",
+      "retrievedAt": "2026-10-25T18:37:22.019Z",
+      "snippet": "Analytics Specialist applying quantitative statistical techniques at Tredence Analytics.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
-  ]
+  ],
+  "depth": "standard"
 }

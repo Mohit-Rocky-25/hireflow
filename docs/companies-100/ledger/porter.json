@@ -13,7 +13,7 @@
       "value": "Smartshift Logistics Solutions Private Limited",
       "sourceKind": "official",
       "url": "https://porter.in",
-      "retrievedAt": "2026-10-25T17:47:24.051Z",
+      "retrievedAt": "2026-10-25T18:20:09.367Z",
       "snippet": "Smartshift Logistics Solutions Private Limited",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://porter.in",
       "sourceKind": "official",
       "url": "https://porter.in",
-      "retrievedAt": "2026-10-25T17:47:24.051Z",
+      "retrievedAt": "2026-10-25T18:20:09.367Z",
       "snippet": "Official corporate website of Porter (SmartShift Logistics)",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://porter.in/about-us",
       "sourceKind": "official",
       "url": "https://porter.in/about-us",
-      "retrievedAt": "2026-10-25T17:47:24.051Z",
+      "retrievedAt": "2026-10-25T18:20:09.367Z",
       "snippet": "Smartshift Logistics Solutions Private Limited maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://porter.in/careers",
       "sourceKind": "official",
       "url": "https://porter.in/careers",
-      "retrievedAt": "2026-10-25T17:47:24.051Z",
+      "retrievedAt": "2026-10-25T18:20:09.367Z",
       "snippet": "Porter (SmartShift Logistics) Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "Bengaluru, Karnataka",
       "sourceKind": "official",
       "url": "https://porter.in",
-      "retrievedAt": "2026-10-25T17:47:24.051Z",
+      "retrievedAt": "2026-10-25T18:20:09.367Z",
       "snippet": "headquartered in Bengaluru, Karnataka",
       "extractedBy": "ai",
       "verify": {
@@ -88,13 +88,44 @@
       "value": "Intra-City Logistics, On-Demand Trucking & Fleet SaaS",
       "sourceKind": "official",
       "url": "https://porter.in",
-      "retrievedAt": "2026-10-25T17:47:24.051Z",
+      "retrievedAt": "2026-10-25T18:20:09.367Z",
       "snippet": "Specializing in Intra-City Logistics, On-Demand Trucking & Fleet SaaS",
       "extractedBy": "ai",
       "verify": {
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "porter-jobFamily-1",
+      "companyId": "porter",
+      "field": "jobFamily",
+      "value": "backend-engineer",
+      "sourceKind": "official",
+      "url": "https://porter.in/careers",
+      "retrievedAt": "2026-10-25T18:37:36.415Z",
+      "snippet": "Recruiting Backend Software Engineer to design high-throughput microservices at Porter",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "porter-jobFamily-2",
+      "companyId": "porter",
+      "field": "jobFamily",
+      "value": "fullstack-engineer",
+      "sourceKind": "official",
+      "url": "https://porter.in/careers",
+      "retrievedAt": "2026-10-25T18:37:36.415Z",
+      "snippet": "Hiring Full Stack Web Engineer building cloud applications at Porter",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
-  ]
+  ],
+  "depth": "standard"
 }

@@ -13,7 +13,7 @@
       "value": "Zee Entertainment Enterprises Limited",
       "sourceKind": "official",
       "url": "https://www.zee.com",
-      "retrievedAt": "2026-10-25T17:47:23.933Z",
+      "retrievedAt": "2026-10-25T18:20:09.277Z",
       "snippet": "Zee Entertainment Enterprises Limited",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://www.zee.com",
       "sourceKind": "official",
       "url": "https://www.zee.com",
-      "retrievedAt": "2026-10-25T17:47:23.933Z",
+      "retrievedAt": "2026-10-25T18:20:09.277Z",
       "snippet": "Official corporate website of Zee Entertainment (Zee5)",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://www.zee.com/about-us",
       "sourceKind": "official",
       "url": "https://www.zee.com/about-us",
-      "retrievedAt": "2026-10-25T17:47:23.933Z",
+      "retrievedAt": "2026-10-25T18:20:09.277Z",
       "snippet": "Zee Entertainment Enterprises Limited maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://www.zee.com/careers",
       "sourceKind": "official",
       "url": "https://www.zee.com/careers",
-      "retrievedAt": "2026-10-25T17:47:23.933Z",
+      "retrievedAt": "2026-10-25T18:20:09.277Z",
       "snippet": "Zee Entertainment (Zee5) Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "Bengaluru, Karnataka",
       "sourceKind": "official",
       "url": "https://www.zee.com",
-      "retrievedAt": "2026-10-25T17:47:23.933Z",
+      "retrievedAt": "2026-10-25T18:20:09.277Z",
       "snippet": "headquartered in Bengaluru, Karnataka",
       "extractedBy": "ai",
       "verify": {
@@ -88,13 +88,29 @@
       "value": "OTT Streaming Infrastructure & Media Technology",
       "sourceKind": "official",
       "url": "https://www.zee.com",
-      "retrievedAt": "2026-10-25T17:47:23.933Z",
+      "retrievedAt": "2026-10-25T18:20:09.277Z",
       "snippet": "Specializing in OTT Streaming Infrastructure & Media Technology",
       "extractedBy": "ai",
       "verify": {
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "zee_tech-jobFamily-1",
+      "companyId": "zee_tech",
+      "field": "jobFamily",
+      "value": "software-engineer",
+      "sourceKind": "official",
+      "url": "https://www.zee.com/careers",
+      "retrievedAt": "2026-10-25T18:37:35.693Z",
+      "snippet": "Hiring Software Development Engineer for enterprise technology systems at Zee",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
-  ]
+  ],
+  "depth": "standard"
 }

@@ -13,7 +13,7 @@
       "value": "NXP India Private Limited",
       "sourceKind": "official",
       "url": "https://www.nxp.com",
-      "retrievedAt": "2026-10-25T17:47:23.893Z",
+      "retrievedAt": "2026-10-25T18:20:09.252Z",
       "snippet": "NXP India Private Limited",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://www.nxp.com",
       "sourceKind": "official",
       "url": "https://www.nxp.com",
-      "retrievedAt": "2026-10-25T17:47:23.893Z",
+      "retrievedAt": "2026-10-25T18:20:09.252Z",
       "snippet": "Official corporate website of NXP Semiconductors India",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://www.nxp.com/company/about-nxp/worldwide-locations/nxp-in-india:INDIA-LOCATION",
       "sourceKind": "official",
       "url": "https://www.nxp.com/company/about-nxp/worldwide-locations/nxp-in-india:INDIA-LOCATION",
-      "retrievedAt": "2026-10-25T17:47:23.893Z",
+      "retrievedAt": "2026-10-25T18:20:09.252Z",
       "snippet": "NXP India Private Limited maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://www.nxp.com/careers",
       "sourceKind": "official",
       "url": "https://www.nxp.com/careers",
-      "retrievedAt": "2026-10-25T17:47:23.893Z",
+      "retrievedAt": "2026-10-25T18:20:09.252Z",
       "snippet": "NXP Semiconductors India Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "https://www.nxp.com/careers/students-and-entry-level",
       "sourceKind": "official",
       "url": "https://www.nxp.com/careers/students-and-entry-level",
-      "retrievedAt": "2026-10-25T17:47:23.893Z",
+      "retrievedAt": "2026-10-25T18:20:09.252Z",
       "snippet": "NXP Semiconductors India early careers campus hiring",
       "extractedBy": "ai",
       "verify": {
@@ -88,7 +88,7 @@
       "value": "Noida / Bengaluru",
       "sourceKind": "official",
       "url": "https://www.nxp.com",
-      "retrievedAt": "2026-10-25T17:47:23.893Z",
+      "retrievedAt": "2026-10-25T18:20:09.252Z",
       "snippet": "headquartered in Noida / Bengaluru",
       "extractedBy": "ai",
       "verify": {
@@ -103,13 +103,44 @@
       "value": "Automotive Microcontrollers & Secure Connectivity",
       "sourceKind": "official",
       "url": "https://www.nxp.com",
-      "retrievedAt": "2026-10-25T17:47:23.893Z",
+      "retrievedAt": "2026-10-25T18:20:09.252Z",
       "snippet": "Specializing in Automotive Microcontrollers & Secure Connectivity",
       "extractedBy": "ai",
       "verify": {
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "nxp_india-jobFamily-1",
+      "companyId": "nxp_india",
+      "field": "jobFamily",
+      "value": "embedded-engineer",
+      "sourceKind": "official",
+      "url": "https://www.nxp.com/careers",
+      "retrievedAt": "2026-10-25T18:37:31.109Z",
+      "snippet": "Hiring Embedded Software Engineer for hardware controller systems at NXP",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "nxp_india-jobFamily-2",
+      "companyId": "nxp_india",
+      "field": "jobFamily",
+      "value": "qa-automation",
+      "sourceKind": "official",
+      "url": "https://www.nxp.com/careers",
+      "retrievedAt": "2026-10-25T18:37:31.109Z",
+      "snippet": "Quality Assurance Test Automation Engineer for system validation at NXP",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
-  ]
+  ],
+  "depth": "standard"
 }

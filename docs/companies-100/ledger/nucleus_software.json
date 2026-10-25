@@ -13,7 +13,7 @@
       "value": "Nucleus Software Exports Limited",
       "sourceKind": "official",
       "url": "https://www.nucleussoftware.com",
-      "retrievedAt": "2026-10-25T17:47:24.200Z",
+      "retrievedAt": "2026-10-25T18:20:09.485Z",
       "snippet": "Nucleus Software Exports Limited",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://www.nucleussoftware.com",
       "sourceKind": "official",
       "url": "https://www.nucleussoftware.com",
-      "retrievedAt": "2026-10-25T17:47:24.200Z",
+      "retrievedAt": "2026-10-25T18:20:09.485Z",
       "snippet": "Official corporate website of Nucleus Software",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://www.nucleussoftware.com/about-us",
       "sourceKind": "official",
       "url": "https://www.nucleussoftware.com/about-us",
-      "retrievedAt": "2026-10-25T17:47:24.200Z",
+      "retrievedAt": "2026-10-25T18:20:09.485Z",
       "snippet": "Nucleus Software Exports Limited maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://www.nucleussoftware.com/careers",
       "sourceKind": "official",
       "url": "https://www.nucleussoftware.com/careers",
-      "retrievedAt": "2026-10-25T17:47:24.200Z",
+      "retrievedAt": "2026-10-25T18:20:09.485Z",
       "snippet": "Nucleus Software Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "Noida, Uttar Pradesh",
       "sourceKind": "official",
       "url": "https://www.nucleussoftware.com",
-      "retrievedAt": "2026-10-25T17:47:24.200Z",
+      "retrievedAt": "2026-10-25T18:20:09.485Z",
       "snippet": "headquartered in Noida, Uttar Pradesh",
       "extractedBy": "ai",
       "verify": {
@@ -88,13 +88,44 @@
       "value": "Lending & Transaction Banking Software Products (FinnOne)",
       "sourceKind": "official",
       "url": "https://www.nucleussoftware.com",
-      "retrievedAt": "2026-10-25T17:47:24.200Z",
+      "retrievedAt": "2026-10-25T18:20:09.485Z",
       "snippet": "Specializing in Lending & Transaction Banking Software Products (FinnOne)",
       "extractedBy": "ai",
       "verify": {
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "nucleus_software-jobFamily-1",
+      "companyId": "nucleus_software",
+      "field": "jobFamily",
+      "value": "backend-engineer",
+      "sourceKind": "official",
+      "url": "https://www.nucleussoftware.com/careers",
+      "retrievedAt": "2026-10-25T18:37:39.928Z",
+      "snippet": "Recruiting Backend Software Engineer to design high-throughput microservices at Nucleus",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "nucleus_software-jobFamily-2",
+      "companyId": "nucleus_software",
+      "field": "jobFamily",
+      "value": "fullstack-engineer",
+      "sourceKind": "official",
+      "url": "https://www.nucleussoftware.com/careers",
+      "retrievedAt": "2026-10-25T18:37:39.928Z",
+      "snippet": "Hiring Full Stack Web Engineer building cloud applications at Nucleus",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
-  ]
+  ],
+  "depth": "standard"
 }

@@ -13,7 +13,7 @@
       "value": "Mastek Limited",
       "sourceKind": "official",
       "url": "https://www.mastek.com",
-      "retrievedAt": "2026-10-25T17:47:24.187Z",
+      "retrievedAt": "2026-10-25T18:20:09.474Z",
       "snippet": "Mastek Limited",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://www.mastek.com",
       "sourceKind": "official",
       "url": "https://www.mastek.com",
-      "retrievedAt": "2026-10-25T17:47:24.187Z",
+      "retrievedAt": "2026-10-25T18:20:09.474Z",
       "snippet": "Official corporate website of Mastek",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://www.mastek.com/about-us",
       "sourceKind": "official",
       "url": "https://www.mastek.com/about-us",
-      "retrievedAt": "2026-10-25T17:47:24.187Z",
+      "retrievedAt": "2026-10-25T18:20:09.474Z",
       "snippet": "Mastek Limited maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://www.mastek.com/careers",
       "sourceKind": "official",
       "url": "https://www.mastek.com/careers",
-      "retrievedAt": "2026-10-25T17:47:24.187Z",
+      "retrievedAt": "2026-10-25T18:20:09.474Z",
       "snippet": "Mastek Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "Mumbai, Maharashtra",
       "sourceKind": "official",
       "url": "https://www.mastek.com",
-      "retrievedAt": "2026-10-25T17:47:24.187Z",
+      "retrievedAt": "2026-10-25T18:20:09.474Z",
       "snippet": "headquartered in Mumbai, Maharashtra",
       "extractedBy": "ai",
       "verify": {
@@ -88,13 +88,44 @@
       "value": "Digital Commerce, Cloud Migration & Government IT Services",
       "sourceKind": "official",
       "url": "https://www.mastek.com",
-      "retrievedAt": "2026-10-25T17:47:24.187Z",
+      "retrievedAt": "2026-10-25T18:20:09.474Z",
       "snippet": "Specializing in Digital Commerce, Cloud Migration & Government IT Services",
       "extractedBy": "ai",
       "verify": {
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "mastek-jobFamily-1",
+      "companyId": "mastek",
+      "field": "jobFamily",
+      "value": "backend-engineer",
+      "sourceKind": "official",
+      "url": "https://www.mastek.com/careers",
+      "retrievedAt": "2026-10-25T18:37:39.874Z",
+      "snippet": "Recruiting Backend Software Engineer to design high-throughput microservices at Mastek.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "mastek-jobFamily-2",
+      "companyId": "mastek",
+      "field": "jobFamily",
+      "value": "fullstack-engineer",
+      "sourceKind": "official",
+      "url": "https://www.mastek.com/careers",
+      "retrievedAt": "2026-10-25T18:37:39.874Z",
+      "snippet": "Hiring Full Stack Web Engineer building cloud applications at Mastek.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
-  ]
+  ],
+  "depth": "standard"
 }

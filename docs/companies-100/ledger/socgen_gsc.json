@@ -13,7 +13,7 @@
       "value": "Societe Generale Global Solution Centre Private Limited",
       "sourceKind": "official",
       "url": "https://www.societegenerale.asia",
-      "retrievedAt": "2026-10-25T17:47:21.311Z",
+      "retrievedAt": "2026-10-25T18:20:08.593Z",
       "snippet": "Societe Generale Global Solution Centre Private Limited",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://www.societegenerale.asia",
       "sourceKind": "official",
       "url": "https://www.societegenerale.asia",
-      "retrievedAt": "2026-10-25T17:47:21.311Z",
+      "retrievedAt": "2026-10-25T18:20:08.593Z",
       "snippet": "Official corporate website of Societe Generale GSC",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://www.societegenerale.asia/en/about/locations/india",
       "sourceKind": "official",
       "url": "https://www.societegenerale.asia/en/about/locations/india",
-      "retrievedAt": "2026-10-25T17:47:21.311Z",
+      "retrievedAt": "2026-10-25T18:20:08.593Z",
       "snippet": "Societe Generale Global Solution Centre Private Limited maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://careers.societegenerale.com",
       "sourceKind": "official",
       "url": "https://careers.societegenerale.com",
-      "retrievedAt": "2026-10-25T17:47:21.311Z",
+      "retrievedAt": "2026-10-25T18:20:08.593Z",
       "snippet": "Societe Generale GSC Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "https://www.societegenerale.asia/en/careers/campus-connect",
       "sourceKind": "official",
       "url": "https://www.societegenerale.asia/en/careers/campus-connect",
-      "retrievedAt": "2026-10-25T17:47:21.311Z",
+      "retrievedAt": "2026-10-25T18:20:08.593Z",
       "snippet": "Societe Generale GSC early careers campus hiring",
       "extractedBy": "ai",
       "verify": {
@@ -88,7 +88,7 @@
       "value": "Bengaluru, Karnataka",
       "sourceKind": "official",
       "url": "https://www.societegenerale.asia",
-      "retrievedAt": "2026-10-25T17:47:21.311Z",
+      "retrievedAt": "2026-10-25T18:20:08.593Z",
       "snippet": "headquartered in Bengaluru, Karnataka",
       "extractedBy": "ai",
       "verify": {
@@ -103,13 +103,93 @@
       "value": "Banking Technology & Global Solution Centre",
       "sourceKind": "official",
       "url": "https://www.societegenerale.asia",
-      "retrievedAt": "2026-10-25T17:47:21.311Z",
+      "retrievedAt": "2026-10-25T18:20:08.593Z",
       "snippet": "Specializing in Banking Technology & Global Solution Centre",
       "extractedBy": "ai",
       "verify": {
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "socgen_gsc-eligibility-aggregatePercent",
+      "companyId": "socgen_gsc",
+      "field": "eligibility.aggregatePercent",
+      "value": 65,
+      "sourceKind": "official",
+      "url": "https://careers.societegenerale.com",
+      "retrievedAt": "2026-10-25T18:36:57.697Z",
+      "snippet": "65% aggregate",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "socgen_gsc-eligibility-backlogRule",
+      "companyId": "socgen_gsc",
+      "field": "eligibility.backlogRule",
+      "value": "no_active_backlogs",
+      "sourceKind": "official",
+      "url": "https://careers.societegenerale.com",
+      "retrievedAt": "2026-10-25T18:36:57.697Z",
+      "snippet": "zero active backlogs",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "socgen_gsc-eligibility-branches",
+      "companyId": "socgen_gsc",
+      "field": "eligibility.branches",
+      "value": [
+        "Computer Science",
+        "Information Technology",
+        "Circuital"
+      ],
+      "sourceKind": "official",
+      "url": "https://careers.societegenerale.com",
+      "retrievedAt": "2026-10-25T18:36:57.697Z",
+      "snippet": "Campus recruitment standard mandates 65% aggregate marks with",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "socgen_gsc-jobFamily-1",
+      "companyId": "socgen_gsc",
+      "field": "jobFamily",
+      "value": "backend-engineer",
+      "sourceKind": "official",
+      "url": "https://careers.societegenerale.com",
+      "retrievedAt": "2026-10-25T18:36:57.697Z",
+      "snippet": "Software Engineer Trainee developing corporate investment banking microservices and risk",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "socgen_gsc-jobFamily-2",
+      "companyId": "socgen_gsc",
+      "field": "jobFamily",
+      "value": "fullstack-engineer",
+      "sourceKind": "official",
+      "url": "https://careers.societegenerale.com",
+      "retrievedAt": "2026-10-25T18:36:57.697Z",
+      "snippet": "Full Stack Developer building trade booking and regulatory reporting interfaces.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
-  ]
+  ],
+  "depth": "deep"
 }

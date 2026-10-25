@@ -13,7 +13,7 @@
       "value": "Sasken Technologies Limited",
       "sourceKind": "official",
       "url": "https://www.sasken.com",
-      "retrievedAt": "2026-10-25T17:47:24.281Z",
+      "retrievedAt": "2026-10-25T18:20:09.557Z",
       "snippet": "Sasken Technologies Limited",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://www.sasken.com",
       "sourceKind": "official",
       "url": "https://www.sasken.com",
-      "retrievedAt": "2026-10-25T17:47:24.281Z",
+      "retrievedAt": "2026-10-25T18:20:09.557Z",
       "snippet": "Official corporate website of Sasken Technologies",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://www.sasken.com/about-us",
       "sourceKind": "official",
       "url": "https://www.sasken.com/about-us",
-      "retrievedAt": "2026-10-25T17:47:24.281Z",
+      "retrievedAt": "2026-10-25T18:20:09.557Z",
       "snippet": "Sasken Technologies Limited maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://www.sasken.com/careers",
       "sourceKind": "official",
       "url": "https://www.sasken.com/careers",
-      "retrievedAt": "2026-10-25T17:47:24.281Z",
+      "retrievedAt": "2026-10-25T18:20:09.557Z",
       "snippet": "Sasken Technologies Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "Bengaluru, Karnataka",
       "sourceKind": "official",
       "url": "https://www.sasken.com",
-      "retrievedAt": "2026-10-25T17:47:24.281Z",
+      "retrievedAt": "2026-10-25T18:20:09.557Z",
       "snippet": "headquartered in Bengaluru, Karnataka",
       "extractedBy": "ai",
       "verify": {
@@ -88,13 +88,44 @@
       "value": "Product Engineering, Telecom & Semiconductor Embedded Tech",
       "sourceKind": "official",
       "url": "https://www.sasken.com",
-      "retrievedAt": "2026-10-25T17:47:24.281Z",
+      "retrievedAt": "2026-10-25T18:20:09.557Z",
       "snippet": "Specializing in Product Engineering, Telecom & Semiconductor Embedded Tech",
       "extractedBy": "ai",
       "verify": {
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "sasken-jobFamily-1",
+      "companyId": "sasken",
+      "field": "jobFamily",
+      "value": "embedded-engineer",
+      "sourceKind": "official",
+      "url": "https://www.sasken.com/careers",
+      "retrievedAt": "2026-10-25T18:37:43.550Z",
+      "snippet": "Hiring Embedded Software Engineer for hardware controller systems at Sasken",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "sasken-jobFamily-2",
+      "companyId": "sasken",
+      "field": "jobFamily",
+      "value": "qa-automation",
+      "sourceKind": "official",
+      "url": "https://www.sasken.com/careers",
+      "retrievedAt": "2026-10-25T18:37:43.550Z",
+      "snippet": "Quality Assurance Test Automation Engineer for system validation at Sasken",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
-  ]
+  ],
+  "depth": "standard"
 }

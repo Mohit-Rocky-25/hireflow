@@ -13,7 +13,7 @@
       "value": "Quadeye Securities LLP",
       "sourceKind": "official",
       "url": "https://www.quadeye.com",
-      "retrievedAt": "2026-10-25T17:47:21.053Z",
+      "retrievedAt": "2026-10-25T18:20:08.500Z",
       "snippet": "Quadeye Securities LLP",
       "extractedBy": "ai",
       "verify": {
@@ -28,7 +28,7 @@
       "value": "https://www.quadeye.com",
       "sourceKind": "official",
       "url": "https://www.quadeye.com",
-      "retrievedAt": "2026-10-25T17:47:21.053Z",
+      "retrievedAt": "2026-10-25T18:20:08.500Z",
       "snippet": "Official corporate website of Quadeye Securities",
       "extractedBy": "ai",
       "verify": {
@@ -43,7 +43,7 @@
       "value": "https://www.quadeye.com/about-us",
       "sourceKind": "official",
       "url": "https://www.quadeye.com/about-us",
-      "retrievedAt": "2026-10-25T17:47:21.053Z",
+      "retrievedAt": "2026-10-25T18:20:08.500Z",
       "snippet": "Quadeye Securities LLP maintains corporate presence",
       "extractedBy": "ai",
       "verify": {
@@ -58,7 +58,7 @@
       "value": "https://www.quadeye.com/careers",
       "sourceKind": "official",
       "url": "https://www.quadeye.com/careers",
-      "retrievedAt": "2026-10-25T17:47:21.053Z",
+      "retrievedAt": "2026-10-25T18:20:08.500Z",
       "snippet": "Quadeye Securities Careers and campus recruitment drive",
       "extractedBy": "ai",
       "verify": {
@@ -73,7 +73,7 @@
       "value": "https://www.quadeye.com/campus",
       "sourceKind": "official",
       "url": "https://www.quadeye.com/campus",
-      "retrievedAt": "2026-10-25T17:47:21.053Z",
+      "retrievedAt": "2026-10-25T18:20:08.500Z",
       "snippet": "Quadeye Securities early careers campus hiring",
       "extractedBy": "ai",
       "verify": {
@@ -88,7 +88,7 @@
       "value": "Gurugram, Haryana",
       "sourceKind": "official",
       "url": "https://www.quadeye.com",
-      "retrievedAt": "2026-10-25T17:47:21.053Z",
+      "retrievedAt": "2026-10-25T18:20:08.500Z",
       "snippet": "headquartered in Gurugram, Haryana",
       "extractedBy": "ai",
       "verify": {
@@ -103,13 +103,29 @@
       "value": "Algorithmic Trading & High Frequency Systems",
       "sourceKind": "official",
       "url": "https://www.quadeye.com",
-      "retrievedAt": "2026-10-25T17:47:21.053Z",
+      "retrievedAt": "2026-10-25T18:20:08.500Z",
       "snippet": "Specializing in Algorithmic Trading & High Frequency Systems",
       "extractedBy": "ai",
       "verify": {
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "quadeye-jobFamily-1",
+      "companyId": "quadeye",
+      "field": "jobFamily",
+      "value": "quant-developer",
+      "sourceKind": "official",
+      "url": "https://www.quadeye.com/careers",
+      "retrievedAt": "2026-10-25T18:36:57.503Z",
+      "snippet": "Recruiting Software Engineer for quantitative execution infrastructure at Quadeye Securities.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
-  ]
+  ],
+  "depth": "standard"
 }
