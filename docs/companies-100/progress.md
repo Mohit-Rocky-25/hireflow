@@ -16,8 +16,8 @@ Started: 2026-10-25
 | 0.7 | Stage 0 | Write recon.md with answers & OPEN QUESTIONS | DONE | e87bbfa | `docs/companies-100/recon.md` generated with all findings and answers |
 | 1.1 | Stage 1 | Write ADR-001.md, implement additive schema changes & migrations | DONE | 727f6fc | `npx tsc --noEmit && npx vitest run` (142 passed, 927 passed, 0 failed) |
 | 1.2 | Stage 1 | Build ledger tooling (validate:ledger, verify:blind, build:companies, check:generated) | DONE | 484ea36 | `npm run validate:ledger && npm run build:companies && npm run check:generated` |
-| 1.3 | Stage 1 | UI null safety, depth chip, editorial label, source chips, disclaimer, error report | DONE | pending | `npx tsc --noEmit && npx vitest run src/__tests__/a11y/contrast.test.ts` (0 errors) |
-| 1.4 | Stage 1 | Validator unit tests, canary tests (H10), rejection tests, full suite, tag c100-stage-1 | TODO | - | - |
+| 1.3 | Stage 1 | UI null safety, depth chip, editorial label, source chips, disclaimer, error report | DONE | a15d10d | `npx tsc --noEmit && npx vitest run src/__tests__/a11y/contrast.test.ts` (0 errors) |
+| 1.4 | Stage 1 | Validator unit tests, canary tests (H10), rejection tests, full suite, tag c100-stage-1 | DONE | pending | `npx vitest run tests/talentlens/companies100Validator.test.ts` (29 passed, 0 failed; 143 suites green) |
 | 2.1 | Stage 2 | Dedupe roster into dedupe.md | TODO | - | - |
 | 2.2 | Stage 2 | Roster verification (batches of 10, ONE at a time, official pages, log fetches) | TODO | - | - |
 | 2.3 | Stage 2 | One-line tierRationale per company, flag needsReview | TODO | - | - |
@@ -166,3 +166,20 @@ Test Files  1 passed (1)
      Tests  6 passed (6)
 ```
 - **Changes**: Implemented null safety handling ("Not available" fallback for blank/NaN/undefined package, open roles, glassdoor rating, and headcount), added depth chip (`deep`, `standard`, `basic`), "Not yet source-audited" chip for legacy dataStatus, "Representative role profile (editorial)" label on role cards, enhanced `SourceChip` with days-ago calculation ("Official source, checked N days ago") and stale warning after 180 days, created zero-egress `ReportErrorModal.tsx` utilizing local `feedbackStore`, and added affirmative non-affiliation / trademark footer disclaimer across TalentLens pages.
+
+### Task 1.4 Log
+- **Command**: `npx vitest run tests/talentlens/companies100Validator.test.ts`
+- **Output**:
+```
+ RUN  v5.0.3 C:/Users/yadav/.gemini/antigravity-ide/scratch/hireflow
+
+ ✓ tests/talentlens/companies100Validator.test.ts (29 tests) 194ms
+
+ Test Files  1 passed (1)
+      Tests  29 passed (29)
+   Start at  22:59:49
+   Duration  532ms
+```
+- **Full Suite Output**: 143 test files passed, 956 tests passed, 0 failures.
+- **Changes**: Created `tests/talentlens/companies100Validator.test.ts` implementing validator tests (passing and failing fixtures for Rules H2, H3, H4, H5, H7), H10 negative control canaries (a: 3 invented company names ending quarantined with 0 rows; b: 3 mock pages with zero eligibility criteria outputting zero rows), and multi-violation bad row rejection test. Enforced `extractedBy: "ai"` check in `validate-ledger.mjs`. Ready for `c100-stage-1` tag.
+

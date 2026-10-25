@@ -223,6 +223,11 @@ export function validateLedgerRow(row, options = {}) {
     errors.push(`verify.status must be passed|pending|failed|needsReview, got: "${row.verify.status}"`);
   }
 
+  // ExtractedBy check (H3)
+  if (!row.extractedBy || row.extractedBy !== 'ai') {
+    errors.push(`extractedBy must be "ai", received: "${row.extractedBy}" (H3 violation)`);
+  }
+
   return {
     valid: errors.length === 0,
     errors
