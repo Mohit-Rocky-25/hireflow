@@ -7,8 +7,8 @@ Started: 2026-10-25
 
 | Task ID | Stage | Description | Status | Commit | Command / Output Record |
 |---|---|---|---|---|---|
-| 0.1 | Stage 0 | Create branch, progress.md, run baseline tests, git tag c100-baseline | DONE | pending | `npx vitest run` (142 passed, 927 passed, 0 failed) |
-| 0.2 | Stage 0 | Copy roster to roster-input.md, parse tables, confirm 100 ids & category counts | TODO | - | - |
+| 0.1 | Stage 0 | Create branch, progress.md, run baseline tests, git tag c100-baseline | DONE | cef216e | `npx vitest run` (142 passed, 927 passed, 0 failed) |
+| 0.2 | Stage 0 | Copy roster to roster-input.md, parse tables, confirm 100 ids & category counts | DONE | pending | `node scripts/parse_roster.cjs` (100 unique IDs, categories 10/15/25/15/15/20) |
 | 0.3 | Stage 0 | Locate and record company/role data, eligibility, types, validators, provenance | TODO | - | - |
 | 0.4 | Stage 0 | Write consumed-fields.md (field usages, file:line, effect) | TODO | - | - |
 | 0.5 | Stage 0 | Existing stats, dedupe 100 against existing data by id & normalised name | TODO | - | - |
@@ -75,3 +75,22 @@ Started: 2026-10-25
 ```
 - **Failing tests**: 0
 - **Baseline Git Tag**: `c100-baseline`
+
+### Task 0.2 Log
+- **Command**: `Copy-Item docs\100_COMPANIES_DATASET_BLUEPRINT_FOR_CLAUDE.md -Destination docs\companies-100\roster-input.md -Force`
+- **Verification Command**: `node scripts/parse_roster.cjs`
+- **Output (last 20 lines)**:
+```
+Categories count: 6
+Counts per category: 10/15/25/15/15/20
+Category 1: ### Category 1: Proprietary Trading, Quant & Financial Markets (10 Companies) -> 10 companies
+Category 2: ### Category 2: Global Capability Centers (GCCs) & Banking Tech (15 Companies) -> 15 companies
+Category 3: ### Category 3: Core Engineering, Embedded Systems, IoT & Automotive (25 Companies) -> 25 companies
+Category 4: ### Category 4: Analytics, AI & Enterprise Data Platforms (15 Companies) -> 15 companies
+Category 5: ### Category 5: High-Growth Indian Tech, D2C & EdTech (15 Companies) -> 15 companies
+Category 6: ### Category 6: Mid-Market IT Consulting, Digital Engineering & Enterprise SaaS (20 Companies) -> 20 companies
+Total companies: 100
+Unique IDs count: 100
+Successfully saved to docs/companies-100/roster-parsed.json
+```
+

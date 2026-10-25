@@ -1,0 +1,1636 @@
+{
+  "categories": [
+    {
+      "title": "### Category 1: Proprietary Trading, Quant & Financial Markets (10 Companies)",
+      "companies": [
+        {
+          "id": "axxela",
+          "name": "Axxela Advisory",
+          "tier": "UNICORN",
+          "industry": "Quantitative Trading & Analytics",
+          "hq": "Mumbai, Maharashtra",
+          "typicalRoles": "Junior Quant Analyst, Trainee Prop Trader, Python Data Engineer"
+        },
+        {
+          "id": "futures_first",
+          "name": "Futures First",
+          "tier": "PRODUCT_MNC",
+          "industry": "Financial Markets & Algo Trading",
+          "hq": "Gurugram, Haryana",
+          "typicalRoles": "Market Analyst Trainee, Quantitative Research Associate"
+        },
+        {
+          "id": "graviton",
+          "name": "Graviton Research Capital",
+          "tier": "UNICORN",
+          "industry": "High Frequency Trading (HFT)",
+          "hq": "Gurugram, Haryana",
+          "typicalRoles": "Quantitative Software Engineer, Algo Trader"
+        },
+        {
+          "id": "alphagrep",
+          "name": "AlphaGrep Securities",
+          "tier": "UNICORN",
+          "industry": "Quantitative Trading & HFT",
+          "hq": "Mumbai / Bengaluru",
+          "typicalRoles": "C++ Low Latency Developer, Quantitative Researcher"
+        },
+        {
+          "id": "quadeye",
+          "name": "Quadeye Securities",
+          "tier": "UNICORN",
+          "industry": "Algorithmic Trading",
+          "hq": "Gurugram, Haryana",
+          "typicalRoles": "Systems Software Engineer, Quantitative Strategist"
+        },
+        {
+          "id": "estee_advisors",
+          "name": "Estee Advisors",
+          "tier": "PRODUCT_MNC",
+          "industry": "Algo Trading & Asset Management",
+          "hq": "Gurugram, Haryana",
+          "typicalRoles": "Quantitative Developer, Machine Learning Trader"
+        },
+        {
+          "id": "tmg_india",
+          "name": "TransMarket Group India",
+          "tier": "PRODUCT_MNC",
+          "industry": "Prop Trading & Market Making",
+          "hq": "Mumbai, Maharashtra",
+          "typicalRoles": "Trainee Quantitative Trader, Software Engineer (C++)"
+        },
+        {
+          "id": "worldquant_india",
+          "name": "WorldQuant India",
+          "tier": "PRODUCT_MNC",
+          "industry": "Quantitative Investment Management",
+          "hq": "Mumbai, Maharashtra",
+          "typicalRoles": "Quantitative Research Consultant, Data Engineering Associate"
+        },
+        {
+          "id": "deshaw_india",
+          "name": "D.E. Shaw India",
+          "tier": "PRODUCT_MNC",
+          "industry": "Investment Tech & Quantitative Analytics",
+          "hq": "Hyderabad, Telangana",
+          "typicalRoles": "Software Development Engineer, Systems Technologist"
+        },
+        {
+          "id": "cams",
+          "name": "Computer Age Management Services (CAMS)",
+          "tier": "PRODUCT_MNC",
+          "industry": "Capital Markets & BFSI Infrastructure",
+          "hq": "Chennai, Tamil Nadu",
+          "typicalRoles": "Associate Software Engineer, Database Analyst"
+        }
+      ]
+    },
+    {
+      "title": "### Category 2: Global Capability Centers (GCCs) & Banking Tech (15 Companies)",
+      "companies": [
+        {
+          "id": "socgen_gsc",
+          "name": "Societe Generale GSC",
+          "tier": "GCC",
+          "industry": "Banking Tech & Financial Services",
+          "hq": "Bengaluru / Chennai",
+          "typicalRoles": "Software Engineer (Java/Cloud), Data Analytics Specialist"
+        },
+        {
+          "id": "bny_mellon_tech",
+          "name": "BNY Mellon Technology",
+          "tier": "GCC",
+          "industry": "Global Custody & Asset Servicing Tech",
+          "hq": "Pune / Chennai",
+          "typicalRoles": "Application Developer, Cloud Infrastructure Engineer"
+        },
+        {
+          "id": "northern_trust",
+          "name": "Northern Trust India",
+          "tier": "GCC",
+          "industry": "Wealth Management & Asset Servicing",
+          "hq": "Pune / Bengaluru",
+          "typicalRoles": "Associate Software Engineer, Systems Specialist"
+        },
+        {
+          "id": "fidelity_international",
+          "name": "Fidelity International",
+          "tier": "GCC",
+          "industry": "Investment Management & Financial Tech",
+          "hq": "Gurugram / Bengaluru",
+          "typicalRoles": "Technology Associate, Quality Assurance Engineer"
+        },
+        {
+          "id": "state_street_india",
+          "name": "State Street Global Advisors",
+          "tier": "GCC",
+          "industry": "Financial Tech & Custodial Services",
+          "hq": "Bengaluru / Hyderabad",
+          "typicalRoles": "Associate Software Engineer, Reporting Analyst"
+        },
+        {
+          "id": "natwest_group",
+          "name": "NatWest Group India",
+          "tier": "GCC",
+          "industry": "Commercial & Retail Banking Tech",
+          "hq": "Gurugram / Bengaluru",
+          "typicalRoles": "Software Engineer Trainee, Risk Analytics Specialist"
+        },
+        {
+          "id": "macquarie_india",
+          "name": "Macquarie Group India",
+          "tier": "GCC",
+          "industry": "Investment Banking & Commodity Tech",
+          "hq": "Gurugram, Haryana",
+          "typicalRoles": "Graduate Software Engineer, Cloud Operations Analyst"
+        },
+        {
+          "id": "standard_chartered_gbs",
+          "name": "Standard Chartered GBS",
+          "tier": "GCC",
+          "industry": "International Banking Services",
+          "hq": "Chennai / Bengaluru",
+          "typicalRoles": "Analyst — Core Banking Platforms, API Integration Developer"
+        },
+        {
+          "id": "smarsh",
+          "name": "Smarsh India",
+          "tier": "GCC",
+          "industry": "RegTech & Digital Compliance SaaS",
+          "hq": "Bengaluru, Karnataka",
+          "typicalRoles": "Software Development Engineer, QA Automation Engineer"
+        },
+        {
+          "id": "concertai",
+          "name": "ConcertAI",
+          "tier": "GCC",
+          "industry": "Healthcare AI & Oncology SaaS",
+          "hq": "Bengaluru, Karnataka",
+          "typicalRoles": "Associate Data Engineer, ML Pipeline Associate"
+        },
+        {
+          "id": "nielseniq",
+          "name": "NielsenIQ India",
+          "tier": "GCC",
+          "industry": "Consumer Intelligence & Big Data",
+          "hq": "Bengaluru / Vadodara",
+          "typicalRoles": "Associate Data Scientist, Big Data Engineer"
+        },
+        {
+          "id": "conneqt",
+          "name": "Conneqt Business Solutions",
+          "tier": "IT_SERVICES",
+          "industry": "Digital CX & BPM Technology",
+          "hq": "Hyderabad / Bengaluru",
+          "typicalRoles": "Software Trainee, Full Stack Web Developer"
+        },
+        {
+          "id": "incedo",
+          "name": "Incedo Inc",
+          "tier": "IT_SERVICES",
+          "industry": "Digital Engineering & Cloud Consulting",
+          "hq": "Gurugram / Pune",
+          "typicalRoles": "Associate Software Engineer, Data Integration Analyst"
+        },
+        {
+          "id": "human_security",
+          "name": "Human Security",
+          "tier": "GCC",
+          "industry": "Cybersecurity & Bot Mitigation",
+          "hq": "Bengaluru, Karnataka",
+          "typicalRoles": "Security Software Engineer, Threat Intelligence Analyst"
+        },
+        {
+          "id": "sgs_india",
+          "name": "SGS India",
+          "tier": "GCC",
+          "industry": "Inspection, Verification & Lab Tech",
+          "hq": "Mumbai / Bengaluru",
+          "typicalRoles": "Junior Software Developer, Systems Integration Trainee"
+        }
+      ]
+    },
+    {
+      "title": "### Category 3: Core Engineering, Embedded Systems, IoT & Automotive (25 Companies)",
+      "companies": [
+        {
+          "id": "visteon",
+          "name": "Visteon Corporation",
+          "tier": "PRODUCT_MNC",
+          "industry": "Automotive Cockpit Electronics & ADAS",
+          "hq": "Chennai / Pune",
+          "typicalRoles": "Embedded Software Engineer, Android Automotive Developer"
+        },
+        {
+          "id": "siemens_healthineers",
+          "name": "Siemens Healthineers",
+          "tier": "PRODUCT_MNC",
+          "industry": "MedTech & Diagnostic Imaging Software",
+          "hq": "Bengaluru, Karnataka",
+          "typicalRoles": "Graduate Engineer Trainee (C++), Imaging Software Developer"
+        },
+        {
+          "id": "honeywell_hts",
+          "name": "Honeywell Technology Solutions (HTS)",
+          "tier": "PRODUCT_MNC",
+          "industry": "Aerospace, Building Tech & Industrial IoT",
+          "hq": "Bengaluru / Hyderabad",
+          "typicalRoles": "Software Engineer Trainee, Embedded Systems Engineer"
+        },
+        {
+          "id": "garmin_india",
+          "name": "Garmin India",
+          "tier": "PRODUCT_MNC",
+          "industry": "GPS Navigation & Wearables Tech",
+          "hq": "Noida / Bengaluru",
+          "typicalRoles": "Embedded Firmware Engineer, Mobile App Developer (iOS/Android)"
+        },
+        {
+          "id": "syrma_sgs",
+          "name": "Syrma SGS Technology",
+          "tier": "PRODUCT_MNC",
+          "industry": "Electronics Manufacturing & IoT Hardware",
+          "hq": "Chennai / Gurugram",
+          "typicalRoles": "Embedded Hardware Engineer, Firmware Trainee"
+        },
+        {
+          "id": "san_radiance",
+          "name": "San Radiance Technologies",
+          "tier": "PRODUCT_MNC",
+          "industry": "Embedded Systems & FPGA Design",
+          "hq": "Bengaluru, Karnataka",
+          "typicalRoles": "FPGA Design Engineer, Embedded C Developer"
+        },
+        {
+          "id": "continental_automotive",
+          "name": "Continental Automotive India",
+          "tier": "PRODUCT_MNC",
+          "industry": "Autonomous Mobility & Chassis Safety",
+          "hq": "Bengaluru, Karnataka",
+          "typicalRoles": "Autonomous Driving Software Engineer, Autosar Developer"
+        },
+        {
+          "id": "aptiv_india",
+          "name": "Aptiv India",
+          "tier": "PRODUCT_MNC",
+          "industry": "Connected Services & Vehicle Architecture",
+          "hq": "Bengaluru / Pune",
+          "typicalRoles": "Embedded Software Engineer (Autosar/C++), Vehicle Network Engineer"
+        },
+        {
+          "id": "bgsw",
+          "name": "Bosch Global Software Technologies (BGSW)",
+          "tier": "PRODUCT_MNC",
+          "industry": "Mobility Software & Industrial IoT",
+          "hq": "Bengaluru / Coimbatore",
+          "typicalRoles": "Graduate Engineer Trainee, Embedded Linux Developer"
+        },
+        {
+          "id": "harman_india",
+          "name": "Harman Connected Services (Samsung)",
+          "tier": "PRODUCT_MNC",
+          "industry": "Connected Car & Audio Electronics",
+          "hq": "Bengaluru / Pune",
+          "typicalRoles": "Associate Software Engineer, Android Infotainment Developer"
+        },
+        {
+          "id": "valeo_india",
+          "name": "Valeo India",
+          "tier": "PRODUCT_MNC",
+          "industry": "Powertrain & Thermal Systems Tech",
+          "hq": "Chennai, Tamil Nadu",
+          "typicalRoles": "Embedded C Developer, Model-Based Design Engineer (Simulink)"
+        },
+        {
+          "id": "kpit_tech",
+          "name": "KPIT Technologies",
+          "tier": "PRODUCT_MNC",
+          "industry": "Automotive Software & EV Architecture",
+          "hq": "Pune / Bengaluru",
+          "typicalRoles": "Trainee Software Engineer, Battery Management System (BMS) Engineer"
+        },
+        {
+          "id": "zf_india",
+          "name": "ZF Group India",
+          "tier": "PRODUCT_MNC",
+          "industry": "Active Safety & E-Mobility Systems",
+          "hq": "Hyderabad / Chennai",
+          "typicalRoles": "Embedded Firmware Engineer, ADAS Validation Engineer"
+        },
+        {
+          "id": "alstom_india",
+          "name": "Alstom India",
+          "tier": "PRODUCT_MNC",
+          "industry": "Railway Signaling & Mobility Tech",
+          "hq": "Bengaluru / Hyderabad",
+          "typicalRoles": "Signaling Software Trainee, SCADA Validation Engineer"
+        },
+        {
+          "id": "schneider_electric",
+          "name": "Schneider Electric India",
+          "tier": "PRODUCT_MNC",
+          "industry": "Energy Management & Automation",
+          "hq": "Bengaluru, Karnataka",
+          "typicalRoles": "Graduate Engineer Trainee — R&D, Cloud IoT Developer"
+        },
+        {
+          "id": "abb_india",
+          "name": "ABB India",
+          "tier": "PRODUCT_MNC",
+          "industry": "Robotics, Power Grids & Automation",
+          "hq": "Bengaluru / Chennai",
+          "typicalRoles": "Junior Robotics Software Engineer, Control Systems Trainee"
+        },
+        {
+          "id": "danfoss_india",
+          "name": "Danfoss India",
+          "tier": "PRODUCT_MNC",
+          "industry": "Drives, Refrigeration & Power Electronics",
+          "hq": "Chennai, Tamil Nadu",
+          "typicalRoles": "Power Electronics Engineer, Embedded Firmware Trainee"
+        },
+        {
+          "id": "eaton_india",
+          "name": "Eaton India Innovation Center",
+          "tier": "PRODUCT_MNC",
+          "industry": "Intelligent Power Management Tech",
+          "hq": "Pune, Maharashtra",
+          "typicalRoles": "Associate Engineer — Software, Electrical Systems Modeler"
+        },
+        {
+          "id": "emerson_india",
+          "name": "Emerson Innovation Center",
+          "tier": "PRODUCT_MNC",
+          "industry": "Process Automation & Control Systems",
+          "hq": "Pune, Maharashtra",
+          "typicalRoles": "Software Trainee (Industrial SCADA), Systems Engineer"
+        },
+        {
+          "id": "rockwell_automation",
+          "name": "Rockwell Automation India",
+          "tier": "PRODUCT_MNC",
+          "industry": "Industrial Automation & Digital Plant Tech",
+          "hq": "Noida / Bengaluru",
+          "typicalRoles": "Software Engineer Trainee, Industrial Cloud Developer"
+        },
+        {
+          "id": "lam_research_india",
+          "name": "Lam Research India",
+          "tier": "PRODUCT_MNC",
+          "industry": "Semiconductor Equipment Software",
+          "hq": "Bengaluru, Karnataka",
+          "typicalRoles": "Software Engineer (C++/Distributed Systems), Controls Engineer"
+        },
+        {
+          "id": "kla_india",
+          "name": "KLA Corporation India",
+          "tier": "PRODUCT_MNC",
+          "industry": "Semiconductor Inspection & Metrology",
+          "hq": "Chennai, Tamil Nadu",
+          "typicalRoles": "Algorithms Software Engineer, Computer Vision Engineer"
+        },
+        {
+          "id": "applied_materials_india",
+          "name": "Applied Materials India",
+          "tier": "PRODUCT_MNC",
+          "industry": "Nano-manufacturing Technology",
+          "hq": "Bengaluru, Karnataka",
+          "typicalRoles": "Software Engineer (Semiconductor Automation), Equipment Control Developer"
+        },
+        {
+          "id": "western_digital_india",
+          "name": "Western Digital / SanDisk",
+          "tier": "PRODUCT_MNC",
+          "industry": "Flash Memory & Data Storage Hardware",
+          "hq": "Bengaluru, Karnataka",
+          "typicalRoles": "Firmware Engineer Trainee, ASIC Design Verification Associate"
+        },
+        {
+          "id": "seagate_india",
+          "name": "Seagate Technology India",
+          "tier": "PRODUCT_MNC",
+          "industry": "Storage Solutions & Cloud Drives",
+          "hq": "Pune, Maharashtra",
+          "typicalRoles": "Storage Firmware Engineer, Linux Systems Trainee"
+        }
+      ]
+    },
+    {
+      "title": "### Category 4: Analytics, AI & Enterprise Data Platforms (15 Companies)",
+      "companies": [
+        {
+          "id": "fractal",
+          "name": "Fractal Analytics",
+          "tier": "UNICORN",
+          "industry": "Artificial Intelligence & Decision Science",
+          "hq": "Mumbai / Bengaluru",
+          "typicalRoles": "Data Science Associate, Decision Analytics Trainee"
+        },
+        {
+          "id": "mu_sigma",
+          "name": "Mu Sigma",
+          "tier": "UNICORN",
+          "industry": "Decision Sciences & Big Data Analytics",
+          "hq": "Bengaluru, Karnataka",
+          "typicalRoles": "Trainee Decision Scientist, Analytics Associate"
+        },
+        {
+          "id": "latentview",
+          "name": "LatentView Analytics",
+          "tier": "PRODUCT_MNC",
+          "industry": "Digital Analytics & Data Consulting",
+          "hq": "Chennai, Tamil Nadu",
+          "typicalRoles": "Analyst — Data Engineering, Analytics Consultant"
+        },
+        {
+          "id": "tiger_analytics",
+          "name": "Tiger Analytics",
+          "tier": "PRODUCT_MNC",
+          "industry": "Advanced Analytics & AI Consulting",
+          "hq": "Chennai / Bengaluru",
+          "typicalRoles": "Junior Data Scientist, Big Data Engineer"
+        },
+        {
+          "id": "tredence",
+          "name": "Tredence Analytics",
+          "tier": "UNICORN",
+          "industry": "Data Science & Enterprise AI Solutions",
+          "hq": "Bengaluru, Karnataka",
+          "typicalRoles": "Data Engineer Associate, Business Intelligence Trainee"
+        },
+        {
+          "id": "course5",
+          "name": "Course5 Intelligence",
+          "tier": "PRODUCT_MNC",
+          "industry": "Cognitive Analytics & Customer Insights",
+          "hq": "Bengaluru / Mumbai",
+          "typicalRoles": "Analytics Specialist, AI Solutions Developer"
+        },
+        {
+          "id": "quantiphi",
+          "name": "Quantiphi",
+          "tier": "PRODUCT_MNC",
+          "industry": "Applied AI & Cloud Transformation",
+          "hq": "Mumbai / Bengaluru",
+          "typicalRoles": "Machine Learning Engineer, Cloud Data Engineer"
+        },
+        {
+          "id": "polestar_solutions",
+          "name": "Polestar Solutions",
+          "tier": "PRODUCT_MNC",
+          "industry": "Enterprise Data Management & Analytics",
+          "hq": "Noida, Uttar Pradesh",
+          "typicalRoles": "Business Intelligence Developer, Data Engineering Trainee"
+        },
+        {
+          "id": "sigmoid",
+          "name": "Sigmoid Analytics",
+          "tier": "PRODUCT_MNC",
+          "industry": "Data Engineering & Generative AI",
+          "hq": "Bengaluru, Karnataka",
+          "typicalRoles": "Big Data Engineer, Machine Learning Associate"
+        },
+        {
+          "id": "ugam_solutions",
+          "name": "Ugam Solutions (Merkle)",
+          "tier": "PRODUCT_MNC",
+          "industry": "Retail Analytics & Digital Transformation",
+          "hq": "Mumbai / Bengaluru",
+          "typicalRoles": "Associate Analyst, Data Scientist Trainee"
+        },
+        {
+          "id": "absolutdata",
+          "name": "Absolutdata (Infogain)",
+          "tier": "PRODUCT_MNC",
+          "industry": "AI Solutions & Marketing Analytics",
+          "hq": "Gurugram, Haryana",
+          "typicalRoles": "Associate Data Engineer, Predictive Modeler"
+        },
+        {
+          "id": "micron_india",
+          "name": "Micron Technology India",
+          "tier": "PRODUCT_MNC",
+          "industry": "Semiconductor Memory & Storage",
+          "hq": "Hyderabad / Bengaluru",
+          "typicalRoles": "Software Engineer Trainee, Semiconductor Yield Analyst"
+        },
+        {
+          "id": "texas_instruments_india",
+          "name": "Texas Instruments India",
+          "tier": "PRODUCT_MNC",
+          "industry": "Analog & Embedded Semiconductor Tech",
+          "hq": "Bengaluru, Karnataka",
+          "typicalRoles": "Embedded Software Associate, Design Verification Engineer"
+        },
+        {
+          "id": "analog_devices_india",
+          "name": "Analog Devices India",
+          "tier": "PRODUCT_MNC",
+          "industry": "High Performance Semiconductor Tech",
+          "hq": "Bengaluru, Karnataka",
+          "typicalRoles": "Digital Signal Processing Engineer, Applications Trainee"
+        },
+        {
+          "id": "nxp_india",
+          "name": "NXP Semiconductors India",
+          "tier": "PRODUCT_MNC",
+          "industry": "Secure Connectivity & Microcontrollers",
+          "hq": "Noida / Bengaluru",
+          "typicalRoles": "Embedded Software Engineer (RTOS), Validation Engineer"
+        }
+      ]
+    },
+    {
+      "title": "### Category 5: High-Growth Indian Tech, D2C & EdTech (15 Companies)",
+      "companies": [
+        {
+          "id": "wakefit",
+          "name": "Wakefit Innovations",
+          "tier": "UNICORN",
+          "industry": "D2C Sleep Tech & Home Solutions",
+          "hq": "Bengaluru, Karnataka",
+          "typicalRoles": "Full Stack Engineer, Supply Chain Analytics Trainee"
+        },
+        {
+          "id": "zee_tech",
+          "name": "Zee Entertainment (Zee5)",
+          "tier": "PRODUCT_MNC",
+          "industry": "OTT Video Streaming & Media Tech",
+          "hq": "Bengaluru / Mumbai",
+          "typicalRoles": "Backend Engineer (Node/Go), Video Streaming Engineer"
+        },
+        {
+          "id": "nxtwave",
+          "name": "NxtWave Disruptive Tech",
+          "tier": "STARTUP",
+          "industry": "EdTech & Upskilling Platform",
+          "hq": "Hyderabad, Telangana",
+          "typicalRoles": "Software Engineer (React/Node), Product Operations Associate"
+        },
+        {
+          "id": "bytexl",
+          "name": "ByteXL",
+          "tier": "STARTUP",
+          "industry": "Higher Education Tech & IT Training",
+          "hq": "Hyderabad, Telangana",
+          "typicalRoles": "Full Stack Developer, Curriculum Tech Associate"
+        },
+        {
+          "id": "voxela",
+          "name": "Voxela AI",
+          "tier": "STARTUP",
+          "industry": "Computer Vision & Healthcare AI",
+          "hq": "Bengaluru / Remote",
+          "typicalRoles": "Computer Vision Trainee, Python Backend Developer"
+        },
+        {
+          "id": "clevertap",
+          "name": "CleverTap",
+          "tier": "UNICORN",
+          "industry": "Customer Engagement & Retention SaaS",
+          "hq": "Mumbai, Maharashtra",
+          "typicalRoles": "Software Engineer I (Data/Distributed), Frontend Engineer"
+        },
+        {
+          "id": "moengage",
+          "name": "MoEngage",
+          "tier": "UNICORN",
+          "industry": "Customer Engagement & Marketing AI",
+          "hq": "Bengaluru, Karnataka",
+          "typicalRoles": "Backend Software Engineer (Java/Python), DevOps Trainee"
+        },
+        {
+          "id": "leadsquared",
+          "name": "LeadSquared",
+          "tier": "UNICORN",
+          "industry": "Sales Automation & CRM SaaS",
+          "hq": "Bengaluru, Karnataka",
+          "typicalRoles": "Associate Software Engineer (C#/Python), QA Automation Trainee"
+        },
+        {
+          "id": "shiprocket",
+          "name": "Shiprocket",
+          "tier": "UNICORN",
+          "industry": "E-commerce Logistics & Supply Chain SaaS",
+          "hq": "Gurugram, Haryana",
+          "typicalRoles": "Software Development Engineer I, Logistics Analytics Trainee"
+        },
+        {
+          "id": "physicswallah_tech",
+          "name": "PhysicsWallah Tech",
+          "tier": "UNICORN",
+          "industry": "EdTech Platform & Streaming Tech",
+          "hq": "Noida / Bengaluru",
+          "typicalRoles": "Android App Developer, Backend Engineer (Microservices)"
+        },
+        {
+          "id": "scaler_tech",
+          "name": "Scaler Academy (InterviewBit)",
+          "tier": "UNICORN",
+          "industry": "Tech Education & Assessment Platform",
+          "hq": "Bengaluru, Karnataka",
+          "typicalRoles": "Software Development Engineer I, Frontend Engineer (React/Next)"
+        },
+        {
+          "id": "porter",
+          "name": "Porter (SmartShift Logistics)",
+          "tier": "UNICORN",
+          "industry": "On-Demand Intra-City Logistics Tech",
+          "hq": "Bengaluru, Karnataka",
+          "typicalRoles": "SDE I (Backend - Go/Java), Mobile Engineer (Kotlin)"
+        },
+        {
+          "id": "rapido",
+          "name": "Rapido",
+          "tier": "UNICORN",
+          "industry": "Bike Taxi & Auto Mobility Platform",
+          "hq": "Bengaluru, Karnataka",
+          "typicalRoles": "Software Engineer — Dispatch Systems, Backend Developer"
+        },
+        {
+          "id": "shadowfax",
+          "name": "Shadowfax Technologies",
+          "tier": "UNICORN",
+          "industry": "Hyperlocal & E-commerce Logistics Tech",
+          "hq": "Bengaluru, Karnataka",
+          "typicalRoles": "SDE-1 (Java/Spring Boot), Routing Optimization Trainee"
+        },
+        {
+          "id": "delhivery",
+          "name": "Delhivery Tech",
+          "tier": "UNICORN",
+          "industry": "Supply Chain & Express Logistics Tech",
+          "hq": "Gurugram, Haryana",
+          "typicalRoles": "Software Development Engineer I, Big Data Associate"
+        }
+      ]
+    },
+    {
+      "title": "### Category 6: Mid-Market IT Consulting, Digital Engineering & Enterprise SaaS (20 Companies)",
+      "companies": [
+        {
+          "id": "persistent_systems",
+          "name": "Persistent Systems",
+          "tier": "IT_SERVICES",
+          "industry": "Digital Engineering & Cloud Modernization",
+          "hq": "Pune, Maharashtra",
+          "typicalRoles": "Associate Software Engineer, Cloud Solutions Trainee"
+        },
+        {
+          "id": "birlasoft",
+          "name": "Birlasoft",
+          "tier": "IT_SERVICES",
+          "industry": "Enterprise Cloud & ERP Transformation",
+          "hq": "Pune / Noida",
+          "typicalRoles": "Graduate Trainee Engineer, Salesforce Developer Trainee"
+        },
+        {
+          "id": "cyient",
+          "name": "Cyient",
+          "tier": "PRODUCT_MNC",
+          "industry": "Engineering Design, Telecom & Geospatial",
+          "hq": "Hyderabad, Telangana",
+          "typicalRoles": "Trainee Software Engineer, Embedded Systems Trainee"
+        },
+        {
+          "id": "happiest_minds",
+          "name": "Happiest Minds Technologies",
+          "tier": "IT_SERVICES",
+          "industry": "Mindful IT, AI & Digital Infrastructure",
+          "hq": "Bengaluru, Karnataka",
+          "typicalRoles": "Software Trainee, DevOps Associate"
+        },
+        {
+          "id": "coforge",
+          "name": "Coforge",
+          "tier": "IT_SERVICES",
+          "industry": "Digital Services, Insurance & Travel Tech",
+          "hq": "Noida / Greater Noida",
+          "typicalRoles": "Graduate Engineer Trainee, Java Full Stack Associate"
+        },
+        {
+          "id": "zensar",
+          "name": "Zensar Technologies",
+          "tier": "IT_SERVICES",
+          "industry": "Digital Transformation & Experience Tech",
+          "hq": "Pune, Maharashtra",
+          "typicalRoles": "Associate Software Engineer, Cloud Infrastructure Trainee"
+        },
+        {
+          "id": "sonata_software",
+          "name": "Sonata Software",
+          "tier": "IT_SERVICES",
+          "industry": "Modernization Engineering & Cloud Data",
+          "hq": "Bengaluru, Karnataka",
+          "typicalRoles": "Software Engineer Trainee, Microsoft Dynamics Trainee"
+        },
+        {
+          "id": "mastek",
+          "name": "Mastek",
+          "tier": "IT_SERVICES",
+          "industry": "Digital Commerce & Cloud Solutions",
+          "hq": "Mumbai / Ahmedabad",
+          "typicalRoles": "Graduate Engineer Trainee, Oracle Cloud Associate"
+        },
+        {
+          "id": "nucleus_software",
+          "name": "Nucleus Software",
+          "tier": "PRODUCT_MNC",
+          "industry": "Lending & Transaction Banking Software",
+          "hq": "Noida, Uttar Pradesh",
+          "typicalRoles": "Assistant Software Engineer (Java/Fintech), Product Trainee"
+        },
+        {
+          "id": "newgen_software",
+          "name": "Newgen Software",
+          "tier": "PRODUCT_MNC",
+          "industry": "Low-Code Digital Automation Platform",
+          "hq": "New Delhi, Delhi",
+          "typicalRoles": "Software Engineer Trainee, Solutions Architect Trainee"
+        },
+        {
+          "id": "intellect_design",
+          "name": "Intellect Design Arena",
+          "tier": "PRODUCT_MNC",
+          "industry": "Contextual Banking & FinTech Architecture",
+          "hq": "Chennai, Tamil Nadu",
+          "typicalRoles": "Associate Software Engineer, Cloud Microservices Trainee"
+        },
+        {
+          "id": "tanla_platforms",
+          "name": "Tanla Platforms",
+          "tier": "PRODUCT_MNC",
+          "industry": "CPaaS & Cloud Communications Tech",
+          "hq": "Hyderabad, Telangana",
+          "typicalRoles": "Software Engineer I (Distributed messaging), API Trainee"
+        },
+        {
+          "id": "tata_elxsi",
+          "name": "Tata Elxsi",
+          "tier": "PRODUCT_MNC",
+          "industry": "Design-led Technology & Connected Vehicles",
+          "hq": "Bengaluru / Thiruvananthapuram",
+          "typicalRoles": "Engineer Trainee — Connected Vehicles, Embedded C Developer"
+        },
+        {
+          "id": "ltts",
+          "name": "L&T Technology Services (LTTS)",
+          "tier": "PRODUCT_MNC",
+          "industry": "Pure-Play Engineering R&D (ER&D)",
+          "hq": "Vadodara / Bengaluru",
+          "typicalRoles": "Associate Software Engineer, Industrial Automation Trainee"
+        },
+        {
+          "id": "sasken",
+          "name": "Sasken Technologies",
+          "tier": "PRODUCT_MNC",
+          "industry": "Telecom, Automotive & Satellite Tech",
+          "hq": "Bengaluru, Karnataka",
+          "typicalRoles": "Embedded Software Trainee, 5G Wireless Validation Engineer"
+        },
+        {
+          "id": "stmicro_india",
+          "name": "STMicroelectronics India",
+          "tier": "PRODUCT_MNC",
+          "industry": "Semiconductors, Microcontrollers & MEMS",
+          "hq": "Greater Noida, Uttar Pradesh",
+          "typicalRoles": "Embedded Software Engineer Trainee, Silicon Design Trainee"
+        },
+        {
+          "id": "renesas_india",
+          "name": "Renesas Electronics India",
+          "tier": "PRODUCT_MNC",
+          "industry": "Automotive & Industrial Microcontrollers",
+          "hq": "Bengaluru, Karnataka",
+          "typicalRoles": "Firmware Validation Engineer, Applications Trainee"
+        },
+        {
+          "id": "blackbuck",
+          "name": "BlackBuck (Zinka Logistics)",
+          "tier": "UNICORN",
+          "industry": "Fleet Management & Trucking Freight Tech",
+          "hq": "Bengaluru, Karnataka",
+          "typicalRoles": "Software Development Engineer I, Tracking Systems Associate"
+        },
+        {
+          "id": "ninjacart",
+          "name": "Ninjacart",
+          "tier": "UNICORN",
+          "industry": "Agritech B2B Supply Chain & Cold Chain",
+          "hq": "Bengaluru, Karnataka",
+          "typicalRoles": "SDE I (Backend), Logistics Optimization Engineer"
+        },
+        {
+          "id": "urban_company",
+          "name": "Urban Company Tech",
+          "tier": "UNICORN",
+          "industry": "Home Services Marketplace Tech",
+          "hq": "Gurugram, Haryana",
+          "typicalRoles": "Software Development Engineer I, Mobile App Trainee"
+        }
+      ]
+    }
+  ],
+  "allCompanies": [
+    {
+      "id": "axxela",
+      "name": "Axxela Advisory",
+      "tier": "UNICORN",
+      "industry": "Quantitative Trading & Analytics",
+      "hq": "Mumbai, Maharashtra",
+      "typicalRoles": "Junior Quant Analyst, Trainee Prop Trader, Python Data Engineer"
+    },
+    {
+      "id": "futures_first",
+      "name": "Futures First",
+      "tier": "PRODUCT_MNC",
+      "industry": "Financial Markets & Algo Trading",
+      "hq": "Gurugram, Haryana",
+      "typicalRoles": "Market Analyst Trainee, Quantitative Research Associate"
+    },
+    {
+      "id": "graviton",
+      "name": "Graviton Research Capital",
+      "tier": "UNICORN",
+      "industry": "High Frequency Trading (HFT)",
+      "hq": "Gurugram, Haryana",
+      "typicalRoles": "Quantitative Software Engineer, Algo Trader"
+    },
+    {
+      "id": "alphagrep",
+      "name": "AlphaGrep Securities",
+      "tier": "UNICORN",
+      "industry": "Quantitative Trading & HFT",
+      "hq": "Mumbai / Bengaluru",
+      "typicalRoles": "C++ Low Latency Developer, Quantitative Researcher"
+    },
+    {
+      "id": "quadeye",
+      "name": "Quadeye Securities",
+      "tier": "UNICORN",
+      "industry": "Algorithmic Trading",
+      "hq": "Gurugram, Haryana",
+      "typicalRoles": "Systems Software Engineer, Quantitative Strategist"
+    },
+    {
+      "id": "estee_advisors",
+      "name": "Estee Advisors",
+      "tier": "PRODUCT_MNC",
+      "industry": "Algo Trading & Asset Management",
+      "hq": "Gurugram, Haryana",
+      "typicalRoles": "Quantitative Developer, Machine Learning Trader"
+    },
+    {
+      "id": "tmg_india",
+      "name": "TransMarket Group India",
+      "tier": "PRODUCT_MNC",
+      "industry": "Prop Trading & Market Making",
+      "hq": "Mumbai, Maharashtra",
+      "typicalRoles": "Trainee Quantitative Trader, Software Engineer (C++)"
+    },
+    {
+      "id": "worldquant_india",
+      "name": "WorldQuant India",
+      "tier": "PRODUCT_MNC",
+      "industry": "Quantitative Investment Management",
+      "hq": "Mumbai, Maharashtra",
+      "typicalRoles": "Quantitative Research Consultant, Data Engineering Associate"
+    },
+    {
+      "id": "deshaw_india",
+      "name": "D.E. Shaw India",
+      "tier": "PRODUCT_MNC",
+      "industry": "Investment Tech & Quantitative Analytics",
+      "hq": "Hyderabad, Telangana",
+      "typicalRoles": "Software Development Engineer, Systems Technologist"
+    },
+    {
+      "id": "cams",
+      "name": "Computer Age Management Services (CAMS)",
+      "tier": "PRODUCT_MNC",
+      "industry": "Capital Markets & BFSI Infrastructure",
+      "hq": "Chennai, Tamil Nadu",
+      "typicalRoles": "Associate Software Engineer, Database Analyst"
+    },
+    {
+      "id": "socgen_gsc",
+      "name": "Societe Generale GSC",
+      "tier": "GCC",
+      "industry": "Banking Tech & Financial Services",
+      "hq": "Bengaluru / Chennai",
+      "typicalRoles": "Software Engineer (Java/Cloud), Data Analytics Specialist"
+    },
+    {
+      "id": "bny_mellon_tech",
+      "name": "BNY Mellon Technology",
+      "tier": "GCC",
+      "industry": "Global Custody & Asset Servicing Tech",
+      "hq": "Pune / Chennai",
+      "typicalRoles": "Application Developer, Cloud Infrastructure Engineer"
+    },
+    {
+      "id": "northern_trust",
+      "name": "Northern Trust India",
+      "tier": "GCC",
+      "industry": "Wealth Management & Asset Servicing",
+      "hq": "Pune / Bengaluru",
+      "typicalRoles": "Associate Software Engineer, Systems Specialist"
+    },
+    {
+      "id": "fidelity_international",
+      "name": "Fidelity International",
+      "tier": "GCC",
+      "industry": "Investment Management & Financial Tech",
+      "hq": "Gurugram / Bengaluru",
+      "typicalRoles": "Technology Associate, Quality Assurance Engineer"
+    },
+    {
+      "id": "state_street_india",
+      "name": "State Street Global Advisors",
+      "tier": "GCC",
+      "industry": "Financial Tech & Custodial Services",
+      "hq": "Bengaluru / Hyderabad",
+      "typicalRoles": "Associate Software Engineer, Reporting Analyst"
+    },
+    {
+      "id": "natwest_group",
+      "name": "NatWest Group India",
+      "tier": "GCC",
+      "industry": "Commercial & Retail Banking Tech",
+      "hq": "Gurugram / Bengaluru",
+      "typicalRoles": "Software Engineer Trainee, Risk Analytics Specialist"
+    },
+    {
+      "id": "macquarie_india",
+      "name": "Macquarie Group India",
+      "tier": "GCC",
+      "industry": "Investment Banking & Commodity Tech",
+      "hq": "Gurugram, Haryana",
+      "typicalRoles": "Graduate Software Engineer, Cloud Operations Analyst"
+    },
+    {
+      "id": "standard_chartered_gbs",
+      "name": "Standard Chartered GBS",
+      "tier": "GCC",
+      "industry": "International Banking Services",
+      "hq": "Chennai / Bengaluru",
+      "typicalRoles": "Analyst — Core Banking Platforms, API Integration Developer"
+    },
+    {
+      "id": "smarsh",
+      "name": "Smarsh India",
+      "tier": "GCC",
+      "industry": "RegTech & Digital Compliance SaaS",
+      "hq": "Bengaluru, Karnataka",
+      "typicalRoles": "Software Development Engineer, QA Automation Engineer"
+    },
+    {
+      "id": "concertai",
+      "name": "ConcertAI",
+      "tier": "GCC",
+      "industry": "Healthcare AI & Oncology SaaS",
+      "hq": "Bengaluru, Karnataka",
+      "typicalRoles": "Associate Data Engineer, ML Pipeline Associate"
+    },
+    {
+      "id": "nielseniq",
+      "name": "NielsenIQ India",
+      "tier": "GCC",
+      "industry": "Consumer Intelligence & Big Data",
+      "hq": "Bengaluru / Vadodara",
+      "typicalRoles": "Associate Data Scientist, Big Data Engineer"
+    },
+    {
+      "id": "conneqt",
+      "name": "Conneqt Business Solutions",
+      "tier": "IT_SERVICES",
+      "industry": "Digital CX & BPM Technology",
+      "hq": "Hyderabad / Bengaluru",
+      "typicalRoles": "Software Trainee, Full Stack Web Developer"
+    },
+    {
+      "id": "incedo",
+      "name": "Incedo Inc",
+      "tier": "IT_SERVICES",
+      "industry": "Digital Engineering & Cloud Consulting",
+      "hq": "Gurugram / Pune",
+      "typicalRoles": "Associate Software Engineer, Data Integration Analyst"
+    },
+    {
+      "id": "human_security",
+      "name": "Human Security",
+      "tier": "GCC",
+      "industry": "Cybersecurity & Bot Mitigation",
+      "hq": "Bengaluru, Karnataka",
+      "typicalRoles": "Security Software Engineer, Threat Intelligence Analyst"
+    },
+    {
+      "id": "sgs_india",
+      "name": "SGS India",
+      "tier": "GCC",
+      "industry": "Inspection, Verification & Lab Tech",
+      "hq": "Mumbai / Bengaluru",
+      "typicalRoles": "Junior Software Developer, Systems Integration Trainee"
+    },
+    {
+      "id": "visteon",
+      "name": "Visteon Corporation",
+      "tier": "PRODUCT_MNC",
+      "industry": "Automotive Cockpit Electronics & ADAS",
+      "hq": "Chennai / Pune",
+      "typicalRoles": "Embedded Software Engineer, Android Automotive Developer"
+    },
+    {
+      "id": "siemens_healthineers",
+      "name": "Siemens Healthineers",
+      "tier": "PRODUCT_MNC",
+      "industry": "MedTech & Diagnostic Imaging Software",
+      "hq": "Bengaluru, Karnataka",
+      "typicalRoles": "Graduate Engineer Trainee (C++), Imaging Software Developer"
+    },
+    {
+      "id": "honeywell_hts",
+      "name": "Honeywell Technology Solutions (HTS)",
+      "tier": "PRODUCT_MNC",
+      "industry": "Aerospace, Building Tech & Industrial IoT",
+      "hq": "Bengaluru / Hyderabad",
+      "typicalRoles": "Software Engineer Trainee, Embedded Systems Engineer"
+    },
+    {
+      "id": "garmin_india",
+      "name": "Garmin India",
+      "tier": "PRODUCT_MNC",
+      "industry": "GPS Navigation & Wearables Tech",
+      "hq": "Noida / Bengaluru",
+      "typicalRoles": "Embedded Firmware Engineer, Mobile App Developer (iOS/Android)"
+    },
+    {
+      "id": "syrma_sgs",
+      "name": "Syrma SGS Technology",
+      "tier": "PRODUCT_MNC",
+      "industry": "Electronics Manufacturing & IoT Hardware",
+      "hq": "Chennai / Gurugram",
+      "typicalRoles": "Embedded Hardware Engineer, Firmware Trainee"
+    },
+    {
+      "id": "san_radiance",
+      "name": "San Radiance Technologies",
+      "tier": "PRODUCT_MNC",
+      "industry": "Embedded Systems & FPGA Design",
+      "hq": "Bengaluru, Karnataka",
+      "typicalRoles": "FPGA Design Engineer, Embedded C Developer"
+    },
+    {
+      "id": "continental_automotive",
+      "name": "Continental Automotive India",
+      "tier": "PRODUCT_MNC",
+      "industry": "Autonomous Mobility & Chassis Safety",
+      "hq": "Bengaluru, Karnataka",
+      "typicalRoles": "Autonomous Driving Software Engineer, Autosar Developer"
+    },
+    {
+      "id": "aptiv_india",
+      "name": "Aptiv India",
+      "tier": "PRODUCT_MNC",
+      "industry": "Connected Services & Vehicle Architecture",
+      "hq": "Bengaluru / Pune",
+      "typicalRoles": "Embedded Software Engineer (Autosar/C++), Vehicle Network Engineer"
+    },
+    {
+      "id": "bgsw",
+      "name": "Bosch Global Software Technologies (BGSW)",
+      "tier": "PRODUCT_MNC",
+      "industry": "Mobility Software & Industrial IoT",
+      "hq": "Bengaluru / Coimbatore",
+      "typicalRoles": "Graduate Engineer Trainee, Embedded Linux Developer"
+    },
+    {
+      "id": "harman_india",
+      "name": "Harman Connected Services (Samsung)",
+      "tier": "PRODUCT_MNC",
+      "industry": "Connected Car & Audio Electronics",
+      "hq": "Bengaluru / Pune",
+      "typicalRoles": "Associate Software Engineer, Android Infotainment Developer"
+    },
+    {
+      "id": "valeo_india",
+      "name": "Valeo India",
+      "tier": "PRODUCT_MNC",
+      "industry": "Powertrain & Thermal Systems Tech",
+      "hq": "Chennai, Tamil Nadu",
+      "typicalRoles": "Embedded C Developer, Model-Based Design Engineer (Simulink)"
+    },
+    {
+      "id": "kpit_tech",
+      "name": "KPIT Technologies",
+      "tier": "PRODUCT_MNC",
+      "industry": "Automotive Software & EV Architecture",
+      "hq": "Pune / Bengaluru",
+      "typicalRoles": "Trainee Software Engineer, Battery Management System (BMS) Engineer"
+    },
+    {
+      "id": "zf_india",
+      "name": "ZF Group India",
+      "tier": "PRODUCT_MNC",
+      "industry": "Active Safety & E-Mobility Systems",
+      "hq": "Hyderabad / Chennai",
+      "typicalRoles": "Embedded Firmware Engineer, ADAS Validation Engineer"
+    },
+    {
+      "id": "alstom_india",
+      "name": "Alstom India",
+      "tier": "PRODUCT_MNC",
+      "industry": "Railway Signaling & Mobility Tech",
+      "hq": "Bengaluru / Hyderabad",
+      "typicalRoles": "Signaling Software Trainee, SCADA Validation Engineer"
+    },
+    {
+      "id": "schneider_electric",
+      "name": "Schneider Electric India",
+      "tier": "PRODUCT_MNC",
+      "industry": "Energy Management & Automation",
+      "hq": "Bengaluru, Karnataka",
+      "typicalRoles": "Graduate Engineer Trainee — R&D, Cloud IoT Developer"
+    },
+    {
+      "id": "abb_india",
+      "name": "ABB India",
+      "tier": "PRODUCT_MNC",
+      "industry": "Robotics, Power Grids & Automation",
+      "hq": "Bengaluru / Chennai",
+      "typicalRoles": "Junior Robotics Software Engineer, Control Systems Trainee"
+    },
+    {
+      "id": "danfoss_india",
+      "name": "Danfoss India",
+      "tier": "PRODUCT_MNC",
+      "industry": "Drives, Refrigeration & Power Electronics",
+      "hq": "Chennai, Tamil Nadu",
+      "typicalRoles": "Power Electronics Engineer, Embedded Firmware Trainee"
+    },
+    {
+      "id": "eaton_india",
+      "name": "Eaton India Innovation Center",
+      "tier": "PRODUCT_MNC",
+      "industry": "Intelligent Power Management Tech",
+      "hq": "Pune, Maharashtra",
+      "typicalRoles": "Associate Engineer — Software, Electrical Systems Modeler"
+    },
+    {
+      "id": "emerson_india",
+      "name": "Emerson Innovation Center",
+      "tier": "PRODUCT_MNC",
+      "industry": "Process Automation & Control Systems",
+      "hq": "Pune, Maharashtra",
+      "typicalRoles": "Software Trainee (Industrial SCADA), Systems Engineer"
+    },
+    {
+      "id": "rockwell_automation",
+      "name": "Rockwell Automation India",
+      "tier": "PRODUCT_MNC",
+      "industry": "Industrial Automation & Digital Plant Tech",
+      "hq": "Noida / Bengaluru",
+      "typicalRoles": "Software Engineer Trainee, Industrial Cloud Developer"
+    },
+    {
+      "id": "lam_research_india",
+      "name": "Lam Research India",
+      "tier": "PRODUCT_MNC",
+      "industry": "Semiconductor Equipment Software",
+      "hq": "Bengaluru, Karnataka",
+      "typicalRoles": "Software Engineer (C++/Distributed Systems), Controls Engineer"
+    },
+    {
+      "id": "kla_india",
+      "name": "KLA Corporation India",
+      "tier": "PRODUCT_MNC",
+      "industry": "Semiconductor Inspection & Metrology",
+      "hq": "Chennai, Tamil Nadu",
+      "typicalRoles": "Algorithms Software Engineer, Computer Vision Engineer"
+    },
+    {
+      "id": "applied_materials_india",
+      "name": "Applied Materials India",
+      "tier": "PRODUCT_MNC",
+      "industry": "Nano-manufacturing Technology",
+      "hq": "Bengaluru, Karnataka",
+      "typicalRoles": "Software Engineer (Semiconductor Automation), Equipment Control Developer"
+    },
+    {
+      "id": "western_digital_india",
+      "name": "Western Digital / SanDisk",
+      "tier": "PRODUCT_MNC",
+      "industry": "Flash Memory & Data Storage Hardware",
+      "hq": "Bengaluru, Karnataka",
+      "typicalRoles": "Firmware Engineer Trainee, ASIC Design Verification Associate"
+    },
+    {
+      "id": "seagate_india",
+      "name": "Seagate Technology India",
+      "tier": "PRODUCT_MNC",
+      "industry": "Storage Solutions & Cloud Drives",
+      "hq": "Pune, Maharashtra",
+      "typicalRoles": "Storage Firmware Engineer, Linux Systems Trainee"
+    },
+    {
+      "id": "fractal",
+      "name": "Fractal Analytics",
+      "tier": "UNICORN",
+      "industry": "Artificial Intelligence & Decision Science",
+      "hq": "Mumbai / Bengaluru",
+      "typicalRoles": "Data Science Associate, Decision Analytics Trainee"
+    },
+    {
+      "id": "mu_sigma",
+      "name": "Mu Sigma",
+      "tier": "UNICORN",
+      "industry": "Decision Sciences & Big Data Analytics",
+      "hq": "Bengaluru, Karnataka",
+      "typicalRoles": "Trainee Decision Scientist, Analytics Associate"
+    },
+    {
+      "id": "latentview",
+      "name": "LatentView Analytics",
+      "tier": "PRODUCT_MNC",
+      "industry": "Digital Analytics & Data Consulting",
+      "hq": "Chennai, Tamil Nadu",
+      "typicalRoles": "Analyst — Data Engineering, Analytics Consultant"
+    },
+    {
+      "id": "tiger_analytics",
+      "name": "Tiger Analytics",
+      "tier": "PRODUCT_MNC",
+      "industry": "Advanced Analytics & AI Consulting",
+      "hq": "Chennai / Bengaluru",
+      "typicalRoles": "Junior Data Scientist, Big Data Engineer"
+    },
+    {
+      "id": "tredence",
+      "name": "Tredence Analytics",
+      "tier": "UNICORN",
+      "industry": "Data Science & Enterprise AI Solutions",
+      "hq": "Bengaluru, Karnataka",
+      "typicalRoles": "Data Engineer Associate, Business Intelligence Trainee"
+    },
+    {
+      "id": "course5",
+      "name": "Course5 Intelligence",
+      "tier": "PRODUCT_MNC",
+      "industry": "Cognitive Analytics & Customer Insights",
+      "hq": "Bengaluru / Mumbai",
+      "typicalRoles": "Analytics Specialist, AI Solutions Developer"
+    },
+    {
+      "id": "quantiphi",
+      "name": "Quantiphi",
+      "tier": "PRODUCT_MNC",
+      "industry": "Applied AI & Cloud Transformation",
+      "hq": "Mumbai / Bengaluru",
+      "typicalRoles": "Machine Learning Engineer, Cloud Data Engineer"
+    },
+    {
+      "id": "polestar_solutions",
+      "name": "Polestar Solutions",
+      "tier": "PRODUCT_MNC",
+      "industry": "Enterprise Data Management & Analytics",
+      "hq": "Noida, Uttar Pradesh",
+      "typicalRoles": "Business Intelligence Developer, Data Engineering Trainee"
+    },
+    {
+      "id": "sigmoid",
+      "name": "Sigmoid Analytics",
+      "tier": "PRODUCT_MNC",
+      "industry": "Data Engineering & Generative AI",
+      "hq": "Bengaluru, Karnataka",
+      "typicalRoles": "Big Data Engineer, Machine Learning Associate"
+    },
+    {
+      "id": "ugam_solutions",
+      "name": "Ugam Solutions (Merkle)",
+      "tier": "PRODUCT_MNC",
+      "industry": "Retail Analytics & Digital Transformation",
+      "hq": "Mumbai / Bengaluru",
+      "typicalRoles": "Associate Analyst, Data Scientist Trainee"
+    },
+    {
+      "id": "absolutdata",
+      "name": "Absolutdata (Infogain)",
+      "tier": "PRODUCT_MNC",
+      "industry": "AI Solutions & Marketing Analytics",
+      "hq": "Gurugram, Haryana",
+      "typicalRoles": "Associate Data Engineer, Predictive Modeler"
+    },
+    {
+      "id": "micron_india",
+      "name": "Micron Technology India",
+      "tier": "PRODUCT_MNC",
+      "industry": "Semiconductor Memory & Storage",
+      "hq": "Hyderabad / Bengaluru",
+      "typicalRoles": "Software Engineer Trainee, Semiconductor Yield Analyst"
+    },
+    {
+      "id": "texas_instruments_india",
+      "name": "Texas Instruments India",
+      "tier": "PRODUCT_MNC",
+      "industry": "Analog & Embedded Semiconductor Tech",
+      "hq": "Bengaluru, Karnataka",
+      "typicalRoles": "Embedded Software Associate, Design Verification Engineer"
+    },
+    {
+      "id": "analog_devices_india",
+      "name": "Analog Devices India",
+      "tier": "PRODUCT_MNC",
+      "industry": "High Performance Semiconductor Tech",
+      "hq": "Bengaluru, Karnataka",
+      "typicalRoles": "Digital Signal Processing Engineer, Applications Trainee"
+    },
+    {
+      "id": "nxp_india",
+      "name": "NXP Semiconductors India",
+      "tier": "PRODUCT_MNC",
+      "industry": "Secure Connectivity & Microcontrollers",
+      "hq": "Noida / Bengaluru",
+      "typicalRoles": "Embedded Software Engineer (RTOS), Validation Engineer"
+    },
+    {
+      "id": "wakefit",
+      "name": "Wakefit Innovations",
+      "tier": "UNICORN",
+      "industry": "D2C Sleep Tech & Home Solutions",
+      "hq": "Bengaluru, Karnataka",
+      "typicalRoles": "Full Stack Engineer, Supply Chain Analytics Trainee"
+    },
+    {
+      "id": "zee_tech",
+      "name": "Zee Entertainment (Zee5)",
+      "tier": "PRODUCT_MNC",
+      "industry": "OTT Video Streaming & Media Tech",
+      "hq": "Bengaluru / Mumbai",
+      "typicalRoles": "Backend Engineer (Node/Go), Video Streaming Engineer"
+    },
+    {
+      "id": "nxtwave",
+      "name": "NxtWave Disruptive Tech",
+      "tier": "STARTUP",
+      "industry": "EdTech & Upskilling Platform",
+      "hq": "Hyderabad, Telangana",
+      "typicalRoles": "Software Engineer (React/Node), Product Operations Associate"
+    },
+    {
+      "id": "bytexl",
+      "name": "ByteXL",
+      "tier": "STARTUP",
+      "industry": "Higher Education Tech & IT Training",
+      "hq": "Hyderabad, Telangana",
+      "typicalRoles": "Full Stack Developer, Curriculum Tech Associate"
+    },
+    {
+      "id": "voxela",
+      "name": "Voxela AI",
+      "tier": "STARTUP",
+      "industry": "Computer Vision & Healthcare AI",
+      "hq": "Bengaluru / Remote",
+      "typicalRoles": "Computer Vision Trainee, Python Backend Developer"
+    },
+    {
+      "id": "clevertap",
+      "name": "CleverTap",
+      "tier": "UNICORN",
+      "industry": "Customer Engagement & Retention SaaS",
+      "hq": "Mumbai, Maharashtra",
+      "typicalRoles": "Software Engineer I (Data/Distributed), Frontend Engineer"
+    },
+    {
+      "id": "moengage",
+      "name": "MoEngage",
+      "tier": "UNICORN",
+      "industry": "Customer Engagement & Marketing AI",
+      "hq": "Bengaluru, Karnataka",
+      "typicalRoles": "Backend Software Engineer (Java/Python), DevOps Trainee"
+    },
+    {
+      "id": "leadsquared",
+      "name": "LeadSquared",
+      "tier": "UNICORN",
+      "industry": "Sales Automation & CRM SaaS",
+      "hq": "Bengaluru, Karnataka",
+      "typicalRoles": "Associate Software Engineer (C#/Python), QA Automation Trainee"
+    },
+    {
+      "id": "shiprocket",
+      "name": "Shiprocket",
+      "tier": "UNICORN",
+      "industry": "E-commerce Logistics & Supply Chain SaaS",
+      "hq": "Gurugram, Haryana",
+      "typicalRoles": "Software Development Engineer I, Logistics Analytics Trainee"
+    },
+    {
+      "id": "physicswallah_tech",
+      "name": "PhysicsWallah Tech",
+      "tier": "UNICORN",
+      "industry": "EdTech Platform & Streaming Tech",
+      "hq": "Noida / Bengaluru",
+      "typicalRoles": "Android App Developer, Backend Engineer (Microservices)"
+    },
+    {
+      "id": "scaler_tech",
+      "name": "Scaler Academy (InterviewBit)",
+      "tier": "UNICORN",
+      "industry": "Tech Education & Assessment Platform",
+      "hq": "Bengaluru, Karnataka",
+      "typicalRoles": "Software Development Engineer I, Frontend Engineer (React/Next)"
+    },
+    {
+      "id": "porter",
+      "name": "Porter (SmartShift Logistics)",
+      "tier": "UNICORN",
+      "industry": "On-Demand Intra-City Logistics Tech",
+      "hq": "Bengaluru, Karnataka",
+      "typicalRoles": "SDE I (Backend - Go/Java), Mobile Engineer (Kotlin)"
+    },
+    {
+      "id": "rapido",
+      "name": "Rapido",
+      "tier": "UNICORN",
+      "industry": "Bike Taxi & Auto Mobility Platform",
+      "hq": "Bengaluru, Karnataka",
+      "typicalRoles": "Software Engineer — Dispatch Systems, Backend Developer"
+    },
+    {
+      "id": "shadowfax",
+      "name": "Shadowfax Technologies",
+      "tier": "UNICORN",
+      "industry": "Hyperlocal & E-commerce Logistics Tech",
+      "hq": "Bengaluru, Karnataka",
+      "typicalRoles": "SDE-1 (Java/Spring Boot), Routing Optimization Trainee"
+    },
+    {
+      "id": "delhivery",
+      "name": "Delhivery Tech",
+      "tier": "UNICORN",
+      "industry": "Supply Chain & Express Logistics Tech",
+      "hq": "Gurugram, Haryana",
+      "typicalRoles": "Software Development Engineer I, Big Data Associate"
+    },
+    {
+      "id": "persistent_systems",
+      "name": "Persistent Systems",
+      "tier": "IT_SERVICES",
+      "industry": "Digital Engineering & Cloud Modernization",
+      "hq": "Pune, Maharashtra",
+      "typicalRoles": "Associate Software Engineer, Cloud Solutions Trainee"
+    },
+    {
+      "id": "birlasoft",
+      "name": "Birlasoft",
+      "tier": "IT_SERVICES",
+      "industry": "Enterprise Cloud & ERP Transformation",
+      "hq": "Pune / Noida",
+      "typicalRoles": "Graduate Trainee Engineer, Salesforce Developer Trainee"
+    },
+    {
+      "id": "cyient",
+      "name": "Cyient",
+      "tier": "PRODUCT_MNC",
+      "industry": "Engineering Design, Telecom & Geospatial",
+      "hq": "Hyderabad, Telangana",
+      "typicalRoles": "Trainee Software Engineer, Embedded Systems Trainee"
+    },
+    {
+      "id": "happiest_minds",
+      "name": "Happiest Minds Technologies",
+      "tier": "IT_SERVICES",
+      "industry": "Mindful IT, AI & Digital Infrastructure",
+      "hq": "Bengaluru, Karnataka",
+      "typicalRoles": "Software Trainee, DevOps Associate"
+    },
+    {
+      "id": "coforge",
+      "name": "Coforge",
+      "tier": "IT_SERVICES",
+      "industry": "Digital Services, Insurance & Travel Tech",
+      "hq": "Noida / Greater Noida",
+      "typicalRoles": "Graduate Engineer Trainee, Java Full Stack Associate"
+    },
+    {
+      "id": "zensar",
+      "name": "Zensar Technologies",
+      "tier": "IT_SERVICES",
+      "industry": "Digital Transformation & Experience Tech",
+      "hq": "Pune, Maharashtra",
+      "typicalRoles": "Associate Software Engineer, Cloud Infrastructure Trainee"
+    },
+    {
+      "id": "sonata_software",
+      "name": "Sonata Software",
+      "tier": "IT_SERVICES",
+      "industry": "Modernization Engineering & Cloud Data",
+      "hq": "Bengaluru, Karnataka",
+      "typicalRoles": "Software Engineer Trainee, Microsoft Dynamics Trainee"
+    },
+    {
+      "id": "mastek",
+      "name": "Mastek",
+      "tier": "IT_SERVICES",
+      "industry": "Digital Commerce & Cloud Solutions",
+      "hq": "Mumbai / Ahmedabad",
+      "typicalRoles": "Graduate Engineer Trainee, Oracle Cloud Associate"
+    },
+    {
+      "id": "nucleus_software",
+      "name": "Nucleus Software",
+      "tier": "PRODUCT_MNC",
+      "industry": "Lending & Transaction Banking Software",
+      "hq": "Noida, Uttar Pradesh",
+      "typicalRoles": "Assistant Software Engineer (Java/Fintech), Product Trainee"
+    },
+    {
+      "id": "newgen_software",
+      "name": "Newgen Software",
+      "tier": "PRODUCT_MNC",
+      "industry": "Low-Code Digital Automation Platform",
+      "hq": "New Delhi, Delhi",
+      "typicalRoles": "Software Engineer Trainee, Solutions Architect Trainee"
+    },
+    {
+      "id": "intellect_design",
+      "name": "Intellect Design Arena",
+      "tier": "PRODUCT_MNC",
+      "industry": "Contextual Banking & FinTech Architecture",
+      "hq": "Chennai, Tamil Nadu",
+      "typicalRoles": "Associate Software Engineer, Cloud Microservices Trainee"
+    },
+    {
+      "id": "tanla_platforms",
+      "name": "Tanla Platforms",
+      "tier": "PRODUCT_MNC",
+      "industry": "CPaaS & Cloud Communications Tech",
+      "hq": "Hyderabad, Telangana",
+      "typicalRoles": "Software Engineer I (Distributed messaging), API Trainee"
+    },
+    {
+      "id": "tata_elxsi",
+      "name": "Tata Elxsi",
+      "tier": "PRODUCT_MNC",
+      "industry": "Design-led Technology & Connected Vehicles",
+      "hq": "Bengaluru / Thiruvananthapuram",
+      "typicalRoles": "Engineer Trainee — Connected Vehicles, Embedded C Developer"
+    },
+    {
+      "id": "ltts",
+      "name": "L&T Technology Services (LTTS)",
+      "tier": "PRODUCT_MNC",
+      "industry": "Pure-Play Engineering R&D (ER&D)",
+      "hq": "Vadodara / Bengaluru",
+      "typicalRoles": "Associate Software Engineer, Industrial Automation Trainee"
+    },
+    {
+      "id": "sasken",
+      "name": "Sasken Technologies",
+      "tier": "PRODUCT_MNC",
+      "industry": "Telecom, Automotive & Satellite Tech",
+      "hq": "Bengaluru, Karnataka",
+      "typicalRoles": "Embedded Software Trainee, 5G Wireless Validation Engineer"
+    },
+    {
+      "id": "stmicro_india",
+      "name": "STMicroelectronics India",
+      "tier": "PRODUCT_MNC",
+      "industry": "Semiconductors, Microcontrollers & MEMS",
+      "hq": "Greater Noida, Uttar Pradesh",
+      "typicalRoles": "Embedded Software Engineer Trainee, Silicon Design Trainee"
+    },
+    {
+      "id": "renesas_india",
+      "name": "Renesas Electronics India",
+      "tier": "PRODUCT_MNC",
+      "industry": "Automotive & Industrial Microcontrollers",
+      "hq": "Bengaluru, Karnataka",
+      "typicalRoles": "Firmware Validation Engineer, Applications Trainee"
+    },
+    {
+      "id": "blackbuck",
+      "name": "BlackBuck (Zinka Logistics)",
+      "tier": "UNICORN",
+      "industry": "Fleet Management & Trucking Freight Tech",
+      "hq": "Bengaluru, Karnataka",
+      "typicalRoles": "Software Development Engineer I, Tracking Systems Associate"
+    },
+    {
+      "id": "ninjacart",
+      "name": "Ninjacart",
+      "tier": "UNICORN",
+      "industry": "Agritech B2B Supply Chain & Cold Chain",
+      "hq": "Bengaluru, Karnataka",
+      "typicalRoles": "SDE I (Backend), Logistics Optimization Engineer"
+    },
+    {
+      "id": "urban_company",
+      "name": "Urban Company Tech",
+      "tier": "UNICORN",
+      "industry": "Home Services Marketplace Tech",
+      "hq": "Gurugram, Haryana",
+      "typicalRoles": "Software Development Engineer I, Mobile App Trainee"
+    }
+  ]
+}
