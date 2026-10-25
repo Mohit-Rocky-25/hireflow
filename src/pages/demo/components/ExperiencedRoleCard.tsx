@@ -42,11 +42,21 @@ export function ExperiencedRoleCard({
                 {role.title}
               </h3>
               <span className="text-[10px] font-semibold uppercase tracking-[1px] px-2 py-0.5 rounded bg-black text-silver border border-charcoal">
-                {role.level}
+                {role.level || 'Standard'}
               </span>
+              {role.profileKind === 'representative' && (
+                <span className="text-[10px] font-semibold uppercase tracking-[1px] px-2 py-0.5 rounded bg-near-black text-pale-yellow border border-pale-yellow/40">
+                  Representative role profile (editorial)
+                </span>
+              )}
+              {role.competencyFit === 'approximate' && (
+                <span className="text-[10px] font-semibold uppercase tracking-[1px] px-2 py-0.5 rounded bg-black text-silver border border-charcoal">
+                  Approximate Fit
+                </span>
+              )}
             </div>
             <p className="text-xs text-silver mt-1 leading-relaxed">
-              {role.desc}
+              {role.desc || 'Not available'}
             </p>
           </div>
 

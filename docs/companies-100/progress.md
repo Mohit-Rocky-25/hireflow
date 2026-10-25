@@ -15,8 +15,8 @@ Started: 2026-10-25
 | 0.6 | Stage 0 | Schema facts, optional value null safety, 20 competency keys, tier mapping, hardcoded counts | DONE | e87bbfa | Audited in recon.md: 20 keys verified, openRoles null hazard identified |
 | 0.7 | Stage 0 | Write recon.md with answers & OPEN QUESTIONS | DONE | e87bbfa | `docs/companies-100/recon.md` generated with all findings and answers |
 | 1.1 | Stage 1 | Write ADR-001.md, implement additive schema changes & migrations | DONE | 727f6fc | `npx tsc --noEmit && npx vitest run` (142 passed, 927 passed, 0 failed) |
-| 1.2 | Stage 1 | Build ledger tooling (validate:ledger, verify:blind, build:companies, check:generated) | DONE | pending | `npm run validate:ledger && npm run build:companies && npm run check:generated` |
-| 1.3 | Stage 1 | UI null safety, depth chip, editorial label, source chips, disclaimer, error report | TODO | - | - |
+| 1.2 | Stage 1 | Build ledger tooling (validate:ledger, verify:blind, build:companies, check:generated) | DONE | 484ea36 | `npm run validate:ledger && npm run build:companies && npm run check:generated` |
+| 1.3 | Stage 1 | UI null safety, depth chip, editorial label, source chips, disclaimer, error report | DONE | pending | `npx tsc --noEmit && npx vitest run src/__tests__/a11y/contrast.test.ts` (0 errors) |
 | 1.4 | Stage 1 | Validator unit tests, canary tests (H10), rejection tests, full suite, tag c100-stage-1 | TODO | - | - |
 | 2.1 | Stage 2 | Dedupe roster into dedupe.md | TODO | - | - |
 | 2.2 | Stage 2 | Roster verification (batches of 10, ONE at a time, official pages, log fetches) | TODO | - | - |
@@ -156,6 +156,13 @@ Audited 0 ledger files (0 total rows).
 ```
 - **Changes**: Created `scripts/companies100/` with `validate-ledger.mjs`, `verify-blind.mjs`, `build-companies.mjs`, `check-generated.mjs`; registered npm scripts in `package.json`; added `.evidence-cache/` to `.gitignore`; initialized `docs/companies-100/ledger/` and `src/data/market/companies100/`.
 
-
-
-
+### Task 1.3 Log
+- **Command**: `npx tsc --noEmit && npx vitest run src/__tests__/a11y/contrast.test.ts`
+- **Output**:
+```
+RUN  v5.0.3 C:/Users/yadav/.gemini/antigravity-ide/scratch/hireflow
+✓ src/__tests__/a11y/contrast.test.ts (6 tests) 8ms
+Test Files  1 passed (1)
+     Tests  6 passed (6)
+```
+- **Changes**: Implemented null safety handling ("Not available" fallback for blank/NaN/undefined package, open roles, glassdoor rating, and headcount), added depth chip (`deep`, `standard`, `basic`), "Not yet source-audited" chip for legacy dataStatus, "Representative role profile (editorial)" label on role cards, enhanced `SourceChip` with days-ago calculation ("Official source, checked N days ago") and stale warning after 180 days, created zero-egress `ReportErrorModal.tsx` utilizing local `feedbackStore`, and added affirmative non-affiliation / trademark footer disclaimer across TalentLens pages.

@@ -49,8 +49,13 @@ export function TargetRoleActionPanel({
                   {company.name} — {selectedRole.title}
                 </div>
               </div>
-              <div className="text-xs text-silver mt-1 font-mono">
-                Level: <span className="font-bold text-white">{selectedRole.level}</span>
+              <div className="text-xs text-silver mt-1 font-mono flex items-center justify-between">
+                <span>Level: <span className="font-bold text-white">{selectedRole.level || 'Standard'}</span></span>
+                {selectedRole.profileKind === 'representative' && (
+                  <span className="text-[10px] font-semibold uppercase tracking-[0.5px] px-1.5 py-0.5 rounded bg-black text-pale-yellow border border-pale-yellow/40">
+                    Editorial
+                  </span>
+                )}
               </div>
               <div className="mt-2.5 pt-2.5 border-t border-charcoal flex items-center justify-between text-xs">
                 <span className="text-silver uppercase tracking-[1px] text-[10px]">Target Competencies</span>

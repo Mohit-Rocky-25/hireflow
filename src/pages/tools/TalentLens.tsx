@@ -26,6 +26,7 @@ import { RealityFactorsPanel } from '../../components/common/RealityFactorsPanel
 import { EligibilityCard } from '../../components/common/EligibilityCard';
 import { WhyThisScoreDrawer, StaleVersionBanner } from '../../components/scoring';
 import { PublicNavbar } from '../../components/common/PublicNavbar';
+import { ReportErrorModal } from '../../components/common/ReportErrorModal';
 
 // ── Status Components ──
 function EligibilityBadge({ status }: { status: string }) {
@@ -654,6 +655,19 @@ export function TalentLens() {
               {match.inputHash && ` · Hash: ${match.inputHash}`}
             </p>
           </div>
+
+          {/* Affirmative Trademark & Affiliation Disclaimer Footer */}
+          <footer className="mt-6 pt-4 border-t border-charcoal text-center text-xs text-silver space-y-2 pb-6">
+            <p className="max-w-2xl mx-auto leading-relaxed text-zinc-400">
+              HireFlow is not affiliated with or endorsed by any company named. Names are used only to identify employers; trademarks belong to their owners.
+            </p>
+            <div className="flex items-center justify-center gap-4 text-[11px]">
+              <ReportErrorModal
+                entityId={selectedJobId || currentCompanyId || 'talentlens-eval'}
+                entityType="company"
+              />
+            </div>
+          </footer>
             </>
           )}
         </div>
