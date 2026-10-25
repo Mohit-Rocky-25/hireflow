@@ -1,25 +1,11 @@
 // ============================================================
 // HireFlow — Home / Landing Page (High-Contrast Dark System)
 // Complete original copy and sections with pure dark styling
+// Clean Linear-style typography & telemetry (No vibe-coded icons)
 // ============================================================
 import React from 'react';
 import { Link } from 'react-router-dom';
-import {
-  Brain,
-  Target,
-  Zap,
-  Building2,
-  Briefcase,
-  GraduationCap,
-  Flame,
-  ArrowRight,
-  CheckCircle,
-  CheckCircle2,
-  Sparkles,
-  ChevronRight,
-  AlertTriangle,
-  Info,
-} from 'lucide-react';
+import { ArrowRight, ChevronRight } from 'lucide-react';
 import { PublicNavbar } from '../components/common/PublicNavbar';
 import { careers } from '../careers-core';
 import { CompanyLogo } from '../components/common/CompanyLogo';
@@ -32,35 +18,27 @@ const TOP_COMPANIES = careers.companies.list().slice(0, 24);
 
 const FEATURES = [
   {
-    icon: Brain,
+    code: '01 // TRUTH',
     title: 'Harsh Truth AI',
     desc: "We don't sugarcoat. Our AI acts like a ruthless recruiter, tearing apart your resume to tell you exactly why you'd be rejected.",
-    iconColor: 'text-volt',
-    iconBg: 'bg-near-black border-charcoal',
   },
   {
-    icon: Target,
+    code: '02 // ROADMAP',
     title: 'Trajectory Mapping',
     desc: 'Stop guessing your next move. Input your dream job and we generate a year-by-year syllabus of skills you need to learn.',
-    iconColor: 'text-volt',
-    iconBg: 'bg-near-black border-charcoal',
   },
   {
-    icon: Zap,
+    code: '03 // SIMULATOR',
     title: 'Instant ATS Simulation',
     desc: 'Drop in any Job Description and your Resume. We instantly simulate an enterprise ATS scan to give you a match score.',
-    iconColor: 'text-volt',
-    iconBg: 'bg-near-black border-charcoal',
   },
 ];
 
 const TOOLS = [
   {
-    icon: Brain,
+    code: 'SYS // 01',
     title: 'TalentLens™ Simulator',
-    badge: `${TOTAL_COMPANIES}+ Employers & Recruiters · 6-Layer AI`,
-    badgeStyle: 'bg-black text-silver border-charcoal group-hover:border-volt/60 group-hover:text-volt',
-    iconBoxStyle: 'bg-black border-charcoal text-volt',
+    badge: `${TOTAL_COMPANIES}+ Employers · 6-Layer AI`,
     cardHoverStyle: 'hover:border-volt/60 hover:shadow-level-3',
     points: [
       'Experience our proprietary B2B AI matching engine',
@@ -71,11 +49,9 @@ const TOOLS = [
     link: '/demo',
   },
   {
-    icon: Flame,
+    code: 'SYS // 02',
     title: 'ATS Resume Roaster',
     badge: 'Hot · Invariant Audit',
-    badgeStyle: 'bg-black text-silver border-charcoal group-hover:border-volt/60 group-hover:text-volt',
-    iconBoxStyle: 'bg-black border-charcoal text-volt',
     cardHoverStyle: 'hover:border-volt/60 hover:shadow-level-3',
     points: [
       'Simulate exactly what ATS filters see',
@@ -86,11 +62,9 @@ const TOOLS = [
     link: '/tools/resume-checker',
   },
   {
-    icon: Target,
+    code: 'SYS // 03',
     title: 'Career Trajectory',
     badge: '₹ CTC · Level Ladders',
-    badgeStyle: 'bg-black text-silver border-charcoal group-hover:border-volt/60 group-hover:text-volt',
-    iconBoxStyle: 'bg-black border-charcoal text-volt',
     cardHoverStyle: 'hover:border-volt/60 hover:shadow-level-3',
     points: [
       'Plan your path from campus to dream companies',
@@ -160,15 +134,21 @@ export function LandingPage() {
             </div>
           </div>
 
-          {/* ── 2. Stats Bento Grid ── */}
+          {/* ── 2. Stats Bento Grid (High-Density Telemetry) ── */}
           <div className="mt-16 sm:mt-24 max-w-[1280px] mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5 text-left">
               
               {/* Card 1: Employers (Wide 2-col) */}
               <div className="shiny-edge-card md:col-span-2 relative rounded-2xl bg-near-black border border-charcoal p-8 sm:p-10 overflow-hidden group hover:border-volt/40 transition-all duration-300">
                 <div className="relative z-10 flex flex-col h-full justify-between">
-                  <div className="w-14 h-14 rounded-xl bg-black border border-charcoal flex items-center justify-center text-volt mb-6 group-hover:border-volt/40 transition-colors">
-                    <Building2 className="w-7 h-7 stroke-[1.5px]" />
+                  <div className="flex items-center justify-between mb-6">
+                    <span className="font-mono text-[11px] font-bold text-volt tracking-widest uppercase bg-black px-2.5 py-1 rounded border border-charcoal">
+                      CATALOG // 01
+                    </span>
+                    <span className="flex items-center gap-1.5 font-mono text-[10px] text-emerald-400 font-semibold uppercase">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                      ENTERPRISE READY
+                    </span>
                   </div>
                   <div>
                     <div className="text-[52px] sm:text-[64px] font-black text-white tracking-tight leading-none mb-3">
@@ -187,8 +167,14 @@ export function LandingPage() {
               {/* Card 2: Roles */}
               <div className="shiny-edge-card relative rounded-2xl bg-near-black border border-charcoal p-8 sm:p-10 overflow-hidden group hover:border-volt/40 transition-all duration-300">
                 <div className="relative z-10 flex flex-col h-full justify-between">
-                  <div className="w-14 h-14 rounded-xl bg-black border border-charcoal flex items-center justify-center text-volt mb-6 group-hover:border-volt/40 transition-colors">
-                    <Briefcase className="w-7 h-7 stroke-[1.5px]" />
+                  <div className="flex items-center justify-between mb-6">
+                    <span className="font-mono text-[11px] font-bold text-volt tracking-widest uppercase bg-black px-2.5 py-1 rounded border border-charcoal">
+                      ROLES // 02
+                    </span>
+                    <span className="flex items-center gap-1.5 font-mono text-[10px] text-emerald-400 font-semibold uppercase">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                      CALIBRATED
+                    </span>
                   </div>
                   <div>
                     <div className="text-[52px] sm:text-[64px] font-black text-white tracking-tight leading-none mb-3">
@@ -207,8 +193,14 @@ export function LandingPage() {
               {/* Card 3: Deep ATS Audit */}
               <div className="shiny-edge-card relative rounded-2xl bg-near-black border border-charcoal p-8 sm:p-10 overflow-hidden group hover:border-volt/40 transition-all duration-300">
                 <div className="relative z-10 flex flex-col h-full justify-between">
-                  <div className="w-14 h-14 rounded-xl bg-black border border-charcoal flex items-center justify-center text-volt mb-6 group-hover:border-volt/40 transition-colors">
-                    <Zap className="w-7 h-7 stroke-[1.5px]" />
+                  <div className="flex items-center justify-between mb-6">
+                    <span className="font-mono text-[11px] font-bold text-volt tracking-widest uppercase bg-black px-2.5 py-1 rounded border border-charcoal">
+                      SAFETY // 03
+                    </span>
+                    <span className="flex items-center gap-1.5 font-mono text-[10px] text-volt font-semibold uppercase">
+                      <span className="w-1.5 h-1.5 rounded-full bg-volt" />
+                      INVARIANT
+                    </span>
                   </div>
                   <div>
                     <div className="text-[52px] sm:text-[64px] font-black text-white tracking-tight leading-none mb-3">
@@ -227,8 +219,14 @@ export function LandingPage() {
               {/* Card 4: Campus Intelligence (Wide 2-col) */}
               <div className="shiny-edge-card md:col-span-2 relative rounded-2xl bg-near-black border border-charcoal p-8 sm:p-10 overflow-hidden group hover:border-volt/40 transition-all duration-300">
                 <div className="relative z-10 flex flex-col h-full justify-between">
-                  <div className="w-14 h-14 rounded-xl bg-black border border-charcoal flex items-center justify-center text-volt mb-6 group-hover:border-volt/40 transition-colors">
-                    <GraduationCap className="w-7 h-7 stroke-[1.5px]" />
+                  <div className="flex items-center justify-between mb-6">
+                    <span className="font-mono text-[11px] font-bold text-volt tracking-widest uppercase bg-black px-2.5 py-1 rounded border border-charcoal">
+                      CAMPUS // 04
+                    </span>
+                    <span className="flex items-center gap-1.5 font-mono text-[10px] text-emerald-400 font-semibold uppercase">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                      LIVE INTAKE
+                    </span>
                   </div>
                   <div>
                     <div className="text-[52px] sm:text-[64px] font-black text-white tracking-tight leading-none mb-3">
@@ -283,25 +281,25 @@ export function LandingPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-[1240px] mx-auto">
-            {FEATURES.map((f, i) => {
-              const Icon = f.icon;
-              return (
-                <div
-                  key={i}
-                  className="shiny-edge-card group relative rounded-2xl bg-near-black border border-charcoal p-8 hover:border-volt/60 transition-all duration-200"
-                >
-                  <div className="w-12 h-12 rounded-xl bg-black border border-charcoal text-volt flex items-center justify-center mb-6 group-hover:scale-105 group-hover:border-volt/40 transition-all">
-                    <Icon className="w-6 h-6 stroke-[1.5px]" />
-                  </div>
-                  <h3 className="text-[20px] font-bold text-white mb-2.5 tracking-tight group-hover:text-volt transition-colors">
-                    {f.title}
-                  </h3>
-                  <p className="text-[14px] sm:text-[15px] text-silver leading-relaxed font-normal">
-                    {f.desc}
-                  </p>
+            {FEATURES.map((f, i) => (
+              <div
+                key={i}
+                className="shiny-edge-card group relative rounded-2xl bg-near-black border border-charcoal p-8 hover:border-volt/60 transition-all duration-200"
+              >
+                <div className="flex items-center justify-between mb-6">
+                  <span className="font-mono text-[11px] font-bold text-volt tracking-widest uppercase bg-black px-2.5 py-1 rounded border border-charcoal">
+                    {f.code}
+                  </span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-volt" />
                 </div>
-              );
-            })}
+                <h3 className="text-[20px] font-bold text-white mb-2.5 tracking-tight group-hover:text-volt transition-colors">
+                  {f.title}
+                </h3>
+                <p className="text-[14px] sm:text-[15px] text-silver leading-relaxed font-normal">
+                  {f.desc}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -312,8 +310,8 @@ export function LandingPage() {
           
           {/* Left Narrative Column */}
           <div className="flex-1 text-center lg:text-left">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-near-black border border-charcoal rounded-full text-[12px] font-bold text-volt uppercase tracking-[1.2px] mb-6">
-              <Sparkles className="w-3.5 h-3.5 stroke-[2px]" /> Harsh Truth AI
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-near-black border border-charcoal rounded text-[11px] font-mono font-bold text-volt uppercase tracking-[1.4px] mb-6">
+              <span className="w-1.5 h-1.5 rounded-full bg-volt animate-pulse" /> SIGNAL // HARSH TRUTH AI
             </div>
             
             <h2 className="text-[36px] sm:text-[46px] md:text-[50px] font-black text-white tracking-tight leading-[1.05] uppercase mb-6">
@@ -326,15 +324,15 @@ export function LandingPage() {
             
             <ul className="space-y-4 text-[14px] sm:text-[15px] text-white font-medium">
               <li className="flex items-center gap-3 justify-center lg:justify-start">
-                <CheckCircle2 className="w-5 h-5 text-volt shrink-0 stroke-[1.8px]" />
+                <span className="font-mono text-volt font-bold text-[13px] shrink-0">[✓]</span>
                 <span>Enterprise ATS simulation</span>
               </li>
               <li className="flex items-center gap-3 justify-center lg:justify-start">
-                <CheckCircle2 className="w-5 h-5 text-volt shrink-0 stroke-[1.8px]" />
+                <span className="font-mono text-volt font-bold text-[13px] shrink-0">[✓]</span>
                 <span>Identifies semantic keyword gaps</span>
               </li>
               <li className="flex items-center gap-3 justify-center lg:justify-start">
-                <CheckCircle2 className="w-5 h-5 text-volt shrink-0 stroke-[1.8px]" />
+                <span className="font-mono text-volt font-bold text-[13px] shrink-0">[✓]</span>
                 <span>No-BS actionable feedback</span>
               </li>
             </ul>
@@ -418,49 +416,46 @@ export function LandingPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-[1240px] mx-auto">
-            {TOOLS.map((role, i) => {
-              const Icon = role.icon;
-              return (
-                <Link
-                  key={i}
-                  to={role.link}
-                  className={`shiny-edge-card group relative rounded-2xl bg-near-black border border-charcoal p-8 sm:p-9 flex flex-col justify-between transition-all duration-200 cursor-pointer ${role.cardHoverStyle}`}
-                >
-                  <div>
-                    {/* Top row: Icon and Badge */}
-                    <div className="flex items-center justify-between gap-4 mb-6">
-                      <div className="w-12 h-12 rounded-xl bg-black border border-charcoal flex items-center justify-center text-volt">
-                        <Icon className="w-6 h-6 stroke-[1.5px]" />
-                      </div>
-                      <span className="text-[11px] font-semibold uppercase tracking-[1.2px] px-2.5 py-1 rounded bg-black text-silver border border-charcoal">
-                        {role.badge}
-                      </span>
-                    </div>
-
-                    {/* Title */}
-                    <h3 className="text-[22px] font-bold text-white mb-3 tracking-tight group-hover:text-volt transition-colors">
-                      {role.title}
-                    </h3>
-
-                    {/* Points list */}
-                    <ul className="space-y-3 mb-8">
-                      {role.points.map((p, j) => (
-                        <li key={j} className="flex items-start gap-2.5 text-[14px] text-silver leading-snug">
-                          <CheckCircle2 className="w-4 h-4 text-volt mt-0.5 shrink-0 stroke-[1.5px]" />
-                          <span>{p}</span>
-                        </li>
-                      ))}
-                    </ul>
+            {TOOLS.map((role, i) => (
+              <Link
+                key={i}
+                to={role.link}
+                className={`shiny-edge-card group relative rounded-2xl bg-near-black border border-charcoal p-8 sm:p-9 flex flex-col justify-between transition-all duration-200 cursor-pointer ${role.cardHoverStyle}`}
+              >
+                <div>
+                  {/* Top row: Code and Badge */}
+                  <div className="flex items-center justify-between gap-4 mb-6">
+                    <span className="font-mono text-[11px] font-bold text-volt tracking-widest uppercase bg-black px-2.5 py-1 rounded border border-charcoal">
+                      {role.code}
+                    </span>
+                    <span className="text-[11px] font-semibold uppercase tracking-[1.2px] px-2.5 py-1 rounded bg-black text-silver border border-charcoal">
+                      {role.badge}
+                    </span>
                   </div>
 
-                  {/* Interactive Button */}
-                  <div className="w-full py-3 px-4 rounded bg-near-black border border-charcoal text-white text-[13px] font-semibold uppercase tracking-[1.2px] flex items-center justify-between group-hover:border-volt group-hover:text-volt transition-colors">
-                    <span>{role.cta}</span>
-                    <ArrowRight className="w-4 h-4 stroke-[1.5px]" />
-                  </div>
-                </Link>
-              );
-            })}
+                  {/* Title */}
+                  <h3 className="text-[22px] font-bold text-white mb-3 tracking-tight group-hover:text-volt transition-colors">
+                    {role.title}
+                  </h3>
+
+                  {/* Points list */}
+                  <ul className="space-y-3 mb-8">
+                    {role.points.map((p, j) => (
+                      <li key={j} className="flex items-start gap-2.5 text-[14px] text-silver leading-snug">
+                        <span className="font-mono text-volt font-bold text-[12px] mt-0.5 shrink-0">›</span>
+                        <span>{p}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Interactive Button */}
+                <div className="w-full py-3 px-4 rounded bg-near-black border border-charcoal text-white text-[13px] font-semibold uppercase tracking-[1.2px] flex items-center justify-between group-hover:border-volt group-hover:text-volt transition-colors">
+                  <span>{role.cta}</span>
+                  <ArrowRight className="w-4 h-4 stroke-[1.5px]" />
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>

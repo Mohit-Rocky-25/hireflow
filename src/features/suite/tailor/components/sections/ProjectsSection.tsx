@@ -95,7 +95,7 @@ export function ProjectsSection({
               >
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-start gap-3.5 min-w-0">
-                    <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${getGradient(proj.primaryTitle)} flex items-center justify-center text-white font-black text-xs shrink-0 shadow-sm mt-0.5`}>
+                    <div className="w-10 h-10 rounded bg-near-black border border-charcoal flex items-center justify-center text-volt font-mono font-bold text-xs shrink-0 mt-0.5">
                       {getInitials(proj.primaryTitle)}
                     </div>
 

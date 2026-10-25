@@ -1,6 +1,6 @@
 // ============================================================
 // HireFlow — Canonical Company Logo System
-// Pixel-perfect vector logos for 80+ enterprise & tech employers
+// Authentic vector marks for 120+ enterprise & tech employers
 // 100% self-contained, offline-compatible (Zero-Egress guaranteed)
 // ============================================================
 
@@ -22,26 +22,6 @@ const SIZE_MAP = {
   xl: { box: 'w-16 h-16', icon: 'w-10 h-10', rounded: 'rounded-xl', text: 'text-base' },
 };
 
-// Deterministic color palette for fallback marks
-const FALLBACK_GRADIENTS = [
-  'from-blue-600 to-indigo-700',
-  'from-emerald-600 to-teal-700',
-  'from-violet-600 to-purple-800',
-  'from-amber-600 to-orange-700',
-  'from-cyan-600 to-blue-700',
-  'from-rose-600 to-pink-700',
-  'from-fuchsia-600 to-rose-700',
-];
-
-function getHash(str: string): number {
-  let hash = 0;
-  for (let i = 0; i < str.length; i++) {
-    hash = (hash << 5) - hash + str.charCodeAt(i);
-    hash |= 0;
-  }
-  return Math.abs(hash);
-}
-
 export function CompanyLogo({
   company,
   size = 'md',
@@ -51,7 +31,6 @@ export function CompanyLogo({
 }: CompanyLogoProps) {
   const companyName = typeof company === 'string' ? company : company?.name || '';
   const companyId = typeof company === 'string' ? company : company?.id || '';
-  const existingLogo = typeof company === 'object' ? company?.logo : undefined;
 
   const config = SIZE_MAP[size];
   const normalizedKey = normalizeCompanyKey(companyId, companyName);
@@ -76,135 +55,47 @@ export function CompanyLogo({
     );
   }
 
-  // Fallback: Elegant stylized monogram with deterministic gradient
-  const hash = getHash(companyName || companyId);
-  const gradient = FALLBACK_GRADIENTS[hash % FALLBACK_GRADIENTS.length];
-  const initials = getInitials(companyName || existingLogo || companyId);
+  // Fallback: Sleek minimalist dark monogram (offline zero-egress safe)
+  const initials = getInitials(companyName || companyId);
 
   return (
     <div
-      className={`${containerClasses} bg-gradient-to-br ${gradient} border-white/10`}
+      className={`${containerClasses} bg-near-black border border-charcoal`}
       title={companyName || companyId}
     >
-      <span className={`${config.text} font-black text-white tracking-wider font-mono uppercase`}>
+      <span className={`${config.text} font-black text-silver font-mono uppercase tracking-wider`}>
         {initials}
       </span>
     </div>
   );
 }
 
-function normalizeCompanyKey(id: string, name: string): string {
+export function normalizeCompanyKey(id: string, name: string): string {
   const clean = (str: string) =>
-    str.toLowerCase().replace(/[^a-z0-9]/g, '');
+    (str || '').toLowerCase().replace(/[^a-z0-9]/g, '');
 
   const idClean = clean(id);
   const nameClean = clean(name);
 
-  // Exact mappings
-  for (const key of Object.keys(LOGO_COMPONENTS)) {
-    if (idClean === key || nameClean === key) return key;
-    if (idClean.startsWith(key) || nameClean.startsWith(key)) return key;
-    if (nameClean.includes(key)) return key;
+  // Exact matches first
+  if (EXACT_ALIASES[idClean]) return EXACT_ALIASES[idClean];
+  if (EXACT_ALIASES[nameClean]) return EXACT_ALIASES[nameClean];
+  if (LOGO_COMPONENTS[idClean]) return idClean;
+  if (LOGO_COMPONENTS[nameClean]) return nameClean;
+
+  // Substring alias resolution
+  for (const [alias, key] of Object.entries(EXACT_ALIASES)) {
+    if (alias.length >= 3 && (idClean.includes(alias) || nameClean.includes(alias))) {
+      return key;
+    }
   }
 
-  // Common aliases
-  if (nameClean.includes('google')) return 'google';
-  if (nameClean.includes('microsoft')) return 'microsoft';
-  if (nameClean.includes('amazon')) return 'amazon';
-  if (nameClean.includes('meta') || nameClean.includes('facebook')) return 'meta';
-  if (nameClean.includes('apple')) return 'apple';
-  if (nameClean.includes('netflix')) return 'netflix';
-  if (nameClean.includes('tcs') || nameClean.includes('tataconsultancy')) return 'tcs';
-  if (nameClean.includes('infosys')) return 'infosys';
-  if (nameClean.includes('wipro')) return 'wipro';
-  if (nameClean.includes('hcl')) return 'hcltech';
-  if (nameClean.includes('techmahindra') || nameClean.includes('techm')) return 'techmahindra';
-  if (nameClean.includes('cognizant')) return 'cognizant';
-  if (nameClean.includes('capgemini')) return 'capgemini';
-  if (nameClean.includes('accenture')) return 'accenture';
-  if (nameClean.includes('ibm')) return 'ibm';
-  if (nameClean.includes('flipkart')) return 'flipkart';
-  if (nameClean.includes('zomato')) return 'zomato';
-  if (nameClean.includes('swiggy')) return 'swiggy';
-  if (nameClean.includes('blinkit')) return 'blinkit';
-  if (nameClean.includes('zepto')) return 'zepto';
-  if (nameClean.includes('phonepe')) return 'phonepe';
-  if (nameClean.includes('paytm')) return 'paytm';
-  if (nameClean.includes('cred')) return 'cred';
-  if (nameClean.includes('razorpay')) return 'razorpay';
-  if (nameClean.includes('zerodha')) return 'zerodha';
-  if (nameClean.includes('groww')) return 'groww';
-  if (nameClean.includes('uber')) return 'uber';
-  if (nameClean.includes('stripe')) return 'stripe';
-  if (nameClean.includes('airbnb')) return 'airbnb';
-  if (nameClean.includes('spotify')) return 'spotify';
-  if (nameClean.includes('slack')) return 'slack';
-  if (nameClean.includes('discord')) return 'discord';
-  if (nameClean.includes('reddit')) return 'reddit';
-  if (nameClean.includes('linkedin')) return 'linkedin';
-  if (nameClean.includes('twitter') || nameClean === 'x') return 'twitter';
-  if (nameClean.includes('atlassian')) return 'atlassian';
-  if (nameClean.includes('goldman')) return 'goldman';
-  if (nameClean.includes('jpmorgan') || nameClean.includes('jpmc')) return 'jpmorgan';
-  if (nameClean.includes('morganstanley')) return 'morganstanley';
-  if (nameClean.includes('adobe')) return 'adobe';
-  if (nameClean.includes('oracle')) return 'oracle';
-  if (nameClean.includes('cisco')) return 'cisco';
-  if (nameClean.includes('intel')) return 'intel';
-  if (nameClean.includes('nvidia')) return 'nvidia';
-  if (nameClean.includes('qualcomm')) return 'qualcomm';
-  if (nameClean.includes('samsung')) return 'samsung';
-  if (nameClean.includes('salesforce')) return 'salesforce';
-  if (nameClean.includes('walmart')) return 'walmart';
-  if (nameClean.includes('barclays')) return 'barclays';
-  if (nameClean.includes('deloitte')) return 'deloitte';
-  if (nameClean.includes('pwc')) return 'pwc';
-  if (nameClean.includes('ey') || nameClean.includes('ernst')) return 'ey';
-  if (nameClean.includes('kpmg')) return 'kpmg';
-  if (nameClean.includes('zoho')) return 'zoho';
-  if (nameClean.includes('freshworks')) return 'freshworks';
-  if (nameClean.includes('pinelabs')) return 'pinelabs';
-  if (nameClean.includes('inmobi')) return 'inmobi';
-  if (nameClean.includes('policybazaar')) return 'policybazaar';
-  if (nameClean.includes('zeta')) return 'zeta';
-  if (nameClean.includes('crowdstrike')) return 'crowdstrike';
-  if (nameClean.includes('paloalto')) return 'paloalto';
-  if (nameClean.includes('fortinet')) return 'fortinet';
-  if (nameClean.includes('zscaler')) return 'zscaler';
-  if (nameClean.includes('checkpoint')) return 'checkpoint';
-  if (nameClean.includes('jio') || nameClean.includes('reliancejio')) return 'reliancejio';
-  if (nameClean.includes('airtel')) return 'airtel';
-  if (nameClean.includes('tatamotors')) return 'tatamotors';
-  if (nameClean.includes('mahindra')) return 'mahindra';
-  if (nameClean.includes('hdfc')) return 'hdfcbank';
-  if (nameClean.includes('icici')) return 'icicibank';
-  if (nameClean.includes('kotak')) return 'kotak';
-  if (nameClean.includes('axis')) return 'axisbank';
-  if (nameClean.includes('bajaj')) return 'bajajfinserv';
-  if (nameClean.includes('postman')) return 'postman';
-  if (nameClean.includes('browserstack')) return 'browserstack';
-  if (nameClean.includes('dream11') || nameClean.includes('dreamsports')) return 'dream11';
-  if (nameClean.includes('meesho')) return 'meesho';
-  if (nameClean.includes('myntra')) return 'myntra';
-  if (nameClean.includes('nykaa')) return 'nykaa';
-  if (nameClean.includes('ola')) return 'ola';
-  if (nameClean.includes('siemens')) return 'siemens';
-  if (nameClean.includes('bosch')) return 'bosch';
-  if (nameClean.includes('paypal')) return 'paypal';
-  if (nameClean.includes('shopify')) return 'shopify';
-  if (nameClean.includes('pinterest')) return 'pinterest';
-  if (nameClean.includes('snap')) return 'snap';
-  if (nameClean.includes('twitch')) return 'twitch';
-  if (nameClean.includes('ltimindtree') || nameClean.includes('lti')) return 'ltimindtree';
-  if (nameClean.includes('lnt') || nameClean.includes('larsen')) return 'lnt';
-  if (nameClean.includes('hexaware')) return 'hexaware';
-  if (nameClean.includes('mphasis')) return 'mphasis';
-  if (nameClean.includes('persistent')) return 'persistent';
-  if (nameClean.includes('zensar')) return 'zensar';
-  if (nameClean.includes('birlasoft')) return 'birlasoft';
-  if (nameClean.includes('genpact')) return 'genpact';
-  if (nameClean.includes('dxc')) return 'dxc';
-  if (nameClean.includes('musigma')) return 'musigma';
+  // Partial matches against logo component keys
+  for (const key of Object.keys(LOGO_COMPONENTS)) {
+    if (key.length >= 4 && (idClean.includes(key) || nameClean.includes(key))) {
+      return key;
+    }
+  }
 
   return idClean;
 }
@@ -219,10 +110,204 @@ function getInitials(name: string): string {
   return clean.slice(0, 2).toUpperCase();
 }
 
-// ════════════════════════════════════════════════════════════
-// HIGH-FIDELITY VECTOR LOGO REGISTRY (80+ Top Employers)
-// Pure SVG with vibrant brand accuracy & crisp dark contrast
-// ════════════════════════════════════════════════════════════
+const EXACT_ALIASES: Record<string, string> = {
+  // Indian IT
+  tcs: 'tcs',
+  tataconsultancyservices: 'tcs',
+  infosys: 'infosys',
+  wipro: 'wipro',
+  hcl: 'hcltech',
+  hcltech: 'hcltech',
+  techm: 'techmahindra',
+  techmahindra: 'techmahindra',
+  tech_mahindra: 'techmahindra',
+  cognizant: 'cognizant',
+  capgemini: 'capgemini',
+  accenture: 'accenture',
+  ibm: 'ibm',
+  ibm_india: 'ibm',
+  ibmindia: 'ibm',
+  ltimindtree: 'ltimindtree',
+  lti: 'ltimindtree',
+  lnt: 'lnt',
+  l_t_tech: 'lnt',
+  lttech: 'lnt',
+  larsen: 'lnt',
+  hexaware: 'hexaware',
+  mphasis: 'mphasis',
+  persistent: 'persistent',
+  persistentsystems: 'persistent',
+  zensar: 'zensar',
+  birlasoft: 'birlasoft',
+  genpact: 'genpact',
+  dxc: 'dxc',
+  dxc_technology: 'dxc',
+  dxctechnology: 'dxc',
+  musigma: 'musigma',
+  mu_sigma: 'musigma',
+
+  // Big Tech
+  google: 'google',
+  microsoft: 'microsoft',
+  microsoft_in: 'microsoft',
+  microsoftindia: 'microsoft',
+  amazon: 'amazon',
+  amazon_in: 'amazon',
+  amazonindia: 'amazon',
+  meta: 'meta',
+  facebook: 'meta',
+  apple: 'apple',
+  netflix: 'netflix',
+  uber: 'uber',
+  stripe: 'stripe',
+  airbnb: 'airbnb',
+  spotify: 'spotify',
+  slack: 'slack',
+  discord: 'discord',
+  reddit: 'reddit',
+  linkedin: 'linkedin',
+  twitter: 'twitter',
+  x: 'twitter',
+  atlassian: 'atlassian',
+  adobe: 'adobe',
+  oracle: 'oracle',
+  oracle_india: 'oracle',
+  cisco: 'cisco',
+  intel: 'intel',
+  nvidia: 'nvidia',
+  nvidia_india: 'nvidia',
+  qualcomm: 'qualcomm',
+  samsung: 'samsung',
+  samsung_india: 'samsung',
+  salesforce: 'salesforce',
+  salesforce_india: 'salesforce',
+  walmart: 'walmart',
+  walmart_global_tech: 'walmart',
+  walmartglobaltech: 'walmart',
+  paypal: 'paypal',
+  paypal_india: 'paypal',
+  shopify: 'shopify',
+  pinterest: 'pinterest',
+  snap: 'snap',
+  twitch: 'twitch',
+  lyft: 'lyft',
+
+  // High Finance & Banks
+  goldman: 'goldman',
+  goldmansachs: 'goldman',
+  goldman_sachs_india: 'goldman',
+  jpmorgan: 'jpmorgan',
+  jpmc: 'jpmorgan',
+  jpmorganchase: 'jpmorgan',
+  morganstanley: 'morganstanley',
+  morgan: 'morganstanley',
+  barclays: 'barclays',
+  hdfc: 'hdfcbank',
+  hdfcbank: 'hdfcbank',
+  icici: 'icicibank',
+  icicibank: 'icicibank',
+  kotak: 'kotak',
+  kotakmahindrabank: 'kotak',
+  axis: 'axisbank',
+  axisbank: 'axisbank',
+  bajaj: 'bajajfinserv',
+  bajajfinserv: 'bajajfinserv',
+
+  // Big 4 & Consulting
+  deloitte: 'deloitte',
+  deloitte_usi: 'deloitte',
+  pwc: 'pwc',
+  pwc_india_ac: 'pwc',
+  ey: 'ey',
+  ey_gds: 'ey',
+  eygds: 'ey',
+  ernst: 'ey',
+  kpmg: 'kpmg',
+  kpmg_gs: 'kpmg',
+  kpmggs: 'kpmg',
+
+  // Indian Unicorns & Startups
+  flipkart: 'flipkart',
+  zomato: 'zomato',
+  swiggy: 'swiggy',
+  blinkit: 'blinkit',
+  zepto: 'zepto',
+  phonepe: 'phonepe',
+  paytm: 'paytm',
+  cred: 'cred',
+  razorpay: 'razorpay',
+  razorpay_x: 'razorpay',
+  zerodha: 'zerodha',
+  groww: 'groww',
+  upstox: 'upstox',
+  slice: 'slice',
+  slicepay: 'slice',
+  navi: 'navi',
+  navitechnologies: 'navi',
+  jupiter: 'jupiter',
+  jupitermoney: 'jupiter',
+  chargebee: 'chargebee',
+  darwinbox: 'darwinbox',
+  leadsquared: 'leadsquared',
+  dream11: 'dream11',
+  dreamgames: 'dream11',
+  dreamsports: 'dream11',
+  mpl: 'mpl',
+  mobilepremierleague: 'mpl',
+  spinny: 'spinny',
+  licious: 'licious',
+  postman: 'postman',
+  browserstack: 'browserstack',
+  meesho: 'meesho',
+  myntra: 'myntra',
+  nykaa: 'nykaa',
+  ola: 'ola',
+  zoho: 'zoho',
+  freshworks: 'freshworks',
+  pinelabs: 'pinelabs',
+  inmobi: 'inmobi',
+  policybazaar: 'policybazaar',
+  zeta: 'zeta',
+
+  // Engineering & Telecom
+  siemens: 'siemens',
+  siemens_india: 'siemens',
+  bosch: 'bosch',
+  bosch_india: 'bosch',
+  reliancejio: 'reliancejio',
+  jio: 'reliancejio',
+  airtel: 'airtel',
+  bhartiairtel: 'airtel',
+  tatamotors: 'tatamotors',
+  mahindra: 'mahindra',
+  marutisuzuki: 'marutisuzuki',
+  maruti: 'marutisuzuki',
+  suzuki: 'marutisuzuki',
+
+  // Cybersecurity
+  crowdstrike: 'crowdstrike',
+  crowdstrike_india: 'crowdstrike',
+  paloalto: 'paloalto',
+  paloalto_india: 'paloalto',
+  paloaltonetworks: 'paloalto',
+  fortinet: 'fortinet',
+  fortinet_india: 'fortinet',
+  zscaler: 'zscaler',
+  zscaler_india: 'zscaler',
+  checkpoint: 'checkpoint',
+  checkpoint_india: 'checkpoint',
+  quickheal: 'quickheal',
+  quickhealtechnologies: 'quickheal',
+  seqrite: 'seqrite',
+  tacsecurity: 'tacsecurity',
+  tac_security: 'tacsecurity',
+  safesecurity: 'safesecurity',
+  safe_security: 'safesecurity',
+  wijungle: 'wijungle',
+  appknox: 'appknox',
+  cyware: 'cyware',
+  cywarelabs: 'cyware',
+};
 
 type SvgComponent = React.FC<{ className?: string }>;
 
@@ -273,7 +358,7 @@ const LOGO_COMPONENTS: Record<string, SvgComponent> = {
     </svg>
   ),
 
-  // ── Indian IT Giants & Services ──
+  // ── Indian IT & Global Engineering Services ──
   tcs: ({ className }) => (
     <svg viewBox="0 0 24 24" className={className}>
       <rect width="24" height="24" rx="4" fill="#00539B"/>
@@ -348,6 +433,81 @@ const LOGO_COMPONENTS: Record<string, SvgComponent> = {
     <svg viewBox="0 0 24 24" className={className}>
       <rect width="24" height="24" rx="4" fill="#E41B13"/>
       <path fill="#FFFFFF" d="M4 6h3v9h5v3H4V6zm9 0h7v3h-4v9h-3V6z"/>
+    </svg>
+  ),
+
+  lnt: ({ className }) => (
+    <svg viewBox="0 0 24 24" className={className}>
+      <rect width="24" height="24" rx="4" fill="#003366"/>
+      <circle cx="12" cy="12" r="8" fill="none" stroke="#FFFFFF" strokeWidth="1.5" strokeDasharray="3 1.5"/>
+      <path fill="#FFFFFF" d="M8 8h2v8h4v2H8V8zm5 0h4v2h-1v6h-2V8z"/>
+    </svg>
+  ),
+
+  hexaware: ({ className }) => (
+    <svg viewBox="0 0 24 24" className={className}>
+      <rect width="24" height="24" rx="4" fill="#1A237E"/>
+      <path fill="#009688" d="M12 4l6 3.5v7l-6 3.5-6-3.5v-7L12 4z"/>
+      <path fill="#00BCD4" d="M12 4l6 3.5-6 3.5-6-3.5L12 4z"/>
+      <path fill="#FFFFFF" opacity="0.9" d="M12 11l6-3.5v7l-6 3.5V11z"/>
+    </svg>
+  ),
+
+  mphasis: ({ className }) => (
+    <svg viewBox="0 0 24 24" className={className}>
+      <rect width="24" height="24" rx="4" fill="#00A3E0"/>
+      <g fill="#FFFFFF">
+        <circle cx="6" cy="12" r="1.8"/>
+        <circle cx="10" cy="8" r="1.8"/>
+        <circle cx="10" cy="16" r="1.8"/>
+        <circle cx="15" cy="6" r="1.8"/>
+        <circle cx="15" cy="12" r="1.8"/>
+        <circle cx="15" cy="18" r="1.8"/>
+        <circle cx="19" cy="12" r="1.8"/>
+      </g>
+    </svg>
+  ),
+
+  persistent: ({ className }) => (
+    <svg viewBox="0 0 24 24" className={className}>
+      <rect width="24" height="24" rx="4" fill="#E94E1B"/>
+      <path fill="#FFFFFF" d="M12 5a7 7 0 00-7 7c0 2.8 1.6 5.2 4 6.3l1.5-2.6A4 4 0 018 12a4 4 0 116.8 2.8l1.6 2.5A7 7 0 0012 5zm0 5a2 2 0 100 4 2 2 0 000-4z"/>
+    </svg>
+  ),
+
+  zensar: ({ className }) => (
+    <svg viewBox="0 0 24 24" className={className}>
+      <rect width="24" height="24" rx="4" fill="#00828A"/>
+      <path fill="#00B4D8" d="M12 4c-4.4 0-8 3.6-8 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm-1 4h6l-5 5h5v2H9l5-5H9V8z"/>
+    </svg>
+  ),
+
+  birlasoft: ({ className }) => (
+    <svg viewBox="0 0 24 24" className={className}>
+      <rect width="24" height="24" rx="4" fill="#005A9C"/>
+      <path fill="#FFFFFF" d="M6 7h6a4 4 0 010 8H6V7zm3 2.5v3h3a1.5 1.5 0 000-3H9zm0 5.5v3h4a1.5 1.5 0 000-3H9z"/>
+      <circle cx="17" cy="12" r="2" fill="#E31837"/>
+    </svg>
+  ),
+
+  genpact: ({ className }) => (
+    <svg viewBox="0 0 24 24" className={className}>
+      <rect width="24" height="24" rx="4" fill="#1A1A1A"/>
+      <path fill="#FF5800" d="M12 3l2.8 6 6.2 1.2-4.5 4.5 1 6.3L12 18l-5.5 3 1-6.3L3 10.2 9.2 9 12 3z"/>
+    </svg>
+  ),
+
+  dxc: ({ className }) => (
+    <svg viewBox="0 0 24 24" className={className}>
+      <rect width="24" height="24" rx="4" fill="#5F259F"/>
+      <path fill="#FFFFFF" d="M5 7h4c3 0 5 1.8 5 5s-2 5-5 5H5V7zm3 2.5v5h1c1.5 0 2.5-1 2.5-2.5S10.5 9.5 9 9.5H8zm7-2.5h3l2 4 2-4h3l-3.5 5 3.5 5h-3l-2-4-2 4h-3l3.5-5L15 7z"/>
+    </svg>
+  ),
+
+  musigma: ({ className }) => (
+    <svg viewBox="0 0 24 24" className={className}>
+      <rect width="24" height="24" rx="4" fill="#ED1C24"/>
+      <path fill="#FFFFFF" d="M5 8v6c0 1.7 1.3 3 3 3h1V8h2v9c0 1.7-1.3 3-3 3-2.8 0-5-2.2-5-5V8h2zm8 0h6v2.5l-4 3.5 4 3.5V20h-6v-2.5l3.5-3.5L13 10.5V8z"/>
     </svg>
   ),
 
@@ -430,11 +590,127 @@ const LOGO_COMPONENTS: Record<string, SvgComponent> = {
     </svg>
   ),
 
+  upstox: ({ className }) => (
+    <svg viewBox="0 0 24 24" className={className}>
+      <rect width="24" height="24" rx="4" fill="#502E7A"/>
+      <path fill="#9147FF" d="M7 7h4v6a2 2 0 004 0V7h4v6a6 6 0 01-12 0V7z"/>
+      <circle cx="12" cy="17" r="1.5" fill="#FFFFFF"/>
+    </svg>
+  ),
+
+  slice: ({ className }) => (
+    <svg viewBox="0 0 24 24" className={className}>
+      <rect width="24" height="24" rx="4" fill="#8B3DFF"/>
+      <path fill="#FFFFFF" d="M5 16l8-10h6L11 16H5z"/>
+      <circle cx="16" cy="14" r="2" fill="#00FFC2"/>
+    </svg>
+  ),
+
+  navi: ({ className }) => (
+    <svg viewBox="0 0 24 24" className={className}>
+      <rect width="24" height="24" rx="4" fill="#0A192F"/>
+      <path fill="#00C2FF" d="M6 6h3.5l5.5 8V6H18v12h-3.5L9 10v8H6V6z"/>
+    </svg>
+  ),
+
+  jupiter: ({ className }) => (
+    <svg viewBox="0 0 24 24" className={className}>
+      <circle cx="12" cy="12" r="11" fill="#F05A28"/>
+      <path fill="#FFFFFF" d="M14 6v8a4 4 0 01-8 0v-2h2.5v2a1.5 1.5 0 003 0V6H14z"/>
+    </svg>
+  ),
+
+  chargebee: ({ className }) => (
+    <svg viewBox="0 0 24 24" className={className}>
+      <rect width="24" height="24" rx="4" fill="#FF6B35"/>
+      <path fill="#FFFFFF" d="M12 5l5 3v6l-5 3-5-3V8l5-3zm0 3.2L9.5 9.7v4.6l2.5 1.5 2.5-1.5V9.7L12 8.2z"/>
+    </svg>
+  ),
+
+  darwinbox: ({ className }) => (
+    <svg viewBox="0 0 24 24" className={className}>
+      <rect width="24" height="24" rx="4" fill="#EC2027"/>
+      <path fill="#FFFFFF" d="M12 4l6 3.5v7L12 18l-6-3.5v-7L12 4zm0 2.3L8 8.6v4.8l4 2.3 4-2.3V8.6l-4-2.3z"/>
+    </svg>
+  ),
+
+  leadsquared: ({ className }) => (
+    <svg viewBox="0 0 24 24" className={className}>
+      <rect width="24" height="24" rx="4" fill="#1A365D"/>
+      <rect x="5" y="5" width="7" height="7" rx="1.5" fill="#F37023"/>
+      <rect x="12" y="12" width="7" height="7" rx="1.5" fill="#F37023"/>
+      <path fill="#FFFFFF" d="M10 10l4 4"/>
+    </svg>
+  ),
+
+  dream11: ({ className }) => (
+    <svg viewBox="0 0 24 24" className={className}>
+      <path fill="#E41D2D" d="M12 3l8 3.5v6.5c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6.5L12 3z"/>
+      <path fill="#FFFFFF" d="M9 8h3.5a4 4 0 010 8H9V8zm2 2v4h1.5a2 2 0 000-4H11z"/>
+    </svg>
+  ),
+
+  mpl: ({ className }) => (
+    <svg viewBox="0 0 24 24" className={className}>
+      <rect width="24" height="24" rx="4" fill="#ED1B24"/>
+      <path fill="#FFFFFF" d="M6 7l6-3 6 3v6c0 4-3 7-6 8-3-1-6-4-6-8V7zm3 5h6l-3-4-3 4z"/>
+    </svg>
+  ),
+
+  spinny: ({ className }) => (
+    <svg viewBox="0 0 24 24" className={className}>
+      <circle cx="12" cy="12" r="11" fill="#FDB913"/>
+      <circle cx="12" cy="12" r="6" fill="#FFFFFF"/>
+      <path fill="#1A1A1A" d="M12 8l2 4h-4l2-4z"/>
+    </svg>
+  ),
+
+  licious: ({ className }) => (
+    <svg viewBox="0 0 24 24" className={className}>
+      <circle cx="12" cy="12" r="11" fill="#E21836"/>
+      <path fill="#FFFFFF" d="M8 8h2v8H8V8zm3 0h5a3 3 0 010 6h-5V8zm2 2v2h3a1 1 0 000-2h-3z"/>
+    </svg>
+  ),
+
+  meesho: ({ className }) => (
+    <svg viewBox="0 0 24 24" className={className}>
+      <rect width="24" height="24" rx="4" fill="#E91E63"/>
+      <path fill="#FFFFFF" d="M6 8h3l3 4.5L15 8h3v8h-2v-5l-3 4h-2l-3-4v5H6V8z"/>
+    </svg>
+  ),
+
+  myntra: ({ className }) => (
+    <svg viewBox="0 0 24 24" className={className}>
+      <path fill="#FF3F6C" d="M4 16l3.5-8L11 13l3.5-5L18 16h-2.5l-2-5-2.5 3.5L9 11l-2.5 5H4z"/>
+    </svg>
+  ),
+
+  nykaa: ({ className }) => (
+    <svg viewBox="0 0 24 24" className={className}>
+      <rect width="24" height="24" rx="4" fill="#FC2779"/>
+      <path fill="#FFFFFF" d="M7 6h3l4 7V6h3v12h-3l-4-7v7H7V6z"/>
+    </svg>
+  ),
+
+  ola: ({ className }) => (
+    <svg viewBox="0 0 24 24" className={className}>
+      <circle cx="12" cy="12" r="10" fill="#00D09C"/>
+      <circle cx="12" cy="12" r="5" fill="#000000"/>
+    </svg>
+  ),
+
   // ── Global Tech & Silicon Valley ──
   uber: ({ className }) => (
     <svg viewBox="0 0 24 24" className={className}>
       <rect width="24" height="24" rx="4" fill="#000000" stroke="#333" strokeWidth="1"/>
       <path fill="#FFFFFF" d="M6 7v6c0 3.3 2.7 6 6 6s6-2.7 6-6V7h-2.5v6c0 1.9-1.6 3.5-3.5 3.5S8.5 14.9 8.5 13V7H6z"/>
+    </svg>
+  ),
+
+  lyft: ({ className }) => (
+    <svg viewBox="0 0 24 24" className={className}>
+      <rect width="24" height="24" rx="4" fill="#FF00BF"/>
+      <path fill="#FFFFFF" d="M6 6h3v8h3a3 3 0 003-3V6h3v5a6 6 0 01-6 6H6V6z"/>
     </svg>
   ),
 
@@ -502,7 +778,6 @@ const LOGO_COMPONENTS: Record<string, SvgComponent> = {
     </svg>
   ),
 
-  // ── Enterprise & Tech Giants ──
   salesforce: ({ className }) => (
     <svg viewBox="0 0 24 24" className={className}>
       <path fill="#00A1E0" d="M10 5.5C11.2 3.9 13.1 3 15.2 3c3.2 0 5.8 2.3 6.3 5.3 1.5.6 2.5 2.1 2.5 3.7 0 2.2-1.8 4-4 4-.3 0-.6 0-.8-.1-.7 2.4-3 4.1-5.7 4.1-1.7 0-3.3-.7-4.4-1.9-.8 1.1-2.1 1.9-3.6 1.9-2.5 0-4.5-2-4.5-4.5 0-.4.1-.7.2-1.1C2 13.8 1 12.3 1 10.5 1 8 3 6 5.5 6c.7 0 1.4.2 2 .5 1-1.5 2.7-2.5 4.5-2.5.7 0 1.4.2 2 .5z"/>
@@ -550,8 +825,8 @@ const LOGO_COMPONENTS: Record<string, SvgComponent> = {
 
   samsung: ({ className }) => (
     <svg viewBox="0 0 24 24" className={className}>
-      <ellipse cx="12" cy="12" rx="11" ry="6" fill="#1428A0"/>
-      <text x="12" y="14" fill="#FFFFFF" fontSize="6.5" fontWeight="900" textAnchor="middle" fontFamily="sans-serif">SAMSUNG</text>
+      <ellipse cx="12" cy="12" rx="11" ry="6.5" fill="#1428A0"/>
+      <path fill="#FFFFFF" d="M6 13.5c.3.8 1 1.2 2 1.2 1.2 0 1.8-.5 1.8-1.2 0-1.5-3.8-.7-3.8-2.8 0-1.2 1-2.2 2.7-2.2 1.3 0 2.2.5 2.6 1.4l-1 .5c-.3-.5-.7-.8-1.6-.8-.8 0-1.4.4-1.4 1 0 1.4 3.8.7 3.8 2.8 0 1.4-1.1 2.3-3 2.3-1.6 0-2.6-.7-3-1.7l.9-.5zm6.5-4.8h1.2l2.3 6.6h-1.2l-.5-1.5h-2.4l-.5 1.5H11l2.3-6.6zm1.5 4.2l-.9-2.7-.9 2.7h1.8z"/>
     </svg>
   ),
 
@@ -581,15 +856,16 @@ const LOGO_COMPONENTS: Record<string, SvgComponent> = {
   // ── High Finance & Investment Banking ──
   goldman: ({ className }) => (
     <svg viewBox="0 0 24 24" className={className}>
-      <rect width="24" height="24" rx="4" fill="#7399C6"/>
-      <text x="12" y="16" fill="#FFFFFF" fontSize="11" fontWeight="bold" textAnchor="middle" fontFamily="serif">GS</text>
+      <rect width="24" height="24" rx="4" fill="#1D70B8"/>
+      <path fill="#FFFFFF" d="M7 12c0-3 1.8-5 4.5-5 1.5 0 2.6.5 3.2 1.2l-1.2 1.3c-.5-.5-1.1-.8-2-.8-1.8 0-2.8 1.4-2.8 3.3 0 2 1 3.3 2.8 3.3.7 0 1.3-.2 1.8-.6v-1.6h-2v-1.5h3.5v3.8c-.8.8-2 1.4-3.5 1.4-2.7 0-4.3-2-4.3-4.8z"/>
     </svg>
   ),
 
   jpmorgan: ({ className }) => (
     <svg viewBox="0 0 24 24" className={className}>
-      <rect width="24" height="24" rx="4" fill="#002D62"/>
-      <text x="12" y="15" fill="#FFFFFF" fontSize="9" fontWeight="bold" textAnchor="middle" fontFamily="serif">JPM</text>
+      <rect width="24" height="24" rx="4" fill="#0A2540"/>
+      <path fill="#117ACA" d="M12 4l6 2.5v5.5l-6 2.5-6-2.5V6.5L12 4z"/>
+      <path fill="#FFFFFF" d="M9.5 9.5l2.5-1 2.5 1v3l-2.5 1-2.5-1v-3z"/>
     </svg>
   ),
 
@@ -604,8 +880,8 @@ const LOGO_COMPONENTS: Record<string, SvgComponent> = {
   deloitte: ({ className }) => (
     <svg viewBox="0 0 24 24" className={className}>
       <rect width="24" height="24" rx="4" fill="#000000" stroke="#333" strokeWidth="1"/>
-      <text x="10" y="16" fill="#FFFFFF" fontSize="10" fontWeight="900" fontFamily="sans-serif">D</text>
-      <circle cx="17.5" cy="15" r="2" fill="#86BC25"/>
+      <path fill="#FFFFFF" d="M6 7h4c3.5 0 5.5 2 5.5 5s-2 5-5.5 5H6V7zm2.5 2.5v5h1.5c2 0 3-1 3-2.5s-1-2.5-3-2.5h-1.5z"/>
+      <circle cx="18" cy="15" r="2" fill="#86BC25"/>
     </svg>
   ),
 
@@ -622,15 +898,20 @@ const LOGO_COMPONENTS: Record<string, SvgComponent> = {
   ey: ({ className }) => (
     <svg viewBox="0 0 24 24" className={className}>
       <rect width="24" height="24" rx="4" fill="#2E2E38"/>
-      <path fill="#FFE600" d="M14 4l6 4-6 4V4z"/>
-      <text x="9" y="17" fill="#FFFFFF" fontSize="11" fontWeight="900" fontFamily="sans-serif">EY</text>
+      <path fill="#FFE600" d="M12 4l8 4-8 4V4z"/>
+      <path fill="#FFFFFF" d="M6 8h4.5v2H8v2h2v2H8v2h2.5v2H6V8zm7 0h2.5l1.5 3.5 1.5-3.5H21l-2.5 5.5v4.5h-2.5v-4.5L13 8z"/>
     </svg>
   ),
 
   kpmg: ({ className }) => (
     <svg viewBox="0 0 24 24" className={className}>
       <rect width="24" height="24" rx="4" fill="#00338D"/>
-      <text x="12" y="15" fill="#FFFFFF" fontSize="7" fontWeight="bold" textAnchor="middle" fontFamily="sans-serif">KPMG</text>
+      <g fill="#FFFFFF">
+        <rect x="4" y="8" width="3" height="8" rx="0.5"/>
+        <rect x="8.5" y="8" width="3" height="8" rx="0.5"/>
+        <rect x="13" y="8" width="3" height="8" rx="0.5"/>
+        <rect x="17.5" y="8" width="3" height="8" rx="0.5"/>
+      </g>
     </svg>
   ),
 
@@ -705,11 +986,63 @@ const LOGO_COMPONENTS: Record<string, SvgComponent> = {
     </svg>
   ),
 
+  quickheal: ({ className }) => (
+    <svg viewBox="0 0 24 24" className={className}>
+      <path fill="#F15A24" d="M12 3l8 3.5v6.5c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6.5L12 3z"/>
+      <circle cx="12" cy="12" r="3.5" fill="#FFFFFF"/>
+    </svg>
+  ),
+
+  seqrite: ({ className }) => (
+    <svg viewBox="0 0 24 24" className={className}>
+      <path fill="#00A651" d="M12 3l8 3.5v6.5c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6.5L12 3z"/>
+      <path fill="#0A0A0A" d="M9 11l3 3 5-5"/>
+    </svg>
+  ),
+
+  tacsecurity: ({ className }) => (
+    <svg viewBox="0 0 24 24" className={className}>
+      <rect width="24" height="24" rx="4" fill="#E31B23"/>
+      <path fill="#FFFFFF" d="M12 5l6 3.5v7L12 19l-6-3.5v-7L12 5zm0 3a3 3 0 00-3 3v2h6v-2a3 3 0 00-3-3z"/>
+    </svg>
+  ),
+
+  safesecurity: ({ className }) => (
+    <svg viewBox="0 0 24 24" className={className}>
+      <rect width="24" height="24" rx="4" fill="#0077FF"/>
+      <path fill="#FFFFFF" d="M12 4l7 3.5v6c0 4.5-3 8-7 9.5-4-1.5-7-5-7-9.5v-6L12 4zm0 4a4 4 0 00-4 4c0 2 1.5 3.5 3 4l1 3 1-3c1.5-.5 3-2 3-4a4 4 0 00-4-4z"/>
+    </svg>
+  ),
+
+  wijungle: ({ className }) => (
+    <svg viewBox="0 0 24 24" className={className}>
+      <rect width="24" height="24" rx="4" fill="#00B050"/>
+      <path fill="#FFFFFF" d="M12 4c-4 4-6 8-6 11 0 3.3 2.7 6 6 6s6-2.7 6-6c0-3-2-7-6-11zm0 15c-2.2 0-4-1.8-4-4 0-1.8 1.2-4.5 4-7.5 2.8 3 4 5.7 4 7.5 0 2.2-1.8 4-4 4z"/>
+    </svg>
+  ),
+
+  appknox: ({ className }) => (
+    <svg viewBox="0 0 24 24" className={className}>
+      <rect width="24" height="24" rx="4" fill="#E74C3C"/>
+      <rect x="7" y="5" width="10" height="14" rx="2" fill="none" stroke="#FFFFFF" strokeWidth="1.8"/>
+      <circle cx="12" cy="11" r="1.8" fill="#FFFFFF"/>
+    </svg>
+  ),
+
+  cyware: ({ className }) => (
+    <svg viewBox="0 0 24 24" className={className}>
+      <rect width="24" height="24" rx="4" fill="#2C7BE5"/>
+      <circle cx="12" cy="12" r="7" fill="none" stroke="#FFFFFF" strokeWidth="1.5"/>
+      <circle cx="12" cy="12" r="3" fill="#FFFFFF"/>
+    </svg>
+  ),
+
   // ── Indian Telecom, Conglomerates & Banking ──
   reliancejio: ({ className }) => (
     <svg viewBox="0 0 24 24" className={className}>
       <circle cx="12" cy="12" r="11" fill="#0A2885"/>
-      <text x="12" y="15" fill="#E21B24" fontSize="9" fontWeight="900" textAnchor="middle" fontFamily="sans-serif">Jio</text>
+      <circle cx="12" cy="12" r="6" fill="#E21A22"/>
+      <path fill="#FFFFFF" d="M9 10h1.5v4H9v-4zm3.5-1.5h1.5v5.5h-1.5V8.5zm3.5 1.5h1.5v4H16v-4z"/>
     </svg>
   ),
 
@@ -735,6 +1068,13 @@ const LOGO_COMPONENTS: Record<string, SvgComponent> = {
     </svg>
   ),
 
+  marutisuzuki: ({ className }) => (
+    <svg viewBox="0 0 24 24" className={className}>
+      <rect width="24" height="24" rx="4" fill="#E31837"/>
+      <path fill="#FFFFFF" d="M7 6h10l-4 4h-4l5 4H7l4-4h4l-5-4z"/>
+    </svg>
+  ),
+
   hdfcbank: ({ className }) => (
     <svg viewBox="0 0 24 24" className={className}>
       <rect width="24" height="24" rx="4" fill="#004C8F"/>
@@ -746,8 +1086,9 @@ const LOGO_COMPONENTS: Record<string, SvgComponent> = {
   icicibank: ({ className }) => (
     <svg viewBox="0 0 24 24" className={className}>
       <rect width="24" height="24" rx="4" fill="#961D2B"/>
-      <circle cx="12" cy="12" r="6" fill="#F37024"/>
-      <text x="12" y="15" fill="#FFFFFF" fontSize="10" fontWeight="bold" textAnchor="middle" fontFamily="serif">i</text>
+      <path fill="#F37024" d="M12 5a7 7 0 00-7 7c0 3.8 3.1 7 7 7s7-3.2 7-7a7 7 0 00-7-7zm0 2.5a4.5 4.5 0 014.5 4.5c0 2.5-2 4.5-4.5 4.5S7.5 14.5 7.5 12 9.5 7.5 12 7.5z"/>
+      <circle cx="12" cy="10" r="1.2" fill="#FFFFFF"/>
+      <path fill="#FFFFFF" d="M11 12h2v4h-2v-4z"/>
     </svg>
   ),
 
@@ -800,51 +1141,18 @@ const LOGO_COMPONENTS: Record<string, SvgComponent> = {
     </svg>
   ),
 
-  dream11: ({ className }) => (
-    <svg viewBox="0 0 24 24" className={className}>
-      <rect width="24" height="24" rx="4" fill="#E41D2D"/>
-      <text x="12" y="15" fill="#FFFFFF" fontSize="8" fontWeight="900" textAnchor="middle" fontFamily="sans-serif">D11</text>
-    </svg>
-  ),
-
-  meesho: ({ className }) => (
-    <svg viewBox="0 0 24 24" className={className}>
-      <rect width="24" height="24" rx="4" fill="#E91E63"/>
-      <path fill="#FFFFFF" d="M6 8h3l3 4.5L15 8h3v8h-2v-5l-3 4h-2l-3-4v5H6V8z"/>
-    </svg>
-  ),
-
-  myntra: ({ className }) => (
-    <svg viewBox="0 0 24 24" className={className}>
-      <path fill="#FF3F6C" d="M4 16l3.5-8L11 13l3.5-5L18 16h-2.5l-2-5-2.5 3.5L9 11l-2.5 5H4z"/>
-    </svg>
-  ),
-
-  nykaa: ({ className }) => (
-    <svg viewBox="0 0 24 24" className={className}>
-      <rect width="24" height="24" rx="4" fill="#FF1493"/>
-      <text x="12" y="16" fill="#FFFFFF" fontSize="12" fontWeight="900" textAnchor="middle" fontFamily="serif">N</text>
-    </svg>
-  ),
-
-  ola: ({ className }) => (
-    <svg viewBox="0 0 24 24" className={className}>
-      <circle cx="12" cy="12" r="10" fill="#00D09C"/>
-      <circle cx="12" cy="12" r="5" fill="#000000"/>
-    </svg>
-  ),
-
   siemens: ({ className }) => (
     <svg viewBox="0 0 24 24" className={className}>
       <rect width="24" height="24" rx="4" fill="#00646E"/>
-      <text x="12" y="15" fill="#FFFFFF" fontSize="8" fontWeight="bold" textAnchor="middle" fontFamily="sans-serif">SIEMENS</text>
+      <path fill="#00E5FF" d="M7 9h7l-4 3h4l-4 3h7v2H7l4-3H7l4-3H7V9z"/>
     </svg>
   ),
 
   bosch: ({ className }) => (
     <svg viewBox="0 0 24 24" className={className}>
-      <circle cx="12" cy="12" r="10" fill="none" stroke="#EA1B24" strokeWidth="2.5"/>
-      <rect x="10" y="5" width="4" height="14" fill="#EA1B24"/>
+      <circle cx="12" cy="12" r="10" fill="none" stroke="#EA1B24" strokeWidth="2.2"/>
+      <rect x="10" y="5" width="4" height="14" rx="1" fill="#EA1B24"/>
+      <circle cx="12" cy="12" r="2.5" fill="#FFFFFF"/>
     </svg>
   ),
 

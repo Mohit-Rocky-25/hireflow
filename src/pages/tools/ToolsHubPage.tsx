@@ -1,34 +1,23 @@
 // ============================================================
 // HireFlow — Tools Hub Page (High-Contrast Dark System)
 // Strictly adhering to DESIGN.md and Stage 4 specs
+// Linear-style telemetry badges (No vibe-coded icon squircles)
 // ============================================================
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import {
-  FileSearch,
-  GitCompare,
-  FileEdit,
-  Mail,
-  FolderGit2,
-  Compass,
-  ArrowRight,
-  Search,
-  Database,
-  Award,
-  Layers,
-} from 'lucide-react';
+import { ArrowRight, Search } from 'lucide-react';
 import { PageNav } from '../../components/common/PageNav';
 import { PublicNavbar } from '../../components/common/PublicNavbar';
 import { careers } from '../../careers-core';
 
 interface ToolItem {
   id: string;
+  pill: string;
   title: string;
   badge: string;
   description: string;
   link: string;
   cta: string;
-  icon: React.ComponentType<{ className?: string }>;
   tags: string[];
 }
 
@@ -52,32 +41,32 @@ export function ToolsHubPage() {
       tools: [
         {
           id: 'resume-checker',
+          pill: 'AUDIT // 01',
           title: 'ATS Resume Roaster',
           badge: 'Harsh Invariant Scorer',
           description: 'Scan your resume against any JD. Get strict subscore audits, verbatim citations, and simulated wording fixes.',
           link: '/tools/resume-checker',
           cta: 'Roast My Resume',
-          icon: FileSearch,
           tags: ['Invariant Engine', 'Verbatim Citations', 'Zero Fabrication'],
         },
         {
           id: 'tailor',
+          pill: 'TAILOR // 02',
           title: 'Tailor My Resume',
           badge: 'Truth-Checked Suggestions',
           description: 'Reorder, rephrase, and context-enhance resume bullets with strictly verified skills and required metric placeholders.',
           link: '/tools/tailor',
           cta: 'Tailor Bullets',
-          icon: FileEdit,
           tags: ['Truth Check', 'Diff Editor', 'Version History'],
         },
         {
           id: 'reach-out',
+          pill: 'OUTREACH // 03',
           title: 'Reach Out',
           badge: 'Targeted Communication',
           description: 'Generate professional, context-aware messages across channels with strict LinkedIn 300-char limits and verifiable proof points.',
           link: '/tools/reach-out',
           cta: 'Generate Outreach',
-          icon: Mail,
           tags: ['LinkedIn 300 Char', 'Cold Email', 'Referrals'],
         },
       ],
@@ -90,22 +79,22 @@ export function ToolsHubPage() {
       tools: [
         {
           id: 'credential-engine',
+          pill: 'CREDENTIAL // 01',
           title: 'Credential & Opportunity Engine',
           badge: 'Evidence-Building Hub',
           description: 'Find industry-relevant certifications, competitions, and open-source programs that create verifiable resume evidence for your target role.',
           link: '/tools/credential-engine',
           cta: 'Build Career Evidence',
-          icon: Award,
           tags: ['Certifications', 'Competitions & SIH', 'GSoC & LFX', 'Opportunity Plan'],
         },
         {
           id: 'build-briefs',
+          pill: 'BRIEFS // 02',
           title: 'Project Build Briefs',
           badge: 'Gap-Driven Generation',
           description: 'Generate production engineering briefs directly from your JD skill gaps, complete with deliverables and interview talking points.',
           link: '/tools/build-briefs',
           cta: 'Find Projects to Build',
-          icon: FolderGit2,
           tags: ['Real JD Inputs', 'Scale Targets', 'Verification Rubric'],
         },
       ],
@@ -118,32 +107,32 @@ export function ToolsHubPage() {
       tools: [
         {
           id: 'career-path',
+          pill: 'TRAJECTORY // 01',
           title: 'Career Trajectory & Levels',
           badge: 'India Market Intelligence',
           description: 'Dream job roadmaps, India-office leveling ladders, CTC medians, and market tier positioning from Tier C to Tier S.',
           link: '/tools/career-path',
           cta: 'Explore Ladders',
-          icon: Compass,
           tags: ['Tier Positioning', 'Promotion Blockers', 'Market CTC'],
         },
         {
           id: 'jd-compare',
+          pill: 'COMPARE // 02',
           title: 'Compare Job Descriptions',
           badge: 'Multi-JD Evaluator',
           description: 'Compare 2–3 job descriptions side-by-side. Uncover shared vs unique gaps and choose the highest-yield target.',
           link: '/tools/jd-compare',
           cta: 'Compare JDs',
-          icon: GitCompare,
           tags: ['Deterministic Ranking', 'Shared Gaps', 'Coverage Gain'],
         },
         {
           id: 'careers-explorer',
+          pill: 'CATALOG // 03',
           title: 'Careers Data Platform Explorer',
           badge: `${careers.stats.counts().companies}+ Employers`,
           description: `Browse the full unified dataset of ${careers.stats.counts().companies} top employers and active recruiters, ${careers.stats.counts().roles}+ calibrated roles, eligibility cutoffs, and audit ledgers.`,
           link: '/dev/careers-data',
           cta: 'Explore Dataset',
-          icon: Database,
           tags: [`${careers.stats.counts().companies}+ Companies`, `${careers.stats.counts().roles}+ Roles`, 'Audit Ledgers'],
         },
       ],
@@ -219,60 +208,60 @@ export function ToolsHubPage() {
                 </span>
               </div>
 
-              {/* Tools Grid (§4: 8px radius, charcoal border, hover elevated) */}
+              {/* Tools Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {group.tools.map((tool) => {
-                  const Icon = tool.icon;
-                  return (
-                    <Link
-                      key={tool.id}
-                      to={tool.link}
-                      className="shiny-edge-card group bg-near-black rounded-lg border border-charcoal p-6 flex flex-col justify-between hover:border-volt/60 hover:shadow-level-3 transition-colors cursor-pointer select-none"
-                    >
-                      <div className="space-y-4">
-                        <div className="flex items-start justify-between gap-3">
-                          <div className="w-10 h-10 rounded bg-black border border-charcoal flex items-center justify-center text-volt shrink-0">
-                            <Icon className="w-5 h-5 stroke-[1.5px]" />
-                          </div>
-                          <span className="px-2.5 py-0.5 rounded text-[11px] font-semibold uppercase tracking-[1.2px] bg-black text-silver border border-charcoal">
-                            {tool.badge}
+                {group.tools.map((tool) => (
+                  <Link
+                    key={tool.id}
+                    to={tool.link}
+                    className="shiny-edge-card group bg-near-black rounded-lg border border-charcoal p-6 flex flex-col justify-between hover:border-volt/60 hover:shadow-level-3 transition-colors cursor-pointer select-none"
+                  >
+                    <div className="space-y-4">
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="flex items-center gap-2">
+                          <span className="font-mono text-[11px] font-bold text-volt tracking-widest uppercase bg-black px-2.5 py-1 rounded border border-charcoal">
+                            {tool.pill}
                           </span>
+                          <span className="w-1.5 h-1.5 rounded-full bg-volt" />
                         </div>
-
-                        <div>
-                          <h3 className="text-[20px] font-bold text-white group-hover:text-volt transition-colors leading-snug">
-                            {tool.title}
-                          </h3>
-                          <p className="text-[14px] text-silver mt-2 leading-relaxed">
-                            {tool.description}
-                          </p>
-                        </div>
-
-                        {/* Capability Tags */}
-                        <div className="flex flex-wrap gap-1.5 pt-2">
-                          {tool.tags.map((tag, idx) => (
-                            <span
-                              key={idx}
-                              className="text-[11px] font-semibold uppercase tracking-[1px] px-2 py-0.5 rounded bg-black text-silver/80 border border-charcoal"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Bottom CTA Button */}
-                      <div className="mt-6 pt-4 border-t border-charcoal flex items-center justify-between">
-                        <span className="text-[13px] font-bold uppercase tracking-[1.2px] text-white group-hover:text-volt transition-colors">
-                          {tool.cta}
+                        <span className="px-2.5 py-0.5 rounded text-[11px] font-semibold uppercase tracking-[1.2px] bg-black text-silver border border-charcoal">
+                          {tool.badge}
                         </span>
-                        <div className="w-8 h-8 rounded bg-black border border-charcoal flex items-center justify-center text-silver group-hover:text-volt group-hover:border-volt transition-colors">
-                          <ArrowRight className="w-4 h-4 stroke-[1.5px]" />
-                        </div>
                       </div>
-                    </Link>
-                  );
-                })}
+
+                      <div>
+                        <h3 className="text-[20px] font-bold text-white group-hover:text-volt transition-colors leading-snug">
+                          {tool.title}
+                        </h3>
+                        <p className="text-[14px] text-silver mt-2 leading-relaxed">
+                          {tool.description}
+                        </p>
+                      </div>
+
+                      {/* Capability Tags */}
+                      <div className="flex flex-wrap gap-1.5 pt-2">
+                        {tool.tags.map((tag, idx) => (
+                          <span
+                            key={idx}
+                            className="text-[11px] font-semibold uppercase tracking-[1px] px-2 py-0.5 rounded bg-black text-silver/80 border border-charcoal"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Bottom CTA Button */}
+                    <div className="mt-6 pt-4 border-t border-charcoal flex items-center justify-between">
+                      <span className="text-[13px] font-bold uppercase tracking-[1.2px] text-white group-hover:text-volt transition-colors">
+                        {tool.cta}
+                      </span>
+                      <div className="w-8 h-8 rounded bg-black border border-charcoal flex items-center justify-center text-silver group-hover:text-volt group-hover:border-volt transition-colors">
+                        <ArrowRight className="w-4 h-4 stroke-[1.5px]" />
+                      </div>
+                    </div>
+                  </Link>
+                ))}
               </div>
             </section>
           ))}

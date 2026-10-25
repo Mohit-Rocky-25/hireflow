@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { CheckCircle, Brain, Info, Sparkles, RefreshCw } from 'lucide-react';
+import { RefreshCw } from 'lucide-react';
 import { DataBadge } from '../../../careers-core';
 import type { FresherProgram } from '../../../careers-core';
 import type { Company } from '../talentLensData';
@@ -89,7 +89,7 @@ export function FresherProgramCard({
           >
             {isSelected ? (
               <>
-                <CheckCircle className="w-3.5 h-3.5 text-volt stroke-[1.5px]" />
+                <span className="font-mono text-volt font-bold text-xs">[✓]</span>
                 <span>Selected</span>
               </>
             ) : (
@@ -179,9 +179,9 @@ export function FresherProgramCard({
       {isSelected && (
         <div className="lg:hidden mt-2.5 mb-3 bg-black border border-charcoal rounded-lg p-4 shadow-level-2">
           <div className="flex items-center gap-2.5 mb-3">
-            <div className="w-9 h-9 rounded bg-near-black border border-charcoal text-volt flex items-center justify-center flex-shrink-0">
-              <Brain className="w-4 h-4 stroke-[1.5px]" />
-            </div>
+            <span className="font-mono text-[11px] font-bold text-volt bg-near-black px-2 py-1 rounded border border-charcoal shrink-0">
+              CAMPUS // 01
+            </span>
             <div>
               <div className="text-sm font-bold text-white uppercase tracking-tight">
                 {company.name} — {prog.programName}
@@ -194,22 +194,22 @@ export function FresherProgramCard({
 
           {!resumeText.trim() ? (
             <div className="p-3 bg-near-black border border-charcoal rounded mb-3 text-xs space-y-2">
-              <div className="font-semibold text-pale-yellow flex items-center gap-1.5 uppercase tracking-[1px]">
-                <Info className="w-3.5 h-3.5" /> Resume needed for AI screening
+              <div className="font-semibold text-pale-yellow flex items-center gap-1.5 uppercase tracking-[1px] font-mono">
+                <span className="text-volt font-bold">[!]</span> Resume needed for AI screening
               </div>
               <button
                 type="button"
                 onClick={onLoadSampleResume}
                 className="group w-full flex items-center justify-center gap-1.5 py-2 px-3 rounded bg-volt !text-black font-bold text-xs uppercase tracking-[1.4px] border border-volt hover:bg-[#1d1d1d] hover:!text-white transition-colors cursor-pointer"
               >
-                <Sparkles className="w-3.5 h-3.5 !text-black group-hover:!text-white" />
+                <span className="font-mono font-bold text-xs">⚡</span>
                 <span className="!text-black group-hover:!text-white font-black">Load Sample Resume &amp; Verify Now</span>
               </button>
             </div>
           ) : (
-            <div className="p-2.5 bg-near-black border border-charcoal rounded mb-3 flex items-center justify-between text-xs text-volt font-bold uppercase tracking-[1px]">
+            <div className="p-2.5 bg-near-black border border-charcoal rounded mb-3 flex items-center justify-between text-xs text-volt font-bold uppercase tracking-[1px] font-mono">
               <div className="flex items-center gap-2">
-                <CheckCircle className="w-4 h-4 flex-shrink-0 stroke-[1.5px]" />
+                <span className="font-bold text-[12px]">[✓]</span>
                 <span>
                   {activeResume?.ledger?.rawText === resumeText
                     ? `Profile: ${activeResume.label}`
@@ -238,7 +238,7 @@ export function FresherProgramCard({
               </>
             ) : (
               <>
-                <Brain className="w-4 h-4 stroke-[1.5px] !text-black group-hover:!text-white" />
+                <span className="font-mono text-sm font-black !text-black group-hover:!text-white">⚡</span>
                 <span className="!text-black group-hover:!text-white font-black">Run Deep AI Analysis</span>
               </>
             )}

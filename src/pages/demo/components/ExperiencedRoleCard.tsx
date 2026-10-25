@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Info, Brain, CheckCircle, RefreshCw } from 'lucide-react';
+import { RefreshCw } from 'lucide-react';
 import type { Company, Role } from '../talentLensData';
 import { CompanyLogo } from '../../../components/common/CompanyLogo';
 import { DataProvenanceModal } from '../../../components/common/DataProvenanceModal';
@@ -87,8 +87,8 @@ export function ExperiencedRoleCard({
           <div className="flex items-center justify-between mb-4 border-b border-charcoal pb-3 flex-wrap gap-2">
             <div className="flex items-center gap-2 flex-wrap">
               <h4 className="text-xs font-bold text-white uppercase tracking-[1px]">Job Description</h4>
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold uppercase tracking-[0.5px] bg-near-black text-silver border border-charcoal">
-                <Info className="w-3 h-3 stroke-[1.5px]" /> Public Corporate Spec
+              <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-semibold uppercase tracking-[0.5px] bg-near-black text-silver border border-charcoal font-mono">
+                <span className="text-volt font-bold">[SPEC]</span> Public Corporate Spec
               </span>
               <DataProvenanceModal
                 triggerButtonText="How & Where Extracted"
@@ -172,9 +172,9 @@ export function ExperiencedRoleCard({
       {isSelected && (
         <div className="lg:hidden mt-2.5 mb-3 bg-black border border-charcoal rounded-lg p-4 shadow-level-2">
           <div className="flex items-center gap-2.5 mb-2.5">
-            <div className="w-8 h-8 rounded bg-near-black border border-charcoal flex items-center justify-center text-volt">
-              <Brain className="w-4 h-4 stroke-[1.5px]" />
-            </div>
+            <span className="font-mono text-[11px] font-bold text-volt bg-near-black px-2 py-1 rounded border border-charcoal">
+              EVAL // 01
+            </span>
             <div>
               <div className="text-xs font-bold text-white uppercase tracking-tight">
                 {company.name} — {role.title}
@@ -193,8 +193,8 @@ export function ExperiencedRoleCard({
               </Link>
             </div>
           ) : (
-            <div className="p-2.5 bg-near-black border border-charcoal rounded mb-3 flex items-center gap-2 text-xs text-volt font-semibold uppercase tracking-[1px]">
-              <CheckCircle className="w-4 h-4 flex-shrink-0 stroke-[1.5px]" />
+            <div className="p-2.5 bg-near-black border border-charcoal rounded mb-3 flex items-center gap-2 text-xs text-volt font-semibold uppercase tracking-[1px] font-mono">
+              <span className="font-bold text-[12px]">[✓]</span>
               <span>Resume loaded ({resumeText.split(/\s+/).length} words)</span>
             </div>
           )}
@@ -212,7 +212,7 @@ export function ExperiencedRoleCard({
               </>
             ) : (
               <>
-                <Brain className="w-4 h-4 stroke-[1.5px] !text-black group-hover:!text-white" />
+                <span className="font-mono text-sm font-black !text-black group-hover:!text-white">⚡</span>
                 <span className="!text-black group-hover:!text-white font-black">Run Deep AI Analysis</span>
               </>
             )}

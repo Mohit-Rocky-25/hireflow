@@ -39,9 +39,7 @@ export function EducationSection({
           >
             <div className="flex items-start gap-3">
               <div
-                className={`w-10 h-10 rounded-xl bg-gradient-to-br ${getGradient(
-                  edu.secondaryTitle || edu.primaryTitle
-                )} flex items-center justify-center text-white font-black text-xs shrink-0 shadow-sm`}
+                className="w-10 h-10 rounded bg-near-black border border-charcoal flex items-center justify-center text-volt font-mono font-bold text-xs shrink-0"
               >
                 {getInitials(edu.secondaryTitle || edu.primaryTitle)}
               </div>
