@@ -24,9 +24,20 @@ describe('TalentLens Flow & Data Layer', () => {
     const totalRoles = COMPANIES.reduce((acc, c) => acc + c.roles.length, 0);
     expect(totalRoles).toBeGreaterThanOrEqual(1400);
 
-    // Verify all companies have at least 10 calibrated roles
-    COMPANIES.forEach((c) => {
+    // Verify all legacy companies have at least 10 calibrated roles
+    COMPANIES.filter((c) => c.dataStatus === 'legacy_unaudited').forEach((c) => {
       expect(c.roles.length).toBeGreaterThanOrEqual(10);
+    });
+
+    // Verify sourced companies adhere strictly to additive depth contract (Deep: up to 5, Standard: up to 2, Basic: 0)
+    COMPANIES.filter((c) => c.dataStatus === 'sourced').forEach((c) => {
+      if (c.depth === 'deep') {
+        expect(c.roles.length).toBeLessThanOrEqual(5);
+      } else if (c.depth === 'standard') {
+        expect(c.roles.length).toBeLessThanOrEqual(2);
+      } else if (c.depth === 'basic') {
+        expect(c.roles.length).toBe(0);
+      }
     });
 
     // Verify company shape

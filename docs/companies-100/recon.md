@@ -113,16 +113,19 @@ Scanning 100 roster entries from `docs/companies-100/roster-parsed.json` against
 - In `talentLensEngine.ts:1025` and `1087`, the engine maps over whatever array is provided in `role.competencies`.
 - No minimum length of 4 is required by the engine; roles with 2 or 3 competencies execute cleanly through `deepAnalyzeCompetency` and `runScoringEngine`.
 
-### D. Tier to Archetype Mapping
-In `src/pages/demo/talentLensEngine.ts:1112–1127`:
-```ts
-if (tier === 'FAANG') archetype = 'big_tech_product';
-else if (tier === 'UNICORN' || /quick commerce|food tech|mobility/i.test(ind)) archetype = 'indian_high_growth';
-else if (tier === 'IT SERVICES') archetype = 'service_track';
-else if (tier === 'STARTUP') archetype = 'early_growth_startup';
-else if (/trading|hft|quantitative|quant/i.test(ind) || /tower|graviton|jane street/i.test(cName)) archetype = 'quant_trading';
-else archetype = 'product_mnc_gcc'; // Default for MNC, GCC, Enterprise, Tech Giant
-```
+### D. Tier to Archetype Mapping (Updated in Task 6.4)
+In `src/pages/demo/talentLensEngine.ts:488-504` and `1112–1128`:
+- Archetype Resolution Mapping:
+  1. `quant_trading`: Checked first via industry keywords (`/trading|hft|quantitative|quant/i`) or company names (`tower`, `graviton`, `jane street`, `alphagrep`, `futures first`, `quadeye`). Prevents prop-trading firms labelled UNICORN or PRODUCT_MNC from misrouting.
+  2. `big_tech_product`: `tier === 'FAANG' || tier === 'TECH_GIANT'`.
+  3. `indian_high_growth`: `tier === 'UNICORN' || /quick commerce|food tech|mobility/i.test(ind)`.
+  4. `service_track`: `tier === 'IT SERVICES' || tier === 'IT_SERVICES'`. Resolves previous gap where underscore-delimited tier fell through.
+  5. `early_growth_startup`: `tier === 'STARTUP' || tier === 'BOOTSTRAPPED'`.
+  6. `product_mnc_gcc`: Default fallback for `PRODUCT_MNC`, `GCC`, and `Enterprise`.
+- **Gap Analysis**:
+  - Previously, `IT_SERVICES` with underscore was unhandled and fell through to `product_mnc_gcc`. Fixed in Task 6.4.
+  - Previously, prop-trading firms with tier `UNICORN` or `PRODUCT_MNC` (e.g. `graviton`, `alphagrep`, `futures_first`) evaluated after `UNICORN`, misrouting to `indian_high_growth`. Fixed by evaluating quant/trading signals first.
+  - Zero unmapped tiers remain across all 235 active companies.
 
 ### E. Hardcoded Counts in Existing Tests
 - `src/pages/demo/__tests__/talentlens.test.ts:25`:

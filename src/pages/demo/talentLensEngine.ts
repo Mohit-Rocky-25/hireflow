@@ -484,22 +484,24 @@ export function computeScore(
     roleFamily = 'DevOps';
   }
 
-  // 2. Resolve archetype from company tier/industry
+  // 2. Resolve archetype from company tier/industry (Task 6.4)
   let archetype = 'product_mnc_gcc';
   const tier = (company?.tier || '').toUpperCase();
   const ind = (company?.industry || '').toLowerCase();
   const cName = (company?.name || '').toLowerCase();
 
-  if (tier === 'FAANG') {
+  if (/trading|hft|quantitative|quant/i.test(ind) || /tower|graviton|jane street|alphagrep|futures first|quadeye/i.test(cName)) {
+    archetype = 'quant_trading';
+  } else if (tier === 'FAANG' || tier === 'TECH_GIANT') {
     archetype = 'big_tech_product';
   } else if (tier === 'UNICORN' || /quick commerce|food tech|mobility/i.test(ind)) {
     archetype = 'indian_high_growth';
-  } else if (tier === 'IT SERVICES') {
+  } else if (tier === 'IT SERVICES' || tier === 'IT_SERVICES') {
     archetype = 'service_track';
-  } else if (tier === 'STARTUP') {
+  } else if (tier === 'STARTUP' || tier === 'BOOTSTRAPPED') {
     archetype = 'early_growth_startup';
-  } else if (/trading|hft|quantitative|quant/i.test(ind) || /tower|graviton|jane street/i.test(cName)) {
-    archetype = 'quant_trading';
+  } else {
+    archetype = 'product_mnc_gcc';
   }
 
   // 3. Convert role competencies into ConfirmedRequirements
@@ -1108,22 +1110,24 @@ export function analyzeRoleMatch(
     roleFamily = 'DevOps';
   }
 
-  // 2. Resolve archetype
+  // 2. Resolve archetype (Task 6.4)
   let archetype = 'product_mnc_gcc';
   const tier = (company.tier || '').toUpperCase();
   const ind = (company.industry || '').toLowerCase();
   const cName = (company.name || '').toLowerCase();
 
-  if (tier === 'FAANG') {
+  if (/trading|hft|quantitative|quant/i.test(ind) || /tower|graviton|jane street|alphagrep|futures first|quadeye/i.test(cName)) {
+    archetype = 'quant_trading';
+  } else if (tier === 'FAANG' || tier === 'TECH_GIANT') {
     archetype = 'big_tech_product';
   } else if (tier === 'UNICORN' || /quick commerce|food tech|mobility/i.test(ind)) {
     archetype = 'indian_high_growth';
-  } else if (tier === 'IT SERVICES') {
+  } else if (tier === 'IT SERVICES' || tier === 'IT_SERVICES') {
     archetype = 'service_track';
-  } else if (tier === 'STARTUP') {
+  } else if (tier === 'STARTUP' || tier === 'BOOTSTRAPPED') {
     archetype = 'early_growth_startup';
-  } else if (/trading|hft|quantitative|quant/i.test(ind) || /tower|graviton|jane street/i.test(cName)) {
-    archetype = 'quant_trading';
+  } else {
+    archetype = 'product_mnc_gcc';
   }
 
   // 3. Build confirmed requirements

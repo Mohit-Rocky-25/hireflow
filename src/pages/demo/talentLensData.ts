@@ -154280,6 +154280,7 @@ const RAW_COMPANIES = [
 // ════════════════════════════════════════════════════════════
 
 import { deduplicateCompanies } from '../../lib/companySearchEngine';
+import { companies100 } from '../../data/market/companies100/generated/companies';
 
 export interface Role {
   title: string;
@@ -154379,7 +154380,12 @@ function attachProvenance(companies: any[]): Company[] {
   })) as Company[];
 }
 
-export const COMPANIES: Company[] = deduplicateCompanies<Company>(attachProvenance(RAW_COMPANIES));
+export const COMPANIES: Company[] = deduplicateCompanies<Company>(
+  attachProvenance([
+    ...RAW_COMPANIES,
+    ...(companies100 as unknown as Company[]).filter((c) => c.dataStatus !== 'quarantined'),
+  ])
+);
 
 // TALENTLENS™ AI ENGINE v7 — 6-Layer Anti-Gaming Analysis
 // ════════════════════════════════════════════════════════════

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-24T16:22:48.287Z",
+  "generatedAt": "2026-10-25T19:08:28.540Z",
   "specVersion": "2.4.0",
   "engineVersion": "4.0.0",
   "datasets": [
@@ -50,18 +50,29 @@
     },
     {
       "id": "market-archetypes-talentlens",
-      "name": "Indian Tech Market Hiring Archetypes",
-      "purpose": "Calibrates 6 market archetypes (Big Tech, Quant, Unicorns, GCCs, IT Services, Early Startups) with verified eligibility rules.",
-      "source": "TalentLens engine calibration dataset (TCS 60% aggregate criterion, JEE/GATE/tier-cutoffs)",
+      "name": "Indian Tech Market Hiring Archetypes & TalentLens Catalog",
+      "purpose": "Calibrates 6 market archetypes (Big Tech, Quant, Unicorns, GCCs, IT Services, Early Startups) with verified eligibility rules and audited employer profiles.",
+      "source": "TalentLens engine calibration dataset & Companies-100 verified ledger (docs/companies-100/ledger/)",
       "sourceUrl": null,
-      "lastVerified": "2026-10-24",
+      "lastVerified": "2026-10-25",
       "status": "verified",
       "derivedMetrics": {
         "archetypesCount": 6,
-        "catalogRoleEstimatesCount": 1450,
-        "catalogEmployerProfilesCount": 1400
+        "catalogEmployerProfilesCount": 235,
+        "catalogRoleEstimatesCount": 1557,
+        "legacyUnauditedCompaniesCount": 141,
+        "sourcedAuditedCompaniesCount": 94,
+        "deepAuditedCompaniesCount": 30,
+        "standardAuditedCompaniesCount": 59,
+        "basicAuditedCompaniesCount": 5,
+        "quarantinedCompaniesCount": 2,
+        "verifiedLedgerRowsCount": 833,
+        "officialSourceRowsCount": 833,
+        "companyPublishedRowsCount": 0,
+        "eligibilityRulesCount": 25,
+        "staleRecordsCount": 0
       },
-      "biasesOrLimitations": "Campus placement criteria vary by tier and season; official TCS eligibility requires 60% aggregate across 10th, 12th, and degree."
+      "biasesOrLimitations": "Campus placement criteria vary by tier and season; official TCS eligibility requires 60% aggregate across 10th, 12th, and degree. Legacy profiles are legacy_unaudited; new 94 employer profiles carry sourced audit provenance with zero runtime egress."
     },
     {
       "id": "aicte-regional-advisories",

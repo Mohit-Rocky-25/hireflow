@@ -39,12 +39,14 @@ export function MatchingDemo() {
     companySearch,
     industryFilter,
     tierFilter,
+    depthFilter,
     step,
     setResume,
     setUploadMode,
     setCompanySearch,
     setIndustryFilter,
     setTierFilter,
+    setDepthFilter,
     setStep,
   } = useTalentLensStore();
 
@@ -98,8 +100,9 @@ export function MatchingDemo() {
     return searchCompanies(cleanCompanies, companySearch, {
       industryFilter,
       tierFilter,
+      depthFilter,
     });
-  }, [cleanCompanies, companySearch, industryFilter, tierFilter]);
+  }, [cleanCompanies, companySearch, industryFilter, tierFilter, depthFilter]);
 
   const filteredCompanies = searchResult.results;
   const scoredResults = searchResult.scoredResults;
@@ -376,14 +379,20 @@ Include:
                 >
                   {TIERS.map(t => <option key={t} value={t}>{t}</option>)}
                 </select>
-                {(() => {
-                  const summary = getMarketSummary();
-                  return (
-                    <span className="text-xs text-silver ml-auto font-mono uppercase tracking-[1px]">
-                      {summary.totalProfiles} employer profiles
-                    </span>
-                  );
-                })()}
+                <select
+                  value={depthFilter}
+                  onChange={e => setDepthFilter(e.target.value)}
+                  className="h-10 px-3 bg-black border border-charcoal rounded text-xs text-white focus:outline-none focus:border-volt cursor-pointer uppercase font-semibold"
+                  aria-label="Filter by audit depth"
+                >
+                  <option value="All">All Depths</option>
+                  <option value="deep">Deep (Campus Verified)</option>
+                  <option value="standard">Standard (Careers)</option>
+                  <option value="basic">Basic (Profile Only)</option>
+                </select>
+                <span className="text-xs text-silver ml-auto font-mono uppercase tracking-[1px] whitespace-nowrap">
+                  {filteredCompanies.length} of {cleanCompanies.length} employer profiles
+                </span>
               </div>
 
               {/* Typo Correction Banner ("Did you mean?") */}

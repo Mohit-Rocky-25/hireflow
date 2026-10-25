@@ -4,6 +4,8 @@
 // Guarantees exact 1:1 match between company logo and eligibility title
 // ============================================================
 
+import { companies100Eligibility } from './companies100/generated/eligibility';
+
 export interface CompanyEligibilityRule {
   companyId: string;
   companyName: string;
@@ -193,6 +195,34 @@ const COMPANY_ALIASES: Record<string, string> = {
   hcl: 'hcltech',
 };
 
+const ADAPTED_COMPANIES_100_RULES: Record<string, Omit<CompanyEligibilityRule, 'companyId'>> = Object.fromEntries(
+  Object.entries(companies100Eligibility).map(([id, c100]) => {
+    const friendlyName = (c100 as any).companyName || id.charAt(0).toUpperCase() + id.slice(1).replace(/[_-]/g, ' ');
+    const branches = c100.eligibleBranches ? c100.eligibleBranches.join(', ') : 'All STEM';
+    const notes = (c100 as any).notes || (c100.backlogRule ? `Backlog criteria: ${c100.backlogRule}. Eligible branches: ${branches}.` : 'Official baseline cutoff for entry-level engineering.');
+    return [
+      id,
+      {
+        companyName: (c100 as any).companyName || friendlyName,
+        displayName: (c100 as any).displayName || `${friendlyName} — Campus & Early Career Screening`,
+        aggregatePercent: c100.aggregatePercent ?? c100.minAggregatePercent ?? null,
+        cgpaEquivalent: c100.cgpaEquivalent ?? c100.minCgpa ?? null,
+        sourceName: (c100 as any).sourceName || `${friendlyName} Official Campus / Careers Portal`,
+        sourceUrl: (c100 as any).sourceUrl || undefined,
+        sourceKind: (c100 as any).sourceKind || 'official',
+        notes,
+        confidence: (c100 as any).confidence || 'high',
+        lastReviewed: (c100 as any).lastReviewed || '2026-10-25',
+      },
+    ];
+  })
+);
+
+export const MERGED_KNOWN_RULES: Record<string, Omit<CompanyEligibilityRule, 'companyId'>> = {
+  ...ADAPTED_COMPANIES_100_RULES,
+  ...KNOWN_RULES,
+};
+
 /**
  * Resolves verified eligibility and campus cutoffs for any company.
  * Never defaults to another company (e.g. TCS under Microsoft).
@@ -206,15 +236,15 @@ export function getCompanyEligibilityRule(
 
   const resolvedKey = COMPANY_ALIASES[raw] || COMPANY_ALIASES[cleaned] || cleaned;
 
-  if (KNOWN_RULES[resolvedKey]) {
+  if (MERGED_KNOWN_RULES[resolvedKey]) {
     return {
       companyId: resolvedKey,
-      ...KNOWN_RULES[resolvedKey],
+      ...MERGED_KNOWN_RULES[resolvedKey],
     };
   }
 
   // Check partial key matches
-  for (const [key, rule] of Object.entries(KNOWN_RULES)) {
+  for (const [key, rule] of Object.entries(MERGED_KNOWN_RULES)) {
     if (cleaned.includes(key) || raw.includes(key)) {
       return {
         companyId: key,

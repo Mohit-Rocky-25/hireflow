@@ -30,15 +30,15 @@ Started: 2026-10-25
 | 3.5 | Stage 3 | Write spotcheck-for-user.md, tag c100-stage-3, STOP-2 (NEEDS-USER) | DONE | 8106c55 | Generated docs/companies-100/spotcheck-for-user.md (15 spotchecks) |
 | 4.1 | Stage 4 | Scale facts & eligibility for remaining companies (ONE at a time, depth assignment) | DONE | 9c8715b | Scaled across 89 companies (30 deep, 59 standard, 5 basic, 2 quarantined) |
 | 4.2 | Stage 4 | Batch validation, blind checks, generator checks, commit per batch, tag c100-stage-4 | DONE | 9c8715b | 9 batches verified: 833 rows passed, 100% blind agreement, 0 H11 halts |
-| 5.0 | Stage 5 | Write jobFamilyTemplates.ts (20-25 templates), README, STOP-3 (NEEDS-USER) | DONE | pending-stage-5 | Created jobFamilyTemplates.ts (22 families) & TEMPLATES_README.md |
-| 5.1 | Stage 5 | Role profile generation from templates, editorial disclaimer prefix | DONE | pending-stage-5 | Generated 147 roles across 94 active companies from templates |
-| 5.2 | Stage 5 | Sanity test: TalentLens evaluation with 3 synthetic fixtures | DONE | pending-stage-5 | 441 evaluations: 0 crashes, 0 NaN, 0 zeros, 100% differentiation |
-| 5.3 | Stage 5 | Run validate:companies, check:generated, full suite, tag c100-stage-5 | DONE | pending-stage-5 | validate:companies and full talentlens suite passed cleanly |
-| 6.1 | Stage 6 | Merge generated data into RAW_COMPANIES and KNOWN_RULES | TODO | - | - |
-| 6.2 | Stage 6 | Update provenance generator & Methodology table, remove hand-typed counts | TODO | - | - |
-| 6.3 | Stage 6 | UI search by name, depth filter, responsive check (390px) | TODO | - | - |
-| 6.4 | Stage 6 | Confirm tier maps to TalentLens archetypes, list gaps | TODO | - | - |
-| 6.5 | Stage 6 | lint, typecheck, full suite, production build, tag c100-stage-6 | TODO | - | - |
+| 5.0 | Stage 5 | Write jobFamilyTemplates.ts (20-25 templates), README, STOP-3 (NEEDS-USER) | DONE | f310093 | Created jobFamilyTemplates.ts (22 families) & TEMPLATES_README.md |
+| 5.1 | Stage 5 | Role profile generation from templates, editorial disclaimer prefix | DONE | f310093 | Generated 147 roles across 94 active companies from templates |
+| 5.2 | Stage 5 | Sanity test: TalentLens evaluation with 3 synthetic fixtures | DONE | f310093 | 441 evaluations: 0 crashes, 0 NaN, 0 zeros, 100% differentiation |
+| 5.3 | Stage 5 | Run validate:companies, check:generated, full suite, tag c100-stage-5 | DONE | f310093 | validate:companies and full talentlens suite passed cleanly |
+| 6.1 | Stage 6 | Merge generated data into RAW_COMPANIES and KNOWN_RULES | DONE | pending-stage-6 | companies100 integrated into COMPANIES, companies100Eligibility merged into MERGED_KNOWN_RULES |
+| 6.2 | Stage 6 | Update provenance generator & Methodology table, remove hand-typed counts | DONE | pending-stage-6 | generate-provenance.mjs derives counts dynamically by dataStatus/depth/sourceKind; Verified -> Audited in MethodologyPage |
+| 6.3 | Stage 6 | UI search by name, depth filter, responsive check (390px) | DONE | pending-stage-6 | Added depthFilter ('All' | 'deep' | 'standard' | 'basic') to searchCompanies and MatchingDemo UI; verified responsive |
+| 6.4 | Stage 6 | Confirm tier maps to TalentLens archetypes, list gaps | DONE | pending-stage-6 | Updated talentLensEngine.ts archetype resolver; resolved IT_SERVICES and quant_trading precedence |
+| 6.5 | Stage 6 | lint, typecheck, full suite, production build, tag c100-stage-6 | DONE | pending-stage-6 | tsc (0 errors), vitest (144 files, 958 passed, 0 failed), vite build (0 errors) |
 | 7.1 | Stage 7 | Audit report generation (audit:companies -> audit.md) | TODO | - | - |
 | 7.2 | Stage 7 | Reopen random 30 URLs, confirm supporting text, record match/mismatch | TODO | - | - |
 | 7.3 | Stage 7 | Write second spot-check file (20 random rows) | TODO | - | - |
@@ -289,3 +289,17 @@ Score differentiation rate: 100.0%
   - Updated `scripts/companies100/build-companies.mjs` to generate 147 representative role profiles strictly from verified `jobFamily` ledger rows and templates, prepending mandatory editorial disclaimer to `fullText`.
   - Created `tests/talentlens/companies100Sanity.test.ts` evaluating all 147 roles across 3 realistic candidate fixtures (Backend, Embedded, Data Science/AI) with 0 crashes, 0 NaNs, 0 undefined values, and 100% differentiation.
   - Added `npm run validate:companies` script. Ready for `c100-stage-5` tag.
+
+### Tasks 6.1 – 6.5 Log (Stage 6 Completion)
+- **Commands**:
+  - `node scripts/generate-provenance.mjs`: Generated `src/data/provenance.generated.json` with 235 profiles (141 legacy + 94 sourced).
+  - `npm run check:provenance`: Verified all 6 datasets match codebase reality.
+  - `npm run typecheck`: Exited 0 with zero errors.
+  - `npx vitest run`: 144 test files passed, 958 tests passed, 0 failed.
+  - `npm run build`: Production bundle built in 10.76s with zero errors.
+- **Changes**:
+  - Task 6.1: Merged `companies100` into `COMPANIES` in `talentLensData.ts` with quarantine exclusion. Integrated `companies100Eligibility` into `MERGED_KNOWN_RULES` in `companyEligibility.ts` with legacy priority.
+  - Task 6.2: Updated `scripts/generate-provenance.mjs` to dynamically derive counts by `dataStatus`, `depth`, and `sourceKind`. Replaced "Verified" with "Audited" on `MethodologyPage.tsx`. Scoped legacy role count assertions in `talentlens.test.ts` to `legacy_unaudited` and added depth assertions for `sourced`.
+  - Task 6.3: Added `depthFilter` option to `searchCompanies` in `companySearchEngine.ts`. Added depth filter dropdown and dynamic counter to `MatchingDemo.tsx` with mobile-responsive flex-wrap down to 390px.
+  - Task 6.4: Updated tier-to-archetype mapping in `talentLensEngine.ts` to resolve `IT_SERVICES` and prioritize quant/trading firms before UNICORN. Documented full gap analysis in `recon.md`.
+  - Task 6.5: Ran full validation suite, typecheck, and production build cleanly. Ready for `c100-stage-6` tag.
