@@ -34,7 +34,7 @@ import {
   ChevronRight,
   Zap,
 } from 'lucide-react';
-import { PageNav } from '../../../components/common/PageNav';
+import { PublicNavbar } from '../../../components/common/PublicNavbar';
 import { useProfile } from '../profile/ProfileContext';
 import { ProfileStatusChip } from '../profile/components/ProfileStatusChip';
 import {
@@ -231,8 +231,8 @@ export function CompareJDsPage() {
   const activePreset = COMPARISON_PRESETS.find((p) => p.id === selectedPresetId);
 
   return (
-    <div className="min-h-screen bg-black text-white pt-24 pb-20 px-4 sm:px-6 md:px-8 relative">
-      <PageNav onBack={result ? () => setResult(null) : undefined} fallbackRoute="/tools" preferFallback={true} />
+    <div className="min-h-screen bg-black text-white pt-28 pb-20 px-4 sm:px-6 md:px-8 relative">
+      <PublicNavbar />
 
       {/* Top Bar with Profile Chip */}
       <div className="max-w-7xl mx-auto mb-6 flex items-center justify-between">

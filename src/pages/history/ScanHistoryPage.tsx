@@ -5,7 +5,7 @@
  */
 
 import React, { useState, useMemo } from 'react';
-import { PageNav } from '../../components/common/PageNav';
+import { PublicNavbar } from '../../components/common/PublicNavbar';
 import { ConfirmDialog } from '../../components/common/ConfirmDialog';
 import { Tag } from '../../components/common/Tag';
 import { CompanyLogo } from '../../components/common/CompanyLogo';
@@ -71,10 +71,10 @@ export function ScanHistoryPage() {
     scanA && scanB && (scanA.engineVersion !== scanB.engineVersion || scanA.configFingerprint !== scanB.configFingerprint);
 
   return (
-    <div className="min-h-screen bg-black text-white pb-16">
-      <PageNav fallbackRoute="/tools" />
+    <div className="min-h-screen bg-black text-white pt-24 pb-16">
+      <PublicNavbar />
 
-      <header className="max-w-5xl mx-auto px-4 pt-20 pb-4 text-center sm:text-left">
+      <header className="max-w-5xl mx-auto px-4 pt-4 pb-4 text-center sm:text-left">
         <h1 className="text-2xl font-mono font-bold tracking-tight text-white flex items-center gap-2 uppercase">
           <History className="h-6 w-6 text-volt" />
           <span>Scan History & Progression</span>

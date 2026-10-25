@@ -20,6 +20,7 @@ import {
   Sparkles,
   Target,
 } from 'lucide-react';
+import { PublicNavbar } from '../../../components/common/PublicNavbar';
 import { CareerPathBackButton } from '../../../components/career-path/CareerPathBackButton';
 import { useProfile } from '../../../features/suite/profile/ProfileContext';
 import { getCandidateTierStatus } from '../../../features/suite/integration/trajectory';
@@ -86,11 +87,11 @@ export function CareerPathHub() {
 
   return (
     <div className="min-h-screen bg-black text-white flex flex-col selection:bg-volt selection:text-black">
-      {/* Pinned Top Navigation */}
-      <CareerPathBackButton isHub={true} />
+      {/* Global Navigation */}
+      <PublicNavbar />
 
       {/* Hero Section */}
-      <section className="relative flex-1 flex flex-col items-center justify-center text-center px-4 sm:px-6 lg:px-8 py-20 lg:py-28 overflow-hidden">
+      <section className="relative flex-1 flex flex-col items-center justify-center text-center px-4 sm:px-6 lg:px-8 pt-28 pb-20 lg:pt-36 lg:pb-28 overflow-hidden">
         <div className="relative max-w-5xl mx-auto flex flex-col items-center">
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded bg-near-black border border-charcoal text-silver text-xs font-bold tracking-wide uppercase mb-6">

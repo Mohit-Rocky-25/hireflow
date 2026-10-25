@@ -6,13 +6,25 @@ export function PublicNavbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 w-full z-50 bg-black border-b border-charcoal">
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 h-[68px] flex items-center justify-between">
+    <nav className="fixed top-0 left-0 right-0 w-full z-50 bg-black border-b border-charcoal">
+      <div className="w-full px-4 sm:px-6 lg:px-8 h-[68px] flex items-center justify-between">
         <div className="flex items-center gap-4 sm:gap-6">
           <div className="flex items-center gap-2">
             <button
               type="button"
+              title="Go to Home"
+              aria-label="Go to home"
+              onClick={() => navigate('/')}
+              className="w-9 h-9 rounded bg-near-black border border-charcoal flex items-center justify-center text-silver hover:text-white hover:bg-hover-gray active:text-pale-yellow active:shadow-inset transition-colors cursor-pointer select-none focus-visible:outline-2 focus-visible:outline-volt"
+            >
+              <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M3 10.5 12 3l9 7.5V20a1.5 1.5 0 0 1-1.5 1.5h-5a1 1 0 0 1-1-1v-4.5h-3V20a1 1 0 0 1-1 1.5h-5A1.5 1.5 0 0 1 3 20z" />
+              </svg>
+            </button>
+            <button
+              type="button"
               title="Go back"
+              aria-label="Go back"
               onClick={() => navigate(-1)}
               className="w-9 h-9 rounded bg-near-black border border-charcoal flex items-center justify-center text-silver hover:text-white hover:bg-hover-gray active:text-pale-yellow active:shadow-inset transition-colors cursor-pointer select-none focus-visible:outline-2 focus-visible:outline-volt font-mono text-sm leading-none"
             >
@@ -21,6 +33,7 @@ export function PublicNavbar() {
             <button
               type="button"
               title="Go forward"
+              aria-label="Go forward"
               onClick={() => navigate(1)}
               className="w-9 h-9 rounded bg-near-black border border-charcoal flex items-center justify-center text-silver hover:text-white hover:bg-hover-gray active:text-pale-yellow active:shadow-inset transition-colors cursor-pointer select-none focus-visible:outline-2 focus-visible:outline-volt font-mono text-sm leading-none"
             >

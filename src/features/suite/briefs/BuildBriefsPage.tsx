@@ -10,7 +10,7 @@
 
 import React, { useState, useMemo, useEffect, useCallback, useRef, useLayoutEffect } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
-import { PageNav } from '../../../components/common/PageNav';
+import { PublicNavbar } from '../../../components/common/PublicNavbar';
 import {
   ArrowLeft,
   ArrowUp,
@@ -137,13 +137,9 @@ export function BuildBriefsPage() {
   }, []);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-12 space-y-8 animate-fade-in relative bg-black text-white">
-      {/* Navigation */}
-      <PageNav
-        onBack={activeBrief ? () => setActiveBrief(null) : undefined}
-        fallbackRoute="/tools"
-        preferFallback={true}
-      />
+    <div className="min-h-screen bg-black text-white">
+      <PublicNavbar />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 space-y-8 animate-fade-in relative">
 
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-charcoal pb-6">
@@ -442,6 +438,7 @@ export function BuildBriefsPage() {
           onToggleSave={handleToggleSave}
         />
       )}
+      </div>
     </div>
   );
 }

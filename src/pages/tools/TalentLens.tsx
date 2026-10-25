@@ -25,6 +25,7 @@ import { DataProvenanceModal } from '../../components/common/DataProvenanceModal
 import { RealityFactorsPanel } from '../../components/common/RealityFactorsPanel';
 import { EligibilityCard } from '../../components/common/EligibilityCard';
 import { WhyThisScoreDrawer, StaleVersionBanner } from '../../components/scoring';
+import { PublicNavbar } from '../../components/common/PublicNavbar';
 
 // ── Status Components ──
 function EligibilityBadge({ status }: { status: string }) {
@@ -288,14 +289,8 @@ export function TalentLens() {
   const selectedJob = jobs.find(j => j.id === selectedJobId);
 
   return (
-    <div className="min-h-screen bg-black text-white pt-24 pb-12 px-8 relative font-sans">
-      
-      {/* Absolute Top-Left Back Button */}
-      <div className="absolute top-8 left-8">
-        <Link to="/" className="inline-flex items-center gap-2 text-sm font-mono font-bold uppercase tracking-wider text-white hover:text-volt transition-colors">
-          <ArrowLeft className="w-4 h-4" /> Back to Home
-        </Link>
-      </div>
+    <div className="min-h-screen bg-black text-white pt-24 pb-12 px-4 sm:px-6 md:px-8 relative font-sans">
+      <PublicNavbar />
 
       <div className="max-w-7xl mx-auto space-y-8 animate-fade-in">
         

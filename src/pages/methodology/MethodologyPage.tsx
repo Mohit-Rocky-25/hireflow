@@ -42,7 +42,7 @@ import { buildZeroPiiReportPayload } from '../../scoring/core/reportPayload';
 import { SYNTHETIC_FIXTURES, SyntheticFixture } from '../../scoring/__fixtures__/syntheticFixtures';
 import provenanceData from '../../data/provenance.generated.json';
 import { useFeedbackStore } from '../../store/feedbackStore';
-import { PageNav } from '../../components/common/PageNav';
+import { PublicNavbar } from '../../components/common/PublicNavbar';
 import { copyDiagnosticPayload, generateDiagnosticPayload } from '../../lib/diagnostics/reportWrongResult';
 import { ScoreTrace, PillarTraceItem } from '../../scoring/core/types';
 import { ExperienceLevel } from '../../scoring/spec/types';
@@ -251,9 +251,9 @@ export function MethodologyPage() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white py-10 px-4 sm:px-6 lg:px-8 relative">
+    <div className="min-h-screen bg-black text-white pt-24 pb-16 px-4 sm:px-6 lg:px-8 relative">
+      <PublicNavbar />
       <div className="max-w-6xl mx-auto space-y-12">
-        <PageNav fallbackRoute="/tools" />
 
         {/* Title Header */}
         <div className="border-b border-charcoal pb-8">

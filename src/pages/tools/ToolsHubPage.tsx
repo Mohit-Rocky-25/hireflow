@@ -5,7 +5,6 @@
 // ============================================================
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { PageNav } from '../../components/common/PageNav';
 import { PublicNavbar } from '../../components/common/PublicNavbar';
 import { careers } from '../../careers-core';
 
@@ -156,8 +155,6 @@ export function ToolsHubPage() {
     <div className="min-h-screen bg-black text-white font-sans selection:bg-volt selection:text-black">
       <PublicNavbar />
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 space-y-16 animate-fade-in relative">
-        <PageNav fallbackRoute="/" preferFallback={true} />
-
         {/* Hero Header (§3 App Scale) */}
         <div className="text-center max-w-4xl mx-auto space-y-4">
           <p className="text-[13px] font-semibold text-silver uppercase tracking-[1.4px]">

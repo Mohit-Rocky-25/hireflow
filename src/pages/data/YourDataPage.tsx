@@ -5,7 +5,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { PageNav } from '../../components/common/PageNav';
+import { PublicNavbar } from '../../components/common/PublicNavbar';
 import { ConfirmDialog } from '../../components/common/ConfirmDialog';
 import { SegmentedControl } from '../../components/common/SegmentedControl';
 import { Tag } from '../../components/common/Tag';
@@ -182,10 +182,10 @@ export function YourDataPage() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white pb-16">
-      <PageNav fallbackRoute="/tools" />
+    <div className="min-h-screen bg-black text-white pt-24 pb-16">
+      <PublicNavbar />
 
-      <header className="max-w-4xl mx-auto px-4 pt-20 pb-4 text-center sm:text-left">
+      <header className="max-w-4xl mx-auto px-4 pt-4 pb-4 text-center sm:text-left">
         <h1 className="text-2xl font-mono font-bold tracking-tight text-white uppercase">Your Data & Local Storage</h1>
         <p className="mt-1 text-sm font-mono text-neutral-400">Privacy-First Data Ownership & Client-Side Control</p>
       </header>
