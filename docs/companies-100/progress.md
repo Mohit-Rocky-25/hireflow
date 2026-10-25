@@ -39,10 +39,10 @@ Started: 2026-10-25
 | 6.3 | Stage 6 | UI search by name, depth filter, responsive check (390px) | DONE | f12459d | Added depthFilter ('All' | 'deep' | 'standard' | 'basic') to searchCompanies and MatchingDemo UI; verified responsive |
 | 6.4 | Stage 6 | Confirm tier maps to TalentLens archetypes, list gaps | DONE | f12459d | Updated talentLensEngine.ts archetype resolver; resolved IT_SERVICES and quant_trading precedence |
 | 6.5 | Stage 6 | lint, typecheck, full suite, production build, tag c100-stage-6 | DONE | f12459d | tsc (0 errors), vitest (144 files, 958 passed, 0 failed), vite build (0 errors) |
-| 7.1 | Stage 7 | Audit report generation (audit:companies -> audit.md) | DONE | pending-stage-7 | Generated docs/companies-100/audit.md (census, empty rates, 0 banned words) |
-| 7.2 | Stage 7 | Reopen random 30 URLs, confirm supporting text, record match/mismatch | DONE | pending-stage-7 | Generated docs/companies-100/url-audit.md (30 / 30 verified matches, 0 mismatches) |
-| 7.3 | Stage 7 | Write second spot-check file (20 random rows) | DONE | pending-stage-7 | Generated docs/companies-100/spotcheck-for-user-2.md (20 spotchecks across roster) |
-| 7.4 | Stage 7 | Write final-report.md (summary, unmerged branch notes) | DONE | pending-stage-7 | Generated docs/companies-100/final-report.md with complete mission overview |
+| 7.1 | Stage 7 | Audit report generation (audit:companies -> audit.md) | DONE | d9cbe47 | Generated docs/companies-100/audit.md (census, empty rates, 0 banned words) |
+| 7.2 | Stage 7 | Reopen random 30 URLs, confirm supporting text, record match/mismatch | DONE | d9cbe47 | Generated docs/companies-100/url-audit.md (30 / 30 verified matches, 0 mismatches) |
+| 7.3 | Stage 7 | Write second spot-check file (20 random rows) | DONE | d9cbe47 | Generated docs/companies-100/spotcheck-for-user-2.md (20 spotchecks across roster) |
+| 7.4 | Stage 7 | Write final-report.md (summary, unmerged branch notes) | DONE | d9cbe47 | Generated docs/companies-100/final-report.md with complete mission overview |
 
 ---
 

@@ -52,10 +52,10 @@ Every single fact entered the codebase through immutable evidence ledgers, was c
 | | 6.3 | UI depth filter ('All' \| 'deep' \| 'standard' \| 'basic') in MatchingDemo | DONE | `f12459d` | Added depth filter dropdown; verified responsive down to 390px |
 | | 6.4 | Archetype resolution coverage & gap analysis in recon.md | DONE | `f12459d` | Handled IT_SERVICES and quant_trading precedence |
 | | 6.5 | Full validation: lint, typecheck, vitest (958 passed), build | DONE | `f12459d` | Tagged `c100-stage-6`; build finished in 10.76s |
-| **Stage 7** | 7.1 | Generate audit.md via npm run audit:companies | DONE | pending-stage-7 | `docs/companies-100/audit.md` generated with full census |
-| | 7.2 | Re-audit 30 random URLs against evidence cache and fetch log | DONE | pending-stage-7 | `docs/companies-100/url-audit.md` (30 / 30 verified matches) |
-| | 7.3 | Author second spot-check file (20 random rows across roster) | DONE | pending-stage-7 | `docs/companies-100/spotcheck-for-user-2.md` generated |
-| | 7.4 | Final mission completion report & user instructions | DONE | pending-stage-7 | `docs/companies-100/final-report.md` authored |
+| **Stage 7** | 7.1 | Generate audit.md via npm run audit:companies | DONE | `d9cbe47` | `docs/companies-100/audit.md` generated with full census |
+| | 7.2 | Re-audit 30 random URLs against evidence cache and fetch log | DONE | `d9cbe47` | `docs/companies-100/url-audit.md` (30 / 30 verified matches) |
+| | 7.3 | Author second spot-check file (20 random rows across roster) | DONE | `d9cbe47` | `docs/companies-100/spotcheck-for-user-2.md` generated |
+| | 7.4 | Final mission completion report & user instructions | DONE | `d9cbe47` | `docs/companies-100/final-report.md` authored |
 
 ---
 
