@@ -31,9 +31,9 @@ describe('Interactive 1-Click Gap Handoff (P3)', () => {
 
     // Verify Tailor Studio and Project Briefs links are rendered in HTML
     expect(html).toContain('Add to Tailor Draft');
-    expect(html).toContain('/tools/resume-tailor?focus=Kubernetes');
+    expect(html).toContain('/tools/tailor?focus=Kubernetes');
     expect(html).toContain('Build Proof Project');
-    expect(html).toContain('/tools/project-briefs?query=Kubernetes');
+    expect(html).toContain('/tools/build-briefs?query=Kubernetes');
     expect(html).toContain('Rewrite in Tailor Studio');
   });
 
@@ -59,10 +59,10 @@ describe('Interactive 1-Click Gap Handoff (P3)', () => {
 
     expect(html).toContain('No text evidence found in resume');
     expect(html).toContain('Tailor Bullet');
-    expect(html).toContain('/tools/resume-tailor?skill=Docker');
+    expect(html).toContain('/tools/tailor?skill=Docker');
     expect(html).toContain('Project Brief');
-    expect(html).toContain('/tools/project-briefs?query=Docker');
+    expect(html).toContain('/tools/build-briefs?query=Docker');
     expect(html).toContain('Certify');
-    expect(html).toContain('/tools/credentials?q=Docker');
+    expect(html).toContain('/tools/credential-engine?q=Docker');
   });
 });
