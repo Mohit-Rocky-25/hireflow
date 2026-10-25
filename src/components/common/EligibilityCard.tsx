@@ -40,18 +40,39 @@ export function EligibilityCard({ targetCompanyId, targetArchetypeId, className 
   let badgeStyle = 'bg-black text-volt border border-volt/60';
   let Icon = ShieldCheck;
 
-  if (candidatePercent >= requiredPercent) {
-    statusText = 'Likely Eligible for Screening';
-    badgeStyle = 'bg-black text-volt border border-volt/60';
-    Icon = ShieldCheck;
-  } else if (candidatePercent >= requiredPercent - 3) {
-    statusText = 'Check Carefully (Borderline Cutoff)';
-    badgeStyle = 'bg-black text-pale-yellow border border-pale-yellow/60';
-    Icon = AlertTriangle;
-  } else {
-    statusText = 'Likely Below Drive Cutoff';
-    badgeStyle = 'bg-black text-danger border border-danger/60';
-    Icon = XCircle;
+  if (requiredPercent == null && requiredCgpa == null) {
+    statusText = 'Drive Cutoff Criteria Not Published';
+    badgeStyle = 'bg-black text-silver border border-charcoal';
+    Icon = Info;
+  } else if (requiredPercent != null) {
+    if (candidatePercent >= requiredPercent) {
+      statusText = 'Likely Eligible for Screening';
+      badgeStyle = 'bg-black text-volt border border-volt/60';
+      Icon = ShieldCheck;
+    } else if (candidatePercent >= requiredPercent - 3) {
+      statusText = 'Check Carefully (Borderline Cutoff)';
+      badgeStyle = 'bg-black text-pale-yellow border border-pale-yellow/60';
+      Icon = AlertTriangle;
+    } else {
+      statusText = 'Likely Below Drive Cutoff';
+      badgeStyle = 'bg-black text-danger border border-danger/60';
+      Icon = XCircle;
+    }
+  } else if (requiredCgpa != null) {
+    const candidateCgpa = intake.cgpaScale === 10 ? intake.cgpa : intake.cgpa / 9.5;
+    if (candidateCgpa >= requiredCgpa) {
+      statusText = 'Likely Eligible for Screening';
+      badgeStyle = 'bg-black text-volt border border-volt/60';
+      Icon = ShieldCheck;
+    } else if (candidateCgpa >= requiredCgpa - 0.3) {
+      statusText = 'Check Carefully (Borderline Cutoff)';
+      badgeStyle = 'bg-black text-pale-yellow border border-pale-yellow/60';
+      Icon = AlertTriangle;
+    } else {
+      statusText = 'Likely Below Drive Cutoff';
+      badgeStyle = 'bg-black text-danger border border-danger/60';
+      Icon = XCircle;
+    }
   }
 
   return (
@@ -90,7 +111,13 @@ export function EligibilityCard({ targetCompanyId, targetArchetypeId, className 
           <div>
             <span className="text-silver block text-[10px] font-bold uppercase tracking-[1.4px] mb-0.5">Official Baseline Cutoff</span>
             <span className="font-bold text-white">
-              {requiredPercent}% Aggregate (~{requiredCgpa} CGPA in 10th, 12th, Degree)
+              {requiredPercent != null && requiredCgpa != null
+                ? `${requiredPercent}% Aggregate (~${requiredCgpa} CGPA in 10th, 12th, Degree)`
+                : requiredPercent != null
+                ? `${requiredPercent}% Aggregate in 10th, 12th, Degree`
+                : requiredCgpa != null
+                ? `${requiredCgpa} CGPA in 10th, 12th, Degree`
+                : 'Not Published by Employer'}
             </span>
           </div>
 

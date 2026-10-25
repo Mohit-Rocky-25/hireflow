@@ -1,0 +1,104 @@
+<USER_REQUEST>
+MISSION
+Add up to 100 new employers (roster: docs/companies-100/roster-input.md, a copy of HIREFLOW_ADD_100_COMPANIES_FOR_CLAUDE.md) to HireFlow TalentLens with near-zero fabricated facts. You are NOT a source of facts about these companies. You are a researcher who copies facts from official pages into an evidence ledger, and a deterministic generator writes the data. Environment: Windows/AMD, PowerShell-safe commands, UTF-8 without BOM. Work autonomously but obey the STOP gates.
+
+ANTI-HALLUCINATION ARCHITECTURE (H1 to H12, non-negotiable)
+H1 LEDGER FIRST. Facts enter the product only through ledger rows. Never type a company fact directly into a data file. Generated files (src/data/market/companies100/generated/*) are written ONLY by npm run build:companies, which reads roster + ledger + job-family templates. Each generated file has a content-hash header, and a test fails if one is hand-edited.
+H2 CLOSED FIELD LIST. Allowed ledger fields: officialName, industry, hq, officialSiteUrl, indiaPresenceUrl, careersUrl, campusPageUrl, jobFamily (repeatable), eligibility.aggregatePercent, eligibility.cgpa, eligibility.backlogRule, eligibility.branches, eligibility.batchYears, and ONLY if stated in an official page: compensation, hiringRound, openRoles, hiringIntake. Anything else is rejected by the validator.
+H3 ROW FORMAT: {rowId, companyId, field, value, sourceKind: "official" | "company-published", url, retrievedAt (ISO), snippet (an exact copy of AT MOST 15 words from the page that supports the value), extractedBy: "ai", verify: {method, status}}.
+H4 FETCH LOG AND CACHE. Every page you open is appended to docs/companies-100/fetch-log.jsonl {url, httpStatus, timestamp, companyId}. Use your browser/fetch tool to save the visible page text to .evidence-cache/<hash>.txt (git-ignored; never committed or published; used only for build-time checks). A ledger url that is not in the fetch log with status 200 is rejected. A snippet that is not found (whitespace and case normalised) in the cached text of its url is rejected. These checks are scripts, not your judgement.
+H5 DOMAIN ALLOWLIST. Official company domains only (officialSiteUrl host and its subdomains, plus careers hosts recorded in Stage 2) and official recruitment portals. Banned as sources: Glassdoor, AmbitionBox, LinkedIn, Naukri, PrepInsta, FACE Prep, news sites, blogs, aggregators, Wikipedia, Crunchbase. No login-walled pages, no bulk crawling; respect robots.txt and site terms.
+H6 NULL IS A GOOD ANSWER. No fill-rate targets or completeness quotas. "Not found on an official page" means no row. Report fill rates but never optimise them.
+H7 NO IMPUTATION. Never derive a value from category, tier, peers or "typical" practice; never convert CGPA to percentage or the reverse; never round or convert ranges; never use the words typical, approximately, around, estimated, about, expected in a value. If the page does not state it, there is no row.
+H8 QUARANTINE. If existence, India presence or early-career hiring cannot be confirmed from official pages, the company is quarantined and ships nothing. Never complete a company from memory or from lookalike names.
+H9 BLIND RE-EXTRACTION (self-check). After each batch, for every row of type eligibility, numeric, hq or industry: re-read the cached page WITHOUT looking at the ledger value, extract that field again, and compare. Disagree or unresolved means the row is dropped (value becomes null) and logged. This is an AI self-check, not independent verification; never call it verification in code, UI or docs. The user's spot-check is the real check.
+H10 NEGATIVE CONTROLS (canaries) in the test suite: (a) three invented company names ("Zorblax Systems", "Quenmark Robotics", "Hyphenvale Labs") fed through the Stage 2 pipeline using mock page fixtures must end quarantined with zero rows; (b) for three mock companies whose page publishes no eligibility, the pipeline must output no eligibility rows.
+H11 AUTO-HALT. Stop immediately, write a report, and set NEEDS-USER if: (a) blind-check disagreement in any batch exceeds 5% of checked rows; (b) any canary fails; (c) any ledger row fails the fetch-log or snippet check twice; (d) any generated file differs from regeneration; (e) a test that passed at baseline fails and cannot be fixed in 3 attempts.
+H12 CONTEXT HYGIENE. Process ONE company at a time. Write its ledger rows to disk immediately. Never carry facts in memory between companies. If context resets, re-read progress.md and the ledger folder.
+
+WORKING RULES
+W1 Keep docs/companies-100/progress.md: every task id with TODO / DOING / DONE / BLOCKED / NEEDS-USER. DONE only after you record the exact command, the last 20 lines of output, and the commit hash.
+W2 One task at a time. Small commits: "c100(<task id>): <what>". At most about 150 changed lines per commit, except generated data per batch (at most 10 companies).
+W3 grep before opening files; re-read a file right before editing it; never paste more than 80 lines of code into your reasoning.
+W4 No guessing. If something is unclear, search all usages; if still unclear, list it under OPEN QUESTIONS and change nothing for it.
+W5 After 3 failed attempts at a task, mark it BLOCKED with the reason and continue only with independent tasks.
+W6 Branch feat/companies-100-v1. After each stage: git tag c100-stage-<N>. NEVER push, merge, or touch main or design-1 (this overrides the delivery checklist in the roster doc).
+W7 Scope: TalentLens company/role/eligibility data, schema, validators, generator, provenance, tests, docs. Do NOT touch other tools, routes, localStorage keys (hireflow:v4:*) or the design system. Existing tests stay green; record any expectation change with the reason.
+W8 Zero runtime network egress; no runtime dependencies. Only Stages 2 to 4 use the browser.
+No logos or brand assets anywhere: monogram text plus a gradient class only. Never copy company or job-posting text beyond the 15-word snippets.
+
+STOP GATES
+STOP-1 after Stage 2, STOP-2 after Stage 3 (pilot), STOP-3 after task 5.0 (templates). At a gate: write the named report, set status NEEDS-USER, end your turn. Continue only after the user message "APPROVED: <gate name>".
+
+=== STAGE 0: RECON (read-only except branch and baseline) ===
+0.1 Create the branch and progress.md. Run the full test suite, record every failing test, then git tag c100-baseline.
+0.2 Copy the roster file to docs/companies-100/roster-input.md. Parse its tables to JSON; confirm 100 unique ids and category counts 10/15/25/15/15/20.
+0.3 Locate and record: company/role data (the doc says src/pages/demo/talentLensData.ts, RAW_COMPANIES), eligibility rules (src/data/market/companyEligibility.ts, KNOWN_RULES), types, validators, the provenance generator and the Methodology provenance table.
+0.4 Write consumed-fields.md: for every Company, Role and Eligibility field, which code reads it (file:line) and the effect (score / UI display / Roaster import / none).
+0.5 Existing stats: company and role counts, companies per tier. Dedupe the 100 against existing data by id and normalised name (lowercase; strip punctuation and Inc/Pvt/Ltd); list overlaps.
+0.6 Schema facts: which fields are required; whether the UI breaks (NaN/undefined/blank) when optional values are missing; whether the engine's competency keys equal these 20: dsa, systemdesign, java, python, golang, nodejs, react, typescript, aws, kubernetes, ml, databases, leadership, devops, security, swift, kotlin, finance, communication, concurrency; whether roles with fewer than 4 competencies work; how tier maps to archetype; hard-coded counts in tests/pages (75, 140, 658, 1400, etc.); any use of the gradient field.
+0.7 Write docs/companies-100/recon.md with all answers and OPEN QUESTIONS.
+Acceptance: recon.md and consumed-fields.md exist; no code changed.
+
+=== STAGE 1: PIPELINE AND CONTRACT (build the guardrails BEFORE any data) ===
+1.1 Write docs/companies-100/decisions/ADR-001.md, then implement additive schema changes only. Company (optional): depth (deep | standard | basic), dataStatus (legacy_unaudited | sourced | editorial | quarantined), officialSiteUrl, careersUrl, tierRationale, sources[] of {field, sourceKind, url, lastCheckedAt, checkedBy}. Role (optional): profileKind ("representative"), competencyFit (good | approximate), uncoveredSkills[]. Loosen to optional anything the roster doc requires that we cannot source: avgPackage, glassdoor, hiring2023, hiring2024, openRoles, compensation, benefits, hiringProcess. Never remove or rename existing fields. Tag existing companies dataStatus legacy_unaudited through a migration helper without editing their content. Eligibility rule: sourceUrl and sourceKind required; aggregatePercent and cgpaEquivalent nullable; "not published" means no rule exists.
+1.2 Ledger tooling. Ledger folder: docs/companies-100/ledger/<companyId>.json. Scripts: validate:ledger (schema, closed fields, ISO dates, H5 allowlist, fetch-log check, snippet-in-cache check, banned words, H7 value rules); verify:blind (H9); build:companies (H1 generator; refuses any field without ledger rows; builds fullText only from templates); check:generated (regenerate and compare hashes).
+1.3 UI (design tokens only): null-safe "Not available" in place of blank/NaN/undefined; a depth chip; a "Representative role profile (editorial)" label on role pages; source chips with date ("Official source, checked N days ago"); stale warning after 180 days; "Not yet source-audited" chip for legacy entries; footer text: "HireFlow is not affiliated with or endorsed by any company named. Names are used only to identify employers; trademarks belong to their owners."; a "Report an error" link using the project's existing pattern (no network calls).
+1.4 Tests: one passing and one failing fixture per validator rule; the H10 canary tests with mock page fixtures; a test where a deliberately bad row (no fetch-log entry, snippet not in cache, banned word) is rejected by validate:ledger; full suite; typecheck. Tag c100-stage-1.
+Acceptance: all tests green; the bad-row test proves rejection.
+
+=== STAGE 2: ROSTER VERIFICATION (research; ledger rows only) ===
+2.1 Dedupe the roster against existing data into docs/companies-100/dedupe.md. Default is skip for overlaps; never modify legacy entries.
+2.2 For each new company, in batches of 10, ONE company at a time: from official pages record ledger rows for officialName, officialSiteUrl, indiaPresenceUrl, careersUrl, campusPageUrl (if it exists), hq and industry. Log every fetch. Status: confirmed / partial / unconfirmed (unconfirmed means quarantine, H8). If a name does not resolve to an official site (for example Axxela Advisory, Voxela AI), mark it unconfirmed; do not search for lookalikes.
+2.3 Write a one-line tierRationale per company. Set needsReview where a label looks unsupported (for example prop-trading firms labelled UNICORN, product firms labelled IT_SERVICES). Tier is an editorial classification, not a valuation claim.
+2.4 After each batch: validate:ledger, verify:blind, apply H11.
+2.5 Write docs/companies-100/roster-verification.md: counts of confirmed / partial / unconfirmed, the quarantine list with reasons, tier flags, dedupe summary, official-domain list per company, blind-check agreement rate.
+Tag c100-stage-2. >>> STOP-1 (NEEDS-USER).
+
+=== STAGE 3: PILOT (5 companies end to end) ===
+3.1 Choose the 5 confirmed companies with the strongest official evidence; record which and why.
+3.2 For each: eligibility rows only if an official page states criteria (H7, no conversion); jobFamily rows for early-career job families that appear on official careers or campus pages (family name as shown, snippet of at most 15 words); numeric rows only if stated in an official page.
+3.3 Run validate:ledger, verify:blind, build:companies, check:generated, full suite.
+3.4 Write docs/companies-100/pilot-report.md: every ledger row of the 5 companies in a table (field, value, url, snippet, blind-check result) plus fill rates (informational only).
+3.5 Write docs/companies-100/spotcheck-for-user.md: 15 rows from the pilot with a blank Match/Mismatch column and instructions to open each URL.
+Tag c100-stage-3. >>> STOP-2 (NEEDS-USER): the user completes the spot-check and reports match/mismatch counts.
+
+=== STAGE 4: SCALE FACTS AND ELIGIBILITY (only after "APPROVED: STOP-2") ===
+4.1 The remaining confirmed/partial companies, batches of 10, ONE company at a time, same procedure as Stage 3 (eligibility, jobFamily, numeric-if-stated). Depth: deep = official evidence of India early-career or campus hiring (at most 30 deep, chosen by strength of evidence; report the picks); standard = confirmed with some evidence; basic = profile only.
+4.2 After each batch: validate:ledger, verify:blind, build:companies, check:generated, full suite, commit. Print: agreement rate, depth counts, empty-rate per field, quarantine additions. Apply H11 (halt above 5% disagreement).
+Tag c100-stage-4.
+
+=== STAGE 5: REPRESENTATIVE ROLE PROFILES (small hallucination surface) ===
+5.0 Write src/data/market/companies100/jobFamilyTemplates.ts with about 20 to 25 families (for example Backend Software, Frontend, Full Stack, Mobile, Embedded Software, Firmware, FPGA/ASIC Verification, Automotive Software, Industrial Automation Software, Data Engineering, Data Science/Analytics, ML Engineering, QA/SDET, DevOps/Cloud, Security, Quant Developer, Quant Research, Storage/Systems Software, Solutions/Support Engineering). Each template has: generic original-text desc, aboutRole, responsibilities (5 to 7), requiredQualifications, requiredSkills (free text + category + weight 0.5 to 1.0), competencies (2 to 6 of the 20 keys, only keys genuinely needed, NEVER padded with unrelated keys), reqLevel (editorial), uncoveredSkills[] (skills with no key: C/C++, embedded C, RTOS, FPGA, ASIC, Simulink, AUTOSAR, firmware, semiconductor, low-latency), and competencyFit ("approximate" when any core skill is uncovered). No company-specific claims, tools, salaries, rounds or benefits inside templates. Add a README with each template's rationale.
+>>> STOP-3 (NEEDS-USER): the user reviews the templates.
+5.1 After "APPROVED: STOP-3": role profiles come ONLY from a deterministic lookup table in code mapping jobFamily ledger rows to templates; unmapped families produce no role. fullText is generated from the template and starts with: "Representative role profile (editorial). Not an actual job posting. See the official careers page: <careersUrl>". Company-specific text comes only from ledger rows. Deep: up to 5 roles; standard: up to 2; basic: none.
+5.2 Sanity: run TalentLens with 3 synthetic fixtures against all new roles; no crashes, NaN or undefined; list roles where all fixtures score identically or 0.
+5.3 validate:companies, check:generated, full suite. Tag c100-stage-5.
+
+=== STAGE 6: INTEGRATION, PROVENANCE, COUNTS ===
+6.1 Merge generated data into RAW_COMPANIES and KNOWN_RULES through the project's existing mechanism (separate imported modules if files are huge). Legacy entries stay untouched; quarantined companies are excluded.
+6.2 Update the provenance generator and Methodology table: counts derived by dataStatus, depth and sourceKind; fill rates; staleness; remove hand-typed counts and any "Verified" label; update tests/pages that hard-code old counts and record each change.
+6.3 UI at the larger size: search by name, a depth filter, simple windowing only if rendering is slow; check 390px width.
+6.4 Confirm every tier maps to a TalentLens archetype; list gaps.
+6.5 lint, typecheck, full suite, production build. Tag c100-stage-6.
+
+=== STAGE 7: FINAL VERIFICATION AND REPORT ===
+7.1 npm run audit:companies writes docs/companies-100/audit.md: counts by depth / sourceKind / dataStatus, empty-rate per field, stale dates, duplicates, banned words, approximate-fit share, rows without evidence (must be 0), blind-check agreement.
+7.2 Reopen a random 30 sourced URLs and confirm each page still supports its row; record match and mismatch counts honestly; remove mismatches.
+7.3 Write a second spot-check file for the user (20 random rows across all companies).
+7.4 Write docs/companies-100/final-report.md: task table with commit hashes; counts shipped per depth, quarantined, deduped, legacy; every deviation from the roster doc (no invented numbers, official-only eligibility, representative roles, depth levels, quarantine, competency approximations, no push to main/design-1); what the self-check is and is not; OPEN QUESTIONS; the user's to-do list (spot-checks, quarantine review, seasonal re-check); and the git merge commands listed but NOT run.
+Do NOT merge or push.
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-10-25T20:27:57+05:30.
+
+The user's current state is as follows:
+Active Document: c:\Users\yadav\.gemini\antigravity-ide\scratch\hireflow\src\config\thresholds.ts (LANGUAGE_TYPESCRIPT)
+Cursor is on line: 1
+Other open documents:
+- c:\Users\yadav\.gemini\antigravity-ide\scratch\hireflow\src\config\thresholds.ts (LANGUAGE_TYPESCRIPT)
+- c:\Users\yadav\.gemini\antigravity-ide\scratch\hireflow\tests\scoring\oracle.test.ts (LANGUAGE_TYPESCRIPT)
+- c:\Users\yadav\.gemini\antigravity-ide\scratch\hireflow\src\features\suite\tailor\components\sections\index.ts (LANGUAGE_TYPESCRIPT)
+- c:\Users\yadav\.gemini\antigravity-ide\scratch\hireflow\scripts\addJDRender.cjs (LANGUAGE_JAVASCRIPT)
+- c:\Users\yadav\Downloads\complet_technical_and_logical_depth_of_talentlens_and_ats_resume_roaster_in_order.md (LANGUAGE_MARKDOWN)
+</ADDITIONAL_METADATA>

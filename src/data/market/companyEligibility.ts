@@ -8,10 +8,11 @@ export interface CompanyEligibilityRule {
   companyId: string;
   companyName: string;
   displayName: string;
-  aggregatePercent: number;
-  cgpaEquivalent: number;
+  aggregatePercent: number | null;
+  cgpaEquivalent: number | null;
   sourceName: string;
   sourceUrl?: string;
+  sourceKind?: 'official' | 'company-published';
   notes: string;
   confidence: 'high' | 'medium';
   lastReviewed: string;

@@ -9,12 +9,12 @@ Started: 2026-10-25
 |---|---|---|---|---|---|
 | 0.1 | Stage 0 | Create branch, progress.md, run baseline tests, git tag c100-baseline | DONE | cef216e | `npx vitest run` (142 passed, 927 passed, 0 failed) |
 | 0.2 | Stage 0 | Copy roster to roster-input.md, parse tables, confirm 100 ids & category counts | DONE | 8cb9dfe | `node scripts/parse_roster.cjs` (100 unique IDs, categories 10/15/25/15/15/20) |
-| 0.3 | Stage 0 | Locate and record company/role data, eligibility, types, validators, provenance | DONE | pending | Located in `talentLensData.ts`, `companyEligibility.ts`, `MethodologyPage.tsx` |
-| 0.4 | Stage 0 | Write consumed-fields.md (field usages, file:line, effect) | DONE | pending | `node scripts/trace_consumed_fields.cjs` -> `docs/companies-100/consumed-fields.md` |
-| 0.5 | Stage 0 | Existing stats, dedupe 100 against existing data by id & normalised name | DONE | pending | `node scripts/analyze_existing_and_dedupe.cjs` (141 existing, 4 overlaps) |
-| 0.6 | Stage 0 | Schema facts, optional value null safety, 20 competency keys, tier mapping, hardcoded counts | DONE | pending | Audited in recon.md: 20 keys verified, openRoles null hazard identified |
-| 0.7 | Stage 0 | Write recon.md with answers & OPEN QUESTIONS | DONE | pending | `docs/companies-100/recon.md` generated with all findings and answers |
-| 1.1 | Stage 1 | Write ADR-001.md, implement additive schema changes & migrations | TODO | - | - |
+| 0.3 | Stage 0 | Locate and record company/role data, eligibility, types, validators, provenance | DONE | e87bbfa | Located in `talentLensData.ts`, `companyEligibility.ts`, `MethodologyPage.tsx` |
+| 0.4 | Stage 0 | Write consumed-fields.md (field usages, file:line, effect) | DONE | e87bbfa | `node scripts/trace_consumed_fields.cjs` -> `docs/companies-100/consumed-fields.md` |
+| 0.5 | Stage 0 | Existing stats, dedupe 100 against existing data by id & normalised name | DONE | e87bbfa | `node scripts/analyze_existing_and_dedupe.cjs` (141 existing, 4 overlaps) |
+| 0.6 | Stage 0 | Schema facts, optional value null safety, 20 competency keys, tier mapping, hardcoded counts | DONE | e87bbfa | Audited in recon.md: 20 keys verified, openRoles null hazard identified |
+| 0.7 | Stage 0 | Write recon.md with answers & OPEN QUESTIONS | DONE | e87bbfa | `docs/companies-100/recon.md` generated with all findings and answers |
+| 1.1 | Stage 1 | Write ADR-001.md, implement additive schema changes & migrations | DONE | pending | `npx tsc --noEmit && npx vitest run` (142 passed, 927 passed, 0 failed) |
 | 1.2 | Stage 1 | Build ledger tooling (validate:ledger, verify:blind, build:companies, check:generated) | TODO | - | - |
 | 1.3 | Stage 1 | UI null safety, depth chip, editorial label, source chips, disclaimer, error report | TODO | - | - |
 | 1.4 | Stage 1 | Validator unit tests, canary tests (H10), rejection tests, full suite, tag c100-stage-1 | TODO | - | - |
@@ -101,5 +101,33 @@ Successfully saved to docs/companies-100/roster-parsed.json
 - **Task 0.6**: Audited 20 canonical competency keys (exact match), null safety hazard in `openRoles` (`undefined+`), and archetype mapping.
 - **Task 0.7**: Generated `docs/companies-100/recon.md` with all reconnaissance answers and open questions. No code files in `src/` modified.
 - **Stage 0 Completed**: Git tag ready for stage completion.
+
+### Task 1.1 Log
+- **Command**: `npx tsc --noEmit && npx vitest run`
+- **Output (last 20 lines)**:
+```
+ ✓ src/__tests__/careers/regressionParity.test.ts (5 tests) 10ms
+ ✓ tests/credentials/calendarExport.test.ts (4 tests) 15ms
+ ✓ tests/unit/claims/bannedClaims.test.ts (3 tests) 11ms
+ ✓ src/__tests__/a11y/contrast.test.ts (6 tests) 10ms
+ ✓ tests/reachout/followups.test.ts (3 tests) 9ms
+ ✓ tests/roaster/annotatedView.test.ts (3 tests) 10ms
+ ✓ tests/roaster/fresher-readiness.test.ts (3 tests) 9ms
+ ✓ tests/unit/stage1/useUrlState.test.ts (3 tests) 10ms
+ ✓ tests/tailor/templatesParity.test.ts (3 tests) 8ms
+ ✓ src/features/suite/credentials/__tests__/storage.test.ts (4 tests) 9ms
+ ✓ tests/trajectory/scenarios.test.ts (4 tests) 10ms
+ ✓ tests/unit/stage1/firstPaintAndQuota.test.ts (2 tests) 13ms
+ ✓ tests/unit/stage3/gapList.test.ts (2 tests) 7ms
+ ✓ tests/unit/methodology/mrviIndex.test.ts (6 tests) 15ms
+ ✓ src/__tests__/security/smoke.test.ts (1 test) 6ms
+
+ Test Files  142 passed (142)
+      Tests  927 passed (927)
+   Start at  20:58:42
+   Duration  57.37s (tests 56%, import 28%, transform 13%, worker 3%)
+```
+- **Changes**: Wrote `docs/companies-100/decisions/ADR-001.md`, implemented additive schema extensions to `Company`, `Role`, `CompanyEligibilityRule` in `talentLensData.ts` and `companyEligibility.ts`, added null safety handling in `EligibilityCard.tsx` and migration tagging in `attachProvenance`.
+
 
 
