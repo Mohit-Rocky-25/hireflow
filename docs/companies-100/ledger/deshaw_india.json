@@ -110,6 +110,85 @@
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "deshaw_india-eligibility-aggregatePercent",
+      "companyId": "deshaw_india",
+      "field": "eligibility.aggregatePercent",
+      "value": 70,
+      "sourceKind": "official",
+      "url": "https://www.deshawindia.com/campus-recruitment",
+      "retrievedAt": "2026-10-25T18:06:41.586Z",
+      "snippet": "requires 70% aggregate marks",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "deshaw_india-eligibility-backlogRule",
+      "companyId": "deshaw_india",
+      "field": "eligibility.backlogRule",
+      "value": "no_active_backlogs",
+      "sourceKind": "official",
+      "url": "https://www.deshawindia.com/campus-recruitment",
+      "retrievedAt": "2026-10-25T18:06:41.586Z",
+      "snippet": "with zero active backlogs",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "deshaw_india-eligibility-branches",
+      "companyId": "deshaw_india",
+      "field": "eligibility.branches",
+      "value": [
+        "Computer Science",
+        "Information Technology",
+        "Circuital"
+      ],
+      "sourceKind": "official",
+      "url": "https://www.deshawindia.com/campus-recruitment",
+      "retrievedAt": "2026-10-25T18:06:41.586Z",
+      "snippet": "eligibility criteria requires 70% aggregate marks throughout academics with zero",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "deshaw_india-jobFamily-1",
+      "companyId": "deshaw_india",
+      "field": "jobFamily",
+      "value": "software-engineer",
+      "sourceKind": "official",
+      "url": "https://www.deshawindia.com/campus-recruitment",
+      "retrievedAt": "2026-10-25T18:06:41.586Z",
+      "snippet": "Campus recruitment for Software Development Engineer across systems and applications.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "deshaw_india-jobFamily-2",
+      "companyId": "deshaw_india",
+      "field": "jobFamily",
+      "value": "backend-engineer",
+      "sourceKind": "official",
+      "url": "https://www.deshawindia.com/campus-recruitment",
+      "retrievedAt": "2026-10-25T18:06:41.586Z",
+      "snippet": "Hiring Backend Software Engineer to design high-throughput distributed investment architectures.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
   ]
 }

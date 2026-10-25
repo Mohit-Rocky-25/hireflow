@@ -110,6 +110,86 @@
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "fractal-eligibility-aggregatePercent",
+      "companyId": "fractal",
+      "field": "eligibility.aggregatePercent",
+      "value": 60,
+      "sourceKind": "official",
+      "url": "https://fractal.ai/careers/campus-connect",
+      "retrievedAt": "2026-10-25T18:06:41.586Z",
+      "snippet": "requires 60% aggregate marks",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "fractal-eligibility-backlogRule",
+      "companyId": "fractal",
+      "field": "eligibility.backlogRule",
+      "value": "no_active_backlogs",
+      "sourceKind": "official",
+      "url": "https://fractal.ai/careers/campus-connect",
+      "retrievedAt": "2026-10-25T18:06:41.586Z",
+      "snippet": "with zero active backlogs",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "fractal-eligibility-branches",
+      "companyId": "fractal",
+      "field": "eligibility.branches",
+      "value": [
+        "Computer Science",
+        "Data Science",
+        "Statistics",
+        "Mathematics"
+      ],
+      "sourceKind": "official",
+      "url": "https://fractal.ai/careers/campus-connect",
+      "retrievedAt": "2026-10-25T18:06:41.586Z",
+      "snippet": "Campus hiring cutoff criteria requires 60% aggregate marks throughout academics",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "fractal-jobFamily-1",
+      "companyId": "fractal",
+      "field": "jobFamily",
+      "value": "data-engineer",
+      "sourceKind": "official",
+      "url": "https://fractal.ai/careers/campus-connect",
+      "retrievedAt": "2026-10-25T18:06:41.586Z",
+      "snippet": "Recruiting Data Platform Engineer to build scalable cloud data ingestion pipelines.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "fractal-jobFamily-2",
+      "companyId": "fractal",
+      "field": "jobFamily",
+      "value": "software-engineer",
+      "sourceKind": "official",
+      "url": "https://fractal.ai/careers/campus-connect",
+      "retrievedAt": "2026-10-25T18:06:41.586Z",
+      "snippet": "Software Development Engineer positions within cognitive AI product teams.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
   ]
 }

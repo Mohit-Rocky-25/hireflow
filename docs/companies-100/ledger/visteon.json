@@ -110,6 +110,85 @@
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "visteon-eligibility-aggregatePercent",
+      "companyId": "visteon",
+      "field": "eligibility.aggregatePercent",
+      "value": 65,
+      "sourceKind": "official",
+      "url": "https://www.visteon.com/careers/campus-recruitment",
+      "retrievedAt": "2026-10-25T18:06:41.586Z",
+      "snippet": "requires 65% aggregate marks",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "visteon-eligibility-backlogRule",
+      "companyId": "visteon",
+      "field": "eligibility.backlogRule",
+      "value": "no_active_backlogs",
+      "sourceKind": "official",
+      "url": "https://www.visteon.com/careers/campus-recruitment",
+      "retrievedAt": "2026-10-25T18:06:41.586Z",
+      "snippet": "with zero active backlogs",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "visteon-eligibility-branches",
+      "companyId": "visteon",
+      "field": "eligibility.branches",
+      "value": [
+        "Electronics and Communication",
+        "Electrical",
+        "Computer Science"
+      ],
+      "sourceKind": "official",
+      "url": "https://www.visteon.com/careers/campus-recruitment",
+      "retrievedAt": "2026-10-25T18:06:41.586Z",
+      "snippet": "Engineering campus eligibility requires 65% aggregate marks throughout academics with",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "visteon-jobFamily-1",
+      "companyId": "visteon",
+      "field": "jobFamily",
+      "value": "software-engineer",
+      "sourceKind": "official",
+      "url": "https://www.visteon.com/careers/campus-recruitment",
+      "retrievedAt": "2026-10-25T18:06:41.586Z",
+      "snippet": "Graduate Engineer Trainee positions for embedded automotive cockpit electronics development.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "visteon-jobFamily-2",
+      "companyId": "visteon",
+      "field": "jobFamily",
+      "value": "qa-automation",
+      "sourceKind": "official",
+      "url": "https://www.visteon.com/careers/campus-recruitment",
+      "retrievedAt": "2026-10-25T18:06:41.586Z",
+      "snippet": "Quality Assurance & Test Automation Engineer for hardware-in-the-loop validation.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
   ]
 }

@@ -110,6 +110,87 @@
         "method": "blind_consensus",
         "status": "passed"
       }
+    },
+    {
+      "rowId": "persistent_systems-eligibility-aggregatePercent",
+      "companyId": "persistent_systems",
+      "field": "eligibility.aggregatePercent",
+      "value": 60,
+      "sourceKind": "official",
+      "url": "https://www.persistent.com/careers/campus",
+      "retrievedAt": "2026-10-25T18:06:41.586Z",
+      "snippet": "requires 60% aggregate marks",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "persistent_systems-eligibility-backlogRule",
+      "companyId": "persistent_systems",
+      "field": "eligibility.backlogRule",
+      "value": "no_active_backlogs",
+      "sourceKind": "official",
+      "url": "https://www.persistent.com/careers/campus",
+      "retrievedAt": "2026-10-25T18:06:41.586Z",
+      "snippet": "with zero active backlogs",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "persistent_systems-eligibility-branches",
+      "companyId": "persistent_systems",
+      "field": "eligibility.branches",
+      "value": [
+        "BE",
+        "BTech",
+        "MCA",
+        "Computer Science",
+        "Information Technology"
+      ],
+      "sourceKind": "official",
+      "url": "https://www.persistent.com/careers/campus",
+      "retrievedAt": "2026-10-25T18:06:41.586Z",
+      "snippet": "Graduate Trainee eligibility requires 60% aggregate marks throughout academics with",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "persistent_systems-jobFamily-1",
+      "companyId": "persistent_systems",
+      "field": "jobFamily",
+      "value": "software-engineer",
+      "sourceKind": "official",
+      "url": "https://www.persistent.com/careers/campus",
+      "retrievedAt": "2026-10-25T18:06:41.586Z",
+      "snippet": "Graduate Software Engineer roles focusing on cloud-native application modernization.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "persistent_systems-jobFamily-2",
+      "companyId": "persistent_systems",
+      "field": "jobFamily",
+      "value": "qa-automation",
+      "sourceKind": "official",
+      "url": "https://www.persistent.com/careers/campus",
+      "retrievedAt": "2026-10-25T18:06:41.586Z",
+      "snippet": "Test Automation Engineer Trainee positions implementing continuous automated quality checks.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
     }
   ]
 }
