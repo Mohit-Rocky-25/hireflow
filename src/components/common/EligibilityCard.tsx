@@ -2,12 +2,13 @@
 // HireFlow — Advisory Eligibility Card (Stage 4)
 // Compares student CGPA/percentage and batch against official drive cutoffs
 // Always displays SourceChip and explicit verification advisory
+// Guarantees exact 1:1 match between company logo and eligibility title
 // ============================================================
 
 import React, { useState } from 'react';
 import { ShieldCheck, AlertTriangle, XCircle, Info, Edit3 } from 'lucide-react';
 import { getFresherIntake, FresherIntakeData, FresherIntakeModal } from './FresherIntakeModal';
-import { getMarketEntries } from '../../data/market';
+import { getCompanyEligibilityRule } from '../../data/market/companyEligibility';
 import { SourceChip } from './SourceChip';
 import { CompanyLogo } from './CompanyLogo';
 
@@ -21,17 +22,8 @@ export function EligibilityCard({ targetCompanyId, targetArchetypeId, className 
   const [intake, setIntake] = useState<FresherIntakeData>(getFresherIntake);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const marketEntries = getMarketEntries();
-
-  // Find relevant market profile with eligibility
-  const entry =
-    (targetCompanyId && marketEntries.find((e) => e.id.toLowerCase().includes(targetCompanyId.toLowerCase()))) ||
-    (targetArchetypeId && marketEntries.find((e) => e.archetype === targetArchetypeId)) ||
-    marketEntries.find((e) => e.archetype === intake.targetArchetype) ||
-    marketEntries.find((e) => e.id === 'tcs_ninja') ||
-    marketEntries[0];
-
-  const eligibilityRule = entry?.eligibility;
+  // Authoritatively resolve company eligibility rule — NEVER mismatches logo and title
+  const rule = getCompanyEligibilityRule(targetCompanyId, targetArchetypeId || intake.targetArchetype);
 
   // Normalize candidate score to approximate percentage
   const candidatePercent =
@@ -41,8 +33,8 @@ export function EligibilityCard({ targetCompanyId, targetArchetypeId, className 
       ? Math.round(intake.cgpa * 9.5 * 10) / 10
       : intake.cgpa;
 
-  const requiredPercent = eligibilityRule?.aggregatePercent || 60;
-  const requiredCgpa = eligibilityRule?.cgpaEquivalent || 6.0;
+  const requiredPercent = rule.aggregatePercent;
+  const requiredCgpa = rule.cgpaEquivalent;
 
   let statusText = 'Likely Eligible for Initial Screening';
   let badgeStyle = 'bg-black text-volt border border-volt/60';
@@ -73,8 +65,8 @@ export function EligibilityCard({ targetCompanyId, targetArchetypeId, className 
               {statusText}
             </span>
             <span className="text-xs text-silver hidden sm:inline-flex items-center gap-1.5 font-mono">
-              · <CompanyLogo company={targetCompanyId || entry.id || entry.displayName} size="xs" showBorder={false} interactive={false} />
-              <span>{entry.displayName}</span>
+              · <CompanyLogo company={rule.companyId} size="xs" showBorder={false} interactive={false} />
+              <span>{rule.displayName}</span>
             </span>
           </div>
 
@@ -104,18 +96,19 @@ export function EligibilityCard({ targetCompanyId, targetArchetypeId, className 
 
           <div>
             <span className="text-silver block text-[10px] font-bold uppercase tracking-[1.4px] mb-0.5">Primary Source</span>
-            {eligibilityRule?.sourceUrl ? (
+            {rule.sourceUrl ? (
               <SourceChip
                 kind="official-requirement"
-                sourceName={eligibilityRule.sourceName}
-                sourceUrl={eligibilityRule.sourceUrl}
-                confidence="high"
-                lastReviewed="2026-09-22"
+                sourceName={rule.sourceName}
+                sourceUrl={rule.sourceUrl}
+                confidence={rule.confidence}
+                lastReviewed={rule.lastReviewed}
               />
             ) : (
               <SourceChip
                 kind="editorial-opinion"
-                confidence="unverified"
+                sourceName={rule.sourceName}
+                confidence="medium"
               />
             )}
           </div>
@@ -125,7 +118,7 @@ export function EligibilityCard({ targetCompanyId, targetArchetypeId, className 
         <p className="text-[11px] text-silver leading-relaxed flex items-start gap-1.5">
           <Info className="w-3.5 h-3.5 text-silver shrink-0 mt-0.5 stroke-[1.5px]" />
           <span>
-            {eligibilityRule?.note || 'Eligibility cutoffs vary by batch, drive type (campus vs off-campus pool), and participating college tiers.'}{' '}
+            {rule.notes}{' '}
             <strong className="text-white">Always verify current criteria directly on the official portal for your graduating batch.</strong>
           </span>
         </p>

@@ -178,14 +178,16 @@ export function AnalysisResultView({
           </div>
 
           <div className="flex items-center gap-3">
-            <button
-              type="button"
-              onClick={() => setIsWhyScoreOpen(true)}
-              className="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-volt py-1.5 px-3 rounded border border-volt/40 bg-black hover:bg-volt/10 transition-colors cursor-pointer"
-            >
-              <span className="font-mono text-xs font-bold text-volt">?</span>
-              <span>Why this score</span>
-            </button>
+            {!isInvalid && (
+              <button
+                type="button"
+                onClick={() => setIsWhyScoreOpen(true)}
+                className="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-volt py-1.5 px-3 rounded border border-volt/40 bg-black hover:bg-volt/10 transition-colors cursor-pointer"
+              >
+                <span className="font-mono text-xs font-bold text-volt">?</span>
+                <span>Why this score</span>
+              </button>
+            )}
             <HonestyExplainerModal tool="talentlens" />
             <DataProvenanceModal triggerButtonText="Sourcing & Legal" />
             <span
@@ -194,21 +196,58 @@ export function AnalysisResultView({
               {result.readinessLabel || roleFitStatus}
             </span>
             <div className="text-right">
-              <span className="text-3xl font-black font-mono text-white">{result.score}%</span>
-              <div className="text-[10px] font-mono uppercase text-silver">
-                {result.band ? `Band: ${result.band.low}–${result.band.high}% (${result.band.label})` : 'Market Readiness Estimate'}
-              </div>
+              {isInvalid ? (
+                <>
+                  <span className="text-xl sm:text-2xl font-black font-mono text-danger">UNSCOREABLE</span>
+                  <div className="text-[10px] font-mono uppercase text-silver">
+                    Non-Resume Input Refused
+                  </div>
+                </>
+              ) : (
+                <>
+                  <span className="text-3xl font-black font-mono text-white">{result.score}%</span>
+                  <div className="text-[10px] font-mono uppercase text-silver">
+                    {result.band ? `Band: ${result.band.low}–${result.band.high}% (${result.band.label})` : 'Market Readiness Estimate'}
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </div>
 
         {/* Grounded Role-Fit Explanation */}
         {isInvalid ? (
-          <div className="p-4 rounded-lg bg-black border border-danger/40 text-xs font-mono text-danger space-y-1">
-            <div className="font-bold uppercase tracking-wider">Calibration Halted by Level 1 Gatekeeper</div>
-            <p className="text-silver leading-relaxed">
-              {result.invalidReason || 'The submitted text does not contain recognizable resume structure or career history. TalentLens refused to compute a speculative fit score.'}
+          <div className="p-5 rounded-lg bg-black border-2 border-danger/60 text-xs font-mono space-y-3">
+            <div className="flex items-center gap-2 text-danger font-bold uppercase tracking-wider text-sm">
+              <span className="text-danger font-mono font-bold">[!]</span>
+              <span>Document Rejected by Authenticity Engine</span>
+            </div>
+            <p className="text-white text-sm leading-relaxed font-sans">
+              {result.invalidReason || 'The submitted text does not appear to be an authentic resume or CV. It lacks recognized section structure (Experience, Education, Skills) and career milestones. TalentLens strictly refuses to compute speculative scores or placement predictions on non-resume text.'}
             </p>
+            {result.invalidIssues && result.invalidIssues.length > 0 && (
+              <div className="bg-near-black p-3.5 rounded border border-charcoal space-y-1.5">
+                <div className="text-silver text-[11px] font-bold uppercase tracking-wider font-mono">Detection Diagnostics:</div>
+                {result.invalidIssues.map((issue, idx) => (
+                  <div key={idx} className="text-silver text-xs flex items-start gap-2 font-sans">
+                    <span className="text-danger font-mono font-bold">•</span>
+                    <span>{issue}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+            <div className="pt-2 flex items-center gap-3 flex-wrap">
+              <button
+                type="button"
+                onClick={onNewResume}
+                className="px-4 py-2 rounded bg-volt text-black font-bold text-xs hover:bg-volt/90 transition-colors uppercase tracking-wider cursor-pointer font-mono"
+              >
+                Upload Real Resume →
+              </button>
+              <span className="text-[11px] text-silver font-sans">
+                Upload a genuine PDF or DOCX containing your work history, technical projects, and educational qualifications.
+              </span>
+            </div>
           </div>
         ) : (
           <p className="text-sm text-silver leading-relaxed">
