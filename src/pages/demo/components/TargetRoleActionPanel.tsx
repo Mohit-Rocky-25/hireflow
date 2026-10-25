@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Brain, Briefcase, Info, Sparkles, FileText, CheckCircle, RefreshCw, AlertTriangle } from 'lucide-react';
+import { Brain, Info, Sparkles, FileText, CheckCircle, RefreshCw, AlertTriangle } from 'lucide-react';
 import type { Company, Role } from '../talentLensData';
 import { CompanyLogo } from '../../../components/common/CompanyLogo';
 import { DataProvenanceModal } from '../../../components/common/DataProvenanceModal';
@@ -183,7 +183,9 @@ export function TargetRoleActionPanel({
           </>
         ) : (
           <div className="text-center py-9 px-4 bg-black border border-dashed border-charcoal rounded">
-            <Briefcase className="w-8 h-8 text-silver mx-auto mb-2.5 stroke-[1.5px]" />
+            <div className="inline-block px-3 py-1 rounded bg-near-black text-silver border border-charcoal font-mono text-[10px] uppercase tracking-[1.4px] mb-3">
+              TARGET SPEC // UNSELECTED
+            </div>
             <div className="text-sm font-bold text-white mb-1 uppercase tracking-tight">
               Select a role first
             </div>

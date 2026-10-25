@@ -11,7 +11,7 @@ import {
   Brain, CheckCircle2, XCircle, AlertTriangle, HelpCircle,
   ChevronDown, ChevronUp, ArrowLeft, RefreshCw, Users,
   MessageSquare, Target, Shield, TrendingUp, Eye, Clock,
-  Briefcase, Award, Star, ChevronRight, Sparkles, Bookmark, Building2
+  Award, Star, ChevronRight, Sparkles, Bookmark
 } from 'lucide-react';
 import { analyzeCandidate } from '../../lib/ai/matching';
 import type { CandidateMatch, RequirementAssessment } from '../../types';
@@ -357,7 +357,7 @@ export function TalentLens() {
             to="/tools/jd-compare"
             className="h-10 px-3.5 border border-charcoal rounded text-xs font-mono bg-black text-white hover:text-volt hover:border-volt flex items-center gap-1.5 transition-colors"
           >
-            <Building2 className="w-4 h-4 text-volt" />
+            <span className="text-volt font-mono font-bold text-[13px]">⇄</span>
             Compare Companies
           </Link>
         </div>

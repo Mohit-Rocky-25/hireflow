@@ -7,14 +7,10 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useParams, useNavigate, useSearchParams, Link } from 'react-router-dom';
 import {
   Brain,
-  Building2,
-  Briefcase,
   Search,
   ArrowLeft,
   GraduationCap,
   Info,
-  BarChart3,
-  Zap,
 } from 'lucide-react';
 import { PublicNavbar } from '../../components/common/PublicNavbar';
 import { careers } from '../../careers-core';
@@ -233,7 +229,9 @@ export function CompanyRolesPage() {
         <PublicNavbar />
         <div className="max-w-[800px] mx-auto px-6 py-[120px] text-center">
           <div className="bg-[#141414] border border-charcoal rounded-lg p-10">
-            <Building2 className="w-12 h-12 text-silver mx-auto mb-4" />
+            <div className="inline-block px-3 py-1 rounded bg-black text-silver border border-charcoal font-mono text-[11px] uppercase tracking-wider mb-4">
+              [404 // PROFILE NOT FOUND]
+            </div>
             <h1 className="text-2xl font-bold text-white mb-2">Company Not Found</h1>
             <p className="text-sm text-silver mb-6">
               We couldn't find a company profile matching &ldquo;{companySlug}&rdquo;. It may have been renamed or moved.
@@ -367,7 +365,7 @@ export function CompanyRolesPage() {
                       : 'text-silver hover:text-white hover:bg-black/50'
                   }`}
                 >
-                  <Briefcase className={`w-4 h-4 ${roleMode === 'experienced' ? 'text-volt' : 'text-silver'}`} />
+                  <span className="text-[10px] font-mono px-1 py-0.5 rounded bg-black/60 text-volt border border-volt/40">IC</span>
                   <span>Experienced Lateral Roles</span>
                   <span className="px-1.5 py-0.5 rounded text-[10px] bg-[#141414] text-silver border border-charcoal">
                     {company.roles.length}
@@ -527,7 +525,9 @@ export function CompanyRolesPage() {
 
                   {filteredRoles.length === 0 && (
                     <div className="text-center py-12 bg-[#141414] border border-charcoal rounded-lg p-6">
-                      <Briefcase className="w-8 h-8 text-silver mx-auto mb-2" />
+                      <div className="inline-block px-3 py-1 rounded bg-black text-silver border border-charcoal font-mono text-[11px] uppercase tracking-wider mb-3">
+                        [ROLES // 0 MATCHES]
+                      </div>
                       <h4 className="text-sm font-bold text-white mb-1">
                         No matching roles found
                       </h4>
@@ -573,45 +573,48 @@ export function CompanyRolesPage() {
           />
         )}
 
-        {/* 4-Stat Strip at bottom */}
+        {/* 4-Stat Strip at bottom — Clean Linear Telemetry (No Vibe-Coded Icon Squircles) */}
         <div className="mt-14 grid grid-cols-2 md:grid-cols-4 gap-4 border-t border-charcoal pt-10">
           {[
             {
-              icon: Building2,
+              tag: 'CATALOG // 01',
               value: `${COMPANIES.length}+`,
-              label: 'Employers & Recruiters',
-              sub: 'FAANG, Unicorns & Cybersecurity',
+              label: 'Verified Employers',
+              sub: 'Tier-S FAANG, Tier-A Unicorns & Cybersecurity',
             },
             {
-              icon: Briefcase,
+              tag: 'ROLES // 02',
               value: `${COMPANIES.reduce((a, c) => a + c.roles.length, 0)}+`,
               label: 'Calibrated Roles',
-              sub: '10+ roles per company verified',
+              sub: '10+ verified career tracks per employer',
             },
             {
-              icon: BarChart3,
-              value: '6-Layer',
-              label: 'Analysis Engine',
-              sub: 'Anti-gaming AI',
+              tag: 'SAFETY // 03',
+              value: 'Level 1',
+              label: 'Authenticity Guard',
+              sub: 'Structural parser & anti-gaming verification',
             },
             {
-              icon: Zap,
-              value: 'TalentLens™',
-              label: 'Intelligence Platform',
-              sub: 'Candidate verification',
+              tag: 'INTELLIGENCE // 04',
+              value: '100%',
+              label: 'Deterministic Math',
+              sub: 'Single source of truth with zero random drift',
             },
           ].map((s) => (
             <div
               key={s.label}
-              className="bg-[#141414] border border-charcoal rounded-lg p-4 flex items-center gap-3"
+              className="bg-[#141414] border border-charcoal hover:border-volt/40 transition-colors rounded-lg p-5 flex flex-col justify-between"
             >
-              <div className="w-10 h-10 rounded bg-black border border-charcoal flex items-center justify-center flex-shrink-0">
-                <s.icon className="w-5 h-5 text-volt" />
+              <div className="flex items-center justify-between gap-2 mb-3">
+                <span className="text-[10px] font-mono uppercase tracking-[1.4px] text-silver/80">
+                  {s.tag}
+                </span>
+                <span className="w-1.5 h-1.5 rounded-full bg-volt/90 shadow-[0_0_6px_rgba(212,255,0,0.4)]" />
               </div>
               <div>
-                <div className="text-xl font-bold font-mono text-white">{s.value}</div>
-                <div className="text-xs font-mono uppercase text-silver">{s.label}</div>
-                <div className="text-[11px] text-silver/60">{s.sub}</div>
+                <div className="text-2xl font-bold font-mono text-white tracking-tight">{s.value}</div>
+                <div className="text-xs font-semibold text-white uppercase tracking-[1px] mt-1">{s.label}</div>
+                <div className="text-[11px] text-silver mt-1 leading-snug">{s.sub}</div>
               </div>
             </div>
           ))}

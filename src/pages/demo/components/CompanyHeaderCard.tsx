@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Building2, DollarSign, ArrowLeft, ShieldCheck } from 'lucide-react';
+import { ArrowLeft, ShieldCheck } from 'lucide-react';
 import type { Company } from '../talentLensData';
 import { TREND_ICON } from '../talentLensData';
 import { CompanyLogo } from '../../../components/common/CompanyLogo';
@@ -60,7 +60,7 @@ export function CompanyHeaderCard({ company, onChangeCompany }: CompanyHeaderCar
             to={`/tools/jd-compare?c1=${company.id}`}
             className="flex items-center gap-1.5 px-3 py-2 rounded bg-black hover:bg-hover-gray border border-charcoal hover:border-volt text-white font-semibold text-xs uppercase tracking-[1px] transition-colors"
           >
-            <Building2 className="w-3.5 h-3.5 text-volt stroke-[1.5px]" />
+            <span className="text-volt font-mono text-[13px] font-bold">⇄</span>
             <span>Compare</span>
           </Link>
 
@@ -69,7 +69,7 @@ export function CompanyHeaderCard({ company, onChangeCompany }: CompanyHeaderCar
             to={`/tools/career-path/company-levels?company=${company.id}`}
             className="flex items-center gap-1.5 px-3 py-2 rounded bg-black hover:bg-hover-gray border border-charcoal hover:border-volt text-white font-semibold text-xs uppercase tracking-[1px] transition-colors"
           >
-            <DollarSign className="w-3.5 h-3.5 text-volt stroke-[1.5px]" />
+            <span className="text-volt font-mono text-[12px] font-bold">₹</span>
             <span>Decode Offer</span>
           </Link>
 

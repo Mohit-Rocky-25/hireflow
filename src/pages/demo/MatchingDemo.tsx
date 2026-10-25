@@ -7,8 +7,8 @@
 import React, { useRef, useCallback, useEffect } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import {
-  Brain, CheckCircle, ArrowRight, Building2, Search,
-  Upload, FileText, BarChart3, Briefcase, Zap, Sparkles, X, AlertTriangle
+  Brain, CheckCircle, ArrowRight, Search,
+  Upload, FileText, Sparkles, X, AlertTriangle
 } from "lucide-react";
 import { PublicNavbar } from "../../components/common/PublicNavbar";
 import {
@@ -412,8 +412,8 @@ Include:
               {/* Similar Company Word Searches */}
               {companySearch.trim() && searchResult.suggestedCompanies.length > 0 && (
                 <div className="mt-3 pt-2.5 border-t border-charcoal flex items-center gap-2 flex-wrap text-xs">
-                  <span className="text-silver font-semibold uppercase tracking-[1px] flex items-center gap-1 text-[11px]">
-                    <Building2 className="w-3.5 h-3.5 stroke-[1.5px]" /> Similar companies:
+                  <span className="text-silver font-semibold uppercase tracking-[1px] flex items-center gap-1.5 text-[11px]">
+                    <span className="font-mono text-volt text-[10px]">CLUSTERS //</span> Similar companies:
                   </span>
                   {searchResult.suggestedCompanies.map(name => (
                     <button
@@ -565,7 +565,9 @@ Include:
 
             {filteredCompanies.length === 0 && (
               <div className="text-center py-16 bg-near-black border border-charcoal rounded-lg p-8 mb-16">
-                <Building2 className="w-10 h-10 text-silver mx-auto mb-3 stroke-[1.5px]" />
+                <div className="inline-block px-3 py-1 rounded bg-black text-silver border border-charcoal font-mono text-[11px] uppercase tracking-wider mb-3">
+                  [CATALOG // 0 MATCHES]
+                </div>
                 <h3 className="text-[18px] font-bold text-white mb-2 uppercase tracking-tight">
                   No companies found for &ldquo;{companySearch}&rdquo;
                 </h3>
@@ -604,22 +606,48 @@ Include:
           </div>
         )}
 
-        {/* 4-Stat Strip */}
+        {/* 4-Stat Strip — Clean Linear Telemetry (No Vibe-Coded Icon Squircles) */}
         <div className="mt-14 grid grid-cols-2 md:grid-cols-4 gap-3.5 border-t border-charcoal pt-10">
           {[
-            { icon: Building2, value: `${COMPANIES.length}+`, label: "Employers & Recruiters", sub: "FAANG, Unicorns & Cybersecurity" },
-            { icon: Briefcase, value: `${COMPANIES.reduce((a, c) => a + c.roles.length, 0)}+`, label: "Calibrated Roles", sub: "10+ roles per company verified" },
-            { icon: BarChart3, value: "6-Layer", label: "Analysis Engine", sub: "Anti-gaming AI" },
-            { icon: Zap, value: "TalentLens™", label: "Intelligence Platform", sub: "Candidate verification" },
+            {
+              tag: "CATALOG // 01",
+              value: `${COMPANIES.length}+`,
+              label: "Verified Employers",
+              sub: "Tier-S FAANG, Tier-A Unicorns & Cybersecurity",
+            },
+            {
+              tag: "ROLES // 02",
+              value: `${COMPANIES.reduce((a, c) => a + c.roles.length, 0)}+`,
+              label: "Calibrated Roles",
+              sub: "10+ verified career tracks per employer",
+            },
+            {
+              tag: "SAFETY // 03",
+              value: "Level 1",
+              label: "Authenticity Guard",
+              sub: "Structural parser & anti-gaming verification",
+            },
+            {
+              tag: "INTELLIGENCE // 04",
+              value: "100%",
+              label: "Deterministic Math",
+              sub: "Single source of truth with zero random drift",
+            },
           ].map(s => (
-            <div key={s.label} className="bg-near-black border border-charcoal rounded-lg p-4 flex items-center gap-3">
-              <div className="w-10 h-10 rounded bg-black border border-charcoal flex items-center justify-center text-volt flex-shrink-0">
-                <s.icon className="w-4 h-4 stroke-[1.5px]" />
+            <div
+              key={s.label}
+              className="bg-near-black border border-charcoal hover:border-volt/40 transition-colors rounded-lg p-5 flex flex-col justify-between"
+            >
+              <div className="flex items-center justify-between gap-2 mb-3">
+                <span className="text-[10px] font-mono uppercase tracking-[1.4px] text-silver/80">
+                  {s.tag}
+                </span>
+                <span className="w-1.5 h-1.5 rounded-full bg-volt/90 shadow-[0_0_6px_rgba(212,255,0,0.4)]" />
               </div>
               <div>
-                <div className="text-[18px] font-bold font-mono text-white">{s.value}</div>
-                <div className="text-xs font-semibold text-white uppercase tracking-[1px]">{s.label}</div>
-                <div className="text-[11px] text-silver">{s.sub}</div>
+                <div className="text-2xl font-bold font-mono text-white tracking-tight">{s.value}</div>
+                <div className="text-xs font-semibold text-white uppercase tracking-[1px] mt-1">{s.label}</div>
+                <div className="text-[11px] text-silver mt-1 leading-snug">{s.sub}</div>
               </div>
             </div>
           ))}
