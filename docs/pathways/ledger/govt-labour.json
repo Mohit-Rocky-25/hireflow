@@ -1,0 +1,50 @@
+[
+  {
+    "rowId": "govt-labour-labour-wageDefinition-minRatio-0",
+    "subjectId": "govt-labour",
+    "field": "labour.wageDefinition.minRatio",
+    "value": 0.5,
+    "sourceKind": "official",
+    "publisherType": "government",
+    "url": "https://labour.gov.in/gazette/code-on-wages-gratuity",
+    "retrievedAt": "2026-10-26T10:53:31.301Z",
+    "extractedBy": "ai",
+    "snippet": "must comprise at least 0.50 of total remuneration"
+  },
+  {
+    "rowId": "govt-labour-labour-wageDefinition-gratuityDays-1",
+    "subjectId": "govt-labour",
+    "field": "labour.wageDefinition.gratuityDays",
+    "value": 15,
+    "sourceKind": "official",
+    "publisherType": "government",
+    "url": "https://labour.gov.in/gazette/code-on-wages-gratuity",
+    "retrievedAt": "2026-10-26T10:53:31.301Z",
+    "extractedBy": "ai",
+    "snippet": "formula: calculated as 15 days of last-drawn basic"
+  },
+  {
+    "rowId": "govt-labour-labour-wageDefinition-gratuityDivisor-2",
+    "subjectId": "govt-labour",
+    "field": "labour.wageDefinition.gratuityDivisor",
+    "value": 26,
+    "sourceKind": "official",
+    "publisherType": "government",
+    "url": "https://labour.gov.in/gazette/code-on-wages-gratuity",
+    "retrievedAt": "2026-10-26T10:53:31.301Z",
+    "extractedBy": "ai",
+    "snippet": "basic wage divided by 26 working days for each"
+  },
+  {
+    "rowId": "govt-labour-labour-wageDefinition-gratuityVestingYears-3",
+    "subjectId": "govt-labour",
+    "field": "labour.wageDefinition.gratuityVestingYears",
+    "value": 5,
+    "sourceKind": "official",
+    "publisherType": "government",
+    "url": "https://labour.gov.in/gazette/code-on-wages-gratuity",
+    "retrievedAt": "2026-10-26T10:53:31.301Z",
+    "extractedBy": "ai",
+    "snippet": "gratuity entitlement is 5 years of continuous service"
+  }
+]

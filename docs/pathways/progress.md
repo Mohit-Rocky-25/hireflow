@@ -85,9 +85,9 @@ Stage 2 Tag: `pw-stage-2`
 ---
 
 ## Stage S5: Government Rule Facts for Offer Evaluator
-- [ ] 5.1 Official Govt Ledger Rows (Tax, EPF, Wages) [TODO]
-- [ ] 5.2 `reports/primer-differences.md` [TODO]
-- [ ] 5.3 `docs/pathways/tax-rules-used.md` [TODO]
+- [x] 5.1 Official Govt Ledger Rows (Tax, EPF, Wages: 23 statutory rows verified)
+- [x] 5.2 `reports/primer-differences.md` (Partial FY, EPF ceiling, gratuity reality)
+- [x] 5.3 `docs/pathways/tax-rules-used.md` (Student-facing statutory reference guide)
 
 ---
 

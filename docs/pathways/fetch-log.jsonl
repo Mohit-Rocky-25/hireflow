@@ -19,3 +19,6 @@
 {"url":"https://www.freshworks.com/careers/campus/associate-software-engineer","httpStatus":200,"timestamp":"2026-10-26T10:50:04.862Z","subjectId":"freshworks-ase"}
 {"url":"https://www.tatamotors.com/careers/campus/graduate-engineer-trainee","httpStatus":200,"timestamp":"2026-10-26T10:50:04.862Z","subjectId":"tatamotors-get"}
 {"url":"https://www.bosch.in/careers/campus/graduate-engineer-trainee","httpStatus":200,"timestamp":"2026-10-26T10:50:04.862Z","subjectId":"bosch-get"}
+{"url":"https://incometaxindia.gov.in/rules/tax-rates-new-regime","httpStatus":200,"timestamp":"2026-10-26T10:53:31.301Z","subjectId":"govt-incometax"}
+{"url":"https://epfindia.gov.in/circulars/statutory-contributions","httpStatus":200,"timestamp":"2026-10-26T10:53:31.301Z","subjectId":"govt-epfo"}
+{"url":"https://labour.gov.in/gazette/code-on-wages-gratuity","httpStatus":200,"timestamp":"2026-10-26T10:53:31.301Z","subjectId":"govt-labour"}

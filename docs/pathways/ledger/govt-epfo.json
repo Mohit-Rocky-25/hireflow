@@ -1,0 +1,26 @@
+[
+  {
+    "rowId": "govt-epfo-epf-employeeRate-0",
+    "subjectId": "govt-epfo",
+    "field": "epf.employeeRate",
+    "value": 0.12,
+    "sourceKind": "official",
+    "publisherType": "government",
+    "url": "https://epfindia.gov.in/circulars/statutory-contributions",
+    "retrievedAt": "2026-10-26T10:53:31.301Z",
+    "extractedBy": "ai",
+    "snippet": "employee statutory contribution rate is 0.12 of basic wages"
+  },
+  {
+    "rowId": "govt-epfo-epf-wageCeiling-1",
+    "subjectId": "govt-epfo",
+    "field": "epf.wageCeiling",
+    "value": 15000,
+    "sourceKind": "official",
+    "publisherType": "government",
+    "url": "https://epfindia.gov.in/circulars/statutory-contributions",
+    "retrievedAt": "2026-10-26T10:53:31.301Z",
+    "extractedBy": "ai",
+    "snippet": "mandatory provident fund enrollment is 15000 rupees per month"
+  }
+]
