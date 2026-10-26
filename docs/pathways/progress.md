@@ -2,19 +2,20 @@
 
 Branch: `feat/pathways-v1`
 Baseline Tag: `pw-baseline`
+Stage 0 Tag: `pw-stage-0`
 
 ## Task Status Summary
 - **Total Tasks**: 40
-- **Completed**: 0
-- **In Progress**: 1 (0.1)
-- **Pending**: 39
+- **Completed**: 4 (0.1, 0.2, 0.3, 0.4)
+- **In Progress**: 0
+- **Pending**: 36
 
 ---
 
 ## Stage S0: Recon and Bootstrap
 
 ### Task 0.1: Branch, Baseline Suite & Progress Tracker
-- **Status**: DOING
+- **Status**: DONE
 - **Commands**:
   - `git checkout -b feat/pathways-v1`
   - `npm run test`
@@ -44,19 +45,29 @@ Baseline Tag: `pw-baseline`
      Start at  15:18:08
      Duration  88.60s (tests 51%, import 41%, transform 6%, worker 2%)
   ```
-- **Commit**: (pending)
+- **Commit**: `b219172`
 
 ### Task 0.2: Bootstrap Constitution & Spec Verbatim
-- **Status**: TODO
-- **Commit**: -
+- **Status**: DONE
+- **Commands**:
+  - Created `docs/pathways/CONSTITUTION.md` verbatim (Part B).
+  - Created `docs/pathways/SPEC.md` verbatim (Part C).
+- **Commit**: `542b149`
 
 ### Task 0.3: Map Legacy Career Trajectory Consumers in recon.md
-- **Status**: TODO
-- **Commit**: -
+- **Status**: DONE
+- **Commands**:
+  - `grep_search` across `src/` for `trajectory`, `careers-core`, and `careerLadders`.
+  - Authored Section 2 & 3 in `docs/pathways/recon.md`.
+- **Commit**: (bundled in Task 0.4)
 
 ### Task 0.4: Reusable Tooling, Storage Keys & Candidate Inventory
-- **Status**: TODO
-- **Commit**: -
+- **Status**: DONE
+- **Commands**:
+  - Extracted 60 fresher program candidate names from `src/careers-core/data/fresherPrograms.ts`.
+  - Documented branch codes, alias registries, storage keys, claims linting, and money formatting in `docs/pathways/recon.md`.
+  - Verified acceptance: `recon.md` complete, zero application code modified.
+- **Commit**: (pending)
 
 ---
 
