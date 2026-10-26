@@ -54,6 +54,7 @@ import { EligibilityCard } from '../../components/common/EligibilityCard';
 import { FresherChecksPanel } from '../../components/common/FresherChecksPanel';
 import { DataProvenanceModal } from '../../components/common/DataProvenanceModal';
 import { parseJD } from '../../lib/ats/parseJD';
+import { autoSyncManager } from '../../lib/sync/autoSyncManager';
 
 const STAGED_MESSAGES = [
   'Reading resume tokens & structural sections...',
@@ -297,6 +298,9 @@ export function ResumeChecker() {
           engineVersion: response.result.engineVersion,
           specFingerprint: response.result.specFingerprint,
         });
+
+        // Trigger automatic cloud sync across devices for logged-in user
+        autoSyncManager.scheduleSync(500);
 
         window.scrollTo({ top: 0, behavior: 'smooth' });
         setTimeout(() => {
