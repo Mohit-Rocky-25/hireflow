@@ -220,7 +220,7 @@ export const DataProvenanceModal: React.FC<DataProvenanceModalProps> = ({
                     How Does the Evaluation Engine Work?
                   </h3>
                   <p className="text-xs text-silver">
-                    HireFlow runs a deterministic, 100% client-side evaluation engine. It never invents criteria or guesses grades:
+                    HireFlo runs a deterministic, 100% client-side evaluation engine. It never invents criteria or guesses grades:
                   </p>
                 </div>
 
@@ -281,21 +281,21 @@ export const DataProvenanceModal: React.FC<DataProvenanceModalProps> = ({
                   <div className="p-3.5 bg-black border border-charcoal rounded-lg space-y-1.5">
                     <span className="font-bold text-white uppercase tracking-wider block">1. Nominative Fair Use of Company Marks</span>
                     <p className="text-silver/90">
-                      All company names, logos, and trademarks (Google, Microsoft, Amazon, TCS, Infosys, Wipro, Flipkart, Swiggy, and others) are the registered property of their respective owners. Their mention on HireFlow is strictly for nominative, educational, and identification purposes under the <strong>Nominative Fair Use doctrine</strong> and <strong>Section 52 of the Indian Copyright Act (Fair Dealing for educational study and research)</strong>. Mention of these names does not imply any affiliation, sponsorship, or endorsement by these organizations.
+                      All company names, logos, and trademarks (Google, Microsoft, Amazon, TCS, Infosys, Wipro, Flipkart, Swiggy, and others) are the registered property of their respective owners. Their mention on HireFlo is strictly for nominative, educational, and identification purposes under the <strong>Nominative Fair Use doctrine</strong> and <strong>Section 52 of the Indian Copyright Act (Fair Dealing for educational study and research)</strong>. Mention of these names does not imply any affiliation, sponsorship, or endorsement by these organizations.
                     </p>
                   </div>
 
                   <div className="p-3.5 bg-black border border-charcoal rounded-lg space-y-1.5">
                     <span className="font-bold text-white uppercase tracking-wider block">2. Educational Simulation Disclaimer</span>
                     <p className="text-silver/90">
-                      HireFlow is an independent educational simulator. Match scores, interview rounds, and salary bands represent community-reported estimates and public recruitment benchmarks. They do not constitute official corporate evaluation rubrics or employment guarantees.
+                      HireFlo is an independent educational simulator. Match scores, interview rounds, and salary bands represent community-reported estimates and public recruitment benchmarks. They do not constitute official corporate evaluation rubrics or employment guarantees.
                     </p>
                   </div>
 
                   <div className="p-3.5 bg-black border border-charcoal rounded-lg space-y-1.5">
                     <span className="font-bold text-white uppercase tracking-wider block">3. Notice, Takedown & Profile Review</span>
                     <p className="text-silver/90">
-                      If you represent an employer and wish to update your graduate hiring profile, clarify recruitment eligibility criteria, or report an inaccuracy, please contact <span className="text-volt font-bold">compliance@hireflow.app</span> for review and updates within 48 hours.
+                      If you represent an employer and wish to update your graduate hiring profile, clarify recruitment eligibility criteria, or report an inaccuracy, please contact <span className="text-volt font-bold">compliance@hireflo.app</span> for review and updates within 48 hours.
                     </p>
                   </div>
                 </div>
@@ -305,7 +305,7 @@ export const DataProvenanceModal: React.FC<DataProvenanceModalProps> = ({
             {/* Footer */}
             <div className="mt-6 pt-4 border-t border-charcoal flex items-center justify-between flex-wrap gap-3">
               <span className="text-[11px] font-mono text-silver">
-                HireFlow Integrity & Transparency Framework • v4.0.0
+                HireFlo Integrity & Transparency Framework • v4.0.0
               </span>
               <button
                 type="button"

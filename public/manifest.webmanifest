@@ -1,6 +1,6 @@
 {
-  "name": "HireFlow",
-  "short_name": "HireFlow",
+  "name": "HireFlo",
+  "short_name": "HireFlo",
   "description": "Privacy-first, client-side career toolkit for Indian engineering freshers",
   "start_url": "/",
   "scope": "/",

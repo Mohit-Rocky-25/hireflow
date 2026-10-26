@@ -653,7 +653,7 @@ export const CANONICAL_SCORING_SPEC: ScoringSpec = {
       tableId: 'pillars',
       sourceKind: 'editorial',
       lastReviewed: '2026-10-24',
-      citation: 'HireFlow Editorial Standards Board (India Tech Placement Cohort)',
+      citation: 'HireFlo Editorial Standards Board (India Tech Placement Cohort)',
       notes: 'Pillar nominal weights represent baseline editorial defaults for fresher and lateral evaluation.',
     },
     {

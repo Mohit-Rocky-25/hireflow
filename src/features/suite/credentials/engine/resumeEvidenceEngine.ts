@@ -284,7 +284,7 @@ export function getPerformativeEvidence(opp: OpportunityRecord): PerformativeEvi
           template: `[Project Name] | ${techStack || 'React, TypeScript, Node.js, PostgreSQL, Tailwind CSS'}      [Live App Link] | [GitHub Repo]
 • Architected full-stack web application featuring secure JWT authentication, RESTful API endpoints, and relational database schema design, handling [500+ active user sessions] with sub-[100ms] server response time.
 • Authored comprehensive unit and integration test suites using [Jest / React Testing Library / PyTest]; achieved [90%+] test coverage and configured automated GitHub Actions CI deployment to Vercel/Render.`,
-          exampleCompleted: `HireFlow Career Intelligence Platform | React, TypeScript, Tailwind, Node.js, Vite    hireflow.app | github.com/alex/hireflow
+          exampleCompleted: `HireFlo Career Intelligence Platform | React, TypeScript, Tailwind, Node.js, Vite    hireflo.app | github.com/alex/hireflo
 • Architected full-stack web application featuring secure JWT authentication, RESTful API endpoints, and relational database schema design, handling 650+ active user sessions with sub-90ms server response time.
 • Authored comprehensive unit and integration test suites using Jest and React Testing Library; achieved 94% test coverage and configured automated GitHub Actions CI deployment to Vercel.`,
         },

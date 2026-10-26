@@ -459,7 +459,7 @@ export function AnalysisResultView({
         {/* Stored Company Benchmark Provenance Box */}
         <div className="text-xs font-mono text-silver bg-black p-3 rounded border border-charcoal flex flex-wrap items-center justify-between gap-2">
           <div>
-            <span className="font-bold text-white">Benchmark Source:</span> HireFlow Curated
+            <span className="font-bold text-white">Benchmark Source:</span> HireFlo Curated
             Benchmark Index 2024-2025 • <span className="font-bold text-white">Version:</span> v1.2.0
             • <span className="font-bold text-white">Confidence:</span> High
           </div>

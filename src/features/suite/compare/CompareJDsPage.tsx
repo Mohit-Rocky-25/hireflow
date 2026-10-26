@@ -192,7 +192,7 @@ export function CompareJDsPage() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `hireflow-dual-jd-comparison-${Date.now()}.csv`;
+    a.download = `hireflo-dual-jd-comparison-${Date.now()}.csv`;
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -202,7 +202,7 @@ export function CompareJDsPage() {
     let text = '';
     if (result.headToHead) {
       const h2h = result.headToHead;
-      text = `=== HIREFLOW JOB COMPARISON REPORT ===\n` +
+      text = `=== HIREFLO JOB COMPARISON REPORT ===\n` +
         `Executive Recommendation: ${h2h.executiveRecommendation}\n` +
         `Strategic Rationale: ${h2h.strategicRationale}\n\n` +
         `ROLE A: ${h2h.jdA.label} — ${h2h.jdA.score}% (Must-Haves: ${Math.round(h2h.jdA.mustHaveCoverage * 100)}%, Match Confidence: ${h2h.jdA.mustHaveCoverage >= 0.75 ? 'High' : 'Medium'})\n` +

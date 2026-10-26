@@ -57,7 +57,7 @@ export const ActionPlanPage: React.FC = () => {
           `- [${completedTaskIds[t.id] ? 'x' : ' '}] ${t.title} (${t.effortMinWeeks}-${t.effortMaxWeeks} wks): ${t.actionRequired}`
       ),
       '',
-      'Generated via HireFlow Pathways. Relative week ranges. Draft assumptions apply.'
+      'Generated via HireFlo Pathways. Relative week ranges. Draft assumptions apply.'
     ];
     navigator.clipboard.writeText(lines.join('\n'));
     setCopiedStatus(true);

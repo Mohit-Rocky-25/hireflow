@@ -7,7 +7,7 @@ const STATUS_MESSAGES = [
   'Vortex engine initializing...',
   'Extracting ATS heuristics from the cloud...',
   'Synchronizing career trajectory maps...',
-  'Welcome to HireFlow AI',
+  'Welcome to HireFlo AI',
 ];
 
 export interface CinematicLoaderProps {

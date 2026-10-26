@@ -21,7 +21,7 @@ export const NonAffiliationFooter: React.FC = () => {
         </div>
 
         <p className="text-[11px] text-zinc-400 leading-relaxed max-w-2xl mx-auto font-sans">
-          HireFlow Pathways is an independent student decision tool. Company trademarks, logos, and program names belong to their respective holders. Inclusion does not imply sponsorship, endorsement, or formal affiliation. Eligibility criteria and compensation structures are extracted from recorded public notices and remain subject to change per institutional recruitment cycle.
+          HireFlo Pathways is an independent student decision tool. Company trademarks, logos, and program names belong to their respective holders. Inclusion does not imply sponsorship, endorsement, or formal affiliation. Eligibility criteria and compensation structures are extracted from recorded public notices and remain subject to change per institutional recruitment cycle.
         </p>
 
         <div className="flex items-center justify-center gap-3 pt-2 text-[11px] font-mono text-zinc-400">

@@ -246,7 +246,7 @@ export function TemplateReadingSurface({
                 className="mt-0.5 rounded border-charcoal text-volt focus:ring-volt bg-black"
               />
               <span>
-                <strong className="text-white">This is a real deadline.</strong> I verify that I hold an active written offer or official decision deadline with another employer. (HireFlow strictly forbids fabricating competing offers).
+                <strong className="text-white">This is a real deadline.</strong> I verify that I hold an active written offer or official decision deadline with another employer. (HireFlo strictly forbids fabricating competing offers).
               </span>
             </label>
           </div>

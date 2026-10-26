@@ -28,10 +28,11 @@ export function checkGeneratedHashes() {
 
     const expectedHash = match[1];
     const headerSplit = content.indexOf('// ============================================================', 20);
-    const bodyIndex = content.indexOf('\n\n', headerSplit);
-    const bodyContent = bodyIndex !== -1 ? content.slice(bodyIndex + 2) : '';
+    const rest = content.slice(headerSplit);
+    const splitMatch = rest.match(/\r?\n\r?\n/);
+    const bodyContent = splitMatch ? rest.slice(splitMatch.index + splitMatch[0].length) : '';
 
-    const actualHash = crypto.createHash('sha256').update(bodyContent.trim()).digest('hex');
+    const actualHash = crypto.createHash('sha256').update(bodyContent.replace(/\r\n/g, '\n').trim()).digest('hex');
     if (actualHash !== expectedHash) {
       errors.push(`${file}: CONTENT-HASH MISMATCH! Expected ${expectedHash}, computed ${actualHash}. File was hand-edited or out-of-sync (H1). Run npm run pathways:build to regenerate.`);
     }

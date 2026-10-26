@@ -66,7 +66,7 @@ export function ReachOutNav({
             type="button"
             onClick={() => navigate('/')}
             className={navButtonClass}
-            aria-label="Go to HireFlow Home"
+            aria-label="Go to HireFlo Home"
           >
             <div className={sweepOverlay} />
             <Home className="w-3.5 h-3.5 relative z-10 group-active:text-white group-focus-visible:text-white transition-colors" />

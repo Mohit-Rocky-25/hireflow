@@ -506,7 +506,7 @@ export function LandingPage() {
             </div>
 
             <p className="text-[13px] text-silver/60">
-              © 2026 HireFlow. Client-side career intelligence.
+              © 2026 HireFlo. Client-side career intelligence.
             </p>
           </div>
         </div>

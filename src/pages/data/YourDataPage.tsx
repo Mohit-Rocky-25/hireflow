@@ -175,7 +175,7 @@ export function YourDataPage() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `hireflow-verified-profile-${profile.profileId}.json`;
+    a.download = `hireflo-verified-profile-${profile.profileId}.json`;
     a.click();
     URL.revokeObjectURL(url);
     toast('success', 'Exported signed Shareable Candidate Profile bundle.');
@@ -197,7 +197,7 @@ export function YourDataPage() {
           <div className="text-sm">
             <h2 className="text-base font-mono font-semibold text-white uppercase tracking-tight">100% Client-Side Privacy Guarantee</h2>
             <p className="mt-1 text-neutral-300 leading-relaxed font-mono text-xs">
-              HireFlow does not use tracking cookies, remote analytics, or telemetry. All resumes, job descriptions, scan histories, and user notes are saved strictly in your browser&apos;s local storage.
+              HireFlo does not use tracking cookies, remote analytics, or telemetry. All resumes, job descriptions, scan histories, and user notes are saved strictly in your browser&apos;s local storage.
             </p>
           </div>
         </div>

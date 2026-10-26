@@ -46,7 +46,7 @@ export function PublicNavbar() {
               H
             </div>
             <span className="text-[20px] font-black text-white tracking-tight font-sans">
-              HIRE<span className="text-volt">FLOW</span>
+              HIRE<span className="text-volt">FLO</span>
             </span>
           </Link>
         </div>

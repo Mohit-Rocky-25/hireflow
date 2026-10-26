@@ -245,7 +245,7 @@ export function MethodologyPage() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `hireflow-feedback-${new Date().toISOString().split('T')[0]}.json`;
+    a.download = `hireflo-feedback-${new Date().toISOString().split('T')[0]}.json`;
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -265,7 +265,7 @@ export function MethodologyPage() {
             Scoring Methodology &amp; Provenance
           </h1>
           <p className="mt-3 text-base text-neutral-400 max-w-4xl leading-relaxed">
-            HireFlow operates on a single machine-readable canonical specification. Every metric, weight,
+            HireFlo operates on a single machine-readable canonical specification. Every metric, weight,
             sensitivity band, and dynamic context profile derives directly from{' '}
             <code className="text-volt font-mono">CANONICAL_SCORING_SPEC</code> with zero UI arithmetic,
             zero network egress, and client-side execution.
@@ -349,7 +349,7 @@ export function MethodologyPage() {
             </h2>
           </div>
           <p className="text-sm text-neutral-400 leading-relaxed">
-            HireFlow maintains two diagnostic estimates powered by the identical core scoring specification:
+            HireFlo maintains two diagnostic estimates powered by the identical core scoring specification:
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -796,7 +796,7 @@ export function MethodologyPage() {
                 </h2>
               </div>
               <p className="text-sm text-neutral-400 leading-relaxed">
-                Clear and honest documentation of what the HireFlow scoring suite programmatically verifies versus its boundaries and limitations:
+                Clear and honest documentation of what the HireFlo scoring suite programmatically verifies versus its boundaries and limitations:
               </p>
             </div>
 
@@ -868,7 +868,7 @@ export function MethodologyPage() {
                     <span className="text-amber-400 font-mono font-bold shrink-0">&times;</span>
                     <div>
                       <strong className="text-white block font-mono">No Real Callback Probabilities:</strong>
-                      <span>HireFlow provides an internal estimate of requirement coverage; we do not claim to predict real-world employer interview callbacks.</span>
+                      <span>HireFlo provides an internal estimate of requirement coverage; we do not claim to predict real-world employer interview callbacks.</span>
                     </div>
                   </li>
                   <li className="flex items-start gap-2.5">

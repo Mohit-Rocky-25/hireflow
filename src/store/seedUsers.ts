@@ -2,7 +2,7 @@ import type { User, Company, CompanyMember } from "../types";
 import { DEMO_IDS, daysAgo } from "./seedHelpers";
 
 export const users: User[] = [
-  { id: DEMO_IDS.admin, email: "demo-admin@hireflow.com", displayName: "Admin User", role: "PLATFORM_ADMIN", status: "active", createdAt: daysAgo(270), updatedAt: daysAgo(270) },
+  { id: DEMO_IDS.admin, email: "demo-admin@hireflo.com", displayName: "Admin User", role: "PLATFORM_ADMIN", status: "active", createdAt: daysAgo(270), updatedAt: daysAgo(270) },
   { id: DEMO_IDS.bhrA, email: "demo-bhr@example.com", displayName: "Rajesh Kumar", role: "BHR_MANAGER", companyId: DEMO_IDS.companyA, status: "active", createdAt: daysAgo(260), updatedAt: daysAgo(260) },
   { id: DEMO_IDS.hrA, email: "demo-hr@example.com", displayName: "Anita Desai", role: "HR_RECRUITER", companyId: DEMO_IDS.companyA, status: "active", createdAt: daysAgo(245), updatedAt: daysAgo(245) },
   { id: DEMO_IDS.hrA2, email: "hr2-alpha@example.com", displayName: "Kavitha Rao", role: "HR_RECRUITER", companyId: DEMO_IDS.companyA, status: "active", createdAt: daysAgo(240), updatedAt: daysAgo(240) },

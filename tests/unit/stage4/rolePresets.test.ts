@@ -32,7 +32,7 @@ describe('A5: Fresher Role Presets & Branch Bridge (A5.1 - A5.4)', () => {
     expect(backendPreset).toBeDefined();
 
     const { requirements, baselineLabel } = buildRequirementsFromPreset(backendPreset);
-    expect(baselineLabel).toContain('HireFlow Fresher Baseline: Backend Software Engineer');
+    expect(baselineLabel).toContain('HireFlo Fresher Baseline: Backend Software Engineer');
 
     // Core skills -> mandatory (3.0)
     const coreReqs = requirements.filter((r) => r.sourceCategory === 'core');

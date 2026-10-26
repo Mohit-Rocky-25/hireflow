@@ -12,8 +12,8 @@ describe('Stage 9: PWA Web App Manifest & Service Worker (C14)', () => {
     const raw = fs.readFileSync(manifestPath, 'utf-8');
     const manifest = JSON.parse(raw);
 
-    expect(manifest.name).toBe('HireFlow');
-    expect(manifest.short_name).toBe('HireFlow');
+    expect(manifest.name).toBe('HireFlo');
+    expect(manifest.short_name).toBe('HireFlo');
     expect(manifest.start_url).toBe('/');
     expect(manifest.scope).toBe('/');
     expect(manifest.display).toBe('standalone');

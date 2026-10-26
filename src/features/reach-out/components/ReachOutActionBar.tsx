@@ -77,7 +77,7 @@ export function ReachOutActionBar({
           <Link
             to="/history"
             className="text-xs font-semibold text-neutral-300 hover:text-white inline-flex items-center gap-1.5 transition-colors"
-            title="Log this communication in your HireFlow Application Tracker"
+            title="Log this communication in your HireFlo Application Tracker"
           >
             <Briefcase className="w-3.5 h-3.5 text-emerald-400" />
             <span>Log in Tracker</span>

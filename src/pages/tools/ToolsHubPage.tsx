@@ -173,7 +173,7 @@ export function ToolsHubPage() {
         {/* Hero Header (§3 App Scale) */}
         <div className="text-center max-w-4xl mx-auto space-y-4">
           <p className="text-[13px] font-semibold text-silver uppercase tracking-[1.4px]">
-            HireFlow Decision Suite • {totalTools} Essential Tools
+            HireFlo Decision Suite • {totalTools} Essential Tools
           </p>
           <h1 className="text-[36px] sm:text-[48px] font-black text-white uppercase tracking-tight leading-tight">
             Everything You Need To Win Your Next Tech Role
