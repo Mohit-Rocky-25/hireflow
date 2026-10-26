@@ -54,3 +54,303 @@ Short, plain English. Never "you will". Examples: "Meets published criteria", "C
 
 ### C12. Edge cases to cover in fixtures
 Lateral entry or diploma (no 12th); CGPA scale other than 10; percentage-only programs; M.Tech/MCA basics; branch aliases (ECE/EEE/E&TC); gap months; active backlog versus cleared backlog; program lists several batch years; program page states only "all branches"; student batch not listed; CGPA exactly at the threshold; zero variable pay; no bond; bond longer than 36 months; joining in March versus October; joining-bonus larger than a month's pay; ESOP with no schedule.
+
+---
+
+## C13. ASCII Wireframes at 390px (Mobile-First)
+
+### Wireframe 1: Eligibility Radar (`/tools/pathways`)
+```text
++---------------------------------------+
+| Pathways: Eligibility Radar     [?]   |
+| Stays in your browser. Never uploaded.|
++---------------------------------------+
+| 1. Your Branch                        |
+| [CSE*] [IT] [ECE] [EEE] [Mech] [Civil]|
+| [+ Other branch search...           ] |
+|                                       |
+| 2. Batch (Passing Out)                |
+| [2026] [2027*] [2028] [2029]          |
+|                                       |
+| 3. Current CGPA                       |
+| [ 8.24 ]  Scale: [10 / 10 v]          |
++---------------------------------------+
+|  ⚡ Instant First Results (3 Inputs)  |
+|  Meets: 12 | Check: 8 | Fails: 4     |
++---------------------------------------+
+| [+] UPGRADE: Add 12th % to settle     |
+|     6 programs at "Check"             |
++---------------------------------------+
+| ▼ MEETS PUBLISHED CRITERIA (12)       |
+| ------------------------------------- |
+| • TCS Ninja Campus Hiring             |
+|   [✓ Meets Criteria] [Why v] [Open ↗] |
+|   └── Min CGPA: 6.0 (You: 8.24) [Pass]|
+|       Branch: CSE [Pass]              |
+| • Infosys Systems Engineer            |
+|   [✓ Meets Criteria] [Why v] [Open ↗] |
++---------------------------------------+
+| ► CHECK THESE DETAILS (8)             |
+| • Wipro Elite NLTH                    |
+|   [? Needs 12th %] [Why v]            |
++---------------------------------------+
+| ► DOES NOT MEET A CRITERION (4)       |
++---------------------------------------+
+| ► NO CRITERIA PUBLISHED (2)           |
++---------------------------------------+
+| CGPA GAP CALCULATOR                   |
+| Target: TCS Prime (Min 7.50)          |
+| Current: 7.10 | Sem 5 of 8            |
+| Req. Avg in Sems 6-8: 8.17 / 10       |
+| "Assumes equal credit weight per sem" |
++---------------------------------------+
+| Footer: HireFlow is not affiliated... |
+| [Copy summary] [Print] [Clear my data]|
++---------------------------------------+
+```
+
+### Wireframe 2: Program Detail (`/tools/pathways/program/:id`)
+```text
++---------------------------------------+
+| < Back to Radar      Report Error [↗] |
+| TCS Ninja Campus Hiring               |
+| Tata Consultancy Services             |
+| Sourced from official portal [Official|
+| Checked: 2026-10-15                   |
++---------------------------------------+
+| PUBLISHED ELIGIBILITY                 |
+| • CGPA Minimum: 6.0 / 10              |
+| • Class X Min: 60.0%                  |
+| • Class XII Min: 60.0%                |
+| • Max Active Backlogs: 1 at test      |
+| • Max Academic Gap: 24 months         |
+| • Eligible Branches: CSE, IT, ECE...  |
+| • Degrees: B.Tech, B.E., MCA, M.Tech  |
+| • Bond Terms: Not published           |
++---------------------------------------+
+| SELECTION STAGES (Published)          |
+| 1. Online Test (Cognitive & Technical)|
+| 2. Technical Interview                |
+| 3. HR / Management Interview          |
+| Note: Editorial prep roadmap draft.   |
++---------------------------------------+
+| READINESS                             |
+| Scan your resume in Roaster to see    |
+| your match and gap analysis.          |
++---------------------------------------+
+| [ Evaluate an Offer from This Program]|
+| [ Visit Official Portal ↗ ]           |
++---------------------------------------+
+```
+
+### Wireframe 3: Action Plan (`/tools/pathways/plan`)
+```text
++---------------------------------------+
+| Action Plan: Engineering Career Path  |
+| Stays in your browser. Never uploaded.|
++---------------------------------------+
+| 1. Target Program or Type             |
+| [ Direct Campus Hiring           v ]  |
+|                                       |
+| 2. Preparation Pace                   |
+| ( ) Relaxed  (*) Standard  ( ) Intense|
+| Multiplier: 1.0x (Standard)           |
+|                                       |
+| 3. Current Semester                   |
+| [ Semester 6                     v ]  |
++---------------------------------------+
+| [!] DRAFT ASSUMPTIONS IN USE          |
+| Task timelines are editorial draft    |
+| estimates. Click to view rationale.   |
++---------------------------------------+
+| YOUR PRIORITISED ROADMAP              |
+| ───────────────────────────────────── |
+| Phase 1: Eligibility Blockers (W1–W3) |
+| [ ] Clear 1 active backlog before test|
+|     Check college supplementary dates |
+| [ ] Target CGPA Gap: needs 7.80/sem   |
+|                                       |
+| Phase 2: Readiness Gaps (W4–W8)       |
+| [ ] System Design Fundamentals        |
+|     From Roaster trace: Missing Proof |
+| [ ] SQL & Database Indexes            |
+|                                       |
+| Phase 3: Process Prep (W8–W12)        |
+| [ ] Timed Cognitive Aptitude Tests    |
+| [ ] Live Technical Interview Practice |
++---------------------------------------+
+| [Assumptions Panel] [Copy Plan]       |
++---------------------------------------+
+```
+
+### Wireframe 4: Offer Evaluator (`/tools/pathways/offers`)
+```text
++---------------------------------------+
+| Offer Evaluator & Take-Home Simulator |
+| Stays in your browser. Never uploaded.|
++---------------------------------------+
+| 3-INPUT FAST ESTIMATE:                |
+| Annual Fixed Pay:   [ ₹ 7,00,000    ] |
+| Variable Target:    [ ₹ 1,00,000    ] |
+| Joining Bonus:      [ ₹   50,000    ] |
+|                                       |
+| Monthly In-Hand Estimate:             |
+| ₹ 51,250 / mo (at 100% variable)      |
+| ₹ 46,250 / mo (at 50% variable)       |
+| ₹ 41,250 / mo (at 0% variable)        |
+| "Estimate based on numbers entered.   |
+|  Not tax or legal advice."            |
++---------------------------------------+
+| [+] STEP 2: FROM YOUR OFFER LETTER    |
+| Basic Pay:        [ ₹ 25,000 / mo   ] |
+| Employer PF:      [*] Inside Fixed    |
+| Gratuity Prov.:   [*] Inside Fixed    |
+|                                       |
+| [+] STEP 3: CONTRACT & EXIT TERMS     |
+| Service Bond:     ₹ 2,00,000 for 24 mo|
+| Clawback:         100% if < 12 mo     |
+| Tax Regime:       [ New Regime (26-27)]
++---------------------------------------+
+| EXIT EXPOSURE TIMELINE (Month 0–36)   |
+| Month  6: ₹ 2,50,000 at stake (35%)   |
+| Month 12: ₹ 1,50,000 at stake (18%)   |
+| Month 24: ₹        0 at stake (0%)    |
+| Note: Service bond enforceable if     |
+| reasonable. Shows money at stake.     |
++---------------------------------------+
+| RED FLAGS & HR QUESTIONS (3 Found)    |
+| [!] Basic pay is < 50% of CTC.        |
+|     -> "Ask how wages are defined"    |
+| [!] Gratuity deducted from fixed pay. |
+|     -> "Ask if gratuity is pre-funded"|
++---------------------------------------+
+| [Compare With Another Offer (+)]      |
++---------------------------------------+
+```
+
+### Wireframe 5: Data & Method (`/tools/pathways/about-data`)
+```text
++---------------------------------------+
+| Pathways: Data & Methodology          |
++---------------------------------------+
+| DATA PROVENANCE CENSUS                |
+| • Official Portals:       45 facts    |
+| • Company-Published:      38 facts    |
+| • Government Statutes:    14 rules    |
+| • Quarantined Subjects:    3 programs |
+| Content Hash: sha256:7f49a8b1...      |
++---------------------------------------+
+| STATUTORY RULES USED                  |
+| • Income Tax Slabs (New Regime FY 26) |
+|   Source: incometax.gov.in            |
+| • Standard Deduction: ₹75,000         |
+| • Rebate u/s 87A: Up to ₹12 Lakh      |
+| • EPF Ceiling & Rate: 12% on ₹15,000  |
+|   Source: epfindia.gov.in             |
++---------------------------------------+
+| EDITORIAL ASSUMPTIONS REGISTER        |
+| • A-PLAN-APT-WEEKS (Draft, 4-12 wks)  |
+| • A-OFFER-BOND-ALERT (Draft, 30%)     |
+| Human review required before launch.  |
++---------------------------------------+
+| KNOWN LIMITATIONS (Always Shown)      |
+| • College tier and referrals not model|
+| • Programs change criteria per batch  |
+| • Not tax or legal advice             |
+| [Report an Error / Submit Correction] |
++---------------------------------------+
+```
+
+---
+
+## C14. Microcopy Dictionary & Guardrails
+
+| Context | Approved Copy | Strictly Banned Words / Phrasing | Rationale |
+| :--- | :--- | :--- | :--- |
+| Eligibility Status: Pass | "Meets published criteria" | "Eligible", "Qualified", "Guaranteed interview" | Sourced from recorded page cutoffs; never guarantees college drive selection. |
+| Eligibility Status: Missing Input | "Check these details: add your 12th % to settle this" | "Ineligible", "Pending verification" | Neutral, instructs the user on what action resolves the ambiguity. |
+| Eligibility Status: Fail | "Does not meet a published criterion" | "Rejected", "Disqualified", "Failed" | Factual evaluation of published criteria, not a hiring decision. |
+| Eligibility Status: No Data | "No criteria published for this program" | "Unverified", "Unknown company" | Honest acknowledgement of absence of official disclosure. |
+| Offer Money Estimates | "Estimate based on the numbers you entered and the rules shown. Not tax or legal advice." | "Accurate salary", "Guaranteed in-hand", "Your exact tax" | Complies with B1/B6. Computes arithmetic on user inputs only. |
+| Service Bonds | "Courts in India have treated reasonable service bonds as enforceable. Whether yours is reasonable is a legal question. This tool shows the money at stake, not legal advice." | "Bonds are illegal", "Bond is null and void", "You won't have to pay" | Indian Supreme Court jurisprudence upholds reasonable liquidated damages. |
+| Privacy Line | "Stays in your browser. Never uploaded." | "100% secure server", "Cloud encrypted" | Zero runtime egress guarantee; local storage only. |
+| Empty Results | "No programs match your current filter. Try selecting 'All' or clearing search." | "No companies found for you", "You have no matches" | Clean, actionable, non-condescending state. |
+
+---
+
+## C15. Fixture Matrix
+
+### Part 1: 20 Student Profiles (Covering C12 Edge Cases)
+
+1. `P-01-STANDARD-CSE`: B.Tech CSE, 2027 batch, CGPA 8.2/10, 10th 88%, 12th 85%, 0 backlogs, 0 gap months. (Baseline standard pass).
+2. `P-02-DIPLOMA-LATERAL`: B.Tech Mech, 2026 batch, CGPA 7.5/10, 10th 80%, 12th `null` (Diploma 82%), 0 backlogs. (Lateral entry without 12th grade).
+3. `P-03-SCALE-4`: B.Tech IT, 2026 batch, CGPA 3.4/4.0 (scale 4), 10th 75%, 12th 72%. (Scale mismatch detection per E4).
+4. `P-04-PERCENTAGE-ONLY`: B.E. ECE, 2026 batch, Aggregate 68.5% (no CGPA issued by university), 10th 70%, 12th 65%. (Percentage aggregate handling).
+5. `P-05-MCA-FRESHER`: MCA, 2026 batch, CGPA 7.8/10, BCA aggregate 72%, 10th 65%, 12th 68%. (Postgraduate non-B.Tech degree).
+6. `P-06-MTECH-FRESHER`: M.Tech CSE, 2026 batch, CGPA 8.5/10, B.Tech 76%, 0 backlogs. (M.Tech campus eligibility).
+7. `P-07-ALIAS-ENTC`: B.Tech "Electronics & Telecommunication" (E&TC alias for ECE), 2027 batch, CGPA 7.2/10. (Branch alias normalization).
+8. `P-08-GAP-24MO`: B.Tech Civil, 2026 batch, CGPA 6.8/10, 24 months academic gap between 12th and college. (Max gap boundary test).
+9. `P-09-GAP-36MO`: B.Tech CSE, 2026 batch, CGPA 7.0/10, 36 months academic gap. (Gap threshold failure).
+10. `P-10-ACTIVE-BACKLOG-1`: B.Tech EEE, 2026 batch, CGPA 6.4/10, 1 active backlog, 1 cleared backlog. (Active backlog limit test).
+11. `P-11-CLEARED-BACKLOGS-3`: B.Tech CSE, 2027 batch, CGPA 7.1/10, 0 active backlogs, 3 cleared historic backlogs. (Backlog history rule).
+12. `P-12-EXACT-THRESHOLD`: B.Tech CSE, 2026 batch, CGPA 6.00/10, 10th 60.00%, 12th 60.00%. (Exact boundary threshold test).
+13. `P-13-JUST-BELOW-THRESHOLD`: B.Tech CSE, 2026 batch, CGPA 5.99/10. (Boundary fail test, no floating point slip).
+14. `P-14-BATCH-UNLISTED`: B.Tech CSE, 2024 batch (2 years pass-out). (Graduation year out of fresher drive scope).
+15. `P-15-ALL-BRANCHES-PROGRAM`: B.Tech BioTech, 2026 batch, CGPA 7.5/10, applying to "All branches" drive. (Open branch matching).
+16. `P-16-RESTRICTED-BRANCH`: B.Tech Chemical, 2026 batch, applying to "Circuit branches only" (CSE/IT/ECE). (Branch rejection).
+17. `P-17-BUDGET-MINIMAL`: B.Tech IT, 2027 batch, CGPA 7.4/10. (3 inputs only, optional upgrades unprovided -> `check` states).
+18. `P-18-NO-CUTOFF-PROGRAM`: B.Tech CSE, 2026 batch, applying to program with 0 published academic cutoffs. (`unknown` status with caveat chip).
+19. `P-19-HIGH-BACKLOGS`: B.Tech Mechanical, 2026 batch, CGPA 6.2/10, 4 active backlogs. (Clear multiple-criterion fail).
+20. `P-20-PERFECT-SCORE`: B.Tech CSE, 2026 batch, CGPA 10.0/10, 10th 99%, 12th 98%, 0 backlogs. (Clean universal pass).
+
+---
+
+### Part 2: 8 Offer Scenarios (Illustrative Fixtures — Not Real Offers)
+
+> [!NOTE]
+> All figures below are illustrative synthetic test fixtures created to verify arithmetic boundary conditions. They do not represent real employer offers.
+
+1. **`OFFER-01-MASS-SERVICES`**:
+   - Fixed CTC: ₹3,60,000 | Variable: ₹0 | Joining Bonus: ₹0
+   - Basic: ₹15,000/mo (₹1,80,000/yr) | Employer PF: Inside CTC (12% on basic = ₹21,600)
+   - Gratuity provision: Inside CTC (₹8,654) | Statutory Insurance: ₹3,746
+   - Terms: Service bond ₹1,00,000 for 24 months | Joining: July | Regime: New.
+   - Purpose: Validates mass IT services fixed salary decomposition where employer deductions reduce gross cash.
+
+2. **`OFFER-02-PREMIUM-SERVICES`**:
+   - Fixed CTC: ₹9,00,000 | Variable: ₹1,00,000 | Joining Bonus: ₹50,000
+   - Basic: ₹37,500/mo (₹4,50,000/yr = 50% of fixed) | Employer PF: Inside CTC
+   - Terms: No service bond | 12-month clawback on bonus | Regime: New.
+   - Purpose: Tests 50% basic wage compliance rule and variable pay 3-scenario projections.
+
+3. **`OFFER-03-GCC-PRODUCT-VARIABLE`**:
+   - Fixed CTC: ₹16,00,000 | Variable Target: ₹4,00,000 (20% of CTC) | Joining Bonus: ₹2,00,000
+   - Basic: ₹65,000/mo | HRA: ₹32,500/mo | Special Allowance: ₹35,833/mo
+   - Terms: High variable share (>20%) flags red flag warning | Regime: New.
+   - Purpose: Validates high-variable percentage red-flag triggers and partial-year tax bracket jump.
+
+4. **`OFFER-04-STARTUP-ESOP`**:
+   - Fixed CTC: ₹12,00,000 | Variable: ₹0 | Joining Bonus: ₹1,00,000
+   - ESOP: ₹8,00,000 grant value (1000 units) | Vesting: 4 years with 1-year cliff (25% per yr)
+   - Terms: ESOP scenario valuations ₹1x, ₹3x, ₹5x entered by user (no tax computed per B1).
+   - Purpose: Validates 48-month vesting schedule derivation and zero-tax disclaimer.
+
+5. **`OFFER-05-BONUS-CLAWBACK`**:
+   - Fixed CTC: ₹6,00,000 | Variable: ₹0 | Joining Bonus: ₹1,50,000 (25% of annual pay)
+   - Terms: 100% clawback if leaving before 24 months.
+   - Purpose: Triggers clawback > 12 month red flag and tests month 0-36 net cash exposure.
+
+6. **`OFFER-06-LONG-BOND`**:
+   - Fixed CTC: ₹4,50,000 | Variable: ₹50,000 | Joining Bonus: ₹0
+   - Terms: Service bond ₹3,00,000 for 36 months (pro-rata).
+   - Purpose: Tests pro-rata exposure formula `RemainingMonths / TotalMonths * BondAmount` and bond > 30% first year cash flag.
+
+7. **`OFFER-07-MARCH-JOINER`**:
+   - Fixed CTC: ₹8,00,000 | Joining Month: March (Month 12 of Indian Financial Year).
+   - Terms: Only 1 month worked in FY 1 -> Gross FY1 income ₹66,667 (below taxable threshold).
+   - Purpose: Validates partial-year tax calculation against full-year tax projection.
+
+8. **`OFFER-08-OCTOBER-JOINER`**:
+   - Fixed CTC: ₹10,00,000 | Joining Month: October (6 months in FY 1).
+   - Terms: 6 months worked in FY 1 -> Gross FY1 income ₹5,00,000 (qualifies for 87A rebate).
+   - Purpose: Demonstrates marginal difference between partial FY take-home and full steady-state FY take-home.

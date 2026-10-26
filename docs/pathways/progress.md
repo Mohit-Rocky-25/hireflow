@@ -3,12 +3,13 @@
 Branch: `feat/pathways-v1`
 Baseline Tag: `pw-baseline`
 Stage 0 Tag: `pw-stage-0`
+Stage 1 Tag: `pw-stage-1`
 
 ## Task Status Summary
 - **Total Tasks**: 40
-- **Completed**: 4 (0.1, 0.2, 0.3, 0.4)
-- **In Progress**: 0
-- **Pending**: 36
+- **Completed**: 8 (0.1, 0.2, 0.3, 0.4, 1.1, 1.2, 1.3, 1.4)
+- **Gate Status**: NEEDS-USER (STOP-1)
+- **Pending**: 32
 
 ---
 
@@ -59,7 +60,7 @@ Stage 0 Tag: `pw-stage-0`
 - **Commands**:
   - `grep_search` across `src/` for `trajectory`, `careers-core`, and `careerLadders`.
   - Authored Section 2 & 3 in `docs/pathways/recon.md`.
-- **Commit**: (bundled in Task 0.4)
+- **Commit**: `1d059ec`
 
 ### Task 0.4: Reusable Tooling, Storage Keys & Candidate Inventory
 - **Status**: DONE
@@ -67,15 +68,42 @@ Stage 0 Tag: `pw-stage-0`
   - Extracted 60 fresher program candidate names from `src/careers-core/data/fresherPrograms.ts`.
   - Documented branch codes, alias registries, storage keys, claims linting, and money formatting in `docs/pathways/recon.md`.
   - Verified acceptance: `recon.md` complete, zero application code modified.
-- **Commit**: (pending)
+- **Commit**: `1d059ec`
 
 ---
 
 ## Stage S1: Spec Expansion and Review Pack (STOP-1)
-- [ ] 1.1 Wireframes (390px), Microcopy Table, Fixture Matrix (20 profiles, 8 offers) [TODO]
-- [ ] 1.2 TypeScript Schemas & Validators (`src/pathways/schema/`) [TODO]
-- [ ] 1.3 ADR-001 (Design Decisions & Alternatives) [TODO]
-- [ ] 1.4 `reports/spec-review.md` (Review Pack for STOP-1) [TODO]
+
+### Task 1.1: Spec Expansion (Wireframes, Microcopy, Fixture Matrix)
+- **Status**: DONE
+- **Artifacts**:
+  - `docs/pathways/SPEC.md` (Sections C13, C14, C15)
+  - 5 ASCII wireframes for 390px mobile viewport.
+  - Microcopy dictionary with approved and banned terms.
+  - 20 student test profiles covering C12 edge cases & 8 illustrative offer fixtures.
+- **Commit**: (pending)
+
+### Task 1.2: TypeScript Schemas & Validators
+- **Status**: DONE
+- **Artifacts**:
+  - `src/pathways/schema/types.ts`: EvidenceRef, RuleRow, StudentProfile, ProgramFacts, ProgramEligibilityResult, ActionPlanResult, OfferInput, OfferResult, EngineTrace, Assumption.
+  - `src/pathways/schema/validators.ts`: Closed field list (H2), snippet length check (H3), non-imputation value check (H8), profile and offer input validation.
+  - `src/pathways/schema/index.ts`: Barrel export.
+- **Commands**:
+  - `npm run typecheck` (Passed with 0 errors).
+- **Commit**: (pending)
+
+### Task 1.3: Architectural Decision Record (ADR-001)
+- **Status**: DONE
+- **Artifacts**:
+  - `docs/pathways/decisions/ADR-001.md`: 3 foundational decisions & rejected alternatives.
+- **Commit**: (pending)
+
+### Task 1.4: Spec Review Pack (STOP-1)
+- **Status**: NEEDS-USER (STOP-1)
+- **Artifacts**:
+  - `docs/pathways/reports/spec-review.md`
+- **Commit**: (pending)
 
 ---
 
