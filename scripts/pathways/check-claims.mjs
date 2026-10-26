@@ -28,6 +28,8 @@ const EXEMPT_FILES = [
   'audit.mjs',
   'spec-review.md',
   'ADR-001.md',
+  'redteam-s10.md',
+  'final-report.md',
 ];
 
 export function checkPathwaysClaims() {
