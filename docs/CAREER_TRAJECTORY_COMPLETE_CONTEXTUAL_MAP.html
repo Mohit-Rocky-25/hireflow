@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HireFlow Career Trajectory: Complete Contextual Map & Architecture</title>
+  <style>
+    :root {
+      --bg: #09090b;
+      --card-bg: #141417;
+      --surface: #1e1e24;
+      --border: #27272a;
+      --volt: #ccff00;
+      --cyan: #38bdf8;
+      --purple: #c084fc;
+      --text: #f4f4f5;
+      --text-muted: #a1a1aa;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.65;
+      padding: 40px 20px;
+    }
+    .container {
+      max-width: 1040px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 48px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    }
+    h1 {
+      font-size: 2.25rem;
+      font-weight: 800;
+      color: #ffffff;
+      border-bottom: 2px solid var(--volt);
+      padding-bottom: 16px;
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
+    }
+    h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--volt);
+      margin-top: 40px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+    }
+    h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--cyan);
+      margin-top: 28px;
+      margin-bottom: 12px;
+    }
+    p { margin-bottom: 16px; color: #d4d4d8; }
+    blockquote {
+      border-left: 3px solid var(--volt);
+      background: #18181b;
+      padding: 12px 18px;
+      margin: 16px 0;
+      border-radius: 0 6px 6px 0;
+      color: #a1a1aa;
+      font-size: 0.95rem;
+    }
+    hr {
+      border: 0;
+      height: 1px;
+      background: var(--border);
+      margin: 32px 0;
+    }
+    .code-block {
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      margin: 20px 0;
+      overflow-x: auto;
+    }
+    .code-header {
+      background: #161b22;
+      color: var(--text-muted);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 6px 14px;
+      border-bottom: 1px solid #30363d;
+    }
+    pre code {
+      display: block;
+      padding: 16px;
+      color: #e6edf3;
+      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+      font-size: 0.88rem;
+      line-height: 1.5;
+    }
+    .inline-code {
+      background: #27272a;
+      color: var(--volt);
+      font-family: ui-monospace, monospace;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.88em;
+    }
+    .table-container {
+      overflow-x: auto;
+      margin: 24px 0;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.92rem;
+    }
+    th {
+      background: #18181b;
+      color: #ffffff;
+      font-weight: 700;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      color: #d4d4d8;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) td { background: #0f0f12; }
+    ul, ol { margin-left: 24px; margin-bottom: 16px; color: #d4d4d8; }
+    li { margin-bottom: 6px; }
+    strong { color: #ffffff; font-weight: 700; }
+    .badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: bold;
+      background: #27272a;
+      color: var(--volt);
+    }
+    .footer {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div style="margin-bottom: 20px;">
+      <span class="badge">OFFLINE READY</span> &nbsp;
+      <span class="badge" style="color: var(--cyan); border: 1px solid #0369a1;">HIREFLOW 2.5.0</span>
+    </div>
+    <h1>HireFlow Career Trajectory Engine: Complete Contextual Map &amp; Architectural Blueprint</h1>
+
+&gt; <strong>System Version</strong>: 2.5.0 (India Market Edition)  
+&gt; <strong>Currency Unit</strong>: Indian Rupee (INR ₹ / LPA)  
+&gt; <strong>Simulation Base Year</strong>: 2026–2027 Placement &amp; Promotion Season  
+&gt; <strong>Primary Purpose</strong>: Complete contextual brief and rewiring manual detailing every model, engine, component, data pipeline, and calculation powering Career Trajectory in HireFlow.
+
+<hr />
+
+<h2>Table of Contents</h2>
+1. [Executive Overview &amp; Value Proposition](#1-executive-overview--value-proposition)
+2. [Complete Directory &amp; File Architecture Map](#2-complete-directory--file-architecture-map)
+3. [The Three Trajectory Operating Modes](#3-the-three-trajectory-operating-modes)
+   - [Mode A: Campus-to-Dream Placement Pathway (Students &amp; Freshers)](#mode-a-campus-to-dream-placement-pathway-students--freshers)
+   - [Mode B: Professional Promotion &amp; Lateral Switch Simulator](#mode-b-professional-promotion--lateral-switch-simulator)
+   - [Mode C: Company Ladder &amp; Level Explorer](#mode-c-company-ladder--level-explorer)
+   - [Mode D: HireFlow Suite Tier Positioning Bridge](#mode-d-hireflow-suite-tier-positioning-bridge)
+4. [Master Data Pipelines &amp; Input-to-System Mechanics](#4-master-data-pipelines--input-to-system-mechanics)
+   - [Dual Data Sources: careers-core vs. careerLadders](#dual-data-sources-careers-core-vs-careerladders)
+   - [How Data Enters and Flow Through the System](#how-data-enters-and-flow-through-the-system)
+5. [Complete Data Schemas &amp; Type System](#5-complete-data-schemas--type-system)
+   - [5.1 PlatformCompany &amp; CompanyLadder](#51-platformcompany--companyladder)
+   - [5.2 CareerLevel &amp; Level Compensation Bands](#52-careerlevel--level-compensation-bands)
+   - [5.3 FresherProgram &amp; Selection Funnel](#53-fresherprogram--selection-funnel)
+   - [5.4 Cross-Company Equivalence Matrix](#54-cross-company-equivalence-matrix)
+   - [5.5 Structured Promotion Blockers](#55-structured-promotion-blockers)
+6. [Algorithmic Engines &amp; Mathematical Formulas](#6-algorithmic-engines--mathematical-formulas)
+   - [6.1 Deterministic Path Traversal Algorithm](#61-deterministic-path-traversal-algorithm)
+   - [6.2 Cross-Tier Down-Leveling &amp; Lateral Discount Rules](#62-cross-tier-down-leveling--lateral-discount-rules)
+   - [6.3 Compensation Modeling &amp; Split Multipliers](#63-compensation-modeling--split-multipliers)
+   - [6.4 Performance Acceleration &amp; Duration Adjustments](#64-performance-acceleration--duration-adjustments)
+   - [6.5 Student Eligibility &amp; Gap Diagnostics](#65-student-eligibility--gap-diagnostics)
+7. [UI Component Tree &amp; State Management](#7-ui-component-tree--state-management)
+8. [Rewiring &amp; Customization Guide](#8-rewiring--customization-guide)
+   - [How to Add a New Company &amp; Ladder](#how-to-add-a-new-company--ladder)
+   - [How to Update Salary &amp; Equity Bands](#how-to-update-salary--equity-bands)
+   - [How to Add or Modify OA Test Question Syllabi](#how-to-add-or-modify-oa-test-question-syllabi)
+   - [How to Add Custom What-If Simulator Levers](#how-to-add-custom-what-if-simulator-levers)
+9. [Test Suite &amp; Integrity Gates](#9-test-suite--integrity-gates)
+
+<hr />
+
+<h2>1. Executive Overview &amp; Value Proposition</h2>
+
+The <strong>Career Trajectory Platform</strong> is a deterministic, client-side intelligence engine that charts career progressions for both <strong>engineering students (Campus-to-Dream)</strong> and <strong>working professionals (Lateral / Promotion Simulator)</strong> across 56 leading Indian employers.
+
+Unlike generic career sites that provide vague or US-centric advice, HireFlow models the strict realities of the Indian tech ecosystem:
+1. <strong>Tier-1 vs. Tier-3 College Reality</strong>: Models on-campus placement tiers (Super-Dream, Dream, Mass/Differential), eligibility cutoffs (CGPA, active backlogs, gap years), circuit vs. non-circuit branch restrictions, and off-campus contest pathways.
+2. <strong>Deterministic Promotion Cadences</strong>: Real review cycles (annual vs. bi-annual), calibration committee layers (manager -&gt; director -&gt; cross-functional promo panel), and level-specific stall rates (e.g., 75% stall rate at Senior to Staff).
+3. <strong>Transparent INR Compensation Modeling</strong>: Detailed splits between Base Salary, Target Performance Bonus, Joining/Sign-on Bonuses, and ESOPs / RSUs (Stocks) with standard 4-year vesting schedules.
+4. <strong>Structured Blocker Diagnostics</strong>: Real obstacles that prevent engineers from leveling up (system design depth, scope ownership, cross-team influence, visibility gaps).
+
+``<code class="inline-code">mermaid
+graph TD
+    User([User / Candidate]) --&gt; ModeSelect{Choose Trajectory Mode}
+    
+    ModeSelect --&gt;|Campus Student / Fresher| ModeA[Mode A: Campus-to-Dream Pathway]
+    ModeSelect --&gt;|Working Professional| ModeB[Mode B: Career Promotion &amp; Lateral Engine]
+    ModeSelect --&gt;|Direct Exploration| ModeC[Mode C: Company Ladder &amp; Level Explorer]
+    ModeSelect --&gt;|Resume Scan / Profile| ModeD[Mode D: Suite Tier Positioning Bridge]
+    
+    subgraph Data Layer ["Careers Core Platform (careers.<em> &amp; careerLadders)"]
+        Companies[56+ Companies Across 5 Market Segments]
+        Levels[182 Canonical Levels with INR Comp Bands]
+        Programs[60 Verified Fresher / Campus Drives]
+        Branches[36 Engineering Branches &amp; Degree Catalog]
+        Blockers[Structured Promotion Blocker Catalog]
+        Equivalence[9-Level Cross-Company Equivalence Matrix]
+    end
+    
+    ModeA --&gt; EvaluationEngine[Eligibility &amp; Scoring Evaluator]
+    ModeB --&gt; PromotionEngine[Deterministic Path &amp; Comp Synthesizer]
+    ModeC --&gt; LadderExplorer[Interactive Ladder Inspector]
+    ModeD --&gt; TierClassifier[Candidate Tier Classifier]
+    
+    EvaluationEngine --&gt; DataLayer
+    PromotionEngine --&gt; DataLayer
+    LadderExplorer --&gt; DataLayer
+    TierClassifier --&gt; DataLayer
+    
+    PromotionEngine --&gt; OutputPlan[Step-by-Step Multi-Year Promotion Plan &amp; Comp Chart]
+    EvaluationEngine --&gt; OutputFresher[Program Selection Stages, Cutoffs, Bonds &amp; Bridge Routes]
+    TierClassifier --&gt; OutputTier[Tier Positioning C -&gt; B -&gt; A -&gt; S &amp; Target Briefs]
+</code>`<code class="inline-code">
+
+<hr />
+
+<h2>2. Complete Directory &amp; File Architecture Map</h2>
+
+The Career Trajectory subsystem spans the following distinct directories:
+
+</code>`<code class="inline-code">
+src/
+├── careers-core/                          # Unified single-source-of-truth platform
+│   ├── index.ts                           # Public typed API: careers.</em> &amp; schema exports
+│   ├── api/
+│   │   └── index.ts                       # Synchronous careers.<em> accessor methods
+│   ├── schema/
+│   │   ├── types.ts                       # Canonical schemas (PlatformCompany, PlatformLevel, etc.)
+│   │   └── validators.ts                  # Runtime schema integrity guards
+│   ├── data/
+│   │   ├── manifest.json                  # Dataset metadata and version tracking
+│   │   ├── companies.ts                   # 56 platform company records
+│   │   ├── levels.ts                      # 182 canonical levels with salary bands
+│   │   ├── fresherPrograms.ts             # 60 campus drives with OA test specs
+│   │   ├── branches.ts                    # 36 AICTE/UGC engineering branches
+│   │   ├── equivalence.ts                 # 9-tier equivalence level definitions
+│   │   ├── competencies.ts                # Engineering skill rubrics by level
+│   │   └── roles.ts                       # Role definitions per track
+│   ├── derive/
+│   │   └── derivedViews.ts                # Eligibility evaluator &amp; branch matrix generator
+│   ├── registry/
+│   │   └── aliasRegistry.ts               # Fuzzy alias resolution for company names and branches
+│   ├── react/
+│   │   ├── CareersContext.tsx             # React Context provider &amp; consumer hooks
+│   │   └── DataBadge.tsx                  # UI badge displaying verification provenance
+│   ├── legacy/
+│   │   └── adapters.ts                    # Backwards-compatibility bridge for older components
+│   └── dev/
+│       └── CareersDataExplorer.tsx        # Internal developer debugging and auditing UI (/dev/careers-data)
+│
+├── data/careerLadders/                    # Domain Ladders &amp; Bridge Synthesizers
+│   ├── index.ts                           # Ladder aggregators &amp; helper getters
+│   ├── types.ts                           # Engine types: CareerLevel, StructuredBlocker, CompDataPoint
+│   ├── equivalenceMap.ts                  # Equivalence levels (L3_ENTRY to L8_DISTINGUISHED)
+│   ├── blockerCatalog.ts                  # Pre-compiled blocker records by level &amp; track
+│   ├── degreesAndBranches.ts              # Branch family mappings &amp; circuit classifications
+│   ├── hiringRoutesCatalog.ts             # Direct, contest, hackathon, and referral pathways
+│   ├── synthesizer.ts                     # Multi-hop bridge generator (e.g., Service -&gt; Unicorn)
+│   └── companies/                         # Deep ladder records split by segment
+│       ├── bigTechIndia.ts                # Google, Microsoft, Amazon, Uber, Meta
+│       ├── bigTechIndiaMore.ts            # Apple, Atlassian, Adobe, Salesforce
+│       ├── indianProductUnicorns.ts       # Flipkart, Swiggy, Zomato, Razorpay, CRED
+│       ├── indianProductUnicornsMore.ts   # Meesho, PhonePe, Zepto, Zerodha, Groww
+│       ├── gccFinance.ts                  # Goldman Sachs, Morgan Stanley, JP Morgan
+│       ├── gccFinanceMore.ts              # DE Shaw, Citadel, BNY, Wells Fargo
+│       ├── itServicesIndia.ts             # TCS, Infosys, Wipro, HCL
+│       ├── itServicesIndiaMore.ts         # Cognizant, LTIMindtree, Tech Mahindra, Accenture
+│       └── coreEngineering.ts             # Tata Motors, L&amp;T, Bosch, Qualcomm, Texas Instruments
+│
+├── lib/
+│   ├── careerEngine.ts                    # Core Path &amp; Promotion Engine (1,016 lines)
+│   └── academicCalendar.ts                # Indian university semester &amp; graduation calculator
+│
+├── features/career-path/                  # User Interface &amp; Interaction Layer
+│   ├── CareerPathSimulator.tsx            # Main parent page &amp; state orchestrator (747 lines)
+│   ├── resolveTargetJob.ts                # Cross-tool target job sync utility
+│   ├── whatIfSimulator.ts                 # Real-time parameter tweaking engine
+│   └── components/
+│       ├── StudentPlacementPathway.tsx    # Mode A: Student campus roadmap &amp; cutoffs
+│       ├── ProfessionalPromotionResult.tsx# Mode B: Multi-step promotion timeline
+│       ├── LadderLevelExplorer.tsx        # Mode C: Interactive company ladder visualizer
+│       ├── PromotionBlockersChecklist.tsx # Interactive blocker self-audit checklist
+│       └── CompensationTrajectoryChart.tsx# Recharts INR comp progression visualization
+│
+├── features/suite/integration/
+│   └── trajectory.ts                      # Resume scan to career tier positioning (Tier C -&gt; B -&gt; A -&gt; S)
+│
+├── pages/tools/career-path/
+│   ├── CareerPathHub.tsx                  # Public landing hub (/tools/career-path)
+│   ├── DreamJobRoadmapPage.tsx            # Route wrapper for Mode A / Mode B (/tools/career-path/dream-job-roadmap)
+│   └── CompanyLevelsPage.tsx              # Route wrapper for Mode C (/tools/career-path/company-levels)
+│
+├── components/career-path/
+│   ├── CareerPathBackButton.tsx           # Standardized back button navigation
+│   ├── Dropdown.tsx                       # High-contrast accessible dropdown selector
+│   └── BranchCombobox.tsx                 # Autocomplete branch search component
+│
+└── tests/
+    ├── trajectory/scenarios.test.ts       # End-to-end multi-step trajectory scenarios
+    ├── briefs/scaffold.test.ts            # Integration with bridge briefs
+    ├── unit/careerEngine.test.ts          # Promotion math &amp; duration tests
+    └── careers/validatePlatformData.test.ts# Schema integrity checks for all 182 levels
+</code>`<code class="inline-code">
+
+<hr />
+
+<h2>3. The Three Trajectory Operating Modes</h2>
+
+<h3>Mode A: Campus-to-Dream Placement Pathway (Students &amp; Freshers)</h3>
+
+Designed specifically for Indian engineering students preparing for on-campus and off-campus placements.
+
+#### Candidate Inputs:
+- <strong>College Tier</strong>:
+  - </code>Tier 1<code class="inline-code">: IITs, NITs, BITS, IIITs (Top Day-1 recruiters, Super-Dream drives).
+  - </code>Tier 2<code class="inline-code">: Premier state universities, VIT, MIT Manipal, Thapar, RVCE (Product &amp; high-growth GCC intake).
+  - </code>Tier 3<code class="inline-code">: Regional affiliated colleges (Mass recruiters, differential hiring tracks, off-campus contest focus).
+- <strong>Degree &amp; Branch</strong>:
+  - B.Tech, M.Tech, MCA, Dual Degree across Software, Electronics, Electrical, Mechanical, Civil, Chemical, etc.
+- <strong>Current Academic Standing</strong>:
+  - Graduation Year &amp; Semester (calculated via [</code>src/lib/academicCalendar.ts<code class="inline-code">](file:///c:/Users/yadav/.gemini/antigravity-ide/scratch/hireflow/src/lib/academicCalendar.ts)).
+  - B.Tech CGPA (10-point scale).
+  - 10th &amp; 12th Class percentages.
+  - Active and dead backlog history.
+  - Academic gap years (pre-college or during college).
+- <strong>Target Company &amp; Role</strong>: Desired dream organization (e.g., Google India, Microsoft, Flipkart, D. E. Shaw).
+
+#### Engine Outputs:
+1. <strong>Direct Eligibility Status</strong>: Evaluates the candidate against official criteria (</code>ELIGIBLE<code class="inline-code">, </code>CONDITIONAL<code class="inline-code">, or </code>INELIGIBLE<code class="inline-code">) with precise diagnostic violation pills.
+2. <strong>Selection Process Roadmap</strong>: Full stage-by-stage hiring funnel:
+   - <strong>Round 1 (Online Assessment / OA)</strong>: Platform (HackerEarth, Mettl, HackerRank), test duration in minutes, topic distribution (DSA, Aptitude, Core CS), passing cutoff criteria, and elimination rules.
+   - <strong>Round 2 (Technical Interview 1)</strong>: Core data structures, algorithms, live coding, and Big-O optimization.
+   - <strong>Round 3 (Technical Interview 2 / LLD)</strong>: Object-oriented programming, schema design, database query optimization, system boundaries.
+   - <strong>Round 4 (Managerial / Techno-Behavioral)</strong>: Project deep dive, situational judgment, CS fundamental defense.
+   - <strong>Round 5 (HR / Leadership Fit)</strong>: Cultural alignment, communication, relocation readiness.
+3. <strong>Training &amp; Service Agreements</strong>:
+   - Mandatory service bonds (duration in months, exit penalty in INR).
+   - Internship stipend vs. full-time converted CTC.
+4. <strong>Bridge Pathway (For Tier-3 / Service Route Students)</strong>:
+   - If direct Tier-1 entry is blocked due to campus gatekeeping or branch restrictions, the engine automatically synthesizes an actionable <strong>Bridge Route</strong>:
+     - </em>Phase 1<em>: Enter Tier-1 IT Services (TCS Digital, Infosys SP) or Tier-2 Product startup.
+     - </em>Phase 2<em>: 18–24 months of production engineering, open-source portfolio development, and distributed systems mastery.
+     - </em>Phase 3<em>: Lateral switch to Target Dream Company bypassing campus restrictions.
+
+<hr />
+
+<h3>Mode B: Professional Promotion &amp; Lateral Switch Simulator</h3>
+
+Designed for working software engineers to evaluate intra-company promotions or strategic lateral company switches.
+
+#### Candidate Inputs:
+- <strong>Current Node</strong>: Company (e.g., Amazon India) and Level (e.g., SDE-2 / L5).
+- <strong>Target Node</strong>: Company (e.g., Google India) and Level (e.g., Staff SWE / L6).
+- <strong>Current Total CTC</strong>: Actual compensation in LPA (INR).
+- <strong>Experience</strong>: Total career experience in years &amp; time spent in current level.
+- <strong>Performance Rating Bracket</strong>:
+  - </code>CONSISTENTLY_EXCEEDS<code class="inline-code">: Top 5–10% talent, fast-track promo cycles (0.75x duration multiplier).
+  - </code>EXCEEDS<code class="inline-code">: Strong consistent performer, typical timeline (1.00x duration multiplier).
+  - </code>MEETS<code class="inline-code">: Standard performance, upper bound duration (1.30x duration multiplier).
+
+#### Engine Outputs:
+1. <strong>Multi-Step Progression Plan</strong>:
+   - Classifies the trajectory as an <strong>Internal Promotion</strong>, <strong>Lateral Switch</strong>, <strong>Downlevel Switch</strong> (common when transitioning from IT Services to Big Tech), or <strong>Multi-Hop Trajectory</strong>.
+2. <strong>Timeline Forecasts</strong>:
+   - Minimum, likely, and maximum years to reach the target level.
+3. <strong>Promotion Process Governance</strong>:
+   - Review cycle cadence (annual, semi-annual, quarterly) and calendar window.
+   - Required evidence artifacts (Design Docs, RFCs, Postmortems, Mentorship logs, Business Impact metrics).
+   - Review calibration committee layers (manager -&gt; director -&gt; cross-functional promo panel).
+4. <strong>Compensation Trajectory (INR ₹)</strong>:
+   - Forecasted base, bonus, and stock grants across each year of the journey.
+   - Percentage compensation jump on promotion or company switch.
+5. <strong>Promotion Blockers &amp; Stall Rates</strong>:
+   - Level stall rates (e.g., 75% stall rate at Senior L5 -&gt; Staff L6).
+   - Pre-loaded obstacle checklist with action plans.
+
+<hr />
+
+<h3>Mode C: Company Ladder &amp; Level Explorer</h3>
+
+An interactive reference catalog enabling users to inspect and compare engineering ladders side-by-side across companies.
+
+- <strong>Level-by-Level Breakdown</strong>: From Entry (L3) to Fellow/Distinguished (L8).
+- <strong>Normalized Industry Equivalence</strong>: Side-by-side mapping of equivalent ranks across Big Tech, Unicorns, GCCs, and IT Services.
+- <strong>Detailed Competency Expectations</strong>: Scope, Impact, and Influence definitions per level.
+- <strong>Compensation Bands</strong>: Real-world INR base salary and total compensation percentiles.
+
+<hr />
+
+<h3>Mode D: HireFlow Suite Tier Positioning Bridge</h3>
+
+Located in [</code>src/features/suite/integration/trajectory.ts<code class="inline-code">](file:///c:/Users/yadav/.gemini/antigravity-ide/scratch/hireflow/src/features/suite/integration/trajectory.ts), this engine connects candidate resumes to the Career Trajectory system:
+
+- Evaluates uploaded resume competencies against market tiers:
+  - <strong>Tier C</strong>: Early Career &amp; IT Services (TCS, Infosys, Wipro).
+  - <strong>Tier B</strong>: Mid-Market &amp; Growth Tech (Freshworks, Zoho, Thoughtworks).
+  - <strong>Tier A</strong>: High-Scale Unicorns (Razorpay, Swiggy, CRED, PhonePe).
+  - <strong>Tier S</strong>: Elite Product &amp; Quant (Google, Meta, Uber, Tower Research, Graviton).
+- Computes <strong>Readiness Score (0-100)</strong> toward the next tier.
+- Maps specific <strong>Tier Gaps</strong> to practical <strong>Build Briefs</strong> (e.g., Distributed Rate Limiter, Financial Ledger).
+
+<hr />
+
+<h2>4. Master Data Pipelines &amp; Input-to-System Mechanics</h2>
+
+<h3>Dual Data Sources: careers-core vs. careerLadders</h3>
+
+HireFlow maintains two complementary data representations:
+
+1. <strong></code>src/careers-core/<code class="inline-code"> (Unified Platform API)</strong>:
+   - Designed for high-speed synchronous querying across all tools.
+   - Provides </code>careers.companies<code class="inline-code">, </code>careers.levels<code class="inline-code">, </code>careers.fresherPrograms<code class="inline-code">, </code>careers.branches<code class="inline-code">, and </code>careers.eligibility<code class="inline-code">.
+   - Normalizes data through runtime schema validators (</code>validators.ts<code class="inline-code">) and alias registries (</code>aliasRegistry.ts<code class="inline-code">).
+
+2. <strong></code>src/data/careerLadders/<code class="inline-code"> (Deep Simulation Domain)</strong>:
+   - Contains segmented, company-specific TypeScript files (</code>bigTechIndia.ts<code class="inline-code">, </code>gccFinance.ts<code class="inline-code">, </code>indianProductUnicorns.ts<code class="inline-code">, etc.).
+   - Contains deep domain models including calibration committees, nominator roles, review cadences, structured blockers, and multi-hop synthesizers.
+
+<h3>How Data Enters and Flows Through the System</h3>
+
+</code>`<code class="inline-code">
+[Raw Industry Data &amp; Placement Portals]
+                 │
+                 ▼
+[src/data/careerLadders/companies/</em>.ts]  &amp;  [src/careers-core/data/*.ts]
+                 │
+                 ├────────────────────────────────────────┐
+                 ▼                                        ▼
+      [careerEngine.ts]                       [careers.api.index.ts]
+ (Promotion Path Traversal,              (Single Public Synchronous API,
+ Comp Calculations, What-If Sim)          Eligibility Evaluator, Aliases)
+                 │                                        │
+                 └───────────────────┬────────────────────┘
+                                     │
+                                     ▼
+                      [CareerPathSimulator.tsx]
+                     (Parent State Orchestrator)
+                                     │
+        ┌────────────────────────────┼────────────────────────────┐
+        ▼                            ▼                            ▼
+[StudentPlacementPathway]  [ProfessionalPromotionResult]  [LadderLevelExplorer]
+ (Selection Funnel, OA)    (Timeline, Steps, Comp Chart)   (Side-by-Side Ranks)
+</code>`<code class="inline-code">
+
+<hr />
+
+<h2>5. Complete Data Schemas &amp; Type System</h2>
+
+<h3>5.1 PlatformCompany &amp; CompanyLadder</h3>
+
+</code>`<code class="inline-code">typescript
+// Defined in src/careers-core/schema/types.ts
+export interface PlatformCompany {
+  id: string;                                // Canonical slug (e.g., 'google-india')
+  name: string;                              // Display name (e.g., 'Google India')
+  aliases: string[];                         // Resolution aliases ['google', 'alphabet']
+  marketSegment: 
+    | 'Big Tech India'
+    | 'Indian Product'
+    | 'GCC / Finance'
+    | 'IT Services Tier 1'
+    | 'High-Growth Tech / Unicorn';
+  marketTier: 'Tier S' | 'Tier A' | 'Tier B' | 'Tier C';
+  headquarters: string | null;
+  indiaOffices: string[];
+  tracks: ('SWE' | 'DATA' | 'CLOUD' | 'CYBER' | 'MGMT')[];
+  provenance: EntityProvenance;
+}
+</code>`<code class="inline-code">
+
+<h3>5.2 CareerLevel &amp; Level Compensation Bands</h3>
+
+</code>`<code class="inline-code">typescript
+// Defined in src/data/careerLadders/types.ts
+export interface CareerLevel {
+  id: string;                                // e.g., 'google-l5'
+  companyId: string;                         // 'google'
+  levelCode: string;                         // 'L5'
+  title: string;                             // 'Senior Software Engineer'
+  track: CareerTrack;                        // 'SWE'
+  rank: number;                              // 0 = Entry, 1 = Mid, 2 = Senior, 3 = Staff, etc.
+  equivalenceLevelId: string;                // 'L5_SENIOR'
+  yearsExperienceRange: {
+    min: number;
+    max: number | null;
+  };
+  compensationINR: {
+    baseSalaryLPA: { min: number; max: number };
+    totalCompLPA: { min: number; max: number };
+    typicalStockBonusSplit: string;          // e.g., '50% Base / 15% Bonus / 35% Stock'
+    joiningBonusTypicalLPA?: number;
+  };
+  requirements: {
+    scope: string;                           // Domain / System ownership boundary
+    impact: string;                          // Measurable business or engineering outcomes
+    influence: string;                       // Mentorship and cross-team leverage
+    evidenceArtifacts: string[];             // Required documentation for promo packet
+  };
+  promotionProcess: {
+    cadence: 'Quarterly' | 'Bi-Annual' | 'Annual';
+    cadenceMonths: number[];                 // e.g., [4, 10] for April &amp; October cycles
+    nominator: string;                       // e.g., 'Self or Direct Manager'
+    decider: string;                         // e.g., 'Engineering Promotion Committee'
+    calibrationLayers: number;               // Number of governance review steps
+    typicalTimeToNextYears: {
+      min: number;
+      likely: number;
+      max: number;
+    };
+    selfNominationAllowed: boolean;
+  };
+  typicalBlockers: StructuredBlocker[];
+  stallRatePercent: number;                  // Historical percentage of engineers who stay at this level
+}
+</code>`<code class="inline-code">
+
+<h3>5.3 FresherProgram &amp; Selection Funnel</h3>
+
+</code>`<code class="inline-code">typescript
+// Defined in src/careers-core/schema/types.ts
+export interface FresherProgram {
+  id: string;                                // 'google-swe-campus'
+  companyId: string;                         // 'google'
+  programName: string;                       // 'University Graduate SWE'
+  roleTitle: string;                         // 'Software Engineer L3'
+  campusCategory: 'super-dream' | 'dream' | 'differential' | 'mass' | 'lateral-entry';
+  eligibility: {
+    degrees: string[];                       // ['B.Tech', 'M.Tech', 'Dual Degree']
+    branchFamilies: string[];                // ['software', 'electronics-electrical']
+    allowedBranches: string[];               // ['CSE', 'IT', 'ECE', 'EE']
+    minimumCgpa: number;                     // 7.5
+    tenthPercentageMin?: number;
+    twelfthPercentageMin?: number;
+    maxActiveBacklogs: number;               // 0
+    maxBacklogsHistory: number;              // 0
+    maxGapYears: number;                     // 1
+  };
+  selectionProcess: {
+    roundsCount: number;
+    stages: {
+      order: number;
+      name: string;                          // 'Online Coding Assessment'
+      platform?: string;                     // 'HackerEarth'
+      durationMinutes: number;
+      topics: string[];                      // ['Data Structures', 'Dynamic Programming', 'Graph Theory']
+      passingCriteria: string;               // '2 / 2 problems fully passing test cases'
+      eliminationType: 'eliminatory' | 'cumulative';
+    }[];
+  };
+  compensation: {
+    baseLPA: number;
+    totalCtcLPA: number;
+    currency: 'INR';
+    stipendDuringInternshipINR?: number;     // e.g., 125000 / month
+    joiningBonusINR?: number;
+  };
+  trainingAndBond: {
+    hasBond: boolean;
+    bondDurationMonths?: number;
+    bondPenaltyINR?: number;
+    probationDurationMonths: number;
+    initialPostingLocations: string[];
+  };
+}
+</code>`<code class="inline-code">
+
+<h3>5.4 Cross-Company Equivalence Matrix</h3>
+
+| Equivalence ID | Industry Standard Label | Typical YoE | Amazon | Google | Microsoft | TCS |
+|---|---|---|---|---|---|---|
+| </code>L3_ENTRY<code class="inline-code"> | Associate / Software Engineer | 0–2 yrs | SDE-1 (L4) | SWE-2 (L3) | SDE (L59/L60) | Ninja / Digital |
+| </code>L4_MID<code class="inline-code"> | Software Engineer II (Mid) | 2–5 yrs | SDE-2 (L5) | SWE-3 (L4) | SDE-2 (L61/L62) | Prime / Innovator |
+| </code>L5_SENIOR<code class="inline-code"> | Senior Software Engineer | 5–8 yrs | Senior SDE (L6) | Senior SWE (L5) | Senior SDE (L63/L64) | Tech Lead / ITA |
+| </code>L6_STAFF<code class="inline-code"> | Staff Engineer / Tech Lead | 8–12 yrs | Principal (L7) | Staff SWE (L6) | Principal (L65/L66) | Associate Architect |
+| </code>L7_PRINCIPAL<code class="inline-code">| Senior Staff / Principal Eng | 12–16 yrs | Senior Principal (L8)| Senior Staff (L7) | Partner (L67/L68) | Enterprise Architect |
+| </code>L8_DISTINGUISHED<code class="inline-code">| Distinguished Engineer / Fellow| 16+ yrs | Distinguished (L10)| Dist. Eng (L8) | Technical Fellow | Fellow / CTO Office |
+
+<hr />
+
+<h2>6. Algorithmic Engines &amp; Mathematical Formulas</h2>
+
+<h3>6.1 Deterministic Path Traversal Algorithm</h3>
+
+Located in [</code>src/lib/careerEngine.ts<code class="inline-code">](file:///c:/Users/yadav/.gemini/antigravity-ide/scratch/hireflow/src/lib/careerEngine.ts), </code>resolvePath()<code class="inline-code"> resolves transitions deterministically:
+
+1. <strong>Intra-Company Ladder Progression</strong>:
+   - If </code>source.companyId === target.companyId<code class="inline-code">:
+     - Collects all intermediate levels ordered by </code>rank<code class="inline-code">.
+     - Synthesizes </code>INTERNAL_PROMO<code class="inline-code"> steps with level-specific requirements and blockers.
+2. <strong>Cross-Company Transition</strong>:
+   - Maps </code>sourceLevel<code class="inline-code"> to canonical </code>EquivalenceOrder<code class="inline-code">.
+   - Computes target entry level based on external hiring discounts.
+   - Generates a </code>LATERAL_SWITCH<code class="inline-code"> step followed by subsequent </code>INTERNAL_PROMO<code class="inline-code"> steps.
+3. <strong>Cumulative Compensation Projection</strong>:
+   - Projects salary progression year-over-year:
+     $$\text{TotalComp}_{year} = \text{Base}_{year} + \text{Bonus}_{year} + \text{Stock}_{year}$$
+   - Adjusts for annual increment cycles (typically 8–12% in India product firms).
+
+<h3>6.2 Cross-Tier Down-Leveling &amp; Lateral Discount Rules</h3>
+
+When transitioning between different industry segments, external hiring panels routinely discount titles:
+
+| Transition Source | Transition Target | Down-Leveling Adjustment | Rationale |
+|---|---|---|---|
+| <strong>IT Services Tier 1</strong> | <strong>Big Tech India</strong> | <strong>-1 to -2 Levels</strong> | "Tech Lead" in services typically maps to SDE-2 (L4) in Big Tech due to system design and coding bars. |
+| <strong>IT Services Tier 1</strong> | <strong>Product Unicorn</strong> | <strong>-1 Level</strong> | Title deflation on transition to product-first engineering. |
+| <strong>Product Unicorn</strong> | <strong>Big Tech India</strong> | <strong>0 (Parity) or -1 Level</strong> | Senior SWE at high-scale unicorn usually enters as SDE-2 or Senior depending on distributed scale depth. |
+| <strong>Big Tech India</strong> | <strong>Big Tech India</strong> | <strong>0 (Parity)</strong> | Peer equivalence respected across FAANG tier. |
+| <strong>GCC / Finance</strong> | <strong>Product Unicorn</strong> | <strong>0 (Parity)</strong> | Direct mapping with base-heavy to equity-heavy rebalancing. |
+
+<h3>6.3 Compensation Modeling &amp; Split Multipliers</h3>
+
+Indian tech compensation structures vary significantly by tier. HireFlow models exact splits:
+
+- <strong>Big Tech (Tier S)</strong>:
+  - Base: </code>45% – 55%<code class="inline-code">
+  - Target Bonus: </code>15% – 20%<code class="inline-code">
+  - Stock / RSUs (US Dollar denominated): </code>30% – 40%<code class="inline-code">
+- <strong>Product Unicorns (Tier A)</strong>:
+  - Base: </code>60% – 75%<code class="inline-code">
+  - Performance Bonus: </code>10% – 15%<code class="inline-code">
+  - ESOPs: </code>15% – 25%<code class="inline-code">
+- <strong>IT Services (Tier C)</strong>:
+  - Base: </code>80% – 85%<code class="inline-code">
+  - Variable Pay: </code>15% – 20%<code class="inline-code">
+  - Stocks: </code>0%<code class="inline-code"> (except senior executive band)
+
+<h3>6.4 Performance Acceleration &amp; Duration Adjustments</h3>
+
+The duration of each promotion step is adjusted by candidate performance bracket:
+
+$$\text{StepDuration} = \text{TypicalYears} \times \text{Multiplier}$$
+
+- </code>CONSISTENTLY_EXCEEDS<code class="inline-code">: $\text{Multiplier} = 0.75\text{x}$ (Fast-track)
+- </code>EXCEEDS<code class="inline-code">: $\text{Multiplier} = 1.00\text{x}$ (On-cycle standard)
+- </code>MEETS<code class="inline-code">: $\text{Multiplier} = 1.30\text{x}$ (Extended cycle)
+
+<h3>6.5 Student Eligibility &amp; Gap Diagnostics</h3>
+
+Located in [</code>src/careers-core/derive/derivedViews.ts<code class="inline-code">](file:///c:/Users/yadav/.gemini/antigravity-ide/scratch/hireflow/src/careers-core/derive/derivedViews.ts), </code>evaluateEligibility()<code class="inline-code"> enforces 6 sequential checks:
+
+1. <strong>Degree Check</strong>: Checks if candidate degree matches </code>eligibility.degrees<code class="inline-code">.
+2. <strong>Branch Family Check</strong>: Evaluates branch classification (</code>software<code class="inline-code">, </code>electronics-electrical<code class="inline-code">, </code>mechanical<code class="inline-code">, </code>civil<code class="inline-code">).
+3. <strong>CGPA Cutoff</strong>: Compares candidate CGPA against minimum (e.g. 7.5 or 8.0).
+4. <strong>10th &amp; 12th Percentage</strong>: Validates high-school cutoffs (standard 60% or 70% in Indian campus recruitment).
+5. <strong>Backlog Rules</strong>: Rejects if active backlogs exceed </code>maxActiveBacklogs<code class="inline-code"> (typically 0 allowed).
+6. <strong>Academic Gap Years</strong>: Rejects if total educational gap years exceed </code>maxGapYears<code class="inline-code"> (typically $\le 1$).
+
+<hr />
+
+<h2>7. UI Component Tree &amp; State Management</h2>
+
+The Career Trajectory UI is completely responsive, theme-aware (dark mode calibrated), and accessible:
+
+</code>`<code class="inline-code">
+[App.tsx]
+   └── Route: /tools/career-path (CareerPathHub)
+   └── Route: /tools/career-path/dream-job-roadmap (DreamJobRoadmapPage)
+   └── Route: /tools/career-path/company-levels (CompanyLevelsPage)
+         │
+         ▼
+   [CareerPathSimulator.tsx]  &lt;-- State Container (mode, source, target, comp, branch)
+         │
+         ├── [CareerPathBackButton]   (Navigates back to Tools Hub or Portal)
+         │
+         ├── Mode Tabs: ['simulator' | 'explorer']
+         │
+         ├── Sub-mode Selector: ['student' | 'fresher-programs' | 'professional']
+         │
+         ├── Mode A Render:
+         │     └── [StudentPlacementPathway.tsx]
+         │           ├── College Tier &amp; Branch Combobox
+         │           ├── Eligibility Status Cards (Eligible / Conditional / Ineligible)
+         │           ├── Selection Funnel Stages (OA -&gt; Tech 1 -&gt; Tech 2 -&gt; HR)
+         │           └── Bridge Route Recommendations
+         │
+         ├── Mode B Render:
+         │     ├── [ProfessionalPromotionResult.tsx]
+         │     │     ├── Step-by-Step Promotion Timeline
+         │     │     ├── Promotion Governance (Nominator, Decider, Calibration)
+         │     │     └── Required Evidence Artifacts
+         │     ├── [CompensationTrajectoryChart.tsx] (Recharts Base / Bonus / Stock)
+         │     └── [PromotionBlockersChecklist.tsx] (Interactive Self-Audit)
+         │
+         └── Mode C Render:
+               └── [LadderLevelExplorer.tsx]
+                     ├── Company Selector &amp; Level Ladder
+                     ├── Equivalence Matrix Inspector
+                     └── Competency Rubric Card (Scope, Impact, Influence)
+</code>`<code class="inline-code">
+
+<hr />
+
+<h2>8. Rewiring &amp; Customization Guide</h2>
+
+<h3>How to Add a New Company &amp; Ladder</h3>
+
+1. Open [</code>src/data/careerLadders/companies/<code class="inline-code">](file:///c:/Users/yadav/.gemini/antigravity-ide/scratch/hireflow/src/data/careerLadders/companies/) and pick the appropriate segment file (or create a new one).
+2. Author the company ladder conforming to </code>CompanyLadder<code class="inline-code">:
+   </code>`<code class="inline-code">typescript
+   export const newCompanyLadder: CompanyLadder = {
+     companyId: 'acme-corp',
+     companyName: 'Acme Corporation India',
+     marketSegment: 'Indian Product',
+     marketTier: 'Tier A',
+     verifiedDate: '2026-10-26',
+     levels: [
+       {
+         id: 'acme-l1',
+         companyId: 'acme-corp',
+         levelCode: 'L1',
+         title: 'Software Engineer I',
+         track: 'SWE',
+         rank: 0,
+         equivalenceLevelId: 'L3_ENTRY',
+         yearsExperienceRange: { min: 0, max: 2 },
+         compensationINR: {
+           baseSalaryLPA: { min: 14, max: 18 },
+           totalCompLPA: { min: 16, max: 22 },
+           typicalStockBonusSplit: '75% Base / 10% Bonus / 15% ESOP',
+         },
+         requirements: {
+           scope: 'Owns individual features and bug fixes within microservice boundaries.',
+           impact: 'High-quality code delivery with unit test coverage &gt; 85%.',
+           influence: 'Participates in code reviews and sprint retrospectives.',
+           evidenceArtifacts: ['Merged PR links', 'Unit test coverage metrics'],
+         },
+         promotionProcess: {
+           cadence: 'Bi-Annual',
+           cadenceMonths: [4, 10],
+           nominator: 'Direct Engineering Manager',
+           decider: 'Engineering Calibration Committee',
+           calibrationLayers: 2,
+           typicalTimeToNextYears: { min: 1.5, likely: 2.5, max: 4 },
+           selfNominationAllowed: true,
+         },
+         typicalBlockers: [],
+         stallRatePercent: 15,
+       },
+     ],
+   };
+   </code>`<code class="inline-code">
+3. Register the ladder in [</code>src/data/careerLadders/index.ts<code class="inline-code">](file:///c:/Users/yadav/.gemini/antigravity-ide/scratch/hireflow/src/data/careerLadders/index.ts) in </code>ALL_COMPANY_LADDERS<code class="inline-code">.
+4. Register company metadata in [</code>src/careers-core/data/companies.ts<code class="inline-code">](file:///c:/Users/yadav/.gemini/antigravity-ide/scratch/hireflow/src/careers-core/data/companies.ts).
+
+<h3>How to Update Salary &amp; Equity Bands</h3>
+
+- Open the corresponding company ladder file in </code>src/data/careerLadders/companies/<code class="inline-code">.
+- Locate the specific level and modify </code>compensationINR<code class="inline-code">:
+  </code>`<code class="inline-code">typescript
+  compensationINR: {
+    baseSalaryLPA: { min: 28, max: 36 },
+    totalCompLPA: { min: 42, max: 58 },
+    typicalStockBonusSplit: '50% Base / 15% Bonus / 35% RSUs',
+    joiningBonusTypicalLPA: 5,
+  }
+  </code>`<code class="inline-code">
+- All trajectory comp calculations and charts will automatically reflect the updated numbers on next render.
+
+<h3>How to Add or Modify OA Test Question Syllabi</h3>
+
+1. Open [</code>src/careers-core/data/fresherPrograms.ts<code class="inline-code">](file:///c:/Users/yadav/.gemini/antigravity-ide/scratch/hireflow/src/careers-core/data/fresherPrograms.ts).
+2. Locate the company program and expand </code>selectionProcess.stages<code class="inline-code">:
+   </code>`<code class="inline-code">typescript
+   {
+     order: 1,
+     name: 'Online Coding Assessment (OA)',
+     platform: 'HackerEarth',
+     durationMinutes: 90,
+     topics: [
+       'Binary Tree Traversals (BFS / DFS)',
+       'Dynamic Programming (0/1 Knapsack &amp; LCS)',
+       'Graph Shortest Path (Dijkstra / Bellman-Ford)',
+       'SQL Complex Joins &amp; Window Functions',
+     ],
+     passingCriteria: '2 of 2 coding problems fully passing test cases + 80% on CS Fundamentals MCQs',
+     eliminationType: 'eliminatory',
+   }
+   </code>`<code class="inline-code">
+
+<h3>How to Add Custom What-If Simulator Levers</h3>
+
+1. In [</code>src/features/career-path/whatIfSimulator.ts<code class="inline-code">](file:///c:/Users/yadav/.gemini/antigravity-ide/scratch/hireflow/src/features/career-path/whatIfSimulator.ts), define new scenario modifiers (e.g., Higher Education / Masters degree, Remote Location Discount, Accelerated Startup Equity Vesting).
+2. In [</code>CareerPathSimulator.tsx<code class="inline-code">](file:///c:/Users/yadav/.gemini/antigravity-ide/scratch/hireflow/src/features/career-path/CareerPathSimulator.tsx), add the interactive UI toggle or slider.
+3. Hook the state into </code>synthesizeWhatIfTrajectory()<code class="inline-code"> to dynamically recalculate the promotion roadmap.
+
+<hr />
+
+<h2>9. Test Suite &amp; Integrity Gates</h2>
+
+All modifications to Career Trajectory must pass the following continuous integration commands:
+
+</code>`<code class="inline-code">bash
+<h1>1. Typecheck the entire repository</h1>
+npm run typecheck
+
+<h1>2. Run unit and integration tests for Career Trajectory</h1>
+npx vitest run tests/trajectory/scenarios.test.ts
+npx vitest run src/lib/__tests__/careerEngine.test.ts
+npx vitest run src/features/career-path/__tests__/resolveTargetJob.test.ts
+npx vitest run src/__tests__/careers/validatePlatformData.test.ts
+
+<h1>3. Verify zero external network egress (offline integrity)</h1>
+npx vitest run tests/privacy-telemetry.test.ts
+
+<h1>4. Verify production bundle compilation</h1>
+npm run build
+</code>``
+    <div class="footer">
+      Generated for Local Device • HireFlow Career Trajectory Intelligence System • All rights reserved
+    </div>
+  </div>
+</body>
+</html>
