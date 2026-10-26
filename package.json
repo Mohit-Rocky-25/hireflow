@@ -45,7 +45,10 @@
     "pathways:check-generated": "node scripts/pathways/check-generated.mjs",
     "pathways:audit": "node scripts/pathways/audit.mjs",
     "check:ui-math": "node scripts/pathways/check-ui-math.mjs",
-    "check:pathways-claims": "node scripts/pathways/check-claims.mjs"
+    "check:pathways-claims": "node scripts/pathways/check-claims.mjs",
+    "pathways:apply-correction": "node scripts/pathways/apply-correction.mjs",
+    "pathways:refresh-plan": "node scripts/pathways/refresh-plan.mjs",
+    "pathways:diff": "node scripts/pathways/diff-ledger.mjs"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.3.3",

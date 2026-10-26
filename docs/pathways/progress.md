@@ -142,7 +142,8 @@ Stage 2 Tag: `pw-stage-2`
 ---
 
 ## Stage S12: Corrections, Refresh & Cutover Prep (STOP-5)
-- [ ] 12.1 Correction Workflow & Refresh Scripts [TODO]
-- [ ] 12.2 Draft Legal Terms & Privacy Text [TODO]
-- [ ] 12.3 `reports/cutover-plan.md` & Exit Scorecard Evaluation [TODO]
-- [ ] 12.4 `reports/final-report.md` [TODO]
+- [x] 12.1 Correction Workflow & Refresh Scripts (`apply-correction.mjs`, `refresh-plan.mjs`, `diff-ledger.mjs` in `scripts/pathways/` and `package.json`)
+- [x] 12.2 Draft Legal Terms & Privacy Text (`docs/pathways/terms-and-privacy.md`)
+- [x] 12.3 `reports/cutover-plan.md` & Exit Scorecard Evaluation
+- [x] 12.4 `reports/final-report.md` (14/14 Exit Scorecard G1-G14 criteria PASS)
+
